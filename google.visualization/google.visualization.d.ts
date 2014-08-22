@@ -159,39 +159,18 @@ declare module google {
             enableRegionInteractivity?: boolean;
             height?: number;
             keepAspectRatio?: boolean;
-            legend?: GeoChartLegend;
+            legend?: ChartLegend;
             region?: string;
             magnifyingGlass?: GeoChartMagnifyingGlass;
             markerOpacity?: number;
             resolution?: string;
-            sizeAxis?: GeoChartAxis;
-            tooltip?: GeoChartTooltip;
+            sizeAxis?: ChartSizeAxis;
+            tooltip?: ChartTooltip;
             width?: number;
-        }
-        export interface GeoChartAxis {
-            maxSize?: number;
-            maxValue?: number;
-            minSize?: number;
-            minValue?: number;
-        }
-        export interface GeoChartTextStyle {
-            color?: string;
-            fontName?: string;
-            fontSize?: number;
-            bold?: boolean;
-            italic?: boolean;
-        }
-        export interface GeoChartLegend {
-            numberFormat?: string;
-            textStyle?: GeoChartTextStyle;
         }
         export interface GeoChartMagnifyingGlass {
             enable?: boolean;
             zoomFactor?: number;
-        }
-        export interface GeoChartTooltip {
-            textStyle?: GeoChartTextStyle;
-            trigger?: string;
         }
         export interface GeoChartRegionClickEvent {
             region: string;
@@ -265,10 +244,10 @@ declare module google {
         }
 
         export interface ChartArea {
-            top: any;
-            left: any;
-            width: any;
-            height: any;
+            top?: any;
+            left?: any;
+            width?: any;
+            height?: any;
         }
 
         export interface ChartLegend {
@@ -276,6 +255,7 @@ declare module google {
             maxLines?: number;
             position?: string;
             textStyle?: ChartTextStyle;
+            numberFormat?: string;
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/animation
@@ -290,6 +270,7 @@ declare module google {
             direction?: number; // The direction in which the values along the horizontal axis grow. Specify -1 to reverse the order of the values.
             format?: string; // icu pattern set http://icu-project.org/apiref/icu4c/classDecimalFormat.html#_details
             gridlines?: ChartGridlines;
+            minorGridlines?: ChartGridlines;
             logScale?: boolean;
             textPosition?: string;
             textStyle?: ChartTextStyle;
@@ -310,12 +291,6 @@ declare module google {
         }
 
         export interface ChartGridlines {
-            color?: string;
-            count?: number;
-            minorGridlines?: ChartMinorGridlines;
-        }
-
-        export interface ChartMinorGridlines {
             color?: string;
             count?: number;
         }
@@ -766,10 +741,10 @@ declare module google {
         }
 
         export interface ChartSizeAxis {
-            maxSize: number;
-            maxValue: number;
-            minSize: number;
-            minValue: number;
+            maxSize?: number;
+            maxValue?: number;
+            minSize?: number;
+            minValue?: number;
         }
 
         //#endregion
@@ -864,7 +839,7 @@ declare module google {
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/timeline#Configuration_Options
         export interface TimelineOptions {
             avoidOverlappingGridLines?: boolean;
-            backgroundColor?: string;
+            backgroundColor?: any;
             colors?: string[];
             enableInteractivity?: boolean;
             forceIFrame?: boolean;

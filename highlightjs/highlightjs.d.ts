@@ -1,7 +1,8 @@
 // Type definitions for highlight.js
 // Project: https://github.com/isagalaev/highlight.js
-// Definitions by:  Niklas Mollenhauer <https://github.com/nikeee/>
+// Definitions by: Niklas Mollenhauer <https://github.com/nikeee/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module "highlight.js"
 {
 	module hljs

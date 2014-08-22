@@ -1,5 +1,6 @@
 // Type definitions for jQuery Cycle2 version 2.1.2 (build 20140216)
-// Project: http://jquery.malsup.com/cycle2/ (also https://github.com/malsup/cycle2)
+// Project: http://jquery.malsup.com/cycle2/
+//          https://github.com/malsup/cycle2
 // Definitions by: Donny Nadolny <https://github.com/dnadolny/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 

@@ -1,11 +1,18 @@
 // Type definitions for Angular Translate (pascalprecht.translate module)
 // Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <michelsalib@hotmail.com>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module ng.translate {
+    
+    interface ITranslatePartialLoaderService {
+        addPart(name: string): ITranslatePartialLoaderService;
+        deletePart(name: string, removeData?: boolean): ITranslatePartialLoaderService;
+        isPartAvailable(name: string): boolean;
+    }
+  
     interface ITranslationTable {
         [key: string]: string;
     }
@@ -13,7 +20,7 @@ declare module ng.translate {
     interface ILanguageKeyAlias {
         [key: string]: string;
     }
-    
+
     interface IStorage {
         get(name: string): string;
         set(name: string, value: string): void;
@@ -26,12 +33,14 @@ declare module ng.translate {
     }
 
     interface ITranslateService {
-        (key: string, ...params: string[]): ng.IPromise<string>;
+        (translationId: string, interpolateParams?: any, interpolationId?: string): ng.IPromise<string>;
+        (translationId: string[], interpolateParams?: any, interpolationId?: string): ng.IPromise<{ [key: string]: string }>;
         cloakClassName(): string;
+        cloakClassName(name: string): ITranslateProvider;
         fallbackLanguage(langKey?: string): string;
         fallbackLanguage(langKey?: string[]): string;
         instant(translationId: string, interpolateParams?: any, interpolationId?: string): string;
-        instant(translationId: string[], interpolateParams?: any, interpolationId?: string): string;
+        instant(translationId: string[], interpolateParams?: any, interpolationId?: string): { [key: string]: string };
         isPostCompilingEnabled(): boolean;
         preferredLanguage(): string;
         proposedLanguage(): string;
@@ -79,6 +88,6 @@ declare module ng.translate {
         usePostCompiling(value: boolean): ITranslateProvider;
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
-        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias[]): ITranslateProvider;
+        registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
     }
 }

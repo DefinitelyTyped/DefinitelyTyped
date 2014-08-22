@@ -50,7 +50,7 @@ exceptionHandlerProvider.mode('log');
 
 
 ///////////////////////////////////////
-// IExceptionHandlerProvider
+// ITimeoutService
 ///////////////////////////////////////
 var timeoutService: ng.ITimeoutService;
 
@@ -60,6 +60,14 @@ timeoutService.flushNext();
 timeoutService.flushNext(1234);
 timeoutService.verifyNoPendingTasks();
 
+////////////////////////////////////////
+// IIntervalService
+////////////////////////////////////////
+var intervalService: ng.IIntervalService;
+var intervalServiceTimeActuallyAdvanced: number;
+
+intervalServiceTimeActuallyAdvanced = intervalService.flush();
+intervalServiceTimeActuallyAdvanced = intervalService.flush(1234);
 
 ///////////////////////////////////////
 // ILogService, ILogCall

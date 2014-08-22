@@ -1,6 +1,6 @@
 // Type definitions for Q
 // Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek, Andrew Gaspar, John Reilly
+// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -207,11 +207,14 @@ declare module Q {
     export function invoke<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
     export function mcall<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
 
+    export function denodeify<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
+    export function nbind<T>(nodeFunction: Function, thisArg: any, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfbind<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfcall<T>(nodeFunction: Function, ...args: any[]): Promise<T>;
     export function nfapply<T>(nodeFunction: Function, args: any[]): Promise<T>;
 
     export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
+    export function npost<T>(nodeModule: any, functionName: string, args: any[]): Promise<T>;
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
@@ -291,7 +294,10 @@ declare module Q {
      * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
      */
     export function delay<T>(value: T, ms: number): Promise<T>;
-
+    /**
+     * Returns a promise that will be fulfilled with undefined after at least ms milliseconds have passed.
+     */
+    export function delay(ms: number): Promise <void>;
     /**
      * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises, the result is always true.
      */

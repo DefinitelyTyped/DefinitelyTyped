@@ -1,6 +1,6 @@
-// Type definitions for Hammer.js 1.0.10
+// Type definitions for Hammer.js 1.1.3
 // Project: http://eightmedia.github.com/hammer.js/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -31,8 +31,6 @@ interface HammerStatic {
     plugins: any;
     gestures: any;
     READY: boolean;
-
-
 }
 
 declare class HammerInstance {
@@ -42,40 +40,51 @@ declare class HammerInstance {
     off(gesture: string, handler: (event: HammerEvent) => void): HammerInstance;
     enable(toggle: boolean): HammerInstance;
 
-    // You shouldn't use this, this is an internally method use by the gestures. Only use it when you know what you're doing! You can read the sourcecode about how to use this.
+    // You shouldn't normally use this internal method. Only use it when you know what you're doing! You can read the sourcecode for information about how to use this.
     trigger(gesture: string, eventData: HammerGestureEventData): HammerInstance;
 }
 
 // Gesture Options : https://github.com/EightMedia/hammer.js/wiki/Getting-Started#gesture-options
 interface HammerOptions {
+    behavior?: {
+        contentZooming?: string;
+        tapHighlightColor?: string;
+        touchAction?: string;
+        touchCallout?: string;
+        userDrag?: string;
+        userSelect?: string;
+    };
+    doubleTapDistance?: number;
+    doubleTapInterval?: number;
     drag?: boolean;
-    drag_block_horizontal?: boolean;
-    drag_block_vertical?: boolean;
-    drag_lock_to_axis?: boolean;
-    drag_max_touches?: number;
-    drag_min_distance?: number;
+    dragBlockHorizontal?: boolean;
+    dragBlockVertical?: boolean;
+    dragDistanceCorrection?: boolean;
+    dragLockMinDistance?: number;
+    dragLockToAxis?: boolean;
+    dragMaxTouches?: number;
+    dragMinDistance?: number;
+    gesture?: boolean;
     hold?: boolean;
-    hold_threshold?: number;
-    hold_timeout?: number;
-    prevent_default?: boolean;
-    prevent_mouseevents?: boolean;
+    holdThreshold?: number;
+    holdTimeout?: number;
+    preventDefault?: boolean;
+    preventMouse?: boolean;
     release?: boolean;
-    show_touches?: boolean;
-    stop_browser_behavior?: any;
+    showTouches?: boolean;
     swipe?: boolean;
-    swipe_max_touches?: number;
-    swipe_velocity?: number;
+    swipeMaxTouches?: number;
+    swipeMinTouches?: number;
+    swipeVelocityX?: number;
+    swipeVelocityY?: number;
     tap?: boolean;
-    tap_always?: boolean;
-    tap_max_distance?: number;
-    tap_max_touchtime?: number;
-    doubletap_distance?: number;
-    doubletap_interval?: number;
+    tapAlways?: boolean;
+    tapMaxDistance?: number;
+    tapMaxTime?: number;
     touch?: boolean;
     transform?: boolean;
-    transform_always_block?: boolean;
-    transform_min_rotation?: number;
-    transform_min_scale?: number;
+    transformMinRotation?: number;
+    transformMinScale?: number;
 }
 
 interface HammerGestureEventData {
@@ -106,6 +115,8 @@ interface HammerGestureEventData {
 }
 
 interface HammerPoint {
+    clientX: number;
+    clientY: number;
     pageX: number;
     pageY: number;
 }

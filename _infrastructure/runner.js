@@ -1,0 +1,1 @@
+require('definition-tester');

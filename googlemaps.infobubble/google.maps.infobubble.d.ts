@@ -1,9 +1,9 @@
-/// <reference path="../googlemaps/google.maps.d.ts" />
-
 // Type definitions for CSS3 InfoBubble with tabs for Google Maps API V3
 // Project: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/
-// Definitions by: Johan Nilsson https://github.com/Dashue
+// Definitions by: Johan Nilsson <https://github.com/Dashue>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../googlemaps/google.maps.d.ts" />
 
 /**
  * @name CSS3 InfoBubble with tabs for Google Maps API V3

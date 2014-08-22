@@ -1,9 +1,7 @@
 // Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions by: Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../underscore/underscore.d.ts" />
@@ -97,6 +95,8 @@ declare module Backbone {
         attributes: any;
         changed: any[];
         cid: string;
+        collection: Collection<any>;
+
         /**
         * Default attributes for the model. It can be an object hash or a method returning an object hash.
         * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
@@ -113,8 +113,23 @@ declare module Backbone {
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
-        get(attributeName: string): any;
-        set(attributeName: string, value: any, options?: ModelSetOptions): Model;
+        /**
+        * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
+        * @example
+        * get name(): string {
+        *    return super.get("name");
+        * }
+        **/
+        /*private*/ get(attributeName: string): any;
+
+        /**
+        * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
+        * @example
+        * set name(value: string) {
+        *    super.set("name", value);
+        * }
+        **/
+        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
         change(): any;
@@ -158,7 +173,6 @@ declare module Backbone {
         //model: typeof TModel;
         model: { new(): TModel; }; // workaround
         models: TModel[];
-        collection: TModel;
         length: number;
 
         constructor(models?: TModel[], options?: any);
@@ -171,7 +185,12 @@ declare module Backbone {
         add(model: TModel, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
+        /**
+         * Get a model from a collection, specified by an id, a cid, or by passing in a model.
+         **/
+        get(id: number): TModel;
         get(id: string): TModel;
+        get(id: Model): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -196,12 +215,10 @@ declare module Backbone {
         any(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
         collect(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
         chain(): any;
-        compact(): TModel[];
         contains(value: any): boolean;
         countBy(iterator: (element: TModel, index: number) => any): _.Dictionary<number>;
         countBy(attribute: string): _.Dictionary<number>;
         detect(iterator: (item: any) => boolean, context?: any): any; // ???
-        difference(...model: TModel[]): TModel[];
         drop(): TModel;
         drop(n: number): TModel[];
         each(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
@@ -210,7 +227,6 @@ declare module Backbone {
         find(iterator: (element: TModel, index: number) => boolean, context?: any): TModel;
         first(): TModel;
         first(n: number): TModel[];
-        flatten(shallow?: boolean): TModel[];
         foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
         groupBy(iterator: (element: TModel, index: number) => string, context?: any): _.Dictionary<TModel[]>;
@@ -220,7 +236,6 @@ declare module Backbone {
         initial(): TModel;
         initial(n: number): TModel[];
         inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
-        intersection(...model: TModel[]): TModel[];
         isEmpty(object: any): boolean;
         invoke(methodName: string, arguments?: any[]): any;
         last(): TModel;
@@ -229,7 +244,6 @@ declare module Backbone {
         map(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
         max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
-        object(...values: any[]): any[];
         reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         select(iterator: any, context?: any): any[];
         size(): number;
@@ -238,8 +252,6 @@ declare module Backbone {
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
         sortBy(attribute: string, context?: any): TModel[];
         sortedIndex(element: TModel, iterator?: (element: TModel, index: number) => number): number;
-        range(stop: number, step?: number): any;
-        range(start: number, stop: number, step?: number): any;
         reduceRight(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any[];
         reject(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
         rest(): TModel;
@@ -247,10 +259,7 @@ declare module Backbone {
         tail(): TModel;
         tail(n: number): TModel[];
         toArray(): any[];
-        union(...model: TModel[]): TModel[];
-        uniq(isSorted?: boolean, iterator?: (element: TModel, index: number) => boolean): TModel[];
         without(...values: any[]): TModel[];
-        zip(...model: TModel[]): TModel[];
     }
 
     class Router extends Events {
@@ -330,7 +339,6 @@ declare module Backbone {
         model: TModel;
         collection: Collection<TModel>;
         //template: (json, options?) => string;
-        make(tagName: string, attrs?: any, opts?: any): View<TModel>;
         setElement(element: HTMLElement, delegate?: boolean): View<TModel>;
         setElement(element: JQuery, delegate?: boolean): View<TModel>;
         id: string;
@@ -356,11 +364,11 @@ declare module Backbone {
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
-    var emulateJSONBackbone: boolean;
+    var emulateJSON: boolean;
 
     // Utility
     function noConflict(): typeof Backbone;
-    function setDomLibrary(jQueryNew: any): any;
+    var $: JQueryStatic;
 }
 
 declare module "backbone" {

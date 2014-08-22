@@ -1,7 +1,7 @@
 // Type definitions for mocha 1.17.1
 // Project: http://visionmedia.github.io/mocha/
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/> and otiai10 <https://github.com/otiai10>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Mocha {
     // Setup mocha with the given setting options.

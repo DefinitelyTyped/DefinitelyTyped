@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 0.6.4
+// Type definitions for Leaflet.js 0.7.3
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -474,7 +474,7 @@ declare module L {
           * positions.
           * Default value: 'topright'.
           */
-        position: string;
+        position?: string;
 
     }
 }
@@ -570,11 +570,13 @@ declare module L {
           * inside the listener will point to context, or to the element if not specified.
           */
         static addListener(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
+        static on(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
     
         /**
           * Removes an event listener from the element.
           */
-        static removeListener(el: HTMLElement, type: string, fn: (e: Event) => void): DomEvent;
+        static removeListener(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
+        static off(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
     
         /**
           * Stop the given event from propagation to parent elements. Used inside the
@@ -773,20 +775,20 @@ declare module L {
     /**
       * Create a layer group, optionally given an initial set of layers.
       */
-    function featureGroup(layers?: ILayer[]): FeatureGroup;
+    function featureGroup<T extends ILayer>(layers?: T[]): FeatureGroup<T>;
 
-    export class FeatureGroup extends LayerGroup implements ILayer, IEventPowered<FeatureGroup> {
+    export class FeatureGroup<T extends ILayer> extends LayerGroup<T> implements ILayer, IEventPowered<FeatureGroup<T>> {
 
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
-        constructor(layers?: ILayer[]);
+        constructor(layers?: T[]);
     
         /**
           * Binds a popup with a particular HTML content to a click on any layer from the
           * group that has a bindPopup method.
           */
-        bindPopup(htmlContent: string, options?: PopupOptions): FeatureGroup;
+        bindPopup(htmlContent: string, options?: PopupOptions): FeatureGroup<T>;
     
         /**
           * Returns the LatLngBounds of the Feature Group (created from bounds and coordinates
@@ -797,17 +799,17 @@ declare module L {
         /**
           * Sets the given path options to each layer of the group that has a setStyle method.
           */
-        setStyle(style: PathOptions): FeatureGroup;
+        setStyle(style: PathOptions): FeatureGroup<T>;
     
         /**
           * Brings the layer group to the top of all other layers.
           */
-        bringToFront(): FeatureGroup;
+        bringToFront(): FeatureGroup<T>;
     
         /**
           * Brings the layer group to the bottom of all other layers.
           */
-        bringToBack(): FeatureGroup;
+        bringToBack(): FeatureGroup<T>;
 
         ////////////
         ////////////
@@ -826,20 +828,20 @@ declare module L {
         
         ////////////////
         ////////////////
-        addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        removeEventListener(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup;
+        addEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        addOneTimeEventListener(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        removeEventListener(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
         hasEventListeners(type: string): boolean;
-        fireEvent(type: string, data?: any): FeatureGroup;
-        on(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        once(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        off(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup;
-        fire(type: string, data?: any): FeatureGroup;
-        addEventListener(eventMap: any, context?: any): FeatureGroup;
-        removeEventListener(eventMap?: any, context?: any): FeatureGroup;
-        clearAllEventListeners(): FeatureGroup;
-        on(eventMap: any, context?: any): FeatureGroup;
-        off(eventMap?: any, context?: any): FeatureGroup;
+        fireEvent(type: string, data?: any): FeatureGroup<T>;
+        on(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        once(type: string, fn: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        off(type: string, fn?: (e: LeafletEvent) => void, context?: any): FeatureGroup<T>;
+        fire(type: string, data?: any): FeatureGroup<T>;
+        addEventListener(eventMap: any, context?: any): FeatureGroup<T>;
+        removeEventListener(eventMap?: any, context?: any): FeatureGroup<T>;
+        clearAllEventListeners(): FeatureGroup<T>;
+        on(eventMap: any, context?: any): FeatureGroup<T>;
+        off(eventMap?: any, context?: any): FeatureGroup<T>;
     }
 }
  
@@ -870,6 +872,13 @@ declare module L {
           * Default value: [0, 0].
           */
         padding?: Point;
+
+        /**
+          * The maximum possible zoom to use.
+          *
+          * Default value: null
+          */
+        maxZoom?: number;
     }
 }
  
@@ -882,7 +891,7 @@ declare module L {
       */
     function geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
 
-    export class GeoJSON extends FeatureGroup {
+    export class GeoJSON extends FeatureGroup<ILayer> {
 
         /**
           * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
@@ -1128,6 +1137,11 @@ declare module L {
           * Mercator-based CRS.
           */
         scale(zoom: number): number;
+
+        /**
+          * Returns the size of the world in pixels for a particular zoom.
+          */
+        getSize(zoom: number): Point;
         
     }
 }
@@ -1231,6 +1245,10 @@ declare module L {
           */
         enabled(): boolean;
     }
+
+    export class Handler extends Class {
+        initialize(map: Map): void;
+    }
 }
  
 declare module L {
@@ -1249,6 +1267,15 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
+    }
+}
+
+declare module L {
+    export module Mixin {
+        export interface LeafletMixinEvents extends IEventPowered<LeafletMixinEvents> {
+        }
+
+        export var Events: LeafletMixinEvents;
     }
 }
  
@@ -1277,6 +1304,11 @@ declare module L {
           * Sets the opacity of the overlay.
           */
         setOpacity(opacity: number): ImageOverlay;
+
+        /**
+          * Changes the URL of the image.
+          */
+        setUrl(imageUrl: string): ImageOverlay; 
     
         /**
           * Brings the layer to the top of all overlays.
@@ -1539,60 +1571,60 @@ declare module L {
     /**
       * Create a layer group, optionally given an initial set of layers.
       */
-    function layerGroup(layers?: ILayer[]): LayerGroup;
+    function layerGroup<T extends ILayer>(layers?: T[]): LayerGroup<T>;
 
-    export class LayerGroup extends Class implements ILayer {
+    export class LayerGroup<T extends ILayer> extends Class implements ILayer {
 
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
-        constructor(layers?: ILayer[]);
+        constructor(layers?: T[]);
     
         /**
           * Adds the group of layers to the map.
           */
-        addTo(map: Map): LayerGroup;
+        addTo(map: Map): LayerGroup<T>;
     
         /**
           * Adds a given layer to the group.
           */
-        addLayer(layer: ILayer): LayerGroup;
+        addLayer(layer: T): LayerGroup<T>;
     
         /**
           * Removes a given layer from the group.
           */
-        removeLayer(layer: ILayer): LayerGroup;
+        removeLayer(layer: T): LayerGroup<T>;
     
         /**
           * Removes a given layer of the given id from the group.
           */
-        removeLayer(id: string): LayerGroup;
+        removeLayer(id: string): LayerGroup<T>;
 
         /**
           * Returns true if the given layer is currently added to the group.
           */
-        hasLayer(layer: ILayer): boolean;
+        hasLayer(layer: T): boolean;
 
         /**
           * Returns the layer with the given id.
           */
-        getLayer(id: string): ILayer;
+        getLayer(id: string): T;
 
         /**
           * Returns an array of all the layers added to the group.
           */
-        getLayers(): ILayer[];
+        getLayers(): T[];
 
         /**
           * Removes all the layers from the group.
           */
-        clearLayers(): LayerGroup;
+        clearLayers(): LayerGroup<T>;
     
         /**
           * Iterates over the layers of the group, optionally specifying context of
           * the iterator function.
           */
-        eachLayer(fn: (layer: ILayer) => void, context?: any): LayerGroup;
+        eachLayer(fn: (layer: T) => void, context?: any): LayerGroup<T>;
 
         /**
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
@@ -1802,6 +1834,17 @@ declare module L {
         popup: Popup;
     }
 }
+
+declare module L {
+
+    export interface LeafletDragEndEvent extends LeafletEvent {
+
+        /**
+          * The distance in pixels the draggable element was moved by.
+          */
+        distance: number;
+    }
+}
  
 declare module L {
 
@@ -1960,7 +2003,7 @@ declare module L {
           * Sets the view of the map (geographical center and zoom) with the given
           * animation options.
           */
-        setView(center: LatLng, zoom: number, options?: ZoomPanOptions): Map;
+        setView(center: LatLng, zoom?: number, options?: ZoomPanOptions): Map;
     
         /**
           * Sets the zoom of the map.
@@ -2142,7 +2185,7 @@ declare module L {
         /**
           * Closes the popup previously opened with openPopup (or the given one).
           */
-        closePopup(): Map;
+        closePopup(popup?: Popup): Map;
     
         /**
           * Adds the given control to the map.
@@ -2370,17 +2413,26 @@ declare module L {
         
         /**
           * Whether the map can be zoomed by using the mouse wheel.
+          * If passed 'center', it will zoom to the center of the view regardless of
+          * where the mouse was.
           *
           * Default value: true.
           */
-        scrollWheelZoom?: boolean;
+        scrollWheelZoom?: any;
+        //scrollWheelZoom?: boolean;
+        //scrollWheelZoom?: string;
         
         /**
-          * Whether the map can be zoomed in by double clicking on it.
+          * Whether the map can be zoomed in by double clicking on it and zoomed out
+          * by double clicking while holding shift.
+          * If passed 'center', double-click zoom will zoom to the center of the view
+          * regardless of where the mouse was.
           *
           * Default value: true.
           */
-        doubleClickZoom?: boolean;
+        doubleClickZoom?: string;
+        //doubleClickZoom?: boolean;
+        //doubleClickZoom?: string;
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
@@ -2529,6 +2581,14 @@ declare module L {
           * in all browsers that support CSS3 Transitions except Android.
           */
         markerZoomAnimation?: boolean;
+
+        /**
+         * Set it to false if you don't want the map to zoom beyond min/max zoom
+         * and then bounce back when pinch-zooming.
+         *
+         * Default value: true.
+         */
+        bounceAtZoomLimits?: boolean;
     }
 }
  
@@ -2652,6 +2712,11 @@ declare module L {
           * Opens the popup previously bound by the bindPopup method.
           */
         openPopup(): Marker;
+
+        /**
+         * Returns the popup previously bound by the bindPopup method.
+         */
+        getPopup(): Popup; 
     
         /**
           * Closes the bound popup of the marker if it's opened.
@@ -2676,7 +2741,12 @@ declare module L {
         /**
           * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
           */
-        toGeoJSON(popup: Popup, options?: PopupOptions): any;
+        toGeoJSON(): any;
+
+        /**
+          * Marker dragging handler (by both mouse and touch).
+          */
+        dragging: IHandler;
 
         ////////////
         ////////////
@@ -2752,6 +2822,13 @@ declare module L {
           * Default value: ''.
           */
         title?: string;
+
+        /**
+          * Text for the alt attribute of the icon image (useful for accessibility).
+          *
+          * Default value: ''.
+          */
+        alt?: string;
     
         /**
           * By default, marker images zIndex is set automatically based on its latitude.
@@ -2794,7 +2871,7 @@ declare module L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export class MultiPolygon extends FeatureGroup {
+    export class MultiPolygon extends FeatureGroup<Polygon> {
 
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
@@ -2815,6 +2892,11 @@ declare module L {
         getLatLngs(): LatLng[][];
 
         /**
+         * Opens the popup previously bound by bindPopup.
+         */
+        openPopup(): MultiPolygon;
+
+        /**
           * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
           */
         toGeoJSON(): any;
@@ -2829,7 +2911,7 @@ declare module L {
       */
     function multiPolyline(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
 
-    export class MultiPolyline extends FeatureGroup {
+    export class MultiPolyline extends FeatureGroup<Polyline> {
 
         /**
           * Instantiates a multi-polyline object given an array of arrays of geographical
@@ -2847,6 +2929,11 @@ declare module L {
           * Returns an array of arrays of geographical points in each polygon.
           */
         getLatLngs(): LatLng[][];
+
+        /**
+         * Opens the popup previously bound by bindPopup.
+         */
+        openPopup(): MultiPolyline;
 
         /**
           * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
@@ -3076,6 +3163,20 @@ declare module L {
           * layers (e.g. Android 2).
           */
         dashArray?: string;
+
+        /**
+          * A string that defines shape to be used at the end of the stroke.
+          *
+          * Default: null.
+          */
+        lineCap?: string;
+
+        /**
+          * A string that defines shape to be used at the corners of the stroke.
+          *
+          * Default: null.
+          */
+        lineJoin?: string;
     
         /**
           * If false, the vector will not emit mouse events and will act as a part of the
@@ -3089,6 +3190,13 @@ declare module L {
           * Sets the pointer-events attribute on the path if SVG backend is used.
           */
         pointerEvents?: boolean;
+
+        /**
+          * Custom class name set on an element.
+          *
+          * Default value: ''.
+          */
+        className?: string;
     
     }
 }
@@ -3308,7 +3416,12 @@ declare module L {
           * Sets the geographical point where the popup will open.
           */
         setLatLng(latlng: LatLng): Popup;
-    
+   
+        /**
+          * Returns the geographical point of popup.
+          */
+        getLatLng(): LatLng;
+
         /**
           * Sets the HTML content of the popup.
           */
@@ -3318,6 +3431,12 @@ declare module L {
           * Sets the HTML content of the popup.
           */
         setContent(el: HTMLElement): Popup;
+
+        /**
+          * Returns the content of the popup.
+          */
+        getContent(): HTMLElement;
+        //getContent(): string;
 
         ////////////
         ////////////
@@ -3333,6 +3452,12 @@ declare module L {
           * the DOM and removes listeners previously added in onAdd. Called on map.removeLayer(layer).
           */
         onRemove(map: Map): void;
+
+        /**
+          * Updates the popup content, layout and position. Useful for updating the popup after
+          * something inside changed, e.g. image loaded.
+          */
+        update(): Popup;
     }
 }
  
@@ -3382,6 +3507,22 @@ declare module L {
           * Default value: new Point(0, 6).
           */
         offset?: Point;
+
+        /**
+          * The margin between the popup and the top left corner of the map view after
+          * autopanning was performed.
+          *
+          * Default value: null.
+          */
+        autoPanPaddingTopLeft?: Point;
+
+        /**
+          * The margin between the popup and the bottom right corner of the map view after
+          * autopanning was performed.
+          *
+          * Default value: null.
+          */
+        autoPanPaddingBottomRight?: Point;
     
         /**
           * The margin between the popup and the edges of the map view after autopanning
@@ -3695,6 +3836,15 @@ declare module L {
           * Default value: 18.
           */
         maxZoom?: number;
+
+        /**
+          * Maximum zoom number the tiles source has available. If it is specified,
+          * the tiles on all zoom levels higher than maxNativeZoom will be loaded from
+          * maxZoom level and auto-scaled.
+          *
+          * Default value: null.
+          */
+        maxNativeZoom?: number;
     
         /**
           * Tile size (width and height in pixels, assuming tiles are square).
@@ -3997,6 +4147,11 @@ declare module L {
           * An equivalent of passing animate to both zoom and pan options (see below).
           */
         animate?: boolean;
+
+        /**
+         * If true, it will delay moveend event so that it doesn't happen many times in a row.
+         */
+        debounceMoveend?: boolean;
     }
 }
  

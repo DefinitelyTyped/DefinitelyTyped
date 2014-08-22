@@ -1,7 +1,6 @@
 // Type definitions for Underscore 1.6.0
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module _ {
@@ -1046,10 +1045,10 @@ interface UnderscoreStatic {
 	* @param options Allows for disabling execution of the throttled function on either the leading or trailing edge.
 	* @return `fn` with a throttle of `wait`.
 	**/
-	throttle(
-		func: any,
+	throttle<T extends Function>(
+		func: T,
 		wait: number,
-		options?: _.ThrottleSettings): Function;
+		options?: _.ThrottleSettings): T;
 
 	/**
 	* Creates and returns a new debounced version of the passed function that will postpone its execution
@@ -1065,10 +1064,10 @@ interface UnderscoreStatic {
 	* @param immediate True if `fn` should be invoked on the leading edge of `waitMS` instead of the trailing edge.
 	* @return Debounced version of `fn` that waits `wait` ms when invoked.
 	**/
-	debounce(
-		fn: Function,
+	debounce<T extends Function>(
+		fn: T,
 		wait: number,
-		immediate?: boolean): Function;
+		immediate?: boolean): T;
 
 	/**
 	* Creates a version of the function that can only be called one time. Repeated calls to the modified
@@ -1077,7 +1076,7 @@ interface UnderscoreStatic {
 	* @param fn Function to only execute once.
 	* @return Copy of `fn` that can only be invoked once.
 	**/
-	once(fn: Function): Function;
+	once<T extends Function>(fn: T): T;
 
 	/**
 	* Creates a version of the function that will only be run after first being called count times. Useful
@@ -1087,9 +1086,9 @@ interface UnderscoreStatic {
 	* @fn The function to defer execution `count` times.
 	* @return Copy of `fn` that will not execute until it is invoked `count` times.
 	**/
-	after(
+	after<T extends Function>(
 		count: number,
-		fn: Function): Function;
+		fn: T): T;
 
 	/**
 	* Wraps the first function inside of the wrapper function, passing it as the first argument. This allows
@@ -1444,6 +1443,13 @@ interface UnderscoreStatic {
 	escape(str: string): string;
 
 	/**
+	* The opposite of escape, replaces &amp;, &lt;, &gt;, &quot;, and &#x27; with their unescaped counterparts.
+	* @param str HTML escaped string.
+	* @return `str` Raw string.
+	**/
+	unescape(str: string): string;
+
+	/**
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	* @param object Object to maybe invoke function `property` on.
 	* @param property The function by name to invoke on `object`.
@@ -1466,8 +1472,9 @@ interface UnderscoreStatic {
 	* @param settings Settings to use while compiling.
 	* @return Returns the compiled Underscore HTML template.
 	**/
-	template(templateString: string, data?: any, settings?: _.TemplateSettings): (...data: any[]) => string;
-
+	template(templateString: string): (...data: any[]) => string;
+    	template(templateString: string, data: any, settings?: _.TemplateSettings): string;
+    	
 	/**
 	* By default, Underscore uses ERB-style template delimiters, change the
 	* following template settings to use alternative delimiters.
@@ -2285,6 +2292,12 @@ interface Underscore<T> {
 	escape(): string;
 
 	/**
+	* Wrapped type `string`.
+	* @see _.unescape
+	**/
+	unescape(): string;
+
+	/**
 	* Wrapped type `object`.
 	* @see _.result
 	**/
@@ -2608,7 +2621,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.first
 	**/
-	first(): _Chain<T>;
+	first(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -3106,6 +3119,12 @@ interface _Chain<T> {
 	* @see _.escape
 	**/
 	escape(): _Chain<T>;
+
+	/**
+	* Wrapped type `string`.
+	* @see _.unescape
+	**/
+	unescape(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.

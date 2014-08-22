@@ -1968,6 +1968,38 @@ declare module _ {
             ...values: T[]): T[];
     }
 
+    //_.xor
+    interface LoDashStatic {
+        /**
+        * Creates an array that is the symmetric difference of the provided arrays.
+        * @param array The array to process
+        * @param others The arrays of values to calculate the symmetric difference.
+        * @return Returns a new array of filtered values.
+        **/
+        xor<T>(
+            array: Array<T>,
+            ...others: Array<T>[]): T[];
+        /**
+        * @see _.xor
+        **/
+        xor<T>(
+            array: List<T>,
+            ...others: List<T>[]): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.xor
+        **/
+        xor(
+            ...others: Array<T>[]): LoDashArrayWrapper<T>;
+        /**
+        * @see _.xor
+        **/
+        xor(
+            ...others: List<T>[]): LoDashArrayWrapper<T>;
+    }
+    
     //_.zip
     interface LoDashStatic {
         /**
@@ -3169,6 +3201,30 @@ declare module _ {
         groupBy<W, T>(
             collection: List<T>,
             whereValue: W): Dictionary<T[]>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<T>(
+            collection: Dictionary<T>,
+            callback?: ListIterator<T, any>,
+            thisArg?: any): Dictionary<T[]>;
+
+        /**
+        * @see _.groupBy
+        * @param pluckValue _.pluck style callback
+        **/
+        groupBy<TValue>(
+            collection: Dictionary<TValue>,
+            pluckValue: string): Dictionary<TValue[]>;
+
+        /**
+        * @see _.groupBy
+        * @param whereValue _.where style callback
+        **/
+        groupBy<W, TValue>(
+            collection: Dictionary<TValue>,
+            whereValue: W): Dictionary<TValue[]>;
     }
 
     interface LoDashArrayWrapper<T> {
@@ -3177,19 +3233,40 @@ declare module _ {
         **/
         groupBy(
             callback: ListIterator<T, any>,
-            thisArg?: any): _.LoDashObjectWrapper<Dictionary<T[]>>;
+            thisArg?: any): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy(
-            pluckValue: string): _.LoDashObjectWrapper<Dictionary<T[]>>;
+            pluckValue: string): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
 
         /**
         * @see _.groupBy
         **/
         groupBy<W>(
-            whereValue: W): _.LoDashObjectWrapper<Dictionary<T[]>>;
+            whereValue: W): _.LoDashObjectWrapper<_.Dictionary<T[]>>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<TValue>(
+            callback: ListIterator<TValue, any>,
+            thisArg?: any): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<TValue>(
+            pluckValue: string): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
+
+        /**
+        * @see _.groupBy
+        **/
+        groupBy<W, TValue>(
+            whereValue: W): _.LoDashObjectWrapper<_.Dictionary<TValue[]>>;
     }
 
     //_.indexBy
@@ -4518,6 +4595,20 @@ declare module _ {
         * @see _.toArray
         **/
         toArray<T>(collection: Dictionary<T>): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.toArray
+        **/
+        toArray<TValue>(): LoDashArrayWrapper<TValue>;
     }
 
     //_.where
@@ -6110,7 +6201,25 @@ declare module _ {
         **/
         uniqueId(prefix?: string): string;
     }
+    
+    //_.noop
+    interface LoDashStatic {
+        /**
+         * A no-operation function.
+         **/
+        noop(): void;
+    }
 
+    //_.create
+    interface LoDashStatic {
+        /**
+         * Creates an object that inherits from the given prototype object. If a properties object is provided its own enumerable properties are assigned to the created object.
+         * @param prototype The object to inherit from.
+         * @param properties The properties to assign to the object.
+         */
+        create<T>(prototype: Object, properties?: Object): Object;
+    }
+    
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
     }

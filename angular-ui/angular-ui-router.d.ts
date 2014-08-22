@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.1.5+ (ui.router module)
 // Project: https://github.com/angular-ui/ui-router
-// Definitions by: Michel Salib <michelsalib@hotmail.com>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -11,8 +11,9 @@ declare module ng.ui {
         name?: string;
         template?: any;
         templateUrl?: any;
-        templateProvider?: () => string;
+        templateProvider?: any;
         controller?: any;
+        controllerAs?: string;
         controllerProvider?: any;
         resolve?: {};
         url?: string;
@@ -33,13 +34,13 @@ declare module ng.ui {
     interface IUrlMatcher {
         concat(pattern: string): IUrlMatcher;
         exec(path: string, searchParams: {}): {};
+        parameters(): string[];
+        format(values: {}): string;
     }
 
     interface IUrlMatcherFactory {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
-        parameters(): string[];
-        format(values: {}): string;
     }
 
     interface IUrlRouterProvider extends IServiceProvider {
@@ -86,6 +87,7 @@ declare module ng.ui {
         get(): IState[];
         current: IState;
         params: IStateParamsService;
+        reload(): void;
     }
 
     interface IStateParamsService {

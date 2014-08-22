@@ -1,4 +1,4 @@
-// Type definitions for Angular Protractor 0.17.0
+// Type definitions for Angular Protractor 1.0.0-rc4
 // Project: https://github.com/angular/protractor
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -25,71 +25,7 @@ declare module protractor {
     class CommandName extends webdriver.CommandName {}
     class Key extends webdriver.Key {}
     class UnhandledAlertError extends webdriver.UnhandledAlertError {}
-
-    class WebElement extends webdriver.WebElement {
-        /**
-         * Shortcut for querying the document directly with css.
-         *
-         * @param {string} selector a css selector
-         * @see webdriver.WebElement.findElement
-         * @return {!protractor.WebElement}
-         */
-        $(selector: string): protractor.WebElement;
-
-        /**
-         * Shortcut for querying the document directly with css.
-         *
-         * @param {string} selector a css selector
-         * @see webdriver.WebElement.findElements
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to an
-         *     array of the located {@link webdriver.WebElement}s.
-         */
-        $$(selector: string): webdriver.promise.Promise;
-
-        /**
-         * Evalates the input as if it were on the scope of the current element.
-         * @param {string} expression
-         *
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
-         *     evaluated expression. The result will be resolved as in
-         *     {@link webdriver.WebDriver.executeScript}. In summary - primitives will
-         *     be resolved as is, functions will be converted to string, and elements
-         *     will be returned as a WebElement.
-         */
-        evaluate(expression: string): webdriver.promise.Promise;
-
-        /**
-         * Schedule a command to find a descendant of this element. If the element
-         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
-         * be returned by the driver. Unlike other commands, this error cannot be
-         * suppressed. In other words, scheduling a command to find an element doubles
-         * as an assert that the element is present on the page. To test whether an
-         * element is present on the page, use {@code #isElementPresent} instead.
-         * <p/>
-         * The search criteria for find an element may either be a
-         * {@code webdriver.Locator} object, or a simple JSON object whose sole key
-         * is one of the accepted locator strategies, as defined by
-         * {@code webdriver.Locator.Strategy}. For example, the following two
-         * statements are equivalent:
-         * <code><pre>
-         * var e1 = element.findElement(By.id('foo'));
-         * var e2 = element.findElement({id:'foo'});
-         * </pre></code>
-         * <p/>
-         * Note that JS locator searches cannot be restricted to a subtree. All such
-         * searches are delegated to this instance's parent WebDriver.
-         *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
-         *     strategy to use when searching for the element.
-         * @param {...} var_args Arguments to pass to {@code WebDriver#executeScript} if
-         *     using a JavaScript locator.  Otherwise ignored.
-         * @return {protractor.WebElement} A WebElement that can be used to issue
-         *     commands against the located element. If the element is not found, the
-         *     element will be invalidated and all scheduled commands aborted.
-         */
-        findElement(locator: webdriver.Locator, ...var_args: any[]): protractor.WebElement;
-        findElement(locator: any, ...var_args: any[]): protractor.WebElement;
-    }
+    class WebElement extends webdriver.WebElement {}
 
     module command {
         class Command extends webdriver.Command {}
@@ -273,13 +209,140 @@ declare module protractor {
     }
 
     //endregion
-
+       /**
+        * Use as: element(locator)
+        *
+        * The ElementFinder can be treated as a WebElement for most purposes, in
+        * particular, you may perform actions (i.e. click, getText) on them as you
+        * would a WebElement. ElementFinders extend Promise, and once an action
+        * is performed on an ElementFinder, the latest result from the chain can be
+        * accessed using then. Unlike a WebElement, an ElementFinder will wait for
+        * angular to settle before performing finds or actions.
+        *
+        * ElementFinder can be used to build a chain of locators that is used to find
+        * an element. An ElementFinder does not actually attempt to find the element
+        * until an action is called, which means they can be set up in helper files
+        * before the page is available.
+        *
+        * @param {webdriver.Locator} locator An element locator.
+        * @return {ElementFinder}
+        */
     interface Element {
         (locator: webdriver.Locator): ElementFinder;
+
+         /**
+          * ElementArrayFinder is used for operations on an array of elements (as opposed
+          * to a single element).
+          *
+          * @param {webdriver.Locator} locator An element locator.
+          * @return {ElementArrayFinder}
+          */
         all(locator: webdriver.Locator): ElementArrayFinder;
     }
 
     interface ElementFinder {
+        /**
+         * Use as: element(locator).element(locator)
+         * Calls to element may be chained to find elements within a parent.
+         *
+         * @param {webdriver.Locator} locator The locator that will be used to find descendents.
+         *
+         * @return {protractor.ElementFinder} The descendent element found by the locator
+         */
+        element(locator: webdriver.Locator): protractor.ElementFinder;
+
+        /**
+         * Use as: element(locator).all(locator)
+         * Calls to element may be chained to find an array of elements within a parent.
+         *
+         * @param {webdriver.Locator} locator The locator that will be used to find descendents.
+         *
+         * @return {protractor.ElementArrayFinder} The descendent elements found by the locator
+         */
+        all(locator: webdriver.Locator): protractor.ElementArrayFinder;
+
+        /**
+         * Shortcut for querying the document directly with css.
+         *
+         * @param {string} selector a css selector
+         * @see webdriver.WebElement.findElement
+         * @return {!protractor.WebElement}
+         */
+        $(selector: string): protractor.WebElement;
+
+        /**
+         * Shortcut for querying the document directly with css.
+         *
+         * @param {string} selector a css selector
+         * @see webdriver.WebElement.findElements
+         * @return {!webdriver.promise.Promise} A promise that will be resolved to an
+         *     array of the located {@link webdriver.WebElement}s.
+         */
+        $$(selector: string): webdriver.promise.Promise;
+
+        /**
+         * Use as: element(locator).isPresent()
+         * Determine whether the element is present on the page.
+         *
+         * @return {protractor.ElementFinder} Which resolves to whether the element is present on the page.
+         */
+        isPresent(): webdriver.promise.Promise;
+
+        /**
+         * Override for WebElement.prototype.isElementPresent so that protractor waits
+         * for Angular to settle before making the check.
+         *
+         * @see ElementFinder.isPresent
+         * @return {!webdriver.promise.Promise} which resolves to whether the element is present on the page.
+         */
+        isElementPresent(locator: webdriver.Locator): webdriver.promise.Promise;
+
+        /**
+         * Return this ElementFinder's locator.
+         *
+         * @return {webdriver.Locator}
+         */
+        locator(): webdriver.Locator;
+
+        /**
+         * Use as: element(locator).getWebElement()
+         * Returns the WebElement represented by this ElementFinder.
+         * Throws the WebDriver error if the element doesn't exist.
+         * If index is null, it makes sure that there is only one underlying WebElement
+         * described by the chain of locators and issues a warning otherwise.
+         * If index is not null, it retrieves the WebElement specified by the index..
+         * @return {webdriver.WebElement} The WebElement represented by the ElementFinder.
+         */
+        getWebElement(): webdriver.WebElement;
+
+        /**
+         * Evalates the input as if it were on the scope of the current element.
+         * @param {string} expression
+         *
+         * @return {!webdriver.promise.Promise} A promise that will resolve to the
+         *     evaluated expression. The result will be resolved as in
+         *     {@link webdriver.WebDriver.executeScript}. In summary - primitives will
+         *     be resolved as is, functions will be converted to string, and elements
+         *     will be returned as a WebElement.
+         */
+        evaluate(expression: string): webdriver.promise.Promise;
+
+        /**
+         * Determine if animation is allowed on the current element.
+         * @param {string} value
+         *
+         * @return {ElementFinder} which resolves to whether animation is allowed.
+         */
+        allowAnimations(value: string): webdriver.promise.Promise;
+
+        /**
+         * Access the underlying actionResult of ElementFinder. Implementation allows ElementFinder to be used as a webdriver.promise.Promise.
+         * @param {function(webdriver.promise.Promise)} fn Function which takes the value of the underlying actionResult.
+         *
+         * @return {webdriver.promise.Promise} Promise which contains the results of evaluating fn.
+         */
+        then(fn: IThenFunction): webdriver.promise.Promise;
+
         /**
          * Schedules a command to click on this element.
          * @return {!webdriver.promise.Promise} A promise that will be resolved when
@@ -460,113 +523,163 @@ declare module protractor {
         getInnerHtml(): webdriver.promise.Promise;
 
         /**
-         * Schedules a command to test if there is at least one descendant of this
-         * element that matches the given search criteria.
-         *
-         * <p>Note that JS locator searches cannot be restricted to a subtree of the
-         * DOM. All such searches are delegated to this instance's parent WebDriver.
-         *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
-         *     strategy to use when searching for the element.
-         * @param {...} var_args Arguments to pass to {@code WebDriver#executeScript} if
-         *     using a JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether an element could be located on the page.
+         * @return {!webdriver.promise.Promise.<webdriver.WebElement.Id>} A promise
+         * that resolves to this element's JSON representation as defined by the
+         * WebDriver wire protocol.
+         * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
          */
-        isElementPresent(locator: webdriver.Locator, ...var_args: any[]): webdriver.promise.Promise;
-        isElementPresent(locator: any, ...var_args: any[]): webdriver.promise.Promise;
-
-        /**
-         * Schedules a command to find all of the descendants of this element that match
-         * the given search criteria.
-         * <p/>
-         * Note that JS locator searches cannot be restricted to a subtree. All such
-         * searches are delegated to this instance's parent WebDriver.
-         *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
-         *     strategy to use when searching for the elements.
-         * @param {...} var_args Arguments to pass to {@code WebDriver#executeScript} if
-         *     using a JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with an
-         *     array of located {@link webdriver.WebElement}s.
-         */
-        findElements(locator: webdriver.Locator, ...var_args: any[]): webdriver.promise.Promise;
-        findElements(locator: any, ...var_args: any[]): webdriver.promise.Promise;
-
-        /**
-         * Shortcut for querying the document directly with css.
-         *
-         * @param {string} selector a css selector
-         * @see webdriver.WebElement.findElement
-         * @return {!protractor.WebElement}
-         */
-        $(selector: string): protractor.WebElement;
-
-        /**
-         * Shortcut for querying the document directly with css.
-         *
-         * @param {string} selector a css selector
-         * @see webdriver.WebElement.findElements
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to an
-         *     array of the located {@link webdriver.WebElement}s.
-         */
-        $$(selector: string): webdriver.promise.Promise;
-
-        /**
-         * Schedule a command to find a descendant of this element. If the element
-         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
-         * be returned by the driver. Unlike other commands, this error cannot be
-         * suppressed. In other words, scheduling a command to find an element doubles
-         * as an assert that the element is present on the page. To test whether an
-         * element is present on the page, use {@code #isElementPresent} instead.
-         * <p/>
-         * The search criteria for find an element may either be a
-         * {@code webdriver.Locator} object, or a simple JSON object whose sole key
-         * is one of the accepted locator strategies, as defined by
-         * {@code webdriver.Locator.Strategy}. For example, the following two
-         * statements are equivalent:
-         * <code><pre>
-         * var e1 = element.findElement(By.id('foo'));
-         * var e2 = element.findElement({id:'foo'});
-         * </pre></code>
-         * <p/>
-         * Note that JS locator searches cannot be restricted to a subtree. All such
-         * searches are delegated to this instance's parent WebDriver.
-         *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
-         *     strategy to use when searching for the element.
-         * @param {...} var_args Arguments to pass to {@code WebDriver#executeScript} if
-         *     using a JavaScript locator.  Otherwise ignored.
-         * @return {protractor.WebElement} A WebElement that can be used to issue
-         *     commands against the located element. If the element is not found, the
-         *     element will be invalidated and all scheduled commands aborted.
-         */
-        findElement(locator: webdriver.Locator, ...var_args: any[]): protractor.WebElement;
-        findElement(locator: any, ...var_args: any[]): protractor.WebElement;
-
-        /**
-         * Evalates the input as if it were on the scope of the current element.
-         * @param {string} expression
-         *
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
-         *     evaluated expression. The result will be resolved as in
-         *     {@link webdriver.WebDriver.executeScript}. In summary - primitives will
-         *     be resolved as is, functions will be converted to string, and elements
-         *     will be returned as a WebElement.
-         */
-        evaluate(expression: string): webdriver.promise.Promise;
-
-        find(): protractor.WebElement;
-
-        isPresent(): webdriver.promise.Promise;
+        toWireValue(): webdriver.promise.Promise;
     }
 
-    interface ElementArrayFinder{
+    interface IThenFunction {
+        (promiseResult: any): any;
+    }
+
+
+    interface ElementArrayFinder {
+        /**
+         * Use as: element.all(locator).getWebElements()
+         * Returns the array of WebElements represented by this ElementArrayFinder.
+         *
+         * @return {Array.<webdriver.WebElement>} Array of WebElements represented by this ElementArrayFinder
+         */
+        getWebElements(): webdriver.WebElement[];
+
+        /**
+         * Use as: element.all(locator).get(index)
+         * Get an element found by the locator by index. The index starts at 0. This does not actually retrieve the underlying element.
+         *
+         * @param {number} index Element index.
+         *
+         * @return {protractor.ElementFinder} Finder representing element at the given index
+         */
+        get(index: number): protractor.ElementFinder;
+
+
+        /**
+         * Use as: element.all(locator).first()
+         * Get the first matching element for the locator. This does not actually retrieve the underlying element.
+         *
+         * @return {Protractor.ElementFinder} Finder representing the first matching element
+         */
+        first(): protractor.ElementFinder;
+
+        /**
+         * Use as: element.all(locator).last()
+         * Get the last matching element for the locator. This does not actually retrieve the underlying element.
+         *
+         * @return {Protractor.ElementFinder} Finder representing the last matching element
+         */
+        last(): protractor.ElementFinder;
+
+        /**
+         * Use as: element.all(locator).getWebElements()
+         * Returns the array of WebElements represented by this ElementArrayFinder.
+         *
+         * @return {!webdriver.promise.Promise} The array of WebElements represented by this ElementArrayFinder
+         */
         count(): webdriver.promise.Promise;
-        get(index: number): protractor.WebElement;
-        first(): protractor.WebElement;
-        last(): protractor.WebElement;
-        then(fn: (value: any) => any): webdriver.promise.Promise;
+
+        /**
+         * Use as: element.all(locator).each(eachFunction)
+         * Calls the input function on each ElementFinder found by the locator.
+         *
+         * @param {function(ElementFinder)} fn Input function.
+         */
+        each(fn: IEachFunction): void;
+
+        /**
+         * Use as: element.all(locator).map(mapFunction)
+         * Apply a map function to each element found using the locator. The callback receives the ElementFinder as the first argument and the index as a second arg.
+         *
+         * @param {function(ElementFinder, number)} mapFn Map function that will be applied to each element.
+         *
+         * @return {!webdriver.promise.Promise} A promise that resolves to an array of values returned by the map function.
+         */
+        map(mapFn: IMapFunction): webdriver.promise.Promise;
+
+        /**
+         * Use as: element.all(locator).filter(filterFn)
+         * Apply a filter function to each element found using the locator. Returns promise of a new array with all elements that pass the filter function. The filter function receives the ElementFinder as the first argument and the index as a second arg.
+         *
+         * @param {function(ElementFinder, number): webdriver.promise.Promise} filterFn Filter function that will test if an element should be returned. filterFn should return a promise that resolves to a boolean.
+         *
+         * @return {!webdriver.promise.Promise} A promise that resolves to an array of ElementFinders that satisfy the filter function.
+         */
+        filter(func: IFilterFunction): webdriver.promise.Promise;
+
+        /**
+         * Use as: element.all(locator).reduce(reduceFn)
+         * Apply a reduce function against an accumulator and every element found using the locator (from left-to-right).
+         * The reduce function has to reduce every element into a single value (the accumulator).
+         * Returns promise of the accumulator.
+         * The reduce function receives the accumulator, current ElementFinder, the index, and the entire array of ElementFinders, respectively.
+         *
+         * @param {function(number, ElementFinder, number, Array.<ElementFinder>): webdriver.promise.Promise} reduceFn Reduce function that reduces every element into a single value.
+         * @param {*} initialValue Initial value of the accumulator.
+         *
+         * @return {!webdriver.promise.Promise} A promise that resolves to the final value of the accumulator.
+         */
+        reduce(func: IReductionFunction, initialValue: any): webdriver.promise.Promise;
+
+        /**
+         * Represents the ElementArrayFinder as an array of ElementFinders.
+         *
+         * @return {!webdriver.promise.Promise} Return a promise, which resolves to a list (array)
+         *     of ElementFinders specified by the locator.
+         */
+         asElementFinders_(): webdriver.promise.Promise;
+
+
+        /**
+         * Find the elements specified by the locator. The input function is passed
+         * to the resulting promise, which resolves to an array of ElementFinders.
+         *
+         * Use as: element.all(locator).then(thenFunction)
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * element.all(by.css('.items li')).then(function(arr) {
+         *   expect(arr.length).toEqual(3);
+         * });
+         *
+         * @param {function(Array.<ElementFinder>)} fn
+         *
+         * @type {webdriver.promise.Promise} a promise which will resolve to
+         *     an array of ElementFinders matching the locator.
+         */
+         then(fn: IElementArrayFinderThenFunction): webdriver.promise.Promise;
+    }
+
+    interface IEachFunction {
+        (element: protractor.ElementFinder): void;
+    }
+
+    interface IMapFunction {
+        (element: ElementFinder, index: number): any;
+    }
+
+    interface IFilterFunction {
+        (element: ElementFinder, index: number): webdriver.promise.Promise;
+    }
+
+    interface IReductionFunction {
+        (accumulator: any, element: protractor.ElementFinder, index?: number, array?: protractor.ElementFinder[]): webdriver.promise.Promise;
+    }
+
+    interface IElementArrayFinderThenFunction {
+        (promiseResult: ElementFinder[]): any;
+    }
+
+    class LocatorWithColumn extends webdriver.Locator {
+        column(index: number): webdriver.Locator;
+    }
+
+    class RepeaterLocator extends LocatorWithColumn {
+        row(index: number): LocatorWithColumn;
     }
 
     interface IProtractorLocatorStrategy extends webdriver.ILocatorStrategy {
@@ -587,69 +700,160 @@ declare module protractor {
          * Usage:
          *   <span>{{status}}</span>
          *   var status = element(by.binding('{{status}}'));
+         *
+         * @param {string} bindingDescriptor
+         * @return {webdriver.Locator}
          */
         binding(bindingDescriptor: string): webdriver.Locator;
 
         /**
-         * Usage:
-         *   <select ng-model="user" ng-options="user.name for user in users"></select>
-         *   element(by.select("user"));
+         * Find an element by exact binding.
+         *
+         * <span>{{ person.name }}</span>
+         * <span ng-bind="person-email"></span>
+         * <span>{{person_phone|uppercase}}</span>
+         *
+         * expect(element(by.exactBinding('person.name')).isPresent()).toBe(true);
+         * expect(element(by.exactBinding('person-email')).isPresent()).toBe(true);
+         * expect(element(by.exactBinding('person')).isPresent()).toBe(false);
+         * expect(element(by.exactBinding('person_phone')).isPresent()).toBe(true);
+         * expect(element(by.exactBinding('person_phone|uppercase')).isPresent()).toBe(true);
+         * expect(element(by.exactBinding('phone')).isPresent()).toBe(false);
+         *
+         * @param {string} bindingDescriptor
+         * @return {webdriver.Locator}
          */
-        select(model: string): webdriver.Locator;
+        exactBinding(bindingDescriptor: string): webdriver.Locator;
 
         /**
+         *
+         * Find an element by ng-model expression.
+         *
          * Usage:
-         *   <select ng-model="user" ng-options="user.name for user in users"></select>
-         *   element(by.selectedOption("user"));
-         */
-        selectedOption(model: string): webdriver.Locator;
-
-        /**
-         * @DEPRECATED - use 'model' instead.
-         * Usage:
-         *   <input ng-model="user" type="text"/>
-         *   element(by.input('user'));
-         */
-        input(model: string): webdriver.Locator;
-
-        /**
-         * Usage:
-         *   <input ng-model="user" type="text"/>
-         *   element(by.model('user'));
+         *   <input type="text" ng-model="person.name"/>
+         *   var input = element(by.model('person.name'));
+         *   input.sendKeys('123');
+         *   expect(input.getAttribute('value')).toBe('Foo123');
+         *
+         * @param {string} model ng-model expression.
+         * @return {webdriver.Locator}
          */
         model(model: string): webdriver.Locator;
 
         /**
-         * Usage:
-         *   <textarea ng-model="user"></textarea>
-         *   element(by.textarea("user"));
-         */
-        textarea(model: string): webdriver.Locator;
-
-        /**
-         * Usage:
-         *   <div ng-repeat = "cat in pets">
-         *     <span>{{cat.name}}</span>
-         *     <span>{{cat.age}}</span>
-         *   </div>
+         * Find a button by text.
          *
-         * // Returns the DIV for the second cat.
-         * var secondCat = element(by.repeater("cat in pets").row(2));
-         * // Returns the SPAN for the first cat's name.
-         * var firstCatName = element(
-         *     by.repeater("cat in pets").row(1).column("{{cat.name}}"));
-         * // Returns a promise that resolves to an array of WebElements from a column
-         * var ages = element(
-         *     by.repeater("cat in pets").column("{{cat.age}}"));
-         * // Returns a promise that resolves to an array of WebElements containing
-         * // all rows of the repeater.
-         * var rows = element(by.repeater("cat in pets"));
+         * Usage:
+         *  <button>Save</button>
+         *  element(by.buttonText('Save'));
+         *
+         * @param {string} searchText
+         * @return {webdriver.Locator}
          */
-        repeater(repeatDescriptor: string): webdriver.Locator;
-
         buttonText(searchText: string): webdriver.Locator;
 
+
+        /**
+         * Find a button by partial text.
+         *
+         * Usage:
+         *  <button>Save my file</button>
+         *  element(by.partialButtonText('Save'));
+         *
+         * @param {string} searchText
+         * @return {webdriver.Locator}
+         */
         partialButtonText(searchText: string): webdriver.Locator;
+
+        /**
+         * Find elements inside an ng-repeat.
+         *
+         * Usage:
+         * <div ng-repeat="cat in pets">
+         *   <span>{{cat.name}}</span>
+         *   <span>{{cat.age}}</span>
+         * </div>
+         *
+         * <div class="book-img" ng-repeat-start="book in library">
+         *   <span>{{$index}}</span>
+         * </div>
+         * <div class="book-info" ng-repeat-end>
+         *   <h4>{{book.name}}</h4>
+         *   <p>{{book.blurb}}</p>
+         * </div>
+         *
+         * // Returns the DIV for the second cat.
+         * var secondCat = element(by.repeater('cat in pets').row(1));
+         *
+         * // Returns the SPAN for the first cat's name.
+         * var firstCatName = element(by.repeater('cat in pets').
+         *     row(0).column('{{cat.name}}'));
+         *
+         * // Returns a promise that resolves to an array of WebElements from a column
+         * var ages = element.all(
+         *     by.repeater('cat in pets').column('{{cat.age}}'));
+         *
+         * // Returns a promise that resolves to an array of WebElements containing
+         * // all top level elements repeated by the repeater. For 2 pets rows resolves
+         * // to an array of 2 elements.
+         * var rows = element.all(by.repeater('cat in pets'));
+         *
+         * // Returns a promise that resolves to an array of WebElements containing all
+         * // the elements with a binding to the book's name.
+         * var divs = element.all(by.repeater('book in library').column('book.name'));
+         *
+         * // Returns a promise that resolves to an array of WebElements containing
+         * // the DIVs for the second book.
+         * var bookInfo = element.all(by.repeater('book in library').row(1));
+         *
+         * // Returns the H4 for the first book's name.
+         * var firstBookName = element(by.repeater('book in library').
+         *     row(0).column('{{book.name}}'));
+         *
+         * // Returns a promise that resolves to an array of WebElements containing
+         * // all top level elements repeated by the repeater. For 2 books divs
+         * // resolves to an array of 4 elements.
+         * var divs = element.all(by.repeater('book in library'));
+         */
+        repeater(repeatDescriptor: string): RepeaterLocator;
+
+        /**
+         * Find elements by CSS which contain a certain string.
+         *
+         * @view
+         * <ul>
+         *   <li class="pet">Dog</li>
+         *   <li class="pet">Cat</li>
+         * </ul>
+         *
+         * @example
+         * // Returns the DIV for the dog, but not cat.
+         * var dog = element(by.cssContainingText('.pet', 'Dog'));
+         *
+         * @param cssSelector {string}
+         * @param searchText {string}
+         * @return {webdriver.Locator}
+         */
+        cssContainingText(cssSelector: string, searchText: string): webdriver.Locator;
+
+        /**
+         * Find an element by ng-options expression.
+         *
+         * Usage:
+         * <select ng-model="color" ng-options="c for c in colors">
+         *   <option value="0" selected="selected">red</option>
+         *   <option value="1">green</option>
+         * </select>
+         *
+         * var allOptions = element.all(by.options('c for c in colors'));
+         * expect(allOptions.count()).toEqual(2);
+         * var firstOption = allOptions.first();
+         * expect(firstOption.getText()).toEqual('red');
+         *
+         * @param {string} optionsDescriptor ng-options expression.
+         * @return {webdriver.Locator}
+         */
+        options(optionsDescriptor: string): webdriver.Locator;
     }
 
     var By: IProtractorLocatorStrategy;
@@ -719,6 +923,43 @@ declare module protractor {
         //region Methods
 
         /**
+         * Instruct webdriver to wait until Angular has finished rendering and has
+         * no outstanding $http calls before continuing.
+         *
+         * @return {!webdriver.promise.Promise} A promise that will resolve to the
+         *    scripts return value.
+         */
+        waitForAngular(): webdriver.promise.Promise;
+
+        /**
+         * Waits for Angular to finish rendering before searching for elements.
+         * @see webdriver.WebDriver.findElement
+         *
+         * @param {webdriver.Locator} locator The locator used to find the element.
+         * @return {!webdriver.WebElement}
+         */
+        findElement(locator: webdriver.Locator): protractor.WebElement;
+
+        /**
+         * Waits for Angular to finish rendering before searching for elements.
+         * @see webdriver.WebDriver.findElements
+         *
+         * @param {webdriver.Locator} locator The locator used to find the elements.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved to an
+         *     array of the located {@link webdriver.WebElement}s.
+         */
+        findElements(locator: webdriver.Locator): webdriver.promise.Promise;
+
+        /**
+         * Tests if an element is present on the page.
+         * @see webdriver.WebDriver.isElementPresent
+         * @return {!webdriver.promise.Promise} A promise that will resolve to whether
+         *     the element is present on the page.
+         */
+        isElementPresent(locatorOrElement: webdriver.Locator): webdriver.promise.Promise;
+        isElementPresent(locatorOrElement: any): webdriver.promise.Promise;
+
+        /**
          * Helper function for finding elements.
          *
          * @type {function(webdriver.Locator): ElementFinder}
@@ -740,38 +981,69 @@ declare module protractor {
         $$(cssLocator: string): ElementArrayFinder;
 
         /**
-         * Instruct webdriver to wait until Angular has finished rendering and has
-         * no outstanding $http calls before continuing.
-         *
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
-         *    scripts return value.
-         */
-        waitForAngular(): webdriver.promise.Promise;
-
-        /**
-         * Wrap a webdriver.WebElement with protractor specific functionality.
-         *
-         * @param {webdriver.WebElement} element
-         * @return {protractor.WebElement} the wrapped web element.
-         */
-        wrapWebElement(element: webdriver.WebElement): protractor.WebElement;
-
-        /**
          * Add a module to load before Angular whenever Protractor.get is called.
          * Modules will be registered after existing modules already on the page,
          * so any module registered here will override preexisting modules with the same
          * name.
          *
-         * @param {!string} name The name of the module to load or override.
-         * @param {!string|Function} script The JavaScript to load the module.
+         * @param {string} name The name of the module to load or override.
+         * @param {string|Function} script The JavaScript to load the module.
+         * @param {...*} varArgs Any additional arguments will be provided to
+         *     the script and may be referenced using the `arguments` object.
          */
-        addMockModule(name: string, script: string): void;
-        addMockModule(name: string, script: any): void;
+        addMockModule(name: string, script: string, ...varArgs: any[]): void;
+        addMockModule(name: string, script: any, ...varArgs: any[]): void;
 
         /**
          * Clear the list of registered mock modules.
          */
         clearMockModules(): void;
+
+        /**
+         * Remove a registered mock module.
+         * @param {!string} name The name of the module to remove.
+         */
+        removeMockModule(name: string): void;
+
+        /**
+         * See webdriver.WebDriver.get
+         *
+         * Navigate to the given destination and loads mock modules before
+         * Angular. Assumes that the page being loaded uses Angular.
+         * If you need to access a page which does not have Angular on load, use
+         * the wrapped webdriver directly.
+         *
+         * @param {string} destination Destination URL.
+         * @param {number=} opt_timeout Number of seconds to wait for Angular to start.
+         */
+         get(destination: string, opt_timeout?: number): webdriver.promise.Promise;
+
+        /**
+         * See webdriver.WebDriver.refresh
+         *
+         * Makes a full reload of the current page and loads mock modules before
+         * Angular. Assumes that the page being loaded uses Angular.
+         * If you need to access a page which does not have Angular on load, use
+         * the wrapped webdriver directly.
+         *
+         * @param {number=} opt_timeout Number of seconds to wait for Angular to start.
+         */
+        refresh(opt_timeout?: number): void;
+
+        /**
+         * Mixin navigation methods back into the navigation object so that
+         * they are invoked as before, i.e. driver.navigate().refresh()
+         */
+        navigate(): webdriver.WebDriverNavigation;
+
+        /**
+         * Browse to another page using in-page navigation.
+         *
+         * @param {string} url In page URL using the same syntax as $location.url()
+         * @returns {!webdriver.promise.Promise} A promise that will resolve once
+         *    page has been changed.
+         */
+        setLocation(url: string): webdriver.promise.Promise;
 
         /**
          * Returns the current absolute url from AngularJS.
@@ -799,43 +1071,14 @@ declare module protractor {
         debugger(): void;
 
         /**
-         * Schedule a command to find an element on the page. If the element cannot be
-         * found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will be returned
-         * by the driver. Unlike other commands, this error cannot be suppressed. In
-         * other words, scheduling a command to find an element doubles as an assert
-         * that the element is present on the page. To test whether an element is
-         * present on the page, use {@code #isElementPresent} instead.
+         * Beta (unstable) pause function for debugging webdriver tests. Use
+         * browser.pause() in your test to enter the protractor debugger from that
+         * point in the control flow.
+         * Does not require changes to the command line (no need to add 'debug').
          *
-         * <p>The search criteria for find an element may either be a
-         * {@code webdriver.Locator} object, or a simple JSON object whose sole key
-         * is one of the accepted locator strategies, as defined by
-         * {@code webdriver.Locator.Strategy}. For example, the following two statements
-         * are equivalent:
-         * <code><pre>
-         * var e1 = driver.findElement(By.id('foo'));
-         * var e2 = driver.findElement({id:'foo'});
-         * </pre></code>
-         *
-         * <p>When running in the browser, a WebDriver cannot manipulate DOM elements
-         * directly; it may do so only through a {@link webdriver.WebElement} reference.
-         * This function may be used to generate a WebElement from a DOM element. A
-         * reference to the DOM element will be stored in a known location and this
-         * driver will attempt to retrieve it through {@link #executeScript}. If the
-         * element cannot be found (eg, it belongs to a different document than the
-         * one this instance is currently focused on), a
-         * {@link bot.ErrorCode.NO_SUCH_ELEMENT} error will be returned.
-         *
-         * @param {!(webdriver.Locator|Object.<string>|Element)} locatorOrElement The
-         *     locator strategy to use when searching for the element, or the actual
-         *     DOM element to be located by the server.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
-         * @return {!protractor.WebElement} A WebElement that can be used to issue
-         *     commands against the located element. If the element is not found, the
-         *     element will be invalidated and all scheduled commands aborted.
+         * @param {=number} opt_debugPort Optional port to use for the debugging process
          */
-        findElement(locatorOrElement: webdriver.Locator, ...var_args: any[]): protractor.WebElement;
-        findElement(locatorOrElement: any, ...var_args: any[]): protractor.WebElement;
+        pause(opt_debugPort?: number): void;
 
         //endregion
     }
@@ -863,9 +1106,19 @@ declare module protractor {
 
 }
 
+interface cssSelectorHelper {
+    (cssLocator: string): protractor.ElementFinder;
+}
+
+interface cssArraySelectorHelper {
+    (cssLocator: string): protractor.ElementArrayFinder;
+}
+
 declare var browser: protractor.Protractor;
 declare var by: protractor.IProtractorLocatorStrategy;
 declare var element: protractor.Element;
+declare var $: cssSelectorHelper;
+declare var $$: cssArraySelectorHelper;
 
 declare module 'protractor' {
     export = protractor;

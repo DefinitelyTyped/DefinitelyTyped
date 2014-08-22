@@ -78,6 +78,13 @@ m2.add('hours', 24).hours();
 var duration = moment.duration({'days': 1});
 moment([2012, 0, 31]).add(duration);
 
+moment().add('seconds', 1);
+moment().add('seconds', '1');
+moment().add(1, 'seconds');
+
+moment().add('1', 'seconds');
+moment().add('seconds', '1');
+
 moment().subtract('days', 7);
 
 moment().seconds(30);

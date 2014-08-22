@@ -33,9 +33,7 @@ declare module ng {
         inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
 
         // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: string[]): any;
-        module(...modules: Function[]): any;
-        module(modules: Object): any;
+        module(...modules: any[]): any;
 
         // see http://docs.angularjs.org/api/angular.mock.TzDate
         TzDate(offset: number, timestamp: number): Date;
@@ -60,6 +58,15 @@ declare module ng {
         flush(delay?: number): void;
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // IntervalService
+    // see http://docs.angularjs.org/api/ngMock.$interval
+    // Augments the original service
+    ///////////////////////////////////////////////////////////////////////////
+    interface IIntervalService {
+        flush(millis?: number): number;
     }
 
     ///////////////////////////////////////////////////////////////////////////

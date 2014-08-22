@@ -319,6 +319,11 @@ result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').v
 
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 
+result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10]);
+result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10], [4, 5, 6]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5, 6]);
+
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 
@@ -425,9 +430,17 @@ result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { ret
 result = <_.Dictionary<number[]>>_.groupBy([4.2, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<string[]>>_.groupBy(['one', 'two', 'three'], 'length');
 
-result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); });
-result = <_.LoDashObjectWrapper<_.Dictionary<number[]>>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math);
-result = <_.LoDashObjectWrapper<_.Dictionary<string[]>>>_(['one', 'two', 'three']).groupBy('length');
+result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return Math.floor(num); });
+result = <_.Dictionary<number[]>>_.groupBy({ prop1: 4.2, prop2: 6.1, prop3: 6.4}, function (num) { return this.floor(num); }, Math);
+result = <_.Dictionary<string[]>>_.groupBy({ prop1: 'one', prop2: 'two', prop3: 'three'}, 'length');
+
+result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return Math.floor(num); }).value();
+result = <_.Dictionary<number[]>>_([4.2, 6.1, 6.4]).groupBy(function (num) { return this.floor(num); }, Math).value();
+result = <_.Dictionary<string[]>>_(['one', 'two', 'three']).groupBy('length').value();
+
+result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return Math.floor(num); }).value();
+result = <_.Dictionary<number[]>>_({ prop1: 4.2, prop2: 6.1, prop3: 6.4}).groupBy<number>(function (num) { return this.floor(num); }, Math).value();
+result = <_.Dictionary<string[]>>_({ prop1: 'one', prop2: 'two', prop3: 'three'}).groupBy<string>('length').value();
 
 result = <_.Dictionary<IKey>>_.indexBy(keys, 'dir');
 result = <_.Dictionary<IKey>>_.indexBy(keys, function (key) { return String.fromCharCode(key.code); });
@@ -556,7 +569,11 @@ result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); })
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
 result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
 
-(function (a: number, b: number, c: number, d: number) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+(function (a: number, b: number, c: number, d: number): Array<number> { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+result = <number[]>_.toArray([1, 2, 3, 4]);
+(function (a: number, b: number, c: number, d: number): Array<number> { return _(arguments).toArray<number>().slice(1).value(); })(1, 2, 3, 4);
+result = <number[]>_([1,2,3,4]).toArray().value();
+
 
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'age': 40 });
 result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] });
