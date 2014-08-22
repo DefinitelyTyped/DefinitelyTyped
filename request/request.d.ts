@@ -91,7 +91,10 @@ declare module 'request' {
 			body: any;
 		}
 
-		export interface Request extends stream.Writable {
+		export interface Request extends stream.Stream {
+			readable: boolean;
+			writable: boolean;
+
 			getAgent(): http.Agent;
 			//start(): void;
 			//abort(): void;
@@ -107,7 +110,14 @@ declare module 'request' {
 			oauth(oauth: OAuthOptions): Request;
 			jar(jar: CookieJar): Request;
 
-			pipe(dest: stream.Writable, opts?: any): stream.Writable;
+			write(buffer: Buffer, cb?: Function): boolean;
+			write(str: string, cb?: Function): boolean;
+			write(str: string, encoding: string, cb?: Function): boolean;
+			write(str: string, encoding?: string, fd?: string): boolean;
+			end(): void;
+			end(chunk: Buffer, cb?: Function): void;
+			end(chunk: string, cb?: Function): void;
+			end(chunk: string, encoding: string, cb?: Function): void;
 			pause(): void;
 			resume(): void;
 			abort(): void;

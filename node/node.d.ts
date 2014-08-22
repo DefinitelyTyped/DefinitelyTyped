@@ -1121,6 +1121,10 @@ declare module "crypto" {
 declare module "stream" {
     import events = require("events");
 
+    export interface Stream extends events.EventEmitter {
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    }
+
     export interface ReadableOptions {
         highWaterMark?: number;
         encoding?: string;
