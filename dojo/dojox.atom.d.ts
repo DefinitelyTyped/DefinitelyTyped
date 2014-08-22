@@ -2444,7 +2444,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -3400,7 +3400,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -4333,7 +4333,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -5173,7 +5173,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -6226,7 +6226,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -7074,7 +7074,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
