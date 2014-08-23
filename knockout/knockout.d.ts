@@ -525,6 +525,7 @@ interface KnockoutStatic {
 
     expressionRewriting: {
         bindingRewriteValidators: any;
+        parseObjectLiteral: { (objectLiteralString: string): any[] }
     };
 
     /////////////////////////////////
