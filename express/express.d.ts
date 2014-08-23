@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
     import express = require('express');
     var app = express();
@@ -522,11 +522,6 @@ declare module "express" {
             /**
              * deprecated, use sendFile instead.
              */
-            sendFile(path: string): void;
-            sendFile(path: string, options: any): void;
-            sendFile(path: string, fn: Errback): void;
-            sendFile(path: string, options: any, fn: Errback): void;
-            
             sendfile(path: string): void;
             /**
              * deprecated, use sendFile instead.
@@ -1073,4 +1068,3 @@ declare module "express" {
 
     export = e;
 }
-
