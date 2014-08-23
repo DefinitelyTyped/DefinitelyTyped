@@ -12,6 +12,8 @@ declare module Express {
   }
 
   export interface Session {
+    [key: string]: any;
+
     regenerate: (callback: (err: any) => void) => void;
     destroy: (callback: (err: any) => void) => void;
     reload: (callback: (err: any) => void) => void;
