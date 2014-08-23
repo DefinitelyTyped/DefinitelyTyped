@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
     import express = require('express');
     var app = express();
@@ -485,8 +485,12 @@ declare module "express" {
              *
              * Options:
              *
-             *   - `maxAge` defaulting to 0
-             *   - `root`   root directory for relative filenames
+             *   - `maxAge`   defaulting to 0 (can be string converted by `ms`)
+             *   - `root`     root directory for relative filenames
+             *   - `headers`  object of headers to serve with file
+             *   - `dotfiles` serve dotfiles, defaulting to false; can be `"allow"` to send them
+             *
+             * Other options are passed along to `send`.
              *
              * Examples:
              *
@@ -507,15 +511,29 @@ declare module "express" {
              *         }
              *       });
              *     });
+             *
+             * @api public
              */
             sendFile(path: string): void;
             sendFile(path: string, options: any): void;
             sendFile(path: string, fn: Errback): void;
             sendFile(path: string, options: any, fn: Errback): void;
-            
+
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string): void;
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string, options: any): void;
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string, fn: Errback): void;
+            /**
+             * deprecated, use sendFile instead.
+             */
             sendfile(path: string, options: any, fn: Errback): void;
 
             /**
@@ -1050,4 +1068,3 @@ declare module "express" {
 
     export = e;
 }
-
