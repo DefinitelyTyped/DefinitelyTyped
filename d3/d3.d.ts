@@ -538,8 +538,10 @@ declare module D3 {
         functor<R,T>(value: (p : R) => T): (p : R) => T;
         functor<T>(value: T): (p : any) => T;
 
-        map(object?: any): Map;
-        set(array?: Array<any>): Set;
+        map(): Map<any>;
+        set(): Set<any>;
+        map<T>(object: {[key: string]: T; }): Map<T>;
+        set<T>(array: T[]): Set<T>;
         dispatch(...types: Array<string>): Dispatch;
         rebind(target: any, source: any, ...names: Array<any>): any;
         requote(str: string): string;
@@ -839,25 +841,25 @@ declare module D3 {
         entries(values: any[]): NestKeyValue[];
     }
 
-    export interface Map {
+    export interface Map<T> {
         has(key: string): boolean;
-        get(key: string): any;
-        set<T>(key: string, value: T): T;
+        get(key: string): T;
+        set(key: string, value: T): T;
         remove(key: string): boolean;
-        keys(): Array<string>;
-        values(): Array<any>;
-        entries(): Array<any>;
-        forEach(func: (key: string, value: any) => void ): void;
+        keys(): string[];
+        values(): T[];
+        entries(): any[][]; // Actually of form [key: string, val: T][], but this is inexpressible in Typescript
+        forEach(func: (key: string, value: T) => void ): void;
         empty(): boolean;
         size(): number;
     }
 
-    export interface Set {
-        has(value: any): boolean;
-        add<T>(value: T): T;
-        remove(value: any): boolean;
-        values(): Array<any>;
-        forEach(func: (value: any) => void ): void;
+    export interface Set<T> {
+        has(value: T): boolean;
+        add(value: T): T;
+        remove(value: T): boolean;
+        values(): string[];
+        forEach(func: (value: string) => void ): void;
         empty(): boolean;
         size(): number;
     }
@@ -1237,7 +1239,7 @@ declare module D3 {
             source: GraphNode;
             target: GraphNode;
         }
-        
+
         export interface GraphNodeForce {
             index?: number;
             x?: number;
@@ -3370,5 +3372,5 @@ declare module D3 {
 declare var d3: D3.Base;
 
 declare module "d3" {
-	export = d3;
+    export = d3;
 }
