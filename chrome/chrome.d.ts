@@ -3,6 +3,8 @@
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../webrtc/MediaStream.d.ts'/>
+
 ////////////////////
 // Alarms
 ////////////////////
@@ -535,6 +537,14 @@ declare module chrome.declarativeWebRequest {
     }    
 
     var onRequest: RequestedEvent;
+}
+
+////////////////////
+// DesktopCapture
+////////////////////
+declare module chrome.desktopCapture {
+    export function chooseDesktopMedia(sources: string[], targetTab?: chrome.tabs.Tab, callback?: (streamId: string) => void): void;
+    export function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
 }
 
 ////////////////////
@@ -1743,6 +1753,27 @@ declare module chrome.socket {
     export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
     export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
     export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
+}
+
+////////////////////
+// TabCapture
+////////////////////
+declare module chrome.tabCapture {
+    interface CaptureInfo {
+        tabId: number;
+        status: string;
+        fullscreen: boolean;
+    }
+
+    interface CaptureOptions {
+        audio?: boolean;
+        video?: boolean;
+        audioConstraints?: MediaTrackConstraints;
+        videoConstraints?: MediaTrackConstraints;
+    }
+
+    export function capture(options: CaptureOptions, callback: (stream: LocalMediaStream) => void): void;
+    export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 }
 
 ////////////////////
