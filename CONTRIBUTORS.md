@@ -79,6 +79,7 @@ All definitions files include a header with the author and editors, so at some p
 * [expect.js](https://github.com/LearnBoost/expect.js) (by [Teppei Sato](https://github.com/teppeis))
 * [expectations](https://github.com/spmason/expectations) (by [vvakame](https://github.com/vvakame))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
+* [express-session](https://www.npmjs.org/package/express-session) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [Ext JS](http://www.sencha.com/products/extjs/) (by [Brian Kotek](https://github.com/brian428))
 * [Fabric.js](http://fabricjs.com/) (by [Oliver Klemencic](https://github.com/oklemencic/))
 * [Fancybox](http://fancybox.net/) (by [Boris Yankov](https://github.com/borisyankov))
