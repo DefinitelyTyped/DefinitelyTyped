@@ -3,6 +3,8 @@
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../webrtc/MediaStream.d.ts'/>
+
 ////////////////////
 // Alarms
 ////////////////////
@@ -294,6 +296,7 @@ declare module chrome.contextMenus {
         pageUrl: string;
         linkUrl?: string;
         parentMenuItemId?: any;
+        srcUrl?: string;
     }
 
     interface CreateProperties {
@@ -535,6 +538,14 @@ declare module chrome.declarativeWebRequest {
     }    
 
     var onRequest: RequestedEvent;
+}
+
+////////////////////
+// DesktopCapture
+////////////////////
+declare module chrome.desktopCapture {
+    export function chooseDesktopMedia(sources: string[], targetTab?: chrome.tabs.Tab, callback?: (streamId: string) => void): void;
+    export function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
 }
 
 ////////////////////
@@ -843,8 +854,12 @@ declare module chrome.extension {
         type?: string;
     }
 
+    interface LastError {
+        message?: string;
+    }
+
     var inIncognitoContext: boolean;
-    var lastError: Object;
+    var lastError: LastError;
 
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
@@ -1487,8 +1502,12 @@ declare module chrome.proxy {
 // Runtime
 ////////////////////
 declare module chrome.runtime {
-    var lastError: Object;
+    var lastError: LastError;
     var id: string;
+
+    interface LastError {
+        message?: string;
+    }
 
     interface ConnectInfo {
         name?: string;
@@ -1735,6 +1754,27 @@ declare module chrome.socket {
     export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
     export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
     export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
+}
+
+////////////////////
+// TabCapture
+////////////////////
+declare module chrome.tabCapture {
+    interface CaptureInfo {
+        tabId: number;
+        status: string;
+        fullscreen: boolean;
+    }
+
+    interface CaptureOptions {
+        audio?: boolean;
+        video?: boolean;
+        audioConstraints?: MediaTrackConstraints;
+        videoConstraints?: MediaTrackConstraints;
+    }
+
+    export function capture(options: CaptureOptions, callback: (stream: LocalMediaStream) => void): void;
+    export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 }
 
 ////////////////////

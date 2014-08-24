@@ -50,6 +50,7 @@ declare var exports: any;
 declare var SlowBuffer: {
     new (str: string, encoding?: string): Buffer;
     new (size: number): Buffer;
+    new (size: Uint8Array): Buffer;
     new (array: any[]): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
@@ -63,6 +64,7 @@ interface Buffer extends NodeBuffer {}
 declare var Buffer: {
     new (str: string, encoding?: string): Buffer;
     new (size: number): Buffer;
+    new (size: Uint8Array): Buffer;
     new (array: any[]): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
@@ -760,18 +762,18 @@ declare module "net" {
 declare module "dgram" {
     import events = require("events");
 
-	interface RemoteInfo {
-		address: string;
-		port: number;
-		size: number;
-	}
-	
-	interface AddressInfo {
-		address: string; 
-		family: string; 
-		port: number; 
-	}
-	
+    interface RemoteInfo {
+        address: string;
+        port: number;
+        size: number;
+    }
+    
+    interface AddressInfo {
+        address: string; 
+        family: string; 
+        port: number; 
+    }
+    
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
@@ -1108,7 +1110,7 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: string) => any): void;
+    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
@@ -1118,6 +1120,10 @@ declare module "crypto" {
 
 declare module "stream" {
     import events = require("events");
+
+    export interface Stream extends events.EventEmitter {
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    }
 
     export interface ReadableOptions {
         highWaterMark?: number;

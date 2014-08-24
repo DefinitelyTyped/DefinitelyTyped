@@ -140,18 +140,18 @@ _.delay(log, 1000, 'logged later');
 
 _.defer(function () { alert('deferred'); });
 
-var updatePosition = () => alert('updating position...');
+var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
 
-var calculateLayout = () => alert('calculating layout...');
+var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
 
-var createApplication = () => alert('creating application...');
+var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
-initialize();
-initialize();
+initialize("me");
+initialize("me");
 
 var notes: any[];
 var render = () => alert("rendering...");
@@ -327,5 +327,9 @@ function chain_tests() {
 		.map(num => [num, num + 1])
 		.flatten()
 		.find(num => num % 2 == 0)
+		.value();
+		
+	var firstVal: number = _.chain([1, 2, 3])
+		.first()
 		.value();
 }

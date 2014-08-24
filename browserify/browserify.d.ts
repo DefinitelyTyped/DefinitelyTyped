@@ -22,6 +22,8 @@ interface BrowserifyObject extends NodeJS.EventEmitter {
 	ignore(file: string): BrowserifyObject;
 	transform(tr: string): BrowserifyObject;
 	transform(tr: Function): BrowserifyObject;
+	plugin(plugin: string, opts?: any): BrowserifyObject;
+  	plugin(plugin: Function, opts?: any): BrowserifyObject;
 }
 
 declare module "browserify" {

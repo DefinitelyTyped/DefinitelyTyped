@@ -2,9 +2,21 @@
 
 import tc = require("timezonecomplete");
 
-var b: boolean = tc.isLeapYear(2014);
-var n: number = tc.daysInMonth(2014, 10);
-var s: string = tc.isoString(2014, 6, 30, 22, 10, 11, 230);
+var b: boolean;
+var n: number;
+var s: string;
+var w: tc.WeekDay;
+
+b = tc.isLeapYear(2014);
+n = tc.daysInMonth(2014, 10);
+n = tc.daysInYear(2014);
+n = tc.dayOfYear(2014, 1, 2);
+w = tc.firstWeekDayOfMonth(2014, 1, tc.WeekDay.Sunday);
+w = tc.lastWeekDayOfMonth(2014, 1, tc.WeekDay.Sunday);
+n = tc.weekDayOnOrAfter(2014, 1, 14, tc.WeekDay.Monday);
+n = tc.weekDayOnOrBefore(2014, 1, 14, tc.WeekDay.Monday);
+n = tc.secondOfDay(13, 59, 59);
+n = tc.weekOfMonth(2014, 1, 1);
 
 // DURATION
 
@@ -88,6 +100,10 @@ n = dt.day();
 n = dt.hour();
 n = dt.minute();
 n = dt.second();
+n = dt.weekNumber();
+n = dt.weekOfMonth();
+n = dt.secondOfDay();
+n = dt.dayOfYear();
 n = dt.millisecond();
 n = dt.unixUtcMillis();
 n = dt.utcYear();
@@ -97,6 +113,11 @@ n = dt.utcHour();
 n = dt.utcMinute();
 n = dt.utcSecond();
 n = dt.utcMillisecond();
+n = dt.utcWeekNumber();
+n = dt.utcWeekOfMonth();
+n = dt.utcSecondOfDay();
+n = dt.utcDayOfYear();
+s = dt.format("%Y-%m-%d");
 dt.convert(tc.TimeZone.local());
 dt = dt.toZone(tc.TimeZone.utc());
 date = dt.toDate();

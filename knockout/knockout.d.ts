@@ -118,7 +118,7 @@ interface KnockoutBindingContext {
     $parents: any[];
     $root: any;
     $data: any;
-    $index?: number;
+    $index?: KnockoutObservable<number>;
     $parentContext?: KnockoutBindingContext;
 
     extend(properties: any): any;
@@ -525,6 +525,7 @@ interface KnockoutStatic {
 
     expressionRewriting: {
         bindingRewriteValidators: any;
+        parseObjectLiteral: { (objectLiteralString: string): any[] }
     };
 
     /////////////////////////////////
@@ -544,6 +545,8 @@ interface KnockoutStatic {
 
         writeValue(element: HTMLElement, value: any): void;
     };
+
+    components: KnockoutComponents;
 }
 
 interface KnockoutBindingProvider {

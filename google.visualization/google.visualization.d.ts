@@ -58,7 +58,7 @@ declare module google {
             setRefreshInterval(interval: number): void;
             setOption(key: string, value: any): void;
             setOptions(options: Object): void;
-            setView(view_spec: DataView): void;
+            setView(view_spec: string): void;
         }
 
         //#endregion
@@ -71,17 +71,68 @@ declare module google {
             addColumn(descriptionObject: DataTableColumnDescription): number;
             addRow(cellObject: DataObjectCell): number;
             addRow(cellArray?: any[]): number;
-            addRows(count: number): number;
-            addRows(array: DataObjectCell[][]): number;
-            addRows(array: any[]): number;
+            addRows(numberOfEmptyRows: number): number;
+            addRows(rows: DataObjectCell[][]): number;
+            addRows(rows: any[][]): number;
+            clone(): DataTable;
+            getColumnId(columnIndex: number): String;
+            getColumnLabel(columnIndex: number): string;
+            getColumnPattern(columnIndex: number): string;
+            getColumnProperties(columnIndex: number): Properties;
+            getColumnProperty(columnIndex: number, name: string): any;
+            getColumnRange(columnIndex: number): { min: any; max: any };
+            getColumnRole(columnIndex: string): string;
+            getColumnType(columnIndex: number): string;
+            getDistinctValues(columnIndex: number): any[];
             getFilteredRows(filters: DataTableCellFilter[]): number[];
             getFormattedValue(rowIndex: number, columnIndex: number): string;
-            getValue(rowIndex: number, columnIndex: number): any;
             getNumberOfColumns(): number;
             getNumberOfRows(): number;
+            getProperty(rowIndex: number, columnIndex: number, name: string): any;
+            getProperties(rowIndex: number, columnIndex: number): Properties;
+            getRowProperties(rowIndex: number): Properties;
+            getRowProperty(rowIndex: number, name: string): Properties;
+            getSortedRows(sortColumn: number): number[];
+            getSortedRows(sortColumn: SortByColumn): number[];
+            getSortedRows(sortColumns: number[]): number[];
+            getSortedRows(sortColumns: SortByColumn[]): number[];
+            getTableProperties(): Properties;
+            getTableProperty(name: string): any;
+            getValue(rowIndex: number, columnIndex: number): any;
+            insertColumn(columnIndex: number, type: string, label?: string, id?: string): void;
+            insertRows(rowIndex: number, numberOfEmptyRows: number): void;
+            insertRows(rowIndex: number, rows: DataObjectCell[][]): void;
+            insertRows(rowIndex: number, rows: any[][]): void;
+            removeColumn(columnIndex: number): void;
+            removeColumns(columnIndex: number, numberOfColumns: number): void;
             removeRow(rowIndex: number): void;
             removeRows(rowIndex: number, numberOfRows: number): void;
+            setCell(rowIndex: number, columnIndex: number, value?: any, formattedValue?: string, properties?: Properties): void;
             setColumnLabel(columnIndex: number, label: string): void;
+            setColumnProperty(columnIndex: number, name: string, value: any): void;
+            setColumnProperties(columnIndex: number, properties: Properties): void;
+            setFormattedValue(rowIndex: number, columnIndex: number, formattedValue: string): void;
+            setProperty(rowIndex: number, columnIndex: number, name: string, value: any): void;
+            setProperties(rowIndex: number, columnIndex: number, properties: Properties): void;
+            setRowProperty(rowIndex: number, name: string, value: any): void;
+            setRowProperties(rowIndex: number, properties: Properties): void;
+            setTableProperty(name: string, value: any): void;
+            setTableProperties(properties: Properties): void;
+            setValue(rowIndex: number, columnIndex: number, value: any): void;
+            sort(sortColumn: number): number[];
+            sort(sortColumn: SortByColumn): number[];
+            sort(sortColumns: number[]): number[];
+            sort(sortColumns: SortByColumn[]): number[];
+            toJSON(): string;
+        }
+
+        export interface Properties {
+            [property: string]: any
+        }
+
+        export interface SortByColumn {
+            column: number;
+            desc: boolean;
         }
 
         export interface DataTableColumnDescription {
@@ -113,6 +164,9 @@ declare module google {
 
         export interface DataTableCellFilter {
             column: number;
+            value?: any;
+            minValue?: any;
+            maxValue?: any;
         }
 
         export interface DataObjectCell {
@@ -139,7 +193,56 @@ declare module google {
         export class DataView {
             constructor(data: DataTable);
             constructor(data: DataView);
+
+            getColumnId(columnIndex: number): String;
+            getColumnLabel(columnIndex: number): string;
+            getColumnPattern(columnIndex: number): string;
+            getColumnProperty(columnIndex: number, name: string): any;
+            getColumnRange(columnIndex: number): { min: any; max: any };
+            getColumnType(columnIndex: number): string;
+            getDistinctValues(columnIndex: number): any[];
+            getFilteredRows(filters: DataTableCellFilter[]): number[];
+            getFormattedValue(rowIndex: number, columnIndex: number): string;
+            getNumberOfColumns(): number;
+            getNumberOfRows(): number;
+            getProperty(rowIndex: number, columnIndex: number, name: string): any;
+            getProperties(rowIndex: number, columnIndex: number): Properties;
+            getRowProperty(rowIndex: number, name: string): Properties;
+            getSortedRows(sortColumn: number): number[];
+            getSortedRows(sortColumn: SortByColumn): number[];
+            getSortedRows(sortColumns: number[]): number[];
+            getSortedRows(sortColumns: SortByColumn[]): number[];
+            getTableProperty(name: string): any;
+            getValue(rowIndex: number, columnIndex: number): any;
+            getTableColumnIndex(viewColumnIndex: number): number;
+            getTableRowIndex(viewRowIndex: number): number;
+            getViewColumnIndex(tableColumnIndex: number): number;
+            getViewColumns(): number[];
+            getViewRowIndex(tableRowIndex: number): number;
+            getViewRows(): number[];
+
+            hideColumns(columnIndexes: number[]): void;
+            hideRows(min: number, max: number): void;
+            hideRows(rowIndexes: number[]): void;
+
+            setColumns(columnIndexes: number[]): void;
+            setColumns(columnIndexes: ColumnSpec[]): void;
             setColumns(columnIndexes: any[]): void;
+            setRows(min: number, max: number): void;
+            setRows(rowIndexes: number[]): void;
+
+            toDataTable(): DataTable;
+            toJSON(): string;
+        }
+
+        export interface ColumnSpec {
+            calc: (dataTable: DataTable, row: number) => any;
+            type: string;
+            label?: string;
+            id?: string;
+            sourceColumn?: number;
+            properties?: Properties;
+            role?: string;
         }
 
         //#endregion
@@ -244,10 +347,10 @@ declare module google {
         }
 
         export interface ChartArea {
-            top: any;
-            left: any;
-            width: any;
-            height: any;
+            top?: any;
+            left?: any;
+            width?: any;
+            height?: any;
         }
 
         export interface ChartLegend {

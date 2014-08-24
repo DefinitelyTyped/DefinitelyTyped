@@ -71,6 +71,13 @@ declare module YT {
         suggestedQuality?: string;
     }
 
+    export interface VideoData
+    {
+        video_id: string;
+        author: string;
+        title: string;
+    }
+
     export class Player {
         // Constructor
         constructor(id: string, playerOptions: PlayerOptions);
@@ -88,7 +95,7 @@ declare module YT {
 
         // Properties
         size;
-        
+
         // Playing
         playVideo(): void;
         pauseVideo(): void;
@@ -115,7 +122,7 @@ declare module YT {
         getPlaybackRate(): number;
         setPlaybackRate(suggestedRate:number): void;
         getAvailablePlaybackRates(): number[];
-        
+
         // Behavior
         setLoop(loopPlaylists: boolean): void;
         setShuffle(shufflePlaylist: boolean): void;
@@ -132,11 +139,12 @@ declare module YT {
         getDuration(): number;
         getVideoUrl(): string;
         getVideoEmbedCode(): string;
+        getVideoData(): VideoData;
 
         // Playlist
         getPlaylist(): any[];
         getPlaylistIndex(): number;
-        
+
         // Event Listener
         addEventListener(event: string, listener: string): void;
     }

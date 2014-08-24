@@ -75,6 +75,7 @@ declare module "timezone-js" {
 		transport(opts: TimezoneJsOptions): any;
 		init(opts?: TimezoneJsOptions): any;
 		getAllZones(): string[];
+		loadZoneDataFromObject(obj: Object): void;
 	}
 
 	export interface TimezoneJsOptions {
