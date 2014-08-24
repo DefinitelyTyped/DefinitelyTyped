@@ -93,7 +93,9 @@ declare module THREE {
     }
     export var UVMapping: MappingConstructor;
     export var CubeReflectionMapping: MappingConstructor;
+    export var CubeRefractionMapping: MappingConstructor;
     export var SphericalReflectionMapping: MappingConstructor;
+    export var SphericalRefractionMapping: MappingConstructor;
 
     // Wrapping modes
     export enum Wrapping { }
