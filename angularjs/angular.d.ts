@@ -212,7 +212,8 @@ declare module ng {
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
          */
         run(inlineAnnotatedFunction: any[]): IModule;
-        service(name: string, serviceConstructor: Function): IModule;
+        service(name: string, serviceConstructor: new (...args: any[]) => any): IModule;
+        service(name: string, serviceConstructor: (...args: any[]) => any): IModule;        
         service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
         /**
