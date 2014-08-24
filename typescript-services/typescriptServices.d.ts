@@ -5640,7 +5640,7 @@ declare module TypeScript {
         public hasBeenBound(): boolean;
         public isSynthesized(): boolean;
         public ast(): AST;
-        public isRootDecl(): void;
+        public isRootDecl(): boolean;
     }
     class RootPullDecl extends PullDecl {
         private _isExternalModule;

@@ -24,7 +24,7 @@ var substringMatcher = function (strs: any) {
                 // JavaScript object, refer to typeahead docs for more info
                 matches.push({ value: str });
             }
-        });
+});
 
         cb(matches);
     };
@@ -42,13 +42,17 @@ var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
 ];
 
 $('#the-basics .typeahead').typeahead({
-    hint: true,
-    highlight: true,
+  hint: true,
+  highlight: true,
     minLength: 1
 },
-    {
+{
         name: 'states',
         displayKey: 'value',
         source: substringMatcher(states)
-    });
+});
 
+module valueTest {
+    var value: string = $('foo').typeahead('val');
+    $('foo').typeahead('val', value);
+}

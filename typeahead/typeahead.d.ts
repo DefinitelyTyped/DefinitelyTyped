@@ -10,19 +10,19 @@ interface JQuery {
     /**
      * Destroys previously initialized typeaheads. This entails reverting 
      * DOM modifications and removing event handlers.
-     *
-     * @constructor
+      *
+      * @constructor
      * @param methodName Method 'destroy'
-     */
+      */
     typeahead(methodName: 'destroy'): JQuery;
 
     /**
      * Opens the dropdown menu of typeahead. Note that being open does not mean that the menu is visible. 
      * The menu is only visible when it is open and has content.
-     *
-     * @constructor
+      *
+      * @constructor
      * @param methodName Method 'open'
-     */
+      */
     typeahead(methodName: 'open'): JQuery;
 
     /**
@@ -36,10 +36,10 @@ interface JQuery {
     /**
      * Returns the current value of the typeahead.
      * The value is the text the user has entered into the input element.
-     *
-     * @constructor
+      *
+      * @constructor
      * @param methodName Method 'val'
-     */
+      */
     typeahead(methodName: 'val'): string;
 
     /**
@@ -104,10 +104,10 @@ declare module Twitter.Typeahead {
          * It is expected that the function will compute the suggestion set (i.e. an array of JavaScript objects) for query and then invoke cb with said set. 
          * cb can be invoked synchronously or asynchronously. 
          * 
-         */
+          */
         source: (query: string, cb: (result: any) => void) => void;
 
-        /**
+    /**
           * The name of the dataset. 
           * This will be appended to tt-dataset- to form the class name of the containing DOM element. 
           * Must only consist of underscores, dashes, letters (a-z), and numbers. 
@@ -119,38 +119,38 @@ declare module Twitter.Typeahead {
          * For a given suggestion object, determines the string representation of it. 
          * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string. 
          * Defaults to value.
-         */
+          */
         displayKey?: string;
 
         /**
          * A hash of templates to be used when rendering the dataset. 
          * Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string.
-         */
+          */
         templates?: Templates;
     }
 
-  
+
     interface Templates {
 
         /**
          * Rendered when 0 suggestions are available for the given query. 
          * Can be either a HTML string or a precompiled template. 
          * If it's a precompiled template, the passed in context will contain query
-         */
+          */
         empty?: string;
 
         /**
          * Rendered at the bottom of the dataset.
          * Can be either a HTML string or a precompiled template. 
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
-         */
+          */
         footer?: string;
 
         /**
          * Rendered at the top of the dataset. 
          * Can be either a HTML string or a precompiled template. 
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
-         */
+          */
         header?: string;
 
         /**
@@ -158,7 +158,7 @@ declare module Twitter.Typeahead {
          * If set, this has to be a precompiled template. 
          * The associated suggestion object will serve as the context. 
          * Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
-         */
+          */
         suggestion?: string;
 
     }

@@ -4573,7 +4573,7 @@ declare module SP {
         get_id(): number;
         get_information(): SP.TimeZoneInformation;
         localTimeToUTC(date: Date): SP.DateTimeResult;
-        uTCToLocalTime(date: Date): SP.DateTimeResult;
+        utcToLocalTime(date: Date): SP.DateTimeResult;
     }
     export class TimeZoneCollection extends SP.ClientObjectCollection<TimeZone> {
         itemAt(index: number): SP.TimeZone;

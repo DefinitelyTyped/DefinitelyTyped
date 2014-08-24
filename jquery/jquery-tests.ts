@@ -1494,6 +1494,9 @@ function test_eventParams() {
     $('#whichkey').bind('mousedown', function (e) {
         $('#log').html(e.type + ': ' + e.which);
     });
+    $(window).on('mousewheel', (e) => {
+        var delta = (<WheelEvent>e.originalEvent).deltaY;
+    });
 }
 
 function test_extend() {

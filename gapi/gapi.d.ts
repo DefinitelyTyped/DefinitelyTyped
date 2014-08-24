@@ -141,6 +141,23 @@ declare module gapi.client {
                 statusText: string;
             }
             ) => any):void;
+            /**
+         * HttpRequest supports promises.
+         */
+        then(success:(response:{
+                result:T;
+                body:string;
+                headers?: any[];
+                status?: number;
+                statusText?: string
+            })=>void,
+            failure:(response:{
+                result:T;
+                body:string;
+                headers?: any[];
+                status?: number;
+                statusText?: string
+            })=>void): void;
     }
     /**
      * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.

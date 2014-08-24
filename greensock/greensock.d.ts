@@ -7,7 +7,7 @@
 // Version 1.1 (TypeScript 0.9)
 
 interface IDispatcher {
-    addEventListener(type:string, callback:Function, scope:Object, useParam:boolean, priority:number):void;
+    addEventListener(type:string, callback:Function, scope?:Object, useParam?:boolean, priority?:number):void;
     removeEventListener(type:string, callback:Function):void;
 }
 
