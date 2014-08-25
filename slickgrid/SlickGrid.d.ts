@@ -1186,7 +1186,7 @@ declare module Slick {
 		// #region Editors
 
 		public getEditorLock(): EditorLock<any>;
-		public getEditController(): Editors.Editor<any>;
+		public getEditController(): { commitCurrentEdit():boolean; cancelCurrentEdit():boolean; };
 
 		// #endregion Editors
 	}
