@@ -11,12 +11,15 @@ declare var Handlebars: HandlebarsStatic;
 declare module EmberStates {
 
     interface Transition {
+        abort(): void;
         addInitialStates(): void;
         matchContextsToStates(contexts: any[]): void;
         normalize(manager: Ember.StateManager, contexts: any[]): void;
         removeUnchangedContexts(manager: Ember.StateManager): void;
+        retry(): void;
         sendEvents(eventName: string, sendRecursiveArguments: boolean, isUnhandledPass: boolean): void;
         sendRecursively(event: string, currentState: Ember.State, isUnhandledPass: boolean): void;
+        targetName: string;
     }
 
 }
