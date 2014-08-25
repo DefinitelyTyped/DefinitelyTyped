@@ -118,7 +118,7 @@ testApp.config((
 });
 
 testApp.controller('TestCtrl', (
-    $scope: ng.IScope,
+    $scope: ng.ui.bootstrap.IModalScope,
     $log: ng.ILogService,
     $modal: ng.ui.bootstrap.IModalService,
     $modalStack: ng.ui.bootstrap.IModalStackService,
@@ -147,9 +147,9 @@ testApp.controller('TestCtrl', (
         $log.log('modal opened');
     });
 
-    modalInstance.result.then(closeResult=> {
+    modalInstance.result.then((closeResult:any)=> {
         $log.log('modal closed', closeResult);
-    }, dismissResult=> {
+    }, (dismissResult:any)=> {
         $log.log('modal dismissed', dismissResult);
     });
 
