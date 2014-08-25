@@ -157,13 +157,13 @@ interface ApplicationCreateArguments {
     customEvents?: {};
     rootElement?: string;
     /**
-     Basic logging of successful transitions.
-     **/
-        LOG_TRANSITIONS?: boolean;
+    Basic logging of successful transitions.
+    **/
+    LOG_TRANSITIONS?: boolean;
     /**
-     Detailed logging of all routing steps.
-     **/
-        LOG_TRANSITIONS_INTERNAL?: boolean;
+    Detailed logging of all routing steps.
+    **/
+    LOG_TRANSITIONS_INTERNAL?: boolean;
 }
 
 interface ApplicationInitializerArguments {
@@ -177,16 +177,16 @@ interface ApplicationInitializerFunction {
 
 interface CoreObjectArguments {
     /**
-     An overridable method called when objects are instantiated. By default, does nothing unless it is
-     overridden during class definition. NOTE: If you do override init for a framework class like Ember.View
-     or Ember.ArrayController, be sure to call this._super() in your init declaration! If you don't, Ember
-     may not have an opportunity to do important setup work, and you'll see strange behavior in your application.
-     **/
-     init?: Function;
+    An overridable method called when objects are instantiated. By default, does nothing unless it is
+    overridden during class definition. NOTE: If you do override init for a framework class like Ember.View
+    or Ember.ArrayController, be sure to call this._super() in your init declaration! If you don't, Ember
+    may not have an opportunity to do important setup work, and you'll see strange behavior in your application.
+    **/
+    init?: Function;
     /**
-     Override to implement teardown.
-     **/
-        willDestroy?: Function;
+    Override to implement teardown.
+    **/
+    willDestroy?: Function;
 }
 
 interface EnumerableConfigurationOptions {
@@ -238,123 +238,123 @@ interface ModifyObserver {
 
 declare module Ember {
     /**
-     Alias for jQuery.
-     **/
+    Alias for jQuery.
+    **/
     // ReSharper disable once DuplicatingLocalDeclaration
     var $: JQueryStatic;
     /**
-     Creates an Ember.NativeArray from an Array like object. Does not modify the original object.
-     Ember.A is not needed if Ember.EXTEND_PROTOTYPES is true (the default value). However, it is
-     recommended that you use Ember.A when creating addons for ember or when you can not garentee
-     that Ember.EXTEND_PROTOTYPES will be true.
-     **/
+    Creates an Ember.NativeArray from an Array like object. Does not modify the original object.
+    Ember.A is not needed if Ember.EXTEND_PROTOTYPES is true (the default value). However, it is
+    recommended that you use Ember.A when creating addons for ember or when you can not garentee
+    that Ember.EXTEND_PROTOTYPES will be true.
+    **/
     function A(arr?: any[]): NativeArray;
     /**
-     An instance of Ember.Application is the starting point for every Ember application. It helps to
-     instantiate, initialize and coordinate the many objects that make up your app.
-     **/
+    An instance of Ember.Application is the starting point for every Ember application. It helps to
+    instantiate, initialize and coordinate the many objects that make up your app.
+    **/
     class Application extends Namespace {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
         static initializer(arguments?: ApplicationInitializerArguments): void;
         /**
-         Call advanceReadiness after any asynchronous setup logic has completed.
-         Each call to deferReadiness must be matched by a call to advanceReadiness
-         or the application will never become ready and routing will not begin.
-         **/
-            advanceReadiness(): void;
+        Call advanceReadiness after any asynchronous setup logic has completed.
+        Each call to deferReadiness must be matched by a call to advanceReadiness
+        or the application will never become ready and routing will not begin.
+        **/
+        advanceReadiness(): void;
         /**
-         Use this to defer readiness until some condition is true.
+        Use this to defer readiness until some condition is true.
 
-         This allows you to perform asynchronous setup logic and defer
-         booting your application until the setup has finished.
+        This allows you to perform asynchronous setup logic and defer
+        booting your application until the setup has finished.
 
-         However, if the setup requires a loading UI, it might be better
-         to use the router for this purpose.
-         */
-            deferReadiness(): void;
+        However, if the setup requires a loading UI, it might be better
+        to use the router for this purpose.
+        */
+        deferReadiness(): void;
         /**
-         defines an injection or typeInjection
-         **/
-            inject(factoryNameOrType: string, property: string, injectionName: string): void;
+        defines an injection or typeInjection
+        **/
+        inject(factoryNameOrType: string, property: string, injectionName: string): void;
         /**
-         This injects the test helpers into the window's scope. If a function of the
-         same name has already been defined it will be cached (so that it can be reset
-         if the helper is removed with `unregisterHelper` or `removeTestHelpers`).
-         Any callbacks registered with `onInjectHelpers` will be called once the
-         helpers have been injected.
-         **/
-            injectTestHelpers(): void;
+        This injects the test helpers into the window's scope. If a function of the
+        same name has already been defined it will be cached (so that it can be reset
+        if the helper is removed with `unregisterHelper` or `removeTestHelpers`).
+        Any callbacks registered with `onInjectHelpers` will be called once the
+        helpers have been injected.
+        **/
+        injectTestHelpers(): void;
         /**
-         registers a factory for later injection
-         @param fullName type:name (e.g., 'model:user')
-         @param factory (e.g., App.Person)
-         **/
-            register(fullName: string, factory: Function, options?: {}): void;
+        registers a factory for later injection
+        @param fullName type:name (e.g., 'model:user')
+        @param factory (e.g., App.Person)
+        **/
+        register(fullName: string, factory: Function, options?: {}): void;
         /**
-         This removes all helpers that have been registered, and resets and functions
-         that were overridden by the helpers.
-         **/
-            removeTestHelpers(): void;
+        This removes all helpers that have been registered, and resets and functions
+        that were overridden by the helpers.
+        **/
+        removeTestHelpers(): void;
         /**
-         Reset the application. This is typically used only in tests.
-         **/
-            reset(): void;
+        Reset the application. This is typically used only in tests.
+        **/
+        reset(): void;
         /**
-         This hook defers the readiness of the application, so that you can start
-         the app when your tests are ready to run. It also sets the router's
-         location to 'none', so that the window's location will not be modified
-         (preventing both accidental leaking of state between tests and interference
-         with your testing framework).
-         **/
-            setupForTesting(): void;
+        This hook defers the readiness of the application, so that you can start
+        the app when your tests are ready to run. It also sets the router's
+        location to 'none', so that the window's location will not be modified
+        (preventing both accidental leaking of state between tests and interference
+        with your testing framework).
+        **/
+        setupForTesting(): void;
         /**
-         The DOM events for which the event dispatcher should listen.
-         */
+        The DOM events for which the event dispatcher should listen.
+        */
         customEvents: {};
         /**
-         The Ember.EventDispatcher responsible for delegating events to this application's views.
-         **/
+        The Ember.EventDispatcher responsible for delegating events to this application's views.
+        **/
         eventDispatcher: EventDispatcher;
         /**
-         Set this to provide an alternate class to Ember.DefaultResolver
-         **/
+        Set this to provide an alternate class to Ember.DefaultResolver
+        **/
         resolver: DefaultResolver;
         /**
-         The root DOM element of the Application. This can be specified as an
-         element or a jQuery-compatible selector string.
+        The root DOM element of the Application. This can be specified as an
+        element or a jQuery-compatible selector string.
 
-         This is the element that will be passed to the Application's, eventDispatcher,
-         which sets up the listeners for event delegation. Every view in your application
-         should be a child of the element you specify here.
-         **/
+        This is the element that will be passed to the Application's, eventDispatcher,
+        which sets up the listeners for event delegation. Every view in your application
+        should be a child of the element you specify here.
+        **/
         rootElement: HTMLElement;
         /**
-         Called when the Application has become ready.
-         The call will be delayed until the DOM has become ready.
-         **/
+        Called when the Application has become ready.
+        The call will be delayed until the DOM has become ready.
+        **/
         ready: Function;
         /**
-         Application's router.
-         **/
+        Application's router.
+        **/
         Router: Router;
     }
     /**
-     This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
-     Array class as well as other controllers, etc. that want to appear to be arrays.
-     **/
+    This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
+    Array class as well as other controllers, etc. that want to appear to be arrays.
+    **/
     class Array implements Enumerable {
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
@@ -414,21 +414,21 @@ declare module Ember {
         length: number;
     }
     /**
-     Provides a way for you to publish a collection of objects so that you can easily bind to the
-     collection from a Handlebars #each helper, an Ember.CollectionView, or other controllers.
-     **/
+    Provides a way for you to publish a collection of objects so that you can easily bind to the
+    collection from a Handlebars #each helper, an Ember.CollectionView, or other controllers.
+    **/
     class ArrayController extends ArrayProxy implements SortableMixin, ControllerMixin {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -445,30 +445,30 @@ declare module Ember {
         target: any;
     }
     /**
-     Array polyfills to support ES5 features in older browsers.
-     **/
+    Array polyfills to support ES5 features in older browsers.
+    **/
     var ArrayPolyfills: {
         map: typeof Array.prototype.map;
         forEach: typeof Array.prototype.forEach;
         indexOf: typeof Array.prototype.indexOf;
     };
     /**
-     An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
-     forwarding all requests. This makes it very useful for a number of binding use cases or other cases
-     where being able to swap out the underlying array is useful.
-     **/
+    An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
+    forwarding all requests. This makes it very useful for a number of binding use cases or other cases
+    where being able to swap out the underlying array is useful.
+    **/
     class ArrayProxy extends Object implements MutableArray {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -549,9 +549,9 @@ declare module Ember {
     }
     var BOOTED: boolean;
     /**
-     Connects the properties of two objects so that whenever the value of one property changes,
-     the other property will be changed also.
-     **/
+    Connects the properties of two objects so that whenever the value of one property changes,
+    the other property will be changed also.
+    **/
     class Binding {
         constructor(toPath: string, fromPath: string);
         connect(obj: any): Binding;
@@ -567,45 +567,45 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
         triggerAction(opts: {}): boolean;
     }
     /**
-     The internal class used to create text inputs when the {{input}} helper is used
-     with type of checkbox. See Handlebars.helpers.input for usage details.
-     **/
+    The internal class used to create text inputs when the {{input}} helper is used
+    with type of checkbox. See Handlebars.helpers.input for usage details.
+    **/
     class Checkbox extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
     }
     /**
-     An Ember.View descendent responsible for managing a collection (an array or array-like object)
-     by maintaining a child view object and associated DOM representation for each item in the array
-     and ensuring that child views and their associated rendered HTML are updated when items in the
-     array are added, removed, or replaced.
-     **/
+    An Ember.View descendent responsible for managing a collection (an array or array-like object)
+    by maintaining a child view object and associated DOM representation for each item in the array
+    and ensuring that child views and their associated rendered HTML are updated when items in the
+    array are added, removed, or replaced.
+    **/
     class CollectionView extends ContainerView {
         arrayDidChange(content: any[], start: number, removed: number, added: number): void;
         arrayWillChange(content: any[], start: number, removed: number): void;
@@ -618,29 +618,29 @@ declare module Ember {
         itemViewClass: View;
     }
     /**
-     Implements some standard methods for comparing objects. Add this mixin to any class
-     you create that can compare its instances.
-     **/
+    Implements some standard methods for comparing objects. Add this mixin to any class
+    you create that can compare its instances.
+    **/
     class Comparable {
         compare(a: any, b: any): number;
     }
     /**
-     A view that is completely isolated. Property access in its templates go to the view object
-     and actions are targeted at the view object. There is no access to the surrounding context or
-     outer controller; all contextual information is passed in.
-     **/
+    A view that is completely isolated. Property access in its templates go to the view object
+    and actions are targeted at the view object. There is no access to the surrounding context or
+    outer controller; all contextual information is passed in.
+    **/
     class Component extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -648,11 +648,11 @@ declare module Ember {
         targetObject: Controller;
     }
     /**
-     A computed property transforms an objects function into a property.
-     By default the function backing the computed property will only be called once and the result
-     will be cached. You can specify various properties that your computed property is dependent on.
-     This will force the cached result to be recomputed if the dependencies are modified.
-     **/
+    A computed property transforms an objects function into a property.
+    By default the function backing the computed property will only be called once and the result
+    will be cached. You can specify various properties that your computed property is dependent on.
+    This will force the cached result to be recomputed if the dependencies are modified.
+    **/
     class ComputedProperty {
         cacheable(aFlag?: boolean): ComputedProperty;
         get(keyName: string): any;
@@ -676,11 +676,11 @@ declare module Ember {
         child(): Container;
         set(object: {}, key: string, value: any): void;
         /**
-         registers a factory for later injection
-         @param fullName type:name (e.g., 'model:user')
-         @param factory (e.g., App.Person)
-         **/
-            register(fullName: string, factory: Function, options?: {}): void;
+        registers a factory for later injection
+        @param fullName type:name (e.g., 'model:user')
+        @param factory (e.g., App.Person)
+        **/
+        register(fullName: string, factory: Function, options?: {}): void;
         unregister(fullName: string): void;
         resolve(fullName: string): Function;
         describe(fullName: string): string;
@@ -697,29 +697,29 @@ declare module Ember {
         reset(): void;
     }
     /**
-     An Ember.View subclass that implements Ember.MutableArray allowing programatic
-     management of its child views.
-     **/
+    An Ember.View subclass that implements Ember.MutableArray allowing programatic
+    management of its child views.
+    **/
     class ContainerView extends View {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
     }
     class Controller extends Object { }
     /**
-     Additional methods for the ControllerMixin.
-     **/
+    Additional methods for the ControllerMixin.
+    **/
     class ControllerMixin {
         replaceRoute(name: string, ...args: any[]): void;
         transitionToRoute(name: string, ...args: any[]): void;
@@ -728,11 +728,11 @@ declare module Ember {
         target: any;
     }
     /**
-     Implements some standard methods for copying an object. Add this mixin to any object you
-     create that can create a copy of itself. This mixin is added automatically to the built-in array.
-     You should generally implement the copy() method to return a copy of the receiver.
-     Note that frozenCopy() will only work if you also implement Ember.Freezable.
-     **/
+    Implements some standard methods for copying an object. Add this mixin to any object you
+    create that can create a copy of itself. This mixin is added automatically to the built-in array.
+    You should generally implement the copy() method to return a copy of the receiver.
+    Note that frozenCopy() will only work if you also implement Ember.Freezable.
+    **/
     class Copyable {
         copy(deep: boolean): Copyable;
         frozenCopy(): Copyable;
@@ -741,64 +741,64 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
         /**
-         Destroys an object by setting the isDestroyed flag and removing its metadata, which effectively
-         destroys observers and bindings. If you try to set a property on a destroyed object, an exception
-         will be raised. Note that destruction is scheduled for the end of the run loop and does not
-         happen immediately. It will set an isDestroying flag immediately.
-         **/
-            destroy(): CoreObject;
+        Destroys an object by setting the isDestroyed flag and removing its metadata, which effectively
+        destroys observers and bindings. If you try to set a property on a destroyed object, an exception
+        will be raised. Note that destruction is scheduled for the end of the run loop and does not
+        happen immediately. It will set an isDestroying flag immediately.
+        **/
+        destroy(): CoreObject;
         init(): void;
         /**
-         Returns a string representation which attempts to provide more information than Javascript's toString
-         typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
-         **/
-            toString(): string;
+        Returns a string representation which attempts to provide more information than Javascript's toString
+        typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
+        **/
+        toString(): string;
         willDestroy(): void;
 
         /**
-         Defines the properties that will be concatenated from the superclass (instead of overridden).
-         **/
+        Defines the properties that will be concatenated from the superclass (instead of overridden).
+        **/
         concatenatedProperties: any[];
         /**
-         Destroyed object property flag. If this property is true the observers and bindings were
-         already removed by the effect of calling the destroy() method.
-         **/
+        Destroyed object property flag. If this property is true the observers and bindings were
+        already removed by the effect of calling the destroy() method.
+        **/
         isDestroyed: boolean;
         /**
-         Destruction scheduled flag. The destroy() method has been called. The object stays intact
-         until the end of the run loop at which point the isDestroyed flag is set.
-         **/
+        Destruction scheduled flag. The destroy() method has been called. The object stays intact
+        until the end of the run loop at which point the isDestroyed flag is set.
+        **/
         isDestroying: boolean;
     }
     /**
-     An abstract class that exists to give view-like behavior to both Ember's main view class Ember.View
-     and other classes like Ember._SimpleMetamorphView that don't need the fully functionaltiy of Ember.View.
-     Unless you have specific needs for CoreView, you will use Ember.View in your applications.
-     **/
+    An abstract class that exists to give view-like behavior to both Ember's main view class Ember.View
+    and other classes like Ember._SimpleMetamorphView that don't need the fully functionaltiy of Ember.View.
+    Unless you have specific needs for CoreView, you will use Ember.View in your applications.
+    **/
     class CoreView extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -815,12 +815,12 @@ declare module Ember {
     }
     function DEFAULT_GETTER_FUNCTION(name: string): Function;
     /**
-     The DefaultResolver defines the default lookup rules to resolve container lookups before consulting
-     the container for registered items:
-     templates are looked up on Ember.TEMPLATES
-     other names are looked up on the application after converting the name.
-     For example, controller:post looks up App.PostController by default.
-     **/
+    The DefaultResolver defines the default lookup rules to resolve container lookups before consulting
+    the container for registered items:
+    templates are looked up on Ember.TEMPLATES
+    other names are looked up on the application after converting the name.
+    For example, controller:post looks up App.PostController by default.
+    **/
     class DefaultResolver {
         resolve(fullName: string): {};
         namespace: Application;
@@ -836,42 +836,42 @@ declare module Ember {
         then(resolve: Function, reject: Function): void;
     }
     /**
-     Objects of this type can implement an interface to respond to requests to get and set.
-     The default implementation handles simple properties.
-     You generally won't need to create or subclass this directly.
-     **/
+    Objects of this type can implement an interface to respond to requests to get and set.
+    The default implementation handles simple properties.
+    You generally won't need to create or subclass this directly.
+    **/
     class Descriptor { }
     var EMPTY_META: {}; // TODO: define interface
     var ENV: {};
     var EXTEND_PROTOTYPES: boolean;
     /**
-     This is the object instance returned when you get the @each property on an array. It uses
-     the unknownProperty handler to automatically create EachArray instances for property names.
-     **/
+    This is the object instance returned when you get the @each property on an array. It uses
+    the unknownProperty handler to automatically create EachArray instances for property names.
+    **/
     class EachProxy extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
         unknownProperty(keyName: string, value: any): any[];
     }
     /**
-     This mixin defines the common interface implemented by enumerable objects in Ember. Most of these
-     methods follow the standard Array iteration API defined up to JavaScript 1.8 (excluding language-specific
-     features that cannot be emulated in older versions of JavaScript).
-     This mixin is applied automatically to the Array class on page load, so you can use any of these methods
-     on simple arrays. If Array already implements one of these methods, the mixin will not override them.
-     **/
+    This mixin defines the common interface implemented by enumerable objects in Ember. Most of these
+    methods follow the standard Array iteration API defined up to JavaScript 1.8 (excluding language-specific
+    features that cannot be emulated in older versions of JavaScript).
+    This mixin is applied automatically to the Array class on page load, so you can use any of these methods
+    on simple arrays. If Array already implements one of these methods, the mixin will not override them.
+    **/
     class Enumerable {
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         any(callback: Function, target?: any): boolean;
@@ -920,35 +920,35 @@ declare module Ember {
     }
     var EnumerableUtils: {}; // TODO: define interface
     /**
-     A subclass of the JavaScript Error object for use in Ember.
-     **/
+    A subclass of the JavaScript Error object for use in Ember.
+    **/
     // ReSharper disable once DuplicatingLocalDeclaration
     var Error: typeof Error;
     /**
-     Handles delegating browser events to their corresponding Ember.Views. For example, when you click on
-     a view, Ember.EventDispatcher ensures that that view's mouseDown method gets called.
-     **/
+    Handles delegating browser events to their corresponding Ember.Views. For example, when you click on
+    a view, Ember.EventDispatcher ensures that that view's mouseDown method gets called.
+    **/
     class EventDispatcher extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
         events: {};
     }
     /**
-     This mixin allows for Ember objects to subscribe to and emit events.
-     You can also chain multiple event subscriptions.
-     **/
+    This mixin allows for Ember objects to subscribe to and emit events.
+    You can also chain multiple event subscriptions.
+    **/
     class Evented {
         has(name: string): boolean;
         off(name: string, target: any, method: Function): Evented;
@@ -1014,14 +1014,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1030,14 +1030,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1060,14 +1060,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1119,9 +1119,9 @@ declare module Ember {
     class Mixin {
         apply(obj: any): any;
         /**
-         Creates an instance of the class.
-         @param arguments A hash containing values with which to initialize the newly instantiated object.
-         **/
+        Creates an instance of the class.
+        @param arguments A hash containing values with which to initialize the newly instantiated object.
+        **/
         static create<T extends Mixin>(arguments?: {}): T;
         detect(obj: any): boolean;
         reopen<T extends Mixin>(arguments?: {}): T;
@@ -1188,8 +1188,8 @@ declare module Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-    '[]': any[];
-    '@each': EachProxy;
+        '[]': any[];
+        '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1255,14 +1255,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1331,8 +1331,8 @@ declare module Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): any[];
-    '[]': any[];
-    '@each': EachProxy;
+        '[]': any[];
+        '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1368,14 +1368,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1383,40 +1383,40 @@ declare module Ember {
     var ORDER_DEFINITION: string[];
     class Object extends CoreObject implements Observable {
         /**
-         Creates a subclass of the Object class.
-         **/
+        Creates a subclass of the Object class.
+        **/
         static extend<T>(arguments?: CoreObjectArguments): T;
         /**
-         Creates an instance of the class.
-         @param arguments A hash containing values with which to initialize the newly instantiated object.
-         **/
+        Creates an instance of the class.
+        @param arguments A hash containing values with which to initialize the newly instantiated object.
+        **/
         static create<T extends {}>(arguments?: {}): T;
         /**
-         Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-         **/
+        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
+        **/
         static createWithMixins<T extends {}>(arguments?: {}): T;
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         /**
-         Augments a constructor's prototype with additional properties and functions.
-         To add functions and properties to the constructor itself, see reopenClass.
-         **/
+        Augments a constructor's prototype with additional properties and functions.
+        To add functions and properties to the constructor itself, see reopenClass.
+        **/
         static reopen<T extends {}>(arguments?: {}): T;
         /**
-         Augments a constructor's own properties and functions.
-         To add functions and properties to instances of a constructor by extending the
-         constructor's prototype see reopen.
-         **/
+        Augments a constructor's own properties and functions.
+        To add functions and properties to instances of a constructor by extending the
+        constructor's prototype see reopen.
+        **/
         static reopenClass<T extends {}>(arguments?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
@@ -1451,20 +1451,20 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
         /**
-         The object whose properties will be forwarded.
-         **/
+        The object whose properties will be forwarded.
+        **/
         content: Object;
     }
     class Observable {
@@ -1528,14 +1528,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1563,14 +1563,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1587,14 +1587,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1613,14 +1613,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1670,7 +1670,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Set;
         without(value: any): Set;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1735,7 +1735,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         arrangedContent: any;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1748,14 +1748,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1781,14 +1781,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1848,14 +1848,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1872,14 +1872,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1911,14 +1911,14 @@ declare module Ember {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
-         Iterate over each computed property for the class, passing its name and any
-         associated metadata (see metaForProperty) to the callback.
-         **/
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+        **/
         static eachComputedProperty(callback: Function, binding: {}): void;
         /**
-         Returns the original hash that was passed to meta().
-         @param key property name
-         **/
+        Returns the original hash that was passed to meta().
+        @param key property name
+        **/
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
@@ -1983,8 +1983,8 @@ declare module Ember {
     function addListener(obj: any, eventName: string, func: Function, method: string, once?: boolean): void;
     var addObserver: ModifyObserver;
     /**
-     Ember.alias is deprecated. Please use Ember.aliasMethod or Ember.computed.alias instead.
-     **/
+    Ember.alias is deprecated. Please use Ember.aliasMethod or Ember.computed.alias instead.
+    **/
     var alias: typeof deprecateFunc;
     function aliasMethod(methodName: string): Descriptor;
     var anyUnprocessedMixins: boolean;
@@ -2025,9 +2025,9 @@ declare module Ember {
     function controllerFor(container: Container, controllerName: string, lookupOptions?: {}): Controller;
     function copy(obj: any, deep: boolean): any;
     /**
-     Creates an instance of the CoreObject class.
-     @param arguments A hash containing values with which to initialize the newly instantiated object.
-     **/
+    Creates an instance of the CoreObject class.
+    @param arguments A hash containing values with which to initialize the newly instantiated object.
+    **/
     function create(arguments?: {}): CoreObject;
     function debug(message: string): void;
     function defineProperty(obj: any, keyName: string, desc: {}): void;
@@ -2035,8 +2035,8 @@ declare module Ember {
     function deprecateFunc(message: string, func: Function): Function;
     function destroy(obj: any): void;
     /**
-     Ember.empty is deprecated. Please use Ember.isEmpty instead.
-     **/
+    Ember.empty is deprecated. Please use Ember.isEmpty instead.
+    **/
     // ReSharper disable once DuplicatingLocalDeclaration
     var empty: typeof deprecateFunc;
     function endPropertyChanges(): void;
@@ -2049,8 +2049,8 @@ declare module Ember {
     function get(obj: any, keyName: string): any;
     function getMeta(obj: any, property: string): any;
     /**
-     getPath is deprecated since get now supports paths.
-     **/
+    getPath is deprecated since get now supports paths.
+    **/
     var getPath: typeof deprecateFunc;
     function getWithDefault(root: string, key: string, defaultValue: any): any;
     function guidFor(obj: any): string;
@@ -2079,10 +2079,10 @@ declare module Ember {
     function merge(original: any, updates: any): any;
     function meta(obj: any, writable?: boolean): {};
     function metaPath(obj: any, path: string, writable?: boolean): any;
-    function mixin(obj: any, ...args: any[]): any;
+    function mixin(obj: any, ...any[]): any;
     /**
-     Ember.none is deprecated. Please use Ember.isNone instead.
-     **/
+    Ember.none is deprecated. Please use Ember.isNone instead.
+    **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
     function observer(func: Function, ...args: string[]): Function;
@@ -2141,8 +2141,8 @@ declare module Ember {
     function set(obj: any, keyName: string, value: any): any;
     function setMeta(obj: any, property: string, value: any): void;
     /**
-     setPath is deprecated since set now supports paths.
-     **/
+    setPath is deprecated since set now supports paths.
+    **/
     var setPath: typeof deprecateFunc;
     function setProperties(self: any, hash: {}): any;
     function subscribe(pattern: string, object: any): void;
@@ -2153,8 +2153,8 @@ declare module Ember {
     function tryInvoke(obj: any, methodName: string, args?: any[]): any;
     function trySet(obj: any, path: string, value: any): void;
     /**
-     trySetPath has been renamed to trySet.
-     **/
+    trySetPath has been renamed to trySet.
+    **/
     var trySetPath: typeof deprecateFunc;
     function typeOf(item: any): string;
     function unwatch(obj: any, keyPath: string): void;
@@ -2174,8 +2174,8 @@ declare module Ember {
 // ReSharper disable DuplicatingLocalDeclaration
 declare module Em {
     /**
-     Alias for jQuery.
-     **/
+    Alias for jQuery.
+    **/
     var $: typeof Ember.$;
     var A: typeof Ember.A;
     class Application extends Ember.Application { }
