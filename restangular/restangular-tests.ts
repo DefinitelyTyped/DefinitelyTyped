@@ -22,7 +22,7 @@ myApp.config((RestangularProvider: restangular.IProvider) => {
   RestangularProvider.setRequestInterceptor(function (element, operation, route, url) {
   });
 
-  RestangularProvider.addElementTransformer('accounts', false, function (elem) {
+  RestangularProvider.addElementTransformer('accounts', false, function (elem: any) {
       elem.accountName = 'Changed';
       return elem;
   });
@@ -108,7 +108,7 @@ myApp.controller('TestCtrl', (
       console.log("There was an error saving");
     });
 
-    firstAccount.getList("users", {query: "params"}).then(function(users) {
+    firstAccount.getList("users", {query: "params"}).then(function(users: any) {
       users.post({userName: 'unknown'});
       users.customGET("messages", {param: "myParam"});
 
@@ -155,7 +155,7 @@ myApp.controller('TestCtrl', (
     configurer.setRequestInterceptor(function (element, operation, route, url) {
     });
 
-    configurer.addElementTransformer('accounts', false, function (elem) {
+    configurer.addElementTransformer('accounts', false, function (elem: any) {
         elem.accountName = 'Changed';
         return elem;
     });
