@@ -2082,7 +2082,7 @@ declare module Ember {
     function merge(original: any, updates: any): any;
     function meta(obj: any, writable?: boolean): {};
     function metaPath(obj: any, path: string, writable?: boolean): any;
-    function mixin(obj: any, ...any[]): any;
+    function mixin(obj: any, ...args: any[]): any;
     /**
     Ember.none is deprecated. Please use Ember.isNone instead.
     **/
