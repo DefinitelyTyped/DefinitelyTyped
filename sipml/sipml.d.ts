@@ -1,7 +1,6 @@
 // Type definitions for SIPml5
 // Project: http://sipml5.org/
-// Docgen: http://sipml5.org/docgen/symbols/SIPml.html
-// Definitions by: Chookies (A. Groenenboom): https://github.com/chookies
+// Definitions by: A. Groenenboom <https://github.com/chookies>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module SIPml {
@@ -16,8 +15,8 @@ declare module SIPml {
   }
 
   class EventTarget {
-    public addEventListener(type: any, listener: any);
-    public removeEventListener(type: any);
+    public addEventListener(type: any, listener: Function): void;
+    public removeEventListener(type: any): void;
   }
 
   class Session {
@@ -26,7 +25,7 @@ declare module SIPml {
     public getRemoteFriendlyName(): string;
     public getRemoteUri(): string;
     public reject(configuration?: Session.Configuration): number;
-    public setConfiguration(configuration?: Session.Configuration);
+    public setConfiguration(configuration?: Session.Configuration): void;
   }
 
   export module Session {
@@ -60,19 +59,19 @@ declare module SIPml {
       public getTransferDestinationFriendlyName(): string;
     }
 
-    class Message {
+    class Message extends Session {
       public send(to: string, content?: any, contentType?: string, configuration?: Session.Configuration): number;
     }
 
     class Publish extends Session {
       public publish(content?: any, contentType?: string, configuration?: Session.Configuration): number;
 
-      public unpublish(configuration?: Session.Configuration);
+      public unpublish(configuration?: Session.Configuration): void;
     }
 
     class Registration extends Session {
-      public register(configuration?: Session.Configuration);
-      public unregister(configuration?: Session.Configuration);
+      public register(configuration?: Session.Configuration): void;
+      public unregister(configuration?: Session.Configuration): void;
     }
 
     class Subscribe extends Session {
@@ -83,8 +82,8 @@ declare module SIPml {
 
   class Stack extends EventTarget {
     public constructor(configuration?: Stack.Configuration);
-    public setConfiguration(configuration: Stack.Configuration);
-    public newSession(type: string, configuration: Stack.Configuration);
+    public setConfiguration(configuration: Stack.Configuration): number;
+    public newSession(type: string, configuration: Stack.Configuration): any;
     public start(): number;
     public stop(timeout: number): number;
   }
@@ -126,7 +125,7 @@ declare module SIPml {
 
   function haveMediaStream(): boolean;
 
-  function init(readyCallback?: (e:any) => any, errorCallback?: (e:any) => any);
+  function init(readyCallback?: (e:any) => any, errorCallback?: (e:any) => any): boolean;
 
   function isInitialized(): boolean;
 
@@ -144,7 +143,7 @@ declare module SIPml {
 
   function isWebSocketSupported(): boolean;
 
-  function setDebugLevel(level: string);
+  function setDebugLevel(level: string): void;
 
-  function setWebRtcType(type: string);
+  function setWebRtcType(type: string): boolean;
 }
