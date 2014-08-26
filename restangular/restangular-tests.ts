@@ -74,9 +74,13 @@ myApp.controller('TestCtrl', (
   baseAccounts.post(newAccount);
 
   Restangular.allUrl('googlers', 'http://www.google.com/').getList();
+  Restangular.allUrl('googlers', 'http://www.google.com/').getList<String>();
   Restangular.oneUrl('googlers', 'http://www.google.com/1').get();
+  Restangular.oneUrl('googlers', 'http://www.google.com/1').get<String>();
   Restangular.one('accounts', 123).one('buildings', 456).get();
+  Restangular.one('accounts', 123).one('buildings', 456).get<String>();
   Restangular.one('accounts', 123).getList('buildings');
+  Restangular.one('accounts', 123).getList<String>('buildings');
 
   baseAccounts.getList().then(function (accounts) {
     var firstAccount = accounts[0];
