@@ -12,7 +12,7 @@
 
 // Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
 
-/// <reference path="../createjs/createjs.d.ts" />
+/// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
 declare module createjs {
     export class CSSPlugin {
@@ -75,6 +75,12 @@ declare module createjs {
         static install(): Object;
     }
 
+    /*
+        NOTE: It is commented out because it conflicts with SamplePlugin Class of PreloadJS.
+              this class is mainly for documentation purposes.
+        http://www.createjs.com/Docs/TweenJS/classes/SamplePlugin.html
+    */
+    /*
     export class SamplePlugin {
         constructor();
 
@@ -87,6 +93,7 @@ declare module createjs {
         static install(): void;
         static tween(tween: Tween, prop: string, value: any, startValues: Object, endValues: Object, ratio: number, wait: boolean, end: boolean): any;
     }
+    */
 
     export class Timeline extends EventDispatcher {
         constructor (tweens: Tween[], labels: Object, props: Object);

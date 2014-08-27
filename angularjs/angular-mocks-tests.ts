@@ -21,6 +21,15 @@ mock.inject(
     function () { return 2; }
     );
 
+mock.inject(
+    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 1; }]);
+
+// This overload is not documented on the website, but flows from
+// how the injector works.
+mock.inject(
+    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 1; }],
+    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 2; }]);
+
 mock.module('module1', 'module2');
 mock.module(
     function () { return 1; },
@@ -41,7 +50,7 @@ exceptionHandlerProvider.mode('log');
 
 
 ///////////////////////////////////////
-// IExceptionHandlerProvider
+// ITimeoutService
 ///////////////////////////////////////
 var timeoutService: ng.ITimeoutService;
 
@@ -51,6 +60,14 @@ timeoutService.flushNext();
 timeoutService.flushNext(1234);
 timeoutService.verifyNoPendingTasks();
 
+////////////////////////////////////////
+// IIntervalService
+////////////////////////////////////////
+var intervalService: ng.IIntervalService;
+var intervalServiceTimeActuallyAdvanced: number;
+
+intervalServiceTimeActuallyAdvanced = intervalService.flush();
+intervalServiceTimeActuallyAdvanced = intervalService.flush(1234);
 
 ///////////////////////////////////////
 // ILogService, ILogCall

@@ -10,7 +10,7 @@ declare module D3 {
 
     interface SuperformulaType
     {
-        (any): any;//hans
+        (any: any): any;//hans
         m: number;
         n1: number;
         n2: number;
@@ -22,7 +22,7 @@ declare module D3 {
     interface Superformula
     {
         (): any;
-        type(any): any;
+        type(any: any): any;
         param(name: string, value: number): Superformula;
         size(x: number): Superformula;
         segments(x: number): Superformula;

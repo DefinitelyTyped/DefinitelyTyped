@@ -38,20 +38,19 @@ declare module joint {
             attr(attrs: any): Cell;
         }
 
-
-
         class Element extends Cell {
             position(x: number, y: number): Element;
             translate(tx: number, ty?: number): Element;
             resize(width: number, height: number): Element;
             rotate(angle: number, absolute): Element;
         }
+
         interface IDefaults {
             type: string;
         }
 
         class Link extends Cell {
-            defaults: IDefaults;
+            defaults(): IDefaults;
             disconnect(): Link;
             label(idx?: number, value?: any): any;   // @todo: returns either a label under idx or Link if both idx and value were passed
         }
@@ -65,7 +64,7 @@ declare module joint {
             linkView: LinkView;
         }
 
-        class Paper extends Backbone.View {
+        class Paper extends Backbone.View<Backbone.Model> {
             options: IOptions;
             setDimensions(width: number, height: number);
             scale(sx: number, sy?: number, ox?: number, oy?: number): Paper;
@@ -80,7 +79,8 @@ declare module joint {
         class ElementView extends CellView  {
             scale(sx: number, sy: number);
         }
-        class CellView extends Backbone.View {
+
+        class CellView extends Backbone.View<Cell> {
             getBBox(): { x: number; y: number; width: number; height: number; };
             highlight(el?: any);
             unhighlight(el?: any);
@@ -94,7 +94,9 @@ declare module joint {
         }
     
     }
+
     module ui { }
+
     module shapes {
         module basic {
             class Generic extends joint.dia.Element { }
@@ -104,6 +106,7 @@ declare module joint {
             class Image extends Generic { }
         }
     }
+
     module util {
         function uuid(): string;
         function guid(obj: any): string;
@@ -112,4 +115,5 @@ declare module joint {
         function deepMixin(objects: any[]): any;
         function deepSupplement(objects: any[], defaultIndicator?: any): any;
     }
+
 }

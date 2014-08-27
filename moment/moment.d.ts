@@ -1,9 +1,7 @@
 // Type definitions for Moment.js 2.5.0
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>
-// Definitions by: Aaron King <https://github.com/kingdango> (2.4.0)
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi> (2.5.0)
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface MomentInput {
     years?: number;
@@ -27,7 +25,7 @@ interface MomentInput {
 
 interface Duration {
 
-    humanize(): string;
+    humanize(withSuffix?: boolean): string;
 
     milliseconds(): number;
     asMilliseconds(): number;
@@ -50,6 +48,9 @@ interface Duration {
     years(): number;
     asYears(): number;
 
+    subtract(n: number, p: string): Duration;
+    subtract(n: number): Duration;
+    subtract(d: Duration): Duration;
 }
 
 interface Moment {
@@ -59,14 +60,45 @@ interface Moment {
 
     fromNow(withoutSuffix?: boolean): string;
 
-    startOf(soort: string): Moment;
-    endOf(soort: string): Moment;
+    startOf(unitOfTime: string): Moment;
+    endOf(unitOfTime: string): Moment;
 
-    add(input: MomentInput): Moment;
-    add(soort: string, aantal: number): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * @param amount the amount you want to add
+     */
+    add(unitOfTime: string, amount: number): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param amount the amount you want to add
+     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     */
+    add(amount: number, unitOfTime: string): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * @param amount the amount you want to add
+     */
+    add(unitOfTime: string, amount: string): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param objectLiteral an object literal that describes multiple different keys at the same time {days:7,months:1}
+     */
+    add(objectLiteral: MomentInput): Moment;
+    /**
+     * Mutates the original moment by adding time.
+     * 
+     * @param duration a length of time
+     */
     add(duration: Duration): Moment;
+
     subtract(input: MomentInput): Moment;
-    subtract(soort: string, aantal: number): Moment;
+    subtract(unitOfTime: string, amount: number): Moment;
 
     calendar(): string;
     clone(): Moment;
@@ -122,8 +154,8 @@ interface Moment {
     from(date: number[]): string;
 
     diff(b: Moment): number;
-    diff(b: Moment, soort: string): number;
-    diff(b: Moment, soort: string, round: boolean): number;
+    diff(b: Moment, unitOfTime: string): number;
+    diff(b: Moment, unitOfTime: string, round: boolean): number;
 
     toDate(): Date;
     toISOString(): string;
@@ -171,27 +203,27 @@ interface Moment {
     isSame(b: Date, granularity: string): boolean;
     isSame(b: number[], granularity: string): boolean;
 
-    lang(language: string): void;
-    lang(reset: boolean): void;
-    lang(): string;
+    lang(language: string): Moment;
+    lang(reset: boolean): Moment;
+    lang(): MomentLanguage;
 
-	max(date: Date): Moment;
-	max(date: number): Moment;
-	max(date: any[]): Moment;
-	max(date: string): Moment;
-	max(date: string, format: string): Moment;
-	max(clone: Moment): Moment;
-	
-	min(date: Date): Moment;
-	min(date: number): Moment;
-	min(date: any[]): Moment;
-	min(date: string): Moment;
-	min(date: string, format: string): Moment;
-	min(clone: Moment): Moment;
-	
-	get(unit: string): number;
-	set(unit: string, value: number): Moment;
-	
+    max(date: Date): Moment;
+    max(date: number): Moment;
+    max(date: any[]): Moment;
+    max(date: string): Moment;
+    max(date: string, format: string): Moment;
+    max(clone: Moment): Moment;
+    
+    min(date: Date): Moment;
+    min(date: number): Moment;
+    min(date: any[]): Moment;
+    min(date: string): Moment;
+    min(date: string, format: string): Moment;
+    min(clone: Moment): Moment;
+    
+    get(unit: string): number;
+    set(unit: string, value: number): Moment;
+    
 }
 
 interface MomentCalendar {
@@ -281,8 +313,8 @@ interface MomentStatic {
 
     isMoment(): boolean;
     isMoment(m: any): boolean;
-    lang(language: string): any;
-    lang(language: string, definition: MomentLanguage): any;
+    lang(language?: string): string;
+    lang(language?: string, definition?: MomentLanguage): string;
     longDateFormat: any;
     relativeTime: any;
     meridiem: (hour: number, minute: number, isLowercase: boolean) => string;
@@ -290,37 +322,42 @@ interface MomentStatic {
     ordinal: (num: number) => string;
 
     duration(milliseconds: Number): Duration;
-    duration(num: Number, soort: string): Duration;
+    duration(num: Number, unitOfTime: string): Duration;
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
-	
-	parseZone(date: string): Moment;
-	
-	months(): string[];
-	months(index: number): string;
-	months(format: string): string[];
-	months(format: string, index: number): string;
-	monthsShort(): string[];
-	monthsShort(index: number): string;
-	monthsShort(format: string): string[];
-	monthsShort(format: string, index: number): string;
-	weekdays(): string[];
-	weekdays(index: number): string;
-	weekdays(format: string): string[];
-	weekdays(format: string, index: number): string;
-	weekdaysShort(): string[];
-	weekdaysShort(index: number): string;
-	weekdaysShort(format: string): string[];
-	weekdaysShort(format: string, index: number): string;
-	weekdaysMin(): string[];
-	weekdaysMin(index: number): string;
-	weekdaysMin(format: string): string[];
-	weekdaysMin(format: string, index: number): string;
-	
-	normalizeUnits(unit: string): string;
-	
-	invalid(parsingFlags?: Object): Moment;
+    
+    parseZone(date: string): Moment;
+    
+    months(): string[];
+    months(index: number): string;
+    months(format: string): string[];
+    months(format: string, index: number): string;
+    monthsShort(): string[];
+    monthsShort(index: number): string;
+    monthsShort(format: string): string[];
+    monthsShort(format: string, index: number): string;
+    version: string;
+    weekdays(): string[];
+    weekdays(index: number): string;
+    weekdays(format: string): string[];
+    weekdays(format: string, index: number): string;
+    weekdaysShort(): string[];
+    weekdaysShort(index: number): string;
+    weekdaysShort(format: string): string[];
+    weekdaysShort(format: string, index: number): string;
+    weekdaysMin(): string[];
+    weekdaysMin(index: number): string;
+    weekdaysMin(format: string): string[];
+    weekdaysMin(format: string, index: number): string;
+    
+    normalizeUnits(unit: string): string;
+    
+    invalid(parsingFlags?: Object): Moment;
 }
 
 declare var moment: MomentStatic;
+
+declare module 'moment' {
+    export = moment;
+}

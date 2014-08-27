@@ -422,7 +422,7 @@ function test_misc() {
     });
 
     store = new Sammy.Store({ name: 'kvo' });
-    $('body').bind('set-kvo-foo', function (e, data) {
+    $('body').bind('set-kvo-foo', function (e, data?) {
         Sammy.log(data.key + ' changed to ' + data.value);
     });
     store.set('foo', 'bar');

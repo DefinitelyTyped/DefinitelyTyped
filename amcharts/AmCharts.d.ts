@@ -885,7 +885,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmChart is a base class of all charts. It can not be instantiated explicitly. AmCoordinateChart, AmPieChart and AmMap extend AmChart class. */
     class AmChart {
-        /** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
+    	/** used when constructing a chart with a theme */
+    	constructor(theme: any);
+    	/** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
         backgroundColor: string;
         /** The chart creates AmBalloon class itself. If you want to customize balloon, get balloon instance using this property, and then change balloon's properties.  AmBalloon */
         balloon: AmBalloon;
@@ -943,7 +945,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @param legend
             @param legendDivId - Id of the legend div (optional).
         */
-        addLegend(legend: AmLegend, legendDivId: string);
+        addLegend(legend: AmLegend, legendDivId?: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
@@ -1437,7 +1439,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             chart.write("chartdiv");
     */
     class AmSerialChart extends AmRectangularChart {
-        /** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
+    	/** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
         categoryAxis: CategoryAxis;
         /** Category field name tells the chart the name of the field in your dataProvider object which will be used for category axis values. */
         categoryField: string;

@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-interface BrowserifyObject extends EventEmitter {
+interface BrowserifyObject extends NodeJS.EventEmitter {
 	add(file: string): BrowserifyObject;
 	require(file: string, opts?: {
 		expose: string;
@@ -16,12 +16,14 @@ interface BrowserifyObject extends EventEmitter {
 		debug?: boolean;
 		standalone?: string;
 		insertGlobalVars?: any;
-	}, cb?: (err: any, src: any) => void): ReadableStream;
+	}, cb?: (err: any, src: any) => void): NodeJS.ReadableStream;
 
 	external(file: string): BrowserifyObject;
 	ignore(file: string): BrowserifyObject;
 	transform(tr: string): BrowserifyObject;
 	transform(tr: Function): BrowserifyObject;
+	plugin(plugin: string, opts?: any): BrowserifyObject;
+  	plugin(plugin: Function, opts?: any): BrowserifyObject;
 }
 
 declare module "browserify" {
@@ -31,6 +33,6 @@ declare module "browserify" {
 		entries?: string[];
 		noParse?: string[];
 	}): BrowserifyObject;
-	
+
 	export = browserify;
 }

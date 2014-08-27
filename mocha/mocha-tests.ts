@@ -1,7 +1,5 @@
 /// <reference path="mocha.d.ts" />
 
-var mocha: Mocha;
-
 function test_describe() {
     describe('something', () => { });
 
@@ -10,6 +8,18 @@ function test_describe() {
     describe.skip('something', () => { });
 
     describe('something', function() {
+        this.timeout(2000);
+    });
+}
+
+function test_context() {
+    context('some context', () => { });
+
+    context.only('some context', () => { });
+
+    context.skip('some context', () => { });
+
+    context('some context', function() {
         this.timeout(2000);
     });
 }

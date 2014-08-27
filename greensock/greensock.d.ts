@@ -7,7 +7,7 @@
 // Version 1.1 (TypeScript 0.9)
 
 interface IDispatcher {
-    addEventListener(type:string, callback:Function, scope:Object, useParam:boolean, priority:number):void;
+    addEventListener(type:string, callback:Function, scope?:Object, useParam?:boolean, priority?:number):void;
     removeEventListener(type:string, callback:Function):void;
 }
 
@@ -24,6 +24,7 @@ declare class Animation {
     duration(value:number):any;
     eventCallback(type:string, callback?:Function, params?:any[], scope?:any):any;
     invalidate():any;
+    isActive():boolean;
     kill(vars?:Object, target?:Object):any;
     pause(atTime?:any, suppressEvents?:boolean):any;
     paused(value?:boolean):any;
@@ -129,6 +130,7 @@ declare class TimelineLite extends SimpleTimeline {
     progress(value:number):any;
     remove(value:any):any;
     removeLabel(label:string):any;
+    set(target: Object, vars: Object, position?:any):any;
     seek(position:any, suppressEvents?:boolean):any;
     shiftChildren(amount:number, adjustLabels?:boolean, ignoreBeforeTime?:number):any;
     staggerFrom(targets:any[], duration:number, vars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteScope?:any):any;

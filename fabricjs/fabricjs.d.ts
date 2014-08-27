@@ -1,12 +1,8 @@
 // Type definitions for FabricJS
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* 
-USAGE
-///<reference path="fabricjs.d.ts"/>
-*/
 declare module fabric {
 
     function createCanvasForNode(width: number, height: number): ICanvas;
@@ -328,7 +324,7 @@ declare module fabric {
         setWidth(value: number): IObject;
 
         // methods
-        bringForward(): IObject;
+        bringForward(intersecting?: boolean): IObject;
         bringToFront(): IObject;
         center(): IObject;
         centerH(): IObject;
@@ -339,6 +335,7 @@ declare module fabric {
         drawBorders(context: CanvasRenderingContext2D): IObject;
         drawCorners(context: CanvasRenderingContext2D): IObject;
         get (property: string): any;
+        getBoundingRect(): {left:number; top:number; width:number; height:number};
         getBoundingRectHeight(): number;
         getBoundingRectWidth(): number;
         getSvgStyles(): string;
@@ -358,7 +355,7 @@ declare module fabric {
         scale(value: number): IObject;
         scaleToHeight(value: number): IObject;
         scaleToWidth(value: number): IObject;
-        sendBackwards(): IObject;
+        sendBackwards(intersecting?: boolean): IObject;
         sendToBack(): IObject;
 
         set (properties: IObjectOptions): IObject;

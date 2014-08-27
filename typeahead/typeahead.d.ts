@@ -50,6 +50,27 @@ interface JQuery {
       * @param query The query to be set in case method 'setQuery' is used.
       */
     typeahead(methodName: string, query: string): JQuery;
+    
+    /**
+      * Accomodates specifying options such as hint and highlight.
+      * This is in correspondence to the examples mentioned in http://twitter.github.io/typeahead.js/examples/
+      *
+      * @constructor
+      * @param options ('hint' or 'highlight' or 'minLength' all of which are optional)
+      * @param dataset Array of datasets
+      */
+    typeahead(options: Twitter.Typeahead.Options, dataset: Twitter.Typeahead.Dataset): JQuery;
+
+    /**
+      * Returns the current value of the typeahead. The value is the text the user has entered into the input element.
+      */
+    typeahead(methodName: 'val'): string;
+    typeahead(methodName: string): string;
+
+    /**
+      * Sets the value of the typeahead. This should be used in place of jQuery#val.
+      */
+    typeahead(methodName: 'val', value: string): JQuery;
 }
 
 declare module Twitter.Typeahead {
@@ -242,5 +263,27 @@ declare module Twitter.Typeahead {
           * matching datums with a given query.
           */
         tokens: string[];
+    }
+    
+     /**
+      * When initializing a typeahead, there are a number of options you can configure.
+      */
+    interface Options {
+      /**
+        * highlight:  If true, when suggestions are rendered, 
+        * pattern matches for the current query in text nodes will be wrapped in a strong element.
+        * Defaults to false. 
+        */
+      highlight?: boolean;
+
+      /**
+        * If false, the typeahead will not show a hint. Defaults to true.
+        */
+      hint?: boolean;
+
+      /**
+        * The minimum character length needed before suggestions start getting rendered. Defaults to 1.
+        */
+      minLength?: number;
     }
 }
