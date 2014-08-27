@@ -4108,6 +4108,8 @@ declare module THREE {
         normalizeSkinWeights(): void;
         updateMatrixWorld(force?: boolean): void;
         clone(object?: SkinnedMesh): SkinnedMesh;
+        
+        skeleton: Skeleton;
     }
 
     export class Sprite extends Object3D {
