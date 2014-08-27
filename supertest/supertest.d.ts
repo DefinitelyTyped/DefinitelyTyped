@@ -19,6 +19,11 @@ declare module "supertest" {
       expect(body: Object, callback?: (err: Error, res: superagent.Response) => void): Test;
       expect(field: string, val: string, callback?: (err: Error, res: superagent.Response) => void): Test;
       expect(field: string, val: RegExp, callback?: (err: Error, res: superagent.Response) => void): Test;
+      set(field: string, val: string): Test;
+      set(field: Object): Test;
+      query(val: Object): Test;
+      send(data: string): Test;
+      send(data: Object): Test;
     }
 
     interface SuperTest {
@@ -46,6 +51,8 @@ declare module "supertest" {
       unsubscribe(url: string): Test;
       patch(url: string): Test;
     }
+
+    function agent(): superagent.Agent;
   }
 
   function supertest(app: any): supertest.SuperTest;

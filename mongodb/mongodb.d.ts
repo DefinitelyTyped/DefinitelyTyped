@@ -109,7 +109,7 @@ declare module "mongodb" {
   // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
   // Last update: doc. version 1.3.13 (28.08.2013)
   export class ObjectID {
-    constructor (s: string);
+    constructor (s?: string);
 
     // Returns the ObjectID id as a 24 byte hex string representation
     public toHexString() : string;
@@ -127,6 +127,26 @@ declare module "mongodb" {
     // Creates an ObjectID from a hex string representation of an ObjectID.
     // hexString – create a ObjectID from a passed in 24 byte hexstring.
     public static createFromHexString(hexString: string): ObjectID;
+  }
+
+  // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
+  export class Binary {
+    constructor (buffer: Buffer, subType?: number);
+
+    // Updates this binary with byte_value
+    put(byte_value: any): void;
+
+    // Writes a buffer or string to the binary
+    write(buffer: any, offset: number): void;
+
+    // Reads length bytes starting at position.
+    read(position: number, length: number): Buffer;
+
+    // Returns the value of this binary as a string.
+    value(): string;
+
+    // The length of the binary.
+    length(): number;
   }
 
   export interface SocketOptions {
@@ -282,8 +302,12 @@ declare module "mongodb" {
     findOne(selector: Object, fields: any, skip: number, limit: number, callback?: (err: Error, result: any) => void): Cursor;
     findOne(selector: Object, fields: any, skip: number, limit: number, timeout: number, callback?: (err: Error, result: any) => void): Cursor;
 
+    createIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     createIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
+    ensureIndex(fieldOrSpec: any, callback: (err: Error, indexName: string) => void): void;
     ensureIndex(fieldOrSpec: any, options: IndexOptions, callback: (err: Error, indexName: string) => void): void;
+
     indexInformation(options: any, callback: Function): void;
     dropIndex(name: string, callback: Function): void;
     dropAllIndexes(callback: Function): void;

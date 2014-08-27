@@ -336,7 +336,7 @@ declare module grunt {
              * whose return value will be used as the destination file's contents. If
              * this function returns `false`, the file copy will be aborted.
              */
-            process?: (buffer: NodeBuffer) => boolean
+            process?: (buffer: Buffer) => boolean
         }
 
         /**
@@ -370,21 +370,21 @@ declare module grunt {
              * Returns a string, unless options.encoding is null in which case it returns a Buffer.
              */
             read(filepath: string): string
-            read(filepath: string, options: IFileEncodedOption): NodeBuffer
+            read(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Read a file's contents, parsing the data as JSON and returning the result.
              * @see FileModule.read for a list of supported options.
              */
             readJSON(filepath: string): any
-            readJSON(filepath: string, options: IFileEncodedOption): NodeBuffer
+            readJSON(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Read a file's contents, parsing the data as YAML and returning the result.
              * @see FileModule.read for a list of supported options.
              */
             readYAML(filepath: string): any
-            readYAML(filepath: string, options: IFileEncodedOption): NodeBuffer
+            readYAML(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Write the specified contents to a file, creating intermediate directories if necessary.
@@ -393,7 +393,8 @@ declare module grunt {
              * @param contents If `contents` is a Buffer, encoding is ignored.
              * @param options If an encoding is not specified, default to grunt.file.defaultEncoding.
              */
-            write(filepath: string, contents: NodeBuffer, options?: IFileEncodedOption): void
+            write(filepath: string, contents: string, options?: IFileEncodedOption): void
+            write(filepath: string, contents: Buffer): void
 
             /**
              * Copy a source file to a destination path, creating intermediate directories if necessary.
@@ -689,6 +690,11 @@ declare module grunt {
              * Log a list of obj properties (good for debugging flags).
              */
             writeflags(obj: any): T
+
+            /**
+             * Log an warning with grunt.log.warn
+             */
+            warn(msg: string): T
         }
 
         /**
@@ -809,6 +815,12 @@ declare module grunt {
              * This method is used internally by the multi task system this.files / grunt.task.current.files property.
              */
             normalizeMultiTaskFiles(data: grunt.config.IProjectConfig, targetname?: string): Array<grunt.file.IFileMap>
+
+            /**
+             * The currently running task or multitask.
+             * @see http://gruntjs.com/api/inside-tasks
+             */
+            current: grunt.task.IMultiTask<any>
         }
 
         interface AsyncResultCatcher {
@@ -816,9 +828,10 @@ declare module grunt {
              * Either false or an Error object may be passed to the done function
              * to instruct Grunt that the task has failed.
              */
-            done(success: boolean): void;
-            done(error: Error): void;
-            done(result: any): void;
+            (success: boolean): void;
+            (error: Error): void;
+            (result: any): void;
+            (): void;
         }
 
         /**
@@ -1231,13 +1244,6 @@ declare module grunt {
     }
 
     interface ITaskComponents extends grunt.task.CommonTaskModule {
-
-        /**
-         * The currently running task or multitask.
-         * @see IMultiTask for when to cast
-         */
-        current: grunt.task.ITask
-
         /**
          * Load task-related files from the specified directory, relative to the Gruntfile.
          * This method can be used to load task-related files from a local Grunt plugin by
@@ -1291,4 +1297,10 @@ interface IGrunt extends grunt.IConfigComponents, grunt.fail.FailModule, grunt.I
      * The current Grunt version, as a string. This is just a shortcut to the grunt.package.version property.
      */
     version: string
+}
+
+// NodeJS Support
+declare module 'grunt' {
+    var grunt: IGrunt;
+    export = grunt;
 }

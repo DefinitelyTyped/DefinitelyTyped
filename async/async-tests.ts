@@ -26,10 +26,11 @@ async.map(data, asyncProcess, function (err, results) {
 
 var openFiles = ['file1', 'file2'];
 var saveFile = function () { }
-async.forEach(openFiles, saveFile, function (err) { });
+async.each(openFiles, saveFile, function (err) { });
+async.eachSeries(openFiles, saveFile, function (err) { });
 
 var documents, requestApi;
-async.forEachLimit(documents, 20, requestApi, function (err) { });
+async.eachLimit(documents, 20, requestApi, function (err) { });
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 
@@ -145,15 +146,72 @@ q.drain = function () {
     console.log('all items have been processed');
 }
 
-q.push({ name: 'foo' }, function (err) {
-    console.log('finished processing foo');
-});
+q.push({ name: 'foo' });
+
 q.push({ name: 'bar' }, function (err) {
     console.log('finished processing bar');
 });
 
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
+});
+
+q.unshift({ name: 'foo' });
+
+q.unshift({ name: 'bar' }, function (err) {
+    console.log('finished processing bar');
+});
+
+q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
+    console.log('finished processing bar');
+});
+
+var qLength : number = q.length();
+var qStarted : boolean = q.started;
+var qPaused : boolean = q.paused;
+var qProcessingCount : number = q.running();
+var qIsIdle : boolean = q.idle();
+
+q.saturated = function() {
+    console.log('queue is saturated.');
+}
+
+q.empty = function() {
+    console.log('queue is empty.');
+}
+
+q.drain = function() {
+    console.log('queue was drained.');
+}
+
+q.pause();
+q.resume();
+q.kill();
+
+// tests for strongly typed tasks
+var q2 = async.queue(function (task: string, callback) {
+    console.log('Task: ' + task);
+    callback();
+}, 1);
+
+q2.push('task1');
+
+q2.push('task2', function (error, results: string[]) {
+    console.log('Finished tasks: ' + results.join(', '));
+});
+
+q2.push(['task3', 'task4', 'task5'], function (error, results: string[]) {
+    console.log('Finished tasks: ' + results.join(', '));
+});
+
+q2.unshift('task1');
+
+q2.unshift('task2', function (error, results: string[]) {
+    console.log('Finished tasks: ' + results.join(', '));
+});
+
+q2.unshift(['task3', 'task4', 'task5'], function (error, results: string[]) {
+    console.log('Finished tasks: ' + results.join(', '));
 });
 
 var filename = '';

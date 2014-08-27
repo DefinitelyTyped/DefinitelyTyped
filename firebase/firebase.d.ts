@@ -53,7 +53,7 @@ declare class Firebase implements IFirebaseQuery {
 	toString(): string;
 	set(value: any, onComplete?: (error: any) => void): void;
 	update(value: any, onComplete?: (error: any) => void): void;
-	remove(onComplete?: (error: any) => void);
+	remove(onComplete?: (error: any) => void): void;
 	push(value: any, onComplete?: (error: any) => void): Firebase;
 	setWithPriority(value: any, priority: string, onComplete?: (error: any) => void): void;
 	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;

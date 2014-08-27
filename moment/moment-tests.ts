@@ -78,6 +78,13 @@ m2.add('hours', 24).hours();
 var duration = moment.duration({'days': 1});
 moment([2012, 0, 31]).add(duration);
 
+moment().add('seconds', 1);
+moment().add('seconds', '1');
+moment().add(1, 'seconds');
+
+moment().add('1', 'seconds');
+moment().add('seconds', '1');
+
 moment().subtract('days', 7);
 
 moment().seconds(30);
@@ -207,6 +214,12 @@ moment.duration(500).seconds();
 moment.duration(500).asSeconds();
 moment.duration().minutes();
 moment.duration().asMinutes();
+
+var adur = moment.duration(3, 'd');
+var bdur = moment.duration(2, 'd');
+adur.subtract(bdur).days();
+adur.subtract(1).days();
+adur.subtract(1, 'd').days();
 
 // Defining a custom language: 
 moment.lang('en', {
@@ -416,3 +429,5 @@ moment.lang('en', {
         return number + output;
     }
 });
+
+console.log(moment.version);

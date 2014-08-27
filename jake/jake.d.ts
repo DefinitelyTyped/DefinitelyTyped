@@ -7,8 +7,9 @@
 
 /**
  * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
+ * @param value A value to return from the task.
  */
-declare function complete(): void;
+declare function complete(value?: any): void;
 
 /**
  * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
@@ -21,7 +22,6 @@ declare function desc(description:string): void;
  * @param name The name of the DiretoryTask
  */
 declare function directory(name:string): jake.DirectoryTask;
-
 
 /**
  * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
@@ -56,6 +56,15 @@ declare function namespace(name:string, scope:()=>void): void;
 declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+
+/**
+ * @param name The name of the NpmPublishTask
+ * @param packageFiles The files to include in the package
+ * @param definition A function that creates the package definition
+ */
+declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
+declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
+
 
 declare module jake{
 
@@ -114,7 +123,7 @@ declare module jake{
 		 */
 		breakOnError?:boolean;
 	}
-	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions);
+	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
 
 
 	/**
@@ -124,11 +133,7 @@ declare module jake{
 	 * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
 	 * @event error When a shell-command
 	 */
-	export interface Exec extends EventEmitter{
-		constructor(cmds:string[], callback?:()=>void, opts?:ExecOptions);
-		constructor(cmds:string[], opts?:ExecOptions,  callback?:()=>void);
-		constructor(cmds:string,   callback?:()=>void, opts?:ExecOptions);
-		constructor(cmds:string,   opts?:ExecOptions,  callback?:()=>void);
+	export interface Exec extends NodeJS.EventEmitter {
 		append(cmd:string): void;
 		run(): void;
 	}
@@ -174,7 +179,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: boolean;
+		async?: boolean;
 	}
 
 	/**
@@ -182,7 +187,7 @@ declare module jake{
 	 *
 	 * @event complete
 	 */
-	export class Task implements EventEmitter {
+	export class Task implements NodeJS.EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -201,17 +206,16 @@ declare module jake{
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+		addListener(event: string, listener: Function): NodeJS.EventEmitter;
+        on(event: string, listener: Function): NodeJS.EventEmitter;
+        once(event: string, listener: Function): NodeJS.EventEmitter;
+        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+        removeAllListeners(event?: string): NodeJS.EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
-        emit(event: string, arg1?: any, arg2?: any): boolean;
+        emit(event: string, ...args: any[]): boolean;
+        value: any;
 	}
-
-
 
 	export class DirectoryTask{
 		/**
@@ -225,7 +229,7 @@ declare module jake{
 		 * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 * @default false
 		 */
-		asyc?: boolean;
+		async?: boolean;
 	}
 
 	export class FileTask{
@@ -274,7 +278,6 @@ declare module jake{
 		exclude(...file:RegExp[]): void;
 		exclude(file:FileFilter[]): void;
 		exclude(...file:FileFilter[]): void;
-
 
 		/**
 		 * Populates the FileList from the include/exclude rules with a list of
@@ -375,14 +378,15 @@ declare module jake{
 
 	export class NpmPublishTask{
 		constructor(name:string, packageFiles:string[]);
+		constructor(name:string, definition?:()=>void);
 	}
 
-	export function addListener(event: string, listener: Function);
-	export function on(event: string, listener: Function);
-	export function once(event: string, listener: Function): void;
-	export function removeListener(event: string, listener: Function): void;
-	export function removeAllListener(event: string): void;
+	export function addListener(event: string, listener: Function): NodeJS.EventEmitter;
+	export function on(event: string, listener: Function): NodeJS.EventEmitter;
+	export function once(event: string, listener: Function): NodeJS.EventEmitter;
+	export function removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+	export function removeAllListener(event: string): NodeJS.EventEmitter;
 	export function setMaxListeners(n: number): void;
-	export function listeners(event: string): { Function; }[];
-	export function emit(event: string, arg1?: any, arg2?: any): void;
+	export function listeners(event: string): Function[];
+	export function emit(event: string, ...args: any[]): boolean;
 }

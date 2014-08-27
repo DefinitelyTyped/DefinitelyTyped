@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SemverModule {
+declare module SemVerModule {
 
     function valid(v:string, loose?:boolean):string; // Return the parsed version, or null if it's not valid.
     //TODO maybe add an enum for release?
@@ -28,7 +28,7 @@ declare module SemverModule {
     function ltr(version:string, range:string, loose?:boolean):boolean; // Return true if version is less than all the versions possible in the range.
     function outside(version:string, range:string, hilo:string, loose?:boolean):boolean; // Return true if the version is outside the bounds of the range in either the high or low direction. The hilo argument must be either the string '>' or '<'. (This is the function called by gtr and ltr.)
 
-    class SemverBase {
+    class SemVerBase {
         raw:string;
         loose:boolean;
         format():string;
@@ -36,7 +36,7 @@ declare module SemverModule {
         toString():string;
     }
 
-    class Semver extends SemverBase {
+    class SemVer  extends SemVerBase {
         constructor(version:string, loose?:boolean);
 
         major:number;
@@ -46,30 +46,30 @@ declare module SemverModule {
         build:string[];
         prerelease:string[];
 
-        compare(other:Semver):number;
-        compareMain(other:Semver):number;
-        comparePre(other:Semver):number;
-        inc(release:string):Semver;
+        compare(other:SemVer):number;
+        compareMain(other:SemVer):number;
+        comparePre(other:SemVer):number;
+        inc(release:string):SemVer;
     }
 
-    class Comparator extends SemverBase {
+    class Comparator extends SemVerBase {
         constructor(comp:string, loose?:boolean);
 
-        semver:Semver;
+        semver:SemVer;
         operator:string;
         value:boolean;
         parse(comp:string) :void;
-        test(version:Semver):boolean;
+        test(version:SemVer):boolean;
     }
 
-    class Range extends SemverBase {
+    class Range extends SemVerBase {
         constructor(range:string, loose?:boolean);
 
-        set():Comparator[][];
+        set:Comparator[][];
         parseRange(range:string):Comparator[];
-        test(version:Semver):boolean;
+        test(version:SemVer):boolean;
     }
 }
 declare module "semver" {
-export = SemverModule;
+export = SemVerModule;
 }

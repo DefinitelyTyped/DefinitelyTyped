@@ -1,5 +1,5 @@
-/// <reference path='svgjs.d.ts' />
 /// <reference path='../jquery/jquery.d.ts' />
+/// <reference path='svgjs.d.ts' />
  
 // create svg drawing paper
 
@@ -46,7 +46,7 @@ function renderSVG(data:string) {
     var container = SVG(div) // this creates an SVG tag inside
     container.svg(data) // this creates an SVG inside the SVG
     var $inner = $(div).find("svg svg")
-    var inner:svgjs.Element = $inner.get(0).instance
+    var inner:svgjs.Element = (<svgjs.LinkedHTMLElement>$inner.get(0)).instance
 
     // Copy in the important attributes
     root.attr('x', inner.attr('x'))
@@ -61,9 +61,51 @@ function renderSVG(data:string) {
     // Activate and Label all child paths
     var index = 0
     el.find("rect, path, circle, ellipse").each(function() {
-        var $path = $(this)
-        var path = $path.get(0).instance
+        var $path: JQuery = $(this)
+        var path = (<svgjs.LinkedHTMLElement>$path.get(0)).instance
         var uniqueId = "path"+index++
         path.attr({"path-id": uniqueId})
     })
+}
+
+//Test if svgjs.Element.transform() correctly return an svgjs.Element.Transform
+function elementTransformShouldReturnTransformObject() {
+    /* create an svg drawing */
+    var div = document.createElement('div')
+    var draw = SVG(div)
+
+    /* draw a rectangle scale, rotate and skew it */
+    var rect = draw.rect(50,50).move(100,100).scale(0.5, 0.3).rotate(35).skew(10,25)
+    
+    /* first try to cast it */
+    var trans:svgjs.Transform = rect.transform()
+    /* then check values if they are correct */
+    if (trans.scaleX != 0.5) { throw "scaleX value is not correct" }
+    if (trans.scaleY != 0.3) { throw "scaleY value is not correct" }
+    if (trans.rotation != 35) { throw "rotation value is not correct" }
+    if (trans.skewX != 10) { throw "skewX value is not correct" }
+    if (trans.skewY != 25) { throw "skewY value is not correct" }
+}
+
+//Test if svgjs.Element.children() correctly return an svgjs.Element[]
+function elementChildrenShouldReturnElementArray() {
+    /* create an svg drawing */
+    var div = document.createElement('div')
+    var draw = SVG(div)
+
+    /* draw some rectangle inside a group */
+    var group = draw.group()
+    group.rect(10,10)
+    group.rect(20,20)
+    group.rect(30,30)
+    group.rect(40,40)
+    group.rect(50,50)
+    
+    /* first try to cast it */
+    var result:svgjs.Element[] = group.children()
+    /* then check values if they are correct */
+    for (var i = 0; i < 5; i++) {
+        var elem: svgjs.Element = result[i];
+        if (elem == null) { throw "Element.children() is not working" }
+    }
 }

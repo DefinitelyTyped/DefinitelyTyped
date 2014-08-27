@@ -128,11 +128,11 @@ declare module "websocket" {
         constructor(serverConfig?: IServerConfig);
 
         /** Send binary message for each connection */
-        broadcast(data: NodeBuffer): void;
+        broadcast(data: Buffer): void;
         /** Send UTF-8 message for each connection */
         broadcast(data: IStringified): void;
         /** Send binary message for each connection */
-        broadcastBytes(data: NodeBuffer): void;
+        broadcastBytes(data: Buffer): void;
         /** Send UTF-8 message for each connection */
         broadcastUTF(data: IStringified): void;
         /** Attach the `server` instance to a Node http.Server instance */
@@ -208,7 +208,7 @@ declare module "websocket" {
         requestedExtensions: any[];
 
         cookies: ICookie[];
-        socket: net.NodeSocket;
+        socket: net.Socket;
 
         /**
          * List of strings that indicate the subprotocols the client would like to speak.
@@ -220,7 +220,7 @@ declare module "websocket" {
         requestedProtocols: string[];
         protocolFullCaseMap: {[key: string]: string};
 
-        constructor(socket: net.NodeSocket, httpRequest: http.ClientRequest, config: IServerConfig);
+        constructor(socket: net.Socket, httpRequest: http.ClientRequest, config: IServerConfig);
 
         /**
          * After inspecting the `request` properties, call this function on the
@@ -251,26 +251,26 @@ declare module "websocket" {
     export interface IMessage {
         type: string;
         utf8Data?: string;
-        binaryData?: NodeBuffer;
+        binaryData?: Buffer;
     }
 
     export interface IBufferList extends events.EventEmitter {
         encoding: string;
         length: number;
-        write(buf: NodeBuffer): boolean;
-        end(buf: NodeBuffer): void;
+        write(buf: Buffer): boolean;
+        end(buf: Buffer): void;
 
         /**
          * For each buffer, perform some action.
          * If fn's result is a true value, cut out early.
          */
-        forEach(fn: (buf: NodeBuffer) => boolean): void;
+        forEach(fn: (buf: Buffer) => boolean): void;
 
         /** Create a single buffer out of all the chunks */
-        join(start: number, end: number): NodeBuffer;
+        join(start: number, end: number): Buffer;
 
         /** Join all the chunks to existing buffer */
-        joinInto(buf: NodeBuffer, offset: number, start: number, end: number): NodeBuffer;
+        joinInto(buf: Buffer, offset: number, start: number, end: number): Buffer;
 
         /**
          * Advance the buffer stream by `n` bytes.
@@ -290,10 +290,10 @@ declare module "websocket" {
         // Events
         on(event: string, listener: () => void): IBufferList;
         on(event: 'advance', cb: (n: number) => void): IBufferList;
-        on(event: 'write', cb: (buf: NodeBuffer) => void): IBufferList;
+        on(event: 'write', cb: (buf: Buffer) => void): IBufferList;
         addListener(event: string, listener: () => void): IBufferList;
         addListener(event: 'advance', cb: (n: number) => void): IBufferList;
-        addListener(event: 'write', cb: (buf: NodeBuffer) => void): IBufferList;
+        addListener(event: 'write', cb: (buf: Buffer) => void): IBufferList;
     }
 
     class connection extends events.EventEmitter {
@@ -328,10 +328,10 @@ declare module "websocket" {
         protocol: string;
 
         config: IConfig;
-        socket: net.NodeSocket;
+        socket: net.Socket;
         maskOutgoingPackets: boolean;
-        maskBytes: NodeBuffer;
-        frameHeader: NodeBuffer;
+        maskBytes: Buffer;
+        frameHeader: Buffer;
         bufferList: IBufferList;
         currentFrame: frame;
         fragmentationSize: number;
@@ -361,7 +361,7 @@ declare module "websocket" {
         /** Whether or not the connection is still connected. Read-only */
         connected: boolean;
 
-        constructor(socket: net.NodeSocket, extensions: IExtension[], protocol: string,
+        constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
                     maskOutgoingPackets: boolean, config: IConfig);
 
         /**
@@ -390,14 +390,14 @@ declare module "websocket" {
          * to the remote peer. If config.fragmentOutgoingMessages is true the message may be
          * sent as multiple fragments if it exceeds config.fragmentationThreshold bytes.
          */
-        sendBytes(buffer: NodeBuffer): void;
+        sendBytes(buffer: Buffer): void;
 
         /** Auto-detect the data type and send UTF-8 or Binary message */
-        send(data: NodeBuffer): void;
+        send(data: Buffer): void;
         send(data: IStringified): void;
 
         /** Sends a ping frame. Ping frames must not exceed 125 bytes in length. */
-        ping(data: NodeBuffer): void;
+        ping(data: Buffer): void;
         ping(data: IStringified): void;
 
         /**
@@ -408,7 +408,7 @@ declare module "websocket" {
          * be no need to use this method to respond to pings.
          * Pong frames must not exceed 125 bytes in length.
          */
-        pong(buffer: NodeBuffer): void;
+        pong(buffer: Buffer): void;
 
         /**
          * Serializes a `frame` object into binary data and immediately sends it to
@@ -494,10 +494,10 @@ declare module "websocket" {
          * The binary payload data.
          * Even text frames are sent with a Buffer providing the binary payload data.
          */
-        binaryPayload: NodeBuffer;
+        binaryPayload: Buffer;
 
-        maskBytes: NodeBuffer;
-        frameHeader: NodeBuffer;
+        maskBytes: Buffer;
+        frameHeader: Buffer;
         config: IConfig;
         maxReceivedFrameSize: number;
         protocolError: boolean;
@@ -507,7 +507,7 @@ declare module "websocket" {
 
         addData(bufferList: IBufferList): boolean;
         throwAwayPayload(bufferList: IBufferList): boolean;
-        toBuffer(nullMask: boolean): NodeBuffer;
+        toBuffer(nullMask: boolean): Buffer;
     }
 
     export interface IClientConfig extends IConfig {
@@ -540,7 +540,7 @@ declare module "websocket" {
         origin: string;
         url: url.Url;
         secure: boolean;
-        socket: net.NodeSocket;
+        socket: net.Socket;
         response: http.ClientResponse;
 
         constructor(clientConfig?: IClientConfig);

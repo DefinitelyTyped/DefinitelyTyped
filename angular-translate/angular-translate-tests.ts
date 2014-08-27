@@ -18,8 +18,12 @@ app.config(($translateProvider: ng.translate.ITranslateProvider) => {
     $translateProvider.preferredLanguage('en');
 });
 
-app.controller('Ctrl', ($scope: ng.IScope, $translate: ng.translate.ITranslateService) => {
+interface Scope extends ng.IScope {
+    changeLanguage(key: any): void;
+}
+
+app.controller('Ctrl', ($scope: Scope, $translate: ng.translate.ITranslateService) => {
     $scope['changeLanguage'] = function (key: any) {
-        $translate.uses(key);
+        $translate.use(key);
     };
 });
