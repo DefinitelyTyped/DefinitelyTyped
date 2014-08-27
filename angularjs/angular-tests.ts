@@ -600,3 +600,52 @@ angular.module('copyExample', [])
 
         $scope.reset();
     }]);
+
+module locationTests {
+
+    var $location: ng.ILocationService;
+
+    /*
+     * From https://docs.angularjs.org/api/ng/service/$location
+     */
+
+    // given url http://example.com/#/some/path?foo=bar&baz=xoxo
+    var searchObject = $location.search();
+    // => {foo: 'bar', baz: 'xoxo'}
+
+
+    // set foo to 'yipee'
+    $location.search('foo', 'yipee');
+    // => $location
+
+    /*
+     * From: https://docs.angularjs.org/guide/$location
+     */
+
+    // in browser with HTML5 history support:
+    // open http://example.com/#!/a -> rewrite to http://example.com/a
+    // (replacing the http://example.com/#!/a history record)
+    $location.path() == '/a'
+
+    $location.path('/foo');
+    $location.absUrl() == 'http://example.com/foo'
+
+    $location.search() == {}
+    $location.search({ a: 'b', c: true });
+    $location.absUrl() == 'http://example.com/foo?a=b&c'
+
+    $location.path('/new').search('x=y');
+    $location.url() == 'new?x=y'
+    $location.absUrl() == 'http://example.com/new?x=y'
+
+    // in browser without html5 history support:
+    // open http://example.com/new?x=y -> redirect to http://example.com/#!/new?x=y
+    // (again replacing the http://example.com/new?x=y history item)
+    $location.path() == '/new'
+    $location.search() == { x: 'y' }
+
+    $location.path('/foo/bar');
+    $location.path() == '/foo/bar'
+    $location.url() == '/foo/bar?x=y'
+    $location.absUrl() == 'http://example.com/#!/foo/bar?x=y'
+}
