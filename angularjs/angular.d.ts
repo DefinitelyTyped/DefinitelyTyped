@@ -787,7 +787,7 @@ declare module ng {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends IAugmentedJQuery { }
+    interface IDocumentService extends IAugmentedJQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -801,7 +801,7 @@ declare module ng {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootElementService extends JQuery { }
+    interface IRootElementService extends JQuery {}
 
     /**
      * $q - service in module ng
@@ -1220,7 +1220,7 @@ declare module ng {
     // TemplateCacheService
     // see http://docs.angularjs.org/api/ng.$templateCache
     ///////////////////////////////////////////////////////////////////////////
-    interface ITemplateCacheService extends ICacheObject { }
+    interface ITemplateCacheService extends ICacheObject {}
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEService
