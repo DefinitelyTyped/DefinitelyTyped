@@ -176,8 +176,18 @@ interface UnderscoreStatic {
 	reduce<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	* @param memo Initial reduce state. If memo is omitted, the first value of list is used instead and iteration begins with the second.
+	**/
+	reduce<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* @see _.reduce
@@ -185,8 +195,17 @@ interface UnderscoreStatic {
 	inject<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	**/
+	inject<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* @see _.reduce
@@ -194,8 +213,17 @@ interface UnderscoreStatic {
 	foldl<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	**/
+	foldl<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* The right-associative version of reduce. Delegates to the JavaScript 1.8 version of
@@ -210,8 +238,18 @@ interface UnderscoreStatic {
 	reduceRight<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduceRight
+	* @param memo Initial reduce state. If memo is omitted, the first value of list is used instead and iteration begins with the second.
+	**/
+	reduceRight<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* @see _.reduceRight
@@ -219,8 +257,17 @@ interface UnderscoreStatic {
 	foldr<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduceRight
+	**/
+	foldr<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* Looks through each value in the list, returning the first one that passes a truth
