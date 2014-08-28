@@ -1607,28 +1607,55 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.reduce
 	**/
-	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduce
+	**/
+	reduce(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* @see _.reduce
 	**/
-	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
 
 	/**
 	* @see _.reduce
 	**/
-	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	inject(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
+
+	/**
+	* @see _.reduce
+	**/
+	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	**/
+	foldl(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.reduceRight
 	**/
-	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduceRight
+	**/
+	reduceRight(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* @see _.reduceRight
 	**/
-	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* @see _.reduceRight
+	**/
+	foldr(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* Wrapped type `any[]`.
