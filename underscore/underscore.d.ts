@@ -304,9 +304,9 @@ interface UnderscoreStatic {
 	* @param properties The properties to check for on each element within `list`.
 	* @return The elements within `list` that contain the required `properties`.
 	**/
-	where<T, U extends {}>(
+	where<T>(
 		list: _.List<T>,
-		properties: U): T[];
+		properties: {}): T[];
 
 	/**
 	* Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
@@ -314,9 +314,9 @@ interface UnderscoreStatic {
 	* @param properties Properties to look for on the elements within `list`.
 	* @return The first element in `list` that has all `properties`.
 	**/
-	findWhere<T, U extends {}>(
+	findWhere<T>(
 		list: _.List<T>,
-		properties: U): T;
+		properties: {}): T;
 
 	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
@@ -1609,13 +1609,13 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.where
 	**/
-	where<U extends {}>(properties: U): T[];
+	where(properties: {}): T[];
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.findWhere
 	**/
-	findWhere<U extends {}>(properties: U): T;
+	findWhere(properties: {}): T;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2440,13 +2440,13 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.where
 	**/
-	where<U extends {}>(properties: U): _Chain<T>;
+	where(properties: {}): _Chain<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.findWhere
 	**/
-	findWhere<U extends {}>(properties: U): _ChainSingle<T>;
+	findWhere(properties: {}): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
