@@ -73,6 +73,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Elm](http://elm-lang.org) (by [Dénes Harmath](https://github.com/thSoft))
 * [ember.js](http://emberjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [emissary](https://github.com/atom/emissary) (by [vvakame](https://github.com/vvakame))
+* [Emscripten](http://kripken.github.io/emscripten-site/) (by [Kensuke MATSUZAKI](https://github.com/zakki))
 * [EpicEditor](http://epiceditor.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [ES6-Promises](https://github.com/jakearchibald/ES6-Promises) (by [François de Campredon](https://github.com/fdecampredon/))
 * [Esprima](http://esprima.org/) (by [Teppei Sato](https://github.com/teppeis))
