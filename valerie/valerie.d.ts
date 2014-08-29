@@ -1,4 +1,3 @@
-
 // Type definitions for valerie
 // Project: https://github.com/davewatts/valerie
 // Definitions by: Howard Richards <https://github.com/conficient>
