@@ -603,3 +603,48 @@ function test_allBindingsAccessor() {
         }
     };
 }
+
+function test_Components() {
+
+    function test_Register() {
+        // test all possible ko.components.register() overloads
+        var nodeArray = [new Node, new Node];
+        var singleNode = new Node;
+
+        // ------- string-templates with different viewmodel overloads:
+
+        // string template and inline function (commonly used in examples)
+        ko.components.register("name", { template: "string-template", viewModel: function (params) { return null; } });
+
+        // string template and instance vm
+        ko.components.register("name", { template: "string-template", viewModel: { instance: null } });
+
+        // string template and createViewModel factory method
+        ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params: any, componentInfo: KnockoutComponentInfo) { return null; } } });
+
+        // string template and require module vm
+        ko.components.register("name", { template: "string-template", viewModel: { require: "module" } });
+
+        // ------- non-string templates 
+
+        // viewmodel as function and four types of template
+        ko.components.register("name", { template: { element: "elementID" }, viewModel: function (params) { return null; } });
+        // Node template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { element: singleNode }, viewModel: function (params) { return null; } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: nodeArray, viewModel: function (params) { return null; } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { require: "module" }, viewModel: function (params) { return null; } });
+
+        // viewmodel as object, and four types of non-string tempalte
+        ko.components.register("name", { template: { element: "elementID" }, viewModel: { instance: null } });
+        // Node template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { element: singleNode }, viewModel: { instance: null } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: nodeArray, viewModel: { instance: null } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { require: "module" }, viewModel: { instance: null } });
+
+        //
+    }
+}
