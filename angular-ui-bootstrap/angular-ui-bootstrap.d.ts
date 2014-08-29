@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.10.0
+// Type definitions for Angular UI Bootstrap 0.11.0
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -198,6 +198,22 @@ declare module ng.ui.bootstrap {
         opened: ng.IPromise<any>;
     }
 
+    interface IModalScope extends ng.IScope {
+        /**
+         * Those methods make it easy to close a modal window without a need to create a dedicated controller
+         */
+
+        /**
+         * Dismiss the dialog without assigning a value to the promise output
+         */
+        $dismiss(reason?: any): void;
+
+        /**
+         * Close the dialog resolving the promise to the given value
+         */
+        $close(result?: any): void;
+    }
+
     interface IModalSettings {
         /**
          * a path to a template representing modal's content
@@ -211,9 +227,9 @@ declare module ng.ui.bootstrap {
 
         /**
          * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
-         * Defaults to `$rootScope`
+         * Defaults to `$rootScope`.
          */
-        scope?: any;
+        scope?: IModalScope;
 
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
@@ -246,6 +262,16 @@ declare module ng.ui.bootstrap {
          * additional CSS class(es) to be added to a modal window template
          */
         windowClass?: string;
+
+        /**
+         * optional size of modal window. Allowed values: 'sm' (small) or 'lg' (large). Requires Bootstrap 3.1.0 or later
+         */
+        size?: string;
+
+        /**
+         * a path to a template overriding modal's window template
+         */
+        windowTemplateUrl?: string;
     }
 
     interface IModalStackService {
