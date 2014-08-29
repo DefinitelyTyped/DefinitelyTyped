@@ -65,4 +65,13 @@ bdo = {
 
 bootbox.dialog(bdo);
 
+bootbox.setDefaults({
+	locale: 'en_US',
+	animate: false,
+	backdrop: false,
+	className: 'newClassName',
+	closeButton: true,
+	show: true
+})
+
 bootbox.hideAll();
