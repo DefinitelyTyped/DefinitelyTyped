@@ -22,7 +22,7 @@ myApp.config((RestangularProvider: restangular.IProvider) => {
   RestangularProvider.setRequestInterceptor(function (element, operation, route, url) {
   });
 
-  RestangularProvider.addElementTransformer('accounts', false, function (elem) {
+  RestangularProvider.addElementTransformer('accounts', false, function (elem: any) {
       elem.accountName = 'Changed';
       return elem;
   });
@@ -74,9 +74,13 @@ myApp.controller('TestCtrl', (
   baseAccounts.post(newAccount);
 
   Restangular.allUrl('googlers', 'http://www.google.com/').getList();
+  Restangular.allUrl('googlers', 'http://www.google.com/').getList<String>();
   Restangular.oneUrl('googlers', 'http://www.google.com/1').get();
+  Restangular.oneUrl('googlers', 'http://www.google.com/1').get<String>();
   Restangular.one('accounts', 123).one('buildings', 456).get();
+  Restangular.one('accounts', 123).one('buildings', 456).get<String>();
   Restangular.one('accounts', 123).getList('buildings');
+  Restangular.one('accounts', 123).getList<String>('buildings');
 
   baseAccounts.getList().then(function (accounts) {
     var firstAccount = accounts[0];
@@ -104,7 +108,7 @@ myApp.controller('TestCtrl', (
       console.log("There was an error saving");
     });
 
-    firstAccount.getList("users", {query: "params"}).then(function(users) {
+    firstAccount.getList("users", {query: "params"}).then(function(users: any) {
       users.post({userName: 'unknown'});
       users.customGET("messages", {param: "myParam"});
 
@@ -151,7 +155,7 @@ myApp.controller('TestCtrl', (
     configurer.setRequestInterceptor(function (element, operation, route, url) {
     });
 
-    configurer.addElementTransformer('accounts', false, function (elem) {
+    configurer.addElementTransformer('accounts', false, function (elem: any) {
         elem.accountName = 'Changed';
         return elem;
     });
