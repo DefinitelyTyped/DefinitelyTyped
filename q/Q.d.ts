@@ -104,7 +104,7 @@ declare module Q {
         /**
          * If callback is a function, assumes it's a Node.js-style callback, and calls it as either callback(rejectionReason) when/if promise becomes rejected, or as callback(null, fulfillmentValue) when/if promise becomes fulfilled. If callback is not a function, simply returns promise.
          */
-        nodeify(callback: (reason: any, value: any) => void): void;
+        nodeify(callback: (reason: any, value: any) => void): Promise<T>;
 
         /**
          * Returns a promise to get the named property of an object. Essentially equivalent to
