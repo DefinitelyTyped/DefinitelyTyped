@@ -117,6 +117,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Google Translate API](https://developers.google.com/translate/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google Url Shortener](https://developers.google.com/url-shortener/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Hammer.js](http://eightmedia.github.com/hammer.js/) (by [Boris Yankov](https://github.com/borisyankov))
+* [Hapi](http://github.com/spumko/hapi) (by [Hakubo](http://github.com/hakubo))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [HashMap](https://github.com/flesler/hashmap) (by [Rafał Wrzeszcz](https://wrzasq.pl))
 * [HashSet](http://www.timdown.co.uk/jshashtable/jshashset.html) (by [Sergey Gerasimov](https://github.com/gerich-home))
