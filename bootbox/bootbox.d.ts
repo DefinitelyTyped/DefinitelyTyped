@@ -42,7 +42,7 @@ interface BootboxDefaultOptions {
 	locale?: string;
 	show?: boolean;
 	backdrop?: boolean;
-	closeButton: boolean;
+	closeButton?: boolean;
 	animate?: boolean;
 	className?: string;
 }
@@ -56,7 +56,7 @@ interface BootboxStatic {
 	prompt(options: BootboxPromptOptions): void;
 	dialog(message: string, callback?: (result: string) => void): void;
 	dialog(options: BootboxDialogOptions): void;
-	setDefaults(options): void;
+	setDefaults(options: BootboxDefaultOptions): void;
 	hideAll(): void;
 }
 
