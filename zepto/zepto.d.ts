@@ -1106,7 +1106,12 @@ interface ZeptoCollection {
 	* @return
 	**/
 	size(): number;
-
+  
+	/**
+	* Get the number of elements in this collection.
+	**/
+	length: number;
+  
 	/**
 	* Extract the subset of this array, starting at start index. If end is specified, extract up to but not including end index.
 	* @param start
