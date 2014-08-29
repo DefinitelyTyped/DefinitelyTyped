@@ -321,6 +321,7 @@ All definitions files include a header with the author and editors, so at some p
 * [SignalR](http://www.asp.net/signalr) (by [Boris Yankov](https://github.com/borisyankov))
 * [simple-cw-node](https://github.com/astronaughts/simple-cw-node) (by [vvakame](https://github.com/vvakame))
 * [Sinon](http://sinonjs.org/) (by [William Sears](https://github.com/mrbigdog2u))
+* [SIPml](http://sipml5.org/) (by [Adriaan Groenenboom](https://github.com/chookies))
 * [sjcl](http://crypto.stanford.edu/sjcl/) (by [Eugene Chernyshov](https://github.com/Evgenus))
 * [SlickGrid](https://github.com/mleibman/SlickGrid) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [smoothie](https://github.com/joewalnes/smoothie) (by [Mike H. Hawley](https://github.com/mikehhawley) and [Drew Noakes](https://drewnoakes.com))
