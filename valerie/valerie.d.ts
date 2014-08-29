@@ -316,7 +316,7 @@ declare module Valerie {
         //  - either parameter can be omitted and a clone of the other parameter will be returned
         //  - the merge is shallow
         //  - array properties are shallow cloned
-        mergeOptions(defaultOptions: ValidationOptions, options): ValidationOptions;
+        mergeOptions(defaultOptions: ValidationOptions, options:any): ValidationOptions;
 
     }
 
