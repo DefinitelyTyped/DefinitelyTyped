@@ -1,7 +1,6 @@
 // Type definitions for Bootbox 4.0.0
 // Project: https://github.com/makeusabrew/bootbox
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions by: Kon Pik <https://github.com/konpikwastaken/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone/>, Kon Pik <https://github.com/konpikwastaken/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
