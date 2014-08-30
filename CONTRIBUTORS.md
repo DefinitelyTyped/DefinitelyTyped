@@ -241,6 +241,7 @@ All definitions files include a header with the author and editors, so at some p
 * [MathJax](https://github.com/mathjax/MathJax) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
+* [md5.js](http://labs.cybozu.co.jp/blog/mitsunari/2007/07/md5js_1.html) (by [MIZUNE Pine](https://github.com/pine613))
 * [Microsoft Ajax](http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx) (by [Patrick Magee](https://github.com/pjmagee))
 * [Microsoft Live Connect](http://msdn.microsoft.com/en-us/library/live/hh243643.aspx) (by [John Vilk](https://github.com/jvilk))
 * [Minimatch](https://github.com/isaacs/minimatch) (by [vvakame](https://github.com/vvakame))
