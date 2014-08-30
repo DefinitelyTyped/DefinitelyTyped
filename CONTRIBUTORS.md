@@ -290,6 +290,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
+* [Physijs](http://chandlerprall.github.io/Physijs/) (by [gyoh_k](https://github.com/gyohk))
 * [PixiJS](https://github.com/GoodBoyDigital/pixi.js) (by [Pedro Casaubon](https://github.com/xperiments))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
