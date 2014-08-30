@@ -185,12 +185,12 @@ declare module Handsontable {
         /**
          * Lets you overwrite the default isEmptyRow method.
          */
-        isEmptyRow? (row): boolean;
+        isEmptyRow?: (row: number) => boolean;
 
         /**
          * Lets you overwrite the default isEmptyCol method.
          */
-        isEmptyCol? (col): boolean;
+        isEmptyCol?: (col: number) => boolean;
 
         /**
          * Turn on Manual column resize, if set to a boolean or define initial column resized widths, if set to an array of numbers.
@@ -726,7 +726,7 @@ declare module Handsontable {
         /**
          * Same as above, except instead of col, you provide name of the object property (e.g. [0, 'first.name', 'Jennifer']).
          */
-        setDataAtRowProp(row: number, prop: string, value: any, source?: string);
+        setDataAtRowProp(row: number, prop: string, value: any, source?: string): void;
 
         /**
          * Same as above, except instead of col, you provide name of the object property (e.g. [0, 'first.name', 'Jennifer']).
@@ -947,4 +947,4 @@ interface JQuery {
     handsontable(): JQuery;
     handsontable(methodName: string, ...arguments: any[]): any;
     handsontable(options: Handsontable.Options): JQuery;
-}
+} 
