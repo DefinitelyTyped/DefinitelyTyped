@@ -367,7 +367,7 @@ declare module Handsontable {
         /**
          * A plugin hook executed before validator function, only if validator function is defined. This can be used to manipulate value of changed cell before it is applied to the validator function. NOTICE: this will not affect values of changes. This will change value ONLY for validation!
          */
-        beforeValidate?: (value: any, row; number, prop: string, source: string) => void;
+        beforeValidate?: (value: any, row: number, prop: string, source: string) => void;
 
         /**
          * Callback fired after Handsontable instance is initiated.
@@ -945,6 +945,6 @@ declare module Handsontable {
 
 interface JQuery {
     handsontable(): JQuery;
-    handsontable(methodName: string, ...arguments?: any[]): any;
+    handsontable(methodName: string, ...arguments: any[]): any;
     handsontable(options: Handsontable.Options): JQuery;
-} 
+}
