@@ -15,9 +15,8 @@ var node: Node;
 var stringResult: string;
 var booleanResult: boolean;
 var numberResult: number;
-var selectFn;
 var expression: xpath.XPathExpression;
-var namespaceResolver;
+var namespaceResolver: xpath.XPathNSResolver;
 var xpathResult: xpath.XPathResult;
 var length: number;
 
@@ -34,7 +33,7 @@ stringResult = xpath.select(xpathText, doc).toString();
 
 node = xpath.select(xpathText, doc)[0];
 
-selectFn = xpath.useNamespaces({
+var selectFn = xpath.useNamespaces({
   'prefix': 'http://namespaceuri.com/nsfile'
 });
 nodes = selectFn(xpathText, doc);
