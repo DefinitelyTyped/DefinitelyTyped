@@ -2806,7 +2806,7 @@ interface JQuery {
      * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    one(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+    one(events: { [key: string]: any; }, selector?: any, data?: any): JQuery;
 
 
     /**
