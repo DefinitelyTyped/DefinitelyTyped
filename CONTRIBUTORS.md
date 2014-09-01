@@ -199,6 +199,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) (by [Boris Yankov](https://github.com/borisyankov))
 * [jQuery.Watermark](http://jquery-watermark.googlecode.com) (by [Anwar Javed](https://github.com/anwarjaved))
 * [jQuery.base64](https://github.com/yatt/jquery.base64) (by [Shinya Mochizuki](https://github.com/enrapt-mochizuki))
+* [jquery-handsontable](https://github.com/handsontable/jquery-handsontable) (by [Ted John](https://github.com/intelorca))
 * [js-git](https://github.com/creationix/js-git) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [js-url](https://github.com/websanova/js-url) (by [MIZUNE Pine](https://github.com/pine613))
 * [js-yaml](https://github.com/nodeca/js-yaml) (by [Bart van der Schoor](https://github.com/Bartvds/))
