@@ -1,13 +1,13 @@
-// Type definitions for History.js
-// Project: https://github.com/balupton/History.js
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Type definitions for History.js 1.8.0
+// Project: https://github.com/browserstate/history.js
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Gidon Junge <https://github.com/gjunge/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface HistoryAdapter {
-    bind(element, event, callback);
-    trigger(element, event);
-    onDomLoad(callback);
+    bind(element: any, event: string, callback: () => void);
+    trigger(element: any, event: string);
+    onDomLoad(callback: () => void);
 }
 
 // Since History is defined in lib.d.ts as well 
@@ -17,15 +17,45 @@ interface HistoryAdapter {
 // var Historyjs: Historyjs = <any>History;
 
 interface Historyjs {
+
     enabled: boolean;
-    pushState(data, title, url);
-    replaceState(data, title, url);
-    getState();
-    getHash();
+
+    pushState(data: any, title: string, url: string);
+    replaceState(data: any, title: string, url: string);
+    getState(): HistoryState;
+    getStateByIndex(index: number): HistoryState;
+    getCurrentIndex(): number;
+    getHash(): string;
+
     Adapter: HistoryAdapter;
-    back();
-    forward();
-    go(X);
-    log(...messages: any[]);
-    debug(...messages: any[]);
+
+    back(): void;
+    forward(): void;
+    go(x: Number): void;
+
+    log(...messages: any[]): void;
+    debug(...messages: any[]): void;
+
+    options: HistoryOptions;
+}
+
+interface HistoryState {
+    data?: any;
+    title?: string;
+    url: string;
+}
+
+interface HistoryOptions {
+    hashChangeInterval?: number;
+    safariPollInterval?: number;
+    doubleCheckInterval?: number;
+    disableSuid?: boolean;
+    storeInterval?: number;
+    busyDelay?: number;
+    debug?: boolean;
+    initialTitle?: string;
+    html4Mode?: boolean;
+    delayInit?: number;
+
+
 }
