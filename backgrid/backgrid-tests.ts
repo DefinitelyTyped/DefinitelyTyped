@@ -23,7 +23,7 @@ class TestModel extends Backbone.Model {
 
 }
 
-class TestCollection extends Backbone.Collection<TestModel> {
+class TestCollection extends Backbone.Collection<Backbone.Model> {
 
     constructor(models?: any, options?: any) {
 	this.model = TestModel;
