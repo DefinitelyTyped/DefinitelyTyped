@@ -445,6 +445,7 @@ declare module ng {
         $untouched: boolean;
 
         $validators: IModelValidators;
+        $asyncValidators: IModelValidators;
 
         $pristine: boolean;
         $dirty: boolean;
