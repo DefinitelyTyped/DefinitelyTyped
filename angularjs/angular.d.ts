@@ -857,3 +857,8 @@ declare module ng {
 
     }
 }
+
+declare module "angular"
+{
+    export = angular;
+}

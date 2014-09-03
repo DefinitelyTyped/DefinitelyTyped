@@ -3,7 +3,7 @@
 // Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var CryptoJS: CryptoJS.CryptoJSStatic;
+declare var CryptoJSStatic: CryptoJS.CryptoJSStatic;
 
 declare module CryptoJS{
     module lib{
@@ -338,7 +338,7 @@ declare module CryptoJS{
 
         interface PBKDF2 extends EvpKDF{} //PBKDF2 is same as EvpKDF
 
-        interface RC4Drop extends RC4, lib.ICipher<IRC4DropCfg>{}
+        interface RC4Drop extends RC4 {}
         interface IRC4DropCfg{
             drop?: number //default 192
         }
@@ -461,4 +461,9 @@ declare module CryptoJS{
         EvpKDF: CryptoJS.algo.IEvpKDFHelper
         PBKDF2: CryptoJS.algo.IEvpKDFHelper //PBKDF2 is same as EvpKDF
     }
+}
+
+declare module "crypto-js"
+{
+    export = CryptoJSStatic
 }
