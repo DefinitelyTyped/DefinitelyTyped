@@ -31,14 +31,6 @@ class Game extends Parse.Object {
 
         super("GameScore", options);
     }
-
-    set score(score: GameScore)  {
-        this.set('score', score);
-    }
-
-    get score(): GameScore {
-        return this.get("gameScore");
-    }
 }
 
 function test_object() {
@@ -62,9 +54,6 @@ function test_object() {
     gameScore.addUnique("skills", "kungfu");
 
     game.set("gameScore", gameScore);
-    game.score = gameScore;
-
-    var newGameScore = game.score;
 
     game.save(null, {
         success: (game) => {
