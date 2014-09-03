@@ -1,6 +1,6 @@
 // Type definitions for Parse v1.2.19
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group, LLC <[http://ullisenmedia.com]>
+// Definitions by: Ullisen Media Group LLC <http://ullisenmedia.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -136,30 +136,30 @@ declare module Parse {
 
         constructor(arg1?: any);
 
-        setPublicReadAccess(allowed: boolean);
+        setPublicReadAccess(allowed: boolean): void;
         getPublicReadAccess(): boolean;
 
-        setPublicWriteAccess(allowed: boolean);
+        setPublicWriteAccess(allowed: boolean): void;
         getPublicWriteAccess(): boolean;
 
-        setReadAccess(userId: User, allowed: boolean);
+        setReadAccess(userId: User, allowed: boolean): void;
         getReadAccess(userId: User): boolean;
 
-        setReadAccess(userId: string, allowed: boolean);
+        setReadAccess(userId: string, allowed: boolean): void;
         getReadAccess(userId: string): boolean;
 
-        setRoleReadAccess(role: Role, allowed: boolean);
-        setRoleReadAccess(role: string, allowed: boolean);
+        setRoleReadAccess(role: Role, allowed: boolean): void;
+        setRoleReadAccess(role: string, allowed: boolean): void;
         getRoleReadAccess(role: Role): boolean;
         getRoleReadAccess(role: string): boolean;
 
-        setRoleWriteAccess(role: Role, allowed: boolean);
-        setRoleWriteAccess(role: string, allowed: boolean);
+        setRoleWriteAccess(role: Role, allowed: boolean): void;
+        setRoleWriteAccess(role: string, allowed: boolean): void;
         getRoleWriteAccess(role: Role): boolean;
         getRoleWriteAccess(role: string): boolean;
 
-        setWriteAccess(userId: User, allowed: boolean);
-        setWriteAccess(userId: string, allowed: boolean);
+        setWriteAccess(userId: User, allowed: boolean): void;
+        setWriteAccess(userId: string, allowed: boolean): void;
         getWriteAccess(userId: User): boolean;
         getWriteAccess(userId: string): boolean;
     }
@@ -199,7 +199,7 @@ declare module Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save(options?: ParseDefaultOptions);
+        save<T>(options?: ParseDefaultOptions): Promise<T>;
 
     }
 
@@ -335,18 +335,18 @@ declare module Parse {
         static fetchAll<T>(list: Object[], options: ParseDefaultOptions): Promise<T>;
         static fetchAllIfNeeded<T>(list: Object[], options: ParseDefaultOptions): Promise<T>;
 
-        initialize();
-        add(attr: string, item: any);
-        addUnique(attr: string, item: any);
-        change(options: any);
-        changedAttributes(diff: any): any;
+        initialize(): void;
+        add(attr: string, item: any): Object;
+        addUnique(attr: string, item: any): any;
+        change(options: any): Object;
+        changedAttributes(diff: any): boolean;
         clear(options: any): any;
         clone(): Object;
         destroy<T>(options?: ParseDefaultOptions): Promise<T>;
         destroyAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
         dirty(attr: String): boolean;
         dirtyKeys(): string[];
-        escape(attr: string);
+        escape(attr: string): string;
         existed(): boolean;
         fetch<T>(options?: ParseDefaultOptions): Promise<T>;
         get(attr: string): any;
@@ -424,7 +424,7 @@ declare module Parse {
         static extend(instanceProps: any, classProps: any): any;
 
         initialize(): void;
-        add(models: any[], options?: CollectionAddOptions);
+        add(models: any[], options?: CollectionAddOptions): Collection<T>;
         at(index: number): Object;
         chain(): _Chain<Collection<T>>;
         fetch(options?: ParseDefaultOptions): Promise<T>;
@@ -464,17 +464,17 @@ declare module Parse {
      */
     class Events {
 
-        static off(events: string[], callback?: Function, context?: any);
-        static on(events: string[], callback?: Function, context?: any);
-        static trigger(events: string[]);
-        static bind();
-        static unbind();
+        static off(events: string[], callback?: Function, context?: any): Events;
+        static on(events: string[], callback?: Function, context?: any): Events;
+        static trigger(events: string[]): Events;
+        static bind(): Events;
+        static unbind(): Events;
 
-        on(eventName: string, callback?: Function, context?: any): any;
-        off(eventName?: string, callback?: Function, context?: any): any;
-        trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: Function, context?: any): any;
-        unbind(eventName?: string, callback?: Function, context?: any): any;
+        on(eventName: string, callback?: Function, context?: any): Events;
+        off(eventName?: string, callback?: Function, context?: any): Events;
+        trigger(eventName: string, ...args: any[]): Events;
+        bind(eventName: string, callback: Function, context?: any): Events;
+        unbind(eventName?: string, callback?: Function, context?: any): Events;
 
     }
 
@@ -608,7 +608,7 @@ declare module Parse {
         getRoles(): Relation;
         getUsers(): Relation;
         getName(): string;
-        setName(name: string, options?: ParseDefaultOptions);
+        setName(name: string, options?: ParseDefaultOptions): any;
     }
 
     /**
@@ -627,7 +627,6 @@ declare module Parse {
         routes: any[];
 
         constructor(options?: RouterOptions);
-
         static extend(instanceProps: any, classProps: any): any;
 
         initialize(): void;
@@ -669,7 +668,6 @@ declare module Parse {
         setUsername(username: string, options?: ParseDefaultOptions): boolean;
 
         setPassword(password: string, options?: ParseDefaultOptions): boolean;
-
         getSessionToken(): string;
     }
 
@@ -724,7 +722,7 @@ declare module Parse {
      */
     module FacebookUtils {
 
-        function init(options?: any);
+        function init(options?: any): void;
         function isLinked(user: User): boolean;
         function link(user: User, permissions: any, options?: ParseDefaultOptions): void;
         function logIn(permissions: any, options?: ParseDefaultOptions): void;
@@ -929,7 +927,7 @@ declare module Parse {
      * @param {String} javaScriptKey Your Parse JavaScript Key.
      * @param {String} masterKey (optional) Your Parse Master Key. (Node.js only!)
      */
-    function initialize(applicationId: string, javaScriptKey: string, masterKey?: string);
+    function initialize(applicationId: string, javaScriptKey: string, masterKey?: string): void;
 
 }
 
