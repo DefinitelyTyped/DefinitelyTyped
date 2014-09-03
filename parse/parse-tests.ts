@@ -54,52 +54,6 @@ function test_object() {
     gameScore.addUnique("skills", "kungfu");
 
     game.set("gameScore", gameScore);
-
-    game.save(null, {
-        success: (game) => {
-            // Execute any logic that should take place after the object is saved.
-            console.log('New object created with objectId: ' + game.id);
-        },
-        error: (game, error) => {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and description.
-            console.log('Fa iled to create new object, with error code: ' + error.message);
-        }
-    }).then(
-
-        (response) => {
-
-            console.log(response);
-        },
-        (error) => {
-
-            console.log(error);
-        }
-    );
-
-    game.fetch().then(
-
-        (response) => {
-
-            console.log(response);
-        },
-        (error) => {
-
-            console.log(error);
-        }
-    );
-
-    game.destroy().then(
-
-        (response) => {
-
-            console.log(response);
-        },
-        (error) => {
-
-            console.log(error);
-        }
-    );
 }
 
 function test_query() {
@@ -161,38 +115,6 @@ function test_query() {
     query.include(["score.team"]);
 
     var testQuery = Parse.Query.or(query, query);
-
-    query.count().then(
-        (object) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
-
-    query.find({
-       success: (results) => {
-           alert("Successfully retrieved " + results.length + " scores.");
-           // Do something with the returned Parse.Object values
-           for (var i = 0; i < results.length; i++) {
-               var object = results[i];
-               console.log(object.id + ' - ' + object.get('playerName'));
-           }
-       },
-       error: (error) => {
-           alert("Error: " + error.code + " " + error.message);
-       }
-   });
-
-    query.first().then(
-        (object) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
 }
 
 class TestCollection extends Parse.Collection<Object> {
@@ -300,25 +222,6 @@ function test_user_acl_roles() {
 // other fields can be set just like with Parse.Object
     user.set("phone", "415-392-0202");
 
-    user.signUp(null, {
-        success: function(user) {
-            // Hooray! Let them use the app now.
-        },
-        error: function(user, error) {
-            // Show the error message somewhere and let the user try again.
-            alert("Error: " + error.code + " " + error.message);
-        }
-    });
-
-    Parse.User.logIn("myname", "mypass").then(
-        (data) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
-
     var currentUser = Parse.User.current();
     if (currentUser) {
         // do stuff with the user
@@ -339,7 +242,7 @@ function test_user_acl_roles() {
 
     var groupACL = new Parse.ACL();
 
-    var userList = [];
+    var userList: Parse.User[] = [Parse.User.current()];
     // userList is an array with the users we are sending this message to.
     for (var i = 0; i < userList.length; i++) {
         groupACL.setReadAccess(userList[i], true);
@@ -375,14 +278,14 @@ function test_facebook_util() {
      });
 
     Parse.FacebookUtils.logIn(null, {
-        success: (user) => {
+        success: (user: Parse.User) => {
             if (!user.existed()) {
                 alert("User signed up and logged in through Facebook!");
             } else {
                 alert("User logged in through Facebook!");
             }
         },
-        error: (user, error) => {
+        error: (user: Parse.User, error: any) => {
             alert("User cancelled the Facebook login or did not fully authorize.");
         }
     });
@@ -391,17 +294,17 @@ function test_facebook_util() {
 
     if (!Parse.FacebookUtils.isLinked(user)) {
         Parse.FacebookUtils.link(user, null, {
-            success: (user) => {
+            success: (user: any) => {
                 alert("Woohoo, user logged in with Facebook!");
             },
-            error: (user, error) => {
+            error: (user: any, error: any) => {
                 alert("User cancelled the Facebook login or did not fully authorize.");
             }
         });
     }
 
     Parse.FacebookUtils.unlink(user, {
-        success: (user) => {
+        success: (user: Parse.User) => {
             alert("The user is no longer associated with their Facebook account.");
         }
     });
@@ -410,10 +313,10 @@ function test_facebook_util() {
 function test_cloud_functions() {
 
     Parse.Cloud.run('hello', {}, {
-        success: (result) => {
+        success: (result: any) => {
             // result
         },
-        error: (error) => {
+        error: (error: any) => {
         }
     });
 
@@ -448,23 +351,12 @@ function test_geo_points() {
     query.near("location", userGeoPoint);
         // Limit what could be a lot of points.
     query.limit(10);
-    // Final list of objects
-    query.find({
-       success: (placesObjects) => {
-       }
-   });
-
 
     var southwestOfSF = new Parse.GeoPoint(37.708813, -122.526398);
     var northeastOfSF = new Parse.GeoPoint(37.822802, -122.373962);
 
     var query = new Parse.Query(PlaceObject);
     query.withinGeoBox("location", southwestOfSF, northeastOfSF);
-    query.find({
-       success: function(place) {
-
-       }
-   });
 }
 
 function test_push() {
@@ -478,7 +370,7 @@ function test_push() {
         success: () => {
             // Push was successful
         },
-        error: (error) => {
+        error: (error: any) => {
             // Handle error
         }
     });
@@ -495,7 +387,7 @@ function test_push() {
         success: function() {
             // Push was successful
         },
-        error: function(error) {
+        error: function(error: any) {
             // Handle error
         }
     });
