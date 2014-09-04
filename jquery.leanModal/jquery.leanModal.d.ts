@@ -1,24 +1,22 @@
-
+// Type definitions for leanModal.js 1.1
+// Project: http://leanmodal.finelysliced.com.au/
+// Definitions by: FinelySliced <https://github.com/FinelySliced>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
 interface JQueryLeanModalOption {
-    top : number;
-    overlay : number;
-    closeButton : String;
-}
-
-interface JQueryLeanModalStatic {
-    ():any;
-    (JQueryLeanModalOption):any;
+    top? : number;
+    overlay? : number;
+    closeButton? : String;
 }
 
 interface JQueryStatic {
-    leanModal(): JQueryLeanModalStatic;
-    leanModal(JQueryLeanModalOption): JQueryLeanModalStatic;
+    leanModal(): JQuery;
+    leanModal(val : JQueryLeanModalOption): JQuery;
 }
 
 interface JQuery {
-    leanModal(): JQueryLeanModalStatic;
-    leanModal(JQueryLeanModalOption): JQueryLeanModalStatic;
+    leanModal(): JQuery;
+    leanModal(val : JQueryLeanModalOption): JQuery;
 }
