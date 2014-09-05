@@ -1595,7 +1595,7 @@ declare module Slick {
 			// empty
 		}
 		export interface OnRowsChangedEventData {
-			// empty
+			rows: number[];
 		}
 		export interface OnPagingInfoChangedEventData extends PagingOptions {
 
