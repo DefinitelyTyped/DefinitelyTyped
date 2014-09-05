@@ -445,6 +445,7 @@ declare module ng {
         $untouched: boolean;
 
         $validators: IModelValidators;
+        $asyncValidators: IModelValidators;
 
         $pristine: boolean;
         $dirty: boolean;
@@ -482,13 +483,11 @@ declare module ng {
         $digest(): void;
         $emit(name: string, ...args: any[]): IAngularEvent;
 
-        // Documentation says exp is optional, but actual implementaton counts on it
-        $eval(expression: string, args?: Object): any;
-        $eval(expression: (scope: IScope) => any, args?: Object): any;
+        $eval(expression?: string, args?: Object): any;
+        $eval(expression?: (scope: IScope) => any, args?: Object): any;
 
-        // Documentation says exp is optional, but actual implementaton counts on it
-        $evalAsync(expression: string): void;
-        $evalAsync(expression: (scope: IScope) => any): void;
+        $evalAsync(expression?: string): void;
+        $evalAsync(expression?: (scope: IScope) => any): void;
 
         // Defaults to false by the implementation checking strategy
         $new(isolate?: boolean): IScope;
@@ -748,9 +747,17 @@ declare module ng {
          * Change search part when called with parameter and return $location.
          * 
          * @param search New search params
-         * @param paramValue If search is a string, then paramValue will override only a single search property. If paramValue is null, the property specified via the first argument will be deleted.
+         * @param paramValue If search is a string or a Number, then paramValue will override only a single search property. If paramValue is null, the property specified via the first argument will be deleted.
          */
         search(search: string, paramValue: string): ILocationService;
+
+        /**
+         * Change search part when called with parameter and return $location.
+         * 
+         * @param search New search params
+         * @param paramValue If search is a string or a Number, then paramValue will override only a single search property. If paramValue is null, the property specified via the first argument will be deleted.
+         */
+        search(search: string, paramValue: number): ILocationService;
 
         /**
          * Change search part when called with parameter and return $location.
