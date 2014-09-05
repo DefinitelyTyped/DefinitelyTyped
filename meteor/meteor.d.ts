@@ -1,14 +1,4 @@
-/**
- *
- *  Meteor definitions for TypeScript
- *  author - Olivier Refalo - orefalo@yahoo.com
- *  author - David Allen - dave@fullflavedave.com
- *
- *  Thanks to Sam Hatoum for the base code for auto-generating this file
- *
- *  supports Meteor 0.8.3
- *
- */
+// Type definitions for Meteor
 
 /**
  * These are the modules and interfaces that can't be automatically generated from the Meteor api.js file
