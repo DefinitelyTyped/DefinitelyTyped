@@ -306,3 +306,9 @@ $.browser.playbook;
 !!$.os.ios;           // => true
 !!$.os.version;       // => "6.1"
 !!$.browser.version;  // => "536.26"
+
+// shortcut methods for `.bind(event, fn)` for each event type
+$('#example').click();
+$('#example').click(() => {
+    alert('clicked');
+});

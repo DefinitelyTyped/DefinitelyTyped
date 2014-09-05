@@ -186,3 +186,227 @@ declare module Twitter.Typeahead {
       minLength?: number;
     }
 }
+declare module Bloodhound
+{
+  interface BloodhoundOptions<T>
+  {
+    /**
+    * Transforms a datum into an array of string tokens
+    *
+    * @constructor
+    * @param datum individual units that compose the dataset
+    */
+    datumTokenizer?: any;
+    /**
+    * Transforms a query into an array of string tokens
+    *
+    * @constructor
+    * @param query tokenizer query
+    */
+    queryTokenizer?: any;  
+    /**
+    *  The max number of suggestions to return from Bloodhound#get. 
+    * If not reached, the data source will attempt to backfill the suggestions from remote. Defaults to 5
+    */
+    limit?: number;
+    /**
+    *  If set, this is expected to be a function with the signature (remoteMatch, localMatch) that returns true if the datums are duplicates or false otherwise. 
+    *  If not set, duplicate detection will not be performed.
+    */
+    dupDetector?: (remoteMatch: T, localMatch: T) => boolean;
+    /**
+    * A compare function used to sort matched datums for a given query.
+    */
+    sorter?: (a: T, b: T) => T[];
+    /**
+    *An array of datums or a function that returns an array of datums.
+    */
+    local?: () => T[];
+    /**
+    * Can be a URL to a JSON file containing an array of datums or, if more configurability is needed, a prefetch options hash.
+    */
+    prefetch?: PrefetchOptions<T>;
+    /**
+    *  Can be a URL to fetch suggestions from when the data provided by local and prefetch is insufficient or, if more configurability is needed, a remote options hash.
+    */
+    remote?: RemoteOptions<T>;
+  }
+
+  /**
+  * Prefetched data is fetched and processed on initialization. 
+  * If the browser supports localStorage, the processed data will be cached 
+  * there to prevent additional network requests on subsequent page loads.
+  */
+  interface PrefetchOptions<T>
+  {
+    /**
+    * A URL to a JSON file containing an array of datums. Required.
+    */
+    url: string;
+    /**
+    * The time (in milliseconds) the prefetched data should be cached 
+    * in localStorage. Defaults to 86400000 (1 day).
+    */
+    ttl?: number;
+    /**
+    * A function that transforms the response body into an array of datums.
+    *   
+    * @param parsedResponse Response body
+    */
+    filter?: (parsedResponse: any) => T[];
+    /** The key that data will be stored in local storage under. Defaults to value of url.
+    *
+    */
+    cacheKey?: string;
+    /**
+    * A string used for thumbprinting prefetched data. If this doesn't match what's stored in local storage, the data will be refetched.
+    */
+    thumbprint?: string;
+    /**
+    * The ajax settings object passed to jQuery.ajax.
+    */
+    ajax?: JQueryAjaxSettings;
+  }
+
+  /**
+  * Remote data is only used when the data provided by local and prefetch
+  * is insufficient. In order to prevent an obscene number of requests 
+  * being made to remote endpoint, typeahead.js rate-limits remote requests.
+  */
+  interface RemoteOptions<T>
+  {
+    /**
+    * A URL to make requests to when the data provided by local and 
+    * prefetch is insufficient. Required.
+    */
+    url: string;
+    /**
+    * The pattern in url that will be replaced with the user's query 
+    * when a request is made. Defaults to %QUERY.
+    */
+    wildcard?: string;
+    /**
+    * Overrides the request URL. If set, no wildcard substitution will 
+    * be performed on url.
+    * 
+    * @param url Replacement URL
+    * @param uriEncodedQuery Encoded query
+    * @returns A valid URL
+    */
+    replace?: (url: string, uriEncodedQuery: string) => string;
+    /**
+    * The function used for rate-limiting network requests. 
+    * Can be either 'debounce' or 'throttle'. Defaults to 'debounce'.
+    */
+    rateLimitby?: string;
+    /**
+    * The time interval in milliseconds that will be used by rateLimitFn. 
+    * Defaults to 300.
+    */
+    rateLimitWait?: number;
+
+    /**
+    * Transforms the response body into an array of datums.
+    *
+    * @param parsedResponse Response body
+    */
+    filter?: (parsedResponse: any) => T[];
+    /**
+    * The ajax settings object passed to jQuery.ajax.
+    */
+    ajax?: JQueryAjaxSettings;
+  }
+
+  /**
+  * The most common tokenization methods.
+  */
+  interface Tokenizers
+  {
+    /**
+    * Split a given string on whitespace characters.
+    */
+    whitespace(query: string): string[];
+    /**
+    * Split a given string on non-word characters.
+    */
+    nonword(query: string): string[];
+
+   /**
+   * Instances of the most common tokenization methods.
+   */
+    obj: ObjTokenizer;
+  }
+
+  interface ObjTokenizer
+  {
+    /**
+    * Split a given string on whitespace characters.
+    */
+    whitespace(query: string): string[];
+    /**
+    * Split a given string on non-word characters.
+    */
+    nonword(query: string): string[];
+  }
+}
+
+declare class Bloodhound<T> {
+  constructor(options: Bloodhound.BloodhoundOptions<T>)
+  /**
+  * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
+  */
+  public ttAdapter(): any;
+  /**
+  * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch. 
+  * Until initialized, all other methods will behave as no-ops. 
+  * Returns a jQuery promise which is resolved when engine has been initialized.
+  * 
+  * After the initial call of initialize, how subsequent invocations of the method behave depends on the reinitialize argument. 
+  * If reinitialize is falsy, the method will not execute the initialization logic and will just return the same jQuery promise returned by the initial invocation. 
+  * If reinitialize is truthy, the method will behave as if it were being called for the first time.
+  * 
+  * var promise1 = engine.initialize();
+  * var promise2 = engine.initialize();
+  * var promise3 = engine.initialize(true);
+  * 
+  * promise1 === promise2;
+  * promise3 !== promise1 && promise3 !== promise2;
+  */
+  public initialize(reinitialize?: boolean): JQueryPromise<any>;
+  /**
+  * Takes one argument, datums, which is expected to be an array of datums.
+  * The passed in datums will get added to the search index that powers the suggestion engine.
+  */
+  public add(datums: T[]): void;
+  /**
+  * Removes all suggestions from the search index.
+  */
+  public clear(): void;
+  /**
+  * If you're using prefetch, data gets cached in local storage in an effort to cut down on unnecessary network requests.
+  * clearPrefetchCache offers a way to programmatically clear said cache.
+  */
+  public clearPrefetchCache(): void;
+  /**
+  * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience. 
+  * clearRemoteCache offers a way to programmatically clear said cache.
+  */
+  public clearRemoteCache(): void;
+  /**
+  * Returns a reference to the Bloodhound constructor and reverts window.Bloodhound to its previous value. Can be used to avoid naming collisions.
+  */
+  public noConflict(): any;
+
+  /**
+  * Computes a set of suggestions for query. cb will be invoked with an array of datums that represent said set. 
+  * cb will always be invoked once synchronously with suggestions that were available on the client. 
+  * If those suggestions are insufficient (# of suggestions is less than limit) and remote was configured, cb may also be invoked asynchronously with the suggestions available on the client mixed with suggestions from the remote source.
+  */
+  public get(query: string, cb: (datums: T[]) => void): void;
+
+  /**
+  * The Bloodhound suggestion engine is token-based, so how datums and queries are tokenized plays a vital role in the quality of search results.
+  * Specify how you want datums and queries tokenized.
+  */
+  public static tokenizers: Bloodhound.Tokenizers;
+}

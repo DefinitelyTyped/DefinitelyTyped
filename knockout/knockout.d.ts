@@ -586,7 +586,7 @@ interface KnockoutComponentConfig {
 
 interface KnockoutComputedContext {
 	getDependenciesCount(): number;
-	isInitial: boolean;
+	isInitial: () => boolean;
 	isSleeping: boolean;
 }
 
