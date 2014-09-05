@@ -161,6 +161,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jQuery.Colorbox](http://www.jacklmoore.com/colorbox/) (by [Gidon Junge](https://github.com/gjunge))
 * [jQuery.contextMenu](http://medialize.github.com/jQuery-contextMenu/) (by [Natan Vivo](https://github.com/nvivo/))
 * [jQuery.Cookie](https://github.com/carhartl/jquery-cookie) (by [Roy Goode](https://github.com/RoyGoode))
+* [jQuery.customSelect](https://github.com/adamcoulombe/jquery.customSelect) (by [tomato360](https://github.com/tomato360))
 * [jQuery.Cycle](http://jquery.malsup.com/cycle/) (by [François Guillot](http://fguillot.developpez.com/))
 * [jQuery.Cycle2](http://jquery.malsup.com/cycle2/) (by [Donny Nadolny](https://github.com/dnadolny))
 * [jQuery.dataTables](http://www.datatables.net) (by [Armin Sander](https://github.com/pragmatrix))
