@@ -808,7 +808,7 @@ declare module D3 {
         * Returns the first non-null element in the current selection. If the selection is empty,
         * returns null.
         */
-        node: () => Element;
+        node: <T extends Element>() => T;
     }
 
     export interface EnterSelection {
