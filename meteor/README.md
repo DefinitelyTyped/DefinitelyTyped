@@ -1,10 +1,11 @@
 # Meteor Type Definitions
 
-These are the definitions for version 0.9.1 of Meteor.  The recommended way to use these definitions in a Meteor application is by installing the 
-[typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.  The smart package contains TypeScript definitions for
-Meteor, common third-party libraries (e.g. jquery, underscore, d3 etc.), and common smart packages (e.g. iron-router).
+These are the definitions for version 0.9.1 of Meteor.  Although these definitions can be downloaded separately for use, the recommended way to use these 
+definitions in a Meteor application is by installing the [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.  
+The smart package contains TypeScript definitions forMeteor, common third-party libraries (e.g. jquery, underscore, d3 etc.), and common smart packages 
+(e.g. iron-router).
 
-For any Meteor installation 0.9.0 or afterwards, install this package with:
+From within any Meteor application that is version 0.9.0 or later, install this package in the standard manner:
 
     $ meteor add typescript-libs
 
