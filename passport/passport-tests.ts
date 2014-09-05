@@ -1,5 +1,6 @@
 /// <reference path="passport.d.ts" />
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../express-session/express-session.d.ts" />
 
 import express = require('express');
 import passport = require('passport');
@@ -37,7 +38,7 @@ app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err: any, user: { username: string; }, info: { message: string; }) {
     if (err) { return next(err) }
     if (!user) {
-      req.session.error = info.message;
+      req.session['error'] = info.message;
       return res.redirect('/login')
     }
     req.logIn(user, function(err) {
@@ -51,6 +52,9 @@ app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
+
+app.post('/auth/token', passport.authenticate(['basic', 'oauth2-client-password'], { session: false }));
+
 
 function authSetting(): void {
   var authOption = {

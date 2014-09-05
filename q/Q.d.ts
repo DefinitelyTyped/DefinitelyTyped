@@ -102,6 +102,11 @@ declare module Q {
         done(onFulfilled?: (value: T) => any, onRejected?: (reason: any) => any, onProgress?: (progress: any) => any): void;
 
         /**
+         * If callback is a function, assumes it's a Node.js-style callback, and calls it as either callback(rejectionReason) when/if promise becomes rejected, or as callback(null, fulfillmentValue) when/if promise becomes fulfilled. If callback is not a function, simply returns promise.
+         */
+        nodeify(callback: (reason: any, value: any) => void): Promise<T>;
+
+        /**
          * Returns a promise to get the named property of an object. Essentially equivalent to
          * 
          * promise.then(function (o) {
@@ -161,7 +166,7 @@ declare module Q {
          * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
          */
         isPending(): boolean;
-
+        
         valueOf(): any;
 
         /**
@@ -294,7 +299,10 @@ declare module Q {
      * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
      */
     export function delay<T>(value: T, ms: number): Promise<T>;
-
+    /**
+     * Returns a promise that will be fulfilled with undefined after at least ms milliseconds have passed.
+     */
+    export function delay(ms: number): Promise <void>;
     /**
      * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises, the result is always true.
      */
