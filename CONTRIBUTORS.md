@@ -389,3 +389,4 @@ All definitions files include a header with the author and editors, so at some p
 * [Zepto.js](http://zeptojs.com/) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Zynga Scroller](https://github.com/zynga/scroller) (by [Boris Yankov](https://github.com/borisyankov))
 * [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) (by [Eric J. Smith](https://github.com/ejsmith))
+* [Parse SDK](https://parse.com/docs/js_guide) (by [Ullisen Media Group, LLC](http://ullisenmedia.com))
