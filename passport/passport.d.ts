@@ -7,7 +7,19 @@
 
 declare module Express {
     export interface Request {
-        session?: any;
+        authInfo?: any;
+
+        // These declarations are merged into express's Request type
+        login(user: any, done: (err: any) => void): void;
+        login(user: any, options: Object, done: (err: any) => void): void;
+        logIn(user: any, done: (err: any) => void): void;
+        logIn(user: any, options: Object, done: (err: any) => void): void;
+
+        logout(): void;
+        logOut(): void;
+
+        isAuthenticated(): boolean;
+        isUnauthenticated(): boolean;
     }
 }
 
@@ -23,7 +35,12 @@ declare module 'passport' {
 
     function authenticate(strategy: string, callback?: Function): express.Handler;
     function authenticate(strategy: string, options: Object, callback?: Function): express.Handler;
-    function authorize(strategy: string, options: Object, callback?: express.Handler): express.Handler;
+    function authenticate(strategies: string[], callback?: Function): express.Handler;
+    function authenticate(strategies: string[], options: Object, callback?: Function): express.Handler;
+    function authorize(strategy: string, callback?: Function): express.Handler;
+    function authorize(strategy: string, options: Object, callback?: Function): express.Handler;
+    function authorize(strategies: string[], callback?: Function): express.Handler;
+    function authorize(strategies: string[], options: Object, callback?: Function): express.Handler;
     function serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
     function deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
     function transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
@@ -36,9 +53,14 @@ declare module 'passport' {
         initialize(options?: { userProperty: string; }): express.Handler;
         session(options?: { pauseStream: boolean; }): express.Handler;
 
-        authenticate(strategy: string, callback2: (err: any, user: any, info: any) => void): express.Handler;
-        authenticate(strategy: string, options: Object, callback?: express.Handler): express.Handler;
-        authorize(strategy: string, options: Object, callback?: express.Handler): express.Handler;
+        authenticate(strategy: string, callback?: Function): express.Handler;
+        authenticate(strategy: string, options: Object, callback?: Function): express.Handler;
+        authenticate(strategies: string[], callback?: Function): express.Handler;
+        authenticate(strategies: string[], options: Object, callback?: Function): express.Handler;
+        authorize(strategy: string, callback?: Function): express.Handler;
+        authorize(strategy: string, options: Object, callback?: Function): express.Handler;
+        authorize(strategies: string[], callback?: Function): express.Handler;
+        authorize(strategies: string[], options: Object, callback?: Function): express.Handler;
         serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
         deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
@@ -65,23 +87,6 @@ declare module 'passport' {
         photos?: {
             value: string;
         }[];
-    }
-}
-
-declare module Express {
-    export interface Request {
-
-        // These declarations are merged into express's Request type
-        login(user: any, done: (err: any) => void): void;
-        login(user: any, options: Object, done: (err: any) => void): void;
-        logIn(user: any, done: (err: any) => void): void;
-        logIn(user: any, options: Object, done: (err: any) => void): void;
-
-        logout(): void;
-        logOut(): void;
-
-        isAuthenticated(): boolean;
-        isUnauthenticated(): boolean;
     }
 }
 

@@ -93,15 +93,20 @@ declare module restangular {
     withConfig(configurer: (RestangularProvider: IProvider) => any): IService;
     restangularizeElement(parent: any, element: any, route: string, collection?: any, reqParams?: any): IElement;
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
+    service(route: string, parent: any): IService;
     stripRestangular(element: any): any;
   }
 
   interface IElement extends IService {
     get(queryParams?: any, headers?: any): IPromise<any>;
+    get<T>(queryParams?: any, headers?: any): IPromise<T>;
     getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
     put(queryParams?: any, headers?: any): IPromise<any>;
     post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;
     trace(queryParams?: any, headers?: any): IPromise<any>;
@@ -113,7 +118,9 @@ declare module restangular {
 
   interface ICollection extends IService {
     getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
     post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     head(queryParams?: any, headers?: any): IPromise<any>;
     trace(queryParams?: any, headers?: any): IPromise<any>;
     options(queryParams?: any, headers?: any): IPromise<any>;

@@ -61,12 +61,12 @@
 
         // Plane
 
-        var geometry = new THREE.PlaneGeometry(200, 200);
-        geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
+        var geometry2 = new THREE.PlaneGeometry(200, 200);
+        geometry2.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
 
         var material = new THREE.MeshBasicMaterial({ color: 0xe0e0e0, overdraw: 0.5 });
 
-        plane = new THREE.Mesh(geometry, material);
+        plane = new THREE.Mesh(geometry2, material);
         scene.add(plane);
 
         renderer = new THREE.CanvasRenderer();

@@ -570,11 +570,13 @@ declare module L {
           * inside the listener will point to context, or to the element if not specified.
           */
         static addListener(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
+        static on(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
     
         /**
           * Removes an event listener from the element.
           */
-        static removeListener(el: HTMLElement, type: string, fn: (e: Event) => void): DomEvent;
+        static removeListener(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
+        static off(el: HTMLElement, type: string, fn: (e: Event) => void, context?: any): DomEvent;
     
         /**
           * Stop the given event from propagation to parent elements. Used inside the
@@ -4171,3 +4173,6 @@ declare var L_NO_TOUCH: boolean;
   */
 declare var L_DISABLE_3D: boolean;
  
+declare module "leaflet" {
+	export = L;
+}

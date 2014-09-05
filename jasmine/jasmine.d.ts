@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-// For ddescribe / iit use : hhttps://github.com/borisyankov/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
+// For ddescribe / iit use : https://github.com/borisyankov/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 declare function describe(description: string, specDefinitions: () => void): void;
 // declare function ddescribe(description: string, specDefinitions: () => void): void; Not a part of jasmine. Angular team adds these
@@ -45,6 +45,7 @@ declare module jasmine {
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function getEnv(): Env;
+    function addMatchers(matchers: any): Any;
 
     interface Any {
 

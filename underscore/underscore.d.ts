@@ -1045,10 +1045,10 @@ interface UnderscoreStatic {
 	* @param options Allows for disabling execution of the throttled function on either the leading or trailing edge.
 	* @return `fn` with a throttle of `wait`.
 	**/
-	throttle(
-		func: any,
+	throttle<T extends Function>(
+		func: T,
 		wait: number,
-		options?: _.ThrottleSettings): Function;
+		options?: _.ThrottleSettings): T;
 
 	/**
 	* Creates and returns a new debounced version of the passed function that will postpone its execution
@@ -1064,10 +1064,10 @@ interface UnderscoreStatic {
 	* @param immediate True if `fn` should be invoked on the leading edge of `waitMS` instead of the trailing edge.
 	* @return Debounced version of `fn` that waits `wait` ms when invoked.
 	**/
-	debounce(
-		fn: Function,
+	debounce<T extends Function>(
+		fn: T,
 		wait: number,
-		immediate?: boolean): Function;
+		immediate?: boolean): T;
 
 	/**
 	* Creates a version of the function that can only be called one time. Repeated calls to the modified
@@ -1076,7 +1076,7 @@ interface UnderscoreStatic {
 	* @param fn Function to only execute once.
 	* @return Copy of `fn` that can only be invoked once.
 	**/
-	once(fn: Function): Function;
+	once<T extends Function>(fn: T): T;
 
 	/**
 	* Creates a version of the function that will only be run after first being called count times. Useful
@@ -1086,9 +1086,9 @@ interface UnderscoreStatic {
 	* @fn The function to defer execution `count` times.
 	* @return Copy of `fn` that will not execute until it is invoked `count` times.
 	**/
-	after(
+	after<T extends Function>(
 		count: number,
-		fn: Function): Function;
+		fn: T): T;
 
 	/**
 	* Wraps the first function inside of the wrapper function, passing it as the first argument. This allows
@@ -1472,8 +1472,9 @@ interface UnderscoreStatic {
 	* @param settings Settings to use while compiling.
 	* @return Returns the compiled Underscore HTML template.
 	**/
-	template(templateString: string, data?: any, settings?: _.TemplateSettings): (...data: any[]) => string;
-
+	template(templateString: string): (...data: any[]) => string;
+    	template(templateString: string, data: any, settings?: _.TemplateSettings): string;
+    	
 	/**
 	* By default, Underscore uses ERB-style template delimiters, change the
 	* following template settings to use alternative delimiters.

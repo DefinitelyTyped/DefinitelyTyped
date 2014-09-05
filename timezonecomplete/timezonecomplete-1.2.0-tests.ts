@@ -1,6 +1,6 @@
-/// <reference path="timezonecomplete.d.ts" />
+/// <reference path="timezonecomplete-1.2.0.d.ts" />
 
-import tc = require("timezonecomplete");
+import tc = require("timezonecomplete-1.2.0");
 
 var b: boolean = tc.isLeapYear(2014);
 var n: number = tc.daysInMonth(2014, 10);
