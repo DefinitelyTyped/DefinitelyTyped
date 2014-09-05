@@ -1,4 +1,7 @@
-// Type definitions for Meteor
+// Type definitions for Meteor 0.9.1
+// Project: http://www.meteor.com/
+// Definitions by: Dave Allen <https://github.com/fullflavedave>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
  * These are the modules and interfaces that can't be automatically generated from the Meteor api.js file
