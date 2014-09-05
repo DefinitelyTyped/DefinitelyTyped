@@ -1104,6 +1104,7 @@ declare module D3 {
             offset(offset: string): StackLayout;
             x(accessor: (d: any, i: number) => any): StackLayout;
             y(accessor: (d: any, i: number) => any): StackLayout;
+            out(setter: (d: any, y0: number, y: number) => void): StackLayout;
         }
 
         export interface TreeLayout {
