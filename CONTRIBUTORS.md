@@ -127,7 +127,7 @@ All definitions files include a header with the author and editors, so at some p
 * [HelloJS](http://adodson.com/hello.js) (by [Pavel Zika](https://github.com/PavelPZ))
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
 * [Highland](http://highlandjs.org/) (by [Bart van der Schoor](https://github.com/Bartvds/))
-* [highlight.js](https://github.com/isagalaev/highlight.js) (by [Niklas Mollenhauer](https://github.com/nikeee))
+* [highlight.js](https://github.com/isagalaev/highlight.js) (by [Niklas Mollenhauer](https://github.com/nikeee) and [Jeremy Hull](https://github.com/sourrust))
 * [History.js](https://github.com/browserstate/history.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Html2Canvas.js](https://github.com/niklasvh/html2canvas/) (by [Richard Hepburn](https://github.com/rwhepburn))
 * [htmlparser2](https://github.com/fb55/htmlparser2/) (by [James Roland Cabresos](https://github.com/staticfunction))
