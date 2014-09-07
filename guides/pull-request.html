@@ -63,9 +63,9 @@
 <pre><code>git remote <span class="hljs-built_in">add</span> upstream http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/borisyankov/DefinitelyTyped.git
 </code></pre><p>Now whenever you want the latest changes from DT added to your local branch just run these two commands :</p>
 <pre><code>git fetch upstream
-# Fetches any <span class="hljs-keyword">new</span> <span class="hljs-keyword">changes</span> from DefinitelyTyped
-git merge upstream/master
-# Merges any <span class="hljs-keyword">changes</span> fetched into your working <span class="hljs-keyword">files</span>
+# Fetches any new changes from DefinitelyTyped
+git <span class="hljs-operator"><span class="hljs-keyword">merge</span> upstream/<span class="hljs-keyword">master</span>
+# Merges <span class="hljs-keyword">any</span> changes fetched <span class="hljs-keyword">into</span> your working files</span>
 </code></pre><h2 id="broken-build"  class="ui header">Broken Build</h2>
 <p>If tests fail and you know how to fix them, just add a commit to fix that error in your local branch and push it to your DT fork. If the Pull Request uses the same branch it will be update automatically and the tests will run again.</p>
 <p>If you need multiple tries to make it work then please flatten your commits so the history is moderately clean (please also minimise the commit message). You could <code>git push --force</code> (<em>careful!</em>) the flat commit over your earlier commits in the same branch and the PR will be automatically updated.</p>
