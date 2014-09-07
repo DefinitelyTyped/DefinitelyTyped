@@ -6,6 +6,8 @@ var version: string = $.jstree.version;
 // create new instance
 var instance1: JSTree = $('div').jstree();
 
+$('div').jstree('open_node', '#branch');
+
 // get existing reference
 var existingReference: JSTree = $.jstree.reference('sds');
 
@@ -63,5 +65,34 @@ var advancedTree = $("#briefcasetree").jstree({
                 }
             }
         }
-    });
+});
+
+var a = $('a').jstree();
+
+
+//tree with new unique plugin parameters
+var treeWithUnique = $('#treeWithUnique').jstree({
+     unique: {
+         case_sensitive: true,
+         duplicate: (name: string, counter: number): string => {
+             return name + ' ( ' + counter.toString() + ' )';
+         }
+     }
+});
+
+// tree with new core properties
+var treeWithNewCoreProperties = $('#treeWithNewCoreProperties').jstree({
+    core: {
+        worker: true,
+        force_text: true,
+    }
+});
+
+// tree with new checkbox properties
+var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
+    checkbox: {
+        cascade: true,
+        tie_selection: true
+    }
+});
 
