@@ -13,8 +13,8 @@ declare module "highlight.js"
 			ignore_illegals?: boolean,
 			continuation?: boolean) : IHighlightResult
 		export function highlightAuto(
-				value: string,
-				languageSubset?: string[]) : IAutoHighlightResult
+			value: string,
+			languageSubset?: string[]) : IAutoHighlightResult
 
 		export function fixMarkup(value: string) : string;
 
