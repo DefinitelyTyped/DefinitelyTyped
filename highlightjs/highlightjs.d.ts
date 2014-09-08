@@ -11,10 +11,10 @@ declare module "highlight.js"
 			name: string,
 			value: string,
 			ignore_illegals?: boolean,
-			continuation?: boolean) : IHighlightResult
+			continuation?: boolean) : IHighlightResult;
 		export function highlightAuto(
 			value: string,
-			languageSubset?: string[]) : IAutoHighlightResult
+			languageSubset?: string[]) : IAutoHighlightResult;
 
 		export function fixMarkup(value: string) : string;
 
