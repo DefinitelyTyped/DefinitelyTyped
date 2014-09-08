@@ -83,4 +83,6 @@ declare module Showdown {
     function forEach<T>(obj: T[], callback: (value: T, index: number, array: T[]) => any): void;
 }
 
-export = Showdown;
+declare module "showdown" {
+    export = Showdown;
+}
