@@ -1,4 +1,4 @@
-﻿// Type definitions for jsTree v3.0.0
+﻿// Type definitions for jsTree v3.0.2
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -278,6 +278,16 @@ interface JSTreeStaticDefaultsCore {
     * @name $.jstree.defaults.core.expand_selected_onload
     */
     expand_selected_onload?: boolean;
+    /**
+    * if left as `true` web workers will be used to parse incoming JSON data where possible, so that the UI will not be blocked by large requests. Workers are however about 30% slower. Defaults to `true`
+    * @name $.jstree.defaults.core.worker
+    */
+    worker?: boolean;
+    /**
+    * Force node text to plain text (and escape HTML). Defaults to `false`
+    * @name $.jstree.defaults.core.force_text
+    */
+    force_text?: boolean;
 }
 
 interface JSTreeStaticDefaultsCoreThemes {
@@ -352,7 +362,15 @@ interface JSTreeStaticDefaultsCheckbox {
     * @name $.jstree.defaults.checkbox.cascade
     * @plugin checkbox
     */
-    cascade:boolean;
+    cascade: boolean;
+    /**
+    * This setting controls if checkbox are bound to the general tree selection 
+    * or to an internal array maintained by the checkbox plugin. 
+    * Defaults to `true`, only set to `false` if you know exactly what you are doing. 
+    * @name $.jstree.defaults.checkbox.tie_selection
+    * @plugin checkbox
+    */
+    tie_selection: boolean;
 }
 
 interface JSTreeStaticDefaultsContextMenu {
@@ -470,13 +488,21 @@ interface JSTreeStaticDefaultsSearch {
     * @plugin search
     */
     close_opened_onclear: boolean;
-
     /**
     * Indicates if only leaf nodes should be included in search results. Default is `false`.
     * @name $.jstree.defaults.search.search_leaves_only
     * @plugin search
     */
     search_leaves_only: boolean;
+    /**
+    * If set to a function it wil be called in the instance's scope with two arguments - 
+    * search string and node (where node will be every node in the structure, so use with caution).
+    * If the function returns a truthy value the node will be considered a match 
+    * (it might not be displayed if search_only_leaves is set to true and the node is not a leaf). Default is `false`.
+    * @name $.jstree.defaults.search.search_callback
+    * @plugin search
+    */
+    search_callback: any;
 }
 
 interface JSTreeStaticDefaultsState {
@@ -515,7 +541,15 @@ interface JSTreeStaticDefaultsUnique {
     * @name $.jstree.defaults.unique.case_sensitive
     * @plugin unique
     */
-    case_sensitive:boolean;
+    case_sensitive: boolean;
+    /**
+    * A callback executed in the instance's scope when a new node is created 
+    * and the name is already taken, the two arguments are the conflicting name and the counter. 
+    * The default will produce results like `New node (2)`.
+    * @name $.jstree.defaults.unique.duplicate
+    * @plugin unique
+    */
+    duplicate: (name:string, counter:number) => string;
 }
 
 interface JQuery {
@@ -714,7 +748,7 @@ interface JSTree extends JQuery {
     * @param {Boolean} prevent_open if set to `true` parents of the selected node won't be opened
     * @trigger select_node.jstree, changed.jstree
     */
-    select_node: (obj: any, supress_event?: boolean, prevent_open?: boolean, e?:any) => void;
+    select_node: (obj: any, supress_event?: boolean, prevent_open?: boolean, e?:any) => any;
     /**
     * deselect a node
     * @name deselect_node(obj [, supress_event])
@@ -775,8 +809,8 @@ interface JSTree extends JQuery {
     /**
     * refreshes a node in the tree (reload its children) all opened nodes inside that node are reloaded with calls to `load_node`.
     * @name refresh_node(obj)
-    * @param {Boolean} skip_loading an option to skip showing the loading indicator
-    * @trigger refresh.jstree
+    * @param  {mixed} obj the node
+    * @trigger refresh_node.jstree
     */
     refresh_node: (obj:any) => void;
     /**
@@ -1008,7 +1042,68 @@ interface JSTree extends JQuery {
     */
     redraw_node: (obj: any, deep:boolean, is_callback:boolean) => any;
     activate_node: (obj: any, e: any) => any;
-
+    /**
+    * check a node (only if tie_selection in checkbox settings is false, otherwise select_node will be called internally)
+    * @name check_node(obj)
+    * @param {mixed} obj an array can be used to check multiple nodes
+    * @trigger check_node.jstree
+    * @plugin checkbox
+    */
+    check_node: (obj: any, e:any) => any;
+    /**
+    * uncheck a node (only if tie_selection in checkbox settings is false, otherwise deselect_node will be called internally)
+    * @name deselect_node(obj)
+    * @param {mixed} obj an array can be used to deselect multiple nodes
+    * @trigger uncheck_node.jstree
+    * @plugin checkbox
+    */
+    uncheck_node: (obj: any, e: any) => any;
+    /**
+    * checks all nodes in the tree (only if tie_selection in checkbox settings is false, otherwise select_all will be called internally)
+    * @name check_all()
+    * @trigger check_all.jstree, changed.jstree
+    * @plugin checkbox
+    */
+    check_all: () => any;
+    /**
+    * uncheck all checked nodes (only if tie_selection in checkbox settings is false, otherwise deselect_all will be called internally)
+    * @name uncheck_all()
+    * @trigger uncheck_all.jstree
+    * @plugin checkbox
+    */
+    uncheck_all: () => any;
+    /**
+    * checks if a node is checked (if tie_selection is on in the settings this function will return the same as is_selected)
+    * @name is_checked(obj)
+    * @param  {mixed}  obj
+    * @return {Boolean}
+    * @plugin checkbox
+    */
+    is_checked: (obj: any) => boolean;
+    /**
+    * get an array of all checked nodes (if tie_selection is on in the settings this function will return the same as get_selected)
+    * @name get_checked([full])
+    * @param  {mixed}  full if set to `true` the returned array will consist of the full node objects, otherwise - only IDs will be returned
+    * @return {Array}
+    * @plugin checkbox
+    */
+    get_checked: (full: any) => any[];
+    /**
+    * get an array of all top level checked nodes (ignoring children of checked nodes) (if tie_selection is on in the settings this function will return the same as get_top_selected)
+    * @name get_top_checked([full])
+    * @param  {mixed}  full if set to `true` the returned array will consist of the full node objects, otherwise - only IDs will be returned
+    * @return {Array}
+    * @plugin checkbox
+    */
+    get_top_checked: (full: any) => any[];
+    /**
+    * get an array of all bottom level checked nodes (ignoring selected parents) (if tie_selection is on in the settings this function will return the same as get_bottom_selected)
+    * @name get_bottom_checked([full])
+    * @param  {mixed}  full if set to `true` the returned array will consist of the full node objects, otherwise - only IDs will be returned
+    * @return {Array}
+    * @plugin checkbox
+    */
+    get_bottom_checked: (full: any) => any[];
     /**
     * show the node checkbox icons
     * @name show_checkboxes()
@@ -1027,6 +1122,13 @@ interface JSTree extends JQuery {
     * @plugin checkbox
     */
     toggle_checkboxes: () => void;
+    /**
+    * checks if a node is in an undetermined state
+    * @name is_undetermined(obj)
+    * @param  {mixed} obj
+    * @return {Boolean}
+    */
+    is_undetermined: (obj: any) => boolean;
     /**
     * context menu plugin
     */
