@@ -833,15 +833,18 @@ declare module "express" {
              *    app.set('foo', 'bar');
              *    app.get('foo');
              *    // => "bar"
+             *    app.set('foo', ['bar', 'baz']);
+             *    app.get('foo');
+             *    // => ["bar", "baz"]
              *
              * Mounted servers inherit their parent server's settings.
              *
              * @param setting
              * @param val
              */
-            set(setting: string, val: string): Application;
+            set(setting: string, val: any): Application;
             get: {
-                (name: string): string; // Getter
+                (name: string): any; // Getter
                 (name: string, ...handlers: RequestHandler[]): Application;
                 (name: RegExp, ...handlers: RequestHandler[]): Application;
             };
