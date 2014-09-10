@@ -30,3 +30,17 @@ navigator.webkitGetUserMedia(mediaStreamConstraints,
     console.log('Error message: ' + error.message);
     console.log('Error name: ' + error.name);
   });
+
+
+navigator.mozGetUserMedia(mediaStreamConstraints,
+  stream => {
+    console.log('label:' + stream.label);
+    console.log('ended:' + stream.ended);
+    stream.onended = (event:Event) => console.log('Stream ended');
+    var objectUrl = URL.createObjectURL(stream);
+    var wkObjectUrl = webkitURL.createObjectURL(stream);
+  },
+  error => {
+    console.log('Error message: ' + error.message);
+    console.log('Error name: ' + error.name);
+  });
