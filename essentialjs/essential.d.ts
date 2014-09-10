@@ -18,6 +18,7 @@ declare module Resolver {
 	function config(el : Element) : void;
 	function config(el : Element,expr : String) : void;	
 	function functionProxy(src) : Function;
+	function method(name,fn) : void;
 	function docMethod(name,fn) : void;
 	function exists(name) : Boolean;
 	function hasGenerator(subject) : Boolean;
