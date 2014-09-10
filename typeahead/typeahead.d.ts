@@ -159,7 +159,7 @@ declare module Twitter.Typeahead {
          * The associated suggestion object will serve as the context. 
          * Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
           */
-        suggestion?: string;
+        suggestion?: (datum: any) => string;
 
     }
 
