@@ -1,27 +1,35 @@
-// Type definitions for Moment.js 2.5.0
+// Type definitions for Moment.js 2.8.0
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface MomentInput {
+
     years?: number;
     y?: number;
+
     months?: number;
     M?: number;
+
     weeks?: number;
     w?: number;
+
     days?: number;
     d?: number;
+
     hours?: number;
     h?: number;
+
     minutes?: number;
     m?: number;
+
     seconds?: number;
     s?: number;
+
     milliseconds?: number;
     ms?: number;
-}
 
+}
 
 interface Duration {
 
@@ -51,6 +59,9 @@ interface Duration {
     subtract(n: number, p: string): Duration;
     subtract(n: number): Duration;
     subtract(d: Duration): Duration;
+
+    toISOString(): string;
+
 }
 
 interface Moment {
@@ -64,45 +75,81 @@ interface Moment {
     endOf(unitOfTime: string): Moment;
 
     /**
-     * Mutates the original moment by adding time.
-     * 
-     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * Mutates the original moment by adding time. (deprecated in 2.8.0)
+     *
+     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
      * @param amount the amount you want to add
      */
     add(unitOfTime: string, amount: number): Moment;
     /**
      * Mutates the original moment by adding time.
-     * 
+     *
      * @param amount the amount you want to add
-     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
      */
     add(amount: number, unitOfTime: string): Moment;
     /**
-     * Mutates the original moment by adding time.
-     * 
-     * @param unitOfTime the key of what time you want to add (eg "years" / "hours" etc)
+     * Mutates the original moment by adding time. Note that the order of arguments can be flipped.
+     *
      * @param amount the amount you want to add
+     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
      */
-    add(unitOfTime: string, amount: string): Moment;
+    add(amount: string, unitOfTime: string): Moment;
     /**
      * Mutates the original moment by adding time.
-     * 
-     * @param objectLiteral an object literal that describes multiple different keys at the same time {days:7,months:1}
+     *
+     * @param objectLiteral an object literal that describes multiple time units {days:7,months:1}
      */
     add(objectLiteral: MomentInput): Moment;
     /**
      * Mutates the original moment by adding time.
-     * 
+     *
      * @param duration a length of time
      */
     add(duration: Duration): Moment;
 
-    subtract(input: MomentInput): Moment;
+    /**
+     * Mutates the original moment by subtracting time. (deprecated in 2.8.0)
+     *
+     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
+     * @param amount the amount you want to subtract
+     */
     subtract(unitOfTime: string, amount: number): Moment;
+    /**
+     * Mutates the original moment by subtracting time.
+     *
+     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
+     * @param amount the amount you want to subtract
+     */
+    subtract(amount: number, unitOfTime: string): Moment;
+    /**
+     * Mutates the original moment by subtracting time. Note that the order of arguments can be flipped.
+     *
+     * @param amount the amount you want to add
+     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
+     */
+    subtract(amount: string, unitOfTime: string): Moment;
+    /**
+     * Mutates the original moment by subtracting time.
+     *
+     * @param objectLiteral an object literal that describes multiple time units {days:7,months:1}
+     */
+    subtract(objectLiteral: MomentInput): Moment;
+    /**
+     * Mutates the original moment by subtracting time.
+     *
+     * @param duration a length of time
+     */
+    subtract(duration: Duration): Moment;
 
     calendar(): string;
+    calendar(start: Moment): string;
+
     clone(): Moment;
 
+    /**
+     * @return Unix timestamp, or milliseconds since the epoch.
+     */
     valueOf(): number;
 
     local(): Moment; // current date/time in local mode
@@ -114,6 +161,7 @@ interface Moment {
     year(y: number): Moment;
     year(): number;
     quarter(): number;
+    quarter(q: number): Moment;
     month(M: number): Moment;
     month(M: string): Moment;
     month(): number;
@@ -146,6 +194,8 @@ interface Moment {
     isoWeek(d: number): Moment;
     isoWeeks(): number;
     isoWeeks(d: number): Moment;
+    weeksInYear(): number;
+    isoWeeksInYear(): number;
 
     from(f: Moment): string;
     from(f: Moment, suffix: boolean): string;
@@ -203,27 +253,34 @@ interface Moment {
     isSame(b: Date, granularity: string): boolean;
     isSame(b: number[], granularity: string): boolean;
 
+    // Deprecated as of 2.8.0.
     lang(language: string): Moment;
     lang(reset: boolean): Moment;
     lang(): MomentLanguage;
 
+    localeData(language: string): Moment;
+    localeData(reset: boolean): Moment;
+    localeData(): MomentLanguage;
+
+    // Deprecated as of 2.7.0.
     max(date: Date): Moment;
     max(date: number): Moment;
     max(date: any[]): Moment;
     max(date: string): Moment;
     max(date: string, format: string): Moment;
     max(clone: Moment): Moment;
-    
+
+    // Deprecated as of 2.7.0.
     min(date: Date): Moment;
     min(date: number): Moment;
     min(date: any[]): Moment;
     min(date: string): Moment;
     min(date: string, format: string): Moment;
     min(clone: Moment): Moment;
-    
+
     get(unit: string): number;
     set(unit: string, value: number): Moment;
-    
+
 }
 
 interface MomentCalendar {
@@ -287,6 +344,8 @@ interface MomentRelativeTime {
 
 interface MomentStatic {
 
+    version: string;
+
     (): Moment;
     (date: number): Moment;
     (date: number[]): Moment;
@@ -311,10 +370,17 @@ interface MomentStatic {
 
     unix(timestamp: number): Moment;
 
+    invalid(parsingFlags?: Object): Moment;
     isMoment(): boolean;
     isMoment(m: any): boolean;
+
+    // Deprecated in 2.8.0.
     lang(language?: string): string;
     lang(language?: string, definition?: MomentLanguage): string;
+
+    localeData(language?: string): string;
+    localeData(language?: string, definition?: MomentLanguage): string;
+
     longDateFormat: any;
     relativeTime: any;
     meridiem: (hour: number, minute: number, isLowercase: boolean) => string;
@@ -326,9 +392,9 @@ interface MomentStatic {
     duration(input: MomentInput): Duration;
     duration(object: any): Duration;
     duration(): Duration;
-    
+
     parseZone(date: string): Moment;
-    
+
     months(): string[];
     months(index: number): string;
     months(format: string): string[];
@@ -337,7 +403,7 @@ interface MomentStatic {
     monthsShort(index: number): string;
     monthsShort(format: string): string[];
     monthsShort(format: string, index: number): string;
-    version: string;
+
     weekdays(): string[];
     weekdays(index: number): string;
     weekdays(format: string): string[];
@@ -350,10 +416,18 @@ interface MomentStatic {
     weekdaysMin(index: number): string;
     weekdaysMin(format: string): string[];
     weekdaysMin(format: string, index: number): string;
-    
+
+    min(moments: Moment[]): Moment;
+    max(moments: Moment[]): Moment;
+
     normalizeUnits(unit: string): string;
-    
-    invalid(parsingFlags?: Object): Moment;
+    relativeTimeThreshold(threshold: string, limit: number): void;
+
+    /**
+     * Constant used to enable explicit ISO_8601 format parsing.
+     */
+    ISO_8601(): void;
+
 }
 
 declare var moment: MomentStatic;
