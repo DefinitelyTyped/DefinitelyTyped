@@ -96,7 +96,7 @@ declare module "highlight.js"
 
 		export interface IMode extends IModeBase
 		{
-			keywords?: string;
+			keywords?: any;
 			contains?: IMode[];
 		}
 
