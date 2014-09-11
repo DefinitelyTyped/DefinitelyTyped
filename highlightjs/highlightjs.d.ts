@@ -105,7 +105,7 @@ declare module "highlight.js"
 		{
 			className?: string;
 			aliases?: string[];
-			begin: string;
+			begin?: string;
 			end?: string;
 			case_insensitive?: boolean;
 			beginKeyword?: string;
