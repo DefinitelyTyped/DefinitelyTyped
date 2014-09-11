@@ -78,6 +78,8 @@ declare module "express" {
             param(name: string, handler: RequestParamHandler): T;
             param(name: string, matcher: RegExp): T;
             param(name: string, mapper: (param: any) => any): T;
+            // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+            param(callback: (name: string, matcher: RegExp) => RequestParamHandler): T;
 
             /**
              * Special-cased "all" method, applying the given route `path`,
