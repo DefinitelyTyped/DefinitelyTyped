@@ -70,6 +70,35 @@ declare module "highlight.js"
 			second_best?: IAutoHighlightResult;
 		}
 
+		export interface HLJSStatic
+		{
+			inherit(parent: Object, obj: Object): Object;
+
+			// Common regexps
+			IDENT_RE: string;
+			UNDERSCORE_IDENT_RE: string;
+			NUMBER_RE: string;
+			C_NUMBER_RE: string;
+			BINARY_NUMBER_RE: string;
+			RE_STARTERS_RE: string;
+
+			// Common modes
+			BACKSLASH_ESCAPE : IMode;
+			APOS_STRING_MODE : IMode;
+			QUOTE_STRING_MODE : IMode;
+			PHRASAL_WORDS_MODE : IMode;
+			C_LINE_COMMENT_MODE : IMode;
+			C_BLOCK_COMMENT_MODE : IMode;
+			HASH_COMMENT_MODE : IMode;
+			NUMBER_MODE : IMode;
+			C_NUMBER_MODE : IMode;
+			BINARY_NUMBER_MODE : IMode;
+			CSS_NUMBER_MODE : IMode;
+			REGEX_MODE : IMode;
+			TITLE_MODE : IMode;
+			UNDERSCORE_TITLE_MODE : IMode;
+		}
+
 		// Reference:
 		// https://github.com/isagalaev/highlight.js/blob/master/docs/reference.rst
 		export interface IModeBase
