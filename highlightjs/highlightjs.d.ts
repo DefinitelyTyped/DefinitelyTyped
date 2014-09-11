@@ -105,10 +105,6 @@ declare module "highlight.js"
 			compiled: boolean;
 			contains?: ICompiledMode[];
 			keywords?: Object[];
-			beginRe: RegExp;
-			endRe?: RegExp;
-			lexemesRe?: RegExp;
-			illegalRe?: RegExp;
 			terminators: RegExp;
 			terminator_end?: string;
 		}
