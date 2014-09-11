@@ -27,7 +27,7 @@ declare module "highlight.js"
 
 		export function registerLanguage(
 			name: string,
-			language: IModeBase): void;
+			language: (hljs?: HLJSStatic) => IModeBase): void;
 		export function listLanguages(): string[];
 		export function getLanguage(name: string): IMode;
 
