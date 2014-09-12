@@ -398,3 +398,14 @@ function test_view() {
     var model = Parse.User.current();
     var view = new Parse.View<Parse.User>();
 }
+
+function test_promise() {
+
+	// Using static method 'Parse.Promise.when' and instance method 'then' input 0..n input parameter style (...value: Promise<T>[])
+    Parse.Promise.when(new Parse.Promise()).then((result) => { }, (reason) => { });
+    Parse.Promise.when(new Parse.Promise(), new Parse.Promise(), new Parse.Promise()).then((r1, r2, r3) => { }, (reason) => { });
+
+	// Using static method Parse.Promise.when  and instance method 'then' input array of Promise (...value: Promise<T>[])
+   Parse.Promise.when([new Parse.Promise()]).then((r) => { }, (reason) => { });
+   Parse.Promise.when([new Parse.Promise(), new Parse.Promise(), new Parse.Promise()]).then((r1, r2, r3) => { }, (reason) => { });
+}

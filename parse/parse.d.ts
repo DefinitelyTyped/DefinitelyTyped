@@ -83,29 +83,30 @@ declare module Parse {
 
     interface IPromise<T> {
 
-        then<U>(resolvedCallback: (value: T) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
+        then<U>(resolvedCallback: (...value: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+        then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
-    interface Promise<T> {
+    class Promise<T> {
 
         always(callback: Function): Promise<T>;
-        as(): Promise<T>;
+        static as<T>(value?: any): Promise<T>;
         done(callback: Function): Promise<T>;
-        error(): Promise<T>;
+        static error<T>(): Promise<T>;
         fail(callback: Function): Promise<T>;
-        is(): Promise<T>;
+        static is<T>(promise: Promise<T>): Promise<T>;
         reject(error: any): void;
         resolve(result: any): void;
-        then<U>(resolvedCallback: (value: T) => Promise<U>,
+        then<U>(resolvedCallback: (...value: T[]) => Promise<U>,
                 rejectedCallback?: (reason: any) => Promise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
+        then<U>(resolvedCallback: (...value: T[]) => U,
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
+        then<U>(resolvedCallback: (...value: T[]) => U,
             rejectedCallback?: (reason: any) => U): IPromise<T>;
 
-        when(promises: Promise<T>[]): Promise<T>;
+        static when<T>(promises: Promise<T>[]): Promise<T>;
+        static when<T>(...promises: Promise<T>[]): Promise<T>;
     }
 
     interface IBaseObject {
