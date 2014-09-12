@@ -143,7 +143,7 @@ interface Moment {
     subtract(duration: Duration): Moment;
 
     calendar(): string;
-    calendar(start: Moment);
+    calendar(start: Moment): string;
 
     clone(): Moment;
 
