@@ -342,6 +342,7 @@ All definitions files include a header with the author and editors, so at some p
 * [source-map](https://github.com/mozilla/source-map) (by [Morten Houston Ludvigsen](https://github.com/MortenHoustonLudvigsen))
 * [Spin](http://fgnass.github.com/spin.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [sqlite3](https://github.com/mapbox/node-sqlite3) (by [Nick Malaguti](https://github.com/nmalaguti))
+* [stampit](https://github.com/ericelliott/stampit) (by [Vasyl Boroviak](https://github.com/koresar))
 * [status-bar](https://github.com/atom/status-bar) (by [vvakame](https://github.com/vvakame))
 * [stripe](https://stripe.com/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone))
