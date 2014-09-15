@@ -3,27 +3,26 @@
 // Definitions by: ZauberNerd <https://github.com/ZauberNerd/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-interface IDiff {
-    kind: string;
-    path: string[];
-    lhs: any;
-    rhs: any;
-    index?: number;
-    item?: IDiff;
-}
-
-interface IAccumulator {
-    push(diff: IDiff): void;
-    length: number;
-}
-
-interface IPrefilter {
-    (path: string[], key: string): boolean;
-}
-
 declare module deepDiff {
-    export interface IDeepDiff {
+    interface IDiff {
+        kind: string;
+        path: string[];
+        lhs: any;
+        rhs: any;
+        index?: number;
+        item?: IDiff;
+    }
+
+    interface IAccumulator {
+        push(diff: IDiff): void;
+        length: number;
+    }
+
+    interface IPrefilter {
+        (path: string[], key: string): boolean;
+    }
+
+    interface IDeepDiff {
         diff(): IDiff;
         diff(lhs: Object, rhs: Object, prefilter?: IPrefilter, acc?: IAccumulator): IDiff[];
         observableDiff(lhs: Object, rhs: Object, changes: Function, prefilter?: IPrefilter, path?: string[], key?: string, stack?: Object[]): void;
@@ -35,8 +34,7 @@ declare module deepDiff {
     }
 }
 
-declare var diff: deepDiff.IDeepDiff;
-
 declare module "deep-diff" {
+    var diff: deepDiff.IDeepDiff;
     export = diff;
 }
