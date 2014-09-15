@@ -5,1412 +5,1424 @@
 
 /// <reference path="../node/node.d.ts" />
 
-interface StylusStatic {
-    /**
-     * Return a new `Renderer` for the given `str` and `options`.
-     */
-    (str: string, options: StylusRenderOptions): StylusRenderer;
+declare module Stylus {
 
-    /**
-     * Library version.
-     */
-    version: string;
+    export interface Static {
+        /**
+         * Return a new `Renderer` for the given `str` and `options`.
+         */
+        (str: string): Renderer;
+        (str: string, options: RenderOptions): Renderer;
 
-    /**
-     * Expose nodes.
-     */
-    nodes: StylusNodeStatic;
+        /**
+         * Library version.
+         */
+        version: string;
 
-    /**
-     * Expose BIFs.
-     */
-    functions: StylusFunctions;
+        /**
+         * Expose nodes.
+         */
+        nodes: NodeStatic;
 
-    /**
-     * Expose utils.
-     */
-    utils: StylusUtils;
+        /**
+         * Expose BIFs.
+         */
+        functions: Functions;
 
-    Visitor: typeof StylusVisitor;
-    Parser: typeof StylusParser;
-    Evaluator: typeof StylusEvaluator;
-    Compiler: typeof StylusCompiler;
+        /**
+         * Expose utils.
+         */
+        utils: Utils;
 
-    /**
-     * Expose middleware.
-     */
-    middleware(dir: string): StylusMiddleware;
+        Visitor: typeof Visitor;
+        Parser: typeof Parser;
+        Evaluator: typeof Evaluator;
+        Compiler: typeof Compiler;
 
-    /**
-     * Convert the given `css` to `stylus` source.
-     */
-    convertCSS(css: string): string;
+        /**
+         * Expose middleware.
+         */
+        middleware(dir: string): Middleware;
 
-    /**
-     * Render the given `str` with `options` and callback `fn(err, css)`.
-     */
-    render(str: string, callback: StylusRenderCallback): string;
-    render(str: string, options: StylusRenderOptions, callback: StylusRenderCallback): string;
+        /**
+         * Convert the given `css` to `stylus` source.
+         */
+        convertCSS(css: string): string;
 
-    /**
-     * Return a url() function with the given `options`.
-     */
-    url: StylusUrl;
+        /**
+         * Render the given `str` with `options` and callback `fn(err, css)`.
+         */
+        render(str: string, callback: RenderCallback): void;
+        render(str: string, options: RenderOptions, callback: RenderCallback): void;
 
-    /**
-     * Return a url() function with the given `options`.
-     */
-    resolver(options: any): StylusLiteralFunction;
+        /**
+         * Return a url() function with the given `options`.
+         */
+        url: UrlFunction;
+
+        /**
+         * Return a url() function with the given `options`.
+         */
+        resolver(options: any): LiteralFunction;
+    }
+
+    //#region Internal Modules
+
+    export interface NodeStatic {
+        Node: typeof Nodes.Node;
+        Root: typeof Nodes.Root;
+        Null: typeof Nodes.Null;
+        Each: typeof Nodes.Each;
+        If: typeof Nodes.If;
+        Call: typeof Nodes.Call;
+        UnaryOp: typeof Nodes.UnaryOp;
+        BinOp: typeof Nodes.BinOp;
+        Ternary: typeof Nodes.Ternary;
+        Block: typeof Nodes.Block;
+        Unit: typeof Nodes.Unit;
+        String: typeof Nodes.String;
+        HSLA: typeof Nodes.HSLA;
+        RGBA: typeof Nodes.RGBA;
+        Ident: typeof Nodes.Ident;
+        Group: typeof Nodes.Group;
+        Literal: typeof Nodes.Literal;
+        Boolean: typeof Nodes.Boolean;
+        Return: typeof Nodes.Return;
+        Media: typeof Nodes.Media;
+        QueryList: typeof Nodes.QueryList;
+        Query: typeof Nodes.Query;
+        QueryExpr: typeof Nodes.QueryExpr;
+        Params: typeof Nodes.Params;
+        Comment: typeof Nodes.Comment;
+        Keyframes: typeof Nodes.Keyframes;
+        Member: typeof Nodes.Member;
+        Charset: typeof Nodes.Charset;
+        Namespace: typeof Nodes.Namespace;
+        Import: typeof Nodes.Import;
+        Extend: typeof Nodes.Extend;
+        Object: typeof Nodes.Object;
+        Function: typeof Nodes.Function;
+        Property: typeof Nodes.Property;
+        Selector: typeof Nodes.Selector;
+        Expression: typeof Nodes.Expression;
+        Arguments: typeof Nodes.Arguments;
+        Atblock: typeof Nodes.Atblock;
+        Atrule: typeof Nodes.Atrule;
+
+        true: Nodes.Boolean;
+        false: Nodes.Boolean;
+        null: Nodes.Null;
+    }
+
+    export interface Functions {
+        /**
+         * Convert the given `color` to an `HSLA` node,
+         * or h,s,l,a component values.
+         */
+        hsla(rgba: Nodes.RGBA): Nodes.HSLA;
+        hsla(hsla: Nodes.HSLA): Nodes.HSLA;
+        hsla(hue: Nodes.Unit, saturation: Nodes.Unit, lightness: Nodes.Unit, alpha: Nodes.Unit): Nodes.HSLA;
+
+        /**
+         * Convert the given `color` to an `HSLA` node,
+         * or h,s,l component values.
+         */
+        hsl(rgba: Nodes.RGBA): Nodes.HSLA;
+        hsl(hsla: Nodes.HSLA): Nodes.HSLA;
+        hsl(hue: Nodes.Unit, saturation: Nodes.Unit, lightness: Nodes.Unit): Nodes.HSLA;
+
+        /**
+         * Return type of `node`.
+         */
+        type(node: Nodes.Node): string;
+        /**
+         * Return type of `node`.
+         */
+        typeof(node: Nodes.Node): string;
+        /**
+         * Return type of `node`.
+         */
+        "type-of"(node: Nodes.Node): string;
+
+        /**
+         * Return component `name` for the given `color`.
+         */
+        component(color: Nodes.RGBA, name: Nodes.String): Nodes.Unit;
+        component(color: Nodes.HSLA, name: Nodes.String): Nodes.Unit;
+
+        /**
+         * Return component `name` for the given `color`.
+         */
+        basename(path: Nodes.String): string;
+        basename(path: Nodes.String, ext: Nodes.String): string;
+
+        /**
+         * Return the dirname of `path`.
+         */
+        dirname(path: Nodes.String): string;
+
+        /**
+         * Return the extension of `path`.
+         */
+        extname(path: Nodes.String): string;
+
+        /**
+         * Joins given paths
+         */
+        pathjoin(...paths: Nodes.String[]): string;
+
+        /**
+         * Return the red component of the given `color`,
+         * or set the red component to the optional second `value` argument.
+         */
+        red(color: Nodes.RGBA): Nodes.Unit;
+        red(color: Nodes.HSLA): Nodes.Unit;
+        red(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        red(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return the green component of the given `color`,
+         * or set the green component to the optional second `value` argument.
+         */
+        green(color: Nodes.RGBA): Nodes.Unit;
+        green(color: Nodes.HSLA): Nodes.Unit;
+        green(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        green(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return the blue component of the given `color`,
+         * or set the blue component to the optional second `value` argument.
+         */
+        blue(color: Nodes.RGBA): Nodes.Unit;
+        blue(color: Nodes.HSLA): Nodes.Unit;
+        blue(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        blue(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return the alpha component of the given `color`,
+         * or set the alpha component to the optional second `value` argument.
+         */
+        alpha(color: Nodes.RGBA): Nodes.Unit;
+        alpha(color: Nodes.HSLA): Nodes.Unit;
+        alpha(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        alpha(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return the hue component of the given `color`,
+         * or set the hue component to the optional second `value` argument.
+         */
+        hue(color: Nodes.RGBA): Nodes.Unit;
+        hue(color: Nodes.HSLA): Nodes.Unit;
+        hue(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        hue(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return the saturation component of the given `color`,
+         * or set the saturation component to the optional second `value` argument.
+         */
+        saturation(color: Nodes.RGBA): Nodes.Unit;
+        saturation(color: Nodes.HSLA): Nodes.Unit;
+        saturation(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        saturation(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return the lightness component of the given `color`,
+         * or set the lightness component to the optional second `value` argument.
+         */
+        lightness(color: Nodes.RGBA): Nodes.Unit;
+        lightness(color: Nodes.HSLA): Nodes.Unit;
+        lightness(color: Nodes.RGBA, value: Nodes.Unit): Nodes.RGBA;
+        lightness(color: Nodes.HSLA, value: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return a `RGBA` from the r,g,b,a channels.
+         */
+        rgba(rgba: Nodes.RGBA): Nodes.RGBA;
+        rgba(hsla: Nodes.HSLA): Nodes.RGBA;
+        rgba(hue: Nodes.Unit, saturation: Nodes.Unit, lightness: Nodes.Unit, alpha: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return a `RGBA` from the r,g,b channels.
+         */
+        rgb(rgba: Nodes.RGBA): Nodes.RGBA;
+        rgb(hsla: Nodes.HSLA): Nodes.RGBA;
+        rgb(hue: Nodes.Unit, saturation: Nodes.Unit, lightness: Nodes.Unit, alpha: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Blend the `top` color over the `bottom`
+         */
+        blend(top: Nodes.RGBA): Nodes.RGBA;
+        blend(top: Nodes.RGBA, bottom: Nodes.RGBA): Nodes.RGBA;
+        blend(top: Nodes.RGBA, bottom: Nodes.HSLA): Nodes.RGBA;
+        blend(top: Nodes.HSLA): Nodes.RGBA;
+        blend(top: Nodes.HSLA, bottom: Nodes.RGBA): Nodes.RGBA;
+        blend(top: Nodes.HSLA, bottom: Nodes.HSLA): Nodes.RGBA;
+
+        /**
+         * Returns the relative luminance of the given `color`,
+         * see http://www.w3.org/TR/WCAG20/#relativeluminancedef
+         */
+        luminosity(rgba: Nodes.RGBA): Nodes.Unit;
+        luminosity(rgba: Nodes.HSLA): Nodes.Unit;
+
+        /**
+         * Returns the contrast ratio object between `top` and `bottom` colors,
+         * based on http://leaverou.github.io/contrast-ratio/
+         * and https://github.com/LeaVerou/contrast-ratio/blob/gh-pages/color.js#L108
+         */
+        contrast(top: Nodes.RGBA): Nodes.Object;
+        contrast(top: Nodes.RGBA, bottom: Nodes.RGBA): Nodes.Object;
+        contrast(top: Nodes.RGBA, bottom: Nodes.HSLA): Nodes.Object;
+        contrast(top: Nodes.HSLA): Nodes.Object;
+        contrast(top: Nodes.HSLA, bottom: Nodes.RGBA): Nodes.Object;
+        contrast(top: Nodes.HSLA, bottom: Nodes.HSLA): Nodes.Object;
+
+        /**
+         * Returns the transparent version of the given `top` color,
+         * as if it was blend over the given `bottom` color.
+         */
+        transparentify(top: Nodes.RGBA): Nodes.Object;
+        transparentify(top: Nodes.RGBA, bottom: Nodes.RGBA, alpha?: Nodes.Unit): Nodes.Object;
+        transparentify(top: Nodes.RGBA, bottom: Nodes.HSLA, alpha?: Nodes.Unit): Nodes.Object;
+        transparentify(top: Nodes.HSLA): Nodes.Object;
+        transparentify(top: Nodes.HSLA, bottom: Nodes.RGBA, alpha?: Nodes.Unit): Nodes.Object;
+        transparentify(top: Nodes.HSLA, bottom: Nodes.HSLA, alpha?: Nodes.Unit): Nodes.Object;
+
+        /**
+         * Convert a .json file into stylus variables or object.
+         * Nested variable object keys are joined with a dash (-)
+         *
+         * Given this sample media-queries.json file:
+         * {
+         *   "small": "screen and (max-width:400px)",
+         *   "tablet": {
+         *     "landscape": "screen and (min-width:600px) and (orientation:landscape)",
+         *     "portrait": "screen and (min-width:600px) and (orientation:portrait)"
+         *   }
+         * }
+         */
+        json(path: Nodes.String, local: Nodes.Boolean, namePrefix: Nodes.String): any;
+
+        /**
+         * Use the given `plugin`.
+         */
+        use(plugin: Nodes.String): void;
+        use(plugin: Nodes.String, options: any): void;
+
+        /**
+         * Unquote the given `string`.
+         */
+        unquote(str: Nodes.String): Nodes.Literal;
+
+        /**
+         * Like `unquote` but tries to convert the given `str` to a Stylus node.
+         */
+        convert(str: Nodes.String): Nodes.Node;
+
+        /**
+         * Assign `type` to the given `unit` or return `unit`'s type.
+         */
+        unit(unit: Nodes.Unit, type: Nodes.String): Nodes.Unit;
+
+        /**
+         * Lookup variable `name` or return Null.
+         */
+        lookup(name: Nodes.String): Nodes.Node;
+
+        /**
+         * Set a variable `name` on current scope.
+         */
+        define(name: Nodes.String, expr: Nodes.Expression): Nodes.Node;
+
+        /**
+         * Perform `op` on the `left` and `right` operands.
+         */
+        operate(op: Nodes.String, left: Nodes.Node, right: Nodes.Node): Nodes.Node;
+
+        /**
+         * Test if `val` matches the given `pattern`.
+         */
+        match(pattern: Nodes.String, val: Nodes.String): Nodes.Boolean;
+        match(pattern: Nodes.String, val: Nodes.Ident): Nodes.Boolean;
+
+        /**
+         * Returns substring of the given `val`.
+         */
+        substr(val: Nodes.String, start: Nodes.Number, length: Nodes.Number): Nodes.String;
+        substr(val: Nodes.Ident, start: Nodes.Number, length: Nodes.Number): Nodes.Ident;
+
+        /**
+         * Returns string with all matches of `pattern` replaced by `replacement` in given `val`
+         */
+        replace(pattern: Nodes.String, replacement: Nodes.String, val: Nodes.String): Nodes.String;
+        replace(pattern: Nodes.String, replacement: Nodes.String, val: Nodes.Ident): Nodes.Ident;
+
+        /**
+         * Splits the given `val` by `delim`
+         */
+        split(pattern: Nodes.String, val: Nodes.String): Nodes.Expression;
+        split(pattern: Nodes.String, val: Nodes.Ident): Nodes.Expression;
+
+        /**
+         * Return length of the given `expr`.
+         */
+        length(expr: Nodes.Expression): Nodes.Unit;
+
+        /**
+         * Inspect the given `expr`.
+         */
+        length(...expr: Nodes.Expression[]): Nodes.Null;
+
+        /**
+         * Throw an error with the given `msg`.
+         */
+        error(msg: Nodes.String): void;
+
+        /**
+         * Warn with the given `msg` prefixed by "Warning: ".
+         */
+        warn(msg: Nodes.String): Nodes.Null;
+
+        /**
+         * Output stack trace.
+         */
+        trace(): Nodes.Null;
+
+        /**
+         * Push the given args to `expr`.
+         */
+        push(expr: Nodes.Expression, ...nodes: Nodes.Node[]): Nodes.Unit;
+
+        /**
+         * Pop a value from `expr`.
+         */
+        pop(expr: Nodes.Expression): Nodes.Node;
+
+        /**
+         * Unshift the given args to `expr`.
+         */
+        unshift(expr: Nodes.Expression, ...nodes: Nodes.Node[]): Nodes.Unit;
+
+        /**
+         * Unshift the given args to `expr`..
+         */
+        prepend(expr: Nodes.Expression, ...nodes: Nodes.Node[]): Nodes.Unit;
+
+        /**
+         * Shift a value from `expr`.
+         */
+        shift(expr: Nodes.Expression): Nodes.Node;
+
+        /**
+         * Return a `Literal` with the given `fmt`, and variable number of arguments.
+         */
+        s(fmt: Nodes.String, ...nodes: Nodes.Node[]): Nodes.Literal;
+
+        /**
+         * Return a `Literal` `num` converted to the provided `base`, padded to `width`
+         * with zeroes (default width is 2)
+         */
+        "base-convert"(num: Nodes.Number, base: Nodes.Number, width: Nodes.Number): Nodes.Literal;
+
+        /**
+         * Return the opposites of the given `positions`.
+         */
+        "opposite-position"(positions: Nodes.Expression): Nodes.Expression;
+
+        /**
+         * Return the width and height of the given `img` path.
+         */
+        "image-size"(img: Nodes.String, ignoreErr: Nodes.Boolean): Nodes.Expression;
+
+        /**
+         * Return the tangent of the given `angle`.
+         */
+        tan(angle: Nodes.Unit): Nodes.Unit;
+
+        /**
+         * Return the tangent of the given `angle`.
+         */
+        math(n: Nodes.Unit, fn: Nodes.String): Nodes.Unit;
+
+        /**
+         * Return the opposites of the given `positions`.
+         */
+        "-math-prop"(prop: Nodes.String): Nodes.Unit;
+
+        /**
+         * Adjust HSL `color` `prop` by `amount`.
+         */
+        adjust(rgba: Nodes.RGBA, prop: Nodes.String, amount: Nodes.Unit): Nodes.RGBA;
+        adjust(hsla: Nodes.HSLA, prop: Nodes.String, amount: Nodes.Unit): Nodes.RGBA;
+
+        /**
+         * Return a clone of the given `expr`.
+         */
+        clone(expr: Nodes.Expression): Nodes.Expression;
+
+        /**
+         * Add property `name` with the given `expr` to the mixin-able block.
+         */
+        "add-property"(name: Nodes.String, expr: Nodes.Expression): Nodes.Property;
+
+        /**
+         * Merge the object `dest` with the given args.
+         */
+        merge(dest: Nodes.Object, ...objs: Nodes.Object[]): Nodes.Object;
+
+        /**
+         * Merge the object `dest` with the given args.
+         */
+        extend(dest: Nodes.Object, ...objs: Nodes.Object[]): Nodes.Object;
+
+        /**
+         * Return the current selector or compile `sel` selector.
+         */
+        selector(): string;
+        selector(sel: Nodes.String): string;
+
+        /**
+         * Prefix css classes in a block
+         */
+        "-prefix-classes"(prefix: Nodes.String, block: Nodes.Block): Nodes.Block;
+
+        /**
+         * Returns the @media string for the current block
+         */
+        "current-media"(): Nodes.String;
+
+        /**
+         * Return the separator of the given `list`.
+         */
+        "list-separator"(list: Nodes.Expression): Nodes.String;
+    }
+
+    export interface Utils {
+        /**
+         * Check if `path` looks absolute.
+         */
+        absolute(path: string): boolean;
+
+        /**
+         * Attempt to lookup `path` within `paths` from tail to head.
+         * Optionally a path to `ignore` may be passed.
+         */
+        lookup(path: string, paths: string, ignore: string, resolveURL: boolean): string;
+
+        /**
+         * Attempt to lookup `path` within `paths` from tail to head.
+         * Optionally a path to `ignore` may be passed.
+         */
+        lookupIndex(path: string, paths: string, filename: string): string[];
+
+        /**
+         * Like `utils.lookup` but uses `glob` to find files.
+         */
+        find(path: string, paths: string, ignore: string): string[];
+
+        /**
+         * Format the given `err` with the given `options`.
+         */
+        formatException(err: Error, options: ExceptionOptions): Error;
+
+        /**
+         * Assert that `node` is of the given `type`, or throw.
+         */
+        assertType(node: Nodes.Node, type: string, param: string): void;
+
+        /**
+         * Assert that `node` is a `String` or `Ident`.
+         */
+        assertString(node: Nodes.Node, param: string): void;
+
+        /**
+         * Assert that `node` is a `RGBA` or `HSLA`.
+         */
+        assertColor(node: Nodes.Node, param: string): void;
+
+        /**
+         * Assert that param `name` is given, aka the `node` is passed.
+         */
+        assertPresent(node: Nodes.Node, name: string): void;
+
+        /**
+         * Unwrap `expr`.
+         *
+         * Takes an expressions with length of 1
+         * such as `((1 2 3))` and unwraps it to `(1 2 3)`.
+         */
+        unwrap(expr: Nodes.Expression): Nodes.Node;
+
+        /**
+         * Coerce JavaScript values to their Stylus equivalents.
+         */
+        coerce(val: any): Nodes.Node;
+        coerce(val: any, raw: boolean): Nodes.Node;
+
+        /**
+         * Coerce a javascript `Array` to a Stylus `Expression`.
+         */
+        coerceArray(val: any): Nodes.Expression;
+        coerceArray(val: any, raw: boolean): Nodes.Expression;
+
+        /**
+         * Coerce a javascript object to a Stylus `Expression` or `Object`.
+         *
+         * For example `{ foo: 'bar', bar: 'baz' }` would become
+         * the expression `(foo 'bar') (bar 'baz')`. If `raw` is true
+         * given `obj` would become a Stylus hash object.
+         */
+        coerceObject(obj: any): Nodes.Expression;
+        coerceObject(obj: any, raw: boolean): Nodes.Expression;
+
+        /**
+         * Return param names for `fn`.
+         */
+        params(fn: Function): string[];
+
+        /**
+         * Merge object `b` with `a`.
+         */
+        merge(a: any, b: any): any;
+
+        /**
+         * Returns an array with unique values.
+         */
+        uniq(arr: any[]): any[];
+
+        /**
+         * Compile selector strings in `arr` from the bottom-up
+         * to produce the selector combinations. For example
+         * the following Stylus:
+         */
+        compileSelectors(arr: string[], leaveHidden: boolean): string[];
+    }
+
+    export interface UrlFunction {
+        (options: UrlOptions): LiteralFunction;
+
+        mimes: {
+            ".gif": string;
+            ".png": string;
+            ".jpg": string;
+            ".jpeg": string;
+            ".svg": string;
+            ".ttf": string;
+            ".eot": string;
+            ".woff": string;
+        };
+    }
+
+    export interface Middleware {
+        (req: any, res: any, next: Function): void;
+    }
+
+    //#endregion
+
+    //#region Internal Classes
+
+    export class Visitor {
+    }
+
+    export class Parser {
+    }
+
+    export class Evaluator {
+    }
+
+    export class Compiler {
+    }
+
+    export class Renderer { //extends events.EventEmitter {
+        options: RenderOptions;
+        str: string;
+        events: any;
+
+        constructor(str: string);
+        constructor(str: string, options: RenderOptions);
+
+        /**
+         * Parse and evaluate AST, then callback `fn(err, css, js)`.
+         */
+        render(callback: RenderCallback): void;
+
+        /**
+         * Get dependencies of the compiled file.
+         */
+        deps(filename: string): string[];
+
+        /**
+         * Set option `key` to `val`.
+         */
+        set(key: string, val: any): Renderer;
+
+        /**
+         * Get option `key`.
+         */
+        get(key: string): any;
+
+        /**
+         * Include the given `path` to the lookup paths array.
+         */
+        include(path: string): Renderer;
+
+        /**
+         * Use the given `fn`.
+         *
+         * This allows for plugins to alter the renderer in
+         * any way they wish, exposing paths etc.
+         */
+        use(fn: (renderer: Renderer) => any): Renderer;
+
+        /**
+         * Define function or global var with the given `name`. Optionally
+         * the function may accept full expressions, by setting `raw`
+         * to `true`.
+         */
+        define(name: string, fn: Function): Renderer;
+        define(name: string, node: Nodes.Node): Renderer;
+        define(name: string, val: any): Renderer;
+        define(name: string, fn: Function, raw: boolean): Renderer;
+        define(name: string, node: Nodes.Node, raw: boolean): Renderer;
+        define(name: string, val: any, raw: boolean): Renderer;
+
+        /**
+         * Import the given `file`.
+         */
+        import(file: string): Renderer;
+    }
+
+    //#endregion
+
+    //#region Nodes Classes
+
+    export module Nodes {
+
+        export class Node {
+            lineno: number;
+            column: number;
+            filename: string;
+
+            first: Node;
+            hash: string;
+            nodeName: string;
+
+            constructor();
+
+            /**
+             * Return a clone of this node.
+             */
+            clone(): Node;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { lineno: number; column: number; filename: string };
+
+            /**
+             * Nodes by default evaluate to themselves.
+             */
+            eval(): Node;
+
+            /**
+             * Return true.
+             */
+            toBoolean(): Boolean;
+
+            /**
+             * Return the expression, or wrap this node in an expression.
+             */
+            toExpression(): Expression;
+
+            /**
+             * Return false if `op` is generally not coerced.
+             */
+            shouldCoerce(op: string): boolean;
+
+            /**
+             * Operate on `right` with the given `op`.
+             */
+            operate(op: string, right: Node): Node;
+
+            /**
+             *  Default coercion throws.
+             */
+            coerce(other: Node): Node;
+        }
+
+        export class Root extends Node {
+            nodes: Node[];
+
+            /**
+             * Push a `node` to this block.
+             */
+            push(node: Node): void;
+
+            /**
+             * Unshift a `node` to this block.
+             */
+            unshift(node: Node): void;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { nodes: Node[]; lineno: number; column: number; filename: string };
+        }
+
+        export class String extends Node {
+            val: string;
+            string: string;
+            prefixed: boolean;
+            quote: string;
+
+            constructor(val: string);
+            constructor(val: string, quote: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { val: string; quote: string; lineno: number; column: number; filename: string };
+        }
+
+        export class Number extends Node {
+
+        }
+
+        export class Boolean extends Node {
+            val: boolean;
+            isTrue: boolean;
+            isFalse: boolean;
+
+            constructor();
+            constructor(val: boolean);
+
+            /**
+             * Negate the value.
+             */
+            negate(): Boolean;
+
+            /**
+             * Return 'Boolean'.
+             */
+            inspect(): Boolean;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; val: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Object extends Node {
+            vals: Dictionary<Node>;
+            length: number;
+
+            constructor();
+
+            /**
+             * Set `key` to `val`.
+             */
+            set(key: string, value: Node): Object;
+
+            /**
+             * Get `key`.
+             */
+            get(key: string): Node;
+
+            /**
+             * Has `key`?
+             */
+            has(key: string): boolean;
+
+            /**
+             * Convert object to string with properties.
+             */
+            toBlock(): string;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; vals: Dictionary<Node>; lineno: number; column: number; filename: string };
+        }
+
+        export class Null extends Node {
+            isNull: boolean;
+
+            constructor();
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; lineno: number; column: number; filename: string };
+        }
+
+        export class Ident extends Node {
+            name: string;
+            string: string;
+            val: Node;
+            mixin: boolean;
+
+            isEmpty: boolean;
+
+            constructor(name: string, val: Node);
+            constructor(name: string, val: Node, mixin: boolean);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; name: string; val: Node; mixin: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Literal extends Node {
+            val: string;
+            string: string;
+            prefixed: boolean;
+
+            constructor(str: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; string: string; val: string; prefixed: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Unit extends Node {
+            val: number;
+            type: string;
+
+            constructor(val: number, type: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; val: number; type: string; lineno: number; column: number; filename: string };
+        }
+
+        export class RGBA extends Node {
+            r: number;
+            g: number;
+            b: number;
+            a: number;
+            rgba: RGBA;
+            hsla: HSLA;
+
+            constructor(r: number, g: number, b: number, a: number);
+
+            /**
+             * Return an `RGBA` without clamping values.
+             */
+            static withoutClamping(r: number, g: number, b: number, a: number): RGBA;
+
+            /**
+             * Return a `RGBA` from the given `hsla`.
+             */
+            static fromHSLA(hsla: HSLA): RGBA;
+
+            /**
+             * Add r,g,b,a to the current component values
+             */
+            add(r: number, g: number, b: number, a: number): RGBA;
+
+            /**
+             * Subtract r,g,b,a from the current component values
+             */
+            substract(r: number, g: number, b: number, a: number): RGBA;
+
+            /**
+             * Multiply rgb components by `n`.
+             */
+            multiply(n: number): RGBA;
+
+            /**
+             * Divide rgb components by `n`.
+             */
+            divide(n: number): RGBA;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; r: number; g: number; b: number; a: number; lineno: number; column: number; filename: string };
+        }
+
+        export class HSLA extends Node {
+            h: number;
+            s: number;
+            l: number;
+            a: number;
+            hsla: HSLA;
+            rgba: RGBA;
+
+            constructor(h: number, s: number, l: number, a: number);
+
+            /**
+             * Return a `HSLA` from the given `hsla`.
+             */
+            static fromRGBA(rgba: RGBA): HSLA;
+
+            /**
+             * Add h,s,l to the current component values
+             */
+            add(h: number, s: number, l: number): HSLA;
+
+            /**
+             * Subtract h,s,l from the current component values
+             */
+            substract(h: number, s: number, l: number): HSLA;
+
+            /**
+             * Adjust lightness by `percent`.
+             */
+            adjustLightness(percent: number): HSLA;
+
+            /**
+             * djust hue by `deg`.
+             */
+            adjustHue(deg: number): HSLA;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; h: number; s: number; l: number; a: number; lineno: number; column: number; filename: string };
+        }
+
+        export class Block extends Node {
+            nodes: Node[];
+            parent: Block;
+            node: Node;
+            scope: boolean;
+
+            hasProperties: boolean;
+            hasMedia: boolean;
+            isEmpty: boolean;
+
+            constructor(parent: Block);
+            constructor(parent: Block, node: Node);
+
+            /**
+             * Push a `node` to this block.
+             */
+            push(node: Node): void;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; nodes: Node[]; scope: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Group extends Node {
+            nodes: Node[];
+            block: Block;
+
+            hasOnlyPlaceholders: boolean;
+
+            constructor();
+
+            /**
+             * Push the given `selector` node.
+             */
+            push(node: Node): void;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; nodes: Node[]; block: Block; lineno: number; column: number; filename: string };
+        }
+
+        export class Expression extends Node {
+            nodes: Node[];
+            isList: boolean;
+
+            isEmpty: boolean;
+            first: Node;
+
+            constructor(isList: boolean);
+
+            /**
+             * Push the given node.
+             */
+            push(node: Node): void;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; nodes: Node[]; isList: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Property extends Node {
+            segments: Node[];
+            expr: Expression;
+
+            constructor(segs: Node[], expr: Expression);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; segments: Node[]; name: string; expr?: Expression; literal?: Literal; lineno: number; column: number; filename: string };
+        }
+
+        export class Each extends Node {
+            val: string;
+            key: string;
+            expr: Expression;
+            block: Block;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; val: string; key: string; expr: Expression; block: Block; lineno: number; column: number; filename: string };
+        }
+
+        export class If extends Node {
+            cond: Expression;
+            elses: Expression[];
+            block: Block;
+            negate: boolean;
+
+            constructor(cond: Expression, negate: boolean);
+            constructor(cond: Expression, block: Block);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; cond: Expression; elses: Expression[]; block: Block; negate: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Call extends Node {
+            name: string;
+            args: Expression;
+
+            constructor(name: string, args: Expression);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; name: string; args: Expression; lineno: number; column: number; filename: string };
+        }
+
+        export class UnaryOp extends Node {
+            op: string;
+            expr: Expression;
+
+            constructor(op: string, expr: Expression);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; op: string; expr: Expression; lineno: number; column: number; filename: string };
+        }
+
+        export class BinOp extends Node {
+            op: string;
+            left: Expression;
+            right: Expression;
+
+            constructor(op: string, left: Expression, right: Expression);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; op: string; left: Expression; right: Expression; lineno: number; column: number; filename: string };
+        }
+
+        export class Ternary extends Node {
+            op: string;
+            trueExpr: Expression;
+            falseExpr: Expression;
+
+            constructor(op: string, trueExpr: Expression, falseExpr: Expression);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; op: string; trueExpr: Expression; falseExpr: Expression; lineno: number; column: number; filename: string };
+        }
+
+        export class Return extends Node {
+            expr: Expression;
+
+            constructor(expr: Expression);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; expr: Expression; lineno: number; column: number; filename: string };
+        }
+
+        export class Media extends Node {
+            val: string;
+
+            constructor(val: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; val: string; lineno: number; column: number; filename: string };
+        }
+
+        export class QueryList extends Node {
+            nodes: Node[];
+
+            constructor();
+
+            /**
+             * Push the given `node`.
+             */
+            push(node: Node): void;
+
+            /**
+             * Merges this query list with the `other`.
+             */
+            merge(other: MediaQueryList): MediaQueryList;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; nodes: Node[]; lineno: number; column: number; filename: string };
+        }
+
+        export class Query extends Node {
+            nodes: QueryExpr[];
+            type: string;
+            predicate: string;
+
+            resolvedType: string;
+            resolvedPredicate: string;
+
+            constructor();
+
+            /**
+             * Push the given `expr`.
+             */
+            push(expr: QueryExpr): void;
+
+            /**
+             * Merges this query with the `other`.
+             */
+            merge(other: Query): Query;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; nodes: QueryExpr[]; predicate: string; type: string; lineno: number; column: number; filename: string };
+        }
+
+        export class QueryExpr extends Node {
+            segments: Node[];
+            expr: Expression;
+
+            constructor(segs: Node[]);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; segments: Node[]; lineno: number; column: number; filename: string };
+        }
+
+        export class Params extends Node {
+            nodes: Node[];
+
+            length: number;
+
+            /**
+             * Push the given `node`.
+             */
+            push(node: Node): void;
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; nodes: Node[]; lineno: number; column: number; filename: string };
+        }
+
+        export class Comment extends Node {
+            str: string;
+            suppress: boolean;
+            inline: boolean;
+
+            constructor(str: string, suppress: boolean, inline: boolean);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; str: string; suppress: boolean; inline: boolean; lineno: number; column: number; filename: string };
+        }
+
+        export class Keyframes extends Node {
+            segments: Node[];
+            prefix: string;
+
+            constructor(segs: Node[]);
+            constructor(segs: Node[], prefix: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; segments: Node[]; prefix: string; block: Block; lineno: number; column: number; filename: string };
+        }
+
+        export class Member extends Node {
+            left: Node;
+            right: Node;
+
+            constructor(left: Node, right: Node);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; left: Node; right: Node; val?: string; lineno: number; column: number; filename: string };
+        }
+
+        export class Charset extends Node {
+            val: string;
+
+            constructor(val: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; val: string; lineno: number; column: number; filename: string };
+        }
+
+        export class Namespace extends Node {
+            val: string;
+            prefix: string;
+
+            constructor(val: string, prefix: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; val: string; prefix: string; lineno: number; column: number; filename: string };
+        }
+
+        export class Import extends Node {
+            path: Expression;
+            once: boolean;
+
+            constructor(path: Expression);
+            constructor(path: Expression, once: boolean);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; path: Expression; lineno: number; column: number; filename: string };
+        }
+
+        export class Extend extends Node {
+            selectors: Selector[];
+
+            constructor(selectors: Selector[]);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; selectors: Selector[]; lineno: number; column: number; filename: string };
+        }
+
+        export class Function extends Node {
+            name: string;
+            params: Params;
+            body: Block;
+
+            constructor(name: string, params: Params, body: Block);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; name: string; params: Params; body: Block; lineno: number; column: number; filename: string };
+        }
+
+        export class Selector extends Node {
+            inherits: boolean;
+            segments: Node[];
+
+            constructor(segs: Node[]);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; segments: Node[]; inherits: boolean; val: string; lineno: number; column: number; filename: string };
+        }
+
+        export class Arguments extends Expression {
+            map: Dictionary<Node>;
+
+            constructor();
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; map: Dictionary<Node>; isList: boolean; preserve: boolean; nodes: Node[]; lineno: number; column: number; filename: string };
+        }
+
+        export class Atblock extends Node {
+            block: Block;
+            nodes: Node[];
+
+            constructor();
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; block: Block; lineno: number; column: number; filename: string };
+        }
+
+        export class Atrule extends Node {
+            type: string;
+
+            hasOnlyProperties: boolean;
+
+            constructor(type: string);
+
+            /**
+             * Return a JSON representation of this node.
+             */
+            toJSON(): { __type: string; type: string; segments: Node[]; block?: Block; lineno: number; column: number; filename: string };
+        }
+    }
+
+    //#endregion
+
+    //#region Internal Interfaces
+
+    export interface Dictionary<T> {
+        [key: string]: T;
+    }
+
+    export interface RenderOptions {
+        globals?: Dictionary<any>;
+        functions?: Dictionary<any>;
+        imports?: string[];
+        paths?: string[];
+        filename?: string;
+        Evaluator?: typeof Evaluator;
+    }
+
+    export interface RenderCallback {
+        (err: Error, css: string, js: string): void;
+    }
+
+    export interface UrlOptions {
+        limit?: string;
+        path: string;
+    }
+
+    export interface LiteralFunction {
+        (url: string): Nodes.Literal;
+        raw: boolean;
+    }
+
+    export interface ExceptionOptions {
+        filename: string;
+        context: number;
+        lineno: number;
+        column: number;
+        input: string;
+    }
+
+    //#endregion
 }
-
-//#region Internal Modules
-
-interface StylusNodeStatic {
-    Node: typeof StylusNode;
-    Root: typeof StylusNodeRoot;
-    Null: typeof StylusNodeNull;
-    Each: typeof StylusNodeEach;
-    If: typeof StylusNodeIf;
-    Call: typeof StylusNodeCall;
-    UnaryOp: typeof StylusNodeUnaryOp;
-    BinOp: typeof StylusNodeBinOp;
-    Ternary: typeof StylusNodeTernary;
-    Block: typeof StylusNodeBlock;
-    Unit: typeof StylusNodeUnit;
-    String: typeof StylusNodeString;
-    HSLA: typeof StylusNodeHSLA;
-    RGBA: typeof StylusNodeRGBA;
-    Ident: typeof StylusNodeIdent;
-    Group: typeof StylusNodeGroup;
-    Literal: typeof StylusNodeLiteral;
-    Boolean: typeof StylusNodeBoolean;
-    Return: typeof StylusNodeReturn;
-    Media: typeof StylusNodeMedia;
-    QueryList: typeof StylusNodeQueryList;
-    Query: typeof StylusNodeQuery;
-    QueryExpr: typeof StylusNodeQueryExpr;
-    Params: typeof StylusNodeParams;
-    Comment: typeof StylusNodeComment;
-    Keyframes: typeof StylusNodeKeyframes;
-    Member: typeof StylusNodeMember;
-    Charset: typeof StylusNodeCharset;
-    Namespace: typeof StylusNodeNamespace;
-    Import: typeof StylusNodeImport;
-    Extend: typeof StylusNodeExtend;
-    Object: typeof StylusNodeObject;
-    Function: typeof StylusNodeFunction;
-    Property: typeof StylusNodeProperty;
-    Selector: typeof StylusNodeSelector;
-    Expression: typeof StylusNodeExpression;
-    Arguments: typeof StylusNodeArguments;
-    Atblock: typeof StylusNodeAtblock;
-    Atrule: typeof StylusNodeAtrule;
-
-    true: StylusNodeBoolean;
-    false: StylusNodeBoolean;
-    null: StylusNodeNull;
-}
-
-interface StylusFunctions {
-    /**
-     * Convert the given `color` to an `HSLA` node,
-     * or h,s,l,a component values.
-     */
-    hsla(rgba: StylusNodeRGBA): StylusNodeHSLA;
-    hsla(hsla: StylusNodeHSLA): StylusNodeHSLA;
-    hsla(hue: StylusNodeUnit, saturation: StylusNodeUnit, lightness: StylusNodeUnit, alpha: StylusNodeUnit): StylusNodeHSLA;
-
-    /**
-     * Convert the given `color` to an `HSLA` node,
-     * or h,s,l component values.
-     */
-    hsl(rgba: StylusNodeRGBA): StylusNodeHSLA;
-    hsl(hsla: StylusNodeHSLA): StylusNodeHSLA;
-    hsl(hue: StylusNodeUnit, saturation: StylusNodeUnit, lightness: StylusNodeUnit): StylusNodeHSLA;
-
-    /**
-     * Return type of `node`.
-     */
-    type(node: StylusNode): string;
-    /**
-     * Return type of `node`.
-     */
-    typeof(node: StylusNode): string;
-    /**
-     * Return type of `node`.
-     */
-    "type-of"(node: StylusNode): string;
-
-    /**
-     * Return component `name` for the given `color`.
-     */
-    component(color: StylusNodeRGBA, name: StylusNodeString): StylusNodeUnit;
-    component(color: StylusNodeHSLA, name: StylusNodeString): StylusNodeUnit;
-
-    /**
-     * Return component `name` for the given `color`.
-     */
-    basename(path: StylusNodeString): string;
-    basename(path: StylusNodeString, ext: StylusNodeString): string;
-
-    /**
-     * Return the dirname of `path`.
-     */
-    dirname(path: StylusNodeString): string;
-
-    /**
-     * Return the extension of `path`.
-     */
-    extname(path: StylusNodeString): string;
-
-    /**
-     * Joins given paths
-     */
-    pathjoin(...paths: StylusNodeString[]): string;
-
-    /**
-     * Return the red component of the given `color`,
-     * or set the red component to the optional second `value` argument.
-     */
-    red(color: StylusNodeRGBA): StylusNodeUnit;
-    red(color: StylusNodeHSLA): StylusNodeUnit;
-    red(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    red(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return the green component of the given `color`,
-     * or set the green component to the optional second `value` argument.
-     */
-    green(color: StylusNodeRGBA): StylusNodeUnit;
-    green(color: StylusNodeHSLA): StylusNodeUnit;
-    green(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    green(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return the blue component of the given `color`,
-     * or set the blue component to the optional second `value` argument.
-     */
-    blue(color: StylusNodeRGBA): StylusNodeUnit;
-    blue(color: StylusNodeHSLA): StylusNodeUnit;
-    blue(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    blue(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return the alpha component of the given `color`,
-     * or set the alpha component to the optional second `value` argument.
-     */
-    alpha(color: StylusNodeRGBA): StylusNodeUnit;
-    alpha(color: StylusNodeHSLA): StylusNodeUnit;
-    alpha(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    alpha(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return the hue component of the given `color`,
-     * or set the hue component to the optional second `value` argument.
-     */
-    hue(color: StylusNodeRGBA): StylusNodeUnit;
-    hue(color: StylusNodeHSLA): StylusNodeUnit;
-    hue(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    hue(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return the saturation component of the given `color`,
-     * or set the saturation component to the optional second `value` argument.
-     */
-    saturation(color: StylusNodeRGBA): StylusNodeUnit;
-    saturation(color: StylusNodeHSLA): StylusNodeUnit;
-    saturation(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    saturation(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return the lightness component of the given `color`,
-     * or set the lightness component to the optional second `value` argument.
-     */
-    lightness(color: StylusNodeRGBA): StylusNodeUnit;
-    lightness(color: StylusNodeHSLA): StylusNodeUnit;
-    lightness(color: StylusNodeRGBA, value: StylusNodeUnit): StylusNodeRGBA;
-    lightness(color: StylusNodeHSLA, value: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return a `RGBA` from the r,g,b,a channels.
-     */
-    rgba(rgba: StylusNodeRGBA): StylusNodeRGBA;
-    rgba(hsla: StylusNodeHSLA): StylusNodeRGBA;
-    rgba(hue: StylusNodeUnit, saturation: StylusNodeUnit, lightness: StylusNodeUnit, alpha: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return a `RGBA` from the r,g,b channels.
-     */
-    rgb(rgba: StylusNodeRGBA): StylusNodeRGBA;
-    rgb(hsla: StylusNodeHSLA): StylusNodeRGBA;
-    rgb(hue: StylusNodeUnit, saturation: StylusNodeUnit, lightness: StylusNodeUnit, alpha: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Blend the `top` color over the `bottom`
-     */
-    blend(top: StylusNodeRGBA): StylusNodeRGBA;
-    blend(top: StylusNodeRGBA, bottom: StylusNodeRGBA): StylusNodeRGBA;
-    blend(top: StylusNodeRGBA, bottom: StylusNodeHSLA): StylusNodeRGBA;
-    blend(top: StylusNodeHSLA): StylusNodeRGBA;
-    blend(top: StylusNodeHSLA, bottom: StylusNodeRGBA): StylusNodeRGBA;
-    blend(top: StylusNodeHSLA, bottom: StylusNodeHSLA): StylusNodeRGBA;
-
-    /**
-     * Returns the relative luminance of the given `color`,
-     * see http://www.w3.org/TR/WCAG20/#relativeluminancedef
-     */
-    luminosity(rgba: StylusNodeRGBA): StylusNodeUnit;
-    luminosity(rgba: StylusNodeHSLA): StylusNodeUnit;
-
-    /**
-     * Returns the contrast ratio object between `top` and `bottom` colors,
-     * based on http://leaverou.github.io/contrast-ratio/
-     * and https://github.com/LeaVerou/contrast-ratio/blob/gh-pages/color.js#L108
-     */
-    contrast(top: StylusNodeRGBA): StylusNodeObject;
-    contrast(top: StylusNodeRGBA, bottom: StylusNodeRGBA): StylusNodeObject;
-    contrast(top: StylusNodeRGBA, bottom: StylusNodeHSLA): StylusNodeObject;
-    contrast(top: StylusNodeHSLA): StylusNodeObject;
-    contrast(top: StylusNodeHSLA, bottom: StylusNodeRGBA): StylusNodeObject;
-    contrast(top: StylusNodeHSLA, bottom: StylusNodeHSLA): StylusNodeObject;
-
-    /**
-     * Returns the transparent version of the given `top` color,
-     * as if it was blend over the given `bottom` color.
-     */
-    transparentify(top: StylusNodeRGBA): StylusNodeObject;
-    transparentify(top: StylusNodeRGBA, bottom: StylusNodeRGBA, alpha?: StylusNodeUnit): StylusNodeObject;
-    transparentify(top: StylusNodeRGBA, bottom: StylusNodeHSLA, alpha?: StylusNodeUnit): StylusNodeObject;
-    transparentify(top: StylusNodeHSLA): StylusNodeObject;
-    transparentify(top: StylusNodeHSLA, bottom: StylusNodeRGBA, alpha?: StylusNodeUnit): StylusNodeObject;
-    transparentify(top: StylusNodeHSLA, bottom: StylusNodeHSLA, alpha?: StylusNodeUnit): StylusNodeObject;
-
-    /**
-     * Convert a .json file into stylus variables or object.
-     * Nested variable object keys are joined with a dash (-)
-     *
-     * Given this sample media-queries.json file:
-     * {
-     *   "small": "screen and (max-width:400px)",
-     *   "tablet": {
-     *     "landscape": "screen and (min-width:600px) and (orientation:landscape)",
-     *     "portrait": "screen and (min-width:600px) and (orientation:portrait)"
-     *   }
-     * }
-     */
-    json(path: StylusNodeString, local: StylusNodeBoolean, namePrefix: StylusNodeString): any;
-
-    /**
-     * Use the given `plugin`.
-     */
-    use(plugin: StylusNodeString): void;
-    use(plugin: StylusNodeString, options: any): void;
-
-    /**
-     * Unquote the given `string`.
-     */
-    unquote(str: StylusNodeString): StylusNodeLiteral;
-
-    /**
-     * Like `unquote` but tries to convert the given `str` to a Stylus node.
-     */
-    convert(str: StylusNodeString): StylusNode;
-
-    /**
-     * Assign `type` to the given `unit` or return `unit`'s type.
-     */
-    unit(unit: StylusNodeUnit, type: StylusNodeString): StylusNodeUnit;
-
-    /**
-     * Lookup variable `name` or return Null.
-     */
-    lookup(name: StylusNodeString): StylusNode;
-
-    /**
-     * Set a variable `name` on current scope.
-     */
-    define(name: StylusNodeString, expr: StylusNodeExpression): StylusNode;
-
-    /**
-     * Perform `op` on the `left` and `right` operands.
-     */
-    operate(op: StylusNodeString, left: StylusNode, right: StylusNode): StylusNode;
-
-    /**
-     * Test if `val` matches the given `pattern`.
-     */
-    match(pattern: StylusNodeString, val: StylusNodeString): StylusNodeBoolean;
-    match(pattern: StylusNodeString, val: StylusNodeIdent): StylusNodeBoolean;
-
-    /**
-     * Returns substring of the given `val`.
-     */
-    substr(val: StylusNodeString, start: StylusNodeNumber, length: StylusNodeNumber): StylusNodeString;
-    substr(val: StylusNodeIdent, start: StylusNodeNumber, length: StylusNodeNumber): StylusNodeIdent;
-
-    /**
-     * Returns string with all matches of `pattern` replaced by `replacement` in given `val`
-     */
-    replace(pattern: StylusNodeString, replacement: StylusNodeString, val: StylusNodeString): StylusNodeString;
-    replace(pattern: StylusNodeString, replacement: StylusNodeString, val: StylusNodeIdent): StylusNodeIdent;
-
-    /**
-     * Splits the given `val` by `delim`
-     */
-    split(pattern: StylusNodeString, val: StylusNodeString): StylusNodeExpression;
-    split(pattern: StylusNodeString, val: StylusNodeIdent): StylusNodeExpression;
-
-    /**
-     * Return length of the given `expr`.
-     */
-    length(expr: StylusNodeExpression): StylusNodeUnit;
-
-    /**
-     * Inspect the given `expr`.
-     */
-    length(...expr: StylusNodeExpression[]): StylusNodeNull;
-
-    /**
-     * Throw an error with the given `msg`.
-     */
-    error(msg: StylusNodeString): void;
-
-    /**
-     * Warn with the given `msg` prefixed by "Warning: ".
-     */
-    warn(msg: StylusNodeString): StylusNodeNull;
-
-    /**
-     * Output stack trace.
-     */
-    trace(): StylusNodeNull;
-
-    /**
-     * Push the given args to `expr`.
-     */
-    push(expr: StylusNodeExpression, ...nodes: StylusNode[]): StylusNodeUnit;
-
-    /**
-     * Pop a value from `expr`.
-     */
-    pop(expr: StylusNodeExpression): StylusNode;
-
-    /**
-     * Unshift the given args to `expr`.
-     */
-    unshift(expr: StylusNodeExpression, ...nodes: StylusNode[]): StylusNodeUnit;
-
-    /**
-     * Unshift the given args to `expr`..
-     */
-    prepend(expr: StylusNodeExpression, ...nodes: StylusNode[]): StylusNodeUnit;
-
-    /**
-     * Shift a value from `expr`.
-     */
-    shift(expr: StylusNodeExpression): StylusNode;
-
-    /**
-     * Return a `Literal` with the given `fmt`, and variable number of arguments.
-     */
-    s(fmt: StylusNodeString, ...nodes: StylusNode[]): StylusNodeLiteral;
-
-    /**
-     * Return a `Literal` `num` converted to the provided `base`, padded to `width`
-     * with zeroes (default width is 2)
-     */
-    "base-convert"(num: StylusNodeNumber, base: StylusNodeNumber, width: StylusNodeNumber): StylusNodeLiteral;
-
-    /**
-     * Return the opposites of the given `positions`.
-     */
-    "opposite-position"(positions: StylusNodeExpression): StylusNodeExpression;
-
-    /**
-     * Return the width and height of the given `img` path.
-     */
-    "image-size"(img: StylusNodeString, ignoreErr: StylusNodeBoolean): StylusNodeExpression;
-
-    /**
-     * Return the tangent of the given `angle`.
-     */
-    tan(angle: StylusNodeUnit): StylusNodeUnit;
-
-    /**
-     * Return the tangent of the given `angle`.
-     */
-    math(n: StylusNodeUnit, fn: StylusNodeString): StylusNodeUnit;
-
-    /**
-     * Return the opposites of the given `positions`.
-     */
-    "-math-prop"(prop: StylusNodeString): StylusNodeUnit;
-
-    /**
-     * Adjust HSL `color` `prop` by `amount`.
-     */
-    adjust(rgba: StylusNodeRGBA, prop: StylusNodeString, amount: StylusNodeUnit): StylusNodeRGBA;
-    adjust(hsla: StylusNodeHSLA, prop: StylusNodeString, amount: StylusNodeUnit): StylusNodeRGBA;
-
-    /**
-     * Return a clone of the given `expr`.
-     */
-    clone(expr: StylusNodeExpression): StylusNodeExpression;
-
-    /**
-     * Add property `name` with the given `expr` to the mixin-able block.
-     */
-    "add-property"(name: StylusNodeString, expr: StylusNodeExpression): StylusNodeProperty;
-
-    /**
-     * Merge the object `dest` with the given args.
-     */
-    merge(dest: StylusNodeObject, ...objs: StylusNodeObject[]): StylusNodeObject;
-
-    /**
-     * Merge the object `dest` with the given args.
-     */
-    extend(dest: StylusNodeObject, ...objs: StylusNodeObject[]): StylusNodeObject;
-
-    /**
-     * Return the current selector or compile `sel` selector.
-     */
-    selector(): string;
-    selector(sel: StylusNodeString): string;
-
-    /**
-     * Prefix css classes in a block
-     */
-    "-prefix-classes"(prefix: StylusNodeString, block: StylusNodeBlock): StylusNodeBlock;
-
-    /**
-     * Returns the @media string for the current block
-     */
-    "current-media"(): StylusNodeString;
-
-    /**
-     * Return the separator of the given `list`.
-     */
-    "list-separator"(list: StylusNodeExpression): StylusNodeString;
-}
-
-interface StylusUtils {
-    /**
-     * Check if `path` looks absolute.
-     */
-    absolute(path: string): boolean;
-
-    /**
-     * Attempt to lookup `path` within `paths` from tail to head.
-     * Optionally a path to `ignore` may be passed.
-     */
-    lookup(path: string, paths: string, ignore: string, resolveURL: boolean): string;
-
-    /**
-     * Attempt to lookup `path` within `paths` from tail to head.
-     * Optionally a path to `ignore` may be passed.
-     */
-    lookupIndex(path: string, paths: string, filename: string): string[];
-
-    /**
-     * Like `utils.lookup` but uses `glob` to find files.
-     */
-    find(path: string, paths: string, ignore: string): string[];
-
-    /**
-     * Format the given `err` with the given `options`.
-     */
-    formatException(err: Error, options: StylusExceptionOptions): Error;
-
-    /**
-     * Assert that `node` is of the given `type`, or throw.
-     */
-    assertType(node: StylusNode, type: string, param: string): void;
-
-    /**
-     * Assert that `node` is a `String` or `Ident`.
-     */
-    assertString(node: StylusNode, param: string): void;
-
-    /**
-     * Assert that `node` is a `RGBA` or `HSLA`.
-     */
-    assertColor(node: StylusNode, param: string): void;
-
-    /**
-     * Assert that param `name` is given, aka the `node` is passed.
-     */
-    assertPresent(node: StylusNode, name: string): void;
-
-    /**
-     * Unwrap `expr`.
-     *
-     * Takes an expressions with length of 1
-     * such as `((1 2 3))` and unwraps it to `(1 2 3)`.
-     */
-    unwrap(expr: StylusNodeExpression): StylusNode;
-
-    /**
-     * Coerce JavaScript values to their Stylus equivalents.
-     */
-    coerce(val: any): StylusNode;
-    coerce(val: any, raw: boolean): StylusNode;
-
-    /**
-     * Coerce a javascript `Array` to a Stylus `Expression`.
-     */
-    coerceArray(val: any): StylusNodeExpression;
-    coerceArray(val: any, raw: boolean): StylusNodeExpression;
-
-    /**
-     * Coerce a javascript object to a Stylus `Expression` or `Object`.
-     *
-     * For example `{ foo: 'bar', bar: 'baz' }` would become
-     * the expression `(foo 'bar') (bar 'baz')`. If `raw` is true
-     * given `obj` would become a Stylus hash object.
-     */
-    coerceObject(obj: any): StylusNodeExpression;
-    coerceObject(obj: any, raw: boolean): StylusNodeExpression;
-
-    /**
-     * Return param names for `fn`.
-     */
-    params(fn: Function): string[];
-
-    /**
-     * Merge object `b` with `a`.
-     */
-    merge(a: any, b: any): any;
-
-    /**
-     * Returns an array with unique values.
-     */
-    uniq(arr: any[]): any[];
-
-    /**
-     * Compile selector strings in `arr` from the bottom-up
-     * to produce the selector combinations. For example
-     * the following Stylus:
-     */
-    compileSelectors(arr: string[], leaveHidden: boolean): string[];
-}
-
-interface StylusUrl {
-    (options: StylusUrlOptions): StylusLiteralFunction;
-
-    mimes: {
-        ".gif": string;
-        ".png": string;
-        ".jpg": string;
-        ".jpeg": string;
-        ".svg": string;
-        ".ttf": string;
-        ".eot": string;
-        ".woff": string;
-    };
-}
-
-interface StylusMiddleware {
-    (req: any, res: any, next: Function): void;
-}
-
-//#endregion
-
-//#region Internal Classes
-
-declare class StylusVisitor {
-}
-
-declare class StylusParser {
-}
-
-declare class StylusEvaluator {
-}
-
-declare class StylusCompiler {
-}
-
-declare class StylusRenderer { //extends events.EventEmitter {
-    options: StylusRenderOptions;
-    str: string;
-    events: any;
-
-    constructor(str: string);
-    constructor(str: string, options: StylusRenderOptions);
-
-    /**
-     * Parse and evaluate AST, then callback `fn(err, css, js)`.
-     */
-    render(callback: StylusRenderCallback): void;
-
-    /**
-     * Get dependencies of the compiled file.
-     */
-    deps(filename: string): string[];
-
-    /**
-     * Set option `key` to `val`.
-     */
-    set(key: string, val: any): StylusRenderer;
-
-    /**
-     * Get option `key`.
-     */
-    get(key: string): any;
-
-    /**
-     * Include the given `path` to the lookup paths array.
-     */
-    include(path: string): StylusRenderer;
-
-    /**
-     * Use the given `fn`.
-     *
-     * This allows for plugins to alter the renderer in
-     * any way they wish, exposing paths etc.
-     */
-    use(fn: Function): StylusRenderer;
-
-    /**
-     * Define function or global var with the given `name`. Optionally
-     * the function may accept full expressions, by setting `raw`
-     * to `true`.
-     */
-    define(name: string, fn: Function): StylusRenderer;
-    define(name: string, node: StylusNode): StylusRenderer;
-    define(name: string, fn: Function, raw: boolean): StylusRenderer;
-    define(name: string, node: StylusNode, raw: boolean): StylusRenderer;
-
-    /**
-     * Import the given `file`.
-     */
-    import(file: string): StylusRenderer;
-}
-
-//#endregion
-
-//#region Nodes Classes
-
-declare class StylusNode {
-    lineno: number;
-    column: number;
-    filename: string;
-
-    first: StylusNode;
-    hash: string;
-    nodeName: string;
-
-    constructor();
-
-    /**
-     * Return a clone of this node.
-     */
-    clone(): StylusNode;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { lineno: number; column: number; filename: string };
-
-    /**
-     * Nodes by default evaluate to themselves.
-     */
-    eval(): StylusNode;
-
-    /**
-     * Return true.
-     */
-    toBoolean(): StylusNodeBoolean;
-
-    /**
-     * Return the expression, or wrap this node in an expression.
-     */
-    toExpression(): StylusNodeExpression;
-
-    /**
-     * Return false if `op` is generally not coerced.
-     */
-    shouldCoerce(op: string): boolean;
-
-    /**
-     * Operate on `right` with the given `op`.
-     */
-    operate(op: string, right: StylusNode): StylusNode;
-
-    /**
-     *  Default coercion throws.
-     */
-    coerce(other: StylusNode): StylusNode;
-}
-
-declare class StylusNodeRoot extends StylusNode {
-    nodes: StylusNode[];
-
-    /**
-     * Push a `node` to this block.
-     */
-    push(node: StylusNode): void;
-
-    /**
-     * Unshift a `node` to this block.
-     */
-    unshift(node: StylusNode): void;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { nodes: StylusNode[]; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeString extends StylusNode {
-    val: string;
-    string: string;
-    prefixed: boolean;
-    quote: string;
-
-    constructor(val: string, quote: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { val: string; quote: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeNumber extends StylusNode {
-
-}
-
-declare class StylusNodeBoolean extends StylusNode {
-    val: boolean;
-    isTrue: boolean;
-    isFalse: boolean;
-
-    constructor();
-    constructor(val: boolean);
-
-    /**
-     * Negate the value.
-     */
-    negate(): StylusNodeBoolean;
-
-    /**
-     * Return 'Boolean'.
-     */
-    inspect(): StylusNodeBoolean;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; val: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeObject extends StylusNode {
-    vals: StylusDictionary<StylusNode>;
-    length: number;
-
-    constructor();
-
-    /**
-     * Set `key` to `val`.
-     */
-    set(key: string, value: StylusNode): StylusNodeObject;
-
-    /**
-     * Get `key`.
-     */
-    get(key: string): StylusNode;
-
-    /**
-     * Has `key`?
-     */
-    has(key: string): boolean;
-
-    /**
-     * Convert object to string with properties.
-     */
-    toBlock(): string;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; vals: StylusDictionary<StylusNode>; lineno: number; column: number; filename: string };}
-
-declare class StylusNodeNull extends StylusNode {
-    isNull: boolean;
-
-    constructor();
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeIdent extends StylusNode {
-    name: string;
-    string: string;
-    val: StylusNode;
-    mixin: boolean;
-
-    isEmpty: boolean;
-
-    constructor(name: string, val: StylusNode);
-    constructor(name: string, val: StylusNode, mixin: boolean);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; name: string; val: StylusNode; mixin: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeLiteral extends StylusNode {
-    val: string;
-    string: string;
-    prefixed: boolean;
-
-    constructor(str: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; string: string; val: string; prefixed: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeUnit extends StylusNode {
-    val: number;
-    type: string;
-
-    constructor(val: number, type: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; val: number; type: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeRGBA extends StylusNode {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-    rgba: StylusNodeRGBA;
-    hsla: StylusNodeHSLA;
-
-    constructor(r: number, g: number, b: number, a: number);
-
-    /**
-     * Return an `RGBA` without clamping values.
-     */
-    static withoutClamping(r: number, g: number, b: number, a: number): StylusNodeRGBA;
-
-    /**
-     * Return a `RGBA` from the given `hsla`.
-     */
-    static fromHSLA(hsla: StylusNodeHSLA): StylusNodeRGBA;
-
-    /**
-     * Add r,g,b,a to the current component values
-     */
-    add(r: number, g: number, b: number, a: number): StylusNodeRGBA;
-
-    /**
-     * Subtract r,g,b,a from the current component values
-     */
-    substract(r: number, g: number, b: number, a: number): StylusNodeRGBA;
-
-    /**
-     * Multiply rgb components by `n`.
-     */
-    multiply(n: number): StylusNodeRGBA;
-
-    /**
-     * Divide rgb components by `n`.
-     */
-    divide(n: number): StylusNodeRGBA;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; r: number; g: number; b: number; a: number; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeHSLA extends StylusNode {
-    h: number;
-    s: number;
-    l: number;
-    a: number;
-    hsla: StylusNodeHSLA;
-    rgba: StylusNodeRGBA;
-
-    constructor(h: number, s: number, l: number, a: number);
-
-    /**
-     * Return a `HSLA` from the given `hsla`.
-     */
-    static fromRGBA(rgba: StylusNodeRGBA): StylusNodeHSLA;
-
-    /**
-     * Add h,s,l to the current component values
-     */
-    add(h: number, s: number, l: number): StylusNodeHSLA;
-
-    /**
-     * Subtract h,s,l from the current component values
-     */
-    substract(h: number, s: number, l: number): StylusNodeHSLA;
-
-    /**
-     * Adjust lightness by `percent`.
-     */
-    adjustLightness(percent: number): StylusNodeHSLA;
-
-    /**
-     * djust hue by `deg`.
-     */
-    adjustHue(deg: number): StylusNodeHSLA;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; h: number; s: number; l: number; a: number; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeBlock extends StylusNode {
-    nodes: StylusNode[];
-    parent: StylusNodeBlock;
-    node: StylusNode;
-    scope: boolean;
-
-    hasProperties: boolean;
-    hasMedia: boolean;
-    isEmpty: boolean;
-
-    constructor(parent: StylusNodeBlock);
-    constructor(parent: StylusNodeBlock, node: StylusNode);
-
-    /**
-     * Push a `node` to this block.
-     */
-    push(node: StylusNode): void;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; nodes: StylusNode[]; scope: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeGroup extends StylusNode {
-    nodes: StylusNode[];
-    block: StylusNodeBlock;
-
-    hasOnlyPlaceholders: boolean;
-
-    constructor();
-
-    /**
-     * Push the given `selector` node.
-     */
-    push(node: StylusNode): void;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; nodes: StylusNode[]; block: StylusNodeBlock; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeExpression extends StylusNode {
-    nodes: StylusNode[];
-    isList: boolean;
-
-    isEmpty: boolean;
-    first: StylusNode;
-
-    constructor(isList: boolean);
-
-    /**
-     * Push the given node.
-     */
-    push(node: StylusNode): void;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; nodes: StylusNode[]; isList: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeProperty extends StylusNode {
-    segments: StylusNode[];
-    expr: StylusNodeExpression;
-
-    constructor(segs: StylusNode[], expr: StylusNodeExpression);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; segments: StylusNode[]; name: string; expr?: StylusNodeExpression; literal?: StylusNodeLiteral; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeEach extends StylusNode {
-    val: string;
-    key: string;
-    expr: StylusNodeExpression;
-    block: StylusNodeBlock;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; val: string; key: string; expr: StylusNodeExpression; block: StylusNodeBlock; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeIf extends StylusNode {
-    cond: StylusNodeExpression;
-    elses: StylusNodeExpression[];
-    block: StylusNodeBlock;
-    negate: boolean;
-
-    constructor(cond: StylusNodeExpression, negate: boolean);
-    constructor(cond: StylusNodeExpression, block: StylusNodeBlock);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; cond: StylusNodeExpression; elses: StylusNodeExpression[]; block: StylusNodeBlock; negate: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeCall extends StylusNode {
-    name: string;
-    args: StylusNodeExpression;
-
-    constructor(name: string, args: StylusNodeExpression);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; name: string; args: StylusNodeExpression; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeUnaryOp extends StylusNode {
-    op: string;
-    expr: StylusNodeExpression;
-
-    constructor(op: string, expr: StylusNodeExpression);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; op: string; expr: StylusNodeExpression; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeBinOp extends StylusNode {
-    op: string;
-    left: StylusNodeExpression;
-    right: StylusNodeExpression;
-
-    constructor(op: string, left: StylusNodeExpression, right: StylusNodeExpression);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; op: string; left: StylusNodeExpression; right: StylusNodeExpression; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeTernary extends StylusNode {
-    op: string;
-    trueExpr: StylusNodeExpression;
-    falseExpr: StylusNodeExpression;
-
-    constructor(op: string, trueExpr: StylusNodeExpression, falseExpr: StylusNodeExpression);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; op: string; trueExpr: StylusNodeExpression; falseExpr: StylusNodeExpression; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeReturn extends StylusNode {
-    expr: StylusNodeExpression;
-
-    constructor(expr: StylusNodeExpression);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; expr: StylusNodeExpression; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeMedia extends StylusNode {
-    val: string;
-
-    constructor(val: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; val: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeQueryList extends StylusNode {
-    nodes: StylusNode[];
-
-    constructor();
-
-    /**
-     * Push the given `node`.
-     */
-    push(node: StylusNode): void;
-
-    /**
-     * Merges this query list with the `other`.
-     */
-    merge(other: MediaQueryList): MediaQueryList;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; nodes: StylusNode[]; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeQuery extends StylusNode {
-    nodes: StylusNodeQueryExpr[];
-    type: string;
-    predicate: string;
-
-    resolvedType: string;
-    resolvedPredicate: string;
-
-    constructor();
-
-    /**
-     * Push the given `expr`.
-     */
-    push(expr: StylusNodeQueryExpr): void;
-
-    /**
-     * Merges this query with the `other`.
-     */
-    merge(other: StylusNodeQuery): StylusNodeQuery;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; nodes: StylusNodeQueryExpr[]; predicate: string; type: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeQueryExpr extends StylusNode {
-    segments: StylusNode[];
-    expr: StylusNodeExpression;
-
-    constructor(segs: StylusNode[]);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; segments: StylusNode[]; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeParams extends StylusNode {
-    nodes: StylusNode[];
-
-    length: number;
-
-    /**
-     * Push the given `node`.
-     */
-    push(node: StylusNode): void;
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; nodes: StylusNode[]; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeComment extends StylusNode {
-    str: string;
-    suppress: boolean;
-    inline: boolean;
-
-    constructor(str: string, suppress: boolean, inline: boolean);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; str: string; suppress: boolean; inline: boolean; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeKeyframes extends StylusNode {
-    segments: StylusNode[];
-    prefix: string;
-
-    constructor(segs: StylusNode[]);
-    constructor(segs: StylusNode[], prefix: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; segments: StylusNode[]; prefix: string; block: StylusNodeBlock; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeMember extends StylusNode {
-    left: StylusNode;
-    right: StylusNode;
-
-    constructor(left: StylusNode, right: StylusNode);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; left: StylusNode; right: StylusNode; val?: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeCharset extends StylusNode {
-    val: string;
-
-    constructor(val: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; val: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeNamespace extends StylusNode {
-    val: string;
-    prefix: string;
-
-    constructor(val: string, prefix: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; val: string; prefix: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeImport extends StylusNode {
-    path: StylusNodeExpression;
-    once: boolean;
-
-    constructor(path: StylusNodeExpression);
-    constructor(path: StylusNodeExpression, once: boolean);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; path: StylusNodeExpression; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeExtend extends StylusNode {
-    selectors: StylusNodeSelector[];
-
-    constructor(selectors: StylusNodeSelector[]);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; selectors: StylusNodeSelector[]; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeFunction extends StylusNode {
-    name: string;
-    params: StylusNodeParams;
-    body: StylusNodeBlock;
-
-    constructor(name: string, params: StylusNodeParams, body: StylusNodeBlock);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; name: string; params: StylusNodeParams; body: StylusNodeBlock; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeSelector extends StylusNode {
-    inherits: boolean;
-    segments: StylusNode[];
-
-    constructor(segs: StylusNode[]);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; segments: StylusNode[]; inherits: boolean; val: string; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeArguments extends StylusNodeExpression {
-    map: StylusDictionary<StylusNode>;
-
-    constructor();
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; map: StylusDictionary<StylusNode>; isList: boolean; preserve: boolean; nodes: StylusNode[]; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeAtblock extends StylusNode {
-    block: StylusNodeBlock;
-    nodes: StylusNode[];
-
-    constructor();
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; block: StylusNodeBlock; lineno: number; column: number; filename: string };
-}
-
-declare class StylusNodeAtrule extends StylusNode {
-    type: string;
-
-    hasOnlyProperties: boolean;
-
-    constructor(type: string);
-
-    /**
-     * Return a JSON representation of this node.
-     */
-    toJSON(): { __type: string; type: string; segments: StylusNode[]; block?: StylusNodeBlock; lineno: number; column: number; filename: string };
-}
-
-//#endregion
-
-//#region Internal Interfaces
-
-interface StylusDictionary<T> {
-    [key: string]: T;
-}
-
-interface StylusRenderOptions {
-    globals: StylusDictionary<any>;
-    functions: StylusDictionary<any>;
-    imports: string[];
-    paths: string[];
-    filename: string;
-    Evaluator: typeof StylusEvaluator;
-}
-
-interface StylusRenderCallback {
-    (err: Error, css: string, js: string): void;
-}
-
-interface StylusUrlOptions {
-    limit?: string;
-    path: string;
-}
-
-interface StylusLiteralFunction {
-    (url: string): StylusNodeLiteral;
-    raw: boolean;
-}
-
-interface StylusExceptionOptions {
-    filename: string;
-    context: number;
-    lineno: number;
-    column: number;
-    input: string;
-}
-
-//#endregion
 
 declare module "stylus" {
-    export = StylusStatic;
+    var stylus: Stylus.Static;
+    export = stylus;
 }
