@@ -118,6 +118,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Google Page Speed Online API](https://developers.google.com/speed/pagespeed/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google Translate API](https://developers.google.com/translate/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [Google Url Shortener](https://developers.google.com/url-shortener/) (by [Frank M](https://github.com/sgtfrankieboy))
+* [gulp](http://gulpjs.com/) (by [Drew Noakes](https://drewnoakes.com))
 * [Hammer.js](http://eightmedia.github.com/hammer.js/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Hapi](http://github.com/spumko/hapi) (by [Hakubo](http://github.com/hakubo))
 * [Handlebars](http://handlebarsjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
