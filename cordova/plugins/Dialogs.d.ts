@@ -59,7 +59,10 @@ interface Notification {
 
 /** Object, passed to promptCallback */
 interface NotificationPromptResult {
-    /** The index of the pressed button. Note that the index uses one-based indexing, so the value is 1, 2, 3, etc. */
+    /**
+     * The index of the pressed button. Note that the index uses one-based indexing, so the value is 1, 2, 3, etc.
+     * 0 is the result when the dialog is dismissed without a button press.
+     */
     buttonIndex: number;
     /** The text entered in the prompt dialog box. */
     input1: string;
