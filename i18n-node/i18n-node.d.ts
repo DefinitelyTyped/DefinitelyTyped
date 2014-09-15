@@ -46,10 +46,18 @@ declare module i18n {
          */
         objectNotation?: boolean;
     }
+    export interface TranslateOptions {
+        phrase: string;
+        locale?: string;
+    }
     export interface PluralOptions {
         singular: string;
         plural: string;
         count: number;
+        locale?: string;
+    }
+    export interface Replacements {
+        [key: string]: string;
     }
 
     export interface LocaleCatalog {
@@ -73,12 +81,44 @@ declare module i18n {
      */
     function init(request: Express.Request, response: Express.Response, next?: Function): void;
 
+    //#region __()
+
     /**
      * Translate the given phrase using locale configuration
      * @param {string} phrase - The phrase to translate
      * @returns {string} The translated phrase
      */
     function __(phrase: string, ...replace: string[]): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {string} phrase - The phrase to translate
+     * @param {Object} replacements - An object containing replacements
+     * @returns {string} The translated phrase
+     */
+    function __(phrase: string, replacements: Replacements): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {TranslateOptions} options - Options for translation
+     * @returns {string} The translated phrase
+     */
+    function __(options: TranslateOptions): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {TranslateOptions} options - Options for translation
+     * @returns {string} The translated phrase
+     */
+    function __(options: TranslateOptions, ...replace: string[]): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {TranslateOptions} options - Options for translation
+     * @param {Object} replacements - An object containing replacements
+     * @returns {string} The translated phrase
+     */
+    function __(options: TranslateOptions, replacements: Replacements): string;
+
+    //#endregion
+
+    //#region __n()
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
@@ -86,6 +126,14 @@ declare module i18n {
      * @returns {string} The translated phrase
      */
     function __n(options: PluralOptions): string;
+
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param {PluralOptions} options - Options for plural translate
+     * @param {number} count - The number which allow to select from plural to singular
+     * @returns {string} The translated phrase
+     */
+    function __n(options: PluralOptions, count: number): string;
     /**
      * Translate with plural condition the given phrase and count using locale configuration
      * @param {string} singular - The singular pharse to translate if count is <= 1
@@ -98,10 +146,14 @@ declare module i18n {
      * Translate with plural condition the given phrase and count using locale configuration
      * @param {string} singular - The singular pharse to translate if count is <= 1
      * @param {string} plural - The plural pharse to translate if count is > 1
-     * @param {string} count - The number which allow to select from plural to singular
+     * @param {number} count - The number which allow to select from plural to singular
      * @returns {string} The translated phrase
      */
     function __n(singular: string, plural: string, count: string): string;
+
+    //#endregion
+
+    //#region Locale
 
     /**
      * Change the current active locale
@@ -126,6 +178,10 @@ declare module i18n {
      * @returns {string} The current locale in request
      */
     function getLocale(request: Express.Request): string;
+
+    //#endregion
+
+    //#region Catalog
 
     /**
      * Get the current global catalog
@@ -152,6 +208,8 @@ declare module i18n {
      */
     function getCatalog(request: Express.Request, locale: string): LocaleCatalog;
 
+    //#endregion
+
     /**
      * Override the current request locale by using the query param (?locale=en)
      * @param {Express.Request} [request] - The request to override locale for
@@ -168,12 +226,44 @@ declare module i18n {
 interface i18nAPI {
     locale: string;
 
+    //#region __()
+
     /**
      * Translate the given phrase using locale configuration
      * @param {string} phrase - The phrase to translate
      * @returns {string} The translated phrase
      */
     __(phrase: string, ...replace: string[]): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {string} phrase - The phrase to translate
+     * @param {Object} replacements - An object containing replacements
+     * @returns {string} The translated phrase
+     */
+    __(phrase: string, replacements: i18n.Replacements): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {TranslateOptions} options - Options for translation
+     * @returns {string} The translated phrase
+     */
+    __(options: i18n.TranslateOptions): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {TranslateOptions} options - Options for translation
+     * @returns {string} The translated phrase
+     */
+    __(options: i18n.TranslateOptions, ...replace: string[]): string;
+    /**
+     * Translate the given phrase using locale configuration
+     * @param {TranslateOptions} options - Options for translation
+     * @param {Object} replacements - An object containing replacements
+     * @returns {string} The translated phrase
+     */
+    __(options: i18n.TranslateOptions, replacements: i18n.Replacements): string;
+
+    //#endregion
+
+    //#region __n()
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
@@ -181,6 +271,14 @@ interface i18nAPI {
      * @returns {string} The translated phrase
      */
     __n(options: i18n.PluralOptions): string;
+
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param {PluralOptions} options - Options for plural translate
+     * @param {number} count - The number which allow to select from plural to singular
+     * @returns {string} The translated phrase
+     */
+    __n(options: i18n.PluralOptions, count: number): string;
     /**
      * Translate with plural condition the given phrase and count using locale configuration
      * @param {string} singular - The singular pharse to translate if count is <= 1
@@ -193,11 +291,12 @@ interface i18nAPI {
      * Translate with plural condition the given phrase and count using locale configuration
      * @param {string} singular - The singular pharse to translate if count is <= 1
      * @param {string} plural - The plural pharse to translate if count is > 1
-     * @param {string} count - The number which allow to select from plural to singular
+     * @param {number} count - The number which allow to select from plural to singular
      * @returns {string} The translated phrase
      */
     __n(singular: string, plural: string, count: string): string;
 
+    //#endregion
 
     /**
      * Get the current active locale
