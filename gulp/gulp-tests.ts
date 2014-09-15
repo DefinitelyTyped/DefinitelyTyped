@@ -1,5 +1,7 @@
 /// <reference path="gulp.d.ts" />
 
+import gulp = require("gulp");
+
 var typescript: any = null; // this would be the TypeScript compiler
 var jasmine: any = null; // this would be the jasmine test runner
 
