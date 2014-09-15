@@ -10,7 +10,7 @@ module Test {
         }
     });
 
-    var application = new DevExpress.framework.html.HtmlApplication({
+    var application:DevExpress.framework.html.HtmlApplication = new DevExpress.framework.html.HtmlApplication({
         namespace: "global",
         defaultLayout: "slideout",
         navigation: [
@@ -42,7 +42,7 @@ module Test {
         ]
     });
     $("div").appendTo(document.body).dxTabs({
-        itemClickAction: function (e) {
+        itemClickAction: function (e: any) {
             console.log(e.itemData.text);
         },
         items: [
@@ -75,7 +75,7 @@ module Test {
             { title: "unread", text: "unread" },
             { title: "favorites", text: "favorites" }
         ],
-        itemSelectAction: function (e) { console.log("itemSelectAction"); }
+        itemSelectAction: function (e: Object) { console.log("itemSelectAction"); }
     });
     $("div").appendTo(document.body).dxLookup({
         items: [
@@ -89,7 +89,7 @@ module Test {
         ],
         valueExpr: 'id',
         displayExpr: 'caption',
-        itemRender: function (item) {
+        itemRender: function (item: any) {
             return "Text is: " + item.caption;
         }
     });
@@ -108,7 +108,7 @@ module Test {
             { text: "home", icon: "home" },
             { text: "URI", icon: "tips" }
         ],
-        itemClickAction: function (e) { console.log(e.itemData.text); }
+        itemClickAction: function (e: any) { console.log(e.itemData.text); }
     });
     $("div").appendTo(document.body).dxSwitch({
         value: false,
@@ -142,28 +142,21 @@ module Test {
         visible: true,
         target: '.dx-button'
     });
-    $("div").appendTo(document.body).dxEditBox({
-        value: "Value",
-        readOnly: false,
-        enterKeyAction: function (e) { console.log("key entered"); },
-        focusOutAction: function (e) { console.log("focus out"); },
-        focusInAction: function (e) { console.log("focus in"); }
-    });
     $("div").appendTo(document.body).dxTextBox({
         value: "Text",
         placeholder: "Placeholder",
         mode: "email",
         maxLength: 20,
         readOnly: false,
-        changeAction: function (e) { console.log("value changed"); },
-        valueUpdateAction: function (e) { console.log("value updated"); }
+        changeAction: function (e:Object) { console.log("value changed"); },
+        valueUpdateAction: function (e:Object) { console.log("value updated"); }
     });
     $("div").appendTo(document.body).dxToolbar({
         items: [
-            { align: 'left', widget: 'button', options: { type: 'back', text: 'Back', clickAction: function (e) { console.log("back clicked"); } } },
-            { align: 'center', widget: 'button', options: { text: 'button', clickAction: function (e) { console.log("button clicked"); } } },
-            { align: 'center', widget: 'button', options: { icon: 'plus', text: 'add', clickAction: function (e) { console.log("plus clicked"); } } },
-            { align: 'right', widget: 'button', options: { icon: 'find', clickAction: function (e) { console.log("find clicked"); } }, useMenu: false },
+            { align: 'left', widget: 'button', options: { type: 'back', text: 'Back', clickAction: function (e:Object) { console.log("back clicked"); } } },
+            { align: 'center', widget: 'button', options: { text: 'button', clickAction: function (e:Object) { console.log("button clicked"); } } },
+            { align: 'center', widget: 'button', options: { icon: 'plus', text: 'add', clickAction: function (e:Object) { console.log("plus clicked"); } } },
+            { align: 'right', widget: 'button', options: { icon: 'find', clickAction: function (e:Object) { console.log("find clicked"); } }, useMenu: false },
             { text: 'Products', isMenu: true }
         ]
     });
@@ -174,7 +167,7 @@ module Test {
             { text: "item3", widthRatio: 2, heightRatio: 2 }
         ],
         listHeight: 500,
-        itemRender: function (item) { return "Text is: " + item.text; },
+        itemRender: function (item: any) { return "Text is: " + item.text; },
         itemClickAction: function () { console.log("itemClick"); },
         baseItemWidth: 100,
         baseItemHeight: 100,
@@ -195,7 +188,7 @@ module Test {
     $("div").appendTo(document.body).dxCheckBox({
         checked: false,
         disabled: false,
-        clickAction: function (e) { console.log("clicked"); }
+        clickAction: function (e:Object) { console.log("clicked"); }
     });
     $("div").appendTo(document.body).dxTextArea({
         value: 'Disabled',
@@ -218,8 +211,8 @@ module Test {
     });
     $("div").appendTo(document.body).dxScrollable({
         useNative: false,
-        startAction: function (e) { console.log("start"); },
-        endAction: function (e) { console.log("end"); }
+        startAction: function (e:Object) { console.log("start"); },
+        endAction: function (e:Object) { console.log("end"); }
     });
     $("div").appendTo(document.body).dxRadioGroup({
         items: [{ text: "0" }, { text: "1" }, { text: "2" }],
@@ -227,8 +220,8 @@ module Test {
         selectedIndex: -1
     });
     $("div").appendTo(document.body).dxScrollView({
-        pullDownAction: function (e) { console.log("pulling down"); },
-        reachBottomAction: function (e) { console.log("bottom reached"); },
+        pullDownAction: function (e:Object) { console.log("pulling down"); },
+        reachBottomAction: function (e:Object) { console.log("bottom reached"); },
         disabled: false
     });
     $("div").appendTo(document.body).dxActionSheet({
