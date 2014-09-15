@@ -1,7 +1,7 @@
 /// <reference path="./deep-diff.d.ts" />
 
-import deepDiff = require('deep-diff');
-var diff = deepDiff.diff;
+import _deepDiff = require('deep-diff');
+var diff = _deepDiff.diff;
 
 var lhs = {
     name: 'my object',
@@ -23,16 +23,15 @@ var rhs = {
     }
 };
 
-var differences: IDiff[] = diff(lhs, rhs);
+var differences: deepDiff.IDiff[] = diff(lhs, rhs);
 
 console.log(differences);
 
 
 // --------------------------
 
-
-var observableDiff = deepDiff.observableDiff;
-var applyChange = deepDiff.applyChange;
+var observableDiff = _deepDiff.observableDiff;
+var applyChange = _deepDiff.applyChange;
 
 var lhs = {
     name: 'my object',
@@ -54,7 +53,7 @@ var rhs = {
     }
 };
 
-observableDiff(lhs, rhs, function (d: IDiff) {
+observableDiff(lhs, rhs, function (d: deepDiff.IDiff) {
     // Apply all changes except those to the 'name' property...
     if (d.path.length !== 1 || d.path.join('.') !== 'name') {
         applyChange(lhs, rhs, d);
