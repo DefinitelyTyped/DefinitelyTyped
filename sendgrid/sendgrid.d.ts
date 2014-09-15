@@ -51,7 +51,7 @@ declare module Sendgrid {
         replyto?: string;
         date?: Date;
         headers?: { [key: string]: string };
-        files?: SendgridEmailFileOptions[];
+        files?: FileHandlerOptions[];
         smtpapi?: any;
     }
 
