@@ -283,6 +283,7 @@ All definitions files include a header with the author and editors, so at some p
 * [object-path](https://github.com/mariocasciaro/object-path) (by [Paulo Cesar](https://github.com/pocesar/))
 * [ocLazyLoad](https://github.com/ocombe/ocLazyLoad) (by [Roland Zwaga](https://github.com/rolandzwaga/))
 * [OpenLayers](https://github.com/openlayers/openlayers) (by [Ilya Bolkhovsky](https://github.com/bolhovsky/))
+* [opn](https://github.com/sindresorhus/opn) (by [Shinnosuke Watanabe](https://github.com/shinnn))
 * [Optimist](https://github.com/substack/node-optimist) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Passport](http://passportjs.org/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [passport-facebook](https://github.com/jaredhanson/passport-facebook) (by [James Roland Cabresos](https://github.com/staticfunction/))
