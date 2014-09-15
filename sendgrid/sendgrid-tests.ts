@@ -8,7 +8,7 @@
 ///<reference path="sendgrid.d.ts" />
 
 import sg = require("sendgrid");
-var sendgrid: Sendgrid = sg("api_user", "api_key");
+var sendgrid = sg("api_user", "api_key");
 
 /*
  * Simple Usage
@@ -238,7 +238,7 @@ var sendgrid2 = sg('username', 'password', { "uri": "http://sendgrid.org:80/send
  */
 var sendgrid3 = sg('username', 'password', { proxy: "http://localproxy:3128" });
 // or
-var https = require('https');
+import https = require('https');
 var agent = new https.Agent();
 agent.maxSockets = 500; // Set Max Sockets to 500
 var sendgrid4 = sg('username', 'password', { web: { pool: agent } });
