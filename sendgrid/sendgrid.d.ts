@@ -109,6 +109,7 @@ interface Sendgrid {
     options: SendgridOptionsExport;
     Email: typeof PrivateSendgridEmail;
 
+    send(email: SendgridEmailOptions, callback: (err: Error, json: any) => any): void;
     send(email: PrivateSendgridEmail, callback: (err: Error, json: any) => any): void;
 }
 
