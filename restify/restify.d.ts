@@ -43,10 +43,9 @@ declare module "restify" {
     json: (status?: any, body?: any) => any;
     code: number;
     contentLength: number;
-    charSet: string;
+    charSet(value: string): void;
     contentType: string;
     headers: Object;
-    statusCode: number;
     id: string;
   }
 
