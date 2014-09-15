@@ -3,121 +3,167 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface SendgridUriParts {
-    protocol: string;
-    host: string;
-    port: string;
-    endpoint: string;
-}
+declare module Sendgrid {
+    //#region Options
 
-interface SendgridOptions {
-    protocol?: string;
-    host?: string;
-    port?: string;
-    endpoint?: string;
-    uri?: string;
-}
+    export interface UriParts {
+        protocol: string;
+        host: string;
+        port: string;
+        endpoint: string;
+    }
 
-interface SendgridOptionsExport {
-    uriParts: SendgridUriParts;
-    uri: string;
-}
+    export interface Options {
+        protocol?: string;
+        host?: string;
+        port?: string;
+        endpoint?: string;
+        uri?: string;
+        proxy?: string;
+        web?: {
+            pool?: any;
+        }
+    }
 
-interface SendgridEmailOptions {
-    to?: any;
-    toname?: string;
-    from?: string;
-    fromname?: string;
-    subject?: string;
-    text?: string;
-    html?: string;
-    bcc?: any;
-    replyto?: string;
-    date?: Date;
-    headers?: { [key: string]: string };
-    files?: SendgridEmailFileOptions[];
-    smtpapi?: any;
-}
+    export interface OptionsExport {
+        uriParts: UriParts;
+        uri: string;
 
-declare class PrivateSendgridEmail {
-    to: any;
-    toname: string;
-    from: string;
-    fromname: string;
-    subject: string;
-    text: string;
-    html: string;
-    bcc: any;
-    replyto: string;
-    date: Date;
-    headers: { [key: string]: string };
-    files: PrivateSendgridFile[];
-    smtpapi: any;
+        proxy?: string;
+        web?: {
+            pool?: any;
+        }
+    }
 
-    constructor();
-    constructor(options: SendgridEmailOptions);
+    //#endregion
 
-    addTo(address: string): void;
-    addHeader(type: string, value: string): void;
-    addSubstitution(type: string, value: string): void;
-    addSubstitution(type: string, value: string[]): void;
-    addSection(section: { [key: string]: string }): void;
-    addUniqueArg(uarg: { [key: string]: string }): void;
-    addCategory(category: string): void;
-    addFilter(filter: string, command: string, value: number): void;
-    addFilter(filter: string, command: string, value: string): void;
-    addFile(file: SendgridEmailFileOptions): void;
+    //#region Email
 
-    setFrom(address: string): void;
-    setSubject(subject: string): void;
-    setText(text: string): void;
-    setHtml(html: string): void;
-    setHeaders(headers: { [key: string]: string }): void;
-    setSubstitutions(substitutions: { [key: string]: string[] }): void;
-    setSections(sections: { [key: string]: string }): void;
-    setUniqueArgs(uargs: { [key: string]: string }): void;
-    setCategories(categories: string[]): void;
-    setFilters(filters: any): void;
-}
+    export interface EmailOptions {
+        to?: any;
+        toname?: string;
+        from?: string;
+        fromname?: string;
+        subject?: string;
+        text?: string;
+        html?: string;
+        bcc?: any;
+        replyto?: string;
+        date?: Date;
+        headers?: { [key: string]: string };
+        files?: SendgridEmailFileOptions[];
+        smtpapi?: any;
+    }
 
-interface SendgridEmailFileOptions {
-    filename?: string;
-    contentType?: string;
-    cid?: string;
-    path?: string;
-    url?: string;
-    content?: any;
-}
+    export class Email {
+        to: any;
+        toname: string;
+        from: string;
+        fromname: string;
+        subject: string;
+        text: string;
+        html: string;
+        bcc: any;
+        replyto: string;
+        date: Date;
+        headers: { [key: string]: string };
+        files: FileHandler[];
+        smtpapi: any;
 
-declare class PrivateSendgridFile {
-    filename: string;
-    contentType: string;
-    cid: string;
+        constructor();
+        constructor(options: EmailOptions);
 
-    type: string;
-    content: string;
-    path: string;
-    url: string;
+        addTo(address: string): void;
+        addHeader(type: string, value: string): void;
+        addSubstitution(type: string, value: string): void;
+        addSubstitution(type: string, value: string[]): void;
+        addSection(section: { [key: string]: string }): void;
+        addUniqueArg(uarg: { [key: string]: string }): void;
+        addCategory(category: string): void;
+        addFilter(filter: string, command: string, value: number): void;
+        addFilter(filter: string, command: string, value: string): void;
+        addFile(file: FileHandlerOptions): void;
 
-    loadContent(callback: (hasError: boolean, error: Error) => any): void;
-}
+        setFrom(address: string): void;
+        setSubject(subject: string): void;
+        setText(text: string): void;
+        setHtml(html: string): void;
+        setHeaders(headers: { [key: string]: string }): void;
+        setSubstitutions(substitutions: { [key: string]: string[] }): void;
+        setSections(sections: { [key: string]: string }): void;
+        setUniqueArgs(uargs: { [key: string]: string }): void;
+        setCategories(categories: string[]): void;
+        setFilters(filters: any): void;
+    }
 
-interface Sendgrid {
-    version: string;
-    api_user: string;
-    api_key: string;
-    options: SendgridOptionsExport;
-    Email: typeof PrivateSendgridEmail;
+    //#endregion
 
-    send(email: SendgridEmailOptions, callback: (err: Error, json: any) => any): void;
-    send(email: PrivateSendgridEmail, callback: (err: Error, json: any) => any): void;
+    //#region FileHandler
+
+    export interface FileHandlerOptions {
+        filename?: string;
+        contentType?: string;
+        cid?: string;
+        path?: string;
+        url?: string;
+        content?: any;
+    }
+
+    export class FileHandler {
+        filename: string;
+        contentType: string;
+        cid: string;
+
+        type: string;
+        content: string;
+        path: string;
+        url: string;
+
+        constructor(options: FileHandlerOptions);
+
+        loadContent(callback: HandlerCallback): void;
+
+        static handlers: {
+            content: Handler;
+            path: Handler;
+            url: Handler;
+            none: Handler;
+        };
+    }
+
+    export interface Handler {
+        (file: FileHandler, callback: HandlerCallback): void;
+    }
+
+    export interface HandlerCallback {
+        (hasError: boolean, error: Error): void;
+        (hasError: boolean, error: string): void;
+    }
+
+    //#endregion
+
+    //#region Sendgrid Class
+
+    interface Constructor {
+        (api_user: string, api_key: string, options?: Options): Instance;
+        new (api_user: string, api_key: string, options?: Options): Instance;
+    }
+
+    export interface Instance {
+        version: string;
+        api_user: string;
+        api_key: string;
+        options: OptionsExport;
+        Email: typeof Email;
+
+        send(email: EmailOptions, callback: (err: Error, json: any) => any): void;
+        send(email: Email, callback: (err: Error, json: any) => any): void;
+    }
+
+    //#endregion
 }
 
 declare module "sendgrid" {
-    interface SendgridConstructor {
-        (api_user: string, api_key: string, options?: SendgridOptions): Sendgrid;
-        new (api_user: string, api_key: string, options?: SendgridOptions): Sendgrid;
-    }
-
-    export = SendgridConstructor;
+    var ctor: Sendgrid.Constructor;
+    export = ctor;
 }
