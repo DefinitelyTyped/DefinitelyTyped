@@ -293,6 +293,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Parallel.js](https://github.com/adambom/parallel.js) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Parsimmon](https://github.com/jayferd/parsimmon) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [PDF.js](https://github.com/mozilla/pdf.js) (by [Josh Baldwin](https://github.com/jbaldwin))
+* [PeerJS](http://peerjs.com/) (by [Toshiya Nakakura](https://github.com/nakakura))
 * [PEG.js](http://pegjs.majda.cz/) (by [vvakame](https://github.com/vvakame))
 * [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
