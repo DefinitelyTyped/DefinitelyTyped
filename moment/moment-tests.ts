@@ -29,6 +29,13 @@ moment("20140101", ["YYYYMMDD"], true);
 moment("20140101", ["YYYYMMDD"], "en");
 moment("20140101", ["YYYYMMDD"], "en", true);
 
+moment(day.toISOString(), moment.ISO_8601);
+moment(day.toISOString(), moment.ISO_8601, true);
+moment(day.toISOString(), moment.ISO_8601, "en", true);
+moment(day.toISOString(), [moment.ISO_8601]);
+moment(day.toISOString(), [moment.ISO_8601], true);
+moment(day.toISOString(), [moment.ISO_8601], "en", true);
+
 var a = moment([2012]);
 var b = moment(a);
 a.year(2000);
