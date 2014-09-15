@@ -39,6 +39,9 @@ should.not.exist(false);
 should.not.exist('');
 should.not.exist({});
 
+Should.exist(null);
+window.Should.exist(null);
+
 user.should.have.property('pets').with.lengthOf(4);
 user.pets.should.have.lengthOf(4);
 user.should.be.of.type('object').and.have.property('name', 'tj');
