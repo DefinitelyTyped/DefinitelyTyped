@@ -34,6 +34,8 @@ declare module deepDiff {
     }
 }
 
+declare var diff: deepDiff.IDeepDiff;
+
 declare module "deep-diff" {
     var diff: deepDiff.IDeepDiff;
     export = diff;
