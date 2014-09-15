@@ -60,7 +60,7 @@ interface StylusStatic {
     /**
      * Return a url() function with the given `options`.
      */
-    resolver(options): StylusLiteralFunction;
+    resolver(options: any): StylusLiteralFunction;
 }
 
 //#region Internal Modules
@@ -611,7 +611,7 @@ interface StylusUrl {
 }
 
 interface StylusMiddleware {
-    (req, res, next: Function): void;
+    (req: any, res: any, next: Function): void;
 }
 
 //#endregion
