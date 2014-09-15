@@ -1,7 +1,7 @@
 // Type definitions for Azure SDK for Node - v0.9.16
 // Project: https://github.com/WindowsAzure/azure-sdk-for-node
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>,
-//                 Anti Veeranna <https://github.com/antiveeranna>, 
+//                 Anti Veeranna <https://github.com/antiveeranna>,
 //                 Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -884,7 +884,7 @@ declare module "azure" {
         constructor(container: string, blob: string);
 
         static parse(blobXml: any): BlobResult;
-        static setHeadersFromBlob(webResource: WebResource, blob: BlobResult);
+        static setHeadersFromBlob(webResource: WebResource, blob: BlobResult): void;
 
         getPropertiesFromHeaders(headers: any): void;
     }
