@@ -53,7 +53,7 @@ declare module i18n {
     export interface PluralOptions {
         singular: string;
         plural: string;
-        count: number;
+        count?: number;
         locale?: string;
     }
     export interface Replacements {
