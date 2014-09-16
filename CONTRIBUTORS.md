@@ -257,6 +257,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Mithril](http://lhorie.github.io/mithril) (by [Leo Horie](https://github.com/lhorie) and [Chris Bowdon](https://github.com/cbowdon))
 * [Mixpanel](https://github.com/mixpanel/mixpanel-js) (by [Knut Eirik Leira Hjelle](https://github.com/hjellek))
 * [mixto](https://github.com/atom/mixto) (by [vvakame](https://github.com/vvakame))
+* [mocha-phantomjs](https://github.com/metaskills/mocha-phantomjs) (by [ErikSchierboom](https://github.com/ErikSchierboom))
 * [Modernizr](http://modernizr.com/) (by [Boris Yankov](https://github.com/borisyankov) and [Theodore Brown](https://github.com/theodorejb/))
 * [Moment.js](https://github.com/timrwood/moment) (by [Michael Lakerveld](https://github.com/Lakerfield))
 * [MongoDB](http://mongodb.github.io/node-mongodb-native/) (from TypeScript samples, updated by [Niklas Mollenhauer](https://github.com/nikeee))
