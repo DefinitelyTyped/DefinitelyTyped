@@ -134,6 +134,7 @@ All definitions files include a header with the author and editors, so at some p
 * [http-string-parser](https://github.com/apiaryio/http-string-parser) (by [MIZUNE Pine](https://github.com/pine613))
 * [Humane.js](http://wavded.github.com/humane-js/) (by [John Vrbanac](https://github.com/jmvrbanac))
 * [i18next](http://i18next.com/) (by [Maarten Docter](https://github.com/mdocter))
+* [i18n-node](https://github.com/mashpie/i18n-node) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Imagemagick](http://github.com/rsms/node-imagemagick) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
