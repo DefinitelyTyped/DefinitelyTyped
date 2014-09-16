@@ -633,7 +633,7 @@ declare module Stylus {
     export class Compiler {
     }
 
-    export class Renderer { //extends events.EventEmitter {
+    export class Renderer implements NodeJS.EventEmitter {
         options: RenderOptions;
         str: string;
         events: any;
@@ -690,6 +690,17 @@ declare module Stylus {
          * Import the given `file`.
          */
         import(file: string): Renderer;
+
+        //#region EventEmitter Members
+        addListener(event: string, listener: Function): Renderer;
+        on(event: string, listener: Function): Renderer;
+        once(event: string, listener: Function): Renderer;
+        removeListener(event: string, listener: Function): Renderer;
+        removeAllListeners(event?: string): Renderer;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
+        //#endregion
     }
 
     //#endregion
