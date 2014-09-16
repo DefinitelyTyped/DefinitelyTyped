@@ -210,6 +210,7 @@ All definitions files include a header with the author and editors, so at some p
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
 * [JSONEditorOnline](https://github.com/josdejong/jsoneditoronline) (by [Vincent Bortone](https://github.com/vbortone/))
 * [JSON-Pointer](https://www.npmjs.org/package/json-pointer) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [JsRender](http://www.jsviews.com/#jsrender) (by [Kensuke MATSUZAKI](https://github.com/zakki))
 * [jStorage](http://www.jstorage.info/) (by [Danil Flores](https://github.com/dflor003/))
 * [jsTree](http://www.jstree.com/) (by [Adam Pluciński](https://github.com/adaskothebeast))
