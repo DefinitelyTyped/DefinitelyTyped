@@ -270,6 +270,7 @@ All definitions files include a header with the author and editors, so at some p
 * [nock](https://github.com/pgte/nock) (by [bonnici](https://github.com/bonnici))
 * [Node.js](http://nodejs.org/) (from TypeScript samples)
 * [node_redis](https://github.com/mranney/node_redis) (by [Boris Yankov](https://github.com/borisyankov))
+* [node-azure](https://github.com/Azure/azure-sdk-for-node) (by [Andrew Gaspar](https://github.com/AndrewGaspar), [Anti Veeranna](https://github.com/antiveeranna) and [Maxime LUCE](https://github.com/SomaticIT))
 * [node-ffi](https://github.com/rbranson/node-ffi) (by [Paul Loyd](https://github.com/loyd))
 * [node-form](https://github.com/rsamec/form) (by [Roman Samec](https://github.com/rsamec))
 * [node-git](https://github.com/christkv/node-git) (by [vvakame](https://github.com/vvakame))
