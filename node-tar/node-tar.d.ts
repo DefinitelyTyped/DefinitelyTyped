@@ -30,8 +30,7 @@ declare module "tar" {
         strip?: number;
     }
 
-    export interface ParseStream extends NodeJS.ReadableStream { }
-    export interface ParseStream extends NodeJS.WritableStream {
+    export interface ParseStream extends NodeJS.ReadWriteStream {
         position: number;
 
         _stream: stream.Stream;
@@ -42,8 +41,7 @@ declare module "tar" {
         _startEntry(c: Buffer): void;
     }
 
-    export interface PackStream extends NodeJS.ReadableStream { }
-    export interface PackStream extends NodeJS.WritableStream {
+    export interface PackStream extends NodeJS.ReadWriteStream {
         writable: boolean;
         readable: boolean;
 
