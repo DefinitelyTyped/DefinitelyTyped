@@ -145,7 +145,7 @@ declare module "swig" {
         blockLevel?: boolean
         ): void;
     export function setExtension(name: string, object: any): void;
-    export function parseFile(pathName: string, options?: any);
+    export function parseFile(pathName: string, options?: any): parser.ParseReturn;
     export function precompile(source: string, options?: SwigOptions): any;
     export function compile(source: string, options?: SwigOptions): (locals?: any) => string;
     export function compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
