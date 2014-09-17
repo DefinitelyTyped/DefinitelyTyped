@@ -21,13 +21,13 @@ declare module "swig" {
             blockLevel?: boolean
             ): void;
         setExtension(name: string, object: any): void;
-        parseFile(pathName: string, options?: any);
+        parseFile(pathName: string, options?: any): parser.ParseReturn;
         precompile(source: string, options?: SwigOptions): any;
         compile(source: string, options?: SwigOptions): (locals?: any) => string;
-        compileFile(pathname: string, options: SwigOptions, cb: (err: any, compiledRender: (locals?: any) => string) => void): void;
+        compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
         compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
         render(source: string, options?: SwigOptions): string;
-        renderFile(pathName: string, locals: any, cb: (err: any, output: string) => void): void;
+        renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
         renderFile(pathName: string, locals?: any): string
         run(templateFn: Function, locals?: any, filePath?: string): string;
         invalidateCache(): void;
@@ -100,6 +100,15 @@ declare module "swig" {
         export function read(str: string): string[];
     }
 
+    export module parser {
+        interface ParseReturn {
+            name: string;
+            parent: any;
+            tokens: any[];
+            blocks: any;
+        }
+    }
+
     export interface SwigOptions {
         autoescape?: boolean;
         cache?: any;
@@ -112,8 +121,8 @@ declare module "swig" {
 
     export interface TemplateLoader {
         resolve(to: string, from: string): string;
-        load(identifier, callback?: (err: any, data: any) => void): void;
-        load(identifier): any;
+        load(identifier: string, callback?: (err: Error, data: any) => void): void;
+        load(identifier:string): any;
     }
 
     export module loaders {
@@ -139,10 +148,10 @@ declare module "swig" {
     export function parseFile(pathName: string, options?: any);
     export function precompile(source: string, options?: SwigOptions): any;
     export function compile(source: string, options?: SwigOptions): (locals?: any) => string;
-    export function compileFile(pathname: string, options: SwigOptions, cb: (err: any, compiledRender: (locals?: any) => string) => void): void;
+    export function compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
     export function compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
     export function render(source: string, options?: SwigOptions): string;
-    export function renderFile(pathName: string, locals: any, cb: (err: any, output: string) => void): void;
+    export function renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
     export function renderFile(pathName: string, locals?: any): string
     export function run(templateFn: Function, locals?: any, filePath?: string): string;
     export function invalidateCache(): void;

@@ -26,7 +26,7 @@ swig.setDefaults(opts);
 swig.setDefaultTZOffset(num);
 swigObj = new swig.Swig(opts);
 str = swig.compileFile(str)();
-swig.compileFile(str, {}, function (err: any, render: (locals: any) => string) {
+swig.compileFile(str, {}, function (err: Error, render: (locals: any) => string) {
     str = render({});
 });
 str = swig.compile(str)();
@@ -38,14 +38,14 @@ swig.setExtension("test", function (v: string) { return 'test: ' + v });
 value = swig.precompile(str, opts);
 str = swig.render(str, opts);
 str = swig.renderFile(str, {});
-swig.renderFile(str, {}, function (err, output: string) {
+swig.renderFile(str, {}, function (err: Error, output: string) {
 
 });
 console.log(swig.version);
 
 
 str = swigObj.compileFile(str)();
-swigObj.compileFile(str, opts, function (err: any, render: (locals: any) => string) {
+swigObj.compileFile(str, opts, function (err: Error, render: (locals: any) => string) {
     str = render({});
 });
 str = swigObj.compile(str)();
@@ -57,6 +57,6 @@ swigObj.setExtension("test", function (v: string) { return 'test: ' + v });
 value = swigObj.precompile(str, opts);
 str = swigObj.render(str, opts);
 str = swigObj.renderFile(str, {});
-swigObj.renderFile(str, {}, function (err, output: string) {
+swigObj.renderFile(str, {}, function (err: Error, output: string) {
 
 });
