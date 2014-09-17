@@ -317,7 +317,7 @@ declare module "azure" {
         /**
          * Retrieves a shared access signature token.
          */
-        generateSharedAccessSignature(container: string, blob: string, sharedAccessPolicy: SharedAccessPolicy): string;
+        generateSharedAccessSignature(container: string, blob: string, sharedAccessPolicy: SharedAccessPolicy): SharedAccessSignatureResult;
 
         /**
          * Retrieves a blob or container URL.
@@ -1726,6 +1726,18 @@ declare module "azure" {
         leaseBreakPeriod?: number;
     }
 
+    export interface SharedAccessSignatureResult {
+        baseUrl: string;
+        path: string;
+        queryString: {
+            se: string;
+            sp: string;
+            sr: string;
+            sv: string;
+            sig: string;
+        };
+        url: () => string;
+    }
     export interface BlobHeaders {
         cacheControl?: string;
         contentType?: string;
