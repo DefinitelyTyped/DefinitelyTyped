@@ -15,7 +15,7 @@ declare module "swig" {
             ): void;
         setTag(
             name: string,
-            parse: (str?: string, line?: string, parser?: Object, types?: TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
+            parse: (str?: string, line?: string, parser?: Object, types?: lexer.TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
             compile: (compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string, args?: any[], content?: string, parents?: any, options?: any, blockName?: string) => string,
             ends?: boolean,
             blockLevel?: boolean
@@ -35,65 +35,69 @@ declare module "swig" {
         loaders: typeof loaders;
     }
 
-    export interface TYPES {
-        /** Whitespace */
-        WHITESPACE: number;
-        /** Plain string */
-        STRING: number;
-        /** Variable filter */
-        FILTER: number;
-        /** Empty variable filter */
-        FILTEREMPTY: number;
-        /** Function */
-        FUNCTION: number;
-        /** Function with no arguments */
-        FUNCTIONEMPTY: number;
-        /** Open parenthesis */
-        PARENOPEN: number;
-        /** Close parenthesis */
-        PARENCLOSE: number;
-        /** Comma */
-        COMMA: number;
-        /** Variable */
-        VAR: number;
-        /** Number */
-        NUMBER: number;
-        /** Math operator */
-        OPERATOR: number;
-        /** Open square bracket */
-        BRACKETOPEN: number;
-        /** Close square bracket */
-        BRACKETCLOSE: number;
-        /** Key on an object using dot-notation */
-        DOTKEY: number;
-        /** Start of an array */
-        ARRAYOPEN: number;
-        /** End of an array
-         * Currently unused
-        ARRAYCLOSE: number, */
-        /** Open curly brace */
-        CURLYOPEN: number;
-        /** Close curly brace */
-        CURLYCLOSE: number;
-        /** Colon (:) */
-        COLON: number;
-        /** JavaScript-valid comparator */
-        COMPARATOR: number;
-        /** Boolean logic */
-        LOGIC: number;
-        /** Boolean logic "not" */
-        NOT: number;
-        /** true or false */
-        BOOL: number;
-        /** Variable assignment */
-        ASSIGNMENT: number;
-        /** Start of a method */
-        METHODOPEN: number;
-        /** End of a method
-         * Currently unused
-        METHODEND: 26, */
-        /** Unknown type */
-        UNKNOWN: number
+    export module lexer {
+        export enum TYPES {
+            /** Whitespace */
+            WHITESPACE = 0,
+            /** Plain string */
+            STRING = 1,
+            /** Variable filter */
+            FILTER = 2,
+            /** Empty variable filter */
+            FILTEREMPTY = 3,
+            /** Function */
+            FUNCTION = 4,
+            /** Function with no arguments */
+            FUNCTIONEMPTY = 5,
+            /** Open parenthesis */
+            PARENOPEN = 6,
+            /** Close parenthesis */
+            PARENCLOSE = 7,
+            /** Comma */
+            COMMA = 8,
+            /** Variable */
+            VAR = 9,
+            /** Number */
+            NUMBER = 10,
+            /** Math operator */
+            OPERATOR = 11,
+            /** Open square bracket */
+            BRACKETOPEN = 12,
+            /** Close square bracket */
+            BRACKETCLOSE = 13,
+            /** Key on an object using dot-notation */
+            DOTKEY = 14,
+            /** Start of an array */
+            ARRAYOPEN = 15,
+            /** End of an array
+             * Currently unused
+            ARRAYCLOSE = 16, */
+            /** Open curly brace */
+            CURLYOPEN = 17,
+            /** Close curly brace */
+            CURLYCLOSE = 18,
+            /** Colon (:) */
+            COLON = 19,
+            /** JavaScript-valid comparator */
+            COMPARATOR = 20,
+            /** Boolean logic */
+            LOGIC = 21,
+            /** Boolean logic "not" */
+            NOT = 22,
+            /** true or false */
+            BOOL = 23,
+            /** Variable assignment */
+            ASSIGNMENT = 24,
+            /** Start of a method */
+            METHODOPEN = 25,
+            /** End of a method
+             * Currently unused
+            METHODEND = 26, */
+            /** Unknown type */
+            UNKNOWN = 100
+        }
+
+        export function read(str: string): string[];
     }
 
     export interface SwigOptions {
@@ -126,7 +130,7 @@ declare module "swig" {
         ): void;
     export function setTag(
         name: string,
-        parse: (str?: string, line?: string, parser?: Object, types?: TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
+        parse: (str?: string, line?: string, parser?: Object, types?: lexer.TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
         compile: (compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string, args?: any[], content?: string, parents?: any, options?: any, blockName?: string) => string,
         ends?: boolean,
         blockLevel?: boolean
