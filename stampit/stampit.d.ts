@@ -8,14 +8,11 @@ declare var stampit: stampit.Stampit;
 declare module stampit {
     interface Stampit {
         /**
-         * Return a factory function that will produce new objects using the
+         * Return a factory (akaStamp) function that will produce new objects using the
          * prototypes that are passed in or composed.
-         * @param methods Object containing methods which will be part of
-         * the .prototype of a resulting object.
-         * @param state Object which properties will be copied over to
-         * a resulting object.
-         * @param enclose Function properties of these objects will be run
-         * once per each new object.
+         * @param methods A map of method names and bodies for delegation.
+         * @param state A map of property names and values to clone for each new object.
+         * @param enclose A closure (function) used to create private data and privileged methods.
          * */
         (methods?:{}, state?:{}, enclose?:{(...encloseArgs:any[]): void}[]):stampit.Stamp;
 
@@ -69,12 +66,26 @@ declare module stampit {
      * prototypes that are passed in or composed.
      */
     export interface Stamp {
+        /**
+         * Just like calling stamp() invokes the stamp and returns a new object instance.
+         * @param state Properties you wish to set on the new objects.
+         * @param encloseArgs The remaining arguments are passed to all .enclose() functions.
+         * WARNING Avoid using two different .enclose() functions that expect different arguments.
+         * .enclose() functions that take arguments should not be considered safe to compose
+         * with other .enclose() functions that also take arguments. Taking arguments with
+         * an .enclose() function is an anti-pattern that should be avoided, when possible.
+         * @return A new object composed of the Stamps and prototypes provided.
+         */
         (state?:{}, ...encloseArgs:any[]): any;
 
         /**
-         *
-         * @param state State passed
-         * @param encloseArgs
+         * Just like calling stamp(), stamp.create() invokes the stamp and returns a new instance.
+         * @param state Properties you wish to set on the new objects.
+         * @param encloseArgs The remaining arguments are passed to all .enclose() functions.
+         * WARNING Avoid using two different .enclose() functions that expect different arguments.
+         * .enclose() functions that take arguments should not be considered safe to compose
+         * with other .enclose() functions that also take arguments. Taking arguments with
+         * an .enclose() function is an anti-pattern that should be avoided, when possible.
          * @return A new object composed of the Stamps and prototypes provided.
          */
         create(state?:{}, ...encloseArgs:any[]): any;
@@ -86,39 +97,43 @@ declare module stampit {
 
         /**
          * Add methods to the methods prototype. Chainable.
-         * @param methods Object(s) containing methods which will be part of
-         * the .prototype of a resulting object.
+         * @param methods Object(s) containing map of method names and bodies for delegation.
          * @return Self.
          */
         methods(...methods:{}[]): Stamp;
 
         /**
-         * Add properties to the state prototype. Chainable.
-         * @param states Object(s) which properties will be copied over to
-         * a resulting object.
+         * Take n objects and add them to the state prototype. Changes `this` object. Chainable.
+         * @param states Object(s) containing map of property names and values to clone for each new object.
          * @return Self.
          */
         state(...states:{}[]): Stamp;
 
         /**
-         * Add properties to the state prototype. Chainable.
-         * @param functions These function will be run once per each new object.
+         * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
+         * Functions passed into .enclose() are called any time an object is instantiated.
+         * That happens when the stamp function is invoked, or when the .create() method is called.
+         * Changes `this` object. Chainable.
+         * @param functions Closures (functions) used to create private data and privileged methods.
          * @return Self.
          */
         enclose(...functions:{(...encloseArgs:any[]): void}[]): Stamp;
 
         /**
-         * Add properties to the state prototype. Chainable.
-         * @param methods Function properties of these objects will be run
-         * once per each new object.
+         * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
+         * Functions passed into .enclose() are called any time an object is instantiated.
+         * That happens when the stamp function is invoked, or when the .create() method is called.
+         * Changes `this` object. Chainable.
+         * @param methods Function properties of these objects will be treated as closure functions.
          * @return Self.
          */
         enclose(...methods:{}[]): Stamp;
 
         /**
          * Take one or more Stamps and
-         * combine them with `this` to produce and return a new factory.
+         * combine them with `this` to produce and return a new Stamp.
          * Combining overrides properties with last-in priority.
+         * NOT chainable.
          * @param stamps Stampit factories, aka Stamps.
          * @return A new Stamp composed from arguments and `this`.
          */
