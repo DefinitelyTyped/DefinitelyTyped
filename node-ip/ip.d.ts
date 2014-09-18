@@ -3,6 +3,8 @@
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+interface NodeBuffer { }
+
 declare module "ip" {
     /**
      * Check two IP address are the same.

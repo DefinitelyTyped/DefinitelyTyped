@@ -15,5 +15,5 @@ ip.loopback("ipv6");
 ip.mask("192.168.0.1", "255.255.255.0");
 ip.not("255.255.255.0");
 ip.or("192.168.0.1", "255.255.255.0");
-var buff = ip.toBuffer(myIP);
+var buff:any = ip.toBuffer(myIP);
 ip.toString(buff);
