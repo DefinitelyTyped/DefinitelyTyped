@@ -674,7 +674,7 @@ declare module fabric {
     }
 
     export interface IPatternOptions {
-        source: () => any;
+        source: any;
         offsetX: number;
         offsetY: number;
         repeat: string;
