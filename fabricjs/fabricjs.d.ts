@@ -607,6 +607,21 @@ declare module fabric {
         loadFromDatalessJSON(json, callback: () => void): void;
     }
 
+    export interface IPattern {
+        (options: IPatternOptions): IPattern;
+
+        initialise(options: IPatternOptions): IPattern;
+
+        toLive(ctx: CanvasRenderingContext2D): IPattern;
+        toObject(): any;
+        toSVG(): string;
+
+        offsetX: number;
+        offsetY: number;
+        repeat: string;
+        source: any;
+    }
+
     export interface IBrightnessFilter {
     }
     export interface IInvertFilter {
@@ -658,6 +673,13 @@ declare module fabric {
         stateful?: boolean;
     }
 
+    export interface IPatternOptions {
+        source: () => any;
+        offsetX: number;
+        offsetY: number;
+        repeat: string;
+    }
+
     export interface IRectOptions extends IObjectOptions {
         x?: number; 
         y?: number;
@@ -694,6 +716,12 @@ declare module fabric {
 
         EMPTY_JSON: string;
         supports(methodName: string): boolean;
+        prototype: any;
+    }
+
+    var Pattern: {
+        new (options: IPatternOptions): IPattern;
+
         prototype: any;
     }
 
