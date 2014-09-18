@@ -193,7 +193,7 @@ interface URIStatic {
 
 declare var URIStaticInstance:URIStatic;
 
-declare module "uri-js"
+declare module "URIjs"
 {
     export = URIStaticInstance;
 }
