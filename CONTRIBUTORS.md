@@ -19,6 +19,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Angular Protractor](https://github.com/angular/protractor) (by [Bill Armstrong](https://github.com/BillArmstrong))
 * [Angular Translate](http://pascalprecht.github.io/angular-translate/) (by [Michel Salib](https://github.com/michelsalib))
 * [Angular UI Bootstrap](http://angular-ui.github.io/bootstrap) (by [Brian Surowiec](https://github.com/xt0rted))
+* [any-db](https://github.com/grncdr/node-any-db) (by [Rogier Schouten](https://github.com/rogier-schouten))
 * [AppFramework](http://app-framework-software.intel.com/) (by [Kyo Ago](https://github.com/kyo-ago))
 * [Arbiter](http://arbiterjs.com/) (by [Arash Shakery](https://github.com/arash16))
 * [asciify](https://github.com/olizilla/asciify) (by [Alan](http://alan.norbauer.com))
