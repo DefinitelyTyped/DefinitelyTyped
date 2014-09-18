@@ -1,6 +1,6 @@
 // Type definitions for Ember.js 1.0.0
 // Project: http://emberjs.com/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>
+// Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
