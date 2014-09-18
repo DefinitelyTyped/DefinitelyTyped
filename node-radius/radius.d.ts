@@ -36,9 +36,9 @@ declare module "radius" {
      * 
      * @param path Can be either a path to a file or a directory.
      **/
-    export function add_dictionary(path:string);
+    export function add_dictionary(path:string): void;
 
-    export function unload_dictionaries();
+    export function unload_dictionaries(): void;
 
 
 
