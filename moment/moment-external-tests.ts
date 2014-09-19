@@ -31,6 +31,13 @@ moment("20140101", ["YYYYMMDD"], true);
 moment("20140101", ["YYYYMMDD"], "en");
 moment("20140101", ["YYYYMMDD"], "en", true);
 
+moment(day.toISOString(), moment.ISO_8601);
+moment(day.toISOString(), moment.ISO_8601, true);
+moment(day.toISOString(), moment.ISO_8601, "en", true);
+moment(day.toISOString(), [moment.ISO_8601]);
+moment(day.toISOString(), [moment.ISO_8601], true);
+moment(day.toISOString(), [moment.ISO_8601], "en", true);
+
 var a = moment([2012]);
 var b = moment(a);
 a.year(2000);
@@ -181,13 +188,13 @@ moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
 
-moment.lang('fr');
+moment.localeData('fr');
 moment(1316116057189).fromNow();
 
-moment.lang('en'); 
+moment.localeData('en'); 
 var globalLang = moment();
 var localLang = moment();
-localLang.lang('fr'); 
+localLang.localeData('fr'); 
 localLang.format('LLLL'); 
 globalLang.format('LLLL'); 
 
@@ -217,7 +224,7 @@ adur.subtract(1).days();
 adur.subtract(1, 'd').days();
 
 // Defining a custom language: 
-moment.lang('en', {
+moment.localeData('en', {
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -275,14 +282,14 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     months : [
         "January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
     ]
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     months : function (momentToFormat: Moment, format: string) {
         // momentToFormat is the moment currently being formatted
         // format is the formatting string
@@ -294,14 +301,14 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     monthsShort : [
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ]
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     monthsShort : function (momentToFormat: Moment, format: string) {
         if (/^MMMM/.test(format)) {
             return this.nominative[momentToFormat.month()];
@@ -311,39 +318,39 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     weekdays : [
         "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     ]
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     weekdays : function (momentToFormat: Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     weekdaysShort : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     weekdaysShort : function (momentToFormat: Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     weekdaysMin : ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     weekdaysMin : function (momentToFormat: Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     longDateFormat : {
         LT: "h:mm A",
         L: "MM/DD/YYYY",
@@ -357,7 +364,7 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     longDateFormat : {
         LT: "h:mm A",
         L: "MM/DD/YYYY",
@@ -367,7 +374,7 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     relativeTime : {
         future: "in %s",
         past:   "%s ago",
@@ -385,7 +392,7 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     meridiem : function (hour, minute, isLowercase) {
         if (hour < 9) {
             return "早上";
@@ -401,7 +408,7 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     calendar : {
         lastDay : '[Yesterday at] LT',
         sameDay : '[Today at] LT',
@@ -414,7 +421,7 @@ moment.lang('en', {
     }
 });
 
-moment.lang('en', {
+moment.localeData('en', {
     ordinal : function (number) {
         var b = number % 10;
         var output = (~~ (number % 100 / 10) === 1) ? 'th' :

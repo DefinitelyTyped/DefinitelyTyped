@@ -2763,7 +2763,14 @@ interface JQuery {
      * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    on(events: { [key: string]: any; }, selector?: any, data?: any): JQuery;
+    on(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    on(events: { [key: string]: any; }, data?: any): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2807,6 +2814,14 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
     one(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    one(events: { [key: string]: any; }, data?: any): JQuery;
 
 
     /**

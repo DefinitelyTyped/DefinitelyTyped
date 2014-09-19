@@ -1,12 +1,14 @@
 // Type definitions for ChartJS
-// Project: http://chartjs.devexpress.com
+// Project: http://js.devexpress.com/WebDevelopment/Charts/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
 declare module DevExpress {
-    export function abstract(): void;
+export function abstract(): void;
+    export var rtlEnabled: boolean;
+    export var hardwareBackButton: JQueryCallback;
     interface Endpoint {
         local?: string;
         production: string;
@@ -18,39 +20,76 @@ declare module DevExpress {
     export interface ActionOptions {
         context?: Object;
         component?: any;
-        beforeExecute? (e: ActionExecuteArgs): void;
-        afterExecute? (e: ActionExecuteArgs): void;
+        beforeExecute? (e:ActionExecuteArgs): void;
+        afterExecute? (e:ActionExecuteArgs): void;
     }
     export interface ActionExecuteArgs {
         action: any;
         args: any[];
         context: any;
         component: any;
-        canceled: boolean;
+        cancel: boolean;
         handled: boolean;
     }
     export class Action {
         constructor(action?: any, config?: ActionOptions);
         execute(): any;
     }
+    export interface IDevice {
+        deviceType?: string;
+        platform?: string;
+        version?: Array<number>;
+        phone?: boolean;
+        tablet?: boolean;
+        android?: boolean;
+        ios?: boolean;
+        win8?: boolean;
+        tizen?: boolean;
+        generic?: boolean;
+    }
     export module devices {
-        interface Device {
-            phone?: boolean;
-            tablet?: boolean;
-            android?: boolean;
-            ios?: boolean;
-            win8?: boolean;
-            tizen?: boolean;
-            platform?: string;
-            deviceType?: string;
-        }
-        export function current(): Device;
-        export function current(device: Device): Device;
-        export var real: Device;
+        export function orientation(): string;
+        export var orientationChanged: JQueryCallback;
+        export function real(): IDevice;
+        export function current(deviceOrName: string): IDevice;
+        export function current(deviceOrName: IDevice): IDevice;
+    }
+        export function registerComponent(name: string, componentClass: any): void;
+    export interface ComponentOptions {
+        disabled?: boolean;
+    }
+    export class Component {
+        constructor(element: Element, options?: ComponentOptions);
+        constructor(element: JQuery, options?: ComponentOptions);
+        disposing: JQueryCallback;
+        optionChanged: JQueryCallback;
+        instance(): Component;
+        beginUpdate(): void;
+        endUpdate(): void;
+        option(): any;
+        option(options: string): any;
+        option<T>(options: string): T;
+        option(options: string, value: any): void;
+        option(options: { [key: string]: any }): void;
+        option(options?: any): any;
+    }
+    export interface DOMComponentOptions extends ComponentOptions {
+        rtlEnabled?: boolean;
+    }
+    export class DOMComponent extends Component {
+        constructor(element: HTMLElement, options?: DOMComponentOptions);
+                static defaultOptions(rule: {
+            device: any;
+            options: { [key: string]: any };
+        }): void;
     }
 }
 declare module DevExpress.data {
-    export interface ErrorHandler { (e: Error): void; }
+export interface DataError extends Error {
+        httpStatus?: number;
+        errorDetails?: any;
+    }
+    export interface ErrorHandler { (e: DataError): void; }
     export interface EntityOptions { key: any; keyType: any; }
     export interface Getter { (obj: any, options?: any): any; }
     export interface Setter { (obj: any, value: any, options?: any): void; }
@@ -62,17 +101,17 @@ declare module DevExpress.data {
         adapter?: any;
     }
     interface IQuery {
-        enumerate(): JQueryDeferred<Array<any>>;
-        count(): JQueryDeferred<number>;
+        enumerate(): JQueryPromise<Array<any>>;
+        count(): JQueryPromise<number>;
         slice(skip: number, take?: number): IQuery;
-        sortBy(field: string[]): IQuery;
-        sortBy(field: Getter[]): IQuery;
-        sortBy(field: { field: string; desc?: boolean }[]): IQuery;
-        sortBy(field: { field: Getter; desc?: boolean }[]): IQuery;
-        thenBy(field: string[]): IQuery;
-        thenBy(field: Getter[]): IQuery;
-        thenBy(field: { field: string; desc?: boolean }[]): IQuery;
-        thenBy(field: { field: Getter; desc?: boolean }[]): IQuery;
+        sortBy(field: string): IQuery;
+        sortBy(field: Getter): IQuery;
+        sortBy(field: { field: string; desc?: boolean }): IQuery;
+        sortBy(field: { field: Getter; desc?: boolean }): IQuery;
+        thenBy(field: string): IQuery;
+        thenBy(field: Getter): IQuery;
+        thenBy(field: { field: string; desc?: boolean }): IQuery;
+        thenBy(field: { field: Getter; desc?: boolean }): IQuery;
         filter(field: string, operator: string, value: any): IQuery;
         filter(field: string, value: any): IQuery;
         filter(criteria: any[]): IQuery;
@@ -86,12 +125,12 @@ declare module DevExpress.data {
         groupBy(field: Getter[]): IQuery;
         groupBy(field: { field: string; desc?: boolean }[]): IQuery;
         groupBy(field: { field: Getter; desc?: boolean }[]): IQuery;
-        sum(getter?: string): JQueryDeferred<number>;
-        min(getter?: string): JQueryDeferred<any>;
-        max(getter?: string): JQueryDeferred<any>;
-        avg(getter?: string): JQueryDeferred<any>;
-        aggregate(step: number): JQueryDeferred<any>;
-        aggregate(seed: number, step: (accumulator: any, current: any) => any, finalize?: (accumulator: any) => any): JQueryDeferred<any>;
+        sum(getter?: string): JQueryPromise<number>;
+        min(getter?: string): JQueryPromise<any>;
+        max(getter?: string): JQueryPromise<any>;
+        avg(getter?: string): JQueryPromise<any>;
+        aggregate(step: number): JQueryPromise<any>;
+        aggregate(seed: number, step: (accumulator: any, current: any) => any, finalize?: (accumulator: any) => any): JQueryPromise<any>;
     }
     export interface ArrayQuery extends IQuery {
         toArray(): Array<any>;
@@ -166,7 +205,7 @@ declare module DevExpress.data {
     export module queryAdapters {
         export function odata(queryOptions: ODataQueryOptions): RemoteQuery;
     }
-    export interface DataSourceOptions {
+export interface DataSourceOptions {
         map? (item: any): any;
         postProcess? (result: any[]): any;
         pageSize: number;
@@ -185,7 +224,7 @@ declare module DevExpress.data {
         constructor(options?: { store: { type: string } });
         constructor(options?: { load(options?: LoadOptions): JQueryXHR; });
         constructor(options?: { load(options?: LoadOptions): Array<any>; });
-        constructor(options?: { load(options?: LoadOptions): JQueryDeferred<any>; });
+        constructor(options?: { load(options?: LoadOptions): JQueryPromise<any>; });
         constructor(options?: DataSourceOptions);
         loadOptions(): { [key: string]: any };
         items(): Array<any>;
@@ -203,22 +242,22 @@ declare module DevExpress.data {
         isLoaded(): boolean;
         isLoading(): boolean;
         totalCount(): number;
-        load(): JQueryDeferred<any>;
+        load(): JQueryPromise<any>;
         dispose(): void;
     }
-    export interface StoreOptions {
+export interface StoreOptions {
         key?: any;
         errorHandler?: ErrorHandler;
-        loaded?: JQueryCallback;
-        loading?: JQueryCallback;
-        modified?: JQueryCallback;
-        modifying?: JQueryCallback;
-        inserted?: JQueryCallback;
-        inserting?: JQueryCallback;
-        updated?: JQueryCallback;
-        updating?: JQueryCallback;
-        removed?: JQueryCallback;
-        removing?: JQueryCallback;
+        loaded?: (result: Array<any>) => void;
+        loading?: (loadOptions: LoadOptions) => void;
+        modified?: () => void;
+        modifying?: () => void;
+        inserted?: (values: Object, key: any) => void;
+        inserting?: (values: Object) => void;
+        updated?: (key: any, values: Object) => void;
+        updating?: (key: any, values: Object) => void;
+        removed?: (key: any) => void;
+        removing?: (key: any) => void;
     }
     export interface LoadOptions extends QueryOptions {
         skip?: number;
@@ -227,6 +266,7 @@ declare module DevExpress.data {
         select?: any;
         filter?: any;
         group?: any;
+        expand?: any;
     }
     export class Store {
         loaded: JQueryCallback;
@@ -242,18 +282,18 @@ declare module DevExpress.data {
         constructor(options?: StoreOptions);
         key(): any;
         keyOf(obj: any): any;
-        load(options?: LoadOptions): JQueryDeferred<any[]>;
+        load(options?: LoadOptions): JQueryPromise<any[]>;
         createQuery(options?: QueryOptions): IQuery;
         totalCount(options?: {
             filter?: any[];
             group?: string[];
-        }): JQueryDeferred<number>;
+        }): JQueryPromise<number>;
         byKey(key: any, extraOptions?: {
             expand?: string[]
-        }): JQueryDeferred<any>;
-        remove(key: any): JQueryDeferred<any>;
-        insert(values: any): JQueryDeferred<any>;
-        update(key: any, values: any): JQueryDeferred<any>;
+        }): JQueryPromise<any>;
+        remove(key: any): JQueryPromise<any>;
+        insert(values: any): JQueryPromise<any>;
+        update(key: any, values: any): JQueryPromise<any>;
     }
     export interface CustomStoreOptions extends StoreOptions {
         load? (options?: LoadOptions): any;
@@ -300,12 +340,14 @@ declare module DevExpress.data {
         withCredentials?: boolean;
         errorHandler?: ErrorHandler;
         beforeSend?: () => any;
-        entities?: Array<any>;
+        entities?: {
+            [entityAlias: string]: ODataStoreOptions;
+        };
     }
     export class ODataContext {
         constructor(options?: ODataContextOptions);
-        get(operationName: string, params: { [key: string]: any }): JQueryDeferred<Array<any>>;
-        invoke(operationName: string, params: { [key: string]: any }, httpMethod?: string): JQueryDeferred<Array<any>>;
+        get(operationName: string, params: { [key: string]: any }): JQueryPromise<Array<any>>;
+        invoke(operationName: string, params: { [key: string]: any }, httpMethod?: string): JQueryPromise<Array<any>>;
         objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; };
     }
 }
@@ -333,10 +375,10 @@ declare module DevExpress.ui {
     class TemplateProvider {
         constructor();
         getTemplateClass(widget: any): TemplateStatic;
-        getDefaultTemplate(widget: any): void; supportDefaultTemplate(): boolean;
+        getDefaultTemplate(widget: any): void;         supportDefaultTemplate(): boolean;
     }
     export function initViewport(options: ViewportOptions): void;
-    interface NotifyOptions {
+        interface NotifyOptions {
         message: string;
         type?: string;
         displayTime?: number;
@@ -346,7 +388,7 @@ declare module DevExpress.ui {
     export function notify(message: string, type?: string, displayTime?: number): void;
     export module dialog {
         interface Dialog {
-            show(): JQueryDeferred<any>;
+            show(): JQueryPromise<any>;
             hide(value?: any): void;
         }
         interface DialogButton {
@@ -360,12 +402,12 @@ declare module DevExpress.ui {
         }
         export function custom(options: DialogOptions): Dialog;
         export function custom(message: string, title?: string): Dialog;
-        export function alert(options: DialogOptions): JQueryDeferred<boolean>;
-        export function alert(message: string, title?: string): JQueryDeferred<boolean>;
-        export function confirm(options: DialogOptions): JQueryDeferred<boolean>;
-        export function confirm(message: string, title?: string): JQueryDeferred<boolean>;
+        export function alert(options: DialogOptions): JQueryPromise<boolean>;
+        export function alert(message: string, title?: string): JQueryPromise<boolean>;
+        export function confirm(options: DialogOptions): JQueryPromise<boolean>;
+        export function confirm(message: string, title?: string): JQueryPromise<boolean>;
     }
-    export interface CollectionContainerWidgetOptions extends ContainerWidgetOptions {
+export interface CollectionContainerWidgetOptions extends WidgetOptions {
         items?: Array<any>;
         itemTemplate?: any;
         itemRender?: Function;
@@ -373,47 +415,17 @@ declare module DevExpress.ui {
         itemRenderedAction?: any;
         noDataText?: string;
         dataSource?: data.DataSource;
+        selectedIndex?: number;
+        itemSelectAction?: any;
+        itemHoldAction?: any;
+        itemHoldTimeout?: number;
     }
-    export class CollectionContainerWidget extends ContainerWidget {
+    export class CollectionContainerWidget extends Widget {
         constructor(element: Element, options?: CollectionContainerWidgetOptions);
         constructor(element: JQuery, options?: CollectionContainerWidgetOptions);
     }
-    export interface ComponentOptions {
-        disabled?: boolean;
-    }
-    export class Component {
-        constructor(element: Element, options?: ComponentOptions);
-        constructor(element: JQuery, options?: ComponentOptions);
-        disposing: JQueryCallback;
-        optionChanged: JQueryCallback;
-        instance(): Component;
-        beginUpdate(): void;
-        endUpdate(): void;
-        option(): any;
-        option(options: string): any;
-        option<T>(options: string): T;
-        option(options: string, value: any): void;
-        option(options: { [key: string]: any }): void;
-        option(options?: any): any;
-    }
-    export interface ContainerWidgetOptions extends WidgetOptions {
-        contentReadyAction?: any
-    }
-    export class ContainerWidget extends Widget {
-        constructor(element: Element, options?: WidgetOptions);
-        constructor(element: JQuery, options?: WidgetOptions);
-        addTemplate(template: ITemplate): void;
-    }
-    export interface SelectableCollectionWidgetOptions extends CollectionContainerWidgetOptions {
-        selectedIndex?: number;
-        itemSelectAction?: any;
-    }
-    export class SelectableCollectionWidget extends CollectionContainerWidget {
-        constructor(element: Element, options?: SelectableCollectionWidget);
-        constructor(element: JQuery, options?: SelectableCollectionWidget);
-    }
-    export interface WidgetOptions extends ComponentOptions {
-        clickAction?: any;
+export interface WidgetOptions extends ComponentOptions {
+        contentReadyAction?: any;
         width?: any;
         height?: any;
         visible?: boolean;
@@ -424,10 +436,19 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: WidgetOptions);
         init(): void;
         repaint(): void;
+        addTemplate(template: ITemplate): void;
+    }
+export interface dxEditorOptions extends WidgetOptions {
+        value?: any;
+        valueChangeAction?: any;
+    }
+    export class dxEditor extends Widget {
+        constructor(element: Element, options?: dxEditorOptions);
+        constructor(element: JQuery, options?: dxEditorOptions);
     }
 }
 declare module DevExpress.viz {
-    export class Chart extends ui.Component {
+export class Chart extends Component {
         constructor(element: Element, options?: viz.charts.ChartOptions);
         constructor(element: JQuery, options?: viz.charts.ChartOptions);
         clearSelection(): void;
@@ -440,8 +461,12 @@ declare module DevExpress.viz {
         getSeriesByName(seriesName: string): viz.charts.series.Series;
         getAllSeries(): Array<viz.charts.series.Series>;
         instance(): Chart;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
+        getSize(): { width: number; height: number };
     }
-    export class PieChart extends ui.Component {
+    export class PieChart extends Component {
         constructor(element: Element, options?: viz.charts.PieOptions);
         constructor(element: JQuery, options?: viz.charts.PieOptions);
         clearSelection(): void;
@@ -450,58 +475,97 @@ declare module DevExpress.viz {
         render(options: viz.charts.RenderOptions): void;
         render(): void;
         instance(): PieChart;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
+        getSize(): { width: number; height: number };
     }
-    export class RangeSelector extends ui.Component {
+    export class RangeSelector extends Component {
         constructor(element: Element, options?: viz.rangeSelector.RangeSelectorOptions);
         constructor(element: JQuery, options?: viz.rangeSelector.RangeSelectorOptions);
         getSelectedRange: () => viz.rangeSelector.SelectedRange;
         setSelectedRange: (selectedRange: viz.rangeSelector.SelectedRange) => void;
+		render(): RangeSelector;
         instance(): RangeSelector;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
     }
-    export class CircularGauge extends ui.Component {
+    export class CircularGauge extends Component {
         constructor(element: Element, options?: viz.gauges.CircularGaugeOptions);
         constructor(element: JQuery, options?: viz.gauges.CircularGaugeOptions);
         value(): number;
         value(val: number): CircularGauge;
         subvalues(): Array<number>;
         subvalues(values: Array<number>): CircularGauge;
+        render(): CircularGauge;
         instance(): CircularGauge;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
     }
-    export class LinearGauge extends ui.Component {
+    export class LinearGauge extends Component {
         constructor(element: Element, options?: viz.gauges.LinearGaugeOptions);
         constructor(element: JQuery, options?: viz.gauges.LinearGaugeOptions);
         value(): number;
         value(val: number): LinearGauge;
         subvalues(): Array<number>;
         subvalues(values: Array<number>): LinearGauge;
+        render(): LinearGauge;
         instance(): LinearGauge;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
     }
-    export class Sparkline extends ui.Component {
+    export class BarGauge extends Component {
+        constructor(element: Element, options?: viz.gauges.BarGaugeOptions);
+        constructor(element: JQuery, options?: viz.gauges.BarGaugeOptions);
+        values(): Array<number>;
+        values(vals: Array<number>): BarGauge;
+        render(): BarGauge;
+        instance(): BarGauge;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
+    }
+    export class Sparkline extends Component {
         constructor(element: Element, options?: viz.sparklines.SparklineOptions);
         constructor(element: JQuery, options?: viz.sparklines.SparklineOptions);
         render(): Sparkline;
         instance(): Sparkline;
+        svg(): string;
     }
-    export class Bullet extends ui.Component {
+    export class Bullet extends Component {
         constructor(element: Element, options?: viz.sparklines.BulletOptions);
         constructor(element: JQuery, options?: viz.sparklines.BulletOptions);
         render(): Bullet;
         instance(): Bullet;
+        svg(): string;
     }
-    export class Map extends ui.Component {
+    export class Map extends Component {
         constructor(element: Element, options?: viz.map.VectorMapOptions);
         constructor(element: JQuery, options?: viz.map.VectorMapOptions);
-        render(): void;
+        render(): Map;
         instance(): Map;
-        getAreas(): Array<viz.map.Proxy>;
-        getMarkers(): Array<viz.map.Proxy>;
-        clearAreaSelection(): void;
-        clearMarkerSelection(): void;
-        clearSelection(): void;
+        getAreas(): Array<viz.map.AreaProxy>;
+        getMarkers(): Array<viz.map.MarkerProxy>;
+        clearAreaSelection(): Map;
+        clearMarkerSelection(): Map;
+        clearSelection(): Map;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+        svg(): string;
+        center(): Array<number>;
+        center(center: Array<number>): Map;
+        zoomFactor(): number;
+        zoomFactor(zoomFactor: number): Map;
+        viewport(): Array<number>;
+        viewport(viewport: Array<number>): Map;
+        convertCoordinates(x: number, y: number): Array<number>;
     }
 }
 declare module DevExpress.viz.charts {
-    interface z_BaseLegendOptions {
+interface z_BaseLegendOptions {
         backgroundColor?: string;
         hoverMode?: string;
         customizeText?: (arg: {
@@ -515,7 +579,7 @@ declare module DevExpress.viz.charts {
         equalColumnWidth?: boolean;
         font?: viz.common.FontOptions;
         visible?: boolean;
-        margin?: number;
+        margin?: any;
         markerSize?: number;
         border?: {
             visible?: boolean;
@@ -531,6 +595,7 @@ declare module DevExpress.viz.charts {
         rowsCount?: number;
         columnItemSpacing?: number;
         rowItemSpacing?: number;
+        orientation?: string;
     }
     interface z_BaseTooltipCustomizeArgument {
         value?: any;
@@ -543,21 +608,16 @@ declare module DevExpress.viz.charts {
         percentText?: string;
         seriesName: string;
     }
-    interface z_BaseTooltipOptions {
-        enabled?: boolean;
-        color?: string;
+    interface z_BaseTooltipOptions extends common.BaseTooltipOptions {
         customizeText?: (arg: z_BaseTooltipCustomizeArgument) => string;
+        customizeTooltip?: (arg: z_BaseTooltipCustomizeArgument) => common.CustomizeTooltipResult;
         format?: string;
         argumentFormat?: string;
         precision?: number;
         argumentPrecision?: number;
         percentPrecision?: number;
-        font?: viz.common.FontOptions;
-        arrowLength?: number;
-        paddingLeftRight?: number;
-        paddingTopBottom?: number;
     }
-    interface z_ChartTooltipCustomizeArgument extends z_BaseTooltipCustomizeArgument {
+    interface z_ChartTooltipCustomizeArgument extends z_BaseTooltipCustomizeArgument{
         closeValueText?: string;
         highValueText?: string;
         lowValueText?: string;
@@ -581,17 +641,18 @@ declare module DevExpress.viz.charts {
     }
     interface z_ChartTooltipOptions extends z_BaseTooltipOptions {
         customizeText?: (arg: z_ChartTooltipCustomizeArgument) => string;
+        customizeTooltip?: (arg: z_ChartTooltipCustomizeArgument) => common.CustomizeTooltipResult;
         shared?: boolean;
     }
-    interface z_BaseChartOptions extends ui.ComponentOptions {
+    interface z_BaseChartOptions extends ComponentOptions {
         incidentOccured?: () => void;
         done?: () => void;
-        drawn?: () => void;
         tooltipShown?: () => void;
         tooltipHidden?: () => void;
         pointSelectionMode?: string;
         redrawOnResize?: boolean;
         tooltip?: z_BaseTooltipOptions;
+        loadingIndicator?: common.LoadingIndicatorOptions;
         margin?: {
             left?: number;
             top?: number;
@@ -608,9 +669,10 @@ declare module DevExpress.viz.charts {
             font?: viz.common.FontOptions;
             text?: string;
             placeholderSize?: number;
+            margin?: any; 
         };
         dataSource?: any;
-        palette?: any; legend?: z_BaseLegendOptions;
+        palette?: any;                                      legend?: z_BaseLegendOptions;
         theme?: string;
         animation?: {
             enabled?: boolean;
@@ -621,6 +683,7 @@ declare module DevExpress.viz.charts {
             asyncTrackersRendering?: boolean;
             trackerRenderingDelay?: number;
         };
+		pathModified?: boolean;
     }
     export interface CommonPaneSettings {
         backgroundColor?: string;
@@ -659,7 +722,7 @@ declare module DevExpress.viz.charts {
     interface z_BaseConstantLineLabel {
         visible?: boolean;
         position?: string;
-        font?: viz.common.FontOptions;
+        font?: viz.common.FontOptions; 
     }
     interface ConstantLineAxisLabel extends z_BaseConstantLineLabel {
         horizontalAlignment?: string;
@@ -676,7 +739,7 @@ declare module DevExpress.viz.charts {
         color?: string;
         label?: z_BaseConstantLineLabel;
     }
-    export interface ConstantLineOptions extends CommonConstantLineStyle {
+    export interface ConstantLineOptions extends CommonConstantLineStyle{
         value?: any;
         label?: ConstantLineLabel;
     }
@@ -724,7 +787,7 @@ declare module DevExpress.viz.charts {
         visible?: boolean;
         width?: number;
     }
-    export interface StripOptions extends z_StripStyle {
+    export interface StripOptions  extends z_StripStyle{
         color?: string;
         endValue: any;
         startValue: any;
@@ -735,7 +798,7 @@ declare module DevExpress.viz.charts {
             text?: string;
         };
     }
-    interface z_AxisLabelSettings extends z_CommonAxisLabelSettings {
+    interface z_AxisLabelSettings extends z_CommonAxisLabelSettings{
         customizeText: (arg: {
             value: any;
             valueText: string;
@@ -744,12 +807,12 @@ declare module DevExpress.viz.charts {
     export interface ArgumentAxisOptions extends CommonAxisSettings {
         argumentType?: string;
         axisDivisionFactor?: number;
-        categories?: Array<string>;
+        categories?: Array<string>;         
         hoverMode?: string;
         label?: z_AxisLabelSettings;
         max?: number;
         min?: number;
-        tickInterval?: any;
+        tickInterval?: any;                    
         position?: string;
         constantLineStyle?: z_AxisConstantLineStyle;
         strips?: Array<StripOptions>;
@@ -759,11 +822,11 @@ declare module DevExpress.viz.charts {
     export interface ValueAxisOptions extends CommonAxisSettings {
         valueType?: string;
         axisDivisionFactor?: number;
-        categories?: Array<any>;
+        categories?: Array<any>;           
         hoverMode?: string;
         max?: number;
         min?: number;
-        tickInterval?: any; position?: string;
+        tickInterval?: any;                             position?: string;
         strips?: Array<StripOptions>;
         constantLines?: Array<ConstantLineOptions>;
         constantLineStyle?: z_AxisConstantLineStyle;
@@ -792,6 +855,11 @@ declare module DevExpress.viz.charts {
             spacing?: number;
             width?: number;
         };
+        adaptiveLayout?: {
+            width?: number;
+            height?: number;
+            keepLabels?: boolean;
+        };
         customizePoint?: (arg: {
             index: number;
             argument: any;
@@ -801,6 +869,15 @@ declare module DevExpress.viz.charts {
             rangeValue1?: any;
             rangeValue2?: any;
         }) => series.BasePointOptions;
+		customizeLabel?: (arg: {
+			index: number;
+			argument: any;
+			seriesName: string;
+			tag: any;
+			value?: any;
+			ramgeValue1?: any;
+			rangeValue2?: any;
+		}) => series.z_BaseLabelOptions;
         commonPaneSettings?: CommonPaneSettings;
         panes?: Array<PaneSettings>;
         containerBackgroundColor?: string;
@@ -814,10 +891,10 @@ declare module DevExpress.viz.charts {
         dataPrepareSettings?: {
             checkTypeForAllData?: boolean;
             convertToAxisDataType?: boolean;
-            sortingMethod?: any;
+            sortingMethod?: any;             
         };
         useAggregation?: boolean;
-        argumentAxisClick?: (axis: any, argument: any, event: JQueryMouseEventObject) => void;
+        argumentAxisClick?: (axis: any, argument: any, event: JQueryMouseEventObject) => void;         
         legend?: ChartLegendOptions;
         argumentAxis?: ArgumentAxisOptions;
         valueAxis?: Array<ValueAxisOptions>;
@@ -829,11 +906,14 @@ declare module DevExpress.viz.charts {
         seriesSelected?: (series: viz.charts.series.Series) => void;
         seriesHoverChanged?: (series: viz.charts.series.Series) => void;
         pointClick?: (point: viz.charts.series.Point, event: JQueryMouseEventObject) => void;
-        legendClick?: (obj: any, event: JQueryMouseEventObject) => void; pointHover?: (point: viz.charts.series.Point) => void;
+        legendClick?: (obj: any, event: JQueryMouseEventObject) => void;                                    pointHover?: (point: viz.charts.series.Point) => void;
         pointSelected?: (point: viz.charts.series.Point) => void;
         seriesSelectionChanged?: (series: viz.charts.series.Series) => void;
         pointSelectionChanged?: (point: viz.charts.series.Point) => void;
         pointHoverChanged?: (point: viz.charts.series.Point) => void;
+		drawn?: (arg:viz.Chart) => void;
+		minBubbleSize?: number;
+		maxBubbleSize?: number;
     }
     export interface PieOptions extends z_BaseChartOptions {
         pointClick?: (point: viz.charts.series.PiePoint, event: JQueryMouseEventObject) => void;
@@ -843,6 +923,7 @@ declare module DevExpress.viz.charts {
         pointSelectionChanged?: (point: viz.charts.series.PiePoint) => void;
         pointHoverChanged?: (point: viz.charts.series.PiePoint) => void;
         series?: viz.charts.series.PieSeriesOptions;
+		drawn?: (arg:viz.PieChart) => void;
     }
     export interface RenderOptions {
         force?: boolean;
@@ -851,7 +932,7 @@ declare module DevExpress.viz.charts {
     }
 }
 declare module DevExpress.viz.charts.series {
-    export interface z_BasePointStyle {
+export interface z_BasePointStyle {
         color?: string;
         border?: {
             visible?: boolean;
@@ -877,6 +958,7 @@ declare module DevExpress.viz.charts.series {
         selectionMode?: string;
         showInLegend?: boolean;
         tagField?: string;
+        visible?: boolean;
     }
     interface z_BaseLabelOptions {
         visible?: boolean;
@@ -948,6 +1030,7 @@ declare module DevExpress.viz.charts.series {
             visible?: boolean;
             width?: number;
             color?: string;
+            dashStyle?: string;
         };
     }
     export interface AreaSeriesOptions extends AreaSeriesStyle, z_BaseSeriesOptions {
@@ -975,10 +1058,10 @@ declare module DevExpress.viz.charts.series {
     export interface BarSeriesOptions extends z_BaseBarSeriesOptions {
         valueField?: string;
     }
-    export interface OHLCSeriesStyle extends z_BaseSeriesStyle {
+    export interface OHLCSeriesStyle extends z_BaseSeriesStyle{
         width?: number;
     }
-    interface z_BaseOHLCSeries extends z_BaseSeriesOptions {
+    interface z_BaseOHLCSeries extends z_BaseSeriesOptions{
         openValueField?: string;
         highValueField?: string;
         lowValueField?: string;
@@ -1008,7 +1091,7 @@ declare module DevExpress.viz.charts.series {
     export interface FullStackedBarSeriesOptions extends BarSeriesOptions {
         stack?: string;
     }
-    export interface FullStackedLineSeriesOptions extends LineSeriesOptions {
+    export interface FullStackedLineSeriesOptions extends LineSeriesOptions{
         point?: BasePointOptions;
     }
     interface z_BaseRangeSeriesOptions extends z_BaseSeriesOptions {
@@ -1028,7 +1111,7 @@ declare module DevExpress.viz.charts.series {
         pane?: string;
         axis?: string;
     }
-    export interface SplineSeriesOptions extends LineSeriesOptions { }
+    export interface SplineSeriesOptions extends LineSeriesOptions {}
     export interface SplineAreaSeries extends AreaSeriesOptions { }
     export interface StackedLineSeries extends LineSeriesOptions { }
     export interface StackedAreaSeries extends AreaSeriesOptions { }
@@ -1060,15 +1143,23 @@ declare module DevExpress.viz.charts.series {
         }) => string;
         radialOffset?: number;
     }
-    export interface PieSeriesOptions extends z_BaseSeriesOptions, PieSeriesStyle {
+    export interface PieSeriesOptions extends z_BaseSeriesOptions, PieSeriesStyle{
         valueField?: string;
         minSegmentSize?: string;
         selectionStyle?: PieSeriesStyle;
         hoverStyle?: PieSeriesStyle;
         segmentsDirection?: string;
+		startAngle?: number;
         type?: string;
         label?: PieSeriesLabelOptions;
+		smallValuesGrouping?: valuesGrouping;
     }
+	interface valuesGrouping{ 
+		mode?: string;
+		topCount?: number;
+		threshold?: number;
+		groupName?: string;
+	}
     interface AllSeriesStyleOptions extends z_BaseSeriesStyle, AreaSeriesStyle, LineSeriesStyle { }
     interface z_AllLabelsOptions extends z_BaseChartSeriesLabelOptions, BarSeriesLabel { }
     export interface CommonSeriesOptions extends z_BaseSeriesOptions, z_BaseBarSeriesOptions, z_BaseRangeSeriesOptions, z_BaseOHLCSeries, AllSeriesStyleOptions, BubbleSeriesOptions {
@@ -1103,30 +1194,27 @@ declare module DevExpress.viz.charts.series {
         stock?: StockSeriesOptions;
         bubble?: BubbleSeriesOptions;
     }
-    export class Point {
+    class z_BasePoint {
         fullState: number;
         originalArgument: any;
         originalValue: any;
-        series: Series;
         tag: any;
         clearSelection(): void;
         select(): void;
         hideTootip(): void;
         isSelected(): boolean;
         isHovered(): boolean;
+        getColor(): string;
     }
-    export class PiePoint {
-        fullState: number;
-        originalArgument: any;
-        originalValue: any;
+    export class Point extends z_BasePoint{
+        series: Series;
+    }
+    export class PiePoint extends z_BasePoint {
         percent: any;
         series: PieSeries;
-        tag: any;
-        clearSelection(): void;
-        select(): void;
-        hideTootip(): void;
-        isSelected(): boolean;
-        isHovered(): boolean;
+        isVisible():boolean;
+        hide(): void;
+        show(): void;
     }
     export class Series {
         axis: string;
@@ -1135,21 +1223,24 @@ declare module DevExpress.viz.charts.series {
         pane: string;
         tag: any;
         type: string;
-        clearSelection(): void;
-        deselectPoint(point: Point): void;
-        getAllPoints(): Array<Point>
+        clearSelection (): void;
+        deselectPoint (point:Point) : void;
+        getAllPoints () : Array<Point>
         getPointByArg(pointArg: any): Point;
         getPointByPos(positionIndex: number): Point;
-        select(): void;
-        selectPoint(point: Point): void;
-        isSelected(): boolean;
+        select () : void;
+        selectPoint (point:Point) : void;
+        isSelected (): boolean;
         isHovered(): boolean;
+        isVisible(): boolean;
+        show(): void;
+        hode(): void;
     }
     export class PieSeries {
         fullState: number;
         type: string;
         clearSelection(): void;
-        deselectPoint(point: PiePoint): void;
+        deselectPoint(point:PiePoint): void;
         getAllPoints(): Array<PiePoint>
         getPointByArg(pointArg: any): PiePoint;
         getPointByPos(positionIndex: number): PiePoint;
@@ -1160,7 +1251,7 @@ declare module DevExpress.viz.charts.series {
     }
 }
 declare module DevExpress.viz.common {
-    export interface FontOptions {
+export interface FontOptions {
         color?: string;
         family?: string;
         opacity?: number;
@@ -1177,11 +1268,44 @@ declare module DevExpress.viz.common {
         seconds?: number;
         milliseconds?: number;
     }
+    export interface LoadingIndicatorOptions {
+        backgroundColor?: string;
+        text?: string;
+        font?: FontOptions;
+    }
+    export interface CustomizeTooltipResult {
+        color?: string;
+        text?:string;
+    }
+    export interface BaseTooltipOptions {
+        enabled?: boolean;
+        color?: string;
+        border?: {
+            dashStyle?: string;
+            color?: string;
+            opacity?: number;
+            visible?: boolean;
+            width?: number;
+        };
+        font?: FontOptions;
+        arrowLength?: number;
+        paddingLeftRight?: number;
+        paddingTopBottom?: number;
+        opacity?: number;
+		chadow?: {
+			color?: string;
+			opacity?: number;
+			offsetX?: number;
+			offsetY?: number;
+			blur?: number;
+		}
+    }
 }
 declare module DevExpress.viz.gauges {
-    interface CustomizeTextArgument {
+interface CustomizeTextArgument {
         value: number;
         valueText: string;
+        color: string;
     }
     interface z_textOptions {
         format?: string;
@@ -1192,20 +1316,31 @@ declare module DevExpress.viz.gauges {
     interface z_textOptionsWithIndent extends z_textOptions {
         indent?: number;
     }
-    interface z_BaseGaugeOptions {
+    interface z_GaugeTooltipOptions extends common.BaseTooltipOptions {
+        format?: string;
+        precision?: number;
+        customizeText?: (arg: CustomizeTextArgument) => string;
+        customizeTooltip?: (arg: CustomizeTextArgument) => common.CustomizeTooltipResult;
+    }
+    interface z_BaseGaugeOptions  {
         size?: {
             width?: number;
             height?: number;
         };
-        margin?: {
+        margin?: {  
             left?: number;
             right?: number;
             top?: number;
             bottom?: number;
         };
+		theme?: string;
+        loadingIndicator?: common.LoadingIndicatorOptions;
         containerBackgroundColor?: string;
-        animationEnabled?: boolean;
-        animationDuration?: number;
+		animation?: {
+            enabled?: boolean;
+            duration?: number;
+            easing?: string;
+		};
         redrawOnResize?: boolean;
         title?: {
             position?: string;
@@ -1216,15 +1351,10 @@ declare module DevExpress.viz.gauges {
             text?: string;
             font?: viz.common.FontOptions;
         };
-        tooltip?: {
-            enabled?: boolean;
-            format?: string;
-            precision?: number;
-            customizeText?: (arg: CustomizeTextArgument) => string;
-            font?: viz.common.FontOptions;
-        };
+        tooltip?: z_GaugeTooltipOptions;
         value?: number;
-        subvalues?: Array<number>
+        subvalues?: Array<number>;
+		pathModified?: boolean;
     }
     interface z_BaseRangeContainer {
         offset?: number;
@@ -1277,20 +1407,21 @@ declare module DevExpress.viz.gauges {
         color?: string;
         arrowLength?: number;
         text?: z_textOptions;
+		palette?: Array<number>
     }
     export interface CircularGaugeRangeContainer extends z_BaseRangeContainer {
         width?: number;
         orientation?: string;
     }
-    export interface CircularGaugeScale extends z_BaseScale {
-        orientation: string;
-        label: {
-            format?: string;
-            precision?: number;
-            customizeText?: (arg: CustomizeTextArgument) => string;
-            font?: viz.common.FontOptions;
-            indentFromTick?: number;
-        }
+    export interface CircularGaugeScale extends z_BaseScale{
+      orientation: string;
+            label: {
+                format?: string;
+                precision?: number;
+                customizeText?: (arg:CustomizeTextArgument) => string;
+                font?: viz.common.FontOptions;
+                indentFromTick?: number;
+            }
     }
     export interface CircularGaugeValueIndicator extends z_BaseValueIndicator {
         type?: string;
@@ -1305,7 +1436,7 @@ declare module DevExpress.viz.gauges {
     export interface CircularGaugeSubValueIndicator extends z_BaseSubValueIndicator {
         offset?: number;
     }
-    export interface CircularGaugeOptions extends z_BaseGaugeOptions {
+    export interface CircularGaugeOptions extends z_BaseGaugeOptions{
         rangeContainer?: CircularGaugeRangeContainer;
         geometry?: {
             startAngle?: number;
@@ -1318,15 +1449,16 @@ declare module DevExpress.viz.gauges {
             size?: number;
             gapSize?: number;
             color?: string;
-        }
+        };
+		drawn?: (arg:viz.CircularGauge) => void;
     }
-    export interface LinearGaugeScale extends z_BaseScale {
+    export interface LinearGaugeScale extends z_BaseScale {      
         verticalOrientation?: string;
         horizontalOrientation?: string;
         label?: {
             format?: string;
             precision?: number;
-            customizeText?: (arg: CustomizeTextArgument) => string;
+            customizeText?: (arg:CustomizeTextArgument) => string;
             font?: viz.common.FontOptions;
             indentFromTick?: number;
         }
@@ -1357,9 +1489,61 @@ declare module DevExpress.viz.gauges {
         };
         scale?: LinearGaugeScale;
         valueIndicator?: LinearGaugeValueIndicator;
+		drawn?: (arg:viz.LinearGauge) => void;
     }
+	export interface BarGaugeOptions {
+        size?: {
+            width?: number;
+            height?: number;
+        };
+		theme?: string;
+        loadingIndicator?: common.LoadingIndicatorOptions;
+        animationEnabled?: boolean;
+        animationDuration?: number;
+		animation?: {
+            enabled?: boolean;
+            duration?: number;
+            easing?: string;
+		};
+        redrawOnResize?: boolean;
+        title?: {
+            position?: string;
+            text?: string;
+            font?: viz.common.FontOptions;
+        };
+		subtitle?: {
+            text?: string;
+            font?: viz.common.FontOptions;
+        };
+        tooltip?: z_GaugeTooltipOptions;
+		geometry?: {
+			startAngle?: number;
+			endAngle?: number;
+		};
+		label?: {
+			visible?: boolean;
+			indent?: number;
+			connectorWidth?: number;
+			connectorColor?: string;
+			format?: string;
+			precision?: number;
+			customizeText?: (arg:CustomizeTextArgument) => string;
+			font?: viz.common.FontOptions;
+		};
+		startValue?: number;
+		endValue?: number;
+		baseValue?: number;
+		values?: Array<number>;
+		drawn?: (arg:viz.BarGauge) => void;
+		pathModified?: boolean;
+	}
 }
 declare module DevExpress.viz.map {
+interface TooltipOptions extends common.BaseTooltipOptions {
+        customizeText?: (arg: Proxy) => string;
+        customizeTooltip?: (arg: Proxy) => common.CustomizeTooltipResult;
+        borderColor?: string;
+    }
     export interface VectorMapOptions {
         size?: {
             width?: number;
@@ -1370,6 +1554,7 @@ declare module DevExpress.viz.map {
             borderColor?: string;
             color?: string;
         };
+        loadingIndicator?: common.LoadingIndicatorOptions;
         mapData?: any;
         areaSettings?: {
             borderColor?: string;
@@ -1383,11 +1568,14 @@ declare module DevExpress.viz.map {
             palette?: any;
             paletteSize?: number;
             customize?: (arg: any) => AreaOptions;
-            click?: (arg: Proxy) => void;
-            selectionChanged?: (arg: Proxy) => void;
+            click?: (arg: AreaProxy, event: JQueryMouseEventObject) => void;
+            selectionChanged?: (arg: AreaProxy) => void;
         };
         markers?: any;
         markerSettings?: {
+            size?: number;
+            minSize?: number;
+            maxSize?: number;
             borderColor?: string;
             color?: string;
             hoveredBorderColor?: string;
@@ -1398,31 +1586,23 @@ declare module DevExpress.viz.map {
             hoverEnabled?: boolean;
             selectionMode?: string;
             customize?: (arg: any) => MarkerOptions;
-            click?: (arg: Proxy) => void;
-            selectionChanged?: (arg: Proxy) => void;
+            click?: (arg: MarkerProxy, event: JQueryMouseEventObject) => void;
+            selectionChanged?: (arg: MarkerProxy) => void;
         };
         controlBar?: {
             enabled?: boolean;
             borderColor?: string;
             color?: string;
         };
-        tooltip?: {
-            enabled?: boolean;
-            borderColor?: string;
-            color?: string;
-            font?: common.FontOptions;
-        };
-        bounds?: {
-            minLat?: number;
-            maxLat?: number;
-            minLon?: number;
-            maxLon?: number;
-        };
-        center?: {
-            lat?: number;
-            lon?: number;
-        };
+        tooltip?: TooltipOptions;
+        bounds?: Array<number>;
+        center?: Array<number>;
         zoomFactor?: number;
+        click?: (event: JQueryMouseEventObject) => void;
+        centerChanged?: (arg: Array<number>) => void;
+        zoomFactorChanged?: (arg: number) => void;
+        drawn?: (arg: viz.Map) => void;
+        pathModified?: boolean;
     }
     export interface AreaOptions {
         borderColor?: string;
@@ -1443,16 +1623,21 @@ declare module DevExpress.viz.map {
         selectedColor?: string;
         isSelected?: boolean;
     }
-    export class Proxy {
+    export interface Proxy {
         type: string;
         attribute(name: string): any;
         selected(state: boolean): void;
         selected(): boolean;
     }
+    export interface AreaProxy extends Proxy {
+    }
+    export interface MarkerProxy extends Proxy {
+        coordinates(): Array<number>;	
+    }
 }
 declare module DevExpress.viz.rangeSelector {
-    export interface SelectedRange {
-        startValue: any; endValue: any;
+export interface SelectedRange {
+        startValue: any;                        endValue: any;
     }
     interface CustomizeTextArgument {
         value: any;
@@ -1467,6 +1652,7 @@ declare module DevExpress.viz.rangeSelector {
             }
             visible?: boolean;
         };
+        loadingIndicator?: common.LoadingIndicatorOptions;
         behavior?: {
             allowSlidersSwap?: boolean;
             animationEnabled?: boolean;
@@ -1484,19 +1670,20 @@ declare module DevExpress.viz.rangeSelector {
             dataPrepareSettings?: {
                 checkTypeForAllData?: boolean;
                 convertToAxisDataType?: boolean;
-                sortingMethod?: any;
-            };
+                sortingMethod?: any;                       };
             useAggregation?: boolean;
             series?: Array<viz.charts.series.SeriesOptions>;
             commonSeriesSettings?: viz.charts.series.commonSeriesSettings;
             topIndent?: number;
             valueAxis?: {
-                max?: any; min?: any; inverted?: boolean;
+                max?: any;                                      min?: any;                                      inverted?: boolean;
                 valueType?: string;
+				type?: string;
+				logarithmBase?: number;
             };
         }
         containerBackgroundColor?: string;
-        dataSource?: Array<{}>;
+        dataSource?: Array<{}>;                 
         dataSourceField?: string;
         margin?: {
             left?: number;
@@ -1506,7 +1693,7 @@ declare module DevExpress.viz.rangeSelector {
         };
         redrawOnResize?: boolean;
         scale?: {
-            startValue?: any; endValue?: any;
+            startValue?: any;                       endValue?: any;
             label?: {
                 customizeText?: (arg: CustomizeTextArgument) => string;
                 font?: viz.common.FontOptions;
@@ -1515,7 +1702,7 @@ declare module DevExpress.viz.rangeSelector {
                 topIndent?: number;
                 visible?: boolean;
             };
-            majorTickInterval?: any; marker?: {
+            majorTickInterval?: any;             marker?: {
                 label?: {
                     customizeText?: (arg: CustomizeTextArgument) => string;
                     format?: string;
@@ -1526,7 +1713,7 @@ declare module DevExpress.viz.rangeSelector {
                 topIndent?: number;
                 visible?: boolean;
             };
-            maxRange?: any; minorTickCount?: number;
+            maxRange?: any;                             minorTickCount?: number;
             placeHolderHeight?: number;
             setTicksAtUnitBeginning?: boolean;
             showCustomBoundaryTicks?: boolean;
@@ -1536,8 +1723,10 @@ declare module DevExpress.viz.rangeSelector {
                 opacity?: number;
                 width?: number;
             };
-            minorTickInterval?: any; useTicksAutoArrangement?: boolean;
+            minorTickInterval?: any;                useTicksAutoArrangement?: boolean;
             valueType?: string;
+			type?: string;
+			logarithmBase?: number;
         }
         selectedRange?: SelectedRange;
         selectedRangeChaged?: (startValue: any, endValue: any) => void;
@@ -1572,27 +1761,29 @@ declare module DevExpress.viz.rangeSelector {
             }
         };
         theme?: string;
+		drawn?: (arg:viz.RangeSelector) => void;
+		pathModified?: boolean;
     }
 }
 declare module DevExpress.viz.sparklines {
-    interface SparklineTooltipOptions {
-        customizeText?: (arg: {
-            firstValue?: string;
-            lastValue?: string;
-            maxValue?: string;
-            minValue?: string;
-            originalFirstValue?: any;
-            originalLastValue?: any;
-            originalMaxValue?: any;
-            originalMinValue?: any;
-        }) => string;
-        enabled?: boolean;
+interface z_SparklineTooltipFormatObject {
+        firstValue?: string;
+        lastValue?: string;
+        maxValue?: string;
+        minValue?: string;
+        originalFirstValue?: any;
+        originalLastValue?: any;
+        originalMaxValue?: any;
+        originalMinValue?: any;
+    }
+    interface SparklineTooltipOptions extends common.BaseTooltipOptions {
+        customizeText?: (arg: z_SparklineTooltipFormatObject) => string;
+        customizeTooltip?: (arg: z_SparklineTooltipFormatObject) => common.CustomizeTooltipResult;
         allowContainerResizing?: boolean;
-        position?: string;
+        horizontalAlignment?: string;
+        verticalAlignment?: string;
         format?: string;
         precision?: number;
-        color?: string;
-        font?: common.FontOptions;
     }
     interface z_BaseSparklineSettings {
         theme?: string;
@@ -1601,6 +1792,7 @@ declare module DevExpress.viz.sparklines {
             height?: number;
         };
         tooltip?: SparklineTooltipOptions;
+		pathModified?: boolean;
     }
     interface SparklineOptions extends z_BaseSparklineSettings {
         dataSource?: Array<any>;
@@ -1622,16 +1814,20 @@ declare module DevExpress.viz.sparklines {
         pointSize?: number;
         pointColor?: string;
         winlossThreshold?: number;
+		drawn?: (arg:viz.Sparkline) => void;
+		ignoreEmptyPoints?: boolean;
+    }
+    interface z_BulletTooltipFormatObject {
+        originalValue?: any;
+        originalTarget?: any;
+        value?: string;
+        target?: string;
     }
     interface BulletTooltipOptions extends SparklineTooltipOptions {
-        customizeText?: (arg: {
-            originalValue?: any;
-            originalTarget?: any;
-            value?: string;
-            target?: string;
-        }) => string;
+        customizeText?: (arg: z_BulletTooltipFormatObject) => string;
+        customizeTooltip?: (arg: z_BulletTooltipFormatObject) => common.CustomizeTooltipResult;
     }
-    interface BulletOptions extends z_BaseSparklineSettings {
+    interface BulletOptions extends z_BaseSparklineSettings{
         value?: number;
         target?: number;
         endScaleValue?: number;
@@ -1640,11 +1836,12 @@ declare module DevExpress.viz.sparklines {
         targetWidth?: number;
         targetVisible?: boolean;
         tooltip?: BulletTooltipOptions;
+		drawn?: (arg:viz.Bullet) => void;
     }
 }
 interface JQuery {
-    dxChart(options?: DevExpress.viz.charts.ChartOptions): JQuery;
-    dxChart(method: string, param1?: any, param2?: any): any;
+dxChart(options?: DevExpress.viz.charts.ChartOptions): JQuery;
+    dxChart(method: string, param1?:any, param2?:any): any;
     dxPieChart(options?: DevExpress.viz.charts.PieOptions): JQuery;
     dxPieChart(method: string, param1?: any, param2?: any): any;
     dxRangeSelector(options?: DevExpress.viz.rangeSelector.RangeSelectorOptions): JQuery;
@@ -1653,6 +1850,8 @@ interface JQuery {
     dxCircularGauge(method: string, param1?: any, param2?: any): any;
     dxLinearGauge(options?: DevExpress.viz.gauges.LinearGaugeOptions): JQuery;
     dxLinearGauge(method: string, param1?: any, param2?: any): any;
+	dxBarGauge(options?: DevExpress.viz.gauges.BarGaugeOptions): JQuery;
+	dxBarGauge(method: string, param1?: any, param2?: any): any;
     dxSparkline(options?: DevExpress.viz.sparklines.SparklineOptions): JQuery;
     dxSparkline(method: string, param1?: any, param2?: any): any;
     dxBullet(options?: DevExpress.viz.sparklines.BulletOptions): JQuery;
