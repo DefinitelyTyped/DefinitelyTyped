@@ -57,17 +57,21 @@ declare module "highlight.js"
 		export var TITLE_MODE : IMode;
 		export var UNDERSCORE_TITLE_MODE : IMode;
 
-		export interface IHighlightResult
+		export interface IHighlightResultBase
 		{
 			relevance: number;
 			language: string;
-			top: ICompiledMode;
 			value: string;
 		}
 
-		export interface IAutoHighlightResult extends IHighlightResult
+		export interface IAutoHighlightResult extends IHighlightResultBase
 		{
 			second_best?: IAutoHighlightResult;
+		}
+
+		export interface IHighlightResult extends IHighlightResultBase
+		{
+			top: ICompiledMode;
 		}
 
 		export interface HLJSStatic
