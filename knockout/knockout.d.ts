@@ -161,6 +161,7 @@ interface KnockoutBindingHandlers {
     enable: KnockoutBindingHandler;
     disable: KnockoutBindingHandler;
     value: KnockoutBindingHandler;
+    textInput: KnockoutBindingHandler;
     hasfocus: KnockoutBindingHandler;
     checked: KnockoutBindingHandler;
     options: KnockoutBindingHandler;
