@@ -23,6 +23,7 @@ declare module ng.ui {
         onEnter?: any;
         onExit?: any;
         data?: any;
+        reloadOnSearch?: boolean;
     }
 
     interface IStateProvider extends IServiceProvider {
