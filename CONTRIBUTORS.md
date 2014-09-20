@@ -230,6 +230,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Knockout.Rx](https://github.com/Igorbek/knockout.rx) (by [Igor Oleinikov](https://github.com/Igorbek))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
 * [Knockout.Viewmodel](http://coderenaissance.github.com/knockout.viewmodel/) (by [Oisin Grehan](https://github.com/oising))
+* [Knockstrap](http://faulknercs.github.io/Knockstrap/) (by [Adam Pluciński](https://github.com/adaskothebeast))
 * [ko.editables](http://romanych.github.com/ko.editables/) (by [Oisin Grehan](https://github.com/oising))
 * [KoLite](https://github.com/CodeSeven/kolite) (by [Boris Yankov](https://github.com/borisyankov))
 * [Lazy.js](http://danieltao.com/lazy.js/) (by [Bart van der Schoor](https://github.com/Bartvds))
