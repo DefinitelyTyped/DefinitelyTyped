@@ -1,9 +1,9 @@
 // Type definitions for Sequelize 2.0.0 dev13
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, modified and updated by: Peter Harris <https://github.com/codeanimal>
+// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// Original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
+// Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference path="../lodash/lodash.d.ts" />
 
