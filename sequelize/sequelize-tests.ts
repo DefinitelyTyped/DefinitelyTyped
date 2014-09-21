@@ -70,7 +70,7 @@ sequelize.or("", 123);
 sequelize.where("", "");
 sequelize.where("", sequelize.and("", ""));
 promiseMe= sequelize.transaction(transOpts);
-promiseMe = sequelize.transaction(transOpts, function (t): boolean { return true; });
+promiseMe = sequelize.transaction(transOpts, function (t:Sequelize.Transaction): boolean { return true; });
 emitMe = sequelize.query<modelInst, modelPojo>("", model).complete(function (err, result) { });
 emitMe = sequelize.query("");
 var dialect: string = sequelize.getDialect();
@@ -110,11 +110,36 @@ model = model.scope({});
 model = model.scope("");
 model = model.scope([]);
 model = model.scope(null);
+
+model.find().then(function () { }, function () { });
+model.find().then(function () { });
+model.find().then(null, function () { });
+model.find().then(function (result: modelInst) { });
+model.find().then<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) });
+model.find().then<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) }, function (): Sequelize.PromiseT<any> { return model.find(1) });
+
+model.find().catch(function () { });
+model.find().catch(function (result: modelInst) { });
+model.find().catch(function (result: modelInst): Sequelize.Promise { return model.find(1) });
+
+model.find().spread(function () { }, function () { });
+model.find().spread(function () { });
+model.find().spread(null, function () { });
+model.find().spread(function (result: modelInst) { });
+model.find().spread(function (result1: modelInst, result2: any) { });
+model.find().spread(null, function (result1: any, result2: boolean) { });
+model.find().spread(function (result: modelInst): Sequelize.Promise { return model.find(1) });
+model.find().spread<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) });
+model.find().spread<modelInst>(function (result: modelInst) { }, function (): Sequelize.PromiseT<modelInst> { return model.find(1) });
+model.find().spread<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) }, function (): Sequelize.PromiseT<any> { return model.find(1) });
+
 promiseMe = model.findAll(findOpts, queryOpts);
 promiseMe = model.findAll(findOpts);
 promiseMe = model.findAll();
 promiseMe = model.find(findOpts, queryOpts);
 promiseMe = model.find(findOpts);
+promiseMe = model.find(1, queryOpts);
+promiseMe = model.find(1);
 promiseMe = model.find();
 promiseMe = model.aggregate<number>("", "", findOpts);
 promiseMe = model.count();
@@ -148,6 +173,10 @@ promiseMe = model.update(myModelPojo, {});
 promiseMe = model.describe();
 model.dataset;
 //var isDefined: boolean = sequelize.isDefined("");
+
+model.find().spread(function (arg1: string, arg2: number) {
+  return model.find();
+});
 
 var isBool: boolean;
 var strArr: Array<string>;

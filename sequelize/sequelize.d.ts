@@ -5,7 +5,6 @@
 
 /// Original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../lodash/lodash.d.ts" />
 
 interface NodeEventEmitter { }
@@ -261,7 +260,7 @@ declare module "sequelize"
              *
              * @param schema Name of the schema.
              */
-            dropSchema(schema): EventEmitter;
+            dropSchema(schema: string): EventEmitter;
 
             /**
              * Drop all schemas.
@@ -410,11 +409,20 @@ declare module "sequelize"
             /**
              * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single instance.
              *
-             * @param options   A hash of options to describe the scope of the search, or a number to search by id.
+             * @param options       A hash of options to describe the scope of the search.
              * @param queryOptions  Set the query options, e.g. raw, specifying that you want raw data instead of built
              *                      Instances. See sequelize.query for options
              */
             find(options?: FindOptions, queryOptions?: QueryOptions): PromiseT<TInstance>;
+            
+            /**
+             * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single instance.
+             *
+             * @param options       A number to search by id.
+             * @param queryOptions  Set the query options, e.g. raw, specifying that you want raw data instead of built
+             *                      Instances. See sequelize.query for options
+             */
+            find(id?: number, queryOptions?: QueryOptions): PromiseT<TInstance>;
 
             /**
              * Run an aggregation method on the specified field.
@@ -1015,7 +1023,7 @@ declare module "sequelize"
             changeColumn(tableName: string, attributeName: string, dataTypeOrOptions: any): EventEmitter;
             renameColumn(tableName: string, attrNameBefore: string, attrNameAfter: string): EventEmitter;
             addIndex(tableName: string, attributes: Array<any>, options?: QueryOptions): EventEmitter;
-            showIndex(tableName, options?: QueryOptions): EventEmitter;
+            showIndex(tableName: string, options?: QueryOptions): EventEmitter;
             getForeignKeysForTables(tableNames: Array<string>): EventEmitter;
             removeIndex(tableName: string, attributes: Array<string>): EventEmitter;
             removeIndex(tableName: string, indexName: string): EventEmitter;
@@ -1116,7 +1124,7 @@ declare module "sequelize"
             attributesToSQL(attributes: Array<any>): string;
             findAutoIncrementField<TInstance, TPojo>(factory: Model<TInstance, TPojo>): Array<string>;
             quoteTable(param: any, as: boolean): string;
-            quote(obj, parent, force): string;
+            quote(obj:any, parent:any, force:boolean): string;
             createTrigger(tableName: string, triggerName: string, timingType: string, fireOnArray: TriggerOptions, functionName: string, functionParams: Array<TriggerParam>): string;
             dropTrigger(tableName: string, triggerName: string): string;
             renameTrigger(tableName: string, oldTriggerName: string, newTriggerName: string): string;
@@ -1164,7 +1172,7 @@ declare module "sequelize"
             getConditionalJoins<TInstance, TPojo>(options: { where?: any }, originalDao: Model<TInstance, TPojo>): string;
             arrayValue(value: Array<string>, key: string, _key: string, factory?: any, logicResult?: any): string;
             hashToWhereConditions<TInstance, TPojo>(hash: any, dao: Model<TInstance, TPojo>, options?: HashToWhereConditionsOption): string;
-            booleanValue(value): string;
+            booleanValue(value:boolean): string;
         }
 
         interface Schema {
@@ -1252,7 +1260,7 @@ declare module "sequelize"
             getFormattedDateString(s: string): string;
             stringToDate(s: string): Date;
             saveSuccessfulMigration(from: Migration, to: Migration, callback: (metaData: MetaInstance) => void): void;
-            deleteUndoneMigration(from: Migration, to: Migration, callback: () => void);
+            deleteUndoneMigration(from: Migration, to: Migration, callback: () => void): void;
             execute(options?: MigrationExecuteOptions): EventEmitter;
             isBefore(date: Date, options?: MigrationCompareOptions): boolean;
             isAfter(date: Date, options?: MigrationCompareOptions): boolean;
@@ -1820,15 +1828,16 @@ declare module "sequelize"
             where?: any;
 
             /**
-             * A list of the attributes (columns) that you want to select. Each item can be a string for the name to include,
-             * or an array where the first item is string name to include or an expression, and second item in inner array
-             * is the alias.
+             * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with two 
+             * elements - the first is the name of the attribute in the DB (or some kind of expression such as 
+             * Sequelize.literal, Sequelize.fn and so on), and the second is the name you want the attribute to have in the 
+             * returned instance
              */
             attributes?: Array<any>;
 
             /**
              * A list of associations to eagerly load. Supported is either { include?: [ Model1, Model2, ...] } or { include?:
-         * [ { model?: Model1, as?: 'Alias' } ] }. If your association are set up with an as (eg. X.hasMany(Y, { as?: 'Z },
+             * [ { model?: Model1, as?: 'Alias' } ] }. If your association are set up with an as (eg. X.hasMany(Y, { as?: 'Z },
              * you need to specify Z in the as attribute when eager loading Y). When using the object form, you can also
              * specify attributes to specify what columns to load, where to limit the relations, and include to load further
              * nested relations
@@ -2300,9 +2309,163 @@ declare module "sequelize"
              * @param options   Contains an array of the events to proxy. Defaults to sql, error and success
              */
             proxy(promise: Promise, options?: ProxyOptions): Promise;
+            
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then(onFulfilled?: (result?: any) => void, onRejected?: (result?: any) => void): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then(onFulfilled?: (result?: any) => Promise, onRejected?: (result?: any) => Promise): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R>(onFulfilled?: (result?: any) => PromiseT<R>, onRejected?: (result?: any) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R>(onFulfilled?: (result?: any) => PromiseT<R>, onRejected?: (result?: any) => void): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R>(onFulfilled?: (result?: any) => void, onRejected?: (result?: any) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R1, R2>(onFulfilled?: (result?: any) => PromiseT<R1>, onRejected?: (result?: any) => PromiseT<R2>): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread(onFulfilled?: (...results: Array<any>) => Promise, onRejected?: (...results: Array<any>) => Promise): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => void): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread(onFulfilled?: (...results: Array<any>) => Promise, onRejected?: (...results: Array<any>) => void): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => Promise): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread<R>(onFulfilled?: (...results: Array<any>) => PromiseT<R>, onRejected?: (...results: Array<any>) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread<R>(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread<R>(onFulfilled?: (...results: Array<any>) => PromiseT<R>, onRejected?: (...results: Array<any>) => void): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * as opposed to then which will only recieve the first argument.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             * @param onRejected
+             */
+            spread<R1, R2>(onFulfilled?: (...results: Array<any>) => PromiseT<R1>, onRejected?: (...results: Array<any>) => PromiseT<R2>): Promise;
+            
+            /**
+             * Shorthand for then(null, onRejected)
+             */
+            catch(onRejected: (result?: any) => Promise): Promise;
+            
+            /**
+             * Shorthand for then(null, onRejected)
+             */
+            catch<R>(onRejected: (result?: any) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Shorthand for then(null, onRejected)
+             */
+            catch(onRejected: (result?: any) => void): Promise;
         }
 
-        interface PromiseT<T> extends Promise, Promise.Thenable<T> {
+        interface PromiseT<T> extends Promise {
             /**
              * Listen for events, event emitter style. Mostly for backwards compatibility with EventEmitter.
              *
@@ -2353,6 +2516,87 @@ declare module "sequelize"
              * @param options   Contains an array of the events to proxy. Defaults to sql, error and success
              */
             proxy(promise: PromiseT<T>, options?: ProxyOptions): PromiseT<T>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then(onFulfilled?: (result?: T) => void, onRejected?: (result?: T) => void): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then(onFulfilled?: (result?: T) => Promise, onRejected?: (result?: T) => Promise): Promise;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R>(onFulfilled?: (result?: T) => PromiseT<R>, onRejected?: (result?: T) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R>(onFulfilled?: (result?: T) => PromiseT<R>, onRejected?: (result?: T) => void): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R>(onFulfilled?: (result?: T) => void, onRejected?: (result?: T) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Attach listeners to the emitter, promise style.
+             * 
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
+             *                          Note that this function will always only be called with one argument, as per 
+             *                          the promises/A spec. For functions that emit multiple arguments 
+             *                          (e.g. findOrCreate) @see spread
+             * @param onRejected
+             */
+            then<R1, R2>(onFulfilled?: (result?: T) => PromiseT<R1>, onRejected?: (result?: T) => PromiseT<R2>): Promise;
+            
+            /**
+             * Shorthand for then(null, onRejected)
+             */
+            catch(onRejected: (result?: T) => Promise): Promise;
+            
+            /**
+             * Shorthand for then(null, onRejected)
+             */
+            catch<R>(onRejected: (result?: T) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+             * Shorthand for then(null, onRejected)
+             */
+            catch(onRejected: (result?: T) => void): Promise;
         }
 
         interface Utils {
