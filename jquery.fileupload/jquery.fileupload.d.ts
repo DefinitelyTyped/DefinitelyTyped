@@ -152,7 +152,7 @@ interface JQueryFileInputOptions {
 
 }
 
-interface JQueryFileUpload {
+interface JQueryFileUpload extends JQuery {
 
     contentType:string;
 }
