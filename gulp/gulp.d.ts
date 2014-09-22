@@ -3,6 +3,8 @@
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare module gulp {
 
     /**
@@ -193,7 +195,7 @@ declare module gulp {
          * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
          * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
          */
-        task(name:string, fn:ITaskCallback): Gulp;
+        task(name:string, fn:ITaskCallback): any;
 
         /**
          * Define a task.
@@ -202,7 +204,7 @@ declare module gulp {
          * @param dep an array of tasks to be executed and completed before your task will run.
          * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
          */
-        task(name:string, dep:string[], fn?:ITaskCallback): Gulp;
+        task(name:string, dep:string[], fn?:ITaskCallback): any;
 
 
         /**
@@ -210,14 +212,14 @@ declare module gulp {
          * @param glob a glob string, using node-glob syntax
          * @param opt an optional option object
          */
-        src(glob:string, opt?:ISrcOptions): Gulp;
+        src(glob:string, opt?:ISrcOptions): NodeJS.ReadWriteStream;
 
         /**
          * Takes a glob and represents a file structure. Can be piped to plugins.
          * @param glob an array of glob strings, using node-glob syntax
          * @param opt an optional option object
          */
-        src(glob:string[], opt?:ISrcOptions): Gulp;
+        src(glob:string[], opt?:ISrcOptions): NodeJS.ReadWriteStream;
 
 
         /**
@@ -227,7 +229,7 @@ declare module gulp {
          * @param outFolder the path (output folder) to write files to.
          * @param opt
          */
-        dest(outFolder:string, opt?:IDestOptions): Gulp;
+        dest(outFolder:string, opt?:IDestOptions): NodeJS.ReadWriteStream;
 
         /**
          * Can be piped to and it will write files. Re-emits all data passed to it so you can pipe to multiple folders.
@@ -236,15 +238,7 @@ declare module gulp {
          * @param outFolder a function that converts a vinyl File instance into an output path
          * @param opt
          */
-        dest(outFolder:(file:string)=>string, opt?:IDestOptions): Gulp;
-
-
-        /**
-         * Forwards the current Gulp instance, along with its contained files, to the specified receiver.
-         *
-         * @param receiver the receiver
-         */
-        pipe(receiver:any): Gulp;
+        dest(outFolder:(file:string)=>string, opt?:IDestOptions): NodeJS.ReadWriteStream;
 
 
         /**
