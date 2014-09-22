@@ -1,4 +1,4 @@
-﻿# Contributors
+# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -85,6 +85,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Ext JS](http://www.sencha.com/products/extjs/) (by [Brian Kotek](https://github.com/brian428))
 * [Fabric.js](http://fabricjs.com/) (by [Oliver Klemencic](https://github.com/oklemencic/))
 * [Fancybox](http://fancybox.net/) (by [Boris Yankov](https://github.com/borisyankov))
+* [FastClick](https://github.com/ftlabs/fastclick) (by [Shinnosuke Watanabe](https://github.com/shinnn))
 * [File API: Directories and System](http://www.w3.org/TR/file-system-api/) (by [Kon](http://phyzkit.net/))
 * [File API: Writer](http://www.w3.org/TR/file-writer-api/) (by [Kon](http://phyzkit.net/))
 * [Finch](https://github.com/stoodder/finchjs) (by [David Sichau](https://github.com/DavidSichau/))
