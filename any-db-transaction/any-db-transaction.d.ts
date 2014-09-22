@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../any-db/any-db.d.ts" />
 
 declare module "any-db-transaction" {
     import anyDB = require("any-db");
