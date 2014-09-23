@@ -1,9 +1,59 @@
-// Type definitions for pg
+// Type definitions for React 0.11.2
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
+    export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
+    export function renderComponent(component: Descriptor<any>, container: Element, callback?: () => void): void;
+    export function unmountComponentAtNode(container: Element): boolean;
+    export function renderComponentToString(component: Descriptor<any>): string;
+    export function renderComponentToStaticMarkup(component: Descriptor<any>): string;
+    export function isValidClass(factory: Factory<any>): boolean;
+    export function isValidComponent(component: Descriptor<any>): boolean;
+    
+    export interface Descriptor<P> {
+        props: P;
+    }
+
+    export interface Factory<P> {
+        (properties?: P, ...children: any[]): Descriptor<P>;
+    }
+
+    export interface Mixin<P, S> {
+        componentWillMount?(): void;
+        componentDidMount?(): void;
+        componentWillReceiveProps?(nextProps: P): void;
+        shouldComponentUpdate?(nextProps: P, nextState: S): boolean;
+        componentWillUpdate?(nextProps: P, nextState: S): void;
+        componentDidUpdate?(prevProps: P, prevState: S): void;
+        componentWillUnmount?(): void;
+    }
+
+    export interface Specification<P, S> extends Mixin<P, S> {
+        displayName?: string;
+        mixins?: Mixin<P, S>[];
+        statics?: {
+            [key: string]: Function
+        };
+        // TODO: Do the correct type definition
+        propTypes?: Object;
+        getDefaultProps?(): P;
+        getInitialState?(): S;
+        render(): Descriptor<any>;
+    }
+
+    export interface Component<P, S> {
+        setState(nextState: S, callback?: () => void): void;
+        replaceState(nextState: S, callback?: () => void): void;
+        forceUpdate(callback?: () => void): void;
+        getDomNode(): Element;
+        isMounted(): boolean;
+        transferPropsTo(target: Factory<P>): Descriptor<P>;
+        setProps(nextProps: P, callback?: () => void): void;
+        replaceProps(nextProps: P, callback?: () => void): void;
+    }
+
     // Browser Interfaces
     // Taken from https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     interface AbstractView {
