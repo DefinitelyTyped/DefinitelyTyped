@@ -15,20 +15,20 @@ interface MustacheScanner {
 }
 
 interface MustacheContext {
-    view;
-    parent;
+    view: any;
+    parentContext: MustacheContext;
 
-    push(view): MustacheContext;
+    push(view: any): MustacheContext;
     lookup(name: string): any;
 }
 
 interface MustacheWriter {
     (view: any): string;
 
-    clearCache();
-    parse(template: string, tags?: any);
-    render(template, view, partials);
-    renderTokens(tokens, context, partials, originalTemplate);
+    clearCache(): void;
+    parse(template: string, tags?: any): any;
+    render(template: string, view: any, partials: any): string;
+    renderTokens(tokens: string[], context: MustacheContext, partials: any, originalTemplate: any): string;
 }
 
 interface MustacheStatic {
@@ -38,12 +38,12 @@ interface MustacheStatic {
     Scanner: MustacheScanner;
     Context: MustacheContext;
     Writer: MustacheWriter;
-    escape;
+    escape: any;
 
     clearCache(): MustacheWriter;
-    parse(template: string, tags?: any);
+    parse(template: string, tags?: any): any;
     render(template: string, view: any, partials?: any): string;
-    to_html(template: string, view: any, partials?: any, send?): string;
+    to_html(template: string, view: any, partials?: any, send?: any): any;
 }
 
 declare var Mustache: MustacheStatic;
