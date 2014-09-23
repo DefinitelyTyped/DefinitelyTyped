@@ -207,7 +207,9 @@ declare module "react" {
     }
 
     // Attributes
-    interface EventAttributes {
+    interface DomAttributes {
+        // HTML Attributes
+        // Events
         onCopy?: (event: ClipboardEvent) => void;
         onCut?: (event: ClipboardEvent) => void;
         onPaste?: (event: ClipboardEvent) => void;
@@ -243,4 +245,5 @@ declare module "react" {
         onScroll?: (event: UiEvent) => void;
         onWheel?: (event: WheelEvent) => void;
     }
+
 }
