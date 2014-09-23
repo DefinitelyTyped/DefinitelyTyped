@@ -31,14 +31,15 @@ declare module "react" {
         componentWillUnmount?(): void;
     }
 
+    interface FunctionMap {
+        [key: string]: Function
+    }
+
     export interface Specification<P, S> extends Mixin<P, S> {
         displayName?: string;
         mixins?: Mixin<P, S>[];
-        statics?: {
-            [key: string]: Function
-        };
-        // TODO: Do the correct type definition
-        propTypes?: Object;
+        statics?: FunctionMap;
+        propTypes?: FunctionMap;
         getDefaultProps?(): P;
         getInitialState?(): S;
         render(): Descriptor<any>;
@@ -54,6 +55,31 @@ declare module "react" {
         setProps(nextProps: P, callback?: () => void): void;
         replaceProps(nextProps: P, callback?: () => void): void;
     }
+
+    interface Constructable {
+        new(): any;
+    }
+
+    interface Requireable extends Function {
+        isRequired: Function;
+    }
+
+    export var PropsTypes: {
+      any: Requireable;
+      array: Requireable;
+      bool: Requireable;
+      func: Requireable;
+      number: Requireable;
+      object: Requireable;
+      string: Requireable;
+      renderable: Requireable;
+      component: Requireable;
+      instanceOf: (clazz: Constructable) => Requireable;
+      oneOf: (types: any[]) => Requireable;
+      oneOfType: (types: Function[]) => Requireable;
+      arrayOf: (type: Function) => Requireable;
+      shape: (type: FunctionMap) => Requireable;
+    };
 
     export var Children: {
         map(children: any[], fn: (child: any) => any): any[];
