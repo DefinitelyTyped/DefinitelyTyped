@@ -46,3 +46,7 @@ interface BootboxStatic {
 }
 
 declare var bootbox : BootboxStatic;
+
+export module "bootbox" {
+    export = bootbox;
+}
