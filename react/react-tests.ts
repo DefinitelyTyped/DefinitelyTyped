@@ -63,7 +63,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
             return null;
         }
     },
-    render(): React.Descriptor<any> {
+    render: (): React.Descriptor<any> => {
         return null;
     }
 };
