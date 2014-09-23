@@ -79,21 +79,21 @@ declare module "react" {
     }
 
     export var PropTypes: {
-      any: Requireable<any>;
-      array: Requireable<any>;
-      bool: Requireable<any>;
-      func: Requireable<any>;
-      number: Requireable<any>;
-      object: Requireable<any>;
-      string: Requireable<any>;
-      renderable: Requireable<any>;
-      component: Requireable<any>;
-      instanceOf: (clazz: Constructable) => Requireable<any>;
-      oneOf: (types: any[]) => Requireable<any>
-      oneOfType: (types: Validator<any>[]) => Requireable<any>;
-      arrayOf: (type: Validator<any>) => Requireable<any>;
-      objectOf: (type: Validator<any>) => Requireable<any>;
-      shape: (type: ValidationMap<any>) => Requireable<any>;
+        any: Requireable<any>;
+        array: Requireable<any>;
+        bool: Requireable<any>;
+        func: Requireable<any>;
+        number: Requireable<any>;
+        object: Requireable<any>;
+        string: Requireable<any>;
+        renderable: Requireable<any>;
+        component: Requireable<any>;
+        instanceOf: (clazz: Constructable) => Requireable<any>;
+        oneOf: (types: any[]) => Requireable<any>
+        oneOfType: (types: Validator<any>[]) => Requireable<any>;
+        arrayOf: (type: Validator<any>) => Requireable<any>;
+        objectOf: (type: Validator<any>) => Requireable<any>;
+        shape: (type: ValidationMap<any>) => Requireable<any>;
     };
 
     export var Children: {
@@ -246,4 +246,28 @@ declare module "react" {
         onWheel?: (event: WheelEvent) => void;
     }
 
+    interface SvgAttributes {}
+
+    interface SvgElement extends Factory<SvgAttributes> {}
+
+    export var DOM: {
+        // SVG
+        circle: SvgElement;
+        defs: SvgElement;
+        ellipse: SvgElement;
+        g: SvgElement;
+        line: SvgElement;
+        linearGradient: SvgElement;
+        mask: SvgElement;
+        path: SvgElement;
+        pattern: SvgElement;
+        polygon: SvgElement;
+        polyline: SvgElement;
+        radialGradient: SvgElement;
+        rect: SvgElement;
+        stop: SvgElement;
+        svg: SvgElement;
+        text: SvgElement;
+        tspan: SvgElement;
+    };
 }
