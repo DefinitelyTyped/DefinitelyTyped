@@ -11,6 +11,7 @@ declare module "react" {
     export function renderComponentToStaticMarkup(component: Descriptor<any>): string;
     export function isValidClass(factory: Factory<any>): boolean;
     export function isValidComponent(component: Descriptor<any>): boolean;
+    export function initializeTouchEvents(shouldUseTouch: boolean): void;
     
     export interface Descriptor<P> {
         props: P;
