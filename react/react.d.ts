@@ -31,21 +31,22 @@ declare module "react" {
         componentWillUnmount?(): void;
     }
 
-    interface FunctionMap {
-        [key: string]: Function
-    }
-
     export interface Specification<P, S> extends Mixin<P, S> {
         displayName?: string;
         mixins?: Mixin<P, S>[];
-        statics?: FunctionMap;
-        propTypes?: FunctionMap;
+        statics?: {
+            [key: string]: Function;
+        };
+        propTypes?: ValidationMap<P>;
         getDefaultProps?(): P;
         getInitialState?(): S;
         render(): Descriptor<any>;
     }
 
     export interface Component<P, S> {
+        // TODO: Refs
+        props: P;
+        state: S;
         setState(nextState: S, callback?: () => void): void;
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
@@ -60,25 +61,34 @@ declare module "react" {
         new(): any;
     }
 
-    interface Requireable extends Function {
-        isRequired: Function;
+    interface Validator<P> {
+        (props: P, propName: string, componentName: string): Error;
     }
 
-    export var PropsTypes: {
-      any: Requireable;
-      array: Requireable;
-      bool: Requireable;
-      func: Requireable;
-      number: Requireable;
-      object: Requireable;
-      string: Requireable;
-      renderable: Requireable;
-      component: Requireable;
-      instanceOf: (clazz: Constructable) => Requireable;
-      oneOf: (types: any[]) => Requireable;
-      oneOfType: (types: Function[]) => Requireable;
-      arrayOf: (type: Function) => Requireable;
-      shape: (type: FunctionMap) => Requireable;
+    interface Requireable<P> extends Validator<P> {
+        isRequired: Validator<P>;
+    }
+
+    interface ValidationMap<P> {
+        [key: string]: Validator<P>;
+    }
+
+    export var PropTypes: {
+      any: Requireable<any>;
+      array: Requireable<any>;
+      bool: Requireable<any>;
+      func: Requireable<any>;
+      number: Requireable<any>;
+      object: Requireable<any>;
+      string: Requireable<any>;
+      renderable: Requireable<any>;
+      component: Requireable<any>;
+      instanceOf: (clazz: Constructable) => Requireable<any>;
+      oneOf: (types: any[]) => Requireable<any>
+      oneOfType: (types: Validator<any>[]) => Requireable<any>;
+      arrayOf: (type: Validator<any>) => Requireable<any>;
+      objectOf: (type: Validator<any>) => Requireable<any>;
+      shape: (type: ValidationMap<any>) => Requireable<any>;
     };
 
     export var Children: {
