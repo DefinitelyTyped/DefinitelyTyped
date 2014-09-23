@@ -43,14 +43,19 @@ declare module "react" {
         render(): Descriptor<any>;
     }
 
-    export interface Component<P, S> {
-        // TODO: Refs
+    interface DomReferencer {
+        getDomNode(): Element;
+    }
+
+    export interface Component<P, S> extends DomReferencer{
+        refs: {
+            [key: string]: DomReferencer
+        };
         props: P;
         state: S;
         setState(nextState: S, callback?: () => void): void;
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
-        getDomNode(): Element;
         isMounted(): boolean;
         transferPropsTo(target: Factory<P>): Descriptor<P>;
         setProps(nextProps: P, callback?: () => void): void;
