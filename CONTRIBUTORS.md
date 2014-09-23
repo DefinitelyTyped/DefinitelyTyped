@@ -13,6 +13,7 @@ All definitions files include a header with the author and editors, so at some p
 * [AngularFire](https://www.firebase.com/docs/angular/reference.html) (by [Dénes Harmath](https://github.com/thSoft))
 * [AngularJS](http://angularjs.org) (by [Diego Vilar](https://github.com/diegovilar)) ([wiki](https://github.com/borisyankov/DefinitelyTyped/wiki/AngularJS-Definitions-Usage-Notes))
 * [angularLocalStorage](https://github.com/agrublev/angularLocalStorage) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
+* [angular-file-upload](https://github.com/danialfarid/angular-file-upload) (by [John Reilly](https://github.com/johnnyreilly))
 * [angular-spinner](https://github.com/urish/angular-spinner) (by [Marcin Biegała](https://github.com/Biegal))
 * [AngularUI](http://angular-ui.github.io/) (by [Michel Salib](https://github.com/michelsalib))
 * [Angular Hotkeys](https://github.com/chieffancypants/angular-hotkeys/) (by [Jason Zhao](https://github.com/jlz27))
