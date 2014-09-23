@@ -14,8 +14,8 @@ declare module google {
 
         export interface ChartSpecs {
             chartType: string;
-            containerId: string;
-            oprtions?: Object;
+            containerId?: string;
+            options?: Object;
             dataTable?: Object;
             dataSourceUrl?: string;
             query?: string;
@@ -75,7 +75,7 @@ declare module google {
             addRows(rows: DataObjectCell[][]): number;
             addRows(rows: any[][]): number;
             clone(): DataTable;
-            getColumnId(columnIndex: number): String;
+            getColumnId(columnIndex: number): string;
             getColumnLabel(columnIndex: number): string;
             getColumnPattern(columnIndex: number): string;
             getColumnProperties(columnIndex: number): Properties;
@@ -438,15 +438,15 @@ declare module google {
             groupWidth: any; // number | string
         }
 
-        export interface VisualizationSelectionArray {
+        export interface SelectedCell {
             column?: number;
             row?: number;
         }
 
         class ChartBase {
             constructor(element: Element);
-            getSelection(): any[];
-            setSelection(selection: any[]): void;
+            getSelection(): SelectedCell[];
+            setSelection(selection: SelectedCell[]): void;
             clearChart(): void;
             getImageURI(): string;
         }
