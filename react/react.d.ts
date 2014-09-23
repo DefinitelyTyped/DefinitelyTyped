@@ -12,7 +12,7 @@ declare module "react" {
     export function isValidClass(factory: Factory<any>): boolean;
     export function isValidComponent(component: Descriptor<any>): boolean;
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
-    
+
     export interface Descriptor<P> {
         props: P;
     }
@@ -54,6 +54,13 @@ declare module "react" {
         setProps(nextProps: P, callback?: () => void): void;
         replaceProps(nextProps: P, callback?: () => void): void;
     }
+
+    export var Children: {
+        map(children: any[], fn: (child: any) => any): any[];
+        forEach(children: any[], fn: (child: any) => any): void;
+        count(children: any[]): number;
+        only(children: any[]): any;
+    };
 
     // Browser Interfaces
     // Taken from https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
