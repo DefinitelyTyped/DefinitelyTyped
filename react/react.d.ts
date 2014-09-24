@@ -207,6 +207,102 @@ declare module "react" {
     }
 
     // Attributes
+    interface DomAttributes {
+        // HTML Attributes
+        accept?: any;
+        accessKey?: any;
+        action?: any;
+        allowFullScreen?: any;
+        allowTransparency?: any;
+        alt?: any;
+        async?: any;
+        autoComplete?: any;
+        autoFocus?: any;
+        autoPlay?: any;
+        cellPadding?: any;
+        cellSpacing?: any;
+        charSet?: any;
+        checked?: any;
+        className?: any;
+        cols?: any;
+        colSpan?: any;
+        content?: any;
+        contentEditable?: any;
+        contextMenu?: any;
+        controls?: any;
+        coords?: any;
+        crossOrigin?: any;
+        data?: any;
+        dateTime?: any;
+        defer?: any;
+        dir?: any;
+        disabled?: any;
+        download?: any;
+        draggable?: any;
+        encType?: any;
+        form?: any;
+        formNoValidate?: any;
+        frameBorder?: any;
+        height?: any;
+        hidden?: any;
+        href?: any;
+        hrefLang?: any;
+        htmlFor?: any;
+        httpEquiv?: any;
+        icon?: any;
+        id?: any;
+        label?: any;
+        lang?: any;
+        list?: any;
+        loop?: any;
+        max?: any;
+        maxLength?: any;
+        mediaGroup?: any;
+        method?: any;
+        min?: any;
+        multiple?: any;
+        muted?: any;
+        name?: any;
+        noValidate?: any;
+        open?: any;
+        pattern?: any;
+        placeholder?: any;
+        poster?: any;
+        preload?: any;
+        radioGroup?: any;
+        readOnly?: any;
+        rel?: any;
+        required?: any;
+        role?: any;
+        rows?: any;
+        rowSpan?: any;
+        sandbox?: any;
+        scope?: any;
+        scrollLeft?: any;
+        scrolling?: any;
+        scrollTop?: any;
+        seamless?: any;
+        selected?: any;
+        shape?: any;
+        size?: any;
+        span?: any;
+        spellCheck?: any;
+        src?: any;
+        srcDoc?: any;
+        srcSet?: any;
+        start?: any;
+        step?: any;
+        style?: any;
+        tabIndex?: any;
+        target?: any;
+        title?: any;
+        type?: any;
+        useMap?: any;
+        value?: any;
+        width?: any;
+        wmode?: any;
+    }
+
     interface EventAttributes {
         // Events
         onCopy?: (event: ClipboardEvent) => void;
@@ -245,11 +341,126 @@ declare module "react" {
         onWheel?: (event: WheelEvent) => void;
     }
 
+    interface DomElement extends Factory<DomAttributes> {
+    }
+
     interface SvgAttributes {}
 
     interface SvgElement extends Factory<SvgAttributes> {}
 
     export var DOM: {
+        // HTML
+        a: DomElement;
+        abbr: DomElement;
+        address: DomElement;
+        area: DomElement;
+        article: DomElement;
+        aside: DomElement;
+        audio: DomElement;
+        b: DomElement;
+        base: DomElement;
+        bdi: DomElement;
+        bdo: DomElement;
+        big: DomElement;
+        blockquote: DomElement;
+        body: DomElement;
+        br: DomElement;
+        button: DomElement;
+        canvas: DomElement;
+        caption: DomElement;
+        cite: DomElement;
+        code: DomElement;
+        col: DomElement;
+        colgroup: DomElement;
+        data: DomElement;
+        datalist: DomElement;
+        dd: DomElement;
+        del: DomElement;
+        details: DomElement;
+        dfn: DomElement;
+        dialog: DomElement;
+        div: DomElement;
+        dl: DomElement;
+        dt: DomElement;
+        em: DomElement;
+        embed: DomElement;
+        fieldset: DomElement;
+        figcaption: DomElement;
+        figure: DomElement;
+        footer: DomElement;
+        form: DomElement;
+        h1: DomElement;
+        h2: DomElement;
+        h3: DomElement;
+        h4: DomElement;
+        h5: DomElement;
+        h6: DomElement;
+        head: DomElement;
+        header: DomElement;
+        hr: DomElement;
+        html: DomElement;
+        i: DomElement;
+        iframe: DomElement;
+        img: DomElement;
+        input: DomElement;
+        ins: DomElement;
+        kbd: DomElement;
+        keygen: DomElement;
+        label: DomElement;
+        legend: DomElement;
+        li: DomElement;
+        link: DomElement;
+        main: DomElement;
+        map: DomElement;
+        mark: DomElement;
+        menu: DomElement;
+        menuitem: DomElement;
+        meta: DomElement;
+        meter: DomElement;
+        nav: DomElement;
+        noscript: DomElement;
+        object: DomElement;
+        ol: DomElement;
+        optgroup: DomElement;
+        option: DomElement;
+        output: DomElement;
+        p: DomElement;
+        param: DomElement;
+        pre: DomElement;
+        progress: DomElement;
+        q: DomElement;
+        rp: DomElement;
+        rt: DomElement;
+        ruby: DomElement;
+        s: DomElement;
+        samp: DomElement;
+        script: DomElement;
+        section: DomElement;
+        select: DomElement;
+        small: DomElement;
+        source: DomElement;
+        span: DomElement;
+        strong: DomElement;
+        style: DomElement;
+        sub: DomElement;
+        summary: DomElement;
+        sup: DomElement;
+        table: DomElement;
+        tbody: DomElement;
+        td: DomElement;
+        textarea: DomElement;
+        tfoot: DomElement;
+        th: DomElement;
+        thead: DomElement;
+        time: DomElement;
+        title: DomElement;
+        tr: DomElement;
+        track: DomElement;
+        u: DomElement;
+        ul: DomElement;
+        "var": DomElement;
+        video: DomElement;
+        wbr: DomElement;
         // SVG
         circle: SvgElement;
         defs: SvgElement;
