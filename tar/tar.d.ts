@@ -1,4 +1,4 @@
-﻿// Type definitions for node-tar v1.0.1
+﻿// Type definitions for tar v1.0.1
 // Project: https://github.com/npm/node-tar
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

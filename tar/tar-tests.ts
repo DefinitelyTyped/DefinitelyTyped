@@ -5,7 +5,7 @@
 */
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="node-tar.d.ts" />
+/// <reference path="tar.d.ts" />
 
 import tar = require("tar");
 import fs = require("fs");
