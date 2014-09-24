@@ -382,8 +382,11 @@ interface MomentStatic {
     lang(language?: string): string;
     lang(language?: string, definition?: MomentLanguage): string;
 
-    localeData(language?: string): string;
-    localeData(language?: string, definition?: MomentLanguage): string;
+    locale(language?: string): string;
+    locale(language?: string[]): string;
+    locale(language?: string, definition?: MomentLanguage): string;
+
+    localeData(language?: string): MomentLanguage;
 
     longDateFormat: any;
     relativeTime: any;
