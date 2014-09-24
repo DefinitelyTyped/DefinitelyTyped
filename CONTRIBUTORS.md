@@ -311,6 +311,7 @@ All definitions files include a header with the author and editors, so at some p
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Physijs](http://chandlerprall.github.io/Physijs/) (by [gyoh_k](https://github.com/gyohk))
+* [Pickadate.js](https://github.com/amsul/pickadate.js) (by [Adi Dahiya](https://github.com/adidahiya))
 * [PixiJS](https://github.com/GoodBoyDigital/pixi.js) (by [Pedro Casaubon](https://github.com/xperiments))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
