@@ -357,6 +357,7 @@ All definitions files include a header with the author and editors, so at some p
 * [status-bar](https://github.com/atom/status-bar) (by [vvakame](https://github.com/vvakame))
 * [stripe](https://stripe.com/) (by [Eric J. Smith](https://github.com/ejsmith/))
 * [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone))
+* [stylus](https://github.com/LearnBoost/stylus) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
 * [Swiper](http://www.idangero.us/sliders/swiper) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
