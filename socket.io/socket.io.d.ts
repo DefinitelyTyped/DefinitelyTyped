@@ -1,6 +1,6 @@
 // Type definitions for socket.io
 // Project: http://socket.io/
-// Definitions by: William Orr <https://github.com/worr>, modified by: Peter Harris <https://github.com/codeanimal>
+// Definitions by: William Orr <https://github.com/worr>, Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "socket.io" {
