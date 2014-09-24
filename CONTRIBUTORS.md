@@ -215,6 +215,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jStorage](http://www.jstorage.info/) (by [Danil Flores](https://github.com/dflor003/))
 * [jsTree](http://www.jstree.com/) (by [Adam Pluciński](https://github.com/adaskothebeast))
 * [JWPlayer](http://developer.longtailvideo.com/trac/) (by [Martin Duparc](https://github.com/martinduparc/))
+* [JXcore](http://jxcore.com) (by [Peter Harris](https://github.com/codeanimal))
 * [KeyboardJS](https://github.com/RobertWHurst/KeyboardJS) (by [Vincent Bortone](https://github.com/vbortone/))
 * [keymaster.js](https://github.com/madrobby/keymaster) (by [Marting W. Kirst](https://github.com/nitram509/))
 * [Keypress](https://github.com/dmauro/Keypress/) (by [Roger Chen](https://github.com/rcchen/))
