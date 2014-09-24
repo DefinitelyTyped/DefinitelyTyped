@@ -5,12 +5,19 @@
 
 declare module "react" {
     export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
+
     export function renderComponent(component: Descriptor<any>, container: Element, callback?: () => void): void;
+
     export function unmountComponentAtNode(container: Element): boolean;
+
     export function renderComponentToString(component: Descriptor<any>): string;
+
     export function renderComponentToStaticMarkup(component: Descriptor<any>): string;
+
     export function isValidClass(factory: Factory<any>): boolean;
+
     export function isValidComponent(component: Descriptor<any>): boolean;
+
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
 
     export interface Descriptor<P> {
@@ -47,7 +54,7 @@ declare module "react" {
         getDomNode(): Element;
     }
 
-    export interface Component<P, S> extends DomReferencer{
+    export interface Component<P, S> extends DomReferencer {
         refs: {
             [key: string]: DomReferencer
         };
@@ -129,7 +136,7 @@ declare module "react" {
     }
 
     // Events
-    export interface SyntheticEvent  {
+    export interface SyntheticEvent {
         bubbles: boolean;
         cancelable: boolean;
         currentTarget: EventTarget;
@@ -386,9 +393,11 @@ declare module "react" {
         y?: any;
     }
 
-    interface DomElement extends Factory<DomAttributes> {}
+    interface DomElement extends Factory<DomAttributes> {
+    }
 
-    interface SvgElement extends Factory<SvgAttributes> {}
+    interface SvgElement extends Factory<SvgAttributes> {
+    }
 
     export var DOM: {
         // HTML
