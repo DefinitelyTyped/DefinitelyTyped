@@ -341,7 +341,49 @@ declare module "react" {
     }
 
     interface SvgAttributes extends EventAttributes {
-
+        cx?: any;
+        cy?: any;
+        d?: any;
+        dx?: any;
+        dy?: any;
+        fill?: any;
+        fillOpacity?: any;
+        fontFamily?: any;
+        fontSize?: any;
+        fx?: any;
+        fy?: any;
+        gradientTransform?: any;
+        gradientUnits?: any;
+        markerEnd?: any;
+        markerMid?: any;
+        markerStart?: any;
+        offset?: any;
+        opacity?: any;
+        patternContentUnits?: any;
+        patternUnits?: any;
+        points?: any;
+        preserveAspectRatio?: any;
+        r?: any;
+        rx?: any;
+        ry?: any;
+        spreadMethod?: any;
+        stopColor?: any;
+        stopOpacity?: any;
+        stroke?: any;
+        strokeDasharray?: any;
+        strokeLinecap?: any;
+        strokeOpacity?: any;
+        strokeWidth?: any;
+        textAnchor?: any;
+        transform?: any;
+        version?: any;
+        viewBox?: any;
+        x1?: any;
+        x2?: any;
+        x?: any;
+        y1?: any;
+        y2?: any;
+        y?: any;
     }
 
     interface DomElement extends Factory<DomAttributes> {}
