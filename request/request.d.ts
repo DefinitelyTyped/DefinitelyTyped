@@ -61,7 +61,7 @@ declare module 'request' {
 			uri?: string;
 			callback?: (error: any, response: any, body: any) => void;
 			jar?: any; // CookieJar
-			form?: FormData;
+			form?: any; // Object or string
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
 			hawk ?: HawkOptions;
