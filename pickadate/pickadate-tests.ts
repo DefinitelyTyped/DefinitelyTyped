@@ -1,7 +1,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="pickadate.d.ts" />
 
-function testApiMethods(api: PickadateApi) {
+function testApiMethods(api: Pickadate.Api) {
     api.clear();
     api.close();
     api.close(true);
@@ -23,6 +23,8 @@ function testApiMethods(api: PickadateApi) {
     api.start();
     api.stop();
     api.trigger('open');
+
+    api.start().open().close().stop();
 
     var pickerInputElement = api.$node;
     pickerInputElement.show();
@@ -148,7 +150,7 @@ datePickerInput.pickadate({
     }
 });
 
-var datePickerApi = <PickadateApi> datePickerInput.pickadate('picker');
+var datePickerApi = <Pickadate.Api> datePickerInput.pickadate('picker');
 
 datePickerInput.pickadate('open');
 datePickerInput.pickadate('get', 'value');
@@ -232,7 +234,7 @@ timePickerInput.pickatime({
     }
 });
 
-var timePickerApi = <PickadateApi> timePickerInput.pickatime('picker');
+var timePickerApi = <Pickadate.Api> timePickerInput.pickatime('picker');
 
 timePickerInput.pickatime('open');
 timePickerInput.pickatime('get', 'value');
