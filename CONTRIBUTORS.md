@@ -295,6 +295,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Optimist](https://github.com/substack/node-optimist) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Passport](http://passportjs.org/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [passport-facebook](https://github.com/jaredhanson/passport-facebook) (by [James Roland Cabresos](https://github.com/staticfunction/))
+* [passport-local](https://github.com/jaredhanson/passport-local) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [passport-strategy](https://github.com/jaredhanson/passport-strategy) (by [Lior Mualem](https://github.com/liorm))
 * [pathwatcher](http://atom.github.io/node-pathwatcher/) (by [vvakame](https://github.com/vvakame))
 * [Parallel.js](https://github.com/adambom/parallel.js) (by [Josh Baldwin](https://github.com/jbaldwin))
