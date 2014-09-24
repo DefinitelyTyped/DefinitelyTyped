@@ -207,8 +207,7 @@ declare module "react" {
     }
 
     // Attributes
-    interface DomAttributes {
-        // HTML Attributes
+    interface EventAttributes {
         // Events
         onCopy?: (event: ClipboardEvent) => void;
         onCut?: (event: ClipboardEvent) => void;
