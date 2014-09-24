@@ -69,3 +69,39 @@ var PropTypesSpecification: React.Specification<any, any> = {
 };
 
 React.createClass(PropTypesSpecification);
+
+var mountNode: Element;
+
+var HelloMessage = React.createClass({displayName: 'HelloMessage',
+    render: function() {
+        return React.DOM.div(null, "Hello ", (<React.Component<{name: string}, any>>this).props.name);
+    }
+});
+
+React.renderComponent(HelloMessage({name: "John"}), mountNode);
+
+var Timer = React.createClass({displayName: 'Timer',
+    getInitialState: function() {
+        return {secondsElapsed: 0};
+    },
+    tick: function() {
+        (<React.Component<any, {secondsElapsed: number}>>this).setState({
+            secondsElapsed: (<React.Component<any, {secondsElapsed: number}>>this).state.secondsElapsed + 1
+        });
+    },
+    componentDidMount: function() {
+        this.interval = setInterval(this.tick, 1000);
+    },
+    componentWillUnmount: function() {
+        clearInterval(this.interval);
+    },
+    render: function() {
+        return React.DOM.div(
+            null,
+            "Seconds Elapsed: ",
+            (<React.Component<any, {secondsElapsed: number}>>this).state.secondsElapsed
+        );
+    }
+});
+
+React.renderComponent(Timer(null), mountNode);
