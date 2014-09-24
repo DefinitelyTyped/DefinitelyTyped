@@ -207,7 +207,44 @@ declare module "react" {
     }
 
     // Attributes
-    interface DomAttributes {
+    interface EventAttributes {
+        onCopy?: (event: ClipboardEvent) => void;
+        onCut?: (event: ClipboardEvent) => void;
+        onPaste?: (event: ClipboardEvent) => void;
+        onKeyDown?: (event: KeyboardEvent) => void;
+        onKeyPress?: (event: KeyboardEvent) => void;
+        onKeyUp?: (event: KeyboardEvent) => void;
+        onFocus?: (event: FocusEvent) => void;
+        onBlur?: (event: FocusEvent) => void;
+        onChange?: (event: SyntheticEvent) => void;
+        onInput?: (event: SyntheticEvent) => void;
+        onSubmit?: (event: SyntheticEvent) => void;
+        onClick?: (event: MouseEvent) => void;
+        onDoubleClick?: (event: MouseEvent) => void;
+        onDrag?: (event: MouseEvent) => void;
+        onDragEnd?: (event: MouseEvent) => void;
+        onDragEnter?: (event: MouseEvent) => void;
+        onDragExit?: (event: MouseEvent) => void;
+        onDragLeave?: (event: MouseEvent) => void;
+        onDragOver?: (event: MouseEvent) => void;
+        onDragStart?: (event: MouseEvent) => void;
+        onDrop?: (event: MouseEvent) => void;
+        onMouseDown?: (event: MouseEvent) => void;
+        onMouseEnter?: (event: MouseEvent) => void;
+        onMouseLeave?: (event: MouseEvent) => void;
+        onMouseMove?: (event: MouseEvent) => void;
+        onMouseOut?: (event: MouseEvent) => void;
+        onMouseOver?: (event: MouseEvent) => void;
+        onMouseUp?: (event: MouseEvent) => void;
+        onTouchCancel?: (event: TouchEvent) => void;
+        onTouchEnd?: (event: TouchEvent) => void;
+        onTouchMove?: (event: TouchEvent) => void;
+        onTouchStart?: (event: TouchEvent) => void;
+        onScroll?: (event: UiEvent) => void;
+        onWheel?: (event: WheelEvent) => void;
+    }
+
+    interface DomAttributes extends EventAttributes {
         // HTML Attributes
         accept?: any;
         accessKey?: any;
@@ -303,48 +340,11 @@ declare module "react" {
         wmode?: any;
     }
 
-    interface EventAttributes {
-        // Events
-        onCopy?: (event: ClipboardEvent) => void;
-        onCut?: (event: ClipboardEvent) => void;
-        onPaste?: (event: ClipboardEvent) => void;
-        onKeyDown?: (event: KeyboardEvent) => void;
-        onKeyPress?: (event: KeyboardEvent) => void;
-        onKeyUp?: (event: KeyboardEvent) => void;
-        onFocus?: (event: FocusEvent) => void;
-        onBlur?: (event: FocusEvent) => void;
-        onChange?: (event: SyntheticEvent) => void;
-        onInput?: (event: SyntheticEvent) => void;
-        onSubmit?: (event: SyntheticEvent) => void;
-        onClick?: (event: MouseEvent) => void;
-        onDoubleClick?: (event: MouseEvent) => void;
-        onDrag?: (event: MouseEvent) => void;
-        onDragEnd?: (event: MouseEvent) => void;
-        onDragEnter?: (event: MouseEvent) => void;
-        onDragExit?: (event: MouseEvent) => void;
-        onDragLeave?: (event: MouseEvent) => void;
-        onDragOver?: (event: MouseEvent) => void;
-        onDragStart?: (event: MouseEvent) => void;
-        onDrop?: (event: MouseEvent) => void;
-        onMouseDown?: (event: MouseEvent) => void;
-        onMouseEnter?: (event: MouseEvent) => void;
-        onMouseLeave?: (event: MouseEvent) => void;
-        onMouseMove?: (event: MouseEvent) => void;
-        onMouseOut?: (event: MouseEvent) => void;
-        onMouseOver?: (event: MouseEvent) => void;
-        onMouseUp?: (event: MouseEvent) => void;
-        onTouchCancel?: (event: TouchEvent) => void;
-        onTouchEnd?: (event: TouchEvent) => void;
-        onTouchMove?: (event: TouchEvent) => void;
-        onTouchStart?: (event: TouchEvent) => void;
-        onScroll?: (event: UiEvent) => void;
-        onWheel?: (event: WheelEvent) => void;
+    interface SvgAttributes extends EventAttributes {
+
     }
 
-    interface DomElement extends Factory<DomAttributes> {
-    }
-
-    interface SvgAttributes {}
+    interface DomElement extends Factory<DomAttributes> {}
 
     interface SvgElement extends Factory<SvgAttributes> {}
 
