@@ -7,26 +7,21 @@
 
 // TODO: Add JSDoc markup.
 
-interface NodeEventEmitter { }
-
 declare var jxcore: JXcore.JXcore;
 
 declare function continueLogic(): void;
 
-interface NodeProcess {
-  keepAlive(timeout?: number): void;
-  release(): void;
-  sendToMain(param: any): void;
-  sendToThread(threadId: number, param: any): void;
-  sendToThreads(param: any): void;
-  subThread: boolean;
-  threadId: number;
-  unloadThread(): void;
-}
-
 declare module NodeJS {
-  interface Process extends NodeProcess { }
-  interface EventEmitter extends NodeEventEmitter { }
+  interface Process {
+    keepAlive(timeout?: number): void;
+    release(): void;
+    sendToMain(param: any): void;
+    sendToThread(threadId: number, param: any): void;
+    sendToThreads(param: any): void;
+    subThread: boolean;
+    threadId: number;
+    unloadThread(): void;
+  }
 }
 
 interface Function {
