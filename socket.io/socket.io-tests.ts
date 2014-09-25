@@ -1,6 +1,11 @@
-import io = require('socket.io');
+import socketio = require('socket.io');
+var http;
 
-var socketManager = io.listen(80);
+var io = socketio(http);
+
+socketio.listen(80).sockets.
+
+var socketManager = socketio.listen(80);
 
 socketManager.sockets.on('connection', socket => {
 	socket.emit('news', { hello: 'world' });
@@ -11,7 +16,7 @@ socketManager.sockets.on('connection', socket => {
 
 // Storing data Associated to a client. 
 // Server side sample 
-io.listen(80).sockets.on('connection', function (socket) {
+socketio.listen(80).sockets.on('connection', function (socket) {
     socket.on('set nickname', function (name) {
         socket.set('nickname', name, function () { socket.emit('ready'); });
     });
