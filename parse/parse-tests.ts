@@ -192,7 +192,16 @@ function test_file() {
         // result
     });
 
-    // TODO: Check
+	// Test multiple promises with "then"
+    var p1 = Parse.Promise.as(Parse.Cloud.httpRequest({ url: file.url() }));
+    var p2 = Parse.Promise.as(Parse.Cloud.httpRequest({ url: file.url() }));
+    var p3 = Parse.Promise.as(Parse.Cloud.httpRequest({ url: file.url() }));
+    Parse.Promise.when(p1, p2, p3).then((r1, r2, r3) =>
+    {
+       // results: r1, r2, r3
+    });
+
+   // TODO: Check
 }
 
 function test_analytics() {

@@ -86,6 +86,12 @@ declare module Parse {
         then<U>(resolvedCallback: (...value: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
         then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
+        then<U>(resolvedCallback: (value: T) => void, rejectedCallback?: (reason: any) => U): IPromise<U>;
+
+        then<U>(resolvedCallback: (...value: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+        then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
+        then<U>(resolvedCallback: (...value: T[]) => void, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     class Promise<T> {
@@ -104,8 +110,14 @@ declare module Parse {
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
         then<U>(resolvedCallback: (...value: T[]) => U,
             rejectedCallback?: (reason: any) => U): IPromise<T>;
+		then<U>(resolvedCallback: (value: T) => void, rejectedCallback?: (reason: any) => U): IPromise<T>;
 
-        static when<T>(promises: Promise<T>[]): Promise<T>;
+		then<U>(resolvedCallback: (...value: T[]) => Promise<U>, rejectedCallback?: (reason: any) => Promise<U>): IPromise<T>;
+		then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+		then<U>(resolvedCallback: (...value: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<T>;
+		then<U>(resolvedCallback: (...value: T[]) => void, rejectedCallback?: (reason: any) => U): IPromise<T>;
+
+		static when<T>(promises: Promise<T>[]): Promise<T>;
         static when<T>(...promises: Promise<T>[]): Promise<T>;
     }
 
