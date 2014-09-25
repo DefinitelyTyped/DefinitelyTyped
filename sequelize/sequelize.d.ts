@@ -5,9 +5,8 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
+/// <reference path="../node/node.d.ts" />
 /// <reference path="../lodash/lodash.d.ts" />
-
-interface NodeEventEmitter { }
 
 declare module "sequelize"
 {
@@ -240,9 +239,9 @@ declare module "sequelize"
              *                      unnamed replacements to replace ? in your SQL.
              */
             query(sql: string, callee?: Model<any, any>, options?: QueryOptions, replacements?: any): EventEmitter;
-            
+
             query<TInstance, TPojo>(sql: string, callee?: Model<TInstance, TPojo>, options?: QueryOptions): EventEmitterT<Model<TInstance, TPojo>>;
-            
+
             /**
              * Create a new database schema.
              *
@@ -312,8 +311,8 @@ declare module "sequelize"
              *                  argument (overload available for error and transaction arguments too).
              */
             transaction(options?: TransactionOptions, callback?: (transaction: Transaction) => void): PromiseT<Transaction>;
-            
-            close():void;
+
+            close(): void;
         }
 
         interface Config {
@@ -414,7 +413,7 @@ declare module "sequelize"
              *                      Instances. See sequelize.query for options
              */
             find(options?: FindOptions, queryOptions?: QueryOptions): PromiseT<TInstance>;
-            
+
             /**
              * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single instance.
              *
@@ -616,19 +615,19 @@ declare module "sequelize"
              * return an array of keys that have changed.
              */
             changed(key: string): any;
-            
+
             /**
                * If changed is called with a string it will return a boolean indicating whether the value of that key in
                * dataValues is different from the value in _previousDataValues. If changed is called without an argument, it will
                * return an array of keys that have changed.
                */
             changed(): Array<string>;
-            
+
             /**
              * Returns the previous value for key from _previousDataValues.
              */
             previous(key: string): any;
-            
+
             /**
              * Validate this instance, and if the validation passes, persist it to the database.
              */
@@ -1124,7 +1123,7 @@ declare module "sequelize"
             attributesToSQL(attributes: Array<any>): string;
             findAutoIncrementField<TInstance, TPojo>(factory: Model<TInstance, TPojo>): Array<string>;
             quoteTable(param: any, as: boolean): string;
-            quote(obj:any, parent:any, force:boolean): string;
+            quote(obj: any, parent: any, force: boolean): string;
             createTrigger(tableName: string, triggerName: string, timingType: string, fireOnArray: TriggerOptions, functionName: string, functionParams: Array<TriggerParam>): string;
             dropTrigger(tableName: string, triggerName: string): string;
             renameTrigger(tableName: string, oldTriggerName: string, newTriggerName: string): string;
@@ -1172,7 +1171,7 @@ declare module "sequelize"
             getConditionalJoins<TInstance, TPojo>(options: { where?: any }, originalDao: Model<TInstance, TPojo>): string;
             arrayValue(value: Array<string>, key: string, _key: string, factory?: any, logicResult?: any): string;
             hashToWhereConditions<TInstance, TPojo>(hash: any, dao: Model<TInstance, TPojo>, options?: HashToWhereConditionsOption): string;
-            booleanValue(value:boolean): string;
+            booleanValue(value: boolean): string;
         }
 
         interface Schema {
@@ -1223,7 +1222,7 @@ declare module "sequelize"
              *
              */
             query(sql: string, callee?: Model<any, any>, options?: QueryOptions): EventEmitter;
-            
+
             query<TInstance, TPojo>(sql: string, callee?: Model<TInstance, TPojo>, options?: QueryOptions): EventEmitter;
         }
 
@@ -1278,9 +1277,9 @@ declare module "sequelize"
 
         }
 
-        interface EventEmitter extends EventEmitterT<any>, NodeEventEmitter { }
+        interface EventEmitter extends EventEmitterT<any>, NodeJS.EventEmitter { }
 
-        interface EventEmitterT<R> extends NodeEventEmitter {
+        interface EventEmitterT<R> extends NodeJS.EventEmitter {
             /**
              * Create a new emitter instance.
              *
@@ -2309,8 +2308,8 @@ declare module "sequelize"
              * @param options   Contains an array of the events to proxy. Defaults to sql, error and success
              */
             proxy(promise: Promise, options?: ProxyOptions): Promise;
-            
-            
+
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2321,7 +2320,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then(onFulfilled?: (result?: any) => void, onRejected?: (result?: any) => void): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2332,7 +2331,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then(onFulfilled?: (result?: any) => Promise, onRejected?: (result?: any) => Promise): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2343,7 +2342,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R>(onFulfilled?: (result?: any) => PromiseT<R>, onRejected?: (result?: any) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2354,7 +2353,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R>(onFulfilled?: (result?: any) => PromiseT<R>, onRejected?: (result?: any) => void): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2365,7 +2364,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R>(onFulfilled?: (result?: any) => void, onRejected?: (result?: any) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2376,7 +2375,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R1, R2>(onFulfilled?: (result?: any) => PromiseT<R1>, onRejected?: (result?: any) => PromiseT<R2>): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2385,7 +2384,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => Promise, onRejected?: (...results: Array<any>) => Promise): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2394,7 +2393,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => void): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2403,7 +2402,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => Promise, onRejected?: (...results: Array<any>) => void): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2412,7 +2411,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => Promise): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2421,7 +2420,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread<R>(onFulfilled?: (...results: Array<any>) => PromiseT<R>, onRejected?: (...results: Array<any>) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2430,7 +2429,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread<R>(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2439,7 +2438,7 @@ declare module "sequelize"
              * @param onRejected
              */
             spread<R>(onFulfilled?: (...results: Array<any>) => PromiseT<R>, onRejected?: (...results: Array<any>) => void): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
              * as opposed to then which will only recieve the first argument.
@@ -2448,17 +2447,17 @@ declare module "sequelize"
              * @param onRejected
              */
             spread<R1, R2>(onFulfilled?: (...results: Array<any>) => PromiseT<R1>, onRejected?: (...results: Array<any>) => PromiseT<R2>): Promise;
-            
+
             /**
              * Shorthand for then(null, onRejected)
              */
             catch(onRejected: (result?: any) => Promise): Promise;
-            
+
             /**
              * Shorthand for then(null, onRejected)
              */
             catch<R>(onRejected: (result?: any) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Shorthand for then(null, onRejected)
              */
@@ -2516,7 +2515,7 @@ declare module "sequelize"
              * @param options   Contains an array of the events to proxy. Defaults to sql, error and success
              */
             proxy(promise: PromiseT<T>, options?: ProxyOptions): PromiseT<T>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2527,7 +2526,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then(onFulfilled?: (result?: T) => void, onRejected?: (result?: T) => void): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2538,7 +2537,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then(onFulfilled?: (result?: T) => Promise, onRejected?: (result?: T) => Promise): Promise;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2549,7 +2548,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R>(onFulfilled?: (result?: T) => PromiseT<R>, onRejected?: (result?: T) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2560,7 +2559,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R>(onFulfilled?: (result?: T) => PromiseT<R>, onRejected?: (result?: T) => void): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2571,7 +2570,7 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R>(onFulfilled?: (result?: T) => void, onRejected?: (result?: T) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Attach listeners to the emitter, promise style.
              * 
@@ -2582,17 +2581,17 @@ declare module "sequelize"
              * @param onRejected
              */
             then<R1, R2>(onFulfilled?: (result?: T) => PromiseT<R1>, onRejected?: (result?: T) => PromiseT<R2>): Promise;
-            
+
             /**
              * Shorthand for then(null, onRejected)
              */
             catch(onRejected: (result?: T) => Promise): Promise;
-            
+
             /**
              * Shorthand for then(null, onRejected)
              */
             catch<R>(onRejected: (result?: T) => PromiseT<R>): PromiseT<R>;
-            
+
             /**
              * Shorthand for then(null, onRejected)
              */
