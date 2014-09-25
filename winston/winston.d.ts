@@ -7,17 +7,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-
-//////// Here for backwards compatibility to older Node definitions ////////
-declare module NodeJS {
-  interface EventEmitter { }
-  interface ReadWriteStream { }
-}
-
-interface NodeEventEmitter extends NodeJS.EventEmitter { }
-interface ReadableStream extends NodeJS.ReadableStream { }
-////////////////////////////////////////////////////////////////////////////
-
 declare module "winston" {
 
   export var transports: Transports;
@@ -47,7 +36,7 @@ declare module "winston" {
 
   export function query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
   export function query(callback: (err: Error, results: any) => void): any;
-  export function stream(options?: any): ReadableStream;
+  export function stream(options?: any): NodeJS.ReadableStream;
   export function handleExceptions(...transports: TransportInstance[]): void;
   export function unhandleExceptions(...transports: TransportInstance[]): void;
   export function add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
@@ -63,7 +52,7 @@ declare module "winston" {
     new (options?: LoggerOptions);
   }
 
-  export interface LoggerInstance extends NodeEventEmitter {
+  export interface LoggerInstance extends NodeJS.EventEmitter {
     extend(target: any): LoggerInstance;
 
     log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
@@ -83,7 +72,7 @@ declare module "winston" {
 
     query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
     query(callback: (err: Error, results: any) => void): any;
-    stream(options?: any): ReadableStream;
+    stream(options?: any): NodeJS.ReadableStream;
     close(): void;
     handleExceptions(...transports: TransportInstance[]): void;
     unhandleExceptions(...transports: TransportInstance[]): void;
@@ -114,7 +103,7 @@ declare module "winston" {
     new (options?: TransportOptions): TransportInstance;
   }
 
-  export interface TransportInstance extends TransportStatic, NodeEventEmitter {
+  export interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
     formatQuery(query: any): any;
     normalizeQuery(options: QueryOptions): QueryOptions;
     formatResults(results: any, options: any): any;
