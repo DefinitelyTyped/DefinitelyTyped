@@ -97,3 +97,27 @@ describe('CheckboxWithLabel', function() {
         expect(label.getDOMNode().textContent).toEqual('On');
     });
 });
+
+function testInstances() {
+    var mockFn = jest.genMockFunction<Function>();
+    var a = new mockFn();
+    var b = new mockFn();
+
+    mockFn.mock.instances[0] === a; // true
+    mockFn.mock.instances[1] === b; // true
+}
+
+function testMockImplementation() {
+    var mockFn = jest.genMockFunction<Function>().mockImplementation(function (scalar:number):number {
+        return 42 + scalar;
+    });
+
+    var a = mockFn(0);
+    var b = mockFn(1);
+
+    a === 42; // true
+    b === 43; // true
+
+    mockFn.mock.calls[0][0] === 0; // true
+    mockFn.mock.calls[1][0] === 1; // true
+}
