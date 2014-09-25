@@ -258,6 +258,11 @@ interface PDFPageProxy {
 	getTextContext(): PDFPromise<string>;
 
 	/**
+	 * A promise that is resolved with the PDFPageTextData of the Page
+	 */
+	getTextContent(): PDFPromise<PDFPageTextData>;
+
+	/**
 	* marked as future feature
 	**/
 	//getOperationList(): PDFPromise<>;
@@ -269,7 +274,72 @@ interface PDFPageProxy {
 }
 
 /**
-* A PDF document and page is built of many objects.  E.g. there are objects for fonts, images, rendering code and such.  These objects might get processed inside of a worker.  The `PDFObjects` implements some basic functions to manage these objects.
+ * Structure which contains exact informations how to render a Text layer over the canvas
+ */
+interface PDFPageTextData {
+	items: Array<PDFPageTextItem>;
+	styles: PDFPageTextStyles;
+}
+
+interface PDFPageTextStyles {
+	[styleName: string]: PDFPageTextStyle;
+}
+
+interface PDFPageTextStyle {
+	ascent: number;
+	descent: number;
+
+	/**
+	 * The font-family of the page
+	 */
+	fontFamily: string;
+
+	/**
+	 * Is the text vertical ?
+	 */
+	vertical?: boolean;
+}
+
+interface PDFPageTextItem {
+	/**
+	 * The direction of the Text e.g. ltr
+	 */
+	dir: string;
+
+	/**
+	 * @see PDFPageTextStyles#styleName
+	 */
+	fontName: string;
+
+	/**
+	 * The size of the item relative to PDFPageProxy#view
+	 */
+	width: number;
+	height: number;
+
+	/**
+	 * The text string
+	 */
+	str: string;
+
+	transform: PDFTextMatrix;
+}
+
+/**
+ * This values can be passed to the css transform matrix function
+ */
+interface PDFTextMatrix {
+	0:number; // a
+	1:number; // c
+	2:number; // b
+	3:number; // d
+	4:number; // tx
+	5:number; // ty
+}
+
+
+/**
+ * A PDF document and page is built of many objects.  E.g. there are objects for fonts, images, rendering code and such.  These objects might get processed inside of a worker.  The `PDFObjects` implements some basic functions to manage these objects.
 **/
 interface PDFObjects {
 	get(objId, callback?): any;
