@@ -272,11 +272,11 @@ declare module "mongodb" {
     update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
 
     distinct(key: string, query: Object, callback: (err: Error, result: any) => void): void;
-    distinct(key: string, query: Object, options: { readPreferences: string; }, callback: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
 
     count(callback: (err: Error, result: any) => void): void;
     count(query: Object, callback: (err: Error, result: any) => void): void;
-    count(query: Object, options: { readPreferences: string; }, callback: (err: Error, result: any) => void): void;
+    count(query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
 
     drop(callback?: (err: Error, result: any) => void): void;
 
@@ -429,7 +429,7 @@ declare module "mongodb" {
     showDiskLoc?: boolean;
     comment?: String;
     raw?: boolean;
-    readPreferences?: String;
+    readPreference?: String;
     partial?: boolean;
   }
 
@@ -438,6 +438,6 @@ declare module "mongodb" {
     serializeFunctions?: any;
     raw?: boolean;
     pkFactory?: any;
-    readPreferences?: string;
+    readPreference?: string;
   }
 }
