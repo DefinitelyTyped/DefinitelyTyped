@@ -178,7 +178,7 @@ declare module "mongodb" {
   // Current definition by documentation version 1.3.13 (28.08.2013)
   export interface DbCreateOptions {
     //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
-    w?: string;
+    w?: any;
 
     // set the timeout for waiting for write concern to finish (combines with w option).
     wtimeout?: number;
