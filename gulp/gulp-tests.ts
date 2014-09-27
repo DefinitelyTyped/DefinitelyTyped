@@ -12,7 +12,15 @@ gulp.task('compile', function()
         .dest('out')
 });
 
-gulp.task('test', ['compile'], function()
+gulp.task('compile2', function(callback: (err?: any) => void)
+{
+    gulp.src("**/*.ts")
+        .pipe(typescript)
+        .dest('out')
+        .on('end', callback);
+});
+
+gulp.task('test', ['compile', 'compile2'], function()
 {
     gulp.src("out/test/**/*.js")
         .pipe(jasmine);
