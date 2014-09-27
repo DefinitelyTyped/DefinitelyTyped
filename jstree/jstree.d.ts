@@ -1,4 +1,4 @@
-﻿// Type definitions for jsTree v3.0.3
+﻿// Type definitions for jsTree v3.0.4
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -555,10 +555,9 @@ interface JSTreeStaticDefaultsSearch {
     case_sensitive: boolean;
 
     /**
-    * Indicates if the tree should be filtered to show only matching nodes 
-    * (keep in mind this can be a heavy on large trees in old browsers). Default is `false`.
-    * @name $.jstree.defaults.search.show_only_matches
-    * @plugin search
+    * Indicates if the tree should be filtered (by default) to show only matching nodes 
+    * (keep in mind this can be a heavy on large trees in old browsers). 
+    * This setting can be changed at runtime when calling the search method. Default is `false`.
     */
     show_only_matches: boolean;
 
@@ -1183,8 +1182,15 @@ interface JSTree extends JQuery {
     show_icon: (obj: any) => void;
 
     /**
+    * redraws a single node. Used internally.
+    * @private
+    * @name redraw_node(node, deep, is_callback)
+    * @param {mixed} node the node to redraw
+    * @param {Boolean} deep should child nodes be redrawn too
+    * @param {Boolean} is_callback is this a recursion call
+    * @param {Boolean} force_render should children of closed parents be drawn anyway
     */
-    redraw_node: (obj: any, deep: boolean, is_callback: boolean) => any;
+    redraw_node: (obj: any, deep?: boolean, is_callback?: boolean, force_render?: boolean) => any;
 
     /**
     * show the node checkbox icons
@@ -1308,10 +1314,11 @@ interface JSTree extends JQuery {
     * @name search(str [, skip_async])
     * @param {String} str the search string
     * @param {Boolean} skip_async if set to true server will not be queried even if configured
+    * @param {Boolean} show_only_matches if set to true only matching nodes will be shown (keep in mind this can be very slow on large trees or old browsers)
     * @plugin search
     * @trigger search.jstree
     */
-    search: (str: string, skip_async?: boolean) => void;
+    search: (str: string, skip_async?: boolean, show_only_matches?: boolean) => void;
 
     /**
     * used to clear the last search (removes classes and shows all nodes if filtering is on)
