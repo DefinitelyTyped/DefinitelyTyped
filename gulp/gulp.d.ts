@@ -173,15 +173,10 @@ declare module gulp {
     interface ITaskCallback {
         /**
          * Defines a task.
-         * Tasks may be made asynchronous if they return a promise or a stream.
-         */
-        (): any;
-
-        /**
-         * Defines an asynchronous task.
+         * Tasks may be made asynchronous if they are passing a callback or return a promise or a stream.
          * @param cb callback used to signal asynchronous completion. Caller includes <code>err</code> in case of error.
          */
-        (cb:(err?:any)=>void): void;
+        (cb?:(err?:any)=>void): any;
     }
 
     interface EventEmitter {
