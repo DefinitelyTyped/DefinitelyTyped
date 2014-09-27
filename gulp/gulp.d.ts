@@ -282,3 +282,7 @@ declare module "gulp" {
     var _tmp:gulp.Gulp;
     export = _tmp;
 }
+
+interface IGulpPlugin {
+    (...args: any[]): NodeJS.ReadWriteStream;
+}
