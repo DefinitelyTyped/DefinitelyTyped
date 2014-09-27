@@ -558,6 +558,8 @@ interface JSTreeStaticDefaultsSearch {
     * Indicates if the tree should be filtered (by default) to show only matching nodes 
     * (keep in mind this can be a heavy on large trees in old browsers). 
     * This setting can be changed at runtime when calling the search method. Default is `false`.
+    * @name $.jstree.defaults.search.show_only_matches
+    * @plugin search
     */
     show_only_matches: boolean;
 
