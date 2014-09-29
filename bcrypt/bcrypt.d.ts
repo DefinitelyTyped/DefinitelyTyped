@@ -1,5 +1,5 @@
 ﻿// Type definitions for bcrypt
-// Project: https://github.com/ncb000gt/node.bcrypt.js
+// Project: https://www.npmjs.org/package/bcrypt
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
