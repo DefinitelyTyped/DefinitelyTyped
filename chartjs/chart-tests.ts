@@ -1,5 +1,7 @@
 /// <reference path="chart.d.ts" />
 
+var ctx = canvas.getContext('2d');
+
 Chart.defaults.global = {
     animation: true,
     animationSteps: 60,
@@ -284,7 +286,7 @@ var pieData: CircularChartData[] = [
 ];
 
 // For a pie chart
-var myPieChart = new Chart(ctx[0]).Pie(pieData, {
+var myPieChart = new Chart(ctx).Pie(pieData, {
     segmentShowStroke: true,
     segmentStrokeColor: "#fff",
     segmentStrokeWidth: 2,
@@ -312,7 +314,7 @@ myPieChart.stop();
 myPieChart.destroy();
 
 // And for a doughnut chart
-var myDoughnutChart = new Chart(ctx[1]).Doughnut(pieData, {
+var myDoughnutChart = new Chart(ctx).Doughnut(pieData, {
     segmentShowStroke: true,
     segmentStrokeColor: "#fff",
     segmentStrokeWidth: 2,
