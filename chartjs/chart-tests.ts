@@ -1,5 +1,6 @@
 /// <reference path="chart.d.ts" />
 
+var canvas = <HTMLCanvasElement>document.getElementById('example-chart');
 var ctx = canvas.getContext('2d');
 
 Chart.defaults.global = {
