@@ -107,7 +107,7 @@ declare module Twitter.Typeahead {
           */
         source: (query: string, cb: (result: any) => void) => void;
 
-    /**
+        /**
           * The name of the dataset. 
           * This will be appended to tt-dataset- to form the class name of the containing DOM element. 
           * Must only consist of underscores, dashes, letters (a-z), and numbers. 
@@ -159,7 +159,7 @@ declare module Twitter.Typeahead {
          * The associated suggestion object will serve as the context. 
          * Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
           */
-        suggestion?: string;
+        suggestion?: (context: any) => string;
 
     }
 
@@ -186,6 +186,7 @@ declare module Twitter.Typeahead {
       minLength?: number;
     }
 }
+
 declare module Bloodhound
 {
   interface BloodhoundOptions<T>
