@@ -1,9 +1,9 @@
 ﻿// Type definitions for redis-scripto
-// Project: https://github.com/arunoda/node-redis-scripto
+// Project: https://www.npmjs.org/package/redis-scripto
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node_redis/node_redis.d.ts" />
+/// <reference path="../redis/redis.d.ts" />
 
 declare module "redis-scripto" {
   import redis = require("redis");

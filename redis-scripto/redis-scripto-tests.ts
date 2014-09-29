@@ -1,5 +1,5 @@
 /// <reference path="redis-scripto.d.ts" />
-/// <reference path="../node_redis/node_redis.d.ts" />
+/// <reference path="../redis/redis.d.ts" />
 
 import redis = require("redis");
 import Scripto = require("redis-scripto");
