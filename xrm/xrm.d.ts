@@ -1584,11 +1584,12 @@ declare module Xrm
         /**
          * Gets an attribute matching attributeName.
          *
+         * @tparam  T   An Attribute type.
          * @param   {string}    attributeName   Name of the attribute.
          *
          * @return  The attribute.
          */
-        export function getAttribute( attributeName: string ): Attribute;
+        export function getAttribute<T extends Attribute>( attributeName: string ): T;
 
         /**
          * Gets an attribute by index.
@@ -1618,11 +1619,12 @@ declare module Xrm
         /**
          * Gets a control matching controlName.
          *
+         * @tparam  T   A Control type
          * @param   {string}    controlName Name of the control.
          *
          * @return  The control.
          */
-        export function getControl( controlName: string ): Control;
+        export function getControl<T extends Control>( controlName: string ): T;
 
         /**
          * Gets a control by index.
