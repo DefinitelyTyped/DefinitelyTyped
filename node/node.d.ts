@@ -658,7 +658,7 @@ declare module "url" {
         host: string;
         pathname: string;
         search: string;
-        query: string;
+        query: any; // string | Object
         slashes: boolean;
         hash?: string;
         path?: string;

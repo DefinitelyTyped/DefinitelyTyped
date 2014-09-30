@@ -618,6 +618,10 @@ module locationTests {
     $location.search('foo', 'yipee');
     // => $location
 
+    // set foo to 5
+    $location.search('foo', 5);
+    // => $location
+
     /*
      * From: https://docs.angularjs.org/guide/$location
      */
