@@ -10,11 +10,25 @@ console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + c
 
 cordova.exec(null, null, "NativeClassName", "MethodName");
 
-cordova.define('mymodule', (require, exports, module) => { });
+cordova.define('mymodule', (req, exp, mod)=> {
+    mod.exports = { dummy: () => { console.log("i'm a dummy"); }};
+});
+
 var myModule = cordova.require('mymodule');
+myModule.dummy();
 
 var argsCheck: ArgsCheck = <ArgsCheck>cordova.require('cordova/argcheck');
 argsCheck.checkArgs('ssA', 'cordova.exec', [() => { }, () => { }, 'window', 'openDatabase']);
+
+class Application {
+    start() { console.log("Starting app"); }
+    pause() { console.log('app paused'); }
+}
+
+declare var app: Application;
+
+document.addEventListener('deviceready', () => { app.start(); });
+document.addEventListener('pause', ()=> { app.pause(); });
 
 // Battery status plugin
 //----------------------------------------------------------------------
@@ -22,7 +36,7 @@ window.addEventListener('batterystatus',
     (ev: BatteryStatusEvent) => { console.log('Battery level is ' + ev.level); });
 
 window.addEventListener('batterycritical',
-    ()=> { alert('Battery is critical low!'); });
+    () => { alert('Battery is critical low!'); });
 
 // Camera plugin
 //----------------------------------------------------------------------
@@ -51,10 +65,12 @@ var contact: Contact = navigator.contacts.create({
 navigator.contacts.find(["phoneNumbers"],
     (contacts: Contact[])=> { alert('Find ' + contacts.length + ' contacts'); },
     (error: ContactError) => { alert('Error: ' + error.message); },
-    {
-        filter: "+1",
-        multiple: true
-    }
+    new ContactFindOptions("+1", true)
+);
+
+navigator.contacts.pickContact(
+    (contact: Contact)=> { console.log(contact); },
+    (err: ContactError)=> { console.log(err.message); }
 );
 
 // Device API
@@ -105,25 +121,63 @@ function fsaccessor(fs: FileSystem) {
     var fsreader: DirectoryReader = fs.root.createReader();
     fsreader.readEntries(
         (entries: Entry[]) => { console.log(fs.root.name + ' has ' + entries.length + ' child elements'); },
-        (err: Error)=> { alert('Error: ' + err.message); });
+        (err: FileError)=> { alert('Error: ' + err.code); });
 }
 
 window.requestFileSystem(
     window.TEMPORARY,
     1024 * 1024 * 5,
     fsaccessor,
-    (err: Error) => { alert('Error: ' + err.message); });
+    (err: FileError) => { alert('Error: ' + err.code); }
+);
+
+window.resolveLocalFileSystemURI(cordova.file.applicationDirectory,
+    (entry: Entry)=> {
+        if (entry.isDirectory) {
+            console.log('successfully resolved ' + entry.fullPath + 'directory');
+            console.log(entry.toURL());
+            console.log(entry.toInternalURL());
+        } else {
+            var fentry = <FileEntry>entry;
+            fentry.file((f: File) => { console.log(f.slice(f.size - 10, f.size)); });
+            fentry.createWriter((writer: FileWriter)=> {
+                if (writer.readyState == FileWriter.INIT) {
+                    console.log('Init FileWriter');
+                    writer.write(new Blob(['sdfdsfsdf']));
+                    writer.onprogress = function(ev: ProgressEvent) {
+                        console.log('Writing ' + ev.target);
+                    };
+                }
+            });
+        }
+    },
+    (error: FileError) => { console.log(error.code); }
+);
 
 // FileTransfer plugin
 //----------------------------------------------------------------------
 
 var file = new FileTransfer();
+
+file.onprogress = (ev: ProgressEvent) => {
+    if (ev.lengthComputable) {
+        console.log(ev.loaded + '/' + ev.total);
+    }
+};
+
 file.download('http://some.server.com/download.php',
     'cdvfile://localhost/persistent/path/to/downloads/',
     (file: FileEntry)=> { console.log('File Downloaded to ' + file.fullPath); },
-    (err: FileTransferError)=> { alert('Error ' + err.code); },
+    (err: FileTransferError) => {
+        console.error('Error ' + err.code);
+        if (err.exception) {
+            console.error('Failed with exception ' + err.exception);
+        }
+    },
     { headers: null },
     true);
+
+file.abort();
 
 
 // InAppBrowser plugin
@@ -135,6 +189,10 @@ file.download('http://some.server.com/download.php',
 var iab = <InAppBrowser>window.open('google.com', '_self');
 iab.addEventListener('loadstart', (ev: InAppBrowserEvent) => { console.log('Start opening ' + ev.url); });
 iab.show();
+iab.executeScript(
+    { code: "console.log('Injected script in action')" },
+    ()=> { console.log('Script is executed'); }
+);
 
 // Globalization plugin
 //----------------------------------------------------------------------
@@ -227,3 +285,5 @@ db.transaction(
 // Vibration plugin
 //----------------------------------------------------------------------
 navigator.notification.vibrate(100);
+navigator.notification.vibrateWithPattern([100, 200, 200, 150, 50], 3);
+setTimeout(navigator.notification.cancelVibration, 1000);

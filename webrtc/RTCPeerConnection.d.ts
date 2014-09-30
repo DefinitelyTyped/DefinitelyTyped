@@ -26,7 +26,7 @@ interface RTCConfiguration {
 declare var RTCConfiguration: {
   prototype: RTCConfiguration;
   new (): RTCConfiguration;
-}
+};
 
 interface RTCIceServer {
   url: string;
@@ -35,7 +35,7 @@ interface RTCIceServer {
 declare var RTCIceServer: {
   prototype: RTCIceServer;
   new (): RTCIceServer;
-}
+};
 
 // moz (Firefox) specific prefixes.
 interface mozRTCPeerConnection extends RTCPeerConnection {
@@ -44,7 +44,7 @@ declare var mozRTCPeerConnection: {
   prototype: mozRTCPeerConnection;
   new (settings: RTCPeerConnectionConfig,
        constraints?:RTCMediaConstraints): mozRTCPeerConnection;
-}
+};
 // webkit (Chrome) specific prefixes.
 interface webkitRTCPeerConnection extends RTCPeerConnection {
 }
@@ -52,7 +52,7 @@ declare var webkitRTCPeerConnection: {
   prototype: webkitRTCPeerConnection;
   new (settings: RTCPeerConnectionConfig,
        constraints?:RTCMediaConstraints): webkitRTCPeerConnection;
-}
+};
 
 // For Chrome, look at the code here:
 // https://code.google.com/p/chromium/codesearch#chromium/src/third_party/libjingle/source/talk/app/webrtc/webrtcsession.cc&sq=package:chromium&dr=C&l=63
@@ -89,7 +89,27 @@ declare var RTCSessionDescription: {
   new (descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
   // TODO: Add serializer.
   // See: http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSdpType)
+};
+
+interface webkitRTCSessionDescription extends RTCSessionDescription{
+  type?: string;
+  sdp?: string;
 }
+declare var webkitRTCSessionDescription: {
+  prototype: webkitRTCSessionDescription;
+  new (descriptionInitDict?: RTCSessionDescriptionInit): webkitRTCSessionDescription;
+};
+
+interface mozRTCSessionDescription extends RTCSessionDescription{
+  type?: string;
+  sdp?: string;
+}
+declare var mozRTCSessionDescription: {
+  prototype: mozRTCSessionDescription;
+  new (descriptionInitDict?: RTCSessionDescriptionInit): mozRTCSessionDescription;
+};
+
+
 
 interface RTCDataChannelInit {
   ordered             ?: boolean; // messages must be sent in-order.
@@ -146,7 +166,7 @@ interface RTCDataChannel extends EventTarget {
 declare var RTCDataChannel: {
   prototype: RTCDataChannel;
   new (): RTCDataChannel;
-}
+};
 
 interface RTCDataChannelEvent extends Event {
   channel: RTCDataChannel;
@@ -154,7 +174,7 @@ interface RTCDataChannelEvent extends Event {
 declare var RTCDataChannelEvent: {
   prototype: RTCDataChannelEvent;
   new (eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
-}
+};
 
 interface RTCIceCandidateEvent extends Event {
   candidate: RTCIceCandidate;
@@ -269,7 +289,7 @@ declare var RTCPeerConnection: {
   prototype: RTCPeerConnection;
   new (configuration: RTCConfiguration,
        constraints?: RTCMediaConstraints): RTCPeerConnection;
-}
+};
 
 interface RTCIceCandidate {
   candidate?: string;
@@ -279,7 +299,27 @@ interface RTCIceCandidate {
 declare var RTCIceCandidate: {
   prototype: RTCIceCandidate;
   new (candidateInitDict?: RTCIceCandidate): RTCIceCandidate;
+};
+
+interface webkitRTCIceCandidate extends RTCIceCandidate {
+  candidate?: string;
+  sdpMid?: string;
+  sdpMLineIndex?: number;
 }
+declare var webkitRTCIceCandidate: {
+  prototype: webkitRTCIceCandidate;
+  new (candidateInitDict?: webkitRTCIceCandidate): webkitRTCIceCandidate;
+};
+
+interface mozRTCIceCandidate extends RTCIceCandidate {
+  candidate?: string;
+  sdpMid?: string;
+  sdpMLineIndex?: number;
+}
+declare var mozRTCIceCandidate: {
+  prototype: mozRTCIceCandidate;
+  new (candidateInitDict?: mozRTCIceCandidate): mozRTCIceCandidate;
+};
 
 interface RTCIceCandidateInit {
   candidate: string;
@@ -289,7 +329,7 @@ interface RTCIceCandidateInit {
 declare var RTCIceCandidateInit:{
   prototype: RTCIceCandidateInit;
   new (): RTCIceCandidateInit;
-}
+};
 
 interface PeerConnectionIceEvent {
   peer: RTCPeerConnection;
@@ -298,7 +338,7 @@ interface PeerConnectionIceEvent {
 declare var PeerConnectionIceEvent: {
   prototype: PeerConnectionIceEvent;
   new (): PeerConnectionIceEvent;
-}
+};
 
 interface RTCPeerConnectionConfig {
   iceServers: RTCIceServer[];
@@ -306,4 +346,17 @@ interface RTCPeerConnectionConfig {
 declare var RTCPeerConnectionConfig: {
   prototype: RTCPeerConnectionConfig;
   new (): RTCPeerConnectionConfig;
+};
+
+interface Window{
+  RTCPeerConnection: RTCPeerConnection;
+  webkitRTCPeerConnection: webkitRTCPeerConnection;
+  mozRTCPeerConnection: mozRTCPeerConnection;
+  RTCSessionDescription: RTCSessionDescription;
+  webkitRTCSessionDescription: webkitRTCSessionDescription;
+  mozRTCSessionDescription: mozRTCSessionDescription;
+  RTCIceCandidate: RTCIceCandidate;
+  webkitRTCIceCandidate: webkitRTCIceCandidate;
+  mozRTCIceCandidate: mozRTCIceCandidate;
+  URL: URL;
 }

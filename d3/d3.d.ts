@@ -808,7 +808,7 @@ declare module D3 {
         * Returns the first non-null element in the current selection. If the selection is empty,
         * returns null.
         */
-        node: () => Element;
+        node: <T extends Element>() => T;
     }
 
     export interface EnterSelection {
@@ -1109,6 +1109,7 @@ declare module D3 {
             offset(offset: string): StackLayout;
             x(accessor: (d: any, i: number) => any): StackLayout;
             y(accessor: (d: any, i: number) => any): StackLayout;
+            out(setter: (d: any, y0: number, y: number) => void): StackLayout;
         }
 
         export interface TreeLayout {

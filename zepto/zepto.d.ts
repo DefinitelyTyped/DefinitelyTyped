@@ -494,6 +494,11 @@ interface ZeptoCollection {
 	appendTo(target: HTMLElement[]): ZeptoCollection;
 
 	/**
+	* @see ZeptoCollection.appendTo
+	**/
+	appendTo(target: ZeptoCollection): ZeptoCollection;
+
+	/**
 	* Read or set DOM attributes. When no value is given, reads specified attribute from the first element in the collection. When value is given, sets the attribute to that value on each element in the collection. When value is null, the attribute is removed (like with removeAttr). Multiple attributes can be set by passing an object with name-value pairs.
 	* To read DOM properties such as checked or selected, use prop.
 	* @param name
@@ -1406,6 +1411,75 @@ interface ZeptoCollection {
 	* @return
 	**/
 	undelegate(selector: string, type: string, fn: (e: Event) => boolean): ZeptoCollection;
+
+    focusin(): ZeptoCollection;
+    focusin(fn: (e: Event) => any): ZeptoCollection;
+
+    focusout(): ZeptoCollection;
+    focusout(fn: (e: Event) => any): ZeptoCollection;
+
+    load(): ZeptoCollection;
+    load(fn: (e: Event) => any): ZeptoCollection;
+
+    resize(): ZeptoCollection;
+    resize(fn: (e: Event) => any): ZeptoCollection;
+
+    scroll(): ZeptoCollection;
+    scroll(fn: (e: Event) => any): ZeptoCollection;
+
+    unload(): ZeptoCollection;
+    unload(fn: (e: Event) => any): ZeptoCollection;
+
+    click(): ZeptoCollection;
+    click(fn: (e: Event) => any): ZeptoCollection;
+
+    dblclick(): ZeptoCollection;
+    dblclick(fn: (e: Event) => any): ZeptoCollection;
+
+    mousedown(): ZeptoCollection;
+    mousedown(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseup(): ZeptoCollection;
+    mouseup(fn: (e: Event) => any): ZeptoCollection;
+
+    mousemove(): ZeptoCollection;
+    mousemove(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseover(): ZeptoCollection;
+    mouseover(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseout(): ZeptoCollection;
+    mouseout(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseenter(): ZeptoCollection;
+    mouseenter(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseleave(): ZeptoCollection;
+    mouseleave(fn: (e: Event) => any): ZeptoCollection;
+
+    change(): ZeptoCollection;
+    change(fn: (e: Event) => any): ZeptoCollection;
+
+    select(): ZeptoCollection;
+    select(fn: (e: Event) => any): ZeptoCollection;
+
+    keydown(): ZeptoCollection;
+    keydown(fn: (e: Event) => any): ZeptoCollection;
+
+    keypress(): ZeptoCollection;
+    keypress(fn: (e: Event) => any): ZeptoCollection;
+
+    keyup(): ZeptoCollection;
+    keyup(fn: (e: Event) => any): ZeptoCollection;
+
+    error(): ZeptoCollection;
+    error(fn: (e: Event) => any): ZeptoCollection;
+
+    focus(): ZeptoCollection;
+    focus(fn: (e: Event) => any): ZeptoCollection;
+
+    blur(): ZeptoCollection;
+    blur(fn: (e: Event) => any): ZeptoCollection;
 
 	/**
 	* Ajax
