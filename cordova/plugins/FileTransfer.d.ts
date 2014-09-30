@@ -14,7 +14,7 @@
  */
 interface FileTransfer {
     /** Called with a ProgressEvent whenever a new chunk of data is transferred.  */
-    onprogress: Function;
+    onprogress: (event: ProgressEvent) => void;
     /**
      * Sends a file to a server.
      * @param fileURL           Filesystem URL representing the file on the device. For backwards compatibility,
@@ -116,12 +116,15 @@ interface FileTransferError {
     target: string;
     /** HTTP status code. This attribute is only available when a response code is received from the HTTP connection. */
     http_status: number;
+    /* Request body */
     body: any;
+    /* Exception that is thrown by native code */
+    exception: any;
 }
 
 declare var FileTransferError: {
     /** Constructor for FileTransferError object */
-    new (code?: number, source?: string, target?: string, status?: number, body?: any): FileTransferError;
+    new (code?: number, source?: string, target?: string, status?: number, body?: any, exception?: any): FileTransferError;
     FILE_NOT_FOUND_ERR: number;
     INVALID_URL_ERR: number;
     CONNECTION_ERR: number;

@@ -112,6 +112,10 @@ interface Internal extends ShouldInternal {
 }
 
 declare var should: Internal;
+declare var Should: Internal;
+interface Window {
+  Should: Internal;
+}
 
 declare module "should" {
   export = should;
