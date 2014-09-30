@@ -1,4 +1,4 @@
-# Contributors
+﻿# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -48,6 +48,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Browser Harness](https://github.com/scriby/browser-harness) (by [Chris Scribner](https://github.com/scriby))
 * [bucks](https://github.com/CyberAgent/bucks.js) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [CasperJS](http://casperjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
+* [CanvasJS](http://canvasjs.com) (by [Mark Overholt](https://github.com/mover5))
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Chroma.js](https://github.com/gka/chroma.js) (by [Sebastian Brückner](https://github.com/invliD))
@@ -287,6 +288,7 @@ All definitions files include a header with the author and editors, so at some p
 * [nodeunit](https://github.com/caolan/nodeunit) (by [Jeff Goddard](https://github.com/jedigo))
 * [node_zeromq](https://github.com/JustinTulloss/zeromq.node) (by [Dave McKeown](https://github.com/davemckeown))
 * [node-sqlserver](https://github.com/WindowsAzure/node-sqlserver) (by [Boris Yankov](https://github.com/borisyankov))
+* [node-tar](https://github.com/npm/node-tar) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [node-uuid](https://github.com/broofa/node-uuid) (by [Jeff May](https://github.com/jeffmay))
 * [notify.js](https://github.com/alexgibson/notify.js) (by [soundTricker](https://github.com/soundTricker))
 * [npm](https://github.com/npm/npm) (by [Maxime LUCE](https://github.com/SomaticIT))
@@ -327,6 +329,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Rickshaw](http://code.shutterstock.com/rickshaw/) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Riot.js](https://github.com/moot/riotjs) (by [vvakame](https://github.com/vvakame))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
+* [React](http://facebook.github.io/react/) (by [Phips Peter](https://github.com/pspeter3)
 * [Redis](https://github.com/mranney/node_redis) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Request](https://github.com/mikeal/request) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Royalslider](http://dimsemenov.com/plugins/royal-slider/) (by [Christiaan Rakowski](https://github.com/csrakowski))
