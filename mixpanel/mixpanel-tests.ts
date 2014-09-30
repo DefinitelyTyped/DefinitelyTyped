@@ -1,6 +1,8 @@
 /// <reference path="mixpanel.d.ts" />
 function mixpanel_base()
 {
+    mixpanel.init("new token");
+    mixpanel.init("new token", { your: "config" });
     mixpanel.init("new token", { your: "config" }, "library_name");
 
     mixpanel.push(['register', { a: 'b' }]);
