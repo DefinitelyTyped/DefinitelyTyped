@@ -1021,7 +1021,7 @@ declare module Xrm
              *              the form may change the name assigned to a given control.
              *              When you use the control getName method the name of the first control will be the
              *              same as the name of the attribute. The second instance of a control for that
-             *              attribute will be �&lt;attributeName&gt;1�. The pattern &lt;attributeName&gt;+N
+             *              attribute will be "&lt;attributeName&gt;1". The pattern &lt;attributeName&gt;+N
              *              will continue for each additional control added to the form for a specific
              *              attribute. When a form displays a business process flow control in the header,
              *              additional controls will be added for each attribute that is displayed in the
@@ -1142,7 +1142,7 @@ declare module Xrm
              * @remarks Cannot be used on "Owner" Lookup controls.
              *          The viewId is never saved to CRM, but must be unique across available views.  Generating
              *          a new value can be accomplished with a {@link http://www.guidgen.com/|Guid generator}.
-             *          Example viewId value: �{00000000-0000-0000-0000-000000000001}�
+             *          Example viewId value: "{00000000-0000-0000-0000-000000000001}"
              *          Layout XML Reference: {@link http://msdn.microsoft.com/en-us/library/gg334522.aspx}
              */
             addCustomView( viewId: string, entityName: string, viewDisplayName: string, fetchXml: string, layoutXml: string, isDefault: boolean ): void;
@@ -1159,7 +1159,7 @@ declare module Xrm
              *
              * @return  The default view, in Guid format.
              * 
-             * @remarks Example: �{00000000-0000-0000-0000-000000000000}�
+             * @remarks Example: "{00000000-0000-0000-0000-000000000000}"
              */
             getDefaultView(): string;
 
@@ -1175,7 +1175,7 @@ declare module Xrm
              *
              * @param   {string}    viewGuid    Unique identifier for the view.
              * 
-             * @remarks Example viewGuid value: �{00000000-0000-0000-0000-000000000000}�
+             * @remarks Example viewGuid value: "{00000000-0000-0000-0000-000000000000}"
              */
             setDefaultView( viewGuid: string ): void;
         }
@@ -1684,7 +1684,7 @@ declare module Xrm
              * to provide default field values for the form, or pass data to custom
              * parameters that have been customized for the form.
              */
-            [index: string]: any;
+            [index: string]: string;
         }
 
         /**
