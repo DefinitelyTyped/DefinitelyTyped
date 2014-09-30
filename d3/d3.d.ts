@@ -853,7 +853,7 @@ declare module D3 {
         remove(key: string): boolean;
         keys(): string[];
         values(): T[];
-        entries(): KeyValue<T>[];
+        entries(): MapKeyValue<T>[];
         forEach(func: (key: string, value: T) => void ): void;
         empty(): boolean;
         size(): number;
