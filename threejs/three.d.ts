@@ -5195,7 +5195,7 @@ declare module THREE {
      * a 2d path representation, comprising of points, lines, and cubes, similar to the html5 2d canvas api. It extends CurvePath.
      */
     export class Path extends CurvePath {
-        constructor(points?: Vector2);
+        constructor(points?: Vector2[]);
 
         actions: PathAction[];
 
@@ -5209,8 +5209,8 @@ declare module THREE {
         absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        getSpacedPoints(divisions?: number, closedPath?: boolean): Vector[];
-        getPoints(divisions?: number, closedPath?: boolean): Vector[];
+        getSpacedPoints(divisions?: number, closedPath?: boolean): Vector2[];
+        getPoints(divisions?: number, closedPath?: boolean): Vector2[];
         toShapes(): Shape[];
     }
 
