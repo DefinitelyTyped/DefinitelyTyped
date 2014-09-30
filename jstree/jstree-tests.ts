@@ -69,6 +69,12 @@ var advancedTree = $("#briefcasetree").jstree({
 
 var a = $('a').jstree();
 
+// test search node
+a.search('test', false, true);
+
+//test redraw node
+a.redraw_node($('#node1'), false, false, false);
+
 
 //tree with new unique plugin parameters
 var treeWithUnique = $('#treeWithUnique').jstree({
