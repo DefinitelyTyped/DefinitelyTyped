@@ -1,6 +1,6 @@
 // Type definitions for Jest 0.1.18
 // Project: http://facebook.github.io/jest/
-// Definitions by: Phips Peter <https://github.com/pspeter3/>
+// Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare function afterEach(fn: jest.EmptyFunction): void;
