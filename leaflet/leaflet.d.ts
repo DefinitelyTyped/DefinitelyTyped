@@ -2430,7 +2430,7 @@ declare module L {
           *
           * Default value: true.
           */
-        doubleClickZoom?: string;
+        doubleClickZoom?: any;
         //doubleClickZoom?: boolean;
         //doubleClickZoom?: string;
 
