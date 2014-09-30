@@ -329,6 +329,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Rickshaw](http://code.shutterstock.com/rickshaw/) (by [Blake Niemyjski](https://github.com/niemyjski))
 * [Riot.js](https://github.com/moot/riotjs) (by [vvakame](https://github.com/vvakame))
 * [Restify](https://github.com/mcavage/node-restify) (by [Bret Little](https://github.com/blittle))
+* [React](http://facebook.github.io/react/) (by [Phips Peter](https://github.com/pspeter3)
 * [Redis](https://github.com/mranney/node_redis) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Request](https://github.com/mikeal/request) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [Royalslider](http://dimsemenov.com/plugins/royal-slider/) (by [Christiaan Rakowski](https://github.com/csrakowski))
