@@ -1,7 +1,7 @@
-// Type definitions for Interacting for interact.js v1.0.17
+// Type definitions for Interacting for interact.js v1.0.25
 // Project: https://github.com/taye/interact.js
-// Definitions by: Douglas Eichelberger <https://github.com/dduugg>
-// Definitions: https://github.com/borisyankov/DefinitelyType
+// Definitions by: Douglas Eichelberger <https://github.com/dduugg>, Adi Dahiya <https://github.com/adidahiya>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // API documentation: http://interactjs.io/docs
 
@@ -157,6 +157,7 @@ interface Restrict {
     drag?: any;
     gesture?: any;
     resize?: any;
+    elementRect?: {[direction: string]: number};
 }
 
 interface InteractEvent {
