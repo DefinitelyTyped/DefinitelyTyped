@@ -5604,7 +5604,7 @@ declare module THREE {
         cone: Mesh;
 
         setDirection(dir: Vector3): void;
-        setLength(length: number): void;
+        setLength(length: number,  headLength?: number, headWidth?: number): void;
         setColor(hex: number): void;
     }
 
