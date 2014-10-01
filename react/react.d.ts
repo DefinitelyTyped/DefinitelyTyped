@@ -4,6 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
+    export = React;
+}
+
+declare module React {
     export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
 
     export function renderComponent(component: Descriptor<any>, container: Element, callback?: () => void): void;
