@@ -841,6 +841,11 @@ declare module D3 {
         entries(values: any[]): NestKeyValue[];
     }
 
+    export interface MapKeyValue<T> {
+        key: string;
+        value: T;
+    }
+
     export interface Map<T> {
         has(key: string): boolean;
         get(key: string): T;
@@ -848,7 +853,7 @@ declare module D3 {
         remove(key: string): boolean;
         keys(): string[];
         values(): T[];
-        entries(): any[][]; // Actually of form [key: string, val: T][], but this is inexpressible in Typescript
+        entries(): MapKeyValue<T>[];
         forEach(func: (key: string, value: T) => void ): void;
         empty(): boolean;
         size(): number;
