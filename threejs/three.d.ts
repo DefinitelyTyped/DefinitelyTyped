@@ -2378,7 +2378,7 @@ declare module THREE {
 
         set(min: Vector2, max: Vector2): Box2;
         setFromPoints(points: Vector2[]): Box2;
-        setFromCenterAndSize(center: Vector2, size: number): Box2;
+        setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
         copy(box: Box2): Box2;
         makeEmpty(): Box2;
         empty(): boolean;
@@ -2408,7 +2408,7 @@ declare module THREE {
 
         set(min: Vector3, max: Vector3): Box3;
         setFromPoints(points: Vector3[]): Box3;
-        setFromCenterAndSize(center: Vector3, size: number): Box3;
+        setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
         setFromObject(object: Object3D): Box3;
         copy(box: Box3): Box3;
         makeEmpty(): Box3;
