@@ -148,6 +148,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Jasmine-data_driven_tests](https://github.com/gburghardt/jasmine-data_driven_tests) (by [Anthony MacKinnon](https://github.com/AnthonyMacKinnon))
 * [Jasmine-jQuery](https://github.com/velesin/jasmine-jquery) (by [Gregor Stamac](https://github.com/gstamac))
 * [jDataView](https://github.com/jDataView/jDataView) (by [Ingvar Stepanyan](https://github.com/RReverser))
+* [Jest](http://facebook.github.io/jest/) (by [Joshua Smith](https://github.com/Josh211ua))
 * [JointJS](http://www.jointjs.com/) (by [Aidan Reel](http://github.com/areel))
 * [jQRangeSlider](http://ghusse.github.com/jQRangeSlider) (by [Dániel Tar](https://github.com/qcz))
 * [jQuery](http://jquery.com/) (from TypeScript samples)
