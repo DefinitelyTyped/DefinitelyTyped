@@ -494,6 +494,11 @@ interface ZeptoCollection {
 	appendTo(target: HTMLElement[]): ZeptoCollection;
 
 	/**
+	* @see ZeptoCollection.appendTo
+	**/
+	appendTo(target: ZeptoCollection): ZeptoCollection;
+
+	/**
 	* Read or set DOM attributes. When no value is given, reads specified attribute from the first element in the collection. When value is given, sets the attribute to that value on each element in the collection. When value is null, the attribute is removed (like with removeAttr). Multiple attributes can be set by passing an object with name-value pairs.
 	* To read DOM properties such as checked or selected, use prop.
 	* @param name

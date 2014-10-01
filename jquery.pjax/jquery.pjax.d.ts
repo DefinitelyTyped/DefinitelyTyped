@@ -131,7 +131,7 @@ interface PjaxStatic {
     /**
      * Reload current page with pjax.
      */
-    reload(): JQueryXHR;
+    reload(container: string, options?: PjaxSettings): JQueryXHR;
 }
 
 interface JQuerySupport {
