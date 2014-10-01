@@ -1782,7 +1782,7 @@ declare module THREE {
 
         loadAjaxJSON(context: JSONLoader, url: string, callback: (geometry: Geometry, materials: Material[]) => void , texturePath?: string, callbackProgress?: (progress: Progress) => void ): void;
 
-        parse(json: Object, texturePath?: string): { geometry: Geometry; materials?: Material[] };
+        parse(json: any, texturePath?: string): { geometry: Geometry; materials?: Material[] };
     }
 
     export interface JSonLoaderResultGeometry extends Geometry {
