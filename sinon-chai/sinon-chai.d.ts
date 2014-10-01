@@ -26,3 +26,8 @@ declare module chai {
         always: Expect;
     }
 }
+
+declare module "sinon-chai" {
+    function exports(_chai: typeof chai, utils: any): void;
+    export = exports;
+}

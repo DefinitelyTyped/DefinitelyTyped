@@ -3,6 +3,8 @@
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare module gulp {
 
     /**
@@ -171,15 +173,10 @@ declare module gulp {
     interface ITaskCallback {
         /**
          * Defines a task.
-         * Tasks may be made asynchronous if they return a promise or a stream.
-         */
-        (): any;
-
-        /**
-         * Defines an asynchronous task.
+         * Tasks may be made asynchronous if they are passing a callback or return a promise or a stream.
          * @param cb callback used to signal asynchronous completion. Caller includes <code>err</code> in case of error.
          */
-        (cb:(err?:any)=>void): void;
+        (cb?:(err?:any)=>void): any;
     }
 
     interface EventEmitter {
@@ -193,7 +190,7 @@ declare module gulp {
          * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
          * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
          */
-        task(name:string, fn:ITaskCallback): Gulp;
+        task(name:string, fn:ITaskCallback): any;
 
         /**
          * Define a task.
@@ -202,7 +199,7 @@ declare module gulp {
          * @param dep an array of tasks to be executed and completed before your task will run.
          * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
          */
-        task(name:string, dep:string[], fn?:ITaskCallback): Gulp;
+        task(name:string, dep:string[], fn?:ITaskCallback): any;
 
 
         /**
@@ -210,14 +207,14 @@ declare module gulp {
          * @param glob a glob string, using node-glob syntax
          * @param opt an optional option object
          */
-        src(glob:string, opt?:ISrcOptions): Gulp;
+        src(glob:string, opt?:ISrcOptions): NodeJS.ReadWriteStream;
 
         /**
          * Takes a glob and represents a file structure. Can be piped to plugins.
          * @param glob an array of glob strings, using node-glob syntax
          * @param opt an optional option object
          */
-        src(glob:string[], opt?:ISrcOptions): Gulp;
+        src(glob:string[], opt?:ISrcOptions): NodeJS.ReadWriteStream;
 
 
         /**
@@ -227,7 +224,7 @@ declare module gulp {
          * @param outFolder the path (output folder) to write files to.
          * @param opt
          */
-        dest(outFolder:string, opt?:IDestOptions): Gulp;
+        dest(outFolder:string, opt?:IDestOptions): NodeJS.ReadWriteStream;
 
         /**
          * Can be piped to and it will write files. Re-emits all data passed to it so you can pipe to multiple folders.
@@ -236,16 +233,17 @@ declare module gulp {
          * @param outFolder a function that converts a vinyl File instance into an output path
          * @param opt
          */
-        dest(outFolder:(file:string)=>string, opt?:IDestOptions): Gulp;
+        dest(outFolder:(file:string)=>string, opt?:IDestOptions): NodeJS.ReadWriteStream;
 
 
         /**
-         * Forwards the current Gulp instance, along with its contained files, to the specified receiver.
+         * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
          *
-         * @param receiver the receiver
+         * @param glob a single glob or array of globs that indicate which files to watch for changes.
+         * @param tasks names of task(s) to run when a file changes, added with gulp.task()
          */
-        pipe(receiver:any): Gulp;
-
+        watch(glob:string, tasks:string[]): EventEmitter;
+        watch(glob:string[], tasks:string[]): EventEmitter;
 
         /**
          * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
@@ -283,4 +281,8 @@ declare module gulp {
 declare module "gulp" {
     var _tmp:gulp.Gulp;
     export = _tmp;
+}
+
+interface IGulpPlugin {
+    (...args: any[]): NodeJS.ReadWriteStream;
 }
