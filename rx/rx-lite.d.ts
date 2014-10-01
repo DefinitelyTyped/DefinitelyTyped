@@ -49,6 +49,8 @@ declare module Rx {
 
 	export module helpers {
 		function noop(): void;
+		function notDefined(value: any): boolean;
+		function isScheduler(value: any): boolean;
 		function identity<T>(value: T): T;
 		function defaultNow(): number;
 		function defaultComparer(left: any, right: any): boolean;
@@ -394,6 +396,50 @@ declare module Rx {
 		defer<T>(observableFactory: () => Observable<T>): Observable<T>;
 		defer<T>(observableFactory: () => IPromise<T>): Observable<T>;
 		empty<T>(scheduler?: IScheduler): Observable<T>;
+
+		/**
+		* This method creates a new Observable sequence from an array object.
+		* @param array An array-like or iterable object to convert to an Observable sequence.
+		* @param mapFn Map function to call on every element of the array.
+		* @param [thisArg] The context to use calling the mapFn if provided.
+		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
+		*/
+		from<T, TResult>(array: T[], mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler): Observable<TResult>;
+		/**
+		* This method creates a new Observable sequence from an array object.
+		* @param array An array-like or iterable object to convert to an Observable sequence.
+		* @param [mapFn] Map function to call on every element of the array.
+		* @param [thisArg] The context to use calling the mapFn if provided.
+		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
+		*/
+		from<T>(array: T[], mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
+
+		/**
+		* This method creates a new Observable sequence from an array-like object.
+		* @param array An array-like or iterable object to convert to an Observable sequence.
+		* @param mapFn Map function to call on every element of the array.
+		* @param [thisArg] The context to use calling the mapFn if provided.
+		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
+		*/
+		from<T, TResult>(array: { length: number;[index: number]: T; }, mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler): Observable<TResult>;
+		/**
+		* This method creates a new Observable sequence from an array-like object.
+		* @param array An array-like or iterable object to convert to an Observable sequence.
+		* @param [mapFn] Map function to call on every element of the array.
+		* @param [thisArg] The context to use calling the mapFn if provided.
+		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
+		*/
+		from<T>(array: { length: number;[index: number]: T; }, mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
+
+		/**
+		* This method creates a new Observable sequence from an array-like or iterable object.
+		* @param array An array-like or iterable object to convert to an Observable sequence.
+		* @param [mapFn] Map function to call on every element of the array.
+		* @param [thisArg] The context to use calling the mapFn if provided.
+		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
+		*/
+		from<T>(iterable: any, mapFn?: (value: any, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
+
 		fromArray<T>(array: T[], scheduler?: IScheduler): Observable<T>;
 		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): Observable<T>;
 
