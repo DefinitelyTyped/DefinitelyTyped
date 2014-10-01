@@ -1902,13 +1902,13 @@ declare module D3 {
                 /**
                 * Get the accessor function that controls where the line is defined.
                 */
-                (): (data: any, index ?: number) => boolean;
+                (): (data: any, index?: number) => boolean;
                 /**
                 * Set the accessor function that controls where the area is defined.
                 *
                 * @param defined The new accessor function
                 */
-                (defined: (data: any) => boolean): Line;
+                (defined: (data: any, index?: number) => boolean): Line;
             };
         }
 
@@ -2198,13 +2198,13 @@ declare module D3 {
                 /**
                 * Get the accessor function that controls where the area is defined.
                 */
-                (): (data: any) => any;
+                (): (data: any, index?: number) => any;
                 /**
                 * Set the accessor function that controls where the area is defined.
                 *
                 * @param defined The new accessor function
                 */
-                (defined: (data: any) => any): Area;
+                (defined: (data: any, index?: number) => any): Area;
             };
         }
 
