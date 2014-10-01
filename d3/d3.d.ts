@@ -1713,6 +1713,8 @@ declare module D3 {
                 (): (value: any) => string;
                 (formatter: (value: any) => string): Axis;
             };
+
+            tickSubdivide(count: number): Axis;
         }
 
         export interface Arc {
