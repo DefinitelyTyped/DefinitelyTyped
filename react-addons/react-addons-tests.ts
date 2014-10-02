@@ -105,3 +105,29 @@ var Timer = React.createClass({displayName: 'Timer',
 });
 
 React.renderComponent(Timer(null), mountNode);
+
+// TestUtils
+var that: React.Component<any, any>;
+var node = that.refs['input'].getDOMNode();
+React.addons.TestUtils.Simulate.click(node);
+React.addons.TestUtils.Simulate.change(node);
+React.addons.TestUtils.Simulate.keyDown(node, {key: "Enter"});
+
+var GoodbyeMessage = React.createClass({displayName: 'GoodbyeMessage',
+    render: function() {
+        return React.DOM.div(null, "Goodbye ", (<React.Component<{name: string}, any>>this).props.name);
+    }
+});
+React.addons.TestUtils.renderIntoDocument(GoodbyeMessage({name: "John"}));
+
+var isImportant: boolean;
+var isRead: boolean;
+var cx = React.addons.classSet;
+var classes = cx({
+    'message': true,
+    'message-important': isImportant,
+    'message-read': isRead
+});
+
+
+
