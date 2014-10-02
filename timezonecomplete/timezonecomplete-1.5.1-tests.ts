@@ -1,6 +1,6 @@
-/// <reference path="timezonecomplete.d.ts" />
+/// <reference path="timezonecomplete-1.5.1.d.ts" />
 
-import tc = require("timezonecomplete");
+import tc = require("timezonecomplete-1.5.1");
 
 var b: boolean;
 var n: number;
@@ -168,8 +168,6 @@ dt = p.findFirst(tc.DateTime.nowLocal());
 dt = p.findNext(dt);
 s = p.toIsoString();
 s = p.toString();
-b = p.isBoundary(dt);
-
 
 
 
