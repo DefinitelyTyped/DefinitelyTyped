@@ -4,6 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
+    export = React;
+}
+
+declare module React {
     export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
 
     export function renderComponent(component: Descriptor<any>, container: Element, callback?: () => void): void;
@@ -50,8 +54,8 @@ declare module "react" {
         render(): Descriptor<any>;
     }
 
-    interface DomReferencer {
-        getDomNode(): Element;
+    export interface DomReferencer {
+        getDOMNode(): Element;
     }
 
     export interface Component<P, S> extends DomReferencer {
@@ -69,19 +73,19 @@ declare module "react" {
         replaceProps(nextProps: P, callback?: () => void): void;
     }
 
-    interface Constructable {
+    export interface Constructable {
         new(): any;
     }
 
-    interface Validator<P> {
+    export interface Validator<P> {
         (props: P, propName: string, componentName: string): Error;
     }
 
-    interface Requireable<P> extends Validator<P> {
+    export interface Requireable<P> extends Validator<P> {
         isRequired: Validator<P>;
     }
 
-    interface ValidationMap<P> {
+    export interface ValidationMap<P> {
         [key: string]: Validator<P>;
     }
 
@@ -112,12 +116,12 @@ declare module "react" {
 
     // Browser Interfaces
     // Taken from https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
-    interface AbstractView {
+    export interface AbstractView {
         styleMedia: StyleMedia;
         document: Document;
     }
 
-    interface Touch {
+    export interface Touch {
         identifier: number;
         target: EventTarget;
         screenX: number;
@@ -128,7 +132,7 @@ declare module "react" {
         pageY: number;
     }
 
-    interface TouchList {
+    export interface TouchList {
         [index: number]: Touch;
         length: number;
         item(index: number): Touch;
@@ -214,7 +218,7 @@ declare module "react" {
     }
 
     // Attributes
-    interface EventAttributes {
+    export interface EventAttributes {
         onCopy?: (event: ClipboardEvent) => void;
         onCut?: (event: ClipboardEvent) => void;
         onPaste?: (event: ClipboardEvent) => void;
@@ -251,7 +255,7 @@ declare module "react" {
         onWheel?: (event: WheelEvent) => void;
     }
 
-    interface DomAttributes extends EventAttributes {
+    export interface DomAttributes extends EventAttributes {
         // HTML Attributes
         accept?: any;
         accessKey?: any;
@@ -347,7 +351,7 @@ declare module "react" {
         wmode?: any;
     }
 
-    interface SvgAttributes extends EventAttributes {
+    export interface SvgAttributes extends EventAttributes {
         cx?: any;
         cy?: any;
         d?: any;
@@ -393,10 +397,10 @@ declare module "react" {
         y?: any;
     }
 
-    interface DomElement extends Factory<DomAttributes> {
+    export interface DomElement extends Factory<DomAttributes> {
     }
 
-    interface SvgElement extends Factory<SvgAttributes> {
+    export interface SvgElement extends Factory<SvgAttributes> {
     }
 
     export var DOM: {
