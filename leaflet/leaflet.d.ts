@@ -2418,9 +2418,7 @@ declare module L {
           *
           * Default value: true.
           */
-        scrollWheelZoom?: any;
-        //scrollWheelZoom?: boolean;
-        //scrollWheelZoom?: string;
+        scrollWheelZoom?: boolean;
         
         /**
           * Whether the map can be zoomed in by double clicking on it and zoomed out
@@ -2430,9 +2428,7 @@ declare module L {
           *
           * Default value: true.
           */
-        doubleClickZoom?: string;
-        //doubleClickZoom?: boolean;
-        //doubleClickZoom?: string;
+        doubleClickZoom?: boolean;
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
