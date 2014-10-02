@@ -30,7 +30,7 @@ var caml = new CamlBuilder().Where()
 	.ToString();
 	
 var caml = new CamlBuilder().Where()
-	.LookupIdField("Category").In([2, 3, 10])
+	.LookupField("Category").Id().In([2, 3, 10])
 	.And()
 	.DateField("ExpirationDate").GreaterThan(CamlBuilder.CamlValues.Now)
 	.OrderBy("ExpirationDate")
