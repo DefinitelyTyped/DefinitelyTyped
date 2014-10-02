@@ -316,7 +316,7 @@ declare module Rx {
 		* @returns An observable sequence whose elements are the result of invoking the transform function on each element of source producing an Observable of Observable sequences 
 		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
 		*/
-		selectSwitch<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;
+		selectSwitch<TResult>(selector: (value: T, index: number, source: Observable<T>) => Observable<TResult>, thisArg?: any): Observable<TResult>;
 		/**
 		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
 		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
@@ -325,7 +325,7 @@ declare module Rx {
 		* @returns An observable sequence whose elements are the result of invoking the transform function on each element of source producing an Observable of Observable sequences 
 		*  and that at any point in time produces the elements of the most recent inner observable sequence that has been received.
 		*/
-		flatMapLatest<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
+		flatMapLatest<TResult>(selector: (value: T, index: number, source: Observable<T>) => Observable<TResult>, thisArg?: any): Observable<TResult>;	// alias for selectSwitch
 		/**
 		*  Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then 
 		*  transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
