@@ -658,7 +658,7 @@ declare module "url" {
         host: string;
         pathname: string;
         search: string;
-        query: string;
+        query: any; // string | Object
         slashes: boolean;
         hash?: string;
         path?: string;
@@ -1230,6 +1230,7 @@ declare module "util" {
     export function debuglog(set: string): Function;
     export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
+    export function isArray(object: any): boolean;
     export function isBoolean(arg: any): boolean;
     export function isNull(arg: any): boolean;
     export function isNullOrUndefined(arg: any): boolean;
