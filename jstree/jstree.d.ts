@@ -1060,6 +1060,13 @@ interface JSTree extends JQuery {
     paste: (obj: any, pos: any) => void;
 
     /**
+    * clear the buffer of previously copied or cut nodes
+    * @name clear_buffer()
+    * @trigger clear_buffer.jstree
+    */
+    clear_buffer: () => void;
+
+    /**
     * put a node in edit mode (input field to rename the node)
     * @name edit(obj [, default_text])
     * @param  {mixed} obj
@@ -1223,7 +1230,16 @@ interface JSTree extends JQuery {
     */
     is_undetermined: (obj: any) => boolean;
 
+    /**
+    * called when a node is selected by the user. Used internally.
+    * @private
+    * @name activate_node(obj, e)
+    * @param {mixed} obj the node
+    * @param {Object} e the related event
+    * @trigger activate_node.jstree, changed.jstree
+    */
     activate_node: (obj: any, e: any) => any;
+
     /**
     * check a node (only if tie_selection in checkbox settings is false, otherwise select_node will be called internally)
     * @name check_node(obj)
