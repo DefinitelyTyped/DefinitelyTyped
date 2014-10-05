@@ -168,6 +168,8 @@ dt = p.findFirst(tc.DateTime.nowLocal());
 dt = p.findNext(dt);
 s = p.toIsoString();
 s = p.toString();
+b = p.isBoundary(dt);
+
 
 
 

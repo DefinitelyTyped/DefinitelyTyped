@@ -1,4 +1,4 @@
-// Type definitions for timezonecomplete 1.5.1
+// Type definitions for timezonecomplete 1.6.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -893,6 +893,11 @@ declare module '__timezonecomplete/period' {
          * @return (prev + count * period), in the same timezone as prev.
          */
         findNext(prev: datetime.DateTime, count?: number): datetime.DateTime;
+        /**
+         * Checks whether the given date is on a period boundary
+         * (expensive!)
+         */
+        isBoundary(occurrence: datetime.DateTime): boolean;
         /**
          * Returns an ISO duration string e.g.
          * 2014-01-01T12:00:00.000+01:00/P1H

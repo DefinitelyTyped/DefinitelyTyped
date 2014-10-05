@@ -353,6 +353,10 @@ interface MomentStatic {
     (date: string, format?: string, language?: string, strict?: boolean): Moment;
     (date: string, formats: string[], strict?: boolean): Moment;
     (date: string, formats: string[], language?: string, strict?: boolean): Moment;
+    (date: string, specialFormat: () => void, strict?: boolean): Moment;
+    (date: string, specialFormat: () => void, language?: string, strict?: boolean): Moment;
+    (date: string, formatsIncludingSpecial: any[], strict?: boolean): Moment;
+    (date: string, formatsIncludingSpecial: any[], language?: string, strict?: boolean): Moment;
     (date: Date): Moment;
     (date: Moment): Moment;
     (date: Object): Moment;
@@ -378,8 +382,11 @@ interface MomentStatic {
     lang(language?: string): string;
     lang(language?: string, definition?: MomentLanguage): string;
 
-    localeData(language?: string): string;
-    localeData(language?: string, definition?: MomentLanguage): string;
+    locale(language?: string): string;
+    locale(language?: string[]): string;
+    locale(language?: string, definition?: MomentLanguage): string;
+
+    localeData(language?: string): MomentLanguage;
 
     longDateFormat: any;
     relativeTime: any;
