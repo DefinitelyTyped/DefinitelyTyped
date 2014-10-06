@@ -48,6 +48,10 @@ declare module "aws-sdk" {
 		public client: s3.Client;
 	}
 
+	export class DynamoDB {
+		constructor(options?: any);
+	}
+
 	export module Sqs {
 
 		export interface Client {
