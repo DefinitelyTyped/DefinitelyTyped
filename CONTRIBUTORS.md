@@ -57,7 +57,7 @@ All definitions files include a header with the author and editors, so at some p
 * [CKEditor](https://github.com/ckeditor/ckeditor-dev) (by [Ondrej Sevcik](https://github.com/ondrejsevcik))
 * [Clone](https://github.com/pvorb/node-clone) (by [Kieran Simpson](https://github.com/kierans))
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
-* [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem))
+* [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem) and [vvakame](https://github.com/vvakame))
 * [configstore](http://github.com/yeoman/configstore) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Cordova](http://cordova.apache.org) (by [Microsoft Open Technologies, Inc.](http://msopentech.com/))
 * [Cordovarduino](https://github.com/stereolux/cordovarduino) (by [Hendrik Maus](https://github.com/hendrikmaus))
