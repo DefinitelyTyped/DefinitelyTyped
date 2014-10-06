@@ -10,7 +10,7 @@ declare module "react" {
 declare module React {
     export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
 
-    export function renderComponent(component: Descriptor<any>, container: Element, callback?: () => void): void;
+    export function renderComponent<P>(component: Descriptor<P>, container: Element, callback?: () => void): Descriptor<P>;
 
     export function unmountComponentAtNode(container: Element): boolean;
 
@@ -255,7 +255,16 @@ declare module React {
         onWheel?: (event: WheelEvent) => void;
     }
 
-    export interface DomAttributes extends EventAttributes {
+    export interface ReactAttributes {
+        dangerouslySetInnerHTML?: {
+            __html: string;
+        };
+        children?: any[];
+        key?: string;
+        ref?: string;
+    }
+
+    export interface DomAttributes extends EventAttributes, ReactAttributes {
         // HTML Attributes
         accept?: any;
         accessKey?: any;
@@ -264,7 +273,9 @@ declare module React {
         allowTransparency?: any;
         alt?: any;
         async?: any;
+        autoCapitalize?: any;
         autoComplete?: any;
+        autoCorrect?: any;
         autoFocus?: any;
         autoPlay?: any;
         cellPadding?: any;
@@ -299,6 +310,9 @@ declare module React {
         httpEquiv?: any;
         icon?: any;
         id?: any;
+        itemProp?: any;
+        itemScope?: any;
+        itemType?: any;
         label?: any;
         lang?: any;
         list?: any;
@@ -317,6 +331,7 @@ declare module React {
         placeholder?: any;
         poster?: any;
         preload?: any;
+        property?: any;
         radioGroup?: any;
         readOnly?: any;
         rel?: any;
@@ -351,7 +366,7 @@ declare module React {
         wmode?: any;
     }
 
-    export interface SvgAttributes extends EventAttributes {
+    export interface SvgAttributes extends EventAttributes, ReactAttributes {
         cx?: any;
         cy?: any;
         d?: any;
