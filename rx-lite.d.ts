@@ -100,15 +100,9 @@ declare module Rx {
 		setDisposable(value: IDisposable): void ;
 	}
 
-	// Multiple assignment disposable
-	export class SerialDisposable implements IDisposable {
+	// SerialDisposable it's an alias of SingleAssignmentDisposable
+	export class SerialDisposable extends SingleAssignmentDisposable {
 		constructor();
-
-		isDisposed: boolean;
-
-		dispose(): void;
-		getDisposable(): IDisposable;
-		setDisposable(value: IDisposable): void;
 	}
 
 	export class RefCountDisposable implements IDisposable {
