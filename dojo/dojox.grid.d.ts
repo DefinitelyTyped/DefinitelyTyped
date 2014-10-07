@@ -7381,7 +7381,7 @@ declare module dojox {
              * @param onError             
              * @param queryObj             
              */
-            getChildren(parentItem: dojo.data.api.Item, onComplete: {(items:Object[], size?:number)}, onError: Function, queryObj?: Object): void;
+            getChildren(parentItem: dojo.data.api.Item, onComplete: {(items:Object[], size?:number): any;}, onError: Function, queryObj?: Object): void;
             /**
              * 
              * @param item             
@@ -21624,19 +21624,19 @@ declare module dojox {
                      * @param searchArgs             
                      * @param onSearched             
                      */
-                    searchRow(searchArgs: Object, onSearched: {(index:number,item:Object)}): void;
+                    searchRow(searchArgs: Object, onSearched: {(index:number,item:Object): any;}): void;
                     /**
                      * 
                      * @param searchArgs             
                      * @param onSearched             
                      */
-                    searchRow(searchArgs: RegExp, onSearched: {(index:number,item:Object)}): void;
+                    searchRow(searchArgs: RegExp, onSearched: {(index:number,item:Object): any;}): void;
                     /**
                      * 
                      * @param searchArgs             
                      * @param onSearched             
                      */
-                    searchRow(searchArgs: String, onSearched: {(index:number,item:Object)}): void;
+                    searchRow(searchArgs: String, onSearched: {(index:number,item:Object): any;}): void;
                     /**
                      * Subscribes to the specified topic and calls the specified method
                      * of this object.
