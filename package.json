@@ -20,16 +20,20 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "node ./_infrastructure/runner.js --test-changes",
-    "changes": "node ./_infrastructure/runner.js --test-changes",
-    "lint": "node ./_infrastructure/runner.js --lint-changes",
-    "all": "node ./_infrastructure/runner.js",
-    "dry": "node ./_infrastructure/runner.js --skip-tests --test-changes",
-    "list": "node ./_infrastructure/runner.js --skip-tests --print-files --print-refmap",
+    "test": "node ./_infrastructure/runner.js --changes",
+    "changes": "node ./_infrastructure/runner.js --changes",
+    "lint": "node ./_infrastructure/runner.js --lint",
+    "tscparams": "node ./_infrastructure/runner.js --tscparams --no-tests --no-headers",
+    "all": "node ./_infrastructure/runner.js ",
+    "dry": "node ./_infrastructure/runner.js --dry --changes",
+    "list": "node ./_infrastructure/runner.js --dry --print-files --print-refmap",
+    "last": "node ./_infrastructure/runner.js --dry --print-files --print-refmap --changes",
+    "files": "node ./_infrastructure/runner.js --dry --print-files",
+    "refmap": "node ./_infrastructure/runner.js --dry --print-refmap",
     "help": "node ./_infrastructure/runner.js -h"
   },
   "dependencies": {
-    "definition-tester": "~0.0.4"
+    "definition-tester": "~0.1.4"
   },
   "devDependencies": {}
 }
