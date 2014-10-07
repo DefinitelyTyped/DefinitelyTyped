@@ -53,7 +53,7 @@ interface KnockoutSubscription {
 }
 
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
-	subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
+	subscribe(callback: (object: Object) => void, target?: any, event?: string): KnockoutSubscription;
 	subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
 	extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
 	getSubscriptionsCount(): number;
@@ -84,6 +84,8 @@ interface KnockoutObservableArrayStatic {
 }
 
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
+    subscribe(callback: (newValue: T[]) => void, target?: any, event?: string): KnockoutSubscription;
+    subscribe(callback: (changes: KnockoutArrayChange<T>[]) => void, target?: any, event?: string): KnockoutSubscription;
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
 }
 
@@ -100,6 +102,8 @@ interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObserva
 	peek(): T;
 	valueHasMutated?:{(): void;};
 	valueWillMutate?:{(): void;};
+
+    subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
