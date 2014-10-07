@@ -18,4 +18,23 @@ declare module ng.animate {
     interface IAnimateService extends ng.IAnimateService {
         enabled(value?: boolean, element?: JQuery): boolean;
     }
+
+    /**
+     * The animation object which contains callback functions for each event that is expected to be animated.
+     */
+    interface IAnimateCallbackObject {
+        eventFn(element: Node, doneFn: () => void): Function;
+    }
+
+    interface IAnimateProvider {
+        /**
+         * Registers a new injectable animation factory function.
+         */
+        register(name: string, factory: () => IAnimateCallbackObject): void;
+
+        /**
+         * Gets and/or sets the CSS class expression that is checked when performing an animation.
+         */
+        classNameFilter(expression?: RegExp): RegExp;
+    }
 }
