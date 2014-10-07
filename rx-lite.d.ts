@@ -60,6 +60,7 @@ declare module Rx {
 		function isPromise(p: any): boolean;
 		function asArray<T>(...args: T[]): T[];
 		function not(value: any): boolean;
+		function isFunction(value: any): boolean;
 	}
 
 	export interface IDisposable {
@@ -180,7 +181,7 @@ declare module Rx {
 
 	interface ObserverStatic {
 		create<T>(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observer<T>;
-		fromNotifier<T>(handler: (notification: Notification<T>) => void): Observer<T>;
+		fromNotifier<T>(handler: (notification: Notification<T>, thisArg?: any) => void): Observer<T>;
 	}
 
 	export var Observer: ObserverStatic;
@@ -188,6 +189,10 @@ declare module Rx {
 	export interface IObservable<T> {
 		subscribe(observer: Observer<T>): IDisposable;
 		subscribe(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;
+
+		subscribeOnNext(onNext: (value: T) => void, thisArg?: any): IDisposable;
+		subscribeOnError(onError: (exception: any) => void, thisArg?: any): IDisposable;
+		subscribeOnCompleted(onCompleted: () => void, thisArg?: any): IDisposable;
 	}
 
 	export interface Observable<T> extends IObservable<T> {
