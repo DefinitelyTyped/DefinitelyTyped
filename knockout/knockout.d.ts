@@ -1,4 +1,4 @@
-// Type definitions for Knockout v3.2.0-beta
+// Type definitions for Knockout v3.2.0
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
