@@ -459,10 +459,10 @@ declare module 'joi' {
 	/**
 	 * Validates a value using the given schema and options.
 	 */
-	export function validate<T>(value: T, schema: Schema, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
 	export function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
 	export function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
+	export function validate<T>(value: T, schema: Schema, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
+	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
 
 	/**
 	 * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
