@@ -12,10 +12,12 @@ var insight = new Insight({
     packageVersion: pkg.version
 });
 
-// ask for permission the first time
-if (insight.optOut === undefined) {
-    return insight.askPermission();
-}
+(()=> {
+    // ask for permission the first time
+    if (insight.optOut === undefined) {
+        return insight.askPermission();
+    }
 
-insight.track('foo', 'bar');
-// recorded in Analytics as `/foo/bar`
+    insight.track('foo', 'bar');
+    // recorded in Analytics as `/foo/bar`
+})();
