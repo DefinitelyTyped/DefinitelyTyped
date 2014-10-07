@@ -11,10 +11,11 @@ function getSemFloat(str) {
 }
 
 var repo = readJSON(path.resolve(__dirname, '..', 'package.json'));
-var test = readJSON(path.resolve(__dirname, '..', 'node_modules', 'definition-tester', 'package.json'));
+
+var testerPath = path.resolve(__dirname, '..', 'node_modules', 'definition-tester', 'package.json');
 
 // ultra lame semver major/minor check
-if (getSemFloat(repo.dependencies['definition-tester']) > getSemFloat(test.version)) {
+if (!fs.existsSync(testerPath) || getSemFloat(repo.dependencies['definition-tester']) > getSemFloat(readJSON(testerPath).version)) {
 	console.log('DefinitelyTyped tester needs an update!\n\n   please run \'npm install\'\n');
 	process.exit(1);
 }
