@@ -667,7 +667,7 @@ result = <Function>_.curry(function (a: any, b: any, c: any) {
     console.log(a + b + c);
 });
 
-result = <_.LoDashObjectWrapper<Function>>_(function (a, b, c) {
+result = <_.LoDashObjectWrapper<Function>>_(function (a: any, b: any, c: any) {
     console.log(a + b + c);
 }).curry();
 
@@ -694,7 +694,7 @@ source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function (
     'maxWait': 1000
 }), false);
 
-var returnedDebounce = _.throttle(function (a) { return a * 5; }, 5);
+var returnedDebounce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedThrottled(4);
 
 result = <number>_.defer(function () { console.log('deferred'); });
@@ -704,7 +704,7 @@ var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
 
-var fibonacci = <Function>_.memoize(function (n) {
+var fibonacci = <Function>_.memoize(function (n: any) {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
@@ -716,13 +716,13 @@ var data: { [index: string]: { name: string; age: number; } } = {
 var stooge = _.memoize(function (name: string) { return data[name]; }, _.identity);
 stooge('curly');
 
-var returnedMemoize = _.throttle(function (a) { return a * 5; }, 5);
+var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
 
 var initialize = _.once(function () { });
 initialize();
 initialize();''
-var returnedOnce = _.throttle(function (a) { return a * 5; }, 5);
+var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
 var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
@@ -745,7 +745,7 @@ jQuery('.interactive').on('click', _.throttle(function () { }, 300000, {
     'trailing': false
 }));
 
-var returnedThrottled = _.throttle(function (a) { return a * 5; }, 5);
+var returnedThrottled = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedThrottled(4);
 
 var helloWrap = function (name: string) { return 'hello ' + name; };
