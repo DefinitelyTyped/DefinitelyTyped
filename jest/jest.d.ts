@@ -63,6 +63,7 @@ declare module jest {
 
     interface Mock<T> {
         new(): T;
+        (...args:any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/borisyankov/DefinitelyTyped/pull/2932
         mock: MockContext<T>;
         mockClear(): void;
         mockImplementation(fn: Function): Mock<T>;
