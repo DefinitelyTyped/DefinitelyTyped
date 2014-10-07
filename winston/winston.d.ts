@@ -49,7 +49,7 @@ declare module "winston" {
 
 
   export interface LoggerStatic {
-    new (options?: LoggerOptions);
+    new (options?: LoggerOptions): LoggerInstance;
   }
 
   export interface LoggerInstance extends NodeJS.EventEmitter {
