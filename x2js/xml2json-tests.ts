@@ -218,8 +218,8 @@ console.log(xmlDocStr);
 var xmlDocStr = x2js.json2xml_str(
   {
     MyRoot: {
-      MyNullChild: null,
-      MyNullChild2: undefined,
+      MyNullChild: <any>null,
+      MyNullChild2: <any>undefined,
       MyAnotherChild: 10,
       MyEmptyChild: {
         _attr: "test"
