@@ -2424,7 +2424,7 @@ declare module THREE {
         isIntersectionBox(box: Box3): boolean;
         clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         distanceToPoint(point: Vector3): number;
-        getBoundingSphere(): Sphere;
+        getBoundingSphere(optionalTarget?: Sphere): Sphere;
         intersect(box: Box3): Box3;
         union(box: Box3): Box3;
         applyMatrix4(matrix: Matrix4): Box3;
@@ -5152,13 +5152,13 @@ declare module THREE {
         closePath(): void;
         getPoint(t: number): Vector;
         getLength(): number;
-        getCurveLengths(): number;
+        getCurveLengths(): number[];
         getBoundingBox(): BoundingBox;
         createPointsGeometry(divisions: number): Geometry;
         createSpacedPointsGeometry(divisions: number): Geometry;
         createGeometry(points: Vector2[]): Geometry;
         addWrapPath(bendpath: Path): void;
-        getTransformedPoints(segments: number, bends?: Path): Vector2[];
+        getTransformedPoints(segments: number, bends?: Path[]): Vector2[];
         getTransformedSpacedPoints(segments: number, bends?: Path[]): Vector2[];
         getWrapPoints(oldPts: Vector2[], path: Path): Vector2[];
     }
@@ -5339,7 +5339,7 @@ declare module THREE {
 
     // Extras / Geomerties /////////////////////////////////////////////////////////////////////
     /**
-     * CubeGeometry is the quadrilateral primitive geometry class. It is typically used for creating a cube or irregular quadrilateral of the dimensions provided within the (optional) 'width', 'height', & 'depth' constructor arguments.
+     * BoxGeometry is the quadrilateral primitive geometry class. It is typically used for creating a cube or irregular quadrilateral of the dimensions provided within the (optional) 'width', 'height', & 'depth' constructor arguments.
      */
     export class BoxGeometry extends Geometry {
         /**
@@ -5380,6 +5380,7 @@ declare module THREE {
         thetaLength: number;
     }
 
+    // deprecated
     export class CubeGeometry extends BoxGeometry {
     }
 
