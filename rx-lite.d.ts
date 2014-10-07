@@ -76,8 +76,6 @@ declare module Rx {
 		dispose(): void;
 		add(item: IDisposable): void;
 		remove(item: IDisposable): boolean;
-		clear(): void;
-		contains(item: IDisposable): boolean;
 		toArray(): IDisposable[];
 	}
 
