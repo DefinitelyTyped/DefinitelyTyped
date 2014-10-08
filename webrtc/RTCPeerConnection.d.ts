@@ -278,7 +278,7 @@ interface RTCPeerConnection {
   onaddstream: (event: RTCMediaStreamEvent) => void;
   onremovestream: (event: RTCMediaStreamEvent) => void;
   onstatechange: (event: Event) => void;
-  onicechange: (event: Event) => void;
+  oniceconnectionstatechange: (event: Event) => void;
   onicecandidate: (event: RTCIceCandidateEvent) => void;
   onidentityresult: (event: Event) => void;
   onsignalingstatechange: (event: Event) => void;
