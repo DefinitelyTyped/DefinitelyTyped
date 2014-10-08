@@ -1,3 +1,4 @@
+///<reference path='../node/node.d.ts'/>
 import http                                                 = require('http');
 
 declare module Solr
