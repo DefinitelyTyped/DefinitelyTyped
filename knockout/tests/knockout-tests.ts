@@ -117,6 +117,14 @@ function test_observableArrays() {
         }
     }, null, "arrayChange");
 
+    myObservableArray.subscribe(function(newValue){
+        console.log(newValue);
+    }, null, "change");
+
+    myObservableArray.subscribe(function(oldValue){
+        console.log(oldValue);
+    }, null, "beforeChange");
+
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },
