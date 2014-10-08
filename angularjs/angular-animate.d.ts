@@ -103,7 +103,7 @@ declare module ng.animate {
          * @param name The name of the animation.
          * @param factory The factory function that will be executed to return the animation object.
          */
-        register(name: string, factory: () => ng.IAnimateCallbackObject);
+        register(name: string, factory: () => ng.IAnimateCallbackObject): void;
 
         /**
          * Gets and/or sets the CSS class expression that is checked when performing an animation.
