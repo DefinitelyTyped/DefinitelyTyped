@@ -1,3 +1,5 @@
+import http                                                 = require('http');
+
 declare module Solr
 {
     export class SolrQuery
@@ -93,62 +95,61 @@ declare module Solr
         basicAuth(user:string, password:string):SolrClient;
         unauth():SolrClient;
 
-        add(documents:Object, options:Object, callback:{err:Error; obj:Object});
-        add(documents:Object, callback:{err:Error; obj:Object});
-        add(documents:Object[], options:Object, callback:{err:Error; obj:Object});
-        add(documents:Object[], callback:{err:Error; obj:Object});
+        add(documents:Object, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        add(documents:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        add(documents:Object[], options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        add(documents:Object[], callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        realTimeGet(ids:string, query:string, callback:{err:Error; obj:Object});
-        realTimeGet(ids:string[], query:string, callback:{err:Error; obj:Object});
-        realTimeGet(ids:string, query:Object, callback:{err:Error; obj:Object});
-        realTimeGet(ids:string[], query:Object, callback:{err:Error; obj:Object});
-        realTimeGet(ids:string, query:SolrQuery, callback:{err:Error; obj:Object});
-        realTimeGet(ids:string[], query:SolrQuery, callback:{err:Error; obj:Object});
+        realTimeGet(ids:string, query:string, callback:{err:Error; obj:Object}):http.ClientRequest;
+        realTimeGet(ids:string[], query:string, callback:{err:Error; obj:Object}):http.ClientRequest;
+        realTimeGet(ids:string, query:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        realTimeGet(ids:string[], query:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        realTimeGet(ids:string, query:SolrQuery, callback:{err:Error; obj:Object}):http.ClientRequest;
+        realTimeGet(ids:string[], query:SolrQuery, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        commit(options:Object, callback:{err:Error; obj:Object});
-        commit(callback:{err:Error; obj:Object});
+        commit(options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        commit(callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        softCommit(callback:{err:Error; obj:Object});
+        softCommit(callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        delete(field:string, text:string, options:Object, callback:{err:Error; obj:Object});
-        delete(field:string, text:string, callback:{err:Error; obj:Object});
+        delete(field:string, text:string, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        delete(field:string, text:string, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        deleteByRange(field:string, start:string, stop:string, options:Object, callback:{err:Error; obj:Object});
-        deleteByRange(field:string, start:number, stop:number, options:Object, callback:{err:Error; obj:Object});
-        deleteByRange(field:string, start:string, stop:string, callback:{err:Error; obj:Object});
-        deleteByRange(field:string, start:Date, stop:Date, callback:{err:Error; obj:Object});
+        deleteByRange(field:string, start:string, stop:string, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        deleteByRange(field:string, start:number, stop:number, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        deleteByRange(field:string, start:string, stop:string, callback:{err:Error; obj:Object}):http.ClientRequest;
+        deleteByRange(field:string, start:Date, stop:Date, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        deleteByID(id:string, options:Object, callback:{err:Error; obj:Object});
-        deleteByID(id:string, callback:{err:Error; obj:Object});
+        deleteByID(id:string, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        deleteByID(id:string, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        deleteByQuery(query:string, options:Object, callback:{err:Error; obj:Object});
-        deleteByQuery(query:string, callback:{err:Error; obj:Object});
+        deleteByQuery(query:string, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        deleteByQuery(query:string, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        deleteAll(options:Object, callback:{err:Error; obj:Object});
-        deleteAll(callback:{err:Error; obj:Object});
+        deleteAll(options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        deleteAll(callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        optimize(options:Object, callback:{err:Error; obj:Object});
-        optimize(callback:{err:Error; obj:Object});
+        optimize(options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        optimize(callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        rollback(callback:{err:Error; obj:Object});
+        rollback(callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        update(data:Object, options:Object, callback:{err:Error; obj:Object});
-        update(data:Object, callback:{err:Error; obj:Object});
+        update(data:Object, options:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        update(data:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        search(search:Object, callback:{err:Error; obj:Object});
-        search(search:SolrQuery, callback:{err:Error; obj:Object});
-        search(search:string, callback:{err:Error; obj:Object});
+        search(search:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        search(search:SolrQuery, callback:{err:Error; obj:Object}):http.ClientRequest;
+        search(search:string, callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        searchAll(callback:{err:Error; obj:Object});
+        searchAll(callback:{err:Error; obj:Object}):http.ClientRequest;
 
-        get(handler:string, query:string, callback:{err:Error; obj:Object});
-        get(handler:string, query:Object, callback:{err:Error; obj:Object});
-        get(handler:string, query:SolrQuery, callback:{err:Error; obj:Object});
+        get(handler:string, query:string, callback:{err:Error; obj:Object}):http.ClientRequest;
+        get(handler:string, query:Object, callback:{err:Error; obj:Object}):http.ClientRequest;
+        get(handler:string, query:SolrQuery, callback:{err:Error; obj:Object}):http.ClientRequest;
 
         createQuery():SolrQuery;
 
-        ping(callback:{err:Error; obj:Object});
-
+        ping(callback:{err:Error; obj:Object}):http.ClientRequest;
     }
 }
 
