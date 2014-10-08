@@ -125,6 +125,10 @@ function test_observableArrays() {
         console.log(oldValue);
     }, null, "beforeChange");
 
+    myObservableArray.subscribe(function(newValue){
+        console.log(newValue);
+    });
+
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },

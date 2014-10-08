@@ -108,6 +108,7 @@ interface KnockoutObservableArray<T> extends KnockoutSubscribable<T[]>, Knockout
     subscribe(callback: (changes : KnockoutArrayChange<T>[]) => void, target: any, event: string): KnockoutSubscription;
     subscribe(callback: (changes : KnockoutArrayChange<T>[]) => void, target: any, event: 'arrayChange'): KnockoutSubscription;
 
+    subscribe(callback: (param : T[]) => void, target?: any, event?: string): KnockoutSubscription;
     subscribe(callback: (param : T[]) => void, target: any, event: string): KnockoutSubscription;
     subscribe(callback: (param : T[]) => void, target: any, event: 'change'): KnockoutSubscription;
     subscribe(callback: (param : T[]) => void, target: any, event: 'beforeChange'): KnockoutSubscription;
