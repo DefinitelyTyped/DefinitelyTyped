@@ -89,7 +89,7 @@ declare module ng.animate {
         /**
          * Cancels the provided animation.
          */
-        cancel(animationPromise: ng.IPromise<void>);
+        cancel(animationPromise: ng.IPromise<void>): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
