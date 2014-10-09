@@ -3344,3 +3344,30 @@ function test_deferred_promise() {
         }
         );
 }
+
+function test_promise_then_change_type() {
+	function request() {
+		var def = $.Deferred<any>();
+		var promise = def.promise(null);
+
+		def.rejectWith(this, new Error());
+
+		return promise;
+	}
+
+	function count() {
+		var def = request();
+		return def.then<number>(data => {
+			try {
+				var count: number = parseInt(data.count, 10);
+			} catch (err) {
+				return $.Deferred<number>().reject(err).promise();
+			}
+			return $.Deferred<number>().resolve(count).promise();
+		});
+	}
+
+	count().done(data => {
+	}).fail((exception: Error) => {
+	});
+}
