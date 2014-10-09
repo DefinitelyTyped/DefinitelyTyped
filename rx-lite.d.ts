@@ -291,11 +291,12 @@ declare module Rx {
 		skipLast(count: number): Observable<T>;
 		startWith(...values: T[]): Observable<T>;
 		startWith(scheduler: IScheduler, ...values: T[]): Observable<T>;
-		takeLast(count: number, scheduler?: IScheduler): Observable<T>;
+		takeLast(count: number): Observable<T>;
 		takeLastBuffer(count: number): Observable<T[]>;
 
 		select<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;
 		map<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for select
+		pluck<TResult>(prop: string): Observable<TResult>;
 		selectMany<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
 		selectMany<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
 		selectMany<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;
