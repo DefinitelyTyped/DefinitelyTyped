@@ -108,27 +108,6 @@ function testGetter() {
 
 function test_observableArrays() {
     var myObservableArray = ko.observableArray<any>();
-
-    myObservableArray.subscribe(function(changes){
-        for(var i = 0; i < changes.length; i++){
-            console.log(changes[i].index);
-            console.log(changes[i].status);
-            console.log(changes[i].value);
-        }
-    }, null, "arrayChange");
-
-    myObservableArray.subscribe(function(newValue){
-        console.log(newValue);
-    }, null, "change");
-
-    myObservableArray.subscribe(function(oldValue){
-        console.log(oldValue);
-    }, null, "beforeChange");
-
-    myObservableArray.subscribe(function(newValue){
-        console.log(newValue);
-    });
-
     myObservableArray.push('Some value');
     var anotherObservableArray = ko.observableArray([
         { name: "Bungle", type: "Bear" },
