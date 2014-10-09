@@ -1,4 +1,4 @@
-// Type definitions for Knockout v3.2.0
+// Type definitions for Knockout v3.2.0-beta
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -53,31 +53,10 @@ interface KnockoutSubscription {
 }
 
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
-    subscribe(callback: (param : any) => void, target?: any, event?: string): KnockoutSubscription;
-    subscribe(callback: (param : any) => void, target: any, event: string): KnockoutSubscription;
+	subscribe(callback: (newValue: T) => void, target?: any, event?: string): KnockoutSubscription;
 	subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
 	extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
 	getSubscriptionsCount(): number;
-}
-
-interface KnockoutObservableProperties<T>{
-    (): T;
-    (value: T): void;
-
-    peek(): T;
-    valueHasMutated?:{(): void;};
-    valueWillMutate?:{(): void;};
-}
-
-interface KnockoutObservableStatic {
-    fn: KnockoutObservableFunctions<any>;
-
-    <T>(value?: T): KnockoutObservable<T>;
-}
-
-interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableProperties<T>, KnockoutObservableFunctions<T> {
-    subscribe(callback: (newValue : T) => void, target?: any, event?: string): KnockoutSubscription;
-    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
 interface KnockoutComputedStatic {
@@ -104,16 +83,24 @@ interface KnockoutObservableArrayStatic {
     <T>(value?: T[]): KnockoutObservableArray<T>;
 }
 
-interface KnockoutObservableArray<T> extends KnockoutSubscribable<T[]>, KnockoutObservableProperties<T[]>,KnockoutObservableArrayFunctions<T> {
-    subscribe(callback: (changes : KnockoutArrayChange<T>[]) => void, target: any, event: string): KnockoutSubscription;
-    subscribe(callback: (changes : KnockoutArrayChange<T>[]) => void, target: any, event: 'arrayChange'): KnockoutSubscription;
-
-    subscribe(callback: (param : T[]) => void, target?: any, event?: string): KnockoutSubscription;
-    subscribe(callback: (param : T[]) => void, target: any, event: string): KnockoutSubscription;
-    subscribe(callback: (param : T[]) => void, target: any, event: 'change'): KnockoutSubscription;
-    subscribe(callback: (param : T[]) => void, target: any, event: 'beforeChange'): KnockoutSubscription;
-
+interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
+}
+
+interface KnockoutObservableStatic {
+    fn: KnockoutObservableFunctions<any>;
+
+    <T>(value?: T): KnockoutObservable<T>;
+}
+
+interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
+	(): T;
+	(value: T): void;
+
+	peek(): T;
+	valueHasMutated?:{(): void;};
+	valueWillMutate?:{(): void;};
+    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
 interface KnockoutComputedDefine<T> {
