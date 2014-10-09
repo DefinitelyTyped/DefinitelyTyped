@@ -306,6 +306,10 @@ interface MomentLanguage {
   meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
   calendar?: MomentCalendar;
   ordinal?: (num: number) => string;
+  week: {
+    dow: number;
+    doy: number;
+  }
 
 }
 
