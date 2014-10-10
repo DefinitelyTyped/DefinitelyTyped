@@ -945,6 +945,11 @@ declare module "azure" {
 
     export class QueueMessageResult {
         queue: string;
+        insertiontime: string;
+        expirationtime: string;
+        timenextvisible: string;
+        messagetext: string;
+        dequeuecount: string;
         messageid: string;
         popreceipt: string;
         metadata: StorageMetadata;
