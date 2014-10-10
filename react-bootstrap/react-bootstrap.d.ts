@@ -1,6 +1,8 @@
-/**
- * Created by René Verheij on 08/10/2014.
- */
+ // Type definitions for react-bootstrap
+ // Project: https://react-bootstrap.github.io/
+ // Definitions by: René Verheij <https://github.com/flyon>
+ // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface ReactBootstrap
 {
 	Accordion:React.ReactComponentFactory<PanelGroupAttributes>;
