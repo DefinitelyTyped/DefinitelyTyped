@@ -145,6 +145,7 @@ All definitions files include a header with the author and editors, so at some p
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
 * [Imagemagick](http://github.com/rsms/node-imagemagick) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
+* [inflection](https://github.com/dreamerslab/node.inflection) (by [Shogo Iwano](https://github.com/shiwano))
 * [insight](https://github.com/yeoman/insight) (by [vvakame](https://github.com/vvakame))
 * [interact.js](http://github.com/taye/interact.js) (by [Douglas Eichelberger](https://github.com/dduugg))
 * [Ion.RangeSlider](https://github.com/IonDen/ion.rangeSlider) (by [Douglas Eichelberger](https://github.com/dduugg))
