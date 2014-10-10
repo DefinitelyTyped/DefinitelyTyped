@@ -53,7 +53,7 @@ declare module ng.animate {
          * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the move animation
          * @returns the animation callback promise
          */
-        enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
+        move(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
 
         /**
          * Triggers a custom animation event based off the className variable and then attaches the className
