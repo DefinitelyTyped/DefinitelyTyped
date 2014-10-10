@@ -141,8 +141,8 @@ declare module Pickadate {
         // Disable dates (elements can be Dates, [YEAR, MONTH, DATE] arrays, or integers of the week)
         disable?: any[];
 
-        // Root container selector
-        container?: string
+        // Root container selector (string) or element (JQuery)
+        container?: any;
 
         // Events
         onStart?: () => void;
@@ -238,8 +238,8 @@ declare module Pickadate {
         // Disable dates (elements can be Dates, [YEAR, MONTH, DATE] arrays, or integers of the week)
         disable?: any[];
 
-        // Root container selector
-        container?: string
+        // Root container selector (string) or element (JQuery)
+        container?: any;
 
         // Events
         onStart?: () => void;
