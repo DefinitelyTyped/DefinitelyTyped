@@ -2,55 +2,56 @@
  // Project: https://react-bootstrap.github.io/
  // Definitions by: René Verheij <https://github.com/flyon>
  // Definitions: https://github.com/borisyankov/DefinitelyTyped
+ /// <reference path="../react/react.d.ts" />
 
 interface ReactBootstrap
 {
-	Accordion:React.ReactComponentFactory<PanelGroupAttributes>;
-	Affix:React.ReactComponentFactory<AffixAttributes>;
-	AffixMixin:React.ReactMixin<AffixAttributes,any>;
-	Alert:React.ReactComponentFactory<AlertAttributes>;
-	Badge:React.ReactComponentFactory<BadgeAttributes>;
-	Button:React.ReactComponentFactory<ButtonAttributes>;
-	ButtonGroup:React.ReactComponentFactory<ButtonGroupAttributes>;
-	ButtonToolbar:React.ReactComponentFactory<BootstrapAttributes>;
-	Carousel:React.ReactComponentFactory<CarouselAttributes>;
-	CarouselItem:React.ReactComponentFactory<CarouselItemAttributes>;
-	Col:React.ReactComponentFactory<ColAttributes>;
-	DropdownButton:React.ReactComponentFactory<DropdownButtonAttributes>;
-	DropdownMenu:React.ReactComponentFactory<DropdownMenuAttributes>;
-	Glyphicon:React.ReactComponentFactory<GlyphiconAttributes>;
-	Grid:React.ReactComponentFactory<GridAttributes>;
-	Input:React.ReactComponentFactory<InputAttributes>;
-	Interpolate:React.ReactComponentFactory<InterpolateAttributes>;
-	Jumbotron:React.ReactComponentFactory<{}>;
-	Label:React.ReactComponentFactory<BootstrapAttributes>;
-	ListGroup:React.ReactComponentFactory<ListGroupAttributes>;
-	ListGroupItem:React.ReactComponentFactory<ListGroupItemAttributes>;
-	MenuItem:React.ReactComponentFactory<MenuItemAttributes>;
-	Modal:React.ReactComponentFactory<ModalAttributes>;
-	ModalTrigger:React.ReactComponentFactory<ModalTriggerAttributes>;
-	Nav:React.ReactComponentFactory<NavAttributes>;
-	NavItem:React.ReactComponentFactory<NavItemAttributes>;
-	Navbar:React.ReactComponentFactory<NavbarAttributes>;
-	OverlayTrigger:React.ReactComponentFactory<OverlayTriggerAttributes>;
-	PageHeader:React.ReactComponentFactory<any>;
-	PageItem:React.ReactComponentFactory<PageItemAttributes>;
-	Pager:React.ReactComponentFactory<PagerAttributes>;
-	Panel:React.ReactComponentFactory<PanelAttributes>;
-	PanelGroup:React.ReactComponentFactory<PanelGroupAttributes>;
-	Popover:React.ReactComponentFactory<PopoverAttributes>;
-	ProgressBar:React.ReactComponentFactory<ProgressBarAttributes>;
-	Row:React.ReactComponentFactory<RowAttributes>;
-	SplitButton:React.ReactComponentFactory<SplitButtonAttributes>;
-	SubNav:React.ReactComponentFactory<SubNavAttributes>;
-	TabPane:React.ReactComponentFactory<TabPaneAttributes>;
-	TabbedArea:React.ReactComponentFactory<TabbedAreaAttributes>;
-	Table:React.ReactComponentFactory<TableAttributes>;
-	Tooltip:React.ReactComponentFactory<TooltipAttributes>;
-	Well:React.ReactComponentFactory<BootstrapAttributes>;
+	Accordion:React.Factory<PanelGroupAttributes>;
+	Affix:React.Factory<AffixAttributes>;
+	AffixMixin:React.Mixin<AffixAttributes,any>;
+	Alert:React.Factory<AlertAttributes>;
+	Badge:React.Factory<BadgeAttributes>;
+	Button:React.Factory<ButtonAttributes>;
+	ButtonGroup:React.Factory<ButtonGroupAttributes>;
+	ButtonToolbar:React.Factory<ReactBootstrapAttributes>;
+	Carousel:React.Factory<CarouselAttributes>;
+	CarouselItem:React.Factory<CarouselItemAttributes>;
+	Col:React.Factory<ColAttributes>;
+	DropdownButton:React.Factory<DropdownButtonAttributes>;
+	DropdownMenu:React.Factory<DropdownMenuAttributes>;
+	Glyphicon:React.Factory<GlyphiconAttributes>;
+	Grid:React.Factory<GridAttributes>;
+	Input:React.Factory<InputAttributes>;
+	Interpolate:React.Factory<InterpolateAttributes>;
+	Jumbotron:React.Factory<{}>;
+	Label:React.Factory<ReactBootstrapAttributes>;
+	ListGroup:React.Factory<ListGroupAttributes>;
+	ListGroupItem:React.Factory<ListGroupItemAttributes>;
+	MenuItem:React.Factory<MenuItemAttributes>;
+	Modal:React.Factory<ModalAttributes>;
+	ModalTrigger:React.Factory<ModalTriggerAttributes>;
+	Nav:React.Factory<NavAttributes>;
+	NavItem:React.Factory<NavItemAttributes>;
+	Navbar:React.Factory<NavbarAttributes>;
+	OverlayTrigger:React.Factory<OverlayTriggerAttributes>;
+	PageHeader:React.Factory<any>;
+	PageItem:React.Factory<PageItemAttributes>;
+	Pager:React.Factory<PagerAttributes>;
+	Panel:React.Factory<PanelAttributes>;
+	PanelGroup:React.Factory<PanelGroupAttributes>;
+	Popover:React.Factory<PopoverAttributes>;
+	ProgressBar:React.Factory<ProgressBarAttributes>;
+	Row:React.Factory<RowAttributes>;
+	SplitButton:React.Factory<SplitButtonAttributes>;
+	SubNav:React.Factory<SubNavAttributes>;
+	TabPane:React.Factory<TabPaneAttributes>;
+	TabbedArea:React.Factory<TabbedAreaAttributes>;
+	Table:React.Factory<TableAttributes>;
+	Tooltip:React.Factory<TooltipAttributes>;
+	Well:React.Factory<ReactBootstrapAttributes>;
 }
 
-interface TooltipAttributes extends BootstrapAttributes
+interface TooltipAttributes extends ReactBootstrapAttributes
 {
 	/**
 	 * oneOf(['top','right', 'bottom', 'left']),
@@ -61,7 +62,7 @@ interface TooltipAttributes extends BootstrapAttributes
 	arrowOffsetLeft?:number;
 	arrowOffsetTop?:number;
 }
-interface TableAttributes
+interface TableAttributes extends React.DomAttributes
 {
 	striped?: boolean;
 	bordered?: boolean;
@@ -69,7 +70,7 @@ interface TableAttributes
 	hover?: boolean;
 	responsive?: boolean;
 }
-interface TabbedAreaAttributes extends BootstrapAttributes
+interface TabbedAreaAttributes extends ReactBootstrapAttributes
 {
 	/**
 	 * oneOf(['tabs','pills'])
@@ -78,13 +79,13 @@ interface TabbedAreaAttributes extends BootstrapAttributes
 	animation: boolean;
 	onSelect:(key?:string)=>void;
 }
-interface TabPaneAttributes
+interface TabPaneAttributes extends React.DomAttributes
 {
 	animation?:boolean;
 	active?:boolean;
 	onAnimateOutEnd?:()=>void;
 }
-interface SubNavAttributes extends BootstrapAttributes
+interface SubNavAttributes extends ReactBootstrapAttributes
 {
 	onSelect?: (key?:string, href?:string)=>void;
 	active?: boolean;
@@ -94,7 +95,7 @@ interface SubNavAttributes extends BootstrapAttributes
 	text?: any;
 }
 
-interface SplitButtonAttributes extends BootstrapAttributes
+interface SplitButtonAttributes extends ReactBootstrapAttributes
 {
 	pullRight?: boolean;
 	title?: any;
@@ -107,12 +108,12 @@ interface SplitButtonAttributes extends BootstrapAttributes
 	onSelect?: (key?:string)=>void;
 	disabled?: boolean;
 }
-interface RowAttributes
+interface RowAttributes extends React.DomAttributes
 {
 	componentClass: string;
 }
 
-interface ProgressBarAttributes extends BootstrapAttributes
+interface ProgressBarAttributes extends ReactBootstrapAttributes
 {
 	min?: number;
 	now?: number;
@@ -125,7 +126,7 @@ interface ProgressBarAttributes extends BootstrapAttributes
 	striped?: boolean;
 	active?: boolean;
 }
-interface PopoverAttributes extends BootstrapAttributes
+interface PopoverAttributes extends ReactBootstrapAttributes
 {
 	/**
 	 * oneOf(['top','right', 'bottom', 'left']),
@@ -137,23 +138,23 @@ interface PopoverAttributes extends BootstrapAttributes
 	arrowOffsetTop?: number;
 	title?: any;
 }
-interface PanelGroupAttributes extends BootstrapAttributes {
+interface PanelGroupAttributes extends ReactBootstrapAttributes {
 	collapsable?: boolean;
 	activeKey?: any;
 	defaultActiveKey?: any;
 	onSelect?: (key?:string)=>void;
 }
-interface PanelAttributes extends BootstrapAttributes,CollapsableAttributes {
+interface PanelAttributes extends ReactBootstrapAttributes,CollapsableAttributes {
 	onSelect: (key?:string)=>void;
 	header: any;
 	footer: any;
 }
 
-interface PagerAttributes {
-	//TODO: what type of attributes?
+interface PagerAttributes extends React.DomAttributes
+{
 	onSelect:()=>void;
 }
-interface PageItemAttributes
+interface PageItemAttributes extends React.DomAttributes
 {
 	disabled?: boolean;
 	previous?: boolean;
@@ -179,7 +180,7 @@ interface OverlayTriggerAttributes extends OverlayAttributes
 	defaultOverlayShown?:boolean;
 	overlay: any;
 }
-interface NavbarAttributes extends BootstrapAttributes
+interface NavbarAttributes extends ReactBootstrapAttributes
 {
 	fixedTop?:boolean;
 	fixedBottom?:boolean;
@@ -194,7 +195,7 @@ interface NavbarAttributes extends BootstrapAttributes
 	navExpanded?:boolean;
 	defaultNavExpanded?: boolean;
 }
-interface NavItemAttributes extends BootstrapAttributes
+interface NavItemAttributes extends ReactBootstrapAttributes
 {
 	onSelect?:(key?:string,href?:string)=>void;
 	active?:boolean;
@@ -202,7 +203,7 @@ interface NavItemAttributes extends BootstrapAttributes
 	href?:string;
 	title?:string;
 }
-interface NavAttributes extends BootstrapAttributes,CollapsableAttributes
+interface NavAttributes extends ReactBootstrapAttributes,CollapsableAttributes
 {
 	/**
 	 * oneOf('tabs','pills')
@@ -216,7 +217,7 @@ interface NavAttributes extends BootstrapAttributes,CollapsableAttributes
 	expanded?:boolean;
 	navbar?: boolean;
 }
-interface OverlayAttributes
+interface OverlayAttributes extends React.DomAttributes
 {
 	/**
 	 * CustomPropTypes.mountable
@@ -226,10 +227,10 @@ interface OverlayAttributes
 interface ModalTriggerAttributes extends OverlayAttributes
 {
 	//change to 'any'?
-	modal: React.ReactComponentFactory<ModalAttributes>
+	modal: React.Factory<ModalAttributes>
 }
 
-interface ModalAttributes extends BootstrapAttributes
+interface ModalAttributes extends ReactBootstrapAttributes
 {
 	title: any;
 	/**
@@ -241,7 +242,7 @@ interface ModalAttributes extends BootstrapAttributes
 	animation?:boolean;
 	onRequestHide:()=>void;
 }
-interface ListGroupItemAttributes extends BootstrapAttributes
+interface ListGroupItemAttributes extends ReactBootstrapAttributes
 {
 	/**
 	 * oneOf(['danger','info','success','warning']),
@@ -250,19 +251,27 @@ interface ListGroupItemAttributes extends BootstrapAttributes
 	active?: any;
 	disabled?: any;
 	header?: any;
-	//TODO: what type of attributes?
-	onClick?: (key?:string,href?:string)=>void;
+	/**
+	 * NOTE: In actuality: onClick?: (key?:string,href?:string)=>void;
+	 * Altough typescript does not allow overwrites
+	 * React Bootstrap implements onClick different from the React default
+	 * with two parameters, being: key and href
+	 * @param key:string
+	 * @param href:string
+	 */
+	onClick?: (event: React.MouseEvent) => void;
+
 }
-interface ListGroupAttributes extends BootstrapAttributes
+interface ListGroupAttributes extends ReactBootstrapAttributes
 {
 	onClick:()=>void;
 }
-interface InterpolateAttributes
+interface InterpolateAttributes extends React.DomAttributes
 {
 	format?: string;
 }
 
-interface InputAttributes
+interface InputAttributes extends React.DomAttributes
 {
 	type?: string;
 	label?: any;
@@ -279,22 +288,22 @@ interface InputAttributes
 	labelClassName?: string;
 	disabled?: boolean;
 }
-interface GridAttributes
+interface GridAttributes extends React.DomAttributes
 {
 	fluid?:boolean;
 	compenentClass:string;
 }
-interface GlyphiconAttributes extends BootstrapAttributes
+interface GlyphiconAttributes extends ReactBootstrapAttributes
 {
 	glyph: string;
 }
-interface DropdownMenuAttributes
+interface DropdownMenuAttributes extends React.DomAttributes
 {
 	pullRight?: boolean;
 	//TODO: what type of attributes?
 	onSelect?: ()=>void;
 }
-interface DropdownButtonAttributes extends BootstrapAttributes,React.ButtonAttributes
+interface DropdownButtonAttributes extends ReactBootstrapAttributes
 {
 	pullRight?:boolean;
 	dropup?:boolean;
@@ -311,7 +320,7 @@ interface CollapsableAttributes
 	expanded?: boolean;
 }
 
-interface ColAttributes
+interface ColAttributes extends React.DomAttributes
 {
 	xs?: number;
 	sm?: number;
@@ -332,7 +341,7 @@ interface ColAttributes
 	componentClass: string;
 }
 
-interface CarouselItemAttributes extends React.HTMLGlobalAttributes
+interface CarouselItemAttributes extends React.DomAttributes
 {
 	/**
 	 * oneOf(['prev', 'next']),
@@ -342,7 +351,7 @@ interface CarouselItemAttributes extends React.HTMLGlobalAttributes
 	active?: boolean;
 	caption?: any;
 }
-interface CarouselAttributes extends BootstrapAttributes
+interface CarouselAttributes extends ReactBootstrapAttributes
 {
 	slide?:boolean;
 	indicators?:boolean;
@@ -358,12 +367,12 @@ interface CarouselAttributes extends BootstrapAttributes
 	 */
 	direction?:string;
 }
-interface ButtonGroupAttributes extends BootstrapAttributes
+interface ButtonGroupAttributes extends ReactBootstrapAttributes
 {
 	vertical?:boolean;
 	justified?:boolean;
 }
-interface ButtonAttributes extends BootstrapAttributes,React.ButtonAttributes,React.AAttributes,React.LiAttributes
+interface ButtonAttributes extends ReactBootstrapAttributes
 {
 	active?:boolean;
 	disabled?: boolean;
@@ -372,16 +381,16 @@ interface ButtonAttributes extends BootstrapAttributes,React.ButtonAttributes,Re
 	navDropdown?:boolean;
 	componentClass?:string;
 }
-interface BadgeAttributes
+interface BadgeAttributes extends React.DomAttributes
 {
 	pullRight?: boolean;
 }
-interface AlertAttributes extends BootstrapAttributes
+interface AlertAttributes extends ReactBootstrapAttributes
 {
 	onDismiss?: (e?:React.MouseEvent)=>void;
 	dismissAfter?: number;
 }
-interface BootstrapAttributes
+interface ReactBootstrapAttributes extends React.DomAttributes
 {
 	/**
 	 * Used internally in react-bootstrap
@@ -398,24 +407,13 @@ interface BootstrapAttributes
 	 */
 	bsSize?:string;
 }
-interface AffixAttributes
+interface AffixAttributes extends React.DomAttributes
 {
 	offset?: number;
 	offsetTop?: number;
 	offsetBottom?: number;
 }
-interface ReactBootstrapAttributes
-{
-	pullRight?: boolean;
-	dropup?: boolean;
-	title?: any;
-	href?:string;
-	onClick?:()=>void;
-	onSelect?:()=>void;
-	navItem?:boolean;
-    bsStyle?:string;
-    bsSize?:string;
-}
+
 interface MenuItemAttributes extends ReactBootstrapAttributes
 {
 	header?:boolean;
