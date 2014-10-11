@@ -104,3 +104,8 @@ var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
     }
 });
 
+
+var tree = $('a').jstree();
+tree.move_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
+tree.copy_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
+
