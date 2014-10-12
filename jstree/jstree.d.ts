@@ -1003,8 +1003,8 @@ interface JSTree extends JQuery {
     * @param  {mixed} par the new parent
     * @param  {mixed} pos the position to insert at (besides integer values, "first" and "last" are supported, as well as "before" and "after"), defaults to integer `0`
     * @param  {function} callback a function to call once the move is completed, receives 3 arguments - the node, the new parent and the position
-    * @param  {Boolean} internal parameter indicating if the parent node has been loaded
-    * @param  {Boolean} internal parameter indicating if the tree should be redrawn
+    * @param  {Boolean} is_loaded internal parameter indicating if the parent node has been loaded
+    * @param  {Boolean} skip_redraw internal parameter indicating if the tree should be redrawn
     * @trigger move_node.jstree
     */
     move_node: (obj: any, par: any, pos?: any, callback?: (node: any, new_par: any, pos: any) => void, is_loaded?: boolean, skip_redraw?: boolean) => void;
@@ -1016,8 +1016,8 @@ interface JSTree extends JQuery {
     * @param  {mixed} par the new parent
     * @param  {mixed} pos the position to insert at (besides integer values, "first" and "last" are supported, as well as "before" and "after"), defaults to integer `0`
     * @param  {function} callback a function to call once the move is completed, receives 3 arguments - the node, the new parent and the position
-    * @param  {Boolean} internal parameter indicating if the parent node has been loaded
-    * @param  {Boolean} internal parameter indicating if the tree should be redrawn
+    * @param  {Boolean} is_loaded internal parameter indicating if the parent node has been loaded
+    * @param  {Boolean} skip_redraw internal parameter indicating if the tree should be redrawn
     * @trigger model.jstree copy_node.jstree
     */
     copy_node: (obj: any, par: any, pos?: any, callback?: (node: any, new_par: any, pos: any) => void, is_loaded?: boolean, skip_redraw?: boolean) => void;
