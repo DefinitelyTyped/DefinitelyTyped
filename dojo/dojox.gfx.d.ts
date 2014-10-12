@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="dojo.d.ts" />
-/// <reference path="dojox.geo.d.ts" />
 declare module dojox {
     
     /**
