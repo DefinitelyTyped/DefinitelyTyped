@@ -1,14 +1,29 @@
 /// <reference path="ga.d.ts" />
 /// <reference path="../jasmine/jasmine.d.ts" />
 
-describe('UniversalGoogleAnalytics', () => {
-    it('should be a function', () => {
-        ga('create', 'UA-65432-1');
+describe('UniversalAnalytics', () => {
+    it('should exercise all ga APIs', () => {
+        ga('create', 'UA-65432-1', 'auto');
+        ga('create', 'UA-65432-1', {some: 'config'});
+        ga('create', 'UA-65432-1', 'auto', {some: 'config'});
         ga('send', 'pageview');
-    });
-    it('should have methods', () => {
+        ga('send', 'pageview', {some: 'details'});
+        ga.create('UA-65432-1', 'auto');
+        ga.create('UA-65432-1', {some: 'config'});
+        ga.create('UA-65432-1', 'auto', {some: 'config'});
         ga.getAll();
         ga.getByName('aNamedTracker');
+    });
+    it('should excercise Tracker APIs', () => {
+        var tracker: UniversalAnalytics.Tracker = ga('create', 'UA-65432-1', 'auto');
+        var aString: string = tracker.get<string>('aString');
+        var aNumber: number = tracker.get<number>('aNumber');
+        var anObject: {} = tracker.get<{}>('anObject');
+        tracker.send('pageview');
+        tracker.send('pageview', {some: 'details'});
+        tracker.set('aString', aString);
+        tracker.set('aNumber', aNumber);
+        tracker.set('anObject', anObject);
     });
 });
 

@@ -1,6 +1,6 @@
-// Type definitions for Google Analytics
+// Type definitions for Google Analytics (Classic and Universal)
 // Project: https://developers.google.com/analytics/devguides/collection/gajs/
-// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>
+// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>, Pat Kujawa <http://patkujawa.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Tracker {
@@ -30,19 +30,30 @@ interface GoogleAnalyticsTracker {
     _anonymizeIp(): void;
 }
 
-interface UniversalGoogleAnalytics {
-    (command: string, trackingId:string, opt_configObject?: {}): UniversalTracker;
-    (command: string, ...rest): void;
-    getAll(): UniversalTracker[];
-    getByName(trackerName: string): UniversalTracker;
+declare module UniversalAnalytics {
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
+
+    interface ga {
+        (command: string, trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        (command: string, hitDetails: {}): void;
+        (command: string, hitType: string, hitDetails?: {}): void;
+        create(trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        create(trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        getAll(): UniversalAnalytics.Tracker[];
+        getByName(name: string): UniversalAnalytics.Tracker;
+    }
+
+    interface Tracker {
+        get<T>(fieldName: string): T;
+        send(hitType: string, opt_fieldObject?: {}): void;
+        set(fieldName: string, value: string): void;
+        set(fieldName: string, value: {}): void;
+        set(fieldName: string, value: number): void;
+        set(fieldName: string, value: boolean): void;
+    }
 }
 
-interface UniversalTracker {
-    get(...any): any;
-    send(...any): any;
-    set(...any): any;
-}
-
-declare var ga: UniversalGoogleAnalytics;
+declare var ga: UniversalAnalytics.ga;
 declare var _gaq: GoogleAnalyticsCode;
 declare var _gat: GoogleAnalyticsTracker;
