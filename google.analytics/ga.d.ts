@@ -30,14 +30,19 @@ interface GoogleAnalyticsTracker {
     _anonymizeIp(): void;
 }
 
+interface GoogleAnalytics {
+    type: string;
+    src: string;
+    async: boolean;
+}
+
 declare module UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 
     interface ga {
-        (command: string, trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
         (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         (command: string, hitDetails: {}): void;
-        (command: string, hitType: string, hitDetails?: {}): void;
         create(trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         create(trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         getAll(): UniversalAnalytics.Tracker[];
@@ -54,6 +59,7 @@ declare module UniversalAnalytics {
     }
 }
 
+declare var gaClassic: GoogleAnalytics;
 declare var ga: UniversalAnalytics.ga;
 declare var _gaq: GoogleAnalyticsCode;
 declare var _gat: GoogleAnalyticsTracker;
