@@ -30,12 +30,19 @@ interface GoogleAnalyticsTracker {
     _anonymizeIp(): void;
 }
 
-interface GoogleAnalytics {
-    type: string;
-    src: string;
-    async: boolean;
+interface UniversalGoogleAnalytics {
+    (command: string, trackingId:string, opt_configObject?: {}): UniversalTracker;
+    (command: string, ...rest): void;
+    getAll(): UniversalTracker[];
+    getByName(trackerName: string): UniversalTracker;
 }
 
-declare var ga: GoogleAnalytics;
+interface UniversalTracker {
+    get(...any): any;
+    send(...any): any;
+    set(...any): any;
+}
+
+declare var ga: UniversalGoogleAnalytics;
 declare var _gaq: GoogleAnalyticsCode;
 declare var _gat: GoogleAnalyticsTracker;
