@@ -5276,7 +5276,7 @@ declare module dojox {
              * @param c an x component of a central point, or a central point             
              * @param d a y component of a central point             
              */
-            scaleAt(a: number, b: number, c: dojox.geo.openlayers.Point, d: number): dojox.gfx.matrix.Matrix2D;
+            scaleAt(a: number, b: number, c: dojox.gfx.Point, d: number): dojox.gfx.matrix.Matrix2D;
             /**
              * forms an x skewing matrix
              * The resulting matrix is used to skew points in the x dimension
