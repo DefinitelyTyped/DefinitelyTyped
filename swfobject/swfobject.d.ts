@@ -47,7 +47,7 @@ declare module swfobject {
     release: number;
   }
 
-  export function hasPlayerVersion(
+  export function hasFlashPlayerVersion(
     rv: string
     ): void;
 
