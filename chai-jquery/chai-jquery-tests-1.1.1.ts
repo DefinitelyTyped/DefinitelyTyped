@@ -1,5 +1,5 @@
 /// <reference path="../chai/chai.d.ts" />
-/// <reference path="chai-jquery.d.ts" />
+/// <reference path="chai-jquery-1.1.1.d.ts" />
 
 // tests taken from https://github.com/chaijs/chai-jquery
 
