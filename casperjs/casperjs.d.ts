@@ -1,6 +1,6 @@
 // Type definitions for CasperJS v1.0.0 API
 // Project: http://casperjs.org/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>
+// Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../phantomjs/phantomjs.d.ts" />
