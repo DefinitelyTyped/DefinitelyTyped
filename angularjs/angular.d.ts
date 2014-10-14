@@ -1413,7 +1413,7 @@ declare module ng {
         find(selector: string): IAugmentedJQuery;
         find(element: any): IAugmentedJQuery;
         find(obj: JQuery): IAugmentedJQuery;
-
+        controller(): any;
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
