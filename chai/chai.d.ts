@@ -28,25 +28,7 @@ declare module chai {
         (target: any): Expect;
     }
 
-    interface Assertions {
-        attr(name: string, value?: string): any;
-        css(name: string, value?: string): any;
-        data(name: string, value?: string): any;
-        class(className: string): any;
-        id(id: string): any;
-        html(html: string): any;
-        text(text: string): any;
-        value(value: string): any;
-        visible: any;
-        hidden: any;
-        selected: any;
-        checked: any;
-        disabled: any;
-        empty: any;
-        exist: any;
-    }
-
-    interface Expect extends LanguageChains, NumericComparison, TypeComparison, Assertions {
+    interface Expect extends LanguageChains, NumericComparison, TypeComparison {
         not: Expect;
         deep: Deep;
         a: TypeComparison;

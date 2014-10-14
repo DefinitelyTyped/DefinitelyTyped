@@ -6,32 +6,26 @@
 /// <reference path="../chai/chai.d.ts" />
 
 declare module chai {
-    interface NameValueRegexMatcher {
-        match(value: RegExp): boolean;
-    }
-
-    interface NameValueMatcher {
-        (name: string, value?: string): boolean;
-    }
-
-    interface Have {
-        attr: NameValueMatcher;
-        css: NameValueMatcher;
-        data: NameValueMatcher;
-        class(className: string): boolean;
-        id(id: string): boolean;
-        html(html: string): boolean;
-        text(text: string): boolean;
-        value(text: string): boolean;
-        (selector: string): boolean;
-    }
-
-    interface Be {
-        visible: boolean;
-        hidden: boolean;
-        selected: boolean;
-        checked: boolean;
-        disabled: boolean;
-        (selector: string): boolean;
+    interface Expect {
+        attr(name: string, value?: string): Expect;
+        prop(name: string, value?: any): Expect;
+        css(name: string, value?: string): Expect;
+        data(name: string, value?: any): Expect;
+        class(className: string): Expect;
+        id(id:string): Expect;
+        html(html: string): Expect;
+        text(text: string): Expect;
+        value(value: string): Expect;
+        visible: Expect;
+        hidden: Expect;
+        select: Expect;
+        checked: Expect;
+        enabled: Expect;
+        disabled: Expect;
+        empty: Expect;
+        exist: Expect;
+        match(selector: string): Expect;
+        contain(text: string): Expect;
+        descendants(selector: string): Expect;
     }
 }
