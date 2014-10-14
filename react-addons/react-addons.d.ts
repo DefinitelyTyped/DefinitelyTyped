@@ -131,6 +131,7 @@ declare module React {
 
     export interface EventSimulator {
         (element: Element, eventData?: SyntheticEventData): void;
+        (descriptor: Descriptor<any>, eventData?: SyntheticEventData): void;
     }
 
     export interface Simulate {
