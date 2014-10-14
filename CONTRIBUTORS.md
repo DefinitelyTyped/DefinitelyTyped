@@ -1,4 +1,4 @@
-﻿# Contributors
+# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -315,6 +315,7 @@ All definitions files include a header with the author and editors, so at some p
 * [PeerJS](http://peerjs.com/) (by [Toshiya Nakakura](https://github.com/nakakura))
 * [PEG.js](http://pegjs.majda.cz/) (by [vvakame](https://github.com/vvakame))
 * [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
+* [PgwModal](http://pgwjs.com/pgwmodal/) (by [Pine Mizune](https://github.com/pine613))
 * [PhantomJS](http://phantomjs.org) (by [Jed Hunsaker](https://github.com/jedhunsaker))
 * [PhoneGap](http://phonegap.com) (by [Boris Yankov](https://github.com/borisyankov))
 * [Physijs](http://chandlerprall.github.io/Physijs/) (by [gyoh_k](https://github.com/gyohk))
