@@ -373,6 +373,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Store.js](https://github.com/marcuswestin/store.js/) (by [Vincent Bortone](https://github.com/vbortone))
 * [stylus](https://github.com/LearnBoost/stylus) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [Sugar](http://sugarjs.com/) (by [Josh Baldwin](https://github.com/jbaldwin/))
+* [swfobject](https://code.google.com/p/swfobject/) (by [rou](https://github.com/rou))
 * [Swiper](http://www.idangero.us/sliders/swiper) (by [Sebastián Galiano](https://github.com/sgaliano))
 * [SwipeView](http://cubiq.org/swipeview) (by [Boris Yankov](https://github.com/borisyankov))
 * [Swiz](https://github.com/racker/node-swiz) (by [Jeff Goddard](https://github.com/jedigo))
