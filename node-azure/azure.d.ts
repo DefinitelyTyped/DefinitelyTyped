@@ -844,7 +844,7 @@ declare module "azure" {
         container: string;
 
         etag: string;
-        lastModified: Date;
+        lastModified: string;
         contentType: string;
         contentEncoding: string;
         contentLanguage: string;
@@ -894,7 +894,7 @@ declare module "azure" {
         publicAccessLevel: string;
 
         etag: string;
-        lastModified: Date;
+        lastModified: string;
         leaseStatus: string;
         leaseDuration: string;
         leaseState: string;
@@ -916,15 +916,15 @@ declare module "azure" {
         container: string;
         blob: string;
         id: string;
-        time: Date;
+        time: string;
         etag: string;
-        lastModified: Date;
+        lastModified: string;
 
         constructor();
         constructor(container: string);
         constructor(container: string, blob: string);
         constructor(container: string, blob: string, id: string);
-        constructor(container: string, blob: string, id: string, time: Date);
+        constructor(container: string, blob: string, id: string, time: string);
 
         getPropertiesFromHeaders(header: any): void;
     }
@@ -945,6 +945,11 @@ declare module "azure" {
 
     export class QueueMessageResult {
         queue: string;
+        insertiontime: string;
+        expirationtime: string;
+        timenextvisible: string;
+        messagetext: string;
+        dequeuecount: string;
         messageid: string;
         popreceipt: string;
         metadata: StorageMetadata;
