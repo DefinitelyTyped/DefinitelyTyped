@@ -126,4 +126,4 @@ interface JQuery {
     i18n: (options?: I18nextOptions) => void;
 }
 
-declare var i18next: I18nextStatic;
+declare var i18n: I18nextStatic;
