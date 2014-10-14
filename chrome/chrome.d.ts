@@ -1053,6 +1053,7 @@ declare module chrome.identity {
 declare module chrome.i18n {
     export function getMessage(messageName: string, substitutions?: any): string;
     export function getAcceptLanguages(callback: (languages: string[]) => void): void;
+    export function getUILanguage(): string;
 }
 
 ////////////////////
