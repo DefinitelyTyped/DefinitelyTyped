@@ -1,7 +1,9 @@
 ﻿// Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>
+// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path='../filesystem/filesystem.d.ts'/>
 
 ////////////////////
 // App Runtime
@@ -21,11 +23,11 @@ declare module chrome.app.runtime {
     }
 
     interface LaunchedEvent {
-        addListener(callback: (launchData: LaunchData) => void);
+        addListener(callback: (launchData: LaunchData) => void): void;
     }
 
     interface RestartedEvent {
-        addListener(callback: () => void);
+        addListener(callback: () => void): void;
     }
 
     var onLaunched: LaunchedEvent;
@@ -94,6 +96,50 @@ declare module chrome.app.window {
     var onRestored: WindowEvent;
 }
 
+////////////////////
+// fileSystem
+////////////////////
+declare module chrome.fileSystem {
+
+    interface ChildChangeInfo {
+        entry: Entry;
+        type: string;
+    }
+
+    interface EntryChangedEvent {
+        target: Entry;
+        childChanges?: ChildChangeInfo[];
+    }
+
+    interface EntryRemovedEvent {
+        target: Entry;
+    }
+
+    interface AcceptOptions {
+        description?: string;
+        mimeTypes?: string[];
+        extensions?: string[];
+    }
+
+    interface ChooseEntryOptions {
+        type?: string;
+        suggestedName?: string;
+        accepts?: AcceptOptions[];
+        acceptsAllTypes?: boolean;
+        acceptsMultiple?: boolean;
+    }
+
+    export function getDisplayPath(entry: Entry, callback: (displayPath: string) => void): void;
+    export function getWritableEntry(entry: Entry, callback: (entry: Entry) => void): void;
+    export function isWritableEntry(entry: Entry, callback: (isWritable: boolean) => void): void;
+    export function chooseEntry(callback: (entry: Entry) => void): void;
+    export function chooseEntry(callback: (fileEntries: FileEntry[]) => void): void;
+    export function chooseEntry(options: ChooseEntryOptions, callback: (entry: Entry) => void): void;
+    export function chooseEntry(options: ChooseEntryOptions, callback: (fileEntries: FileEntry[]) => void): void;
+    export function restoreEntry(id: string, callback: (entry: Entry) => void): void;
+    export function isRestorable(id: string, callback: (isRestorable: boolean) => void): void;
+    export function retainEntry(entry: Entry): string;
+}
 
 ////////////////////
 // Sockets
