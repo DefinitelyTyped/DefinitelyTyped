@@ -9,6 +9,7 @@ declare module CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
+    var disableObjectResizing: boolean;
     var replaceClass: string;
     var skinName: string;
 
