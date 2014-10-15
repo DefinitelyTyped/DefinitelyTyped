@@ -1,7 +1,7 @@
 // Type definitions for ListJS v1.1.0
 // Project: https://github.com/javve/list.js
 // Definitions by: Marilyne Chan <https://github.com/marilynechan>
-// Definitions by: Germain Bergeron  <https://github.com/marilynechan>
+// Definitions by: Germain Bergeron  <https://github.com/germainbergeron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface ListOptions {
