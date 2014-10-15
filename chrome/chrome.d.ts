@@ -1617,8 +1617,8 @@ declare module chrome.runtime {
     var onStartup: RuntimeStartupEvent;
     var onInstalled: RuntimeInstalledEvent;
     var onSuspendCanceled: RuntimeSuspendCanceledEvent;
-    var onMessage: RuntimeMessageEvent;
-    var onMessageExternal: RuntimeMessageEvent;
+    var onMessage: ExtensionMessageEvent;
+    var onMessageExternal: ExtensionMessageExternalEvent;
     var onRestartRequired: RuntimeRestartRequiredEvent;
     var onUpdateAvailable: RuntimeUpdateAvailableEvent;
 
