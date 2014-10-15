@@ -33,4 +33,5 @@ declare class List {
 
 declare class Item {
     values(newValues?: any): any;
+    elm: JQuery;
 }
