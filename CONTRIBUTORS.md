@@ -384,6 +384,7 @@ All definitions files include a header with the author and editors, so at some p
 * [text-buffer](https://github.com/atom/text-buffer) (by [vvakame](https://github.com/vvakame))
 * [text-encoding](https://github.com/inexorabletash/text-encoding) (by [MIZUNE Pine](https://github.com/pine613))
 * [three.js](http://mrdoob.github.com/three.js/) (by [Kon](http://phyzkit.net/))
+* [through2](https://github.com/rvagg/through2) (by [Bart van der Schoor](https://github.com/Bartvds) and [jedmao](https://github.com/jedmao))
 * [TimelineJS](https://github.com/NUKnightLab/TimelineJS) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [timezonecomplete](https://github.com/SpiritIT/timezonecomplete) (by [Rogier Schouten](https://github.com/rogierschouten))
 * [Toastr](https://github.com/CodeSeven/toastr) (by [Boris Yankov](https://github.com/borisyankov))
