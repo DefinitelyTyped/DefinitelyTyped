@@ -72,7 +72,7 @@ declare module 'vinyl' {
 		/**
 		* Returns a new File object with all attributes cloned. Custom attributes are deep-cloned.
 		*/
-		public clone(): File;
+		public clone(opts?: { contents?: boolean }): File;
 
 		/**
 		* If file.contents is a Buffer, it will write it to the stream.
