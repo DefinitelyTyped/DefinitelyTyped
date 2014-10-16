@@ -126,93 +126,6 @@ declare module Xrm
     }
 
     /**
-     * Interface for defining parameters on a request to open a form with a URL (as with
-     * window.open). Useful for parsing the keys and values into a string of the format: 
-     * "&<key>=<value>".
-     *
-     * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
-     *           the URL, for forms. Example:  "pagetype=entityrecord"
-     */
-    export interface FormOpenParameters
-    {
-        /**
-         * The logical name of the entity.
-         */
-        etn: string;
-
-        /**
-         * Additional parameters can be provided to the request. This can only be used to provide
-         * default field values for the form, or pass data to custom parameters that have been
-         * customized for the form.  See example below for setting the selected form.
-         * 
-         * @remarks Example:  encodeURIComponent( "formid=" + theFormGuid );
-         */
-        extraqs?: string;
-
-        /**
-         * Controls whether the command bar is displayed.
-         * Accepted values are: "true"    (The command bar is displayed.)
-         *                      "false"   (The command bar is not displayed.)
-         */
-        cmdbar?: string;
-
-        /**
-         * Controls whether the Navigation bar is displayed on the form.
-         * Accepted values are: "on"      (The navigation bar is displayed.)
-         *                      "off"     (The navigation bar is not displayed.)
-         *                      "entity"  (On an entity form, only the navigation options for related
-         *                                entities are available.)
-         */
-        navbar?: string;
-    }
-
-    /**
-     * Interface for defining parameters on a request to open a view with a URL (as with
-     * window.open). Useful for parsing the keys and values into a string of the format: 
-     * "&<key>=<value>".
-     *
-     * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
-     *           the URL, for views. Example:  "pagetype=entitylist"
-     */
-    export interface ViewOpenParameters
-    {
-        /**
-         * The logical name of the entity.
-         */
-        etn: string;
-
-        /**
-         * The unique identifier of a view, in Guid format, which is valid for the entity described by
-         * {@link etn}.
-         */
-        viewid: string;
-
-        /**
-         * The type of view identified by {@link viewid}.
-         *
-         * @remarks  Accepted values are:    1039    System View
-         *                                   4230    User View.
-         */
-        viewtype: number;
-
-        /**
-         * Controls whether the command bar is displayed.
-         * Accepted values are: "true"    (The command bar is displayed.)
-         *                      "false"   (The command bar is not displayed.)
-         */
-        cmdbar?: string;
-
-        /**
-         * Controls whether the Navigation bar is displayed on the form.
-         * Accepted values are: "on"      (The navigation bar is displayed.)
-         *                      "off"     (The navigation bar is not displayed.)
-         *                      "entity"  (On an entity form, only the navigation options for related
-         *                                entities are available.)
-         */
-        navbar?: string;
-    }
-
-    /**
      *  A definition module for ascynchronous interface declarations.
      */
     export module Async
@@ -1837,6 +1750,160 @@ declare module Xrm
          * @return  An array of control.
          */
         export function getControl( delegateFunction: Collection.MatchingDelegate<Control> ): Control[];
+    }
+
+    /**
+     * An definition module for URL-based, CRM component parameters.
+     * 
+     * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
+     */
+    export module Url
+    {
+        /**
+         * Interface for defining parameters on a request to open a form with main.aspx (as with
+         * window.open). Useful for parsing the keys and values into a string of the format: 
+         * "&key=value".
+         *
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
+         * 
+         * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
+         *           the URL, for forms. Example:  "pagetype=entityrecord"
+         */
+        export interface FormOpenParameters
+        {
+            /**
+             * The logical name of the entity.
+             */
+            etn: string;
+
+            /**
+             * Additional parameters can be provided to the request. This can only be used to provide
+             * default field values for the form, or pass data to custom parameters that have been
+             * customized for the form.  See example below for setting the selected form.
+             * 
+             * @remarks Example:  encodeURIComponent( "formid={8c9f3e6f-7839-e211-831e-00155db7d98f}" );
+             */
+            extraqs?: string;
+
+            /**
+             * Controls whether the command bar is displayed.
+             * Accepted values are: "true"    (The command bar is displayed.)
+             *                      "false"   (The command bar is not displayed.)
+             */
+            cmdbar?: string;
+
+            /**
+             * Controls whether the Navigation bar is displayed on the form.
+             * Accepted values are: "on"      (The navigation bar is displayed.)
+             *                      "off"     (The navigation bar is not displayed.)
+             *                      "entity"  (On an entity form, only the navigation options for related
+             *                                entities are available.)
+             */
+            navbar?: string;
+        }
+
+        /**
+         * Interface for defining parameters on a request to open a view with main.aspx (as with
+         * window.open). Useful for parsing the keys and values into a string of the format: 
+         * "&key=value".
+         * 
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
+         *
+         * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
+         *           the URL, for views. Example:  "pagetype=entitylist"
+         */
+        export interface ViewOpenParameters
+        {
+            /**
+             * The logical name of the entity.
+             */
+            etn: string;
+
+            /**
+             * The unique identifier of a view, in Guid format, which is valid for the entity described by
+             * {@link etn}.
+             */
+            viewid: string;
+
+            /**
+             * The type of view identified by {@link viewid}.
+             *
+             * @remarks  Accepted values are:    1039    System View
+             *                                   4230    User View.
+             */
+            viewtype: number;
+
+            /**
+             * Controls whether the command bar is displayed.
+             * Accepted values are: "true"    (The command bar is displayed.)
+             *                      "false"   (The command bar is not displayed.)
+             */
+            cmdbar?: string;
+
+            /**
+             * Controls whether the Navigation bar is displayed on the form.
+             * Accepted values are: "on"      (The navigation bar is displayed.)
+             *                      "off"     (The navigation bar is not displayed.)
+             *                      "entity"  (On an entity form, only the navigation options for related
+             *                                entities are available.)
+             */
+            navbar?: string;
+        }
+
+        /**
+         * Interface for defining parameters of a request to open a dialog with rundialog.aspx (as with
+         * window.open).  Useful for parsing the keys and values into a string of the format: 
+         * "&key=value".
+         * 
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
+         */
+        export interface DialogOpenParameters
+        {
+            /**
+             * The unique identifier of the dialog, in Guid format, which is valid for the entity described
+             * by: {@link EntityName}
+             */
+            DialogId: string;
+
+            /**
+             * The logical name of the entity.
+             */
+            EntityName: string;
+
+            /**
+             * The unique identifier for the targeted record.
+             */
+            ObjectId: string;
+        }
+
+        /**
+         * Interface for defining parameters of a request to open a report with viewer.apsx (as with
+         * window.open).  Useful for parsing out the keys and values into a string of the format:
+         * "&key=value"
+         * 
+         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
+         */
+        export interface ReportOpenParameters
+        {
+            /**
+             * The action to perform, as either "run" or "filter".
+             *
+             * @remarks  "run"       Executes the report with default filters. 
+             *           "filter"    Presents the user with the filter editor, and a "Run Report" button.
+             */
+            action: string;
+
+            /**
+             * The filename of the report.  For out-of-box reports, this parameter enables context-sensitive
+             * help.
+             */
+            helpID?: string;
+
+            /**
+             * The unique identifier, held in the report's 'reportid' attribute, in Guid format.
+             */
+            id: string;
+        }
     }
 
     /**
