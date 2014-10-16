@@ -570,21 +570,21 @@ declare module Xrm
             /**
              * Sets required level.
              *
-             * @param   {string}    requirementLevel    Not required.
+             * @param   {"none"}    requirementLevel    Not required.
              */
             setRequiredLevel( requirementLevel: "none" ): void;
 
             /**
              * Sets required level.
              *
-             * @param   {string}    requirementLevel    Required.
+             * @param   {"required"}    requirementLevel    Required.
              */
             setRequiredLevel( requirementLevel: "required" ): void;
 
             /**
              * Sets required level.
              *
-             * @param   {string}    requirementLevel    Recommended.
+             * @param   {"recommended"}    requirementLevel    Recommended.
              */
             setRequiredLevel( requirementLevel: "recommended" ): void;
 
@@ -598,21 +598,21 @@ declare module Xrm
             /**
              * Sets submit mode.
              *
-             * @param   {string}    submitMode  Always submit this attribute.
+             * @param   {"always"}    submitMode  Always submit this attribute.
              */
             setSubmitMode( submitMode: "always" ): void;
 
             /**
              * Sets submit mode.
              *
-             * @param   {string}    submitMode  Never submit this attribute.
+             * @param   {"never"}    submitMode  Never submit this attribute.
              */
             setSubmitMode( submitMode: "never" ): void;
 
             /**
              * Sets submit mode.
              *
-             * @param   {string}    submitMode  Submit this attribute when changed.
+             * @param   {"dirty"}    submitMode  Submit this attribute when changed.
              */
             setSubmitMode( submitMode: "dirty" ): void;
 
