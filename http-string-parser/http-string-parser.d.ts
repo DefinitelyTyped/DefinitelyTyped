@@ -34,5 +34,5 @@ declare module "http-string-parser" {
     export function parseResponse(responseString: string): ParseResponseResult;
     export function parseRequestLine(requestLineString: string): ParseRequestLineResult;
     export function parseStatusLine(statusLine: string): ParseStatusLineResult;
-    export function parseHeaders(headerLines: string): { [key: string]: string };
+    export function parseHeaders(headerLines: string[]): { [key: string]: string };
 }
