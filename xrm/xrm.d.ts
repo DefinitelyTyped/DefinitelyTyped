@@ -126,6 +126,41 @@ declare module Xrm
     }
 
     /**
+     * Interface for defining parameters on a request to open a form.
+     */
+    export interface FormOpenParameters
+    {
+        /**
+         * The identifier of the form to use, when several are available.
+         */
+        formid: string;
+
+        /**
+         * Controls whether the Navigation bar is displayed on the form.
+         * Accepted values are: "on"      (The navigation bar is displayed.)
+         *                      "off"     (The navigation bar is not displayed.)
+         *                      "entity"  (On an entity form, only the navigation options for related
+         *                                entities are available.)
+         */
+        navbar: string;
+
+        /**
+         * Controls whether the command bar is displayed.
+         * Accepted values are: "true"    (The command bar is displayed.)
+         *                      "false"   (The command bar is not displayed.)
+         */
+        cmdbar: string;
+
+        /**
+         * Additional parameters can be provided to the request, by overloading
+         * this object with additional key and value pairs. This can only be used
+         * to provide default field values for the form, or pass data to custom
+         * parameters that have been customized for the form.
+         */
+        [index: string]: string;
+    }
+
+    /**
      *  A definition module for ascynchronous interface declarations.
      */
     export module Async
@@ -1759,41 +1794,6 @@ declare module Xrm
      */
     export module Utility
     {
-        /**
-         * Interface for defining parameters on a request to open a form.
-         */
-        export interface FormOpenParameters
-        {
-            /**
-             * The identifier of the form to use, when several are available.
-             */
-            formid: string;
-
-            /**
-             * Controls whether the Navigation bar is displayed on the form.
-             * Accepted values are: "on"      (The navigation bar is displayed.)
-             *                      "off"     (The navigation bar is not displayed.)
-             *                      "entity"  (On an entity form, only the navigation options for related
-             *                                entities are available.)
-             */
-            navbar: string;
-
-            /**
-             * Controls whether the command bar is displayed.
-             * Accepted values are: "true"    (The command bar is displayed.)
-             *                      "false"   (The command bar is not displayed.)
-             */
-            cmdbar: string;
-
-            /**
-             * Additional parameters can be provided to the request, by overloading
-             * this object with additional key and value pairs. This can only be used
-             * to provide default field values for the form, or pass data to custom
-             * parameters that have been customized for the form.
-             */
-            [index: string]: string;
-        }
-
         /**
          * Displays an alert dialog, with an "OK" button.
          *
