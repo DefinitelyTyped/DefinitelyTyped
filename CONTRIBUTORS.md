@@ -144,6 +144,7 @@ All definitions files include a header with the author and editors, so at some p
 * [i18n-node](https://github.com/mashpie/i18n-node) (by [Maxime LUCE](https://github.com/SomaticIT))
 * [iCheck](http://damirfoy.com/iCheck/) (by [Dániel Tar](https://github.com/qcz))
 * [Impress.js](https://github.com/bartaz/impress.js) (by [Boris Yankov](https://github.com/borisyankov))
+* [Intercom.js](https://github.com/diy/intercom.js) (by [Spencer Williams](https://github.com/spencerwi))
 * [Imagemagick](http://github.com/rsms/node-imagemagick) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [inflection](https://github.com/dreamerslab/node.inflection) (by [Shogo Iwano](https://github.com/shiwano))
 * [insight](https://github.com/yeoman/insight) (by [vvakame](https://github.com/vvakame))
