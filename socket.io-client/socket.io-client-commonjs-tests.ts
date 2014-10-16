@@ -1,4 +1,4 @@
-/// <reference path="socket.io-client.d.ts"/>
+import io = require('socket.io-client');
 
 var socket = io.connect('http://localhost:80');
 
