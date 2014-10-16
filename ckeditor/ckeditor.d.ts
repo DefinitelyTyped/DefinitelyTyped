@@ -9,6 +9,7 @@ declare module CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
+    var disableObjectResizing: boolean;
     var replaceClass: string;
     var skinName: string;
 
@@ -551,9 +552,20 @@ declare module CKEDITOR {
 
 
     interface config {
-        startupMode: string;
-        removeButtons: string;
+        startupMode?: string;
+        removeButtons?: string;
         toolbar?: any;
+        skin?: string;
+        language?: string;
+        plugins?: string;
+        font_names?: string;
+        font_defaultLabel?: string;
+        fontSize_sizes?: string;
+        fontSize_defaultLabel?: string;
+        colorButton_enableMore?: boolean;
+        colorButton_colors?: string;
+        startupFocus?: boolean;
+        on?: any;
     }
 
 
