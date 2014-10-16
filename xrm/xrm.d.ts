@@ -568,16 +568,58 @@ declare module Xrm
             removeOnChange( handler: ContextSensitiveHandler ): void;
 
             /**
-             * Sets the required level, as either "none", "required", or "recommended"
+             * Sets required level.
              *
-             * @param   {string}    requirementLevel    The requirement level.
+             * @param   {string}    requirementLevel    Not required.
+             */
+            setRequiredLevel( requirementLevel: "none" ): void;
+
+            /**
+             * Sets required level.
+             *
+             * @param   {string}    requirementLevel    Required.
+             */
+            setRequiredLevel( requirementLevel: "required" ): void;
+
+            /**
+             * Sets required level.
+             *
+             * @param   {string}    requirementLevel    Recommended.
+             */
+            setRequiredLevel( requirementLevel: "recommended" ): void;
+
+            /**
+             * Sets the required level.
+             *
+             * @param   {string}    requirementLevel    The requirement level, as either "none", "required", or "recommended"
              */
             setRequiredLevel( requirementLevel: string ): void;
 
             /**
-             * Sets the submit mode, as either "always", "never", or "dirty"
+             * Sets submit mode.
              *
-             * @param   {string}    submitMode  The submit mode.
+             * @param   {string}    submitMode  Always submit this attribute.
+             */
+            setSubmitMode( submitMode: "always" ): void;
+
+            /**
+             * Sets submit mode.
+             *
+             * @param   {string}    submitMode  Never submit this attribute.
+             */
+            setSubmitMode( submitMode: "never" ): void;
+
+            /**
+             * Sets submit mode.
+             *
+             * @param   {string}    submitMode  Submit this attribute when changed.
+             */
+            setSubmitMode( submitMode: "dirty" ): void;
+
+            /**
+             * Sets the submit mode.
+             *
+             * @param   {string}    submitMode  The submit mode, as either "always", "never", or "dirty".
              * 
              * @remarks The default value is "dirty"
              */
@@ -894,17 +936,35 @@ declare module Xrm
             removeOnSave( handler: ContextSensitiveHandler ): void;
 
             /**
+             * Saves the record.
+             *
+             * @remarks  When using quick create forms in the web application the saveandnew option is not
+             *           applied. It will always work as if saveandclose were used. Quick create forms in
+             *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
+             */
+            save(): void;
+
+            /**
+             * Saves the record with the given save mode.
+             *
+             * @param   {"saveandclose"}    saveMode    Saves the record, and closes the form.
+             */
+            save( saveMode: "saveandclose" ): void;
+
+            /**
+             * Saves the record with the given save mode.
+             *
+             * @param   {"saveandnew"}  saveMode    Saves the record, and opens a blank form.
+             */
+            save( saveMode: "saveandnew" ): void;
+
+            /**
              * Saves the record with the given save mode.
              *
              * @param   {string}    saveMode    (Optional) the save mode to save, as either "saveandclose" or
              *                                  "saveandnew".
-             *
-             * @remarks     Passing no parameters will simply save the record. When using quick create forms
-             *              in the web application the saveandnew option is not applied. It will always work
-             *              as if saveandclose were used. Quick create forms in Microsoft Dynamics CRM for
-             *              tablets will apply the saveandnew behavior.
              */
-            save( saveMode?: string ): void;
+            save( saveMode: string ): void;
         }
 
         /**
@@ -1360,6 +1420,20 @@ declare module Xrm
             /**
              * Sets display state of the tab.
              *
+             * @param   {"collapsed"}   displayState    Collapsed tab.
+             */
+            setDisplayState( displayState: "collapsed" ): void;
+
+            /**
+             * Sets display state of the tab.
+             *
+             * @param   {"expanded"}    displayState    Expanded tab.
+             */
+            setDisplayState( displayState: "expanded" ): void;
+
+            /**
+             * Sets display state of the tab.
+             *
              * @param   {string}    displayState   Display state of the tab, as either "expanded" or "collapsed"
              */
             setDisplayState( displayState: string ): void;
@@ -1474,6 +1548,39 @@ declare module Xrm
              * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
              */
             refreshRibbon(): void;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {"ERROR"}   level       An error message.
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, false if it fails.
+             */
+            setFormNotification( message: string, level: "ERROR", uniqueId: string ): boolean;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {"WARNING"} level       A warning message.
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, false if it fails.
+             */
+            setFormNotification( message: string, level: "WARNING", uniqueId: string ): boolean;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {"INFO"}    level       An informational message.
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, false if it fails.
+             */
+            setFormNotification( message: string, level: "INFO", uniqueId: string ): boolean;
 
             /**
              * Sets a form-level notification.
@@ -1664,17 +1771,17 @@ declare module Xrm
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
-             * Accepted values are: on      (The navigation bar is displayed.)
-             *                      off     (The navigation bar is not displayed.)
-             *                      entity  (On an entity form, only the navigation options for related
-             *                              entities are available.)
+             * Accepted values are: "on"      (The navigation bar is displayed.)
+             *                      "off"     (The navigation bar is not displayed.)
+             *                      "entity"  (On an entity form, only the navigation options for related
+             *                                entities are available.)
              */
             navbar: string;
 
             /**
              * Controls whether the command bar is displayed.
-             * Accepted values are: true    (The command bar is displayed.)
-             *                      false   (The command bar is not displayed.)
+             * Accepted values are: "true"    (The command bar is displayed.)
+             *                      "false"   (The command bar is not displayed.)
              */
             cmdbar: string;
 
@@ -1728,8 +1835,7 @@ declare module Xrm
          * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
          *                                      parameters.  See Remarks.
          * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
-         *                                                 You can use encodeURIcomponent to encode a delimited
-         *                                                 array of values in a format of your choosing.
+         *                                                 It is advisaed to use encodeURIcomponent() to encode the value.
          * @param   {number}    width           (Optional) The width of the new window.
          * @param   {number}    height          (Optional) The height of the new window.
          *
