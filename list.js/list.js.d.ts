@@ -1,8 +1,9 @@
 // Type definitions for ListJS v1.1.0
 // Project: https://github.com/javve/list.js
-// Definitions by: Marilyne Chan <https://github.com/marilynechan>
-// Definitions by: Germain Bergeron  <https://github.com/germainbergeron>
+// Definitions by: Germain Bergeron <https://github.com/germainbergeron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface ListOptions {
     valueNames?: string[];
@@ -25,10 +26,14 @@ declare class List {
     items: Item[];
     visibleItems: Item[];
 
-    sort(valueName: string, options: SortOptions);
-    search(searchString?: string, columns?: any[]);
+    sort(valueName: string, options: SortOptions): void;
+    search(searchString?: string, columns?: any[]): any;
     get(valueName: string, value: any): Item[];
-    update();
+    add(value: any, callback?: Function): Item[];
+    add(values: any[], callback?: Function): Item[];
+    remove(valueName: string, value: any, options?: any): number;
+
+    update(): List;
 }
 
 declare class Item {

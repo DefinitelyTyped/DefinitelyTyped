@@ -234,6 +234,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Lazy.js](http://danieltao.com/lazy.js/) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Leaflet](https://github.com/Leaflet/Leaflet) (by [Vladimir](https://github.com/rgripper))
 * [Libxmljs](https://github.com/polotek/libxmljs) (by [François de Campredon](https://github.com/fdecampredon))
+* [List.js](http://listjs.com/) (by [Marilyne Chan](https://github.com/marilynechan) and [Germain Bergeron](https://github.com/germainbergeron))
 * [ladda](https://github.com/hakimel/Ladda) (by [Danil Flores](https://github.com/dflor003))
 * [Levelup](https://github.com/rvagg/node-levelup) (by [Bret Little](https://github.com/blittle))
 * [linq.js](http://linqjs.codeplex.com/) (by [Marcin Najder](https://github.com/marcinnajder))
