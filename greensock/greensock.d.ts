@@ -120,6 +120,7 @@ declare class TimelineLite extends SimpleTimeline {
     clear(labels?:boolean):any;
     duration(value:number):any;
     exportRoot(vars?:Object, omitDelayedCalls?:boolean):TimelineLite;
+    from(target:Object, duration:number, vars:Object, position?:any):any;
     fromTo(target:Object, duration:number, fromVars:Object, toVars:Object, position?:any):any;
     getChildren(nested?:boolean, tweens?:boolean, timelines?:boolean, ignoreBeforeTime?:number):any[];
     getLabelTime(label:string):number;
