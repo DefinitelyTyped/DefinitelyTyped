@@ -126,14 +126,35 @@ declare module Xrm
     }
 
     /**
-     * Interface for defining parameters on a request to open a form.
+     * Interface for defining parameters on a request to open a form with a URL (as with
+     * window.open). Useful for parsing the keys and values into a string of the format: 
+     * "&<key>=<value>".
+     *
+     * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
+     *           the URL, for forms. Example:  "pagetype=entityrecord"
      */
     export interface FormOpenParameters
     {
         /**
-         * The identifier of the form to use, when several are available.
+         * The logical name of the entity.
          */
-        formid: string;
+        etn: string;
+
+        /**
+         * Additional parameters can be provided to the request. This can only be used to provide
+         * default field values for the form, or pass data to custom parameters that have been
+         * customized for the form.  See example below for setting the selected form.
+         * 
+         * @remarks Example:  encodeURIComponent( "formid=" + theFormGuid );
+         */
+        extraqs?: string;
+
+        /**
+         * Controls whether the command bar is displayed.
+         * Accepted values are: "true"    (The command bar is displayed.)
+         *                      "false"   (The command bar is not displayed.)
+         */
+        cmdbar?: string;
 
         /**
          * Controls whether the Navigation bar is displayed on the form.
@@ -142,22 +163,53 @@ declare module Xrm
          *                      "entity"  (On an entity form, only the navigation options for related
          *                                entities are available.)
          */
-        navbar: string;
+        navbar?: string;
+    }
+
+    /**
+     * Interface for defining parameters on a request to open a view with a URL (as with
+     * window.open). Useful for parsing the keys and values into a string of the format: 
+     * "&<key>=<value>".
+     *
+     * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
+     *           the URL, for views. Example:  "pagetype=entitylist"
+     */
+    export interface ViewOpenParameters
+    {
+        /**
+         * The logical name of the entity.
+         */
+        etn: string;
+
+        /**
+         * The unique identifier of a view, in Guid format, which is valid for the entity described by
+         * {@link etn}.
+         */
+        viewid: string;
+
+        /**
+         * The type of view identified by {@link viewid}.
+         *
+         * @remarks  Accepted values are:    1039    System View
+         *                                   4230    User View.
+         */
+        viewtype: number;
 
         /**
          * Controls whether the command bar is displayed.
          * Accepted values are: "true"    (The command bar is displayed.)
          *                      "false"   (The command bar is not displayed.)
          */
-        cmdbar: string;
+        cmdbar?: string;
 
         /**
-         * Additional parameters can be provided to the request, by overloading
-         * this object with additional key and value pairs. This can only be used
-         * to provide default field values for the form, or pass data to custom
-         * parameters that have been customized for the form.
+         * Controls whether the Navigation bar is displayed on the form.
+         * Accepted values are: "on"      (The navigation bar is displayed.)
+         *                      "off"     (The navigation bar is not displayed.)
+         *                      "entity"  (On an entity form, only the navigation options for related
+         *                                entities are available.)
          */
-        [index: string]: string;
+        navbar?: string;
     }
 
     /**
@@ -1794,6 +1846,41 @@ declare module Xrm
      */
     export module Utility
     {
+        /**
+         * Interface for defining parameters on a Xrm.Utility.openEntityForm() request.
+         */
+        export interface FormOpenParameters
+        {
+            /**
+             * The identifier of the form to use, when several are available.
+             */
+            formid: string;
+
+            /**
+             * Controls whether the Navigation bar is displayed on the form.
+             * Accepted values are: "on"      (The navigation bar is displayed.)
+             *                      "off"     (The navigation bar is not displayed.)
+             *                      "entity"  (On an entity form, only the navigation options for related
+             *                                entities are available.)
+             */
+            navbar?: string;
+
+            /**
+             * Controls whether the command bar is displayed.
+             * Accepted values are: "true"    (The command bar is displayed.)
+             *                      "false"   (The command bar is not displayed.)
+             */
+            cmdbar?: string;
+
+            /**
+             * Additional parameters can be provided to the request, by overloading
+             * this object with additional key and value pairs. This can only be used
+             * to provide default field values for the form, or pass data to custom
+             * parameters that have been customized for the form.
+             */
+            [index: string]: string;
+        }
+
         /**
          * Displays an alert dialog, with an "OK" button.
          *
