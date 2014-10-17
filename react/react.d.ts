@@ -38,20 +38,19 @@ declare module React {
 
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
 
-    export interface ReactFactory<P, E extends ReactElement> {
-        (properties: P, ...children: any[]): E;
+
+    export interface ReactComponentFactory<P> {
+        (properties: P, ...children: any[]): ReactComponentElement<P>;
     }
 
-    export interface ReactComponentFactory<P> extends ReactFactory<P, ReactComponentElement<P>> {
+    export interface ReactElementFactory<P> {
+        (properties: P, ...children: any[]): ReactDOMElement<P>;
     }
 
-    export interface ReactElementFactory<P, E extends ReactDOMElement<any>> extends ReactFactory<P, E>  {
+    export interface DomElement extends ReactElementFactory<DomAttributes> {
     }
 
-    export interface DomElement extends ReactElementFactory<DomAttributes, ReactHTMLElement> {
-    }
-
-    export interface SvgElement extends ReactElementFactory<SvgAttributes, ReactSVGElement> {
+    export interface SvgElement extends ReactElementFactory<SvgAttributes> {
     }
 
     export interface ReactClass<P> {
@@ -60,18 +59,17 @@ declare module React {
 
     export interface ReactComponent<P> {
         props: P;
-        render(): ReactElement;
+        render(): ReactElement<any, any>;
     }
 
-    export interface ReactElement {
-        type: any;
-        props: any;
+    export interface ReactElement<T, P> {
+        type: T;
+        props: P;
         key: string;
         ref: string;
     }
 
-    export interface ReactDOMElement<P> extends ReactElement {
-        type: string;
+    export interface ReactDOMElement<P> extends ReactElement<string, P> {
         props: P;
     }
 
@@ -81,16 +79,9 @@ declare module React {
     export interface ReactSVGElement extends ReactDOMElement<SvgAttributes> {
     }
 
-    export interface ReactComponentElement<P> extends ReactElement {
-        type: ReactClass<P>;
+    export interface ReactComponentElement<P> extends ReactElement<ReactClass<P>, P> {
         props: P;
     }
-
-    export interface Descriptor<P> {
-        props: P;
-    }
-
-
 
     export interface Mixin<P, S> {
         componentWillMount?(): void;
@@ -111,7 +102,7 @@ declare module React {
         propTypes?: ValidationMap<P>;
         getDefaultProps?(): P;
         getInitialState?(): S;
-        render(): Descriptor<any>;
+        render(): ReactElement<any, any>;
     }
 
     export interface DomReferencer {
