@@ -4,33 +4,93 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
-    export = React;
+export = React;
 }
 
 declare module React {
-    export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
+    export function createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
 
-    export function render<P>(component: Descriptor<P>, container: Element, callback?: () => void): Descriptor<P>;
+    export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
+
+    export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
+
+    export function render(component: ReactSVGElement, container: Element, callback?: () => void): ReactSVGElement;
 
     export function unmountComponentAtNode(container: Element): boolean;
 
-    export function renderToString(component: Descriptor<any>): string;
+    export function renderToString<P>(component: ReactComponentElement<P>): string;
 
-    export function renderToStaticMarkup(component: Descriptor<any>): string;
+    export function renderToString(component: ReactHTMLElement): string;
 
-    export function isValidClass(factory: Factory<any>): boolean;
+    export function renderToString(component: ReactSVGElement): string;
 
-    export function isValidElement(component: Descriptor<any>): boolean;
+    export function renderToStaticMarkup<P>(component: ReactComponentElement<P>): string;
+
+    export function renderToStaticMarkup(component: ReactHTMLElement): string;
+
+    export function renderToStaticMarkup(component: ReactSVGElement): string;
+
+    export function isValidClass(factory: ReactComponentElement<any>): boolean;
+
+    export function isValidElement(component: ReactHTMLElement): boolean;
+
+    export function isValidElement(component: ReactSVGElement): boolean;
 
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
+
+    export interface ReactFactory<P, E extends ReactElement> {
+        (properties: P, ...children: any[]): E;
+    }
+
+    export interface ReactComponentFactory<P> extends ReactFactory<P, ReactComponentElement<P>> {
+    }
+
+    export interface ReactElementFactory<P, E extends ReactDOMElement<any>> extends ReactFactory<P, E>  {
+    }
+
+    export interface DomElement extends ReactElementFactory<DomAttributes, ReactHTMLElement> {
+    }
+
+    export interface SvgElement extends ReactElementFactory<SvgAttributes, ReactSVGElement> {
+    }
+
+    export interface ReactClass<P> {
+        (props: P): ReactComponent<P>;
+    }
+
+    export interface ReactComponent<P> {
+        props: P;
+        render(): ReactElement;
+    }
+
+    export interface ReactElement {
+        type: any;
+        props: any;
+        key: string;
+        ref: string;
+    }
+
+    export interface ReactDOMElement<P> extends ReactElement {
+        type: string;
+        props: P;
+    }
+
+    export interface ReactHTMLElement extends ReactDOMElement<DomAttributes> {
+    }
+
+    export interface ReactSVGElement extends ReactDOMElement<SvgAttributes> {
+    }
+
+    export interface ReactComponentElement<P> extends ReactElement {
+        type: ReactClass<P>;
+        props: P;
+    }
 
     export interface Descriptor<P> {
         props: P;
     }
 
-    export interface Factory<P> {
-        (properties?: P, ...children: any[]): Descriptor<P>;
-    }
+
 
     export interface Mixin<P, S> {
         componentWillMount?(): void;
@@ -409,12 +469,6 @@ declare module React {
         y1?: any;
         y2?: any;
         y?: any;
-    }
-
-    export interface DomElement extends Factory<DomAttributes> {
-    }
-
-    export interface SvgElement extends Factory<SvgAttributes> {
     }
 
     export var DOM: {

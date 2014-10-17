@@ -13,12 +13,12 @@ declare module React {
     export var addons: {
         classSet: (classes: {[key: string]: boolean}) => string;
         cloneWithProps: CloneWithProps<any>;
-        CSSTransitionGroup: Factory<CSSTransitionGroupProps>;
+        CSSTransitionGroup: ReactFactory<CSSTransitionGroupProps>;
         LinkedStateMixin: LinkedStateMixin<any, any>;
         Perf: Perf;
         PureRenderMixin: Mixin<any, any>;
         TestUtils: TestUtils;
-        TransitionGroup: Factory<any>;
+        TransitionGroup: ReactFactory<any>;
         update(object: Object, changes: Object): Object;
     };
 
@@ -80,8 +80,8 @@ declare module React {
     export interface TestUtils {
         Simulate: Simulate;
         renderIntoDocument(instance: Descriptor<any>): Descriptor<any>;
-        mockComponent(componentClass: Factory<any>, mockTagName?: string): TestUtils;
-        isDescriptorOfType(descriptor: Descriptor<any>, componentClass: Factory<any>): boolean;
+        mockComponent(componentClass: ReactFactory<any>, mockTagName?: string): TestUtils;
+        isDescriptorOfType(descriptor: Descriptor<any>, componentClass: ReactFactory<any>): boolean;
         isDOMComponent(instance: Descriptor<any>): boolean;
         isCompositeComponent(instance: Descriptor<any>): boolean;
         isCompositeComponentWithType(instance: Descriptor<any>, componentClass: Function): boolean;
