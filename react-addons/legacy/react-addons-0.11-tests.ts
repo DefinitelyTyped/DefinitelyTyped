@@ -1,5 +1,5 @@
 /// <reference path="react-addons-0.11.d.ts" />
-import React = require("react/addons");
+import React = require("react/addons-0.11");
 
 var PropTypesSpecification: React.Specification<any, any> = {
     propTypes: {

@@ -1,4 +1,4 @@
-// Type definitions for React 0.11.2
+// Type definitions for React 0.12.RC
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

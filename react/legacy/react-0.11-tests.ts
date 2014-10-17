@@ -1,5 +1,5 @@
 /// <reference path="react-0.11.d.ts" />
-import React = require("react");
+import React = require("react-0.11");
 
 var PropTypesSpecification: React.Specification<any, any> = {
     propTypes: {
@@ -63,6 +63,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
             return null;
         }
     },
+
     render: (): React.Descriptor<any> => {
         return null;
     }

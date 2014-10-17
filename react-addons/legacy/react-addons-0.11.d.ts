@@ -5,7 +5,7 @@
 
 /// <reference path="../../react/legacy/react-0.11.d.ts" />
 
-declare module "react/addons" {
+declare module "react/addons-0.11" {
     export = React;
 }
 
