@@ -10,17 +10,17 @@ declare module "react" {
 declare module React {
     export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
 
-    export function renderComponent<P>(component: Descriptor<P>, container: Element, callback?: () => void): Descriptor<P>;
+    export function render<P>(component: Descriptor<P>, container: Element, callback?: () => void): Descriptor<P>;
 
     export function unmountComponentAtNode(container: Element): boolean;
 
-    export function renderComponentToString(component: Descriptor<any>): string;
+    export function renderToString(component: Descriptor<any>): string;
 
-    export function renderComponentToStaticMarkup(component: Descriptor<any>): string;
+    export function renderToStaticMarkup(component: Descriptor<any>): string;
 
     export function isValidClass(factory: Factory<any>): boolean;
 
-    export function isValidComponent(component: Descriptor<any>): boolean;
+    export function isValidElement(component: Descriptor<any>): boolean;
 
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
 
@@ -97,7 +97,7 @@ declare module React {
         number: Requireable<any>;
         object: Requireable<any>;
         string: Requireable<any>;
-        renderable: Requireable<any>;
+        node: Requireable<any>;
         component: Requireable<any>;
         instanceOf: (clazz: Constructable) => Requireable<any>;
         oneOf: (types: any[]) => Requireable<any>
