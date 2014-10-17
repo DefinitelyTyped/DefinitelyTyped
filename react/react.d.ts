@@ -68,7 +68,6 @@ declare module React {
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         isMounted(): boolean;
-        transferPropsTo(target: Factory<P>): Descriptor<P>;
         setProps(nextProps: P, callback?: () => void): void;
         replaceProps(nextProps: P, callback?: () => void): void;
     }
