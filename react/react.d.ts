@@ -10,6 +10,8 @@ export = React;
 declare module React {
     export function createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
 
+    export function createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
+
     export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
 
     export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
