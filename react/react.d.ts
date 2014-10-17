@@ -32,7 +32,9 @@ declare module React {
 
     export function renderToStaticMarkup(component: ReactSVGElement): string;
 
-    export function isValidClass(factory: ReactComponentElement<any>): boolean;
+    export function isValidClass(factory: ReactComponentFactory<any>): boolean;
+
+    export function isValidElement(component: ReactComponentElement<any>): boolean;
 
     export function isValidElement(component: ReactHTMLElement): boolean;
 
