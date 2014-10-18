@@ -326,6 +326,8 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5,
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
+result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
+result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 
 // /* *************
 //  * Collections *

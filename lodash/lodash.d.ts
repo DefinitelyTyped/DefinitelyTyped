@@ -2027,6 +2027,18 @@ declare module _ {
         unzip(...arrays: any[]): any[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.zip
+        **/
+        zip(...arrays: any[][]): _.LoDashArrayWrapper<any[][]>;
+
+        /**
+        * @see _.zip
+        **/
+        unzip(...arrays: any[]): _.LoDashArrayWrapper<any[][]>;
+    }
+
     //_.zipObject
     interface LoDashStatic {
         /**
