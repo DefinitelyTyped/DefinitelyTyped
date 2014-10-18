@@ -3,7 +3,7 @@
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
 
-var createOptions: cwindow.CreateOptions = {
+var createOptions: cwindow.CreateWindowOptions = {
     id: "My Window",
     bounds: {
         left: 0,
