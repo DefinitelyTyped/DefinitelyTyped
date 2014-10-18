@@ -383,6 +383,11 @@ result = <number>_.find([1, 2, 3, 4], function (num) {
 });
 result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.find(foodsCombined, 'organic');
+result = <number>_([1, 2, 3, 4]).find(function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_(foodsCombined).find({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).find('organic');
 
 result = <number>_.detect([1, 2, 3, 4], function (num) {
     return num % 2 == 0;
