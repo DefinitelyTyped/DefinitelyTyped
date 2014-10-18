@@ -2940,6 +2940,28 @@ declare module _ {
             pluckValue: string): T;
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.findLast
+        */
+        findLast(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+        /**
+        * @see _.findLast
+        * @param _.where style callback
+        */
+        findLast<W>(
+            whereValue: W): T;
+
+        /**
+        * @see _.findLast
+        * @param _.where style callback
+        */
+        findLast(
+            pluckValue: string): T;
+    }
+
     //_.forEach
     interface LoDashStatic {
         /**

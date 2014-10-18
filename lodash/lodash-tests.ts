@@ -400,6 +400,12 @@ result = <number>_.findLast([1, 2, 3, 4], function (num) {
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
+result = <number>_([1, 2, 3, 4]).findLast(function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).findLast('organic');
+
 result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
 result = <IFoodType>_.forEach<IFoodType, string>({ name: 'apple', type: 'fruit' }, function (value, key) { console.log(value, key) });
