@@ -476,10 +476,16 @@ result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
+result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).max();
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max(function (stooge) { return stooge.age; });
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max('age');
 
 result = <number>_.min([4, 2, 8, 6]);
 result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.min(stoogesAges, 'age');
+result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();

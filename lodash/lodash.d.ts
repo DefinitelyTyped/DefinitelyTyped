@@ -3654,6 +3654,29 @@ declare module _ {
             whereValue: W): T;
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.max
+        **/
+        max(
+            callback?: ListIterator<T, any>,
+            thisArg?: any): LoDashWrapper<T>;
+
+        /**
+        * @see _.max
+        * @param pluckValue _.pluck style callback
+        **/
+        max(
+            pluckValue: string): LoDashWrapper<T>;
+
+        /**
+        * @see _.max
+        * @param whereValue _.where style callback
+        **/
+        max<W>(
+            whereValue: W): LoDashWrapper<T>;
+    }
+
     //_.min
     interface LoDashStatic {
         /**
@@ -3740,6 +3763,29 @@ declare module _ {
         min<W, T>(
             collection: Dictionary<T>,
             whereValue: W): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.min
+        **/
+        min(
+            callback?: ListIterator<T, any>,
+            thisArg?: any): LoDashWrapper<T>;
+
+        /**
+        * @see _.min
+        * @param pluckValue _.pluck style callback
+        **/
+        min(
+            pluckValue: string): LoDashWrapper<T>;
+
+        /**
+        * @see _.min
+        * @param whereValue _.where style callback
+        **/
+        min<W>(
+            whereValue: W): LoDashWrapper<T>;
     }
 
     //_.pluck
