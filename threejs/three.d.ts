@@ -923,6 +923,10 @@ declare module THREE {
          */
         dispose(): void;
 
+        //These properties does not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
+        bones: Bone[];
+        animation: AnimationData;
+        animations: AnimationData[];
 
         // EventDispatcher mixins
         addEventListener(type: string, listener: (event: any) => void ): void;
@@ -1778,15 +1782,11 @@ declare module THREE {
          * @param callback. This function will be called with the loaded model as an instance of geometry when the load is completed.
          * @param texturePath If not specified, textures will be assumed to be in the same folder as the Javascript model file.
          */
-        load(url: string, callback: (geometry: JSonLoaderResultGeometry, materials: Material[]) => void , texturePath?: string): void;
+        load(url: string, callback: (geometry: Geometry, materials: Material[]) => void , texturePath?: string): void;
 
         loadAjaxJSON(context: JSONLoader, url: string, callback: (geometry: Geometry, materials: Material[]) => void , texturePath?: string, callbackProgress?: (progress: Progress) => void ): void;
 
         parse(json: any, texturePath?: string): { geometry: Geometry; materials?: Material[] };
-    }
-
-    export interface JSonLoaderResultGeometry extends Geometry {
-        animation: AnimationData;
     }
 
     /**
@@ -5018,7 +5018,7 @@ declare module THREE {
 
         animations: any[];
 
-        init(data: Animation): void;
+        init(data: AnimationData): void;
         parse(root: Mesh): Object3D[];
         play(animation: Animation): void;
         stop(animation: Animation): void;
