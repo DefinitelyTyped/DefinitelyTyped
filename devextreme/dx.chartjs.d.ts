@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
-
 declare module DevExpress {
 export function abstract(): void;
     export var rtlEnabled: boolean;
