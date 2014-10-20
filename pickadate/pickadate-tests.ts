@@ -150,10 +150,13 @@ datePickerInput.pickadate({
     }
 });
 
-var datePickerApi = <Pickadate.Api> datePickerInput.pickadate('picker');
+var datePickerApi = datePickerInput.pickadate('picker');
 
 datePickerInput.pickadate('open');
 datePickerInput.pickadate('get', 'value');
+datePickerInput.pickadate('$node').show();
+datePickerInput.pickadate('$root').show();
+datePickerInput.pickadate('_hidden').show();
 
 testApiMethods(datePickerApi);
 
@@ -234,10 +237,13 @@ timePickerInput.pickatime({
     }
 });
 
-var timePickerApi = <Pickadate.Api> timePickerInput.pickatime('picker');
+var timePickerApi = timePickerInput.pickatime('picker');
 
 timePickerInput.pickatime('open');
 timePickerInput.pickatime('get', 'value');
+timePickerInput.pickatime('$node').show();
+timePickerInput.pickatime('$root').show();
+timePickerInput.pickatime('_hidden').show();
 
 testApiMethods(timePickerApi);
 
