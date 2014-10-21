@@ -1,11 +1,11 @@
-// Type definitions for React with Addons 0.12.RC
+// Type definitions for React with Addons 0.11.2
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference path="../../react/legacy/react-0.11.d.ts" />
 
-declare module "react/addons" {
+declare module "react/addons-0.11" {
     export = React;
 }
 
@@ -13,17 +13,17 @@ declare module React {
     export var addons: {
         classSet: (classes: {[key: string]: boolean}) => string;
         cloneWithProps: CloneWithProps<any>;
-        CSSTransitionGroup: ReactComponentFactory<CSSTransitionGroupProps>;
+        CSSTransitionGroup: Factory<CSSTransitionGroupProps>;
         LinkedStateMixin: LinkedStateMixin<any, any>;
         Perf: Perf;
         PureRenderMixin: Mixin<any, any>;
         TestUtils: TestUtils;
-        TransitionGroup: ReactComponentFactory<any>;
+        TransitionGroup: Factory<any>;
         update(object: Object, changes: Object): Object;
     };
 
     export interface CloneWithProps<P> {
-        (instance: ReactComponentElement<P>, extraProps?: P): ReactComponentElement<P>;
+        (instance: Descriptor<P>, extraProps?: P): Descriptor<P>;
     }
 
     export interface ReactLink<T> {
@@ -79,22 +79,20 @@ declare module React {
 
     export interface TestUtils {
         Simulate: Simulate;
-        renderIntoDocument<P>(instance: ReactComponentElement<P>): ReactComponentElement<P>;
-        renderIntoDocument(instnace: ReactHTMLElement): ReactHTMLElement;
-        renderIntoDocument(instnace: ReactSVGElement): ReactSVGElement;
-        mockComponent(componentClass: ReactComponentFactory<any>, mockTagName?: string): TestUtils;
-        isDescriptorOfType(descriptor: ReactElement<any, any>, componentClass: ReactComponentFactory<any>): boolean;
-        isDOMComponent(instance: ReactElement<any, any>): boolean;
-        isCompositeComponent(instance: ReactElement<any, any>): boolean;
-        isCompositeComponentWithType(instance: ReactElement<any, any>, componentClass: ReactComponentFactory<any>): boolean;
-        isTextComponent(instance: ReactElement<any, any>): boolean;
-        findAllInRenderedTree(tree: ReactElement<any, any>, test: (component: ReactElement<any, any>) => boolean): ReactElement<any, any>[];
-        scryRenderedDOMComponentsWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>[];
-        findRenderedDOMComponentWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>;
-        scryRenderedDOMComponentsWithTag(tree: ReactElement<any, any>, className: string): ReactElement<any, any>[];
-        findRenderedDOMComponentWithTag(tree: ReactElement<any, any>, tagName: string): ReactElement<any, any>;
-        scryFindRenderedComponentsWithTag(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>[];
-        findRenderedComponentWithType(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>;
+        renderIntoDocument(instance: Descriptor<any>): Descriptor<any>;
+        mockComponent(componentClass: Factory<any>, mockTagName?: string): TestUtils;
+        isDescriptorOfType(descriptor: Descriptor<any>, componentClass: Factory<any>): boolean;
+        isDOMComponent(instance: Descriptor<any>): boolean;
+        isCompositeComponent(instance: Descriptor<any>): boolean;
+        isCompositeComponentWithType(instance: Descriptor<any>, componentClass: Function): boolean;
+        isTextComponent(instance: Descriptor<any>): boolean;
+        findAllInRenderedTree(tree: Descriptor<any>, test: Function): Descriptor<any>[];
+        scryRenderedDOMComponentsWithClass(tree: Descriptor<any>, className: string): Descriptor<any>[];
+        findRenderedDOMComponentWithClass(tree: Descriptor<any>, className: string): Descriptor<any>;
+        scryRenderedDOMComponentsWithTag(tree: Descriptor<any>, className: string): Descriptor<any>[];
+        findRenderedDOMComponentWithTag(tree: Descriptor<any>, tagName: string): Descriptor<any>;
+        scryFindRenderedComponentsWithTag(tree: Descriptor<any>, componentClass: Function): Descriptor<any>[];
+        findRenderedComponentWithType(tree: Descriptor<any>, componentClass: Function): Descriptor<any>;
     }
 
     export interface SyntheticEventData {
@@ -133,7 +131,7 @@ declare module React {
 
     export interface EventSimulator {
         (element: Element, eventData?: SyntheticEventData): void;
-        (descriptor: ReactElement<any, any>, eventData?: SyntheticEventData): void;
+        (descriptor: Descriptor<any>, eventData?: SyntheticEventData): void;
     }
 
     export interface Simulate {

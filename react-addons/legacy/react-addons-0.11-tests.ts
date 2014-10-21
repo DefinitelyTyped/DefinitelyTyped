@@ -1,5 +1,5 @@
-/// <reference path="react-addons.d.ts" />
-import React = require("react/addons");
+/// <reference path="react-addons-0.11.d.ts" />
+import React = require("react/addons-0.11");
 
 var PropTypesSpecification: React.Specification<any, any> = {
     propTypes: {
@@ -14,7 +14,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
 
         // Anything that can be rendered: numbers, strings, components or an array
         // containing these types.
-        optionalRenderable: React.PropTypes.node,
+        optionalRenderable: React.PropTypes.renderable,
 
         // A React component.
         optionalComponent: React.PropTypes.component,
@@ -63,7 +63,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
             return null;
         }
     },
-    render: (): React.ReactHTMLElement => {
+    render: (): React.Descriptor<any> => {
         return null;
     }
 };
@@ -78,7 +78,7 @@ var HelloMessage = React.createClass({displayName: 'HelloMessage',
     }
 });
 
-React.render(HelloMessage({name: "John"}), mountNode);
+React.renderComponent(HelloMessage({name: "John"}), mountNode);
 
 var Timer = React.createClass({displayName: 'Timer',
     getInitialState: function() {
@@ -104,7 +104,7 @@ var Timer = React.createClass({displayName: 'Timer',
     }
 });
 
-React.render(Timer(null), mountNode);
+React.renderComponent(Timer(null), mountNode);
 
 // TestUtils
 var that: React.Component<any, any>;
