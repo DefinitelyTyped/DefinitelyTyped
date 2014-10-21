@@ -751,8 +751,8 @@ export interface ILayoutController {
         static create(container: JQuery, options: TransitionExecutorOptions): TransitionExecutor;
     }
     export interface ViewEngineOptions {
-        $root?: JQuery;
-        device?: IDevice;
+        $root: JQuery;
+        device: IDevice;
         commandManager?: CommandManager;
         templateEngine?: ITemplateEngine;
         dataOptionsAttributeName?: string;
@@ -906,9 +906,10 @@ export interface dxAutocompleteOptions extends dxDropDownEditorOptions {
     }
 export interface dxButtonOptions extends WidgetOptions {
         type?: string;
-        text?: string;            
+        text?: string;
         icon?: string;
         iconSrc?: string;
+        clickAction?: any;
     }
     export class dxButton extends Widget {
         constructor(element: Element, options?: dxButtonOptions);
@@ -1536,6 +1537,7 @@ export interface dxDataGridFilterDescriptions {
         getSelectedRowKeys: () => Array<any>;
         getSelectedRowsData: () => Array<any>;
         selectRows: (keys: Array<any>) => void;
+        selectRowsByIndexes: (indexes: Array<any>) => void;
         searchByText: (text: string) => void;
         insertRow: () => void;
         editRow: (rowIndex: number) => void;
@@ -1559,6 +1561,48 @@ export interface dxDataGridFilterDescriptions {
         columnOption: (columnIndex: number, optionName?: string, optionValue?: any) => {};
         isScrollbarVisible: () => boolean;
         getTopVisibleRowData: () => {};
+    }
+export interface dxMenuOptions extends CollectionContainerWidgetOptions {
+		orientation?: string;
+		submenuDirection?: string;
+		showFirstSubmenuMode?: string;
+		enableHotTrack?: boolean;
+		allowSelection?: boolean;
+		allowSelectOnClick?: boolean;
+		selectedItem?: any;
+		itemSelectAction?: any;
+		cssClass?: string;
+    }
+    export interface dxContextMenuOptions extends CollectionContainerWidgetOptions {
+		showSubmenuMode?: string;
+        invokeOnlyFromCode?: boolean;
+		cssClass?: string;
+		enableHotTrack?: boolean;
+		allowSelection?: boolean;
+		allowSelectOnClick?: boolean;
+		selectedItem?: any;
+		itemSelectAction?: any;
+		animation?: any;
+		position?: any;
+		showingAction?: any;
+        submenuDirection?: string;
+    }
+    export class dxMenu extends CollectionContainerWidget {
+        constructor(element: Element, options?: dxMenuOptions);
+        constructor(element: JQuery, options?: dxMenuOptions);
+    }
+	export class dxContextMenu extends CollectionContainerWidget {
+        constructor(element: Element, options?: dxContextMenuOptions);
+        constructor(element: JQuery, options?: dxContextMenuOptions);
+    }
+export interface dxColorPickerOptions extends dxDropDownEditorOptions {
+        editAlphaChannel?: boolean;
+        applyButtonText?: string;
+        cancelButtonText?: string;
+    }
+    export class dxColorPicker extends dxDropDownEditor {
+        constructor(element: Element, options?: dxColorPickerOptions);
+        constructor(element: JQuery, options?: dxColorPickerOptions);
     }
 }
 interface JQuery {
@@ -1594,4 +1638,7 @@ dxLoadIndicator(options?: DevExpress.ui.dxLoadIndicatorOptions): JQuery;
 dxMultiView(options?: DevExpress.ui.dxMultiViewOptions): JQuery;
 dxGallery(options?: DevExpress.ui.dxGalleryOptions): JQuery;
 dxDataGrid(options?: DevExpress.ui.dxDataGridOptions): JQuery;
+dxMenu(options?: DevExpress.ui.dxMenuOptions): JQuery;
+    dxContextMenu(options?: DevExpress.ui.dxContextMenuOptions): JQuery;
+dxColorPicker(options?: DevExpress.ui.dxColorPickerOptions): JQuery;
 }
