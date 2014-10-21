@@ -1,90 +1,35 @@
-// Type definitions for React 0.12.RC
+// Type definitions for React 0.11.2
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "react" {
-export = React;
+declare module "react-0.11" {
+    export = React;
 }
 
 declare module React {
-    export function createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
+    export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
 
-    export function createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
-
-    export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
-
-    export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
-
-    export function render(component: ReactSVGElement, container: Element, callback?: () => void): ReactSVGElement;
+    export function renderComponent<P>(component: Descriptor<P>, container: Element, callback?: () => void): Descriptor<P>;
 
     export function unmountComponentAtNode(container: Element): boolean;
 
-    export function renderToString<P>(component: ReactComponentElement<P>): string;
+    export function renderComponentToString(component: Descriptor<any>): string;
 
-    export function renderToString(component: ReactHTMLElement): string;
+    export function renderComponentToStaticMarkup(component: Descriptor<any>): string;
 
-    export function renderToString(component: ReactSVGElement): string;
+    export function isValidClass(factory: Factory<any>): boolean;
 
-    export function renderToStaticMarkup<P>(component: ReactComponentElement<P>): string;
-
-    export function renderToStaticMarkup(component: ReactHTMLElement): string;
-
-    export function renderToStaticMarkup(component: ReactSVGElement): string;
-
-    export function isValidClass(factory: ReactComponentFactory<any>): boolean;
-
-    export function isValidElement(component: ReactComponentElement<any>): boolean;
-
-    export function isValidElement(component: ReactHTMLElement): boolean;
-
-    export function isValidElement(component: ReactSVGElement): boolean;
+    export function isValidComponent(component: Descriptor<any>): boolean;
 
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
 
-
-    export interface ReactComponentFactory<P> {
-        (properties: P, ...children: any[]): ReactComponentElement<P>;
-    }
-
-    export interface ReactElementFactory<P> {
-        (properties: P, ...children: any[]): ReactDOMElement<P>;
-    }
-
-    export interface DomElement extends ReactElementFactory<DomAttributes> {
-    }
-
-    export interface SvgElement extends ReactElementFactory<SvgAttributes> {
-    }
-
-    export interface ReactClass<P> {
-        (props: P): ReactComponent<P>;
-    }
-
-    export interface ReactComponent<P> {
-        props: P;
-        render(): ReactElement<any, any>;
-    }
-
-    export interface ReactElement<T, P> {
-        type: T;
-        props: P;
-        key: string;
-        ref: string;
-    }
-
-    export interface ReactDOMElement<P> extends ReactElement<string, P> {
+    export interface Descriptor<P> {
         props: P;
     }
 
-    export interface ReactHTMLElement extends ReactDOMElement<DomAttributes> {
-    }
-
-    export interface ReactSVGElement extends ReactDOMElement<SvgAttributes> {
-    }
-
-    export interface ReactComponentElement<P> extends ReactElement<ReactClass<P>, P> {
-        props: P;
+    export interface Factory<P> {
+        (properties?: P, ...children: any[]): Descriptor<P>;
     }
 
     export interface Mixin<P, S> {
@@ -106,7 +51,7 @@ declare module React {
         propTypes?: ValidationMap<P>;
         getDefaultProps?(): P;
         getInitialState?(): S;
-        render(): ReactElement<any, any>;
+        render(): Descriptor<any>;
     }
 
     export interface DomReferencer {
@@ -123,6 +68,7 @@ declare module React {
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         isMounted(): boolean;
+        transferPropsTo(target: Factory<P>): Descriptor<P>;
         setProps(nextProps: P, callback?: () => void): void;
         replaceProps(nextProps: P, callback?: () => void): void;
     }
@@ -151,7 +97,7 @@ declare module React {
         number: Requireable<any>;
         object: Requireable<any>;
         string: Requireable<any>;
-        node: Requireable<any>;
+        renderable: Requireable<any>;
         component: Requireable<any>;
         instanceOf: (clazz: Constructable) => Requireable<any>;
         oneOf: (types: any[]) => Requireable<any>
@@ -464,6 +410,12 @@ declare module React {
         y1?: any;
         y2?: any;
         y?: any;
+    }
+
+    export interface DomElement extends Factory<DomAttributes> {
+    }
+
+    export interface SvgElement extends Factory<SvgAttributes> {
     }
 
     export var DOM: {
