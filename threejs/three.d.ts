@@ -5856,3 +5856,7 @@ declare module THREE {
         };
     };
 }
+
+declare module 'three' {
+    export=THREE;
+}
