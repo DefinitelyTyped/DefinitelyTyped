@@ -51,7 +51,9 @@ client.exists(str, numCallback);
 
 client.publish(str, value);
 client.subscribe(str);
+
 client.on(str, messageHandler);
+client.once(str, messageHandler);
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
