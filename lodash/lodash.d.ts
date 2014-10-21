@@ -2027,6 +2027,18 @@ declare module _ {
         unzip(...arrays: any[]): any[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.zip
+        **/
+        zip(...arrays: any[][]): _.LoDashArrayWrapper<any[][]>;
+
+        /**
+        * @see _.zip
+        **/
+        unzip(...arrays: any[]): _.LoDashArrayWrapper<any[][]>;
+    }
+
     //_.zipObject
     interface LoDashStatic {
         /**
@@ -2860,6 +2872,28 @@ declare module _ {
             pluckValue: string): T;
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.find
+        */
+        find(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+        /**
+        * @see _.find
+        * @param _.where style callback
+        */
+        find<W>(
+            whereValue: W): T;
+
+        /**
+        * @see _.find
+        * @param _.where style callback
+        */
+        find(
+            pluckValue: string): T;
+    }
+
     //_.findLast
     interface LoDashStatic {
         /**
@@ -2937,6 +2971,28 @@ declare module _ {
         **/
         findLast<T>(
             collection: Dictionary<T>,
+            pluckValue: string): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.findLast
+        */
+        findLast(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+        /**
+        * @see _.findLast
+        * @param _.where style callback
+        */
+        findLast<W>(
+            whereValue: W): T;
+
+        /**
+        * @see _.findLast
+        * @param _.where style callback
+        */
+        findLast(
             pluckValue: string): T;
     }
 
@@ -3620,6 +3676,29 @@ declare module _ {
             whereValue: W): T;
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.max
+        **/
+        max(
+            callback?: ListIterator<T, any>,
+            thisArg?: any): LoDashWrapper<T>;
+
+        /**
+        * @see _.max
+        * @param pluckValue _.pluck style callback
+        **/
+        max(
+            pluckValue: string): LoDashWrapper<T>;
+
+        /**
+        * @see _.max
+        * @param whereValue _.where style callback
+        **/
+        max<W>(
+            whereValue: W): LoDashWrapper<T>;
+    }
+
     //_.min
     interface LoDashStatic {
         /**
@@ -3706,6 +3785,29 @@ declare module _ {
         min<W, T>(
             collection: Dictionary<T>,
             whereValue: W): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.min
+        **/
+        min(
+            callback?: ListIterator<T, any>,
+            thisArg?: any): LoDashWrapper<T>;
+
+        /**
+        * @see _.min
+        * @param pluckValue _.pluck style callback
+        **/
+        min(
+            pluckValue: string): LoDashWrapper<T>;
+
+        /**
+        * @see _.min
+        * @param whereValue _.where style callback
+        **/
+        min<W>(
+            whereValue: W): LoDashWrapper<T>;
     }
 
     //_.pluck
