@@ -326,6 +326,8 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5,
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
+result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
+result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 
 // /* *************
 //  * Collections *
@@ -381,6 +383,11 @@ result = <number>_.find([1, 2, 3, 4], function (num) {
 });
 result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.find(foodsCombined, 'organic');
+result = <number>_([1, 2, 3, 4]).find(function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_(foodsCombined).find({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).find('organic');
 
 result = <number>_.detect([1, 2, 3, 4], function (num) {
     return num % 2 == 0;
@@ -399,6 +406,12 @@ result = <number>_.findLast([1, 2, 3, 4], function (num) {
 });
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
+
+result = <number>_([1, 2, 3, 4]).findLast(function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).findLast('organic');
 
 result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
@@ -468,10 +481,16 @@ result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
+result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).max();
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max(function (stooge) { return stooge.age; });
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max('age');
 
 result = <number>_.min([4, 2, 8, 6]);
 result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.min(stoogesAges, 'age');
+result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
