@@ -38,11 +38,63 @@ declare module chrome.app.runtime {
 // App Window
 ////////////////////
 declare module chrome.app.window {
-    interface Bounds {
+    interface ContentBounds {
         left?: number;
         top?: number;
         width?: number;
         height?: number;
+    }
+
+    interface BoundsSpecification {
+        left?: number;
+        top?: number;
+        width?: number;
+        height?: number;
+        minWidth?: number;
+        minHeight?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+    }
+
+    interface Bounds {
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+        minWidth?: number;
+        minHeight?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+        setPosition(left: number, top: number): void;
+        setSize(width: number, height: number): void;
+        setMinimumSize(minWidth: number, minHeight: number): void;
+        setMaximumSize(maxWidth: number, maxHeight: number): void;
+    }
+    interface FrameOptions {
+        type?: string;
+        color?: string;
+        activeColor?: string;
+        inactiveColor?: string;
+    }
+
+    interface CreateWindowOptions {
+        id?: string;
+        innerBounds?: BoundsSpecification;
+        outerBounds?: BoundsSpecification;
+        minWidth?: number;
+        minHeight?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+        frame?: any; // string ("none", "chrome") or FrameOptions
+        bounds?: ContentBounds;
+        alphaEnabled?: boolean;
+        state?: string; // "normal", "fullscreen", "maximized", "minimized" 
+        hidden?: boolean;
+        resizable?: boolean;
+        singleton?: boolean;
+        alwaysOnTop?: boolean;
+        focused?: boolean;
+        visibleOnAllWorkspaces?: boolean;
     }
 
     interface AppWindow {
@@ -61,27 +113,18 @@ declare module chrome.app.window {
         close: () => void;
         show: () => void;
         hide: () => void;
-        getBounds: () => Bounds;
-        setBounds: (bounds: Bounds) => void;
+        getBounds: () => ContentBounds;
+        setBounds: (bounds: ContentBounds) => void;
+        isAlwaysOnTop: () => boolean;
+        setAlwaysOnTop: (alwaysOnTop: boolean) => void;
+        setVisibleOnAllWorkspaces: (alwaysVisible: boolean) => void;
         contentWindow: Window;
+        id: string;
+        innerBounds: Bounds;
+        outerBounds: Bounds;
     }
 
-    interface CreateOptions {
-        id?: string;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        frame?: string; // "none", "chrome"
-        bounds?: Bounds;
-        transparentBackground?: boolean;
-        state?: string; // "normal", "fullscreen", "maximized", "minimized" 
-        hidden?: boolean;
-        resizable?: boolean;
-        singleton?: boolean;
-    }
-
-    export function create(url: string, options?: CreateOptions, callback?: (created_window: AppWindow) => void): void;
+    export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
     export function current(): AppWindow;
 
     interface WindowEvent {
