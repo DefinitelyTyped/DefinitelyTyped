@@ -237,7 +237,7 @@ declare module ng {
             major: number;
             minor: number;
             dot: number;
-            codename: string;
+            codeName: string;
         };
     }
 
