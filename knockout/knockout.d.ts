@@ -418,7 +418,7 @@ interface KnockoutStatic {
 	applyBindingAccessorsToNode(node: Node, bindings: {}, bindingContext: KnockoutBindingContext): void;
 	applyBindingAccessorsToNode(node: Node, bindings: (bindingContext: KnockoutBindingContext, node: Node) => {}, viewModel: any): void;
 	applyBindingAccessorsToNode(node: Node, bindings: {}, viewModel: any): void;
-    applyBindingsToNode(node: Element, options: any, viewModel: any): void;
+    applyBindingsToNode(node: Node, bindings: any, viewModelOrBindingContext?: any): any;
 
     subscribable: KnockoutSubscribableStatic;
     observable: KnockoutObservableStatic;
