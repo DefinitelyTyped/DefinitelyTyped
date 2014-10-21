@@ -308,6 +308,7 @@ All definitions files include a header with the author and editors, so at some p
 * [OpenLayers](https://github.com/openlayers/openlayers) (by [Ilya Bolkhovsky](https://github.com/bolhovsky/))
 * [opn](https://github.com/sindresorhus/opn) (by [Shinnosuke Watanabe](https://github.com/shinnn))
 * [Optimist](https://github.com/substack/node-optimist) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
+* [Pace](http://github.hubspot.com/pace/) (by [Charles Solar](https://github.com/volak))
 * [Passport](http://passportjs.org/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [passport-facebook](https://github.com/jaredhanson/passport-facebook) (by [James Roland Cabresos](https://github.com/staticfunction/))
 * [passport-local](https://github.com/jaredhanson/passport-local) (by [Maxime LUCE](https://github.com/SomaticIT))
