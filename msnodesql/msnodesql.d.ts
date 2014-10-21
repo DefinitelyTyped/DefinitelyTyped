@@ -1,6 +1,6 @@
-// Type definitions for msnodesql 0.2
+// Type definitions for msnodesql 0.2.1
 // Project: https://github.com/WindowsAzure/node-sqlserver
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -11,18 +11,25 @@ declare module "msnodesql" {
 
     export function open(connectionString: string, callback?: OpenCallback): Connection;
 
-    export function query(connectionString: string, query: string, callback?: QueryCallback): StreamEvents;
-    export function query(connectionString: string, query: string, params: any[], callback?: QueryCallback): StreamEvents;
+    export function query(connectionString: string, query: string): StreamEvents;
+    export function query(connectionString: string, query: string, callback: QueryCallback<any>): StreamEvents;
+    export function query(connectionString: string, query: string, params: any[]): StreamEvents;
+    export function query(connectionString: string, query: string, params: any[], callback: QueryCallback<any>): StreamEvents;
 
-    export function queryRaw(connectionString: string, query: string, callback?: QueryRawCallback): StreamEvents;
-    export function queryRaw(connectionString: string, query: string, params: any[], callback?: QueryRawCallback): StreamEvents;
+    export function query<T>(connectionString: string, query: string, callback: QueryCallback<T>): StreamEvents;
+    export function query<T>(connectionString: string, query: string, params: any[], callback: QueryCallback<T>): StreamEvents;
+
+    export function queryRaw(connectionString: string, query: string): StreamEvents;
+    export function queryRaw(connectionString: string, query: string, callback: QueryRawCallback): StreamEvents;
+    export function queryRaw(connectionString: string, query: string, params: any[]): StreamEvents;
+    export function queryRaw(connectionString: string, query: string, params: any[], callback: QueryRawCallback): StreamEvents;
 
     interface OpenCallback {
         (err?: Error, connection?: Connection): void;
     }
 
-    interface QueryCallback {
-        (err?: Error, results?: QueryRawResult, more?: boolean): void;
+    interface QueryCallback<T> {
+        (err?: Error, results?: T[], more?: boolean): void;
     }
 
     interface QueryRawCallback {
@@ -43,11 +50,18 @@ declare module "msnodesql" {
     }
 
     interface Connection {
-        queryRaw(query: string, callback?: QueryCallback): StreamEvents;
-        queryRaw(query: string, params: any[], callback?: QueryCallback): StreamEvents;
+        query(query: string): StreamEvents;
+        query(query: string, callback: QueryCallback<any>): StreamEvents;
+        query(query: string, params: any[]): StreamEvents;
+        query(query: string, params: any[], callback: QueryCallback<any>): StreamEvents;
 
-        query(query: string, callback?: QueryRawCallback): StreamEvents;
-        query(query: string, params: any[], callback?: QueryRawCallback): StreamEvents;
+        query<T>(query: string, callback: QueryCallback<T>): StreamEvents;
+        query<T>(query: string, params: any[], callback: QueryCallback<T>): StreamEvents;
+
+        queryRaw(query: string): StreamEvents;
+        queryRaw(query: string, callback: QueryRawCallback): StreamEvents;
+        queryRaw(query: string, params: any[]): StreamEvents;
+        queryRaw(query: string, params: any[], callback: QueryRawCallback): StreamEvents;
 
         beginTransaction(callback?: ErrorCallback);
         commit(callback?: ErrorCallback);
