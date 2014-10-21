@@ -1,6 +1,6 @@
-/// <reference path="timezonecomplete.d.ts" />
+/// <reference path="timezonecomplete-1.6.0.d.ts" />
 
-import tc = require("timezonecomplete");
+import tc = require("timezonecomplete-1.6.0");
 
 var b: boolean;
 var n: number;
@@ -144,8 +144,6 @@ b = dt.lessThan(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.lessEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.greaterThan(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.greaterEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
-dt = dt.min(new tc.DateTime(9289234, tc.TimeZone.local()));
-dt = dt.max(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
@@ -173,12 +171,8 @@ s = p.toString();
 b = p.isBoundary(dt);
 
 
-// GLOBALS
-d = tc.min(tc.Duration.seconds(2), tc.Duration.seconds(3));
-d = tc.max(tc.Duration.seconds(2), tc.Duration.seconds(3));
 
-dt = tc.min(new tc.DateTime(2), new tc.DateTime(3));
-dt = tc.max(new tc.DateTime(2), new tc.DateTime(3));
+
 
 
 
