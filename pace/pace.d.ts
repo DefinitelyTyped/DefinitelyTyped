@@ -51,9 +51,9 @@ interface Pace {
     track(func: Function): void;
     ignore(func: Function): void;
 
-    on(event: string, handler: PaceEventCallback, ctx?: any, once?: boolean);
-    off(event: string, handler: PaceEventCallback);
-    once(event, handler: PaceEventCallback, ctx?: any);
+    on(event: string, handler: PaceEventCallback, ctx?: any, once?: boolean) : void;
+    off(event: string, handler: PaceEventCallback): void;
+    once(event: string, handler: PaceEventCallback, ctx?: any): void;
 }
 
 declare var pace: Pace;
