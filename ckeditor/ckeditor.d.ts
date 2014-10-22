@@ -9,6 +9,7 @@ declare module CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
+    var disableObjectResizing: boolean;
     var replaceClass: string;
     var skinName: string;
 
@@ -551,9 +552,20 @@ declare module CKEDITOR {
 
 
     interface config {
-        startupMode: string;
-        removeButtons: string;
+        startupMode?: string;
+        removeButtons?: string;
         toolbar?: any;
+        skin?: string;
+        language?: string;
+        plugins?: string;
+        font_names?: string;
+        font_defaultLabel?: string;
+        fontSize_sizes?: string;
+        fontSize_defaultLabel?: string;
+        colorButton_enableMore?: boolean;
+        colorButton_colors?: string;
+        startupFocus?: boolean;
+        on?: any;
     }
 
 
@@ -666,7 +678,7 @@ declare module CKEDITOR {
         getClipboardData(options: Object, callback: Function): void;
         getColorFromDialog(callback: Function, scope?: Object): void;
         getCommand(commandName: string): command;
-        getData(noEvents: Object): string;
+        getData(noEvents?: Object): string;
         getMenuItem(name: string): Object;
         getResizable(forContents: boolean): dom.element;
         getSelection(forceRealSelection?: boolean): dom.selection;
@@ -695,7 +707,7 @@ declare module CKEDITOR {
         selectionChange(checkNow?: boolean): void;
         setActiveEnterMode(enterMode: number, shiftEnterMode: number): void;
         setActiveFilter(filter: filter): void;
-        setData(data: string, callback: Function, internal: boolean): void;
+        setData(data: string, options?: { internal?: boolean; callback?: Function; noSnapshot?: boolean; }): void;
         setKeystroke(keystroke: number, behavior?: string): void;
         setKeystroke(keystroke: any[], behavior?: string): void;
         setKeystroke(keystroke: number, behavior?: boolean): void;

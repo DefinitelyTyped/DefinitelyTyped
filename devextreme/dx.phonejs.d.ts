@@ -751,8 +751,8 @@ export interface ILayoutController {
         static create(container: JQuery, options: TransitionExecutorOptions): TransitionExecutor;
     }
     export interface ViewEngineOptions {
-        $root?: JQuery;
-        device?: IDevice;
+        $root: JQuery;
+        device: IDevice;
         commandManager?: CommandManager;
         templateEngine?: ITemplateEngine;
         dataOptionsAttributeName?: string;
@@ -906,9 +906,10 @@ export interface dxAutocompleteOptions extends dxDropDownEditorOptions {
     }
 export interface dxButtonOptions extends WidgetOptions {
         type?: string;
-        text?: string;            
+        text?: string;
         icon?: string;
         iconSrc?: string;
+        clickAction?: any;
     }
     export class dxButton extends Widget {
         constructor(element: Element, options?: dxButtonOptions);

@@ -24,7 +24,7 @@ var todo = {
 
         this.add = function() {
             if (this.description()) {
-                this.list.push(new todo.Todo({description: this.description()}));
+                this.list.push(new (<any>todo.Todo)({description: this.description()}));
                 this.description("");
             }
         }.bind(this);

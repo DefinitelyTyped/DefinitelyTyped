@@ -719,6 +719,7 @@ declare module D3 {
             (name: string): string;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
+            (classValueMap: Object): Selection;
         };
 
         style: {
@@ -841,6 +842,11 @@ declare module D3 {
         entries(values: any[]): NestKeyValue[];
     }
 
+    export interface MapKeyValue<T> {
+        key: string;
+        value: T;
+    }
+
     export interface Map<T> {
         has(key: string): boolean;
         get(key: string): T;
@@ -848,7 +854,7 @@ declare module D3 {
         remove(key: string): boolean;
         keys(): string[];
         values(): T[];
-        entries(): any[][]; // Actually of form [key: string, val: T][], but this is inexpressible in Typescript
+        entries(): MapKeyValue<T>[];
         forEach(func: (key: string, value: T) => void ): void;
         empty(): boolean;
         size(): number;
@@ -1902,13 +1908,13 @@ declare module D3 {
                 /**
                 * Get the accessor function that controls where the line is defined.
                 */
-                (): (data: any, index ?: number) => boolean;
+                (): (data: any, index?: number) => boolean;
                 /**
                 * Set the accessor function that controls where the area is defined.
                 *
                 * @param defined The new accessor function
                 */
-                (defined: (data: any) => boolean): Line;
+                (defined: (data: any, index?: number) => boolean): Line;
             };
         }
 
@@ -2198,13 +2204,13 @@ declare module D3 {
                 /**
                 * Get the accessor function that controls where the area is defined.
                 */
-                (): (data: any) => any;
+                (): (data: any, index?: number) => any;
                 /**
                 * Set the accessor function that controls where the area is defined.
                 *
                 * @param defined The new accessor function
                 */
-                (defined: (data: any) => any): Area;
+                (defined: (data: any, index?: number) => any): Area;
             };
         }
 

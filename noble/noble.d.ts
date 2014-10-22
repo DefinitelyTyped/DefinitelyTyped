@@ -24,6 +24,7 @@ declare module "noble" {
         advertisement: Advertisement;
         rssi:          number;
         services:      string[];
+        state:         string;
 
         connect(callback?: (error: string) => void): void;
         disconnect(callback?: () => void): void;

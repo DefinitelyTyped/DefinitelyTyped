@@ -246,7 +246,7 @@ interface Array<T> {
     /**
     * Inserts a value at the specified location in an Array object.
     */
-    insert(array: any[], index: number, item: any);
+    insert(array: any[], index: number, item: any): any;
     /**
     * Creates an Array object from a string representation.
     */

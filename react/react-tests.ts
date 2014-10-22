@@ -14,7 +14,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
 
         // Anything that can be rendered: numbers, strings, components or an array
         // containing these types.
-        optionalRenderable: React.PropTypes.renderable,
+        optionalRenderable: React.PropTypes.node,
 
         // A React component.
         optionalComponent: React.PropTypes.component,
@@ -63,7 +63,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
             return null;
         }
     },
-    render: (): React.Descriptor<any> => {
+    render: (): React.ReactHTMLElement => {
         return null;
     }
 };
@@ -78,7 +78,7 @@ var HelloMessage = React.createClass({displayName: 'HelloMessage',
     }
 });
 
-React.renderComponent(HelloMessage({name: "John"}), mountNode);
+React.render(HelloMessage({name: "John"}), mountNode);
 
 var Timer = React.createClass({displayName: 'Timer',
     getInitialState: function() {
@@ -104,4 +104,4 @@ var Timer = React.createClass({displayName: 'Timer',
     }
 });
 
-React.renderComponent(Timer(null), mountNode);
+React.render(Timer(null), mountNode);
