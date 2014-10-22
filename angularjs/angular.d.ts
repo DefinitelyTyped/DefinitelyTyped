@@ -1201,7 +1201,7 @@ declare module ng {
     }
 
     interface IHttpPromiseCallback<T> {
-        (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig): void;
+        (data: T, status: number, headers: (headerName?: string) => string, config: IRequestConfig): void;
     }
 
     interface IHttpPromiseCallbackArg<T> {
