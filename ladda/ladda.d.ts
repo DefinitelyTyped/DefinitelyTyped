@@ -1,35 +1,36 @@
-// Type definitions for Ladda 0.7.0
+// Type definitions for Ladda 0.9.4
 // Project: https://github.com/hakimel/Ladda
 // Definitions by: Danil Flores <https://github.com/dflor003/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Ladda {
+interface ILaddaButton {
+    start(): ILaddaButton;
+    startAfter(delay: number): ILaddaButton
+    stop(): ILaddaButton;
+    toggle(): ILaddaButton;
+    setProgress(progress: number): ILaddaButton;
+    enable(): ILaddaButton;
+    disable(): ILaddaButton;
+    isLoading(): boolean;
+    remove(): void;
+}
 
-    interface ILaddaButton {
-        start(): ILaddaButton;
+interface ILaddaOptions {
+    timeout?: number;
+    callback?: (instance: ILaddaButton) => void;
+}
 
-        stop(): ILaddaButton;
+interface ILadda {
+    bind(target: HTMLElement, options?: ILaddaOptions): void;
+    bind(cssSelector: string, options?: ILaddaOptions): void;
 
-        toggle(): ILaddaButton;
+    create(button: Element): ILaddaButton;
 
-        setProgress(progress: number): ILaddaButton;
+    stopAll(): void;
+}
 
-        enable(): ILaddaButton;
+declare var Ladda: ILadda;
 
-        disable(): ILaddaButton;
-
-        isLoading(): boolean;
-    }
-
-    interface ILaddaOptions {
-        timeout?: number;
-        callback?: (instance: ILaddaButton) => void;
-    }
-
-    function bind(target: HTMLElement, options?: ILaddaOptions): void;
-    function bind(cssSelector: string, options?: ILaddaOptions): void;
-
-    function create(button: Element): ILaddaButton;
-    
-    function stopAll(): void;
+declare module "ladda" {
+    export = Ladda;
 }
