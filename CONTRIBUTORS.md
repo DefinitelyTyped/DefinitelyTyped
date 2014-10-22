@@ -51,6 +51,7 @@ All definitions files include a header with the author and editors, so at some p
 * [bunyan](https://github.com/trentm/node-bunyan) (by [Alex Mikhalev](https://github.com/amikhalev))
 * [CasperJS](http://casperjs.org) (by [Jed Mao](https://github.com/jedmao))
 * [CanvasJS](http://canvasjs.com) (by [Mark Overholt](https://github.com/mover5))
+* [checksum](https://github.com/dshaw/checksum) (by [Rogier Schouten](https://github.com/rogierschouten))
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
 * [Chosen](http://harvesthq.github.com/chosen/) (by [Boris Yankov](https://github.com/borisyankov))
 * [Chroma.js](https://github.com/gka/chroma.js) (by [Sebastian Brückner](https://github.com/invliD))
