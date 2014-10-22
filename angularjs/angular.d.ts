@@ -237,7 +237,7 @@ declare module ng {
             major: number;
             minor: number;
             dot: number;
-            codename: string;
+            codeName: string;
         };
     }
 
@@ -424,6 +424,7 @@ declare module ng {
         // Documentation states viewValue and modelValue to be a string but other
         // types do work and it's common to use them.
         $setViewValue(value: any): void;
+        $setPristine(): void;
         $validate(): void;
         $setTouched(): void;
         $setUntouched(): void;
@@ -592,6 +593,35 @@ declare module ng {
     interface IIntervalService {
         (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // AngularProvider
+    // see http://docs.angularjs.org/api/ng/provider/$animateProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface IAnimateProvider {
+        /**
+         * Registers a new injectable animation factory function.
+         *
+         * @param name The name of the animation.
+         * @param factory The factory function that will be executed to return the animation object.
+         */
+        register(name: string, factory: () => IAnimateCallbackObject): void;
+
+        /**
+         * Gets and/or sets the CSS class expression that is checked when performing an animation.
+         *
+         * @param expression The className expression which will be checked against all animations.
+         * @returns The current CSS className expression value. If null then there is no expression value.
+         */
+        classNameFilter(expression?: RegExp): RegExp;
+    }
+
+    /**
+     * The animation object which contains callback functions for each event that is expected to be animated.
+     */
+    interface IAnimateCallbackObject {
+        eventFn(element: Node, doneFn: () => void): Function;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1286,6 +1316,29 @@ declare module ng {
         resourceUrlWhitelist(whitelist: any[]): void;
     }
 
+    /**
+     * $templateRequest service
+     * see http://docs.angularjs.org/api/ng/service/$templateRequest
+     */
+    interface ITemplateRequestService {
+        /**
+         * Downloads a template using $http and, upon success, stores the
+         * contents inside of $templateCache.
+         *
+         * If the HTTP request fails or the response data of the HTTP request is
+         * empty then a $compile error will be thrown (unless
+         * {ignoreRequestError} is set to true).
+         *
+         * @param tpl                  The template URL.
+         * @param ignoreRequestError   Whether or not to ignore the exception
+         *                             when the request fails or the template is
+         *                             empty.
+         *
+         * @return   A promise whose value is the template content.
+         */
+        (tpl: string, ignoreRequestError?: boolean): IPromise<string>;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // Directive
     // see http://docs.angularjs.org/api/ng.$compileProvider#directive
@@ -1360,7 +1413,7 @@ declare module ng {
         find(selector: string): IAugmentedJQuery;
         find(element: any): IAugmentedJQuery;
         find(obj: JQuery): IAugmentedJQuery;
-
+        controller(): any;
         controller(name: string): any;
         injector(): any;
         scope(): IScope;

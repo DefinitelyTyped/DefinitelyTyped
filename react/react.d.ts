@@ -1,31 +1,90 @@
-// Type definitions for React 0.11.2
+// Type definitions for React 0.12.RC
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
-    export function createClass<P, S>(specification: Specification<P, S>): Factory<P>;
+export = React;
+}
 
-    export function renderComponent(component: Descriptor<any>, container: Element, callback?: () => void): void;
+declare module React {
+    export function createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
+
+    export function createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
+
+    export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
+
+    export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
+
+    export function render(component: ReactSVGElement, container: Element, callback?: () => void): ReactSVGElement;
 
     export function unmountComponentAtNode(container: Element): boolean;
 
-    export function renderComponentToString(component: Descriptor<any>): string;
+    export function renderToString<P>(component: ReactComponentElement<P>): string;
 
-    export function renderComponentToStaticMarkup(component: Descriptor<any>): string;
+    export function renderToString(component: ReactHTMLElement): string;
 
-    export function isValidClass(factory: Factory<any>): boolean;
+    export function renderToString(component: ReactSVGElement): string;
 
-    export function isValidComponent(component: Descriptor<any>): boolean;
+    export function renderToStaticMarkup<P>(component: ReactComponentElement<P>): string;
+
+    export function renderToStaticMarkup(component: ReactHTMLElement): string;
+
+    export function renderToStaticMarkup(component: ReactSVGElement): string;
+
+    export function isValidClass(factory: ReactComponentFactory<any>): boolean;
+
+    export function isValidElement(component: ReactComponentElement<any>): boolean;
+
+    export function isValidElement(component: ReactHTMLElement): boolean;
+
+    export function isValidElement(component: ReactSVGElement): boolean;
 
     export function initializeTouchEvents(shouldUseTouch: boolean): void;
 
-    export interface Descriptor<P> {
+
+    export interface ReactComponentFactory<P> {
+        (properties: P, ...children: any[]): ReactComponentElement<P>;
+    }
+
+    export interface ReactElementFactory<P> {
+        (properties: P, ...children: any[]): ReactDOMElement<P>;
+    }
+
+    export interface DomElement extends ReactElementFactory<DomAttributes> {
+    }
+
+    export interface SvgElement extends ReactElementFactory<SvgAttributes> {
+    }
+
+    export interface ReactClass<P> {
+        (props: P): ReactComponent<P>;
+    }
+
+    export interface ReactComponent<P> {
+        props: P;
+        render(): ReactElement<any, any>;
+    }
+
+    export interface ReactElement<T, P> {
+        type: T;
+        props: P;
+        key: string;
+        ref: string;
+    }
+
+    export interface ReactDOMElement<P> extends ReactElement<string, P> {
         props: P;
     }
 
-    export interface Factory<P> {
-        (properties?: P, ...children: any[]): Descriptor<P>;
+    export interface ReactHTMLElement extends ReactDOMElement<DomAttributes> {
+    }
+
+    export interface ReactSVGElement extends ReactDOMElement<SvgAttributes> {
+    }
+
+    export interface ReactComponentElement<P> extends ReactElement<ReactClass<P>, P> {
+        props: P;
     }
 
     export interface Mixin<P, S> {
@@ -47,11 +106,11 @@ declare module "react" {
         propTypes?: ValidationMap<P>;
         getDefaultProps?(): P;
         getInitialState?(): S;
-        render(): Descriptor<any>;
+        render(): ReactElement<any, any>;
     }
 
-    interface DomReferencer {
-        getDomNode(): Element;
+    export interface DomReferencer {
+        getDOMNode(): Element;
     }
 
     export interface Component<P, S> extends DomReferencer {
@@ -64,24 +123,23 @@ declare module "react" {
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         isMounted(): boolean;
-        transferPropsTo(target: Factory<P>): Descriptor<P>;
         setProps(nextProps: P, callback?: () => void): void;
         replaceProps(nextProps: P, callback?: () => void): void;
     }
 
-    interface Constructable {
+    export interface Constructable {
         new(): any;
     }
 
-    interface Validator<P> {
+    export interface Validator<P> {
         (props: P, propName: string, componentName: string): Error;
     }
 
-    interface Requireable<P> extends Validator<P> {
+    export interface Requireable<P> extends Validator<P> {
         isRequired: Validator<P>;
     }
 
-    interface ValidationMap<P> {
+    export interface ValidationMap<P> {
         [key: string]: Validator<P>;
     }
 
@@ -93,7 +151,7 @@ declare module "react" {
         number: Requireable<any>;
         object: Requireable<any>;
         string: Requireable<any>;
-        renderable: Requireable<any>;
+        node: Requireable<any>;
         component: Requireable<any>;
         instanceOf: (clazz: Constructable) => Requireable<any>;
         oneOf: (types: any[]) => Requireable<any>
@@ -112,12 +170,12 @@ declare module "react" {
 
     // Browser Interfaces
     // Taken from https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
-    interface AbstractView {
+    export interface AbstractView {
         styleMedia: StyleMedia;
         document: Document;
     }
 
-    interface Touch {
+    export interface Touch {
         identifier: number;
         target: EventTarget;
         screenX: number;
@@ -128,7 +186,7 @@ declare module "react" {
         pageY: number;
     }
 
-    interface TouchList {
+    export interface TouchList {
         [index: number]: Touch;
         length: number;
         item(index: number): Touch;
@@ -214,7 +272,7 @@ declare module "react" {
     }
 
     // Attributes
-    interface EventAttributes {
+    export interface EventAttributes {
         onCopy?: (event: ClipboardEvent) => void;
         onCut?: (event: ClipboardEvent) => void;
         onPaste?: (event: ClipboardEvent) => void;
@@ -251,7 +309,16 @@ declare module "react" {
         onWheel?: (event: WheelEvent) => void;
     }
 
-    interface DomAttributes extends EventAttributes {
+    export interface ReactAttributes {
+        dangerouslySetInnerHTML?: {
+            __html: string;
+        };
+        children?: any[];
+        key?: string;
+        ref?: string;
+    }
+
+    export interface DomAttributes extends EventAttributes, ReactAttributes {
         // HTML Attributes
         accept?: any;
         accessKey?: any;
@@ -260,7 +327,9 @@ declare module "react" {
         allowTransparency?: any;
         alt?: any;
         async?: any;
+        autoCapitalize?: any;
         autoComplete?: any;
+        autoCorrect?: any;
         autoFocus?: any;
         autoPlay?: any;
         cellPadding?: any;
@@ -295,6 +364,9 @@ declare module "react" {
         httpEquiv?: any;
         icon?: any;
         id?: any;
+        itemProp?: any;
+        itemScope?: any;
+        itemType?: any;
         label?: any;
         lang?: any;
         list?: any;
@@ -313,6 +385,7 @@ declare module "react" {
         placeholder?: any;
         poster?: any;
         preload?: any;
+        property?: any;
         radioGroup?: any;
         readOnly?: any;
         rel?: any;
@@ -347,7 +420,7 @@ declare module "react" {
         wmode?: any;
     }
 
-    interface SvgAttributes extends EventAttributes {
+    export interface SvgAttributes extends EventAttributes, ReactAttributes {
         cx?: any;
         cy?: any;
         d?: any;
@@ -391,12 +464,6 @@ declare module "react" {
         y1?: any;
         y2?: any;
         y?: any;
-    }
-
-    interface DomElement extends Factory<DomAttributes> {
-    }
-
-    interface SvgElement extends Factory<SvgAttributes> {
     }
 
     export var DOM: {

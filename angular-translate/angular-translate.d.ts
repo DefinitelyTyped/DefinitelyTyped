@@ -1,4 +1,4 @@
-// Type definitions for Angular Translate v2.3.0 (pascalprecht.translate module)
+// Type definitions for Angular Translate v2.4.0 (pascalprecht.translate module)
 // Project: https://github.com/PascalPrecht/angular-translate
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -50,6 +50,8 @@ declare module ng.translate {
         use(): string;
         use(key: string): ng.IPromise<string>;
         useFallbackLanguage(langKey?: string): void;
+        versionInfo(): string;
+        loaderCache(): any;
     }
 
     interface ITranslateProvider extends ng.IServiceProvider {
@@ -89,5 +91,6 @@ declare module ng.translate {
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
+        useLoaderCache(cache?: any): ITranslateProvider;
     }
 }

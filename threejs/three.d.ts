@@ -923,6 +923,10 @@ declare module THREE {
          */
         dispose(): void;
 
+        //These properties does not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
+        bones: Bone[];
+        animation: AnimationData;
+        animations: AnimationData[];
 
         // EventDispatcher mixins
         addEventListener(type: string, listener: (event: any) => void ): void;
@@ -1778,15 +1782,11 @@ declare module THREE {
          * @param callback. This function will be called with the loaded model as an instance of geometry when the load is completed.
          * @param texturePath If not specified, textures will be assumed to be in the same folder as the Javascript model file.
          */
-        load(url: string, callback: (geometry: JSonLoaderResultGeometry, materials: Material[]) => void , texturePath?: string): void;
+        load(url: string, callback: (geometry: Geometry, materials: Material[]) => void , texturePath?: string): void;
 
         loadAjaxJSON(context: JSONLoader, url: string, callback: (geometry: Geometry, materials: Material[]) => void , texturePath?: string, callbackProgress?: (progress: Progress) => void ): void;
 
-        parse(json:string, texturePath:string): any;
-    }
-
-    export interface JSonLoaderResultGeometry extends Geometry {
-        animation: AnimationData;
+        parse(json: any, texturePath?: string): { geometry: Geometry; materials?: Material[] };
     }
 
     /**
@@ -2378,7 +2378,7 @@ declare module THREE {
 
         set(min: Vector2, max: Vector2): Box2;
         setFromPoints(points: Vector2[]): Box2;
-        setFromCenterAndSize(center: Vector2, size: number): Box2;
+        setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
         copy(box: Box2): Box2;
         makeEmpty(): Box2;
         empty(): boolean;
@@ -2408,7 +2408,7 @@ declare module THREE {
 
         set(min: Vector3, max: Vector3): Box3;
         setFromPoints(points: Vector3[]): Box3;
-        setFromCenterAndSize(center: Vector3, size: number): Box3;
+        setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
         setFromObject(object: Object3D): Box3;
         copy(box: Box3): Box3;
         makeEmpty(): Box3;
@@ -2424,7 +2424,7 @@ declare module THREE {
         isIntersectionBox(box: Box3): boolean;
         clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         distanceToPoint(point: Vector3): number;
-        getBoundingSphere(): Sphere;
+        getBoundingSphere(optionalTarget?: Sphere): Sphere;
         intersect(box: Box3): Box3;
         union(box: Box3): Box3;
         applyMatrix4(matrix: Matrix4): Box3;
@@ -5018,7 +5018,7 @@ declare module THREE {
 
         animations: any[];
 
-        init(data: Animation): void;
+        init(data: AnimationData): void;
         parse(root: Mesh): Object3D[];
         play(animation: Animation): void;
         stop(animation: Animation): void;
@@ -5152,13 +5152,13 @@ declare module THREE {
         closePath(): void;
         getPoint(t: number): Vector;
         getLength(): number;
-        getCurveLengths(): number;
+        getCurveLengths(): number[];
         getBoundingBox(): BoundingBox;
         createPointsGeometry(divisions: number): Geometry;
         createSpacedPointsGeometry(divisions: number): Geometry;
         createGeometry(points: Vector2[]): Geometry;
         addWrapPath(bendpath: Path): void;
-        getTransformedPoints(segments: number, bends?: Path): Vector2[];
+        getTransformedPoints(segments: number, bends?: Path[]): Vector2[];
         getTransformedSpacedPoints(segments: number, bends?: Path[]): Vector2[];
         getWrapPoints(oldPts: Vector2[], path: Path): Vector2[];
     }
@@ -5195,7 +5195,7 @@ declare module THREE {
      * a 2d path representation, comprising of points, lines, and cubes, similar to the html5 2d canvas api. It extends CurvePath.
      */
     export class Path extends CurvePath {
-        constructor(points?: Vector2);
+        constructor(points?: Vector2[]);
 
         actions: PathAction[];
 
@@ -5209,8 +5209,8 @@ declare module THREE {
         absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
-        getSpacedPoints(divisions?: number, closedPath?: boolean): Vector[];
-        getPoints(divisions?: number, closedPath?: boolean): Vector[];
+        getSpacedPoints(divisions?: number, closedPath?: boolean): Vector2[];
+        getPoints(divisions?: number, closedPath?: boolean): Vector2[];
         toShapes(): Shape[];
     }
 
@@ -5339,7 +5339,7 @@ declare module THREE {
 
     // Extras / Geomerties /////////////////////////////////////////////////////////////////////
     /**
-     * CubeGeometry is the quadrilateral primitive geometry class. It is typically used for creating a cube or irregular quadrilateral of the dimensions provided within the (optional) 'width', 'height', & 'depth' constructor arguments.
+     * BoxGeometry is the quadrilateral primitive geometry class. It is typically used for creating a cube or irregular quadrilateral of the dimensions provided within the (optional) 'width', 'height', & 'depth' constructor arguments.
      */
     export class BoxGeometry extends Geometry {
         /**
@@ -5380,6 +5380,7 @@ declare module THREE {
         thetaLength: number;
     }
 
+    // deprecated
     export class CubeGeometry extends BoxGeometry {
     }
 
@@ -5604,7 +5605,7 @@ declare module THREE {
         cone: Mesh;
 
         setDirection(dir: Vector3): void;
-        setLength(length: number): void;
+        setLength(length: number,  headLength?: number, headWidth?: number): void;
         setColor(hex: number): void;
     }
 
@@ -5854,4 +5855,8 @@ declare module THREE {
             fragmentShader: string;
         };
     };
+}
+
+declare module 'three' {
+    export=THREE;
 }

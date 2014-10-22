@@ -141,8 +141,8 @@ declare module Pickadate {
         // Disable dates (elements can be Dates, [YEAR, MONTH, DATE] arrays, or integers of the week)
         disable?: any[];
 
-        // Root container selector
-        container?: string
+        // Root container selector (string) or element (JQuery)
+        container?: any;
 
         // Events
         onStart?: () => void;
@@ -238,8 +238,8 @@ declare module Pickadate {
         // Disable dates (elements can be Dates, [YEAR, MONTH, DATE] arrays, or integers of the week)
         disable?: any[];
 
-        // Root container selector
-        container?: string
+        // Root container selector (string) or element (JQuery)
+        container?: any;
 
         // Events
         onStart?: () => void;
@@ -289,29 +289,43 @@ declare module Pickadate {
 
 interface JQuery {
     /**
-    * Initialize a date picker.
-    */
-    pickadate(options?: Pickadate.DateOptions): any;
+     * Access the API object after initialization.
+     */
+    pickadate(keyword: "picker"): Pickadate.Api;
+    pickadate(objectName: "$node"): JQuery;
+    pickadate(objectName: "$root"): JQuery;
+    pickadate(objectName: "_hidden"): JQuery;
 
     /**
-    * Access objects attached to the picker or invoke API methods after initialization.
-    * If keyword is "picker", this returns a PickadateApi.
-    * @param keyword "picker", an object name, or method name
-    * @param arguments any arguments to pass to the method
-    */
-    pickadate(keyword: string, ...arguments: any[]): any;
+     * Invoke API methods after picker initialization.
+     * @param methodName
+     * @param arguments any arguments to pass to the method
+     */
+    pickadate(methodName: string, ...arguments: any[]): any;
 
     /**
-    * Initialize a time picker.
-    */
-    pickatime(options?: Pickadate.TimeOptions): any;
+     * Initialize a date picker.
+     * @returns the original JQuery selection
+     */
+    pickadate(options?: Pickadate.DateOptions): JQuery;
+
+
+    pickatime(keyword: "picker"): Pickadate.Api;
+    pickatime(objectName: "$node"): JQuery;
+    pickatime(objectName: "$root"): JQuery;
+    pickatime(objectName: "_hidden"): JQuery;
 
     /**
-    * Access objects attached to the picker or invoke API methods after initialization.
-    * If keyword is "picker", this returns a PickadateApi.
-    * @param keyword "picker", an object name, or method name
-    * @param arguments any arguments to pass to the method
-    */
-    pickatime(keyword: string, ...arguments: any[]): any;
+     * Invoke API methods after picker initialization.
+     * @param methodName
+     * @param arguments any arguments to pass to the method
+     */
+    pickatime(methodName: string, ...arguments: any[]): any;
+
+    /**
+     * Initialize a time picker.
+     * @returns the original JQuery selection
+     */
+    pickatime(options?: Pickadate.TimeOptions): JQuery;
 }
 

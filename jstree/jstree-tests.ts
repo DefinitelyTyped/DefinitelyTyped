@@ -75,6 +75,8 @@ a.search('test', false, true);
 //test redraw node
 a.redraw_node($('#node1'), false, false, false);
 
+//test clear buffer
+a.clear_buffer();
 
 //tree with new unique plugin parameters
 var treeWithUnique = $('#treeWithUnique').jstree({
