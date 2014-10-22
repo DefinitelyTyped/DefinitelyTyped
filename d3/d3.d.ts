@@ -233,6 +233,13 @@ declare module D3 {
         */
         transpose(matrix: any[]): any[];
         /**
+        * Creates an array containing tuples of adjacent pairs
+        *
+        * @param arr An array containing entries to pair
+        * @returns any[][] An array of 2-element tuples for each pair
+        */
+        pairs(arr: any[]): any[][];
+        /**
         * List the keys of an associative array.
         *
         * @param map Array of objects to get the key values from
