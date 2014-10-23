@@ -82,8 +82,10 @@ interface JSZip {
 
 interface JSZipObject {
     name: string;
-    data: any;
-    options: JSZipFileOptions;
+    dir: boolean;
+    date: Date;
+    comment: string;
+    options: JSZipObjectOptions;
 
     asText(): string;
     asBinary(): string;
