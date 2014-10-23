@@ -8,115 +8,105 @@ declare module jszip {
         /**
          * Get a file from the archive
          *
-         * @param path {string} relative path to file
-         *
-         * @return {JSZipFile} file matching path, null if no file found
+         * @param Path relative path to file
+         * @return File matching path, null if no file found
          */
         file(path: string): JSZipFile;
 
         /**
          * Get files matching a RegExp from archive
          *
-         * @param path {RegExp} RegExp to match
-         *
-         * @return {JSZipFile[]} return all matching files or an empty array
+         * @param path RegExp to match
+         * @return Return all matching files or an empty array
          */
         file(path: RegExp): JSZipFile[];
 
         /**
          * Add a file to the archive
          *
-         * @param path {string} relative path to file
-         * @param content {any} content of the file
-         * @param options {JSZipOptions} optional information about the file
-         *
-         * @return {JSZip} JSZip object
+         * @param path Relative path to file
+         * @param content Content of the file
+         * @param options Optional information about the file
+         * @return JSZip object
          */
         file(path: string, content: any, options?: JSZipOptions): JSZip;
 
         /**
          * Return an new JSZip instance with the given folder as root
          * 
-         * @param name {string} name of the folder
-         *
-         * @return {JSZip} new JSZip object with the given folder as root or null
+         * @param name Name of the folder
+         * @return New JSZip object with the given folder as root or null
          */
         folder(name: string): JSZip;
 
         /**
          * Returns new JSZip instances with the matching folders as root
          * 
-         * @param name {RegExp} RegExp to match
-         *
-         * @return {JSZipFile[]} new array of JSZipFile objects which match the RegExp
+         * @param name RegExp to match
+         * @return New array of JSZipFile objects which match the RegExp
          */
         folder(name: RegExp): JSZipFile[];
 
         /**
          * Removes the file or folder from the archive
          * 
-         * @param path {string} relative path of file or folder
-         * 
-         * @return {JSZip} returns the JSZip instance
+         * @param path Relative path of file or folder
+         * @return Returns the JSZip instance
          */
         remove(path: string): JSZip;
 
         /**
          * Generates a new archive
          *
-         * @param options {JSZipGeneratorOptions} optional options for the generator
-         * 
-         * @return {any} the serialized archive
+         * @param options Optional options for the generator
+         * @return The serialized archive
          */
         generate(options?: JSZipGeneratorOptions): any;
 
         /**
          * Deserialize zip file
          *
-         * @param data {any} serialized zip file
-         * @param options {JSZipOptions} options for deserializing
-         *
-         * @return {JSZip} returns the JSZip instance
+         * @param data Serialized zip file
+         * @param options Options for deserializing
+         * @return Returns the JSZip instance
          */
         load(data: any, options: JSZipOptions): JSZip;
 
         /**
          * Get all files wchich match the given filter function
          *
-         * @param {function} filter function
-         *
-         * @return {JSZipFile[]} array of matched elements
+         * @param predicate Filter function
+         * @return Array of matched elements
          */
         filter(predicate: (relativePath: string, file: JSZipFile) => boolean): JSZipFile[];
 
         /**
          * Calculate crc32 of given string
          *
-         * @param data {string} string to calculate crc32 from
-         * @param crc {number} optional: initializer for crc calc
-         *
-         * @return {number} calculated crc32 number
+         * @param data String to calculate crc32 from
+         * @param crc Optional: initializer for crc calc
+         * @return Calculated crc32 number
          */
         crc32(data: string, crc?: number): number;
 
         /**
          * Clone JSSZip instance
          *
-         * return {JSZip} cloned instsance
+         * @return Cloned instsance
          */
         clone(): JSZip;
 
         /**
          * UTF8 encode a string
          *
-         * @param data {string} string to encode
+         * @param data String to encode
          */
         utf8encode(data: string): string;
 
         /**
          * UTF8 decode a string
          *
-         * @param data {string} string to decode
+         * @param data String to decode
          */
         utf8decode(data: string): string;
 
@@ -166,13 +156,13 @@ declare var JSZip: {
      * Create JSZip instance
      * If no parameters given an empty zip archive will be created
      *
-     * @param data {any} serialized zip archive
-     * @param options {JSZipOptions} description of the serialized zip archive
+     * @param data Serialized zip archive
+     * @param options Description of the serialized zip archive
      */
-	new(data?: any, options?: jszip.JSZipOptions): jszip.JSZip;
+    new (data?: any, options?: jszip.JSZipOptions): jszip.JSZip;
 
     prototype: jszip.JSZip;
-    support : jszip.JSZipSupport;
+    support: jszip.JSZipSupport;
 }
 
 declare var JSZipBase64: {
