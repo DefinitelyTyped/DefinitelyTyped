@@ -12,6 +12,12 @@ declare module React {
 
     export function createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
 
+    export function createElement<P>(clazz: ReactComponentFactory<P>, props: P, ...children: any[]): ReactComponentElement<P>;
+
+    export function createElement(type: string, props: DomAttributes, ...children: any[]): ReactHTMLElement;
+
+    export function createElement(type: string, props: SvgAttributes, ...children: any[]): ReactSVGElement;
+
     export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
 
     export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
