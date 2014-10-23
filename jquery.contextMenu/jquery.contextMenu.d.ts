@@ -24,8 +24,21 @@ interface JQueryContextMenuOptions {
         show?: () => void;
         hide?: () => void;
     };
+    build?: (trigger: any, e: Event) => any;
     callback?: (key: any, options: any) => any;
-    items: any;
+    items: JQueryContextMenuItems;
+}
+
+interface JQueryContextMenuItems {
+    [index: string]: JQueryContextMenuItemOptions
+}
+
+interface JQueryContextMenuItemOptions {
+    name: string;
+    icon?: string;
+    disabled: boolean;
+    accesskey?: string;
+    items?: JQueryContextMenuItems;
 }
 
 interface JQueryStatic {
