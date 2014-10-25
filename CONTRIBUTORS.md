@@ -67,6 +67,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Crossfilter](https://github.com/square/crossfilter) (by [Schmulik Raskin](https://github.com/schmuli))
 * [crypto-js](https://code.google.com/p/crypto-js/) (by [Gia Bảo @ Sân Đình](https://github.com/giabao)). @see [cryptojs.d.ts repo](https://github.com/giabao/cryptojs.d.ts)
 * [d3.js](http://d3js.org/) (from TypeScript samples)
+* [debug](https://github.com/visionmedia/debug) (by [Seon-Wook Park](https://github.com/swook))
 * [dhtmlxGantt](http://dhtmlx.com/docs/products/dhtmlxGantt) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [dhtmlxScheduler](http://dhtmlx.com/docs/products/dhtmlxScheduler) (by [Maksim Kozhukh](http://github.com/mkozhukh))
 * [diff](https://github.com/kpdecker/jsdiff) (by [vvakame](http://github.com/vvakame))
