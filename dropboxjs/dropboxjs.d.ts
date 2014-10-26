@@ -506,3 +506,7 @@ declare module Dropbox {
 
     }
 }
+
+declare module "dropboxjs" {
+	export = Dropbox;
+}
