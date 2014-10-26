@@ -103,6 +103,7 @@ declare module Hapi {
 
 	export class Pack {
 		require(name: string, options: {}, callback: Function): void;
+		register(plugins: any, options?: Object, callback?: Function, state?: Object): void;
 	}
 
 	export interface ServerView {
