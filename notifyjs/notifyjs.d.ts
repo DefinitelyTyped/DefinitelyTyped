@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var Notify: {
-    new (title : string , options? : notify.INotifyOption): notify.INotify;
+    new (title : string , options? : notifyjs.INotifyOption): notifyjs.INotify;
 
     /**
      * Check is permission is needed for the user to receive notifications.
@@ -26,7 +26,7 @@ declare var Notify: {
     isSupported() : boolean;
 }
 
-declare module notify {
+declare module notifyjs {
     
     /**
      * Interface for Web Notifications API Wrapper.
