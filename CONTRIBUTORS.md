@@ -64,6 +64,7 @@ All definitions files include a header with the author and editors, so at some p
 * [CodeMirror](http://codemirror.net) (by [François de Campredon](https://github.com/fdecampredon))
 * [Commander](http://github.com/visionmedia/commander.js) (by [Marcelo Dezem](https://github.com/mdezem) and [vvakame](https://github.com/vvakame))
 * [configstore](http://github.com/yeoman/configstore) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [cookie.js](https://github.com/js-coder/cookie.js) (by [Boltmade](https://github.com/Boltmade))
 * [Cordova](http://cordova.apache.org) (by [Microsoft Open Technologies, Inc.](http://msopentech.com/))
 * [Cordovarduino](https://github.com/stereolux/cordovarduino) (by [Hendrik Maus](https://github.com/hendrikmaus))
 * [Couchbase / Couchnode](https://github.com/couchbase/couchnode) (by [Basarat Ali Syed](https://github.com/basarat))
