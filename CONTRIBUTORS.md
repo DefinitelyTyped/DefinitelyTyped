@@ -19,6 +19,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Angular Hotkeys](https://github.com/chieffancypants/angular-hotkeys/) (by [Jason Zhao](https://github.com/jlz27))
 * [angular-http-auth](https://github.com/witoldsz/angular-http-auth) (by [vvakame](https://github.com/vvakame))
 * [Angular Protractor](https://github.com/angular/protractor) (by [Bill Armstrong](https://github.com/BillArmstrong))
+* [Angular notify](https://github.com/cgross/angular-notify) (by [Suwato](https://github.com/Suwato))
 * [Angular Translate](http://pascalprecht.github.io/angular-translate/) (by [Michel Salib](https://github.com/michelsalib))
 * [Angular UI Bootstrap](http://angular-ui.github.io/bootstrap) (by [Brian Surowiec](https://github.com/xt0rted))
 * [any-db](https://github.com/grncdr/node-any-db) (by [Rogier Schouten](https://github.com/rogier-schouten))
