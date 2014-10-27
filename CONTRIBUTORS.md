@@ -49,6 +49,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Browser Harness](https://github.com/scriby/browser-harness) (by [Chris Scribner](https://github.com/scriby))
 * [bucks](https://github.com/CyberAgent/bucks.js) (by [Shunsuke Ohtani](https://github.com/zaneli))
 * [bunyan](https://github.com/trentm/node-bunyan) (by [Alex Mikhalev](https://github.com/amikhalev))
+* [bunyan-logentries](https://github.com/nemtsov/node-bunyan-logentries) (by [Aymeric Beaumet](http://aymericbeaumet.me))
 * [CasperJS](http://casperjs.org) (by [Jed Mao](https://github.com/jedmao))
 * [CanvasJS](http://canvasjs.com) (by [Mark Overholt](https://github.com/mover5))
 * [Cheerio](https://github.com/MatthewMueller/cheerio) (by [Bret Little](https://github.com/blittle))
