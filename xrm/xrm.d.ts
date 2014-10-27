@@ -1,6 +1,6 @@
 ﻿// Type definitions for Microsoft Dynamics xRM API v6.1.1
 // Project: http://msdn.microsoft.com/en-us/library/gg328255.aspx
-// Definitions by: David Berry <https://github.com/6ix4our>
+// Definitions by: David Berry <https://github.com/6ix4our/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Xrm 
