@@ -1,4 +1,4 @@
-///<reference path='iscroll.d.ts' />
+///<reference path='iscroll-lite.d.ts' />
 
 var iscroll_1 = new IScroll('#wrapper');
 
@@ -21,36 +21,13 @@ var iscroll_5 = new IScroll('#wrapper', {
     disablePointer: true,
     disableTouch: false,
     eventPassthrough: 'horizontal',
-    fadeScrollbars: true,
     freeScroll: true,
-    indicators: {
-        el: '#indicator',
-        fade: true,
-        ignoreBoundaries: false,
-        interactive: true,
-        listenX: false,
-        listenY: true,
-        resize: false,
-        shrink: true,
-        speedRatioX: 100,
-        speedRatioY: 100
-    },
-    interactiveScrollbars: false,
-    invertWheelDirection: true,
-    keyBindings: false,
     momentum: false,
-    mouseWheel: true,
-    mouseWheelSpeed: 100,
     preventDefault: true,
     preventDefaultException: { className: /(^|\s)formfield(\s|$)/ },
     resizePolling: 100,
-    resizeScrollbars: false,
-    scrollbars: true,
     scrollX: false,
     scrollY: true,
-    shrinkScrollbars: false,
-    snap: false,
-    snapThreshold: 100,
     startX: 100,
     startY: 100,
     tap: 'tapEvent',
@@ -61,20 +38,6 @@ var iscroll_5 = new IScroll('#wrapper', {
 var iscroll_6 = new IScroll('#wrapper', {
     bounceEasing: 'bounce',
     eventPassthrough: true,
-    indicators: { el: document.getElementById('indicator') },
-    keyBindings: {
-        pageUp: 33,
-        pageDown: 34,
-        end: 35,
-        home: 36,
-        left: 37,
-        up: 38,
-        right: 39,
-        down: 40
-    },
-    scrollbars: 'custom',
-    shrinkScrollbars: 'clip',
-    snap: 'li',
     tap: false
 });
 
@@ -90,8 +53,6 @@ iscroll_3.resetPosition(100);
 iscroll_4.scrollBy(1, 2, 100, IScroll.utils.ease.quadratic);
 iscroll_5.scrollTo(2, 3, 100, { fn: function (k: number) { return k; }, style: 'cubic-bezier(0,0,1,1)' });
 iscroll_6.scrollToElement('#elem', 100, 10, 10);
-iscroll_1.next(100);
-iscroll_2.prev(100, IScroll.utils.ease.elastic);
 
 var w: number = iscroll_1.directionX;
 var e: number = iscroll_2.directionY;
@@ -115,4 +76,3 @@ var z: number = iscroll_6.wrapperHeight;
 var x: number = iscroll_1.wrapperOffset.left;
 var c: number = iscroll_2.x;
 var v: number = iscroll_3.y;
-var b: IScrollSnapPoint = iscroll_4.currentPage;
