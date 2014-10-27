@@ -89,7 +89,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min<T, U>(arr: T[], map: (v: T) => U): U;
+        min<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
         /**
         * Find the minimum value in an array
         *
@@ -102,7 +102,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max<T, U>(arr: T[], map: (v: T) => U): U;
+        max<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
         /**
         * Find the maximum value in an array
         *
