@@ -8,6 +8,12 @@ interface WebGLRenderingContext {}
 declare module THREE {
     export var REVISION: string;
 
+    // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
+    export enum MOUSE { }
+    export var LEFT: MOUSE;
+    export var MIDDLE: MOUSE;
+    export var RIGHT: MOUSE;
+
     // GL STATE CONSTANTS
     export enum CullFace { }
     export var CullFaceNone: CullFace;
@@ -923,7 +929,7 @@ declare module THREE {
          */
         dispose(): void;
 
-        //These properties does not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
+        //These properties do not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
         bones: Bone[];
         animation: AnimationData;
         animations: AnimationData[];
