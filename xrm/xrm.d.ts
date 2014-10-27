@@ -2006,16 +2006,4 @@ declare module Xrm
          */
         export function openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
     }
-
-    /**
-     * The following API components are undocumented, and therefore not supported by Microsoft and
-     * potentially volatile.  USE AT YOUR OWN RISK.
-     * 
-     * TO-DO: Document xRM internal APIs that are useful for Dynamics CRM development.
-     */
-    export module Application {
-        export interface GridControl {
-            GetParameter<T>(parameterName: string): T;
-        }
-    }
 }
