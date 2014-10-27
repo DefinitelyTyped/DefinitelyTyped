@@ -254,7 +254,7 @@ httpFoo.success((data, status, headers, config) => {
     var h = headers("test");
     h.charAt(0);
     var hs = headers();
-    hs.concat(["test"]);
+    hs["content-type"].charAt(1);
 });
 
 function test_angular_forEach() {
