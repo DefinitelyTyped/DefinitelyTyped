@@ -22,12 +22,6 @@ var constructResult1 = new Promise<string>((resolve: (promise: Thenable<string>)
 });
 promiseString = constructResult1;
 
-//cast test
-var castResult = Promise.cast('a string');
-promiseString = castResult;
-var castResult1 = Promise.cast(Promise.resolve('a string'));
-promiseString = castResult1;
-
 //resolve test
 var resolveResult = Promise.resolve('a string');
 promiseString = resolveResult;
