@@ -423,6 +423,7 @@ All definitions files include a header with the author and editors, so at some p
 * [xml2js](https://github.com/Leonidas-from-XIV/node-xml2js) (by [Michel Salib](https://github.com/michelsalib))
 * [xpath](https://github.com/goto100/xpath) (by [Andrew Bradley](https://github.com/cspotcode))
 * [XRegExp](http://xregexp.com/) (by [Bart van der Schoor](https://github.com/Bartvds))
+* [yargs](https://github.com/chevex/yargs) (by [Martin Poelstra](https://github.com/poelstra))
 * [YouTube](https://developers.google.com/youtube/) (by [Daz Wilkin](https://github.com/DazWilkin/))
 * [YouTube Analytics API](https://developers.google.com/youtube/analytics/) (by [Frank M](https://github.com/sgtfrankieboy))
 * [YouTube Data API](https://developers.google.com/youtube/v3/) (by [Frank M](https://github.com/sgtfrankieboy/))
