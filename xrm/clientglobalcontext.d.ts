@@ -1,4 +1,4 @@
-﻿// Type definition for Microsoft Dynamics xRM ClientGlobalContext.js.aspx
+﻿// Type definitions for Microsoft Dynamics xRM ClientGlobalContext.js.aspx
 // Project: http://msdn.microsoft.com/en-us/library/gg328255.aspx
 // Definitions by: David Berry <https://github.com/6ix4our/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
