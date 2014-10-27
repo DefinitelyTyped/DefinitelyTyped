@@ -1200,8 +1200,13 @@ declare module ng {
         url: string;
     }
 
+    interface IHttpHeadersGetter {
+        (): { [name: string]: string; };
+        (headerName: string): string;
+    }
+
     interface IHttpPromiseCallback<T> {
-        (data: T, status: number, headers: (headerName?: string) => string, config: IRequestConfig): void;
+        (data: T, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): void;
     }
 
     interface IHttpPromiseCallbackArg<T> {
