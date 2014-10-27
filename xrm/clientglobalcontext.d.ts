@@ -2,6 +2,9 @@
 // Project: http://msdn.microsoft.com/en-us/library/gg328255.aspx
 // Definitions by: David Berry <https://github.com/6ix4our/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="xrm.d.ts" />
+
 /**
  * Gets the xRM application context, for HTML web resources
  * @returns {Xrm.Context}   The application context for the user's current session.
