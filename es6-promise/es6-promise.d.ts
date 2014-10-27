@@ -119,22 +119,12 @@ declare class Promise<R> implements Thenable<R> {
 
 declare module Promise {
 	/**
-	 * Returns promise (only if promise.constructor == Promise)
-	 */
-	function cast<R>(promise: Promise<R>): Promise<R>;
-	/**
-	 * Make a promise that fulfills to obj.
-	 */
-	function cast<R>(object: R): Promise<R>;
-
-	/**
 	 * Make a new promise from the thenable. 
 	 * A thenable is promise-like in as far as it has a "then" method. 
-	 * This also creates a new promise if you pass it a genuine JavaScript promise, making it less efficient for casting than Promise.cast.
 	 */
 	function resolve<R>(thenable?: Thenable<R>): Promise<R>;
 	/**
-	 * Make a promise that fulfills to obj. Same as Promise.cast(obj) in this situation.
+	 * Make a promise that fulfills to obj.
 	 */
 	function resolve<R>(object?: R): Promise<R>;
 	
