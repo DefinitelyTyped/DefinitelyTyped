@@ -330,6 +330,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Pickadate.js](https://github.com/amsul/pickadate.js) (by [Adi Dahiya](https://github.com/adidahiya))
 * [PixiJS](https://github.com/GoodBoyDigital/pixi.js) (by [Pedro Casaubon](https://github.com/xperiments))
 * [Platform](https://github.com/bestiejs/platform.js) (by [Jake Hickman](https://github.com/JakeH))
+* [podcast](http://github.com/maxnowack/node-podcast) (by [Niklas Mollenhauer](https://github.com/nikeee))
 * [PouchDB](http://pouchdb.com) (by [Bill Sears](https://github.com/MrBigDog2U/))
 * [PreloadJS](http://www.createjs.com/#!/PreloadJS) (by [Pedro Ferreira](https://bitbucket.org/drk4))
 * [ProgressJs](http://usablica.github.io/progress.js/) (by [Shunsuke Ohtani](https://github.com/zaneli))
