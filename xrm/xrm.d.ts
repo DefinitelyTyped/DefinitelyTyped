@@ -126,7 +126,7 @@ declare module Xrm
     }
 
     /**
-     *  A definition module for ascynchronous interface declarations.
+     *  A definition module for asynchronous interface declarations.
      */
     export module Async
     {
@@ -830,7 +830,7 @@ declare module Xrm
              *
              * @remarks     The getOptions() method returns option values as strings. You must use parseInt
              *              to convert them to numbers before you can use those values to set the value of an
-             *              optionset attribute. Attributes on Quick Create Forms will not save values set
+             *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
             setValue( value: number ): void;
@@ -1081,12 +1081,12 @@ declare module Xrm
              *              the form may change the name assigned to a given control.
              *              When you use the control getName method the name of the first control will be the
              *              same as the name of the attribute. The second instance of a control for that
-             *              attribute will be "&lt;attributeName&gt;1". The pattern &lt;attributeName&gt;+N
+             *              attribute will be "<attributeName>1". The pattern <attributeName>+N
              *              will continue for each additional control added to the form for a specific
              *              attribute. When a form displays a business process flow control in the header,
              *              additional controls will be added for each attribute that is displayed in the
              *              business process flow. These controls have a unique name like the following:
-             *              header_process_&lt;attribute name&gt;.
+             *              header_process_<attribute name>.
              */
             getName(): string;
 
@@ -1543,7 +1543,7 @@ declare module Xrm
             getViewPortWidth(): number;
 
             /**
-             * Re-evalutates the ribbon's configured EnableRules
+             * Re-evaluates the ribbon's configured EnableRules
              * 
              * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
              */
@@ -1894,7 +1894,7 @@ declare module Xrm
             action: string;
 
             /**
-             * The filename of the report.  For out-of-box reports, this parameter enables context-sensitive
+             * The file name of the report.  For out-of-box reports, this parameter enables context-sensitive
              * help.
              */
             helpID?: string;
@@ -1989,7 +1989,7 @@ declare module Xrm
          * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
          *                                      parameters.  See Remarks.
          * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
-         *                                                 It is advisaed to use encodeURIcomponent() to encode the value.
+         *                                                 It is advised to use encodeURIcomponent() to encode the value.
          * @param   {number}    width           (Optional) The width of the new window.
          * @param   {number}    height          (Optional) The height of the new window.
          *
