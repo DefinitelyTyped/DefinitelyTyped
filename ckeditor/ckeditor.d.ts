@@ -614,8 +614,113 @@ declare module CKEDITOR {
 
 
         module widget {
-            class repository {
+            interface IWidget {
+                allowedContent: any;
+                button: string;
+                contentForms: Object;
+                contentTransformations: Object;
+                data: Function;
+                defaults: Object;
+                dialog: String;
+                downcast: any; // should be string | Function
+                downcasts: Object;
+                draggable: boolean;
+                editables: Object;
+                init: Function;
+                inline: Boolean;
+                insert: Function;
+                mask: Boolean;
+                name: String;
+                parts: Object;
+                pathName: string;
+                requiredContent: any;
+                styleToAllowedContentRules: Function;
+                styleableElements: string;
+                template: string;
+                upcast: any; // should be string | Function
+                upcasts: Object;
 
+                addClass(className: string): void;
+                applyStyle(style: any): void; // any should be CKEDITOR.style
+                capture(): void;
+                checkStyleActive(style: any): boolean; // any should be CKEDITOR.style
+                define(name: string, meta: {errorProof?: boolean}): void;
+                destroy(offline?: boolean): void;
+                destroyEditable(editableName:string, offline?: boolean): void;
+                edit(): boolean;
+                fire(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
+                fireOnce(eventName: string, data?: Object, editor?: editor): any; // should be boolean | Object
+                focus(): void;
+                getClasses(): Object;
+                hasClass(className: string, Whether: boolean): void;
+                hasListeners(eventName: string): boolean;
+                initEditable(editableName: string, definition: any): boolean; // any should be CKEDITOR.plugins.widget.nestedEditable.definition
+                isInited(): boolean;
+                isReady(): boolean;
+                on(eventName: string, listenerFunction: Function,
+                    scopeObj: Object, listenerData: Object, priority: number): Object;
+                once(): void;
+                removeAllListeners(): void;
+                removeClass(className: string): void;
+                removeListener(evnetName: string, listenerFunction: Function): void;
+                removeStyle(style: any): void; // any should be CKEDITOR.style
+                setData(keyOrData: any, value?: Object): IWidget; // any should be string | Object
+                setFocused(selected: boolean): IWidget;
+                setSelected(selected: boolean): IWidget;
+                toFeature(): any; // should be CKEDITOR.feature
+                updateDragHandlerPosition(): void;
+            }
+
+            interface IWidgetDefinition {
+                allowedContent?: any;
+                button?: string;
+                contentForms?: Object;
+                contentTransformations?: Object;
+                data?: Function;
+                defaults?: Object;
+                dialog?: String;
+                downcast?: any; // should be string | Function
+                downcasts?: Object;
+                draggable?: boolean;
+                edit?: Function;
+                editables?: Object;
+                init?: Function;
+                inline?: Boolean;
+                insert?: Function;
+                mask?: Boolean;
+                name?: String;
+                parts?: Object;
+                pathName?: string;
+                requiredContent?: any;
+                styleToAllowedContentRules?: Function;
+                styleableElements?: string;
+                template?: string;
+                upcast?: any; // should be string | Function
+                upcasts?: Object;
+                toFeature?(): any; // should be CKEDITOR.feature
+            }
+
+            class repository {
+                add(name: string, widgetDef: IWidgetDefinition): void;
+                addUpcastCallback(callback: Function): void;
+                capture(): void;
+                checkSelection(): void;
+                checkWidgets(options?: {initOnlyNew?: boolean; focusInited?: boolean}): void;
+                define(name: string, meta?: {errorProof?: boolean}): void;
+                del(widget: IWidget): void;
+                destroy(widget: IWidget, offline?: boolean): void;
+                destroyAll(offline?: boolean): void;
+                finalizeCreation(container: any): void;
+                fire(eventName: string, data: Object, editor: editor): any; // should be boolean | Object
+                getByElement(element: any, checkWrapperOnly: boolean): IWidget;
+                hasListeners(eventName: string): boolean;
+                initOn(element: any, widgetDef?: IWidgetDefinition, startupData?: Object): IWidget;
+                initOnAll(container?: any): IWidget[];
+                on(eventName: string, listenerFunction: Function, scopeObj?: Object, listenerData?: Object, priority?: number): Object;
+                once(): void;
+                parseElementClasses(classes: string): Object;
+                removeAllListeners(eventName: string, listenerFunction: Function): void;
+                wrapElement(element: any, widgetName?: string): any;
             }
         }
 
