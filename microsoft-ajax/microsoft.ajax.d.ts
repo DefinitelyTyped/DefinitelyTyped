@@ -3122,6 +3122,33 @@ declare module Sys {
             toggleCssClass(className: string): void;
 
             //#endregion
+			
+			 //#region Properties
+
+            /**
+            * Gets the HTML Document Object Model (DOM) element that the current Sys.UI.Control object is associated with.
+            * @return The DOM element that the current Control object is associated with.
+            */
+            get_element(): Sys.UI.DomElement;
+            /**
+            * Gets or sets the identifier for the Sys.UI.Control object.
+            * A generated identifier that consists of the ID of the associated Sys.UI.DomElement, the "$" character, and the name value of the Control object.
+            */
+            get_id(): string;
+            /**
+            * Gets or sets the identifier for the Sys.UI.Control object.
+            * @param value
+            *           The string value to use as the identifier.
+            */
+            set_id(value: string): void;
+            /*
+            * Gets or sets the name of the Sys.UI.Control object.
+            * If you do not explicitly set the name property, getting the property value sets it to its default value, which is equal to the type of the Control object. The name property remains null until it is accessed.
+            * @param value
+            *           A string value to use as the name.
+            */
+			
+            //#endregion
         }
         /**
         * Defines static methods and properties that provide helper APIs for manipulating and inspecting DOM elements.
