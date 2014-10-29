@@ -288,3 +288,16 @@ function test_adding_plugin() {
         }
     });
 }
+
+function test_adding_widget() {
+    function wrapper(editor: CKEDITOR.editor) {
+            editor.widgets.add("widgetty", {
+            button: "Activate widgetty",
+            template: "<imaginary-element>",
+            dialog: "widgetty",
+            init: function() {
+                // no logic
+            }
+        });
+    }
+}
