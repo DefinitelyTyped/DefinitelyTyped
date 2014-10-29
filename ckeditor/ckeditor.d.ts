@@ -619,6 +619,24 @@ declare module CKEDITOR {
             }
         }
 
+        interface IPluginDefinition {
+            hidpi?: boolean;
+            lang?: any; // should be string | string[]
+            requires?: any; // should be string | string[]a
+            afterInit?(editor: editor): any;
+            beforeInit?(editor: editor): any;
+            init?(editor: editor): any;
+            onLoad?(): any;
+        }
+
+        function add(name: string, definition?: IPluginDefinition): void;
+        function addExternal(name: string, path: string, fileName: string): void;
+        function get(name: string): any;
+        function getFilePath(name: string): string;
+        function getPath(name: string): string;
+        function load(name: string, callback: string, scope: any): void;
+        function setLang(pluginName: string, languageCode: string, languageEntries: any): void;
+
     }
 
 
@@ -963,4 +981,35 @@ declare module CKEDITOR {
         addFocusable(element: CKEDITOR.dom.element, index: number): void;
     }
 
+    module tools {
+        var callFunction: Function;
+    }
+
+    module dialog {
+        interface IDialogDefinition {
+            buttons?: any[];
+            contents?: any[];
+            height?: number;
+            minHeight?: number;
+            minWidth?: number;
+            onCancel?: Function;
+            onLoad?: Function;
+            onOk?: Function;
+            onShow?: Function;
+            resizable?: number;
+            title?: string;
+            width?: number;
+        }
+
+        function add(name: string, path: string): void;
+        function add(name: string, dialogDefinition: IDialogDefinition): void;
+        function addIframe(name: string, title: string, minWidth: number,
+            minHeight: number, onContentLoad: Function, userDefinition: any): void;
+        function addUIElement(typeName: string, builder: Function): void;
+        function cancelButton(): void;
+        function exists(name: string): void;
+        function getCurrent(): void;
+        function isTabEnabled(editor: editor, dialogName: string, tabName: string): boolean;
+        function okButton(): void;
+    }
 }
