@@ -3,21 +3,20 @@
 //////////////////////////////////////////////////////////////
 
 /// <reference path="../../stats/stats.d.ts" />
-/// <reference path="../examples/Detector.d.ts" />
-/// <reference path="../examples/CSS3DRenderer.d.ts" />
-/// <reference path="../examples/OrbitControls.d.ts" />
-/// <reference path="../examples/TrackballControls.d.ts" />
+/// <reference path="../detector.d.ts" />
+/// <reference path="../three-css3drenderer.d.ts" />
+/// <reference path="../three-orbitcontrols.d.ts" />
+/// <reference path="../three-trackballcontrols.d.ts" />
+/// <reference path="../three-effectcomposer.d.ts" />
+/// <reference path="../three-renderpass.d.ts" />
+/// <reference path="../three-shaderpass.d.ts" />
+/// <reference path="../three-copyshader.d.ts" />
 
 declare module THREE {
     var AWDLoader: any;
-    var DotScreenShader: any;
     var FlyControls: any;
-    var RenderPass: any;
-    var EffectComposer: any;
-    var RGBShiftShader: any;
-    var RenderPass: any;
     var BloomPass: any;
-    var ShaderPass: any;
-    var FXAAShader: any;
-    var CopyShader: any;
+    var DotScreenShader: Shader;
+    var RGBShiftShader: Shader;
+    var FXAAShader: Shader;
 }
