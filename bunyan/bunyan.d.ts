@@ -15,6 +15,7 @@ declare module "bunyan" {
         addStream(stream:Stream):void;
         addSerializers(serializers:Serializers):void;
         child(options:LoggerOptions, simple?:boolean):Logger;
+        child(obj:Object, simple?:boolean):Logger;
         reopenFileStreams():void;
 
         level(value:any /* number | string */):void;
