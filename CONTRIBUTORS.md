@@ -247,6 +247,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Knockout.Mapping](https://github.com/SteveSanderson/knockout.mapping) (by [Boris Yankov](https://github.com/borisyankov))
 * [Knockout.Postbox](https://github.com/rniemeyer/knockout-postbox) (by [Judah Gabriel Himango](https://github.com/JudahGabriel))
 * [Knockout.Rx](https://github.com/Igorbek/knockout.rx) (by [Igor Oleinikov](https://github.com/Igorbek))
+* [Knockout Secure Binding](https://github.com/brianmhunt/knockout-secure-binding) (by [Pine Mizune](https://github.com/pine613))
 * [Knockout.Validation](https://github.com/ericmbarnard/Knockout-Validation) (by [Dan Ludwig](https://github.com/danludwig))
 * [Knockout.Viewmodel](http://coderenaissance.github.com/knockout.viewmodel/) (by [Oisin Grehan](https://github.com/oising))
 * [Knockstrap](http://faulknercs.github.io/Knockstrap/) (by [Adam Pluciński](https://github.com/adaskothebeast))
