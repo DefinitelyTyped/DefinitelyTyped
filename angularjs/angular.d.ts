@@ -1381,6 +1381,7 @@ declare module ng {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
+        bindToController?: boolean;
         link?: IDirectiveLinkFn;
         name?: string;
         priority?: number;
