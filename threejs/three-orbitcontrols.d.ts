@@ -3,7 +3,7 @@
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../three.d.ts" />
+/// <reference path="./three.d.ts" />
 
 declare module THREE {
     class OrbitControls {
