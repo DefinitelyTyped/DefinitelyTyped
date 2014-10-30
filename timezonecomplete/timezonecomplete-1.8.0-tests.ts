@@ -1,13 +1,12 @@
-/// <reference path="timezonecomplete.d.ts" />
+/// <reference path="timezonecomplete-1.8.0.d.ts" />
 
-import tc = require("timezonecomplete");
+import tc = require("timezonecomplete-1.8.0");
 
 var b: boolean;
 var n: number;
 var s: string;
 var w: tc.WeekDay;
 
-n = tc.timeUnitToMilliseconds(tc.TimeUnit.Month);
 b = tc.isLeapYear(2014);
 n = tc.daysInMonth(2014, 10);
 n = tc.daysInYear(2014);
@@ -29,7 +28,6 @@ var d4: tc.Duration = tc.Duration.milliseconds(24);
 var d5: tc.Duration = new tc.Duration(24);
 var d6: tc.Duration = new tc.Duration("00:01");
 var d7: tc.Duration = d6.clone();
-var d8: tc.Duration = new tc.Duration(4, tc.TimeUnit.Second);
 
 n = d7.wholeHours();
 n = d7.hours();
