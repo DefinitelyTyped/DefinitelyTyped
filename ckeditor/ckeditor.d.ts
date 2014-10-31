@@ -550,11 +550,17 @@ declare module CKEDITOR {
 
     }
 
+    interface toolbarGroups {
+        name?: string;
+        groups?: string[];
+    }
 
     interface config {
         startupMode?: string;
         removeButtons?: string;
+        removePlugins?: string;
         toolbar?: any;
+        toolbarGroups?: toolbarGroups[];
         skin?: string;
         language?: string;
         plugins?: string;
