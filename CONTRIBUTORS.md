@@ -427,6 +427,7 @@ All definitions files include a header with the author and editors, so at some p
 * [websocket](https://github.com/Worlize/WebSocket-Node) (by [Paul Loyd](https://github.com/loyd))
 * [WinJS](http://msdn.microsoft.com/en-us/library/windows/apps/br229773.aspx) (from TypeScript samples)
 * [WinRT](http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx) (from TypeScript samples)
+* [wolfy87-eventemitter](https://github.com/Wolfy87/EventEmitter) (by [Ryo Iwamoto](https://github.com/ryiwamoto))
 * [ws](http://einaros.github.io/ws/) (by [Paul Loyd](https://github.com/loyd))
 * [x2js](https://code.google.com/p/x2js/) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
 * [xml2js](https://github.com/Leonidas-from-XIV/node-xml2js) (by [Michel Salib](https://github.com/michelsalib))
