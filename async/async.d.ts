@@ -55,6 +55,7 @@ interface Async {
     eachSeries<T, R>(arr: T[], iterator: AsyncIterator<T, R>, callback: AsyncMultipleResultsCallback<R>): void;
     eachLimit<T, R>(arr: T[], limit: number, iterator: AsyncIterator<T, R>, callback: AsyncMultipleResultsCallback<R>): void;
     map<T, R>(arr: T[], iterator: AsyncIterator<T, R>, callback: AsyncMultipleResultsCallback<R>): any;
+    mapLimit<T, R>(arr: T[], limit: number, iterator: AsyncIterator<T, R>, callback: AsyncMultipleResultsCallback<R>): any;
     mapSeries<T, R>(arr: T[], iterator: AsyncIterator<T, R>, callback: AsyncMultipleResultsCallback<R>): any;
     filter<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>): any;
     select<T, R>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>): any;
