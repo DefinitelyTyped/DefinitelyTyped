@@ -91,6 +91,7 @@ All definitions files include a header with the author and editors, so at some p
 * [ES6-Promises](https://github.com/jakearchibald/ES6-Promises) (by [François de Campredon](https://github.com/fdecampredon/))
 * [Esprima](http://esprima.org/) (by [Teppei Sato](https://github.com/teppeis))
 * [expect.js](https://github.com/LearnBoost/expect.js) (by [Teppei Sato](https://github.com/teppeis))
+* [EventEmitter2](https://github.com/asyncly/EventEmitter2) (by [Ryo Iwamoto](https://github.com/ryiwamoto))
 * [expectations](https://github.com/spmason/expectations) (by [vvakame](https://github.com/vvakame))
 * [Express](http://expressjs.com/) (by [Boris Yankov](https://github.com/borisyankov))
 * [express-session](https://www.npmjs.org/package/express-session) (by [Hiroki Horiuchi](https://github.com/horiuchi/))
