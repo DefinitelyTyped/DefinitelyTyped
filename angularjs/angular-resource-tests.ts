@@ -21,6 +21,9 @@ var resourceClass: IMyResourceClass;
 var resource: IMyResource;
 var resourceArray: ng.resource.IResourceArray<IMyResource>;
 
+resource = resourceClass();
+resource = new resourceClass();
+
 resource = resourceClass.delete();
 resource = resourceClass.delete({ key: 'value' });
 resource = resourceClass.delete({ key: 'value' }, function () { });
