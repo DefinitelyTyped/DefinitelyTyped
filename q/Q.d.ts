@@ -74,8 +74,8 @@ declare module Q {
          */
         spread<U>(onFulfilled: Function, onRejected?: Function): Promise<U>;
 
-        fail<U>(onRejected: (reason: any) => U): Promise<U>;
         fail<U>(onRejected: (reason: any) => IPromise<U>): Promise<U>;
+        fail<U>(onRejected: (reason: any) => U): Promise<U>;
         /**
          * A sugar method, equivalent to promise.then(undefined, onRejected).
          */
@@ -329,7 +329,7 @@ declare module Q {
     /**
      * Returns a promise that is rejected with reason.
      */
-    export function reject(reason?: any): Promise<any>;
+    export function reject<T>(reason?: any): Promise<T>;
 
     export function Promise<T>(resolver: (resolve: (val: IPromise<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
     export function Promise<T>(resolver: (resolve: (val: T) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
