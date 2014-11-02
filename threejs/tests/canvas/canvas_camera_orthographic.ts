@@ -50,7 +50,7 @@
         var material1 = new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 });
 
         var line = new THREE.Line(geometry, material1);
-        line.type = THREE.LinePieces;
+        line.mode = THREE.LinePieces;
         scene.add(line);
 
         // Cubes
