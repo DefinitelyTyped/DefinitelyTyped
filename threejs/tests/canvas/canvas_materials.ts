@@ -45,7 +45,7 @@
         var material = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.2 });
 
         var line = new THREE.Line(geometry, material);
-        line.type = THREE.LinePieces;
+        line.mode = THREE.LinePieces;
         scene.add(line);
 
         // Spheres
