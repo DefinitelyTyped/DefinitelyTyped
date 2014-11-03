@@ -1,4 +1,4 @@
-import io = require('socket.io');
+import io = require('socket.io-0.9');
 
 var socketManager = io.listen(80);
 

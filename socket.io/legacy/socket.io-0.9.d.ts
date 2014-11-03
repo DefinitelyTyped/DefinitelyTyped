@@ -4,9 +4,9 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-///<reference path='../node/node.d.ts' />
+///<reference path='../../node/node.d.ts' />
 
-declare module "socket.io" {
+declare module "socket.io-0.9" {
 	import http = require('http');
 
 	export function listen(server: http.Server, options: any, fn: Function): SocketManager;
