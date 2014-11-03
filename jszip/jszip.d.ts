@@ -170,3 +170,7 @@ declare var JSZip: {
     prototype: JSZip;
     support: JSZipSupport;
 }
+
+declare module "jszip" {
+    export = JSZip;
+}
