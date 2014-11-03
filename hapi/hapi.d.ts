@@ -6,6 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module Hapi {
+	var error: any;
 	export interface ServerOptions {
 		app?: any;
 //		cache?: string;
@@ -102,8 +103,10 @@ declare module Hapi {
 	}
 
 	export class Pack {
-		require(name: string, options: {}, callback: Function): void;
-		register(plugins: any, options?: Object, callback?: Function, state?: Object): void;
+		server(host: string, port: number, options: any): void;
+		start(callback: Function): void;
+		stop(options: {}, callback: Function): void;
+		register(plugins: {plugin: any; options: any}, callback: Function): void;
 	}
 
 	export interface ServerView {
@@ -279,7 +282,7 @@ declare module Hapi {
 
 	export class Server {
 		app: any;
-		methods: Array<() => void>;
+		methods: any;
 		info: {
 			port: number;
 			host?: string;
@@ -307,16 +310,16 @@ declare module Hapi {
 		log(tags: string, data?: any, timestamp?: number): void;
 		log(tags: Array<string>, data?: any, timestamp?: number): void;
 		state(name: string, options?: {
-			ttl: number;
-			isSecure: boolean;
-			isHttpOnly: boolean;
-			path: string;
-			domain: string;
-			autoValue: (request: Request, next: (err: any, value: any) => void) => void;
+			ttl?: number;
+			isSecure?: boolean;
+			isHttpOnly?: boolean;
+			path?: string;
+			domain?: string;
+			autoValue?: any;
 			encoding?: string;
-			sign: any;
-			password: string;
-			iron: any;
+			sign?: any;
+			password?: string;
+			iron?: any;
 		}): void;
 		views(options: ServerView): void;
 		cache(name: string, options: {
@@ -334,11 +337,13 @@ declare module Hapi {
 			}): void;
 			strategy: any;
 		};
-		ext(event: any, method: string, options?: any): void;
+		ext(event: string, method: (request: Hapi.Request, next: Function) => void, options?: any): void;
+		ext(event: string, method: (request: Hapi.Request, next: Function) => void[], options?: any): void;
 		method(method: Array<{name: string; fn: () => void; options: any}>): void;
-		method(name: string, fn: () => void, options: any): void;
+		method(name: string, fn: (params: any, next: Function) => void, options: any): void;
 		inject(options: any, callback: any): void;
 		handler(name: string, method: (name: string, options: any) => void): void;
+		on(name: string, callback: Function): void;
 	}
 
 	export interface Request {
@@ -451,6 +456,7 @@ declare module Hapi {
 	}
 
 	export function createServer (host: string, port: number, options?: ServerOptions): Server;
+
 }
 
 declare module "hapi" {
