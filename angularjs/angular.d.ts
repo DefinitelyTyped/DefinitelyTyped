@@ -237,7 +237,7 @@ declare module ng {
             major: number;
             minor: number;
             dot: number;
-            codename: string;
+            codeName: string;
         };
     }
 
@@ -1200,8 +1200,13 @@ declare module ng {
         url: string;
     }
 
+    interface IHttpHeadersGetter {
+        (): { [name: string]: string; };
+        (headerName: string): string;
+    }
+
     interface IHttpPromiseCallback<T> {
-        (data: T, status: number, headers: (headerName: string) => string, config: IRequestConfig): void;
+        (data: T, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): void;
     }
 
     interface IHttpPromiseCallbackArg<T> {
@@ -1376,6 +1381,7 @@ declare module ng {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
+        bindToController?: boolean;
         link?: IDirectiveLinkFn;
         name?: string;
         priority?: number;

@@ -94,6 +94,7 @@ declare module chai {
         that: Expect;
         and: Expect;
         have: Expect;
+        has: Expect;
         with: Expect;
         at: Expect;
         of: Expect;

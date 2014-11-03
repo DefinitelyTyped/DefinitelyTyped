@@ -1576,7 +1576,7 @@ interface ZeptoAjaxSettings {
 	contentType?: string;
 	dataType?: string;
 	timeout?: number;
-	headers?: string;
+	headers?: { [key: string]: string };
 	async?: boolean;
 	global?: boolean;
 	context?: any;

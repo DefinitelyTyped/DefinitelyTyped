@@ -2248,7 +2248,7 @@ declare module chrome.webRequest {
 
     interface RequestFilter {
         tabId?: number;
-        types?: string;
+        types?: string[];
         urls: string[];
         windowId?: number;
     }

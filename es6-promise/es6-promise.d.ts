@@ -1,4 +1,4 @@
-// Type definitions for es6-promise
+﻿// Type definitions for es6-promise
 // Project: https://github.com/jakearchibald/ES6-Promise
 // Definitions by: François de Campredon <https://github.com/fdecampredon/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -99,15 +99,13 @@ declare class Promise<R> implements Thenable<R> {
 }
 
 declare module Promise {
-
 	/**
 	 * Make a new promise from the thenable. 
 	 * A thenable is promise-like in as far as it has a "then" method. 
-	 * This also creates a new promise if you pass it a genuine JavaScript promise, making it less efficient for casting than Promise.cast.
 	 */
 	function resolve<R>(thenable?: Thenable<R>): Promise<R>;
 	/**
-	 * Make a promise that fulfills to obj. Same as Promise.cast(obj) in this situation.
+	 * Make a promise that fulfills to obj.
 	 */
 	function resolve<R>(object?: R): Promise<R>;
 	

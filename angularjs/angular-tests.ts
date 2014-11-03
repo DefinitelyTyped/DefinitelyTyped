@@ -250,6 +250,12 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
+httpFoo.success((data, status, headers, config) => {
+    var h = headers("test");
+    h.charAt(0);
+    var hs = headers();
+    hs["content-type"].charAt(1);
+});
 
 function test_angular_forEach() {
     var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
