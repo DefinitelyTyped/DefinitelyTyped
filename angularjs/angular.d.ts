@@ -482,6 +482,9 @@ declare module ng {
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
+        
+        $applyAsync(exp: string): any;
+        $applyAsync(exp: (scope: IScope) => any): any;
 
         $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
