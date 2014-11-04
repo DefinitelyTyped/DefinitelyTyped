@@ -20,11 +20,22 @@ declare module "supertest" {
       expect(field: string, val: string, callback?: (err: Error, res: Response) => void): Test;
       expect(field: string, val: RegExp, callback?: (err: Error, res: Response) => void): Test;
       expect(checker: (res: Response) => any): Test;
+
+      attach(field: string, file: string, filename: string): Test;
+      redirects(n: number): Test;
+      part(): Test;
       set(field: string, val: string): Test;
       set(field: Object): Test;
+      type(val: string): Test;
       query(val: Object): Test;
       send(data: string): Test;
       send(data: Object): Test;
+      buffer(val: boolean): Test;
+      timeout(ms: number): Test;
+      clearTimeout(): Test;
+      auth(user: string, name: string): Test;
+      field(name: string, val: string): Test;
+      end(callback?: (err: Error, res: Response) => void): Test;
     }
     interface Response extends superagent.Response {}
 
