@@ -27,8 +27,8 @@ interface HeatmapConfiguration {
     radius?: number;
 
     /*
-     * The radius each datapoint will have (if not specified on the datapoint
-     * itself)
+     * Indicate whether the heatmap should use a global extrema or a local
+     * extrema (the maximum and minimum of the currently displayed viewport)
      */
     useLocalExtrema?: boolean;
 
