@@ -993,6 +993,12 @@ interface ZeptoCollection {
 	**/
 	prependTo(content: HTMLElement[]): ZeptoCollection;
 
+        /**
+	* @see ZeptoCollection.prependTo
+	* @param content
+	**/
+	prependTo(content: ZeptoCollection): ZeptoCollection;
+
 	/**
 	* Get the previous sibling—optionally filtered by selector—of each element in the collection.
 	* @param selector
