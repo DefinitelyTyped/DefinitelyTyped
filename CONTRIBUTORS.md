@@ -270,6 +270,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Mapbox](https://github.com/mapbox/mapbox.js/) (by [Maxime Fabre](https://github.com/anahkiasen))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
 * [MathJax](https://github.com/mathjax/MathJax) (by [Roland Zwaga](https://github.com/rolandzwaga))
+* [matter-js](https://github.com/liabru/matter-js) (by [Carlos Ballesteros Velasco]](https://github.com/soywiz))
 * [mCustomScrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) (by [Sarah Williams](https://github.com/flurg))
 * [Meteor](https://www.meteor.com) (by [Dave Allen](https://github.com/fullflavedave))
 * [md5.js](http://labs.cybozu.co.jp/blog/mitsunari/2007/07/md5js_1.html) (by [MIZUNE Pine](https://github.com/pine613))
