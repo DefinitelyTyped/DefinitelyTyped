@@ -1014,6 +1014,9 @@ declare module ng {
 
         imgSrcSanitizationWhitelist(): RegExp;
         imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
+        
+        debugInfoEnabled(): boolean;
+        debugInfoEnabled(enabled: boolean): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
