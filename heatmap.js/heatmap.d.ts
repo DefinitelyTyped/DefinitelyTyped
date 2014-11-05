@@ -16,27 +16,28 @@ interface HeatmapConfiguration {
     backgroundColor?: string;
 
     /*
+     * The blur factor that will be applied to all datapoints. The higher the
+     * blur factor is, the smoother the gradients will be
+     * Default value: 0.85
+     */
+    blur?: number;
+
+    /*
      * An object that represents the gradient
      */
     gradient?: any;
 
     /*
-     * The radius each datapoint will have (if not specified on the datapoint
-     * itself)
+     * The property name of your latitude coordinate in a datapoint
+     * Default value: 'x'
      */
-    radius?: number;
+    latField?: string;
 
     /*
-     * Indicate whether the heatmap should use a global extrema or a local
-     * extrema (the maximum and minimum of the currently displayed viewport)
+     * The property name of your longitude coordinate in a datapoint
+     * Default value: 'y'
      */
-    useLocalExtrema?: boolean;
-
-    /*
-     * A global opacity for the whole heatmap. This overrides maxOpacity and
-     * minOpacity if set
-     */
-    opacity?: number;
+    lngField?: string;
 
     /*
      * The maximal opacity the highest value in the heatmap will have. (will be
@@ -52,26 +53,25 @@ interface HeatmapConfiguration {
     minOpacity?: number;
 
     /*
-     * The blur factor that will be applied to all datapoints. The higher the
-     * blur factor is, the smoother the gradients will be
-     * Default value: 0.85
+     * A global opacity for the whole heatmap. This overrides maxOpacity and
+     * minOpacity if set
      */
-    blur?: number;
+    opacity?: number;
 
     /*
-     * The property name of your latitude coordinate in a datapoint
-     * Default value: 'x'
+     * The radius each datapoint will have (if not specified on the datapoint
+     * itself)
      */
-    latField?: string;
+    radius?: number;
 
     /*
-     * The property name of your longitude coordinate in a datapoint
-     * Default value: 'y'
+     * Indicate whether the heatmap should use a global extrema or a local
+     * extrema (the maximum and minimum of the currently displayed viewport)
      */
-    lngField?: string;
+    useLocalExtrema?: boolean;
 
     /*
-     * The property name of your y coordinate in a datapoint
+     * The property name of the value/weight in a datapoint
      */
     valueField: string;
 }
@@ -81,28 +81,28 @@ interface HeatmapConfiguration {
  * HeatmapConfig.latField, HeatmapConfig.lngField and HeatmapConfig.valueField
  */
 interface HeatmapDataPoint {
-    [index: string] : number;
+    [index: string]: number;
 }
 
 /*
- * An object representing the set of data points on a heatmap.
+ * An object representing the set of data points on a heatmap
  */
-interface HeatmapDataObject {
-
-    /*
-     * Max value of of the valueField
-     */
-    max?: number;
-
-    /*
-     * Min value of of the valueField
-     */
-    min?: number;
+interface HeatmapData {
 
     /*
      * An array of HeatmapDataPoints
      */
     data: HeatmapDataPoint[];
+
+    /*
+     * Max value of the valueField
+     */
+    max?: number;
+
+    /*
+     * Min value of the valueField
+     */
+    min?: number;
 }
 
 /*
@@ -116,8 +116,8 @@ declare class HeatmapOverlay {
     constructor(configuration: HeatmapConfiguration)
 
     /*
-     * Create DOM elements for othe overlay, adding them to map panes and
-     * puts listeners on relevant map events
+     * Create DOM elements for an overlay, adding them to map panes and puts
+     * listeners on relevant map events
      */
     onAdd(map: L.Map): void;
 
@@ -130,5 +130,5 @@ declare class HeatmapOverlay {
     /*
      * Initialize a heatmap instance with the given dataset
      */
-    setData(data: {}): void;
+    setData(data: HeatmapData): void;
 }
