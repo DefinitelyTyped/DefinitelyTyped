@@ -226,6 +226,7 @@ All definitions files include a header with the author and editors, so at some p
 * [jsbn](http://www-cs-students.stanford.edu/%7Etjw/jsbn/) (by [Eugene Chernyshov](https://github.com/Evgenus))
 * [jScrollPane](http://jscrollpane.kelvinluck.com) (by [Dániel Tar](https://github.com/qcz))
 * [JSDeferred](http://cho45.stfuawsc.com/jsdeferred/) (by [Daisuke Mino](https://github.com/minodisk))
+* [JsHamcrest](http://danielmartins.ninja/jshamcrest/) (by [David Harkness](https://github.com/dharkness))
 * [JSONEditorOnline](https://github.com/josdejong/jsoneditoronline) (by [Vincent Bortone](https://github.com/vbortone/))
 * [JSON-Pointer](https://www.npmjs.org/package/json-pointer) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) (by [Maxime LUCE](https://github.com/SomaticIT))
