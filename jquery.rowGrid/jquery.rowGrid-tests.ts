@@ -2,7 +2,7 @@
 /// <reference path="jquery.rowGrid.d.ts"/>
 
 /*
- * Testing different options
+ * Test different options
  */
 
 var options = {
