@@ -3,7 +3,7 @@
 var myapp = angular.module("myapp", ["firebase"]);
 
 interface AngularFireScope extends ng.IScope {
-    items: AngularFire;
+    items: AngularFireArray;
     remoteItems: RemoteItems;
 }
 
@@ -14,23 +14,46 @@ interface RemoteItems {
 var url = "https://myapp.firebaseio.com";
 
 myapp.controller("MyController", ["$scope", "$firebase",
-    function($scope: AngularFireScope, $firebase: AngularFireService) {
-        $scope.items = $firebase(new Firebase(url));
+    function ($scope: AngularFireScope, $firebase: AngularFireService) {
+        var sync = $firebase(new Firebase(url));
+
+        sync.$asArray()
+            .$loaded()
+            .then(function (list: AngularFireArray) {
+                console.log("list has " + list.length + " items");
+
+                list.$add({ foo: "bar" }).then(function (ref) {
+                    ref.on("value", function (snapshot) {
+                        if (snapshot.val().foo !== "bar") throw "error";
+                    });
+                });
+
+                var item = list.$getRecord("foo");
+                list.$remove("foo");
+                list.$remove(0);
+                list.$save();
+            });
+        sync.$asObject()
+
+
+        $scope.items = sync.$asArray();
+        $scope.object = sync.$asObject();
+
         $scope.items.$add({ foo: "bar" });
         $scope.items.$remove("foo");
         $scope.items.$remove();
         $scope.items.$save();
         var child = $scope.items.$child("foo");
         child.$remove();
-        $scope.items.$set({ bar: "baz" }); 
+        $scope.items.$set({ bar: "baz" });
         var keys = $scope.items.$getIndex();
-        keys.forEach(function(key, i) {
+        keys.forEach(function (key, i) {
             console.log(i, (<any>$scope.items)[key]);
         });
-        $scope.items.$on("loaded", function() {
+        $scope.items.$on("loaded", function () {
             console.log("Initial data received!");
         });
-        $scope.items.$on("change", function() {
+        $scope.items.$on("change", function () {
             console.log("A remote change was applied locally!");
         });
         $scope.items.$off('loaded');
@@ -39,7 +62,7 @@ myapp.controller("MyController", ["$scope", "$firebase",
         }
         $scope.items.$bind($scope, "remoteItems");
         $scope.remoteItems.bar = "foo";
-        $scope.items.$bind($scope, "remote").then(function(unbind) {
+        $scope.items.$bind($scope, "remote").then(function (unbind) {
             unbind();
             $scope.remoteItems.bar = "foo";
         });
@@ -55,7 +78,7 @@ interface AngularFireAuthScope extends ng.IScope {
 }
 
 myapp.controller("MyAuthController", ["$scope", "$firebaseSimpleLogin",
-    function($scope: AngularFireAuthScope, $firebaseSimpleLogin: AngularFireAuthService) {
+    function ($scope: AngularFireAuthScope, $firebaseSimpleLogin: AngularFireAuthService) {
         var dataRef = new Firebase(url);
         $scope.loginObj = $firebaseSimpleLogin(dataRef);
         $scope.loginObj.$getCurrentUser().then(_ => {
@@ -65,9 +88,9 @@ myapp.controller("MyAuthController", ["$scope", "$firebaseSimpleLogin",
         $scope.loginObj.$login('password', {
             email: email,
             password: password
-        }).then(function(user) {
+        }).then(function (user) {
                 console.log('Logged in as: ', user.uid);
-            }, function(error) {
+            }, function (error) {
                 console.error('Login failed: ', error);
             });
         $scope.loginObj.$logout();
