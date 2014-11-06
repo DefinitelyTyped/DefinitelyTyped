@@ -17,8 +17,8 @@ declare module Rx {
 	}
 
 	interface ObservableStatic {
-		timer(dueTime: Date, period: number, scheduler: IScheduler): Observable<number>;
-		timer(dueTime: Date, scheduler: IScheduler): Observable<number>;
+		timer(dueTime: Date, period: number, scheduler?: IScheduler): Observable<number>;
+		timer(dueTime: Date, scheduler?: IScheduler): Observable<number>;
 
 		generateWithAbsoluteTime<TState, TResult>(
 			initialState: TState,

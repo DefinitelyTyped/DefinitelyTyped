@@ -153,7 +153,7 @@ declare module "mongoose" {
     findByIdAndRemove(id: string, options: Object, callback?: (err: any, res: T) => void): Query<T>;
     findByIdAndUpdate(id: string, update: Object, callback?: (err: any, res: T) => void): Query<T>;
     findByIdAndUpdate(id: string, update: Object, options: FindAndUpdateOption, callback?: (err: any, res: T) => void): Query<T>;
-    findOne(cond: Object, callback?: (err: any, res: T) => void): Query<T>;
+    findOne(cond?: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOne(cond: Object, fields: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOne(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOneAndRemove(cond: Object, callback?: (err: any, res: T) => void): Query<T>;

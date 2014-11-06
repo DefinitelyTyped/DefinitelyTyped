@@ -145,9 +145,9 @@ fs.readdir(path, (err: Error, files: string[]) => {
 strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
-fs.open(path, flags, modeStr, (err: Error, fd: number) => [
-
-]);
+fs.open(path, flags, modeStr, (err: Error, fd: number) => {
+    
+});
 num = fs.openSync(path, flags, modeStr);
 fs.utimes(path, atime, mtime, errorCallback);
 fs.utimesSync(path, atime, mtime);

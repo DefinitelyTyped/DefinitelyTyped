@@ -97,9 +97,9 @@ declare class TweenMax extends TweenLite {
     repeatDelay(value:number):any;
     static resumeAll(tweens?:boolean, delayedCalls?:boolean, timelines?:boolean):void;
     static set(target:Object, vars:Object):TweenMax;
-    static staggerFrom(targets:Object[], duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    static staggerFromTo(targets:Object[], duration:number, fromVars:Object, toVars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    static staggerTo(targets:Object[], duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
+    static staggerFrom(targets:any, duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
+    static staggerFromTo(targets:any, duration:number, fromVars:Object, toVars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
+    static staggerTo(targets:any, duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
     time(value:number, suppressEvents?:boolean):any;
     static to(target:Object, duration:number, vars:Object):TweenMax;
     totalDuration(value:number):any;
@@ -120,6 +120,7 @@ declare class TimelineLite extends SimpleTimeline {
     clear(labels?:boolean):any;
     duration(value:number):any;
     exportRoot(vars?:Object, omitDelayedCalls?:boolean):TimelineLite;
+    from(target:Object, duration:number, vars:Object, position?:any):any;
     fromTo(target:Object, duration:number, fromVars:Object, toVars:Object, position?:any):any;
     getChildren(nested?:boolean, tweens?:boolean, timelines?:boolean, ignoreBeforeTime?:number):any[];
     getLabelTime(label:string):number;
@@ -133,9 +134,9 @@ declare class TimelineLite extends SimpleTimeline {
     set(target: Object, vars: Object, position?:any):any;
     seek(position:any, suppressEvents?:boolean):any;
     shiftChildren(amount:number, adjustLabels?:boolean, ignoreBeforeTime?:number):any;
-    staggerFrom(targets:any[], duration:number, vars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteScope?:any):any;
-    staggerFromTo(targets:any[], duration:number, fromVars:Object, toVars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
-    staggerTo(targets:any[], duration:number, vars:Object, stagger:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
+    staggerFrom(targets:any, duration:number, vars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteScope?:any):any;
+    staggerFromTo(targets:any, duration:number, fromVars:Object, toVars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
+    staggerTo(targets:any, duration:number, vars:Object, stagger:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
     stop():any;
     to(target:Object, duration:number, vars:Object, position?:any):any;
     usesFrames():Boolean;

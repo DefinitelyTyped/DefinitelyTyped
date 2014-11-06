@@ -178,7 +178,7 @@ declare module "mongodb" {
   // Current definition by documentation version 1.3.13 (28.08.2013)
   export interface DbCreateOptions {
     //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
-    w?: string;
+    w?: any;
 
     // set the timeout for waiting for write concern to finish (combines with w option).
     wtimeout?: number;
@@ -255,7 +255,7 @@ declare module "mongodb" {
 
   // Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
   export interface Collection {
-    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions);
+    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions): Collection; // is this right?
 
     insert(query: any, callback: (err: Error, result: any) => void): void;
     insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
@@ -272,11 +272,11 @@ declare module "mongodb" {
     update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
 
     distinct(key: string, query: Object, callback: (err: Error, result: any) => void): void;
-    distinct(key: string, query: Object, options: { readPreferences: string; }, callback: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
 
     count(callback: (err: Error, result: any) => void): void;
     count(query: Object, callback: (err: Error, result: any) => void): void;
-    count(query: Object, options: { readPreferences: string; }, callback: (err: Error, result: any) => void): void;
+    count(query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
 
     drop(callback?: (err: Error, result: any) => void): void;
 
@@ -429,7 +429,7 @@ declare module "mongodb" {
     showDiskLoc?: boolean;
     comment?: String;
     raw?: boolean;
-    readPreferences?: String;
+    readPreference?: String;
     partial?: boolean;
   }
 
@@ -438,6 +438,6 @@ declare module "mongodb" {
     serializeFunctions?: any;
     raw?: boolean;
     pkFactory?: any;
-    readPreferences?: string;
+    readPreference?: string;
   }
 }

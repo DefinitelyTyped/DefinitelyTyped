@@ -69,7 +69,7 @@ var options: request.Options = {
 
 	},
 	jar: value,
-	form: value,
+	form: obj,
 	oauth: value,
 	aws: aws,
 	qs: obj,

@@ -477,10 +477,10 @@ barProm = fooProm.race<Bar>();
 
 //TODO fix collection inference
 
-barProm = fooProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 });
-barProm = fooProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
 	return bar;
 });
 
@@ -495,10 +495,10 @@ barProm = fooProm.reduce<Foo, Bar>((memo: Bar, item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooProm = fooProm.filter<Foo>((item: Foo, index: number, arrayLength: number) => {
+fooArrProm = fooArrProm.filter<Foo>((item: Foo, index: number, arrayLength: number) => {
 	return bool;
 });
-fooProm = fooProm.filter<Foo>((item: Foo) => {
+fooArrProm = fooArrProm.filter<Foo>((item: Foo) => {
 	return bool;
 });
 
