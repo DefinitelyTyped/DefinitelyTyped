@@ -6,7 +6,7 @@ var baseLayer = L.tileLayer(
         maxZoom: 18
      });
 
-var testData: HeatmapDataObject = {
+var testData: HeatmapData = {
     max: 8,
     data: [
         {
