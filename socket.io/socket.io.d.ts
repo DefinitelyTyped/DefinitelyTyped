@@ -33,7 +33,7 @@ declare module SocketIO {
         listen(port: number, opts: any): Server;
         bind(srv: any): Server;
         onconnection(socket: any): Server;
-        of(nsp: String): Namespace;
+        of(nsp: string): Namespace;
         emit(name: string, ...args: any[]): Socket;
         use(fn: Function): Namespace;
 
@@ -43,7 +43,7 @@ declare module SocketIO {
     }
 
     interface Namespace extends NodeJS.EventEmitter {
-        name: String;
+        name: string;
         connected: { [id: number]: Socket };
         use(fn: Function): Namespace
 
