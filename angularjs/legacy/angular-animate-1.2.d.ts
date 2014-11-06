@@ -1,10 +1,9 @@
-// Type definitions for Angular JS 1.3 (ngAnimate module)
+// Type definitions for Angular JS 1.2 (ngAnimate module)
 // Project: http://angularjs.org
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
-
+/// <reference path="angular-1.2.d.ts" />
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngAnimate module (angular-animate.js)
@@ -13,7 +12,7 @@ declare module ng.animate {
 
     ///////////////////////////////////////////////////////////////////////////
     // AnimateService
-    // see http://docs.angularjs.org/api/ngAnimate/service/$animate
+    // see https://code.angularjs.org/1.2.26/docs/api/ngAnimate/service/$animate
     ///////////////////////////////////////////////////////////////////////////
     interface IAnimateService extends ng.IAnimateService {
         /**
@@ -31,17 +30,17 @@ declare module ng.animate {
          * @param element the element that will be the focus of the enter animation
          * @param parentElement the parent element of the element that will be the focus of the enter animation
          * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the enter animation
-         * @returns the animation callback promise
+         * @param doneCallback the callback function that will be called once the animation is complete
          */
-        enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
+        enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery, doneCallback?: () => void): void;
 
         /**
          * Runs the leave animation operation and, upon completion, removes the element from the DOM.
          *
          * @param element the element that will be the focus of the leave animation
-         * @returns the animation callback promise
+         * @param doneCallback the callback function that will be called once the animation is complete
          */
-        leave(element: JQuery): ng.IPromise<void>;
+        leave(element: JQuery, doneCallback?: () => void): void;
 
         /**
          * Fires the move DOM operation. Just before the animation starts, the animate service will either append
@@ -51,9 +50,9 @@ declare module ng.animate {
          * @param element the element that will be the focus of the move animation
          * @param parentElement the parent element of the element that will be the focus of the move animation
          * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the move animation
-         * @returns the animation callback promise
+         * @param doneCallback the callback function that will be called once the animation is complete
          */
-        move(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
+        move(element: JQuery, parentElement: JQuery, afterElement?: JQuery, doneCallback?: () => void): void;
 
         /**
          * Triggers a custom animation event based off the className variable and then attaches the className
@@ -61,9 +60,9 @@ declare module ng.animate {
          *
          * @param element the element that will be animated
          * @param className the CSS class that will be added to the element and then animated
-         * @returns the animation callback promise
+         * @param doneCallback the callback function that will be called once the animation is complete
          */
-        addClass(element: JQuery, className: string): ng.IPromise<void>;
+        addClass(element: JQuery, className: string, doneCallback?: () => void): void;
 
         /**
          * Triggers a custom animation event based off the className variable and then removes the CSS class
@@ -71,9 +70,9 @@ declare module ng.animate {
          *
          * @param element the element that will be animated
          * @param className the CSS class that will be animated and then removed from the element
-         * @returns the animation callback promise
+         * @param doneCallback the callback function that will be called once the animation is complete
          */
-        removeClass(element: JQuery, className: string): ng.IPromise<void>;
+        removeClass(element: JQuery, className: string, doneCallback?: () => void): void;
 
         /**
          * Adds and/or removes the given CSS classes to and from the element. Once complete, the done() callback
@@ -82,19 +81,14 @@ declare module ng.animate {
          * @param element the element which will have its CSS classes changed removed from it
          * @param add the CSS classes which will be added to the element
          * @param remove the CSS class which will be removed from the element CSS classes have been set on the element
-         * @returns the animation callback promise
+         * @param doneCallback done the callback function (if provided) that will be fired after the CSS classes have been set on the element
          */
-        setClass(element: JQuery, add: string, remove: string): ng.IPromise<void>;
-
-        /**
-         * Cancels the provided animation.
-         */
-        cancel(animationPromise: ng.IPromise<void>): void;
+        setClass(element: JQuery, add: string, remove: string, doneCallback?: () => void): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularProvider
-    // see http://docs.angularjs.org/api/ngAnimate/provider/$animateProvider
+    // see https://code.angularjs.org/1.2.26/docs/api/ngAnimate/provider/$animateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IAnimateProvider {
         /**
