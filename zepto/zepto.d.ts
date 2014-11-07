@@ -1580,13 +1580,20 @@ interface ZeptoAjaxSettings {
 	data?: any;
 	processData?: boolean;
 	contentType?: string;
+	mimeType?: string;
 	dataType?: string;
+	jsonp?: string;
+	jsonpCallback?: any; // string or Function
 	timeout?: number;
 	headers?: { [key: string]: string };
 	async?: boolean;
 	global?: boolean;
 	context?: any;
 	traditional?: boolean;
+	cache?: boolean;
+	xhrFields?: { [key: string]: any };
+	username?: string;
+	password?: string;
 	beforeSend?: (xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => boolean;
 	success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
 	error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;
