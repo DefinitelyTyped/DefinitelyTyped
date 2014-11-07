@@ -1,6 +1,6 @@
 // Type definitions for jQuery 1.10.x / 2.0.x
 // Project: http://jquery.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton <https://github.com/Steve-Fenton>, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen <https://github.com/jasons-novaleaf>, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>, Dick van den Brink <https://github.com/DickvdBrink>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* *****************************************************************************
@@ -80,7 +80,7 @@ interface JQueryAjaxSettings {
     /**
      * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
      */
-    error? (jqXHR: JQueryXHR, textStatus: string, errorThrow: string): any;
+    error? (jqXHR: JQueryXHR, textStatus: string, errorThrown: string): any;
     /**
      * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various Ajax Events.
      */
@@ -167,7 +167,20 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      * The .overrideMimeType() method may be used in the beforeSend() callback function, for example, to modify the response content-type header. As of jQuery 1.5.1, the jqXHR object also contains the overrideMimeType() method (it was available in jQuery 1.4.x, as well, but was temporarily removed in jQuery 1.5). 
      */
     overrideMimeType(mimeType: string): any;
+    /**
+     * Cancel the request. 
+     *
+     * @param statusText A string passed as the textStatus parameter for the done callback. Default value: "canceled"
+     */
     abort(statusText?: string): void;
+    /**
+     * Incorporates the functionality of the .done() and .fail() methods, allowing (as of jQuery 1.8) the underlying Promise to be manipulated. Refer to deferred.then() for implementation details.
+     */
+    then(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => void, failCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<any>;
+    /**
+     * Property containing the parsed response if the response Content-Type is json
+     */
+    responseJSON?: any;
 }
 
 /**
@@ -288,6 +301,18 @@ interface JQueryGenericPromise<T> {
 }
 
 /**
+ * Interface for the JQuery promise/deferred callbacks
+ */
+interface JQueryPromiseCallback<T> {
+    (value?: T, ...args: any[]): void;
+}
+
+interface JQueryPromiseOperator<T, R> {
+	(callback: JQueryPromiseCallback<T>, ...callbacks: JQueryPromiseCallback<T>[]): JQueryPromise<R>;
+	(callback: JQueryPromiseCallback<T>[], ...callbacks: JQueryPromiseCallback<T>[]): JQueryPromise<R>;
+}
+
+/**
  * Interface for the JQuery promise, part of callbacks
  */
 interface JQueryPromise<T> {
@@ -297,52 +322,33 @@ interface JQueryPromise<T> {
      * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
      * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallbacks1?: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
+	always: JQueryPromiseOperator<any, T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      * 
      * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
      * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
-    done(doneCallbacks1?: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
+	done: JQueryPromiseOperator<T, T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      * 
      * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
      * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallbacks1?: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
+	fail: JQueryPromiseOperator<any, T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      * 
      * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
      */
-    progress(...progressCallbacks: T[]): JQueryDeferred<T>;
+	progress(progressCallback: JQueryPromiseCallback<T>): JQueryPromise<T>;
+	progress(progressCallbacks: JQueryPromiseCallback<T>[]): JQueryPromise<T>;
 
     /**
-     * Add handlers to be called when the Deferred object is either resolved or rejected.
-     * 
-     * @param alwaysCallbacks A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     * Determine the current state of a Deferred object.
      */
-    always(...alwaysCallbacks: any[]): JQueryPromise<T>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved.
-     * 
-     * @param doneCallbacks A function, or array of functions, that are called when the Deferred is resolved.
-     */
-    done(...doneCallbacks: any[]): JQueryPromise<T>;
-    /**
-     * Add handlers to be called when the Deferred object is rejected.
-     * 
-     * @param failCallbacks A function, or array of functions, that are called when the Deferred is rejected.
-     */
-    fail(...failCallbacks: any[]): JQueryPromise<T>;
-    /**
-     * Add handlers to be called when the Deferred object generates progress notifications.
-     * 
-     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
-     */
-    progress(...progressCallbacks: any[]): JQueryPromise<T>;
+    state(): string;
 
     // Deprecated - given no typings
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
@@ -425,28 +431,38 @@ interface JQueryDeferred<T> extends JQueryPromise<T> {
      * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
      * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallbacks1?: T, ...alwaysCallbacks2: T[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>, ...alwaysCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>[], ...alwaysCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>, ...alwaysCallbacks2: any[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>[], ...alwaysCallbacks2: any[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      * 
      * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
      * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
-    done(doneCallbacks1?: T, ...doneCallbacks2: T[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>, ...doneCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>[], ...doneCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>, ...doneCallbacks2: any[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>[], ...doneCallbacks2: any[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      * 
      * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
      * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallbacks1?: T, ...failCallbacks2: T[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>, ...failCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>[], ...failCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>, ...failCallbacks2: any[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>[], ...failCallbacks2: any[]): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      * 
      * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
      */
-    progress(...progressCallbacks: T[]): JQueryDeferred<T>;
-
+    progress(progressCallback: JQueryPromiseCallback<T>): JQueryDeferred<T>;
+    progress(progressCallbacks: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+	
     /**
      * Call the progressCallbacks on a Deferred object with the given args.
      * 
@@ -491,10 +507,6 @@ interface JQueryDeferred<T> extends JQueryPromise<T> {
      * @param args An optional array of arguments that are passed to the doneCallbacks.
      */
     resolveWith(context: any, ...args: any[]): JQueryDeferred<T>;
-    /**
-     * Determine the current state of a Deferred object.
-     */
-    state(): string;
 
     /**
      * Return a Deferred's Promise object.
@@ -511,9 +523,10 @@ interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): boolean;
-    isImmediatePropogationStopped(): boolean;
+    isImmediatePropagationStopped(): boolean;
     isPropagationStopped(): boolean;
     namespace: string;
+    originalEvent: Event;
     preventDefault(): any;
     relatedTarget: Element;
     result: any;
@@ -551,11 +564,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 
-interface JQueryPopStateEventObject extends BaseJQueryEventObject {
-    originalEvent: PopStateEvent;
-}
-
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject, JQueryPopStateEventObject {
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject{
 }
 
 /*
@@ -1198,7 +1207,7 @@ interface JQueryStatic {
      * 
      * @param json The JSON string to parse.
      */
-    parseJSON(json: string): Object;
+    parseJSON(json: string): any;
 
     /**
      * Parses a string into an XML document.
@@ -1236,6 +1245,15 @@ interface JQueryStatic {
      * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
      */
     parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
+
+    /**
+     * Parses a string into an array of DOM nodes.
+     *
+     * @param data HTML string to be parsed
+     * @param context DOM element to serve as the context in which the HTML fragment will be created
+     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
+     */
+    parseHTML(data: string, context?: Document, keepScripts?: boolean): any[];
 }
 
 /**
@@ -1496,7 +1514,37 @@ interface JQuery {
      *
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
-    val(func: (index: number, value: any) => any): JQuery;
+    val(func: (index: number, value: string) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string[]) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: number) => string): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string) => string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: string[]) => string[]): JQuery;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+     */
+    val(func: (index: number, value: number) => string[]): JQuery;
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
@@ -2375,6 +2423,7 @@ interface JQuery {
     dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    delegate(selector: any, eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "focus" event on an element.
@@ -2447,7 +2496,7 @@ interface JQuery {
      */
     keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
     /**
-     * Bind an event handler to the keydown"" JavaScript event
+     * Bind an event handler to the "keydown" JavaScript event
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
@@ -2668,10 +2717,18 @@ interface JQuery {
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+    */
+    on(events: string, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(events: string, selector: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector: string, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2680,7 +2737,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event is triggered.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2688,7 +2745,14 @@ interface JQuery {
      * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    on(events: { [key: string]: any; }, selector?: any, data?: any): JQuery;
+    on(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    on(events: { [key: string]: any; }, data?: any): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2732,6 +2796,14 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
     one(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    one(events: { [key: string]: any; }, data?: any): JQuery;
 
 
     /**
@@ -3573,7 +3645,7 @@ interface JQuery {
      * 
      * @param func A function used as a test for each element in the set. this is the current DOM element.
      */
-    filter(func: (index: number) => any): JQuery;
+    filter(func: (index: number, element: Element) => any): JQuery;
     /**
      * Reduce the set of matched elements to those that match the selector or pass the function's test.
      * 

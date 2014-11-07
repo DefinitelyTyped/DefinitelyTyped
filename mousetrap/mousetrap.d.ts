@@ -1,6 +1,6 @@
 // Type definitions for Mousetrap 1.2.2
 // Project: http://craig.is/killing/mice
-// Definitions by: Dániel Tar https://github.com/qcz
+// Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface ExtendedKeyboardEvent extends KeyboardEvent {

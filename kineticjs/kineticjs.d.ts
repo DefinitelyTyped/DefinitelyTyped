@@ -1,7 +1,7 @@
 // Type definitions for KineticJS
 // Project: http://kineticjs.com/
 // Definitions by: Basarat Ali Syed <http://www.github.com/basarat>, Ralph de Ruijter <http://www.superdopey.nl/techblog/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Kinetic {
 
@@ -45,7 +45,7 @@ declare module Kinetic {
         isDraggable(): boolean;
         isDragging(): boolean;
         isListening(): boolean;
-        move(x: number, y: number): void;
+        move(change:{x: number; y: number}): void;
         moveDown(): void;
         moveTo(newContainer: IContainer): void;
         moveToBottom(): void;
@@ -53,6 +53,7 @@ declare module Kinetic {
         moveUp(): void;
         name(): string;
         name(name: string): void;
+        remove(): any;
         rotate(theta: number): void;
         rotateDeg(deg: number): void;
 
@@ -124,7 +125,6 @@ declare module Kinetic {
         getChildren(): INode[];
         getIntersections(point: any): any;
         isAncestorOf(node: any): any;
-        remove(child: any): any;
         removeChildren(): any;
     }
 
@@ -136,6 +136,7 @@ declare module Kinetic {
         add(layer: ILayer): any;
         clear(): any;
         getContainer(): HTMLElement;
+        getContent(): HTMLElement;
         getDOM(): HTMLElement;
         getHeight(): number;
         getIntersection(pos: any): any;
@@ -299,15 +300,6 @@ declare module Kinetic {
         setData(SVG: string): any;
     }
 
-    var Polygon: {
-        new (config: PolygonConfig): IPolygon;
-    }
-
-    interface IPolygon extends IShape {
-        getPoints(): any;
-        setPoints(points: any): any;
-    }
-
     var RegularPolygon: {
         new (config: RegularPolygonConfig): IRegularPolygon;
     }
@@ -404,14 +396,6 @@ declare module Kinetic {
         setTextStrokeWidth(textStrokeWidth: number): any;
     }
 
-    var Transition: {
-        new (node: Node, config: any): ITransition;
-    }
-    interface ITransition {
-        start(): any;
-        stop(): any;
-    }
-
     var Animation: {
         new (...args: any[]): IAnimation;
     }
@@ -481,11 +465,7 @@ declare module Kinetic {
     interface LineConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         points: any;
         lineCap?: string;
-        dashArray?: any;
-    }
-
-    interface PolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {
-        points: any;
+        dash?: number[];
     }
 
     interface RegularPolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {

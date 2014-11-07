@@ -1,6 +1,6 @@
 // Type definitions for Ember.js 1.0.0
 // Project: http://emberjs.com/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>
+// Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -11,12 +11,15 @@ declare var Handlebars: HandlebarsStatic;
 declare module EmberStates {
 
     interface Transition {
+        abort(): void;
         addInitialStates(): void;
         matchContextsToStates(contexts: any[]): void;
         normalize(manager: Ember.StateManager, contexts: any[]): void;
         removeUnchangedContexts(manager: Ember.StateManager): void;
+        retry(): void;
         sendEvents(eventName: string, sendRecursiveArguments: boolean, isUnhandledPass: boolean): void;
         sendRecursively(event: string, currentState: Ember.State, isUnhandledPass: boolean): void;
+        targetName: string;
     }
 
 }
@@ -38,10 +41,10 @@ declare module EmberTesting {
 }
 
 interface Function {
-    observes(...string): Function;
-    observesBefore(...string): Function;
-    on(...string): Function;
-    property(...string): Function;
+    observes(...args: string[]): Function;
+    observesBefore(...args: string[]): Function;
+    on(...args: string[]): Function;
+    property(...args: string[]): Function;
 }
 
 interface String {
@@ -50,9 +53,9 @@ interface String {
     classify(): string;
     dasherize(): string;
     decamelize(): string;
-    fmt(...string): string;
+    fmt(...args: string[]): string;
     htmlSafe(): typeof Handlebars.SafeString;
-    loc(...string): string;
+    loc(...args: string[]): string;
     underscore(): string;
     w(): string[];
 }
@@ -70,14 +73,14 @@ interface Array<T> {
     clear(): any[];
     compact(): any[];
     contains(obj: any): boolean;
-    enumerableContentDidChange(start: number, removing: number, adding: number);
-    enumerableContentDidChange(start: number, removing: Ember.Enumerable, adding: number);
-    enumerableContentDidChange(start: number, removing: number, adding: Ember.Enumerable);
-    enumerableContentDidChange(start: number, removing: Ember.Enumerable, adding: Ember.Enumerable);
-    enumerableContentDidChange(removing: number, adding: number);
-    enumerableContentDidChange(removing: Ember.Enumerable, adding: number);
-    enumerableContentDidChange(removing: number, adding: Ember.Enumerable);
-    enumerableContentDidChange(removing: Ember.Enumerable, adding: Ember.Enumerable);
+    enumerableContentDidChange(start: number, removing: number, adding: number): any;
+    enumerableContentDidChange(start: number, removing: Ember.Enumerable, adding: number): any;
+    enumerableContentDidChange(start: number, removing: number, adding: Ember.Enumerable): any;
+    enumerableContentDidChange(start: number, removing: Ember.Enumerable, adding: Ember.Enumerable): any;
+    enumerableContentDidChange(removing: number, adding: number): any;
+    enumerableContentDidChange(removing: Ember.Enumerable, adding: number): any;
+    enumerableContentDidChange(removing: number, adding: Ember.Enumerable): any;
+    enumerableContentDidChange(removing: Ember.Enumerable, adding: Ember.Enumerable): any;
     enumerableContentWillChange(removing: number, adding: number): any[];
     enumerableContentWillChange(removing: Ember.Enumerable, adding: number): any[];
     enumerableContentWillChange(removing: number, adding: Ember.Enumerable): any[];
@@ -93,15 +96,15 @@ interface Array<T> {
     getEach(key: string): any[];
     indexOf(object: any, startAt: number): number;
     insertAt(idx: number, object: any): any[];
-    invoke(methodName: string, ...any): any[];
+    invoke(methodName: string, ...args: any[]): any[];
     lastIndexOf(object: any, startAt: number): number;
     mapBy(key: string): any[];
     nextObject(index: number, previousObject: any, context: any): any;
     objectAt(idx: number): any;
-    objectsAt(...number): any[];
+    objectsAt(...args: number[]): any[];
     popObject(): any;
     pushObject(obj: any): any;
-    pushObjects(...any): any[];
+    pushObjects(...args: any[]): any[];
     reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
     reject: ItemIndexEnumerableCallbackTarget;
     rejectBy(key: string, value?: string): any[];
@@ -136,7 +139,7 @@ interface Array<T> {
     decrementProperty(keyName: string, decrement?: number): number;
     endPropertyChanges(): any[];
     get(keyName: string): any;
-    getProperties(...string): {};
+    getProperties(...args: string[]): {};
     getProperties(keys: string[]): {};
     getWithDefault(keyName: string, defaultValue: any): any;
     hasObserverFor(key: string): boolean;
@@ -190,8 +193,8 @@ interface CoreObjectArguments {
 }
 
 interface EnumerableConfigurationOptions {
-    willChange? ;
-    didChange? ;
+    willChange?: boolean ;
+    didChange?: boolean ;
 }
 
 interface ItemIndexEnumerableCallbackTarget {
@@ -365,14 +368,14 @@ declare module Ember {
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): Enumerable;
         enumerableContentWillChange(removing: Enumerable, adding: number): Enumerable;
         enumerableContentWillChange(removing: number, adding: Enumerable): Enumerable;
@@ -387,13 +390,13 @@ declare module Ember {
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
         objectAt(idx: number): any;
-        objectsAt(...number): any[];
+        objectsAt(...args: number[]): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
@@ -405,9 +408,9 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '@each': EachProxy;
+    '@each': EachProxy;
         Boolean: boolean;
-        '[]': any[];
+    '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -438,8 +441,8 @@ declare module Ember {
         sortAscending: boolean;
         sortFunction: Comparable;
         sortProperties: any[];
-        replaceRoute(name: string, ...any);
-        transitionToRoute(name: string, ...any);
+        replaceRoute(name: string, ...args: any[]): void;
+        transitionToRoute(name: string, ...args: any[]): void;
         controllers: {};
         needs: string[];
         target: any;
@@ -482,14 +485,14 @@ declare module Ember {
         clear(): any[];
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): any[];
         enumerableContentWillChange(removing: Enumerable, adding: number): any[];
         enumerableContentWillChange(removing: number, adding: Enumerable): any[];
@@ -505,24 +508,24 @@ declare module Ember {
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         insertAt(idx: number, object: any): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
         objectAt(idx: number): any;
         objectAtContent(idx: number): any;
-        objectsAt(...number): any[];
+        objectsAt(...args: number[]): any[];
         popObject(): any;
         pushObject(obj: any): any;
-        pushObjects(...any): any[];
+        pushObjects(...args: any[]): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
         removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
-        replace(idx: number, amt: number, objects: any[]);
+        replace(idx: number, amt: number, objects: any[]): any;
         replaceContent(idx: number, amt: number, objects: any[]): void;
         reverseObjects(): any[];
         setEach(key: string, value?: any): any;
@@ -535,8 +538,8 @@ declare module Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): any[];
-        '[]': any[];
-        '@each': EachProxy;
+    '[]': any[];
+    '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -657,7 +660,7 @@ declare module Ember {
         cacheable(aFlag?: boolean): ComputedProperty;
         get(keyName: string): any;
         meta(meta: {}): ComputedProperty;
-        property(...string): ComputedProperty;
+        property(...args: string[]): ComputedProperty;
         readOnly(): ComputedProperty;
         set(keyName: string, newValue: any, oldValue: string): any;
         // ReSharper disable UsingOfReservedWord
@@ -721,8 +724,8 @@ declare module Ember {
     Additional methods for the ControllerMixin.
     **/
     class ControllerMixin {
-        replaceRoute(name: string, ...any): void;
-        transitionToRoute(name: string, ...any): void;
+        replaceRoute(name: string, ...args: any[]): void;
+        transitionToRoute(name: string, ...args: any[]): void;
         controllers: {};
         needs: string[];
         target: any;
@@ -879,14 +882,14 @@ declare module Ember {
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): Enumerable;
         enumerableContentWillChange(removing: Enumerable, adding: number): Enumerable;
         enumerableContentWillChange(removing: number, adding: Enumerable): Enumerable;
@@ -900,7 +903,7 @@ declare module Ember {
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
@@ -913,7 +916,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+    '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -954,7 +957,7 @@ declare module Ember {
         off(name: string, target: any, method: Function): Evented;
         on(name: string, target: any, method: Function): Evented;
         one(name: string, target: any, method: Function): Evented;
-        trigger(name: string, ...string): void;
+        trigger(name: string, ...args: string[]): void;
     }
     var FROZEN_ERROR: string;
     class Freezable {
@@ -992,23 +995,23 @@ declare module Ember {
             yield(options?: {}): string;
         }
         function precompile(string: string): void;
-        function registerBoundHelper(name: string, func: Function, dependentKeys: string): void;
+        function registerBoundHelper(name: string, func: Function, dependentKeys?: string): void;
         class Compiler { }
         class JavaScriptCompiler { }
         function registerHelper(name: string, fn: Function, inverse?: boolean): void;
-        function registerPartial(name: string, str): void;
-        function K();
-        function createFrame(object);
+        function registerPartial(name: string, str: any): void;
+        function K(): any;
+        function createFrame(objec: any): any;
         function Exception(message: string): void;
         class SafeString {
             constructor(str: string);
             static toString(): string;
         }
-        function parse(string: string);
-        function print(ast);
-        var logger;
-        function log(level, str): void;
-        function compile(environment, options?, context?, asObject?);
+        function parse(string: string): any;
+        function print(ast: any): void;
+        var logger: typeof Ember.Logger;
+        function log(level: string, str: string): void;
+        function compile(environment: any, options?: any, context?: any, asObject?: any): any;
     }
     class HashLocation extends Object {
         static detect(obj: any): boolean;
@@ -1046,7 +1049,7 @@ declare module Ember {
     var IS_BINDING: RegExp;
     class Instrumentation {
         getProperties(obj: any, list: any[]): {};
-        getProperties(obj: any, ...string): {};
+        getProperties(obj: any, ...args: string[]): {};
         instrument(name: string, payload: any, callback: Function, binding: any): void;
         reset(): void;
         subscribe(pattern: string, object: any): void;
@@ -1094,11 +1097,11 @@ declare module Ember {
     }
     var Logger: {
         assert(param: any): void;
-        debug(...any): void;
-        error(...any): void;
-        info(...any): void;
-        log(...any): void;
-        warn(...any): void;
+        debug(...args: any[]): void;
+        error(...args: any[]): void;
+        info(...args: any[]): void;
+        log(...args: any[]): void;
+        warn(...args: any[]): void;
     };
     function MANDATORY_SETTER_FUNCTION(value: string): void;
     var META_KEY: string;
@@ -1137,14 +1140,14 @@ declare module Ember {
         clear(): any[];
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): Enumerable;
         enumerableContentWillChange(removing: Enumerable, adding: number): Enumerable;
         enumerableContentWillChange(removing: number, adding: Enumerable): Enumerable;
@@ -1160,23 +1163,23 @@ declare module Ember {
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         insertAt(idx: number, object: any): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
         objectAt(idx: number): any;
-        objectsAt(...number): any[];
+        objectsAt(...args: number[]): any[];
         popObject(): any;
         pushObject(obj: any): any;
-        pushObjects(...any): any[];
+        pushObjects(...args: any[]): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
         removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        replace(idx: number, amt: number, objects: any[]);
+        replace(idx: number, amt: number, objects: any[]): any;
         reverseObjects(): any[];
         setEach(key: string, value?: any): any;
         setObjects(objects: any[]): any[];
@@ -1209,14 +1212,14 @@ declare module Ember {
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): Enumerable;
         enumerableContentWillChange(removing: Enumerable, adding: number): Enumerable;
         enumerableContentWillChange(removing: number, adding: Enumerable): Enumerable;
@@ -1230,7 +1233,7 @@ declare module Ember {
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
@@ -1245,7 +1248,7 @@ declare module Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+    '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1280,14 +1283,14 @@ declare module Ember {
         clear(): any[];
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): any[];
         enumerableContentWillChange(removing: Enumerable, adding: number): any[];
         enumerableContentWillChange(removing: number, adding: Enumerable): any[];
@@ -1303,23 +1306,23 @@ declare module Ember {
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         insertAt(idx: number, object: any): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         lastIndexOf(object: any, startAt: number): number;
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
         objectAt(idx: number): any;
-        objectsAt(...number): any[];
+        objectsAt(...args: number[]): any[];
         popObject(): any;
         pushObject(obj: any): any;
-        pushObjects(...any): any[];
+        pushObjects(...args: any[]): any[];
         reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
         reject: ItemIndexEnumerableCallbackTarget;
         rejectBy(key: string, value?: string): any[];
         removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
         removeAt(start: number, len: number): any;
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
-        replace(idx: number, amt: number, objects: any[]);
+        replace(idx: number, amt: number, objects: any[]): any;
         reverseObjects(): any[];
         setEach(key: string, value?: any): any;
         setObjects(objects: any[]): any[];
@@ -1348,7 +1351,7 @@ declare module Ember {
         decrementProperty(keyName: string, decrement?: number): number;
         endPropertyChanges(): any[];
         get(keyName: string): any;
-        getProperties(...string): {};
+        getProperties(...args: string[]): {};
         getProperties(keys: string[]): {};
         getWithDefault(keyName: string, defaultValue: any): any;
         hasObserverFor(key: string): boolean;
@@ -1426,7 +1429,7 @@ declare module Ember {
         decrementProperty(keyName: string, decrement?: number): number;
         endPropertyChanges(): Observable;
         get(keyName: string): any;
-        getProperties(...string): {};
+        getProperties(...args: string[]): {};
         getProperties(keys: string[]): {};
         getWithDefault(keyName: string, defaultValue: any): any;
         hasObserverFor(key: string): boolean;
@@ -1441,8 +1444,8 @@ declare module Ember {
         toggleProperty(keyName: string): any;
     }
     class ObjectController extends ObjectProxy implements ControllerMixin {
-        replaceRoute(name: string, ...any): void;
-        transitionToRoute(name: string, ...any): void;
+        replaceRoute(name: string, ...args: any[]): void;
+        transitionToRoute(name: string, ...args: any[]): void;
         controllers: Object;
         needs: string[];
         target: any;
@@ -1474,7 +1477,7 @@ declare module Ember {
         decrementProperty(keyName: string, decrement?: number): number;
         endPropertyChanges(): Observable;
         get(keyName: string): any;
-        getProperties(...string): {};
+        getProperties(...args: string[]): {};
         getProperties(keys: string[]): {};
         getWithDefault(keyName: string, defaultValue: any): any;
         hasObserverFor(key: string): boolean;
@@ -1501,6 +1504,7 @@ declare module Ember {
     }
     module RSVP {
         class Promise {
+            constructor(resolver: Function, label?: string);
             then(done?: Function, fail?: Function): Promise;
         }
     }
@@ -1550,12 +1554,12 @@ declare module Ember {
         render(name: string, options?: RenderOptions): void;
         renderTemplate(controller: Controller, model: {}): void;
         // ReSharper disable once InconsistentNaming
-        replaceWith(name: string, ...Object): void;
-        send(name: string, ...any): void;
+        replaceWith(name: string, ...object: any[]): void;
+        send(name: string, ...args: any[]): void;
         serialize(model: {}, params: string[]): string;
         setupController(controller: Controller, model: {}): void;
         // ReSharper disable once InconsistentNaming
-        transitionTo(name: string, ...Object): void;
+        transitionTo(name: string, ...object: any[]): void;
         actions: ActionsHash;
     }
     class Router extends Object {
@@ -1633,14 +1637,14 @@ declare module Ember {
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): Set;
         enumerableContentWillChange(removing: Enumerable, adding: number): Set;
         enumerableContentWillChange(removing: number, adding: Enumerable): Set;
@@ -1654,7 +1658,7 @@ declare module Ember {
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
@@ -1678,13 +1682,13 @@ declare module Ember {
         freeze(): Set;
         isFrozen: boolean;
         add(obj: any): Set;
-        addEach(...any): Set;
+        addEach(...args: any[]): Set;
         clear(): Set;
         isEqual(obj: Set): boolean;
         pop(): any;
         push(obj: any): Set;
         remove(obj: any): Set;
-        removeEach(...any): Set;
+        removeEach(...args: any[]): Set;
         shift(): any;
         unshift(obj: any): Set;
         length: number;
@@ -1698,14 +1702,14 @@ declare module Ember {
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number);
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable);
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable);
-        enumerableContentDidChange(removing: number, adding: number);
-        enumerableContentDidChange(removing: Enumerable, adding: number);
-        enumerableContentDidChange(removing: number, adding: Enumerable);
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable);
+        enumerableContentDidChange(start: number, removing: number, adding: number): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
+        enumerableContentDidChange(removing: number, adding: number): any;
+        enumerableContentDidChange(removing: Enumerable, adding: number): any;
+        enumerableContentDidChange(removing: number, adding: Enumerable): any;
+        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
         enumerableContentWillChange(removing: number, adding: number): Enumerable;
         enumerableContentWillChange(removing: Enumerable, adding: number): Enumerable;
         enumerableContentWillChange(removing: number, adding: Enumerable): Enumerable;
@@ -1719,7 +1723,7 @@ declare module Ember {
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
-        invoke(methodName: string, ...any): any[];
+        invoke(methodName: string, ...args: any[]): any[];
         map: ItemIndexEnumerableCallbackTarget;
         mapBy(key: string): any[];
         nextObject(index: number, previousObject: any, context: any): any;
@@ -1762,7 +1766,7 @@ declare module Ember {
         off(name: string, target: any, method: Function): State;
         on(name: string, target: any, method: Function): State;
         one(name: string, target: any, method: Function): State;
-        trigger(name: string, ...string): void;
+        trigger(name: string, ...args: string[]): void;
         getPathsCache(stateManager: {}, path: string): {};
         init(): void;
         setPathsCache(stateManager: {}, path: string, transitions: any): void;
@@ -1803,7 +1807,7 @@ declare module Ember {
         stateMetaFor(state: State): {};
         transitionTo(path: string, context: any): void;
         triggerSetupContext(transitions: TransitionsHash): void;
-        unhandledEvent(manager: StateManager, event: string);
+        unhandledEvent(manager: StateManager, event: string): any;
         currentPath: string;
         currentState: State;
         errorOnUnhandledEvents: boolean;
@@ -1815,9 +1819,9 @@ declare module Ember {
         function classify(str: string): string;
         function dasherize(str: string): string;
         function decamelize(str: string): string;
-        function fmt(...string): string;
+        function fmt(...args: string[]): string;
         function htmlSafe(str: string): void; // TODO: @returns Handlebars.SafeStringStatic;
-        function loc(...string): string;
+        function loc(...args: string[]): string;
         function underscore(str: string): string;
         function w(str: string): string[];
     }
@@ -2000,8 +2004,8 @@ declare module Ember {
     var computed: {
         (callback: Function): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
-        and(...string): ComputedProperty;
-        any(...string): ComputedProperty;
+        and(...args: string[]): ComputedProperty;
+        any(...args: string[]): ComputedProperty;
         bool(dependentKey: string): ComputedProperty;
         defaultTo(defaultPath: string): ComputedProperty;
         empty(dependentKey: string): ComputedProperty;
@@ -2010,13 +2014,13 @@ declare module Ember {
         gte(dependentKey: string, value: number): ComputedProperty;
         lt(dependentKey: string, value: number): ComputedProperty;
         lte(dependentKey: string, value: number): ComputedProperty;
-        map(...string): ComputedProperty;
+        map(...args: string[]): ComputedProperty;
         match(dependentKey: string, regexp: RegExp): ComputedProperty;
         none(dependentKey: string): ComputedProperty;
         not(dependentKey: string): ComputedProperty;
         notEmpty(dependentKey: string): ComputedProperty;
         oneWay(dependentKey: string): ComputedProperty;
-        or(...string): ComputedProperty;
+        or(...args: string[]): ComputedProperty;
     };
     // ReSharper disable DuplicatingLocalDeclaration
     var config: {};
@@ -2056,7 +2060,7 @@ declare module Ember {
     function handleErrors(func: Function, context: any): any;
     function hasListeners(context: any, name: string): boolean;
     function hasOwnProperty(prop: string): boolean;
-    function immediateObserver(func: Function, ...propertyNames): Function;
+    function immediateObserver(func: Function, ...propertyNames: any[]): Function;
     var imports: {};
     function inspect(obj: any): string;
     function instrument(name: string, payload: any, callback: Function, binding: any): void;
@@ -2078,13 +2082,13 @@ declare module Ember {
     function merge(original: any, updates: any): any;
     function meta(obj: any, writable?: boolean): {};
     function metaPath(obj: any, path: string, writable?: boolean): any;
-    function mixin(obj: any, ...any): any;
+    function mixin(obj: any, ...args: any[]): any;
     /**
     Ember.none is deprecated. Please use Ember.isNone instead.
     **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
-    function observer(func: Function, ...string): Function;
+    function observer(func: Function, ...args: string[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
@@ -2118,18 +2122,18 @@ declare module Ember {
         debounce(target: any, method: Function, ...args: any[]): void;
         debounce(target: any, method: string, ...args: any[]): void;
         end(): void;
-        join(target: any, method: Function, ...any): any;
-        join(target: any, method: string, ...any): any;
+        join(target: any, method: Function, ...args: any[]): any;
+        join(target: any, method: string, ...args: any[]): any;
         later(target: any, method: Function, ...args: any[]): string;
         later(target: any, method: string, ...args: any[]): string;
-        next(target: any, method: Function, ...any): number;
-        next(target: any, method: string, ...any): number;
-        once(target: any, method: Function, ...any): number;
-        once(target: any, method: string, ...any): number;
-        schedule(queue: string, target: any, method: Function, ...any): void;
-        schedule(queue: string, target: any, method: string, ...any): void;
-        scheduleOnce(queue: string, target: any, method: Function, ...any): void;
-        scheduleOnce(queue: string, target: any, method: string, ...any): void;
+        next(target: any, method: Function, ...args: any[]): number;
+        next(target: any, method: string, ...args: any[]): number;
+        once(target: any, method: Function, ...args: any[]): number;
+        once(target: any, method: string, ...args: any[]): number;
+        schedule(queue: string, target: any, method: Function, ...args: any[]): void;
+        schedule(queue: string, target: any, method: string, ...args: any[]): void;
+        scheduleOnce(queue: string, target: any, method: Function, ...args: any[]): void;
+        scheduleOnce(queue: string, target: any, method: string, ...args: any[]): void;
         sync(): void;
         throttle(target: any, method: Function, ...args: any[]): void;
         throttle(target: any, method: string, ...args: any[]): void;
@@ -2234,7 +2238,6 @@ declare module Em {
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;
         var log: typeof Ember.Handlebars.log;
-        var compile: typeof Ember.Handlebars.compile;
     }
     class HashLocation extends Ember.HashLocation { }
     class HistoryLocation extends Ember.HistoryLocation { }

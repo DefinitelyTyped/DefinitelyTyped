@@ -9,7 +9,7 @@ declare function CodeMirror(callback: (host: HTMLElement) => void , options?: Co
 declare module CodeMirror {
     export var Pass: any;
 
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.Editor;
+    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     var version: string;
 
@@ -86,6 +86,11 @@ declare module CodeMirror {
     or the line the widget is on require the widget to be redrawn. */
     function on(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
     function off(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
+        
+    /** Various CodeMirror-related objects emit events, which allow client code to react to various situations. 
+    Handlers for such events can be registered with the on and off methods on the objects that the event fires on. 
+    To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
+    function signal(target: any, name: string, ...args: any[]): void;
 
     interface Editor {
     
@@ -368,6 +373,18 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+    }
+    
+    interface EditorFromTextArea extends Editor {
+    
+        /** Copy the content of the editor into the textarea. */
+        save(): void;
+    
+        /** Remove the editor, and restore the original textarea (with the editor's current content). */
+        toTextArea(): void;
+    
+        /** Returns the textarea that the instance was based on. */
+        getTextArea(): HTMLTextAreaElement;
     }
 
     class Doc {
@@ -788,5 +805,115 @@ declare module CodeMirror {
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
         shared?: boolean;
+    }
+    
+    interface StringStream {
+        lastColumnPos: number;
+        lastColumnValue: number;
+        lineStart: number;
+
+        /**
+         * Current position in the string.
+         */
+        pos: number;
+
+        /**
+         * Where the stream's position was when it was first passed to the token function.
+         */
+        start: number;
+
+        /**
+         * The current line's content.
+         */
+        string: string;
+
+        /**
+         * Number of spaces per tab character.
+         */
+        tabSize: number;
+
+        /**
+         * Returns true only if the stream is at the end of the line.
+         */
+        eol(): boolean;
+
+        /**
+         * Returns true only if the stream is at the start of the line.
+         */
+        sol(): boolean;
+
+        /**
+         * Returns the next character in the stream without advancing it. Will return an null at the end of the line.
+         */
+        peek(): string;
+
+        /**
+         * Returns the next character in the stream and advances it. Also returns null when no more characters are available.
+         */
+        next(): string;
+
+        /**
+         * match can be a character, a regular expression, or a function that takes a character and returns a boolean.
+         * If the next character in the stream 'matches' the given argument, it is consumed and returned.
+         * Otherwise, undefined is returned.
+         */
+        eat(match: string): string;
+        eat(match: RegExp): string;
+        eat(match: (char: string) => boolean): string;
+
+        /**
+         * Repeatedly calls eat with the given argument, until it fails. Returns true if any characters were eaten.
+         */
+        eatWhile(match: string): boolean;
+        eatWhile(match: RegExp): boolean;
+        eatWhile(match: (char: string) => boolean): boolean;
+
+        /**
+         * Shortcut for eatWhile when matching white-space.
+         */
+        eatSpace(): boolean;
+
+        /**
+         * Moves the position to the end of the line.
+         */
+        skipToEnd(): void;
+
+        /**
+         * Skips to the next occurrence of the given character, if found on the current line (doesn't advance the stream if
+         * the character does not occur on the line).
+         *
+         * Returns true if the character was found.
+         */
+        skipTo(ch: string): boolean;
+
+        /**
+         * Act like a multi-character eat - if consume is true or not given - or a look-ahead that doesn't update the stream
+         * position - if it is false. pattern can be either a string or a regular expression starting with ^. When it is a
+         * string, caseFold can be set to true to make the match case-insensitive. When successfully matching a regular
+         * expression, the returned value will be the array returned by match, in case you need to extract matched groups.
+         */
+        match(pattern: string, consume?: boolean, caseFold?: boolean): boolean;
+        match(pattern: RegExp, consume?: boolean): string[];
+
+        /**
+         * Backs up the stream n characters. Backing it up further than the start of the current token will cause things to
+         * break, so be careful.
+         */
+        backUp(n: number): void;
+
+        /**
+         * Returns the column (taking into account tabs) at which the current token starts.
+         */
+        column(): number;
+
+        /**
+         * Tells you how far the current line has been indented, in spaces. Corrects for tab characters.
+         */
+        indentation(): number;
+
+        /**
+         * Get the string between the start of the current token and the current stream position.
+         */
+        current(): string;
     }
 }

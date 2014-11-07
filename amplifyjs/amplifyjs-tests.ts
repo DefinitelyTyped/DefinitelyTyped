@@ -176,8 +176,7 @@ amplify.request("twitter-mentions", { user: "amplifyjs" });
 
 //Example:
 
-amplify.request.decoders.appEnvelope =
-function (data, status, xhr, success, error) {
+var appEnvelopeDecoder: amplifyDecoder = function (data, status, xhr, success, error) {
     if (data.status === "success") {
         success(data.data);
     } else if (data.status === "fail" || data.status === "error") {
@@ -186,6 +185,17 @@ function (data, status, xhr, success, error) {
         error(data.message, "fatal");
     }
 };
+
+//a new decoder can be added to the amplifyDecoders interface
+interface amplifyDecoders {
+    appEnvelope: amplifyDecoder;
+}
+
+amplify.request.decoders.appEnvelope = appEnvelopeDecoder;
+
+//but you can also just add it via an index
+amplify.request.decoders['appEnvelopeStr'] = appEnvelopeDecoder;
+
 
 amplify.request.define("decoderExample", "ajax", {
     url: "/myAjaxUrl",

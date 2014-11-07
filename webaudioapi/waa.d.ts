@@ -1,5 +1,5 @@
 // Type definitions for Web Audio API
-// Project: http://www.w3.org/TR/2012/WD-webaudio-20121213/
+// Project: http://www.w3.org/TR/webaudio/
 // Definitions by: Baruch Berger <https://github.com/bbss>, Kon <http://phyzkit.net/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -180,9 +180,12 @@ interface OfflineRenderSuccessCallback{
  *     var offlineContext = new OfflineAudioContext(unsigned long numberOfChannels, unsigned long length, float sampleRate);
  */
 interface OfflineAudioContext extends AudioContext{
-    constructor();
     startRendering(): void;
     oncomplete: OfflineRenderSuccessCallback;
+}
+
+declare var webkitOfflineAudioContext: {
+    new (numberOfChannels: number, length: number, sampleRate: number): OfflineAudioContext;
 }
 
 /**
@@ -519,6 +522,21 @@ interface AudioBufferSourceNode extends AudioSourceNode {
      * Indicates if the audio data should play in a loop. The default value is false.
      */
     loop: boolean;
+
+    /**
+     * An optional value in seconds where looping should begin if the loop attribute is true. Its default value is 0, and it may usefully be set to any value between 0 and the duration of the buffer.
+     */
+    loopStart: number;
+
+    /**
+     * An optional value in seconds where looping should end if the loop attribute is true. Its default value is 0, and it may usefully be set to any value between 0 and the duration of the buffer.
+     */
+    loopEnd: number;
+
+    /**
+     * A property used to set the EventHandler for the ended event that is dispatched to AudioBufferSourceNode node types. When the playback of the buffer for an AudioBufferSourceNode is finished, an event of type Event will be dispatched to the event handler.
+     */
+    onended: EventListener;
 
     /**
      * Schedules a sound to playback at an exact time.

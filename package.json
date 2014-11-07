@@ -20,18 +20,20 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7 --test-changes",
-    "all": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7",
-    "dry": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7 --skip-tests --test-changes",
-    "list": "node ./_infrastructure/tests/runner.js --tsc-version 0.9.7 --skip-tests --print-files --print-refmap",
-    "help": "node ./_infrastructure/tests/runner.js -h"
+    "test": "node ./_infrastructure/runner.js --changes",
+    "changes": "node ./_infrastructure/runner.js --changes",
+    "lint": "node ./_infrastructure/runner.js --lint",
+    "tscparams": "node ./_infrastructure/runner.js --tscparams --no-tests --no-headers",
+    "all": "node ./_infrastructure/runner.js ",
+    "dry": "node ./_infrastructure/runner.js --dry --changes",
+    "list": "node ./_infrastructure/runner.js --dry --print-files --print-refmap",
+    "last": "node ./_infrastructure/runner.js --dry --print-files --print-refmap --changes",
+    "files": "node ./_infrastructure/runner.js --dry --print-files",
+    "refmap": "node ./_infrastructure/runner.js --dry --print-refmap",
+    "help": "node ./_infrastructure/runner.js -h"
   },
   "dependencies": {
-    "source-map-support": "~0.2.5",
-    "git-wrapper": "~0.1.1",
-    "glob": "~3.2.9",
-    "bluebird": "~1.0.7",
-    "lazy.js": "~0.3.2",
-    "optimist": "~0.6.1"
-  }
+    "definition-tester": "~0.1.4"
+  },
+  "devDependencies": {}
 }

@@ -17,6 +17,11 @@ interface JQueryColor {
     red(val: number): JQueryColor;
 
     /**
+     * Returns a copy of the color object with the red set to val.
+     */
+    red(val: string): JQueryColor;
+
+    /**
      * Returns the green component of the color (integer from 0 - 255).
      */
     green(): number;
@@ -27,6 +32,11 @@ interface JQueryColor {
     green(val: number): JQueryColor;
 
     /**
+     * Returns a copy of the color object with the green set to val.
+     */
+    green(val: string): JQueryColor;
+
+    /**
      * Returns the blue component of the color (integer from 0 - 255).
      */
     blue(): number;
@@ -35,6 +45,11 @@ interface JQueryColor {
      * Returns a copy of the color object with the blue set to val.
      */
     blue(val: number): JQueryColor;
+    
+    /**
+     * Returns a copy of the color object with the blue set to val.
+     */
+    blue(val: string): JQueryColor;
 
     /**
      * Returns the alpha value of this color (float from 0.0 - 1.0).
@@ -47,6 +62,11 @@ interface JQueryColor {
     alpha(val: number): JQueryColor;
 
     /**
+     * Returns a copy of the color object with the alpha set to val.
+     */
+    alpha(val: string): JQueryColor;
+
+    /**
      * Returns the hue component of the color (integer from 0 - 359).
      */
     hue(): number;
@@ -55,6 +75,11 @@ interface JQueryColor {
      * Returns a copy of the color object with the hue set to val.
      */
     hue(val: number): JQueryColor;
+
+    /**
+     * Returns a copy of the color object with the hue set to val.
+     */
+    hue(val: string): JQueryColor;
 
     /**
      * Returns the saturation component of the color (float from 0.0 - 1.0).
@@ -67,6 +92,11 @@ interface JQueryColor {
     saturation(val: number): JQueryColor;
 
     /**
+     * Returns a copy of the color object with the saturation set to val.
+     */
+    saturation(val: string): JQueryColor;
+
+    /**
      * Returns the lightness component of the color (float from 0.0 - 1.0).
      */
     lightness(): number;
@@ -75,6 +105,11 @@ interface JQueryColor {
      * Returns a copy of the color object with the lightness set to val.
      */
     lightness(val: number): JQueryColor;
+
+    /**
+     * Returns a copy of the color object with the lightness set to val.
+     */
+    lightness(val: string): JQueryColor;
 
     /**
      * Returns a rgba "tuple" [ red, green, blue, alpha ].

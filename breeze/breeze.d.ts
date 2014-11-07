@@ -376,13 +376,14 @@ declare module breeze {
         clear(): void;
         createEmptyCopy(): EntityManager;
         createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol) : Entity;
+        createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol, mergeStrategy?: StrategySymbol): Entity;
         createEntity(entityType: EntityType, config?: {}, entityState?: EntityStateSymbol): Entity;
         detachEntity(entity: Entity): boolean;
         executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
         executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
 
         executeQueryLocally(query: EntityQuery): Entity[];
-        exportEntities(entities?: Entity[]): string;
+        exportEntities(entities?: Entity[], includeMetadata?: boolean): string;
         fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
         fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
         fetchEntityByKey(entityKey: EntityKey, checkLocalCacheFirst?: boolean): Q.Promise<EntityByKeyResult>;
@@ -502,6 +503,7 @@ declare module breeze {
         static fromEntityKey(entityKey: EntityKey): EntityQuery;
         static fromEntityNavigation(entity: Entity, navigationProperty: NavigationProperty): EntityQuery;
         inlineCount(enabled?: boolean): EntityQuery;
+        noTracking(enabled: boolean): EntityQuery;
         orderBy(propertyPaths: string): EntityQuery;
         orderBy(propertyPaths: string[]): EntityQuery;
         orderByDesc(propertyPaths: string): EntityQuery;
@@ -876,7 +878,7 @@ declare module breeze.config {
     var dataService: string;
     var functionRegistry: Object;
     export function getAdapter(interfaceName: string, adapterName: string): Object;
-    export function getAdapterInstance(interfaceName: string, adapterName: string): Object;
+    export function getAdapterInstance(interfaceName: string, adapterName?: string): Object;
     export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault: boolean): void;
     export function initializeAdapterInstances(config: Object): void;
     var interfaceInitialized: Event;

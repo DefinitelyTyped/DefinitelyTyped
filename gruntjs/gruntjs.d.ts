@@ -336,7 +336,7 @@ declare module grunt {
              * whose return value will be used as the destination file's contents. If
              * this function returns `false`, the file copy will be aborted.
              */
-            process?: (buffer: NodeBuffer) => boolean
+            process?: (buffer: Buffer) => boolean
         }
 
         /**
@@ -370,21 +370,21 @@ declare module grunt {
              * Returns a string, unless options.encoding is null in which case it returns a Buffer.
              */
             read(filepath: string): string
-            read(filepath: string, options: IFileEncodedOption): NodeBuffer
+            read(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Read a file's contents, parsing the data as JSON and returning the result.
              * @see FileModule.read for a list of supported options.
              */
             readJSON(filepath: string): any
-            readJSON(filepath: string, options: IFileEncodedOption): NodeBuffer
+            readJSON(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Read a file's contents, parsing the data as YAML and returning the result.
              * @see FileModule.read for a list of supported options.
              */
             readYAML(filepath: string): any
-            readYAML(filepath: string, options: IFileEncodedOption): NodeBuffer
+            readYAML(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Write the specified contents to a file, creating intermediate directories if necessary.
@@ -394,7 +394,7 @@ declare module grunt {
              * @param options If an encoding is not specified, default to grunt.file.defaultEncoding.
              */
             write(filepath: string, contents: string, options?: IFileEncodedOption): void
-            write(filepath: string, contents: NodeBuffer): void
+            write(filepath: string, contents: Buffer): void
 
             /**
              * Copy a source file to a destination path, creating intermediate directories if necessary.
@@ -690,6 +690,11 @@ declare module grunt {
              * Log a list of obj properties (good for debugging flags).
              */
             writeflags(obj: any): T
+
+            /**
+             * Log an warning with grunt.log.warn
+             */
+            warn(msg: string): T
         }
 
         /**
@@ -1292,4 +1297,10 @@ interface IGrunt extends grunt.IConfigComponents, grunt.fail.FailModule, grunt.I
      * The current Grunt version, as a string. This is just a shortcut to the grunt.package.version property.
      */
     version: string
+}
+
+// NodeJS Support
+declare module 'grunt' {
+    var grunt: IGrunt;
+    export = grunt;
 }

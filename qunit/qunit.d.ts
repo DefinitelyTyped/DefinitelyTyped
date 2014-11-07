@@ -1,7 +1,7 @@
 // Type definitions for QUnit 1.10
 // Project: http://qunitjs.com/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface DoneCallbackObject {
@@ -381,7 +381,7 @@ interface QUnitStatic extends QUnitAssert{
 	* @param expected Number of assertions in this test
 	* @param test Function to close over assertions
 	*/
-	asyncTest(name: string, expected: number, test: () => any): any;
+	asyncTest(name: string, expected: number, test: (assert: QUnitAssert) => any): any;
 
 	/**
 	* Add an asynchronous test to run. The test must include a call to start().
@@ -392,7 +392,7 @@ interface QUnitStatic extends QUnitAssert{
 	* @param name Title of unit being tested
 	* @param test Function to close over assertions
 	*/
-	asyncTest(name: string, test: () => any): any;
+	asyncTest(name: string, test: (assert: QUnitAssert) => any): any;
 
 	/**
 	* Specify how many assertions are expected to run within a test.
@@ -662,7 +662,7 @@ declare function testStart(callback: (details: TestStartCallbackObject) => any):
 * @param expected Number of assertions in this test
 * @param test Function to close over assertions
 */
-declare function asyncTest(name: string, expected?: any, test?: () => any): any;
+declare function asyncTest(name: string, expected?: any, test?: (assert: QUnitAssert) => any): any;
 
 /**
 * Add an asynchronous test to run. The test must include a call to start().
@@ -673,7 +673,7 @@ declare function asyncTest(name: string, expected?: any, test?: () => any): any;
 * @param name Title of unit being tested
 * @param test Function to close over assertions
 */
-declare function asyncTest(name: string, test: () => any): any;
+declare function asyncTest(name: string, test: (assert: QUnitAssert) => any): any;
 
 /**
 * Specify how many assertions are expected to run within a test.

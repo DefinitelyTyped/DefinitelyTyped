@@ -1,7 +1,7 @@
 // Type definitions for Crossroads.js
 // Project: http://millermedeiros.github.io/crossroads.js/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../js-signals/js-signals.d.ts" />
 

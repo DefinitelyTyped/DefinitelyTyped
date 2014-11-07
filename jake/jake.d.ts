@@ -7,8 +7,9 @@
 
 /**
  * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
+ * @param value A value to return from the task.
  */
-declare function complete(): void;
+declare function complete(value?: any): void;
 
 /**
  * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
@@ -21,7 +22,6 @@ declare function desc(description:string): void;
  * @param name The name of the DiretoryTask
  */
 declare function directory(name:string): jake.DirectoryTask;
-
 
 /**
  * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
@@ -56,6 +56,15 @@ declare function namespace(name:string, scope:()=>void): void;
 declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
 declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+
+/**
+ * @param name The name of the NpmPublishTask
+ * @param packageFiles The files to include in the package
+ * @param definition A function that creates the package definition
+ */
+declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
+declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
+
 
 declare module jake{
 
@@ -124,7 +133,7 @@ declare module jake{
 	 * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
 	 * @event error When a shell-command
 	 */
-	export interface Exec extends NodeEventEmitter {
+	export interface Exec extends NodeJS.EventEmitter {
 		append(cmd:string): void;
 		run(): void;
 	}
@@ -178,7 +187,7 @@ declare module jake{
 	 *
 	 * @event complete
 	 */
-	export class Task implements NodeEventEmitter {
+	export class Task implements NodeJS.EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -197,14 +206,15 @@ declare module jake{
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function): NodeEventEmitter;
-        on(event: string, listener: Function): NodeEventEmitter;
-        once(event: string, listener: Function): NodeEventEmitter;
-        removeListener(event: string, listener: Function): NodeEventEmitter;
-        removeAllListeners(event?: string): NodeEventEmitter;
+		addListener(event: string, listener: Function): NodeJS.EventEmitter;
+        on(event: string, listener: Function): NodeJS.EventEmitter;
+        once(event: string, listener: Function): NodeJS.EventEmitter;
+        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+        removeAllListeners(event?: string): NodeJS.EventEmitter;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        value: any;
 	}
 
 	export class DirectoryTask{
@@ -368,13 +378,14 @@ declare module jake{
 
 	export class NpmPublishTask{
 		constructor(name:string, packageFiles:string[]);
+		constructor(name:string, definition?:()=>void);
 	}
 
-	export function addListener(event: string, listener: Function): NodeEventEmitter;
-	export function on(event: string, listener: Function): NodeEventEmitter;
-	export function once(event: string, listener: Function): NodeEventEmitter;
-	export function removeListener(event: string, listener: Function): NodeEventEmitter;
-	export function removeAllListener(event: string): NodeEventEmitter;
+	export function addListener(event: string, listener: Function): NodeJS.EventEmitter;
+	export function on(event: string, listener: Function): NodeJS.EventEmitter;
+	export function once(event: string, listener: Function): NodeJS.EventEmitter;
+	export function removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+	export function removeAllListener(event: string): NodeJS.EventEmitter;
 	export function setMaxListeners(n: number): void;
 	export function listeners(event: string): Function[];
 	export function emit(event: string, ...args: any[]): boolean;

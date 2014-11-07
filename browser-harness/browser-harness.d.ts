@@ -6,27 +6,28 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "browser-harness" {
+    import _events = require('events');
 
-    interface HarnessEvents extends NodeEventEmitter {
-        once(event: string, listener: (driver: Driver) => void): NodeEventEmitter;
-        once(event: 'ready', listener: (driver: Driver) => void): NodeEventEmitter;
+    interface HarnessEvents extends _events.EventEmitter {
+        once(event: string, listener: (driver: Driver) => void): _events.EventEmitter;
+        once(event: 'ready', listener: (driver: Driver) => void): _events.EventEmitter;
 
-        on(event: string, listener: (driver: Driver) => void): NodeEventEmitter;
-        on(event: 'ready', listener: (driver: Driver) => void): NodeEventEmitter;
+        on(event: string, listener: (driver: Driver) => void): _events.EventEmitter;
+        on(event: 'ready', listener: (driver: Driver) => void): _events.EventEmitter;
     }
 
-    interface DriverEvents extends NodeEventEmitter {
-        once(event: string, listener: (text: string) => void): NodeEventEmitter;
-        once(event: 'console.log', listener: (text: string) => void): NodeEventEmitter;
-        once(event: 'console.warn', listener: (text: string) => void): NodeEventEmitter;
-        once(event: 'console.error', listener: (text: string) => void): NodeEventEmitter;
-        once(event: 'window.onerror', listener: (text: string) => void): NodeEventEmitter;
+    interface DriverEvents extends _events.EventEmitter {
+        once(event: string, listener: (text: string) => void): _events.EventEmitter;
+        once(event: 'console.log', listener: (text: string) => void): _events.EventEmitter;
+        once(event: 'console.warn', listener: (text: string) => void): _events.EventEmitter;
+        once(event: 'console.error', listener: (text: string) => void): _events.EventEmitter;
+        once(event: 'window.onerror', listener: (text: string) => void): _events.EventEmitter;
 
-        on(event: string, listener: (text: string) => void): NodeEventEmitter;
-        on(event: 'console.log', listener: (text: string) => void): NodeEventEmitter;
-        on(event: 'console.warn', listener: (text: string) => void): NodeEventEmitter;
-        on(event: 'console.error', listener: (text: string) => void): NodeEventEmitter;
-        on(event: 'window.onerror', listener: (text: string) => void): NodeEventEmitter;
+        on(event: string, listener: (text: string) => void): _events.EventEmitter;
+        on(event: 'console.log', listener: (text: string) => void): _events.EventEmitter;
+        on(event: 'console.warn', listener: (text: string) => void): _events.EventEmitter;
+        on(event: 'console.error', listener: (text: string) => void): _events.EventEmitter;
+        on(event: 'window.onerror', listener: (text: string) => void): _events.EventEmitter;
     }
 
     export interface Driver {
