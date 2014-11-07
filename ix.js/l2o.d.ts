@@ -54,8 +54,10 @@ declare module Ix {
 		some(predicate?: EnumerablePredicate<T>, thisArg?: any): boolean; // alias
 
 		average(selector?: EnumerableFunc<T, number>): number;
-		max(selector?: EnumerableFunc<T, number>): number;
-		min(selector?: EnumerableFunc<T, number>): number;
+		max(): T;
+	        max<TResult>(selector: EnumerableFunc<T, TResult>): TResult;
+	        min(): T;
+	        min<TResult>(selector: EnumerableFunc<T, TResult>): TResult;
 		sum(selector?: EnumerableFunc<T, number>): number;
 
 		concat<T>(...sources: Enumerable<T>[]): Enumerable<T>;
@@ -91,16 +93,16 @@ declare module Ix {
 			comparer?: EqualityComparer<TKey, TKey>): Enumerable<TResult>;
 		groupBy<TKey, TElement>(
 			keySelector: (item: T) => TKey,
-			elementSelector: (item: T) => TElement): Grouping<TKey, TElement>;
+			elementSelector: (item: T) => TElement): Enumerable<Grouping<TKey, TElement>>;
 		groupBy<TKey>(
-			keySelector: (item: T) => TKey): Grouping<TKey, T>;
+			keySelector: (item: T) => TKey): Enumerable<Grouping<TKey, T>>;
 
 		// if need to set comparer without resultSelector
 		groupBy<TKey, TElement>(
 			keySelector: (item: T) => TKey,
 			elementSelector: (item: T) => TElement,
 			_: boolean,
-			comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, TElement>;
+			comparer: EqualityComparer<TKey, TKey>): Enumerable<Grouping<TKey, TElement>>;
 		// if need to set resultSelector without elementSelector
 		groupBy<TKey, TResult>(
 			keySelector: (item: T) => TKey,
@@ -112,7 +114,7 @@ declare module Ix {
 			keySelector: (item: T) => TKey,
 			_: boolean,
 			__: boolean,
-			comparer: EqualityComparer<TKey, TKey>): Grouping<TKey, T>;
+			comparer: EqualityComparer<TKey, TKey>): Enumerable<Grouping<TKey, T>>;
 
 		groupJoin<TInner, TOuterKey, TInnerKey, TResult>(
 			inner: Enumerable<TInner>,
@@ -248,4 +250,8 @@ declare module Ix {
 	}
 
 	var Enumerable: EnumerableStatic;
+}
+
+declare module "l2o" {
+	export = Ix;
 }

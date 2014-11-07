@@ -6,6 +6,7 @@
 /// <reference path='../node/node.d.ts' />
 
 declare module "superagent" {
+    import stream = require('stream');
   export interface Response {
     text: string;
     body: any;
@@ -43,8 +44,8 @@ declare module "superagent" {
     send(data: string): Request;
     send(data: Object): Request;
     write(data: string, encoding: string): boolean;
-    write(data: NodeBuffer, encoding: string): boolean;
-    pipe(stream: WritableStream, options?: Object): WritableStream;
+    write(data: Buffer, encoding: string): boolean;
+    pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
     buffer(val: boolean): Request;
     timeout(ms: number): Request;
     clearTimeout(): Request;
@@ -78,7 +79,11 @@ declare module "superagent" {
     subscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
     unsubscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
     patch(url: string, callback?: (err: Error, res: Response) => void): Request;
+    search(url: string, callback?: (err: Error, res: Response) => void): Request;
+    connect(url: string, callback?: (err: Error, res: Response) => void): Request;
     parse(fn: Function): Request;
+    saveCookies(res: Response): void;
+    attachCookies(req: Request): void;
   }
 
   export function agent(): Agent;

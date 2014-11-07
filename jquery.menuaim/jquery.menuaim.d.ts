@@ -1,6 +1,6 @@
 ﻿// Type definitions for jQuery-menu-aim
 // Project: https://github.com/kamens/jQuery-menu-aim
-// Definitions by: Robert Fonseca-Ensor
+// Definitions by: Robert Fonseca-Ensor <http://www.robfe.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />

@@ -1,7 +1,7 @@
 // Type definitions for Raphael 2.1
 // Project: http://raphaeljs.com
-// Definitions by: https://github.com/CheCoxshall
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: CheCoxshall <https://github.com/CheCoxshall>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface BoundingBox {
@@ -200,7 +200,7 @@ interface RaphaelPaper {
     clear(): void;
     defs: SVGDefsElement;
     ellipse(x: number, y: number, rx: number, ry: number): RaphaelElement;
-    forEach(callback: number, thisArg: any): RaphaelStatic;
+    forEach(callback: (el: RaphaelElement) => boolean, thisArg?: any): RaphaelPaper;
     getById(id: number): RaphaelElement;
     getElementByPoint(x: number, y: number): RaphaelElement;
     getElementsByPoint(x: number, y: number): RaphaelSet;
@@ -215,7 +215,7 @@ interface RaphaelPaper {
     renderfix(): void;
     safari(): void;
     set(elements?: RaphaelElement[]): RaphaelSet;
-    setFinish(): void;
+    setFinish(): RaphaelSet;
     setSize(width: number, height: number): void;
     setStart(): void;
     setViewBox(x: number, y: number, w: number, h: number, fit: boolean): void;

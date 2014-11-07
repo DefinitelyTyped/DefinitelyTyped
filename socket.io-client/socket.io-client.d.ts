@@ -4,9 +4,16 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "socket.io-client" {
+  export = io;
+}
 
-    export function connect(host: string, details?: any): Socket;
+declare var io: SocketIOStatic;
 
+interface SocketIOStatic {
+    connect(host: string, details?: any): SocketIOClient.Socket;
+}
+
+declare module SocketIOClient {
     interface EventEmitter {
         emit(name: string, ...data: any[]): any;
         on(ns: string, fn: Function): EventEmitter;

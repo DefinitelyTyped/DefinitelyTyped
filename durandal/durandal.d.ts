@@ -1,10 +1,10 @@
-// Type definitions for Durandal 2.0.1
+// Type definitions for Durandal 2.1.0
 // Project: http://durandaljs.com
-// Definitions by: Evan Larsen <https://github.com/evanlarsen/>
+// Definitions by: Blue Spire <https://github.com/BlueSpire>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
- * Durandal 2.0.1 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
+ * Durandal 2.1.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
  * Available via the MIT license.
  * see: http://durandaljs.com or https://github.com/BlueSpire/Durandal for details.
  */
@@ -22,780 +22,10 @@ declare module 'durandal/system' {
     export = theModule;
 }
 
-/**
- * The viewEngine module provides information to the viewLocator module which is used to locate the view's source file. The viewEngine also transforms a view id into a view instance.
- * @requires system
- * @requires jquery
- */
-declare module 'durandal/viewEngine' {
-    var theModule: DurandalViewEngineModule;
-    export = theModule;
-}
-
-/**
- * Durandal events originate from backbone.js but also combine some ideas from signals.js as well as some additional improvements.
- * Events can be installed into any object and are installed into the `app` module by default for convenient app-wide eventing.
- * @requires system
- */
-declare module 'durandal/events' {
-    var theModule: DurandalEventModule;
-    export = theModule;
-}
-
-/**
- * The binder joins an object instance and a DOM element tree by applying databinding and/or invoking binding lifecycle callbacks (binding and bindingComplete).
- * @requires system
- * @requires knockout
- */
-declare module 'durandal/binder' {
-    interface BindingInstruction {
-        applyBindings: boolean;
-    }
-
-    /**
-     * Called before every binding operation. Does nothing by default.
-     * @param {object} data The data that is about to be bound.
-     * @param {DOMElement} view The view that is about to be bound.
-     * @param {object} instruction The object that carries the binding instructions.
-    */
-    export var binding: (data: any, view: HTMLElement, instruction: BindingInstruction) => void;
-
-    /**
-     * Called after every binding operation. Does nothing by default.
-     * @param {object} data The data that has just been bound.
-     * @param {DOMElement} view The view that has just been bound.
-     * @param {object} instruction The object that carries the binding instructions.
-    */
-    export var bindingComplete: (data: any, view: HTMLElement, instruction: BindingInstruction) => void;
-
-    /**
-     * Indicates whether or not the binding system should throw errors or not.
-     * @default false The binding system will not throw errors by default. Instead it will log them.
-    */
-    export var throwOnErrors: boolean;
-
-    /**
-     * Gets the binding instruction that was associated with a view when it was bound.
-     * @param {DOMElement} view The view that was previously bound.
-     * @returns {object} The object that carries the binding instructions.
-    */
-    export function getBindingInstruction(view: HTMLElement): BindingInstruction;
-
-    /**
-     * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
-     * @param {KnockoutBindingContext} bindingContext The current binding context.
-     * @param {DOMElement} view The view to bind.
-     * @param {object} [obj] The data to bind to, causing the creation of a child binding context if present.
-    */
-    export function bindContext(bindingContext: KnockoutBindingContext, view: HTMLElement, obj?: any): BindingInstruction;
-
-    /**
-     * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
-     * @param {object} obj The data to bind to.
-     * @param {DOMElement} view The view to bind.
-    */
-    export function bind(obj: any, view: HTMLElement): BindingInstruction;
-}
-
-/**
- * The activator module encapsulates all logic related to screen/component activation.
- * An activator is essentially an asynchronous state machine that understands a particular state transition protocol.
- * The protocol ensures that the following series of events always occur: `canDeactivate` (previous state), `canActivate` (new state), `deactivate` (previous state), `activate` (new state).
- * Each of the _can_ callbacks may return a boolean, affirmative value or promise for one of those. If either of the _can_ functions yields a false result, then activation halts.
- * @requires system
- * @requires knockout
- */
-declare module 'durandal/activator' {
-    /**
-     * The default settings used by activators.
-     * @property {ActivatorSettings} defaults
-    */
-    export var defaults: DurandalActivatorSettings;
-
-    /**
-    * Creates a new activator.
-     * @method create
-     * @param {object} [initialActiveItem] The item which should be immediately activated upon creation of the ativator.
-     * @param {ActivatorSettings} [settings] Per activator overrides of the default activator settings.
-     * @returns {Activator} The created activator.
-    */
-    export function create<T>(initialActiveItem?: T, settings?: DurandalActivatorSettings): DurandalActivator<T>;
-
-    /**
-     * Determines whether or not the provided object is an activator or not.
-     * @method isActivator
-     * @param {object} object Any object you wish to verify as an activator or not.
-     * @returns {boolean} True if the object is an activator; false otherwise.
-    */
-    export function isActivator(object: any): boolean;
-}
-
-/**
- * The viewLocator module collaborates with the viewEngine module to provide views (literally dom sub-trees) to other parts of the framework as needed. The primary consumer of the viewLocator is the composition module.
- * @requires system
- * @requires viewEngine
- */
-declare module 'durandal/viewLocator' {
-    var theModule: DurandalViewLocatorModule;
-    export = theModule;
-}
-
-/**
- * The composition module encapsulates all functionality related to visual composition.
- * @requires system
- * @requires viewLocator
- * @requires binder
- * @requires viewEngine
- * @requires activator
- * @requires jquery
- * @requires knockout
- */
-declare module 'durandal/composition' {
-    interface CompositionTransation {
-        /**
-         * Registers a callback which will be invoked when the current composition transaction has completed. The transaction includes all parent and children compositions.
-         * @param {function} callback The callback to be invoked when composition is complete.
-        */
-        complete(callback: Function): void;
-    }
-
-    interface CompositionContext {
-        mode: string;
-        parent: HTMLElement;
-        activeView: HTMLElement;
-        triggerAttach(): void;
-        bindingContext?: KnockoutBindingContext;
-        cacheViews?: boolean;
-        viewElements?: HTMLElement[];
-        model?: any;
-        view?: any;
-        area?: string;
-        preserveContext?: boolean;
-        activate?: boolean;
-        strategy?: (context: CompositionContext) => JQueryPromise<HTMLElement>;
-        composingNewView: boolean;
-        child: HTMLElement;
-        binding?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
-        attached?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
-        compositionComplete?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
-        tranistion?: string;
-    }
-
-    /**
-     * Converts a transition name to its moduleId.
-     * @param {string} name The name of the transtion.
-     * @returns {string} The moduleId.
-    */
-    export function convertTransitionToModuleId(name: string): string;
-
-    /**
-     * The name of the transition to use in all compositions.
-     * @default null
-    */
-    export var defaultTransitionName: string;
-
-    /**
-     * Represents the currently executing composition transaction.
-     */
-    export var current: CompositionTransation;
-
-    /**
-     * Registers a binding handler that will be invoked when the current composition transaction is complete.
-     * @param {string} name The name of the binding handler.
-     * @param {object} [config] The binding handler instance. If none is provided, the name will be used to look up an existing handler which will then be converted to a composition handler.
-     * @param {function} [initOptionsFactory] If the registered binding needs to return options from its init call back to knockout, this function will server as a factory for those options. It will receive the same parameters that the init function does.
-    */
-    export function addBindingHandler(name, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any);
-
-    /**
-     * Gets an object keyed with all the elements that are replacable parts, found within the supplied elements. The key will be the part name and the value will be the element itself.
-     * @param {DOMElement[]} elements The elements to search for parts.
-     * @returns {object} An object keyed by part.
-    */
-    export function getParts(elements: HTMLElement[]): any;
-
-    /**
-     * Gets an object keyed with all the elements that are replacable parts, found within the supplied element. The key will be the part name and the value will be the element itself.
-     * @param {DOMElement} element The element to search for parts.
-     * @returns {object} An object keyed by part.
-    */
-    export function getParts(element: HTMLElement): any;
-
-    /**
-     * Eecutes the default view location strategy.
-     * @param {object} context The composition context containing the model and possibly existing viewElements.
-     * @returns {promise} A promise for the view.
-    */
-    export var defaultStrategy: (context: CompositionContext) => JQueryPromise<HTMLElement>;
-
-    /**
-     * Initiates a composition.
-     * @param {DOMElement} element The DOMElement or knockout virtual element that serves as the parent for the composition.
-     * @param {object} settings The composition settings.
-     * @param {object} [bindingContext] The current binding context.
-    */
-    export function compose(element: HTMLElement, settings: CompositionContext, bindingContext: KnockoutBindingContext): void;
-}
-
-/**
- * The app module controls app startup, plugin loading/configuration and root visual display.
- * @requires system
- * @requires viewEngine
- * @requires composition
- * @requires events
- * @requires jquery
- */
-declare module 'durandal/app' {
-    var theModule: DurandalAppModule;
-    export = theModule;
-}
-
-/**
- * The dialog module enables the display of message boxes, custom modal dialogs and other overlays or slide-out UI abstractions. Dialogs are constructed by the composition system which interacts with a user defined dialog context. The dialog module enforced the activator lifecycle.
- * @requires system
- * @requires app
- * @requires composition
- * @requires activator
- * @requires viewEngine
- * @requires jquery
- * @requires knockout
- */
-declare module 'plugins/dialog' {
-    import composition = require('durandal/composition');
-
-    /**
-    * Models a message box's message, title and options.
-    * @class
-    */
-    class Box {
-        constructor(message: string, title: string, options: string[]);
-
-        /**
-         * Selects an option and closes the message box, returning the selected option through the dialog system's promise.
-         * @param {string} dialogResult The result to select.
-         */
-        selectOptions(dialogResult: string): void;
-
-        /**
-         * Provides the view to the composition system.
-         * @returns {DOMElement} The view of the message box.
-         */
-        getView(): HTMLElement;
-
-        /**
-         * The title to be used for the message box if one is not provided.
-         * @default Application
-         * @static
-         */
-        static defaultTitle: string;
-
-        /**
-         * The options to display in the message box of none are specified.
-         * @default ['Ok']
-         * @static
-         */
-        static defaultOptions: string[];
-
-        /**
-         * The markup for the message box's view.
-         * @static
-         */
-        static defaultViewMarkup: string;
-
-        /**
-         * Configures a custom view to use when displaying message boxes.
-         * @param {string} viewUrl The view url relative to the base url which the view locator will use to find the message box's view.
-         * @static
-         */
-        static setViewUrl(url: string): void;
-    }
-
-    interface DialogContext {
-        /**
-         * In this function, you are expected to add a DOM element to the tree which will serve as the "host" for the modal's composed view. You must add a property called host to the modalWindow object which references the dom element. It is this host which is passed to the composition module.
-         * @param {Dialog} theDialog The dialog model.
-        */
-        addHost(theDialog: Dialog);
-
-        /**
-         * This function is expected to remove any DOM machinery associated with the specified dialog and do any other necessary cleanup.
-         * @param {Dialog} theDialog The dialog model.
-        */
-        removeHost(theDialog: Dialog);
-
-        /**
-         * This function is called after the modal is fully composed into the DOM, allowing your implementation to do any final modifications, such as positioning or animation. You can obtain the original dialog object by using `getDialog` on context.model.
-         * @param {DOMElement} child The dialog view.
-         * @param {DOMElement} parent The parent view.
-         * @param {object} context The composition context.
-        */
-        compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext);
-    }
-
-    interface Dialog {
-        owner: any;
-        context: DialogContext;
-        activator: DurandalActivator<any>;
-        close(): JQueryPromise<any>;
-        settings: composition.CompositionContext;
-    }
-
-    /**
-     * The constructor function used to create message boxes.
-    */
-    export var MessageBox: Box;
-
-    /**
-     * The css zIndex that the last dialog was displayed at.
-    */
-    export var currentZIndex: number;
-
-    /**
-     * Gets the next css zIndex at which a dialog should be displayed.
-     * @returns {number} The next usable zIndex.
-    */
-    export function getNextZIndex(): number;
-
-    /**
-     * Determines whether or not there are any dialogs open.
-     * @returns {boolean} True if a dialog is open. false otherwise.
-    */
-    export function isOpen(): boolean;
-
-    /**
-     * Gets the dialog context by name or returns the default context if no name is specified.
-     * @param {string} [name] The name of the context to retrieve.
-     * @returns {DialogContext} True context.
-    */
-    export function getContext(name: string): DialogContext;
-
-    /**
-     * Adds (or replaces) a dialog context.
-     * @param {string} name The name of the context to add.
-     * @param {DialogContext} dialogContext The context to add.
-    */
-    export function addContext(name: string, modalContext: DialogContext): void;
-
-    /**
-     * Gets the dialog model that is associated with the specified object.
-     * @param {object} obj The object for whom to retrieve the dialog.
-     * @returns {Dialog} The dialog model.
-    */
-    export function getDialog(obj: any): Dialog;
-
-    /**
-     * Closes the dialog associated with the specified object.
-     * @param {object} obj The object whose dialog should be closed.
-     * @param {object} results* The results to return back to the dialog caller after closing.
-    */
-    export function close(obj: any, ...results: any[]): void;
-
-    /**
-     * Shows a dialog.
-     * @param {object|string} obj The object (or moduleId) to display as a dialog.
-     * @param {object} [activationData] The data that should be passed to the object upon activation.
-     * @param {string} [context] The name of the dialog context to use. Uses the default context if none is specified.
-     * @returns {Promise} A promise that resolves when the dialog is closed and returns any data passed at the time of closing.
-    */
-    export function show(obj: any, activationData?: any, context?: string): JQueryPromise<any>;
-
-    /**
-     * Shows a message box.
-     * @param {string} message The message to display in the dialog.
-     * @param {string} [title] The title message.
-     * @param {string[]} [options] The options to provide to the user.
-     * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
-    */
-    export function showMessage(message: string, title?: string, options?: string[]): JQueryPromise<string>;
-
-    /**
-     * Installs this module into Durandal; called by the framework. Adds `app.showDialog` and `app.showMessage` convenience methods.
-     * @param {object} [config] Add a `messageBox` property to supply a custom message box constructor. Add a `messageBoxView` property to supply custom view markup for the built-in message box.
-    */
-    export function install(config: Object): void;
-}
-
-/**
- * This module is based on Backbone's core history support. It abstracts away the low level details of working with browser history and url changes in order to provide a solid foundation for a router.
- * @requires system
- * @requires jquery
- */
-declare module 'plugins/history' {
-    /**
-     * The setTimeout interval used when the browser does not support hash change events.
-     * @default 50
-    */
-    export var interval: number;
-
-    /**
-     * Indicates whether or not the history module is actively tracking history.
-    */
-    export var active: boolean;
-
-    /**
-     * Gets the true hash value. Cannot use location.hash directly due to a bug in Firefox where location.hash will always be decoded.
-     * @param {string} [window] The optional window instance
-     * @returns {string} The hash.
-     */
-    export function getHash(window?: Window): string;
-
-    /**
-     * Get the cross-browser normalized URL fragment, either from the URL, the hash, or the override.
-     * @param {string} fragment The fragment.
-     * @param {boolean} forcePushState Should we force push state?
-     * @returns {string} he fragment.
-     */
-    export function getFragment(fragment: string, forcePushState: boolean): string;
-
-    /**
-     * Activate the hash change handling, returning `true` if the current URL matches an existing route, and `false` otherwise.
-     * @param {HistoryOptions} options.
-     * @returns {boolean|undefined} Returns true/false from loading the url unless the silent option was selected.
-     */
-    export function activate(options: DurandalHistoryOptions): boolean;
-
-    /**
-     * Disable history, perhaps temporarily. Not useful in a real app, but possibly useful for unit testing Routers.
-     */
-    export function deactivate(): void;
-
-    /**
-     * Checks the current URL to see if it has changed, and if it has, calls `loadUrl`, normalizing across the hidden iframe.
-     * @returns {boolean} Returns true/false from loading the url.
-     */
-    export function checkUrl(): boolean;
-
-    /**
-     * Attempts to load the current URL fragment. A pass-through to options.routeHandler.
-     * @returns {boolean} Returns true/false from the route handler.
-     */
-    export function loadUrl(): boolean;
-
-    /**
-     * Save a fragment into the hash history, or replace the URL state if the
-     * 'replace' option is passed. You are responsible for properly URL-encoding
-     * the fragment in advance.
-     * The options object can contain `trigger: false` if you wish to not have the
-     * route callback be fired, or `replace: true`, if
-     * you wish to modify the current URL without adding an entry to the history.
-     * @param {string} fragment The url fragment to navigate to.
-     * @param {object|boolean} options An options object with optional trigger and replace flags. You can also pass a boolean directly to set the trigger option. Trigger is `true` by default.
-     * @return {boolean} Returns true/false from loading the url.
-     */
-    export function navigate(fragment: string, trigger?: boolean): boolean;
-
-    /**
-     * Save a fragment into the hash history, or replace the URL state if the
-     * 'replace' option is passed. You are responsible for properly URL-encoding
-     * the fragment in advance.
-     * The options object can contain `trigger: false` if you wish to not have the
-     * route callback be fired, or `replace: true`, if
-     * you wish to modify the current URL without adding an entry to the history.
-     * @param {string} fragment The url fragment to navigate to.
-     * @param {object|boolean} options An options object with optional trigger and replace flags. You can also pass a boolean directly to set the trigger option. Trigger is `true` by default.
-     * @return {boolean} Returns true/false from loading the url.
-     */
-    export function navigate(fragment: string, options: DurandalNavigationOptions): boolean;
-
-    /**
-     * Navigates back in the browser history.
-     */
-    export function navigateBack(): void;
-}
-
-/**
- * Enables common http request scenarios.
- * @requires jquery
- * @requires knockout
- */
-declare module 'plugins/http' {
-    /**
-     * The name of the callback parameter to inject into jsonp requests by default.
-     * @default callback
-    */
-    export var callbackParam: string;
-
-    /**
-     * Makes an HTTP GET request.
-     * @param {string} url The url to send the get request to.
-     * @param {object} [query] An optional key/value object to transform into query string parameters.
-     * @returns {Promise} A promise of the get response data.
-    */
-    export function get(url: string, query?: Object): JQueryPromise<any>;
-
-    /**
-     * Makes an JSONP request.
-     * @param {string} url The url to send the get request to.
-     * @param {object} [query] An optional key/value object to transform into query string parameters.
-     * @param {string} [callbackParam] The name of the callback parameter the api expects (overrides the default callbackParam).
-     * @returns {Promise} A promise of the response data.
-    */
-    export function jsonp(url: string, query?: Object, callbackParam?: string): JQueryPromise<any>;
-
-    /**
-     * Makes an HTTP POST request.
-     * @param {string} url The url to send the post request to.
-     * @param {object} data The data to post. It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
-     * @returns {Promise} A promise of the response data.
-    */
-    export function post(url: string, data: Object): JQueryPromise<any>;
-}
-
-/**
- * Enables automatic observability of plain javascript object for ES5 compatible browsers. Also, converts promise properties into observables that are updated when the promise resolves.
- * @requires system
- * @requires binder
- * @requires knockout
- */
-declare module 'plugins/observable' {
-    function observable(obj: any, property: string): KnockoutObservable<any>;
-
-    module observable {
-        /**
-         * Converts an entire object into an observable object by re-writing its attributes using ES5 getters and setters. Attributes beginning with '_' or '$' are ignored.
-         * @param {object} obj The target object to convert.
-         */
-        export function convertObject(obj: any): void;
-
-        /**
-         * Converts a normal property into an observable property using ES5 getters and setters.
-         * @param {object} obj The target object on which the property to convert lives.
-         * @param {string} propertyName The name of the property to convert.
-         * @param {object} [original] The original value of the property. If not specified, it will be retrieved from the object.
-         * @returns {KnockoutObservable} The underlying observable.
-         */
-        export function convertProperty(obj: any, propertyName: string, original?: any): KnockoutObservable<any>;
-
-        /**
-         * Defines a computed property using ES5 getters and setters.
-         * @param {object} obj The target object on which to create the property.
-         * @param {string} propertyName The name of the property to define.
-         * @param {function|object} evaluatorOrOptions The Knockout computed function or computed options object.
-         * @returns {KnockoutComputed} The underlying computed observable.
-         */
-        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>);
-
-        /**
-         * Installs the plugin into the view model binder's `beforeBind` hook so that objects are automatically converted before being bound.
-         */
-        export function install(config: Object): void;
-    }
-
-    export = observable;
-}
-
-/**
- * Serializes and deserializes data to/from JSON.
- * @requires system
- */
-declare module 'plugins/serializer' {
-    interface SerializerOptions {
-        /**
-         * The default replacer function used during serialization. By default properties starting with '_' or '$' are removed from the serialized object.
-         * @param {string} key The object key to check.
-         * @param {object} value The object value to check.
-         * @returns {object} The value to serialize.
-        */
-        replacer?: (key: string, value: any) => any;
-
-        /**
-         * The amount of space to use for indentation when writing out JSON.
-         * @default undefined
-        */
-        space: any;
-    }
-
-    interface DeserializerOptions {
-        /**
-         * Gets the type id for an object instance, using the configured `typeAttribute`.
-         * @param {object} object The object to serialize.
-         * @returns {string} The type.
-        */
-        getTypeId: (object: any) => string;
-
-        /**
-         * Gets the constructor based on the type id.
-         * @param {string} typeId The type id.
-         * @returns {Function} The constructor.
-        */
-        getConstructor: (typeId: string) => () => any;
-
-        /**
-         * The default reviver function used during deserialization. By default is detects type properties on objects and uses them to re-construct the correct object using the provided constructor mapping.
-         * @param {string} key The attribute key.
-         * @param {object} value The object value associated with the key.
-         * @returns {object} The value.
-        */
-        reviver: (key: string, value: any) => any;
-    }
-
-    /**
-     * The name of the attribute that the serializer should use to identify an object's type.
-     * @default type
-    */
-    export var typeAttribute: string;
-
-    /**
-     * The amount of space to use for indentation when writing out JSON.
-     * @default undefined
-    */
-    export var space: any;
-
-    /**
-     * The default replacer function used during serialization. By default properties starting with '_' or '$' are removed from the serialized object.
-     * @param {string} key The object key to check.
-     * @param {object} value The object value to check.
-     * @returns {object} The value to serialize.
-    */
-    export function replacer(key: string, value: any): any;
-
-    /**
-     * Serializes the object.
-     * @param {object} object The object to serialize.
-     * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
-     * @returns {string} The JSON string.
-    */
-    export function serialize(object: any, settings?: string);
-
-    /**
-     * Serializes the object.
-     * @param {object} object The object to serialize.
-     * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
-     * @returns {string} The JSON string.
-    */
-    export function serialize(object: any, settings?: number);
-
-    /**
-     * Serializes the object.
-     * @param {object} object The object to serialize.
-     * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
-     * @returns {string} The JSON string.
-    */
-    export function serialize(object: any, settings?: SerializerOptions);
-
-    /**
-     * Gets the type id for an object instance, using the configured `typeAttribute`.
-     * @param {object} object The object to serialize.
-     * @returns {string} The type.
-    */
-    export function getTypeId(object: any): string;
-
-    /**
-     * Maps type ids to object constructor functions. Keys are type ids and values are functions.
-    */
-    export var typeMap: any;
-
-    /**
-    * Adds a type id/constructor function mampping to the `typeMap`.
-    * @param {string} typeId The type id.
-    * @param {function} constructor The constructor.
-    */
-    export function registerType(typeId: string, constructor: () => any);
-
-    /**
-     * The default reviver function used during deserialization. By default is detects type properties on objects and uses them to re-construct the correct object using the provided constructor mapping.
-     * @param {string} key The attribute key.
-     * @param {object} value The object value associated with the key.
-     * @param {function} getTypeId A custom function used to get the type id from a value.
-     * @param {object} getConstructor A custom function used to get the constructor function associated with a type id.
-     * @returns {object} The value.
-    */
-    export function reviver(key: string, value: any, getTypeId: (value: any) => string, getConstructor: (string) => () => any): any;
-
-    /**
-     * Deserialize the JSON.
-     * @param {text} string The JSON string.
-     * @param {DeserializerOptions} settings Settings can specify a reviver, getTypeId function or getConstructor function.
-     * @returns {object} The deserialized object.
-    */
-    export function deserialize<T>(text: string, settings?: DeserializerOptions): T;
-}
-
-/**
- * Layers the widget sugar on top of the composition system.
- * @requires system
- * @requires composition
- * @requires jquery
- * @requires knockout
- */
-declare module 'plugins/widget' {
-    interface WidgetSettings {
-        kind: string;
-        model?: any;
-        view?: any;
-    }
-
-    /**
-     * Creates a ko binding handler for the specified kind.
-     * @param {string} kind The kind to create a custom binding handler for.
-    */
-    export function registerKind(kind: string);
-
-    /**
-     * Maps views and module to the kind identifier if a non-standard pattern is desired.
-     * @param {string} kind The kind name.
-     * @param {string} [viewId] The unconventional view id to map the kind to.
-     * @param {string} [moduleId] The unconventional module id to map the kind to.
-    */
-    export function mapKind(kind: string, viewId?: string, moduleId?: string);
-
-    /**
-     * Maps a kind name to it's module id. First it looks up a custom mapped kind, then falls back to `convertKindToModulePath`.
-     * @param {string} kind The kind name.
-     * @returns {string} The module id.
-    */
-    export function mapKindToModuleId(kind: string): string;
-
-    /**
-     * Converts a kind name to it's module path. Used to conventionally map kinds who aren't explicitly mapped through `mapKind`.
-     * @param {string} kind The kind name.
-     * @returns {string} The module path.
-    */
-    export function convertKindToModulePath(kind: string): string;
-
-    /**
-     * Maps a kind name to it's view id. First it looks up a custom mapped kind, then falls back to `convertKindToViewPath`.
-     * @param {string} kind The kind name.
-     * @returns {string} The view id.
-    */
-    export function mapKindToViewId(kind: string): string;
-
-    /**
-     * Converts a kind name to it's view id. Used to conventionally map kinds who aren't explicitly mapped through `mapKind`.
-     * @param {string} kind The kind name.
-     * @returns {string} The view id.
-    */
-    export function convertKindToViewPath(kind: string): string;
-
-    /**
-     * Creates a widget.
-     * @param {DOMElement} element The DOMElement or knockout virtual element that serves as the target element for the widget.
-     * @param {object} settings The widget settings.
-     * @param {object} [bindingContext] The current binding context.
-    */
-    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext);
-}
-
-/**
- * Connects the history module's url and history tracking support to Durandal's activation and composition engine allowing you to easily build navigation-style applications.
- * @requires system
- * @requires app
- * @requires activator
- * @requires events
- * @requires composition
- * @requires history
- * @requires knockout
- * @requires jquery
- */
-declare module 'plugins/router' {
-    var theModule: DurandalRootRouter;
-    export = theModule;
-}
-
 interface DurandalSystemModule {
     /**
-    * Durandal's version.
-    */
+     * Durandal's version.
+     */
     version: string;
 
     /**
@@ -982,11 +212,20 @@ interface DurandalSystemModule {
     isBoolean(obj: any): boolean;
 }
 
-interface DurandalViewEngineModule {
+/**
+ * The viewEngine module provides information to the viewLocator module which is used to locate the view's source file. The viewEngine also transforms a view id into a view instance.
+ * @requires system
+ * @requires jquery
+ */
+declare module 'durandal/viewEngine' {
+    var theModule: DurandalViewEngineModule;
+    export = theModule;
+}
 
+interface DurandalViewEngineModule {
     /**
-    * The file extension that view source files are expected to have.
-    * @default .html
+     * The file extension that view source files are expected to have.
+     * @default .html
     */
     viewExtension: string;
 
@@ -995,6 +234,12 @@ interface DurandalViewEngineModule {
      * @default text
     */
     viewPlugin: string;
+
+    /**
+    * Parameters passed to the RequireJS loader plugin used by the viewLocator to obtain the view source.
+    * @default The empty string by default.
+    */
+    viewPluginParameters: string;
 
     /**
      * Determines if the url is a url for a view, according to the view engine.
@@ -1039,6 +284,20 @@ interface DurandalViewEngineModule {
     ensureSingleElement(allElements: Node[]): HTMLElement;
 
     /**
+    * Gets the view associated with the id from the cache of parsed views.
+    * @param {string} id The view id to lookup in the cache.
+    * @return {DOMElement|null} The cached view or null if it's not in the cache.
+    */
+    tryGetViewFromCache(id: string): HTMLElement;
+
+    /**
+     * Puts the view associated with the id into the cache of parsed views.
+     * @param {string} id The view id whose view should be cached.
+     * @param {DOMElement} view The view to cache.
+     */
+    putViewInCache(id:string, view:HTMLElement);
+
+    /**
      * Creates the view associated with the view id.
      * @param {string} viewId The view id whose view should be created.
      * @returns {JQueryPromise<HTMLElement>} A promise of the view.
@@ -1055,13 +314,121 @@ interface DurandalViewEngineModule {
     createFallbackView(viewId: string, requirePath: string, err: Error): JQueryPromise<HTMLElement>;
 }
 
-interface DurandalViewLocatorModule {
+/**
+ * Durandal events originate from backbone.js but also combine some ideas from signals.js as well as some additional improvements.
+ * Events can be installed into any object and are installed into the `app` module by default for convenient app-wide eventing.
+ * @requires system
+ */
+declare module 'durandal/events' {
+    var theModule: DurandalEventModule;
+    export = theModule;
+}
+
+/**
+ * The binder joins an object instance and a DOM element tree by applying databinding and/or invoking binding lifecycle callbacks (binding and bindingComplete).
+ * @requires system
+ * @requires knockout
+ */
+declare module 'durandal/binder' {
+    interface BindingInstruction {
+        applyBindings: boolean;
+    }
 
     /**
-    * Allows you to set up a convention for mapping module folders to view folders. It is a convenience method that customizes `convertModuleIdToViewId` and `translateViewIdToArea` under the covers.
-    * @param {string} [modulesPath] A string to match in the path and replace with the viewsPath. If not specified, the match is 'viewmodels'.
-    * @param {string} [viewsPath] The replacement for the modulesPath. If not specified, the replacement is 'views'.
-    * @param {string} [areasPath] Partial views are mapped to the "views" folder if not specified. Use this parameter to change their location.
+     * Called before every binding operation. Does nothing by default.
+     * @param {object} data The data that is about to be bound.
+     * @param {DOMElement} view The view that is about to be bound.
+     * @param {object} instruction The object that carries the binding instructions.
+    */
+    export var binding: (data: any, view: HTMLElement, instruction: BindingInstruction) => void;
+
+    /**
+     * Called after every binding operation. Does nothing by default.
+     * @param {object} data The data that has just been bound.
+     * @param {DOMElement} view The view that has just been bound.
+     * @param {object} instruction The object that carries the binding instructions.
+    */
+    export var bindingComplete: (data: any, view: HTMLElement, instruction: BindingInstruction) => void;
+
+    /**
+     * Indicates whether or not the binding system should throw errors or not.
+     * @default false The binding system will not throw errors by default. Instead it will log them.
+    */
+    export var throwOnErrors: boolean;
+
+    /**
+     * Gets the binding instruction that was associated with a view when it was bound.
+     * @param {DOMElement} view The view that was previously bound.
+     * @returns {object} The object that carries the binding instructions.
+    */
+    export function getBindingInstruction(view: HTMLElement): BindingInstruction;
+
+    /**
+     * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
+     * @param {KnockoutBindingContext} bindingContext The current binding context.
+     * @param {DOMElement} view The view to bind.
+     * @param {object} [obj] The data to bind to, causing the creation of a child binding context if present.
+     * @param {string} [dataAlias] An alias for $data if present.
+    */
+    export function bindContext(bindingContext: KnockoutBindingContext, view: HTMLElement, obj?: any, dataAlias?: string): BindingInstruction;
+
+    /**
+     * Binds the view, preserving the existing binding context. Optionally, a new context can be created, parented to the previous context.
+     * @param {object} obj The data to bind to.
+     * @param {DOMElement} view The view to bind.
+    */
+    export function bind(obj: any, view: HTMLElement): BindingInstruction;
+}
+
+/**
+ * The activator module encapsulates all logic related to screen/component activation.
+ * An activator is essentially an asynchronous state machine that understands a particular state transition protocol.
+ * The protocol ensures that the following series of events always occur: `canDeactivate` (previous state), `canActivate` (new state), `deactivate` (previous state), `activate` (new state).
+ * Each of the _can_ callbacks may return a boolean, affirmative value or promise for one of those. If either of the _can_ functions yields a false result, then activation halts.
+ * @requires system
+ * @requires knockout
+ */
+declare module 'durandal/activator' {
+    /**
+     * The default settings used by activators.
+     * @property {ActivatorSettings} defaults
+    */
+    export var defaults: DurandalActivatorSettings;
+
+    /**
+    * Creates a new activator.
+     * @method create
+     * @param {object} [initialActiveItem] The item which should be immediately activated upon creation of the ativator.
+     * @param {ActivatorSettings} [settings] Per activator overrides of the default activator settings.
+     * @returns {Activator} The created activator.
+    */
+    export function create<T>(initialActiveItem?: T, settings?: DurandalActivatorSettings): DurandalActivator<T>;
+
+    /**
+     * Determines whether or not the provided object is an activator or not.
+     * @method isActivator
+     * @param {object} object Any object you wish to verify as an activator or not.
+     * @returns {boolean} True if the object is an activator; false otherwise.
+    */
+    export function isActivator(object: any): boolean;
+}
+
+/**
+ * The viewLocator module collaborates with the viewEngine module to provide views (literally dom sub-trees) to other parts of the framework as needed. The primary consumer of the viewLocator is the composition module.
+ * @requires system
+ * @requires viewEngine
+ */
+declare module 'durandal/viewLocator' {
+    var theModule: DurandalViewLocatorModule;
+    export = theModule;
+}
+
+interface DurandalViewLocatorModule {
+    /**
+     * Allows you to set up a convention for mapping module folders to view folders. It is a convenience method that customizes `convertModuleIdToViewId` and `translateViewIdToArea` under the covers.
+     * @param {string} [modulesPath] A string to match in the path and replace with the viewsPath. If not specified, the match is 'viewmodels'.
+     * @param {string} [viewsPath] The replacement for the modulesPath. If not specified, the replacement is 'views'.
+     * @param {string} [areasPath] Partial views are mapped to the "views" folder if not specified. Use this parameter to change their location.
     */
     useConvention(modulesPath?: string, viewsPath?: string, areasPath?: string): void;
 
@@ -1113,6 +480,715 @@ interface DurandalViewLocatorModule {
      * @returns {Promise} A promise of the view.
     */
     locateView(viewUrlOrId: string, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+}
+
+/**
+ * The composition module encapsulates all functionality related to visual composition.
+ * @requires system
+ * @requires viewLocator
+ * @requires binder
+ * @requires viewEngine
+ * @requires activator
+ * @requires jquery
+ * @requires knockout
+ */
+declare module 'durandal/composition' {
+    interface CompositionTransation {
+        /**
+         * Registers a callback which will be invoked when the current composition transaction has completed. The transaction includes all parent and children compositions.
+         * @param {function} callback The callback to be invoked when composition is complete.
+        */
+        complete(callback: Function): void;
+    }
+
+    interface CompositionContext {
+        mode: string;
+        parent: HTMLElement;
+        activeView: HTMLElement;
+        triggerAttach(): void;
+        bindingContext?: KnockoutBindingContext;
+        cacheViews?: boolean;
+        viewElements?: HTMLElement[];
+        model?: any;
+        view?: any;
+        area?: string;
+        preserveContext?: boolean;
+        activate?: boolean;
+        strategy?: (context: CompositionContext) => JQueryPromise<HTMLElement>;
+        composingNewView: boolean;
+        child: HTMLElement;
+        binding?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
+        attached?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
+        compositionComplete?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
+        transition?: string;
+    }
+
+    /**
+     * Converts a transition name to its moduleId.
+     * @param {string} name The name of the transtion.
+     * @returns {string} The moduleId.
+    */
+    export function convertTransitionToModuleId(name: string): string;
+
+    /**
+     * The name of the transition to use in all compositions.
+     * @default null
+    */
+    export var defaultTransitionName: string;
+
+    /**
+     * Represents the currently executing composition transaction.
+     */
+    export var current: CompositionTransation;
+
+    /**
+     * Registers a binding handler that will be invoked when the current composition transaction is complete.
+     * @param {string} name The name of the binding handler.
+     * @param {object} [config] The binding handler instance. If none is provided, the name will be used to look up an existing handler which will then be converted to a composition handler.
+     * @param {function} [initOptionsFactory] If the registered binding needs to return options from its init call back to knockout, this function will server as a factory for those options. It will receive the same parameters that the init function does.
+    */
+    export function addBindingHandler(name, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any);
+
+    /**
+     * Gets an object keyed with all the elements that are replacable parts, found within the supplied elements. The key will be the part name and the value will be the element itself.
+     * @param {DOMElement[]} elements The elements to search for parts.
+     * @returns {object} An object keyed by part.
+    */
+    export function getParts(elements: HTMLElement[]): any;
+
+    /**
+     * Gets an object keyed with all the elements that are replacable parts, found within the supplied element. The key will be the part name and the value will be the element itself.
+     * @param {DOMElement} element The element to search for parts.
+     * @returns {object} An object keyed by part.
+    */
+    export function getParts(element: HTMLElement): any;
+
+    /**
+     * Eecutes the default view location strategy.
+     * @param {object} context The composition context containing the model and possibly existing viewElements.
+     * @returns {promise} A promise for the view.
+    */
+    export var defaultStrategy: (context: CompositionContext) => JQueryPromise<HTMLElement>;
+
+    /**
+     * Initiates a composition.
+     * @param {DOMElement} element The DOMElement or knockout virtual element that serves as the parent for the composition.
+     * @param {object} settings The composition settings.
+     * @param {object} [bindingContext] The current binding context.
+    */
+    export function compose(element: HTMLElement, settings: CompositionContext, bindingContext: KnockoutBindingContext): void;
+}
+
+/**
+ * The app module controls app startup, plugin loading/configuration and root visual display.
+ * @requires system
+ * @requires viewEngine
+ * @requires composition
+ * @requires events
+ * @requires jquery
+ */
+declare module 'durandal/app' {
+    var theModule: DurandalAppModule;
+    export = theModule;
+}
+
+/**
+ * The dialog module enables the display of message boxes, custom modal dialogs and other overlays or slide-out UI abstractions. Dialogs are constructed by the composition system which interacts with a user defined dialog context. The dialog module enforced the activator lifecycle.
+ * @requires system
+ * @requires app
+ * @requires composition
+ * @requires activator
+ * @requires viewEngine
+ * @requires jquery
+ * @requires knockout
+ */
+declare module 'plugins/dialog' {
+    import composition = require('durandal/composition');
+
+    /**
+    * Models a message box's message, title and options.
+    * @class
+    */
+    class Box {
+        constructor(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object);
+
+        /**
+         * Selects an option and closes the message box, returning the selected option through the dialog system's promise.
+         * @param {string} dialogResult The result to select.
+         */
+        selectOption(dialogResult: string): void;
+
+        /**
+         * Provides the view to the composition system.
+         * @returns {DOMElement} The view of the message box.
+         */
+        getView(): HTMLElement;
+
+        /**
+         * Configures a custom view to use when displaying message boxes.
+         * @method setViewUrl
+         * @param {string} viewUrl The view url relative to the base url which the view locator will use to find the message box's view.
+         */
+        static setViewUrl(viewUrl: string): void;
+
+        /**
+         * The title to be used for the message box if one is not provided.
+         * @default Application
+         * @static
+         */
+        static defaultTitle: string;
+
+        /**
+         * The options to display in the message box if none are specified.
+         * @default ['Ok']
+         * @static
+         */
+        static defaultOptions: string[];
+
+        /**
+        * Sets the classes and styles used throughout the message box markup.
+        * @method setDefaults
+        * @param {object} settings A settings object containing the following optional properties: buttonClass, primaryButtonClass, secondaryButtonClass, class, style.
+        */
+        static setDefaults(settings: Object): void;
+
+        /**
+         * The markup for the message box's view.
+         */
+        static defaultViewMarkup: string;
+    }
+
+    interface DialogContext {
+        /**
+         * In this function, you are expected to add a DOM element to the tree which will serve as the "host" for the modal's composed view. You must add a property called host to the modalWindow object which references the dom element. It is this host which is passed to the composition module.
+         * @param {Dialog} theDialog The dialog model.
+        */
+        addHost(theDialog: Dialog);
+
+        /**
+         * This function is expected to remove any DOM machinery associated with the specified dialog and do any other necessary cleanup.
+         * @param {Dialog} theDialog The dialog model.
+        */
+        removeHost(theDialog: Dialog);
+
+        /**
+         * This function is called after the modal is fully composed into the DOM, allowing your implementation to do any final modifications, such as positioning or animation. You can obtain the original dialog object by using `getDialog` on context.model.
+         * @param {DOMElement} child The dialog view.
+         * @param {DOMElement} parent The parent view.
+         * @param {object} context The composition context.
+        */
+        compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext);
+    }
+
+    interface Dialog {
+        owner: any;
+        context: DialogContext;
+        activator: DurandalActivator<any>;
+        close(): JQueryPromise<any>;
+        settings: composition.CompositionContext;
+    }
+
+    /**
+     * The constructor function used to create message boxes.
+    */
+    export var MessageBox: Box;
+
+    /**
+     * The css zIndex that the last dialog was displayed at.
+    */
+    export var currentZIndex: number;
+
+    /**
+     * Gets the next css zIndex at which a dialog should be displayed.
+     * @returns {number} The next usable zIndex.
+    */
+    export function getNextZIndex(): number;
+
+    /**
+     * Determines whether or not there are any dialogs open.
+     * @returns {boolean} True if a dialog is open. false otherwise.
+    */
+    export function isOpen(): boolean;
+
+    /**
+     * Gets the dialog context by name or returns the default context if no name is specified.
+     * @param {string} [name] The name of the context to retrieve.
+     * @returns {DialogContext} True context.
+    */
+    export function getContext(name: string): DialogContext;
+
+    /**
+     * Adds (or replaces) a dialog context.
+     * @param {string} name The name of the context to add.
+     * @param {DialogContext} dialogContext The context to add.
+    */
+    export function addContext(name: string, modalContext: DialogContext): void;
+
+    /**
+     * Gets the dialog model that is associated with the specified object.
+     * @param {object} obj The object for whom to retrieve the dialog.
+     * @returns {Dialog} The dialog model.
+    */
+    export function getDialog(obj: any): Dialog;
+
+    /**
+     * Closes the dialog associated with the specified object.
+     * @param {object} obj The object whose dialog should be closed.
+     * @param {object} results* The results to return back to the dialog caller after closing.
+    */
+    export function close(obj: any, ...results: any[]): void;
+
+    /**
+     * Shows a dialog.
+     * @param {object|string} obj The object (or moduleId) to display as a dialog.
+     * @param {object} [activationData] The data that should be passed to the object upon activation.
+     * @param {string} [context] The name of the dialog context to use. Uses the default context if none is specified.
+     * @returns {Promise} A promise that resolves when the dialog is closed and returns any data passed at the time of closing.
+    */
+    export function show(obj: any, activationData?: any, context?: string): JQueryPromise<any>;
+
+    /**
+     * Shows a message box.
+     * @param {string} message The message to display in the dialog.
+     * @param {string} [title] The title message.
+     * @param {string[]} [options] The options to provide to the user.
+     * @param {boolean} [autoclose] Automatically close the the message box when clicking outside?
+     * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
+     * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
+    */
+    export function showMessage(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object): JQueryPromise<string>;
+
+    /**
+     * Shows a message box.
+     * @param {string} message The message to display in the dialog.
+     * @param {string} [title] The title message.
+     * @param {DialogButton[]} [options] The options to provide to the user.
+     * @param {boolean} [autoclose] Automatically close the the message box when clicking outside?
+     * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
+     * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
+    */
+    export function showMessage(message: string, title?: string, options?: DialogButton[], autoclose?: boolean, settings?: Object): JQueryPromise<any>;
+
+    /**
+     * Installs this module into Durandal; called by the framework. Adds `app.showDialog` and `app.showMessage` convenience methods.
+     * @param {object} [config] Add a `messageBox` property to supply a custom message box constructor. Add a `messageBoxView` property to supply custom view markup for the built-in message box. You can also use messageBoxViewUrl to specify the view url.
+    */
+    export function install(config: Object): void;
+}
+
+/**
+ * This module is based on Backbone's core history support. It abstracts away the low level details of working with browser history and url changes in order to provide a solid foundation for a router.
+ * @requires system
+ * @requires jquery
+ */
+declare module 'plugins/history' {
+    /**
+     * The setTimeout interval used when the browser does not support hash change events.
+     * @default 50
+    */
+    export var interval: number;
+
+    /**
+     * Indicates whether or not the history module is actively tracking history.
+    */
+    export var active: boolean;
+
+    /**
+     * Gets the true hash value. Cannot use location.hash directly due to a bug in Firefox where location.hash will always be decoded.
+     * @param {string} [window] The optional window instance
+     * @returns {string} The hash.
+     */
+    export function getHash(window?: Window): string;
+
+    /**
+     * Get the cross-browser normalized URL fragment, either from the URL, the hash, or the override.
+     * @param {string} fragment The fragment.
+     * @param {boolean} forcePushState Should we force push state?
+     * @returns {string} he fragment.
+     */
+    export function getFragment(fragment: string, forcePushState: boolean): string;
+
+    /**
+     * Activate the hash change handling, returning `true` if the current URL matches an existing route, and `false` otherwise.
+     * @param {HistoryOptions} options.
+     * @returns {boolean|undefined} Returns true/false from loading the url unless the silent option was selected.
+     */
+    export function activate(options: DurandalHistoryOptions): boolean;
+
+    /**
+     * Disable history, perhaps temporarily. Not useful in a real app, but possibly useful for unit testing Routers.
+     */
+    export function deactivate(): void;
+
+    /**
+     * Checks the current URL to see if it has changed, and if it has, calls `loadUrl`, normalizing across the hidden iframe.
+     * @returns {boolean} Returns true/false from loading the url.
+     */
+    export function checkUrl(): boolean;
+
+    /**
+     * Attempts to load the current URL fragment. A pass-through to options.routeHandler.
+     * @returns {boolean} Returns true/false from the route handler.
+     */
+    export function loadUrl(): boolean;
+
+    /**
+     * Save a fragment into the hash history, or replace the URL state if the
+     * 'replace' option is passed. You are responsible for properly URL-encoding
+     * the fragment in advance.
+     * The options object can contain `trigger: false` if you wish to not have the
+     * route callback be fired, or `replace: true`, if
+     * you wish to modify the current URL without adding an entry to the history.
+     * @param {string} fragment The url fragment to navigate to.
+     * @param {object|boolean} options An options object with optional trigger and replace flags. You can also pass a boolean directly to set the trigger option. Trigger is `true` by default.
+     * @return {boolean} Returns true/false from loading the url.
+     */
+    export function navigate(fragment: string, trigger?: boolean): boolean;
+
+    /**
+     * Save a fragment into the hash history, or replace the URL state if the
+     * 'replace' option is passed. You are responsible for properly URL-encoding
+     * the fragment in advance.
+     * The options object can contain `trigger: false` if you wish to not have the
+     * route callback be fired, or `replace: true`, if
+     * you wish to modify the current URL without adding an entry to the history.
+     * @param {string} fragment The url fragment to navigate to.
+     * @param {object|boolean} options An options object with optional trigger and replace flags. You can also pass a boolean directly to set the trigger option. Trigger is `true` by default.
+     * @return {boolean} Returns true/false from loading the url.
+     */
+    export function navigate(fragment: string, options: DurandalNavigationOptions): boolean;
+
+    /**
+     * Navigates back in the browser history.
+     */
+    export function navigateBack(): void;
+}
+
+/**
+ * Enables common http request scenarios.
+ * @requires jquery
+ * @requires knockout
+ */
+declare module 'plugins/http' {
+    /**
+     * The name of the callback parameter to inject into jsonp requests by default.
+     * @default callback
+    */
+    export var callbackParam: string;
+
+    /**
+    * Converts the data to JSON.
+    * @param {object} data The data to convert to JSON.
+    * @return {string} JSON.
+    */
+    export function toJSON(data: Object): string;
+
+    /**
+     * Makes an HTTP GET request.
+     * @param {string} url The url to send the get request to.
+     * @param {object} [query] An optional key/value object to transform into query string parameters.
+     * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+     * @returns {Promise} A promise of the get response data.
+    */
+    export function get(url: string, query?: Object, headers?: Object): JQueryPromise<any>;
+
+    /**
+     * Makes an JSONP request.
+     * @param {string} url The url to send the get request to.
+     * @param {object} [query] An optional key/value object to transform into query string parameters.
+     * @param {string} [callbackParam] The name of the callback parameter the api expects (overrides the default callbackParam).
+     * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+     * @returns {Promise} A promise of the response data.
+    */
+    export function jsonp(url: string, query?: Object, callbackParam?: string, headers?: Object): JQueryPromise<any>;
+
+    /**
+     * Makes an HTTP POST request.
+     * @param {string} url The url to send the post request to.
+     * @param {object} data The data to post. It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+     * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+     * @returns {Promise} A promise of the response data.
+    */
+    export function post(url: string, data: Object, headers?: Object): JQueryPromise<any>;
+
+    /**
+    * Makes an HTTP PUT request.
+    * @method put
+    * @param {string} url The url to send the put request to.
+    * @param {object} data The data to put. It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+    * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+    * @return {Promise} A promise of the response data.
+    */
+    export function put(url: string, data: Object, headers?: Object): JQueryPromise<any>;
+
+    /**
+    * Makes an HTTP DELETE request.
+    * @method remove
+    * @param {string} url The url to send the delete request to.
+    * @param {object} [query] An optional key/value object to transform into query string parameters.
+    * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
+    * @return {Promise} A promise of the get response data.
+    */
+    export function remove(url: string, query?: Object, headers?: Object): JQueryPromise<any>;
+}
+
+/**
+ * Enables automatic observability of plain javascript object for ES5 compatible browsers. Also, converts promise properties into observables that are updated when the promise resolves.
+ * @requires system
+ * @requires binder
+ * @requires knockout
+ */
+declare module 'plugins/observable' {
+    function observable(obj: any, property: string): KnockoutObservable<any>;
+
+    module observable {
+        /**
+         * Converts an entire object into an observable object by re-writing its attributes using ES5 getters and setters. Attributes beginning with '_' or '$' are ignored.
+         * @param {object} obj The target object to convert.
+         */
+        export function convertObject(obj: any): void;
+
+        /**
+         * Converts a normal property into an observable property using ES5 getters and setters.
+         * @param {object} obj The target object on which the property to convert lives.
+         * @param {string} propertyName The name of the property to convert.
+         * @param {object} [original] The original value of the property. If not specified, it will be retrieved from the object.
+         * @returns {KnockoutObservable} The underlying observable.
+         */
+        export function convertProperty(obj: any, propertyName: string, original?: any): KnockoutObservable<any>;
+
+        /**
+         * Defines a computed property using ES5 getters and setters.
+         * @param {object} obj The target object on which to create the property.
+         * @param {string} propertyName The name of the property to define.
+         * @param {function|object} evaluatorOrOptions The Knockout computed function or computed options object.
+         * @returns {KnockoutComputed} The underlying computed observable.
+         */
+        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>);
+
+        /**
+         * Installs the plugin into the view model binder's `beforeBind` hook so that objects are automatically converted before being bound.
+         */
+        export function install(config: Object): void;
+    }
+
+    export = observable;
+}
+
+/**
+ * Serializes and deserializes data to/from JSON.
+ * @requires system
+ */
+declare module 'plugins/serializer' {
+    interface SerializerOptions {
+        /**
+         * The default replacer function used during serialization. By default properties starting with '_' or '$' are removed from the serialized object.
+         * @param {string} key The object key to check.
+         * @param {object} value The object value to check.
+         * @returns {object} The value to serialize.
+        */
+        replacer?: (key: string, value: any) => any;
+
+        /**
+         * The amount of space to use for indentation when writing out JSON.
+         * @default undefined
+        */
+        space: any;
+    }
+
+    interface DeserializerOptions {
+        /**
+         * Gets the type id for an object instance, using the configured `typeAttribute`.
+         * @param {object} object The object to serialize.
+         * @returns {string} The type.
+        */
+        getTypeId: (object: any) => string;
+
+        /**
+         * Gets the constructor based on the type id.
+         * @param {string} typeId The type id.
+         * @returns {Function} The constructor.
+        */
+        getConstructor: (typeId: string) => () => any;
+
+        /**
+         * The default reviver function used during deserialization. By default is detects type properties on objects and uses them to re-construct the correct object using the provided constructor mapping.
+         * @param {string} key The attribute key.
+         * @param {object} value The object value associated with the key.
+         * @returns {object} The value.
+        */
+        reviver: (key: string, value: any) => any;
+    }
+
+    /**
+     * The name of the attribute that the serializer should use to identify an object's type.
+     * @default type
+    */
+    export var typeAttribute: string;
+
+    /**
+     * The amount of space to use for indentation when writing out JSON.
+     * @default undefined
+    */
+    export var space: any;
+
+    /**
+     * The default replacer function used during serialization. By default properties starting with '_' or '$' are removed from the serialized object.
+     * @param {string} key The object key to check.
+     * @param {object} value The object value to check.
+     * @returns {object} The value to serialize.
+    */
+    export function replacer(key: string, value: any): any;
+
+    /**
+     * Serializes the object.
+     * @param {object} object The object to serialize.
+     * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
+     * @returns {string} The JSON string.
+    */
+    export function serialize(object: any, settings?: string);
+
+    /**
+     * Serializes the object.
+     * @param {object} object The object to serialize.
+     * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
+     * @returns {string} The JSON string.
+    */
+    export function serialize(object: any, settings?: number);
+
+    /**
+     * Serializes the object.
+     * @param {object} object The object to serialize.
+     * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
+     * @returns {string} The JSON string.
+    */
+    export function serialize(object: any, settings?: SerializerOptions);
+
+    /**
+     * Gets the type id for an object instance, using the configured `typeAttribute`.
+     * @param {object} object The object to serialize.
+     * @returns {string} The type.
+    */
+    export function getTypeId(object: any): string;
+
+    /**
+     * Maps type ids to object constructor functions. Keys are type ids and values are functions.
+    */
+    export var typeMap: any;
+
+    /**
+    * Adds a type id/constructor function mampping to the `typeMap`.
+    * @param {string} typeId The type id.
+    * @param {function} constructor The constructor.
+    */
+    export function registerType(typeId: string, constructor: () => any);
+
+    /**
+     * The default reviver function used during deserialization. By default is detects type properties on objects and uses them to re-construct the correct object using the provided constructor mapping.
+     * @param {string} key The attribute key.
+     * @param {object} value The object value associated with the key.
+     * @param {function} getTypeId A custom function used to get the type id from a value.
+     * @param {object} getConstructor A custom function used to get the constructor function associated with a type id.
+     * @returns {object} The value.
+    */
+    export function reviver(key: string, value: any, getTypeId: (value: any) => string, getConstructor: (string) => () => any): any;
+
+    /**
+     * Deserialize the JSON.
+     * @param {text} text The JSON string.
+     * @param {DeserializerOptions} settings Settings can specify a reviver, getTypeId function or getConstructor function.
+     * @returns {object} The deserialized object.
+    */
+    export function deserialize<T>(text: string, settings?: DeserializerOptions): T;
+
+    /**
+    * Clone the object.
+    * @param {object} obj The object to clone.
+    * @param {object} [settings] Settings can specify any of the options allowed by the serialize or deserialize methods.
+    * @return {object} The new clone.
+    */
+    export function clone<T>(obj:T, settings?:Object): T;
+}
+
+/**
+ * Layers the widget sugar on top of the composition system.
+ * @requires system
+ * @requires composition
+ * @requires jquery
+ * @requires knockout
+ */
+declare module 'plugins/widget' {
+    interface WidgetSettings {
+        kind: string;
+        model?: any;
+        view?: any;
+    }
+
+    /**
+     * Creates a ko binding handler for the specified kind.
+     * @param {string} kind The kind to create a custom binding handler for.
+    */
+    export function registerKind(kind: string);
+
+    /**
+     * Maps views and module to the kind identifier if a non-standard pattern is desired.
+     * @param {string} kind The kind name.
+     * @param {string} [viewId] The unconventional view id to map the kind to.
+     * @param {string} [moduleId] The unconventional module id to map the kind to.
+    */
+    export function mapKind(kind: string, viewId?: string, moduleId?: string);
+
+    /**
+     * Maps a kind name to it's module id. First it looks up a custom mapped kind, then falls back to `convertKindToModulePath`.
+     * @param {string} kind The kind name.
+     * @returns {string} The module id.
+    */
+    export function mapKindToModuleId(kind: string): string;
+
+    /**
+     * Converts a kind name to it's module path. Used to conventionally map kinds who aren't explicitly mapped through `mapKind`.
+     * @param {string} kind The kind name.
+     * @returns {string} The module path.
+    */
+    export function convertKindToModulePath(kind: string): string;
+
+    /**
+     * Maps a kind name to it's view id. First it looks up a custom mapped kind, then falls back to `convertKindToViewPath`.
+     * @param {string} kind The kind name.
+     * @returns {string} The view id.
+    */
+    export function mapKindToViewId(kind: string): string;
+
+    /**
+     * Converts a kind name to it's view id. Used to conventionally map kinds who aren't explicitly mapped through `mapKind`.
+     * @param {string} kind The kind name.
+     * @returns {string} The view id.
+    */
+    export function convertKindToViewPath(kind: string): string;
+
+    /**
+     * Creates a widget.
+     * @param {DOMElement} element The DOMElement or knockout virtual element that serves as the target element for the widget.
+     * @param {object} settings The widget settings.
+     * @param {object} [bindingContext] The current binding context.
+    */
+    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext);
+}
+
+/**
+ * Connects the history module's url and history tracking support to Durandal's activation and composition engine allowing you to easily build navigation-style applications.
+ * @requires system
+ * @requires app
+ * @requires activator
+ * @requires events
+ * @requires composition
+ * @requires history
+ * @requires knockout
+ * @requires jquery
+ */
+declare module 'plugins/router' {
+    var theModule: DurandalRootRouter;
+    export = theModule;
 }
 
 interface DurandalEventSubscription {
@@ -1185,6 +1261,11 @@ interface DurandalEventModule {
     includeIn(targetObject: any): void;
 }
 
+interface DialogButton {
+  text: string;
+  value: any;
+}
+
 interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
     /**
      * The title of your application.
@@ -1201,13 +1282,33 @@ interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
     showDialog(obj: any, activationData?: any, context?: string): JQueryPromise<any>;
 
     /**
+     * Closes the dialog associated with the specified object. via the dialog plugin.
+     * @param {object} obj The object whose dialog should be closed.
+     * @param {object} results* The results to return back to the dialog caller after closing.
+     */
+    closeDialog(obj: any, ...results);
+
+    /**
      * Shows a message box via the dialog plugin.
      * @param {string} message The message to display in the dialog.
      * @param {string} [title] The title message.
      * @param {string[]} [options] The options to provide to the user.
+     * @param {boolean} [autoclose] Automatically close the the message box when clicking outside?
+     * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
      * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
-    */
-    showMessage(message: string, title?: string, options?: string[]): JQueryPromise<string>;
+     */
+    showMessage(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object): JQueryPromise<string>;
+
+    /**
+     * Shows a message box.
+     * @param {string} message The message to display in the dialog.
+     * @param {string} [title] The title message.
+     * @param {DialogButton[]} [options] The options to provide to the user.
+     * @param {boolean} [autoclose] Automatically close the the message box when clicking outside?
+     * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
+     * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
+     */
+    showMessage(message: string, title?: string, options?: DialogButton[], autoclose?: boolean, settings?: Object): JQueryPromise<any>;
 
     /**
      * Configures one or more plugins to be loaded and installed into the application.
@@ -1392,6 +1493,11 @@ interface DurandalHistoryOptions {
      * @default false
      */
     silent?: boolean;
+
+    /**
+     * Override default history init behavior by navigating directly to this route.
+     */
+    startRoute?: string;
 }
 
 interface DurandalNavigationOptions {
@@ -1400,13 +1506,16 @@ interface DurandalNavigationOptions {
 }
 
 interface DurandalRouteConfiguration {
-    title?: string;
+    title?: any;
     moduleId?: string;
     hash?: string;
-    route?: string;
+    /** string or string[] */
+    route?: any;
     routePattern?: RegExp;
     isActive?: KnockoutComputed<boolean>;
-    nav: any;
+    nav?: any;
+    hasChildRoutes?: boolean;
+    viewUrl?:string;
 }
 
 interface DurandalRouteInstruction {
@@ -1663,6 +1772,11 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
 interface DurandalRouter extends DurandalRouterBase<DurandalRouter> { }
 
 interface DurandalRootRouter extends DurandalRouterBase<DurandalRootRouter> {
+    /**
+     * Makes the RegExp generated for routes case sensitive, rather than the default of case insensitive.
+     */
+    makeRoutesCaseSensitive(): void;
+
     /**
      * Activates the router and the underlying history tracking mechanism.
      * @returns {Promise} A promise that resolves when the router is ready.

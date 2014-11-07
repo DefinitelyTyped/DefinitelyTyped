@@ -1,7 +1,6 @@
-// Type definitions for Smoothie Charts 1.21
+// Type definitions for Smoothie Charts 1.25
 // Project: https://github.com/joewalnes/smoothie
-// Definitions by: Drew Noakes <https://drewnoakes.com>
-//                 Mike H. Hawley <https://github.com/mikehhawley>
+// Definitions by: Drew Noakes <https://drewnoakes.com>, Mike H. Hawley <https://github.com/mikehhawley>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/smoothie
 
 // NOTE this reference is here to make the DefinitelyTyped `npm test` suite pass and
@@ -41,6 +40,11 @@ declare module "smoothie"
          * Presentation options for TimeSeries are specified as an argument to <code>SmoothieChart.addTimeSeries</code>.
          */
         constructor(options?: ITimeSeriesOptions);
+
+        /**
+         * Clears all data and state from this TimeSeries object.
+         */
+        clear(): void;
 
         /**
          * Recalculate the min/max values for this <code>TimeSeries</code> object.
@@ -113,6 +117,10 @@ declare module "smoothie"
         scaleSmoothing?: number;
         /** Sets the speed at which the chart pans by. */
         millisPerPixel?: number;
+        /** Whether to render at different DPI depending upon the device. Enabled by default. */
+        enableDpiScaling?: boolean;
+        yMinFormatter?: (min:number, precision:number)=>string;
+        yMaxFormatter?: (max:number, precision:number)=>string;
         maxDataSetLength?: number;
         /** One of: 'bezier', 'linear', 'step' */
         interpolation?: string;

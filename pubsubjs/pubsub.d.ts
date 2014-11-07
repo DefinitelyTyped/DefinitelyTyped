@@ -1,4 +1,4 @@
-// Type definitions for PubSubJS  1.3.5
+// Type definitions for PubSubJS 1.3.5
 // Project: https://github.com/mroderick/PubSubJS
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

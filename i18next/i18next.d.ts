@@ -1,6 +1,6 @@
-// Type definitions for i18next (v1.5.10 incl. jQuery)
+// Type definitions for i18next v1.5.10
 // Project: http://i18next.com
-// Definitions by: Maarten Docter <https://github.com/mdocter> - Blog: http://www.maartendocter.nl
+// Definitions by: Maarten Docter <https://github.com/mdocter>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Sources: https://github.com/jamuhl/i18next/
@@ -109,6 +109,7 @@ interface I18nextStatic {
     };
     t(key: string, options?: any): string;
     translate(key: string, options?: any): string;
+    exists(key: string, options?: any): boolean;
 }
 
 // jQuery extensions
@@ -118,11 +119,11 @@ interface JQueryStatic {
 }
 
 interface JQuery {
-    /*  Note: options are same options as used by the translate function. Alternatively by 
-        setting init option or translation option 'useDataAttrOptions = true' the Options 
-        for translation will be read and cached in the elements data-i18n-options attribute. 
+    /*  Note: options are same options as used by the translate function. Alternatively by
+        setting init option or translation option 'useDataAttrOptions = true' the Options
+        for translation will be read and cached in the elements data-i18n-options attribute.
     */
     i18n: (options?: I18nextOptions) => void;
 }
 
-declare var i18next: I18nextStatic;
+declare var i18n: I18nextStatic;

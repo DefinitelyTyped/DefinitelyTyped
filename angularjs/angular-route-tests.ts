@@ -9,6 +9,9 @@
 declare var $routeProvider: ng.route.IRouteProvider;
 $routeProvider
         .when('/projects/:projectId/dashboard',{
-            controller: ''
+            controller: '',
+            templateUrl: '',
+            caseInsensitiveMatch: true,
+            reloadOnSearch: false
         })
         .otherwise({redirectTo: '/'});

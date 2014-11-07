@@ -9,7 +9,7 @@ window.alert = function (thing?: string) {
 var pouch: PouchDB;
 
 function pouchTests() {
-    PouchDB('testdb', function (err: PouchError, res: PouchDB) {
+    new PouchDB('testdb', function (err: PouchError, res: PouchDB) {
 		if (err) {
 			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
 		}

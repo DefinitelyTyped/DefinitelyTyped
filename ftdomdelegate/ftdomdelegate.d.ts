@@ -1,6 +1,6 @@
 // Type definitions for ftdomdelegate
 // Project: https://github.com/ftlabs/ftdomdelegate
-// Definitions by: Christian Holm Nielsen
+// Definitions by: Christian Holm Nielsen <https://github.com/dotnetnerd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Delegate

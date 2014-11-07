@@ -12,7 +12,7 @@
 
 // Library documentation : http://www.createjs.com/Docs/PreloadJS/modules/PreloadJS.html
 
-/// <reference path="../createjs/createjs.d.ts" />
+/// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
 declare module createjs {
     export class AbstractLoader extends EventDispatcher {
@@ -72,11 +72,18 @@ declare module createjs {
         static version: string;
     }
     
+    /*
+        NOTE: It is commented out because it conflicts with SamplePlugin class of TweenJS.
+              this class is mainly for documentation purposes.
+              http://www.createjs.com/Docs/PreloadJS/classes/SamplePlugin.html
+    */
+    /*
     export class SamplePlugin {
         static fileLoadHandler(event: Object): void;
         static getPreloadHandlers(): Object;
         static preloadHandler(src: string, type: string, id: string, data: any, basePath: string, queue: LoadQueue): any;
     }
+    */
 
     export class TagLoader extends AbstractLoader {
         constructor (item: Object);

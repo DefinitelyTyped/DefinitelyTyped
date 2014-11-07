@@ -1,27 +1,37 @@
-// Type definitions for highlight.js
+// Type definitions for highlight.js v8.2.0
 // Project: https://github.com/isagalaev/highlight.js
-// Definitions by:  Niklas Mollenhauer <https://github.com/nikeee/>
+// Definitions by: Niklas Mollenhauer <https://github.com/nikeee/>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module "highlight.js"
 {
 	module hljs
 	{
-		export var LANGUAGES: { [name: string] : any; };
+		export function highlight(
+			name: string,
+			value: string,
+			ignore_illegals?: boolean,
+			continuation?: boolean) : IHighlightResult;
+		export function highlightAuto(
+			value: string,
+			languageSubset?: string[]) : IAutoHighlightResult;
 
-		export function blockText(block: Node, ignoreNewLines: boolean) : string;
-		export function blockLanguage(block: Node) : string;
+		export function fixMarkup(value: string) : string;
 
-		export function highlight(language_name: string, value: string) : IHighlightResult
-		export function highlightAuto(text: string) : IHighlightResult
+		export function highlightBlock(block: Node) : void;
 
-		export function fixMarkup(value: string, tabReplace: boolean, useBR: boolean) : string;
+		export function configure(options: IOptions): void;
 
-		export function highlightBlock(block: Node, tabReplace?: boolean, useBR?: boolean) : void;
-		
 		export function initHighlighting(): void;
 		export function initHighlightingOnLoad(): void;
 
-		export var tabReplace : string;
+		export function registerLanguage(
+			name: string,
+			language: (hljs?: HLJSStatic) => IModeBase): void;
+		export function listLanguages(): string[];
+		export function getLanguage(name: string): IMode;
+
+		export function inherit(parent: Object, obj: Object): Object;
 
 		// Common regexps
 		export var IDENT_RE: string;
@@ -35,46 +45,109 @@ declare module "highlight.js"
 		export var BACKSLASH_ESCAPE : IMode;
 		export var APOS_STRING_MODE : IMode;
 		export var QUOTE_STRING_MODE : IMode;
+		export var PHRASAL_WORDS_MODE : IMode;
 		export var C_LINE_COMMENT_MODE : IMode;
 		export var C_BLOCK_COMMENT_MODE : IMode;
 		export var HASH_COMMENT_MODE : IMode;
 		export var NUMBER_MODE : IMode;
 		export var C_NUMBER_MODE : IMode;
 		export var BINARY_NUMBER_MODE : IMode;
+		export var CSS_NUMBER_MODE : IMode;
+		export var REGEX_MODE : IMode;
+		export var TITLE_MODE : IMode;
+		export var UNDERSCORE_TITLE_MODE : IMode;
 
-		export interface IHighlightResult
+		export interface IHighlightResultBase
 		{
 			relevance: number;
-			keyword_count: number;
+			language: string;
 			value: string;
 		}
 
-		export interface IAutoHighlightResult extends IHighlightResult
+		export interface IAutoHighlightResult extends IHighlightResultBase
 		{
-			language: string;
 			second_best?: IAutoHighlightResult;
+		}
+
+		export interface IHighlightResult extends IHighlightResultBase
+		{
+			top: ICompiledMode;
+		}
+
+		export interface HLJSStatic
+		{
+			inherit(parent: Object, obj: Object): Object;
+
+			// Common regexps
+			IDENT_RE: string;
+			UNDERSCORE_IDENT_RE: string;
+			NUMBER_RE: string;
+			C_NUMBER_RE: string;
+			BINARY_NUMBER_RE: string;
+			RE_STARTERS_RE: string;
+
+			// Common modes
+			BACKSLASH_ESCAPE : IMode;
+			APOS_STRING_MODE : IMode;
+			QUOTE_STRING_MODE : IMode;
+			PHRASAL_WORDS_MODE : IMode;
+			C_LINE_COMMENT_MODE : IMode;
+			C_BLOCK_COMMENT_MODE : IMode;
+			HASH_COMMENT_MODE : IMode;
+			NUMBER_MODE : IMode;
+			C_NUMBER_MODE : IMode;
+			BINARY_NUMBER_MODE : IMode;
+			CSS_NUMBER_MODE : IMode;
+			REGEX_MODE : IMode;
+			TITLE_MODE : IMode;
+			UNDERSCORE_TITLE_MODE : IMode;
 		}
 
 		// Reference:
 		// https://github.com/isagalaev/highlight.js/blob/master/docs/reference.rst
-		export interface IMode
+		export interface IModeBase
 		{
 			className?: string;
-			begin: string;
+			aliases?: string[];
+			begin?: string;
 			end?: string;
-			beginWithKeyword?: boolean;
+			case_insensitive?: boolean;
+			beginKeyword?: string;
 			endsWithParent?: boolean;
 			lexems?: string;
-			keywords?: Object;
 			illegal?: string;
 			excludeBegin?: boolean;
 			excludeEnd?: boolean;
 			returnBegin?: boolean;
 			returnEnd?: boolean;
-			contains?: IMode[];
 			starts?: string;
 			subLanguage?: string;
+			subLanguageMode?: string;
 			relevance?: number;
+			variants?: IMode[];
+		}
+
+		export interface IMode extends IModeBase
+		{
+			keywords?: any;
+			contains?: IMode[];
+		}
+
+		export interface ICompiledMode extends IModeBase
+		{
+			compiled: boolean;
+			contains?: ICompiledMode[];
+			keywords?: Object;
+			terminators: RegExp;
+			terminator_end?: string;
+		}
+
+		export interface IOptions
+		{
+			classPrefix?: string;
+			tabReplace?: string;
+			useBR?: boolean;
+			languages?: string[];
 		}
 	}
 	export = hljs;

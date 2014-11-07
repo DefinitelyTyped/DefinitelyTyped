@@ -55,6 +55,7 @@ interface DropzoneOptions {
 
 declare class Dropzone {
     constructor(container: string, options?: DropzoneOptions);
+    constructor(container: HTMLElement, options?: DropzoneOptions);
     static autoDiscover: boolean;
     static options: any;
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
@@ -71,6 +72,22 @@ declare class Dropzone {
     getRejectedFiles(): DropzoneFile[];
     getQueuedFiles(): DropzoneFile[];
     getUploadingFiles(): DropzoneFile[];
+    
+    emit(eventName: string, file: DropzoneFile, str?: string);
+    emit(eventName: "thumbnail", file: DropzoneFile, path: string);
+    emit(eventName: "addedfile", file: DropzoneFile);
+    emit(eventName: "removedfile", file: DropzoneFile);
+    emit(eventName: "processing", file: DropzoneFile);
+    emit(eventName: "canceled", file: DropzoneFile);
+    emit(eventName: "complete", file: DropzoneFile);
+
+    emit(eventName: string, e: Event);
+    emit(eventName: "drop", e: Event);
+    emit(eventName: "dragstart", e: Event);
+    emit(eventName: "dragend", e: Event);
+    emit(eventName: "dragenter", e: Event);
+    emit(eventName: "dragover", e: Event);
+    emit(eventName: "dragleave", e: Event);
 }
 
 interface JQuery {
