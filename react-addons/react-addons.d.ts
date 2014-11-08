@@ -93,8 +93,9 @@ declare module React {
         findRenderedDOMComponentWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>;
         scryRenderedDOMComponentsWithTag(tree: ReactElement<any, any>, className: string): ReactElement<any, any>[];
         findRenderedDOMComponentWithTag(tree: ReactElement<any, any>, tagName: string): ReactElement<any, any>;
-        scryFindRenderedComponentsWithTag(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>[];
-        findRenderedComponentWithType(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>;
+        scryRenderedComponentsWithTag(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>[];
+        findRenderedComponentWithType<P>(tree: ReactElement<any, any>, componentClass: ReactComponentFactory<P>): Component<P, any>;
+        scryRenderedComponentsWithType<P>(tree: ReactElement<any, any>, componentClass: ReactComponentFactory<P>): Component<P, any>[];
     }
 
     export interface SyntheticEventData {
