@@ -50,17 +50,17 @@
         var material1 = new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 });
 
         var line = new THREE.Line(geometry, material1);
-        line.type = THREE.LinePieces;
+        line.mode = THREE.LinePieces;
         scene.add(line);
 
         // Cubes
 
-        var geometry = new THREE.BoxGeometry(50, 50, 50);
+        var geometry2 = new THREE.BoxGeometry(50, 50, 50);
         var material2 = new THREE.MeshLambertMaterial({ color: 0xffffff, shading: THREE.FlatShading, overdraw: 0.5 });
 
         for (var i = 0; i < 100; i++) {
 
-            var cube = new THREE.Mesh(geometry, material2);
+            var cube = new THREE.Mesh(geometry2, material2);
 
             cube.scale.y = Math.floor(Math.random() * 2 + 1);
 

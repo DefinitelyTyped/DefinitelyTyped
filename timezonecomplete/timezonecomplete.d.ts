@@ -1,4 +1,4 @@
-// Type definitions for timezonecomplete 1.5.1
+// Type definitions for timezonecomplete 1.9.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -8,6 +8,7 @@ declare module 'timezonecomplete' {
     import basics = require("__timezonecomplete/basics");
     export import TimeUnit = basics.TimeUnit;
     export import WeekDay = basics.WeekDay;
+    export import timeUnitToMilliseconds = basics.timeUnitToMilliseconds;
     export import isLeapYear = basics.isLeapYear;
     export import daysInMonth = basics.daysInMonth;
     export import daysInYear = basics.daysInYear;
@@ -36,6 +37,9 @@ declare module 'timezonecomplete' {
     export import NormalizeOption = timezone.NormalizeOption;
     export import TimeZoneKind = timezone.TimeZoneKind;
     export import TimeZone = timezone.TimeZone;
+    import globals = require("__timezonecomplete/globals");
+    export import min = globals.min;
+    export import max = globals.max;
 }
 
 declare module '__timezonecomplete/basics' {
@@ -65,6 +69,15 @@ declare module '__timezonecomplete/basics' {
         Month = 5,
         Year = 6,
     }
+    /**
+     * Approximate number of milliseconds for a time unit.
+     * A day is assumed to have 24 hours, a month is assumed to equal 30 days
+     * and a year is set to 365 days.
+     *
+     * @param unit	Time unit e.g. TimeUnit.Month
+     * @returns	The number of milliseconds.
+     */
+    export function timeUnitToMilliseconds(unit: TimeUnit): number;
     /**
      * @return True iff the given year is a leap year.
      */
@@ -117,6 +130,16 @@ declare module '__timezonecomplete/basics' {
      * Throws if the month has no such day.
      */
     export function weekDayOnOrBefore(year: number, month: number, day: number, weekDay: WeekDay): number;
+    /**
+     * The week of this month. There is no official standard for this,
+     * but we assume the same rules for the weekNumber (i.e.
+     * week 1 is the week that has the 4th day of the month in it)
+     *
+     * @param year The year
+     * @param month The month [1-12]
+     * @param day The day [1-31]
+     * @return Week number [1-5]
+     */
     export function weekOfMonth(year: number, month: number, day: number): number;
     /**
      * The ISO 8601 week number for the given date. Week 1 is the week
@@ -277,7 +300,7 @@ declare module '__timezonecomplete/datetime' {
     import basics = require("__timezonecomplete/basics");
     import duration = require("__timezonecomplete/duration");
     import javascript = require("__timezonecomplete/javascript");
-    import timesource = require("__timezonecomplete/timesource");
+	import timesource = require("__timezonecomplete/timesource");
     import timezone = require("__timezonecomplete/timezone");
     /**
      * DateTime class which is time zone-aware
@@ -607,10 +630,26 @@ declare module '__timezonecomplete/datetime' {
          */
         greaterEqual(other: DateTime): boolean;
         /**
+         * @return The minimum of this and other
+         */
+        min(other: DateTime): DateTime;
+        /**
+         * @return The maximum of this and other
+         */
+        max(other: DateTime): DateTime;
+        /**
          * Proper ISO 8601 format string with any IANA zone converted to ISO offset
          * E.g. "2014-01-01T23:15:33+01:00" for Europe/Amsterdam
          */
         toIsoString(): string;
+        /**
+         * Return a string representation of the DateTime according to the
+         * specified format. The format is implemented as the LDML standard
+         * (http://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns)
+         *
+         * @param formatString The format specification (e.g. "dd/MM/yyyy HH:mm:ss")
+         * @return The string representation of this DateTime
+         */
         format(formatString: string): string;
         /**
          * Modified ISO 8601 format string with IANA name if applicable.
@@ -633,6 +672,7 @@ declare module '__timezonecomplete/datetime' {
 }
 
 declare module '__timezonecomplete/duration' {
+    import basics = require("__timezonecomplete/basics");
     /**
      * Time duration. Create one e.g. like this: var d = Duration.hours(1).
      * Note that time durations do not take leap seconds etc. into account:
@@ -676,6 +716,12 @@ declare module '__timezonecomplete/duration' {
          * [-]h[:m[:s[.n]]] e.g. -01:00:30.501
          */
         constructor(input: string);
+        /**
+         * Construct a duration from an amount and a time unit.
+         * @param amount	Number of units
+         * @param unit	A time unit i.e. TimeUnit.Second, TimeUnit.Hour etc.
+         */
+        constructor(amount: number, unit: basics.TimeUnit);
         /**
          * @return another instance of Duration with the same value.
          */
@@ -731,6 +777,10 @@ declare module '__timezonecomplete/duration' {
          */
         lessThan(other: Duration): boolean;
         /**
+         * @return True iff (this <= other)
+         */
+        lessEqual(other: Duration): boolean;
+        /**
          * @return True iff this and other represent the same time duration
          */
         equals(other: Duration): boolean;
@@ -738,6 +788,10 @@ declare module '__timezonecomplete/duration' {
          * @return True iff this > other
          */
         greaterThan(other: Duration): boolean;
+        /**
+         * @return True iff this >= other
+         */
+        greaterEqual(other: Duration): boolean;
         /**
          * @return The minimum (most negative) of this and other
          */
@@ -893,6 +947,11 @@ declare module '__timezonecomplete/period' {
          * @return (prev + count * period), in the same timezone as prev.
          */
         findNext(prev: datetime.DateTime, count?: number): datetime.DateTime;
+        /**
+         * Checks whether the given date is on a period boundary
+         * (expensive!)
+         */
+        isBoundary(occurrence: datetime.DateTime): boolean;
         /**
          * Returns an ISO duration string e.g.
          * 2014-01-01T12:00:00.000+01:00/P1H
@@ -1123,5 +1182,26 @@ declare module '__timezonecomplete/timezone' {
          */
         static stringToOffset(s: string): number;
     }
+}
+
+declare module '__timezonecomplete/globals' {
+    import datetime = require("__timezonecomplete/datetime");
+    import duration = require("__timezonecomplete/duration");
+    /**
+     * Returns the minimum of two DateTimes
+     */
+    export function min(d1: datetime.DateTime, d2: datetime.DateTime): datetime.DateTime;
+    /**
+     * Returns the minimum of two Durations
+     */
+    export function min(d1: duration.Duration, d2: duration.Duration): duration.Duration;
+    /**
+     * Returns the maximum of two DateTimes
+     */
+    export function max(d1: datetime.DateTime, d2: datetime.DateTime): datetime.DateTime;
+    /**
+     * Returns the maximum of two Durations
+     */
+    export function max(d1: duration.Duration, d2: duration.Duration): duration.Duration;
 }
 

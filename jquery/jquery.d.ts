@@ -307,6 +307,11 @@ interface JQueryPromiseCallback<T> {
     (value?: T, ...args: any[]): void;
 }
 
+interface JQueryPromiseOperator<T, R> {
+	(callback: JQueryPromiseCallback<T>, ...callbacks: JQueryPromiseCallback<T>[]): JQueryPromise<R>;
+	(callback: JQueryPromiseCallback<T>[], ...callbacks: JQueryPromiseCallback<T>[]): JQueryPromise<R>;
+}
+
 /**
  * Interface for the JQuery promise, part of callbacks
  */
@@ -317,52 +322,28 @@ interface JQueryPromise<T> {
      * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
      * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallbacks1?: JQueryPromiseCallback<T>, ...alwaysCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+	always: JQueryPromiseOperator<any, T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      * 
      * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
      * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
-    done(doneCallbacks1?: JQueryPromiseCallback<T>, ...doneCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+	done: JQueryPromiseOperator<T, T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      * 
      * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
      * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallbacks1?: JQueryPromiseCallback<T>, ...failCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+	fail: JQueryPromiseOperator<any, T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      * 
      * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
      */
-    progress(...progressCallbacks: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
-
-    /**
-     * Add handlers to be called when the Deferred object is either resolved or rejected.
-     * 
-     * @param alwaysCallbacks A function, or array of functions, that is called when the Deferred is resolved or rejected.
-     */
-    always(...alwaysCallbacks: any[]): JQueryPromise<T>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved.
-     * 
-     * @param doneCallbacks A function, or array of functions, that are called when the Deferred is resolved.
-     */
-    done(...doneCallbacks: any[]): JQueryPromise<T>;
-    /**
-     * Add handlers to be called when the Deferred object is rejected.
-     * 
-     * @param failCallbacks A function, or array of functions, that are called when the Deferred is rejected.
-     */
-    fail(...failCallbacks: any[]): JQueryPromise<T>;
-    /**
-     * Add handlers to be called when the Deferred object generates progress notifications.
-     * 
-     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
-     */
-    progress(...progressCallbacks: any[]): JQueryPromise<T>;
+	progress(progressCallback: JQueryPromiseCallback<T>): JQueryPromise<T>;
+	progress(progressCallbacks: JQueryPromiseCallback<T>[]): JQueryPromise<T>;
 
     /**
      * Determine the current state of a Deferred object.
@@ -479,8 +460,9 @@ interface JQueryDeferred<T> extends JQueryPromise<T> {
      * 
      * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
      */
-    progress(...progressCallbacks: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
-
+    progress(progressCallback: JQueryPromiseCallback<T>): JQueryDeferred<T>;
+    progress(progressCallbacks: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+	
     /**
      * Call the progressCallbacks on a Deferred object with the given args.
      * 
@@ -2763,7 +2745,14 @@ interface JQuery {
      * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    on(events: { [key: string]: any; }, selector?: any, data?: any): JQuery;
+    on(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    on(events: { [key: string]: any; }, data?: any): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2807,6 +2796,14 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
     one(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     */
+    one(events: { [key: string]: any; }, data?: any): JQuery;
 
 
     /**

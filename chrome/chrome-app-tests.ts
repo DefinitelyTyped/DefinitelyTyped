@@ -3,7 +3,7 @@
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
 
-var createOptions: cwindow.CreateOptions = {
+var createOptions: cwindow.CreateWindowOptions = {
     id: "My Window",
     bounds: {
         left: 0,
@@ -25,6 +25,35 @@ chrome.app.runtime.onRestarted.addListener(function () { return; });
 
 // Get Current Window
 var currentWindow: cwindow.AppWindow = chrome.app.window.current();
+
+// FileSystem
+// https://developer.chrome.com/apps/fileSystem
+
+function test_fileSystem(): void {
+    var accepts: chrome.fileSystem.AcceptOptions[] = [
+        {mimeTypes: ["text/*"], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf']}
+    ];
+    var chooseOption: chrome.fileSystem.ChooseEntryOptions = {
+        type: "openFile",
+        suggestedName: "foo.txt",
+        accepts: accepts,
+        acceptsAllTypes: false,
+        acceptsMultiple: false
+    };
+    chrome.fileSystem.chooseEntry(chooseOption, (entry: Entry) => {
+        chrome.fileSystem.getDisplayPath(entry, (displayPath: string) => { });
+
+        var retainedId = chrome.fileSystem.retainEntry(entry);
+        chrome.fileSystem.isRestorable(retainedId, (isRestorable: boolean) => {
+            if(isRestorable){
+                chrome.fileSystem.restoreEntry(retainedId, (restoredEntry: Entry) => { });
+            }
+        });
+
+        chrome.fileSystem.getWritableEntry(entry, (writableEntry: Entry) => {});
+        chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => {});
+    });
+}
 
 // Sockets
 // https://developer.chrome.com/apps/sockets_tcp

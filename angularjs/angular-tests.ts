@@ -250,6 +250,12 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
+httpFoo.success((data, status, headers, config) => {
+    var h = headers("test");
+    h.charAt(0);
+    var hs = headers();
+    hs["content-type"].charAt(1);
+});
 
 function test_angular_forEach() {
     var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
@@ -569,3 +575,87 @@ angular.module('docsTabsExample', [])
             templateUrl: 'my-pane.html'
         };
     });
+
+interface copyExampleUser {
+    name?: string;
+    email?: string;
+    gender?: string;
+}
+
+interface copyExampleScope {
+
+    user: copyExampleUser;
+    master: copyExampleUser;
+    update: (copyExampleUser: copyExampleUser) => any;
+    reset: () => any;
+}
+
+angular.module('copyExample', [])
+    .controller('ExampleController', ['$scope', function ($scope: copyExampleScope) {
+        $scope.master = { };
+
+        $scope.update = function (user) {
+            // Example with 1 argument
+            $scope.master = angular.copy(user);
+        };
+
+        $scope.reset = function () {
+            // Example with 2 arguments
+            angular.copy($scope.master, $scope.user);
+        };
+
+        $scope.reset();
+    }]);
+
+module locationTests {
+
+    var $location: ng.ILocationService;
+
+    /*
+     * From https://docs.angularjs.org/api/ng/service/$location
+     */
+
+    // given url http://example.com/#/some/path?foo=bar&baz=xoxo
+    var searchObject = $location.search();
+    // => {foo: 'bar', baz: 'xoxo'}
+
+
+    // set foo to 'yipee'
+    $location.search('foo', 'yipee');
+    // => $location
+
+    // set foo to 5
+    $location.search('foo', 5);
+    // => $location
+
+    /*
+     * From: https://docs.angularjs.org/guide/$location
+     */
+
+    // in browser with HTML5 history support:
+    // open http://example.com/#!/a -> rewrite to http://example.com/a
+    // (replacing the http://example.com/#!/a history record)
+    $location.path() == '/a'
+
+    $location.path('/foo');
+    $location.absUrl() == 'http://example.com/foo'
+
+    $location.search() == {}
+    $location.search({ a: 'b', c: true });
+    $location.absUrl() == 'http://example.com/foo?a=b&c'
+
+    $location.path('/new').search('x=y');
+    $location.url() == 'new?x=y'
+    $location.absUrl() == 'http://example.com/new?x=y'
+
+    // in browser without html5 history support:
+    // open http://example.com/new?x=y -> redirect to http://example.com/#!/new?x=y
+    // (again replacing the http://example.com/new?x=y history item)
+    $location.path() == '/new'
+    $location.search() == { x: 'y' }
+
+    $location.path('/foo/bar');
+    $location.path() == '/foo/bar'
+    $location.url() == '/foo/bar?x=y'
+    $location.absUrl() == 'http://example.com/#!/foo/bar?x=y'
+}

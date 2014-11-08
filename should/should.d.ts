@@ -87,8 +87,8 @@ interface ShouldAssertion {
 
 interface ShouldInternal {
   // should.js's extras
-  exist(actual: any): void;
-  exists(actual: any): void;
+  exist(actual: any, msg?: string): void;
+  exists(actual: any, msg?: string): void;
   not: ShouldInternal;
 }
 
@@ -112,6 +112,10 @@ interface Internal extends ShouldInternal {
 }
 
 declare var should: Internal;
+declare var Should: Internal;
+interface Window {
+  Should: Internal;
+}
 
 declare module "should" {
   export = should;
