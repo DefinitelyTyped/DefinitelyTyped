@@ -326,6 +326,8 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5,
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
+result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
+result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 
 // /* *************
 //  * Collections *
@@ -381,6 +383,11 @@ result = <number>_.find([1, 2, 3, 4], function (num) {
 });
 result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.find(foodsCombined, 'organic');
+result = <number>_([1, 2, 3, 4]).find(function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_(foodsCombined).find({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).find('organic');
 
 result = <number>_.detect([1, 2, 3, 4], function (num) {
     return num % 2 == 0;
@@ -399,6 +406,12 @@ result = <number>_.findLast([1, 2, 3, 4], function (num) {
 });
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
+
+result = <number>_([1, 2, 3, 4]).findLast(function (num) {
+    return num % 2 == 0;
+});
+result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).findLast('organic');
 
 result = <number[]>_.forEach([1, 2, 3], function (num) { console.log(num); });
 result = <_.Dictionary<number>>_.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function (num) { console.log(num); });
@@ -468,10 +481,16 @@ result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
+result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).max();
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max(function (stooge) { return stooge.age; });
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).max('age');
 
 result = <number>_.min([4, 2, 8, 6]);
 result = <IStoogesAge>_.min(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.min(stoogesAges, 'age');
+result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
+result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
@@ -667,7 +686,7 @@ result = <Function>_.curry(function (a: any, b: any, c: any) {
     console.log(a + b + c);
 });
 
-result = <_.LoDashObjectWrapper<Function>>_(function (a, b, c) {
+result = <_.LoDashObjectWrapper<Function>>_(function (a: any, b: any, c: any) {
     console.log(a + b + c);
 }).curry();
 
@@ -694,7 +713,7 @@ source.addEventListener('message', <_.LoDashObjectWrapper<Function>>_(function (
     'maxWait': 1000
 }), false);
 
-var returnedDebounce = _.throttle(function (a) { return a * 5; }, 5);
+var returnedDebounce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedThrottled(4);
 
 result = <number>_.defer(function () { console.log('deferred'); });
@@ -704,7 +723,7 @@ var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
 
-var fibonacci = <Function>_.memoize(function (n) {
+var fibonacci = <Function>_.memoize(function (n: any) {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
@@ -716,13 +735,13 @@ var data: { [index: string]: { name: string; age: number; } } = {
 var stooge = _.memoize(function (name: string) { return data[name]; }, _.identity);
 stooge('curly');
 
-var returnedMemoize = _.throttle(function (a) { return a * 5; }, 5);
+var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
 
 var initialize = _.once(function () { });
 initialize();
 initialize();''
-var returnedOnce = _.throttle(function (a) { return a * 5; }, 5);
+var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
 var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
@@ -745,7 +764,7 @@ jQuery('.interactive').on('click', _.throttle(function () { }, 300000, {
     'trailing': false
 }));
 
-var returnedThrottled = _.throttle(function (a) { return a * 5; }, 5);
+var returnedThrottled = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedThrottled(4);
 
 var helloWrap = function (name: string) { return 'hello ' + name; };

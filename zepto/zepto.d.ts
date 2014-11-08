@@ -993,6 +993,12 @@ interface ZeptoCollection {
 	**/
 	prependTo(content: HTMLElement[]): ZeptoCollection;
 
+        /**
+	* @see ZeptoCollection.prependTo
+	* @param content
+	**/
+	prependTo(content: ZeptoCollection): ZeptoCollection;
+
 	/**
 	* Get the previous sibling—optionally filtered by selector—of each element in the collection.
 	* @param selector
@@ -1576,7 +1582,7 @@ interface ZeptoAjaxSettings {
 	contentType?: string;
 	dataType?: string;
 	timeout?: number;
-	headers?: string;
+	headers?: { [key: string]: string };
 	async?: boolean;
 	global?: boolean;
 	context?: any;

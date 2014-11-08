@@ -1,4 +1,4 @@
-/// <reference path="notify.js.d.ts" />
+/// <reference path="notifyjs.d.ts" />
 
 function test_Notify_constructor() {
     //Min

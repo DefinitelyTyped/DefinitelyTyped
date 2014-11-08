@@ -258,6 +258,10 @@ interface Moment {
     lang(reset: boolean): Moment;
     lang(): MomentLanguage;
 
+    locale(language: string): Moment;
+    locale(reset: boolean): Moment;
+    locale(): string;
+
     localeData(language: string): Moment;
     localeData(reset: boolean): Moment;
     localeData(): MomentLanguage;
