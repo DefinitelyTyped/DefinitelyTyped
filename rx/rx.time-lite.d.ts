@@ -49,8 +49,8 @@ declare module Rx {
 	interface ObservableStatic {
 		interval(period: number, scheduler?: IScheduler): Observable<number>;
 		interval(dutTime: number, period: number, scheduler?: IScheduler): Observable<number>;
-		timer(dueTime: number, period: number, scheduler: IScheduler): Observable<number>;
-		timer(dueTime: number, scheduler: IScheduler): Observable<number>;
+		timer(dueTime: number, period: number, scheduler?: IScheduler): Observable<number>;
+		timer(dueTime: number, scheduler?: IScheduler): Observable<number>;
 		generateWithRelativeTime<TState, TResult>(
 			initialState: TState,
 			condition: (state: TState) => boolean,

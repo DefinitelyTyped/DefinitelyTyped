@@ -57,3 +57,5 @@ THE SOFTWARE.
 /// <reference path="./tests/canvas/canvas_materials.ts" />
 /// <reference path="./tests/canvas/canvas_particles_floor.ts" />
 
+// examples test.
+/// <reference path="./tests/examples/detector.ts" />

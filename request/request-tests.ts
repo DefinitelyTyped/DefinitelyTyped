@@ -69,7 +69,7 @@ var options: request.Options = {
 
 	},
 	jar: value,
-	form: value,
+	form: obj,
 	oauth: value,
 	aws: aws,
 	qs: obj,
@@ -114,7 +114,8 @@ req = req.oauth(oauth);
 req = req.jar(jar);
 write = req.pipe(write);
 write = req.pipe(write, value);
-req.write();
+req.pipe(req);
+req.write(value);
 req.end(str);
 req.end(buffer);
 req.pause();

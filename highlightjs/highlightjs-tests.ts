@@ -12,7 +12,7 @@ import hljs = require("highlight.js");
 var code = "using System;\npublic class Test\n{\npublic static void Main()\n{\n// your code goes here\n}\n}";
 var lang = "cs";
 
-hljs.tabReplace = "    "; // 4 spaces
+hljs.configure({ tabReplace: "    " }); // 4 spaces
 
 var hl = hljs.highlight(lang, code).value;
 hl = hljs.highlightAuto(code).value;

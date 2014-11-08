@@ -34,6 +34,14 @@ interface Contacts {
         onSuccess: (contacts: Contact[]) => void,
         onError: (error: ContactError) => void,
         options?: ContactFindOptions): void;
+    /**
+     * The navigator.contacts.pickContact method launches the Contact Picker to select a single contact.
+     * The resulting object is passed to the contactSuccess callback function specified by the contactSuccess parameter.
+     * @param onSuccess Success callback function invoked with the array of Contact objects returned from the database
+     * @param onError Error callback function, invoked when an error occurs.
+     */
+    pickContact(onSuccess: (contact: Contact) => void,
+        onError: (error: ContactError) => void): void
 }
 
 interface ContactProperties {
@@ -253,10 +261,13 @@ interface ContactFindOptions {
     filter?: string;
     /** Determines if the find operation returns multiple navigator.contacts. */
     multiple?: boolean;
+    /* Contact fields to be returned back. If specified, the resulting Contact object only features values for these fields. */
+    desiredFields?: string[];
 }
 
 declare var ContactFindOptions: {
     /** Constructor for ContactFindOptions object */
     new(filter?: string,
-        multiple?: boolean): ContactFindOptions
+        multiple?: boolean,
+        desiredFields?: string[]): ContactFindOptions
 };

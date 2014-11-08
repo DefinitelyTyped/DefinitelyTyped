@@ -296,8 +296,8 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 * Same as calling `Promise.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U>;
-	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U): Promise<U>;
+	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
+	map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U): Promise<U[]>;
 
 	/**
 	 * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -310,8 +310,8 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
 	// TODO type inference from array-resolving promise?
-	filter<U>(filterer: (item: U, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<U>;
-	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean): Promise<U>;
+	filter<U>(filterer: (item: U, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<U[]>;
+	filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean): Promise<U[]>;
 
 	/**
 	 * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.

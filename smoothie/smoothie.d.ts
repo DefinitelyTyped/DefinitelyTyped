@@ -1,4 +1,4 @@
-// Type definitions for Smoothie Charts 1.21
+// Type definitions for Smoothie Charts 1.25
 // Project: https://github.com/joewalnes/smoothie
 // Definitions by: Drew Noakes <https://drewnoakes.com>, Mike H. Hawley <https://github.com/mikehhawley>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/smoothie
@@ -40,6 +40,11 @@ declare module "smoothie"
          * Presentation options for TimeSeries are specified as an argument to <code>SmoothieChart.addTimeSeries</code>.
          */
         constructor(options?: ITimeSeriesOptions);
+
+        /**
+         * Clears all data and state from this TimeSeries object.
+         */
+        clear(): void;
 
         /**
          * Recalculate the min/max values for this <code>TimeSeries</code> object.

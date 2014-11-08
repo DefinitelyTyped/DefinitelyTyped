@@ -418,7 +418,8 @@ declare module L {
             on(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
             once(type: string, fn: (e: LeafletEvent) => void, context?: any): Layers;
             off(type: string, fn?: (e: LeafletEvent) => void, context?: any): Layers;
-            fire(type: string, data?: any): Layers; addEventListener(eventMap: any, context?: any): Layers;
+            fire(type: string, data?: any): Layers;
+            addEventListener(eventMap: any, context?: any): Layers;
             removeEventListener(eventMap?: any, context?: any): Layers;
             clearAllEventListeners(): Layers;
             on(eventMap: any, context?: any): Layers;
@@ -909,6 +910,11 @@ declare module L {
           * Changes styles of GeoJSON vector layers with the given style function.
           */
         setStyle(style: (featureData: any) => any): GeoJSON;
+        
+        /**
+          * Changes styles of GeoJSON vector layers with the given style options.
+          */
+        setStyle(style: PathOptions): GeoJSON;
     
         /**
           * Resets the the given vector layer's style to the original GeoJSON style,
@@ -2418,9 +2424,7 @@ declare module L {
           *
           * Default value: true.
           */
-        scrollWheelZoom?: any;
-        //scrollWheelZoom?: boolean;
-        //scrollWheelZoom?: string;
+        scrollWheelZoom?: boolean;
         
         /**
           * Whether the map can be zoomed in by double clicking on it and zoomed out
@@ -2430,9 +2434,7 @@ declare module L {
           *
           * Default value: true.
           */
-        doubleClickZoom?: string;
-        //doubleClickZoom?: boolean;
-        //doubleClickZoom?: string;
+        doubleClickZoom?: boolean;
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
@@ -3759,7 +3761,7 @@ declare module L {
 
     module TileLayer {
 
-        export class WMS {
+        export class WMS extends TileLayer {
 
             /**
               * Instantiates a WMS tile layer object given a base URL of the WMS service and
@@ -4056,7 +4058,7 @@ declare module L {
         /**
           * Trims the whitespace from both ends of the string and returns the result.
           */
-        static trim(str: string): boolean;
+        static trim(str: string): string;
 
         /**
           * Data URI string containing a base64-encoded empty GIF image. Used as a hack
@@ -4173,3 +4175,6 @@ declare var L_NO_TOUCH: boolean;
   */
 declare var L_DISABLE_3D: boolean;
  
+declare module "leaflet" {
+	export = L;
+}

@@ -31,6 +31,23 @@ interface AsyncQueue<T> {
     kill(): void;
 }
 
+interface AsyncPriorityQueue<T> {
+    length(): number;
+    concurrency: number;
+    started: boolean;
+    paused: boolean;
+    push(task: T, priority: number, callback?: AsyncMultipleResultsCallback<T>): void;
+    push(task: T[], priority: number, callback?: AsyncMultipleResultsCallback<T>): void;
+    saturated: () => any;
+    empty: () => any;
+    drain: () => any;
+    running(): number;
+    idle(): boolean;
+    pause(): void;
+    resume(): void;
+    kill(): void;
+}
+
 interface Async {
 
     // Collections
@@ -56,7 +73,7 @@ interface Async {
     some<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>): any;
     any<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: AsyncMultipleResultsCallback<T>): any;
     every<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: (result: boolean) => any): any;
-	all<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: (result: boolean) => any): any;
+    all<T>(arr: T[], iterator: AsyncIterator<T, boolean>, callback: (result: boolean) => any): any;
     concat<T, R>(arr: T[], iterator: AsyncIterator<T, R[]>, callback: AsyncMultipleResultsCallback<R>): any;
     concatSeries<T, R>(arr: T[], iterator: AsyncIterator<T, R[]>, callback: AsyncMultipleResultsCallback<R>): any;
 
@@ -72,6 +89,7 @@ interface Async {
     waterfall<T>(tasks: T[], callback?: AsyncMultipleResultsCallback<T>): void;
     waterfall<T>(tasks: T, callback?: AsyncMultipleResultsCallback<T>): void;
     queue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncQueue<T>;
+    priorityQueue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncPriorityQueue<T>;
     // auto(tasks: any[], callback?: AsyncMultipleResultsCallback<T>): void;
     auto(tasks: any, callback?: AsyncMultipleResultsCallback<any>): void;
     iterator(tasks: Function[]): Function;

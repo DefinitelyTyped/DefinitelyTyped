@@ -658,7 +658,7 @@ declare module "url" {
         host: string;
         pathname: string;
         search: string;
-        query: string;
+        query: any; // string | Object
         slashes: boolean;
         hash?: string;
         path?: string;
@@ -720,6 +720,9 @@ declare module "net" {
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
         address(): { port: number; family: string; address: string; };
+        unref(): void;
+		ref(): void;
+		
         remoteAddress: string;
         remotePort: number;
         bytesRead: number;
@@ -1076,15 +1079,19 @@ declare module "crypto" {
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     interface Cipher {
-        update(data: any, input_encoding?: string, output_encoding?: string): string;
-        final(output_encoding?: string): string;
+        update(data: Buffer): Buffer;
+        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        final(): Buffer;
+        final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     interface Decipher {
-        update(data: any, input_encoding?: string, output_encoding?: string): void;
-        final(output_encoding?: string): string;
+        update(data: Buffer): Buffer;
+        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        final(): Buffer;
+        final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;
@@ -1110,7 +1117,7 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: string) => any): void;
+    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
@@ -1120,6 +1127,10 @@ declare module "crypto" {
 
 declare module "stream" {
     import events = require("events");
+
+    export interface Stream extends events.EventEmitter {
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    }
 
     export interface ReadableOptions {
         highWaterMark?: number;
