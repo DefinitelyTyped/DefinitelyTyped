@@ -1,9 +1,9 @@
-// Type definitions for Angular JS 1.3 (ngRoute module)
+// Type definitions for Angular JS 1.2 (ngRoute module)
 // Project: http://angularjs.org
 // Definitions by: Jonathan Park <https://github.com/park9140>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
+/// <reference path="angular-1.2.d.ts" />
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -13,7 +13,7 @@ declare module ng.route {
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteParamsService
-    // see http://docs.angularjs.org/api/ngRoute.$routeParams
+    // see https://code.angularjs.org/1.2.26/docs/api/ngRoute/service/$routeParams
     ///////////////////////////////////////////////////////////////////////////
     interface IRouteParamsService {
         [key: string]: any;
@@ -21,11 +21,19 @@ declare module ng.route {
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteService
-    // see http://docs.angularjs.org/api/ngRoute.$route
-    // see http://docs.angularjs.org/api/ngRoute.$routeProvider
+    // see https://code.angularjs.org/1.2.26/docs/api/ngRoute/service/$route
+    // see https://code.angularjs.org/1.2.26/docs/api/ngRoute/provider/$routeProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IRouteService {
+        /**
+         * Causes $route service to reload the current route even if $location hasn't changed.
+         * As a result of that, ngView creates new scope, reinstantiates the controller.
+         */
         reload(): void;
+
+        /**
+         * Object with all route configuration Objects as its properties.
+         */
         routes: any;
 
         // May not always be available. For instance, current will not be available
@@ -35,7 +43,7 @@ declare module ng.route {
     
     
     /**
-     * see http://docs.angularjs.org/api/ngRoute/provider/$routeProvider#when for API documentation
+     * see https://code.angularjs.org/1.2.26/docs/api/ngRoute/provider/$routeProvider#when for API documentation
      */
     interface IRoute {
         /**
@@ -75,7 +83,7 @@ declare module ng.route {
          * - key - {string}: a name of a dependency to be injected into the controller.
          * - factory - {string|function}: If string then it is an alias for a service. Otherwise if function, then it is injected and the return value is treated as the dependency. If the result is a promise, it is resolved before its value is injected into the controller. Be aware that ngRoute.$routeParams will still refer to the previous route within these resolve functions. Use $route.current.params to access the new route parameters, instead.
          */
-	 resolve?: {[key: string]: any};
+         resolve?: {[key: string]: any};
         /**
          * {(string|function())=}
          * Value to update $location path with and trigger route redirection.
@@ -102,7 +110,7 @@ declare module ng.route {
         caseInsensitiveMatch?: boolean;
     }
 
-    // see http://docs.angularjs.org/api/ng.$route#current
+    // see https://code.angularjs.org/1.2.26/docs/api/ngRoute/service/$route#current
     interface ICurrentRoute extends IRoute {
         locals: {
             $scope: IScope;
