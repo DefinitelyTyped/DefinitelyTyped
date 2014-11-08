@@ -168,7 +168,7 @@ interface AngularFireAuthScope extends ng.IScope {
 }
 
 myapp.controller("MyAuthController", ["$scope", "$firebaseSimpleLogin",
-    function ($scope: AngularFireAuthScope, $firebaseSimpleLogin: AngularFireAuthService) {
+    function($scope: AngularFireAuthScope, $firebaseSimpleLogin: AngularFireAuthService) {
         var dataRef = new Firebase(url);
         $scope.loginObj = $firebaseSimpleLogin(dataRef);
         $scope.loginObj.$getCurrentUser().then(_ => {
@@ -178,9 +178,9 @@ myapp.controller("MyAuthController", ["$scope", "$firebaseSimpleLogin",
         $scope.loginObj.$login('password', {
             email: email,
             password: password
-        }).then(function (user) {
+        }).then(function(user) {
                 console.log('Logged in as: ', user.uid);
-            }, function (error) {
+            }, function(error) {
                 console.error('Login failed: ', error);
             });
         $scope.loginObj.$logout();
