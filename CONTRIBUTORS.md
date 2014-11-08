@@ -141,6 +141,7 @@ All definitions files include a header with the author and editors, so at some p
 * [HashMap](https://github.com/flesler/hashmap) (by [Rafał Wrzeszcz](https://wrzasq.pl))
 * [HashSet](http://www.timdown.co.uk/jshashtable/jshashset.html) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Hashtable](http://www.timdown.co.uk/jshashtable/) (by [Sergey Gerasimov](https://github.com/gerich-home))
+* [heatmap.js](https://github.com/pa7/heatmap.js/) (by [Yang Guan](https://github.com/lookuptable))
 * [HelloJS](http://adodson.com/hello.js) (by [Pavel Zika](https://github.com/PavelPZ))
 * [Highcharts](http://www.highcharts.com/) (by [damianog](https://github.com/damianog))
 * [Highland](http://highlandjs.org/) (by [Bart van der Schoor](https://github.com/Bartvds/))
