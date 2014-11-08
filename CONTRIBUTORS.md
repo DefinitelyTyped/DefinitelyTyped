@@ -7,6 +7,7 @@ All definitions files include a header with the author and editors, so at some p
 * [accounting.js](http://josscrowcroft.github.io/accounting.js/) (by [Sergey Gerasimov](https://github.com/gerich-home))
 * [Ace Cloud9 Editor](http://ace.ajax.org/) (by [Diullei Gomes](https://github.com/Diullei))
 * [Add To Home Screen](http://cubiq.org/add-to-home-screen) (by [James Wilkins](http://www.codeplex.com/site/users/view/jamesnw))
+* [adm-zip](https://github.com/cthackers/adm-zip) (by [John Vilk](https://github.com/jvilk/))
 * [AmCharts](http://www.amcharts.com/) (by [Covobonomo](https://github.com/covobonomo/))
 * [AngularAgility](https://github.com/AngularAgility/AngularAgility) (by [Roland Zwaga](https://github.com/rolandzwaga))
 * [AngularBootstrapLightbox](https://github.com/compact/angular-bootstrap-lightbox) (by [Roland Zwaga](https://github.com/rolandzwaga))
