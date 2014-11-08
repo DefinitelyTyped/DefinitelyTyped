@@ -111,7 +111,7 @@ import gui = require("nw.gui");
 
 /* MENU ITEM */
 
-    var itemc:nw.gui.MenuItem;
+    var itemc:gui.MenuItem;
 
     // Create a separator
     itemc = new gui.MenuItem({ type: 'separator' });
