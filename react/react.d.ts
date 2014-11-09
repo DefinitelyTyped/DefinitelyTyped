@@ -18,7 +18,7 @@ declare module React {
 
     export function createElement(type: string, props: SvgAttributes, ...children: any[]): ReactSVGElement;
 
-    export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
+    export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): Component<P, void>;
 
     export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
 
