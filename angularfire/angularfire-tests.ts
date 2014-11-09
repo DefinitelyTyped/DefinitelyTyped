@@ -3,52 +3,165 @@
 var myapp = angular.module("myapp", ["firebase"]);
 
 interface AngularFireScope extends ng.IScope {
-    items: AngularFire;
-    remoteItems: RemoteItems;
-}
-
-interface RemoteItems {
-    bar: string;
+    data: any;
 }
 
 var url = "https://myapp.firebaseio.com";
 
-myapp.controller("MyController", ["$scope", "$firebase",
-    function($scope: AngularFireScope, $firebase: AngularFireService) {
-        $scope.items = $firebase(new Firebase(url));
-        $scope.items.$add({ foo: "bar" });
-        $scope.items.$remove("foo");
-        $scope.items.$remove();
-        $scope.items.$save();
-        var child = $scope.items.$child("foo");
-        child.$remove();
-        $scope.items.$set({ bar: "baz" }); 
-        var keys = $scope.items.$getIndex();
-        keys.forEach(function(key, i) {
-            console.log(i, (<any>$scope.items)[key]);
-        });
-        $scope.items.$on("loaded", function() {
-            console.log("Initial data received!");
-        });
-        $scope.items.$on("change", function() {
-            console.log("A remote change was applied locally!");
-        });
-        $scope.items.$off('loaded');
-        function stopSync() {
-            $scope.items.$off();
+myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$FirebaseArray',
+    function ($scope: AngularFireScope, $firebase: AngularFireService, $FirebaseObject: AngularFireObjectService, $FirebaseArray: AngularFireArrayService) {
+        var ref = new Firebase(url);
+        var sync = $firebase(ref);
+
+        // AngularFire
+        {
+            sync.$asArray();
+            sync.$asObject();
+            sync.$ref();
+            sync.$remove();
+            sync.$push({ foo: "foo data" });
+            sync.$set("foo", 1);
+            sync.$set({ foo: 2 });
+            sync.$update({ foo: 3 });
+            sync.$update("foo", { bar: 1 });
+
+            // Increment the message count by 1
+            sync.$transaction('count', function (currentCount) {
+                if (!currentCount) return 1;   // Initial value for counter.
+                if (currentCount < 0) return;  // Return undefined to abort transaction.
+                return currentCount + 1;       // Increment the count by 1.
+            }).then(function (snapshot) {
+                    if (!snapshot) {
+                        // Handle aborted transaction.
+                    } else {
+                        // Do something.
+                        console.log(snapshot.val());
+                    }
+                }, function (err) {
+                    // Handle the error condition.
+                    console.log(err.stack);
+                });
         }
-        $scope.items.$bind($scope, "remoteItems");
-        $scope.remoteItems.bar = "foo";
-        $scope.items.$bind($scope, "remote").then(function(unbind) {
-            unbind();
-            $scope.remoteItems.bar = "foo";
-        });
+
+
+        // AngularFireObject
+        {
+            var obj = sync.$asObject();
+
+            // $id
+            if (obj.$id !== ref.name()) throw "error";
+
+            // $loaded()
+            obj.$loaded().then((data) => {
+                if (data !== obj) throw "error";
+                // $priority
+                obj.$priority;
+
+                // $value, $save()
+                obj.$value = "foobar";
+                obj.$save();
+            });
+
+            // $inst()
+            if (obj.$inst() !== sync) throw "error";
+
+            // $bindTo()
+            obj.$bindTo($scope, "data").then(function () {
+                console.log($scope.data);
+                $scope.data.foo = "baz";  // will be saved to Firebase
+                sync.$set({ foo: "baz" });   // this would update Firebase and $scope.data
+            });
+
+            // $watch()
+            var unwatch = obj.$watch(function () {
+                console.log("data changed!");
+            });
+            unwatch();
+
+            // $destroy()
+            obj.$destroy();
+
+            // $extendFactory()
+            var NewFactory = $FirebaseObject.$extendFactory({
+                getMyFavoriteColor: function () {
+                    return this.favoriteColor + ", no green!"; // obscure Monty Python reference
+                }
+            });
+            var customObj = $firebase(ref, { objectFactory: NewFactory }).$asObject();
+        }
+
+        // AngularFireArray
+        {
+            var list = sync.$asArray();
+
+            // $inst()
+            if (list.$inst() !== sync) throw "error";
+
+            // $add()
+            list.$add({ foo: "foo value" });
+
+            // $keyAt()
+            var key = list.$keyAt(0);
+
+            // $indexFor()
+            var index = list.$indexFor(key);
+
+            // $getRecord()
+            var item = list.$getRecord(key);
+
+            // $save()
+            item["bar"] = "bar value";
+            list.$save(item);
+
+            // $remove()
+            list.$remove(item);
+
+            // $loaded()
+            list.$loaded().then(data => {
+                if (data !== list) throw "error";
+            });
+
+            // $watch()
+            var unwatch = list.$watch((event, key, prevChild) => {
+                switch (event) {
+                    case "child_added":
+                        console.log(key + " added");
+                        break;
+                    case "child_changed":
+                        console.log(key + " changed");
+                        break;
+                    case "child_moved":
+                        console.log(key + " moved");
+                        break;
+                    case "child_removed":
+                        console.log(key + " removed");
+                        break;
+                    default:
+                        throw "error";
+                }
+            });
+            unwatch();
+
+            // $destroy()
+            list.$destroy();
+
+            // $extendFactory()
+            var ArrayWithSum = $FirebaseArray.$extendFactory({
+                sum: function () {
+                    var total = 0;
+                    angular.forEach(this.$list, function (rec) {
+                        total += rec.x;
+                    });
+                    return total;
+                }
+            });
+            var list = $firebase(ref, { arrayFactory: ArrayWithSum }).$asArray();
+            list.$loaded().then(function () {
+                console.log("List has " + (<any>list).sum() + " items");
+            });
+        }
     }
 ]);
-
-var foo: AngularFireObject = {
-    $priority: 0
-};
 
 interface AngularFireAuthScope extends ng.IScope {
     loginObj: AngularFireAuth;
