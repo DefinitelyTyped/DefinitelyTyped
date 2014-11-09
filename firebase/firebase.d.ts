@@ -86,7 +86,7 @@ interface IFirebaseOnDisconnect {
 	cancel(onComplete?: (error: any) => void): void;
 }
 
-declare class IFirebaseQuery {
+interface IFirebaseQuery {
 	/**
 	 * Listens for data changes at a particular location.
 	 */
@@ -148,11 +148,7 @@ declare class IFirebaseQuery {
 	ref(): Firebase;
 }
 
-declare class Firebase extends IFirebaseQuery {
-	/**
-	 * Constructs a new Firebase reference from a full Firebase URL.
-	 */
-	constructor(firebaseURL: string);
+interface Firebase extends IFirebaseQuery {
 	/**
 	 * @deprecated Use authWithCustomToken() instead.
 	 * Authenticates a Firebase client using the provided authentication token or Firebase Secret.
@@ -272,16 +268,22 @@ declare class Firebase extends IFirebaseQuery {
 	 */
 	resetPassword(credentials: { email: string }, onComplete: (error: any) => void): void;
 	onDisconnect(): IFirebaseOnDisconnect;
+}
+interface FirebaseStatic {
+	/**
+	 * Constructs a new Firebase reference from a full Firebase URL.
+	 */
+	new (firebaseURL: string): Firebase;
 	/**
 	 * Manually disconnects the Firebase client from the server and disables automatic reconnection.
 	 */
-	static goOffline(): void;
+	goOffline(): void;
 	/**
 	 * Manually reestablishes a connection to the Firebase server and enables automatic reconnection.
 	 */
-	static goOnline(): void;
+	goOnline(): void;
 
-	static ServerValue: {
+	ServerValue: {
 		/**
 		 * A placeholder value for auto-populating the current timestamp 
 		 * (time since the Unix epoch, in milliseconds) by the Firebase servers.
@@ -289,6 +291,7 @@ declare class Firebase extends IFirebaseQuery {
 		TIMESTAMP: any;
 	};
 }
+declare var Firebase: FirebaseStatic;
 
 // Reference: https://www.firebase.com/docs/web/api/firebase/getauth.html
 interface IFirebaseAuthData {
