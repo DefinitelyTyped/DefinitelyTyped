@@ -1316,12 +1316,12 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	off(type: string, selector: string, fn: (e: Event) => boolean): ZeptoCollection;
+	off(type: string, selector: string, fn: (e: Event) => any): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.off
 	**/
-	off(type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	off(type: string, fn: (e: Event) => any): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.off
@@ -1347,12 +1347,12 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	on(type: string, selector: string, fn: (e: Event) => boolean): ZeptoCollection;
+	on(type: string, selector: string, fn: (e: Event) => any): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.on
 	**/
-	on(type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	on(type: string, fn: (e: Event) => any): ZeptoCollection;
 	// todo: v0.9 will introduce string literals
 	//on(type: 'ajaxStart', fn: ZeptoAjaxStartEvent): ZeptoCollection;
 	//on(type: 'ajaxBeforeSend', fn: ZeptoAjaxBeforeSendEvent): ZeptoCollection;
@@ -1406,7 +1406,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	unbind(type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	unbind(type: string, fn: (e: Event) => any): ZeptoCollection;
 
 	/**
 	* Detach event handler added with delegate.
@@ -1416,7 +1416,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	undelegate(selector: string, type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	undelegate(selector: string, type: string, fn: (e: Event) => any): ZeptoCollection;
 
     focusin(): ZeptoCollection;
     focusin(fn: (e: Event) => any): ZeptoCollection;
