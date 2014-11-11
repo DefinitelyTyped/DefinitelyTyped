@@ -23,6 +23,7 @@ interface KnockoutObservableArrayFunctions<T> {
     splice(start: number, deleteCount: number, ...items: T[]): T[];
     pop(): T;
     push(...items: T[]): void;
+    push(items: T[]): void;
     shift(): T;
     unshift(...items: T[]): number;
     reverse(): T[];
