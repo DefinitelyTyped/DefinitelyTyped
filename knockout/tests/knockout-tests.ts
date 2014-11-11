@@ -120,6 +120,7 @@ function test_observableArrays() {
 
     myObservableArray.indexOf('Blah');
     myObservableArray.push('Some new value');
+    myObservableArray.push('Some new value', 'another value');
     myObservableArray.pop();
     myObservableArray.unshift('Some new value');
     myObservableArray.shift();
@@ -136,6 +137,10 @@ function test_observableArrays() {
     myObservableArray.destroyAll(['Chad', 132, undefined]);
     myObservableArray.destroyAll();
 
+    var myTypedObservableArray = ko.observableArray<string>();
+    myTypedObservableArray.push(['Some new value', 'another value']);
+    myTypedObservableArray.push('Some new value', 'another value');
+    
     ko.utils.arrayForEach(myObservableArray(), function (item) { });
 }
 
