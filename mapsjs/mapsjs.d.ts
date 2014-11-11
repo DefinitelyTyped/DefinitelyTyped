@@ -14,7 +14,7 @@ declare module mapsjs {
         pointKey: string;
         valueFunction?: (row: any) => number;
         radiusFunction: (row: any) => number;
-        aggregateFunction?: (srcRow: any, cmpRow: any, aggRow: any) => void;
+        aggregateFunction?: (srcRows: {}[]) => {};
         mapUnitsPerPixel: number;
         marginPixels?: number;
     }): {}[];
@@ -326,7 +326,7 @@ declare module mapsjs {
 		 * index of the point in the set, pt is the point object, and distance
 		 * is the distance of the point to the reference point in map units.
 		 */
-        findNearestVertex(pt: point): { setIdx: number; ptIdx: number; pt: point; distance: number; };
+        findNearestVertex(pt: point): nearestObject;
         
 		/**
 		 * Finds point along boundary of geometry nearest to the given point
@@ -338,7 +338,7 @@ declare module mapsjs {
 		 * index of the point in the set, pt is the point object, and distance
 		 * is the distance of the point to the reference point in map units.
 		 */
-		findNearestSegment(pt: point, close?: boolean): { setIdx: number; ptIdx: number; pt: point; distance: number; };
+		findNearestSegment(pt: point, close?: boolean): nearestObject;
         
 		/** 
 		 * Finds coordinates in map units of the midpoint of this geometry. If
@@ -684,6 +684,7 @@ declare module mapsjs {
 		 * @returns {string} The well known text for this point.
 		 */
         toString(): string;
+        toWkt(): string;
 		
 		/** 
 		 * Creates a deep copy of this point.
@@ -2202,7 +2203,8 @@ declare module mapsjs {
                 dataFormat?: string;
                 timeoutMs?: number;
                 maxAvailableZoomLevel?: number;
-                data: {}[];
+                preprocessor?: (any) => any;
+                data?: {}[];
             });
 			
 			/** 
@@ -2237,14 +2239,30 @@ declare module mapsjs {
 			 * Finds spatially the closest row to the specified point
 			 * @param {point} pt A test point to search from.
              * @param {Number} maxD A maximum distance by which features beyond are ignored.
-			 * the requestor source data.
 			 */
             findClosestRow(pt: point, maxD: number): {
                 Shape: any;
-                Data: {};
-                Values: any[];
+                Values: string[];
                 Bounds: envelope;
+                Data: {};
+                Fields: string[];
             };
+
+            /**
+             * Query data-rows by polygon.
+             * @param {polygon} poly A query polygon to search with.
+             */
+            queryByPolygon(poly: geometry.polygon): localFeatureData;
+
+            /**
+             * Query data-rows by attribute.
+             * @param {string[]} fields An array of field names to search.
+             * @param {string} val A string value to match against.
+             * @param {boolean} ignoreCase Set to true to perform case-insensitive search.
+             * @param {boolean} partial Set to true to perform partial-match search.
+             */
+            queryByAttribute(fields: string[], val: string, ignoreCase: boolean, partial: boolean): localFeatureData;
+
             
 			/** 
 			 * Returns your source data parsed into theformat { Shapes: [],
@@ -2254,12 +2272,7 @@ declare module mapsjs {
              * do a quick spatial check for complex polygons.
 			 * @returns {object} Parsed data object in the form {Shapes, Values, Bounds}.
 			 */
-            getParsedData(descriptor?: any): {
-                Shapes: any[];
-                Values: any[];
-                Bounds: envelope[];
-                Data: {}[];
-            };
+            getParsedData(descriptor?: any): localFeatureData;
         }
         
 		/**
@@ -2303,7 +2316,14 @@ declare module mapsjs {
 		 */
 		maxY: number;
     }
-   
+
+    interface nearestObject {
+        setIdx: number;
+        ptIdx: number;
+        pt: point;
+        distance: number;
+    }
+
     interface extentChangeStatsObj {
 
         centerX: number;
@@ -2349,7 +2369,7 @@ declare module mapsjs {
         dashArray?: string;
     }
 
-    interface mapsjsWidgetOptions {
+    interface WidgetOptions {
         mapCenter?: any;
         zoomLevel?: any;
         stopPointerEventPropagation?: boolean;
@@ -2361,9 +2381,23 @@ declare module mapsjs {
         contentRepositionAction?: (vals: repositionStatsObj) => void;
         pointerClickAction?: (pt: point) => void;
         pointerHoverAction?: (pt: point) => void;
-        mapInitializeLocationAction?: (map: mapsjsWidget, callback: (center: any) => void) => void;
-        mapInitializedAction?: (map: mapsjsWidget) => void;
+        mapInitializeLocationAction?: (map: JQuery, callback: (center: any) => void) => void;
+        mapInitializedAction?: (map: JQuery) => void;
         layers?: tile.layerOptions[]; 
+    }
+
+    interface featureServiceData {
+        Fields: string[];
+        Values: string[][];
+        ShapeWkt: string[];
+    }
+
+    interface localFeatureData {
+        Shapes: any[];
+        Values: string[][];
+        Bounds: envelope[];
+        Data: {}[];
+        Fields: string[];
     }
 
     interface mapsjsWidget {
@@ -2730,17 +2764,26 @@ declare module mapsjs {
         /**
          * Programmatically move a node on the currently digitizing path.
          * @param {point} pt The new location point for the specified node.
-         * @param {number} setIdx The index of the set from which to remove the node.
-         * @param {number} nodeIdx The index of the node to remove.
+         * @param {number} setIdx The index of the set from which to move the node.
+         * @param {number} nodeIdx The index of the node to move.
          */
         moveNodeOnDigitizePath(pt: point, setIdx: number, nodeIdx: number): void;
 
+        /**
+         * Programmatically insert a node or nodes on the currently digitizing path.
+         * @param {point} An array of points to insert.
+         * @param {number} setIdx The index of the set to insert the node.
+         * @param {number} nodeIdx The index to insert the node.
+         */
+        insertNodeOnDigitizePath(pt: point[], setIdx: number, nodeIdx: number): void;
+
 		/**
-		 * Programmatically delete a node from the currently digitizing path.
+		 * Programmatically delete a node or nodes from the currently digitizing path.
 		 * @param {number} setIdx The index of the set from which to remove the node.
 		 * @param {number} nodeIdx The index of the node to remove.
+         * @param {number} count An optional number of nodes to remove (defaults to 1)
 		 */
-		deleteNodeOnDigitizePath(setIdx: number, nodeIdx: number): void;
+		deleteNodeOnDigitizePath(setIdx: number, nodeIdx: number, count?: number): void;
         
 		/**
 		 * Determines whether a shape is currently being digitized.
@@ -2798,6 +2841,15 @@ declare module mapsjs {
 		* @param {number} b- a css color string
 		*/
 		setBackground(b: string): void;
+    }
+
+    export module utility {
+        /**
+         * Transforms standard MDN UX Feature Service results into an array of objects useful for a local requestor data
+         * @param {string} xml A MapDotNet XML string of the envelope.
+         * @returns {envelope} A new envelope 
+         */
+        export function mdnFeaturesToObjects(data: featureServiceData, fieldNames?: string[]): {}[];
     }
 }
 
