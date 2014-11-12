@@ -33,3 +33,5 @@ _infrastructure/tests/build
 !rx.js
 
 node_modules
+
+.sublimets
