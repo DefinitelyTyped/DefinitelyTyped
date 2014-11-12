@@ -15,7 +15,9 @@ declare module ng.cookies {
     // CookieService
     // see http://docs.angularjs.org/api/ngCookies.$cookies
     ///////////////////////////////////////////////////////////////////////////
-    interface ICookiesService {}
+    interface ICookiesService {
+        [index: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // CookieStoreService
