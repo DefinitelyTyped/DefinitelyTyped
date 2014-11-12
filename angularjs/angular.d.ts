@@ -531,19 +531,15 @@ declare module ng {
         $emit(name: string, ...args: any[]): IAngularEvent;
 
         $eval(): any;
-        $eval(expression: string): any;
-        $eval(expression: string, locals: Object): any;
-        $eval(expression: (scope: IScope) => any): any;
-        $eval(expression: (scope: IScope) => any, locals: Object): any;
+        $eval(expression: string, locals?: Object): any;
+        $eval(expression: (scope: IScope) => any, locals?: Object): any;
 
         $evalAsync(): void;
         $evalAsync(expression: string): void;
         $evalAsync(expression: (scope: IScope) => any): void;
 
         // Defaults to false by the implementation checking strategy
-        $new(): IScope;
-        $new(isolate: boolean): IScope;
-        $new(isolate: boolean, parent: IScope): IScope;
+        $new(isolate?: boolean, parent?: IScope): IScope;
 
         /**
          * Listens on events of a given type. See $emit for discussion of event life cycle.
@@ -625,9 +621,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        (func: Function): IPromise<any>;
-        (func: Function, delay: number): IPromise<any>;
-        (func: Function, delay: number, invokeApply: boolean): IPromise<any>;
+        (func: Function, delay?: number, invokeApply?: boolean): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
     }
 
@@ -636,9 +630,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$interval
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
-        (func: Function, delay: number): IPromise<any>;
-        (func: Function, delay: number, count: number): IPromise<any>;
-        (func: Function, delay: number, count: number, invokeApply: boolean): IPromise<any>;
+        (func: Function, delay?: number, count?: number, invokeApply?: boolean): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
     }
 
@@ -747,8 +739,8 @@ declare module ng {
     }
 
     interface ILogProvider {
-        debugEnabled(enabled: boolean): ILogProvider;
         debugEnabled(): boolean;
+        debugEnabled(enabled: boolean): ILogProvider;
     }
 
     // We define this as separete interface so we can reopen it later for
@@ -1070,8 +1062,7 @@ declare module ng {
         imgSrcSanitizationWhitelist(): RegExp;
         imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
 
-        debugInfoEnabled(): any;
-        debugInfoEnabled(enabled: boolean): any;
+        debugInfoEnabled(enabled?: boolean): any;
     }
 
     interface ICloneAttachFunction {
@@ -1320,10 +1311,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$interpolateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IInterpolateService {
-        (text: string): IInterpolationFunction;
-        (text: string, mustHaveExpression: boolean): IInterpolationFunction;
-        (text: string, mustHaveExpression: boolean, trustedContext: string): IInterpolationFunction;
-        (text: string, mustHaveExpression: boolean, trustedContext: string, allOrNothing: boolean): IInterpolationFunction;
+        (text: string, mustHaveExpression?: boolean, trustedContext?: string, allOrNothing?: boolean): IInterpolationFunction;
         endSymbol(): string;
         startSymbol(): string;
     }
@@ -1443,7 +1431,7 @@ declare module ng {
             instanceAttributes: IAttributes,
             controller: any,
             transclude: ITranscludeFunction
-            ): void;
+        ): void;
     }
 
     interface IDirectivePrePost {
@@ -1456,7 +1444,7 @@ declare module ng {
             templateElement: IAugmentedJQuery,
             templateAttributes: IAttributes,
             transclude: ITranscludeFunction
-            ): IDirectivePrePost;
+        ): IDirectivePrePost;
     }
 
     interface IDirective {
