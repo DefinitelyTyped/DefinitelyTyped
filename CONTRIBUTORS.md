@@ -1,4 +1,4 @@
-﻿# Contributors
+# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -280,6 +280,7 @@ All definitions files include a header with the author and editors, so at some p
 * [md5.js](http://labs.cybozu.co.jp/blog/mitsunari/2007/07/md5js_1.html) (by [MIZUNE Pine](https://github.com/pine613))
 * [Microsoft Ajax](http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx) (by [Patrick Magee](https://github.com/pjmagee))
 * [Microsoft Live Connect](http://msdn.microsoft.com/en-us/library/live/hh243643.aspx) (by [John Vilk](https://github.com/jvilk))
+* [minilog](http://mixu.net/minilog/index.html) (by [Guido Zuidhof](https://github.com/Rahazan))
 * [Minimatch](https://github.com/isaacs/minimatch) (by [vvakame](https://github.com/vvakame))
 * [minimist](https://github.com/substack/minimist) (by [Bart van der Schoor](https://github.com/Bartvds))
 * [Mithril](http://lhorie.github.io/mithril) (by [Leo Horie](https://github.com/lhorie) and [Chris Bowdon](https://github.com/cbowdon))
