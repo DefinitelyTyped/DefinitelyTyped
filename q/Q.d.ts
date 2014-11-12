@@ -248,43 +248,43 @@ declare module Q {
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
+    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>): Promise<U>;
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected?: (reason: any) => U): Promise<U>;
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
+    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected?: (reason: any) => IPromise<U>): Promise<U>;
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected?: (reason: any) => U): Promise<U>;
     
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>): Promise<U>;
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected?: (reason: any) => U): Promise<U>;
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected?: (reason: any) => IPromise<U>): Promise<U>;
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected?: (reason: any) => U): Promise<U>;
     
     /**
      * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".

@@ -279,7 +279,7 @@ declare module Hapi {
 
 	export class Server {
 		app: any;
-		methods: Array<() => void>;
+		methods: any;
 		info: {
 			port: number;
 			host?: string;
@@ -336,7 +336,7 @@ declare module Hapi {
 		};
 		ext(event: any, method: string, options?: any): void;
 		method(method: Array<{name: string; fn: () => void; options: any}>): void;
-		method(name: string, fn: () => void, options: any): void;
+		method(name: string, fn: Function, options: any): void;
 		inject(options: any, callback: any): void;
 		handler(name: string, method: (name: string, options: any) => void): void;
 	}
