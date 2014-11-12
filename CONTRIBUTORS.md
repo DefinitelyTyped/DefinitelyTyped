@@ -1,4 +1,4 @@
-# Contributors
+﻿# Contributors
 
 This is a non-exhaustive list of definitions and their creators. If you created a definition but are not listed then feel free to send a pull request on this file with your name and url.
 
@@ -270,6 +270,7 @@ All definitions files include a header with the author and editors, so at some p
 * [Lodash](http://lodash.com/) (by [Brian Zengel](https://github.com/bczengel))
 * [Logg](https://github.com/dpup/node-logg) (by [Bret Little](https://github.com/blittle))
 * [Long.js](https://github.com/dcodeIO/Long.js) (by [Toshihide Hara](https://github.com/kerug))
+* [lscache](https://github.com/pamelafox/lscache) (by [Chris Martinez](https://github.com/Chris-Martinezz))
 * [lz-string](https://github.com/pieroxy/lz-string) (by [Roman Nikitin](https://github.com/M0ns1gn0r))
 * [Mapbox](https://github.com/mapbox/mapbox.js/) (by [Maxime Fabre](https://github.com/anahkiasen))
 * [Marked](https://github.com/chjj/marked) (by [William Orr](https://github.com/worr))
