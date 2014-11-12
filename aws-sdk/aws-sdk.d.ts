@@ -31,19 +31,7 @@ declare module "aws-sdk" {
 		xhrWithCredentials?: boolean;
 	}
 
-	export interface ClientConfigPartial {
-		credentials?: Credentials;
-		region?: string;
-		computeChecksums?: boolean;
-		convertResponseTypes?: boolean;
-		logger?: Logger;
-		maxRedirects?: number;
-		maxRetries?: number;
-		paramValidation?: boolean;
-		s3ForcePathStyle?: boolean;
-		signatureVersion?: string;
-		sslEnabled?: boolean;
-		systemClockOffset?: number;
+	export interface Services {
 		autoscaling?: any;
 		cloudformation?: any;
 		cloudfront?: any;
@@ -82,6 +70,23 @@ declare module "aws-sdk" {
 		sts?: any;
 		support?: any;
 		swf?: any;
+	}
+
+	export interface ClientConfigPartial extends Services {
+		credentials?: Credentials;
+		region?: string;
+		computeChecksums?: boolean;
+		convertResponseTypes?: boolean;
+		logger?: Logger;
+		maxRedirects?: number;
+		maxRetries?: number;
+		paramValidation?: boolean;
+		s3ForcePathStyle?: boolean;
+		apiVersion?: any;
+		apiVersions?: Services;
+		signatureVersion?: string;
+		sslEnabled?: boolean;
+		systemClockOffset?: number;
 	}
 
 	export interface ClientConfig extends ClientConfigPartial {
