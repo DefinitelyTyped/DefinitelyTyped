@@ -6,7 +6,7 @@
 /// <reference path="./three.d.ts" />
 
 declare module THREE {
-    class TrackballControls {
+    class TrackballControls extends EventDispatcher {
         constructor(object:Camera, domElement?:HTMLElement);
 
         object:Camera;
