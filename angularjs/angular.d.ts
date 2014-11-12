@@ -630,7 +630,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$interval
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
-        (func: Function, delay?: number, count?: number, invokeApply?: boolean): IPromise<any>;
+        (func: Function, delay: number, count?: number, invokeApply?: boolean): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
     }
 
