@@ -113,21 +113,27 @@ React.addons.TestUtils.Simulate.click(node);
 React.addons.TestUtils.Simulate.change(node);
 React.addons.TestUtils.Simulate.keyDown(node, {key: "Enter"});
 
-var GoodbyeMessage = React.createClass({displayName: 'GoodbyeMessage',
+var Greeting = React.createClass({displayName: 'Greeting',
+    getInitialState: function() {
+        return {morning: true};
+    },
     render: function() {
-        return React.DOM.div(null, "Goodbye ", (<React.Component<{name: string}, any>>this).props.name);
+        var me = <React.Component<{name: string}, {morning: boolean}>>this;
+        return React.DOM.div(null, (me.state.morning ? "Hello" : "Goodbye "), me.props.name);
     }
 });
-React.addons.TestUtils.renderIntoDocument(GoodbyeMessage({name: "John"}));
+
+var root = React.addons.TestUtils.renderIntoDocument(Greeting({name: "John"}));
+var greeting = React.addons.TestUtils.findRenderedComponentWithType(root, Greeting);
+greeting.setState({
+    morning: false
+});
 
 var isImportant: boolean;
 var isRead: boolean;
 var cx = React.addons.classSet;
-var classes = cx({
+var classes: string = cx({
     'message': true,
     'message-important': isImportant,
     'message-read': isRead
 });
-
-
-

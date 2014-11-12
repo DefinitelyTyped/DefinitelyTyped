@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.2+ (ngAnimate module)
+// Type definitions for Angular JS 1.3 (ngAnimate module)
 // Project: http://angularjs.org
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

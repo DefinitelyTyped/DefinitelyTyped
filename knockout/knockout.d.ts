@@ -1,6 +1,6 @@
 // Type definitions for Knockout v3.2.0-beta
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -38,6 +38,7 @@ interface KnockoutObservableArrayFunctions<T> {
     removeAll(): T[];
 
     destroy(item: T): void;
+    destroy(destroyFunction: (item: T) => boolean): void;
     destroyAll(items: T[]): void;
     destroyAll(): void;
 }
