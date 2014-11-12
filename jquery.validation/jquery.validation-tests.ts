@@ -227,4 +227,6 @@ function test_methods() {
             maxlength: 5
         }
     });
+    var invalidElements: HTMLElement[] = validator.invalidElements();
+    var validElements: HTMLElement[] = validator.validElements();
 }
