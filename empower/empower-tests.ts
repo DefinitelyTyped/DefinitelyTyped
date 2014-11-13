@@ -1,13 +1,13 @@
 /// <reference path="./empower.d.ts" />
 
-var baseAssert: any;
-var fakeFormatter: any;
+var baseAssert:any;
+var fakeFormatter:any;
 
 ()=> {
     var assert = empower(baseAssert, fakeFormatter);
 };
 
-var option: empower.Options = {
+var option:empower.Options = {
     modifyMessageOnRethrow: false,
     saveContextOnRethrow: false
 };
