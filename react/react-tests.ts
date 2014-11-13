@@ -104,4 +104,4 @@ var Timer = React.createClass({displayName: 'Timer',
     }
 });
 
-React.render(Timer(null), mountNode);
+React.render(Timer(), mountNode);
