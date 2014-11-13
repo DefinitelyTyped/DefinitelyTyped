@@ -117,6 +117,11 @@ declare module React {
 
     export interface DomReferencer {
         getDOMNode(): Element;
+        /**
+        * Use this overload to cast the returned element to a more specific type.
+        * Eg: var name = this.refs['name'].getDOMNode<HTMLInputElement>().value
+        */
+        getDOMNode<TElement extends Element>(): TElement;
     }
 
     export interface Component<P, S> extends DomReferencer {
