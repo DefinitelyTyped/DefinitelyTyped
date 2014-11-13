@@ -423,6 +423,7 @@ All definitions files include a header with the author and editors, so at some p
 * [urlrouter](https://github.com/fengmk2/urlrouter) (by [Carlos Ballesteros Velasco](https://github.com/soywiz))
 * [UUID.js](https://github.com/LiosK/UUID.js) (by [Jason Jarrett](https://github.com/staxmanade))
 * [Valerie](https://github.com/davewatts/valerie) (by [Howard Richards](https://github.com/conficient))
+* [validator](https://github.com/chriso/validator.js) (by [tgfjt](https://github.com/tgfjt))
 * [Velocity](http://velocityjs.org/) (by [Greg Smith](https://github.com/smrq))
 * [Viewporter](https://github.com/zynga/viewporter) (by [Boris Yankov](https://github.com/borisyankov))
 * [Vimeo](http://developer.vimeo.com/player/js-api) (by [Daz Wilkin](https://github.com/DazWilkin/))
