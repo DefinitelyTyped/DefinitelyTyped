@@ -167,19 +167,19 @@ module v1Changes {
 
         function test_listenTo() {
             var model = new Employee;
-            var view = new Backbone.View<Employee>();
+            var view = new Backbone.View<Employee, Backbone.Collection<Backbone.Model>>();
             view.listenTo(model, 'invalid', () => { });
         }
 
         function test_listenToOnce() {
             var model = new Employee;
-            var view = new Backbone.View<Employee>();
+            var view = new Backbone.View<Employee, Backbone.Collection<Backbone.Model>>();
             view.listenToOnce(model, 'invalid', () => { });
         }
 
         function test_stopListening() {
             var model = new Employee;
-            var view = new Backbone.View<Employee>();
+            var view = new Backbone.View<Employee, Backbone.Collection<Backbone.Model>>();
             view.stopListening(model, 'invalid', () => { });
             view.stopListening(model, 'invalid');
             view.stopListening(model);

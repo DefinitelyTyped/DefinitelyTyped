@@ -1,6 +1,6 @@
 // Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>, Germain Bergeron <https://github.com/germainbergeron/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -175,13 +175,15 @@ declare module Backbone {
         models: TModel[];
         length: number;
 
+        constructor(models: any[], options?: any);
         constructor(models?: TModel[], options?: any);
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
-        comparator(element: TModel): number;
+        comparator(element: TModel): any;
         comparator(compare: TModel, to?: TModel): number;
 
+        add(attrs: any, options?: AddOptions): Collection<TModel>;
         add(model: TModel, options?: AddOptions): Collection<TModel>;
         add(models: TModel[], options?: AddOptions): Collection<TModel>;
         at(index: number): TModel;
@@ -309,9 +311,9 @@ declare module Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model> {
+    interface ViewOptions<TModel extends Model, TCollection extends Collection<Model>> {
         model?: TModel;
-        collection?: Backbone.Collection<TModel>;
+        collection?: TCollection;
         el?: any;
         id?: string;
         className?: string;
@@ -319,14 +321,19 @@ declare module Backbone {
         attributes?: any[];
     }
 
-    class View<TModel extends Model> extends Events {
+    /*
+    * TypeScript doesn't support implicit generics see https://github.com/Microsoft/TypeScript/issues/209
+    **/
+    //class View extends View<Model, Collection> {}
+    //class View<TModel extends Model> extends View<TModel, Backbone.Collection> {}
+    class View<TModel extends Model, TCollection extends Collection<Model>> extends Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
         private static extend(properties: any, classProperties?: any): any;
 
-        constructor(options?: ViewOptions<TModel>);
+        constructor(options?: ViewOptions<TModel, TCollection>);
 
         /**
         * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
@@ -337,10 +344,10 @@ declare module Backbone {
 
         $(selector: string): JQuery;
         model: TModel;
-        collection: Collection<TModel>;
+        collection: TCollection;
         //template: (json, options?) => string;
-        setElement(element: HTMLElement, delegate?: boolean): View<TModel>;
-        setElement(element: JQuery, delegate?: boolean): View<TModel>;
+        setElement(element: HTMLElement, delegate?: boolean): View<TModel, TCollection>;
+        setElement(element: JQuery, delegate?: boolean): View<TModel, TCollection>;
         id: string;
         cid: string;
         className: string;
@@ -348,11 +355,11 @@ declare module Backbone {
 
         el: any;
         $el: JQuery;
-        setElement(element: any): View<TModel>;
+        setElement(element: any): View<TModel, TCollection>;
         attributes: any;
         $(selector: any): JQuery;
-        render(): View<TModel>;
-        remove(): View<TModel>;
+        render(): View<TModel, TCollection>;
+        remove(): View<TModel, TCollection>;
         make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: any): any;
         undelegateEvents(): any;
