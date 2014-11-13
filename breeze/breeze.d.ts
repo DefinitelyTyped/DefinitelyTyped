@@ -525,7 +525,7 @@ declare module breeze {
         where(property: string, operator: string, value: any): EntityQuery;
         where(property: string, operator: FilterQueryOpSymbol, value: any): EntityQuery;
         where(predicate: FilterQueryOpSymbol): EntityQuery;
-        where(property: string, filterop: FilterQueryOpSymbol, property2: string, filterop2: FilterQueryOpSymbol,value:any
+        where(property: string, filterop: FilterQueryOpSymbol, property2: string, filterop2: FilterQueryOpSymbol,value:any): EntityQuery;
         withParameters(params: Object): EntityQuery;
     }
 
