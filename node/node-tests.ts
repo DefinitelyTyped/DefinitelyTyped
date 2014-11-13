@@ -91,6 +91,7 @@ function stream_readable_pipe_test() {
     var z = zlib.createGzip();
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
+    r.close();
 }
 
 ////////////////////////////////////////////////////
