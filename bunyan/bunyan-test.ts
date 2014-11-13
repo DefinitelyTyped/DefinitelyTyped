@@ -96,7 +96,7 @@ log.fatal(error);
 log.fatal(object);
 log.fatal('Hello, %s', 'world!');
 
-var recursive = {
+var recursive: any = {
     hello: 'world',
     whats: {
         huh: recursive
