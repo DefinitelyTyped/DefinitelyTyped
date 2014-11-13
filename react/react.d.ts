@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
-export = React;
+    export = React;
 }
 
 declare module React {
@@ -50,11 +50,11 @@ declare module React {
 
 
     export interface ReactComponentFactory<P> {
-        (properties: P, ...children: any[]): ReactComponentElement<P>;
+        (properties?: P, ...children: any[]): ReactComponentElement<P>;
     }
 
     export interface ReactElementFactory<P> {
-        (properties: P, ...children: any[]): ReactDOMElement<P>;
+        (properties?: P, ...children: any[]): ReactDOMElement<P>;
     }
 
     export interface DomElement extends ReactElementFactory<DomAttributes> {
