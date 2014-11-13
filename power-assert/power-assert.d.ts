@@ -5,6 +5,9 @@
 
 // copy from assert external module in node.d.ts
 
+/// <reference path="../empower/empower.d.ts" />
+/// <reference path="../power-assert-formatter/power-assert-formatter.d.ts" />
+
 declare function assert(value:any, message?:string):void;
 declare module assert {
     export class AssertionError implements Error {
@@ -49,6 +52,13 @@ declare module assert {
     };
 
     export function ifError(value:any):void;
+
+    export interface Options {
+        assertion?: empower.Options;
+        output?: powerAssertFormatter.Options;
+    }
+
+    export function customize(options:Options):typeof assert;
 }
 
 declare module "power-assert" {
