@@ -1,5 +1,4 @@
-// Type definitions for assert and power-assert
-// Project: https://github.com/Jxck/assert
+// Type definitions for power-assert
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -52,12 +51,6 @@ declare module assert {
     export function ifError(value:any):void;
 }
 
-// duplicate to node.d.ts
-// declare module "assert" {
-//     export = assert;
-// }
-
-// move to power-assert.d.ts. do not use this definition file.
 declare module "power-assert" {
     export = assert;
 }
