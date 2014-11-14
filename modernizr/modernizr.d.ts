@@ -75,7 +75,7 @@ interface ModernizrStatic {
     history: boolean;
     audio: Audioboolean;
     video: Videoboolean;
-    indexedDB: boolean;
+    indexeddb: boolean;
     input: Inputboolean;
     inputtypes: InputTypesboolean;
     localstorage: boolean;

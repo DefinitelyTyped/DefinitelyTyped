@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.9
+// Type definitions for jQuery UI Layout Plug-in
 // Project: http://layout.jquery-dev.net/
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

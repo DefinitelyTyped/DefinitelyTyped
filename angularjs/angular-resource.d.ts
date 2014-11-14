@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.2 (ngResource module)
+// Type definitions for Angular JS 1.3 (ngResource module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
@@ -11,6 +11,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 declare module ng.resource {
 
+    /**
+     * Currently supported options for the $resource factory options argument.
+     */
+    interface IResourceOptions {
+        /**
+         * If true then the trailing slashes from any calculated URL will be stripped (defaults to true)
+         */
+        stripTrailingSlashes?: boolean;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
     // see http://docs.angularjs.org/api/ngResource.$resource
@@ -20,17 +30,17 @@ declare module ng.resource {
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
         (url: string, paramDefaults?: any,
-                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                  where deleteDescriptor : IActionDescriptor */
-                                 actionDescriptors?: any): IResourceClass<IResource<any>>;
+            /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+             where deleteDescriptor : IActionDescriptor */
+            actions?: any, options?: IResourceOptions): IResourceClass<IResource<any>>;
         <T, U>(url: string, paramDefaults?: any,
-                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                  where deleteDescriptor : IActionDescriptor */
-                                 actionDescriptors?: any): U;
+            /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+             where deleteDescriptor : IActionDescriptor */
+            actions?: any, options?: IResourceOptions): U;
         <T>(url: string, paramDefaults?: any,
-                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                                  where deleteDescriptor : IActionDescriptor */
-                                 actionDescriptors?: any): IResourceClass<T>;
+            /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+             where deleteDescriptor : IActionDescriptor */
+            actions?: any, options?: IResourceOptions): IResourceClass<T>;
     }
 
     // Just a reference to facilitate describing new actions
