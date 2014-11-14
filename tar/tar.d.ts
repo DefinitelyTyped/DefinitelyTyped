@@ -2,13 +2,14 @@
 // Project: https://github.com/npm/node-tar
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TODO: When/if typings for [fstream](https://github.com/npm/fstream) are written, refactor this typing to use it for the various streams.
 
 /// <reference path="../node/node.d.ts" />
 
 declare module "tar" {
     import stream = require("stream");
 
-    //#region Interfaces
+    // #region Interfaces
 
     export interface HeaderProperties {
         path?: string;
@@ -64,9 +65,9 @@ declare module "tar" {
     export interface ExtractStream extends ParseStream {
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Enums
+    // #region Enums
 
     export var fields: {
         path: number;
@@ -198,11 +199,31 @@ declare module "tar" {
 
     //#region Global Methods
 
+    /**
+     * Returns a writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
+     */
     export function Parse(): ParseStream;
-
-    export function Pack(props: HeaderProperties): PackStream;
-
+    /**
+     * Returns a through stream. Use fstream to write files into the pack stream and you will receive tar archive data from the pack stream.
+     * This only works with directories, it does not work with individual files.
+     * The optional properties object are used to set properties in the tar 'Global Extended Header'.
+     */
+    export function Pack(props?: HeaderProperties): PackStream;
+    /**
+     * Returns a through stream. Write tar data to the stream and the files in the tarball will be extracted onto the filesystem.
+     */
     export function Extract(path: string): ExtractStream;
+    /**
+     * Returns a through stream. Write tar data to the stream and the files in the tarball will be extracted onto the filesystem.
+     * options can be:
+     * ```
+     * {
+     *   path: '/path/to/extract/tar/into',
+     *   strip: 0, // how many path segments to strip from the root when extracting
+     * }
+     * ```
+     * options also get passed to the fstream.Writer instance that tar uses internally.
+     */
     export function Extract(opts: ExtractOptions): ExtractStream;
 
     //#endregion
