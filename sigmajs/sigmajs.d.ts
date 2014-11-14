@@ -96,6 +96,14 @@ declare module SigmaJs{
         kill(): void;
         refresh(): void;
         renderers: Renderer[];
+
+        // forceAtlas2 layout
+        configForceAtlas2(configs: { [key: string]: any }): void;
+        isForceAtlas2Running(): boolean;
+        killForceAtlas2(): void;
+        startForceAtlas2(): void;
+        startForceAtlas2(configs: { [key: string]: any }): void;
+        stopForceAtlas2(): void;
     }
 
     interface SigmaConfigs {
