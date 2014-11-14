@@ -35,6 +35,8 @@ interface Duration {
 
     humanize(withSuffix?: boolean): string;
 
+    as(units: string): number;
+
     milliseconds(): number;
     asMilliseconds(): number;
 
@@ -55,6 +57,10 @@ interface Duration {
 
     years(): number;
     asYears(): number;
+
+    add(n: number, p: string): Duration;
+    add(n: number): Duration;
+    add(d: Duration): Duration;
 
     subtract(n: number, p: string): Duration;
     subtract(n: number): Duration;
