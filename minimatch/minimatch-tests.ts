@@ -13,3 +13,7 @@ var f = ["test.ts"];
 mm.match(f, pattern, options);
 
 mm.filter('foo')('bar');
+
+var s: string = "hello";
+var b: boolean = mm(s, pattern, options);
+var b: boolean = mm(s, pattern);
