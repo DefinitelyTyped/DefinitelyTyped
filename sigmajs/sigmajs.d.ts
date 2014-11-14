@@ -28,9 +28,18 @@ declare module SigmaJs{
         target: string;
     }
 
+    interface JsonParser {
+        (target: string, sigma: Sigma, callback: (graph: Sigma) => void): void;
+    }
+
+    interface GexfParser {
+        (target: string, sigma: Sigma, callback: (graph: Sigma) => void): void;
+    }
+
     interface Graph {
         addEdge(edge: Edge): Graph;
         addNode(node: Node): Graph;
+        addMethod(name: string, method: (input: any) => any): void;
         clear(): Graph;
         degree(id: string): number;
         degree(id: string, type: string): number;
@@ -56,6 +65,11 @@ declare module SigmaJs{
         y?: number;
     }
 
+    interface Parsers {
+        gexf: GexfParser;
+        json: JsonParser;
+    }
+
     interface Plugins {
         dragNodes: DragNodes;
     }
@@ -75,6 +89,7 @@ declare module SigmaJs{
     interface Sigma {
         addRenderer(): Renderer;
         addRenderer(configs: RendererConfigs): Renderer;
+        bind(event: string, callback: (e: any) => void): void;
         graph: Graph;
         killRenderer(renderer: string): Sigma;
         killRenderer(renderer: Renderer): Sigma;
@@ -99,6 +114,7 @@ declare module SigmaJs{
         new(configuration: SigmaConfigs): Sigma;
         classes:Classes;
         plugins: Plugins;
+        parsers: Parsers;
     }
 
     interface Settings {
