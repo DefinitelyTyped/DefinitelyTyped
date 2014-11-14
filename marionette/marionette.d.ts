@@ -213,7 +213,7 @@ declare module Marionette {
 
         modelEvents: any;
         collectionEvents: any;
-        ui: any;
+        ui(): any;
 
         getTemplate(): any;
         mixinTemplateHelpers(target?: any): any;
@@ -232,7 +232,7 @@ declare module Marionette {
 
         constructor(options?: any);
 
-        ui: any;
+        ui(): any;
 
         serializeData(): any;
         render(): ItemView<TModel>;
