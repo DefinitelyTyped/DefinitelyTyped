@@ -276,6 +276,37 @@ declare module Xrm
     export module Page
     {
         /**
+         * Enumeration of entity form states/types.
+         */
+        export enum FormType
+        {
+            Undefined = 0,
+            Create = 1,
+            Update = 2,
+            ReadOnly = 3,
+            Disabled = 4,
+            BulkEdit = 6
+        }
+
+        /**
+         * Enumeration of entity form save modes.
+         */
+        export enum SaveMode
+        {
+            Save = 1,
+            SaveAndClose = 2,
+            SaveAndNew = 59,
+            AutoSave = 70,
+            SaveAsCompleted = 58,
+            Deactivate = 5,
+            Reactivate = 6,
+            Assign = 47,
+            Send = 7,
+            Qualify = 16,
+            Disqualify = 15
+        }
+
+        /**
          * Interface for the event context.
          */
         export interface EventContext
@@ -989,7 +1020,7 @@ declare module Xrm
              *                               16     Qualify (Lead)
              *                               15     Disqualify (Lead)
              */
-            getSaveMode(): number;
+            getSaveMode(): SaveMode;
 
             /**
              * Returns a boolean value to indicate if the record's save has been prevented.
@@ -1522,7 +1553,7 @@ declare module Xrm
              *                                   6  Bulk Edit
              *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
              */
-            getFormType(): number;
+            getFormType(): FormType;
 
             /**
              * Gets view port height.
@@ -1760,6 +1791,15 @@ declare module Xrm
     export module Url
     {
         /**
+         * An enumeration for view types.
+         */
+        export enum ViewType
+        {
+            SystemView = 1039,
+            UserView = 4230
+        }
+
+        /**
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format: 
          * "&key=value".
@@ -1831,7 +1871,7 @@ declare module Xrm
              * @remarks  Accepted values are:    1039    System View
              *                                   4230    User View.
              */
-            viewtype: number;
+            viewtype: ViewType;
 
             /**
              * Controls whether the command bar is displayed.
