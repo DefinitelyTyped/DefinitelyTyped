@@ -14,6 +14,10 @@ module SigmaJsTests {
         container: container
     });
 
+    s.bind('clickNode', (e) => {
+        s.refresh();
+    });
+
     var N = 100;
     var E = 500;
     // Generate a random graph:
@@ -41,4 +45,12 @@ module SigmaJsTests {
     sigma.plugins.dragNodes(s, s.renderers[0]);
     s.renderers[0].resize();
     s.refresh();
+
+    sigma.parsers.json('myGraph.json', s, () => {
+        s.refresh();
+    });
+
+    sigma.parsers.gexf('myGraph.gexf', s, () => {
+        s.refresh();
+    });
 }
