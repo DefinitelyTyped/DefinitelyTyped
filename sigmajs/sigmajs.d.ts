@@ -66,8 +66,8 @@ declare module SigmaJs{
     }
 
     interface Parsers {
-        gexf: GexfParser;
         json: JsonParser;
+        gexf: GexfParser;
     }
 
     interface Plugins {
@@ -113,8 +113,8 @@ declare module SigmaJs{
         new(container: Element): Sigma;
         new(configuration: SigmaConfigs): Sigma;
         classes:Classes;
-        plugins: Plugins;
         parsers: Parsers;
+        plugins: Plugins;
     }
 
     interface Settings {
