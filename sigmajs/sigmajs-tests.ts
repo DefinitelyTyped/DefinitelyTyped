@@ -53,4 +53,13 @@ module SigmaJsTests {
     sigma.parsers.gexf('myGraph.gexf', s, () => {
         s.refresh();
     });
+
+    s.configForceAtlas2({
+        worker: true
+    });
+
+    s.isForceAtlas2Running();
+    s.killForceAtlas2();
+    s.startForceAtlas2();
+    s.stopForceAtlas2();
 }
