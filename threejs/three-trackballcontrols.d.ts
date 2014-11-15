@@ -1,4 +1,4 @@
-// Type definitions for TrackballControls.js
+// Type definitions for three.js (TrackballControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/TrackballControls.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
