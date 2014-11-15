@@ -8410,11 +8410,11 @@ declare module SP.WorkflowServices {
         /** RestrictToScope is a GUID value, used in conjunction with the RestrictToType property to further restrict the scope of the definition.
             For example, if the RestrictToType is "List", then setting the RestrictToScope to a particular list identifier limits the definition to be associable only to the specified list.
             If the RestrictToType is "List" but the RestrictToScope is null or the empty string, then the definition is associable to any list. */
-        get_restrictScope(): string;
+        get_restrictToScope(): string;
         /** RestrictToScope is a GUID value, used in conjunction with the RestrictToType property to further restrict the scope of the definition.
             For example, if the RestrictToType is "List", then setting the RestrictToScope to a particular list identifier limits the definition to be associable only to the specified list.
             If the RestrictToType is "List" but the RestrictToScope is null or the empty string, then the definition is associable to any list. */
-        set_restrictScope(value: string): string;
+        set_restrictToScope(value: string): string;
         /** RestrictToType determines the possible event source type for a workflow subscription that uses this definition.
             Possible values include "List", "Site", the empty string, or null.  */
         get_restrictToType(): string;
