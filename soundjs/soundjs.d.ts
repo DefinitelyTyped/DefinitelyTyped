@@ -1,4 +1,4 @@
-// Type definitions for SoundJS 0.5.2
+// Type definitions for CreateJS (SoundJS 0.5.2)
 // Project: http://www.createjs.com/#!/SoundJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

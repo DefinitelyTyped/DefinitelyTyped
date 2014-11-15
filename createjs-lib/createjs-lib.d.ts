@@ -1,4 +1,4 @@
-// Type definitions for CreateJS
+// Type definitions for CreateJS (common library)
 // Project: http://www.createjs.com/
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
