@@ -7241,7 +7241,7 @@ declare module SP {
         }
 
         export class Status {
-            static addStatus(strTitle: string, strHtml: string, atBegining: boolean): string;
+            static addStatus(strTitle: string, strHtml?: string, atBegining?: boolean): string;
             static appendStatus(sid: string, strTitle: string, strHtml: string): string;
             static updateStatus(sid: string, strHtml: string): void;
             static setStatusPriColor(sid: string, strColor: string): void;
