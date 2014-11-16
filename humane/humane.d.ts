@@ -1,7 +1,7 @@
 // Type definitions for Humane 3.0
 // Project: http://wavded.github.com/humane-js/
 // Definitions by: jmvrbanac <https://github.com/jmvrbanac>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface HumaneOptions {

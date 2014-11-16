@@ -8,7 +8,7 @@ var bool:boolean;
 var num:number;
 var x:any;
 var path:string;
-var buffer:NodeBuffer;
+var buffer:Buffer;
 var str:string;
 var strArr:string[];
 var source:string;
@@ -22,7 +22,7 @@ var anyQ:Q.Promise<any>;
 var strQ:Q.Promise<string>;
 var boolQ:Q.Promise<boolean>;
 var dateQ:Q.Promise<Date>;
-var bufferQ:Q.Promise<NodeBuffer>;
+var bufferQ:Q.Promise<Buffer>;
 
 var statsQ:Q.Promise<QioFS.Stats>;
 var readQ:Q.Promise<Qio.Reader>;
@@ -39,12 +39,12 @@ fs.open(path, options).then((x) => {
 });
 //fs.open(path, options):Q.Promise<Qio.Reader>;
 //fs.open(path, options):Q.Promise<Qio.Writer>;
-//fs.open(path, options):Q.Promise<NodeBuffer>;
+//fs.open(path, options):Q.Promise<Buffer>;
 
 //TODO how to define the multiple return types? use any for now?
 anyQ = fs.read(path, options);
 //strQ = fs.read(path, options);
-//fs.read(path, options):Q.Promise<NodeBuffer>;
+//fs.read(path, options):Q.Promise<Buffer>;
 
 voidQ = fs.write(path, buffer, options);
 voidQ = fs.write(path, str, options);

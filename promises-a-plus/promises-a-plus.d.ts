@@ -1,3 +1,8 @@
+// Type definitions for promises-a-plus
+// Project: http://promisesaplus.com/
+// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module PromisesAPlus {
 	interface PromiseCtor {
 		<T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): Thenable<T>;

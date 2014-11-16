@@ -335,16 +335,24 @@ interface JQueryMobilePath {
 }
 
 interface ParsedPath {
+    authority: string;
+    directory: string;
+    domain: string;
+    doubleSlash: string;
+    filename: string;
     hash: string;
     host: string;
     hostname: string;
     href: string;
+    hrefNoHash: string;
+    hrefNoSearch: string;
+    password: string;
     pathname: string;
     port: string;
     protocol: string;
     search: string;
+    username: string;
 }
-
 
 interface JQueryMobile extends JQueryMobileOptions {
 

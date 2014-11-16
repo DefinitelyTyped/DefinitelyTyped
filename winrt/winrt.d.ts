@@ -7940,6 +7940,8 @@ declare module Windows {
                 control: Windows.Networking.Sockets.MessageWebSocketControl;
                 information: Windows.Networking.Sockets.MessageWebSocketInformation;
                 onmessagereceived: any/* TODO */;
+                close(): void;
+                close(code: number, reason: string): void;
             }
             export class MessageWebSocketControl implements Windows.Networking.Sockets.IMessageWebSocketControl, Windows.Networking.Sockets.IWebSocketControl {
                 maxMessageSize: number;
@@ -7978,6 +7980,8 @@ declare module Windows {
                 control: Windows.Networking.Sockets.StreamWebSocketControl;
                 information: Windows.Networking.Sockets.StreamWebSocketInformation;
                 inputStream: Windows.Storage.Streams.IInputStream;
+                close(): void;
+                close(code: number, reason: string): void;
             }
             export class StreamWebSocketControl implements Windows.Networking.Sockets.IStreamWebSocketControl, Windows.Networking.Sockets.IWebSocketControl {
                 noDelay: boolean;

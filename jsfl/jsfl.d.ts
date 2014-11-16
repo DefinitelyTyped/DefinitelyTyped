@@ -466,8 +466,9 @@ interface FlashDocument {
 	id: number; // A unique integer (assigned automatically) that
 	library: FlashLibrary; // Read-only; the library object for a document.
 	livePreview: boolean; // A Boolean value that specifies if Live Preview is
-	name: number; // Read-only; a string that represents the name of a
-	path: number; // Read-only; a string that represents the path of the
+	name: string; // Read-only; a string that represents the name of a
+	path: string; // Read-only; a string that represents the path of the
+	pathURI: string; // Read-only property; a string that represents the path of the document, expressed as a file:/// URI. If the document has never been saved, this property is undefined.
 	publishProfiles: string[]; // Read-only; an array of the publish profile names for
 	
 	/** Read-only; the current ScreenOutline object for the */
@@ -1146,6 +1147,8 @@ interface FlashTimeline {
     
     /** A string that represents the name of the current */
     name: string;
+    
+    libraryItem:FlashItem;
 }
 
 interface FlashPath {
@@ -1271,9 +1274,42 @@ interface FlashTools {
 	toolObjs;
 }
 
+declare class SpriteSheetExporter {
+  addBitmap(item:FlashItem);
+  addSymbol(item:FlashItem, name?:string, beginFrame?:number, endFrame?:number);
+  algorithm:string;
+  allowRotate:boolean;
+  allowTrimming:boolean;
+  app:string;
+  autoSize:boolean;
+  beginExport();
+  borderPadding:number;
+  canBorderPad:boolean;
+  canRotate:boolean;
+  canTrim:boolean;
+  canShapePad:boolean;
+  canStackDuplicateFrames:boolean;
+  changeSymbol();
+  exportSpriteSheet(fileURL:string,option:Object,writeMetaData?:boolean):string;
+  format:string;
+  image:string;
+  layoutFormat:string;
+  maxSheetHeight:number;
+  maxSheetWidth:number;
+  overflowed:boolean;
+  removeBitmap();
+  removeSymbol();
+  shapePadding:number;
+  sheetHeight:number;
+  sheetWidth:number;
+  stackDuplicateFrames:boolean;
+  version:string;
+}
+
+
 interface FlashFL {
 	addEventListener(eventType, callbackFunction);
-	browseForFileURL(browseType, title?, previewArea?);
+	browseForFileURL(browseType, title?, previewArea?, fileFilter?);
 	browseForFolderURL(description: string);
 	clearPublishCache(): void;
 	clipCopyString(string: string): void;

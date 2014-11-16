@@ -1,4 +1,4 @@
-// Type definitions for riot.js (ext/render.js)
+// Type definitions for riot.js
 // Project: https://github.com/moot/riotjs
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

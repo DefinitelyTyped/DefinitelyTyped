@@ -1,8 +1,6 @@
 // Type definitions for ZeroClipboard
 // Project: https://github.com/jonrohan/ZeroClipboard
-// Definitions by: Eric J. Smith <https://github.com/ejsmith>
-// Definitions by: Blake Niemyjski <https://github.com/niemyjski>
-// Definitions by: György Balássy <https://github.com/balassy>
+// Definitions by: Eric J. Smith <https://github.com/ejsmith>, Blake Niemyjski <https://github.com/niemyjski>, György Balássy <https://github.com/balassy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class ZeroClipboard {
@@ -11,7 +9,6 @@ declare class ZeroClipboard {
     setText(newText: string): void;
     title(newTitle: string): void;
     setSize(width: number, height: number): void;
-    forceHandCursor(enabled: boolean): void;
     version: string;
     moviePath: string;
     trustedDomains: any;

@@ -1,6 +1,6 @@
 // Type definitions for PhoneGap 2.3
 // Project: http://phonegap.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Dick van den Brink <https://github.com/DickvdBrink>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface GeolocationError {
@@ -367,7 +367,7 @@ interface FileUploadResult {
 
 interface Flags {
     create: boolean;
-    exclusive: boolean;
+    exclusive?: boolean;
 }
 
 /*
@@ -574,6 +574,36 @@ interface LocalStorage {
     clear;
 }
 */
+
+interface StatusBar {
+    isVisible: boolean;
+
+    overlaysWebView(doOverlay: boolean): void;
+    styleDefault(): void;
+    styleLightContent(): void;
+    styleBlackTranslucent(): void;
+    styleBlackOpaque(): void;
+    backgroundColorByName(colorname: string): void;
+    backgroundColorByHexString(hexString: string): void;
+    hide(): void;
+    show(): void;
+}
+declare var StatusBar: StatusBar;
+
+interface Keyboard {
+    automaticScrollToTopOnHiding: boolean;
+    isVisible: boolean;
+
+    onshow: Function;
+    onhide: Function;
+    onshowing: Function;
+    onhiding: Function;
+
+    disableScrollingInShrinkView(disable: boolean): void;
+    hideFormAccessoryBar(hide: boolean): void;
+    shrinkView(shrink: boolean): void;
+}
+declare var Keyboard: Keyboard;
 
 interface /*PhoneGapNavigator extends*/ Navigator {
     accelerometer: Accelerometer;

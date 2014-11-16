@@ -23,12 +23,7 @@ Properties
 *~
 
 # test folder
-!_infrastructure/*.js
-!_infrastructure/tests/*
-!_infrastructure/tests/*.js
-!_infrastructure/tests/*/*.js
-!_infrastructure/tests/*/*/*.js
-!_infrastructure/tests/*/*/*/*.js
+_infrastructure/tests/build
 
 .idea
 *.iml
@@ -38,3 +33,5 @@ Properties
 !rx.js
 
 node_modules
+
+.sublimets

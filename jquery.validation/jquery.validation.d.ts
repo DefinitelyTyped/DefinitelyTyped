@@ -1,6 +1,6 @@
 // Type definitions for jquery.validation 1.11.1
-// Project: http://bassistance.de/jquery-plugins/jquery-plugin-validation/
-// Definitions by: https://github.com/fdecampredon , https://github.com/johnnyreilly
+// Project: http://jqueryvalidation.org/
+// Definitions by: François de Campredon <https://github.com/fdecampredon>, Johj Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -197,6 +197,7 @@ interface Validator
      * @param template The string to format.
      */
 	format(template: string, ...arguments: string[]): string;
+	invalidElements(): HTMLElement[];
     /**
      * Returns the number of invalid fields.
      */
@@ -220,6 +221,7 @@ interface Validator
 	showErrors(errors: any): void;
 	hideErrors(): void;
 	valid(): boolean;
+	validElements(): HTMLElement[];
 	size(): number;
 
    	errorMap: ErrorDictionary;

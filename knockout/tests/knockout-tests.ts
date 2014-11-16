@@ -72,7 +72,7 @@ function test_computed() {
         this.acceptedNumericValue = ko.observable(123);
         this.lastInputWasValid = ko.observable(true);
 
-        this.attemptedValue = ko.computed({
+        this.attemptedValue = ko.computed<number>({
             read: this.acceptedNumericValue,
             write: function (value) {
                 if (isNaN(value))
@@ -284,7 +284,7 @@ function test_more() {
     };
 
     ko.extenders.numeric = function (target, precision) {
-        var result = ko.computed({
+        var result = ko.computed<any>({
             read: target,
             write: function (newValue) {
                 var current = target(),
@@ -581,4 +581,70 @@ function test_misc() {
 		}
 	}
 	
+}
+
+interface KnockoutBindingHandlers {
+    allBindingsAccessorTest: KnockoutBindingHandler;
+}
+
+function test_allBindingsAccessor() {
+    ko.bindingHandlers.allBindingsAccessorTest = {
+        init: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        },
+        update: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        }
+    };
+}
+
+function test_Components() {
+
+    function test_Register() {
+        // test all possible ko.components.register() overloads
+        var nodeArray = [new Node, new Node];
+        var singleNode = new Node;
+
+        // ------- string-templates with different viewmodel overloads:
+
+        // string template and inline function (commonly used in examples)
+        ko.components.register("name", { template: "string-template", viewModel: function (params) { return null; } });
+
+        // string template and instance vm
+        ko.components.register("name", { template: "string-template", viewModel: { instance: null } });
+
+        // string template and createViewModel factory method
+        ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params: any, componentInfo: KnockoutComponentInfo) { return null; } } });
+
+        // string template and require module vm
+        ko.components.register("name", { template: "string-template", viewModel: { require: "module" } });
+
+        // ------- non-string templates 
+
+        // viewmodel as function and four types of template
+        ko.components.register("name", { template: { element: "elementID" }, viewModel: function (params) { return null; } });
+        // Node template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { element: singleNode }, viewModel: function (params) { return null; } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: nodeArray, viewModel: function (params) { return null; } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { require: "module" }, viewModel: function (params) { return null; } });
+
+        // viewmodel as object, and four types of non-string tempalte
+        ko.components.register("name", { template: { element: "elementID" }, viewModel: { instance: null } });
+        // Node template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { element: singleNode }, viewModel: { instance: null } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: nodeArray, viewModel: { instance: null } });
+        // object template for element and inline function (commonly used in examples)
+        ko.components.register("name", { template: { require: "module" }, viewModel: { instance: null } });
+
+        //
+    }
 }

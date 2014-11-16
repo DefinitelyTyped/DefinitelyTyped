@@ -17,8 +17,8 @@ declare class Transport {
 	options: Object;
 	transportType: string;
 	sendMailWithTransport(emailMessage: MailComposer, callback?: (err: Error) => any): any;
-	useDKIM(dkim: DKIMOptions);
-	close(callback?: (err: Error) => any);
+	useDKIM(dkim: DKIMOptions): void;
+	close(callback?: (err: Error) => any): any;
 	sendMail(message: MailComposer, callback?: (err: Error) => any): any;
 	send_mail(message:MailComposer, callback?: (err: Error) => any): any;
 }
