@@ -1,4 +1,4 @@
-// Type definitions for bluebird 1.0.0
+// Type definitions for bluebird 2.0.0
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
