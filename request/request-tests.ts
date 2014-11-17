@@ -197,3 +197,10 @@ r.post(str);
 r(options);
 r.get(options);
 r.post(options);
+
+request
+.get('http://example.com/example.png')
+.on('response', function(response) {
+	// check response
+})
+.pipe(request.put('http://another.com/another.png'));
