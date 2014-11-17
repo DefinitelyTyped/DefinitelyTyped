@@ -80,8 +80,8 @@ declare module React {
     export interface TestUtils {
         Simulate: Simulate;
         renderIntoDocument<P>(instance: ReactComponentElement<P>): ReactComponentElement<P>;
-        renderIntoDocument(instnace: ReactHTMLElement): ReactHTMLElement;
-        renderIntoDocument(instnace: ReactSVGElement): ReactSVGElement;
+        renderIntoDocument(instance: ReactHTMLElement): ReactHTMLElement;
+        renderIntoDocument(instance: ReactSVGElement): ReactSVGElement;
         mockComponent(componentClass: ReactComponentFactory<any>, mockTagName?: string): TestUtils;
         isDescriptorOfType(descriptor: ReactElement<any, any>, componentClass: ReactComponentFactory<any>): boolean;
         isDOMComponent(instance: ReactElement<any, any>): boolean;
