@@ -3,8 +3,6 @@
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare function require(module: string): any;
-
 declare var phantom: Phantom;
 
 interface Phantom {
@@ -45,7 +43,7 @@ interface System {
 }
 
 interface WebPage {
-	
+
 	// Properties
 	canGoBack: boolean;
 	canGoForward: boolean;
@@ -205,13 +203,13 @@ interface WebPageSettings {
 }
 
 interface FileSystem {
-	
+
 	// Properties
 	separator: string;
 	workingDirectory: string;
-	
+
 	// Functions
-	
+
 	// Query Functions
 	list(path: string): string[];
 	absolute(path: string): string;
