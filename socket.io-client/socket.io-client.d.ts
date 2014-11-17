@@ -3,8 +3,6 @@
 // Definitions by: PROGRE <https://github.com/progre/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../node/node.d.ts' />
-
 declare var io: SocketIOClientStatic;
 
 declare module 'socket.io-client' {
