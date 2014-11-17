@@ -3,8 +3,6 @@
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare function require(module: string): any;
-
 declare var phantom: Phantom;
 
 interface Phantom {
