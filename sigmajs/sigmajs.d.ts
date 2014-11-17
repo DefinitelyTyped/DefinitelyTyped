@@ -28,9 +28,18 @@ declare module SigmaJs{
         target: string;
     }
 
+    interface JsonParser {
+        (target: string, sigma: Sigma, callback: (graph: Sigma) => void): void;
+    }
+
+    interface GexfParser {
+        (target: string, sigma: Sigma, callback: (graph: Sigma) => void): void;
+    }
+
     interface Graph {
         addEdge(edge: Edge): Graph;
         addNode(node: Node): Graph;
+        addMethod(name: string, method: (input: any) => any): void;
         clear(): Graph;
         degree(id: string): number;
         degree(id: string, type: string): number;
@@ -56,6 +65,11 @@ declare module SigmaJs{
         y?: number;
     }
 
+    interface Parsers {
+        json: JsonParser;
+        gexf: GexfParser;
+    }
+
     interface Plugins {
         dragNodes: DragNodes;
     }
@@ -75,12 +89,21 @@ declare module SigmaJs{
     interface Sigma {
         addRenderer(): Renderer;
         addRenderer(configs: RendererConfigs): Renderer;
+        bind(event: string, callback: (e: any) => void): void;
         graph: Graph;
         killRenderer(renderer: string): Sigma;
         killRenderer(renderer: Renderer): Sigma;
         kill(): void;
         refresh(): void;
         renderers: Renderer[];
+
+        // forceAtlas2 layout
+        configForceAtlas2(configs: { [key: string]: any }): void;
+        isForceAtlas2Running(): boolean;
+        killForceAtlas2(): void;
+        startForceAtlas2(): void;
+        startForceAtlas2(configs: { [key: string]: any }): void;
+        stopForceAtlas2(): void;
     }
 
     interface SigmaConfigs {
@@ -98,6 +121,7 @@ declare module SigmaJs{
         new(container: Element): Sigma;
         new(configuration: SigmaConfigs): Sigma;
         classes:Classes;
+        parsers: Parsers;
         plugins: Plugins;
     }
 
