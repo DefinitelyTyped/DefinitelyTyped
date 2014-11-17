@@ -200,7 +200,7 @@ r.post(options);
 
 request
 .get('http://example.com/example.png')
-.on('response', function(response) {
+.on('response', function(response: any) {
 	// check response
 })
 .pipe(request.put('http://another.com/another.png'));
