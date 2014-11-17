@@ -151,7 +151,7 @@ var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com/');
  */
 () => {
 	var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com');
-	var onAuthChange = function (authData: IFirebaseAuthData) { /*...*/ };
+	var onAuthChange = function (authData: FirebaseAuthData) { /*...*/ };
 	firebaseRef.onAuth(onAuthChange);
 	// Sometime later...
 	firebaseRef.offAuth(onAuthChange);
@@ -337,7 +337,7 @@ wilmaRef.transaction(function(currentData) {
     console.log('User wilma already exists.');
     return; // Abort the transaction.
   }
-}, function(error: any, committed: boolean, snapshot: IFirebaseDataSnapshot) {
+}, function(error: any, committed: boolean, snapshot: FirebaseDataSnapshot) {
   if (error)
     console.log('Transaction failed abnormally!', error);
   else if (!committed)
@@ -438,16 +438,16 @@ wilmaRef.transaction(function(currentData) {
 }
 
 //var messageListRef: Firebase = new Firebase('https://SampleChat.firebaseIO-demo.com/message_list');
-//var lastMessagesQuery:IFirebaseQuery = messageListRef.endAt().limit(500);
-//lastMessagesQuery.on('child_added', function(childSnapshot: IFirebaseDataSnapshot) { /* handle child add */ });
+//var lastMessagesQuery:FirebaseQuery = messageListRef.endAt().limit(500);
+//lastMessagesQuery.on('child_added', function(childSnapshot: FirebaseDataSnapshot) { /* handle child add */ });
 
 //var messageListRef2:Firebase = new Firebase('https://SampleChat.firebaseIO-demo.com/message_list');
-//var firstMessagesQuery:IFirebaseQuery = messageListRef2.startAt().limit(500);
-//firstMessagesQuery.on('child_added', function(childSnapshot: IFirebaseDataSnapshot) { /* handle child add */ });
+//var firstMessagesQuery:FirebaseQuery = messageListRef2.startAt().limit(500);
+//firstMessagesQuery.on('child_added', function(childSnapshot: FirebaseDataSnapshot) { /* handle child add */ });
 
 //var usersRef3: Firebase = new Firebase('https://SampleChat.firebaseIO-demo.com/users');
-//var usersQuery: IFirebaseQuery = usersRef3.startAt(1000).limit(50);
-//usersQuery.on('child_added', function(userSnapshot: IFirebaseDataSnapshot) { /* handle user */ });
+//var usersQuery: FirebaseQuery = usersRef3.startAt(1000).limit(50);
+//usersQuery.on('child_added', function(userSnapshot: FirebaseDataSnapshot) { /* handle user */ });
 
 /*
  * Firebase.goOffline()
@@ -460,7 +460,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.on()
+ * FirebaseQuery.on()
  */
 () => {
 	firebaseRef.on('value', function (dataSnapshot) {
@@ -485,10 +485,10 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.off()
+ * FirebaseQuery.off()
  */
 () => {
-	var onValueChange = function (dataSnapshot: IFirebaseDataSnapshot) { /* handle... */ };
+	var onValueChange = function (dataSnapshot: FirebaseDataSnapshot) { /* handle... */ };
 	firebaseRef.on('value', onValueChange);
 	// Sometime later...
 	firebaseRef.off('value', onValueChange);
@@ -502,7 +502,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.once()
+ * FirebaseQuery.once()
  */
 () => {
 	// Basic usage of .once() to read the data located at firebaseRef.
@@ -527,7 +527,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.orderByChild()
+ * FirebaseQuery.orderByChild()
  */
 () => {
 	// For example, using our sample Firebase of dinosaur facts, 
@@ -539,7 +539,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.orderByKey()
+ * FirebaseQuery.orderByKey()
  */
 () => {
 	// For example, using our sample Firebase of dinosaur facts, 
@@ -552,7 +552,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.orderByPriority()
+ * FirebaseQuery.orderByPriority()
  */
 () => {
 	// For example, using our sample Firebase of dinosaur facts, 
@@ -564,7 +564,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.startAt()
+ * FirebaseQuery.startAt()
  */
 () => {
 	// For example, using our sample Firebase of dinosaur facts, 
@@ -577,7 +577,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.endAt()
+ * FirebaseQuery.endAt()
  */
 () => {
 	// For example, using our sample Firebase of dinosaur facts, 
@@ -590,7 +590,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.equalTo()
+ * FirebaseQuery.equalTo()
  */
 () => {
 	// For example, using our sample Firebase of dinosaur facts, 
@@ -603,7 +603,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.limitToFirst
+ * FirebaseQuery.limitToFirst
  */
 () => {
 	// Using our sample Firebase of dinosaur facts, 
@@ -615,7 +615,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.limitToLast
+ * FirebaseQuery.limitToLast
  */
 () => {
 	// Using our sample Firebase of dinosaur facts, 
@@ -627,7 +627,7 @@ wilmaRef.transaction(function(currentData) {
 }
 
 /*
- * IFirebaseQuery.ref()
+ * FirebaseQuery.ref()
  */
 () => {
 	// The Firebase reference returned by ref() is equivalent to the Firebase reference used to create the Query.
@@ -708,7 +708,7 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.child()
  */
-(dataSnapshot:IFirebaseDataSnapshot) => {
+(dataSnapshot:FirebaseDataSnapshot) => {
 	// Given a DataSnapshot containing a child 'name' that has children 'first'
 	// (set to 'Fred') and 'last' (set to 'Flintstone'):
 	var nameSnapshot = dataSnapshot.child('name');
@@ -727,7 +727,7 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.forEach()
  */
-(dataSnapshot:IFirebaseDataSnapshot) => {
+(dataSnapshot:FirebaseDataSnapshot) => {
 	// Given a DataSnapshot containing a child "fred" and a child "wilma", this callback
 	// function will be called twice
 	dataSnapshot.forEach(function (childSnapshot) {
@@ -738,7 +738,7 @@ wilmaRef.transaction(function(currentData) {
 		var childData = childSnapshot.val();
 	});
 }
-(dataSnapshot:IFirebaseDataSnapshot) => {
+(dataSnapshot:FirebaseDataSnapshot) => {
 	// Given a DataSnapshot containing a child "fred" and a child "wilma", this callback
 	// funciton will only be called once (since we return true)
 	dataSnapshot.forEach(function (childSnapshot) {
@@ -750,7 +750,7 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.hasChild()
  */
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	// Given a DataSnapshot with child 'fred' and no other children:
 	var x = dataSnapshot.hasChild('fred');
 	var y = dataSnapshot.hasChild('whales');
@@ -760,7 +760,7 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.hasChildren()
  */
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	// Given a DataSnapshot containing a child 'name' with children 'first'
 	// (set to 'Fred') and 'last' (set to 'Flintstone'):
 	var x = dataSnapshot.hasChildren();
@@ -811,7 +811,7 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.numChildren()
  */
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	// Given a DataSnapshot containing a child 'name' with children 'first'
 	// (set to 'Fred') and 'last' (set to 'Flintstone'):
 	var x = dataSnapshot.numChildren();
@@ -836,7 +836,7 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.getPriority()
  */
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	// Given a snapshot for data with priority 1000:
 	var x = dataSnapshot.getPriority();
 	// x is now 1000.
@@ -845,21 +845,21 @@ wilmaRef.transaction(function(currentData) {
 /*
  * DataSnapshot.exportVal()
  */
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	firebaseRef.setWithPriority('hello', 500);
 	firebaseRef.once('value', function (dataSnapshot) {
 		var x = dataSnapshot.exportVal();
 		// x now contains { '.value': 'hello', '.priority': 500 }
 	});
 }
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	firebaseRef.set('hello');
 	firebaseRef.once('value', function (dataSnapshot) {
 		var x = dataSnapshot.exportVal();
 		// x now contains 'hello'
 	});
 }
-(dataSnapshot: IFirebaseDataSnapshot) => {
+(dataSnapshot: FirebaseDataSnapshot) => {
 	// Note: To access these variables in JavaScript, you can use x['.value'] and x['.priority'].
 	firebaseRef.setWithPriority({ a: 'hello', b: 'hi' }, 500);
 	firebaseRef.once('value', function (dataSnapshot) {
