@@ -3,12 +3,12 @@
 // Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface IFirebaseAuthResult {
+interface FirebaseAuthResult {
 	auth: any;
 	expires: number;
 }
 
-interface IFirebaseDataSnapshot {
+interface FirebaseDataSnapshot {
 	/**
 	 * Gets the JavaScript object representation of the DataSnapshot.
 	 */
@@ -16,12 +16,12 @@ interface IFirebaseDataSnapshot {
 	/**
 	 * Gets a DataSnapshot for the location at the specified relative path.
 	 */
-	child(childPath: string): IFirebaseDataSnapshot;
+	child(childPath: string): FirebaseDataSnapshot;
 	/**
 	 * Enumerates through the DataSnapshot’s children (in the default order).
 	 */
-	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => void): boolean;
-	forEach(childAction: (childSnapshot: IFirebaseDataSnapshot) => boolean): boolean;
+	forEach(childAction: (childSnapshot: FirebaseDataSnapshot) => void): boolean;
+	forEach(childAction: (childSnapshot: FirebaseDataSnapshot) => boolean): boolean;
 	/**
 	 * Returns true if the specified child exists.
 	 */
@@ -58,7 +58,7 @@ interface IFirebaseDataSnapshot {
 	exportVal(): Object;
 }
 
-interface IFirebaseOnDisconnect {
+interface FirebaseOnDisconnect {
 	/**
 	 * Ensures the data at this location is set to the specified value when the client is disconnected 
 	 * (due to closing the browser, navigating to a new page, or network issues).
@@ -86,90 +86,90 @@ interface IFirebaseOnDisconnect {
 	cancel(onComplete?: (error: any) => void): void;
 }
 
-interface IFirebaseQuery {
+interface FirebaseQuery {
 	/**
 	 * Listens for data changes at a particular location.
 	 */
-	on(eventType: string, callback: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: (error: any) => void, context?: Object): (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void;
+	on(eventType: string, callback: (dataSnapshot: FirebaseDataSnapshot, prevChildName?: string) => void, cancelCallback?: (error: any) => void, context?: Object): (dataSnapshot: FirebaseDataSnapshot, prevChildName?: string) => void;
 	/**
 	 * Detaches a callback previously attached with on().
 	 */
-	off(eventType?: string, callback?: (dataSnapshot: IFirebaseDataSnapshot, prevChildName?: string) => void, context?: Object): void;
+	off(eventType?: string, callback?: (dataSnapshot: FirebaseDataSnapshot, prevChildName?: string) => void, context?: Object): void;
 	/**
 	 * Listens for exactly one event of the specified event type, and then stops listening.
 	 */
-	once(eventType: string, successCallback: (dataSnapshot: IFirebaseDataSnapshot) => void, context?: Object): void;
-	once(eventType: string, successCallback: (dataSnapshot: IFirebaseDataSnapshot) => void, failureCallback?: (error: any) => void, context?: Object): void;
+	once(eventType: string, successCallback: (dataSnapshot: FirebaseDataSnapshot) => void, context?: Object): void;
+	once(eventType: string, successCallback: (dataSnapshot: FirebaseDataSnapshot) => void, failureCallback?: (error: any) => void, context?: Object): void;
 	/**
 	 * Generates a new Query object ordered by the specified child key.
 	 */
-	orderByChild(key: string): IFirebaseQuery;
+	orderByChild(key: string): FirebaseQuery;
 	/**
 	 * Generates a new Query object ordered by key name.
 	 */
-	orderByKey(): IFirebaseQuery;
+	orderByKey(): FirebaseQuery;
 	/**
 	 * Generates a new Query object ordered by priority.
 	 */
-	orderByPriority(): IFirebaseQuery;
+	orderByPriority(): FirebaseQuery;
 	/**
 	 * @deprecated Use limitToFirst() and limitToLast() instead.
 	 * Generates a new Query object limited to the specified number of children.
 	 */
-	limit(limit: number): IFirebaseQuery;
+	limit(limit: number): FirebaseQuery;
 	/**
 	 * Creates a Query with the specified starting point. 
 	 * The generated Query includes children which match the specified starting point.
 	 */
-	startAt(value: string, key?: string): IFirebaseQuery;
-	startAt(value: number, key?: string): IFirebaseQuery;
+	startAt(value: string, key?: string): FirebaseQuery;
+	startAt(value: number, key?: string): FirebaseQuery;
 	/**
 	 * Creates a Query with the specified ending point. 
 	 * The generated Query includes children which match the specified ending point.
 	 */
-	endAt(value: string, key?: string): IFirebaseQuery;
-	endAt(value: number, key?: string): IFirebaseQuery;
+	endAt(value: string, key?: string): FirebaseQuery;
+	endAt(value: number, key?: string): FirebaseQuery;
 	/**
 	 * Creates a Query which includes children which match the specified value.
 	 */
-	equalTo(value: string, key?: string): IFirebaseQuery;
-	equalTo(value: number, key?: string): IFirebaseQuery;
+	equalTo(value: string, key?: string): FirebaseQuery;
+	equalTo(value: number, key?: string): FirebaseQuery;
 	/**
 	 * Generates a new Query object limited to the first certain number of children.
 	 */
-	limitToFirst(limit: number): IFirebaseQuery;
+	limitToFirst(limit: number): FirebaseQuery;
 	/**
 	 * Generates a new Query object limited to the last certain number of children.
 	 */
-	limitToLast(limit: number): IFirebaseQuery;
+	limitToLast(limit: number): FirebaseQuery;
 	/**
 	 * Gets a Firebase reference to the Query's location.
 	 */
 	ref(): Firebase;
 }
 
-interface Firebase extends IFirebaseQuery {
+interface Firebase extends FirebaseQuery {
 	/**
 	 * @deprecated Use authWithCustomToken() instead.
 	 * Authenticates a Firebase client using the provided authentication token or Firebase Secret.
 	 */
-	auth(authToken: string, onComplete?: (error: any, result: IFirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
+	auth(authToken: string, onComplete?: (error: any, result: FirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
 	/**
 	 * Authenticates a Firebase client using an authentication token or Firebase Secret.
 	 */
-	authWithCustomToken(autoToken: string, onComplete: (error: any, authData: IFirebaseAuthData) => void, options?:Object): void;
+	authWithCustomToken(autoToken: string, onComplete: (error: any, authData: FirebaseAuthData) => void, options?:Object): void;
 	/**
 	 * Authenticates a Firebase client using a new, temporary guest account.
 	 */
-	authAnonymously(onComplete: (error: any, authData: IFirebaseAuthData) => void, options?: Object): void;
+	authAnonymously(onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
 	/**
 	 * Authenticates a Firebase client using an email / password combination.
 	 */
-	authWithPassword(credentials: IFirebaseCredentials, onComplete: (error: any, authData: IFirebaseAuthData) => void, options?: Object): void;
+	authWithPassword(credentials: FirebaseCredentials, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
 	/**
 	 * Authenticates a Firebase client using a popup-based OAuth flow.
 	 */
-	authWithOAuthPopup(provider: string, onComplete:(error: any, authData: IFirebaseAuthData) => void, options?: Object): void;
+	authWithOAuthPopup(provider: string, onComplete:(error: any, authData: FirebaseAuthData) => void, options?: Object): void;
 	/**
 	 * Authenticates a Firebase client using a redirect-based OAuth flow.
 	 */
@@ -177,20 +177,20 @@ interface Firebase extends IFirebaseQuery {
 	/**
 	 * Authenticates a Firebase client using OAuth access tokens or credentials.
 	 */
-	authWithOAuthToken(provider: string, credentials: string, onComplete: (error: any, authData: IFirebaseAuthData) => void, options?: Object): void;
-	authWithOAuthToken(provider: string, credentials: Object, onComplete: (error: any, authData: IFirebaseAuthData) => void, options?: Object): void;
+	authWithOAuthToken(provider: string, credentials: string, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
+	authWithOAuthToken(provider: string, credentials: Object, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
 	/**
 	 * Synchronously access the current authentication state of the client.
 	 */
-	getAuth(): IFirebaseAuthData;
+	getAuth(): FirebaseAuthData;
 	/**
 	 * Listen for changes to the client's authentication state.
 	 */
-	onAuth(onComplete: (authData: IFirebaseAuthData) => void, context?: Object): void;
+	onAuth(onComplete: (authData: FirebaseAuthData) => void, context?: Object): void;
 	/**
 	 * Detaches a callback previously attached with onAuth().
 	 */
-	offAuth(onComplete: (authData: IFirebaseAuthData) => void, context?: Object): void;
+	offAuth(onComplete: (authData: FirebaseAuthData) => void, context?: Object): void;
 	/**
 	 * Unauthenticates a Firebase client.
 	 */
@@ -250,11 +250,11 @@ interface Firebase extends IFirebaseQuery {
 	/**
 	 * Atomically modifies the data at this location.
 	 */
-	transaction(updateFunction: (currentData: any)=> any, onComplete?: (error: any, committed: boolean, snapshot: IFirebaseDataSnapshot) => void, applyLocally?: boolean): void;
+	transaction(updateFunction: (currentData: any)=> any, onComplete?: (error: any, committed: boolean, snapshot: FirebaseDataSnapshot) => void, applyLocally?: boolean): void;
 	/**
 	 * Creates a new user account using an email / password combination.
 	 */
-	createUser(credentials: IFirebaseCredentials, onComplete: (error: any) => void): void;
+	createUser(credentials: FirebaseCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Change the password of an existing user using an email / password combination.
 	 */
@@ -262,12 +262,12 @@ interface Firebase extends IFirebaseQuery {
 	/**
 	 * Removes an existing user account using an email / password combination.
 	 */
-	removeUser(credentials: IFirebaseCredentials, onComplete: (error: any) => void): void;
+	removeUser(credentials: FirebaseCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Sends a password-reset email to the owner of the account, containing a token that may be used to authenticate and change the user password.
 	 */
 	resetPassword(credentials: { email: string }, onComplete: (error: any) => void): void;
-	onDisconnect(): IFirebaseOnDisconnect;
+	onDisconnect(): FirebaseOnDisconnect;
 }
 interface FirebaseStatic {
 	/**
@@ -294,7 +294,7 @@ interface FirebaseStatic {
 declare var Firebase: FirebaseStatic;
 
 // Reference: https://www.firebase.com/docs/web/api/firebase/getauth.html
-interface IFirebaseAuthData {
+interface FirebaseAuthData {
 	uid: string;
 	provider: string;
 	token: string;
@@ -302,7 +302,7 @@ interface IFirebaseAuthData {
 	auth: Object;
 }
 
-interface IFirebaseCredentials {
+interface FirebaseCredentials {
 	email: string;
 	password: string;
 }
