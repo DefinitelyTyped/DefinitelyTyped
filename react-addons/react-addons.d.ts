@@ -91,7 +91,7 @@ declare module React {
         findAllInRenderedTree(tree: ReactElement<any, any>, test: (component: ReactElement<any, any>) => boolean): ReactElement<any, any>[];
         scryRenderedDOMComponentsWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>[];
         findRenderedDOMComponentWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>;
-        scryRenderedDOMComponentsWithTag(tree: ReactElement<any, any>, className: string): ReactElement<any, any>[];
+        scryRenderedDOMComponentsWithTag(tree: ReactElement<any, any>, tagName: string): ReactElement<any, any>[];
         findRenderedDOMComponentWithTag(tree: ReactElement<any, any>, tagName: string): ReactElement<any, any>;
         scryRenderedComponentsWithTag(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>[];
         findRenderedComponentWithType<P>(tree: ReactElement<any, any>, componentClass: ReactComponentFactory<P>): Component<P, any>;
