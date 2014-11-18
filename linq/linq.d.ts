@@ -171,12 +171,12 @@ declare module linq {
         LastIndexOf(item): number;
         // Convert Methods
         ToArray(): any[];
-        ToLookup(keySelector: ($) => any, elementSelector?: ($) => any, compareSelector?: (key) => any): Lookup;
-        ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup;
+        ToLookup(keySelector: ($) => any, elementSelector?: ($) => any, compareSelector?: (key) => any): Lookup<T>;
+        ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<T>;
         ToObject(keySelector: ($) => string, elementSelector: ($) => any): any;
         ToObject(keySelector: string, elementSelector: string): any;
-        ToDictionary(keySelector: ($) => any, elementSelector: ($) => any, compareSelector?: (key) => any): Dictionary;
-        ToDictionary(keySelector: string, elementSelector: string, compareSelector?: string): Dictionary;
+        ToDictionary(keySelector: ($) => any, elementSelector: ($) => any, compareSelector?: (key) => any): Dictionary<T>;
+        ToDictionary(keySelector: string, elementSelector: string, compareSelector?: string): Dictionary<T>;
         ToJSON(replacer?: (key, value) => any, space?: number): string;
         ToJSON(replacer?: string, space?: number): string;
         ToString(separator?: string, selector?: ($) =>any): string;
