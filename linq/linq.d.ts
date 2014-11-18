@@ -53,7 +53,7 @@ declare module linq {
         SelectMany(collectionSelector: ($, i: number) => any[], resultSelector?: ($, item) => any): Enumerable<any>;
         SelectMany(collectionSelector: ($, i: number) => Enumerable<any>, resultSelector?: ($, item) => any): Enumerable<any>;
         SelectMany(collectionSelector: string, resultSelector?: string): Enumerable<any>;
-        Where(predicate: ($, i: number) => boolean): Enumerable<any>;
+        Where(predicate: ($ : T, i: number) => boolean): Enumerable<T>;
         Where(predicate: string): Enumerable<any>;
         OfType(type: Function): Enumerable<any>;
         Zip(second: any[], selector: (v1, v2, i: number) => any): Enumerable<any>;
