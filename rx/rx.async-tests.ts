@@ -10,8 +10,8 @@ module Rx.Tests.Async {
 	var sch: Rx.IScheduler;
 
 	function start() {
-		obsNum = Rx.Observable.start(()=> 10, sch, obsStr);
-		obsNum = Rx.Observable.start(()=> 10, sch);
+		obsNum = Rx.Observable.start(()=> 10, obsStr, sch);
+		obsNum = Rx.Observable.start(() => 10, obsStr);
 		obsNum = Rx.Observable.start(()=> 10);
 	}
 
@@ -27,38 +27,34 @@ module Rx.Tests.Async {
 		// 0 arguments
 		var func0: (cb: (result: number)=> void)=> void;
 		obsNum = Rx.Observable.fromCallback(func0)();
-		obsNum = Rx.Observable.fromCallback(func0, sch)();
-		obsNum = Rx.Observable.fromCallback(func0, sch, obsStr)();
-		obsNum = Rx.Observable.fromCallback(func0, sch, obsStr, (results: number[]) => results[0])();
+		obsNum = Rx.Observable.fromCallback(func0, obsStr)();
+		obsNum = Rx.Observable.fromCallback(func0, obsStr, (results: number[]) => results[0])();
 
 		// 1 argument
 		var func1: (a: string, cb: (result: number)=> void)=> number;
 		obsNum = Rx.Observable.fromCallback(func1)("");
-		obsNum = Rx.Observable.fromCallback(func1, sch)("");
-		obsNum = Rx.Observable.fromCallback(func1, sch, {})("");
-		obsNum = Rx.Observable.fromCallback(func1, sch, {}, (results: number[]) => results[0])("");
+		obsNum = Rx.Observable.fromCallback(func1, {})("");
+		obsNum = Rx.Observable.fromCallback(func1, {}, (results: number[]) => results[0])("");
 
 		// 2 arguments
 		var func2: (a: number, b: string, cb: (result: string) => number) => Date;
 		obsStr = Rx.Observable.fromCallback(func2)(1, "");
-		obsStr = Rx.Observable.fromCallback(func2, sch)(1, "");
-		obsStr = Rx.Observable.fromCallback(func2, sch, {})(1, "");
-		obsStr = Rx.Observable.fromCallback(func2, sch, {}, (results: string[]) => results[0])(1, "");
+		obsStr = Rx.Observable.fromCallback(func2, {})(1, "");
+		obsStr = Rx.Observable.fromCallback(func2, {}, (results: string[]) => results[0])(1, "");
 
 		// 3 arguments
 		var func3: (a: number, b: string, c: boolean, cb: (result: string) => number) => Date;
 		obsStr = Rx.Observable.fromCallback(func3)(1, "", true);
-		obsStr = Rx.Observable.fromCallback(func3, sch)(1, "", true);
-		obsStr = Rx.Observable.fromCallback(func3, sch, {})(1, "", true);
-		obsStr = Rx.Observable.fromCallback(func3, sch, {}, (results: string[]) => results[0])(1, "", true);
+		obsStr = Rx.Observable.fromCallback(func3, {})(1, "", true);
+		obsStr = Rx.Observable.fromCallback(func3, {}, (results: string[]) => results[0])(1, "", true);
 
 		// multiple results
 		var func0m: (cb: (result1: number, result2: number, result3: number) => void) => void;
-		obsNum = Rx.Observable.fromCallback(func0m, sch, obsStr, (results: number[]) => results[0])();
+		obsNum = Rx.Observable.fromCallback(func0m, obsStr, (results: number[]) => results[0])();
 		var func1m: (a: string, cb: (result1: number, result2: number, result3: number) => void) => void;
-		obsNum = Rx.Observable.fromCallback(func1m, sch, obsStr, (results: number[]) => results[0])("");
+		obsNum = Rx.Observable.fromCallback(func1m, obsStr, (results: number[]) => results[0])("");
 		var func2m: (a: string, b: number, cb: (result1: string, result2: string, result3: string) => void) => void;
-		obsStr = Rx.Observable.fromCallback(func2m, sch, obsStr, (results: string[]) => results[0])("", 10);
+		obsStr = Rx.Observable.fromCallback(func2m, obsStr, (results: string[]) => results[0])("", 10);
 	}
 
 	function toPromise() {

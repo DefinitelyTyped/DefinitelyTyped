@@ -5,8 +5,8 @@
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module DevExpress {
-export function abstract(): void;
+declare module DevExpress  {
+    export function abstract(): void;
     export var rtlEnabled: boolean;
     export var hardwareBackButton: JQueryCallback;
     interface Endpoint {
@@ -84,8 +84,8 @@ export function abstract(): void;
         }): void;
     }
 }
-declare module DevExpress.data {
-export interface DataError extends Error {
+declare module DevExpress.data  {
+    export interface DataError extends Error {
         httpStatus?: number;
         errorDetails?: any;
     }
@@ -205,7 +205,7 @@ export interface DataError extends Error {
     export module queryAdapters {
         export function odata(queryOptions: ODataQueryOptions): RemoteQuery;
     }
-export interface DataSourceOptions {
+    export interface DataSourceOptions {
         map? (item: any): any;
         postProcess? (result: any[]): any;
         pageSize: number;
@@ -245,7 +245,7 @@ export interface DataSourceOptions {
         load(): JQueryPromise<any>;
         dispose(): void;
     }
-export interface StoreOptions {
+    export interface StoreOptions {
         key?: any;
         errorHandler?: ErrorHandler;
         loaded?: (result: Array<any>) => void;
@@ -351,7 +351,11 @@ export interface StoreOptions {
         objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; };
     }
 }
-declare module DevExpress.ui {
+declare module DevExpress.ui  {
+    export var themes: {
+        current(): string;
+        current(themeName: string): void;
+    };
     interface ViewportOptions {
         allowPan?: boolean;
         allowZoom?: boolean;
@@ -407,7 +411,7 @@ declare module DevExpress.ui {
         export function confirm(options: DialogOptions): JQueryPromise<boolean>;
         export function confirm(message: string, title?: string): JQueryPromise<boolean>;
     }
-export interface CollectionContainerWidgetOptions extends WidgetOptions {
+    export interface CollectionContainerWidgetOptions extends WidgetOptions {
         items?: Array<any>;
         itemTemplate?: any;
         itemRender?: Function;
@@ -424,7 +428,7 @@ export interface CollectionContainerWidgetOptions extends WidgetOptions {
         constructor(element: Element, options?: CollectionContainerWidgetOptions);
         constructor(element: JQuery, options?: CollectionContainerWidgetOptions);
     }
-export interface WidgetOptions extends ComponentOptions {
+    export interface WidgetOptions extends ComponentOptions {
         contentReadyAction?: any;
         width?: any;
         height?: any;
@@ -438,7 +442,7 @@ export interface WidgetOptions extends ComponentOptions {
         repaint(): void;
         addTemplate(template: ITemplate): void;
     }
-export interface dxEditorOptions extends WidgetOptions {
+    export interface dxEditorOptions extends WidgetOptions {
         value?: any;
         valueChangeAction?: any;
     }
@@ -447,8 +451,8 @@ export interface dxEditorOptions extends WidgetOptions {
         constructor(element: JQuery, options?: dxEditorOptions);
     }
 }
-declare module DevExpress.viz {
-export class Chart extends Component {
+declare module DevExpress.viz  {
+    export class Chart extends Component {
         constructor(element: Element, options?: viz.charts.ChartOptions);
         constructor(element: JQuery, options?: viz.charts.ChartOptions);
         clearSelection(): void;
@@ -564,8 +568,8 @@ export class Chart extends Component {
         convertCoordinates(x: number, y: number): Array<number>;
     }
 }
-declare module DevExpress.viz.charts {
-interface z_BaseLegendOptions {
+declare module DevExpress.viz.charts  {
+    interface z_BaseLegendOptions {
         backgroundColor?: string;
         hoverMode?: string;
         customizeText?: (arg: {
@@ -931,8 +935,8 @@ interface z_BaseLegendOptions {
         asyncSeriesRendering?: boolean;
     }
 }
-declare module DevExpress.viz.charts.series {
-export interface z_BasePointStyle {
+declare module DevExpress.viz.charts.series  {
+    export interface z_BasePointStyle {
         color?: string;
         border?: {
             visible?: boolean;
@@ -1250,8 +1254,8 @@ export interface z_BasePointStyle {
         isHovered(): boolean;
     }
 }
-declare module DevExpress.viz.common {
-export interface FontOptions {
+declare module DevExpress.viz.common  {
+    export interface FontOptions {
         color?: string;
         family?: string;
         opacity?: number;
@@ -1301,8 +1305,8 @@ export interface FontOptions {
 		}
     }
 }
-declare module DevExpress.viz.gauges {
-interface CustomizeTextArgument {
+declare module DevExpress.viz.gauges  {
+    interface CustomizeTextArgument {
         value: number;
         valueText: string;
         color: string;
@@ -1538,8 +1542,8 @@ interface CustomizeTextArgument {
 		pathModified?: boolean;
 	}
 }
-declare module DevExpress.viz.map {
-interface TooltipOptions extends common.BaseTooltipOptions {
+declare module DevExpress.viz.map  {
+    interface TooltipOptions extends common.BaseTooltipOptions {
         customizeText?: (arg: Proxy) => string;
         customizeTooltip?: (arg: Proxy) => common.CustomizeTooltipResult;
         borderColor?: string;
@@ -1635,8 +1639,8 @@ interface TooltipOptions extends common.BaseTooltipOptions {
         coordinates(): Array<number>;	
     }
 }
-declare module DevExpress.viz.rangeSelector {
-export interface SelectedRange {
+declare module DevExpress.viz.rangeSelector  {
+    export interface SelectedRange {
         startValue: any;                        endValue: any;
     }
     interface CustomizeTextArgument {
@@ -1765,8 +1769,8 @@ export interface SelectedRange {
 		pathModified?: boolean;
     }
 }
-declare module DevExpress.viz.sparklines {
-interface z_SparklineTooltipFormatObject {
+declare module DevExpress.viz.sparklines  {
+    interface z_SparklineTooltipFormatObject {
         firstValue?: string;
         lastValue?: string;
         maxValue?: string;
@@ -1840,7 +1844,7 @@ interface z_SparklineTooltipFormatObject {
     }
 }
 interface JQuery {
-dxChart(options?: DevExpress.viz.charts.ChartOptions): JQuery;
+    dxChart(options?: DevExpress.viz.charts.ChartOptions): JQuery;
     dxChart(method: string, param1?:any, param2?:any): any;
     dxPieChart(options?: DevExpress.viz.charts.PieOptions): JQuery;
     dxPieChart(method: string, param1?: any, param2?: any): any;

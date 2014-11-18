@@ -41,6 +41,7 @@ declare module Chalk {
 		cyan: ChalkChain;
 		white: ChalkChain;
 		gray: ChalkChain;
+		grey: ChalkChain;
 
 		// Background colors
 		bgBlack: ChalkChain;
