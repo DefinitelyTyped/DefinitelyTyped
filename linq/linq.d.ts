@@ -184,8 +184,8 @@ declare module linq {
         //Action Methods
         Do(action: ($, i: number) => void ): Enumerable<any>;
         Do(action: string): Enumerable<any>;
-        ForEach(action: ($, i: number) => void ): void;
-        ForEach(func: ($, i: number) => boolean): void;
+        ForEach(action: ($: T, i: number) => void ): void;
+        ForEach(func: ($: T, i: number) => boolean): void;
         ForEach(action_func: string): void;
         Write(separator?: string, selector?: ($) =>any): void;
         Write(separator?: string, selector?: string): void;
