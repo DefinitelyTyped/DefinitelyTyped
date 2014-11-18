@@ -44,6 +44,33 @@ interface Cordova {
     require(moduleName: string): any;
 }
 
+interface Document {
+    addEventListener(type: "deviceready", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "pause", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "resume", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "backbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "menubutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "searchbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "startcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "endcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "volumedownbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "volumeupbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+
+    removeEventListener(type: "deviceready", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "pause", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "resume", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "backbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "menubutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "searchbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "startcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "endcallbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "volumedownbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: "volumeupbutton", listener: (ev: Event) => any, useCapture?: boolean): void;
+
+    addEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
+    removeEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
+}
+
 // cordova/argscheck module
 interface ArgsCheck {
     checkArgs(argsSpec: string, functionName: string, args: any[], callee?: any): void;

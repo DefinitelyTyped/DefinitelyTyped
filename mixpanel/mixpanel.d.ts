@@ -8,7 +8,7 @@ interface Mixpanel
 {
     people:Mixpanel.People;
 
-    init(token:string, config:{[index:string]:any}, libraryName:string):Mixpanel;
+    init(token:string, config?:{[index:string]:any}, libraryName?:string):Mixpanel;
 
     push(item:any[]):void;
 

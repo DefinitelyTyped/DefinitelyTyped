@@ -1,11 +1,11 @@
-// Type definitions for Minimatch
+// Type definitions for Minimatch 1.0.0
 // Project: https://github.com/isaacs/minimatch
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "minimatch" {
 
-	function M(target:string, pattern:string, options?:M.IOptions):void;
+	function M(target:string, pattern:string, options?:M.IOptions): boolean;
 
 	module M {
 		function match(filenames:string[], pattern:string, options?:IOptions):string[];

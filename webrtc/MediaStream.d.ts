@@ -12,7 +12,7 @@ interface MediaStreamConstraints {
 declare var MediaStreamConstraints: {
   prototype: MediaStreamConstraints;
   new (): MediaStreamConstraints;
-}
+};
 
 interface MediaTrackConstraints {
   mandatory: MediaTrackConstraintSet;
@@ -21,7 +21,7 @@ interface MediaTrackConstraints {
 declare var MediaTrackConstraints: {
   prototype: MediaTrackConstraints;
   new (): MediaTrackConstraints;
-}
+};
 
 // ks - Not defined in the source doc.
 interface MediaTrackConstraintSet {
@@ -29,7 +29,7 @@ interface MediaTrackConstraintSet {
 declare var MediaTrackConstraintSet: {
   prototype: MediaTrackConstraintSet;
   new (): MediaTrackConstraintSet;
-}
+};
 
 // ks - Not defined in the source doc.
 interface MediaTrackConstraint {
@@ -37,7 +37,7 @@ interface MediaTrackConstraint {
 declare var MediaTrackConstraint: {
   prototype: MediaTrackConstraint;
   new (): MediaTrackConstraints;
-}
+};
 
 interface Navigator {
   getUserMedia(constraints: MediaStreamConstraints,
@@ -46,6 +46,9 @@ interface Navigator {
   webkitGetUserMedia(constraints: MediaStreamConstraints,
                      successCallback: (stream: any) => void,
                      errorCallback: (error: Error) => void): void;
+  mozGetUserMedia(constraints: MediaStreamConstraints,
+                  successCallback: (stream: any) => void,
+                  errorCallback: (error: Error) => void): void;
 }
 
 interface EventHandler { (event: Event): void; }
@@ -62,7 +65,7 @@ declare var NavigatorUserMediaError: {
   prototype: NavigatorUserMediaError;
   new (): NavigatorUserMediaError;
   PERMISSION_DENIED: number; // = 1;
-}
+};
 
 interface NavigatorUserMediaErrorCallback {
   (error: NavigatorUserMediaError): void;
@@ -79,11 +82,11 @@ interface MediaStreamTrackList {
 declare var MediaStreamTrackList: {
   prototype: MediaStreamTrackList;
   new (): MediaStreamTrackList;
-}
+};
 declare var webkitMediaStreamTrackList: {
   prototype: MediaStreamTrackList;
   new (): MediaStreamTrackList;
-}
+};
 
 interface MediaStream {
   label: string;
@@ -99,14 +102,14 @@ declare var MediaStream: {
   new (trackContainers: MediaStream[]): MediaStream;
   new (trackContainers: MediaStreamTrackList[]): MediaStream;
   new (trackContainers: MediaStreamTrack[]): MediaStream;
-}
+};
 declare var webkitMediaStream: {
   prototype: MediaStream;
   new (): MediaStream;
   new (trackContainers: MediaStream[]): MediaStream;
   new (trackContainers: MediaStreamTrackList[]): MediaStream;
   new (trackContainers: MediaStreamTrack[]): MediaStream;
-}
+};
 
 // an - not defined in source doc.
 interface SourceInfo {
@@ -117,7 +120,7 @@ interface SourceInfo {
 }
 declare var SourceInfo: {
   prototype: SourceInfo;
-}
+};
 
 interface LocalMediaStream extends MediaStream {
   stop(): void;
@@ -142,7 +145,7 @@ declare var MediaStreamTrack: {
   MUTED: number; // = 1;
   ENDED: number; // = 2;
   getSources: (callback: (sources: SourceInfo[]) => void) => void;
-}
+};
 
 interface streamURL extends URL {
   createObjectURL(stream: MediaStream): string;
@@ -159,5 +162,5 @@ declare var webkitURL: {
   prototype: WebkitURL;
   new (): streamURL;
   createObjectURL(stream: MediaStream): string;
-}
+};
 

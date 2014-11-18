@@ -410,6 +410,13 @@ declare module ng {
         cancel(promise: IPromise<any>): boolean;
     }
 
+    /**
+     * The animation object which contains callback functions for each event that is expected to be animated.
+     */
+    interface IAnimateCallbackObject {
+        eventFn(element: Node, doneFn: () => void): Function;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // FilterService
     // see http://docs.angularjs.org/api/ng.$filter

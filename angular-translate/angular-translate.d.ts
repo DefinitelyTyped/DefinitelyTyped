@@ -1,4 +1,4 @@
-// Type definitions for Angular Translate (pascalprecht.translate module)
+// Type definitions for Angular Translate v2.4.0 (pascalprecht.translate module)
 // Project: https://github.com/PascalPrecht/angular-translate
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -42,7 +42,7 @@ declare module ng.translate {
         instant(translationId: string, interpolateParams?: any, interpolationId?: string): string;
         instant(translationId: string[], interpolateParams?: any, interpolationId?: string): { [key: string]: string };
         isPostCompilingEnabled(): boolean;
-        preferredLanguage(): string;
+        preferredLanguage(langKey?: string): string;
         proposedLanguage(): string;
         refresh(langKey?: string): ng.IPromise<void>;
         storage(): IStorage;
@@ -50,6 +50,8 @@ declare module ng.translate {
         use(): string;
         use(key: string): ng.IPromise<string>;
         useFallbackLanguage(langKey?: string): void;
+        versionInfo(): string;
+        loaderCache(): any;
     }
 
     interface ITranslateProvider extends ng.IServiceProvider {
@@ -61,14 +63,14 @@ declare module ng.translate {
         useMessageFormatInterpolation(): ITranslateProvider;
         useInterpolation(factory: string): ITranslateProvider;
         useSanitizeValueStrategy(value: string): ITranslateProvider;
-        preferredLanguage(): string;
+        preferredLanguage(): ITranslateProvider;
         preferredLanguage(language: string): ITranslateProvider;
         translationNotFoundIndicator(indicator: string): ITranslateProvider;
         translationNotFoundIndicatorLeft(): string;
         translationNotFoundIndicatorLeft(indicator: string): ITranslateProvider;
         translationNotFoundIndicatorRight(): string;
         translationNotFoundIndicatorRight(indicator: string): ITranslateProvider;
-        fallbackLanguage(): string;
+        fallbackLanguage(): ITranslateProvider;
         fallbackLanguage(language: string): ITranslateProvider;
         fallbackLanguage(languages: string[]): ITranslateProvider;
         use(): string;
@@ -89,5 +91,6 @@ declare module ng.translate {
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
+        useLoaderCache(cache?: any): ITranslateProvider;
     }
 }

@@ -39,7 +39,7 @@ function test_disable() {
 }
 
 function test_reload() {
-    $.pjax.reload();
+    $.pjax.reload("#pjax-container");
 }
 
 function test_defauluts() {

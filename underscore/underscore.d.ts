@@ -1177,7 +1177,7 @@ interface UnderscoreStatic {
 	**/
 	pick(
 		object: any,
-		...keys: string[]): any;
+		...keys: any[]): any;
 
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).

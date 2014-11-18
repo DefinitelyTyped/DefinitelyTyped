@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.2 (ngCookies module)
+// Type definitions for Angular JS 1.3 (ngCookies module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -15,7 +15,9 @@ declare module ng.cookies {
     // CookieService
     // see http://docs.angularjs.org/api/ngCookies.$cookies
     ///////////////////////////////////////////////////////////////////////////
-    interface ICookiesService {}
+    interface ICookiesService {
+        [index: string]: any;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // CookieStoreService

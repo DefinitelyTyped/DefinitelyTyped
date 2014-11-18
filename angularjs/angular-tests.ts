@@ -83,7 +83,7 @@ angular.module('http-auth-interceptor', [])
             }
 
       }];
-        $httpProvider.responseInterceptors.push(interceptor);
+        $httpProvider.interceptors.push(interceptor);
     }]);
 
 
@@ -250,6 +250,12 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
+httpFoo.success((data, status, headers, config) => {
+    var h = headers("test");
+    h.charAt(0);
+    var hs = headers();
+    hs["content-type"].charAt(1);
+});
 
 function test_angular_forEach() {
     var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
@@ -319,6 +325,47 @@ class SampleDirective2 implements ng.IDirective {
 }
 
 angular.module('SameplDirective', []).directive('sampleDirective', SampleDirective.instance).directive('sameplDirective2', SampleDirective2.instance);
+
+angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpolate', '$q', ($interpolate: ng.IInterpolateService, $q: ng.IQService) => {
+    return {
+        restrict: 'A',
+        link: (scope: ng.IScope, el: ng.IAugmentedJQuery, attr: ng.IAttributes) => {
+            $interpolate(attr['test'])(scope);
+            $interpolate('', true)(scope);
+            $interpolate('', true, 'html')(scope);
+            $interpolate('', true, 'html', true)(scope);
+            var defer = $q.defer();
+            defer.reject();
+            defer.resolve();
+            defer.promise.then(function(d) {
+                return d;
+            }).then(function(): any {
+                return null;
+            }, function(): any {
+                return null;
+            })
+            .catch((): any => {
+                return null;
+            })
+            .finally((): any => {
+                return null;
+            });
+            var promise = new $q((resolve) => {
+                resolve();
+            });
+
+            promise = new $q((resolve, reject) => {
+                reject();
+                resolve(true);
+            });
+
+            promise = new $q<boolean>((resolver, reject) => {
+                resolver(true);
+                reject(false);
+            });
+        }
+    };
+}]);
 
 // test from https://docs.angularjs.org/guide/directive
 angular.module('docsSimpleDirective', [])
