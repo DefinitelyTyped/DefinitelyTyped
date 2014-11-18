@@ -3,10 +3,10 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 interface Foo {
-	foo(): string;
+    foo(): string;
 }
 interface Bar {
-	bar(): string;
+    bar(): string;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,31 +51,31 @@ function fnValueCallback(value: Foo): void {
 }
 
 function fnGetKeyCallback(value: Foo): string {
-	return str;
+    return str;
 }
 
 function fnTestCallback(value: Foo): boolean {
-	return bool;
+    return bool;
 }
 
 function fnMapCallback(value: Foo): Bar {
-	return bar;
+    return bar;
 }
 
 function fnMapStringCallback(value: string): string {
-	return str;
+    return str;
 }
 
 function fnNumberCallback(value: Foo): number {
-	return num;
+    return num;
 }
 
 function fnMemoCallback(memo: Bar, value: Foo): Bar {
-	return bar;
+    return bar;
 }
 
 function fnGeneratorCallback(index: number): Foo {
-	return foo;
+    return foo;
 }
 
 // Lazy
