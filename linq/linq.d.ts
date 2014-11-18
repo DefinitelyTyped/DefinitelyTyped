@@ -170,7 +170,7 @@ declare module linq {
         IndexOf(item): number;
         LastIndexOf(item): number;
         // Convert Methods
-        ToArray(): any[];
+        ToArray(): T[];
         ToLookup(keySelector: ($) => any, elementSelector?: ($) => any, compareSelector?: (key) => any): Lookup<T>;
         ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<T>;
         ToObject(keySelector: ($) => string, elementSelector: ($) => any): any;
