@@ -1,3 +1,4 @@
+/// <reference path="linq-tests.ts" />
 // Type definitions for linq.js 2.2
 // Project: http://linqjs.codeplex.com/
 // Definitions by: Marcin Najder <https://github.com/marcinnajder>
@@ -8,107 +9,107 @@
 declare module linq {
 
     interface EnumerableStatic {
-        Choice(...contents: any[]): Enumerable;
-        Choice(contents: any[]): Enumerable;
-        Cycle(...contents: any[]): Enumerable;
-        Cycle(contents: any[]): Enumerable;
-        Empty(): Enumerable;
-        From(obj: any[]): Enumerable;
-        From(obj: any): Enumerable;
-        Return(element: any): Enumerable;
-        Matches(input: string, pattern: RegExp): Enumerable;
-        Matches(input: string, pattern: string, flags?: string): Enumerable;
-        Range(start: number, count: number, step?: number): Enumerable;
-        RangeDown(start: number, count: number, step?: number): Enumerable;
-        RangeTo(start: number, to: number, step?: number): Enumerable;
-        Repeat(obj: any, count?: number): Enumerable;
-        RepeatWithFinalize(initializer: () => any, finalizer: (resource: any) =>void ): Enumerable;
-        Generate(func: () => any, count?: number): Enumerable;
-        Generate(func: string, count?: number): Enumerable;
-        ToInfinity(start?: number, step?: number): Enumerable;
-        ToNegativeInfinity(start?: number, step?: number): Enumerable;
-        Unfold(seed, func: ($) => any): Enumerable;
-        Unfold(seed, func: string): Enumerable;
+        Choice(...contents: any[]): Enumerable<any>;
+        Choice(contents: any[]): Enumerable<any>;
+        Cycle(...contents: any[]): Enumerable<any>;
+        Cycle(contents: any[]): Enumerable<any>;
+        Empty(): Enumerable<any>;
+        From(obj: any[]): Enumerable<any>;
+        From(obj: any): Enumerable<any>;
+        Return(element: any): Enumerable<any>;
+        Matches(input: string, pattern: RegExp): Enumerable<any>;
+        Matches(input: string, pattern: string, flags?: string): Enumerable<any>;
+        Range(start: number, count: number, step?: number): Enumerable<any>;
+        RangeDown(start: number, count: number, step?: number): Enumerable<any>;
+        RangeTo(start: number, to: number, step?: number): Enumerable<any>;
+        Repeat(obj: any, count?: number): Enumerable<any>;
+        RepeatWithFinalize(initializer: () => any, finalizer: (resource: any) =>void ): Enumerable<any>;
+        Generate(func: () => any, count?: number): Enumerable<any>;
+        Generate(func: string, count?: number): Enumerable<any>;
+        ToInfinity(start?: number, step?: number): Enumerable<any>;
+        ToNegativeInfinity(start?: number, step?: number): Enumerable<any>;
+        Unfold(seed, func: ($) => any): Enumerable<any>;
+        Unfold(seed, func: string): Enumerable<any>;
     }
 
-    interface Enumerable {
+    interface Enumerable<T> {
         //Projection and Filtering Methods
-        CascadeBreadthFirst(func: ($) => any[], resultSelector: (v, i: number) => any): Enumerable;
-        CascadeBreadthFirst(func: string, resultSelector: string): Enumerable;
-        CascadeDepthFirst(func: ($) => any[], resultSelector: (v, i: number) => any): Enumerable;
-        CascadeDepthFirst(func: string, resultSelector: string): Enumerable;
-        Flatten(...items: any[]): Enumerable;
-        Pairwise(selector: (prev, next) => any): Enumerable;
-        Pairwise(selector: string): Enumerable;
-        Scan(func: (a, b) => any): Enumerable;
-        Scan(func: string): Enumerable;
-        Scan(seed, func: (a, b) => any, resultSelector?: ($) => any): Enumerable;
-        Scan(seed, func: string, resultSelector?: string): Enumerable;
-        Select(selector: ($, i: number) => any): Enumerable;
-        Select(selector: string): Enumerable;
-        SelectMany(collectionSelector: ($, i: number) => any[], resultSelector?: ($, item) => any): Enumerable;
-        SelectMany(collectionSelector: ($, i: number) => Enumerable, resultSelector?: ($, item) => any): Enumerable;
-        SelectMany(collectionSelector: string, resultSelector?: string): Enumerable;
-        Where(predicate: ($, i: number) => boolean): Enumerable;
-        Where(predicate: string): Enumerable;
-        OfType(type: Function): Enumerable;
-        Zip(second: any[], selector: (v1, v2, i: number) => any): Enumerable;
-        Zip(second: any[], selector: string): Enumerable;
-        Zip(second: Enumerable, selector: (v1, v2, i: number) => any): Enumerable;
-        Zip(second: Enumerable, selector: string): Enumerable;
+        CascadeBreadthFirst(func: ($) => any[], resultSelector: (v, i: number) => any): Enumerable<any>;
+        CascadeBreadthFirst(func: string, resultSelector: string): Enumerable<any>;
+        CascadeDepthFirst(func: ($) => any[], resultSelector: (v, i: number) => any): Enumerable<any>;
+        CascadeDepthFirst(func: string, resultSelector: string): Enumerable<any>;
+        Flatten(...items: any[]): Enumerable<any>;
+        Pairwise(selector: (prev, next) => any): Enumerable<any>;
+        Pairwise(selector: string): Enumerable<any>;
+        Scan(func: (a, b) => any): Enumerable<any>;
+        Scan(func: string): Enumerable<any>;
+        Scan(seed, func: (a, b) => any, resultSelector?: ($) => any): Enumerable<any>;
+        Scan(seed, func: string, resultSelector?: string): Enumerable<any>;
+        Select(selector: ($, i: number) => any): Enumerable<any>;
+        Select(selector: string): Enumerable<any>;
+        SelectMany(collectionSelector: ($, i: number) => any[], resultSelector?: ($, item) => any): Enumerable<any>;
+        SelectMany(collectionSelector: ($, i: number) => Enumerable<any>, resultSelector?: ($, item) => any): Enumerable<any>;
+        SelectMany(collectionSelector: string, resultSelector?: string): Enumerable<any>;
+        Where(predicate: ($, i: number) => boolean): Enumerable<any>;
+        Where(predicate: string): Enumerable<any>;
+        OfType(type: Function): Enumerable<any>;
+        Zip(second: any[], selector: (v1, v2, i: number) => any): Enumerable<any>;
+        Zip(second: any[], selector: string): Enumerable<any>;
+        Zip(second: Enumerable<any>, selector: (v1, v2, i: number) => any): Enumerable<any>;
+        Zip(second: Enumerable<any>, selector: string): Enumerable<any>;
         //Join Methods
-        Join(inner: any[], outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2) => any, compareSelector?: (v) => any): Enumerable;
-        Join(inner: any[], outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable;
-        Join(inner: Enumerable, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2) => any, compareSelector?: (v) => any): Enumerable;
-        Join(inner: Enumerable, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable;
-        GroupJoin(inner: any[], outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable) => any, compareSelector?: (v) => any): Enumerable;
-        GroupJoin(inner: any[], outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable;
-        GroupJoin(inner: Enumerable, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable) => any, compareSelector?: (v) => any): Enumerable;
-        GroupJoin(inner: Enumerable, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable;
+        Join(inner: any[], outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2) => any, compareSelector?: (v) => any): Enumerable<any>;
+        Join(inner: any[], outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable<any>;
+        Join(inner: Enumerable<any>, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2) => any, compareSelector?: (v) => any): Enumerable<any>;
+        Join(inner: Enumerable<any>, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable<any>;
+        GroupJoin(inner: any[], outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable<any>) => any, compareSelector?: (v) => any): Enumerable<any>;
+        GroupJoin(inner: any[], outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable<any>;
+        GroupJoin(inner: Enumerable<any>, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable<any>) => any, compareSelector?: (v) => any): Enumerable<any>;
+        GroupJoin(inner: Enumerable<any>, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable<any>;
         //Set Methods
         All(predicate: ($) => boolean): boolean;
         All(predicate: string): boolean;
         Any(predicate?: ($) => boolean): boolean;
         Any(predicate?: string): boolean;
-        Concat(second: any[]): Enumerable;
-        Concat(second: Enumerable): Enumerable;
-        Insert(index: number, second: any[]): Enumerable;
-        Insert(index: number, second: Enumerable): Enumerable;
-        Alternate(value): Enumerable;
+        Concat(second: any[]): Enumerable<any>;
+        Concat(second: Enumerable<any>): Enumerable<any>;
+        Insert(index: number, second: any[]): Enumerable<any>;
+        Insert(index: number, second: Enumerable<any>): Enumerable<any>;
+        Alternate(value): Enumerable<any>;
         Contains(value, compareSelector?: ($) => any): boolean;
         Contains(value, compareSelector?: string): boolean;
-        DefaultIfEmpty(defaultValue): Enumerable;
-        Distinct(compareSelector?: ($) => any): Enumerable;
-        Distinct(compareSelector?: string): Enumerable;
-        Except(second: any[], compareSelector?: ($) => any): Enumerable;
-        Except(second: any[], compareSelector?: string): Enumerable;
-        Except(second: Enumerable, compareSelector?: ($) => any): Enumerable;
-        Except(second: Enumerable, compareSelector?: string): Enumerable;
-        Intersect(second: any[], compareSelector?: ($) => any): Enumerable;
-        Intersect(second: any[], compareSelector?: string): Enumerable;
-        Intersect(second: Enumerable, compareSelector?: ($) => any): Enumerable;
-        Intersect(second: Enumerable, compareSelector?: string): Enumerable;
+        DefaultIfEmpty(defaultValue): Enumerable<any>;
+        Distinct(compareSelector?: ($) => any): Enumerable<any>;
+        Distinct(compareSelector?: string): Enumerable<any>;
+        Except(second: any[], compareSelector?: ($) => any): Enumerable<any>;
+        Except(second: any[], compareSelector?: string): Enumerable<any>;
+        Except(second: Enumerable<any>, compareSelector?: ($) => any): Enumerable<any>;
+        Except(second: Enumerable<any>, compareSelector?: string): Enumerable<any>;
+        Intersect(second: any[], compareSelector?: ($) => any): Enumerable<any>;
+        Intersect(second: any[], compareSelector?: string): Enumerable<any>;
+        Intersect(second: Enumerable<any>, compareSelector?: ($) => any): Enumerable<any>;
+        Intersect(second: Enumerable<any>, compareSelector?: string): Enumerable<any>;
         SequenceEqual(second: any[], compareSelector?: ($) => any): boolean;
         SequenceEqual(second: any[], compareSelector?: string): boolean;
-        SequenceEqual(second: Enumerable, compareSelector?: ($) => any): boolean;
-        SequenceEqual(second: Enumerable, compareSelector?: string): boolean;
-        Union(second: any[], compareSelector?: ($) => any): Enumerable;
-        Union(second: any[], compareSelector?: string): Enumerable;
-        Union(second: Enumerable, compareSelector?: ($) => any): Enumerable;
-        Union(second: Enumerable, compareSelector?: string): Enumerable;
+        SequenceEqual(second: Enumerable<any>, compareSelector?: ($) => any): boolean;
+        SequenceEqual(second: Enumerable<any>, compareSelector?: string): boolean;
+        Union(second: any[], compareSelector?: ($) => any): Enumerable<any>;
+        Union(second: any[], compareSelector?: string): Enumerable<any>;
+        Union(second: Enumerable<any>, compareSelector?: ($) => any): Enumerable<any>;
+        Union(second: Enumerable<any>, compareSelector?: string): Enumerable<any>;
         //Ordering Methods
-        OrderBy(keySelector?: ($) => any): OrderedEnumerable;
-        OrderBy(keySelector?: string): OrderedEnumerable;
-        OrderByDescending(keySelector?: ($) => any): OrderedEnumerable;
-        OrderByDescending(keySelector?: string): OrderedEnumerable;
-        Reverse(): Enumerable;
-        Shuffle(): Enumerable;
+        OrderBy(keySelector?: ($) => any): OrderedEnumerable<any>;
+        OrderBy(keySelector?: string): OrderedEnumerable<any>;
+        OrderByDescending(keySelector?: ($) => any): OrderedEnumerable<any>;
+        OrderByDescending(keySelector?: string): OrderedEnumerable<any>;
+        Reverse(): Enumerable<any>;
+        Shuffle(): Enumerable<any>;
         //Grouping Methods
-        GroupBy(keySelector: ($) => any, elementSelector?: ($) => any, resultSelector?: (key, e) => any, compareSelector?: ($) =>any): Enumerable;
-        GroupBy(keySelector: string, elementSelector?: string, resultSelector?: string, compareSelector?: string): Enumerable;
-        PartitionBy(keySelector: ($) => any, elementSelector?: ($) => any, resultSelector?: (key, e) => any, compareSelector?: ($) =>any): Enumerable;
-        PartitionBy(keySelector: string, elementSelector?: string, resultSelector?: string, compareSelector?: string): Enumerable;
-        BufferWithCount(count: number): Enumerable;
+        GroupBy(keySelector: ($) => any, elementSelector?: ($) => any, resultSelector?: (key, e) => any, compareSelector?: ($) =>any): Enumerable<any>;
+        GroupBy(keySelector: string, elementSelector?: string, resultSelector?: string, compareSelector?: string): Enumerable<any>;
+        PartitionBy(keySelector: ($) => any, elementSelector?: ($) => any, resultSelector?: (key, e) => any, compareSelector?: ($) =>any): Enumerable<any>;
+        PartitionBy(keySelector: string, elementSelector?: string, resultSelector?: string, compareSelector?: string): Enumerable<any>;
+        BufferWithCount(count: number): Enumerable<any>;
         // Aggregate Methods
         Aggregate(func: (a, b) => any);
         Aggregate(seed, func: (a, b) => any, resultSelector?: ($) => any);
@@ -143,14 +144,14 @@ declare module linq {
         Single(predicate?: string): any;
         SingleOrDefault(defaultValue, predicate?: ($) => boolean): any;
         SingleOrDefault(defaultValue, predicate?: string): any;
-        Skip(count: number): Enumerable;
-        SkipWhile(predicate: ($, i: number) => boolean): Enumerable;
-        SkipWhile(predicate: string): Enumerable;
-        Take(count: number): Enumerable;
-        TakeWhile(predicate: ($, i: number) => boolean): Enumerable;
-        TakeWhile(predicate: string): Enumerable;
-        TakeExceptLast(count?: number): Enumerable;
-        TakeFromLast(count: number): Enumerable;
+        Skip(count: number): Enumerable<any>;
+        SkipWhile(predicate: ($, i: number) => boolean): Enumerable<any>;
+        SkipWhile(predicate: string): Enumerable<any>;
+        Take(count: number): Enumerable<any>;
+        TakeWhile(predicate: ($, i: number) => boolean): Enumerable<any>;
+        TakeWhile(predicate: string): Enumerable<any>;
+        TakeExceptLast(count?: number): Enumerable<any>;
+        TakeFromLast(count: number): Enumerable<any>;
         IndexOf(item): number;
         LastIndexOf(item): number;
         // Convert Methods
@@ -166,8 +167,8 @@ declare module linq {
         ToString(separator?: string, selector?: ($) =>any): string;
         ToString(separator?: string, selector?: string): string;
         //Action Methods
-        Do(action: ($, i: number) => void ): Enumerable;
-        Do(action: string): Enumerable;
+        Do(action: ($, i: number) => void ): Enumerable<any>;
+        Do(action: string): Enumerable<any>;
         ForEach(action: ($, i: number) => void ): void;
         ForEach(func: ($, i: number) => boolean): void;
         ForEach(action_func: string): void;
@@ -176,38 +177,38 @@ declare module linq {
         WriteLine(selector?: ($) =>any): void;
         Force(): void;
         //Functional Methods
-        Let(func: (e: Enumerable) => Enumerable): Enumerable;
-        Share(): Enumerable;
-        MemoizeAll(): Enumerable;
+        Let(func: (e: Enumerable<any>) => Enumerable<any>): Enumerable<any>;
+        Share(): Enumerable<any>;
+        MemoizeAll(): Enumerable<any>;
         //Error Handling Methods
-        Catch(handler: (error: Error) => void ): Enumerable;
-        Catch(handler: string): Enumerable;
-        Finally(finallyAction: () => void ): Enumerable;
-        Finally(finallyAction: string): Enumerable;
+        Catch(handler: (error: Error) => void ): Enumerable<any>;
+        Catch(handler: string): Enumerable<any>;
+        Finally(finallyAction: () => void ): Enumerable<any>;
+        Finally(finallyAction: string): Enumerable<any>;
         //For Debug Methods
-        Trace(message?: string, selector?: ($) =>any): Enumerable;
-        Trace(message?: string, selector?: string): Enumerable;
+        Trace(message?: string, selector?: ($) =>any): Enumerable<any>;
+        Trace(message?: string, selector?: string): Enumerable<any>;
     }
 
-    interface OrderedEnumerable extends Enumerable {
-        ThenBy(keySelector: ($) => any): OrderedEnumerable;
-        ThenBy(keySelector: string): OrderedEnumerable;
-        ThenByDescending(keySelector: ($) => any): OrderedEnumerable;
-        ThenByDescending(keySelector: string): OrderedEnumerable;
+    interface OrderedEnumerable<T> extends Enumerable<T> {
+        ThenBy(keySelector: ($) => T): OrderedEnumerable<T>;
+        ThenBy(keySelector: string): OrderedEnumerable<T>;
+        ThenByDescending(keySelector: ($) => T): OrderedEnumerable<T>;
+        ThenByDescending(keySelector: T): OrderedEnumerable<T>;
     }
 
-    interface Grouping extends Enumerable {
+    interface Grouping<T> extends Enumerable<T> {
         Key();
     }
 
-    interface Lookup {
+    interface Lookup<TValue> {
         Count(): number;
-        Get(key): Enumerable;
+        Get(key): Enumerable<TValue>;
         Contains(key): boolean;
-        ToEnumerable(): Enumerable;
+        ToEnumerable(): Enumerable<TValue>;
     }
 
-    interface Dictionary {
+    interface Dictionary<TValue> {
         Add(key, value): void;
         Get(key): any;
         Set(key, value): boolean;
@@ -215,7 +216,7 @@ declare module linq {
         Clear(): void;
         Remove(key): void;
         Count(): number;
-        ToEnumerable(): Enumerable;
+        ToEnumerable(): Enumerable<TValue>;
     }
 }
 
