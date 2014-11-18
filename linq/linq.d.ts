@@ -159,14 +159,14 @@ declare module linq {
         Single(predicate?: string): T;
         SingleOrDefault(defaultValue: T, predicate?: ($: T) => boolean): T;
         SingleOrDefault(defaultValue: T, predicate?: string): T;
-        Skip(count: number): Enumerable<any>;
-        SkipWhile(predicate: ($, i: number) => boolean): Enumerable<any>;
-        SkipWhile(predicate: string): Enumerable<any>;
-        Take(count: number): Enumerable<any>;
-        TakeWhile(predicate: ($, i: number) => boolean): Enumerable<any>;
-        TakeWhile(predicate: string): Enumerable<any>;
-        TakeExceptLast(count?: number): Enumerable<any>;
-        TakeFromLast(count: number): Enumerable<any>;
+        Skip(count: number): Enumerable<T>;
+        SkipWhile(predicate: ($: T, i: number) => boolean): Enumerable<T>;
+        SkipWhile(predicate: string): Enumerable<T>;
+        Take(count: number): Enumerable<T>;
+        TakeWhile(predicate: ($: T, i: number) => boolean): Enumerable<T>;
+        TakeWhile(predicate: string): Enumerable<T>;
+        TakeExceptLast(count?: number): Enumerable<T>;
+        TakeFromLast(count: number): Enumerable<T>;
         IndexOf(item): number;
         LastIndexOf(item): number;
         // Convert Methods
