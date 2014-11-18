@@ -70,9 +70,9 @@ declare module linq {
         GroupJoin(inner: Enumerable<any>, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable<any>) => any, compareSelector?: (v) => any): Enumerable<any>;
         GroupJoin(inner: Enumerable<any>, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable<any>;
         //Set Methods
-        All(predicate: ($) => boolean): boolean;
+        All(predicate: ($ : T) => boolean): boolean;
         All(predicate: string): boolean;
-        Any(predicate?: ($) => boolean): boolean;
+        Any(predicate?: ($: T) => boolean): boolean;
         Any(predicate?: string): boolean;
         Concat(second: any[]): Enumerable<any>;
         Concat(second: Enumerable<any>): Enumerable<any>;
@@ -101,12 +101,12 @@ declare module linq {
         Union(second: Enumerable<any>, compareSelector?: ($) => any): Enumerable<any>;
         Union(second: Enumerable<any>, compareSelector?: string): Enumerable<any>;
         //Ordering Methods
-        OrderBy(keySelector?: ($) => any): OrderedEnumerable<any>;
-        OrderBy(keySelector?: string): OrderedEnumerable<any>;
-        OrderByDescending(keySelector?: ($) => any): OrderedEnumerable<any>;
-        OrderByDescending(keySelector?: string): OrderedEnumerable<any>;
-        Reverse(): Enumerable<any>;
-        Shuffle(): Enumerable<any>;
+        OrderBy(keySelector?: ($: T) => any): OrderedEnumerable<T>;
+        OrderBy(keySelector?: string): OrderedEnumerable<T>;
+        OrderByDescending(keySelector?: ($) => any): OrderedEnumerable<T>;
+        OrderByDescending(keySelector?: string): OrderedEnumerable<T>;
+        Reverse(): Enumerable<T>;
+        Shuffle(): Enumerable<T>;
         //Grouping Methods
         GroupBy(keySelector: ($) => any, elementSelector?: ($) => any, resultSelector?: (key, e) => any, compareSelector?: ($) =>any): Enumerable<any>;
         GroupBy(keySelector: string, elementSelector?: string, resultSelector?: string, compareSelector?: string): Enumerable<any>;
