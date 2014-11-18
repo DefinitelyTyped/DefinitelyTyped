@@ -9,26 +9,29 @@
 declare module linq {
 
     interface EnumerableStatic {
-        Choice(...contents: any[]): Enumerable<any>;
-        Choice(contents: any[]): Enumerable<any>;
-        Cycle(...contents: any[]): Enumerable<any>;
-        Cycle(contents: any[]): Enumerable<any>;
-        Empty(): Enumerable<any>;
-        From(obj: any[]): Enumerable<any>;
-        From(obj: any): Enumerable<any>;
-        Return(element: any): Enumerable<any>;
-        Matches(input: string, pattern: RegExp): Enumerable<any>;
-        Matches(input: string, pattern: string, flags?: string): Enumerable<any>;
-        Range(start: number, count: number, step?: number): Enumerable<any>;
-        RangeDown(start: number, count: number, step?: number): Enumerable<any>;
-        RangeTo(start: number, to: number, step?: number): Enumerable<any>;
-        Repeat(obj: any, count?: number): Enumerable<any>;
-        RepeatWithFinalize(initializer: () => any, finalizer: (resource: any) =>void ): Enumerable<any>;
-        Generate(func: () => any, count?: number): Enumerable<any>;
+        Choice<T>(...contents: T[]): Enumerable<T>;
+        Choice<T>(contents: T[]): Enumerable<T>;
+        Cycle<T>(...contents: T[]): Enumerable<T>;
+        Cycle<T>(contents: T[]): Enumerable<T>;
+        Empty<T>(): Enumerable<T>;
+        From<T>(obj: T[]): Enumerable<T>;
+        From(obj: number): Enumerable<number>; // input number returns single number
+        From(obj: string): Enumerable<string>; // input string returns sequence of characters
+        From(obj: NodeList): Enumerable<Node>; // node list returns sequence of nodes
+        From(obj: Object): Enumerable<KeyValuePair<string, any>>; // object returns sequence of key/value pairs
+        Return<T>(element: T): Enumerable<T>;
+        Matches<T>(input: string, pattern: RegExp): Enumerable<string>;
+        Matches<T>(input: string, pattern: string, flags?: string): Enumerable<string>;
+        Range(start: number, count: number, step?: number): Enumerable<number>;
+        RangeDown(start: number, count: number, step?: number): Enumerable<number>;
+        RangeTo(start: number, to: number, step?: number): Enumerable<number>;
+        Repeat<T>(obj: any, count?: number): Enumerable<T>;
+        RepeatWithFinalize<T>(initializer: () => T, finalizer: (resource: T) => void): Enumerable<T>;
+        Generate<T>(func: () => T, count?: number): Enumerable<T>;
         Generate(func: string, count?: number): Enumerable<any>;
-        ToInfinity(start?: number, step?: number): Enumerable<any>;
-        ToNegativeInfinity(start?: number, step?: number): Enumerable<any>;
-        Unfold(seed, func: ($) => any): Enumerable<any>;
+        ToInfinity(start?: number, step?: number): Enumerable<number>;
+        ToNegativeInfinity(start?: number, step?: number): Enumerable<number>;
+        Unfold<T>(seed, func: ($) => T): Enumerable<T>;
         Unfold(seed, func: string): Enumerable<any>;
     }
 
@@ -217,6 +220,11 @@ declare module linq {
         Remove(key): void;
         Count(): number;
         ToEnumerable(): Enumerable<TValue>;
+    }
+
+    interface KeyValuePair<TKey, TValue> {
+        Key: TKey;
+        Value: TValue;
     }
 }
 
