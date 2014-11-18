@@ -1,4 +1,4 @@
-// Type definitions for CreateJS (PreloadJS 0.4.1)
+// Type definitions for PreloadJS 0.4.1
 // Project: http://www.createjs.com/#!/PreloadJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
