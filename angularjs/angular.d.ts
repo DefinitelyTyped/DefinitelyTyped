@@ -926,7 +926,7 @@ declare module ng {
          *
          * @param reason Constant, message, exception or an object representing the rejection reason.
          */
-        reject(reason?: any): IPromise<void>;
+        reject(reason?: any): IPromise<any>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          *
