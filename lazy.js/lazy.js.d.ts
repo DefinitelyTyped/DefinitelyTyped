@@ -154,6 +154,7 @@ declare module LazyJS {
         some(predicateFn?: TestCallback<T>): boolean;
         sortBy(sortFn: NumberCallback<T>): Sequence<T>;
         sortedIndex(value: T): Sequence<T>;
+        size(): number;
         sum(valueFn?: NumberCallback<T>): Sequence<T>;
         takeWhile(predicateFn: TestCallback<T>): Sequence<T>;
         union(var_args: T[]): Sequence<T>;
