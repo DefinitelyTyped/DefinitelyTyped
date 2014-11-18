@@ -7,93 +7,93 @@ declare module LazyJS {
 
     interface LazyStatic {
 
-        (value: string):StringLikeSequence;
-        <T>(value: T[]):ArrayLikeSequence<T>;
-        (value: any[]):ArrayLikeSequence<any>;
-        <T>(value: Object):ObjectLikeSequence<T>;
-        (value: Object):ObjectLikeSequence<any>;
+        (value: string): StringLikeSequence;
+        <T>(value: T[]): ArrayLikeSequence<T>;
+        (value: any[]): ArrayLikeSequence<any>;
+        <T>(value: Object): ObjectLikeSequence<T>;
+        (value: Object): ObjectLikeSequence<any>;
 
-        strict():LazyStatic;
+        strict(): LazyStatic;
 
-        generate<T>(generatorFn: GeneratorCallback<T>, length?: number):GeneratedSequence<T>;
+        generate<T>(generatorFn: GeneratorCallback<T>, length?: number): GeneratedSequence<T>;
 
-        range(to: number):GeneratedSequence<number>;
-        range(from: number, to: number, step?: number):GeneratedSequence<number>;
+        range(to: number): GeneratedSequence<number>;
+        range(from: number, to: number, step?: number): GeneratedSequence<number>;
 
-        repeat<T>(value: T, count?: number):GeneratedSequence<T>;
+        repeat<T>(value: T, count?: number): GeneratedSequence<T>;
 
-        on<T>(eventType: string):Sequence<T>;
+        on<T>(eventType: string): Sequence<T>;
 
-        readFile(path: string):StringLikeSequence;
-        makeHttpRequest(path: string):StringLikeSequence;
+        readFile(path: string): StringLikeSequence;
+        makeHttpRequest(path: string): StringLikeSequence;
     }
 
     interface ArrayLike<T> {
-        length:number;
-        [index:number]:T;
+        length: number;
+        [index: number]: T;
     }
 
     interface Callback {
-        ():void;
+        (): void;
     }
 
     interface ErrorCallback {
-        (error: any):void;
+        (error: any): void;
     }
 
     interface ValueCallback<T> {
-        (value: T):void;
+        (value: T): void;
     }
 
     interface GetKeyCallback<T> {
-        (value: T):string;
+        (value: T): string;
     }
 
     interface TestCallback<T> {
-        (value: T):boolean;
+        (value: T): boolean;
     }
 
     interface MapCallback<T, U> {
-        (value: T):U;
+        (value: T): U;
     }
 
     interface MapStringCallback {
-        (value: string):string;
+        (value: string): string;
     }
 
     interface NumberCallback<T> {
-        (value: T):number;
+        (value: T): number;
     }
 
     interface MemoCallback<T, U> {
-        (memo: U, value: T):U;
+        (memo: U, value: T): U;
     }
 
     interface GeneratorCallback<T> {
-        (index: number):T;
+        (index: number): T;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     interface Iterator<T> {
-        new (sequence: Sequence<T>):Iterator<T>;
-        current():T;
-        moveNext():boolean;
+        new (sequence: Sequence<T>): Iterator<T>;
+        current(): T;
+        moveNext(): boolean;
     }
 
     interface GeneratedSequence<T> extends Sequence<T> {
-        new(generatorFn: GeneratorCallback<T>, length: number):GeneratedSequence<T>;
-        length():number;
+        new(generatorFn: GeneratorCallback<T>, length: number): GeneratedSequence<T>;
+        length(): number;
     }
 
     interface AsyncSequence<T> extends SequenceBase<T> {
-        each(callback: ValueCallback<T>):AsyncHandle<T>;
+        each(callback: ValueCallback<T>): AsyncHandle<T>;
     }
 
     interface AsyncHandle<T> {
-        cancel():void;
-        onComplete(callback: Callback):void;
-        onError(callback: ErrorCallback):void;
+        cancel(): void;
+        onComplete(callback: Callback): void;
+        onError(callback: ErrorCallback): void;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -103,29 +103,29 @@ declare module LazyJS {
     }
 
     interface Sequence<T> extends SequenceBase<T> {
-        each(eachFn: ValueCallback<T>):Sequence<T>;
+        each(eachFn: ValueCallback<T>): Sequence<T>;
     }
 
     interface SequenceBase<T> extends SequenceBaser<T> {
-        first():any;
-        first(count: number):Sequence<T>;
-        indexOf(value: any, startIndex?: number):Sequence<T>;
+        first(): any;
+        first(count: number): Sequence<T>;
+        indexOf(value: any, startIndex?: number): Sequence<T>;
 
-        last():any;
-        last(count: number):Sequence<T>;
-        lastIndexOf(value: any):Sequence<T>;
+        last(): any;
+        last(count: number): Sequence<T>;
+        lastIndexOf(value: any): Sequence<T>;
 
-        reverse():Sequence<T>;
+        reverse(): Sequence<T>;
     }
 
     interface SequenceBaser<T> {
         // TODO improve define() (needs ugly overload)
-        async(interval: number):AsyncSequence<T>;
-        chunk(size: number):Sequence<T>;
-        compact():Sequence<T>;
-        concat(var_args: T[]):Sequence<T>;
-        consecutive(length: number):Sequence<T>;
-        contains(value: T):boolean;
+        async(interval: number): AsyncSequence<T>;
+        chunk(size: number): Sequence<T>;
+        compact(): Sequence<T>;
+        concat(var_args: T[]): Sequence<T>;
+        consecutive(length: number): Sequence<T>;
+        contains(value: T): boolean;
         countBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
         countBy(propertyName: string): ObjectLikeSequence<T>;
         dropWhile(predicateFn: TestCallback<T>): Sequence<T>;
