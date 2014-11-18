@@ -48,7 +48,7 @@ declare module linq {
         Scan(func: string): Enumerable<any>;
         Scan(seed, func: (a, b) => any, resultSelector?: ($) => any): Enumerable<any>;
         Scan(seed, func: string, resultSelector?: string): Enumerable<any>;
-        Select(selector: ($, i: number) => any): Enumerable<any>;
+        Select<TResult>(selector: ($: T, i: number) => TResult): Enumerable<TResult>;
         Select(selector: string): Enumerable<any>;
         SelectMany(collectionSelector: ($, i: number) => any[], resultSelector?: ($, item) => any): Enumerable<any>;
         SelectMany(collectionSelector: ($, i: number) => Enumerable<any>, resultSelector?: ($, item) => any): Enumerable<any>;
