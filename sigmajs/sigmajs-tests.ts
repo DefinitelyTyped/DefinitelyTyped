@@ -62,4 +62,11 @@ module SigmaJsTests {
     s.killForceAtlas2();
     s.startForceAtlas2();
     s.stopForceAtlas2();
+
+    s.cameras[0].goTo({
+        angle: 0,
+        x: 100,
+        y: 100,
+        ratio: 1
+    });
 }
