@@ -99,6 +99,7 @@ declare module SigmaJs{
         render(): Sigma;
         resize(): Sigma;
         settings(settings: { [index: string]: any }): void;
+        settings(settings: { [index: string]: any }): void;
     }
 
     interface RendererConfigs{
