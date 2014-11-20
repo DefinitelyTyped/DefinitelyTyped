@@ -564,6 +564,7 @@ interface KnockoutComponents {
     register(componentName: string, config: KnockoutComponentRegisterFnViewModel): void;
     register(componentName: string, config: KnockoutComponentRegisterStringTemplateFnViewModel): void;
     register(componentName: string, config: KnockoutComponentRegisterAMD): void;
+    register(componentName: string, config: {}): void;
 
 	isRegistered(componentName: string): boolean;
 	unregister(componentName: string): void;
