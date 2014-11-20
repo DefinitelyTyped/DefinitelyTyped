@@ -1,4 +1,4 @@
-// Type definitions for OrbitControls.js
+// Type definitions for three.js (OrbitControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/OrbitControls.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
