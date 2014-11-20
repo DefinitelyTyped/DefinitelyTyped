@@ -1,4 +1,4 @@
-// Type definitions for CanvasRenderer.js
+// Type definitions for three.js (CanvasRenderer.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/CanvasRenderer.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

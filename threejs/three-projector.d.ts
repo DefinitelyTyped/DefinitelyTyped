@@ -1,4 +1,4 @@
-// Type definitions for Projector.js
+// Type definitions for three.js (Projector.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/Projector.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

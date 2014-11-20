@@ -5,6 +5,21 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 declare module SigmaJs{
+    interface Animation {
+        camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
+    }
+
+    interface Camera {
+        angle: number;
+        cameraPosition(x: number, y:number): {x: number; y: number};
+        goTo(settings: { [index: string]: any }): void;
+        graphPosition(x: number, y:number): {x: number; y: number};
+        ratio: number;
+        readPrefix: string;
+        x: number;
+        y: number;
+    }
+
     interface Classes {
         configurable: Configurable;
         graph: Graph;
@@ -56,6 +71,10 @@ declare module SigmaJs{
         nodes(ids: string[]): Node[];
     }
 
+    interface Miscellaneous {
+        animation: Animation;
+    }
+
     interface Node {
         color?: string;
         id: string;
@@ -75,9 +94,12 @@ declare module SigmaJs{
     }
 
     interface Renderer {
+        container: Element;
         refresh(): Sigma;
         render(): Sigma;
         resize(): Sigma;
+        settings(settings: { [index: string]: any }): void;
+        settings(settings: { [index: string]: any }): void;
     }
 
     interface RendererConfigs{
@@ -90,12 +112,14 @@ declare module SigmaJs{
         addRenderer(): Renderer;
         addRenderer(configs: RendererConfigs): Renderer;
         bind(event: string, callback: (e: any) => void): void;
+        cameras: Camera[];
         graph: Graph;
         killRenderer(renderer: string): Sigma;
         killRenderer(renderer: Renderer): Sigma;
         kill(): void;
         refresh(): void;
         renderers: Renderer[];
+        settings(key: string): any;
 
         // forceAtlas2 layout
         configForceAtlas2(configs: { [key: string]: any }): void;
@@ -121,6 +145,7 @@ declare module SigmaJs{
         new(container: Element): Sigma;
         new(configuration: SigmaConfigs): Sigma;
         classes:Classes;
+        misc: Miscellaneous;
         parsers: Parsers;
         plugins: Plugins;
     }
