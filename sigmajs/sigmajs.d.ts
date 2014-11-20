@@ -99,7 +99,6 @@ declare module SigmaJs{
         render(): Sigma;
         resize(): Sigma;
         settings(settings: { [index: string]: any }): void;
-        settings(settings: { [index: string]: any }): void;
     }
 
     interface RendererConfigs{
@@ -135,8 +134,7 @@ declare module SigmaJs{
         graph?: Graph;
         id?: string;
         renderers?: Renderer[];
-        settings?: Configurable;
-
+        settings?: { [index: string]: any };
     }
 
     interface SigmaFactory {
