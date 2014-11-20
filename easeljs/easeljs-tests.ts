@@ -66,3 +66,9 @@ function colorMatrixTest() {
 
     shape.cache(-50, -50, 100, 100);
 }
+
+function test_canvas_tick() {
+    var canvas = <HTMLCanvasElement>document.getElementById('canvas');
+    var stage = new createjs.Stage(canvas);
+    var stage = createjs.Ticker.addEventListener("tick", stage);
+}
