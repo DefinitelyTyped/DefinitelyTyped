@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface IOptions {
+interface IJQuerySlimScrollOptions {
     // width in pixels of the visible scroll area
     width? :string;
     // height in pixels of the visible scroll area
@@ -54,7 +54,7 @@ interface IOptions {
 interface JQuery {
     slimScroll:{
         (): JQuery;
-        (options:IOptions): JQuery;
+        (options:IJQuerySlimScrollOptions): JQuery;
     }
 }
 
