@@ -1,4 +1,4 @@
-// Type definitions for three.js r68
+// Type definitions for three.js r69
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
