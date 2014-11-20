@@ -19,7 +19,7 @@ declare module SIPml {
     public removeEventListener(type: any): void;
   }
 
-  class Session {
+  class Session extends EventTarget {
     public accept(configuration?: Session.Configuration): number;
     public getId(): number;
     public getRemoteFriendlyName(): string;
@@ -30,14 +30,14 @@ declare module SIPml {
 
   export module Session {
     interface Configuration {
-      audio_remote?: HTMLAudioElement;
+      audio_remote?: HTMLElement;
       bandwidth?: Object;
       expires?: number;
       from?: string;
       sip_caps?: Object[];
       sip_headers?: Object[];
-      video_local?: HTMLVideoElement;
-      video_remote?: HTMLVideoElement;
+      video_local?: HTMLElement;
+      video_remote?: HTMLElement;
       video_size?: Object;
     }
 
@@ -83,9 +83,9 @@ declare module SIPml {
   class Stack extends EventTarget {
     public constructor(configuration?: Stack.Configuration);
     public setConfiguration(configuration: Stack.Configuration): number;
-    public newSession(type: string, configuration: Stack.Configuration): any;
+    public newSession(type: string, configuration?: Session.Configuration): any;
     public start(): number;
-    public stop(timeout: number): number;
+    public stop(timeout?: number): number;
   }
 
   export module Stack {
@@ -147,3 +147,4 @@ declare module SIPml {
 
   function setWebRtcType(type: string): boolean;
 }
+
