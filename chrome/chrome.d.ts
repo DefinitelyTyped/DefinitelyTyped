@@ -1949,7 +1949,7 @@ declare module chrome.tabs {
     export function reload(tabId?: number, reloadProperties?: ReloadProperties, func?: Function): void;
     export function duplicate(tabId: number, callback?: (tab?: Tab) => void): void;
     export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
-    export function connect(tabId: number, connectInfo?: ConnectInfo): void;
+    export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
     export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
     export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
     export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
