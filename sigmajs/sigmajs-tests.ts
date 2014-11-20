@@ -1,12 +1,11 @@
 /// <reference path="sigmajs.d.ts"/>
 module SigmaJsTests {
     var container = document.createElement("sigma");
-    var settings = new sigma.classes.configurable({
-        autoResize: true,
-        autoRescale: true
-    })
     var s = new sigma({
-        settings: settings
+        settings: {
+            autoResize: true,
+            autoRescale: true
+        }
     });
 
     s.addRenderer({
