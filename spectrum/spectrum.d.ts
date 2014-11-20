@@ -259,26 +259,26 @@ declare module Spectrum {
         /**
          * Called as the original input changes. Only happens when the input is closed or the 'Choose' button is clicked.
          */
-        change?: (any /*tinycolor */) => void;
+        change?: (color:any /*tinycolor */) => void;
         
         /**
          * Called as the user moves around within the colorpicker
          */
-        move?: (any /*tinycolor */) => void;
+        move?: (color:any /*tinycolor */) => void;
         
         /**
          * Called after the colorpicker is opened. This is ignored on a flat colorpicker. Note, when any colorpicker on the page is shown it will hide any that are already open.
          */
-        show?: (any /*tinycolor */) => void;
+        show?: (color:any /*tinycolor */) => void;
         
         /**
          * Called after the colorpicker is hidden. This happens when clicking outside of the picker while it is open. Note, when any colorpicker on the page is shown it will hide any that are already open. This event is ignored on a flat colorpicker.
          */
-        hide?: (any /*tinycolor */) => void;
+        hide?: (color:any /*tinycolor */) => void;
         
         /**
          * You can prevent the colorpicker from showing up if you return false in the beforeShow event. This event is ignored on a flat colorpicker.
          */
-        beforeShow?: (any /*tinycolor */) => void;
+        beforeShow?: (color:any /*tinycolor */) => void;
     }
 }
