@@ -2395,40 +2395,49 @@ declare module chrome.webRequest {
         requestBody: RequestBody;
     }
 
-    interface WebRequestCompletedEvent extends chrome.events.Event { 
+    interface WebRequestCompletedEvent extends chrome.events.Event {
         addListener(callback: (details: OnCompletedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnCompletedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestHeadersReceivedEvent extends chrome.events.Event { 
+    interface WebRequestHeadersReceivedEvent extends chrome.events.Event {
         addListener(callback: (details: OnHeadersReceivedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnHeadersReceivedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestBeforeRedirectEvent extends chrome.events.Event { 
+    interface WebRequestBeforeRedirectEvent extends chrome.events.Event {
         addListener(callback: (details: OnBeforeRedirectDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnBeforeRedirectDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestAuthRequiredEvent extends chrome.events.Event { 
+    interface WebRequestAuthRequiredEvent extends chrome.events.Event {
         addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]) => void): void;
+        removeListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]) => void): void;
     }
 
-    interface WebRequestBeforeSendHeadersEvent extends chrome.events.Event { 
+    interface WebRequestBeforeSendHeadersEvent extends chrome.events.Event {
         addListener(callback: (details: OnBeforeSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnBeforeSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestErrorOccurredEvent extends chrome.events.Event { 
+    interface WebRequestErrorOccurredEvent extends chrome.events.Event {
         addListener(callback: (details: OnErrorOccurredDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnErrorOccurredDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestResponseStartedEvent extends chrome.events.Event { 
+    interface WebRequestResponseStartedEvent extends chrome.events.Event {
         addListener(callback: (details: OnResponseStartedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnResponseStartedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestSendHeadersEvent extends chrome.events.Event { 
+    interface WebRequestSendHeadersEvent extends chrome.events.Event {
         addListener(callback: (details: OnSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebRequestBeforeRequestEvent extends chrome.events.Event { 
+    interface WebRequestBeforeRequestEvent extends chrome.events.Event {
         addListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
