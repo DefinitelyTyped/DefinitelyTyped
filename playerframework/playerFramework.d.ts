@@ -269,10 +269,23 @@
 	}
 
 	class PluginBase {
-		trackingEvents;
+		isEnabled: boolean;
+		isLoaded: boolean;
+		isActive: boolean;
+		mediaPlayer: MediaPlayer;
+		currentMediaSource: MediaSource;
+
+		load(): void;
+		unload(): void;
+		update(mediaSource: MediaSource): void;
 	}
 
 	module Plugins {
+
+		class TrackingPluginBase extends PluginBase {
+			trackingEvents: Array<any>;
+
+		}
 
 		class BufferingPlugin extends PluginBase {
 			hide(): void;
@@ -327,8 +340,8 @@
 			skipBackThreshold: number;
 
 			// Methods
-			goToPreviousPlaylistItem();
-			goToNextPlaylistItem();
+			goToPreviousPlaylistItem(): void;
+			goToNextPlaylistItem(): void;
 			canGoToPreviousPlaylistItem(): boolean;
 			canGoToNextPlaylistItem(): boolean;
 		}
@@ -369,15 +382,15 @@
 			/**
 			* Not available in phone.
 			**/
-			alignment;
+			alignment: string;
 			/**
 			* Not available in phone.
 			**/
-			anchor;
+			anchor: HTMLElement;
 			/**
 			* Not available in phone.
 			**/
-			placement;
+			placement: string;
 		}
 
 		class AudioSelectorPlugin extends PluginBase {
@@ -387,15 +400,15 @@
 			/**
 			* Not available in phone.
 			**/
-			alignment;
+			alignment: string;
 			/**
 			* Not available in phone.
 			**/
-			anchor;
+			anchor: HTMLElement;
 			/**
 			* Not available in phone.
 			**/
-			placement;
+			placement: string;
 		}
 	}
 	
@@ -1669,7 +1682,7 @@
 		* Adds the specified CSS class to the host element.
 		* @param name The name of the class to add. Multiple classes can be added using space-delimited names.
 		**/
-		addClass(name: string);
+		addClass(name: string): void;
 		/**
 		* Adds an event listener for the MediaPlayer events.
 		* //TODO
@@ -1688,7 +1701,7 @@
 		/**
 		* Raises the audioinvoked event used to indicate that an audio selection dialog should be presented to the user (usually in the form of a flyout).
 		**/
-		audio();
+		audio(): void;
 		/**
 		* Returns a value that specifies whether the player can play a given media type.
 		* @param type The type of media to be played.
@@ -1698,68 +1711,68 @@
 		/**
 		* Raises the captionsinvoked event used to indicate that closed options should be toggled on/off or that a caption selection dialog should be presented to the user (usually in the form of a flyout).
 		**/
-		captions();
+		captions(): void;
 		/**
 		* Decreases the current playback rate by a factor of two.After the rate reaches 1(normal speed), it will flip to - 1, and then begins to rewind.
 		**/
-		decreasePlaybackRate();
+		decreasePlaybackRate(): void;
 		/**
 		* Shuts down and releases all resources.
 		**/
-		dispose();
+		dispose(): void;
 		/**
 		* Gives focus to the host element.
 		**/
-		focus();
+		focus(): void;
 		/**
 		* Increases the current playback rate by a factor of two.After the rate reaches - 1, it flips to 1(normal speed), and then begins to fast forward.
 		**/
-		increasePlaybackRate();
+		increasePlaybackRate(): void;
 		/**
 		* Raises the infoinvoked event used to indicate that more information about the current media should be displayed to the user.
 		**/
-		info();
+		info(): void;
 		/**
 		* Reloads the current media source.
 		**/
-		load();
+		load(): void;
 		/**
 		* Raises the moreinvoked event typically used to indicate that more options that were unable to fit in the control panel should be presented to the user (usually in the form of a flyout).
 		**/
-		more();
+		more(): void;
 		/**
 		* Clears all effects from the media pipeline.
 		**/
-		msClearEffects();
+		msClearEffects(): void;
 		/**
 		* Steps the video forward or backward by one frame.
 		* @param forward If true, the video is stepped forward, otherwise the video is stepped backward.
 		**/
-		msFrameStep(forward: boolean);
+		msFrameStep(forward: boolean): void;
 		/**
 		* Inserts the specified audio effect into the media pipeline.
 		* @param activatableClassId The audio effects class.
 		* @param effectRequired
 		* @param config
 		**/
-		msInsertAudioEffect(activatableClassId: string, effectRequired: boolean, config: Object);
+		msInsertAudioEffect(activatableClassId: string, effectRequired: boolean, config: Object): void;
 		/**
 		* Inserts the specified video effect into the media pipeline.
 		* @param activatableClassId The video effects class.
 		* @param effectRequired
 		* @param config
 		**/
-		msInsertVideoEffect(activatableClassId: string, effectRequired: boolean, config: Object)
+		msInsertVideoEffect(activatableClassId: string, effectRequired: boolean, config: Object): void
 		/**
 		* Sets the MSMediaKeys to be used for decrypting media data.
 		* @param mediaKeys The media keys to use for decrypting media data.
 		**/
-		msSetMediaKeys(mediaKeys: MSMediaKeys);
+		msSetMediaKeys(mediaKeys: MSMediaKeys): void;
 		/**
 		* Sets the media protection manager for a given media pipeline.
 		* @param mediaProtectionManager
 		**/
-		msSetMediaProtectionManager(mediaProtectionManager: Windows.Media.Protection.MediaProtectionManager)
+		msSetMediaProtectionManager(mediaProtectionManager: Windows.Media.Protection.MediaProtectionManager): void;
 		/**
 		* Sets the dimensions of a sub - rectangle within a video.
 		* @param left The left position of the rectangle.
@@ -1794,92 +1807,92 @@
 		/**
 		* Supports instant replay by applying an offset to the current playback position.
 		**/
-		replay();
+		replay(): void;
 		/**
 		* Reloads the current media source and resumes where playback was left off.
 		**/
-		retry();
+		retry(): void;
 		/**
 		* Stops playback and raises the stopped event.
 		**/
-		stop();
+		stop(): void;
 		/**
 		* Updates the player and its plugins with the specified media source(e.g.the current playlist item).
 		* @param mediaSource A JSON object containing the set of options that represent a media source.
 		**/
-		update(mediaSource: Object);
+		update(mediaSource: Object): void;
 	}
 
 	class DynamicTextTrack {
 		stream;
-		label;
-		language;
-		augmentPayload(payload, startTime, endTime);
+		label: string;
+		language: string;
+		augmentPayload(payload, startTime, endTime): void;
 	}
 
 	module UI {
 		class Button {
 			element: HTMLElement;
-			type;
-			content;
-			hoverContent;
-			label;
-			tooltip;
-			disabled;
-			hidden;
-			flyout;
+			type: string;
+			content: string;
+			hoverContent: string;
+			label: string;
+			tooltip: string;
+			disabled: boolean;
+			hidden: boolean;
+			flyout: Element;
 		}
 
 		class ControlPanel {
 			element: HTMLElement;
-			hidden;
-			isPlayPauseHidden;
-			isPlayResumeHidden;
-			isPauseHidden;
-			isReplayHidden;
-			isRewindHidden;
-			isFastForwardHidden;
-			isSlowMotionHidden;
-			isSkipPreviousHidden;
-			isSkipNextHidden;
-			isSkipBackHidden;
-			isSkipAheadHidden;
-			isElapsedTimeHidden;
-			isRemainingTimeHidden;
-			isTotalTimeHidden;
-			isTimelineHidden;
-			isGoLiveHidden;
-			isCaptionsHidden;
-			isAudioHidden;
-			isVolumeMuteHidden;
-			isVolumeHidden;
-			isMuteHidden;
-			isFullScreenHidden;
-			isStopHidden;
-			isInfoHidden;
-			isMoreHidden;
-			isZoomHidden;
-			isSignalStrengthHidden;
-			isMediaQualityHidden;
-			flyoutContainerElement;
+			hidden: boolean;
+			isPlayPauseHidden: boolean;
+			isPlayResumeHidden: boolean;
+			isPauseHidden: boolean;
+			isReplayHidden: boolean;
+			isRewindHidden: boolean;
+			isFastForwardHidden: boolean;
+			isSlowMotionHidden: boolean;
+			isSkipPreviousHidden: boolean;
+			isSkipNextHidden: boolean;
+			isSkipBackHidden: boolean;
+			isSkipAheadHidden: boolean;
+			isElapsedTimeHidden: boolean;
+			isRemainingTimeHidden: boolean;
+			isTotalTimeHidden: boolean;
+			isTimelineHidden: boolean;
+			isGoLiveHidden: boolean;
+			isCaptionsHidden: boolean;
+			isAudioHidden: boolean;
+			isVolumeMuteHidden: boolean;
+			isVolumeHidden: boolean;
+			isMuteHidden: boolean;
+			isFullScreenHidden: boolean;
+			isStopHidden: boolean;
+			isInfoHidden: boolean;
+			isMoreHidden: boolean;
+			isZoomHidden: boolean;
+			isSignalStrengthHidden: boolean;
+			isMediaQualityHidden: boolean;
+			flyoutContainerElement: HTMLElement;
 		}
 
 		class Indicator {
 			element: HTMLElement;
-			value;
-			label;
-			tooltip;
-			disabled;
-			hidden;
+			value: string;
+			label: string;
+			tooltip: string;
+			disabled: boolean;
+			hidden: boolean;
 		}
 
 		class Meter {
 			element: HTMLElement;
-			value;
-			label;
-			tooltip;
-			disabled;
-			hidden;
+			value: number;
+			label: string;
+			tooltip: string;
+			disabled: boolean;
+			hidden: boolean;
 		}
 
 		class Slider {
@@ -1887,16 +1900,16 @@
 			min: number;
 			max: number;
 			value: number;
-			progress;
-			step;
+			progress: number;
+			step: number;
 			altStep1: number;
 			altStep2: number;
 			altStep3: number;
-			label;
-			tooltip;
-			vertical;
-			disabled;
-			hidden;
+			label: string;
+			tooltip: string;
+			vertical: boolean;
+			disabled: boolean;
+			hidden: boolean;
 			markers: Array<any>;
 			thumbnailImageSrc: string;
 			isThumbnailVisible: boolean;
