@@ -1,6 +1,4 @@
-﻿///<reference path="winrt.d.ts"/>
-
-declare module PlayerFramework {
+﻿declare module PlayerFramework {
 
 	// Enumerations
 	enum AdvertisingState {
