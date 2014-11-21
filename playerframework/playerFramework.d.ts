@@ -1,4 +1,4 @@
-﻿///<reference path="../winrt/winrt.d.ts"/>
+﻿//<reference path="../winrt/winrt.d.ts"/>
 
 declare module PlayerFramework {
 
@@ -1029,7 +1029,7 @@ declare module PlayerFramework {
 
 
 		uninitialize(): void;
-		playPause(e?): void;
+		playPause(e?: any): void;
 		playResume(): void;
 		pause(): void;
 		replay(): void;
@@ -1826,10 +1826,10 @@ declare module PlayerFramework {
 	}
 
 	class DynamicTextTrack {
-		stream;
+		stream: any;
 		label: string;
 		language: string;
-		augmentPayload(payload, startTime, endTime): void;
+		augmentPayload(payload: any, startTime: number, endTime: number): void;
 	}
 
 	module UI {
