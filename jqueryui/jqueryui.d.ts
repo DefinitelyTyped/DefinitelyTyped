@@ -712,6 +712,7 @@ declare module JQueryUI {
     }
 
     interface SpinnerUIParams {
+        value: number;
     }
 
     interface SpinnerEvent {
