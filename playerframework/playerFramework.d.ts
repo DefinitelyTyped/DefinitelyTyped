@@ -1,4 +1,6 @@
-﻿declare module PlayerFramework {
+﻿///<reference path="../winrt/winrt.d.ts"/>
+
+declare module PlayerFramework {
 
 	// Enumerations
 	enum AdvertisingState {
@@ -1051,19 +1053,19 @@
 		toggleZoom(): void;
 		captions(): void;
 		audio(): void;
-		onTimelineSliderStart(e): void;
-		onTimelineSliderUpdate(e): void;
-		onTimelineSliderComplete(e): void;
-		onTimelineSliderSkipToMarker(e): void;
-		onVolumeSliderUpdate(e): void;
-		onVolumeMuteClick(e): void;
-		onVolumeMuteFocus(e): void;
-		onVolumeMuteSliderUpdate(e): void;
-		onVolumeMuteSliderFocusIn(e): void;
-		onVolumeMuteSliderFocusOut(e): void;
-		onVolumeMuteSliderMSPointerOver(e): void;
-		onVolumeMuteSliderMSPointerOut(e): void;
-		onVolumeMuteSliderTransitionEnd(e): void;
+		onTimelineSliderStart(e: any): void;
+		onTimelineSliderUpdate(e: any): void;
+		onTimelineSliderComplete(e: any): void;
+		onTimelineSliderSkipToMarker(e: any): void;
+		onVolumeSliderUpdate(e: any): void;
+		onVolumeMuteClick(e: any): void;
+		onVolumeMuteFocus(e: any): void;
+		onVolumeMuteSliderUpdate(e: any): void;
+		onVolumeMuteSliderFocusIn(e: any): void;
+		onVolumeMuteSliderFocusOut(e: any): void;
+		onVolumeMuteSliderMSPointerOver(e: any): void;
+		onVolumeMuteSliderMSPointerOut(e: any): void;
+		onVolumeMuteSliderTransitionEnd(e: any): void;
 	}
 
 	/**
@@ -1697,7 +1699,7 @@
 		* @param label String A user readable title for a text track
 		* @param language String The BCP47 language tag of the track. For example "en" for English or "fr" for French
 		**/
-		addTextTrack(kind: string, label?: string, language?: string);
+		addTextTrack(kind: string, label?: string, language?: string): void;
 		/**
 		* Raises the audioinvoked event used to indicate that an audio selection dialog should be presented to the user (usually in the form of a flyout).
 		**/
@@ -1780,24 +1782,24 @@
 		* @param right The right position of the rectangle.
 		* @param bottom The bottom position of the rectangle.
 		**/
-		msSetVideoRectangle(left: number, top: number, right: number, bottom: number)
+		msSetVideoRectangle(left: number, top: number, right: number, bottom: number): void;
 		/**
 		* Pauses playback of the current media source.
 		**/
-		pause();
+		pause(): void;
 		/**
 		* Loads and starts playback of the current media source.
 		**/
-		play();
+		play(): void;
 		/**
 		* Resets the playback rate and resumes playing the current media source.
 		**/
-		playResume();
+		playResume(): void;
 		/**
 		* Removes the specified CSS class from the host element.
 		* @param name The name of the class to remove. Multiple classes can be removed using space-delimited names.
 		**/
-		removeClass(name: string);
+		removeClass(name: string): void;
 		/**
 		* Removes an event listener from the media player control.
 		* @param type The type (name) of the event. You can use any of the following: "". //TODO
@@ -1921,17 +1923,17 @@
 
 declare module PlayerFramework.Advertising {
 	interface AdvertisementBase {
-		source;
+		source: any;
 	}
 
 	class PrerollAdvertisement implements AdvertisementBase {
-		source;
+		source: any;
 	}
 
 	class MidrollAdvertisement implements AdvertisementBase {
-		source;
-		time;
-		timePercentage;
+		source: any;
+		time: number;
+		timePercentage: number;
 	}
 }
 
