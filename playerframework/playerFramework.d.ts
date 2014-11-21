@@ -1,4 +1,10 @@
-﻿//<reference path="../winrt/winrt.d.ts"/>
+﻿// Type definitions for Player Framework (MMPPF)
+// Project: https://github.com/ricardosabino/DefinitelyTyped
+// Definitions by: Ricardo Sabino <https://github.com/ricardosabino>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
+///<reference path="../winrt/winrt.d.ts"/>
 
 declare module PlayerFramework {
 
