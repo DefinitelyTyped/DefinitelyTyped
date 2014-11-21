@@ -227,6 +227,17 @@ function test_dataset_templates() {
         });
     }
 
+    function with_empty_option_as_a_function() {
+        $('#the-basics .typeahead').typeahead(options, {
+            source: substringMatcher(states),
+            templates: {
+                empty: function(context: any) {
+                    return context.name;
+                }
+            }
+        });
+    }
+
     function with_footer_option() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
@@ -234,10 +245,32 @@ function test_dataset_templates() {
         });
     }
 
+    function with_footer_option_as_a_function() {
+        $('#the-basics .typeahead').typeahead(options, {
+            source: substringMatcher(states),
+            templates: {
+                footer: function(context: any) {
+                    return context.name;
+                }
+            }
+        });
+    }
+
     function with_header_option() {
         $('#the-basics .typeahead').typeahead(options, {
             source: substringMatcher(states),
             templates: { header: 'custom header' }
+        });
+    }
+
+    function with_header_option_as_a_function() {
+        $('#the-basics .typeahead').typeahead(options, {
+            source: substringMatcher(states),
+            templates: {
+                header: function(context: any) {
+                    return context.name;
+                }
+            }
         });
     }
 
