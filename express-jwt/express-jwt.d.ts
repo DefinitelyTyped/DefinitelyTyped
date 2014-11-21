@@ -15,6 +15,7 @@ declare module "express-jwt" {
     module jwt {
         export interface Options {
             secret: string;
+            userProperty?: string;
             skip?: string[];
             credentialsRequired?: boolean;
         }
