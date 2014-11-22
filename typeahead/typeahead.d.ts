@@ -137,21 +137,21 @@ declare module Twitter.Typeahead {
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query
           */
-        empty?: string;
+        empty?: any;
 
         /**
          * Rendered at the bottom of the dataset.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
           */
-        footer?: string;
+        footer?: any;
 
         /**
          * Rendered at the top of the dataset.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
           */
-        header?: string;
+        header?: any;
 
         /**
          * Used to render a single suggestion.

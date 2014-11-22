@@ -7,6 +7,7 @@ var n: number;
 var s: string;
 var w: tc.WeekDay;
 
+n = tc.timeUnitToMilliseconds(tc.TimeUnit.Month);
 b = tc.isLeapYear(2014);
 n = tc.daysInMonth(2014, 10);
 n = tc.daysInYear(2014);
@@ -28,6 +29,7 @@ var d4: tc.Duration = tc.Duration.milliseconds(24);
 var d5: tc.Duration = new tc.Duration(24);
 var d6: tc.Duration = new tc.Duration("00:01");
 var d7: tc.Duration = d6.clone();
+var d8: tc.Duration = new tc.Duration(4, tc.TimeUnit.Second);
 
 n = d7.wholeHours();
 n = d7.hours();
@@ -144,6 +146,8 @@ b = dt.lessThan(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.lessEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.greaterThan(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.greaterEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
+dt = dt.min(new tc.DateTime(9289234, tc.TimeZone.local()));
+dt = dt.max(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
@@ -168,9 +172,15 @@ dt = p.findFirst(tc.DateTime.nowLocal());
 dt = p.findNext(dt);
 s = p.toIsoString();
 s = p.toString();
+b = p.isBoundary(dt);
 
 
+// GLOBALS
+d = tc.min(tc.Duration.seconds(2), tc.Duration.seconds(3));
+d = tc.max(tc.Duration.seconds(2), tc.Duration.seconds(3));
 
+dt = tc.min(new tc.DateTime(2), new tc.DateTime(3));
+dt = tc.max(new tc.DateTime(2), new tc.DateTime(3));
 
 
 

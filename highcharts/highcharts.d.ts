@@ -887,7 +887,7 @@ interface HighchartsDataPoint {
     y?: number;
 }
 
-interface HighchartsSeriesOptions {
+interface HighchartsSeriesOptions extends HighchartsSeriesChart{
     data?: any[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
     index?: number;
     legendIndex?: number;

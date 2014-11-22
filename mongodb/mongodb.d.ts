@@ -255,7 +255,7 @@ declare module "mongodb" {
 
   // Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
   export interface Collection {
-    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions);
+    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions): Collection; // is this right?
 
     insert(query: any, callback: (err: Error, result: any) => void): void;
     insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;

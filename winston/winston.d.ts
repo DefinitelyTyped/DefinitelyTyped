@@ -44,12 +44,13 @@ declare module "winston" {
   export function remove(transport: TransportInstance): LoggerInstance;
   export function startTimer(): ProfileHandler;
   export function profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export function addColors(target: any): any;
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
 
 
   export interface LoggerStatic {
-    new (options?: LoggerOptions);
+    new (options?: LoggerOptions): LoggerInstance;
   }
 
   export interface LoggerInstance extends NodeJS.EventEmitter {

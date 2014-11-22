@@ -255,7 +255,7 @@ interface PDFPageProxy {
 	/**
 	* A promise that is resolved with the string that is the text content frm the page.
 	**/
-	getTextContext(): PDFPromise<string>;
+    getTextContent(): PDFPromise<TextContent>;
 
 	/**
 	* marked as future feature
@@ -266,6 +266,20 @@ interface PDFPageProxy {
 	* Destroyes resources allocated by the page.
 	**/
 	destroy(): void;
+}
+
+interface TextContentItem {
+    str: string;
+    transform: number[]; // [0..5]   4=x, 5=y
+    width: number;
+    height: number;
+    dir: string; // Left-to-right (ltr), etc
+    fontName: string; // A lookup into the styles map of the owning TextContent
+}
+
+interface TextContent {
+    items: TextContentItem[];
+    styles: any;
 }
 
 /**

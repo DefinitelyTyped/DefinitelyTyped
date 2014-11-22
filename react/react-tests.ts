@@ -14,7 +14,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
 
         // Anything that can be rendered: numbers, strings, components or an array
         // containing these types.
-        optionalRenderable: React.PropTypes.renderable,
+        optionalRenderable: React.PropTypes.node,
 
         // A React component.
         optionalComponent: React.PropTypes.component,
@@ -63,7 +63,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
             return null;
         }
     },
-    render: (): React.Descriptor<any> => {
+    render: (): React.ReactHTMLElement => {
         return null;
     }
 };
@@ -72,13 +72,23 @@ React.createClass(PropTypesSpecification);
 
 var mountNode: Element;
 
-var HelloMessage = React.createClass({displayName: 'HelloMessage',
+interface HelloMessageProps {
+    name: string;
+}
+
+var HelloMessage = React.createClass<HelloMessageProps, any>({displayName: 'HelloMessage',
     render: function() {
-        return React.DOM.div(null, "Hello ", (<React.Component<{name: string}, any>>this).props.name);
+        return React.DOM.div(null, "Hello ", (<React.Component<HelloMessageProps, any>>this).props.name);
     }
 });
 
-React.renderComponent(HelloMessage({name: "John"}), mountNode);
+// This code - calling a component directly - is deprecated in v0.12
+// See http://fb.me/react-legacyfactory
+React.render(HelloMessage({ name: "John" }), mountNode);
+
+// Create a factory instead
+var HelloMessageFactory = React.createFactory(HelloMessage)
+React.render(HelloMessageFactory({ name: "John" }), mountNode)
 
 var Timer = React.createClass({displayName: 'Timer',
     getInitialState: function() {
@@ -104,4 +114,4 @@ var Timer = React.createClass({displayName: 'Timer',
     }
 });
 
-React.renderComponent(Timer(null), mountNode);
+React.render(Timer(), mountNode);

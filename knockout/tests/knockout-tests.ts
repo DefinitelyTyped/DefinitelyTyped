@@ -72,7 +72,7 @@ function test_computed() {
         this.acceptedNumericValue = ko.observable(123);
         this.lastInputWasValid = ko.observable(true);
 
-        this.attemptedValue = ko.computed({
+        this.attemptedValue = ko.computed<number>({
             read: this.acceptedNumericValue,
             write: function (value) {
                 if (isNaN(value))
@@ -284,7 +284,7 @@ function test_more() {
     };
 
     ko.extenders.numeric = function (target, precision) {
-        var result = ko.computed({
+        var result = ko.computed<any>({
             read: target,
             write: function (newValue) {
                 var current = target(),
@@ -645,6 +645,7 @@ function test_Components() {
         // object template for element and inline function (commonly used in examples)
         ko.components.register("name", { template: { require: "module" }, viewModel: { instance: null } });
 
-        //
+        // Empty config for registering custom elements that are handled by name convention
+		ko.components.register('name', { /* No config needed */ });
     }
 }
