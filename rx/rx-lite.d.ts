@@ -144,7 +144,7 @@ declare module Rx {
 			now: () => number,
 			schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
 			scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
-			scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable);
+			scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable): Scheduler;
 
 		normalize(timeSpan: number): number;
 
