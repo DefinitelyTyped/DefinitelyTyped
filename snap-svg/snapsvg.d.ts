@@ -210,7 +210,7 @@ declare module Snap {
 	el(name:string, attr:Object):Snap.Element;
 	gradient(gradient:string):any;
 	g(varargs:any):Object;
-	group(varargs:any):Object;
+	group(el:any,...els:any[]):any;
 	mask(varargs:any):Object;
 	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
 	svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
@@ -222,7 +222,7 @@ declare module Snap {
 	ellipse(x:number,y:number,rx:number,ry:number):Snap.Element;
 	image(src:string,x:number,y:number,width:number,height:number):Snap.Element;
 	line(x1:number,y1:number,x2:number,y2:number):Snap.Element;
-	path(pathString?:string):Object;
+	path(pathString?:string):Snap.Element;
 	polygon(varargs:any[]):Snap.Element;
 	polyline(varargs:any[]):Snap.Element;
 	rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
