@@ -33,6 +33,7 @@ var documents, requestApi;
 async.eachLimit(documents, 20, requestApi, function (err) { });
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
+async.mapLimit(['file1','file2','file3'], 1, fs.stat, function(err, results) { });
 
 async.filter(['file1', 'file2', 'file3'], path.exists, function (results) { });
 
