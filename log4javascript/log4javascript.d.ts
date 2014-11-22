@@ -293,7 +293,7 @@ declare module log4javascript {
 		/**
 		 * Sets the appender's threshold. Log messages of level less severe than this threshold will not be logged.
 		 */
-		setThreshold(level: Level)
+		setThreshold(level: Level): void;
 
 		/**
 		 * Returns the appender's threshold.
