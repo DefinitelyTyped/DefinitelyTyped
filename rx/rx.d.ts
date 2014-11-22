@@ -11,19 +11,7 @@ declare module Rx {
 		catchException(handler: (exception: any) => boolean): IScheduler;
 	}
 
-	export class Scheduler implements IScheduler {
-		constructor(
-			now: () => number,
-			schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
-			scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
-			scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable);
-
-		static normalize(timeSpan: number): number;
-
-		static immediate: IScheduler;
-		static currentThread: ICurrentThreadScheduler;
-		static timeout: IScheduler;
-
+    export interface Scheduler extends IScheduler {
 		now(): number;
 		catch(handler: (exception: any) => boolean): IScheduler;
 		catchException(handler: (exception: any) => boolean): IScheduler;
@@ -46,7 +34,22 @@ declare module Rx {
 		schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
 	}
 
-	// Observer
+    interface SchedulerStatic {
+        new (now: () => number,
+            schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
+            scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
+            scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable): Scheduler;
+
+        normalize(timeSpan: number): number;
+
+        immediate: IScheduler;
+        currentThread: ICurrentThreadScheduler;
+        timeout: IScheduler;
+    }
+
+    export var Scheduler: SchedulerStatic;
+
+    // Observer
 	export interface Observer<T> {
 		checked(): Observer<any>;
 	}
