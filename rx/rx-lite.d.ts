@@ -136,6 +136,25 @@ declare module Rx {
 		schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
 	}
 
+	export interface Scheduler extends IScheduler {
+	}
+
+	export interface SchedulerStatic {
+		new (
+			now: () => number,
+			schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
+			scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
+			scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable);
+
+		normalize(timeSpan: number): number;
+
+		immediate: IScheduler;
+		currentThread: ICurrentThreadScheduler;
+		timeout: IScheduler;
+	}
+
+	export var Scheduler: SchedulerStatic;
+
 	// Current Thread IScheduler
 	interface ICurrentThreadScheduler extends IScheduler {
 		scheduleRequired(): boolean;

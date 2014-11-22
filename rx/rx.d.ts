@@ -6,48 +6,10 @@
 ///<reference path="rx-lite.d.ts"/>
 
 declare module Rx {
-	export interface IScheduler {
+    export interface IScheduler {
 		catch(handler: (exception: any) => boolean): IScheduler;
 		catchException(handler: (exception: any) => boolean): IScheduler;
 	}
-
-    export interface Scheduler extends IScheduler {
-		now(): number;
-		catch(handler: (exception: any) => boolean): IScheduler;
-		catchException(handler: (exception: any) => boolean): IScheduler;
-
-		schedule(action: () => void): IDisposable;
-		scheduleWithState<TState>(state: TState, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
-		scheduleWithAbsolute(dueTime: number, action: () => void): IDisposable;
-		scheduleWithAbsoluteAndState<TState>(state: TState, dueTime: number, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
-		scheduleWithRelative(dueTime: number, action: () => void): IDisposable;
-		scheduleWithRelativeAndState<TState>(state: TState, dueTime: number, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
-
-		scheduleRecursive(action: (action: () => void) => void): IDisposable;
-		scheduleRecursiveWithState<TState>(state: TState, action: (state: TState, action: (state: TState) => void) => void): IDisposable;
-		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
-		scheduleRecursiveWithAbsoluteAndState<TState>(state: TState, dueTime: number, action: (state: TState, action: (state: TState, dueTime: number) => void) => void): IDisposable;
-		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
-		scheduleRecursiveWithRelativeAndState<TState>(state: TState, dueTime: number, action: (state: TState, action: (state: TState, dueTime: number) => void) => void): IDisposable;
-
-		schedulePeriodic(period: number, action: () => void): IDisposable;
-		schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
-	}
-
-    interface SchedulerStatic {
-        new (now: () => number,
-            schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
-            scheduleRelative: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
-            scheduleAbsolute: (state: any, dueTime: number, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable): Scheduler;
-
-        normalize(timeSpan: number): number;
-
-        immediate: IScheduler;
-        currentThread: ICurrentThreadScheduler;
-        timeout: IScheduler;
-    }
-
-    export var Scheduler: SchedulerStatic;
 
     // Observer
 	export interface Observer<T> {
