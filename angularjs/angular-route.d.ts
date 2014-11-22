@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.2 (ngRoute module)
+// Type definitions for Angular JS 1.3 (ngRoute module)
 // Project: http://angularjs.org
 // Definitions by: Jonathan Park <https://github.com/park9140>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

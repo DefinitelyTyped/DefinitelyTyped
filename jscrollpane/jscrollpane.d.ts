@@ -295,7 +295,7 @@ interface JScrollPaneApi {
 	 * @param animate Should an animation occur. If you don't provide this argument then the animateScroll
 			value from the settings object is used instead.
 	*/
-	scrollToBottom(animate?: boolean);
+	scrollToBottom(animate?: boolean): void;
 	/**
 	 * Hijacks the links on the page which link to content inside the scrollpane. If you have changed the content of
 	 * your page (e.g. via AJAX) and want to make sure any new anchor links to the contents of your scroll pane will
@@ -312,5 +312,5 @@ interface JQuery {
 	/**
 	 * Initialises the jScrollPane on the JQuery object.
 	*/
-	jScrollPane(options?: JScrollPaneSettings);
+	jScrollPane(options?: JScrollPaneSettings): JQuery;
 }

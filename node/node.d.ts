@@ -631,7 +631,11 @@ declare module "child_process" {
         killSignal?: string;
     }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function exec(command: string, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args: string[], options: {
+    export function execFile(file: string,
+        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[],
+        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: {
         cwd?: string;
         stdio?: any;
         customFds?: any;
@@ -640,7 +644,7 @@ declare module "child_process" {
         timeout?: number;
         maxBuffer?: string;
         killSignal?: string;
-    }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
@@ -720,6 +724,9 @@ declare module "net" {
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
         address(): { port: number; family: string; address: string; };
+        unref(): void;
+        ref(): void;
+
         remoteAddress: string;
         remotePort: number;
         bytesRead: number;
@@ -767,13 +774,13 @@ declare module "dgram" {
         port: number;
         size: number;
     }
-    
+
     interface AddressInfo {
-        address: string; 
-        family: string; 
-        port: number; 
+        address: string;
+        family: string;
+        port: number;
     }
-    
+
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
@@ -820,8 +827,12 @@ declare module "fs" {
         close(): void;
     }
 
-    export interface ReadStream extends stream.Readable {}
-    export interface WriteStream extends stream.Writable {}
+    export interface ReadStream extends stream.Readable {
+        close(): void;
+    }
+    export interface WriteStream extends stream.Writable {
+        close(): void;
+    }
 
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function renameSync(oldPath: string, newPath: string): void;
@@ -1076,15 +1087,19 @@ declare module "crypto" {
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     interface Cipher {
-        update(data: any, input_encoding?: string, output_encoding?: string): string;
-        final(output_encoding?: string): string;
+        update(data: Buffer): Buffer;
+        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        final(): Buffer;
+        final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     interface Decipher {
-        update(data: any, input_encoding?: string, output_encoding?: string): void;
-        final(output_encoding?: string): string;
+        update(data: Buffer): Buffer;
+        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        final(): Buffer;
+        final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
     }
     export function createSign(algorithm: string): Signer;

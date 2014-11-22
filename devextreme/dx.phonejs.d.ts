@@ -5,8 +5,8 @@
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module DevExpress {
-export function abstract(): void;
+declare module DevExpress  {
+    export function abstract(): void;
     export var rtlEnabled: boolean;
     export var hardwareBackButton: JQueryCallback;
     interface Endpoint {
@@ -84,8 +84,8 @@ export function abstract(): void;
         }): void;
     }
 }
-declare module DevExpress.data {
-export interface DataError extends Error {
+declare module DevExpress.data  {
+    export interface DataError extends Error {
         httpStatus?: number;
         errorDetails?: any;
     }
@@ -205,7 +205,7 @@ export interface DataError extends Error {
     export module queryAdapters {
         export function odata(queryOptions: ODataQueryOptions): RemoteQuery;
     }
-export interface DataSourceOptions {
+    export interface DataSourceOptions {
         map? (item: any): any;
         postProcess? (result: any[]): any;
         pageSize: number;
@@ -245,7 +245,7 @@ export interface DataSourceOptions {
         load(): JQueryPromise<any>;
         dispose(): void;
     }
-export interface StoreOptions {
+    export interface StoreOptions {
         key?: any;
         errorHandler?: ErrorHandler;
         loaded?: (result: Array<any>) => void;
@@ -351,8 +351,8 @@ export interface StoreOptions {
         objectLink(entityAlias: string, key: any): { __metadata: { uri: string }; };
     }
 }
-declare module DevExpress.framework {
-export interface dxViewOptions {
+declare module DevExpress.framework  {
+    export interface dxViewOptions {
         name: string;
         title?: string;
         layout?: string;
@@ -690,8 +690,8 @@ export interface dxViewOptions {
         [key: string]: { execute(e: any): void; }
     };
 }
-declare module DevExpress.framework.html {
-export interface ILayoutController {
+declare module DevExpress.framework.html  {
+    export interface ILayoutController {
         viewReleased: JQueryCallback;
         init(options: InitLayoutControllerOptions): void;
         activate(): void;
@@ -751,8 +751,8 @@ export interface ILayoutController {
         static create(container: JQuery, options: TransitionExecutorOptions): TransitionExecutor;
     }
     export interface ViewEngineOptions {
-        $root?: JQuery;
-        device?: IDevice;
+        $root: JQuery;
+        device: IDevice;
         commandManager?: CommandManager;
         templateEngine?: ITemplateEngine;
         dataOptionsAttributeName?: string;
@@ -793,7 +793,11 @@ export interface ILayoutController {
         viewPort(): JQuery;
     }
 }
-declare module DevExpress.ui {
+declare module DevExpress.ui  {
+    export var themes: {
+        current(): string;
+        current(themeName: string): void;
+    };
     interface ViewportOptions {
         allowPan?: boolean;
         allowZoom?: boolean;
@@ -849,7 +853,7 @@ declare module DevExpress.ui {
         export function confirm(options: DialogOptions): JQueryPromise<boolean>;
         export function confirm(message: string, title?: string): JQueryPromise<boolean>;
     }
-export interface CollectionContainerWidgetOptions extends WidgetOptions {
+    export interface CollectionContainerWidgetOptions extends WidgetOptions {
         items?: Array<any>;
         itemTemplate?: any;
         itemRender?: Function;
@@ -866,7 +870,7 @@ export interface CollectionContainerWidgetOptions extends WidgetOptions {
         constructor(element: Element, options?: CollectionContainerWidgetOptions);
         constructor(element: JQuery, options?: CollectionContainerWidgetOptions);
     }
-export interface WidgetOptions extends ComponentOptions {
+    export interface WidgetOptions extends ComponentOptions {
         contentReadyAction?: any;
         width?: any;
         height?: any;
@@ -880,7 +884,7 @@ export interface WidgetOptions extends ComponentOptions {
         repaint(): void;
         addTemplate(template: ITemplate): void;
     }
-export interface dxEditorOptions extends WidgetOptions {
+    export interface dxEditorOptions extends WidgetOptions {
         value?: any;
         valueChangeAction?: any;
     }
@@ -888,7 +892,7 @@ export interface dxEditorOptions extends WidgetOptions {
         constructor(element: Element, options?: dxEditorOptions);
         constructor(element: JQuery, options?: dxEditorOptions);
     }
-export interface dxAutocompleteOptions extends dxDropDownEditorOptions {
+    export interface dxAutocompleteOptions extends dxDropDownEditorOptions {
         minSearchLength?: number;
         searchTimeout?: number;
         placeholder?: string;
@@ -904,22 +908,23 @@ export interface dxAutocompleteOptions extends dxDropDownEditorOptions {
         constructor(element: Element, options?: dxAutocompleteOptions);
         constructor(element: JQuery, options?: dxAutocompleteOptions);
     }
-export interface dxButtonOptions extends WidgetOptions {
+    export interface dxButtonOptions extends WidgetOptions {
         type?: string;
-        text?: string;            
+        text?: string;
         icon?: string;
         iconSrc?: string;
+        clickAction?: any;
     }
     export class dxButton extends Widget {
         constructor(element: Element, options?: dxButtonOptions);
         constructor(element: JQuery, options?: dxButtonOptions);
     }
-export interface dxCheckBoxOptions extends dxEditorOptions { }
+    export interface dxCheckBoxOptions extends dxEditorOptions { }
     export class dxCheckBox extends dxEditor {
         constructor(element: Element, options?: dxCheckBoxOptions);
         constructor(element: JQuery, options?: dxCheckBoxOptions);
     }
-export interface dxCalendarOptions extends dxEditorOptions {
+    export interface dxCalendarOptions extends dxEditorOptions {
         value?: Date;
         min?: Date;
         max?: Date;
@@ -929,7 +934,7 @@ export interface dxCalendarOptions extends dxEditorOptions {
         constructor(element: Element, options?: dxEditorOptions);
         constructor(element: JQuery, options?: dxEditorOptions);
     }
-export interface dxDateBoxOptions extends dxTextEditorOptions {
+    export interface dxDateBoxOptions extends dxTextEditorOptions {
         format?: string;
         useNativePicker?: boolean;
         value?: Date;
@@ -945,7 +950,7 @@ export interface dxDateBoxOptions extends dxTextEditorOptions {
         constructor(element: Element, options?: dxDateBoxOptions);
         constructor(element: JQuery, options?: dxDateBoxOptions);
     }
-export interface dxTextEditorOptions extends dxEditorOptions {
+    export interface dxTextEditorOptions extends dxEditorOptions {
         valueChangeEvent?: string;
         placeholder?: string;
         readOnly?: boolean;
@@ -969,7 +974,7 @@ export interface dxTextEditorOptions extends dxEditorOptions {
         focus(): void;
         blur(): void;
     }
-export interface dxListOptions extends CollectionContainerWidgetOptions {
+    export interface dxListOptions extends CollectionContainerWidgetOptions {
         pullRefreshEnabled?: boolean;
         autoPagingEnabled?: boolean;
         scrollingEnabled?: boolean;
@@ -1035,7 +1040,7 @@ export interface dxListOptions extends CollectionContainerWidgetOptions {
         scrollTo(targetLocation: number): void;
         scrollTop(): number;
     }
-export interface dxLoadPanelOptions extends dxOverlayOptions {
+    export interface dxLoadPanelOptions extends dxOverlayOptions {
         message?: string;
         width?: number;
         height?: number;
@@ -1051,7 +1056,7 @@ export interface dxLoadPanelOptions extends dxOverlayOptions {
         show(): void;
         toggle(showing: boolean): void;
     }
-export interface dxLookupOptions extends dxEditorOptions {
+    export interface dxLookupOptions extends dxEditorOptions {
         dataSource?: data.DataSource;
         displayValue?: string;
         title?: string;
@@ -1103,7 +1108,7 @@ export interface dxLookupOptions extends dxEditorOptions {
         close(): void;
         open(): void;
     }
-export interface dxMapOptions extends WidgetOptions {
+    export interface dxMapOptions extends WidgetOptions {
         location?: any;
         width?: number;
         height?: number;
@@ -1132,12 +1137,12 @@ export interface dxMapOptions extends WidgetOptions {
         addRoute(routeOptions: any, callback: Function): JQueryPromise<any>;
         removeRoute(route: any): void;
     }
-export interface dxNavBarOptions extends dxTabsOptions { }
+    export interface dxNavBarOptions extends dxTabsOptions { }
     export class dxNavBar extends dxTabs {
         constructor(element: Element, options?: dxNavBarOptions);
         constructor(element: JQuery, options?: dxNavBarOptions);
     }
-export interface dxNumberBoxOptions extends dxTextEditorOptions {
+    export interface dxNumberBoxOptions extends dxTextEditorOptions {
         min?: number;
         max?: number;
         value?: number;
@@ -1148,7 +1153,7 @@ export interface dxNumberBoxOptions extends dxTextEditorOptions {
         constructor(element: Element, options?: dxNumberBoxOptions);
         constructor(element: JQuery, options?: dxNumberBoxOptions);
     }
-export interface dxOverlayOptions extends WidgetOptions {
+    export interface dxOverlayOptions extends WidgetOptions {
         activeStateEnabled?: boolean;
         shading?: boolean;
         closeOnOutsideClick?: boolean;
@@ -1170,7 +1175,7 @@ export interface dxOverlayOptions extends WidgetOptions {
         show(): void;
         toggle(showing: boolean): void;
     }
-export interface dxPopupOptions extends dxOverlayOptions {
+    export interface dxPopupOptions extends dxOverlayOptions {
         title?: string;
         showTitle?: boolean;
         fullScreen?: boolean;
@@ -1184,21 +1189,21 @@ export interface dxPopupOptions extends dxOverlayOptions {
         constructor(element: Element, options?: dxPopupOptions);
         constructor(element: JQuery, options?: dxPopupOptions);
     }
-export interface dxPopoverOptions extends dxPopupOptions {
+    export interface dxPopoverOptions extends dxPopupOptions {
         target?: any;
     }
     export class dxPopover extends dxPopup {
         constructor(element: Element, options?: dxPopoverOptions);
         constructor(element: JQuery, options?: dxPopoverOptions);
     }
-export interface dxTooltipOptions extends dxPopoverOptions {
+    export interface dxTooltipOptions extends dxPopoverOptions {
         target?: any;
     }
     export class dxTooltip extends dxPopover {
         constructor(element: Element, options?: dxTooltipOptions);
         constructor(element: JQuery, options?: dxTooltipOptions);
     }
-export interface dxRadioGroupOptions extends CollectionContainerWidgetOptions {
+    export interface dxRadioGroupOptions extends CollectionContainerWidgetOptions {
         layout?: string;
         name?: string;
         value?: Object;
@@ -1208,7 +1213,7 @@ export interface dxRadioGroupOptions extends CollectionContainerWidgetOptions {
         constructor(element: Element, options?: dxRadioGroupOptions);
         constructor(element: JQuery, options?: dxRadioGroupOptions);
     }
-export interface dxRangeSliderOptions extends dxSliderOptions {
+    export interface dxRangeSliderOptions extends dxSliderOptions {
         start?: number;
         end?: number;
     }
@@ -1216,7 +1221,7 @@ export interface dxRangeSliderOptions extends dxSliderOptions {
         constructor(element: Element, options?: dxRangeSliderOptions);
         constructor(element: JQuery, options?: dxRangeSliderOptions);
     }
-export interface dxScrollableOptions extends ComponentOptions {
+    export interface dxScrollableOptions extends ComponentOptions {
         startAction?: any;
         scrollAction?: any;
         endAction?: any;
@@ -1246,7 +1251,7 @@ export interface dxScrollableOptions extends ComponentOptions {
         scrollTo(targetLocation: number): void;
         scrollTo(targetLocation: Object): void;
     }
-export interface dxScrollViewOptions extends dxScrollableOptions {
+    export interface dxScrollViewOptions extends dxScrollableOptions {
         pullingDownText?: string;
         pulledDownText?: string;
         refreshingText?: string;
@@ -1261,7 +1266,7 @@ export interface dxScrollViewOptions extends dxScrollableOptions {
         toggleLoading(showOrHide: boolean): void;
         refresh(): void;
     }
-export interface dxSelectBoxOptions extends dxAutocompleteOptions {
+    export interface dxSelectBoxOptions extends dxAutocompleteOptions {
         fieldTemplate?: any;
         displayValue?: string;
         multiSelectEnabled?: boolean;
@@ -1273,7 +1278,7 @@ export interface dxSelectBoxOptions extends dxAutocompleteOptions {
         constructor(element: Element, options?: dxSelectBoxOptions);
         constructor(element: JQuery, options?: dxSelectBoxOptions);
     }
-export interface dxSliderOptions extends dxEditorOptions {
+    export interface dxSliderOptions extends dxEditorOptions {
         min?: number;
         max?: number;
         step?: number;
@@ -1294,12 +1299,12 @@ export interface dxSliderOptions extends dxEditorOptions {
         constructor(element: Element, options?: dxSliderOptions);
         constructor(element: JQuery, options?: dxSliderOptions);
     }
-export interface dxTabsOptions extends CollectionContainerWidgetOptions { }
+    export interface dxTabsOptions extends CollectionContainerWidgetOptions { }
     export class dxTabs extends CollectionContainerWidget {
         constructor(element: Element, options?: dxTabsOptions);
         constructor(element: JQuery, options?: dxTabsOptions);
     }
-export interface dxTextAreaOptions extends dxTextEditorOptions {
+    export interface dxTextAreaOptions extends dxTextEditorOptions {
         cols?: number;
         rows?: number;
     }
@@ -1307,14 +1312,14 @@ export interface dxTextAreaOptions extends dxTextEditorOptions {
         constructor(element: Element, options?: dxTextAreaOptions);
         constructor(element: JQuery, options?: dxTextAreaOptions);
     }
-export interface dxTextBoxOptions extends dxTextEditorOptions {
+    export interface dxTextBoxOptions extends dxTextEditorOptions {
         maxLength?: any;
     }
     export class dxTextBox extends dxTextEditor {
         constructor(element: Element, options?: dxTextBoxOptions);
         constructor(element: JQuery, options?: dxTextBoxOptions);
     }
-export interface dxToastOptions extends dxOverlayOptions {
+    export interface dxToastOptions extends dxOverlayOptions {
         message?: string;
         type?: string;
         displayTime?: number;
@@ -1323,7 +1328,7 @@ export interface dxToastOptions extends dxOverlayOptions {
         constructor(element: Element, options?: dxToastOptions);
         constructor(element: JQuery, options?: dxToastOptions);
     }
-export interface dxToolbarOptions extends CollectionContainerWidgetOptions {
+    export interface dxToolbarOptions extends CollectionContainerWidgetOptions {
         menuItemRender?: Function;
         menuItemTemplate?: any;
         submenuType?: string;
@@ -1333,7 +1338,7 @@ export interface dxToolbarOptions extends CollectionContainerWidgetOptions {
         constructor(element: Element, options?: dxToolbarOptions);
         constructor(element: JQuery, options?: dxToolbarOptions);
     }
-export interface dxDropDownEditorOptions extends dxTextBoxOptions {
+    export interface dxDropDownEditorOptions extends dxTextBoxOptions {
         closeAction?: any;
         openAction?: any;
     }
@@ -1341,14 +1346,14 @@ export interface dxDropDownEditorOptions extends dxTextBoxOptions {
         constructor(element: Element, options?: dxDropDownEditorOptions);
         constructor(element: JQuery, options?: dxDropDownEditorOptions);
     }
-export interface dxLoadIndicatorOptions extends WidgetOptions {
+    export interface dxLoadIndicatorOptions extends WidgetOptions {
         indicatorSrc?: string;
     }
     export class dxLoadIndicator extends Widget {
         constructor(element: Element, options?: dxLoadIndicatorOptions);
         constructor(element: JQuery, options?: dxLoadIndicatorOptions);
     }
-export interface dxMultiViewOptions extends CollectionContainerWidgetOptions {
+    export interface dxMultiViewOptions extends CollectionContainerWidgetOptions {
         loop?: boolean;
         swipeEnabled?: boolean;
         animationEnabled?: boolean;
@@ -1358,7 +1363,7 @@ export interface dxMultiViewOptions extends CollectionContainerWidgetOptions {
         constructor(element: Element, options?: dxMultiViewOptions);
         constructor(element: JQuery, options?: dxMultiViewOptions);
     }
-export interface dxGalleryOptions extends CollectionContainerWidgetOptions {
+    export interface dxGalleryOptions extends CollectionContainerWidgetOptions {
         activeStateEnabled?: boolean;
         animationDuration?: number;
         loop?: boolean;
@@ -1376,7 +1381,7 @@ export interface dxGalleryOptions extends CollectionContainerWidgetOptions {
         prevItem(animation?: boolean): JQueryPromise<dxGallery>;
         nextItem(animation?: boolean): JQueryPromise<dxGallery>;
     }
-export interface dxActionSheetOptions extends CollectionContainerWidgetOptions {
+    export interface dxActionSheetOptions extends CollectionContainerWidgetOptions {
         usePopover?: boolean;
         target?: any;
         title?: string;
@@ -1393,7 +1398,7 @@ export interface dxActionSheetOptions extends CollectionContainerWidgetOptions {
         show(): void;
         hide(): void;
     }
-export interface dxDropDownMenuOptions extends WidgetOptions {
+    export interface dxDropDownMenuOptions extends WidgetOptions {
         items?: Array<any>;
         itemClickAction?: any;
         dataSource?: data.DataSource;
@@ -1409,7 +1414,7 @@ export interface dxDropDownMenuOptions extends WidgetOptions {
         constructor(element: Element, options?: dxDropDownMenuOptions);
         constructor(element: JQuery, options?: dxDropDownMenuOptions);
     }
-export interface dxPanoramaOptions extends CollectionContainerWidgetOptions {
+    export interface dxPanoramaOptions extends CollectionContainerWidgetOptions {
         title?: string;
         backgroundImage?: any;
     }
@@ -1417,12 +1422,12 @@ export interface dxPanoramaOptions extends CollectionContainerWidgetOptions {
         constructor(element: Element, options?: dxPanoramaOptions);
         constructor(element: JQuery, options?: dxPanoramaOptions);
     }
-export interface dxPivotOptions extends CollectionContainerWidgetOptions { }
+    export interface dxPivotOptions extends CollectionContainerWidgetOptions { }
     export class dxPivot extends CollectionContainerWidget {
         constructor(element: Element, options?: dxPivotOptions);
         constructor(element: JQuery, options?: dxPivotOptions);
     }
-export interface dxSwitchOptions extends dxEditorOptions {
+    export interface dxSwitchOptions extends dxEditorOptions {
         onText?: string;
         offText?: string;
     }
@@ -1430,7 +1435,7 @@ export interface dxSwitchOptions extends dxEditorOptions {
         constructor(element: Element, options?: dxSwitchOptions);
         constructor(element: JQuery, options?: dxSwitchOptions);
     }
-export interface dxTileViewOptions extends CollectionContainerWidgetOptions {
+    export interface dxTileViewOptions extends CollectionContainerWidgetOptions {
         bounceEnabled?: boolean;
         showScrollbar?: boolean;
         listHeight?: number;
@@ -1442,7 +1447,7 @@ export interface dxTileViewOptions extends CollectionContainerWidgetOptions {
         constructor(element: Element, options?: dxTileViewOptions);
         constructor(element: JQuery, options?: dxTileViewOptions);
     }
-export interface dxSlideOutOptions extends CollectionContainerWidgetOptions {
+    export interface dxSlideOutOptions extends CollectionContainerWidgetOptions {
         activeStateEnabled?: boolean;
         menuItemRender? (itemData: any, itemIndex: number, itemElement: Element): any;
         menuItemTemplate?: any;
@@ -1460,43 +1465,43 @@ export interface dxSlideOutOptions extends CollectionContainerWidgetOptions {
         toggleMenuVisibility(showing?: boolean): JQueryPromise<dxSlideOut>;
     }
 }
-interface JQuery {
-dxAutocomplete(options?: DevExpress.ui.dxAutocompleteOptions): JQuery;
-dxButton(options?: DevExpress.ui.dxButtonOptions): JQuery;
-dxCheckBox(options?: DevExpress.ui.dxCheckBoxOptions): JQuery;
-dxCalendar(options?: DevExpress.ui.dxCalendarOptions): JQuery;
-dxDateBox(options?: DevExpress.ui.dxDateBoxOptions): JQuery;
-dxTextEditor(options?: DevExpress.ui.dxTextEditorOptions): JQuery;
-dxList(options?: DevExpress.ui.dxListOptions): JQuery;
-dxLoadPanel(options?: DevExpress.ui.dxLoadPanelOptions): JQuery;
-dxLookup(options?: DevExpress.ui.dxLookupOptions): JQuery;
-dxMap(options?: DevExpress.ui.dxMapOptions): JQuery;
-dxNavBar(options?: DevExpress.ui.dxNavBarOptions): JQuery;
-dxNumberBox(options?: DevExpress.ui.dxNumberBoxOptions): JQuery;
-dxOverlay(options?: DevExpress.ui.dxOverlayOptions): JQuery;
-dxPopup(options?: DevExpress.ui.dxPopupOptions): JQuery;
-dxPopover(options?: DevExpress.ui.dxPopoverOptions): JQuery;
-dxTooltip(options?: DevExpress.ui.dxTooltipOptions): JQuery;
-dxRadioGroup(options?: DevExpress.ui.dxRadioGroupOptions): JQuery;
-dxRangeSlider(options?: DevExpress.ui.dxRangeSliderOptions): JQuery;
-dxScrollable(options?: DevExpress.ui.dxScrollableOptions): JQuery;
-dxScrollView(options?: DevExpress.ui.dxScrollViewOptions): JQuery;
-dxSelectBox(options?: DevExpress.ui.dxSelectBoxOptions): JQuery;
-dxSlider(options?: DevExpress.ui.dxSliderOptions): JQuery;
-dxTabs(options?: DevExpress.ui.dxTabsOptions): JQuery;
-dxTextArea(options?: DevExpress.ui.dxTextAreaOptions): JQuery;
-dxTextBox(options?: DevExpress.ui.dxTextBoxOptions): JQuery;
-dxToast(options?: DevExpress.ui.dxToastOptions): JQuery;
-dxToolbar(options?: DevExpress.ui.dxToolbarOptions): JQuery;
-dxDropDownEditor(options?: DevExpress.ui.dxDropDownEditorOptions): JQuery;
-dxLoadIndicator(options?: DevExpress.ui.dxLoadIndicatorOptions): JQuery;
-dxMultiView(options?: DevExpress.ui.dxMultiViewOptions): JQuery;
-dxGallery(options?: DevExpress.ui.dxGalleryOptions): JQuery;
-dxActionSheet(options?: DevExpress.ui.dxActionSheetOptions): JQuery;
-dxDropDownMenu(options?: DevExpress.ui.dxDropDownMenuOptions): JQuery;
-dxPanorama(options?: DevExpress.ui.dxPanoramaOptions): JQuery;
-dxPivot(options?: DevExpress.ui.dxPivotOptions): JQuery;
-dxSwitch(options?: DevExpress.ui.dxSwitchOptions): JQuery;
-dxTileView(options?: DevExpress.ui.dxTileViewOptions): JQuery;
-dxSlideOut(options?: DevExpress.ui.dxSlideOutOptions): JQuery;
+interface JQuery  {
+    dxAutocomplete(options?: DevExpress.ui.dxAutocompleteOptions): JQuery;
+    dxButton(options?: DevExpress.ui.dxButtonOptions): JQuery;
+    dxCheckBox(options?: DevExpress.ui.dxCheckBoxOptions): JQuery;
+    dxCalendar(options?: DevExpress.ui.dxCalendarOptions): JQuery;
+    dxDateBox(options?: DevExpress.ui.dxDateBoxOptions): JQuery;
+    dxTextEditor(options?: DevExpress.ui.dxTextEditorOptions): JQuery;
+    dxList(options?: DevExpress.ui.dxListOptions): JQuery;
+    dxLoadPanel(options?: DevExpress.ui.dxLoadPanelOptions): JQuery;
+    dxLookup(options?: DevExpress.ui.dxLookupOptions): JQuery;
+    dxMap(options?: DevExpress.ui.dxMapOptions): JQuery;
+    dxNavBar(options?: DevExpress.ui.dxNavBarOptions): JQuery;
+    dxNumberBox(options?: DevExpress.ui.dxNumberBoxOptions): JQuery;
+    dxOverlay(options?: DevExpress.ui.dxOverlayOptions): JQuery;
+    dxPopup(options?: DevExpress.ui.dxPopupOptions): JQuery;
+    dxPopover(options?: DevExpress.ui.dxPopoverOptions): JQuery;
+    dxTooltip(options?: DevExpress.ui.dxTooltipOptions): JQuery;
+    dxRadioGroup(options?: DevExpress.ui.dxRadioGroupOptions): JQuery;
+    dxRangeSlider(options?: DevExpress.ui.dxRangeSliderOptions): JQuery;
+    dxScrollable(options?: DevExpress.ui.dxScrollableOptions): JQuery;
+    dxScrollView(options?: DevExpress.ui.dxScrollViewOptions): JQuery;
+    dxSelectBox(options?: DevExpress.ui.dxSelectBoxOptions): JQuery;
+    dxSlider(options?: DevExpress.ui.dxSliderOptions): JQuery;
+    dxTabs(options?: DevExpress.ui.dxTabsOptions): JQuery;
+    dxTextArea(options?: DevExpress.ui.dxTextAreaOptions): JQuery;
+    dxTextBox(options?: DevExpress.ui.dxTextBoxOptions): JQuery;
+    dxToast(options?: DevExpress.ui.dxToastOptions): JQuery;
+    dxToolbar(options?: DevExpress.ui.dxToolbarOptions): JQuery;
+    dxDropDownEditor(options?: DevExpress.ui.dxDropDownEditorOptions): JQuery;
+    dxLoadIndicator(options?: DevExpress.ui.dxLoadIndicatorOptions): JQuery;
+    dxMultiView(options?: DevExpress.ui.dxMultiViewOptions): JQuery;
+    dxGallery(options?: DevExpress.ui.dxGalleryOptions): JQuery;
+    dxActionSheet(options?: DevExpress.ui.dxActionSheetOptions): JQuery;
+    dxDropDownMenu(options?: DevExpress.ui.dxDropDownMenuOptions): JQuery;
+    dxPanorama(options?: DevExpress.ui.dxPanoramaOptions): JQuery;
+    dxPivot(options?: DevExpress.ui.dxPivotOptions): JQuery;
+    dxSwitch(options?: DevExpress.ui.dxSwitchOptions): JQuery;
+    dxTileView(options?: DevExpress.ui.dxTileViewOptions): JQuery;
+    dxSlideOut(options?: DevExpress.ui.dxSlideOutOptions): JQuery;
 }

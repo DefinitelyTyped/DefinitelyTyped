@@ -40,7 +40,7 @@ interface KnockoutMapping {
     defaultOptions(): KnockoutMappingOptions;
     resetDefaultOptions(): void;
     getType(x: any): any;
-    visitModel(rootObject: any, callback: Function, options?: { visitedObjects?; parentName?; ignore?; copy?; include?; }): any;
+    visitModel(rootObject: any, callback: Function, options?: { visitedObjects?: any; parentName?: string; ignore?: string[]; copy?: string[]; include?: string[]; }): any;
 }
 
 interface KnockoutStatic {

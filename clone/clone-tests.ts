@@ -6,4 +6,5 @@ var original = {
 
 var copy = clone(original);
 copy = clone(original, false);
-copy = clone(original, true);
+copy = clone(original, true, 1);
+copy = clone.clonePrototype(original);
