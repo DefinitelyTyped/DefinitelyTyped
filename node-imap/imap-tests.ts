@@ -94,11 +94,11 @@ imap.openBox('INBOX', true, function (err, box) {
     });
 });
 
-var fs = require('fs'), fileStream;
+var fs = require('fs'), fileStream : any;
 
 imap.openBox('INBOX', true,function (err, box) {
     if (err) throw err;
-    imap.search(['UNSEEN', ['SINCE', 'May 20, 2010']], function (err, results) {
+    imap.search(['UNSEEN', ['SINCE', 'May 20, 2010']], function (err : Error, results: any) {
         if (err) throw err;
         var f = imap.fetch(results, { bodies: '' });
         f.on('message', function (msg, seqno) {
