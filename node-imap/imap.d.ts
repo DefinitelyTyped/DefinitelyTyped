@@ -1,3 +1,10 @@
+// Type definitions for node imap
+// Project: https://github.com/mscdex/node-imap
+// Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../node/node.d.ts" />
+
 declare module "imap" {
     interface ImapOptions {
         user: string;
