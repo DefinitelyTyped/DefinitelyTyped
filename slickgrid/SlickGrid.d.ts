@@ -1500,8 +1500,8 @@ declare module Slick {
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
 			public reSort(): void;
-			public setGrouping(groupingInfo: GroupingOptions<T>): void;
-			public getGrouping(): GroupingOptions<T>;
+			public setGrouping(groupingInfo: GroupingOptions<T>[]): void;
+			public getGrouping(): GroupingOptions<T>[];
 
 			/**
 			* @deprecated
