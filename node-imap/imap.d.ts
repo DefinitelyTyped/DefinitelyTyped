@@ -56,11 +56,11 @@ declare module "imap" {
 
     interface ImapMessage {
         // TODO: typeof attributes
-        once(event: 'attributes', callback: (attributes) => void): void;
+        once(event: 'attributes', callback: (attributes: any) => void): void;
         once(event: string, callback: Function): void;
 
         // TODO: typeof info
-        on(event: 'body', callback: (stream: ImapBodyStream, info) => void): void;
+        on(event: 'body', callback: (stream: ImapBodyStream, info: any) => void): void;
         on(event: string, callback: Function): void;
     }
 
@@ -71,14 +71,14 @@ declare module "imap" {
 
         //TODO:
         // param a
-        openBox(name: string, a: boolean, callback: (err: Error, box: ImapBox) => void);
+        openBox(name: string, a: boolean, callback: (err: Error, box: ImapBox) => void) : void;
 
         //TODO:
         // param a
         // param b
         once(event: 'end', callback: () => void): void;
         once(event: 'error', callback: (error: Error) => void): void;
-        once(a: string, callback: Function);
+        once(a: string, callback: Function) : void;
 
         end(): void;
 
