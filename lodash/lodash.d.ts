@@ -6324,6 +6324,14 @@ declare module _ {
         noop(): void;
     }
 
+    //_.constant
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns value..
+         **/
+        constant<T>(value: T): T;
+    }
+
     //_.create
     interface LoDashStatic {
         /**
