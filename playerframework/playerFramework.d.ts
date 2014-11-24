@@ -1591,7 +1591,7 @@ declare module PlayerFramework {
 		/*
 		* Gets the plugins associated with the player.
 		**/
-		plugins: Array<any>;
+		plugins: Array<any>; //TODO: (type: ?, read - only)
 		/*
 		* Gets or sets the URL of an image to display while the current media source is loading.
 		**/
