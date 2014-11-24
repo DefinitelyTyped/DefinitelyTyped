@@ -460,7 +460,7 @@ declare module Ti {
 			}
 			export interface DocumentViewer extends Ti.UI.View {
 				setUrl (url: string) : void;
-				show (animated: boolean, view: any) : void;
+				show(animated?: boolean, view?: any) : void;
 			}
 			export interface Popover extends Ti.UI.View {
 				arrowDirection : number;

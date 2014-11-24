@@ -1,7 +1,9 @@
-﻿/// <reference path="../knockout/knockout.d.ts" />
+﻿// Type definitions for knockout-editables 0.9
+// Project: http://romanych.github.com/ko.editables/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// build: ko.editables 0.9
-// http://romanych.github.com/ko.editables/
+/// <reference path="../knockout/knockout.d.ts" />
 
 // bestowed by ko.editable(target)
 interface KnockoutEditable {

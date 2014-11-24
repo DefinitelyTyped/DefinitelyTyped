@@ -1,13 +1,13 @@
 // Type definitions for SignalR 1.0
 // Project: http://www.asp.net/signalr
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface HubMethod {
-    (callback: (data: string) => void );
+    (callback: (data: string) => void ): any;
 }
 
 interface SignalREvents {
@@ -36,6 +36,8 @@ interface SignalR {
     logging: boolean;
     messageId: string;
     url: string;
+    qs: any;
+    state: number;
 
     (url: string, queryString?: any, logging?: boolean): SignalR;
     hubConnection(url?: string): SignalR;
@@ -74,8 +76,8 @@ interface HubProxy {
     hubName: string;
     init(connection: HubConnection, hubName: string): void;
     hasSubscriptions(): boolean;
-    on(eventName: string, callback: (...msg) => void ): HubProxy;
-    off(eventName: string, callback: (msg) => void ): HubProxy;
+    on(eventName: string, callback: (...msg: any[]) => void ): HubProxy;
+    off(eventName: string, callback: (msg: any) => void ): HubProxy;
     invoke(methodName: string, ...args: any[]): JQueryDeferred<any>;
 }
 
@@ -87,18 +89,18 @@ interface HubConnectionSettings {
 
 interface HubConnection extends SignalR {
     //(url?: string, queryString?: any, logging?: boolean): HubConnection;
-    proxies;
-    received(callback: (data: { Id; Method; Hub; State; Args; }) => void ): HubConnection;
+    proxies: any;
+    received(callback: (data: { Id: any; Method: any; Hub: any; State: any; Args: any; }) => void ): HubConnection;
     createHubProxy(hubName: string): HubProxy;
 }
 
 interface SignalRfn {
-    init(url, qs, logging);
+    init(url: any, qs: any, logging: any): any;
 }
 
 interface ConnectionSettings {
-    transport?;
-    callback?;
+    transport?: any;
+    callback?: any;
     waitForPageLoad?: boolean;
     jsonp?: boolean;
 }

@@ -33,7 +33,9 @@ Globalize.parseDate("15 Jun 2012", ["dd MMM yyyy"]);
 Globalize.culture("fr");
 Globalize.parseDate("1/2/2003"); 
 
+Globalize.addCultureInfo({ numberFormat: { billionZeroes: 12 } });
 Globalize.addCultureInfo("fr", { numberFormat: { billionZeroes: 12 } });
+Globalize.addCultureInfo("de-DE", "de", { numberFormat: { billionZeroes: 12 } });
 
 //Globalize.culture().calendar = Globalize.culture().calendars.SomeOtherCalendar;
 //Globalize.culture().calendar = Globalize.culture().calendars.standard;

@@ -1,9 +1,13 @@
-// GreenSock Animation Platform (GSAP) - http://www.greensock.com/get-started-js/
+// Type definitions for GreenSock Animation Platform 1.1
+// Project: http://www.greensock.com/get-started-js/
+// Definitions by: Robert S <https://github.com/codebelt>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 // JavaScript Docs http://api.greensock.com/js/
 // Version 1.1 (TypeScript 0.9)
 
 interface IDispatcher {
-    addEventListener(type:string, callback:Function, scope:Object, useParam:boolean, priority:number):void;
+    addEventListener(type:string, callback:Function, scope?:Object, useParam?:boolean, priority?:number):void;
     removeEventListener(type:string, callback:Function):void;
 }
 
@@ -20,6 +24,7 @@ declare class Animation {
     duration(value:number):any;
     eventCallback(type:string, callback?:Function, params?:any[], scope?:any):any;
     invalidate():any;
+    isActive():boolean;
     kill(vars?:Object, target?:Object):any;
     pause(atTime?:any, suppressEvents?:boolean):any;
     paused(value?:boolean):any;
@@ -92,9 +97,9 @@ declare class TweenMax extends TweenLite {
     repeatDelay(value:number):any;
     static resumeAll(tweens?:boolean, delayedCalls?:boolean, timelines?:boolean):void;
     static set(target:Object, vars:Object):TweenMax;
-    static staggerFrom(targets:Object[], duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    static staggerFromTo(targets:Object[], duration:number, fromVars:Object, toVars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
-    static staggerTo(targets:Object[], duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
+    static staggerFrom(targets:any, duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
+    static staggerFromTo(targets:any, duration:number, fromVars:Object, toVars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
+    static staggerTo(targets:any, duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
     time(value:number, suppressEvents?:boolean):any;
     static to(target:Object, duration:number, vars:Object):TweenMax;
     totalDuration(value:number):any;
@@ -106,33 +111,35 @@ declare class TweenMax extends TweenLite {
 declare class TimelineLite extends SimpleTimeline {
     constructor(vars?:Object);
 
-    add(value:any, position?:any, align?:string, stagger?:number):any
-    addLabel(label:string, position:any):any
-    addPause(position?:any, callback?:Function, params?:any[], scope?:any):any
-    append(value:any, offsetOrLabel?:any):any
-    appendMultiple(tweens:any[], offsetOrLabel?:any, align?:string, stagger?:number):any
-    call(callback:Function, params?:any[], scope?:any, position?:any):any
-    clear(labels?:boolean):any
-    duration(value:number):any
-    exportRoot(vars?:Object, omitDelayedCalls?:boolean):TimelineLite
-    fromTo(target:Object, duration:number, fromVars:Object, toVars:Object, position?:any):any
+    add(value:any, position?:any, align?:string, stagger?:number):any;
+    addLabel(label:string, position:any):any;
+    addPause(position?:any, callback?:Function, params?:any[], scope?:any):any;
+    append(value:any, offsetOrLabel?:any):any;
+    appendMultiple(tweens:any[], offsetOrLabel?:any, align?:string, stagger?:number):any;
+    call(callback:Function, params?:any[], scope?:any, position?:any):any;
+    clear(labels?:boolean):any;
+    duration(value:number):any;
+    exportRoot(vars?:Object, omitDelayedCalls?:boolean):TimelineLite;
+    from(target:Object, duration:number, vars:Object, position?:any):any;
+    fromTo(target:Object, duration:number, fromVars:Object, toVars:Object, position?:any):any;
     getChildren(nested?:boolean, tweens?:boolean, timelines?:boolean, ignoreBeforeTime?:number):any[];
-    getLabelTime(label:string):number
+    getLabelTime(label:string):number;
     getTweensOf(target:Object, nested?:boolean):any[];
-    insert(value:any, timeOrLabel?:any):any
-    insertMultiple(tweens:any[], timeOrLabel?:any, align?:string, stagger?:number):any
-    invalidate():any
+    insert(value:any, timeOrLabel?:any):any;
+    insertMultiple(tweens:any[], timeOrLabel?:any, align?:string, stagger?:number):any;
+    invalidate():any;
     progress(value:number):any;
     remove(value:any):any;
     removeLabel(label:string):any;
+    set(target: Object, vars: Object, position?:any):any;
     seek(position:any, suppressEvents?:boolean):any;
     shiftChildren(amount:number, adjustLabels?:boolean, ignoreBeforeTime?:number):any;
-    staggerFrom(targets:any[], duration:number, vars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteScope?:any):any;
-    staggerFromTo(targets:any[], duration:number, fromVars:Object, toVars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
-    staggerTo(targets:any[], duration:number, vars:Object, stagger:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
+    staggerFrom(targets:any, duration:number, vars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteScope?:any):any;
+    staggerFromTo(targets:any, duration:number, fromVars:Object, toVars:Object, stagger?:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
+    staggerTo(targets:any, duration:number, vars:Object, stagger:number, position?:any, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any;
     stop():any;
     to(target:Object, duration:number, vars:Object, position?:any):any;
-    usesFrames():Boolean
+    usesFrames():Boolean;
 }
 
 declare class TimelineMax extends TimelineLite {
@@ -141,19 +148,19 @@ declare class TimelineMax extends TimelineLite {
     addCallback(callback:Function, position:any, params?:any[], scope?:any):TimelineMax;
     currentLabel(value?:string):any;
     getActive(nested?:boolean, tweens?:boolean, timelines?:boolean):any[];
-    getLabelAfter(time:number):string
-    getLabelBefore(time:number):string
+    getLabelAfter(time:number):string;
+    getLabelBefore(time:number):string;
     getLabelsArray():any[];
     invalidate():any;
     progress(value:number):any;
-    removeCallback(callback:Function, timeOrLabel?:any):TimelineMax
+    removeCallback(callback:Function, timeOrLabel?:any):TimelineMax;
     repeat(value?:number):any;
     repeatDelay(value?:number):any;
     time(value:number, suppressEvents?:boolean):any;
     totalDuration(value:number):any;
     totalProgress(value:number):any;
-    tweenFromTo(fromPosition:any, toPosition:any, vars?:Object):TweenLite
-    tweenTo(position:any, vars?:Object):TweenLite
+    tweenFromTo(fromPosition:any, toPosition:any, vars?:Object):TweenLite;
+    tweenTo(position:any, vars?:Object):TweenLite;
     yoyo(value?:boolean):any;
 }
 

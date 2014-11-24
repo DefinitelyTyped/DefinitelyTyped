@@ -1,3 +1,8 @@
+// Type definitions for RequireJS 2.1.8
+// Project: http://requirejs.org/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 require-2.1.8.d.ts may be freely distributed under the MIT license.
 
@@ -245,11 +250,29 @@ interface Require {
 	(modules: string[], ready: Function): void;
 
 	/**
+	* @see http://requirejs.org/docs/api.html#errbacks
+	* @param ready Called when required modules are ready.
+	**/
+	(modules: string[], ready: Function, errback: Function): void;
+
+	/**
 	* Generate URLs from require module
 	* @param module Module to URL
 	* @return URL string
 	**/
 	toUrl(module: string): string;
+
+	/**
+	* Returns true if the module has already been loaded and defined.
+	* @param module Module to check
+	**/
+	defined(module: string): boolean;
+
+	/**
+	* Returns true if the module has already been requested or is in the process of loading and should be available at some point.
+	* @param module Module to check
+	**/
+	specified(module: string): boolean;
 
 	/**
 	* On Error override
@@ -290,7 +313,7 @@ interface RequireDefine {
 	*	callback param deps module dependencies
 	*	callback return module definition
 	**/
-	(deps: string[], ready: (...deps: any[]) => any): void;
+    	(deps: string[], ready: Function): void;
 
 	/**
 	*  Define module with simplified CommonJS wrapper.
@@ -310,7 +333,25 @@ interface RequireDefine {
 	*	callback deps module dependencies
 	*	callback return module definition
 	**/
-	(name: string, deps: string[], ready: (...deps: any[]) => any): void;
+	(name: string, deps: string[], ready: Function): void;
+
+	/**
+	* Define a module with a name.
+	* @param name The name of the module.
+	* @param ready Callback function when the dependencies are loaded.
+	*	callback return module definition
+	**/
+	(name: string, ready: Function): void;
+	
+	/**
+	* Used to allow a clear indicator that a global define function (as needed for script src browser loading) conforms
+	* to the AMD API, any global define function SHOULD have a property called "amd" whose value is an object.
+	* This helps avoid conflict with any other existing JavaScript code that could have defined a define() function
+	* that does not conform to the AMD API.
+	* define.amd.jQuery is specific to jQuery and indicates that the loader is able to account for multiple version
+	* of jQuery being loaded simultaneously.
+	*/
+	amd: Object;
 }
 
 // Ambient declarations for 'require' and 'define'

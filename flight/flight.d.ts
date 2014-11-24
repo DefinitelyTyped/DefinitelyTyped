@@ -1,9 +1,9 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
-
-// Type definitions for Flight 1.1.1
+// Type definitions for Flight 1.1.4
 // Project: http://flightjs.github.com/flight/
 // Definitions by: Jonathan Hedrén <https://github.com/jonathanhedren/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare module Flight {
 
@@ -11,8 +11,23 @@ declare module Flight {
 
         /**
          * Most Components and Mixins need to define attributes. In Flight, 
+         * default values are assigned by passing an object to the attributes 
+         * function.
+         *
+         * NOTE: this.attributes replaces the now deprecated this.defaultAttrs. 
+         * However, for backwards compatibility, if you are using this.defaultAttrs 
+         * then all the old attribute behavior remains in place.
+         */
+        attributes(obj: Object): void; 
+
+        /**
+         * Most Components and Mixins need to define attributes. In Flight, 
          * default values are assigned by passing an object to the defaultAttrs 
          * function.
+         *
+         * NOTE: this.attributes replaces the now deprecated this.defaultAttrs. 
+         * However, for backwards compatibility, if you are using this.defaultAttrs 
+         * then all the old attribute behavior remains in place.
          */
         defaultAttrs(obj: Object): void;
 
@@ -181,7 +196,6 @@ declare module Flight {
         $node: JQuery;
     }
 
-
     export interface AdviceStatic {
         withAdvice(): Function;
     }
@@ -218,8 +232,8 @@ declare module Flight {
         merge(obj1: Object, obj2: Object, ...args: any[]): Object;
         push(base: Object, extra: Object, protect?: boolean): void;
         throttle(func: Function, wait: number): Function;
-        toArray(obj: Object, from?: number): Array;
-        uniqueArray(array: Array): Array;
+        toArray(obj: Object, from?: number): any[];
+        uniqueArray(array: any[]): any[];
     }
 
     export interface EventData {

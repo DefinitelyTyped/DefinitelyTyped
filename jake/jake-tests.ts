@@ -9,7 +9,7 @@ task('default', function (params) {
 });
 
 desc('This task has prerequisites.');
-task('hasPrereqs', ['foo', 'bar', 'baz'], function (params) {
+task('hasPrereqs', ['foo', 'bar', 'baz'], function () {
   console.log('Ran some prereqs first.');
 });
 

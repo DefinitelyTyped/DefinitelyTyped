@@ -1,3 +1,8 @@
+// Type definitions for SlickGrid 2.1.0
+// Project: https://github.com/mleibman/SlickGrid
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 
@@ -394,7 +399,7 @@ declare module Slick {
 		* @param colDef
 		* @return
 		**/
-		asyncPostRender?: (cellNode, row, dataContext, colDef) => void;
+		asyncPostRender?: (cellNode:any, row:any, dataContext:any, colDef:any) => void;
 
 		/**
 		* Used by the the slick.rowMoveManager.js plugin for moving rows. Has no effect without the plugin installed.
@@ -419,7 +424,7 @@ declare module Slick {
 		/**
 		* The editor for cell edits {TextEditor, IntegerEditor, DateEditor...} See slick.editors.js
 		**/
-		editor?: Editors.Editor<T>;
+		editor?: any; // typeof Editors.Editor<T>;
 
 		/**
 		* The property name in the data object to pull content from. (This is assumed to be on the root of the data object.)
@@ -470,7 +475,7 @@ declare module Slick {
 		/**
 		* If set to true, whenever this column is resized, the entire table view will rerender.
 		**/
-		rerenderOnReize?: boolean;
+		rerenderOnResize?: boolean;
 
 		/**
 		* If false, column can no longer be resized.
@@ -684,8 +689,8 @@ declare module Slick {
 		topPanelHeight?: number;
 	}
 
-	export interface DataProvider {
-		getItem(index: number): SlickData;
+	export interface DataProvider<T extends SlickData> {
+		getItem(index: number): T;
 		getLength(): number;
 	}
 
@@ -700,7 +705,7 @@ declare module Slick {
 	* The grid also provides two helper methods to simplify development - getSelectedRows() and setSelectedRows(rowsArray), as well as an onSelectedRowsChanged event.
 	* SlickGrid includes two pre-made selection models - Slick.CellSelectionModel and Slick.RowSelectionModel, but you can easily write a custom one.
 	**/
-	export class SelectionModel<T extends Slick.SlickData, E> {
+	export class SelectionModel<T extends SlickData, E> {
 		/**
 		* An initializer function that will be called with an instance of the grid whenever a selection model is registered with setSelectionModel. The selection model can use this to initialize its state and subscribe to grid events.
 		**/
@@ -735,12 +740,12 @@ declare module Slick {
 			options: GridOptions<T>);
 		constructor(
 			container: string,
-			data: DataProvider,
+			data: DataProvider<T>,
 			columns: Column<T>[],
 			options: GridOptions<T>);
 		constructor(
 			container: HTMLElement,
-			data: DataProvider,
+			data: DataProvider<T>,
 			columns: Column<T>[],
 			options: GridOptions<T>);
 
@@ -774,10 +779,17 @@ declare module Slick {
 
 		/**
 		* Sets a new source for databinding and removes all rendered rows. Note that this doesn't render the new rows - you can follow it with a call to render() to do that.
-		* @param newData New databinding source. This can either be a regular JavaScript array or a custom object exposing getItem(index) and getLength() functions.
+		* @param newData New databinding source using a regular JavaScript array..
 		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
 		**/
 		public setData(newData: T[], scrollToTop: boolean): void;
+
+		/**
+		* Sets a new source for databinding and removes all rendered rows. Note that this doesn't render the new rows - you can follow it with a call to render() to do that.
+		* @param newData New databinding source using a custom object exposing getItem(index) and getLength() functions.
+		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
+		**/
+		public setData(newData: DataProvider<T>, scrollToTop: boolean): void;
 
 		/**
 		* Returns the size of the databinding source.
@@ -1174,7 +1186,7 @@ declare module Slick {
 		// #region Editors
 
 		public getEditorLock(): EditorLock<any>;
-		public getEditController(): Editors.Editor<any>;
+		public getEditController(): { commitCurrentEdit():boolean; cancelCurrentEdit():boolean; };
 
 		// #endregion Editors
 	}
@@ -1320,8 +1332,8 @@ declare module Slick {
 	}
 
 	// todo: merge with existing column definition
-	export interface Column {
-		sortCol?: string;
+	export interface Column<T extends SlickData> {
+		sortCol?: Column<T>;
 		sortAsc?: boolean;
 	}
 
@@ -1390,8 +1402,8 @@ declare module Slick {
 			public init(): void;
 			public destroy(): void;
 			public focus(): void;
-			public loadValue(item): void; // todo: typeof(item)
-			public applyValue(item, state: string): void; // todo: typeof(item)
+			public loadValue(item:any): void; // todo: typeof(item)
+			public applyValue(item:any, state: string): void; // todo: typeof(item)
 			public isValueChanged(): boolean;
 			public serializeValue(): any;
 			public validate(): ValidateResults;
@@ -1473,7 +1485,7 @@ declare module Slick {
 		* Item -> Data by index
 		* Row -> Data by row
 		**/
-		export class DataView<T extends Slick.SlickData> implements DataProvider {
+		export class DataView<T extends Slick.SlickData> implements DataProvider<T> {
 
 			constructor(options?: DataViewOptions<T>);
 
@@ -1483,23 +1495,24 @@ declare module Slick {
 			public getPagingInfo(): PagingOptions;
 			public getItems(): T[];
 			public setItems(data: T[], objectIdProperty?: string): void;
-			public setFilter(filterFn: (item: T, args) => boolean): void;	// todo: typeof(args)
+			public setFilter(filterFn: (item: T, args:any) => boolean): void;	// todo: typeof(args)
 			public sort(comparer: Function, ascending: boolean): void;		// todo: typeof(comparer), should be the same callback as Array.sort
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
 			public reSort(): void;
+			public setGrouping(groupingInfos: GroupingOptions<T>[]): void;
 			public setGrouping(groupingInfo: GroupingOptions<T>): void;
-			public getGrouping(): GroupingOptions<T>;
+			public getGrouping(): GroupingOptions<T>[];
 
 			/**
 			* @deprecated
 			**/
-			public groupBy(valueGetter, valueFormatter, sortComparer): void;
+			public groupBy(valueGetter:any, valueFormatter:any, sortComparer:any): void;
 
 			/**
 			* @deprecated
 			**/
-			public setAggregators(groupAggregators, includeCollapsed): void;
+			public setAggregators(groupAggregators:any, includeCollapsed:any): void;
 
 			/**
 			* @param level Optional level to collapse.  If not specified, applies to all levels.
@@ -1527,7 +1540,7 @@ declare module Slick {
 			*/
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
-			public getIdxById(): string;
+			public getIdxById(id: string): number;
 			public getRowById(): T;
 			public getItemById(id: any): T;
 			public getItemByIdx(): T;
@@ -1543,7 +1556,7 @@ declare module Slick {
 			public syncGridCellCssStyles(grid: Grid<T>, key: string): void;
 
 			public getLength(): number;
-			public getItem(index: number): SlickData;
+			public getItem(index: number): T;
 			public getItemMetadata(): void;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
@@ -1554,7 +1567,7 @@ declare module Slick {
 		export interface GroupingOptions<T> {
 			getter: Function;	// todo
 			formatter: Formatter<T>;
-			comparer: (a, b) => any;	// todo
+			comparer: (a:any, b:any) => any;	// todo
 			predefinedValues: any[];	// todo
 			aggregators: Aggregators.Aggregator<T>[];
 			aggregateEmpty: boolean;
@@ -1572,18 +1585,18 @@ declare module Slick {
 		}
 
 		export interface RefreshHints {
-			isFilterNarrowing: boolean;
-			isFilterExpanding: boolean;
-			isFilterUnchanged: boolean;
-			ignoreDiffsBefore: boolean;
-			ignoreDiffsAfter: boolean;
+			isFilterNarrowing?: boolean;
+			isFilterExpanding?: boolean;
+			isFilterUnchanged?: boolean;
+			ignoreDiffsBefore?: boolean;
+			ignoreDiffsAfter?: boolean;
 		}
 
 		export interface OnRowCountChangedEventData {
 			// empty
 		}
 		export interface OnRowsChangedEventData {
-			// empty
+			rows: number[];
 		}
 		export interface OnPagingInfoChangedEventData extends PagingOptions {
 

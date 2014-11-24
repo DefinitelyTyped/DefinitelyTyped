@@ -1,6 +1,6 @@
 // Type definitions for Spin.js 1.3.1
 // Project: http://fgnass.github.com/spin.js/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/> and Theodore Brown <https://github.com/theodorejb/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -41,6 +41,6 @@ declare class Spinner {
      * Stopped spinners may be reused by calling spin() again.
      */
     stop(): Spinner;
-    lines(el, o);
-    opacity(el, i, val);
+    lines(el:HTMLElement, o:SpinnerOptions):HTMLElement;
+    opacity(el:HTMLElement, i:number, val:number, o:SpinnerOptions):void;
 }

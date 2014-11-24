@@ -1,12 +1,17 @@
-// Type definitions for Angular Scenario Testing
-// Project: [http://angularjs.org]
-// Definitions by: [RomanoLindano]
+// Type definitions for Angular Scenario Testing 1.3 (ngScenario module)
+// Project: http://angularjs.org
+// Definitions by: RomanoLindano <https://github.com/RomanoLindano>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module angularScenario {
-    export interface AngularModel {
+/// <reference path="../jquery/jquery.d.ts" />
+
+declare module ng {
+    export interface IAngularStatic {
         scenario: any;
     }
+}
+
+declare module angularScenario {
 
     export interface RunFunction {
         (functionToRun: any): any;
@@ -46,25 +51,25 @@ declare module angularScenario {
         reload(): void;
         window(): testWindow;
         location(): testLocation;
-    }    
-    
+    }
+
     export interface Matchers {
         toEqual(value: any): void;
-        toBe(value: any): void;    
-        toBeDefined(): void;    
-        toBeTruthy(): void;            
-        toBeFalsy(): void;    
-        toMatch(regularExpression: any): void;    
-        toBeNull(): void;    
+        toBe(value: any): void;
+        toBeDefined(): void;
+        toBeTruthy(): void;
+        toBeFalsy(): void;
+        toMatch(regularExpression: any): void;
+        toBeNull(): void;
         toContain(value: any): void;
-        toBeLessThan(value: any): void;    
-        toBeGreaterThan(value: any): void;    
+        toBeLessThan(value: any): void;
+        toBeGreaterThan(value: any): void;
     }
 
-    export interface CustomMatchers extends Matchers{        
+    export interface CustomMatchers extends Matchers {
     }
 
-    export interface Expect extends CustomMatchers {        
+    export interface Expect extends CustomMatchers {
         not(): angularScenario.CustomMatchers;
     }
 
@@ -77,7 +82,7 @@ declare module angularScenario {
     }
 
     export interface Input {
-        enter(value: any);
+        enter(value: any): any;
         check(): any;
         select(radioButtonValue: any): any;
         val(): Future;
@@ -92,12 +97,16 @@ declare module angularScenario {
     export interface Select {
         option(value: any): any;
         option(...listOfValues: any[]): any;
-    }    
+    }
 
     export interface Element {
         count(): Future;
         click(): any;
-        query(callback: (selectedDOMElements: any[], callbackWhenDone: (objNull: any, futureValue: any) => any) =>any): any;
+        dblclick(): any;
+        mouseover(): any;
+        mousedown(): any;
+        mouseup(): any;
+        query(callback: (selectedDOMElements: JQuery, callbackWhenDone: (objNull: any, futureValue: any) => any) => any): any;
         val(): Future;
         text(): Future;
         html(): Future;
@@ -111,7 +120,7 @@ declare module angularScenario {
         scrollLeft(): Future;
         scrollTop(): Future;
         offset(): Future;
-        
+
         val(value: any): void;
         text(value: any): void;
         html(value: any): void;
@@ -137,10 +146,12 @@ declare module angularScenario {
 }
 
 declare var describe: angularScenario.RunFunctionWithDescription;
+declare var ddescribe: angularScenario.RunFunctionWithDescription;
 declare var xdescribe: angularScenario.RunFunctionWithDescription;
 declare var beforeEach: angularScenario.RunFunction;
 declare var afterEach: angularScenario.RunFunction;
 declare var it: angularScenario.RunFunctionWithDescription;
+declare var iit: angularScenario.RunFunctionWithDescription;
 declare var xit: angularScenario.RunFunctionWithDescription;
 declare var pause: angularScenario.PauseFunction;
 declare var sleep: angularScenario.SleepFunction;
@@ -152,4 +163,4 @@ declare function input(ngModelBinding: string): angularScenario.Input;
 declare function repeater(selector: string, repeaterDescription?: string): angularScenario.Repeater;
 declare function select(ngModelBinding: string): angularScenario.Select;
 declare function element(selector: string, elementDescription?: string): angularScenario.Element;
-declare var angular: angularScenario.AngularModel;
+declare var angular: ng.IAngularStatic;

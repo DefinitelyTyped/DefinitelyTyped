@@ -16,13 +16,9 @@ interface SwipeViewOptions {
     loop?: boolean;
 }
 
-interface PageHTMLElement extends HTMLElement {
-    dataset: any;
-}
-
 declare class SwipeView {
 
-    masterPages: PageHTMLElement[];
+    masterPages: HTMLElement[];
     currentMasterPage: number;
     wrapper: HTMLElement;
     slider: HTMLElement;

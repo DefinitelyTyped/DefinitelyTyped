@@ -24,8 +24,6 @@ interface SimplePaginationOptions {
 
 interface JQuery {
     pagination(options?: SimplePaginationOptions): JQuery;
-    pagination(method: string): any;
-    pagination(method: string, value: any): any;
     pagination(method: 'selectPage', pageNumber: number): void;
     pagination(method: 'prevPage'): void;
     pagination(method: 'nextPage'): void;
@@ -36,4 +34,6 @@ interface JQuery {
     pagination(method: 'destroy'): void;
     pagination(method: 'redraw'): void;
     pagination(method: 'updateItems', items: number): void;
+    pagination(method: string): any;
+    pagination(method: string, value: any): any;
 }

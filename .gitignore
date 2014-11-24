@@ -23,31 +23,15 @@ Properties
 *~
 
 # test folder
-!_infrastructure/*.js
-!_infrastructure/tests/*
-!_infrastructure/tests/*.js
-!_infrastructure/tests/*/*.js
-!_infrastructure/tests/*/*/*.js
-!_infrastructure/tests/*/*/*/*.js
+_infrastructure/tests/build
 
-.idea/.name
+.idea
+*.iml
+*.js.map
 
-.idea/DefinitelyTyped.iml
+#rx.js
+!rx.js
 
-.idea/encodings.xml
+node_modules
 
-.idea/libraries/Generated_files.xml
-
-.idea/misc.xml
-
-.idea/modules.xml
-
-.idea/scopes/scope_settings.xml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
-
-.idea/watcherTasks.xml
-
-.idea/watcherTasks.xml
+.sublimets

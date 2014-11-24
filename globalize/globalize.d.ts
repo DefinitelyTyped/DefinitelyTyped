@@ -91,6 +91,7 @@ interface GlobalizeCulture {
     isRTL: boolean;
     language: string;
     numberFormat: GlobalizeNumberFormat;
+    calendar: GlobalizeCalendar;
     calendars: GlobalizeCalendars;
     messages: any;
 }
@@ -100,18 +101,20 @@ interface GlobalizeCultures {
 
 interface GlobalizeStatic {
     cultures: GlobalizeCultures;
-    init(cultureSelector: string);
+    init(cultureSelector: string): GlobalizeStatic;
     cultureSelector: string;
 
     culture(): GlobalizeCulture;
     culture(cultureSelector: string): GlobalizeCulture;
     culture(cultureSelector: string[]): GlobalizeCulture;
 
-    addCultureInfo(cultureName: string, baseCultureName, info?);
-    findClosestCulture(cultureSelector: string);
-    format(value: number, format: string, cultureSelector?: string);
-    format(value: Date, format: string, cultureSelector?: string);
-    localize(key: string, cultureSelector?: string);
+    addCultureInfo(cultureName: string, baseCultureName: string, info: Object): void;
+    addCultureInfo(cultureName: string, info: Object): void;
+    addCultureInfo(info: Object): void;
+    findClosestCulture(cultureSelector: string): GlobalizeStatic;
+    format(value: number, format: string, cultureSelector?: string): string;
+    format(value: Date, format: string, cultureSelector?: string): string;
+    localize(key: string, cultureSelector?: string): string;
 
     parseDate(value: string, format?: string, cultureSelector?: string): Date;
     parseDate(value: string, formats?: string[], cultureSelector?: string): Date;

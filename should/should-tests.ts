@@ -39,9 +39,12 @@ should.not.exist(false);
 should.not.exist('');
 should.not.exist({});
 
+Should.exist(null);
+window.Should.exist(null);
+
 user.should.have.property('pets').with.lengthOf(4);
 user.pets.should.have.lengthOf(4);
-user.should.be.a('object').and.have.property('name', 'tj');
+user.should.be.of.type('object').and.have.property('name', 'tj');
 
 'foo'.should.equal('bar');
 
@@ -89,8 +92,8 @@ args.should.be.arguments;
 
 user.age.should.be.within(5, 50);
 
-user.should.be.a('object');
-'test'.should.be.a('string');
+user.should.be.of.type('object');
+'test'.should.be.of.type('string');
 
 user.should.be.an.instanceof(User);
 ['a'].should.be.an.instanceOf(Array);

@@ -1,3 +1,8 @@
+// Type definitions for xJSFL
+// Project: http://www.xjsfl.com/
+// Definitions by: soywiz <https://github.com/soywiz/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 ///<reference path="./jsfl.d.ts" />
 
 interface _xjsfl {

@@ -1,7 +1,39 @@
 {
-	"name": "DefinitelyTyped",
-	"version": "0.0.0",
-    "scripts": {
-        "test": "node ./_infrastructure/tests/runner.js"
+  "private": true,
+  "name": "DefinitelyTyped",
+  "version": "0.0.1",
+  "homepage": "https://github.com/borisyankov/DefinitelyTyped",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/borisyankov/DefinitelyTyped.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/borisyankov/DefinitelyTyped/blob/master/LICENSE"
     }
+  ],
+  "bugs": {
+    "url": "https://github.com/borisyankov/DefinitelyTyped/issues"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "node ./_infrastructure/runner.js --changes",
+    "changes": "node ./_infrastructure/runner.js --changes",
+    "lint": "node ./_infrastructure/runner.js --lint",
+    "tscparams": "node ./_infrastructure/runner.js --tscparams --no-tests --no-headers",
+    "all": "node ./_infrastructure/runner.js ",
+    "dry": "node ./_infrastructure/runner.js --dry --changes",
+    "list": "node ./_infrastructure/runner.js --dry --print-files --print-refmap",
+    "last": "node ./_infrastructure/runner.js --dry --print-files --print-refmap --changes",
+    "files": "node ./_infrastructure/runner.js --dry --print-files",
+    "refmap": "node ./_infrastructure/runner.js --dry --print-refmap",
+    "help": "node ./_infrastructure/runner.js -h"
+  },
+  "dependencies": {
+    "definition-tester": "~0.1.4"
+  },
+  "devDependencies": {}
 }

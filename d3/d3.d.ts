@@ -1,6 +1,6 @@
 // Type definitions for d3JS
 // Project: http://d3js.org/
-// Definitions by: TypeScript samples
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module D3 {
@@ -9,6 +9,10 @@ declare module D3 {
         * Select an element from the current document
         */
         select: {
+            /**
+            * Returns the empty selection
+            */
+            (): Selection;
             /**
             * Selects the first element that matches the specified selector string
             *
@@ -42,18 +46,19 @@ declare module D3 {
         };
     }
 
-    export interface Event {
+    export interface D3Event extends Event{
         dx: number;
         dy: number;
         clientX: number;
         clientY: number;
         translate: number[];
         scale: number;
-        sourceEvent: Event;
+        sourceEvent: D3Event;
         x: number;
         y: number;
         keyCode: number;
         altKey: any;
+        type: string;
     }
 
     export interface Base extends Selectors {
@@ -64,7 +69,7 @@ declare module D3 {
         /**
         * Access the current user event for interaction
         */
-        event: Event;
+        event: D3Event;
 
         /**
         * Compare two values for sorting.
@@ -88,42 +93,78 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min<T>(arr: T[], map?: (v: T) => number): number;
+        min<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
+        /**
+        * Find the minimum value in an array
+        *
+        * @param arr Array to search
+        */
+        min<T>(arr: T[]): T;
         /**
         * Find the maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max<T>(arr: T[], map?: (v: T) => number): number;
+        max<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
+        /**
+        * Find the maximum value in an array
+        *
+        * @param arr Array to search
+        */
+        max<T>(arr: T[]): T;
         /**
         * Find the minimum and maximum value in an array
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        extent<T>(arr: T[], map?: (v: T) => number): number[];
+        extent<T, U>(arr: T[], map: (v: T) => U): U[];
+        /**
+        * Find the minimum and maximum value in an array
+        *
+        * @param arr Array to search
+        */
+        extent<T>(arr: T[]): T[];
         /**
         * Compute the sum of an array of numbers
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        sum<T>(arr: T[], map?: (v: T) => number): number;
+        sum<T>(arr: T[], map: (v: T) => number): number;
+        /**
+        * Compute the sum of an array of numbers
+        *
+        * @param arr Array to search
+        */
+        sum(arr: number[]): number;
         /**
         * Compute the arithmetic mean of an array of numbers
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        mean<T>(arr: T[], map?: (v: T) => number): number;
+        mean<T>(arr: T[], map: (v: T) => number): number;
+        /**
+        * Compute the arithmetic mean of an array of numbers
+        *
+        * @param arr Array to search
+        */
+        mean(arr: number[]): number;
         /**
         * Compute the median of an array of numbers (the 0.5-quantile).
         *
         * @param arr Array to search
         * @param map Accsessor function
         */
-        median<T>(arr: T[], map?: (v: T) => number): number;
+        median<T>(arr: T[], map: (v: T) => number): number;
+        /**
+        * Compute the median of an array of numbers (the 0.5-quantile).
+        *
+        * @param arr Array to search
+        */
+        median(arr: number[]): number;
         /**
         * Compute a quantile for a sorted array of numbers.
         *
@@ -135,7 +176,7 @@ declare module D3 {
         * Locate the insertion point for x in array to maintain sorted order
         *
         * @param arr Array to search
-        * @param x Value to serch for insertion point
+        * @param x Value to search for insertion point
         * @param low Minimum value of array subset
         * @param hihg Maximum value of array subset
         */
@@ -196,23 +237,30 @@ declare module D3 {
         */
         transpose(matrix: any[]): any[];
         /**
+        * Creates an array containing tuples of adjacent pairs
+        *
+        * @param arr An array containing entries to pair
+        * @returns any[][] An array of 2-element tuples for each pair
+        */
+        pairs(arr: any[]): any[][];
+        /**
         * List the keys of an associative array.
         *
         * @param map Array of objects to get the key values from
         */
-        keys(map: any[]): any[];
+        keys(map: any): string[];
         /**
         * List the values of an associative array.
         *
         * @param map Array of objects to get the values from
         */
-        values(map: any[]): any[];
+        values(map: any): any[];
         /**
         * List the key-value entries of an associative array.
         *
         * @param map Array of objects to get the key-value pairs from
         */
-        entries(map: any[]): any[];
+        entries(map: any): any[];
         /**
         * merge multiple arrays into one array
         *
@@ -380,7 +428,7 @@ declare module D3 {
         /*
         * The array of built-in interpolator factories
         */
-        interpolators: Array<Transition.InterpolateFactory>;
+        interpolators: Transition.InterpolateFactory[];
         /**
         * Layouts
         */
@@ -488,11 +536,11 @@ declare module D3 {
         /**
         * gets the mouse position relative to a specified container.
         */
-        mouse(container: any): Array<number>;
+        mouse(container: any): number[];
         /**
         * gets the touch positions relative to a specified container.
         */
-        touches(container: any): Array<number>;
+        touches(container: any): number[][];
 
         /**
         * If the specified value is a function, returns the specified value.
@@ -501,10 +549,12 @@ declare module D3 {
         functor<R,T>(value: (p : R) => T): (p : R) => T;
         functor<T>(value: T): (p : any) => T;
 
-        map(object?: any): Map;
-        set(array?: Array<any>): Set;
-        dispatch(...types: Array<string>): Dispatch;
-        rebind(target: any, source: any, ...names: Array<any>): any;
+        map(): Map<any>;
+        set(): Set<any>;
+        map<T>(object: {[key: string]: T; }): Map<T>;
+        set<T>(array: T[]): Set<T>;
+        dispatch(...types: string[]): Dispatch;
+        rebind(target: any, source: any, ...names: any[]): any;
         requote(str: string): string;
         timer: {
             (funct: () => boolean, delay?: number, mark?: number): void;
@@ -673,25 +723,28 @@ declare module D3 {
             (name: string): string;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
-            (attrValueMap : any): Selection;
+            (attrValueMap : Object): Selection;
         };
 
         classed: {
             (name: string): string;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
+            (classValueMap: Object): Selection;
         };
 
         style: {
             (name: string): string;
             (name: string, value: any, priority?: string): Selection;
             (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Selection;
+            (styleValueMap : Object): Selection;
         };
 
         property: {
             (name: string): void;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
+            (propertyValueMap : Object): Selection;
         };
 
         text: {
@@ -712,8 +765,9 @@ declare module D3 {
         empty: () => boolean;
 
         data: {
-            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => string): UpdateSelection;
-            (values: any[], key?: (data: any, index?: number) => string): UpdateSelection;
+            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => any): UpdateSelection;
+            (values: any[], key?: (data: any, index?: number) => any): UpdateSelection;
+            (): any[];
         };
 
         datum: {
@@ -727,30 +781,56 @@ declare module D3 {
             //(filter: string): UpdateSelection;
         };
 
-        call(callback: (selection: Selection) => void ): Selection;
+        call(callback: (selection: Selection, ...args: any[]) => void, ...args: any[]): Selection;
         each(eachFunction: (data: any, index: number) => any): Selection;
         on: {
             (type: string): (data: any, index: number) => any;
             (type: string, listener: (data: any, index: number) => any, capture?: boolean): Selection;
         };
 
-        transition(): Transition.Transition;
         /**
-        * sort elements in the document based on data.
+        * Returns the total number of elements in the current selection.
+        */
+        size(): number;
+
+        /**
+        * Starts a transition for the current selection. Transitions behave much like selections,
+        * except operators animate smoothly over time rather than applying instantaneously.
+        */
+        transition(): Transition.Transition;
+
+        /**
+        * Sorts the elements in the current selection according to the specified comparator
+        * function.
         *
-        * params comparator the specified comparator function
+        * @param comparator a comparison function, which will be passed two data elements a and b
+        * to compare, and should return either a negative, positive, or zero value to indicate
+        * their relative order.
         */
         sort<T>(comparator?: (a: T, b: T) => number): Selection;
+
+        /**
+        * Re-inserts elements into the document such that the document order matches the selection
+        * order. This is equivalent to calling sort() if the data is already sorted, but much
+        * faster.
+        */
         order: () => Selection;
-        node: () => Element;
+
+        /**
+        * Returns the first non-null element in the current selection. If the selection is empty,
+        * returns null.
+        */
+        node: <T extends Element>() => T;
     }
 
     export interface EnterSelection {
         append: (name: string) => Selection;
-        insert: (name: string, before: string) => Selection;
+        insert: (name: string, before?: string) => Selection;
         select: (selector: string) => Selection;
         empty: () => boolean;
         node: () => Element;
+        call: (callback: (selection: EnterSelection) => void) => EnterSelection;
+        size: () => number;
     }
 
     export interface UpdateSelection extends Selection {
@@ -773,23 +853,32 @@ declare module D3 {
         entries(values: any[]): NestKeyValue[];
     }
 
-    export interface Map {
-        has(key: string): boolean;
-        get(key: string): any;
-        set<T>(key: string, value: T): T;
-        remove(key: string): boolean;
-        keys(): Array<string>;
-        values(): Array<any>;
-        entries(): Array<any>;
-        forEach(func: (key: string, value: any) => void ): void;
+    export interface MapKeyValue<T> {
+        key: string;
+        value: T;
     }
 
-    export interface Set{
-        has(value: any): boolean;
-        Add(value: any): any;
-        remove(value: any): boolean;
-        values(): Array<any>;
-        forEach(func: (value: any) => void ): void;
+    export interface Map<T> {
+        has(key: string): boolean;
+        get(key: string): T;
+        set(key: string, value: T): T;
+        remove(key: string): boolean;
+        keys(): string[];
+        values(): T[];
+        entries(): MapKeyValue<T>[];
+        forEach(func: (key: string, value: T) => void ): void;
+        empty(): boolean;
+        size(): number;
+    }
+
+    export interface Set<T> {
+        has(value: T): boolean;
+        add(value: T): T;
+        remove(value: T): boolean;
+        values(): string[];
+        forEach(func: (value: string) => void ): void;
+        empty(): boolean;
+        size(): number;
     }
 
     export interface Random {
@@ -937,13 +1026,44 @@ declare module D3 {
             fridays: Range;
             saturdays: Range;
             format: {
-
+                /**
+                 * Constructs a new local time formatter using the given specifier.
+                 */
                 (specifier: string): TimeFormat;
-                utc: (specifier: string) => TimeFormat;
+                /**
+                 * Returns a new multi-resolution time format given the specified array of predicated formats.
+                 */
+                multi: (formats: any[][]) => TimeFormat;
+
+                utc: {
+                    /**
+                     * Constructs a new local time formatter using the given specifier.
+                     */
+                    (specifier: string): TimeFormat;
+                    /**
+                     * Returns a new multi-resolution UTC time format given the specified array of predicated formats.
+                     */
+                    multi: (formats: any[][]) => TimeFormat;
+                };
+
+                /**
+                 * The full ISO 8601 UTC time format: "%Y-%m-%dT%H:%M:%S.%LZ".
+                 */
                 iso: TimeFormat;
             };
 
-            scale(): Scale.TimeScale;
+            scale: {
+                /**
+                * Constructs a new time scale with the default domain and range;
+                * the ticks and tick format are configured for local time.
+                */
+                (): Scale.TimeScale;
+                /**
+                * Constructs a new time scale with the default domain and range;
+                * the ticks and tick format are configured for UTC time.
+                */
+                utc(): Scale.TimeScale;
+            };
         }
 
         export interface Range {
@@ -957,7 +1077,7 @@ declare module D3 {
             ceil: (date: Date) => Date;
             range: Range;
             offset: (date: Date, step: number) => Date;
-            utc: Interval;
+            utc?: Interval;
         }
 
         export interface TimeFormat {
@@ -992,13 +1112,16 @@ declare module D3 {
             histogram(): HistogramLayout;
             pack(): PackLayout;
             partition(): PartitionLayout;
-            treeMap(): TreeMapLayout;
+            treemap(): TreeMapLayout;
         }
 
         export interface StackLayout {
-            (layers: any[], index?: number): any[];
+            <T>(layers: T[], index?: number): T[];
             values(accessor?: (d: any) => any): StackLayout;
             offset(offset: string): StackLayout;
+            x(accessor: (d: any, i: number) => any): StackLayout;
+            y(accessor: (d: any, i: number) => any): StackLayout;
+            out(setter: (d: any, y0: number, y: number) => void): StackLayout;
         }
 
         export interface TreeLayout {
@@ -1031,11 +1154,11 @@ declare module D3 {
             /**
             * Runs the tree layout
             */
-            nodes(root: GraphNode): TreeLayout;
+            nodes(root: GraphNode): GraphNode[];
             /**
             * Given the specified array of nodes, such as those returned by nodes, returns an array of objects representing the links from parent to child for each node
             */
-            links(nodes: Array<GraphNode>): Array<GraphLink>;
+            links(nodes: GraphNode[]): GraphLink[];
             /**
             * If separation is specified, uses the specified function to compute separation between neighboring nodes. If separation is not specified, returns the current separation function
             */
@@ -1056,11 +1179,24 @@ declare module D3 {
                 /**
                 * Gets the available layout size
                 */
-                (): Array<number>;
+                (): number[];
                 /**
                 * Sets the available layout size
                 */
-                (size: Array<number>): TreeLayout;
+                (size: number[]): TreeLayout;
+            };
+            /**
+            * Gets or sets the available node size
+            */
+            nodeSize: {
+                /**
+                * Gets the available node size
+                */
+                (): number[];
+                /**
+                * Sets the available node size
+                */
+                (size: number[]): TreeLayout;
             };
         }
 
@@ -1076,17 +1212,17 @@ declare module D3 {
             };
             startAngle: {
                 (): number;
-                (angle: number): D3.Svg.Arc;
-                (angle: () => number): D3.Svg.Arc;
-                (angle: (d : any) => number): D3.Svg.Arc;
-                (angle: (d : any, i: number) => number): D3.Svg.Arc;
+                (angle: number): PieLayout;
+                (angle: () => number): PieLayout;
+                (angle: (d : any) => number): PieLayout;
+                (angle: (d : any, i: number) => number): PieLayout;
             };
             endAngle: {
                 (): number;
-                (angle: number): D3.Svg.Arc;
-                (angle: () => number): D3.Svg.Arc;
-                (angle: (d : any) => number): D3.Svg.Arc;
-                (angle: (d : any, i: number) => number): D3.Svg.Arc;
+                (angle: number): PieLayout;
+                (angle: () => number): PieLayout;
+                (angle: (d : any) => number): PieLayout
+                (angle: (d : any, i: number) => number): PieLayout;
             };
         }
 
@@ -1122,6 +1258,21 @@ declare module D3 {
         export interface GraphLink {
             source: GraphNode;
             target: GraphNode;
+        }
+
+        export interface GraphNodeForce {
+            index?: number;
+            x?: number;
+            y?: number;
+            px?: number;
+            py?: number;
+            fixed?: boolean;
+            weight?: number;
+        }
+
+        export interface GraphLinkForce {
+            source: GraphNodeForce;
+            target: GraphNodeForce;
         }
 
         export interface ForceLayout {
@@ -1173,14 +1324,14 @@ declare module D3 {
             };
 
             links: {
-                (): GraphLink[];
-                (arLinks: GraphLink[]): ForceLayout;
+                (): GraphLinkForce[];
+                (arLinks: GraphLinkForce[]): ForceLayout;
 
             };
             nodes:
             {
-                (): GraphNode[];
-                (arNodes: GraphNode[]): ForceLayout;
+                (): GraphNodeForce[];
+                (arNodes: GraphNodeForce[]): ForceLayout;
 
             };
             start(): ForceLayout;
@@ -1192,32 +1343,32 @@ declare module D3 {
         }
 
         export interface BundleLayout{
-            (links: Array<GraphLink>): Array<GraphNode>;
+            (links: GraphLink[]): GraphNode[][];
         }
 
         export interface ChordLayout {
             matrix: {
-                (): Array<Array<number>>;
-                (matrix: Array<Array<number>>): ChordLayout;
+                (): number[][];
+                (matrix: number[][]): ChordLayout;
             }
             padding: {
                 (): number;
                 (padding: number): ChordLayout;
             }
             sortGroups: {
-                (): Array<number>;
+                (): (a: number, b: number) => number;
                 (comparator: (a: number, b: number) => number): ChordLayout;
             }
             sortSubgroups: {
-                (): Array<number>;
+                (): (a: number, b: number) => number;
                 (comparator: (a: number, b: number) => number): ChordLayout;
             }
             sortChords: {
-                (): Array<GraphLink>;
+                (): (a: number, b: number) => number;
                 (comparator: (a: number, b: number) => number): ChordLayout;
             }
-            chords(): Array<GraphLink>;
-            groups(): Array<ArcDescriptor>;
+            chords(): GraphLink[];
+            groups(): ArcDescriptor[];
         }
 
         export interface ClusterLayout{
@@ -1226,18 +1377,18 @@ declare module D3 {
                 (comparator: (a: GraphNode, b: GraphNode) => number): ClusterLayout;
             }
             children: {
-                (): (d: any, i?: number) => Array<GraphNode>;
-                (children: (d: any, i?: number) => Array<GraphNode>): ClusterLayout;
+                (): (d: any, i?: number) => GraphNode[];
+                (children: (d: any, i?: number) => GraphNode[]): ClusterLayout;
             }
-            nodes(root: GraphNode): Array<GraphNode>;
-            links(nodes: Array<GraphNode>): Array<GraphLink>;
+            nodes(root: GraphNode): GraphNode[];
+            links(nodes: GraphNode[]): GraphLink[];
             seperation: {
                 (): (a: GraphNode, b: GraphNode) => number;
                 (seperation: (a: GraphNode, b: GraphNode) => number): ClusterLayout;
             }
             size: {
-                (): Array<number>;
-                (size: Array<number>): ClusterLayout;
+                (): number[];
+                (size: number[]): ClusterLayout;
             }
             value: {
                 (): (node: GraphNode) => number;
@@ -1251,11 +1402,11 @@ declare module D3 {
                 (comparator: (a: GraphNode, b: GraphNode) => number): HierarchyLayout;
             }
             children: {
-                (): (d: any, i?: number) => Array<GraphNode>;
-                (children: (d: any, i?: number) => Array<GraphNode>): HierarchyLayout;
+                (): (d: any, i?: number) => GraphNode[];
+                (children: (d: any, i?: number) => GraphNode[]): HierarchyLayout;
             }
-            nodes(root: GraphNode): Array<GraphNode>;
-            links(nodes: Array<GraphNode>): Array<GraphLink>;
+            nodes(root: GraphNode): GraphNode[];
+            links(nodes: GraphNode[]): GraphLink[];
             value: {
                 (): (node: GraphNode) => number;
                 (value: (node: GraphNode) => number): HierarchyLayout;
@@ -1270,21 +1421,21 @@ declare module D3 {
         }
 
         export interface HistogramLayout {
-            (values: Array<any>, index?: number): Array<Bin>;
+            (values: any[], index?: number): Bin[];
             value: {
                 (): (value: any) => any;
                 (accessor: (value: any) => any): HistogramLayout
             }
             range: {
-                (): (value: any, index: number) => Array<number>;
-                (range: (value: any, index: number) => Array<number>): HistogramLayout;
-                (range: Array<number>): HistogramLayout;
+                (): (value: any, index: number) => number[];
+                (range: (value: any, index: number) => number[]): HistogramLayout;
+                (range: number[]): HistogramLayout;
             }
             bins: {
-                (): (range: Array<any>, index: number) => Array<number>;
-                (bins: (range: Array<any>, index: number) => Array<number>): HistogramLayout;
+                (): (range: any[], index: number) => number[];
+                (bins: (range: any[], index: number) => number[]): HistogramLayout;
                 (bins: number): HistogramLayout;
-                (bins: Array<number>): HistogramLayout;
+                (bins: number[]): HistogramLayout;
             }
             frequency: {
                 (): boolean;
@@ -1298,18 +1449,18 @@ declare module D3 {
                 (comparator: (a: GraphNode, b: GraphNode) => number): PackLayout;
             }
             children: {
-                (): (d: any, i?: number) => Array<GraphNode>;
-                (children: (d: any, i?: number) => Array<GraphNode>): PackLayout;
+                (): (d: any, i?: number) => GraphNode[];
+                (children: (d: any, i?: number) => GraphNode[]): PackLayout;
             }
-            nodes(root: GraphNode): Array<GraphNode>;
-            links(nodes: Array<GraphNode>): Array<GraphLink>;
+            nodes(root: GraphNode): GraphNode[];
+            links(nodes: GraphNode[]): GraphLink[];
             value: {
                 (): (node: GraphNode) => number;
                 (value: (node: GraphNode) => number): PackLayout;
             }
             size: {
-                (): Array<number>;
-                (size: Array<number>): PackLayout;
+                (): number[];
+                (size: number[]): PackLayout;
             }
             padding: {
                 (): number;
@@ -1323,18 +1474,18 @@ declare module D3 {
                 (comparator: (a: GraphNode, b: GraphNode) => number): PackLayout;
             }
             children: {
-                (): (d: any, i?: number) => Array<GraphNode>;
-                (children: (d: any, i?: number) => Array<GraphNode>): PackLayout;
+                (): (d: any, i?: number) => GraphNode[];
+                (children: (d: any, i?: number) => GraphNode[]): PackLayout;
             }
-            nodes(root: GraphNode): Array<GraphNode>;
-            links(nodes: Array<GraphNode>): Array<GraphLink>;
+            nodes(root: GraphNode): GraphNode[];
+            links(nodes: GraphNode[]): GraphLink[];
             value: {
                 (): (node: GraphNode) => number;
                 (value: (node: GraphNode) => number): PackLayout;
             }
             size: {
-                (): Array<number>;
-                (size: Array<number>): PackLayout;
+                (): number[];
+                (size: number[]): PackLayout;
             }
         }
 
@@ -1344,18 +1495,18 @@ declare module D3 {
                 (comparator: (a: GraphNode, b: GraphNode) => number): TreeMapLayout;
             }
             children: {
-                (): (d: any, i?: number) => Array<GraphNode>;
-                (children: (d: any, i?: number) => Array<GraphNode>): TreeMapLayout;
+                (): (d: any, i?: number) => GraphNode[];
+                (children: (d: any, i?: number) => GraphNode[]): TreeMapLayout;
             }
-            nodes(root: GraphNode): Array<GraphNode>;
-            links(nodes: Array<GraphNode>): Array<GraphLink>;
+            nodes(root: GraphNode): GraphNode[];
+            links(nodes: GraphNode[]): GraphLink[];
             value: {
                 (): (node: GraphNode) => number;
                 (value: (node: GraphNode) => number): TreeMapLayout;
             }
             size: {
-                (): Array<number>;
-                (size: Array<number>): TreeMapLayout;
+                (): number[];
+                (size: number[]): TreeMapLayout;
             }
             padding: {
                 (): number;
@@ -1382,11 +1533,11 @@ declare module D3 {
             /**
             * increase lightness by some exponential factor (gamma)
             */
-            brighter(k: number): Color;
+            brighter(k?: number): Color;
             /**
             * decrease lightness by some exponential factor (gamma)
             */
-            darker(k: number): Color;
+            darker(k?: number): Color;
             /**
             * convert the color to a string.
             */
@@ -1399,7 +1550,7 @@ declare module D3 {
             */
             r: number;
             /**
-            * the greeb color channel.
+            * the green color channel.
             */
             g: number;
             /**
@@ -1414,6 +1565,18 @@ declare module D3 {
 
         export interface HSLColor extends Color{
             /**
+            * hue
+            */
+            h: number;
+            /**
+            * saturation
+            */
+            s: number;
+            /**
+            * lightness
+            */
+            l: number;
+            /**
             * convert from HSL to RGB.
             */
             rgb(): RGBColor;
@@ -1421,12 +1584,36 @@ declare module D3 {
 
         export interface LABColor extends Color{
             /**
+            * lightness
+            */
+            l: number;
+            /**
+            * a-dimension
+            */
+            a: number;
+            /**
+            * b-dimension
+            */
+            b: number;
+            /**
             * convert from LAB to RGB.
             */
             rgb(): RGBColor;
         }
 
         export interface HCLColor extends Color{
+            /**
+            * hue
+            */
+            h: number;
+            /**
+            * chroma
+            */
+            c: number;
+            /**
+            * luminance
+            */
+            l: number;
             /**
             * convert from HCL to RGB.
             */
@@ -1481,12 +1668,13 @@ declare module D3 {
             /**
             * The array of supported symbol types.
             */
-            symbolTypes: Array<string>;
+            symbolTypes: string[];
         }
 
         export interface Symbol {
             type: (string:string) => Symbol;
             size: (number:number) => Symbol;
+            (datum:any, index:number): string;
         }
 
         export interface Brush {
@@ -1586,10 +1774,21 @@ declare module D3 {
                 (): any[];
                 (values: any[]): Axis;
             };
-
             tickSubdivide(count: number): Axis;
-            tickSize(major?: number, minor?: number, end?: number): Axis;
+            tickSize: {
+                (): number;
+                (inner: number, outer?: number): Axis;
+            }
+            innerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
+            outerTickSize: {
+                (): number;
+                (value: number): Axis;
+            }
             tickFormat(formatter: (value: any) => string): Axis;
+            nice(count?: number): Axis;
         }
 
         export interface Arc {
@@ -1720,13 +1919,13 @@ declare module D3 {
                 /**
                 * Get the accessor function that controls where the line is defined.
                 */
-                (): (data: any, index ?: number) => boolean;
+                (): (data: any, index?: number) => boolean;
                 /**
                 * Set the accessor function that controls where the area is defined.
                 *
                 * @param defined The new accessor function
                 */
-                (defined: (data: any) => boolean): Line;
+                (defined: (data: any, index?: number) => boolean): Line;
             };
         }
 
@@ -2016,13 +2215,13 @@ declare module D3 {
                 /**
                 * Get the accessor function that controls where the area is defined.
                 */
-                (): (data: any) => any;
+                (): (data: any, index?: number) => any;
                 /**
                 * Set the accessor function that controls where the area is defined.
                 *
                 * @param defined The new accessor function
                 */
-                (defined: (data: any) => any): Area;
+                (defined: (data: any, index?: number) => any): Area;
             };
         }
 
@@ -2284,9 +2483,9 @@ declare module D3 {
         export interface Diagonal {
             (datum: any, index?: number): string;
             projection: {
-                (): (datum: any, index?: number) => Array<number>;
-                (proj: (datum: any) => Array<number>): Diagonal;
-                (proj: (datum: any, index: number) => Array<number>): Diagonal;
+                (): (datum: any, index?: number) => number[];
+                (proj: (datum: any) => number[]): Diagonal;
+                (proj: (datum: any, index: number) => number[]): Diagonal;
             };
             source: {
                 (): (datum: any, index?: number) => any;
@@ -2357,23 +2556,26 @@ declare module D3 {
             /*
             * Construct a threshold scale with a discrete output range.
             */
-            theshold(): ThresholdScale;
+            threshold(): ThresholdScale;
         }
 
-        export interface Scale {
+        export interface GenericScale<S> {
             (value: any): any;
             domain: {
-                (values: any[]): Scale;
+                (values: any[]): S;
                 (): any[];
             };
             range: {
-                (values: any[]): Scale;
+                (values: any[]): S;
                 (): any[];
             };
-            copy(): Scale;
+            invertExtent?(y: any): any[];
+            copy(): S;
         }
 
-        export interface QuantitiveScale extends Scale {
+        export interface Scale extends GenericScale<Scale> { }
+
+        export interface GenericQuantitativeScale<S> extends GenericScale<S> {
             /**
             * Get the range value corresponding to a given domain value.
             *
@@ -2387,58 +2589,64 @@ declare module D3 {
             */
             invert(value: number): number;
             /**
-            * Get or set the scale's input domain.
-            */
-            domain: {
-                /**
-                * Set the scale's input domain.
-                *
-                * @param value The input domain
-                */
-                (values: any[]): QuantitiveScale;
-                /**
-                * Get the scale's input domain.
-                */
-                (): any[];
-            };
-            /**
-            * get or set the scale's output range.
-            */
-            range: {
-                /**
-                * Set the scale's output range.
-                *
-                * @param value The output range.
-                */
-                (values: any[]): QuantitiveScale;
-                /**
-                * Get the scale's output range.
-                */
-                (): any[];
-            };
-            /**
             * Set the scale's output range, and enable rounding.
             *
             * @param value The output range.
             */
-            rangeRound: (values: any[]) => QuantitiveScale;
+            rangeRound: (values: any[]) => S;
             /**
             * get or set the scale's output interpolator.
             */
             interpolate: {
                 (): D3.Transition.Interpolate;
-                (factory: D3.Transition.Interpolate): QuantitiveScale;
+                (factory: D3.Transition.Interpolate): S;
             };
             /**
             * enable or disable clamping of the output range.
             *
             * @param clamp Enable or disable
             */
-            clamp(clamp: boolean): QuantitiveScale;
+            clamp: {
+                (): boolean;
+                (clamp: boolean): S;
+            }
             /**
             * extend the scale domain to nice round numbers.
+            *
+            * @param count Optional number of ticks to exactly fit the domain
             */
-            nice(): QuantitiveScale;
+            nice(count?: number): S;
+            /**
+            * get representative values from the input domain.
+            *
+            * @param count Aproximate representative values to return.
+            */
+            ticks(count: number): any[];
+            /**
+            * get a formatter for displaying tick values
+            *
+            * @param count Aproximate representative values to return
+            */
+            tickFormat(count: number, format?: string): (n: number) => string;
+        }
+
+        export interface QuantitativeScale extends GenericQuantitativeScale<QuantitativeScale> { }
+
+        export interface LinearScale extends GenericQuantitativeScale<LinearScale> { }
+
+        export interface IdentityScale extends GenericScale<IdentityScale> {
+            /**
+            * Get the range value corresponding to a given domain value.
+            *
+            * @param value Domain Value
+            */
+            (value: number): number;
+            /**
+            * Get the domain value corresponding to a given range value.
+            *
+            * @param value Range Value
+            */
+            invert(value: number): number;
             /**
             * get representative values from the input domain.
             *
@@ -2451,156 +2659,33 @@ declare module D3 {
             * @param count Aproximate representative values to return
             */
             tickFormat(count: number): (n: number) => string;
-            /**
-            * create a new scale from an existing scale..
-            */
-            copy(): QuantitiveScale;
         }
 
-        export interface LinearScale extends QuantitiveScale {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-        }
+        export interface SqrtScale extends GenericQuantitativeScale<SqrtScale> { }
 
-        export interface IdentityScale extends QuantitiveScale {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-        }
+        export interface PowScale extends GenericQuantitativeScale<PowScale> { }
 
-        export interface SqrtScale extends QuantitiveScale {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-        }
+        export interface LogScale extends GenericQuantitativeScale<LogScale> { }
 
-        export interface PowScale extends QuantitiveScale {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-        }
-
-        export interface LogScale extends QuantitiveScale {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: number): number;
-        }
-
-        export interface OrdinalScale extends Scale {
-            /**
-            * Get the range value corresponding to a given domain value.
-            *
-            * @param value Domain Value
-            */
-            (value: any): any;
-            /**
-            * Get or set the scale's input domain.
-            */
-            domain: {
-                /**
-                * Set the scale's input domain.
-                *
-                * @param value The input domain
-                */
-                (values: any[]): OrdinalScale;
-                /**
-                * Get the scale's input domain.
-                */
-                (): any[];
-            };
-            /**
-            * get or set the scale's output range.
-            */
-            range: {
-                /**
-                * Set the scale's output range.
-                *
-                * @param value The output range.
-                */
-                (values: any[]): OrdinalScale;
-                /**
-                * Get the scale's output range.
-                */
-                (): any[];
-            };
+        export interface OrdinalScale extends GenericScale<OrdinalScale> {
             rangePoints(interval: any[], padding?: number): OrdinalScale;
             rangeBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeBand(): number;
             rangeExtent(): any[];
-            /**
-            * create a new scale from an existing scale..
-            */
-            copy(): OrdinalScale;
         }
 
-        export interface QuantizeScale extends Scale {
-            (value: any): any;
-            domain: {
-                (values: number[]): QuantizeScale;
-                (): any[];
-            };
-            range: {
-                (values: any[]): QuantizeScale;
-                (): any[];
-            };
-            copy(): QuantizeScale;
-        }
+        export interface QuantizeScale extends GenericScale<QuantizeScale> { }
 
-        export interface ThresholdScale extends Scale {
-            (value: any): any;
-            domain: {
-                (values: number[]): ThresholdScale;
-                (): any[];
-            };
-            range: {
-                (values: any[]): ThresholdScale;
-                (): any[];
-            };
-            copy(): ThresholdScale;
-        }
+        export interface ThresholdScale extends GenericScale<ThresholdScale> { }
 
-        export interface QuantileScale extends Scale {
-            (value: any): any;
-            domain: {
-                (values: number[]): QuantileScale;
-                (): any[];
-            };
-            range: {
-                (values: any[]): QuantileScale;
-                (): any[];
-            };
+        export interface QuantileScale extends GenericScale<QuantileScale> {
             quantiles(): any[];
-            copy(): QuantileScale;
         }
 
-        export interface TimeScale extends Scale {
+        export interface TimeScale extends GenericScale<TimeScale> {
             (value: Date): number;
             invert(value: number): Date;
-            domain: {
-                (values: any[]): TimeScale;
-                (): any[];
-            };
-            range: {
-                (values: any[]): TimeScale;
-                (): any[];
-            };
             rangeRound: (values: any[]) => TimeScale;
             interpolate: {
                 (): D3.Transition.Interpolate;
@@ -2609,10 +2694,10 @@ declare module D3 {
             clamp(clamp: boolean): TimeScale;
             ticks: {
                 (count: number): any[];
-                (range: Range, count: number): any[];
+                (range: D3.Time.Range, count: number): any[];
             };
             tickFormat(count: number): (n: number) => string;
-            copy(): TimeScale;
+            nice(count?: number): TimeScale;
         }
     }
 
@@ -2631,9 +2716,11 @@ declare module D3 {
 
         export interface Zoom {
             /**
-            * Execute zoom method
+            * Applies the zoom behavior to the specified selection,
+            * registering the necessary event listeners to support
+            * panning and zooming.
             */
-            (): any;
+            (selection: Selection): void;
 
             /**
             * Registers a listener to receive events
@@ -2775,19 +2862,19 @@ declare module D3 {
             /**
             * compute the latitude-longitude bounding box for a given feature.
             */
-            bounds(feature: any): Array<Array<number>>;
+            bounds(feature: any): number[][];
             /**
             * compute the spherical centroid of a given feature.
             */
-            centroid(feature: any): Array<number>;
+            centroid(feature: any): number[];
             /**
             * compute the great-arc distance between two points.
             */
-            distance(a: Array<number>, b: Array<number>): number;
+            distance(a: number[], b: number[]): number;
             /**
             * interpolate between two points along a great arc.
             */
-            interpolate(a: Array<number>, b: Array<number>): (t: number) => Array<number>;
+            interpolate(a: number[], b: number[]): (t: number) => number[];
             /**
             * compute the length of a line string or the circumference of a polygon.
             */
@@ -2795,11 +2882,11 @@ declare module D3 {
             /**
             * create a standard projection from a raw projection.
             */
-            projection(raw: (lambda: any, phi: any) => any): Projection;
+            projection(raw: RawProjection): Projection;
             /**
             * create a standard projection from a mutable raw projection.
             */
-            projectionMutator(rawFactory: (lambda: number, phi: number) => Array<number>): Projection;
+            projectionMutator(rawFactory: RawProjection): ProjectionMutator;
             /**
             * the Albers equal-area conic projection.
             */
@@ -2813,82 +2900,82 @@ declare module D3 {
             */
             azimuthalEqualArea: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the azimuthal equidistant projection.
             */
             azimuthalEquidistant: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the conic conformal projection.
             */
             conicConformal: {
                 (): Projection;
-                raw(): Projection;
+                raw(phi1:number, phi2:number): RawProjection;
             }
             /**
             * the conic equidistant projection.
             */
             conicEquidistant: {
                 (): Projection;
-                raw(): Projection;
+                raw(phi1:number, phi2:number): RawProjection;
             }
             /**
             * the conic equal-area (a.k.a. Albers) projection.
             */
             conicEqualArea: {
                 (): Projection;
-                raw(): Projection;
+                raw(phi1:number, phi2:number): RawProjection;
             }
             /**
             * the equirectangular (plate carreé) projection.
             */
             equirectangular: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the gnomonic projection.
             */
             gnomonic: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the spherical Mercator projection.
             */
             mercator: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the azimuthal orthographic projection.
             */
-            othographic: {
+            orthographic: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the azimuthal stereographic projection.
             */
             stereographic: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * the transverse Mercator projection.
             */
             transverseMercator: {
                 (): Projection;
-                raw(): Projection;
+                raw: RawProjection;
             }
             /**
             * convert a GeoJSON object to a geometry stream.
             */
-            stream(object: GeoJSON, listener: any): Stream;
+            stream(object: GeoJSON, listener: Stream): void;
             /**
             *
             */
@@ -2896,11 +2983,11 @@ declare module D3 {
             /**
             *
             */
-            greatArc: GreatArc;
+            greatArc(): GreatArc;
             /**
             *
             */
-            rotation(rotation: Array<number>): Rotation;
+            rotation(rotation: number[]): Rotation;
         }
 
         export interface Path {
@@ -2974,11 +3061,11 @@ declare module D3 {
         }
 
         export interface Circle {
-            (...args: Array<any>): GeoJSON;
+            (...args: any[]): GeoJSON;
             origin: {
-                (): Array<number>;
-                (origin: Array<number>): Circle;
-                (origin: (...args: Array<any>) => Array<number>): Circle;
+                (): number[];
+                (origin: number[]): Circle;
+                (origin: (...args: any[]) => number[]): Circle;
             }
             angle: {
                 (): number;
@@ -2992,31 +3079,31 @@ declare module D3 {
 
         export interface Graticule{
             (): GeoJSON;
-            lines(): GeoJSON;
+            lines(): GeoJSON[];
             outline(): GeoJSON;
             extent: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Graticule;
+                (): number[][];
+                (extent: number[][]): Graticule;
             }
             minorExtent: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Graticule;
+                (): number[][];
+                (extent: number[][]): Graticule;
             }
             majorExtent: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Graticule;
+                (): number[][];
+                (extent: number[][]): Graticule;
             }
             step: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Graticule;
+                (): number[][];
+                (extent: number[][]): Graticule;
             }
             minorStep: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Graticule;
+                (): number[][];
+                (extent: number[][]): Graticule;
             }
             majorStep: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Graticule;
+                (): number[][];
+                (extent: number[][]): Graticule;
             }
             precision: {
                 (): number;
@@ -3042,24 +3129,33 @@ declare module D3 {
         }
 
         export interface GeoJSON {
-            coordinates: Array<Array<number>>;
+            coordinates: number[][];
             type: string;
         }
 
+        export interface RawProjection {
+            (lambda: number, phi: number): number[];
+            invert?(x: number, y: number): number[];
+        }
+
         export interface Projection {
-            (coordinates: Array<number>): Array<number>;
-            invert(point: Array<number>): Array<number>;
+            (coordinates: number[]): number[];
+            invert?(point: number[]): number[];
             rotate: {
-                (): Array<number>;
-                (rotation: Array<number>): Projection;
+                (): number[];
+                (rotation: number[]): Projection;
             };
             center: {
-                (): Array<number>;
-                (location: Array<number>): Projection;
+                (): number[];
+                (location: number[]): Projection;
+            };
+            parallels: {
+                (): number[];
+                (location: number[]): Projection;
             };
             translate: {
-                (): Array<number>;
-                (point: Array<number>): Projection;
+                (): number[];
+                (point: number[]): Projection;
             };
             scale: {
                 (): number;
@@ -3070,14 +3166,14 @@ declare module D3 {
                 (angle: number): Projection;
             };
             clipExtent: {
-                (): Array<Array<number>>;
-                (extent: Array<Array<number>>): Projection;
+                (): number[][];
+                (extent: number[][]): Projection;
             };
             precision: {
                 (): number;
                 (precision: number): Projection;
             };
-            stream(listener?: any): Stream;
+            stream(listener?: Stream): Stream;
         }
 
         export interface Stream {
@@ -3090,34 +3186,49 @@ declare module D3 {
         }
 
         export interface Rotation extends Array<any> {
-            (location: Array<number>): Rotation;
-            invert(location: Array<number>): Rotation;
+            (location: number[]): Rotation;
+            invert(location: number[]): Rotation;
+        }
+
+        export interface ProjectionMutator {
+            (lambda: number, phi: number): Projection;
         }
     }
 
     // Geometry
     export module Geom {
         export interface Geom {
+            voronoi<T>(): Voronoi<T>;
             /**
             * compute the Voronoi diagram for the specified points.
             */
-            voronoi: Voronoi
+            voronoi(vertices: Vertice[]): Polygon[];
             /**
             * compute the Delaunay triangulation for the specified points.
             */
-            delaunay(vertices?: Array<Vertice>): Array<Polygon>;
+            delaunay(vertices?: Vertice[]): Polygon[];
             /**
             * constructs a quadtree for an array of points.
             */
-            quadtree: Quadtree;
+            quadtree(): QuadtreeFactory;
             /**
-            * constructs a polygon
+            * Constructs a new quadtree for the specified array of points.
             */
-            polygon: Polygon;
+            quadtree(points: Point[], x1: number, y1: number, x2: number, y2: number): Quadtree;
+            /**
+            * Constructs a new quadtree for the specified array of points.
+            */
+            quadtree(points: Point[], width: number, height: number): Quadtree;
+            /**
+            * Returns the input array of vertices with additional methods attached
+            */
+            polygon(vertices:Vertice[]): Polygon;
             /**
             * creates a new hull layout with the default settings.
             */
-            hull: Hull;
+            hull(): Hull;
+
+            hull(vertices:Vertice[]): Vertice[];
         }
 
         export interface Vertice extends Array<number> {
@@ -3129,24 +3240,20 @@ declare module D3 {
 
         export interface Polygon extends Array<Vertice> {
             /**
-            * Returns the input array of vertices with additional methods attached
-            */
-            (vertices: Array<Vertice>): Polygon;
-            /**
             * Returns the signed area of this polygon
             */
             area(): number;
             /**
             * Returns a two-element array representing the centroid of this polygon.
             */
-            centroid(): Array<number>;
+            centroid(): number[];
             /**
             * Clips the subject polygon against this polygon
             */
             clip(subject: Polygon): Polygon;
         }
 
-        export interface Quadtree {
+        export interface QuadtreeFactory {
             /**
             * Constructs a new quadtree for the specified array of points.
             */
@@ -3154,27 +3261,34 @@ declare module D3 {
             /**
             * Constructs a new quadtree for the specified array of points.
             */
-            (points: Array<Point>, x1: number, y1: number, x2: number, y2: number): Quadtree;
+            (points: Point[], x1: number, y1: number, x2: number, y2: number): Quadtree;
             /**
             * Constructs a new quadtree for the specified array of points.
             */
-            (points: Array<Point>, width: number, height: number): Quadtree;
-            /**
-            * Adds a new point to the quadtree.
-            */
-            add(point: Point): Quadtree;
-            visit(callback: any): Quadtree;
+            (points: Point[], width: number, height: number): Quadtree;
+
             x: {
                 (): (d: any) => any;
-                (accesor: (d: any) => any): Quadtree;
+                (accesor: (d: any) => any): QuadtreeFactory;
 
             }
             y: {
                 (): (d: any) => any;
-                (accesor: (d: any) => any): Quadtree;
+                (accesor: (d: any) => any): QuadtreeFactory;
 
             }
-        size(size: Array<number>): Quadtree;
+            size(): number[];
+            size(size: number[]): QuadtreeFactory;
+            extent(): number[][];
+            extent(points: number[][]): QuadtreeFactory;
+        }
+
+        export interface Quadtree {
+            /**
+            * Adds a new point to the quadtree.
+            */
+            add(point: Point): void;
+            visit(callback: any): void;
         }
 
         export interface Point {
@@ -3182,20 +3296,87 @@ declare module D3 {
             y: number;
         }
 
-        export interface Voronoi {
-            (vertices?: Array<Vertice>): Array<Polygon>;
+        export interface Voronoi<T> {
+            /**
+            * Compute the Voronoi diagram for the specified data.
+            */
+            (data: T[]): Polygon[];
+            /**
+            * Compute the graph links for the Voronoi diagram for the specified data.
+            */
+            links(data: T[]): Layout.GraphLink[];
+            /**
+            * Compute the triangles for the Voronoi diagram for the specified data.
+            */
+            triangles(data: T[]): number[][];
             x: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): any;
+                /**
+                * Get the x-coordinate accessor.
+                */
+                (): (data: T, index ?: number) => number;
+
+                /**
+                * Set the x-coordinate accessor.
+                *
+                * @param accessor The new accessor function
+                */
+                (accessor: (data: T, index: number) => number): Voronoi<T>;
+
+                /**
+                * Set the x-coordinate to a constant.
+                *
+                * @param constant The new constant value.
+                */
+                (constant: number): Voronoi<T>;
             }
             y: {
-                (): (d: any) => any;
-                (accesor: (d: any) => any): any;
+                /**
+                * Get the y-coordinate accessor.
+                */
+                (): (data: T, index ?: number) => number;
+
+                /**
+                * Set the y-coordinate accessor.
+                *
+                * @param accessor The new accessor function
+                */
+                (accessor: (data: T, index: number) => number): Voronoi<T>;
+
+                /**
+                * Set the y-coordinate to a constant.
+                *
+                * @param constant The new constant value.
+                */
+                (constant: number): Voronoi<T>;
+            }
+            clipExtent: {
+                /**
+                * Get the clip extent.
+                */
+                (): number[][];
+                /**
+                * Set the clip extent.
+                *
+                * @param extent The new clip extent.
+                */
+                (extent: number[][]): Voronoi<T>;
+            }
+            size: {
+                /**
+                * Get the size.
+                */
+                (): number[];
+                /**
+                * Set the size, equivalent to a clip extent starting from (0,0).
+                *
+                * @param size The new size.
+                */
+                (size: number[]): Voronoi<T>;
             }
         }
 
         export interface Hull {
-            (vertices: Array<Vertice>): Hull;
+            (vertices: Vertice[]): Vertice[];
             x: {
                 (): (d: any) => any;
                 (accesor: (d: any) => any): any;
@@ -3209,3 +3390,7 @@ declare module D3 {
 }
 
 declare var d3: D3.Base;
+
+declare module "d3" {
+    export = d3;
+}

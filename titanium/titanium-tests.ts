@@ -111,7 +111,7 @@ function test_map() {
 	mapview.regionFit = true;
 	mapview.userLocation = true;
 	mapview.annotations = [mountainView];
-	mapview.addEventListener('click', function(evt) {
+	mapview.addEventListener('click', function(evt?) {
 		if (evt.clicksource === 'leftButton' || evt.clicksource === 'leftPane') {
 			alert(evt.title + ' left button clicked');
 		}

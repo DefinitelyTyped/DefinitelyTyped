@@ -1,8 +1,9 @@
 // Type definitions for JSONEditorOnline
-// JSON Editor Online is a tool to easily edit and format JSON online. JSON is displayed in a clear, editable treeview and in formatted plain text.
 // Project: https://github.com/josdejong/jsoneditoronline
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// JSON Editor Online is a tool to easily edit and format JSON online. JSON is displayed in a clear, editable treeview and in formatted plain text.
 
 interface JSONEditorOptions {
 	change?: () => void;

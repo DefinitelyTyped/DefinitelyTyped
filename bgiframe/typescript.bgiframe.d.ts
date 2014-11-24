@@ -1,4 +1,4 @@
-﻿// Type definitions for typescript.bgiframe 1.0
+﻿// Type definitions for bgiframe 1.0
 // Project: https://github.com/sumegizoltan/BgiFrame
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

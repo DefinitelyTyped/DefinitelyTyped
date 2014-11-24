@@ -110,7 +110,9 @@ var highChartSettings: HighchartsOptions = {
     }]
 };
 
-var container = $("#container").highcharts(highChartSettings);
+var container = $("#container").highcharts(highChartSettings, function (chart) {
+    chart.series[0].setVisible(true, true);
+});
 
 var options = Highcharts.getOptions();
 

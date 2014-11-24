@@ -1,5 +1,6 @@
 // Type definitions for CometD 2.5.1
 // Project: http://cometd.org
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module CometD {

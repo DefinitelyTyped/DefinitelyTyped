@@ -1,8 +1,9 @@
 // Type definitions for Nodemailer
-// Nodemailer is an easy to use module to send e-mails with Node.JS (using SMTP or sendmail or Amazon SES) and is unicode friendly .
 // Project: https://github.com/andris9/Nodemailer
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Nodemailer is an easy to use module to send e-mails with Node.JS (using SMTP or sendmail or Amazon SES) and is unicode friendly .
 
 declare class Transport {
 	static transports: {
@@ -16,8 +17,8 @@ declare class Transport {
 	options: Object;
 	transportType: string;
 	sendMailWithTransport(emailMessage: MailComposer, callback?: (err: Error) => any): any;
-	useDKIM(dkim: DKIMOptions);
-	close(callback?: (err: Error) => any);
+	useDKIM(dkim: DKIMOptions): void;
+	close(callback?: (err: Error) => any): any;
 	sendMail(message: MailComposer, callback?: (err: Error) => any): any;
 	send_mail(message:MailComposer, callback?: (err: Error) => any): any;
 }

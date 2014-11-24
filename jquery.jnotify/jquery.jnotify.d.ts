@@ -1,8 +1,8 @@
-// Typescript type definitions for jQuery.jNotify 1.0 by Fabio Franzini
+// Type definitions for jQuery.jNotify 1.0
 // Project: http://jnotify.codeplex.com
 // Definitions by: James Curran <https://github.com/jamescurran/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
+// Project by: Fabio Franzini
 
 /// <reference path='../jquery/jquery.d.ts'/>
 

@@ -1,13 +1,20 @@
 /// <reference path="pdf.d.ts" />
 
-var pdf: PDFPageProxy;
-
 //
 // Fetch the PDF document from the URL using promises
 //
+var pdfDoc: PDFDocumentProxy;
+var pageNum: number;
+
 PDFJS.getDocument('helloworld.pdf').then(function (pdf) {
 	// Using promise to fetch the page
-	pdf.getPage(1).then(function (page) {
+	pdfDoc = pdf;
+	pageNum = 1;
+	renderPage(pageNum);
+});
+
+function renderPage(pageNum: number) {
+	pdfDoc.getPage(pageNum).then(function (page) {
 		var scale = 1.5;
 		var viewport = page.getViewport(scale);
 
@@ -28,4 +35,11 @@ PDFJS.getDocument('helloworld.pdf').then(function (pdf) {
 		};
 		page.render(renderContext);
 	});
-});
+}
+
+function goNext() {
+    if (pdfDoc && pageNum < pdfDoc.numPages) {
+        ++pageNum;
+        renderPage(pageNum);
+    }
+}

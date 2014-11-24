@@ -16,7 +16,7 @@ declare module "less" {
         callExtract;
         stack;
         column;
-        extract: Array;
+        extract: any[];
     }
 
     interface Options {
@@ -257,15 +257,15 @@ declare module "less" {
             variable(): Rule;
             rulesets(): Ruleset[];
             find(selector: Selector, self: Rule): Rule[];
-            joinSelectors(paths: string[], context: Array[], selectors: Selector[]): void;
-            joinSelector(paths: string[], context: Array[], selector: Selector): void;
+            joinSelectors(paths: string[], context: any[][], selectors: Selector[]): void;
+            joinSelector(paths: string[], context: any[][], selector: Selector): void;
             mergeElementsOnToSelectors(elements: Element[], selectors: Selector[]): void;
         }
 
         export class Ruleset extends AbstractRuleset {
             constructor(selectors: Selector[], rules: Rule[], strictImports);
 
-            toCSS(context?: Array[], env?: Options): string;
+            toCSS(context?: any[][], env?: Options): string;
         }
 
         export class Element implements IInjectable {
@@ -476,7 +476,7 @@ declare module "less" {
             emptySelectors(): Selector[];
             evalTop(env: Options): IEvalable;
             evalNested(env: Options): Ruleset;
-            permute(arr: Array): Array;
+            permute(arr: any[]): any[];
             bubbleSelectors(selectors: Selector[]): void;
         }
 
@@ -497,9 +497,19 @@ declare module "less" {
             toCSS(env?: Options): string;
             eval(): UnicodeDescriptor;
         }
+        
+        export class Attribute implements IInjectable {
+            constructor(value: string);
+
+            value: string;
+
+            toCSS(env?: Options): string;
+            genCSS(env: Options, output): string;
+            eval(): Attribute;
+        }
 
         export var debugInfo: DebugInfoFunction;
-        export function find(obj: Array, fun: Function): any;
+        export function find(obj: any[], fun: Function): any;
         export function jsify(obj: any): string;
         export function operate(op: string, a: number, b: number): number;
 

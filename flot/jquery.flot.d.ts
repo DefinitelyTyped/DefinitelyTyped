@@ -46,7 +46,7 @@ declare module jquery.flot {
         labelMargin?: number;
         axisMargin?: number;
         markings?: any;             //array of markings or (fn: axes -> array of markings)
-        borderWidth: number;
+        borderWidth?: any;          // number or width object
         borderColor?: any;          // color or null
         minBorderMargin?: number;       // or null
         clickable?: boolean;
@@ -72,7 +72,7 @@ declare module jquery.flot {
     }
 
     interface seriesOptions {
-        color?: number;
+        color?: any;            // color or number
         label?: string;
         lines?: linesOptions;
         bars?: barsOptions;

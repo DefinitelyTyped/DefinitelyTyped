@@ -41,7 +41,8 @@ ax.aggregate("", (acc, i) => acc + i, acc=> acc.length);
 ax.aggregate("", (acc, i) => acc + i);
 ax.aggregate((acc, i) => acc + i);
 
-ax.reduce((acc, i) => acc + i, 100);
+//ax.reduce((acc, i) => acc + i, 100);	// bug: https://typescript.codeplex.com/workitem/1960
+ax.reduce<number>((acc, i) => acc + i, 100);
 ax.reduce((acc, i) => acc + i);
 
 ax.all(item => true);
@@ -83,7 +84,7 @@ dx.distinct((d1, d2) => d1 === d2);
 ax.elementAt(2);
 ax.elementAtOrDefault(2);
 
-//ax.except(bx, ec_ns);	// bug https://typescript.codeplex.com/workitem/1841
+ax.except(bx, ec_ns);
 bx.except(fx);
 
 ax.first();
@@ -96,14 +97,14 @@ ax.singleOrDefault();
 ax.forEach(a => console.log(a));
 ax.forEach(a => console.log(a), cx);
 
-//bx.groupBy(b => b.length);						// spec 3.5.2, waiting for restriction on generative recursion removal
+bx.groupBy(b => b.length);
 bx.groupBy(b => b.length, b => "[" + b + "]");
 bx.groupBy(b => b.length, b => "[" + b + "]", (l, values) => l + values.count());
 bx.groupBy(b => b.length, false, (l, values) => l + values.count());
 bx.groupBy(b => b.length, b => "[" + b + "]", (l, values) => l + values.count(), ec_nn);
 bx.groupBy(b => b.length, b => "[" + b + "]", false, (x, y) => x == y);
 bx.groupBy(b => b.length, false, (l, values) => l + values.count(), ec_nn);
-//bx.groupBy(b => b.length, false, false, ec_nn);	// spec 3.5.2, waiting for restriction on generative recursion removal
+bx.groupBy(b => b.length, false, false, ec_nn);
 
 ax.groupJoin(bx, a => a, b => b, (a, b) => [a, b], ec_ns);
 ax.groupJoin(bx, a => a, b => b.length, (a, b) => [a, b]);
@@ -111,7 +112,7 @@ ax.groupJoin(bx, a => a, b => b.length, (a, b) => [a, b]);
 ax.join(bx, a => a, b => b, (a, b) => [a, b], ec_ns);
 ax.join(bx, a => a, b => b.length, (a, b) => [a, b]);
 
-//ax.intersect(bx, ec_ns);	// bug https://typescript.codeplex.com/workitem/1841
+ax.intersect(bx, ec_ns);
 ax.intersect(cx);
 ax.union(cx);
 
@@ -142,14 +143,14 @@ ax.takeWhile(a => a > 10);
 ax.toArray();
 
 bx.toDictionary(b => b.length, b => 10, ec_nn);
-//bx.toDictionary(b => b.length, false, ec_nn);	// spec 3.5.2, waiting for restriction on generative recursion removal
+bx.toDictionary(b => b.length, false, ec_nn);
 bx.toDictionary(b => b.length, b => 10);
-//bx.toDictionary(b => b.length);				// spec 3.5.2, waiting for restriction on generative recursion removal
+bx.toDictionary(b => b.length);
 
 bx.toLookup(b => b.length, b => 10, ec_nn);
-//bx.toLookup(b => b.length, false, ec_nn);		// spec 3.5.2, waiting for restriction on generative recursion removal
+bx.toLookup(b => b.length, false, ec_nn);
 bx.toLookup(b => b.length, b => 10);
-//bx.toLookup(b => b.length);					// spec 3.5.2, waiting for restriction on generative recursion removal
+bx.toLookup(b => b.length);
 
 ax.where(a=> a > 10, {});
 ax.where(a=> a > 10);
