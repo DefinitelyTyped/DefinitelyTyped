@@ -1,5 +1,5 @@
 ﻿// Type definitions for Player Framework (MMPPF)
-// Project: https://github.com/ricardosabino/DefinitelyTyped
+// Project: https://playerframework.codeplex.com/
 // Definitions by: Ricardo Sabino <https://github.com/ricardosabino>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -1078,6 +1078,7 @@ declare module PlayerFramework {
 	*
 	**/
 	class MediaPlayer {
+		constructor(element: HTMLElement, options?: any);
 		/**
 		* Gets or sets the current advertising state of the player.
 		**/
