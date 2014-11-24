@@ -217,6 +217,12 @@ interface PouchDB extends PouchApi {
 }
 
 declare var PouchDB: PouchDB;
+
+// Support AMD require
+declare module 'pouchdb' {
+  export = PouchDB;
+}
+
 //
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.
