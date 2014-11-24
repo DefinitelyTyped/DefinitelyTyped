@@ -48,7 +48,7 @@ declare module gapi.auth {
         /**
          * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
          */
-        scope?: any[]
+        scope?: any
     }, callback: (token: GoogleApiOAuth2TokenObject) => any): void;
     /**
      * Initializes the authorization feature. Call this when the client loads to prevent popup blockers from blocking the auth window on gapi.auth.authorize calls.
@@ -99,7 +99,7 @@ declare module gapi.client {
         /**
          * The HTTP request body (applies to PUT or POST).
          */
-        body?: string;
+        body?: any;
         /**
          * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
          */
@@ -140,7 +140,24 @@ declare module gapi.client {
                 status: number;
                 statusText: string;
             }
-            ) => any);
+            ) => any):void;
+            /**
+         * HttpRequest supports promises.
+         */
+        then(success:(response:{
+                result:T;
+                body:string;
+                headers?: any[];
+                status?: number;
+                statusText?: string
+            })=>void,
+            failure:(response:{
+                result:T;
+                body:string;
+                headers?: any[];
+                status?: number;
+                statusText?: string
+            })=>void): void;
     }
     /**
      * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
@@ -166,7 +183,7 @@ declare module gapi.client {
              */
             rawBatchResponse: any
             ) => any
-        });
+        }):void;
         /**
          * Executes all requests in the batch. The supplied callback is executed on success or failure.
          * @param callback The callback to execute when the batch returns.
@@ -180,7 +197,7 @@ declare module gapi.client {
              * is the same response, but as an unparsed JSON-string.
              */
             rawBatchResponse: string
-            ) => any);
+            ) => any):void;
     }
 
     /**
@@ -201,7 +218,7 @@ declare module gapi.client {
              * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
              */
             rawResp: string
-            ) => void );
+            ) => void ):void;
     }
 
 }

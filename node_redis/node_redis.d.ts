@@ -333,8 +333,8 @@ declare module 'redis' {
         retry_delay : number;
         retry_backoff: number;
 
-        auth(password: string, callback: Function): void;
-        AUTH(password: string, callback: Function): void;
+        auth(password?: string, callback?: Function): void;
+        AUTH(password?: string, callback?: Function): void;
 
         end(): RedisClient;
 

@@ -8,7 +8,7 @@ $(".royalSlider").royalSlider({
     keyboardNavEnabled: true
 });
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
     });
 });
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
     });
 });
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
 });
 
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
     });
 });
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
     });
 });
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
@@ -81,7 +81,7 @@ jQuery(document).ready(function ($) {
     });
 });
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         keyboardNavEnabled: true,
@@ -100,7 +100,7 @@ jQuery(document).ready(function ($) {
 // Another example: $(".royalSlider").royalSlider('goTo', 3);
 // But it's recommended to get instance once if you have many calls:
 
-var slider = $(".royalSlider").royalSlider();
+var slider: RoyalSlider.RoyalSlider = $(".royalSlider").royalSlider().data('royalSlider');
 
 slider.goTo(3); // go to slide with id
 slider.next();  // next slide
@@ -171,7 +171,7 @@ slider.ev.on('rsAfterSlideChange', function (event) {
 slider.ev.on('rsBeforeAnimStart', function (event) {
     // before animation between slides start
 });
-slider.ev.on('rsBeforeMove', function (event, type, userAction) {
+slider.ev.on('rsBeforeMove', function (event: JQueryEventObject, type?: string, userAction?: boolean) {
     // before any transition start (including after drag release)
     // "type" - can be "next", "prev", or ID of slide to move
     // userAction (Boolean) - defines if action is triggered by user (e.g. will be false if movement is triggered by autoPlay)
@@ -188,7 +188,7 @@ slider.ev.on('rsDragRelease', function () {
 slider.ev.on('rsBeforeDestroy', function () {
     // triggers before slider in destroyed
 });
-slider.ev.on('rsOnCreateVideoElement', function (e, url) {
+slider.ev.on('rsOnCreateVideoElement', function (e: JQueryEventObject, url?: string) {
     // triggers before video element is created, after click on play button. 
     // Read more in Tips&Tricks section
 });
@@ -214,7 +214,7 @@ slider.slides[2].holder.on('rsAfterContentSet', function () {
     // fires when third slide content is loaded and added to DOM
 });
 // or globally
-slider.ev.on('rsAfterContentSet', function (e, slideObject) {
+slider.ev.on('rsAfterContentSet', function (e: JQueryEventObject, slideObject?: RoyalSlider.RoyalSlider) {
     // fires when every time when slide content is loaded and added to DOM
 });
 
@@ -224,7 +224,7 @@ slider.ev.on('rsAfterContentSet', function (e, slideObject) {
 slider.ev.on('rsAfterInit', function () {
     // after slider is initialized, 
 });
-slider.ev.on('rsBeforeParseNode', function (e, content, obj) {
+slider.ev.on('rsBeforeParseNode', function (e: JQueryEventObject, content?: any, obj?: any) {
     // before slide node is parsed
     // content - HTML object of slide that is parsed
     // obj - RoyalSlider data object (stores image URLs)

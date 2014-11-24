@@ -1,6 +1,6 @@
 // Type definitions for Grunt 0.4.x
 // Project: http://gruntjs.com
-// Definitions by: Jeff May <https://github.com/jeffmay/>
+// Definitions by: Jeff May <https://github.com/jeffmay/>, Basarat Ali Syed <https://github.com/basarat/>
 // Definitions: https://github.com/jeffmay/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -117,27 +117,14 @@ declare module minimatch {
 declare module grunt {
 
     module config {
-
+       
         /**
          * {@link http://gruntjs.com/sample-gruntfile}
          */
-        interface IProjectConfig extends IConfigOptionFormat {
-            pkg: string
-        }
-
-        /**
-         * @see IProjectConfig
-         */
-        interface IConfigOptionFormat {
-            [plugin: string]: IConfigPluginFormat
-        }
-
-        /**
-         * A map of plugin task names to config objects.
-         */
-        interface IConfigPluginFormat {
-            [task: string]: grunt.task.ITaskOptions
-        }
+        interface IProjectConfig{
+            [plugin: string]: any
+            pkg: any; // unfortunate. It is actually a string
+        }                
 
         /**
          * {@link http://gruntjs.com/api/grunt.config}
@@ -349,7 +336,7 @@ declare module grunt {
              * whose return value will be used as the destination file's contents. If
              * this function returns `false`, the file copy will be aborted.
              */
-            process?: (buffer: NodeBuffer) => boolean
+            process?: (buffer: Buffer) => boolean
         }
 
         /**
@@ -383,21 +370,21 @@ declare module grunt {
              * Returns a string, unless options.encoding is null in which case it returns a Buffer.
              */
             read(filepath: string): string
-            read(filepath: string, options: IFileEncodedOption): NodeBuffer
+            read(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Read a file's contents, parsing the data as JSON and returning the result.
              * @see FileModule.read for a list of supported options.
              */
             readJSON(filepath: string): any
-            readJSON(filepath: string, options: IFileEncodedOption): NodeBuffer
+            readJSON(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Read a file's contents, parsing the data as YAML and returning the result.
              * @see FileModule.read for a list of supported options.
              */
             readYAML(filepath: string): any
-            readYAML(filepath: string, options: IFileEncodedOption): NodeBuffer
+            readYAML(filepath: string, options: IFileEncodedOption): Buffer
 
             /**
              * Write the specified contents to a file, creating intermediate directories if necessary.
@@ -406,7 +393,8 @@ declare module grunt {
              * @param contents If `contents` is a Buffer, encoding is ignored.
              * @param options If an encoding is not specified, default to grunt.file.defaultEncoding.
              */
-            write(filepath: string, contents: NodeBuffer, options?: IFileEncodedOption): void
+            write(filepath: string, contents: string, options?: IFileEncodedOption): void
+            write(filepath: string, contents: Buffer): void
 
             /**
              * Copy a source file to a destination path, creating intermediate directories if necessary.
@@ -463,7 +451,7 @@ declare module grunt {
              * @see FileModule.expand method documentation for an explanation of how the patterns
              *      and options arguments may be specified.
              */
-            expandMapping(patterns: string[], dest: string, options: IExpandedFilesConfig): IFilesMap
+            expandMapping(patterns: string[], dest: string, options: IExpandedFilesConfig): Array<IFileMap>
 
             /**
              * Match one or more globbing patterns against one or more file paths.
@@ -571,7 +559,7 @@ declare module grunt {
             /**
              * Pattern(s) to match, relative to the {@link IExpandedFilesConfig.cwd}.
              */
-            src: string[]
+            src?: string[]
 
             /**
              * Destination path prefix.
@@ -612,7 +600,7 @@ declare module grunt {
             /**
              * Enables the following options
              */
-            expand: boolean // = true
+            expand?: boolean // = true
 
             /**
              * All {@link IExpandedFilesConfig.src} matches are relative to (but don't include) this path.
@@ -622,7 +610,7 @@ declare module grunt {
             /**
              * Replace any existing extension with this value in generated {@link IExpandedFilesConfig.dest} paths.
              */
-            ext?: boolean
+            ext?: string
 
             /**
              * Remove all path parts from generated {@link IExpandedFilesConfig.dest} paths.
@@ -635,17 +623,21 @@ declare module grunt {
              * and this function must return a new dest value.
              * If the same dest is returned more than once, each src which used it will be added to an array of sources for it.
              */
-            rename?: boolean
+            rename?: Function
         }
 
         /**
-         * @see {@link http://gruntjs.com/configuring-tasks#files-object-format}
+         * @see {@link http://gruntjs.com/configuring-tasks#files-array-format}
          */
-        interface IFilesMap {
+        interface IFileMap {
             /**
-             * A map of sources to a destination.
+             * source filenames.
              */
-            [dest: string]: string[]
+            src: string[]
+            /**
+             * destination filename.
+             */
+            dest: string
         }
     }
 
@@ -698,6 +690,11 @@ declare module grunt {
              * Log a list of obj properties (good for debugging flags).
              */
             writeflags(obj: any): T
+
+            /**
+             * Log an warning with grunt.log.warn
+             */
+            warn(msg: string): T
         }
 
         /**
@@ -760,10 +757,6 @@ declare module grunt {
 
     module task {
 
-        interface TaskFunction extends ITask {
-            (...args: any[]): boolean
-        }
-
         /**
          * {@link http://gruntjs.com/api/grunt.task}
          */
@@ -784,9 +777,9 @@ declare module grunt {
              * Task-specific properties and methods are available inside the task function as properties
              * of the this object. The task function can return false to indicate that the task has failed.
              *
-             * @note taskFunction.apply(scope: grunt.task.IMultiTask, args: any[])
+             * @note taskFunction.apply(scope: grunt.task.ITask, args: any[])
              */
-            registerTask(taskName: string, description: string, taskFunction: TaskFunction): void
+            registerTask(taskName: string, description: string, taskFunction: Function): void
 
             /**
              * Register a "multi task." A multi task is a task that implicitly iterates over all of its
@@ -794,10 +787,10 @@ declare module grunt {
              * In addition to the default properties and methods, extra multi task-specific properties
              * are available inside the task function as properties of the this object.
              *
-             * @note taskFunction.apply(scope: grunt.task.IMultiTask, args: any[])
+             * @note taskFunction.apply(scope: grunt.task.IMultiTask<any>, args: any[])
              */
-            registerMultiTask(taskName: string, taskFunction: grunt.task.ITask): void
-            registerMultiTask(taskName: string, taskDescription: string, taskFunction: TaskFunction): void
+            registerMultiTask(taskName: string, taskFunction: Function): void
+            registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
         }
 
         /**
@@ -821,7 +814,13 @@ declare module grunt {
              * Normalizes a task target configuration object into an array of src-dest file mappings.
              * This method is used internally by the multi task system this.files / grunt.task.current.files property.
              */
-            normalizeMultiTaskFiles(data: grunt.config.IProjectConfig, targetname?: string): grunt.file.IFilesMap
+            normalizeMultiTaskFiles(data: grunt.config.IProjectConfig, targetname?: string): Array<grunt.file.IFileMap>
+
+            /**
+             * The currently running task or multitask.
+             * @see http://gruntjs.com/api/inside-tasks
+             */
+            current: grunt.task.IMultiTask<any>
         }
 
         interface AsyncResultCatcher {
@@ -829,9 +828,10 @@ declare module grunt {
              * Either false or an Error object may be passed to the done function
              * to instruct Grunt that the task has failed.
              */
-            done(success: boolean): void;
-            done(error: Error): void;
-            done(result: any): void;
+            (success: boolean): void;
+            (error: Error): void;
+            (result: any): void;
+            (): void;
         }
 
         /**
@@ -917,9 +917,8 @@ declare module grunt {
              * object properties, which will be further overridden in multi tasks by any target-level
              * options object properties.
              */
-            // options<T>(defaultsObj: T): ITaskOptions
-            // options<T>(defaultsObj: T): T
-            options(defaultsObj: any): any
+            options(defaultsObj: any): ITaskOptions
+            options<T>(defaultsObj: T): T
         }
 
         /**
@@ -1169,7 +1168,13 @@ declare module grunt {
             /**
              * Additional options for the Node.js child_process spawn method.
              */
-            opts?: ISpawnOptions
+            opts?: {
+                cwd?: string
+                stdio?: any
+                custom?: any
+                env?: any
+                detached?: boolean
+            }
 
             /**
              * If this value is set and an error occurs, it will be used as the value
@@ -1239,13 +1244,6 @@ declare module grunt {
     }
 
     interface ITaskComponents extends grunt.task.CommonTaskModule {
-
-        /**
-         * The currently running task or multitask.
-         * @see IMultiTask for when to cast
-         */
-        current: grunt.task.ITask
-
         /**
          * Load task-related files from the specified directory, relative to the Gruntfile.
          * This method can be used to load task-related files from a local Grunt plugin by
@@ -1299,4 +1297,10 @@ interface IGrunt extends grunt.IConfigComponents, grunt.fail.FailModule, grunt.I
      * The current Grunt version, as a string. This is just a shortcut to the grunt.package.version property.
      */
     version: string
+}
+
+// NodeJS Support
+declare module 'grunt' {
+    var grunt: IGrunt;
+    export = grunt;
 }

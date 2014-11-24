@@ -1,6 +1,7 @@
 // Type definitions for IxJS 1.0.6 / ix.js
 // Project: https://github.com/Reactive-Extensions/IxJS
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="l2o.d.ts"/>
 
@@ -48,7 +49,7 @@ declare module Ix {
 
 		startWith(...values: T[]): Enumerable<T>;
 
-		scan<TSeed, TAccumulator>(seed: TSeed, accumulate: (acc: TAccumulator, item: T) => TAccumulator): Enumerable<TAccumulator>;
+		scan<TAccumulate>(seed: TAccumulate, accumulate: (acc: TAccumulate, item: T) => TAccumulate): Enumerable<TAccumulate>;
 		scan(accumulate: (acc: T, item: T) => T): Enumerable<T>;
 
 		takeLast(count: number): Enumerable<T>;
@@ -109,4 +110,8 @@ declare module Ix {
 		for<T, TResult>(source: Enumerable<T>, resultSelector: EnumerableFunc<T, TResult>): Enumerable<TResult>;
 		forIn<T, TResult>(source: Enumerable<T>, resultSelector: EnumerableFunc<T, TResult>): Enumerable<TResult>;
 	}
+}
+
+declare module "ix" {
+	export = Ix;
 }

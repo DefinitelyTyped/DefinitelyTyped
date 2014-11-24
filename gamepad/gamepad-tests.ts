@@ -18,7 +18,7 @@
     window.requestAnimationFrame(runAnimation);
 };
 
-()=>{
+(()=>{
     window.addEventListener('GamepadConnected', (e: GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' connected!');
     }, false);
@@ -38,7 +38,7 @@
         console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
     }, false);
 
-    var requestAnimationFrame = window.requestAnimationFrame || window["mozRequestAnimationFrame"];
+    var requestAnimationFrame = window.requestAnimationFrame || (<any>window).mozRequestAnimationFrame;
     var getGamepads = navigator.getGamepads || navigator.webkitGetGamepads;
     if(getGamepads){
         function runAnimation()
@@ -69,4 +69,4 @@
 
         runAnimation();
     }
-}();
+})();

@@ -1,4 +1,9 @@
-﻿/* 
+// Type definitions for Zepto 1.0-rc.1
+// Project: http://zeptojs.com/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/*
 zepto-1.0rc1.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/zepto.d.ts
@@ -443,6 +448,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.after
 	**/
 	after(content: HTMLElement[]): ZeptoCollection;
+	
+	/**
+	* @see ZeptoCollection.after
+	**/
+	after(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Append content to the DOM inside each individual element in the collection. The content can be an HTML string, a DOM node or an array of nodes.
@@ -460,6 +470,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.append
 	**/
 	append(content: HTMLElement[]): ZeptoCollection;
+	
+	/**
+	* @see ZeptoCollection.append
+	**/
+	append(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Append elements from the current collection to the target element. This is like append, but with reversed operands.
@@ -477,6 +492,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.appendTo
 	**/
 	appendTo(target: HTMLElement[]): ZeptoCollection;
+
+	/**
+	* @see ZeptoCollection.appendTo
+	**/
+	appendTo(target: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Read or set DOM attributes. When no value is given, reads specified attribute from the first element in the collection. When value is given, sets the attribute to that value on each element in the collection. When value is null, the attribute is removed (like with removeAttr). Multiple attributes can be set by passing an object with name-value pairs.
@@ -521,6 +541,11 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.before
 	**/
 	before(content: HTMLElement[]): ZeptoCollection;
+	
+	/**
+	* @see ZeptoCollection.before
+	**/
+	before(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Get immediate children of each element in the current collection. If selector is given, filter the results to only include ones matching the CSS selector.
@@ -944,6 +969,12 @@ interface ZeptoCollection {
 	prepend(content: HTMLElement[]): ZeptoCollection;
 
 	/**
+	* @see ZeptoCollection.prepend
+	* @param content
+	**/
+	prepend(content: ZeptoCollection): ZeptoCollection;
+
+	/**
 	* Prepend elements of the current collection inside each of the target elements. This is like prepend, only with reversed operands.
 	* @param content
 	* @return
@@ -961,6 +992,12 @@ interface ZeptoCollection {
 	* @param content
 	**/
 	prependTo(content: HTMLElement[]): ZeptoCollection;
+
+        /**
+	* @see ZeptoCollection.prependTo
+	* @param content
+	**/
+	prependTo(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Get the previous sibling—optionally filtered by selector—of each element in the collection.
@@ -1080,7 +1117,12 @@ interface ZeptoCollection {
 	* @return
 	**/
 	size(): number;
-
+  
+	/**
+	* Get the number of elements in this collection.
+	**/
+	length: number;
+  
 	/**
 	* Extract the subset of this array, starting at start index. If end is specified, extract up to but not including end index.
 	* @param start
@@ -1376,6 +1418,75 @@ interface ZeptoCollection {
 	**/
 	undelegate(selector: string, type: string, fn: (e: Event) => boolean): ZeptoCollection;
 
+    focusin(): ZeptoCollection;
+    focusin(fn: (e: Event) => any): ZeptoCollection;
+
+    focusout(): ZeptoCollection;
+    focusout(fn: (e: Event) => any): ZeptoCollection;
+
+    load(): ZeptoCollection;
+    load(fn: (e: Event) => any): ZeptoCollection;
+
+    resize(): ZeptoCollection;
+    resize(fn: (e: Event) => any): ZeptoCollection;
+
+    scroll(): ZeptoCollection;
+    scroll(fn: (e: Event) => any): ZeptoCollection;
+
+    unload(): ZeptoCollection;
+    unload(fn: (e: Event) => any): ZeptoCollection;
+
+    click(): ZeptoCollection;
+    click(fn: (e: Event) => any): ZeptoCollection;
+
+    dblclick(): ZeptoCollection;
+    dblclick(fn: (e: Event) => any): ZeptoCollection;
+
+    mousedown(): ZeptoCollection;
+    mousedown(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseup(): ZeptoCollection;
+    mouseup(fn: (e: Event) => any): ZeptoCollection;
+
+    mousemove(): ZeptoCollection;
+    mousemove(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseover(): ZeptoCollection;
+    mouseover(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseout(): ZeptoCollection;
+    mouseout(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseenter(): ZeptoCollection;
+    mouseenter(fn: (e: Event) => any): ZeptoCollection;
+
+    mouseleave(): ZeptoCollection;
+    mouseleave(fn: (e: Event) => any): ZeptoCollection;
+
+    change(): ZeptoCollection;
+    change(fn: (e: Event) => any): ZeptoCollection;
+
+    select(): ZeptoCollection;
+    select(fn: (e: Event) => any): ZeptoCollection;
+
+    keydown(): ZeptoCollection;
+    keydown(fn: (e: Event) => any): ZeptoCollection;
+
+    keypress(): ZeptoCollection;
+    keypress(fn: (e: Event) => any): ZeptoCollection;
+
+    keyup(): ZeptoCollection;
+    keyup(fn: (e: Event) => any): ZeptoCollection;
+
+    error(): ZeptoCollection;
+    error(fn: (e: Event) => any): ZeptoCollection;
+
+    focus(): ZeptoCollection;
+    focus(fn: (e: Event) => any): ZeptoCollection;
+
+    blur(): ZeptoCollection;
+    blur(fn: (e: Event) => any): ZeptoCollection;
+
 	/**
 	* Ajax
 	**/
@@ -1407,7 +1518,7 @@ interface ZeptoCollection {
 	* Serialize form into an array of objects with name and value properties. Disabled form controls, buttons, and unchecked radio buttons/checkboxes are skipped. The result doesn’t include data from file inputs.
 	* @return Array with name value pairs from the Form.
 	**/
-	serializeArray(): Array;
+	serializeArray(): any[];
 
 	/**
 	* Trigger or attach a handler for the submit event. When no function given, trigger the “submit” event on the current form and have it perform its submit action unless preventDefault() was called for the event.
@@ -1469,13 +1580,20 @@ interface ZeptoAjaxSettings {
 	data?: any;
 	processData?: boolean;
 	contentType?: string;
+	mimeType?: string;
 	dataType?: string;
+	jsonp?: string;
+	jsonpCallback?: any; // string or Function
 	timeout?: number;
-	headers?: string;
+	headers?: { [key: string]: string };
 	async?: boolean;
 	global?: boolean;
 	context?: any;
 	traditional?: boolean;
+	cache?: boolean;
+	xhrFields?: { [key: string]: any };
+	username?: string;
+	password?: string;
 	beforeSend?: (xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => boolean;
 	success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
 	error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;

@@ -96,9 +96,9 @@ GM_xmlhttpRequest({
         "Accept": "text/xml"            // If not specified, browser defaults will be used.
     },
     onload: function(response) {
-        var responseXML = response.responseXML;
+        var responseXML = (<any>response).responseXML;
         // Inject responseXML into existing Object (only appropriate for XML content).
-        if (!response.responseXML) {
+        if (!responseXML) {
             responseXML = new DOMParser()
                 .parseFromString(response.responseText, "text/xml");
         }
@@ -205,7 +205,7 @@ var finalUrl: string        = syncResult.finalUrl;
 var readyState: number      = syncResult.readyState;
 var responseHeaders: string = syncResult.responseHeaders;
 var responseText: string    = syncResult.responseText;
-var status: number          = syncResult.status;
+(function() { var status: number = syncResult.status; })();		// conflict with state defined in lib.d.ts
 var statusText: string      = syncResult.statusText;
 
 //// Asynchronous

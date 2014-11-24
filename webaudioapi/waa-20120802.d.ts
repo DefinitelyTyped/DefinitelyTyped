@@ -1,7 +1,10 @@
-// Type definitions for the Web Audio API, currently only implemented in WebKit browsers
-// Conforms to the: http://www.w3.org/TR/2012/WD-webaudio-20120802/ specification
-// Definitions by: Baruch Berger (https://github.com/bbss)
+// Type definitions for Web Audio API
+// Project: http://www.w3.org/TR/2012/WD-webaudio-20120802/
+// Definitions by: Baruch Berger <https://github.com/bbss>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Conforms to the: http://www.w3.org/TR/2012/WD-webaudio-20120802/ specification
+// Currently only implemented in WebKit browsers
 
 interface webkitAudioContext {
     destination: AudioDestinationNode;

@@ -1,6 +1,6 @@
 // Type definitions for Modernizr 2.6.2
 // Project: http://modernizr.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/> and Theodore Brown <https://github.com/theodorejb/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -92,9 +92,9 @@ interface ModernizrStatic {
     touch: boolean;
     webgl: boolean;
 
-    load(resources: Array);
-    load(resourceObject: any);
-    load(resourceString: string);
+    load(resources: any[]): void;
+    load(resourceObject: any): void;
+    load(resourceString: string): void;
 
     prefixed(): boolean;
     prefixed(property: string): boolean;
@@ -102,11 +102,11 @@ interface ModernizrStatic {
 
     mq(mediaQuery: string): boolean;
 
-    addTest(feature: string, test: () => any);
-    addTest(feature: string, test: boolean);
-    addTest(feature: any);
+    addTest(feature: string, test: () => any): void;
+    addTest(feature: string, test: boolean): void;
+    addTest(feature: any): void;
 
-    testStyles(rule: string, callback: (element, rule) => void, nodes?: number, testnames?: string[]): boolean;
+    testStyles(rule: string, callback: (element: HTMLDivElement, rule: string) => void, nodes?: number, testnames?: string[]): boolean;
     testProp(property: string): boolean;
     testAllProps(property: string, prefix?: string): boolean;
     testAllProps(property: string, obj: any, element: any): boolean;

@@ -19,6 +19,9 @@ interface AreYouSureOptions {
     
     /**Jquery selector to use to find input elements*/
     fieldSelector?: string;
+	
+	/**Make Are-You-Sure "silent" by disabling the warning message*/
+	silent?: boolean;
 }
 
 interface AreYouSure {

@@ -1,7 +1,7 @@
 // Type definitions for Knockout.Mapping 2.0
 // Project: https://github.com/SteveSanderson/knockout.mapping
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
@@ -40,9 +40,14 @@ interface KnockoutMapping {
     defaultOptions(): KnockoutMappingOptions;
     resetDefaultOptions(): void;
     getType(x: any): any;
-    visitModel(rootObject: any, callback: Function, options?: { visitedObjects?; parentName?; ignore?; copy?; include?; }): any;
+    visitModel(rootObject: any, callback: Function, options?: { visitedObjects?: any; parentName?: string; ignore?: string[]; copy?: string[]; include?: string[]; }): any;
 }
 
 interface KnockoutStatic {
     mapping: KnockoutMapping;
 }
+
+declare module "knockout.mapping" {
+    export = mapping;
+}
+declare var mapping: KnockoutMapping;

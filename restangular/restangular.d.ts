@@ -1,4 +1,4 @@
-// Type definitions for Restangular v0.8.0 - 2013-06-03
+// Type definitions for Restangular v1.4.0
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,72 +6,34 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-interface Restangular extends RestangularCustom {
-    one(route: string, id?: number): RestangularElement;
-    one(route: string, id?: string): RestangularElement;
-    all(route: string): RestangularCollection;
-    copy(fromElement: any): RestangularElement;
-    withConfig(configurer: (RestangularProvider) => any): Restangular;
+
+declare module restangular {
+
+  interface IPromise<T> extends ng.IPromise<T> {
+    call(methodName: string, params?: any): IPromise<T>;
+    get(fieldName: string): IPromise<T>;
+    $object: T;
 }
 
-interface RestangularElement extends Restangular {
-    get (queryParams?: any, headers?: any): ng.IPromise<any>;
-    getList(subElement: any, queryParams?: any, headers?: any): ng.IPromise<any>;
-    put(queryParams?: any, headers?: any): ng.IPromise<any>;
-    post(subElement, elementToPost, queryParams?, headers?): ng.IPromise<any>;
-    remove(queryParams?, headers?): ng.IPromise<any>;
-    head(queryParams?, headers?): ng.IPromise<any>;
-    trace(queryParams?, headers?): ng.IPromise<any>;
-    options(queryParams?, headers?): ng.IPromise<any>;
-    patch(queryParams?, headers?): ng.IPromise<any>;
-    getRestangularUrl(): string;
-}
+  interface ICollectionPromise<T> extends ng.IPromise<T> {
+    push(object: any): ICollectionPromise<T>;
+    call(methodName: string, params?: any): ICollectionPromise<T>;
+    get(fieldName: string): ICollectionPromise<T>;
+    $object: T[];
+  }
 
-interface RestangularCollection extends Restangular {
-    getList(queryParams?, headers?): ng.IPromise<any>;
-    post(elementToPost, queryParams?, headers?): ng.IPromise<any>;
-    head(queryParams?, headers?): ng.IPromise<any>;
-    trace(queryParams?, headers?): ng.IPromise<any>;
-    options(queryParams?, headers?): ng.IPromise<any>;
-    patch(queryParams?, headers?): ng.IPromise<any>;
-    putElement(idx, params, headers): ng.IPromise<any>;
-    getRestangularUrl(): string;
-}
+  interface IRequestConfig {
+    params?: any;
+    headers?: any;
+    cache?: any;
+    withCredentials?: boolean;
+    data?: any;
+    transformRequest?: any;
+    transformResponse?: any;
+    timeout?: any; // number | promise
+  }
 
-interface RestangularCustom {
-    customGET(path, params?, headers?): ng.IPromise<any>;
-    customGETLIST(path, params?, headers?): ng.IPromise<any>;
-    customDELETE(path, params?, headers?): ng.IPromise<any>;
-    customPOST(path, params?, headers?, elem?): ng.IPromise<any>;
-    customPUT(path, params?, headers?, elem?): ng.IPromise<any>;
-    customOperation(operation, path, params?, headers?, elem?): ng.IPromise<any>;
-    addRestangularMethod(name, operation, path?, params?, headers?, elem?): ng.IPromise<any>;
-}
-
-interface RestangularProvider {
-    setBaseUrl(baseUrl: string): void;
-    setExtraFields(fields: string[]): void;
-    setParentless(parentless: boolean, routes: string[]): void;
-    setDefaultHttpFields(httpFields: any): void;
-    addElementTransformer(route: string, transformer: Function): void;
-    addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
-    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: Restangular) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: RestangularResponse, deferred: ng.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: RestangularResponse, deferred: ng.IDeferred<any>) => any): void;
-    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any);
-    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any) => {element: any; headers: any; params: any});
-    setErrorInterceptor(errorInterceptor: (response: RestangularResponse) => any): void;
-    setRestangularFields(fields: {[fieldName: string]: string}): void;
-    setMethodOverriders(overriders: string[]): void;
-    setDefaultRequestParams(params: any): void;
-    setDefaultRequestParams(methods: any, params: any): void;
-    setFullResponse(fullResponse: boolean): void;
-    setDefaultHeaders(headers: any): void;
-    setRequestSuffix(suffix: string): void;
-    setUseCannonicalId(useCannonicalId: boolean): void;
-}
-
-interface RestangularResponse {
+  interface IResponse {
     status: number;
     data: any;
     config: {
@@ -79,7 +41,92 @@ interface RestangularResponse {
         url: string;
         params: any;
     }
-}
+  }
 
-declare var Restangular: Restangular;
-declare var RestangularProvider: RestangularProvider;
+  interface IProvider {
+    setBaseUrl(baseUrl: string): void;
+    setExtraFields(fields: string[]): void;
+    setParentless(parentless: boolean, routes: string[]): void;
+    setDefaultHttpFields(httpFields: any): void;
+    addElementTransformer(route: string, transformer: Function): void;
+    addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
+    setTransformOnlyServerElements(active: boolean): void;
+    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): void;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: ng.IDeferred<any>) => any): void;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: ng.IDeferred<any>) => any): void;
+    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: ng.IDeferred<any>) => any): void;
+    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
+    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: IRequestConfig) => {element: any; headers: any; params: any}): void;
+    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: IRequestConfig) => {headers: any; params: any; element: any; httpConfig: IRequestConfig}): void;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: ng.IDeferred<any>) => any): void;
+    setRestangularFields(fields: {[fieldName: string]: string}): void;
+    setMethodOverriders(overriders: string[]): void;
+    setJsonp(jsonp: boolean): void;
+    setDefaultRequestParams(params: any): void;
+    setDefaultRequestParams(method: string, params: any): void;
+    setDefaultRequestParams(methods: string[], params: any): void;
+    setFullResponse(fullResponse: boolean): void;
+    setDefaultHeaders(headers: any): void;
+    setRequestSuffix(suffix: string): void;
+    setUseCannonicalId(useCannonicalId: boolean): void;
+    setEncodeIds(encode: boolean): void;
+  }
+
+  interface ICustom {
+    customGET(path: string, params?: any, headers?: any): IPromise<any>;
+    customGETLIST(path: string, params?: any, headers?: any): ICollectionPromise<any>;
+    customDELETE(path: string, params?: any, headers?: any): IPromise<any>;
+    customPOST(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
+    customPUT(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
+    customOperation(operation: string, path: string, params?: any, headers?: any, elem?: any): IPromise<any>;
+    addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
+  }
+
+  interface IService extends ICustom {
+    one(route: string, id?: number): IElement;
+    one(route: string, id?: string): IElement;
+    oneUrl(route: string, url: string): IElement;
+    all(route: string): IElement;
+    allUrl(route: string, url: string): IElement;
+    copy(fromElement: any): IElement;
+    withConfig(configurer: (RestangularProvider: IProvider) => any): IService;
+    restangularizeElement(parent: any, element: any, route: string, collection?: any, reqParams?: any): IElement;
+    restangularizeCollection(parent: any, element: any, route: string): ICollection;
+    service(route: string, parent: any): IService;
+    stripRestangular(element: any): any;
+  }
+
+  interface IElement extends IService {
+    get(queryParams?: any, headers?: any): IPromise<any>;
+    get<T>(queryParams?: any, headers?: any): IPromise<T>;
+    getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
+    put(queryParams?: any, headers?: any): IPromise<any>;
+    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
+    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
+    remove(queryParams?: any, headers?: any): IPromise<any>;
+    head(queryParams?: any, headers?: any): IPromise<any>;
+    trace(queryParams?: any, headers?: any): IPromise<any>;
+    options(queryParams?: any, headers?: any): IPromise<any>;
+    patch(queryParams?: any, headers?: any): IPromise<any>;
+    withHttpConfig(httpConfig: IRequestConfig): IElement;
+    getRestangularUrl(): string;
+  }
+
+  interface ICollection extends IService {
+    getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
+    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
+    head(queryParams?: any, headers?: any): IPromise<any>;
+    trace(queryParams?: any, headers?: any): IPromise<any>;
+    options(queryParams?: any, headers?: any): IPromise<any>;
+    patch(queryParams?: any, headers?: any): IPromise<any>;
+    putElement(idx: any, params: any, headers: any): IPromise<any>;
+    withHttpConfig(httpConfig: IRequestConfig): ICollection;
+    getRestangularUrl(): string;
+  }
+}

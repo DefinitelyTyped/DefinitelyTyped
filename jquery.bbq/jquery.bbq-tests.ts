@@ -587,7 +587,7 @@ QUnit.module( 'jQuery.fn' );
 $.elemUrlAttr({ span: 'arbitrary_attr' });
 var test_elems = 'a form link span'.split(' ');
 
-function init_url_attr( container, url ) {
+function init_url_attr( _, url ) {
   var container = $('<div/>').hide().appendTo('body');
   $.each( test_elems, function(i,v){
     $('<' + v + '/>')

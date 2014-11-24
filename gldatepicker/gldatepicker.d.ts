@@ -1,6 +1,6 @@
 // Type definitions for glDatePicker 2.0
 // Project: http://glad.github.com/glDatePicker/
-// Definitions by: Dániel Tar https://github.com/qcz
+// Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -64,6 +64,6 @@ interface GlDatePicker {
 }
 
 interface JQuery {
-    glDatePicker(options?: GlDatePickerOptions): JQuery;
-    glDatePicker(ret: boolean): GlDatePicker;
+	glDatePicker(ret: boolean): GlDatePicker;
+	glDatePicker(options?: GlDatePickerOptions): JQuery;
 }

@@ -1,24 +1,35 @@
-// Typescript type definitions for jQuery.noty v2.0 by Nedim Carter <http://needim.github.io>
+// Type definitions for jQuery.noty v2.0
 // Project: http://needim.github.io/noty/
 // Definitions by: Aaron King <https://github.com/kingdango/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Project by: Nedim Carter <http://needim.github.io>
 
 /// <reference path='../jquery/jquery.d.ts'/>
 
 interface NotyOptions {
-	layout?: string;
-	theme?: string;
-	type?: string;
-	text?: string;
-	dismissQueue?: boolean;
-	template?: string;
-	animation?: NotyAnimationOptions;
-	timeout?: number;
-	force?: boolean;
-	modal?: boolean;
-	closeWith?: Array;
-	callback?: NotyCallbackOptions;
-	buttons?: any;
+    layout?: string;
+    theme?: string;
+    type?: string;
+    /** Text to show. Can be html or string. */
+    text?: string; 
+    /** If you want to use queue feature set this true. */
+    dismissQueue?: boolean; 
+    /** The note`s optional template like '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>' */
+    template?: string; 
+    animation?: NotyAnimationOptions;
+    /** Delay for closing event. Set false for sticky notifications */
+    timeout?: any; 
+    /** Adds notification to the beginning of queue when set to true */
+    force?: boolean; 
+    modal?: boolean;
+    /** You can set max visible notification for dismissQueue true option */
+    maxVisible?: number;
+    /** To close all notifications before show */
+    killer?: boolean;
+    closeWith?: any[];
+    callback?: NotyCallbackOptions;
+    /** An array of buttons or false to hide them */
+    buttons?: any;
 }
 
 interface NotyAnimationOptions {
@@ -38,6 +49,7 @@ interface NotyCallbackOptions {
 interface NotyStatic {
 
 	(notyOptions: NotyOptions);
+	defaults: NotyOptions;
 
 	get(id: any);
 	close(id: any);

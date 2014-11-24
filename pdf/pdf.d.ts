@@ -1,3 +1,8 @@
+// Type definitions for PDF.js
+// Project: https://github.com/mozilla/pdf.js
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/pdf.d.ts
 
@@ -27,7 +32,7 @@ interface PDFPromise<T> {
 	isRejected(): boolean;
 	resolve(value: T): void;
 	reject(reason: string): void;
-	then<T>(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
+	then(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
 }
 
 interface PDFTreeNode {
@@ -69,12 +74,12 @@ interface PDFDocumentProxy {
 	/**
 	* Total number of pages the PDF contains.
 	**/
-	numPages(): number;
+	numPages: number;
 
 	/**
 	* A unique ID to identify a PDF.  Not guaranteed to be unique.  [jbaldwin: haha what]
 	**/
-	fingerprint(): string;
+	fingerprint: string;
 
 	/**
 	* True if embedded document fonts are in use.  Will be set during rendering of the pages.
@@ -250,7 +255,7 @@ interface PDFPageProxy {
 	/**
 	* A promise that is resolved with the string that is the text content frm the page.
 	**/
-	getTextContext(): PDFPromise<string>;
+    getTextContent(): PDFPromise<TextContent>;
 
 	/**
 	* marked as future feature
@@ -261,6 +266,20 @@ interface PDFPageProxy {
 	* Destroyes resources allocated by the page.
 	**/
 	destroy(): void;
+}
+
+interface TextContentItem {
+    str: string;
+    transform: number[]; // [0..5]   4=x, 5=y
+    width: number;
+    height: number;
+    dir: string; // Left-to-right (ltr), etc
+    fontName: string; // A lookup into the styles map of the owning TextContent
+}
+
+interface TextContent {
+    items: TextContentItem[];
+    styles: any;
 }
 
 /**

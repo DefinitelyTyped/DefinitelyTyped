@@ -10,7 +10,7 @@ r.connect({host:"localhost", port: 28015}, function(err, conn) {
         
         users.insert({name: "bob"}).run(conn, function() {})
         
-        users.filter(function(doc) {
+        users.filter(function(doc?) {
             return doc("henry").eq("bob")
         })
         .between("james", "beth")

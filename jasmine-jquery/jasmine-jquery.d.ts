@@ -1,7 +1,7 @@
 ﻿// Type definitions for Jasmine-JQuery 1.5.8
 // Project: https://github.com/velesin/jasmine-jquery
 // Definitions by: Gregor Stamac <https://github.com/gstamac/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jasmine/jasmine.d.ts"/>
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -90,8 +90,8 @@ declare module jasmine {
         toBeEmpty(): boolean;
         toExist(): boolean;
         toHaveLength(length: number): boolean;
-        toHaveAttr(attributeName: string, expectedAttributeValue): boolean;
-        toHaveProp(propertyName: string, expectedPropertyValue): boolean;
+        toHaveAttr(attributeName: string, expectedAttributeValue?): boolean;
+        toHaveProp(propertyName: string, expectedPropertyValue?): boolean;
         toHaveId(id: string): boolean;
         toHaveHtml(html: string): boolean;
         //toContainHtml(html: string): boolean;

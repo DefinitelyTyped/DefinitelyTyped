@@ -492,5 +492,5 @@ interface JQuery {
     *
     * @param options The options
     */
-    royalSlider(options?: RoyalSlider.RoyalSliderOptions): RoyalSlider.RoyalSlider;
+    royalSlider(options?: RoyalSlider.RoyalSliderOptions): JQuery;
 }

@@ -2102,7 +2102,7 @@ declare module go {
         defaultAlignment: Spot;
 
         /**Gets or sets the default dash array for a particular column's separator.*/
-        defaultColumnSeparatorDashArray: Array;
+        defaultColumnSeparatorDashArray: any[];
 
         /**Gets or sets the default Brush stroke (or CSS color string) for columns in a Table Panel provided a given column has a nonzero RowColumnDefinition#separatorStrokeWidth.*/
         defaultColumnSeparatorStroke: any;
@@ -2111,7 +2111,7 @@ declare module go {
         defaultColumnSeparatorStrokeWidth: number;
 
         /**Gets or sets the default dash array for a particular row's separator.*/
-        defaultRowSeparatorDashArray: Array;
+        defaultRowSeparatorDashArray: any[];
 
         /**Gets or sets the default Brush stroke (or CSS color string) for rows in a Table Panel provided a given row has a nonzero RowColumnDefinition#separatorStrokeWidth.*/
         defaultRowSeparatorStroke: any;
@@ -2135,7 +2135,7 @@ declare module go {
         gridOrigin: Point;
 
         /**Gets or sets a JavaScript Array of values or objects, each of which will be represented by a Panel as elements in this Panel.*/
-        itemArray: Array;
+        itemArray: any[];
 
         /**Gets or sets the name of the item data property that returns a string describing that data's category, or a function that takes an item data object and returns that string; the default value is the name 'category'.*/
         itemCategoryProperty: any;
@@ -2690,7 +2690,7 @@ declare module go {
         position: number;
 
         /**Gets or sets the dash array for dashing the spacing provided this row or column has a nonzero RowColumnDefinition#separatorStrokeWidth and non-null RowColumnDefinition#separatorStroke.*/
-        separatorDashArray: Array;
+        separatorDashArray: any[];
 
         /**Gets or sets the additional padding for a particular row or column, a Margin (or number for a uniform Margin).*/
         separatorPadding: any;
@@ -2787,7 +2787,7 @@ declare module go {
         strokeCap: string;
 
         /**Gets or sets the dash array for creating dashed lines.*/
-        strokeDashArray: Array;
+        strokeDashArray: any[];
 
         /**Gets or sets the offset for dashed lines, used in the phase pattern.*/
         strokeDashOffset: number;
@@ -4547,7 +4547,7 @@ declare module go {
         * @param {Array} arr an Array that is the value of some Panel's Panel#itemArray.
         * @param {*} val the new value to be pushed onto the array.
         */
-        addArrayItem(arr: Array, val: any);
+        addArrayItem(arr: any[], val: any);
 
         /**
         * Register an event handler that is called when there is a ChangedEvent.
@@ -4633,7 +4633,7 @@ declare module go {
         * @param {number} idx the zero-based array index where the new value will be inserted; use -1 to push the new value on the end of the array.
         * @param {*} val the new value to be inserted into the array.
         */
-        insertArrayItem(arr: Array, idx: number, val: any);
+        insertArrayItem(arr: any[], idx: number, val: any);
 
         /**
         * This method is called when a node data object is added to the model to make sure that
@@ -4689,7 +4689,7 @@ declare module go {
         * @param {number=} idx the zero-based array index of the data item to be removed from the array;
         *   if not supplied it will remove the last item of the array.
         */
-        removeArrayItem(arr: Array, idx?: number);
+        removeArrayItem(arr: any[], idx?: number);
 
         /**
         * Unregister an event handler listener.
@@ -6283,7 +6283,7 @@ declare module go {
         childPortSpot: Spot;
 
         /**Gets or sets the logical children for this node.*/
-        children: Array;
+        children: any[];
 
         /**Gets the number of immediate children this node has.*/
         childrenCount: number;
@@ -6292,7 +6292,7 @@ declare module go {
         commentMargin: number;
 
         /**Gets or sets an array of Nodes that will be positioned near this node.*/
-        comments: Array;
+        comments: any[];
 
         /**Gets or sets the space to leave between consecutive comments.*/
         commentSpacing: number;
@@ -7924,7 +7924,7 @@ declare module go {
         /**
         * Produces a JavaScript Array from the contents of this List.
         */
-        toArray(): Array;
+        toArray(): any[];
 
         /**
         * Converts the List to a Set.
@@ -8013,7 +8013,7 @@ declare module go {
         /**
         * Produces a JavaScript Array of key/value pair objects from the contents of this Map.
         */
-        toArray(): Array;
+        toArray(): any[];
 
         /**
         * Produces a Set that provides a read-only view onto the keys of this Map.
@@ -8109,7 +8109,7 @@ declare module go {
         /**
         * Produces a JavaScript Array from the contents of this Set.
         */
-        toArray(): Array;
+        toArray(): any[];
 
         /**
         * Converts the Set to a List.

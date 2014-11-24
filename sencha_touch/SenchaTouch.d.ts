@@ -1,4 +1,4 @@
-// Type definitions for Touch 2.2.1
+// Type definitions for Touch 2.3.1
 // Project: http://www.sencha.com/products/touch/
 // Definitions by: Brian Kotek <https://github.com/brian428/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -58,6 +58,10 @@ declare module Ext {
 	}
 }
 declare module Ext {
+	export interface IAbstractPlugin extends Ext.IBase {
+	}
+}
+declare module Ext {
 	export interface IActionSheet extends Ext.ISheet {
 		/** [Config Option] (String) */
 		baseCls?: string;
@@ -96,27 +100,27 @@ declare module Ext {
 		*/
 		getRight?(): number;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number 
+		* @param bottom Number The new value. 
 		*/
 		setBottom?( bottom?:number ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of height  
-		* @param height String 
+		* @param height String The new value. 
 		*/
 		setHeight?( height?:string ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number 
+		* @param left Number The new value. 
 		*/
 		setLeft?( left?:number ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number 
+		* @param right Number The new value. 
 		*/
 		setRight?( right?:number ): void;
 	}
@@ -125,6 +129,10 @@ declare module Ext {
 	export interface IAjax extends Ext.data.IConnection {
 	}
 	export class Ajax {
+		/** [Property] (Boolean) */
+		static autoAbort: boolean;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Aborts any outstanding request  
 		* @param request Object Defaults to the last request. 
 		*/
@@ -333,10 +341,10 @@ declare module Ext {
 		static onBefore( eventName?:any, fn?:any, scope?:any, options?:any ): void;
 		/** [Method] Checks if the response status was successful  
 		* @param status Number The status code. 
-		* @param xhr Object 
+		* @param xhr XMLHttpRequest 
 		* @returns Object An object containing success/status state. 
 		*/
-		static parseStatus( status?:number, xhr?:any ): any;
+		static parseStatus( status?:number, xhr?:XMLHttpRequest ): any;
 		/** [Method] Relays selected events from the specified Observable as if the events were fired by this  
 		* @param object Object The Observable whose events this object is to relay. 
 		* @param events String/Array/Object Array of event names to relay. 
@@ -382,47 +390,47 @@ declare module Ext {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of async  
-		* @param async Boolean 
+		* @param async Boolean The new value. 
 		*/
 		static setAsync( async?:boolean ): void;
 		/** [Method] Sets the value of autoAbort  
-		* @param autoAbort Boolean 
+		* @param autoAbort Boolean The new value. 
 		*/
 		static setAutoAbort( autoAbort?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of defaultHeaders  
-		* @param defaultHeaders Object 
+		* @param defaultHeaders Object The new value. 
 		*/
 		static setDefaultHeaders( defaultHeaders?:any ): void;
 		/** [Method] Sets the value of defaultPostHeader  
-		* @param defaultPostHeader String 
+		* @param defaultPostHeader String The new value. 
 		*/
 		static setDefaultPostHeader( defaultPostHeader?:string ): void;
 		/** [Method] Sets the value of defaultXhrHeader  
-		* @param defaultXhrHeader String 
+		* @param defaultXhrHeader String The new value. 
 		*/
 		static setDefaultXhrHeader( defaultXhrHeader?:string ): void;
 		/** [Method] Sets the value of disableCaching  
-		* @param disableCaching Boolean 
+		* @param disableCaching Boolean The new value. 
 		*/
 		static setDisableCaching( disableCaching?:boolean ): void;
 		/** [Method] Sets the value of disableCachingParam  
-		* @param disableCachingParam String 
+		* @param disableCachingParam String The new value. 
 		*/
 		static setDisableCachingParam( disableCachingParam?:string ): void;
 		/** [Method] Sets the value of extraParams  
-		* @param extraParams Object 
+		* @param extraParams Object The new value. 
 		*/
 		static setExtraParams( extraParams?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Sets the value of method  
-		* @param method String 
+		* @param method String The new value. 
 		*/
 		static setMethod( method?:string ): void;
 		/** [Method] Sets various options such as the url params for the request  
@@ -432,27 +440,27 @@ declare module Ext {
 		*/
 		static setOptions( options?:any, scope?:any ): any;
 		/** [Method] Sets the value of password  
-		* @param password String 
+		* @param password String The new value. 
 		*/
 		static setPassword( password?:string ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		static setTimeout( timeout?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		static setUrl( url?:string ): void;
 		/** [Method] Sets the value of useDefaultHeader  
-		* @param useDefaultHeader Boolean 
+		* @param useDefaultHeader Boolean The new value. 
 		*/
 		static setUseDefaultHeader( useDefaultHeader?:boolean ): void;
 		/** [Method] Sets the value of useDefaultXhrHeader  
-		* @param useDefaultXhrHeader Boolean 
+		* @param useDefaultXhrHeader Boolean The new value. 
 		*/
 		static setUseDefaultXhrHeader( useDefaultXhrHeader?:boolean ): void;
 		/** [Method] Sets the value of username  
-		* @param username String 
+		* @param username String The new value. 
 		*/
 		static setUsername( username?:string ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -496,6 +504,34 @@ declare module Ext {
 	export interface IAnim extends Ext.IBase {
 	}
 	export class Anim {
+		/** [Config Option] (Function) */
+		static after: any;
+		/** [Config Option] (Boolean) */
+		static autoClear: boolean;
+		/** [Config Option] (Function) */
+		static before: any;
+		/** [Config Option] (Number) */
+		static delay: number;
+		/** [Config Option] (String) */
+		static direction: string;
+		/** [Config Option] (Boolean) */
+		static disableAnimations: boolean;
+		/** [Config Option] (Number) */
+		static duration: number;
+		/** [Config Option] (String) */
+		static easing: string;
+		/** [Config Option] (Object) */
+		static from: any;
+		/** [Config Option] (Boolean) */
+		static out: boolean;
+		/** [Config Option] (Boolean) */
+		static reverse: boolean;
+		/** [Config Option] (Object) */
+		static scope: any;
+		/** [Config Option] (Object) */
+		static to: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -540,6 +576,8 @@ declare module Ext {
 	export interface IAnimationQueue extends Ext.IBase {
 	}
 	export class AnimationQueue {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -568,7 +606,7 @@ declare module Ext {
 		*/
 		static initConfig( instanceConfig?:any ): any;
 		/** [Method]  
-		* @param fn Object 
+		* @param fn Function 
 		* @param scope Object 
 		* @param args Object 
 		*/
@@ -578,7 +616,7 @@ declare module Ext {
 		*/
 		static statics(): Ext.IClass;
 		/** [Method]  
-		* @param fn Object 
+		* @param fn Function 
 		* @param scope Object 
 		* @param args Object 
 		*/
@@ -589,6 +627,18 @@ declare module Ext {
 	export interface IAnims {
 	}
 	export class Anims {
+		/** [Property] (Object) */
+		static cube: any;
+		/** [Property] (Object) */
+		static fade: any;
+		/** [Property] (Object) */
+		static flip: any;
+		/** [Property] (Object) */
+		static pop: any;
+		/** [Property] (Object) */
+		static slide: any;
+		/** [Property] (Object) */
+		static wipe: any;
 	}
 }
 declare module Ext.app {
@@ -648,39 +698,39 @@ declare module Ext.app {
 		/** [Method] Resumes the execution of this Action or starts it if it had not been started already */
 		resume?(): void;
 		/** [Method] Sets the value of action  
-		* @param action String 
+		* @param action String The new value. 
 		*/
 		setAction?( action?:string ): void;
 		/** [Method] Sets the value of application  
-		* @param application Ext.app.Application 
+		* @param application Ext.app.Application The new value. 
 		*/
 		setApplication?( application?:Ext.app.IApplication ): void;
 		/** [Method] Sets the value of args  
-		* @param args Array 
+		* @param args Array The new value. 
 		*/
 		setArgs?( args?:any[] ): void;
 		/** [Method] Sets the value of beforeFilters  
-		* @param beforeFilters Array 
+		* @param beforeFilters Array The new value. 
 		*/
 		setBeforeFilters?( beforeFilters?:any[] ): void;
 		/** [Method] Sets the value of controller  
-		* @param controller Ext.app.Controller 
+		* @param controller Ext.app.Controller The new value. 
 		*/
 		setController?( controller?:Ext.app.IController ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 		/** [Method] Sets the value of title  
-		* @param title Object 
+		* @param title Object The new value. 
 		*/
 		setTitle?( title?:any ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 	}
@@ -711,6 +761,8 @@ declare module Ext.app {
 		phoneStartupScreen?: string;
 		/** [Config Option] (Array) */
 		profiles?: any[];
+		/** [Config Option] (String[]) */
+		requires?: string[];
 		/** [Config Option] (Ext.app.Router) */
 		router?: Ext.app.IRouter;
 		/** [Config Option] (Object) */
@@ -721,6 +773,12 @@ declare module Ext.app {
 		tabletIcon?: string;
 		/** [Config Option] (String) */
 		tabletStartupScreen?: string;
+		/** [Config Option] (String/Function) */
+		themeVariation?: any;
+		/** [Config Option] (String) */
+		themeVariationPrefix?: string;
+		/** [Config Option] (String) */
+		themeVariationTransitionCls?: string;
 		/** [Method] Dispatches a given Ext app Action to the relevant Controller instance  
 		* @param action Ext.app.Action The action to dispatch. 
 		* @param addToHistory Boolean Sets the browser's url to the action's url. 
@@ -760,46 +818,78 @@ declare module Ext.app {
 		* @returns Array 
 		*/
 		getProfiles?(): any[];
+		/** [Method] Returns the value of requires  
+		* @returns String[] 
+		*/
+		getRequires?(): string[];
 		/** [Method] Returns the value of router  
 		* @returns Ext.app.Router 
 		*/
 		getRouter?(): Ext.app.IRouter;
+		/** [Method] Returns the value of themeVariation  
+		* @returns String/Function 
+		*/
+		getThemeVariation?(): any;
+		/** [Method] Returns the value of themeVariationPrefix  
+		* @returns String 
+		*/
+		getThemeVariationPrefix?(): string;
+		/** [Method] Returns the value of themeVariationTransitionCls  
+		* @returns String 
+		*/
+		getThemeVariationTransitionCls?(): string;
 		/** [Method] Redirects the browser to the given url  
 		* @param url String/Ext.data.Model The String url to redirect to. 
 		*/
 		redirectTo?( url?:any ): void;
 		/** [Method] Sets the value of appFolder  
-		* @param appFolder String 
+		* @param appFolder String The new value. 
 		*/
 		setAppFolder?( appFolder?:string ): void;
 		/** [Method] Sets the value of controllers  
-		* @param controllers Array 
+		* @param controllers Array The new value. 
 		*/
 		setControllers?( controllers?:any[] ): void;
 		/** [Method] Sets the value of currentProfile  
-		* @param currentProfile Ext.app.Profile 
+		* @param currentProfile Ext.app.Profile The new value. 
 		*/
 		setCurrentProfile?( currentProfile?:Ext.app.IProfile ): void;
 		/** [Method] Sets the value of history  
-		* @param history Ext.app.History 
+		* @param history Ext.app.History The new value. 
 		*/
 		setHistory?( history?:Ext.app.IHistory ): void;
 		/** [Method] Sets the value of launch  
-		* @param launch Function 
+		* @param launch Function The new value. 
 		*/
 		setLaunch?( launch?:any ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of profiles  
-		* @param profiles Array 
+		* @param profiles Array The new value. 
 		*/
 		setProfiles?( profiles?:any[] ): void;
+		/** [Method] Sets the value of requires  
+		* @param requires String[] The new value. 
+		*/
+		setRequires?( requires?:string[] ): void;
 		/** [Method] Sets the value of router  
-		* @param router Ext.app.Router 
+		* @param router Ext.app.Router The new value. 
 		*/
 		setRouter?( router?:Ext.app.IRouter ): void;
+		/** [Method] Sets the value of themeVariation  
+		* @param themeVariation String/Function The new value. 
+		*/
+		setThemeVariation?( themeVariation?:any ): void;
+		/** [Method] Sets the value of themeVariationPrefix  
+		* @param themeVariationPrefix String The new value. 
+		*/
+		setThemeVariationPrefix?( themeVariationPrefix?:string ): void;
+		/** [Method] Sets the value of themeVariationTransitionCls  
+		* @param themeVariationTransitionCls String The new value. 
+		*/
+		setThemeVariationTransitionCls?( themeVariationTransitionCls?:string ): void;
 	}
 }
 declare module Ext.app {
@@ -897,20 +987,20 @@ declare module Ext.app {
 		*/
 		getControl?(): any;
 		/** [Method] Returns a reference to another Controller  
-		* @param controllerName Object 
-		* @param profile Object 
+		* @param controllerName String 
+		* @param profile String 
 		* @returns Object 
 		*/
-		getController?( controllerName?:any, profile?:any ): any;
+		getController?( controllerName?:string, profile?:string ): any;
 		/** [Method] Returns the value of listeners  
 		* @returns Object 
 		*/
 		getListeners?(): any;
 		/** [Method] Returns a reference to a Model  
-		* @param modelName Object 
+		* @param modelName String 
 		* @returns Object 
 		*/
-		getModel?( modelName?:any ): any;
+		getModel?( modelName?:string ): any;
 		/** [Method] Returns the value of models  
 		* @returns String[] 
 		*/
@@ -1018,43 +1108,43 @@ declare module Ext.app {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of application  
-		* @param application Ext.app.Application 
+		* @param application Ext.app.Application The new value. 
 		*/
 		setApplication?( application?:Ext.app.IApplication ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of control  
-		* @param control Object 
+		* @param control Object The new value. 
 		*/
 		setControl?( control?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of models  
-		* @param models String[] 
+		* @param models String[] The new value. 
 		*/
 		setModels?( models?:string[] ): void;
 		/** [Method] Sets the value of refs  
-		* @param refs Object 
+		* @param refs Object The new value. 
 		*/
 		setRefs?( refs?:any ): void;
 		/** [Method] Sets the value of routes  
-		* @param routes Object 
+		* @param routes Object The new value. 
 		*/
 		setRoutes?( routes?:any ): void;
 		/** [Method] Sets the value of stores  
-		* @param stores String[] 
+		* @param stores String[] The new value. 
 		*/
 		setStores?( stores?:string[] ): void;
 		/** [Method] Sets the value of views  
-		* @param views Array 
+		* @param views Array The new value. 
 		*/
 		setViews?( views?:any[] ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -1256,23 +1346,23 @@ declare module Ext.app {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of actions  
-		* @param actions Array 
+		* @param actions Array The new value. 
 		*/
 		setActions?( actions?:any[] ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of token  
-		* @param token String 
+		* @param token String The new value. 
 		*/
 		setToken?( token?:string ): void;
 		/** [Method] Sets the value of updateUrl  
-		* @param updateUrl Boolean 
+		* @param updateUrl Boolean The new value. 
 		*/
 		setUpdateUrl?( updateUrl?:boolean ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -1497,39 +1587,39 @@ declare module Ext.app {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of application  
-		* @param application Ext.app.Application 
+		* @param application Ext.app.Application The new value. 
 		*/
 		setApplication?( application?:Ext.app.IApplication ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of controllers  
-		* @param controllers Array 
+		* @param controllers Array The new value. 
 		*/
 		setControllers?( controllers?:any[] ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of models  
-		* @param models Array 
+		* @param models Array The new value. 
 		*/
 		setModels?( models?:any[] ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of namespace  
-		* @param namespace String 
+		* @param namespace String The new value. 
 		*/
 		setNamespace?( namespace?:string ): void;
 		/** [Method] Sets the value of stores  
-		* @param stores Array 
+		* @param stores Array The new value. 
 		*/
 		setStores?( stores?:any[] ): void;
 		/** [Method] Sets the value of views  
-		* @param views Array 
+		* @param views Array The new value. 
 		*/
 		setViews?( views?:any[] ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -1592,19 +1682,19 @@ declare module Ext.app {
 		*/
 		recognize?( url?:string ): any;
 		/** [Method] Sets the value of action  
-		* @param action String 
+		* @param action String The new value. 
 		*/
 		setAction?( action?:string ): void;
 		/** [Method] Sets the value of conditions  
-		* @param conditions Object 
+		* @param conditions Object The new value. 
 		*/
 		setConditions?( conditions?:any ): void;
 		/** [Method] Sets the value of controller  
-		* @param controller String 
+		* @param controller String The new value. 
 		*/
 		setController?( controller?:string ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 	}
@@ -1638,11 +1728,11 @@ declare module Ext.app {
 		*/
 		recognize?( url?:string ): any;
 		/** [Method] Sets the value of defaults  
-		* @param defaults Object 
+		* @param defaults Object The new value. 
 		*/
 		setDefaults?( defaults?:any ): void;
 		/** [Method] Sets the value of routes  
-		* @param routes Array 
+		* @param routes Array The new value. 
 		*/
 		setRoutes?( routes?:any[] ): void;
 	}
@@ -1864,11 +1954,11 @@ declare module Ext {
 		*/
 		getUrl?(): string;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 	}
@@ -1959,6 +2049,22 @@ declare module Ext {
 	export interface IBrowser extends Ext.env.IBrowser {
 	}
 	export class Browser {
+		/** [Property] (String) */
+		static engineName: string;
+		/** [Property] (Ext.Version) */
+		static engineVersion: Ext.IVersion;
+		/** [Property] (Boolean) */
+		static isSecure: boolean;
+		/** [Property] (Boolean) */
+		static isStrict: boolean;
+		/** [Property] (String) */
+		static name: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String) */
+		static userAgent: string;
+		/** [Property] (Ext.Version) */
+		static version: Ext.IVersion;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -2090,7 +2196,7 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of autoEvent  
-		* @param autoEvent String 
+		* @param autoEvent String The new value. 
 		*/
 		setAutoEvent?( autoEvent?:string ): void;
 		/** [Method] Updates the badge text  
@@ -2098,27 +2204,27 @@ declare module Ext {
 		*/
 		setBadge?( text?:string ): void;
 		/** [Method] Sets the value of badgeCls  
-		* @param badgeCls String 
+		* @param badgeCls String The new value. 
 		*/
 		setBadgeCls?( badgeCls?:string ): void;
 		/** [Method] Sets the value of badgeText  
-		* @param badgeText String 
+		* @param badgeText String The new value. 
 		*/
 		setBadgeText?( badgeText?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of handler  
-		* @param handler Function 
+		* @param handler Function The new value. 
 		*/
 		setHandler?( handler?:any ): void;
 		/** [Method] Sets the value of icon  
-		* @param icon String 
+		* @param icon String The new value. 
 		*/
 		setIcon?( icon?:string ): void;
 		/** [Method] Sets the value of iconAlign  
-		* @param iconAlign String 
+		* @param iconAlign String The new value. 
 		*/
 		setIconAlign?( iconAlign?:string ): void;
 		/** [Method] Updates the icon class 
@@ -2126,31 +2232,31 @@ declare module Ext {
 		*/
 		setIconClass?( iconClass?:string ): void;
 		/** [Method] Sets the value of iconCls  
-		* @param iconCls String 
+		* @param iconCls String The new value. 
 		*/
 		setIconCls?( iconCls?:string ): void;
 		/** [Method] Sets the value of labelCls  
-		* @param labelCls String 
+		* @param labelCls String The new value. 
 		*/
 		setLabelCls?( labelCls?:string ): void;
 		/** [Method] Sets the value of pressedCls  
-		* @param pressedCls String 
+		* @param pressedCls String The new value. 
 		*/
 		setPressedCls?( pressedCls?:string ): void;
 		/** [Method] Sets the value of pressedDelay  
-		* @param pressedDelay Number/Boolean 
+		* @param pressedDelay Number/Boolean The new value. 
 		*/
 		setPressedDelay?( pressedDelay?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 		/** [Method] Sets the value of text  
-		* @param text String 
+		* @param text String The new value. 
 		*/
 		setText?( text?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -2228,39 +2334,39 @@ declare module Ext.carousel {
 		*/
 		previous?(): Ext.carousel.ICarousel;
 		/** [Method] Sets the value of animation  
-		* @param animation Object 
+		* @param animation Object The new value. 
 		*/
 		setAnimation?( animation?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bufferSize  
-		* @param bufferSize Number 
+		* @param bufferSize Number The new value. 
 		*/
 		setBufferSize?( bufferSize?:number ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of directionLock  
-		* @param directionLock Boolean 
+		* @param directionLock Boolean The new value. 
 		*/
 		setDirectionLock?( directionLock?:boolean ): void;
 		/** [Method] Sets the value of indicator  
-		* @param indicator Boolean 
+		* @param indicator Boolean The new value. 
 		*/
 		setIndicator?( indicator?:boolean ): void;
 		/** [Method] Sets the value of itemConfig  
-		* @param itemConfig Object 
+		* @param itemConfig Object The new value. 
 		*/
 		setItemConfig?( itemConfig?:any ): void;
 		/** [Method] Sets the value of itemLength  
-		* @param itemLength Object 
+		* @param itemLength Object The new value. 
 		*/
 		setItemLength?( itemLength?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -2338,39 +2444,39 @@ declare module Ext {
 		*/
 		previous?(): Ext.carousel.ICarousel;
 		/** [Method] Sets the value of animation  
-		* @param animation Object 
+		* @param animation Object The new value. 
 		*/
 		setAnimation?( animation?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bufferSize  
-		* @param bufferSize Number 
+		* @param bufferSize Number The new value. 
 		*/
 		setBufferSize?( bufferSize?:number ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of directionLock  
-		* @param directionLock Boolean 
+		* @param directionLock Boolean The new value. 
 		*/
 		setDirectionLock?( directionLock?:boolean ): void;
 		/** [Method] Sets the value of indicator  
-		* @param indicator Boolean 
+		* @param indicator Boolean The new value. 
 		*/
 		setIndicator?( indicator?:boolean ): void;
 		/** [Method] Sets the value of itemConfig  
-		* @param itemConfig Object 
+		* @param itemConfig Object The new value. 
 		*/
 		setItemConfig?( itemConfig?:any ): void;
 		/** [Method] Sets the value of itemLength  
-		* @param itemLength Object 
+		* @param itemLength Object The new value. 
 		*/
 		setItemLength?( itemLength?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -2390,11 +2496,11 @@ declare module Ext.carousel {
 		*/
 		getDirection?(): string;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 	}
@@ -2416,15 +2522,15 @@ declare module Ext.carousel {
 		*/
 		getMaxItemIndex?(): any;
 		/** [Method] Sets the value of indicator  
-		* @param indicator Object 
+		* @param indicator Object The new value. 
 		*/
 		setIndicator?( indicator?:any ): void;
 		/** [Method] Sets the value of innerItemConfig  
-		* @param innerItemConfig Object 
+		* @param innerItemConfig Object The new value. 
 		*/
 		setInnerItemConfig?( innerItemConfig?:any ): void;
 		/** [Method] Sets the value of maxItemIndex  
-		* @param maxItemIndex Object 
+		* @param maxItemIndex Object The new value. 
 		*/
 		setMaxItemIndex?( maxItemIndex?:any ): void;
 	}
@@ -2448,15 +2554,15 @@ declare module Ext.carousel {
 		*/
 		getTranslatable?(): boolean;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of translatable  
-		* @param translatable Boolean 
+		* @param translatable Boolean The new value. 
 		*/
 		setTranslatable?( translatable?:boolean ): void;
 	}
@@ -2495,6 +2601,12 @@ declare module Ext.chart {
 		bindStore?( store?:Ext.data.IStore ): void;
 		/** [Method] Cancel a scheduled layout  */
 		cancelLayout?(): void;
+		/** [Method] Flattens the given chart surfaces into a single image  
+		* @param surfaces Array A list of chart's surfaces to flatten. 
+		* @param format String If set to 'image', the method will return an Image object. Otherwise, the dataURL  of the flattened image will be returned. 
+		* @returns String|Image An Image DOM element containing the flattened image or its dataURL. 
+		*/
+		flatten?( surfaces?:any[], format?:string ): any;
 		/** [Method] Returns the value of axes  
 		* @returns Ext.chart.axis.Axis/Array/Object 
 		*/
@@ -2570,51 +2682,51 @@ declare module Ext.chart {
 		/** [Method] Schedule a layout at next frame  */
 		scheduleLayout?(): void;
 		/** [Method] Sets the value of animate  
-		* @param animate Boolean/Object 
+		* @param animate Boolean/Object The new value. 
 		*/
 		setAnimate?( animate?:any ): void;
 		/** [Method] Sets the value of axes  
-		* @param axes Ext.chart.axis.Axis/Array/Object 
+		* @param axes Ext.chart.axis.Axis/Array/Object The new value. 
 		*/
 		setAxes?( axes?:any ): void;
 		/** [Method] Sets the value of background  
-		* @param background Object 
+		* @param background Object The new value. 
 		*/
 		setBackground?( background?:any ): void;
 		/** [Method] Sets the value of colors  
-		* @param colors Boolean/Array 
+		* @param colors Boolean/Array The new value. 
 		*/
 		setColors?( colors?:any ): void;
 		/** [Method] Sets the value of highlightItem  
-		* @param highlightItem Object 
+		* @param highlightItem Object The new value. 
 		*/
 		setHighlightItem?( highlightItem?:any ): void;
 		/** [Method] Sets the value of innerPadding  
-		* @param innerPadding Object 
+		* @param innerPadding Object The new value. 
 		*/
 		setInnerPadding?( innerPadding?:any ): void;
 		/** [Method] Sets the value of insetPadding  
-		* @param insetPadding Object|Number 
+		* @param insetPadding Object|Number The new value. 
 		*/
 		setInsetPadding?( insetPadding?:any ): void;
 		/** [Method] Sets the value of interactions  
-		* @param interactions Array 
+		* @param interactions Array The new value. 
 		*/
 		setInteractions?( interactions?:any[] ): void;
 		/** [Method] Sets the value of legend  
-		* @param legend Ext.chart.Legend/Object 
+		* @param legend Ext.chart.Legend/Object The new value. 
 		*/
 		setLegend?( legend?:any ): void;
 		/** [Method] Sets the value of series  
-		* @param series Ext.chart.series.Series/Array 
+		* @param series Ext.chart.series.Series/Array The new value. 
 		*/
 		setSeries?( series?:any ): void;
 		/** [Method] Sets the value of shadow  
-		* @param shadow Boolean/Object 
+		* @param shadow Boolean/Object The new value. 
 		*/
 		setShadow?( shadow?:any ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.Store 
+		* @param store Ext.data.Store The new value. 
 		*/
 		setStore?( store?:Ext.data.IStore ): void;
 		/** [Method] Suspend the layout initialized by thickness change */
@@ -2642,6 +2754,8 @@ declare module Ext.chart.axis {
 		/** [Config Option] (Object|Ext.chart.axis.layout.Layout) */
 		layout?: any;
 		/** [Config Option] (Number) */
+		majorTickSteps?: number;
+		/** [Config Option] (Number) */
 		maxZoom?: number;
 		/** [Config Option] (Number) */
 		maximum?: number;
@@ -2649,6 +2763,8 @@ declare module Ext.chart.axis {
 		minZoom?: number;
 		/** [Config Option] (Number) */
 		minimum?: number;
+		/** [Config Option] (Number) */
+		minorTickSteps?: number;
 		/** [Config Option] (Boolean) */
 		needHighPrecision?: boolean;
 		/** [Config Option] (String) */
@@ -2773,6 +2889,10 @@ declare module Ext.chart.axis {
 		* @returns Object 
 		*/
 		getListeners?(): any;
+		/** [Method] Returns the value of majorTickSteps  
+		* @returns Number 
+		*/
+		getMajorTickSteps?(): number;
 		/** [Method] Returns the value of maxZoom  
 		* @returns Number 
 		*/
@@ -2789,6 +2909,10 @@ declare module Ext.chart.axis {
 		* @returns Number 
 		*/
 		getMinimum?(): number;
+		/** [Method] Returns the value of minorTickSteps  
+		* @returns Number 
+		*/
+		getMinorTickSteps?(): number;
 		/** [Method] Returns the value of needHighPrecision  
 		* @returns Boolean 
 		*/
@@ -2911,96 +3035,104 @@ declare module Ext.chart.axis {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of background  
-		* @param background Object 
+		* @param background Object The new value. 
 		*/
 		setBackground?( background?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of chart  
-		* @param chart Ext.chart.AbstractChart 
+		* @param chart Ext.chart.AbstractChart The new value. 
 		*/
 		setChart?( chart?:Ext.chart.IAbstractChart ): void;
 		/** [Method] Sets the value of fields  
-		* @param fields Array 
+		* @param fields Array The new value. 
 		*/
 		setFields?( fields?:any[] ): void;
 		/** [Method] Sets the value of grid  
-		* @param grid Object 
+		* @param grid Object The new value. 
 		*/
 		setGrid?( grid?:any ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean 
+		* @param hidden Boolean The new value. 
 		*/
 		setHidden?( hidden?:boolean ): void;
 		/** [Method] Sets the value of increment  
-		* @param increment Number 
+		* @param increment Number The new value. 
 		*/
 		setIncrement?( increment?:number ): void;
 		/** [Method] Sets the value of label  
-		* @param label Object 
+		* @param label Object The new value. 
 		*/
 		setLabel?( label?:any ): void;
 		/** [Method] Sets the value of labelInSpan  
-		* @param labelInSpan Boolean 
+		* @param labelInSpan Boolean The new value. 
 		*/
 		setLabelInSpan?( labelInSpan?:boolean ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object|Ext.chart.axis.layout.Layout 
+		* @param layout Object|Ext.chart.axis.layout.Layout The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
+		/** [Method] Sets the value of majorTickSteps  
+		* @param majorTickSteps Number The new value. 
+		*/
+		setMajorTickSteps?( majorTickSteps?:number ): void;
 		/** [Method] Sets the value of maxZoom  
-		* @param maxZoom Number 
+		* @param maxZoom Number The new value. 
 		*/
 		setMaxZoom?( maxZoom?:number ): void;
 		/** [Method] Sets the value of maximum  
-		* @param maximum Number 
+		* @param maximum Number The new value. 
 		*/
 		setMaximum?( maximum?:number ): void;
 		/** [Method] Sets the value of minZoom  
-		* @param minZoom Number 
+		* @param minZoom Number The new value. 
 		*/
 		setMinZoom?( minZoom?:number ): void;
 		/** [Method] Sets the value of minimum  
-		* @param minimum Number 
+		* @param minimum Number The new value. 
 		*/
 		setMinimum?( minimum?:number ): void;
+		/** [Method] Sets the value of minorTickSteps  
+		* @param minorTickSteps Number The new value. 
+		*/
+		setMinorTickSteps?( minorTickSteps?:number ): void;
 		/** [Method] Sets the value of needHighPrecision  
-		* @param needHighPrecision Boolean 
+		* @param needHighPrecision Boolean The new value. 
 		*/
 		setNeedHighPrecision?( needHighPrecision?:boolean ): void;
 		/** [Method] Sets the value of position  
-		* @param position String 
+		* @param position String The new value. 
 		*/
 		setPosition?( position?:string ): void;
 		/** [Method] Sets the value of renderer  
-		* @param renderer Function 
+		* @param renderer Function The new value. 
 		* @returns String The label to display. 
 		*/
 		setRenderer?( renderer?:any ): string;
 		/** [Method] Sets the value of segmenter  
-		* @param segmenter Object|Ext.chart.axis.segmenter.Segmenter 
+		* @param segmenter Object|Ext.chart.axis.segmenter.Segmenter The new value. 
 		*/
 		setSegmenter?( segmenter?:any ): void;
 		/** [Method] Sets the value of style  
-		* @param style Object 
+		* @param style Object The new value. 
 		*/
 		setStyle?( style?:any ): void;
 		/** [Method] Sets the value of title  
-		* @param title String|Object 
+		* @param title String|Object The new value. 
 		*/
 		setTitle?( title?:any ): void;
 		/** [Method] Sets the value of titleMargin  
-		* @param titleMargin Number 
+		* @param titleMargin Number The new value. 
 		*/
 		setTitleMargin?( titleMargin?:number ): void;
 		/** [Method] Sets the value of visibleRange  
-		* @param visibleRange Array 
+		* @param visibleRange Array The new value. 
 		*/
 		setVisibleRange?( visibleRange?:any[] ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -3044,11 +3176,11 @@ declare module Ext.chart.axis {
 		*/
 		getSegmenter?(): string;
 		/** [Method] Sets the value of layout  
-		* @param layout String 
+		* @param layout String The new value. 
 		*/
 		setLayout?( layout?:string ): void;
 		/** [Method] Sets the value of segmenter  
-		* @param segmenter String 
+		* @param segmenter String The new value. 
 		*/
 		setSegmenter?( segmenter?:string ): void;
 	}
@@ -3068,11 +3200,11 @@ declare module Ext.chart.axis.layout {
 		*/
 		getAdjustMinimumByMajorUnit?(): boolean;
 		/** [Method] Sets the value of adjustMaximumByMajorUnit  
-		* @param adjustMaximumByMajorUnit Boolean 
+		* @param adjustMaximumByMajorUnit Boolean The new value. 
 		*/
 		setAdjustMaximumByMajorUnit?( adjustMaximumByMajorUnit?:boolean ): void;
 		/** [Method] Sets the value of adjustMinimumByMajorUnit  
-		* @param adjustMinimumByMajorUnit Boolean 
+		* @param adjustMinimumByMajorUnit Boolean The new value. 
 		*/
 		setAdjustMinimumByMajorUnit?( adjustMinimumByMajorUnit?:boolean ): void;
 		/** [Method] Snaps the data bound to the axis to meaningful tick marks  
@@ -3135,27 +3267,27 @@ declare module Ext.chart.axis.layout {
 		*/
 		getAxis?(): Ext.chart.axis.IAxis;
 		/** [Method] Processes the data of the series bound to the axis  
-		* @param series Object The bound series. 
+		* @param series Ext.chart.series.Series The bound series. 
 		*/
-		processData?( series?:any ): void;
+		processData?( series?:Ext.chart.series.ISeries ): void;
 		/** [Method] Sets the value of axis  
-		* @param axis Ext.chart.axis.Axis 
+		* @param axis Ext.chart.axis.Axis The new value. 
 		*/
 		setAxis?( axis?:Ext.chart.axis.IAxis ): void;
 		/** [Method] Snaps the data bound to the axis to meaningful tick marks  
 		* @param context Object 
-		* @param min Object 
-		* @param max Object 
-		* @param estStepSize Object 
+		* @param min Number 
+		* @param max Number 
+		* @param estStepSize Number 
 		*/
-		snapEnds?( context?:any, min?:any, max?:any, estStepSize?:any ): void;
+		snapEnds?( context?:any, min?:number, max?:number, estStepSize?:number ): void;
 		/** [Method] Trims the layout of the axis by the defined minimum and maximum  
 		* @param context Object 
 		* @param out Object 
-		* @param trimMin Object 
-		* @param trimMax Object 
+		* @param trimMin Number 
+		* @param trimMax Number 
 		*/
-		trimByRange?( context?:any, out?:any, trimMin?:any, trimMax?:any ): void;
+		trimByRange?( context?:any, out?:any, trimMin?:number, trimMax?:number ): void;
 	}
 }
 declare module Ext.chart.axis {
@@ -3177,15 +3309,15 @@ declare module Ext.chart.axis {
 		*/
 		getSegmenter?(): string;
 		/** [Method] Sets the value of aggregator  
-		* @param aggregator String 
+		* @param aggregator String The new value. 
 		*/
 		setAggregator?( aggregator?:string ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout String 
+		* @param layout String The new value. 
 		*/
 		setLayout?( layout?:string ): void;
 		/** [Method] Sets the value of segmenter  
-		* @param segmenter String 
+		* @param segmenter String The new value. 
 		*/
 		setSegmenter?( segmenter?:string ): void;
 	}
@@ -3250,6 +3382,12 @@ declare module Ext.chart.axis.segmenter {
 		* @returns Number The number of units between min and max. It is the minimum n that min + n * unit >= max. 
 		*/
 		diff?( min?:any, max?:any, unit?:any ): number;
+		/** [Method] Wraps the provided estimated step size of a range without altering it into a step size object  
+		* @param start * The start point of range. 
+		* @param estStepSize * The estimated step size. 
+		* @returns Object Return the step size by an object of step x unit. 
+		*/
+		exactStep?( start?:any, estStepSize?:any ): any;
 		/** [Method] Given a start point and estimated step size of a range determine the preferred step size  
 		* @param min Object 
 		* @param estStepSize Object 
@@ -3310,7 +3448,7 @@ declare module Ext.chart.axis.segmenter {
 		*/
 		renderer?( value?:any, context?:any ): string;
 		/** [Method] Sets the value of axis  
-		* @param axis Ext.chart.axis.Axis 
+		* @param axis Ext.chart.axis.Axis The new value. 
 		*/
 		setAxis?( axis?:Ext.chart.axis.IAxis ): void;
 	}
@@ -3361,7 +3499,7 @@ declare module Ext.chart.axis.segmenter {
 		*/
 		renderer?( value?:any, context?:any ): string;
 		/** [Method] Sets the value of step  
-		* @param step Object 
+		* @param step Object The new value. 
 		*/
 		setStep?( step?:any ): void;
 	}
@@ -3419,10 +3557,10 @@ declare module Ext.chart.axis.sprite {
 		/** [Config Option] (Number) */
 		visibleMin?: number;
 		/** [Method]  
-		* @param name Object {String} 
-		* @param marker Object {Ext.chart.Markers} 
+		* @param name String 
+		* @param marker Ext.chart.Markers 
 		*/
-		bindMarker?( name?:any, marker?:any ): void;
+		bindMarker?( name?:string, marker?:Ext.chart.IMarkers ): void;
 		/** [Method] Returns the value of axis  
 		* @returns Ext.chart.axis.Axis 
 		*/
@@ -3453,23 +3591,23 @@ declare module Ext.chart.axis.sprite {
 		*/
 		render?( surface?:any, ctx?:any, clipRegion?:any ): any;
 		/** [Method] Sets the value of axis  
-		* @param axis Ext.chart.axis.Axis 
+		* @param axis Ext.chart.axis.Axis The new value. 
 		*/
 		setAxis?( axis?:Ext.chart.axis.IAxis ): void;
 		/** [Method] Sets the value of label  
-		* @param label Object 
+		* @param label Object The new value. 
 		*/
 		setLabel?( label?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object|Ext.chart.axis.layout.Layout 
+		* @param layout Object|Ext.chart.axis.layout.Layout The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of renderer  
-		* @param renderer Function 
+		* @param renderer Function The new value. 
 		*/
 		setRenderer?( renderer?:any ): void;
 		/** [Method] Sets the value of segmenter  
-		* @param segmenter Object|Ext.chart.axis.segmenter.Segmenter 
+		* @param segmenter Object|Ext.chart.axis.segmenter.Segmenter The new value. 
 		*/
 		setSegmenter?( segmenter?:any ): void;
 	}
@@ -3528,35 +3666,35 @@ declare module Ext.chart.axis {
 		*/
 		getToDate?(): any;
 		/** [Method] Sets the value of aggregator  
-		* @param aggregator String 
+		* @param aggregator String The new value. 
 		*/
 		setAggregator?( aggregator?:string ): void;
 		/** [Method] Sets the value of calculateByLabelSize  
-		* @param calculateByLabelSize Boolean 
+		* @param calculateByLabelSize Boolean The new value. 
 		*/
 		setCalculateByLabelSize?( calculateByLabelSize?:boolean ): void;
 		/** [Method] Sets the value of dateFormat  
-		* @param dateFormat String/Boolean 
+		* @param dateFormat String/Boolean The new value. 
 		*/
 		setDateFormat?( dateFormat?:any ): void;
 		/** [Method] Sets the value of fromDate  
-		* @param fromDate Date 
+		* @param fromDate Date The new value. 
 		*/
 		setFromDate?( fromDate?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout String 
+		* @param layout String The new value. 
 		*/
 		setLayout?( layout?:string ): void;
 		/** [Method] Sets the value of segmenter  
-		* @param segmenter String 
+		* @param segmenter String The new value. 
 		*/
 		setSegmenter?( segmenter?:string ): void;
 		/** [Method] Sets the value of step  
-		* @param step Array 
+		* @param step Array The new value. 
 		*/
 		setStep?( step?:any[] ): void;
 		/** [Method] Sets the value of toDate  
-		* @param toDate Date 
+		* @param toDate Date The new value. 
 		*/
 		setToDate?( toDate?:any ): void;
 	}
@@ -3580,11 +3718,11 @@ declare module Ext.chart {
 		/** [Method] Redraw the chart  */
 		redraw?(): void;
 		/** [Method] Sets the value of flipXY  
-		* @param flipXY Boolean 
+		* @param flipXY Boolean The new value. 
 		*/
 		setFlipXY?( flipXY?:boolean ): void;
 		/** [Method] Sets the value of innerRegion  
-		* @param innerRegion Array 
+		* @param innerRegion Array The new value. 
 		*/
 		setInnerRegion?( innerRegion?:any[] ): void;
 	}
@@ -3608,11 +3746,11 @@ declare module Ext.chart {
 		/** [Method] Redraw the chart  */
 		redraw?(): void;
 		/** [Method] Sets the value of flipXY  
-		* @param flipXY Boolean 
+		* @param flipXY Boolean The new value. 
 		*/
 		setFlipXY?( flipXY?:boolean ): void;
 		/** [Method] Sets the value of innerRegion  
-		* @param innerRegion Array 
+		* @param innerRegion Array The new value. 
 		*/
 		setInnerRegion?( innerRegion?:any[] ): void;
 	}
@@ -3838,23 +3976,23 @@ declare module Ext.chart.interactions {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of chart  
-		* @param chart Ext.chart.AbstractChart 
+		* @param chart Ext.chart.AbstractChart The new value. 
 		*/
 		setChart?( chart?:Ext.chart.IAbstractChart ): void;
 		/** [Method] Sets the value of enabled  
-		* @param enabled Boolean 
+		* @param enabled Boolean The new value. 
 		*/
 		setEnabled?( enabled?:boolean ): void;
 		/** [Method] Sets the value of gesture  
-		* @param gesture String 
+		* @param gesture String The new value. 
 		*/
 		setGesture?( gesture?:string ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -3884,6 +4022,44 @@ declare module Ext.chart.interactions {
 	}
 }
 declare module Ext.chart.interactions {
+	export interface ICrosshair extends Ext.chart.interactions.IAbstract {
+		/** [Config Option] (Object) */
+		axes?: any;
+		/** [Config Option] (String) */
+		gesture?: string;
+		/** [Config Option] (Object) */
+		lines?: any;
+		/** [Method] Returns the value of axes  
+		* @returns Object 
+		*/
+		getAxes?(): any;
+		/** [Method] Returns the value of gesture  
+		* @returns String 
+		*/
+		getGesture?(): string;
+		/** [Method] Returns the value of lines  
+		* @returns Object 
+		*/
+		getLines?(): any;
+		/** [Method] Placeholder method  
+		* @param e Object 
+		*/
+		onGesture?( e?:any ): void;
+		/** [Method] Sets the value of axes  
+		* @param axes Object The new value. 
+		*/
+		setAxes?( axes?:any ): void;
+		/** [Method] Sets the value of gesture  
+		* @param gesture String The new value. 
+		*/
+		setGesture?( gesture?:string ): void;
+		/** [Method] Sets the value of lines  
+		* @param lines Object The new value. 
+		*/
+		setLines?( lines?:any ): void;
+	}
+}
+declare module Ext.chart.interactions {
 	export interface ICrossZoom extends Ext.chart.interactions.IAbstract {
 		/** [Config Option] (Object/Array) */
 		axes?: any;
@@ -3906,15 +4082,15 @@ declare module Ext.chart.interactions {
 		*/
 		onGesture?( e?:any ): void;
 		/** [Method] Sets the value of axes  
-		* @param axes Object/Array 
+		* @param axes Object/Array The new value. 
 		*/
 		setAxes?( axes?:any ): void;
 		/** [Method] Sets the value of gesture  
-		* @param gesture String 
+		* @param gesture String The new value. 
 		*/
 		setGesture?( gesture?:string ): void;
 		/** [Method] Sets the value of undoButton  
-		* @param undoButton Object 
+		* @param undoButton Object The new value. 
 		*/
 		setUndoButton?( undoButton?:any ): void;
 	}
@@ -3934,7 +4110,7 @@ declare module Ext.chart.interactions {
 		*/
 		onGesture?( series?:any, item?:any, e?:any ): void;
 		/** [Method] Sets the value of gesture  
-		* @param gesture String 
+		* @param gesture String The new value. 
 		*/
 		setGesture?( gesture?:string ): void;
 	}
@@ -3959,11 +4135,11 @@ declare module Ext.chart.interactions {
 		*/
 		onGesture?( series?:any, item?:any ): void;
 		/** [Method] Sets the value of gesture  
-		* @param gesture String 
+		* @param gesture String The new value. 
 		*/
 		setGesture?( gesture?:string ): void;
 		/** [Method] Sets the value of panel  
-		* @param panel Object 
+		* @param panel Object The new value. 
 		*/
 		setPanel?( panel?:any ): void;
 	}
@@ -4015,35 +4191,35 @@ declare module Ext.chart.interactions {
 		*/
 		onGesture?( e?:any ): void;
 		/** [Method] Sets the value of axes  
-		* @param axes Object/Array 
+		* @param axes Object/Array The new value. 
 		*/
 		setAxes?( axes?:any ): void;
 		/** [Method] Sets the value of hideLabelInGesture  
-		* @param hideLabelInGesture Boolean 
+		* @param hideLabelInGesture Boolean The new value. 
 		*/
 		setHideLabelInGesture?( hideLabelInGesture?:boolean ): void;
 		/** [Method] Sets the value of maxZoom  
-		* @param maxZoom Object 
+		* @param maxZoom Object The new value. 
 		*/
 		setMaxZoom?( maxZoom?:any ): void;
 		/** [Method] Sets the value of minZoom  
-		* @param minZoom Object 
+		* @param minZoom Object The new value. 
 		*/
 		setMinZoom?( minZoom?:any ): void;
 		/** [Method] Sets the value of modeToggleButton  
-		* @param modeToggleButton Object 
+		* @param modeToggleButton Object The new value. 
 		*/
 		setModeToggleButton?( modeToggleButton?:any ): void;
 		/** [Method] Sets the value of panGesture  
-		* @param panGesture String 
+		* @param panGesture String The new value. 
 		*/
 		setPanGesture?( panGesture?:string ): void;
 		/** [Method] Sets the value of showOverflowArrows  
-		* @param showOverflowArrows Boolean 
+		* @param showOverflowArrows Boolean The new value. 
 		*/
 		setShowOverflowArrows?( showOverflowArrows?:boolean ): void;
 		/** [Method] Sets the value of zoomOnPanGesture  
-		* @param zoomOnPanGesture Boolean 
+		* @param zoomOnPanGesture Boolean The new value. 
 		*/
 		setZoomOnPanGesture?( zoomOnPanGesture?:boolean ): void;
 	}
@@ -4061,7 +4237,7 @@ declare module Ext.chart.interactions {
 		*/
 		onGesture?( e?:any ): void;
 		/** [Method] Sets the value of gesture  
-		* @param gesture String 
+		* @param gesture String The new value. 
 		*/
 		setGesture?( gesture?:string ): void;
 	}
@@ -4081,7 +4257,7 @@ declare module Ext.chart.label {
 		* @param attr Object 
 		*/
 		prepareAttributes?( attr?:any ): void;
-		/** [Method] Invoked when changes need to pushed down to the sprite  
+		/** [Method] Invoked when changes need to be pushed down to the sprite  
 		* @param attr Object 
 		* @param changes Object 
 		* @returns Mixed 
@@ -4093,6 +4269,10 @@ declare module Ext.chart.label {
 	export interface ILabel extends Ext.draw.sprite.IText {
 		/** [Config Option] (Object) */
 		fx?: any;
+		/** [Method] Returns the value of field  
+		* @returns Object 
+		*/
+		getField?(): any;
 		/** [Method] Returns the value of fx  
 		* @returns Object 
 		*/
@@ -4104,8 +4284,12 @@ declare module Ext.chart.label {
 		* @returns * returns false to stop rendering in this frame. All the sprite haven't been rendered will have their dirty flag untouched. 
 		*/
 		render?( surface?:any, ctx?:any, clipRegion?:any ): any;
+		/** [Method] Sets the value of field  
+		* @param field Object The new value. 
+		*/
+		setField?( field?:any ): void;
 		/** [Method] Sets the value of fx  
-		* @param fx Object 
+		* @param fx Object The new value. 
 		*/
 		setFx?( fx?:any ): void;
 	}
@@ -4165,43 +4349,39 @@ declare module Ext.chart {
 		*/
 		getVerticalWidth?(): number;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of disableSelection  
-		* @param disableSelection Boolean 
+		* @param disableSelection Boolean The new value. 
 		*/
 		setDisableSelection?( disableSelection?:boolean ): void;
 		/** [Method] Sets the value of docked  
-		* @param docked String 
+		* @param docked String The new value. 
 		*/
 		setDocked?( docked?:string ): void;
 		/** [Method] Sets the value of horizontalHeight  
-		* @param horizontalHeight Number 
+		* @param horizontalHeight Number The new value. 
 		*/
 		setHorizontalHeight?( horizontalHeight?:number ): void;
 		/** [Method] Sets the value of inline  
-		* @param inline Boolean 
+		* @param inline Boolean The new value. 
 		*/
 		setInline?( inline?:boolean ): void;
 		/** [Method] Sets the value of itemTpl  
-		* @param itemTpl Array 
+		* @param itemTpl Array The new value. 
 		*/
 		setItemTpl?( itemTpl?:any[] ): void;
 		/** [Method] Sets the value of padding  
-		* @param padding Number 
+		* @param padding Number The new value. 
 		*/
 		setPadding?( padding?:number ): void;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Object 
-		*/
-		setScrollable?( scrollable?:any ): void;
 		/** [Method] Sets the value of toggleable  
-		* @param toggleable Boolean 
+		* @param toggleable Boolean The new value. 
 		*/
 		setToggleable?( toggleable?:boolean ): void;
 		/** [Method] Sets the value of verticalWidth  
-		* @param verticalWidth Number 
+		* @param verticalWidth Number The new value. 
 		*/
 		setVerticalWidth?( verticalWidth?:number ): void;
 	}
@@ -4209,10 +4389,10 @@ declare module Ext.chart {
 declare module Ext.chart {
 	export interface IMarkerHolder extends Ext.mixin.IMixin {
 		/** [Method]  
-		* @param name Object {String} 
-		* @param marker Object {Ext.chart.Markers} 
+		* @param name String 
+		* @param marker Ext.chart.Markers 
 		*/
-		bindMarker?( name?:any, marker?:any ): void;
+		bindMarker?( name?:string, marker?:Ext.chart.IMarkers ): void;
 	}
 }
 declare module Ext.chart {
@@ -4265,11 +4445,11 @@ declare module Ext.chart {
 		/** [Method] Redraw the chart  */
 		redraw?(): void;
 		/** [Method] Sets the value of center  
-		* @param center Array 
+		* @param center Array The new value. 
 		*/
 		setCenter?( center?:any[] ): void;
 		/** [Method] Sets the value of radius  
-		* @param radius Number 
+		* @param radius Number The new value. 
 		*/
 		setRadius?( radius?:number ): void;
 	}
@@ -4327,19 +4507,19 @@ declare module Ext.chart.series {
 		*/
 		getOpenField?(): string;
 		/** [Method] Sets the value of closeField  
-		* @param closeField String 
+		* @param closeField String The new value. 
 		*/
 		setCloseField?( closeField?:string ): void;
 		/** [Method] Sets the value of highField  
-		* @param highField String 
+		* @param highField String The new value. 
 		*/
 		setHighField?( highField?:string ): void;
 		/** [Method] Sets the value of lowField  
-		* @param lowField String 
+		* @param lowField String The new value. 
 		*/
 		setLowField?( lowField?:string ): void;
 		/** [Method] Sets the value of openField  
-		* @param openField String 
+		* @param openField String The new value. 
 		*/
 		setOpenField?( openField?:string ): void;
 	}
@@ -4383,19 +4563,19 @@ declare module Ext.chart.series {
 		*/
 		provideLegendInfo?( target?:any ): void;
 		/** [Method] Sets the value of xAxis  
-		* @param xAxis Ext.chart.axis.Axis 
+		* @param xAxis Ext.chart.axis.Axis The new value. 
 		*/
 		setXAxis?( xAxis?:Ext.chart.axis.IAxis ): void;
 		/** [Method] Sets the value of xField  
-		* @param xField String 
+		* @param xField String The new value. 
 		*/
 		setXField?( xField?:string ): void;
 		/** [Method] Sets the value of yAxis  
-		* @param yAxis Ext.chart.axis.Axis 
+		* @param yAxis Ext.chart.axis.Axis The new value. 
 		*/
 		setYAxis?( yAxis?:Ext.chart.axis.IAxis ): void;
 		/** [Method] Sets the value of yField  
-		* @param yField String 
+		* @param yField String The new value. 
 		*/
 		setYField?( yField?:string ): void;
 	}
@@ -4513,79 +4693,79 @@ declare module Ext.chart.series {
 		*/
 		getWholeDisk?(): boolean;
 		/** [Method] Sets the value of angleField  
-		* @param angleField String 
+		* @param angleField String The new value. 
 		*/
 		setAngleField?( angleField?:string ): void;
 		/** [Method] Sets the value of center  
-		* @param center Array 
+		* @param center Array The new value. 
 		*/
 		setCenter?( center?:any[] ): void;
 		/** [Method] Sets the value of colors  
-		* @param colors Array 
+		* @param colors Array The new value. 
 		*/
 		setColors?( colors?:any[] ): void;
 		/** [Method] Sets the value of donut  
-		* @param donut Number 
+		* @param donut Number The new value. 
 		*/
 		setDonut?( donut?:number ): void;
 		/** [Method] Sets the value of field  
-		* @param field String 
+		* @param field String The new value. 
 		*/
 		setField?( field?:string ): void;
 		/** [Method] Sets the value of maximum  
-		* @param maximum Number 
+		* @param maximum Number The new value. 
 		*/
 		setMaximum?( maximum?:number ): void;
 		/** [Method] Sets the value of minimum  
-		* @param minimum Number 
+		* @param minimum Number The new value. 
 		*/
 		setMinimum?( minimum?:number ): void;
 		/** [Method] Sets the value of needle  
-		* @param needle Boolean 
+		* @param needle Boolean The new value. 
 		*/
 		setNeedle?( needle?:boolean ): void;
 		/** [Method] Sets the value of needleLength  
-		* @param needleLength Number 
+		* @param needleLength Number The new value. 
 		*/
 		setNeedleLength?( needleLength?:number ): void;
 		/** [Method] Sets the value of needleLengthRatio  
-		* @param needleLengthRatio Number 
+		* @param needleLengthRatio Number The new value. 
 		*/
 		setNeedleLengthRatio?( needleLengthRatio?:number ): void;
 		/** [Method] Sets the value of needleWidth  
-		* @param needleWidth Number 
+		* @param needleWidth Number The new value. 
 		*/
 		setNeedleWidth?( needleWidth?:number ): void;
 		/** [Method] Sets the value of radius  
-		* @param radius Number 
+		* @param radius Number The new value. 
 		*/
 		setRadius?( radius?:number ): void;
 		/** [Method] Sets the value of region  
-		* @param region Array 
+		* @param region Array The new value. 
 		*/
 		setRegion?( region?:any[] ): void;
 		/** [Method] Sets the value of rotation  
-		* @param rotation Number 
+		* @param rotation Number The new value. 
 		*/
 		setRotation?( rotation?:number ): void;
 		/** [Method] Sets the value of sectors  
-		* @param sectors Array 
+		* @param sectors Array The new value. 
 		*/
 		setSectors?( sectors?:any[] ): void;
 		/** [Method] Sets the value of showInLegend  
-		* @param showInLegend Boolean 
+		* @param showInLegend Boolean The new value. 
 		*/
 		setShowInLegend?( showInLegend?:boolean ): void;
 		/** [Method] Sets the value of totalAngle  
-		* @param totalAngle Object 
+		* @param totalAngle Object The new value. 
 		*/
 		setTotalAngle?( totalAngle?:any ): void;
 		/** [Method] Sets the value of value  
-		* @param value Number 
+		* @param value Number The new value. 
 		*/
 		setValue?( value?:number ): void;
 		/** [Method] Sets the value of wholeDisk  
-		* @param wholeDisk Boolean 
+		* @param wholeDisk Boolean The new value. 
 		*/
 		setWholeDisk?( wholeDisk?:boolean ): void;
 	}
@@ -4631,29 +4811,31 @@ declare module Ext.chart.series {
 		*/
 		getStep?(): boolean;
 		/** [Method] Sets the value of aggregator  
-		* @param aggregator Object 
+		* @param aggregator Object The new value. 
 		*/
 		setAggregator?( aggregator?:any ): void;
 		/** [Method] Sets the value of fill  
-		* @param fill Boolean 
+		* @param fill Boolean The new value. 
 		*/
 		setFill?( fill?:boolean ): void;
 		/** [Method] Sets the value of selectionTolerance  
-		* @param selectionTolerance Number 
+		* @param selectionTolerance Number The new value. 
 		*/
 		setSelectionTolerance?( selectionTolerance?:number ): void;
 		/** [Method] Sets the value of smooth  
-		* @param smooth Boolean/Number 
+		* @param smooth Boolean/Number The new value. 
 		*/
 		setSmooth?( smooth?:any ): void;
 		/** [Method] Sets the value of step  
-		* @param step Boolean 
+		* @param step Boolean The new value. 
 		*/
 		setStep?( step?:boolean ): void;
 	}
 }
 declare module Ext.chart.series {
 	export interface IPie extends Ext.chart.series.IPolar {
+		/** [Config Option] (Number) */
+		Allows?: number;
 		/** [Config Option] (Boolean/Number) */
 		donut?: any;
 		/** [Config Option] (String) */
@@ -4676,6 +4858,11 @@ declare module Ext.chart.series {
 		* @returns Boolean/Number 
 		*/
 		getDonut?(): any;
+		/** [Method] Returns the pie slice for a given angle 
+		* @param angle Number The angle to search for the slice 
+		* @returns Object An object containing the reocord, sprite, scope etc. 
+		*/
+		getItemForAngle?( angle?:number ): any;
 		/** [Method] For a given x y point relative to the main region find a corresponding item from this series if any  
 		* @param x Object 
 		* @param y Object 
@@ -4705,27 +4892,27 @@ declare module Ext.chart.series {
 		*/
 		provideLegendInfo?( target?:any ): void;
 		/** [Method] Sets the value of donut  
-		* @param donut Boolean/Number 
+		* @param donut Boolean/Number The new value. 
 		*/
 		setDonut?( donut?:any ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Array 
+		* @param hidden Array The new value. 
 		*/
 		setHidden?( hidden?:any[] ): void;
 		/** [Method] Sets the value of labelField  
-		* @param labelField String 
+		* @param labelField String The new value. 
 		*/
 		setLabelField?( labelField?:string ): void;
 		/** [Method] Sets the value of rotation  
-		* @param rotation Number 
+		* @param rotation Number The new value. 
 		*/
 		setRotation?( rotation?:number ): void;
 		/** [Method] Sets the value of style  
-		* @param style Object 
+		* @param style Object The new value. 
 		*/
 		setStyle?( style?:any ): void;
 		/** [Method] Sets the value of totalAngle  
-		* @param totalAngle Number 
+		* @param totalAngle Number The new value. 
 		*/
 		setTotalAngle?( totalAngle?:number ): void;
 	}
@@ -4769,27 +4956,27 @@ declare module Ext.chart.series {
 		*/
 		getThickness?(): number;
 		/** [Method] Sets the value of distortion  
-		* @param distortion Number 
+		* @param distortion Number The new value. 
 		*/
 		setDistortion?( distortion?:number ): void;
 		/** [Method] Sets the value of donut  
-		* @param donut Boolean/Number 
+		* @param donut Boolean/Number The new value. 
 		*/
 		setDonut?( donut?:any ): void;
 		/** [Method] Sets the value of field  
-		* @param field String 
+		* @param field String The new value. 
 		*/
 		setField?( field?:string ): void;
 		/** [Method] Sets the value of region  
-		* @param region Array 
+		* @param region Array The new value. 
 		*/
 		setRegion?( region?:any[] ): void;
 		/** [Method] Sets the value of rotation  
-		* @param rotation Number 
+		* @param rotation Number The new value. 
 		*/
 		setRotation?( rotation?:number ): void;
 		/** [Method] Sets the value of thickness  
-		* @param thickness Number 
+		* @param thickness Number The new value. 
 		*/
 		setThickness?( thickness?:number ): void;
 	}
@@ -4853,43 +5040,43 @@ declare module Ext.chart.series {
 		*/
 		getYField?(): string;
 		/** [Method] Sets the value of center  
-		* @param center Array 
+		* @param center Array The new value. 
 		*/
 		setCenter?( center?:any[] ): void;
 		/** [Method] Sets the value of offsetX  
-		* @param offsetX Number 
+		* @param offsetX Number The new value. 
 		*/
 		setOffsetX?( offsetX?:number ): void;
 		/** [Method] Sets the value of offsetY  
-		* @param offsetY Number 
+		* @param offsetY Number The new value. 
 		*/
 		setOffsetY?( offsetY?:number ): void;
 		/** [Method] Sets the value of radius  
-		* @param radius Number 
+		* @param radius Number The new value. 
 		*/
 		setRadius?( radius?:number ): void;
 		/** [Method] Sets the value of rotation  
-		* @param rotation Number 
+		* @param rotation Number The new value. 
 		*/
 		setRotation?( rotation?:number ): void;
 		/** [Method] Sets the value of showInLegend  
-		* @param showInLegend Boolean 
+		* @param showInLegend Boolean The new value. 
 		*/
 		setShowInLegend?( showInLegend?:boolean ): void;
 		/** [Method] Sets the value of xAxis  
-		* @param xAxis Object 
+		* @param xAxis Object The new value. 
 		*/
 		setXAxis?( xAxis?:any ): void;
 		/** [Method] Sets the value of xField  
-		* @param xField String 
+		* @param xField String The new value. 
 		*/
 		setXField?( xField?:string ): void;
 		/** [Method] Sets the value of yAxis  
-		* @param yAxis Object 
+		* @param yAxis Object The new value. 
 		*/
 		setYAxis?( yAxis?:any ): void;
 		/** [Method] Sets the value of yField  
-		* @param yField String 
+		* @param yField String The new value. 
 		*/
 		setYField?( yField?:string ): void;
 	}
@@ -4927,7 +5114,7 @@ declare module Ext.chart.series {
 		*/
 		provideLegendInfo?( target?:any ): void;
 		/** [Method] Sets the value of itemInstancing  
-		* @param itemInstancing Object 
+		* @param itemInstancing Object The new value. 
 		*/
 		setItemInstancing?( itemInstancing?:any ): void;
 	}
@@ -4950,8 +5137,8 @@ declare module Ext.chart.series {
 		itemInstancing?: any;
 		/** [Config Option] (Object) */
 		label?: any;
-		/** [Config Option] (String) */
-		labelField?: string;
+		/** [Config Option] (String/String[]) */
+		labelField?: any;
 		/** [Config Option] (Number) */
 		labelOverflowPadding?: number;
 		/** [Config Option] (Object) */
@@ -5078,9 +5265,9 @@ declare module Ext.chart.series {
 		*/
 		getLabel?(): any;
 		/** [Method] Returns the value of labelField  
-		* @returns String 
+		* @returns String/String[] 
 		*/
-		getLabelField?(): string;
+		getLabelField?(): any;
 		/** [Method] Returns the value of labelOverflowPadding  
 		* @returns Number 
 		*/
@@ -5213,23 +5400,23 @@ declare module Ext.chart.series {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of animate  
-		* @param animate Object 
+		* @param animate Object The new value. 
 		*/
 		setAnimate?( animate?:any ): void;
 		/** [Method] Sets the value of background  
-		* @param background Object 
+		* @param background Object The new value. 
 		*/
 		setBackground?( background?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of colors  
-		* @param colors Array 
+		* @param colors Array The new value. 
 		*/
 		setColors?( colors?:any[] ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean|Array 
+		* @param hidden Boolean|Array The new value. 
 		*/
 		setHidden?( hidden?:any ): void;
 		/** [Method]  
@@ -5238,72 +5425,73 @@ declare module Ext.chart.series {
 		*/
 		setHiddenByIndex?( index?:number, value?:boolean ): void;
 		/** [Method] Sets the value of highlightCfg  
-		* @param highlightCfg Object 
+		* @param highlightCfg Object The new value. 
 		*/
 		setHighlightCfg?( highlightCfg?:any ): void;
 		/** [Method] Sets the value of highlightItem  
-		* @param highlightItem Object 
+		* @param highlightItem Object The new value. 
 		*/
 		setHighlightItem?( highlightItem?:any ): void;
 		/** [Method] Sets the value of itemInstancing  
-		* @param itemInstancing Object 
+		* @param itemInstancing Object The new value. 
 		*/
 		setItemInstancing?( itemInstancing?:any ): void;
 		/** [Method] Sets the value of label  
-		* @param label Object 
+		* @param label Object The new value. 
+		* @returns Object/String The attributes that have been changed or added, or the text for the label. Example to enclose every other label in parentheses: renderer: function (text) { if (index % 2 == 0) { return '(' + text + ')' } } Default value: null. 
 		*/
-		setLabel?( label?:any ): void;
+		setLabel?( label?:any ): any;
 		/** [Method] Sets the value of labelField  
-		* @param labelField String 
+		* @param labelField String/String[] The new value. 
 		*/
-		setLabelField?( labelField?:string ): void;
+		setLabelField?( labelField?:any ): void;
 		/** [Method] Sets the value of labelOverflowPadding  
-		* @param labelOverflowPadding Number 
+		* @param labelOverflowPadding Number The new value. 
 		*/
 		setLabelOverflowPadding?( labelOverflowPadding?:number ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of marker  
-		* @param marker Object 
+		* @param marker Object The new value. 
 		*/
 		setMarker?( marker?:any ): void;
 		/** [Method] Sets the value of markerSubStyle  
-		* @param markerSubStyle Object 
+		* @param markerSubStyle Object The new value. 
 		*/
 		setMarkerSubStyle?( markerSubStyle?:any ): void;
 		/** [Method] Sets the value of overlaySurface  
-		* @param overlaySurface Object 
+		* @param overlaySurface Object The new value. 
 		*/
 		setOverlaySurface?( overlaySurface?:any ): void;
 		/** [Method] Sets the value of renderer  
-		* @param renderer Function 
+		* @param renderer Function The new value. 
 		* @returns Object The attributes that have been changed or added. Note: it is usually possible to add or modify the attributes directly into the config parameter and not return anything, but returning an object with only those attributes that have been changed may allow for optimizations in the rendering of some series. Example to draw every other item in red: renderer: function (sprite, config, rendererData, index) { if (index % 2 == 0) { return { strokeStyle: 'red' }; } }  
 		*/
 		setRenderer?( renderer?:any ): any;
 		/** [Method] Sets the value of showInLegend  
-		* @param showInLegend Boolean 
+		* @param showInLegend Boolean The new value. 
 		*/
 		setShowInLegend?( showInLegend?:boolean ): void;
 		/** [Method] Sets the value of store  
-		* @param store Object 
+		* @param store Object The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of style  
-		* @param style Object 
+		* @param style Object The new value. 
 		*/
 		setStyle?( style?:any ): void;
 		/** [Method] Sets the value of subStyle  
-		* @param subStyle Object 
+		* @param subStyle Object The new value. 
 		*/
 		setSubStyle?( subStyle?:any ): void;
 		/** [Method] Sets the value of surface  
-		* @param surface Object 
+		* @param surface Object The new value. 
 		*/
 		setSurface?( surface?:any ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -5354,7 +5542,7 @@ declare module Ext.chart.series.sprite {
 		*/
 		renderClipped?( surface?:any, ctx?:any, clip?:any, region?:any ): void;
 		/** [Method] Sets the value of aggregator  
-		* @param aggregator Object 
+		* @param aggregator Object The new value. 
 		*/
 		setAggregator?( aggregator?:any ): void;
 	}
@@ -5410,6 +5598,10 @@ declare module Ext.chart.series.sprite {
 }
 declare module Ext.chart.series.sprite {
 	export interface ICartesian extends Ext.draw.sprite.ISprite,Ext.chart.IMarkerHolder {
+		/** [Config Option] (Array) */
+		Data?: any[];
+		/** [Config Option] (Boolean) */
+		If?: boolean;
 		/** [Config Option] (Number) */
 		dataMaxX?: number;
 		/** [Config Option] (Number) */
@@ -5424,8 +5616,6 @@ declare module Ext.chart.series.sprite {
 		dataY?: any;
 		/** [Config Option] (String) */
 		field?: string;
-		/** [Config Option] (Boolean) */
-		flipXY?: boolean;
 		/** [Config Option] (Number) */
 		labelOverflowPadding?: number;
 		/** [Config Option] (Object) */
@@ -5433,23 +5623,19 @@ declare module Ext.chart.series.sprite {
 		/** [Config Option] (Number) */
 		selectionTolerance?: number;
 		/** [Method] Does a binary search of the data on the x axis using the given key  
-		* @param key Object 
+		* @param key String 
 		* @returns * 
 		*/
-		binarySearch?( key?:any ): any;
+		binarySearch?( key?:string ): any;
 		/** [Method]  
-		* @param name Object {String} 
-		* @param marker Object {Ext.chart.Markers} 
+		* @param name String 
+		* @param marker Ext.chart.Markers 
 		*/
-		bindMarker?( name?:any, marker?:any ): void;
+		bindMarker?( name?:string, marker?:Ext.chart.IMarkers ): void;
 		/** [Method] Returns the value of field  
 		* @returns String 
 		*/
 		getField?(): string;
-		/** [Method] Returns the value of flipXY  
-		* @returns Boolean 
-		*/
-		getFlipXY?(): boolean;
 		/** [Method] Get the nearest item index from point x y 
 		* @param x Number 
 		* @param y Number 
@@ -5464,20 +5650,16 @@ declare module Ext.chart.series.sprite {
 		*/
 		render?( surface?:any, ctx?:any, region?:any ): any;
 		/** [Method] Render the given visible clip range  
-		* @param surface Object 
-		* @param ctx Object 
-		* @param clip Object 
-		* @param region Object 
+		* @param surface Ext.draw.Surface 
+		* @param ctx Ext.draw.engine.Canvas/Ext.draw.engine.SvgContext 
+		* @param clip Array 
+		* @param region Arrary 
 		*/
-		renderClipped?( surface?:any, ctx?:any, clip?:any, region?:any ): void;
+		renderClipped?( surface?:Ext.draw.ISurface, ctx?:any, clip?:any[], region?:any[] ): void;
 		/** [Method] Sets the value of field  
-		* @param field String 
+		* @param field String The new value. 
 		*/
 		setField?( field?:string ): void;
-		/** [Method] Sets the value of flipXY  
-		* @param flipXY Boolean 
-		*/
-		setFlipXY?( flipXY?:boolean ): void;
 		/** [Method] Subclass will fill the plain object with x y width height information of the plain bounding box of this sprite  
 		* @param plain Object 
 		*/
@@ -5527,10 +5709,10 @@ declare module Ext.chart.series.sprite {
 		/** [Config Option] (Number) */
 		thickness?: number;
 		/** [Method]  
-		* @param name Object {String} 
-		* @param marker Object {Ext.chart.Markers} 
+		* @param name String 
+		* @param marker Ext.chart.Markers 
 		*/
-		bindMarker?( name?:any, marker?:any ): void;
+		bindMarker?( name?:string, marker?:Ext.chart.IMarkers ): void;
 		/** [Method] Update the path  
 		* @param path Object 
 		*/
@@ -5556,10 +5738,10 @@ declare module Ext.chart.series.sprite {
 		/** [Config Option] (Boolean) */
 		rotateLabels?: boolean;
 		/** [Method]  
-		* @param name Object {String} 
-		* @param marker Object {Ext.chart.Markers} 
+		* @param name String 
+		* @param marker Ext.chart.Markers 
 		*/
-		bindMarker?( name?:any, marker?:any ): void;
+		bindMarker?( name?:string, marker?:Ext.chart.IMarkers ): void;
 		/** [Method] Returns the value of rendererIndex  
 		* @returns Number 
 		*/
@@ -5572,13 +5754,15 @@ declare module Ext.chart.series.sprite {
 		*/
 		render?( ctx?:any, surface?:any, clipRegion?:any ): any;
 		/** [Method] Sets the value of rendererIndex  
-		* @param rendererIndex Number 
+		* @param rendererIndex Number The new value. 
 		*/
 		setRendererIndex?( rendererIndex?:number ): void;
 	}
 }
 declare module Ext.chart.series.sprite {
 	export interface IPolar extends Ext.draw.sprite.ISprite,Ext.chart.IMarkerHolder {
+		/** [Config Option] (Array) */
+		Data?: any[];
 		/** [Config Option] (Number) */
 		baseRotation?: number;
 		/** [Config Option] (Number) */
@@ -5610,16 +5794,16 @@ declare module Ext.chart.series.sprite {
 		/** [Config Option] (Number) */
 		startRho?: number;
 		/** [Method]  
-		* @param name Object {String} 
-		* @param marker Object {Ext.chart.Markers} 
+		* @param name String 
+		* @param marker Ext.chart.Markers 
 		*/
-		bindMarker?( name?:any, marker?:any ): void;
+		bindMarker?( name?:string, marker?:Ext.chart.IMarkers ): void;
 		/** [Method] Returns the value of field  
 		* @returns Object 
 		*/
 		getField?(): any;
 		/** [Method] Sets the value of field  
-		* @param field Object 
+		* @param field Object The new value. 
 		*/
 		setField?( field?:any ): void;
 		/** [Method] Subclass will fill the plain object with x y width height information of the plain bounding box of this sprite  
@@ -5682,11 +5866,11 @@ declare module Ext.chart.series {
 		*/
 		provideLegendInfo?( target?:any ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Array 
+		* @param hidden Array The new value. 
 		*/
 		setHidden?( hidden?:any[] ): void;
 		/** [Method] Sets the value of stacked  
-		* @param stacked Boolean 
+		* @param stacked Boolean The new value. 
 		*/
 		setStacked?( stacked?:boolean ): void;
 	}
@@ -5907,7 +6091,7 @@ declare module Ext {
 		styleHtmlContent?: boolean;
 		/** [Config Option] (Number/String) */
 		top?: any;
-		/** [Config Option] (String/String[]/Ext.Template[]/Ext.XTemplate[]) */
+		/** [Config Option] (String/String[]/Ext.Template/Ext.XTemplate[]) */
 		tpl?: any;
 		/** [Config Option] (String) */
 		tplWriteMode?: string;
@@ -5915,7 +6099,7 @@ declare module Ext {
 		ui?: string;
 		/** [Config Option] (Number/String) */
 		width?: any;
-		/** [Config Option] (String) */
+		/** [Config Option] (String[]) */
 		xtype?: string;
 		/** [Config Option] (Number) */
 		zIndex?: number;
@@ -5931,6 +6115,11 @@ declare module Ext {
 		disable?(): void;
 		/** [Method] Enables this Component */
 		enable?(): void;
+		/** [Method] Prepares information on aligning this to component using alignment  
+		* @param component Object 
+		* @param alignment Object 
+		*/
+		getAlignmentInfo?( component?:any, alignment?:any ): void;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
@@ -6088,7 +6277,7 @@ declare module Ext {
 		*/
 		getTop?(): any;
 		/** [Method] Returns the value of tpl  
-		* @returns String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @returns String/String[]/Ext.Template/Ext.XTemplate[] 
 		*/
 		getTpl?(): any;
 		/** [Method] Returns the value of tplWriteMode  
@@ -6115,8 +6304,8 @@ declare module Ext {
 		* @returns Boolean true if this component has a parent. 
 		*/
 		hasParent?(): boolean;
-		/** [Method] Hides this Component 
-		* @param animation Object/Boolean 
+		/** [Method] Hides this Component optionally using an animation  
+		* @param animation Object/Boolean You can specify an animation here or a bool to use the hideAnimation config. 
 		* @returns Ext.Component 
 		*/
 		hide?( animation?:any ): Ext.IComponent;
@@ -6152,59 +6341,59 @@ declare module Ext {
 		/** [Method] Resets top right bottom and left configurations to null which will un float this component  */
 		resetFloating?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of border  
-		* @param border Number/String 
+		* @param border Number/String The new value. 
 		*/
 		setBorder?( border?:any ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number/String 
+		* @param bottom Number/String The new value. 
 		*/
 		setBottom?( bottom?:any ): void;
 		/** [Method] Sets the value of centered  
-		* @param centered Boolean 
+		* @param centered Boolean The new value. 
 		*/
 		setCentered?( centered?:boolean ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String/String[] 
+		* @param cls String/String[] The new value. 
 		*/
 		setCls?( cls?:any ): void;
 		/** [Method] Sets the value of contentEl  
-		* @param contentEl Ext.Element/HTMLElement/String 
+		* @param contentEl Ext.Element/HTMLElement/String The new value. 
 		*/
 		setContentEl?( contentEl?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Boolean 
+		* @param disabled Boolean The new value. 
 		*/
 		setDisabled?( disabled?:boolean ): void;
 		/** [Method] Sets the value of disabledCls  
-		* @param disabledCls String 
+		* @param disabledCls String The new value. 
 		*/
 		setDisabledCls?( disabledCls?:string ): void;
 		/** [Method] Sets the value of docked  
-		* @param docked String 
+		* @param docked String The new value. 
 		*/
 		setDocked?( docked?:string ): void;
 		/** [Method] Sets the value of draggable  
-		* @param draggable Object 
+		* @param draggable Object The new value. 
 		*/
 		setDraggable?( draggable?:any ): void;
 		/** [Method] Sets the value of enterAnimation  
-		* @param enterAnimation String/Mixed 
+		* @param enterAnimation String/Mixed The new value. 
 		*/
 		setEnterAnimation?( enterAnimation?:any ): void;
 		/** [Method] Sets the value of exitAnimation  
-		* @param exitAnimation String/Mixed 
+		* @param exitAnimation String/Mixed The new value. 
 		*/
 		setExitAnimation?( exitAnimation?:any ): void;
 		/** [Method] Sets the value of flex  
-		* @param flex Number 
+		* @param flex Number The new value. 
 		*/
 		setFlex?( flex?:number ): void;
 		/** [Method] Used to update the floating state of this component  
@@ -6212,81 +6401,81 @@ declare module Ext {
 		*/
 		setFloating?( floating?:boolean ): void;
 		/** [Method] Sets the value of floatingCls  
-		* @param floatingCls String 
+		* @param floatingCls String The new value. 
 		*/
 		setFloatingCls?( floatingCls?:string ): void;
 		/** [Method] Sets the value of height  
-		* @param height Number/String 
+		* @param height Number/String The new value. 
 		*/
 		setHeight?( height?:any ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean 
+		* @param hidden Boolean The new value. 
 		*/
 		setHidden?( hidden?:boolean ): void;
 		/** [Method] Sets the value of hiddenCls  
-		* @param hiddenCls String 
+		* @param hiddenCls String The new value. 
 		*/
 		setHiddenCls?( hiddenCls?:string ): void;
 		/** [Method] Sets the value of hideAnimation  
-		* @param hideAnimation String/Mixed 
+		* @param hideAnimation String/Mixed The new value. 
 		*/
 		setHideAnimation?( hideAnimation?:any ): void;
 		/** [Method] Sets the value of html  
-		* @param html String/Ext.Element/HTMLElement 
+		* @param html String/Ext.Element/HTMLElement The new value. 
 		*/
 		setHtml?( html?:any ): void;
 		/** [Method] Sets the value of itemId  
-		* @param itemId String 
+		* @param itemId String The new value. 
 		*/
 		setItemId?( itemId?:string ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number/String 
+		* @param left Number/String The new value. 
 		*/
 		setLeft?( left?:any ): void;
 		/** [Method] Sets the value of margin  
-		* @param margin Number/String 
+		* @param margin Number/String The new value. 
 		*/
 		setMargin?( margin?:any ): void;
 		/** [Method] Sets the value of maxHeight  
-		* @param maxHeight Number/String 
+		* @param maxHeight Number/String The new value. 
 		*/
 		setMaxHeight?( maxHeight?:any ): void;
 		/** [Method] Sets the value of maxWidth  
-		* @param maxWidth Number/String 
+		* @param maxWidth Number/String The new value. 
 		*/
 		setMaxWidth?( maxWidth?:any ): void;
 		/** [Method] Sets the value of minHeight  
-		* @param minHeight Number/String 
+		* @param minHeight Number/String The new value. 
 		*/
 		setMinHeight?( minHeight?:any ): void;
 		/** [Method] Sets the value of minWidth  
-		* @param minWidth Number/String 
+		* @param minWidth Number/String The new value. 
 		*/
 		setMinWidth?( minWidth?:any ): void;
 		/** [Method] Sets the value of padding  
-		* @param padding Number/String 
+		* @param padding Number/String The new value. 
 		*/
 		setPadding?( padding?:any ): void;
 		/** [Method] Sets the value of plugins  
-		* @param plugins Object/Array 
+		* @param plugins Object/Array The new value. 
 		*/
 		setPlugins?( plugins?:any ): void;
 		/** [Method] Sets the value of record  
-		* @param record Ext.data.Model 
+		* @param record Ext.data.Model The new value. 
 		*/
 		setRecord?( record?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of renderTo  
-		* @param renderTo Ext.Element 
+		* @param renderTo Ext.Element The new value. 
 		*/
 		setRenderTo?( renderTo?:Ext.IElement ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number/String 
+		* @param right Number/String The new value. 
 		*/
 		setRight?( right?:any ): void;
 		/** [Method] This method has moved to Ext Container  */
 		setScrollable?(): void;
 		/** [Method] Sets the value of showAnimation  
-		* @param showAnimation String/Mixed 
+		* @param showAnimation String/Mixed The new value. 
 		*/
 		setShowAnimation?( showAnimation?:any ): void;
 		/** [Method] Sets the size of the Component  
@@ -6295,43 +6484,43 @@ declare module Ext {
 		*/
 		setSize?( width?:number, height?:number ): void;
 		/** [Method] Sets the value of style  
-		* @param style String/Object 
+		* @param style String/Object The new value. 
 		*/
 		setStyle?( style?:any ): void;
 		/** [Method] Sets the value of styleHtmlCls  
-		* @param styleHtmlCls String 
+		* @param styleHtmlCls String The new value. 
 		*/
 		setStyleHtmlCls?( styleHtmlCls?:string ): void;
 		/** [Method] Sets the value of styleHtmlContent  
-		* @param styleHtmlContent Boolean 
+		* @param styleHtmlContent Boolean The new value. 
 		*/
 		setStyleHtmlContent?( styleHtmlContent?:boolean ): void;
 		/** [Method] Sets the value of top  
-		* @param top Number/String 
+		* @param top Number/String The new value. 
 		*/
 		setTop?( top?:any ): void;
 		/** [Method] Sets the value of tpl  
-		* @param tpl String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @param tpl String/String[]/Ext.Template/Ext.XTemplate[] The new value. 
 		*/
 		setTpl?( tpl?:any ): void;
 		/** [Method] Sets the value of tplWriteMode  
-		* @param tplWriteMode String 
+		* @param tplWriteMode String The new value. 
 		*/
 		setTplWriteMode?( tplWriteMode?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of width  
-		* @param width Number/String 
+		* @param width Number/String The new value. 
 		*/
 		setWidth?( width?:any ): void;
 		/** [Method] Sets the value of zIndex  
-		* @param zIndex Number 
+		* @param zIndex Number The new value. 
 		*/
 		setZIndex?( zIndex?:number ): void;
-		/** [Method] Shows this component  
-		* @param animation Object/Boolean 
+		/** [Method] Shows this component optionally using an animation  
+		* @param animation Object/Boolean You can specify an animation here or a bool to use the showAnimation config. 
 		* @returns Ext.Component 
 		*/
 		show?( animation?:any ): Ext.IComponent;
@@ -6450,7 +6639,7 @@ declare module Ext.lib {
 		styleHtmlContent?: boolean;
 		/** [Config Option] (Number/String) */
 		top?: any;
-		/** [Config Option] (String/String[]/Ext.Template[]/Ext.XTemplate[]) */
+		/** [Config Option] (String/String[]/Ext.Template/Ext.XTemplate[]) */
 		tpl?: any;
 		/** [Config Option] (String) */
 		tplWriteMode?: string;
@@ -6458,7 +6647,7 @@ declare module Ext.lib {
 		ui?: string;
 		/** [Config Option] (Number/String) */
 		width?: any;
-		/** [Config Option] (String) */
+		/** [Config Option] (String[]) */
 		xtype?: string;
 		/** [Config Option] (Number) */
 		zIndex?: number;
@@ -6474,6 +6663,11 @@ declare module Ext.lib {
 		disable?(): void;
 		/** [Method] Enables this Component */
 		enable?(): void;
+		/** [Method] Prepares information on aligning this to component using alignment  
+		* @param component Object 
+		* @param alignment Object 
+		*/
+		getAlignmentInfo?( component?:any, alignment?:any ): void;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
@@ -6631,7 +6825,7 @@ declare module Ext.lib {
 		*/
 		getTop?(): any;
 		/** [Method] Returns the value of tpl  
-		* @returns String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @returns String/String[]/Ext.Template/Ext.XTemplate[] 
 		*/
 		getTpl?(): any;
 		/** [Method] Returns the value of tplWriteMode  
@@ -6658,8 +6852,8 @@ declare module Ext.lib {
 		* @returns Boolean true if this component has a parent. 
 		*/
 		hasParent?(): boolean;
-		/** [Method] Hides this Component 
-		* @param animation Object/Boolean 
+		/** [Method] Hides this Component optionally using an animation  
+		* @param animation Object/Boolean You can specify an animation here or a bool to use the hideAnimation config. 
 		* @returns Ext.Component 
 		*/
 		hide?( animation?:any ): Ext.IComponent;
@@ -6695,59 +6889,59 @@ declare module Ext.lib {
 		/** [Method] Resets top right bottom and left configurations to null which will un float this component  */
 		resetFloating?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of border  
-		* @param border Number/String 
+		* @param border Number/String The new value. 
 		*/
 		setBorder?( border?:any ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number/String 
+		* @param bottom Number/String The new value. 
 		*/
 		setBottom?( bottom?:any ): void;
 		/** [Method] Sets the value of centered  
-		* @param centered Boolean 
+		* @param centered Boolean The new value. 
 		*/
 		setCentered?( centered?:boolean ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String/String[] 
+		* @param cls String/String[] The new value. 
 		*/
 		setCls?( cls?:any ): void;
 		/** [Method] Sets the value of contentEl  
-		* @param contentEl Ext.Element/HTMLElement/String 
+		* @param contentEl Ext.Element/HTMLElement/String The new value. 
 		*/
 		setContentEl?( contentEl?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Boolean 
+		* @param disabled Boolean The new value. 
 		*/
 		setDisabled?( disabled?:boolean ): void;
 		/** [Method] Sets the value of disabledCls  
-		* @param disabledCls String 
+		* @param disabledCls String The new value. 
 		*/
 		setDisabledCls?( disabledCls?:string ): void;
 		/** [Method] Sets the value of docked  
-		* @param docked String 
+		* @param docked String The new value. 
 		*/
 		setDocked?( docked?:string ): void;
 		/** [Method] Sets the value of draggable  
-		* @param draggable Object 
+		* @param draggable Object The new value. 
 		*/
 		setDraggable?( draggable?:any ): void;
 		/** [Method] Sets the value of enterAnimation  
-		* @param enterAnimation String/Mixed 
+		* @param enterAnimation String/Mixed The new value. 
 		*/
 		setEnterAnimation?( enterAnimation?:any ): void;
 		/** [Method] Sets the value of exitAnimation  
-		* @param exitAnimation String/Mixed 
+		* @param exitAnimation String/Mixed The new value. 
 		*/
 		setExitAnimation?( exitAnimation?:any ): void;
 		/** [Method] Sets the value of flex  
-		* @param flex Number 
+		* @param flex Number The new value. 
 		*/
 		setFlex?( flex?:number ): void;
 		/** [Method] Used to update the floating state of this component  
@@ -6755,81 +6949,81 @@ declare module Ext.lib {
 		*/
 		setFloating?( floating?:boolean ): void;
 		/** [Method] Sets the value of floatingCls  
-		* @param floatingCls String 
+		* @param floatingCls String The new value. 
 		*/
 		setFloatingCls?( floatingCls?:string ): void;
 		/** [Method] Sets the value of height  
-		* @param height Number/String 
+		* @param height Number/String The new value. 
 		*/
 		setHeight?( height?:any ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean 
+		* @param hidden Boolean The new value. 
 		*/
 		setHidden?( hidden?:boolean ): void;
 		/** [Method] Sets the value of hiddenCls  
-		* @param hiddenCls String 
+		* @param hiddenCls String The new value. 
 		*/
 		setHiddenCls?( hiddenCls?:string ): void;
 		/** [Method] Sets the value of hideAnimation  
-		* @param hideAnimation String/Mixed 
+		* @param hideAnimation String/Mixed The new value. 
 		*/
 		setHideAnimation?( hideAnimation?:any ): void;
 		/** [Method] Sets the value of html  
-		* @param html String/Ext.Element/HTMLElement 
+		* @param html String/Ext.Element/HTMLElement The new value. 
 		*/
 		setHtml?( html?:any ): void;
 		/** [Method] Sets the value of itemId  
-		* @param itemId String 
+		* @param itemId String The new value. 
 		*/
 		setItemId?( itemId?:string ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number/String 
+		* @param left Number/String The new value. 
 		*/
 		setLeft?( left?:any ): void;
 		/** [Method] Sets the value of margin  
-		* @param margin Number/String 
+		* @param margin Number/String The new value. 
 		*/
 		setMargin?( margin?:any ): void;
 		/** [Method] Sets the value of maxHeight  
-		* @param maxHeight Number/String 
+		* @param maxHeight Number/String The new value. 
 		*/
 		setMaxHeight?( maxHeight?:any ): void;
 		/** [Method] Sets the value of maxWidth  
-		* @param maxWidth Number/String 
+		* @param maxWidth Number/String The new value. 
 		*/
 		setMaxWidth?( maxWidth?:any ): void;
 		/** [Method] Sets the value of minHeight  
-		* @param minHeight Number/String 
+		* @param minHeight Number/String The new value. 
 		*/
 		setMinHeight?( minHeight?:any ): void;
 		/** [Method] Sets the value of minWidth  
-		* @param minWidth Number/String 
+		* @param minWidth Number/String The new value. 
 		*/
 		setMinWidth?( minWidth?:any ): void;
 		/** [Method] Sets the value of padding  
-		* @param padding Number/String 
+		* @param padding Number/String The new value. 
 		*/
 		setPadding?( padding?:any ): void;
 		/** [Method] Sets the value of plugins  
-		* @param plugins Object/Array 
+		* @param plugins Object/Array The new value. 
 		*/
 		setPlugins?( plugins?:any ): void;
 		/** [Method] Sets the value of record  
-		* @param record Ext.data.Model 
+		* @param record Ext.data.Model The new value. 
 		*/
 		setRecord?( record?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of renderTo  
-		* @param renderTo Ext.Element 
+		* @param renderTo Ext.Element The new value. 
 		*/
 		setRenderTo?( renderTo?:Ext.IElement ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number/String 
+		* @param right Number/String The new value. 
 		*/
 		setRight?( right?:any ): void;
 		/** [Method] This method has moved to Ext Container  */
 		setScrollable?(): void;
 		/** [Method] Sets the value of showAnimation  
-		* @param showAnimation String/Mixed 
+		* @param showAnimation String/Mixed The new value. 
 		*/
 		setShowAnimation?( showAnimation?:any ): void;
 		/** [Method] Sets the size of the Component  
@@ -6838,43 +7032,43 @@ declare module Ext.lib {
 		*/
 		setSize?( width?:number, height?:number ): void;
 		/** [Method] Sets the value of style  
-		* @param style String/Object 
+		* @param style String/Object The new value. 
 		*/
 		setStyle?( style?:any ): void;
 		/** [Method] Sets the value of styleHtmlCls  
-		* @param styleHtmlCls String 
+		* @param styleHtmlCls String The new value. 
 		*/
 		setStyleHtmlCls?( styleHtmlCls?:string ): void;
 		/** [Method] Sets the value of styleHtmlContent  
-		* @param styleHtmlContent Boolean 
+		* @param styleHtmlContent Boolean The new value. 
 		*/
 		setStyleHtmlContent?( styleHtmlContent?:boolean ): void;
 		/** [Method] Sets the value of top  
-		* @param top Number/String 
+		* @param top Number/String The new value. 
 		*/
 		setTop?( top?:any ): void;
 		/** [Method] Sets the value of tpl  
-		* @param tpl String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @param tpl String/String[]/Ext.Template/Ext.XTemplate[] The new value. 
 		*/
 		setTpl?( tpl?:any ): void;
 		/** [Method] Sets the value of tplWriteMode  
-		* @param tplWriteMode String 
+		* @param tplWriteMode String The new value. 
 		*/
 		setTplWriteMode?( tplWriteMode?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of width  
-		* @param width Number/String 
+		* @param width Number/String The new value. 
 		*/
 		setWidth?( width?:any ): void;
 		/** [Method] Sets the value of zIndex  
-		* @param zIndex Number 
+		* @param zIndex Number The new value. 
 		*/
 		setZIndex?( zIndex?:number ): void;
-		/** [Method] Shows this component  
-		* @param animation Object/Boolean 
+		/** [Method] Shows this component optionally using an animation  
+		* @param animation Object/Boolean You can specify an animation here or a bool to use the showAnimation config. 
 		* @returns Ext.Component 
 		*/
 		show?( animation?:any ): Ext.IComponent;
@@ -6901,6 +7095,8 @@ declare module Ext {
 	export interface IComponentManager extends Ext.IBase {
 	}
 	export class ComponentManager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -6962,6 +7158,8 @@ declare module Ext {
 	export interface IComponentMgr extends Ext.IBase {
 	}
 	export class ComponentMgr {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -7160,6 +7358,10 @@ declare module Ext {
 		* @returns Ext.scroll.View The scroll view. 
 		*/
 		getScrollable?(): Ext.scroll.IView;
+		/** [Method] Hides this Component optionally using an animation  
+		* @returns Ext.Component 
+		*/
+		hide?(): Ext.IComponent;
 		/** [Method] Adds a child Component at the given index  
 		* @param index Number The index to insert the Component at. 
 		* @param item Object The Component to insert. 
@@ -7203,49 +7405,54 @@ declare module Ext {
 		*/
 		removeInnerAt?( index?:number ): Ext.IContainer;
 		/** [Method] Sets the value of activeItem  
-		* @param activeItem Object/String/Number 
+		* @param activeItem Object/String/Number The new value. 
 		*/
 		setActiveItem?( activeItem?:any ): void;
 		/** [Method] Sets the value of autoDestroy  
-		* @param autoDestroy Boolean 
+		* @param autoDestroy Boolean The new value. 
 		*/
 		setAutoDestroy?( autoDestroy?:boolean ): void;
 		/** [Method] Sets the value of control  
-		* @param control Object 
+		* @param control Object The new value. 
 		*/
 		setControl?( control?:any ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of defaults  
-		* @param defaults Object 
+		* @param defaults Object The new value. 
 		*/
 		setDefaults?( defaults?:any ): void;
 		/** [Method] Sets the value of hideOnMaskTap  
-		* @param hideOnMaskTap Boolean 
+		* @param hideOnMaskTap Boolean The new value. 
 		*/
 		setHideOnMaskTap?( hideOnMaskTap?:boolean ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		setItems?( items?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object/String 
+		* @param layout Object/String The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of masked  
-		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask 
+		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask The new value. 
 		*/
 		setMasked?( masked?:any ): void;
 		/** [Method] Sets the value of modal  
-		* @param modal Boolean 
+		* @param modal Boolean The new value. 
 		*/
 		setModal?( modal?:boolean ): void;
 		/** [Method] Sets the value of scrollable  
-		* @param scrollable Boolean/String/Object 
+		* @param scrollable Boolean/String/Object The new value. 
+		* @returns Ext.scroll.View The scroll view. 
 		*/
-		setScrollable?( scrollable?:any ): void;
+		setScrollable?( scrollable?:any ): Ext.scroll.IView;
+		/** [Method] Shows this component optionally using an animation  
+		* @returns Ext.Component 
+		*/
+		show?(): Ext.IComponent;
 		/** [Method] Convenience method which calls setMasked with a value of false to hide the mask */
 		unmask?(): void;
 	}
@@ -7373,6 +7580,10 @@ declare module Ext.lib {
 		* @returns Ext.scroll.View The scroll view. 
 		*/
 		getScrollable?(): Ext.scroll.IView;
+		/** [Method] Hides this Component optionally using an animation  
+		* @returns Ext.Component 
+		*/
+		hide?(): Ext.IComponent;
 		/** [Method] Adds a child Component at the given index  
 		* @param index Number The index to insert the Component at. 
 		* @param item Object The Component to insert. 
@@ -7416,49 +7627,54 @@ declare module Ext.lib {
 		*/
 		removeInnerAt?( index?:number ): Ext.IContainer;
 		/** [Method] Sets the value of activeItem  
-		* @param activeItem Object/String/Number 
+		* @param activeItem Object/String/Number The new value. 
 		*/
 		setActiveItem?( activeItem?:any ): void;
 		/** [Method] Sets the value of autoDestroy  
-		* @param autoDestroy Boolean 
+		* @param autoDestroy Boolean The new value. 
 		*/
 		setAutoDestroy?( autoDestroy?:boolean ): void;
 		/** [Method] Sets the value of control  
-		* @param control Object 
+		* @param control Object The new value. 
 		*/
 		setControl?( control?:any ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of defaults  
-		* @param defaults Object 
+		* @param defaults Object The new value. 
 		*/
 		setDefaults?( defaults?:any ): void;
 		/** [Method] Sets the value of hideOnMaskTap  
-		* @param hideOnMaskTap Boolean 
+		* @param hideOnMaskTap Boolean The new value. 
 		*/
 		setHideOnMaskTap?( hideOnMaskTap?:boolean ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		setItems?( items?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object/String 
+		* @param layout Object/String The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of masked  
-		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask 
+		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask The new value. 
 		*/
 		setMasked?( masked?:any ): void;
 		/** [Method] Sets the value of modal  
-		* @param modal Boolean 
+		* @param modal Boolean The new value. 
 		*/
 		setModal?( modal?:boolean ): void;
 		/** [Method] Sets the value of scrollable  
-		* @param scrollable Boolean/String/Object 
+		* @param scrollable Boolean/String/Object The new value. 
+		* @returns Ext.scroll.View The scroll view. 
 		*/
-		setScrollable?( scrollable?:any ): void;
+		setScrollable?( scrollable?:any ): Ext.scroll.IView;
+		/** [Method] Shows this component optionally using an animation  
+		* @returns Ext.Component 
+		*/
+		show?(): Ext.IComponent;
 		/** [Method] Convenience method which calls setMasked with a value of false to hide the mask */
 		unmask?(): void;
 	}
@@ -7477,7 +7693,7 @@ declare module Ext.data {
 		*/
 		loadData?( data?:any, append?:any ): void;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Object 
+		* @param proxy Object The new value. 
 		*/
 		setProxy?( proxy?:any ): void;
 	}
@@ -7535,39 +7751,39 @@ declare module Ext.data.association {
 		*/
 		getType?(): string;
 		/** [Method] Sets the value of associatedModel  
-		* @param associatedModel String 
+		* @param associatedModel String The new value. 
 		*/
 		setAssociatedModel?( associatedModel?:string ): void;
 		/** [Method] Sets the value of associatedName  
-		* @param associatedName String 
+		* @param associatedName String The new value. 
 		*/
 		setAssociatedName?( associatedName?:string ): void;
 		/** [Method] Sets the value of associationKey  
-		* @param associationKey String 
+		* @param associationKey String The new value. 
 		*/
 		setAssociationKey?( associationKey?:string ): void;
 		/** [Method] Sets the value of name  
-		* @param name Object 
+		* @param name Object The new value. 
 		*/
 		setName?( name?:any ): void;
 		/** [Method] Sets the value of ownerModel  
-		* @param ownerModel Ext.data.Model/String 
+		* @param ownerModel Ext.data.Model/String The new value. 
 		*/
 		setOwnerModel?( ownerModel?:any ): void;
 		/** [Method] Sets the value of ownerName  
-		* @param ownerName String 
+		* @param ownerName String The new value. 
 		*/
 		setOwnerName?( ownerName?:string ): void;
 		/** [Method] Sets the value of primaryKey  
-		* @param primaryKey String 
+		* @param primaryKey String The new value. 
 		*/
 		setPrimaryKey?( primaryKey?:string ): void;
 		/** [Method] Sets the value of reader  
-		* @param reader Ext.data.reader.Reader 
+		* @param reader Ext.data.reader.Reader The new value. 
 		*/
 		setReader?( reader?:Ext.data.reader.IReader ): void;
 		/** [Method] Sets the value of type  
-		* @param type String 
+		* @param type String The new value. 
 		*/
 		setType?( type?:string ): void;
 	}
@@ -7625,39 +7841,39 @@ declare module Ext.data {
 		*/
 		getType?(): string;
 		/** [Method] Sets the value of associatedModel  
-		* @param associatedModel String 
+		* @param associatedModel String The new value. 
 		*/
 		setAssociatedModel?( associatedModel?:string ): void;
 		/** [Method] Sets the value of associatedName  
-		* @param associatedName String 
+		* @param associatedName String The new value. 
 		*/
 		setAssociatedName?( associatedName?:string ): void;
 		/** [Method] Sets the value of associationKey  
-		* @param associationKey String 
+		* @param associationKey String The new value. 
 		*/
 		setAssociationKey?( associationKey?:string ): void;
 		/** [Method] Sets the value of name  
-		* @param name Object 
+		* @param name Object The new value. 
 		*/
 		setName?( name?:any ): void;
 		/** [Method] Sets the value of ownerModel  
-		* @param ownerModel Ext.data.Model/String 
+		* @param ownerModel Ext.data.Model/String The new value. 
 		*/
 		setOwnerModel?( ownerModel?:any ): void;
 		/** [Method] Sets the value of ownerName  
-		* @param ownerName String 
+		* @param ownerName String The new value. 
 		*/
 		setOwnerName?( ownerName?:string ): void;
 		/** [Method] Sets the value of primaryKey  
-		* @param primaryKey String 
+		* @param primaryKey String The new value. 
 		*/
 		setPrimaryKey?( primaryKey?:string ): void;
 		/** [Method] Sets the value of reader  
-		* @param reader Ext.data.reader.Reader 
+		* @param reader Ext.data.reader.Reader The new value. 
 		*/
 		setReader?( reader?:Ext.data.reader.IReader ): void;
 		/** [Method] Sets the value of type  
-		* @param type String 
+		* @param type String The new value. 
 		*/
 		setType?( type?:string ): void;
 	}
@@ -7687,19 +7903,19 @@ declare module Ext.data.association {
 		*/
 		getSetterName?(): string;
 		/** [Method] Sets the value of foreignKey  
-		* @param foreignKey String 
+		* @param foreignKey String The new value. 
 		*/
 		setForeignKey?( foreignKey?:string ): void;
 		/** [Method] Sets the value of getterName  
-		* @param getterName String 
+		* @param getterName String The new value. 
 		*/
 		setGetterName?( getterName?:string ): void;
 		/** [Method] Sets the value of instanceName  
-		* @param instanceName Object 
+		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
 		/** [Method] Sets the value of setterName  
-		* @param setterName String 
+		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
 	}
@@ -7729,19 +7945,19 @@ declare module Ext.data {
 		*/
 		getSetterName?(): string;
 		/** [Method] Sets the value of foreignKey  
-		* @param foreignKey String 
+		* @param foreignKey String The new value. 
 		*/
 		setForeignKey?( foreignKey?:string ): void;
 		/** [Method] Sets the value of getterName  
-		* @param getterName String 
+		* @param getterName String The new value. 
 		*/
 		setGetterName?( getterName?:string ): void;
 		/** [Method] Sets the value of instanceName  
-		* @param instanceName Object 
+		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
 		/** [Method] Sets the value of setterName  
-		* @param setterName String 
+		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
 	}
@@ -7789,27 +8005,27 @@ declare module Ext.data.association {
 		*/
 		getStoreName?(): string;
 		/** [Method] Sets the value of autoLoad  
-		* @param autoLoad Boolean 
+		* @param autoLoad Boolean The new value. 
 		*/
 		setAutoLoad?( autoLoad?:boolean ): void;
 		/** [Method] Sets the value of autoSync  
-		* @param autoSync Boolean 
+		* @param autoSync Boolean The new value. 
 		*/
 		setAutoSync?( autoSync?:boolean ): void;
 		/** [Method] Sets the value of filterProperty  
-		* @param filterProperty String 
+		* @param filterProperty String The new value. 
 		*/
 		setFilterProperty?( filterProperty?:string ): void;
 		/** [Method] Sets the value of foreignKey  
-		* @param foreignKey String 
+		* @param foreignKey String The new value. 
 		*/
 		setForeignKey?( foreignKey?:string ): void;
 		/** [Method] Sets the value of store  
-		* @param store Object 
+		* @param store Object The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of storeName  
-		* @param storeName String 
+		* @param storeName String The new value. 
 		*/
 		setStoreName?( storeName?:string ): void;
 	}
@@ -7857,27 +8073,27 @@ declare module Ext.data {
 		*/
 		getStoreName?(): string;
 		/** [Method] Sets the value of autoLoad  
-		* @param autoLoad Boolean 
+		* @param autoLoad Boolean The new value. 
 		*/
 		setAutoLoad?( autoLoad?:boolean ): void;
 		/** [Method] Sets the value of autoSync  
-		* @param autoSync Boolean 
+		* @param autoSync Boolean The new value. 
 		*/
 		setAutoSync?( autoSync?:boolean ): void;
 		/** [Method] Sets the value of filterProperty  
-		* @param filterProperty String 
+		* @param filterProperty String The new value. 
 		*/
 		setFilterProperty?( filterProperty?:string ): void;
 		/** [Method] Sets the value of foreignKey  
-		* @param foreignKey String 
+		* @param foreignKey String The new value. 
 		*/
 		setForeignKey?( foreignKey?:string ): void;
 		/** [Method] Sets the value of store  
-		* @param store Object 
+		* @param store Object The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of storeName  
-		* @param storeName String 
+		* @param storeName String The new value. 
 		*/
 		setStoreName?( storeName?:string ): void;
 	}
@@ -7907,19 +8123,19 @@ declare module Ext.data.association {
 		*/
 		getSetterName?(): string;
 		/** [Method] Sets the value of foreignKey  
-		* @param foreignKey String 
+		* @param foreignKey String The new value. 
 		*/
 		setForeignKey?( foreignKey?:string ): void;
 		/** [Method] Sets the value of getterName  
-		* @param getterName String 
+		* @param getterName String The new value. 
 		*/
 		setGetterName?( getterName?:string ): void;
 		/** [Method] Sets the value of instanceName  
-		* @param instanceName Object 
+		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
 		/** [Method] Sets the value of setterName  
-		* @param setterName String 
+		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
 	}
@@ -7949,19 +8165,19 @@ declare module Ext.data {
 		*/
 		getSetterName?(): string;
 		/** [Method] Sets the value of foreignKey  
-		* @param foreignKey String 
+		* @param foreignKey String The new value. 
 		*/
 		setForeignKey?( foreignKey?:string ): void;
 		/** [Method] Sets the value of getterName  
-		* @param getterName String 
+		* @param getterName String The new value. 
 		*/
 		setGetterName?( getterName?:string ): void;
 		/** [Method] Sets the value of instanceName  
-		* @param instanceName Object 
+		* @param instanceName Object The new value. 
 		*/
 		setInstanceName?( instanceName?:any ): void;
 		/** [Method] Sets the value of setterName  
-		* @param setterName String 
+		* @param setterName String The new value. 
 		*/
 		setSetterName?( setterName?:string ): void;
 	}
@@ -8154,23 +8370,23 @@ declare module Ext.data {
 		*/
 		runOperation?( index?:number ): void;
 		/** [Method] Sets the value of autoStart  
-		* @param autoStart Boolean 
+		* @param autoStart Boolean The new value. 
 		*/
 		setAutoStart?( autoStart?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of pauseOnException  
-		* @param pauseOnException Boolean 
+		* @param pauseOnException Boolean The new value. 
 		*/
 		setPauseOnException?( pauseOnException?:boolean ): void;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Ext.data.Proxy 
+		* @param proxy Ext.data.Proxy The new value. 
 		*/
 		setProxy?( proxy?:Ext.data.IProxy ): void;
 		/** [Method] Kicks off the execution of the batch continuing from the next operation if the previous operation encountered an exc  */
@@ -8400,10 +8616,10 @@ declare module Ext.data {
 		onBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
 		/** [Method] Checks if the response status was successful  
 		* @param status Number The status code. 
-		* @param xhr Object 
+		* @param xhr XMLHttpRequest 
 		* @returns Object An object containing success/status state. 
 		*/
-		parseStatus?( status?:number, xhr?:any ): any;
+		parseStatus?( status?:number, xhr?:XMLHttpRequest ): any;
 		/** [Method] Relays selected events from the specified Observable as if the events were fired by this  
 		* @param object Object The Observable whose events this object is to relay. 
 		* @param events String/Array/Object Array of event names to relay. 
@@ -8449,47 +8665,47 @@ declare module Ext.data {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of async  
-		* @param async Boolean 
+		* @param async Boolean The new value. 
 		*/
 		setAsync?( async?:boolean ): void;
 		/** [Method] Sets the value of autoAbort  
-		* @param autoAbort Boolean 
+		* @param autoAbort Boolean The new value. 
 		*/
 		setAutoAbort?( autoAbort?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of defaultHeaders  
-		* @param defaultHeaders Object 
+		* @param defaultHeaders Object The new value. 
 		*/
 		setDefaultHeaders?( defaultHeaders?:any ): void;
 		/** [Method] Sets the value of defaultPostHeader  
-		* @param defaultPostHeader String 
+		* @param defaultPostHeader String The new value. 
 		*/
 		setDefaultPostHeader?( defaultPostHeader?:string ): void;
 		/** [Method] Sets the value of defaultXhrHeader  
-		* @param defaultXhrHeader String 
+		* @param defaultXhrHeader String The new value. 
 		*/
 		setDefaultXhrHeader?( defaultXhrHeader?:string ): void;
 		/** [Method] Sets the value of disableCaching  
-		* @param disableCaching Boolean 
+		* @param disableCaching Boolean The new value. 
 		*/
 		setDisableCaching?( disableCaching?:boolean ): void;
 		/** [Method] Sets the value of disableCachingParam  
-		* @param disableCachingParam String 
+		* @param disableCachingParam String The new value. 
 		*/
 		setDisableCachingParam?( disableCachingParam?:string ): void;
 		/** [Method] Sets the value of extraParams  
-		* @param extraParams Object 
+		* @param extraParams Object The new value. 
 		*/
 		setExtraParams?( extraParams?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of method  
-		* @param method String 
+		* @param method String The new value. 
 		*/
 		setMethod?( method?:string ): void;
 		/** [Method] Sets various options such as the url params for the request  
@@ -8499,27 +8715,27 @@ declare module Ext.data {
 		*/
 		setOptions?( options?:any, scope?:any ): any;
 		/** [Method] Sets the value of password  
-		* @param password String 
+		* @param password String The new value. 
 		*/
 		setPassword?( password?:string ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 		/** [Method] Sets the value of useDefaultHeader  
-		* @param useDefaultHeader Boolean 
+		* @param useDefaultHeader Boolean The new value. 
 		*/
 		setUseDefaultHeader?( useDefaultHeader?:boolean ): void;
 		/** [Method] Sets the value of useDefaultXhrHeader  
-		* @param useDefaultXhrHeader Boolean 
+		* @param useDefaultXhrHeader Boolean The new value. 
 		*/
 		setUseDefaultXhrHeader?( useDefaultXhrHeader?:boolean ): void;
 		/** [Method] Sets the value of username  
-		* @param username String 
+		* @param username String The new value. 
 		*/
 		setUsername?( username?:string ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -8564,7 +8780,7 @@ declare module Ext.data {
 		*/
 		getProxy?(): any;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Object 
+		* @param proxy Object The new value. 
 		*/
 		setProxy?( proxy?:any ): void;
 	}
@@ -8584,11 +8800,11 @@ declare module Ext.data {
 		*/
 		getMessage?(): string;
 		/** [Method] Sets the value of field  
-		* @param field String 
+		* @param field String The new value. 
 		*/
 		setField?( field?:string ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		*/
 		setMessage?( message?:string ): void;
 	}
@@ -8687,55 +8903,55 @@ declare module Ext.data {
 		*/
 		getType?(): any;
 		/** [Method] Sets the value of allowNull  
-		* @param allowNull Boolean 
+		* @param allowNull Boolean The new value. 
 		*/
 		setAllowNull?( allowNull?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String 
+		* @param bubbleEvents String The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:string ): void;
 		/** [Method] Sets the value of convert  
-		* @param convert Function 
+		* @param convert Function The new value. 
 		*/
 		setConvert?( convert?:any ): void;
 		/** [Method] Sets the value of dateFormat  
-		* @param dateFormat String 
+		* @param dateFormat String The new value. 
 		*/
 		setDateFormat?( dateFormat?:string ): void;
 		/** [Method] Sets the value of decode  
-		* @param decode Object 
+		* @param decode Object The new value. 
 		*/
 		setDecode?( decode?:any ): void;
 		/** [Method] Sets the value of defaultValue  
-		* @param defaultValue Object 
+		* @param defaultValue Object The new value. 
 		*/
 		setDefaultValue?( defaultValue?:any ): void;
 		/** [Method] Sets the value of encode  
-		* @param encode Object 
+		* @param encode Object The new value. 
 		*/
 		setEncode?( encode?:any ): void;
 		/** [Method] Sets the value of mapping  
-		* @param mapping String/Number 
+		* @param mapping String/Number The new value. 
 		*/
 		setMapping?( mapping?:any ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of persist  
-		* @param persist Boolean 
+		* @param persist Boolean The new value. 
 		*/
 		setPersist?( persist?:boolean ): void;
 		/** [Method] Sets the value of sortDir  
-		* @param sortDir String 
+		* @param sortDir String The new value. 
 		*/
 		setSortDir?( sortDir?:string ): void;
 		/** [Method] Sets the value of sortType  
-		* @param sortType Function 
+		* @param sortType Function The new value. 
 		*/
 		setSortType?( sortType?:any ): void;
 		/** [Method] Sets the value of type  
-		* @param type String/Object 
+		* @param type String/Object The new value. 
 		*/
 		setType?( type?:any ): void;
 	}
@@ -8755,11 +8971,11 @@ declare module Ext.data.identifier {
 		*/
 		getSeed?(): number;
 		/** [Method] Sets the value of prefix  
-		* @param prefix String 
+		* @param prefix String The new value. 
 		*/
 		setPrefix?( prefix?:string ): void;
 		/** [Method] Sets the value of seed  
-		* @param seed Number 
+		* @param seed Number The new value. 
 		*/
 		setSeed?( seed?:number ): void;
 	}
@@ -8771,7 +8987,7 @@ declare module Ext.data.identifier {
 		*/
 		getPrefix?(): string;
 		/** [Method] Sets the value of prefix  
-		* @param prefix String 
+		* @param prefix String The new value. 
 		*/
 		setPrefix?( prefix?:string ): void;
 	}
@@ -8799,11 +9015,11 @@ declare module Ext.data.identifier {
 		*/
 		reconfigure?( config?:any ): void;
 		/** [Method] Sets the value of id  
-		* @param id Object 
+		* @param id Object The new value. 
 		*/
 		setId?( id?:any ): void;
 		/** [Method] Sets the value of version  
-		* @param version Number 
+		* @param version Number The new value. 
 		*/
 		setVersion?( version?:number ): void;
 	}
@@ -8812,6 +9028,16 @@ declare module Ext.data {
 	export interface IJsonP extends Ext.IBase {
 	}
 	export class JsonP {
+		/** [Property] (String) */
+		static callbackKey: string;
+		/** [Property] (Boolean) */
+		static disableCaching: boolean;
+		/** [Property] (String) */
+		static disableCachingParam: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static timeout: number;
 		/** [Method] Abort a request  
 		* @param request Object/String The request to abort. 
 		*/
@@ -8858,6 +9084,16 @@ declare module Ext.util {
 	export interface IJSONP extends Ext.IBase {
 	}
 	export class JSONP {
+		/** [Property] (String) */
+		static callbackKey: string;
+		/** [Property] (Boolean) */
+		static disableCaching: boolean;
+		/** [Property] (String) */
+		static disableCachingParam: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Number) */
+		static timeout: number;
 		/** [Method] Abort a request  
 		* @param request Object/String The request to abort. 
 		*/
@@ -8909,7 +9145,7 @@ declare module Ext.data {
 		*/
 		getProxy?(): any;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Object 
+		* @param proxy Object The new value. 
 		*/
 		setProxy?( proxy?:any ): void;
 	}
@@ -9216,19 +9452,19 @@ declare module Ext.data {
 		*/
 		set?( fieldName?:any, value?:any ): void;
 		/** [Method] Sets the value of associations  
-		* @param associations Object[] 
+		* @param associations Object[] The new value. 
 		*/
 		setAssociations?( associations?:any[] ): void;
 		/** [Method] Sets the value of belongsTo  
-		* @param belongsTo String/Object/String[]/Object[] 
+		* @param belongsTo String/Object/String[]/Object[] The new value. 
 		*/
 		setBelongsTo?( belongsTo?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of clientIdProperty  
-		* @param clientIdProperty String 
+		* @param clientIdProperty String The new value. 
 		*/
 		setClientIdProperty?( clientIdProperty?:string ): void;
 		/** [Method] This sets the data directly without converting and applying default values  
@@ -9249,11 +9485,11 @@ declare module Ext.data {
 		*/
 		setFields?( fields?:any[] ): any;
 		/** [Method] Sets the value of hasMany  
-		* @param hasMany String/Object/String[]/Object[] 
+		* @param hasMany String/Object/String[]/Object[] The new value. 
 		*/
 		setHasMany?( hasMany?:any ): void;
 		/** [Method] Sets the value of hasOne  
-		* @param hasOne String/Object/String[]/Object[] 
+		* @param hasOne String/Object/String[]/Object[] The new value. 
 		*/
 		setHasOne?( hasOne?:any ): void;
 		/** [Method] Sets the model instance s id field to the given id  
@@ -9261,27 +9497,27 @@ declare module Ext.data {
 		*/
 		setId?( id?:any ): void;
 		/** [Method] Sets the value of idProperty  
-		* @param idProperty String 
+		* @param idProperty String The new value. 
 		*/
 		setIdProperty?( idProperty?:string ): void;
 		/** [Method] Sets the value of identifier  
-		* @param identifier Object/String 
+		* @param identifier Object/String The new value. 
 		*/
 		setIdentifier?( identifier?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Object/Ext.data.Proxy 
+		* @param proxy Object/Ext.data.Proxy The new value. 
 		*/
 		setProxy?( proxy?:any ): void;
 		/** [Method] Sets the value of useCache  
-		* @param useCache Boolean 
+		* @param useCache Boolean The new value. 
 		*/
 		setUseCache?( useCache?:boolean ): void;
 		/** [Method] Sets the value of validations  
-		* @param validations Object[] 
+		* @param validations Object[] The new value. 
 		*/
 		setValidations?( validations?:any[] ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -9663,19 +9899,19 @@ declare module Ext.data {
 		*/
 		set?( fieldName?:any, value?:any ): void;
 		/** [Method] Sets the value of associations  
-		* @param associations Object[] 
+		* @param associations Object[] The new value. 
 		*/
 		setAssociations?( associations?:any[] ): void;
 		/** [Method] Sets the value of belongsTo  
-		* @param belongsTo String/Object/String[]/Object[] 
+		* @param belongsTo String/Object/String[]/Object[] The new value. 
 		*/
 		setBelongsTo?( belongsTo?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of clientIdProperty  
-		* @param clientIdProperty String 
+		* @param clientIdProperty String The new value. 
 		*/
 		setClientIdProperty?( clientIdProperty?:string ): void;
 		/** [Method] This sets the data directly without converting and applying default values  
@@ -9696,11 +9932,11 @@ declare module Ext.data {
 		*/
 		setFields?( fields?:any[] ): any;
 		/** [Method] Sets the value of hasMany  
-		* @param hasMany String/Object/String[]/Object[] 
+		* @param hasMany String/Object/String[]/Object[] The new value. 
 		*/
 		setHasMany?( hasMany?:any ): void;
 		/** [Method] Sets the value of hasOne  
-		* @param hasOne String/Object/String[]/Object[] 
+		* @param hasOne String/Object/String[]/Object[] The new value. 
 		*/
 		setHasOne?( hasOne?:any ): void;
 		/** [Method] Sets the model instance s id field to the given id  
@@ -9708,27 +9944,27 @@ declare module Ext.data {
 		*/
 		setId?( id?:any ): void;
 		/** [Method] Sets the value of idProperty  
-		* @param idProperty String 
+		* @param idProperty String The new value. 
 		*/
 		setIdProperty?( idProperty?:string ): void;
 		/** [Method] Sets the value of identifier  
-		* @param identifier Object/String 
+		* @param identifier Object/String The new value. 
 		*/
 		setIdentifier?( identifier?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Object/Ext.data.Proxy 
+		* @param proxy Object/Ext.data.Proxy The new value. 
 		*/
 		setProxy?( proxy?:any ): void;
 		/** [Method] Sets the value of useCache  
-		* @param useCache Boolean 
+		* @param useCache Boolean The new value. 
 		*/
 		setUseCache?( useCache?:boolean ): void;
 		/** [Method] Sets the value of validations  
-		* @param validations Object[] 
+		* @param validations Object[] The new value. 
 		*/
 		setValidations?( validations?:any[] ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -9812,6 +10048,14 @@ declare module Ext.data {
 	export interface IModelManager extends Ext.IAbstractManager {
 	}
 	export class ModelManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Object) */
+		static associationStack: any;
+		/** [Property] (Object) */
+		static defaultProxyType: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -9881,11 +10125,11 @@ declare module Ext.data {
 		*/
 		static register( item?:any ): void;
 		/** [Method] Registers a model definition  
-		* @param name Object 
+		* @param name String 
 		* @param config Object 
 		* @returns Object 
 		*/
-		static registerType( name?:any, config?:any ): any;
+		static registerType( name?:string, config?:any ): any;
 		/** [Method] Get the reference to the class from which this object was instantiated  
 		* @returns Ext.Class 
 		*/
@@ -9900,6 +10144,14 @@ declare module Ext {
 	export interface IModelMgr extends Ext.IAbstractManager {
 	}
 	export class ModelMgr {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Object) */
+		static associationStack: any;
+		/** [Property] (Object) */
+		static defaultProxyType: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -9969,11 +10221,11 @@ declare module Ext {
 		*/
 		static register( item?:any ): void;
 		/** [Method] Registers a model definition  
-		* @param name Object 
+		* @param name String 
 		* @param config Object 
 		* @returns Object 
 		*/
-		static registerType( name?:any, config?:any ): any;
+		static registerType( name?:string, config?:any ): any;
 		/** [Method] Get the reference to the class from which this object was instantiated  
 		* @returns Ext.Class 
 		*/
@@ -9988,6 +10240,14 @@ declare module Ext {
 	export interface IModelManager extends Ext.IAbstractManager {
 	}
 	export class ModelManager {
+		/** [Property] (Ext.util.HashMap) */
+		static all: Ext.util.IHashMap;
+		/** [Property] (Object) */
+		static associationStack: any;
+		/** [Property] (Object) */
+		static defaultProxyType: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -10057,11 +10317,11 @@ declare module Ext {
 		*/
 		static register( item?:any ): void;
 		/** [Method] Registers a model definition  
-		* @param name Object 
+		* @param name String 
 		* @param config Object 
 		* @returns Object 
 		*/
-		static registerType( name?:any, config?:any ): any;
+		static registerType( name?:string, config?:any ): any;
 		/** [Method] Get the reference to the class from which this object was instantiated  
 		* @returns Ext.Class 
 		*/
@@ -10570,27 +10830,27 @@ declare module Ext.data {
 		*/
 		isVisible?( node?:any ): boolean;
 		/** [Method] Sets the value of filters  
-		* @param filters Object 
+		* @param filters Object The new value. 
 		*/
 		setFilters?( filters?:any ): void;
 		/** [Method] Sets the value of folderSort  
-		* @param folderSort Boolean 
+		* @param folderSort Boolean The new value. 
 		*/
 		setFolderSort?( folderSort?:boolean ): void;
 		/** [Method] Sets the value of node  
-		* @param node Ext.data.Model 
+		* @param node Ext.data.Model The new value. 
 		*/
 		setNode?( node?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of recursive  
-		* @param recursive Boolean 
+		* @param recursive Boolean The new value. 
 		*/
 		setRecursive?( recursive?:boolean ): void;
 		/** [Method] Sets the value of rootVisible  
-		* @param rootVisible Boolean 
+		* @param rootVisible Boolean The new value. 
 		*/
 		setRootVisible?( rootVisible?:boolean ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Object 
+		* @param sorters Object The new value. 
 		*/
 		setSorters?( sorters?:any ): void;
 	}
@@ -10738,19 +10998,19 @@ declare module Ext.data {
 		*/
 		isStarted?(): boolean;
 		/** [Method] Sets the value of action  
-		* @param action String 
+		* @param action String The new value. 
 		*/
 		setAction?( action?:string ): void;
 		/** [Method] Sets the value of addRecords  
-		* @param addRecords Boolean 
+		* @param addRecords Boolean The new value. 
 		*/
 		setAddRecords?( addRecords?:boolean ): void;
 		/** [Method] Sets the value of batch  
-		* @param batch Ext.data.Batch 
+		* @param batch Ext.data.Batch The new value. 
 		*/
 		setBatch?( batch?:Ext.data.IBatch ): void;
 		/** [Method] Sets the value of callback  
-		* @param callback Function 
+		* @param callback Function The new value. 
 		*/
 		setCallback?( callback?:any ): void;
 		/** [Method] Marks the Operation as completed  */
@@ -10760,59 +11020,59 @@ declare module Ext.data {
 		*/
 		setException?( error?:any ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Ext.util.Filter[] 
+		* @param filters Ext.util.Filter[] The new value. 
 		*/
 		setFilters?( filters?:Ext.util.IFilter[] ): void;
 		/** [Method] Sets the value of grouper  
-		* @param grouper Ext.util.Grouper 
+		* @param grouper Ext.util.Grouper The new value. 
 		*/
 		setGrouper?( grouper?:Ext.util.IGrouper ): void;
 		/** [Method] Sets the value of limit  
-		* @param limit Number 
+		* @param limit Number The new value. 
 		*/
 		setLimit?( limit?:number ): void;
 		/** [Method] Sets the value of model  
-		* @param model Ext.data.Model 
+		* @param model Ext.data.Model The new value. 
 		*/
 		setModel?( model?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of node  
-		* @param node Object 
+		* @param node Object The new value. 
 		*/
 		setNode?( node?:any ): void;
 		/** [Method] Sets the value of page  
-		* @param page Object 
+		* @param page Object The new value. 
 		*/
 		setPage?( page?:any ): void;
 		/** [Method] Sets the value of params  
-		* @param params Object 
+		* @param params Object The new value. 
 		*/
 		setParams?( params?:any ): void;
 		/** [Method] Sets the value of records  
-		* @param records Array 
+		* @param records Array The new value. 
 		*/
 		setRecords?( records?:any[] ): void;
 		/** [Method] Sets the value of request  
-		* @param request Ext.data.Request 
+		* @param request Ext.data.Request The new value. 
 		*/
 		setRequest?( request?:Ext.data.IRequest ): void;
 		/** [Method] Sets the value of response  
-		* @param response Object 
+		* @param response Object The new value. 
 		*/
 		setResponse?( response?:any ): void;
 		/** [Method] Sets the value of resultSet  
-		* @param resultSet Ext.data.ResultSet 
+		* @param resultSet Ext.data.ResultSet The new value. 
 		*/
 		setResultSet?( resultSet?:Ext.data.IResultSet ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Ext.util.Sorter[] 
+		* @param sorters Ext.util.Sorter[] The new value. 
 		*/
 		setSorters?( sorters?:Ext.util.ISorter[] ): void;
 		/** [Method] Sets the value of start  
-		* @param start Number 
+		* @param start Number The new value. 
 		*/
 		setStart?( start?:number ): void;
 		/** [Method] Marks the Operation as started  */
@@ -10820,21 +11080,93 @@ declare module Ext.data {
 		/** [Method] Marks the Operation as successful  */
 		setSuccessful?(): void;
 		/** [Method] Sets the value of synchronous  
-		* @param synchronous Boolean 
+		* @param synchronous Boolean The new value. 
 		*/
 		setSynchronous?( synchronous?:boolean ): void;
 		/** [Method] Sets the value of url  
-		* @param url Object 
+		* @param url Object The new value. 
 		*/
 		setUrl?( url?:any ): void;
 		/** [Method] Sets the value of withCredentials  
-		* @param withCredentials Boolean 
+		* @param withCredentials Boolean The new value. 
 		*/
 		setWithCredentials?( withCredentials?:boolean ): void;
 		/** [Method] Returns true if the Operation has completed and was successful 
 		* @returns Boolean true if successful 
 		*/
 		wasSuccessful?(): boolean;
+	}
+}
+declare module Ext.data.plugin {
+	export interface IBuffered extends Ext.IEvented {
+		/** [Config Option] (Number) */
+		leadingBufferZone?: number;
+		/** [Config Option] (Number) */
+		purgePageCount?: number;
+		/** [Config Option] (Number) */
+		trailingBufferZone?: number;
+		/** [Method] Returns the value of bufferedCollection  
+		* @returns Object 
+		*/
+		getBufferedCollection?(): any;
+		/** [Method] Returns the value of leadingBufferZone  
+		* @returns Number 
+		*/
+		getLeadingBufferZone?(): number;
+		/** [Method] Determines the page from a record index 
+		* @param index Number The record index 
+		* @returns Number The page the record belongs to 
+		*/
+		getPageFromRecordIndex?( index?:number ): number;
+		/** [Method] Returns the value of purgePageCount  
+		* @returns Number 
+		*/
+		getPurgePageCount?(): number;
+		/** [Method] Returns the value of store  
+		* @returns Object 
+		*/
+		getStore?(): any;
+		/** [Method] Returns the value of trailingBufferZone  
+		* @returns Number 
+		*/
+		getTrailingBufferZone?(): number;
+		/** [Method] Returns the value of viewSize  
+		* @returns Number 
+		*/
+		getViewSize?(): number;
+		/** [Method] Prefetches data into the store using its configured proxy  
+		* @param options Object config object, passed into the Ext.data.Operation object before loading. See load 
+		*/
+		prefetch?( options?:any ): void;
+		/** [Method] Prefetches a page of data  
+		* @param page Number The page to prefetch 
+		* @param options Object config object, passed into the Ext.data.Operation object before loading. See load 
+		*/
+		prefetchPage?( page?:number, options?:any ): void;
+		/** [Method] Sets the value of bufferedCollection  
+		* @param bufferedCollection Object The new value. 
+		*/
+		setBufferedCollection?( bufferedCollection?:any ): void;
+		/** [Method] Sets the value of leadingBufferZone  
+		* @param leadingBufferZone Number The new value. 
+		*/
+		setLeadingBufferZone?( leadingBufferZone?:number ): void;
+		/** [Method] Sets the value of purgePageCount  
+		* @param purgePageCount Number The new value. 
+		*/
+		setPurgePageCount?( purgePageCount?:number ): void;
+		/** [Method] Sets the value of store  
+		* @param store Object The new value. 
+		*/
+		setStore?( store?:any ): void;
+		/** [Method] Sets the value of trailingBufferZone  
+		* @param trailingBufferZone Number The new value. 
+		*/
+		setTrailingBufferZone?( trailingBufferZone?:number ): void;
+		/** [Method] Sets the value of viewSize  
+		* @param viewSize Number The new value. 
+		*/
+		setViewSize?( viewSize?:number ): void;
 	}
 }
 declare module Ext.data.proxy {
@@ -10852,12 +11184,12 @@ declare module Ext.data.proxy {
 		/** [Property] (Object) */
 		actionMethods?: any;
 		/** [Method] Performs Ajax request  
-		* @param operation Object 
-		* @param callback Object 
+		* @param operation Ext.data.Operation 
+		* @param callback Function 
 		* @param scope Object 
 		* @returns Object 
 		*/
-		doRequest?( operation?:any, callback?:any, scope?:any ): any;
+		doRequest?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): any;
 		/** [Method] Returns the value of headers  
 		* @returns Object 
 		*/
@@ -10884,23 +11216,23 @@ declare module Ext.data.proxy {
 		*/
 		getWithCredentials?(): boolean;
 		/** [Method] Sets the value of headers  
-		* @param headers Object 
+		* @param headers Object The new value. 
 		*/
 		setHeaders?( headers?:any ): void;
 		/** [Method] Sets the value of password  
-		* @param password String 
+		* @param password String The new value. 
 		*/
 		setPassword?( password?:string ): void;
 		/** [Method] Sets the value of useDefaultXhrHeader  
-		* @param useDefaultXhrHeader Boolean 
+		* @param useDefaultXhrHeader Boolean The new value. 
 		*/
 		setUseDefaultXhrHeader?( useDefaultXhrHeader?:boolean ): void;
 		/** [Method] Sets the value of username  
-		* @param username String 
+		* @param username String The new value. 
 		*/
 		setUsername?( username?:string ): void;
 		/** [Method] Sets the value of withCredentials  
-		* @param withCredentials Boolean 
+		* @param withCredentials Boolean The new value. 
 		*/
 		setWithCredentials?( withCredentials?:boolean ): void;
 	}
@@ -10920,12 +11252,12 @@ declare module Ext.data {
 		/** [Property] (Object) */
 		actionMethods?: any;
 		/** [Method] Performs Ajax request  
-		* @param operation Object 
-		* @param callback Object 
+		* @param operation Ext.data.Operation 
+		* @param callback Function 
 		* @param scope Object 
 		* @returns Object 
 		*/
-		doRequest?( operation?:any, callback?:any, scope?:any ): any;
+		doRequest?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): any;
 		/** [Method] Returns the value of headers  
 		* @returns Object 
 		*/
@@ -10952,23 +11284,23 @@ declare module Ext.data {
 		*/
 		getWithCredentials?(): boolean;
 		/** [Method] Sets the value of headers  
-		* @param headers Object 
+		* @param headers Object The new value. 
 		*/
 		setHeaders?( headers?:any ): void;
 		/** [Method] Sets the value of password  
-		* @param password String 
+		* @param password String The new value. 
 		*/
 		setPassword?( password?:string ): void;
 		/** [Method] Sets the value of useDefaultXhrHeader  
-		* @param useDefaultXhrHeader Boolean 
+		* @param useDefaultXhrHeader Boolean The new value. 
 		*/
 		setUseDefaultXhrHeader?( useDefaultXhrHeader?:boolean ): void;
 		/** [Method] Sets the value of username  
-		* @param username String 
+		* @param username String The new value. 
 		*/
 		setUsername?( username?:string ): void;
 		/** [Method] Sets the value of withCredentials  
-		* @param withCredentials Boolean 
+		* @param withCredentials Boolean The new value. 
 		*/
 		setWithCredentials?( withCredentials?:boolean ): void;
 	}
@@ -10988,12 +11320,12 @@ declare module Ext.data {
 		/** [Property] (Object) */
 		actionMethods?: any;
 		/** [Method] Performs Ajax request  
-		* @param operation Object 
-		* @param callback Object 
+		* @param operation Ext.data.Operation 
+		* @param callback Function 
 		* @param scope Object 
 		* @returns Object 
 		*/
-		doRequest?( operation?:any, callback?:any, scope?:any ): any;
+		doRequest?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): any;
 		/** [Method] Returns the value of headers  
 		* @returns Object 
 		*/
@@ -11020,23 +11352,23 @@ declare module Ext.data {
 		*/
 		getWithCredentials?(): boolean;
 		/** [Method] Sets the value of headers  
-		* @param headers Object 
+		* @param headers Object The new value. 
 		*/
 		setHeaders?( headers?:any ): void;
 		/** [Method] Sets the value of password  
-		* @param password String 
+		* @param password String The new value. 
 		*/
 		setPassword?( password?:string ): void;
 		/** [Method] Sets the value of useDefaultXhrHeader  
-		* @param useDefaultXhrHeader Boolean 
+		* @param useDefaultXhrHeader Boolean The new value. 
 		*/
 		setUseDefaultXhrHeader?( useDefaultXhrHeader?:boolean ): void;
 		/** [Method] Sets the value of username  
-		* @param username String 
+		* @param username String The new value. 
 		*/
 		setUsername?( username?:string ): void;
 		/** [Method] Sets the value of withCredentials  
-		* @param withCredentials Boolean 
+		* @param withCredentials Boolean The new value. 
 		*/
 		setWithCredentials?( withCredentials?:boolean ): void;
 	}
@@ -11096,23 +11428,23 @@ declare module Ext.data.proxy {
 		*/
 		getParamsAsHash?(): boolean;
 		/** [Method] Sets the value of api  
-		* @param api Object 
+		* @param api Object The new value. 
 		*/
 		setApi?( api?:any ): void;
 		/** [Method] Sets the value of directFn  
-		* @param directFn Function/String 
+		* @param directFn Function/String The new value. 
 		*/
 		setDirectFn?( directFn?:any ): void;
 		/** [Method] Sets the value of extraParams  
-		* @param extraParams Object 
+		* @param extraParams Object The new value. 
 		*/
 		setExtraParams?( extraParams?:any ): void;
 		/** [Method] Sets the value of paramOrder  
-		* @param paramOrder String/String[] 
+		* @param paramOrder String/String[] The new value. 
 		*/
 		setParamOrder?( paramOrder?:any ): void;
 		/** [Method] Sets the value of paramsAsHash  
-		* @param paramsAsHash Boolean 
+		* @param paramsAsHash Boolean The new value. 
 		*/
 		setParamsAsHash?( paramsAsHash?:boolean ): void;
 	}
@@ -11160,23 +11492,23 @@ declare module Ext.data {
 		*/
 		getParamsAsHash?(): boolean;
 		/** [Method] Sets the value of api  
-		* @param api Object 
+		* @param api Object The new value. 
 		*/
 		setApi?( api?:any ): void;
 		/** [Method] Sets the value of directFn  
-		* @param directFn Function/String 
+		* @param directFn Function/String The new value. 
 		*/
 		setDirectFn?( directFn?:any ): void;
 		/** [Method] Sets the value of extraParams  
-		* @param extraParams Object 
+		* @param extraParams Object The new value. 
 		*/
 		setExtraParams?( extraParams?:any ): void;
 		/** [Method] Sets the value of paramOrder  
-		* @param paramOrder String/String[] 
+		* @param paramOrder String/String[] The new value. 
 		*/
 		setParamOrder?( paramOrder?:any ): void;
 		/** [Method] Sets the value of paramsAsHash  
-		* @param paramsAsHash Boolean 
+		* @param paramsAsHash Boolean The new value. 
 		*/
 		setParamsAsHash?( paramsAsHash?:boolean ): void;
 	}
@@ -11222,19 +11554,19 @@ declare module Ext.data.proxy {
 		*/
 		getRecordParam?(): string;
 		/** [Method] Sets the value of autoAppendParams  
-		* @param autoAppendParams Boolean 
+		* @param autoAppendParams Boolean The new value. 
 		*/
 		setAutoAppendParams?( autoAppendParams?:boolean ): void;
 		/** [Method] Sets the value of callbackKey  
-		* @param callbackKey String 
+		* @param callbackKey String The new value. 
 		*/
 		setCallbackKey?( callbackKey?:string ): void;
 		/** [Method] Sets the value of defaultWriterType  
-		* @param defaultWriterType String 
+		* @param defaultWriterType String The new value. 
 		*/
 		setDefaultWriterType?( defaultWriterType?:string ): void;
 		/** [Method] Sets the value of recordParam  
-		* @param recordParam String 
+		* @param recordParam String The new value. 
 		*/
 		setRecordParam?( recordParam?:string ): void;
 	}
@@ -11280,19 +11612,19 @@ declare module Ext.data {
 		*/
 		getRecordParam?(): string;
 		/** [Method] Sets the value of autoAppendParams  
-		* @param autoAppendParams Boolean 
+		* @param autoAppendParams Boolean The new value. 
 		*/
 		setAutoAppendParams?( autoAppendParams?:boolean ): void;
 		/** [Method] Sets the value of callbackKey  
-		* @param callbackKey String 
+		* @param callbackKey String The new value. 
 		*/
 		setCallbackKey?( callbackKey?:string ): void;
 		/** [Method] Sets the value of defaultWriterType  
-		* @param defaultWriterType String 
+		* @param defaultWriterType String The new value. 
 		*/
 		setDefaultWriterType?( defaultWriterType?:string ): void;
 		/** [Method] Sets the value of recordParam  
-		* @param recordParam String 
+		* @param recordParam String The new value. 
 		*/
 		setRecordParam?( recordParam?:string ): void;
 	}
@@ -11334,7 +11666,7 @@ declare module Ext.data.proxy {
 		*/
 		read?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Currently this is a hard coded method that simply commits any records and sets the operation to successful then call  
@@ -11374,7 +11706,7 @@ declare module Ext.data {
 		*/
 		read?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Currently this is a hard coded method that simply commits any records and sets the operation to successful then call  
@@ -11441,23 +11773,23 @@ declare module Ext.data.proxy {
 		*/
 		read?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of batchActions  
-		* @param batchActions Boolean 
+		* @param batchActions Boolean The new value. 
 		*/
 		setBatchActions?( batchActions?:boolean ): void;
 		/** [Method] Sets the value of batchOrder  
-		* @param batchOrder String 
+		* @param batchOrder String The new value. 
 		*/
 		setBatchOrder?( batchOrder?:string ): void;
 		/** [Method] Sets the value of model  
-		* @param model String/Ext.data.Model 
+		* @param model String/Ext.data.Model The new value. 
 		*/
 		setModel?( model?:any ): void;
 		/** [Method] Sets the value of reader  
-		* @param reader Object/String/Ext.data.reader.Reader 
+		* @param reader Object/String/Ext.data.reader.Reader The new value. 
 		*/
 		setReader?( reader?:any ): void;
 		/** [Method] Sets the value of writer  
-		* @param writer Object/String/Ext.data.writer.Writer 
+		* @param writer Object/String/Ext.data.writer.Writer The new value. 
 		*/
 		setWriter?( writer?:any ): void;
 		/** [Method] Performs the given update operation  
@@ -11524,23 +11856,23 @@ declare module Ext.data {
 		*/
 		read?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of batchActions  
-		* @param batchActions Boolean 
+		* @param batchActions Boolean The new value. 
 		*/
 		setBatchActions?( batchActions?:boolean ): void;
 		/** [Method] Sets the value of batchOrder  
-		* @param batchOrder String 
+		* @param batchOrder String The new value. 
 		*/
 		setBatchOrder?( batchOrder?:string ): void;
 		/** [Method] Sets the value of model  
-		* @param model String/Ext.data.Model 
+		* @param model String/Ext.data.Model The new value. 
 		*/
 		setModel?( model?:any ): void;
 		/** [Method] Sets the value of reader  
-		* @param reader Object/String/Ext.data.reader.Reader 
+		* @param reader Object/String/Ext.data.reader.Reader The new value. 
 		*/
 		setReader?( reader?:any ): void;
 		/** [Method] Sets the value of writer  
-		* @param writer Object/String/Ext.data.writer.Writer 
+		* @param writer Object/String/Ext.data.writer.Writer The new value. 
 		*/
 		setWriter?( writer?:any ): void;
 		/** [Method] Performs the given update operation  
@@ -11607,23 +11939,23 @@ declare module Ext.data {
 		*/
 		read?( operation?:Ext.data.IOperation, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of batchActions  
-		* @param batchActions Boolean 
+		* @param batchActions Boolean The new value. 
 		*/
 		setBatchActions?( batchActions?:boolean ): void;
 		/** [Method] Sets the value of batchOrder  
-		* @param batchOrder String 
+		* @param batchOrder String The new value. 
 		*/
 		setBatchOrder?( batchOrder?:string ): void;
 		/** [Method] Sets the value of model  
-		* @param model String/Ext.data.Model 
+		* @param model String/Ext.data.Model The new value. 
 		*/
 		setModel?( model?:any ): void;
 		/** [Method] Sets the value of reader  
-		* @param reader Object/String/Ext.data.reader.Reader 
+		* @param reader Object/String/Ext.data.reader.Reader The new value. 
 		*/
 		setReader?( reader?:any ): void;
 		/** [Method] Sets the value of writer  
-		* @param writer Object/String/Ext.data.writer.Writer 
+		* @param writer Object/String/Ext.data.writer.Writer The new value. 
 		*/
 		setWriter?( writer?:any ): void;
 		/** [Method] Performs the given update operation  
@@ -11659,19 +11991,19 @@ declare module Ext.data.proxy {
 		*/
 		getFormat?(): string;
 		/** [Method] Sets the value of actionMethods  
-		* @param actionMethods Object 
+		* @param actionMethods Object The new value. 
 		*/
 		setActionMethods?( actionMethods?:any ): void;
 		/** [Method] Sets the value of appendId  
-		* @param appendId Boolean 
+		* @param appendId Boolean The new value. 
 		*/
 		setAppendId?( appendId?:boolean ): void;
 		/** [Method] Sets the value of batchActions  
-		* @param batchActions Boolean 
+		* @param batchActions Boolean The new value. 
 		*/
 		setBatchActions?( batchActions?:boolean ): void;
 		/** [Method] Sets the value of format  
-		* @param format String 
+		* @param format String The new value. 
 		*/
 		setFormat?( format?:string ): void;
 	}
@@ -11701,19 +12033,19 @@ declare module Ext.data {
 		*/
 		getFormat?(): string;
 		/** [Method] Sets the value of actionMethods  
-		* @param actionMethods Object 
+		* @param actionMethods Object The new value. 
 		*/
 		setActionMethods?( actionMethods?:any ): void;
 		/** [Method] Sets the value of appendId  
-		* @param appendId Boolean 
+		* @param appendId Boolean The new value. 
 		*/
 		setAppendId?( appendId?:boolean ): void;
 		/** [Method] Sets the value of batchActions  
-		* @param batchActions Boolean 
+		* @param batchActions Boolean The new value. 
 		*/
 		setBatchActions?( batchActions?:boolean ): void;
 		/** [Method] Sets the value of format  
-		* @param format String 
+		* @param format String The new value. 
 		*/
 		setFormat?( format?:string ): void;
 	}
@@ -11853,19 +12185,19 @@ declare module Ext.data.proxy {
 		/** [Method] Performs the given read operation  */
 		read?(): void;
 		/** [Method] Sets the value of api  
-		* @param api Object 
+		* @param api Object The new value. 
 		*/
 		setApi?( api?:any ): void;
 		/** [Method] Sets the value of cacheString  
-		* @param cacheString String 
+		* @param cacheString String The new value. 
 		*/
 		setCacheString?( cacheString?:string ): void;
 		/** [Method] Sets the value of directionParam  
-		* @param directionParam String 
+		* @param directionParam String The new value. 
 		*/
 		setDirectionParam?( directionParam?:string ): void;
 		/** [Method] Sets the value of enablePagingParams  
-		* @param enablePagingParams Boolean 
+		* @param enablePagingParams Boolean The new value. 
 		*/
 		setEnablePagingParams?( enablePagingParams?:boolean ): void;
 		/** [Method] Sets a value in the underlying extraParams  
@@ -11874,47 +12206,47 @@ declare module Ext.data.proxy {
 		*/
 		setExtraParam?( name?:string, value?:any ): void;
 		/** [Method] Sets the value of extraParams  
-		* @param extraParams Object 
+		* @param extraParams Object The new value. 
 		*/
 		setExtraParams?( extraParams?:any ): void;
 		/** [Method] Sets the value of filterParam  
-		* @param filterParam String 
+		* @param filterParam String The new value. 
 		*/
 		setFilterParam?( filterParam?:string ): void;
 		/** [Method] Sets the value of groupParam  
-		* @param groupParam String 
+		* @param groupParam String The new value. 
 		*/
 		setGroupParam?( groupParam?:string ): void;
 		/** [Method] Sets the value of limitParam  
-		* @param limitParam String 
+		* @param limitParam String The new value. 
 		*/
 		setLimitParam?( limitParam?:string ): void;
 		/** [Method] Sets the value of noCache  
-		* @param noCache Boolean 
+		* @param noCache Boolean The new value. 
 		*/
 		setNoCache?( noCache?:boolean ): void;
 		/** [Method] Sets the value of pageParam  
-		* @param pageParam String 
+		* @param pageParam String The new value. 
 		*/
 		setPageParam?( pageParam?:string ): void;
 		/** [Method] Sets the value of simpleSortMode  
-		* @param simpleSortMode Boolean 
+		* @param simpleSortMode Boolean The new value. 
 		*/
 		setSimpleSortMode?( simpleSortMode?:boolean ): void;
 		/** [Method] Sets the value of sortParam  
-		* @param sortParam String 
+		* @param sortParam String The new value. 
 		*/
 		setSortParam?( sortParam?:string ): void;
 		/** [Method] Sets the value of startParam  
-		* @param startParam String 
+		* @param startParam String The new value. 
 		*/
 		setStartParam?( startParam?:string ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 		/** [Method] Performs the given update operation  */
@@ -12056,19 +12388,19 @@ declare module Ext.data {
 		/** [Method] Performs the given read operation  */
 		read?(): void;
 		/** [Method] Sets the value of api  
-		* @param api Object 
+		* @param api Object The new value. 
 		*/
 		setApi?( api?:any ): void;
 		/** [Method] Sets the value of cacheString  
-		* @param cacheString String 
+		* @param cacheString String The new value. 
 		*/
 		setCacheString?( cacheString?:string ): void;
 		/** [Method] Sets the value of directionParam  
-		* @param directionParam String 
+		* @param directionParam String The new value. 
 		*/
 		setDirectionParam?( directionParam?:string ): void;
 		/** [Method] Sets the value of enablePagingParams  
-		* @param enablePagingParams Boolean 
+		* @param enablePagingParams Boolean The new value. 
 		*/
 		setEnablePagingParams?( enablePagingParams?:boolean ): void;
 		/** [Method] Sets a value in the underlying extraParams  
@@ -12077,47 +12409,47 @@ declare module Ext.data {
 		*/
 		setExtraParam?( name?:string, value?:any ): void;
 		/** [Method] Sets the value of extraParams  
-		* @param extraParams Object 
+		* @param extraParams Object The new value. 
 		*/
 		setExtraParams?( extraParams?:any ): void;
 		/** [Method] Sets the value of filterParam  
-		* @param filterParam String 
+		* @param filterParam String The new value. 
 		*/
 		setFilterParam?( filterParam?:string ): void;
 		/** [Method] Sets the value of groupParam  
-		* @param groupParam String 
+		* @param groupParam String The new value. 
 		*/
 		setGroupParam?( groupParam?:string ): void;
 		/** [Method] Sets the value of limitParam  
-		* @param limitParam String 
+		* @param limitParam String The new value. 
 		*/
 		setLimitParam?( limitParam?:string ): void;
 		/** [Method] Sets the value of noCache  
-		* @param noCache Boolean 
+		* @param noCache Boolean The new value. 
 		*/
 		setNoCache?( noCache?:boolean ): void;
 		/** [Method] Sets the value of pageParam  
-		* @param pageParam String 
+		* @param pageParam String The new value. 
 		*/
 		setPageParam?( pageParam?:string ): void;
 		/** [Method] Sets the value of simpleSortMode  
-		* @param simpleSortMode Boolean 
+		* @param simpleSortMode Boolean The new value. 
 		*/
 		setSimpleSortMode?( simpleSortMode?:boolean ): void;
 		/** [Method] Sets the value of sortParam  
-		* @param sortParam String 
+		* @param sortParam String The new value. 
 		*/
 		setSortParam?( sortParam?:string ): void;
 		/** [Method] Sets the value of startParam  
-		* @param startParam String 
+		* @param startParam String The new value. 
 		*/
 		setStartParam?( startParam?:string ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 		/** [Method] Performs the given update operation  */
@@ -12186,27 +12518,27 @@ declare module Ext.data.proxy {
 		*/
 		read?( operation?:any, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of columns  
-		* @param columns String 
+		* @param columns String The new value. 
 		*/
 		setColumns?( columns?:string ): void;
 		/** [Method] Sets the value of database  
-		* @param database String 
+		* @param database String The new value. 
 		*/
 		setDatabase?( database?:string ): void;
 		/** [Method] Sets the value of defaultDateFormat  
-		* @param defaultDateFormat String 
+		* @param defaultDateFormat String The new value. 
 		*/
 		setDefaultDateFormat?( defaultDateFormat?:string ): void;
 		/** [Method] Sets the value of table  
-		* @param table String 
+		* @param table String The new value. 
 		*/
 		setTable?( table?:string ): void;
 		/** [Method] Sets the value of tableExists  
-		* @param tableExists Boolean 
+		* @param tableExists Boolean The new value. 
 		*/
 		setTableExists?( tableExists?:boolean ): void;
 		/** [Method] Sets the value of uniqueIdStrategy  
-		* @param uniqueIdStrategy Boolean 
+		* @param uniqueIdStrategy Boolean The new value. 
 		*/
 		setUniqueIdStrategy?( uniqueIdStrategy?:boolean ): void;
 		/** [Method] Performs the given update operation  
@@ -12258,15 +12590,15 @@ declare module Ext.data.proxy {
 		*/
 		read?( operation?:any, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of defaultDateFormat  
-		* @param defaultDateFormat String 
+		* @param defaultDateFormat String The new value. 
 		*/
 		setDefaultDateFormat?( defaultDateFormat?:string ): void;
 		/** [Method] Sets the value of enablePagingParams  
-		* @param enablePagingParams Boolean 
+		* @param enablePagingParams Boolean The new value. 
 		*/
 		setEnablePagingParams?( enablePagingParams?:boolean ): void;
 		/** [Method] Sets the value of id  
-		* @param id String 
+		* @param id String The new value. 
 		*/
 		setId?( id?:string ): void;
 		/** [Method] Saves the given record in the Proxy  
@@ -12323,15 +12655,15 @@ declare module Ext.data {
 		*/
 		read?( operation?:any, callback?:any, scope?:any ): void;
 		/** [Method] Sets the value of defaultDateFormat  
-		* @param defaultDateFormat String 
+		* @param defaultDateFormat String The new value. 
 		*/
 		setDefaultDateFormat?( defaultDateFormat?:string ): void;
 		/** [Method] Sets the value of enablePagingParams  
-		* @param enablePagingParams Boolean 
+		* @param enablePagingParams Boolean The new value. 
 		*/
 		setEnablePagingParams?( enablePagingParams?:boolean ): void;
 		/** [Method] Sets the value of id  
-		* @param id String 
+		* @param id String The new value. 
 		*/
 		setId?( id?:string ): void;
 		/** [Method] Saves the given record in the Proxy  
@@ -12362,11 +12694,11 @@ declare module Ext.data.reader {
 		*/
 		getTotalProperty?(): any;
 		/** [Method] Sets the value of successProperty  
-		* @param successProperty Object 
+		* @param successProperty Object The new value. 
 		*/
 		setSuccessProperty?( successProperty?:any ): void;
 		/** [Method] Sets the value of totalProperty  
-		* @param totalProperty Object 
+		* @param totalProperty Object The new value. 
 		*/
 		setTotalProperty?( totalProperty?:any ): void;
 	}
@@ -12386,11 +12718,11 @@ declare module Ext.data {
 		*/
 		getTotalProperty?(): any;
 		/** [Method] Sets the value of successProperty  
-		* @param successProperty Object 
+		* @param successProperty Object The new value. 
 		*/
 		setSuccessProperty?( successProperty?:any ): void;
 		/** [Method] Sets the value of totalProperty  
-		* @param totalProperty Object 
+		* @param totalProperty Object The new value. 
 		*/
 		setTotalProperty?( totalProperty?:any ): void;
 	}
@@ -12415,11 +12747,11 @@ declare module Ext.data.reader {
 		*/
 		getUseSimpleAccessors?(): boolean;
 		/** [Method] Sets the value of record  
-		* @param record String 
+		* @param record String The new value. 
 		*/
 		setRecord?( record?:string ): void;
 		/** [Method] Sets the value of useSimpleAccessors  
-		* @param useSimpleAccessors Boolean 
+		* @param useSimpleAccessors Boolean The new value. 
 		*/
 		setUseSimpleAccessors?( useSimpleAccessors?:boolean ): void;
 	}
@@ -12444,11 +12776,11 @@ declare module Ext.data {
 		*/
 		getUseSimpleAccessors?(): boolean;
 		/** [Method] Sets the value of record  
-		* @param record String 
+		* @param record String The new value. 
 		*/
 		setRecord?( record?:string ): void;
 		/** [Method] Sets the value of useSimpleAccessors  
-		* @param useSimpleAccessors Boolean 
+		* @param useSimpleAccessors Boolean The new value. 
 		*/
 		setUseSimpleAccessors?( useSimpleAccessors?:boolean ): void;
 	}
@@ -12668,43 +13000,43 @@ declare module Ext.data.reader {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of clientIdProperty  
-		* @param clientIdProperty String 
+		* @param clientIdProperty String The new value. 
 		*/
 		setClientIdProperty?( clientIdProperty?:string ): void;
 		/** [Method] Sets the value of idProperty  
-		* @param idProperty String 
+		* @param idProperty String The new value. 
 		*/
 		setIdProperty?( idProperty?:string ): void;
 		/** [Method] Sets the value of implicitIncludes  
-		* @param implicitIncludes Boolean 
+		* @param implicitIncludes Boolean The new value. 
 		*/
 		setImplicitIncludes?( implicitIncludes?:boolean ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of messageProperty  
-		* @param messageProperty String 
+		* @param messageProperty String The new value. 
 		*/
 		setMessageProperty?( messageProperty?:string ): void;
 		/** [Method] Sets the value of model  
-		* @param model Object 
+		* @param model Object The new value. 
 		*/
 		setModel?( model?:any ): void;
 		/** [Method] Sets the value of rootProperty  
-		* @param rootProperty String 
+		* @param rootProperty String The new value. 
 		*/
 		setRootProperty?( rootProperty?:string ): void;
 		/** [Method] Sets the value of successProperty  
-		* @param successProperty String 
+		* @param successProperty String The new value. 
 		*/
 		setSuccessProperty?( successProperty?:string ): void;
 		/** [Method] Sets the value of totalProperty  
-		* @param totalProperty String 
+		* @param totalProperty String The new value. 
 		*/
 		setTotalProperty?( totalProperty?:string ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -12948,43 +13280,43 @@ declare module Ext.data {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of clientIdProperty  
-		* @param clientIdProperty String 
+		* @param clientIdProperty String The new value. 
 		*/
 		setClientIdProperty?( clientIdProperty?:string ): void;
 		/** [Method] Sets the value of idProperty  
-		* @param idProperty String 
+		* @param idProperty String The new value. 
 		*/
 		setIdProperty?( idProperty?:string ): void;
 		/** [Method] Sets the value of implicitIncludes  
-		* @param implicitIncludes Boolean 
+		* @param implicitIncludes Boolean The new value. 
 		*/
 		setImplicitIncludes?( implicitIncludes?:boolean ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of messageProperty  
-		* @param messageProperty String 
+		* @param messageProperty String The new value. 
 		*/
 		setMessageProperty?( messageProperty?:string ): void;
 		/** [Method] Sets the value of model  
-		* @param model Object 
+		* @param model Object The new value. 
 		*/
 		setModel?( model?:any ): void;
 		/** [Method] Sets the value of rootProperty  
-		* @param rootProperty String 
+		* @param rootProperty String The new value. 
 		*/
 		setRootProperty?( rootProperty?:string ): void;
 		/** [Method] Sets the value of successProperty  
-		* @param successProperty String 
+		* @param successProperty String The new value. 
 		*/
 		setSuccessProperty?( successProperty?:string ): void;
 		/** [Method] Sets the value of totalProperty  
-		* @param totalProperty String 
+		* @param totalProperty String The new value. 
 		*/
 		setTotalProperty?( totalProperty?:string ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -13228,43 +13560,43 @@ declare module Ext.data {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of clientIdProperty  
-		* @param clientIdProperty String 
+		* @param clientIdProperty String The new value. 
 		*/
 		setClientIdProperty?( clientIdProperty?:string ): void;
 		/** [Method] Sets the value of idProperty  
-		* @param idProperty String 
+		* @param idProperty String The new value. 
 		*/
 		setIdProperty?( idProperty?:string ): void;
 		/** [Method] Sets the value of implicitIncludes  
-		* @param implicitIncludes Boolean 
+		* @param implicitIncludes Boolean The new value. 
 		*/
 		setImplicitIncludes?( implicitIncludes?:boolean ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of messageProperty  
-		* @param messageProperty String 
+		* @param messageProperty String The new value. 
 		*/
 		setMessageProperty?( messageProperty?:string ): void;
 		/** [Method] Sets the value of model  
-		* @param model Object 
+		* @param model Object The new value. 
 		*/
 		setModel?( model?:any ): void;
 		/** [Method] Sets the value of rootProperty  
-		* @param rootProperty String 
+		* @param rootProperty String The new value. 
 		*/
 		setRootProperty?( rootProperty?:string ): void;
 		/** [Method] Sets the value of successProperty  
-		* @param successProperty String 
+		* @param successProperty String The new value. 
 		*/
 		setSuccessProperty?( successProperty?:string ): void;
 		/** [Method] Sets the value of totalProperty  
-		* @param totalProperty String 
+		* @param totalProperty String The new value. 
 		*/
 		setTotalProperty?( totalProperty?:string ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -13317,7 +13649,7 @@ declare module Ext.data.reader {
 		*/
 		readRecords?( doc?:any ): Ext.data.IResultSet;
 		/** [Method] Sets the value of record  
-		* @param record String 
+		* @param record String The new value. 
 		*/
 		setRecord?( record?:string ): void;
 	}
@@ -13346,7 +13678,7 @@ declare module Ext.data {
 		*/
 		readRecords?( doc?:any ): Ext.data.IResultSet;
 		/** [Method] Sets the value of record  
-		* @param record String 
+		* @param record String The new value. 
 		*/
 		setRecord?( record?:string ): void;
 	}
@@ -13451,6 +13783,10 @@ declare module Ext.data {
 		* @returns String 
 		*/
 		getUrl?(): string;
+		/** [Method] Returns the value of useDefaultXhrHeader  
+		* @returns Object 
+		*/
+		getUseDefaultXhrHeader?(): any;
 		/** [Method] Returns the value of username  
 		* @returns String 
 		*/
@@ -13464,83 +13800,87 @@ declare module Ext.data {
 		*/
 		getXmlData?(): any;
 		/** [Method] Sets the value of action  
-		* @param action String 
+		* @param action String The new value. 
 		*/
 		setAction?( action?:string ): void;
 		/** [Method] Sets the value of args  
-		* @param args Object 
+		* @param args Object The new value. 
 		*/
 		setArgs?( args?:any ): void;
 		/** [Method] Sets the value of callback  
-		* @param callback Object 
+		* @param callback Object The new value. 
 		*/
 		setCallback?( callback?:any ): void;
 		/** [Method] Sets the value of callbackKey  
-		* @param callbackKey String 
+		* @param callbackKey String The new value. 
 		*/
 		setCallbackKey?( callbackKey?:string ): void;
 		/** [Method] Sets the value of directFn  
-		* @param directFn Object 
+		* @param directFn Object The new value. 
 		*/
 		setDirectFn?( directFn?:any ): void;
 		/** [Method] Sets the value of disableCaching  
-		* @param disableCaching Boolean 
+		* @param disableCaching Boolean The new value. 
 		*/
 		setDisableCaching?( disableCaching?:boolean ): void;
 		/** [Method] Sets the value of headers  
-		* @param headers Object 
+		* @param headers Object The new value. 
 		*/
 		setHeaders?( headers?:any ): void;
 		/** [Method] Sets the value of jsonData  
-		* @param jsonData Object 
+		* @param jsonData Object The new value. 
 		*/
 		setJsonData?( jsonData?:any ): void;
 		/** [Method] Sets the value of method  
-		* @param method String 
+		* @param method String The new value. 
 		*/
 		setMethod?( method?:string ): void;
 		/** [Method] Sets the value of operation  
-		* @param operation Ext.data.Operation 
+		* @param operation Ext.data.Operation The new value. 
 		*/
 		setOperation?( operation?:Ext.data.IOperation ): void;
 		/** [Method] Sets the value of params  
-		* @param params Object 
+		* @param params Object The new value. 
 		*/
 		setParams?( params?:any ): void;
 		/** [Method] Sets the value of password  
-		* @param password String 
+		* @param password String The new value. 
 		*/
 		setPassword?( password?:string ): void;
 		/** [Method] Sets the value of proxy  
-		* @param proxy Ext.data.proxy.Proxy 
+		* @param proxy Ext.data.proxy.Proxy The new value. 
 		*/
 		setProxy?( proxy?:Ext.data.proxy.IProxy ): void;
 		/** [Method] Sets the value of records  
-		* @param records Object 
+		* @param records Object The new value. 
 		*/
 		setRecords?( records?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
+		/** [Method] Sets the value of useDefaultXhrHeader  
+		* @param useDefaultXhrHeader Object The new value. 
+		*/
+		setUseDefaultXhrHeader?( useDefaultXhrHeader?:any ): void;
 		/** [Method] Sets the value of username  
-		* @param username String 
+		* @param username String The new value. 
 		*/
 		setUsername?( username?:string ): void;
 		/** [Method] Sets the value of withCredentials  
-		* @param withCredentials Boolean 
+		* @param withCredentials Boolean The new value. 
 		*/
 		setWithCredentials?( withCredentials?:boolean ): void;
 		/** [Method] Sets the value of xmlData  
-		* @param xmlData Object 
+		* @param xmlData Object The new value. 
 		*/
 		setXmlData?( xmlData?:any ): void;
 	}
@@ -13584,27 +13924,27 @@ declare module Ext.data {
 		*/
 		getTotal?(): number;
 		/** [Method] Sets the value of count  
-		* @param count Number 
+		* @param count Number The new value. 
 		*/
 		setCount?( count?:number ): void;
 		/** [Method] Sets the value of loaded  
-		* @param loaded Boolean 
+		* @param loaded Boolean The new value. 
 		*/
 		setLoaded?( loaded?:boolean ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		*/
 		setMessage?( message?:string ): void;
 		/** [Method] Sets the value of records  
-		* @param records Ext.data.Model[] 
+		* @param records Ext.data.Model[] The new value. 
 		*/
 		setRecords?( records?:Ext.data.IModel[] ): void;
 		/** [Method] Sets the value of success  
-		* @param success Boolean 
+		* @param success Boolean The new value. 
 		*/
 		setSuccess?( success?:boolean ): void;
 		/** [Method] Sets the value of total  
-		* @param total Number 
+		* @param total Number The new value. 
 		*/
 		setTotal?( total?:number ): void;
 	}
@@ -13613,6 +13953,10 @@ declare module Ext.data {
 	export interface ISortTypes extends Ext.IBase {
 	}
 	export class SortTypes {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (RegExp) */
+		static stripTagsRE: RegExp;
 		/** [Method] Date sorting  
 		* @param value Object The value being converted. 
 		* @returns Number The comparison value. 
@@ -13688,13 +14032,15 @@ declare module Ext.data {
 		/** [Config Option] (Boolean) */
 		autoSync?: boolean;
 		/** [Config Option] (Boolean) */
+		buffered?: boolean;
+		/** [Config Option] (Boolean) */
 		clearOnPageLoad?: boolean;
 		/** [Config Option] (Object[]/Ext.data.Model[]) */
 		data?: any;
 		/** [Config Option] (Boolean) */
 		destroyRemovedRecords?: boolean;
-		/** [Config Option] (Object[]) */
-		fields?: any[];
+		/** [Config Option] (Object[]/Ext.util.Collection) */
+		fields?: any;
 		/** [Config Option] (Object[]) */
 		filters?: any[];
 		/** [Config Option] (Function) */
@@ -13709,6 +14055,10 @@ declare module Ext.data {
 		model?: string;
 		/** [Config Option] (Number) */
 		pageSize?: number;
+		/** [Config Option] (Object) */
+		params?: any;
+		/** [Config Option] (Object/Array) */
+		plugins?: any;
 		/** [Config Option] (String/Ext.data.proxy.Proxy/Object) */
 		proxy?: any;
 		/** [Config Option] (Boolean) */
@@ -13732,8 +14082,12 @@ declare module Ext.data {
 		* @returns Ext.data.Model[] The model instances that were added. 
 		*/
 		add?( model?:any ): Ext.data.IModel[];
+		/** [Method] Uses the configured reader to convert the data into records and adds it to the Store  
+		* @param data Object[] Array of data to load 
+		*/
+		addData?( data?:any[] ): void;
 		/** [Method] We are using applyData so that we can return nothing and prevent the this data property to be overridden  
-		* @param data Object 
+		* @param data Array/Object 
 		*/
 		applyData?( data?:any ): void;
 		/** [Method] Gets the average value in the store  
@@ -13819,6 +14173,10 @@ declare module Ext.data {
 		* @returns Boolean 
 		*/
 		getAutoSync?(): boolean;
+		/** [Method] Returns the value of buffered  
+		* @returns Boolean 
+		*/
+		getBuffered?(): boolean;
 		/** [Method] Get the Record with the specified id  
 		* @param id String The id of the Record to find. 
 		* @returns Ext.data.Model/undefined The Record with the passed id. Returns undefined if not found. 
@@ -13841,9 +14199,9 @@ declare module Ext.data {
 		*/
 		getDestroyRemovedRecords?(): boolean;
 		/** [Method] Returns the value of fields  
-		* @returns Object[] 
+		* @returns Object[]/Ext.util.Collection 
 		*/
-		getFields?(): any[];
+		getFields?(): any;
 		/** [Method] Returns the value of getGroupString  
 		* @returns Function 
 		*/
@@ -13881,6 +14239,14 @@ declare module Ext.data {
 		* @returns Number 
 		*/
 		getPageSize?(): number;
+		/** [Method] Returns the value of params  
+		* @returns Object 
+		*/
+		getParams?(): any;
+		/** [Method] Returns the value of plugins  
+		* @returns Object/Array 
+		*/
+		getPlugins?(): any;
 		/** [Method] Returns the value of proxy  
 		* @returns String/Ext.data.proxy.Proxy/Object 
 		*/
@@ -14026,91 +14392,104 @@ declare module Ext.data {
 		*/
 		removeAt?( index?:number ): void;
 		/** [Method] Sets the value of autoLoad  
-		* @param autoLoad Boolean/Object 
+		* @param autoLoad Boolean/Object The new value. 
 		*/
 		setAutoLoad?( autoLoad?:any ): void;
 		/** [Method] Sets the value of autoSync  
-		* @param autoSync Boolean 
+		* @param autoSync Boolean The new value. 
 		*/
 		setAutoSync?( autoSync?:boolean ): void;
+		/** [Method] Sets the value of buffered  
+		* @param buffered Boolean The new value. 
+		*/
+		setBuffered?( buffered?:boolean ): void;
 		/** [Method] Sets the value of clearOnPageLoad  
-		* @param clearOnPageLoad Boolean 
+		* @param clearOnPageLoad Boolean The new value. 
 		*/
 		setClearOnPageLoad?( clearOnPageLoad?:boolean ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object[]/Ext.data.Model[] 
+		* @param data Object[]/Ext.data.Model[] The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Sets the value of destroyRemovedRecords  
-		* @param destroyRemovedRecords Boolean 
+		* @param destroyRemovedRecords Boolean The new value. 
 		*/
 		setDestroyRemovedRecords?( destroyRemovedRecords?:boolean ): void;
 		/** [Method] Sets the value of fields  
-		* @param fields Object[] 
+		* @param fields Object[]/Ext.util.Collection The new value. 
+		* @returns Object Ext.util.Collection 
 		*/
-		setFields?( fields?:any[] ): void;
+		setFields?( fields?:any ): any;
 		/** [Method] Sets the value of filters  
-		* @param filters Object[] 
+		* @param filters Object[] The new value. 
 		*/
 		setFilters?( filters?:any[] ): void;
 		/** [Method] Sets the value of getGroupString  
-		* @param getGroupString Function 
+		* @param getGroupString Function The new value. 
 		*/
 		setGetGroupString?( getGroupString?:any ): void;
 		/** [Method] Sets the value of groupDir  
-		* @param groupDir String 
+		* @param groupDir String The new value. 
 		*/
 		setGroupDir?( groupDir?:string ): void;
 		/** [Method] Sets the value of groupField  
-		* @param groupField String 
+		* @param groupField String The new value. 
 		*/
 		setGroupField?( groupField?:string ): void;
 		/** [Method] Sets the value of grouper  
-		* @param grouper Object 
+		* @param grouper Object The new value. 
 		*/
 		setGrouper?( grouper?:any ): void;
 		/** [Method] Sets the value of model  
-		* @param model String 
+		* @param model String The new value. 
 		*/
 		setModel?( model?:string ): void;
 		/** [Method] Sets the value of modelDefaults  
-		* @param modelDefaults Object 
+		* @param modelDefaults Object The new value. 
 		*/
 		setModelDefaults?( modelDefaults?:any ): void;
 		/** [Method] Sets the value of pageSize  
-		* @param pageSize Number 
+		* @param pageSize Number The new value. 
 		*/
 		setPageSize?( pageSize?:number ): void;
+		/** [Method] Sets the value of params  
+		* @param params Object The new value. 
+		*/
+		setParams?( params?:any ): void;
+		/** [Method] Sets the value of plugins  
+		* @param plugins Object/Array The new value. 
+		*/
+		setPlugins?( plugins?:any ): void;
 		/** [Method] Sets the value of proxy  
-		* @param proxy String/Ext.data.proxy.Proxy/Object 
+		* @param proxy String/Ext.data.proxy.Proxy/Object The new value. 
 		*/
 		setProxy?( proxy?:any ): void;
 		/** [Method] Sets the value of remoteFilter  
-		* @param remoteFilter Boolean 
+		* @param remoteFilter Boolean The new value. 
 		*/
 		setRemoteFilter?( remoteFilter?:boolean ): void;
 		/** [Method] Sets the value of remoteGroup  
-		* @param remoteGroup Boolean 
+		* @param remoteGroup Boolean The new value. 
 		*/
 		setRemoteGroup?( remoteGroup?:boolean ): void;
 		/** [Method] Sets the value of remoteSort  
-		* @param remoteSort Boolean 
+		* @param remoteSort Boolean The new value. 
 		*/
 		setRemoteSort?( remoteSort?:boolean ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Object[] 
+		* @param sorters Object[] The new value. 
 		*/
 		setSorters?( sorters?:any[] ): void;
 		/** [Method] Sets the value of storeId  
-		* @param storeId String 
+		* @param storeId String The new value. 
 		*/
 		setStoreId?( storeId?:string ): void;
 		/** [Method] Sets the value of syncRemovedRecords  
-		* @param syncRemovedRecords Boolean 
+		* @param syncRemovedRecords Boolean The new value. 
 		*/
 		setSyncRemovedRecords?( syncRemovedRecords?:boolean ): void;
 		/** [Method] Sets the value of totalCount  
-		* @param totalCount Number 
+		* @param totalCount Number The new value. 
 		*/
 		setTotalCount?( totalCount?:number ): void;
 		/** [Method] Sorts the data in the Store by one or more of its properties  
@@ -14125,15 +14504,40 @@ declare module Ext.data {
 		*/
 		sum?( field?:string ): number;
 		/** [Method] Synchronizes the Store with its Proxy  
+		* @param options Object 
 		* @returns Object 
 		*/
-		sync?(): any;
+		sync?( options?:any ): any;
 	}
 }
 declare module Ext.data {
 	export interface IStoreManager extends Ext.util.ICollection {
 	}
 	export class StoreManager {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -14362,7 +14766,7 @@ declare module Ext.data {
 		* @returns Object the last item in the collection. 
 		*/
 		static last(): any;
-		/** [Method] Gets a registered Store by id  
+		/** [Method] Gets a registered Store by its id returns a passed store instance or returns a new instance of a store created with  
 		* @param store String/Object The id of the Store, or a Store instance, or a store configuration. 
 		* @returns Ext.data.Store 
 		*/
@@ -14412,31 +14816,31 @@ declare module Ext.data {
 		*/
 		static replace( oldKey?:string, item?:any ): any;
 		/** [Method] Sets the value of autoFilter  
-		* @param autoFilter Boolean 
+		* @param autoFilter Boolean The new value. 
 		*/
 		static setAutoFilter( autoFilter?:boolean ): void;
 		/** [Method] Sets the value of autoSort  
-		* @param autoSort Boolean 
+		* @param autoSort Boolean The new value. 
 		*/
 		static setAutoSort( autoSort?:boolean ): void;
 		/** [Method] Sets the value of defaultSortDirection  
-		* @param defaultSortDirection String 
+		* @param defaultSortDirection String The new value. 
 		*/
 		static setDefaultSortDirection( defaultSortDirection?:string ): void;
 		/** [Method] Sets the value of filterRoot  
-		* @param filterRoot String 
+		* @param filterRoot String The new value. 
 		*/
 		static setFilterRoot( filterRoot?:string ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Array 
+		* @param filters Array The new value. 
 		*/
 		static setFilters( filters?:any[] ): void;
 		/** [Method] Sets the value of sortRoot  
-		* @param sortRoot String 
+		* @param sortRoot String The new value. 
 		*/
 		static setSortRoot( sortRoot?:string ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Array 
+		* @param sorters Array The new value. 
 		*/
 		static setSorters( sorters?:any[] ): void;
 		/** [Method] This method will sort an array based on the currently configured sorters  
@@ -14459,6 +14863,30 @@ declare module Ext {
 	export interface IStoreMgr extends Ext.util.ICollection {
 	}
 	export class StoreMgr {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -14687,7 +15115,7 @@ declare module Ext {
 		* @returns Object the last item in the collection. 
 		*/
 		static last(): any;
-		/** [Method] Gets a registered Store by id  
+		/** [Method] Gets a registered Store by its id returns a passed store instance or returns a new instance of a store created with  
 		* @param store String/Object The id of the Store, or a Store instance, or a store configuration. 
 		* @returns Ext.data.Store 
 		*/
@@ -14737,31 +15165,31 @@ declare module Ext {
 		*/
 		static replace( oldKey?:string, item?:any ): any;
 		/** [Method] Sets the value of autoFilter  
-		* @param autoFilter Boolean 
+		* @param autoFilter Boolean The new value. 
 		*/
 		static setAutoFilter( autoFilter?:boolean ): void;
 		/** [Method] Sets the value of autoSort  
-		* @param autoSort Boolean 
+		* @param autoSort Boolean The new value. 
 		*/
 		static setAutoSort( autoSort?:boolean ): void;
 		/** [Method] Sets the value of defaultSortDirection  
-		* @param defaultSortDirection String 
+		* @param defaultSortDirection String The new value. 
 		*/
 		static setDefaultSortDirection( defaultSortDirection?:string ): void;
 		/** [Method] Sets the value of filterRoot  
-		* @param filterRoot String 
+		* @param filterRoot String The new value. 
 		*/
 		static setFilterRoot( filterRoot?:string ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Array 
+		* @param filters Array The new value. 
 		*/
 		static setFilters( filters?:any[] ): void;
 		/** [Method] Sets the value of sortRoot  
-		* @param sortRoot String 
+		* @param sortRoot String The new value. 
 		*/
 		static setSortRoot( sortRoot?:string ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Array 
+		* @param sorters Array The new value. 
 		*/
 		static setSorters( sorters?:any[] ): void;
 		/** [Method] This method will sort an array based on the currently configured sorters  
@@ -14784,6 +15212,30 @@ declare module Ext.data {
 	export interface IStoreMgr extends Ext.util.ICollection {
 	}
 	export class StoreMgr {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -15012,7 +15464,7 @@ declare module Ext.data {
 		* @returns Object the last item in the collection. 
 		*/
 		static last(): any;
-		/** [Method] Gets a registered Store by id  
+		/** [Method] Gets a registered Store by its id returns a passed store instance or returns a new instance of a store created with  
 		* @param store String/Object The id of the Store, or a Store instance, or a store configuration. 
 		* @returns Ext.data.Store 
 		*/
@@ -15062,31 +15514,31 @@ declare module Ext.data {
 		*/
 		static replace( oldKey?:string, item?:any ): any;
 		/** [Method] Sets the value of autoFilter  
-		* @param autoFilter Boolean 
+		* @param autoFilter Boolean The new value. 
 		*/
 		static setAutoFilter( autoFilter?:boolean ): void;
 		/** [Method] Sets the value of autoSort  
-		* @param autoSort Boolean 
+		* @param autoSort Boolean The new value. 
 		*/
 		static setAutoSort( autoSort?:boolean ): void;
 		/** [Method] Sets the value of defaultSortDirection  
-		* @param defaultSortDirection String 
+		* @param defaultSortDirection String The new value. 
 		*/
 		static setDefaultSortDirection( defaultSortDirection?:string ): void;
 		/** [Method] Sets the value of filterRoot  
-		* @param filterRoot String 
+		* @param filterRoot String The new value. 
 		*/
 		static setFilterRoot( filterRoot?:string ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Array 
+		* @param filters Array The new value. 
 		*/
 		static setFilters( filters?:any[] ): void;
 		/** [Method] Sets the value of sortRoot  
-		* @param sortRoot String 
+		* @param sortRoot String The new value. 
 		*/
 		static setSortRoot( sortRoot?:string ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Array 
+		* @param sorters Array The new value. 
 		*/
 		static setSorters( sorters?:any[] ): void;
 		/** [Method] This method will sort an array based on the currently configured sorters  
@@ -15109,6 +15561,30 @@ declare module Ext {
 	export interface IStoreManager extends Ext.util.ICollection {
 	}
 	export class StoreManager {
+		/** [Property] (Array) */
+		static all: any[];
+		/** [Property] (Object) */
+		static currentSortFn: any;
+		/** [Property] (Boolean) */
+		static dirtyFilterFn: boolean;
+		/** [Property] (Boolean) */
+		static dirtySortFn: boolean;
+		/** [Property] (Boolean) */
+		static filtered: boolean;
+		/** [Property] (Object) */
+		static indices: any;
+		/** [Property] (Array) */
+		static items: any[];
+		/** [Property] (Array) */
+		static keys: any[];
+		/** [Property] (Number) */
+		static length: number;
+		/** [Property] (Object) */
+		static map: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Boolean) */
+		static sorted: boolean;
 		/** [Method] Adds an item to the collection  
 		* @param key String The key to associate with the item, or the new item. If a getKey implementation was specified for this MixedCollection, or if the key of the stored items is in a property called id, the MixedCollection will be able to derive the key for the new item. In this case just pass the new item in this parameter. 
 		* @param item Object The item to add. 
@@ -15337,7 +15813,7 @@ declare module Ext {
 		* @returns Object the last item in the collection. 
 		*/
 		static last(): any;
-		/** [Method] Gets a registered Store by id  
+		/** [Method] Gets a registered Store by its id returns a passed store instance or returns a new instance of a store created with  
 		* @param store String/Object The id of the Store, or a Store instance, or a store configuration. 
 		* @returns Ext.data.Store 
 		*/
@@ -15387,31 +15863,31 @@ declare module Ext {
 		*/
 		static replace( oldKey?:string, item?:any ): any;
 		/** [Method] Sets the value of autoFilter  
-		* @param autoFilter Boolean 
+		* @param autoFilter Boolean The new value. 
 		*/
 		static setAutoFilter( autoFilter?:boolean ): void;
 		/** [Method] Sets the value of autoSort  
-		* @param autoSort Boolean 
+		* @param autoSort Boolean The new value. 
 		*/
 		static setAutoSort( autoSort?:boolean ): void;
 		/** [Method] Sets the value of defaultSortDirection  
-		* @param defaultSortDirection String 
+		* @param defaultSortDirection String The new value. 
 		*/
 		static setDefaultSortDirection( defaultSortDirection?:string ): void;
 		/** [Method] Sets the value of filterRoot  
-		* @param filterRoot String 
+		* @param filterRoot String The new value. 
 		*/
 		static setFilterRoot( filterRoot?:string ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Array 
+		* @param filters Array The new value. 
 		*/
 		static setFilters( filters?:any[] ): void;
 		/** [Method] Sets the value of sortRoot  
-		* @param sortRoot String 
+		* @param sortRoot String The new value. 
 		*/
 		static setSortRoot( sortRoot?:string ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Array 
+		* @param sorters Array The new value. 
 		*/
 		static setSorters( sorters?:any[] ): void;
 		/** [Method] This method will sort an array based on the currently configured sorters  
@@ -15442,6 +15918,11 @@ declare module Ext.data {
 		nodeParam?: string;
 		/** [Config Option] (Ext.data.Model/Ext.data.NodeInterface/Object) */
 		root?: any;
+		/** [Method] Get the Record with the specified id  
+		* @param id Object 
+		* @returns Ext.data.Model/undefined The Record with the passed id. Returns undefined if not found. 
+		*/
+		getById?( id?:any ): any;
 		/** [Method] Returns the value of clearOnLoad  
 		* @returns Boolean 
 		*/
@@ -15486,23 +15967,23 @@ declare module Ext.data {
 		*/
 		removeAll?( silent?:boolean ): void;
 		/** [Method] Sets the value of clearOnLoad  
-		* @param clearOnLoad Boolean 
+		* @param clearOnLoad Boolean The new value. 
 		*/
 		setClearOnLoad?( clearOnLoad?:boolean ): void;
 		/** [Method] Sets the value of defaultRootId  
-		* @param defaultRootId String 
+		* @param defaultRootId String The new value. 
 		*/
 		setDefaultRootId?( defaultRootId?:string ): void;
 		/** [Method] Sets the value of defaultRootProperty  
-		* @param defaultRootProperty String 
+		* @param defaultRootProperty String The new value. 
 		*/
 		setDefaultRootProperty?( defaultRootProperty?:string ): void;
 		/** [Method] Sets the value of nodeParam  
-		* @param nodeParam String 
+		* @param nodeParam String The new value. 
 		*/
 		setNodeParam?( nodeParam?:string ): void;
 		/** [Method] Sets the value of root  
-		* @param root Ext.data.Model/Ext.data.NodeInterface/Object 
+		* @param root Ext.data.Model/Ext.data.NodeInterface/Object The new value. 
 		*/
 		setRoot?( root?:any ): void;
 		/** [Method] Sets the root node for this tree  
@@ -15516,6 +15997,28 @@ declare module Ext.data {
 	export interface ITypes extends Ext.IBase {
 	}
 	export class Types {
+		/** [Property] (Object) */
+		static AUTO: any;
+		/** [Property] (Object) */
+		static BOOL: any;
+		/** [Property] (Object) */
+		static BOOLEAN: any;
+		/** [Property] (Object) */
+		static DATE: any;
+		/** [Property] (Object) */
+		static FLOAT: any;
+		/** [Property] (Object) */
+		static INT: any;
+		/** [Property] (Object) */
+		static INTEGER: any;
+		/** [Property] (Object) */
+		static NUMBER: any;
+		/** [Property] (Object) */
+		static STRING: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (RegExp) */
+		static stripRe: RegExp;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -15553,6 +16056,22 @@ declare module Ext.data {
 	export interface IValidations extends Ext.IBase {
 	}
 	export class Validations {
+		/** [Property] (String) */
+		static emailMessage: string;
+		/** [Property] (RegExp) */
+		static emailRe: RegExp;
+		/** [Property] (String) */
+		static exclusionMessage: string;
+		/** [Property] (String) */
+		static formatMessage: string;
+		/** [Property] (String) */
+		static inclusionMessage: string;
+		/** [Property] (String) */
+		static lengthMessage: string;
+		/** [Property] (String) */
+		static presenceMessage: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -15654,19 +16173,19 @@ declare module Ext.data.writer {
 		*/
 		getRootProperty?(): string;
 		/** [Method] Sets the value of allowSingle  
-		* @param allowSingle Boolean 
+		* @param allowSingle Boolean The new value. 
 		*/
 		setAllowSingle?( allowSingle?:boolean ): void;
 		/** [Method] Sets the value of encode  
-		* @param encode Boolean 
+		* @param encode Boolean The new value. 
 		*/
 		setEncode?( encode?:boolean ): void;
 		/** [Method] Sets the value of encodeRequest  
-		* @param encodeRequest Boolean 
+		* @param encodeRequest Boolean The new value. 
 		*/
 		setEncodeRequest?( encodeRequest?:boolean ): void;
 		/** [Method] Sets the value of rootProperty  
-		* @param rootProperty String 
+		* @param rootProperty String The new value. 
 		*/
 		setRootProperty?( rootProperty?:string ): void;
 	}
@@ -15698,19 +16217,19 @@ declare module Ext.data {
 		*/
 		getRootProperty?(): string;
 		/** [Method] Sets the value of allowSingle  
-		* @param allowSingle Boolean 
+		* @param allowSingle Boolean The new value. 
 		*/
 		setAllowSingle?( allowSingle?:boolean ): void;
 		/** [Method] Sets the value of encode  
-		* @param encode Boolean 
+		* @param encode Boolean The new value. 
 		*/
 		setEncode?( encode?:boolean ): void;
 		/** [Method] Sets the value of encodeRequest  
-		* @param encodeRequest Boolean 
+		* @param encodeRequest Boolean The new value. 
 		*/
 		setEncodeRequest?( encodeRequest?:boolean ): void;
 		/** [Method] Sets the value of rootProperty  
-		* @param rootProperty String 
+		* @param rootProperty String The new value. 
 		*/
 		setRootProperty?( rootProperty?:string ): void;
 	}
@@ -15735,11 +16254,11 @@ declare module Ext.data.writer {
 		*/
 		getWriteAllFields?(): boolean;
 		/** [Method] Sets the value of nameProperty  
-		* @param nameProperty String 
+		* @param nameProperty String The new value. 
 		*/
 		setNameProperty?( nameProperty?:string ): void;
 		/** [Method] Sets the value of writeAllFields  
-		* @param writeAllFields Boolean 
+		* @param writeAllFields Boolean The new value. 
 		*/
 		setWriteAllFields?( writeAllFields?:boolean ): void;
 		/** [Method] Prepares a Proxy s Ext data Request object  
@@ -15769,11 +16288,11 @@ declare module Ext.data {
 		*/
 		getWriteAllFields?(): boolean;
 		/** [Method] Sets the value of nameProperty  
-		* @param nameProperty String 
+		* @param nameProperty String The new value. 
 		*/
 		setNameProperty?( nameProperty?:string ): void;
 		/** [Method] Sets the value of writeAllFields  
-		* @param writeAllFields Boolean 
+		* @param writeAllFields Boolean The new value. 
 		*/
 		setWriteAllFields?( writeAllFields?:boolean ): void;
 		/** [Method] Prepares a Proxy s Ext data Request object  
@@ -15803,11 +16322,11 @@ declare module Ext.data {
 		*/
 		getWriteAllFields?(): boolean;
 		/** [Method] Sets the value of nameProperty  
-		* @param nameProperty String 
+		* @param nameProperty String The new value. 
 		*/
 		setNameProperty?( nameProperty?:string ): void;
 		/** [Method] Sets the value of writeAllFields  
-		* @param writeAllFields Boolean 
+		* @param writeAllFields Boolean The new value. 
 		*/
 		setWriteAllFields?( writeAllFields?:boolean ): void;
 		/** [Method] Prepares a Proxy s Ext data Request object  
@@ -15844,27 +16363,27 @@ declare module Ext.data.writer {
 		*/
 		getRecord?(): string;
 		/** [Method] Sets the value of defaultDocumentRoot  
-		* @param defaultDocumentRoot String 
+		* @param defaultDocumentRoot String The new value. 
 		*/
 		setDefaultDocumentRoot?( defaultDocumentRoot?:string ): void;
 		/** [Method] Sets the value of documentRoot  
-		* @param documentRoot String 
+		* @param documentRoot String The new value. 
 		*/
 		setDocumentRoot?( documentRoot?:string ): void;
 		/** [Method] Sets the value of header  
-		* @param header String 
+		* @param header String The new value. 
 		*/
 		setHeader?( header?:string ): void;
 		/** [Method] Sets the value of record  
-		* @param record String 
+		* @param record String The new value. 
 		*/
 		setRecord?( record?:string ): void;
 		/** [Method]  
 		* @param request Object 
-		* @param data Object 
+		* @param data Array 
 		* @returns Object 
 		*/
-		writeRecords?( request?:any, data?:any ): any;
+		writeRecords?( request?:any, data?:any[] ): any;
 	}
 }
 declare module Ext.data {
@@ -15894,27 +16413,27 @@ declare module Ext.data {
 		*/
 		getRecord?(): string;
 		/** [Method] Sets the value of defaultDocumentRoot  
-		* @param defaultDocumentRoot String 
+		* @param defaultDocumentRoot String The new value. 
 		*/
 		setDefaultDocumentRoot?( defaultDocumentRoot?:string ): void;
 		/** [Method] Sets the value of documentRoot  
-		* @param documentRoot String 
+		* @param documentRoot String The new value. 
 		*/
 		setDocumentRoot?( documentRoot?:string ): void;
 		/** [Method] Sets the value of header  
-		* @param header String 
+		* @param header String The new value. 
 		*/
 		setHeader?( header?:string ): void;
 		/** [Method] Sets the value of record  
-		* @param record String 
+		* @param record String The new value. 
 		*/
 		setRecord?( record?:string ): void;
 		/** [Method]  
 		* @param request Object 
-		* @param data Object 
+		* @param data Array 
 		* @returns Object 
 		*/
-		writeRecords?( request?:any, data?:any ): any;
+		writeRecords?( request?:any, data?:any[] ): any;
 	}
 }
 declare module Ext.dataview.component {
@@ -15964,31 +16483,31 @@ declare module Ext.dataview.component {
 		*/
 		getRecord?(): Ext.data.IModel;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of dataMap  
-		* @param dataMap Object 
+		* @param dataMap Object The new value. 
 		*/
 		setDataMap?( dataMap?:any ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of itemCls  
-		* @param itemCls String 
+		* @param itemCls String The new value. 
 		*/
 		setItemCls?( itemCls?:string ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array 
+		* @param items Array The new value. 
 		*/
 		setItems?( items?:any[] ): void;
 		/** [Method] Sets the value of record  
-		* @param record Ext.data.Model 
+		* @param record Ext.data.Model The new value. 
 		*/
 		setRecord?( record?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of width  
-		* @param width String 
+		* @param width String The new value. 
 		*/
 		setWidth?( width?:string ): void;
 	}
@@ -16001,7 +16520,7 @@ declare module Ext.dataview.component {
 		dataMap?: any;
 		/** [Config Option] (Array/Object) */
 		items?: any;
-		/** [Config Option] (String/String[]/Ext.Template[]/Ext.XTemplate[]) */
+		/** [Config Option] (String/String[]/Ext.Template/Ext.XTemplate[]) */
 		tpl?: any;
 		/** [Method]  */
 		destroy?(): void;
@@ -16026,31 +16545,31 @@ declare module Ext.dataview.component {
 		*/
 		getHeader?(): any;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of body  
-		* @param body Object 
+		* @param body Object The new value. 
 		*/
 		setBody?( body?:any ): void;
 		/** [Method] Sets the value of dataMap  
-		* @param dataMap Object 
+		* @param dataMap Object The new value. 
 		*/
 		setDataMap?( dataMap?:any ): void;
 		/** [Method] Sets the value of disclosure  
-		* @param disclosure Object 
+		* @param disclosure Object The new value. 
 		*/
 		setDisclosure?( disclosure?:any ): void;
 		/** [Method] Sets the value of header  
-		* @param header Object 
+		* @param header Object The new value. 
 		*/
 		setHeader?( header?:any ): void;
 		/** [Method] Sets the value of items  
-		* @param items Object 
+		* @param items Object The new value. 
 		*/
 		setItems?( items?:any ): void;
 		/** [Method] Sets the value of tpl  
-		* @param tpl Object 
+		* @param tpl Object The new value. 
 		*/
 		setTpl?( tpl?:any ): void;
 	}
@@ -16082,19 +16601,19 @@ declare module Ext.dataview.component {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of disclosure  
-		* @param disclosure Object 
+		* @param disclosure Object The new value. 
 		*/
 		setDisclosure?( disclosure?:any ): void;
 		/** [Method] Sets the value of header  
-		* @param header Object 
+		* @param header Object The new value. 
 		*/
 		setHeader?( header?:any ): void;
 		/** [Method] Sets the value of record  
-		* @param record Ext.data.Model 
+		* @param record Ext.data.Model The new value. 
 		*/
 		setRecord?( record?:Ext.data.IModel ): void;
 	}
@@ -16125,8 +16644,8 @@ declare module Ext.dataview {
 		itemSelector?: boolean;
 		/** [Config Option] (String/String[]/Ext.XTemplate) */
 		itemTpl?: any;
-		/** [Config Option] (String) */
-		loadingText?: string;
+		/** [Config Option] (String/Boolean) */
+		loadingText?: any;
 		/** [Config Option] (Number) */
 		maxItemCache?: number;
 		/** [Config Option] (Boolean) */
@@ -16258,9 +16777,9 @@ declare module Ext.dataview {
 		*/
 		getLastSelected?(): any[];
 		/** [Method] Returns the value of loadingText  
-		* @returns String 
+		* @returns String/Boolean 
 		*/
-		getLoadingText?(): string;
+		getLoadingText?(): any;
 		/** [Method] Returns the value of maxItemCache  
 		* @returns Number 
 		*/
@@ -16378,101 +16897,97 @@ declare module Ext.dataview {
 		*/
 		selectRange?( startRecord?:number, endRecord?:number, keepExisting?:boolean ): void;
 		/** [Method] Sets the value of allowDeselect  
-		* @param allowDeselect Boolean 
+		* @param allowDeselect Boolean The new value. 
 		*/
 		setAllowDeselect?( allowDeselect?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object[] 
+		* @param data Object[] The new value. 
 		*/
 		setData?( data?:any[] ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of deferEmptyText  
-		* @param deferEmptyText Boolean 
+		* @param deferEmptyText Boolean The new value. 
 		*/
 		setDeferEmptyText?( deferEmptyText?:boolean ): void;
 		/** [Method] Sets the value of deselectOnContainerClick  
-		* @param deselectOnContainerClick Boolean 
+		* @param deselectOnContainerClick Boolean The new value. 
 		*/
 		setDeselectOnContainerClick?( deselectOnContainerClick?:boolean ): void;
 		/** [Method] Sets the value of disableSelection  
-		* @param disableSelection Boolean 
+		* @param disableSelection Boolean The new value. 
 		*/
 		setDisableSelection?( disableSelection?:boolean ): void;
 		/** [Method] Sets the value of emptyText  
-		* @param emptyText String 
+		* @param emptyText String The new value. 
 		*/
 		setEmptyText?( emptyText?:string ): void;
 		/** [Method] Sets the value of inline  
-		* @param inline Boolean/Object 
+		* @param inline Boolean/Object The new value. 
 		*/
 		setInline?( inline?:any ): void;
 		/** [Method] Sets the value of itemCls  
-		* @param itemCls String 
+		* @param itemCls String The new value. 
 		*/
 		setItemCls?( itemCls?:string ): void;
 		/** [Method] Sets the value of itemConfig  
-		* @param itemConfig Object 
+		* @param itemConfig Object The new value. 
 		*/
 		setItemConfig?( itemConfig?:any ): void;
 		/** [Method] Sets the value of itemTpl  
-		* @param itemTpl String/String[]/Ext.XTemplate 
+		* @param itemTpl String/String[]/Ext.XTemplate The new value. 
 		*/
 		setItemTpl?( itemTpl?:any ): void;
 		/** [Method] This was an internal function accidentally exposed in 1 x and now deprecated  */
 		setLastFocused?(): void;
 		/** [Method] Sets the value of loadingText  
-		* @param loadingText String 
+		* @param loadingText String/Boolean The new value. 
 		*/
-		setLoadingText?( loadingText?:string ): void;
+		setLoadingText?( loadingText?:any ): void;
 		/** [Method] Sets the value of maxItemCache  
-		* @param maxItemCache Number 
+		* @param maxItemCache Number The new value. 
 		*/
 		setMaxItemCache?( maxItemCache?:number ): void;
 		/** [Method] Sets the value of mode  
-		* @param mode String 
+		* @param mode String The new value. 
 		*/
 		setMode?( mode?:string ): void;
 		/** [Method] Sets the value of pressedCls  
-		* @param pressedCls String 
+		* @param pressedCls String The new value. 
 		*/
 		setPressedCls?( pressedCls?:string ): void;
 		/** [Method] Sets the value of pressedDelay  
-		* @param pressedDelay Number 
+		* @param pressedDelay Number The new value. 
 		*/
 		setPressedDelay?( pressedDelay?:number ): void;
 		/** [Method] Sets the value of scrollToTopOnRefresh  
-		* @param scrollToTopOnRefresh Boolean 
+		* @param scrollToTopOnRefresh Boolean The new value. 
 		*/
 		setScrollToTopOnRefresh?( scrollToTopOnRefresh?:boolean ): void;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Boolean 
-		*/
-		setScrollable?( scrollable?:boolean ): void;
 		/** [Method] Sets the value of selectedCls  
-		* @param selectedCls String 
+		* @param selectedCls String The new value. 
 		*/
 		setSelectedCls?( selectedCls?:string ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.Store/Object 
+		* @param store Ext.data.Store/Object The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of triggerCtEvent  
-		* @param triggerCtEvent String 
+		* @param triggerCtEvent String The new value. 
 		*/
 		setTriggerCtEvent?( triggerCtEvent?:string ): void;
 		/** [Method] Sets the value of triggerEvent  
-		* @param triggerEvent String 
+		* @param triggerEvent String The new value. 
 		*/
 		setTriggerEvent?( triggerEvent?:string ): void;
 		/** [Method] Sets the value of useComponents  
-		* @param useComponents Boolean 
+		* @param useComponents Boolean The new value. 
 		*/
 		setUseComponents?( useComponents?:boolean ): void;
 		/** [Method] Sets a record as the last focused record  
@@ -16508,8 +17023,8 @@ declare module Ext {
 		itemSelector?: boolean;
 		/** [Config Option] (String/String[]/Ext.XTemplate) */
 		itemTpl?: any;
-		/** [Config Option] (String) */
-		loadingText?: string;
+		/** [Config Option] (String/Boolean) */
+		loadingText?: any;
 		/** [Config Option] (Number) */
 		maxItemCache?: number;
 		/** [Config Option] (Boolean) */
@@ -16641,9 +17156,9 @@ declare module Ext {
 		*/
 		getLastSelected?(): any[];
 		/** [Method] Returns the value of loadingText  
-		* @returns String 
+		* @returns String/Boolean 
 		*/
-		getLoadingText?(): string;
+		getLoadingText?(): any;
 		/** [Method] Returns the value of maxItemCache  
 		* @returns Number 
 		*/
@@ -16761,101 +17276,97 @@ declare module Ext {
 		*/
 		selectRange?( startRecord?:number, endRecord?:number, keepExisting?:boolean ): void;
 		/** [Method] Sets the value of allowDeselect  
-		* @param allowDeselect Boolean 
+		* @param allowDeselect Boolean The new value. 
 		*/
 		setAllowDeselect?( allowDeselect?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object[] 
+		* @param data Object[] The new value. 
 		*/
 		setData?( data?:any[] ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of deferEmptyText  
-		* @param deferEmptyText Boolean 
+		* @param deferEmptyText Boolean The new value. 
 		*/
 		setDeferEmptyText?( deferEmptyText?:boolean ): void;
 		/** [Method] Sets the value of deselectOnContainerClick  
-		* @param deselectOnContainerClick Boolean 
+		* @param deselectOnContainerClick Boolean The new value. 
 		*/
 		setDeselectOnContainerClick?( deselectOnContainerClick?:boolean ): void;
 		/** [Method] Sets the value of disableSelection  
-		* @param disableSelection Boolean 
+		* @param disableSelection Boolean The new value. 
 		*/
 		setDisableSelection?( disableSelection?:boolean ): void;
 		/** [Method] Sets the value of emptyText  
-		* @param emptyText String 
+		* @param emptyText String The new value. 
 		*/
 		setEmptyText?( emptyText?:string ): void;
 		/** [Method] Sets the value of inline  
-		* @param inline Boolean/Object 
+		* @param inline Boolean/Object The new value. 
 		*/
 		setInline?( inline?:any ): void;
 		/** [Method] Sets the value of itemCls  
-		* @param itemCls String 
+		* @param itemCls String The new value. 
 		*/
 		setItemCls?( itemCls?:string ): void;
 		/** [Method] Sets the value of itemConfig  
-		* @param itemConfig Object 
+		* @param itemConfig Object The new value. 
 		*/
 		setItemConfig?( itemConfig?:any ): void;
 		/** [Method] Sets the value of itemTpl  
-		* @param itemTpl String/String[]/Ext.XTemplate 
+		* @param itemTpl String/String[]/Ext.XTemplate The new value. 
 		*/
 		setItemTpl?( itemTpl?:any ): void;
 		/** [Method] This was an internal function accidentally exposed in 1 x and now deprecated  */
 		setLastFocused?(): void;
 		/** [Method] Sets the value of loadingText  
-		* @param loadingText String 
+		* @param loadingText String/Boolean The new value. 
 		*/
-		setLoadingText?( loadingText?:string ): void;
+		setLoadingText?( loadingText?:any ): void;
 		/** [Method] Sets the value of maxItemCache  
-		* @param maxItemCache Number 
+		* @param maxItemCache Number The new value. 
 		*/
 		setMaxItemCache?( maxItemCache?:number ): void;
 		/** [Method] Sets the value of mode  
-		* @param mode String 
+		* @param mode String The new value. 
 		*/
 		setMode?( mode?:string ): void;
 		/** [Method] Sets the value of pressedCls  
-		* @param pressedCls String 
+		* @param pressedCls String The new value. 
 		*/
 		setPressedCls?( pressedCls?:string ): void;
 		/** [Method] Sets the value of pressedDelay  
-		* @param pressedDelay Number 
+		* @param pressedDelay Number The new value. 
 		*/
 		setPressedDelay?( pressedDelay?:number ): void;
 		/** [Method] Sets the value of scrollToTopOnRefresh  
-		* @param scrollToTopOnRefresh Boolean 
+		* @param scrollToTopOnRefresh Boolean The new value. 
 		*/
 		setScrollToTopOnRefresh?( scrollToTopOnRefresh?:boolean ): void;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Boolean 
-		*/
-		setScrollable?( scrollable?:boolean ): void;
 		/** [Method] Sets the value of selectedCls  
-		* @param selectedCls String 
+		* @param selectedCls String The new value. 
 		*/
 		setSelectedCls?( selectedCls?:string ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.Store/Object 
+		* @param store Ext.data.Store/Object The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of triggerCtEvent  
-		* @param triggerCtEvent String 
+		* @param triggerCtEvent String The new value. 
 		*/
 		setTriggerCtEvent?( triggerCtEvent?:string ): void;
 		/** [Method] Sets the value of triggerEvent  
-		* @param triggerEvent String 
+		* @param triggerEvent String The new value. 
 		*/
 		setTriggerEvent?( triggerEvent?:string ): void;
 		/** [Method] Sets the value of useComponents  
-		* @param useComponents Boolean 
+		* @param useComponents Boolean The new value. 
 		*/
 		setUseComponents?( useComponents?:boolean ): void;
 		/** [Method] Sets a record as the last focused record  
@@ -16924,23 +17435,23 @@ declare module Ext.dataview {
 		/** [Method] Refreshes the view by reloading the data from the store and re rendering the template  */
 		refresh?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of letters  
-		* @param letters Array 
+		* @param letters Array The new value. 
 		*/
 		setLetters?( letters?:any[] ): void;
 		/** [Method] Sets the value of listPrefix  
-		* @param listPrefix String 
+		* @param listPrefix String The new value. 
 		*/
 		setListPrefix?( listPrefix?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -16992,23 +17503,23 @@ declare module Ext {
 		/** [Method] Refreshes the view by reloading the data from the store and re rendering the template  */
 		refresh?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of letters  
-		* @param letters Array 
+		* @param letters Array The new value. 
 		*/
 		setLetters?( letters?:any[] ): void;
 		/** [Method] Sets the value of listPrefix  
-		* @param listPrefix String 
+		* @param listPrefix String The new value. 
 		*/
 		setListPrefix?( listPrefix?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -17037,8 +17548,6 @@ declare module Ext.dataview {
 		preventSelectionOnDisclose?: boolean;
 		/** [Config Option] (Boolean) */
 		refreshHeightOnUpdate?: boolean;
-		/** [Config Option] (Boolean/String/Object) */
-		scrollable?: any;
 		/** [Config Option] (Boolean) */
 		striped?: boolean;
 		/** [Config Option] (String) */
@@ -17047,6 +17556,10 @@ declare module Ext.dataview {
 		useSimpleItems?: boolean;
 		/** [Config Option] (Boolean) */
 		variableHeights?: boolean;
+		/** [Property] (Number) */
+		bufferSize?: number;
+		/** [Method]  */
+		destroy?(): void;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
@@ -17089,6 +17602,10 @@ declare module Ext.dataview {
 		* @returns Number Index for the specified item. 
 		*/
 		getItemIndex?( item?:number ): number;
+		/** [Method] Returns the value of minimumBufferDistance  
+		* @returns Number 
+		*/
+		getMinimumBufferDistance?(): number;
 		/** [Method] Returns the value of onItemDisclosure  
 		* @returns Boolean/Function/Object 
 		*/
@@ -17117,6 +17634,10 @@ declare module Ext.dataview {
 		* @returns String 
 		*/
 		getUi?(): string;
+		/** [Method] Returns the value of useHeaders  
+		* @returns Boolean 
+		*/
+		getUseHeaders?(): boolean;
 		/** [Method] Returns the value of useSimpleItems  
 		* @returns Boolean 
 		*/
@@ -17131,72 +17652,82 @@ declare module Ext.dataview {
 		getViewItems?(): any;
 		/** [Method] We override DataView s initialize method with an empty function */
 		initialize?(): void;
+		/** [Method] Scrolls the list so that the specified record is at the top  
+		* @param record Object {Ext.data.Model} Record in the lists store to scroll to 
+		* @param animate Object {Boolean} Determines if scrolling is animated to a cut 
+		* @param overscroll Object {Boolean} Determines if list can be overscrolled 
+		*/
+		scrollToRecord?( record?:any, animate?:any, overscroll?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of disclosureProperty  
-		* @param disclosureProperty String 
+		* @param disclosureProperty String The new value. 
 		*/
 		setDisclosureProperty?( disclosureProperty?:string ): void;
 		/** [Method] Sets the value of grouped  
-		* @param grouped Boolean 
+		* @param grouped Boolean The new value. 
 		*/
 		setGrouped?( grouped?:boolean ): void;
 		/** [Method] Sets the value of icon  
-		* @param icon Object 
+		* @param icon Object The new value. 
 		*/
 		setIcon?( icon?:any ): void;
 		/** [Method] Sets the value of indexBar  
-		* @param indexBar Boolean/Object 
+		* @param indexBar Boolean/Object The new value. 
 		*/
 		setIndexBar?( indexBar?:any ): void;
 		/** [Method] Sets the value of infinite  
-		* @param infinite Boolean 
+		* @param infinite Boolean The new value. 
 		*/
 		setInfinite?( infinite?:boolean ): void;
 		/** [Method] Sets the value of itemHeight  
-		* @param itemHeight Number 
+		* @param itemHeight Number The new value. 
 		*/
 		setItemHeight?( itemHeight?:number ): void;
+		/** [Method] Sets the value of minimumBufferDistance  
+		* @param minimumBufferDistance Number The new value. 
+		*/
+		setMinimumBufferDistance?( minimumBufferDistance?:number ): void;
 		/** [Method] Sets the value of onItemDisclosure  
-		* @param onItemDisclosure Boolean/Function/Object 
+		* @param onItemDisclosure Boolean/Function/Object The new value. 
 		*/
 		setOnItemDisclosure?( onItemDisclosure?:any ): void;
 		/** [Method] Sets the value of pinHeaders  
-		* @param pinHeaders Boolean 
+		* @param pinHeaders Boolean The new value. 
 		*/
 		setPinHeaders?( pinHeaders?:boolean ): void;
 		/** [Method] Sets the value of preventSelectionOnDisclose  
-		* @param preventSelectionOnDisclose Boolean 
+		* @param preventSelectionOnDisclose Boolean The new value. 
 		*/
 		setPreventSelectionOnDisclose?( preventSelectionOnDisclose?:boolean ): void;
 		/** [Method] Sets the value of refreshHeightOnUpdate  
-		* @param refreshHeightOnUpdate Boolean 
+		* @param refreshHeightOnUpdate Boolean The new value. 
 		*/
 		setRefreshHeightOnUpdate?( refreshHeightOnUpdate?:boolean ): void;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Object 
-		*/
-		setScrollable?( scrollable?:any ): void;
 		/** [Method] Sets the value of striped  
-		* @param striped Boolean 
+		* @param striped Boolean The new value. 
 		*/
 		setStriped?( striped?:boolean ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
+		/** [Method] Sets the value of useHeaders  
+		* @param useHeaders Boolean The new value. 
+		*/
+		setUseHeaders?( useHeaders?:boolean ): void;
 		/** [Method] Sets the value of useSimpleItems  
-		* @param useSimpleItems Boolean 
+		* @param useSimpleItems Boolean The new value. 
 		*/
 		setUseSimpleItems?( useSimpleItems?:boolean ): void;
 		/** [Method] Sets the value of variableHeights  
-		* @param variableHeights Boolean 
+		* @param variableHeights Boolean The new value. 
 		*/
 		setVariableHeights?( variableHeights?:boolean ): void;
 	}
@@ -17225,8 +17756,6 @@ declare module Ext {
 		preventSelectionOnDisclose?: boolean;
 		/** [Config Option] (Boolean) */
 		refreshHeightOnUpdate?: boolean;
-		/** [Config Option] (Boolean/String/Object) */
-		scrollable?: any;
 		/** [Config Option] (Boolean) */
 		striped?: boolean;
 		/** [Config Option] (String) */
@@ -17235,6 +17764,10 @@ declare module Ext {
 		useSimpleItems?: boolean;
 		/** [Config Option] (Boolean) */
 		variableHeights?: boolean;
+		/** [Property] (Number) */
+		bufferSize?: number;
+		/** [Method]  */
+		destroy?(): void;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
@@ -17277,6 +17810,10 @@ declare module Ext {
 		* @returns Number Index for the specified item. 
 		*/
 		getItemIndex?( item?:number ): number;
+		/** [Method] Returns the value of minimumBufferDistance  
+		* @returns Number 
+		*/
+		getMinimumBufferDistance?(): number;
 		/** [Method] Returns the value of onItemDisclosure  
 		* @returns Boolean/Function/Object 
 		*/
@@ -17305,6 +17842,10 @@ declare module Ext {
 		* @returns String 
 		*/
 		getUi?(): string;
+		/** [Method] Returns the value of useHeaders  
+		* @returns Boolean 
+		*/
+		getUseHeaders?(): boolean;
 		/** [Method] Returns the value of useSimpleItems  
 		* @returns Boolean 
 		*/
@@ -17319,72 +17860,82 @@ declare module Ext {
 		getViewItems?(): any;
 		/** [Method] We override DataView s initialize method with an empty function */
 		initialize?(): void;
+		/** [Method] Scrolls the list so that the specified record is at the top  
+		* @param record Object {Ext.data.Model} Record in the lists store to scroll to 
+		* @param animate Object {Boolean} Determines if scrolling is animated to a cut 
+		* @param overscroll Object {Boolean} Determines if list can be overscrolled 
+		*/
+		scrollToRecord?( record?:any, animate?:any, overscroll?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of disclosureProperty  
-		* @param disclosureProperty String 
+		* @param disclosureProperty String The new value. 
 		*/
 		setDisclosureProperty?( disclosureProperty?:string ): void;
 		/** [Method] Sets the value of grouped  
-		* @param grouped Boolean 
+		* @param grouped Boolean The new value. 
 		*/
 		setGrouped?( grouped?:boolean ): void;
 		/** [Method] Sets the value of icon  
-		* @param icon Object 
+		* @param icon Object The new value. 
 		*/
 		setIcon?( icon?:any ): void;
 		/** [Method] Sets the value of indexBar  
-		* @param indexBar Boolean/Object 
+		* @param indexBar Boolean/Object The new value. 
 		*/
 		setIndexBar?( indexBar?:any ): void;
 		/** [Method] Sets the value of infinite  
-		* @param infinite Boolean 
+		* @param infinite Boolean The new value. 
 		*/
 		setInfinite?( infinite?:boolean ): void;
 		/** [Method] Sets the value of itemHeight  
-		* @param itemHeight Number 
+		* @param itemHeight Number The new value. 
 		*/
 		setItemHeight?( itemHeight?:number ): void;
+		/** [Method] Sets the value of minimumBufferDistance  
+		* @param minimumBufferDistance Number The new value. 
+		*/
+		setMinimumBufferDistance?( minimumBufferDistance?:number ): void;
 		/** [Method] Sets the value of onItemDisclosure  
-		* @param onItemDisclosure Boolean/Function/Object 
+		* @param onItemDisclosure Boolean/Function/Object The new value. 
 		*/
 		setOnItemDisclosure?( onItemDisclosure?:any ): void;
 		/** [Method] Sets the value of pinHeaders  
-		* @param pinHeaders Boolean 
+		* @param pinHeaders Boolean The new value. 
 		*/
 		setPinHeaders?( pinHeaders?:boolean ): void;
 		/** [Method] Sets the value of preventSelectionOnDisclose  
-		* @param preventSelectionOnDisclose Boolean 
+		* @param preventSelectionOnDisclose Boolean The new value. 
 		*/
 		setPreventSelectionOnDisclose?( preventSelectionOnDisclose?:boolean ): void;
 		/** [Method] Sets the value of refreshHeightOnUpdate  
-		* @param refreshHeightOnUpdate Boolean 
+		* @param refreshHeightOnUpdate Boolean The new value. 
 		*/
 		setRefreshHeightOnUpdate?( refreshHeightOnUpdate?:boolean ): void;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Object 
-		*/
-		setScrollable?( scrollable?:any ): void;
 		/** [Method] Sets the value of striped  
-		* @param striped Boolean 
+		* @param striped Boolean The new value. 
 		*/
 		setStriped?( striped?:boolean ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
+		/** [Method] Sets the value of useHeaders  
+		* @param useHeaders Boolean The new value. 
+		*/
+		setUseHeaders?( useHeaders?:boolean ): void;
 		/** [Method] Sets the value of useSimpleItems  
-		* @param useSimpleItems Boolean 
+		* @param useSimpleItems Boolean The new value. 
 		*/
 		setUseSimpleItems?( useSimpleItems?:boolean ): void;
 		/** [Method] Sets the value of variableHeights  
-		* @param variableHeights Boolean 
+		* @param variableHeights Boolean The new value. 
 		*/
 		setVariableHeights?( variableHeights?:boolean ): void;
 	}
@@ -17393,24 +17944,14 @@ declare module Ext.dataview {
 	export interface IListItemHeader extends Ext.IComponent {
 		/** [Config Option] (String) */
 		baseCls?: string;
-		/** [Config Option] (String) */
-		docked?: string;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
 		getBaseCls?(): string;
-		/** [Method] Returns the value of docked  
-		* @returns String 
-		*/
-		getDocked?(): string;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
-		/** [Method] Sets the value of docked  
-		* @param docked String 
-		*/
-		setDocked?( docked?:string ): void;
 	}
 }
 declare module Ext.dataview {
@@ -17477,6 +18018,10 @@ declare module Ext.dataview {
 		* @returns String 
 		*/
 		getBaseCls?(): string;
+		/** [Method] Returns the value of clearSelectionOnListChange  
+		* @returns Boolean 
+		*/
+		getClearSelectionOnListChange?(): boolean;
 		/** [Method] Returns the value of detailCard  
 		* @returns Ext.Component 
 		*/
@@ -17572,87 +18117,91 @@ declare module Ext.dataview {
 		*/
 		onItemTap?( list?:Ext.IList, index?:number, target?:Ext.IElement, record?:Ext.data.IRecord, e?:Ext.event.IEvent ): void;
 		/** [Method] Sets the value of allowDeselect  
-		* @param allowDeselect Boolean 
+		* @param allowDeselect Boolean The new value. 
 		*/
 		setAllowDeselect?( allowDeselect?:boolean ): void;
 		/** [Method] Sets the value of backButton  
-		* @param backButton Object 
+		* @param backButton Object The new value. 
 		*/
 		setBackButton?( backButton?:any ): void;
 		/** [Method] Sets the value of backText  
-		* @param backText String 
+		* @param backText String The new value. 
 		*/
 		setBackText?( backText?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
+		/** [Method] Sets the value of clearSelectionOnListChange  
+		* @param clearSelectionOnListChange Boolean The new value. 
+		*/
+		setClearSelectionOnListChange?( clearSelectionOnListChange?:boolean ): void;
 		/** [Method] Sets the value of detailCard  
-		* @param detailCard Ext.Component 
+		* @param detailCard Ext.Component The new value. 
 		*/
 		setDetailCard?( detailCard?:Ext.IComponent ): void;
 		/** [Method] Sets the value of detailContainer  
-		* @param detailContainer Ext.Container 
+		* @param detailContainer Ext.Container The new value. 
 		*/
 		setDetailContainer?( detailContainer?:Ext.IContainer ): void;
 		/** [Method] Sets the value of displayField  
-		* @param displayField String 
+		* @param displayField String The new value. 
 		*/
 		setDisplayField?( displayField?:string ): void;
 		/** [Method] Sets the value of emptyText  
-		* @param emptyText String 
+		* @param emptyText String The new value. 
 		*/
 		setEmptyText?( emptyText?:string ): void;
 		/** [Method] Sets the value of itemHeight  
-		* @param itemHeight Number 
+		* @param itemHeight Number The new value. 
 		*/
 		setItemHeight?( itemHeight?:number ): void;
 		/** [Method] Sets the value of listConfig  
-		* @param listConfig Object 
+		* @param listConfig Object The new value. 
 		*/
 		setListConfig?( listConfig?:any ): void;
 		/** [Method] Sets the value of loadingText  
-		* @param loadingText String 
+		* @param loadingText String The new value. 
 		*/
 		setLoadingText?( loadingText?:string ): void;
 		/** [Method] Sets the value of onItemDisclosure  
-		* @param onItemDisclosure Boolean/Function 
+		* @param onItemDisclosure Boolean/Function The new value. 
 		*/
 		setOnItemDisclosure?( onItemDisclosure?:any ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.TreeStore/String 
+		* @param store Ext.data.TreeStore/String The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 		/** [Method] Sets the value of toolbar  
-		* @param toolbar Ext.Toolbar/Object/Boolean 
+		* @param toolbar Ext.Toolbar/Object/Boolean The new value. 
 		*/
 		setToolbar?( toolbar?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui Object 
+		* @param ui Object The new value. 
 		*/
 		setUi?( ui?:any ): void;
 		/** [Method] Sets the value of updateTitleText  
-		* @param updateTitleText Boolean 
+		* @param updateTitleText Boolean The new value. 
 		*/
 		setUpdateTitleText?( updateTitleText?:boolean ): void;
 		/** [Method] Sets the value of useSimpleItems  
-		* @param useSimpleItems Boolean 
+		* @param useSimpleItems Boolean The new value. 
 		*/
 		setUseSimpleItems?( useSimpleItems?:boolean ): void;
 		/** [Method] Sets the value of useTitleAsBackText  
-		* @param useTitleAsBackText Boolean 
+		* @param useTitleAsBackText Boolean The new value. 
 		*/
 		setUseTitleAsBackText?( useTitleAsBackText?:boolean ): void;
 		/** [Method] Sets the value of useToolbar  
-		* @param useToolbar Boolean 
+		* @param useToolbar Boolean The new value. 
 		*/
 		setUseToolbar?( useToolbar?:boolean ): void;
 		/** [Method] Sets the value of variableHeights  
-		* @param variableHeights Boolean 
+		* @param variableHeights Boolean The new value. 
 		*/
 		setVariableHeights?( variableHeights?:boolean ): void;
 	}
@@ -17721,6 +18270,10 @@ declare module Ext {
 		* @returns String 
 		*/
 		getBaseCls?(): string;
+		/** [Method] Returns the value of clearSelectionOnListChange  
+		* @returns Boolean 
+		*/
+		getClearSelectionOnListChange?(): boolean;
 		/** [Method] Returns the value of detailCard  
 		* @returns Ext.Component 
 		*/
@@ -17816,87 +18369,91 @@ declare module Ext {
 		*/
 		onItemTap?( list?:Ext.IList, index?:number, target?:Ext.IElement, record?:Ext.data.IRecord, e?:Ext.event.IEvent ): void;
 		/** [Method] Sets the value of allowDeselect  
-		* @param allowDeselect Boolean 
+		* @param allowDeselect Boolean The new value. 
 		*/
 		setAllowDeselect?( allowDeselect?:boolean ): void;
 		/** [Method] Sets the value of backButton  
-		* @param backButton Object 
+		* @param backButton Object The new value. 
 		*/
 		setBackButton?( backButton?:any ): void;
 		/** [Method] Sets the value of backText  
-		* @param backText String 
+		* @param backText String The new value. 
 		*/
 		setBackText?( backText?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
+		/** [Method] Sets the value of clearSelectionOnListChange  
+		* @param clearSelectionOnListChange Boolean The new value. 
+		*/
+		setClearSelectionOnListChange?( clearSelectionOnListChange?:boolean ): void;
 		/** [Method] Sets the value of detailCard  
-		* @param detailCard Ext.Component 
+		* @param detailCard Ext.Component The new value. 
 		*/
 		setDetailCard?( detailCard?:Ext.IComponent ): void;
 		/** [Method] Sets the value of detailContainer  
-		* @param detailContainer Ext.Container 
+		* @param detailContainer Ext.Container The new value. 
 		*/
 		setDetailContainer?( detailContainer?:Ext.IContainer ): void;
 		/** [Method] Sets the value of displayField  
-		* @param displayField String 
+		* @param displayField String The new value. 
 		*/
 		setDisplayField?( displayField?:string ): void;
 		/** [Method] Sets the value of emptyText  
-		* @param emptyText String 
+		* @param emptyText String The new value. 
 		*/
 		setEmptyText?( emptyText?:string ): void;
 		/** [Method] Sets the value of itemHeight  
-		* @param itemHeight Number 
+		* @param itemHeight Number The new value. 
 		*/
 		setItemHeight?( itemHeight?:number ): void;
 		/** [Method] Sets the value of listConfig  
-		* @param listConfig Object 
+		* @param listConfig Object The new value. 
 		*/
 		setListConfig?( listConfig?:any ): void;
 		/** [Method] Sets the value of loadingText  
-		* @param loadingText String 
+		* @param loadingText String The new value. 
 		*/
 		setLoadingText?( loadingText?:string ): void;
 		/** [Method] Sets the value of onItemDisclosure  
-		* @param onItemDisclosure Boolean/Function 
+		* @param onItemDisclosure Boolean/Function The new value. 
 		*/
 		setOnItemDisclosure?( onItemDisclosure?:any ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.TreeStore/String 
+		* @param store Ext.data.TreeStore/String The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 		/** [Method] Sets the value of toolbar  
-		* @param toolbar Ext.Toolbar/Object/Boolean 
+		* @param toolbar Ext.Toolbar/Object/Boolean The new value. 
 		*/
 		setToolbar?( toolbar?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui Object 
+		* @param ui Object The new value. 
 		*/
 		setUi?( ui?:any ): void;
 		/** [Method] Sets the value of updateTitleText  
-		* @param updateTitleText Boolean 
+		* @param updateTitleText Boolean The new value. 
 		*/
 		setUpdateTitleText?( updateTitleText?:boolean ): void;
 		/** [Method] Sets the value of useSimpleItems  
-		* @param useSimpleItems Boolean 
+		* @param useSimpleItems Boolean The new value. 
 		*/
 		setUseSimpleItems?( useSimpleItems?:boolean ): void;
 		/** [Method] Sets the value of useTitleAsBackText  
-		* @param useTitleAsBackText Boolean 
+		* @param useTitleAsBackText Boolean The new value. 
 		*/
 		setUseTitleAsBackText?( useTitleAsBackText?:boolean ): void;
 		/** [Method] Sets the value of useToolbar  
-		* @param useToolbar Boolean 
+		* @param useToolbar Boolean The new value. 
 		*/
 		setUseToolbar?( useToolbar?:boolean ): void;
 		/** [Method] Sets the value of variableHeights  
-		* @param variableHeights Boolean 
+		* @param variableHeights Boolean The new value. 
 		*/
 		setVariableHeights?( variableHeights?:boolean ): void;
 	}
@@ -17905,6 +18462,38 @@ declare module Ext {
 	export interface IDate extends Ext.IDateExtras {
 	}
 	export class Date {
+		/** [Property] (String) */
+		static DAY: string;
+		/** [Property] (String) */
+		static HOUR: string;
+		/** [Property] (String) */
+		static MILLI: string;
+		/** [Property] (String) */
+		static MINUTE: string;
+		/** [Property] (String) */
+		static MONTH: string;
+		/** [Property] (String) */
+		static SECOND: string;
+		/** [Property] (String) */
+		static YEAR: string;
+		/** [Property] (Array) */
+		static dayNames: any[];
+		/** [Property] (String) */
+		static defaultFormat: string;
+		/** [Property] (Object) */
+		static defaults: any;
+		/** [Property] (Object) */
+		static formatCodes: any;
+		/** [Property] (Object) */
+		static formatFunctions: any;
+		/** [Property] (Array) */
+		static monthNames: any[];
+		/** [Property] (Object) */
+		static monthNumbers: any;
+		/** [Property] (Object) */
+		static parseFunctions: any;
+		/** [Property] (Boolean) */
+		static useStrict: boolean;
 		/** [Method] Provides a convenient method for performing basic date arithmetic  
 		* @param date Date The date to modify. 
 		* @param interval String A valid date interval enum value. 
@@ -18047,18 +18636,50 @@ declare module Ext {
 		*/
 		static now(): number;
 		/** [Method] Parses the passed string using the specified date format  
-		* @param input String The raw date string. 
+		* @param input String/Number The raw date string. 
 		* @param format String The expected date string format. 
 		* @param strict Boolean true to validate date strings while parsing (i.e. prevents JavaScript Date "rollover"). Invalid date strings will return null when parsed. 
 		* @returns Date/null The parsed Date, or null if an invalid date string. 
 		*/
-		static parse( input?:string, format?:string, strict?:boolean ): any;
+		static parse( input?:any, format?:string, strict?:boolean ): any;
 	}
 }
 declare module Ext {
 	export interface IDateExtras {
 	}
 	export class DateExtras {
+		/** [Property] (String) */
+		static DAY: string;
+		/** [Property] (String) */
+		static HOUR: string;
+		/** [Property] (String) */
+		static MILLI: string;
+		/** [Property] (String) */
+		static MINUTE: string;
+		/** [Property] (String) */
+		static MONTH: string;
+		/** [Property] (String) */
+		static SECOND: string;
+		/** [Property] (String) */
+		static YEAR: string;
+		/** [Property] (Array) */
+		static dayNames: any[];
+		/** [Property] (String) */
+		static defaultFormat: string;
+		/** [Property] (Object) */
+		static defaults: any;
+		/** [Property] (Object) */
+		static formatCodes: any;
+		/** [Property] (Object) */
+		static formatFunctions: any;
+		/** [Property] (Array) */
+		static monthNames: any[];
+		/** [Property] (Object) */
+		static monthNumbers: any;
+		/** [Property] (Object) */
+		static parseFunctions: any;
+		/** [Property] (Boolean) */
+		static useStrict: boolean;
 		/** [Method] Provides a convenient method for performing basic date arithmetic  
 		* @param date Date The date to modify. 
 		* @param interval String A valid date interval enum value. 
@@ -18201,12 +18822,12 @@ declare module Ext {
 		*/
 		static now(): number;
 		/** [Method] Parses the passed string using the specified date format  
-		* @param input String The raw date string. 
+		* @param input String/Number The raw date string. 
 		* @param format String The expected date string format. 
 		* @param strict Boolean true to validate date strings while parsing (i.e. prevents JavaScript Date "rollover"). Invalid date strings will return null when parsed. 
 		* @returns Date/null The parsed Date, or null if an invalid date string. 
 		*/
-		static parse( input?:string, format?:string, strict?:boolean ): any;
+		static parse( input?:any, format?:string, strict?:boolean ): any;
 	}
 }
 declare module Ext {
@@ -18220,9 +18841,155 @@ declare module Ext {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
+	}
+}
+declare module Ext.device.accelerometer {
+	export interface IAbstract extends Ext.IBase {
+		/** [Config Option] (Number) */
+		frequency?: number;
+		/** [Method] Returns the value of frequency  
+		* @returns Number 
+		*/
+		getFrequency?(): number;
+		/** [Method] Sets the value of frequency  
+		* @param frequency Number The new value. 
+		*/
+		setFrequency?( frequency?:number ): void;
+	}
+}
+declare module Ext.device.accelerometer {
+	export interface ICordova extends Ext.device.accelerometer.IAbstract {
+	}
+}
+declare module Ext.device.accelerometer {
+	export interface IPhoneGap extends Ext.device.accelerometer.IAbstract {
+	}
+}
+declare module Ext.device {
+	export interface IAccelerometer extends Ext.IBase,Ext.device.accelerometer.IAbstract {
+	}
+	export class Accelerometer {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the value of frequency  
+		* @returns Number 
+		*/
+		static getFrequency(): number;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Sets the value of frequency  
+		* @param frequency Number The new value. 
+		*/
+		static setFrequency( frequency?:number ): void;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.device.accelerometer {
+	export interface ISimulator extends Ext.device.accelerometer.IAbstract {
+	}
+}
+declare module Ext.device.browser {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Used to close the browser if one is opened  */
+		close?(): void;
+		/** [Method] Used to open a new browser window  
+		* @param options Object The options to use when opening a new browser window. 
+		*/
+		open?( options?:any ): void;
+	}
+}
+declare module Ext.device.browser {
+	export interface ICordova extends Ext.device.browser.IAbstract {
+		/** [Method] Used to close the browser if one is opened  */
+		close?(): void;
+		/** [Method] Used to open a new browser window  
+		* @param config Object 
+		*/
+		open?( config?:any ): void;
+	}
+}
+declare module Ext.device {
+	export interface IBrowser extends Ext.IBase,Ext.device.browser.IAbstract {
+	}
+	export class Browser {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method] Used to close the browser if one is opened  */
+		static close(): void;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Used to open a new browser window  
+		* @param options Object The options to use when opening a new browser window. 
+		*/
+		static open( options?:any ): void;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.device.browser {
+	export interface ISimulator extends Ext.IBase {
+	}
+}
+declare module Ext.device.browser {
+	export interface IWindow extends Ext.IEvented {
 	}
 }
 declare module Ext.device.camera {
@@ -18238,10 +19005,28 @@ declare module Ext.device.camera {
 		capture?( options?:any, scope?:any, destination?:string, encoding?:string, width?:number, height?:number ): void;
 	}
 }
+declare module Ext.device.camera {
+	export interface ICordova extends Ext.device.camera.IAbstract {
+		/** [Method] Allows you to capture a photo  
+		* @param args Object 
+		*/
+		capture?( args?:any ): void;
+	}
+}
+declare module Ext.device.camera {
+	export interface IPhoneGap extends Ext.device.camera.IAbstract {
+		/** [Method] Allows you to capture a photo  
+		* @param args Object 
+		*/
+		capture?( args?:any ): void;
+	}
+}
 declare module Ext.device {
 	export interface ICamera extends Ext.IBase,Ext.device.camera.IAbstract {
 	}
 	export class Camera {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -18285,14 +19070,6 @@ declare module Ext.device {
 	}
 }
 declare module Ext.device.camera {
-	export interface IPhoneGap extends Ext.device.camera.IAbstract {
-		/** [Method] Allows you to capture a photo  
-		* @param args Object 
-		*/
-		capture?( args?:any ): void;
-	}
-}
-declare module Ext.device.camera {
 	export interface ISencha extends Ext.device.camera.IAbstract {
 		/** [Method] Allows you to capture a photo  
 		* @param options Object 
@@ -18311,9 +19088,84 @@ declare module Ext.device.camera {
 		*/
 		getSamples?(): any[];
 		/** [Method] Sets the value of samples  
-		* @param samples Array 
+		* @param samples Array The new value. 
 		*/
 		setSamples?( samples?:any[] ): void;
+	}
+}
+declare module Ext.device.capture {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Start the audio recorder application and return information about captured audio clip file s 
+		* @param config Object The configuration object to be passed: 
+		*/
+		captureAudio?( config?:any ): void;
+		/** [Method] Start the video recorder application and return information about captured video clip file s 
+		* @param config Object The configuration object to be passed: 
+		*/
+		captureVideo?( config?:any ): void;
+	}
+}
+declare module Ext.device.capture {
+	export interface ISimulator extends Ext.IBase {
+		/** [Method] Start the audio recorder application and return information about captured audio clip file s 
+		* @param config Object The configuration object to be passed: 
+		*/
+		captureAudio?( config?:any ): void;
+		/** [Method] Start the video recorder application and return information about captured video clip file s 
+		* @param config Object The configuration object to be passed: 
+		*/
+		captureVideo?( config?:any ): void;
+	}
+}
+declare module Ext.device.capture {
+	export interface ICordova extends Ext.IBase {
+	}
+}
+declare module Ext.device {
+	export interface ICapture extends Ext.IBase,Ext.device.capture.IAbstract {
+	}
+	export class Capture {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method] Start the audio recorder application and return information about captured audio clip file s 
+		* @param config Object The configuration object to be passed: 
+		*/
+		static captureAudio( config?:any ): void;
+		/** [Method] Start the video recorder application and return information about captured video clip file s 
+		* @param config Object The configuration object to be passed: 
+		*/
+		static captureVideo( config?:any ): void;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
 	}
 }
 declare module Ext.device.communicator {
@@ -18328,6 +19180,8 @@ declare module Ext.device {
 	export interface ICommunicator extends Ext.IBase {
 	}
 	export class Communicator {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -18361,8 +19215,81 @@ declare module Ext.device {
 		static statics(): Ext.IClass;
 	}
 }
+declare module Ext.device.compass {
+	export interface IAbstract extends Ext.IBase {
+		/** [Config Option] (Number) */
+		frequency?: number;
+		/** [Method] Returns the value of frequency  
+		* @returns Number 
+		*/
+		getFrequency?(): number;
+		/** [Method] Sets the value of frequency  
+		* @param frequency Number The new value. 
+		*/
+		setFrequency?( frequency?:number ): void;
+	}
+}
+declare module Ext.device.compass {
+	export interface ICordova extends Ext.device.compass.IAbstract {
+	}
+}
+declare module Ext.device.compass {
+	export interface IPhoneGap extends Ext.device.compass.IAbstract {
+	}
+}
+declare module Ext.device {
+	export interface ICompass extends Ext.IBase,Ext.device.compass.IAbstract {
+	}
+	export class Compass {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the value of frequency  
+		* @returns Number 
+		*/
+		static getFrequency(): number;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Sets the value of frequency  
+		* @param frequency Number The new value. 
+		*/
+		static setFrequency( frequency?:number ): void;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.device.compass {
+	export interface ISimulator extends Ext.device.compass.IAbstract {
+	}
+}
 declare module Ext.device.connection {
-	export interface IAbstract extends Ext.IBase,Ext.mixin.IObservable {
+	export interface IAbstract extends Ext.IEvented,Ext.mixin.IObservable {
 		/** [Property] (String) */
 		CELL_2G?: string;
 		/** [Property] (String) */
@@ -18535,19 +19462,19 @@ declare module Ext.device.connection {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of online  
-		* @param online Boolean 
+		* @param online Boolean The new value. 
 		*/
 		setOnline?( online?:boolean ): void;
 		/** [Method] Sets the value of type  
-		* @param type Object 
+		* @param type Object The new value. 
 		*/
 		setType?( type?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -18576,10 +19503,50 @@ declare module Ext.device.connection {
 		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
 	}
 }
+declare module Ext.device.connection {
+	export interface ICordova extends Ext.device.connection.IAbstract {
+		/** [Method] Returns the value of online  
+		* @returns Boolean 
+		*/
+		getOnline?(): boolean;
+		/** [Method] Returns the current connection type  
+		* @returns String type 
+		*/
+		getType?(): string;
+	}
+}
+declare module Ext.device.connection {
+	export interface IPhoneGap extends Ext.device.connection.IAbstract {
+		/** [Method] Returns the value of online  
+		* @returns Boolean 
+		*/
+		getOnline?(): boolean;
+		/** [Method] Returns the current connection type  
+		* @returns String type 
+		*/
+		getType?(): string;
+	}
+}
 declare module Ext.device {
 	export interface IConnection extends Ext.IBase,Ext.device.connection.IAbstract {
 	}
 	export class Connection {
+		/** [Property] (String) */
+		static CELL_2G: string;
+		/** [Property] (String) */
+		static CELL_3G: string;
+		/** [Property] (String) */
+		static CELL_4G: string;
+		/** [Property] (String) */
+		static ETHERNET: string;
+		/** [Property] (String) */
+		static NONE: string;
+		/** [Property] (String) */
+		static UNKNOWN: string;
+		/** [Property] (String) */
+		static WIFI: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -18767,19 +19734,19 @@ declare module Ext.device {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Sets the value of online  
-		* @param online Boolean 
+		* @param online Boolean The new value. 
 		*/
 		static setOnline( online?:boolean ): void;
 		/** [Method] Sets the value of type  
-		* @param type Object 
+		* @param type Object The new value. 
 		*/
 		static setType( type?:any ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -18810,18 +19777,6 @@ declare module Ext.device {
 		* @param options Object Extra options object. 
 		*/
 		static unBefore( eventName?:any, fn?:any, scope?:any, options?:any ): void;
-	}
-}
-declare module Ext.device.connection {
-	export interface IPhoneGap extends Ext.device.connection.IAbstract {
-		/** [Method] Returns the value of online  
-		* @returns Boolean 
-		*/
-		getOnline?(): boolean;
-		/** [Method] Returns the current connection type  
-		* @returns String type 
-		*/
-		getType?(): string;
 	}
 }
 declare module Ext.device.connection {
@@ -18918,7 +19873,7 @@ declare module Ext.device.contacts {
 		* @returns String user readable string 
 		*/
 		getLocalizedLabel?( config?:any ): string;
-		/** [Method] Returns base64 encoded image thumbnail for a contact specified in config id 
+		/** [Method] Returns base64 encoded image thumbnail for a contact specified in config id This method is for Sencha Native Packager  
 		* @param config Object 
 		* @returns String base64 string 
 		*/
@@ -19005,15 +19960,15 @@ declare module Ext.device.contacts {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of includeImages  
-		* @param includeImages Boolean 
+		* @param includeImages Boolean The new value. 
 		*/
 		setIncludeImages?( includeImages?:boolean ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -19042,10 +19997,30 @@ declare module Ext.device.contacts {
 		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
 	}
 }
+declare module Ext.device.contacts {
+	export interface ICordova extends Ext.device.contacts.IAbstract {
+		/** [Method] Returns an Array of contact objects  
+		* @param config Object 
+		* @returns Object[] An array of contact objects. 
+		*/
+		getContacts?( config?:any ): any[];
+	}
+}
+declare module Ext.device.contacts {
+	export interface IPhoneGap extends Ext.device.contacts.IAbstract {
+		/** [Method] Returns an Array of contact objects  
+		* @param config Object 
+		* @returns Object[] An array of contact objects. 
+		*/
+		getContacts?( config?:any ): any[];
+	}
+}
 declare module Ext.device {
-	export interface IContacts extends Ext.IBase,Ext.device.contacts.IAbstract,Ext.device.contacts.ISencha {
+	export interface IContacts extends Ext.IBase,Ext.device.contacts.IAbstract,Ext.device.contacts.ISencha,Ext.device.contacts.ICordova {
 	}
 	export class Contacts {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -19148,7 +20123,7 @@ declare module Ext.device {
 		* @returns String user readable string 
 		*/
 		static getLocalizedLabel( config?:any ): string;
-		/** [Method] Returns base64 encoded image thumbnail for a contact specified in config id 
+		/** [Method] Returns base64 encoded image thumbnail for a contact specified in config id This method is for Sencha Native Packager  
 		* @param config Object 
 		* @returns String base64 string 
 		*/
@@ -19240,15 +20215,15 @@ declare module Ext.device {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of includeImages  
-		* @param includeImages Boolean 
+		* @param includeImages Boolean The new value. 
 		*/
 		static setIncludeImages( includeImages?:boolean ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -19293,7 +20268,7 @@ declare module Ext.device.contacts {
 		* @returns String user readable string 
 		*/
 		getLocalizedLabel?( config?:any ): string;
-		/** [Method] Returns base64 encoded image thumbnail for a contact specified in config id 
+		/** [Method] Returns base64 encoded image thumbnail for a contact specified in config id This method is for Sencha Native Packager  
 		* @param config Object 
 		* @returns String base64 string 
 		*/
@@ -19460,11 +20435,11 @@ declare module Ext.device.device {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -19493,10 +20468,40 @@ declare module Ext.device.device {
 		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
 	}
 }
+declare module Ext.device.device {
+	export interface ICordova extends Ext.device.device.IAbstract {
+		/** [Property] (String) */
+		cordova?: string;
+		/** [Property] (String) */
+		model?: string;
+		/** [Property] (String) */
+		version?: string;
+	}
+}
+declare module Ext.device.device {
+	export interface IPhoneGap extends Ext.device.device.IAbstract {
+		/** [Property] (String) */
+		cordova?: string;
+		/** [Property] (String) */
+		model?: string;
+		/** [Property] (String) */
+		version?: string;
+	}
+}
 declare module Ext.device {
 	export interface IDevice extends Ext.IBase,Ext.device.device.IAbstract {
 	}
 	export class Device {
+		/** [Property] (String) */
+		static name: string;
+		/** [Property] (String) */
+		static platform: string;
+		/** [Property] (Object/Boolean) */
+		static scheme: any;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (String) */
+		static uuid: string;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -19676,11 +20681,11 @@ declare module Ext.device {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -19714,10 +20719,6 @@ declare module Ext.device {
 	}
 }
 declare module Ext.device.device {
-	export interface IPhoneGap extends Ext.device.device.IAbstract {
-	}
-}
-declare module Ext.device.device {
 	export interface ISencha extends Ext.device.device.IAbstract {
 		/** [Method] Opens a specified URL  
 		* @param url Object 
@@ -19727,6 +20728,289 @@ declare module Ext.device.device {
 }
 declare module Ext.device.device {
 	export interface ISimulator extends Ext.device.device.IAbstract {
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Returns the value of fileSystemSize  
+		* @returns Number 
+		*/
+		getFileSystemSize?(): number;
+		/** [Method] Returns the value of fileSystemType  
+		* @returns Number 
+		*/
+		getFileSystemType?(): number;
+		/** [Method] Returns the value of readerType  
+		* @returns String 
+		*/
+		getReaderType?(): string;
+		/** [Method] Returns the value of stringEncoding  
+		* @returns String 
+		*/
+		getStringEncoding?(): string;
+		/** [Method] Sets the value of fileSystemSize  
+		* @param fileSystemSize Number The new value. 
+		*/
+		setFileSystemSize?( fileSystemSize?:number ): void;
+		/** [Method] Sets the value of fileSystemType  
+		* @param fileSystemType Number The new value. 
+		*/
+		setFileSystemType?( fileSystemType?:number ): void;
+		/** [Method] Sets the value of readerType  
+		* @param readerType String The new value. 
+		*/
+		setReaderType?( readerType?:string ): void;
+		/** [Method] Sets the value of stringEncoding  
+		* @param stringEncoding String The new value. 
+		*/
+		setStringEncoding?( stringEncoding?:string ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IChrome extends Ext.device.filesystem.IHTML5 {
+		/** [Method] Requests access to the Local File System  var me  this  var fs  Ext create Ext device File  fs requestFil  
+		* @param config Object An object which contains the follow options 
+		*/
+		requestFileSystem?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface ICordova extends Ext.device.filesystem.IHTML5 {
+		/** [Method] Downloads a file from the server saving it into the Local File System 
+		* @param config Object 
+		* @returns FileTransfer 
+		*/
+		download?( config?:any ): any;
+		/** [Method]  
+		* @param config Object 
+		*/
+		readMetadata?( config?:any ): void;
+		/** [Method] Send a file to a server 
+		* @param config Object 
+		* @returns FileTransfer 
+		*/
+		upload?( config?:any ): any;
+		/** [Method]  
+		* @param config Object 
+		*/
+		writeMetadata?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IPhoneGap extends Ext.device.filesystem.IHTML5 {
+		/** [Method] Downloads a file from the server saving it into the Local File System 
+		* @param config Object 
+		* @returns FileTransfer 
+		*/
+		download?( config?:any ): any;
+		/** [Method]  
+		* @param config Object 
+		*/
+		readMetadata?( config?:any ): void;
+		/** [Method] Send a file to a server 
+		* @param config Object 
+		* @returns FileTransfer 
+		*/
+		upload?( config?:any ): any;
+		/** [Method]  
+		* @param config Object 
+		*/
+		writeMetadata?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IDirectoryEntry extends Ext.device.filesystem.IEntry {
+		/** [Method] Works the same way as getFile but creates or looks up a directory  
+		* @param config Object 
+		*/
+		getDirectory?( config?:any ): void;
+		/** [Method] Requests a Directory from the Local File System 
+		* @param config Object 
+		*/
+		getEntry?( config?:any ): void;
+		/** [Method] Creates or looks up a file  
+		* @param config Object The object which contains the following config options: 
+		*/
+		getFile?( config?:any ): void;
+		/** [Method] Lists all the entries in the directory  
+		* @param config Object The object which contains the following config options: 
+		*/
+		readEntries?( config?:any ): void;
+		/** [Method] Works the same way as Ext device filesystem Entry remove but removes the directory and all of its contents if any  
+		* @param config Object 
+		*/
+		removeRecursively?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IEntry extends Ext.IBase {
+		/** [Method] Works the same way as moveTo but copies the entry  
+		* @param config Object 
+		*/
+		copyTo?( config?:any ): void;
+		/** [Method] Returns the file system on which the entry resides  
+		* @returns Ext.device.filesystem.FileSystem The entry file system. 
+		*/
+		getFileSystem?(): Ext.device.filesystem.IFileSystem;
+		/** [Method] Returns the full absolute path from the root to the entry  
+		* @returns String The entry full path. 
+		*/
+		getFullPath?(): string;
+		/** [Method] Returns the name of the entry excluding the path leading to it  
+		* @returns String The entry name. 
+		*/
+		getName?(): string;
+		/** [Method] Looks up the parent directory containing the entry  
+		* @param config Object The object which contains the following config options: 
+		*/
+		getParent?( config?:any ): void;
+		/** [Method] Returns whether the entry is a directory  
+		* @returns Boolean The entry is a directory. 
+		*/
+		isDirectory?(): boolean;
+		/** [Method] Returns whether the entry is a file  
+		* @returns Boolean The entry is a file. 
+		*/
+		isFile?(): boolean;
+		/** [Method] Moves the entry to a different location on the file system  
+		* @param config Object The object which contains the following config options: 
+		*/
+		moveTo?( config?:any ): void;
+		/** [Method] Removes the entry from the file system  
+		* @param config Object The object which contains the following config options: 
+		*/
+		remove?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IFileEntry extends Ext.device.filesystem.IEntry {
+		/** [Method] Requests a File Handle from the Local File System 
+		* @param config Object 
+		*/
+		getEntry?( config?:any ): void;
+		/** [Method] Returns the byte offset into the file at which the next read write will occur  
+		* @returns Number The file offset. 
+		*/
+		getOffset?(): number;
+		/** [Method] Reads the data from the file starting at the file offset  
+		* @param config Object The object which contains the following config options: 
+		*/
+		read?( config?:any ): void;
+		/** [Method] Sets the byte offset into the file at which the next read write will occur  
+		* @param config Object The object which contains the following config options: 
+		*/
+		seek?( config?:any ): void;
+		/** [Method] Truncates or extends the file to the specified size in bytes  
+		* @param config Object The object which contains the following config options: 
+		*/
+		truncate?( config?:any ): void;
+		/** [Method] Writes the data to the file starting at the file offset  
+		* @param config Object The object which contains the following config options: 
+		*/
+		write?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IFileSystem extends Ext.IBase {
+		/** [Method] Returns a Ext device filesystem DirectoryEntry instance for the root of the file system  
+		* @returns Ext.device.filesystem.DirectoryEntry The file system root directory. 
+		*/
+		getRoot?(): Ext.device.filesystem.IDirectoryEntry;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface IHTML5 extends Ext.device.filesystem.IAbstract {
+		/** [Method] Requests a Ext device filesystem FileSystem instance  
+		* @param config Object The object which contains the following config options: 
+		*/
+		requestFileSystem?( config?:any ): void;
+	}
+}
+declare module Ext.device {
+	export interface IFileSystem extends Ext.IBase,Ext.device.filesystem.ISencha {
+	}
+	export class FileSystem {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the value of fileSystemSize  
+		* @returns Number 
+		*/
+		static getFileSystemSize(): number;
+		/** [Method] Returns the value of fileSystemType  
+		* @returns Number 
+		*/
+		static getFileSystemType(): number;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Returns the value of readerType  
+		* @returns String 
+		*/
+		static getReaderType(): string;
+		/** [Method] Returns the value of stringEncoding  
+		* @returns String 
+		*/
+		static getStringEncoding(): string;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Requests a Ext device filesystem FileSystem instance  
+		* @param config Object The object which contains the following config options: 
+		*/
+		static requestFileSystem( config?:any ): void;
+		/** [Method] Sets the value of fileSystemSize  
+		* @param fileSystemSize Number The new value. 
+		*/
+		static setFileSystemSize( fileSystemSize?:number ): void;
+		/** [Method] Sets the value of fileSystemType  
+		* @param fileSystemType Number The new value. 
+		*/
+		static setFileSystemType( fileSystemType?:number ): void;
+		/** [Method] Sets the value of readerType  
+		* @param readerType String The new value. 
+		*/
+		static setReaderType( readerType?:string ): void;
+		/** [Method] Sets the value of stringEncoding  
+		* @param stringEncoding String The new value. 
+		*/
+		static setStringEncoding( stringEncoding?:string ): void;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface ISencha extends Ext.device.filesystem.IAbstract {
+		/** [Method] Requests a Ext device filesystem FileSystem instance  
+		* @param config Object The object which contains the following config options: 
+		*/
+		requestFileSystem?( config?:any ): void;
+	}
+}
+declare module Ext.device.filesystem {
+	export interface ISimulator extends Ext.device.filesystem.IHTML5 {
 	}
 }
 declare module Ext.device.geolocation {
@@ -19762,19 +21046,19 @@ declare module Ext.device.geolocation {
 		*/
 		getTimeout?(): number;
 		/** [Method] Sets the value of allowHighAccuracy  
-		* @param allowHighAccuracy Boolean 
+		* @param allowHighAccuracy Boolean The new value. 
 		*/
 		setAllowHighAccuracy?( allowHighAccuracy?:boolean ): void;
 		/** [Method] Sets the value of frequency  
-		* @param frequency Number 
+		* @param frequency Number The new value. 
 		*/
 		setFrequency?( frequency?:number ): void;
 		/** [Method] Sets the value of maximumAge  
-		* @param maximumAge Number 
+		* @param maximumAge Number The new value. 
 		*/
 		setMaximumAge?( maximumAge?:number ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Watches for the current position and calls the callback when successful depending on the specified frequency  
@@ -19783,10 +21067,40 @@ declare module Ext.device.geolocation {
 		watchPosition?( config?:any ): void;
 	}
 }
+declare module Ext.device.geolocation {
+	export interface ICordova extends Ext.device.geolocation.IAbstract {
+		/** [Method] If you are currently watching for the current position this will stop that task  */
+		clearWatch?(): void;
+		/** [Method] Attempts to get the current position of this device  
+		* @param config Object 
+		*/
+		getCurrentPosition?( config?:any ): void;
+		/** [Method] Watches for the current position and calls the callback when successful depending on the specified frequency  
+		* @param config Object 
+		*/
+		watchPosition?( config?:any ): void;
+	}
+}
+declare module Ext.device.geolocation {
+	export interface IPhoneGap extends Ext.device.geolocation.IAbstract {
+		/** [Method] If you are currently watching for the current position this will stop that task  */
+		clearWatch?(): void;
+		/** [Method] Attempts to get the current position of this device  
+		* @param config Object 
+		*/
+		getCurrentPosition?( config?:any ): void;
+		/** [Method] Watches for the current position and calls the callback when successful depending on the specified frequency  
+		* @param config Object 
+		*/
+		watchPosition?( config?:any ): void;
+	}
+}
 declare module Ext.device {
 	export interface IGeolocation extends Ext.IBase,Ext.device.geolocation.IAbstract {
 	}
 	export class Geolocation {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -19837,19 +21151,19 @@ declare module Ext.device {
 		*/
 		static initConfig( instanceConfig?:any ): any;
 		/** [Method] Sets the value of allowHighAccuracy  
-		* @param allowHighAccuracy Boolean 
+		* @param allowHighAccuracy Boolean The new value. 
 		*/
 		static setAllowHighAccuracy( allowHighAccuracy?:boolean ): void;
 		/** [Method] Sets the value of frequency  
-		* @param frequency Number 
+		* @param frequency Number The new value. 
 		*/
 		static setFrequency( frequency?:number ): void;
 		/** [Method] Sets the value of maximumAge  
-		* @param maximumAge Number 
+		* @param maximumAge Number The new value. 
 		*/
 		static setMaximumAge( maximumAge?:number ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		static setTimeout( timeout?:number ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -19890,6 +21204,713 @@ declare module Ext.device.geolocation {
 		watchPosition?( config?:any ): void;
 	}
 }
+declare module Ext.device.globalization {
+	export interface IAbstract extends Ext.IBase,Ext.mixin.IObservable {
+		/** [Method] Appends an after event handler  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		addAfterListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Appends a before event handler  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		addBeforeListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Adds the specified events to the list of events which this Observable may fire  
+		* @param eventNames Object/String... Either an object with event names as properties with a value of true or the first event name string if multiple event names are being passed as separate parameters. 
+		*/
+		addEvents?( eventNames?:any ): void;
+		/** [Method] Appends an event handler to this object  
+		* @param eventName String/String[]/Object The name of the event to listen for. May also be an object who's property names are event names. 
+		* @param fn Function/String The method the event invokes. Will be called with arguments given to fireEvent plus the options parameter described below. 
+		* @param scope Object The scope (this reference) in which the handler function is executed. If omitted, defaults to the object which fired the event. 
+		* @param options Object An object containing handler configuration.  This object may contain any of the following properties: 
+		* @param order String The order of when the listener should be added into the listener queue. Possible values are before, current and after. 
+		*/
+		addListener?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Adds listeners to any Observable object or Element which are automatically removed when this Component is destroyed  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		* @param options Object If the eventName parameter was an event name, this is the addListener options. 
+		*/
+		addManagedListener?( object?:any, eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes all listeners for this object  */
+		clearListeners?(): void;
+		/** [Method]  */
+		destroy?(): void;
+		/** [Method] Enables events fired by this Observable to bubble up an owner hierarchy by calling this getBubbleTarget  if present  
+		* @param events String/String[] The event name to bubble, or an Array of event names. 
+		*/
+		enableBubble?( events?:any ): void;
+		/** [Method] Fires the specified event with the passed parameters and execute a function action at the end if there are no liste  
+		* @param eventName String The name of the event to fire. 
+		* @param args Array Arguments to pass to handers. 
+		* @param fn Function Action. 
+		* @param scope Object Scope of fn. 
+		* @returns Object 
+		*/
+		fireAction?( eventName?:string, args?:any[], fn?:any, scope?:any ): any;
+		/** [Method] Fires the specified event with the passed parameters minus the event name plus the options object passed to addList  
+		* @param eventName String The name of the event to fire. 
+		* @param args Object... Variable number of parameters are passed to handlers. 
+		* @returns Boolean Returns false if any of the handlers return false. 
+		*/
+		fireEvent?( eventName:string, ...args:any[] ): boolean;
+		/** [Method] Returns the value of bubbleEvents  
+		* @returns String/String[] 
+		*/
+		getBubbleEvents?(): any;
+		/** [Method] Returns the value of currencyCode  
+		* @returns String 
+		*/
+		getCurrencyCode?(): string;
+		/** [Method] Returns the value of dateType  
+		* @returns String 
+		*/
+		getDateType?(): string;
+		/** [Method] Returns the value of formatLength  
+		* @returns String 
+		*/
+		getFormatLength?(): string;
+		/** [Method] Returns the value of items  
+		* @returns String 
+		*/
+		getItems?(): string;
+		/** [Method] Returns the value of listeners  
+		* @returns Object 
+		*/
+		getListeners?(): any;
+		/** [Method] Returns the value of numberType  
+		* @returns String 
+		*/
+		getNumberType?(): string;
+		/** [Method] Returns the value of selector  
+		* @returns String 
+		*/
+		getSelector?(): string;
+		/** [Method] Checks to see if this object has any listeners for a specified event 
+		* @param eventName String The name of the event to check for 
+		* @returns Boolean True if the event is being listened for, else false 
+		*/
+		hasListener?( eventName?:string ): boolean;
+		/** [Method] Alias for addManagedListener  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		* @param options Object If the eventName parameter was an event name, this is the addListener options. 
+		*/
+		mon?( object?:any, eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for removeManagedListener  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		*/
+		mun?( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Alias for addListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. May also be an object who's property names are event names. 
+		* @param fn Function/String The method the event invokes. Will be called with arguments given to fireEvent plus the options parameter described below. 
+		* @param scope Object The scope (this reference) in which the handler function is executed. If omitted, defaults to the object which fired the event. 
+		* @param options Object An object containing handler configuration.  This object may contain any of the following properties: 
+		* @param order String The order of when the listener should be added into the listener queue. Possible values are before, current and after. 
+		*/
+		on?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Alias for addAfterListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		onAfter?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for addBeforeListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		onBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Relays selected events from the specified Observable as if the events were fired by this  
+		* @param object Object The Observable whose events this object is to relay. 
+		* @param events String/Array/Object Array of event names to relay. 
+		* @returns Ext.mixin.Observable this 
+		*/
+		relayEvents?( object?:any, events?:any ): Ext.mixin.IObservable;
+		/** [Method] Removes a before event handler  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		removeAfterListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes a before event handler  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		removeBeforeListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes an event handler  
+		* @param eventName String/String[]/Object The type of event the handler was associated with. 
+		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param options Object Extra options object. See addListener for details. 
+		* @param order String The order of the listener to remove. Possible values are before, current and after. 
+		*/
+		removeListener?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Adds listeners to any Observable object or Element which are automatically removed when this Component is destroyed  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		*/
+		removeManagedListener?( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Resumes firing events see suspendEvents 
+		* @param discardQueuedEvents Boolean Pass as true to discard any queued events. 
+		*/
+		resumeEvents?( discardQueuedEvents?:boolean ): void;
+		/** [Method] Sets the value of bubbleEvents  
+		* @param bubbleEvents String/String[] The new value. 
+		*/
+		setBubbleEvents?( bubbleEvents?:any ): void;
+		/** [Method] Sets the value of currencyCode  
+		* @param currencyCode String The new value. 
+		*/
+		setCurrencyCode?( currencyCode?:string ): void;
+		/** [Method] Sets the value of dateType  
+		* @param dateType String The new value. 
+		*/
+		setDateType?( dateType?:string ): void;
+		/** [Method] Sets the value of formatLength  
+		* @param formatLength String The new value. 
+		*/
+		setFormatLength?( formatLength?:string ): void;
+		/** [Method] Sets the value of items  
+		* @param items String The new value. 
+		*/
+		setItems?( items?:string ): void;
+		/** [Method] Sets the value of listeners  
+		* @param listeners Object The new value. 
+		*/
+		setListeners?( listeners?:any ): void;
+		/** [Method] Sets the value of numberType  
+		* @param numberType String The new value. 
+		*/
+		setNumberType?( numberType?:string ): void;
+		/** [Method] Sets the value of selector  
+		* @param selector String The new value. 
+		*/
+		setSelector?( selector?:string ): void;
+		/** [Method] Suspends the firing of all events  */
+		suspendEvents?(): void;
+		/** [Method] Alias for removeListener  
+		* @param eventName String/String[]/Object The type of event the handler was associated with. 
+		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param options Object Extra options object. See addListener for details. 
+		* @param order String The order of the listener to remove. Possible values are before, current and after. 
+		*/
+		un?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Alias for removeAfterListener  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		unAfter?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for removeBeforeListener  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+	}
+}
+declare module Ext.device.globalization {
+	export interface ICordova extends Ext.device.globalization.IAbstract {
+	}
+}
+declare module Ext.device.globalization {
+	export interface IPhoneGap extends Ext.device.globalization.IAbstract {
+	}
+}
+declare module Ext.device {
+	export interface IGlobalization extends Ext.IBase {
+	}
+	export class Globalization {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.device.globalization {
+	export interface ISimulator extends Ext.device.globalization.IAbstract {
+	}
+}
+declare module Ext.device.media {
+	export interface IAbstract extends Ext.IBase,Ext.mixin.IObservable {
+		/** [Method] Appends an after event handler  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		addAfterListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Appends a before event handler  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		addBeforeListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Adds the specified events to the list of events which this Observable may fire  
+		* @param eventNames Object/String... Either an object with event names as properties with a value of true or the first event name string if multiple event names are being passed as separate parameters. 
+		*/
+		addEvents?( eventNames?:any ): void;
+		/** [Method] Appends an event handler to this object  
+		* @param eventName String/String[]/Object The name of the event to listen for. May also be an object who's property names are event names. 
+		* @param fn Function/String The method the event invokes. Will be called with arguments given to fireEvent plus the options parameter described below. 
+		* @param scope Object The scope (this reference) in which the handler function is executed. If omitted, defaults to the object which fired the event. 
+		* @param options Object An object containing handler configuration.  This object may contain any of the following properties: 
+		* @param order String The order of when the listener should be added into the listener queue. Possible values are before, current and after. 
+		*/
+		addListener?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Adds listeners to any Observable object or Element which are automatically removed when this Component is destroyed  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		* @param options Object If the eventName parameter was an event name, this is the addListener options. 
+		*/
+		addManagedListener?( object?:any, eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes all listeners for this object  */
+		clearListeners?(): void;
+		/** [Method]  */
+		destroy?(): void;
+		/** [Method] Enables events fired by this Observable to bubble up an owner hierarchy by calling this getBubbleTarget  if present  
+		* @param events String/String[] The event name to bubble, or an Array of event names. 
+		*/
+		enableBubble?( events?:any ): void;
+		/** [Method] Fires the specified event with the passed parameters and execute a function action at the end if there are no liste  
+		* @param eventName String The name of the event to fire. 
+		* @param args Array Arguments to pass to handers. 
+		* @param fn Function Action. 
+		* @param scope Object Scope of fn. 
+		* @returns Object 
+		*/
+		fireAction?( eventName?:string, args?:any[], fn?:any, scope?:any ): any;
+		/** [Method] Fires the specified event with the passed parameters minus the event name plus the options object passed to addList  
+		* @param eventName String The name of the event to fire. 
+		* @param args Object... Variable number of parameters are passed to handlers. 
+		* @returns Boolean Returns false if any of the handlers return false. 
+		*/
+		fireEvent?( eventName:string, ...args:any[] ): boolean;
+		/** [Method] Returns the value of bubbleEvents  
+		* @returns String/String[] 
+		*/
+		getBubbleEvents?(): any;
+		/** [Method] Returns the value of listeners  
+		* @returns Object 
+		*/
+		getListeners?(): any;
+		/** [Method] Returns the value of src  
+		* @returns Object 
+		*/
+		getSrc?(): any;
+		/** [Method] Checks to see if this object has any listeners for a specified event 
+		* @param eventName String The name of the event to check for 
+		* @returns Boolean True if the event is being listened for, else false 
+		*/
+		hasListener?( eventName?:string ): boolean;
+		/** [Method] Alias for addManagedListener  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		* @param options Object If the eventName parameter was an event name, this is the addListener options. 
+		*/
+		mon?( object?:any, eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for removeManagedListener  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		*/
+		mun?( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Alias for addListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. May also be an object who's property names are event names. 
+		* @param fn Function/String The method the event invokes. Will be called with arguments given to fireEvent plus the options parameter described below. 
+		* @param scope Object The scope (this reference) in which the handler function is executed. If omitted, defaults to the object which fired the event. 
+		* @param options Object An object containing handler configuration.  This object may contain any of the following properties: 
+		* @param order String The order of when the listener should be added into the listener queue. Possible values are before, current and after. 
+		*/
+		on?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Alias for addAfterListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		onAfter?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for addBeforeListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		onBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Relays selected events from the specified Observable as if the events were fired by this  
+		* @param object Object The Observable whose events this object is to relay. 
+		* @param events String/Array/Object Array of event names to relay. 
+		* @returns Ext.mixin.Observable this 
+		*/
+		relayEvents?( object?:any, events?:any ): Ext.mixin.IObservable;
+		/** [Method] Removes a before event handler  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		removeAfterListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes a before event handler  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		removeBeforeListener?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes an event handler  
+		* @param eventName String/String[]/Object The type of event the handler was associated with. 
+		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param options Object Extra options object. See addListener for details. 
+		* @param order String The order of the listener to remove. Possible values are before, current and after. 
+		*/
+		removeListener?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Adds listeners to any Observable object or Element which are automatically removed when this Component is destroyed  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		*/
+		removeManagedListener?( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Resumes firing events see suspendEvents 
+		* @param discardQueuedEvents Boolean Pass as true to discard any queued events. 
+		*/
+		resumeEvents?( discardQueuedEvents?:boolean ): void;
+		/** [Method] Sets the value of bubbleEvents  
+		* @param bubbleEvents String/String[] The new value. 
+		*/
+		setBubbleEvents?( bubbleEvents?:any ): void;
+		/** [Method] Sets the value of listeners  
+		* @param listeners Object The new value. 
+		*/
+		setListeners?( listeners?:any ): void;
+		/** [Method] Sets the value of src  
+		* @param src Object The new value. 
+		*/
+		setSrc?( src?:any ): void;
+		/** [Method] Suspends the firing of all events  */
+		suspendEvents?(): void;
+		/** [Method] Alias for removeListener  
+		* @param eventName String/String[]/Object The type of event the handler was associated with. 
+		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param options Object Extra options object. See addListener for details. 
+		* @param order String The order of the listener to remove. Possible values are before, current and after. 
+		*/
+		un?( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Alias for removeAfterListener  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		unAfter?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for removeBeforeListener  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+	}
+}
+declare module Ext.device.media {
+	export interface ICordova extends Ext.device.media.IAbstract {
+		/** [Property] (String) */
+		src?: string;
+	}
+}
+declare module Ext.device.media {
+	export interface IPhoneGap extends Ext.device.media.IAbstract {
+		/** [Property] (String) */
+		src?: string;
+	}
+}
+declare module Ext.device {
+	export interface IMedia extends Ext.IBase,Ext.device.media.IAbstract {
+	}
+	export class Media {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Appends an after event handler  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		static addAfterListener( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Appends a before event handler  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		static addBeforeListener( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Adds the specified events to the list of events which this Observable may fire  
+		* @param eventNames Object/String... Either an object with event names as properties with a value of true or the first event name string if multiple event names are being passed as separate parameters. 
+		*/
+		static addEvents( eventNames?:any ): void;
+		/** [Method] Appends an event handler to this object  
+		* @param eventName String/String[]/Object The name of the event to listen for. May also be an object who's property names are event names. 
+		* @param fn Function/String The method the event invokes. Will be called with arguments given to fireEvent plus the options parameter described below. 
+		* @param scope Object The scope (this reference) in which the handler function is executed. If omitted, defaults to the object which fired the event. 
+		* @param options Object An object containing handler configuration.  This object may contain any of the following properties: 
+		* @param order String The order of when the listener should be added into the listener queue. Possible values are before, current and after. 
+		*/
+		static addListener( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Adds listeners to any Observable object or Element which are automatically removed when this Component is destroyed  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		* @param options Object If the eventName parameter was an event name, this is the addListener options. 
+		*/
+		static addManagedListener( object?:any, eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method] Removes all listeners for this object  */
+		static clearListeners(): void;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Enables events fired by this Observable to bubble up an owner hierarchy by calling this getBubbleTarget  if present  
+		* @param events String/String[] The event name to bubble, or an Array of event names. 
+		*/
+		static enableBubble( events?:any ): void;
+		/** [Method] Fires the specified event with the passed parameters and execute a function action at the end if there are no liste  
+		* @param eventName String The name of the event to fire. 
+		* @param args Array Arguments to pass to handers. 
+		* @param fn Function Action. 
+		* @param scope Object Scope of fn. 
+		* @returns Object 
+		*/
+		static fireAction( eventName?:string, args?:any[], fn?:any, scope?:any ): any;
+		/** [Method] Fires the specified event with the passed parameters minus the event name plus the options object passed to addList  
+		* @param eventName String The name of the event to fire. 
+		* @param args Object... Variable number of parameters are passed to handlers. 
+		* @returns Boolean Returns false if any of the handlers return false. 
+		*/
+		static fireEvent( eventName:string, ...args:any[] ): boolean;
+		/** [Method] Returns the value of bubbleEvents  
+		* @returns String/String[] 
+		*/
+		static getBubbleEvents(): any;
+		/** [Method] Retrieves the id of this component  
+		* @returns String id 
+		*/
+		static getId(): string;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Returns the value of listeners  
+		* @returns Object 
+		*/
+		static getListeners(): any;
+		/** [Method] Returns the value of src  
+		* @returns Object 
+		*/
+		static getSrc(): any;
+		/** [Method] Checks to see if this object has any listeners for a specified event 
+		* @param eventName String The name of the event to check for 
+		* @returns Boolean True if the event is being listened for, else false 
+		*/
+		static hasListener( eventName?:string ): boolean;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Alias for addManagedListener  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		* @param options Object If the eventName parameter was an event name, this is the addListener options. 
+		*/
+		static mon( object?:any, eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for removeManagedListener  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		*/
+		static mun( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Alias for addListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. May also be an object who's property names are event names. 
+		* @param fn Function/String The method the event invokes. Will be called with arguments given to fireEvent plus the options parameter described below. 
+		* @param scope Object The scope (this reference) in which the handler function is executed. If omitted, defaults to the object which fired the event. 
+		* @param options Object An object containing handler configuration.  This object may contain any of the following properties: 
+		* @param order String The order of when the listener should be added into the listener queue. Possible values are before, current and after. 
+		*/
+		static on( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Alias for addAfterListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		static onAfter( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for addBeforeListener  
+		* @param eventName String/String[]/Object The name of the event to listen for. 
+		* @param fn Function/String The method the event invokes. 
+		* @param scope Object The scope for fn. 
+		* @param options Object An object containing handler configuration. 
+		*/
+		static onBefore( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Relays selected events from the specified Observable as if the events were fired by this  
+		* @param object Object The Observable whose events this object is to relay. 
+		* @param events String/Array/Object Array of event names to relay. 
+		* @returns Ext.mixin.Observable this 
+		*/
+		static relayEvents( object?:any, events?:any ): Ext.mixin.IObservable;
+		/** [Method] Removes a before event handler  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		static removeAfterListener( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes a before event handler  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		static removeBeforeListener( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Removes an event handler  
+		* @param eventName String/String[]/Object The type of event the handler was associated with. 
+		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param options Object Extra options object. See addListener for details. 
+		* @param order String The order of the listener to remove. Possible values are before, current and after. 
+		*/
+		static removeListener( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Adds listeners to any Observable object or Element which are automatically removed when this Component is destroyed  
+		* @param object Ext.mixin.Observable/HTMLElement The item to which to add a listener/listeners. 
+		* @param eventName Object/String The event name, or an object containing event name properties. 
+		* @param fn Function If the eventName parameter was an event name, this is the handler function. 
+		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
+		*/
+		static removeManagedListener( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Resumes firing events see suspendEvents 
+		* @param discardQueuedEvents Boolean Pass as true to discard any queued events. 
+		*/
+		static resumeEvents( discardQueuedEvents?:boolean ): void;
+		/** [Method] Sets the value of bubbleEvents  
+		* @param bubbleEvents String/String[] The new value. 
+		*/
+		static setBubbleEvents( bubbleEvents?:any ): void;
+		/** [Method] Sets the value of listeners  
+		* @param listeners Object The new value. 
+		*/
+		static setListeners( listeners?:any ): void;
+		/** [Method] Sets the value of src  
+		* @param src Object The new value. 
+		*/
+		static setSrc( src?:any ): void;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+		/** [Method] Suspends the firing of all events  */
+		static suspendEvents(): void;
+		/** [Method] Alias for removeListener  
+		* @param eventName String/String[]/Object The type of event the handler was associated with. 
+		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
+		* @param scope Object The scope originally specified for the handler. It must be the same as the scope argument specified in the original call to addListener or the listener will not be removed. 
+		* @param options Object Extra options object. See addListener for details. 
+		* @param order String The order of the listener to remove. Possible values are before, current and after. 
+		*/
+		static un( eventName?:any, fn?:any, scope?:any, options?:any, order?:string ): void;
+		/** [Method] Alias for removeAfterListener  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		static unAfter( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+		/** [Method] Alias for removeBeforeListener  
+		* @param eventName String/String[]/Object The name of the event the handler was associated with. 
+		* @param fn Function/String The handler to remove. 
+		* @param scope Object The scope originally specified for fn. 
+		* @param options Object Extra options object. 
+		*/
+		static unBefore( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+	}
+}
 declare module Ext.device.notification {
 	export interface IAbstract extends Ext.IBase {
 		/** [Method] A simple way to show a notification  
@@ -19900,10 +21921,36 @@ declare module Ext.device.notification {
 		vibrate?(): void;
 	}
 }
+declare module Ext.device.notification {
+	export interface ICordova extends Ext.device.notification.IAbstract {
+		/** [Method] A simple way to show a notification  
+		* @param config Object 
+		*/
+		show?( config?:any ): void;
+		/** [Method] Vibrates the device  
+		* @param time Object 
+		*/
+		vibrate?( time?:any ): void;
+	}
+}
+declare module Ext.device.notification {
+	export interface IPhoneGap extends Ext.device.notification.IAbstract {
+		/** [Method] A simple way to show a notification  
+		* @param config Object 
+		*/
+		show?( config?:any ): void;
+		/** [Method] Vibrates the device  
+		* @param time Object 
+		*/
+		vibrate?( time?:any ): void;
+	}
+}
 declare module Ext.device {
 	export interface INotification extends Ext.IBase,Ext.device.notification.IAbstract {
 	}
 	export class Notification {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -19941,14 +21988,6 @@ declare module Ext.device {
 		static statics(): Ext.IClass;
 		/** [Method] Vibrates the device  */
 		static vibrate(): void;
-	}
-}
-declare module Ext.device.notification {
-	export interface IPhoneGap extends Ext.device.notification.IAbstract {
-		/** [Method] A simple way to show a notification  */
-		show?(): void;
-		/** [Method] Vibrates the device  */
-		vibrate?(): void;
 	}
 }
 declare module Ext.device.notification {
@@ -20115,11 +22154,11 @@ declare module Ext.device.orientation {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -20156,6 +22195,8 @@ declare module Ext.device {
 	export interface IOrientation extends Ext.IBase,Ext.device.orientation.IAbstract {
 	}
 	export class Orientation {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -20331,11 +22372,11 @@ declare module Ext.device {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -20376,6 +22417,8 @@ declare module Ext.device {
 	export interface IPurchases extends Ext.IBase,Ext.device.purchases.ISencha {
 	}
 	export class Purchases {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20438,7 +22481,7 @@ declare module Ext.device.purchases {
 		*/
 		purchase?( config?:any ): void;
 		/** [Method] Sets the value of fields  
-		* @param fields Array 
+		* @param fields Array The new value. 
 		*/
 		setFields?( fields?:any[] ): void;
 	}
@@ -20456,7 +22499,7 @@ declare module Ext.device.purchases {
 		*/
 		getFields?(): any[];
 		/** [Method] Sets the value of fields  
-		* @param fields Array 
+		* @param fields Array The new value. 
 		*/
 		setFields?( fields?:any[] ): void;
 	}
@@ -20495,10 +22538,24 @@ declare module Ext.device.push {
 		register?( config?:any ): void;
 	}
 }
+declare module Ext.device.push {
+	export interface ICordova extends Ext.device.push.IAbstract {
+		/** [Method] Registers a push notification  */
+		register?(): void;
+	}
+}
 declare module Ext.device {
 	export interface IPush extends Ext.IBase,Ext.device.push.IAbstract {
 	}
 	export class Push {
+		/** [Property] (Number) */
+		static ALERT: number;
+		/** [Property] (Number) */
+		static BADGE: number;
+		/** [Property] (Number) */
+		static SOUND: number;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20542,30 +22599,24 @@ declare module Ext.device.push {
 		register?(): void;
 	}
 }
-declare module Ext.device.sqlite {
-	export interface IDatabase extends Ext.IBase {
-		/** [Method] Verifies and changes the version of the database at the same time as doing a schema update with a Ext device SQLite S  
-		* @param config Object The object which contains the following config options: 
-		*/
-		changeVersion?( config?:any ): void;
-		/** [Method] Returns the current version of the database  
-		* @returns String The current database version. 
-		*/
-		getVersion?(): string;
-		/** [Method] Works same as transaction but performs a Ext device SQLite SQLTransaction instance with a read only mode  
-		* @param config Object 
-		*/
-		readTransaction?( config?:any ): void;
-		/** [Method] Performs a Ext device SQLite SQLTransaction instance with a read write mode  
-		* @param config Object The object which contains the following config options: 
-		*/
-		transaction?( config?:any ): void;
+declare module Ext.device.splashscreen {
+	export interface IAbstract extends Ext.IBase {
+	}
+}
+declare module Ext.device.splashscreen {
+	export interface ICordova extends Ext.device.splashscreen.IAbstract {
+	}
+}
+declare module Ext.device.splashscreen {
+	export interface IPhoneGap extends Ext.device.splashscreen.IAbstract {
 	}
 }
 declare module Ext.device {
-	export interface ISQLite extends Ext.IBase,Ext.device.sqlite.ISencha {
+	export interface ISplashscreen extends Ext.IBase {
 	}
-	export class SQLite {
+	export class Splashscreen {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -20593,9 +22644,72 @@ declare module Ext.device {
 		* @returns Object mixins The mixin prototypes as key - value pairs 
 		*/
 		static initConfig( instanceConfig?:any ): any;
-		/** [Method] Returns a Ext device SQLite Database instance  
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.device.splashscreen {
+	export interface ISimulator extends Ext.device.splashscreen.IAbstract {
+	}
+}
+declare module Ext.device.sqlite {
+	export interface IDatabase extends Ext.IBase {
+		/** [Method] Verifies and changes the version of the database at the same time as doing a schema update with a Ext device sqlite S  
 		* @param config Object The object which contains the following config options: 
-		* @returns Ext.device.SQLite.Database The opened database, null if an error occured. 
+		*/
+		changeVersion?( config?:any ): void;
+		/** [Method] Returns the current version of the database  
+		* @returns String The database current version. 
+		*/
+		getVersion?(): string;
+		/** [Method] Works the same way as transaction but performs a Ext device sqlite SQLTransaction instance in a read only mode  
+		* @param config Object 
+		*/
+		readTransaction?( config?:any ): void;
+		/** [Method] Performs a Ext device sqlite SQLTransaction instance in a read write mode  
+		* @param config Object The object which contains the following config options: 
+		*/
+		transaction?( config?:any ): void;
+	}
+}
+declare module Ext.device {
+	export interface ISQLite extends Ext.IBase,Ext.device.sqlite.ISencha {
+	}
+	export class SQLite {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Returns a Ext device sqlite Database instance  
+		* @param config Object The object which contains the following config options: 
+		* @returns Ext.device.sqlite.Database The opened database, null if an error occured. 
 		*/
 		static openDatabase( config?:any ): Ext.device.sqlite.IDatabase;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -20606,9 +22720,9 @@ declare module Ext.device {
 }
 declare module Ext.device.sqlite {
 	export interface ISencha extends Ext.IBase {
-		/** [Method] Returns a Ext device SQLite Database instance  
+		/** [Method] Returns a Ext device sqlite Database instance  
 		* @param config Object The object which contains the following config options: 
-		* @returns Ext.device.SQLite.Database The opened database, null if an error occured. 
+		* @returns Ext.device.sqlite.Database The opened database, null if an error occured. 
 		*/
 		openDatabase?( config?:any ): Ext.device.sqlite.IDatabase;
 	}
@@ -20619,8 +22733,8 @@ declare module Ext.device.sqlite {
 		* @returns Number The inserted row ID. 
 		*/
 		getInsertId?(): number;
-		/** [Method] Returns a Ext device SQLite SQLResultSetRowList instance representing rows returned by the SQL statement  
-		* @returns Ext.device.SQLite.SQLResultSetRowList The rows. 
+		/** [Method] Returns a Ext device sqlite SQLResultSetRowList instance representing rows returned by the SQL statement  
+		* @returns Ext.device.sqlite.SQLResultSetRowList The rows. 
 		*/
 		getRows?(): Ext.device.sqlite.ISQLResultSetRowList;
 		/** [Method] Returns the number of rows that were changed by the SQL statement  
@@ -20636,7 +22750,7 @@ declare module Ext.device.sqlite {
 		*/
 		getLength?(): number;
 		/** [Method] Returns a row at specified index returned by the SQL statement  
-		* @param index Number The index of a row. This is required. 
+		* @param index Number This is required. The index of a row. 
 		* @returns Object The row. 
 		*/
 		item?( index?:number ): any;
@@ -20648,6 +22762,101 @@ declare module Ext.device.sqlite {
 		* @param config Object The object which contains the following config options: 
 		*/
 		executeSql?( config?:any ): void;
+	}
+}
+declare module Ext.device.storage {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Returns the value of databaseDisplayName  
+		* @returns String 
+		*/
+		getDatabaseDisplayName?(): string;
+		/** [Method] Returns the value of databaseName  
+		* @returns String 
+		*/
+		getDatabaseName?(): string;
+		/** [Method] Returns the value of databaseSize  
+		* @returns Object 
+		*/
+		getDatabaseSize?(): any;
+		/** [Method] Returns the value of databaseVersion  
+		* @returns String 
+		*/
+		getDatabaseVersion?(): string;
+		/** [Method] Sets the value of databaseDisplayName  
+		* @param databaseDisplayName String The new value. 
+		*/
+		setDatabaseDisplayName?( databaseDisplayName?:string ): void;
+		/** [Method] Sets the value of databaseName  
+		* @param databaseName String The new value. 
+		*/
+		setDatabaseName?( databaseName?:string ): void;
+		/** [Method] Sets the value of databaseSize  
+		* @param databaseSize Object The new value. 
+		*/
+		setDatabaseSize?( databaseSize?:any ): void;
+		/** [Method] Sets the value of databaseVersion  
+		* @param databaseVersion String The new value. 
+		*/
+		setDatabaseVersion?( databaseVersion?:string ): void;
+	}
+}
+declare module Ext.device.storage {
+	export interface ICordova extends Ext.device.storage.html5.IHTML5 {
+	}
+}
+declare module Ext.device.storage {
+	export interface IPhoneGap extends Ext.device.storage.html5.IHTML5 {
+	}
+}
+declare module Ext.device.storage.html5 {
+	export interface IDatabase extends Ext.IBase {
+		/** [Method]  
+		* @param sql String/String[]/Object/Object[]/SQLStatement/SQLStatement[] SQL Command to run with optional arguments and callbacks 
+		* @param success Function callback for successful transaction 
+		* @param failure Function callback for failed transaction 
+		*/
+		transaction?( sql?:any, success?:any, failure?:any ): void;
+	}
+}
+declare module Ext.device.storage.html5 {
+	export interface IHTML5 extends Ext.device.storage.IAbstract {
+	}
+}
+declare module Ext.device.storage.html5 {
+	export interface ISQLStatement extends Ext.IBase {
+	}
+}
+declare module Ext.device.storage {
+	export interface ISimulator extends Ext.device.storage.html5.IHTML5 {
+	}
+}
+declare module Ext.device.tunnel {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Broadcast a message intent to look for receivers who can respond to it 
+		* @param message String 
+		* @returns Ext.Promise A promise which provides an array of objects upon fulfilled. Each object contains information about a receiver, with 'id', 'name' and 'icon' keys. 
+		*/
+		broadcast?( message?:string ): Ext.IPromise;
+		/** [Method] Create a connection to another application with the given id 
+		* @param receiverId String The id of the application to connect to. Get this id from broadcast 
+		* @returns Ext.Promise 
+		*/
+		connect?( receiverId?:string ): Ext.IPromise;
+		/** [Method] Assign the callback to handle new connection  
+		* @param callback Function 
+		*/
+		onConnect?( callback?:any ): void;
+		/** [Method] Assign the callback to handling incoming messages  
+		* @param callback Function 
+		*/
+		onMessage?( callback?:any ): void;
+		/** [Method] Send a message 
+		* @param receiverId String The id of the application to connect to. Get this id from broadcast 
+		* @param message * The message to send, can be an object, as long as it is JSON-able. 
+		* @param foreground Boolean Whether or not to bring the receiver app to the foreground 
+		* @returns Ext.Promise 
+		*/
+		send?( receiverId?:string, message?:any, foreground?:boolean ): Ext.IPromise;
 	}
 }
 declare module Ext.direct {
@@ -20689,35 +22898,35 @@ declare module Ext.direct {
 		*/
 		getXhr?(): any;
 		/** [Method] Sets the value of code  
-		* @param code Object 
+		* @param code Object The new value. 
 		*/
 		setCode?( code?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		*/
 		setMessage?( message?:string ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of result  
-		* @param result Object 
+		* @param result Object The new value. 
 		*/
 		setResult?( result?:any ): void;
 		/** [Method] Sets the value of status  
-		* @param status Boolean 
+		* @param status Boolean The new value. 
 		*/
 		setStatus?( status?:boolean ): void;
 		/** [Method] Sets the value of transaction  
-		* @param transaction Object 
+		* @param transaction Object The new value. 
 		*/
 		setTransaction?( transaction?:any ): void;
 		/** [Method] Sets the value of xhr  
-		* @param xhr Object 
+		* @param xhr Object The new value. 
 		*/
 		setXhr?( xhr?:any ): void;
 	}
@@ -20739,15 +22948,15 @@ declare module Ext.direct {
 		*/
 		getStatus?(): boolean;
 		/** [Method] Sets the value of error  
-		* @param error Object 
+		* @param error Object The new value. 
 		*/
 		setError?( error?:any ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of status  
-		* @param status Boolean 
+		* @param status Boolean The new value. 
 		*/
 		setStatus?( status?:boolean ): void;
 	}
@@ -20765,6 +22974,8 @@ declare module Ext.direct {
 	export interface IManager extends Ext.IBase,Ext.mixin.IObservable {
 	}
 	export class Manager {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -20960,11 +23171,11 @@ declare module Ext.direct {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -21001,6 +23212,8 @@ declare module Ext {
 	export interface IDirect extends Ext.IBase,Ext.mixin.IObservable {
 	}
 	export class Direct {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -21196,11 +23409,11 @@ declare module Ext {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
@@ -21262,15 +23475,15 @@ declare module Ext.direct {
 		*/
 		isConnected?(): boolean;
 		/** [Method] Sets the value of baseParams  
-		* @param baseParams Object 
+		* @param baseParams Object The new value. 
 		*/
 		setBaseParams?( baseParams?:any ): void;
 		/** [Method] Sets the value of interval  
-		* @param interval Number 
+		* @param interval Number The new value. 
 		*/
 		setInterval?( interval?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String/Function 
+		* @param url String/Function The new value. 
 		*/
 		setUrl?( url?:any ): void;
 	}
@@ -21279,6 +23492,8 @@ declare module Ext.direct {
 	export interface IProvider extends Ext.IBase,Ext.mixin.IObservable {
 		/** [Config Option] (String) */
 		id?: string;
+		/** [Property] (Boolean) */
+		isProvider?: boolean;
 		/** [Method] Appends an after event handler  
 		* @param eventName String/String[]/Object The name of the event to listen for. 
 		* @param fn Function/String The method the event invokes. 
@@ -21437,15 +23652,15 @@ declare module Ext.direct {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of id  
-		* @param id String 
+		* @param id String The new value. 
 		*/
 		setId?( id?:string ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -21491,15 +23706,15 @@ declare module Ext.direct {
 		*/
 		getTransaction?(): Ext.direct.ITransaction;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of tid  
-		* @param tid Object 
+		* @param tid Object The new value. 
 		*/
 		setTid?( tid?:any ): void;
 		/** [Method] Sets the value of transaction  
-		* @param transaction Object 
+		* @param transaction Object The new value. 
 		*/
 		setTransaction?( transaction?:any ): void;
 	}
@@ -21532,23 +23747,23 @@ declare module Ext.direct {
 		*/
 		getParams?(): any;
 		/** [Method] Sets the value of formHandler  
-		* @param formHandler Object 
+		* @param formHandler Object The new value. 
 		*/
 		setFormHandler?( formHandler?:any ): void;
 		/** [Method] Sets the value of len  
-		* @param len Object 
+		* @param len Object The new value. 
 		*/
 		setLen?( len?:any ): void;
 		/** [Method] Sets the value of name  
-		* @param name Object 
+		* @param name Object The new value. 
 		*/
 		setName?( name?:any ): void;
 		/** [Method] Sets the value of ordered  
-		* @param ordered Boolean 
+		* @param ordered Boolean The new value. 
 		*/
 		setOrdered?( ordered?:boolean ): void;
 		/** [Method] Sets the value of params  
-		* @param params Object 
+		* @param params Object The new value. 
 		*/
 		setParams?( params?:any ): void;
 	}
@@ -21606,31 +23821,31 @@ declare module Ext.direct {
 		*/
 		isConnected?(): boolean;
 		/** [Method] Sets the value of actions  
-		* @param actions Object 
+		* @param actions Object The new value. 
 		*/
 		setActions?( actions?:any ): void;
 		/** [Method] Sets the value of enableBuffer  
-		* @param enableBuffer Number/Boolean 
+		* @param enableBuffer Number/Boolean The new value. 
 		*/
 		setEnableBuffer?( enableBuffer?:any ): void;
 		/** [Method] Sets the value of enableUrlEncode  
-		* @param enableUrlEncode String 
+		* @param enableUrlEncode String The new value. 
 		*/
 		setEnableUrlEncode?( enableUrlEncode?:string ): void;
 		/** [Method] Sets the value of maxRetries  
-		* @param maxRetries Number 
+		* @param maxRetries Number The new value. 
 		*/
 		setMaxRetries?( maxRetries?:number ): void;
 		/** [Method] Sets the value of namespace  
-		* @param namespace String/Object 
+		* @param namespace String/Object The new value. 
 		*/
 		setNamespace?( namespace?:any ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 	}
@@ -21674,39 +23889,39 @@ declare module Ext.direct {
 		*/
 		getRetryCount?(): number;
 		/** [Method] Sets the value of action  
-		* @param action Object 
+		* @param action Object The new value. 
 		*/
 		setAction?( action?:any ): void;
 		/** [Method] Sets the value of args  
-		* @param args Object 
+		* @param args Object The new value. 
 		*/
 		setArgs?( args?:any ): void;
 		/** [Method] Sets the value of callback  
-		* @param callback Object 
+		* @param callback Object The new value. 
 		*/
 		setCallback?( callback?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		setData?( data?:any ): void;
 		/** [Method] Sets the value of form  
-		* @param form Object 
+		* @param form Object The new value. 
 		*/
 		setForm?( form?:any ): void;
 		/** [Method] Sets the value of id  
-		* @param id Object 
+		* @param id Object The new value. 
 		*/
 		setId?( id?:any ): void;
 		/** [Method] Sets the value of method  
-		* @param method Object 
+		* @param method Object The new value. 
 		*/
 		setMethod?( method?:any ): void;
 		/** [Method] Sets the value of provider  
-		* @param provider Object 
+		* @param provider Object The new value. 
 		*/
 		setProvider?( provider?:any ): void;
 		/** [Method] Sets the value of retryCount  
-		* @param retryCount Number 
+		* @param retryCount Number The new value. 
 		*/
 		setRetryCount?( retryCount?:number ): void;
 	}
@@ -21934,19 +24149,17 @@ declare module Ext.dom {
 		*/
 		getWidth?( contentWidth?:boolean ): number;
 		/** [Method] Gets the current X position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The X position of the element 
 		*/
-		getX?( el?:any ): number;
+		getX?(): number;
 		/** [Method] Gets the current position of the element based on page coordinates  
 		* @returns Array The XY position of the element 
 		*/
 		getXY?(): any[];
 		/** [Method] Gets the current Y position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The Y position of the element 
 		*/
-		getY?( el?:any ): number;
+		getY?(): number;
 		/** [Method] Checks if the specified CSS class exists on this element s DOM node  
 		* @param name String The CSS class to check for. 
 		* @returns Boolean true if the class exists, else false. 
@@ -22460,19 +24673,17 @@ declare module Ext {
 		*/
 		getWidth?( contentWidth?:boolean ): number;
 		/** [Method] Gets the current X position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The X position of the element 
 		*/
-		getX?( el?:any ): number;
+		getX?(): number;
 		/** [Method] Gets the current position of the element based on page coordinates  
 		* @returns Array The XY position of the element 
 		*/
 		getXY?(): any[];
 		/** [Method] Gets the current Y position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The Y position of the element 
 		*/
-		getY?( el?:any ): number;
+		getY?(): number;
 		/** [Method] Checks if the specified CSS class exists on this element s DOM node  
 		* @param name String The CSS class to check for. 
 		* @returns Boolean true if the class exists, else false. 
@@ -22986,19 +25197,17 @@ declare module Ext {
 		*/
 		getWidth?( contentWidth?:boolean ): number;
 		/** [Method] Gets the current X position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The X position of the element 
 		*/
-		getX?( el?:any ): number;
+		getX?(): number;
 		/** [Method] Gets the current position of the element based on page coordinates  
 		* @returns Array The XY position of the element 
 		*/
 		getXY?(): any[];
 		/** [Method] Gets the current Y position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The Y position of the element 
 		*/
-		getY?( el?:any ): number;
+		getY?(): number;
 		/** [Method] Checks if the specified CSS class exists on this element s DOM node  
 		* @param name String The CSS class to check for. 
 		* @returns Boolean true if the class exists, else false. 
@@ -23554,19 +25763,17 @@ declare module Ext.dom {
 		*/
 		getWidth?( contentWidth?:boolean ): number;
 		/** [Method] Gets the current X position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The X position of the element 
 		*/
-		getX?( el?:any ): number;
+		getX?(): number;
 		/** [Method] Gets the current position of the element based on page coordinates  
 		* @returns Array The XY position of the element 
 		*/
 		getXY?(): any[];
 		/** [Method] Gets the current Y position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The Y position of the element 
 		*/
-		getY?( el?:any ): number;
+		getY?(): number;
 		/** [Method] Checks if the specified CSS class exists on this element s DOM node  
 		* @param name String The CSS class to check for. 
 		* @returns Boolean true if the class exists, else false. 
@@ -23795,7 +26002,7 @@ declare module Ext.dom {
 		*/
 		setBox?( box?:any ): Ext.dom.IElement;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the specified CSS class on this element s DOM node  
@@ -23821,7 +26028,7 @@ declare module Ext.dom {
 		*/
 		setLeft?( left?:string ): Ext.dom.IElement;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Set the maximum height of this Element  
@@ -24045,6 +26252,16 @@ declare module Ext.dom {
 		* @returns Ext.dom.CompositeElementLite/Ext.dom.CompositeElement 
 		*/
 		static select( selector?:any, composite?:boolean, root?:any ): Ext.dom.ICompositeElementLite;
+		/** [Method] Serializes a DOM form into a url encoded string 
+		* @param form Object The form 
+		* @returns String The url encoded form 
+		*/
+		static serializeForm( form?:any ): string;
+		/** [Method] Serializes a DOM element and its children recursively into a string  
+		* @param node Object DOM element to serialize. 
+		* @returns String 
+		*/
+		static serializeNode( node?:any ): string;
 		/** [Method] Parses a number or string representing margin sizes into an object  
 		* @param box Number/String The encoded margins 
 		* @param units String The type of units to add 
@@ -24310,19 +26527,17 @@ declare module Ext {
 		*/
 		getWidth?( contentWidth?:boolean ): number;
 		/** [Method] Gets the current X position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The X position of the element 
 		*/
-		getX?( el?:any ): number;
+		getX?(): number;
 		/** [Method] Gets the current position of the element based on page coordinates  
 		* @returns Array The XY position of the element 
 		*/
 		getXY?(): any[];
 		/** [Method] Gets the current Y position of the element based on page coordinates  
-		* @param el Object 
 		* @returns Number The Y position of the element 
 		*/
-		getY?( el?:any ): number;
+		getY?(): number;
 		/** [Method] Checks if the specified CSS class exists on this element s DOM node  
 		* @param name String The CSS class to check for. 
 		* @returns Boolean true if the class exists, else false. 
@@ -24551,7 +26766,7 @@ declare module Ext {
 		*/
 		setBox?( box?:any ): Ext.dom.IElement;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the specified CSS class on this element s DOM node  
@@ -24577,7 +26792,7 @@ declare module Ext {
 		*/
 		setLeft?( left?:string ): Ext.dom.IElement;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Set the maximum height of this Element  
@@ -24801,6 +27016,16 @@ declare module Ext {
 		* @returns Ext.dom.CompositeElementLite/Ext.dom.CompositeElement 
 		*/
 		static select( selector?:any, composite?:boolean, root?:any ): Ext.dom.ICompositeElementLite;
+		/** [Method] Serializes a DOM form into a url encoded string 
+		* @param form Object The form 
+		* @returns String The url encoded form 
+		*/
+		static serializeForm( form?:any ): string;
+		/** [Method] Serializes a DOM element and its children recursively into a string  
+		* @param node Object DOM element to serialize. 
+		* @returns String 
+		*/
+		static serializeNode( node?:any ): string;
 		/** [Method] Parses a number or string representing margin sizes into an object  
 		* @param box Number/String The encoded margins 
 		* @param units String The type of units to add 
@@ -24969,6 +27194,8 @@ declare module Ext {
 	export interface IDomQuery extends Ext.dom.IQuery {
 	}
 	export class DomQuery {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -25024,6 +27251,8 @@ declare module Ext.core {
 	export interface IDomQuery extends Ext.dom.IQuery {
 	}
 	export class DomQuery {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -25079,12 +27308,14 @@ declare module Ext.draw {
 	export interface IAnimator extends Ext.IBase {
 	}
 	export class Animator {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds an animated object to the animation pool  
 		* @param animation Object The animation descriptor to add to the pool. 
 		*/
 		static add( animation?:any ): void;
 		/** [Method] Register a recursive callback that will be called at every frame  
-		* @param callback Object 
+		* @param callback Function 
 		* @param scope Object 
 		* @returns String 
 		*/
@@ -25109,9 +27340,9 @@ declare module Ext.draw {
 		*/
 		static callSuper( args?:any ): any;
 		/** [Method] Cancel a registered one time callback 
-		* @param id Object 
+		* @param id String 
 		*/
-		static cancel( id?:any ): void;
+		static cancel( id?:string ): void;
 		/** [Method] Returns true or false whether it contains the given animation or not  
 		* @param animation Object The animation to check for. 
 		* @returns Boolean 
@@ -25138,11 +27369,11 @@ declare module Ext.draw {
 		*/
 		static remove( animation?:any ): void;
 		/** [Method] Unregister a recursive callback  
-		* @param id Object 
+		* @param id String 
 		*/
-		static removeFrameCallback( id?:any ): void;
+		static removeFrameCallback( id?:string ): void;
 		/** [Method] Register an one time callback that will be called at the next frame  
-		* @param callback Object 
+		* @param callback Function 
 		* @param scope Object 
 		* @returns String 
 		*/
@@ -25270,6 +27501,8 @@ declare module Ext.draw {
 		defaultType?: string;
 		/** [Config Option] (Boolean) */
 		fitSurface?: boolean;
+		/** [Config Option] (Object[]) */
+		gradients?: any[];
 		/** [Config Option] (Function) */
 		resizeHandler?: any;
 		/** [Config Option] (Boolean) */
@@ -25292,6 +27525,10 @@ declare module Ext.draw {
 		* @returns Boolean 
 		*/
 		getFitSurface?(): boolean;
+		/** [Method] Returns the value of gradients  
+		* @returns Object[] 
+		*/
+		getGradients?(): any[];
 		/** [Method] Returns the value of resizeHandler  
 		* @returns Function 
 		*/
@@ -25316,31 +27553,35 @@ declare module Ext.draw {
 		/** [Method] Render all the surfaces in the component  */
 		renderFrame?(): void;
 		/** [Method] Sets the value of autoSize  
-		* @param autoSize Boolean 
+		* @param autoSize Boolean The new value. 
 		*/
 		setAutoSize?( autoSize?:boolean ): void;
 		/** [Method] Sets the value of background  
-		* @param background Object 
+		* @param background Object The new value. 
 		*/
 		setBackground?( background?:any ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of fitSurface  
-		* @param fitSurface Boolean 
+		* @param fitSurface Boolean The new value. 
 		*/
 		setFitSurface?( fitSurface?:boolean ): void;
+		/** [Method] Sets the value of gradients  
+		* @param gradients Object[] The new value. 
+		*/
+		setGradients?( gradients?:any[] ): void;
 		/** [Method] Sets the value of resizeHandler  
-		* @param resizeHandler Function 
+		* @param resizeHandler Function The new value. 
 		*/
 		setResizeHandler?( resizeHandler?:any ): void;
 		/** [Method] Sets the value of sprites  
-		* @param sprites Object 
+		* @param sprites Object The new value. 
 		*/
 		setSprites?( sprites?:any ): void;
 		/** [Method] Sets the value of viewBox  
-		* @param viewBox Boolean 
+		* @param viewBox Boolean The new value. 
 		*/
 		setViewBox?( viewBox?:boolean ): void;
 	}
@@ -25349,6 +27590,8 @@ declare module Ext.draw {
 	export interface IDraw extends Ext.IBase {
 	}
 	export class Draw {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -25384,10 +27627,10 @@ declare module Ext.draw {
 		/** [Method]  
 		* @param bbox1 Object 
 		* @param bbox2 Object 
-		* @param padding Object 
+		* @param padding Number 
 		* @returns Boolean 
 		*/
-		static isBBoxIntersect( bbox1?:any, bbox2?:any, padding?:any ): boolean;
+		static isBBoxIntersect( bbox1?:any, bbox2?:any, padding?:number ): boolean;
 		/** [Method] Converting degrees to radians  
 		* @param degrees Number 
 		* @returns Number 
@@ -25398,6 +27641,13 @@ declare module Ext.draw {
 		* @returns Mixed 
 		*/
 		static reflectFn( a?:any ): any;
+		/** [Method] Given coordinates of the points calculates coordinates of a Bezier curve that goes through them  
+		* @param dataX Object x-coordinates of the points. 
+		* @param dataY Object y-coordinates of the points. 
+		* @param value Object A value to control the smoothness of the curve. 
+		* @returns Object Object holding two arrays, for x and y coordinates of the curve. 
+		*/
+		static smooth( dataX?:any, dataY?:any, value?:any ): any;
 		/** [Method] Natural cubic spline interpolation  
 		* @param points Array Array of numbers. 
 		*/
@@ -25425,7 +27675,7 @@ declare module Ext.draw.engine {
 		/** [Method] Initialize the canvas element  */
 		initElement?(): void;
 		/** [Method] Sets the value of highPrecision  
-		* @param highPrecision Boolean 
+		* @param highPrecision Boolean The new value. 
 		*/
 		setHighPrecision?( highPrecision?:boolean ): void;
 	}
@@ -25439,10 +27689,10 @@ declare module Ext.draw.engine {
 		/** [Method] Clears the current transformation state on the surface  */
 		clearTransform?(): void;
 		/** [Method] Creates a DOM element under the SVG namespace of the given type  
-		* @param type Object The type of the SVG DOM element. 
+		* @param type String The type of the SVG DOM element. 
 		* @returns * The created element. 
 		*/
-		createSvgNode?( type?:any ): any;
+		createSvgNode?( type?:string ): any;
 		/** [Method] Destroys the Canvas element and prepares it for Garbage Collection  
 		* @param path Object 
 		* @param matrix Object 
@@ -25464,7 +27714,7 @@ declare module Ext.draw.engine {
 		*/
 		renderSprite?( sprite?:Ext.draw.sprite.ISprite ): boolean;
 		/** [Method] Sets the value of highPrecision  
-		* @param highPrecision Boolean 
+		* @param highPrecision Boolean The new value. 
 		*/
 		setHighPrecision?( highPrecision?:boolean ): void;
 	}
@@ -25472,173 +27722,173 @@ declare module Ext.draw.engine {
 declare module Ext.draw.engine.svgcontext {
 	export interface IGradient extends Ext.IBase {
 		/** [Method] Adds a color stop with the given color to the gradient at the given offset  
-		* @param offset Object 
-		* @param color Object 
+		* @param offset Number 
+		* @param color String 
 		*/
-		addColorStop?( offset?:any, color?:any ): void;
+		addColorStop?( offset?:number, color?:string ): void;
 	}
 }
 declare module Ext.draw.engine {
 	export interface ISvgContext extends Ext.IBase {
 		/** [Method] Adds points to the subpath such that the arc described by the circumference of the circle described by the arguments 
-		* @param x Object 
-		* @param y Object 
-		* @param radius Object 
-		* @param startAngle Object 
-		* @param endAngle Object 
-		* @param anticlockwise Object 
+		* @param x Number 
+		* @param y Number 
+		* @param radius Number 
+		* @param startAngle Number 
+		* @param endAngle Number 
+		* @param anticlockwise Number 
 		*/
-		arc?( x?:any, y?:any, radius?:any, startAngle?:any, endAngle?:any, anticlockwise?:any ): void;
+		arc?( x?:number, y?:number, radius?:number, startAngle?:number, endAngle?:number, anticlockwise?:number ): void;
 		/** [Method] Arc command using svg parameters  
-		* @param r1 Object 
-		* @param r2 Object 
-		* @param rotation Object 
-		* @param large Object 
-		* @param swipe Object 
-		* @param x2 Object 
-		* @param y2 Object 
+		* @param r1 Number 
+		* @param r2 Number 
+		* @param rotation Number 
+		* @param large Number 
+		* @param swipe Number 
+		* @param x2 Number 
+		* @param y2 Number 
 		*/
-		arcSvg?( r1?:any, r2?:any, rotation?:any, large?:any, swipe?:any, x2?:any, y2?:any ): void;
+		arcSvg?( r1?:number, r2?:number, rotation?:number, large?:number, swipe?:number, x2?:number, y2?:number ): void;
 		/** [Method] Adds an arc with the given control points and radius to the current subpath connected to the previous point by a str  
-		* @param x1 Object 
-		* @param y1 Object 
-		* @param x2 Object 
-		* @param y2 Object 
-		* @param radiusX Object 
-		* @param radiusY Object 
-		* @param rotation Object 
+		* @param x1 Number 
+		* @param y1 Number 
+		* @param x2 Number 
+		* @param y2 Number 
+		* @param radiusX Number 
+		* @param radiusY Number 
+		* @param rotation Number 
 		*/
-		arcTo?( x1?:any, y1?:any, x2?:any, y2?:any, radiusX?:any, radiusY?:any, rotation?:any ): void;
+		arcTo?( x1?:number, y1?:number, x2?:number, y2?:number, radiusX?:number, radiusY?:number, rotation?:number ): void;
 		/** [Method] Resets the current default path  */
 		beginPath?(): void;
 		/** [Method] Adds the given point to the current subpath connected to the previous one by a cubic B zier curve with the given con  
-		* @param x1 Object 
-		* @param y1 Object 
-		* @param x2 Object 
-		* @param y2 Object 
-		* @param x3 Object 
-		* @param y3 Object 
+		* @param x1 Number 
+		* @param y1 Number 
+		* @param x2 Number 
+		* @param y2 Number 
+		* @param x3 Number 
+		* @param y3 Number 
 		*/
-		bezierCurveTo?( x1?:any, y1?:any, x2?:any, y2?:any, x3?:any, y3?:any ): void;
+		bezierCurveTo?( x1?:number, y1?:number, x2?:number, y2?:number, x3?:number, y3?:number ): void;
 		/** [Method] Clears the context  */
 		clear?(): void;
 		/** [Method] Marks the current subpath as closed and starts a new subpath with a point the same as the start and end of the newly  */
 		closePath?(): void;
 		/** [Method] Returns an object that represents a linear gradient that paints along the line given by the coordinates represented b  
-		* @param x0 Object 
-		* @param y0 Object 
-		* @param x1 Object 
-		* @param y1 Object 
+		* @param x0 Number 
+		* @param y0 Number 
+		* @param x1 Number 
+		* @param y1 Number 
 		* @returns Ext.draw.engine.SvgContext.Gradient 
 		*/
-		createLinearGradient?( x0?:any, y0?:any, x1?:any, y1?:any ): Ext.draw.engine.svgcontext.IGradient;
+		createLinearGradient?( x0?:number, y0?:number, x1?:number, y1?:number ): Ext.draw.engine.svgcontext.IGradient;
 		/** [Method] Returns a CanvasGradient object that represents a radial gradient that paints along the cone given by the circles rep  
-		* @param x0 Object 
-		* @param y0 Object 
-		* @param r0 Object 
-		* @param x1 Object 
-		* @param y1 Object 
-		* @param r1 Object 
+		* @param x0 Number 
+		* @param y0 Number 
+		* @param r0 Number 
+		* @param x1 Number 
+		* @param y1 Number 
+		* @param r1 Number 
 		* @returns Ext.draw.engine.SvgContext.Gradient 
 		*/
-		createRadialGradient?( x0?:any, y0?:any, r0?:any, x1?:any, y1?:any, r1?:any ): Ext.draw.engine.svgcontext.IGradient;
+		createRadialGradient?( x0?:number, y0?:number, r0?:number, x1?:number, y1?:number, r1?:number ): Ext.draw.engine.svgcontext.IGradient;
 		/** [Method] Draws the given image onto the canvas  
-		* @param image Object 
-		* @param sx Object 
-		* @param sy Object 
-		* @param sw Object 
-		* @param sh Object 
-		* @param dx Object 
-		* @param dy Object 
-		* @param dw Object 
-		* @param dh Object 
+		* @param image HTMLElement 
+		* @param sx Number 
+		* @param sy Number 
+		* @param sw Number 
+		* @param sh Number 
+		* @param dx Number 
+		* @param dy Number 
+		* @param dw Number 
+		* @param dh Number 
 		*/
-		drawImage?( image?:any, sx?:any, sy?:any, sw?:any, sh?:any, dx?:any, dy?:any, dw?:any, dh?:any ): void;
+		drawImage?( image?:HTMLElement, sx?:number, sy?:number, sw?:number, sh?:number, dx?:number, dy?:number, dw?:number, dh?:number ): void;
 		/** [Method] Adds points to the subpath such that the arc described by the circumference of the ellipse described by the arguments  
-		* @param x Object 
-		* @param y Object 
-		* @param radiusX Object 
-		* @param radiusY Object 
-		* @param rotation Object 
-		* @param startAngle Object 
-		* @param endAngle Object 
-		* @param anticlockwise Object 
+		* @param x Number 
+		* @param y Number 
+		* @param radiusX Number 
+		* @param radiusY Number 
+		* @param rotation Number 
+		* @param startAngle Number 
+		* @param endAngle Number 
+		* @param anticlockwise Number 
 		*/
-		ellipse?( x?:any, y?:any, radiusX?:any, radiusY?:any, rotation?:any, startAngle?:any, endAngle?:any, anticlockwise?:any ): void;
+		ellipse?( x?:number, y?:number, radiusX?:number, radiusY?:number, rotation?:number, startAngle?:number, endAngle?:number, anticlockwise?:number ): void;
 		/** [Method] Fills the subpaths of the current default path or the given path with the current fill style  */
 		fill?(): void;
 		/** [Method] Paints the given rectangle onto the canvas using the current fill style  
-		* @param x Object 
-		* @param y Object 
-		* @param width Object 
-		* @param height Object 
+		* @param x Number 
+		* @param y Number 
+		* @param width Number 
+		* @param height Number 
 		*/
-		fillRect?( x?:any, y?:any, width?:any, height?:any ): void;
+		fillRect?( x?:number, y?:number, width?:number, height?:number ): void;
 		/** [Method] Note After the method guarantees the transform matrix will be inverted  
 		* @param attr Object The attribute object 
-		* @param transformFillStroke Boolean Indicate whether to transform fill and stroke. If this is not  given, then uses `attr.transformFillStroke` instead. 
+		* @param transformFillStroke Boolean Indicate whether to transform fill and stroke. If this is not given, then uses attr.transformFillStroke instead. 
 		*/
 		fillStroke?( attr?:any, transformFillStroke?:boolean ): void;
 		/** [Method] Fills the given text at the given position  
-		* @param text Object 
-		* @param x Object 
-		* @param y Object 
+		* @param text String 
+		* @param x Number 
+		* @param y Number 
 		*/
-		fillText?( text?:any, x?:any, y?:any ): void;
+		fillText?( text?:string, x?:number, y?:number ): void;
 		/** [Method] Adds the given point to the current subpath connected to the previous one by a straight line  
-		* @param x Object 
-		* @param y Object 
+		* @param x Number 
+		* @param y Number 
 		*/
-		lineTo?( x?:any, y?:any ): void;
+		lineTo?( x?:number, y?:number ): void;
 		/** [Method] Creates a new subpath with the given point  
-		* @param x Object 
-		* @param y Object 
+		* @param x Number 
+		* @param y Number 
 		*/
-		moveTo?( x?:any, y?:any ): void;
+		moveTo?( x?:number, y?:number ): void;
 		/** [Method] Adds a new closed subpath to the path representing the given rectangle  
-		* @param x Object 
-		* @param y Object 
-		* @param width Object 
-		* @param height Object 
+		* @param x Number 
+		* @param y Number 
+		* @param width Number 
+		* @param height Number 
 		*/
-		rect?( x?:any, y?:any, width?:any, height?:any ): void;
+		rect?( x?:number, y?:number, width?:number, height?:number ): void;
 		/** [Method] Pops the state stack and restores the state  */
 		restore?(): void;
 		/** [Method] Pushes the context state to the state stack  */
 		save?(): void;
 		/** [Method] Changes the transformation matrix to the matrix given by the arguments as described below  
-		* @param xx Object 
-		* @param yx Object 
-		* @param xy Object 
-		* @param yy Object 
-		* @param dx Object 
-		* @param dy Object 
+		* @param xx Number 
+		* @param yx Number 
+		* @param xy Number 
+		* @param yy Number 
+		* @param dx Number 
+		* @param dy Number 
 		*/
-		setTransform?( xx?:any, yx?:any, xy?:any, yy?:any, dx?:any, dy?:any ): void;
+		setTransform?( xx?:number, yx?:number, xy?:number, yy?:number, dx?:number, dy?:number ): void;
 		/** [Method] Strokes the subpaths of the current default path or the given path with the current stroke style  */
 		stroke?(): void;
 		/** [Method] Paints the box that outlines the given rectangle onto the canvas using the current stroke style  
-		* @param x Object 
-		* @param y Object 
-		* @param width Object 
-		* @param height Object 
+		* @param x Number 
+		* @param y Number 
+		* @param width Number 
+		* @param height Number 
 		*/
-		strokeRect?( x?:any, y?:any, width?:any, height?:any ): void;
+		strokeRect?( x?:number, y?:number, width?:number, height?:number ): void;
 		/** [Method] Strokes the given text at the given position  
-		* @param text Object 
-		* @param x Object 
-		* @param y Object 
+		* @param text String 
+		* @param x Number 
+		* @param y Number 
 		*/
-		strokeText?( text?:any, x?:any, y?:any ): void;
+		strokeText?( text?:string, x?:number, y?:number ): void;
 		/** [Method] Changes the transformation matrix to apply the matrix given by the arguments as described below  
-		* @param xx Object 
-		* @param yx Object 
-		* @param xy Object 
-		* @param yy Object 
-		* @param dx Object 
-		* @param dy Object 
+		* @param xx Number 
+		* @param yx Number 
+		* @param xy Number 
+		* @param yy Number 
+		* @param dx Number 
+		* @param dy Number 
 		*/
-		transform?( xx?:any, yx?:any, xy?:any, yy?:any, dx?:any, dy?:any ): void;
+		transform?( xx?:number, yx?:number, xy?:number, yy?:number, dx?:number, dy?:number ): void;
 	}
 }
 declare module Ext.draw.gradient {
@@ -25646,11 +27896,11 @@ declare module Ext.draw.gradient {
 		/** [Config Option] (Array/Object) */
 		Defines?: any;
 		/** [Method] Generates the gradient for the given context  
-		* @param ctx Object The context. 
+		* @param ctx Ext.draw.engine.SvgContext The context. 
 		* @param bbox Object 
 		* @returns Object 
 		*/
-		generateGradient?( ctx?:any, bbox?:any ): any;
+		generateGradient?( ctx?:Ext.draw.engine.ISvgContext, bbox?:any ): any;
 		/** [Method] Retrieves the id of this component  
 		* @returns String id 
 		*/
@@ -25662,11 +27912,11 @@ declare module Ext.draw.gradient {
 		/** [Config Option] (Number) */
 		The?: number;
 		/** [Method] Generates the gradient for the given context  
-		* @param ctx Object The context. 
+		* @param ctx Ext.draw.engine.SvgContext The context. 
 		* @param bbox Object 
 		* @returns Object 
 		*/
-		generateGradient?( ctx?:any, bbox?:any ): any;
+		generateGradient?( ctx?:Ext.draw.engine.ISvgContext, bbox?:any ): any;
 	}
 }
 declare module Ext.draw.gradient {
@@ -25676,11 +27926,11 @@ declare module Ext.draw.gradient {
 		/** [Config Option] (Object) */
 		start?: any;
 		/** [Method] Generates the gradient for the given context  
-		* @param ctx Object The context. 
+		* @param ctx Ext.draw.engine.SvgContext The context. 
 		* @param bbox Object 
 		* @returns Object 
 		*/
-		generateGradient?( ctx?:any, bbox?:any ): any;
+		generateGradient?( ctx?:Ext.draw.engine.ISvgContext, bbox?:any ): any;
 		/** [Method] Returns the value of end  
 		* @returns Object 
 		*/
@@ -25690,11 +27940,11 @@ declare module Ext.draw.gradient {
 		*/
 		getStart?(): any;
 		/** [Method] Sets the value of end  
-		* @param end Object 
+		* @param end Object The new value. 
 		*/
 		setEnd?( end?:any ): void;
 		/** [Method] Sets the value of start  
-		* @param start Object 
+		* @param start Object The new value. 
 		*/
 		setStart?( start?:any ): void;
 	}
@@ -25894,17 +28144,17 @@ declare module Ext.draw {
 		*/
 		setAttributes?( o?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Set dirty flag for all sprites in the group */
 		setDirty?(): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of surface  
-		* @param surface Object 
+		* @param surface Object The new value. 
 		*/
 		setSurface?( surface?:any ): void;
 		/** [Method] Display all sprites in the group  
@@ -25966,16 +28216,16 @@ declare module Ext.draw {
 		*/
 		getScope?(): any;
 		/** [Method] Sets the value of feeder  
-		* @param feeder Function 
+		* @param feeder Function The new value. 
 		* @returns Number 
 		*/
 		setFeeder?( feeder?:any ): number;
 		/** [Method] Sets the value of limit  
-		* @param limit Number 
+		* @param limit Number The new value. 
 		*/
 		setLimit?( limit?:number ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 	}
@@ -25985,15 +28235,15 @@ declare module Ext.draw {
 		/** [Property] (Number) */
 		a?: number;
 		/** [Method] Postpend a matrix onto the current  
-		* @param xx Object Coefficient from x to x. 
-		* @param xy Object Coefficient from x to y. 
-		* @param yx Object Coefficient from y to x. 
-		* @param yy Object Coefficient from y to y. 
-		* @param dx Object Offset of x. 
-		* @param dy Object Offset of y. 
+		* @param xx Number Coefficient from x to x. 
+		* @param xy Number Coefficient from x to y. 
+		* @param yx Number Coefficient from y to x. 
+		* @param yy Number Coefficient from y to y. 
+		* @param dx Number Offset of x. 
+		* @param dy Number Offset of y. 
 		* @returns Ext.draw.Matrix this 
 		*/
-		append?( xx?:any, xy?:any, yx?:any, yy?:any, dx?:any, dy?:any ): Ext.draw.IMatrix;
+		append?( xx?:number, xy?:number, yx?:number, yy?:number, dx?:number, dy?:number ): Ext.draw.IMatrix;
 		/** [Method] Postpend a matrix onto the current  
 		* @param matrix Ext.draw.Matrix 
 		* @returns Ext.draw.Matrix this 
@@ -26063,15 +28313,15 @@ declare module Ext.draw {
 		*/
 		multiply?( matrix?:Ext.draw.IMatrix ): Ext.draw.IMatrix;
 		/** [Method] Prepend a matrix onto the current  
-		* @param xx Object Coefficient from x to x. 
-		* @param xy Object Coefficient from x to y. 
-		* @param yx Object Coefficient from y to x. 
-		* @param yy Object Coefficient from y to y. 
-		* @param dx Object Offset of x. 
-		* @param dy Object Offset of y. 
+		* @param xx Number Coefficient from x to x. 
+		* @param xy Number Coefficient from x to y. 
+		* @param yx Number Coefficient from y to x. 
+		* @param yy Number Coefficient from y to y. 
+		* @param dx Number Offset of x. 
+		* @param dy Number Offset of y. 
 		* @returns Ext.draw.Matrix this 
 		*/
-		prepend?( xx?:any, xy?:any, yx?:any, yy?:any, dx?:any, dy?:any ): Ext.draw.IMatrix;
+		prepend?( xx?:number, xy?:number, yx?:number, yy?:number, dx?:number, dy?:number ): Ext.draw.IMatrix;
 		/** [Method] Prepend a matrix onto the current  
 		* @param matrix Ext.draw.Matrix 
 		* @returns Ext.draw.Matrix this 
@@ -26153,7 +28403,7 @@ declare module Ext.draw {
 		/** [Method]  
 		* @param bbox Object Given as {x: Number, y: Number, width: Number, height: Number}. 
 		* @param radius Number 
-		* @param target Object Optional target object to recieve the result. Recommanded to use it for better gc. 
+		* @param target Object Optional target object to recieve the result. Recommended to use it for better gc. 
 		* @returns Object Object with x, y, width and height. 
 		*/
 		transformBBox?( bbox?:any, radius?:number, target?:any ): any;
@@ -26207,32 +28457,32 @@ declare module Ext.draw {
 		*/
 		static create( mat?:any ): Ext.draw.IMatrix;
 		/** [Method] Return the affine matrix that transform two points x0 y0 and x1 y1 to x0p y0p and x1p y1p  
-		* @param x0 Object 
-		* @param y0 Object 
-		* @param x1 Object 
-		* @param y1 Object 
-		* @param x0p Object 
-		* @param y0p Object 
-		* @param x1p Object 
-		* @param y1p Object 
+		* @param x0 Number 
+		* @param y0 Number 
+		* @param x1 Number 
+		* @param y1 Number 
+		* @param x0p Number 
+		* @param y0p Number 
+		* @param x1p Number 
+		* @param y1p Number 
 		*/
-		static createAffineMatrixFromTwoPair( x0?:any, y0?:any, x1?:any, y1?:any, x0p?:any, y0p?:any, x1p?:any, y1p?:any ): void;
+		static createAffineMatrixFromTwoPair( x0?:number, y0?:number, x1?:number, y1?:number, x0p?:number, y0p?:number, x1p?:number, y1p?:number ): void;
 		/** [Method] Create aliases for existing prototype methods  
 		* @param alias String/Object The new method name, or an object to set multiple aliases. See flexSetter 
 		* @param origin String/Object The original method name 
 		*/
 		static createAlias( alias?:any, origin?:any ): void;
 		/** [Method] Return the affine matrix that transform two points x0 y0 and x1 y1 to x0p y0p and x1p y1p  
-		* @param x0 Object 
-		* @param y0 Object 
-		* @param x1 Object 
-		* @param y1 Object 
-		* @param x0p Object 
-		* @param y0p Object 
-		* @param x1p Object 
-		* @param y1p Object 
+		* @param x0 Number 
+		* @param y0 Number 
+		* @param x1 Number 
+		* @param y1 Number 
+		* @param x0p Number 
+		* @param y0p Number 
+		* @param x1p Number 
+		* @param y1p Number 
 		*/
-		static createPanZoomFromTwoPair( x0?:any, y0?:any, x1?:any, y1?:any, x0p?:any, y0p?:any, x1p?:any, y1p?:any ): void;
+		static createPanZoomFromTwoPair( x0?:number, y0?:number, x1?:number, y1?:number, x0p?:number, y0p?:number, x1p?:number, y1p?:number ): void;
 		/** [Method] Create a flyweight to wrap the given array  
 		* @param elements Array 
 		* @returns Ext.draw.Matrix 
@@ -26298,7 +28548,7 @@ declare module Ext.draw.modifier {
 		*/
 		clearDurationOn?( attrs?:any ): void;
 		/** [Method] Remove special easings on the given attributes  
-		* @param attrs Object The source attributes. 
+		* @param attrs String/Array The source attribute(s). 
 		*/
 		clearEasingOn?( attrs?:any ): void;
 		/** [Method] Removes all listeners for this object  */
@@ -26395,10 +28645,10 @@ declare module Ext.draw.modifier {
 		*/
 		popUp?( attributes?:any, changes?:any ): void;
 		/** [Method] Validate attribute set before use  
-		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that has already be used. 
+		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that have already been used. 
 		*/
 		prepareAttributes?( attr?:any ): void;
-		/** [Method] Invoked when changes need to pushed down to the sprite  
+		/** [Method] Invoked when changes need to be pushed down to the sprite  
 		* @param attr Object The source attributes. 
 		* @param changes Object The changes to make. This object might be changed unexpectedly inside the method. 
 		* @returns Mixed 
@@ -26444,37 +28694,37 @@ declare module Ext.draw.modifier {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of customDuration  
-		* @param customDuration Object 
+		* @param customDuration Object The new value. 
 		*/
 		setCustomDuration?( customDuration?:any ): void;
 		/** [Method] Sets the value of customEasings  
-		* @param customEasings Object 
+		* @param customEasings Object The new value. 
 		*/
 		setCustomEasings?( customEasings?:any ): void;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Set special duration on the given attributes  
-		* @param attrs Object The source attributes. 
-		* @param duration Object The special duration. 
+		* @param attrs String/Array The source attributes. 
+		* @param duration Number The special duration. 
 		*/
-		setDurationOn?( attrs?:any, duration?:any ): void;
+		setDurationOn?( attrs?:any, duration?:number ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing Function 
+		* @param easing Function The new value. 
 		*/
 		setEasing?( easing?:any ): void;
 		/** [Method] Set special easings on the given attributes  
-		* @param attrs Object The source attributes. 
-		* @param easing Object The special easings. 
+		* @param attrs String/Array The source attribute(s). 
+		* @param easing String The special easings. 
 		*/
-		setEasingOn?( attrs?:any, easing?:any ): void;
+		setEasingOn?( attrs?:any, easing?:string ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Stop all animations effected by this modifier */
@@ -26531,21 +28781,21 @@ declare module Ext.draw.modifier {
 		*/
 		popUp?( attributes?:any, changes?:any ): void;
 		/** [Method] Validate attribute set before use  
-		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that has already be used. 
+		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that have already been used. 
 		*/
 		prepareAttributes?( attr?:any ): void;
-		/** [Method] Invoked when changes need to pushed down to the sprite  
+		/** [Method] Invoked when changes need to be pushed down to the sprite  
 		* @param attr Object The source attributes. 
 		* @param changes Object The changes to make. This object might be changed unexpectedly inside the method. 
 		* @returns Mixed 
 		*/
 		pushDown?( attr?:any, changes?:any ): any;
 		/** [Method] Sets the value of enabled  
-		* @param enabled Boolean 
+		* @param enabled Boolean The new value. 
 		*/
 		setEnabled?( enabled?:boolean ): void;
 		/** [Method] Sets the value of highlightStyle  
-		* @param highlightStyle Object 
+		* @param highlightStyle Object The new value. 
 		*/
 		setHighlightStyle?( highlightStyle?:any ): void;
 	}
@@ -26576,25 +28826,25 @@ declare module Ext.draw.modifier {
 		*/
 		popUp?( attributes?:any, changes?:any ): void;
 		/** [Method] Validate attribute set before use  
-		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that has already be used. 
+		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that have already been used. 
 		*/
 		prepareAttributes?( attr?:any ): void;
-		/** [Method] Invoked when changes need to pushed down to the sprite  
+		/** [Method] Invoked when changes need to be pushed down to the sprite  
 		* @param attr Object The source attributes. 
 		* @param changes Object The changes to make. This object might be changed unexpectedly inside the method. 
 		* @returns Mixed 
 		*/
 		pushDown?( attr?:any, changes?:any ): any;
 		/** [Method] Sets the value of next  
-		* @param next Ext.draw.modifier.Modifier 
+		* @param next Ext.draw.modifier.Modifier The new value. 
 		*/
 		setNext?( next?:Ext.draw.modifier.IModifier ): void;
 		/** [Method] Sets the value of previous  
-		* @param previous Ext.draw.modifier.Modifier 
+		* @param previous Ext.draw.modifier.Modifier The new value. 
 		*/
 		setPrevious?( previous?:Ext.draw.modifier.IModifier ): void;
 		/** [Method] Sets the value of sprite  
-		* @param sprite Ext.draw.sprite.Sprite 
+		* @param sprite Ext.draw.sprite.Sprite The new value. 
 		*/
 		setSprite?( sprite?:Ext.draw.sprite.ISprite ): void;
 	}
@@ -26607,10 +28857,10 @@ declare module Ext.draw.modifier {
 		*/
 		popUp?( attributes?:any, changes?:any ): void;
 		/** [Method] Validate attribute set before use  
-		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that has already be used. 
+		* @param attr Object The attribute to be validated. Note that it may be already initialized, so do not override properties that have already been used. 
 		*/
 		prepareAttributes?( attr?:any ): void;
-		/** [Method] Invoked when changes need to pushed down to the sprite  
+		/** [Method] Invoked when changes need to be pushed down to the sprite  
 		* @param attr Object The source attributes. 
 		* @param changes Object The changes to make. This object might be changed unexpectedly inside the method. 
 		* @returns Mixed 
@@ -26621,24 +28871,24 @@ declare module Ext.draw.modifier {
 declare module Ext.draw {
 	export interface IPath extends Ext.IBase {
 		/** [Method] Create an circular arc  
-		* @param x Object 
-		* @param y Object 
-		* @param radius Object 
-		* @param startAngle Object 
-		* @param endAngle Object 
-		* @param anticlockwise Object 
+		* @param x Number 
+		* @param y Number 
+		* @param radius Number 
+		* @param startAngle Number 
+		* @param endAngle Number 
+		* @param anticlockwise Number 
 		*/
-		arc?( x?:any, y?:any, radius?:any, startAngle?:any, endAngle?:any, anticlockwise?:any ): void;
+		arc?( x?:number, y?:number, radius?:number, startAngle?:number, endAngle?:number, anticlockwise?:number ): void;
 		/** [Method] http  www w3 org TR SVG implnote html ArcImplementationNotes 
-		* @param rx Object 
-		* @param ry Object 
-		* @param rotation Object Differ from svg spec, this is radian. 
-		* @param fA Object 
-		* @param fS Object 
-		* @param x2 Object 
-		* @param y2 Object 
+		* @param rx Number 
+		* @param ry Number 
+		* @param rotation Number Differ from svg spec, this is radian. 
+		* @param fA Number 
+		* @param fS Number 
+		* @param x2 Number 
+		* @param y2 Number 
 		*/
-		arcSvg?( rx?:any, ry?:any, rotation?:any, fA?:any, fS?:any, x2?:any, y2?:any ): void;
+		arcSvg?( rx?:number, ry?:number, rotation?:number, fA?:number, fS?:number, x2?:number, y2?:number ): void;
 		/** [Method] Create a elliptic arc curve compatible with SVG s arc to instruction  
 		* @param x1 Number 
 		* @param y1 Number 
@@ -26667,24 +28917,24 @@ declare module Ext.draw {
 		/** [Method] Close this path with a straight line  */
 		closePath?(): void;
 		/** [Method] Create an elliptic arc  
-		* @param cx Object 
-		* @param cy Object 
-		* @param radiusX Object 
-		* @param radiusY Object 
-		* @param rotation Object 
-		* @param startAngle Object 
-		* @param endAngle Object 
-		* @param anticlockwise Object 
+		* @param cx Number 
+		* @param cy Number 
+		* @param radiusX Number 
+		* @param radiusY Number 
+		* @param rotation Number 
+		* @param startAngle Number 
+		* @param endAngle Number 
+		* @param anticlockwise Number 
 		*/
-		ellipse?( cx?:any, cy?:any, radiusX?:any, radiusY?:any, rotation?:any, startAngle?:any, endAngle?:any, anticlockwise?:any ): void;
+		ellipse?( cx?:number, cy?:number, radiusX?:number, radiusY?:number, rotation?:number, startAngle?:number, endAngle?:number, anticlockwise?:number ): void;
 		/** [Method] Reconstruct path from cubic bezier curve stripes  
 		* @param stripes Array 
 		*/
 		fromStripes?( stripes?:any[] ): void;
 		/** [Method] Feed the path from svg path string  
-		* @param pathString Object 
+		* @param pathString String 
 		*/
-		fromSvgString?( pathString?:any ): void;
+		fromSvgString?( pathString?:string ): void;
 		/** [Method] Get the bounding box of this matrix  
 		* @param target Object Optional object to receive the result. 
 		* @returns Object Object with x, y, width and height 
@@ -26696,12 +28946,12 @@ declare module Ext.draw {
 		* @returns Object An object with x, y, width and height. 
 		*/
 		getDimensionWithTransform?( matrix?:Ext.draw.IMatrix, target?:any ): any;
-		/** [Method] Test wether the given point is on or inside the path  
-		* @param x Object 
-		* @param y Object 
+		/** [Method] Test whether the given point is on or inside the path  
+		* @param x Number 
+		* @param y Number 
 		* @returns Boolean 
 		*/
-		isPointInPath?( x?:any, y?:any ): boolean;
+		isPointInPath?( x?:number, y?:number ): boolean;
 		/** [Method] A straight line to a position  
 		* @param x Number 
 		* @param y Number 
@@ -26720,12 +28970,12 @@ declare module Ext.draw {
 		*/
 		quadraticCurveTo?( cx?:number, cy?:number, x?:number, y?:number ): void;
 		/** [Method] Draw a rectangle and close it  
-		* @param x Object 
-		* @param y Object 
-		* @param width Object 
-		* @param height Object 
+		* @param x Number 
+		* @param y Number 
+		* @param width Number 
+		* @param height Number 
 		*/
-		rect?( x?:any, y?:any, width?:any, height?:any ): void;
+		rect?( x?:number, y?:number, width?:number, height?:number ): void;
 		/** [Method] Return an svg path string for this path  
 		* @returns String 
 		*/
@@ -26755,15 +29005,15 @@ declare module Ext.draw {
 		*/
 		getStrategy?(): string;
 		/** [Method] Sets the data of the segment tree  
-		* @param dataX Object 
-		* @param dataOpen Object 
-		* @param dataHigh Object 
-		* @param dataLow Object 
-		* @param dataClose Object 
+		* @param dataX Number 
+		* @param dataOpen Number 
+		* @param dataHigh Number 
+		* @param dataLow Number 
+		* @param dataClose Number 
 		*/
-		setData?( dataX?:any, dataOpen?:any, dataHigh?:any, dataLow?:any, dataClose?:any ): void;
+		setData?( dataX?:number, dataOpen?:number, dataHigh?:number, dataLow?:number, dataClose?:number ): void;
 		/** [Method] Sets the value of strategy  
-		* @param strategy String 
+		* @param strategy String The new value. 
 		*/
 		setStrategy?( strategy?:string ): void;
 	}
@@ -26772,6 +29022,8 @@ declare module Ext.draw {
 	export interface ISolver extends Ext.IBase {
 	}
 	export class Solver {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -26788,16 +29040,16 @@ declare module Ext.draw {
 		*/
 		static callSuper( args?:any ): any;
 		/** [Method] Returns the function f x a  x3  b  x2  c  x  d and solver for f x y 
-		* @param a Object 
-		* @param b Object 
-		* @param c Object 
-		* @param d Object 
+		* @param a Number 
+		* @param b Number 
+		* @param c Number 
+		* @param d Number 
 		*/
-		static cubicFunction( a?:any, b?:any, c?:any, d?:any ): void;
+		static cubicFunction( a?:number, b?:number, c?:number, d?:number ): void;
 		/** [Method] Cubic root of number 
-		* @param number Object {Number} 
+		* @param number Number 
 		*/
-		static cubicRoot( number?:any ): void;
+		static cubicRoot( number?:number ): void;
 		/** [Method]  */
 		static destroy(): void;
 		/** [Method] Returns the initial configuration passed to constructor  
@@ -26811,16 +29063,16 @@ declare module Ext.draw {
 		*/
 		static initConfig( instanceConfig?:any ): any;
 		/** [Method] Returns the function f x a  x  b and solver for f x y 
-		* @param a Object 
-		* @param b Object 
+		* @param a Number 
+		* @param b Number 
 		*/
-		static linearFunction( a?:any, b?:any ): void;
+		static linearFunction( a?:number, b?:number ): void;
 		/** [Method] Returns the function f x a  x  2  b  x  c and solver for f x y 
-		* @param a Object 
-		* @param b Object 
-		* @param c Object 
+		* @param a Number 
+		* @param b Number 
+		* @param c Number 
 		*/
-		static quadraticFunction( a?:any, b?:any, c?:any ): void;
+		static quadraticFunction( a?:number, b?:number, c?:number ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
 		* @returns Ext.Class 
 		*/
@@ -26831,6 +29083,8 @@ declare module Ext.draw.sprite {
 	export interface IAnimationParser extends Ext.IBase {
 	}
 	export class AnimationParser {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -26919,23 +29173,23 @@ declare module Ext.draw.sprite {
 		*/
 		normalize?( changes?:any ): any;
 		/** [Method] Sets the value of aliases  
-		* @param aliases Object 
+		* @param aliases Object The new value. 
 		*/
 		setAliases?( aliases?:any ): void;
 		/** [Method] Sets the value of animationProcessors  
-		* @param animationProcessors Object 
+		* @param animationProcessors Object The new value. 
 		*/
 		setAnimationProcessors?( animationProcessors?:any ): void;
 		/** [Method] Sets the value of defaults  
-		* @param defaults Object 
+		* @param defaults Object The new value. 
 		*/
 		setDefaults?( defaults?:any ): void;
 		/** [Method] Sets the value of processors  
-		* @param processors Object 
+		* @param processors Object The new value. 
 		*/
 		setProcessors?( processors?:any ): void;
 		/** [Method] Sets the value of updaters  
-		* @param updaters Object 
+		* @param updaters Object The new value. 
 		*/
 		setUpdaters?( updaters?:any ): void;
 	}
@@ -26944,6 +29198,8 @@ declare module Ext.draw.sprite {
 	export interface IAttributeParser extends Ext.IBase {
 	}
 	export class AttributeParser {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -27115,7 +29371,7 @@ declare module Ext.draw.sprite {
 		*/
 		setAttributesFor?( index?:number, changes?:any, bypassNormalization?:boolean ): void;
 		/** [Method] Sets the value of template  
-		* @param template Object 
+		* @param template Object The new value. 
 		*/
 		setTemplate?( template?:any ): void;
 	}
@@ -27198,6 +29454,10 @@ declare module Ext.draw.sprite {
 }
 declare module Ext.draw.sprite {
 	export interface ISprite extends Ext.IBase,Ext.mixin.IObservable {
+		/** [Config Option] (Number) */
+		A?: number;
+		/** [Config Option] (Array) */
+		An?: any[];
 		/** [Config Option] (Number) */
 		fillOpacity?: number;
 		/** [Config Option] (String) */
@@ -27433,15 +29693,15 @@ declare module Ext.draw.sprite {
 		*/
 		setAttributesBypassingNormalization?( changes?:any, avoidCopy?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of parent  
-		* @param parent Object 
+		* @param parent Object The new value. 
 		*/
 		setParent?( parent?:any ): void;
 		/** [Method] Show the sprite  
@@ -27481,6 +29741,11 @@ declare module Ext.draw.sprite {
 		* @param plain Object Auxiliary object providing information of plain object. 
 		*/
 		updateTransformedBBox?( transform?:any, plain?:any ): void;
+		/** [Method] Applies sprite s attributes to the given context  
+		* @param ctx Object Context to apply sprite's attributes to. 
+		* @param region Array The region of the context to be affected by gradients. 
+		*/
+		useAttributes?( ctx?:any, region?:any[] ): void;
 	}
 }
 declare module Ext.draw.sprite {
@@ -27540,11 +29805,11 @@ declare module Ext.draw {
 		/** [Method] Destroys the surface  */
 		destroy?(): void;
 		/** [Method]  
-		* @param sprite Object 
-		* @param isWithoutTransform Object 
+		* @param sprite Ext.draw.sprite.Sprite 
+		* @param isWithoutTransform Boolean 
 		* @returns Object 
 		*/
-		getBBox?( sprite?:any, isWithoutTransform?:any ): any;
+		getBBox?( sprite?:Ext.draw.sprite.ISprite, isWithoutTransform?:boolean ): any;
 		/** [Method] Returns the value of background  
 		* @returns Object 
 		*/
@@ -27588,30 +29853,30 @@ declare module Ext.draw {
 		/** [Method] Reset the matrix of the surface  */
 		resetTransform?(): void;
 		/** [Method] Round the number to align to the pixels on device  
-		* @param num Object The number to align. 
+		* @param num Number The number to align. 
 		* @returns Number The resultant alignment. 
 		*/
-		roundPixel?( num?:any ): number;
+		roundPixel?( num?:number ): number;
 		/** [Method] Sets the value of background  
-		* @param background Object 
+		* @param background Object The new value. 
 		*/
 		setBackground?( background?:any ): void;
 		/** [Method] Sets the value of groups  
-		* @param groups Array 
+		* @param groups Array The new value. 
 		*/
 		setGroups?( groups?:any[] ): void;
 		/** [Method] Sets the value of items  
-		* @param items Ext.draw.Group 
+		* @param items Ext.draw.Group The new value. 
 		*/
 		setItems?( items?:Ext.draw.IGroup ): void;
 		/** [Method] Sets the value of region  
-		* @param region Array 
+		* @param region Array The new value. 
 		*/
 		setRegion?( region?:any[] ): void;
 		/** [Method] Mark the surface to render after another surface is updated  
-		* @param surface Object The surface to wait for. 
+		* @param surface Ext.draw.Surface The surface to wait for. 
 		*/
-		waitFor?( surface?:any ): void;
+		waitFor?( surface?:Ext.draw.ISurface ): void;
 	}
 	export class Surface {
 		/** [Method] Add methods  properties to the prototype of this class  
@@ -27646,15 +29911,17 @@ declare module Ext.draw {
 		*/
 		static override( members?:any ): Ext.IBase;
 		/** [Method] Stably sort the list of sprites by their zIndex  
-		* @param list Object 
+		* @param list Array 
 		*/
-		static stableSort( list?:any ): void;
+		static stableSort( list?:any[] ): void;
 	}
 }
 declare module Ext.draw {
 	export interface ITextMeasurer extends Ext.IBase {
 	}
 	export class TextMeasurer {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -27685,7 +29952,7 @@ declare module Ext.draw {
 		/** [Method] Measure a text with specific font  
 		* @param text String 
 		* @param font String 
-		* @returns Object An object with width and height properties. 
+		* @returns Object An object with width, height and sizes properties. 
 		*/
 		static measureText( text?:string, font?:string ): any;
 		/** [Method] Measure a single line text with specific font  
@@ -27704,6 +29971,8 @@ declare module Ext.draw {
 	export interface ITimingFunctions extends Ext.IBase {
 	}
 	export class TimingFunctions {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -27788,7 +30057,7 @@ declare module Ext.event {
 		*/
 		getPublishers?(): any;
 		/** [Method] Sets the value of publishers  
-		* @param publishers Object 
+		* @param publishers Object The new value. 
 		*/
 		setPublishers?( publishers?:any ): void;
 	}
@@ -27917,11 +30186,11 @@ declare module Ext.event.publisher {
 		*/
 		getRecognizers?(): any;
 		/** [Method] Sets the value of moveThrottle  
-		* @param moveThrottle Number 
+		* @param moveThrottle Number The new value. 
 		*/
 		setMoveThrottle?( moveThrottle?:number ): void;
 		/** [Method] Sets the value of recognizers  
-		* @param recognizers Object 
+		* @param recognizers Object The new value. 
 		*/
 		setRecognizers?( recognizers?:any ): void;
 	}
@@ -27933,7 +30202,7 @@ declare module Ext.event.recognizer {
 		*/
 		getMaxDuration?(): number;
 		/** [Method] Sets the value of maxDuration  
-		* @param maxDuration Number 
+		* @param maxDuration Number The new value. 
 		*/
 		setMaxDuration?( maxDuration?:number ): void;
 	}
@@ -27947,7 +30216,19 @@ declare module Ext.event.recognizer {
 		*/
 		getMinDistance?(): number;
 		/** [Method] Sets the value of minDistance  
-		* @param minDistance Number 
+		* @param minDistance Number The new value. 
+		*/
+		setMinDistance?( minDistance?:number ): void;
+	}
+}
+declare module Ext.event.recognizer {
+	export interface IEdgeSwipe extends Ext.event.recognizer.ISwipe {
+		/** [Method] Returns the value of minDistance  
+		* @returns Number 
+		*/
+		getMinDistance?(): number;
+		/** [Method] Sets the value of minDistance  
+		* @param minDistance Number The new value. 
 		*/
 		setMinDistance?( minDistance?:number ): void;
 	}
@@ -27963,7 +30244,7 @@ declare module Ext.event.recognizer {
 		*/
 		getMinDuration?(): number;
 		/** [Method] Sets the value of minDuration  
-		* @param minDuration Number 
+		* @param minDuration Number The new value. 
 		*/
 		setMinDuration?( minDuration?:number ): void;
 	}
@@ -27995,15 +30276,15 @@ declare module Ext.event.recognizer {
 		*/
 		getOnRecognized?(): any;
 		/** [Method] Sets the value of callbackScope  
-		* @param callbackScope Object 
+		* @param callbackScope Object The new value. 
 		*/
 		setCallbackScope?( callbackScope?:any ): void;
 		/** [Method] Sets the value of onFailed  
-		* @param onFailed Object 
+		* @param onFailed Object The new value. 
 		*/
 		setOnFailed?( onFailed?:any ): void;
 		/** [Method] Sets the value of onRecognized  
-		* @param onRecognized Object 
+		* @param onRecognized Object The new value. 
 		*/
 		setOnRecognized?( onRecognized?:any ): void;
 	}
@@ -28031,15 +30312,15 @@ declare module Ext.event.recognizer {
 		*/
 		getMinDistance?(): number;
 		/** [Method] Sets the value of maxDuration  
-		* @param maxDuration Number 
+		* @param maxDuration Number The new value. 
 		*/
 		setMaxDuration?( maxDuration?:number ): void;
 		/** [Method] Sets the value of maxOffset  
-		* @param maxOffset Number 
+		* @param maxOffset Number The new value. 
 		*/
 		setMaxOffset?( maxOffset?:number ): void;
 		/** [Method] Sets the value of minDistance  
-		* @param minDistance Number 
+		* @param minDistance Number The new value. 
 		*/
 		setMinDistance?( minDistance?:number ): void;
 	}
@@ -28053,7 +30334,7 @@ declare module Ext.event.recognizer {
 		*/
 		getMoveDistance?(): number;
 		/** [Method] Sets the value of moveDistance  
-		* @param moveDistance Number 
+		* @param moveDistance Number The new value. 
 		*/
 		setMoveDistance?( moveDistance?:number ): void;
 	}
@@ -28218,11 +30499,11 @@ declare module Ext {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -28399,11 +30680,11 @@ declare module Ext {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -28484,6 +30765,8 @@ declare module Ext {
 	export interface IFeature extends Ext.env.IFeature {
 	}
 	export class Feature {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -28577,7 +30860,7 @@ declare module Ext.field {
 		*/
 		resetGroupValues?(): Ext.field.ICheckbox;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Set the status of all matched checkboxes in the same group to checked  
@@ -28586,11 +30869,11 @@ declare module Ext.field {
 		*/
 		setGroupValues?( values?:any[] ): Ext.field.ICheckbox;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
-		* @param value String 
+		* @param value String The new value. 
 		*/
 		setValue?( value?:string ): void;
 		/** [Method] Set the checked state of the checkbox to false  
@@ -28654,7 +30937,7 @@ declare module Ext.form {
 		*/
 		resetGroupValues?(): Ext.field.ICheckbox;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Set the status of all matched checkboxes in the same group to checked  
@@ -28663,11 +30946,11 @@ declare module Ext.form {
 		*/
 		setGroupValues?( values?:any[] ): Ext.field.ICheckbox;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
-		* @param value String 
+		* @param value String The new value. 
 		*/
 		setValue?( value?:string ): void;
 		/** [Method] Set the checked state of the checkbox to false  
@@ -28677,7 +30960,7 @@ declare module Ext.form {
 	}
 }
 declare module Ext.field {
-	export interface IDatePicker extends Ext.field.IText {
+	export interface IDatePicker extends Ext.field.ISelect {
 		/** [Config Option] (String) */
 		dateFormat?: string;
 		/** [Config Option] (Boolean) */
@@ -28713,34 +30996,34 @@ declare module Ext.field {
 		getValue?(): any;
 		/** [Method] Override this or change event will be fired twice  */
 		onChange?(): void;
-		/** [Method] Resets the current field value back to the original value on this field when it was created  
-		* @returns Ext.field.Field this 
+		/** [Method] Resets the Select field to the value of the first record in the store  
+		* @returns Ext.field.Select this 
 		*/
-		reset?(): Ext.field.IField;
+		reset?(): Ext.field.ISelect;
 		/** [Method] Sets the value of dateFormat  
-		* @param dateFormat String 
+		* @param dateFormat String The new value. 
 		*/
 		setDateFormat?( dateFormat?:string ): void;
 		/** [Method] Sets the value of destroyPickerOnHide  
-		* @param destroyPickerOnHide Boolean 
+		* @param destroyPickerOnHide Boolean The new value. 
 		*/
 		setDestroyPickerOnHide?( destroyPickerOnHide?:boolean ): void;
 		/** [Method] Sets the value of picker  
-		* @param picker Object/Ext.picker.Date 
+		* @param picker Object/Ext.picker.Date The new value. 
 		*/
 		setPicker?( picker?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
-		* @param value Object/Date 
+		* @param value Object/Date The new value. 
 		*/
 		setValue?( value?:any ): void;
 	}
 }
 declare module Ext.form {
-	export interface IDatePicker extends Ext.field.IText {
+	export interface IDatePicker extends Ext.field.ISelect {
 		/** [Config Option] (String) */
 		dateFormat?: string;
 		/** [Config Option] (Boolean) */
@@ -28776,28 +31059,28 @@ declare module Ext.form {
 		getValue?(): any;
 		/** [Method] Override this or change event will be fired twice  */
 		onChange?(): void;
-		/** [Method] Resets the current field value back to the original value on this field when it was created  
-		* @returns Ext.field.Field this 
+		/** [Method] Resets the Select field to the value of the first record in the store  
+		* @returns Ext.field.Select this 
 		*/
-		reset?(): Ext.field.IField;
+		reset?(): Ext.field.ISelect;
 		/** [Method] Sets the value of dateFormat  
-		* @param dateFormat String 
+		* @param dateFormat String The new value. 
 		*/
 		setDateFormat?( dateFormat?:string ): void;
 		/** [Method] Sets the value of destroyPickerOnHide  
-		* @param destroyPickerOnHide Boolean 
+		* @param destroyPickerOnHide Boolean The new value. 
 		*/
 		setDestroyPickerOnHide?( destroyPickerOnHide?:boolean ): void;
 		/** [Method] Sets the value of picker  
-		* @param picker Object/Ext.picker.Date 
+		* @param picker Object/Ext.picker.Date The new value. 
 		*/
 		setPicker?( picker?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
-		* @param value Object/Date 
+		* @param value Object/Date The new value. 
 		*/
 		setValue?( value?:any ): void;
 	}
@@ -28817,11 +31100,11 @@ declare module Ext.field {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 	}
@@ -28841,11 +31124,11 @@ declare module Ext.form {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 	}
@@ -28961,59 +31244,59 @@ declare module Ext.field {
 		/** [Method] Resets the field s originalValue property so it matches the current value  */
 		resetOriginalValue?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of clearIcon  
-		* @param clearIcon Boolean 
+		* @param clearIcon Boolean The new value. 
 		*/
 		setClearIcon?( clearIcon?:boolean ): void;
 		/** [Method] Sets the value of inputCls  
-		* @param inputCls String 
+		* @param inputCls String The new value. 
 		*/
 		setInputCls?( inputCls?:string ): void;
 		/** [Method] Sets the value of inputType  
-		* @param inputType String 
+		* @param inputType String The new value. 
 		*/
 		setInputType?( inputType?:string ): void;
 		/** [Method] Sets the value of label  
-		* @param label String 
+		* @param label String The new value. 
 		*/
 		setLabel?( label?:string ): void;
 		/** [Method] Sets the value of labelAlign  
-		* @param labelAlign String 
+		* @param labelAlign String The new value. 
 		*/
 		setLabelAlign?( labelAlign?:string ): void;
 		/** [Method] Sets the value of labelCls  
-		* @param labelCls String 
+		* @param labelCls String The new value. 
 		*/
 		setLabelCls?( labelCls?:string ): void;
 		/** [Method] Sets the value of labelWidth  
-		* @param labelWidth Number/String 
+		* @param labelWidth Number/String The new value. 
 		*/
 		setLabelWidth?( labelWidth?:any ): void;
 		/** [Method] Sets the value of labelWrap  
-		* @param labelWrap Boolean 
+		* @param labelWrap Boolean The new value. 
 		*/
 		setLabelWrap?( labelWrap?:boolean ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of required  
-		* @param required Boolean 
+		* @param required Boolean The new value. 
 		*/
 		setRequired?( required?:boolean ): void;
 		/** [Method] Sets the value of requiredCls  
-		* @param requiredCls String 
+		* @param requiredCls String The new value. 
 		*/
 		setRequiredCls?( requiredCls?:string ): void;
 		/** [Method] Sets the value of tabIndex  
-		* @param tabIndex Number 
+		* @param tabIndex Number The new value. 
 		*/
 		setTabIndex?( tabIndex?:number ): void;
 		/** [Method] Sets the value of value  
-		* @param value Mixed 
+		* @param value Mixed The new value. 
 		*/
 		setValue?( value?:any ): void;
 	}
@@ -29129,75 +31412,169 @@ declare module Ext.form {
 		/** [Method] Resets the field s originalValue property so it matches the current value  */
 		resetOriginalValue?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of clearIcon  
-		* @param clearIcon Boolean 
+		* @param clearIcon Boolean The new value. 
 		*/
 		setClearIcon?( clearIcon?:boolean ): void;
 		/** [Method] Sets the value of inputCls  
-		* @param inputCls String 
+		* @param inputCls String The new value. 
 		*/
 		setInputCls?( inputCls?:string ): void;
 		/** [Method] Sets the value of inputType  
-		* @param inputType String 
+		* @param inputType String The new value. 
 		*/
 		setInputType?( inputType?:string ): void;
 		/** [Method] Sets the value of label  
-		* @param label String 
+		* @param label String The new value. 
 		*/
 		setLabel?( label?:string ): void;
 		/** [Method] Sets the value of labelAlign  
-		* @param labelAlign String 
+		* @param labelAlign String The new value. 
 		*/
 		setLabelAlign?( labelAlign?:string ): void;
 		/** [Method] Sets the value of labelCls  
-		* @param labelCls String 
+		* @param labelCls String The new value. 
 		*/
 		setLabelCls?( labelCls?:string ): void;
 		/** [Method] Sets the value of labelWidth  
-		* @param labelWidth Number/String 
+		* @param labelWidth Number/String The new value. 
 		*/
 		setLabelWidth?( labelWidth?:any ): void;
 		/** [Method] Sets the value of labelWrap  
-		* @param labelWrap Boolean 
+		* @param labelWrap Boolean The new value. 
 		*/
 		setLabelWrap?( labelWrap?:boolean ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of required  
-		* @param required Boolean 
+		* @param required Boolean The new value. 
 		*/
 		setRequired?( required?:boolean ): void;
 		/** [Method] Sets the value of requiredCls  
-		* @param requiredCls String 
+		* @param requiredCls String The new value. 
 		*/
 		setRequiredCls?( requiredCls?:string ): void;
 		/** [Method] Sets the value of tabIndex  
-		* @param tabIndex Number 
+		* @param tabIndex Number The new value. 
 		*/
 		setTabIndex?( tabIndex?:number ): void;
 		/** [Method] Sets the value of value  
-		* @param value Mixed 
+		* @param value Mixed The new value. 
 		*/
 		setValue?( value?:any ): void;
 	}
 }
 declare module Ext.field {
-	export interface IFile extends Ext.field.IInput {
+	export interface IFile extends Ext.field.IField {
+		/** [Config Option] (String) */
+		accept?: string;
+		/** [Config Option] (String) */
+		capture?: string;
+		/** [Config Option] (Object) */
+		component?: any;
+		/** [Config Option] (Boolean) */
+		multiple?: boolean;
+		/** [Method] Returns the value of accept  
+		* @returns String 
+		*/
+		getAccept?(): string;
+		/** [Method] Returns the value of capture  
+		* @returns String 
+		*/
+		getCapture?(): string;
+		/** [Method] Returns the value of component  
+		* @returns Object 
+		*/
+		getComponent?(): any;
+		/** [Method] Returns the value of multiple  
+		* @returns Boolean 
+		*/
+		getMultiple?(): boolean;
+		/** [Method] Sets the value of accept  
+		* @param accept String The new value. 
+		*/
+		setAccept?( accept?:string ): void;
+		/** [Method] Sets the value of capture  
+		* @param capture String The new value. 
+		*/
+		setCapture?( capture?:string ): void;
+		/** [Method] Sets the value of component  
+		* @param component Object The new value. 
+		*/
+		setComponent?( component?:any ): void;
+		/** [Method] Sets the value of multiple  
+		* @param multiple Boolean The new value. 
+		*/
+		setMultiple?( multiple?:boolean ): void;
+	}
+}
+declare module Ext.field {
+	export interface IFileInput extends Ext.field.IInput {
+		/** [Config Option] (Function) */
+		me?: any;
+		/** [Config Option] (String) */
+		name?: string;
+		/** [Config Option] (Function) */
+		newValue?: any;
 		/** [Config Option] (String) */
 		type?: string;
+		/** [Config Option] (Function) */
+		value?: any;
+		/** [Method] Updated the capture attribute with the  ink capture configuration 
+		* @param value Object 
+		*/
+		applyCapture?( value?:any ): void;
+		/** [Method] Returns the value of accept  
+		* @returns Object 
+		*/
+		getAccept?(): any;
+		/** [Method] Returns the value of capture  
+		* @returns Object 
+		*/
+		getCapture?(): any;
+		/** [Method] Returns the field files  
+		* @returns FileList List of the files selected. 
+		*/
+		getFiles?(): FileList;
+		/** [Method] Returns the value of multiple  
+		* @returns Boolean 
+		*/
+		getMultiple?(): boolean;
 		/** [Method] Returns the value of type  
 		* @returns String 
 		*/
 		getType?(): string;
+		/** [Method] Returns the field data value  
+		* @returns String value The field value. 
+		*/
+		getValue?(): string;
+		/** [Method] Sets the value of accept  
+		* @param accept Object The new value. 
+		*/
+		setAccept?( accept?:any ): void;
+		/** [Method] Sets the value of capture  
+		* @param capture Object The new value. 
+		*/
+		setCapture?( capture?:any ): void;
+		/** [Method] Sets the value of multiple  
+		* @param multiple Boolean The new value. 
+		*/
+		setMultiple?( multiple?:boolean ): void;
+		/** [Method] Sets the value of name  
+		* @param name Object The new value. 
+		*/
+		setName?( name?:any ): void;
 		/** [Method] Sets the value of type  
-		* @param type String 
+		* @param type String The new value. 
 		*/
 		setType?( type?:string ): void;
+		/** [Method] Called when the multiple property is updated  */
+		updateMultiple?(): void;
 	}
 }
 declare module Ext.field {
@@ -29215,11 +31592,11 @@ declare module Ext.field {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -29239,11 +31616,11 @@ declare module Ext.form {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -29264,6 +31641,8 @@ declare module Ext.field {
 		cls?: string;
 		/** [Config Option] (Boolean) */
 		disabled?: boolean;
+		/** [Config Option] (Boolean) */
+		fastFocus?: boolean;
 		/** [Config Option] (String) */
 		focusCls?: string;
 		/** [Config Option] (Number) */
@@ -29330,6 +31709,10 @@ declare module Ext.field {
 		* @returns Boolean 
 		*/
 		getDisabled?(): boolean;
+		/** [Method] Returns the value of fastFocus  
+		* @returns Boolean 
+		*/
+		getFastFocus?(): boolean;
 		/** [Method] Returns the value of focusCls  
 		* @returns String 
 		*/
@@ -29397,79 +31780,83 @@ declare module Ext.field {
 		*/
 		select?(): Ext.field.IInput;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of autoComplete  
-		* @param autoComplete Boolean 
+		* @param autoComplete Boolean The new value. 
 		*/
 		setAutoComplete?( autoComplete?:boolean ): void;
 		/** [Method] Sets the value of autoCorrect  
-		* @param autoCorrect Boolean 
+		* @param autoCorrect Boolean The new value. 
 		*/
 		setAutoCorrect?( autoCorrect?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Boolean 
+		* @param disabled Boolean The new value. 
 		*/
 		setDisabled?( disabled?:boolean ): void;
+		/** [Method] Sets the value of fastFocus  
+		* @param fastFocus Boolean The new value. 
+		*/
+		setFastFocus?( fastFocus?:boolean ): void;
 		/** [Method] Sets the value of focusCls  
-		* @param focusCls String 
+		* @param focusCls String The new value. 
 		*/
 		setFocusCls?( focusCls?:string ): void;
 		/** [Method] Sets the value of maxLength  
-		* @param maxLength Number 
+		* @param maxLength Number The new value. 
 		*/
 		setMaxLength?( maxLength?:number ): void;
 		/** [Method] Sets the value of maxRows  
-		* @param maxRows Number 
+		* @param maxRows Number The new value. 
 		*/
 		setMaxRows?( maxRows?:number ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of pattern  
-		* @param pattern String 
+		* @param pattern String The new value. 
 		*/
 		setPattern?( pattern?:string ): void;
 		/** [Method] Sets the value of placeHolder  
-		* @param placeHolder String 
+		* @param placeHolder String The new value. 
 		*/
 		setPlaceHolder?( placeHolder?:string ): void;
 		/** [Method] Sets the value of readOnly  
-		* @param readOnly Boolean 
+		* @param readOnly Boolean The new value. 
 		*/
 		setReadOnly?( readOnly?:boolean ): void;
 		/** [Method] Sets the value of startValue  
-		* @param startValue Mixed 
+		* @param startValue Mixed The new value. 
 		*/
 		setStartValue?( startValue?:any ): void;
 		/** [Method] Sets the value of stepValue  
-		* @param stepValue Number 
+		* @param stepValue Number The new value. 
 		*/
 		setStepValue?( stepValue?:number ): void;
 		/** [Method] Sets the value of tabIndex  
-		* @param tabIndex Number 
+		* @param tabIndex Number The new value. 
 		*/
 		setTabIndex?( tabIndex?:number ): void;
 		/** [Method] Sets the value of type  
-		* @param type String 
+		* @param type String The new value. 
 		*/
 		setType?( type?:string ): void;
 		/** [Method] Updates the cls configuration  
@@ -29520,23 +31907,23 @@ declare module Ext.field {
 		*/
 		getValue?(): any;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of stepValue  
-		* @param stepValue Number 
+		* @param stepValue Number The new value. 
 		*/
 		setStepValue?( stepValue?:number ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -29578,23 +31965,23 @@ declare module Ext.form {
 		*/
 		getValue?(): any;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of stepValue  
-		* @param stepValue Number 
+		* @param stepValue Number The new value. 
 		*/
 		setStepValue?( stepValue?:number ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -29614,11 +32001,11 @@ declare module Ext.field {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 	}
@@ -29638,11 +32025,11 @@ declare module Ext.form {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 	}
@@ -29674,7 +32061,7 @@ declare module Ext.field {
 		*/
 		getValue?(): string;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Set the matched radio field s status that has the same value as the given string to checked  
@@ -29683,7 +32070,7 @@ declare module Ext.field {
 		*/
 		setGroupValue?( value?:string ): Ext.field.IRadio;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
@@ -29720,7 +32107,7 @@ declare module Ext.form {
 		*/
 		getValue?(): string;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Set the matched radio field s status that has the same value as the given string to checked  
@@ -29729,7 +32116,7 @@ declare module Ext.form {
 		*/
 		setGroupValue?( value?:string ): Ext.field.IRadio;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
@@ -29754,11 +32141,11 @@ declare module Ext.field {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -29778,11 +32165,11 @@ declare module Ext.form {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -29874,47 +32261,47 @@ declare module Ext.field {
 		*/
 		reset?(): Ext.field.ISelect;
 		/** [Method] Sets the value of autoSelect  
-		* @param autoSelect Boolean 
+		* @param autoSelect Boolean The new value. 
 		*/
 		setAutoSelect?( autoSelect?:boolean ): void;
 		/** [Method] Sets the value of defaultPhonePickerConfig  
-		* @param defaultPhonePickerConfig Object 
+		* @param defaultPhonePickerConfig Object The new value. 
 		*/
 		setDefaultPhonePickerConfig?( defaultPhonePickerConfig?:any ): void;
 		/** [Method] Sets the value of defaultTabletPickerConfig  
-		* @param defaultTabletPickerConfig Object 
+		* @param defaultTabletPickerConfig Object The new value. 
 		*/
 		setDefaultTabletPickerConfig?( defaultTabletPickerConfig?:any ): void;
 		/** [Method] Sets the value of displayField  
-		* @param displayField String/Number 
+		* @param displayField String/Number The new value. 
 		*/
 		setDisplayField?( displayField?:any ): void;
 		/** [Method] Sets the value of hiddenName  
-		* @param hiddenName String 
+		* @param hiddenName String The new value. 
 		*/
 		setHiddenName?( hiddenName?:string ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of options  
-		* @param options Array 
+		* @param options Array The new value. 
 		*/
 		setOptions?( options?:any[] ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.Store/Object/String 
+		* @param store Ext.data.Store/Object/String The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of usePicker  
-		* @param usePicker String/Boolean 
+		* @param usePicker String/Boolean The new value. 
 		*/
 		setUsePicker?( usePicker?:any ): void;
 		/** [Method] Sets the value of valueField  
-		* @param valueField String/Number 
+		* @param valueField String/Number The new value. 
 		*/
 		setValueField?( valueField?:any ): void;
 		/** [Method] Shows the picker for the select field whether that is a Ext picker Picker or a simple list  */
@@ -30013,47 +32400,47 @@ declare module Ext.form {
 		*/
 		reset?(): Ext.field.ISelect;
 		/** [Method] Sets the value of autoSelect  
-		* @param autoSelect Boolean 
+		* @param autoSelect Boolean The new value. 
 		*/
 		setAutoSelect?( autoSelect?:boolean ): void;
 		/** [Method] Sets the value of defaultPhonePickerConfig  
-		* @param defaultPhonePickerConfig Object 
+		* @param defaultPhonePickerConfig Object The new value. 
 		*/
 		setDefaultPhonePickerConfig?( defaultPhonePickerConfig?:any ): void;
 		/** [Method] Sets the value of defaultTabletPickerConfig  
-		* @param defaultTabletPickerConfig Object 
+		* @param defaultTabletPickerConfig Object The new value. 
 		*/
 		setDefaultTabletPickerConfig?( defaultTabletPickerConfig?:any ): void;
 		/** [Method] Sets the value of displayField  
-		* @param displayField String/Number 
+		* @param displayField String/Number The new value. 
 		*/
 		setDisplayField?( displayField?:any ): void;
 		/** [Method] Sets the value of hiddenName  
-		* @param hiddenName String 
+		* @param hiddenName String The new value. 
 		*/
 		setHiddenName?( hiddenName?:string ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of options  
-		* @param options Array 
+		* @param options Array The new value. 
 		*/
 		setOptions?( options?:any[] ): void;
 		/** [Method] Sets the value of store  
-		* @param store Ext.data.Store/Object/String 
+		* @param store Ext.data.Store/Object/String The new value. 
 		*/
 		setStore?( store?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of usePicker  
-		* @param usePicker String/Boolean 
+		* @param usePicker String/Boolean The new value. 
 		*/
 		setUsePicker?( usePicker?:any ): void;
 		/** [Method] Sets the value of valueField  
-		* @param valueField String/Number 
+		* @param valueField String/Number The new value. 
 		*/
 		setValueField?( valueField?:any ): void;
 		/** [Method] Shows the picker for the select field whether that is a Ext picker Picker or a simple list  */
@@ -30120,31 +32507,31 @@ declare module Ext.field {
 		*/
 		reset?(): Ext.field.IField;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of increment  
-		* @param increment Number 
+		* @param increment Number The new value. 
 		*/
 		setIncrement?( increment?:number ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of readOnly  
-		* @param readOnly Boolean 
+		* @param readOnly Boolean The new value. 
 		*/
 		setReadOnly?( readOnly?:boolean ): void;
 		/** [Method] Sets the value of tabIndex  
-		* @param tabIndex Object 
+		* @param tabIndex Object The new value. 
 		*/
 		setTabIndex?( tabIndex?:any ): void;
 		/** [Method] Sets the value of value  
-		* @param value Number/Number[] 
+		* @param value Number/Number[] The new value. 
 		*/
 		setValue?( value?:any ): void;
 		/** [Method] Convenience method  
@@ -30208,31 +32595,31 @@ declare module Ext.form {
 		*/
 		reset?(): Ext.field.IField;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of increment  
-		* @param increment Number 
+		* @param increment Number The new value. 
 		*/
 		setIncrement?( increment?:number ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of readOnly  
-		* @param readOnly Boolean 
+		* @param readOnly Boolean The new value. 
 		*/
 		setReadOnly?( readOnly?:boolean ): void;
 		/** [Method] Sets the value of tabIndex  
-		* @param tabIndex Object 
+		* @param tabIndex Object The new value. 
 		*/
 		setTabIndex?( tabIndex?:any ): void;
 		/** [Method] Sets the value of value  
-		* @param value Number/Number[] 
+		* @param value Number/Number[] The new value. 
 		*/
 		setValue?( value?:any ): void;
 		/** [Method] Convenience method  
@@ -30306,39 +32693,39 @@ declare module Ext.field {
 		*/
 		reset?(): Ext.field.IField;
 		/** [Method] Sets the value of accelerateOnTapHold  
-		* @param accelerateOnTapHold Boolean 
+		* @param accelerateOnTapHold Boolean The new value. 
 		*/
 		setAccelerateOnTapHold?( accelerateOnTapHold?:boolean ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of cycle  
-		* @param cycle Boolean 
+		* @param cycle Boolean The new value. 
 		*/
 		setCycle?( cycle?:boolean ): void;
 		/** [Method] Sets the value of defaultValue  
-		* @param defaultValue Number 
+		* @param defaultValue Number The new value. 
 		*/
 		setDefaultValue?( defaultValue?:number ): void;
 		/** [Method] Sets the value of groupButtons  
-		* @param groupButtons Boolean 
+		* @param groupButtons Boolean The new value. 
 		*/
 		setGroupButtons?( groupButtons?:boolean ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of stepValue  
-		* @param stepValue Number 
+		* @param stepValue Number The new value. 
 		*/
 		setStepValue?( stepValue?:number ): void;
 		/** [Method] Updates the component configuration 
@@ -30412,39 +32799,39 @@ declare module Ext.form {
 		*/
 		reset?(): Ext.field.IField;
 		/** [Method] Sets the value of accelerateOnTapHold  
-		* @param accelerateOnTapHold Boolean 
+		* @param accelerateOnTapHold Boolean The new value. 
 		*/
 		setAccelerateOnTapHold?( accelerateOnTapHold?:boolean ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of cycle  
-		* @param cycle Boolean 
+		* @param cycle Boolean The new value. 
 		*/
 		setCycle?( cycle?:boolean ): void;
 		/** [Method] Sets the value of defaultValue  
-		* @param defaultValue Number 
+		* @param defaultValue Number The new value. 
 		*/
 		setDefaultValue?( defaultValue?:number ): void;
 		/** [Method] Sets the value of groupButtons  
-		* @param groupButtons Boolean 
+		* @param groupButtons Boolean The new value. 
 		*/
 		setGroupButtons?( groupButtons?:boolean ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of stepValue  
-		* @param stepValue Number 
+		* @param stepValue Number The new value. 
 		*/
 		setStepValue?( stepValue?:number ): void;
 		/** [Method] Updates the component configuration 
@@ -30540,43 +32927,43 @@ declare module Ext.field {
 		*/
 		select?(): Ext.field.IText;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of autoComplete  
-		* @param autoComplete Boolean 
+		* @param autoComplete Boolean The new value. 
 		*/
 		setAutoComplete?( autoComplete?:boolean ): void;
 		/** [Method] Sets the value of autoCorrect  
-		* @param autoCorrect Boolean 
+		* @param autoCorrect Boolean The new value. 
 		*/
 		setAutoCorrect?( autoCorrect?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents Array 
+		* @param bubbleEvents Array The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any[] ): void;
 		/** [Method] Sets the value of clearIcon  
-		* @param clearIcon Boolean 
+		* @param clearIcon Boolean The new value. 
 		*/
 		setClearIcon?( clearIcon?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of maxLength  
-		* @param maxLength Number 
+		* @param maxLength Number The new value. 
 		*/
 		setMaxLength?( maxLength?:number ): void;
 		/** [Method] Sets the value of placeHolder  
-		* @param placeHolder String 
+		* @param placeHolder String The new value. 
 		*/
 		setPlaceHolder?( placeHolder?:string ): void;
 		/** [Method] Sets the value of readOnly  
-		* @param readOnly Boolean 
+		* @param readOnly Boolean The new value. 
 		*/
 		setReadOnly?( readOnly?:boolean ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -30668,43 +33055,43 @@ declare module Ext.form {
 		*/
 		select?(): Ext.field.IText;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of autoComplete  
-		* @param autoComplete Boolean 
+		* @param autoComplete Boolean The new value. 
 		*/
 		setAutoComplete?( autoComplete?:boolean ): void;
 		/** [Method] Sets the value of autoCorrect  
-		* @param autoCorrect Boolean 
+		* @param autoCorrect Boolean The new value. 
 		*/
 		setAutoCorrect?( autoCorrect?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents Array 
+		* @param bubbleEvents Array The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any[] ): void;
 		/** [Method] Sets the value of clearIcon  
-		* @param clearIcon Boolean 
+		* @param clearIcon Boolean The new value. 
 		*/
 		setClearIcon?( clearIcon?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of maxLength  
-		* @param maxLength Number 
+		* @param maxLength Number The new value. 
 		*/
 		setMaxLength?( maxLength?:number ): void;
 		/** [Method] Sets the value of placeHolder  
-		* @param placeHolder String 
+		* @param placeHolder String The new value. 
 		*/
 		setPlaceHolder?( placeHolder?:string ): void;
 		/** [Method] Sets the value of readOnly  
-		* @param readOnly Boolean 
+		* @param readOnly Boolean The new value. 
 		*/
 		setReadOnly?( readOnly?:boolean ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -30736,19 +33123,19 @@ declare module Ext.field {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of maxRows  
-		* @param maxRows Number 
+		* @param maxRows Number The new value. 
 		*/
 		setMaxRows?( maxRows?:number ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -30780,19 +33167,19 @@ declare module Ext.form {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 		/** [Method] Sets the value of maxRows  
-		* @param maxRows Number 
+		* @param maxRows Number The new value. 
 		*/
 		setMaxRows?( maxRows?:number ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -30804,21 +33191,29 @@ declare module Ext.field {
 declare module Ext.field {
 	export interface IToggle extends Ext.field.ISlider {
 		/** [Config Option] (String) */
+		activeLabel?: string;
+		/** [Config Option] (String) */
 		cls?: string;
+		/** [Config Option] (String) */
+		inactiveLabel?: string;
 		/** [Config Option] (String) */
 		labelAlign?: string;
 		/** [Config Option] (String) */
 		maxValueCls?: string;
 		/** [Config Option] (String) */
 		minValueCls?: string;
-		/** [Property] (String) */
-		toggleOffLabel?: string;
-		/** [Property] (String) */
-		toggleOnLabel?: string;
+		/** [Method] Returns the value of activeLabel  
+		* @returns String 
+		*/
+		getActiveLabel?(): string;
 		/** [Method] Returns the value of cls  
 		* @returns String 
 		*/
 		getCls?(): string;
+		/** [Method] Returns the value of inactiveLabel  
+		* @returns String 
+		*/
+		getInactiveLabel?(): string;
 		/** [Method] Returns the value of labelAlign  
 		* @returns String 
 		*/
@@ -30835,20 +33230,28 @@ declare module Ext.field {
 		* @returns Number/Number[] 
 		*/
 		getValue?(): any;
+		/** [Method] Sets the value of activeLabel  
+		* @param activeLabel String The new value. 
+		*/
+		setActiveLabel?( activeLabel?:string ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
+		/** [Method] Sets the value of inactiveLabel  
+		* @param inactiveLabel String The new value. 
+		*/
+		setInactiveLabel?( inactiveLabel?:string ): void;
 		/** [Method] Sets the value of labelAlign  
-		* @param labelAlign String 
+		* @param labelAlign String The new value. 
 		*/
 		setLabelAlign?( labelAlign?:string ): void;
 		/** [Method] Sets the value of maxValueCls  
-		* @param maxValueCls String 
+		* @param maxValueCls String The new value. 
 		*/
 		setMaxValueCls?( maxValueCls?:string ): void;
 		/** [Method] Sets the value of minValueCls  
-		* @param minValueCls String 
+		* @param minValueCls String The new value. 
 		*/
 		setMinValueCls?( minValueCls?:string ): void;
 		/** [Method] Sets the value of the toggle  
@@ -30865,21 +33268,29 @@ declare module Ext.field {
 declare module Ext.form {
 	export interface IToggle extends Ext.field.ISlider {
 		/** [Config Option] (String) */
+		activeLabel?: string;
+		/** [Config Option] (String) */
 		cls?: string;
+		/** [Config Option] (String) */
+		inactiveLabel?: string;
 		/** [Config Option] (String) */
 		labelAlign?: string;
 		/** [Config Option] (String) */
 		maxValueCls?: string;
 		/** [Config Option] (String) */
 		minValueCls?: string;
-		/** [Property] (String) */
-		toggleOffLabel?: string;
-		/** [Property] (String) */
-		toggleOnLabel?: string;
+		/** [Method] Returns the value of activeLabel  
+		* @returns String 
+		*/
+		getActiveLabel?(): string;
 		/** [Method] Returns the value of cls  
 		* @returns String 
 		*/
 		getCls?(): string;
+		/** [Method] Returns the value of inactiveLabel  
+		* @returns String 
+		*/
+		getInactiveLabel?(): string;
 		/** [Method] Returns the value of labelAlign  
 		* @returns String 
 		*/
@@ -30896,20 +33307,28 @@ declare module Ext.form {
 		* @returns Number/Number[] 
 		*/
 		getValue?(): any;
+		/** [Method] Sets the value of activeLabel  
+		* @param activeLabel String The new value. 
+		*/
+		setActiveLabel?( activeLabel?:string ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
+		/** [Method] Sets the value of inactiveLabel  
+		* @param inactiveLabel String The new value. 
+		*/
+		setInactiveLabel?( inactiveLabel?:string ): void;
 		/** [Method] Sets the value of labelAlign  
-		* @param labelAlign String 
+		* @param labelAlign String The new value. 
 		*/
 		setLabelAlign?( labelAlign?:string ): void;
 		/** [Method] Sets the value of maxValueCls  
-		* @param maxValueCls String 
+		* @param maxValueCls String The new value. 
 		*/
 		setMaxValueCls?( maxValueCls?:string ): void;
 		/** [Method] Sets the value of minValueCls  
-		* @param minValueCls String 
+		* @param minValueCls String The new value. 
 		*/
 		setMinValueCls?( minValueCls?:string ): void;
 		/** [Method] Sets the value of the toggle  
@@ -30938,11 +33357,11 @@ declare module Ext.field {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 	}
@@ -30962,11 +33381,11 @@ declare module Ext.form {
 		*/
 		getComponent?(): any;
 		/** [Method] Sets the value of autoCapitalize  
-		* @param autoCapitalize Boolean 
+		* @param autoCapitalize Boolean The new value. 
 		*/
 		setAutoCapitalize?( autoCapitalize?:boolean ): void;
 		/** [Method] Sets the value of component  
-		* @param component Object 
+		* @param component Object The new value. 
 		*/
 		setComponent?( component?:any ): void;
 	}
@@ -30989,27 +33408,39 @@ declare module Ext.form {
 		*/
 		getBaseCls?(): string;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of instructions  
-		* @param instructions String 
+		* @param instructions String The new value. 
 		*/
 		setInstructions?( instructions?:string ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 	}
 }
 declare module Ext.form {
 	export interface IPanel extends Ext.IPanel {
+		/** [Config Option] (Object) */
+		api?: any;
 		/** [Config Option] (String) */
 		baseCls?: string;
 		/** [Config Option] (Object) */
 		baseParams?: any;
+		/** [Config Option] (Boolean) */
+		enableSubmissionForm?: boolean;
+		/** [Config Option] (Object) */
+		enctype?: any;
 		/** [Config Option] (String) */
 		method?: string;
+		/** [Config Option] (Boolean) */
+		multipartDetection?: boolean;
+		/** [Config Option] (String/String[]) */
+		paramOrder?: any;
+		/** [Config Option] (Boolean) */
+		paramsAsHash?: boolean;
 		/** [Config Option] (Ext.data.Model) */
 		record?: Ext.data.IModel;
 		/** [Config Option] (Boolean/String/Object) */
@@ -31018,6 +33449,8 @@ declare module Ext.form {
 		standardSubmit?: boolean;
 		/** [Config Option] (Object) */
 		submitOnAction?: any;
+		/** [Config Option] (Number) */
+		timeout?: number;
 		/** [Config Option] (Boolean) */
 		trackResetOnLoad?: boolean;
 		/** [Config Option] (String) */
@@ -31031,6 +33464,10 @@ declare module Ext.form {
 		* @returns Ext.form.Panel This form. 
 		*/
 		doSetDisabled?( newDisabled?:any ): Ext.form.IPanel;
+		/** [Method] Returns the value of api  
+		* @returns Object 
+		*/
+		getApi?(): any;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
@@ -31039,19 +33476,35 @@ declare module Ext.form {
 		* @returns Object 
 		*/
 		getBaseParams?(): any;
+		/** [Method] Returns the value of enableSubmissionForm  
+		* @returns Boolean 
+		*/
+		getEnableSubmissionForm?(): boolean;
+		/** [Method] Returns the value of enctype  
+		* @returns Object 
+		*/
+		getEnctype?(): any;
 		/** [Method] Returns the value of method  
 		* @returns String 
 		*/
 		getMethod?(): string;
+		/** [Method] Returns the value of multipartDetection  
+		* @returns Boolean 
+		*/
+		getMultipartDetection?(): boolean;
+		/** [Method] Returns the value of paramOrder  
+		* @returns String/String[] 
+		*/
+		getParamOrder?(): any;
+		/** [Method] Returns the value of paramsAsHash  
+		* @returns Boolean 
+		*/
+		getParamsAsHash?(): boolean;
 		/** [Method] Returns the value of record  
 		* @returns Ext.data.Model 
 		*/
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of scrollable  
-		* @returns Object 
-		*/
-		getScrollable?(): any;
-		/** [Method] Returns the value of standardSubmit  
+		/** [Method] Returns the value of standardSubmit
 		* @returns Boolean 
 		*/
 		getStandardSubmit?(): boolean;
@@ -31059,6 +33512,10 @@ declare module Ext.form {
 		* @returns Object 
 		*/
 		getSubmitOnAction?(): any;
+		/** [Method] Returns the value of timeout  
+		* @returns Number 
+		*/
+		getTimeout?(): number;
 		/** [Method] Returns the value of trackResetOnLoad  
 		* @returns Boolean 
 		*/
@@ -31077,11 +33534,11 @@ declare module Ext.form {
 		* @returns Ext.form.Panel this 
 		*/
 		hideMask?(): Ext.form.IPanel;
-		/** [Method] Loads matching fields from a model instance into this form  
-		* @param record Ext.data.Model The model instance. 
-		* @returns Ext.form.Panel This form. 
+		/** [Method] Performs an Ajax or Ext Direct call to load values for this form  
+		* @param options Object The configuration when loading this form. The following are the configurations when loading via Ajax only: 
+		* @returns Ext.data.Connection The request object. 
 		*/
-		load?( record?:Ext.data.IModel ): Ext.form.IPanel;
+		load?( options?:any ): Ext.data.IConnection;
 		/** [Method] Loads matching fields from a model instance into this form  
 		* @param record Ext.data.Model The model instance. 
 		* @returns Ext.form.Panel This form. 
@@ -31096,41 +33553,65 @@ declare module Ext.form {
 		* @returns Ext.form.Panel This form. 
 		*/
 		reset?(): Ext.form.IPanel;
+		/** [Method] Sets the value of api  
+		* @param api Object The new value. 
+		*/
+		setApi?( api?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of baseParams  
-		* @param baseParams Object 
+		* @param baseParams Object The new value. 
 		*/
 		setBaseParams?( baseParams?:any ): void;
+		/** [Method] Sets the value of enableSubmissionForm  
+		* @param enableSubmissionForm Boolean The new value. 
+		*/
+		setEnableSubmissionForm?( enableSubmissionForm?:boolean ): void;
+		/** [Method] Sets the value of enctype  
+		* @param enctype Object The new value. 
+		*/
+		setEnctype?( enctype?:any ): void;
 		/** [Method] Sets the value of method  
-		* @param method String 
+		* @param method String The new value. 
 		*/
 		setMethod?( method?:string ): void;
+		/** [Method] Sets the value of multipartDetection  
+		* @param multipartDetection Boolean The new value. 
+		*/
+		setMultipartDetection?( multipartDetection?:boolean ): void;
+		/** [Method] Sets the value of paramOrder  
+		* @param paramOrder String/String[] The new value. 
+		*/
+		setParamOrder?( paramOrder?:any ): void;
+		/** [Method] Sets the value of paramsAsHash  
+		* @param paramsAsHash Boolean The new value. 
+		*/
+		setParamsAsHash?( paramsAsHash?:boolean ): void;
 		/** [Method] Loads matching fields from a model instance into this form  
 		* @param record Ext.data.Model The model instance. 
 		* @returns Ext.form.Panel This form. 
 		*/
 		setRecord?( record?:Ext.data.IModel ): Ext.form.IPanel;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Object 
-		*/
-		setScrollable?( scrollable?:any ): void;
 		/** [Method] Sets the value of standardSubmit  
-		* @param standardSubmit Boolean 
+		* @param standardSubmit Boolean The new value. 
 		*/
 		setStandardSubmit?( standardSubmit?:boolean ): void;
 		/** [Method] Sets the value of submitOnAction  
-		* @param submitOnAction Object 
+		* @param submitOnAction Object The new value. 
 		*/
 		setSubmitOnAction?( submitOnAction?:any ): void;
+		/** [Method] Sets the value of timeout  
+		* @param timeout Number The new value. 
+		*/
+		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of trackResetOnLoad  
-		* @param trackResetOnLoad Boolean 
+		* @param trackResetOnLoad Boolean The new value. 
 		*/
 		setTrackResetOnLoad?( trackResetOnLoad?:boolean ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 		/** [Method] Sets the values of form fields in bulk  
@@ -31145,20 +33626,32 @@ declare module Ext.form {
 		*/
 		showMask?( cfg?:any, target?:any ): Ext.form.IPanel;
 		/** [Method] Performs a Ajax based submission of form values if standardSubmit is false or otherwise executes a standard HTML Fo  
-		* @param options Object The configuration when submitting this form. 
-		* @returns Ext.data.Connection The request object. 
+		* @param options Object The configuration when submitting this form. The following are the configurations when submitting via Ajax only: 
+		* @returns Ext.data.Connection The request object if the standardSubmit config is false. If the standardSubmit config is true, then the return value is undefined. 
 		*/
 		submit?( options?:any ): Ext.data.IConnection;
 	}
 }
 declare module Ext.form {
 	export interface IFormPanel extends Ext.IPanel {
+		/** [Config Option] (Object) */
+		api?: any;
 		/** [Config Option] (String) */
 		baseCls?: string;
 		/** [Config Option] (Object) */
 		baseParams?: any;
+		/** [Config Option] (Boolean) */
+		enableSubmissionForm?: boolean;
+		/** [Config Option] (Object) */
+		enctype?: any;
 		/** [Config Option] (String) */
 		method?: string;
+		/** [Config Option] (Boolean) */
+		multipartDetection?: boolean;
+		/** [Config Option] (String/String[]) */
+		paramOrder?: any;
+		/** [Config Option] (Boolean) */
+		paramsAsHash?: boolean;
 		/** [Config Option] (Ext.data.Model) */
 		record?: Ext.data.IModel;
 		/** [Config Option] (Boolean/String/Object) */
@@ -31167,6 +33660,8 @@ declare module Ext.form {
 		standardSubmit?: boolean;
 		/** [Config Option] (Object) */
 		submitOnAction?: any;
+		/** [Config Option] (Number) */
+		timeout?: number;
 		/** [Config Option] (Boolean) */
 		trackResetOnLoad?: boolean;
 		/** [Config Option] (String) */
@@ -31180,6 +33675,10 @@ declare module Ext.form {
 		* @returns Ext.form.Panel This form. 
 		*/
 		doSetDisabled?( newDisabled?:any ): Ext.form.IPanel;
+		/** [Method] Returns the value of api  
+		* @returns Object 
+		*/
+		getApi?(): any;
 		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
@@ -31188,19 +33687,35 @@ declare module Ext.form {
 		* @returns Object 
 		*/
 		getBaseParams?(): any;
+		/** [Method] Returns the value of enableSubmissionForm  
+		* @returns Boolean 
+		*/
+		getEnableSubmissionForm?(): boolean;
+		/** [Method] Returns the value of enctype  
+		* @returns Object 
+		*/
+		getEnctype?(): any;
 		/** [Method] Returns the value of method  
 		* @returns String 
 		*/
 		getMethod?(): string;
+		/** [Method] Returns the value of multipartDetection  
+		* @returns Boolean 
+		*/
+		getMultipartDetection?(): boolean;
+		/** [Method] Returns the value of paramOrder  
+		* @returns String/String[] 
+		*/
+		getParamOrder?(): any;
+		/** [Method] Returns the value of paramsAsHash  
+		* @returns Boolean 
+		*/
+		getParamsAsHash?(): boolean;
 		/** [Method] Returns the value of record  
 		* @returns Ext.data.Model 
 		*/
 		getRecord?(): Ext.data.IModel;
-		/** [Method] Returns the value of scrollable  
-		* @returns Object 
-		*/
-		getScrollable?(): any;
-		/** [Method] Returns the value of standardSubmit  
+		/** [Method] Returns the value of standardSubmit
 		* @returns Boolean 
 		*/
 		getStandardSubmit?(): boolean;
@@ -31208,6 +33723,10 @@ declare module Ext.form {
 		* @returns Object 
 		*/
 		getSubmitOnAction?(): any;
+		/** [Method] Returns the value of timeout  
+		* @returns Number 
+		*/
+		getTimeout?(): number;
 		/** [Method] Returns the value of trackResetOnLoad  
 		* @returns Boolean 
 		*/
@@ -31226,11 +33745,11 @@ declare module Ext.form {
 		* @returns Ext.form.Panel this 
 		*/
 		hideMask?(): Ext.form.IPanel;
-		/** [Method] Loads matching fields from a model instance into this form  
-		* @param record Ext.data.Model The model instance. 
-		* @returns Ext.form.Panel This form. 
+		/** [Method] Performs an Ajax or Ext Direct call to load values for this form  
+		* @param options Object The configuration when loading this form. The following are the configurations when loading via Ajax only: 
+		* @returns Ext.data.Connection The request object. 
 		*/
-		load?( record?:Ext.data.IModel ): Ext.form.IPanel;
+		load?( options?:any ): Ext.data.IConnection;
 		/** [Method] Loads matching fields from a model instance into this form  
 		* @param record Ext.data.Model The model instance. 
 		* @returns Ext.form.Panel This form. 
@@ -31245,41 +33764,65 @@ declare module Ext.form {
 		* @returns Ext.form.Panel This form. 
 		*/
 		reset?(): Ext.form.IPanel;
+		/** [Method] Sets the value of api  
+		* @param api Object The new value. 
+		*/
+		setApi?( api?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of baseParams  
-		* @param baseParams Object 
+		* @param baseParams Object The new value. 
 		*/
 		setBaseParams?( baseParams?:any ): void;
+		/** [Method] Sets the value of enableSubmissionForm  
+		* @param enableSubmissionForm Boolean The new value. 
+		*/
+		setEnableSubmissionForm?( enableSubmissionForm?:boolean ): void;
+		/** [Method] Sets the value of enctype  
+		* @param enctype Object The new value. 
+		*/
+		setEnctype?( enctype?:any ): void;
 		/** [Method] Sets the value of method  
-		* @param method String 
+		* @param method String The new value. 
 		*/
 		setMethod?( method?:string ): void;
+		/** [Method] Sets the value of multipartDetection  
+		* @param multipartDetection Boolean The new value. 
+		*/
+		setMultipartDetection?( multipartDetection?:boolean ): void;
+		/** [Method] Sets the value of paramOrder  
+		* @param paramOrder String/String[] The new value. 
+		*/
+		setParamOrder?( paramOrder?:any ): void;
+		/** [Method] Sets the value of paramsAsHash  
+		* @param paramsAsHash Boolean The new value. 
+		*/
+		setParamsAsHash?( paramsAsHash?:boolean ): void;
 		/** [Method] Loads matching fields from a model instance into this form  
 		* @param record Ext.data.Model The model instance. 
 		* @returns Ext.form.Panel This form. 
 		*/
 		setRecord?( record?:Ext.data.IModel ): Ext.form.IPanel;
-		/** [Method] Sets the value of scrollable  
-		* @param scrollable Object 
-		*/
-		setScrollable?( scrollable?:any ): void;
 		/** [Method] Sets the value of standardSubmit  
-		* @param standardSubmit Boolean 
+		* @param standardSubmit Boolean The new value. 
 		*/
 		setStandardSubmit?( standardSubmit?:boolean ): void;
 		/** [Method] Sets the value of submitOnAction  
-		* @param submitOnAction Object 
+		* @param submitOnAction Object The new value. 
 		*/
 		setSubmitOnAction?( submitOnAction?:any ): void;
+		/** [Method] Sets the value of timeout  
+		* @param timeout Number The new value. 
+		*/
+		setTimeout?( timeout?:number ): void;
 		/** [Method] Sets the value of trackResetOnLoad  
-		* @param trackResetOnLoad Boolean 
+		* @param trackResetOnLoad Boolean The new value. 
 		*/
 		setTrackResetOnLoad?( trackResetOnLoad?:boolean ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 		/** [Method] Sets the values of form fields in bulk  
@@ -31294,8 +33837,8 @@ declare module Ext.form {
 		*/
 		showMask?( cfg?:any, target?:any ): Ext.form.IPanel;
 		/** [Method] Performs a Ajax based submission of form values if standardSubmit is false or otherwise executes a standard HTML Fo  
-		* @param options Object The configuration when submitting this form. 
-		* @returns Ext.data.Connection The request object. 
+		* @param options Object The configuration when submitting this form. The following are the configurations when submitting via Ajax only: 
+		* @returns Ext.data.Connection The request object if the standardSubmit config is false. If the standardSubmit config is true, then the return value is undefined. 
 		*/
 		submit?( options?:any ): Ext.data.IConnection;
 	}
@@ -31384,6 +33927,22 @@ declare module Ext {
 		* @returns Function flexSetter 
 		*/
 		static flexSetter( fn?:any ): any;
+		/** [Method] Adds behavior to an existing method that is executed after the original behavior of the function  
+		* @param object Object The target object 
+		* @param methodName String Name of the method to override 
+		* @param fn Function Function with the new behavior. It will be called with the same arguments as the original method. The return value of this function will be the return value of the new method. 
+		* @param scope Object The scope to execute the interceptor function. Defaults to the object. 
+		* @returns Function The new function just created. 
+		*/
+		static interceptAfter( object?:any, methodName?:string, fn?:any, scope?:any ): any;
+		/** [Method] Adds behavior to an existing method that is executed before the original behavior of the function  
+		* @param object Object The target object 
+		* @param methodName String Name of the method to override 
+		* @param fn Function Function with the new behavior. It will be called with the same arguments as the original method. The return value of this function will be the return value of the new method. 
+		* @param scope Object The scope to execute the interceptor function. Defaults to the object. 
+		* @returns Function The new function just created. 
+		*/
+		static interceptBefore( object?:any, methodName?:string, fn?:any, scope?:any ): any;
 		/** [Method] Create a new function from the provided fn the arguments of which are pre set to args  
 		* @param fn Function The original function. 
 		* @param args Array The arguments to pass to new callback. 
@@ -31477,6 +34036,22 @@ declare module Ext.util {
 		* @returns Function flexSetter 
 		*/
 		static flexSetter( fn?:any ): any;
+		/** [Method] Adds behavior to an existing method that is executed after the original behavior of the function  
+		* @param object Object The target object 
+		* @param methodName String Name of the method to override 
+		* @param fn Function Function with the new behavior. It will be called with the same arguments as the original method. The return value of this function will be the return value of the new method. 
+		* @param scope Object The scope to execute the interceptor function. Defaults to the object. 
+		* @returns Function The new function just created. 
+		*/
+		static interceptAfter( object?:any, methodName?:string, fn?:any, scope?:any ): any;
+		/** [Method] Adds behavior to an existing method that is executed before the original behavior of the function  
+		* @param object Object The target object 
+		* @param methodName String Name of the method to override 
+		* @param fn Function Function with the new behavior. It will be called with the same arguments as the original method. The return value of this function will be the return value of the new method. 
+		* @param scope Object The scope to execute the interceptor function. Defaults to the object. 
+		* @returns Function The new function just created. 
+		*/
+		static interceptBefore( object?:any, methodName?:string, fn?:any, scope?:any ): any;
 		/** [Method] Create a new function from the provided fn the arguments of which are pre set to args  
 		* @param fn Function The original function. 
 		* @param args Array The arguments to pass to new callback. 
@@ -31559,67 +34134,67 @@ declare module Ext.fx.animation {
 		*/
 		getScope?(): any;
 		/** [Method] Sets the value of after  
-		* @param after Object 
+		* @param after Object The new value. 
 		*/
 		setAfter?( after?:any ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of delay  
-		* @param delay Number 
+		* @param delay Number The new value. 
 		*/
 		setDelay?( delay?:number ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing String 
+		* @param easing String The new value. 
 		*/
 		setEasing?( easing?:string ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of iteration  
-		* @param iteration Number 
+		* @param iteration Number The new value. 
 		*/
 		setIteration?( iteration?:number ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of onBeforeEnd  
-		* @param onBeforeEnd Object 
+		* @param onBeforeEnd Object The new value. 
 		*/
 		setOnBeforeEnd?( onBeforeEnd?:any ): void;
 		/** [Method] Sets the value of onBeforeStart  
-		* @param onBeforeStart Object 
+		* @param onBeforeStart Object The new value. 
 		*/
 		setOnBeforeStart?( onBeforeStart?:any ): void;
 		/** [Method] Sets the value of onEnd  
-		* @param onEnd Object 
+		* @param onEnd Object The new value. 
 		*/
 		setOnEnd?( onEnd?:any ): void;
 		/** [Method] Sets the value of preserveEndState  
-		* @param preserveEndState Boolean 
+		* @param preserveEndState Boolean The new value. 
 		*/
 		setPreserveEndState?( preserveEndState?:boolean ): void;
 		/** [Method] Sets the value of replacePrevious  
-		* @param replacePrevious Boolean 
+		* @param replacePrevious Boolean The new value. 
 		*/
 		setReplacePrevious?( replacePrevious?:boolean ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 	}
@@ -31647,19 +34222,19 @@ declare module Ext.fx.animation {
 		*/
 		getOut?(): boolean;
 		/** [Method] Sets the value of after  
-		* @param after Object 
+		* @param after Object The new value. 
 		*/
 		setAfter?( after?:any ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 	}
@@ -31687,19 +34262,19 @@ declare module Ext.fx.animation {
 		*/
 		getReverse?(): any;
 		/** [Method] Sets the value of after  
-		* @param after Object 
+		* @param after Object The new value. 
 		*/
 		setAfter?( after?:any ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 	}
@@ -31727,19 +34302,19 @@ declare module Ext.fx.animation {
 		*/
 		getReverse?(): any;
 		/** [Method] Sets the value of after  
-		* @param after Object 
+		* @param after Object The new value. 
 		*/
 		setAfter?( after?:any ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 	}
@@ -31753,7 +34328,7 @@ declare module Ext.fx.animation {
 		*/
 		getBefore?(): any;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 	}
@@ -31781,25 +34356,27 @@ declare module Ext.fx.animation {
 		*/
 		getOut?(): any;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing String 
+		* @param easing String The new value. 
 		*/
 		setEasing?( easing?:string ): void;
 		/** [Method] Sets the value of half  
-		* @param half Boolean 
+		* @param half Boolean The new value. 
 		*/
 		setHalf?( half?:boolean ): void;
 		/** [Method] Sets the value of out  
-		* @param out Object 
+		* @param out Object The new value. 
 		*/
 		setOut?( out?:any ): void;
 	}
 }
 declare module Ext.fx {
 	export interface IAnimation extends Ext.IBase {
+		/** [Config Option] (String) */
+		type?: string;
 	}
 }
 declare module Ext.fx.animation {
@@ -31821,15 +34398,15 @@ declare module Ext.fx.animation {
 		*/
 		getOut?(): boolean;
 		/** [Method] Sets the value of after  
-		* @param after Object 
+		* @param after Object The new value. 
 		*/
 		setAfter?( after?:any ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 	}
@@ -31853,15 +34430,15 @@ declare module Ext.fx.animation {
 		*/
 		getOut?(): boolean;
 		/** [Method] Sets the value of after  
-		* @param after Object 
+		* @param after Object The new value. 
 		*/
 		setAfter?( after?:any ): void;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 	}
@@ -31875,7 +34452,7 @@ declare module Ext.fx.animation {
 		*/
 		getBefore?(): any;
 		/** [Method] Sets the value of before  
-		* @param before Object 
+		* @param before Object The new value. 
 		*/
 		setBefore?( before?:any ): void;
 	}
@@ -31915,35 +34492,35 @@ declare module Ext.fx.animation {
 		*/
 		getUseCssTransform?(): boolean;
 		/** [Method] Sets the value of containerBox  
-		* @param containerBox String 
+		* @param containerBox String The new value. 
 		*/
 		setContainerBox?( containerBox?:string ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing String 
+		* @param easing String The new value. 
 		*/
 		setEasing?( easing?:string ): void;
 		/** [Method] Sets the value of elementBox  
-		* @param elementBox String 
+		* @param elementBox String The new value. 
 		*/
 		setElementBox?( elementBox?:string ): void;
 		/** [Method] Sets the value of isElementBoxFit  
-		* @param isElementBoxFit Boolean 
+		* @param isElementBoxFit Boolean The new value. 
 		*/
 		setIsElementBoxFit?( isElementBoxFit?:boolean ): void;
 		/** [Method] Sets the value of offset  
-		* @param offset Number 
+		* @param offset Number The new value. 
 		*/
 		setOffset?( offset?:number ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 		/** [Method] Sets the value of useCssTransform  
-		* @param useCssTransform Boolean 
+		* @param useCssTransform Boolean The new value. 
 		*/
 		setUseCssTransform?( useCssTransform?:boolean ): void;
 	}
@@ -31983,35 +34560,35 @@ declare module Ext.fx.animation {
 		*/
 		getUseCssTransform?(): boolean;
 		/** [Method] Sets the value of containerBox  
-		* @param containerBox String 
+		* @param containerBox String The new value. 
 		*/
 		setContainerBox?( containerBox?:string ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing String 
+		* @param easing String The new value. 
 		*/
 		setEasing?( easing?:string ): void;
 		/** [Method] Sets the value of elementBox  
-		* @param elementBox String 
+		* @param elementBox String The new value. 
 		*/
 		setElementBox?( elementBox?:string ): void;
 		/** [Method] Sets the value of isElementBoxFit  
-		* @param isElementBoxFit Boolean 
+		* @param isElementBoxFit Boolean The new value. 
 		*/
 		setIsElementBoxFit?( isElementBoxFit?:boolean ): void;
 		/** [Method] Sets the value of offset  
-		* @param offset Number 
+		* @param offset Number The new value. 
 		*/
 		setOffset?( offset?:number ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 		/** [Method] Sets the value of useCssTransform  
-		* @param useCssTransform Boolean 
+		* @param useCssTransform Boolean The new value. 
 		*/
 		setUseCssTransform?( useCssTransform?:boolean ): void;
 	}
@@ -32041,15 +34618,15 @@ declare module Ext.fx.animation {
 		*/
 		getOut?(): boolean;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing String 
+		* @param easing String The new value. 
 		*/
 		setEasing?( easing?:string ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 	}
@@ -32075,15 +34652,15 @@ declare module Ext.fx.animation {
 		*/
 		getOut?(): boolean;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of easing  
-		* @param easing String 
+		* @param easing String The new value. 
 		*/
 		setEasing?( easing?:string ): void;
 		/** [Method] Sets the value of out  
-		* @param out Boolean 
+		* @param out Boolean The new value. 
 		*/
 		setOut?( out?:boolean ): void;
 	}
@@ -32103,11 +34680,11 @@ declare module Ext.fx.easing {
 		*/
 		getStartValue?(): number;
 		/** [Method] Sets the value of startTime  
-		* @param startTime Number 
+		* @param startTime Number The new value. 
 		*/
 		setStartTime?( startTime?:number ): void;
 		/** [Method] Sets the value of startValue  
-		* @param startValue Number 
+		* @param startValue Number The new value. 
 		*/
 		setStartValue?( startValue?:number ): void;
 	}
@@ -32127,15 +34704,15 @@ declare module Ext.fx.easing {
 		*/
 		getStartVelocity?(): number;
 		/** [Method] Sets the value of acceleration  
-		* @param acceleration Number 
+		* @param acceleration Number The new value. 
 		*/
 		setAcceleration?( acceleration?:number ): void;
 		/** [Method] Sets the value of springTension  
-		* @param springTension Number 
+		* @param springTension Number The new value. 
 		*/
 		setSpringTension?( springTension?:number ): void;
 		/** [Method] Sets the value of startVelocity  
-		* @param startVelocity Number 
+		* @param startVelocity Number The new value. 
 		*/
 		setStartVelocity?( startVelocity?:number ): void;
 	}
@@ -32175,27 +34752,27 @@ declare module Ext.fx.easing {
 		*/
 		getStartVelocity?(): number;
 		/** [Method] Sets the value of bounce  
-		* @param bounce Object 
+		* @param bounce Object The new value. 
 		*/
 		setBounce?( bounce?:any ): void;
 		/** [Method] Sets the value of maxMomentumValue  
-		* @param maxMomentumValue Number 
+		* @param maxMomentumValue Number The new value. 
 		*/
 		setMaxMomentumValue?( maxMomentumValue?:number ): void;
 		/** [Method] Sets the value of minMomentumValue  
-		* @param minMomentumValue Number 
+		* @param minMomentumValue Number The new value. 
 		*/
 		setMinMomentumValue?( minMomentumValue?:number ): void;
 		/** [Method] Sets the value of minVelocity  
-		* @param minVelocity Number 
+		* @param minVelocity Number The new value. 
 		*/
 		setMinVelocity?( minVelocity?:number ): void;
 		/** [Method] Sets the value of momentum  
-		* @param momentum Object 
+		* @param momentum Object The new value. 
 		*/
 		setMomentum?( momentum?:any ): void;
 		/** [Method] Sets the value of startVelocity  
-		* @param startVelocity Number 
+		* @param startVelocity Number The new value. 
 		*/
 		setStartVelocity?( startVelocity?:number ): void;
 	}
@@ -32211,11 +34788,11 @@ declare module Ext.fx.easing {
 		*/
 		getExponent?(): number;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Sets the value of exponent  
-		* @param exponent Number 
+		* @param exponent Number The new value. 
 		*/
 		setExponent?( exponent?:number ): void;
 	}
@@ -32231,11 +34808,11 @@ declare module Ext.fx.easing {
 		*/
 		getExponent?(): number;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Sets the value of exponent  
-		* @param exponent Number 
+		* @param exponent Number The new value. 
 		*/
 		setExponent?( exponent?:number ): void;
 	}
@@ -32255,11 +34832,11 @@ declare module Ext.fx.easing {
 		*/
 		getEndValue?(): number;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Sets the value of endValue  
-		* @param endValue Number 
+		* @param endValue Number The new value. 
 		*/
 		setEndValue?( endValue?:number ): void;
 	}
@@ -32279,15 +34856,15 @@ declare module Ext.fx.easing {
 		*/
 		getStartVelocity?(): number;
 		/** [Method] Sets the value of acceleration  
-		* @param acceleration Number 
+		* @param acceleration Number The new value. 
 		*/
 		setAcceleration?( acceleration?:number ): void;
 		/** [Method] Sets the value of friction  
-		* @param friction Number 
+		* @param friction Number The new value. 
 		*/
 		setFriction?( friction?:number ): void;
 		/** [Method] Sets the value of startVelocity  
-		* @param startVelocity Number 
+		* @param startVelocity Number The new value. 
 		*/
 		setStartVelocity?( startVelocity?:number ): void;
 	}
@@ -32313,19 +34890,19 @@ declare module Ext.fx.layout.card {
 		*/
 		getReverse?(): any;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of duration  
-		* @param duration Object 
+		* @param duration Object The new value. 
 		*/
 		setDuration?( duration?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 	}
@@ -32345,15 +34922,15 @@ declare module Ext.fx.layout.card {
 		*/
 		getReverse?(): any;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 	}
@@ -32373,15 +34950,15 @@ declare module Ext.fx.layout.card {
 		*/
 		getReverse?(): any;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 	}
@@ -32401,15 +34978,15 @@ declare module Ext.fx.layout.card {
 		*/
 		getReverse?(): any;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 		/** [Method] Sets the value of reverse  
-		* @param reverse Object 
+		* @param reverse Object The new value. 
 		*/
 		setReverse?( reverse?:any ): void;
 	}
@@ -32429,15 +35006,15 @@ declare module Ext.fx.layout.card {
 		*/
 		getOutAnimation?(): any;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 	}
@@ -32461,15 +35038,15 @@ declare module Ext.fx.layout.card {
 		*/
 		getOutAnimation?(): any;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 	}
@@ -32485,11 +35062,11 @@ declare module Ext.fx.layout.card {
 		*/
 		getOutAnimation?(): any;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 	}
@@ -32501,7 +35078,7 @@ declare module Ext.fx.layout.card {
 		*/
 		getDuration?(): number;
 		/** [Method] Sets the value of duration  
-		* @param duration Number 
+		* @param duration Number The new value. 
 		*/
 		setDuration?( duration?:number ): void;
 	}
@@ -32525,11 +35102,11 @@ declare module Ext.fx.layout.card {
 		*/
 		getOutAnimation?(): any;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 	}
@@ -32547,11 +35124,11 @@ declare module Ext.fx.layout.card {
 		*/
 		getOutAnimation?(): any;
 		/** [Method] Sets the value of inAnimation  
-		* @param inAnimation Object 
+		* @param inAnimation Object The new value. 
 		*/
 		setInAnimation?( inAnimation?:any ): void;
 		/** [Method] Sets the value of outAnimation  
-		* @param outAnimation Object 
+		* @param outAnimation Object The new value. 
 		*/
 		setOutAnimation?( outAnimation?:any ): void;
 	}
@@ -32610,33 +35187,33 @@ declare module Ext {
 		* @returns String 
 		*/
 		getSrc?(): string;
-		/** [Method] Hides this Component 
+		/** [Method] Hides this Component optionally using an animation  
 		* @returns Ext.Component 
 		*/
 		hide?(): Ext.IComponent;
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of backgroundCls  
-		* @param backgroundCls String 
+		* @param backgroundCls String The new value. 
 		*/
 		setBackgroundCls?( backgroundCls?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of imageCls  
-		* @param imageCls String 
+		* @param imageCls String The new value. 
 		*/
 		setImageCls?( imageCls?:string ): void;
 		/** [Method] Sets the value of mode  
-		* @param mode String 
+		* @param mode String The new value. 
 		*/
 		setMode?( mode?:string ): void;
 		/** [Method] Sets the value of src  
-		* @param src String 
+		* @param src String The new value. 
 		*/
 		setSrc?( src?:string ): void;
-		/** [Method] Shows this component  
+		/** [Method] Shows this component optionally using an animation  
 		* @returns Ext.Component 
 		*/
 		show?(): Ext.IComponent;
@@ -32761,7 +35338,7 @@ declare module Ext {
 		export function defer( fn?:any, millis?:number, scope?:any, args?:any[], appendArgs?:any ): number;
 		/** [Method] Defines a class or override  
 		* @param className String The class name to create in string dot-namespaced format, for example: 'My.very.awesome.Class', 'FeedViewer.plugin.CoolPager' It is highly recommended to follow this simple convention: - The root and the class name are 'CamelCased' - Everything else is lower-cased 
-		* @param data Object The key - value pairs of properties to apply to this class. Property names can be of any valid strings, except those in the reserved listed below:  mixins statics config alias self singleton alternateClassName override  
+		* @param data Object The key - value pairs of properties to apply to this class. Property names can be of any valid strings, except those in the reserved listed below:  mixins statics config alias xtype (for Ext.Components only) self singleton alternateClassName override  
 		* @param createdFn Function Optional callback to execute after the class (or override) is created. The execution scope (this) will be the newly created class itself. 
 		* @returns Ext.Base 
 		*/
@@ -32800,9 +35377,9 @@ declare module Ext {
 		* @param config Object The config object to instantiate or update an instance with. 
 		* @param classReference String The class to instantiate from. 
 		* @param instance Object The instance to update. 
-		* @param aliasNamespace Object 
+		* @param aliasNamespace String 
 		*/
-		export function factory( config?:any, classReference?:string, instance?:any, aliasNamespace?:any ): void;
+		export function factory( config?:any, classReference?:string, instance?:any, aliasNamespace?:string ): void;
 		/** [Method] Old alias to Ext Array flatten 
 		* @param array Array The array to flatten 
 		* @returns Array The 1-d array. 
@@ -32918,10 +35495,10 @@ declare module Ext {
 		*/
 		export function isIterable( value?:any ): boolean;
 		/** [Method] Returns true if the passed value is a String that matches the MS Date JSON encoding format 
-		* @param value Object {String} The string to test 
+		* @param value String The string to test 
 		* @returns Boolean 
 		*/
-		export function isMSDate( value?:any ): boolean;
+		export function isMSDate( value?:string ): boolean;
 		/** [Method] Returns true if the passed value is a number  
 		* @param value Object The value to test. 
 		* @returns Boolean 
@@ -33154,7 +35731,7 @@ declare module Ext {
 		*/
 		getBaseCls?(): string;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 	}
@@ -33307,11 +35884,11 @@ declare module Ext.layout {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -33364,15 +35941,15 @@ declare module Ext.layout {
 		*/
 		onItemInnerStateChange?( item?:any, isInner?:any ): void;
 		/** [Method] Sets the value of align  
-		* @param align String 
+		* @param align String The new value. 
 		*/
 		setAlign?( align?:string ): void;
 		/** [Method] Sets the value of orient  
-		* @param orient String 
+		* @param orient String The new value. 
 		*/
 		setOrient?( orient?:string ): void;
 		/** [Method] Sets the value of pack  
-		* @param pack String 
+		* @param pack String The new value. 
 		*/
 		setPack?( pack?:string ): void;
 	}
@@ -33400,13 +35977,13 @@ declare module Ext.layout {
 		*/
 		getAnimation?(): Ext.fx.layout.ICard;
 		/** [Method]  
-		* @param item Object 
-		* @param isInner Object 
-		* @param destroying Object 
+		* @param item Ext.Component 
+		* @param isInner Boolean 
+		* @param destroying Boolean 
 		*/
-		onItemInnerStateChange?( item?:any, isInner?:any, destroying?:any ): void;
+		onItemInnerStateChange?( item?:Ext.IComponent, isInner?:boolean, destroying?:boolean ): void;
 		/** [Method] Sets the value of animation  
-		* @param animation Ext.fx.layout.Card 
+		* @param animation Ext.fx.layout.Card The new value. 
 		*/
 		setAnimation?( animation?:Ext.fx.layout.ICard ): void;
 	}
@@ -33434,7 +36011,7 @@ declare module Ext.layout {
 		*/
 		onItemInnerStateChange?( item?:any, isInner?:any ): void;
 		/** [Method] Sets the value of align  
-		* @param align String 
+		* @param align String The new value. 
 		*/
 		setAlign?( align?:string ): void;
 		/** [Method] Sets the flex of an item in this box layout  
@@ -33456,7 +36033,7 @@ declare module Ext.layout {
 		*/
 		onItemInnerStateChange?( item?:any, isInner?:any ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 	}
@@ -33472,7 +36049,7 @@ declare module Ext.layout {
 		*/
 		getOrient?(): string;
 		/** [Method] Sets the value of orient  
-		* @param orient String 
+		* @param orient String The new value. 
 		*/
 		setOrient?( orient?:string ): void;
 	}
@@ -33506,27 +36083,27 @@ declare module Ext.layout.wrapper {
 		*/
 		getSizeState?(): boolean;
 		/** [Method] Sets the value of bodyElement  
-		* @param bodyElement Object 
+		* @param bodyElement Object The new value. 
 		*/
 		setBodyElement?( bodyElement?:any ): void;
 		/** [Method] Sets the value of container  
-		* @param container Object 
+		* @param container Object The new value. 
 		*/
 		setContainer?( container?:any ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of innerWrapper  
-		* @param innerWrapper Object 
+		* @param innerWrapper Object The new value. 
 		*/
 		setInnerWrapper?( innerWrapper?:any ): void;
 		/** [Method] Sets the value of sizeState  
-		* @param sizeState Boolean 
+		* @param sizeState Boolean The new value. 
 		*/
 		setSizeState?( sizeState?:boolean ): void;
 	}
@@ -33560,27 +36137,27 @@ declare module Ext.layout.wrapper {
 		*/
 		getSizeState?(): boolean;
 		/** [Method] Sets the value of bodyElement  
-		* @param bodyElement Object 
+		* @param bodyElement Object The new value. 
 		*/
 		setBodyElement?( bodyElement?:any ): void;
 		/** [Method] Sets the value of container  
-		* @param container Object 
+		* @param container Object The new value. 
 		*/
 		setContainer?( container?:any ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of innerWrapper  
-		* @param innerWrapper Object 
+		* @param innerWrapper Object The new value. 
 		*/
 		setInnerWrapper?( innerWrapper?:any ): void;
 		/** [Method] Sets the value of sizeState  
-		* @param sizeState Boolean 
+		* @param sizeState Boolean The new value. 
 		*/
 		setSizeState?( sizeState?:boolean ): void;
 	}
@@ -33596,11 +36173,11 @@ declare module Ext.layout.wrapper {
 		*/
 		getSizeState?(): any;
 		/** [Method] Sets the value of container  
-		* @param container Object 
+		* @param container Object The new value. 
 		*/
 		setContainer?( container?:any ): void;
 		/** [Method] Sets the value of sizeState  
-		* @param sizeState Object 
+		* @param sizeState Object The new value. 
 		*/
 		setSizeState?( sizeState?:any ): void;
 	}
@@ -33609,6 +36186,16 @@ declare module Ext {
 	export interface ILoader {
 	}
 	export class Loader {
+		/** [Config Option] (Boolean) */
+		static disableCaching: boolean;
+		/** [Config Option] (String) */
+		static disableCachingParam: string;
+		/** [Config Option] (Boolean) */
+		static enabled: boolean;
+		/** [Config Option] (Object) */
+		static paths: any;
+		/** [Property] (Array) */
+		static history: any[];
 		/** [Method] Sets a batch of path entries 
 		* @param paths Object a set of className: path mappings 
 		* @returns Ext.Loader this 
@@ -33665,6 +36252,8 @@ declare module Ext {
 }
 declare module Ext {
 	export interface ILoadMask extends Ext.IMask {
+		/** [Config Option] (String) */
+		cls?: string;
 		/** [Config Option] (Boolean) */
 		indicator?: boolean;
 		/** [Config Option] (String) */
@@ -33681,6 +36270,10 @@ declare module Ext {
 		* @param store Ext.data.Store The store to bind to this LoadMask 
 		*/
 		bindStore?( store?:Ext.data.IStore ): void;
+		/** [Method] Returns the value of cls  
+		* @returns String 
+		*/
+		getCls?(): string;
 		/** [Method] Returns the value of indicator  
 		* @returns Boolean 
 		*/
@@ -33693,16 +36286,20 @@ declare module Ext {
 		* @returns String 
 		*/
 		getMessageCls?(): string;
+		/** [Method] Sets the value of cls  
+		* @param cls String The new value. 
+		*/
+		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of indicator  
-		* @param indicator Boolean 
+		* @param indicator Boolean The new value. 
 		*/
 		setIndicator?( indicator?:boolean ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		*/
 		setMessage?( message?:string ): void;
 		/** [Method] Sets the value of messageCls  
-		* @param messageCls String 
+		* @param messageCls String The new value. 
 		*/
 		setMessageCls?( messageCls?:string ): void;
 	}
@@ -33738,6 +36335,8 @@ declare module Ext {
 		/** [Config Option] (google.maps.Map) */
 		map?: any;
 		/** [Config Option] (Object) */
+		mapListeners?: any;
+		/** [Config Option] (Object) */
 		mapOptions?: any;
 		/** [Config Option] (Boolean) */
 		maskMap?: boolean;
@@ -33757,6 +36356,10 @@ declare module Ext {
 		* @returns google.maps.Map 
 		*/
 		getMap?(): any;
+		/** [Method] Returns the value of mapListeners  
+		* @returns Object 
+		*/
+		getMapListeners?(): any;
 		/** [Method] Returns the state of the Map  
 		* @returns Object mapOptions 
 		*/
@@ -33768,27 +36371,31 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of geo  
-		* @param geo Ext.util.Geolocation 
+		* @param geo Ext.util.Geolocation The new value. 
 		*/
 		setGeo?( geo?:Ext.util.IGeolocation ): void;
 		/** [Method] Sets the value of map  
-		* @param map google.maps.Map 
+		* @param map google.maps.Map The new value. 
 		*/
 		setMap?( map?:any ): void;
 		/** [Method] Moves the map center to the designated coordinates hash of the form  latitude 37 381592 longitude  122 135672  
 		* @param coordinates Object/google.maps.LatLng Object representing the desired Latitude and longitude upon which to center the map. 
 		*/
 		setMapCenter?( coordinates?:any ): void;
+		/** [Method] Sets the value of mapListeners  
+		* @param mapListeners Object The new value. 
+		*/
+		setMapListeners?( mapListeners?:any ): void;
 		/** [Method] Sets the value of mapOptions  
-		* @param mapOptions Object 
+		* @param mapOptions Object The new value. 
 		*/
 		setMapOptions?( mapOptions?:any ): void;
 		/** [Method] Sets the value of useCurrentLocation  
-		* @param useCurrentLocation Boolean/Ext.util.Geolocation 
+		* @param useCurrentLocation Boolean/Ext.util.Geolocation The new value. 
 		*/
 		setUseCurrentLocation?( useCurrentLocation?:any ): void;
 		/** [Method] Moves the map center to the designated coordinates hash of the form  latitude 37 381592 longitude  122 135672  
@@ -33812,11 +36419,11 @@ declare module Ext {
 		*/
 		getTransparent?(): boolean;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of transparent  
-		* @param transparent Boolean 
+		* @param transparent Boolean The new value. 
 		*/
 		setTransparent?( transparent?:boolean ): void;
 	}
@@ -33898,39 +36505,39 @@ declare module Ext {
 		/** [Method] Starts or resumes media playback  */
 		play?(): void;
 		/** [Method] Sets the value of autoPause  
-		* @param autoPause Boolean 
+		* @param autoPause Boolean The new value. 
 		*/
 		setAutoPause?( autoPause?:boolean ): void;
 		/** [Method] Sets the value of autoResume  
-		* @param autoResume Boolean 
+		* @param autoResume Boolean The new value. 
 		*/
 		setAutoResume?( autoResume?:boolean ): void;
 		/** [Method] Sets the value of enableControls  
-		* @param enableControls Boolean 
+		* @param enableControls Boolean The new value. 
 		*/
 		setEnableControls?( enableControls?:boolean ): void;
 		/** [Method] Sets the value of loop  
-		* @param loop Boolean 
+		* @param loop Boolean The new value. 
 		*/
 		setLoop?( loop?:boolean ): void;
 		/** [Method] Sets the value of media  
-		* @param media Ext.Element 
+		* @param media Ext.Element The new value. 
 		*/
 		setMedia?( media?:Ext.IElement ): void;
 		/** [Method] Sets the value of muted  
-		* @param muted Boolean 
+		* @param muted Boolean The new value. 
 		*/
 		setMuted?( muted?:boolean ): void;
 		/** [Method] Sets the value of preload  
-		* @param preload Boolean 
+		* @param preload Boolean The new value. 
 		*/
 		setPreload?( preload?:boolean ): void;
 		/** [Method] Sets the value of url  
-		* @param url String 
+		* @param url String The new value. 
 		*/
 		setUrl?( url?:string ): void;
 		/** [Method] Sets the value of volume  
-		* @param volume Number 
+		* @param volume Number The new value. 
 		*/
 		setVolume?( volume?:number ): void;
 		/** [Method] Stops media playback and returns to the beginning  */
@@ -33949,6 +36556,82 @@ declare module Ext {
 		* @param newUrl Object 
 		*/
 		updateUrl?( newUrl?:any ): void;
+	}
+}
+declare module Ext {
+	export interface IMenu extends Ext.ISheet {
+		/** [Config Option] (String) */
+		baseCls?: string;
+		/** [Config Option] (Number/String) */
+		bottom?: any;
+		/** [Config Option] (String) */
+		defaultType?: string;
+		/** [Config Option] (Number/String) */
+		height?: any;
+		/** [Config Option] (Number/String) */
+		left?: any;
+		/** [Config Option] (Number/String) */
+		right?: any;
+		/** [Config Option] (Number/String) */
+		width?: any;
+		/** [Method] Only fire the hide event if it is initialized */
+		doSetHidden?(): void;
+		/** [Method] Returns the value of baseCls  
+		* @returns String 
+		*/
+		getBaseCls?(): string;
+		/** [Method] Returns the value of bottom  
+		* @returns Number 
+		*/
+		getBottom?(): number;
+		/** [Method] Returns the value of defaultType  
+		* @returns String 
+		*/
+		getDefaultType?(): string;
+		/** [Method] Returns the value of height  
+		* @returns String 
+		*/
+		getHeight?(): string;
+		/** [Method] Returns the value of left  
+		* @returns Number 
+		*/
+		getLeft?(): number;
+		/** [Method] Returns the value of right  
+		* @returns Number 
+		*/
+		getRight?(): number;
+		/** [Method] Returns the value of width  
+		* @returns String 
+		*/
+		getWidth?(): string;
+		/** [Method] Sets the value of baseCls  
+		* @param baseCls String The new value. 
+		*/
+		setBaseCls?( baseCls?:string ): void;
+		/** [Method] Sets the value of bottom  
+		* @param bottom Number The new value. 
+		*/
+		setBottom?( bottom?:number ): void;
+		/** [Method] Sets the value of defaultType  
+		* @param defaultType String The new value. 
+		*/
+		setDefaultType?( defaultType?:string ): void;
+		/** [Method] Sets the value of height  
+		* @param height String The new value. 
+		*/
+		setHeight?( height?:string ): void;
+		/** [Method] Sets the value of left  
+		* @param left Number The new value. 
+		*/
+		setLeft?( left?:number ): void;
+		/** [Method] Sets the value of right  
+		* @param right Number The new value. 
+		*/
+		setRight?( right?:number ): void;
+		/** [Method] Sets the value of width  
+		* @param width String The new value. 
+		*/
+		setWidth?( width?:string ): void;
 	}
 }
 declare module Ext {
@@ -34030,19 +36713,19 @@ declare module Ext {
 		*/
 		getZIndex?(): number;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of buttons  
-		* @param buttons Array/Object 
+		* @param buttons Array/Object The new value. 
 		*/
 		setButtons?( buttons?:any ): void;
 		/** [Method] Sets the value of defaultTextHeight  
-		* @param defaultTextHeight Number 
+		* @param defaultTextHeight Number The new value. 
 		*/
 		setDefaultTextHeight?( defaultTextHeight?:number ): void;
 		/** [Method] Sets the value of hideAnimation  
-		* @param hideAnimation Object 
+		* @param hideAnimation Object The new value. 
 		*/
 		setHideAnimation?( hideAnimation?:any ): void;
 		/** [Method] Sets icon  
@@ -34051,35 +36734,35 @@ declare module Ext {
 		*/
 		setIcon?( iconCls?:string ): Ext.IMessageBox;
 		/** [Method] Sets the value of iconCls  
-		* @param iconCls String 
+		* @param iconCls String The new value. 
 		*/
 		setIconCls?( iconCls?:string ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		*/
 		setMessage?( message?:string ): void;
 		/** [Method] Sets the value of prompt  
-		* @param prompt Object 
+		* @param prompt Object The new value. 
 		*/
 		setPrompt?( prompt?:any ): void;
 		/** [Method] Sets the value of showAnimation  
-		* @param showAnimation Object 
+		* @param showAnimation Object The new value. 
 		*/
 		setShowAnimation?( showAnimation?:any ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of zIndex  
-		* @param zIndex Number 
+		* @param zIndex Number The new value. 
 		*/
 		setZIndex?( zIndex?:number ): void;
 		/** [Method] Displays the Ext MessageBox with a specified configuration  
@@ -34088,7 +36771,7 @@ declare module Ext {
 		*/
 		show?( config?:any ): Ext.IMessageBox;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		* @returns Ext.MessageBox this 
 		*/
 		updateText?( message?:string ): Ext.IMessageBox;
@@ -34153,11 +36836,11 @@ declare module Ext.mixin {
 		*/
 		removeFilters?( filters?:any[] ): void;
 		/** [Method] Sets the value of filterRoot  
-		* @param filterRoot String 
+		* @param filterRoot String The new value. 
 		*/
 		setFilterRoot?( filterRoot?:string ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Array 
+		* @param filters Array The new value. 
 		*/
 		setFilters?( filters?:any[] ): void;
 	}
@@ -34330,11 +37013,11 @@ declare module Ext.mixin {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -34519,11 +37202,11 @@ declare module Ext.util {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -34550,6 +37233,70 @@ declare module Ext.util {
 		* @param options Object Extra options object. 
 		*/
 		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+	}
+}
+declare module Ext.mixin {
+	export interface IProgressable extends Ext.mixin.IMixin {
+		/** [Config Option] (Boolean) */
+		dynamic?: boolean;
+		/** [Config Option] (Number) */
+		maxProgressInput?: number;
+		/** [Config Option] (Number) */
+		maxProgressOutput?: number;
+		/** [Config Option] (Number) */
+		minProgressInput?: number;
+		/** [Config Option] (Number) */
+		minProgressOutput?: number;
+		/** [Config Option] (String) */
+		state?: string;
+		/** [Method] Returns the value of dynamic  
+		* @returns Boolean 
+		*/
+		getDynamic?(): boolean;
+		/** [Method] Returns the value of maxProgressInput  
+		* @returns Number 
+		*/
+		getMaxProgressInput?(): number;
+		/** [Method] Returns the value of maxProgressOutput  
+		* @returns Number 
+		*/
+		getMaxProgressOutput?(): number;
+		/** [Method] Returns the value of minProgressInput  
+		* @returns Number 
+		*/
+		getMinProgressInput?(): number;
+		/** [Method] Returns the value of minProgressOutput  
+		* @returns Number 
+		*/
+		getMinProgressOutput?(): number;
+		/** [Method] Returns the value of state  
+		* @returns String 
+		*/
+		getState?(): string;
+		/** [Method] Sets the value of dynamic  
+		* @param dynamic Boolean The new value. 
+		*/
+		setDynamic?( dynamic?:boolean ): void;
+		/** [Method] Sets the value of maxProgressInput  
+		* @param maxProgressInput Number The new value. 
+		*/
+		setMaxProgressInput?( maxProgressInput?:number ): void;
+		/** [Method] Sets the value of maxProgressOutput  
+		* @param maxProgressOutput Number The new value. 
+		*/
+		setMaxProgressOutput?( maxProgressOutput?:number ): void;
+		/** [Method] Sets the value of minProgressInput  
+		* @param minProgressInput Number The new value. 
+		*/
+		setMinProgressInput?( minProgressInput?:number ): void;
+		/** [Method] Sets the value of minProgressOutput  
+		* @param minProgressOutput Number The new value. 
+		*/
+		setMinProgressOutput?( minProgressOutput?:number ): void;
+		/** [Method] Sets the value of state  
+		* @param state String The new value. 
+		*/
+		setState?( state?:string ): void;
 	}
 }
 declare module Ext.mixin {
@@ -34652,21 +37399,21 @@ declare module Ext.mixin {
 		*/
 		selectRange?( startRecord?:number, endRecord?:number, keepExisting?:boolean ): void;
 		/** [Method] Sets the value of allowDeselect  
-		* @param allowDeselect Boolean 
+		* @param allowDeselect Boolean The new value. 
 		*/
 		setAllowDeselect?( allowDeselect?:boolean ): void;
 		/** [Method] Sets the value of deselectOnContainerClick  
-		* @param deselectOnContainerClick Boolean 
+		* @param deselectOnContainerClick Boolean The new value. 
 		*/
 		setDeselectOnContainerClick?( deselectOnContainerClick?:boolean ): void;
 		/** [Method] Sets the value of disableSelection  
-		* @param disableSelection Boolean 
+		* @param disableSelection Boolean The new value. 
 		*/
 		setDisableSelection?( disableSelection?:boolean ): void;
 		/** [Method] This was an internal function accidentally exposed in 1 x and now deprecated  */
 		setLastFocused?(): void;
 		/** [Method] Sets the value of mode  
-		* @param mode String 
+		* @param mode String The new value. 
 		*/
 		setMode?( mode?:string ): void;
 		/** [Method] Sets a record as the last focused record  
@@ -34743,15 +37490,15 @@ declare module Ext.mixin {
 		*/
 		removeSorters?( sorters?:any[] ): void;
 		/** [Method] Sets the value of defaultSortDirection  
-		* @param defaultSortDirection String 
+		* @param defaultSortDirection String The new value. 
 		*/
 		setDefaultSortDirection?( defaultSortDirection?:string ): void;
 		/** [Method] Sets the value of sortRoot  
-		* @param sortRoot String 
+		* @param sortRoot String The new value. 
 		*/
 		setSortRoot?( sortRoot?:string ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Array 
+		* @param sorters Array The new value. 
 		*/
 		setSorters?( sorters?:any[] ): void;
 		/** [Method] This method will sort an array based on the currently configured sorters  
@@ -34773,6 +37520,10 @@ declare module Ext {
 	export interface IMsg extends Ext.IMessageBox {
 	}
 	export class Msg {
+		/** [Property] (Ext.util.MixedCollection) */
+		static items: Ext.util.IMixedCollection;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds one or more Components to this Container  
 		* @param newItems Object/Object[]/Ext.Component/Ext.Component[] The new items to add to the Container. 
 		* @returns Ext.Component The last item added to the Container from the newItems array. 
@@ -34904,6 +37655,11 @@ declare module Ext {
 		* @returns Object/String/Number 
 		*/
 		static getActiveItem(): any;
+		/** [Method] Prepares information on aligning this to component using alignment  
+		* @param component Object 
+		* @param alignment Object 
+		*/
+		static getAlignmentInfo( component?:any, alignment?:any ): void;
 		/** [Method] Returns the Component for a given index in the Container s items  
 		* @param index Number The index of the Component to return. 
 		* @returns Ext.Component The item at the specified index, if found. 
@@ -35181,7 +37937,7 @@ declare module Ext {
 		*/
 		static getTop(): any;
 		/** [Method] Returns the value of tpl  
-		* @returns String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @returns String/String[]/Ext.Template/Ext.XTemplate[] 
 		*/
 		static getTpl(): any;
 		/** [Method] Returns the value of tplWriteMode  
@@ -35213,11 +37969,10 @@ declare module Ext {
 		* @returns Boolean true if this component has a parent. 
 		*/
 		static hasParent(): boolean;
-		/** [Method] Hides this Component 
-		* @param animation Object/Boolean 
+		/** [Method] Hides this Component optionally using an animation  
 		* @returns Ext.Component 
 		*/
-		static hide( animation?:any ): Ext.IComponent;
+		static hide(): Ext.IComponent;
 		/** [Method] Initialize configuration for this class  
 		* @param instanceConfig Object 
 		* @returns Object mixins The mixin prototypes as key - value pairs 
@@ -35384,111 +38139,111 @@ declare module Ext {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of activeItem  
-		* @param activeItem Object/String/Number 
+		* @param activeItem Object/String/Number The new value. 
 		*/
 		static setActiveItem( activeItem?:any ): void;
 		/** [Method] Sets the value of autoDestroy  
-		* @param autoDestroy Boolean 
+		* @param autoDestroy Boolean The new value. 
 		*/
 		static setAutoDestroy( autoDestroy?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		static setBaseCls( baseCls?:string ): void;
 		/** [Method] Sets the value of bodyBorder  
-		* @param bodyBorder Number/Boolean/String 
+		* @param bodyBorder Number/Boolean/String The new value. 
 		*/
 		static setBodyBorder( bodyBorder?:any ): void;
 		/** [Method] Sets the value of bodyMargin  
-		* @param bodyMargin Number/Boolean/String 
+		* @param bodyMargin Number/Boolean/String The new value. 
 		*/
 		static setBodyMargin( bodyMargin?:any ): void;
 		/** [Method] Sets the value of bodyPadding  
-		* @param bodyPadding Number/Boolean/String 
+		* @param bodyPadding Number/Boolean/String The new value. 
 		*/
 		static setBodyPadding( bodyPadding?:any ): void;
 		/** [Method] Sets the value of border  
-		* @param border Number/String 
+		* @param border Number/String The new value. 
 		*/
 		static setBorder( border?:any ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number/String 
+		* @param bottom Number/String The new value. 
 		*/
 		static setBottom( bottom?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of buttons  
-		* @param buttons Array/Object 
+		* @param buttons Array/Object The new value. 
 		*/
 		static setButtons( buttons?:any ): void;
 		/** [Method] Sets the value of centered  
-		* @param centered Boolean 
+		* @param centered Boolean The new value. 
 		*/
 		static setCentered( centered?:boolean ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String/String[] 
+		* @param cls String/String[] The new value. 
 		*/
 		static setCls( cls?:any ): void;
 		/** [Method] Sets the value of contentEl  
-		* @param contentEl Ext.Element/HTMLElement/String 
+		* @param contentEl Ext.Element/HTMLElement/String The new value. 
 		*/
 		static setContentEl( contentEl?:any ): void;
 		/** [Method] Sets the value of control  
-		* @param control Object 
+		* @param control Object The new value. 
 		*/
 		static setControl( control?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		static setData( data?:any ): void;
 		/** [Method] Sets the value of defaultTextHeight  
-		* @param defaultTextHeight Number 
+		* @param defaultTextHeight Number The new value. 
 		*/
 		static setDefaultTextHeight( defaultTextHeight?:number ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		static setDefaultType( defaultType?:string ): void;
 		/** [Method] Sets the value of defaults  
-		* @param defaults Object 
+		* @param defaults Object The new value. 
 		*/
 		static setDefaults( defaults?:any ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Boolean 
+		* @param disabled Boolean The new value. 
 		*/
 		static setDisabled( disabled?:boolean ): void;
 		/** [Method] Sets the value of disabledCls  
-		* @param disabledCls String 
+		* @param disabledCls String The new value. 
 		*/
 		static setDisabledCls( disabledCls?:string ): void;
 		/** [Method] Sets the value of docked  
-		* @param docked String 
+		* @param docked String The new value. 
 		*/
 		static setDocked( docked?:string ): void;
 		/** [Method] Sets the value of draggable  
-		* @param draggable Object 
+		* @param draggable Object The new value. 
 		*/
 		static setDraggable( draggable?:any ): void;
 		/** [Method] Sets the value of enter  
-		* @param enter String 
+		* @param enter String The new value. 
 		*/
 		static setEnter( enter?:string ): void;
 		/** [Method] Sets the value of enterAnimation  
-		* @param enterAnimation String/Mixed 
+		* @param enterAnimation String/Mixed The new value. 
 		*/
 		static setEnterAnimation( enterAnimation?:any ): void;
 		/** [Method] Sets the value of exit  
-		* @param exit String 
+		* @param exit String The new value. 
 		*/
 		static setExit( exit?:string ): void;
 		/** [Method] Sets the value of exitAnimation  
-		* @param exitAnimation String/Mixed 
+		* @param exitAnimation String/Mixed The new value. 
 		*/
 		static setExitAnimation( exitAnimation?:any ): void;
 		/** [Method] Sets the value of flex  
-		* @param flex Number 
+		* @param flex Number The new value. 
 		*/
 		static setFlex( flex?:number ): void;
 		/** [Method] Used to update the floating state of this component  
@@ -35496,31 +38251,31 @@ declare module Ext {
 		*/
 		static setFloating( floating?:boolean ): void;
 		/** [Method] Sets the value of floatingCls  
-		* @param floatingCls String 
+		* @param floatingCls String The new value. 
 		*/
 		static setFloatingCls( floatingCls?:string ): void;
 		/** [Method] Sets the value of height  
-		* @param height Number/String 
+		* @param height Number/String The new value. 
 		*/
 		static setHeight( height?:any ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean 
+		* @param hidden Boolean The new value. 
 		*/
 		static setHidden( hidden?:boolean ): void;
 		/** [Method] Sets the value of hiddenCls  
-		* @param hiddenCls String 
+		* @param hiddenCls String The new value. 
 		*/
 		static setHiddenCls( hiddenCls?:string ): void;
 		/** [Method] Sets the value of hideAnimation  
-		* @param hideAnimation Object 
+		* @param hideAnimation Object The new value. 
 		*/
 		static setHideAnimation( hideAnimation?:any ): void;
 		/** [Method] Sets the value of hideOnMaskTap  
-		* @param hideOnMaskTap Boolean 
+		* @param hideOnMaskTap Boolean The new value. 
 		*/
 		static setHideOnMaskTap( hideOnMaskTap?:boolean ): void;
 		/** [Method] Sets the value of html  
-		* @param html String/Ext.Element/HTMLElement 
+		* @param html String/Ext.Element/HTMLElement The new value. 
 		*/
 		static setHtml( html?:any ): void;
 		/** [Method] Sets icon  
@@ -35529,87 +38284,88 @@ declare module Ext {
 		*/
 		static setIcon( iconCls?:string ): Ext.IMessageBox;
 		/** [Method] Sets the value of iconCls  
-		* @param iconCls String 
+		* @param iconCls String The new value. 
 		*/
 		static setIconCls( iconCls?:string ): void;
 		/** [Method] Sets the value of itemId  
-		* @param itemId String 
+		* @param itemId String The new value. 
 		*/
 		static setItemId( itemId?:string ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		static setItems( items?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		static setLayout( layout?:any ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number/String 
+		* @param left Number/String The new value. 
 		*/
 		static setLeft( left?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Sets the value of margin  
-		* @param margin Number/String 
+		* @param margin Number/String The new value. 
 		*/
 		static setMargin( margin?:any ): void;
 		/** [Method] Sets the value of masked  
-		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask 
+		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask The new value. 
 		*/
 		static setMasked( masked?:any ): void;
 		/** [Method] Sets the value of maxHeight  
-		* @param maxHeight Number/String 
+		* @param maxHeight Number/String The new value. 
 		*/
 		static setMaxHeight( maxHeight?:any ): void;
 		/** [Method] Sets the value of maxWidth  
-		* @param maxWidth Number/String 
+		* @param maxWidth Number/String The new value. 
 		*/
 		static setMaxWidth( maxWidth?:any ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		*/
 		static setMessage( message?:string ): void;
 		/** [Method] Sets the value of minHeight  
-		* @param minHeight Number/String 
+		* @param minHeight Number/String The new value. 
 		*/
 		static setMinHeight( minHeight?:any ): void;
 		/** [Method] Sets the value of minWidth  
-		* @param minWidth Number/String 
+		* @param minWidth Number/String The new value. 
 		*/
 		static setMinWidth( minWidth?:any ): void;
 		/** [Method] Sets the value of padding  
-		* @param padding Number/String 
+		* @param padding Number/String The new value. 
 		*/
 		static setPadding( padding?:any ): void;
 		/** [Method] Sets the value of plugins  
-		* @param plugins Object/Array 
+		* @param plugins Object/Array The new value. 
 		*/
 		static setPlugins( plugins?:any ): void;
 		/** [Method] Sets the value of prompt  
-		* @param prompt Object 
+		* @param prompt Object The new value. 
 		*/
 		static setPrompt( prompt?:any ): void;
 		/** [Method] Sets the value of record  
-		* @param record Ext.data.Model 
+		* @param record Ext.data.Model The new value. 
 		*/
 		static setRecord( record?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of renderTo  
-		* @param renderTo Ext.Element 
+		* @param renderTo Ext.Element The new value. 
 		*/
 		static setRenderTo( renderTo?:Ext.IElement ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number/String 
+		* @param right Number/String The new value. 
 		*/
 		static setRight( right?:any ): void;
 		/** [Method] Sets the value of scrollable  
-		* @param scrollable Boolean/String/Object 
+		* @param scrollable Boolean/String/Object The new value. 
+		* @returns Ext.scroll.View The scroll view. 
 		*/
-		static setScrollable( scrollable?:any ): void;
+		static setScrollable( scrollable?:any ): Ext.scroll.IView;
 		/** [Method] Sets the value of showAnimation  
-		* @param showAnimation Object 
+		* @param showAnimation Object The new value. 
 		*/
 		static setShowAnimation( showAnimation?:any ): void;
 		/** [Method] Sets the size of the Component  
@@ -35618,51 +38374,51 @@ declare module Ext {
 		*/
 		static setSize( width?:number, height?:number ): void;
 		/** [Method] Sets the value of stretchX  
-		* @param stretchX Boolean 
+		* @param stretchX Boolean The new value. 
 		*/
 		static setStretchX( stretchX?:boolean ): void;
 		/** [Method] Sets the value of stretchY  
-		* @param stretchY Boolean 
+		* @param stretchY Boolean The new value. 
 		*/
 		static setStretchY( stretchY?:boolean ): void;
 		/** [Method] Sets the value of style  
-		* @param style String/Object 
+		* @param style String/Object The new value. 
 		*/
 		static setStyle( style?:any ): void;
 		/** [Method] Sets the value of styleHtmlCls  
-		* @param styleHtmlCls String 
+		* @param styleHtmlCls String The new value. 
 		*/
 		static setStyleHtmlCls( styleHtmlCls?:string ): void;
 		/** [Method] Sets the value of styleHtmlContent  
-		* @param styleHtmlContent Boolean 
+		* @param styleHtmlContent Boolean The new value. 
 		*/
 		static setStyleHtmlContent( styleHtmlContent?:boolean ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		static setTitle( title?:string ): void;
 		/** [Method] Sets the value of top  
-		* @param top Number/String 
+		* @param top Number/String The new value. 
 		*/
 		static setTop( top?:any ): void;
 		/** [Method] Sets the value of tpl  
-		* @param tpl String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @param tpl String/String[]/Ext.Template/Ext.XTemplate[] The new value. 
 		*/
 		static setTpl( tpl?:any ): void;
 		/** [Method] Sets the value of tplWriteMode  
-		* @param tplWriteMode String 
+		* @param tplWriteMode String The new value. 
 		*/
 		static setTplWriteMode( tplWriteMode?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		static setUi( ui?:string ): void;
 		/** [Method] Sets the value of width  
-		* @param width Number/String 
+		* @param width Number/String The new value. 
 		*/
 		static setWidth( width?:any ): void;
 		/** [Method] Sets the value of zIndex  
-		* @param zIndex Number 
+		* @param zIndex Number The new value. 
 		*/
 		static setZIndex( zIndex?:number ): void;
 		/** [Method] Displays the Ext MessageBox with a specified configuration  
@@ -35718,7 +38474,7 @@ declare module Ext {
 		*/
 		static updateStyleHtmlCls( newHtmlCls?:any, oldHtmlCls?:any ): void;
 		/** [Method] Sets the value of message  
-		* @param message String 
+		* @param message String The new value. 
 		* @returns Ext.MessageBox this 
 		*/
 		static updateText( message?:string ): Ext.IMessageBox;
@@ -35751,19 +38507,19 @@ declare module Ext.navigation {
 		*/
 		getUi?(): string;
 		/** [Method] Sets the value of androidAnimation  
-		* @param androidAnimation Boolean 
+		* @param androidAnimation Boolean The new value. 
 		*/
 		setAndroidAnimation?( androidAnimation?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -35776,6 +38532,8 @@ declare module Ext.navigation {
 		defaultBackButtonText?: string;
 		/** [Config Option] (Array/Object) */
 		items?: any;
+		/** [Config Option] (Object) */
+		layout?: any;
 		/** [Config Option] (Boolean/Object) */
 		navigationBar?: any;
 		/** [Config Option] (Boolean) */
@@ -35792,6 +38550,10 @@ declare module Ext.navigation {
 		* @returns Array/Object 
 		*/
 		getItems?(): any;
+		/** [Method] Returns the value of layout  
+		* @returns Object 
+		*/
+		getLayout?(): any;
 		/** [Method] Returns the value of navigationBar  
 		* @returns Boolean/Object 
 		*/
@@ -35805,10 +38567,10 @@ declare module Ext.navigation {
 		*/
 		getUseTitleForBackButtonText?(): boolean;
 		/** [Method] Removes the current active view from the stack and sets the previous view using the default animation of this view  
-		* @param count Number The number of views you want to pop. 
-		* @returns Ext.Component The new active item. 
+		* @param count Number/String/Object If a Number, the number of views you want to pop. If a String, the pops to a matching component query. If an Object, the pops to a matching view instance. 
+		* @returns Ext.Component The new active item 
 		*/
-		pop?( count?:number ): Ext.IComponent;
+		pop?( count?:any ): Ext.IComponent;
 		/** [Method] Pushes a new view into this navigation view using the default animation that this view has  
 		* @param view Object The view to push. 
 		* @returns Ext.Component The new item you just pushed. 
@@ -35819,23 +38581,27 @@ declare module Ext.navigation {
 		*/
 		reset?(): Ext.IComponent;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of defaultBackButtonText  
-		* @param defaultBackButtonText String 
+		* @param defaultBackButtonText String The new value. 
 		*/
 		setDefaultBackButtonText?( defaultBackButtonText?:string ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		setItems?( items?:any ): void;
+		/** [Method] Sets the value of layout  
+		* @param layout Object The new value. 
+		*/
+		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of navigationBar  
-		* @param navigationBar Boolean/Object 
+		* @param navigationBar Boolean/Object The new value. 
 		*/
 		setNavigationBar?( navigationBar?:any ): void;
 		/** [Method] Sets the value of useTitleForBackButtonText  
-		* @param useTitleForBackButtonText Boolean 
+		* @param useTitleForBackButtonText Boolean The new value. 
 		*/
 		setUseTitleForBackButtonText?( useTitleForBackButtonText?:boolean ): void;
 	}
@@ -35848,6 +38614,8 @@ declare module Ext {
 		defaultBackButtonText?: string;
 		/** [Config Option] (Array/Object) */
 		items?: any;
+		/** [Config Option] (Object) */
+		layout?: any;
 		/** [Config Option] (Boolean/Object) */
 		navigationBar?: any;
 		/** [Config Option] (Boolean) */
@@ -35864,6 +38632,10 @@ declare module Ext {
 		* @returns Array/Object 
 		*/
 		getItems?(): any;
+		/** [Method] Returns the value of layout  
+		* @returns Object 
+		*/
+		getLayout?(): any;
 		/** [Method] Returns the value of navigationBar  
 		* @returns Boolean/Object 
 		*/
@@ -35877,10 +38649,10 @@ declare module Ext {
 		*/
 		getUseTitleForBackButtonText?(): boolean;
 		/** [Method] Removes the current active view from the stack and sets the previous view using the default animation of this view  
-		* @param count Number The number of views you want to pop. 
-		* @returns Ext.Component The new active item. 
+		* @param count Number/String/Object If a Number, the number of views you want to pop. If a String, the pops to a matching component query. If an Object, the pops to a matching view instance. 
+		* @returns Ext.Component The new active item 
 		*/
-		pop?( count?:number ): Ext.IComponent;
+		pop?( count?:any ): Ext.IComponent;
 		/** [Method] Pushes a new view into this navigation view using the default animation that this view has  
 		* @param view Object The view to push. 
 		* @returns Ext.Component The new item you just pushed. 
@@ -35891,23 +38663,27 @@ declare module Ext {
 		*/
 		reset?(): Ext.IComponent;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of defaultBackButtonText  
-		* @param defaultBackButtonText String 
+		* @param defaultBackButtonText String The new value. 
 		*/
 		setDefaultBackButtonText?( defaultBackButtonText?:string ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		setItems?( items?:any ): void;
+		/** [Method] Sets the value of layout  
+		* @param layout Object The new value. 
+		*/
+		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of navigationBar  
-		* @param navigationBar Boolean/Object 
+		* @param navigationBar Boolean/Object The new value. 
 		*/
 		setNavigationBar?( navigationBar?:any ): void;
 		/** [Method] Sets the value of useTitleForBackButtonText  
-		* @param useTitleForBackButtonText Boolean 
+		* @param useTitleForBackButtonText Boolean The new value. 
 		*/
 		setUseTitleForBackButtonText?( useTitleForBackButtonText?:boolean ): void;
 	}
@@ -35990,6 +38766,10 @@ declare module Ext {
 		* @returns Object The object that is created as a result of merging all the objects passed in. 
 		*/
 		static merge( source:any, ...objs:any[] ): any;
+		/** [Method]  
+		* @param source Object 
+		*/
+		static mergeIf( source?:any ): void;
 		/** [Method] Convert a name  value pair to an array of objects with support for nested structures useful to construct query stri  
 		* @param name String 
 		* @param value Object 
@@ -36009,6 +38789,14 @@ declare module Ext {
 	export interface IOs extends Ext.env.IOS {
 	}
 	export class Os {
+		/** [Property] (String) */
+		static deviceType: string;
+		/** [Property] (String) */
+		static name: string;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Property] (Ext.Version) */
+		static version: Ext.IVersion;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -36074,19 +38862,19 @@ declare module Ext {
 		*/
 		getBodyPadding?(): any;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bodyBorder  
-		* @param bodyBorder Number/Boolean/String 
+		* @param bodyBorder Number/Boolean/String The new value. 
 		*/
 		setBodyBorder?( bodyBorder?:any ): void;
 		/** [Method] Sets the value of bodyMargin  
-		* @param bodyMargin Number/Boolean/String 
+		* @param bodyMargin Number/Boolean/String The new value. 
 		*/
 		setBodyMargin?( bodyMargin?:any ): void;
 		/** [Method] Sets the value of bodyPadding  
-		* @param bodyPadding Number/Boolean/String 
+		* @param bodyPadding Number/Boolean/String The new value. 
 		*/
 		setBodyPadding?( bodyPadding?:any ): void;
 	}
@@ -36118,19 +38906,19 @@ declare module Ext.lib {
 		*/
 		getBodyPadding?(): any;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bodyBorder  
-		* @param bodyBorder Number/Boolean/String 
+		* @param bodyBorder Number/Boolean/String The new value. 
 		*/
 		setBodyBorder?( bodyBorder?:any ): void;
 		/** [Method] Sets the value of bodyMargin  
-		* @param bodyMargin Number/Boolean/String 
+		* @param bodyMargin Number/Boolean/String The new value. 
 		*/
 		setBodyMargin?( bodyMargin?:any ): void;
 		/** [Method] Sets the value of bodyPadding  
-		* @param bodyPadding Number/Boolean/String 
+		* @param bodyPadding Number/Boolean/String The new value. 
 		*/
 		setBodyPadding?( bodyPadding?:any ): void;
 	}
@@ -36189,19 +38977,19 @@ declare module Ext.picker {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of dayText  
-		* @param dayText String 
+		* @param dayText String The new value. 
 		*/
 		setDayText?( dayText?:string ): void;
 		/** [Method] Sets the value of doneButton  
-		* @param doneButton String/Mixed 
+		* @param doneButton String/Mixed The new value. 
 		*/
 		setDoneButton?( doneButton?:any ): void;
 		/** [Method] Sets the value of monthText  
-		* @param monthText String 
+		* @param monthText String The new value. 
 		*/
 		setMonthText?( monthText?:string ): void;
 		/** [Method] Sets the value of slotOrder  
-		* @param slotOrder Array 
+		* @param slotOrder Array The new value. 
 		*/
 		setSlotOrder?( slotOrder?:any[] ): void;
 		/** [Method] Sets the values of the pickers slots  
@@ -36211,15 +38999,15 @@ declare module Ext.picker {
 		*/
 		setValue?( value?:any, animated?:any ): Ext.IPicker;
 		/** [Method] Sets the value of yearFrom  
-		* @param yearFrom Number 
+		* @param yearFrom Number The new value. 
 		*/
 		setYearFrom?( yearFrom?:number ): void;
 		/** [Method] Sets the value of yearText  
-		* @param yearText String 
+		* @param yearText String The new value. 
 		*/
 		setYearText?( yearText?:string ): void;
 		/** [Method] Sets the value of yearTo  
-		* @param yearTo Number 
+		* @param yearTo Number The new value. 
 		*/
 		setYearTo?( yearTo?:number ): void;
 		/** [Method] Updates the dayText configuration  
@@ -36296,19 +39084,19 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of dayText  
-		* @param dayText String 
+		* @param dayText String The new value. 
 		*/
 		setDayText?( dayText?:string ): void;
 		/** [Method] Sets the value of doneButton  
-		* @param doneButton String/Mixed 
+		* @param doneButton String/Mixed The new value. 
 		*/
 		setDoneButton?( doneButton?:any ): void;
 		/** [Method] Sets the value of monthText  
-		* @param monthText String 
+		* @param monthText String The new value. 
 		*/
 		setMonthText?( monthText?:string ): void;
 		/** [Method] Sets the value of slotOrder  
-		* @param slotOrder Array 
+		* @param slotOrder Array The new value. 
 		*/
 		setSlotOrder?( slotOrder?:any[] ): void;
 		/** [Method] Sets the values of the pickers slots  
@@ -36318,15 +39106,15 @@ declare module Ext {
 		*/
 		setValue?( value?:any, animated?:any ): Ext.IPicker;
 		/** [Method] Sets the value of yearFrom  
-		* @param yearFrom Number 
+		* @param yearFrom Number The new value. 
 		*/
 		setYearFrom?( yearFrom?:number ): void;
 		/** [Method] Sets the value of yearText  
-		* @param yearText String 
+		* @param yearText String The new value. 
 		*/
 		setYearText?( yearText?:string ): void;
 		/** [Method] Sets the value of yearTo  
-		* @param yearTo Number 
+		* @param yearTo Number The new value. 
 		*/
 		setYearTo?( yearTo?:number ): void;
 		/** [Method] Updates the dayText configuration  
@@ -36441,55 +39229,55 @@ declare module Ext.picker {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number 
+		* @param bottom Number The new value. 
 		*/
 		setBottom?( bottom?:number ): void;
 		/** [Method] Sets the value of cancelButton  
-		* @param cancelButton String/Mixed 
+		* @param cancelButton String/Mixed The new value. 
 		*/
 		setCancelButton?( cancelButton?:any ): void;
 		/** [Method] Sets the value of activeItem  
-		* @param activeItem Object/String/Number 
+		* @param activeItem Object/String/Number The new value. 
 		*/
 		setCard?( activeItem?:any ): void;
 		/** [Method] Sets the value of doneButton  
-		* @param doneButton String/Mixed 
+		* @param doneButton String/Mixed The new value. 
 		*/
 		setDoneButton?( doneButton?:any ): void;
 		/** [Method] Sets the value of height  
-		* @param height Number 
+		* @param height Number The new value. 
 		*/
 		setHeight?( height?:number ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number 
+		* @param left Number The new value. 
 		*/
 		setLeft?( left?:number ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number 
+		* @param right Number The new value. 
 		*/
 		setRight?( right?:number ): void;
 		/** [Method] Sets the value of slots  
-		* @param slots Array 
+		* @param slots Array The new value. 
 		*/
 		setSlots?( slots?:any[] ): void;
 		/** [Method] Sets the value of toolbar  
-		* @param toolbar Ext.TitleBar/Ext.Toolbar/Object 
+		* @param toolbar Ext.TitleBar/Ext.Toolbar/Object The new value. 
 		*/
 		setToolbar?( toolbar?:any ): void;
 		/** [Method] Sets the value of toolbarPosition  
-		* @param toolbarPosition String 
+		* @param toolbarPosition String The new value. 
 		*/
 		setToolbarPosition?( toolbarPosition?:string ): void;
 		/** [Method] Sets the value of useTitles  
-		* @param useTitles Boolean 
+		* @param useTitles Boolean The new value. 
 		*/
 		setUseTitles?( useTitles?:boolean ): void;
 		/** [Method] Sets the values of the pickers slots  
@@ -36498,7 +39286,7 @@ declare module Ext.picker {
 		* @returns Ext.Picker this This picker. 
 		*/
 		setValue?( values?:any, animated?:boolean ): Ext.IPicker;
-		/** [Method] Shows this component  
+		/** [Method] Shows this component optionally using an animation  
 		* @returns Ext.Component 
 		*/
 		show?(): Ext.IComponent;
@@ -36596,55 +39384,55 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number 
+		* @param bottom Number The new value. 
 		*/
 		setBottom?( bottom?:number ): void;
 		/** [Method] Sets the value of cancelButton  
-		* @param cancelButton String/Mixed 
+		* @param cancelButton String/Mixed The new value. 
 		*/
 		setCancelButton?( cancelButton?:any ): void;
 		/** [Method] Sets the value of activeItem  
-		* @param activeItem Object/String/Number 
+		* @param activeItem Object/String/Number The new value. 
 		*/
 		setCard?( activeItem?:any ): void;
 		/** [Method] Sets the value of doneButton  
-		* @param doneButton String/Mixed 
+		* @param doneButton String/Mixed The new value. 
 		*/
 		setDoneButton?( doneButton?:any ): void;
 		/** [Method] Sets the value of height  
-		* @param height Number 
+		* @param height Number The new value. 
 		*/
 		setHeight?( height?:number ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number 
+		* @param left Number The new value. 
 		*/
 		setLeft?( left?:number ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number 
+		* @param right Number The new value. 
 		*/
 		setRight?( right?:number ): void;
 		/** [Method] Sets the value of slots  
-		* @param slots Array 
+		* @param slots Array The new value. 
 		*/
 		setSlots?( slots?:any[] ): void;
 		/** [Method] Sets the value of toolbar  
-		* @param toolbar Ext.TitleBar/Ext.Toolbar/Object 
+		* @param toolbar Ext.TitleBar/Ext.Toolbar/Object The new value. 
 		*/
 		setToolbar?( toolbar?:any ): void;
 		/** [Method] Sets the value of toolbarPosition  
-		* @param toolbarPosition String 
+		* @param toolbarPosition String The new value. 
 		*/
 		setToolbarPosition?( toolbarPosition?:string ): void;
 		/** [Method] Sets the value of useTitles  
-		* @param useTitles Boolean 
+		* @param useTitles Boolean The new value. 
 		*/
 		setUseTitles?( useTitles?:boolean ): void;
 		/** [Method] Sets the values of the pickers slots  
@@ -36653,7 +39441,7 @@ declare module Ext {
 		* @returns Ext.Picker this This picker. 
 		*/
 		setValue?( values?:any, animated?:boolean ): Ext.IPicker;
-		/** [Method] Shows this component  
+		/** [Method] Shows this component optionally using an animation  
 		* @returns Ext.Component 
 		*/
 		show?(): Ext.IComponent;
@@ -36706,27 +39494,27 @@ declare module Ext.picker {
 		*/
 		getValueField?(): string;
 		/** [Method] Sets the value of align  
-		* @param align String 
+		* @param align String The new value. 
 		*/
 		setAlign?( align?:string ): void;
 		/** [Method] Sets the value of displayField  
-		* @param displayField String 
+		* @param displayField String The new value. 
 		*/
 		setDisplayField?( displayField?:string ): void;
 		/** [Method] Sets the value of itemTpl  
-		* @param itemTpl String 
+		* @param itemTpl String The new value. 
 		*/
 		setItemTpl?( itemTpl?:string ): void;
 		/** [Method] Sets the value of name  
-		* @param name String 
+		* @param name String The new value. 
 		*/
 		setName?( name?:string ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 		/** [Method] Sets the value of valueField  
-		* @param valueField String 
+		* @param valueField String The new value. 
 		*/
 		setValueField?( valueField?:string ): void;
 		/** [Method] Updates the align configuration 
@@ -36734,6 +39522,18 @@ declare module Ext.picker {
 		* @param oldAlign Object 
 		*/
 		updateAlign?( newAlign?:any, oldAlign?:any ): void;
+	}
+}
+declare module Ext.plugin {
+	export interface IBufferedList extends Ext.IBase,Ext.mixin.IBindable {
+		/** [Method] Returns the value of list  
+		* @returns Object 
+		*/
+		getList?(): any;
+		/** [Method] Sets the value of list  
+		* @param list Object The new value. 
+		*/
+		setList?( list?:any ): void;
 	}
 }
 declare module Ext.plugin {
@@ -36757,15 +39557,15 @@ declare module Ext.plugin {
 		*/
 		getNoMoreRecordsText?(): string;
 		/** [Method] Sets the value of autoPaging  
-		* @param autoPaging Boolean 
+		* @param autoPaging Boolean The new value. 
 		*/
 		setAutoPaging?( autoPaging?:boolean ): void;
 		/** [Method] Sets the value of loadMoreText  
-		* @param loadMoreText String 
+		* @param loadMoreText String The new value. 
 		*/
 		setLoadMoreText?( loadMoreText?:string ): void;
 		/** [Method] Sets the value of noMoreRecordsText  
-		* @param noMoreRecordsText String 
+		* @param noMoreRecordsText String The new value. 
 		*/
 		setNoMoreRecordsText?( noMoreRecordsText?:string ): void;
 	}
@@ -36788,10 +39588,16 @@ declare module Ext.plugin {
 		overpullSnapBackDuration?: number;
 		/** [Config Option] (String) */
 		pullRefreshText?: string;
+		/** [Config Option] (String) */
+		pullReleaseText?: string;
+		/** [Config Option] (String) */
+		pullText?: string;
 		/** [Config Option] (Ext.XTemplate/String/Array) */
 		pullTpl?: any;
 		/** [Config Option] (String) */
-		releaseRefreshText?: string;
+		releaseText?: string;
+		/** [Config Option] (Boolean) */
+		scrollerAutoRefresh?: boolean;
 		/** [Config Option] (Number) */
 		snappingAnimationDuration?: number;
 		/** [Method] Returns the value of autoSnapBack  
@@ -36822,18 +39628,22 @@ declare module Ext.plugin {
 		* @returns Number 
 		*/
 		getOverpullSnapBackDuration?(): number;
-		/** [Method] Returns the value of pullRefreshText  
+		/** [Method] Returns the value of pullText  
 		* @returns String 
 		*/
-		getPullRefreshText?(): string;
+		getPullText?(): string;
 		/** [Method] Returns the value of pullTpl  
 		* @returns Ext.XTemplate/String/Array 
 		*/
 		getPullTpl?(): any;
-		/** [Method] Returns the value of releaseRefreshText  
+		/** [Method] Returns the value of releaseText  
 		* @returns String 
 		*/
-		getReleaseRefreshText?(): string;
+		getReleaseText?(): string;
+		/** [Method] Returns the value of scrollerAutoRefresh  
+		* @returns Boolean 
+		*/
+		getScrollerAutoRefresh?(): boolean;
 		/** [Method] Returns the value of snappingAnimationDuration  
 		* @returns Number 
 		*/
@@ -36842,56 +39652,204 @@ declare module Ext.plugin {
 		* @returns Boolean 
 		*/
 		getTranslatable?(): boolean;
-		/** [Method] Allows addition of behavior to the rendering phase  */
-		initialize?(): void;
 		/** [Method] Sets the value of autoSnapBack  
-		* @param autoSnapBack Boolean 
+		* @param autoSnapBack Boolean The new value. 
 		*/
 		setAutoSnapBack?( autoSnapBack?:boolean ): void;
 		/** [Method] Sets the value of lastUpdatedDateFormat  
-		* @param lastUpdatedDateFormat String 
+		* @param lastUpdatedDateFormat String The new value. 
 		*/
 		setLastUpdatedDateFormat?( lastUpdatedDateFormat?:string ): void;
 		/** [Method] Sets the value of lastUpdatedText  
-		* @param lastUpdatedText String 
+		* @param lastUpdatedText String The new value. 
 		*/
 		setLastUpdatedText?( lastUpdatedText?:string ): void;
 		/** [Method] Sets the value of list  
-		* @param list Ext.dataview.List 
+		* @param list Ext.dataview.List The new value. 
 		*/
 		setList?( list?:Ext.dataview.IList ): void;
 		/** [Method] Sets the value of loadedText  
-		* @param loadedText String 
+		* @param loadedText String The new value. 
 		*/
 		setLoadedText?( loadedText?:string ): void;
 		/** [Method] Sets the value of loadingText  
-		* @param loadingText String 
+		* @param loadingText String The new value. 
 		*/
 		setLoadingText?( loadingText?:string ): void;
 		/** [Method] Sets the value of overpullSnapBackDuration  
-		* @param overpullSnapBackDuration Number 
+		* @param overpullSnapBackDuration Number The new value. 
 		*/
 		setOverpullSnapBackDuration?( overpullSnapBackDuration?:number ): void;
-		/** [Method] Sets the value of pullRefreshText  
-		* @param pullRefreshText String 
+		/** [Method] Updates the PullRefreshText  
+		* @param text String 
 		*/
-		setPullRefreshText?( pullRefreshText?:string ): void;
+		setPullRefreshText?( text?:string ): void;
+		/** [Method] Sets the value of pullText  
+		* @param pullText String The new value. 
+		*/
+		setPullText?( pullText?:string ): void;
 		/** [Method] Sets the value of pullTpl  
-		* @param pullTpl Ext.XTemplate/String/Array 
+		* @param pullTpl Ext.XTemplate/String/Array The new value. 
 		*/
 		setPullTpl?( pullTpl?:any ): void;
-		/** [Method] Sets the value of releaseRefreshText  
-		* @param releaseRefreshText String 
+		/** [Method] Updates the ReleaseRefreshText  
+		* @param text String 
 		*/
-		setReleaseRefreshText?( releaseRefreshText?:string ): void;
+		setReleaseRefreshText?( text?:string ): void;
+		/** [Method] Sets the value of releaseText  
+		* @param releaseText String The new value. 
+		*/
+		setReleaseText?( releaseText?:string ): void;
+		/** [Method] Sets the value of scrollerAutoRefresh  
+		* @param scrollerAutoRefresh Boolean The new value. 
+		*/
+		setScrollerAutoRefresh?( scrollerAutoRefresh?:boolean ): void;
 		/** [Method] Sets the value of snappingAnimationDuration  
-		* @param snappingAnimationDuration Number 
+		* @param snappingAnimationDuration Number The new value. 
 		*/
 		setSnappingAnimationDuration?( snappingAnimationDuration?:number ): void;
 		/** [Method] Sets the value of translatable  
-		* @param translatable Boolean 
+		* @param translatable Boolean The new value. 
 		*/
 		setTranslatable?( translatable?:boolean ): void;
+		/** [Method] Snaps the List back to the top after a pullrefresh is complete 
+		* @param force Boolean Force the snapback to occur regardless of state {optional} 
+		*/
+		snapBack?( force?:boolean ): void;
+	}
+}
+declare module Ext.plugin {
+	export interface ISortableList extends Ext.IComponent,Ext.mixin.IBindable {
+		/** [Method] Returns the value of handleSelector  
+		* @returns String 
+		*/
+		getHandleSelector?(): string;
+		/** [Method] Returns the value of list  
+		* @returns Object 
+		*/
+		getList?(): any;
+		/** [Method] Sets the value of handleSelector  
+		* @param handleSelector String The new value. 
+		*/
+		setHandleSelector?( handleSelector?:string ): void;
+		/** [Method] Sets the value of list  
+		* @param list Object The new value. 
+		*/
+		setList?( list?:any ): void;
+	}
+}
+declare module Ext {
+	export interface IProgressIndicator extends Ext.IContainer,Ext.mixin.IProgressable {
+		/** [Config Option] (String) */
+		baseCls?: string;
+		/** [Config Option] (Boolean) */
+		centered?: boolean;
+		/** [Config Option] (String/Object) */
+		fallbackText?: any;
+		/** [Config Option] (Boolean) */
+		hidden?: boolean;
+		/** [Config Option] (String/Mixed) */
+		hideAnimation?: any;
+		/** [Config Option] (String/Ext.XTemplate/Object) */
+		loadingText?: any;
+		/** [Config Option] (Boolean) */
+		modal?: boolean;
+		/** [Config Option] (Object) */
+		monitoredStates?: any;
+		/** [Config Option] (String/Mixed) */
+		showAnimation?: any;
+		/** [Method] Returns the value of baseCls  
+		* @returns String 
+		*/
+		getBaseCls?(): string;
+		/** [Method] Returns the value of centered  
+		* @returns Boolean 
+		*/
+		getCentered?(): boolean;
+		/** [Method] Returns the value of dynamic  
+		* @returns Boolean 
+		*/
+		getDynamic?(): boolean;
+		/** [Method] Returns the value of hidden  
+		* @returns Boolean 
+		*/
+		getHidden?(): boolean;
+		/** [Method] Returns the value of hideAnimation  
+		* @returns Object 
+		*/
+		getHideAnimation?(): any;
+		/** [Method] Returns the value of maxProgressInput  
+		* @returns Number 
+		*/
+		getMaxProgressInput?(): number;
+		/** [Method] Returns the value of minProgressInput  
+		* @returns Number 
+		*/
+		getMinProgressInput?(): number;
+		/** [Method] Returns the value of modal  
+		* @returns Boolean 
+		*/
+		getModal?(): boolean;
+		/** [Method] Returns the value of monitoredStates  
+		* @returns Object 
+		*/
+		getMonitoredStates?(): any;
+		/** [Method] Returns the value of showAnimation  
+		* @returns Object 
+		*/
+		getShowAnimation?(): any;
+		/** [Method] Sets the value of baseCls  
+		* @param baseCls String The new value. 
+		*/
+		setBaseCls?( baseCls?:string ): void;
+		/** [Method] Sets the value of centered  
+		* @param centered Boolean The new value. 
+		*/
+		setCentered?( centered?:boolean ): void;
+		/** [Method] Sets the value of dynamic  
+		* @param dynamic Boolean The new value. 
+		*/
+		setDynamic?( dynamic?:boolean ): void;
+		/** [Method] Sets the value of fallbackText  
+		* @param fallbackText String/Object The new value. 
+		*/
+		setFallbackText?( fallbackText?:any ): void;
+		/** [Method] Sets the value of hidden  
+		* @param hidden Boolean The new value. 
+		*/
+		setHidden?( hidden?:boolean ): void;
+		/** [Method] Sets the value of hideAnimation  
+		* @param hideAnimation Object The new value. 
+		*/
+		setHideAnimation?( hideAnimation?:any ): void;
+		/** [Method] Sets the value of loadingText  
+		* @param loadingText String/Ext.XTemplate/Object The new value. 
+		*/
+		setLoadingText?( loadingText?:any ): void;
+		/** [Method] Sets the value of maxProgressInput  
+		* @param maxProgressInput Number The new value. 
+		*/
+		setMaxProgressInput?( maxProgressInput?:number ): void;
+		/** [Method] Sets the value of minProgressInput  
+		* @param minProgressInput Number The new value. 
+		*/
+		setMinProgressInput?( minProgressInput?:number ): void;
+		/** [Method] Sets the value of modal  
+		* @param modal Boolean The new value. 
+		*/
+		setModal?( modal?:boolean ): void;
+		/** [Method] Sets the value of monitoredStates  
+		* @param monitoredStates Object The new value. 
+		*/
+		setMonitoredStates?( monitoredStates?:any ): void;
+		/** [Method] Sets the value of showAnimation  
+		* @param showAnimation Object The new value. 
+		*/
+		setShowAnimation?( showAnimation?:any ): void;
+	}
+}
+declare module Ext {
+	export interface IPromise extends Ext.IBase {
 	}
 }
 declare module Ext {
@@ -36906,6 +39864,8 @@ declare module Ext {
 }
 declare module Ext.scroll.indicator {
 	export interface IAbstract extends Ext.IComponent {
+		/** [Config Option] (Boolean) */
+		autoHide?: boolean;
 		/** [Config Option] (String) */
 		baseCls?: string;
 		/** [Config Option] (Boolean) */
@@ -36916,6 +39876,10 @@ declare module Ext.scroll.indicator {
 		* @returns Boolean 
 		*/
 		getActive?(): boolean;
+		/** [Method] Returns the value of autoHide  
+		* @returns Boolean 
+		*/
+		getAutoHide?(): boolean;
 		/** [Method] Returns the value of axis  
 		* @returns String 
 		*/
@@ -36953,43 +39917,47 @@ declare module Ext.scroll.indicator {
 		*/
 		getValue?(): any;
 		/** [Method] Sets the value of active  
-		* @param active Boolean 
+		* @param active Boolean The new value. 
 		*/
 		setActive?( active?:boolean ): void;
+		/** [Method] Sets the value of autoHide  
+		* @param autoHide Boolean The new value. 
+		*/
+		setAutoHide?( autoHide?:boolean ): void;
 		/** [Method] Sets the value of axis  
-		* @param axis String 
+		* @param axis String The new value. 
 		*/
 		setAxis?( axis?:string ): void;
 		/** [Method] Sets the value of barCls  
-		* @param barCls String 
+		* @param barCls String The new value. 
 		*/
 		setBarCls?( barCls?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean 
+		* @param hidden Boolean The new value. 
 		*/
 		setHidden?( hidden?:boolean ): void;
 		/** [Method] Sets the value of length  
-		* @param length Object 
+		* @param length Object The new value. 
 		*/
 		setLength?( length?:any ): void;
 		/** [Method] Sets the value of minLength  
-		* @param minLength Number 
+		* @param minLength Number The new value. 
 		*/
 		setMinLength?( minLength?:number ): void;
 		/** [Method] Sets the value of ratio  
-		* @param ratio Number 
+		* @param ratio Number The new value. 
 		*/
 		setRatio?( ratio?:number ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Sets the value of value  
-		* @param value Object 
+		* @param value Object The new value. 
 		*/
 		setValue?( value?:any ): void;
 	}
@@ -37003,7 +39971,7 @@ declare module Ext.scroll.indicator {
 		*/
 		getCls?(): string;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 	}
@@ -37025,7 +39993,7 @@ declare module Ext.scroll.indicator {
 		*/
 		getCls?(): string;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 	}
@@ -37039,7 +40007,7 @@ declare module Ext.scroll.indicator {
 		*/
 		getCls?(): string;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 	}
@@ -37121,23 +40089,23 @@ declare module Ext.scroll {
 		*/
 		scrollToEnd?( animation?:any ): Ext.scroll.IScroller;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of directionLock  
-		* @param directionLock Boolean 
+		* @param directionLock Boolean The new value. 
 		*/
 		setDirectionLock?( directionLock?:boolean ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Boolean 
+		* @param disabled Boolean The new value. 
 		*/
 		setDisabled?( disabled?:boolean ): void;
 		/** [Method] Sets the value of initialOffset  
-		* @param initialOffset Object/Number 
+		* @param initialOffset Object/Number The new value. 
 		*/
 		setInitialOffset?( initialOffset?:any ): void;
 		/** [Method] Sets the value of momentumEasing  
-		* @param momentumEasing Object 
+		* @param momentumEasing Object The new value. 
 		*/
 		setMomentumEasing?( momentumEasing?:any ): void;
 		/** [Method] Sets the offset of this scroller  
@@ -37146,15 +40114,15 @@ declare module Ext.scroll {
 		*/
 		setOffset?( offset?:any ): Ext.scroll.IScroller;
 		/** [Method] Sets the value of slotSnapEasing  
-		* @param slotSnapEasing Object 
+		* @param slotSnapEasing Object The new value. 
 		*/
 		setSlotSnapEasing?( slotSnapEasing?:any ): void;
 		/** [Method] Sets the value of slotSnapSize  
-		* @param slotSnapSize Number/Object 
+		* @param slotSnapSize Number/Object The new value. 
 		*/
 		setSlotSnapSize?( slotSnapSize?:any ): void;
 		/** [Method] Sets the value of translatable  
-		* @param translatable Object 
+		* @param translatable Object The new value. 
 		*/
 		setTranslatable?( translatable?:any ): void;
 		/** [Method] Updates the boundary information for this scroller  
@@ -37194,27 +40162,27 @@ declare module Ext.scroll {
 		*/
 		getScroller?(): Ext.scroll.IView;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of indicators  
-		* @param indicators Object 
+		* @param indicators Object The new value. 
 		*/
 		setIndicators?( indicators?:any ): void;
 		/** [Method] Sets the value of indicatorsHidingDelay  
-		* @param indicatorsHidingDelay Number 
+		* @param indicatorsHidingDelay Number The new value. 
 		*/
 		setIndicatorsHidingDelay?( indicatorsHidingDelay?:number ): void;
 		/** [Method] Sets the value of indicatorsUi  
-		* @param indicatorsUi String 
+		* @param indicatorsUi String The new value. 
 		*/
 		setIndicatorsUi?( indicatorsUi?:string ): void;
 		/** [Method] Sets the value of scroller  
-		* @param scroller Object 
+		* @param scroller Object The new value. 
 		*/
 		setScroller?( scroller?:any ): void;
 	}
@@ -37250,27 +40218,27 @@ declare module Ext.util {
 		*/
 		getScroller?(): Ext.scroll.IView;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of indicators  
-		* @param indicators Object 
+		* @param indicators Object The new value. 
 		*/
 		setIndicators?( indicators?:any ): void;
 		/** [Method] Sets the value of indicatorsHidingDelay  
-		* @param indicatorsHidingDelay Number 
+		* @param indicatorsHidingDelay Number The new value. 
 		*/
 		setIndicatorsHidingDelay?( indicatorsHidingDelay?:number ): void;
 		/** [Method] Sets the value of indicatorsUi  
-		* @param indicatorsUi String 
+		* @param indicatorsUi String The new value. 
 		*/
 		setIndicatorsUi?( indicatorsUi?:string ): void;
 		/** [Method] Sets the value of scroller  
-		* @param scroller Object 
+		* @param scroller Object The new value. 
 		*/
 		setScroller?( scroller?:any ): void;
 	}
@@ -37335,27 +40303,27 @@ declare module Ext {
 		*/
 		isPressed?( button?:Ext.IButton ): boolean;
 		/** [Method] Sets the value of allowDepress  
-		* @param allowDepress Boolean 
+		* @param allowDepress Boolean The new value. 
 		*/
 		setAllowDepress?( allowDepress?:boolean ): void;
 		/** [Method] Sets the value of allowMultiple  
-		* @param allowMultiple Boolean 
+		* @param allowMultiple Boolean The new value. 
 		*/
 		setAllowMultiple?( allowMultiple?:boolean ): void;
 		/** [Method] Sets the value of allowToggle  
-		* @param allowToggle Boolean 
+		* @param allowToggle Boolean The new value. 
 		*/
 		setAllowToggle?( allowToggle?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Activates a button  
@@ -37365,11 +40333,11 @@ declare module Ext {
 		*/
 		setPressed?( button?:any, pressed?:boolean, suppressEvents?:boolean ): void;
 		/** [Method] Sets the value of pressedButtons  
-		* @param pressedButtons Array 
+		* @param pressedButtons Array The new value. 
 		*/
 		setPressedButtons?( pressedButtons?:any[] ): void;
 		/** [Method] Sets the value of pressedCls  
-		* @param pressedCls String 
+		* @param pressedCls String The new value. 
 		*/
 		setPressedCls?( pressedCls?:string ): void;
 	}
@@ -37423,39 +40391,39 @@ declare module Ext {
 		*/
 		getStretchY?(): boolean;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of centered  
-		* @param centered Boolean 
+		* @param centered Boolean The new value. 
 		*/
 		setCentered?( centered?:boolean ): void;
 		/** [Method] Sets the value of enter  
-		* @param enter String 
+		* @param enter String The new value. 
 		*/
 		setEnter?( enter?:string ): void;
 		/** [Method] Sets the value of exit  
-		* @param exit String 
+		* @param exit String The new value. 
 		*/
 		setExit?( exit?:string ): void;
 		/** [Method] Sets the value of hideAnimation  
-		* @param hideAnimation Object 
+		* @param hideAnimation Object The new value. 
 		*/
 		setHideAnimation?( hideAnimation?:any ): void;
 		/** [Method] Sets the value of modal  
-		* @param modal Boolean 
+		* @param modal Boolean The new value. 
 		*/
 		setModal?( modal?:boolean ): void;
 		/** [Method] Sets the value of showAnimation  
-		* @param showAnimation Object 
+		* @param showAnimation Object The new value. 
 		*/
 		setShowAnimation?( showAnimation?:any ): void;
 		/** [Method] Sets the value of stretchX  
-		* @param stretchX Boolean 
+		* @param stretchX Boolean The new value. 
 		*/
 		setStretchX?( stretchX?:boolean ): void;
 		/** [Method] Sets the value of stretchY  
-		* @param stretchY Boolean 
+		* @param stretchY Boolean The new value. 
 		*/
 		setStretchY?( stretchY?:boolean ): void;
 	}
@@ -37539,39 +40507,39 @@ declare module Ext.slider {
 		*/
 		getValues?(): any;
 		/** [Method] Sets the value of allowThumbsOverlapping  
-		* @param allowThumbsOverlapping Boolean 
+		* @param allowThumbsOverlapping Boolean The new value. 
 		*/
 		setAllowThumbsOverlapping?( allowThumbsOverlapping?:boolean ): void;
 		/** [Method] Sets the value of animation  
-		* @param animation Boolean/Object 
+		* @param animation Boolean/Object The new value. 
 		*/
 		setAnimation?( animation?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of increment  
-		* @param increment Number 
+		* @param increment Number The new value. 
 		*/
 		setIncrement?( increment?:number ): void;
 		/** [Method] Sets the value of maxValue  
-		* @param maxValue Number 
+		* @param maxValue Number The new value. 
 		*/
 		setMaxValue?( maxValue?:number ): void;
 		/** [Method] Sets the value of minValue  
-		* @param minValue Number 
+		* @param minValue Number The new value. 
 		*/
 		setMinValue?( minValue?:number ): void;
 		/** [Method] Sets the value of readOnly  
-		* @param readOnly Boolean 
+		* @param readOnly Boolean The new value. 
 		*/
 		setReadOnly?( readOnly?:boolean ): void;
 		/** [Method] Sets the value of thumbConfig  
-		* @param thumbConfig Object 
+		* @param thumbConfig Object The new value. 
 		*/
 		setThumbConfig?( thumbConfig?:any ): void;
 		/** [Method] Sets the value of value  
-		* @param value Number/Number[] 
+		* @param value Number/Number[] The new value. 
 		*/
 		setValue?( value?:any ): void;
 		/** [Method] Convenience method  
@@ -37602,11 +40570,11 @@ declare module Ext.slider {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of draggable  
-		* @param draggable Object 
+		* @param draggable Object The new value. 
 		*/
 		setDraggable?( draggable?:any ): void;
 	}
@@ -37636,15 +40604,15 @@ declare module Ext.slider {
 		*/
 		getMinValueCls?(): string;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of maxValueCls  
-		* @param maxValueCls String 
+		* @param maxValueCls String The new value. 
 		*/
 		setMaxValueCls?( maxValueCls?:string ): void;
 		/** [Method] Sets the value of minValueCls  
-		* @param minValueCls String 
+		* @param minValueCls String The new value. 
 		*/
 		setMinValueCls?( minValueCls?:string ): void;
 		/** [Method] Sets the value of value  
@@ -37665,11 +40633,11 @@ declare module Ext {
 		*/
 		getFlex?(): number;
 		/** [Method] Sets the value of flex  
-		* @param flex Number 
+		* @param flex Number The new value. 
 		*/
 		setFlex?( flex?:number ): void;
 		/** [Method] Sets the value of width  
-		* @param width Number 
+		* @param width Number The new value. 
 		*/
 		setWidth?( width?:number ): void;
 	}
@@ -37780,11 +40748,11 @@ declare module Ext.tab {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of activeTab  
-		* @param activeTab Number/String/Ext.Component 
+		* @param activeTab Number/String/Ext.Component The new value. 
 		*/
 		setActiveTab?( activeTab?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 	}
@@ -37806,11 +40774,11 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of activeTab  
-		* @param activeTab Number/String/Ext.Component 
+		* @param activeTab Number/String/Ext.Component The new value. 
 		*/
 		setActiveTab?( activeTab?:any ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 	}
@@ -37858,23 +40826,23 @@ declare module Ext.tab {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of tabBar  
-		* @param tabBar Object 
+		* @param tabBar Object The new value. 
 		*/
 		setTabBar?( tabBar?:any ): void;
 		/** [Method] Sets the value of tabBarPosition  
-		* @param tabBarPosition String 
+		* @param tabBarPosition String The new value. 
 		*/
 		setTabBarPosition?( tabBarPosition?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Updates the Ui for this component and the tabBar  
@@ -37927,23 +40895,23 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object 
+		* @param layout Object The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of tabBar  
-		* @param tabBar Object 
+		* @param tabBar Object The new value. 
 		*/
 		setTabBar?( tabBar?:any ): void;
 		/** [Method] Sets the value of tabBarPosition  
-		* @param tabBarPosition String 
+		* @param tabBarPosition String The new value. 
 		*/
 		setTabBarPosition?( tabBarPosition?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Updates the Ui for this component and the tabBar  
@@ -37986,23 +40954,23 @@ declare module Ext.tab {
 		*/
 		getTitle?(): string;
 		/** [Method] Sets the value of active  
-		* @param active Boolean 
+		* @param active Boolean The new value. 
 		*/
 		setActive?( active?:boolean ): void;
 		/** [Method] Sets the value of activeCls  
-		* @param activeCls String 
+		* @param activeCls String The new value. 
 		*/
 		setActiveCls?( activeCls?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of pressedCls  
-		* @param pressedCls String 
+		* @param pressedCls String The new value. 
 		*/
 		setPressedCls?( pressedCls?:string ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 	}
@@ -38040,23 +41008,23 @@ declare module Ext {
 		*/
 		getTitle?(): string;
 		/** [Method] Sets the value of active  
-		* @param active Boolean 
+		* @param active Boolean The new value. 
 		*/
 		setActive?( active?:boolean ): void;
 		/** [Method] Sets the value of activeCls  
-		* @param activeCls String 
+		* @param activeCls String The new value. 
 		*/
 		setActiveCls?( activeCls?:string ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of pressedCls  
-		* @param pressedCls String 
+		* @param pressedCls String The new value. 
 		*/
 		setPressedCls?( pressedCls?:string ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 	}
@@ -38065,6 +41033,8 @@ declare module Ext {
 	export interface ITaskQueue extends Ext.IBase {
 	}
 	export class TaskQueue {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -38223,11 +41193,11 @@ declare module Ext {
 		*/
 		getTitle?(): string;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
 	}
@@ -38243,9 +41213,13 @@ declare module Ext {
 		/** [Config Option] (Array/Object) */
 		items?: any;
 		/** [Config Option] (String) */
+		maxButtonWidth?: string;
+		/** [Config Option] (String) */
 		minHeight?: string;
 		/** [Config Option] (String) */
 		title?: string;
+		/** [Config Option] (String) */
+		titleAlign?: string;
 		/** [Config Option] (String) */
 		ui?: string;
 		/** [Method] Returns the value of baseCls  
@@ -38264,10 +41238,18 @@ declare module Ext {
 		* @returns Array/Object 
 		*/
 		getItems?(): any;
+		/** [Method] Returns the value of maxButtonWidth  
+		* @returns String 
+		*/
+		getMaxButtonWidth?(): string;
 		/** [Method] Returns the value of title  
 		* @returns String 
 		*/
 		getTitle?(): string;
+		/** [Method] Returns the value of titleAlign  
+		* @returns String 
+		*/
+		getTitleAlign?(): string;
 		/** [Method] Returns the value of ui  
 		* @returns String 
 		*/
@@ -38275,31 +41257,39 @@ declare module Ext {
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		setItems?( items?:any ): void;
+		/** [Method] Sets the value of maxButtonWidth  
+		* @param maxButtonWidth String The new value. 
+		*/
+		setMaxButtonWidth?( maxButtonWidth?:string ): void;
 		/** [Method] Sets the value of minHeight  
-		* @param minHeight String 
+		* @param minHeight String The new value. 
 		*/
 		setMinHeight?( minHeight?:string ): void;
 		/** [Method] Sets the value of title  
-		* @param title String 
+		* @param title String The new value. 
 		*/
 		setTitle?( title?:string ): void;
+		/** [Method] Sets the value of titleAlign  
+		* @param titleAlign String The new value. 
+		*/
+		setTitleAlign?( titleAlign?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 	}
@@ -38349,23 +41339,23 @@ declare module Ext {
 		/** [Method] Hides the title if it exists  */
 		hideTitle?(): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		setDefaultType?( defaultType?:string ): void;
 		/** [Method] Sets the value of docked  
-		* @param docked String 
+		* @param docked String The new value. 
 		*/
 		setDocked?( docked?:string ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object/String 
+		* @param layout Object/String The new value. 
 		*/
 		setLayout?( layout?:any ): void;
 		/** [Method] Sets the value of minHeight  
-		* @param minHeight String 
+		* @param minHeight String The new value. 
 		*/
 		setMinHeight?( minHeight?:string ): void;
 		/** [Method] Use this to update the title configuration  
@@ -38373,7 +41363,7 @@ declare module Ext {
 		*/
 		setTitle?( title?:any ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		setUi?( ui?:string ): void;
 		/** [Method] Shows the title if it exists  */
@@ -38690,11 +41680,11 @@ declare module Ext.util {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Collects all of the values of the given property and returns their sum  
@@ -38729,6 +41719,81 @@ declare module Ext.util {
 		* @param options Object Extra options object. 
 		*/
 		unBefore?( eventName?:any, fn?:any, scope?:any, options?:any ): void;
+	}
+}
+declare module Ext.util {
+	export interface IAudio extends Ext.IBase {
+	}
+	export class Audio {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.util {
+	export interface IBufferedCollection extends Ext.util.ICollection,Ext.util.IObservable {
+		/** [Method] Returns the value of autoFilter  
+		* @returns Boolean 
+		*/
+		getAutoFilter?(): boolean;
+		/** [Method] Returns the value of autoSort  
+		* @returns Boolean 
+		*/
+		getAutoSort?(): boolean;
+		/** [Method] Returns the value of pageSize  
+		* @returns Number 
+		*/
+		getPageSize?(): number;
+		/** [Method] Returns the value of totalCount  
+		* @returns Number 
+		*/
+		getTotalCount?(): number;
+		/** [Method] Sets the value of autoFilter  
+		* @param autoFilter Boolean The new value. 
+		*/
+		setAutoFilter?( autoFilter?:boolean ): void;
+		/** [Method] Sets the value of autoSort  
+		* @param autoSort Boolean The new value. 
+		*/
+		setAutoSort?( autoSort?:boolean ): void;
+		/** [Method] Sets the value of pageSize  
+		* @param pageSize Number The new value. 
+		*/
+		setPageSize?( pageSize?:number ): void;
+		/** [Method] Sets the value of totalCount  
+		* @param totalCount Number The new value. 
+		*/
+		setTotalCount?( totalCount?:number ): void;
 	}
 }
 declare module Ext.util {
@@ -38993,31 +42058,31 @@ declare module Ext.util {
 		*/
 		replace?( oldKey?:string, item?:any ): any;
 		/** [Method] Sets the value of autoFilter  
-		* @param autoFilter Boolean 
+		* @param autoFilter Boolean The new value. 
 		*/
 		setAutoFilter?( autoFilter?:boolean ): void;
 		/** [Method] Sets the value of autoSort  
-		* @param autoSort Boolean 
+		* @param autoSort Boolean The new value. 
 		*/
 		setAutoSort?( autoSort?:boolean ): void;
 		/** [Method] Sets the value of defaultSortDirection  
-		* @param defaultSortDirection String 
+		* @param defaultSortDirection String The new value. 
 		*/
 		setDefaultSortDirection?( defaultSortDirection?:string ): void;
 		/** [Method] Sets the value of filterRoot  
-		* @param filterRoot String 
+		* @param filterRoot String The new value. 
 		*/
 		setFilterRoot?( filterRoot?:string ): void;
 		/** [Method] Sets the value of filters  
-		* @param filters Array 
+		* @param filters Array The new value. 
 		*/
 		setFilters?( filters?:any[] ): void;
 		/** [Method] Sets the value of sortRoot  
-		* @param sortRoot String 
+		* @param sortRoot String The new value. 
 		*/
 		setSortRoot?( sortRoot?:string ): void;
 		/** [Method] Sets the value of sorters  
-		* @param sorters Array 
+		* @param sorters Array The new value. 
 		*/
 		setSorters?( sorters?:any[] ): void;
 		/** [Method] This method will sort an array based on the currently configured sorters  
@@ -39060,23 +42125,23 @@ declare module Ext.util {
 		*/
 		getScope?(): any;
 		/** [Method] Sets the value of args  
-		* @param args Object 
+		* @param args Object The new value. 
 		*/
 		setArgs?( args?:any ): void;
 		/** [Method] Sets the value of delay  
-		* @param delay Object 
+		* @param delay Object The new value. 
 		*/
 		setDelay?( delay?:any ): void;
 		/** [Method] Sets the value of fn  
-		* @param fn Object 
+		* @param fn Object The new value. 
 		*/
 		setFn?( fn?:any ): void;
 		/** [Method] Sets the value of interval  
-		* @param interval Object 
+		* @param interval Object The new value. 
 		*/
 		setInterval?( interval?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 	}
@@ -39273,43 +42338,43 @@ declare module Ext.util {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String 
+		* @param cls String The new value. 
 		*/
 		setCls?( cls?:string ): void;
 		/** [Method] Sets the value of constraint  
-		* @param constraint String 
+		* @param constraint String The new value. 
 		*/
 		setConstraint?( constraint?:string ): void;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Object 
+		* @param disabled Object The new value. 
 		*/
 		setDisabled?( disabled?:any ): void;
 		/** [Method] Sets the value of draggingCls  
-		* @param draggingCls String 
+		* @param draggingCls String The new value. 
 		*/
 		setDraggingCls?( draggingCls?:string ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of initialOffset  
-		* @param initialOffset Object/Number 
+		* @param initialOffset Object/Number The new value. 
 		*/
 		setInitialOffset?( initialOffset?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of translatable  
-		* @param translatable Object 
+		* @param translatable Object The new value. 
 		*/
 		setTranslatable?( translatable?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -39516,15 +42581,15 @@ declare module Ext.util {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -39610,39 +42675,39 @@ declare module Ext.util {
 		*/
 		getValue?(): any;
 		/** [Method] Sets the value of anyMatch  
-		* @param anyMatch Boolean 
+		* @param anyMatch Boolean The new value. 
 		*/
 		setAnyMatch?( anyMatch?:boolean ): void;
 		/** [Method] Sets the value of caseSensitive  
-		* @param caseSensitive Boolean 
+		* @param caseSensitive Boolean The new value. 
 		*/
 		setCaseSensitive?( caseSensitive?:boolean ): void;
 		/** [Method] Sets the value of exactMatch  
-		* @param exactMatch Boolean 
+		* @param exactMatch Boolean The new value. 
 		*/
 		setExactMatch?( exactMatch?:boolean ): void;
 		/** [Method] Sets the value of filterFn  
-		* @param filterFn Function 
+		* @param filterFn Function The new value. 
 		*/
 		setFilterFn?( filterFn?:any ): void;
 		/** [Method] Sets the value of id  
-		* @param id String 
+		* @param id String The new value. 
 		*/
 		setId?( id?:string ): void;
 		/** [Method] Sets the value of property  
-		* @param property String 
+		* @param property String The new value. 
 		*/
 		setProperty?( property?:string ): void;
 		/** [Method] Sets the value of root  
-		* @param root String 
+		* @param root String The new value. 
 		*/
 		setRoot?( root?:string ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 		/** [Method] Sets the value of value  
-		* @param value RegExp/Mixed 
+		* @param value RegExp/Mixed The new value. 
 		*/
 		setValue?( value?:any ): void;
 	}
@@ -39651,6 +42716,12 @@ declare module Ext.util {
 	export interface IFormat extends Ext.IBase {
 	}
 	export class Format {
+		/** [Property] (String) */
+		static defaultDateFormat: string;
+		/** [Property] (Array) */
+		static potentialUndefinedKeys: any[];
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -39793,23 +42864,23 @@ declare module Ext.util {
 		*/
 		getTimeout?(): number;
 		/** [Method] Sets the value of allowHighAccuracy  
-		* @param allowHighAccuracy Boolean 
+		* @param allowHighAccuracy Boolean The new value. 
 		*/
 		setAllowHighAccuracy?( allowHighAccuracy?:boolean ): void;
 		/** [Method] Sets the value of autoUpdate  
-		* @param autoUpdate Boolean 
+		* @param autoUpdate Boolean The new value. 
 		*/
 		setAutoUpdate?( autoUpdate?:boolean ): void;
 		/** [Method] Sets the value of frequency  
-		* @param frequency Number 
+		* @param frequency Number The new value. 
 		*/
 		setFrequency?( frequency?:number ): void;
 		/** [Method] Sets the value of maximumAge  
-		* @param maximumAge Number 
+		* @param maximumAge Number The new value. 
 		*/
 		setMaximumAge?( maximumAge?:number ): void;
 		/** [Method] Sets the value of timeout  
-		* @param timeout Number 
+		* @param timeout Number The new value. 
 		*/
 		setTimeout?( timeout?:number ): void;
 		/** [Method] Executes a onetime location update operation raising either a locationupdate or locationerror event  
@@ -39840,15 +42911,15 @@ declare module Ext.util {
 		*/
 		getSorterFn?(): any;
 		/** [Method] Sets the value of groupFn  
-		* @param groupFn Function 
+		* @param groupFn Function The new value. 
 		*/
 		setGroupFn?( groupFn?:any ): void;
 		/** [Method] Sets the value of sortProperty  
-		* @param sortProperty String 
+		* @param sortProperty String The new value. 
 		*/
 		setSortProperty?( sortProperty?:string ): void;
 		/** [Method] Sets the value of sorterFn  
-		* @param sorterFn Function 
+		* @param sorterFn Function The new value. 
 		*/
 		setSorterFn?( sorterFn?:any ): void;
 	}
@@ -40067,11 +43138,11 @@ declare module Ext.util {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -40104,6 +43175,8 @@ declare module Ext.util {
 	export interface IInflector extends Ext.IBase {
 	}
 	export class Inflector {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
 		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
 		* @returns Object Returns the result of calling the overridden method 
@@ -40179,6 +43252,41 @@ declare module Ext.util {
 declare module Ext.util {
 	export interface IInputBlocker extends Ext.IBase {
 	}
+	export class InputBlocker {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
 }
 declare module Ext.util {
 	export interface ILineSegment extends Ext.IBase {
@@ -40247,19 +43355,19 @@ declare module Ext.util.paintmonitor {
 		*/
 		getScope?(): any;
 		/** [Method] Sets the value of args  
-		* @param args Array 
+		* @param args Array The new value. 
 		*/
 		setArgs?( args?:any[] ): void;
 		/** [Method] Sets the value of callback  
-		* @param callback Object 
+		* @param callback Object The new value. 
 		*/
 		setCallback?( callback?:any ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 	}
@@ -40378,7 +43486,7 @@ declare module Ext.util {
 		*/
 		getMinimumHeight?(): number;
 		/** [Method] Sets the value of minimumHeight  
-		* @param minimumHeight Number 
+		* @param minimumHeight Number The new value. 
 		*/
 		setMinimumHeight?( minimumHeight?:number ): void;
 	}
@@ -40533,19 +43641,19 @@ declare module Ext.util.sizemonitor {
 		*/
 		getScope?(): any;
 		/** [Method] Sets the value of args  
-		* @param args Array 
+		* @param args Array The new value. 
 		*/
 		setArgs?( args?:any[] ): void;
 		/** [Method] Sets the value of callback  
-		* @param callback Object 
+		* @param callback Object The new value. 
 		*/
 		setCallback?( callback?:any ): void;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 		/** [Method] Sets the value of scope  
-		* @param scope Object 
+		* @param scope Object The new value. 
 		*/
 		setScope?( scope?:any ): void;
 	}
@@ -40629,27 +43737,27 @@ declare module Ext.util {
 		*/
 		getTransform?(): any;
 		/** [Method] Sets the value of direction  
-		* @param direction String 
+		* @param direction String The new value. 
 		*/
 		setDirection?( direction?:string ): void;
 		/** [Method] Sets the value of id  
-		* @param id Mixed 
+		* @param id Mixed The new value. 
 		*/
 		setId?( id?:any ): void;
 		/** [Method] Sets the value of property  
-		* @param property String 
+		* @param property String The new value. 
 		*/
 		setProperty?( property?:string ): void;
 		/** [Method] Sets the value of root  
-		* @param root String 
+		* @param root String The new value. 
 		*/
 		setRoot?( root?:string ): void;
 		/** [Method] Sets the value of sorterFn  
-		* @param sorterFn Function 
+		* @param sorterFn Function The new value. 
 		*/
 		setSorterFn?( sorterFn?:any ): void;
 		/** [Method] Sets the value of transform  
-		* @param transform Function 
+		* @param transform Function The new value. 
 		*/
 		setTransform?( transform?:any ): void;
 		/** [Method] Toggles the direction of this Sorter  */
@@ -40834,43 +43942,43 @@ declare module Ext.util {
 		*/
 		resumeEvents?( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of accelerate  
-		* @param accelerate Boolean 
+		* @param accelerate Boolean The new value. 
 		*/
 		setAccelerate?( accelerate?:boolean ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		setBubbleEvents?( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of delay  
-		* @param delay Number 
+		* @param delay Number The new value. 
 		*/
 		setDelay?( delay?:number ): void;
 		/** [Method] Sets the value of el  
-		* @param el Object 
+		* @param el Object The new value. 
 		*/
 		setEl?( el?:any ): void;
 		/** [Method] Sets the value of interval  
-		* @param interval Number 
+		* @param interval Number The new value. 
 		*/
 		setInterval?( interval?:number ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		setListeners?( listeners?:any ): void;
 		/** [Method] Sets the value of pressCls  
-		* @param pressCls Object 
+		* @param pressCls Object The new value. 
 		*/
 		setPressCls?( pressCls?:any ): void;
 		/** [Method] Sets the value of preventDefault  
-		* @param preventDefault Boolean 
+		* @param preventDefault Boolean The new value. 
 		*/
 		setPreventDefault?( preventDefault?:boolean ): void;
 		/** [Method] Sets the value of stopDefault  
-		* @param stopDefault Boolean 
+		* @param stopDefault Boolean The new value. 
 		*/
 		setStopDefault?( stopDefault?:boolean ): void;
 		/** [Method] Sets the value of timer  
-		* @param timer Number 
+		* @param timer Number The new value. 
 		*/
 		setTimer?( timer?:number ): void;
 		/** [Method] Suspends the firing of all events  */
@@ -40920,19 +44028,19 @@ declare module Ext.util.translatable {
 		*/
 		getUseWrapper?(): any;
 		/** [Method] Sets the value of easing  
-		* @param easing Object 
+		* @param easing Object The new value. 
 		*/
 		setEasing?( easing?:any ): void;
 		/** [Method] Sets the value of easingX  
-		* @param easingX Object 
+		* @param easingX Object The new value. 
 		*/
 		setEasingX?( easingX?:any ): void;
 		/** [Method] Sets the value of easingY  
-		* @param easingY Object 
+		* @param easingY Object The new value. 
 		*/
 		setEasingY?( easingY?:any ): void;
 		/** [Method] Sets the value of useWrapper  
-		* @param useWrapper Object 
+		* @param useWrapper Object The new value. 
 		*/
 		setUseWrapper?( useWrapper?:any ): void;
 	}
@@ -40956,7 +44064,7 @@ declare module Ext.util.translatable {
 		*/
 		getElement?(): any;
 		/** [Method] Sets the value of element  
-		* @param element Object 
+		* @param element Object The new value. 
 		*/
 		setElement?( element?:any ): void;
 	}
@@ -40974,7 +44082,7 @@ declare module Ext.util.translatable {
 		*/
 		getUseWrapper?(): boolean;
 		/** [Method] Sets the value of useWrapper  
-		* @param useWrapper Boolean 
+		* @param useWrapper Boolean The new value. 
 		*/
 		setUseWrapper?( useWrapper?:boolean ): void;
 	}
@@ -40994,15 +44102,15 @@ declare module Ext.util {
 		*/
 		getItems?(): any[];
 		/** [Method] Sets the value of activeIndex  
-		* @param activeIndex Number 
+		* @param activeIndex Number The new value. 
 		*/
 		setActiveIndex?( activeIndex?:number ): void;
 		/** [Method] Sets the value of itemLength  
-		* @param itemLength Object 
+		* @param itemLength Object The new value. 
 		*/
 		setItemLength?( itemLength?:any ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array 
+		* @param items Array The new value. 
 		*/
 		setItems?( items?:any[] ): void;
 	}
@@ -41014,7 +44122,7 @@ declare module Ext.util {
 		*/
 		getItems?(): any[];
 		/** [Method] Sets the value of items  
-		* @param items Array 
+		* @param items Array The new value. 
 		*/
 		setItems?( items?:any[] ): void;
 	}
@@ -41023,6 +44131,230 @@ declare module Ext.util {
 	export interface IWrapper extends Ext.IBase,Ext.mixin.IBindable {
 		/** [Method]  */
 		destroy?(): void;
+	}
+}
+declare module Ext.ux {
+	export interface IActionOverFlowMenuButton extends Ext.ux.IMenuButton {
+		/** [Property] () */
+		menuItems?: any;
+	}
+}
+declare module Ext.ux {
+	export interface IApplicationMenu extends Ext.IMenu {
+		/** [Config Option] (Object) */
+		defaults?: any;
+		/** [Method] Returns the value of defaults  
+		* @returns Object 
+		*/
+		getDefaults?(): any;
+		/** [Method] Sets the value of defaults  
+		* @param defaults Object The new value. 
+		*/
+		setDefaults?( defaults?:any ): void;
+	}
+}
+declare module Ext.ux {
+	export interface IContextMenu extends Ext.IMenu {
+	}
+}
+declare module Ext.ux.device.analytics {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Returns the value of accountID  
+		* @returns Object 
+		*/
+		getAccountID?(): any;
+		/** [Method] Registers yur Google Analytics account  
+		* @param accountID String Your Google Analytics account ID 
+		*/
+		registerAccount?( accountID?:string ): void;
+		/** [Method] Sets the value of accountID  
+		* @param accountID Object The new value. 
+		*/
+		setAccountID?( accountID?:any ): void;
+		/** [Method] Track an event in your application  
+		* @param config Object 
+		*/
+		trackEvent?( config?:any ): void;
+		/** [Method] Track an pageview in your application  
+		* @param config String The page you want to track (must start with a slash). 
+		*/
+		trackPageview?( config?:string ): void;
+	}
+}
+declare module Ext.ux.device.analytics {
+	export interface ICordova extends Ext.ux.device.analytics.IAbstract {
+		/** [Method] Track an event in your application  
+		* @param config Object 
+		*/
+		trackEvent?( config?:any ): void;
+		/** [Method] Track an pageview in your application  
+		* @param page Object 
+		*/
+		trackPageview?( page?:any ): void;
+	}
+}
+declare module Ext.ux.device {
+	export interface IAnalytics extends Ext.IBase,Ext.ux.device.analytics.IAbstract {
+	}
+	export class Analytics {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the value of accountID  
+		* @returns Object 
+		*/
+		static getAccountID(): any;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Registers yur Google Analytics account  
+		* @param accountID String Your Google Analytics account ID 
+		*/
+		static registerAccount( accountID?:string ): void;
+		/** [Method] Sets the value of accountID  
+		* @param accountID Object The new value. 
+		*/
+		static setAccountID( accountID?:any ): void;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+		/** [Method] Track an event in your application  
+		* @param config Object 
+		*/
+		static trackEvent( config?:any ): void;
+		/** [Method] Track an pageview in your application  
+		* @param config String The page you want to track (must start with a slash). 
+		*/
+		static trackPageview( config?:string ): void;
+	}
+}
+declare module Ext.ux.device.twitter {
+	export interface IAbstract extends Ext.IBase {
+		/** [Method] Pops up a Twitter compose sheet view with your specified tweet  
+		* @param config Object An object which contains the following config options: 
+		*/
+		compose?( config?:any ): void;
+		/** [Method] Gets Tweets from Twitter Mentions 
+		* @param config Object An object which contains the following config options: 
+		*/
+		getMentions?( config?:any ): void;
+		/** [Method] Gets Tweets from Twitter Timeline 
+		* @param config Object An object which contains the following config options: 
+		*/
+		getPublicTimeline?( config?:any ): void;
+		/** [Method] Gets a specific Twitter user info 
+		* @param config Object An object which contains the following config options: 
+		*/
+		getTwitterRequest?( config?:any ): void;
+		/** [Method] Gets a specific Twitter user info 
+		* @param config Object An object which contains the following config options: 
+		*/
+		getTwitterUsername?( config?:any ): void;
+	}
+}
+declare module Ext.ux.device.twitter {
+	export interface ICordova extends Ext.IBase {
+	}
+}
+declare module Ext.ux.device {
+	export interface ITwitter extends Ext.IBase,Ext.ux.device.twitter.IAbstract {
+	}
+	export class Twitter {
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
+		/** [Method] Call the original method that was previously overridden with override  This method is deprecated as callParent does 
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callOverridden(arguments) 
+		* @returns Object Returns the result of calling the overridden method 
+		*/
+		static callOverridden( args?:any ): any;
+		/** [Method] Call the parent method of the current method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callParent(arguments) 
+		* @returns Object Returns the result of calling the parent method 
+		*/
+		static callParent( args?:any ): any;
+		/** [Method] This method is used by an override to call the superclass method but bypass any overridden method  
+		* @param args Array/Arguments The arguments, either an array or the arguments object from the current method, for example: this.callSuper(arguments) 
+		* @returns Object Returns the result of calling the superclass method 
+		*/
+		static callSuper( args?:any ): any;
+		/** [Method] Pops up a Twitter compose sheet view with your specified tweet  
+		* @param config Object An object which contains the following config options: 
+		*/
+		static compose( config?:any ): void;
+		/** [Method]  */
+		static destroy(): void;
+		/** [Method] Returns the initial configuration passed to constructor  
+		* @param name String When supplied, value for particular configuration option is returned, otherwise the full config object is returned. 
+		* @returns Object/Mixed 
+		*/
+		static getInitialConfig( name?:string ): any;
+		/** [Method] Gets Tweets from Twitter Mentions 
+		* @param config Object An object which contains the following config options: 
+		*/
+		static getMentions( config?:any ): void;
+		/** [Method] Gets Tweets from Twitter Timeline 
+		* @param config Object An object which contains the following config options: 
+		*/
+		static getPublicTimeline( config?:any ): void;
+		/** [Method] Gets a specific Twitter user info 
+		* @param config Object An object which contains the following config options: 
+		*/
+		static getTwitterRequest( config?:any ): void;
+		/** [Method] Gets a specific Twitter user info 
+		* @param config Object An object which contains the following config options: 
+		*/
+		static getTwitterUsername( config?:any ): void;
+		/** [Method] Initialize configuration for this class  
+		* @param instanceConfig Object 
+		* @returns Object mixins The mixin prototypes as key - value pairs 
+		*/
+		static initConfig( instanceConfig?:any ): any;
+		/** [Method] Get the reference to the class from which this object was instantiated  
+		* @returns Ext.Class 
+		*/
+		static statics(): Ext.IClass;
+	}
+}
+declare module Ext.ux {
+	export interface IMenuButton extends Ext.IButton {
+		/** [Method] Returns the value of menuItems  
+		* @returns Array 
+		*/
+		getMenuItems?(): any[];
+		/** [Method] Sets the value of menuItems  
+		* @param menuItems Array The new value. 
+		*/
+		setMenuItems?( menuItems?:any[] ): void;
+	}
+}
+declare module Ext.ux {
+	export interface ITabMenuButton extends Ext.ux.IMenuButton {
+		/** [Property] () */
+		menuItems?: any;
 	}
 }
 declare module Ext {
@@ -41124,10 +44456,10 @@ declare module Ext {
 		*/
 		toArray?(): number[];
 		/** [Method]  
-		* @param value Object 
+		* @param value Number 
 		* @returns Number 
 		*/
-		toNumber?( value?:any ): number;
+		toNumber?( value?:number ): number;
 	}
 	export class Version {
 		/** [Method] Compare 2 specified versions starting from left to right  
@@ -41145,14 +44477,14 @@ declare module Ext {
 }
 declare module Ext {
 	export interface IVideo extends Ext.IMedia {
-		/** [Config Option] (String/String[]) */
-		cls?: any;
+		/** [Config Option] (String) */
+		baseCls?: string;
 		/** [Config Option] (String) */
 		posterUrl?: string;
-		/** [Method] Returns the value of cls  
+		/** [Method] Returns the value of baseCls  
 		* @returns String 
 		*/
-		getCls?(): string;
+		getBaseCls?(): string;
 		/** [Method] Returns the value of posterUrl  
 		* @returns String 
 		*/
@@ -41163,16 +44495,16 @@ declare module Ext {
 		getUrl?(): string;
 		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
-		/** [Method] Sets the value of cls  
-		* @param cls String 
+		/** [Method] Sets the value of baseCls  
+		* @param baseCls String The new value. 
 		*/
-		setCls?( cls?:string ): void;
+		setBaseCls?( baseCls?:string ): void;
 		/** [Method] Sets the value of posterUrl  
-		* @param posterUrl String 
+		* @param posterUrl String The new value. 
 		*/
 		setPosterUrl?( posterUrl?:string ): void;
 		/** [Method] Sets the value of url  
-		* @param url String/Array 
+		* @param url String/Array The new value. 
 		*/
 		setUrl?( url?:any ): void;
 		/** [Method] Updates the URL to the poster even if it is rendered  
@@ -41187,14 +44519,22 @@ declare module Ext {
 }
 declare module Ext.viewport {
 	export interface IAndroid extends Ext.viewport.IDefault {
-		/** [Method] Returns the value of autoBlurInput  
-		* @returns Boolean 
+		/** [Method] Returns the value of translatable  
+		* @returns Object 
 		*/
-		getAutoBlurInput?(): boolean;
-		/** [Method] Sets the value of autoBlurInput  
-		* @param autoBlurInput Boolean 
+		getTranslatable?(): any;
+		/** [Method] Retrieves the document height  
+		* @returns Number height in pixels. 
 		*/
-		setAutoBlurInput?( autoBlurInput?:boolean ): void;
+		getWindowHeight?(): number;
+		/** [Method] Retrieves the document width  
+		* @returns Number width in pixels. 
+		*/
+		getWindowWidth?(): number;
+		/** [Method] Sets the value of translatable  
+		* @param translatable Object The new value. 
+		*/
+		setTranslatable?( translatable?:any ): void;
 	}
 }
 declare module Ext.viewport {
@@ -41247,26 +44587,56 @@ declare module Ext.viewport {
 		* @returns Number width in pixels. 
 		*/
 		getWindowWidth?(): number;
+		/** [Method] Hides all visible menus  
+		* @param animation Object 
+		*/
+		hideAllMenus?( animation?:any ): void;
+		/** [Method] Hides a menu specified by the menu s side  
+		* @param side String The side which the menu is placed. 
+		*/
+		hideMenu?( side?:string ): void;
+		/** [Method] Hides all menus except for the side specified 
+		* @param side String Side(s) not to hide 
+		* @param animation String Animation to hide with 
+		*/
+		hideOtherMenus?( side?:string, animation?:string ): void;
+		/** [Method] Removes a menu from a specified side  
+		* @param side String The side to remove the menu from 
+		*/
+		removeMenu?( side?:string ): void;
 		/** [Method] Sets the value of autoMaximize  
-		* @param autoMaximize Boolean 
+		* @param autoMaximize Boolean The new value. 
 		*/
 		setAutoMaximize?( autoMaximize?:boolean ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object/String 
+		* @param layout Object/String The new value. 
 		*/
 		setLayout?( layout?:any ): void;
+		/** [Method] Sets a menu for a given side of the Viewport  
+		* @param menu Ext.Menu The menu to assign to the viewport 
+		* @param config Object The configuration for the menu. 
+		*/
+		setMenu?( menu?:Ext.IMenu, config?:any ): void;
 		/** [Method] Sets the value of preventPanning  
-		* @param preventPanning Boolean 
+		* @param preventPanning Boolean The new value. 
 		*/
 		setPreventPanning?( preventPanning?:boolean ): void;
 		/** [Method] Sets the value of preventZooming  
-		* @param preventZooming Boolean 
+		* @param preventZooming Boolean The new value. 
 		*/
 		setPreventZooming?( preventZooming?:boolean ): void;
 		/** [Method] Sets the value of useBodyElement  
-		* @param useBodyElement Boolean 
+		* @param useBodyElement Boolean The new value. 
 		*/
 		setUseBodyElement?( useBodyElement?:boolean ): void;
+		/** [Method] Shows a menu specified by the menu s side  
+		* @param side String The side which the menu is placed. 
+		*/
+		showMenu?( side?:string ): void;
+		/** [Method] Toggles the menu specified by side 
+		* @param side String The side which the menu is placed. 
+		*/
+		toggleMenu?( side?:string ): void;
 	}
 }
 declare module Ext.viewport {
@@ -41277,6 +44647,12 @@ declare module Ext {
 	export interface IViewport extends Ext.viewport.IDefault {
 	}
 	export class Viewport {
+		/** [Property] (Boolean) */
+		static isReady: boolean;
+		/** [Property] (Ext.util.MixedCollection) */
+		static items: Ext.util.IMixedCollection;
+		/** [Property] (Ext.Class) */
+		static self: Ext.IClass;
 		/** [Method] Adds one or more Components to this Container  
 		* @param newItems Object/Object[]/Ext.Component/Ext.Component[] The new items to add to the Container. 
 		* @returns Ext.Component The last item added to the Container from the newItems array. 
@@ -41392,6 +44768,11 @@ declare module Ext {
 		* @returns Object/String/Number 
 		*/
 		static getActiveItem(): any;
+		/** [Method] Prepares information on aligning this to component using alignment  
+		* @param component Object 
+		* @param alignment Object 
+		*/
+		static getAlignmentInfo( component?:any, alignment?:any ): void;
 		/** [Method] Returns the Component for a given index in the Container s items  
 		* @param index Number The index of the Component to return. 
 		* @returns Ext.Component The item at the specified index, if found. 
@@ -41641,7 +45022,7 @@ declare module Ext {
 		*/
 		static getTop(): any;
 		/** [Method] Returns the value of tpl  
-		* @returns String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @returns String/String[]/Ext.Template/Ext.XTemplate[] 
 		*/
 		static getTpl(): any;
 		/** [Method] Returns the value of tplWriteMode  
@@ -41681,11 +45062,23 @@ declare module Ext {
 		* @returns Boolean true if this component has a parent. 
 		*/
 		static hasParent(): boolean;
-		/** [Method] Hides this Component 
-		* @param animation Object/Boolean 
+		/** [Method] Hides this Component optionally using an animation  
 		* @returns Ext.Component 
 		*/
-		static hide( animation?:any ): Ext.IComponent;
+		static hide(): Ext.IComponent;
+		/** [Method] Hides all visible menus  
+		* @param animation Object 
+		*/
+		static hideAllMenus( animation?:any ): void;
+		/** [Method] Hides a menu specified by the menu s side  
+		* @param side String The side which the menu is placed. 
+		*/
+		static hideMenu( side?:string ): void;
+		/** [Method] Hides all menus except for the side specified 
+		* @param side String Side(s) not to hide 
+		* @param animation String Animation to hide with 
+		*/
+		static hideOtherMenus( side?:string, animation?:string ): void;
 		/** [Method] Initialize configuration for this class  
 		* @param instanceConfig Object 
 		* @returns Object mixins The mixin prototypes as key - value pairs 
@@ -41827,6 +45220,10 @@ declare module Ext {
 		* @param scope Object If the eventName parameter was an event name, this is the scope in which the handler function is executed. 
 		*/
 		static removeManagedListener( object?:any, eventName?:any, fn?:any, scope?:any ): void;
+		/** [Method] Removes a menu from a specified side  
+		* @param side String The side to remove the menu from 
+		*/
+		static removeMenu( side?:string ): void;
 		/** [Method] Replaces specified classes with the newly specified classes  
 		* @param oldCls String The class(es) to remove. 
 		* @param newCls String The class(es) to add. 
@@ -41841,87 +45238,87 @@ declare module Ext {
 		*/
 		static resumeEvents( discardQueuedEvents?:boolean ): void;
 		/** [Method] Sets the value of activeItem  
-		* @param activeItem Object/String/Number 
+		* @param activeItem Object/String/Number The new value. 
 		*/
 		static setActiveItem( activeItem?:any ): void;
 		/** [Method] Sets the value of autoDestroy  
-		* @param autoDestroy Boolean 
+		* @param autoDestroy Boolean The new value. 
 		*/
 		static setAutoDestroy( autoDestroy?:boolean ): void;
 		/** [Method] Sets the value of autoMaximize  
-		* @param autoMaximize Boolean 
+		* @param autoMaximize Boolean The new value. 
 		*/
 		static setAutoMaximize( autoMaximize?:boolean ): void;
 		/** [Method] Sets the value of baseCls  
-		* @param baseCls String 
+		* @param baseCls String The new value. 
 		*/
 		static setBaseCls( baseCls?:string ): void;
 		/** [Method] Sets the value of border  
-		* @param border Number/String 
+		* @param border Number/String The new value. 
 		*/
 		static setBorder( border?:any ): void;
 		/** [Method] Sets the value of bottom  
-		* @param bottom Number/String 
+		* @param bottom Number/String The new value. 
 		*/
 		static setBottom( bottom?:any ): void;
 		/** [Method] Sets the value of bubbleEvents  
-		* @param bubbleEvents String/String[] 
+		* @param bubbleEvents String/String[] The new value. 
 		*/
 		static setBubbleEvents( bubbleEvents?:any ): void;
 		/** [Method] Sets the value of centered  
-		* @param centered Boolean 
+		* @param centered Boolean The new value. 
 		*/
 		static setCentered( centered?:boolean ): void;
 		/** [Method] Sets the value of cls  
-		* @param cls String/String[] 
+		* @param cls String/String[] The new value. 
 		*/
 		static setCls( cls?:any ): void;
 		/** [Method] Sets the value of contentEl  
-		* @param contentEl Ext.Element/HTMLElement/String 
+		* @param contentEl Ext.Element/HTMLElement/String The new value. 
 		*/
 		static setContentEl( contentEl?:any ): void;
 		/** [Method] Sets the value of control  
-		* @param control Object 
+		* @param control Object The new value. 
 		*/
 		static setControl( control?:any ): void;
 		/** [Method] Sets the value of data  
-		* @param data Object 
+		* @param data Object The new value. 
 		*/
 		static setData( data?:any ): void;
 		/** [Method] Sets the value of defaultType  
-		* @param defaultType String 
+		* @param defaultType String The new value. 
 		*/
 		static setDefaultType( defaultType?:string ): void;
 		/** [Method] Sets the value of defaults  
-		* @param defaults Object 
+		* @param defaults Object The new value. 
 		*/
 		static setDefaults( defaults?:any ): void;
 		/** [Method] Sets the value of disabled  
-		* @param disabled Boolean 
+		* @param disabled Boolean The new value. 
 		*/
 		static setDisabled( disabled?:boolean ): void;
 		/** [Method] Sets the value of disabledCls  
-		* @param disabledCls String 
+		* @param disabledCls String The new value. 
 		*/
 		static setDisabledCls( disabledCls?:string ): void;
 		/** [Method] Sets the value of docked  
-		* @param docked String 
+		* @param docked String The new value. 
 		*/
 		static setDocked( docked?:string ): void;
 		/** [Method] Sets the value of draggable  
-		* @param draggable Object 
+		* @param draggable Object The new value. 
 		*/
 		static setDraggable( draggable?:any ): void;
 		/** [Method] Sets the value of enterAnimation  
-		* @param enterAnimation String/Mixed 
+		* @param enterAnimation String/Mixed The new value. 
 		*/
 		static setEnterAnimation( enterAnimation?:any ): void;
 		/** [Method] Sets the value of exitAnimation  
-		* @param exitAnimation String/Mixed 
+		* @param exitAnimation String/Mixed The new value. 
 		*/
 		static setExitAnimation( exitAnimation?:any ): void;
 		/** [Method] Sets the value of flex  
-		* @param flex Number 
+		* @param flex Number The new value. 
 		*/
 		static setFlex( flex?:number ): void;
 		/** [Method] Used to update the floating state of this component  
@@ -41929,111 +45326,117 @@ declare module Ext {
 		*/
 		static setFloating( floating?:boolean ): void;
 		/** [Method] Sets the value of floatingCls  
-		* @param floatingCls String 
+		* @param floatingCls String The new value. 
 		*/
 		static setFloatingCls( floatingCls?:string ): void;
 		/** [Method] Sets the value of hidden  
-		* @param hidden Boolean 
+		* @param hidden Boolean The new value. 
 		*/
 		static setHidden( hidden?:boolean ): void;
 		/** [Method] Sets the value of hiddenCls  
-		* @param hiddenCls String 
+		* @param hiddenCls String The new value. 
 		*/
 		static setHiddenCls( hiddenCls?:string ): void;
 		/** [Method] Sets the value of hideAnimation  
-		* @param hideAnimation String/Mixed 
+		* @param hideAnimation String/Mixed The new value. 
 		*/
 		static setHideAnimation( hideAnimation?:any ): void;
 		/** [Method] Sets the value of hideOnMaskTap  
-		* @param hideOnMaskTap Boolean 
+		* @param hideOnMaskTap Boolean The new value. 
 		*/
 		static setHideOnMaskTap( hideOnMaskTap?:boolean ): void;
 		/** [Method] Sets the value of html  
-		* @param html String/Ext.Element/HTMLElement 
+		* @param html String/Ext.Element/HTMLElement The new value. 
 		*/
 		static setHtml( html?:any ): void;
 		/** [Method] Sets the value of itemId  
-		* @param itemId String 
+		* @param itemId String The new value. 
 		*/
 		static setItemId( itemId?:string ): void;
 		/** [Method] Sets the value of items  
-		* @param items Array/Object 
+		* @param items Array/Object The new value. 
 		*/
 		static setItems( items?:any ): void;
 		/** [Method] Sets the value of layout  
-		* @param layout Object/String 
+		* @param layout Object/String The new value. 
 		*/
 		static setLayout( layout?:any ): void;
 		/** [Method] Sets the value of left  
-		* @param left Number/String 
+		* @param left Number/String The new value. 
 		*/
 		static setLeft( left?:any ): void;
 		/** [Method] Sets the value of listeners  
-		* @param listeners Object 
+		* @param listeners Object The new value. 
 		*/
 		static setListeners( listeners?:any ): void;
 		/** [Method] Sets the value of margin  
-		* @param margin Number/String 
+		* @param margin Number/String The new value. 
 		*/
 		static setMargin( margin?:any ): void;
 		/** [Method] Sets the value of masked  
-		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask 
+		* @param masked Boolean/Object/Ext.Mask/Ext.LoadMask The new value. 
 		*/
 		static setMasked( masked?:any ): void;
 		/** [Method] Sets the value of maxHeight  
-		* @param maxHeight Number/String 
+		* @param maxHeight Number/String The new value. 
 		*/
 		static setMaxHeight( maxHeight?:any ): void;
 		/** [Method] Sets the value of maxWidth  
-		* @param maxWidth Number/String 
+		* @param maxWidth Number/String The new value. 
 		*/
 		static setMaxWidth( maxWidth?:any ): void;
+		/** [Method] Sets a menu for a given side of the Viewport  
+		* @param menu Ext.Menu The menu to assign to the viewport 
+		* @param config Object The configuration for the menu. 
+		*/
+		static setMenu( menu?:Ext.IMenu, config?:any ): void;
 		/** [Method] Sets the value of minHeight  
-		* @param minHeight Number/String 
+		* @param minHeight Number/String The new value. 
 		*/
 		static setMinHeight( minHeight?:any ): void;
 		/** [Method] Sets the value of minWidth  
-		* @param minWidth Number/String 
+		* @param minWidth Number/String The new value. 
 		*/
 		static setMinWidth( minWidth?:any ): void;
 		/** [Method] Sets the value of modal  
-		* @param modal Boolean 
+		* @param modal Boolean The new value. 
 		*/
 		static setModal( modal?:boolean ): void;
 		/** [Method] Sets the value of padding  
-		* @param padding Number/String 
+		* @param padding Number/String The new value. 
 		*/
 		static setPadding( padding?:any ): void;
 		/** [Method] Sets the value of plugins  
-		* @param plugins Object/Array 
+		* @param plugins Object/Array The new value. 
 		*/
 		static setPlugins( plugins?:any ): void;
 		/** [Method] Sets the value of preventPanning  
-		* @param preventPanning Boolean 
+		* @param preventPanning Boolean The new value. 
 		*/
 		static setPreventPanning( preventPanning?:boolean ): void;
 		/** [Method] Sets the value of preventZooming  
-		* @param preventZooming Boolean 
+		* @param preventZooming Boolean The new value. 
 		*/
 		static setPreventZooming( preventZooming?:boolean ): void;
 		/** [Method] Sets the value of record  
-		* @param record Ext.data.Model 
+		* @param record Ext.data.Model The new value. 
 		*/
 		static setRecord( record?:Ext.data.IModel ): void;
 		/** [Method] Sets the value of renderTo  
-		* @param renderTo Ext.Element 
+		* @param renderTo Ext.Element The new value. 
 		*/
 		static setRenderTo( renderTo?:Ext.IElement ): void;
 		/** [Method] Sets the value of right  
-		* @param right Number/String 
+		* @param right Number/String The new value. 
 		*/
 		static setRight( right?:any ): void;
 		/** [Method] Sets the value of scrollable  
-		* @param scrollable Boolean/String/Object 
+		* @param scrollable Boolean/String/Object The new value. 
+		* @returns Ext.scroll.View The scroll view. 
 		*/
-		static setScrollable( scrollable?:any ): void;
+		static setScrollable( scrollable?:any ): Ext.scroll.IView;
 		/** [Method] Sets the value of showAnimation  
-		* @param showAnimation String/Mixed 
+		* @param showAnimation String/Mixed The new value. 
 		*/
 		static setShowAnimation( showAnimation?:any ): void;
 		/** [Method] Sets the size of the Component  
@@ -42042,57 +45445,64 @@ declare module Ext {
 		*/
 		static setSize( width?:number, height?:number ): void;
 		/** [Method] Sets the value of style  
-		* @param style String/Object 
+		* @param style String/Object The new value. 
 		*/
 		static setStyle( style?:any ): void;
 		/** [Method] Sets the value of styleHtmlCls  
-		* @param styleHtmlCls String 
+		* @param styleHtmlCls String The new value. 
 		*/
 		static setStyleHtmlCls( styleHtmlCls?:string ): void;
 		/** [Method] Sets the value of styleHtmlContent  
-		* @param styleHtmlContent Boolean 
+		* @param styleHtmlContent Boolean The new value. 
 		*/
 		static setStyleHtmlContent( styleHtmlContent?:boolean ): void;
 		/** [Method] Sets the value of top  
-		* @param top Number/String 
+		* @param top Number/String The new value. 
 		*/
 		static setTop( top?:any ): void;
 		/** [Method] Sets the value of tpl  
-		* @param tpl String/String[]/Ext.Template[]/Ext.XTemplate[] 
+		* @param tpl String/String[]/Ext.Template/Ext.XTemplate[] The new value. 
 		*/
 		static setTpl( tpl?:any ): void;
 		/** [Method] Sets the value of tplWriteMode  
-		* @param tplWriteMode String 
+		* @param tplWriteMode String The new value. 
 		*/
 		static setTplWriteMode( tplWriteMode?:string ): void;
 		/** [Method] Sets the value of ui  
-		* @param ui String 
+		* @param ui String The new value. 
 		*/
 		static setUi( ui?:string ): void;
 		/** [Method] Sets the value of useBodyElement  
-		* @param useBodyElement Boolean 
+		* @param useBodyElement Boolean The new value. 
 		*/
 		static setUseBodyElement( useBodyElement?:boolean ): void;
 		/** [Method] Sets the value of zIndex  
-		* @param zIndex Number 
+		* @param zIndex Number The new value. 
 		*/
 		static setZIndex( zIndex?:number ): void;
-		/** [Method] Shows this component  
-		* @param animation Object/Boolean 
+		/** [Method] Shows this component optionally using an animation  
 		* @returns Ext.Component 
 		*/
-		static show( animation?:any ): Ext.IComponent;
+		static show(): Ext.IComponent;
 		/** [Method] Shows this component by another component  
 		* @param component Ext.Component The target component to show this component by. 
 		* @param alignment String The specific alignment. 
 		*/
 		static showBy( component?:Ext.IComponent, alignment?:string ): void;
+		/** [Method] Shows a menu specified by the menu s side  
+		* @param side String The side which the menu is placed. 
+		*/
+		static showMenu( side?:string ): void;
 		/** [Method] Get the reference to the class from which this object was instantiated  
 		* @returns Ext.Class 
 		*/
 		static statics(): Ext.IClass;
 		/** [Method] Suspends the firing of all events  */
 		static suspendEvents(): void;
+		/** [Method] Toggles the menu specified by side 
+		* @param side String The side which the menu is placed. 
+		*/
+		static toggleMenu( side?:string ): void;
 		/** [Method] Alias for removeListener  
 		* @param eventName String/String[]/Object The type of event the handler was associated with. 
 		* @param fn Function/String The handler to remove. This must be a reference to the function passed into the addListener call. 
@@ -42137,14 +45547,30 @@ declare module Ext.viewport {
 }
 declare module Ext.viewport {
 	export interface IWindowsPhone extends Ext.viewport.IDefault {
-		/** [Method] so one pixel line is displayed on the right side of the screen  */
+		/** [Method] Returns the value of translatable  
+		* @returns Object 
+		*/
+		getTranslatable?(): any;
+		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
+		/** [Method] Sets the value of translatable  
+		* @param translatable Object The new value. 
+		*/
+		setTranslatable?( translatable?:any ): void;
 	}
 }
 declare module Ext.viewport {
 	export interface IWP extends Ext.viewport.IDefault {
-		/** [Method] so one pixel line is displayed on the right side of the screen  */
+		/** [Method] Returns the value of translatable  
+		* @returns Object 
+		*/
+		getTranslatable?(): any;
+		/** [Method] Allows addition of behavior to the rendering phase  */
 		initialize?(): void;
+		/** [Method] Sets the value of translatable  
+		* @param translatable Object The new value. 
+		*/
+		setTranslatable?( translatable?:any ): void;
 	}
 }
 declare module Ext {

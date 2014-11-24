@@ -1,9 +1,7 @@
-﻿// Type definitions for sptypescript
+// Type definitions for sptypescript
 // Project: http://sptypescript.codeplex.com
-// Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru> and Andrey Markeev <http://markeev.com>
+// Definitions by: Stanislav Vyshchepan <http://gandjustas.blogspot.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-
 
 declare module Sys {
     export class EventArgs {
@@ -154,6 +152,7 @@ declare var $get: { (id: string): HTMLElement; };
 declare var $addHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void): void; };
 declare var $removeHandler: { (element: HTMLElement, eventName: string, handler: (e: Event) => void): void; };
 
+
 declare module SP {
     export class SOD {
         static execute(fileName: string, functionName: string, ...args: any[]): void;
@@ -172,9 +171,108 @@ declare module SP {
 
         static get_ribbonImagePrefetchEnabled(): boolean;
         static set_ribbonImagePrefetchEnabled(value: boolean): void;
-
-
     }
+
+    export enum ListLevelPermissionMask {
+        viewListItems,//: 1,
+        insertListItems,//: 2,
+        editListItems,//: 4,
+        deleteListItems,//: 8,
+        approveItems,//: 16,
+        openItems,//: 32,
+        viewVersions,//: 64,
+        deleteVersions,//: 128,
+        breakCheckout,//: 256,
+        managePersonalViews,//: 512,
+        manageLists//: 2048
+    }
+
+    export class HtmlBuilder {
+        constructor();
+        addAttribute(name: string, value: string): void;
+        addCssClass(cssClassName: string): void;
+        addCommunitiesCssClass(cssClassName: string): void;
+        renderBeginTag(tagName: string): void;
+        renderEndTag(): void;
+        write(s: string): void;
+        writeEncoded(s: string): void;
+        toString(): string;
+    }
+
+    export class ScriptHelpers {
+        static disableWebpartSelection(context: SPClientTemplates.RenderContext): void;
+        static getDocumentQueryPairs(): { [index: string]: string; };
+        static getFieldFromSchema(schema: SPClientTemplates.ListSchema, fieldName: string): SPClientTemplates.FieldSchema;
+        static getLayoutsPageUrl(pageName: string, webServerRelativeUrl: string): string;
+        static getListLevelPermissionMask(jsonItem: string): number;
+        static getTextAreaElementValue(textAreaElement: HTMLTextAreaElement): string;
+        static getUrlQueryPairs(docUrl: string): { [index: string]: string; };
+        static getUserFieldProperty(item: ListItem, fieldName: string, propertyName: string): any;
+        static hasPermission(listPermissionMask: number, listPermission: ListLevelPermissionMask): boolean;
+        static newGuid(): SP.Guid;
+        static isNullOrEmptyString(str: string): boolean;
+        static isNullOrUndefined(obj: any): boolean;
+        static isNullOrUndefinedOrEmpty(str: string): boolean;
+        static isUndefined(obj: any): boolean;
+        static replaceOrAddQueryString(url: string, key: string, value: string): string;
+        static removeHtml(str: string): string;
+        static removeStyleChildren(element: HTMLElement);
+        static removeHtmlAndTrimStringWithEllipsis(str: string, maxLength: number): string;
+        static setTextAreaElementValue(textAreaElement: HTMLTextAreaElement, newValue: string): void;
+        static truncateToInt(n: number): number;
+        static urlCombine(path1: string, path2: string): string;
+        static resizeImageToSquareLength(imgElement: HTMLImageElement, squareLength: number): void;
+    }
+
+
+    export class PageContextInfo {
+        static get_siteServerRelativeUrl(): string;
+        static get_webServerRelativeUrl(): string;
+        static get_webAbsoluteUrl(): string;
+        static get_serverRequestPath(): string;
+        static get_siteAbsoluteUrl(): string;
+        static get_webTitle(): string;
+        static get_tenantAppVersion(): string;
+        static get_webLogoUrl(): string;
+        static get_webLanguage(): number;
+        static get_currentLanguage(): number;
+        static get_pageItemId(): number;
+        static get_pageListId(): string;
+        static get_webPermMasks(): { High: number; Low: number; };
+        static get_currentCultureName(): string;
+        static get_currentUICultureName(): string;
+        static get_clientServerTimeDelta(): number;
+        static get_userLoginName(): string;
+        static get_webTemplate(): string;
+        get_pagePersonalizationScope(): string;
+    }
+
+    export class ContextPermissions {
+        has(perm: number): boolean;
+        hasPermissions(high: number, low: number): boolean;
+        fromJson(json: { High: number; Low: number; }): void;
+    }
+
+    export module ListOperation {
+        export module ViewOperation {
+            export function getSelectedView(): string;
+            export function navigateUp(viewId: string): void;
+            export function refreshView(viewId: string): void;
+        }
+        export module Selection {
+            export function selectListItem(iid: string, bSelect: boolean);
+            export function getSelectedItems(): { id: number; fsObjType: FileSystemObjectType; }[];
+            export function getSelectedList(): string;
+            export function getSelectedView(): string;
+            export function navigateUp(viewId: string): void;
+            export function deselectAllListItems(iid: string);
+        }
+        export module Overrides {
+            export function overrideDeleteConfirmation(listId: string, overrideText:string):void;
+        }
+    }
+
+
 }
 
 /** Register function to rerun on partial update in MDS-enabled site.*/
@@ -229,6 +327,143 @@ declare function AddEvtHandler(element: HTMLElement, event: string, func: EventL
 
 /** Gets query string parameter */
 declare function GetUrlKeyValue(key: string): string;
+
+declare class AjaxNavigate {
+    update(url:string, updateParts:Object, fullNavigate:boolean, anchorName:string):void;
+    add_navigate(handler: Function): void;
+    remove_navigate(handler:Function):void;
+    submit(formToSubmit:HTMLFormElement):void;
+    getParam(paramName:string):string;
+    getSavedFormAction():string;
+    get_href(): string;
+    get_hash(): string;
+    get_search():string;
+    convertMDSURLtoRegularURL(mdsPath:string):string;
+}
+
+declare var ajaxNavigate: AjaxNavigate;
+
+declare class Browseris {
+    firefox: boolean;
+    firefox36up: boolean;
+    firefox3up: boolean;
+    firefox4up: boolean;
+    ie: boolean;
+    ie55up: boolean;
+    ie5up: boolean;
+    ie7down: boolean;
+    ie8down: boolean;
+    ie9down: boolean;
+    ie8standard: boolean;
+    ie8standardUp: boolean;
+    ie9standardUp: boolean;
+    ipad: boolean;
+    windowsphone: boolean;
+    chrome: boolean;
+    chrome7up: boolean;
+    chrome8up: boolean;
+    chrome9up: boolean;
+    iever: boolean;
+    mac: boolean;
+    major: boolean;
+    msTouch: boolean;
+    isTouch: boolean;
+    nav: boolean;
+    nav6: boolean;
+    nav6up: boolean;
+    nav7up: boolean;
+    osver: boolean;
+    safari: boolean;
+    safari125up: boolean;
+    safari3up: boolean;
+    verIEFull: boolean;
+    w3c: boolean;
+    webKit: boolean;
+    win: boolean;
+    win8AppHost: boolean;
+    win32: boolean;
+    win64bit: boolean;
+    winnt: boolean;
+    armProcessor: boolean
+}
+
+declare var browseris: Browseris;
+
+interface ContextInfo extends SPClientTemplates.RenderContext {
+    AllowGridMode: boolean;
+    BasePermissions: any;
+    BaseViewID: any;
+    CascadeDeleteWarningMessage: string;
+    ContentTypesEnabled: boolean;
+    CurrentSelectedItems: boolean;
+    CurrentUserId: number;
+    EnableMinorVersions: boolean;
+    ExternalDataList: boolean;
+    HasRelatedCascadeLists: boolean;
+    HttpPath: string;
+    HttpRoot: string;
+    LastSelectableRowIdx: number;
+    LastSelectedItemIID: number;
+    LastRowIndexSelected: number;
+    RowFocusTimerID: number;
+    ListData: any;// SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
+    ListSchema: SPClientTemplates.ListSchema;
+    ModerationStatus: number;
+    PortalUrl: string;
+    RecycleBinEnabled: number;
+    SelectAllCbx: HTMLElement;
+    SendToLocationName: string;
+    SendToLocationUrl: string;
+    StateInitDone: boolean;
+    TableCbxFocusHandler: Function;
+    TableMouseoverHandler: Function;
+    TotalListItems: number;
+    WorkflowsAssociated: boolean;
+    clvp: any;
+    ctxId: number;
+    ctxType: any;
+    dictSel: any;
+    displayFormUrl: string;
+    editFormUrl: string;
+    imagesPath: string;
+    inGridMode: boolean;
+    inGridFullRender: boolean;
+    isForceCheckout: boolean;
+    isModerated: boolean;
+    isPortalTemplate: boolean;
+    isVersions: boolean;
+    isWebEditorPreview: boolean;
+    leavingGridMode: boolean;
+    loadingAsyncData: boolean;
+    listBaseType: number;
+    listName: string;
+    listTemplate: string;
+    listUrlDir: string;
+    newFormUrl: string;
+    onRefreshFailed: Function;
+    overrideDeleteConfirmation: string;
+    overrideFilterQstring: string;
+    recursiveView: boolean;
+    rootFolderForDisplay: string;
+    serverUrl: string;
+    verEnabled: boolean;
+    view: string;
+    queryString: string;
+    IsClientRendering: boolean;
+    wpq: string;
+    rootFolder: string;
+    IsAppWeb: boolean;
+    NewWOPIDocumentEnabled: boolean;
+    NewWOPIDocumentUrl: string;
+    AllowCreateFolder: boolean;
+    CanShareLinkForNewDocument: boolean;
+    noGroupCollapse: boolean;
+    SiteTemplateId: number;
+    ExcludeFromOfflineClient: boolean;
+
+}
+
+declare function GetCurrentCtx():ContextInfo;
 declare module SP {
     export enum RequestExecutorErrors {
         requestAbortedOrTimedout,
@@ -246,8 +481,8 @@ declare module SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_iFrameSourceUrl(): string;
         set_iFrameSourceUrl(value: string): void;
-        executeAsync(requestInfo: RequestInfo): void;
-        attemptLogin(returnUrl: string, success: (response: ResponseInfo) => void, error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void): void;
+        executeAsync(requestInfo:RequestInfo): void;
+        attemptLogin(returnUrl:string, success: (response: ResponseInfo) => void , error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void): void;
     }
 
     export interface RequestInfo {
@@ -287,12 +522,13 @@ declare module SP {
         createWebRequestExecutor(): ProxyWebRequestExecutor;
     }
 }
-interface MQuery {
+interface MQuery
+{
     (selector: string, context?: any): MQueryResultSetElements;
     (element: HTMLElement): MQueryResultSetElements;
     (object: MQueryResultSetElements): MQueryResultSetElements;
     <T>(object: MQueryResultSet<T>): MQueryResultSet<T>;
-    <T>(object: T): MQueryResultSet<T>;
+    <T>(object: T): MQueryResultSet<T>;    
     (elementArray: HTMLElement[]): MQueryResultSetElements;
     <T>(array: T[]): MQueryResultSet<T>;
     <T>(): MQueryResultSet<T>;
@@ -321,7 +557,7 @@ interface MQuery {
     isObject(obj: any): boolean;
     isEmptyObject(obj: any): boolean;
 
-    ready(callback: () => void): void;
+    ready(callback: () => void ): void;
     contains(container: HTMLElement, contained: HTMLElement): boolean;
 
     proxy(fn: (...args: any[]) => any, context: any, ...args: any[]): Function;
@@ -363,7 +599,7 @@ interface MQuery {
     hasData(element: HTMLElement): boolean;
 }
 
-interface MQueryResultSetElements extends MQueryResultSet<HTMLElement> {
+interface MQueryResultSetElements extends MQueryResultSet<HTMLElement>{
     append(node: HTMLElement): MQueryResultSetElements;
     append(mQuerySet: MQueryResultSetElements): MQueryResultSetElements;
     append(html: string): MQueryResultSetElements;
@@ -471,26 +707,26 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement> {
     submit(): MQueryResultSetElements;
     submit(handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
     unload(): MQueryResultSetElements;
-    unload(handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements;
+    unload(handler: (eventObject: MQueryEvent) => any): MQueryResultSetElements; 
 
 }
 
-interface MQueryResultSet<T> {
+interface MQueryResultSet<T> {    
     [index: number]: T;
     contains(contained: T): boolean;
-
+    
     filter(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): MQueryResultSet<T>;
-    filter(fn: (elementOfArray: T) => boolean, context?: any): MQueryResultSet<T>;
+    filter(fn: (elementOfArray: T) => boolean, context?: any): MQueryResultSet<T>;    
 
     every(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): boolean;
     every(fn: (elementOfArray: T) => boolean, context?: any): boolean;
-
+    
     some(fn: (elementOfArray: T, indexInArray: number) => boolean, context?: any): boolean;
     some(fn: (elementOfArray: T) => boolean, context?: any): boolean;
-
+    
     map(callback: (elementOfArray: T, indexInArray: number) => any): MQueryResultSet<T>;
     map(callback: (elementOfArray: T) => any): MQueryResultSet<T>;
-
+    
     forEach(fn: (elementOfArray: T, indexInArray: number) => void, context?: any): void;
     forEach(fn: (elementOfArray: T) => void, context?: any): void;
 
@@ -579,12 +815,12 @@ declare class CalloutAction {
     render(): void;
     isEnabled(): boolean;
     isVisible(): boolean;
-    set(options: CalloutActionOptions): void;
+    set (options: CalloutActionOptions): void;
 }
 
 declare class Callout {
     /** Sets options for the callout. Not all options can be changed for the callout after its creation. */
-    set(options: CalloutOptions);
+    set (options: CalloutOptions);
     /** Adds event handler to the callout.
         @param eventName one of the following: "opened", "opening", "closing", "closed" */
     addEventCallback(eventName: string, callback: (callout: Callout) => void);
@@ -625,9 +861,9 @@ declare class Callout {
     /** Re-renders the actions menu. Call after the actions menu is changed. */
     refreshActions(): void;
     /** Display the callout. Animation can be used only for IE9+ */
-    open(useAnimation: boolean);
+    open(useAnimation?: boolean);
     /** Hide the callout. Animation can be used only for IE9+ */
-    close(useAnimation: boolean);
+    close(useAnimation?: boolean);
     /** Display if hidden, hide if shown. */
     toggle(): void;
     /** Do not call this directly. Instead, use CalloutManager.remove */
@@ -867,17 +1103,26 @@ declare module SPClientTemplates {
         PictureOnly: boolean;
         PictureSize: string;
     }
-    /** Represents field schema in Grid mode and on list forms.
-        Consider casting objects of this type to more specific field types, e.g. FieldSchemaInForm_Lookup */
-    export interface FieldSchema_InForm {
+
+    export interface FieldSchema {
         /** Specifies if the field can be edited while list view is in the Grid mode */
         AllowGridEditing: boolean;
+        /** String representation of the field type, e.g. "Lookup". Same as SPField.TypeAsString */
+        FieldType: string;
+        /** Internal name of the field */
+        Name: string;
+        /** For OOTB fields, returns the type of field. For "UserMulti" returns "User", for "LookupMulti" returns "Lookup".
+            For custom field types, returns base type of the field. */
+        Type: string;
+    }
+
+/** Represents field schema in Grid mode and on list forms.
+        Consider casting objects of this type to more specific field types, e.g. FieldSchemaInForm_Lookup */
+    export interface FieldSchema_InForm extends FieldSchema {
         /** Description for this field. */
         Description: string;
         /** Direction of the reading order for the field. */
         Direction: string;
-        /** String representation of the field type, e.g. "Lookup". Same as SPField.TypeAsString */
-        FieldType: string;
         /** Indicates whether the field is hidden */
         Hidden: boolean;
         /** Guid of the field */
@@ -885,8 +1130,6 @@ declare module SPClientTemplates {
         /** Specifies Input Method Editor (IME) mode bias to use for the field.
             The IME enables conversion of keystrokes between languages when one writing system has more characters than can be encoded for the given keyboard. */
         IMEMode: any;
-        /** Internal name of the field */
-        Name: string;
         /** Specifies if the field is read only */
         ReadOnlyField: boolean;
         /** Specifies wherever field requires values */
@@ -894,13 +1137,16 @@ declare module SPClientTemplates {
         RestrictedMode: boolean;
         /** Title of the field */
         Title: string;
-        /** For OOTB fields, returns the type of field. For "UserMulti" returns "User", for "LookupMulti" returns "Lookup".
-            For custom field types, returns base type of the field. */
-        Type: string;
         /** If SPFarm.Local.UseMinWidthForHtmlPicker is true, UseMinWidth will be set to true. Undefined in other cases. */
         UseMinWidth: boolean;
     }
-    export interface ListSchema_InForm {
+
+    export interface ListSchema {
+        Field: FieldSchema[];
+    }
+
+
+    export interface ListSchema_InForm extends ListSchema {
         Field: FieldSchema_InForm[];
     }
     export interface ListData_InForm {
@@ -945,9 +1191,7 @@ declare module SPClientTemplates {
         DefaultRender: string;
     }
     /** Represents field schema in a list view. */
-    export interface FieldSchema_InView {
-        /** Either "TRUE" or "FALSE" */
-        AllowGridEditing: string;
+    export interface FieldSchema_InView extends FieldSchema {
         /** Either "TRUE" or "FALSE" */
         CalloutMenu: string;
         ClassInfo: string; // e.g. "Menu"
@@ -957,8 +1201,6 @@ declare module SPClientTemplates {
         Explicit: string;
         fieldRenderer: any;
         FieldTitle: string;
-        /** Represents SPField.TypeAsString, e.g. "Computed", "UserMulti", etc. */
-        FieldType: string;
         /** Indicates whether the field can be filtered. Either "TRUE" or "FALSE" */
         Filterable: string;
         /** Set to "TRUE" for fields that comply to the following Xpath query:
@@ -971,16 +1213,14 @@ declare module SPClientTemplates {
         /** Specifies if the field contains list item menu.
             Corresponds to ViewFields/FieldRef/@ListItemMenu attribute. Either "TRUE" or "FALSE" and might be missing. */
         listItemMenu: string;
-        Name: string;
         RealFieldName: string;
         /** Either "TRUE" or "FALSE" */
         ReadOnly: string;
         ResultType: string;
         /** Indicates whether the field can be sorted. Either "TRUE" or "FALSE" */
         Sortable: string;
-        Type: string;
     }
-    export interface ListSchema_InView {
+    export interface ListSchema_InView extends ListSchema {
         /** Key-value object that represents all aggregations defined for the view.
             Key specifies the field internal name, and value specifies the type of the aggregation. */
         Aggregate: { [name: string]: string; };
@@ -992,7 +1232,6 @@ declare module SPClientTemplates {
         /** Either "0" or "1" */
         EffectivePresenceEnabled: string;
         /** If in grid mode (context.inGridMode == true), cast to FieldSchema_InForm[], otherwise cast to FieldSchema_InView[] */
-        Field: any[];
         FieldSortParam: string;
         Filter: any;
         /** Either "0" or "1" */
@@ -1180,26 +1419,26 @@ declare module SPClientTemplates {
     }
 
     export interface RenderContext {
-        BaseViewID: number;
-        ControlMode: ClientControlMode;
-        CurrentCultureName: string;
-        CurrentLanguage: number;
-        CurrentSelectedItems: any;
-        CurrentUICultureName: string;
-        ListTemplateType: number;
-        OnPostRender: any;
-        OnPreRender: any;
-        onRefreshFailed: any;
-        RenderBody: (renderContext: RenderContext) => string;
-        RenderFieldByName: (renderContext: RenderContext, fieldName: string) => string;
-        RenderFields: (renderContext: RenderContext) => string;
-        RenderFooter: (renderContext: RenderContext) => string;
-        RenderGroups: (renderContext: RenderContext) => string;
-        RenderHeader: (renderContext: RenderContext) => string;
-        RenderItems: (renderContext: RenderContext) => string;
-        RenderView: (renderContext: RenderContext) => string;
-        SiteClientTag: string;
-        Templates: TemplateOverrides;
+        BaseViewID?: number;
+        ControlMode?: ClientControlMode;
+        CurrentCultureName?: string;
+        CurrentLanguage?: number;
+        CurrentSelectedItems?: any;
+        CurrentUICultureName?: string;
+        ListTemplateType?: number;
+        OnPostRender?: any;
+        OnPreRender?: any;
+        onRefreshFailed?: any;
+        RenderBody?: (renderContext: RenderContext) => string;
+        RenderFieldByName?: (renderContext: RenderContext, fieldName: string) => string;
+        RenderFields?: (renderContext: RenderContext) => string;
+        RenderFooter?: (renderContext: RenderContext) => string;
+        RenderGroups?: (renderContext: RenderContext) => string;
+        RenderHeader?: (renderContext: RenderContext) => string;
+        RenderItems?: (renderContext: RenderContext) => string;
+        RenderView?: (renderContext: RenderContext) => string;
+        SiteClientTag?: string;
+        Templates?: Templates;
     }
 
     export interface SingleTemplateCallback {
@@ -1214,6 +1453,12 @@ declare module SPClientTemplates {
         /** Must return null in order to fall back to a more common template or to a system default template */
         (renderContext: RenderContext): string;
     }
+
+    export interface FieldCallback {
+        /** Must return null in order to fall back to a more common template or to a system default template */
+        (renderContext: RenderContext): string;
+    }
+
     export interface FieldInFormCallback {
         /** Must return null in order to fall back to a more common template or to a system default template */
         (renderContext: RenderContext_FieldInForm): string;
@@ -1232,6 +1477,27 @@ declare module SPClientTemplates {
         NewForm?: FieldInFormCallback;
         /** Defines templates for rendering the field on a list view. */
         View?: FieldInViewCallback;
+    }
+
+    export interface FieldTemplates {
+        [fieldInternalName: string]: FieldCallback;
+    }
+
+    export interface Templates {
+        View?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template
+        Body?: (renderContext: any) => string; // TODO: determine appropriate context type and purpose of this template 
+        /** Defines templates for rendering groups (aggregations). */
+        Group?: GroupCallback;
+        /** Defines templates for list items rendering. */
+        Item?: ItemCallback;
+        /** Defines template for rendering list view header.
+            Can be either string or SingleTemplateCallback */
+        Header?: SingleTemplateCallback;
+        /** Defines template for rendering list view footer.
+            Can be either string or SingleTemplateCallback */
+        Footer?: SingleTemplateCallback;
+        /** Defines templates for fields rendering. The field is specified by it's internal name. */
+        Fields?: FieldTemplates;
     }
 
     export interface FieldTemplateMap {
@@ -1276,6 +1542,7 @@ declare module SPClientTemplates {
     }
     export class TemplateManager {
         static RegisterTemplateOverrides(renderCtx: TemplateOverridesOptions): void;
+        static GetTemplates(renderCtx: any): Templates;
     }
 
     export interface ClientUserValue {
@@ -1349,13 +1616,13 @@ declare module SPClientTemplates {
             EnableVesioning: boolean;
             Id: string;
         };
-        registerInitCallback(fieldname: string, callback: () => void): void;
-        registerFocusCallback(fieldname: string, callback: () => void): void;
-        registerValidationErrorCallback(fieldname: string, callback: (error: any) => void): void;
+        registerInitCallback(fieldname: string, callback: () => void ): void;
+        registerFocusCallback(fieldname: string, callback: () => void ): void;
+        registerValidationErrorCallback(fieldname: string, callback: (error: any) => void ): void;
         registerGetValueCallback(fieldname: string, callback: () => any): void;
         updateControlValue(fieldname: string, value: any): void;
         registerClientValidator(fieldname: string, validator: SPClientForms.ClientValidation.ValidatorSet): void;
-        registerHasValueChangedCallback(fieldname: string, callback: (eventArg?: any) => void);
+        registerHasValueChangedCallback(fieldname: string, callback: (eventArg?: any) => void );
     }
 
 }
@@ -1434,23 +1701,23 @@ declare module SPAnimation {
         GetDataIndex(attributeId: Attribute): number
     }
 
-    export class Object {
-        constructor(animationID: ID, delay: number, element: HTMLElement, finalState: State, finishFunc?: (data: any) => void, data?: any);
-        constructor(animationID: ID, delay: number, element: HTMLElement[], finalState: State, finishFunc?: (data: any) => void, data?: any);
+    export class Object{
+        constructor(animationID: ID, delay: number, element: HTMLElement, finalState: State, finishFunc?: (data: any) => void , data?: any);
+        constructor(animationID: ID, delay: number, element: HTMLElement[], finalState: State, finishFunc?: (data: any) => void , data?: any);
         RunAnimation(): void;
     }
 }
 
-declare module SPAnimationUtility {
+declare module SPAnimationUtility{
     export class BasicAnimator {
-        static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
-        static FadeOut(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
-        static Move(element: HTMLElement, posX: number, posY: number, finishFunc?: (data: any) => void, data?: any): void;
-        static StrikeThrough(element: HTMLElement, strikeThroughWidth: number, finishFunc?: (data: any) => void, data?: any): void;
-        static Resize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void, data?: any): void;
-        static CommonResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: (data: any) => void, data: any, animationId: SPAnimation.ID): void;
-        static QuickResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void, data?: any): void;
-        static ResizeContainerAndFillContent(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: () => void, fAddToEnd: boolean): void;
+        static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void , data?: any): void;
+        static FadeOut (element: HTMLElement, finishFunc?: (data: any) => void , data?: any): void;
+        static Move(element: HTMLElement, posX:number, posY:number, finishFunc?: (data: any) => void , data?: any): void;
+        static StrikeThrough(element: HTMLElement, strikeThroughWidth: number, finishFunc?: (data: any) => void , data?: any): void;
+        static Resize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void , data?: any): void;
+        static CommonResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: (data: any) => void , data: any, animationId:SPAnimation.ID): void;
+        static QuickResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void , data?: any): void;
+        static ResizeContainerAndFillContent(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: () => void , fAddToEnd: boolean): void;
         static GetWindowScrollPosition(): { x: number; y: number; };
         static GetLeftOffset(element: HTMLElement): number;
         static GetTopOffset(element: HTMLElement): number;
@@ -1600,9 +1867,14 @@ declare module SP {
         constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any);
         constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any, allowAllActions: boolean);
     }
-    export class ClientResult {
-        get_value(): any;
-        setValue(value: any): void;
+    //export class ClientResult {
+    //    get_value(): any;
+    //    setValue(value: any): void;
+    //    constructor();
+    //}
+    export class ClientResult<T> {
+        get_value(): T;
+        setValue(value: T): void;
         constructor();
     }
     export class BooleanResult {
@@ -1637,8 +1909,8 @@ declare module SP {
         get_value(): any;
         constructor();
     }
-    export class ClientDictionaryResultHandler {
-        constructor(dict: SP.ClientResult);
+    export class ClientDictionaryResultHandler<T> {
+        constructor(dict: SP.ClientResult<T>);
     }
     export class ClientUtility {
         static urlPathEncodeForXmlHttpRequest(url: string): string;
@@ -1697,13 +1969,13 @@ declare module SP {
         get_expectedContentType(): string;
         set_expectedContentType(value: string): void;
         post(body: string): void;
-        get(): void;
-        static doPost(url: string, body: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void, failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
-        static doGet(url: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void, failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
-        add_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void): void;
-        remove_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void): void;
-        add_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
-        remove_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
+        get (): void;
+        static doPost(url: string, body: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void , failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
+        static doGet(url: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void , failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
+        add_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void ): void;
+        remove_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void ): void;
+        add_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
+        remove_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void ): void;
         constructor();
     }
     export class ResResources {
@@ -1957,10 +2229,10 @@ declare module SP {
     export class ClientRequest {
         static get_nextSequenceId(): number;
         get_webRequest(): Sys.Net.WebRequest;
-        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
-        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
-        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
-        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
+        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
+        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
+        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
+        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
         get_navigateWhenServerRedirect(): boolean;
         set_navigateWhenServerRedirect(value: boolean): void;
     }
@@ -1995,18 +2267,18 @@ declare module SP {
         set_webRequestExecutorFactory(value: SP.IWebRequestExecutorFactory): void;
         get_pendingRequest(): SP.ClientRequest;
         get_hasPendingRequest(): boolean;
-        add_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void): void;
-        remove_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void): void;
-        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
-        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
-        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
-        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
-        add_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void): void;
-        remove_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void): void;
+        add_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void ): void;
+        remove_executingWebRequest(value: (sender: any, args: SP.WebRequestEventArgs) => void ): void;
+        add_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
+        remove_requestSucceeded(value: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
+        add_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
+        remove_requestFailed(value: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
+        add_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void ): void;
+        remove_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void ): void;
         get_requestTimeout(): number;
         set_requestTimeout(value: number): void;
-        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void, failedCallback: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
-        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void): void;
+        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void , failedCallback: (sender: any, args: SP.ClientRequestFailedEventArgs) => void ): void;
+        executeQueryAsync(succeededCallback: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void ): void;
         executeQueryAsync(): void;
         get_staticObjects(): any;
         castTo(obj: SP.ClientObject, type: any): SP.ClientObject;
@@ -2385,7 +2657,7 @@ declare module SP {
         constructor();
     }
     export class BasePermissions extends SP.ClientValueObject {
-        set(perm: SP.PermissionKind): void;
+        set (perm: SP.PermissionKind): void;
         clear(perm: SP.PermissionKind): void;
         clearAll(): void;
         has(perm: SP.PermissionKind): boolean;
@@ -3714,7 +3986,7 @@ declare module SP {
         choiceField,
         minMaxField,
         textField,
-    }
+    } 
     /** Represents an item or row in a list. */
     export class ListItem extends SP.SecurableObject {
         get_fieldValues(): any;
@@ -4148,7 +4420,7 @@ declare module SP {
         get_value(): string;
         static newObject(context: SP.ClientRuntimeContext): SP.RequestVariable;
         append(value: string): void;
-        set(value: string): void;
+        set (value: string): void;
     }
     export class RoleAssignment extends SP.ClientObject {
         get_member(): SP.Principal;
@@ -4301,7 +4573,7 @@ declare module SP {
         get_id(): number;
         get_information(): SP.TimeZoneInformation;
         localTimeToUTC(date: Date): SP.DateTimeResult;
-        uTCToLocalTime(date: Date): SP.DateTimeResult;
+        utcToLocalTime(date: Date): SP.DateTimeResult;
     }
     export class TimeZoneCollection extends SP.ClientObjectCollection<TimeZone> {
         itemAt(index: number): SP.TimeZone;
@@ -4841,8 +5113,8 @@ declare module SP {
                 set_moreColorsPicker(value: SP.Application.UI.MoreColorsPicker): void;
             }
             export class ThemeWebPage extends Sys.UI.Control {
-                add_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void): void;
-                remove_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void): void;
+                add_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void ): void;
+                remove_themeDisplayUpdated(value: (sender: any, e: Sys.EventArgs) => void ): void;
                 constructor(e: HTMLElement);
                 initialize(): void;
                 dispose(): void;
@@ -5028,11 +5300,11 @@ declare module Microsoft.SharePoint.Client.Search {
 
 
             getQuerySuggestionsWithResults: (iNumberOfQuerySuggestions: number,
-            iNumberOfResultSuggestions: number,
-            fPreQuerySuggestions: boolean,
-            fHitHighlighting: boolean,
-            fCapitalizeFirstLetters: boolean,
-            fPrefixMatchAllTerms: boolean) => QuerySuggestionResults;
+                iNumberOfResultSuggestions: number,
+                fPreQuerySuggestions: boolean,
+                fHitHighlighting: boolean,
+                fCapitalizeFirstLetters: boolean,
+                fPrefixMatchAllTerms: boolean) => QuerySuggestionResults;
 
 
         }
@@ -5078,15 +5350,15 @@ declare module Microsoft.SharePoint.Client.Search {
             executeQuery: (query: Query) => SP.JsonObjectResult;
             executeQueries: (queryIds: string[], queries: Query[], handleExceptions: boolean) => SP.JsonObjectResult;
             recordPageClick: (
-            pageInfo: string,
-            clickType: string,
-            blockType: number,
-            clickedResultId: string,
-            subResultIndex: number,
-            immediacySourceId: string,
-            immediacyQueryString: string,
-            immediacyTitle: string,
-            immediacyUrl: string) => void;
+                pageInfo: string,
+                clickType: string,
+                blockType: number,
+                clickedResultId: string,
+                subResultIndex: number,
+                immediacySourceId: string,
+                immediacyQueryString: string,
+                immediacyTitle: string,
+                immediacyUrl: string) => void;
             exportPopularQueries: (web: SP.Web, sourceId: SP.Guid) => SP.JsonObjectResult;
         }
 
@@ -5207,7 +5479,7 @@ declare module Microsoft.SharePoint.Client.Search {
             itemAt: (index: number) => Sort;
             get_item: (index: number) => Sort;
             get_childItemType: () => Object;
-            add: (property: Sort) => void;
+            add: (strProperty: string, sortDirection: SortDirection) => void;
             clear: () => void;
         }
 
@@ -5392,14 +5664,14 @@ declare module Microsoft.SharePoint.Client.Search {
         export class DocumentCrawlLog extends SP.ClientObject {
             constructor(context: SP.ClientContext, site: SP.Site);
             getCrawledUrls: (getCountOnly: boolean,
-            maxRows: { High: number; Low: number; },
-            queryString: string,
-            isLike: boolean,
-            contentSourceID: number,
-            errorLevel: number,
-            errorID: number,
-            startDateTime: Date,
-            endDateTime: Date) => SP.JsonObjectResult;
+                maxRows: { High: number; Low: number; },
+                queryString: string,
+                isLike: boolean,
+                contentSourceID: number,
+                errorLevel: number,
+                errorID: number,
+                startDateTime: Date,
+                endDateTime: Date) => SP.JsonObjectResult;
         }
 
         export class SearchObjectOwner extends SP.ClientObject {
@@ -6057,7 +6329,7 @@ declare module SP {
         /** Provides access to social feeds.
             It provides methods to create posts, delete posts, read posts, and perform other operations on posts. */
         export class SocialFeedManager extends SP.ClientObject {
-            constructor();
+            constructor(context: SP.ClientRuntimeContext);
             /** Returns the current user */
             get_owner(): SocialActor;
             /** Specifies the URI of the personal site portal. */
@@ -6133,7 +6405,7 @@ declare module SP {
             set_newerThan(value: string): string;
             get_olderThan(): string;
             set_olderThan(value: string): string;
-            get_sortOrder(): SocialFeedSortOrder;
+            get_sortOrder():SocialFeedSortOrder;
             set_sortOrder(value: SocialFeedSortOrder): SocialFeedSortOrder;
         }
 
@@ -6542,7 +6814,7 @@ declare module SP {
             get_isReused(): boolean;
             get_isRoot(): boolean;
             get_isSourceTerm(): boolean;
-            get_labels: LabelCollection;
+            get_labels(): LabelCollection;
             get_localCustomProperties(): { [key: string]: string; };
             get_mergedTermIds(): SP.Guid[];
             get_parent(): Term;
@@ -6745,6 +7017,53 @@ declare module SP {
 }
 
 declare module SP {
+    export module DocumentSet {
+        export class DocumentSet extends ClientObject {
+            static create(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
+        }
+    }
+
+    export module Video {
+        export class EmbedCodeConfiguration extends ClientValueObject {
+            public get_autoPlay(): boolean;
+            public set_autoPlay(value: boolean): boolean;
+
+            public get_displayTitle(): boolean;
+            public set_displayTitle(value: boolean): boolean;
+
+            public get_linkToOwnerProfilePage(): boolean;
+            public set_linkToOwnerProfilePage(value: boolean): boolean;
+
+            public get_linkToVideoHomePage(): boolean;
+            public set_linkToVideoHomePage(value: boolean): boolean;
+
+            public get_loop(): boolean;
+            public set_loop(value: boolean): boolean;
+
+            public get_pixelHeight(): number;
+            public set_pixelHeight(value: number): number;
+
+            public get_pixelWidth(): number;
+            public set_pixelWidth(value: number): number;
+
+            public get_startTime(): number;
+            public set_startTime(value: number): number;
+
+            public get_previewImagePath(): string;
+            public set_previewImagePath(value: string): string;
+        }
+
+        export class VideoSet extends DocumentSet.DocumentSet {
+            static createVideo(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
+            static uploadVideo(context: ClientContext, list: List, fileName: string, file: any[], overwriteIfExists: boolean, parentFolderPath: string): StringResult;
+            static getEmbedCode(context: ClientContext, videoPath: string, properties: EmbedCodeConfiguration): StringResult;
+            static migrateVideo(context: ClientContext, videoFile: File): SP.ListItem;
+        }
+    }
+}
+
+
+declare module SP {
     export module UI {
         export module ApplicationPages {
             export class SelectorSelectionEventArgs extends Sys.EventArgs {
@@ -6755,7 +7074,7 @@ declare module SP {
                 get_selectedEntities(): any;
                 set_selectedEntities(value: any): void;
                 get_callback(): (sender: any, e: Sys.EventArgs) => void;
-                set_callback(value: (sender: any, e: Sys.EventArgs) => void): void;
+                set_callback(value: (sender: any, e: Sys.EventArgs) => void ): void;
                 get_scopeKey(): string;
                 get_componentType(): SP.UI.ApplicationPages.SelectorType;
                 revertTo(ent: SP.UI.ApplicationPages.ResolveEntity): void;
@@ -6773,7 +7092,7 @@ declare module SP {
                 static instance(): SP.UI.ApplicationPages.CalendarSelector;
                 registerSelector(selector: SP.UI.ApplicationPages.ISelectorComponent): void;
                 getSelector(type: SP.UI.ApplicationPages.SelectorType, scopeKey: string): SP.UI.ApplicationPages.ISelectorComponent;
-                addHandler(scopeKey: string, people: boolean, resource: boolean, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void): void;
+                addHandler(scopeKey: string, people: boolean, resource: boolean, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void ): void;
                 revertTo(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 removeEntity(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 constructor();
@@ -6785,7 +7104,7 @@ declare module SP {
                 get_selectedEntities(): any;
                 set_selectedEntities(value: any): void;
                 get_callback(): (sender: any, e: Sys.EventArgs) => void;
-                set_callback(value: (sender: any, e: Sys.EventArgs) => void): void;
+                set_callback(value: (sender: any, e: Sys.EventArgs) => void ): void;
                 revertTo(ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 removeEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 setEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
@@ -6900,39 +7219,27 @@ declare module SP {
             get_textElement(): HTMLElement;
             constructor();
         }
-        export class Notify {
-            static addNotification(strHtml: string, bSticky: boolean): string;
-            static removeNotification(nid: string): void;
-            constructor();
+
+        export module Notify {
+            export function addNotification(strHtml: string, bSticky: boolean): string;
+            export function removeNotification(nid: string): void;
+            export function showLoadingNotification(bSticky: boolean): string;
+
+
+            export class Notification {
+                constructor(containerId: SPNotifications.ContainerID, strHtml: string, bSticky?: boolean, strTooltip?: string, onclickHandler?: () => void, extraData?: SPStatusNotificationData);
+                get_id(): string;
+                Show(bNoAnimate: boolean): void;
+                Hide(bNoAnimate: boolean): void;
+            }
+            export class NotificationContainer {
+                constructor(id: number, element: any, layer: number, notificationLimit?: number);
+                Clear(): void;
+                GetCount(): number;
+                SetEventHandler(eventId: SPNotifications.EventID, eventHandler: any): void;
+            }
         }
-        export enum ContainerID {
-            Basic,
-            Status,
-        }
-        export enum EventID {
-            OnShow,
-            OnHide,
-            OnDisplayNotification,
-            OnRemoveNotification,
-            OnNotificationCountChanged,
-        }
-        export class SPNotification {
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void, extraData: any);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string, onclickHandler: () => void);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean, strTooltip: string);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string, bSticky: boolean);
-            constructor(containerId: SP.UI.ContainerID, strHtml: string);
-            get_id(): string;
-            Show(bNoAnimate: boolean): void;
-            Hide(bNoAnimate: boolean): void;
-        }
-        export class SPNotificationContainer {
-            constructor(id: number, element: any, layer: number, notificationLimit: number);
-            constructor(id: number, element: any, layer: number);
-            Clear(): void;
-            GetCount(): number;
-            SetEventHandler(eventId: SP.UI.EventID, eventHandler: any): void;
-        }
+
         export class Status {
             static addStatus(strTitle: string, strHtml: string, atBegining: boolean): string;
             static appendStatus(sid: string, strTitle: string, strHtml: string): string;
@@ -6942,9 +7249,10 @@ declare module SP {
             static removeAllStatus(hide: boolean): void;
             constructor();
         }
-        export class Workspace {
-            static add_resized(handler: () => void): void;
-            static remove_resized(handler: () => void): void;
+
+        export module Workspace {
+            export function add_resized(handler: () => void): void;
+            export function remove_resized(handler: () => void): void;
         }
         export class Menu {
             static create(id: string): SP.UI.Menu;
@@ -7087,7 +7395,120 @@ declare module SP {
             close(dialogResult: SP.UI.DialogResult): void;
         }
 
+
+        export class Command {
+            constructor(name: string, displayName: string);
+            get_displayName(): string;
+            set_displayName(value: string): string;
+
+            get_tooltip(): string;
+            set_tooltip(value: string): string;
+
+            get_isEnabled(): boolean;
+            set_isEnabled(value: boolean): boolean;
+
+            get_href(): string;
+            get_name(): string;
+            get_elementIDPrefix(): string;
+            set_elementIDPrefix(value: string): string;
+
+            get_linkElement():HTMLAnchorElement;
+
+            get_isDropDownCommand(): boolean;
+            set_isDropDownCommand(value: boolean): boolean;
+
+            attachEvents(): void;
+            render(builder: HtmlBuilder): void;
+
+
+            /**Should override*/
+            onClick(): void;
+
+        }
+
+
+        export class CommandBar {
+            constructor();
+            get_commands():Command[];
+            get_dropDownThreshold(): number;
+            set_dropDownThreshold(value: number): number;
+            get_elementID(): string;
+            get_overrideClass(): string;
+            set_overrideClass(value: string): string;
+            addCommand(action:Command):void;
+            insertCommand(action: Command, position:number): void;
+            render(builder: HtmlBuilder): void;
+            attachEvents(): void;
+            findCommandByName(name:string):Command;
+        }
+
+
+        export class PagingControl {
+            constructor(id: string);
+            render(innerContent:string): string;
+            postRender():void;
+            get_innerContent():HTMLSpanElement;
+            get_innerContentClass():string;
+            setButtonState(buttonId:number, state:number):void;
+            getButtonState(buttonId: number): number;
+            onWindowResized(): void;
+
+            /**Should override*/
+            onPrev(): void;
+            onNext(): void;
+
+            static ButtonIDs: {
+                prev: number;
+                next: number;
+            }
+
+            static ButtonState: {
+                hidden: number
+                disabled: number;
+                enabled: number;
+            }
+        }
+
+        export module UIUtility {
+            export function generateRandomElementId(): string;
+            export function cancelEvent(evt: Event): void;
+            export function clearChildNodes(elem: HTMLElement): void;
+            export function hideElement(elem: HTMLElement): void;
+            export function showElement(elem: HTMLElement): void;
+            export function insertBefore(elem: HTMLElement, targetElement: HTMLElement): void;
+            export function insertAfter(elem: HTMLElement, targetElement: HTMLElement): void;
+            export function removeNode(elem: HTMLElement): void;
+            export function calculateOffsetLeft(elem: HTMLElement): number;
+            export function calculateOffsetTop(elem: HTMLElement): number;
+            export function createHtmlInputText(text: string): HTMLInputElement;
+            export function createHtmlInputCheck(isChecked: boolean): HTMLInputElement;
+            export function setInnerText(elem: HTMLElement, value: string): void;
+            export function getInnerText(elem: HTMLElement): string;
+            export function isTextNode(elem: HTMLElement): boolean;
+            export function isSvgNode(elem: HTMLElement): boolean;
+            export function isNodeOfType(elem: HTMLElement, tagNames: string[]): boolean;
+            export function focusValidOnThisNode(elem: HTMLElement): boolean;
+        }
     }
+}
+
+declare module SPNotifications {
+
+    export enum ContainerID {
+        Basic,
+        Status,
+    }
+    export enum EventID {
+        OnShow,
+        OnHide,
+        OnDisplayNotification,
+        OnRemoveNotification,
+        OnNotificationCountChanged,
+    }
+}
+
+declare class  SPStatusNotificationData {
+    constructor(text: string, subText: string, imageUrl: string, sip: string);
 }
 
 declare module SP {
@@ -7752,8 +8173,20 @@ declare module SP {
             /** Same as get_url() */
             toString(): string;
         }
-    }
 
+        export class LocUtility {
+            static getLocalizedCountValue(locText:string, intervals:string, count:number):string;
+        }
+
+        export class VersionUtility {
+            static get_layoutsLatestVersionRelativeUrl():string;
+            static get_layoutsLatestVersionUrl(): string;
+            static getLayoutsPageUrl(pageName:string): string;
+            static getImageUrl(imageName:string): string;
+        }
+
+    }
+    
     export module DateTimeUtil {
         export class SimpleDate {
             construction(year: number, month: number, day: number, era: number);
@@ -8013,7 +8446,7 @@ declare module SP.WorkflowServices {
         getDesignerActions(web: SP.Web): SP.StringResult;
         /** Returns an XML representation of a collection of XAML class signatures for workflow definitions.
             @param lastChanges Date time value representing the latest changes; class signatures older than this time are excluded from the result set.  */
-        getActivitySignatures(lastChanged: string): SP.ClientResult;
+        getActivitySignatures(lastChanged: string): SP.ClientResult<any>;
         /** Saves a SharePoint workflow definition to the workflow store.  */
         saveDefinition(definition: WorkflowDefinition): SP.GuidResult;
         /** Validates the specified activity against workflow definitions in the workflow store.  */
@@ -8231,12 +8664,739 @@ declare module SP.WorkflowServices {
 
 }
 
-declare class SPClientAutoFill {
-    static MenuOptionType: {
+
+
+declare module SP {
+    export module Publishing {
+        export class PublishingWeb extends ClientObject {
+            static getPublishingWeb(context: ClientContext, web: Web): PublishingWeb;
+
+            public get_web(): Web;
+            public addPublishingPage(pageInformation: PublishingPageInformation): PublishingPage;
+        }
+
+        export class PublishingPageInformation extends ClientValueObject {
+
+            public get_folder(): Folder;
+            public set_folder(value: Folder): Folder;
+
+            public get_name(): string;
+            public set_name(value: string): string;
+
+            public get_pageLayoutListItem(): ListItem;
+            public set_pageLayoutListItem(value: ListItem): ListItem;
+        }
+
+        export class PublishingPage extends ScheduledItem {
+            static getPublishingPage(context: ClientContext, sourceListItem: ListItem): PublishingPage;
+            public addFriendlyUrl(friendlyUrlSegment: string, editableParent: Navigation.NavigationTermSetItem, doAddToNavigation: boolean): StringResult;
+        }
+
+        export class ScheduledItem extends ClientObject {
+            public get_listItem(): ListItem;
+
+            public get_startDate(): Date;
+            public set_startDate(value: Date): Date;
+
+            public get_endDate(): Date;
+            public set_endDate(value: Date): Date;
+
+            public schedule(approvalComment: string): void;
+        }
+
+        export class PublishingSite extends ClientObject {
+            static createPageLayout(context: ClientContext, parameters: PageLayoutCreationInformation): void;
+        }
+
+        export class PageLayoutCreationInformation extends ClientValueObject {
+            public get_web(): Web;
+            public set_web(value: Web): Web;
+
+            public get_associatedContentTypeId(): string;
+            public set_associatedContentTypeId(value: string): string;
+
+            public get_masterPageUrl(): string;
+            public set_masterPageUrl(value: string): string;
+
+            public get_newPageLayoutNameWithoutExtension(): string;
+            public set_newPageLayoutNameWithoutExtension(value: string): string;
+
+            public get_newPageLayoutEditablePath(): string;
+            public set_newPageLayoutEditablePath(value: string): string;
+        }
+
+        export class SiteServicesAddins {
+            static getSettings(context: ClientContext, addinId: Guid): AddinSettings;
+            static setSettings(context: ClientContext, addin: AddinSettings): void;
+            static deleteSettings(context: ClientContext, addinId: Guid): void;
+
+            static getPlugin(context: ClientContext, pluginName: string): AddinPlugin;
+            static setPlugin(context: ClientContext, addin: AddinPlugin): void;
+            static deletePlugin(context: ClientContext, pluginName: string): void;
+        }
+
+        export class AddinSettings extends ClientObject {
+            constructor(ctx: ClientContext, id: Guid);
+
+            public get_id(): Guid;
+
+            public get_title(): string;
+            public set_title(value: string): string;
+
+            public get_description(): string;
+            public set_description(value: string): string;
+
+            public get_enabled(): boolean;
+            public set_enabled(value: boolean): boolean;
+
+            public get_namespace(): boolean;
+            public set_namespace(value: boolean): boolean;
+
+            public get_headScript(): string;
+            public set_headScript(value: string): string;
+
+            public get_htmlStartBody(): string;
+            public set_htmlStartBody(value: string): string;
+
+            public get_htmlEndBody(): string;
+            public set_htmlEndBody(value: string): string;
+
+            public get_metaTagPagePropertyMappings(): { [key: string]: string };
+            public set_metaTagPagePropertyMappings(value: { [key: string]: string }): { [key: string]: string };
+
+        }
+
+        export class AddinPlugin extends ClientObject {
+            constructor(ctx: ClientContext);
+
+            public get_description(): string;
+            public set_description(value: string): string;
+
+            public get_markup(): string;
+            public set_markup(value: string): string;
+
+            public get_title(): string;
+            public set_title(value: string): string;
+        }
+
+
+        export class DesignPackage {
+            static install(context: ClientContext, site: Site, info: DesignPackageInfo, path: string): void;
+            static uninstall(context: ClientContext, site: Site, info: DesignPackageInfo): void;
+            static apply(context: ClientContext, site: Site, info: DesignPackageInfo): void;
+            static exportEnterprise(context: ClientContext, site: Site, includeSearchConfiguration: boolean): ClientResult<DesignPackageInfo>;
+            static exportSmallBusiness(context: ClientContext, site: Site, packageName: string, includeSearchConfiguration: boolean): ClientResult<DesignPackageInfo>;
+        }
+
+        export class DesignPackageInfo extends ClientValueObject {
+            public get_packageName(): string;
+            public set_packageName(value: string): string;
+
+            public get_packageGuid(): Guid;
+            public set_packageGuid(value: Guid): Guid;
+
+            public get_majorVersion(): number;
+            public set_majorVersion(value: number): number;
+
+            public get_minorVersion(): number;
+            public set_minorVersion(value: number): number;
+        }
+
+        export class SiteImageRenditions {
+            static getRenditions(context: ClientContext): ImageRendition[];
+            static setRenditions(context: ClientContext, renditions: ImageRendition[]): void;
+        }
+
+        export class ImageRendition extends ClientValueObject {
+            public get_id(): number;
+            public get_version(): number;
+
+            public get_name(): string;
+            public set_name(value: string): string;
+
+            public get_width(): number;
+            public set_width(value: number): number;
+
+            public get_height(): number;
+            public set_height(value: number): number;
+        }
+
+        export class Variations extends ClientObject {
+            static getLabels(context: ClientContext): ClientObjectList<VariationLabel>;
+            static getPeerUrl(context: ClientContext, currentUrl: string, labelTitle: string): StringResult;
+            static updateListItems(context: ClientContext, listId: Guid, itemIds: number[]): void;
+        }
+
+        export class VariationLabel extends ClientObject {
+            public get_displayName(): string;
+            public set_displayName(value: string): string;
+
+            public get_isSource(): boolean;
+            public set_isSource(value: boolean): boolean;
+
+            public get_language(): string;
+            public set_language(value: string): string;
+
+            public get_locale(): string;
+            public set_locale(value: string): string;
+
+            public get_title(): string;
+            public set_title(value: string): string;
+
+            public get_topWebUrl(): string;
+            public set_topWebUrl(value: string): string;
+        }
+
+        export class CustomizableString extends ClientObject {
+            public get_defaultValue(): string;
+
+            public get_value(): string;
+            public set_value(value: string): string;
+
+            public get_usesDefaultValue(): boolean;
+            public set_usesDefaultValue(value: boolean): boolean;
+
+        }
+
+
+        export module Navigation {
+            export enum NavigationLinkType {
+                root,
+                friendlyUrl,
+                simpleLink
+            }
+
+            export enum StandardNavigationSource {
+                unknown,
+                portalProvider,
+                taxonomyProvider,
+                inheritFromParentWeb
+            }
+
+            export class NavigationTermSetItem extends ClientObject {
+                public get_id(): Guid;
+
+                public get_isReadOnly(): boolean;
+
+                public get_linkType(): NavigationLinkType;
+                public set_linkType(value: NavigationLinkType): NavigationLinkType;
+
+                public get_targetUrlForChildTerms(): CustomizableString;
+
+                public get_catalogTargetUrlForChildTerms(): CustomizableString;
+
+                public get_taxonomyName(): string;
+
+                public get_title(): CustomizableString;
+
+                public get_terms(): NavigationTermCollection;
+
+                public get_view(): NavigationTermSetView;
+
+                public createTerm(termName: string, linkType: NavigationLinkType, termId: Guid);
+
+                public getTaxonomyTermStore(): Taxonomy.TermStore;
+
+                public getResolvedDisplayUrl(browserQueryString: string): StringResult;
+            }
+
+            export class NavigationTermCollection extends ClientObjectCollection<NavigationTerm> {
+
+            }
+
+            export class NavigationTerm extends NavigationTermSetItem {
+                public get_associatedFolderUrl(): string;
+                public set_associatedFolderUrl(value: string): string;
+
+                public get_catalogTargetUrl(): CustomizableString;
+
+                public get_categoryImageUrl(): string;
+                public set_categoryImageUrl(value: string): string;
+
+                public get_excludedProviders(): NavigationTermProviderNameCollection;
+
+                public get_excludeFromCurrentNavigation(): boolean;
+                public set_excludeFromCurrentNavigation(value: boolean): boolean;
+
+                public get_excludeFromGlobalNavigation(): boolean;
+                public set_excludeFromGlobalNavigation(value: boolean): boolean;
+
+                public get_friendlyUrlSegment(): CustomizableString;
+
+                public get_hoverText(): string;
+                public set_hoverText(value: string): string;
+
+                public get_isDeprecated(): boolean;
+                public get_isPinned(): boolean;
+                public get_isPinnedRoot(): boolean;
+
+                public get_parent(): NavigationTerm;
+
+                public get_simpleLinkUrl(): string;
+
+                public set_simpleLinkUrl(value: string): string;
+
+                public get_targetUrl(): CustomizableString;
+
+                public get_termSet(): NavigationTermSet;
+
+                public getAsEditable(taxonomySession: Taxonomy.TaxonomySession): NavigationTerm;
+
+                public getWithNewView(newView: NavigationTermSetView): NavigationTerm;
+
+                public getResolvedTargetUrl(browserQueryString: string, remainingUrlSegments: string[]): StringResult;
+
+                public getResolvedTargetUrlWithoutQuery(): StringResult;
+
+                public getResolvedAssociatedFolderUrl(): StringResult;
+
+                public getWebRelativeFriendlyUrl(); StringResult;
+
+                public getAllParentTerms(): NavigationTermCollection;
+
+                public getTaxonomyTerm(): Taxonomy.Term;
+
+                public move(newParent: NavigationTermSetItem): void;
+
+                public deleteObject(): void;
+
+                static getAsResolvedByWeb(context: ClientContext, term: Taxonomy.Term, web: Web, siteMapProviderName: string): NavigationTerm;
+                static getAsResolvedByView(context: ClientContext, term: Taxonomy.Term, view: NavigationTermSetView): NavigationTerm;
+            }
+
+
+            export class NavigationTermSet extends NavigationTermSetItem {
+                public get_isNavigationTermSet(): boolean;
+                public set_isNavigationTermSet(value: boolean): boolean;
+
+                public get_lcid(): number;
+
+                public get_loadedFromPersistedData(): boolean;
+
+                public get_termGroupId(): Guid;
+                public get_termStoreId(): Guid;
+
+                public getAsEditable(taxonomySession: Taxonomy.TaxonomySession): NavigationTermSet;
+
+                public getWithNewView(newView: NavigationTermSetView): NavigationTermSet;
+
+                public getTaxonomyTermSet(): Taxonomy.TermSet;
+
+                public getAllTerms(): NavigationTermCollection;
+
+                public findTermForUrl(usr: string): NavigationTerm;
+
+                static getAsResolvedByWeb(context: ClientContext, termSet: Taxonomy.TermSet, web: Web, siteMapProviderName: string): NavigationTermSet;
+                static getAsResolvedByView(context: ClientContext, termSet: Taxonomy.TermSet, view: NavigationTermSetView): NavigationTermSet;
+            }
+
+
+            export class NavigationTermProviderNameCollection extends ClientObjectCollection<string> {
+                public Add(item: string): void;
+                public Clear(): void;
+                public Remove(item: string): BooleanResult;
+            }
+
+            export class NavigationTermSetView extends ClientObject {
+                constructor(context: ClientContext, web: Web, siteMapProviderName: string);
+
+                public get_excludeDeprecatedTerms(): boolean;
+                public set_excludeDeprecatedTerms(value: boolean): boolean;
+
+                public get_excludeTermsByPermissions(): boolean;
+                public set_excludeTermsByPermissions(value: boolean): boolean;
+
+                public get_excludeTermsByProvider(): boolean;
+                public set_excludeTermsByProvider(value: boolean): boolean;
+
+                public get_serverRelativeSiteUrl(): string;
+
+                public get_serverRelativeWebUrl(): string;
+
+                public get_siteMapProviderName(): string;
+                public set_siteMapProviderName(value: string): string;
+
+                public get_webId(): Guid;
+                public get_webTitle(): string;
+
+                public getCopy(): NavigationTermSetView;
+
+                static createEmptyInstance(context: ClientContext): NavigationTermSetView;
+            }
+
+            export class TaxonomyNavigation {
+                static getWebNavigationSettings(context: ClientContext, web: Web): WebNavigationSettings;
+                static getTermSetForWeb(context: ClientContext, web: Web, siteMapProviderName: string, includeInheritedSettings: boolean): NavigationTermSet;
+                static setCrawlAsFriendlyUrlPage(context: ClientContext, navigationTerm, crawlAsFriendlyUrlPage): BooleanResult;
+                static getNavigationLcidForWeb(context: ClientContext, web: Web): IntResult;
+                static flushSiteFromCache(context: ClientContext, site: Site): void;
+                static flushWebFromCache(context: ClientContext, web: Web): void;
+                static flushTermSetFromCache(context: ClientContext, webForPermissions, termStoreId: Guid, termSetId: Guid): void;
+            }
+
+            export class WebNavigationSettings extends ClientObject {
+                constructor(context: ClientContext, web: Web);
+
+                public get_addNewPagesToNavigation(): boolean;
+                public set_addNewPagesToNavigation(value: boolean): boolean;
+
+                public get_createFriendlyUrlsForNewPages(): boolean;
+                public set_createFriendlyUrlsForNewPages(value: boolean): boolean;
+
+                public get_currentNavigation(): StandardNavigationSettings;
+                public get_globalNavigation(): StandardNavigationSettings;
+
+                public update(taxonomySession: Taxonomy.TaxonomySession): void;
+                public resetToDefaults(): void;
+            }
+
+            export class StandardNavigationSettings extends ClientObject {
+                public get_termSetId(): Guid;
+                public set_termSetId(value: Guid): Guid;
+
+                public get_termStoreId(): Guid;
+                public set_termStoreId(value: Guid): Guid;
+
+                public get_source(): StandardNavigationSource;
+
+                public set_source(value: StandardNavigationSource): StandardNavigationSource;
+            }
+
+        }
+    }
+}
+
+declare module SP {
+    export module CompliancePolicy {
+        export enum SPContainerType {
+            site,//: 0,
+            web,//: 1,
+            list//: 2
+        }
+
+        export class SPContainerId extends ClientObject {
+            constructor(context: ClientRuntimeContext, objectPath: ObjectPath);
+            static createFromList(context: ClientRuntimeContext, list: List): SPContainerId;
+            static createFromWeb(context: ClientRuntimeContext, web: Web): SPContainerId;
+            static createFromSite(context: ClientRuntimeContext, site: Site): SPContainerId;
+            static create(context: ClientRuntimeContext, containerId): SPContainerId;
+
+            get_containerType(): ContentType;
+            set_containerType(value: ContentType): ContentType;
+
+            get_listId(): SP.Guid;
+            set_listId(value: SP.Guid): SP.Guid;
+
+            get_siteId(): SP.Guid;
+            set_siteId(value: SP.Guid): SP.Guid;
+
+            get_siteUrl(): string;
+            set_siteUrl(value: string): string;
+
+            get_tenantId(): SP.Guid;
+            set_tenantId(value: SP.Guid): SP.Guid;
+
+            get_title(): string;
+            set_title(value: string): string;
+
+            get_version(): any;
+            set_version(value: any): any;
+
+            get_webId(): SP.Guid;
+            set_webId(value: SP.Guid): SP.Guid;
+
+            serialize(): SP.StringResult;
+        }
+
+        export class SPPolicyAssociation extends ClientObject {
+            constructor(context: ClientRuntimeContext, objectPath: ObjectPath);
+
+            get_allowOverride(): boolean;
+            set_allowOverride(value: boolean): boolean;
+
+            get_comment(): string;
+            set_comment(value: string): string;
+
+            get_defaultPolicyDefinitionConfigId(): any[];
+            set_defaultPolicyDefinitionConfigId(value: any[]): any[];
+
+            get_description(): string;
+            set_description(value: string): string;
+
+            get_identity(): boolean;
+            set_identity(value: boolean): boolean;
+
+            get_name(): string;
+            set_name(value: string): string;
+
+            get_policyApplyStatus(): any;
+            set_policyApplyStatus(value: any): any;
+
+            get_policyDefinitionConfigIds(): any[];
+            set_policyDefinitionConfigIds(value: any[]): any[];
+
+            get_scope(): any;
+            set_scope(value: any): any;
+
+            get_source(): any;
+            set_source(value: any): any;
+
+            get_version(): any;
+            set_version(value: any): any;
+
+            get_whenAppliedUTC(): Date;
+            set_whenAppliedUTC(value: Date): Date;
+
+            get_whenChangedUTC(): Date;
+            set_whenChangedUTC(value: Date): Date;
+
+            get_whenCreatedUTC(): Date;
+            set_whenCreatedUTC(value: Date): Date;
+        }
+
+        export class SPPolicyBinding extends ClientObject {
+            constructor(context: ClientRuntimeContext, objectPath: ObjectPath);
+
+            get_identity(): any;
+            set_identity(value: any): any;
+
+            get_isExempt(): boolean;
+            set_isExempt(value: boolean): boolean;
+
+            get_mode(): any;
+            set_mode(value: any): any;
+
+            get_name(): string;
+            set_name(value: string): string;
+
+            get_policyApplyStatus(): any;
+            set_policyApplyStatus(value: any): any;
+
+            get_policyAssociationConfigId(): any;
+            set_policyAssociationConfigId(value: any): any;
+
+            get_policyDefinitionConfigId(): any;
+            set_policyDefinitionConfigId(value: any): any;
+
+            get_policyRuleConfigId(): any;
+            set_policyRuleConfigId(value: any): any;
+
+            get_scope(): any;
+            set_scope(value: any): any;
+
+            get_source(): any;
+            set_source(value: any): any;
+
+            get_version(): any;
+            set_version(value: any): any;
+
+            get_whenAppliedUTC(): Date;
+            set_whenAppliedUTC(value: Date): Date;
+
+            get_whenChangedUTC(): Date;
+            set_whenChangedUTC(value: Date): Date;
+
+            get_whenCreatedUTC(): Date;
+            set_whenCreatedUTC(value: Date): Date;
+        }
+
+        export class SPPolicyDefinition extends ClientObject {
+            constructor(context: ClientRuntimeContext, objectPath: ObjectPath);
+
+            get_comment(): string;
+            set_comment(value: string): string;
+
+            get_createdBy(): any;
+            set_createdBy(value: any): any;
+
+            get_defaultPolicyRuleConfigId
+            set_defaultPolicyRuleConfigId
+
+            get_description(): string;
+            set_description(value: string): string;
+
+            get_enabled(): boolean;
+            set_enabled(value: boolean): boolean;
+
+            get_identity(): any;
+            set_identity(value: any): any;
+
+            get_lastModifiedBy(): any;
+            set_lastModifiedBy(value: any): any;
+
+            get_name(): string;
+            set_name(value: string): string;
+
+            get_mode(): any;
+            set_mode(value: any): any;
+
+            get_scenario(): any;
+            set_scenario(value: any): any;
+
+            get_source(): any;
+            set_source(value: any): any;
+
+            get_version(): any;
+            set_version(value: any): any;
+
+            get_whenChangedUTC(): Date;
+            set_whenChangedUTC(value: Date): Date;
+
+            get_whenCreatedUTC(): Date;
+            set_whenCreatedUTC(value: Date): Date;
+
+
+        }
+
+        export class SPPolicyRule extends ClientObject {
+            constructor(context: ClientRuntimeContext, objectPath: ObjectPath);
+
+            get_comment(): string;
+            set_comment(value: string): string;
+
+            get_createdBy(): any;
+            set_createdBy(value: any): any;
+
+            get_description(): string;
+            set_description(value: string): string;
+
+            get_enabled(): boolean;
+            set_enabled(value: boolean): boolean;
+            get_identity(): any;
+            set_identity(value: any): any;
+
+            get_lastModifiedBy(): any;
+            set_lastModifiedBy(value: any): any;
+
+            get_mode(): any;
+            set_mode(value: any): any;
+
+            get_name(): string;
+            set_name(value: string): string;
+
+            get_policyDefinitionConfigId(): any;
+            set_policyDefinitionConfigId(value: any): any;
+
+            get_priority(): any;
+            set_priority(value: any): any;
+
+            get_ruleBlob(): any;
+            set_ruleBlob(value: any): any;
+
+            get_whenChangedUTC(): Date;
+            set_whenChangedUTC(value: Date): Date;
+
+            get_whenCreatedUTC(): Date;
+            set_whenCreatedUTC(value: Date): Date;
+        }
+
+        export class SPPolicyStore extends ClientObject {
+            constructor(context: ClientRuntimeContext, web: Web);
+
+            static createPolicyDefinition(context: ClientRuntimeContext): SPPolicyDefinition;
+            static createPolicyBinding(context: ClientRuntimeContext):SPPolicyBinding;
+            static createPolicyAssociation(context: ClientRuntimeContext):SPPolicyAssociation;
+            static createPolicyRule(context: ClientRuntimeContext): SPPolicyRule;
+
+
+            updatePolicyRule(policyRule:SPPolicyRule):void;
+
+            getPolicyRule(policyRuleId:any, throwIfNull:boolean):SPPolicyRule;
+
+            deletePolicyRule(policyRuleId: any);void;
+
+            notifyUnifiedPolicySync(notificationId, syncSvcUrl:string, changeInfos, syncNow:boolean, fullSyncForTenant):void;
+
+            updatePolicyDefinition(policyDefinition:SPPolicyDefinition):void;
+            
+            getPolicyDefinition(policyDefinitionId):SPPolicyDefinition;
+
+            deletePolicyDefinition(policyDefinitionId):void; 
+            
+            getPolicyDefinitions(scenario): ClientObjectList<SPPolicyDefinition>; 
+
+            updatePolicyBinding(policyBinding:SPPolicyBinding):void;
+
+            getPolicyBinding(policyBindingId): SPPolicyBinding;
+
+            deletePolicyBinding(policyBindingId): void;
+
+            updatePolicyAssociation(policyAssociation: SPPolicyAssociation): void;
+            
+            getPolicyAssociation(policyAssociationId): SPPolicyAssociation;
+
+            getPolicyAssociationForContainer(containerId: SPContainerId): SPPolicyAssociation;
+
+            deletePolicyAssociation(policyAssociationId): void;
+        }
+
+        export class SPPolicyStoreProxy extends ClientObject {
+            constructor(context: ClientRuntimeContext, web: Web);
+
+            get_policyStoreUrl(): string;
+        }
+
+    }
+
+    export module Discovery {
+
+        export enum ExportStatus {
+            notStarted,//: 0,
+            started,//: 1,
+            complete,//: 2,
+            failed//: 3
+        }
+
+        export class Case extends ClientObject {
+            constructor(context: ClientRuntimeContext, web: Web);
+            getExportContent(sourceIds: number[]): SP.StringResult;
+        }
+        export class Export extends ClientObject {
+            constructor(context: ClientRuntimeContext, item: ListItem);
+            get_status(): ExportStatus;
+            set_status(value: ExportStatus): ExportStatus;
+            update(): void;
+            getExportContent(): SP.StringResult;
+        }
+    }
+
+    export module InformationPolicy {
+        export class ProjectPolicy extends SP.ClientObject {
+            constructor(context: ClientRuntimeContext, objectPath: ObjectPath);
+            get_description(): string;
+
+            get_emailBody(): string;
+            set_emailBody(value: string): string;
+
+            get_emailBodyWithTeamMailbox(): string;
+            set_emailBodyWithTeamMailbox(value: string): string;
+
+            get_emailSubject(): string;
+            set_emailSubject(value: string): string;
+
+            get_name(): string;
+            savePolicy(): void;
+
+
+            static getProjectPolicies(context: ClientRuntimeContext, web: Web): ClientObjectList<ProjectPolicy>;
+            static getCurrentlyAppliedProject(context: ClientRuntimeContext, web: Web): ProjectPolicy;
+            static applyProjectPolicy(context: ClientRuntimeContext, web: Web, projectPolicy: ProjectPolicy): void;
+            static openProject(context: ClientRuntimeContext, web: Web): void;
+            static closeProject(context: ClientRuntimeContext, web: Web): void;
+            static postponeProject(context: ClientRuntimeContext, web: Web): void;
+            static doesProjectHavePolicy(context: ClientRuntimeContext, web: Web): SP.BooleanResult;
+            static isProjectClosed(context: ClientRuntimeContext, web: Web): SP.BooleanResult;
+            static getProjectCloseDate(context: ClientRuntimeContext, web: Web): SP.DateTimeResult;
+            static getProjectExpirationDate(context: ClientRuntimeContext, web: Web): SP.DateTimeResult;
+        }
+    }
+}
+declare class SPClientAutoFill{
+    static MenuOptionType : {
         Option: number;
         Footer: number;
         Separator: number;
-        Loading: number;
+        Loading:number;
     }
 
     static KeyProperty: string; //= 'AutoFillKey';
@@ -8249,7 +9409,7 @@ declare class SPClientAutoFill {
     static GetAutoFillObjFromContainer(elmChild: HTMLElement): SPClientAutoFill;
     static GetAutoFillMenuItemFromOption(elmChild: HTMLElement): HTMLElement;
 
-    constructor(elmTextId: string, elmContainerId: string, fnPopulateAutoFill: (targetElement: HTMLInputElement) => void);
+    constructor(elmTextId: string, elmContainerId: string, fnPopulateAutoFill: (targetElement: HTMLInputElement) => void );
     public TextElementId: string;
     public AutoFillContainerId: string;
     public AutoFillMenuId: string;
@@ -8260,16 +9420,16 @@ declare class SPClientAutoFill {
     public AutoFillCallbackTimeoutID: string;
     public FuncOnAutoFillClose: (elmTextId: string, ojData: ISPClientAutoFillData) => void;
     public FuncPopulateAutoFill: (targetElement: HTMLElement) => void;
-    public AllOptionData: { [key: string]: ISPClientAutoFillData };
+    public AllOptionData: { [key:string]: ISPClientAutoFillData };
 
-    PopulateAutoFill(jsonObjSuggestions: ISPClientAutoFillData[], fnOnAutoFillCloseFuncName: (elmTextId: string, objData: ISPClientAutoFillData) => void): void;
+    PopulateAutoFill(jsonObjSuggestions: ISPClientAutoFillData[], fnOnAutoFillCloseFuncName: (elmTextId: string, objData:ISPClientAutoFillData) => void ): void;
     IsAutoFillOpen(): boolean;
     SetAutoFillHeight(): void;
-    SelectAutoFillOption(elemOption: HTMLElement): void;
-    FocusAutoFill(): void;
+    SelectAutoFillOption(elemOption:HTMLElement): void;
+    FocusAutoFill() :void;
     BlurAutoFill(): void;
     CloseAutoFill(ojData: ISPClientAutoFillData): void;
-    UpdateAutoFillMenuFocus(bMoveNextLink: boolean): void;
+    UpdateAutoFillMenuFocus(bMoveNextLink:boolean): void;
     UpdateAutoFillPosition(): void;
 }
 
@@ -8441,4 +9601,160 @@ declare module Microsoft {
         }
     }
 }
+/** Available only in SharePoint Online*/
+declare module Define {
+    export function loadScript(url: string, successCallback: () => void, errCallback: () => void);
+    /** Loads script from _layouts/15/[req].js */
+    export function require(req: string, callback: Function): void;
+    /** Loads script from _layouts/15/[req].js */
+    export function require(req: string[], callback: Function): void;
+    export function define(name: string, deps: string[], def: Function): void;
+}
+
+/** Available only in SharePoint Online*/
+declare module Verify {
+    export function ArgumentType(arg: string, expected: any);
+}
+
+
+/** Available only in SharePoint Online*/
+declare module BrowserStorage {
+    export var local: CachedStorage;
+    export var session: CachedStorage;
+
+    /** Available only in SharePoint Online*/
+    interface CachedStorage {
+        getItem(key: string): string;
+        setItem(key: string, value: string);
+        removeItem(key: string): void;
+        clead(): void;
+        length: number;
+    }
+}
+
+/** Available only in SharePoint Online*/
+declare module BrowserDetection {
+    export var browseris: Browseris;
+}
+
+/** Available only in SharePoint Online*/
+declare module CSSUtil {
+    export function HasClass(elem: HTMLElement, className: string): boolean;
+    export function AddClass(elem: HTMLElement, className: string): void;
+    export function RemoveClass(elem: HTMLElement, className: string): void;
+    export function pxToFloat(pxString: string): number;
+    export function pxToNum(px: string): number;
+    export function numToPx(n: number): string;
+    export function getCurrentEltStyleByNames(elem: HTMLElement, styleNames: string[]): string;
+    export function getCurrentStyle(elem: HTMLElement, cssStyle: string): string;
+    export function getCurrentStyleCorrect(element: HTMLElement, camelStyleName: string, dashStyleName: string): string;
+    export function getOpacity(element: HTMLElement): number;
+    export function setOpacity(element: HTMLElement, value: number): void;
+}
+
+/** Available only in SharePoint Online*/
+declare module DOM {
+    export var rightToLeft: boolean;
+    export function cancelDefault(evt: Event): void;
+    export function AbsLeft(el: HTMLElement): number;
+    export function AbsTop(el: HTMLElement): number;
+    export function CancelEvent(evt: Event): void;
+    export function GetElementsByName(nae: string): NodeList;
+    export function GetEventCoords(evt: Event): { x: number; y: number; };
+    export function GetEventSrcElement(evt: Event): HTMLElement;
+    export function GetInnerText(el: HTMLElement): string;
+    export function PreventDefaultNavigation(evt: Event): void;
+    export function SetEvent(eventName: string, eventFunc: Function, el: HTMLElement);
+}
+
+/** Available only in SharePoint Online*/
+declare module Encoding {
+    export function EncodeScriptQuote(str: string): string;
+    export function HtmlEncode(str: string): string;
+    export function HtmlDecode(str: string): string;
+    export function AttrQuote(str: string): string;
+    export function ScriptEncode(str: string): string;
+    export function ScriptEncodeWithQuote(str: string): string;
+    export function CanonicalizeUrlEncodingCase(str: string): string;
+}
+
+/** Available only in SharePoint Online*/
+declare module IE8Support {
+    export function arrayIndexOf<T>(array: T[], item: T, startIdx?: number): number;
+    export function attachDOMContentLoaded(handler: Function): void;
+    export function getComputedStyle(domObj: HTMLElement, camelStyleName: string, dashStyleName: string): string;
+    export function stopPropagation(evt: Event): void;
+}
+
+/** Available only in SharePoint Online*/
+declare module StringUtil {
+    export function BuildParam(stPattern: string, ...params: any[]);
+    export function ApplyStringTemplate(str: string, ...params: any[]);
+}
+
+/** Available only in SharePoint Online*/
+declare module TypeUtil {
+    export function IsArray(value: any): boolean;
+    export function IsNullOrUndefined(value: any): boolean;
+}
+
+/** Available only in SharePoint Online*/
+declare module Nav {
+    export var ajaxNavigate: AjaxNavigate;
+    export function convertRegularURLtoMDSURL(webUrl: string, fullPath: string): string;
+    export function isMDSUrl(url: string): boolean;
+    export function isPageUrlValid(url: string): boolean;
+    export function isPortalTemplatePage(url: string): boolean;
+    export function getAjaxLocationWindow(): string;
+    export function getSource(defaultSource?: string): string;
+    export function getUrlKeyValue(keyName: string, bNoDecode: boolean, url: string, bCaseInsensitive: boolean): string;
+    export function getWindowLocationNoHash(hre: string): string;
+    export function goToHistoryLink(el: HTMLAnchorElement, strVersion: string): void;
+    export function getGoToLinkUrl(el: HTMLAnchorElement): string;
+    export function goToLink(el: HTMLAnchorElement): void;
+    export function goToLinkOrDialogNewWindow(el: HTMLAnchorElement): void;
+    export function goToDiscussion(url: string): void;
+    export function onClickHook(evt: Event, topElm: HTMLElement): void;
+    export function pageUrlValidation(url: string, alertString: string): string;
+    export function parseHash(hash: string): Object;
+    export function navigate(url: string): void;
+    export function removeMDSQueryParametersFromUrl(url: string): string;
+    export function urlFromHashBag(hashObject: Object): string;
+    export function wantsNewTab(evt: Event): boolean;
+}
+
+/** Available only in SharePoint Online*/
+declare module URI_Encoding {
+    export function encodeURIComponent(str: string, bAsUrl?: boolean, bForFilterQuery?: boolean, bForCallback?: boolean): string;
+    export function escapeUrlForCallback(str: string): string;
+}
+
+interface IListItem {
+    ID: number;
+    ContentTypeId: string;
+}
+
+/** Available only in SharePoint Online*/
+declare module ListModule {
+    export module Util {
+        export function createViewEditUrl(renderCtx: SPClientTemplates.RenderContext, listItem: IListItem, useEditFormUrl?: boolean, appendSource?: boolean): string;
+        export function createItemPropertiesTitle(renderCtx: SPClientTemplates.RenderContext, listItem: IListItem): string;
+        export function clearSelectedItemsDict(context: any): void;
+        export function ctxInitItemState(context: any): void;
+        export function getAttributeFromItemTable(itemTableParam: HTMLElement, strAttributeName: string, strAttributeOldName: string): string
+        export function getSelectedItemsDict(context: any): any;
+        export function removeOnlyPagingArgs(url: string): string;
+        export function removePagingArgs(url: string): string;
+        export function showAttachmentRows(): void;
+    }
+}
+
+/** Available only in SharePoint Online*/
+declare module SPThemeUtils {
+    export function ApplyCurrentTheme(): void;
+    export function WithCurrentTheme(resultCallback: Function): void;
+    export function UseClientSideTheming(): boolean;
+    export function Suspend(): void;
+}
+
 

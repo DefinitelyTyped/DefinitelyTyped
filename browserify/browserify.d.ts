@@ -5,35 +5,37 @@
 
 /// <reference path="../node/node.d.ts" />
 
-interface BrowserifyObject {
-	add(file: string);
-	require(file: string, opts?: {
-		expose: string;
-	});
-	bundle(opts?: {
-		insertGlobals?: boolean;
-		detectGlobals?: boolean;
-		debug?: boolean;
-		standalone?: string;
-		insertGlobalVars? ;
-	}, cb?: (err, src) => void): ReadableStream;
+interface BrowserifyObject extends NodeJS.EventEmitter {
+  add(file:string): BrowserifyObject;
+  require(file:string, opts?:{
+    expose: string;
+  }): BrowserifyObject;
+  bundle(opts?:{
+    insertGlobals?: boolean;
+    detectGlobals?: boolean;
+    debug?: boolean;
+    standalone?: string;
+    insertGlobalVars?: any;
+  }, cb?:(err:any, src:any) => void): NodeJS.ReadableStream;
 
-	external(file: string);
-	ignore(file: string);
-	transform(tr: string);
-	transform(tr: Function);
+  external(file:string): BrowserifyObject;
+  ignore(file:string): BrowserifyObject;
+  transform(tr:string): BrowserifyObject;
+  transform(tr:Function): BrowserifyObject;
+  plugin(plugin:string, opts?:any): BrowserifyObject;
+  plugin(plugin:Function, opts?:any): BrowserifyObject;
+}
 
-	on(event: string, action: Function): void;
-	on(event: "file", action: (file, id, parent) => void);
+interface Browserify {
+  (): BrowserifyObject;
+  (files:string[]): BrowserifyObject;
+  (opts:{
+    entries?: string[];
+    noParse?: string[];
+  }): BrowserifyObject;
 }
 
 declare module "browserify" {
-	function browserify(): BrowserifyObject;
-	function browserify(files: string[]): BrowserifyObject;
-	function browserify(opts: {
-		entries?: string[];
-		noParse?: string[];
-	}): BrowserifyObject;
-	
-	export = browserify;
+  var browserify: Browserify;
+  export = browserify;
 }

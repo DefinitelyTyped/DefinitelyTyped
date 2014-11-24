@@ -6,7 +6,7 @@
 /// <reference path="i18next.d.ts" />
 
 declare function done(): void;
- 
+
 describe('i18next', function () {
 
     var i18n = $.i18n
@@ -24,7 +24,6 @@ describe('i18next', function () {
             dynamicLoad: false,
             useLocalStorage: false,
             sendMissing: false,
-            resStore: false,
             getAsync: true,
             returnObjectTrees: false,
             debug: true,
@@ -113,7 +112,7 @@ describe('i18next', function () {
 
                 describe('to current', function () {
 
-                    var spy;
+                    var spy: any;
 
                     beforeEach(function (done) {
                         spy = sinon.spy(i18n.sync, '_fetchOne');
@@ -141,7 +140,7 @@ describe('i18next', function () {
 
                 describe('to unspecific', function () {
 
-                    var spy;
+                    var spy: any;
 
                     beforeEach(function (done) {
                         spy = sinon.spy(i18n.sync, '_fetchOne');
@@ -175,7 +174,7 @@ describe('i18next', function () {
 
             describe('with fallback language set to false', function () {
 
-                var spy;
+                var spy: any;
 
                 beforeEach(function (done) {
                     spy = sinon.spy(i18n.sync, '_fetchOne');
@@ -203,7 +202,7 @@ describe('i18next', function () {
 
             describe('preloading multiple languages', function () {
 
-                var spy;
+                var spy: any;
 
                 beforeEach(function (done) {
                     spy = sinon.spy(i18n.sync, '_fetchOne');
@@ -326,7 +325,7 @@ describe('i18next', function () {
 
                     describe('with using localStorage', function () {
 
-                        var spy;
+                        var spy: any;
 
                         before(function () {
                             window.localStorage.removeItem('res_en-US');
@@ -379,7 +378,7 @@ describe('i18next', function () {
 
             describe('using function provided in callback\'s argument', function () {
 
-                var cbT;
+                var cbT: any;
 
                 beforeEach(function (done) {
                     i18n.init(opts, function (t) { cbT = t; done(); });
@@ -395,7 +394,7 @@ describe('i18next', function () {
 
             describe('using localStorage', function () {
 
-                var spy;
+                var spy: any;
 
                 before(function () {
                     window.localStorage.removeItem('res_en-US');
@@ -463,7 +462,7 @@ describe('i18next', function () {
                             resStore: {
                                 'en-US': { translation: { 'simple_en-US': 'ok_from_en-US' } }
                             }
-                        }, function (t) { done(); }));
+                        }, function (t: any) { done(); }));
                     });
 
                     it('it should translate the uppercased lng value', function () {
@@ -485,7 +484,7 @@ describe('i18next', function () {
                             resStore: {
                                 'en-us': { translation: { 'simple_en-us': 'ok_from_en-us' } }
                             }
-                        }, function (t) { done(); }));
+                        }, function (t: any) { done(); }));
                     });
 
                     it('it should translate the lowercase lng value', function () {
@@ -530,7 +529,7 @@ describe('i18next', function () {
 
         describe('preloading multiple languages', function () {
 
-            var spy;
+            var spy: any;
 
             beforeEach(function (done) {
                 spy = sinon.spy(i18n.sync, '_fetchOne');
@@ -600,7 +599,7 @@ describe('i18next', function () {
         describe('post missing resources', function () {
 
             describe('to fallback', function () {
-                var server, stub;
+                var server: any, stub: any;
 
                 beforeEach(function (done) {
                     server = sinon.fakeServer.create();
@@ -632,7 +631,7 @@ describe('i18next', function () {
             });
 
             describe('to all', function () {
-                var server, stub;
+                var server: any, stub: any;
 
                 beforeEach(function (done) {
                     server = sinon.fakeServer.create();
@@ -683,6 +682,23 @@ describe('i18next', function () {
 
             it('it should translate correctly', function () {
                 expect(i18n.t('empty')).to.be('');
+            });
+        });
+
+        describe('exists functionality', function () {
+            var resStore = {
+                dev: { translation: { empty: '' } },
+                en: { translation: {} },
+                'en-US': { translation: {} }
+            };
+
+            beforeEach(function (done) {
+                i18n.init($.extend(opts, { resStore: resStore }),
+                    function (t) { done(); });
+            });
+
+            it('it should be able to test if a key exists', function () {
+                expect(i18n.exists('empty')).to.be(false);
             });
         });
 
@@ -1166,7 +1182,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    i18n.init($.extend(opts, { resStore: resStore })).done(function (t) { done(); });
+                    i18n.init($.extend(opts, { resStore: resStore })).done(function (t: any) { done(); });
                 });
 
                 it('it should provide passed in resources for translation', function () {

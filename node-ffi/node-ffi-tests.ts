@@ -1,5 +1,10 @@
 /// <reference path="node-ffi.d.ts" />
 
+/// <reference path="../ref/ref.d.ts" />
+/// <reference path="../ref-struct/ref-struct.d.ts" />
+/// <reference path="../ref-union/ref-union.d.ts" />
+/// <reference path="../ref-array/ref-array.d.ts" />
+
 import ffi = require('ffi');
 import ref = require('ref');
 import Struct = require('ref-struct');
@@ -26,7 +31,11 @@ import TArray = require('ref-array');
 {
     var func = ffi.ForeignFunction(new Buffer(10), 'int', [ 'int' ]);
     func(-5);
-    func.async(-5, function(err, res) {});
+    func.async(-5, function(err: any, res: any) {});
+}
+{
+    var funcPtr = ffi.Callback('int', [ 'int' ], Math.abs);
+    var func    = ffi.ForeignFunction(funcPtr, 'int', [ 'int' ]);
 }
 {
     var printfPointer = ffi.DynamicLibrary().get('printf');

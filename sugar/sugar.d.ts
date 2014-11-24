@@ -1,4 +1,8 @@
-﻿/* 
+﻿// Type definitions for Sugar 1.3.9
+// Project: http://sugarjs.com/
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+/*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/sugar.d.ts
@@ -111,7 +115,7 @@ interface String {
 	*   'hello kitty'.capitalize(true) -> 'Hello Kitty'
 	*
 	**/
-	capitalize(all: boolean): string;
+	capitalize(all?: boolean): string;
 
 	/**
 	* Runs callback [fn] against each character in the string.
@@ -2129,7 +2133,7 @@ interface Array<T> {
 	*   }, 2, true);
 	**/
 	each(
-		fn: (element: T, index: number, array: T[]) => boolean,
+		fn: (element: T, index?: number, array?: T[]) => any,
 		index?: number,
 		loop?: boolean): T[];
 
@@ -2354,16 +2358,14 @@ interface Array<T> {
 	*   [{age:35,name:'ken'},{age:15,name:'bob'}].groupBy(function(n) {
 	*     return n.age;
 	*   });                                  -> { 35: [{age:35,name:'ken'}], 15: [{age:15,name:'bob'}] }
-	* todo: return should be : { [key: U]: any }
 	**/
-	groupBy<U>(map: string, fn?: (group: T) => void ): { [key: string]: any };
+	groupBy<U>(map: string, fn?: (key: string, items: T[]) => void): { [key: string]: T };
 
 	/**
 	* @see groupBy
 	* @param map Callback function for each element, returns the key for the group the element should be in.
-	* todo: return should be : { [key: U]: any }
 	**/
-	groupBy<U>(map: (element: T) => U, fn?: (group: T) => void ): { [key: string]: any };
+	groupBy<U>(map: (element: T) => U, fn?: (key: string, items: T[]) => void): { [key: string]: T[] };
 
 	/**
 	* Groups the array into <num> arrays.
@@ -2549,7 +2551,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> {a:3}
 	**/
-	max(map: string): T;
+	max(map?: string): T;
 
 	/**
 	* @see max
@@ -2567,7 +2569,7 @@ interface Array<T> {
 	/**
 	* @see max
 	**/
-	max<U>(map: (n: T) => U): T[];
+	max<U>(map: (n: T) => U, all: boolean): T[];
 
 	/***
 	* Returns the element in the array with the lowest value.
@@ -2585,7 +2587,7 @@ interface Array<T> {
 	*     return n['a'];
 	*   });                              -> [{a:2}]
 	**/
-	min(map: string): T;
+	min(map?: string): T;
 
 	/**
 	* @see min If true return all min values in the array, default = false.
@@ -2617,7 +2619,7 @@ interface Array<T> {
 	*     return n.age;
 	*   });                              -> [{age:12,name:'bob'},{age:12,name:'ted'}]
 	**/
-	most(map: string): T[];
+	most(map?: string): T[];
 
 	/**
 	* @see most
@@ -2818,7 +2820,7 @@ interface Array<T> {
 	* @see subtract
 	**/
 	subtract(args: T[]): T[];
-	
+
 	/**
 	* Sums all values in the array.
 	* @param map Property on each element in the array or callback function to sum up the elements.
@@ -2833,6 +2835,11 @@ interface Array<T> {
 	*   [{age:35},{age:12},{age:12}].sum('age') -> 59
 	**/
 	sum(map: string): number;
+
+    /**
+    * @see sum
+    **/
+	sum(): number;
 
 	/**
 	* @see sum
@@ -3384,7 +3391,7 @@ interface ObjectStatic {
 	*   });
 	*
 	**/
-	watch(obj: any, prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	watch(obj: any, prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Object {
@@ -3834,7 +3841,7 @@ interface Object {
 	*   });
 	*
 	**/
-	watch(prop: string, fn: (prop: string, oldVal: any, newVal: any) => any): void;
+	watch(prop: string, fn: (prop?: string, oldVal?: any, newVal?: any) => any): void;
 }
 
 interface Function {
@@ -4397,9 +4404,9 @@ interface Date {
 	*   });                                                      -> ex. 1 day ago
 	**/
 	format(format: string, locale?: string): string;
-	short(): string;
-	long(): string;
-	full(): string;
+    	short(locale?: string): string;
+    	long(locale?: string): string;
+    	full(locale?: string): string;
 
 	/**
 	* Returns a string representation of the offset from UTC time. If [iso]

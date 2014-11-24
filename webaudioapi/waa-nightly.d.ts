@@ -1,7 +1,10 @@
-// Type definitions for the Web Audio API, currently only implemented in WebKit browsers (nightly builds)
-// Conforms to the: https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html specification
-// Definitions by: Baruch Berger (https://github.com/bbss)
+// Type definitions for Web Audio API (nightly)
+// Project: http://www.w3.org/TR/2012/WD-webaudio-20120802/
+// Definitions by: Baruch Berger <https://github.com/bbss>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Conforms to the: http://www.w3.org/TR/2012/WD-webaudio-20120802/ specification
+// Currently only implemented in WebKit browsers (nightly builds)
 
 interface webkitAudioContext {
 

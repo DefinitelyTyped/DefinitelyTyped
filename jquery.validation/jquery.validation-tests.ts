@@ -111,7 +111,7 @@ function test_validate() {
         submitHandler: function () { alert("Submitted!") }
     });
     $(".selector").validate({
-        showErrors: function (errorMap, errorList) {
+        showErrors: function (errorMap: ErrorDictionary, errorList: ErrorListItem[]) {
             $("#summary").html("Your form contains " + this.numberOfInvalids() + " errors, see details below.");
             this.defaultShowErrors();
         }
@@ -140,14 +140,14 @@ function test_validate() {
         }
     });
     $(".selector").validate({
-        highlight: function (element, errorClass, validClass) {
+        highlight: function (element: HTMLInputElement, errorClass, validClass) {
             $(element).addClass(errorClass).removeClass(validClass);
-            $(element.form).find("label[for=" + element.id + "]")
+            $((<HTMLInputElement>element).form).find("label[for=" + element.id + "]")
                            .addClass(errorClass);
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function (element: HTMLInputElement, errorClass, validClass) {
             $(element).removeClass(errorClass).addClass(validClass);
-            $(element.form).find("label[for=" + element.id + "]")
+            $((<HTMLInputElement>element).form).find("label[for=" + element.id + "]")
                            .removeClass(errorClass);
         }
     });
@@ -193,7 +193,7 @@ function test_methods() {
     validator.hideErrors();
     var isValid: boolean = validator.valid();
     var size: number = validator.size();
-    var errorMap: Object = validator.errorMap;
+    var errorMap: ErrorDictionary = validator.errorMap;
     var errorList: ErrorListItem[] = validator.errorList;
 
     $("#summary").text(validator.numberOfInvalids() + " field(s) are invalid");
@@ -227,4 +227,6 @@ function test_methods() {
             maxlength: 5
         }
     });
+    var invalidElements: HTMLElement[] = validator.invalidElements();
+    var validElements: HTMLElement[] = validator.validElements();
 }

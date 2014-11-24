@@ -1,3 +1,8 @@
+// Type definitions for Google Geolocation 0.4.8
+// Project: https://developers.google.com/maps/
+// Definitions by: Folia A/S <http://www.folia.dk>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /*
 The MIT License
 
@@ -108,7 +113,8 @@ declare module google.maps {
         scaleControl?: boolean;
         scaleControlOptions?: ScaleControlOptions;
         scrollwheel?: boolean;
-        streetView?: boolean;
+        streetView?: StreetViewPanorama;
+        streetViewControl?: boolean;
         streetViewControlOptions?: StreetViewControlOptions;
         styles?: MapTypeStyle[];
         tilt?: number;
@@ -361,7 +367,7 @@ declare module google.maps {
         getEditable(): boolean;
         getMap(): Map;
         getPath(): MVCArray;
-        getPaths(): MVCArray[];
+        getPaths(): MVCArray;
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
@@ -1242,7 +1248,7 @@ declare module google.maps {
     /***** Geometry Library *****/
     export module geometry {
         export class encoding {
-            static decodePath(encodedPath: string): LatLng;
+            static decodePath(encodedPath: string): LatLng[];
             static encodePath(path: any[]): string;
         }
 
@@ -1257,8 +1263,8 @@ declare module google.maps {
         }
 
         export class poly {
-            containsLocation(point: LatLng, polygon: Polygon): boolean;
-            isLocationOnEdge(point: LatLng, poly: any, tolerance?: number): boolean;
+            static containsLocation(point: LatLng, polygon: Polygon): boolean;
+            static isLocationOnEdge(point: LatLng, poly: any, tolerance?: number): boolean;
         }
     }
 
@@ -1350,9 +1356,9 @@ declare module google.maps {
         }
 
         export interface AutocompleteOptions {
-            bounds: LatLngBounds;
-            componentRestrictions: ComponentRestrictions;
-            types: string[];
+            bounds?: LatLngBounds;
+            componentRestrictions?: ComponentRestrictions;
+            types?: string[];
         }
 
         export interface ComponentRestrictions {
@@ -1422,6 +1428,17 @@ declare module google.maps {
             DISTANCE,
             PROMINENCE
         }
+		
+		export class SearchBox {
+			constructor(inputField: HTMLInputElement, opts?: SearchBoxOptions);
+			getBounds(): LatLngBounds;
+			setBounds(bounds: LatLngBounds): void;
+			getPlaces(): PlaceResult[];			
+		}
+
+		export interface SearchBoxOptions {
+			bounds: LatLngBounds;
+		}
 
         export interface TextSearchRequest {
             bounds: LatLngBounds;
@@ -1557,13 +1574,13 @@ declare module google.maps {
         }
 
         export interface HeatmapLayerOptions {
-            data: LatLng[];
-            dissipating: boolean;
-            gradient: string[];
-            map: Map;
-            maxIntensity: number;
-            opacity: number;
-            radius: number;
+            data: any;
+            dissipating?: boolean;
+            gradient?: string[];
+            map?: Map;
+            maxIntensity?: number;
+            opacity?: number;
+            radius?: number;
         }
 
         export interface WeightedLocation {

@@ -1,6 +1,8 @@
-// URI.js
+// Type definitions for URI.js
 // Project: https://github.com/medialize/URI.js
-// Definitions by: https://github.com/RodneyJT
+// Definitions by: RodneyJT <https://github.com/RodneyJT>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface URIOptions {

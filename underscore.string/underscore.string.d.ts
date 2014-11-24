@@ -3,26 +3,65 @@
 // Definitions by: Ry Racherbaumer <http://github.com/rygine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module 'underscore.string' {
+interface UnderscoreStatic {
+    str: UnderscoreStringStatic;
+    string: UnderscoreStringStatic;
+}
+
+interface UnderscoreStringStatic extends UnderscoreStringStaticExports {
+    /**
+     * Tests if string contains a substring.
+     * ('foobar', 'ob') => true
+     * @param str
+     * @param needle
+     */
+    include(str: string, needle: string): boolean;
+
+    /**
+     * Tests if string contains a substring.
+     * ('foobar', 'ob') => true
+     * @param str
+     * @param needle
+     */
+    contains(str: string, needle: string): boolean;
+
+    /**
+     * Return reversed string.
+     * ('foobar') => 'raboof'
+     * @param str
+     */
+    reverse(str: string): string;
+}
+
+/**
+ * Functions exported for mixing with underscore object.
+ *
+ * Usage:
+ *   _.mixin(_.string.exports());
+ *   interface UnderscoreStatic extends UnderscoreStringStaticExports { }
+ */
+interface UnderscoreStringStaticExports {
+
+    exports(): UnderscoreStringStaticExports;
 
     /**
      * Determine if a string is 'blank.'
      * @param str
      */
-    function isBlank(str: string): boolean;
+    isBlank(str: string): boolean;
 
     /**
      * Removes all html tags from string.
      * @param str
      */
-    function stripTags(str: string): string;
+    stripTags(str: string): string;
 
     /**
      * Converts first letter of the string to uppercase.
      * ('foo Bar') => 'Foo Bar'
      * @param str
      */
-    function capitalize(str: string): string;
+    capitalize(str: string): string;
 
     /**
      * Chop a string into pieces.
@@ -30,14 +69,14 @@ declare module 'underscore.string' {
      * @param str String to chop
      * @param step Size of the pieces
      */
-    function chop(str: string, step: number): Array;
+    chop(str: string, step: number): any[];
 
     /**
      * Compress some whitespaces to one.
      * (' foo    bar   ') => 'foo bar'
      * @param str
      */
-    function clean(str: string): string;
+    clean(str: string): string;
 
     /**
      * Count occurences of a sub string.
@@ -45,41 +84,41 @@ declare module 'underscore.string' {
      * @param str
      * @param substr
      */
-    function count(str: string, substr: string): number;
+    count(str: string, substr: string): number;
 
     /**
      * Convert string to an array of characters.
      * ('Hello') => ['H','e','l','l','o']
      * @param str
      */
-    function chars(str: string): Array;
+    chars(str: string): any[];
 
     /**
      * Returns a copy of the string in which all the case-based characters have had their case swapped.
      * ('hELLO') => 'Hello'
      * @param str
      */
-    function swapCase(str: string): string;
+    swapCase(str: string): string;
 
     /**
      * Converts HTML special characters to their entity equivalents.
      * ('<div>Blah blah blah</div>') => '&lt;div&gt;Blah blah blah&lt;/div&gt;'
      * @param str
      */
-    function escapeHTML(str: string): string;
+    escapeHTML(str: string): string;
 
     /**
      * Converts entity characters to HTML equivalents.
      * ('&lt;div&gt;Blah blah blah&lt;/div&gt;') => '<div>Blah blah blah</div>'
      * @param str
      */
-    function unescapeHTML(str: string): string;
+    unescapeHTML(str: string): string;
 
     /**
      * Escape a string for use in a regular expression.
      * @param str
      */
-    function escapeRegExp(str: string): string;
+    escapeRegExp(str: string): string;
 
     /**
      * Splice a string like an array.
@@ -88,7 +127,7 @@ declare module 'underscore.string' {
      * @param howmany
      * @param substr
      */
-    function splice(str: string, i: number, howmany: number, substr?: string): string;
+    splice(str: string, i: number, howmany: number, substr?: string): string;
 
     /**
      * Insert a string at index.
@@ -96,23 +135,7 @@ declare module 'underscore.string' {
      * @param i
      * @param substr
      */
-    function insert(str: string, i: number, substr: string): string;
-
-    /**
-     * Tests if string contains a substring.
-     * ('foobar', 'ob') => true
-     * @param str
-     * @param needle
-     */
-    function include(str: string, needle: string): boolean;
-
-    /**
-     * Tests if string contains a substring.
-     * ('foobar', 'ob') => true
-     * @param str
-     * @param needle
-     */
-    function contains(str: string, needle: string): boolean;
+    insert(str: string, i: number, substr: string): string;
 
     /**
      * Joins strings together with given separator.
@@ -120,21 +143,14 @@ declare module 'underscore.string' {
      * @param separator
      * @param args
      */
-    function join(separator: string, ...args: string[]): string;
+    join(separator: string, ...args: string[]): string;
 
     /**
      * Split string by newlines character.
      * ('Hello\nWorld') => ['Hello', 'World']
      * @param str
      */
-    function lines(str: string): Array;
-
-    /**
-     * Return reversed string.
-     * ('foobar') => 'raboof'
-     * @param str
-     */
-    function reverse(str: string): string;
+    lines(str: string): any[];
 
     /**
      * Checks if string starts with another string.
@@ -142,7 +158,7 @@ declare module 'underscore.string' {
      * @param str
      * @param starts
      */
-    function startsWith(str: string, starts: string): boolean;
+    startsWith(str: string, starts: string): boolean;
 
     /**
      * Checks if string ends with another string.
@@ -150,49 +166,49 @@ declare module 'underscore.string' {
      * @param value
      * @param starts
      */
-    function endsWith(value: string, starts: string): boolean;
+    endsWith(value: string, starts: string): boolean;
 
     /**
      * Returns the successor to passed string.
      * ('a') => 'b'
      * @param str
      */
-    function succ(str: string): string;
+    succ(str: string): string;
 
     /**
      * Capitalize first letter of every word in the string.
      * ('my name is epeli') => 'My Name Is Epeli'
      * @param str
      */
-    function titleize(str: string): string;
+    titleize(str: string): string;
 
     /**
      * Converts underscored or dasherized string to a camelized one.
      * ('-moz-transform') => 'MozTransform'
      * @param str
      */
-    function camelize(str: string): string;
+    camelize(str: string): string;
 
     /**
      * Converts a camelized or dasherized string into an underscored one.
      * ('MozTransform') => 'moz_transform'
      * @param str
      */
-    function underscored(str: string): string;
+    underscored(str: string): string;
 
     /**
      * Converts a underscored or camelized string into an dasherized one.
      * ('MozTransform') => '-moz-transform'
      * @param str
      */
-    function dasherize(str: string): string;
+    dasherize(str: string): string;
 
     /**
      * Converts string to camelized class name.
      * ('some_class_name') => 'SomeClassName'
      * @param str
      */
-    function classify(str: string): string;
+    classify(str: string): string;
 
     /**
      * Converts an underscored, camelized, or dasherized string into a humanized one.
@@ -200,7 +216,7 @@ declare module 'underscore.string' {
      * ('  capitalize dash-CamelCase_underscore trim  ') => 'Capitalize dash camel case underscore trim'
      * @param str
      */
-    function humanize(str: string): string;
+    humanize(str: string): string;
 
     /**
      * Trims defined characters from begining and ending of the string.
@@ -210,7 +226,7 @@ declare module 'underscore.string' {
      * @param str
      * @param characters
      */
-    function trim(str: string, characters?: string): string;
+    trim(str: string, characters?: string): string;
 
     /**
      * Trims defined characters from begining and ending of the string.
@@ -220,35 +236,35 @@ declare module 'underscore.string' {
      * @param str
      * @param characters
      */
-    function strip(str: string, characters?: string): string;
+    strip(str: string, characters?: string): string;
 
     /**
      * Left trim. Similar to trim, but only for left side.
      * @param str
      * @param characters
      */
-    function ltrim(str: string, characters?: string): string;
+    ltrim(str: string, characters?: string): string;
 
     /**
      * Left trim. Similar to trim, but only for left side.
      * @param str
      * @param characters
      */
-    function lstrip(str: string, characters?: string): string;
+    lstrip(str: string, characters?: string): string;
 
     /**
      * Right trim. Similar to trim, but only for right side.
      * @param str
      * @param characters
      */
-    function rtrim(str: string, characters?: string): string;
+    rtrim(str: string, characters?: string): string;
 
     /**
      * Right trim. Similar to trim, but only for right side.
      * @param str
      * @param characters
      */
-    function rstrip(str: string, characters?: string): string;
+    rstrip(str: string, characters?: string): string;
 
     /**
      * Truncate string to specified length.
@@ -258,7 +274,7 @@ declare module 'underscore.string' {
      * @param length
      * @param truncateStr
      */
-    function truncate(str: string, length: number, truncateStr?: string): string;
+    truncate(str: string, length: number, truncateStr?: string): string;
 
     /**
      * Elegant version of truncate.
@@ -269,7 +285,7 @@ declare module 'underscore.string' {
      * @param length
      * @param pruneStr
      */
-    function prune(str: string, length: number, pruneStr?: string): string;
+    prune(str: string, length: number, pruneStr?: string): string;
 
     /**
      * Split string by delimiter (String or RegExp).
@@ -279,7 +295,27 @@ declare module 'underscore.string' {
      * @param str
      * @param delimiter
      */
-    function words(str: string, delimiter?: string): Array;
+    words(str: string): string[];
+    
+    /**
+     * Split string by delimiter (String or RegExp).
+     * /\s+/ by default.
+     * ('   I   love   you   ') => ['I','love','you']
+     * ('I_love_you', '_') => ['I','love','you']
+     * @param str
+     * @param delimiter
+     */
+    words(str: string, delimiter: string): string[];
+
+    /**
+     * Split string by delimiter (String or RegExp).
+     * /\s+/ by default.
+     * ('   I   love   you   ') => ['I','love','you']
+     * ('I_love_you', '_') => ['I','love','you']
+     * @param str
+     * @param delimiter
+     */
+    words(str: string, delimiter: RegExp): string[];
 
     /**
      * Pads a string with characters until the total string length is equal to the passed length parameter.
@@ -295,7 +331,7 @@ declare module 'underscore.string' {
      * @param padStr
      * @param type
      */
-    function pad(str: string, length: number, padStr:string, type?: string): string;
+    pad(str: string, length: number, padStr?:string, type?: string): string;
 
     /**
      * Left-pad a string.
@@ -305,7 +341,7 @@ declare module 'underscore.string' {
      * @param length
      * @param padStr
      */
-    function lpad(str: string, length: number, padStr?: string): string;
+    lpad(str: string, length: number, padStr?: string): string;
 
     /**
      * Left-pad a string.
@@ -315,7 +351,7 @@ declare module 'underscore.string' {
      * @param length
      * @param padStr
      */
-    function rjust(str: string, length: number, padStr?: string): string;
+    rjust(str: string, length: number, padStr?: string): string;
 
     /**
      * Right-pad a string.
@@ -325,7 +361,7 @@ declare module 'underscore.string' {
      * @param length
      * @param padStr
      */
-    function rpad(str: string, length: number, padStr?: string): string;
+    rpad(str: string, length: number, padStr?: string): string;
 
     /**
      * Right-pad a string.
@@ -335,7 +371,7 @@ declare module 'underscore.string' {
      * @param length
      * @param padStr
      */
-    function ljust(str: string, length: number, padStr?: string): string;
+    ljust(str: string, length: number, padStr?: string): string;
 
     /**
      * Left/right-pad a string.
@@ -345,7 +381,7 @@ declare module 'underscore.string' {
      * @param length
      * @param padStr
      */
-    function lrpad(str: string, length: number, padStr?: string): string;
+    lrpad(str: string, length: number, padStr?: string): string;
 
     /**
      * Left/right-pad a string.
@@ -355,7 +391,7 @@ declare module 'underscore.string' {
      * @param length
      * @param padStr
      */
-    function center(str: string, length: number, padStr?: string): string;
+    center(str: string, length: number, padStr?: string): string;
 
     /**
      * C like string formatting.
@@ -363,7 +399,7 @@ declare module 'underscore.string' {
      * @param format
      * @param args
      */
-    function sprintf(format: string, ...args: any[]): string;
+    sprintf(format: string, ...args: any[]): string;
 
     /**
      * Parse string to number.
@@ -373,7 +409,7 @@ declare module 'underscore.string' {
      * @param str
      * @param decimals
      */
-    function toNumber(str: string, decimals?: number): number;
+    toNumber(str: string, decimals?: number): number;
 
     /**
      * Formats the numbers.
@@ -384,7 +420,7 @@ declare module 'underscore.string' {
      * @param dsep
      * @param tsep
      */
-    function numberFormat(number: number, dec?: number, dsep?: string, tsep?: string): string;
+    numberFormat(number: number, dec?: number, dsep?: string, tsep?: string): string;
 
     /**
      * Searches a string from left to right for a pattern.
@@ -394,7 +430,7 @@ declare module 'underscore.string' {
      * @param str
      * @param sep
      */
-    function strRight(str: string, sep: string): string;
+    strRight(str: string, sep: string): string;
 
     /**
      * Searches a string from right to left for a pattern.
@@ -404,7 +440,7 @@ declare module 'underscore.string' {
      * @param str
      * @param sep
      */
-    function strRightBack(str: string, sep: string): string;
+    strRightBack(str: string, sep: string): string;
 
     /**
      * Searches a string from left to right for a pattern.
@@ -414,7 +450,7 @@ declare module 'underscore.string' {
      * @param str
      * @param sep
      */
-    function strLeft(str: string, sep: string): string;
+    strLeft(str: string, sep: string): string;
 
     /**
      * Searches a string from right to left for a pattern.
@@ -424,7 +460,7 @@ declare module 'underscore.string' {
      * @param str
      * @param sep
      */
-    function strLeftBack(str: string, sep: string): string;
+    strLeftBack(str: string, sep: string): string;
 
     /**
      * Join an array into a human readable sentence.
@@ -435,7 +471,7 @@ declare module 'underscore.string' {
      * @param lastSeparator
      * @param serial
      */
-    function toSentence(array: Array, separator?: string, lastSeparator?: string, serial?: boolean): string;
+    toSentence(array: any[], separator?: string, lastSeparator?: string, serial?: boolean): string;
 
     /**
      * The same as toSentence, but uses ', ' as default for lastSeparator.
@@ -443,14 +479,14 @@ declare module 'underscore.string' {
      * @param separator
      * @param lastSeparator
      */
-    function toSentenceSerial(array: Array, separator?: string, lastSeparator?: string): string;
+    toSentenceSerial(array: any[], separator?: string, lastSeparator?: string): string;
 
     /**
      * Transform text into a URL slug. Replaces whitespaces, accentuated, and special characters with a dash.
      * ('Un éléphant à l'orée du bois') => 'un-elephant-a-loree-du-bois'
      * @param str
      */
-    function slugify(str: string): string;
+    slugify(str: string): string;
 
     /**
      * Surround a string with another string.
@@ -458,7 +494,7 @@ declare module 'underscore.string' {
      * @param str
      * @param wrapper
      */
-    function surround(str: string, wrapper: string): string;
+    surround(str: string, wrapper: string): string;
 
     /**
      * Quotes a string.
@@ -466,7 +502,7 @@ declare module 'underscore.string' {
      * ('foo') => '"foo"'
      * @param str
      */
-    function quote(str: string, quoteChar?: string): string;
+    quote(str: string, quoteChar?: string): string;
 
     /**
      * Quotes a string.
@@ -474,7 +510,7 @@ declare module 'underscore.string' {
      * ('foo') => '"foo"'
      * @param str
      */
-    function q(str: string, quoteChar?: string): string;
+    q(str: string, quoteChar?: string): string;
 
     /**
      * Unquotes a string.
@@ -483,7 +519,7 @@ declare module 'underscore.string' {
      * ("'foo'", "'") => 'foo'
      * @param str
      */
-    function unquote(str: string, quoteChar?: string): string;
+    unquote(str: string, quoteChar?: string): string;
 
     /**
      * Repeat a string with an optional separator.
@@ -493,7 +529,7 @@ declare module 'underscore.string' {
      * @param count
      * @param separator
      */
-    function repeat(value: string, count: number, separator?:string): string;
+    repeat(value: string, count: number, separator?:string): string;
 
     /**
      * Naturally sort strings like humans would do.
@@ -501,7 +537,7 @@ declare module 'underscore.string' {
      * @param str1
      * @param str2
      */
-    function naturalCmp(str1: string, str2: string): number;
+    naturalCmp(str1: string, str2: string): number;
 
     /**
      * Calculates Levenshtein distance between two strings.
@@ -509,7 +545,7 @@ declare module 'underscore.string' {
      * @param str1
      * @param str2
      */
-    function levenshtein(str1: string, str2: string): number;
+    levenshtein(str1: string, str2: string): number;
 
     /**
      * Turn strings that can be commonly considered as booleans to real booleans.
@@ -523,6 +559,11 @@ declare module 'underscore.string' {
      * @param trueValues
      * @param falseValues
      */
-    function toBoolean(str: string, trueValues?: Array, falseValues?: Array): boolean;
+    toBoolean(str: string, trueValues?: any[], falseValues?: any[]): boolean;
 
 }
+declare module 'underscore.string' {
+    var underscoreString: UnderscoreStringStatic;
+    export = underscoreString;
+}
+// TODO interface UnderscoreString extends Underscore<string>

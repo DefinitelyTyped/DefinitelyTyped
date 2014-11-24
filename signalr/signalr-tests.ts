@@ -51,17 +51,17 @@ function test_connection() {
 }
 
 interface MyHubConnection extends HubConnection {
-    someState: string;
-    SomeFunction: Function;
+	someState: string;
+	SomeFunction: Function;
 
-    // My Hubs Client functions: 
-    client: {
-        addMessage: (message: string) => void;
-    }
-    // My Hubs Server function: 
-    server: {
-        send(message: string);
-    } 
+	// My Hubs Client functions: 
+	client: {
+		addMessage: (message: string) => void;
+	};
+	// My Hubs Server function: 
+	server: {
+		send(message: string): any;
+	};
 }
 
 interface SignalR {
@@ -107,10 +107,10 @@ function test_hubs() {
     proxy.invoke('send', msg);
     proxy.invoke('send', msg, room);
     proxy.invoke('add', 1, 2)
-        .done(function (result) {
+        .done(function (result: any) {
             console.log('The result is ' + result);
         });
-    proxy.on('addMessage', function (msg) {
+    proxy.on('addMessage', function (msg?) {
         console.log(msg);
     });
     var connection = $.hubConnection('http://localhost:8081/');

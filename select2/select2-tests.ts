@@ -144,15 +144,16 @@ $("#e11_2").select2({
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
 function log(e) {
-    var e = $("<li>" + e + "</li>");
-    $("#events_11").append(e);
-    e.animate({ opacity: 1 }, 10000, 'linear', function () { e.animate({ opacity: 0 }, 2000, 'linear', function () { e.remove(); }); });
+    var item = $("<li>" + e + "</li>");
+    $("#events_11").append(item);
+    item.animate({ opacity: 1 }, 10000, 'linear', function () { item.animate({ opacity: 0 }, 2000, 'linear', function () { item.remove(); }); });
 }
 $("#e11")
-        .on("change", function (e) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+		// TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
+		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
         .on("open", function () { log("open"); });
 $("#e11_2")
-        .on("change", function (e) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
+		.on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
         .on("open", function () { log("open"); });
 $("#e12").select2({ tags: ["red", "green", "blue"] });
 $("#e20").select2({

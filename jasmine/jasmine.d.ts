@@ -1,32 +1,42 @@
-﻿// Type definitions for Jasmine 1.2
+// Type definitions for Jasmine 2.0
 // Project: http://pivotal.github.com/jasmine/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+
+// For ddescribe / iit use : https://github.com/borisyankov/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 declare function describe(description: string, specDefinitions: () => void): void;
+// declare function ddescribe(description: string, specDefinitions: () => void): void; Not a part of jasmine. Angular team adds these
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
-declare function it(expectation: string, assertion: () => void): void;
-declare function it(expectation: string, assertion: (done: (err?: any) => void) => void): void;
-declare function xit(expectation: string, assertion: () => void): void;
+declare function it(expectation: string, assertion?: () => void): void;
+declare function it(expectation: string, assertion?: (done: () => void) => void): void;
+// declare function iit(expectation: string, assertion?: () => void): void; Not a part of jasmine. Angular team adds these
+// declare function iit(expectation: string, assertion?: (done: () => void) => void): void; Not a part of jasmine. Angular team adds these
+declare function xit(expectation: string, assertion?: () => void): void;
+declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
+
+/** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
+declare function pending(): void;
 
 declare function beforeEach(action: () => void): void;
+declare function beforeEach(action: (done: () => void) => void): void;
 declare function afterEach(action: () => void): void;
+declare function afterEach(action: (done: () => void) => void): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
-//declare function expect(spy: jasmine.Spy): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
-declare function waitsFor(latchMethod: () => boolean, failureMessage: string, timeout?: number): void;
+declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
 declare function waits(timeout?: number): void;
 
 declare module jasmine {
 
-    var Clock: Clock;
+    var clock: () => Clock;
 
     function any(aclass: any): Any;
     function objectContaining(sample: any): ObjectContaining;
@@ -35,6 +45,7 @@ declare module jasmine {
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function getEnv(): Env;
+    function addMatchers(matchers: any): Any;
 
     interface Any {
 
@@ -67,17 +78,10 @@ declare module jasmine {
     }
 
     interface Clock {
-        reset(): void;
-        tick(millis: number): void;
-        runFunctionsWithinRange(oldMillis: number, nowMillis: number): void;
-        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: boolean): void;
-        useMock(): void;
-        installMock(): void;
-        uninstallMock(): void;
-        real: void;
-        assertInstalled(): void;
-        isInstalled(): boolean;
-        installed: any;
+        install(): void;
+        uninstall(): void;
+        /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
+        tick(ms: number): void;
     }
 
     interface Env {
@@ -97,11 +101,13 @@ declare module jasmine {
         addReporter(reporter: Reporter): void;
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
+        // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
         beforeEach(beforeEachFunction: () => void): void;
         currentRunner(): Runner;
         afterEach(afterEachFunction: () => void): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
+        // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
         xit(desc: string, func: () => void): XSpec;
         compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): boolean;
         compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
@@ -122,6 +128,10 @@ declare module jasmine {
     }
 
     interface HtmlReporter {
+        new (): any;
+    }
+
+    interface HtmlSpecFilter {
         new (): any;
     }
 
@@ -213,11 +223,8 @@ declare module jasmine {
         message(): any;
 
         toBe(expected: any): boolean;
-        toNotBe(expected: any): boolean;
         toEqual(expected: any): boolean;
-        toNotEqual(expected: any): boolean;
         toMatch(expected: any): boolean;
-        toNotMatch(expected: any): boolean;
         toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toBeNull(): boolean;
@@ -225,16 +232,15 @@ declare module jasmine {
         toBeTruthy(): boolean;
         toBeFalsy(): boolean;
         toHaveBeenCalled(): boolean;
-        wasNotCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toContain(expected: any): boolean;
-        toNotContain(expected: any): boolean;
         toBeLessThan(expected: any): boolean;
         toBeGreaterThan(expected: any): boolean;
         toBeCloseTo(expected: any, precision: any): boolean;
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
+        toThrowError(expected?: any): boolean;
         not: Matchers;
 
         Any: Any;
@@ -345,15 +351,44 @@ declare module jasmine {
         (...params: any[]): any;
 
         identity: string;
-        calls: any[];
+        and: SpyAnd;
+        calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
         wasCalled: boolean;
         callCount: number;
+    }
 
-        andReturn(value: any): Spy;
-        andCallThrough(): Spy;
-        andCallFake(fakeFunc: Function): Spy;
+    interface SpyAnd {
+        /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
+        callThrough(): void;
+        /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
+        returnValue(val: any): void;
+        /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
+        callFake(fn: Function): void;
+        /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
+        throwError(msg: string): void;
+        /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
+        stub(): void;
+    }
+
+    interface Calls {
+        /** By chaining the spy with calls.any(), will return false if the spy has not been called at all, and then true once at least one call happens. **/
+        any(): boolean;
+        /** By chaining the spy with calls.count(), will return the number of times the spy was called **/
+        count(): number;
+        /** By chaining the spy with calls.argsFor(), will return the arguments passed to call number index **/
+        argsFor(index: number): any[];
+        /** By chaining the spy with calls.allArgs(), will return the arguments to all calls **/
+        allArgs(): any[];
+        /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls **/
+        all(): any;
+        /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call **/
+        mostRecent(): any;
+        /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call **/
+        first(): any;
+        /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
+        reset(): void;
     }
 
     interface Util {
@@ -384,9 +419,11 @@ declare module jasmine {
 
     interface Jasmine {
         Spec: Spec;
-        Clock: Clock;
+        clock: Clock;
         util: Util;
     }
 
-    export var HtmlReporter: any;
+    export var HtmlReporter: HtmlReporter;
+    export var HtmlSpecFilter: HtmlSpecFilter;
+    export var DEFAULT_TIMEOUT_INTERVAL: number;
 }

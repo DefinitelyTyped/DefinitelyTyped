@@ -1,11 +1,11 @@
-﻿/// <reference path="knockout.es5.d.ts" />
+/// <reference path="knockout.es5.d.ts" />
 
 var empty = {},
     obj = { a: 'string', b: 123, c: true, d: empty },
     observable = ko.observable(123),
     computed = ko.computed(function () { return observable() + 1; }),
     model = { prop: 100 },
-    notifiedValues = [];
+    notifiedValues: any[] = [];
 
 
 // Basic properties
@@ -75,3 +75,12 @@ anOrder.lines.shift();
 
 console.log(someOrderLine.subtotal == someOrderLine.getSubtotal());     // true
 console.log(anOrder.lines.length);                                      // 1
+
+//Array methods
+anOrder.lines.remove(someOrderLine);
+anOrder.lines.removeAll([someOrderLine]);
+anOrder.lines.removeAll();
+
+anOrder.lines.destroy(someOrderLine);
+anOrder.lines.destroyAll([someOrderLine]);
+anOrder.lines.destroyAll();

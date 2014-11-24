@@ -23,10 +23,10 @@ Q.delay(8, 1000).then(x => x.toExponential());
 Q.delay(Q("asdf"), 1000).then(x => x.length);
 Q.delay("asdf", 1000).then(x => x.length);
 
-var eventualAdd = Q.promised((a: number, b: number) => a + b);
+var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
-var eventually = function (eventually) {
+var eventually = function (eventually: any) {
     return Q.delay(eventually, 1000);
 };
 
@@ -38,7 +38,7 @@ Q.when(x, function (x) {
 Q.all([
     eventually(10),
     eventually(20)
-]).spread(function (x, y) {
+]).spread(function (x: any, y: any) {
     console.log(x, y);
 });
 
@@ -79,6 +79,9 @@ declare var jPromise: JQueryPromise<string>;
 Q<string>(jPromise).then(str => str.split(','));
 jPromise.then<number>(returnsNumPromise);
 
+// watch the typing flow through from jQueryPromise to Q.Promise
+Q(jPromise).then(str => str.split(','));
+
 declare var promiseArray: Q.IPromise<number>[];
 var qPromiseArray = promiseArray.map(p => Q<number>(p));
 var myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
@@ -87,14 +90,14 @@ Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
 
 Q.all<number>(myNums).then(nums => nums.map(Math.round));
 
-Q.fbind((dateString) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
+Q.fbind((dateString?: string) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
 
 Q.when(8, num => num + "!");
 Q.when(Q(8), num => num + "!").then(str => str.split(','));
 
 declare function saveToDisk(): Q.Promise<any>;
 declare function saveToCloud(): Q.Promise<any>;
-Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
+Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk: any, cloud: any) {
     console.log("saved to disk:", disk.state === "fulfilled");
     console.log("saved to cloud:", cloud.state === "fulfilled");
 
@@ -106,3 +109,32 @@ Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk, cloud) {
     }
 }).done();
 
+var nodeStyle = (input: string, cb: Function) => {
+    cb(null, input);
+};
+
+Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {});
+Q.nfcall(nodeStyle, "foo").done((result: string) => {});
+Q.denodeify(nodeStyle)('foo').done((result: string) => {});
+Q.nfbind(nodeStyle)('foo').done((result: string) => {});
+
+
+class Repo {
+    private items: any[] = [
+        { name: 'Max', cute: false },
+        { name: 'Annie', cute: true }
+    ];
+
+    find(options: any): Q.Promise<any[]> {
+        var result = this.items;
+
+        for (var key in options) {
+            result = result.filter(i => i[key] == options[key]);
+        }
+
+        return Q(result);
+    }
+}
+
+var kitty = new Repo();
+Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});

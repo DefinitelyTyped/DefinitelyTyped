@@ -1,3 +1,8 @@
+// Type definitions for JSFL
+// Project: https://adobe.com
+// Definitions by: soywiz <https://github.com/soywiz/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface FlashPoint {
 	x: number;
 	y: number;
@@ -169,7 +174,7 @@ interface FlashDocument {
 	/** Exports the currently active profile to an XML */
 	exportPublishProfile(fileURI: string): void;
 
-	/** returns a string that specifies, in XML format, the specified profile. If you don’t pass a value for profileName, the current profile is exported. */
+	/** returns a string that specifies, in XML format, the specified profile. If you don't pass a value for profileName, the current profile is exported. */
 	exportPublishProfileString(profileName?: string): string;
 
 	/** Exports the document in the Flash SWF format. */
@@ -461,8 +466,9 @@ interface FlashDocument {
 	id: number; // A unique integer (assigned automatically) that
 	library: FlashLibrary; // Read-only; the library object for a document.
 	livePreview: boolean; // A Boolean value that specifies if Live Preview is
-	name: number; // Read-only; a string that represents the name of a
-	path: number; // Read-only; a string that represents the path of the
+	name: string; // Read-only; a string that represents the name of a
+	path: string; // Read-only; a string that represents the path of the
+	pathURI: string; // Read-only property; a string that represents the path of the document, expressed as a file:/// URI. If the document has never been saved, this property is undefined.
 	publishProfiles: string[]; // Read-only; an array of the publish profile names for
 	
 	/** Read-only; the current ScreenOutline object for the */
@@ -1030,7 +1036,7 @@ interface FlashTimeline {
     /** Creates a new motion object at a designated start and end frame. */
     createMotionObject(startFrameIndex?: number, endFrameIndex?: number): void;
     
-    /** Sets the frame.tweenType property to motion for each selected keyframe on the current layer, and converts each frame’s contents to a single symbol instance if necessary. */
+    /** Sets the frame.tweenType property to motion for each selected keyframe on the current layer, and converts each frame's contents to a single symbol instance if necessary. */
     createMotionTween(startFrameIndex?: number, endFrameIndex?: number): void;
         
     /** Cuts a range of frames on the current layer from the timeline and saves them to the clipboard. */
@@ -1051,13 +1057,13 @@ interface FlashTimeline {
     /** Finds an array of indexes for the layers with the given name. */
     findLayerIndex(name: string): number[];
         
-    /** Retrieves the specified property’s value for the selected frames. */
+    /** Retrieves the specified property's value for the selected frames. */
     getFrameProperty(property: string, startframeIndex?: number, endFrameIndex?: number): any;
         
     /** Returns an XML string that represents the current positions of the horizontal and vertical guide lines for a timeline(View > Guides > Show Guides). */
     getGuidelines(): string;
         
-    /** Retrieves the specified property’s value for the selected layers. */
+    /** Retrieves the specified property's value for the selected layers. */
     getLayerProperty(property: string): any;
         
     /** Retrieves the currently selected frames in an array. */
@@ -1141,12 +1147,14 @@ interface FlashTimeline {
     
     /** A string that represents the name of the current */
     name: string;
+    
+    libraryItem:FlashItem;
 }
 
 interface FlashPath {
-	/// Appends a cubic Bézier curve segment to the path.
+	/// Appends a cubic BÃ©zier curve segment to the path.
 	addCubicCurve(xAnchor: number, yAnchor: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number): void;
-	/// Appends a quadratic Bézier segment to the path.
+	/// Appends a quadratic BÃ©zier segment to the path.
 	addCurve(xAnchor: number, yAnchor: number, x2: number, y2: number, x3: number, y3: number): void;
 	/// Adds a point to the path.
 	addPoint(x: number, y: number): void;
@@ -1266,9 +1274,42 @@ interface FlashTools {
 	toolObjs;
 }
 
+declare class SpriteSheetExporter {
+  addBitmap(item:FlashItem);
+  addSymbol(item:FlashItem, name?:string, beginFrame?:number, endFrame?:number);
+  algorithm:string;
+  allowRotate:boolean;
+  allowTrimming:boolean;
+  app:string;
+  autoSize:boolean;
+  beginExport();
+  borderPadding:number;
+  canBorderPad:boolean;
+  canRotate:boolean;
+  canTrim:boolean;
+  canShapePad:boolean;
+  canStackDuplicateFrames:boolean;
+  changeSymbol();
+  exportSpriteSheet(fileURL:string,option:Object,writeMetaData?:boolean):string;
+  format:string;
+  image:string;
+  layoutFormat:string;
+  maxSheetHeight:number;
+  maxSheetWidth:number;
+  overflowed:boolean;
+  removeBitmap();
+  removeSymbol();
+  shapePadding:number;
+  sheetHeight:number;
+  sheetWidth:number;
+  stackDuplicateFrames:boolean;
+  version:string;
+}
+
+
 interface FlashFL {
 	addEventListener(eventType, callbackFunction);
-	browseForFileURL(browseType, title?, previewArea?);
+	browseForFileURL(browseType, title?, previewArea?, fileFilter?);
 	browseForFolderURL(description: string);
 	clearPublishCache(): void;
 	clipCopyString(string: string): void;
