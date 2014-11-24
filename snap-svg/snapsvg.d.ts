@@ -1,5 +1,13 @@
 declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:Function):Object;
 declare module mina {
+    export interface Mina {
+        id: string;
+        duration: Function;
+        easing: Function;
+        speed: Function;
+        status: Function;
+        stop: Function;
+    }
 
 	export function backin(n:number):number;
 	export function backout(n:number):number;
@@ -32,16 +40,16 @@ declare module Snap {
 	export function fragment(varargs:any):Fragment;
 	export function getElementByPoint(x:number,y:number):Object;
 	export function is(o:any,type:string):boolean;
-	export function load(url:string,callback:Function,scope?:Object):XMLHttpRequest;
+	export function load(url:string,callback:Function,scope?:Object):void;
 	export function plugin(f:Function):void;
 	export function select(query:string):Snap.Element;
 	export function selectAll(query:string):any;
 	export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
 	
-	export function animate(from:number,to:number,setter:Function,duration:number,easing:Function,callback:Function):Mina;
-	export function animate(from:Array<number>,to:number,setter:Function,duration:number,easing:Function,callback:Function):Mina;
-	export function animate(from:number,to:Array<number>,setter:Function,duration:number,easing:Function,callback:Function):Mina;
-	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing:Function,callback:Function):Mina;
+	export function animate(from:number,to:number,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
+	export function animate(from:Array<number>,to:number,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
+	export function animate(from:number,to:Array<number>,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
+	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing:Function,callback:Function):mina.Mina;
 	export function animation(attr:Object,duration:number,easing?:Function,callback?:Function):Object;
 	
 	export function color(clr:string):Object;export function getRGB(color:string):Object;
@@ -62,15 +70,6 @@ declare module Snap {
 	export function parsePathString(pathString:Array<string>):Array<any>;
 	export function parseTransformString(TString:string):Array<any>;
 	export function parseTransformString(TString:Array<string>):Array<any>;
-	
-	export interface Mina{
-		id:string;
-		duration:Function;
-		easing:Function;
-		speed:Function;
-		status:Function;
-		stop:Function;
-	}
 	
 	export interface RGB{
 		r:number;
@@ -109,8 +108,6 @@ declare module Snap {
 	}
 
 	export interface Element {
-		constructor();
-		
 		add():void;
 		addClass(value:string):Snap.Element;
 		after(el:Snap.Element):Snap.Element;
@@ -178,14 +175,15 @@ declare module Snap {
 		touchcancel(handler:Function):Snap.Element;
 		untouchcancel(handler:Function):Snap.Element;
 		hover(f_in:Function,f_out:Function,icontext?:Object,ocontext?:Object):Snap.Element;
-		unhover(f_in:Function,f_out:Function):Snap.Element;
+        unhover(f_in: Function, f_out: Function): Snap.Element;
+        drag(): void;
 		drag(onmove:Function,onstart:Function,onend:Function,mcontext?:Object,scontext?:Object,econtext?:Object):Snap.Element;
 		undrag():Snap.Element;
 	}
 	
 	export interface Fragment {
-		select():Snap.Element;
-		selectAll():Snap.Element;
+		select(query:string):Snap.Element;
+		selectAll():Snap.Set;
 	}
 	
 	export interface Matrix {
@@ -235,9 +233,9 @@ declare module Snap {
 		bind(attr:string,callback:Function):Snap.Set;
 		bind(attr:string,element:Snap.Element):Snap.Set;
 		bind(attr:string,element:Snap.Element,eattr:string):Snap.Set;
-		clear();
+		clear():Snap.Set;
 		exclude(element:Snap.Element):boolean;
-		forEach(callback:Function,thisArg:Object):Snap.Set;
+		forEach(callback:Function,thisArg?:Object):Snap.Set;
 		pop():Snap.Element;
 		push(el:Snap.Element):Snap.Element;
 		push(els:Snap.Element[]):Snap.Element;
