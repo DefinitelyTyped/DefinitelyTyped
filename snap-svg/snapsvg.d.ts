@@ -1,3 +1,8 @@
+// Type definitions for Snap-SVG 0.3
+// Project: https://github.com/adobe-webplatform/Snap.svg
+// Definitions by: Lars Klein <https://github.com/lhk>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:Function):Object;
 declare module mina {
     export interface Mina {
