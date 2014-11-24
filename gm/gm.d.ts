@@ -73,15 +73,16 @@ declare module "gm" {
 			'JPEG-Quality'?: string;
 			'JPEG-Colorspace'?: string;
 			'JPEG-Colorspace-Name'?: string;
-			'JPEG_Sampling-factors'?: string;
+			'JPEG-Sampling-factors'?: string;
 			'Matte Color': string;
 			Orientation: string;
 			'Page geometry': string;
 			path: string;
-			'Png:IHDR.color-type-orig'?: string;
-			'Png:IHDR.bit-depth-orig'?: string;
+
 			'Profile-color'?: string;
-			'Profile-iptc'?: any;
+			'Profile-iptc'?: {
+				[key: string]: string;
+			};
 			'Profile-EXIF'?: {
 				[key: string]: string;
 			};
