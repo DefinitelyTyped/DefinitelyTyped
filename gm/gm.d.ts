@@ -612,9 +612,9 @@ declare module "gm" {
 			(image: string): State;
 		}
 
-		export function compare(filename1: string, filename2: string, callback: CompareCallback): void ;
-		export function compare(filename1: string, filename2: string, tolerance: number, callback: CompareCallback): void ;
-		export function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void ;
+		export function compare(filename1: string, filename2: string, callback: CompareCallback): void;
+		export function compare(filename1: string, filename2: string, tolerance: number, callback: CompareCallback): void;
+		export function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void;
 
 		export function subClass(options: ClassOptions): SubClass;
 	}
