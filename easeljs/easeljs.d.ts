@@ -383,6 +383,7 @@ declare module createjs {
         appendTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
         clone(): Matrix2D;
         copy(matrix: Matrix2D): Matrix2D;
+        decompose(): Matrix2D;
         decompose(target: Object): Matrix2D;
         identity(): Matrix2D;
         initialize(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;

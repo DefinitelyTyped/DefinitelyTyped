@@ -72,3 +72,10 @@ function test_canvas_tick() {
     var stage = new createjs.Stage(canvas);
     var stage = createjs.Ticker.addEventListener("tick", stage);
 }
+
+function matrixDecompose() {
+    var matrix = new createjs.Matrix2D();
+    var shape = new createjs.Shape();
+    var transform = matrix.decompose(shape);
+    var transform2 = matrix.decompose();
+}
