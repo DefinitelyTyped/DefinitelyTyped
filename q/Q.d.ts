@@ -188,6 +188,9 @@ declare module Q {
         reason?: any;
     }
 
+    // If no value provided, returned promise will be of void type
+    export function when(): Promise<void>;
+
     // if no fulfill, reject, or progress provided, returned promise will be of same type
     export function when<T>(value: IPromise<T>): Promise<T>;
     export function when<T>(value: T): Promise<T>;
