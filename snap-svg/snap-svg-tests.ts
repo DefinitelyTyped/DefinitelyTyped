@@ -1,4 +1,4 @@
-
+//Copied from the snap homepage
 
 ///<reference path="snapsvg.d.ts"/>
 // First lets create our drawing surface out of existing SVG element
