@@ -187,9 +187,11 @@ declare module Snap {
 	}
 	
 	export interface Fragment {
+		//TODO: The documentation says that selectAll returns a set, but the getting started guide
+		// uses .attr on the returned object. That's not supported by a set
 		select(query:string):Snap.Element;
-		selectAll(query:string):Snap.Set;
-		selectAll():Snap.Set;
+		selectAll(query:string):any;
+		selectAll():any;
 	}
 	
 	export interface Matrix {
