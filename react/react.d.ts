@@ -8,7 +8,7 @@ declare module "react" {
 }
 
 declare module React {
-    export function createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
+    export function createClass<P, S>(specification: Specification<P, S>): ReactElementFactory<P>;
 
     export function createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
 
