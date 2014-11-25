@@ -485,7 +485,7 @@ declare module "gm" {
 			sharedMemory(): State;
 			shave(width: number, height: number, percent?: boolean): State;
 			sharpen(radius: number, sigma?: number): State;
-			shear(xDegrees: number, yDegress): State;
+			shear(xDegrees: number, yDegress: number): State;
 			silent(): State;
 			snaps(count: number): State;
 			solarize(threshold: number): State;
