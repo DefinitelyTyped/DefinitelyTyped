@@ -177,11 +177,9 @@ gm(src)
 	.monochrome()
 	.morph(src, dest)
 	.morph(src, dest, (err, stdout, stderr, cmd) => {
-
 	})
 	.morph(images, dest)
 	.morph(images, dest, (err, stdout, stderr, cmd) => {
-
 	})
 	.mosaic()
 	.motionBlur(radius)
@@ -260,13 +258,10 @@ gm(src)
 	.threshold(threshold)
 	.threshold(threshold, usePercent)
 	.thumb(width, height, dest, (err, stdout, stderr, cmd) => {
-
 	})
 	.thumb(width, height, dest, quality, (err, stdout, stderr, cmd) => {
-
 	})
 	.thumb(width, height, dest, quality, align, (err, stdout, stderr, cmd) => {
-
 	})
 	.tile(file)
 	.title(name)
@@ -294,28 +289,20 @@ gm(src)
 	.window(name)
 	.windowGroup()
 	.color((err, color) => {
-
 	})
 	.depth((err, bitdepth) => {
-
 	})
 	.filesize((err, size) => {
-
 	})
 	.format((err, format) => {
-
 	})
 	.identify((err, info) => {
-
 	})
 	.res((err, resolution) => {
-
 	})
 	.size((err, size) => {
-
 	})
 	.orientation((err, orient) => {
-
 	})
 	.draw(options)
 	.drawArc(x, y, x, y, radius, radius)
@@ -342,24 +329,19 @@ gm(src)
 	.stroke(color, width)
 	.setDraw(type, x, y, method)
 	.write(dest, (err, stdout, stderr, cmd) => {
-
 	});
 
 gm.compare(file, file, (err, isEqual, equality, raw) => {
-
 });
 
 readStream = gm(src).stream();
 readStream = gm(src).stream(format);
 readStream = gm(src).stream(format, (err, stdout, stderr, cmd) => {
-
 });
 
 gm(src).toBuffer((err, buffer) => {
-
 });
 gm(src).toBuffer(format, (err, buffer) => {
-
 });
 
 var imageMagick = gm.subClass({ imageMagick: true });
