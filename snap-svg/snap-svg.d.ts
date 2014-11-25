@@ -188,6 +188,7 @@ declare module Snap {
 	
 	export interface Fragment {
 		select(query:string):Snap.Element;
+		selectAll(query:string):Snap.Set;
 		selectAll():Snap.Set;
 	}
 	
