@@ -77,5 +77,12 @@ function matrixDecompose() {
     var matrix = new createjs.Matrix2D();
     var shape = new createjs.Shape();
     var transform = matrix.decompose(shape);
-    var transform2 = matrix.decompose();
+    var transformData = matrix.decompose();
+    shape.x = transformData.x;
+    shape.y = transformData.y;
+    shape.scaleX = transformData.scaleX;
+    shape.scaleY = transformData.scaleY;
+    shape.skewX = transformData.skewX;
+    shape.skewY = transformData.skewY;
+    shape.rotation = transformData.rotation;
 }
