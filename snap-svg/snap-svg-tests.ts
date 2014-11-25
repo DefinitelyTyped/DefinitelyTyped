@@ -61,7 +61,7 @@ discs.attr({ fill: "R(150, 150, 100)#fff-#000" });
 // Of course we could animate color as well
 p.select("path").animate({ stroke: "#f00" }, 1000);
 // Now lets load external SVG file:
-Snap.load("mascot.svg", function (f) {
+Snap.load("mascot.svg", function (f:Snap.Element) {
     // Note that we traversre and change attr before SVG
     // is even added to the page
     f.selectAll("polygon[fill='#09B39C']").attr({ fill: "#bada55" });
