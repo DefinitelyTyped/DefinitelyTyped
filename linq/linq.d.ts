@@ -208,7 +208,7 @@ declare module linq {
         ThenBy(keySelector: ($) => T): OrderedEnumerable<T>;
         ThenBy(keySelector: string): OrderedEnumerable<T>;
         ThenByDescending(keySelector: ($) => T): OrderedEnumerable<T>;
-        ThenByDescending(keySelector: T): OrderedEnumerable<T>;
+        ThenByDescending(keySelector: string): OrderedEnumerable<T>;
     }
 
     interface Grouping<T> extends Enumerable<T> {
