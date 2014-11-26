@@ -465,7 +465,7 @@ declare module "zlib" {
 }
 
 declare module "os" {
-    export function tmpDir(): string;
+    export function tmpdir(): string;
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;
