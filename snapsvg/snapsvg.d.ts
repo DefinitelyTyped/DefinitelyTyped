@@ -146,7 +146,8 @@ declare module Snap {
 		removeClass(value:string):Snap.Element;
 		removeData(key?:string):Snap.Element;
 		select(query:string):Snap.Element;
-		selectAll(query:string):any;
+        selectAll(query: string): Snap.Set;
+        selectAll(): Snap.Set;
 		stop():Snap.Element;
 		toDefs():Snap.Element;
 		toPattern(x:number,y:number,width:number,height:number):Object;
@@ -190,8 +191,8 @@ declare module Snap {
 		//TODO: The documentation says that selectAll returns a set, but the getting started guide
 		// uses .attr on the returned object. That's not supported by a set
 		select(query:string):Snap.Element;
-		selectAll(query:string):any;
-		selectAll():any;
+		selectAll(query:string):Snap.Set;
+		selectAll():Snap.Set;
 	}
 	
 	export interface Matrix {
@@ -238,7 +239,9 @@ declare module Snap {
 
 	export interface Set {
 		animate(attrs:Object,duration:number,easing?:Function,callback?:Function):Snap.Element;
-		bind(attr:string,callback:Function):Snap.Set;
+        attr(params: Object): Snap.Element;
+        attr(param: string): string;
+        bind(attr: string, callback: Function): Snap.Set;
 		bind(attr:string,element:Snap.Element):Snap.Set;
 		bind(attr:string,element:Snap.Element,eattr:string):Snap.Set;
 		clear():Snap.Set;
