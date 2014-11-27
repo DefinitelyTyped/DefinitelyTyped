@@ -8,7 +8,7 @@
 interface JQuery {
 
     /**
-     * Destroys previously initialized typeaheads. This entails reverting 
+     * Destroys previously initialized typeaheads. This entails reverting
      * DOM modifications and removing event handlers.
       *
       * @constructor
@@ -17,7 +17,7 @@ interface JQuery {
     typeahead(methodName: 'destroy'): JQuery;
 
     /**
-     * Opens the dropdown menu of typeahead. Note that being open does not mean that the menu is visible. 
+     * Opens the dropdown menu of typeahead. Note that being open does not mean that the menu is visible.
      * The menu is only visible when it is open and has content.
       *
       * @constructor
@@ -68,7 +68,7 @@ interface JQuery {
       * @param query The query to be set in case method 'val' is used.
       */
     typeahead(methodName: string, query: string): JQuery;
-    
+
     /**
       * Accomodates specifying options such as hint and highlight.
       * This is in correspondence to the examples mentioned in http://twitter.github.io/typeahead.js/examples/
@@ -92,38 +92,38 @@ interface JQuery {
 
 declare module Twitter.Typeahead {
     /**
-      * A dataset is an object that defines a set of data that hydrates 
+      * A dataset is an object that defines a set of data that hydrates
       * suggestions. Typeaheads can be backed by multiple datasets.
-      * Given a query, a typeahead instance will inspect its backing 
+      * Given a query, a typeahead instance will inspect its backing
       * datasets and display relevant suggestions to the end-user.
       */
     interface Dataset {
         /**
-         * The backing data source for suggestions. 
-         * Expected to be a function with the signature (query, cb). 
-         * It is expected that the function will compute the suggestion set (i.e. an array of JavaScript objects) for query and then invoke cb with said set. 
-         * cb can be invoked synchronously or asynchronously. 
-         * 
+         * The backing data source for suggestions.
+         * Expected to be a function with the signature (query, cb).
+         * It is expected that the function will compute the suggestion set (i.e. an array of JavaScript objects) for query and then invoke cb with said set.
+         * cb can be invoked synchronously or asynchronously.
+         *
           */
         source: (query: string, cb: (result: any) => void) => void;
 
-    /**
-          * The name of the dataset. 
-          * This will be appended to tt-dataset- to form the class name of the containing DOM element. 
-          * Must only consist of underscores, dashes, letters (a-z), and numbers. 
+        /**
+          * The name of the dataset.
+          * This will be appended to tt-dataset- to form the class name of the containing DOM element.
+          * Must only consist of underscores, dashes, letters (a-z), and numbers.
           * Defaults to a random number.
           */
         name?: string;
 
         /**
-         * For a given suggestion object, determines the string representation of it. 
-         * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string. 
+         * For a given suggestion object, determines the string representation of it.
+         * This will be used when setting the value of the input control after a suggestion is selected. Can be either a key string or a function that transforms a suggestion object into a string.
          * Defaults to value.
           */
         displayKey?: string;
 
         /**
-         * A hash of templates to be used when rendering the dataset. 
+         * A hash of templates to be used when rendering the dataset.
          * Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string.
           */
         templates?: Templates;
@@ -133,45 +133,45 @@ declare module Twitter.Typeahead {
     interface Templates {
 
         /**
-         * Rendered when 0 suggestions are available for the given query. 
-         * Can be either a HTML string or a precompiled template. 
+         * Rendered when 0 suggestions are available for the given query.
+         * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query
           */
         empty?: string;
 
         /**
          * Rendered at the bottom of the dataset.
-         * Can be either a HTML string or a precompiled template. 
+         * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
           */
         footer?: string;
 
         /**
-         * Rendered at the top of the dataset. 
-         * Can be either a HTML string or a precompiled template. 
+         * Rendered at the top of the dataset.
+         * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query and isEmpty.
           */
         header?: string;
 
         /**
-         * Used to render a single suggestion. 
-         * If set, this has to be a precompiled template. 
-         * The associated suggestion object will serve as the context. 
+         * Used to render a single suggestion.
+         * If set, this has to be a precompiled template.
+         * The associated suggestion object will serve as the context.
          * Defaults to the value of displayKey wrapped in a p tag i.e. <p>{{value}}</p>.
           */
         suggestion?: (datum: any) => string;
 
     }
 
-    
+
      /**
       * When initializing a typeahead, there are a number of options you can configure.
       */
     interface Options {
       /**
-        * highlight:  If true, when suggestions are rendered, 
+        * highlight:  If true, when suggestions are rendered,
         * pattern matches for the current query in text nodes will be wrapped in a strong element.
-        * Defaults to false. 
+        * Defaults to false.
         */
       highlight?: boolean;
 
@@ -186,6 +186,7 @@ declare module Twitter.Typeahead {
       minLength?: number;
     }
 }
+
 declare module Bloodhound
 {
   interface BloodhoundOptions<T>
@@ -203,14 +204,14 @@ declare module Bloodhound
     * @constructor
     * @param query tokenizer query
     */
-    queryTokenizer?: any;  
+    queryTokenizer?: any;
     /**
-    *  The max number of suggestions to return from Bloodhound#get. 
+    *  The max number of suggestions to return from Bloodhound#get.
     * If not reached, the data source will attempt to backfill the suggestions from remote. Defaults to 5
     */
     limit?: number;
     /**
-    *  If set, this is expected to be a function with the signature (remoteMatch, localMatch) that returns true if the datums are duplicates or false otherwise. 
+    *  If set, this is expected to be a function with the signature (remoteMatch, localMatch) that returns true if the datums are duplicates or false otherwise.
     *  If not set, duplicate detection will not be performed.
     */
     dupDetector?: (remoteMatch: T, localMatch: T) => boolean;
@@ -233,8 +234,8 @@ declare module Bloodhound
   }
 
   /**
-  * Prefetched data is fetched and processed on initialization. 
-  * If the browser supports localStorage, the processed data will be cached 
+  * Prefetched data is fetched and processed on initialization.
+  * If the browser supports localStorage, the processed data will be cached
   * there to prevent additional network requests on subsequent page loads.
   */
   interface PrefetchOptions<T>
@@ -244,13 +245,13 @@ declare module Bloodhound
     */
     url: string;
     /**
-    * The time (in milliseconds) the prefetched data should be cached 
+    * The time (in milliseconds) the prefetched data should be cached
     * in localStorage. Defaults to 86400000 (1 day).
     */
     ttl?: number;
     /**
     * A function that transforms the response body into an array of datums.
-    *   
+    *
     * @param parsedResponse Response body
     */
     filter?: (parsedResponse: any) => T[];
@@ -270,37 +271,37 @@ declare module Bloodhound
 
   /**
   * Remote data is only used when the data provided by local and prefetch
-  * is insufficient. In order to prevent an obscene number of requests 
+  * is insufficient. In order to prevent an obscene number of requests
   * being made to remote endpoint, typeahead.js rate-limits remote requests.
   */
   interface RemoteOptions<T>
   {
     /**
-    * A URL to make requests to when the data provided by local and 
+    * A URL to make requests to when the data provided by local and
     * prefetch is insufficient. Required.
     */
     url: string;
     /**
-    * The pattern in url that will be replaced with the user's query 
+    * The pattern in url that will be replaced with the user's query
     * when a request is made. Defaults to %QUERY.
     */
     wildcard?: string;
     /**
-    * Overrides the request URL. If set, no wildcard substitution will 
+    * Overrides the request URL. If set, no wildcard substitution will
     * be performed on url.
-    * 
+    *
     * @param url Replacement URL
     * @param uriEncodedQuery Encoded query
     * @returns A valid URL
     */
     replace?: (url: string, uriEncodedQuery: string) => string;
     /**
-    * The function used for rate-limiting network requests. 
+    * The function used for rate-limiting network requests.
     * Can be either 'debounce' or 'throttle'. Defaults to 'debounce'.
     */
     rateLimitby?: string;
     /**
-    * The time interval in milliseconds that will be used by rateLimitFn. 
+    * The time interval in milliseconds that will be used by rateLimitFn.
     * Defaults to 300.
     */
     rateLimitWait?: number;
@@ -357,18 +358,18 @@ declare class Bloodhound<T> {
   */
   public ttAdapter(): any;
   /**
-  * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch. 
-  * Until initialized, all other methods will behave as no-ops. 
+  * Kicks off the initialization of the suggestion engine. This includes processing the data provided through local and fetching/processing the data provided through prefetch.
+  * Until initialized, all other methods will behave as no-ops.
   * Returns a jQuery promise which is resolved when engine has been initialized.
-  * 
-  * After the initial call of initialize, how subsequent invocations of the method behave depends on the reinitialize argument. 
-  * If reinitialize is falsy, the method will not execute the initialization logic and will just return the same jQuery promise returned by the initial invocation. 
+  *
+  * After the initial call of initialize, how subsequent invocations of the method behave depends on the reinitialize argument.
+  * If reinitialize is falsy, the method will not execute the initialization logic and will just return the same jQuery promise returned by the initial invocation.
   * If reinitialize is truthy, the method will behave as if it were being called for the first time.
-  * 
+  *
   * var promise1 = engine.initialize();
   * var promise2 = engine.initialize();
   * var promise3 = engine.initialize(true);
-  * 
+  *
   * promise1 === promise2;
   * promise3 !== promise1 && promise3 !== promise2;
   */
@@ -388,7 +389,7 @@ declare class Bloodhound<T> {
   */
   public clearPrefetchCache(): void;
   /**
-  * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience. 
+  * If you're using remote, Bloodhound will cache the 10 most recent responses in an effort to provide a better user experience.
   * clearRemoteCache offers a way to programmatically clear said cache.
   */
   public clearRemoteCache(): void;
@@ -398,8 +399,8 @@ declare class Bloodhound<T> {
   public noConflict(): any;
 
   /**
-  * Computes a set of suggestions for query. cb will be invoked with an array of datums that represent said set. 
-  * cb will always be invoked once synchronously with suggestions that were available on the client. 
+  * Computes a set of suggestions for query. cb will be invoked with an array of datums that represent said set.
+  * cb will always be invoked once synchronously with suggestions that were available on the client.
   * If those suggestions are insufficient (# of suggestions is less than limit) and remote was configured, cb may also be invoked asynchronously with the suggestions available on the client mixed with suggestions from the remote source.
   */
   public get(query: string, cb: (datums: T[]) => void): void;

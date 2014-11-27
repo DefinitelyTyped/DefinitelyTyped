@@ -1,6 +1,6 @@
-// Type definitions for Google Analytics
-// Project: https://developers.google.com/analytics/devguides/collection/gajs/
-// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>
+// Type definitions for Google Analytics (Classic and Universal)
+// Project: https://developers.google.com/analytics/devguides/collection/gajs/, https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
+// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>, Pat Kujawa <http://patkujawa.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Tracker {
@@ -36,6 +36,30 @@ interface GoogleAnalytics {
     async: boolean;
 }
 
-declare var ga: GoogleAnalytics;
+declare module UniversalAnalytics {
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
+
+    interface ga {
+        (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
+        (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        (command: string, hitDetails: {}): void;
+        create(trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        create(trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+        getAll(): UniversalAnalytics.Tracker[];
+        getByName(name: string): UniversalAnalytics.Tracker;
+    }
+
+    interface Tracker {
+        get<T>(fieldName: string): T;
+        send(hitType: string, opt_fieldObject?: {}): void;
+        set(fieldName: string, value: string): void;
+        set(fieldName: string, value: {}): void;
+        set(fieldName: string, value: number): void;
+        set(fieldName: string, value: boolean): void;
+    }
+}
+
+declare var gaClassic: GoogleAnalytics;
+declare var ga: UniversalAnalytics.ga;
 declare var _gaq: GoogleAnalyticsCode;
 declare var _gat: GoogleAnalyticsTracker;

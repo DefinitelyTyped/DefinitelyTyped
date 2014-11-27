@@ -1,11 +1,12 @@
 /// <reference path="radius.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import radius = require('radius');
 
 var radius_secret: string = "shhhh"
 
 radius.add_dictionary("./");
-var encodedPacket: NodeBuffer = radius.encode({
+var encodedPacket: Buffer = radius.encode({
     code: "Access-Request",
     secret: radius_secret,
     attributes: {
@@ -20,7 +21,7 @@ var radiusPacket: radius.RadiusPacket = radius.decode({
     secret: radius_secret
 });
 
-var response: NodeBuffer;
+var response: Buffer;
 
 if (radiusPacket.attributes["User-Name"] == "me" && radiusPacket.attributes["User-Password"] == "its-a-secret") {
     response = radius.encode_response({

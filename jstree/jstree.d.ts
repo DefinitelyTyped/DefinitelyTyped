@@ -1,4 +1,4 @@
-﻿// Type definitions for jsTree v3.0.3
+﻿// Type definitions for jsTree v3.0.4
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -555,8 +555,9 @@ interface JSTreeStaticDefaultsSearch {
     case_sensitive: boolean;
 
     /**
-    * Indicates if the tree should be filtered to show only matching nodes 
-    * (keep in mind this can be a heavy on large trees in old browsers). Default is `false`.
+    * Indicates if the tree should be filtered (by default) to show only matching nodes 
+    * (keep in mind this can be a heavy on large trees in old browsers). 
+    * This setting can be changed at runtime when calling the search method. Default is `false`.
     * @name $.jstree.defaults.search.show_only_matches
     * @plugin search
     */
@@ -1002,10 +1003,11 @@ interface JSTree extends JQuery {
     * @param  {mixed} par the new parent
     * @param  {mixed} pos the position to insert at (besides integer values, "first" and "last" are supported, as well as "before" and "after"), defaults to integer `0`
     * @param  {function} callback a function to call once the move is completed, receives 3 arguments - the node, the new parent and the position
-    * @param  {Boolean} internal parameter indicating if the parent node has been loaded
+    * @param  {Boolean} is_loaded internal parameter indicating if the parent node has been loaded
+    * @param  {Boolean} skip_redraw internal parameter indicating if the tree should be redrawn
     * @trigger move_node.jstree
     */
-    move_node: (obj: any, par: any, pos?: any, callback?: any, internal?: boolean) => void;
+    move_node: (obj: any, par: any, pos?: any, callback?: (node: any, new_par: any, pos: any) => void, is_loaded?: boolean, skip_redraw?: boolean) => void;
 
     /**
     * copy a node to a new parent
@@ -1014,10 +1016,11 @@ interface JSTree extends JQuery {
     * @param  {mixed} par the new parent
     * @param  {mixed} pos the position to insert at (besides integer values, "first" and "last" are supported, as well as "before" and "after"), defaults to integer `0`
     * @param  {function} callback a function to call once the move is completed, receives 3 arguments - the node, the new parent and the position
-    * @param  {Boolean} internal parameter indicating if the parent node has been loaded
+    * @param  {Boolean} is_loaded internal parameter indicating if the parent node has been loaded
+    * @param  {Boolean} skip_redraw internal parameter indicating if the tree should be redrawn
     * @trigger model.jstree copy_node.jstree
     */
-    copy_node: (obj: any, par: any, pos?: any, callback?: any, internal?: boolean) => void;
+    copy_node: (obj: any, par: any, pos?: any, callback?: (node: any, new_par: any, pos: any) => void, is_loaded?: boolean, skip_redraw?: boolean) => void;
 
     /**
     * cut a node (a later call to `paste(obj)` would move the node)
@@ -1057,6 +1060,13 @@ interface JSTree extends JQuery {
     * @trigger paste.jstree
     */
     paste: (obj: any, pos: any) => void;
+
+    /**
+    * clear the buffer of previously copied or cut nodes
+    * @name clear_buffer()
+    * @trigger clear_buffer.jstree
+    */
+    clear_buffer: () => void;
 
     /**
     * put a node in edit mode (input field to rename the node)
@@ -1183,8 +1193,15 @@ interface JSTree extends JQuery {
     show_icon: (obj: any) => void;
 
     /**
+    * redraws a single node. Used internally.
+    * @private
+    * @name redraw_node(node, deep, is_callback)
+    * @param {mixed} node the node to redraw
+    * @param {Boolean} deep should child nodes be redrawn too
+    * @param {Boolean} is_callback is this a recursion call
+    * @param {Boolean} force_render should children of closed parents be drawn anyway
     */
-    redraw_node: (obj: any, deep: boolean, is_callback: boolean) => any;
+    redraw_node: (obj: any, deep?: boolean, is_callback?: boolean, force_render?: boolean) => any;
 
     /**
     * show the node checkbox icons
@@ -1215,7 +1232,16 @@ interface JSTree extends JQuery {
     */
     is_undetermined: (obj: any) => boolean;
 
+    /**
+    * called when a node is selected by the user. Used internally.
+    * @private
+    * @name activate_node(obj, e)
+    * @param {mixed} obj the node
+    * @param {Object} e the related event
+    * @trigger activate_node.jstree, changed.jstree
+    */
     activate_node: (obj: any, e: any) => any;
+
     /**
     * check a node (only if tie_selection in checkbox settings is false, otherwise select_node will be called internally)
     * @name check_node(obj)
@@ -1308,10 +1334,11 @@ interface JSTree extends JQuery {
     * @name search(str [, skip_async])
     * @param {String} str the search string
     * @param {Boolean} skip_async if set to true server will not be queried even if configured
+    * @param {Boolean} show_only_matches if set to true only matching nodes will be shown (keep in mind this can be very slow on large trees or old browsers)
     * @plugin search
     * @trigger search.jstree
     */
-    search: (str: string, skip_async?: boolean) => void;
+    search: (str: string, skip_async?: boolean, show_only_matches?: boolean) => void;
 
     /**
     * used to clear the last search (removes classes and shows all nodes if filtering is on)

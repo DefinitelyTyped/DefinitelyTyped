@@ -3,7 +3,7 @@
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface NodeBuffer { }
+/// <reference path="../node/node.d.ts" />
 
 declare module "radius" {
     /**
@@ -19,12 +19,12 @@ declare module "radius" {
     /**
      * {@link https://github.com/retailnext/node-radius#radiusencodeargs} for more info.
      **/
-    export function encode(args: EncodeArgs): NodeBuffer;
+    export function encode(args: EncodeArgs): Buffer;
 
     /**
      * {@link https://github.com/retailnext/node-radius#radiusencode_responseargs} for more info.
      **/
-    export function encode_response(args: EncodeResponseArgs): NodeBuffer;
+    export function encode_response(args: EncodeResponseArgs): Buffer;
 
     /**
      * {@link https://github.com/retailnext/node-radius#radiusverify_responseargs} for more info.
@@ -49,7 +49,7 @@ declare module "radius" {
      * {@link https://github.com/retailnext/node-radius#radiusdecode_without_secretargs} for more info.
      **/
     interface DecodeArgs {
-        packet: NodeBuffer;
+        packet: Buffer;
     }
 
     /**
@@ -91,8 +91,8 @@ declare module "radius" {
      * {@link https://github.com/retailnext/node-radius#radiusverify_responseargs} for more info.
      **/
     interface VerifyResponseArgs {
-        request: NodeBuffer;
-        response: NodeBuffer;
+        request: Buffer;
+        response: Buffer;
         secret: string;
     }
 
