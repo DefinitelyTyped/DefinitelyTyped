@@ -19,22 +19,22 @@
 };
 
 (()=>{
-    window.addEventListener('GamepadConnected', (e: GamepadEvent)=>{
+    window.addEventListener('GamepadConnected', (e: Gamepad.GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' connected!');
     }, false);
-    window.addEventListener('GamepadDisconnected', (e: GamepadEvent)=>{
+    window.addEventListener('GamepadDisconnected', (e: Gamepad.GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
     }, false);
-    window.addEventListener('webkitGamepadConnected', (e: GamepadEvent)=>{
+    window.addEventListener('webkitGamepadConnected', (e: Gamepad.GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' connected!');
     }, false);
-    window.addEventListener('webkitGamepadDisconnected', (e: GamepadEvent)=>{
+    window.addEventListener('webkitGamepadDisconnected', (e: Gamepad.GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
     }, false);    
-    window.addEventListener('mozGamepadConnected', (e: GamepadEvent)=>{
+    window.addEventListener('mozGamepadConnected', (e: Gamepad.GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' connected!');
     }, false);
-    window.addEventListener('mozGamepadDisconnected', (e: GamepadEvent)=>{
+    window.addEventListener('mozGamepadDisconnected', (e: Gamepad.GamepadEvent)=>{
         console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
     }, false);
 
@@ -45,9 +45,9 @@
         {
             requestAnimationFrame.call(window, runAnimation);
 
-            var gamepads: GamepadList = getGamepads.call(navigator);
+            var gamepads: Gamepad.GamepadList = getGamepads.call(navigator);
             for(var i = 0; i < gamepads.length; i++){
-                var pad: Gamepad = gamepads[i];
+                var pad: Gamepad.Gamepad = gamepads[i];
                 if(pad){
                     for (var k = 0; k < pad.buttons.length; k++)
                     {   
