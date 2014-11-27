@@ -56,6 +56,9 @@ declare module When {
     }
 
     interface Promise<T> {
+        catch<U>(filter: (reason: any) => Boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(filter: (reason: any) => Boolean, onRejected?: (reason: any) => U): Promise<U>;
+
         catch<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
         catch<U>(onRejected?: (reason: any) => U): Promise<U>;
 
