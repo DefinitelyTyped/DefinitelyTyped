@@ -465,7 +465,7 @@ declare module "zlib" {
 }
 
 declare module "os" {
-    export function tmpDir(): string;
+    export function tmpdir(): string;
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;
@@ -528,8 +528,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: events.EventEmitter) =>void ): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: events.EventEmitter) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
