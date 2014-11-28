@@ -1,4 +1,9 @@
-﻿declare module "cli-color" {
+﻿// Type definitions for cli-color 0.3.2
+// Project: https://github.com/medikoo/cli-color
+// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+declare module "cli-color" {
 	module m {
 		export interface Format {
 			(...text: any[]): string;
