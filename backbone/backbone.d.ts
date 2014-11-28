@@ -279,6 +279,7 @@ declare module Backbone {
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
         route(route: string, name: string, callback?: Function): Router;
+        route(route: RegExp, name: string, callback?: Function): Router;
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
