@@ -79,6 +79,12 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	lastly<U>(handler: () => U): Promise<R>;
 
 	/**
+	 * A meta method used to specify the disposer method that cleans up a resource when using using().
+	 */
+	disposer(handler: (resource: R) => Promise.Thenable<void>): Promise.Disposer<R>;
+	disposer(handler: (resource: R) => void): Promise.Disposer<R>;
+
+	/**
 	 * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
 	 */
 	bind(thisArg: any): Promise<R>;
@@ -695,7 +701,16 @@ declare module Promise {
 		 */
 		reason(): any;
 	}
-
+	
+	export interface Disposer<R> {
+	}
+	
+	/**
+	 * In conjunction with .disposer(), using will make sure that no matter what, the specified disposer will be called when appropriate.
+	 * The disposer is necessary because there is no standard interface in node for disposing resources.
+	 */
+	export function using<R, U>(disposer: Disposer<R>, handler: (resource: R) => Promise<U>): Promise<U>;	
+	
 	/**
 	 * Changes how bluebird schedules calls a-synchronously.
 	 *

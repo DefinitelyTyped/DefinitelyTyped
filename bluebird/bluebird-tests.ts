@@ -895,3 +895,11 @@ fooArrProm = Promise.filter(fooArr, (item: Foo, index: number, arrayLength: numb
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+var myProm = Promise.using(fooProm.disposer((foo: Foo): Promise<void> => {
+	return Promise.resolve();
+}), (item: Foo): Promise<void> => {
+	return Promise.resolve();
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
