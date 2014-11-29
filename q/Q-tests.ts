@@ -139,3 +139,49 @@ class Repo {
 
 var kitty = new Repo();
 Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
+
+
+/*
+ * Test: Can "rethrow" rejected promises
+ */
+module TestCanRethrowRejectedPromises {
+
+    interface Foo {
+        a: number;
+    }
+
+    function nestedBar(): Q.Promise<Foo> {
+        var deferred = Q.defer<Foo>();
+
+        return deferred.promise;
+    }
+
+    function bar(): Q.Promise<Foo> {
+        return nestedBar()
+            .then((foo:Foo) => {
+                console.log("Lorem ipsum");
+            })
+            .fail((error) => {
+                console.log("Intermediate error handling");
+
+                /*
+                 * Cannot do this, because:
+                 *     error TS2322: Type 'Promise<void>' is not assignable to type 'Promise<Foo>'
+                 */
+                //throw error;
+
+                return Q.reject<Foo>(error);
+            })
+        ;
+    }
+
+    bar()
+        .finally(() => {
+            console.log("Cleanup")
+        })
+        .done()
+    ;
+
+}
+
+
