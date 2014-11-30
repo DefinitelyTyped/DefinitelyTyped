@@ -3,6 +3,10 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare function When<T>(value: When.Promise<T>): When.Promise<T>;
+declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
+declare function When<T>(value: T): When.Promise<T>;
+
 declare module When {
 
     /**
@@ -78,6 +82,10 @@ declare module When {
         then<U>(onFulfilled: (value: T) => Promise<U>, onRejected?: (reason: any) => U, onProgress?: (update: any) => void): Promise<U>;
         then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => Promise<U>, onProgress?: (update: any) => void): Promise<U>;
         then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U, onProgress?: (update: any) => void): Promise<U>;
+    }
+
+    interface Thenable<T> {
+        then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U): Thenable<U>;
     }
 
     interface Snapshot<T> {
