@@ -92,28 +92,61 @@ declare module When {
     }
 
     interface Promise<T> {
+        catch<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(onRejected?: (reason: any) => U): Promise<U>;
+
+        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => U): Promise<U>;
+
         // Make sure you test any usage of these overloads, exceptionType must
         // be a constructor with prototype set to an instance of Error.
         catch<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
         catch<U>(exceptionType: any, onRejected?: (reason: any) => U): Promise<U>;
 
-        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
-        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => U): Promise<U>;
-
-        catch<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
-        catch<U>(onRejected?: (reason: any) => U): Promise<U>;
+        finally(onFulfilledOrRejected: Function): Promise<T>;
 
         ensure(onFulfilledOrRejected: Function): Promise<T>;
 
         inspect(): Snapshot<T>;
 
+        yield<U>(value: Promise<U>): Promise<U>;
+        yield<U>(value: U): Promise<U>;
+
+        else(value: T): Promise<T>;
+        orElse(value: T): Promise<T>;
+
+        tap(onFulfilledSideEffect: (value: T) => void): Promise<T>;
+
+        delay(milliseconds: number): Promise<T>;
+
+        timeout(milliseconds: number, reason?: any): Promise<T>;
+
+        with(thisArg: any): Promise<T>;
+        withThis(thisArg: any): Promise<T>;
+
         otherwise<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
         otherwise<U>(onRejected?: (reason: any) => U): Promise<U>;
+
+        otherwise<U>(predicate: (reason: any) => boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        otherwise<U>(predicate: (reason: any) => boolean, onRejected?: (reason: any) => U): Promise<U>;
+
+        // Make sure you test any usage of these overloads, exceptionType must
+        // be a constructor with prototype set to an instance of Error.
+        otherwise<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U): Promise<U>;
 
         then<U>(onFulfilled: (value: T) => Promise<U>, onRejected?: (reason: any) => Promise<U>, onProgress?: (update: any) => void): Promise<U>;
         then<U>(onFulfilled: (value: T) => Promise<U>, onRejected?: (reason: any) => U, onProgress?: (update: any) => void): Promise<U>;
         then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => Promise<U>, onProgress?: (update: any) => void): Promise<U>;
         then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U, onProgress?: (update: any) => void): Promise<U>;
+
+        done<U>(onFulfilled: (value: T) => void, onRejected?: (reason: any) => void): void;
+
+        fold<U, V>(combine: (value1: T, value2: V) => Promise<U>, value2: V): Promise<U>;
+        fold<U, V>(combine: (value1: T, value2: V) => Promise<U>, value2: Promise<V>): Promise<U>;
+
+        fold<U, V>(combine: (value1: T, value2: V) => U, value2: V): Promise<U>;
+        fold<U, V>(combine: (value1: T, value2: V) => U, value2: Promise<V>): Promise<U>;
     }
 
     interface Thenable<T> {
