@@ -12,6 +12,33 @@ declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): 
 declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
 
 declare module When {
+    function attempt<T>(f: () => T): Promise<T>;
+
+    function attempt<T, A>(f: (a: A) => T, a: Promise<A>): Promise<T>;
+    function attempt<T, A>(f: (a: A) => T, a: A): Promise<T>;
+
+    function attempt<T, A, B>(f: (a: A, b: B) => T, a: Promise<A>, b: Promise<B>): Promise<T>;
+    function attempt<T, A, B>(f: (a: A, b: B) => T, a: Promise<A>, b: B): Promise<T>;
+    function attempt<T, A, B>(f: (a: A, b: B) => T, a: A, b: Promise<B>): Promise<T>;
+    function attempt<T, A, B>(f: (a: A, b: B) => T, a: A, b: B): Promise<T>;
+
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: Promise<B>, c: Promise<C>): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: Promise<B>, c: C): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: B, c: Promise<C>): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: B, c: C): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: Promise<B>, c: Promise<C>): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: Promise<B>, c: C): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: B, c: Promise<C>): Promise<T>;
+    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: B, c: C): Promise<T>;
+
+    function lift<T>(f: () => T): () => Promise<T>;
+    function lift<T, A>(f: (a: A) => T): (a: Promise<A>) => Promise<T>;
+    function lift<T, A, B>(f: (a: A, b: B) => T): (a: Promise<A>, b: Promise<B>) => Promise<T>;
+    function lift<T, A, B, C>(f: (a: A, b: B, c: C) => T): (a: Promise<A>, b: Promise<B>, c: Promise<C>) => Promise<T>;
+
+    function promise<T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): Promise<T>;
+
+    function reject<T>(reason: any): Promise<T>;
 
     /**
      * Return a promise that will resolve only once all the supplied promisesOrValues
@@ -53,6 +80,7 @@ declare module When {
      *    - rejected with promiseOrValue's reason after it is rejected
      */
     function resolve<T>(promise: Promise<T>): Promise<T>;
+    function resolve<T>(foreign: Thenable<T>): Promise<T>;
     function resolve<T>(value?: T): Promise<T>;
 
     interface Deferred<T> {
