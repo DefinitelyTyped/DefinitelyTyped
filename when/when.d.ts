@@ -7,6 +7,10 @@ declare function When<T>(value: When.Promise<T>): When.Promise<T>;
 declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
 declare function When<T>(value: T): When.Promise<T>;
 
+declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): When.Promise<U>;
+declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
+declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
+
 declare module When {
 
     /**
