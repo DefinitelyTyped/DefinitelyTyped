@@ -1,4 +1,4 @@
-/// <reference path="react-addons.d.ts" />
+/// <reference path="react.d.ts" />
 import React = require("react/addons");
 
 var PropTypesSpecification: React.Specification<any, any> = {
