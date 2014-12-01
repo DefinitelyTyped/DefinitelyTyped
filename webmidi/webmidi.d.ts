@@ -10,10 +10,10 @@ interface Navigator {
      * When invoked, returns a Promise object representing a request for access to MIDI devices on the user's system.
      * @param options settings that may be provided to the requestMIDIAccess request.
      */
-    requestMIDIAccess (options?: Midi.MidiOptions): Promise<Midi.MIDIAccess>;
+    requestMIDIAccess (options?: WebMidi.MidiOptions): Promise<WebMidi.MIDIAccess>;
 }
 
-declare module Midi{
+declare module WebMidi{
     /**
      * optional settings that may be provided to the requestMIDIAccess request.
      */
