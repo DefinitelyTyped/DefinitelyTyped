@@ -9,7 +9,7 @@ interface Moment {
     tz(timezone: string): Moment;
 }
 
-interface Zone {
+interface MomentZone {
     name: string;
     abbrs: string[];
     untils: number[];
@@ -28,7 +28,7 @@ interface MomentTimezone {
     (date: Moment, timezone: string): Moment;
     (date: Object, timezone: string): Moment;
 
-    zone(timezone: string): Zone;
+    zone(timezone: string): MomentZone;
 
     add(packedZoneString: string): void;
     add(packedZoneString: string[]): void;
