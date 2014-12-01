@@ -1,53 +1,90 @@
-// Type definitions for React 0.12.RC
+// Type definitions for React 0.12.1
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
-    export = React;
+    var exports: React.ModuleExports;
+    export = exports;
+}
+
+declare module "react/addons" {
+    var exports: React.ModuleWithAddonsExports;
+    export = exports;
+}
+
+declare module "react/lib/cloneWithProps" {
+    interface exports<P> extends React.CloneWithProps<P> {}
+    export = exports;
+}
+
+declare module "react/lib/cx" {
+    var exports: React.ClassSet;
+    export = exports;
+}
+
+declare module "react/lib/LinkedStateMixin" {
+    interface exports<P, S> extends React.LinkedStateMixin<P, S> {}
+    export = exports;
+}
+
+declare module "react/lib/ReactComponentWithPureRenderMixin" {
+    var exports: React.PureRenderMixin;
+    export = exports;
+}
+
+declare module "react/lib/ReactCSSTransitionGroup" {
+    var exports: React.CSSTransitionGroup;
+    export = exports;
+}
+
+
+declare module "react/lib/ReactDefaultPerf" {
+    var exports: React.Perf;
+    export = exports;
+}
+
+declare module "react/lib/ReactTestUtils" {
+    var exports: React.TestUtils;
+    export = exports;
+}
+
+declare module "react/lib/ReactTransitionGroup" {
+    var exports: React.TransitionGroup;
+    export = exports;
+}
+
+declare module "react/lib/update" {
+    var exports: React.Update;
+    export = exports;
 }
 
 declare module React {
-    export function createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
-
-    export function createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
-
-    export function createElement<P>(clazz: ReactComponentFactory<P>, props: P, ...children: any[]): ReactComponentElement<P>;
-
-    export function createElement(type: string, props: DomAttributes, ...children: any[]): ReactHTMLElement;
-
-    export function createElement(type: string, props: SvgAttributes, ...children: any[]): ReactSVGElement;
-
-    export function render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): ReactComponentElement<P>;
-
-    export function render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
-
-    export function render(component: ReactSVGElement, container: Element, callback?: () => void): ReactSVGElement;
-
-    export function unmountComponentAtNode(container: Element): boolean;
-
-    export function renderToString<P>(component: ReactComponentElement<P>): string;
-
-    export function renderToString(component: ReactHTMLElement): string;
-
-    export function renderToString(component: ReactSVGElement): string;
-
-    export function renderToStaticMarkup<P>(component: ReactComponentElement<P>): string;
-
-    export function renderToStaticMarkup(component: ReactHTMLElement): string;
-
-    export function renderToStaticMarkup(component: ReactSVGElement): string;
-
-    export function isValidClass(factory: ReactComponentFactory<any>): boolean;
-
-    export function isValidElement(component: ReactComponentElement<any>): boolean;
-
-    export function isValidElement(component: ReactHTMLElement): boolean;
-
-    export function isValidElement(component: ReactSVGElement): boolean;
-
-    export function initializeTouchEvents(shouldUseTouch: boolean): void;
-
+    export interface ModuleExports {
+        createClass<P, S>(specification: Specification<P, S>): ReactComponentFactory<P>;
+        createFactory<P>(clazz: ReactComponentFactory<P>): ReactComponentFactory<P>;
+        createElement<P>(clazz: ReactComponentFactory<P>, props: P, ...children: any[]): ReactComponentElement<P>;
+        createElement(type: string, props: DomAttributes, ...children: any[]): ReactHTMLElement;
+        createElement(type: string, props: SvgAttributes, ...children: any[]): ReactSVGElement;
+        render<P>(component: ReactComponentElement<P>, container: Element, callback?: () => void): Component<P, {}>;
+        render(component: ReactHTMLElement, container: Element, callback?: () => void): ReactHTMLElement;
+        render(component: ReactSVGElement, container: Element, callback?: () => void): ReactSVGElement;
+        unmountComponentAtNode(container: Element): boolean;
+        renderToString<P>(component: ReactComponentElement<P>): string;
+        renderToString(component: ReactHTMLElement): string;
+        renderToString(component: ReactSVGElement): string;
+        renderToStaticMarkup<P>(component: ReactComponentElement<P>): string;
+        renderToStaticMarkup(component: ReactHTMLElement): string;
+        renderToStaticMarkup(component: ReactSVGElement): string;
+        isValidClass(factory: ReactComponentFactory<any>): boolean;
+        isValidElement(component: ReactComponentElement<any>): boolean;
+        isValidElement(component: ReactHTMLElement): boolean;
+        isValidElement(component: ReactSVGElement): boolean;
+        initializeTouchEvents(shouldUseTouch: boolean): void;
+        DOM: DomConstructors;
+        Children: Children;
+        PropTypes: PropTypes;
+    }
 
     export interface ReactComponentFactory<P> {
         (properties?: P, ...children: any[]): ReactComponentElement<P>;
@@ -154,7 +191,7 @@ declare module React {
         [key: string]: Validator<P>;
     }
 
-    export var PropTypes: {
+    export interface PropTypes {
         any: Requireable<any>;
         array: Requireable<any>;
         bool: Requireable<any>;
@@ -170,14 +207,14 @@ declare module React {
         arrayOf: (type: Validator<any>) => Requireable<any>;
         objectOf: (type: Validator<any>) => Requireable<any>;
         shape: (type: ValidationMap<any>) => Requireable<any>;
-    };
+    }
 
-    export var Children: {
+    export interface Children {
         map(children: any[], fn: (child: any) => any): any[];
         forEach(children: any[], fn: (child: any) => any): void;
         count(children: any[]): number;
         only(children: any[]): any;
-    };
+    }
 
     // Browser Interfaces
     // Taken from https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
@@ -477,7 +514,7 @@ declare module React {
         y?: any;
     }
 
-    export var DOM: {
+    export interface DomConstructors {
         // HTML
         a: DomElement;
         abbr: DomElement;
@@ -608,5 +645,179 @@ declare module React {
         svg: SvgElement;
         text: SvgElement;
         tspan: SvgElement;
-    };
+    }
+
+    // Addons
+    export interface ModuleWithAddonsExports extends ModuleExports {
+        addons: ReactAddons;
+    }
+
+    export interface ReactAddons {
+        cloneWithProps<P>(instance: React.ReactComponentElement<P>, extraProps?: P): React.ReactComponentElement<P>;
+        classSet: ClassSet;
+        LinkedStateMixin: LinkedStateMixin<any, any>;
+        PureRenderMixin: PureRenderMixin;
+        CSSTransitionGroup: CSSTransitionGroup;
+        Perf: Perf;
+        TestUtils: TestUtils;
+        TransitionGroup: TransitionGroup;
+        update: Update;
+    }
+
+    export interface CloneWithProps<P> {
+        (instance: React.ReactComponentElement<P>, extraProps?: P): React.ReactComponentElement<P>;
+    }
+
+    export interface ClassSet {
+        (classes: {[key: string]: boolean}): string
+    }
+
+    export interface ReactLink<T> {
+        value: T;
+        requestChange(newValue: T): void;
+    }
+
+    export interface LinkedStateMixin<P, S> extends React.Mixin<P, S> {
+        linkState<T>(key: string): ReactLink<T>;
+    }
+
+    export interface PureRenderMixin extends React.Mixin<any, any> {}
+
+    export interface CSSTransitionGroup extends React.ReactComponentFactory<{
+        transitionName: string;
+    }> {}
+
+    export interface ComponentPerfContext {
+        current: string;
+        owner: string;
+    }
+
+    export interface NumericPerfContext {
+        [key: string]: number;
+    }
+
+    export interface Measurements {
+        exclusive: NumericPerfContext;
+        inclusive: NumericPerfContext;
+        render: NumericPerfContext;
+        counts: NumericPerfContext;
+        writes: NumericPerfContext;
+        displayNames: {
+            [key: string]: ComponentPerfContext;
+        };
+        totalTime: number;
+    }
+
+    export interface Perf {
+        start(): void;
+        stop(): void;
+        printInclusive(measurements: Measurements[]): void;
+        printExclusive(measurements: Measurements[]): void;
+        printWasted(measurements: Measurements[]): void;
+        printDOM(measurements: Measurements[]): void;
+        getLastMeasurements(): Measurements[];
+    }
+
+    export interface TestUtils {
+        Simulate: Simulate;
+        renderIntoDocument<P>(instance: ReactComponentElement<P>): ReactComponentElement<P>;
+        renderIntoDocument(instance: ReactHTMLElement): ReactHTMLElement;
+        renderIntoDocument(instance: ReactSVGElement): ReactSVGElement;
+        mockComponent(componentClass: ReactComponentFactory<any>, mockTagName?: string): TestUtils;
+        isDescriptorOfType(descriptor: ReactElement<any, any>, componentClass: ReactComponentFactory<any>): boolean;
+        isDOMComponent(instance: ReactElement<any, any>): boolean;
+        isCompositeComponent(instance: ReactElement<any, any>): boolean;
+        isCompositeComponentWithType(instance: ReactElement<any, any>, componentClass: ReactComponentFactory<any>): boolean;
+        isTextComponent(instance: ReactElement<any, any>): boolean;
+        findAllInRenderedTree(tree: ReactElement<any, any>, test: (component: ReactElement<any, any>) => boolean): ReactElement<any, any>[];
+        scryRenderedDOMComponentsWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>[];
+        findRenderedDOMComponentWithClass(tree: ReactElement<any, any>, className: string): ReactElement<any, any>;
+        scryRenderedDOMComponentsWithTag(tree: ReactElement<any, any>, tagName: string): ReactElement<any, any>[];
+        findRenderedDOMComponentWithTag(tree: ReactElement<any, any>, tagName: string): ReactElement<any, any>;
+        scryRenderedComponentsWithTag(tree: ReactElement<any, any>, componentClass: Function): ReactElement<any, any>[];
+        findRenderedComponentWithType<P>(tree: ReactElement<any, any>, componentClass: ReactComponentFactory<P>): Component<P, any>;
+        scryRenderedComponentsWithType<P>(tree: ReactElement<any, any>, componentClass: ReactComponentFactory<P>): Component<P, any>[];
+    }
+
+    export interface SyntheticEventData {
+        altKey?: boolean;
+        button?: number;
+        buttons?: number;
+        clientX?: number;
+        clientY?: number;
+        changedTouches?: TouchList;
+        charCode?: boolean;
+        clipboardData?: DataTransfer;
+        ctrlKey?: boolean;
+        deltaMode?: number;
+        deltaX?: number;
+        deltaY?: number;
+        deltaZ?: number;
+        detail?: number;
+        getModifierState?(key: string): boolean;
+        key?: string;
+        keyCode?: number;
+        locale?: string;
+        location?: number;
+        metaKey?: boolean;
+        pageX?: number;
+        pageY?: number;
+        relatedTarget?: EventTarget;
+        repeat?: boolean;
+        screenX?: number;
+        screenY?: number;
+        shiftKey?: boolean;
+        targetTouches?: TouchList;
+        touches?: TouchList;
+        view?: AbstractView;
+        which?: number;
+    }
+
+    export interface EventSimulator {
+        (element: Element, eventData?: SyntheticEventData): void;
+        (descriptor: ReactElement<any, any>, eventData?: SyntheticEventData): void;
+    }
+
+    export interface Simulate {
+        blur: EventSimulator;
+        change: EventSimulator;
+        click: EventSimulator;
+        cut: EventSimulator;
+        doubleClick: EventSimulator;
+        drag: EventSimulator;
+        dragEnd: EventSimulator;
+        dragEnter: EventSimulator;
+        dragExit: EventSimulator;
+        dragLeave: EventSimulator;
+        dragOver: EventSimulator;
+        dragStart: EventSimulator;
+        drop: EventSimulator;
+        focus: EventSimulator;
+        input: EventSimulator;
+        keyDown: EventSimulator;
+        keyPress: EventSimulator;
+        keyUp: EventSimulator;
+        mouseDown: EventSimulator;
+        mouseEnter: EventSimulator;
+        mouseLeave: EventSimulator;
+        mouseMove: EventSimulator;
+        mouseOut: EventSimulator;
+        mouseOver: EventSimulator;
+        mouseUp: EventSimulator;
+        paste: EventSimulator;
+        scroll: EventSimulator;
+        submit: EventSimulator;
+        touchCancel: EventSimulator;
+        touchEnd: EventSimulator;
+        touchMove: EventSimulator;
+        touchStart: EventSimulator;
+        wheel: EventSimulator;
+    }
+
+    export interface TransitionGroup extends ReactComponentFactory<any> {}
+
+    export interface Update {
+        (object: Object, changes: Object): Object
+    }
+
 }
