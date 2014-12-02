@@ -50,5 +50,7 @@ interface MomentStatic {
 }
 
 declare module 'moment-timezone' {
+    var _tmp: MomentStatic;
 
+    export = _tmp;
 }
