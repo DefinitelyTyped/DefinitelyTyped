@@ -1750,6 +1750,8 @@ declare module D3 {
 
         export interface Axis {
             (selection: Selection): void;
+            (transition: Transition.Transition): void;
+            
             scale: {
                 (): any;
                 (scale: any): Axis;
