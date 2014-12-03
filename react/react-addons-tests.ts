@@ -8,18 +8,26 @@ React.addons.TestUtils.Simulate.click(node);
 React.addons.TestUtils.Simulate.change(node);
 React.addons.TestUtils.Simulate.keyDown(node, {key: "Enter"});
 
+interface GreetingProps {
+    name: string;
+}
+interface GreetingState {
+    morning: boolean;
+}
+interface GreetingInstance extends React.ComponentInstance<GreetingProps, GreetingState> {
+}
 var Greeting = React.createClass({displayName: 'Greeting',
     getInitialState: function() {
         return {morning: true};
     },
     render: function() {
-        var me = <React.ComponentInstance<{name: string}, {morning: boolean}>>this;
+        var me = <GreetingInstance>this;
         return React.DOM.div(null, (me.state.morning ? "Hello" : "Goodbye "), me.props.name);
     }
 });
 
 var root = React.addons.TestUtils.renderIntoDocument(React.createElement(Greeting, {name: "John"}));
-var greeting = React.addons.TestUtils.findRenderedComponentWithType(root, Greeting);
+var greeting = <GreetingInstance>React.addons.TestUtils.findRenderedComponentWithType(root, Greeting);
 greeting.setState({
     morning: false
 });

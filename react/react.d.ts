@@ -37,7 +37,7 @@ declare module React {
     // React Elements 
     // ----------------------------------------------------------------------
 
-    // type ReactType = ReactClass<any> | string;
+    // type ReactType = ComponentClass<any> | string;
 
     interface ReactElement<P> {
         type: any; // ReactType
@@ -54,22 +54,21 @@ declare module React {
     // React Nodes 
     // ----------------------------------------------------------------------
 
-    // Typescript 1.4 (Union types, aliases)
     // type ReactText = string | number;
-    // type ReactFragment = ReactNode[];
-    // type ReactNode = ReactElement<any, any> | ReactFragment | ReactText;
+    // type Fragment = ReactNode[];
+    // type ReactNode = ReactElement<any, any> | Fragment | ReactText;
 
     //
     // React Components 
     // ----------------------------------------------------------------------
 
-    interface ReactStatics<P> {
+    interface ComponentStatics<P> {
         displayName?: string;
         getDefaultProps?(): P;
-        propTypes?: React.ValidationMap<P>;
+        propTypes?: ValidationMap<P>;
     }
 
-    interface ReactClass<P> extends ReactStatics<P> {
+    interface ComponentClass<P> extends ComponentStatics<P> {
         // Deprecated in 0.12. See http://fb.me/react-legacyfactory
         // new(props: P): ReactElement<P>;
         // (props: P): ReactElement<P>;
@@ -83,19 +82,19 @@ declare module React {
         (props?: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
     }
     
-    interface ComponentFactory<P> extends Factory<P> {}
     interface HTMLFactory extends Factory<HTMLAttributes> {}
     interface SVGFactory extends Factory<SVGAttributes> {}
+    interface ComponentFactory<P> extends Factory<P> {}
 
     //
     // Top-Level API
     // ----------------------------------------------------------------------
 
     interface TopLevelAPI {
-        createClass<P>(spec: ComponentSpec<P, any>): ReactClass<P>;
+        createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
         createFactory<P>(type: any/*ReactType*/): Factory<P>;
-        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): ReactInstance<P>;
+        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): Instance<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
         renderToStaticMarkup(element: ReactElement<any>): string;
@@ -107,7 +106,7 @@ declare module React {
     // Component API
     // ----------------------------------------------------------------------
 
-    interface ReactInstance<P> {
+    interface Instance<P> {
         // Use this overload to cast the returned element to a more specific type.
         // Eg: var name = this.refs['name'].getDOMNode<HTMLInputElement>().value;
         getDOMNode<TElement extends Element>(): TElement;
@@ -119,13 +118,13 @@ declare module React {
         replaceProps(nextProps: P, callback?: () => void): void;
     }
     
-    interface ComponentInstance<P, S> extends ReactInstance<P> {
+    interface ComponentInstance<P, S> extends Instance<P> {
         state: S;
         setState(nextState: S, callback?: () => void): void;
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         refs: {
-            [key: string]: ReactInstance<P>
+            [key: string]: Instance<P>
         };
     }
 
@@ -133,7 +132,7 @@ declare module React {
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
-    interface Mixin<P, S> extends ReactStatics<P> {
+    interface Mixin<P, S> extends ComponentStatics<P> {
         mixins?: Mixin<P, S>;
         statics?: {
             [key: string]: any;
@@ -407,7 +406,7 @@ declare module React {
         itemType?: string;
 
         // React-specific Attributes
-        dangerouslySetInnerHTML: {
+        dangerouslySetInnerHTML?: {
             __html: string
         };
     }
@@ -464,136 +463,136 @@ declare module React {
 
     interface ReactDOM {
         // HTML
-        a: React.HTMLFactory;
-        abbr: React.HTMLFactory;
-        address: React.HTMLFactory;
-        area: React.HTMLFactory;
-        article: React.HTMLFactory;
-        aside: React.HTMLFactory;
-        audio: React.HTMLFactory;
-        b: React.HTMLFactory;
-        base: React.HTMLFactory;
-        bdi: React.HTMLFactory;
-        bdo: React.HTMLFactory;
-        big: React.HTMLFactory;
-        blockquote: React.HTMLFactory;
-        body: React.HTMLFactory;
-        br: React.HTMLFactory;
-        button: React.HTMLFactory;
-        canvas: React.HTMLFactory;
-        caption: React.HTMLFactory;
-        cite: React.HTMLFactory;
-        code: React.HTMLFactory;
-        col: React.HTMLFactory;
-        colgroup: React.HTMLFactory;
-        data: React.HTMLFactory;
-        datalist: React.HTMLFactory;
-        dd: React.HTMLFactory;
-        del: React.HTMLFactory;
-        details: React.HTMLFactory;
-        dfn: React.HTMLFactory;
-        dialog: React.HTMLFactory;
-        div: React.HTMLFactory;
-        dl: React.HTMLFactory;
-        dt: React.HTMLFactory;
-        em: React.HTMLFactory;
-        embed: React.HTMLFactory;
-        fieldset: React.HTMLFactory;
-        figcaption: React.HTMLFactory;
-        figure: React.HTMLFactory;
-        footer: React.HTMLFactory;
-        form: React.HTMLFactory;
-        h1: React.HTMLFactory;
-        h2: React.HTMLFactory;
-        h3: React.HTMLFactory;
-        h4: React.HTMLFactory;
-        h5: React.HTMLFactory;
-        h6: React.HTMLFactory;
-        head: React.HTMLFactory;
-        header: React.HTMLFactory;
-        hr: React.HTMLFactory;
-        html: React.HTMLFactory;
-        i: React.HTMLFactory;
-        iframe: React.HTMLFactory;
-        img: React.HTMLFactory;
-        input: React.HTMLFactory;
-        ins: React.HTMLFactory;
-        kbd: React.HTMLFactory;
-        keygen: React.HTMLFactory;
-        label: React.HTMLFactory;
-        legend: React.HTMLFactory;
-        li: React.HTMLFactory;
-        link: React.HTMLFactory;
-        main: React.HTMLFactory;
-        map: React.HTMLFactory;
-        mark: React.HTMLFactory;
-        menu: React.HTMLFactory;
-        menuitem: React.HTMLFactory;
-        meta: React.HTMLFactory;
-        meter: React.HTMLFactory;
-        nav: React.HTMLFactory;
-        noscript: React.HTMLFactory;
-        object: React.HTMLFactory;
-        ol: React.HTMLFactory;
-        optgroup: React.HTMLFactory;
-        option: React.HTMLFactory;
-        output: React.HTMLFactory;
-        p: React.HTMLFactory;
-        param: React.HTMLFactory;
-        pre: React.HTMLFactory;
-        progress: React.HTMLFactory;
-        q: React.HTMLFactory;
-        rp: React.HTMLFactory;
-        rt: React.HTMLFactory;
-        ruby: React.HTMLFactory;
-        s: React.HTMLFactory;
-        samp: React.HTMLFactory;
-        script: React.HTMLFactory;
-        section: React.HTMLFactory;
-        select: React.HTMLFactory;
-        small: React.HTMLFactory;
-        source: React.HTMLFactory;
-        span: React.HTMLFactory;
-        strong: React.HTMLFactory;
-        style: React.HTMLFactory;
-        sub: React.HTMLFactory;
-        summary: React.HTMLFactory;
-        sup: React.HTMLFactory;
-        table: React.HTMLFactory;
-        tbody: React.HTMLFactory;
-        td: React.HTMLFactory;
-        textarea: React.HTMLFactory;
-        tfoot: React.HTMLFactory;
-        th: React.HTMLFactory;
-        thead: React.HTMLFactory;
-        time: React.HTMLFactory;
-        title: React.HTMLFactory;
-        tr: React.HTMLFactory;
-        track: React.HTMLFactory;
-        u: React.HTMLFactory;
-        ul: React.HTMLFactory;
-        "var": React.HTMLFactory;
-        video: React.HTMLFactory;
-        wbr: React.HTMLFactory;
+        a: HTMLFactory;
+        abbr: HTMLFactory;
+        address: HTMLFactory;
+        area: HTMLFactory;
+        article: HTMLFactory;
+        aside: HTMLFactory;
+        audio: HTMLFactory;
+        b: HTMLFactory;
+        base: HTMLFactory;
+        bdi: HTMLFactory;
+        bdo: HTMLFactory;
+        big: HTMLFactory;
+        blockquote: HTMLFactory;
+        body: HTMLFactory;
+        br: HTMLFactory;
+        button: HTMLFactory;
+        canvas: HTMLFactory;
+        caption: HTMLFactory;
+        cite: HTMLFactory;
+        code: HTMLFactory;
+        col: HTMLFactory;
+        colgroup: HTMLFactory;
+        data: HTMLFactory;
+        datalist: HTMLFactory;
+        dd: HTMLFactory;
+        del: HTMLFactory;
+        details: HTMLFactory;
+        dfn: HTMLFactory;
+        dialog: HTMLFactory;
+        div: HTMLFactory;
+        dl: HTMLFactory;
+        dt: HTMLFactory;
+        em: HTMLFactory;
+        embed: HTMLFactory;
+        fieldset: HTMLFactory;
+        figcaption: HTMLFactory;
+        figure: HTMLFactory;
+        footer: HTMLFactory;
+        form: HTMLFactory;
+        h1: HTMLFactory;
+        h2: HTMLFactory;
+        h3: HTMLFactory;
+        h4: HTMLFactory;
+        h5: HTMLFactory;
+        h6: HTMLFactory;
+        head: HTMLFactory;
+        header: HTMLFactory;
+        hr: HTMLFactory;
+        html: HTMLFactory;
+        i: HTMLFactory;
+        iframe: HTMLFactory;
+        img: HTMLFactory;
+        input: HTMLFactory;
+        ins: HTMLFactory;
+        kbd: HTMLFactory;
+        keygen: HTMLFactory;
+        label: HTMLFactory;
+        legend: HTMLFactory;
+        li: HTMLFactory;
+        link: HTMLFactory;
+        main: HTMLFactory;
+        map: HTMLFactory;
+        mark: HTMLFactory;
+        menu: HTMLFactory;
+        menuitem: HTMLFactory;
+        meta: HTMLFactory;
+        meter: HTMLFactory;
+        nav: HTMLFactory;
+        noscript: HTMLFactory;
+        object: HTMLFactory;
+        ol: HTMLFactory;
+        optgroup: HTMLFactory;
+        option: HTMLFactory;
+        output: HTMLFactory;
+        p: HTMLFactory;
+        param: HTMLFactory;
+        pre: HTMLFactory;
+        progress: HTMLFactory;
+        q: HTMLFactory;
+        rp: HTMLFactory;
+        rt: HTMLFactory;
+        ruby: HTMLFactory;
+        s: HTMLFactory;
+        samp: HTMLFactory;
+        script: HTMLFactory;
+        section: HTMLFactory;
+        select: HTMLFactory;
+        small: HTMLFactory;
+        source: HTMLFactory;
+        span: HTMLFactory;
+        strong: HTMLFactory;
+        style: HTMLFactory;
+        sub: HTMLFactory;
+        summary: HTMLFactory;
+        sup: HTMLFactory;
+        table: HTMLFactory;
+        tbody: HTMLFactory;
+        td: HTMLFactory;
+        textarea: HTMLFactory;
+        tfoot: HTMLFactory;
+        th: HTMLFactory;
+        thead: HTMLFactory;
+        time: HTMLFactory;
+        title: HTMLFactory;
+        tr: HTMLFactory;
+        track: HTMLFactory;
+        u: HTMLFactory;
+        ul: HTMLFactory;
+        "var": HTMLFactory;
+        video: HTMLFactory;
+        wbr: HTMLFactory;
 
         // SVG
-        circle: React.SVGFactory;
-        defs: React.SVGFactory;
-        ellipse: React.SVGFactory;
-        g: React.SVGFactory;
-        line: React.SVGFactory;
-        linearGradient: React.SVGFactory;
-        mask: React.SVGFactory;
-        path: React.SVGFactory;
-        pattern: React.SVGFactory;
-        polygon: React.SVGFactory;
-        polyline: React.SVGFactory;
-        radialGradient: React.SVGFactory;
-        rect: React.SVGFactory;
-        stop: React.SVGFactory;
-        svg: React.SVGFactory;
-        text: React.SVGFactory;
-        tspan: React.SVGFactory;
+        circle: SVGFactory;
+        defs: SVGFactory;
+        ellipse: SVGFactory;
+        g: SVGFactory;
+        line: SVGFactory;
+        linearGradient: SVGFactory;
+        mask: SVGFactory;
+        path: SVGFactory;
+        pattern: SVGFactory;
+        polygon: SVGFactory;
+        polyline: SVGFactory;
+        radialGradient: SVGFactory;
+        rect: SVGFactory;
+        stop: SVGFactory;
+        svg: SVGFactory;
+        text: SVGFactory;
+        tspan: SVGFactory;
     }
 
     //
@@ -654,11 +653,11 @@ declare module React {
 
     interface TransitionGroupProps {
         component?: any; // ReactType
-        childFactory?: (child: React.ReactElement<any>) => React.ReactElement<any>;
+        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
 
-    interface CSSTransitionGroup extends React.ReactClass<CSSTransitionGroupProps> {}
-    interface TransitionGroup extends React.ReactClass<TransitionGroupProps> {}
+    interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
+    interface TransitionGroup extends ComponentClass<TransitionGroupProps> {}
 
     //
     // React.addons (Mixins)
@@ -669,11 +668,11 @@ declare module React {
         requestChange(newValue: T): void;
     }
 
-    interface LinkedStateMixin extends React.Mixin<any, any> {
+    interface LinkedStateMixin extends Mixin<any, any> {
         linkState<T>(key: string): ReactLink<T>;
     }
 
-    interface PureRenderMixin extends React.Mixin<any, any> {
+    interface PureRenderMixin extends Mixin<any, any> {
     }
 
     //
@@ -738,28 +737,28 @@ declare module React {
         };
     }
 
-    // Alias for ReactTestUtils
-    interface Instance<P> extends React.ReactInstance<P> {}
-
     interface ReactTestUtils {
         Simulate: Simulate;
 
-        renderIntoDocument<P>(element: React.ReactElement<P>): Instance<P>;
+        renderIntoDocument<P>(element: ReactElement<P>): Instance<P>;
         mockComponent(mocked: MockedComponent, mockTagName?: string): ReactTestUtils;
-        isElementOfType(element: React.ReactElement<any>, type: any/*ReactType*/): boolean;
+
+        isElementOfType(element: ReactElement<any>, type: any/*ReactType*/): boolean;
         isDOMComponent(instance: Instance<any>): boolean;
         isCompositeComponent(instance: Instance<any>): boolean;
-        isCompositeComponentWithType(instance: Instance<any>, type: React.ReactClass<any>): boolean;
+        isCompositeComponentWithType(instance: Instance<any>, type: ComponentClass<any>): boolean;
         isTextComponent(instance: Instance<any>): boolean;
+
         findAllInRenderedTree(tree: Instance<any>, fn: (i: Instance<any>) => boolean): Instance<any>;
+
         scryRenderedDOMComponentsWithClass(tree: Instance<any>, className: string): Instance<any>[];
         findRenderedDOMComponentWithClass(tree: Instance<any>, className: string): Instance<any>;
+
         scryRenderedDOMComponentsWithTag(tree: Instance<any>, tagName: string): Instance<any>[];
         findRenderedDOMComponentWithTag(tree: Instance<any>, tagName: string): Instance<any>;
-        scryRenderedComponentsWithType<P, S>(
-            tree: Instance<any>, type: React.ReactClass<P>): React.ComponentInstance<P, S>[];
-        findRenderedComponentWithType<P, S>(
-            tree: Instance<any>, type: React.ReactClass<P>): React.ComponentInstance<P, S>;
+
+        scryRenderedComponentsWithType<P>(tree: Instance<any>, type: ComponentClass<P>): Instance<P>[];
+        findRenderedComponentWithType<P>(tree: Instance<any>, type: ComponentClass<P>): Instance<P>;
     }
 
     interface SyntheticEventData {
@@ -863,7 +862,7 @@ declare module React {
             batchedUpdates(callback: () => void): void;
 
             classSet(cx: { [key: string]: boolean }): string;
-            cloneWithProps<P>(element: React.ReactElement<P>, props: P): React.ReactElement<P>;
+            cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
             update(value: any[], spec: UpdateArraySpec): any[];
             update(value: {}, spec: UpdateSpec): any;
