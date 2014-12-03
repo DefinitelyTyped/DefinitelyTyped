@@ -1,7 +1,7 @@
 /// <reference path="react.d.ts" />
 import React = require("react");
 
-var PropTypesSpecification: React.Specification<any, any> = {
+var PropTypesSpecification: React.ComponentSpec<any, any> = {
     propTypes: {
         // You can declare that a prop is a specific JS primitive. By default, these
         // are all optional.
@@ -14,10 +14,10 @@ var PropTypesSpecification: React.Specification<any, any> = {
 
         // Anything that can be rendered: numbers, strings, components or an array
         // containing these types.
-        optionalRenderable: React.PropTypes.node,
+        optionalNode: React.PropTypes.node,
 
-        // A React component.
-        optionalComponent: React.PropTypes.component,
+        // A React element
+        optionalElement: React.PropTypes.element,
 
         // You can also declare that a prop is an instance of a class. This uses
         // JS's instanceof operator.
@@ -56,7 +56,7 @@ var PropTypesSpecification: React.Specification<any, any> = {
         // You can also specify a custom validator. It should return an Error
         // object if the validation fails. Don't `console.warn` or throw, as this
         // won't work inside `oneOfType`.
-        customProp: function(props, propName, componentName) {
+        customProp: function(props: any, propName: string, componentName: string) {
             if (!/matchme/.test(props[propName])) {
                 return new Error('Validation failed!');
             }
@@ -76,17 +76,13 @@ interface HelloMessageProps {
     name: string;
 }
 
-var HelloMessage = React.createClass<HelloMessageProps, any>({displayName: 'HelloMessage',
+var HelloMessage = React.createClass<HelloMessageProps>({
+    displayName: 'HelloMessage',
     render: function() {
-        return React.DOM.div(null, "Hello ", (<React.Component<HelloMessageProps, any>>this).props.name);
+        return React.DOM.div(null, "Hello ", (<React.ReactInstance<HelloMessageProps>>this).props.name);
     }
 });
 
-// This code - calling a component directly - is deprecated in v0.12
-// See http://fb.me/react-legacyfactory
-React.render(HelloMessage({ name: "John" }), mountNode);
-
-// Create a factory instead
 var HelloMessageFactory = React.createFactory(HelloMessage)
 React.render(HelloMessageFactory({ name: "John" }), mountNode)
 
@@ -95,8 +91,9 @@ var Timer = React.createClass({displayName: 'Timer',
         return {secondsElapsed: 0};
     },
     tick: function() {
-        (<React.Component<any, {secondsElapsed: number}>>this).setState({
-            secondsElapsed: (<React.Component<any, {secondsElapsed: number}>>this).state.secondsElapsed + 1
+        var me = <React.ComponentInstance<any, {secondsElapsed: number}>>this;
+        me.setState({
+            secondsElapsed: me.state.secondsElapsed + 1
         });
     },
     componentDidMount: function() {
@@ -109,9 +106,9 @@ var Timer = React.createClass({displayName: 'Timer',
         return React.DOM.div(
             null,
             "Seconds Elapsed: ",
-            (<React.Component<any, {secondsElapsed: number}>>this).state.secondsElapsed
+            (<React.ComponentInstance<any, {secondsElapsed: number}>>this).state.secondsElapsed
         );
     }
 });
 
-React.render(Timer(), mountNode);
+React.render(React.createElement(Timer, null), mountNode);
