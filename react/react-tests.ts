@@ -13,7 +13,7 @@ interface State {
     seconds?: number;
 }
 
-interface MyComponentInstance extends React.ComponentInstance<Props, State> {
+interface MyComponent extends React.CompositeComponent<Props, State> {
     reset(): void;
 }
 
@@ -63,7 +63,7 @@ var reactElement: React.ReactElement<Props> =
 var reactFactory: React.Factory<Props> =
     React.createFactory<Props>(reactClass);
 
-var reactInstance: React.ElementInstance<Props> =
+var component: React.Component<Props> =
     React.render<Props>(reactElement, container);
 
 var unmounted: boolean = React.unmountComponentAtNode(container);
@@ -95,25 +95,25 @@ var propTypes: React.ValidationMap<Props> = reactClass.propTypes;
 // Component API
 // --------------------------------------------------------------------------
 
-var htmlElement: Element = reactInstance.getDOMNode();
-var divElement: HTMLDivElement = reactInstance.getDOMNode<HTMLDivElement>();
-var isMounted: boolean = reactInstance.isMounted();
-reactInstance.setProps(elementProps);
-reactInstance.replaceProps(props);
+var htmlElement: Element = component.getDOMNode();
+var divElement: HTMLDivElement = component.getDOMNode<HTMLDivElement>();
+var isMounted: boolean = component.isMounted();
+component.setProps(elementProps);
+component.replaceProps(props);
 
-var componentInstance: React.ComponentInstance<Props, State> =
-    <React.ComponentInstance<Props, State>>reactInstance;
-var initialState: State = componentInstance.state;
-componentInstance.setState({ inputValue: "!!!" });
-componentInstance.replaceState({ inputValue: "???", seconds: 60 });
-componentInstance.forceUpdate();
+var compComponent: React.CompositeComponent<Props, State> =
+    <React.CompositeComponent<Props, State>>component;
+var initialState: State = compComponent.state;
+compComponent.setState({ inputValue: "!!!" });
+compComponent.replaceState({ inputValue: "???", seconds: 60 });
+compComponent.forceUpdate();
 
-var inputRef: React.ElementInstance<React.HTMLAttributes> =
-    componentInstance.refs[INPUT_REF];
+var inputRef: React.HTMLComponent =
+    <React.HTMLComponent>compComponent.refs[INPUT_REF];
 var value: string = inputRef.getDOMNode<HTMLInputElement>().value;
 
-var myComponentInstance = <MyComponentInstance>componentInstance;
-myComponentInstance.reset();
+var myComponent = <MyComponent>compComponent;
+myComponent.reset();
 
 //
 // PropTypes
@@ -163,7 +163,7 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
 interface TimerState {
     secondsElapsed: number;
 }
-interface TimerInstance extends React.ComponentInstance<{}, TimerState> {
+interface Timer extends React.CompositeComponent<{}, TimerState> {
 }
 var Timer = React.createClass({
     displayName: "Timer",
@@ -171,7 +171,7 @@ var Timer = React.createClass({
         return { secondsElapsed: 0 };
     },
     tick: () => {
-        var me = <TimerInstance>this;
+        var me = <Timer>this;
         me.setState({
             secondsElapsed: me.state.secondsElapsed + 1
         });
@@ -183,7 +183,7 @@ var Timer = React.createClass({
         clearInterval(this.interval);
     },
     render: () => {
-        var me = <TimerInstance>this;
+        var me = <Timer>this;
         return React.DOM.div(
             null,
             "Seconds Elapsed: ",

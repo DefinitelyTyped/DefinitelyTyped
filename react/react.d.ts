@@ -65,7 +65,7 @@ declare module React {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
         createFactory<P>(componentClass: ComponentClass<P>): Factory<P>;
-        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): ElementInstance<P>;
+        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
         renderToStaticMarkup(element: ReactElement<any>): string;
@@ -77,7 +77,7 @@ declare module React {
     // Component API
     // ----------------------------------------------------------------------
 
-    interface ElementInstance<P> {
+    interface Component<P> {
         // Use this overload to cast the returned element to a more specific type.
         // Eg: var name = this.refs['name'].getDOMNode<HTMLInputElement>().value;
         getDOMNode<TElement extends Element>(): TElement;
@@ -88,14 +88,21 @@ declare module React {
         setProps(nextProps: P, callback?: () => void): void;
         replaceProps(nextProps: P, callback?: () => void): void;
     }
+
+    interface DOMComponent<P> extends Component<P> {
+        tagName: string;
+    }
+
+    interface HTMLComponent extends DOMComponent<HTMLAttributes> {}
+    interface SVGComponent extends DOMComponent<SVGAttributes> {}
     
-    interface ComponentInstance<P, S> extends ElementInstance<P> {
+    interface CompositeComponent<P, S> extends Component<P>, ComponentSpec<P, S> {
         state: S;
         setState(nextState: S, callback?: () => void): void;
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         refs: {
-            [key: string]: ElementInstance<any>
+            [key: string]: Component<any>
         };
     }
 
@@ -272,6 +279,10 @@ declare module React {
         onTouchStart?: TouchEventHandler;
         onScroll?: UIEventHandler;
         onWheel?: WheelEventHandler;
+
+        dangerouslySetInnerHTML?: {
+            __html: string
+        };
     }
 
     interface CSSProperties {
@@ -298,6 +309,7 @@ declare module React {
 
     interface HTMLAttributes extends ReactAttributes {
         accept?: string;
+        acceptCharset?: string;
         accessKey?: string;
         action?: string;
         allowFullScreen?: boolean;
@@ -311,6 +323,7 @@ declare module React {
         cellSpacing?: any; // number | string
         charSet?: string;
         checked?: boolean;
+        classID?: string;
         className?: string;
         cols?: number;
         colSpan?: number;
@@ -343,8 +356,10 @@ declare module React {
         lang?: string;
         list?: string;
         loop?: boolean;
+        manifest?: string;
         max?: any; // number | string
         maxLength?: number;
+        media?: string;
         mediaGroup?: string;
         method?: string;
         min?: any; // number | string
@@ -373,6 +388,7 @@ declare module React {
         selected?: boolean;
         shape?: string;
         size?: number;
+        sizes?: string;
         span?: number;
         spellCheck?: boolean;
         src?: string;
@@ -397,11 +413,6 @@ declare module React {
         itemProp?: string;
         itemScope?: boolean;
         itemType?: string;
-
-        // React-specific Attributes
-        dangerouslySetInnerHTML?: {
-            __html: string
-        };
     }
 
     interface SVGAttributes extends ReactAttributes {
@@ -532,6 +543,7 @@ declare module React {
         output: HTMLFactory;
         p: HTMLFactory;
         param: HTMLFactory;
+        picture: HTMLFactory;
         pre: HTMLFactory;
         progress: HTMLFactory;
         q: HTMLFactory;
@@ -724,34 +736,41 @@ declare module React {
     // React.addons.TestUtils
     // ----------------------------------------------------------------------
 
-    interface MockedComponent {
-        render: {
-            mockImplementation(impl: () => any): void;
-        };
+    interface MockedComponentClass {
+        new(): any;
     }
 
     interface ReactTestUtils {
         Simulate: Simulate;
 
-        renderIntoDocument<P>(element: ReactElement<P>): ElementInstance<P>;
-        mockComponent(mocked: MockedComponent, mockTagName?: string): ReactTestUtils;
+        renderIntoDocument<P>(element: ReactElement<P>): Component<P>;
+        renderIntoDocument<C extends Component<any>>(element: ReactElement<any>): C;
+
+        mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
 
         isElementOfType(element: ReactElement<any>, type: any/*ReactType*/): boolean;
-        isDOMComponent(instance: ElementInstance<any>): boolean;
-        isCompositeComponent(instance: ElementInstance<any>): boolean;
-        isCompositeComponentWithType(instance: ElementInstance<any>, type: ComponentClass<any>): boolean;
-        isTextComponent(instance: ElementInstance<any>): boolean;
+        isDOMComponent(instance: Component<any>): boolean;
+        isCompositeComponent(instance: Component<any>): boolean;
+        isCompositeComponentWithType(instance: Component<any>, type: ComponentClass<any>): boolean;
+        isTextComponent(instance: Component<any>): boolean;
 
-        findAllInRenderedTree(tree: ElementInstance<any>, fn: (i: ElementInstance<any>) => boolean): ElementInstance<any>;
+        findAllInRenderedTree(tree: Component<any>, fn: (i: Component<any>) => boolean): Component<any>;
 
-        scryRenderedDOMComponentsWithClass(tree: ElementInstance<any>, className: string): ElementInstance<any>[];
-        findRenderedDOMComponentWithClass(tree: ElementInstance<any>, className: string): ElementInstance<any>;
+        scryRenderedDOMComponentsWithClass(tree: Component<any>, className: string): DOMComponent<any>[];
+        findRenderedDOMComponentWithClass(tree: Component<any>, className: string): DOMComponent<any>;
 
-        scryRenderedDOMComponentsWithTag(tree: ElementInstance<any>, tagName: string): ElementInstance<any>[];
-        findRenderedDOMComponentWithTag(tree: ElementInstance<any>, tagName: string): ElementInstance<any>;
+        scryRenderedDOMComponentsWithTag(tree: Component<any>, tagName: string): DOMComponent<any>[];
+        findRenderedDOMComponentWithTag(tree: Component<any>, tagName: string): DOMComponent<any>;
 
-        scryRenderedComponentsWithType<P>(tree: ElementInstance<any>, type: ComponentClass<P>): ElementInstance<P>[];
-        findRenderedComponentWithType<P>(tree: ElementInstance<any>, type: ComponentClass<P>): ElementInstance<P>;
+        scryRenderedComponentsWithType<P, S>(
+            tree: Component<any>, type: ComponentClass<P>): CompositeComponent<P, S>[];
+        scryRenderedComponentsWithType<C extends CompositeComponent<any, any>>(
+            tree: Component<any>, type: ComponentClass<any>): C[];
+
+        findRenderedComponentWithType<P, S>(
+            tree: Component<any>, type: ComponentClass<P>): CompositeComponent<P, S>;
+        findRenderedComponentWithType<C extends CompositeComponent<any, any>>(
+            tree: Component<any>, type: ComponentClass<any>): C;
     }
 
     interface SyntheticEventData {
@@ -790,7 +809,7 @@ declare module React {
 
     interface EventSimulator {
         (element: Element, eventData?: SyntheticEventData): void;
-        (descriptor: ElementInstance<any>, eventData?: SyntheticEventData): void;
+        (descriptor: Component<any>, eventData?: SyntheticEventData): void;
     }
 
     interface Simulate {
