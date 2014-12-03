@@ -124,7 +124,7 @@ declare module React {
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         refs: {
-            [key: string]: ElementInstance<P>
+            [key: string]: ElementInstance<any>
         };
     }
 
@@ -303,6 +303,28 @@ declare module React {
         onWheel?: WheelEventHandler;
     }
 
+    interface CSSProperties {
+        columnCount?: number;
+        flex?: number;
+        flexGrow?: number;
+        flexShrink?: number;
+        fontWeight?: number;
+        lineClamp?: number;
+        lineHeight?: number;
+        opacity?: number;
+        order?: number;
+        orphans?: number;
+        widows?: number;
+        zIndex?: number;
+        zoom?: number;
+
+        // SVG-related properties
+        fillOpacity?: number;
+        strokeOpacity?: number;
+
+        [key: string]: any; // number | string
+    }
+
     interface HTMLAttributes extends ReactAttributes {
         accept?: string;
         accessKey?: string;
@@ -387,7 +409,7 @@ declare module React {
         srcSet?: string;
         start?: number;
         step?: any; // number | string
-        style?: string;
+        style?: CSSProperties;
         tabIndex?: number;
         target?: string;
         title?: string;
