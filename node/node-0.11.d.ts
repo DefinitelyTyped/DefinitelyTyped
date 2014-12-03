@@ -465,7 +465,7 @@ declare module "zlib" {
 }
 
 declare module "os" {
-    export function tmpDir(): string;
+    export function tmpdir(): string;
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;
@@ -767,13 +767,13 @@ declare module "dgram" {
         port: number;
         size: number;
     }
-    
+
     interface AddressInfo {
-        address: string; 
-        family: string; 
-        port: number; 
+        address: string;
+        family: string;
+        port: number;
     }
-    
+
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {

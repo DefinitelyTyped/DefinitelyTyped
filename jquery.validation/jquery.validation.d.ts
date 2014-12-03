@@ -197,6 +197,7 @@ interface Validator
      * @param template The string to format.
      */
 	format(template: string, ...arguments: string[]): string;
+	invalidElements(): HTMLElement[];
     /**
      * Returns the number of invalid fields.
      */
@@ -220,6 +221,7 @@ interface Validator
 	showErrors(errors: any): void;
 	hideErrors(): void;
 	valid(): boolean;
+	validElements(): HTMLElement[];
 	size(): number;
 
    	errorMap: ErrorDictionary;

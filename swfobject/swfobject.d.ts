@@ -3,89 +3,93 @@
 // Definitions by: rou <https://github.com/rou>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module swfobject {
-  export var ua: {
-    w3: boolean;
-    pv: number[];
-    wk: any;    // number or boolean
-    ie: boolean;
-    win: boolean;
-    mac: boolean;
-  };
+declare var swfobject: swfobject.SwfObject;
 
-  export function registerObject(
-    objectIdStr: string,
-    swfVersionStr: string,
-    xiSwfUrlStr?: string,
-    callbackFn?: (callbackObj: ICallbackObj) => void
+declare module swfobject {
+  export interface SwfObject {
+    ua: {
+      w3: boolean;
+      pv: number[];
+      wk: any;    // number or boolean
+      ie: boolean;
+      win: boolean;
+      mac: boolean;
+    };
+
+    registerObject(
+      objectIdStr: string,
+      swfVersionStr: string,
+      xiSwfUrlStr?: string,
+      callbackFn?: (callbackObj: ICallbackObj) => void
     ): void;
 
-  export function getObjectById(
-    objectIdStr: string
+    getObjectById(
+      objectIdStr: string
     ): HTMLElement;
 
-  export function embedSWF(
-    swfUrlStr: string,
-    replaceElemIdStr: string,
-    widthStr: string,
-    heightStr: string,
-    swfVersionStr: string,
-    xiSwfUrlStr?: string,
-    flashvarsObj?: Object,
-    parObj?: Object,
-    attObj?: Object,
-    callbackFn?: (callbackObj: ICallbackObj) => void
+    embedSWF(
+      swfUrlStr: string,
+      replaceElemIdStr: string,
+      widthStr: string,
+      heightStr: string,
+      swfVersionStr: string,
+      xiSwfUrlStr?: string,
+      flashvarsObj?: Object,
+      parObj?: Object,
+      attObj?: Object,
+      callbackFn?: (callbackObj: ICallbackObj) => void
     ): void;
 
-  export function switchOffAutoHideShow(): void;
+    switchOffAutoHideShow(): void;
 
-  export function getFlashPlayerVersion(): IFlashPlayerVersion;
+    getFlashPlayerVersion(): IFlashPlayerVersion;
 
-  interface IFlashPlayerVersion {
+    hasFlashPlayerVersion(
+      rv: string
+    ): void;
+
+    createSWF(
+      attObj: ISwfObjectAttribute,
+      parObj: ISwfObjectParameter,
+      replaceElemIdStr: string
+    ): HTMLElement;
+
+    showExpressInstall(
+      att: ISwfObjectAttribute,
+      par: ISwfObjectParameter,
+      replaceElemIdStr: string,
+      callbackFn?: (callbackObj: ICallbackObj) => void
+    ): void;
+
+    removeSWF(
+      objElemIdStr: string
+    ): void;
+
+    createCSS(
+      selStr: string,
+      declStr: string,
+      mediaStr?: string,
+      newStyleBoolean?: boolean
+    ): void;
+
+    addDomLoadEvent(
+      fn: () => void
+    ): void;
+
+    addLoadEvent(
+      fn: (event?: Event) => void
+    ): void;
+
+    getQueryParamValue(
+      param?: string
+    ): string;
+  }
+
+  export interface IFlashPlayerVersion {
     major: number;
     minor: number;
     release: number;
   }
-
-  export function hasFlashPlayerVersion(
-    rv: string
-    ): void;
-
-  export function createSWF(
-    attObj: ISwfObjectAttribute,
-    parObj: ISwfObjectParameter,
-    replaceElemIdStr: string
-    ): HTMLElement;
-
-  export function showExpressInstall(
-    att: ISwfObjectAttribute,
-    par: ISwfObjectParameter,
-    replaceElemIdStr: string,
-    callbackFn?: (callbackObj: ICallbackObj) => void
-    ): void;
-
-  export function removeSWF(
-    objElemIdStr: string
-    ): void;
-
-  export function createCSS(
-    selStr: string,
-    declStr: string,
-    mediaStr?: string,
-    newStyleBoolean?: boolean
-    ): void;
-
-  export function addDomLoadEvent(
-    fn: () => void
-    ): void;
-
-  export function addLoadEvent(
-    fn: (event?: Event) => void
-    ): void;
-
-  export function getQueryParamValue(
-    param?: string
-    ): string;
 
   export interface ISwfObjectAttribute {
     id?: string;

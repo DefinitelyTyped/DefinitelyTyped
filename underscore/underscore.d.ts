@@ -1177,7 +1177,7 @@ interface UnderscoreStatic {
 	**/
 	pick(
 		object: any,
-		...keys: string[]): any;
+		...keys: any[]): any;
 
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
@@ -1472,7 +1472,7 @@ interface UnderscoreStatic {
 	* @param settings Settings to use while compiling.
 	* @return Returns the compiled Underscore HTML template.
 	**/
-	template(templateString: string): (...data: any[]) => string;
+	template(templateString: string, settings?: _.TemplateSettings): (...data: any[]) => string;
     	template(templateString: string, data: any, settings?: _.TemplateSettings): string;
     	
 	/**
