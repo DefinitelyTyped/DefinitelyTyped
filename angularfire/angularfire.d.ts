@@ -20,8 +20,8 @@ interface AngularFire {
 	$remove(key?: string): ng.IPromise<Firebase>;
 	$update(key: string, data: Object): ng.IPromise<Firebase>;
 	$update(data: any): ng.IPromise<Firebase>;
-	$transaction(updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<IFirebaseDataSnapshot>;
-	$transaction(key:string, updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<IFirebaseDataSnapshot>;
+	$transaction(updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<FirebaseDataSnapshot>;
+	$transaction(key:string, updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<FirebaseDataSnapshot>;
 }
 
 interface AngularFireObject extends AngularFireSimpleObject {

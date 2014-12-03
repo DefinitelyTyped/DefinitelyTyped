@@ -681,6 +681,9 @@ declare module "express" {
             header(field: any): Response;
             header(field: string, value?: string): Response;
 
+            // Property indicating if HTTP headers has been sent for the response.
+            headersSent: boolean;
+
             /**
              * Get value for header `field`.
              *

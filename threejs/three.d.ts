@@ -3674,7 +3674,7 @@ declare module THREE {
         /**
          * Adds v to this vector.
          */
-        add(a: Object): Vector3;
+        add(a: Vector): Vector3;
         addScalar(s: number): Vector3;
 
         /**
@@ -5434,7 +5434,7 @@ declare module THREE {
         };
     }
 
-    export class PlaneBufferGeometry extends Geometry {
+    export class PlaneBufferGeometry extends BufferGeometry {
         constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
 
         parameters: {
@@ -5445,7 +5445,15 @@ declare module THREE {
         };
     }
 
-    export class PlaneGeometry extends PlaneBufferGeometry {
+    export class PlaneGeometry extends Geometry {
+        constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
+
+        parameters: {
+            width: number;
+            height: number;
+            widthSegments: number;
+            heightSegments: number;
+        };
     }
 
     export class PolyhedronGeometry extends Geometry {

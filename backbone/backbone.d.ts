@@ -241,7 +241,7 @@ declare module Backbone {
         last(): TModel;
         last(n: number): TModel[];
         lastIndexOf(element: TModel, fromIndex?: number): number;
-        map(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
+        map(iterator: (element: TModel, index: number, context?: any) => any, context?: any): any[];
         max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
@@ -279,6 +279,7 @@ declare module Backbone {
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
         route(route: string, name: string, callback?: Function): Router;
+        route(route: RegExp, name: string, callback?: Function): Router;
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
