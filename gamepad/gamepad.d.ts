@@ -36,7 +36,7 @@ declare module Gamepad{
          * Array of values for all buttons of the gamepad. All button values must be linearly normalized to the range [0.0 .. 1.0]. 0.0 must mean fully unpressed, and 1.0 must mean fully pressed. It is recommended that buttons appear in decreasing importance such that the primary button, secondary button, tertiary button, and so on appear as elements 0, 1, 2, ... in the buttons array.
          * @readonly
          */
-        buttons:number[];
+        buttons:GamepadButton[];
     }
 
     /**
@@ -55,7 +55,10 @@ declare module Gamepad{
         length: number;
     }
 
-
+    export interface GamepadButton{
+        pressed: boolean;
+        value: number;
+    }
 
     /*
      * @event gamepadconnected
