@@ -3,36 +3,7 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Browser {
-    // Browser Interfaces
-    // Taken from https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
-
-    interface AbstractView {
-        styleMedia: StyleMedia;
-        document: Document;
-    }
-
-    interface Touch {
-        identifier: number;
-        target: EventTarget;
-        screenX: number;
-        screenY: number;
-        clientX: number;
-        clientY: number;
-        pageX: number;
-        pageY: number;
-    }
-
-    interface TouchList {
-        [index: number]: Touch;
-        length: number;
-        item(index: number): Touch;
-        identifiedTouch(identifier: number): Touch;
-    }
-}
-
 declare module React {
-
     //
     // React Elements 
     // ----------------------------------------------------------------------
@@ -219,18 +190,18 @@ declare module React {
 
     interface TouchEvent extends SyntheticEvent {
         altKey: boolean;
-        changedTouches: Browser.TouchList;
+        changedTouches: TouchList;
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
         metaKey: boolean;
         shiftKey: boolean;
-        targetTouches: Browser.TouchList;
-        touches: Browser.TouchList;
+        targetTouches: TouchList;
+        touches: TouchList;
     }
 
     interface UIEvent extends SyntheticEvent {
         detail: number;
-        view: Browser.AbstractView;
+        view: AbstractView;
     }
 
     interface WheelEvent extends SyntheticEvent {
@@ -789,7 +760,7 @@ declare module React {
         buttons?: number;
         clientX?: number;
         clientY?: number;
-        changedTouches?: Browser.TouchList;
+        changedTouches?: TouchList;
         charCode?: boolean;
         clipboardData?: DataTransfer;
         ctrlKey?: boolean;
@@ -811,9 +782,9 @@ declare module React {
         screenX?: number;
         screenY?: number;
         shiftKey?: boolean;
-        targetTouches?: Browser.TouchList;
-        touches?: Browser.TouchList;
-        view?: Browser.AbstractView;
+        targetTouches?: TouchList;
+        touches?: TouchList;
+        view?: AbstractView;
         which?: number;
     }
 
@@ -893,6 +864,34 @@ declare module React {
             Perf: ReactPerf;
             TestUtils: ReactTestUtils;
         };
+    }
+
+    //
+    // Browser Interfaces
+    // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
+    // ----------------------------------------------------------------------
+
+    interface AbstractView {
+        styleMedia: StyleMedia;
+        document: Document;
+    }
+
+    interface Touch {
+        identifier: number;
+        target: EventTarget;
+        screenX: number;
+        screenY: number;
+        clientX: number;
+        clientY: number;
+        pageX: number;
+        pageY: number;
+    }
+
+    interface TouchList {
+        [index: number]: Touch;
+        length: number;
+        item(index: number): Touch;
+        identifiedTouch(identifier: number): Touch;
     }
 }
 
