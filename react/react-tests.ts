@@ -63,7 +63,7 @@ var reactElement: React.ReactElement<Props> =
 var reactFactory: React.Factory<Props> =
     React.createFactory<Props>(reactClass);
 
-var reactInstance: React.Instance<Props> =
+var reactInstance: React.ElementInstance<Props> =
     React.render<Props>(reactElement, container);
 
 var unmounted: boolean = React.unmountComponentAtNode(container);
@@ -108,7 +108,7 @@ componentInstance.setState({ inputValue: "!!!" });
 componentInstance.replaceState({ inputValue: "???", seconds: 60 });
 componentInstance.forceUpdate();
 
-var inputRef: React.Instance<React.HTMLAttributes> =
+var inputRef: React.ElementInstance<React.HTMLAttributes> =
     componentInstance.refs[INPUT_REF];
 var value: string = inputRef.getDOMNode<HTMLInputElement>().value;
 
