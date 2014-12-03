@@ -72,3 +72,17 @@ function test_canvas_tick() {
     var stage = new createjs.Stage(canvas);
     var stage = createjs.Ticker.addEventListener("tick", stage);
 }
+
+function matrixDecompose() {
+    var matrix = new createjs.Matrix2D();
+    var shape = new createjs.Shape();
+    var transform = matrix.decompose(shape);
+    var transformData = matrix.decompose();
+    shape.x = transformData.x;
+    shape.y = transformData.y;
+    shape.scaleX = transformData.scaleX;
+    shape.scaleY = transformData.scaleY;
+    shape.skewX = transformData.skewX;
+    shape.skewY = transformData.skewY;
+    shape.rotation = transformData.rotation;
+}
