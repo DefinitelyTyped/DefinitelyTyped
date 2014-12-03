@@ -412,49 +412,49 @@ declare module React {
     }
 
     interface SVGAttributes extends ReactAttributes {
-        cx?: any;
-        cy?: any;
-        d?: any;
-        dx?: any;
-        dy?: any;
-        fill?: any;
-        fillOpacity?: any;
-        fontFamily?: any;
-        fontSize?: any;
-        fx?: any;
-        fy?: any;
-        gradientTransform?: any;
-        gradientUnits?: any;
-        markerEnd?: any;
-        markerMid?: any;
-        markerStart?: any;
-        offset?: any;
-        opacity?: any;
-        patternContentUnits?: any;
-        patternUnits?: any;
-        points?: any;
-        preserveAspectRatio?: any;
-        r?: any;
-        rx?: any;
-        ry?: any;
-        spreadMethod?: any;
-        stopColor?: any;
-        stopOpacity?: any;
-        stroke?: any;
-        strokeDasharray?: any;
-        strokeLinecap?: any;
-        strokeOpacity?: any;
-        strokeWidth?: any;
-        textAnchor?: any;
-        transform?: any;
-        version?: any;
-        viewBox?: any;
-        x1?: any;
-        x2?: any;
-        x?: any;
-        y1?: any;
-        y2?: any;
-        y?: any;
+        cx?: any; // SVGLength | SVGAnimatedLength
+        cy?: any; 
+        d?: string;
+        dx?: any; // SVGLength | SVGAnimatedLength
+        dy?: any; // SVGLength | SVGAnimatedLength
+        fill?: any; // SVGPaint | string
+        fillOpacity?: any; // number | string
+        fontFamily?: string;
+        fontSize?: any; // number | string
+        fx?: any; // SVGLength | SVGAnimatedLength
+        fy?: any; // SVGLength | SVGAnimatedLength
+        gradientTransform?: any; // SVGTransformList | SVGAnimatedTransformList
+        gradientUnits?: string;
+        markerEnd?: string;
+        markerMid?: string;
+        markerStart?: string;
+        offset?: any; // number | string
+        opacity?: any; // number | string
+        patternContentUnits?: string;
+        patternUnits?: string;
+        points?: string;
+        preserveAspectRatio?: string;
+        r?: any; // SVGLength | SVGAnimatedLength
+        rx?: any; // SVGLength | SVGAnimatedLength
+        ry?: any; // SVGLength | SVGAnimatedLength
+        spreadMethod?: string;
+        stopColor?: any; // SVGColor | string
+        stopOpacity?: any; // number | string
+        stroke?: any; // SVGPaint
+        strokeDasharray?: string;
+        strokeLinecap?: string;
+        strokeOpacity?: any; // number | string
+        strokeWidth?: any; // SVGLength | SVGAnimatedLength
+        textAnchor?: string;
+        transform?: any; // SVGTransformList | SVGAnimatedTransformList
+        version?: string;
+        viewBox?: string;
+        x1?: any; // SVGLength | SVGAnimatedLength
+        x2?: any; // SVGLength | SVGAnimatedLength
+        x?: any; // SVGLength | SVGAnimatedLength
+        y1?: any; // SVGLength | SVGAnimatedLength
+        y2?: any; // SVGLength | SVGAnimatedLength
+        y?: any; // SVGLength | SVGAnimatedLength
     }
 
     //
