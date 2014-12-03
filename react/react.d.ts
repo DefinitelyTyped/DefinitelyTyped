@@ -94,7 +94,7 @@ declare module React {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
         createFactory<P>(type: any/*ReactType*/): Factory<P>;
-        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): Instance<P>;
+        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): ElementInstance<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
         renderToStaticMarkup(element: ReactElement<any>): string;
@@ -106,7 +106,7 @@ declare module React {
     // Component API
     // ----------------------------------------------------------------------
 
-    interface Instance<P> {
+    interface ElementInstance<P> {
         // Use this overload to cast the returned element to a more specific type.
         // Eg: var name = this.refs['name'].getDOMNode<HTMLInputElement>().value;
         getDOMNode<TElement extends Element>(): TElement;
@@ -118,13 +118,13 @@ declare module React {
         replaceProps(nextProps: P, callback?: () => void): void;
     }
     
-    interface ComponentInstance<P, S> extends Instance<P> {
+    interface ComponentInstance<P, S> extends ElementInstance<P> {
         state: S;
         setState(nextState: S, callback?: () => void): void;
         replaceState(nextState: S, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
         refs: {
-            [key: string]: Instance<P>
+            [key: string]: ElementInstance<P>
         };
     }
 
@@ -740,25 +740,25 @@ declare module React {
     interface ReactTestUtils {
         Simulate: Simulate;
 
-        renderIntoDocument<P>(element: ReactElement<P>): Instance<P>;
+        renderIntoDocument<P>(element: ReactElement<P>): ElementInstance<P>;
         mockComponent(mocked: MockedComponent, mockTagName?: string): ReactTestUtils;
 
         isElementOfType(element: ReactElement<any>, type: any/*ReactType*/): boolean;
-        isDOMComponent(instance: Instance<any>): boolean;
-        isCompositeComponent(instance: Instance<any>): boolean;
-        isCompositeComponentWithType(instance: Instance<any>, type: ComponentClass<any>): boolean;
-        isTextComponent(instance: Instance<any>): boolean;
+        isDOMComponent(instance: ElementInstance<any>): boolean;
+        isCompositeComponent(instance: ElementInstance<any>): boolean;
+        isCompositeComponentWithType(instance: ElementInstance<any>, type: ComponentClass<any>): boolean;
+        isTextComponent(instance: ElementInstance<any>): boolean;
 
-        findAllInRenderedTree(tree: Instance<any>, fn: (i: Instance<any>) => boolean): Instance<any>;
+        findAllInRenderedTree(tree: ElementInstance<any>, fn: (i: ElementInstance<any>) => boolean): ElementInstance<any>;
 
-        scryRenderedDOMComponentsWithClass(tree: Instance<any>, className: string): Instance<any>[];
-        findRenderedDOMComponentWithClass(tree: Instance<any>, className: string): Instance<any>;
+        scryRenderedDOMComponentsWithClass(tree: ElementInstance<any>, className: string): ElementInstance<any>[];
+        findRenderedDOMComponentWithClass(tree: ElementInstance<any>, className: string): ElementInstance<any>;
 
-        scryRenderedDOMComponentsWithTag(tree: Instance<any>, tagName: string): Instance<any>[];
-        findRenderedDOMComponentWithTag(tree: Instance<any>, tagName: string): Instance<any>;
+        scryRenderedDOMComponentsWithTag(tree: ElementInstance<any>, tagName: string): ElementInstance<any>[];
+        findRenderedDOMComponentWithTag(tree: ElementInstance<any>, tagName: string): ElementInstance<any>;
 
-        scryRenderedComponentsWithType<P>(tree: Instance<any>, type: ComponentClass<P>): Instance<P>[];
-        findRenderedComponentWithType<P>(tree: Instance<any>, type: ComponentClass<P>): Instance<P>;
+        scryRenderedComponentsWithType<P>(tree: ElementInstance<any>, type: ComponentClass<P>): ElementInstance<P>[];
+        findRenderedComponentWithType<P>(tree: ElementInstance<any>, type: ComponentClass<P>): ElementInstance<P>;
     }
 
     interface SyntheticEventData {
@@ -797,7 +797,7 @@ declare module React {
 
     interface EventSimulator {
         (element: Element, eventData?: SyntheticEventData): void;
-        (descriptor: Instance<any>, eventData?: SyntheticEventData): void;
+        (descriptor: ElementInstance<any>, eventData?: SyntheticEventData): void;
     }
 
     interface Simulate {
