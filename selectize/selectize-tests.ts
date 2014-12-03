@@ -98,10 +98,16 @@ $('#input-tags').selectize({
 // Contacts example
 // --------------------------------------------------------------------------------------------------------------------
 
+interface Person {
+    first_name: string;
+    last_name: string;
+    email: string;
+}
+
 var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
                     '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
-var formatName = function(item) {
-    return $.trim((item.first_name || '') + ' ' + (item.last_name || ''));
+var formatPerson = function(name: Person) {
+    return $.trim((name.first_name || '') + ' ' + (name.last_name || ''));
 };
 
 $('#select-to').selectize({
@@ -120,15 +126,15 @@ $('#select-to').selectize({
         {email: 'someone@gmail.com'}
     ],
     render: {
-        item: function(item, escape) {
-            var name = formatName(item);
+        item: function(item: Person, escape) {
+            var name = formatPerson(item);
             return '<div>' +
                 (name ? '<span class="name">' + escape(name) + '</span>' : '') +
                 (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
             '</div>';
         },
-        option: function(item, escape) {
-            var name = formatName(item);
+        option: function(item: Person, escape) {
+            var name = formatPerson(item);
             var label = name || item.email;
             var caption = name ? item.email : null;
             return '<div>' +
@@ -137,12 +143,12 @@ $('#select-to').selectize({
             '</div>';
         }
     },
-    createFilter: function(input) {
+    createFilter: function(input: string) {
         var regexpA = new RegExp('^' + REGEX_EMAIL + '$', 'i');
         var regexpB = new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i');
         return regexpA.test(input) || regexpB.test(input);
     },
-    create: function(input): any {
+    create: function(input: string): any {
         if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
             return {email: input};
         }
@@ -173,11 +179,11 @@ $('#select-words-regex').selectize({
 });
 $('#select-words-length').selectize({
     create: true,
-    createFilter: function(input) { return input.length >= parseInt($('#length').val(), 10); }
+    createFilter: function(input: string) { return input.length >= parseInt($('#length').val(), 10); }
 });
 var unique: Selectize.IApi<string, string> = $('#select-words-unique').selectize({
     create: true,
-    createFilter: function(input) {
+    createFilter: function(input: string) {
         input = input.toLowerCase();
         return $.grep(<string[]> unique.getValue(), function(value) {
             return value.toLowerCase() === input;
@@ -188,6 +194,11 @@ var unique: Selectize.IApi<string, string> = $('#select-words-unique').selectize
 
 // Customization example
 // --------------------------------------------------------------------------------------------------------------------
+
+interface Link {
+    title: string;
+    url: string;
+}
 
 $('#select-links').selectize({
     theme: 'links',
@@ -200,17 +211,17 @@ $('#select-links').selectize({
         {id: 3, title: 'Yahoo', url: 'http://yahoo.com'},
     ],
     render: {
-        option: function(data, escape) {
+        option: function(data: Link, escape) {
             return '<div class="option">' +
                     '<span class="title">' + escape(data.title) + '</span>' +
                     '<span class="url">' + escape(data.url) + '</span>' +
                 '</div>';
         },
-        item: function(data, escape) {
+        item: function(data: Link, escape) {
             return '<div class="item"><a href="' + escape(data.url) + '">' + escape(data.title) + '</a></div>';
         }
     },
-    create: function(input) {
+    create: function(input: string) {
         return {
             id: 0,
             title: input,

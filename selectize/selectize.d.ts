@@ -335,21 +335,21 @@ declare module Selectize {
      */
     interface ICustomRenderers<U> {
         // An option in the dropdown list of available options.
-        option?(data: U, escape: (string) => string): string;
+        option?(data: U, escape: (input: string) => string): string;
 
         // An item the user has selected.
-        item?(data: U, escape: (string) => string): string;
+        item?(data: U, escape: (input: string) => string): string;
 
         // The "create new" option at the bottom of the dropdown. The data contains one property: "input"
         // (which is what the user has typed).
-        option_create?(data: U, escape: (string) => string): string;
+        option_create?(data: U, escape: (input: string) => string): string;
 
         // The header of an option group.
-        optgroup_header?(data: U, escape: (string) => string): string;
+        optgroup_header?(data: U, escape: (input: string) => string): string;
 
         // The wrapper for an optgroup. The "html" property in the data will be the raw html of the optgroup's header
         // and options.
-        optgroup?(data: U, escape: (string) => string): string;
+        optgroup?(data: U, escape: (input: string) => string): string;
     }
 
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/api.md
