@@ -1,4 +1,4 @@
-// Type definitions for bluebird 1.0.0
+// Type definitions for bluebird 2.0.0
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -16,7 +16,7 @@
 
 // TODO verify support to have no return statement in handlers to get a Promise<void> (more overloads?)
 
-declare class Promise<R> implements Promise.Thenable<R> {
+declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	/**
 	 * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
 	 */
@@ -72,13 +72,11 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias `.lastly();` for compatibility with earlier ECMAScript version.
 	 */
-	finally(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
-	finally(handler: (value: R) => R): Promise<R>;
-	finally(handler: (value: R) => void): Promise<R>;
+	finally<U>(handler: () => Promise.Thenable<U>): Promise<R>;
+	finally<U>(handler: () => U): Promise<R>;
 
-	lastly(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
-	lastly(handler: (value: R) => R): Promise<R>;
-	lastly(handler: (value: R) => void): Promise<R>;
+	lastly<U>(handler: () => Promise.Thenable<U>): Promise<R>;
+	lastly<U>(handler: () => U): Promise<R>;
 
 	/**
 	 * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
@@ -88,10 +86,16 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	/**
 	 * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
 	 */
-	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-	done<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	done<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): void;
+	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
+	done<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): void;
+	done<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
+
+	/**
+	 * Like `.finally()`, but not called for rejections.
+	 */
+	tap<U>(onFulFill: (value: R) => Promise.Thenable<U>): Promise<R>;
+	tap<U>(onFulfill: (value: R) => U): Promise<R>;
 
 	/**
 	 * Shorthand for `.then(null, null, handler);`. Attach a progress handler that will be called if this promise is progressed. Returns a new promise chained from this promise.
@@ -171,6 +175,20 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 * See if this `promise` is resolved -> either fulfilled or rejected.
 	 */
 	isResolved(): boolean;
+
+	/**
+	 * Get the fulfillment value of the underlying promise. Throws if the promise isn't fulfilled yet.
+	 *
+	 * throws `TypeError`
+	 */
+	value(): R;
+
+	/**
+	 * Get the rejection reason for the underlying promise. Throws if the promise isn't rejected yet.
+	 *
+	 * throws `TypeError`
+	 */
+	reason(): any;
 
 	/**
 	 * Synchronously inspect the state of this `promise`. The `PromiseInspection` will represent the state of the promise as snapshotted at the time of calling `.inspect()`.
@@ -594,6 +612,20 @@ declare module Promise {
 	}
 	export interface RejectionError extends Error {
 	}
+	export interface OperationalError extends Error {
+	}
+
+	// Ideally, we'd define e.g. "export class RangeError extends Error {}",
+	// but as Error is defined as an interface (not a class), TypeScript doesn't
+	// allow extending Error, only implementing it.
+	// However, if we want to catch() only a specific error type, we need to pass
+	// a constructor function to it. So, as a workaround, we define them here as such.
+	export function RangeError(): RangeError;
+	export function CancellationError(): CancellationError;
+	export function TimeoutError(): TimeoutError;
+	export function TypeError(): TypeError;
+	export function RejectionError(): RejectionError;
+	export function OperationalError(): OperationalError;
 
 	export interface Thenable<R> {
 		then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
@@ -661,8 +693,16 @@ declare module Promise {
 		 *
 		 * throws `TypeError`
 		 */
-		error(): any;
+		reason(): any;
 	}
+
+	/**
+	 * Changes how bluebird schedules calls a-synchronously.
+	 *
+	 * @param scheduler Should be a function that asynchronously schedules
+	 *                  the calling of the passed in function
+	 */
+	export function setScheduler(scheduler: (callback: (...args: any[]) => void) => void): void;
 }
 
 declare module 'bluebird' {

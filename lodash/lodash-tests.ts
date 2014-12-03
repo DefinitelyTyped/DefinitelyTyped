@@ -723,7 +723,7 @@ var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
 
-var fibonacci = <Function>_.memoize(function (n: any) {
+var fibonacci = <Function>_.memoize(function (n: any): number {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 

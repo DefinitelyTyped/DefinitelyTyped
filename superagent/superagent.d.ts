@@ -79,6 +79,8 @@ declare module "superagent" {
     subscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
     unsubscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
     patch(url: string, callback?: (err: Error, res: Response) => void): Request;
+    search(url: string, callback?: (err: Error, res: Response) => void): Request;
+    connect(url: string, callback?: (err: Error, res: Response) => void): Request;
     parse(fn: Function): Request;
     saveCookies(res: Response): void;
     attachCookies(req: Request): void;

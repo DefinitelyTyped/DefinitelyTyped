@@ -79,4 +79,6 @@ declare module When {
     }
 }
 
-export = When;
+declare module "when" {
+    export = When;
+}

@@ -1949,7 +1949,7 @@ declare module chrome.tabs {
     export function reload(tabId?: number, reloadProperties?: ReloadProperties, func?: Function): void;
     export function duplicate(tabId: number, callback?: (tab?: Tab) => void): void;
     export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
-    export function connect(tabId: number, connectInfo?: ConnectInfo): void;
+    export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
     export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
     export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
     export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
@@ -2397,38 +2397,47 @@ declare module chrome.webRequest {
 
     interface WebRequestCompletedEvent extends chrome.events.Event { 
         addListener(callback: (details: OnCompletedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnCompletedDetails) => BlockingResponse): void;
     }
 
     interface WebRequestHeadersReceivedEvent extends chrome.events.Event { 
         addListener(callback: (details: OnHeadersReceivedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnHeadersReceivedDetails) => BlockingResponse): void;
     }
 
     interface WebRequestBeforeRedirectEvent extends chrome.events.Event { 
         addListener(callback: (details: OnBeforeRedirectDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnBeforeRedirectDetails) => BlockingResponse): void;
     }
 
     interface WebRequestAuthRequiredEvent extends chrome.events.Event { 
         addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]) => void): void;
+        removeListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void): void;
     }
 
     interface WebRequestBeforeSendHeadersEvent extends chrome.events.Event { 
         addListener(callback: (details: OnBeforeSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnBeforeSendHeadersDetails) => BlockingResponse): void;
     }
 
     interface WebRequestErrorOccurredEvent extends chrome.events.Event { 
         addListener(callback: (details: OnErrorOccurredDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnErrorOccurredDetails) => BlockingResponse): void;
     }
 
     interface WebRequestResponseStartedEvent extends chrome.events.Event { 
         addListener(callback: (details: OnResponseStartedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnResponseStartedDetails) => BlockingResponse): void;
     }
 
     interface WebRequestSendHeadersEvent extends chrome.events.Event { 
         addListener(callback: (details: OnSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnSendHeadersDetails) => BlockingResponse): void;
     }
 
     interface WebRequestBeforeRequestEvent extends chrome.events.Event { 
         addListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse): void;
     }
 
     var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;

@@ -383,6 +383,7 @@ declare module createjs {
         appendTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
         clone(): Matrix2D;
         copy(matrix: Matrix2D): Matrix2D;
+        decompose(): {x: number; y: number; scaleX: number; scaleY: number; rotation: number; skewX: number; skewY: number};
         decompose(target: Object): Matrix2D;
         identity(): Matrix2D;
         initialize(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
@@ -728,6 +729,7 @@ declare module createjs {
         static setPaused(value: boolean): void;
 
         // EventDispatcher mixins
+        static addEventListener(type: string, listener: Stage, useCapture?: boolean): Stage;
         static addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
         static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
