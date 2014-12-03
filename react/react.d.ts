@@ -93,7 +93,7 @@ declare module React {
     interface TopLevelAPI {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
-        createFactory<P>(type: any/*ReactType*/): Factory<P>;
+        createFactory<P>(componentClass: ComponentClass<P>): Factory<P>;
         render<P>(element: ReactElement<P>, container: Element, callback?: () => void): ElementInstance<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
