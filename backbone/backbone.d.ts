@@ -109,7 +109,7 @@ declare module Backbone {
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
-        initialize(attributes?: any): void;
+        initialize(attributes?: any, options?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -176,6 +176,7 @@ declare module Backbone {
         length: number;
 
         constructor(models?: TModel[], options?: any);
+        initialize(models?: TModel[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -328,6 +329,7 @@ declare module Backbone {
         private static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
+        initialize(options?: ViewOptions<TModel>): void;
 
         /**
         * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
