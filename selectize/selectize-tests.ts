@@ -106,7 +106,7 @@ interface Person {
 
 var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
                     '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
-var formatPerson = function(name: Person) {
+var formatPerson = (name: Person) => {
     return $.trim((name.first_name || '') + ' ' + (name.last_name || ''));
 };
 
@@ -126,14 +126,14 @@ $('#select-to').selectize({
         {email: 'someone@gmail.com'}
     ],
     render: {
-        item: function(item: Person, escape) {
+        item: function(item: Person, escape: (input: any) => string) {
             var name = formatPerson(item);
             return '<div>' +
                 (name ? '<span class="name">' + escape(name) + '</span>' : '') +
                 (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
             '</div>';
         },
-        option: function(item: Person, escape) {
+        option: function(item: Person, escape: (input: any) => string) {
             var name = formatPerson(item);
             var label = name || item.email;
             var caption = name ? item.email : null;
@@ -211,13 +211,13 @@ $('#select-links').selectize({
         {id: 3, title: 'Yahoo', url: 'http://yahoo.com'},
     ],
     render: {
-        option: function(data: Link, escape) {
+        option: function(data: Link, escape: (input: any) => string) {
             return '<div class="option">' +
                     '<span class="title">' + escape(data.title) + '</span>' +
                     '<span class="url">' + escape(data.url) + '</span>' +
                 '</div>';
         },
-        item: function(data: Link, escape) {
+        item: function(data: Link, escape: (input: any) => string) {
             return '<div class="item"><a href="' + escape(data.url) + '">' + escape(data.title) + '</a></div>';
         }
     },
@@ -234,7 +234,7 @@ $('#select-links').selectize({
 // Events
 // --------------------------------------------------------------------------------------------------------------------
 
-var eventHandler = function(name) {
+var eventHandler = function(name: string) {
     return function() {
         console.log(name, arguments);
         $('#log').append('<div><span class="name">' + name + '</span></div>');
@@ -256,6 +256,16 @@ var $select = $('#select-state').selectize({
 // Github example
 // --------------------------------------------------------------------------------------------------------------------
 
+interface Repository {
+    fork: string;
+    name: string;
+    description: string;
+    language: string;
+    watchers: number;
+    forks: string;
+    username: string;
+}
+
 $('#select-repo').selectize({
     valueField: 'url',
     labelField: 'name',
@@ -263,7 +273,7 @@ $('#select-repo').selectize({
     options: [],
     create: false,
     render: {
-        option: function(item, escape) {
+        option: function(item: Repository, escape: (input: any) => string) {
             return '<div>' +
                 '<span class="title">' +
                     '<span class="name"><i class="icon ' + (item.fork ? 'fork' : 'source') + '"></i>' + escape(item.name) + '</span>' +
@@ -280,7 +290,7 @@ $('#select-repo').selectize({
     },
     score: function(search) {
         var score = this.getScoreFunction(search);
-        return function(item) {
+        return function(item: Repository) {
             return score(item) * (1 + Math.min(item.watchers / 100, 1));
         };
     },
@@ -320,7 +330,7 @@ $('#select-movie').selectize({
     create: false,
     render: {
         option: function(item, escape) {
-            var actors = [];
+            var actors: any[] = [];
             for (var i = 0, n = item.abridged_cast.length; i < n; i++) {
                 actors.push('<span>' + escape(item.abridged_cast[i].name) + '</span>');
             }
