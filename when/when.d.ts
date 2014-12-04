@@ -56,6 +56,14 @@ declare module When {
     }
 
     interface Promise<T> {
+        // Make sure you test any usage of these overloads, exceptionType must
+        // be a constructor with prototype set to an instance of Error.
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => U): Promise<U>;
+
+        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => U): Promise<U>;
+
         catch<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
         catch<U>(onRejected?: (reason: any) => U): Promise<U>;
 
