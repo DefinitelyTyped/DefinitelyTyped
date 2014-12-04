@@ -51,9 +51,9 @@
                 if(pad){
                     for (var k = 0; k < pad.buttons.length; k++)
                     {   
-                        var button = pad.buttons[k]; 
-                        if(button !== 0){
-                            console.log('pad[' + pad.index + ']: ' + 'time=' + pad.timestamp + ' id="' + pad.id + '" button[' + k + '] = ' + button);
+                        var button = pad.buttons[k];
+                        if(button.pressed){
+                            console.log('pad[' + pad.index + ']: ' + 'time=' + pad.timestamp + ' id="' + pad.id + '" button[' + k + '] = ' + button.value);
                         }
                     }
                     for (var k = 0; k < pad.axes.length; k++)
