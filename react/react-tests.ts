@@ -60,7 +60,7 @@ var reactClass: React.ComponentClass<Props> = React.createClass<Props>({
 var reactElement: React.ReactElement<Props> =
     React.createElement<Props>(reactClass, props);
 
-var reactFactory: React.Factory<Props> =
+var reactFactory: React.ComponentFactory<Props> =
     React.createFactory<Props>(reactClass);
 
 var component: React.Component<Props> =

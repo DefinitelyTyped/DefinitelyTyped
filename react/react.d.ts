@@ -19,7 +19,6 @@ declare module React {
 
     interface ReactHTMLElement extends ReactElement<HTMLAttributes> {}
     interface ReactSVGElement extends ReactElement<SVGAttributes> {}
-    interface ComponentElement<P> extends ReactElement<P> {}
 
     //
     // React Nodes 
@@ -49,13 +48,12 @@ declare module React {
     // ReactElement Factories
     // ----------------------------------------------------------------------
 
-    interface Factory<P> {
+    interface ComponentFactory<P> {
         (props?: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
     }
     
-    interface HTMLFactory extends Factory<HTMLAttributes> {}
-    interface SVGFactory extends Factory<SVGAttributes> {}
-    interface ComponentFactory<P> extends Factory<P> {}
+    interface HTMLFactory extends ComponentFactory<HTMLAttributes> {}
+    interface SVGFactory extends ComponentFactory<SVGAttributes> {}
 
     //
     // Top-Level API
@@ -64,7 +62,7 @@ declare module React {
     interface TopLevelAPI {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
-        createFactory<P>(componentClass: ComponentClass<P>): Factory<P>;
+        createFactory<P>(componentClass: ComponentClass<P>): ComponentFactory<P>;
         render<P>(element: ReactElement<P>, container: Element, callback?: () => void): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
