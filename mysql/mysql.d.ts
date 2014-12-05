@@ -8,13 +8,23 @@
 declare module "mysql" {
 	import stream = require("stream");
 
-    function createConnection(connectionUri: string): IConnection;
-    function createConnection(config: IConnectionConfig): IConnection;
+	function createConnection(connectionUri: string): IConnection;
+	function createConnection(config: IConnectionConfig): IConnection;
 	function createPool(config: IPoolConfig): IPool;
 	function createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
 	function escape(value: any): string;
 	function format(sql: string): string;
 	function format(sql: string, values: Array<any>): string;
+
+	interface IMySql {
+		createConnection(connectionUri: string): IConnection;
+		createConnection(config: IConnectionConfig): IConnection;
+		createPool(config: IPoolConfig): IPool;
+		createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
+		escape(value: any): string;
+		format(sql: string): string;
+		format(sql: string, values: Array<any>): string;
+	}
 
     interface IConnectionStatic {
         createQuery(sql: string): IQuery;
@@ -477,3 +487,4 @@ declare module "mysql" {
         fatal: boolean;
     }
 }
+
