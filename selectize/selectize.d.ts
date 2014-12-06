@@ -445,17 +445,12 @@ declare module Selectize {
         /**
          * Adds an event listener.
          */
-        on(eventName: string, handler: (event: JQueryEventObject) => any): void;
+        on(eventName: string, handler: Function): void;
 
         /**
-         * Removes an event listener.
+         * Removes an event listener. If no handler is provided, all event listeners are removed.
          */
-        off(eventName: string, handler: (event: JQueryEventObject) => any): void;
-
-        /**
-         * Removes all event listeners.
-         */
-        off(eventName: string): void;
+        off(eventName: string, handler?: Function): void;
 
         /**
          * Triggers event listeners.
