@@ -743,7 +743,7 @@ declare module ng {
         debugEnabled(enabled: boolean): ILogProvider;
     }
 
-    // We define this as separete interface so we can reopen it later for
+    // We define this as separate interface so we can reopen it later for
     // the ngMock module.
     interface ILogCall {
         (...args: any[]): void;
