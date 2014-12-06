@@ -1,7 +1,18 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="selectize.d.ts" />
 
-// All code examples taken from https://github.com/brianreavis/selectize.js/blob/master/examples
+var $input = $(".test-input").selectize();
+var testApi = $input[0].selectize;
+
+function changeListener(selection: string) {
+    console.log(selection);
+}
+
+testApi.on("change", changeListener);
+testApi.off("change", changeListener);
+testApi.off("change");
+
+// All code examples below taken from https://github.com/brianreavis/selectize.js/blob/master/examples
 
 // API example
 // --------------------------------------------------------------------------------------------------------------------
