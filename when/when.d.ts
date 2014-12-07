@@ -1,6 +1,6 @@
 // Type definitions for When 2.4.0
 // Project: https://github.com/cujojs/when
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone> and Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare function When<T>(value: When.Promise<T>): When.Promise<T>;
