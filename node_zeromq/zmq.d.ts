@@ -3,6 +3,8 @@
 // Definitions by: Dave McKeown <http://github.com/davemckeown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../node/node-0.11.d.ts' />
+
 interface EventEmitter {}
 
 declare module 'zmq' {
@@ -149,6 +151,13 @@ declare module 'zmq' {
          *
          */
         close(): Socket;
+
+        /**
+         * Socket event
+         * @param eventName {string}
+         * @param callback {Function}
+         */
+        on(eventName: string, callback: (buffer: Buffer) => void): void;
 
         // Socket Options
         _fd: any;
