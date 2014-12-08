@@ -119,12 +119,13 @@ myComponent.reset();
 // Attributes
 // --------------------------------------------------------------------------
 
+var children = ["Hello world", [null], React.DOM.span(null)];
 var divStyle = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
 var htmlAttr = {
-    children: ["Hello world", [null], React.DOM.span(null)],
+    children: children,
     className: "test-attr",
     style: divStyle,
     onClick: (event: React.MouseEvent) => {
@@ -140,7 +141,7 @@ React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
 //
-// PropTypes
+// React.PropTypes
 // --------------------------------------------------------------------------
 
 var PropTypesSpecification: React.ComponentSpec<any, any> = {
@@ -179,6 +180,18 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         return null;
     }
 };
+
+//
+// React.Children
+// --------------------------------------------------------------------------
+
+var childMap: { [key: string]: number } =
+    React.Children.map<number>(children, (child) => { return 42; });
+React.Children.forEach(children, (child) => {});
+var nChildren: number = React.Children.count(children);
+var onlyChild = React.Children.only([null, [[["Hallo"], true]], false, {
+    test: null
+}]);
 
 //
 // Example from http://facebook.github.io/react/
