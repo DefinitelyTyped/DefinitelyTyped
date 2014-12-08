@@ -285,7 +285,7 @@ declare module React {
 
     interface CSSProperties {
         columnCount?: number;
-        flex?: number;
+        flex?: any; // number | string
         flexGrow?: number;
         flexShrink?: number;
         fontWeight?: number;
@@ -301,8 +301,6 @@ declare module React {
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
-
-        [key: string]: any; // number | string
     }
 
     interface HTMLAttributes extends ReactAttributes {
