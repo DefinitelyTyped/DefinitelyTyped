@@ -116,6 +116,30 @@ var myComponent = <MyComponent>compComponent;
 myComponent.reset();
 
 //
+// Attributes
+// --------------------------------------------------------------------------
+
+var divStyle = { // CSSProperties
+    flex: "1 1 main-size",
+    backgroundImage: "url('hello.png')"
+};
+var htmlAttr = {
+    children: ["Hello world", [null], React.DOM.span(null)],
+    className: "test-attr",
+    style: divStyle,
+    onClick: (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    dangerouslySetInnerHTML: {
+        __html: "<strong>STRONG</strong>"
+    }
+};
+React.DOM.div(htmlAttr);
+React.DOM.span(htmlAttr);
+React.DOM.input(htmlAttr);
+
+//
 // PropTypes
 // --------------------------------------------------------------------------
 
