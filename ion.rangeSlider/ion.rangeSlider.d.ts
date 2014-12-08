@@ -1,4 +1,4 @@
-// Type definitions for for Ion.RangeSlider 2.0.1
+// Type definitions for for Ion.RangeSlider 2.0.2
 // Project: https://github.com/IonDen/ion.rangeSlider/
 // Definitions by: Sixin Li <https://github.com/sixinli>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -14,8 +14,9 @@ interface JQuery {
 }
 
 interface IonRangeSliderOptions {
-    decorate_both?: boolean
+    decorate_both?: boolean;
     disable?: boolean;
+    drag_interval?: boolean;
     force_edges?: boolean;
     from?: number;
     from_fixed?: boolean;
