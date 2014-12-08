@@ -149,7 +149,7 @@ declare module Marionette {
         $el: JQuery;
         currentView: View<Backbone.Model, Backbone.Collection<Backbone.Model>>;
 
-        show(view: View<Backbone.Model, Backbone.Collection<Backbone.Model>>): void;
+        show(view: View<Backbone.Model, Backbone.Collection<Backbone.Model>>, options?: any): void;
         _ensureElement(): void;
         open(view: View<Backbone.Model, Backbone.Collection<Backbone.Model>>): void;
         empty(): void;
