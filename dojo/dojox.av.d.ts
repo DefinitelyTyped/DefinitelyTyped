@@ -5656,3 +5656,36 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/av/_Media" {
+    var exp: dojox.av._Media
+    export=exp;
+}
+declare module "dojox/av/FLAudio" {
+    var exp: dojox.av.FLAudio
+    export=exp;
+}
+declare module "dojox/av/FLVideo" {
+    var exp: dojox.av.FLVideo
+    export=exp;
+}
+declare module "dojox/av/widget/Player" {
+    var exp: dojox.av.widget.Player
+    export=exp;
+}
+declare module "dojox/av/widget/ProgressSlider" {
+    var exp: dojox.av.widget.ProgressSlider
+    export=exp;
+}
+declare module "dojox/av/widget/PlayButton" {
+    var exp: dojox.av.widget.PlayButton
+    export=exp;
+}
+declare module "dojox/av/widget/Status" {
+    var exp: dojox.av.widget.Status
+    export=exp;
+}
+declare module "dojox/av/widget/VolumeButton" {
+    var exp: dojox.av.widget.VolumeButton
+    export=exp;
+}

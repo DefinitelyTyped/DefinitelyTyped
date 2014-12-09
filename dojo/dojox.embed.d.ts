@@ -1010,3 +1010,19 @@ declare module dojox {
         }
     }
 }
+declare module "dojox/embed/Flash" {
+    var exp: dojox.embed.Flash
+    export=exp;
+}
+declare module "dojox/embed/Quicktime" {
+    var exp: dojox.embed.Quicktime
+    export=exp;
+}
+declare module "dojox/embed/flashVars" {
+    var exp: dojox.embed.flashVars
+    export=exp;
+}
+declare module "dojox/embed/Object" {
+    var exp: dojox.embed.Object
+    export=exp;
+}

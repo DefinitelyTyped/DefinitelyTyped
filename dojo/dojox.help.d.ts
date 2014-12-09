@@ -23,3 +23,12 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/help/_base" {
+    var exp: dojox.help._base
+    export=exp;
+}
+declare module "dojox/help/console" {
+    var exp: dojox.help.console
+    export=exp;
+}

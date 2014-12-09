@@ -21552,3 +21552,88 @@ declare module dojox {
         }
     }
 }
+
+declare module "dojox/gauges/_Indicator" {
+    var exp: dojox.gauges._Indicator
+    export=exp;
+}
+declare module "dojox/gauges/_Gauge" {
+    var exp: dojox.gauges._Gauge
+    export=exp;
+}
+declare module "dojox/gauges/AnalogArrowIndicator" {
+    var exp: dojox.gauges.AnalogArrowIndicator
+    export=exp;
+}
+declare module "dojox/gauges/AnalogCircleIndicator" {
+    var exp: dojox.gauges.AnalogCircleIndicator
+    export=exp;
+}
+declare module "dojox/gauges/AnalogArcIndicator" {
+    var exp: dojox.gauges.AnalogArcIndicator
+    export=exp;
+}
+declare module "dojox/gauges/AnalogGauge" {
+    var exp: dojox.gauges.AnalogGauge
+    export=exp;
+}
+declare module "dojox/gauges/AnalogIndicatorBase" {
+    var exp: dojox.gauges.AnalogIndicatorBase
+    export=exp;
+}
+declare module "dojox/gauges/AnalogLineIndicator" {
+    var exp: dojox.gauges.AnalogLineIndicator
+    export=exp;
+}
+declare module "dojox/gauges/BarCircleIndicator" {
+    var exp: dojox.gauges.BarCircleIndicator
+    export=exp;
+}
+declare module "dojox/gauges/AnalogNeedleIndicator" {
+    var exp: dojox.gauges.AnalogNeedleIndicator
+    export=exp;
+}
+declare module "dojox/gauges/BarGauge" {
+    var exp: dojox.gauges.BarGauge
+    export=exp;
+}
+declare module "dojox/gauges/BarLineIndicator" {
+    var exp: dojox.gauges.BarLineIndicator
+    export=exp;
+}
+declare module "dojox/gauges/BarIndicator" {
+    var exp: dojox.gauges.BarIndicator
+    export=exp;
+}
+declare module "dojox/gauges/GlossyCircularGaugeNeedle" {
+    var exp: dojox.gauges.GlossyCircularGaugeNeedle
+    export=exp;
+}
+declare module "dojox/gauges/GlossyHorizontalGaugeMarker" {
+    var exp: dojox.gauges.GlossyHorizontalGaugeMarker
+    export=exp;
+}
+declare module "dojox/gauges/GlossyCircularGauge" {
+    var exp: dojox.gauges.GlossyCircularGauge
+    export=exp;
+}
+declare module "dojox/gauges/Range" {
+    var exp: dojox.gauges.Range
+    export=exp;
+}
+declare module "dojox/gauges/GlossyCircularGaugeBase" {
+    var exp: dojox.gauges.GlossyCircularGaugeBase
+    export=exp;
+}
+declare module "dojox/gauges/GlossyHorizontalGauge" {
+    var exp: dojox.gauges.GlossyHorizontalGauge
+    export=exp;
+}
+declare module "dojox/gauges/GlossySemiCircularGauge" {
+    var exp: dojox.gauges.GlossySemiCircularGauge
+    export=exp;
+}
+declare module "dojox/gauges/TextIndicator" {
+    var exp: dojox.gauges.TextIndicator
+    export=exp;
+}

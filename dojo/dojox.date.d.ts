@@ -1362,3 +1362,80 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/date/buddhist" {
+    var exp: dojox.date.buddhist
+    export=exp;
+}
+declare module "dojox/date/buddhist/Date" {
+    var exp: dojox.date.buddhist.Date
+    export=exp;
+}
+declare module "dojox/date/buddhist/locale" {
+    var exp: dojox.date.buddhist.locale
+    export=exp;
+}
+declare module "dojox/date/hebrew" {
+    var exp: dojox.date.hebrew
+    export=exp;
+}
+declare module "dojox/date/hebrew/Date" {
+    var exp: dojox.date.hebrew.Date
+    export=exp;
+}
+declare module "dojox/date/hebrew/locale" {
+    var exp: dojox.date.hebrew.locale
+    export=exp;
+}
+declare module "dojox/date/hebrew/numerals" {
+    var exp: dojox.date.hebrew.numerals
+    export=exp;
+}
+declare module "dojox/date/islamic" {
+    var exp: dojox.date.islamic
+    export=exp;
+}
+declare module "dojox/date/islamic/Date" {
+    var exp: dojox.date.islamic.Date
+    export=exp;
+}
+declare module "dojox/date/islamic/locale" {
+    var exp: dojox.date.islamic.locale
+    export=exp;
+}
+declare module "dojox/date/persian" {
+    var exp: dojox.date.persian
+    export=exp;
+}
+declare module "dojox/date/persian/Date" {
+    var exp: dojox.date.persian.Date
+    export=exp;
+}
+declare module "dojox/date/persian/locale" {
+    var exp: dojox.date.persian.locale
+    export=exp;
+}
+declare module "dojox/date/umalqura" {
+    var exp: dojox.date.umalqura
+    export=exp;
+}
+declare module "dojox/date/umalqura/Date" {
+    var exp: dojox.date.umalqura.Date
+    export=exp;
+}
+declare module "dojox/date/umalqura/locale" {
+    var exp: dojox.date.umalqura.locale
+    export=exp;
+}
+declare module "dojox/date/php" {
+    var exp: dojox.date.php
+    export=exp;
+}
+declare module "dojox/date/posix" {
+    var exp: dojox.date.posix
+    export=exp;
+}
+declare module "dojox/date/relative" {
+    var exp: dojox.date.relative
+    export=exp;
+}

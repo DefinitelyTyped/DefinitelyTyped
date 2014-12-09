@@ -11253,3 +11253,76 @@
     }
 
 }
+
+declare module "dojox/calc/_Executor" {
+    var exp: dojox.calc._Executor
+    export=exp;
+}
+declare module "dojox/calc/_Executor._Executor" {
+    var exp: dojox.calc._Executor._Executor
+    export=exp;
+}
+declare module "dojox/calc/_Executor.FuncGen" {
+    var exp: dojox.calc._Executor.FuncGen
+    export=exp;
+}
+declare module "dojox/calc/_Executor.Grapher" {
+    var exp: dojox.calc._Executor.Grapher
+    export=exp;
+}
+declare module "dojox/calc/FuncGen" {
+    var exp: dojox.calc.FuncGen
+    export=exp;
+}
+declare module "dojox/calc/FuncGen._Executor" {
+    var exp: dojox.calc.FuncGen._Executor
+    export=exp;
+}
+declare module "dojox/calc/FuncGen.FuncGen" {
+    var exp: dojox.calc.FuncGen.FuncGen
+    export=exp;
+}
+declare module "dojox/calc/FuncGen.Grapher" {
+    var exp: dojox.calc.FuncGen.Grapher
+    export=exp;
+}
+declare module "dojox/calc/Grapher" {
+    var exp: dojox.calc.Grapher
+    export=exp;
+}
+declare module "dojox/calc/Grapher._Executor" {
+    var exp: dojox.calc.Grapher._Executor
+    export=exp;
+}
+declare module "dojox/calc/Grapher.FuncGen" {
+    var exp: dojox.calc.Grapher.FuncGen
+    export=exp;
+}
+declare module "dojox/calc/Grapher.Grapher" {
+    var exp: dojox.calc.Grapher.Grapher
+    export=exp;
+}
+declare module "dojox/calc/toFrac" {
+    var exp: dojox.calc.toFrac
+    export=exp;
+}
+declare module "dojox/calc/toFrac._Executor" {
+    var exp: dojox.calc.toFrac._Executor
+    export=exp;
+}
+declare module "dojox/calc/toFrac.FuncGen" {
+    var exp: dojox.calc.toFrac.FuncGen
+    export=exp;
+}
+declare module "dojox/calc/toFrac.Grapher" {
+    var exp: dojox.calc.toFrac.Grapher
+    export=exp;
+}
+declare module "dojox/calc/GraphPro" {
+    var exp: dojox.calc.GraphPro
+    export=exp;
+}
+declare module "dojox/calc/Standard" {
+    var exp: dojox.calc.Standard
+    export=exp;
+}

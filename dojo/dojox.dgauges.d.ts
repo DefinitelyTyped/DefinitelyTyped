@@ -21989,3 +21989,164 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/dgauges/_circularUtils" {
+    var exp: dojox.dgauges._circularUtils
+    export=exp;
+}
+declare module "dojox/dgauges/CircularScale" {
+    var exp: dojox.dgauges.CircularScale
+    export=exp;
+}
+declare module "dojox/dgauges/CircularValueIndicator" {
+    var exp: dojox.dgauges.CircularValueIndicator
+    export=exp;
+}
+declare module "dojox/dgauges/CircularGauge" {
+    var exp: dojox.dgauges.CircularGauge
+    export=exp;
+}
+declare module "dojox/dgauges/CircularRangeIndicator" {
+    var exp: dojox.dgauges.CircularRangeIndicator
+    export=exp;
+}
+declare module "dojox/dgauges/IndicatorBase" {
+    var exp: dojox.dgauges.IndicatorBase
+    export=exp;
+}
+declare module "dojox/dgauges/LinearScaler" {
+    var exp: dojox.dgauges.LinearScaler
+    export=exp;
+}
+declare module "dojox/dgauges/LogScaler" {
+    var exp: dojox.dgauges.LogScaler
+    export=exp;
+}
+declare module "dojox/dgauges/MultiLinearScaler" {
+    var exp: dojox.dgauges.MultiLinearScaler
+    export=exp;
+}
+declare module "dojox/dgauges/GaugeBase" {
+    var exp: dojox.dgauges.GaugeBase
+    export=exp;
+}
+declare module "dojox/dgauges/RectangularScale" {
+    var exp: dojox.dgauges.RectangularScale
+    export=exp;
+}
+declare module "dojox/dgauges/RectangularSegmentedRangeIndicator" {
+    var exp: dojox.dgauges.RectangularSegmentedRangeIndicator
+    export=exp;
+}
+declare module "dojox/dgauges/RectangularRangeIndicator" {
+    var exp: dojox.dgauges.RectangularRangeIndicator
+    export=exp;
+}
+declare module "dojox/dgauges/RectangularValueIndicator" {
+    var exp: dojox.dgauges.RectangularValueIndicator
+    export=exp;
+}
+declare module "dojox/dgauges/ScaleBase" {
+    var exp: dojox.dgauges.ScaleBase
+    export=exp;
+}
+declare module "dojox/dgauges/TextIndicator" {
+    var exp: dojox.dgauges.TextIndicator
+    export=exp;
+}
+declare module "dojox/dgauges/ScaleIndicatorBase" {
+    var exp: dojox.dgauges.ScaleIndicatorBase
+    export=exp;
+}
+declare module "dojox/dgauges/RectangularGauge" {
+    var exp: dojox.dgauges.RectangularGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/utils" {
+    var exp: dojox.dgauges.components.utils
+    export=exp;
+}
+declare module "dojox/dgauges/components/DefaultPropertiesMixin" {
+    var exp: dojox.dgauges.components.DefaultPropertiesMixin
+    export=exp;
+}
+declare module "dojox/dgauges/components/black/CircularLinearGauge" {
+    var exp: dojox.dgauges.components.black.CircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/black/SemiCircularLinearGauge" {
+    var exp: dojox.dgauges.components.black.SemiCircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/black/HorizontalLinearGauge" {
+    var exp: dojox.dgauges.components.black.HorizontalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/black/VerticalLinearGauge" {
+    var exp: dojox.dgauges.components.black.VerticalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/classic/CircularLinearGauge" {
+    var exp: dojox.dgauges.components.classic.CircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/classic/HorizontalLinearGauge" {
+    var exp: dojox.dgauges.components.classic.HorizontalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/classic/VerticalLinearGauge" {
+    var exp: dojox.dgauges.components.classic.VerticalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/classic/SemiCircularLinearGauge" {
+    var exp: dojox.dgauges.components.classic.SemiCircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/default/CircularLinearGauge" {
+    var exp: dojox.dgauges.components.default.CircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/default/HorizontalLinearGauge" {
+    var exp: dojox.dgauges.components.default.HorizontalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/default/SemiCircularLinearGauge" {
+    var exp: dojox.dgauges.components.default.SemiCircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/default/VerticalLinearGauge" {
+    var exp: dojox.dgauges.components.default.VerticalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/green/HorizontalLinearGauge" {
+    var exp: dojox.dgauges.components.green.HorizontalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/green/CircularLinearGauge" {
+    var exp: dojox.dgauges.components.green.CircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/green/SemiCircularLinearGauge" {
+    var exp: dojox.dgauges.components.green.SemiCircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/green/VerticalLinearGauge" {
+    var exp: dojox.dgauges.components.green.VerticalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/grey/CircularLinearGauge" {
+    var exp: dojox.dgauges.components.grey.CircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/grey/SemiCircularLinearGauge" {
+    var exp: dojox.dgauges.components.grey.SemiCircularLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/grey/HorizontalLinearGauge" {
+    var exp: dojox.dgauges.components.grey.HorizontalLinearGauge
+    export=exp;
+}
+declare module "dojox/dgauges/components/grey/VerticalLinearGauge" {
+    var exp: dojox.dgauges.components.grey.VerticalLinearGauge
+    export=exp;
+}
