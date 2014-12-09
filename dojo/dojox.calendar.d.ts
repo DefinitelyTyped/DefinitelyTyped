@@ -20922,3 +20922,92 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/calendar/time" {
+    var exp: dojox.calendar.time
+    export=exp;
+}
+declare module "dojox/calendar/_RendererMixin" {
+    var exp: dojox.calendar._RendererMixin
+    export=exp;
+}
+declare module "dojox/calendar/_ScrollBarBase" {
+    var exp: dojox.calendar._ScrollBarBase
+    export=exp;
+}
+declare module "dojox/calendar/ExpandRenderer" {
+    var exp: dojox.calendar.ExpandRenderer
+    export=exp;
+}
+declare module "dojox/calendar/HorizontalRenderer" {
+    var exp: dojox.calendar.HorizontalRenderer
+    export=exp;
+}
+declare module "dojox/calendar/Calendar" {
+    var exp: dojox.calendar.Calendar
+    export=exp;
+}
+declare module "dojox/calendar/Keyboard" {
+    var exp: dojox.calendar.Keyboard
+    export=exp;
+}
+declare module "dojox/calendar/CalendarBase" {
+    var exp: dojox.calendar.CalendarBase
+    export=exp;
+}
+declare module "dojox/calendar/LabelRenderer" {
+    var exp: dojox.calendar.LabelRenderer
+    export=exp;
+}
+declare module "dojox/calendar/MobileHorizontalRenderer" {
+    var exp: dojox.calendar.MobileHorizontalRenderer
+    export=exp;
+}
+declare module "dojox/calendar/MobileVerticalRenderer" {
+    var exp: dojox.calendar.MobileVerticalRenderer
+    export=exp;
+}
+declare module "dojox/calendar/Mouse" {
+    var exp: dojox.calendar.Mouse
+    export=exp;
+}
+declare module "dojox/calendar/MobileCalendar" {
+    var exp: dojox.calendar.MobileCalendar
+    export=exp;
+}
+declare module "dojox/calendar/StoreMixin" {
+    var exp: dojox.calendar.StoreMixin
+    export=exp;
+}
+declare module "dojox/calendar/Touch" {
+    var exp: dojox.calendar.Touch
+    export=exp;
+}
+declare module "dojox/calendar/MatrixView" {
+    var exp: dojox.calendar.MatrixView
+    export=exp;
+}
+declare module "dojox/calendar/VerticalRenderer" {
+    var exp: dojox.calendar.VerticalRenderer
+    export=exp;
+}
+declare module "dojox/calendar/MonthColumnView" {
+    var exp: dojox.calendar.MonthColumnView
+    export=exp;
+}
+declare module "dojox/calendar/SimpleColumnView" {
+    var exp: dojox.calendar.SimpleColumnView
+    export=exp;
+}
+declare module "dojox/calendar/ViewBase" {
+    var exp: dojox.calendar.ViewBase
+    export=exp;
+}
+declare module "dojox/calendar/ColumnView" {
+    var exp: dojox.calendar.ColumnView
+    export=exp;
+}
+declare module "dojox/calendar/ColumnViewSecondarySheet" {
+    var exp: dojox.calendar.ColumnViewSecondarySheet
+    export=exp;
+}

@@ -30671,3 +30671,228 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/widget/CalendarViews" {
+    var exp: dojox.widget.CalendarViews
+    export=exp;
+}
+declare module "dojox/widget/FilePicker" {
+    var exp: dojox.widget.FilePicker
+    export=exp;
+}
+declare module "dojox/widget/_CalendarDay" {
+    var exp: dojox.widget._CalendarDay
+    export=exp;
+}
+declare module "dojox/widget/_CalendarMonthYear" {
+    var exp: dojox.widget._CalendarMonthYear
+    export=exp;
+}
+declare module "dojox/widget/_CalendarMonth" {
+    var exp: dojox.widget._CalendarMonth
+    export=exp;
+}
+declare module "dojox/widget/_CalendarBase" {
+    var exp: dojox.widget._CalendarBase
+    export=exp;
+}
+declare module "dojox/widget/_CalendarDayView" {
+    var exp: dojox.widget._CalendarDayView
+    export=exp;
+}
+declare module "dojox/widget/_CalendarMonthView" {
+    var exp: dojox.widget._CalendarMonthView
+    export=exp;
+}
+declare module "dojox/widget/_CalendarYear" {
+    var exp: dojox.widget._CalendarYear
+    export=exp;
+}
+declare module "dojox/widget/_FisheyeFX" {
+    var exp: dojox.widget._FisheyeFX
+    export=exp;
+}
+declare module "dojox/widget/_CalendarView" {
+    var exp: dojox.widget._CalendarView
+    export=exp;
+}
+declare module "dojox/widget/AutoRotator" {
+    var exp: dojox.widget.AutoRotator
+    export=exp;
+}
+declare module "dojox/widget/_Invalidating" {
+    var exp: dojox.widget._Invalidating
+    export=exp;
+}
+declare module "dojox/widget/_CalendarYearView" {
+    var exp: dojox.widget._CalendarYearView
+    export=exp;
+}
+declare module "dojox/widget/_CalendarMonthYearView" {
+    var exp: dojox.widget._CalendarMonthYearView
+    export=exp;
+}
+declare module "dojox/widget/Calendar2Pane" {
+    var exp: dojox.widget.Calendar2Pane
+    export=exp;
+}
+declare module "dojox/widget/CalendarFisheye" {
+    var exp: dojox.widget.CalendarFisheye
+    export=exp;
+}
+declare module "dojox/widget/Calendar" {
+    var exp: dojox.widget.Calendar
+    export=exp;
+}
+declare module "dojox/widget/Dialog" {
+    var exp: dojox.widget.Dialog
+    export=exp;
+}
+declare module "dojox/widget/Calendar3Pane" {
+    var exp: dojox.widget.Calendar3Pane
+    export=exp;
+}
+declare module "dojox/widget/CalendarFx" {
+    var exp: dojox.widget.CalendarFx
+    export=exp;
+}
+declare module "dojox/widget/DailyCalendar" {
+    var exp: dojox.widget.DailyCalendar
+    export=exp;
+}
+declare module "dojox/widget/FisheyeLite" {
+    var exp: dojox.widget.FisheyeLite
+    export=exp;
+}
+declare module "dojox/widget/FisheyeListItem" {
+    var exp: dojox.widget.FisheyeListItem
+    export=exp;
+}
+declare module "dojox/widget/ColorPicker" {
+    var exp: dojox.widget.ColorPicker
+    export=exp;
+}
+declare module "dojox/widget/FisheyeList" {
+    var exp: dojox.widget.FisheyeList
+    export=exp;
+}
+declare module "dojox/widget/DialogSimple" {
+    var exp: dojox.widget.DialogSimple
+    export=exp;
+}
+declare module "dojox/widget/MonthAndYearlyCalendar" {
+    var exp: dojox.widget.MonthAndYearlyCalendar
+    export=exp;
+}
+declare module "dojox/widget/MonthlyCalendar" {
+    var exp: dojox.widget.MonthlyCalendar
+    export=exp;
+}
+declare module "dojox/widget/PagerItem" {
+    var exp: dojox.widget.PagerItem
+    export=exp;
+}
+declare module "dojox/widget/Pager" {
+    var exp: dojox.widget.Pager
+    export=exp;
+}
+declare module "dojox/widget/MultiSelectCalendar" {
+    var exp: dojox.widget.MultiSelectCalendar
+    export=exp;
+}
+declare module "dojox/widget/MultiSelectCalendar._MonthDropDown" {
+    var exp: dojox.widget.MultiSelectCalendar._MonthDropDown
+    export=exp;
+}
+declare module "dojox/widget/Roller" {
+    var exp: dojox.widget.Roller
+    export=exp;
+}
+declare module "dojox/widget/Roller._Hover" {
+    var exp: dojox.widget.Roller._Hover
+    export=exp;
+}
+declare module "dojox/widget/Roller.RollerSlide" {
+    var exp: dojox.widget.Roller.RollerSlide
+    export=exp;
+}
+declare module "dojox/widget/PlaceholderMenuItem" {
+    var exp: dojox.widget.PlaceholderMenuItem
+    export=exp;
+}
+declare module "dojox/widget/Rotator" {
+    var exp: dojox.widget.Rotator
+    export=exp;
+}
+declare module "dojox/widget/PortletDialogSettings" {
+    var exp: dojox.widget.PortletDialogSettings
+    export=exp;
+}
+declare module "dojox/widget/Portlet" {
+    var exp: dojox.widget.Portlet
+    export=exp;
+}
+declare module "dojox/widget/PortletSettings" {
+    var exp: dojox.widget.PortletSettings
+    export=exp;
+}
+declare module "dojox/widget/Selection" {
+    var exp: dojox.widget.Selection
+    export=exp;
+}
+declare module "dojox/widget/TitleGroup" {
+    var exp: dojox.widget.TitleGroup
+    export=exp;
+}
+declare module "dojox/widget/UpgradeBar" {
+    var exp: dojox.widget.UpgradeBar
+    export=exp;
+}
+declare module "dojox/widget/Toaster" {
+    var exp: dojox.widget.Toaster
+    export=exp;
+}
+declare module "dojox/widget/Wizard" {
+    var exp: dojox.widget.Wizard
+    export=exp;
+}
+declare module "dojox/widget/Standby" {
+    var exp: dojox.widget.Standby
+    export=exp;
+}
+declare module "dojox/widget/YearlyCalendar" {
+    var exp: dojox.widget.YearlyCalendar
+    export=exp;
+}
+declare module "dojox/widget/WizardPane" {
+    var exp: dojox.widget.WizardPane
+    export=exp;
+}
+declare module "dojox/widget/rotator/Fade" {
+    var exp: dojox.widget.rotator.Fade
+    export=exp;
+}
+declare module "dojox/widget/rotator/PanFade" {
+    var exp: dojox.widget.rotator.PanFade
+    export=exp;
+}
+declare module "dojox/widget/rotator/Pan" {
+    var exp: dojox.widget.rotator.Pan
+    export=exp;
+}
+declare module "dojox/widget/rotator/Slide" {
+    var exp: dojox.widget.rotator.Slide
+    export=exp;
+}
+declare module "dojox/widget/rotator/Wipe" {
+    var exp: dojox.widget.rotator.Wipe
+    export=exp;
+}
+declare module "dojox/widget/rotator/Controller" {
+    var exp: dojox.widget.rotator.Controller
+    export=exp;
+}
+declare module "dojox/widget/rotator/ThumbnailController" {
+    var exp: dojox.widget.rotator.ThumbnailController
+    export=exp;
+}

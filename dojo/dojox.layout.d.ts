@@ -11433,3 +11433,76 @@ declare module dojox {
 
 
 }
+
+declare module "dojox/layout/BorderContainer" {
+    var exp: dojox.layout.BorderContainer
+    export=exp;
+}
+declare module "dojox/layout/RadioGroup" {
+    var exp: dojox.layout.RadioGroup
+    export=exp;
+}
+declare module "dojox/layout/Dock" {
+    var exp: dojox.layout.Dock
+    export=exp;
+}
+declare module "dojox/layout/DragPane" {
+    var exp: dojox.layout.DragPane
+    export=exp;
+}
+declare module "dojox/layout/ExpandoPane" {
+    var exp: dojox.layout.ExpandoPane
+    export=exp;
+}
+declare module "dojox/layout/ContentPane" {
+    var exp: dojox.layout.ContentPane
+    export=exp;
+}
+declare module "dojox/layout/GridContainer" {
+    var exp: dojox.layout.GridContainer
+    export=exp;
+}
+declare module "dojox/layout/FloatingPane" {
+    var exp: dojox.layout.FloatingPane
+    export=exp;
+}
+declare module "dojox/layout/GridContainerLite" {
+    var exp: dojox.layout.GridContainerLite
+    export=exp;
+}
+declare module "dojox/layout/GridContainerLite.ChildWidgetProperties" {
+    var exp: dojox.layout.GridContainerLite.ChildWidgetProperties
+    export=exp;
+}
+declare module "dojox/layout/ResizeHandle" {
+    var exp: dojox.layout.ResizeHandle
+    export=exp;
+}
+declare module "dojox/layout/ToggleSplitter" {
+    var exp: dojox.layout.ToggleSplitter
+    export=exp;
+}
+declare module "dojox/layout/RotatorContainer" {
+    var exp: dojox.layout.RotatorContainer
+    export=exp;
+}
+declare module "dojox/layout/TableContainer" {
+    var exp: dojox.layout.TableContainer
+    export=exp;
+}
+declare module "dojox/layout/TableContainer.ChildWidgetProperties" {
+    var exp: dojox.layout.TableContainer.ChildWidgetProperties
+    export=exp;
+}
+declare module "dojox/layout/ScrollPane" {
+    var exp: dojox.layout.ScrollPane
+    export=exp;
+}
+declare module "dojox/layout/dnd/Avatar" {
+    var exp: dojox.layout.dnd.Avatar
+    export=exp;
+}
+declare module "dojox/layout/dnd/PlottedDnd" {
+    var exp: dojox.layout.dnd.PlottedDnd
+    export=exp;
+}
