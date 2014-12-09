@@ -1,4 +1,11 @@
-﻿declare module Microsoft.Maps.Directions {
+﻿// Type definitions for Microsoft.Maps.Directions 7.0
+// Project: http://msdn.microsoft.com/en-us/library/hh312813.aspx
+// Definitions by: Eric Todd <https://github.com/ericrtodd>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="Microsoft.Maps.d.ts"/>
+
+declare module Microsoft.Maps.Directions {
 
     export interface BusinessDetails {
 
@@ -71,7 +78,7 @@
         getShortAddress(): string;
         isExactLocation(): boolean;
         isViapoint(): boolean;
-        setOptions(options: WaypointOptions);
+        setOptions(options: WaypointOptions): void;
 
         changed: (args: WaypointEventArgs) => void;
         geocoded: (args: WaypointEventArgs) => void;
@@ -161,44 +168,44 @@
         constructor(map: Microsoft.Maps.Map);
 
         resetDirections(): void;
-        addWaypoint(waypoint: Waypoint, index?: number) : void;
+        addWaypoint(waypoint: Waypoint, index?: number): void;
         calculateDirections(): void;
         clearDisplay(): void;
         dispose(): void;
         getAllWaypoints(): Array<Waypoint>;
         getMap(): Map;
-        getNearbyMajorRoads(location: Location, callback: any, errorCallback: any, userData: any) : void;
+        getNearbyMajorRoads(location: Location, callback: any, errorCallback: any, userData: any): void;
         getRenderOptions(): DirectionsRenderOptions;
         getRequestOptions(): DirectionsRequestOptions;
         getRouteResult(): Array<Route>;
-        removeWaypoint(waypoint: Waypoint) : void;
-        removeWaypoint(index: number) : void;
-        resetDirections(options: ResetDirectionsOptions) : void;
-        reverseGeocode(location: Location, callback: any, errorCallback: any, userData: any);
+        removeWaypoint(waypoint: Waypoint): void;
+        removeWaypoint(index: number): void;
+        resetDirections(options: ResetDirectionsOptions): void;
+        reverseGeocode(location: Location, callback: any, errorCallback: any, userData: any): void;
         setMapView(): void;
         setRenderOptions(options: DirectionsRenderOptions): void;
-        setRequestOptions(options: DirectionsRequestOptions):void;
+        setRequestOptions(options: DirectionsRequestOptions): void;
 
-        afterRouteSelectorRender: (args:RouteSelectorRenderEventArgs) => void;
-        afterStepRender: (args:DirectionsStepRenderEventArgs) => void;
-        afterSummaryRender: (args:RouteSummaryRenderEventArgs) => void;
-        afterWaypointRender: (args:WaypointRenderEventArgs) => void;
-        beforeDisambiguationRender: (args:DisambiguationRenderEventArgs) => void;
-        beforeRouteSelectorRender: (args:RouteSelectorRenderEventArgs) => void;
-        beforeStepRender: (args:DirectionsStepRenderEventArgs) => void;
-        beforeSummaryRender: (args:RouteSummaryRenderEventArgs) => void;
-        beforeWaypointRender: (args:WaypointRenderEventArgs) => void;
-        directionsError: (args:DirectionsErrorEventArgs) => void;
-        directionsUpdated: (args:DirectionsEventArgs) => void;
+        afterRouteSelectorRender: (args: RouteSelectorRenderEventArgs) => void;
+        afterStepRender: (args: DirectionsStepRenderEventArgs) => void;
+        afterSummaryRender: (args: RouteSummaryRenderEventArgs) => void;
+        afterWaypointRender: (args: WaypointRenderEventArgs) => void;
+        beforeDisambiguationRender: (args: DisambiguationRenderEventArgs) => void;
+        beforeRouteSelectorRender: (args: RouteSelectorRenderEventArgs) => void;
+        beforeStepRender: (args: DirectionsStepRenderEventArgs) => void;
+        beforeSummaryRender: (args: RouteSummaryRenderEventArgs) => void;
+        beforeWaypointRender: (args: WaypointRenderEventArgs) => void;
+        directionsError: (args: DirectionsErrorEventArgs) => void;
+        directionsUpdated: (args: DirectionsEventArgs) => void;
         dragDropCompleted: () => void;
-        itineraryStepClicked: (args:DirectionsStepEventArgs) => void;
-        mouseEnterRouteSelector: (args:RouteSelectorEventArgs) => void;
-        mouseEnterStep: (args:DirectionsStepEventArgs) => void;
-        mouseLeaveRouteSelector: (args:RouteSelectorEventArgs) => void;
-        mouseLeaveStep: (args:DirectionsStepEventArgs) => void;
-        routeSelectorClicked: (args:RouteSelectorEventArgs) => void;
-        waypointAdded: (args:WaypointEventArgs) => void;
-        waypointRemoved: (args:WaypointEventArgs) => void;
+        itineraryStepClicked: (args: DirectionsStepEventArgs) => void;
+        mouseEnterRouteSelector: (args: RouteSelectorEventArgs) => void;
+        mouseEnterStep: (args: DirectionsStepEventArgs) => void;
+        mouseLeaveRouteSelector: (args: RouteSelectorEventArgs) => void;
+        mouseLeaveStep: (args: DirectionsStepEventArgs) => void;
+        routeSelectorClicked: (args: RouteSelectorEventArgs) => void;
+        waypointAdded: (args: WaypointEventArgs) => void;
+        waypointRemoved: (args: WaypointEventArgs) => void;
     }
 
     export interface DirectionsStepEventArgs {
