@@ -1,4 +1,9 @@
-﻿declare module Microsoft.Maps {
+﻿// Type definitions for Microsoft.Maps 7.0
+// Project: http://msdn.microsoft.com/en-us/library/gg427611.aspx
+// Definitions by: Eric Todd <https://github.com/ericrtodd>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+declare module Microsoft.Maps {
 
     export enum AltitudeReference {
         ground,
@@ -14,8 +19,8 @@
         latitude: number;
         longitude: number;
 
-        static areEqual(location1: Location, location2: Location);
-        static normalizeLongitude(longitude: number);
+        static areEqual(location1: Location, location2: Location): boolean;
+        static normalizeLongitude(longitude: number): number;
 
         clone(): Location;
         toString(): string;
@@ -32,7 +37,7 @@
         static fromCorners(northwest: Location, southeast: Location): LocationRect;
         static fromEdges(north: number, west: number, south: number, east: number, altitude: number, altitudeReference: AltitudeReference): LocationRect;
         static fromLocations(locations: Array<Location>): LocationRect;
-        static fromString(value: string);
+        static fromString(value: string): LocationRect;
 
         clone(): LocationRect;
         contains(location: Location): boolean;
@@ -65,8 +70,8 @@
         static addHandler(target: any, eventName: string, handler: () => void): any;
         static addThrottledHandler(target: any, eventName: string, handler: () => void, throttleInterval: number): any;
         static hasHandler(target: any, eventName: string): boolean;
-        static invoke(target: any, eventName: string, args: any);
-        static removeHandler(handlerId: any);
+        static invoke(target: any, eventName: string, args: any): void;
+        static removeHandler(handlerId: any): void;
     }
 
     export interface KeyEventArgs {
@@ -129,11 +134,11 @@
         isDownloadingTiles(): boolean;
         isMercator(): boolean;
         isRotationEnabled(): boolean;
-        setMapType(mapTypeId: MapTypeId);
-        setOptions(options: MapOptions);
-        setView(options: ViewOptions);
-        tryLocationToPixel(locations: Array<Location>, reference?: PixelReference);
-        tryPixelToLocation(points: Array<Point>, reference?: PixelReference);
+        setMapType(mapTypeId: MapTypeId): void;
+        setOptions(options: MapOptions): void;
+        setView(options: ViewOptions): void;
+        tryLocationToPixel(locations: Array<Location>, reference?: PixelReference): any;
+        tryPixelToLocation(points: Array<Point>, reference?: PixelReference): any;
 
         click: (eventArgs: MouseEventArgs) => void;
         copyrightchanged: () => void;
@@ -284,7 +289,7 @@
         indexOf(entity: Entity): number;
         insert(entity: Entity, index: number): void;
         pop(): Entity;
-        push(entity: Entity);
+        push(entity: Entity): void;
         remove(entity: Entity): Entity;
         removeAt(index: number): Entity;
         setOptions(options: EntityCollectionOptions): void;
@@ -330,7 +335,7 @@
     export interface Action {
         label?: string;
         icon?: string;
-        eventHandler: (args?:any) => void;
+        eventHandler: (args?: any) => void;
     }
 
     export interface InfoboxOptions {
@@ -564,5 +569,5 @@
 
     export function loadModule(moduleKey: string, options: ModuleOptions): void;
     export function moduleLoaded(moduleKey: string): void;
-    export function registerModule(moduleKey: string, scriptUrl: string, options?: ModuleOptions);
+    export function registerModule(moduleKey: string, scriptUrl: string, options?: ModuleOptions): void;
 }

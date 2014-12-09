@@ -1,4 +1,11 @@
-﻿declare module Microsoft.Maps.VenueMaps {
+﻿// Type definitions for Microsoft.Maps.VenueMaps 7.0
+// Project: http://msdn.microsoft.com/en-us/library/hh312797.aspx
+// Definitions by: [AUTHOR NAME] <[AUTHOR URL]>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="Microsoft.Maps.d.ts"/>
+
+declare module Microsoft.Maps.VenueMaps {
 
     export interface MouseResponse {
         eventArgs: MouseEventArgs;
@@ -13,7 +20,7 @@
         handleMouseOver(response: MouseResponse): void;
         isInDOM(): boolean;
         removeFromDOM(): void;
-        setHeight(height: number);
+        setHeight(height: number): void;
 
         click: (eventArgs: MouseEventArgs) => any;
         mouseOut: (eventArgs: MouseEventArgs) => any;
@@ -120,15 +127,15 @@
     export interface VenueMapCreationOptions {
         error: (errorCode: number, args: any) => any;
         success: (venueMap: VenueMap, args: any) => any;
-        venueMapId:string;
+        venueMapId: string;
     }
 
     export class VenueMapFactory {
-        
+
         constructor(map: Map);
 
         create(options: VenueMapCreationOptions): void;
-        getNearbyVenues(options:NearbyVenueOptions):void;
+        getNearbyVenues(options: NearbyVenueOptions): void;
     }
 
 } 

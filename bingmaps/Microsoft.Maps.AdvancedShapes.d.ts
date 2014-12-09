@@ -1,4 +1,11 @@
-﻿declare module Microsoft.Maps.AdvancedShapes {
+﻿// Type definitions for Microsoft.Maps.AdvancedShapes 7.0
+// Project: http://msdn.microsoft.com/en-us/library/hh921952.aspx
+// Definitions by: Eric Todd <https://github.com/ericrtodd>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="Microsoft.Maps.d.ts"/>
+
+declare module Microsoft.Maps.AdvancedShapes {
 
     export class EntityCollection {
 
@@ -12,7 +19,7 @@
         indexOf(entity: Entity): number;
         insert(entity: Entity, index: number): void;
         pop(): Entity;
-        push(entity: Entity);
+        push(entity: Entity): void;
         remove(entity: Entity): Entity;
         removeAt(index: number): Entity;
         setOptions(options: EntityCollectionOptions): void;
