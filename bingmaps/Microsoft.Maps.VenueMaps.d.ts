@@ -1,6 +1,6 @@
 ﻿// Type definitions for Microsoft.Maps.VenueMaps 7.0
 // Project: http://msdn.microsoft.com/en-us/library/hh312797.aspx
-// Definitions by: [AUTHOR NAME] <[AUTHOR URL]>
+// Definitions by: Eric Todd <https://github.com/ericrtodd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="Microsoft.Maps.d.ts"/>
