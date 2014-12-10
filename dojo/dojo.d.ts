@@ -1,3 +1,6 @@
+declare function define(dependencies: String[], factory: Function): any;
+declare function require(config?:Object, dependencies?: String[], callback?: Function): any;
+
 declare module dojox.dtl {
     interface __StringArgs { }
     interface __ObjectArgs { }
@@ -20,28 +23,28 @@ declare module dojo {
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        del(url: String, options: dojo.request.__BaseOptions): dojo.request.__Promise;
+        del(url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise;
         /**
          * Send an HTTP GET request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        get(url: String, options: dojo.request.__BaseOptions): dojo.request.__Promise;
+        get(url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise;
         /**
          * Send an HTTP POST request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        post(url: String, options: dojo.request.__BaseOptions): any;
+        post(url: String, options?: dojo.request.__BaseOptions): any;
         /**
          * Send an HTTP POST request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        put(url: String, options: dojo.request.__BaseOptions): dojo.request.__Promise;
+        put(url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise;
     }
 
     module request {
@@ -581,7 +584,7 @@ declare module dojo {
                  * 
                  */
                 "checkString": string;
-                /**
+                /**dojo
                  * Data to transfer.  This is ignored for GET and DELETE
                  * requests.
                  * 
@@ -980,7 +983,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
             /**
              * 
              */
@@ -3196,7 +3199,7 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare{(className?: String, superclass?: Function, props?: Object): void}
+        interface declare { (className?: String, superclass?: Function, props?: Object): any}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
          *
@@ -3271,7 +3274,7 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare{(className?: String, superclass?: Function[], props?: Object): void}
+        interface declare{(className?: String, superclass?: Function[], props?: Object): any}
         interface declare {
             /**
              * Mix in properties skipping a constructor and decorating functions
