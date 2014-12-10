@@ -647,19 +647,27 @@ declare module React {
     }
 
     //
-    // React.addons (Transitions)
+    // React.addons
     // ----------------------------------------------------------------------
 
-    interface CSSTransitionGroupProps {
-        transitionName: string;
-        transitionAppear?: boolean;
-        transitionEnter?: boolean;
-        transitionLeave?: boolean;
+    interface ClassSet {
+        [key: string]: boolean;
     }
+
+    //
+    // React.addons (Transitions)
+    // ----------------------------------------------------------------------
 
     interface TransitionGroupProps {
         component?: any; // ReactType
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
+    }
+
+    interface CSSTransitionGroupProps extends TransitionGroupProps {
+        transitionName: string;
+        transitionAppear?: boolean;
+        transitionEnter?: boolean;
+        transitionLeave?: boolean;
     }
 
     interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
@@ -874,7 +882,7 @@ declare module React {
             batchedUpdates<A>(callback: (a: A) => any, a: A): void;
             batchedUpdates(callback: () => any): void;
 
-            classSet(cx: { [key: string]: boolean }): string;
+            classSet(cx: ClassSet): string;
             cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
             update(value: any[], spec: UpdateArraySpec): any[];
