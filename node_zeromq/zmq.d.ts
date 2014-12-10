@@ -145,6 +145,14 @@ declare module 'zmq' {
         send(msg: any[], flags?: number): Socket;
 
         /**
+        * Enable monitoring of a Socket
+        *
+        * @param {Number} timer interval in ms > 0 or Undefined for default
+        * @return {Socket} for chaining
+        */
+        monitor(interval?: number): Socket;
+
+        /**
          * Close the socket.
          *
          */
@@ -180,6 +188,5 @@ declare module 'zmq' {
     function socket(type: string, options?: any): Socket;
     function socket(type: number, options?: any): Socket;
     function createSocket(type: string, options?: any): Socket;
-
 
 }

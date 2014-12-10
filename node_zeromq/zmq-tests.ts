@@ -32,4 +32,6 @@ function test5() {
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
     });
+    sock.monitor();
+    sock.monitor(10);
 }
