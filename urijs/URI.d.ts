@@ -197,3 +197,8 @@ declare module "URIjs"
 {
     export = URIStaticInstance;
 }
+
+declare module "urijs"
+{
+    export = URIStaticInstance;
+}
