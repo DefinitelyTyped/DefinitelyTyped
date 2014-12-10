@@ -1,4 +1,4 @@
-/// <reference path="dx.chartjs.d.ts" />
+/// <reference path="dx.chartjs-14.1.d.ts" />
 
 module Test {
     $("<div/>").appendTo(document.body).dxChart({
