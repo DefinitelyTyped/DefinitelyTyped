@@ -1,4 +1,4 @@
-// Type definitions for PhoneJS 14.1.*
+// Type definitions for PhoneJS 14.1.+
 // Project: http://js.devexpress.com/MobileDevelopment/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
