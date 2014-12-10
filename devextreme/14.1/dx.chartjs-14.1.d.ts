@@ -1,9 +1,9 @@
-// Type definitions for ChartJS
+// Type definitions for ChartJS 14.1.*
 // Project: http://js.devexpress.com/WebDevelopment/Charts/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference path="../../jquery/jquery.d.ts" />
 
 declare module DevExpress  {
     export function abstract(): void;
