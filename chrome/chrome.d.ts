@@ -397,7 +397,7 @@ declare module chrome.cookies {
     }
 
     export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
-    export function getAll(details: GetAllDetails, callback: (cookies: Cookie) => void): void;
+    export function getAll(details: GetAllDetails, callback: (cookies: Cookie[]) => void): void;
     export function set(details: SetDetails, callback?: (cookie?: Cookie) => void): void;
     export function remove(details: Details, callback?: (details: Details) => void): void;
     export function get(details: Details, callback: (cookie?: Cookie) => void): void;
