@@ -40,7 +40,7 @@ module Tests.ui {
                     'Freight',
                     {
                         dataField: 'ShipVia',
-                        editCellTemplate: function (container, options) {
+                        editCellTemplate: function (container: JQuery, options: { value: number }) {
                             container.addClass('dx-editor-cell');
                             container.append($('<div />').dxSelectBox({
                                 value: options.value,
@@ -50,14 +50,13 @@ module Tests.ui {
                                     { ShipperID: 3, CompanyName: 'Federal Shipping' }
                                 ],
                                 valueExpr: 'ShipperID',
-                                displayExpr: 'CompanyName',
-                                onValueChange: function (e) { }
+                                displayExpr: 'CompanyName'
                             }));
                         },
-                        cellTemplate: function (container, options) {
-                            container.text({ 1: 'Speedy Express', 2: 'United Package', 3: 'Federal Shipping' }[options.value]);
+                        cellTemplate: function (container: JQuery, options: { value: number }) {
+                            container.text(String(options.value));
                         },
-                        headerCellTemplate: function (container, options) {
+                        headerCellTemplate: function (container: JQuery, options: { headerCaption: string }) {
                             container.append($('<div/>').css({ border: '1px solid red' }).text(options.headerCaption));
                         }
                     },
@@ -79,7 +78,7 @@ module Tests.ui {
                     'ShipCity']
             }],
         customizeColumns: function (columns) {
-            var i;
+            var i: number;
             for (i = 0; i < columns.length; i++) {
                 if (columns[i].dataField.indexOf('Date') > 0) {
                     columns[i].dataType = 'date';
@@ -100,7 +99,7 @@ module Tests.ui {
                     columns[i].lookup = {
                         dataSource: { store: [], sort: 'LastName' },
                         valueExpr: 'EmployeeID',
-                        displayExpr: function (data) {
+                        displayExpr: function (data: any) {
                             return data.LastName + ' ' + data.FirstName;
                         }
                     }
@@ -117,11 +116,11 @@ module Tests.ui {
                     }
                         }
                 if (columns[i].dataField === 'ShipCity') {
-                    columns[i].editCellTemplate = function (container, options) {
+                    columns[i].editCellTemplate = function (container: JQuery, options: { value: string; setValue: Function }) {
                         $('<div/>').dxAutocomplete({
                             items: ["Bern", "Lyon", "Lander"],
                             value: options.value,
-                            onValueChange: function (e) {
+                            onValueChange: function (e:{ value: string }) {
                                 options.setValue(e.value);
                             }
                         }).appendTo(container);
@@ -243,10 +242,10 @@ module Tests.viz {
             { valueField: 's8' }
         ],
         title: 'Long Chart\'s Title',
-        onPointClick: function (arg) {
+        onPointClick: function (arg: any) {
             arg.target.isSelected() ? arg.target.clearSelection() : arg.target.select();
         },
-        onSeriesClick: function (arg) {
+        onSeriesClick: function (arg: any) {
             arg.target.isVisible() ? arg.target.hide() : arg.target.show();
         }
     };
@@ -271,13 +270,7 @@ module Tests.viz {
                 precision: 2
             }
         }],
-        title: 'Long PieChart\'s Title',
-        onPointClick: function (arg) {
-            arg.target.select();
-        },
-        onLegendClick: function (arg) {
-            arg.target.isVisible() ? arg.target.hide() : arg.target.show();
-        }
+        title: 'Long PieChart\'s Title'
     };
 
     new DevExpress.viz.charts.dxChart($("chart"), chartOptions);
@@ -303,8 +296,7 @@ module Tests.framework {
                 action: "#about",
                 icon: "info"
             }
-        ],
-        layoutSet: DevExpress.framework.html.layoutSets["navbar"]
+        ]
     });
 
     app.router.register(":view/:id", { view: "home", id: undefined });
