@@ -22103,19 +22103,19 @@ declare module "dojox/dgauges/components/classic/SemiCircularLinearGauge" {
     export=exp;
 }
 declare module "dojox/dgauges/components/default/CircularLinearGauge" {
-    var exp: dojox.dgauges.components.default.CircularLinearGauge
+    var exp: dojox.dgauges.components.default_.CircularLinearGauge
     export=exp;
 }
 declare module "dojox/dgauges/components/default/HorizontalLinearGauge" {
-    var exp: dojox.dgauges.components.default.HorizontalLinearGauge
+    var exp: dojox.dgauges.components.default_.HorizontalLinearGauge
     export=exp;
 }
 declare module "dojox/dgauges/components/default/SemiCircularLinearGauge" {
-    var exp: dojox.dgauges.components.default.SemiCircularLinearGauge
+    var exp: dojox.dgauges.components.default_.SemiCircularLinearGauge
     export=exp;
 }
 declare module "dojox/dgauges/components/default/VerticalLinearGauge" {
-    var exp: dojox.dgauges.components.default.VerticalLinearGauge
+    var exp: dojox.dgauges.components.default_.VerticalLinearGauge
     export=exp;
 }
 declare module "dojox/dgauges/components/green/HorizontalLinearGauge" {

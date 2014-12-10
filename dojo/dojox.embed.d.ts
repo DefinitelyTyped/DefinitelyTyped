@@ -1023,6 +1023,6 @@ declare module "dojox/embed/flashVars" {
     export=exp;
 }
 declare module "dojox/embed/Object" {
-    var exp: dojox.embed.Object
+    var exp: dojox.embed.Object_
     export=exp;
 }
