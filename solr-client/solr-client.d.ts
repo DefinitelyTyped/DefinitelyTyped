@@ -106,6 +106,8 @@ declare module Solr
         realTimeGet(ids:string[], query:Object, callback:(err:Error, obj:Object)=>any):http.ClientRequest;
         realTimeGet(ids:string, query:SolrQuery, callback:(err:Error, obj:Object)=>any):http.ClientRequest;
         realTimeGet(ids:string[], query:SolrQuery, callback:(err:Error, obj:Object)=>any):http.ClientRequest;
+        realTimeGet(ids:string, callback:(err:Error, obj:Object)=>any):http.ClientRequest;
+        realTimeGet(ids:string[], callback:(err:Error, obj:Object)=>any):http.ClientRequest;
 
         commit(options:Object, callback:(err:Error, obj:Object)=>any):http.ClientRequest;
         commit(callback:(err:Error, obj:Object)=>any):http.ClientRequest;
