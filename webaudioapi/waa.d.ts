@@ -1,6 +1,6 @@
 // Type definitions for Web Audio API
 // Project: http://www.w3.org/TR/webaudio/
-// Definitions by: Baruch Berger <https://github.com/bbss>, Kon <http://phyzkit.net/>
+// Definitions by: Baruch Berger <https://github.com/bbss>, Kon <http://phyzkit.net/>, kubosho <https://github.com/kubosho>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
@@ -545,14 +545,14 @@ interface AudioBufferSourceNode extends AudioSourceNode {
      * @param offset the offset time in the buffer (in seconds) where playback will begin. This parameter is optional with a default value of 0 (playing back from the beginning of the buffer).
      * @param duration the duration of the portion (in seconds) to be played. This parameter is optional, with the default value equal to the total duration of the AudioBuffer minus the offset parameter. Thus if neither offset nor duration are specified then the implied duration is the total duration of the AudioBuffer.
      */
-    start(when: number, offset?: number, duration?: number): void;
+    start(when?: number, offset?: number, duration?: number): void;
 
     /**
      * Schedules a sound to stop playback at an exact time. Please see deprecation section for the old method name.
      *
      * The when parameter describes at what time (in seconds) the sound should stop playing. It is in the same time coordinate system as AudioContext.currentTime. If 0 is passed in for this value or if the value is less than currentTime, then the sound will stop playing immediately. stop must only be called one time and only after a call to start or stop, or an exception will be thrown.
      */
-    stop(when: number): void;
+    stop(when?: number): void;
 }
 
 /*
