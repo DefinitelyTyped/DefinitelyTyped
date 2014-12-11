@@ -15,7 +15,7 @@ declare module dojo {
      * @param url The URL to request.     
      * @param options       OptionalOptions for the request.     
      */
-    interface request{(url: String, options?: dojo.request.__Options): void}
+    interface request { (url: String, options?: dojo.request.__Options): void }
     interface request {
         /**
          * Send an HTTP DELETE request using the default transport for the current platform.
@@ -54,7 +54,7 @@ declare module dojo {
          * 
          * @param response     
          */
-        interface handlers{(response: any): void}
+        interface handlers { (response: any): void }
         interface handlers {
             /**
              * 
@@ -75,7 +75,7 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface iframe{(url: String, options?: dojo.request.iframe.__Options): void}
+        interface iframe { (url: String, options?: dojo.request.iframe.__Options): void }
         interface iframe {
             /**
              * 
@@ -230,7 +230,7 @@ declare module dojo {
          * @param type       OptionalThe event to listen for. Events emitted: "start", "send","load", "error", "done", "stop".     
          * @param listener       OptionalA callback to be run when an event happens.     
          */
-        interface notify{(type?: String, listener?: Function): void}
+        interface notify { (type?: String, listener?: Function): void }
         interface notify {
             /**
              * 
@@ -251,7 +251,7 @@ declare module dojo {
          * @param url     
          * @param options     
          */
-        interface registry{(url: any, options: any): void}
+        interface registry { (url: any, options: any): void }
         interface registry {
             /**
              * 
@@ -282,7 +282,7 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface node{(url: String, options?: dojo.request.node.__Options): void}
+        interface node { (url: String, options?: dojo.request.node.__Options): void }
         interface node {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
@@ -446,7 +446,7 @@ declare module dojo {
          * 
          * @param dfd The Deferred object to watch.     
          */
-        interface watch{(dfd: dojo.Deferred): void}
+        interface watch { (dfd: dojo.Deferred): void }
         interface watch {
             /**
              * Function used to check if basic IO call worked. Gets the dfd
@@ -484,7 +484,7 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface script{(url: String, options?: dojo.request.script.__Options): void}
+        interface script { (url: String, options?: dojo.request.script.__Options): void }
         interface script {
             /**
              * Send an HTTP GET request using a script element with the given URL and options.
@@ -644,7 +644,7 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface xhr{(url: String, options?: dojo.request.xhr.__Options): void}
+        interface xhr { (url: String, options?: dojo.request.xhr.__Options): void }
         interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
@@ -1084,7 +1084,7 @@ declare module dojo {
      * 
      * @param returnWrappers       Optional    
      */
-    interface AdapterRegistry{(returnWrappers?: boolean): void}
+    interface AdapterRegistry { (returnWrappers?: boolean): void }
     interface AdapterRegistry {
         /**
          * 
@@ -1145,7 +1145,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: String, url: String, value?: String): void}
+    interface cache { (module: String, url: String, value?: String): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1167,7 +1167,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: Object, url: String, value?: String): void}
+    interface cache { (module: Object, url: String, value?: String): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1189,7 +1189,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: String, url: String, value?: Object): void}
+    interface cache { (module: String, url: String, value?: Object): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1211,7 +1211,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: Object, url: String, value?: Object): void}
+    interface cache { (module: Object, url: String, value?: Object): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cookie.html
      *
@@ -1223,7 +1223,7 @@ declare module dojo {
      * @param value       OptionalValue for the cookie     
      * @param props       OptionalProperties for the cookie     
      */
-    interface cookie{(name: String, value?: String, props?: Object): void}
+    interface cookie { (name: String, value?: String, props?: Object): void }
     interface cookie {
         /**
          * Use to determine if the current browser supports cookies or not.
@@ -1245,7 +1245,7 @@ declare module dojo {
      * 
      * @param callback     
      */
-    interface domReady{(callback: any): void}
+    interface domReady { (callback: any): void }
     interface domReady {
         /**
          * 
@@ -1271,7 +1271,7 @@ declare module dojo {
      * @param hash       Optionalthe hash is set - #string.     
      * @param replace       OptionalIf true, updates the hash value in the current historystate instead of creating a new history state.     
      */
-    interface hash{(hash?: String, replace?: boolean): void}
+    interface hash { (hash?: String, replace?: boolean): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
      *
@@ -1281,7 +1281,7 @@ declare module dojo {
      * 
      * @param name The name (if a string) or identifier (if an integer) of the feature to test.     
      */
-    interface has{(name: String): void}
+    interface has { (name: String): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
      *
@@ -1291,7 +1291,7 @@ declare module dojo {
      * 
      * @param name The name (if a string) or identifier (if an integer) of the feature to test.     
      */
-    interface has{(name: number): void}
+    interface has { (name: number): void }
     interface has {
         /**
          * 
@@ -1349,21 +1349,21 @@ declare module dojo {
      * Returns has() method;
      * 
      */
-    interface hccss{(): void}
+    interface hccss { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-data.html
      *
      * Adds data() and removeData() methods to NodeList, and returns NodeList constructor.
      * 
      */
-    interface NodeList_data{(): void}
+    interface NodeList_data { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-html.html
      *
      * Adds a chainable html method to dojo/query() / NodeList instances for setting/replacing node content
      * 
      */
-    interface NodeList_html{(): void}
+    interface NodeList_html { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-fx.html
      *
@@ -1371,7 +1371,7 @@ declare module dojo {
      * with additional FX functions.  NodeList is the array-like object used to hold query results.
      * 
      */
-    interface NodeList_fx{(): void}
+    interface NodeList_fx { (): void }
     interface NodeList_fx {
         /**
          * fade all elements of the node list to a specified opacity
@@ -1415,7 +1415,7 @@ declare module dojo {
      * Adds DOM related methods to NodeList, and returns NodeList constructor.
      * 
      */
-    interface NodeList_dom{(): void}
+    interface NodeList_dom { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-manipulate.html
      *
@@ -1423,14 +1423,14 @@ declare module dojo {
      * and DOM nodes and their properties.
      * 
      */
-    interface NodeList_manipulate{(): void}
+    interface NodeList_manipulate { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-traverse.html
      *
      * Adds chainable methods to dojo/query() / NodeList instances for traversing the DOM
      * 
      */
-    interface NodeList_traverse{(): void}
+    interface NodeList_traverse { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1464,7 +1464,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: HTMLElement, type: String, listener: Function, dontFix: any): void}
+    interface on { (target: HTMLElement, type: String, listener: Function, dontFix: any): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1498,7 +1498,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: Object, type: String, listener: Function, dontFix: any): void}
+    interface on { (target: Object, type: String, listener: Function, dontFix: any): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1532,7 +1532,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: HTMLElement, type: Function, listener: Function, dontFix: any): void}
+    interface on { (target: HTMLElement, type: Function, listener: Function, dontFix: any): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1566,7 +1566,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: Object, type: Function, listener: Function, dontFix: any): void}
+    interface on { (target: Object, type: String, listener: Function, dontFix?: any): { remove: { (): void } } }
     interface on {
         /**
          * 
@@ -1905,13 +1905,13 @@ declare module dojo {
          * @param type             
          * @param event             
          */
-        emit(type: any, event: any): any;
+        emit(type: String, data: any): any;
         /**
          * 
          * @param type             
          * @param listener             
          */
-        on(type: any, listener: any): any;
+        on(type: String, listener: {(e:any):void}): {remove: {():void}};
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList.html
@@ -3199,7 +3199,7 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare { (className?: String, superclass?: Function, props?: Object): any}
+        interface declare { (className?: String, superclass?: any, props?: Object): any}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
          *
@@ -3274,7 +3274,7 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare{(className?: String, superclass?: Function[], props?: Object): any}
+        interface declare{(className?: String, superclass?: any[], props?: Object): any}
         interface declare {
             /**
              * Mix in properties skipping a constructor and decorating functions
@@ -4952,7 +4952,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: any[], callback: Function, thisObject: Object): void;
+            forEach(arr: any[], callback: Function, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -4967,7 +4967,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: String, callback: Function, thisObject: Object): void;
+            forEach(arr: String, callback: Function, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -4982,7 +4982,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: any[], callback: String, thisObject: Object): void;
+            forEach(arr: any[], callback: String, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -4997,7 +4997,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: String, callback: String, thisObject: Object): void;
+            forEach(arr: String, callback: String, thisObject?: Object): void;
             /**
              * locates the first index of the provided value in the
              * passed array. If the value is not found, -1 is returned.
@@ -9748,7 +9748,7 @@ declare module dojo {
                  *       </div>
                  *     </div>
                  *   </div>
-                 * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/_base/kernel.back" class="feedback">Error in the documentation? Canâ€™t find what you are looking for? Let us know!</a>
+                 * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/_base/kernel.back" class="feedback">Error in the documentation? Can’t find what you are looking for? Let us know!</a>
                  */
                 init(): void;
             }
@@ -13706,6 +13706,8 @@ declare module dojo {
              * 
              */
             "map": Object;
+
+            node: HTMLElement;
             /**
              * 
              */
@@ -13854,6 +13856,8 @@ declare module dojo {
                  * 
                  */
                 creator(): void;
+
+
             }
         }
 
@@ -18365,7 +18369,7 @@ declare module dojo {
          *       </div>
          *     </div>
          *   </div>
-         * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/back" class="feedback">Error in the documentation? Canâ€™t find what you are looking for? Let us know!</a>
+         * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/back" class="feedback">Error in the documentation? Can’t find what you are looking for? Let us know!</a>
          */
         init(): void;
     }
@@ -25075,7 +25079,7 @@ declare module dojo {
              *       </div>
              *     </div>
              *   </div>
-             * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/main.back" class="feedback">Error in the documentation? Canâ€™t find what you are looking for? Let us know!</a>
+             * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/main.back" class="feedback">Error in the documentation? Can’t find what you are looking for? Let us know!</a>
              */
             init(): void;
         }
