@@ -68,6 +68,8 @@ declare module createjs {
     export class BitmapText extends DisplayObject {
         constructor(text?:string, spriteSheet?:SpriteSheet);
 
+        static maxPoolSize: number;
+
         // properties
         letterSpacing: number;
         lineHeight: number;
@@ -102,6 +104,7 @@ declare module createjs {
         overLabel: any; // String or Number
         play: boolean;
         target: DisplayObject; // MovieClip or Sprite
+        enabled: boolean;
 
         // methods
         setEnabled(value: boolean): void;
@@ -137,9 +140,10 @@ declare module createjs {
         clone(): ColorMatrix;
         concat(...matrix: number[]): ColorMatrix;
         concat(matrix: ColorMatrix): ColorMatrix;
-        copyMatrix(...matrix: number[]): ColorMatrix;
-        copyMatrix(matrix: ColorMatrix): ColorMatrix;
+        copy(...matrix: number[]): ColorMatrix;
+        copy(matrix: ColorMatrix): ColorMatrix;
         reset(): ColorMatrix;
+        setColor( brightness: number, contrast: number, saturation: number, hue: number ): ColorMatrix;
         toArray(): number[];
         toString(): string;
     }
@@ -147,6 +151,9 @@ declare module createjs {
     export class ColorMatrixFilter extends Filter {
         constructor(matrix: number[]);
         constructor(matrix: ColorMatrix);
+
+        // properties
+        matrix: ColorMatrix;    // or array
 
         // methods
         clone(): ColorMatrixFilter;
@@ -164,6 +171,7 @@ declare module createjs {
         // properties
         children: DisplayObject[];
         mouseChildren: boolean;
+        numChildren: number;
         tickChildren: boolean;
 
         // methods
@@ -175,7 +183,7 @@ declare module createjs {
         getChildAt(index: number): DisplayObject;
         getChildByName(name: string): DisplayObject;
         getChildIndex(child: DisplayObject): number;
-        getNumChildren(): number;
+        getNumChildren(): number;   // deprecated - use numChildren property instead.
         getObjectsUnderPoint(x: number, y: number): DisplayObject[];
         getObjectUnderPoint(x: number, y: number): DisplayObject;
         removeAllChildren(): void;
@@ -217,8 +225,10 @@ declare module createjs {
          * @deprecated
          */
         snapToPixel: boolean;
+        stage: Stage;
         static suppressCrossDomainErrors: boolean;
         tickEnabled: boolean;
+        transformMatrix: Matrix2D;
         visible: boolean;
         x: number;
         y: number;
@@ -229,9 +239,10 @@ declare module createjs {
         draw(ctx: CanvasRenderingContext2D, ignoreCache?: boolean): boolean;
         getBounds(): Rectangle;
         getCacheDataURL(): string;
+        getConcatenatedDisplayProps(props?: DisplayProps): DisplayProps;
         getConcatenatedMatrix(mtx?: Matrix2D): Matrix2D;
         getMatrix(matrix?: Matrix2D): Matrix2D;
-        getStage(): Stage;
+        getStage(): Stage;  // deprecated
         getTransformedBounds(): Rectangle;
         globalToLocal(x: number, y: number): Point;
         hitTest(x: number, y: number): boolean;
@@ -246,6 +257,25 @@ declare module createjs {
         updateContext(ctx: CanvasRenderingContext2D): void;
         
     }
+
+    export class DisplayProps {
+        constructor(visible?: number, alpha?: number, shadow?: number, compositeOperation?: number, matrix?: number);
+
+        // properties
+        alpha: number;
+        compositeOperation: string;
+        matrix: Matrix2D;
+        shadow: Shadow;
+        visible: boolean;
+
+        // methods
+        append(visible: boolean, alpha: number, shadow: Shadow, compositeOperation: string, matrix?: Matrix2D): DisplayProps;
+        clone(): DisplayProps;
+        identity(): DisplayProps;
+        prepend(visible: boolean, alpha: number, shadow: Shadow, compositeOperation: string, matrix?: Matrix2D): DisplayProps;
+        setValues(visible?: boolean, alpha?: number, shadow?: number, compositeOperation?: number, matrix?: number): DisplayProps;
+    }
+
 
     export class DOMElement extends DisplayObject {
         constructor(htmlElement: HTMLElement);
@@ -279,13 +309,33 @@ declare module createjs {
     export class Graphics {
         constructor();
 
+        // Graphics commands
+        static Arc: GraphicsArc;
+        static ArcTo: GraphicsArcTo;
+        static BeginPath: GraphicsBeginPath;
+        static BezierCurveTo: GraphicsBezierCurveTo;
+        static Circle: GraphicsCircle;
+        static ClosePath: GraphicsClosePath;
+        static Fill: GraphicsFill;
+        static LineTo: GraphicsLineTo;
+        static MoveTo: GraphicsMoveTo;
+        static PolyStar: GraphicsPolyStar;
+        static QuadraticCurveTo: GraphicsQuadraticCurveTo;
+        static Rect: GraphicsRect;
+        static RoundRect: GraphicsRoundRect;
+        static Stroke: GraphicsStroke;
+        static StrokeStyle: GraphicsStrokeStyle;
+
         // properties
         static BASE_64: Object;
-        static Command: any;
+        static beginCmd: GraphicsBeginPath;
+        command: Object;
+        instructions: Object[]; // array of graphics command objects (Graphics.Fill, etc)
         static STROKE_CAPS_MAP: string[];
         static STROKE_JOINTS_MAP: string[];
 
         // methods
+        append(command: Object, clean: boolean): Graphics;
         arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean): Graphics;
         arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
         beginBitmapFill(image: Object, repetition?: string, matrix?: Matrix2D): Graphics;
@@ -300,7 +350,7 @@ declare module createjs {
         clear(): Graphics;
         clone(): Graphics;
         closePath(): Graphics;
-        curveTo (cpx: number, cpy: number, x: number, y: number): Graphics;
+        curveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
         decodePath(str: string): Graphics;
         draw(ctx: CanvasRenderingContext2D): void;
         drawAsPath(ctx: CanvasRenderingContext2D): void;
@@ -314,7 +364,7 @@ declare module createjs {
         endStroke(): Graphics;
         static getHSL(hue: number, saturation: number, lightness: number, alpha?: number): string;
         static getRGB(r: number, g: number, b: number, alpha?: number): string;
-        inject(callback: (data: any) => any,  data: any): Graphics;
+        inject(callback: (data: any) => any,  data: any): Graphics; // deprecated
         isEmpty(): boolean;
         lineTo(x: number, y: number): Graphics;
         moveTo(x: number, y: number): Graphics;
@@ -324,7 +374,9 @@ declare module createjs {
         setStrokeStyle(thickness: number, caps?: number, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;
         setStrokeStyle(thickness: number, caps?: string, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
         setStrokeStyle(thickness: number, caps?: number, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        store(): Graphics;
         toString(): string;
+        unstore(): Graphics;
 
 
         // tiny API - short forms of methods above
@@ -360,42 +412,202 @@ declare module createjs {
         ss(thickness: number, caps?: number, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
     }
 
+
+    export class GraphicsArc
+        {
+        constructor(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: number);
+
+        // properties
+        anticlockwise: number;
+        endAngle: number;
+        radius: number;
+        startAngle: number;
+        x: number;
+        y: number;
+        }
+
+    export class GraphicsArcTo
+        {
+        constructor(x1: number, y1: number, x2: number, y2: number, radius: number);
+
+        // properties
+        x1: number;
+        y1: number;
+        x2: number;
+        y2: number;
+        radius: number;
+        }
+
+    export class GraphicsBeginPath
+        {
+
+        }
+
+    export class GraphicsBezierCurveTo
+        {
+        constructor(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number);
+
+        // properties
+        cp1x: number;
+        cp1y: number;
+        cp2x: number;
+        cp2y: number;
+        x: number;
+        y: number;
+        }
+
+    export class GraphicsCircle
+        {
+        constructor(x: number, y: number, radius: number);
+
+        // properties
+        x: number;
+        y: number;
+        radius: number;
+        }
+
+    export class GraphicsClosePath
+        {
+
+        }
+
+    export class GraphicsFill
+        {
+        constructor(style: Object, matrix: Matrix2D);
+
+        // properties
+        style: Object;
+        matrix: Matrix2D;
+
+        // methods
+        bitmap(image: HTMLImageElement, repetition?: string): GraphicsFill;
+        linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): GraphicsFill;
+        radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): GraphicsFill;
+        }
+
+    export class GraphicsLineTo
+        {
+        constructor(x: number, y: number);
+
+        // properties
+        x: number;
+        y: number;
+        }
+
+    export class GraphicsMoveTo
+        {
+        constructor(x: number, y: number);
+
+        x: number;
+        y: number;
+        }
+
+    export class GraphicsPolyStar
+        {
+        constructor(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number);
+
+        // properties
+        angle: number;
+        pointSize: number;
+        radius: number;
+        sides: number;
+        x: number;
+        y: number;
+        }
+
+    export class GraphicsQuadraticCurveTo
+        {
+        constructor(cpx: number, cpy: number, x: number, y: number);
+
+        // properties
+        cpx: number;
+        cpy: number;
+        x: number;
+        y: number;
+        }
+
+    export class GraphicsRect
+        {
+        constructor(x: number, y: number, w: number, h: number);
+
+        // properties
+        x: number;
+        y: number;
+        w: number;
+        h: number;
+        }
+
+    export class GraphicsRoundRect
+        {
+        constructor(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radiusBL: number);
+
+        // properties
+        x: number;
+        y: number;
+        w: number;
+        h: number;
+        radiusTL: number;
+        radiusTR: number;
+        radiusBR: number;
+        radiusBL: number;
+        }
+
+    export class GraphicsStroke
+        {
+        constructor(style: Object, ignoreScale: boolean);
+
+        // properties
+        style: Object;
+        ignoreScale: boolean;
+
+        // methods
+        bitmap(image: HTMLImageElement, repetition?: string): GraphicsStroke;
+        linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): GraphicsStroke;
+        radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): GraphicsStroke;
+        }
+
+    export class GraphicsStrokeStyle
+        {
+        constructor(width: number, caps: string, joints: number, miterLimit: number);
+
+        // properties
+        caps: string;
+        joints: string;
+        miterLimit: number;
+        width: number;
+        }
+
     export class Matrix2D {
         constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
 
         // properties
         a: number;
-        alpha: number;
         b: number;
         c: number;
-        compositeOperation: string;
         d: number;
         static DEG_TO_RAD: number;
         static identity: Matrix2D;
-        shadow: Shadow;
         tx: number;
         ty: number;
 
         // methods
         append(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         appendMatrix(matrix: Matrix2D): Matrix2D;
-        appendProperties(alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
         appendTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
         clone(): Matrix2D;
         copy(matrix: Matrix2D): Matrix2D;
         decompose(): {x: number; y: number; scaleX: number; scaleY: number; rotation: number; skewX: number; skewY: number};
         decompose(target: Object): Matrix2D;
+        equals(matrix: Matrix2D): boolean;
         identity(): Matrix2D;
-        initialize(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
         invert(): Matrix2D;
         isIdentity(): boolean;
         prepend(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         prependMatrix(matrix: Matrix2D): Matrix2D;
-        prependProperties(alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
         prependTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
-        reinitialize(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number, alpha?: number, shadow?: Shadow, compositeOperation?: string): Matrix2D;
         rotate(angle: number): Matrix2D;
         scale(x: number, y: number): Matrix2D;
+        setValues(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
         skew(skewX: number, skewY: number): Matrix2D;
         toString(): string;
         transformPoint(x: number, y: number, pt?: Point): Point;
