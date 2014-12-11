@@ -23,10 +23,11 @@ declare module SocketIOClient {
     interface Socket {
         on(event: string, fn: Function): Socket;
         once(event: string, fn: Function): Socket;
-        off(event: string, fn: Function): Socket;
+        off(event?: string, fn?: Function): Socket;
         emit(event: string, ...args: any[]): Socket;
         listeners(event: string): Function[];
         hasListeners(event: string): boolean;
+        connected: boolean;
     }
 
     interface ManagerStatic {
