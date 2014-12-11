@@ -18,6 +18,9 @@ function test3() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.send(['hello', 'world']);
+    sock.on('message', function (buffer: Buffer) {
+        //
+    });
 }
 
 function test4() {
