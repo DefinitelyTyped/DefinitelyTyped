@@ -333,7 +333,7 @@ declare module DevExpress  {
             createQuery(): Query;
         }
         interface Promise {
-            then(doneFn?: Function, failFn?: Function, progressFn?: Function);
+            then(doneFn?: Function, failFn?: Function, progressFn?: Function) => Promise;
         }        
         export interface CustomStoreOptions extends StoreOptions {
             /** The user implementation of the byKey(key, extraOptions) method. */
