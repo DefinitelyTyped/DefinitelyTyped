@@ -1,6 +1,6 @@
-/// <reference path="timezonecomplete.d.ts" />
+/// <reference path="timezonecomplete-1.10.0.d.ts" />
 
-import tc = require("timezonecomplete");
+import tc = require("timezonecomplete-1.10.0");
 
 var b: boolean;
 var n: number;
@@ -164,7 +164,6 @@ dt = dt.max(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
-dt = dt.startOfDay();
 
 var wd: tc.WeekDay;
 wd = dt.weekDay();
