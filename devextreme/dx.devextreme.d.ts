@@ -332,24 +332,27 @@ declare module DevExpress  {
             /** Creates the Query object for the underlying array. */
             createQuery(): Query;
         }
+        interface Promise {
+            then(doneFn?: Function, failFn?: Function, progressFn?: Function);
+        }        
         export interface CustomStoreOptions extends StoreOptions {
             /** The user implementation of the byKey(key, extraOptions) method. */
-            byKey?: (key: any) => JQueryPromise<any>;
+            byKey?: (key: any) => Promise;
             /**
              * User implementation of the byKey(key, extraOptions) method.
              * @deprecated Use "byKey" instead
              */
-            lookup?: (key: any) => JQueryPromise<any>;
+            lookup?: (key: any) => Promise;
             /** The user implementation of the insert(values) method. */
-            insert?: (values: Object) => JQueryPromise<any>;
+            insert?: (values: Object) => Promise;
             /** The user implementation of the load(options) method. */
-            load?: (options?: LoadOptions) => JQueryPromise<any>;
+            load?: (options?: LoadOptions) => Promise;
             /** The user implementation of the remove(key) method. */
-            remove?: (key: any) => JQueryPromise<any>;
+            remove?: (key: any) => Promise;
             /** The user implementation of the totalCount(options) method. */
-            totalCount?: () => JQueryPromise<number>;
+            totalCount?: () => Promise;
             /** The user implementation of the update(key, values) method. */
-            update?: (key: any, values: Object) => JQueryPromise<any>;
+            update?: (key: any, values: Object) => Promise;
         }
         /** A Store object that enables you to implement your own data access logic. */
         export class CustomStore extends Store {
