@@ -43,7 +43,7 @@ declare module createjs {
         
         // properties
         defaultNumChannels: number;
-        enableIOS: boolean;
+        enableIOS: boolean;     // deprecated
         static MAX_INSTANCES: number;
         
         // methods
@@ -131,8 +131,10 @@ declare module createjs {
         
         // properties
         gainNode: any;
+        loop: number;
         pan: number;
         panNode: any;
+        paused: boolean;
         playState: string;
         sourceNode: any;
         src: string;
@@ -177,7 +179,7 @@ declare module createjs {
         isPreloadComplete(src: string): boolean;
         isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
-        playEmptySound(): void;
+        static playEmptySound(): void;
         preload(src: string, instance: Object): void;
         register(src: string, instances: number): Object;
         removeAllSounds(src: string): void;
