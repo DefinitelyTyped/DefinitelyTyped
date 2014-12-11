@@ -1,5 +1,4 @@
 /// <reference path='zmq.d.ts' />
-/// <reference path='../node/node-0.11.d.ts' />
 
 import zmq = require('zmq');
 
