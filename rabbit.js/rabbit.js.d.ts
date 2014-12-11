@@ -1,6 +1,6 @@
 // Type definitions for rabbit.js v0.4.2
 // Project: https://github.com/squaremo/rabbit.js
-// Definitions by: ryiwamoto <https://github.com/wokim>
+// Definitions by: Wonshik Kim <https://github.com/wokim>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
