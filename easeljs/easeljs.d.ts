@@ -670,8 +670,11 @@ declare module createjs {
         autoReset: boolean;
         static buildDate: string;
         currentFrame: number;
+        currentLabel: string;
         frameBounds: Rectangle[];
+        framerate: number;
         static INDEPENDENT: string;
+        labels: Object[];
         loop: boolean;
         mode: string;
         paused: boolean;
@@ -682,9 +685,10 @@ declare module createjs {
         static version: string;
 
         // methods
+        advance(time?: number);
         clone(): MovieClip; // not supported
-        getCurrentLabel(): string;
-        getLabels(): Object[];
+        getCurrentLabel(): string;  // deprecated
+        getLabels(): Object[];      // deprecated
         gotoAndPlay(positionOrLabel: string): void;
         gotoAndPlay(positionOrLabel: number): void;
         gotoAndStop(positionOrLabel: string): void;
@@ -710,7 +714,7 @@ declare module createjs {
         // methods
         clone(): Point;
         copy(point: Point): Point;
-        initialize (x?: number, y?: number): Point;
+        setValues(x?: number, y?: number): Point;
         toString(): string;
     }
 
@@ -725,9 +729,15 @@ declare module createjs {
 
         // methods
         clone(): Rectangle;
+        contains(x: number, y: number, width?: number, height?: number): boolean;
         copy(rectangle: Rectangle): Rectangle;
-        initialize(x?: number, y?: number, width?: number, height?: number): Rectangle;
+        extend(x: number, y: number, width?: number, height?: number): Rectangle;
+        intersection(rect: Rectangle): Rectangle;
+        intersects(rect: Rectangle): boolean;
+        isEmpty(): boolean;
+        setValues(x?: number, y?: number, width?: number, height?: number): Rectangle;
         toString(): string;
+        union(rect: Rectangle): Rectangle;
     }
 
 
@@ -791,6 +801,13 @@ declare module createjs {
         
     }
 
+    export class SpriteContainer extends Container
+        {
+        constructor(spriteSheet?: SpriteSheet);
+
+        spriteSheet: SpriteSheet;
+        }
+
     // what is returned from SpriteSheet.getAnimation(string)
     interface SpriteSheetAnimation {
         frames: number[];
@@ -809,6 +826,7 @@ declare module createjs {
         constructor(data: Object);
 
         // properties
+        animations: string[];
         complete: boolean;
         framerate: number;
         
@@ -842,8 +860,6 @@ declare module createjs {
         buildAsync(timeSlice?: number): void;
         clone(): void; // throw error
         stopAsync(): void;
-
-
     }
 
     export class SpriteSheetUtils {
@@ -859,6 +875,25 @@ declare module createjs {
         static mergeAlpha(rgbImage: HTMLImageElement, alphaImage: HTMLImageElement, canvas?: HTMLCanvasElement): HTMLCanvasElement; // deprecated
     }
 
+    export class SpriteStage extends Stage
+        {
+        constructor(canvas: HTMLCanvasElement, preserveDrawingBuffer?: boolean, antialias?: boolean);
+        constructor(canvas: string, preserveDrawingBuffer?: boolean, antialias?: boolean);
+
+        // properties
+        static INDICES_PER_BOX: number;
+        isWebGL: boolean;
+        static MAX_BOXES_POINTS_INCREMENT: number;
+        static MAX_INDEX_SIZE: number;
+        static NUM_VERTEX_PROPERTIES: number;
+        static NUM_VERTEX_PROPERTIES_PER_BOX: number;
+        static POINTS_PER_BOX: number;
+
+        // methods
+        clearImageTexture(image);
+        updateViewport(width: number, height: number);
+        }
+
     export class Stage extends Container {
         constructor(canvas: HTMLCanvasElement);
         constructor(canvas: string);
@@ -867,6 +902,7 @@ declare module createjs {
         // properties
         autoClear: boolean;
         canvas: any; // HTMLCanvasElement or Object
+        drawRect: Rectangle;
         handleEvent: Function;
         mouseInBounds: boolean;
         mouseMoveOutside: boolean;
@@ -876,6 +912,7 @@ declare module createjs {
         /**
          * @deprecated
          */
+        preventSelection: boolean;
         snapToPixelEnabled: boolean;  // deprecated
         tickOnUpdate: boolean;
         
@@ -909,13 +946,17 @@ declare module createjs {
         getMeasuredHeight(): number;
         getMeasuredLineHeight(): number;
         getMeasuredWidth(): number;
+        getMetrics(): Object;
         set(props: Object): Text;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Text;
     }
 
     export class Ticker {
         // properties
+        static framerate: number;
+        static interval: number;
         static maxDelta: number;
+        static paused: number;
         static RAF: string;
         static RAF_SYNCHED: string;
         static TIMEOUT: string;
@@ -927,18 +968,18 @@ declare module createjs {
 
         // methods
         static getEventTime(runTime?: boolean): number;
-        static getFPS(): number;
-        static getInterval(): number;
+        static getFPS(): number;    // deprecated
+        static getInterval(): number;   // deprecated
         static getMeasuredFPS(ticks?: number): number;
         static getMeasuredTickTime(ticks?: number): number;
-        static getPaused(): boolean;
+        static getPaused(): boolean;    // deprecated
         static getTicks(pauseable?: boolean): number;
         static getTime(runTime?: boolean): number;
         static init(): void;
         static reset(): void;
-        static setFPS(value: number): void;
-        static setInterval(interval: number): void;
-        static setPaused(value: boolean): void;
+        static setFPS(value: number): void; // deprecated
+        static setInterval(interval: number): void; // deprecated
+        static setPaused(value: boolean): void; // deprecated
 
         // EventDispatcher mixins
         static addEventListener(type: string, listener: Stage, useCapture?: boolean): Stage;
