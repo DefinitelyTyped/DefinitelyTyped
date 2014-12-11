@@ -1,4 +1,4 @@
-﻿// Type definitions for stripe
+// Type definitions for stripe
 // Project: https://stripe.com/
 // Definitions by: Eric J. Smith <https://github.com/ejsmith/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,6 +10,7 @@ interface StripeStatic {
     validateCVC(cardCVC: string): boolean;
     cardType(cardNumber: string): string;
     getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void);
+    card: StripeCardData;
 }
 
 interface StripeTokenData {
@@ -56,6 +57,7 @@ interface StripeCardData {
     address_state?: string;
     address_zip?: string;
     address_country?: string;
+
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void);
 }
 
