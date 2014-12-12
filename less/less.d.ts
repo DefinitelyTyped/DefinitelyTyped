@@ -3,7 +3,7 @@
 // Definitions by: AndrewGaspar <https://github.com/AndrewGaspar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "less" {
+declare module less {
     class LessError {
         constructor(e: Error, env);
 
