@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS 2.44.0
+// Type definitions for Selenium WebDriverJS 2.39.0
 // Project: https://code.google.com/p/selenium/
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,9 +11,19 @@ declare module webdriver {
          * A hash describing log preferences.
          * @typedef {Object.<webdriver.logging.Type, webdriver.logging.LevelName>}
          */
-        class Preferences {
-            setLevel(type: string, level: Level): void;
-            toJSON(): any;
+        var Preferences: any;
+
+        /**
+         * Log level names from WebDriver's JSON wire protocol.
+         * @enum {string}
+         */
+        class LevelName {
+            static ALL: string;
+            static DEBUG: string;
+            static INFO: string;
+            static WARNING: string;
+            static SEVERE: string;
+            static OFF: string;
         }
 
         /**
@@ -67,13 +77,6 @@ declare module webdriver {
          */
         function getLevel(nameOrValue: string): webdriver.logging.Level;
         function getLevel(nameOrValue: number): webdriver.logging.Level;
-
-        interface IEntryJSON {
-            level: string;
-            message: string;
-            timestamp: number;
-            type: string;
-        }
 
         /**
          * A single log entry.
@@ -131,267 +134,15 @@ declare module webdriver {
              * @return {{level: string, message: string, timestamp: number,
              *           type: string}} The JSON representation of this entry.
              */
-            toJSON(): webdriver.logging.IEntryJSON;
+            toJSON(): webdriver.logging.Level;
 
             //endregion
         }
     }
 
     module promise {
-        interface IThenable<T> {
-            /**
-             * Cancels the computation of this promise's value, rejecting the promise in the
-             * process. This method is a no-op if the promise has alreayd been resolved.
-             *
-             * @param {string=} opt_reason The reason this promise is being cancelled.
-             */
-            cancel(opt_reason?: string): void;
-
-
-            /** @return {boolean} Whether this promise's value is still being computed. */
-            isPending(): boolean;
-
-
-            /**
-             * Registers listeners for when this instance is resolved.
-             *
-             * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
-             *     function to call if this promise is successfully resolved. The function
-             *     should expect a single argument: the promise's resolved value.
-             * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
-             *     function to call if this promise is rejected. The function should expect
-             *     a single argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-             *     resolved with the result of the invoked callback.
-             * @template R
-             */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
-
-
-            /**
-             * Registers a listener for when this promise is rejected. This is synonymous
-             * with the {@code catch} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } catch (ex) {
-             *     console.error(ex);
-             *   }
-             *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenCatch(function(ex) {
-             *     console.error(ex);
-             *   });
-             * </code></pre>
-             *
-             * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
-             *     to call if this promise is rejected. The function should expect a single
-             *     argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-             *     resolved with the result of the invoked callback.
-             * @template R
-             */
-            thenCatch<R>(errback: (error: any) => any): Promise<R>;
-
-
-            /**
-             * Registers a listener to invoke when this promise is resolved, regardless
-             * of whether the promise's value was successfully computed. This function
-             * is synonymous with the {@code finally} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } finally {
-             *     cleanUp();
-             *   }
-             *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenFinally(cleanUp);
-             * </code></pre>
-             *
-             * <b>Note:</b> similar to the {@code finally} clause, if the registered
-             * callback returns a rejected promise or throws an error, it will silently
-             * replace the rejection error (if any) from this promise:
-             * <pre><code>
-             *   try {
-             *     throw Error('one');
-             *   } finally {
-             *     throw Error('two');  // Hides Error: one
-             *   }
-             *
-             *   webdriver.promise.rejected(Error('one'))
-             *       .thenFinally(function() {
-             *         throw Error('two');  // Hides Error: one
-             *       });
-             * </code></pre>
-             *
-             *
-             * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
-             *     to call when this promise is resolved.
-             * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
-             *     with the callback result.
-             * @template R
-             */
-            thenFinally<R>(callback: () => any): Promise<R>;
-        }
-
-        /**
-        * Thenable is a promise-like object with a {@code then} method which may be
-        * used to schedule callbacks on a promised value.
-        *
-        * @interface
-        * @template T
-        */
-        class Thenable<T> implements IThenable<T> {
-            /**
-             * Cancels the computation of this promise's value, rejecting the promise in the
-             * process. This method is a no-op if the promise has alreayd been resolved.
-             *
-             * @param {string=} opt_reason The reason this promise is being cancelled.
-             */
-            cancel(opt_reason?: string): void;
-
-
-            /** @return {boolean} Whether this promise's value is still being computed. */
-            isPending(): boolean;
-
-
-            /**
-             * Registers listeners for when this instance is resolved.
-             *
-             * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
-             *     function to call if this promise is successfully resolved. The function
-             *     should expect a single argument: the promise's resolved value.
-             * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
-             *     function to call if this promise is rejected. The function should expect
-             *     a single argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-             *     resolved with the result of the invoked callback.
-             * @template R
-             */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
-
-
-            /**
-             * Registers a listener for when this promise is rejected. This is synonymous
-             * with the {@code catch} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } catch (ex) {
-             *     console.error(ex);
-             *   }
-             *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenCatch(function(ex) {
-             *     console.error(ex);
-             *   });
-             * </code></pre>
-             *
-             * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
-             *     to call if this promise is rejected. The function should expect a single
-             *     argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-             *     resolved with the result of the invoked callback.
-             * @template R
-             */
-            thenCatch<R>(errback: (error: any) => any): Promise<R>;
-
-
-            /**
-             * Registers a listener to invoke when this promise is resolved, regardless
-             * of whether the promise's value was successfully computed. This function
-             * is synonymous with the {@code finally} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } finally {
-             *     cleanUp();
-             *   }
-             *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenFinally(cleanUp);
-             * </code></pre>
-             *
-             * <b>Note:</b> similar to the {@code finally} clause, if the registered
-             * callback returns a rejected promise or throws an error, it will silently
-             * replace the rejection error (if any) from this promise:
-             * <pre><code>
-             *   try {
-             *     throw Error('one');
-             *   } finally {
-             *     throw Error('two');  // Hides Error: one
-             *   }
-             *
-             *   webdriver.promise.rejected(Error('one'))
-             *       .thenFinally(function() {
-             *         throw Error('two');  // Hides Error: one
-             *       });
-             * </code></pre>
-             *
-             *
-             * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
-             *     to call when this promise is resolved.
-             * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
-             *     with the callback result.
-             * @template R
-             */
-            thenFinally<R>(callback: () => any): Promise<R>;
-
-            /**
-             * Adds a property to a class prototype to allow runtime checks of whether
-             * instances of that class implement the Thenable interface. This function will
-             * also ensure the prototype's {@code then} function is exported from compiled
-             * code.
-             * @param {function(new: webdriver.promise.Thenable, ...[?])} ctor The
-             *     constructor whose prototype to modify.
-             */
-            static addImplementation(ctor: Function): void;
-
-
-            /**
-             * Checks if an object has been tagged for implementing the Thenable interface
-             * as defined by {@link webdriver.promise.Thenable.addImplementation}.
-             * @param {*} object The object to test.
-             * @return {boolean} Whether the object is an implementation of the Thenable
-             *     interface.
-             */
-            static isImplementation(object: any): boolean;
-        }
 
         //region Functions
-
-        /**
-         * Given an array of promises, will return a promise that will be fulfilled
-         * with the fulfillment values of the input array's values. If any of the
-         * input array's promises are rejected, the returned promise will be rejected
-         * with the same reason.
-         *
-         * @param {!Array.<(T|!webdriver.promise.Promise.<T>)>} arr An array of
-         *     promises to wait on.
-         * @return {!webdriver.promise.Promise.<!Array.<T>>} A promise that is
-         *     fulfilled with an array containing the fulfilled values of the
-         *     input array, or rejected with the same reason as the first
-         *     rejected value.
-         * @template T
-         */
-        function all(arr: Promise<any>[]): Promise<any[]>;
-
-        /**
-         * Invokes the appropriate callback function as soon as a promised
-         * {@code value} is resolved. This function is similar to
-         * {@link webdriver.promise.when}, except it does not return a new promise.
-         * @param {*} value The value to observe.
-         * @param {Function} callback The function to call when the value is
-         *     resolved successfully.
-         * @param {Function=} opt_errback The function to call when the value is
-         *     rejected.
-         */
-        function asap(value: any, callback: Function, opt_errback?: Function): void;
 
         /**
          * @return {!webdriver.promise.ControlFlow} The currently active control flow.
@@ -407,7 +158,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise} A promise that resolves to the callback
          *     result.
          */
-        function createFlow<R>(callback: (flow: ControlFlow) => R): Promise<R>;
+        function createFlow(callback: (flow: webdriver.promise.ControlFlow) => any): webdriver.promise.Promise;
 
         /**
          * Determines whether a {@code value} should be treated as a promise.
@@ -419,82 +170,27 @@ declare module webdriver {
         function isPromise(value: any): boolean;
 
         /**
-         * Tests is a function is a generator.
-         * @param {!Function} fn The function to test.
-         * @return {boolean} Whether the function is a generator.
-         */
-        function isGenerator(fn: Function): boolean;
-
-        /**
          * Creates a promise that will be resolved at a set time in the future.
          * @param {number} ms The amount of time, in milliseconds, to wait before
          *     resolving the promise.
          * @return {!webdriver.promise.Promise} The promise.
          */
-        function delayed<T>(ms: number): Promise<T>;
-
-        /**
-         * Calls a function for each element in an array, and if the function returns
-         * true adds the element to a new array.
-         *
-         * <p>If the return value of the filter function is a promise, this function
-         * will wait for it to be fulfilled before determining whether to insert the
-         * element into the new array.
-         *
-         * <p>If the filter function throws or returns a rejected promise, the promise
-         * returned by this function will be rejected with the same reason. Only the
-         * first failure will be reported; all subsequent errors will be silently
-         * ignored.
-         *
-         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
-         *     array to iterator over, or a promise that will resolve to said array.
-         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): (
-         *             boolean|webdriver.promise.Promise.<boolean>)} fn The function
-         *     to call for each element in the array.
-         * @param {SELF=} opt_self The object to be used as the value of 'this' within
-         *     {@code fn}.
-         * @template TYPE, SELF
-         */
-        function filter<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>;
-        function filter<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+        function delayed(ms: number): webdriver.promise.Promise;
 
         /**
          * Creates a new deferred object.
+         * @param {Function=} opt_canceller Function to call when cancelling the
+         *     computation of this instance's value.
          * @return {!webdriver.promise.Deferred} The new deferred object.
          */
-        function defer<T>(): Deferred<T>;
+        function defer(opt_canceller?: any): webdriver.promise.Deferred;
 
         /**
          * Creates a promise that has been resolved with the given value.
          * @param {*=} opt_value The resolved value.
          * @return {!webdriver.promise.Promise} The resolved promise.
          */
-        function fulfilled<T>(opt_value?: T): Promise<T>;
-
-        /**
-         * Calls a function for each element in an array and inserts the result into a
-         * new array, which is used as the fulfillment value of the promise returned
-         * by this function.
-         *
-         * <p>If the return value of the mapping function is a promise, this function
-         * will wait for it to be fulfilled before inserting it into the new array.
-         *
-         * <p>If the mapping function throws or returns a rejected promise, the
-         * promise returned by this function will be rejected with the same reason.
-         * Only the first failure will be reported; all subsequent errors will be
-         * silently ignored.
-         *
-         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
-         *     array to iterator over, or a promise that will resolve to said array.
-         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): ?} fn The
-         *     function to call for each element in the array. This function should
-         *     expect three arguments (the element, the index, and the array itself.
-         * @param {SELF=} opt_self The object to be used as the value of 'this' within
-         *     {@code fn}.
-         * @template TYPE, SELF
-         */
-        function map<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
-        function map<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+        function fulfilled(opt_value?: any): webdriver.promise.Promise;
 
         /**
          * Creates a promise that has been rejected with the given reason.
@@ -502,7 +198,7 @@ declare module webdriver {
          *     usually an Error or a string.
          * @return {!webdriver.promise.Promise} The rejected promise.
          */
-        function rejected(opt_reason?: any): Promise<any>;
+        function rejected(opt_reason?: any): webdriver.promise.Promise;
 
         /**
          * Wraps a function that is assumed to be a node-style callback as its final
@@ -514,49 +210,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise} A promise that will be resolved with the
          *     result of the provided function's callback.
          */
-        function checkedNodeCall<T>(fn: Function, ...var_args): Promise<T>;
-
-        /**
-         * Consumes a {@code GeneratorFunction}. Each time the generator yields a
-         * promise, this function will wait for it to be fulfilled before feeding the
-         * fulfilled value back into {@code next}. Likewise, if a yielded promise is
-         * rejected, the rejection error will be passed to {@code throw}.
-         *
-         * <p>Example 1: the Fibonacci Sequence.
-         * <pre><code>
-         * webdriver.promise.consume(function* fibonacci() {
-         *   var n1 = 1, n2 = 1;
-         *   for (var i = 0; i < 4; ++i) {
-         *     var tmp = yield n1 + n2;
-         *     n1 = n2;
-         *     n2 = tmp;
-         *   }
-         *   return n1 + n2;
-         * }).then(function(result) {
-         *   console.log(result);  // 13
-         * });
-         * </code></pre>
-         *
-         * <p>Example 2: a generator that throws.
-         * <pre><code>
-         * webdriver.promise.consume(function* () {
-         *   yield webdriver.promise.delayed(250).then(function() {
-         *     throw Error('boom');
-         *   });
-         * }).thenCatch(function(e) {
-         *   console.log(e.toString());  // Error: boom
-         * });
-         * </code></pre>
-         *
-         * @param {!Function} generatorFn The generator function to execute.
-         * @param {Object=} opt_self The object to use as "this" when invoking the
-         *     initial generator.
-         * @param {...*} var_args Any arguments to pass to the initial generator.
-         * @return {!webdriver.promise.Promise.<?>} A promise that will resolve to the
-         *     generator's final result.
-         * @throws {TypeError} If the given function is not a generator.
-         */
-        function consume<T>(generatorFn: (...var_args) => T, opt_self?: any, ...var_args): Promise<T>;
+        function checkedNodeCall(fn: (error: any, value: any) => any): webdriver.promise.Promise;
 
         /**
          * Registers an observer on a promised {@code value}, returning a new promise
@@ -569,8 +223,19 @@ declare module webdriver {
          *     rejected.
          * @return {!webdriver.promise.Promise} A new promise.
          */
-        function when<T>(value: T, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<T>;
-        function when<T>(value: Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<T>;
+        function when(value: any, opt_callback?: (value: any) => any, opt_errback?: (error: any) => any): webdriver.promise.Promise;
+
+        /**
+         * Invokes the appropriate callback function as soon as a promised
+         * {@code value} is resolved. This function is similar to
+         * {@code webdriver.promise.when}, except it does not return a new promise.
+         * @param {*} value The value to observe.
+         * @param {Function} callback The function to call when the value is
+         *     resolved successfully.
+         * @param {Function=} opt_errback The function to call when the value is
+         *     rejected.
+         */
+        function asap(value: any, callback: (value: any) => any, opt_errback?: (error: any) => any): void;
 
         /**
          * Returns a promise that will be resolved with the input value in a
@@ -591,7 +256,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise} A promise for a fully resolved version
          *     of the input value.
          */
-        function fullyResolved<T>(value: T): Promise<T>;
+        function fullyResolved(value: any): webdriver.promise.Promise;
 
         /**
          * Changes the default flow to use when no others are active.
@@ -613,7 +278,7 @@ declare module webdriver {
          *
          * @see http://wiki.commonjs.org/wiki/Promises/A
          */
-        class Promise<T> implements IThenable<T> {
+        class Promise {
 
             //region Constructors
 
@@ -652,76 +317,71 @@ declare module webdriver {
              * @return {!webdriver.promise.Promise} A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<T>;
+            then(opt_callback?: (value: any) => any, opt_errback?: (error: any) => any): Promise;
+
+            /**
+             * Registers a function to be invoked when this promise is successfully
+             * resolved. This function is provided for backwards compatibility with the
+             * Dojo Deferred API.
+             *
+             * @param {Function} callback The function to call if this promise is
+             *     successfully resolved. The function should expect a single argument: the
+             *     promise's resolved value.
+             * @param {!Object=} opt_self The object which |this| should refer to when the
+             *     function is invoked.
+             * @return {!webdriver.promise.Promise} A new promise which will be resolved
+             *     with the result of the invoked callback.
+             */
+            addCallback(callback: (value: any) => any, opt_self?: any): Promise;
 
 
             /**
-             * Registers a listener for when this promise is rejected. This is synonymous
-             * with the {@code catch} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } catch (ex) {
-             *     console.error(ex);
-             *   }
+             * Registers a function to be invoked when this promise is rejected.
+             * This function is provided for backwards compatibility with the
+             * Dojo Deferred API.
              *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenCatch(function(ex) {
-             *     console.error(ex);
-             *   });
-             * </code></pre>
-             *
-             * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
-             *     to call if this promise is rejected. The function should expect a single
-             *     argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-             *     resolved with the result of the invoked callback.
-             * @template R
+             * @param {Function} errback The function to call if this promise is
+             *     rejected. The function should expect a single argument: the rejection
+             *     reason.
+             * @param {!Object=} opt_self The object which |this| should refer to when the
+             *     function is invoked.
+             * @return {!webdriver.promise.Promise} A new promise which will be resolved
+             *     with the result of the invoked callback.
              */
-            thenCatch(errback: (error: any) => any): Promise<T>;
-
+            addErrback(errback: (error: any) => any, opt_self?: any): Promise;
 
             /**
-             * Registers a listener to invoke when this promise is resolved, regardless
-             * of whether the promise's value was successfully computed. This function
-             * is synonymous with the {@code finally} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } finally {
-             *     cleanUp();
-             *   }
+             * Registers a function to be invoked when this promise is either rejected or
+             * resolved. This function is provided for backwards compatibility with the
+             * Dojo Deferred API.
              *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenFinally(cleanUp);
-             * </code></pre>
-             *
-             * <b>Note:</b> similar to the {@code finally} clause, if the registered
-             * callback returns a rejected promise or throws an error, it will silently
-             * replace the rejection error (if any) from this promise:
-             * <pre><code>
-             *   try {
-             *     throw Error('one');
-             *   } finally {
-             *     throw Error('two');  // Hides Error: one
-             *   }
-             *
-             *   webdriver.promise.rejected(Error('one'))
-             *       .thenFinally(function() {
-             *         throw Error('two');  // Hides Error: one
-             *       });
-             * </code></pre>
-             *
-             *
-             * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
-             *     to call when this promise is resolved.
-             * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
-             *     with the callback result.
-             * @template R
+             * @param {Function} callback The function to call when this promise is
+             *     either resolved or rejected. The function should expect a single
+             *     argument: the resolved value or rejection error.
+             * @param {!Object=} opt_self The object which |this| should refer to when the
+             *     function is invoked.
+             * @return {!webdriver.promise.Promise} A new promise which will be resolved
+             *     with the result of the invoked callback.
              */
-            thenFinally(callback: () => any): Promise<any>;
+            addBoth(callback : (value: any) => any, opt_self?: any): Promise;
+
+            /**
+             * An alias for {@code webdriver.promise.Promise.prototype.then} that permits
+             * the scope of the invoked function to be specified. This function is provided
+             * for backwards compatibility with the Dojo Deferred API.
+             *
+             * @param {Function} callback The function to call if this promise is
+             *     successfully resolved. The function should expect a single argument: the
+             *     promise's resolved value.
+             * @param {Function} errback The function to call if this promise is
+             *     rejected. The function should expect a single argument: the rejection
+             *     reason.
+             * @param {!Object=} opt_self The object which |this| should refer to when the
+             *     function is invoked.
+             * @return {!webdriver.promise.Promise} A new promise which will be resolved
+             *     with the result of the invoked callback.
+             */
+            addCallbacks(callback: (value: any) => any, errback: (error: any) => any, opt_self?: any): Promise;
 
             //endregion
         }
@@ -743,28 +403,21 @@ declare module webdriver {
          *
          * @extends {webdriver.promise.Promise}
          */
-        class Deferred<T> extends Promise<T> {
+        class Deferred extends Promise {
             //region Constructors
 
             /**
              *
+             * @param {Function=} opt_canceller Function to call when cancelling the
+             *     computation of this instance's value.
              * @param {webdriver.promise.ControlFlow=} opt_flow The control flow
              *     this instance was created under. This should only be provided during
              *     unit tests.
              * @constructor
              */
-            constructor(opt_flow?: ControlFlow);
+            constructor(opt_canceller?: any, opt_flow?: webdriver.promise.ControlFlow);
 
             //endregion
-
-            static State_: {
-                BLOCKED: number;
-                PENDING: number;
-                REJECTED: number;
-                RESOLVED: number;
-            }
-
-            static superClass_: any;
 
             //region Properties
 
@@ -773,7 +426,7 @@ declare module webdriver {
              * callback registering functions.
              * @type {!webdriver.promise.Promise}
              */
-            promise: Promise<T>;
+            promise: webdriver.promise.Promise;
 
             //endregion
 
@@ -794,7 +447,14 @@ declare module webdriver {
              * it before resolving.
              * @param {*=} opt_value The resolved value.
              */
-            fulfill(opt_value?: T): void;
+            fulfill(opt_value?: any): void;
+
+            /**
+             * Cancels the computation of this promise's value and flags the promise as a
+             * rejected value.
+             * @param {*=} opt_reason The reason for cancelling this promise.
+             */
+            cancel(opt_reason?: any): void;
 
             /**
              * Removes all of the listeners previously registered on this deferred.
