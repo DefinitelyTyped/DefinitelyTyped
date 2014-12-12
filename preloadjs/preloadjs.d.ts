@@ -17,9 +17,12 @@
 declare module createjs {
     export class AbstractLoader extends EventDispatcher {
         // properties
+        static ABSOLUTE_PATH: RegExp;
         canceled: boolean;
+        static EXTENSION_PATT: RegExp;
         loaded: boolean;
         progress: number;
+        static RELATIVE_PATH: RegExp;
         
         // methods
         buildPath(src: string, data?: Object): string;
