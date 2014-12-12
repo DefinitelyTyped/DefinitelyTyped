@@ -27,10 +27,10 @@ declare module SocketIO {
         adapter(v: any): Server;
         origins(v: string): Server;
         sockets: Namespace;
-        attach(srv: any, opts: any): Server;
-        attach(port: number, opts: any): Server;
-        listen(srv: any, opts: any): Server;
-        listen(port: number, opts: any): Server;
+        attach(srv: any, opts?: any): Server;
+        attach(port: number, opts?: any): Server;
+        listen(srv: any, opts?: any): Server;
+        listen(port: number, opts?: any): Server;
         bind(srv: any): Server;
         onconnection(socket: any): Server;
         of(nsp: string): Namespace;

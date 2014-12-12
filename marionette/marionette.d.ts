@@ -281,13 +281,13 @@ declare module Marionette {
         renderModel(): any;
     }
 
-    class Layout<TModel extends Backbone.Model> extends ItemView<TModel> {
+    class LayoutView<TModel extends Backbone.Model> extends ItemView<TModel> {
 
         constructor(options?: any);
 
         addRegion(name: string, definition: any): Region<TModel>;
         addRegions(regions: any): any;
-        render(): Layout<TModel>;
+        render(): LayoutView<TModel>;
         removeRegion(name: string);
     }
     

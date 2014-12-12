@@ -81,11 +81,20 @@ declare var footstepsBuffer: any;
     panner.connect(wet3);
     dry3.connect(masterDry);
     wet3.connect(reverb);
-    
+
     // Start the sources now.
     source1.start(0);
-    source2.start(0);
+    // MEMO: should be when parameter is 0
+    // http://www.w3.org/TR/webaudio/#AudioBufferSourceNode
+    source2.start();
     source3.start(0);
+
+    // Stop the sources are 2 seconds later.
+    source1.stop(2);
+    // MEMO: should be when parameter is 0
+    // http://www.w3.org/TR/webaudio/#AudioBufferSourceNode
+    source2.stop();
+    source3.stop(2);
 };
 
 ()=>{
