@@ -3189,7 +3189,7 @@ declare module THREE {
          * Sets this quaternion from rotation component of m. Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm.
          */
         setFromRotationMatrix(m: Matrix4): Quaternion;
-        setFromUnitVectors(vFrom: Vector3, vTo: Vector4): Quaternion;
+        setFromUnitVectors(vFrom: Vector3, vTo: Vector3): Quaternion;
         /**
          * Inverts this quaternion.
          */

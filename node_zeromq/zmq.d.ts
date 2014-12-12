@@ -3,6 +3,8 @@
 // Definitions by: Dave McKeown <http://github.com/davemckeown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../node/node.d.ts' />
+
 interface EventEmitter {}
 
 declare module 'zmq' {
@@ -145,10 +147,25 @@ declare module 'zmq' {
         send(msg: any[], flags?: number): Socket;
 
         /**
+        * Enable monitoring of a Socket
+        *
+        * @param {Number} timer interval in ms > 0 or Undefined for default
+        * @return {Socket} for chaining
+        */
+        monitor(interval?: number): Socket;
+
+        /**
          * Close the socket.
          *
          */
         close(): Socket;
+
+        /**
+         * Socket event
+         * @param eventName {string}
+         * @param callback {Function}
+         */
+        on(eventName: string, callback: (buffer: Buffer) => void): void;
 
         // Socket Options
         _fd: any;
@@ -180,6 +197,5 @@ declare module 'zmq' {
     function socket(type: string, options?: any): Socket;
     function socket(type: number, options?: any): Socket;
     function createSocket(type: string, options?: any): Socket;
-
 
 }

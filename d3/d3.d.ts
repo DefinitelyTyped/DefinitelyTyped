@@ -926,7 +926,7 @@ declare module D3 {
                 (name: string, value: any, priority?: string): Transition;
                 (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Transition;
             };
-            call(callback: (selection: Selection) => void ): Transition;
+            call(callback: (transition: Transition, ...args: any[]) => void, ...args: any[]): Transition;
             /**
             * Select an element from the current document
             */
@@ -1750,6 +1750,8 @@ declare module D3 {
 
         export interface Axis {
             (selection: Selection): void;
+            (transition: Transition.Transition): void;
+            
             scale: {
                 (): any;
                 (scale: any): Axis;
