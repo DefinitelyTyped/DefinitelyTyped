@@ -285,6 +285,7 @@ declare module ng {
         // Documentation states viewValue and modelValue to be a string but other
         // types do work and it's common to use them.
         $setViewValue(value: any): void;
+        $setPristine(): void;
         $viewValue: any;
 
         $modelValue: any;
