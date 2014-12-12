@@ -550,3 +550,7 @@ declare module less {
 
     export var version: number[];
 }
+
+declare module "less" {
+	export = less;
+}
