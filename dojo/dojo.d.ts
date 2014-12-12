@@ -14885,7 +14885,7 @@ declare module dojo {
              * @param before insert before the anchor, if true, and after the anchor otherwise             
              * @param anchor the anchor node to be used as a point of insertion             
              */
-            insertNodes(addSelected: boolean, data: any[], before: boolean, anchor: HTMLElement): Function;
+            insertNodes(addSelected: boolean, data: any[], before?: boolean, anchor?: HTMLElement): Function;
             /**
              * 
              * @param params             
@@ -15209,7 +15209,7 @@ declare module dojo {
              * @param before insert before the anchor, if true, and after the anchor otherwise             
              * @param anchor the anchor node to be used as a point of insertion             
              */
-            insertNodes(addSelected: boolean, data: any[], before: boolean, anchor: HTMLElement): Function;
+            insertNodes(addSelected: boolean, data: any[], before?: boolean, anchor?: HTMLElement): Function;
             /**
              * 
              * @param params             
@@ -27422,7 +27422,7 @@ declare module "dojo/router" {
     export=exp;
 }
 declare module "dojo/router/RouterBase" {
-    var exp: dojo.router.RouterBase
+    var exp: typeof dojo.router.RouterBase
     export=exp;
 }
 declare module "dojo/aspect" {
@@ -27770,19 +27770,19 @@ declare module "dojo/touch" {
     export=exp;
 }
 declare module "dojo/DeferredList" {
-    var exp: dojo.DeferredList
+    var exp: typeof dojo.DeferredList
     export=exp;
 }
 declare module "dojo/Deferred" {
-    var exp: dojo.Deferred
+    var exp: typeof dojo.Deferred
     export=exp;
 }
 declare module "dojo/Evented" {
-    var exp: dojo.Evented
+    var exp: typeof dojo.Evented
     export=exp;
 }
 declare module "dojo/NodeList" {
-    var exp: dojo.NodeList
+    var exp: typeof dojo.NodeList
     export=exp;
 }
 declare module "dojo/NodeList._nodeDataCache" {
@@ -27790,7 +27790,7 @@ declare module "dojo/NodeList._nodeDataCache" {
     export=exp;
 }
 declare module "dojo/Stateful" {
-    var exp: dojo.Stateful
+    var exp: typeof dojo.Stateful
     export=exp;
 }
 declare module "dojo/_base/declare" {
@@ -28070,7 +28070,7 @@ declare module "dojo/_base/config.modulePaths" {
     export=exp;
 }
 declare module "dojo/_base/Color" {
-    var exp: dojo._base.Color
+    var exp: typeof dojo._base.Color
     export=exp;
 }
 declare module "dojo/_base/Color.named" {
@@ -28086,39 +28086,39 @@ declare module "dojo/cldr/supplemental" {
     export=exp;
 }
 declare module "dojo/data/ItemFileReadStore" {
-    var exp: dojo.data.ItemFileReadStore
+    var exp: typeof dojo.data.ItemFileReadStore
     export=exp;
 }
 declare module "dojo/data/ObjectStore" {
-    var exp: dojo.data.ObjectStore
+    var exp: typeof dojo.data.ObjectStore
     export=exp;
 }
 declare module "dojo/data/ItemFileWriteStore" {
-    var exp: dojo.data.ItemFileWriteStore
+    var exp: typeof dojo.data.ItemFileWriteStore
     export=exp;
 }
 declare module "dojo/data/api/Item" {
-    var exp: dojo.data.api.Item
+    var exp: typeof dojo.data.api.Item
     export=exp;
 }
 declare module "dojo/data/api/Identity" {
-    var exp: dojo.data.api.Identity
+    var exp: typeof dojo.data.api.Identity
     export=exp;
 }
 declare module "dojo/data/api/Request" {
-    var exp: dojo.data.api.Request
+    var exp: typeof  dojo.data.api.Request
     export=exp;
 }
 declare module "dojo/data/api/Notification" {
-    var exp: dojo.data.api.Notification
+    var exp: typeof dojo.data.api.Notification
     export=exp;
 }
 declare module "dojo/data/api/Read" {
-    var exp: dojo.data.api.Read
+    var exp: typeof dojo.data.api.Read
     export=exp;
 }
 declare module "dojo/data/api/Write" {
-    var exp: dojo.data.api.Write
+    var exp: typeof dojo.data.api.Write
     export=exp;
 }
 declare module "dojo/data/util/filter" {
@@ -28174,15 +28174,15 @@ declare module "dojo/dnd/move.constrainedMoveable" {
     export=exp;
 }
 declare module "dojo/dnd/Avatar" {
-    var exp: dojo.dnd.Avatar
+    var exp: typeof dojo.dnd.Avatar
     export=exp;
 }
 declare module "dojo/dnd/Manager" {
-    var exp: dojo.dnd.Manager
+    var exp: typeof dojo.dnd.Manager
     export=exp;
 }
 declare module "dojo/dnd/Container" {
-    var exp: dojo.dnd.Container
+    var exp: typeof dojo.dnd.Container
     export=exp;
 }
 declare module "dojo/dnd/Container.__ContainerArgs" {
@@ -28190,35 +28190,35 @@ declare module "dojo/dnd/Container.__ContainerArgs" {
     export=exp;
 }
 declare module "dojo/dnd/AutoSource" {
-    var exp: dojo.dnd.AutoSource
+    var exp: typeof dojo.dnd.AutoSource
     export=exp;
 }
 declare module "dojo/dnd/Mover" {
-    var exp: dojo.dnd.Mover
+    var exp: typeof dojo.dnd.Mover
     export=exp;
 }
 declare module "dojo/dnd/Moveable" {
-    var exp: dojo.dnd.Moveable
+    var exp: typeof dojo.dnd.Moveable
     export=exp;
 }
 declare module "dojo/dnd/Moveable.__MoveableArgs" {
-    var exp: dojo.dnd.Moveable.__MoveableArgs
+    var exp: typeof dojo.dnd.Moveable.__MoveableArgs
     export=exp;
 }
 declare module "dojo/dnd/Selector" {
-    var exp: dojo.dnd.Selector
+    var exp: typeof dojo.dnd.Selector
     export=exp;
 }
 declare module "dojo/dnd/TimedMoveable" {
-    var exp: dojo.dnd.TimedMoveable
+    var exp: typeof dojo.dnd.TimedMoveable
     export=exp;
 }
 declare module "dojo/dnd/Target" {
-    var exp: dojo.dnd.Target
+    var exp: typeof dojo.dnd.Target
     export=exp;
 }
 declare module "dojo/dnd/Source" {
-    var exp: dojo.dnd.Source
+    var exp: typeof dojo.dnd.Source
     export=exp;
 }
 declare module "dojo/errors/create" {
@@ -28262,19 +28262,19 @@ declare module "dojo/promise/tracer" {
     export=exp;
 }
 declare module "dojo/promise/Promise" {
-    var exp: dojo.promise.Promise
+    var exp: typeof dojo.promise.Promise
     export=exp;
 }
 declare module "dojo/rpc/JsonpService" {
-    var exp: dojo.rpc.JsonpService
+    var exp: typeof dojo.rpc.JsonpService
     export=exp;
 }
 declare module "dojo/rpc/JsonService" {
-    var exp: dojo.rpc.JsonService
+    var exp: typeof dojo.rpc.JsonService
     export=exp;
 }
 declare module "dojo/rpc/RpcService" {
-    var exp: dojo.rpc.RpcService
+    var exp: typeof  dojo.rpc.RpcService
     export=exp;
 }
 declare module "dojo/selector/lite" {
@@ -28294,43 +28294,43 @@ declare module "dojo/store/Observable" {
     export=exp;
 }
 declare module "dojo/store/Cache" {
-    var exp: dojo.store.Cache
+    var exp: typeof  dojo.store.Cache
     export=exp;
 }
 declare module "dojo/store/DataStore" {
-    var exp: dojo.store.DataStore
+    var exp: typeof dojo.store.DataStore
     export=exp;
 }
 declare module "dojo/store/Memory" {
-    var exp: dojo.store.Memory
+    var exp: typeof dojo.store.Memory
     export=exp;
 }
 declare module "dojo/store/JsonRest" {
-    var exp: dojo.store.JsonRest
+    var exp: typeof dojo.store.JsonRest
     export=exp;
 }
 declare module "dojo/store/api/Store" {
-    var exp: dojo.store.api.Store
+    var exp: typeof dojo.store.api.Store
     export=exp;
 }
 declare module "dojo/store/api/Store.PutDirectives" {
-    var exp: dojo.store.api.Store.PutDirectives
+    var exp: typeof dojo.store.api.Store.PutDirectives
     export=exp;
 }
 declare module "dojo/store/api/Store.QueryOptions" {
-    var exp: dojo.store.api.Store.QueryOptions
+    var exp: typeof dojo.store.api.Store.QueryOptions
     export=exp;
 }
 declare module "dojo/store/api/Store.QueryResults" {
-    var exp: dojo.store.api.Store.QueryResults
+    var exp: typeof dojo.store.api.Store.QueryResults
     export=exp;
 }
 declare module "dojo/store/api/Store.SortInformation" {
-    var exp: dojo.store.api.Store.SortInformation
+    var exp: typeof dojo.store.api.Store.SortInformation
     export=exp;
 }
 declare module "dojo/store/api/Store.Transaction" {
-    var exp: dojo.store.api.Store.Transaction
+    var exp: typeof  dojo.store.api.Store.Transaction
     export=exp;
 }
 declare module "dojo/store/util/QueryResults" {
