@@ -31,6 +31,10 @@ declare module SigmaJs{
         (key: string): string;
     }
 
+    interface CustomShapes {
+        init(sigma: Sigma): void;
+    }
+
     interface DragNodes {
         (sigma: Sigma, renderer: Renderer): DragNodes;
     }
@@ -78,8 +82,10 @@ declare module SigmaJs{
     interface Node {
         color?: string;
         id: string;
+        image?: any;
         label?: string;
         size?: number;
+        type?: string;
         x?: number;
         y?: number;
     }
@@ -105,6 +111,10 @@ declare module SigmaJs{
         container?: Element;
         id?: string;
         type?: string;
+    }
+
+    interface ShapeLibrary {
+        enumerate(): any;
     }
 
     interface Sigma {
@@ -253,3 +263,5 @@ declare module SigmaJs{
 }
 
 declare var sigma: SigmaJs.SigmaFactory;
+declare var CustomShapes: SigmaJs.CustomShapes;
+declare var ShapeLibrary: SigmaJs.CustomShapes;
