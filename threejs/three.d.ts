@@ -1942,12 +1942,12 @@ declare module THREE {
         /**
          * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
          */
-        blendSrc: BlendingDstFactor;
+        blendSrc: BlendingSrcFactor;
 
         /**
          * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
          */
-        blendDst: BlendingSrcFactor;
+        blendDst: BlendingDstFactor;
 
         /**
          * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is AddEquation.
