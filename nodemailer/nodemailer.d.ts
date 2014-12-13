@@ -104,3 +104,8 @@ interface Nodemailer {
 	createTransport(type: string, path: string): Transport;
 	createXOAuthGenerator(options: XOAuthGeneratorOptions): XOAuthGenerator;
 }
+
+declare module "nodemailer" {
+	var nodemailer: Nodemailer;
+	export = nodemailer;
+}

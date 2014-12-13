@@ -6329,7 +6329,7 @@ declare module _ {
         /**
          * Creates a function that returns value..
          **/
-        constant<T>(value: T): T;
+        constant<T>(value: T): () => T;
     }
 
     //_.create

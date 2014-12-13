@@ -628,6 +628,11 @@ declare module '__timezonecomplete/datetime' {
          */
         diff(other: DateTime): duration.Duration;
         /**
+         * Chops off the time part, yields the same date at 00:00:00.000
+         * @return a new DateTime
+         */
+        startOfDay(): DateTime;
+        /**
          * @return True iff (this < other)
          */
         lessThan(other: DateTime): boolean;
