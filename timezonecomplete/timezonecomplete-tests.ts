@@ -164,6 +164,7 @@ dt = dt.max(new tc.DateTime(9289234, tc.TimeZone.local()));
 s = dt.toIsoString();
 s = dt.toString();
 s = dt.toUtcString();
+dt = dt.startOfDay();
 
 var wd: tc.WeekDay;
 wd = dt.weekDay();
