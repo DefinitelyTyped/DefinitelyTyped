@@ -315,33 +315,16 @@ declare module createjs {
     export class Graphics {
         constructor();
 
-        // Graphics commands
-        static Arc: GraphicsArc;
-        static ArcTo: GraphicsArcTo;
-        static BeginPath: GraphicsBeginPath;
-        static BezierCurveTo: GraphicsBezierCurveTo;
-        static Circle: GraphicsCircle;
-        static ClosePath: GraphicsClosePath;
-        static Fill: GraphicsFill;
-        static LineTo: GraphicsLineTo;
-        static MoveTo: GraphicsMoveTo;
-        static PolyStar: GraphicsPolyStar;
-        static QuadraticCurveTo: GraphicsQuadraticCurveTo;
-        static Rect: GraphicsRect;
-        static RoundRect: GraphicsRoundRect;
-        static Stroke: GraphicsStroke;
-        static StrokeStyle: GraphicsStrokeStyle;
-
         // properties
         static BASE_64: Object;
-        static beginCmd: GraphicsBeginPath;
+        static beginCmd: Graphics.BeginPath;
         command: Object;
         instructions: Object[]; // array of graphics command objects (Graphics.Fill, etc)
         static STROKE_CAPS_MAP: string[];
         static STROKE_JOINTS_MAP: string[];
 
         // methods
-        append(command: Object, clean: boolean): Graphics;
+        append(command: Object, clean?: boolean): Graphics;
         arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean): Graphics;
         arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
         beginBitmapFill(image: Object, repetition?: string, matrix?: Matrix2D): Graphics;
@@ -423,169 +406,174 @@ declare module createjs {
     }
 
 
-    export class GraphicsArc
+    module Graphics
         {
-        constructor(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: number);
+        export class Arc
+            {
+            constructor(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: number);
 
-        // properties
-        anticlockwise: number;
-        endAngle: number;
-        radius: number;
-        startAngle: number;
-        x: number;
-        y: number;
+            // properties
+            anticlockwise: number;
+            endAngle: number;
+            radius: number;
+            startAngle: number;
+            x: number;
+            y: number;
+            }
+
+        export class ArcTo
+            {
+            constructor(x1: number, y1: number, x2: number, y2: number, radius: number);
+
+            // properties
+            x1: number;
+            y1: number;
+            x2: number;
+            y2: number;
+            radius: number;
+            }
+
+        export class BeginPath
+            {
+
+            }
+
+        export class BezierCurveTo
+            {
+            constructor(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number);
+
+            // properties
+            cp1x: number;
+            cp1y: number;
+            cp2x: number;
+            cp2y: number;
+            x: number;
+            y: number;
+            }
+
+        export class Circle
+            {
+            constructor(x: number, y: number, radius: number);
+
+            // properties
+            x: number;
+            y: number;
+            radius: number;
+            }
+
+        export class ClosePath
+            {
+
+            }
+
+        export class Fill
+            {
+            constructor(style: Object, matrix?: Matrix2D);
+
+            // properties
+            style: Object;
+            matrix: Matrix2D;
+
+            // methods
+            bitmap(image: HTMLImageElement, repetition?: string): Fill;
+            linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Fill;
+            radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Fill;
+            }
+
+        export class LineTo
+            {
+            constructor(x: number, y: number);
+
+            // properties
+            x: number;
+            y: number;
+            }
+
+        export class MoveTo
+            {
+            constructor(x: number, y: number);
+
+            x: number;
+            y: number;
+            }
+
+        export class PolyStar
+            {
+            constructor(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number);
+
+            // properties
+            angle: number;
+            pointSize: number;
+            radius: number;
+            sides: number;
+            x: number;
+            y: number;
+            }
+
+        export class QuadraticCurveTo
+            {
+            constructor(cpx: number, cpy: number, x: number, y: number);
+
+            // properties
+            cpx: number;
+            cpy: number;
+            x: number;
+            y: number;
+            }
+
+        export class Rect
+            {
+            constructor(x: number, y: number, w: number, h: number);
+
+            // properties
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+            }
+
+        export class RoundRect
+            {
+            constructor(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radiusBL: number);
+
+            // properties
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+            radiusTL: number;
+            radiusTR: number;
+            radiusBR: number;
+            radiusBL: number;
+            }
+
+        export class Stroke
+            {
+            constructor(style: Object, ignoreScale: boolean);
+
+            // properties
+            style: Object;
+            ignoreScale: boolean;
+
+            // methods
+            bitmap(image: HTMLImageElement, repetition?: string): Stroke;
+            linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Stroke;
+            radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Stroke;
+            }
+
+        export class StrokeStyle
+            {
+            constructor(width: number, caps: string, joints: number, miterLimit: number);
+
+            // properties
+            caps: string;
+            joints: string;
+            miterLimit: number;
+            width: number;
+            }
         }
 
-    export class GraphicsArcTo
-        {
-        constructor(x1: number, y1: number, x2: number, y2: number, radius: number);
 
-        // properties
-        x1: number;
-        y1: number;
-        x2: number;
-        y2: number;
-        radius: number;
-        }
-
-    export class GraphicsBeginPath
-        {
-
-        }
-
-    export class GraphicsBezierCurveTo
-        {
-        constructor(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number);
-
-        // properties
-        cp1x: number;
-        cp1y: number;
-        cp2x: number;
-        cp2y: number;
-        x: number;
-        y: number;
-        }
-
-    export class GraphicsCircle
-        {
-        constructor(x: number, y: number, radius: number);
-
-        // properties
-        x: number;
-        y: number;
-        radius: number;
-        }
-
-    export class GraphicsClosePath
-        {
-
-        }
-
-    export class GraphicsFill
-        {
-        constructor(style: Object, matrix: Matrix2D);
-
-        // properties
-        style: Object;
-        matrix: Matrix2D;
-
-        // methods
-        bitmap(image: HTMLImageElement, repetition?: string): GraphicsFill;
-        linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): GraphicsFill;
-        radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): GraphicsFill;
-        }
-
-    export class GraphicsLineTo
-        {
-        constructor(x: number, y: number);
-
-        // properties
-        x: number;
-        y: number;
-        }
-
-    export class GraphicsMoveTo
-        {
-        constructor(x: number, y: number);
-
-        x: number;
-        y: number;
-        }
-
-    export class GraphicsPolyStar
-        {
-        constructor(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number);
-
-        // properties
-        angle: number;
-        pointSize: number;
-        radius: number;
-        sides: number;
-        x: number;
-        y: number;
-        }
-
-    export class GraphicsQuadraticCurveTo
-        {
-        constructor(cpx: number, cpy: number, x: number, y: number);
-
-        // properties
-        cpx: number;
-        cpy: number;
-        x: number;
-        y: number;
-        }
-
-    export class GraphicsRect
-        {
-        constructor(x: number, y: number, w: number, h: number);
-
-        // properties
-        x: number;
-        y: number;
-        w: number;
-        h: number;
-        }
-
-    export class GraphicsRoundRect
-        {
-        constructor(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radiusBL: number);
-
-        // properties
-        x: number;
-        y: number;
-        w: number;
-        h: number;
-        radiusTL: number;
-        radiusTR: number;
-        radiusBR: number;
-        radiusBL: number;
-        }
-
-    export class GraphicsStroke
-        {
-        constructor(style: Object, ignoreScale: boolean);
-
-        // properties
-        style: Object;
-        ignoreScale: boolean;
-
-        // methods
-        bitmap(image: HTMLImageElement, repetition?: string): GraphicsStroke;
-        linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): GraphicsStroke;
-        radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): GraphicsStroke;
-        }
-
-    export class GraphicsStrokeStyle
-        {
-        constructor(width: number, caps: string, joints: number, miterLimit: number);
-
-        // properties
-        caps: string;
-        joints: string;
-        miterLimit: number;
-        width: number;
-        }
 
     export class Matrix2D {
         constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
