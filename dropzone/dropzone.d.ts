@@ -66,7 +66,7 @@ declare class Dropzone {
     off(eventName): void;
 
     removeFile(file: DropzoneFile): void;
-    removeAllFiles(): void;
+    removeAllFiles(cancelIfNecessary?: boolean): void;
     processQueue(): void;
     getAcceptedFiles(): DropzoneFile[];
     getRejectedFiles(): DropzoneFile[];
