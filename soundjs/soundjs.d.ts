@@ -1,4 +1,4 @@
-// Type definitions for SoundJS 0.5.2
+// Type definitions for SoundJS 0.6.0
 // Project: http://www.createjs.com/#!/SoundJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -15,6 +15,89 @@
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
 declare module createjs {
+
+    export class AbstractPlugin
+        {
+        // methods
+        create(src: string, startTime: number, duration: number): AbstractSoundInstance;
+        getVolume(): number;
+        isPreloadComplete(src: string): boolean;
+        isPreloadStarted(src: string): boolean;
+        isSupported(): boolean;
+        preload(loader);
+        register(loadItem: string, instances: number): Object;
+        removeAllSounds(src: string);
+        removeSound(src: string);
+        setMute(value: boolean): boolean;
+        setVolume(value: number): boolean;
+        }
+
+    export class AbstractSoundInstance extends EventDispatcher
+        {
+        constructor(src: string, startTime: number, duration: number, playbackResource: Object);
+
+        // properties
+        duration: number;
+        loop: number;
+        muted: boolean;
+        pan: number;
+        paused: boolean;
+        playbackResource: Object;
+        playState: string;
+        position: number;
+        src: string;
+        uniqueId: any;   // number or string
+        volume: number;
+
+        // methods
+        destroy();
+        getDuration(): number;
+        getLoop(): number;
+        getMute(): boolean;
+        getPan(): number;
+        getPaused(): boolean;
+        getPosition(): number;
+        getVolume(): number;
+        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
+        play(interrupt?: Object, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
+        setDuration(value: number): AbstractSoundInstance;
+        setLoop(value: number);
+        setMute(value: boolean): AbstractSoundInstance;
+        setPan(value: number): AbstractSoundInstance;
+        setPlayback(value: Object): AbstractSoundInstance;
+        setPosition(value: number): AbstractSoundInstance;
+        setVolume(value: number): AbstractSoundInstance;
+        stop(): AbstractSoundInstance;
+        }
+
+    export class FlashAudioLoader //extends AbstractLoader
+        {
+        // properties
+        flashId: string;
+
+        // methods
+        setFlash(flash: Object);
+        }
+
+    export class FlashAudioPlugin extends AbstractPlugin
+        {
+        // properties
+        flashReady: boolean;
+        showOutput: boolean;
+        static swfPath: string;
+
+        // methods
+        static isSupported(): boolean;
+        }
+
+    export class FlashAudioSoundInstance extends AbstractSoundInstance
+        {
+        constructor(src: string, startTime: number, duration: number, playbackResource: Object);
+        }
+
+    /**
+     * @deprecated - use FlashAudioPlugin
+     */
     export class FlashPlugin {
         constructor();
         
@@ -26,7 +109,7 @@ declare module createjs {
         static version: string;
         
         // methods
-        create(src: string): SoundInstance;
+        create(src: string): AbstractSoundInstance;
         getVolume(): number;
         isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
@@ -38,7 +121,8 @@ declare module createjs {
         setVolume(value: number): boolean;
     }
     
-    export class HTMLAudioPlugin {
+    export class HTMLAudioPlugin extends AbstractPlugin
+        {
         constructor();
         
         // properties
@@ -47,16 +131,21 @@ declare module createjs {
         static MAX_INSTANCES: number;
         
         // methods
-        create(src: string): SoundInstance;
-        isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
-        preload(src: string, instance: Object): void;
-        register(src: string, instances: number): Object;
-        removeAllSounds(): void;
-        removeSound(src: string): void;
-    }
+        }
+
+    export class HTMLAudioSoundInstance extends AbstractSoundInstance
+        {
+        constructor(src: string, startTime: number, duration: number, playbackResource: Object);
+        }
+
+    export class HTMLAudioTagPool
+        {
+
+        }
     
-    export class Sound {
+    export class Sound extends EventDispatcher
+        {
         // properties
         static activePlugin: Object;
         static alternateExtensions: any[];
@@ -75,7 +164,7 @@ declare module createjs {
         
         
         // methods
-        static createInstance(src: string): SoundInstance;
+        static createInstance(src: string): AbstractSoundInstance;
         static getCapabilities(): Object;
         static getCapability(key: string): any;    //HERE can return string | number | bool;
         static getMute(): boolean;
@@ -83,13 +172,13 @@ declare module createjs {
         static initializeDefaultPlugins(): boolean;
         static isReady(): boolean;
         static loadComplete(src: string): boolean;
-        static play(src: string, interrupt?: any, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): SoundInstance;
-        static registerManifest(manifest: any[], basePath: string): Object;
+        static play(src: string, interrupt?: any, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
+        static registerManifest(manifest: Object[], basePath: string): Object;
         static registerPlugins(plugins: any[]): boolean;
-        static registerSound(src: string, id?: string, data?: number, preload?: boolean, basePath?: string): Object;
-        static registerSound(src: string, id?: string, data?: Object, preload?: boolean, basePath?: string): Object;
-        static registerSound(src: Object, id?: string, data?: number, preload?: boolean, basePath?: string): Object;
-        static registerSound(src: Object, id?: string, data?: Object, preload?: boolean, basePath?: string): Object;
+        static registerSound(src: string, id?: string, data?: number, basePath?: string): Object;
+        static registerSound(src: string, id?: string, data?: Object, basePath?: string): Object;
+        static registerSound(src: Object, id?: string, data?: number, basePath?: string): Object;
+        static registerSound(src: Object, id?: string, data?: Object, basePath?: string): Object;
         static removeAllSounds(): void;
         static removeManifest(manifest: any[], basePath: string): Object;
         static removeSound(src: string, basePath: string): boolean;
@@ -125,46 +214,19 @@ declare module createjs {
         static toString(): string;
         static willTrigger(type: string): boolean;
     }
-    
-    export class SoundInstance extends EventDispatcher {
-        constructor(src: string, owner: Object);
-        
-        // properties
-        gainNode: any;
-        loop: number;
-        pan: number;
-        panNode: any;
-        paused: boolean;
-        playState: string;
-        sourceNode: any;
-        src: string;
-        uniqueId: any;   //HERE string or number
-        volume: number;
 
-        // methods
-        getDuration(): number;
-        getMute(): boolean;
-        getPan(): number;
-        getPosition(): number;
-        getVolume(): number;
-        pause(): boolean;
-        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
-        play(interrupt?: Object, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): void;
-        resume(): boolean;
-        setMute(value: boolean): boolean;
-        setPan(value: number): number;
-        setPosition(value: number): void;
-        setVolume(value: number): boolean;
-        stop(): boolean;
-        
-    }
-    
     export class SoundJS {
         static buildDate: string;
         static version: string;
     }
-    
-    export class WebAudioPlugin {
+
+    export class WebAudioLoader
+        {
+        static context; // AudioContext;
+        }
+
+    export class WebAudioPlugin extends AbstractPlugin
+        {
         constructor();
         
         // properties
@@ -173,18 +235,19 @@ declare module createjs {
         gainNode: any;
         
         // methods
-        addPreloadResults(src: string): boolean;
-        create(src: string): SoundInstance;
-        getVolume(): number;
-        isPreloadComplete(src: string): boolean;
-        isPreloadStarted(src: string): boolean;
         static isSupported(): boolean;
-        static playEmptySound(): void;
-        preload(src: string, instance: Object): void;
-        register(src: string, instances: number): Object;
-        removeAllSounds(src: string): void;
-        removeSound(src: string): void;
-        setMute(value: boolean): boolean;
-        setVolume(value: number): boolean;
-    }
+        static playEmptySound();
+        }
+
+    export class WebAudioSoundInstance extends AbstractSoundInstance
+        {
+        constructor(src: string, startTime: number, duration: number, playbackResource: Object);
+
+        // properties
+        static context;     // AudioContext;
+        static destinationNode; // AudioNode;
+        gainNode;   // AudioGainNode;
+        panNode;    // AudioPannerNode;
+        sourceNode; // AudioNode;
+        }
 }
