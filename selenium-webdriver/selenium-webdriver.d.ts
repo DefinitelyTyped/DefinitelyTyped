@@ -3,10 +3,49 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="chrome.d.ts" />
+/// <reference path="firefox.d.ts" />
+
 declare module webdriver {
 
     module error {
-        var ErrorCode: bot.IErrorCode;
+        interface IErrorCode {
+            SUCCESS: number;
+
+            NO_SUCH_ELEMENT: number;
+            NO_SUCH_FRAME: number;
+            UNKNOWN_COMMAND: number;
+            UNSUPPORTED_OPERATION: number;  // Alias for UNKNOWN_COMMAND.
+            STALE_ELEMENT_REFERENCE: number;
+            ELEMENT_NOT_VISIBLE: number;
+            INVALID_ELEMENT_STATE: number;
+            UNKNOWN_ERROR: number;
+            ELEMENT_NOT_SELECTABLE: number;
+            JAVASCRIPT_ERROR: number;
+            XPATH_LOOKUP_ERROR: number;
+            TIMEOUT: number;
+            NO_SUCH_WINDOW: number;
+            INVALID_COOKIE_DOMAIN: number;
+            UNABLE_TO_SET_COOKIE: number;
+            MODAL_DIALOG_OPENED: number;
+            UNEXPECTED_ALERT_OPEN: number;
+            NO_SUCH_ALERT: number;
+            NO_MODAL_DIALOG_OPEN: number;
+            SCRIPT_TIMEOUT: number;
+            INVALID_ELEMENT_COORDINATES: number;
+            IME_NOT_AVAILABLE: number;
+            IME_ENGINE_ACTIVATION_FAILED: number;
+            INVALID_SELECTOR_ERROR: number;
+            SESSION_NOT_CREATED: number;
+            MOVE_TARGET_OUT_OF_BOUNDS: number;
+            SQL_DATABASE_ERROR: number;
+            INVALID_XPATH_SELECTOR: number;
+            INVALID_XPATH_SELECTOR_RETURN_TYPE: number;
+            // The following error codes are derived straight from HTTP return codes.
+            METHOD_NOT_ALLOWED: number;
+        }
+
+        var ErrorCode: IErrorCode;
 
         /**
          * Error extension that includes error status codes from the WebDriver wire
@@ -15,13 +54,92 @@ declare module webdriver {
          *
          * @extends {Error}
          */
-        var Error: {
+        class Error {
+
+            //region Constructors
+
             /**
              * @param {!bot.ErrorCode} code The error's status code.
              * @param {string=} opt_message Optional error message.
              * @constructor
              */
-            new (code: number, opt_message?: string): bot.Error;
+            constructor(code: number, opt_message?: string);
+
+            //endregion
+
+            //region Static Properties
+
+            /**
+             * Status strings enumerated in the W3C WebDriver working draft.
+             * @enum {string}
+             * @see http://www.w3.org/TR/webdriver/#status-codes
+             */
+            static State: {
+                ELEMENT_NOT_SELECTABLE: string;
+                ELEMENT_NOT_VISIBLE: string;
+                IME_ENGINE_ACTIVATION_FAILED: string;
+                IME_NOT_AVAILABLE: string;
+                INVALID_COOKIE_DOMAIN: string;
+                INVALID_ELEMENT_COORDINATES: string;
+                INVALID_ELEMENT_STATE: string;
+                INVALID_SELECTOR: string;
+                JAVASCRIPT_ERROR: string;
+                MOVE_TARGET_OUT_OF_BOUNDS: string;
+                NO_SUCH_ALERT: string;
+                NO_SUCH_DOM: string;
+                NO_SUCH_ELEMENT: string;
+                NO_SUCH_FRAME: string;
+                NO_SUCH_WINDOW: string;
+                SCRIPT_TIMEOUT: string;
+                SESSION_NOT_CREATED: string;
+                STALE_ELEMENT_REFERENCE: string;
+                SUCCESS: string;
+                TIMEOUT: string;
+                UNABLE_TO_SET_COOKIE: string;
+                UNEXPECTED_ALERT_OPEN: string;
+                UNKNOWN_COMMAND: string;
+                UNKNOWN_ERROR: string;
+                UNSUPPORTED_OPERATION: string;
+            }
+
+            //endregion
+
+            //region Properties
+
+            /**
+             * This error's status code.
+             * @type {!bot.ErrorCode}
+             */
+            code: number;
+
+            /** @type {string} */
+            state: string;
+
+            /** @override */
+            message: string;
+
+            /** @override */
+            name: string;
+
+            /** @override */
+            stack: string;
+
+            /**
+             * Flag used for duck-typing when this code is embedded in a Firefox extension.
+             * This is required since an Error thrown in one component and then reported
+             * to another will fail instanceof checks in the second component.
+             * @type {boolean}
+             */
+            isAutomationError: boolean;
+
+            //endregion
+
+            //region Methods
+
+            /** @return {string} The string representation of this error. */
+            toString(): string;
+
+            //endregion
         }
     }
 
@@ -32,7 +150,7 @@ declare module webdriver {
          * @typedef {Object.<webdriver.logging.Type, webdriver.logging.LevelName>}
          */
         class Preferences {
-            setLevel(type: string, level: Level): void;
+            setLevel(type: string, level: ILevel): void;
             toJSON(): { [key: string]: string };
         }
 
@@ -59,24 +177,18 @@ declare module webdriver {
          * Logging levels.
          * @enum {{value: number, name: webdriver.logging.LevelName}}
          */
-        class Level {
-            //region Static Properties
-
-            static ALL: Level;
-            static DEBUG: Level;
-            static INFO: Level;
-            static WARNING: Level;
-            static SEVERE: Level;
-            static OFF: Level;
-
-            //endregion
-
-            //region Properties
-
+        interface ILevel {
             value: number;
             name: string;
+        }
 
-            //endregion
+        var Level: {
+            ALL: ILevel;
+            DEBUG: ILevel;
+            INFO: ILevel;
+            WARNING: ILevel;
+            SEVERE: ILevel;
+            OFF: ILevel;
         }
 
         /**
@@ -87,8 +199,8 @@ declare module webdriver {
          *     convert .
          * @return {!webdriver.logging.Level} The converted level.
          */
-        function getLevel(nameOrValue: string): Level;
-        function getLevel(nameOrValue: number): Level;
+        function getLevel(nameOrValue: string): ILevel;
+        function getLevel(nameOrValue: number): ILevel;
 
         interface IEntryJSON {
             level: string;
@@ -113,7 +225,7 @@ declare module webdriver {
              * @param {string=} opt_type The log type, if known.
              * @constructor
              */
-            constructor(level: Level, message: string, opt_timestamp?:number, opt_type?:string);
+            constructor(level: ILevel, message: string, opt_timestamp?:number, opt_type?:string);
             constructor(level: string, message: string, opt_timestamp?:number, opt_type?:string);
 
             //endregion
@@ -121,7 +233,7 @@ declare module webdriver {
             //region Public Properties
 
             /** @type {!webdriver.logging.Level} */
-            level: Level;
+            level: ILevel;
 
             /** @type {string} */
             message: string;
@@ -453,7 +565,7 @@ declare module webdriver {
          *     resolving the promise.
          * @return {!webdriver.promise.Promise} The promise.
          */
-        function delayed<T>(ms: number): Promise<T>;
+        function delayed(ms: number): Promise<void>;
 
         /**
          * Calls a function for each element in an array, and if the function returns
@@ -578,7 +690,7 @@ declare module webdriver {
          *     generator's final result.
          * @throws {TypeError} If the given function is not a generator.
          */
-        function consume<T>(generatorFn: (...var_args) => T, opt_self?: any, ...var_args): Promise<T>;
+        function consume<T>(generatorFn: Function, opt_self?: any, ...var_args): Promise<T>;
 
         /**
          * Registers an observer on a promised {@code value}, returning a new promise
@@ -591,8 +703,8 @@ declare module webdriver {
          *     rejected.
          * @return {!webdriver.promise.Promise} A new promise.
          */
-        function when<T>(value: T, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<T>;
-        function when<T>(value: Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<T>;
+        function when<T,R>(value: T, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+        function when<T,R>(value: Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
 
         /**
          * Returns a promise that will be resolved with the input value in a
@@ -613,7 +725,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise} A promise for a fully resolved version
          *     of the input value.
          */
-        function fullyResolved<T>(value: T): Promise<T>;
+        function fullyResolved<T>(value: any): Promise<T>;
 
         /**
          * Changes the default flow to use when no others are active.
@@ -674,7 +786,7 @@ declare module webdriver {
              * @return {!webdriver.promise.Promise} A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<T>;
+            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -701,7 +813,7 @@ declare module webdriver {
              *     resolved with the result of the invoked callback.
              * @template R
              */
-            thenCatch(errback: (error: any) => any): Promise<T>;
+            thenCatch<R>(errback: (error: any) => any): Promise<R>;
 
 
             /**
@@ -743,7 +855,7 @@ declare module webdriver {
              *     with the callback result.
              * @template R
              */
-            thenFinally<T>(callback: () => any): Promise<T>;
+            thenFinally<R>(callback: () => any): Promise<R>;
 
             //endregion
         }
@@ -1629,23 +1741,8 @@ declare module webdriver {
      * {@code prompt}. Provides functions to retrieve the message displayed with
      * the alert, accept or dismiss the alert, and set the response text (in the
      * case of {@code prompt}).
-     * @extends {webdriver.promise.Deferred}
      */
     interface Alert {
-
-        //region Constructors
-
-        /**
-         * @param {!webdriver.WebDriver} driver The driver controlling the browser this
-         *     alert is attached to.
-         * @param {!(string|webdriver.promise.Promise)} text Either the message text
-         *     displayed with this alert, or a promise that will be resolved to said
-         *     text.
-         * @constructor
-         */
-        constructor(driver: WebDriver, text: string);
-
-        //endregion
 
         //region Methods
 
@@ -1714,19 +1811,7 @@ declare module webdriver {
      * current page.
      * @extends {bot.Error}
      */
-    class UnhandledAlertError extends bot.Error {
-        //region Constructors
-
-        /**
-         * @param {string} message The error message.
-         * @param {string} text The text displayed with the unhandled alert.
-         * @param {!webdriver.Alert} alert The alert handle.
-         * @constructor
-         */
-        constructor(message: string, text: string, alert: Alert);
-
-        //endregion
-
+    interface UnhandledAlertError extends webdriver.error.Error {
         //region Methods
 
         /**
@@ -2459,47 +2544,16 @@ declare module webdriver {
     }
 
     /**
-     * @implements {webdriver.CommandExecutor}
-     */
-    class FirefoxDomExecutor implements CommandExecutor {
-        //region Constructors
-
-        /**
-         * @constructor
-         */
-        constructor();
-
-        //endregion
-
-        //region Static Methods
-
-        /**
-         * @return {boolean} Whether the current environment supports the
-         *     FirefoxDomExecutor.
-         */
-        static isAvailable(): boolean;
-
-        //endretion
-
-        //region Methods
-
-        /** @override */
-        execute(command: Command, callback: (error: Error, responseObject: any) => any ): void;
-
-        //endregion
-    }
-
-    /**
      * Interface for navigating back and forth in the browser history.
      */
-    class WebDriverNavigation {
+    interface WebDriverNavigation {
         //region Constructors
 
         /**
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        constructor(driver: WebDriver);
+        new (driver: WebDriver): WebDriverNavigation;
 
         //endregion
 
@@ -2549,14 +2603,14 @@ declare module webdriver {
     /**
      * Provides methods for managing browser and driver state.
      */
-    class WebDriverOptions {
+    interface WebDriverOptions {
         //region Constructors
 
         /**
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        constructor(driver: webdriver.WebDriver);
+        new (driver: webdriver.WebDriver): WebDriverOptions;
 
         //endregion
 
@@ -2639,14 +2693,14 @@ declare module webdriver {
     /**
      * An interface for managing timeout behavior for WebDriver instances.
      */
-    class WebDriverTimeouts {
+    interface WebDriverTimeouts {
         //region Constructors
 
         /**
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        constructor(driver: WebDriver);
+        new (driver: WebDriver): WebDriverTimeouts;
 
         //endregion
 
@@ -2701,7 +2755,7 @@ declare module webdriver {
     /**
      * An interface for managing the current window.
      */
-    class WebDriverWindow {
+    interface WebDriverWindow {
 
         //region Constructors
 
@@ -2709,7 +2763,7 @@ declare module webdriver {
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        constructor(driver: WebDriver);
+        new (driver: WebDriver): WebDriverWindow;
 
         //endregion
 
@@ -2764,7 +2818,7 @@ declare module webdriver {
     /**
      * Interface for managing WebDriver log records.
      */
-    class WebDriverLogs {
+    interface WebDriverLogs {
 
         //region Constructors
 
@@ -2772,7 +2826,7 @@ declare module webdriver {
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        constructor(driver: WebDriver);
+        new (driver: WebDriver): WebDriverLogs;
 
         //endregion
 
@@ -2807,7 +2861,7 @@ declare module webdriver {
     /**
      * An interface for changing the focus of the driver to another frame or window.
      */
-    class WebDriverTargetLocator {
+    interface WebDriverTargetLocator {
 
         //region Constructors
 
@@ -2815,7 +2869,7 @@ declare module webdriver {
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        constructor(driver: WebDriver);
+        new (driver: WebDriver): WebDriverTargetLocator;
 
         //endregion
 
@@ -2921,12 +2975,12 @@ declare module webdriver {
 
         //region Static Properties
 
-        static Navigation: { new (webDriver: WebDriver): WebDriverNavigation; };
-        static Options: { new (webDriver: WebDriver): WebDriverOptions; };
-        static Timeouts: { new (webDriver: WebDriver): WebDriverTimeouts; };
-        static Window: { new (webDriver: WebDriver): WebDriverWindow; };
-        static Logs: { new (webDriver: WebDriver): WebDriverLogs; };
-        static TargetLocator: { new (webDriver: WebDriver): WebDriverTargetLocator; };
+        static Navigation: WebDriverNavigation;
+        static Options: WebDriverOptions;
+        static Timeouts: WebDriverTimeouts;
+        static Window: WebDriverWindow;
+        static Logs: WebDriverLogs;
+        static TargetLocator: WebDriverTargetLocator;
 
         //endregion
 
@@ -3806,19 +3860,7 @@ declare module webdriver {
     /**
      * An element locator.
      */
-    class Locator {
-
-        //region Constructors
-
-        /**
-         * An element locator.
-         * @param {string} using The type of strategy to use for this locator.
-         * @param {string} value The search target of this locator.
-         * @constructor
-         */
-        constructor(using: string, value: string);
-
-        //endregion
+    interface Locator {
 
         //region Properties
 
@@ -3836,43 +3878,10 @@ declare module webdriver {
 
         //endregion
 
-        //region Static Properties
-
-        /**
-         * Factory methods for the supported locator strategies.
-         * @type {Object.<function(string):!webdriver.Locator>}
-         */
-        static Strategy: ILocatorStrategy;
-
-        //endregion
-
         //region Methods
 
         /** @return {string} String representation of this locator. */
         toString(): string;
-
-        //endregion
-
-        //region Static Methods
-
-        /**
-         * Creates a new Locator from an object whose only property is also a key in
-         * the {@code webdriver.Locator.Strategy} map.
-         * @param {Object.<string>} obj The object to convert into a locator.
-         * @return {webdriver.Locator} The new locator object.
-         */
-        static createFromObj(obj: any): Locator
-
-        /**
-         * Verifies that a {@code locator} is a valid locator to use for searching for
-         * elements on the page.
-         * @param {webdriver.Locator|Object.<string>} locator The locator
-         *     to verify, or a short-hand object that can be converted into a locator
-         *     to verify.
-         * @return {!webdriver.Locator} The validated locator.
-         */
-        static checkLocator(locator: Locator): Locator;
-        static checkLocator(obj: any): Locator;
 
         //endregion
     }
@@ -3925,727 +3934,7 @@ declare module webdriver {
     }
 }
 
-declare module bot {
-    interface IErrorCode {
-        SUCCESS: number;
-
-        NO_SUCH_ELEMENT: number;
-        NO_SUCH_FRAME: number;
-        UNKNOWN_COMMAND: number;
-        UNSUPPORTED_OPERATION: number;  // Alias for UNKNOWN_COMMAND.
-        STALE_ELEMENT_REFERENCE: number;
-        ELEMENT_NOT_VISIBLE: number;
-        INVALID_ELEMENT_STATE: number;
-        UNKNOWN_ERROR: number;
-        ELEMENT_NOT_SELECTABLE: number;
-        JAVASCRIPT_ERROR: number;
-        XPATH_LOOKUP_ERROR: number;
-        TIMEOUT: number;
-        NO_SUCH_WINDOW: number;
-        INVALID_COOKIE_DOMAIN: number;
-        UNABLE_TO_SET_COOKIE: number;
-        MODAL_DIALOG_OPENED: number;
-        UNEXPECTED_ALERT_OPEN: number;
-        NO_SUCH_ALERT: number;
-        NO_MODAL_DIALOG_OPEN: number;
-        SCRIPT_TIMEOUT: number;
-        INVALID_ELEMENT_COORDINATES: number;
-        IME_NOT_AVAILABLE: number;
-        IME_ENGINE_ACTIVATION_FAILED: number;
-        INVALID_SELECTOR_ERROR: number;
-        SESSION_NOT_CREATED: number;
-        MOVE_TARGET_OUT_OF_BOUNDS: number;
-        SQL_DATABASE_ERROR: number;
-        INVALID_XPATH_SELECTOR: number;
-        INVALID_XPATH_SELECTOR_RETURN_TYPE: number;
-        // The following error codes are derived straight from HTTP return codes.
-        METHOD_NOT_ALLOWED: number;
-    }
-
-    var ErrorCode: IErrorCode;
-
-    /**
-     * Error extension that includes error status codes from the WebDriver wire
-     * protocol:
-     * http://code.google.com/p/selenium/wiki/JsonWireProtocol#Response_Status_Codes
-     *
-     * @extends {Error}
-     */
-    class Error {
-
-        //region Constructors
-
-        /**
-         * @param {!bot.ErrorCode} code The error's status code.
-         * @param {string=} opt_message Optional error message.
-         * @constructor
-         */
-        constructor(code: number, opt_message?: string);
-
-            //endregion
-
-            //region Static Properties
-
-            /**
-             * Status strings enumerated in the W3C WebDriver working draft.
-             * @enum {string}
-             * @see http://www.w3.org/TR/webdriver/#status-codes
-             */
-            static State: {
-            ELEMENT_NOT_SELECTABLE: string;
-            ELEMENT_NOT_VISIBLE: string;
-            IME_ENGINE_ACTIVATION_FAILED: string;
-            IME_NOT_AVAILABLE: string;
-            INVALID_COOKIE_DOMAIN: string;
-            INVALID_ELEMENT_COORDINATES: string;
-            INVALID_ELEMENT_STATE: string;
-            INVALID_SELECTOR: string;
-            JAVASCRIPT_ERROR: string;
-            MOVE_TARGET_OUT_OF_BOUNDS: string;
-            NO_SUCH_ALERT: string;
-            NO_SUCH_DOM: string;
-            NO_SUCH_ELEMENT: string;
-            NO_SUCH_FRAME: string;
-            NO_SUCH_WINDOW: string;
-            SCRIPT_TIMEOUT: string;
-            SESSION_NOT_CREATED: string;
-            STALE_ELEMENT_REFERENCE: string;
-            SUCCESS: string;
-            TIMEOUT: string;
-            UNABLE_TO_SET_COOKIE: string;
-            UNEXPECTED_ALERT_OPEN: string;
-            UNKNOWN_COMMAND: string;
-            UNKNOWN_ERROR: string;
-            UNSUPPORTED_OPERATION: string;
-        }
-
-            //endregion
-
-            //region Properties
-
-            /**
-             * This error's status code.
-             * @type {!bot.ErrorCode}
-             */
-            code: number;
-
-        /** @type {string} */
-        state: string;
-
-        /** @override */
-        message: string;
-
-        /** @override */
-        name: string;
-
-        /** @override */
-        stack: string;
-
-        /**
-         * Flag used for duck-typing when this code is embedded in a Firefox extension.
-         * This is required since an Error thrown in one component and then reported
-         * to another will fail instanceof checks in the second component.
-         * @type {boolean}
-         */
-        isAutomationError: boolean;
-
-        //endregion
-
-        //region Methods
-
-        /** @return {string} The string representation of this error. */
-        toString(): string;
-
-        //endregion
-    }
-}
-
-declare module chrome {
-    /**
-     * Creates a new WebDriver client for Chrome.
-     *
-     * @extends {webdriver.WebDriver}
-     */
-    class Driver extends webdriver.WebDriver {
-        /**
-         * @param {(webdriver.Capabilities|Options)=} opt_config The configuration
-         *     options.
-         * @param {remote.DriverService=} opt_service The session to use; will use
-         *     the {@link getDefaultService default service} by default.
-         * @param {webdriver.promise.ControlFlow=} opt_flow The control flow to use, or
-         *     {@code null} to use the currently active flow.
-         * @constructor
-         */
-        constructor(opt_config?: webdriver.Capabilities, opt_service?: any, opt_flow?: webdriver.promise.ControlFlow);
-        constructor(opt_config?: Options, opt_service?: any, opt_flow?: webdriver.promise.ControlFlow);
-    }
-
-    interface IOptionsValues {
-        args: string[];
-        binary?: string;
-        detach: boolean;
-        extensions: string[];
-        localState?: any;
-        logFile?: string;
-        prefs?: any;
-    }
-
-    /**
-     * Class for managing ChromeDriver specific options.
-     */
-    class Options {
-        /**
-         * @constructor
-         */
-        constructor();
-
-        /**
-         * Extracts the ChromeDriver specific options from the given capabilities
-         * object.
-         * @param {!webdriver.Capabilities} capabilities The capabilities object.
-         * @return {!Options} The ChromeDriver options.
-         */
-        static fromCapabilities(capabilities: webdriver.Capabilities): Options;
-
-
-        /**
-         * Add additional command line arguments to use when launching the Chrome
-         * browser.  Each argument may be specified with or without the "--" prefix
-         * (e.g. "--foo" and "foo"). Arguments with an associated value should be
-         * delimited by an "=": "foo=bar".
-         * @param {...(string|!Array.<string>)} var_args The arguments to add.
-         * @return {!Options} A self reference.
-         */
-        addArguments(...var_args: string[]): Options;
-
-
-        /**
-         * Add additional extensions to install when launching Chrome. Each extension
-         * should be specified as the path to the packed CRX file, or a Buffer for an
-         * extension.
-         * @param {...(string|!Buffer|!Array.<(string|!Buffer)>)} var_args The
-         *     extensions to add.
-         * @return {!Options} A self reference.
-         */
-        addExtensions(...var_args): Options;
-
-
-        /**
-         * Sets the path to the Chrome binary to use. On Mac OS X, this path should
-         * reference the actual Chrome executable, not just the application binary
-         * (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
-         *
-         * The binary path be absolute or relative to the chromedriver server
-         * executable, but it must exist on the machine that will launch Chrome.
-         *
-         * @param {string} path The path to the Chrome binary to use.
-         * @return {!Options} A self reference.
-         */
-        setChromeBinaryPath(path: string): Options;
-
-
-        /**
-         * Sets whether to leave the started Chrome browser running if the controlling
-         * ChromeDriver service is killed before {@link webdriver.WebDriver#quit()} is
-         * called.
-         * @param {boolean} detach Whether to leave the browser running if the
-         *     chromedriver service is killed before the session.
-         * @return {!Options} A self reference.
-         */
-        detachDriver(detach: boolean): Options;
-
-
-        /**
-         * Sets the user preferences for Chrome's user profile. See the "Preferences"
-         * file in Chrome's user data directory for examples.
-         * @param {!Object} prefs Dictionary of user preferences to use.
-         * @return {!Options} A self reference.
-         */
-        setUserPreferences(prefs: any): Options;
-
-
-        /**
-         * Sets the logging preferences for the new session.
-         * @param {!webdriver.logging.Preferences} prefs The logging preferences.
-         * @return {!Options} A self reference.
-         */
-        setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
-
-
-        /**
-         * Sets preferences for the "Local State" file in Chrome's user data
-         * directory.
-         * @param {!Object} state Dictionary of local state preferences.
-         * @return {!Options} A self reference.
-         */
-        setLocalState(state: any): Options;
-
-
-        /**
-         * Sets the path to Chrome's log file. This path should exist on the machine
-         * that will launch Chrome.
-         * @param {string} path Path to the log file to use.
-         * @return {!Options} A self reference.
-         */
-        setChromeLogFile(path: string): Options;
-
-
-        /**
-         * Sets the proxy settings for the new session.
-         * @param {webdriver.ProxyConfig} proxy The proxy configuration to use.
-         * @return {!Options} A self reference.
-         */
-        setProxy(proxy: webdriver.ProxyConfig): Options;
-
-
-        /**
-         * Converts this options instance to a {@link webdriver.Capabilities} object.
-         * @param {webdriver.Capabilities=} opt_capabilities The capabilities to merge
-         *     these options into, if any.
-         * @return {!webdriver.Capabilities} The capabilities.
-         */
-        toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
-
-
-        /**
-         * Converts this instance to its JSON wire protocol representation. Note this
-         * function is an implementation not intended for general use.
-         * @return {{args: !Array.<string>,
-         *           binary: (string|undefined),
-         *           detach: boolean,
-         *           extensions: !Array.<string>,
-         *           localState: (Object|undefined),
-         *           logFile: (string|undefined),
-         *           prefs: (Object|undefined)}} The JSON wire protocol representation
-         *     of this instance.
-         */
-        toJSON(): IOptionsValues;
-    }
-
-    /**
-     * Creates {@link remote.DriverService} instances that manage a ChromeDriver
-     * server.
-     */
-    class ServiceBuilder {
-        /**
-         * @param {string=} opt_exe Path to the server executable to use. If omitted,
-         *     the builder will attempt to locate the chromedriver on the current
-         *     PATH.
-         * @throws {Error} If provided executable does not exist, or the chromedriver
-         *     cannot be found on the PATH.
-         * @constructor
-         */
-        constructor(opt_exe?: string);
-
-        /**
-         * Sets the port to start the ChromeDriver on.
-         * @param {number} port The port to use, or 0 for any free port.
-         * @return {!ServiceBuilder} A self reference.
-         * @throws {Error} If the port is invalid.
-         */
-        usingPort(port: number): ServiceBuilder;
-
-
-        /**
-         * Sets the path of the log file the driver should log to. If a log file is
-         * not specified, the driver will log to stderr.
-         * @param {string} path Path of the log file to use.
-         * @return {!ServiceBuilder} A self reference.
-         */
-        loggingTo(path: string): ServiceBuilder;
-
-
-        /**
-         * Enables verbose logging.
-         * @return {!ServiceBuilder} A self reference.
-         */
-        enableVerboseLogging(): ServiceBuilder;
-
-
-        /**
-         * Sets the number of threads the driver should use to manage HTTP requests.
-         * By default, the driver will use 4 threads.
-         * @param {number} n The number of threads to use.
-         * @return {!ServiceBuilder} A self reference.
-         */
-        setNumHttpThreads(n: number): ServiceBuilder;
-
-
-        /**
-         * Sets the base path for WebDriver REST commands (e.g. "/wd/hub").
-         * By default, the driver will accept commands relative to "/".
-         * @param {string} path The base path to use.
-         * @return {!ServiceBuilder} A self reference.
-         */
-        setUrlBasePath(path: string): ServiceBuilder;
-
-
-        /**
-         * Defines the stdio configuration for the driver service. See
-         * {@code child_process.spawn} for more information.
-         * @param {(string|!Array.<string|number|!Stream|null|undefined>)} config The
-         *     configuration to use.
-         * @return {!ServiceBuilder} A self reference.
-         */
-        setStdio(config: string): ServiceBuilder;
-        setStdio(config: any[]): ServiceBuilder;
-
-
-        /**
-         * Defines the environment to start the server under. This settings will be
-         * inherited by every browser session started by the server.
-         * @param {!Object.<string, string>} env The environment to use.
-         * @return {!ServiceBuilder} A self reference.
-         */
-        withEnvironment(env: {[key: string]: string}): ServiceBuilder;
-
-
-        /**
-         * Creates a new DriverService using this instance's current configuration.
-         * @return {remote.DriverService} A new driver service using this instance's
-         *     current configuration.
-         * @throws {Error} If the driver exectuable was not specified and a default
-         *     could not be found on the current PATH.
-         */
-        build(): any;
-    }
-
-    /**
-     * Returns the default ChromeDriver service. If such a service has not been
-     * configured, one will be constructed using the default configuration for
-     * a ChromeDriver executable found on the system PATH.
-     * @return {!remote.DriverService} The default ChromeDriver service.
-     */
-    function getDefaultService(): any;
-
-    /**
-     * Sets the default service to use for new ChromeDriver instances.
-     * @param {!remote.DriverService} service The service to use.
-     * @throws {Error} If the default service is currently running.
-     */
-    function setDefaultService(service: any);
-}
-
-declare module firefox {
-    /**
-     * Manages a Firefox subprocess configured for use with WebDriver.
-     */
-    class Binary {
-        /**
-         * @param {string=} opt_exe Path to the Firefox binary to use. If not
-         *     specified, will attempt to locate Firefox on the current system.
-         * @constructor
-         */
-        constructor(opt_exe?: string);
-
-        /**
-         * Add arguments to the command line used to start Firefox.
-         * @param {...(string|!Array.<string>)} var_args Either the arguments to add as
-         *     varargs, or the arguments as an array.
-         */
-        addArguments(...var_args: string[]);
-
-
-        /**
-         * Launches Firefox and eturns a promise that will be fulfilled when the process
-         * terminates.
-         * @param {string} profile Path to the profile directory to use.
-         * @return {!promise.Promise.<!exec.Result>} A promise for the process result.
-         * @throws {Error} If this instance has already been started.
-         */
-        launch(profile: string): webdriver.promise.Promise<any>;
-
-
-        /**
-         * Kills the managed Firefox process.
-         * @return {!promise.Promise} A promise for when the process has terminated.
-         */
-        kill(): webdriver.promise.Promise<void>;
-    }
-
-    /**
-     * A WebDriver client for Firefox.
-     *
-     * @extends {webdriver.WebDriver}
-     */
-    class Driver extends webdriver.WebDriver {
-        /**
-         * @param {(Options|webdriver.Capabilities|Object)=} opt_config The
-         *    configuration options for this driver, specified as either an
-         *    {@link Options} or {@link webdriver.Capabilities}, or as a raw hash
-         *    object.
-         * @param {webdriver.promise.ControlFlow=} opt_flow The flow to
-         *     schedule commands through. Defaults to the active flow object.
-         * @constructor
-         */
-        constructor(opt_config?: webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow);
-        constructor(opt_config?: any, opt_flow?: webdriver.promise.ControlFlow);
-    }
-
-    /**
-     * Configuration options for the FirefoxDriver.
-     */
-    class Options {
-        /**
-         * @constructor
-         */
-        constructor();
-
-        /**
-         * Sets the profile to use. The profile may be specified as a
-         * {@link Profile} object or as the path to an existing Firefox profile to use
-         * as a template.
-         *
-         * @param {(string|!Profile)} profile The profile to use.
-         * @return {!Options} A self reference.
-         */
-        setProfile(profile: string): Options;
-        setProfile(profile: Profile): Options;
-
-
-        /**
-         * Sets the binary to use. The binary may be specified as the path to a Firefox
-         * executable, or as a {@link Binary} object.
-         *
-         * @param {(string|!Binary)} binary The binary to use.
-         * @return {!Options} A self reference.
-         */
-        setBinary(binary: string): Options;
-        setBinary(binary: Binary): Options;
-
-
-        /**
-         * Sets the logging preferences for the new session.
-         * @param {webdriver.logging.Preferences} prefs The logging preferences.
-         * @return {!Options} A self reference.
-         */
-        setLoggingPreferences(prefs: webdriver.logging.Preferences): Options;
-
-
-        /**
-         * Sets the proxy to use.
-         *
-         * @param {webdriver.ProxyConfig} proxy The proxy configuration to use.
-         * @return {!Options} A self reference.
-         */
-        setProxy(proxy: webdriver.ProxyConfig): Options;
-
-
-        /**
-         * Converts these options to a {@link webdriver.Capabilities} instance.
-         *
-         * @return {!webdriver.Capabilities} A new capabilities object.
-         */
-        toCapabilities(opt_remote?: any): webdriver.Capabilities;
-    }
-
-    /**
-     * Models a Firefox proifle directory for use with the FirefoxDriver. The
-     * {@code Proifle} directory uses an in-memory model until {@link #writeToDisk}
-     * is called.
-     */
-    class Profile {
-        /**
-         * @param {string=} opt_dir Path to an existing Firefox profile directory to
-         *     use a template for this profile. If not specified, a blank profile will
-         *     be used.
-         * @constructor
-         */
-        constructor(opt_dir?: string);
-
-        /**
-         * Registers an extension to be included with this profile.
-         * @param {string} extension Path to the extension to include, as either an
-         *     unpacked extension directory or the path to a xpi file.
-         */
-        addExtension(extension: string);
-
-
-        /**
-         * Sets a desired preference for this profile.
-         * @param {string} key The preference key.
-         * @param {(string|number|boolean)} value The preference value.
-         * @throws {Error} If attempting to set a frozen preference.
-         */
-        setPreference(key: string, value: string);
-        setPreference(key: string, value: number);
-        setPreference(key: string, value: boolean);
-
-
-        /**
-         * Returns the currently configured value of a profile preference. This does
-         * not include any defaults defined in the profile's template directory user.js
-         * file (if a template were specified on construction).
-         * @param {string} key The desired preference.
-         * @return {(string|number|boolean|undefined)} The current value of the
-         *     requested preference.
-         */
-        getPreference(key: string): any;
-
-
-        /**
-         * @return {number} The port this profile is currently configured to use, or
-         *     0 if the port will be selected at random when the profile is written
-         *     to disk.
-         */
-        getPort(): number;
-
-
-        /**
-         * Sets the port to use for the WebDriver extension loaded by this profile.
-         * @param {number} port The desired port, or 0 to use any free port.
-         */
-        setPort(port: number);
-
-
-        /**
-         * @return {boolean} Whether the FirefoxDriver is configured to automatically
-         *     accept untrusted SSL certificates.
-         */
-        acceptUntrustedCerts(): boolean;
-
-
-        /**
-         * Sets whether the FirefoxDriver should automatically accept untrusted SSL
-         * certificates.
-         * @param {boolean} value .
-         */
-        setAcceptUntrustedCerts(value: boolean);
-
-
-        /**
-         * Sets whether to assume untrusted certificates come from untrusted issuers.
-         * @param {boolean} value .
-         */
-        setAssumeUntrustedCertIssuer(value: boolean);
-
-
-        /**
-         * @return {boolean} Whether to assume untrusted certs come from untrusted
-         *     issuers.
-         */
-        assumeUntrustedCertIssuer(): boolean;
-
-
-        /**
-         * Sets whether to use native events with this profile.
-         * @param {boolean} enabled .
-         */
-        setNativeEventsEnabled(enabled: boolean);
-
-
-        /**
-         * Returns whether native events are enabled in this profile.
-         * @return {boolean} .
-         */
-        nativeEventsEnabled(): boolean;
-
-
-        /**
-         * Writes this profile to disk.
-         * @param {boolean=} opt_excludeWebDriverExt Whether to exclude the WebDriver
-         *     extension from the generated profile. Used to reduce the size of an
-         *     {@link #encode() encoded profile} since the server will always install
-         *     the extension itself.
-         * @return {!promise.Promise.<string>} A promise for the path to the new
-         *     profile directory.
-         */
-        writeToDisk(opt_excludeWebDriverExt?: boolean): webdriver.promise.Promise<string>;
-
-
-        /**
-         * Encodes this profile as a zipped, base64 encoded directory.
-         * @return {!promise.Promise.<string>} A promise for the encoded profile.
-         */
-        encode(): webdriver.promise.Promise<string>;
-    }
-}
-
 declare module 'selenium-webdriver' {
     export = webdriver;
 }
 
-declare module 'selenium-webdriver/chrome' {
-    export = chrome;
-}
-
-declare module 'selenium-webdriver/firefox' {
-    export = firefox;
-}
-
-declare module 'selenium-webdriver/error' {
-    export = bot;
-}
-
-declare module 'selenium-webdriver/testing' {
-
-    /**
-    * Registers a new test suite.
-    * @param name The suite name.
-    * @param fn The suite function, or {@code undefined} to define a pending test suite.
-    */
-    function describe(name: string, fn: Function): void;
-
-    /**
-     * Defines a suppressed test suite.
-     * @param name The suite name.
-     * @param fn The suite function, or {@code undefined} to define a pending test suite.
-     */
-    function xdescribe(name: string, fn: Function): void;
-
-    /**
-     * Register a function to call after the current suite finishes.
-     * @param fn
-     */
-    function after(fn: Function): void;
-
-    /**
-     * Register a function to call after each test in a suite.
-     * @param fn
-     */
-    function afterEach(fn: Function): void;
-
-    /**
-     * Register a function to call before the current suite starts.
-     * @param fn
-     */
-    function before(fn: Function): void;
-
-    /**
-     * Register a function to call before each test in a suite.
-     * @param fn
-     */
-    function beforeEach(fn: Function): void;
-
-    /**
-     * Add a test to the current suite.
-     * @param name The test name.
-     * @param fn The test function, or {@code undefined} to define a pending test case.
-     */
-    function it(name: string, fn: Function): void;
-
-    /**
-     * An alias for {@link #it()} that flags the test as the only one that should
-     * be run within the current suite.
-     * @param name The test name.
-     * @param fn The test function, or {@code undefined} to define a pending test case.
-     */
-    function iit(name: string, fn: Function): void;
-
-    /**
-     * Adds a test to the current suite while suppressing it so it is not run.
-     * @param name The test name.
-     * @param fn The test function, or {@code undefined} to define a pending test case.
-     */
-    function xit(name: string, fn: Function): void;
-}
-
-declare module 'selenium-webdriver/executors' {
-    /**
-     * Creates a command executor that uses WebDriver's JSON wire protocol.
-     * @param url The server's URL, or a promise that will resolve to that URL.
-     * @returns {!webdriver.CommandExecutor} The new command executor.
-     */
-    function createExecutor(url: string): webdriver.CommandExecutor;
-    function createExecutor(url: webdriver.promise.Promise<string>): webdriver.CommandExecutor;
-}
