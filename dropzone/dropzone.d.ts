@@ -24,7 +24,7 @@ interface DropzoneOptions {
     headers?: any;
     addRemoveLinks?: boolean;
     previewsContainer?: string;
-    clickable?: boolean;
+    clickable?: any;
     createImageThumbnails?: boolean;
     maxThumbnailFilesize?: number;
     thumbnailWidth?: number;
