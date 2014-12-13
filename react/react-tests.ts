@@ -18,6 +18,8 @@ interface MyComponent extends React.CompositeComponent<Props, State> {
 }
 
 var props: Props = {
+    key: 42,
+    ref: "myComponent42",
     hello: "world",
     foo: 42,
     bar: true
@@ -124,7 +126,9 @@ var divStyle = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-var htmlAttr = {
+var htmlAttr: React.HTMLAttributes = {
+    key: 36,
+    ref: "htmlComponent",
     children: children,
     className: "test-attr",
     style: divStyle,

@@ -242,7 +242,7 @@ declare module React {
 
     export interface ReactAttributes {
         children?: any; // ReactNode
-        key?: string;
+        key?: any; // number | string
         ref?: string;
 
         // Event Attributes
