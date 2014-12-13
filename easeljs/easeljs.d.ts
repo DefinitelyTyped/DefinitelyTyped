@@ -183,9 +183,12 @@ declare module createjs {
         getChildAt(index: number): DisplayObject;
         getChildByName(name: string): DisplayObject;
         getChildIndex(child: DisplayObject): number;
-        getNumChildren(): number;   // deprecated - use numChildren property instead.
-        getObjectsUnderPoint(x: number, y: number): DisplayObject[];
-        getObjectUnderPoint(x: number, y: number): DisplayObject;
+        /**
+         * @deprecated - use numChildren property instead.
+         */
+        getNumChildren(): number;
+        getObjectsUnderPoint(x: number, y: number, mode: number): DisplayObject[];
+        getObjectUnderPoint(x: number, y: number, mode: number): DisplayObject;
         removeAllChildren(): void;
         removeChild(...child: DisplayObject[]): boolean;
         removeChildAt(...index: number[]): boolean;
@@ -242,13 +245,16 @@ declare module createjs {
         getConcatenatedDisplayProps(props?: DisplayProps): DisplayProps;
         getConcatenatedMatrix(mtx?: Matrix2D): Matrix2D;
         getMatrix(matrix?: Matrix2D): Matrix2D;
-        getStage(): Stage;  // deprecated
+        /**
+         * @deprecated
+         */
+        getStage(): Stage;
         getTransformedBounds(): Rectangle;
-        globalToLocal(x: number, y: number): Point;
+        globalToLocal(x: number, y: number, pt?: Object): Point;    // 'pt' is Point or Object
         hitTest(x: number, y: number): boolean;
         isVisible(): boolean;
-        localToGlobal(x: number, y: number): Point;
-        localToLocal(x: number, y: number, target: DisplayObject): Point;
+        localToGlobal(x: number, y: number, pt?: Object): Point;    // 'pt' is Point or Object
+        localToLocal(x: number, y: number, target: DisplayObject, pt?: Object): Point;  // 'pt' is Point or Object
         set(props: Object): DisplayObject;
         setBounds(x: number, y: number, width: number, height: number): void;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DisplayObject;
@@ -363,6 +369,10 @@ declare module createjs {
         endFill(): Graphics;
         endStroke(): Graphics;
         static getHSL(hue: number, saturation: number, lightness: number, alpha?: number): string;
+        /**
+         * @deprecated - use the instructions property instead
+         */
+        getInstructions();
         static getRGB(r: number, g: number, b: number, alpha?: number): string;
         inject(callback: (data: any) => any,  data: any): Graphics; // deprecated
         isEmpty(): boolean;
@@ -620,6 +630,7 @@ declare module createjs {
         constructor(type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
         
         // properties
+        isTouch: boolean;
         localX: number;
         localY: number;
         nativeEvent: NativeMouseEvent;
@@ -687,8 +698,14 @@ declare module createjs {
         // methods
         advance(time?: number);
         clone(): MovieClip; // not supported
+        /**
+         * @deprecated - use 'currentLabel' property instead
+         */
         getCurrentLabel(): string;  // deprecated
-        getLabels(): Object[];      // deprecated
+        /**
+         * @deprecated - use 'labels' property instead
+         */
+        getLabels(): Object[];
         gotoAndPlay(positionOrLabel: string): void;
         gotoAndPlay(positionOrLabel: number): void;
         gotoAndStop(positionOrLabel: string): void;
@@ -833,6 +850,9 @@ declare module createjs {
         // methods
         clone(): SpriteSheet;
         getAnimation(name: string): SpriteSheetAnimation;
+        /**
+         * @deprecated - use the 'animations' property instead
+         */
         getAnimations(): string[];
         getFrame(frameIndex: number): SpriteSheetFrame;
         getFrameBounds(frameIndex: number, rectangle?: Rectangle): Rectangle;
@@ -854,8 +874,8 @@ declare module createjs {
 
         // methods
         addAnimation(name: string, frames: number[], next?: string, frequency?: number): void;
-        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupParams?: any[], setupScope?: Object): number;
-        addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number): void;
+        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object): number;
+        addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object, labelFunction?: () => any): void;
         build(): SpriteSheet;
         buildAsync(timeSlice?: number): void;
         clone(): void; // throw error
@@ -921,6 +941,7 @@ declare module createjs {
         clone(): Stage;
         enableDOMEvents(enable?: boolean): void;
         enableMouseOver(frequency?: number): void;
+        tick(props?: Object);
         toDataURL(backgroundColor: string, mimeType: string): string;
         update(...arg: any[]): void;
         
@@ -968,18 +989,36 @@ declare module createjs {
 
         // methods
         static getEventTime(runTime?: boolean): number;
-        static getFPS(): number;    // deprecated
-        static getInterval(): number;   // deprecated
+        /**
+         * @deprecated - use the 'framerate' property instead
+         */
+        static getFPS(): number;
+        /**
+         * @deprecated - use the 'interval' property instead
+         */
+        static getInterval(): number;
         static getMeasuredFPS(ticks?: number): number;
         static getMeasuredTickTime(ticks?: number): number;
-        static getPaused(): boolean;    // deprecated
+        /**
+         * @deprecated - use the 'paused' property instead
+         */
+        static getPaused(): boolean;
         static getTicks(pauseable?: boolean): number;
         static getTime(runTime?: boolean): number;
         static init(): void;
         static reset(): void;
-        static setFPS(value: number): void; // deprecated
-        static setInterval(interval: number): void; // deprecated
-        static setPaused(value: boolean): void; // deprecated
+        /**
+         * @deprecated - use the 'framerate' property instead
+         */
+        static setFPS(value: number): void;
+        /**
+         * @deprecated - use the 'interval' property instead
+         */
+        static setInterval(interval: number): void;
+        /**
+         * @deprecated - use the 'paused' property instead
+         */
+        static setPaused(value: boolean): void;
 
         // EventDispatcher mixins
         static addEventListener(type: string, listener: Stage, useCapture?: boolean): Stage;
