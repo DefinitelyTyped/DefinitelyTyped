@@ -39,7 +39,7 @@ interface DropzoneOptions {
     forceFallback?: boolean;
     fallback?: () => void;
 
-    // dictionary options 
+    // dictionary options
     dictDefaultMessage?: string;
     dictFallbackMessage?: string;
     dictFallbackText?: string;
@@ -72,7 +72,7 @@ declare class Dropzone {
     getRejectedFiles(): DropzoneFile[];
     getQueuedFiles(): DropzoneFile[];
     getUploadingFiles(): DropzoneFile[];
-    
+
     emit(eventName: string, file: DropzoneFile, str?: string);
     emit(eventName: "thumbnail", file: DropzoneFile, path: string);
     emit(eventName: "addedfile", file: DropzoneFile);
