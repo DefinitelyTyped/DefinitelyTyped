@@ -658,7 +658,10 @@ function TestWebElement() {
 }
 
 function TestLogging() {
-    webdriver.logging.Preferences['name'] = 'ABC';
+    var preferences: webdriver.logging.Preferences = new webdriver.logging.Preferences();
+    preferences.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
+    var prefs: any = preferences.toJSON();
+
     var level: webdriver.logging.ILevel = webdriver.logging.getLevel('OFF');
     level = webdriver.logging.getLevel(1);
 

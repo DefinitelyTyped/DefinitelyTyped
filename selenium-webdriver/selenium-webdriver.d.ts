@@ -182,7 +182,7 @@ declare module webdriver {
             name: string;
         }
 
-        var Level: {
+        interface ILevelValues {
             ALL: ILevel;
             DEBUG: ILevel;
             INFO: ILevel;
@@ -190,6 +190,8 @@ declare module webdriver {
             SEVERE: ILevel;
             OFF: ILevel;
         }
+
+        var Level: ILevelValues;
 
         /**
          * Converts a level name or value to a {@link webdriver.logging.Level} value.
@@ -272,6 +274,262 @@ declare module webdriver {
     }
 
     module promise {
+        //region Functions
+
+        /**
+         * Given an array of promises, will return a promise that will be fulfilled
+         * with the fulfillment values of the input array's values. If any of the
+         * input array's promises are rejected, the returned promise will be rejected
+         * with the same reason.
+         *
+         * @param {!Array.<(T|!webdriver.promise.Promise.<T>)>} arr An array of
+         *     promises to wait on.
+         * @return {!webdriver.promise.Promise.<!Array.<T>>} A promise that is
+         *     fulfilled with an array containing the fulfilled values of the
+         *     input array, or rejected with the same reason as the first
+         *     rejected value.
+         * @template T
+         */
+        function all(arr: Promise<any>[]): Promise<any[]>;
+
+        /**
+         * Invokes the appropriate callback function as soon as a promised
+         * {@code value} is resolved. This function is similar to
+         * {@link webdriver.promise.when}, except it does not return a new promise.
+         * @param {*} value The value to observe.
+         * @param {Function} callback The function to call when the value is
+         *     resolved successfully.
+         * @param {Function=} opt_errback The function to call when the value is
+         *     rejected.
+         */
+        function asap(value: any, callback: Function, opt_errback?: Function): void;
+
+        /**
+         * @return {!webdriver.promise.ControlFlow} The currently active control flow.
+         */
+        function controlFlow(): ControlFlow;
+
+        /**
+         * Creates a new control flow. The provided callback will be invoked as the
+         * first task within the new flow, with the flow as its sole argument. Returns
+         * a promise that resolves to the callback result.
+         * @param {function(!webdriver.promise.ControlFlow)} callback The entry point
+         *     to the newly created flow.
+         * @return {!webdriver.promise.Promise} A promise that resolves to the callback
+         *     result.
+         */
+        function createFlow<R>(callback: (flow: ControlFlow) => R): Promise<R>;
+
+        /**
+         * Determines whether a {@code value} should be treated as a promise.
+         * Any object whose "then" property is a function will be considered a promise.
+         *
+         * @param {*} value The value to test.
+         * @return {boolean} Whether the value is a promise.
+         */
+        function isPromise(value: any): boolean;
+
+        /**
+         * Tests is a function is a generator.
+         * @param {!Function} fn The function to test.
+         * @return {boolean} Whether the function is a generator.
+         */
+        function isGenerator(fn: Function): boolean;
+
+        /**
+         * Creates a promise that will be resolved at a set time in the future.
+         * @param {number} ms The amount of time, in milliseconds, to wait before
+         *     resolving the promise.
+         * @return {!webdriver.promise.Promise} The promise.
+         */
+        function delayed(ms: number): Promise<void>;
+
+        /**
+         * Calls a function for each element in an array, and if the function returns
+         * true adds the element to a new array.
+         *
+         * <p>If the return value of the filter function is a promise, this function
+         * will wait for it to be fulfilled before determining whether to insert the
+         * element into the new array.
+         *
+         * <p>If the filter function throws or returns a rejected promise, the promise
+         * returned by this function will be rejected with the same reason. Only the
+         * first failure will be reported; all subsequent errors will be silently
+         * ignored.
+         *
+         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
+         *     array to iterator over, or a promise that will resolve to said array.
+         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): (
+         *             boolean|webdriver.promise.Promise.<boolean>)} fn The function
+         *     to call for each element in the array.
+         * @param {SELF=} opt_self The object to be used as the value of 'this' within
+         *     {@code fn}.
+         * @template TYPE, SELF
+         */
+        function filter<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>;
+        function filter<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+
+        /**
+         * Creates a new deferred object.
+         * @return {!webdriver.promise.Deferred} The new deferred object.
+         */
+        function defer<T>(): Deferred<T>;
+
+        /**
+         * Creates a promise that has been resolved with the given value.
+         * @param {*=} opt_value The resolved value.
+         * @return {!webdriver.promise.Promise} The resolved promise.
+         */
+        function fulfilled<T>(opt_value?: T): Promise<T>;
+
+        /**
+         * Calls a function for each element in an array and inserts the result into a
+         * new array, which is used as the fulfillment value of the promise returned
+         * by this function.
+         *
+         * <p>If the return value of the mapping function is a promise, this function
+         * will wait for it to be fulfilled before inserting it into the new array.
+         *
+         * <p>If the mapping function throws or returns a rejected promise, the
+         * promise returned by this function will be rejected with the same reason.
+         * Only the first failure will be reported; all subsequent errors will be
+         * silently ignored.
+         *
+         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
+         *     array to iterator over, or a promise that will resolve to said array.
+         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): ?} fn The
+         *     function to call for each element in the array. This function should
+         *     expect three arguments (the element, the index, and the array itself.
+         * @param {SELF=} opt_self The object to be used as the value of 'this' within
+         *     {@code fn}.
+         * @template TYPE, SELF
+         */
+        function map<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+        function map<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+
+        /**
+         * Creates a promise that has been rejected with the given reason.
+         * @param {*=} opt_reason The rejection reason; may be any value, but is
+         *     usually an Error or a string.
+         * @return {!webdriver.promise.Promise} The rejected promise.
+         */
+        function rejected(opt_reason?: any): Promise<void>;
+
+        /**
+         * Wraps a function that is assumed to be a node-style callback as its final
+         * argument. This callback takes two arguments: an error value (which will be
+         * null if the call succeeded), and the success value as the second argument.
+         * If the call fails, the returned promise will be rejected, otherwise it will
+         * be resolved with the result.
+         * @param {!Function} fn The function to wrap.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     result of the provided function's callback.
+         */
+        function checkedNodeCall<T>(fn: Function, ...var_args: any[]): Promise<T>;
+
+        /**
+         * Consumes a {@code GeneratorFunction}. Each time the generator yields a
+         * promise, this function will wait for it to be fulfilled before feeding the
+         * fulfilled value back into {@code next}. Likewise, if a yielded promise is
+         * rejected, the rejection error will be passed to {@code throw}.
+         *
+         * <p>Example 1: the Fibonacci Sequence.
+         * <pre><code>
+         * webdriver.promise.consume(function* fibonacci() {
+         *   var n1 = 1, n2 = 1;
+         *   for (var i = 0; i < 4; ++i) {
+         *     var tmp = yield n1 + n2;
+         *     n1 = n2;
+         *     n2 = tmp;
+         *   }
+         *   return n1 + n2;
+         * }).then(function(result) {
+         *   console.log(result);  // 13
+         * });
+         * </code></pre>
+         *
+         * <p>Example 2: a generator that throws.
+         * <pre><code>
+         * webdriver.promise.consume(function* () {
+         *   yield webdriver.promise.delayed(250).then(function() {
+         *     throw Error('boom');
+         *   });
+         * }).thenCatch(function(e) {
+         *   console.log(e.toString());  // Error: boom
+         * });
+         * </code></pre>
+         *
+         * @param {!Function} generatorFn The generator function to execute.
+         * @param {Object=} opt_self The object to use as "this" when invoking the
+         *     initial generator.
+         * @param {...*} var_args Any arguments to pass to the initial generator.
+         * @return {!webdriver.promise.Promise.<?>} A promise that will resolve to the
+         *     generator's final result.
+         * @throws {TypeError} If the given function is not a generator.
+         */
+        function consume<T>(generatorFn: Function, opt_self?: any, ...var_args: any[]): Promise<T>;
+
+        /**
+         * Registers an observer on a promised {@code value}, returning a new promise
+         * that will be resolved when the value is. If {@code value} is not a promise,
+         * then the return promise will be immediately resolved.
+         * @param {*} value The value to observe.
+         * @param {Function=} opt_callback The function to call when the value is
+         *     resolved successfully.
+         * @param {Function=} opt_errback The function to call when the value is
+         *     rejected.
+         * @return {!webdriver.promise.Promise} A new promise.
+         */
+        function when<T,R>(value: T, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+        function when<T,R>(value: Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+
+        /**
+         * Returns a promise that will be resolved with the input value in a
+         * fully-resolved state. If the value is an array, each element will be fully
+         * resolved. Likewise, if the value is an object, all keys will be fully
+         * resolved. In both cases, all nested arrays and objects will also be
+         * fully resolved.  All fields are resolved in place; the returned promise will
+         * resolve on {@code value} and not a copy.
+         *
+         * Warning: This function makes no checks against objects that contain
+         * cyclical references:
+         *
+         *   var value = {};
+         *   value['self'] = value;
+         *   webdriver.promise.fullyResolved(value);  // Stack overflow.
+         *
+         * @param {*} value The value to fully resolve.
+         * @return {!webdriver.promise.Promise} A promise for a fully resolved version
+         *     of the input value.
+         */
+        function fullyResolved<T>(value: any): Promise<T>;
+
+        /**
+         * Changes the default flow to use when no others are active.
+         * @param {!webdriver.promise.ControlFlow} flow The new default flow.
+         * @throws {Error} If the default flow is not currently active.
+         */
+        function setDefaultFlow(flow: ControlFlow): void;
+
+        //endregion
+
+        /**
+         * Error used when the computation of a promise is cancelled.
+         *
+         * @extends {goog.debug.Error}
+         * @final
+         */
+        class CancellationError {
+            /**
+             * @param {string=} opt_msg The cancellation message.
+             * @constructor
+             */
+            constructor(opt_msg?: string);
+
+            name: string;
+            message: string;
+        }
+
         interface IThenable<T> {
             /**
              * Cancels the computation of this promise's value, rejecting the promise in the
@@ -496,245 +754,6 @@ declare module webdriver {
              */
             static isImplementation(object: any): boolean;
         }
-
-        //region Functions
-
-        /**
-         * Given an array of promises, will return a promise that will be fulfilled
-         * with the fulfillment values of the input array's values. If any of the
-         * input array's promises are rejected, the returned promise will be rejected
-         * with the same reason.
-         *
-         * @param {!Array.<(T|!webdriver.promise.Promise.<T>)>} arr An array of
-         *     promises to wait on.
-         * @return {!webdriver.promise.Promise.<!Array.<T>>} A promise that is
-         *     fulfilled with an array containing the fulfilled values of the
-         *     input array, or rejected with the same reason as the first
-         *     rejected value.
-         * @template T
-         */
-        function all(arr: Promise<any>[]): Promise<any[]>;
-
-        /**
-         * Invokes the appropriate callback function as soon as a promised
-         * {@code value} is resolved. This function is similar to
-         * {@link webdriver.promise.when}, except it does not return a new promise.
-         * @param {*} value The value to observe.
-         * @param {Function} callback The function to call when the value is
-         *     resolved successfully.
-         * @param {Function=} opt_errback The function to call when the value is
-         *     rejected.
-         */
-        function asap(value: any, callback: Function, opt_errback?: Function): void;
-
-        /**
-         * @return {!webdriver.promise.ControlFlow} The currently active control flow.
-         */
-        function controlFlow(): ControlFlow;
-
-        /**
-         * Creates a new control flow. The provided callback will be invoked as the
-         * first task within the new flow, with the flow as its sole argument. Returns
-         * a promise that resolves to the callback result.
-         * @param {function(!webdriver.promise.ControlFlow)} callback The entry point
-         *     to the newly created flow.
-         * @return {!webdriver.promise.Promise} A promise that resolves to the callback
-         *     result.
-         */
-        function createFlow<R>(callback: (flow: ControlFlow) => R): Promise<R>;
-
-        /**
-         * Determines whether a {@code value} should be treated as a promise.
-         * Any object whose "then" property is a function will be considered a promise.
-         *
-         * @param {*} value The value to test.
-         * @return {boolean} Whether the value is a promise.
-         */
-        function isPromise(value: any): boolean;
-
-        /**
-         * Tests is a function is a generator.
-         * @param {!Function} fn The function to test.
-         * @return {boolean} Whether the function is a generator.
-         */
-        function isGenerator(fn: Function): boolean;
-
-        /**
-         * Creates a promise that will be resolved at a set time in the future.
-         * @param {number} ms The amount of time, in milliseconds, to wait before
-         *     resolving the promise.
-         * @return {!webdriver.promise.Promise} The promise.
-         */
-        function delayed(ms: number): Promise<void>;
-
-        /**
-         * Calls a function for each element in an array, and if the function returns
-         * true adds the element to a new array.
-         *
-         * <p>If the return value of the filter function is a promise, this function
-         * will wait for it to be fulfilled before determining whether to insert the
-         * element into the new array.
-         *
-         * <p>If the filter function throws or returns a rejected promise, the promise
-         * returned by this function will be rejected with the same reason. Only the
-         * first failure will be reported; all subsequent errors will be silently
-         * ignored.
-         *
-         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
-         *     array to iterator over, or a promise that will resolve to said array.
-         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): (
-         *             boolean|webdriver.promise.Promise.<boolean>)} fn The function
-         *     to call for each element in the array.
-         * @param {SELF=} opt_self The object to be used as the value of 'this' within
-         *     {@code fn}.
-         * @template TYPE, SELF
-         */
-        function filter<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>;
-        function filter<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
-
-        /**
-         * Creates a new deferred object.
-         * @return {!webdriver.promise.Deferred} The new deferred object.
-         */
-        function defer<T>(): Deferred<T>;
-
-        /**
-         * Creates a promise that has been resolved with the given value.
-         * @param {*=} opt_value The resolved value.
-         * @return {!webdriver.promise.Promise} The resolved promise.
-         */
-        function fulfilled<T>(opt_value?: T): Promise<T>;
-
-        /**
-         * Calls a function for each element in an array and inserts the result into a
-         * new array, which is used as the fulfillment value of the promise returned
-         * by this function.
-         *
-         * <p>If the return value of the mapping function is a promise, this function
-         * will wait for it to be fulfilled before inserting it into the new array.
-         *
-         * <p>If the mapping function throws or returns a rejected promise, the
-         * promise returned by this function will be rejected with the same reason.
-         * Only the first failure will be reported; all subsequent errors will be
-         * silently ignored.
-         *
-         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
-         *     array to iterator over, or a promise that will resolve to said array.
-         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): ?} fn The
-         *     function to call for each element in the array. This function should
-         *     expect three arguments (the element, the index, and the array itself.
-         * @param {SELF=} opt_self The object to be used as the value of 'this' within
-         *     {@code fn}.
-         * @template TYPE, SELF
-         */
-        function map<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
-        function map<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
-
-        /**
-         * Creates a promise that has been rejected with the given reason.
-         * @param {*=} opt_reason The rejection reason; may be any value, but is
-         *     usually an Error or a string.
-         * @return {!webdriver.promise.Promise} The rejected promise.
-         */
-        function rejected(opt_reason?: any): Promise<void>;
-
-        /**
-         * Wraps a function that is assumed to be a node-style callback as its final
-         * argument. This callback takes two arguments: an error value (which will be
-         * null if the call succeeded), and the success value as the second argument.
-         * If the call fails, the returned promise will be rejected, otherwise it will
-         * be resolved with the result.
-         * @param {!Function} fn The function to wrap.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     result of the provided function's callback.
-         */
-        function checkedNodeCall<T>(fn: Function, ...var_args): Promise<T>;
-
-        /**
-         * Consumes a {@code GeneratorFunction}. Each time the generator yields a
-         * promise, this function will wait for it to be fulfilled before feeding the
-         * fulfilled value back into {@code next}. Likewise, if a yielded promise is
-         * rejected, the rejection error will be passed to {@code throw}.
-         *
-         * <p>Example 1: the Fibonacci Sequence.
-         * <pre><code>
-         * webdriver.promise.consume(function* fibonacci() {
-         *   var n1 = 1, n2 = 1;
-         *   for (var i = 0; i < 4; ++i) {
-         *     var tmp = yield n1 + n2;
-         *     n1 = n2;
-         *     n2 = tmp;
-         *   }
-         *   return n1 + n2;
-         * }).then(function(result) {
-         *   console.log(result);  // 13
-         * });
-         * </code></pre>
-         *
-         * <p>Example 2: a generator that throws.
-         * <pre><code>
-         * webdriver.promise.consume(function* () {
-         *   yield webdriver.promise.delayed(250).then(function() {
-         *     throw Error('boom');
-         *   });
-         * }).thenCatch(function(e) {
-         *   console.log(e.toString());  // Error: boom
-         * });
-         * </code></pre>
-         *
-         * @param {!Function} generatorFn The generator function to execute.
-         * @param {Object=} opt_self The object to use as "this" when invoking the
-         *     initial generator.
-         * @param {...*} var_args Any arguments to pass to the initial generator.
-         * @return {!webdriver.promise.Promise.<?>} A promise that will resolve to the
-         *     generator's final result.
-         * @throws {TypeError} If the given function is not a generator.
-         */
-        function consume<T>(generatorFn: Function, opt_self?: any, ...var_args): Promise<T>;
-
-        /**
-         * Registers an observer on a promised {@code value}, returning a new promise
-         * that will be resolved when the value is. If {@code value} is not a promise,
-         * then the return promise will be immediately resolved.
-         * @param {*} value The value to observe.
-         * @param {Function=} opt_callback The function to call when the value is
-         *     resolved successfully.
-         * @param {Function=} opt_errback The function to call when the value is
-         *     rejected.
-         * @return {!webdriver.promise.Promise} A new promise.
-         */
-        function when<T,R>(value: T, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
-        function when<T,R>(value: Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
-
-        /**
-         * Returns a promise that will be resolved with the input value in a
-         * fully-resolved state. If the value is an array, each element will be fully
-         * resolved. Likewise, if the value is an object, all keys will be fully
-         * resolved. In both cases, all nested arrays and objects will also be
-         * fully resolved.  All fields are resolved in place; the returned promise will
-         * resolve on {@code value} and not a copy.
-         *
-         * Warning: This function makes no checks against objects that contain
-         * cyclical references:
-         *
-         *   var value = {};
-         *   value['self'] = value;
-         *   webdriver.promise.fullyResolved(value);  // Stack overflow.
-         *
-         * @param {*} value The value to fully resolve.
-         * @return {!webdriver.promise.Promise} A promise for a fully resolved version
-         *     of the input value.
-         */
-        function fullyResolved<T>(value: any): Promise<T>;
-
-        /**
-         * Changes the default flow to use when no others are active.
-         * @param {!webdriver.promise.ControlFlow} flow The new default flow.
-         * @throws {Error} If the default flow is not currently active.
-         */
-        function setDefaultFlow(flow: ControlFlow): void;
-
-        //endregion
 
         /**
          * Represents the eventual value of a completed operation. Each promise may be
@@ -1273,9 +1292,9 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} A new condition.
          */
         function ableToSwitchToFrame(frame: number): Condition<boolean>;
-        function ableToSwitchToFrame(frame: WebElement): Condition<boolean>;
+        function ableToSwitchToFrame(frame: IWebElement): Condition<boolean>;
         function ableToSwitchToFrame(frame: Locator): Condition<boolean>;
-        function ableToSwitchToFrame(frame: (webdriver: WebDriver) => WebElement): Condition<boolean>;
+        function ableToSwitchToFrame(frame: (webdriver: WebDriver) => IWebElement): Condition<boolean>;
         function ableToSwitchToFrame(frame: any): Condition<boolean>;
 
         /**
@@ -1293,7 +1312,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isEnabled
          */
-        function elementIsDisabled(element: WebElement): Condition<boolean>;
+        function elementIsDisabled(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be enabled.
@@ -1302,7 +1321,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isEnabled
          */
-        function elementIsEnabled(element: WebElement): Condition<boolean>;
+        function elementIsEnabled(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be deselected.
@@ -1311,7 +1330,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isSelected
          */
-        function elementIsNotSelected(element: WebElement): Condition<boolean>;
+        function elementIsNotSelected(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be in the DOM,
@@ -1321,7 +1340,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isDisplayed
          */
-        function elementIsNotVisible(element: WebElement): Condition<boolean>;
+        function elementIsNotVisible(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be selected.
@@ -1329,7 +1348,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isSelected
          */
-        function elementIsSelected(element: WebElement): Condition<boolean>;
+        function elementIsSelected(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to become visible.
@@ -1338,7 +1357,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isDisplayed
          */
-        function elementIsVisible(element: WebElement): Condition<boolean>;
+        function elementIsVisible(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will loop until an element is
@@ -1348,8 +1367,8 @@ declare module webdriver {
          *     to use.
          * @return {!until.Condition.<!webdriver.WebElement>} The new condition.
          */
-        function elementLocated(locator: Locator): Condition<WebElement>;
-        function elementLocated(locator: any): Condition<WebElement>;
+        function elementLocated(locator: Locator): Condition<IWebElement>;
+        function elementLocated(locator: any): Condition<IWebElement>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1361,7 +1380,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextContains(element: WebElement, substr: string): Condition<boolean>;
+        function elementTextContains(element: IWebElement, substr: string): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1373,7 +1392,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextIs(element: WebElement, text: string): Condition<boolean>;
+        function elementTextIs(element: IWebElement, text: string): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1385,7 +1404,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextMatches(element: WebElement, regex: RegExp): Condition<boolean>;
+        function elementTextMatches(element: IWebElement, regex: RegExp): Condition<boolean>;
 
         /**
          * Creates a condition that will loop until at least one element is
@@ -1396,8 +1415,8 @@ declare module webdriver {
          * @return {!until.Condition.<!Array.<!webdriver.WebElement>>} The new
          *     condition.
          */
-        function elementsLocated(locator: Locator): Condition<WebElement[]>;
-        function elementsLocated(locator: any): Condition<WebElement[]>;
+        function elementsLocated(locator: Locator): Condition<IWebElement[]>;
+        function elementsLocated(locator: any): Condition<IWebElement[]>;
 
         /**
          * Creates a condition that will wait for the given element to become stale. An
@@ -1407,7 +1426,7 @@ declare module webdriver {
          * @param {!webdriver.WebElement} element The element that should become stale.
          * @return {!until.Condition.<boolean>} The new condition.
          */
-        function stalenessOf(element: WebElement): Condition<boolean>;
+        function stalenessOf(element: IWebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the current page's title to contain
@@ -1597,7 +1616,7 @@ declare module webdriver {
          *     Defaults to (0, 0).
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseMove(location: WebElement, opt_offset?: ILocation): ActionSequence;
+        mouseMove(location: IWebElement, opt_offset?: ILocation): ActionSequence;
         mouseMove(location: ILocation): ActionSequence;
 
         /**
@@ -1622,7 +1641,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseDown(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
+        mouseDown(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
         mouseDown(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -1645,7 +1664,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseUp(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
+        mouseUp(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
         mouseUp(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -1657,8 +1676,8 @@ declare module webdriver {
          *     location to drag to, either as another WebElement or an offset in pixels.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        dragAndDrop(element: WebElement, location: WebElement): ActionSequence;
-        dragAndDrop(element: WebElement, location: ILocation): ActionSequence;
+        dragAndDrop(element: IWebElement, location: IWebElement): ActionSequence;
+        dragAndDrop(element: IWebElement, location: ILocation): ActionSequence;
 
         /**
          * Clicks a mouse button.
@@ -1676,7 +1695,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        click(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
+        click(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
         click(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -1698,7 +1717,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        doubleClick(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
+        doubleClick(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
         doubleClick(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -3417,7 +3436,270 @@ declare module webdriver {
      *   });
      * </code></pre>
      */
-    class WebElement {
+
+    interface IWebElement {
+        //region Methods
+
+        /**
+         * Schedules a command to click on this element.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved when
+         *     the click command has completed.
+         */
+        click(): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to type a sequence on the DOM element represented by this
+         * instance.
+         * <p/>
+         * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
+         * processed in the keysequence, that key state is toggled until one of the
+         * following occurs:
+         * <ul>
+         * <li>The modifier key is encountered again in the sequence. At this point the
+         * state of the key is toggled (along with the appropriate keyup/down events).
+         * </li>
+         * <li>The {@code webdriver.Key.NULL} key is encountered in the sequence. When
+         * this key is encountered, all modifier keys current in the down state are
+         * released (with accompanying keyup events). The NULL key can be used to
+         * simulate common keyboard shortcuts:
+         * <code>
+         *     element.sendKeys("text was",
+         *                      webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
+         *                      "now text is");
+         *     // Alternatively:
+         *     element.sendKeys("text was",
+         *                      webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
+         *                      "now text is");
+         * </code></li>
+         * <li>The end of the keysequence is encountered. When there are no more keys
+         * to type, all depressed modifier keys are released (with accompanying keyup
+         * events).
+         * </li>
+         * </ul>
+         * <strong>Note:</strong> On browsers where native keyboard events are not yet
+         * supported (e.g. Firefox on OS X), key events will be synthesized. Special
+         * punctionation keys will be synthesized according to a standard QWERTY en-us
+         * keyboard layout.
+         *
+         * @param {...string} var_args The sequence of keys to
+         *     type. All arguments will be joined into a single sequence (var_args is
+         *     permitted for convenience).
+         * @return {!webdriver.promise.Promise} A promise that will be resolved when all
+         *     keys have been typed.
+         */
+        sendKeys(...var_args: string[]): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to query for the tag/node name of this element.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     element's tag name.
+         */
+        getTagName(): webdriver.promise.Promise<string>;
+
+        /**
+         * Schedules a command to query for the computed style of the element
+         * represented by this instance. If the element inherits the named style from
+         * its parent, the parent will be queried for its value.  Where possible, color
+         * values will be converted to their hex representation (e.g. #00ff00 instead of
+         * rgb(0, 255, 0)).
+         * <p/>
+         * <em>Warning:</em> the value returned will be as the browser interprets it, so
+         * it may be tricky to form a proper assertion.
+         *
+         * @param {string} cssStyleProperty The name of the CSS style property to look
+         *     up.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     requested CSS value.
+         */
+        getCssValue(cssStyleProperty: string): webdriver.promise.Promise<string>;
+
+        /**
+         * Schedules a command to query for the value of the given attribute of the
+         * element. Will return the current value even if it has been modified after the
+         * page has been loaded. More exactly, this method will return the value of the
+         * given attribute, unless that attribute is not present, in which case the
+         * value of the property with the same name is returned. If neither value is
+         * set, null is returned. The "style" attribute is converted as best can be to a
+         * text representation with a trailing semi-colon. The following are deemed to
+         * be "boolean" attributes and will be returned as thus:
+         *
+         * <p>async, autofocus, autoplay, checked, compact, complete, controls, declare,
+         * defaultchecked, defaultselected, defer, disabled, draggable, ended,
+         * formnovalidate, hidden, indeterminate, iscontenteditable, ismap, itemscope,
+         * loop, multiple, muted, nohref, noresize, noshade, novalidate, nowrap, open,
+         * paused, pubdate, readonly, required, reversed, scoped, seamless, seeking,
+         * selected, spellcheck, truespeed, willvalidate
+         *
+         * <p>Finally, the following commonly mis-capitalized attribute/property names
+         * are evaluated as expected:
+         * <ul>
+         *   <li>"class"
+         *   <li>"readonly"
+         * </ul>
+         * @param {string} attributeName The name of the attribute to query.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     attribute's value.
+         */
+        getAttribute(attributeName: string): webdriver.promise.Promise<string>;
+
+        /**
+         * Get the visible (i.e. not hidden by CSS) innerText of this element, including
+         * sub-elements, without any leading or trailing whitespace.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     element's visible text.
+         */
+        getText(): webdriver.promise.Promise<string>;
+
+        /**
+         * Schedules a command to compute the size of this element's bounding box, in
+         * pixels.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     element's size as a {@code {width:number, height:number}} object.
+         */
+        getSize(): webdriver.promise.Promise<ISize>;
+
+        /**
+         * Schedules a command to compute the location of this element in page space.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved to the
+         *     element's location as a {@code {x:number, y:number}} object.
+         */
+        getLocation(): webdriver.promise.Promise<ILocation>;
+
+        /**
+         * Schedules a command to query whether the DOM element represented by this
+         * instance is enabled, as dicted by the {@code disabled} attribute.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with
+         *     whether this element is currently enabled.
+         */
+        isEnabled(): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to query whether this element is selected.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with
+         *     whether this element is currently selected.
+         */
+        isSelected(): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to submit the form containing this element (or this
+         * element if it is a FORM element). This command is a no-op if the element is
+         * not contained in a form.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved when
+         *     the form has been submitted.
+         */
+        submit(): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to clear the {@code value} of this element. This command
+         * has no effect if the underlying DOM element is neither a text INPUT element
+         * nor a TEXTAREA element.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved when
+         *     the element has been cleared.
+         */
+        clear(): webdriver.promise.Promise<void>;
+
+        /**
+         * Schedules a command to test whether this element is currently displayed.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with
+         *     whether this element is currently visible on the page.
+         */
+        isDisplayed(): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to retrieve the outer HTML of this element.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with
+         *     the element's outer HTML.
+         */
+        getOuterHtml(): webdriver.promise.Promise<string>;
+
+        /**
+         * @return {!webdriver.promise.Promise.<webdriver.WebElement.Id>} A promise
+         *     that resolves to this element's JSON representation as defined by the
+         *     WebDriver wire protocol.
+         * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
+         */
+        getId(): webdriver.promise.Promise<IWebElementId>
+
+        /**
+         * Schedules a command to retrieve the inner HTML of this element.
+         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         *     element's inner HTML.
+         */
+        getInnerHtml(): webdriver.promise.Promise<string>;
+
+        //endregion
+    }
+
+    interface IWebElementFinders {
+        /**
+         * Schedule a command to find a descendant of this element. If the element
+         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
+         * be returned by the driver. Unlike other commands, this error cannot be
+         * suppressed. In other words, scheduling a command to find an element doubles
+         * as an assert that the element is present on the page. To test whether an
+         * element is present on the page, use {@code #isElementPresent} instead.
+         *
+         * <p>The search criteria for an element may be defined using one of the
+         * factories in the {@link webdriver.By} namespace, or as a short-hand
+         * {@link webdriver.By.Hash} object. For example, the following two statements
+         * are equivalent:
+         * <code><pre>
+         * var e1 = element.findElement(By.id('foo'));
+         * var e2 = element.findElement({id:'foo'});
+         * </pre></code>
+         *
+         * <p>You may also provide a custom locator function, which takes as input
+         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
+         * promise that will resolve to a WebElement. For example, to find the first
+         * visible link on a page, you could write:
+         * <code><pre>
+         * var link = element.findElement(firstVisibleLink);
+         *
+         * function firstVisibleLink(element) {
+         *   var links = element.findElements(By.tagName('a'));
+         *   return webdriver.promise.filter(links, function(link) {
+         *     return links.isDisplayed();
+         *   }).then(function(visibleLinks) {
+         *     return visibleLinks[0];
+         *   });
+         * }
+         * </pre></code>
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the element.
+         * @return {!webdriver.WebElement} A WebElement that can be used to issue
+         *     commands against the located element. If the element is not found, the
+         *     element will be invalidated and all scheduled commands aborted.
+         */
+        findElement(locator: Locator): WebElementPromise;
+        findElement(locator: any): WebElementPromise;
+
+        /**
+         * Schedules a command to test if there is at least one descendant of this
+         * element that matches the given search criteria.
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the element.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether an element could be located on the page.
+         */
+        isElementPresent(locator: Locator): webdriver.promise.Promise<boolean>;
+        isElementPresent(locator: any): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Schedules a command to find all of the descendants of this element that
+         * match the given search criteria.
+         *
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
+         *     locator strategy to use when searching for the elements.
+         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         *     promise that will resolve to an array of WebElements.
+         */
+        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
+    }
+
+    class WebElement implements IWebElement, IWebElementFinders {
         //region Constructors
 
         /**
@@ -3847,7 +4129,7 @@ declare module webdriver {
         className(value: string): Locator;
         css(value: string): Locator;
         id(value: string): Locator;
-        js(script: any, ...var_args): (WebDriver) => webdriver.promise.Promise<any>;
+        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
         linkText(value: string): Locator;
         name(value: string): Locator;
         partialLinkText(value: string): Locator;

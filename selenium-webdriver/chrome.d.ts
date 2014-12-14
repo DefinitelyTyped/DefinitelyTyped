@@ -65,7 +65,7 @@
          *     extensions to add.
          * @return {!Options} A self reference.
          */
-        addExtensions(...var_args): Options;
+        addExtensions(...var_args: any[]): Options;
 
 
         /**
@@ -261,7 +261,7 @@
      * @param {!remote.DriverService} service The service to use.
      * @throws {Error} If the default service is currently running.
      */
-    function setDefaultService(service: any);
+    function setDefaultService(service: any): void;
 }
 
 declare module 'selenium-webdriver/chrome' {
