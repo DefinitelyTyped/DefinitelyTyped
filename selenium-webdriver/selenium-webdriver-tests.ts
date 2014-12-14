@@ -548,8 +548,9 @@ function TestWebDriver() {
     var stringPromise: webdriver.promise.Promise<string>;
     var booleanPromise: webdriver.promise.Promise<boolean>;
 
-    // Call
     var actions: webdriver.ActionSequence = driver.actions();
+
+    // call
     stringPromise = driver.call<string>(function(){});
     stringPromise = driver.call<string>(function(){ var d: any = this;}, driver);
     stringPromise = driver.call<string>(function(a: number){}, driver, 1);
@@ -557,24 +558,26 @@ function TestWebDriver() {
     voidPromise = driver.close();
     flow = driver.controlFlow();
 
-    // ExecuteAsyncScript
+    // executeAsyncScript
     stringPromise = driver.executeAsyncScript<string>('function(){}');
     stringPromise = driver.executeAsyncScript<string>('function(){}', 1, 2, 3);
     stringPromise = driver.executeAsyncScript<string>(function(){});
     stringPromise = driver.executeAsyncScript<string>(function(a: number){}, 1);
 
-    // ExecuteScript
+    // executeScript
     stringPromise = driver.executeScript<string>('function(){}');
     stringPromise = driver.executeScript<string>('function(){}', 1, 2, 3);
     stringPromise = driver.executeScript<string>(function(){});
     stringPromise = driver.executeScript<string>(function(a: number){}, 1);
 
+    // findElement
     var element: webdriver.WebElement;
     element = driver.findElement(webdriver.By.id('ABC'));
     element = driver.findElement({id: 'ABC'});
     element = driver.findElement(webdriver.By.js('function(){}'), 1, 2, 3);
     element = driver.findElement({js: 'function(){}'}, 1, 2, 3);
 
+    // findElements
     driver.findElements(webdriver.By.className('ABC')).then(function (elements: webdriver.WebElement[]) { });
     driver.findElements({ className: 'ABC' }).then(function (elements: webdriver.WebElement[]) { });
     driver.findElements(webdriver.By.js('function(){}'), 1, 2, 3).then(function (elements: webdriver.WebElement[]) { });
@@ -657,6 +660,28 @@ function TestWebElement() {
     var key: string = webdriver.WebElement.ELEMENT_KEY;
 }
 
+function TestWebElementPromise() {
+    var driver: webdriver.WebDriver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.chrome()).
+        build();
+
+    var elementPromise: webdriver.WebElementPromise = driver.findElement(webdriver.By.id('id'));
+
+    elementPromise.cancel();
+    elementPromise.cancel('reason');
+
+    var bool: boolean = elementPromise.isPending();
+
+    elementPromise.then();
+    elementPromise.then(function (element: webdriver.WebElement) { });
+    elementPromise.then(function (element: webdriver.WebElement) { }, function (error: any) { });
+    elementPromise.then<string>(function (element: webdriver.WebElement) { }, function (error: any) { }).then(function (result: string) { });
+
+    elementPromise.thenCatch(function (error: any) { }).then(function (value: any) { });
+
+    elementPromise.thenFinally(function () { });
+}
+
 function TestLogging() {
     var preferences: webdriver.logging.Preferences = new webdriver.logging.Preferences();
     preferences.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
@@ -703,16 +728,59 @@ function TestLoggingEntry() {
     entry = webdriver.logging.Entry.fromClosureLogRecord({}, webdriver.logging.Type.DRIVER);
 }
 
-function TestPromiseNamespace() {
+function TestPromiseModule() {
+    var cancellationError: webdriver.promise.CancellationError = new webdriver.promise.CancellationError();
+    cancellationError = new webdriver.promise.CancellationError("message");
+    var str: string = cancellationError.message;
+    str = cancellationError.name;
+
     var stringPromise: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
     var numberPromise: webdriver.promise.Promise<number>;
     var booleanPromise: webdriver.promise.Promise<boolean>;
     var voidPromise: webdriver.promise.Promise<void>;
 
+    webdriver.promise.all([new webdriver.promise.Promise<string>()]).then(function (values: string[]) { });
+
     webdriver.promise.asap('abc', function(value: any){ return true; });
     webdriver.promise.asap('abc', function(value: any){}, function(err: any) { return 'ABC'; });
 
     stringPromise = webdriver.promise.checkedNodeCall<string>(function(err: any, value: any) { return 'abc'; });
+
+    webdriver.promise.consume(function () {
+        return 5;
+    }).then(function (value: number) { });
+    webdriver.promise.consume(function () {
+        return 5;
+    }, this).then(function (value: number) { });
+    webdriver.promise.consume(function (a: number, b: number, c: number) {
+        return 5;
+    }, this, 1, 2, 3).then(function (value: number) { });
+
+    var numbersPromise: webdriver.promise.Promise<number[]> = webdriver.promise.filter([1, 2, 3], function (el: number, index: number, arr: number[]) {
+        return true;
+    });
+    numbersPromise = webdriver.promise.filter([1, 2, 3], function (el: number, index: number, arr: number[]) {
+        return true;
+    }, this);
+    numbersPromise = webdriver.promise.filter(numbersPromise, function (el: number, index: number, arr: number[]) {
+        return true;
+    });
+    numbersPromise = webdriver.promise.filter(numbersPromise, function (el: number, index: number, arr: number[]) {
+        return true;
+    }, this);
+
+    numbersPromise = webdriver.promise.map([1, 2, 3], function (el: number, index: number, arr: number[]) {
+        return true;
+    });
+    numbersPromise = webdriver.promise.map([1, 2, 3], function (el: number, index: number, arr: number[]) {
+        return true;
+    }, this);
+    numbersPromise = webdriver.promise.map(numbersPromise, function (el: number, index: number, arr: number[]) {
+        return true;
+    });
+    numbersPromise = webdriver.promise.map(numbersPromise, function (el: number, index: number, arr: number[]) {
+        return true;
+    }, this);
 
     var flow: webdriver.promise.ControlFlow = webdriver.promise.controlFlow();
 
@@ -734,6 +802,7 @@ function TestPromiseNamespace() {
 
     stringPromise = webdriver.promise.fullyResolved('abc');
 
+    var bool: boolean = webdriver.promise.isGenerator(function () { });
     var isPromise: boolean = webdriver.promise.isPromise('ABC');
 
     voidPromise = webdriver.promise.rejected({a: 123});
@@ -741,6 +810,50 @@ function TestPromiseNamespace() {
     webdriver.promise.setDefaultFlow(new webdriver.promise.ControlFlow());
 
     numberPromise = webdriver.promise.when('abc', function(value: any) { return 123; }, function(err: Error) { return 123; });
+}
+
+function TestStacktraceModule() {
+    var bool: boolean = webdriver.stacktrace.BROWSER_SUPPORTED;
+
+    var frame: webdriver.stacktrace.Frame = new webdriver.stacktrace.Frame();
+    var baseFrame: webdriver.stacktrace.Frame = frame;
+
+    var snapshot: webdriver.stacktrace.Snapshot = new webdriver.stacktrace.Snapshot();
+    var baseSnapshot: webdriver.stacktrace.Snapshot = snapshot;
+
+    var err: Error = webdriver.stacktrace.format(new Error("Error"));
+    var frames: webdriver.stacktrace.Frame[] = webdriver.stacktrace.get();
+}
+
+function TestUntilModule() {
+    var driver: webdriver.WebDriver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.chrome()).
+        build();
+
+    var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', function (driver: webdriver.WebDriver) { return true; });
+    var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
+    var conditionWebElement: webdriver.until.Condition<webdriver.IWebElement>;
+    var conditionWebElements: webdriver.until.Condition<webdriver.IWebElement[]>;
+
+    conditionB = webdriver.until.ableToSwitchToFrame(5);
+    var conditionAlert: webdriver.until.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
+    var el: webdriver.WebElement = driver.findElement(webdriver.By.id('id'));
+    conditionB = webdriver.until.elementIsDisabled(el);
+    conditionB = webdriver.until.elementIsEnabled(el);
+    conditionB = webdriver.until.elementIsNotSelected(el);
+    conditionB = webdriver.until.elementIsNotVisible(el);
+    conditionB = webdriver.until.elementIsSelected(el);
+    conditionB = webdriver.until.elementIsVisible(el);
+    conditionB = webdriver.until.elementTextContains(el, 'text');
+    conditionB = webdriver.until.elementTextIs(el, 'text');
+    conditionB = webdriver.until.elementTextMatches(el, /text/);
+    conditionB = webdriver.until.stalenessOf(el);
+    conditionB = webdriver.until.titleContains('text');
+    conditionB = webdriver.until.titleIs('text');
+    conditionB = webdriver.until.titleMatches(/text/);
+
+    conditionWebElement = webdriver.until.elementLocated(webdriver.By.id('id'));
+    conditionWebElements = webdriver.until.elementsLocated(webdriver.By.className('class'));
 }
 
 function TestControlFlow() {
@@ -756,6 +869,7 @@ function TestControlFlow() {
     var eventType: string;
 
     eventType = webdriver.promise.ControlFlow.EventType.IDLE;
+    eventType = webdriver.promise.ControlFlow.EventType.RESET;
     eventType = webdriver.promise.ControlFlow.EventType.SCHEDULE_TASK;
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
@@ -816,7 +930,29 @@ function TestPromiseClass() {
     promise = promise.then(function( a: string ) { });
     promise = promise.then(function( a: string ) { return 'cde'; });
     promise = promise.then(function( a: string ) {}, function( e: any) {});
-    promise = promise.then(function( a: string ) {}, function( e: any) { return 123; });
+    promise = promise.then(function (a: string) { }, function (e: any) { return 123; });
+
+    promise = promise.thenCatch(function (error: any) { });
+
+    promise.thenFinally(function () { });
+}
+
+function TestThenableClass() {
+    var thenable: webdriver.promise.Thenable<string> = new webdriver.promise.Thenable<string>();
+
+    thenable.cancel('Abort');
+
+    var isPending: boolean = thenable.isPending();
+
+    thenable = thenable.then();
+    thenable = thenable.then(function (a: string) { });
+    thenable = thenable.then(function (a: string) { return 'cde'; });
+    thenable = thenable.then(function (a: string) { }, function (e: any) { });
+    thenable = thenable.then(function (a: string) { }, function (e: any) { return 123; });
+
+    thenable = thenable.thenCatch(function (error: any) { });
+
+    thenable.thenFinally(function () { });
 }
 
 function TestErrorCode() {
