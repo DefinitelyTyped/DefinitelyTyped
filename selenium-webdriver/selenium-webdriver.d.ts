@@ -3404,7 +3404,7 @@ declare module webdriver {
          * @return {!webdriver.WebDriver.TargetLocator} The target locator interface for
          *     this instance.
          */
-        switchTo(): WebDriverTargetLocator
+        switchTo(): WebDriverTargetLocator;
 
         //endregion
     }
@@ -3979,7 +3979,7 @@ declare module webdriver {
          *     WebDriver wire protocol.
          * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
          */
-        getId(): webdriver.promise.Promise<IWebElementId>
+        getId(): webdriver.promise.Promise<IWebElementId>;
 
         /**
          * Schedules a command to retrieve the inner HTML of this element.
