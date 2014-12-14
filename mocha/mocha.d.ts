@@ -140,7 +140,7 @@ declare module "mocha" {
         asyncOnly(value: boolean): MochaInstance;
         noHighlighting(value: boolean): MochaInstance;
 
-        run(onComplete?: (failures: any[]) => void): void;
+        run(onComplete?: (failures: number) => void): void;
     }
 
     export = MochaInstance;
