@@ -173,11 +173,46 @@ declare module IMAP {
 
 
 
-    export interface Connection extends NodeJS.EventEmitter, MessageFunctions {
+    export class Connection implements NodeJS.EventEmitter, MessageFunctions {
         /** @constructor */
-        (config : Config) : void;
+        constructor(config : Config);
+        
+        // from NodeJS.EventEmitter
+        addListener(event: string, listener: Function): NodeJS.EventEmitter;
+        on(event: string, listener: Function): NodeJS.EventEmitter;
+        once(event: string, listener: Function): NodeJS.EventEmitter;
+        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+        removeAllListeners(event?: string): NodeJS.EventEmitter;
+        setMaxListeners(n: number): void;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
+        
+        // from MessageFunctions
+        // Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate.
+        search(criteria : any[], callback : (error : Error, uids : string[]) => void) : void;
+        // Fetches message(s) in the currently open mailbox.
+        fetch(source : any /* MessageSource */, options : FetchOptions) : ImapFetch;
+        // Copies message(s) in the currently open mailbox to another mailbox. 
+        copy(source : any /* MessageSource */, mailboxName : string, callback : (error : Error) => void) : void;
+        // Moves message(s) in the currently open mailbox to another mailbox. Note: The message(s) in the destination mailbox will have a new message UID.
+        move(source : any /* MessageSource */, mailboxName : string, callback : (error : Error) => void) : void;
+        // Adds flag(s) to message(s).
+        addFlags(source : any /* MessageSource */, flags : any, callback : (error : Error) => void) : void;
+        // Removes flag(s) from message(s).
+        delFlags(source : any /* MessageSource */, flags : any, callback : (error : Error) => void) : void;
+        // Sets the flag(s) for message(s).
+        setFlags(source : any /* MessageSource */, flags : any, callback : (error : Error) => void) : void;
+        // Adds keyword(s) to message(s). keywords is either a single keyword or an array of keywords.
+        addKeywords(source : any /* MessageSource */, keywords : any /* string|string[] */, callback : (error : Error) => void) : void;
+        //Removes keyword(s) from message(s). keywords is either a single keyword or an array of keywords.
+        delKeywords(source : any /* MessageSource */, keywords : any /* string|string[] */, callback : (error : Error) => void) : void;
+        // Sets keyword(s) for message(s). keywords is either a single keyword or an array of keywords.
+        setKeywords(source : any /* MessageSource */, keywords : any /* string|string[] */, callback : (error : Error) => void) : void;
+        // Checks if the server supports the specified capability.
+        serverSupports(capability : string) : boolean;
+        
         // Parses a raw header and returns an object keyed on header fields and the values are Arrays of header field values. Set disableAutoDecode to true to disable automatic decoding of MIME encoded-words that may exist in header field values.
-        parseHeader(rawHeader: string, disableAutoDecode? : boolean) : any;
+        static parseHeader(rawHeader: string, disableAutoDecode? : boolean) : any;
         
         state: string;          // The current state of the connection (e.g. 'disconnected', 'connected', 'authenticated').
         delimiter: string;      // The (top-level) mailbox hierarchy delimiter. If the server does not support mailbox hierarchies and only a flat list, this value will be falsey.
@@ -231,7 +266,7 @@ declare module IMAP {
 
 declare module "imap" {
 
-    var out: IMAP.Connection;
+    var out: typeof IMAP.Connection;
 
     export = out;
 }
