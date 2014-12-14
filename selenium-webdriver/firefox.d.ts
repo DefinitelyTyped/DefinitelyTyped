@@ -15,7 +15,7 @@
          * @param {...(string|!Array.<string>)} var_args Either the arguments to add as
          *     varargs, or the arguments as an array.
          */
-        addArguments(...var_args: string[]);
+        addArguments(...var_args: string[]): void;
 
 
         /**
@@ -130,7 +130,7 @@
          * @param {string} extension Path to the extension to include, as either an
          *     unpacked extension directory or the path to a xpi file.
          */
-        addExtension(extension: string);
+        addExtension(extension: string): void;
 
 
         /**
@@ -139,9 +139,9 @@
          * @param {(string|number|boolean)} value The preference value.
          * @throws {Error} If attempting to set a frozen preference.
          */
-        setPreference(key: string, value: string);
-        setPreference(key: string, value: number);
-        setPreference(key: string, value: boolean);
+        setPreference(key: string, value: string): void;
+        setPreference(key: string, value: number): void;
+        setPreference(key: string, value: boolean): void;
 
 
         /**
@@ -167,7 +167,7 @@
          * Sets the port to use for the WebDriver extension loaded by this profile.
          * @param {number} port The desired port, or 0 to use any free port.
          */
-        setPort(port: number);
+        setPort(port: number): void;
 
 
         /**
@@ -182,14 +182,14 @@
          * certificates.
          * @param {boolean} value .
          */
-        setAcceptUntrustedCerts(value: boolean);
+        setAcceptUntrustedCerts(value: boolean): void;
 
 
         /**
          * Sets whether to assume untrusted certificates come from untrusted issuers.
          * @param {boolean} value .
          */
-        setAssumeUntrustedCertIssuer(value: boolean);
+        setAssumeUntrustedCertIssuer(value: boolean): void;
 
 
         /**
@@ -203,7 +203,7 @@
          * Sets whether to use native events with this profile.
          * @param {boolean} enabled .
          */
-        setNativeEventsEnabled(enabled: boolean);
+        setNativeEventsEnabled(enabled: boolean): void;
 
 
         /**

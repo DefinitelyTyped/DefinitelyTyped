@@ -1,4 +1,4 @@
-/// <reference path="selenium-webdriver.d.ts" />
+/// <reference path="selenium-webdriver-2.39.0.d.ts" />
 
 function TestAbstractBuilder() {
     var builder: webdriver.AbstractBuilder = new webdriver.AbstractBuilder();
