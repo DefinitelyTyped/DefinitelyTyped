@@ -218,7 +218,7 @@ function test_require_fluentParams() {
 function test_run_withOnComplete() {
     var instance = new MochaDef();
 
-    instance.run((failures: any[]): void => {
+    instance.run((failures: number): void => {
         console.log(failures);
     });
 }
