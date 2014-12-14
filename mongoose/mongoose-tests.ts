@@ -364,3 +364,5 @@ schema.virtual('display_name')
   .get(function(): string { return this.name; })
   .set((value: string): void => {});
 
+var id : mongoose.Types.ObjectId;
+var s = id.toHexString();
