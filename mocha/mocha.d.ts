@@ -1,6 +1,6 @@
-// Type definitions for mocha 1.17.1
+// Type definitions for mocha 2.0.1
 // Project: http://visionmedia.github.io/mocha/
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Mocha {
@@ -108,3 +108,40 @@ declare function afterEach(action: (done: MochaDone) => void): void;
 declare function suiteTeardown(action: () => void): void;
 
 declare function suiteTeardown(action: (done: MochaDone) => void): void;
+
+declare module "mocha" {
+
+    class MochaInstance {
+        constructor(options?: {
+            grep?: RegExp;
+            ui?: string;
+            reporter?: string;
+            timeout?: number;
+            bail?: boolean;
+        });
+
+        bail(value?: boolean): MochaInstance;
+        addFile(file: string): MochaInstance;
+        reporter(value: string): MochaInstance;
+        ui(value: string): MochaInstance;
+        grep(value: string): MochaInstance;
+        grep(value: RegExp): MochaInstance;
+        invert(): MochaInstance;
+        ignoreLeaks(value: boolean): MochaInstance;
+        checkLeaks(): MochaInstance;
+        growl(): MochaInstance;
+        globals(value: string): MochaInstance;
+        globals(values: string[]): MochaInstance;
+        useColors(value: boolean): MochaInstance;
+        useInlineDiffs(value: boolean): MochaInstance;
+        timeout(value: number): MochaInstance;
+        slow(value: number): MochaInstance;
+        enableTimeouts(value: boolean): MochaInstance;
+        asyncOnly(value: boolean): MochaInstance;
+        noHighlighting(value: boolean): MochaInstance;
+
+        run(onComplete?: (failures: any[]) => void): void;
+    }
+
+    export = MochaInstance;
+}
