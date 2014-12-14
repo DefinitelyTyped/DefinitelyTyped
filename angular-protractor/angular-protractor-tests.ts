@@ -51,15 +51,15 @@ function TestWebDriverExports() {
 
     var webElementPromise: protractor.WebElementPromise = new protractor.WebElementPromise(driver, { ELEMENT: 'abc' });
     var baseWebElementPromise: webdriver.WebElementPromise = webElementPromise;
+}
 
-    // error module
-
+function TestWebDriverErrorModule() {
     var errorCode: number = protractor.error.ErrorCode.ELEMENT_NOT_VISIBLE;
     var error: protractor.error.Error = new protractor.error.Error(protractor.error.ErrorCode.ELEMENT_NOT_VISIBLE);
     var baseError: webdriver.error.Error = error;
+}
 
-    // logging module
-
+function TestWebDriverLoggingModule() {
     var levelName: string = protractor.logging.Level.ALL.name;
     var loggingType: string = protractor.logging.Type.CLIENT;
 
@@ -71,9 +71,9 @@ function TestWebDriverExports() {
     level = protractor.logging.getLevel('DEBUG');
 
     var prefs: protractor.logging.Preferences = new protractor.logging.Preferences();
+}
 
-    // promise module
-
+function TestWebDriverPromiseModule() {
     var cancelError: protractor.promise.CancellationError = new protractor.promise.CancellationError();
     cancelError = new protractor.promise.CancellationError('message');
     var baseCancelError: webdriver.promise.CancellationError = cancelError;
@@ -92,10 +92,10 @@ function TestWebDriverExports() {
 
     var arrayPromise: protractor.promise.Promise<any[]> = protractor.promise.all([new protractor.promise.Promise<number>(), new protractor.promise.Promise<string>()]);
 
-    protractor.promise.asap(promise, function(value: any){ return true; });
-    protractor.promise.asap(promise, function(value: any){}, function(err: any) { return 'ABC'; });
+    protractor.promise.asap(promise, function (value: any) { return true; });
+    protractor.promise.asap(promise, function (value: any) { }, function (err: any) { return 'ABC'; });
 
-    promise = protractor.promise.checkedNodeCall(function(err: any, value: any) { return 123; });
+    promise = protractor.promise.checkedNodeCall(function (err: any, value: any) { return 123; });
 
     promise = protractor.promise.consume(function () {
         return 5;
@@ -109,7 +109,7 @@ function TestWebDriverExports() {
 
     flow = protractor.promise.controlFlow();
 
-    promise = protractor.promise.createFlow(function(newFlow: webdriver.promise.ControlFlow) { });
+    promise = protractor.promise.createFlow(function (newFlow: webdriver.promise.ControlFlow) { });
 
     deferred = protractor.promise.defer();
 
@@ -142,21 +142,22 @@ function TestWebDriverExports() {
     }, this);
 
     promise = protractor.promise.fulfilled();
-    promise = protractor.promise.fulfilled({a: 123});
+    promise = protractor.promise.fulfilled({ a: 123 });
 
-    promise = protractor.promise.fullyResolved({a: 123});
+    promise = protractor.promise.fullyResolved({ a: 123 });
 
     var bool: boolean = protractor.promise.isGenerator(function () { });
     var bool: boolean = protractor.promise.isPromise('ABC');
 
-    promise = protractor.promise.rejected({a: 123});
+    promise = protractor.promise.rejected({ a: 123 });
 
     protractor.promise.setDefaultFlow(new webdriver.promise.ControlFlow());
 
     promise = protractor.promise.when(promise, function (value: any) { return 123; }, function (err: Error) { return 123; });
+}
 
-    // stacktrace module
-    bool = protractor.stacktrace.BROWSER_SUPPORTED;
+function TestWebDriverStacktraceModule() {
+    var bool: boolean = protractor.stacktrace.BROWSER_SUPPORTED;
 
     var frame: protractor.stacktrace.Frame = new protractor.stacktrace.Frame();
     var baseFrame: webdriver.stacktrace.Frame = frame;
@@ -166,8 +167,9 @@ function TestWebDriverExports() {
 
     var err: Error = protractor.stacktrace.format(new Error("Error"));
     var frames: protractor.stacktrace.Frame[] = protractor.stacktrace.get();
+}
 
-    // until module
+function TestWebDriverUntilModule() {
     var conditionB: protractor.until.Condition<boolean> = new protractor.until.Condition<boolean>('message', function (driver: webdriver.WebDriver) { return true; });
     var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
     var conditionWebElement: protractor.until.Condition<webdriver.IWebElement>;

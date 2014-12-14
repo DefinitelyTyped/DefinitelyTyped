@@ -1030,6 +1030,9 @@ declare module webdriver {
                 /** Emitted when all tasks have been successfully executed. */
                     IDLE: string;
 
+                /** Emitted when a ControlFlow has been reset. */
+                    RESET: string;
+
                 /** Emitted whenever a new task has been scheduled. */
                     SCHEDULE_TASK: string;
 
