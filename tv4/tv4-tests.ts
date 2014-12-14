@@ -26,6 +26,7 @@ bool = multi.valid;
 strArr = multi.missing;
 errs = multi.errors;
 
+bool = tv4.addSchema(obj);
 bool = tv4.addSchema(str, obj);
 obj = tv4.getSchema(str);
 obj = tv4.normSchema(str, str);
