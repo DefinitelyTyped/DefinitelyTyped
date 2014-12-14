@@ -1,5 +1,5 @@
 // Type definitions for imap v0.8.14
-// Project: mscdex
+// Project: https://github.com/mscdex/node-imap
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap
 
