@@ -1,14 +1,14 @@
-// Type definitions for node.js REST framework 2.0
+// Type definitions for restify v2.8.4
 // Project: https://github.com/mcavage/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-
+/// <reference path="../bunyan/bunyan.d.ts" />
 
 declare module "restify" {
   import http = require('http');
-
+  import bunyan = require('bunyan');
 
   interface addressInterface {
     port: number;
@@ -16,37 +16,70 @@ declare module "restify" {
     address: string;
   }
 
-  interface Request extends http.ServerRequest {
-    header: (key: string, defaultValue?: string) => any;
-    accepts: (type: string) => boolean;
-    is: (type: string) => boolean;
-    getLogger: (component: string) => any;
-    contentLength: number;
-    contentType: string;
-    href: () => string;
-    log: Object;
-    id: string;
-    path: () => string;
-    query: any;
-    secure: boolean;
-    time: number;
-    params: any;
+  interface CacheOptions {
+    maxAge?: number;
+  }
 
-    body?: any; //available when bodyParser plugin is used
+  interface Headers {
+    [name: string]: string;
+  }
+
+  interface Params {
+    [name: string]: any;
+  }
+
+  interface Request extends http.ServerRequest {
+    log: bunyan.Logger;
+    params: Params;
+    body?: any;
+
+    contentLength(): number;
+    contentType(): string;
+    date(): Date;
+    href(): string;
+    id(): string;
+    path(): string;
+    query(): string;
+    time(): number;
+    version(): string;
+    userAgent(): string;
+
+    isChunked(): boolean;
+    isKeepAlive(): boolean;
+    isSecure(): boolean;
+    isUpgradeRequest(): boolean;
+    isUpload(): boolean;
+    is(type: string): boolean;
+
+    absoluteUri(path: string): string;
+    accepts(type: string): boolean;
+    accepts(types: string[]): boolean;
+    acceptsEncoding(type: string): boolean;
+    acceptsEncoding(types: string[]): boolean;
+    header(name: string, defaultValue?: string): string;
+    trailer(name: string, defaultValue?: string): string;
   }
 
   interface Response extends http.ServerResponse {
-    header: (key: string, value ?: any) => any;
-    cache: (type?: any, options?: Object) => any;
-    status: (code: number) => any;
-    send: (status?: any, body?: any) => any;
-    json: (status?: any, body?: any) => any;
-    code: number;
-    contentLength: number;
-    charSet(value: string): void;
+    log: bunyan.Logger;
+    statusCode: number;
     contentType: string;
-    headers: Object;
-    id: string;
+
+    cache(type?: any, options?: CacheOptions): string;
+    charSet(value: string): Response;
+    get(name: string): string;
+    headers(): Headers;
+    header(name: string): string;
+    header(name: string, value: Date): string;
+    header(name: string, value: string, ...args: any[]): string;
+    json(body: any, headers?: Headers): Response;
+    json(status: number, body: any, headers?: Headers): Response;
+    link(link: string, rel: string): string;
+    send(body: any, headers?: Headers): Response;
+    send(status: any, body: any, headers?: Headers): Response;
+    set(name: string, value: string): Response;
+    set(headers: Headers): Response;
+    status(code: number): number;
   }
 
   interface Server extends http.Server {
@@ -87,7 +120,7 @@ declare module "restify" {
 
     name: string;
     version: string;
-    log: Object;
+    log: bunyan.Logger;
     acceptable: string[];
     url: string;
     address: () => addressInterface;
@@ -101,7 +134,7 @@ declare module "restify" {
     certificate ?: string;
     key ?: string;
     formatters ?: Object;
-    log ?: Object;
+    log ?: bunyan.Logger;
     name ?: string;
     spdy ?: Object;
     version ?: string;
@@ -217,3 +250,5 @@ declare module "restify" {
       export function userAgentConnection(options?: any): RequestHandler;
   }
 }
+
+// vim:et:sw=2:ts=2
