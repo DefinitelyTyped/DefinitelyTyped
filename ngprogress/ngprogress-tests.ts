@@ -14,3 +14,4 @@ ngProgress.stop();
 ngProgress.set(50);
 ngProgress.reset();
 ngProgress.complete();
+
