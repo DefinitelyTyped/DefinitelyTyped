@@ -210,6 +210,8 @@ interface Moment {
     isoWeeks(d: number): Moment;
     weeksInYear(): number;
     isoWeeksInYear(): number;
+    dayOfYear(): number;
+    dayOfYear(d: number): Moment;
 
     from(f: Moment): string;
     from(f: Moment, suffix: boolean): string;
