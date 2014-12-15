@@ -3913,6 +3913,7 @@ declare module dojox {
             set(property:"extractContent", value: boolean): void;
             get(property:"extractContent"): boolean;
             watch(property:"extractContent", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            focusNode: HTMLElement;
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
@@ -4180,7 +4181,7 @@ declare module dojox {
              * @param widget             
              * @param insertIndex               Optional            
              */
-            addChild(widget: dijit._WidgetBase, insertIndex: number): void;
+            addChild(widget: dijit._WidgetBase, insertIndex? : number): void;
             /**
              * This method is deprecated, use get() or set() directly.
              * 
@@ -4688,7 +4689,7 @@ declare module dojox {
              * 
              * @param callback               Optional            
              */
-            show(callback: Function): void;
+            show(callback?: Function): void;
             /**
              * 
              */
@@ -11443,31 +11444,31 @@ declare module "dojox/layout/RadioGroup" {
     export=exp;
 }
 declare module "dojox/layout/Dock" {
-    var exp: dojox.layout.Dock
+    var exp: typeof dojox.layout.Dock
     export=exp;
 }
 declare module "dojox/layout/DragPane" {
-    var exp: dojox.layout.DragPane
+    var exp: typeof dojox.layout.DragPane
     export=exp;
 }
 declare module "dojox/layout/ExpandoPane" {
-    var exp: dojox.layout.ExpandoPane
+    var exp: typeof dojox.layout.ExpandoPane
     export=exp;
 }
 declare module "dojox/layout/ContentPane" {
-    var exp: dojox.layout.ContentPane
+    var exp: typeof dojox.layout.ContentPane
     export=exp;
 }
 declare module "dojox/layout/GridContainer" {
-    var exp: dojox.layout.GridContainer
+    var exp: typeof dojox.layout.GridContainer
     export=exp;
 }
 declare module "dojox/layout/FloatingPane" {
-    var exp: dojox.layout.FloatingPane
+    var exp: typeof dojox.layout.FloatingPane
     export=exp;
 }
 declare module "dojox/layout/GridContainerLite" {
-    var exp: dojox.layout.GridContainerLite
+    var exp: typeof dojox.layout.GridContainerLite
     export=exp;
 }
 declare module "dojox/layout/GridContainerLite.ChildWidgetProperties" {
@@ -11475,19 +11476,19 @@ declare module "dojox/layout/GridContainerLite.ChildWidgetProperties" {
     export=exp;
 }
 declare module "dojox/layout/ResizeHandle" {
-    var exp: dojox.layout.ResizeHandle
+    var exp: typeof dojox.layout.ResizeHandle
     export=exp;
 }
 declare module "dojox/layout/ToggleSplitter" {
-    var exp: dojox.layout.ToggleSplitter
+    var exp: typeof dojox.layout.ToggleSplitter
     export=exp;
 }
 declare module "dojox/layout/RotatorContainer" {
-    var exp: dojox.layout.RotatorContainer
+    var exp: typeof dojox.layout.RotatorContainer
     export=exp;
 }
 declare module "dojox/layout/TableContainer" {
-    var exp: dojox.layout.TableContainer
+    var exp: typeof dojox.layout.TableContainer
     export=exp;
 }
 declare module "dojox/layout/TableContainer.ChildWidgetProperties" {
@@ -11495,14 +11496,14 @@ declare module "dojox/layout/TableContainer.ChildWidgetProperties" {
     export=exp;
 }
 declare module "dojox/layout/ScrollPane" {
-    var exp: dojox.layout.ScrollPane
+    var exp: typeof dojox.layout.ScrollPane
     export=exp;
 }
 declare module "dojox/layout/dnd/Avatar" {
-    var exp: dojox.layout.dnd.Avatar
+    var exp: typeof dojox.layout.dnd.Avatar
     export=exp;
 }
 declare module "dojox/layout/dnd/PlottedDnd" {
-    var exp: dojox.layout.dnd.PlottedDnd
+    var exp: typeof dojox.layout.dnd.PlottedDnd
     export=exp;
 }

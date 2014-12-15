@@ -1817,7 +1817,7 @@ declare module dojo {
         /**
          * 
          */
-        "promise": Object;
+        "promise": dojo.promise.Promise;
         /**
          * Inform the deferred it may cancel its asynchronous operation.
          * Inform the deferred it may cancel its asynchronous operation.
@@ -1874,7 +1874,7 @@ declare module dojo {
          * @param value The result of the deferred. Passed to callbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be resolved.             
          */
-        resolve(value: any, strict: boolean): dojo.promise.Promise;
+        resolve(value: any, strict?: boolean): dojo.promise.Promise;
         /**
          * Add new callbacks to the deferred.
          * Add new callbacks to the deferred. Callbacks can be added
@@ -16165,7 +16165,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+            then(callback: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
             /**
              * 
              */
@@ -18077,7 +18077,7 @@ declare module dojo {
      * module for specifics.
      * 
      */
-    interface router {
+    interface router extends dojo.router.RouterBase {
     }
     module router {
         /**
@@ -18119,7 +18119,7 @@ declare module dojo {
              * @param path             
              * @param replace             
              */
-            go(path: any, replace: any): any;
+            go(path: string, replace?: boolean): any;
             /**
              * Registers a route to a handling callback
              * Given either a string or a regular expression, the router
@@ -18548,7 +18548,7 @@ declare module dojo {
          * @param id A string to match an HTML id attribute or a reference to a DOM Node             
          * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
          */
-        byId(id: String, doc: HTMLDocument): any;
+        byId(id: String, doc?: HTMLDocument): any;
         /**
          * Returns DOM node with matching id attribute or falsy value (ex: null or undefined)
          * if not found.  If id is a DomNode, this function is a no-op.
@@ -18556,7 +18556,7 @@ declare module dojo {
          * @param id A string to match an HTML id attribute or a reference to a DOM Node             
          * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
          */
-        byId(id: HTMLElement, doc: HTMLDocument): any;
+        byId(id: HTMLElement, doc?: HTMLDocument): any;
         /**
          * Returns true if node is a descendant of ancestor
          * 
@@ -19604,7 +19604,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        position(node: HTMLElement, includeScroll: boolean): Object;
+        position(node: HTMLElement, includeScroll?: boolean): { w: number; h: number; x: number; y: number };
         /**
          * Gets the position and size of the passed element relative to
          * the viewport (if includeScroll==false), or relative to the
@@ -19620,7 +19620,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        position(node: String, includeScroll: boolean): Object;
+        position(node: String, includeScroll?: boolean): { w: number; h: number; x: number; y: number };
         /**
          * Sets the size of the node's contents, irrespective of margins,
          * padding, or borders.
