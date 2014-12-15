@@ -154,7 +154,7 @@ interface Section {
 
 }
 interface TabSections {
-    forEach(argument: SectionFunctionCallback); // Applies the action contained within a delegate function. 
+    forEach(argument: SectionFunctionCallback): void; // Applies the action contained within a delegate function. 
     get(): any[]; // Returns one or more controls depending on the arguments passed. 
     get(argument: string): Section; // Returns The control where the name matches the argument
     get(argument: number): Section; // Returns The control where the index matches the number
@@ -280,7 +280,7 @@ interface Entity {
     getId(): string;  // Returns a string representing the GUID id value for the record.
     getIsDirty(): boolean;  // Returns a Boolean value that indicates if any fields in the form have been modified.
 	getPrimaryAttributeValue(): string; // Returns the primary attribute value.
-    removeOnSave();  // Removes a function from the OnSave event hander.
+    removeOnSave(): void;  // Removes a function from the OnSave event hander.
     save(param?: string): void;  // Saves the record. This method has three possible parameters. "" , "saveandclose" and "saveandnew"
 }
 interface AttributeCollection {
@@ -321,7 +321,7 @@ interface Attribute {
     removeOnChange(ev: any): void;
     setRequiredLevel(requirementLevel: string): void;
     setSubmitMode(SubmitMode: string): void; // review
-    setValue(value: any);
+    setValue(value: any): void;
 }
 interface UserPrivilege {
     canRead: boolean;
@@ -341,7 +341,7 @@ interface ExecutionContext {
     getEventArgs(): SaveEventArgs; //  Returns an object with methods to manage the Save event.
     getEventSource(): Attribute; //  Returns a reference to the object that the event occurred on.
     getSharedVariable(key: string): Object; // Retrieves a variable set using setSharedVariable.
-    setSharedVariable(key: string, value: Object); // Sets the value of a variable to be used by a handler after the current handler completes.
+    setSharedVariable(key: string, value: Object): void; // Sets the value of a variable to be used by a handler after the current handler completes.
 }
 
 interface SaveEventArgs {
