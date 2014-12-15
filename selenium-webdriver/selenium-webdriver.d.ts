@@ -1264,13 +1264,13 @@ declare module webdriver {
              *     evaluate on each iteration of the wait loop.
              * @constructor
              */
-            constructor(message: string, fn: (webdriver: WebDriver) => T);
+            constructor(message: string, fn: (webdriver: WebDriver) => any);
 
             /** @return {string} A description of this condition. */
             description(): string;
 
             /** @type {function(!webdriver.WebDriver): OUT} */
-            fn(webdriver: WebDriver): T;
+            fn(webdriver: WebDriver): any;
         }
 
         /**
@@ -3243,7 +3243,7 @@ declare module webdriver {
          * @template T
          */
         wait<T>(condition: webdriver.until.Condition<T>, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
-        wait<T>(condition: (webdriver: WebDriver) => T, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
+        wait<T>(condition: (webdriver: WebDriver) => any, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to make the driver sleep for the given amount of time.
