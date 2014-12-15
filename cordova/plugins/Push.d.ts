@@ -63,8 +63,8 @@ interface RegistrationOptions {
     channelName?: string;
     /** Callback, that is fired when notification arrived */
     ecb?: string;
-    badge?: boolean;
-    sound?: boolean;
-    alert?: boolean
+    badge?: boolean|string;
+    sound?: boolean|string;
+    alert?: boolean|string
 }
 
