@@ -1,4 +1,4 @@
-// Type definitions for Dyanmics CRM/Xrm Platform 2015
+// Type definitions for Dyanmics CRM 2015
 // Project: http://www.microsoft.com/en-us/dynamics/crm.aspx
 // Definitions by: Steven Pride - Based on https://xrm2011typescript.codeplex.com/ created by kowgli <https://www.codeplex.com/site/users/view/kowgli>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
