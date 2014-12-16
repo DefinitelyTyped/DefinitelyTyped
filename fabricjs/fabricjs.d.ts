@@ -546,7 +546,7 @@ declare module fabric {
 
         sendBackwards(object: IObject): ICanvas;
         sendToBack(object: IObject): ICanvas;
-        setBackgroundImage(object: IObject): ICanvas;
+        setBackgroundImage(image: any, callback: () => any, options?): ICanvas;
         setDimensions(object: { width: number; height: number; }): ICanvas;
         setHeight(height: number): ICanvas;
         setOverlayImage(url: string, callback: () => any, options): ICanvas;
