@@ -6,10 +6,7 @@ var ngProgress: NgProgress.INgProgress = <any> {};
 ngProgress.start();
 ngProgress.height('10px');
 ngProgress.color('red');
-
-var statusResult: number = undefined;
-ngProgress.status();
-
+var statusResult: number = ngProgress.status();
 ngProgress.stop();
 ngProgress.set(50);
 ngProgress.reset();

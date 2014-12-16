@@ -9,7 +9,7 @@ declare module NgProgress {
         start(): void;
         height(height: string): void;
         color(color: string): void;
-        status(): string;
+        status(): number;
         stop(): void;
         set(value: number): void;
         reset(): void;
