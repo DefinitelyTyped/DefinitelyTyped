@@ -5,7 +5,7 @@
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module DevExpress  {
+declare module DevExpress {
     /** A mixin that provides a capability to fire and subscribe to events. */
     export interface EventsMixin<T> {
         /** Subscribes to a specified event. */
@@ -34,7 +34,7 @@ declare module DevExpress  {
             brokenRules: any[];
             validators: IValidator[];
         }
-        export interface GroupConfig extends EventsMixin<GroupConfig>  {
+        export interface GroupConfig extends EventsMixin<GroupConfig> {
             group: any;
             validators: IValidator[];
             validate(): ValidationGroupValidationResult;
@@ -50,7 +50,7 @@ declare module DevExpress  {
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
         /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
-        export function registerModelForValidation(model: Object) : void;
+        export function registerModelForValidation(model: Object): void;
     }
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
@@ -333,8 +333,8 @@ declare module DevExpress  {
             createQuery(): Query;
         }
         interface Promise {
-            then(doneFn?: Function, failFn?: Function, progressFn?: Function) : Promise;
-        }        
+            then(doneFn?: Function, failFn?: Function, progressFn?: Function): Promise;
+        }
         export interface CustomStoreOptions extends StoreOptions {
             /** The user implementation of the byKey(key, extraOptions) method. */
             byKey?: (key: any) => Promise;
@@ -735,11 +735,15 @@ declare module DevExpress  {
         /** An object that serves as a namespace for methods displaying a message in an application/site. */
         export var dialog: {
             /** Creates an alert dialog message containing a single "OK" button. */
-            alert(message: string, title: string): JQueryDeferred<void>;
+            alert(message: string, title: string): JQueryPromise<void>;
             /** Creates a confirm dialog that contains "Yes" and "No" buttons. */
-            confirm(message: string, title: string): JQueryDeferred<boolean>;
-                        /** Creates a custom dialog using the options specified by the passed configuration object. */
-            custom(options: Object): JQueryDeferred<any>;
+            confirm(message: string, title: string): JQueryPromise<boolean>;
+            /** Creates a custom dialog using the options specified by the passed configuration object. */
+            custom(options: { title?: string; message?: string; buttons?: Array<Object>; }): {
+                show(): JQueryPromise<any>;
+                hide(): void;
+                hide(value: any): void;
+            };
         };
         /** Creates a toast message. */
         export function notify(message: any, type: string, displayTime: number): void;
@@ -763,7 +767,7 @@ declare module DevExpress  {
         };
     }
 }
-declare module DevExpress.framework  {
+declare module DevExpress.framework {
     /** An object used to store information on the views displayed in an application. */
     export class ViewCache {
         viewRemoved: JQueryCallback;
@@ -1016,7 +1020,7 @@ declare module DevExpress.framework  {
         }
     }
 }
-declare module DevExpress.ui  {
+declare module DevExpress.ui {
     export interface dxValidatorOptions extends DOMComponentOptions {
         /** An array of validation rules to be checked for the editor with which the dxValidator object is associated. */
         validationRules?: Array<any>;
@@ -1108,6 +1112,7 @@ declare module DevExpress.ui  {
         /** Specifies the dxToast widget type. */
         type?: string;
         width?: any;
+        closeOnBackButton?: boolean;
     }
     /** The toast message widget. */
     export class dxToast extends dxOverlay {
@@ -1224,6 +1229,8 @@ declare module DevExpress.ui  {
         fieldTemplate?: any;
         /** The text that is provided as a hint in the select box editor. */
         placeholder?: string;
+        /** Specifies whether or not the widget allows an end-user to enter a custom value. */
+        editEnabled?: boolean;
     }
     /** A widget that allows you to select an item in a dropdown list. */
     export class dxSelectBox extends dxDropDownList {
@@ -1360,7 +1367,7 @@ declare module DevExpress.ui  {
         /** A template to be used for rendering the widget title. */
         titleTemplate?: any;
         width?: any;
-        /** Specifies buttons displayed on the top or bottom toolbar of the popup window. */
+        /** Specifies items displayed on the top or bottom toolbar of the popup window. */
         buttons?: Array<any>;
         /** A handler for the titleRendered event. */
         onTitleRendered?: Function;
@@ -1971,7 +1978,7 @@ declare module DevExpress.ui  {
     /** A container widget used to arrange inner elements. */
     export class dxBox extends CollectionWidget {
         constructor(element: JQuery, options?: dxBoxOptions);
-        constructor(element: Element, options?: dxBoxOptions);    
+        constructor(element: Element, options?: dxBoxOptions);
     }
     export interface dxResponsiveBoxOptions extends CollectionWidgetOptions {
         /** Specifies the collection of rows for the grid used to position layout elements. */
@@ -2365,27 +2372,27 @@ declare module DevExpress.ui  {
         getNodes(): Array<Object>;
     }
     export interface dxMenuBaseOptions extends CollectionWidgetOptions {
-		/** An object that defines the animation options of the widget. */
+        /** An object that defines the animation options of the widget. */
         animation?: fx.AnimationOptions;
-		/** A Boolean value specifying whether or not the widget changes its state when interacting with a user. */
+        /** A Boolean value specifying whether or not the widget changes its state when interacting with a user. */
         activeStateEnabled?: boolean;
-		/** Specifies the name of the CSS class associated with the menu. */
+        /** Specifies the name of the CSS class associated with the menu. */
         cssClass?: string;
-		/** Holds an array of menu items. */
+        /** Holds an array of menu items. */
         items?: Array<any>;
-		/** Specifies whether or not an item becomes selected if an end-user clicks it. */
+        /** Specifies whether or not an item becomes selected if an end-user clicks it. */
         selectionByClick?: boolean;
-		/** Specifies the selection mode supported by the menu. */
+        /** Specifies the selection mode supported by the menu. */
         selectionMode?: string;
-		/** Specifies the user interaction by which submenus are shown. */
+        /** Specifies the user interaction by which submenus are shown. */
         showSubmenuMode?: string;
-	}
+    }
     export class dxMenuBase extends CollectionWidget {
         constructor(element: JQuery, options?: dxMenuBaseOptions);
         constructor(element: Element, options?: dxMenuBaseOptions);
-		/** Selects the specified item. */
+        /** Selects the specified item. */
         selectItem(itemElement: any): void;
-		/** Unselects the specified item. */
+        /** Unselects the specified item. */
         unselectItem(itemElement: any): void;
     }
     export interface dxMenuOptions extends dxMenuBaseOptions {
@@ -2417,34 +2424,34 @@ declare module DevExpress.ui  {
         constructor(element: JQuery, options?: dxMenuOptions);
         constructor(element: Element, options?: dxMenuOptions);
     }
-	export interface dxContextMenuOptions extends dxMenuBaseOptions {
+    export interface dxContextMenuOptions extends dxMenuBaseOptions {
         direction?: string;
         hiddenAction?: Function;
         hidingAction?: Function;
-		/** Specifies whether the context menu can be called only from code or by user interaction as well. */
+        /** Specifies whether the context menu can be called only from code or by user interaction as well. */
         invokeOnlyFromCode?: boolean;
-		/** A handler for the hidden event. */
+        /** A handler for the hidden event. */
         onHidden?: Function;
-		/** A handler for the hiding event. */
+        /** A handler for the hiding event. */
         onHiding?: Function;
-		/** A handler for the positioning event. */
+        /** A handler for the positioning event. */
         onPositioning?: Function;
-		/** A handler for the showing event. */
+        /** A handler for the showing event. */
         onShowing?: Function;
-		/** A handler for the shown event. */
+        /** A handler for the shown event. */
         onShown?: Function;
-		/** An object defining widget positioning options. */
+        /** An object defining widget positioning options. */
         position?: PositionOptions;
         positioningAction?: Function;
         showingAction?: Function;
         shownAction?: Function;
-		/** Specifies by which user interaction the context menu is shown. */
+        /** Specifies by which user interaction the context menu is shown. */
         showSubmenuMode?: string;
-		/** Specifies the direction at which submenus are displayed. */
+        /** Specifies the direction at which submenus are displayed. */
         submenuDirection?: string;
-		/** The target element associated with a popover. */
+        /** The target element associated with a popover. */
         target?: any;
-		/** A Boolean value specifying whether or not the widget is visible. */
+        /** A Boolean value specifying whether or not the widget is visible. */
         visible?: boolean;
     }
     /** A context menu widget. */
@@ -3084,7 +3091,7 @@ Searches grid records by a search string.
         getTotalSummaryValue(summaryItemName: string): any;
     }
 }
-declare module DevExpress.viz.charts  {
+declare module DevExpress.viz.charts {
     /** This section describes the fields and methods that can be used in code to manipulate the Series object. */
     export interface BaseSeries {
         /** Provides information about the state of the series object. */
@@ -3295,8 +3302,8 @@ declare module DevExpress.viz.charts  {
         /** Specifies a precision for the percentage values displayed in the labels of a full-stacked-like series. */
         percentPrecision?: number;
     }
-	export interface BaseCommonSeriesConfig {
-		/** Specifies the data source field that provides arguments for series points. */
+    export interface BaseCommonSeriesConfig {
+        /** Specifies the data source field that provides arguments for series points. */
         argumentField?: string;
         axis?: string;
         /** An object defining the label configuration options for a series in the dxChart widget. */
@@ -3356,83 +3363,83 @@ declare module DevExpress.viz.charts  {
         visible?: boolean;
         /** Specifies a line width. */
         width?: number;
-		/** Configures error bars. */
-		valueErrorBar?: {
-			/** Specifies whether error bars must be displayed in full or partially. */
-			displayMode?: string;
-			/** Specifies the data field that provides data for low error values. */
-			lowValueField?: string;
-			/** Specifies the data field that provides data for high error values. */
-			highValueField?: string;
-			/** Specifies how error bar values must be calculated. */
-			type?: string;
-			/** Specifies the value to be used for generating error bars. */
-			value?: number;
-			/** Specifies the color of error bars. */
-			color?: string;
-			/** Specifies the opacity of error bars. */
-			opacity?: number;
-			/** Specifies the length of the lines that indicate the error bar edges. */
-            edgeLength?: number;
-			/** Specifies the width of the error bar line. */
-			lineWidth?: number;
-		};
-	}
-	export interface CommonPointOptions {
-			/** Specifies border options for points in the line and area series. */
-            border?: viz.core.Border;
-            /** Specifies the points color. */
+        /** Configures error bars. */
+        valueErrorBar?: {
+            /** Specifies whether error bars must be displayed in full or partially. */
+            displayMode?: string;
+            /** Specifies the data field that provides data for low error values. */
+            lowValueField?: string;
+            /** Specifies the data field that provides data for high error values. */
+            highValueField?: string;
+            /** Specifies how error bar values must be calculated. */
+            type?: string;
+            /** Specifies the value to be used for generating error bars. */
+            value?: number;
+            /** Specifies the color of error bars. */
             color?: string;
-            /** Specifies what series points to highlight when a point is hovered over. */
-            hoverMode?: string;
-            /** An object defining configuration options for a hovered point. */
-            hoverStyle?: {
-                /** An object defining the border options for a hovered point. */
-                border?: viz.core.Border;
-                /** Sets a color for a point when it is hovered over. */
-                color?: string;
-                /** Specifies the diameter of a hovered point in the series that represents data points as symbols (not as bars for instance). */
-                size?: number;
-            };
-            /** Specifies what series points to highlight when a point is selected. */
-            selectionMode?: string;
-            /** An object defining configuration options for a selected point. */
-            selectionStyle?: {
-                /** An object defining the border options for a selected point. */
-                border?: viz.core.Border;
-                /** <p>Sets a color for a point when it is selected.</p> */
-                color?: string;
-                /** Specifies the diameter of a selected point in the series that represents data points as symbols (not as bars for instance). */
-                size?: number;
-            };
-            /** Specifies the point diameter in pixels for those series that represent data points as symbols (not as bars for instance). */
+            /** Specifies the opacity of error bars. */
+            opacity?: number;
+            /** Specifies the length of the lines that indicate the error bar edges. */
+            edgeLength?: number;
+            /** Specifies the width of the error bar line. */
+            lineWidth?: number;
+        };
+    }
+    export interface CommonPointOptions {
+        /** Specifies border options for points in the line and area series. */
+        border?: viz.core.Border;
+        /** Specifies the points color. */
+        color?: string;
+        /** Specifies what series points to highlight when a point is hovered over. */
+        hoverMode?: string;
+        /** An object defining configuration options for a hovered point. */
+        hoverStyle?: {
+            /** An object defining the border options for a hovered point. */
+            border?: viz.core.Border;
+            /** Sets a color for a point when it is hovered over. */
+            color?: string;
+            /** Specifies the diameter of a hovered point in the series that represents data points as symbols (not as bars for instance). */
             size?: number;
-            /** Specifies a symbol for presenting points of the line and area series. */
-            symbol?: string;
-            visible?: boolean;
-	}
-	export interface ChartCommonPointOptions extends CommonPointOptions {
-			/** An object specifying the parameters of an image that is used as a point marker. */
-            image?: {
-                /** Specifies the height of an image that is used as a point marker. */
-                height?: any;
-                /** Specifies a URL leading to the image to be used as a point marker. */
-                url?: any;
-                /** Specifies the width of an image that is used as a point marker. */
-                width?: any;
-            };
-	}
-	export interface PolarCommonPointOptions extends CommonPointOptions {
-			/** An object specifying the parameters of an image that is used as a point marker. */
-            image?: {
-                /** Specifies the height of an image that is used as a point marker. */
-                height?: number;
-                /** Specifies a URL leading to the image to be used as a point marker. */
-                url?: string;
-                /** Specifies the width of an image that is used as a point marker. */
-                width?: number;
-            };
-	}
+        };
+        /** Specifies what series points to highlight when a point is selected. */
+        selectionMode?: string;
+        /** An object defining configuration options for a selected point. */
+        selectionStyle?: {
+            /** An object defining the border options for a selected point. */
+            border?: viz.core.Border;
+            /** <p>Sets a color for a point when it is selected.</p> */
+            color?: string;
+            /** Specifies the diameter of a selected point in the series that represents data points as symbols (not as bars for instance). */
+            size?: number;
+        };
+        /** Specifies the point diameter in pixels for those series that represent data points as symbols (not as bars for instance). */
+        size?: number;
+        /** Specifies a symbol for presenting points of the line and area series. */
+        symbol?: string;
+        visible?: boolean;
+    }
+    export interface ChartCommonPointOptions extends CommonPointOptions {
+        /** An object specifying the parameters of an image that is used as a point marker. */
+        image?: {
+            /** Specifies the height of an image that is used as a point marker. */
+            height?: any;
+            /** Specifies a URL leading to the image to be used as a point marker. */
+            url?: any;
+            /** Specifies the width of an image that is used as a point marker. */
+            width?: any;
+        };
+    }
+    export interface PolarCommonPointOptions extends CommonPointOptions {
+        /** An object specifying the parameters of an image that is used as a point marker. */
+        image?: {
+            /** Specifies the height of an image that is used as a point marker. */
+            height?: number;
+            /** Specifies a URL leading to the image to be used as a point marker. */
+            url?: string;
+            /** Specifies the width of an image that is used as a point marker. */
+            width?: number;
+        };
+    }
     /** An object that defines configuration options for chart series. */
     export interface CommonSeriesConfig extends BaseCommonSeriesConfig {
         /** Specifies the data source field that provides a 'close' value for a _candleStick_ or _stock_ series. */
@@ -3523,14 +3530,14 @@ declare module DevExpress.viz.charts  {
         /** Sets the series type. */
         type?: string;
     }
-	/** An object that defines configuration options for polar chart series. */
-	export interface CommonPolarSeriesConfig extends BaseCommonSeriesConfig {
-		/** Specifies whether or not to close the chart by joining the end point with the first point. */
+    /** An object that defines configuration options for polar chart series. */
+    export interface CommonPolarSeriesConfig extends BaseCommonSeriesConfig {
+        /** Specifies whether or not to close the chart by joining the end point with the first point. */
         closed?: boolean;
         label?: SeriesConfigLabel;
         point?: PolarCommonPointOptions;
-	}
-	export interface CommonPolarSeriesSettings extends CommonPolarSeriesConfig {
+    }
+    export interface CommonPolarSeriesSettings extends CommonPolarSeriesConfig {
         /** An object that specifies configuration options for all series of the <i>area</i> type in the chart. */
         area?: CommonPolarSeriesConfig;
         /** An object that specifies configuration options for all series of the _bar_ type in the chart. */
@@ -3630,7 +3637,7 @@ declare module DevExpress.viz.charts  {
         /** Specifies a data source field that represents the series name. */
         nameField?: string;
     }
-	export interface PolarSeriesTemplate {
+    export interface PolarSeriesTemplate {
         /** Specifies a callback function that returns a series object with individual series settings. */
         customizeSeries?: (seriesName: string) => PolarSeriesConfig;
         /** Specifies a data source field that represents the series name. */
@@ -3642,19 +3649,19 @@ declare module DevExpress.viz.charts  {
         /** Specifies the position of the constant line label relative to the chart plot. */
         position?: string;
     }
-	export interface PolarCommonConstantLineLabel {
-		/** Specifies font options for a constant line label. */
+    export interface PolarCommonConstantLineLabel {
+        /** Specifies font options for a constant line label. */
         font?: viz.core.Font;
-	}
-	export interface ConstantLineStyle {
-		/** Specifies a color for a constant line. */
+    }
+    export interface ConstantLineStyle {
+        /** Specifies a color for a constant line. */
         color?: string;
         /** Specifies a dash style for a constant line. */
         dashStyle?: string;
         /** Specifies a constant line width in pixels. */
         width?: number;
-	}
-	export interface ChartCommonConstantLineStyle extends ConstantLineStyle {
+    }
+    export interface ChartCommonConstantLineStyle extends ConstantLineStyle {
         /** An object defining constant line label options. */
         label?: ChartCommonConstantLineLabel;
         /** Specifies the space between the constant line label and the left/right side of the constant line. */
@@ -3662,28 +3669,28 @@ declare module DevExpress.viz.charts  {
         /** Specifies the space between the constant line label and the top/bottom side of the constant line. */
         paddingTopBottom?: number;
     }
-	export interface PolarCommonConstantLineStyle extends ConstantLineStyle {
-		/** An object defining constant line label options. */
+    export interface PolarCommonConstantLineStyle extends ConstantLineStyle {
+        /** An object defining constant line label options. */
         label?: PolarCommonConstantLineLabel;
-	}
-	export interface CommonAxisLabel {
-		/** Specifies font options for axis labels. */
+    }
+    export interface CommonAxisLabel {
+        /** Specifies font options for axis labels. */
         font?: viz.core.Font;
         /** Specifies the spacing between an axis and its labels in pixels. */
         indentFromAxis?: number;
         /** Indicates whether or not axis labels are visible. */
         visible?: boolean;
-	}
+    }
     export interface ChartCommonAxisLabel extends CommonAxisLabel {
         /** Specifies the label's position relative to the tick (grid line). */
         alignment?: string;
-		/** Specifies the overlap resolving algorithm to be applied to axis labels. */
+        /** Specifies the overlap resolving algorithm to be applied to axis labels. */
         overlappingBehavior?: {
-			/** Specifies the overlap resolving algorithm to be applied to series point labels. */
+            /** Specifies how to arrange axis labels. */
             mode?: string;
-            /** Specifies the angle used to rotate axis labels to resolve overlap. */
+            /** Specifies the angle used to rotate axis labels. */
             rotationAngle?: number;
-            /** Specifies the spacing that must be set between staggered rows when the 'stagger' algorithm is applied to resolve label overlap. */
+            /** Specifies the spacing that must be set between staggered rows when the 'stagger' algorithm is applied. */
             staggeringSpacing?: number;
         };
     }
@@ -3691,7 +3698,7 @@ declare module DevExpress.viz.charts  {
         /** Specifies the overlap resolving algorithm to be applied to axis labels. */
         overlappingBehavior?: string;
     }
-	export interface CommonAxisTitle {
+    export interface CommonAxisTitle {
         /** Specifies font options for an axis title. */
         font?: viz.core.Font;
         /** Specifies a margin for an axis title in pixels. */
@@ -3700,7 +3707,7 @@ declare module DevExpress.viz.charts  {
     export interface BaseCommonAxisSettings {
         /** Specifies the color of the line that represents an axis. */
         color?: string;
-		/** Specifies whether ticks/grid lines of a discrete axis are located between labels or cross the labels. */
+        /** Specifies whether ticks/grid lines of a discrete axis are located between labels or cross the labels. */
         discreteAxisDivisionMode?: string;
         /** An object defining the configuration options for the grid lines of an axis in the dxPolarChart widget. */
         grid?: {
@@ -3713,7 +3720,7 @@ declare module DevExpress.viz.charts  {
             /** Specifies the width of grid lines. */
             width?: number;
         };
-		/** Specifies the options of the minor grid. */
+        /** Specifies the options of the minor grid. */
         minorGrid?: {
             /** Specifies a color for the lines of the minor grid. */
             color?: string;
@@ -3739,7 +3746,7 @@ declare module DevExpress.viz.charts  {
             /** Indicates whether or not ticks are visible on an axis. */
             visible?: boolean;
         };
-		/** Specifies the options of the minor ticks. */
+        /** Specifies the options of the minor ticks. */
         minorTick?: {
             /** Specifies a color for the minor ticks. */
             color?: string;
@@ -3753,18 +3760,18 @@ declare module DevExpress.viz.charts  {
         /** Specifies the width of the line that represents an axis in the chart. */
         width?: number;
     }
-	export interface ChartCommonAxisSettings extends BaseCommonAxisSettings {
+    export interface ChartCommonAxisSettings extends BaseCommonAxisSettings {
         /** Specifies the appearance of all the widget's constant lines. */
         constantLineStyle?: ChartCommonConstantLineStyle;
         /** An object defining the label configuration options that are common for all axes in the dxChart widget. */
         label?: ChartCommonAxisLabel;
         /** Specifies a coefficient that determines the spacing between the maximum series point and the axis. */
-		maxValueMargin?: number;
+        maxValueMargin?: number;
         /** Specifies a coefficient that determines the spacing between the minimum series point and the axis. */
-		minValueMargin?: number;
+        minValueMargin?: number;
         /** Specifies, in pixels, the space reserved for an axis. */
         placeholderSize?: number;
-		/** An object defining configuration options for strip style. */
+        /** An object defining configuration options for strip style. */
         stripStyle?: {
             /** An object defining the configuration options for a strip label style. */
             label?: {
@@ -3785,7 +3792,7 @@ declare module DevExpress.viz.charts  {
         /** Indicates whether or not to display series with indents from axis boundaries. */
         valueMarginsEnabled?: boolean;
     }
-	export interface PolarCommonAxisSettings extends BaseCommonAxisSettings {
+    export interface PolarCommonAxisSettings extends BaseCommonAxisSettings {
         /** Specifies the appearance of all the widget's constant lines. */
         constantLineStyle?: PolarCommonConstantLineStyle;
         /** An object defining the label configuration options that are common for all axes in the dxPolarChart widget. */
@@ -3807,22 +3814,22 @@ declare module DevExpress.viz.charts  {
         /** Specifies the text to be displayed in a constant line label. */
         text?: string;
     }
-	export interface PolarConstantLineLabel extends PolarCommonConstantLineLabel {
+    export interface PolarConstantLineLabel extends PolarCommonConstantLineLabel {
         /** Specifies the text to be displayed in a constant line label. */
         text?: string;
     }
-	export interface AxisLabel {
-		  /** Specifies the text for a hint that appears when a user hovers the mouse pointer over a label on the value axis. */
+    export interface AxisLabel {
+        /** Specifies the text for a hint that appears when a user hovers the mouse pointer over a label on the value axis. */
         customizeHint?: (argument: { value: any; valueText: string }) => string;
-          /** Specifies a callback function that returns the text to be displayed in value axis labels. */
+        /** Specifies a callback function that returns the text to be displayed in value axis labels. */
         customizeText?: (argument: { value: any; valueText: string }) => string;
-          /** Specifies a format for the text displayed by axis labels. */
+        /** Specifies a format for the text displayed by axis labels. */
         format?: string;
-          /** Specifies a precision for the formatted value displayed in the axis labels. */
+        /** Specifies a precision for the formatted value displayed in the axis labels. */
         precision?: number;
-	}
-    export interface ChartAxisLabel extends ChartCommonAxisLabel, AxisLabel {}
-	export interface PolarAxisLabel extends PolarCommonAxisLabel, AxisLabel {}
+    }
+    export interface ChartAxisLabel extends ChartCommonAxisLabel, AxisLabel { }
+    export interface PolarAxisLabel extends PolarCommonAxisLabel, AxisLabel { }
     export interface AxisTitle extends CommonAxisTitle {
         /** Specifies the text for the value axis title. */
         text?: string;
@@ -3832,19 +3839,19 @@ declare module DevExpress.viz.charts  {
         label?: ChartConstantLineLabel;
     }
     export interface ChartConstantLine extends ChartConstantLineStyle {
-		/** An object defining constant line label options. */
+        /** An object defining constant line label options. */
         label?: ChartConstantLineLabel;
         /** Specifies a value to be displayed by a constant line. */
         value?: any;
-	}
-	export interface PolarConstantLine extends PolarCommonConstantLineStyle {
-	/** An object defining constant line label options. */
+    }
+    export interface PolarConstantLine extends PolarCommonConstantLineStyle {
+        /** An object defining constant line label options. */
         label?: PolarConstantLineLabel;
         /** Specifies a value to be displayed by a constant line. */
         value?: any;
-	}
-	export interface Axis {
-	    /** Specifies a coefficient for dividing the value axis. */
+    }
+    export interface Axis {
+        /** Specifies a coefficient for dividing the value axis. */
         axisDivisionFactor?: number;
         /** Specifies the order in which discrete values are arranged on the value axis. */
         categories?: Array<any>;
@@ -3860,7 +3867,7 @@ declare module DevExpress.viz.charts  {
         type?: string;
         /** Specifies options for value axis strips. */
         strips?: Array<Strip>;
-	}
+    }
     export interface ChartAxis extends ChartCommonAxisSettings, Axis {
         /** Defines an array of the value axis constant lines. */
         constantLines?: Array<ChartConstantLine>;
@@ -3877,52 +3884,52 @@ declare module DevExpress.viz.charts  {
         /** Specifies the title for a value axis. */
         title?: AxisTitle;
     }
-	export interface PolarAxis extends PolarCommonAxisSettings, Axis {
+    export interface PolarAxis extends PolarCommonAxisSettings, Axis {
         /** Defines an array of the value axis constant lines. */
         constantLines?: Array<PolarConstantLine>;
         /** Specifies options for value axis labels. */
         label?: PolarAxisLabel;
     }
-	export interface ArgumentAxis {
-	    /** Specifies the desired type of axis values. */
+    export interface ArgumentAxis {
+        /** Specifies the desired type of axis values. */
         argumentType?: string;
         /** Specifies the elements that will be highlighted when the argument axis is hovered over. */
         hoverMode?: string;
-	}
-    export interface ChartArgumentAxis extends ChartAxis, ArgumentAxis {}
-	export interface PolarArgumentAxis extends PolarAxis, ArgumentAxis {
-	    /** Specifies a start angle for the argument axis in degrees. */
+    }
+    export interface ChartArgumentAxis extends ChartAxis, ArgumentAxis { }
+    export interface PolarArgumentAxis extends PolarAxis, ArgumentAxis {
+        /** Specifies a start angle for the argument axis in degrees. */
         startAngle?: number;
         /** Specifies whether or not to display the first point at the angle specified by the startAngle option. */
         firstPointOnStartAngle?: boolean;
         /** Specifies the period of the argument values in the data source. */
         period?: number;
-	}
-	export interface ValueAxis {
+    }
+    export interface ValueAxis {
         /** Specifies the name of the value axis. */
         name?: string;
         /** Specifies whether or not to indicate a zero value on the value axis. */
         showZero?: boolean;
         /** Specifies the desired type of axis values. */
         valueType?: string;
-		}
+    }
     export interface ChartValueAxis extends ChartAxis, ValueAxis {
         /** Specifies the spacing, in pixels, between multiple value axes in a chart. */
         multipleAxesSpacing?: number;
         /** Specifies the value by which the chart's value axes are synchronized. */
         synchronizedValue?: number;
     }
-	export interface PolarValueAxis extends PolarAxis, ValueAxis {
-	    /** Indicates whether to display series with indents from axis boundaries. */
-	    valueMarginsEnabled?: boolean;
-		/** Specifies a coefficient that determines the spacing between the maximum series point and the axis. */
+    export interface PolarValueAxis extends PolarAxis, ValueAxis {
+        /** Indicates whether to display series with indents from axis boundaries. */
+        valueMarginsEnabled?: boolean;
+        /** Specifies a coefficient that determines the spacing between the maximum series point and the axis. */
         maxValueMargin?: number;
         /** Specifies a coefficient that determines the spacing between the minimum series point and the axis. */
         minValueMargin?: number;
-		tick?: {
-			visible?: boolean;
-		}
-	}
+        tick?: {
+            visible?: boolean;
+        }
+    }
     export interface CommonPane {
         /** Specifies a background color in a pane. */
         backgroundColor?: string;
@@ -4063,7 +4070,7 @@ declare module DevExpress.viz.charts  {
             asyncSeriesRendering?: boolean;
         }): void;
     }
-		export interface AdvancedLegend extends core.BaseLegend {
+    export interface AdvancedLegend extends core.BaseLegend {
         /** Specifies the text for a hint that appears when a user hovers the mouse pointer over a legend item. */
         customizeHint?: (seriesInfo: { seriesName: string; seriesIndex: number; seriesColor: string; }) => string;
         /** <p>Specifies a callback function that returns the text to be displayed by legend items.</p> */
@@ -4104,7 +4111,7 @@ declare module DevExpress.viz.charts  {
         /** Specifies whether a single series or multiple series can be selected in the chart. */
         seriesSelectionMode?: string;
         /** Specifies how the chart must behave when series point labels overlap. */
-        resolveLabelOverlapping?: string; 
+        resolveLabelOverlapping?: string;
     }
     export interface Legend extends AdvancedLegend {
         /** Specifies whether the legend is located outside or inside the chart's plot. */
@@ -4245,7 +4252,7 @@ declare module DevExpress.viz.charts  {
             /** Specifies whether or not point labels can be hidden when the layout is adapting. */
             keepLabels?: boolean;
         };
-	    /** Indicates whether or not to display a "spider web". */
+        /** Indicates whether or not to display a "spider web". */
         useSpiderWeb?: boolean;
         /** Specifies argument axis options for the dxPolarChart widget. */
         argumentAxis?: PolarArgumentAxis;
@@ -4295,7 +4302,7 @@ declare module DevExpress.viz.charts  {
         onLegendClick?: any;
         legendClick?: any;
         /** Specifies how the chart must behave when series point labels overlap. */
-        resolveLabelOverlapping?: string; 
+        resolveLabelOverlapping?: string;
     }
     /** A circular chart widget for HTML JS applications. */
     export class dxPieChart extends BaseChart {
@@ -4305,7 +4312,7 @@ declare module DevExpress.viz.charts  {
         getSeries(): PieSeries;
     }
 }
-declare module DevExpress.viz.core  {
+declare module DevExpress.viz.core {
     export interface Border {
         /** Sets a border color for a selected series. */
         color?: string;
@@ -4475,16 +4482,16 @@ declare module DevExpress.viz.core  {
         }) => void;
         /** A handler for the incidentOccurred event. */
         onIncidentOccurred?: (
-            component: BaseWidget,
-            element: Element,
-            target: {
-                id: string;
-                type: string;
-                args: any;
-                text: string;
-                widget: string;
-                version: string;
-            }
+        component: BaseWidget,
+        element: Element,
+        target: {
+            id: string;
+            type: string;
+            args: any;
+            text: string;
+            widget: string;
+            version: string;
+        }
         ) => void;
         /** Notifies a widget that it is embedded into an HTML page that uses a path modifier. */
         pathModified?: boolean;
@@ -4497,7 +4504,7 @@ declare module DevExpress.viz.core  {
         svg(): string;
     }
 }
-declare module DevExpress.viz.gauges  {
+declare module DevExpress.viz.gauges {
     export interface BaseRangeContainer {
         /** Specifies a range container's background color. */
         backgroundColor?: string;
@@ -4858,7 +4865,7 @@ declare module DevExpress.viz.gauges  {
         values(values: Array<number>): void;
     }
 }
-declare module DevExpress.viz.map  {
+declare module DevExpress.viz.map {
     /** This section describes the fields and methods that can be used in code to manipulate the Area object. */
     export interface Area {
         /** Contains the element type. */
@@ -5046,10 +5053,10 @@ declare module DevExpress.viz.map  {
         centerChanged?: (center: Array<number>) => void;
         /** A handler for the centerChanged event. */
         onCenterChanged?: (e: {
-			center: Array<number>;
-			component: dxVectorMap;
-			element: Element;
-		}) => void;
+            center: Array<number>;
+            component: dxVectorMap;
+            element: Element;
+        }) => void;
         /** Specifies a number that is used to zoom a map initially. */
         zoomFactor?: number;
         zoomFactorChanged?: (zoomFactor: number) => void;
@@ -5125,7 +5132,7 @@ declare module DevExpress.viz.map  {
         zoomFactor(zoomFactor: number): void;
     }
 }
-declare module DevExpress.viz.rangeSelector  {
+declare module DevExpress.viz.rangeSelector {
     export interface dxRangeSelectorOptions extends viz.core.BaseWidgetOptions {
         /** Specifies the options for the range selector's background. */
         background?: {
@@ -5289,8 +5296,8 @@ Specifies an interval between minor ticks.
             useTicksAutoArrangement?: boolean;
             /** Specifies the type of values on the scale. */
             valueType?: string;
-			/** Specifies the order of arguments on a discrete scale. */
-			categories?: Array<any>;
+            /** Specifies the order of arguments on a discrete scale. */
+            categories?: Array<any>;
         };
         /** Specifies the range to be selected when displaying the dxRangeSelector. */
         selectedRange?: {
@@ -5375,7 +5382,7 @@ Specifies an interval between minor ticks.
         setSelectedRange(selectedRange: { startValue: any; endValue: any; }): void;
     }
 }
-declare module DevExpress.viz.sparklines  {
+declare module DevExpress.viz.sparklines {
     export interface SparklineTooltip extends viz.core.Tooltip {
         /** Specifies how a tooltip is horizontally aligned relative to the graph. */
         horizontalAlignment?: string;
@@ -5470,7 +5477,7 @@ declare module DevExpress.viz.sparklines  {
         constructor(element: Element, options?: dxSparklineOptions);
     }
 }
-interface JQuery  {
+interface JQuery {
     dxProgressBar(options?: DevExpress.ui.dxProgressBarOptions): JQuery;
     dxProgressBar(methodName: string, ...params: any[]): any;
     dxProgressBar(methodName: "instance"): DevExpress.ui.dxProgressBar;
@@ -5572,7 +5579,7 @@ interface JQuery  {
     dxDropDownEditor(methodName: "instance"): DevExpress.ui.dxDropDownEditor;
     dxDateBox(options?: DevExpress.ui.dxDateBoxOptions): JQuery;
     dxDateBox(methodName: string, ...params: any[]): any;
-    dxDateBox(methodName: "instance"): DevExpress.ui.dxDateBox;    
+    dxDateBox(methodName: "instance"): DevExpress.ui.dxDateBox;
     dxCheckBox(options?: DevExpress.ui.dxCheckBoxOptions): JQuery;
     dxCheckBox(methodName: string, ...params: any[]): any;
     dxCheckBox(methodName: "instance"): DevExpress.ui.dxCheckBox;
@@ -5618,10 +5625,10 @@ interface JQuery  {
     dxMenuBase(options?: DevExpress.ui.dxMenuBaseOptions): JQuery;
     dxMenuBase(methodName: string, ...params: any[]): any;
     dxMenuBase(methodName: "instance"): DevExpress.ui.dxMenuBase;
-	dxMenu(options?: DevExpress.ui.dxMenuOptions): JQuery;
+    dxMenu(options?: DevExpress.ui.dxMenuOptions): JQuery;
     dxMenu(methodName: string, ...params: any[]): any;
     dxMenu(methodName: "instance"): DevExpress.ui.dxMenu;
-	dxContextMenu(options?: DevExpress.ui.dxContextMenuOptions): JQuery;
+    dxContextMenu(options?: DevExpress.ui.dxContextMenuOptions): JQuery;
     dxContextMenu(methodName: string, ...params: any[]): any;
     dxContextMenu(methodName: "instance"): DevExpress.ui.dxContextMenu;
     dxColorBox(options?: DevExpress.ui.dxColorBoxOptions): JQuery;
