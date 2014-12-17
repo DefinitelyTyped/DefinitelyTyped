@@ -297,6 +297,8 @@ declare module breeze {
         getValidationErrors(property: IProperty): ValidationError[];
         hasValidationErrors: boolean;
 
+        isNavigationPropertyLoaded(navigationProperty: string): boolean;
+        isNavigationPropertyLoaded(navigationProperty: NavigationProperty): boolean;
         loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): Q.Promise<QueryResult>;
         loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): Q.Promise<QueryResult>;
 
