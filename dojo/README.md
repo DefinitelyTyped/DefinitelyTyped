@@ -100,16 +100,20 @@ class Foo extends dijit._WidgetBase {
     }
 }
 
-var Foo_ = dojoDeclare("", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
-    templateString: template,
-    res: res,
-    
-    constructor: function () {
+var Foo_ = dojoDeclare("", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], (function (Source: any) {
+    var result: any = {};
+	result.templateString = template;
+	result.res = res;
+    result.constructor = function () {
         this.myArray = [];
-    },
-
-    sayHello: Foo.prototype.sayHello
-});
+    }
+    for (var i in Source.prototype) {
+        if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
+            result[i] = Source.prototype[i];
+        }
+    }
+    return result;
+} (Foo)));
 
 export =Foo;
 ```
@@ -194,19 +198,23 @@ The third odd thing is more subtle: the myArray field is declared, but never ini
 The final part of the module is this:
 
 ```ts
-var Foo_ = dojoDeclare("", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
-    templateString: template,
-    res: res,
-    
-    constructor: function () {
+var Foo_ = dojoDeclare("", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], (function (Source: any) {
+    var result: any = {};
+	result.templateString = template;
+	result.res = res;
+    result.constructor = function () {
         this.myArray = [];
-    },
-
-    sayHello: Foo.prototype.sayHello
-});
+    }
+    for (var i in Source.prototype) {
+        if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
+            result[i] = Source.prototype[i];
+        }
+    }
+    return result;
+} (Foo)));
 ```
 
-You'll notice that we are injecting the templateString and resources into the class like we normally would in Dojo. Additionally, the constructor initializes the myArray field, nothing too surprising here. The odd bit follows: the sayHello method points back to the TypeScript class's prototype to get its behavior.
+You'll notice that the third argument to dojoDeclare is not an object literal, like you might expect. Rather, a self-executing function is used to dynamically generate the object literal. The templateString and res fields are manually set to equal the resources that were required above. Additionally, a constructor function is added to initialize the myArray array. Finally, the Foo class's prototype is inspected and all of its "ownProperties" are added. This allows the Foo class to evolved and its methods will automatically be mapped to the Dojo class. 
 
 Mind blown? Let's try to look at it this way:
 
