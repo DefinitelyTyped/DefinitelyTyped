@@ -163,3 +163,56 @@ declare module When {
 declare module "when" {
     export = When;
 }
+
+declare module "when/node" {
+    import when = require('when');
+
+    function lift<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => when.Promise<TResult>;
+    function lift<TArg1, TResult>(fn: (arg1: TArg1, callback: (err: any, result: TResult) => void) => void): (arg1: when.Promise<TArg1>) => when.Promise<TResult>;
+    function lift<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void): (arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>) => when.Promise<TResult>;
+    function lift<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void): (arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>) => when.Promise<TResult>;
+
+
+    function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;
+
+
+    function call<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): when.Promise<TResult>;
+
+    function call<TArg1, TResult>(fn: (arg1: TArg1, callback: (err: any, result: TResult) => void) => void, arg1: TArg1): when.Promise<TResult>;
+    function call<TArg1, TResult>(fn: (arg1: TArg1, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>): when.Promise<TResult>;
+
+    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: TArg2): when.Promise<TResult>;
+    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: TArg2): when.Promise<TResult>;
+    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: when.Promise<TArg2>): when.Promise<TResult>;
+    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>): when.Promise<TResult>;
+
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
+    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+
+
+    function apply<TResult>(fn: (callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, arg2: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, arg2: any, arg3: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+
+
+    function liftCallback<TArg>(callback: (err: any, arg: TArg) => void): (value: when.Promise<TArg>) => when.Promise<TArg>;
+
+
+    function bindCallback<TArg>(arg: when.Promise<TArg>, callback: (err: any, arg: TArg) => void): when.Promise<TArg>;
+
+
+    interface Resolver<T> {
+        reject(reason: any): void;
+        resolve(value?: T): void;
+        resolve(value?: when.Promise<T>): void;
+    }
+
+    function createCallback<TArg>(resolver: Resolver<TArg>): (err: any, arg: TArg) => void;
+}

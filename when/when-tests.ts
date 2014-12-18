@@ -1,4 +1,8 @@
+/// <reference path="../node/node.d.ts" />
 /// <reference path="when.d.ts" />
+
+import fs = require('fs');
+import dns = require('dns');
 
 import when = require("when");
 
@@ -12,6 +16,7 @@ class ForeignPromise<T> {
 var promise: when.Promise<number>;
 var foreign = new ForeignPromise<number>(1);
 var error = new Error("boom!");
+var example: () => void;
 
 // TODO: with TypeScript 1.4 a lot of these functions should change to use PromiseOrValue<T>
 //    type PromiseOrValue<T> = Promise<T> | T;
@@ -182,3 +187,151 @@ status = when(1).inspect()
 promise = when(1).with(2);
 
 promise = when(1).withThis(2);
+
+/* * * * * * * * *
+ *   when/node   *
+ * * * * * * * * */
+
+import nodefn = require('when/node');
+
+/* node.lift */
+
+// TODO: Again it's not possible to represent the return type of node.lift without union types.
+
+var nodeFn0 = (callback: (err: any, result: number) => void) => callback(null, 0);
+var nodeFn1 = (a: number, callback: (err: any, result: number) => void) => callback(null, a);
+var nodeFn2 = (a: number, b: number, callback: (err: any, result: number) => void) => callback(null, a + b);
+var nodeFn3 = (a: number, b: number, c: number, callback: (err: any, result: number) => void) => callback(null, a + b + c);
+
+var promiseFunc0: () => when.Promise<number> = nodefn.lift(nodeFn0);
+var promiseFunc1: (a: when.Promise<number>) => when.Promise<number> = nodefn.lift(nodeFn1);
+var promiseFunc2: (a: when.Promise<number>, b: when.Promise<number>) => when.Promise<number> = nodefn.lift(nodeFn2);
+var promiseFunc3: (a: when.Promise<number>, b: when.Promise<number>, c: when.Promise<number>) => when.Promise<number> = nodefn.lift(nodeFn3);
+
+example = function() {
+	var resolveAddress = nodefn.lift(dns.resolve);
+
+	when.join(
+		resolveAddress(when('twitter.com')),
+		resolveAddress(when('facebook.com')),
+		resolveAddress(when('google.com'))
+	).then((addresses) => {
+		// All addresses resolved
+	}).catch((reason) => {
+		// At least one of the lookups failed
+	});
+}
+
+/* node.liftAll */
+
+// Cannot be represented?
+
+example = function() {
+	// Lift the entire dns API
+	var promisedDns = nodefn.liftAll(dns);
+
+	when.join(
+		promisedDns.resolve("twitter.com"),
+		promisedDns.resolveNs("facebook.com"),
+		promisedDns.resolveMx("google.com")
+	).then((addresses) => {
+		// All addresses resolved
+	}).catch((reason) => {
+		// At least one of the lookups failed
+	});
+}
+
+example = function() {
+	// Lift all of the fs methods, but name them with an 'Async' suffix
+	var promisedFs = nodefn.liftAll(fs, (promisedFs: any, liftedFunc: Function, name: string) => {
+		promisedFs[name + 'Async'] = liftedFunc;
+		return promisedFs;
+	});
+
+	promisedFs.readFileAsync('file.txt').done(console.log.bind(console));
+}
+
+example = function() {
+	// Lift all of the fs methods, but name them with an 'Async' suffix
+	// and add them back onto fs!
+	var promisedFs = nodefn.liftAll(fs, (promisedFs: any, liftedFunc: Function, name: string) => {
+		promisedFs[name + 'Async'] = liftedFunc;
+		return promisedFs;
+	}, fs);
+
+	if (promisedFs === fs) {
+		promisedFs.readFileAsync('file.txt').done(console.log.bind(console));
+	}
+}
+
+/* node.call */
+
+promise = nodefn.call(nodeFn0);
+
+promise = nodefn.call(nodeFn1, 1);
+promise = nodefn.call(nodeFn1, when(1));
+
+promise = nodefn.call(nodeFn2, 1, 2);
+promise = nodefn.call(nodeFn2, 1, when(2));
+promise = nodefn.call(nodeFn2, when(1), 2);
+promise = nodefn.call(nodeFn2, when(1), when(2));
+
+promise = nodefn.call(nodeFn3, 1, 2, 3);
+promise = nodefn.call(nodeFn3, 1, when(2), 3);
+promise = nodefn.call(nodeFn3, when(1), 2, 3);
+promise = nodefn.call(nodeFn3, when(1), when(2), 3);
+promise = nodefn.call(nodeFn3, 1, 2, when(3));
+promise = nodefn.call(nodeFn3, 1, when(2), when(3));
+promise = nodefn.call(nodeFn3, when(1), 2, when(3));
+promise = nodefn.call(nodeFn3, when(1), when(2), when(3));
+
+example = function () {
+	var loadPasswd = nodefn.call(fs.readFile, '/etc/passwd');
+
+	loadPasswd.done(
+		(passwd: Buffer) => console.log('Contents of /etc/passwd:\n' + passwd),
+		(error: any) => console.log('Something wrong happened: ' + error));
+};
+
+/* node.apply */
+
+promise = nodefn.apply(nodeFn2, [1, 2]);
+
+example = function () {
+	var loadPasswd = nodefn.apply(fs.readFile, ['/etc/passwd']);
+
+	loadPasswd.done(
+		(passwd: Buffer) => console.log('Contents of /etc/passwd:\n' + passwd),
+		(error: any) => console.log('Something wrong happened: ' + error));
+};
+
+/* node.liftCallback */
+
+example = function () {
+	var fetchData: (key: string) => when.Promise<number>;
+	var handleData: (err: any, result: number) => void;
+
+	var handlePromisedData: (result: when.Promise<number>) => when.Promise<number>;
+	handlePromisedData = nodefn.liftCallback(handleData);
+
+	handlePromisedData(fetchData('thing'));
+};
+
+/* node.bindCallback */
+
+example = function () {
+	var fetchData: (key: string) => when.Promise<number>;
+	var handleData: (err: any, result: number) => void;
+
+	nodefn.bindCallback(fetchData('thing'), handleData);
+};
+
+/* node.createCallback */
+
+example = function () {
+	when.promise((resolve, reject) =>
+			nodeFn2(1, 2, nodefn.createCallback({ resolve: resolve, reject: reject })))
+		.then(
+			(value: number) => console.log(value),
+			(err: any) => console.error(err));
+};
