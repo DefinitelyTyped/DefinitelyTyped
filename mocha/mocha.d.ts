@@ -1,5 +1,5 @@
 // Type definitions for mocha 2.0.1
-// Project: http://visionmedia.github.io/mocha/
+// Project: http://mochajs.org/
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -111,7 +111,7 @@ declare function suiteTeardown(action: (done: MochaDone) => void): void;
 
 declare module "mocha" {
 
-    class MochaInstance {
+    class Mocha {
         constructor(options?: {
             grep?: RegExp;
             ui?: string;
@@ -120,28 +120,28 @@ declare module "mocha" {
             bail?: boolean;
         });
 
-        bail(value?: boolean): MochaInstance;
-        addFile(file: string): MochaInstance;
-        reporter(value: string): MochaInstance;
-        ui(value: string): MochaInstance;
-        grep(value: string): MochaInstance;
-        grep(value: RegExp): MochaInstance;
-        invert(): MochaInstance;
-        ignoreLeaks(value: boolean): MochaInstance;
-        checkLeaks(): MochaInstance;
-        growl(): MochaInstance;
-        globals(value: string): MochaInstance;
-        globals(values: string[]): MochaInstance;
-        useColors(value: boolean): MochaInstance;
-        useInlineDiffs(value: boolean): MochaInstance;
-        timeout(value: number): MochaInstance;
-        slow(value: number): MochaInstance;
-        enableTimeouts(value: boolean): MochaInstance;
-        asyncOnly(value: boolean): MochaInstance;
-        noHighlighting(value: boolean): MochaInstance;
+        bail(value?: boolean): Mocha;
+        addFile(file: string): Mocha;
+        reporter(value: string): Mocha;
+        ui(value: string): Mocha;
+        grep(value: string): Mocha;
+        grep(value: RegExp): Mocha;
+        invert(): Mocha;
+        ignoreLeaks(value: boolean): Mocha;
+        checkLeaks(): Mocha;
+        growl(): Mocha;
+        globals(value: string): Mocha;
+        globals(values: string[]): Mocha;
+        useColors(value: boolean): Mocha;
+        useInlineDiffs(value: boolean): Mocha;
+        timeout(value: number): Mocha;
+        slow(value: number): Mocha;
+        enableTimeouts(value: boolean): Mocha;
+        asyncOnly(value: boolean): Mocha;
+        noHighlighting(value: boolean): Mocha;
 
         run(onComplete?: (failures: number) => void): void;
     }
 
-    export = MochaInstance;
+    export = Mocha;
 }
