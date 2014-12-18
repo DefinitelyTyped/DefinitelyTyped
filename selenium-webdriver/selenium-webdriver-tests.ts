@@ -1,5 +1,107 @@
 /// <reference path="selenium-webdriver.d.ts" />
-/// <reference path="executors.d.ts" />
+
+function TestChromeDriver() {
+    var driver: chrome.Driver = new chrome.Driver();
+    driver = new chrome.Driver(webdriver.Capabilities.chrome());
+    driver = new chrome.Driver(webdriver.Capabilities.chrome(), new webdriver.promise.ControlFlow());
+
+    var baseDriver: webdriver.WebDriver = driver;
+}
+
+function TestChromeOptions() {
+    var options: chrome.Options = new chrome.Options();
+    options = chrome.Options.fromCapabilities(webdriver.Capabilities.chrome());
+
+    options = options.addArguments("a", "b", "c");
+    options = options.addExtensions("a", "b", "c");
+    options = options.detachDriver(true);
+    options = options.setChromeBinaryPath("path");
+    options = options.setChromeLogFile("logfile");
+    options = options.setLocalState("state");
+    options = options.setLoggingPrefs(new webdriver.logging.Preferences());
+    options = options.setProxy({ proxyType: "proxyType" });
+    options = options.setUserPreferences("preferences");
+    var capabilities: webdriver.Capabilities = options.toCapabilities();
+    capabilities = options.toCapabilities(webdriver.Capabilities.chrome());
+    var values: chrome.IOptionsValues = options.toJSON();
+}
+
+function TestServiceBuilder() {
+    var builder: chrome.ServiceBuilder = new chrome.ServiceBuilder();
+    builder = new chrome.ServiceBuilder("exe");
+
+    var anything: any = builder.build();
+    builder = builder.enableVerboseLogging();
+    builder = builder.loggingTo("path");
+    builder = builder.setNumHttpThreads(5);
+    builder = builder.setStdio("config");
+    builder = builder.setStdio(["A", "B"]);
+    builder = builder.setUrlBasePath("path");
+    builder = builder.usingPort(8080);
+    builder = builder.withEnvironment({ "A": "a", "B": "b" });
+}
+
+function TestChromeModule() {
+    var service: any = chrome.getDefaultService();
+    chrome.setDefaultService({});
+}
+
+function TestBinary() {
+    var binary: firefox.Binary = new firefox.Binary();
+    binary = new firefox.Binary("exe");
+
+    binary.addArguments("A", "B", "C");
+    var promise: webdriver.promise.Promise<void> = binary.kill();
+    binary.launch("profile").then(function (result: any) { });
+}
+
+function TestFirefoxDriver() {
+    var driver: firefox.Driver = new firefox.Driver();
+    driver = new chrome.Driver(webdriver.Capabilities.firefox());
+    driver = new chrome.Driver(webdriver.Capabilities.firefox(), new webdriver.promise.ControlFlow());
+
+    var baseDriver: webdriver.WebDriver = driver;
+}
+
+function TestFirefoxOptions() {
+    var options: firefox.Options = new firefox.Options();
+
+    options = options.setBinary("binary");
+    options = options.setBinary(new firefox.Binary());
+    options = options.setLoggingPreferences(new webdriver.logging.Preferences());
+    options = options.setProfile("profile");
+    options = options.setProfile(new firefox.Profile());
+    options = options.setProxy({ proxyType: "proxy" });
+    var capabilities: webdriver.Capabilities = options.toCapabilities();
+    var capabilities: webdriver.Capabilities = options.toCapabilities({});
+}
+
+function TestFirefoxProfile() {
+    var profile: firefox.Profile = new firefox.Profile();
+    profile = new firefox.Profile("dir");
+
+    var bool: boolean = profile.acceptUntrustedCerts();
+    profile.addExtension("ext");
+    bool = profile.assumeUntrustedCertIssuer();
+    profile.encode().then(function (prof: string) { });
+    var num: number = profile.getPort();
+    var anything: any = profile.getPreference("key");
+    bool = profile.nativeEventsEnabled();
+    profile.setAcceptUntrustedCerts(true);
+    profile.setAssumeUntrustedCertIssuer(true);
+    profile.setNativeEventsEnabled(true);
+    profile.setPort(8080);
+    profile.setPreference("key", "value");
+    profile.setPreference("key", 5);
+    profile.setPreference("key", true);
+    var stringPromise: webdriver.promise.Promise<string> = profile.writeToDisk();
+    stringPromise = profile.writeToDisk(true);
+}
+
+function TestExecutors() {
+    var exec: webdriver.CommandExecutor = executors.createExecutor("url");
+    exec = executors.createExecutor(new webdriver.promise.Promise<string>());
+}
 
 function TestBuilder() {
     var builder: webdriver.Builder = new webdriver.Builder();

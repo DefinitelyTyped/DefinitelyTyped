@@ -3,8 +3,516 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="chrome.d.ts" />
-/// <reference path="firefox.d.ts" />
+declare module chrome {
+    /**
+     * Creates a new WebDriver client for Chrome.
+     *
+     * @extends {webdriver.WebDriver}
+     */
+    class Driver extends webdriver.WebDriver {
+        /**
+         * @param {(webdriver.Capabilities|Options)=} opt_config The configuration
+         *     options.
+         * @param {remote.DriverService=} opt_service The session to use; will use
+         *     the {@link getDefaultService default service} by default.
+         * @param {webdriver.promise.ControlFlow=} opt_flow The control flow to use, or
+         *     {@code null} to use the currently active flow.
+         * @constructor
+         */
+        constructor(opt_config?: webdriver.Capabilities, opt_service?: any, opt_flow?: webdriver.promise.ControlFlow);
+        constructor(opt_config?: Options, opt_service?: any, opt_flow?: webdriver.promise.ControlFlow);
+    }
+
+    interface IOptionsValues {
+        args: string[];
+        binary?: string;
+        detach: boolean;
+        extensions: string[];
+        localState?: any;
+        logFile?: string;
+        prefs?: any;
+    }
+
+    /**
+     * Class for managing ChromeDriver specific options.
+     */
+    class Options {
+        /**
+         * @constructor
+         */
+        constructor();
+
+        /**
+         * Extracts the ChromeDriver specific options from the given capabilities
+         * object.
+         * @param {!webdriver.Capabilities} capabilities The capabilities object.
+         * @return {!Options} The ChromeDriver options.
+         */
+        static fromCapabilities(capabilities: webdriver.Capabilities): Options;
+
+
+        /**
+         * Add additional command line arguments to use when launching the Chrome
+         * browser.  Each argument may be specified with or without the "--" prefix
+         * (e.g. "--foo" and "foo"). Arguments with an associated value should be
+         * delimited by an "=": "foo=bar".
+         * @param {...(string|!Array.<string>)} var_args The arguments to add.
+         * @return {!Options} A self reference.
+         */
+        addArguments(...var_args: string[]): Options;
+
+
+        /**
+         * Add additional extensions to install when launching Chrome. Each extension
+         * should be specified as the path to the packed CRX file, or a Buffer for an
+         * extension.
+         * @param {...(string|!Buffer|!Array.<(string|!Buffer)>)} var_args The
+         *     extensions to add.
+         * @return {!Options} A self reference.
+         */
+        addExtensions(...var_args: any[]): Options;
+
+
+        /**
+         * Sets the path to the Chrome binary to use. On Mac OS X, this path should
+         * reference the actual Chrome executable, not just the application binary
+         * (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
+         *
+         * The binary path be absolute or relative to the chromedriver server
+         * executable, but it must exist on the machine that will launch Chrome.
+         *
+         * @param {string} path The path to the Chrome binary to use.
+         * @return {!Options} A self reference.
+         */
+        setChromeBinaryPath(path: string): Options;
+
+
+        /**
+         * Sets whether to leave the started Chrome browser running if the controlling
+         * ChromeDriver service is killed before {@link webdriver.WebDriver#quit()} is
+         * called.
+         * @param {boolean} detach Whether to leave the browser running if the
+         *     chromedriver service is killed before the session.
+         * @return {!Options} A self reference.
+         */
+        detachDriver(detach: boolean): Options;
+
+
+        /**
+         * Sets the user preferences for Chrome's user profile. See the "Preferences"
+         * file in Chrome's user data directory for examples.
+         * @param {!Object} prefs Dictionary of user preferences to use.
+         * @return {!Options} A self reference.
+         */
+        setUserPreferences(prefs: any): Options;
+
+
+        /**
+         * Sets the logging preferences for the new session.
+         * @param {!webdriver.logging.Preferences} prefs The logging preferences.
+         * @return {!Options} A self reference.
+         */
+        setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
+
+
+        /**
+         * Sets preferences for the "Local State" file in Chrome's user data
+         * directory.
+         * @param {!Object} state Dictionary of local state preferences.
+         * @return {!Options} A self reference.
+         */
+        setLocalState(state: any): Options;
+
+
+        /**
+         * Sets the path to Chrome's log file. This path should exist on the machine
+         * that will launch Chrome.
+         * @param {string} path Path to the log file to use.
+         * @return {!Options} A self reference.
+         */
+        setChromeLogFile(path: string): Options;
+
+
+        /**
+         * Sets the proxy settings for the new session.
+         * @param {webdriver.ProxyConfig} proxy The proxy configuration to use.
+         * @return {!Options} A self reference.
+         */
+        setProxy(proxy: webdriver.ProxyConfig): Options;
+
+
+        /**
+         * Converts this options instance to a {@link webdriver.Capabilities} object.
+         * @param {webdriver.Capabilities=} opt_capabilities The capabilities to merge
+         *     these options into, if any.
+         * @return {!webdriver.Capabilities} The capabilities.
+         */
+        toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
+
+
+        /**
+         * Converts this instance to its JSON wire protocol representation. Note this
+         * function is an implementation not intended for general use.
+         * @return {{args: !Array.<string>,
+         *           binary: (string|undefined),
+         *           detach: boolean,
+         *           extensions: !Array.<string>,
+         *           localState: (Object|undefined),
+         *           logFile: (string|undefined),
+         *           prefs: (Object|undefined)}} The JSON wire protocol representation
+         *     of this instance.
+         */
+        toJSON(): IOptionsValues;
+    }
+
+    /**
+     * Creates {@link remote.DriverService} instances that manage a ChromeDriver
+     * server.
+     */
+    class ServiceBuilder {
+        /**
+         * @param {string=} opt_exe Path to the server executable to use. If omitted,
+         *     the builder will attempt to locate the chromedriver on the current
+         *     PATH.
+         * @throws {Error} If provided executable does not exist, or the chromedriver
+         *     cannot be found on the PATH.
+         * @constructor
+         */
+        constructor(opt_exe?: string);
+
+        /**
+         * Sets the port to start the ChromeDriver on.
+         * @param {number} port The port to use, or 0 for any free port.
+         * @return {!ServiceBuilder} A self reference.
+         * @throws {Error} If the port is invalid.
+         */
+        usingPort(port: number): ServiceBuilder;
+
+
+        /**
+         * Sets the path of the log file the driver should log to. If a log file is
+         * not specified, the driver will log to stderr.
+         * @param {string} path Path of the log file to use.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        loggingTo(path: string): ServiceBuilder;
+
+
+        /**
+         * Enables verbose logging.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        enableVerboseLogging(): ServiceBuilder;
+
+
+        /**
+         * Sets the number of threads the driver should use to manage HTTP requests.
+         * By default, the driver will use 4 threads.
+         * @param {number} n The number of threads to use.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        setNumHttpThreads(n: number): ServiceBuilder;
+
+
+        /**
+         * Sets the base path for WebDriver REST commands (e.g. "/wd/hub").
+         * By default, the driver will accept commands relative to "/".
+         * @param {string} path The base path to use.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        setUrlBasePath(path: string): ServiceBuilder;
+
+
+        /**
+         * Defines the stdio configuration for the driver service. See
+         * {@code child_process.spawn} for more information.
+         * @param {(string|!Array.<string|number|!Stream|null|undefined>)} config The
+         *     configuration to use.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        setStdio(config: string): ServiceBuilder;
+        setStdio(config: any[]): ServiceBuilder;
+
+
+        /**
+         * Defines the environment to start the server under. This settings will be
+         * inherited by every browser session started by the server.
+         * @param {!Object.<string, string>} env The environment to use.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        withEnvironment(env: { [key: string]: string }): ServiceBuilder;
+
+
+        /**
+         * Creates a new DriverService using this instance's current configuration.
+         * @return {remote.DriverService} A new driver service using this instance's
+         *     current configuration.
+         * @throws {Error} If the driver exectuable was not specified and a default
+         *     could not be found on the current PATH.
+         */
+        build(): any;
+    }
+
+    /**
+     * Returns the default ChromeDriver service. If such a service has not been
+     * configured, one will be constructed using the default configuration for
+     * a ChromeDriver executable found on the system PATH.
+     * @return {!remote.DriverService} The default ChromeDriver service.
+     */
+    function getDefaultService(): any;
+
+    /**
+     * Sets the default service to use for new ChromeDriver instances.
+     * @param {!remote.DriverService} service The service to use.
+     * @throws {Error} If the default service is currently running.
+     */
+    function setDefaultService(service: any): void;
+}
+
+declare module firefox {
+    /**
+     * Manages a Firefox subprocess configured for use with WebDriver.
+     */
+    class Binary {
+        /**
+         * @param {string=} opt_exe Path to the Firefox binary to use. If not
+         *     specified, will attempt to locate Firefox on the current system.
+         * @constructor
+         */
+        constructor(opt_exe?: string);
+
+        /**
+         * Add arguments to the command line used to start Firefox.
+         * @param {...(string|!Array.<string>)} var_args Either the arguments to add as
+         *     varargs, or the arguments as an array.
+         */
+        addArguments(...var_args: string[]): void;
+
+
+        /**
+         * Launches Firefox and eturns a promise that will be fulfilled when the process
+         * terminates.
+         * @param {string} profile Path to the profile directory to use.
+         * @return {!promise.Promise.<!exec.Result>} A promise for the process result.
+         * @throws {Error} If this instance has already been started.
+         */
+        launch(profile: string): webdriver.promise.Promise<any>;
+
+
+        /**
+         * Kills the managed Firefox process.
+         * @return {!promise.Promise} A promise for when the process has terminated.
+         */
+        kill(): webdriver.promise.Promise<void>;
+    }
+
+    /**
+     * A WebDriver client for Firefox.
+     *
+     * @extends {webdriver.WebDriver}
+     */
+    class Driver extends webdriver.WebDriver {
+        /**
+         * @param {(Options|webdriver.Capabilities|Object)=} opt_config The
+         *    configuration options for this driver, specified as either an
+         *    {@link Options} or {@link webdriver.Capabilities}, or as a raw hash
+         *    object.
+         * @param {webdriver.promise.ControlFlow=} opt_flow The flow to
+         *     schedule commands through. Defaults to the active flow object.
+         * @constructor
+         */
+        constructor(opt_config?: webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow);
+        constructor(opt_config?: any, opt_flow?: webdriver.promise.ControlFlow);
+    }
+
+    /**
+     * Configuration options for the FirefoxDriver.
+     */
+    class Options {
+        /**
+         * @constructor
+         */
+        constructor();
+
+        /**
+         * Sets the profile to use. The profile may be specified as a
+         * {@link Profile} object or as the path to an existing Firefox profile to use
+         * as a template.
+         *
+         * @param {(string|!Profile)} profile The profile to use.
+         * @return {!Options} A self reference.
+         */
+        setProfile(profile: string): Options;
+        setProfile(profile: Profile): Options;
+
+
+        /**
+         * Sets the binary to use. The binary may be specified as the path to a Firefox
+         * executable, or as a {@link Binary} object.
+         *
+         * @param {(string|!Binary)} binary The binary to use.
+         * @return {!Options} A self reference.
+         */
+        setBinary(binary: string): Options;
+        setBinary(binary: Binary): Options;
+
+
+        /**
+         * Sets the logging preferences for the new session.
+         * @param {webdriver.logging.Preferences} prefs The logging preferences.
+         * @return {!Options} A self reference.
+         */
+        setLoggingPreferences(prefs: webdriver.logging.Preferences): Options;
+
+
+        /**
+         * Sets the proxy to use.
+         *
+         * @param {webdriver.ProxyConfig} proxy The proxy configuration to use.
+         * @return {!Options} A self reference.
+         */
+        setProxy(proxy: webdriver.ProxyConfig): Options;
+
+
+        /**
+         * Converts these options to a {@link webdriver.Capabilities} instance.
+         *
+         * @return {!webdriver.Capabilities} A new capabilities object.
+         */
+        toCapabilities(opt_remote?: any): webdriver.Capabilities;
+    }
+
+    /**
+     * Models a Firefox proifle directory for use with the FirefoxDriver. The
+     * {@code Proifle} directory uses an in-memory model until {@link #writeToDisk}
+     * is called.
+     */
+    class Profile {
+        /**
+         * @param {string=} opt_dir Path to an existing Firefox profile directory to
+         *     use a template for this profile. If not specified, a blank profile will
+         *     be used.
+         * @constructor
+         */
+        constructor(opt_dir?: string);
+
+        /**
+         * Registers an extension to be included with this profile.
+         * @param {string} extension Path to the extension to include, as either an
+         *     unpacked extension directory or the path to a xpi file.
+         */
+        addExtension(extension: string): void;
+
+
+        /**
+         * Sets a desired preference for this profile.
+         * @param {string} key The preference key.
+         * @param {(string|number|boolean)} value The preference value.
+         * @throws {Error} If attempting to set a frozen preference.
+         */
+        setPreference(key: string, value: string): void;
+        setPreference(key: string, value: number): void;
+        setPreference(key: string, value: boolean): void;
+
+
+        /**
+         * Returns the currently configured value of a profile preference. This does
+         * not include any defaults defined in the profile's template directory user.js
+         * file (if a template were specified on construction).
+         * @param {string} key The desired preference.
+         * @return {(string|number|boolean|undefined)} The current value of the
+         *     requested preference.
+         */
+        getPreference(key: string): any;
+
+
+        /**
+         * @return {number} The port this profile is currently configured to use, or
+         *     0 if the port will be selected at random when the profile is written
+         *     to disk.
+         */
+        getPort(): number;
+
+
+        /**
+         * Sets the port to use for the WebDriver extension loaded by this profile.
+         * @param {number} port The desired port, or 0 to use any free port.
+         */
+        setPort(port: number): void;
+
+
+        /**
+         * @return {boolean} Whether the FirefoxDriver is configured to automatically
+         *     accept untrusted SSL certificates.
+         */
+        acceptUntrustedCerts(): boolean;
+
+
+        /**
+         * Sets whether the FirefoxDriver should automatically accept untrusted SSL
+         * certificates.
+         * @param {boolean} value .
+         */
+        setAcceptUntrustedCerts(value: boolean): void;
+
+
+        /**
+         * Sets whether to assume untrusted certificates come from untrusted issuers.
+         * @param {boolean} value .
+         */
+        setAssumeUntrustedCertIssuer(value: boolean): void;
+
+
+        /**
+         * @return {boolean} Whether to assume untrusted certs come from untrusted
+         *     issuers.
+         */
+        assumeUntrustedCertIssuer(): boolean;
+
+
+        /**
+         * Sets whether to use native events with this profile.
+         * @param {boolean} enabled .
+         */
+        setNativeEventsEnabled(enabled: boolean): void;
+
+
+        /**
+         * Returns whether native events are enabled in this profile.
+         * @return {boolean} .
+         */
+        nativeEventsEnabled(): boolean;
+
+
+        /**
+         * Writes this profile to disk.
+         * @param {boolean=} opt_excludeWebDriverExt Whether to exclude the WebDriver
+         *     extension from the generated profile. Used to reduce the size of an
+         *     {@link #encode() encoded profile} since the server will always install
+         *     the extension itself.
+         * @return {!promise.Promise.<string>} A promise for the path to the new
+         *     profile directory.
+         */
+        writeToDisk(opt_excludeWebDriverExt?: boolean): webdriver.promise.Promise<string>;
+
+
+        /**
+         * Encodes this profile as a zipped, base64 encoded directory.
+         * @return {!promise.Promise.<string>} A promise for the encoded profile.
+         */
+        encode(): webdriver.promise.Promise<string>;
+    }
+}
+
+declare module executors {
+    /** 
+     * Creates a command executor that uses WebDriver's JSON wire protocol. 
+     * @param url The server's URL, or a promise that will resolve to that URL. 
+     * @returns {!webdriver.CommandExecutor} The new command executor. 
+     */
+    function createExecutor(url: string): webdriver.CommandExecutor;
+    function createExecutor(url: webdriver.promise.Promise<string>): webdriver.CommandExecutor;
+}
 
 declare module webdriver {
 
@@ -4218,6 +4726,18 @@ declare module webdriver {
         //endregion
     }
 }
+
+declare module 'selenium-webdriver/chrome' {
+    export = chrome;
+}
+
+declare module 'selenium-webdriver/firefox' {
+    export = firefox;
+} 
+
+declare module 'selenium-webdriver/executors' {
+    export = executors;
+} 
 
 declare module 'selenium-webdriver' {
     export = webdriver;
