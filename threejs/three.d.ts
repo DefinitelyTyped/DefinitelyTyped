@@ -444,7 +444,7 @@ declare module THREE {
         attributesKeys: string[];
         drawcalls: { start: number; count: number; index: number; }[];
         offsets: { start: number; count: number; index: number; }[];
-        boundingBox: BoundingBox3D;
+        boundingBox: Box3;
         boundingSphere: BoundingSphere;
 
         addAttribute(name: string, attribute: BufferAttribute): any;
@@ -716,11 +716,6 @@ declare module THREE {
         normals: Vector3[];
     }
 
-    export interface BoundingBox3D {
-        min: Vector3;
-        max: Vector3;
-    }
-
     export interface BoundingSphere {
         radius: number;
     }
@@ -825,7 +820,7 @@ declare module THREE {
         /**
          * Bounding box.
          */
-        boundingBox: BoundingBox3D;
+        boundingBox: Box3;
 
         /**
          * Bounding sphere.
@@ -3674,7 +3669,7 @@ declare module THREE {
         /**
          * Adds v to this vector.
          */
-        add(a: Vector): Vector3;
+        add(a: Vector3): Vector3;
         addScalar(s: number): Vector3;
 
         /**
@@ -5057,30 +5052,30 @@ declare module THREE {
      * An extensible curve object which contains methods for interpolation
      * class Curve&lt;T extends Vector&gt;
      */
-    export class Curve {
+    export class Curve<T extends Vector> {
         /**
          * Returns a vector for point t of the curve where t is between 0 and 1
          * getPoint(t: number): T;
          */
-        getPoint(t: number): Vector;
+        getPoint(t: number): T;
 
         /**
          * Returns a vector for point at relative position in curve according to arc length
          * getPointAt(u: number): T;
          */
-        getPointAt(u: number): Vector;
+        getPointAt(u: number):T;
 
         /**
          * Get sequence of points using getPoint( t )
          * getPoints(divisions?: number): T[];
          */
-        getPoints(divisions?: number): Vector[];
+        getPoints(divisions?: number): T[];
 
         /**
          * Get sequence of equi-spaced points using getPointAt( u )
          * getSpacedPoints(divisions?: number): T[];
          */
-        getSpacedPoints(divisions?: number): Vector[];
+        getSpacedPoints(divisions?: number): T[];
 
         /**
          * Get total curve arc length
@@ -5106,13 +5101,13 @@ declare module THREE {
          * Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a small delta apart will be used to find its gradient which seems to give a reasonable approximation
          * getTangent(t: number): T;
          */
-        getTangent(t: number): Vector;
+        getTangent(t: number): T;
 
         /**
          * Returns tangent at equidistance point u on the curve
          * getTangentAt(u: number): T;
          */
-        getTangentAt(u: number): Vector;
+        getTangentAt(u: number): T;
 
         static Utils: {
             tangentQuadraticBezier(t: number, p0: number, p1: number, p2: number): number;
@@ -5127,32 +5122,32 @@ declare module THREE {
     export interface BoundingBox {
         minX: number;
         minY: number;
+        minZ?: number;
         maxX: number;
         maxY: number;
-        centroid: Vector;
+        maxZ?: number;
     }
 
-    export class CurvePath extends Curve {
+    export class CurvePath<T extends Vector> extends Curve<T> {
         constructor();
 
-        curves: Curve[];
+        curves: Curve<T>[];
         bends: Path[];
         autoClose: boolean;
 
-        add(curve: Curve): void;
+        add(curve: Curve<T>): void;
         checkConnection(): boolean;
         closePath(): void;
-        getPoint(t: number): Vector;
         getLength(): number;
         getCurveLengths(): number[];
         getBoundingBox(): BoundingBox;
         createPointsGeometry(divisions: number): Geometry;
         createSpacedPointsGeometry(divisions: number): Geometry;
-        createGeometry(points: Vector2[]): Geometry;
+        createGeometry(points: T[]): Geometry;
         addWrapPath(bendpath: Path): void;
-        getTransformedPoints(segments: number, bends?: Path[]): Vector2[];
-        getTransformedSpacedPoints(segments: number, bends?: Path[]): Vector2[];
-        getWrapPoints(oldPts: Vector2[], path: Path): Vector2[];
+        getTransformedPoints(segments: number, bends?: Path[]): T[];
+        getTransformedSpacedPoints(segments: number, bends?: Path[]): T[];
+        getWrapPoints(oldPts: T[], path: Path): T[];
     }
 
     export class Gyroscope extends Object3D {
@@ -5179,7 +5174,7 @@ declare module THREE {
     /**
      * a 2d path representation, comprising of points, lines, and cubes, similar to the html5 2d canvas api. It extends CurvePath.
      */
-    export class Path extends CurvePath {
+    export class Path extends CurvePath<Vector2> {
         constructor(points?: Vector2[]);
 
         actions: PathAction[];
@@ -5228,36 +5223,29 @@ declare module THREE {
         constructor(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
     }
 
-    export class ClosedSplineCurve3 extends Curve {
+    export class ClosedSplineCurve3 extends Curve<Vector3> {
         constructor( points?:Vector3[] );
 
         points:Vector3[];
-
-        getPoint(t: number): Vector3;
     }
 
-    export class CubicBezierCurve extends Curve {
+    export class CubicBezierCurve extends Curve<Vector2> {
         constructor( v0: Vector2, v1: Vector2, v2: Vector2, v3: Vector2 );
 
         v0: Vector2;
         v1: Vector2;
         v2: Vector2;
         v3: Vector2;
-
-        getPoint(t: number): Vector2;
-        getTangent(t: number): Vector2;
     }
-    export class CubicBezierCurve3 extends Curve {
+    export class CubicBezierCurve3 extends Curve<Vector3> {
         constructor( v0: Vector3, v1: Vector3, v2: Vector3, v3: Vector3 );
 
         v0: Vector3;
         v1: Vector3;
         v2: Vector3;
         v3: Vector3;
-
-        getPoint(t: number): Vector3;
     }
-    export class EllipseCurve extends Curve {
+    export class EllipseCurve extends Curve<Vector2> {
         constructor( aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean );
 
         aX: number;
@@ -5267,59 +5255,43 @@ declare module THREE {
         aStartAngle: number;
         aEndAngle: number;
         aClockwise: boolean;
-
-        getPoint(t: number): Vector2;
     }
-    export class LineCurve extends Curve {
+    export class LineCurve extends Curve<Vector2> {
         constructor( v1: Vector2, v2: Vector2 );
 
         v1: Vector2;
         v2: Vector2;
 
-        getPoint(t: number): Vector2;
-        getPointAt(u: number): Vector2;
-        getTangent(t: number): Vector2;
     }
-    export class LineCurve3 extends Curve {
+    export class LineCurve3 extends Curve<Vector3> {
         constructor( v1: Vector3, v2: Vector3 );
 
         v1: Vector3;
         v2: Vector3;
-
-        getPoint(t: number): Vector3;
     }
-    export class QuadraticBezierCurve extends Curve {
+    export class QuadraticBezierCurve extends Curve<Vector2> {
         constructor( v0: Vector2, v1: Vector2, v2: Vector2 );
 
         v0: Vector2;
         v1: Vector2;
         v2: Vector2;
-
-        getPoint(t: number): Vector2;
-        getTangent(t: number): Vector2;
     }
-    export class QuadraticBezierCurve3 extends Curve {
+    export class QuadraticBezierCurve3 extends Curve<Vector3> {
         constructor( v0: Vector3, v1: Vector3, v2: Vector3 );
 
         v0: Vector3;
         v1: Vector3;
         v2: Vector3;
-
-        getPoint(t: number): Vector3;
     }
-    export class SplineCurve extends Curve {
+    export class SplineCurve extends Curve<Vector2> {
         constructor( points?: Vector2[] );
 
         points:Vector2[];
-
-        getPoint(t: number): Vector2;
     }
-    export class SplineCurve3 extends Curve {
+    export class SplineCurve3 extends Curve<Vector3> {
         constructor( points?: Vector3[] );
 
         points:Vector3[];
-
-        getPoint(t: number): Vector3;
     }
 
     // Extras / Geomerties /////////////////////////////////////////////////////////////////////
