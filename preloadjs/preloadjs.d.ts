@@ -39,14 +39,14 @@ declare module createjs {
         static XML: string;
 
         // methods
-        cancel();
-        destroy();
+        cancel(): void;
+        destroy(): void;
         getItem(): Object;
         getLoadedItems(): Object[];
         getResult(raw?: boolean): Object;
         getTag(): Object;
         load(): void;
-        setTag(tag: Object);
+        setTag(tag: Object): void;
         toString(): string;
     }
 
@@ -59,9 +59,9 @@ declare module createjs {
         {
         constructor(item: LoadItem);
 
-        cancel();
-        destroy();
-        load();
+        cancel(): void;
+        destroy(): void;
+        load(): void;
         }
 
     export class BinaryLoader
@@ -157,7 +157,7 @@ declare module createjs {
         stopOnError: boolean;
 
         // methods
-        close();
+        close(): void;
         getItems(loaded: boolean): Object[];
         installPlugin(plugin: () => any): void;
         loadFile(file: Object, loadNow?: boolean, basePath?: string): void;
@@ -165,7 +165,7 @@ declare module createjs {
         loadManifest(manifest: Object, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: string, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: any[], loadNow?: boolean, basePath?: string): void;
-        registerLoader(loader);
+        registerLoader(loader: AbstractLoader): void;
         remove(idsOrUrls: string): void;
         remove(idsOrUrls: any[]): void;
         removeAll(): void;
@@ -177,7 +177,7 @@ declare module createjs {
          * @deprecated - use 'preferXHR' property instead (or setUseXHR())
          */
         setUseXHR(value: boolean): void;
-        unregisterLoader(loader);
+        unregisterLoader(loader: AbstractLoader): void;
     }
 
     export class ManifestLoader
