@@ -8,7 +8,7 @@
 declare module "multer" {
     import express = require('express');
 
-    function Multer(options?: any): express.RequestHandler;
+    function multer(options?: any): express.RequestHandler;
 
-    export = Multer;
+    export = multer;
 }

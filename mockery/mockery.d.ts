@@ -5,34 +5,29 @@
 
 declare module "mockery" {
 
-    module m {
-        interface MockeryEnableArgs {
-            useCleanCache?: boolean;
-            warnOnReplace?: boolean;
-            warnOnUnregistered?: boolean;
-        }
-
-        function enable(args?: MockeryEnableArgs): void;
-        function disable(): void;
-
-        function registerMock(name: string, mock: any): void;
-        function deregisterMock(name: string): void;
-
-        function registerSubstitute(name: string, substitute: string): void;
-        function deregisterSubstitute(name: string): void;
-
-        function registerAllowable(name: string, unhook?: boolean): void;
-        function deregisterAllowable(name: string): void;
-
-        function registerAllowables(names: string[]): void;
-        function deregisterAllowables(names: string[]): void;
-
-        function deregisterAll(): void;
-        function resetCache(): void;
-        function warnOnUnregistered(value: boolean): void;
-        function warnOnReplace(value: boolean): void;
-
+    interface MockeryEnableArgs {
+        useCleanCache?: boolean;
+        warnOnReplace?: boolean;
+        warnOnUnregistered?: boolean;
     }
 
-    export = m;
+    export function enable(args?: MockeryEnableArgs): void;
+    export function disable(): void;
+
+    export function registerMock(name: string, mock: any): void;
+    export function deregisterMock(name: string): void;
+
+    export function registerSubstitute(name: string, substitute: string): void;
+    export function deregisterSubstitute(name: string): void;
+
+    export function registerAllowable(name: string, unhook?: boolean): void;
+    export function deregisterAllowable(name: string): void;
+
+    export function registerAllowables(names: string[]): void;
+    export function deregisterAllowables(names: string[]): void;
+
+    export function deregisterAll(): void;
+    export function resetCache(): void;
+    export function warnOnUnregistered(value: boolean): void;
+    export function warnOnReplace(value: boolean): void;
 }
