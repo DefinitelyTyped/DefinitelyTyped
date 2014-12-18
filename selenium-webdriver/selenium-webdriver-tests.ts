@@ -1131,3 +1131,31 @@ function TestError() {
     state = webdriver.error.Error.State.UNKNOWN_ERROR;
     state = webdriver.error.Error.State.UNSUPPORTED_OPERATION;
 }
+
+function TestTestingModule() {
+    testing.before(function () {
+    });
+
+    testing.beforeEach(function () {
+    });
+
+    testing.describe("My test suite", function () {
+        testing.it("My test", function () {
+        });
+
+        testing.iit("My exclusive test.", function () {
+        });
+
+    });
+
+    testing.xdescribe("My disabled suite", function () {
+        testing.xit("My disabled test.", function () {
+        });
+    });
+
+    testing.after(function () {
+    });
+
+    testing.afterEach(function () {
+    });
+}
