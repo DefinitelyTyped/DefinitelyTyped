@@ -3,7 +3,7 @@
 // Definitions by: AndrewGaspar <https://github.com/AndrewGaspar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "less" {
+declare module less {
     class LessError {
         constructor(e: Error, env);
 
@@ -549,4 +549,8 @@ declare module "less" {
     export function writeError(ctx, options: { color: boolean; }): void;
 
     export var version: number[];
+}
+
+declare module "less" {
+	export = less;
 }

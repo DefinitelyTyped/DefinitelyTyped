@@ -78,7 +78,9 @@ declare module "mongoose" {
     set(fn: Function): VirtualType;
   }
   export module Types {
-    export class ObjectId {}
+    export class ObjectId {
+        toHexString(): string;
+    }
   }
 
   export class Schema {

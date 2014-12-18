@@ -1,4 +1,4 @@
-/// <reference path="dx.phonejs.d.ts" />
+/// <reference path="dx.phonejs-14.1.d.ts" />
 
 module Test {
     var url = "http://some-json-service.net/data.json";
