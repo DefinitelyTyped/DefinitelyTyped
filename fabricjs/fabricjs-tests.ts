@@ -1057,3 +1057,9 @@ function sample8() {
         });
     };
 }
+
+function sample9() {
+    var canvas = new fabric.Canvas('c');
+    canvas.setBackgroundImage('yolo.jpg', () => {"a"}, {opacity: 45});
+    canvas.setBackgroundImage('yolo.jpg', () => {"a"});
+}
