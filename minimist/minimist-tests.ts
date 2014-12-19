@@ -7,7 +7,7 @@ var num: string;
 var str: string;
 var strArr: string[];
 var args: string[];
-var obj: Object;
+var obj: minimist.ParsedArgs;
 var opts: Opts;
 
 opts.string = strArr;
@@ -25,3 +25,4 @@ opts.default = {
 obj = minimist();
 obj = minimist(strArr);
 obj = minimist(strArr, opts);
+var remainingArgCount = obj._.length;

@@ -222,3 +222,28 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/uuid" {
+    var exp: dojox.uuid
+    export=exp;
+}
+declare module "dojox/uuid/generateRandomUuid" {
+    var exp: dojox.uuid.generateRandomUuid
+    export=exp;
+}
+declare module "dojox/uuid/generateTimeBasedUuid" {
+    var exp: dojox.uuid.generateTimeBasedUuid
+    export=exp;
+}
+declare module "dojox/uuid/Uuid" {
+    var exp: dojox.uuid.Uuid
+    export=exp;
+}
+declare module "dojox/uuid/_base.variant" {
+    var exp: dojox.uuid._base.variant
+    export=exp;
+}
+declare module "dojox/uuid/_base.version" {
+    var exp: dojox.uuid._base.version
+    export=exp;
+}
