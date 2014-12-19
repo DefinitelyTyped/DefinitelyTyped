@@ -3,7 +3,13 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var define: any;
+declare function define(dependencies: String[], factory: Function): any;
+declare function require(config?:Object, dependencies?: String[], callback?: Function): any;
+
+declare module dojox.dtl {
+    interface __StringArgs { }
+    interface __ObjectArgs { }
+}
 
 declare module dojo {
     /**
@@ -22,29 +28,30 @@ declare module dojo {
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        del: { (url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise }
+        del(url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise;
         /**
          * Send an HTTP GET request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        get: { (url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise }
+        get(url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise;
         /**
          * Send an HTTP POST request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        post: { (url: String, options?: dojo.request.__BaseOptions): any }
+        post(url: String, options?: dojo.request.__BaseOptions): any;
         /**
          * Send an HTTP POST request using the default transport for the current platform.
          * 
          * @param url URL to request             
          * @param options               OptionalOptions for the request.             
          */
-        put: { (url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise }
+        put(url: String, options?: dojo.request.__BaseOptions): dojo.request.__Promise;
     }
+
     module request {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/handlers.html
@@ -53,13 +60,222 @@ declare module dojo {
          * @param response     
          */
         interface handlers { (response: any): void }
-        module handlers {
+        interface handlers {
             /**
              * 
              * @param name             
              * @param handler             
              */
-            interface register { (name: any, handler: any): void }
+            register(name: any, handler: any): void;
+        }
+
+        module handlers {
+        }
+
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.html
+         *
+         * Sends a request using an iframe element with the given URL and options.
+         * 
+         * @param url URL to request     
+         * @param options       OptionalOptions for the request.     
+         */
+        interface iframe { (url: String, options?: dojo.request.iframe.__Options): void }
+        interface iframe {
+            /**
+             * 
+             * @param name             
+             * @param onloadstr             
+             * @param uri             
+             */
+            create(name: any, onloadstr: any, uri: any): any;
+            /**
+             * 
+             * @param iframeNode             
+             */
+            doc(iframeNode: any): any;
+            /**
+             * Send an HTTP GET request using an iframe element with the given URL and options.
+             * 
+             * @param url URL to request             
+             * @param options               OptionalOptions for the request.             
+             */
+            get(url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise;
+            /**
+             * Send an HTTP POST request using an iframe element with the given URL and options.
+             * 
+             * @param url URL to request             
+             * @param options               OptionalOptions for the request.             
+             */
+            post(url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise;
+            /**
+             * 
+             * @param _iframe             
+             * @param src             
+             * @param replace             
+             */
+            setSrc(_iframe: any, src: any, replace: any): void;
+        }
+
+        module iframe {
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__MethodOptions.html
+             *
+             * 
+             */
+            class __MethodOptions {
+                constructor();
+                /**
+                 * The HTTP method to use to make the request. Must be
+                 * uppercase. Only "GET" and "POST" are accepted.
+                 * Default is "POST".
+                 * 
+                 */
+                "method": string;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__BaseOptions.html
+             *
+             * 
+             */
+            class __BaseOptions {
+                constructor();
+                /**
+                 * Data to transfer. When making a GET request, this will
+                 * be converted to key=value parameters and appended to the
+                 * URL.
+                 * 
+                 */
+                "data": string;
+                /**
+                 * A form node to use to submit data to the server.
+                 * 
+                 */
+                "form": HTMLElement;
+                /**
+                 * How to handle the response from the server.  Default is
+                 * 'text'.  Other values are 'json', 'javascript', and 'xml'.
+                 * 
+                 */
+                "handleAs": string;
+                /**
+                 * Whether to append a cache-busting parameter to the URL.
+                 * 
+                 */
+                "preventCache": boolean;
+                /**
+                 * Query parameters to append to the URL.
+                 * 
+                 */
+                "query": string;
+                /**
+                 * Milliseconds to wait for the response.  If this time
+                 * passes, the then the promise is rejected.
+                 * 
+                 */
+                "timeout": number;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__Options.html
+             *
+             * 
+             */
+            class __Options {
+                constructor();
+                /**
+                 * Data to transfer. When making a GET request, this will
+                 * be converted to key=value parameters and appended to the
+                 * URL.
+                 * 
+                 */
+                "data": string;
+                /**
+                 * A form node to use to submit data to the server.
+                 * 
+                 */
+                "form": HTMLElement;
+                /**
+                 * How to handle the response from the server.  Default is
+                 * 'text'.  Other values are 'json', 'javascript', and 'xml'.
+                 * 
+                 */
+                "handleAs": string;
+                /**
+                 * The HTTP method to use to make the request. Must be
+                 * uppercase. Only "GET" and "POST" are accepted.
+                 * Default is "POST".
+                 * 
+                 */
+                "method": string;
+                /**
+                 * Whether to append a cache-busting parameter to the URL.
+                 * 
+                 */
+                "preventCache": boolean;
+                /**
+                 * Query parameters to append to the URL.
+                 * 
+                 */
+                "query": string;
+                /**
+                 * Milliseconds to wait for the response.  If this time
+                 * passes, the then the promise is rejected.
+                 * 
+                 */
+                "timeout": number;
+            }
+        }
+
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/notify.html
+         *
+         * Register a listener to be notified when an event
+         * in dojo/request happens.
+         * 
+         * @param type       OptionalThe event to listen for. Events emitted: "start", "send","load", "error", "done", "stop".     
+         * @param listener       OptionalA callback to be run when an event happens.     
+         */
+        interface notify { (type?: String, listener?: Function): void }
+        interface notify {
+            /**
+             * 
+             * @param type             
+             * @param event             
+             * @param cancel             
+             */
+            emit(type: any, event: any, cancel: any): void;
+        }
+
+        module notify {
+        }
+
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/registry.html
+         *
+         * 
+         * @param url     
+         * @param options     
+         */
+        interface registry { (url: any, options: any): void }
+        interface registry {
+            /**
+             * 
+             * @param id             
+             * @param parentRequire             
+             * @param loaded             
+             * @param config             
+             */
+            load(id: any, parentRequire: any, loaded: any, config: any): void;
+            /**
+             * 
+             * @param url             
+             * @param provider             
+             * @param first             
+             */
+            register(url: any, provider: any, first: any): void;
+        }
+
+        module registry {
         }
 
         /**
@@ -79,81 +295,31 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            del: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
+            del(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            get: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
+            get(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            post: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
+            post(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            put: { (url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise }
+            put(url: String, options: dojo.request.node.__BaseOptions): dojo.request.__Promise;
         }
+
         module node {
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.__BaseOptions.html
-             *
-             * 
-             */
-            class __BaseOptions {
-                constructor();
-                /**
-                 * Data to transfer. This is ignored for GET and DELETE
-                 * requests.
-                 * 
-                 */
-                "data": string;
-                /**
-                 * How to handle the response from the server.  Default is
-                 * 'text'.  Other values are 'json', 'javascript', and 'xml'.
-                 * 
-                 */
-                "handleAs": string;
-                /**
-                 * Headers to use for the request.
-                 * 
-                 */
-                "headers": Object;
-                /**
-                 * Password to use during the request.
-                 * 
-                 */
-                "password": string;
-                /**
-                 * Whether to append a cache-busting parameter to the URL.
-                 * 
-                 */
-                "preventCache": boolean;
-                /**
-                 * Query parameters to append to the URL.
-                 * 
-                 */
-                "query": string;
-                /**
-                 * Milliseconds to wait for the response.  If this time
-                 * passes, the then the promise is rejected.
-                 * 
-                 */
-                "timeout": number;
-                /**
-                 * Username to use during the request.
-                 * 
-                 */
-                "user": string;
-            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.__MethodOptions.html
              *
@@ -225,142 +391,35 @@ declare module dojo {
                  */
                 "user": string;
             }
-        }
-
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.html
-         *
-         * Sends a request using an iframe element with the given URL and options.
-         * 
-         * @param url URL to request     
-         * @param options       OptionalOptions for the request.     
-         */
-        interface iframe { (url: String, options?: dojo.request.iframe.__Options): void }
-        interface iframe {
             /**
-             * 
-             * @param name             
-             * @param onloadstr             
-             * @param uri             
-             */
-            create: { (name: any, onloadstr: any, uri: any): any }
-            /**
-             * 
-             * @param iframeNode             
-             */
-             doc: { (iframeNode: any): any }
-            /**
-             * Send an HTTP GET request using an iframe element with the given URL and options.
-             * 
-             * @param url URL to request             
-             * @param options               OptionalOptions for the request.             
-             */
-             get: { (url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise }
-            /**
-             * Send an HTTP POST request using an iframe element with the given URL and options.
-             * 
-             * @param url URL to request             
-             * @param options               OptionalOptions for the request.             
-             */
-             post: { (url: String, options: dojo.request.iframe.__BaseOptions): dojo.request.__Promise }
-            /**
-             * 
-             * @param _iframe             
-             * @param src             
-             * @param replace             
-             */
-             setSrc: { (_iframe: any, src: any, replace: any): void }
-        }
-        module iframe {
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__MethodOptions.html
-             *
-             * 
-             */
-            class __MethodOptions {
-                constructor();
-                /**
-                 * The HTTP method to use to make the request. Must be
-                 * uppercase. Only "GET" and "POST" are accepted.
-                 * Default is "POST".
-                 * 
-                 */
-                "method": string;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__Options.html
-             *
-             * 
-             */
-            class __Options {
-                constructor();
-                /**
-                 * Data to transfer. When making a GET request, this will
-                 * be converted to key=value parameters and appended to the
-                 * URL.
-                 * 
-                 */
-                "data": string;
-                /**
-                 * A form node to use to submit data to the server.
-                 * 
-                 */
-                "form": HTMLElement;
-                /**
-                 * How to handle the response from the server.  Default is
-                 * 'text'.  Other values are 'json', 'javascript', and 'xml'.
-                 * 
-                 */
-                "handleAs": string;
-                /**
-                 * The HTTP method to use to make the request. Must be
-                 * uppercase. Only "GET" and "POST" are accepted.
-                 * Default is "POST".
-                 * 
-                 */
-                "method": string;
-                /**
-                 * Whether to append a cache-busting parameter to the URL.
-                 * 
-                 */
-                "preventCache": boolean;
-                /**
-                 * Query parameters to append to the URL.
-                 * 
-                 */
-                "query": string;
-                /**
-                 * Milliseconds to wait for the response.  If this time
-                 * passes, the then the promise is rejected.
-                 * 
-                 */
-                "timeout": number;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__BaseOptions.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.__BaseOptions.html
              *
              * 
              */
             class __BaseOptions {
                 constructor();
                 /**
-                 * Data to transfer. When making a GET request, this will
-                 * be converted to key=value parameters and appended to the
-                 * URL.
+                 * Data to transfer. This is ignored for GET and DELETE
+                 * requests.
                  * 
                  */
                 "data": string;
-                /**
-                 * A form node to use to submit data to the server.
-                 * 
-                 */
-                "form": HTMLElement;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  * 
                  */
                 "handleAs": string;
+                /**
+                 * Headers to use for the request.
+                 * 
+                 */
+                "headers": Object;
+                /**
+                 * Password to use during the request.
+                 * 
+                 */
+                "password": string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  * 
@@ -377,27 +436,12 @@ declare module dojo {
                  * 
                  */
                 "timeout": number;
+                /**
+                 * Username to use during the request.
+                 * 
+                 */
+                "user": string;
             }
-        }
-
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/notify.html
-         *
-         * Register a listener to be notified when an event
-         * in dojo/request happens.
-         * 
-         * @param type       OptionalThe event to listen for. Events emitted: "start", "send","load", "error", "done", "stop".     
-         * @param listener       OptionalA callback to be run when an event happens.     
-         */
-        interface notify { (type?: String, listener?: Function): void }
-        interface notify {
-            /**
-             * 
-             * @param type             
-             * @param event             
-             * @param cancel             
-             */
-            emit: { (type: any, event: any, cancel: any): void }
         }
 
         /**
@@ -414,24 +458,27 @@ declare module dojo {
              * object as its only argument.
              * 
              */
-            ioCheck: Function
+            ioCheck: Function;
             /**
              * Function used to process response. Gets the dfd
              * object as its only argument.
              * 
              */
-            resHandle: Function
+            resHandle: Function;
             /**
              * Function used to check if the IO request is still valid. Gets the dfd
              * object as its only argument.
              * 
              */
-            validCheck: Function
+            validCheck: Function;
             /**
              * Cancels all pending IO requests, regardless of IO type
              * 
              */
-            cancelAll: { (): void }
+            cancelAll(): void;
+        }
+
+        module watch {
         }
 
         /**
@@ -450,14 +497,15 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-            get: { (url: String, options: dojo.request.script.__BaseOptions): dojo.request.__Promise }
+            get(url: String, options: dojo.request.script.__BaseOptions): dojo.request.__Promise;
+        }
+
+        module script {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/script.__MethodOptions.html
              *
              * 
              */
-        }
-        module script {
             class __MethodOptions {
                 constructor();
                 /**
@@ -541,7 +589,7 @@ declare module dojo {
                  * 
                  */
                 "checkString": string;
-                /**
+                /**dojo
                  * Data to transfer.  This is ignored for GET and DELETE
                  * requests.
                  * 
@@ -594,32 +642,6 @@ declare module dojo {
         }
 
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/registry.html
-         *
-         * 
-         * @param url     
-         * @param options     
-         */
-        interface registry{(url: any, options: any): void}
-        interface registry {
-            /**
-             * 
-             * @param id             
-             * @param parentRequire             
-             * @param loaded             
-             * @param config             
-             */
-            load:{(id: any, parentRequire: any, loaded: any, config: any): void}
-            /**
-             * 
-             * @param url             
-             * @param provider             
-             * @param first             
-             */
-            register:{(url: any, provider: any, first: any): void}
-        }
-
-        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/xhr.html
          *
          * Sends a request using XMLHttpRequest with the given URL and options.
@@ -627,7 +649,7 @@ declare module dojo {
          * @param url URL to request     
          * @param options       OptionalOptions for the request.     
          */
-        interface xhr{(url: String, options?: dojo.request.xhr.__Options): void}
+        interface xhr { (url: String, options?: dojo.request.xhr.__Options): void }
         interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
@@ -635,35 +657,35 @@ declare module dojo {
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-             del:{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+            del(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-             get:{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+            get(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-             post:{(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise}
+            post(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              * 
              * @param url URL to request             
              * @param options               OptionalOptions for the request.             
              */
-             put:{ (url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise }
+            put(url: String, options: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
         }
 
         module xhr {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/xhr.__BaseOptions.html
              *
-             *
+             * 
              */
             class __BaseOptions {
                 constructor();
@@ -809,6 +831,42 @@ declare module dojo {
         }
 
         /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.__BaseOptions.html
+         *
+         * 
+         */
+        class __BaseOptions {
+            constructor();
+            /**
+             * Data to transfer.  This is ignored for GET and DELETE
+             * requests.
+             * 
+             */
+            "data": string;
+            /**
+             * How to handle the response from the server.  Default is
+             * 'text'.  Other values are 'json', 'javascript', and 'xml'.
+             * 
+             */
+            "handleAs": string;
+            /**
+             * Whether to append a cache-busting parameter to the URL.
+             * 
+             */
+            "preventCache": boolean;
+            /**
+             * Query parameters to append to the URL.
+             * 
+             */
+            "query": string;
+            /**
+             * Milliseconds to wait for the response.  If this time
+             * passes, the then the promise is rejected.
+             * 
+             */
+            "timeout": number;
+        }
+        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.__MethodOptions.html
          *
          * 
@@ -936,61 +994,13 @@ declare module dojo {
              */
             toString(): String;
             /**
-             * Trace the promise.
-             * Tracing allows you to transparently log progress,
-             * resolution and rejection of promises, without affecting the
-             * promise itself. Any arguments passed to trace() are
-             * emitted in trace events. See dojo/promise/tracer on how
-             * to handle traces.
              * 
              */
             trace(): dojo.promise.Promise;
             /**
-             * Trace rejection of the promise.
-             * Tracing allows you to transparently log progress,
-             * resolution and rejection of promises, without affecting the
-             * promise itself. Any arguments passed to trace() are
-             * emitted in trace events. See dojo/promise/tracer on how
-             * to handle traces.
              * 
              */
             traceRejected(): dojo.promise.Promise;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.__BaseOptions.html
-         *
-         * 
-         */
-        class __BaseOptions {
-            constructor();
-            /**
-             * Data to transfer.  This is ignored for GET and DELETE
-             * requests.
-             * 
-             */
-            "data": string;
-            /**
-             * How to handle the response from the server.  Default is
-             * 'text'.  Other values are 'json', 'javascript', and 'xml'.
-             * 
-             */
-            "handleAs": string;
-            /**
-             * Whether to append a cache-busting parameter to the URL.
-             * 
-             */
-            "preventCache": boolean;
-            /**
-             * Query parameters to append to the URL.
-             * 
-             */
-            "query": string;
-            /**
-             * Milliseconds to wait for the response.  If this time
-             * passes, the then the promise is rejected.
-             * 
-             */
-            "timeout": number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/default.html
@@ -1079,16 +1089,16 @@ declare module dojo {
      * 
      * @param returnWrappers       Optional    
      */
-    class AdapterRegistry {
-        constructor(returnWrappers?: boolean);
+    interface AdapterRegistry { (returnWrappers?: boolean): void }
+    interface AdapterRegistry {
         /**
          * 
          */
-        pairs: any[]
+        pairs: any[];
         /**
          * 
          */
-        returnWrappers: boolean
+        returnWrappers: boolean;
         /**
          * Find an adapter for the given arguments. If no suitable adapter
          * is found, throws an exception. match() accepts any number of
@@ -1096,7 +1106,7 @@ declare module dojo {
          * from the registered pairs.
          * 
          */
-        match: {(): any}
+        match(): any;
         /**
          * register a check function to determine if the wrap function or
          * object gets selected
@@ -1107,13 +1117,16 @@ declare module dojo {
          * @param directReturn               OptionalIf directReturn is true, the value passed in for wrap will bereturned instead of being called. Alternately, theAdapterRegistry can be set globally to "return not call" usingthe returnWrappers property. Either way, this behavior allowsthe registry to act as a "search" function instead of afunction interception library.             
          * @param override               OptionalIf override is given and true, the check function will be givenhighest priority. Otherwise, it will be the lowest priorityadapter.             
          */
-        register: {(name: String, check: Function, wrap: Function, directReturn: boolean, override: boolean): void}
+        register(name: String, check: Function, wrap: Function, directReturn: boolean, override: boolean): void;
         /**
          * Remove a named adapter from the registry
          * 
          * @param name The name of the adapter.             
          */
-        unregister: {(name: String): any}
+        unregister(name: String): any;
+    }
+
+    module AdapterRegistry {
     }
 
     /**
@@ -1137,7 +1150,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: String, url: String, value?: String): void}
+    interface cache { (module: String, url: String, value?: String): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1159,7 +1172,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: Object, url: String, value?: String): void}
+    interface cache { (module: Object, url: String, value?: String): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1181,7 +1194,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: String, url: String, value?: Object): void}
+    interface cache { (module: String, url: String, value?: Object): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1203,7 +1216,7 @@ declare module dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.     
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.     
      */
-    interface cache{(module: Object, url: String, value?: Object): void}
+    interface cache { (module: Object, url: String, value?: Object): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cookie.html
      *
@@ -1215,8 +1228,8 @@ declare module dojo {
      * @param value       OptionalValue for the cookie     
      * @param props       OptionalProperties for the cookie     
      */
-    interface cookie{(name: String, value?: String, props?: Object): void}
-    module cookie {
+    interface cookie { (name: String, value?: String, props?: Object): void }
+    interface cookie {
         /**
          * Use to determine if the current browser supports cookies or not.
          * 
@@ -1224,7 +1237,10 @@ declare module dojo {
          * Returns false if user doesn't allow cookies.
          * 
          */
-        interface isSupported{(): void}
+        isSupported(): void;
+    }
+
+    module cookie {
     }
 
     /**
@@ -1234,81 +1250,18 @@ declare module dojo {
      * 
      * @param callback     
      */
-    interface domReady{(callback: any): void}
-    module domReady {
+    interface domReady { (callback: any): void }
+    interface domReady {
         /**
          * 
          * @param id             
          * @param req             
          * @param load             
          */
-        interface load{(id: any, req: any, load: any): void}
+        load(id: any, req: any, load: any): void;
     }
 
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
-     *
-     * Return the current value of the named feature.
-     * Returns the value of the feature named by name. The feature must have been
-     * previously added to the cache by has.add.
-     * 
-     * @param name The name (if a string) or identifier (if an integer) of the feature to test.     
-     */
-    interface has{(name: String): void}
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
-     *
-     * Return the current value of the named feature.
-     * Returns the value of the feature named by name. The feature must have been
-     * previously added to the cache by has.add.
-     * 
-     * @param name The name (if a string) or identifier (if an integer) of the feature to test.     
-     */
-    interface has{(name: number): void}
-    module has {
-        /**
-         * 
-         */
-        var cache: string
-        /**
-         * Register a new feature test for some named feature.
-         * 
-         * @param name The name (if a string) or identifier (if an integer) of the feature to test.             
-         * @param test A test function to register. If a function, queued for testing until actuallyneeded. The test function should return a boolean indicatingthe presence of a feature or bug.             
-         * @param now               OptionalOptional. Omit if test is not a function. Provides a way to immediatelyrun the test and cache the result.             
-         * @param force               OptionalOptional. If the test already exists and force is truthy, then the existingtest will be replaced; otherwise, add does not replace an existing test (thatis, by default, the first test advice wins).             
-         */
-        interface add{(name: String, test: Function, now: boolean, force: boolean): any}
-        /**
-         * Register a new feature test for some named feature.
-         * 
-         * @param name The name (if a string) or identifier (if an integer) of the feature to test.             
-         * @param test A test function to register. If a function, queued for testing until actuallyneeded. The test function should return a boolean indicatingthe presence of a feature or bug.             
-         * @param now               OptionalOptional. Omit if test is not a function. Provides a way to immediatelyrun the test and cache the result.             
-         * @param force               OptionalOptional. If the test already exists and force is truthy, then the existingtest will be replaced; otherwise, add does not replace an existing test (thatis, by default, the first test advice wins).             
-         */
-        interface add{(name: number, test: Function, now: boolean, force: boolean): any}
-        /**
-         * Deletes the contents of the element passed to test functions.
-         * 
-         * @param element             
-         */
-        interface clearElement{(element: any): void}
-        /**
-         * Conditional loading of AMD modules based on a has feature test value.
-         * 
-         * @param id Gives the resolved module id to load.             
-         * @param parentRequire The loader require function with respect to the module that contained the plugin resource in it'sdependency list.             
-         * @param loaded Callback to loader that consumes result of plugin demand.             
-         */
-        interface load{(id: String, parentRequire: Function, loaded: Function): void}
-        /**
-         * Resolves id into a module id based on possibly-nested tenary expression that branches on has feature test value(s).
-         * 
-         * @param id             
-         * @param toAbsMid Resolves a relative module id into an absolute module id             
-         */
-        interface normalize{(id: any, toAbsMid: Function): void}
+    module domReady {
     }
 
     /**
@@ -1323,7 +1276,76 @@ declare module dojo {
      * @param hash       Optionalthe hash is set - #string.     
      * @param replace       OptionalIf true, updates the hash value in the current historystate instead of creating a new history state.     
      */
-    interface hash{(hash?: String, replace?: boolean): void}
+    interface hash { (hash?: String, replace?: boolean): void }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
+     *
+     * Return the current value of the named feature.
+     * Returns the value of the feature named by name. The feature must have been
+     * previously added to the cache by has.add.
+     * 
+     * @param name The name (if a string) or identifier (if an integer) of the feature to test.     
+     */
+    interface has { (name: String): void }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
+     *
+     * Return the current value of the named feature.
+     * Returns the value of the feature named by name. The feature must have been
+     * previously added to the cache by has.add.
+     * 
+     * @param name The name (if a string) or identifier (if an integer) of the feature to test.     
+     */
+    interface has { (name: number): void }
+    interface has {
+        /**
+         * 
+         */
+        cache: string;
+        /**
+         * Register a new feature test for some named feature.
+         * 
+         * @param name The name (if a string) or identifier (if an integer) of the feature to test.             
+         * @param test A test function to register. If a function, queued for testing until actuallyneeded. The test function should return a boolean indicatingthe presence of a feature or bug.             
+         * @param now               OptionalOptional. Omit if test is not a function. Provides a way to immediatelyrun the test and cache the result.             
+         * @param force               OptionalOptional. If the test already exists and force is truthy, then the existingtest will be replaced; otherwise, add does not replace an existing test (thatis, by default, the first test advice wins).             
+         */
+        add(name: String, test: Function, now: boolean, force: boolean): any;
+        /**
+         * Register a new feature test for some named feature.
+         * 
+         * @param name The name (if a string) or identifier (if an integer) of the feature to test.             
+         * @param test A test function to register. If a function, queued for testing until actuallyneeded. The test function should return a boolean indicatingthe presence of a feature or bug.             
+         * @param now               OptionalOptional. Omit if test is not a function. Provides a way to immediatelyrun the test and cache the result.             
+         * @param force               OptionalOptional. If the test already exists and force is truthy, then the existingtest will be replaced; otherwise, add does not replace an existing test (thatis, by default, the first test advice wins).             
+         */
+        add(name: number, test: Function, now: boolean, force: boolean): any;
+        /**
+         * Deletes the contents of the element passed to test functions.
+         * 
+         * @param element             
+         */
+        clearElement(element: any): void;
+        /**
+         * Conditional loading of AMD modules based on a has feature test value.
+         * 
+         * @param id Gives the resolved module id to load.             
+         * @param parentRequire The loader require function with respect to the module that contained the plugin resource in it'sdependency list.             
+         * @param loaded Callback to loader that consumes result of plugin demand.             
+         */
+        load(id: String, parentRequire: Function, loaded: Function): void;
+        /**
+         * Resolves id into a module id based on possibly-nested tenary expression that branches on has feature test value(s).
+         * 
+         * @param id             
+         * @param toAbsMid Resolves a relative module id into an absolute module id             
+         */
+        normalize(id: any, toAbsMid: Function): void;
+    }
+
+    module has {
+    }
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/hccss.html
      *
@@ -1332,7 +1354,21 @@ declare module dojo {
      * Returns has() method;
      * 
      */
-    interface hccss{(): void}
+    interface hccss { (): void }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-data.html
+     *
+     * Adds data() and removeData() methods to NodeList, and returns NodeList constructor.
+     * 
+     */
+    interface NodeList_data { (): void }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-html.html
+     *
+     * Adds a chainable html method to dojo/query() / NodeList instances for setting/replacing node content
+     * 
+     */
+    interface NodeList_html { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-fx.html
      *
@@ -1340,39 +1376,42 @@ declare module dojo {
      * with additional FX functions.  NodeList is the array-like object used to hold query results.
      * 
      */
-    interface NodeList_fx{(): void}
-    module NodeList_fx {
+    interface NodeList_fx { (): void }
+    interface NodeList_fx {
         /**
          * fade all elements of the node list to a specified opacity
          * 
          * @param args             
          */
-        interface fadeTo{(args: any): any}
+        fadeTo(args: any): any;
         /**
          * highlight all elements of the node list.
          * Returns an instance of dojo.Animation
          * 
          * @param args             
          */
-        interface highlight{(args: any): any}
+        highlight(args: any): any;
         /**
          * size all elements of this NodeList. Returns an instance of dojo.Animation
          * 
          * @param args             
          */
-        interface sizeTo{(args: any): any}
+        sizeTo(args: any): any;
         /**
          * slide all elements of this NodeList. Returns an instance of dojo.Animation
          * 
          * @param args             
          */
-        interface slideBy{(args: any): any}
+        slideBy(args: any): any;
         /**
          * Wipe all elements of the NodeList to a specified width: or height:
          * 
          * @param args             
          */
-        interface wipeTo{(args: any): any}
+        wipeTo(args: any): any;
+    }
+
+    module NodeList_fx {
     }
 
     /**
@@ -1381,14 +1420,7 @@ declare module dojo {
      * Adds DOM related methods to NodeList, and returns NodeList constructor.
      * 
      */
-    interface NodeList_dom{(): void}
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-html.html
-     *
-     * Adds a chainable html method to dojo/query() / NodeList instances for setting/replacing node content
-     * 
-     */
-    interface NodeList_html{(): void}
+    interface NodeList_dom { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-manipulate.html
      *
@@ -1396,14 +1428,14 @@ declare module dojo {
      * and DOM nodes and their properties.
      * 
      */
-    interface NodeList_manipulate{(): void}
+    interface NodeList_manipulate { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-traverse.html
      *
      * Adds chainable methods to dojo/query() / NodeList instances for traversing the DOM
      * 
      */
-    interface NodeList_traverse{(): void}
+    interface NodeList_traverse { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1437,7 +1469,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: HTMLElement, type: String, listener: Function, dontFix: any): void}
+    interface on { (target: HTMLElement, type: String, listener: Function, dontFix: any): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1471,7 +1503,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: Object, type: String, listener: Function, dontFix: any): void}
+    interface on { (target: Object, type: String, listener: Function, dontFix: any): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1505,7 +1537,7 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: HTMLElement, type: Function, listener: Function, dontFix: any): void}
+    interface on { (target: HTMLElement, type: Function, listener: Function, dontFix: any): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1539,15 +1571,15 @@ declare module dojo {
      * @param listener This is the function that should be called when the event fires.     
      * @param dontFix     
      */
-    interface on{(target: Object, type: Function, listener: Function, dontFix: any): void}
-    module on {
+    interface on { (target: Object, type: String, listener: Function, dontFix?: any): { remove: { (): void } } }
+    interface on {
         /**
          * 
          * @param target             
          * @param type             
          * @param event             
          */
-        interface emit{(target: any, type: any, event: any): any}
+        emit(target: any, type: any, event: any): any;
         /**
          * This function acts the same as on(), but will only call the listener once. The 
          * listener will be called for the first
@@ -1558,7 +1590,7 @@ declare module dojo {
          * @param listener             
          * @param dontFix             
          */
-        interface once{(target: any, type: any, listener: any, dontFix: any): any}
+        once(target: any, type: any, listener: any, dontFix: any): any;
         /**
          * 
          * @param target             
@@ -1568,7 +1600,7 @@ declare module dojo {
          * @param dontFix             
          * @param matchesTarget             
          */
-        interface parse{(target: any, type: any, listener: any, addListener: any, dontFix: any, matchesTarget: any): any}
+        parse(target: any, type: any, listener: any, addListener: any, dontFix: any, matchesTarget: any): any;
         /**
          * This function acts the same as on(), but with pausable functionality. The
          * returned signal object has pause() and resume() functions. Calling the
@@ -1580,7 +1612,7 @@ declare module dojo {
          * @param listener             
          * @param dontFix             
          */
-        interface pausable{(target: any, type: any, listener: any, dontFix: any): any}
+        pausable(target: any, type: any, listener: any, dontFix: any): any;
         /**
          * Creates a new extension event with event delegation. This is based on
          * the provided event type (can be extension event) that
@@ -1592,16 +1624,12 @@ declare module dojo {
          * @param eventType The event to listen for             
          * @param children Indicates if children elements of the selector should be allowed. This defaults to true             
          */
-        interface selector{(selector: any, eventType: any, children: any): Function}
+        selector(selector: any, eventType: any, children: any): Function;
     }
 
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-data.html
-     *
-     * Adds data() and removeData() methods to NodeList, and returns NodeList constructor.
-     * 
-     */
-    interface NodeList_data{(): void}
+    module on {
+    }
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
      *
@@ -1686,7 +1714,7 @@ declare module dojo {
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
     interface query{(selector: String, context?: HTMLElement): void}
-    module query {
+    interface query {
         /**
          * can be used as AMD plugin to conditionally load new query engine
          * 
@@ -1694,7 +1722,7 @@ declare module dojo {
          * @param parentRequire             
          * @param loaded             
          */
-        interface load{(id: any, parentRequire: any, loaded: any): void}
+        load(id: any, parentRequire: any, loaded: any): void;
         /**
          * Array-like object which adds syntactic
          * sugar for chaining, common iteration operations, animation, and
@@ -1709,7 +1737,10 @@ declare module dojo {
          * 
          * @param array             
          */
-        interface NodeList{(array: any): any[]}
+        NodeList(array: any): any[];
+    }
+
+    module query {
     }
 
     /**
@@ -1791,7 +1822,7 @@ declare module dojo {
         /**
          * 
          */
-        "promise": Object;
+        "promise": dojo.promise.Promise;
         /**
          * Inform the deferred it may cancel its asynchronous operation.
          * Inform the deferred it may cancel its asynchronous operation.
@@ -1848,7 +1879,7 @@ declare module dojo {
          * @param value The result of the deferred. Passed to callbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be resolved.             
          */
-        resolve(value: any, strict: boolean): dojo.promise.Promise;
+        resolve(value: any, strict?: boolean): dojo.promise.Promise;
         /**
          * Add new callbacks to the deferred.
          * Add new callbacks to the deferred. Callbacks can be added
@@ -1879,13 +1910,13 @@ declare module dojo {
          * @param type             
          * @param event             
          */
-        emit(type: any, event: any): any;
+        emit(type: String, data: any): any;
         /**
          * 
          * @param type             
          * @param listener             
          */
-        on(type: any, listener: any): any;
+        on(type: String, listener: {(e:any):void}): {remove: {():void}};
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList.html
@@ -2322,6 +2353,27 @@ declare module dojo {
          * @param fn Callback function passed the event object, and where this == the node that matches the selector.That means that for example, after setting up a handler viadojo.query("body").delegate("fieldset", "onclick", ...)clicking on a fieldset or any nodes inside of a fieldset will be reportedas a click on the fieldset itself.             
          */
         delegate(selector: String, eventName: String, fn: Function): any;
+        /**
+         * Renders the specified template in each of the NodeList entries.
+         * 
+         * @param template The template string or location             
+         * @param context The context object or location             
+         */
+        dtl(template: dojox.dtl.__StringArgs , context: dojox.dtl.__ObjectArgs ): Function;
+        /**
+         * Renders the specified template in each of the NodeList entries.
+         * 
+         * @param template The template string or location             
+         * @param context The context object or location             
+         */
+        dtl(template: String, context: dojox.dtl.__ObjectArgs ): Function;
+        /**
+         * Renders the specified template in each of the NodeList entries.
+         * 
+         * @param template The template string or location             
+         * @param context The context object or location             
+         */
+        dtl(template: dojox.dtl.__StringArgs , context: Object): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          * 
@@ -3046,6 +3098,7 @@ declare module dojo {
      */
     class Stateful {
         constructor();
+        inherited: {(arguments: IArguments): any};
         /**
          * Get a property on a Stateful instance.
          * Get a named property on a Stateful object. The property may
@@ -3054,7 +3107,7 @@ declare module dojo {
          * 
          * @param name The property to get.             
          */
-        get(name: string): any;
+        get(name: String): any;
         /**
          * 
          * @param params               Optional            
@@ -3068,7 +3121,7 @@ declare module dojo {
          * @param name The property to set.             
          * @param value The value to set in the property.             
          */
-        set(name: string, value: Object): any;
+        set(name: String, value: Object): any;
         /**
          * Watches a property for changes
          * 
@@ -3152,7 +3205,7 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare{(className?: String, superclass?: Function, props?: Object): void}
+        interface declare { (className?: String, superclass?: any, props?: Object): any}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
          *
@@ -3227,8 +3280,8 @@ declare module dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).     
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".     
          */
-        interface declare{(className?: String, superclass?: Function[], props?: Object): void}
-        module declare {
+        interface declare{(className?: String, superclass?: any[], props?: Object): any}
+        interface declare {
             /**
              * Mix in properties skipping a constructor and decorating functions
              * like it is done by declare().
@@ -3246,7 +3299,10 @@ declare module dojo {
              * @param target Target object to accept new properties.             
              * @param source Source object for new properties.             
              */
-            interface safeMixin{(target: Object, source: Object): Object}
+            safeMixin(target: Object, source: Object): Object;
+        }
+
+        module declare {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.__DeclareCreatedObject.html
              *
@@ -3393,95 +3449,95 @@ declare module dojo {
          * @param canceller       Optional    
          */
         interface Deferred{(canceller?: Function): void}
-        module Deferred {
+        interface Deferred {
             /**
              * 
              */
-            var fired: number
+            fired: number;
             /**
              * 
              */
-            var promise: Object
+            promise: Object;
             /**
              * Add handler as both successful callback and error callback for this deferred instance.
              * 
              * @param callback             
              */
-            interface addBoth{(callback: Function): any}
+            addBoth(callback: Function): any;
             /**
              * Adds successful callback for this deferred instance.
              * 
              * @param callback             
              */
-            interface addCallback{(callback: Function): any}
+            addCallback(callback: Function): any;
             /**
              * Adds callback and error callback for this deferred instance.
              * 
              * @param callback               OptionalThe callback attached to this deferred object.             
              * @param errback               OptionalThe error callback attached to this deferred object.             
              */
-            interface addCallbacks{(callback: Function, errback: Function): any}
+            addCallbacks(callback: Function, errback: Function): any;
             /**
              * Adds error callback for this deferred instance.
              * 
              * @param errback             
              */
-            interface addErrback{(errback: Function): any}
+            addErrback(errback: Function): any;
             /**
              * Fulfills the Deferred instance successfully with the provide value
              * 
              * @param value             
              */
-            interface callback{(value: any): void}
+            callback(value: any): void;
             /**
              * Cancels the asynchronous operation
              * 
              */
-            interface cancel{(): void}
+            cancel(): void;
             /**
              * Fulfills the Deferred instance as an error with the provided error
              * 
              * @param error             
              */
-            interface errback{(error: any): void}
+            errback(error: any): void;
             /**
              * Checks whether the deferred has been canceled.
              * 
              */
-            interface isCanceled{(): boolean}
+            isCanceled(): boolean;
             /**
              * Checks whether the deferred has been resolved or rejected.
              * 
              */
-            interface isFulfilled{(): boolean}
+            isFulfilled(): boolean;
             /**
              * Checks whether the deferred has been rejected.
              * 
              */
-            interface isRejected{(): boolean}
+            isRejected(): boolean;
             /**
              * Checks whether the deferred has been resolved.
              * 
              */
-            interface isResolved{(): boolean}
+            isResolved(): boolean;
             /**
              * Send progress events to all listeners
              * 
              * @param update             
              */
-            interface progress{(update: any): void}
+            progress(update: any): void;
             /**
              * Fulfills the Deferred instance as an error with the provided error
              * 
              * @param error             
              */
-            interface reject{(error: any): void}
+            reject(error: any): void;
             /**
              * Fulfills the Deferred instance successfully with the provide value
              * 
              * @param value             
              */
-            interface resolve{(value: any): void}
+            resolve(value: any): void;
             /**
              * Adds a fulfilledHandler, errorHandler, and progressHandler to be called for
              * completion of a promise. The fulfilledHandler is called when the promise
@@ -3501,7 +3557,7 @@ declare module dojo {
              * @param errorCallback               Optional            
              * @param progressCallback               Optional            
              */
-            interface then{(resolvedCallback: Function, errorCallback: Function, progressCallback: Function): any}
+            then(resolvedCallback: Function, errorCallback: Function, progressCallback: Function): any;
             /**
              * Transparently applies callbacks to values and/or promises.
              * Accepts promises but also transparently handles non-promises. If no
@@ -3518,7 +3574,10 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
              */
-            interface when{(valueOrPromise: any, callback: Function, errback: Function, progback: Function): any}
+            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): any;
+        }
+
+        module Deferred {
         }
 
         /**
@@ -3527,58 +3586,54 @@ declare module dojo {
          * 
          */
         interface url{(): void}
+        interface url {
+            /**
+             * 
+             */
+            authority: Object;
+            /**
+             * 
+             */
+            fragment: Object;
+            /**
+             * 
+             */
+            host: Object;
+            /**
+             * 
+             */
+            password: Object;
+            /**
+             * 
+             */
+            path: Object;
+            /**
+             * 
+             */
+            port: Object;
+            /**
+             * 
+             */
+            query: Object;
+            /**
+             * 
+             */
+            scheme: Object;
+            /**
+             * 
+             */
+            uri: Object;
+            /**
+             * 
+             */
+            user: Object;
+            /**
+             * 
+             */
+            toString(): void;
+        }
+
         module url {
-            /**
-             * 
-             */
-            var authority: Object
-            /**
-             * 
-             */
-            var fragment: Object
-            /**
-             * 
-             */
-            var host: Object
-            /**
-             * 
-             */
-            var password: Object
-            /**
-             * 
-             */
-            var path: Object
-            /**
-             * 
-             */
-            var port: Object
-            /**
-             * 
-             */
-            var query: Object
-            /**
-             * 
-             */
-            var scheme: Object
-            /**
-             * 
-             */
-            var uri: Object
-            /**
-             * 
-             */
-            var user: Object
-            /**
-             * 
-             */
-            interface toString{(): void}
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.fragment.html
-             *
-             * 
-             */
-            interface fragment {
-            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.authority.html
              *
@@ -3594,18 +3649,25 @@ declare module dojo {
             interface password {
             }
             /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.port.html
+             *
+             * 
+             */
+            interface port {
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.fragment.html
+             *
+             * 
+             */
+            interface fragment {
+            }
+            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.query.html
              *
              * 
              */
             interface query {
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.scheme.html
-             *
-             * 
-             */
-            interface scheme {
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.user.html
@@ -3615,11 +3677,11 @@ declare module dojo {
             interface user {
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.port.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.scheme.html
              *
              * 
              */
-            interface port {
+            interface scheme {
             }
         }
 
@@ -3637,19 +3699,19 @@ declare module dojo {
          * @param hasBody       OptionalIf the request has an HTTP body, then pass true for hasBody.     
          */
         interface xhr{(method: String, args: Object, hasBody?: boolean): void}
-        module xhr {
+        interface xhr {
             /**
              * A map of available XHR transport handle types. Name matches the
              * handleAs attribute passed to XHR calls.
              * 
              */
-            var contentHandlers: Object
+            contentHandlers: Object;
             /**
              * Sends an HTTP DELETE request to the server.
              * 
              * @param args An object with the following properties:handleAs (String, optional): Acceptable values are: text (default), json, json-comment-optional,json-comment-filtered, javascript, xml. See dojo/_base/xhr.contentHandlerssync (Boolean, optional): false is default. Indicates whether the request shouldbe a synchronous (blocking) request.headers (Object, optional): Additional HTTP headers to send in the request.failOk (Boolean, optional): false is default. Indicates whether a request should beallowed to fail (and therefore no console error message inthe event of a failure)contentType (String|Boolean): "application/x-www-form-urlencoded" is default. Set to false toprevent a Content-Type header from being sent, or to a stringto send a different Content-Type.load: This function will becalled on a successful HTTP response code.error: This function willbe called when the request fails due to a network or server error, the urlis invalid, etc. It will also be called if the load or handle callback throws anexception, unless djConfig.debugAtAllCosts is true.  This allows deployed applicationsto continue to run even when a logic error happens in the callback, while makingit easier to troubleshoot while in debug mode.handle: This function willbe called at the end of every request, whether or not an error occurs.url (String): URL to server endpoint.content (Object, optional): Contains properties with string values. Theseproperties will be serialized as name1=value2 andpassed in the request.timeout (Integer, optional): Milliseconds to wait for the response. If this timepasses, the then error callbacks are called.form (DOMNode, optional): DOM node for a form. Used to extract the form valuesand send to the server.preventCache (Boolean, optional): Default is false. If true, then a"dojo.preventCache" parameter is sent in the requestwith a value that changes with each request(timestamp). Useful only with GET-type requests.rawBody (String, optional): Sets the raw body for an HTTP request. If this is used, then the contentproperty is ignored. This is mostly useful for HTTP methods that havea body to their requests, like PUT or POST. This property can be used insteadof postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.ioPublish (Boolean, optional): Set this explicitly to false to prevent publishing of topics related toIO operations. Otherwise, if djConfig.ioPublish is set to true, topicswill be published via dojo/topic.publish() for different phases of an IO operation.See dojo/main.__IoPublish for a list of topics that are published.            
              */
-            interface del{(args: Object): any}
+            del(args: Object): any;
             /**
              * Serialize a form field to a JavaScript object.
              * Returns the value encoded in a form field as
@@ -3659,7 +3721,7 @@ declare module dojo {
              * 
              * @param inputNode             
              */
-            interface fieldToObject{(inputNode: HTMLElement): any}
+            fieldToObject(inputNode: HTMLElement): any;
             /**
              * Serialize a form field to a JavaScript object.
              * Returns the value encoded in a form field as
@@ -3669,7 +3731,7 @@ declare module dojo {
              * 
              * @param inputNode             
              */
-            interface fieldToObject{(inputNode: String): any}
+            fieldToObject(inputNode: String): any;
             /**
              * Create a serialized JSON string from a form node or string
              * ID identifying the form to serialize
@@ -3677,7 +3739,7 @@ declare module dojo {
              * @param formNode             
              * @param prettyPrint               Optional            
              */
-            interface formToJson{(formNode: HTMLElement, prettyPrint: boolean): any}
+            formToJson(formNode: HTMLElement, prettyPrint: boolean): any;
             /**
              * Create a serialized JSON string from a form node or string
              * ID identifying the form to serialize
@@ -3685,7 +3747,7 @@ declare module dojo {
              * @param formNode             
              * @param prettyPrint               Optional            
              */
-            interface formToJson{(formNode: String, prettyPrint: boolean): any}
+            formToJson(formNode: String, prettyPrint: boolean): any;
             /**
              * Serialize a form node to a JavaScript object.
              * Returns the values encoded in an HTML form as
@@ -3695,7 +3757,7 @@ declare module dojo {
              * 
              * @param formNode             
              */
-            interface formToObject{(formNode: HTMLElement): Object}
+            formToObject(formNode: HTMLElement): Object;
             /**
              * Serialize a form node to a JavaScript object.
              * Returns the values encoded in an HTML form as
@@ -3705,55 +3767,58 @@ declare module dojo {
              * 
              * @param formNode             
              */
-            interface formToObject{(formNode: String): Object}
+            formToObject(formNode: String): Object;
             /**
              * Returns a URL-encoded string representing the form passed as either a
              * node or string ID identifying the form to serialize
              * 
              * @param formNode             
              */
-            interface formToQuery{(formNode: HTMLElement): any}
+            formToQuery(formNode: HTMLElement): any;
             /**
              * Returns a URL-encoded string representing the form passed as either a
              * node or string ID identifying the form to serialize
              * 
              * @param formNode             
              */
-            interface formToQuery{(formNode: String): any}
+            formToQuery(formNode: String): any;
             /**
              * Sends an HTTP GET request to the server.
              * 
              * @param args An object with the following properties:handleAs (String, optional): Acceptable values are: text (default), json, json-comment-optional,json-comment-filtered, javascript, xml. See dojo/_base/xhr.contentHandlerssync (Boolean, optional): false is default. Indicates whether the request shouldbe a synchronous (blocking) request.headers (Object, optional): Additional HTTP headers to send in the request.failOk (Boolean, optional): false is default. Indicates whether a request should beallowed to fail (and therefore no console error message inthe event of a failure)contentType (String|Boolean): "application/x-www-form-urlencoded" is default. Set to false toprevent a Content-Type header from being sent, or to a stringto send a different Content-Type.load: This function will becalled on a successful HTTP response code.error: This function willbe called when the request fails due to a network or server error, the urlis invalid, etc. It will also be called if the load or handle callback throws anexception, unless djConfig.debugAtAllCosts is true.  This allows deployed applicationsto continue to run even when a logic error happens in the callback, while makingit easier to troubleshoot while in debug mode.handle: This function willbe called at the end of every request, whether or not an error occurs.url (String): URL to server endpoint.content (Object, optional): Contains properties with string values. Theseproperties will be serialized as name1=value2 andpassed in the request.timeout (Integer, optional): Milliseconds to wait for the response. If this timepasses, the then error callbacks are called.form (DOMNode, optional): DOM node for a form. Used to extract the form valuesand send to the server.preventCache (Boolean, optional): Default is false. If true, then a"dojo.preventCache" parameter is sent in the requestwith a value that changes with each request(timestamp). Useful only with GET-type requests.rawBody (String, optional): Sets the raw body for an HTTP request. If this is used, then the contentproperty is ignored. This is mostly useful for HTTP methods that havea body to their requests, like PUT or POST. This property can be used insteadof postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.ioPublish (Boolean, optional): Set this explicitly to false to prevent publishing of topics related toIO operations. Otherwise, if djConfig.ioPublish is set to true, topicswill be published via dojo/topic.publish() for different phases of an IO operation.See dojo/main.__IoPublish for a list of topics that are published.            
              */
-            interface get{(args: Object): any}
+            get(args: Object): any;
             /**
              * takes a name/value mapping object and returns a string representing
              * a URL-encoded version of that object.
              * 
              * @param map             
              */
-            interface objectToQuery{(map: Object): any}
+            objectToQuery(map: Object): any;
             /**
              * Sends an HTTP POST request to the server. In addition to the properties
              * listed for the dojo.__XhrArgs type, the following property is allowed:
              * 
              * @param args An object with the following properties:handleAs (String, optional): Acceptable values are: text (default), json, json-comment-optional,json-comment-filtered, javascript, xml. See dojo/_base/xhr.contentHandlerssync (Boolean, optional): false is default. Indicates whether the request shouldbe a synchronous (blocking) request.headers (Object, optional): Additional HTTP headers to send in the request.failOk (Boolean, optional): false is default. Indicates whether a request should beallowed to fail (and therefore no console error message inthe event of a failure)contentType (String|Boolean): "application/x-www-form-urlencoded" is default. Set to false toprevent a Content-Type header from being sent, or to a stringto send a different Content-Type.load: This function will becalled on a successful HTTP response code.error: This function willbe called when the request fails due to a network or server error, the urlis invalid, etc. It will also be called if the load or handle callback throws anexception, unless djConfig.debugAtAllCosts is true.  This allows deployed applicationsto continue to run even when a logic error happens in the callback, while makingit easier to troubleshoot while in debug mode.handle: This function willbe called at the end of every request, whether or not an error occurs.url (String): URL to server endpoint.content (Object, optional): Contains properties with string values. Theseproperties will be serialized as name1=value2 andpassed in the request.timeout (Integer, optional): Milliseconds to wait for the response. If this timepasses, the then error callbacks are called.form (DOMNode, optional): DOM node for a form. Used to extract the form valuesand send to the server.preventCache (Boolean, optional): Default is false. If true, then a"dojo.preventCache" parameter is sent in the requestwith a value that changes with each request(timestamp). Useful only with GET-type requests.rawBody (String, optional): Sets the raw body for an HTTP request. If this is used, then the contentproperty is ignored. This is mostly useful for HTTP methods that havea body to their requests, like PUT or POST. This property can be used insteadof postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.ioPublish (Boolean, optional): Set this explicitly to false to prevent publishing of topics related toIO operations. Otherwise, if djConfig.ioPublish is set to true, topicswill be published via dojo/topic.publish() for different phases of an IO operation.See dojo/main.__IoPublish for a list of topics that are published.            
              */
-            interface post{(args: Object): any}
+            post(args: Object): any;
             /**
              * Sends an HTTP PUT request to the server. In addition to the properties
              * listed for the dojo.__XhrArgs type, the following property is allowed:
              * 
              * @param args An object with the following properties:handleAs (String, optional): Acceptable values are: text (default), json, json-comment-optional,json-comment-filtered, javascript, xml. See dojo/_base/xhr.contentHandlerssync (Boolean, optional): false is default. Indicates whether the request shouldbe a synchronous (blocking) request.headers (Object, optional): Additional HTTP headers to send in the request.failOk (Boolean, optional): false is default. Indicates whether a request should beallowed to fail (and therefore no console error message inthe event of a failure)contentType (String|Boolean): "application/x-www-form-urlencoded" is default. Set to false toprevent a Content-Type header from being sent, or to a stringto send a different Content-Type.load: This function will becalled on a successful HTTP response code.error: This function willbe called when the request fails due to a network or server error, the urlis invalid, etc. It will also be called if the load or handle callback throws anexception, unless djConfig.debugAtAllCosts is true.  This allows deployed applicationsto continue to run even when a logic error happens in the callback, while makingit easier to troubleshoot while in debug mode.handle: This function willbe called at the end of every request, whether or not an error occurs.url (String): URL to server endpoint.content (Object, optional): Contains properties with string values. Theseproperties will be serialized as name1=value2 andpassed in the request.timeout (Integer, optional): Milliseconds to wait for the response. If this timepasses, the then error callbacks are called.form (DOMNode, optional): DOM node for a form. Used to extract the form valuesand send to the server.preventCache (Boolean, optional): Default is false. If true, then a"dojo.preventCache" parameter is sent in the requestwith a value that changes with each request(timestamp). Useful only with GET-type requests.rawBody (String, optional): Sets the raw body for an HTTP request. If this is used, then the contentproperty is ignored. This is mostly useful for HTTP methods that havea body to their requests, like PUT or POST. This property can be used insteadof postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.ioPublish (Boolean, optional): Set this explicitly to false to prevent publishing of topics related toIO operations. Otherwise, if djConfig.ioPublish is set to true, topicswill be published via dojo/topic.publish() for different phases of an IO operation.See dojo/main.__IoPublish for a list of topics that are published.            
              */
-            interface put{(args: Object): any}
+            put(args: Object): any;
             /**
              * Create an object representing a de-serialized query section of a
              * URL. Query keys with multiple values are returned in an array.
              * 
              * @param str             
              */
-            interface queryToObject{(str: String): Object}
+            queryToObject(str: String): Object;
+        }
+
+        module xhr {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/xhr.contentHandlers.html
              *
@@ -3964,7 +4029,7 @@ declare module dojo {
              */
             "require": Object;
             /**
-             * Array containing the r, g, b components used as transparent color in dojo._base.Color;
+             * Array containing the r, g, b components used as transparent color in dojo.Color;
              * if undefined, [255,255,255] (white) will be used.
              * 
              */
@@ -4081,7 +4146,7 @@ declare module dojo {
              * Parses str for a color value. Accepts hex, rgb, and rgba
              * style color values.
              * Acceptable input values for str may include arrays of any form
-             * accepted by dojo._base.ColorFromArray, hex strings such as "#aaaaaa", or
+             * accepted by dojo.colorFromArray, hex strings such as "#aaaaaa", or
              * rgb or rgba strings such as "rgb(133, 200, 16)" or "rgba(10, 10,
              * 10, 50)"
              * 
@@ -4893,7 +4958,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: any[], callback: Function, thisObject: Object): void;
+            forEach(arr: any[], callback: Function, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -4908,7 +4973,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: String, callback: Function, thisObject: Object): void;
+            forEach(arr: String, callback: Function, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -4923,7 +4988,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: any[], callback: String, thisObject: Object): void;
+            forEach(arr: any[], callback: String, thisObject?: Object): void;
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -4938,7 +5003,7 @@ declare module dojo {
              * @param callback             
              * @param thisObject               Optional            
              */
-            forEach(arr: String, callback: String, thisObject: Object): void;
+            forEach(arr: String, callback: String, thisObject?: Object): void;
             /**
              * locates the first index of the provided value in the
              * passed array. If the value is not found, -1 is returned.
@@ -5321,14 +5386,6 @@ declare module dojo {
             unsubscribe(handle: Object): void;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/html.html
-         *
-         * This module is a stub for the core dojo DOM API.
-         * 
-         */
-        interface html {
-        }
-        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/event.html
          *
          * This module defines dojo DOM event API.   Usually you should use dojo/on, and evt.stopPropagation() +
@@ -5352,6 +5409,39 @@ declare module dojo {
              */
             stop(evt: Event): void;
         }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/html.html
+         *
+         * This module is a stub for the core dojo DOM API.
+         * 
+         */
+        interface html {
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/json.html
+         *
+         * This module defines the dojo JSON API.
+         * 
+         */
+        interface json {
+        }
+
+        module fx {
+            /**
+             * A generic animation class that fires callbacks into its handlers
+             * object at various states.
+             * A generic animation class that fires callbacks into its handlers
+             * object at various states. Nearly all dojo animation functions
+             * return an instance of this method, usually without calling the
+             * .play() method beforehand. Therefore, you will likely need to
+             * call .play() on instances of Animation when one is
+             * returned.
+             * 
+             * @param args The 'magic argument', mixing all the properties into thisanimation instance.             
+             */
+            interface Animation { }
+        }
+
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/fx.html
          *
@@ -5379,7 +5469,7 @@ declare module dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
              */
-            anim(node: HTMLElement, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+            anim  (node: HTMLElement, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any ;
             /**
              * A simpler interface to animateProperty(), also returns
              * an instance of Animation but begins the animation
@@ -5400,7 +5490,7 @@ declare module dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.             
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.             
              */
-            anim(node: String, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+            anim  (node: String, properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any ;
             /**
              * Returns an animation that will transition the properties of
              * node defined in args depending how they are defined in
@@ -5412,45 +5502,22 @@ declare module dojo {
              * 
              * @param args An object with the following properties:properties (Object, optional): A hash map of style properties to Objects describing the transition,such as the properties of _Line with an additional 'units' propertynode (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.            
              */
-            animateProperty(args: Object): any;
-            /**
-             * A generic animation class that fires callbacks into its handlers
-             * object at various states.
-             * A generic animation class that fires callbacks into its handlers
-             * object at various states. Nearly all dojo animation functions
-             * return an instance of this method, usually without calling the
-             * .play() method beforehand. Therefore, you will likely need to
-             * call .play() on instances of Animation when one is
-             * returned.
-             * 
-             * @param args The 'magic argument', mixing all the properties into thisanimation instance.             
-             */
-            Animation(args: Object): void;
+            animateProperty  (args: Object): any ;
+            
             /**
              * Returns an animation that will fade node defined in 'args' from
              * its current opacity to fully opaque.
              * 
              * @param args An object with the following properties:node (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.            
              */
-            fadeIn(args: Object): any;
+            fadeIn  (args: Object): any ;
             /**
              * Returns an animation that will fade node defined in 'args'
              * from its current opacity to fully transparent.
              * 
              * @param args An object with the following properties:node (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.            
              */
-            fadeOut(args: Object): any;
-        }
-        module fx {
-            interface Animation { }
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/json.html
-         *
-         * This module defines the dojo JSON API.
-         * 
-         */
-        interface json {
+             fadeOut  (args: Object): any ;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/query.html
@@ -5479,6 +5546,209 @@ declare module dojo {
          * 
          */
         interface sniff {
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/lang.html
+         *
+         * This module defines Javascript language extensions.
+         * 
+         */
+        interface lang {
+            /**
+             * Clones objects (including DOM nodes) and all children.
+             * Warning: do not clone cyclic structures.
+             * 
+             * @param src The object to clone             
+             */
+            clone(src: any): any;
+            /**
+             * Returns a new object which "looks" to obj for properties which it
+             * does not have a value for. Optionally takes a bag of properties to
+             * seed the returned object with initially.
+             * This is a small implementation of the Boodman/Crockford delegation
+             * pattern in JavaScript. An intermediate object constructor mediates
+             * the prototype chain for the returned object, using it to delegate
+             * down to obj for property lookup when object-local lookup fails.
+             * This can be thought of similarly to ES4's "wrap", save that it does
+             * not act on types but rather on pure objects.
+             * 
+             * @param obj The object to delegate to for properties not found directly on thereturn object or in props.             
+             * @param props an object containing properties to assign to the returned object             
+             */
+            delegate(obj: Object, props: Object[]): any;
+            /**
+             * determine if an object supports a given method
+             * useful for longer api chains where you have to test each object in
+             * the chain. Useful for object and method detection.
+             * 
+             * @param name Path to an object, in the form "A.B.C".             
+             * @param obj               OptionalObject to use as root of path. Defaults to'dojo.global'. Null may be passed.             
+             */
+            exists(name: String, obj: Object): boolean;
+            /**
+             * Adds all properties and methods of props to constructor's
+             * prototype, making them available to all instances created with
+             * constructor.
+             * 
+             * @param ctor Target constructor to extend.             
+             * @param props One or more objects to mix into ctor.prototype             
+             */
+            extend(ctor: Object, props: Object): Object;
+            /**
+             * Get a property from a dot-separated string, such as "A.B.C"
+             * Useful for longer api chains where you have to test each object in
+             * the chain, or when you have an object reference in string format.
+             * 
+             * @param name Path to an property, in the form "A.B.C".             
+             * @param create               OptionalOptional. Defaults to false. If true, Objects will becreated at any point along the 'path' that is undefined.             
+             * @param context               OptionalOptional. Object to use as root of path. Defaults to'dojo.global'. Null may be passed.             
+             */
+            getObject(name: String, create: boolean, context: Object): any;
+            /**
+             * Returns a function that will only ever execute in the a given scope.
+             * This allows for easy use of object member functions
+             * in callbacks and other places in which the "this" keyword may
+             * otherwise not reference the expected scope.
+             * Any number of default positional arguments may be passed as parameters
+             * beyond "method".
+             * Each of these values will be used to "placehold" (similar to curry)
+             * for the hitched function.
+             * 
+             * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.             
+             * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.             
+             */
+            hitch(scope: Object, method: Function): any;
+            /**
+             * Returns a function that will only ever execute in the a given scope.
+             * This allows for easy use of object member functions
+             * in callbacks and other places in which the "this" keyword may
+             * otherwise not reference the expected scope.
+             * Any number of default positional arguments may be passed as parameters
+             * beyond "method".
+             * Each of these values will be used to "placehold" (similar to curry)
+             * for the hitched function.
+             * 
+             * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.             
+             * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.             
+             */
+            hitch(scope: Object, method: String[]): any;
+            /**
+             * Returns true if it is a built-in function or some other kind of
+             * oddball that should report as a function but doesn't
+             * 
+             * @param it             
+             */
+            isAlien(it: any): any;
+            /**
+             * Return true if it is an Array.
+             * Does not work on Arrays created in other windows.
+             * 
+             * @param it Item to test.             
+             */
+            isArray(it: any): any;
+            /**
+             * similar to isArray() but more permissive
+             * Doesn't strongly test for "arrayness".  Instead, settles for "isn't
+             * a string or number and has a length property". Arguments objects
+             * and DOM collections will return true when passed to
+             * isArrayLike(), but will return false when passed to
+             * isArray().
+             * 
+             * @param it Item to test.             
+             */
+            isArrayLike(it: any): any;
+            /**
+             * Return true if it is a Function
+             * 
+             * @param it Item to test.             
+             */
+            isFunction(it: any): boolean;
+            /**
+             * Returns true if it is a JavaScript object (or an Array, a Function
+             * or null)
+             * 
+             * @param it Item to test.             
+             */
+            isObject(it: any): boolean;
+            /**
+             * Return true if it is a String
+             * 
+             * @param it Item to test.             
+             */
+            isString(it: any): boolean;
+            /**
+             * Copies/adds all properties of one or more sources to dest; returns dest.
+             * All properties, including functions (sometimes termed "methods"), excluding any non-standard extensions
+             * found in Object.prototype, are copied/added from sources to dest. sources are processed left to right.
+             * The Javascript assignment operator is used to copy/add each property; therefore, by default, mixin
+             * executes a so-called "shallow copy" and aggregate types are copied/added by reference.
+             * 
+             * @param dest The object to which to copy/add all properties contained in source. If dest is falsy, thena new object is manufactured before copying/adding properties begins.             
+             * @param sources One of more objects from which to draw all properties to copy into dest. sources are processedleft-to-right and if more than one of these objects contain the same property name, the right-mostvalue "wins".             
+             */
+            mixin(dest: Object, sources: Object[]): Object;
+            /**
+             * similar to hitch() except that the scope object is left to be
+             * whatever the execution context eventually becomes.
+             * Calling lang.partial is the functional equivalent of calling:
+             * 
+             * lang.hitch(null, funcName, ...);
+             * 
+             * @param method The function to "wrap"             
+             */
+            partial(method: Function): any;
+            /**
+             * similar to hitch() except that the scope object is left to be
+             * whatever the execution context eventually becomes.
+             * Calling lang.partial is the functional equivalent of calling:
+             * 
+             * lang.hitch(null, funcName, ...);
+             * 
+             * @param method The function to "wrap"             
+             */
+            partial(method: String): any;
+            /**
+             * Performs parameterized substitutions on a string. Throws an
+             * exception if any parameter is unmatched.
+             * 
+             * @param tmpl String to be used as a template.             
+             * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).             
+             * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".             
+             */
+            replace(tmpl: String, map: Object, pattern: RegExp): String;
+            /**
+             * Performs parameterized substitutions on a string. Throws an
+             * exception if any parameter is unmatched.
+             * 
+             * @param tmpl String to be used as a template.             
+             * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).             
+             * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".             
+             */
+            replace(tmpl: String, map: Function, pattern: RegExp): String;
+            /**
+             * Set a property from a dot-separated string, such as "A.B.C"
+             * Useful for longer api chains where you have to test each object in
+             * the chain, or when you have an object reference in string format.
+             * Objects are created as needed along path. Returns the passed
+             * value if setting is successful or undefined if not.
+             * 
+             * @param name Path to a property, in the form "A.B.C".             
+             * @param value value or object to place at location given by name             
+             * @param context               OptionalOptional. Object to use as root of path. Defaults todojo.global.             
+             */
+            setObject(name: String, value: any, context: Object): any;
+            /**
+             * Trims whitespace from both sides of the string
+             * This version of trim() was selected for inclusion into the base due
+             * to its compact size and relatively good performance
+             * (see Steven Levithan's blog
+             * Uses String.prototype.trim instead, if available.
+             * The fastest but longest version of this function is located at
+             * lang.string.trim()
+             * 
+             * @param str String to be trimmed             
+             */
+            trim(str: String): String;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/unload.html
@@ -5719,6 +5989,25 @@ declare module dojo {
         }
         module window {
             /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/window.doc.html
+             *
+             * Alias for the current document. 'doc' can be modified
+             * for temporary context shifting. See also withDoc().
+             * Use this rather than referring to 'window.document' to ensure your code runs
+             * correctly in managed contexts.
+             * 
+             */
+            interface doc {
+                /**
+                 * 
+                 */
+                documentElement: Object;
+                /**
+                 * 
+                 */
+                dojoClick: boolean;
+            }
+            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/window.global.html
              *
              * Alias for the current window. 'global' can be modified
@@ -5753,230 +6042,8 @@ declare module dojo {
                  */
                 undefined_onload(): void;
             }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/window.doc.html
-             *
-             * Alias for the current document. 'doc' can be modified
-             * for temporary context shifting. See also withDoc().
-             * Use this rather than referring to 'window.document' to ensure your code runs
-             * correctly in managed contexts.
-             * 
-             */
-            interface doc {
-                /**
-                 * 
-                 */
-                documentElement: Object;
-                /**
-                 * 
-                 */
-                dojoClick: boolean;
-            }
         }
 
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/lang.html
-         *
-         * This module defines Javascript language extensions.
-         * 
-         */
-        interface lang {
-            /**
-             * Clones objects (including DOM nodes) and all children.
-             * Warning: do not clone cyclic structures.
-             * 
-             * @param src The object to clone             
-             */
-            clone(src: any): any;
-            /**
-             * Returns a new object which "looks" to obj for properties which it
-             * does not have a value for. Optionally takes a bag of properties to
-             * seed the returned object with initially.
-             * This is a small implementation of the Boodman/Crockford delegation
-             * pattern in JavaScript. An intermediate object constructor mediates
-             * the prototype chain for the returned object, using it to delegate
-             * down to obj for property lookup when object-local lookup fails.
-             * This can be thought of similarly to ES4's "wrap", save that it does
-             * not act on types but rather on pure objects.
-             * 
-             * @param obj The object to delegate to for properties not found directly on thereturn object or in props.             
-             * @param props an object containing properties to assign to the returned object             
-             */
-            delegate(obj: Object, props: Object[]): any;
-            /**
-             * determine if an object supports a given method
-             * useful for longer api chains where you have to test each object in
-             * the chain. Useful for object and method detection.
-             * 
-             * @param name Path to an object, in the form "A.B.C".             
-             * @param obj               OptionalObject to use as root of path. Defaults to'dojo.global'. Null may be passed.             
-             */
-            exists(name: String, obj: Object): boolean;
-            /**
-             * Adds all properties and methods of props to constructor's
-             * prototype, making them available to all instances created with
-             * constructor.
-             * 
-             * @param ctor Target constructor to extend.             
-             * @param props One or more objects to mix into ctor.prototype             
-             */
-            extend(ctor: Object, props: Object): Object;
-            /**
-             * Get a property from a dot-separated string, such as "A.B.C"
-             * Useful for longer api chains where you have to test each object in
-             * the chain, or when you have an object reference in string format.
-             * 
-             * @param name Path to an property, in the form "A.B.C".             
-             * @param create               OptionalOptional. Defaults to false. If true, Objects will becreated at any point along the 'path' that is undefined.             
-             * @param context               OptionalOptional. Object to use as root of path. Defaults to'dojo.global'. Null may be passed.             
-             */
-            getObject(name: String, create: boolean, context: Object): any;
-            /**
-             * Returns a function that will only ever execute in the a given scope.
-             * This allows for easy use of object member functions
-             * in callbacks and other places in which the "this" keyword may
-             * otherwise not reference the expected scope.
-             * Any number of default positional arguments may be passed as parameters
-             * beyond "method".
-             * Each of these values will be used to "placehold" (similar to curry)
-             * for the hitched function.
-             * 
-             * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.             
-             * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.             
-             */
-            hitch(scope: Object, method: Function): any;
-            /**
-             * Returns a function that will only ever execute in the a given scope.
-             * This allows for easy use of object member functions
-             * in callbacks and other places in which the "this" keyword may
-             * otherwise not reference the expected scope.
-             * Any number of default positional arguments may be passed as parameters
-             * beyond "method".
-             * Each of these values will be used to "placehold" (similar to curry)
-             * for the hitched function.
-             * 
-             * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.             
-             * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.             
-             */
-            hitch(scope: Object, method: String[]): any;
-            /**
-             * Returns true if it is a built-in function or some other kind of
-             * oddball that should report as a function but doesn't
-             * 
-             * @param it             
-             */
-            isAlien(it: any): any;
-            /**
-             * Return true if it is an Array.
-             * Does not work on Arrays created in other windows.
-             * 
-             * @param it Item to test.             
-             */
-            isArray(it: any): any;
-            /**
-             * similar to isArray() but more permissive
-             * Doesn't strongly test for "arrayness".  Instead, settles for "isn't
-             * a string or number and has a length property". Arguments objects
-             * and DOM collections will return true when passed to
-             * isArrayLike(), but will return false when passed to
-             * isArray().
-             * 
-             * @param it Item to test.             
-             */
-            isArrayLike(it: any): any;
-            /**
-             * Return true if it is a Function
-             * 
-             * @param it Item to test.             
-             */
-            isFunction(it: any): boolean;
-            /**
-             * Returns true if it is a JavaScript object (or an Array, a Function
-             * or null)
-             * 
-             * @param it Item to test.             
-             */
-            isObject(it: any): boolean;
-            /**
-             * Return true if it is a String
-             * 
-             * @param it Item to test.             
-             */
-            isString(it: any): boolean;
-            /**
-             * Copies/adds all properties of one or more sources to dest; returns dest.
-             * All properties, including functions (sometimes termed "methods"), excluding any non-standard extensions
-             * found in Object.prototype, are copied/added from sources to dest. sources are processed left to right.
-             * The Javascript assignment operator is used to copy/add each property; therefore, by default, mixin
-             * executes a so-called "shallow copy" and aggregate types are copied/added by reference.
-             * 
-             * @param dest The object to which to copy/add all properties contained in source. If dest is falsy, thena new object is manufactured before copying/adding properties begins.             
-             * @param sources One of more objects from which to draw all properties to copy into dest. sources are processedleft-to-right and if more than one of these objects contain the same property name, the right-mostvalue "wins".             
-             */
-            mixin(dest: Object, sources: Object[]): Object;
-            /**
-             * similar to hitch() except that the scope object is left to be
-             * whatever the execution context eventually becomes.
-             * Calling lang.partial is the functional equivalent of calling:
-             * 
-             * lang.hitch(null, funcName, ...);
-             * 
-             * @param method The function to "wrap"             
-             */
-            partial(method: Function): any;
-            /**
-             * similar to hitch() except that the scope object is left to be
-             * whatever the execution context eventually becomes.
-             * Calling lang.partial is the functional equivalent of calling:
-             * 
-             * lang.hitch(null, funcName, ...);
-             * 
-             * @param method The function to "wrap"             
-             */
-            partial(method: String): any;
-            /**
-             * Performs parameterized substitutions on a string. Throws an
-             * exception if any parameter is unmatched.
-             * 
-             * @param tmpl String to be used as a template.             
-             * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).             
-             * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".             
-             */
-            replace(tmpl: String, map: Object, pattern: RegExp): String;
-            /**
-             * Performs parameterized substitutions on a string. Throws an
-             * exception if any parameter is unmatched.
-             * 
-             * @param tmpl String to be used as a template.             
-             * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).             
-             * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".             
-             */
-            replace(tmpl: String, map: Function, pattern: RegExp): String;
-            /**
-             * Set a property from a dot-separated string, such as "A.B.C"
-             * Useful for longer api chains where you have to test each object in
-             * the chain, or when you have an object reference in string format.
-             * Objects are created as needed along path. Returns the passed
-             * value if setting is successful or undefined if not.
-             * 
-             * @param name Path to a property, in the form "A.B.C".             
-             * @param value value or object to place at location given by name             
-             * @param context               OptionalOptional. Object to use as root of path. Defaults todojo.global.             
-             */
-            setObject(name: String, value: any, context: Object): any;
-            /**
-             * Trims whitespace from both sides of the string
-             * This version of trim() was selected for inclusion into the base due
-             * to its compact size and relatively good performance
-             * (see Steven Levithan's blog
-             * Uses String.prototype.trim instead, if available.
-             * The fastest but longest version of this function is located at
-             * lang.string.trim()
-             * 
-             * @param str String to be trimmed             
-             */
-            trim(str: String): String;
-        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.html
          *
@@ -6760,7 +6827,7 @@ declare module dojo {
              * Parses str for a color value. Accepts hex, rgb, and rgba
              * style color values.
              * Acceptable input values for str may include arrays of any form
-             * accepted by dojo._base.ColorFromArray, hex strings such as "#aaaaaa", or
+             * accepted by dojo.colorFromArray, hex strings such as "#aaaaaa", or
              * rgb or rgba strings such as "rgb(133, 200, 16)" or "rgba(10, 10,
              * 10, 50)"
              * 
@@ -9188,6 +9255,59 @@ declare module dojo {
                 "xhr": Object;
             }
             /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.__IoPublish.html
+             *
+             * This is a list of IO topics that can be published
+             * if djConfig.ioPublish is set to true. IO topics can be
+             * published for any Input/Output, network operation. So,
+             * dojo.xhr, dojo.io.script and dojo.io.iframe can all
+             * trigger these topics to be published.
+             * 
+             */
+            class __IoPublish {
+                constructor();
+                /**
+                 * "/dojo/io/done" is sent whenever an IO request has completed,
+                 * either by loading or by erroring. It passes the error and
+                 * the dojo.Deferred for the request with the topic.
+                 * 
+                 */
+                "done": string;
+                /**
+                 * "/dojo/io/error" is sent whenever an IO request has errored.
+                 * It passes the error and the dojo.Deferred
+                 * for the request with the topic.
+                 * 
+                 */
+                "error": string;
+                /**
+                 * "/dojo/io/load" is sent whenever an IO request has loaded
+                 * successfully. It passes the response and the dojo.Deferred
+                 * for the request with the topic.
+                 * 
+                 */
+                "load": string;
+                /**
+                 * "/dojo/io/send" is sent whenever a new IO request is started.
+                 * It passes the dojo.Deferred for the request with the topic.
+                 * 
+                 */
+                "send": string;
+                /**
+                 * "/dojo/io/start" is sent when there are no outstanding IO
+                 * requests, and a new IO request is started. No arguments
+                 * are passed with this topic.
+                 * 
+                 */
+                "start": string;
+                /**
+                 * "/dojo/io/stop" is sent when all outstanding IO requests have
+                 * finished. No arguments are passed with this topic.
+                 * 
+                 */
+                "stop": string;
+            }
+            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.__IoArgs.html
              *
              * 
@@ -9397,59 +9517,6 @@ declare module dojo {
                 load(response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.__IoPublish.html
-             *
-             * This is a list of IO topics that can be published
-             * if djConfig.ioPublish is set to true. IO topics can be
-             * published for any Input/Output, network operation. So,
-             * dojo.xhr, dojo.io.script and dojo.io.iframe can all
-             * trigger these topics to be published.
-             * 
-             */
-            class __IoPublish {
-                constructor();
-                /**
-                 * "/dojo/io/done" is sent whenever an IO request has completed,
-                 * either by loading or by erroring. It passes the error and
-                 * the dojo.Deferred for the request with the topic.
-                 * 
-                 */
-                "done": string;
-                /**
-                 * "/dojo/io/error" is sent whenever an IO request has errored.
-                 * It passes the error and the dojo.Deferred
-                 * for the request with the topic.
-                 * 
-                 */
-                "error": string;
-                /**
-                 * "/dojo/io/load" is sent whenever an IO request has loaded
-                 * successfully. It passes the response and the dojo.Deferred
-                 * for the request with the topic.
-                 * 
-                 */
-                "load": string;
-                /**
-                 * "/dojo/io/send" is sent whenever a new IO request is started.
-                 * It passes the dojo.Deferred for the request with the topic.
-                 * 
-                 */
-                "send": string;
-                /**
-                 * "/dojo/io/start" is sent when there are no outstanding IO
-                 * requests, and a new IO request is started. No arguments
-                 * are passed with this topic.
-                 * 
-                 */
-                "start": string;
-                /**
-                 * "/dojo/io/stop" is sent when all outstanding IO requests have
-                 * finished. No arguments are passed with this topic.
-                 * 
-                 */
-                "stop": string;
-            }
-            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.Stateful.html
              *
              * Base class for objects that provide named properties with optional getter/setter
@@ -9473,7 +9540,7 @@ declare module dojo {
                  * 
                  * @param name The property to get.             
                  */
-                get(name: string): any;
+                get(name: String): any;
                 /**
                  * 
                  * @param params               Optional            
@@ -9487,7 +9554,7 @@ declare module dojo {
                  * @param name The property to set.             
                  * @param value The value to set in the property.             
                  */
-                set(name: string, value: Object): any;
+                set(name: String, value: Object): any;
                 /**
                  * Watches a property for changes
                  * 
@@ -9495,6 +9562,91 @@ declare module dojo {
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.             
                  */
                 watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._contentHandlers.html
+             *
+             * A map of available XHR transport handle types. Name matches the
+             * handleAs attribute passed to XHR calls.
+             * A map of available XHR transport handle types. Name matches the
+             * handleAs attribute passed to XHR calls. Each contentHandler is
+             * called, passing the xhr object for manipulation. The return value
+             * from the contentHandler will be passed to the load or handle
+             * functions defined in the original xhr call.
+             * 
+             */
+            interface _contentHandlers {
+                /**
+                 * 
+                 * @param xhr             
+                 */
+                auto(xhr: any): void;
+                /**
+                 * A contentHandler which evaluates the response data, expecting it to be valid JavaScript
+                 * 
+                 * @param xhr             
+                 */
+                javascript(xhr: any): any;
+                /**
+                 * A contentHandler which returns a JavaScript object created from the response data
+                 * 
+                 * @param xhr             
+                 */
+                json(xhr: any): any;
+                /**
+                 * A contentHandler which expects comment-filtered JSON.
+                 * A contentHandler which expects comment-filtered JSON.
+                 * the json-comment-filtered option was implemented to prevent
+                 * "JavaScript Hijacking", but it is less secure than standard JSON. Use
+                 * standard JSON instead. JSON prefixing can be used to subvert hijacking.
+                 * 
+                 * Will throw a notice suggesting to use application/json mimetype, as
+                 * json-commenting can introduce security issues. To decrease the chances of hijacking,
+                 * use the standard json contentHandler, and prefix your "JSON" with: {}&&
+                 * 
+                 * use djConfig.useCommentedJson = true to turn off the notice
+                 * 
+                 * @param xhr             
+                 */
+                json_comment_filtered(xhr: any): any;
+                /**
+                 * A contentHandler which checks the presence of comment-filtered JSON and
+                 * alternates between the json and json-comment-filtered contentHandlers.
+                 * 
+                 * @param xhr             
+                 */
+                json_comment_optional(xhr: any): any;
+                /**
+                 * 
+                 * @param xhr             
+                 */
+                olson_zoneinfo(xhr: any): void;
+                /**
+                 * A contentHandler which simply returns the plaintext response data
+                 * 
+                 * @param xhr             
+                 */
+                text(xhr: any): any;
+                /**
+                 * A contentHandler returning an XML Document parsed from the response data
+                 * 
+                 * @param xhr             
+                 */
+                xml(xhr: any): any;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._hasResource.html
+             *
+             * 
+             */
+            interface _hasResource {
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._nodeDataCache.html
+             *
+             * 
+             */
+            interface _nodeDataCache {
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.back.html
@@ -9602,7 +9754,7 @@ declare module dojo {
                  *       </div>
                  *     </div>
                  *   </div>
-                 * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/_base/kernel.back" class="feedback">Error in the documentation? Canâ€™t find what you are looking for? Let us know!</a>
+                 * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/_base/kernel.back" class="feedback">Error in the documentation? Can�t find what you are looking for? Let us know!</a>
                  */
                 init(): void;
             }
@@ -9624,89 +9776,18 @@ declare module dojo {
                 supplemental: Object;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._nodeDataCache.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.colors.html
              *
              * 
              */
-            interface _nodeDataCache {
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._hasResource.html
-             *
-             * 
-             */
-            interface _hasResource {
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._contentHandlers.html
-             *
-             * A map of available XHR transport handle types. Name matches the
-             * handleAs attribute passed to XHR calls.
-             * A map of available XHR transport handle types. Name matches the
-             * handleAs attribute passed to XHR calls. Each contentHandler is
-             * called, passing the xhr object for manipulation. The return value
-             * from the contentHandler will be passed to the load or handle
-             * functions defined in the original xhr call.
-             * 
-             */
-            interface _contentHandlers {
+            interface colors {
                 /**
+                 * creates a greyscale color with an optional alpha
                  * 
-                 * @param xhr             
+                 * @param g             
+                 * @param a               Optional            
                  */
-                auto(xhr: any): void;
-                /**
-                 * A contentHandler which evaluates the response data, expecting it to be valid JavaScript
-                 * 
-                 * @param xhr             
-                 */
-                javascript(xhr: any): any;
-                /**
-                 * A contentHandler which returns a JavaScript object created from the response data
-                 * 
-                 * @param xhr             
-                 */
-                json(xhr: any): any;
-                /**
-                 * A contentHandler which expects comment-filtered JSON.
-                 * A contentHandler which expects comment-filtered JSON.
-                 * the json-comment-filtered option was implemented to prevent
-                 * "JavaScript Hijacking", but it is less secure than standard JSON. Use
-                 * standard JSON instead. JSON prefixing can be used to subvert hijacking.
-                 * 
-                 * Will throw a notice suggesting to use application/json mimetype, as
-                 * json-commenting can introduce security issues. To decrease the chances of hijacking,
-                 * use the standard json contentHandler, and prefix your "JSON" with: {}&&
-                 * 
-                 * use djConfig.useCommentedJson = true to turn off the notice
-                 * 
-                 * @param xhr             
-                 */
-                json_comment_filtered(xhr: any): any;
-                /**
-                 * A contentHandler which checks the presence of comment-filtered JSON and
-                 * alternates between the json and json-comment-filtered contentHandlers.
-                 * 
-                 * @param xhr             
-                 */
-                json_comment_optional(xhr: any): any;
-                /**
-                 * 
-                 * @param xhr             
-                 */
-                olson_zoneinfo(xhr: any): void;
-                /**
-                 * A contentHandler which simply returns the plaintext response data
-                 * 
-                 * @param xhr             
-                 */
-                text(xhr: any): any;
-                /**
-                 * A contentHandler returning an XML Document parsed from the response data
-                 * 
-                 * @param xhr             
-                 */
-                xml(xhr: any): any;
+                makeGrey(g: number, a: number): void;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.config.html
@@ -9844,7 +9925,7 @@ declare module dojo {
                  */
                 require: Object;
                 /**
-                 * Array containing the r, g, b components used as transparent color in dojo._base.Color;
+                 * Array containing the r, g, b components used as transparent color in dojo.Color;
                  * if undefined, [255,255,255] (white) will be used.
                  * 
                  */
@@ -9872,47 +9953,6 @@ declare module dojo {
                  * 
                  */
                 useDeferredInstrumentation: boolean;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.colors.html
-             *
-             * 
-             */
-            interface colors {
-                /**
-                 * creates a greyscale color with an optional alpha
-                 * 
-                 * @param g             
-                 * @param a               Optional            
-                 */
-                makeGrey(g: number, a: number): void;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.data.html
-             *
-             * 
-             */
-            interface data {
-                /**
-                 * 
-                 */
-                api: Object;
-                /**
-                 * 
-                 */
-                util: Object;
-                /**
-                 * 
-                 */
-                ItemFileReadStore(): void;
-                /**
-                 * 
-                 */
-                ItemFileWriteStore(): void;
-                /**
-                 * 
-                 */
-                ObjectStore(): void;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.contentHandlers.html
@@ -9986,23 +10026,61 @@ declare module dojo {
                 xml(xhr: any): any;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.doc.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.dnd.html
              *
-             * Alias for the current document. 'doc' can be modified
-             * for temporary context shifting. See also withDoc().
-             * Use this rather than referring to 'window.document' to ensure your code runs
-             * correctly in managed contexts.
              * 
              */
-            interface doc {
+            interface dnd {
+                /**
+                 * Used by dojo/dnd/Manager to scroll document or internal node when the user
+                 * drags near the edge of the viewport or a scrollable node
+                 * 
+                 */
+                autoscroll: Object;
                 /**
                  * 
                  */
-                documentElement: Object;
+                move: Object;
                 /**
                  * 
                  */
-                dojoClick: boolean;
+                AutoSource(): void;
+                /**
+                 * 
+                 */
+                Avatar(): void;
+                /**
+                 * 
+                 */
+                Container(): void;
+                /**
+                 * 
+                 */
+                Manager(): void;
+                /**
+                 * 
+                 */
+                Moveable(): void;
+                /**
+                 * 
+                 */
+                Mover(): void;
+                /**
+                 * 
+                 */
+                Selector(): void;
+                /**
+                 * 
+                 */
+                Source(): void;
+                /**
+                 * 
+                 */
+                Target(): void;
+                /**
+                 * 
+                 */
+                TimedMoveable(): void;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.date.html
@@ -10071,6 +10149,52 @@ declare module dojo {
                 isLeapYear(dateObject: Date): boolean;
             }
             /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.doc.html
+             *
+             * Alias for the current document. 'doc' can be modified
+             * for temporary context shifting. See also withDoc().
+             * Use this rather than referring to 'window.document' to ensure your code runs
+             * correctly in managed contexts.
+             * 
+             */
+            interface doc {
+                /**
+                 * 
+                 */
+                documentElement: Object;
+                /**
+                 * 
+                 */
+                dojoClick: boolean;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.data.html
+             *
+             * 
+             */
+            interface data {
+                /**
+                 * 
+                 */
+                api: Object;
+                /**
+                 * 
+                 */
+                util: Object;
+                /**
+                 * 
+                 */
+                ItemFileReadStore(): void;
+                /**
+                 * 
+                 */
+                ItemFileWriteStore(): void;
+                /**
+                 * 
+                 */
+                ObjectStore(): void;
+            }
+            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.currency.html
              *
              * localized formatting and parsing routines for currencies
@@ -10108,61 +10232,341 @@ declare module dojo {
                 regexp(options: Object): any;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.dnd.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.dijit.html
              *
              * 
              */
-            interface dnd {
-                /**
-                 * Used by dojo/dnd/Manager to scroll document or internal node when the user
-                 * drags near the edge of the viewport or a scrollable node
-                 * 
-                 */
-                autoscroll: Object;
+            interface dijit {
                 /**
                  * 
                  */
-                move: Object;
+                form: Object;
                 /**
                  * 
                  */
-                AutoSource(): void;
+                layout: Object;
+                /**
+                 * W3C range API
+                 * 
+                 */
+                range: Object;
                 /**
                  * 
                  */
-                Avatar(): void;
+                registry: Object;
                 /**
                  * 
                  */
-                Container(): void;
+                tree: Object;
+                /**
+                 * 
+                 * @param id             
+                 */
+                byId(id: any): any;
                 /**
                  * 
                  */
-                Manager(): void;
+                Calendar(): void;
                 /**
                  * 
                  */
-                Moveable(): void;
+                CalendarLite(): void;
                 /**
                  * 
                  */
-                Mover(): void;
+                CheckedMenuItem(): void;
                 /**
                  * 
                  */
-                Selector(): void;
+                ColorPalette(): void;
                 /**
                  * 
                  */
-                Source(): void;
+                Declaration(): void;
                 /**
                  * 
                  */
-                Target(): void;
+                Destroyable(): void;
                 /**
                  * 
                  */
-                TimedMoveable(): void;
+                Dialog(): void;
+                /**
+                 * 
+                 */
+                DialogUnderlay(): void;
+                /**
+                 * 
+                 */
+                DropDownMenu(): void;
+                /**
+                 * 
+                 */
+                Dye(): void;
+                /**
+                 * 
+                 */
+                Editor(): void;
+                /**
+                 * 
+                 */
+                Fieldset(): void;
+                /**
+                 * 
+                 */
+                InlineEditBox(): void;
+                /**
+                 * 
+                 */
+                Menu(): void;
+                /**
+                 * 
+                 */
+                MenuBar(): void;
+                /**
+                 * 
+                 */
+                MenuBarItem(): void;
+                /**
+                 * 
+                 */
+                MenuItem(): void;
+                /**
+                 * 
+                 */
+                MenuSeparator(): void;
+                /**
+                 * 
+                 */
+                PopupMenuBarItem(): void;
+                /**
+                 * 
+                 */
+                PopupMenuItem(): void;
+                /**
+                 * 
+                 */
+                ProgressBar(): void;
+                /**
+                 * 
+                 */
+                RadioButtonMenuItem(): void;
+                /**
+                 * 
+                 */
+                TitlePane(): void;
+                /**
+                 * 
+                 */
+                Toolbar(): void;
+                /**
+                 * 
+                 */
+                ToolbarSeparator(): void;
+                /**
+                 * 
+                 */
+                Tooltip(): void;
+                /**
+                 * 
+                 */
+                TooltipDialog(): void;
+                /**
+                 * 
+                 */
+                Tree(): void;
+                /**
+                 * 
+                 */
+                WidgetSet(): void;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.global.html
+             *
+             * Alias for the current window. 'global' can be modified
+             * for temporary context shifting. See also withGlobal().
+             * Use this rather than referring to 'window' to ensure your code runs
+             * correctly in managed contexts.
+             * 
+             */
+            interface global {
+                /**
+                 * 
+                 */
+                $(): any;
+                /**
+                 * 
+                 * @param start             
+                 * @param data             
+                 * @param responseCode             
+                 * @param errorMsg             
+                 */
+                GoogleSearchStoreCallback_undefined_NaN(start: any, data: any, responseCode: any, errorMsg: any): void;
+                /**
+                 * 
+                 */
+                jQuery(): any;
+                /**
+                 * 
+                 */
+                swfIsInHTML(): void;
+                /**
+                 * 
+                 */
+                undefined_onload(): void;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.gears.html
+             *
+             * TODOC
+             * 
+             */
+            interface gears {
+                /**
+                 * True if client is using Google Gears
+                 * 
+                 */
+                available: Object;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.fx.html
+             *
+             * Effects library on top of Base animations
+             * 
+             */
+            interface fx {
+                /**
+                 * Collection of easing functions to use beyond the default
+                 * dojo._defaultEasing function.
+                 * 
+                 */
+                easing: Object;
+                /**
+                 * Chain a list of dojo/_base/fx.Animations to run in sequence
+                 * Return a dojo/_base/fx.Animation which will play all passed
+                 * dojo/_base/fx.Animation instances in sequence, firing its own
+                 * synthesized events simulating a single animation. (eg:
+                 * onEnd of this animation means the end of the chain,
+                 * not the individual animations within)
+                 * 
+                 * @param animations             
+                 */
+                chain(animations: dojo._base.fx.Animation[]): any;
+                /**
+                 * Combine a list of dojo/_base/fx.Animations to run in parallel
+                 * Combine an array of dojo/_base/fx.Animations to run in parallel,
+                 * providing a new dojo/_base/fx.Animation instance encompasing each
+                 * animation, firing standard animation events.
+                 * 
+                 * @param animations             
+                 */
+                combine(animations: dojo._base.fx.Animation[]): any;
+                /**
+                 * Slide a node to a new top/left position
+                 * Returns an animation that will slide "node"
+                 * defined in args Object from its current position to
+                 * the position defined by (args.left, args.top).
+                 * 
+                 * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on). Special args membersare top and left, which indicate the new position to slide to.             
+                 */
+                slideTo(args: Object): any;
+                /**
+                 * 
+                 */
+                Toggler(): void;
+                /**
+                 * Expand a node to it's natural height.
+                 * Returns an animation that will expand the
+                 * node defined in 'args' object from it's current height to
+                 * it's natural height (with no scrollbar).
+                 * Node must have no margin/border/padding.
+                 * 
+                 * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
+                 */
+                wipeIn(args: Object): any;
+                /**
+                 * Shrink a node to nothing and hide it.
+                 * Returns an animation that will shrink node defined in "args"
+                 * from it's current height to 1px, and then hide it.
+                 * 
+                 * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
+                 */
+                wipeOut(args: Object): any;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.html.html
+             *
+             * TODOC
+             * 
+             */
+            interface html {
+                /**
+                 * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
+                 * may be a better choice for simple HTML insertion.
+                 * Unless you need to use the params capabilities of this method, you should use
+                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
+                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+                 * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
+                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
+                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+                 * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
+                 * or the other capabilities as defined by the params object for this method.
+                 * 
+                 * @param node the parent element that will receive the content             
+                 * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
+                 * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
+                 */
+                set(node: HTMLElement, cont: String, params: Object): any;
+                /**
+                 * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
+                 * may be a better choice for simple HTML insertion.
+                 * Unless you need to use the params capabilities of this method, you should use
+                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
+                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+                 * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
+                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
+                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+                 * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
+                 * or the other capabilities as defined by the params object for this method.
+                 * 
+                 * @param node the parent element that will receive the content             
+                 * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
+                 * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
+                 */
+                set(node: HTMLElement, cont: HTMLElement, params: Object): any;
+                /**
+                 * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
+                 * may be a better choice for simple HTML insertion.
+                 * Unless you need to use the params capabilities of this method, you should use
+                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
+                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+                 * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
+                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
+                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+                 * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
+                 * or the other capabilities as defined by the params object for this method.
+                 * 
+                 * @param node the parent element that will receive the content             
+                 * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
+                 * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
+                 */
+                set(node: HTMLElement, cont: NodeList, params: Object): any;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.io.html
+             *
+             * 
+             */
+            interface io {
+                /**
+                 * 
+                 */
+                iframe: Object;
+                /**
+                 * TODOC
+                 * 
+                 */
+                script: Object;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.dojox.html
@@ -10429,159 +10833,6 @@ declare module dojo {
                 sprintf(format: String, filler: any): void;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.fx.html
-             *
-             * Effects library on top of Base animations
-             * 
-             */
-            interface fx {
-                /**
-                 * Collection of easing functions to use beyond the default
-                 * dojo._defaultEasing function.
-                 * 
-                 */
-                easing: Object;
-                /**
-                 * Chain a list of dojo/_base/fx.Animations to run in sequence
-                 * Return a dojo/_base/fx.Animation which will play all passed
-                 * dojo/_base/fx.Animation instances in sequence, firing its own
-                 * synthesized events simulating a single animation. (eg:
-                 * onEnd of this animation means the end of the chain,
-                 * not the individual animations within)
-                 * 
-                 * @param animations             
-                 */
-                chain(animations: dojo._base.fx.Animation[]): any;
-                /**
-                 * Combine a list of dojo/_base/fx.Animations to run in parallel
-                 * Combine an array of dojo/_base/fx.Animations to run in parallel,
-                 * providing a new dojo/_base/fx.Animation instance encompasing each
-                 * animation, firing standard animation events.
-                 * 
-                 * @param animations             
-                 */
-                combine(animations: dojo._base.fx.Animation[]): any;
-                /**
-                 * Slide a node to a new top/left position
-                 * Returns an animation that will slide "node"
-                 * defined in args Object from its current position to
-                 * the position defined by (args.left, args.top).
-                 * 
-                 * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on). Special args membersare top and left, which indicate the new position to slide to.             
-                 */
-                slideTo(args: Object): any;
-                /**
-                 * 
-                 */
-                Toggler(): void;
-                /**
-                 * Expand a node to it's natural height.
-                 * Returns an animation that will expand the
-                 * node defined in 'args' object from it's current height to
-                 * it's natural height (with no scrollbar).
-                 * Node must have no margin/border/padding.
-                 * 
-                 * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
-                 */
-                wipeIn(args: Object): any;
-                /**
-                 * Shrink a node to nothing and hide it.
-                 * Returns an animation that will shrink node defined in "args"
-                 * from it's current height to 1px, and then hide it.
-                 * 
-                 * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
-                 */
-                wipeOut(args: Object): any;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.gears.html
-             *
-             * TODOC
-             * 
-             */
-            interface gears {
-                /**
-                 * True if client is using Google Gears
-                 * 
-                 */
-                available: Object;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.html.html
-             *
-             * TODOC
-             * 
-             */
-            interface html {
-                /**
-                 * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
-                 * may be a better choice for simple HTML insertion.
-                 * Unless you need to use the params capabilities of this method, you should use
-                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
-                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-                 * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
-                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
-                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-                 * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
-                 * or the other capabilities as defined by the params object for this method.
-                 * 
-                 * @param node the parent element that will receive the content             
-                 * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
-                 * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
-                 */
-                set(node: HTMLElement, cont: String, params: Object): any;
-                /**
-                 * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
-                 * may be a better choice for simple HTML insertion.
-                 * Unless you need to use the params capabilities of this method, you should use
-                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
-                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-                 * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
-                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
-                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-                 * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
-                 * or the other capabilities as defined by the params object for this method.
-                 * 
-                 * @param node the parent element that will receive the content             
-                 * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
-                 * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
-                 */
-                set(node: HTMLElement, cont: HTMLElement, params: Object): any;
-                /**
-                 * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
-                 * may be a better choice for simple HTML insertion.
-                 * Unless you need to use the params capabilities of this method, you should use
-                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
-                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-                 * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
-                 * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
-                 * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-                 * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
-                 * or the other capabilities as defined by the params object for this method.
-                 * 
-                 * @param node the parent element that will receive the content             
-                 * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
-                 * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
-                 */
-                set(node: HTMLElement, cont: NodeList, params: Object): any;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.io.html
-             *
-             * 
-             */
-            interface io {
-                /**
-                 * 
-                 */
-                iframe: Object;
-                /**
-                 * TODOC
-                 * 
-                 */
-                script: Object;
-            }
-            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.i18n.html
              *
              * This module implements the dojo/i18n! plugin and the v1.6- i18n API
@@ -10793,6 +11044,73 @@ declare module dojo {
                 isRight(e: Event): boolean;
             }
             /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.rpc.html
+             *
+             * 
+             */
+            interface rpc {
+                /**
+                 * 
+                 */
+                JsonpService(): void;
+                /**
+                 * 
+                 */
+                JsonService(): void;
+                /**
+                 * 
+                 */
+                RpcService(): void;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.regexp.html
+             *
+             * Regular expressions and Builder resources
+             * 
+             */
+            interface regexp {
+                /**
+                 * Builds a regular expression that groups subexpressions
+                 * A utility function used by some of the RE generators. The
+                 * subexpressions are constructed by the function, re, in the second
+                 * parameter.  re builds one subexpression for each elem in the array
+                 * a, in the first parameter. Returns a string for a regular
+                 * expression that groups all the subexpressions.
+                 * 
+                 * @param arr A single value or an array of values.             
+                 * @param re A function. Takes one parameter and converts it to a regularexpression.             
+                 * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
+                 */
+                buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
+                /**
+                 * Builds a regular expression that groups subexpressions
+                 * A utility function used by some of the RE generators. The
+                 * subexpressions are constructed by the function, re, in the second
+                 * parameter.  re builds one subexpression for each elem in the array
+                 * a, in the first parameter. Returns a string for a regular
+                 * expression that groups all the subexpressions.
+                 * 
+                 * @param arr A single value or an array of values.             
+                 * @param re A function. Takes one parameter and converts it to a regularexpression.             
+                 * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
+                 */
+                buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
+                /**
+                 * Adds escape sequences for special characters in regular expressions
+                 * 
+                 * @param str             
+                 * @param except               Optionala String with special characters to be left unescaped             
+                 */
+                escapeString(str: String, except: String): any;
+                /**
+                 * adds group match to expression
+                 * 
+                 * @param expression             
+                 * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
+                 */
+                group(expression: String, nonCapture: boolean): String;
+            }
+            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.number.html
              *
              * localized formatting and parsing routines for Number
@@ -10844,6 +11162,33 @@ declare module dojo {
                  * @param increment               OptionalRounds next place to nearest value of increment/10.  10 by default.             
                  */
                 round(value: number, places: number, increment: number): number;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.scopeMap.html
+             *
+             * 
+             */
+            interface scopeMap {
+                /**
+                 * 
+                 */
+                dijit: any[];
+                /**
+                 * 
+                 */
+                dojo: any[];
+                /**
+                 * 
+                 */
+                dojox: any[];
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.tests.html
+             *
+             * D.O.H. Test files for Dojo unit testing.
+             * 
+             */
+            interface tests {
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.keys.html
@@ -11111,108 +11456,6 @@ declare module dojo {
                 UP_DPAD: number;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.regexp.html
-             *
-             * Regular expressions and Builder resources
-             * 
-             */
-            interface regexp {
-                /**
-                 * Builds a regular expression that groups subexpressions
-                 * A utility function used by some of the RE generators. The
-                 * subexpressions are constructed by the function, re, in the second
-                 * parameter.  re builds one subexpression for each elem in the array
-                 * a, in the first parameter. Returns a string for a regular
-                 * expression that groups all the subexpressions.
-                 * 
-                 * @param arr A single value or an array of values.             
-                 * @param re A function. Takes one parameter and converts it to a regularexpression.             
-                 * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
-                 */
-                buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
-                /**
-                 * Builds a regular expression that groups subexpressions
-                 * A utility function used by some of the RE generators. The
-                 * subexpressions are constructed by the function, re, in the second
-                 * parameter.  re builds one subexpression for each elem in the array
-                 * a, in the first parameter. Returns a string for a regular
-                 * expression that groups all the subexpressions.
-                 * 
-                 * @param arr A single value or an array of values.             
-                 * @param re A function. Takes one parameter and converts it to a regularexpression.             
-                 * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
-                 */
-                buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
-                /**
-                 * Adds escape sequences for special characters in regular expressions
-                 * 
-                 * @param str             
-                 * @param except               Optionala String with special characters to be left unescaped             
-                 */
-                escapeString(str: String, except: String): any;
-                /**
-                 * adds group match to expression
-                 * 
-                 * @param expression             
-                 * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
-                 */
-                group(expression: String, nonCapture: boolean): String;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.scopeMap.html
-             *
-             * 
-             */
-            interface scopeMap {
-                /**
-                 * 
-                 */
-                dijit: any[];
-                /**
-                 * 
-                 */
-                dojo: any[];
-                /**
-                 * 
-                 */
-                dojox: any[];
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.global.html
-             *
-             * Alias for the current window. 'global' can be modified
-             * for temporary context shifting. See also withGlobal().
-             * Use this rather than referring to 'window' to ensure your code runs
-             * correctly in managed contexts.
-             * 
-             */
-            interface global {
-                /**
-                 * 
-                 */
-                $(): any;
-                /**
-                 * 
-                 * @param start             
-                 * @param data             
-                 * @param responseCode             
-                 * @param errorMsg             
-                 */
-                GoogleSearchStoreCallback_undefined_NaN(start: any, data: any, responseCode: any, errorMsg: any): void;
-                /**
-                 * 
-                 */
-                jQuery(): any;
-                /**
-                 * 
-                 */
-                swfIsInHTML(): void;
-                /**
-                 * 
-                 */
-                undefined_onload(): void;
-            }
-            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.store.html
              *
              * 
@@ -11307,182 +11550,6 @@ declare module dojo {
                 trim(str: String): String;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.rpc.html
-             *
-             * 
-             */
-            interface rpc {
-                /**
-                 * 
-                 */
-                JsonpService(): void;
-                /**
-                 * 
-                 */
-                JsonService(): void;
-                /**
-                 * 
-                 */
-                RpcService(): void;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.tests.html
-             *
-             * D.O.H. Test files for Dojo unit testing.
-             * 
-             */
-            interface tests {
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.dijit.html
-             *
-             * 
-             */
-            interface dijit {
-                /**
-                 * 
-                 */
-                form: Object;
-                /**
-                 * 
-                 */
-                layout: Object;
-                /**
-                 * W3C range API
-                 * 
-                 */
-                range: Object;
-                /**
-                 * 
-                 */
-                registry: Object;
-                /**
-                 * 
-                 */
-                tree: Object;
-                /**
-                 * 
-                 * @param id             
-                 */
-                byId(id: any): any;
-                /**
-                 * 
-                 */
-                Calendar(): void;
-                /**
-                 * 
-                 */
-                CalendarLite(): void;
-                /**
-                 * 
-                 */
-                CheckedMenuItem(): void;
-                /**
-                 * 
-                 */
-                ColorPalette(): void;
-                /**
-                 * 
-                 */
-                Declaration(): void;
-                /**
-                 * 
-                 */
-                Destroyable(): void;
-                /**
-                 * 
-                 */
-                Dialog(): void;
-                /**
-                 * 
-                 */
-                DialogUnderlay(): void;
-                /**
-                 * 
-                 */
-                DropDownMenu(): void;
-                /**
-                 * 
-                 */
-                Dye(): void;
-                /**
-                 * 
-                 */
-                Editor(): void;
-                /**
-                 * 
-                 */
-                Fieldset(): void;
-                /**
-                 * 
-                 */
-                InlineEditBox(): void;
-                /**
-                 * 
-                 */
-                Menu(): void;
-                /**
-                 * 
-                 */
-                MenuBar(): void;
-                /**
-                 * 
-                 */
-                MenuBarItem(): void;
-                /**
-                 * 
-                 */
-                MenuItem(): void;
-                /**
-                 * 
-                 */
-                MenuSeparator(): void;
-                /**
-                 * 
-                 */
-                PopupMenuBarItem(): void;
-                /**
-                 * 
-                 */
-                PopupMenuItem(): void;
-                /**
-                 * 
-                 */
-                ProgressBar(): void;
-                /**
-                 * 
-                 */
-                RadioButtonMenuItem(): void;
-                /**
-                 * 
-                 */
-                TitlePane(): void;
-                /**
-                 * 
-                 */
-                Toolbar(): void;
-                /**
-                 * 
-                 */
-                ToolbarSeparator(): void;
-                /**
-                 * 
-                 */
-                Tooltip(): void;
-                /**
-                 * 
-                 */
-                TooltipDialog(): void;
-                /**
-                 * 
-                 */
-                Tree(): void;
-                /**
-                 * 
-                 */
-                WidgetSet(): void;
-            }
-            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.version.html
              *
              * Version number of the Dojo Toolkit
@@ -11520,33 +11587,6 @@ declare module dojo {
                  * 
                  */
                 toString(): String;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.window.html
-             *
-             * TODOC
-             * 
-             */
-            interface window {
-                /**
-                 * Get window object associated with document doc.
-                 * 
-                 * @param doc The document to get the associated window for.             
-                 */
-                get(doc: HTMLDocument): any;
-                /**
-                 * Returns the dimensions and scroll position of the viewable area of a browser window
-                 * 
-                 * @param doc               Optional            
-                 */
-                getBox(doc: HTMLDocument): Object;
-                /**
-                 * Scroll the passed node into view using minimal movement, if it is not already.
-                 * 
-                 * @param node             
-                 * @param pos               Optional            
-                 */
-                scrollIntoView(node: HTMLElement, pos: Object): void;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.touch.html
@@ -11618,6 +11658,33 @@ declare module dojo {
                  * @param listener Callback function             
                  */
                 release(node: HTMLElement, listener: Function): any;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.window.html
+             *
+             * TODOC
+             * 
+             */
+            interface window {
+                /**
+                 * Get window object associated with document doc.
+                 * 
+                 * @param doc The document to get the associated window for.             
+                 */
+                get(doc: HTMLDocument): any;
+                /**
+                 * Returns the dimensions and scroll position of the viewable area of a browser window
+                 * 
+                 * @param doc               Optional            
+                 */
+                getBox(doc: HTMLDocument): Object;
+                /**
+                 * Scroll the passed node into view using minimal movement, if it is not already.
+                 * 
+                 * @param node             
+                 * @param pos               Optional            
+                 */
+                scrollIntoView(node: HTMLElement, pos: Object): void;
             }
         }
 
@@ -11899,6 +11966,237 @@ declare module dojo {
              * @param listener             
              */
             on(type: any, listener: any): any;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/ObjectStore.html
+         *
+         * A Dojo Data implementation that wraps Dojo object stores for backwards
+         * compatibility.
+         * 
+         * @param options The configuration information to pass into the data store.options.objectStore:The object store to use as the source provider for this data store     
+         */
+        class ObjectStore extends dojo.Evented {
+            constructor(options: any);
+            /**
+             * 
+             */
+            "labelProperty": string;
+            /**
+             * 
+             */
+            "objectStore": Object;
+            /**
+             * adds an object to the list of dirty objects.  This object
+             * contains a reference to the object itself as well as a
+             * cloned and trimmed version of old object for use with
+             * revert.
+             * 
+             * @param object Indicates that the given object is changing and should be marked as dirty for the next save             
+             * @param _deleting             
+             */
+            changing(object: Object, _deleting: boolean): void;
+            /**
+             * See dojo/data/api/Read.close()
+             * 
+             * @param request             
+             */
+            close(request: any): any;
+            /**
+             * Checks to see if 'item' has 'value' at 'attribute'
+             * 
+             * @param item The item to check             
+             * @param attribute The attribute to check             
+             * @param value The value to look for             
+             */
+            containsValue(item: Object, attribute: String, value: any): boolean;
+            /**
+             * deletes item and any references to that item from the store.
+             * 
+             * @param item item to delete             
+             */
+            deleteItem(item: any): void;
+            /**
+             * 
+             * @param type             
+             * @param event             
+             */
+            emit(type: any, event: any): any;
+            /**
+             * See dojo/data/api/Read.fetch()
+             * 
+             * @param args             
+             */
+            fetch(args: any): any;
+            /**
+             * fetch an item by its identity, by looking in our index of what we have loaded
+             * 
+             * @param args             
+             */
+            fetchItemByIdentity(args: any): any;
+            /**
+             * Gets the available attributes of an item's 'property' and returns
+             * it as an array.
+             * 
+             * @param item             
+             */
+            getAttributes(item: Object): any[];
+            /**
+             * return the store feature set
+             * 
+             */
+            getFeatures(): Object;
+            /**
+             * returns the identity of the given item
+             * See dojo/data/api/Read.getIdentity()
+             * 
+             * @param item             
+             */
+            getIdentity(item: any): any;
+            /**
+             * returns the attributes which are used to make up the
+             * identity of an item.    Basically returns this.objectStore.idProperty
+             * See dojo/data/api/Read.getIdentityAttributes()
+             * 
+             * @param item             
+             */
+            getIdentityAttributes(item: any): any[];
+            /**
+             * See dojo/data/api/Read.getLabel()
+             * 
+             * @param item             
+             */
+            getLabel(item: dojo.data.api.Item): any;
+            /**
+             * See dojo/data/api/Read.getLabelAttributes()
+             * 
+             * @param item             
+             */
+            getLabelAttributes(item: dojo.data.api.Item): any[];
+            /**
+             * Gets the value of an item's 'property'
+             * 
+             * @param item The item to get the value from             
+             * @param property property to look up value for             
+             * @param defaultValue               Optionalthe default value             
+             */
+            getValue(item: Object, property: String, defaultValue: any): any;
+            /**
+             * Gets the value of an item's 'property' and returns
+             * it. If this value is an array it is just returned,
+             * if not, the value is added to an array and that is returned.
+             * 
+             * @param item             
+             * @param property property to look up value for             
+             */
+            getValues(item: Object, property: String): any[];
+            /**
+             * Checks to see if item has attribute
+             * 
+             * @param item The item to check             
+             * @param attribute The attribute to check             
+             */
+            hasAttribute(item: Object, attribute: String): boolean;
+            /**
+             * returns true if the item is marked as dirty or true if there are any dirty items
+             * 
+             * @param item The item to check             
+             */
+            isDirty(item: Object): any;
+            /**
+             * Checks to see if the argument is an item
+             * 
+             * @param item The item to check             
+             */
+            isItem(item: Object): boolean;
+            /**
+             * Checks to see if the item is loaded.
+             * 
+             * @param item The item to check             
+             */
+            isItemLoaded(item: Object): any;
+            /**
+             * Loads an item and calls the callback handler. Note, that this will call the callback
+             * handler even if the item is loaded. Consequently, you can use loadItem to ensure
+             * that an item is loaded is situations when the item may or may not be loaded yet.
+             * If you access a value directly through property access, you can use this to load
+             * a lazy value as well (doesn't need to be an item).
+             * 
+             * @param args See dojo/data/api/Read.fetch()             
+             */
+            loadItem(args: Object): any;
+            /**
+             * adds a new item to the store at the specified point.
+             * Takes two parameters, data, and options.
+             * 
+             * @param data See dojo/data/api/Write.newItem()             
+             * @param parentInfo             
+             */
+            newItem(data: Object, parentInfo: any): Object;
+            /**
+             * 
+             * @param type             
+             * @param listener             
+             */
+            on(type: any, listener: any): any;
+            /**
+             * returns any modified data to its original state prior to a save();
+             * 
+             */
+            revert(): void;
+            /**
+             * Saves the dirty data using object store provider. See dojo/data/api/Write for API.
+             * 
+             * @param kwArgs kwArgs.global:This will cause the save to commit the dirty data for allObjectStores as a single transaction.kwArgs.revertOnError:This will cause the changes to be reverted if there is anerror on the save. By default a revert is executed unlessa value of false is provide for this parameter.kwArgs.onError:Called when an error occurs in the commitkwArgs.onComplete:Called when an the save/commit is completed             
+             */
+            save(kwArgs: any): void;
+            /**
+             * sets 'attribute' on 'item' to 'value'
+             * See dojo/data/api/Write.setValue()
+             * 
+             * @param item             
+             * @param attribute             
+             * @param value             
+             */
+            setValue(item: any, attribute: any, value: any): void;
+            /**
+             * sets 'attribute' on 'item' to 'value' value
+             * must be an array.
+             * See dojo/data/api/Write.setValues()
+             * 
+             * @param item             
+             * @param attribute             
+             * @param values             
+             */
+            setValues(item: any, attribute: any, values: any): void;
+            /**
+             * unsets 'attribute' on 'item'
+             * See dojo/data/api/Write.unsetAttribute()
+             * 
+             * @param item             
+             * @param attribute             
+             */
+            unsetAttribute(item: any, attribute: any): void;
+            /**
+             * See dojo/data/api/Notification.onDelete()
+             * 
+             */
+            onDelete(): void;
+            /**
+             * Called when a fetch occurs          
+             * 
+             * @param results             
+             */
+            onFetch(results: any): void;
+            /**
+             * See dojo/data/api/Notification.onNew()
+             * 
+             */
+            onNew(): void;
+            /**
+             * See dojo/data/api/Notification.onSet()
+             * 
+             */
+            onSet(): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/ItemFileWriteStore.html
@@ -12220,237 +12518,6 @@ declare module dojo {
              * @param newValue             
              */
             onSet(item: dojo.data.api.Item, attribute: String, oldValue: any[], newValue: any[]): void;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/ObjectStore.html
-         *
-         * A Dojo Data implementation that wraps Dojo object stores for backwards
-         * compatibility.
-         * 
-         * @param options The configuration information to pass into the data store.options.objectStore:The object store to use as the source provider for this data store     
-         */
-        class ObjectStore extends dojo.Evented {
-            constructor(options: any);
-            /**
-             * 
-             */
-            "labelProperty": string;
-            /**
-             * 
-             */
-            "objectStore": Object;
-            /**
-             * adds an object to the list of dirty objects.  This object
-             * contains a reference to the object itself as well as a
-             * cloned and trimmed version of old object for use with
-             * revert.
-             * 
-             * @param object Indicates that the given object is changing and should be marked as dirty for the next save             
-             * @param _deleting             
-             */
-            changing(object: Object, _deleting: boolean): void;
-            /**
-             * See dojo/data/api/Read.close()
-             * 
-             * @param request             
-             */
-            close(request: any): any;
-            /**
-             * Checks to see if 'item' has 'value' at 'attribute'
-             * 
-             * @param item The item to check             
-             * @param attribute The attribute to check             
-             * @param value The value to look for             
-             */
-            containsValue(item: Object, attribute: String, value: any): boolean;
-            /**
-             * deletes item and any references to that item from the store.
-             * 
-             * @param item item to delete             
-             */
-            deleteItem(item: any): void;
-            /**
-             * 
-             * @param type             
-             * @param event             
-             */
-            emit(type: any, event: any): any;
-            /**
-             * See dojo/data/api/Read.fetch()
-             * 
-             * @param args             
-             */
-            fetch(args: any): any;
-            /**
-             * fetch an item by its identity, by looking in our index of what we have loaded
-             * 
-             * @param args             
-             */
-            fetchItemByIdentity(args: any): any;
-            /**
-             * Gets the available attributes of an item's 'property' and returns
-             * it as an array.
-             * 
-             * @param item             
-             */
-            getAttributes(item: Object): any[];
-            /**
-             * return the store feature set
-             * 
-             */
-            getFeatures(): Object;
-            /**
-             * returns the identity of the given item
-             * See dojo/data/api/Read.getIdentity()
-             * 
-             * @param item             
-             */
-            getIdentity(item: any): any;
-            /**
-             * returns the attributes which are used to make up the
-             * identity of an item.    Basically returns this.objectStore.idProperty
-             * See dojo/data/api/Read.getIdentityAttributes()
-             * 
-             * @param item             
-             */
-            getIdentityAttributes(item: any): any[];
-            /**
-             * See dojo/data/api/Read.getLabel()
-             * 
-             * @param item             
-             */
-            getLabel(item: dojo.data.api.Item): any;
-            /**
-             * See dojo/data/api/Read.getLabelAttributes()
-             * 
-             * @param item             
-             */
-            getLabelAttributes(item: dojo.data.api.Item): any[];
-            /**
-             * Gets the value of an item's 'property'
-             * 
-             * @param item The item to get the value from             
-             * @param property property to look up value for             
-             * @param defaultValue               Optionalthe default value             
-             */
-            getValue(item: Object, property: String, defaultValue: any): any;
-            /**
-             * Gets the value of an item's 'property' and returns
-             * it. If this value is an array it is just returned,
-             * if not, the value is added to an array and that is returned.
-             * 
-             * @param item             
-             * @param property property to look up value for             
-             */
-            getValues(item: Object, property: String): any[];
-            /**
-             * Checks to see if item has attribute
-             * 
-             * @param item The item to check             
-             * @param attribute The attribute to check             
-             */
-            hasAttribute(item: Object, attribute: String): boolean;
-            /**
-             * returns true if the item is marked as dirty or true if there are any dirty items
-             * 
-             * @param item The item to check             
-             */
-            isDirty(item: Object): any;
-            /**
-             * Checks to see if the argument is an item
-             * 
-             * @param item The item to check             
-             */
-            isItem(item: Object): boolean;
-            /**
-             * Checks to see if the item is loaded.
-             * 
-             * @param item The item to check             
-             */
-            isItemLoaded(item: Object): any;
-            /**
-             * Loads an item and calls the callback handler. Note, that this will call the callback
-             * handler even if the item is loaded. Consequently, you can use loadItem to ensure
-             * that an item is loaded is situations when the item may or may not be loaded yet.
-             * If you access a value directly through property access, you can use this to load
-             * a lazy value as well (doesn't need to be an item).
-             * 
-             * @param args See dojo/data/api/Read.fetch()             
-             */
-            loadItem(args: Object): any;
-            /**
-             * adds a new item to the store at the specified point.
-             * Takes two parameters, data, and options.
-             * 
-             * @param data See dojo/data/api/Write.newItem()             
-             * @param parentInfo             
-             */
-            newItem(data: Object, parentInfo: any): Object;
-            /**
-             * 
-             * @param type             
-             * @param listener             
-             */
-            on(type: any, listener: any): any;
-            /**
-             * returns any modified data to its original state prior to a save();
-             * 
-             */
-            revert(): void;
-            /**
-             * Saves the dirty data using object store provider. See dojo/data/api/Write for API.
-             * 
-             * @param kwArgs kwArgs.global:This will cause the save to commit the dirty data for allObjectStores as a single transaction.kwArgs.revertOnError:This will cause the changes to be reverted if there is anerror on the save. By default a revert is executed unlessa value of false is provide for this parameter.kwArgs.onError:Called when an error occurs in the commitkwArgs.onComplete:Called when an the save/commit is completed             
-             */
-            save(kwArgs: any): void;
-            /**
-             * sets 'attribute' on 'item' to 'value'
-             * See dojo/data/api/Write.setValue()
-             * 
-             * @param item             
-             * @param attribute             
-             * @param value             
-             */
-            setValue(item: any, attribute: any, value: any): void;
-            /**
-             * sets 'attribute' on 'item' to 'value' value
-             * must be an array.
-             * See dojo/data/api/Write.setValues()
-             * 
-             * @param item             
-             * @param attribute             
-             * @param values             
-             */
-            setValues(item: any, attribute: any, values: any): void;
-            /**
-             * unsets 'attribute' on 'item'
-             * See dojo/data/api/Write.unsetAttribute()
-             * 
-             * @param item             
-             * @param attribute             
-             */
-            unsetAttribute(item: any, attribute: any): void;
-            /**
-             * See dojo/data/api/Notification.onDelete()
-             * 
-             */
-            onDelete(): void;
-            /**
-             * Called when a fetch occurs          
-             * 
-             * @param results             
-             */
-            onFetch(results: any): void;
-            /**
-             * See dojo/data/api/Notification.onNew()
-             * 
-             */
-            onNew(): void;
-            /**
-             * See dojo/data/api/Notification.onSet()
-             * 
-             */
-            onSet(): void;
         }
         module api {
             /**
@@ -13400,34 +13467,6 @@ declare module dojo {
                 patternToRegExp(pattern: String, ignoreCase: boolean): any;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/util/sorter.html
-             *
-             * 
-             */
-            interface sorter {
-                /**
-                 * Basic comparison function that compares if an item is greater or less than another item
-                 * returns 1 if a > b, -1 if a < b, 0 if equal.
-                 * 'null' values (null, undefined) are treated as larger values so that they're pushed to the end of the list.
-                 * And compared to each other, null is equivalent to undefined.
-                 * 
-                 * @param a             
-                 * @param b             
-                 */
-                basicComparator(a: any, b: any): number;
-                /**
-                 * Helper function to generate the sorting function based off the list of sort attributes.
-                 * The sort function creation will look for a property on the store called 'comparatorMap'.  If it exists
-                 * it will look in the mapping for comparisons function for the attributes.  If one is found, it will
-                 * use it instead of the basic comparator, which is typically used for strings, ints, booleans, and dates.
-                 * Returns the sorting function for this particular list of attributes and sorting directions.
-                 * 
-                 * @param sortSpec A JS object that array that defines out what attribute names to sort on and whether it should be descenting or asending.The objects should be formatted as follows:{    attribute: "attributeName-string" || attribute,    descending: true|false;   // Default is false.}             
-                 * @param store The datastore object to look up item values from.             
-                 */
-                createSortFunction(sortSpec: Object, store: dojo.data.api.Read): String[];
-            }
-            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/util/simpleFetch.html
              *
              * 
@@ -13480,6 +13519,34 @@ declare module dojo {
                  */
                 fetchHandler(items: any[], requestObject: Object): void;
             }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/data/util/sorter.html
+             *
+             * 
+             */
+            interface sorter {
+                /**
+                 * Basic comparison function that compares if an item is greater or less than another item
+                 * returns 1 if a > b, -1 if a < b, 0 if equal.
+                 * 'null' values (null, undefined) are treated as larger values so that they're pushed to the end of the list.
+                 * And compared to each other, null is equivalent to undefined.
+                 * 
+                 * @param a             
+                 * @param b             
+                 */
+                basicComparator(a: any, b: any): number;
+                /**
+                 * Helper function to generate the sorting function based off the list of sort attributes.
+                 * The sort function creation will look for a property on the store called 'comparatorMap'.  If it exists
+                 * it will look in the mapping for comparisons function for the attributes.  If one is found, it will
+                 * use it instead of the basic comparator, which is typically used for strings, ints, booleans, and dates.
+                 * Returns the sorting function for this particular list of attributes and sorting directions.
+                 * 
+                 * @param sortSpec A JS object that array that defines out what attribute names to sort on and whether it should be descenting or asending.The objects should be formatted as follows:{    attribute: "attributeName-string" || attribute,    descending: true|false;   // Default is false.}             
+                 * @param store The datastore object to look up item values from.             
+                 */
+                createSortFunction(sortSpec: Object, store: dojo.data.api.Read): String[];
+            }
         }
 
     }
@@ -13516,6 +13583,290 @@ declare module dojo {
              */
             update(): void;
         }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Manager.html
+         *
+         * the manager of DnD operations (usually a singleton)
+         * 
+         */
+        class Manager extends dojo.Evented {
+            constructor();
+            /**
+             * 
+             */
+            "OFFSET_X": number;
+            /**
+             * 
+             */
+            "OFFSET_Y": number;
+            /**
+             * called to notify if the current target can accept items
+             * 
+             * @param flag             
+             */
+            canDrop(flag: any): void;
+            /**
+             * 
+             * @param type             
+             * @param event             
+             */
+            emit(type: any, event: any): any;
+            /**
+             * makes the avatar; it is separate to be overwritten dynamically, if needed
+             * 
+             */
+            makeAvatar(): any;
+            /**
+             * Returns the current DnD manager.  Creates one if it is not created yet.
+             * 
+             */
+            manager(): any;
+            /**
+             * 
+             * @param type             
+             * @param listener             
+             */
+            on(type: any, listener: any): any;
+            /**
+             * called when a source detected a mouse-out condition
+             * 
+             * @param source the reporter             
+             */
+            outSource(source: Object): void;
+            /**
+             * called when a source detected a mouse-over condition
+             * 
+             * @param source the reporter             
+             */
+            overSource(source: Object): void;
+            /**
+             * called to initiate the DnD operation
+             * 
+             * @param source the source which provides items             
+             * @param nodes the list of transferred items             
+             * @param copy copy items, if true, move items otherwise             
+             */
+            startDrag(source: Object, nodes: any[], copy: boolean): void;
+            /**
+             * stop the DnD in progress
+             * 
+             */
+            stopDrag(): void;
+            /**
+             * updates the avatar; it is separate to be overwritten dynamically, if needed
+             * 
+             */
+            updateAvatar(): void;
+            /**
+             * event processor for onkeydown:
+             * watching for CTRL for copy/move status, watching for ESCAPE to cancel the drag
+             * 
+             * @param e keyboard event             
+             */
+            onKeyDown(e: Event): void;
+            /**
+             * event processor for onkeyup, watching for CTRL for copy/move status
+             * 
+             * @param e keyboard event             
+             */
+            onKeyUp(e: Event): void;
+            /**
+             * event processor for onmousemove
+             * 
+             * @param e mouse event             
+             */
+            onMouseMove(e: Event): void;
+            /**
+             * event processor for onmouseup
+             * 
+             * @param e mouse event             
+             */
+            onMouseUp(e: Event): void;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Container.html
+         *
+         * a Container object, which knows when mouse hovers over it,
+         * and over which element it hovers
+         * 
+         * @param node node or node's id to build the container on     
+         * @param params a dictionary of parameters     
+         */
+        class Container extends dojo.Evented {
+            constructor(node: HTMLElement, params: Object);
+            /**
+             * Indicates whether to allow dnd item nodes to be nested within other elements.
+             * By default this is false, indicating that only direct children of the container can
+             * be draggable dnd item nodes
+             * 
+             */
+            "allowNested": boolean;
+            /**
+             * The DOM node the mouse is currently hovered over
+             * 
+             */
+            "current": HTMLElement;
+            /**
+             * Map from an item's id (which is also the DOMNode's id) to
+             * the dojo/dnd/Container.Item itself.
+             * 
+             */
+            "map": Object;
+
+            node: HTMLElement;
+            /**
+             * 
+             */
+            "skipForm": boolean;
+            /**
+             * removes all data items from the map
+             * 
+             */
+            clearItems(): void;
+            /**
+             * creator function, dummy at the moment
+             * 
+             */
+            creator(): void;
+            /**
+             * removes a data item from the map by its key (id)
+             * 
+             * @param key             
+             */
+            delItem(key: String): void;
+            /**
+             * prepares this object to be garbage-collected
+             * 
+             */
+            destroy(): void;
+            /**
+             * 
+             * @param type             
+             * @param event             
+             */
+            emit(type: any, event: any): any;
+            /**
+             * iterates over a data map skipping members that
+             * are present in the empty object (IE and/or 3rd-party libraries).
+             * 
+             * @param f             
+             * @param o               Optional            
+             */
+            forInItems(f: Function, o: Object): String;
+            /**
+             * returns a list (an array) of all valid child nodes
+             * 
+             */
+            getAllNodes(): any;
+            /**
+             * returns a data item by its key (id)
+             * 
+             * @param key             
+             */
+            getItem(key: String): any;
+            /**
+             * inserts an array of new nodes before/after an anchor node
+             * 
+             * @param data Logical representation of the object being dragged.If the drag object's type is "text" then data is a String,if it's another type then data could be a different Object,perhaps a name/value hash.             
+             * @param before insert before the anchor, if true, and after the anchor otherwise             
+             * @param anchor the anchor node to be used as a point of insertion             
+             */
+            insertNodes(addSelected?: boolean, data?: any[], before?: boolean, anchor?: HTMLElement): Function;
+            /**
+             * Represents (one of) the source node(s) being dragged.
+             * Contains (at least) the "type" and "data" attributes.
+             * 
+             */
+            Item(): void;
+            /**
+             * 
+             * @param params             
+             * @param node             
+             * @param Ctor             
+             */
+            markupFactory(params: any, node: any, Ctor: any): any;
+            /**
+             * 
+             * @param type             
+             * @param listener             
+             */
+            on(type: any, listener: any): any;
+            /**
+             * associates a data item with its key (id)
+             * 
+             * @param key             
+             * @param data             
+             */
+            setItem(key: String, data: any): void;
+            /**
+             * collects valid child items and populate the map
+             * 
+             */
+            startup(): void;
+            /**
+             * sync up the node list with the data map
+             * 
+             */
+            sync(): Function;
+            /**
+             * event processor for onmouseout
+             * 
+             * @param e mouse event             
+             */
+            onMouseOut(e: Event): void;
+            /**
+             * event processor for onmouseover or touch, to mark that element as the current element
+             * 
+             * @param e mouse event             
+             */
+            onMouseOver(e: Event): void;
+            /**
+             * this function is called once, when mouse is out of our container
+             * 
+             */
+            onOutEvent(): void;
+            /**
+             * this function is called once, when mouse is over our container
+             * 
+             */
+            onOverEvent(): void;
+            /**
+             * event processor for onselectevent and ondragevent
+             * 
+             * @param e mouse event             
+             */
+            onSelectStart(e: Event): void;
+        }
+        module Container {
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Container.__ContainerArgs.html
+             *
+             * 
+             */
+            class __ContainerArgs {
+                constructor();
+                /**
+                 * node or node's id to use as the parent node for dropped items
+                 * (must be underneath the 'node' parameter in the DOM)
+                 * 
+                 */
+                "dropParent": HTMLElement;
+                /**
+                 * don't start the drag operation, if clicked on form elements
+                 * 
+                 */
+                "skipForm": boolean;
+                /**
+                 * a creator function, which takes a data item, and returns an object like that:
+                 * {node: newNode, data: usedData, type: arrayOfStrings}
+                 * 
+                 */
+                creator(): void;
+
+
+            }
+        }
+
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/AutoSource.html
          *
@@ -13680,14 +14031,6 @@ declare module dojo {
              */
             getSelectedNodes(): any;
             /**
-             * inserts an array of new nodes before/after an anchor node
-             * 
-             * @param data Logical representation of the object being dragged.If the drag object's type is "text" then data is a String,if it's another type then data could be a different Object,perhaps a name/value hash.             
-             * @param before insert before the anchor, if true, and after the anchor otherwise             
-             * @param anchor the anchor node to be used as a point of insertion             
-             */
-            insertNodes(data: Object, before: boolean, anchor: HTMLElement): Function;
-            /**
              * inserts new data items (see dojo/dnd/Container.insertNodes() method for details)
              * 
              * @param addSelected all new nodes will be added to selected items, if true, no selection change otherwise             
@@ -13849,56 +14192,19 @@ declare module dojo {
             onSelectStart(e: Event): void;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Container.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Mover.html
          *
-         * a Container object, which knows when mouse hovers over it,
-         * and over which element it hovers
+         * an object which makes a node follow the mouse, or touch-drag on touch devices.
+         * Used as a default mover, and as a base class for custom movers.
          * 
-         * @param node node or node's id to build the container on     
-         * @param params a dictionary of parameters     
+         * @param node a node (or node's id) to be moved     
+         * @param e a mouse event, which started the move;only pageX and pageY properties are used     
+         * @param host       Optionalobject which implements the functionality of the move,and defines proper events (onMoveStart and onMoveStop)     
          */
-        class Container extends dojo.Evented {
-            constructor(node: HTMLElement, params: Object);
+        class Mover extends dojo.Evented {
+            constructor(node: HTMLElement, e: Event, host?: Object);
             /**
-             * Indicates whether to allow dnd item nodes to be nested within other elements.
-             * By default this is false, indicating that only direct children of the container can
-             * be draggable dnd item nodes
-             * 
-             */
-            "allowNested": boolean;
-            /**
-             * The DOM node the mouse is currently hovered over
-             * 
-             */
-            "current": HTMLElement;
-            /**
-             * Map from an item's id (which is also the DOMNode's id) to
-             * the dojo/dnd/Container.Item itself.
-             * 
-             */
-            "map": Object;
-            /**
-             * 
-             */
-            "skipForm": boolean;
-            /**
-             * removes all data items from the map
-             * 
-             */
-            clearItems(): void;
-            /**
-             * creator function, dummy at the moment
-             * 
-             */
-            creator(): void;
-            /**
-             * removes a data item from the map by its key (id)
-             * 
-             * @param key             
-             */
-            delItem(key: String): void;
-            /**
-             * prepares this object to be garbage-collected
+             * stops the move, deletes all references, so the object can be garbage-collected
              * 
              */
             destroy(): void;
@@ -13909,125 +14215,30 @@ declare module dojo {
              */
             emit(type: any, event: any): any;
             /**
-             * iterates over a data map skipping members that
-             * are present in the empty object (IE and/or 3rd-party libraries).
-             * 
-             * @param f             
-             * @param o               Optional            
-             */
-            forInItems(f: Function, o: Object): String;
-            /**
-             * returns a list (an array) of all valid child nodes
-             * 
-             */
-            getAllNodes(): any;
-            /**
-             * returns a data item by its key (id)
-             * 
-             * @param key             
-             */
-            getItem(key: String): any;
-            /**
-             * inserts an array of new nodes before/after an anchor node
-             * 
-             * @param data Logical representation of the object being dragged.If the drag object's type is "text" then data is a String,if it's another type then data could be a different Object,perhaps a name/value hash.             
-             * @param before insert before the anchor, if true, and after the anchor otherwise             
-             * @param anchor the anchor node to be used as a point of insertion             
-             */
-            insertNodes(data: Object, before: boolean, anchor: HTMLElement): Function;
-            /**
-             * Represents (one of) the source node(s) being dragged.
-             * Contains (at least) the "type" and "data" attributes.
-             * 
-             */
-            Item(): void;
-            /**
-             * 
-             * @param params             
-             * @param node             
-             * @param Ctor             
-             */
-            markupFactory(params: any, node: any, Ctor: any): any;
-            /**
              * 
              * @param type             
              * @param listener             
              */
             on(type: any, listener: any): any;
             /**
-             * associates a data item with its key (id)
+             * makes the node absolute; it is meant to be called only once.
+             * relative and absolutely positioned nodes are assumed to use pixel units
              * 
-             * @param key             
-             * @param data             
+             * @param e             
              */
-            setItem(key: String, data: any): void;
+            onFirstMove(e: any): void;
             /**
-             * collects valid child items and populate the map
+             * event processor for onmousemove/ontouchmove
              * 
+             * @param e mouse/touch event             
              */
-            startup(): void;
+            onMouseMove(e: Event): void;
             /**
-             * sync up the node list with the data map
              * 
+             * @param e             
              */
-            sync(): Function;
-            /**
-             * event processor for onmouseout
-             * 
-             * @param e mouse event             
-             */
-            onMouseOut(e: Event): void;
-            /**
-             * event processor for onmouseover or touch, to mark that element as the current element
-             * 
-             * @param e mouse event             
-             */
-            onMouseOver(e: Event): void;
-            /**
-             * this function is called once, when mouse is out of our container
-             * 
-             */
-            onOutEvent(): void;
-            /**
-             * this function is called once, when mouse is over our container
-             * 
-             */
-            onOverEvent(): void;
-            /**
-             * event processor for onselectevent and ondragevent
-             * 
-             * @param e mouse event             
-             */
-            onSelectStart(e: Event): void;
+            onMouseUp(e: any): void;
         }
-        module Container {
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Container.__ContainerArgs.html
-             *
-             * 
-             */
-            class __ContainerArgs {
-                constructor();
-                /**
-                 * node or node's id to use as the parent node for dropped items
-                 * (must be underneath the 'node' parameter in the DOM)
-                 * 
-                 */
-                "dropParent": HTMLElement;
-                /**
-                 * don't start the drag operation, if clicked on form elements
-                 * 
-                 */
-                "skipForm": boolean;
-                /**
-                 * a creator function, which takes a data item, and returns an object like that:
-                 * {node: newNode, data: usedData, type: arrayOfStrings}
-                 * 
-                 */
-                creator(): void;
-            }
-        }
-
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Moveable.html
          *
@@ -14182,167 +14393,15 @@ declare module dojo {
         }
 
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Mover.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Selector.html
          *
-         * an object which makes a node follow the mouse, or touch-drag on touch devices.
-         * Used as a default mover, and as a base class for custom movers.
+         * a Selector object, which knows how to select its children
          * 
-         * @param node a node (or node's id) to be moved     
-         * @param e a mouse event, which started the move;only pageX and pageY properties are used     
-         * @param host       Optionalobject which implements the functionality of the move,and defines proper events (onMoveStart and onMoveStop)     
+         * @param node node or node's id to build the selector on     
+         * @param params       Optionala dictionary of parameters     
          */
-        class Mover extends dojo.Evented {
-            constructor(node: HTMLElement, e: Event, host?: Object);
-            /**
-             * stops the move, deletes all references, so the object can be garbage-collected
-             * 
-             */
-            destroy(): void;
-            /**
-             * 
-             * @param type             
-             * @param event             
-             */
-            emit(type: any, event: any): any;
-            /**
-             * 
-             * @param type             
-             * @param listener             
-             */
-            on(type: any, listener: any): any;
-            /**
-             * makes the node absolute; it is meant to be called only once.
-             * relative and absolutely positioned nodes are assumed to use pixel units
-             * 
-             * @param e             
-             */
-            onFirstMove(e: any): void;
-            /**
-             * event processor for onmousemove/ontouchmove
-             * 
-             * @param e mouse/touch event             
-             */
-            onMouseMove(e: Event): void;
-            /**
-             * 
-             * @param e             
-             */
-            onMouseUp(e: any): void;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Manager.html
-         *
-         * the manager of DnD operations (usually a singleton)
-         * 
-         */
-        class Manager extends dojo.Evented {
-            constructor();
-            /**
-             * 
-             */
-            "OFFSET_X": number;
-            /**
-             * 
-             */
-            "OFFSET_Y": number;
-            /**
-             * called to notify if the current target can accept items
-             * 
-             * @param flag             
-             */
-            canDrop(flag: any): void;
-            /**
-             * 
-             * @param type             
-             * @param event             
-             */
-            emit(type: any, event: any): any;
-            /**
-             * makes the avatar; it is separate to be overwritten dynamically, if needed
-             * 
-             */
-            makeAvatar(): any;
-            /**
-             * Returns the current DnD manager.  Creates one if it is not created yet.
-             * 
-             */
-            manager(): any;
-            /**
-             * 
-             * @param type             
-             * @param listener             
-             */
-            on(type: any, listener: any): any;
-            /**
-             * called when a source detected a mouse-out condition
-             * 
-             * @param source the reporter             
-             */
-            outSource(source: Object): void;
-            /**
-             * called when a source detected a mouse-over condition
-             * 
-             * @param source the reporter             
-             */
-            overSource(source: Object): void;
-            /**
-             * called to initiate the DnD operation
-             * 
-             * @param source the source which provides items             
-             * @param nodes the list of transferred items             
-             * @param copy copy items, if true, move items otherwise             
-             */
-            startDrag(source: Object, nodes: any[], copy: boolean): void;
-            /**
-             * stop the DnD in progress
-             * 
-             */
-            stopDrag(): void;
-            /**
-             * updates the avatar; it is separate to be overwritten dynamically, if needed
-             * 
-             */
-            updateAvatar(): void;
-            /**
-             * event processor for onkeydown:
-             * watching for CTRL for copy/move status, watching for ESCAPE to cancel the drag
-             * 
-             * @param e keyboard event             
-             */
-            onKeyDown(e: Event): void;
-            /**
-             * event processor for onkeyup, watching for CTRL for copy/move status
-             * 
-             * @param e keyboard event             
-             */
-            onKeyUp(e: Event): void;
-            /**
-             * event processor for onmousemove
-             * 
-             * @param e mouse event             
-             */
-            onMouseMove(e: Event): void;
-            /**
-             * event processor for onmouseup
-             * 
-             * @param e mouse event             
-             */
-            onMouseUp(e: Event): void;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Source.html
-         *
-         * a Source object, which can be used as a DnD source, or a DnD target
-         * 
-         * @param node node or node's id to build the source on     
-         * @param params       Optionalany property of this class may be configured via the paramsobject which is mixed-in to the dojo/dnd/Source instance     
-         */
-        class Source extends dojo.dnd.Selector {
+        class Selector extends dojo.dnd.Container {
             constructor(node: HTMLElement, params?: Object);
-            /**
-             * 
-             */
-            "accept": any[];
             /**
              * Indicates whether to allow dnd item nodes to be nested within other elements.
              * By default this is false, indicating that only direct children of the container can
@@ -14351,34 +14410,10 @@ declare module dojo {
              */
             "allowNested": boolean;
             /**
-             * 
-             */
-            "autoSync": boolean;
-            /**
-             * 
-             */
-            "copyOnly": boolean;
-            /**
              * The DOM node the mouse is currently hovered over
              * 
              */
             "current": HTMLElement;
-            /**
-             * 
-             */
-            "delay": number;
-            /**
-             * 
-             */
-            "generateText": boolean;
-            /**
-             * 
-             */
-            "horizontal": boolean;
-            /**
-             * 
-             */
-            "isSource": boolean;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
@@ -14396,43 +14431,16 @@ declare module dojo {
             /**
              * 
              */
-            "selfAccept": boolean;
-            /**
-             * 
-             */
-            "selfCopy": boolean;
-            /**
-             * 
-             */
             "singular": boolean;
             /**
              * 
              */
             "skipForm": boolean;
             /**
-             * 
-             */
-            "withHandles": boolean;
-            /**
-             * checks if the target can accept nodes from this source
-             * 
-             * @param source the source which provides items             
-             * @param nodes the list of transferred items             
-             */
-            checkAcceptance(source: Object, nodes: any[]): boolean;
-            /**
              * removes all data items from the map
              * 
              */
             clearItems(): void;
-            /**
-             * Returns true if we need to copy items, false to move.
-             * It is separated to be overwritten dynamically, if needed.
-             * 
-             * @param keyPressed the "copy" key was pressed             
-             * @param self               Optionaloptional flag that means that we are about to drop on itself             
-             */
-            copyState(keyPressed: boolean, self: boolean): any;
             /**
              * creator function, dummy at the moment
              * 
@@ -14493,14 +14501,6 @@ declare module dojo {
              */
             getSelectedNodes(): any;
             /**
-             * inserts an array of new nodes before/after an anchor node
-             * 
-             * @param data Logical representation of the object being dragged.If the drag object's type is "text" then data is a String,if it's another type then data could be a different Object,perhaps a name/value hash.             
-             * @param before insert before the anchor, if true, and after the anchor otherwise             
-             * @param anchor the anchor node to be used as a point of insertion             
-             */
-            insertNodes(data: Object, before: boolean, anchor: HTMLElement): Function;
-            /**
              * inserts new data items (see dojo/dnd/Container.insertNodes() method for details)
              * 
              * @param addSelected all new nodes will be added to selected items, if true, no selection change otherwise             
@@ -14508,7 +14508,7 @@ declare module dojo {
              * @param before insert before the anchor, if true, and after the anchor otherwise             
              * @param anchor the anchor node to be used as a point of insertion             
              */
-            insertNodes(addSelected: boolean, data: any[], before: boolean, anchor: HTMLElement): Function;
+            insertNodes(addSelected?: boolean, data?: any[], before?: boolean, anchor?: HTMLElement): Function;
             /**
              * 
              * @param params             
@@ -14549,71 +14549,6 @@ declare module dojo {
              * 
              */
             sync(): Function;
-            /**
-             * topic event processor for /dnd/cancel, called to cancel the DnD operation
-             * 
-             */
-            onDndCancel(): void;
-            /**
-             * topic event processor for /dnd/drop, called to finish the DnD operation
-             * 
-             * @param source the source which provides items             
-             * @param nodes the list of transferred items             
-             * @param copy copy items, if true, move items otherwise             
-             * @param target the target which accepts items             
-             */
-            onDndDrop(source: Object, nodes: any[], copy: boolean, target: Object): void;
-            /**
-             * topic event processor for /dnd/source/over, called when detected a current source
-             * 
-             * @param source the source which has the mouse over it             
-             */
-            onDndSourceOver(source: Object): void;
-            /**
-             * topic event processor for /dnd/start, called to initiate the DnD operation
-             * 
-             * @param source the source which provides items             
-             * @param nodes the list of transferred items             
-             * @param copy copy items, if true, move items otherwise             
-             */
-            onDndStart(source: Object, nodes: any[], copy: boolean): void;
-            /**
-             * called during the active DnD operation, when items
-             * are dragged away from this target, and it is not disabled
-             * 
-             */
-            onDraggingOut(): void;
-            /**
-             * called during the active DnD operation, when items
-             * are dragged over this target, and it is not disabled
-             * 
-             */
-            onDraggingOver(): void;
-            /**
-             * called only on the current target, when drop is performed
-             * 
-             * @param source the source which provides items             
-             * @param nodes the list of transferred items             
-             * @param copy copy items, if true, move items otherwise             
-             */
-            onDrop(source: Object, nodes: any[], copy: boolean): void;
-            /**
-             * called only on the current target, when drop is performed
-             * from an external source
-             * 
-             * @param source the source which provides items             
-             * @param nodes the list of transferred items             
-             * @param copy copy items, if true, move items otherwise             
-             */
-            onDropExternal(source: Object, nodes: any[], copy: boolean): void;
-            /**
-             * called only on the current target, when drop is performed
-             * from the same target/source
-             * 
-             * @param nodes the list of transferred items             
-             * @param copy copy items, if true, move items otherwise             
-             */
-            onDropInternal(nodes: any[], copy: boolean): void;
             /**
              * event processor for onmousedown
              * 
@@ -14949,14 +14884,6 @@ declare module dojo {
              */
             getSelectedNodes(): any;
             /**
-             * inserts an array of new nodes before/after an anchor node
-             * 
-             * @param data Logical representation of the object being dragged.If the drag object's type is "text" then data is a String,if it's another type then data could be a different Object,perhaps a name/value hash.             
-             * @param before insert before the anchor, if true, and after the anchor otherwise             
-             * @param anchor the anchor node to be used as a point of insertion             
-             */
-            insertNodes(data: Object, before: boolean, anchor: HTMLElement): Function;
-            /**
              * inserts new data items (see dojo/dnd/Container.insertNodes() method for details)
              * 
              * @param addSelected all new nodes will be added to selected items, if true, no selection change otherwise             
@@ -14964,7 +14891,7 @@ declare module dojo {
              * @param before insert before the anchor, if true, and after the anchor otherwise             
              * @param anchor the anchor node to be used as a point of insertion             
              */
-            insertNodes(addSelected: boolean, data: any[], before: boolean, anchor: HTMLElement): Function;
+            insertNodes(addSelected: boolean, data: any[], before?: boolean, anchor?: HTMLElement): Function;
             /**
              * 
              * @param params             
@@ -15118,15 +15045,19 @@ declare module dojo {
             onSelectStart(e: Event): void;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Selector.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/Source.html
          *
-         * a Selector object, which knows how to select its children
+         * a Source object, which can be used as a DnD source, or a DnD target
          * 
-         * @param node node or node's id to build the selector on     
-         * @param params       Optionala dictionary of parameters     
+         * @param node node or node's id to build the source on     
+         * @param params       Optionalany property of this class may be configured via the paramsobject which is mixed-in to the dojo/dnd/Source instance     
          */
-        class Selector extends dojo.dnd.Container {
+        class Source extends dojo.dnd.Selector {
             constructor(node: HTMLElement, params?: Object);
+            /**
+             * 
+             */
+            "accept": any[];
             /**
              * Indicates whether to allow dnd item nodes to be nested within other elements.
              * By default this is false, indicating that only direct children of the container can
@@ -15135,10 +15066,34 @@ declare module dojo {
              */
             "allowNested": boolean;
             /**
+             * 
+             */
+            "autoSync": boolean;
+            /**
+             * 
+             */
+            "copyOnly": boolean;
+            /**
              * The DOM node the mouse is currently hovered over
              * 
              */
             "current": HTMLElement;
+            /**
+             * 
+             */
+            "delay": number;
+            /**
+             * 
+             */
+            "generateText": boolean;
+            /**
+             * 
+             */
+            "horizontal": boolean;
+            /**
+             * 
+             */
+            "isSource": boolean;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
@@ -15156,16 +15111,43 @@ declare module dojo {
             /**
              * 
              */
+            "selfAccept": boolean;
+            /**
+             * 
+             */
+            "selfCopy": boolean;
+            /**
+             * 
+             */
             "singular": boolean;
             /**
              * 
              */
             "skipForm": boolean;
             /**
+             * 
+             */
+            "withHandles": boolean;
+            /**
+             * checks if the target can accept nodes from this source
+             * 
+             * @param source the source which provides items             
+             * @param nodes the list of transferred items             
+             */
+            checkAcceptance(source: Object, nodes: any[]): boolean;
+            /**
              * removes all data items from the map
              * 
              */
             clearItems(): void;
+            /**
+             * Returns true if we need to copy items, false to move.
+             * It is separated to be overwritten dynamically, if needed.
+             * 
+             * @param keyPressed the "copy" key was pressed             
+             * @param self               Optionaloptional flag that means that we are about to drop on itself             
+             */
+            copyState(keyPressed: boolean, self: boolean): any;
             /**
              * creator function, dummy at the moment
              * 
@@ -15226,14 +15208,6 @@ declare module dojo {
              */
             getSelectedNodes(): any;
             /**
-             * inserts an array of new nodes before/after an anchor node
-             * 
-             * @param data Logical representation of the object being dragged.If the drag object's type is "text" then data is a String,if it's another type then data could be a different Object,perhaps a name/value hash.             
-             * @param before insert before the anchor, if true, and after the anchor otherwise             
-             * @param anchor the anchor node to be used as a point of insertion             
-             */
-            insertNodes(data: Object, before: boolean, anchor: HTMLElement): Function;
-            /**
              * inserts new data items (see dojo/dnd/Container.insertNodes() method for details)
              * 
              * @param addSelected all new nodes will be added to selected items, if true, no selection change otherwise             
@@ -15241,7 +15215,7 @@ declare module dojo {
              * @param before insert before the anchor, if true, and after the anchor otherwise             
              * @param anchor the anchor node to be used as a point of insertion             
              */
-            insertNodes(addSelected: boolean, data: any[], before: boolean, anchor: HTMLElement): Function;
+            insertNodes(addSelected: boolean, data: any[], before?: boolean, anchor?: HTMLElement): Function;
             /**
              * 
              * @param params             
@@ -15282,6 +15256,71 @@ declare module dojo {
              * 
              */
             sync(): Function;
+            /**
+             * topic event processor for /dnd/cancel, called to cancel the DnD operation
+             * 
+             */
+            onDndCancel(): void;
+            /**
+             * topic event processor for /dnd/drop, called to finish the DnD operation
+             * 
+             * @param source the source which provides items             
+             * @param nodes the list of transferred items             
+             * @param copy copy items, if true, move items otherwise             
+             * @param target the target which accepts items             
+             */
+            onDndDrop(source: Object, nodes: any[], copy: boolean, target: Object): void;
+            /**
+             * topic event processor for /dnd/source/over, called when detected a current source
+             * 
+             * @param source the source which has the mouse over it             
+             */
+            onDndSourceOver(source: Object): void;
+            /**
+             * topic event processor for /dnd/start, called to initiate the DnD operation
+             * 
+             * @param source the source which provides items             
+             * @param nodes the list of transferred items             
+             * @param copy copy items, if true, move items otherwise             
+             */
+            onDndStart(source: Object, nodes: any[], copy: boolean): void;
+            /**
+             * called during the active DnD operation, when items
+             * are dragged away from this target, and it is not disabled
+             * 
+             */
+            onDraggingOut(): void;
+            /**
+             * called during the active DnD operation, when items
+             * are dragged over this target, and it is not disabled
+             * 
+             */
+            onDraggingOver(): void;
+            /**
+             * called only on the current target, when drop is performed
+             * 
+             * @param source the source which provides items             
+             * @param nodes the list of transferred items             
+             * @param copy copy items, if true, move items otherwise             
+             */
+            onDrop(source: Object, nodes: any[], copy: boolean): void;
+            /**
+             * called only on the current target, when drop is performed
+             * from an external source
+             * 
+             * @param source the source which provides items             
+             * @param nodes the list of transferred items             
+             * @param copy copy items, if true, move items otherwise             
+             */
+            onDropExternal(source: Object, nodes: any[], copy: boolean): void;
+            /**
+             * called only on the current target, when drop is performed
+             * from the same target/source
+             * 
+             * @param nodes the list of transferred items             
+             * @param copy copy items, if true, move items otherwise             
+             */
+            onDropInternal(nodes: any[], copy: boolean): void;
             /**
              * event processor for onmousedown
              * 
@@ -15329,6 +15368,94 @@ declare module dojo {
              */
             onSelectStart(e: Event): void;
         }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/autoscroll.html
+         *
+         * Used by dojo/dnd/Manager to scroll document or internal node when the user
+         * drags near the edge of the viewport or a scrollable node
+         * 
+         */
+        interface autoscroll {
+            /**
+             * 
+             */
+            H_AUTOSCROLL_VALUE: number;
+            /**
+             * 
+             */
+            H_TRIGGER_AUTOSCROLL: number;
+            /**
+             * 
+             */
+            V_AUTOSCROLL_VALUE: number;
+            /**
+             * 
+             */
+            V_TRIGGER_AUTOSCROLL: number;
+            /**
+             * a handler for mousemove and touchmove events, which scrolls the window, if
+             * necessary
+             * 
+             * @param e mousemove/touchmove event             
+             */
+            autoScroll(e: Event): void;
+            /**
+             * a handler for mousemove and touchmove events, which scrolls the first available
+             * Dom element, it falls back to exports.autoScroll()
+             * 
+             * @param e mousemove/touchmove event             
+             */
+            autoScrollNodes(e: Event): void;
+            /**
+             * Called at the start of a drag.
+             * 
+             * @param d The document of the node being dragged.             
+             */
+            autoScrollStart(d: HTMLDocument): void;
+            /**
+             * Returns the dimensions and scroll position of the viewable area of a browser window
+             * 
+             * @param doc               Optional            
+             */
+            getViewport(doc: HTMLDocument): Object;
+        }
+        module autoscroll {
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/autoscroll._validOverflow.html
+             *
+             * 
+             */
+            interface _validOverflow {
+                /**
+                 * 
+                 */
+                auto: number;
+                /**
+                 * 
+                 */
+                scroll: number;
+            }
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/autoscroll._validNodes.html
+             *
+             * 
+             */
+            interface _validNodes {
+                /**
+                 * 
+                 */
+                div: number;
+                /**
+                 * 
+                 */
+                p: number;
+                /**
+                 * 
+                 */
+                td: number;
+            }
+        }
+
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/common.html
          *
@@ -15392,94 +15519,6 @@ declare module dojo {
         }
 
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/autoscroll.html
-         *
-         * Used by dojo/dnd/Manager to scroll document or internal node when the user
-         * drags near the edge of the viewport or a scrollable node
-         * 
-         */
-        interface autoscroll {
-            /**
-             * 
-             */
-            H_AUTOSCROLL_VALUE: number;
-            /**
-             * 
-             */
-            H_TRIGGER_AUTOSCROLL: number;
-            /**
-             * 
-             */
-            V_AUTOSCROLL_VALUE: number;
-            /**
-             * 
-             */
-            V_TRIGGER_AUTOSCROLL: number;
-            /**
-             * a handler for mousemove and touchmove events, which scrolls the window, if
-             * necessary
-             * 
-             * @param e mousemove/touchmove event             
-             */
-            autoScroll(e: Event): void;
-            /**
-             * a handler for mousemove and touchmove events, which scrolls the first available
-             * Dom element, it falls back to exports.autoScroll()
-             * 
-             * @param e mousemove/touchmove event             
-             */
-            autoScrollNodes(e: Event): void;
-            /**
-             * Called at the start of a drag.
-             * 
-             * @param d The document of the node being dragged.             
-             */
-            autoScrollStart(d: HTMLDocument): void;
-            /**
-             * Returns the dimensions and scroll position of the viewable area of a browser window
-             * 
-             * @param doc               Optional            
-             */
-            getViewport(doc: HTMLDocument): Object;
-        }
-        module autoscroll {
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/autoscroll._validNodes.html
-             *
-             * 
-             */
-            interface _validNodes {
-                /**
-                 * 
-                 */
-                div: number;
-                /**
-                 * 
-                 */
-                p: number;
-                /**
-                 * 
-                 */
-                td: number;
-            }
-            /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/autoscroll._validOverflow.html
-             *
-             * 
-             */
-            interface _validOverflow {
-                /**
-                 * 
-                 */
-                auto: number;
-                /**
-                 * 
-                 */
-                scroll: number;
-            }
-        }
-
-        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/move.html
          *
          * TODOC
@@ -15501,14 +15540,19 @@ declare module dojo {
         }
         module move {
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/move.constrainedMoveable.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/move.parentConstrainedMoveable.html
              *
              * 
              * @param node a node (or node's id) to be moved     
-             * @param params       Optionalan optional object with additional parameters;the rest is passed to the base class     
+             * @param params       Optionalan optional object with parameters     
              */
-            class constrainedMoveable extends dojo.dnd.Moveable {
+            class parentConstrainedMoveable extends dojo.dnd.Moveable {
                 constructor(node: HTMLElement, params?: Object);
+                /**
+                 * object attributes (for markup)
+                 * 
+                 */
+                "area": string;
                 /**
                  * 
                  */
@@ -15758,19 +15802,14 @@ declare module dojo {
                 onSelectStart(e: Event): void;
             }
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/move.parentConstrainedMoveable.html
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/move.constrainedMoveable.html
              *
              * 
              * @param node a node (or node's id) to be moved     
-             * @param params       Optionalan optional object with parameters     
+             * @param params       Optionalan optional object with additional parameters;the rest is passed to the base class     
              */
-            class parentConstrainedMoveable extends dojo.dnd.Moveable {
+            class constrainedMoveable extends dojo.dnd.Moveable {
                 constructor(node: HTMLElement, params?: Object);
-                /**
-                 * object attributes (for markup)
-                 * 
-                 */
-                "area": string;
                 /**
                  * 
                  */
@@ -15911,19 +15950,19 @@ declare module dojo {
          */
         interface CancelError{(): void}
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestTimeoutError.html
-         *
-         * TODOC
-         * 
-         */
-        interface RequestTimeoutError{(): void}
-        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestError.html
          *
          * TODOC
          * 
          */
         interface RequestError{(): void}
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestTimeoutError.html
+         *
+         * TODOC
+         * 
+         */
+        interface RequestTimeoutError{(): void}
     }
 
     module io {
@@ -16000,32 +16039,6 @@ declare module dojo {
 
     module promise {
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
-         *
-         * Takes multiple promises and returns a new promise that is fulfilled
-         * when the first of these promises is fulfilled.
-         * Takes multiple promises and returns a new promise that is fulfilled
-         * when the first of these promises is fulfilled. Canceling the returned
-         * promise will not cancel any passed promises. The promise will be
-         * fulfilled with the value of the first fulfilled promise.
-         * 
-         * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.     
-         */
-        interface first{(objectOrArray?: Object): void}
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
-         *
-         * Takes multiple promises and returns a new promise that is fulfilled
-         * when the first of these promises is fulfilled.
-         * Takes multiple promises and returns a new promise that is fulfilled
-         * when the first of these promises is fulfilled. Canceling the returned
-         * promise will not cancel any passed promises. The promise will be
-         * fulfilled with the value of the first fulfilled promise.
-         * 
-         * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.     
-         */
-        interface first{(objectOrArray?: any[]): void}
-        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/all.html
          *
          * Takes multiple promises and returns a new promise that is fulfilled
@@ -16051,6 +16064,32 @@ declare module dojo {
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.     
          */
         interface all{(objectOrArray?: any[]): void}
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
+         *
+         * Takes multiple promises and returns a new promise that is fulfilled
+         * when the first of these promises is fulfilled.
+         * Takes multiple promises and returns a new promise that is fulfilled
+         * when the first of these promises is fulfilled. Canceling the returned
+         * promise will not cancel any passed promises. The promise will be
+         * fulfilled with the value of the first fulfilled promise.
+         * 
+         * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.     
+         */
+        interface first{(objectOrArray?: Object): void}
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
+         *
+         * Takes multiple promises and returns a new promise that is fulfilled
+         * when the first of these promises is fulfilled.
+         * Takes multiple promises and returns a new promise that is fulfilled
+         * when the first of these promises is fulfilled. Canceling the returned
+         * promise will not cancel any passed promises. The promise will be
+         * fulfilled with the value of the first fulfilled promise.
+         * 
+         * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.     
+         */
+        interface first{(objectOrArray?: any[]): void}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/instrumentation.html
          *
@@ -16131,7 +16170,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
+            then(callback: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
             /**
              * 
              */
@@ -16180,14 +16219,17 @@ declare module dojo {
 
     module rpc {
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/rpc/RpcService.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/rpc/JsonpService.html
          *
-         * TODOC
+         * Generic JSONP service.  Minimally extends RpcService to allow
+         * easy definition of nearly any JSONP style service. Example
+         * SMD files exist in dojox.data
          * 
-         * @param args Takes a number of properties as kwArgs for defining the service.  It alsoaccepts a string.  When passed a string, it is treated as a url fromwhich it should synchronously retrieve an smd file.  Otherwise it is a kwArgsobject.  It accepts serviceUrl, to manually define a url for the rpc serviceallowing the rpc system to be used without an smd definition. strictArgChecksforces the system to verify that the # of arguments provided in a callmatches those defined in the smd.  smdString allows a developer to passa jsonString directly, which will be converted into an object or alternativelysmdObject is accepts an smdObject directly.     
+         * @param args     
+         * @param requiredArgs     
          */
-        class RpcService {
-            constructor(args: Object);
+        class JsonpService extends dojo.rpc.RpcService {
+            constructor(args: any, requiredArgs: any);
             /**
              * 
              */
@@ -16196,6 +16238,23 @@ declare module dojo {
              * 
              */
             "strictArgChecks": boolean;
+            /**
+             * JSONP bind method. Takes remote method, parameters,
+             * deferred, and a url, calls createRequest to make a JSON-RPC
+             * envelope and passes that off with bind.
+             * 
+             * @param method The name of the method we are calling             
+             * @param parameters The parameters we are passing off to the method             
+             * @param deferredRequestHandler The Deferred object for this particular request             
+             * @param url             
+             */
+            bind(method: String, parameters: dojo._base.array, deferredRequestHandler: dojo.Deferred, url: any): void;
+            /**
+             * create a JSONP req
+             * 
+             * @param parameters             
+             */
+            createRequest(parameters: any): Object;
             /**
              * create callback that calls the Deferred errback method
              * 
@@ -16323,17 +16382,14 @@ declare module dojo {
             resultCallback(deferredRequestHandler: dojo._base.Deferred): any;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/rpc/JsonpService.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/rpc/RpcService.html
          *
-         * Generic JSONP service.  Minimally extends RpcService to allow
-         * easy definition of nearly any JSONP style service. Example
-         * SMD files exist in dojox.data
+         * TODOC
          * 
-         * @param args     
-         * @param requiredArgs     
+         * @param args Takes a number of properties as kwArgs for defining the service.  It alsoaccepts a string.  When passed a string, it is treated as a url fromwhich it should synchronously retrieve an smd file.  Otherwise it is a kwArgsobject.  It accepts serviceUrl, to manually define a url for the rpc serviceallowing the rpc system to be used without an smd definition. strictArgChecksforces the system to verify that the # of arguments provided in a callmatches those defined in the smd.  smdString allows a developer to passa jsonString directly, which will be converted into an object or alternativelysmdObject is accepts an smdObject directly.     
          */
-        class JsonpService extends dojo.rpc.RpcService {
-            constructor(args: any, requiredArgs: any);
+        class RpcService {
+            constructor(args: Object);
             /**
              * 
              */
@@ -16342,23 +16398,6 @@ declare module dojo {
              * 
              */
             "strictArgChecks": boolean;
-            /**
-             * JSONP bind method. Takes remote method, parameters,
-             * deferred, and a url, calls createRequest to make a JSON-RPC
-             * envelope and passes that off with bind.
-             * 
-             * @param method The name of the method we are calling             
-             * @param parameters The parameters we are passing off to the method             
-             * @param deferredRequestHandler The Deferred object for this particular request             
-             * @param url             
-             */
-            bind(method: String, parameters: dojo._base.array, deferredRequestHandler: dojo.Deferred, url: any): void;
-            /**
-             * create a JSONP req
-             * 
-             * @param parameters             
-             */
-            createRequest(parameters: any): Object;
             /**
              * create callback that calls the Deferred errback method
              * 
@@ -16398,6 +16437,26 @@ declare module dojo {
     }
 
     module selector {
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/lite.html
+         *
+         * A small lightweight query selector engine that implements CSS2.1 selectors
+         * minus pseudo-classes and the sibling combinator, plus CSS3 attribute selectors
+         * 
+         * @param selector     
+         * @param root     
+         */
+        interface lite{(selector: any, root: any): void}
+        interface lite {
+            /**
+             * 
+             */
+            match: Object;
+        }
+
+        module lite {
+        }
+
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/acme.html
          *
@@ -16562,7 +16621,7 @@ declare module dojo {
          * @param root       OptionalA DOMNode (or node id) to scope the search from. Optional.     
          */
         interface acme{(query: String, root?: HTMLElement): void}
-        module acme {
+        interface acme {
             /**
              * function for filtering a NodeList based on a selector, optimized for simple selectors
              * 
@@ -16570,7 +16629,7 @@ declare module dojo {
              * @param filter             
              * @param root               Optional            
              */
-            interface filter{(nodeList: HTMLElement[], filter: String, root: String): void}
+            filter(nodeList: HTMLElement[], filter: String, root: String): void;
             /**
              * function for filtering a NodeList based on a selector, optimized for simple selectors
              * 
@@ -16578,24 +16637,10 @@ declare module dojo {
              * @param filter             
              * @param root               Optional            
              */
-            interface filter{(nodeList: HTMLElement[], filter: String, root: HTMLElement): void}
+            filter(nodeList: HTMLElement[], filter: String, root: HTMLElement): void;
         }
 
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/lite.html
-         *
-         * A small lightweight query selector engine that implements CSS2.1 selectors
-         * minus pseudo-classes and the sibling combinator, plus CSS3 attribute selectors
-         * 
-         * @param selector     
-         * @param root     
-         */
-        interface lite{(selector: any, root: any): void}
-        module lite {
-            /**
-             * 
-             */
-            var match: Object
+        module acme {
         }
 
         /**
@@ -16628,102 +16673,6 @@ declare module dojo {
          * @param store     
          */
         interface Observable{(store: dojo.store.api.Store): void}
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/DataStore.html
-         *
-         * This is an adapter for using Dojo Data stores with an object store consumer.
-         * You can provide a Dojo data store and use this adapter to interact with it through
-         * the Dojo object store API
-         * 
-         * @param options       OptionalThis provides any configuration information that will be mixed into the store,including a reference to the Dojo data store under the property "store".     
-         */
-        class DataStore extends dojo.store.api.Store {
-            constructor(options?: Object);
-            /**
-             * The object property to use to store the identity of the store items.
-             * 
-             */
-            "idProperty": string;
-            /**
-             * The object store to convert to a data store
-             * 
-             */
-            "store": Object;
-            /**
-             * 
-             */
-            "target": string;
-            /**
-             * Creates an object, throws an error if the object already exists
-             * 
-             * @param object The object to store.             
-             * @param directives               OptionalAdditional directives for creating objects.             
-             */
-            add(object: Object, directives: dojo.store.api.Store.PutDirectives): any;
-            /**
-             * Retrieves an object by it's identity. This will trigger a fetchItemByIdentity
-             * 
-             * @param id               OptionalThe identity to use to lookup the object             
-             * @param options             
-             */
-            get(id: number, options?: any): any;
-            /**
-             * Retrieves the children of an object.
-             * 
-             * @param parent The object to find the children of.             
-             * @param options               OptionalAdditional options to apply to the retrieval of the children.             
-             */
-            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
-            /**
-             * Fetch the identity for the given object.
-             * 
-             * @param object The data object to get the identity from.             
-             */
-            getIdentity(object: Object): any;
-            /**
-             * Returns any metadata about the object. This may include attribution,
-             * cache directives, history, or version information.
-             * 
-             * @param object The object to return metadata for.             
-             */
-            getMetadata(object: Object): Object;
-
-            /**
-             * Stores an object by its identity.
-             * 
-             * @param object The object to store.             
-             * @param options               OptionalAdditional metadata for storing the data.  Includes a reference to an idthat the object may be stored with (i.e. { id: "foo" }).             
-             */
-            put(object: Object, options: Object): void;
-            /**
-             * Queries the store for objects.
-             * 
-             * @param query The query to use for retrieving objects from the store             
-             * @param options               OptionalOptional options object as used by the underlying dojo.data Store.             
-             */
-            query(query: Object, options: Object): any;
-            /**
-             * Defines the query engine to use for querying the data store
-             * 
-             * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).             
-             * @param options               OptionalAn object that contains optional information such as sort, start, and count.             
-             */
-            queryEngine(query: Object, options: dojo.store.api.Store.QueryOptions): any;
-            /**
-             * Deletes an object by its identity.
-             * 
-             * @param id The identity to use to delete the object             
-             */
-            remove(id: Object): void;
-            /**
-             * Starts a new transaction.
-             * Note that a store user might not call transaction() prior to using put,
-             * delete, etc. in which case these operations effectively could be thought of
-             * as "auto-commit" style actions.
-             * 
-             */
-            transaction(): dojo.store.api.Store.Transaction;
-        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/Cache.html
          *
@@ -16768,7 +16717,7 @@ declare module dojo {
              * @param object The object to add to the store.             
              * @param directives               OptionalAny additional parameters needed to describe how the add should be performed.             
              */
-            add(object: Object, directives: Object): number;
+            add(object: Object, directives: any): number;
             /**
              * Remove the object with the given id from the underlying caching store.
              * 
@@ -16829,6 +16778,201 @@ declare module dojo {
              * @param id The identifier for the object in question.             
              */
             remove(id: number): void;
+            /**
+             * Starts a new transaction.
+             * Note that a store user might not call transaction() prior to using put,
+             * delete, etc. in which case these operations effectively could be thought of
+             * as "auto-commit" style actions.
+             * 
+             */
+            transaction(): dojo.store.api.Store.Transaction;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/DataStore.html
+         *
+         * This is an adapter for using Dojo Data stores with an object store consumer.
+         * You can provide a Dojo data store and use this adapter to interact with it through
+         * the Dojo object store API
+         * 
+         * @param options       OptionalThis provides any configuration information that will be mixed into the store,including a reference to the Dojo data store under the property "store".     
+         */
+        class DataStore extends dojo.store.api.Store {
+            constructor(options?: Object);
+            /**
+             * The object property to use to store the identity of the store items.
+             * 
+             */
+            "idProperty": string;
+            /**
+             * The object store to convert to a data store
+             * 
+             */
+            "store": Object;
+            /**
+             * 
+             */
+            "target": string;
+            /**
+             * Creates an object, throws an error if the object already exists
+             * 
+             * @param object The object to store.             
+             * @param directives               OptionalAdditional directives for creating objects.             
+             */
+            add(object: Object, directives: dojo.store.api.Store.PutDirectives): any;
+            /**
+             * Retrieves an object by it's identity. This will trigger a fetchItemByIdentity
+             * 
+             * @param id               OptionalThe identity to use to lookup the object             
+             * @param options             
+             */
+            get(id: Object, options?: any): any;
+            /**
+             * Retrieves the children of an object.
+             * 
+             * @param parent The object to find the children of.             
+             * @param options               OptionalAdditional options to apply to the retrieval of the children.             
+             */
+            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            /**
+             * Fetch the identity for the given object.
+             * 
+             * @param object The data object to get the identity from.             
+             */
+            getIdentity(object: Object): any;
+            /**
+             * Returns any metadata about the object. This may include attribution,
+             * cache directives, history, or version information.
+             * 
+             * @param object The object to return metadata for.             
+             */
+            getMetadata(object: Object): Object;
+            /**
+             * Stores an object by its identity.
+             * 
+             * @param object The object to store.             
+             * @param options               OptionalAdditional metadata for storing the data.  Includes a reference to an idthat the object may be stored with (i.e. { id: "foo" }).             
+             */
+            put(object: Object, options: Object): void;
+            /**
+             * Queries the store for objects.
+             * 
+             * @param query The query to use for retrieving objects from the store             
+             * @param options               OptionalOptional options object as used by the underlying dojo.data Store.             
+             */
+            query(query: Object, options: Object): any;
+            /**
+             * Defines the query engine to use for querying the data store
+             * 
+             * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).             
+             * @param options               OptionalAn object that contains optional information such as sort, start, and count.             
+             */
+            queryEngine(query: Object, options: dojo.store.api.Store.QueryOptions): any;
+            /**
+             * Deletes an object by its identity.
+             * 
+             * @param id The identity to use to delete the object             
+             */
+            remove(id: Object): void;
+            /**
+             * Starts a new transaction.
+             * Note that a store user might not call transaction() prior to using put,
+             * delete, etc. in which case these operations effectively could be thought of
+             * as "auto-commit" style actions.
+             * 
+             */
+            transaction(): dojo.store.api.Store.Transaction;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/Memory.html
+         *
+         * This is a basic in-memory object store. It implements dojo/store/api/Store.
+         * 
+         * @param options This provides any configuration information that will be mixed into the store.This should generally include the data property to provide the starting set of data.     
+         */
+        class Memory extends dojo.store.api.Store {
+            constructor(options: dojo.store.Memory);
+            /**
+             * The array of all the objects in the memory store
+             * 
+             */
+            "data": any[];
+            /**
+             * Indicates the property to use as the identity property. The values of this
+             * property should be unique.
+             * 
+             */
+            "idProperty": string;
+            /**
+             * An index of data indices into the data array by id
+             * 
+             */
+            "index": Object;
+            /**
+             * Creates an object, throws an error if the object already exists
+             * 
+             * @param object The object to store.             
+             * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
+             */
+            add(object: Object, options: dojo.store.api.Store.PutDirectives): any;
+            /**
+             * Retrieves an object by its identity
+             * 
+             * @param id The identity to use to lookup the object             
+             */
+            get(id: number): any;
+            /**
+             * Retrieves the children of an object.
+             * 
+             * @param parent The object to find the children of.             
+             * @param options               OptionalAdditional options to apply to the retrieval of the children.             
+             */
+            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+            /**
+             * Returns an object's identity
+             * 
+             * @param object The object to get the identity from             
+             */
+            getIdentity(object: Object): any;
+            /**
+             * Returns any metadata about the object. This may include attribution,
+             * cache directives, history, or version information.
+             * 
+             * @param object The object to return metadata for.             
+             */
+            getMetadata(object: Object): Object;
+            /**
+             * Stores an object
+             * 
+             * @param object The object to store.             
+             * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
+             */
+            put(object: Object, options: dojo.store.api.Store.PutDirectives): any;
+            /**
+             * Queries the store for objects.
+             * 
+             * @param query The query to use for retrieving objects from the store.             
+             * @param options               OptionalThe optional arguments to apply to the resultset.             
+             */
+            query(query: Object, options: dojo.store.api.Store.QueryOptions): any;
+            /**
+             * Defines the query engine to use for querying the data store
+             * 
+             * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).             
+             * @param options               OptionalAn object that contains optional information such as sort, start, and count.             
+             */
+            queryEngine(query: Object, options: dojo.store.api.Store.QueryOptions): any;
+            /**
+             * Deletes an object by its identity
+             * 
+             * @param id The identity to use to delete the object             
+             */
+            remove(id: number): any;
+            /**
+             * Sets the given data as the source for this store, and indexes it
+             * 
+             * @param data An array of objects to use as the source of data.             
+             */
+            setData(data: Object[]): void;
             /**
              * Starts a new transaction.
              * Note that a store user might not call transaction() prior to using put,
@@ -16959,106 +17103,6 @@ declare module dojo {
              * @param options               OptionalHTTP headers.             
              */
             remove(id: number, options?: Object): any;
-            /**
-             * Starts a new transaction.
-             * Note that a store user might not call transaction() prior to using put,
-             * delete, etc. in which case these operations effectively could be thought of
-             * as "auto-commit" style actions.
-             * 
-             */
-            transaction(): dojo.store.api.Store.Transaction;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/Memory.html
-         *
-         * This is a basic in-memory object store. It implements dojo/store/api/Store.
-         * 
-         * @param options This provides any configuration information that will be mixed into the store.This should generally include the data property to provide the starting set of data.     
-         */
-        class Memory extends dojo.store.api.Store {
-            constructor(options: dojo.store.Memory);
-            /**
-             * The array of all the objects in the memory store
-             * 
-             */
-            "data": any[];
-            /**
-             * Indicates the property to use as the identity property. The values of this
-             * property should be unique.
-             * 
-             */
-            "idProperty": string;
-            /**
-             * An index of data indices into the data array by id
-             * 
-             */
-            "index": Object;
-            /**
-             * Creates an object, throws an error if the object already exists
-             * 
-             * @param object The object to store.             
-             * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
-             */
-            add(object: Object, options: dojo.store.api.Store.PutDirectives): any;
-            /**
-             * Retrieves an object by its identity
-             * 
-             * @param id The identity to use to lookup the object             
-             */
-            get(id: number): any;
-            /**
-             * Retrieves the children of an object.
-             * 
-             * @param parent The object to find the children of.             
-             * @param options               OptionalAdditional options to apply to the retrieval of the children.             
-             */
-            getChildren(parent: Object, options: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
-            /**
-             * Returns an object's identity
-             * 
-             * @param object The object to get the identity from             
-             */
-            getIdentity(object: Object): any;
-            /**
-             * Returns any metadata about the object. This may include attribution,
-             * cache directives, history, or version information.
-             * 
-             * @param object The object to return metadata for.             
-             */
-            getMetadata(object: Object): Object;
-            /**
-             * Stores an object
-             * 
-             * @param object The object to store.             
-             * @param options               OptionalAdditional metadata for storing the data.  Includes an "id"property if a specific id is to be used.             
-             */
-            put(object: Object, options: dojo.store.api.Store.PutDirectives): any;
-            /**
-             * Queries the store for objects.
-             * 
-             * @param query The query to use for retrieving objects from the store.             
-             * @param options               OptionalThe optional arguments to apply to the resultset.             
-             */
-            query(query: Object, options: dojo.store.api.Store.QueryOptions): any;
-            /**
-             * Defines the query engine to use for querying the data store
-             * 
-             * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).             
-             * @param options               OptionalAn object that contains optional information such as sort, start, and count.             
-             */
-            queryEngine(query: Object, options: dojo.store.api.Store.QueryOptions): any;
-            /**
-             * Deletes an object by its identity
-             * 
-             * @param id The identity to use to delete the object             
-             */
-            remove(id: number): any;
-            /**
-             * Sets the given data as the source for this store, and indexes it
-             * 
-             * @param data An array of objects to use as the source of data.             
-             */
-            setData(data: Object[]): void;
             /**
              * Starts a new transaction.
              * Note that a store user might not call transaction() prior to using put,
@@ -17249,6 +17293,36 @@ declare module dojo {
                     "parent": Object;
                 }
                 /**
+                 * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.QueryOptions.html
+                 *
+                 * Optional object with additional parameters for query results.
+                 * 
+                 */
+                class QueryOptions {
+                    constructor();
+                    /**
+                     * The number of how many results should be returned.
+                     * 
+                     */
+                    "count": number;
+                    /**
+                     * A list of attributes to sort on, as well as direction
+                     * For example:
+                     * 
+                     * [{attribute:"price, descending: true}].
+                     * If the sort parameter is omitted, then the natural order of the store may be
+                     * 
+                     * applied if there is a natural order.
+                     * 
+                     */
+                    "sort": Object;
+                    /**
+                     * The first result to begin iteration on
+                     * 
+                     */
+                    "start": number;
+                }
+                /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.QueryResults.html
                  *
                  * This is an object returned from query() calls that provides access to the results
@@ -17313,36 +17387,6 @@ declare module dojo {
                     then(callback: any, errorHandler: any): void;
                 }
                 /**
-                 * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.QueryOptions.html
-                 *
-                 * Optional object with additional parameters for query results.
-                 * 
-                 */
-                class QueryOptions {
-                    constructor();
-                    /**
-                     * The number of how many results should be returned.
-                     * 
-                     */
-                    "count": number;
-                    /**
-                     * A list of attributes to sort on, as well as direction
-                     * For example:
-                     * 
-                     * [{attribute:"price, descending: true}].
-                     * If the sort parameter is omitted, then the natural order of the store may be
-                     * 
-                     * applied if there is a natural order.
-                     * 
-                     */
-                    "sort": Object;
-                    /**
-                     * The first result to begin iteration on
-                     * 
-                     */
-                    "start": number;
-                }
-                /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.SortInformation.html
                  *
                  * An object describing what attribute to sort on, and the direction of the sort.
@@ -17393,27 +17437,6 @@ declare module dojo {
 
         module util {
             /**
-             * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/SimpleQueryEngine.html
-             *
-             * Simple query engine that matches using filter functions, named filter
-             * functions or objects by name-value on a query object hash
-             * The SimpleQueryEngine provides a way of getting a QueryResults through
-             * the use of a simple object hash as a filter.  The hash will be used to
-             * match properties on data objects with the corresponding value given. In
-             * other words, only exact matches will be returned.
-             * 
-             * This function can be used as a template for more complex query engines;
-             * for example, an engine can be created that accepts an object hash that
-             * contains filtering functions, or a string that gets evaluated, etc.
-             * 
-             * When creating a new dojo.store, simply set the store's queryEngine
-             * field as a reference to this function.
-             * 
-             * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).     
-             * @param options       OptionalAn object that contains optional information such as sort, start, and count.     
-             */
-            interface SimpleQueryEngine{(query: Object, options?: dojo.store.api.Store.QueryOptions): void}
-            /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/QueryResults.html
              *
              * A function that wraps the results of a store query with additional
@@ -17445,6 +17468,27 @@ declare module dojo {
              * @param results The result set as an array, or a promise for an array.     
              */
             interface QueryResults{(results: dojo.promise.Promise): void}
+            /**
+             * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/SimpleQueryEngine.html
+             *
+             * Simple query engine that matches using filter functions, named filter
+             * functions or objects by name-value on a query object hash
+             * The SimpleQueryEngine provides a way of getting a QueryResults through
+             * the use of a simple object hash as a filter.  The hash will be used to
+             * match properties on data objects with the corresponding value given. In
+             * other words, only exact matches will be returned.
+             * 
+             * This function can be used as a template for more complex query engines;
+             * for example, an engine can be created that accepts an object hash that
+             * contains filtering functions, or a string that gets evaluated, etc.
+             * 
+             * When creating a new dojo.store, simply set the store's queryEngine
+             * field as a reference to this function.
+             * 
+             * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).     
+             * @param options       OptionalAn object that contains optional information such as sort, start, and count.     
+             */
+            interface SimpleQueryEngine{(query: Object, options?: dojo.store.api.Store.QueryOptions): void}
         }
 
     }
@@ -18038,7 +18082,7 @@ declare module dojo {
      * module for specifics.
      * 
      */
-    interface router {
+    interface router extends dojo.router.RouterBase {
     }
     module router {
         /**
@@ -18080,7 +18124,7 @@ declare module dojo {
              * @param path             
              * @param replace             
              */
-            go(path: any, replace: any): any;
+            go(path: string, replace?: boolean): any;
             /**
              * Registers a route to a handling callback
              * Given either a string or a regular expression, the router
@@ -18172,6 +18216,59 @@ declare module dojo {
         }
     }
 
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/aspect.html
+     *
+     * provides aspect oriented programming functionality, allowing for
+     * one to add before, around, or after advice on existing methods.
+     * 
+     */
+    interface aspect {
+        /**
+         * The "after" export of the aspect module is a function that can be used to attach
+         * "after" advice to a method. This function will be executed after the original method
+         * is executed. By default the function will be called with a single argument, the return
+         * value of the original method, or the the return value of the last executed advice (if a previous one exists).
+         * The fourth (optional) argument can be set to true to so the function receives the original
+         * arguments (from when the original method was called) rather than the return value.
+         * If there are multiple "after" advisors, they are executed in the order they were registered.
+         * 
+         * @param target This is the target object             
+         * @param methodName This is the name of the method to attach to.             
+         * @param advice This is function to be called after the original method             
+         * @param receiveArguments               OptionalIf this is set to true, the advice function receives the original arguments (from when the original mehtodwas called) rather than the return value of the original/previous method.             
+         */
+        after(target: Object, methodName: String, advice: Function, receiveArguments: boolean): any;
+        /**
+         * The "around" export of the aspect module is a function that can be used to attach
+         * "around" advice to a method. The advisor function is immediately executed when
+         * the around() is called, is passed a single argument that is a function that can be
+         * called to continue execution of the original method (or the next around advisor).
+         * The advisor function should return a function, and this function will be called whenever
+         * the method is called. It will be called with the arguments used to call the method.
+         * Whatever this function returns will be returned as the result of the method call (unless after advise changes it).
+         * 
+         * @param target This is the target object             
+         * @param methodName This is the name of the method to attach to.             
+         * @param advice This is function to be called around the original method             
+         */
+        around(target: Object, methodName: String, advice: Function): void;
+        /**
+         * The "before" export of the aspect module is a function that can be used to attach
+         * "before" advice to a method. This function will be executed before the original method
+         * is executed. This function will be called with the arguments used to call the method.
+         * This function may optionally return an array as the new arguments to use to call
+         * the original method (or the previous, next-to-execute before advice, if one exists).
+         * If the before method doesn't return anything (returns undefined) the original arguments
+         * will be preserved.
+         * If there are multiple "before" advisors, they are executed in the reverse order they were registered.
+         * 
+         * @param target This is the target object             
+         * @param methodName This is the name of the method to attach to.             
+         * @param advice This is function to be called before the original method             
+         */
+        before(target: Object, methodName: String, advice: Function): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/back.html
      *
@@ -18278,67 +18375,14 @@ declare module dojo {
          *       </div>
          *     </div>
          *   </div>
-         * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/back" class="feedback">Error in the documentation? Canâ€™t find what you are looking for? Let us know!</a>
+         * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/back" class="feedback">Error in the documentation? Can�t find what you are looking for? Let us know!</a>
          */
         init(): void;
     }
     /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/aspect.html
-     *
-     * provides aspect oriented programming functionality, allowing for
-     * one to add before, around, or after advice on existing methods.
-     * 
-     */
-    interface aspect {
-        /**
-         * The "after" export of the aspect module is a function that can be used to attach
-         * "after" advice to a method. This function will be executed after the original method
-         * is executed. By default the function will be called with a single argument, the return
-         * value of the original method, or the the return value of the last executed advice (if a previous one exists).
-         * The fourth (optional) argument can be set to true to so the function receives the original
-         * arguments (from when the original method was called) rather than the return value.
-         * If there are multiple "after" advisors, they are executed in the order they were registered.
-         * 
-         * @param target This is the target object             
-         * @param methodName This is the name of the method to attach to.             
-         * @param advice This is function to be called after the original method             
-         * @param receiveArguments               OptionalIf this is set to true, the advice function receives the original arguments (from when the original mehtodwas called) rather than the return value of the original/previous method.             
-         */
-        after(target: Object, methodName: String, advice: Function, receiveArguments: boolean): any;
-        /**
-         * The "around" export of the aspect module is a function that can be used to attach
-         * "around" advice to a method. The advisor function is immediately executed when
-         * the around() is called, is passed a single argument that is a function that can be
-         * called to continue execution of the original method (or the next around advisor).
-         * The advisor function should return a function, and this function will be called whenever
-         * the method is called. It will be called with the arguments used to call the method.
-         * Whatever this function returns will be returned as the result of the method call (unless after advise changes it).
-         * 
-         * @param target This is the target object             
-         * @param methodName This is the name of the method to attach to.             
-         * @param advice This is function to be called around the original method             
-         */
-        around(target: Object, methodName: String, advice: Function): void;
-        /**
-         * The "before" export of the aspect module is a function that can be used to attach
-         * "before" advice to a method. This function will be executed before the original method
-         * is executed. This function will be called with the arguments used to call the method.
-         * This function may optionally return an array as the new arguments to use to call
-         * the original method (or the previous, next-to-execute before advice, if one exists).
-         * If the before method doesn't return anything (returns undefined) the original arguments
-         * will be preserved.
-         * If there are multiple "before" advisors, they are executed in the reverse order they were registered.
-         * 
-         * @param target This is the target object             
-         * @param methodName This is the name of the method to attach to.             
-         * @param advice This is function to be called before the original method             
-         */
-        before(target: Object, methodName: String, advice: Function): void;
-    }
-    /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/colors.html
      *
-     * Color utilities, extending Base dojo._base.Color
+     * Color utilities, extending Base dojo.Color
      * 
      */
     interface colors {
@@ -18509,7 +18553,7 @@ declare module dojo {
          * @param id A string to match an HTML id attribute or a reference to a DOM Node             
          * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
          */
-        byId(id: String, doc: HTMLDocument): any;
+        byId(id: String, doc?: HTMLDocument): any;
         /**
          * Returns DOM node with matching id attribute or falsy value (ex: null or undefined)
          * if not found.  If id is a DomNode, this function is a no-op.
@@ -18517,7 +18561,7 @@ declare module dojo {
          * @param id A string to match an HTML id attribute or a reference to a DOM Node             
          * @param doc               OptionalDocument to work in. Defaults to the current value ofdojo/_base/window.doc.  Can be used to retrievenode references from other documents.             
          */
-        byId(id: HTMLElement, doc: HTMLDocument): any;
+        byId(id: HTMLElement, doc?: HTMLDocument): any;
         /**
          * Returns true if node is a descendant of ancestor
          * 
@@ -18552,276 +18596,6 @@ declare module dojo {
          * @param selectable             
          */
         setSelectable(node: any, selectable: any): void;
-    }
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-construct.html
-     *
-     * 
-     */
-    interface dom_construct {
-        /**
-         * Create an element, allowing for optional attribute decoration
-         * and placement.
-         * A DOM Element creation function. A shorthand method for creating a node or
-         * a fragment, and allowing for a convenient optional attribute setting step,
-         * as well as an optional DOM placement reference.
-         * 
-         * Attributes are set by passing the optional object through dojo.setAttr.
-         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
-         * 
-         * Placement is done via dojo.place, assuming the new node to be the action
-         * node, passing along the optional reference node and position.
-         * 
-         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
-         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
-         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
-         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
-         */
-        create(tag: HTMLElement, attrs: Object, refNode: HTMLElement, pos: String): any;
-        /**
-         * Create an element, allowing for optional attribute decoration
-         * and placement.
-         * A DOM Element creation function. A shorthand method for creating a node or
-         * a fragment, and allowing for a convenient optional attribute setting step,
-         * as well as an optional DOM placement reference.
-         * 
-         * Attributes are set by passing the optional object through dojo.setAttr.
-         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
-         * 
-         * Placement is done via dojo.place, assuming the new node to be the action
-         * node, passing along the optional reference node and position.
-         * 
-         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
-         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
-         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
-         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
-         */
-        create(tag: String, attrs: Object, refNode: HTMLElement, pos: String): any;
-        /**
-         * Create an element, allowing for optional attribute decoration
-         * and placement.
-         * A DOM Element creation function. A shorthand method for creating a node or
-         * a fragment, and allowing for a convenient optional attribute setting step,
-         * as well as an optional DOM placement reference.
-         * 
-         * Attributes are set by passing the optional object through dojo.setAttr.
-         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
-         * 
-         * Placement is done via dojo.place, assuming the new node to be the action
-         * node, passing along the optional reference node and position.
-         * 
-         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
-         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
-         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
-         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
-         */
-        create(tag: HTMLElement, attrs: Object, refNode: String, pos: String): any;
-        /**
-         * Create an element, allowing for optional attribute decoration
-         * and placement.
-         * A DOM Element creation function. A shorthand method for creating a node or
-         * a fragment, and allowing for a convenient optional attribute setting step,
-         * as well as an optional DOM placement reference.
-         * 
-         * Attributes are set by passing the optional object through dojo.setAttr.
-         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
-         * 
-         * Placement is done via dojo.place, assuming the new node to be the action
-         * node, passing along the optional reference node and position.
-         * 
-         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
-         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
-         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
-         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
-         */
-        create(tag: String, attrs: Object, refNode: String, pos: String): any;
-        /**
-         * Removes a node from its parent, clobbering it and all of its
-         * children.
-         * Removes a node from its parent, clobbering it and all of its
-         * children. Function only works with DomNodes, and returns nothing.
-         * 
-         * @param node A String ID or DomNode reference of the element to be destroyed             
-         */
-        destroy(node: HTMLElement): void;
-        /**
-         * Removes a node from its parent, clobbering it and all of its
-         * children.
-         * Removes a node from its parent, clobbering it and all of its
-         * children. Function only works with DomNodes, and returns nothing.
-         * 
-         * @param node A String ID or DomNode reference of the element to be destroyed             
-         */
-        destroy(node: String): void;
-        /**
-         * safely removes all children of the node.
-         * 
-         * @param node a reference to a DOM node or an id.             
-         */
-        empty(node: HTMLElement): void;
-        /**
-         * safely removes all children of the node.
-         * 
-         * @param node a reference to a DOM node or an id.             
-         */
-        empty(node: String): void;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: HTMLElement, refNode: HTMLElement, position: String): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: String, refNode: HTMLElement, position: String): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: HTMLElement, refNode: String, position: String): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: String, refNode: String, position: String): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: HTMLElement, refNode: HTMLElement, position: number): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: String, refNode: HTMLElement, position: number): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: HTMLElement, refNode: String, position: number): HTMLElement;
-        /**
-         * Attempt to insert node into the DOM, choosing from various positioning options.
-         * Returns the first argument resolved to a DOM node.
-         * 
-         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
-         * @param refNode id or node reference to use as basis for placement             
-         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
-         */
-        place(node: String, refNode: String, position: number): HTMLElement;
-        /**
-         * instantiates an HTML fragment returning the corresponding DOM.
-         * 
-         * @param frag the HTML fragment             
-         * @param doc               Optionaloptional document to use when creating DOM nodes, defaults todojo/_base/window.doc if not specified.             
-         */
-        toDom(frag: String, doc: HTMLDocument): any;
-    }
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-form.html
-     *
-     * This module defines form-processing functions.
-     * 
-     */
-    interface dom_form {
-        /**
-         * Serialize a form field to a JavaScript object.
-         * Returns the value encoded in a form field as
-         * as a string or an array of strings. Disabled form elements
-         * and unchecked radio and checkboxes are skipped. Multi-select
-         * elements are returned as an array of string values.
-         * 
-         * @param inputNode             
-         */
-        fieldToObject(inputNode: HTMLElement): Object;
-        /**
-         * Serialize a form field to a JavaScript object.
-         * Returns the value encoded in a form field as
-         * as a string or an array of strings. Disabled form elements
-         * and unchecked radio and checkboxes are skipped. Multi-select
-         * elements are returned as an array of string values.
-         * 
-         * @param inputNode             
-         */
-        fieldToObject(inputNode: String): Object;
-        /**
-         * Create a serialized JSON string from a form node or string
-         * ID identifying the form to serialize
-         * 
-         * @param formNode             
-         * @param prettyPrint               Optional            
-         */
-        toJson(formNode: HTMLElement, prettyPrint: boolean): String;
-        /**
-         * Create a serialized JSON string from a form node or string
-         * ID identifying the form to serialize
-         * 
-         * @param formNode             
-         * @param prettyPrint               Optional            
-         */
-        toJson(formNode: String, prettyPrint: boolean): String;
-        /**
-         * Serialize a form node to a JavaScript object.
-         * Returns the values encoded in an HTML form as
-         * string properties in an object which it then returns. Disabled form
-         * elements, buttons, and other non-value form elements are skipped.
-         * Multi-select elements are returned as an array of string values.
-         * 
-         * @param formNode             
-         */
-        toObject(formNode: HTMLElement): Object;
-        /**
-         * Serialize a form node to a JavaScript object.
-         * Returns the values encoded in an HTML form as
-         * string properties in an object which it then returns. Disabled form
-         * elements, buttons, and other non-value form elements are skipped.
-         * Multi-select elements are returned as an array of string values.
-         * 
-         * @param formNode             
-         */
-        toObject(formNode: String): Object;
-        /**
-         * Returns a URL-encoded string representing the form passed as either a
-         * node or string ID identifying the form to serialize
-         * 
-         * @param formNode             
-         */
-        toQuery(formNode: HTMLElement): String;
-        /**
-         * Returns a URL-encoded string representing the form passed as either a
-         * node or string ID identifying the form to serialize
-         * 
-         * @param formNode             
-         */
-        toQuery(formNode: String): String;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-attr.html
@@ -18966,151 +18740,6 @@ declare module dojo {
          */
         set(node: String, name: Object, value: String): any;
     }
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-prop.html
-     *
-     * 
-     */
-    interface dom_prop {
-        /**
-         * 
-         */
-        names: Object;
-        /**
-         * Gets a property on an HTML element.
-         * Handles normalized getting of properties on DOM nodes.
-         * 
-         * @param node id or reference to the element to get the property on             
-         * @param name the name of the property to get.             
-         */
-        get(node: HTMLElement, name: String): any;
-        /**
-         * Gets a property on an HTML element.
-         * Handles normalized getting of properties on DOM nodes.
-         * 
-         * @param node id or reference to the element to get the property on             
-         * @param name the name of the property to get.             
-         */
-        get(node: String, name: String): any;
-        /**
-         * Sets a property on an HTML element.
-         * Handles normalized setting of properties on DOM nodes.
-         * 
-         * When passing functions as values, note that they will not be
-         * directly assigned to slots on the node, but rather the default
-         * behavior will be removed and the new behavior will be added
-         * using dojo.connect(), meaning that event handler properties
-         * will be normalized and that some caveats with regards to
-         * non-standard behaviors for onsubmit apply. Namely that you
-         * should cancel form submission using dojo.stopEvent() on the
-         * passed event object instead of returning a boolean value from
-         * the handler itself.
-         * 
-         * @param node id or reference to the element to set the property on             
-         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
-         * @param value               OptionalThe value to set for the property             
-         */
-        set(node: HTMLElement, name: String, value: String): any;
-        /**
-         * Sets a property on an HTML element.
-         * Handles normalized setting of properties on DOM nodes.
-         * 
-         * When passing functions as values, note that they will not be
-         * directly assigned to slots on the node, but rather the default
-         * behavior will be removed and the new behavior will be added
-         * using dojo.connect(), meaning that event handler properties
-         * will be normalized and that some caveats with regards to
-         * non-standard behaviors for onsubmit apply. Namely that you
-         * should cancel form submission using dojo.stopEvent() on the
-         * passed event object instead of returning a boolean value from
-         * the handler itself.
-         * 
-         * @param node id or reference to the element to set the property on             
-         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
-         * @param value               OptionalThe value to set for the property             
-         */
-        set(node: String, name: String, value: String): any;
-        /**
-         * Sets a property on an HTML element.
-         * Handles normalized setting of properties on DOM nodes.
-         * 
-         * When passing functions as values, note that they will not be
-         * directly assigned to slots on the node, but rather the default
-         * behavior will be removed and the new behavior will be added
-         * using dojo.connect(), meaning that event handler properties
-         * will be normalized and that some caveats with regards to
-         * non-standard behaviors for onsubmit apply. Namely that you
-         * should cancel form submission using dojo.stopEvent() on the
-         * passed event object instead of returning a boolean value from
-         * the handler itself.
-         * 
-         * @param node id or reference to the element to set the property on             
-         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
-         * @param value               OptionalThe value to set for the property             
-         */
-        set(node: HTMLElement, name: Object, value: String): any;
-        /**
-         * Sets a property on an HTML element.
-         * Handles normalized setting of properties on DOM nodes.
-         * 
-         * When passing functions as values, note that they will not be
-         * directly assigned to slots on the node, but rather the default
-         * behavior will be removed and the new behavior will be added
-         * using dojo.connect(), meaning that event handler properties
-         * will be normalized and that some caveats with regards to
-         * non-standard behaviors for onsubmit apply. Namely that you
-         * should cancel form submission using dojo.stopEvent() on the
-         * passed event object instead of returning a boolean value from
-         * the handler itself.
-         * 
-         * @param node id or reference to the element to set the property on             
-         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
-         * @param value               OptionalThe value to set for the property             
-         */
-        set(node: String, name: Object, value: String): any;
-    }
-    module dom_prop {
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-prop.names.html
-         *
-         * 
-         */
-        interface names {
-            /**
-             * 
-             */
-            class: string;
-            /**
-             * 
-             */
-            colspan: string;
-            /**
-             * 
-             */
-            for: string;
-            /**
-             * 
-             */
-            frameborder: string;
-            /**
-             * 
-             */
-            readonly: string;
-            /**
-             * 
-             */
-            rowspan: string;
-            /**
-             * 
-             */
-            tabindex: string;
-            /**
-             * 
-             */
-            valuetype: string;
-        }
-    }
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-class.html
      *
@@ -19311,6 +18940,421 @@ declare module dojo {
          */
         toggle(node: HTMLElement, classStr: any[], condition: boolean): boolean;
     }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-form.html
+     *
+     * This module defines form-processing functions.
+     * 
+     */
+    interface dom_form {
+        /**
+         * Serialize a form field to a JavaScript object.
+         * Returns the value encoded in a form field as
+         * as a string or an array of strings. Disabled form elements
+         * and unchecked radio and checkboxes are skipped. Multi-select
+         * elements are returned as an array of string values.
+         * 
+         * @param inputNode             
+         */
+        fieldToObject(inputNode: HTMLElement): Object;
+        /**
+         * Serialize a form field to a JavaScript object.
+         * Returns the value encoded in a form field as
+         * as a string or an array of strings. Disabled form elements
+         * and unchecked radio and checkboxes are skipped. Multi-select
+         * elements are returned as an array of string values.
+         * 
+         * @param inputNode             
+         */
+        fieldToObject(inputNode: String): Object;
+        /**
+         * Create a serialized JSON string from a form node or string
+         * ID identifying the form to serialize
+         * 
+         * @param formNode             
+         * @param prettyPrint               Optional            
+         */
+        toJson(formNode: HTMLElement, prettyPrint: boolean): String;
+        /**
+         * Create a serialized JSON string from a form node or string
+         * ID identifying the form to serialize
+         * 
+         * @param formNode             
+         * @param prettyPrint               Optional            
+         */
+        toJson(formNode: String, prettyPrint: boolean): String;
+        /**
+         * Serialize a form node to a JavaScript object.
+         * Returns the values encoded in an HTML form as
+         * string properties in an object which it then returns. Disabled form
+         * elements, buttons, and other non-value form elements are skipped.
+         * Multi-select elements are returned as an array of string values.
+         * 
+         * @param formNode             
+         */
+        toObject(formNode: HTMLElement): Object;
+        /**
+         * Serialize a form node to a JavaScript object.
+         * Returns the values encoded in an HTML form as
+         * string properties in an object which it then returns. Disabled form
+         * elements, buttons, and other non-value form elements are skipped.
+         * Multi-select elements are returned as an array of string values.
+         * 
+         * @param formNode             
+         */
+        toObject(formNode: String): Object;
+        /**
+         * Returns a URL-encoded string representing the form passed as either a
+         * node or string ID identifying the form to serialize
+         * 
+         * @param formNode             
+         */
+        toQuery(formNode: HTMLElement): String;
+        /**
+         * Returns a URL-encoded string representing the form passed as either a
+         * node or string ID identifying the form to serialize
+         * 
+         * @param formNode             
+         */
+        toQuery(formNode: String): String;
+    }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-construct.html
+     *
+     * 
+     */
+    interface dom_construct {
+        /**
+         * Create an element, allowing for optional attribute decoration
+         * and placement.
+         * A DOM Element creation function. A shorthand method for creating a node or
+         * a fragment, and allowing for a convenient optional attribute setting step,
+         * as well as an optional DOM placement reference.
+         * 
+         * Attributes are set by passing the optional object through dojo.setAttr.
+         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
+         * 
+         * Placement is done via dojo.place, assuming the new node to be the action
+         * node, passing along the optional reference node and position.
+         * 
+         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
+         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
+         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
+         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
+         */
+        create(tag: HTMLElement, attrs: Object, refNode: HTMLElement, pos: String): any;
+        /**
+         * Create an element, allowing for optional attribute decoration
+         * and placement.
+         * A DOM Element creation function. A shorthand method for creating a node or
+         * a fragment, and allowing for a convenient optional attribute setting step,
+         * as well as an optional DOM placement reference.
+         * 
+         * Attributes are set by passing the optional object through dojo.setAttr.
+         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
+         * 
+         * Placement is done via dojo.place, assuming the new node to be the action
+         * node, passing along the optional reference node and position.
+         * 
+         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
+         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
+         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
+         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
+         */
+        create(tag: String, attrs: Object, refNode: HTMLElement, pos: String): any;
+        /**
+         * Create an element, allowing for optional attribute decoration
+         * and placement.
+         * A DOM Element creation function. A shorthand method for creating a node or
+         * a fragment, and allowing for a convenient optional attribute setting step,
+         * as well as an optional DOM placement reference.
+         * 
+         * Attributes are set by passing the optional object through dojo.setAttr.
+         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
+         * 
+         * Placement is done via dojo.place, assuming the new node to be the action
+         * node, passing along the optional reference node and position.
+         * 
+         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
+         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
+         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
+         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
+         */
+        create(tag: HTMLElement, attrs: Object, refNode: String, pos: String): any;
+        /**
+         * Create an element, allowing for optional attribute decoration
+         * and placement.
+         * A DOM Element creation function. A shorthand method for creating a node or
+         * a fragment, and allowing for a convenient optional attribute setting step,
+         * as well as an optional DOM placement reference.
+         * 
+         * Attributes are set by passing the optional object through dojo.setAttr.
+         * See dojo.setAttr for noted caveats and nuances, and API if applicable.
+         * 
+         * Placement is done via dojo.place, assuming the new node to be the action
+         * node, passing along the optional reference node and position.
+         * 
+         * @param tag A string of the element to create (eg: "div", "a", "p", "li", "script", "br"),or an existing DOM node to process.             
+         * @param attrs An object-hash of attributes to set on the newly created node.Can be null, if you don't want to set any attributes/styles.See: dojo.setAttr for a description of available attributes.             
+         * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.             
+         * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.             
+         */
+        create(tag: String, attrs: Object, refNode: String, pos: String): any;
+        /**
+         * Removes a node from its parent, clobbering it and all of its
+         * children.
+         * Removes a node from its parent, clobbering it and all of its
+         * children. Function only works with DomNodes, and returns nothing.
+         * 
+         * @param node A String ID or DomNode reference of the element to be destroyed             
+         */
+        destroy(node: HTMLElement): void;
+        /**
+         * Removes a node from its parent, clobbering it and all of its
+         * children.
+         * Removes a node from its parent, clobbering it and all of its
+         * children. Function only works with DomNodes, and returns nothing.
+         * 
+         * @param node A String ID or DomNode reference of the element to be destroyed             
+         */
+        destroy(node: String): void;
+        /**
+         * safely removes all children of the node.
+         * 
+         * @param node a reference to a DOM node or an id.             
+         */
+        empty(node: HTMLElement): void;
+        /**
+         * safely removes all children of the node.
+         * 
+         * @param node a reference to a DOM node or an id.             
+         */
+        empty(node: String): void;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: HTMLElement, refNode: HTMLElement, position: String): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: String, refNode: HTMLElement, position: String): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: HTMLElement, refNode: String, position: String): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: String, refNode: String, position: String): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: HTMLElement, refNode: HTMLElement, position: number): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: String, refNode: HTMLElement, position: number): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: HTMLElement, refNode: String, position: number): HTMLElement;
+        /**
+         * Attempt to insert node into the DOM, choosing from various positioning options.
+         * Returns the first argument resolved to a DOM node.
+         * 
+         * @param node id or node reference, or HTML fragment starting with "<" to place relative to refNode             
+         * @param refNode id or node reference to use as basis for placement             
+         * @param position               Optionalstring noting the position of node relative to refNode or anumber indicating the location in the childNodes collection of refNode.Accepted string values are:beforeafterreplaceonlyfirstlast"first" and "last" indicate positions as children of refNode, "replace" replaces refNode,"only" replaces all children.  position defaults to "last" if not specified             
+         */
+        place(node: String, refNode: String, position: number): HTMLElement;
+        /**
+         * instantiates an HTML fragment returning the corresponding DOM.
+         * 
+         * @param frag the HTML fragment             
+         * @param doc               Optionaloptional document to use when creating DOM nodes, defaults todojo/_base/window.doc if not specified.             
+         */
+        toDom(frag: String, doc: HTMLDocument): any;
+    }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-prop.html
+     *
+     * 
+     */
+    interface dom_prop {
+        /**
+         * 
+         */
+        names: Object;
+        /**
+         * Gets a property on an HTML element.
+         * Handles normalized getting of properties on DOM nodes.
+         * 
+         * @param node id or reference to the element to get the property on             
+         * @param name the name of the property to get.             
+         */
+        get(node: HTMLElement, name: String): any;
+        /**
+         * Gets a property on an HTML element.
+         * Handles normalized getting of properties on DOM nodes.
+         * 
+         * @param node id or reference to the element to get the property on             
+         * @param name the name of the property to get.             
+         */
+        get(node: String, name: String): any;
+        /**
+         * Sets a property on an HTML element.
+         * Handles normalized setting of properties on DOM nodes.
+         * 
+         * When passing functions as values, note that they will not be
+         * directly assigned to slots on the node, but rather the default
+         * behavior will be removed and the new behavior will be added
+         * using dojo.connect(), meaning that event handler properties
+         * will be normalized and that some caveats with regards to
+         * non-standard behaviors for onsubmit apply. Namely that you
+         * should cancel form submission using dojo.stopEvent() on the
+         * passed event object instead of returning a boolean value from
+         * the handler itself.
+         * 
+         * @param node id or reference to the element to set the property on             
+         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
+         * @param value               OptionalThe value to set for the property             
+         */
+        set(node: HTMLElement, name: String, value: String): any;
+        /**
+         * Sets a property on an HTML element.
+         * Handles normalized setting of properties on DOM nodes.
+         * 
+         * When passing functions as values, note that they will not be
+         * directly assigned to slots on the node, but rather the default
+         * behavior will be removed and the new behavior will be added
+         * using dojo.connect(), meaning that event handler properties
+         * will be normalized and that some caveats with regards to
+         * non-standard behaviors for onsubmit apply. Namely that you
+         * should cancel form submission using dojo.stopEvent() on the
+         * passed event object instead of returning a boolean value from
+         * the handler itself.
+         * 
+         * @param node id or reference to the element to set the property on             
+         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
+         * @param value               OptionalThe value to set for the property             
+         */
+        set(node: String, name: String, value: String): any;
+        /**
+         * Sets a property on an HTML element.
+         * Handles normalized setting of properties on DOM nodes.
+         * 
+         * When passing functions as values, note that they will not be
+         * directly assigned to slots on the node, but rather the default
+         * behavior will be removed and the new behavior will be added
+         * using dojo.connect(), meaning that event handler properties
+         * will be normalized and that some caveats with regards to
+         * non-standard behaviors for onsubmit apply. Namely that you
+         * should cancel form submission using dojo.stopEvent() on the
+         * passed event object instead of returning a boolean value from
+         * the handler itself.
+         * 
+         * @param node id or reference to the element to set the property on             
+         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
+         * @param value               OptionalThe value to set for the property             
+         */
+        set(node: HTMLElement, name: Object, value: String): any;
+        /**
+         * Sets a property on an HTML element.
+         * Handles normalized setting of properties on DOM nodes.
+         * 
+         * When passing functions as values, note that they will not be
+         * directly assigned to slots on the node, but rather the default
+         * behavior will be removed and the new behavior will be added
+         * using dojo.connect(), meaning that event handler properties
+         * will be normalized and that some caveats with regards to
+         * non-standard behaviors for onsubmit apply. Namely that you
+         * should cancel form submission using dojo.stopEvent() on the
+         * passed event object instead of returning a boolean value from
+         * the handler itself.
+         * 
+         * @param node id or reference to the element to set the property on             
+         * @param name the name of the property to set, or a hash object to setmultiple properties at once.             
+         * @param value               OptionalThe value to set for the property             
+         */
+        set(node: String, name: Object, value: String): any;
+    }
+    module dom_prop {
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-prop.names.html
+         *
+         * 
+         */
+        interface names {
+            /**
+             * 
+             */
+            class: string;
+            /**
+             * 
+             */
+            colspan: string;
+            /**
+             * 
+             */
+            for: string;
+            /**
+             * 
+             */
+            frameborder: string;
+            /**
+             * 
+             */
+            readonly: string;
+            /**
+             * 
+             */
+            rowspan: string;
+            /**
+             * 
+             */
+            tabindex: string;
+            /**
+             * 
+             */
+            valuetype: string;
+        }
+    }
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/dom-style.html
      *
@@ -19565,7 +19609,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        position(node: HTMLElement, includeScroll: boolean): Object;
+        position(node: HTMLElement, includeScroll?: boolean): { w: number; h: number; x: number; y: number };
         /**
          * Gets the position and size of the passed element relative to
          * the viewport (if includeScroll==false), or relative to the
@@ -19581,7 +19625,7 @@ declare module dojo {
          * @param node             
          * @param includeScroll               Optional            
          */
-        position(node: String, includeScroll: boolean): Object;
+        position(node: String, includeScroll?: boolean): { w: number; h: number; x: number; y: number };
         /**
          * Sets the size of the node's contents, irrespective of margins,
          * padding, or borders.
@@ -19627,28 +19671,6 @@ declare module dojo {
         }
     }
 
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/io-query.html
-     *
-     * This module defines query string processing functions.
-     * 
-     */
-    interface io_query {
-        /**
-         * takes a name/value mapping object and returns a string representing
-         * a URL-encoded version of that object.
-         * 
-         * @param map             
-         */
-        objectToQuery(map: Object): any;
-        /**
-         * Create an object representing a de-serialized query section of a
-         * URL. Query keys with multiple values are returned in an array.
-         * 
-         * @param str             
-         */
-        queryToObject(str: String): Object;
-    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/html.html
      *
@@ -19831,6 +19853,28 @@ declare module dojo {
         }
     }
 
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/io-query.html
+     *
+     * This module defines query string processing functions.
+     * 
+     */
+    interface io_query {
+        /**
+         * takes a name/value mapping object and returns a string representing
+         * a URL-encoded version of that object.
+         * 
+         * @param map             
+         */
+        objectToQuery(map: Object): any;
+        /**
+         * Create an object representing a de-serialized query section of a
+         * URL. Query keys with multiple values are returned in an array.
+         * 
+         * @param str             
+         */
+        queryToObject(str: String): Object;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/i18n.html
      *
@@ -20037,6 +20081,26 @@ declare module dojo {
          * @param spacer A spacer string to be used for pretty printing of JSON             
          */
         stringify(value: any, replacer: any, spacer: any): void;
+    }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/loadInit.html
+     *
+     * 
+     */
+    interface loadInit {
+        /**
+         * 
+         */
+        dynamic: number;
+        /**
+         * 
+         */
+        load: Object;
+        /**
+         * 
+         * @param id             
+         */
+        normalize(id: any): any;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/keys.html
@@ -20304,53 +20368,6 @@ declare module dojo {
         UP_DPAD: number;
     }
     /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/loadInit.html
-     *
-     * 
-     */
-    interface loadInit {
-        /**
-         * 
-         */
-        dynamic: number;
-        /**
-         * 
-         */
-        load: Object;
-        /**
-         * 
-         * @param id             
-         */
-        normalize(id: any): any;
-    }
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/node.html
-     *
-     * This AMD plugin module allows native Node.js modules to be loaded by AMD modules using the Dojo
-     * loader. Note that this plugin will not work with AMD loaders other than the Dojo loader.
-     * 
-     */
-    interface node {
-        /**
-         * Standard AMD plugin interface. See https://github.com/amdjs/amdjs-api/wiki/Loader-Plugins
-         * for information.
-         * 
-         * @param id             
-         * @param require             
-         * @param load             
-         */
-        load(id: String, require: Function, load: Function): void;
-        /**
-         * Produces a normalized id to be used by node.  Relative ids are resolved relative to the requesting
-         * module's location in the file system and will return an id with path separators appropriate for the
-         * local file system.
-         * 
-         * @param id             
-         * @param normalize             
-         */
-        normalize(id: String, normalize: Function): any;
-    }
-    /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/mouse.html
      *
      * This module provide mouse event handling utility functions and exports
@@ -20393,6 +20410,33 @@ declare module dojo {
          * @param listener             
          */
         wheel(node: any, listener: any): any;
+    }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/node.html
+     *
+     * This AMD plugin module allows native Node.js modules to be loaded by AMD modules using the Dojo
+     * loader. Note that this plugin will not work with AMD loaders other than the Dojo loader.
+     * 
+     */
+    interface node {
+        /**
+         * Standard AMD plugin interface. See https://github.com/amdjs/amdjs-api/wiki/Loader-Plugins
+         * for information.
+         * 
+         * @param id             
+         * @param require             
+         * @param load             
+         */
+        load(id: String, require: Function, load: Function): void;
+        /**
+         * Produces a normalized id to be used by node.  Relative ids are resolved relative to the requesting
+         * module's location in the file system and will return an id with path separators appropriate for the
+         * local file system.
+         * 
+         * @param id             
+         * @param normalize             
+         */
+        normalize(id: String, normalize: Function): any;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.html
@@ -20478,6 +20522,38 @@ declare module dojo {
             "round": number;
         }
         /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__IntegerRegexpFlags.html
+         *
+         * 
+         */
+        class __IntegerRegexpFlags {
+            constructor();
+            /**
+             * group size between separators
+             * 
+             */
+            "groupSize": number;
+            /**
+             * second grouping, where separators 2..n have a different interval than the first separator (for India)
+             * 
+             */
+            "groupSize2": number;
+            /**
+             * The character used as the thousands separator. Default is no
+             * separator. For more than one symbol use an array, e.g. [",", ""],
+             * makes ',' optional.
+             * 
+             */
+            "separator": string;
+            /**
+             * The leading plus-or-minus sign. Can be true, false, or [true,false].
+             * Default is [true, false], (i.e. will match if it is signed
+             * or unsigned).
+             * 
+             */
+            "signed": boolean;
+        }
+        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__FormatOptions.html
          *
          * 
@@ -20513,76 +20589,6 @@ declare module dojo {
              * 
              */
             "round": number;
-            /**
-             * choose a format type based on the locale from the following:
-             * decimal, scientific (not yet supported), percent, currency. decimal by default.
-             * 
-             */
-            "type": string;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__IntegerRegexpFlags.html
-         *
-         * 
-         */
-        class __IntegerRegexpFlags {
-            constructor();
-            /**
-             * group size between separators
-             * 
-             */
-            "groupSize": number;
-            /**
-             * second grouping, where separators 2..n have a different interval than the first separator (for India)
-             * 
-             */
-            "groupSize2": number;
-            /**
-             * The character used as the thousands separator. Default is no
-             * separator. For more than one symbol use an array, e.g. [",", ""],
-             * makes ',' optional.
-             * 
-             */
-            "separator": string;
-            /**
-             * The leading plus-or-minus sign. Can be true, false, or [true,false].
-             * Default is [true, false], (i.e. will match if it is signed
-             * or unsigned).
-             * 
-             */
-            "signed": boolean;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__ParseOptions.html
-         *
-         * 
-         */
-        class __ParseOptions {
-            constructor();
-            /**
-             * Whether to include the fractional portion, where the number of decimal places are implied by pattern
-             * or explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.
-             * 
-             */
-            "fractional": boolean;
-            /**
-             * override the locale used to determine formatting rules
-             * 
-             */
-            "locale": string;
-            /**
-             * override formatting pattern
-             * with this string.  Default value is based on locale.  Overriding this property will defeat
-             * localization.  Literal characters in patterns are not supported.
-             * 
-             */
-            "pattern": string;
-            /**
-             * strict parsing, false by default.  Strict parsing requires input as produced by the format() method.
-             * Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators
-             * 
-             */
-            "strict": boolean;
             /**
              * choose a format type based on the locale from the following:
              * decimal, scientific (not yet supported), percent, currency. decimal by default.
@@ -20631,6 +20637,44 @@ declare module dojo {
              * 
              */
             "places": number;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__ParseOptions.html
+         *
+         * 
+         */
+        class __ParseOptions {
+            constructor();
+            /**
+             * Whether to include the fractional portion, where the number of decimal places are implied by pattern
+             * or explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.
+             * 
+             */
+            "fractional": boolean;
+            /**
+             * override the locale used to determine formatting rules
+             * 
+             */
+            "locale": string;
+            /**
+             * override formatting pattern
+             * with this string.  Default value is based on locale.  Overriding this property will defeat
+             * localization.  Literal characters in patterns are not supported.
+             * 
+             */
+            "pattern": string;
+            /**
+             * strict parsing, false by default.  Strict parsing requires input as produced by the format() method.
+             * Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators
+             * 
+             */
+            "strict": boolean;
+            /**
+             * choose a format type based on the locale from the following:
+             * decimal, scientific (not yet supported), percent, currency. decimal by default.
+             * 
+             */
+            "type": string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__RegexpOptions.html
@@ -20788,6 +20832,518 @@ declare module dojo {
          */
         group(expression: String, nonCapture: boolean): String;
     }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/require.html
+     *
+     * 
+     */
+    interface require {
+        /**
+         * 
+         */
+        dynamic: number;
+        /**
+         * 
+         */
+        load: Object;
+        /**
+         * 
+         * @param id             
+         */
+        normalize(id: any): any;
+    }
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/robotx.html
+     *
+     * 
+     */
+    interface robotx {
+        /**
+         * 
+         */
+        doc: Object;
+        /**
+         * 
+         */
+        mouseWheelSize: number;
+        /**
+         * 
+         */
+        window: Object;
+        /**
+         * Opens the application at the specified URL for testing, redirecting dojo to point to the application
+         * environment instead of the test environment.
+         * 
+         * @param url URL to open. Any of the test's dojo.doc calls (e.g. dojo.byId()), and any dijit.registry calls(e.g. dijit.byId()) will point to elements and widgets inside this application.             
+         */
+        initRobot(url: String): void;
+        /**
+         * Holds down a single key, like SHIFT or 'a'.
+         * Holds down a single key, like SHIFT or 'a'.
+         * 
+         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to hold downWarning: holding down a shifted key, like 'A', can have unpredictable results.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         */
+        keyDown(charOrCode: number, delay: number): void;
+        /**
+         * Types a key combination, like SHIFT-TAB.
+         * Types a key combination, like SHIFT-TAB.
+         * 
+         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to press             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param modifiers JSON object that represents all of the modifier keys being pressed.It takes the following Boolean attributes:shiftaltctrlmeta             
+         * @param asynchronous If true, the delay happens asynchronously and immediately, outside of the browser's JavaScript thread and any previous calls.This is useful for interacting with the browser's modal dialogs.             
+         */
+        keyPress(charOrCode: number, delay: number, modifiers: Object, asynchronous: boolean): void;
+        /**
+         * Releases a single key, like SHIFT or 'a'.
+         * Releases a single key, like SHIFT or 'a'.
+         * 
+         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to releaseWarning: releasing a shifted key, like 'A', can have unpredictable results.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         */
+        keyUp(charOrCode: number, delay: number): void;
+        /**
+         * 
+         */
+        killRobot(): void;
+        /**
+         * Convenience function to do a press/release.
+         * See robot.mousePress for more info.
+         * Convenience function to do a press/release.
+         * See robot.mousePress for more info.
+         * 
+         * @param buttons             
+         * @param delay               Optional            
+         */
+        mouseClick(buttons: Object, delay: number): void;
+        /**
+         * Moves the mouse to the specified x,y offset relative to the viewport.
+         * 
+         * @param x x offset relative to the viewport, in pixels, to move the mouse.             
+         * @param y y offset relative to the viewport, in pixels, to move the mouse.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalApproximate time Robot will spend moving the mouseThe default is 100ms. This also affects how many mousemove events willbe generated, which is the log of the duration.             
+         * @param absolute Boolean indicating whether the x and y values are absolute coordinates.If false, then mouseMove expects that the x,y will be relative to the window. (clientX/Y)If true, then mouseMove expects that the x,y will be absolute. (pageX/Y)             
+         */
+        mouseMove(x: number, y: number, delay: number, duration: number, absolute: boolean): void;
+        /**
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
+         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
+         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
+         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
+         */
+        mouseMoveAt(node: String, delay: number, duration: number, offsetX: number, offsetY: number): void;
+        /**
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
+         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
+         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
+         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
+         */
+        mouseMoveAt(node: HTMLElement, delay: number, duration: number, offsetX: number, offsetY: number): void;
+        /**
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
+         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
+         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
+         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
+         */
+        mouseMoveAt(node: Function, delay: number, duration: number, offsetX: number, offsetY: number): void;
+        /**
+         * Move the mouse from the current position to the specified point.
+         * Delays reading contents point until queued command starts running.
+         * See mouseMove() for details.
+         * 
+         * @param point x, y position relative to viewport, or if absolute == true, to document             
+         * @param delay               Optional            
+         * @param duration               Optional            
+         * @param absolute             
+         */
+        mouseMoveTo(point: Object, delay: number, duration: number, absolute: boolean): void;
+        /**
+         * Presses mouse buttons.
+         * Presses the mouse buttons you pass as true.
+         * Example: to press the left mouse button, pass {left: true}.
+         * Mouse buttons you don't specify keep their previous pressed state.
+         * 
+         * @param buttons JSON object that represents all of the mouse buttons being pressed.It takes the following Boolean attributes:leftmiddleright             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         */
+        mousePress(buttons: Object, delay: number): void;
+        /**
+         * Releases mouse buttons.
+         * Releases the mouse buttons you pass as true.
+         * Example: to release the left mouse button, pass {left: true}.
+         * Mouse buttons you don't specify keep their previous pressed state.
+         * See robot.mousePress for more info.
+         * 
+         * @param buttons             
+         * @param delay               Optional            
+         */
+        mouseRelease(buttons: Object, delay: number): void;
+        /**
+         * Spins the mouse wheel.
+         * Spins the wheel wheelAmt "notches."
+         * Negative wheelAmt scrolls up/away from the user.
+         * Positive wheelAmt scrolls down/toward the user.
+         * Note: this will all happen in one event.
+         * Warning: the size of one mouse wheel notch is an OS setting.
+         * You can access this size from robot.mouseWheelSize
+         * 
+         * @param wheelAmt Number of notches to spin the wheel.Negative wheelAmt scrolls up/away from the user.Positive wheelAmt scrolls down/toward the user.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:    robot.mouseClick({left: true}, 100) // first call; wait 100ms    robot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalApproximate time Robot will spend moving the mouseBy default, the Robot will wheel the mouse as fast as possible.             
+         */
+        mouseWheel(wheelAmt: number, delay: number, duration: number): void;
+        /**
+         * Scroll the passed node into view, if it is not.
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
+         */
+        scrollIntoView(node: String, delay: number): void;
+        /**
+         * Scroll the passed node into view, if it is not.
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
+         */
+        scrollIntoView(node: HTMLElement, delay: number): void;
+        /**
+         * Scroll the passed node into view, if it is not.
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
+         */
+        scrollIntoView(node: Function, delay: number): void;
+        /**
+         * Defer an action by adding it to the robot's incrementally delayed queue of actions to execute.
+         * 
+         * @param f A function containing actions you want to defer.  It can return a Promiseto delay further actions.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalDelay to wait after firing.             
+         */
+        sequence(f: Function, delay: number, duration: number): void;
+        /**
+         * Set clipboard content.
+         * Set data as clipboard content, overriding anything already there. The
+         * data will be put to the clipboard using the given format.
+         * 
+         * @param data New clipboard content to set             
+         * @param format               OptionalSet this to "text/html" to put richtext to the clipboard.Otherwise, data is treated as plaintext. By default, plaintextis used.             
+         */
+        setClipboard(data: String, format: String): void;
+        /**
+         * 
+         */
+        startRobot(): any;
+        /**
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * 
+         * @param chars String of characters to type, or a dojo.keys.* constant             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
+         */
+        typeKeys(chars: String, delay: number, duration: number): void;
+        /**
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * 
+         * @param chars String of characters to type, or a dojo.keys.* constant             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
+         */
+        typeKeys(chars: number, delay: number, duration: number): void;
+        /**
+         * Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
+         * returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
+         * 
+         * @param submitActions The doh.robot will execute the actions the test passes into the submitActions argument (like clicking the submit button),expecting these actions to create a page change (like a form submit).After these actions execute and the resulting page loads, the next test will start.             
+         */
+        waitForPageToLoad(submitActions: Function): any;
+    }
+    module robotx {
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/robotx._runsemaphore.html
+         *
+         * 
+         */
+        interface _runsemaphore {
+            /**
+             * 
+             */
+            lock: any[];
+            /**
+             * 
+             */
+            unlock(): any;
+        }
+    }
+
+    /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/robot.html
+     *
+     * 
+     */
+    interface robot {
+        /**
+         * 
+         */
+        doc: Object;
+        /**
+         * 
+         */
+        mouseWheelSize: number;
+        /**
+         * 
+         */
+        window: Object;
+        /**
+         * Opens the application at the specified URL for testing, redirecting dojo to point to the application
+         * environment instead of the test environment.
+         * 
+         * @param url URL to open. Any of the test's dojo.doc calls (e.g. dojo.byId()), and any dijit.registry calls(e.g. dijit.byId()) will point to elements and widgets inside this application.             
+         */
+        initRobot(url: String): void;
+        /**
+         * Holds down a single key, like SHIFT or 'a'.
+         * Holds down a single key, like SHIFT or 'a'.
+         * 
+         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to hold downWarning: holding down a shifted key, like 'A', can have unpredictable results.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         */
+        keyDown(charOrCode: number, delay: number): void;
+        /**
+         * Types a key combination, like SHIFT-TAB.
+         * Types a key combination, like SHIFT-TAB.
+         * 
+         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to press             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param modifiers JSON object that represents all of the modifier keys being pressed.It takes the following Boolean attributes:shiftaltctrlmeta             
+         * @param asynchronous If true, the delay happens asynchronously and immediately, outside of the browser's JavaScript thread and any previous calls.This is useful for interacting with the browser's modal dialogs.             
+         */
+        keyPress(charOrCode: number, delay: number, modifiers: Object, asynchronous: boolean): void;
+        /**
+         * Releases a single key, like SHIFT or 'a'.
+         * Releases a single key, like SHIFT or 'a'.
+         * 
+         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to releaseWarning: releasing a shifted key, like 'A', can have unpredictable results.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         */
+        keyUp(charOrCode: number, delay: number): void;
+        /**
+         * 
+         */
+        killRobot(): void;
+        /**
+         * Convenience function to do a press/release.
+         * See robot.mousePress for more info.
+         * Convenience function to do a press/release.
+         * See robot.mousePress for more info.
+         * 
+         * @param buttons             
+         * @param delay               Optional            
+         */
+        mouseClick(buttons: Object, delay: number): void;
+        /**
+         * Moves the mouse to the specified x,y offset relative to the viewport.
+         * 
+         * @param x x offset relative to the viewport, in pixels, to move the mouse.             
+         * @param y y offset relative to the viewport, in pixels, to move the mouse.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalApproximate time Robot will spend moving the mouseThe default is 100ms. This also affects how many mousemove events willbe generated, which is the log of the duration.             
+         * @param absolute Boolean indicating whether the x and y values are absolute coordinates.If false, then mouseMove expects that the x,y will be relative to the window. (clientX/Y)If true, then mouseMove expects that the x,y will be absolute. (pageX/Y)             
+         */
+        mouseMove(x: number, y: number, delay: number, duration: number, absolute: boolean): void;
+        /**
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
+         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
+         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
+         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
+         */
+        mouseMoveAt(node: String, delay: number, duration: number, offsetX: number, offsetY: number): void;
+        /**
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
+         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
+         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
+         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
+         */
+        mouseMoveAt(node: HTMLElement, delay: number, duration: number, offsetX: number, offsetY: number): void;
+        /**
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * Moves the mouse over the specified node at the specified relative x,y offset.
+         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
+         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
+         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
+         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
+         */
+        mouseMoveAt(node: Function, delay: number, duration: number, offsetX: number, offsetY: number): void;
+        /**
+         * Move the mouse from the current position to the specified point.
+         * Delays reading contents point until queued command starts running.
+         * See mouseMove() for details.
+         * 
+         * @param point x, y position relative to viewport, or if absolute == true, to document             
+         * @param delay               Optional            
+         * @param duration               Optional            
+         * @param absolute             
+         */
+        mouseMoveTo(point: Object, delay: number, duration: number, absolute: boolean): void;
+        /**
+         * Presses mouse buttons.
+         * Presses the mouse buttons you pass as true.
+         * Example: to press the left mouse button, pass {left: true}.
+         * Mouse buttons you don't specify keep their previous pressed state.
+         * 
+         * @param buttons JSON object that represents all of the mouse buttons being pressed.It takes the following Boolean attributes:leftmiddleright             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         */
+        mousePress(buttons: Object, delay: number): void;
+        /**
+         * Releases mouse buttons.
+         * Releases the mouse buttons you pass as true.
+         * Example: to release the left mouse button, pass {left: true}.
+         * Mouse buttons you don't specify keep their previous pressed state.
+         * See robot.mousePress for more info.
+         * 
+         * @param buttons             
+         * @param delay               Optional            
+         */
+        mouseRelease(buttons: Object, delay: number): void;
+        /**
+         * Spins the mouse wheel.
+         * Spins the wheel wheelAmt "notches."
+         * Negative wheelAmt scrolls up/away from the user.
+         * Positive wheelAmt scrolls down/toward the user.
+         * Note: this will all happen in one event.
+         * Warning: the size of one mouse wheel notch is an OS setting.
+         * You can access this size from robot.mouseWheelSize
+         * 
+         * @param wheelAmt Number of notches to spin the wheel.Negative wheelAmt scrolls up/away from the user.Positive wheelAmt scrolls down/toward the user.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:    robot.mouseClick({left: true}, 100) // first call; wait 100ms    robot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalApproximate time Robot will spend moving the mouseBy default, the Robot will wheel the mouse as fast as possible.             
+         */
+        mouseWheel(wheelAmt: number, delay: number, duration: number): void;
+        /**
+         * Scroll the passed node into view, if it is not.
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
+         */
+        scrollIntoView(node: String, delay: number): void;
+        /**
+         * Scroll the passed node into view, if it is not.
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
+         */
+        scrollIntoView(node: HTMLElement, delay: number): void;
+        /**
+         * Scroll the passed node into view, if it is not.
+         * 
+         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
+         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
+         */
+        scrollIntoView(node: Function, delay: number): void;
+        /**
+         * Defer an action by adding it to the robot's incrementally delayed queue of actions to execute.
+         * 
+         * @param f A function containing actions you want to defer.  It can return a Promiseto delay further actions.             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalDelay to wait after firing.             
+         */
+        sequence(f: Function, delay: number, duration: number): void;
+        /**
+         * Set clipboard content.
+         * Set data as clipboard content, overriding anything already there. The
+         * data will be put to the clipboard using the given format.
+         * 
+         * @param data New clipboard content to set             
+         * @param format               OptionalSet this to "text/html" to put richtext to the clipboard.Otherwise, data is treated as plaintext. By default, plaintextis used.             
+         */
+        setClipboard(data: String, format: String): void;
+        /**
+         * 
+         */
+        startRobot(): any;
+        /**
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * 
+         * @param chars String of characters to type, or a dojo.keys.* constant             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
+         */
+        typeKeys(chars: String, delay: number, duration: number): void;
+        /**
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * Types a string of characters in order, or types a dojo.keys.* constant.
+         * 
+         * @param chars String of characters to type, or a dojo.keys.* constant             
+         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
+         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
+         */
+        typeKeys(chars: number, delay: number, duration: number): void;
+        /**
+         * Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
+         * returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
+         * 
+         * @param submitActions The doh.robot will execute the actions the test passes into the submitActions argument (like clicking the submit button),expecting these actions to create a page change (like a form submit).After these actions execute and the resulting page loads, the next test will start.             
+         */
+        waitForPageToLoad(submitActions: Function): any;
+    }
+    module robot {
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/robot._runsemaphore.html
+         *
+         * 
+         */
+        interface _runsemaphore {
+            /**
+             * 
+             */
+            lock: any[];
+            /**
+             * 
+             */
+            unlock(): any;
+        }
+    }
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.html
      *
@@ -21571,7 +22127,7 @@ declare module dojo {
          * Parses str for a color value. Accepts hex, rgb, and rgba
          * style color values.
          * Acceptable input values for str may include arrays of any form
-         * accepted by dojo._base.ColorFromArray, hex strings such as "#aaaaaa", or
+         * accepted by dojo.colorFromArray, hex strings such as "#aaaaaa", or
          * rgb or rgba strings such as "rgb(133, 200, 16)" or "rgba(10, 10,
          * 10, 50)"
          * 
@@ -23934,6 +24490,97 @@ declare module dojo {
     }
     module main {
         /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.__IoArgs.html
+         *
+         * 
+         */
+        class __IoArgs {
+            constructor();
+            /**
+             * Contains properties with string values. These
+             * properties will be serialized as name1=value2 and
+             * passed in the request.
+             * 
+             */
+            "content": Object;
+            /**
+             * DOM node for a form. Used to extract the form values
+             * and send to the server.
+             * 
+             */
+            "form": HTMLElement;
+            /**
+             * Acceptable values depend on the type of IO
+             * transport (see specific IO calls for more information).
+             * 
+             */
+            "handleAs": string;
+            /**
+             * Set this explicitly to false to prevent publishing of topics related to
+             * IO operations. Otherwise, if djConfig.ioPublish is set to true, topics
+             * will be published via dojo/topic.publish() for different phases of an IO operation.
+             * See dojo/main.__IoPublish for a list of topics that are published.
+             * 
+             */
+            "ioPublish": boolean;
+            /**
+             * Default is false. If true, then a
+             * "dojo.preventCache" parameter is sent in the request
+             * with a value that changes with each request
+             * (timestamp). Useful only with GET-type requests.
+             * 
+             */
+            "preventCache": boolean;
+            /**
+             * Sets the raw body for an HTTP request. If this is used, then the content
+             * property is ignored. This is mostly useful for HTTP methods that have
+             * a body to their requests, like PUT or POST. This property can be used instead
+             * of postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.
+             * 
+             */
+            "rawBody": string;
+            /**
+             * Milliseconds to wait for the response. If this time
+             * passes, the then error callbacks are called.
+             * 
+             */
+            "timeout": number;
+            /**
+             * URL to server endpoint.
+             * 
+             */
+            "url": string;
+            /**
+             * This function will
+             * be called when the request fails due to a network or server error, the url
+             * is invalid, etc. It will also be called if the load or handle callback throws an
+             * exception, unless djConfig.debugAtAllCosts is true.  This allows deployed applications
+             * to continue to run even when a logic error happens in the callback, while making
+             * it easier to troubleshoot while in debug mode.
+             * 
+             * @param response The response in the format as defined with handleAs.             
+             * @param ioArgs Provides additional information about the request.             
+             */
+            error(response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
+            /**
+             * This function will
+             * be called at the end of every request, whether or not an error occurs.
+             * 
+             * @param loadOrError Provides a string that tells you whether this functionwas called because of success (load) or failure (error).             
+             * @param response The response in the format as defined with handleAs.             
+             * @param ioArgs Provides additional information about the request.             
+             */
+            handle(loadOrError: String, response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
+            /**
+             * This function will be
+             * called on a successful HTTP response code.
+             * 
+             * @param response The response in the format as defined with handleAs.             
+             * @param ioArgs Provides additional information about the request.             
+             */
+            load(response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
+        }
+        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.__IoCallbackArgs.html
          *
          * 
@@ -24050,97 +24697,6 @@ declare module dojo {
              * 
              */
             "stop": string;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.__IoArgs.html
-         *
-         * 
-         */
-        class __IoArgs {
-            constructor();
-            /**
-             * Contains properties with string values. These
-             * properties will be serialized as name1=value2 and
-             * passed in the request.
-             * 
-             */
-            "content": Object;
-            /**
-             * DOM node for a form. Used to extract the form values
-             * and send to the server.
-             * 
-             */
-            "form": HTMLElement;
-            /**
-             * Acceptable values depend on the type of IO
-             * transport (see specific IO calls for more information).
-             * 
-             */
-            "handleAs": string;
-            /**
-             * Set this explicitly to false to prevent publishing of topics related to
-             * IO operations. Otherwise, if djConfig.ioPublish is set to true, topics
-             * will be published via dojo/topic.publish() for different phases of an IO operation.
-             * See dojo/main.__IoPublish for a list of topics that are published.
-             * 
-             */
-            "ioPublish": boolean;
-            /**
-             * Default is false. If true, then a
-             * "dojo.preventCache" parameter is sent in the request
-             * with a value that changes with each request
-             * (timestamp). Useful only with GET-type requests.
-             * 
-             */
-            "preventCache": boolean;
-            /**
-             * Sets the raw body for an HTTP request. If this is used, then the content
-             * property is ignored. This is mostly useful for HTTP methods that have
-             * a body to their requests, like PUT or POST. This property can be used instead
-             * of postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.
-             * 
-             */
-            "rawBody": string;
-            /**
-             * Milliseconds to wait for the response. If this time
-             * passes, the then error callbacks are called.
-             * 
-             */
-            "timeout": number;
-            /**
-             * URL to server endpoint.
-             * 
-             */
-            "url": string;
-            /**
-             * This function will
-             * be called when the request fails due to a network or server error, the url
-             * is invalid, etc. It will also be called if the load or handle callback throws an
-             * exception, unless djConfig.debugAtAllCosts is true.  This allows deployed applications
-             * to continue to run even when a logic error happens in the callback, while making
-             * it easier to troubleshoot while in debug mode.
-             * 
-             * @param response The response in the format as defined with handleAs.             
-             * @param ioArgs Provides additional information about the request.             
-             */
-            error(response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
-            /**
-             * This function will
-             * be called at the end of every request, whether or not an error occurs.
-             * 
-             * @param loadOrError Provides a string that tells you whether this functionwas called because of success (load) or failure (error).             
-             * @param response The response in the format as defined with handleAs.             
-             * @param ioArgs Provides additional information about the request.             
-             */
-            handle(loadOrError: String, response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
-            /**
-             * This function will be
-             * called on a successful HTTP response code.
-             * 
-             * @param response The response in the format as defined with handleAs.             
-             * @param ioArgs Provides additional information about the request.             
-             */
-            load(response: Object, ioArgs: dojo.main.__IoCallbackArgs): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.__XhrArgs.html
@@ -24284,7 +24840,7 @@ declare module dojo {
              * 
              * @param name The property to get.             
              */
-            get(name: string): any;
+            get(name: String): any;
             /**
              * 
              * @param params               Optional            
@@ -24298,7 +24854,7 @@ declare module dojo {
              * @param name The property to set.             
              * @param value The value to set in the property.             
              */
-            set(name: string, value: Object): any;
+            set(name: String, value: Object): any;
             /**
              * Watches a property for changes
              * 
@@ -24386,11 +24942,42 @@ declare module dojo {
             xml(xhr: any): any;
         }
         /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.cldr.html
+         *
+         * 
+         */
+        interface cldr {
+            /**
+             * TODOC
+             * 
+             */
+            monetary: Object;
+            /**
+             * TODOC
+             * 
+             */
+            supplemental: Object;
+        }
+        /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main._nodeDataCache.html
          *
          * 
          */
         interface _nodeDataCache {
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.colors.html
+         *
+         * 
+         */
+        interface colors {
+            /**
+             * creates a greyscale color with an optional alpha
+             * 
+             * @param g             
+             * @param a               Optional            
+             */
+            makeGrey(g: number, a: number): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.back.html
@@ -24498,97 +25085,36 @@ declare module dojo {
              *       </div>
              *     </div>
              *   </div>
-             * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/main.back" class="feedback">Error in the documentation? Canâ€™t find what you are looking for? Let us know!</a>
+             * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/main.back" class="feedback">Error in the documentation? Can�t find what you are looking for? Let us know!</a>
              */
             init(): void;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.contentHandlers.html
-         *
-         * A map of available XHR transport handle types. Name matches the
-         * handleAs attribute passed to XHR calls.
-         * A map of available XHR transport handle types. Name matches the
-         * handleAs attribute passed to XHR calls. Each contentHandler is
-         * called, passing the xhr object for manipulation. The return value
-         * from the contentHandler will be passed to the load or handle
-         * functions defined in the original xhr call.
-         * 
-         */
-        interface contentHandlers {
-            /**
-             * 
-             * @param xhr             
-             */
-            auto(xhr: any): void;
-            /**
-             * A contentHandler which evaluates the response data, expecting it to be valid JavaScript
-             * 
-             * @param xhr             
-             */
-            javascript(xhr: any): any;
-            /**
-             * A contentHandler which returns a JavaScript object created from the response data
-             * 
-             * @param xhr             
-             */
-            json(xhr: any): any;
-            /**
-             * A contentHandler which expects comment-filtered JSON.
-             * A contentHandler which expects comment-filtered JSON.
-             * the json-comment-filtered option was implemented to prevent
-             * "JavaScript Hijacking", but it is less secure than standard JSON. Use
-             * standard JSON instead. JSON prefixing can be used to subvert hijacking.
-             * 
-             * Will throw a notice suggesting to use application/json mimetype, as
-             * json-commenting can introduce security issues. To decrease the chances of hijacking,
-             * use the standard json contentHandler, and prefix your "JSON" with: {}&&
-             * 
-             * use djConfig.useCommentedJson = true to turn off the notice
-             * 
-             * @param xhr             
-             */
-            json_comment_filtered(xhr: any): any;
-            /**
-             * A contentHandler which checks the presence of comment-filtered JSON and
-             * alternates between the json and json-comment-filtered contentHandlers.
-             * 
-             * @param xhr             
-             */
-            json_comment_optional(xhr: any): any;
-            /**
-             * 
-             * @param xhr             
-             */
-            olson_zoneinfo(xhr: any): void;
-            /**
-             * A contentHandler which simply returns the plaintext response data
-             * 
-             * @param xhr             
-             */
-            text(xhr: any): any;
-            /**
-             * A contentHandler returning an XML Document parsed from the response data
-             * 
-             * @param xhr             
-             */
-            xml(xhr: any): any;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.cldr.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.data.html
          *
          * 
          */
-        interface cldr {
+        interface data {
             /**
-             * TODOC
              * 
              */
-            monetary: Object;
+            api: Object;
             /**
-             * TODOC
              * 
              */
-            supplemental: Object;
+            util: Object;
+            /**
+             * 
+             */
+            ItemFileReadStore(): void;
+            /**
+             * 
+             */
+            ItemFileWriteStore(): void;
+            /**
+             * 
+             */
+            ObjectStore(): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.config.html
@@ -24726,7 +25252,7 @@ declare module dojo {
              */
             require: Object;
             /**
-             * Array containing the r, g, b components used as transparent color in dojo._base.Color;
+             * Array containing the r, g, b components used as transparent color in dojo.Color;
              * if undefined, [255,255,255] (white) will be used.
              * 
              */
@@ -24754,6 +25280,143 @@ declare module dojo {
              * 
              */
             useDeferredInstrumentation: boolean;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.contentHandlers.html
+         *
+         * A map of available XHR transport handle types. Name matches the
+         * handleAs attribute passed to XHR calls.
+         * A map of available XHR transport handle types. Name matches the
+         * handleAs attribute passed to XHR calls. Each contentHandler is
+         * called, passing the xhr object for manipulation. The return value
+         * from the contentHandler will be passed to the load or handle
+         * functions defined in the original xhr call.
+         * 
+         */
+        interface contentHandlers {
+            /**
+             * 
+             * @param xhr             
+             */
+            auto(xhr: any): void;
+            /**
+             * A contentHandler which evaluates the response data, expecting it to be valid JavaScript
+             * 
+             * @param xhr             
+             */
+            javascript(xhr: any): any;
+            /**
+             * A contentHandler which returns a JavaScript object created from the response data
+             * 
+             * @param xhr             
+             */
+            json(xhr: any): any;
+            /**
+             * A contentHandler which expects comment-filtered JSON.
+             * A contentHandler which expects comment-filtered JSON.
+             * the json-comment-filtered option was implemented to prevent
+             * "JavaScript Hijacking", but it is less secure than standard JSON. Use
+             * standard JSON instead. JSON prefixing can be used to subvert hijacking.
+             * 
+             * Will throw a notice suggesting to use application/json mimetype, as
+             * json-commenting can introduce security issues. To decrease the chances of hijacking,
+             * use the standard json contentHandler, and prefix your "JSON" with: {}&&
+             * 
+             * use djConfig.useCommentedJson = true to turn off the notice
+             * 
+             * @param xhr             
+             */
+            json_comment_filtered(xhr: any): any;
+            /**
+             * A contentHandler which checks the presence of comment-filtered JSON and
+             * alternates between the json and json-comment-filtered contentHandlers.
+             * 
+             * @param xhr             
+             */
+            json_comment_optional(xhr: any): any;
+            /**
+             * 
+             * @param xhr             
+             */
+            olson_zoneinfo(xhr: any): void;
+            /**
+             * A contentHandler which simply returns the plaintext response data
+             * 
+             * @param xhr             
+             */
+            text(xhr: any): any;
+            /**
+             * A contentHandler returning an XML Document parsed from the response data
+             * 
+             * @param xhr             
+             */
+            xml(xhr: any): any;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.date.html
+         *
+         * 
+         */
+        interface date {
+            /**
+             * TODOC
+             * 
+             */
+            stamp: Object;
+            /**
+             * Add to a Date in intervals of different size, from milliseconds to years
+             * 
+             * @param date Date object to start with             
+             * @param interval A string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"             
+             * @param amount How much to add to the date.             
+             */
+            add(date: Date, interval: String, amount: number): any;
+            /**
+             * Compare two date objects by date, time, or both.
+             * Returns 0 if equal, positive if a > b, else negative.
+             * 
+             * @param date1 Date object             
+             * @param date2               OptionalDate object.  If not specified, the current Date is used.             
+             * @param portion               OptionalA string indicating the "date" or "time" portion of a Date object.Compares both "date" and "time" by default.  One of the following:"date", "time", "datetime"             
+             */
+            compare(date1: Date, date2: Date, portion: String): number;
+            /**
+             * Get the difference in a specific unit of time (e.g., number of
+             * months, weeks, days, etc.) between two dates, rounded to the
+             * nearest integer.
+             * 
+             * @param date1 Date object             
+             * @param date2               OptionalDate object.  If not specified, the current Date is used.             
+             * @param interval               OptionalA string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"Defaults to "day".             
+             */
+            difference(date1: Date, date2: Date, interval: String): any;
+            /**
+             * Returns the number of days in the month used by dateObject
+             * 
+             * @param dateObject             
+             */
+            getDaysInMonth(dateObject: Date): number;
+            /**
+             * Get the user's time zone as provided by the browser
+             * Try to get time zone info from toString or toLocaleString method of
+             * the Date object -- UTC offset is not a time zone.  See
+             * http://www.twinsun.com/tz/tz-link.htm Note: results may be
+             * inconsistent across browsers.
+             * 
+             * @param dateObject Needed because the timezone may vary with time (daylight savings)             
+             */
+            getTimezoneName(dateObject: Date): any;
+            /**
+             * Determines if the year of the dateObject is a leap year
+             * Leap years are years with an additional day YYYY-02-29, where the
+             * year number is a multiple of four with the following exception: If
+             * a year is a multiple of 100, then it is only a leap year if it is
+             * also a multiple of 400. For example, 1900 was not a leap year, but
+             * 2000 is one.
+             * 
+             * @param dateObject             
+             */
+            isLeapYear(dateObject: Date): boolean;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.currency.html
@@ -24793,18 +25456,128 @@ declare module dojo {
             regexp(options: Object): any;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.colors.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.dnd.html
          *
          * 
          */
-        interface colors {
+        interface dnd {
             /**
-             * creates a greyscale color with an optional alpha
+             * Used by dojo/dnd/Manager to scroll document or internal node when the user
+             * drags near the edge of the viewport or a scrollable node
              * 
-             * @param g             
-             * @param a               Optional            
              */
-            makeGrey(g: number, a: number): void;
+            autoscroll: Object;
+            /**
+             * 
+             */
+            move: Object;
+            /**
+             * 
+             */
+            AutoSource(): void;
+            /**
+             * 
+             */
+            Avatar(): void;
+            /**
+             * 
+             */
+            Container(): void;
+            /**
+             * 
+             */
+            Manager(): void;
+            /**
+             * 
+             */
+            Moveable(): void;
+            /**
+             * 
+             */
+            Mover(): void;
+            /**
+             * 
+             */
+            Selector(): void;
+            /**
+             * 
+             */
+            Source(): void;
+            /**
+             * 
+             */
+            Target(): void;
+            /**
+             * 
+             */
+            TimedMoveable(): void;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.doc.html
+         *
+         * Alias for the current document. 'doc' can be modified
+         * for temporary context shifting. See also withDoc().
+         * Use this rather than referring to 'window.document' to ensure your code runs
+         * correctly in managed contexts.
+         * 
+         */
+        interface doc {
+            /**
+             * 
+             */
+            documentElement: Object;
+            /**
+             * 
+             */
+            dojoClick: boolean;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.gears.html
+         *
+         * TODOC
+         * 
+         */
+        interface gears {
+            /**
+             * True if client is using Google Gears
+             * 
+             */
+            available: Object;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.global.html
+         *
+         * Alias for the current window. 'global' can be modified
+         * for temporary context shifting. See also withGlobal().
+         * Use this rather than referring to 'window' to ensure your code runs
+         * correctly in managed contexts.
+         * 
+         */
+        interface global {
+            /**
+             * 
+             */
+            $(): any;
+            /**
+             * 
+             * @param start             
+             * @param data             
+             * @param responseCode             
+             * @param errorMsg             
+             */
+            GoogleSearchStoreCallback_undefined_NaN(start: any, data: any, responseCode: any, errorMsg: any): void;
+            /**
+             * 
+             */
+            jQuery(): any;
+            /**
+             * 
+             */
+            swfIsInHTML(): void;
+            /**
+             * 
+             */
+            undefined_onload(): void;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.dijit.html
@@ -24956,173 +25729,144 @@ declare module dojo {
             WidgetSet(): void;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.doc.html
-         *
-         * Alias for the current document. 'doc' can be modified
-         * for temporary context shifting. See also withDoc().
-         * Use this rather than referring to 'window.document' to ensure your code runs
-         * correctly in managed contexts.
-         * 
-         */
-        interface doc {
-            /**
-             * 
-             */
-            documentElement: Object;
-            /**
-             * 
-             */
-            dojoClick: boolean;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.data.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.io.html
          *
          * 
          */
-        interface data {
+        interface io {
             /**
              * 
              */
-            api: Object;
-            /**
-             * 
-             */
-            util: Object;
-            /**
-             * 
-             */
-            ItemFileReadStore(): void;
-            /**
-             * 
-             */
-            ItemFileWriteStore(): void;
-            /**
-             * 
-             */
-            ObjectStore(): void;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.date.html
-         *
-         * 
-         */
-        interface date {
+            iframe: Object;
             /**
              * TODOC
              * 
              */
-            stamp: Object;
-            /**
-             * Add to a Date in intervals of different size, from milliseconds to years
-             * 
-             * @param date Date object to start with             
-             * @param interval A string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"             
-             * @param amount How much to add to the date.             
-             */
-            add(date: Date, interval: String, amount: number): any;
-            /**
-             * Compare two date objects by date, time, or both.
-             * Returns 0 if equal, positive if a > b, else negative.
-             * 
-             * @param date1 Date object             
-             * @param date2               OptionalDate object.  If not specified, the current Date is used.             
-             * @param portion               OptionalA string indicating the "date" or "time" portion of a Date object.Compares both "date" and "time" by default.  One of the following:"date", "time", "datetime"             
-             */
-            compare(date1: Date, date2: Date, portion: String): number;
-            /**
-             * Get the difference in a specific unit of time (e.g., number of
-             * months, weeks, days, etc.) between two dates, rounded to the
-             * nearest integer.
-             * 
-             * @param date1 Date object             
-             * @param date2               OptionalDate object.  If not specified, the current Date is used.             
-             * @param interval               OptionalA string representing the interval.  One of the following:"year", "month", "day", "hour", "minute", "second","millisecond", "quarter", "week", "weekday"Defaults to "day".             
-             */
-            difference(date1: Date, date2: Date, interval: String): any;
-            /**
-             * Returns the number of days in the month used by dateObject
-             * 
-             * @param dateObject             
-             */
-            getDaysInMonth(dateObject: Date): number;
-            /**
-             * Get the user's time zone as provided by the browser
-             * Try to get time zone info from toString or toLocaleString method of
-             * the Date object -- UTC offset is not a time zone.  See
-             * http://www.twinsun.com/tz/tz-link.htm Note: results may be
-             * inconsistent across browsers.
-             * 
-             * @param dateObject Needed because the timezone may vary with time (daylight savings)             
-             */
-            getTimezoneName(dateObject: Date): any;
-            /**
-             * Determines if the year of the dateObject is a leap year
-             * Leap years are years with an additional day YYYY-02-29, where the
-             * year number is a multiple of four with the following exception: If
-             * a year is a multiple of 100, then it is only a leap year if it is
-             * also a multiple of 400. For example, 1900 was not a leap year, but
-             * 2000 is one.
-             * 
-             * @param dateObject             
-             */
-            isLeapYear(dateObject: Date): boolean;
+            script: Object;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.dnd.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.fx.html
          *
+         * Effects library on top of Base animations
          * 
          */
-        interface dnd {
+        interface fx {
             /**
-             * Used by dojo/dnd/Manager to scroll document or internal node when the user
-             * drags near the edge of the viewport or a scrollable node
+             * Collection of easing functions to use beyond the default
+             * dojo._defaultEasing function.
              * 
              */
-            autoscroll: Object;
+            easing: Object;
             /**
+             * Chain a list of dojo/_base/fx.Animations to run in sequence
+             * Return a dojo/_base/fx.Animation which will play all passed
+             * dojo/_base/fx.Animation instances in sequence, firing its own
+             * synthesized events simulating a single animation. (eg:
+             * onEnd of this animation means the end of the chain,
+             * not the individual animations within)
              * 
+             * @param animations             
              */
-            move: Object;
+            chain(animations: dojo._base.fx.Animation[]): any;
             /**
+             * Combine a list of dojo/_base/fx.Animations to run in parallel
+             * Combine an array of dojo/_base/fx.Animations to run in parallel,
+             * providing a new dojo/_base/fx.Animation instance encompasing each
+             * animation, firing standard animation events.
              * 
+             * @param animations             
              */
-            AutoSource(): void;
+            combine(animations: dojo._base.fx.Animation[]): any;
             /**
+             * Slide a node to a new top/left position
+             * Returns an animation that will slide "node"
+             * defined in args Object from its current position to
+             * the position defined by (args.left, args.top).
              * 
+             * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on). Special args membersare top and left, which indicate the new position to slide to.             
              */
-            Avatar(): void;
-            /**
-             * 
-             */
-            Container(): void;
-            /**
-             * 
-             */
-            Manager(): void;
-            /**
-             * 
-             */
-            Moveable(): void;
-            /**
-             * 
-             */
-            Mover(): void;
-            /**
-             * 
-             */
-            Selector(): void;
+            slideTo(args: Object): any;
             /**
              * 
              */
-            Source(): void;
+            Toggler(): void;
             /**
+             * Expand a node to it's natural height.
+             * Returns an animation that will expand the
+             * node defined in 'args' object from it's current height to
+             * it's natural height (with no scrollbar).
+             * Node must have no margin/border/padding.
              * 
+             * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
              */
-            Target(): void;
+            wipeIn(args: Object): any;
             /**
+             * Shrink a node to nothing and hide it.
+             * Returns an animation that will shrink node defined in "args"
+             * from it's current height to 1px, and then hide it.
              * 
+             * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
              */
-            TimedMoveable(): void;
+            wipeOut(args: Object): any;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.html.html
+         *
+         * TODOC
+         * 
+         */
+        interface html {
+            /**
+             * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
+             * may be a better choice for simple HTML insertion.
+             * Unless you need to use the params capabilities of this method, you should use
+             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
+             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+             * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
+             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
+             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+             * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
+             * or the other capabilities as defined by the params object for this method.
+             * 
+             * @param node the parent element that will receive the content             
+             * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
+             * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
+             */
+            set(node: HTMLElement, cont: String, params: Object): any;
+            /**
+             * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
+             * may be a better choice for simple HTML insertion.
+             * Unless you need to use the params capabilities of this method, you should use
+             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
+             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+             * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
+             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
+             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+             * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
+             * or the other capabilities as defined by the params object for this method.
+             * 
+             * @param node the parent element that will receive the content             
+             * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
+             * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
+             */
+            set(node: HTMLElement, cont: HTMLElement, params: Object): any;
+            /**
+             * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
+             * may be a better choice for simple HTML insertion.
+             * Unless you need to use the params capabilities of this method, you should use
+             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
+             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+             * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
+             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
+             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
+             * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
+             * or the other capabilities as defined by the params object for this method.
+             * 
+             * @param node the parent element that will receive the content             
+             * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
+             * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
+             */
+            set(node: HTMLElement, cont: NodeList, params: Object): any;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.dojox.html
@@ -25389,179 +26133,235 @@ declare module dojo {
             sprintf(format: String, filler: any): void;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.fx.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.i18n.html
          *
-         * Effects library on top of Base animations
+         * This module implements the dojo/i18n! plugin and the v1.6- i18n API
+         * We choose to include our own plugin to leverage functionality already contained in dojo
+         * and thereby reduce the size of the plugin compared to various loader implementations. Also, this
+         * allows foreign AMD loaders to be used without their plugins.
          * 
          */
-        interface fx {
-            /**
-             * Collection of easing functions to use beyond the default
-             * dojo._defaultEasing function.
-             * 
-             */
-            easing: Object;
-            /**
-             * Chain a list of dojo/_base/fx.Animations to run in sequence
-             * Return a dojo/_base/fx.Animation which will play all passed
-             * dojo/_base/fx.Animation instances in sequence, firing its own
-             * synthesized events simulating a single animation. (eg:
-             * onEnd of this animation means the end of the chain,
-             * not the individual animations within)
-             * 
-             * @param animations             
-             */
-            chain(animations: dojo._base.fx.Animation[]): any;
-            /**
-             * Combine a list of dojo/_base/fx.Animations to run in parallel
-             * Combine an array of dojo/_base/fx.Animations to run in parallel,
-             * providing a new dojo/_base/fx.Animation instance encompasing each
-             * animation, firing standard animation events.
-             * 
-             * @param animations             
-             */
-            combine(animations: dojo._base.fx.Animation[]): any;
-            /**
-             * Slide a node to a new top/left position
-             * Returns an animation that will slide "node"
-             * defined in args Object from its current position to
-             * the position defined by (args.left, args.top).
-             * 
-             * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on). Special args membersare top and left, which indicate the new position to slide to.             
-             */
-            slideTo(args: Object): any;
+        interface i18n {
             /**
              * 
              */
-            Toggler(): void;
+            cache: Object;
             /**
-             * Expand a node to it's natural height.
-             * Returns an animation that will expand the
-             * node defined in 'args' object from it's current height to
-             * it's natural height (with no scrollbar).
-             * Node must have no margin/border/padding.
              * 
-             * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
              */
-            wipeIn(args: Object): any;
+            dynamic: boolean;
             /**
-             * Shrink a node to nothing and hide it.
-             * Returns an animation that will shrink node defined in "args"
-             * from it's current height to 1px, and then hide it.
              * 
-             * @param args A hash-map of standard dojo/_base/fx.Animation constructor properties(such as easing: node: duration: and so on)             
              */
-            wipeOut(args: Object): any;
+            unitTests: any[];
+            /**
+             * 
+             * @param moduleName             
+             * @param bundleName             
+             * @param locale             
+             */
+            getL10nName(moduleName: any, bundleName: any, locale: any): String;
+            /**
+             * 
+             * @param moduleName             
+             * @param bundleName             
+             * @param locale             
+             */
+            getLocalization(moduleName: any, bundleName: any, locale: any): any;
+            /**
+             * id is in one of the following formats
+             * 
+             * /nls/
+             *  => load the bundle, localized to config.locale; load all bundles localized to
+             *  config.extraLocale (if any); return the loaded bundle localized to config.locale.
+             * /nls//
+             *  => load then return the bundle localized to 
+             * preload/nls//
+             *  => for config.locale and all config.extraLocale, load all bundles found
+             *  in the best-matching bundle rollup. A value of 1 is returned, which
+             *  is meaningless other than to say the plugin is executing the requested
+             *  preloads
+             * 
+             * In cases 1 and 2,  is always normalized to an absolute module id upon entry; see
+             * normalize. In case 3, it  is assumed to be absolute; this is arranged by the builder.
+             * 
+             * To load a bundle means to insert the bundle into the plugin's cache and publish the bundle
+             * value to the loader. Given , , and a particular , the cache key
+             * 
+             * <path>/nls/<bundle>/<locale>
+             * will hold the value. Similarly, then plugin will publish this value to the loader by
+             * 
+             * define("<path>/nls/<bundle>/<locale>", <bundle-value>);
+             * Given this algorithm, other machinery can provide fast load paths be preplacing
+             * values in the plugin's cache, which is public. When a load is demanded the
+             * cache is inspected before starting any loading. Explicitly placing values in the plugin
+             * cache is an advanced/experimental feature that should not be needed; use at your own risk.
+             * 
+             * For the normal AMD algorithm, the root bundle is loaded first, which instructs the
+             * plugin what additional localized bundles are required for a particular locale. These
+             * additional locales are loaded and a mix of the root and each progressively-specific
+             * locale is returned. For example:
+             * 
+             * The client demands "dojo/i18n!some/path/nls/someBundle
+             * The loader demands load(some/path/nls/someBundle)
+             * This plugin require's "some/path/nls/someBundle", which is the root bundle.
+             * Assuming config.locale is "ab-cd-ef" and the root bundle indicates that localizations
+             * are available for "ab" and "ab-cd-ef" (note the missing "ab-cd", then the plugin
+             * requires "some/path/nls/ab/someBundle" and "some/path/nls/ab-cd-ef/someBundle"
+             * Upon receiving all required bundles, the plugin constructs the value of the bundle
+             * ab-cd-ef as...
+             *  mixin(mixin(mixin({}, require("some/path/nls/someBundle"),
+             *      require("some/path/nls/ab/someBundle")),
+             *      require("some/path/nls/ab-cd-ef/someBundle"));
+             * 
+             * This value is inserted into the cache and published to the loader at the
+             * key/module-id some/path/nls/someBundle/ab-cd-ef.
+             * 
+             * The special preload signature (case 3) instructs the plugin to stop servicing all normal requests
+             * (further preload requests will be serviced) until all ongoing preloading has completed.
+             * 
+             * The preload signature instructs the plugin that a special rollup module is available that contains
+             * one or more flattened, localized bundles. The JSON array of available locales indicates which locales
+             * are available. Here is an example:
+             * 
+             * *preload*some/path/nls/someModule*["root", "ab", "ab-cd-ef"]
+             * This indicates the following rollup modules are available:
+             * 
+             * some/path/nls/someModule_ROOT
+             * some/path/nls/someModule_ab
+             * some/path/nls/someModule_ab-cd-ef
+             * Each of these modules is a normal AMD module that contains one or more flattened bundles in a hash.
+             * For example, assume someModule contained the bundles some/bundle/path/someBundle and
+             * some/bundle/path/someOtherBundle, then some/path/nls/someModule_ab would be expressed as follows:
+             * 
+             * define({
+             *     some/bundle/path/someBundle:<value of someBundle, flattened with respect to locale ab>,
+             *     some/bundle/path/someOtherBundle:<value of someOtherBundle, flattened with respect to locale ab>,
+             * });
+             * E.g., given this design, preloading for locale=="ab" can execute the following algorithm:
+             * 
+             * require(["some/path/nls/someModule_ab"], function(rollup){
+             *     for(var p in rollup){
+             *         var id = p + "/ab",
+             *         cache[id] = rollup[p];
+             *         define(id, rollup[p]);
+             *     }
+             * });
+             * Similarly, if "ab-cd" is requested, the algorithm can determine that "ab" is the best available and
+             * load accordingly.
+             * 
+             * The builder will write such rollups for every layer if a non-empty localeList  profile property is
+             * provided. Further, the builder will include the following cache entry in the cache associated with
+             * any layer.
+             * 
+             * "*now":function(r){r(['dojo/i18n!*preload*<path>/nls/<module>*<JSON array of available locales>']);}
+             * The *now special cache module instructs the loader to apply the provided function to context-require
+             * with respect to the particular layer being defined. This causes the plugin to hold all normal service
+             * requests until all preloading is complete.
+             * 
+             * Notice that this algorithm is rarely better than the standard AMD load algorithm. Consider the normal case
+             * where the target locale has a single segment and a layer depends on a single bundle:
+             * 
+             * Without Preloads:
+             * 
+             * Layer loads root bundle.
+             * bundle is demanded; plugin loads single localized bundle.
+             * With Preloads:
+             * 
+             * Layer causes preloading of target bundle.
+             * bundle is demanded; service is delayed until preloading complete; bundle is returned.
+             * In each case a single transaction is required to load the target bundle. In cases where multiple bundles
+             * are required and/or the locale has multiple segments, preloads still requires a single transaction whereas
+             * the normal path requires an additional transaction for each additional bundle/locale-segment. However all
+             * of these additional transactions can be done concurrently. Owing to this analysis, the entire preloading
+             * algorithm can be discard during a build by setting the has feature dojo-preload-i18n-Api to false.
+             * 
+             * @param id             
+             * @param require             
+             * @param load             
+             */
+            load(id: any, require: any, load: any): void;
+            /**
+             * id may be relative.
+             * preload has form *preload*<path>/nls/<module>*<flattened locales> and
+             * therefore never looks like a relative
+             * 
+             * @param id             
+             * @param toAbsMid             
+             */
+            normalize(id: any, toAbsMid: any): any;
+            /**
+             * 
+             * @param locale             
+             */
+            normalizeLocale(locale: any): any;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.html.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.scopeMap.html
          *
-         * TODOC
          * 
          */
-        interface html {
+        interface scopeMap {
             /**
-             * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
-             * may be a better choice for simple HTML insertion.
-             * Unless you need to use the params capabilities of this method, you should use
-             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
-             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-             * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
-             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
-             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-             * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
-             * or the other capabilities as defined by the params object for this method.
              * 
-             * @param node the parent element that will receive the content             
-             * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
-             * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
              */
-            set(node: HTMLElement, cont: String, params: Object): any;
+            dijit: any[];
             /**
-             * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
-             * may be a better choice for simple HTML insertion.
-             * Unless you need to use the params capabilities of this method, you should use
-             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
-             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-             * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
-             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
-             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-             * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
-             * or the other capabilities as defined by the params object for this method.
              * 
-             * @param node the parent element that will receive the content             
-             * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
-             * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
              */
-            set(node: HTMLElement, cont: HTMLElement, params: Object): any;
+            dojo: any[];
             /**
-             * inserts (replaces) the given content into the given node. dojo/dom-construct.place(cont, node, "only")
-             * may be a better choice for simple HTML insertion.
-             * Unless you need to use the params capabilities of this method, you should use
-             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct..place() has more robust support for injecting
-             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-             * elements, or inserting a DOM node. dojo/dom-construct..place does not handle NodeList insertions
-             * dojo/dom-construct.place(cont, node, "only"). dojo/dom-construct.place() has more robust support for injecting
-             * an HTML string into the DOM, but it only handles inserting an HTML string as DOM
-             * elements, or inserting a DOM node. dojo/dom-construct.place does not handle NodeList insertions
-             * or the other capabilities as defined by the params object for this method.
              * 
-             * @param node the parent element that will receive the content             
-             * @param cont the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes             
-             * @param params               OptionalOptional flags/properties to configure the content-setting. See dojo/html/_ContentSetter             
              */
-            set(node: HTMLElement, cont: NodeList, params: Object): any;
+            dojox: any[];
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.io.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.regexp.html
          *
+         * Regular expressions and Builder resources
          * 
          */
-        interface io {
+        interface regexp {
             /**
+             * Builds a regular expression that groups subexpressions
+             * A utility function used by some of the RE generators. The
+             * subexpressions are constructed by the function, re, in the second
+             * parameter.  re builds one subexpression for each elem in the array
+             * a, in the first parameter. Returns a string for a regular
+             * expression that groups all the subexpressions.
              * 
+             * @param arr A single value or an array of values.             
+             * @param re A function. Takes one parameter and converts it to a regularexpression.             
+             * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
              */
-            iframe: Object;
+            buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
             /**
-             * TODOC
+             * Builds a regular expression that groups subexpressions
+             * A utility function used by some of the RE generators. The
+             * subexpressions are constructed by the function, re, in the second
+             * parameter.  re builds one subexpression for each elem in the array
+             * a, in the first parameter. Returns a string for a regular
+             * expression that groups all the subexpressions.
              * 
+             * @param arr A single value or an array of values.             
+             * @param re A function. Takes one parameter and converts it to a regularexpression.             
+             * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
              */
-            script: Object;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.global.html
-         *
-         * Alias for the current window. 'global' can be modified
-         * for temporary context shifting. See also withGlobal().
-         * Use this rather than referring to 'window' to ensure your code runs
-         * correctly in managed contexts.
-         * 
-         */
-        interface global {
+            buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
             /**
+             * Adds escape sequences for special characters in regular expressions
              * 
+             * @param str             
+             * @param except               Optionala String with special characters to be left unescaped             
              */
-            $(): any;
+            escapeString(str: String, except: String): any;
             /**
+             * adds group match to expression
              * 
-             * @param start             
-             * @param data             
-             * @param responseCode             
-             * @param errorMsg             
+             * @param expression             
+             * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
              */
-            GoogleSearchStoreCallback_undefined_NaN(start: any, data: any, responseCode: any, errorMsg: any): void;
-            /**
-             * 
-             */
-            jQuery(): any;
-            /**
-             * 
-             */
-            swfIsInHTML(): void;
-            /**
-             * 
-             */
-            undefined_onload(): void;
+            group(expression: String, nonCapture: boolean): String;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.mouseButtons.html
@@ -25609,6 +26409,78 @@ declare module dojo {
              * @param e Event object to examine             
              */
             isRight(e: Event): boolean;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.rpc.html
+         *
+         * 
+         */
+        interface rpc {
+            /**
+             * 
+             */
+            JsonpService(): void;
+            /**
+             * 
+             */
+            JsonService(): void;
+            /**
+             * 
+             */
+            RpcService(): void;
+        }
+        /**
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.number.html
+         *
+         * localized formatting and parsing routines for Number
+         * 
+         */
+        interface number_ {
+            /**
+             * Format a Number as a String, using locale-specific settings
+             * Create a string from a Number using a known localized pattern.
+             * Formatting patterns appropriate to the locale are chosen from the
+             * Common Locale Data Repository as well as the appropriate symbols and
+             * delimiters.
+             * If value is Infinity, -Infinity, or is not a valid JavaScript number, return null.
+             * 
+             * @param value the number to be formatted             
+             * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.places (Number, optional): fixed number of decimal places to show.  This overrides anyinformation in the provided pattern.round (Number, optional): 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1means do not round.locale (String, optional): override the locale used to determine formatting rulesfractional (Boolean, optional): If false, show no decimal places, overriding places and pattern settings.            
+             */
+            format(value: number, options: Object): any;
+            /**
+             * Convert a properly formatted string to a primitive Number, using
+             * locale-specific settings.
+             * Create a Number from a string using a known localized pattern.
+             * Formatting patterns are chosen appropriate to the locale
+             * and follow the syntax described by
+             * unicode.org TR35
+             * Note that literal characters in patterns are not supported.
+             * 
+             * @param expression A string representation of a Number             
+             * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsfractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by patternor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.            
+             */
+            parse(expression: String, options: Object): number;
+            /**
+             * Builds the regular needed to parse a number
+             * Returns regular expression with positive and negative match, group
+             * and decimal separators
+             * 
+             * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsplaces (Number|String, optional): number of decimal places to accept: Infinity, a positive number, ora range "n,m".  Defined by pattern or Infinity if pattern not provided.            
+             */
+            regexp(options: Object): any;
+            /**
+             * Rounds to the nearest value with the given number of decimal places, away from zero
+             * Rounds to the nearest value with the given number of decimal places, away from zero if equal.
+             * Similar to Number.toFixed(), but compensates for browser quirks. Rounding can be done by
+             * fractional increments also, such as the nearest quarter.
+             * NOTE: Subject to floating point errors.  See dojox/math/round for experimental workaround.
+             * 
+             * @param value The number to round             
+             * @param places               OptionalThe number of decimal places where rounding takes place.  Defaults to 0 for whole rounding.Must be non-negative.             
+             * @param increment               OptionalRounds next place to nearest value of increment/10.  10 by default.             
+             */
+            round(value: number, places: number, increment: number): number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.keys.html
@@ -25876,259 +26748,51 @@ declare module dojo {
             UP_DPAD: number;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.i18n.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.tests.html
          *
-         * This module implements the dojo/i18n! plugin and the v1.6- i18n API
-         * We choose to include our own plugin to leverage functionality already contained in dojo
-         * and thereby reduce the size of the plugin compared to various loader implementations. Also, this
-         * allows foreign AMD loaders to be used without their plugins.
+         * D.O.H. Test files for Dojo unit testing.
          * 
          */
-        interface i18n {
-            /**
-             * 
-             */
-            cache: Object;
-            /**
-             * 
-             */
-            dynamic: boolean;
-            /**
-             * 
-             */
-            unitTests: any[];
-            /**
-             * 
-             * @param moduleName             
-             * @param bundleName             
-             * @param locale             
-             */
-            getL10nName(moduleName: any, bundleName: any, locale: any): String;
-            /**
-             * 
-             * @param moduleName             
-             * @param bundleName             
-             * @param locale             
-             */
-            getLocalization(moduleName: any, bundleName: any, locale: any): any;
-            /**
-             * id is in one of the following formats
-             * 
-             * /nls/
-             *  => load the bundle, localized to config.locale; load all bundles localized to
-             *  config.extraLocale (if any); return the loaded bundle localized to config.locale.
-             * /nls//
-             *  => load then return the bundle localized to 
-             * preload/nls//
-             *  => for config.locale and all config.extraLocale, load all bundles found
-             *  in the best-matching bundle rollup. A value of 1 is returned, which
-             *  is meaningless other than to say the plugin is executing the requested
-             *  preloads
-             * 
-             * In cases 1 and 2,  is always normalized to an absolute module id upon entry; see
-             * normalize. In case 3, it  is assumed to be absolute; this is arranged by the builder.
-             * 
-             * To load a bundle means to insert the bundle into the plugin's cache and publish the bundle
-             * value to the loader. Given , , and a particular , the cache key
-             * 
-             * <path>/nls/<bundle>/<locale>
-             * will hold the value. Similarly, then plugin will publish this value to the loader by
-             * 
-             * define("<path>/nls/<bundle>/<locale>", <bundle-value>);
-             * Given this algorithm, other machinery can provide fast load paths be preplacing
-             * values in the plugin's cache, which is public. When a load is demanded the
-             * cache is inspected before starting any loading. Explicitly placing values in the plugin
-             * cache is an advanced/experimental feature that should not be needed; use at your own risk.
-             * 
-             * For the normal AMD algorithm, the root bundle is loaded first, which instructs the
-             * plugin what additional localized bundles are required for a particular locale. These
-             * additional locales are loaded and a mix of the root and each progressively-specific
-             * locale is returned. For example:
-             * 
-             * The client demands "dojo/i18n!some/path/nls/someBundle
-             * The loader demands load(some/path/nls/someBundle)
-             * This plugin require's "some/path/nls/someBundle", which is the root bundle.
-             * Assuming config.locale is "ab-cd-ef" and the root bundle indicates that localizations
-             * are available for "ab" and "ab-cd-ef" (note the missing "ab-cd", then the plugin
-             * requires "some/path/nls/ab/someBundle" and "some/path/nls/ab-cd-ef/someBundle"
-             * Upon receiving all required bundles, the plugin constructs the value of the bundle
-             * ab-cd-ef as...
-             *  mixin(mixin(mixin({}, require("some/path/nls/someBundle"),
-             *      require("some/path/nls/ab/someBundle")),
-             *      require("some/path/nls/ab-cd-ef/someBundle"));
-             * 
-             * This value is inserted into the cache and published to the loader at the
-             * key/module-id some/path/nls/someBundle/ab-cd-ef.
-             * 
-             * The special preload signature (case 3) instructs the plugin to stop servicing all normal requests
-             * (further preload requests will be serviced) until all ongoing preloading has completed.
-             * 
-             * The preload signature instructs the plugin that a special rollup module is available that contains
-             * one or more flattened, localized bundles. The JSON array of available locales indicates which locales
-             * are available. Here is an example:
-             * 
-             * *preload*some/path/nls/someModule*["root", "ab", "ab-cd-ef"]
-             * This indicates the following rollup modules are available:
-             * 
-             * some/path/nls/someModule_ROOT
-             * some/path/nls/someModule_ab
-             * some/path/nls/someModule_ab-cd-ef
-             * Each of these modules is a normal AMD module that contains one or more flattened bundles in a hash.
-             * For example, assume someModule contained the bundles some/bundle/path/someBundle and
-             * some/bundle/path/someOtherBundle, then some/path/nls/someModule_ab would be expressed as follows:
-             * 
-             * define({
-             *     some/bundle/path/someBundle:<value of someBundle, flattened with respect to locale ab>,
-             *     some/bundle/path/someOtherBundle:<value of someOtherBundle, flattened with respect to locale ab>,
-             * });
-             * E.g., given this design, preloading for locale=="ab" can execute the following algorithm:
-             * 
-             * require(["some/path/nls/someModule_ab"], function(rollup){
-             *     for(var p in rollup){
-             *         var id = p + "/ab",
-             *         cache[id] = rollup[p];
-             *         define(id, rollup[p]);
-             *     }
-             * });
-             * Similarly, if "ab-cd" is requested, the algorithm can determine that "ab" is the best available and
-             * load accordingly.
-             * 
-             * The builder will write such rollups for every layer if a non-empty localeList  profile property is
-             * provided. Further, the builder will include the following cache entry in the cache associated with
-             * any layer.
-             * 
-             * "*now":function(r){r(['dojo/i18n!*preload*<path>/nls/<module>*<JSON array of available locales>']);}
-             * The *now special cache module instructs the loader to apply the provided function to context-require
-             * with respect to the particular layer being defined. This causes the plugin to hold all normal service
-             * requests until all preloading is complete.
-             * 
-             * Notice that this algorithm is rarely better than the standard AMD load algorithm. Consider the normal case
-             * where the target locale has a single segment and a layer depends on a single bundle:
-             * 
-             * Without Preloads:
-             * 
-             * Layer loads root bundle.
-             * bundle is demanded; plugin loads single localized bundle.
-             * With Preloads:
-             * 
-             * Layer causes preloading of target bundle.
-             * bundle is demanded; service is delayed until preloading complete; bundle is returned.
-             * In each case a single transaction is required to load the target bundle. In cases where multiple bundles
-             * are required and/or the locale has multiple segments, preloads still requires a single transaction whereas
-             * the normal path requires an additional transaction for each additional bundle/locale-segment. However all
-             * of these additional transactions can be done concurrently. Owing to this analysis, the entire preloading
-             * algorithm can be discard during a build by setting the has feature dojo-preload-i18n-Api to false.
-             * 
-             * @param id             
-             * @param require             
-             * @param load             
-             */
-            load(id: any, require: any, load: any): void;
-            /**
-             * id may be relative.
-             * preload has form *preload*<path>/nls/<module>*<flattened locales> and
-             * therefore never looks like a relative
-             * 
-             * @param id             
-             * @param toAbsMid             
-             */
-            normalize(id: any, toAbsMid: any): any;
-            /**
-             * 
-             * @param locale             
-             */
-            normalizeLocale(locale: any): any;
+        interface tests {
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.scopeMap.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.version.html
          *
+         * Version number of the Dojo Toolkit
+         * Hash about the version, including
+         * 
+         * major: Integer: Major version. If total version is "1.2.0beta1", will be 1
+         * minor: Integer: Minor version. If total version is "1.2.0beta1", will be 2
+         * patch: Integer: Patch version. If total version is "1.2.0beta1", will be 0
+         * flag: String: Descriptor flag. If total version is "1.2.0beta1", will be "beta1"
+         * revision: Number: The Git rev from which dojo was pulled
          * 
          */
-        interface scopeMap {
+        interface version {
             /**
              * 
              */
-            dijit: any[];
+            flag: string;
             /**
              * 
              */
-            dojo: any[];
+            major: number;
             /**
              * 
              */
-            dojox: any[];
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.rpc.html
-         *
-         * 
-         */
-        interface rpc {
+            minor: number;
             /**
              * 
              */
-            JsonpService(): void;
+            patch: number;
             /**
              * 
              */
-            JsonService(): void;
+            revision: number;
             /**
              * 
              */
-            RpcService(): void;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.number.html
-         *
-         * localized formatting and parsing routines for Number
-         * 
-         */
-        interface number_ {
-            /**
-             * Format a Number as a String, using locale-specific settings
-             * Create a string from a Number using a known localized pattern.
-             * Formatting patterns appropriate to the locale are chosen from the
-             * Common Locale Data Repository as well as the appropriate symbols and
-             * delimiters.
-             * If value is Infinity, -Infinity, or is not a valid JavaScript number, return null.
-             * 
-             * @param value the number to be formatted             
-             * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.places (Number, optional): fixed number of decimal places to show.  This overrides anyinformation in the provided pattern.round (Number, optional): 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1means do not round.locale (String, optional): override the locale used to determine formatting rulesfractional (Boolean, optional): If false, show no decimal places, overriding places and pattern settings.            
-             */
-            format(value: number, options: Object): any;
-            /**
-             * Convert a properly formatted string to a primitive Number, using
-             * locale-specific settings.
-             * Create a Number from a string using a known localized pattern.
-             * Formatting patterns are chosen appropriate to the locale
-             * and follow the syntax described by
-             * unicode.org TR35
-             * Note that literal characters in patterns are not supported.
-             * 
-             * @param expression A string representation of a Number             
-             * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.  Literal characters in patterns are not supported.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsfractional (Boolean|Array, optional): Whether to include the fractional portion, where the number of decimal places are implied by patternor explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.            
-             */
-            parse(expression: String, options: Object): number;
-            /**
-             * Builds the regular needed to parse a number
-             * Returns regular expression with positive and negative match, group
-             * and decimal separators
-             * 
-             * @param options               OptionalAn object with the following properties:pattern (String, optional): override formatting patternwith this string.  Default value is based on locale.  Overriding this property will defeatlocalization.type (String, optional): choose a format type based on the locale from the following:decimal, scientific (not yet supported), percent, currency. decimal by default.locale (String, optional): override the locale used to determine formatting rulesstrict (Boolean, optional): strict parsing, false by default.  Strict parsing requires input as produced by the format() method.Non-strict is more permissive, e.g. flexible on white space, omitting thousands separatorsplaces (Number|String, optional): number of decimal places to accept: Infinity, a positive number, ora range "n,m".  Defined by pattern or Infinity if pattern not provided.            
-             */
-            regexp(options: Object): any;
-            /**
-             * Rounds to the nearest value with the given number of decimal places, away from zero
-             * Rounds to the nearest value with the given number of decimal places, away from zero if equal.
-             * Similar to Number.toFixed(), but compensates for browser quirks. Rounding can be done by
-             * fractional increments also, such as the nearest quarter.
-             * NOTE: Subject to floating point errors.  See dojox/math/round for experimental workaround.
-             * 
-             * @param value The number to round             
-             * @param places               OptionalThe number of decimal places where rounding takes place.  Defaults to 0 for whole rounding.Must be non-negative.             
-             * @param increment               OptionalRounds next place to nearest value of increment/10.  10 by default.             
-             */
-            round(value: number, places: number, increment: number): number;
+            toString(): String;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.string.html
@@ -26184,53 +26848,6 @@ declare module dojo {
              * @param str String to be trimmed             
              */
             trim(str: String): String;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.store.html
-         *
-         * 
-         */
-        interface store {
-            /**
-             * 
-             */
-            util: Object;
-            /**
-             * 
-             * @param masterStore             
-             * @param cachingStore             
-             * @param options             
-             */
-            Cache(masterStore: any, cachingStore: any, options: any): any;
-            /**
-             * 
-             */
-            DataStore(): void;
-            /**
-             * 
-             */
-            JsonRest(): void;
-            /**
-             * 
-             */
-            Memory(): void;
-            /**
-             * The Observable store wrapper takes a store and sets an observe method on query()
-             * results that can be used to monitor results for changes.
-             * Observable wraps an existing store so that notifications can be made when a query
-             * is performed.
-             * 
-             * @param store             
-             */
-            Observable(store: dojo.store.api.Store): any;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.tests.html
-         *
-         * D.O.H. Test files for Dojo unit testing.
-         * 
-         */
-        interface tests {
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.touch.html
@@ -26304,104 +26921,43 @@ declare module dojo {
             release(node: HTMLElement, listener: Function): any;
         }
         /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.gears.html
+         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.store.html
          *
-         * TODOC
          * 
          */
-        interface gears {
-            /**
-             * True if client is using Google Gears
-             * 
-             */
-            available: Object;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.version.html
-         *
-         * Version number of the Dojo Toolkit
-         * Hash about the version, including
-         * 
-         * major: Integer: Major version. If total version is "1.2.0beta1", will be 1
-         * minor: Integer: Minor version. If total version is "1.2.0beta1", will be 2
-         * patch: Integer: Patch version. If total version is "1.2.0beta1", will be 0
-         * flag: String: Descriptor flag. If total version is "1.2.0beta1", will be "beta1"
-         * revision: Number: The Git rev from which dojo was pulled
-         * 
-         */
-        interface version {
+        interface store {
             /**
              * 
              */
-            flag: string;
+            util: Object;
+            /**
+             * 
+             * @param masterStore             
+             * @param cachingStore             
+             * @param options             
+             */
+            Cache(masterStore: any, cachingStore: any, options: any): any;
             /**
              * 
              */
-            major: number;
+            DataStore(): void;
             /**
              * 
              */
-            minor: number;
+            JsonRest(): void;
             /**
              * 
              */
-            patch: number;
+            Memory(): void;
             /**
+             * The Observable store wrapper takes a store and sets an observe method on query()
+             * results that can be used to monitor results for changes.
+             * Observable wraps an existing store so that notifications can be made when a query
+             * is performed.
              * 
+             * @param store             
              */
-            revision: number;
-            /**
-             * 
-             */
-            toString(): String;
-        }
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.regexp.html
-         *
-         * Regular expressions and Builder resources
-         * 
-         */
-        interface regexp {
-            /**
-             * Builds a regular expression that groups subexpressions
-             * A utility function used by some of the RE generators. The
-             * subexpressions are constructed by the function, re, in the second
-             * parameter.  re builds one subexpression for each elem in the array
-             * a, in the first parameter. Returns a string for a regular
-             * expression that groups all the subexpressions.
-             * 
-             * @param arr A single value or an array of values.             
-             * @param re A function. Takes one parameter and converts it to a regularexpression.             
-             * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
-             */
-            buildGroupRE(arr: Object, re: Function, nonCapture: boolean): any;
-            /**
-             * Builds a regular expression that groups subexpressions
-             * A utility function used by some of the RE generators. The
-             * subexpressions are constructed by the function, re, in the second
-             * parameter.  re builds one subexpression for each elem in the array
-             * a, in the first parameter. Returns a string for a regular
-             * expression that groups all the subexpressions.
-             * 
-             * @param arr A single value or an array of values.             
-             * @param re A function. Takes one parameter and converts it to a regularexpression.             
-             * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression. Defaults to false             
-             */
-            buildGroupRE(arr: any[], re: Function, nonCapture: boolean): any;
-            /**
-             * Adds escape sequences for special characters in regular expressions
-             * 
-             * @param str             
-             * @param except               Optionala String with special characters to be left unescaped             
-             */
-            escapeString(str: String, except: String): any;
-            /**
-             * adds group match to expression
-             * 
-             * @param expression             
-             * @param nonCapture               OptionalIf true, uses non-capturing match, otherwise matches are retainedby regular expression.             
-             */
-            group(expression: String, nonCapture: boolean): String;
+            Observable(store: dojo.store.api.Store): any;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.window.html
@@ -26429,518 +26985,6 @@ declare module dojo {
              * @param pos               Optional            
              */
             scrollIntoView(node: HTMLElement, pos: Object): void;
-        }
-    }
-
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/require.html
-     *
-     * 
-     */
-    interface require {
-        /**
-         * 
-         */
-        dynamic: number;
-        /**
-         * 
-         */
-        load: Object;
-        /**
-         * 
-         * @param id             
-         */
-        normalize(id: any): any;
-    }
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/robotx.html
-     *
-     * 
-     */
-    interface robotx {
-        /**
-         * 
-         */
-        doc: Object;
-        /**
-         * 
-         */
-        mouseWheelSize: number;
-        /**
-         * 
-         */
-        window: Object;
-        /**
-         * Opens the application at the specified URL for testing, redirecting dojo to point to the application
-         * environment instead of the test environment.
-         * 
-         * @param url URL to open. Any of the test's dojo.doc calls (e.g. dojo.byId()), and any dijit.registry calls(e.g. dijit.byId()) will point to elements and widgets inside this application.             
-         */
-        initRobot(url: String): void;
-        /**
-         * Holds down a single key, like SHIFT or 'a'.
-         * Holds down a single key, like SHIFT or 'a'.
-         * 
-         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to hold downWarning: holding down a shifted key, like 'A', can have unpredictable results.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         */
-        keyDown(charOrCode: number, delay: number): void;
-        /**
-         * Types a key combination, like SHIFT-TAB.
-         * Types a key combination, like SHIFT-TAB.
-         * 
-         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to press             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param modifiers JSON object that represents all of the modifier keys being pressed.It takes the following Boolean attributes:shiftaltctrlmeta             
-         * @param asynchronous If true, the delay happens asynchronously and immediately, outside of the browser's JavaScript thread and any previous calls.This is useful for interacting with the browser's modal dialogs.             
-         */
-        keyPress(charOrCode: number, delay: number, modifiers: Object, asynchronous: boolean): void;
-        /**
-         * Releases a single key, like SHIFT or 'a'.
-         * Releases a single key, like SHIFT or 'a'.
-         * 
-         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to releaseWarning: releasing a shifted key, like 'A', can have unpredictable results.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         */
-        keyUp(charOrCode: number, delay: number): void;
-        /**
-         * 
-         */
-        killRobot(): void;
-        /**
-         * Convenience function to do a press/release.
-         * See robot.mousePress for more info.
-         * Convenience function to do a press/release.
-         * See robot.mousePress for more info.
-         * 
-         * @param buttons             
-         * @param delay               Optional            
-         */
-        mouseClick(buttons: Object, delay: number): void;
-        /**
-         * Moves the mouse to the specified x,y offset relative to the viewport.
-         * 
-         * @param x x offset relative to the viewport, in pixels, to move the mouse.             
-         * @param y y offset relative to the viewport, in pixels, to move the mouse.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalApproximate time Robot will spend moving the mouseThe default is 100ms. This also affects how many mousemove events willbe generated, which is the log of the duration.             
-         * @param absolute Boolean indicating whether the x and y values are absolute coordinates.If false, then mouseMove expects that the x,y will be relative to the window. (clientX/Y)If true, then mouseMove expects that the x,y will be absolute. (pageX/Y)             
-         */
-        mouseMove(x: number, y: number, delay: number, duration: number, absolute: boolean): void;
-        /**
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
-         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
-         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
-         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
-         */
-        mouseMoveAt(node: String, delay: number, duration: number, offsetX: number, offsetY: number): void;
-        /**
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
-         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
-         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
-         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
-         */
-        mouseMoveAt(node: HTMLElement, delay: number, duration: number, offsetX: number, offsetY: number): void;
-        /**
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
-         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
-         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
-         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
-         */
-        mouseMoveAt(node: Function, delay: number, duration: number, offsetX: number, offsetY: number): void;
-        /**
-         * Move the mouse from the current position to the specified point.
-         * Delays reading contents point until queued command starts running.
-         * See mouseMove() for details.
-         * 
-         * @param point x, y position relative to viewport, or if absolute == true, to document             
-         * @param delay               Optional            
-         * @param duration               Optional            
-         * @param absolute             
-         */
-        mouseMoveTo(point: Object, delay: number, duration: number, absolute: boolean): void;
-        /**
-         * Presses mouse buttons.
-         * Presses the mouse buttons you pass as true.
-         * Example: to press the left mouse button, pass {left: true}.
-         * Mouse buttons you don't specify keep their previous pressed state.
-         * 
-         * @param buttons JSON object that represents all of the mouse buttons being pressed.It takes the following Boolean attributes:leftmiddleright             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         */
-        mousePress(buttons: Object, delay: number): void;
-        /**
-         * Releases mouse buttons.
-         * Releases the mouse buttons you pass as true.
-         * Example: to release the left mouse button, pass {left: true}.
-         * Mouse buttons you don't specify keep their previous pressed state.
-         * See robot.mousePress for more info.
-         * 
-         * @param buttons             
-         * @param delay               Optional            
-         */
-        mouseRelease(buttons: Object, delay: number): void;
-        /**
-         * Spins the mouse wheel.
-         * Spins the wheel wheelAmt "notches."
-         * Negative wheelAmt scrolls up/away from the user.
-         * Positive wheelAmt scrolls down/toward the user.
-         * Note: this will all happen in one event.
-         * Warning: the size of one mouse wheel notch is an OS setting.
-         * You can access this size from robot.mouseWheelSize
-         * 
-         * @param wheelAmt Number of notches to spin the wheel.Negative wheelAmt scrolls up/away from the user.Positive wheelAmt scrolls down/toward the user.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:    robot.mouseClick({left: true}, 100) // first call; wait 100ms    robot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalApproximate time Robot will spend moving the mouseBy default, the Robot will wheel the mouse as fast as possible.             
-         */
-        mouseWheel(wheelAmt: number, delay: number, duration: number): void;
-        /**
-         * Scroll the passed node into view, if it is not.
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
-         */
-        scrollIntoView(node: String, delay: number): void;
-        /**
-         * Scroll the passed node into view, if it is not.
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
-         */
-        scrollIntoView(node: HTMLElement, delay: number): void;
-        /**
-         * Scroll the passed node into view, if it is not.
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
-         */
-        scrollIntoView(node: Function, delay: number): void;
-        /**
-         * Defer an action by adding it to the robot's incrementally delayed queue of actions to execute.
-         * 
-         * @param f A function containing actions you want to defer.  It can return a Promiseto delay further actions.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalDelay to wait after firing.             
-         */
-        sequence(f: Function, delay: number, duration: number): void;
-        /**
-         * Set clipboard content.
-         * Set data as clipboard content, overriding anything already there. The
-         * data will be put to the clipboard using the given format.
-         * 
-         * @param data New clipboard content to set             
-         * @param format               OptionalSet this to "text/html" to put richtext to the clipboard.Otherwise, data is treated as plaintext. By default, plaintextis used.             
-         */
-        setClipboard(data: String, format: String): void;
-        /**
-         * 
-         */
-        startRobot(): any;
-        /**
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * 
-         * @param chars String of characters to type, or a dojo.keys.* constant             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
-         */
-        typeKeys(chars: String, delay: number, duration: number): void;
-        /**
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * 
-         * @param chars String of characters to type, or a dojo.keys.* constant             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
-         */
-        typeKeys(chars: number, delay: number, duration: number): void;
-        /**
-         * Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
-         * returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
-         * 
-         * @param submitActions The doh.robot will execute the actions the test passes into the submitActions argument (like clicking the submit button),expecting these actions to create a page change (like a form submit).After these actions execute and the resulting page loads, the next test will start.             
-         */
-        waitForPageToLoad(submitActions: Function): any;
-    }
-    module robotx {
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/robotx._runsemaphore.html
-         *
-         * 
-         */
-        interface _runsemaphore {
-            /**
-             * 
-             */
-            lock: any[];
-            /**
-             * 
-             */
-            unlock(): any;
-        }
-    }
-
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/robot.html
-     *
-     * 
-     */
-    interface robot {
-        /**
-         * 
-         */
-        doc: Object;
-        /**
-         * 
-         */
-        mouseWheelSize: number;
-        /**
-         * 
-         */
-        window: Object;
-        /**
-         * Opens the application at the specified URL for testing, redirecting dojo to point to the application
-         * environment instead of the test environment.
-         * 
-         * @param url URL to open. Any of the test's dojo.doc calls (e.g. dojo.byId()), and any dijit.registry calls(e.g. dijit.byId()) will point to elements and widgets inside this application.             
-         */
-        initRobot(url: String): void;
-        /**
-         * Holds down a single key, like SHIFT or 'a'.
-         * Holds down a single key, like SHIFT or 'a'.
-         * 
-         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to hold downWarning: holding down a shifted key, like 'A', can have unpredictable results.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         */
-        keyDown(charOrCode: number, delay: number): void;
-        /**
-         * Types a key combination, like SHIFT-TAB.
-         * Types a key combination, like SHIFT-TAB.
-         * 
-         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to press             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param modifiers JSON object that represents all of the modifier keys being pressed.It takes the following Boolean attributes:shiftaltctrlmeta             
-         * @param asynchronous If true, the delay happens asynchronously and immediately, outside of the browser's JavaScript thread and any previous calls.This is useful for interacting with the browser's modal dialogs.             
-         */
-        keyPress(charOrCode: number, delay: number, modifiers: Object, asynchronous: boolean): void;
-        /**
-         * Releases a single key, like SHIFT or 'a'.
-         * Releases a single key, like SHIFT or 'a'.
-         * 
-         * @param charOrCode char/JS keyCode/dojo.keys.* constant for the key you want to releaseWarning: releasing a shifted key, like 'A', can have unpredictable results.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         */
-        keyUp(charOrCode: number, delay: number): void;
-        /**
-         * 
-         */
-        killRobot(): void;
-        /**
-         * Convenience function to do a press/release.
-         * See robot.mousePress for more info.
-         * Convenience function to do a press/release.
-         * See robot.mousePress for more info.
-         * 
-         * @param buttons             
-         * @param delay               Optional            
-         */
-        mouseClick(buttons: Object, delay: number): void;
-        /**
-         * Moves the mouse to the specified x,y offset relative to the viewport.
-         * 
-         * @param x x offset relative to the viewport, in pixels, to move the mouse.             
-         * @param y y offset relative to the viewport, in pixels, to move the mouse.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalApproximate time Robot will spend moving the mouseThe default is 100ms. This also affects how many mousemove events willbe generated, which is the log of the duration.             
-         * @param absolute Boolean indicating whether the x and y values are absolute coordinates.If false, then mouseMove expects that the x,y will be relative to the window. (clientX/Y)If true, then mouseMove expects that the x,y will be absolute. (pageX/Y)             
-         */
-        mouseMove(x: number, y: number, delay: number, duration: number, absolute: boolean): void;
-        /**
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
-         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
-         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
-         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
-         */
-        mouseMoveAt(node: String, delay: number, duration: number, offsetX: number, offsetY: number): void;
-        /**
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
-         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
-         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
-         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
-         */
-        mouseMoveAt(node: HTMLElement, delay: number, duration: number, offsetX: number, offsetY: number): void;
-        /**
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * Moves the mouse over the specified node at the specified relative x,y offset.
-         * If you do not specify an offset, mouseMove will default to move to the middle of the node.
-         * Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left:true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration Approximate time Robot will spend moving the mouseThe default is 100ms.             
-         * @param offsetX x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.             
-         * @param offsetY y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.             
-         */
-        mouseMoveAt(node: Function, delay: number, duration: number, offsetX: number, offsetY: number): void;
-        /**
-         * Move the mouse from the current position to the specified point.
-         * Delays reading contents point until queued command starts running.
-         * See mouseMove() for details.
-         * 
-         * @param point x, y position relative to viewport, or if absolute == true, to document             
-         * @param delay               Optional            
-         * @param duration               Optional            
-         * @param absolute             
-         */
-        mouseMoveTo(point: Object, delay: number, duration: number, absolute: boolean): void;
-        /**
-         * Presses mouse buttons.
-         * Presses the mouse buttons you pass as true.
-         * Example: to press the left mouse button, pass {left: true}.
-         * Mouse buttons you don't specify keep their previous pressed state.
-         * 
-         * @param buttons JSON object that represents all of the mouse buttons being pressed.It takes the following Boolean attributes:leftmiddleright             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         */
-        mousePress(buttons: Object, delay: number): void;
-        /**
-         * Releases mouse buttons.
-         * Releases the mouse buttons you pass as true.
-         * Example: to release the left mouse button, pass {left: true}.
-         * Mouse buttons you don't specify keep their previous pressed state.
-         * See robot.mousePress for more info.
-         * 
-         * @param buttons             
-         * @param delay               Optional            
-         */
-        mouseRelease(buttons: Object, delay: number): void;
-        /**
-         * Spins the mouse wheel.
-         * Spins the wheel wheelAmt "notches."
-         * Negative wheelAmt scrolls up/away from the user.
-         * Positive wheelAmt scrolls down/toward the user.
-         * Note: this will all happen in one event.
-         * Warning: the size of one mouse wheel notch is an OS setting.
-         * You can access this size from robot.mouseWheelSize
-         * 
-         * @param wheelAmt Number of notches to spin the wheel.Negative wheelAmt scrolls up/away from the user.Positive wheelAmt scrolls down/toward the user.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:    robot.mouseClick({left: true}, 100) // first call; wait 100ms    robot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalApproximate time Robot will spend moving the mouseBy default, the Robot will wheel the mouse as fast as possible.             
-         */
-        mouseWheel(wheelAmt: number, delay: number, duration: number): void;
-        /**
-         * Scroll the passed node into view, if it is not.
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
-         */
-        scrollIntoView(node: String, delay: number): void;
-        /**
-         * Scroll the passed node into view, if it is not.
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
-         */
-        scrollIntoView(node: HTMLElement, delay: number): void;
-        /**
-         * Scroll the passed node into view, if it is not.
-         * 
-         * @param node The id of the node, or the node itself, to move the mouse to.If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.This is useful if you need to move the mouse to an node that is not yet present.             
-         * @param delay Delay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.             
-         */
-        scrollIntoView(node: Function, delay: number): void;
-        /**
-         * Defer an action by adding it to the robot's incrementally delayed queue of actions to execute.
-         * 
-         * @param f A function containing actions you want to defer.  It can return a Promiseto delay further actions.             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalDelay to wait after firing.             
-         */
-        sequence(f: Function, delay: number, duration: number): void;
-        /**
-         * Set clipboard content.
-         * Set data as clipboard content, overriding anything already there. The
-         * data will be put to the clipboard using the given format.
-         * 
-         * @param data New clipboard content to set             
-         * @param format               OptionalSet this to "text/html" to put richtext to the clipboard.Otherwise, data is treated as plaintext. By default, plaintextis used.             
-         */
-        setClipboard(data: String, format: String): void;
-        /**
-         * 
-         */
-        startRobot(): any;
-        /**
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * 
-         * @param chars String of characters to type, or a dojo.keys.* constant             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
-         */
-        typeKeys(chars: String, delay: number, duration: number): void;
-        /**
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * Types a string of characters in order, or types a dojo.keys.* constant.
-         * 
-         * @param chars String of characters to type, or a dojo.keys.* constant             
-         * @param delay               OptionalDelay, in milliseconds, to wait before firing.The delay is a delta with respect to the previous automation call.For example, the following code ends after 600ms:robot.mouseClick({left: true}, 100) // first call; wait 100msrobot.typeKeys("dij", 500) // 500ms AFTER previous call; 600ms in all             
-         * @param duration               OptionalTime, in milliseconds, to spend pressing all of the keys.The default is (string length)*50 ms.             
-         */
-        typeKeys(chars: number, delay: number, duration: number): void;
-        /**
-         * Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
-         * returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
-         * 
-         * @param submitActions The doh.robot will execute the actions the test passes into the submitActions argument (like clicking the submit button),expecting these actions to create a page change (like a form submit).After these actions execute and the resulting page loads, the next test will start.             
-         */
-        waitForPageToLoad(submitActions: Function): any;
-    }
-    module robot {
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/robot._runsemaphore.html
-         *
-         * 
-         */
-        interface _runsemaphore {
-            /**
-             * 
-             */
-            lock: any[];
-            /**
-             * 
-             */
-            unlock(): any;
         }
     }
 
@@ -27055,6 +27099,23 @@ declare module dojo {
         subscribe(topic: String, listener: Function): any;
     }
     /**
+     * Permalink: http://dojotoolkit.org/api/1.9/dojo/uacss.html
+     *
+     * Applies pre-set CSS classes to the top-level HTML node, based on:
+     * 
+     * browser (ex: dj_ie)
+     * browser version (ex: dj_ie6)
+     * box model (ex: dj_contentBox)
+     * text direction (ex: dijitRtl)
+     * In addition, browser, browser version, and box model are
+     * combined with an RTL flag when browser text is RTL. ex: dj_ie-rtl.
+     * 
+     * Returns the has() method.
+     * 
+     */
+    interface uacss {
+    }
+    /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/window.html
      *
      * TODOC
@@ -27080,23 +27141,6 @@ declare module dojo {
          * @param pos               Optional            
          */
         scrollIntoView(node: HTMLElement, pos: Object): void;
-    }
-    /**
-     * Permalink: http://dojotoolkit.org/api/1.9/dojo/uacss.html
-     *
-     * Applies pre-set CSS classes to the top-level HTML node, based on:
-     * 
-     * browser (ex: dj_ie)
-     * browser version (ex: dj_ie6)
-     * box model (ex: dj_contentBox)
-     * text direction (ex: dijitRtl)
-     * In addition, browser, browser version, and box model are
-     * combined with an RTL flag when browser text is RTL. ex: dj_ie-rtl.
-     * 
-     * Returns the has() method.
-     * 
-     */
-    interface uacss {
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/touch.html
@@ -27171,3 +27215,1135 @@ declare module dojo {
     }
 }
 
+declare module "dojo/request" {
+    var exp: dojo.request
+    export=exp;
+}
+declare module "dojo/request.__BaseOptions" {
+    var exp: dojo.request.__BaseOptions
+    export=exp;
+}
+declare module "dojo/request.__MethodOptions" {
+    var exp: dojo.request.__MethodOptions
+    export=exp;
+}
+declare module "dojo/request.__Options" {
+    var exp: dojo.request.__Options
+    export=exp;
+}
+declare module "dojo/request.__Promise" {
+    var exp: dojo.request.__Promise
+    export=exp;
+}
+declare module "dojo/request/handlers" {
+    var exp: dojo.request.handlers
+    export=exp;
+}
+declare module "dojo/request/iframe" {
+    var exp: dojo.request.iframe
+    export=exp;
+}
+declare module "dojo/request/iframe.__MethodOptions" {
+    var exp: dojo.request.iframe.__MethodOptions
+    export=exp;
+}
+declare module "dojo/request/iframe.__BaseOptions" {
+    var exp: dojo.request.iframe.__BaseOptions
+    export=exp;
+}
+declare module "dojo/request/iframe.__Options" {
+    var exp: dojo.request.iframe.__Options
+    export=exp;
+}
+declare module "dojo/request/notify" {
+    var exp: dojo.request.notify
+    export=exp;
+}
+declare module "dojo/request/registry" {
+    var exp: dojo.request.registry
+    export=exp;
+}
+declare module "dojo/request/node" {
+    var exp: dojo.request.node
+    export=exp;
+}
+declare module "dojo/request/node.__MethodOptions" {
+    var exp: dojo.request.node.__MethodOptions
+    export=exp;
+}
+declare module "dojo/request/node.__Options" {
+    var exp: dojo.request.node.__Options
+    export=exp;
+}
+declare module "dojo/request/node.__BaseOptions" {
+    var exp: dojo.request.node.__BaseOptions
+    export=exp;
+}
+declare module "dojo/request/watch" {
+    var exp: dojo.request.watch
+    export=exp;
+}
+declare module "dojo/request/script" {
+    var exp: dojo.request.script
+    export=exp;
+}
+declare module "dojo/request/script.__MethodOptions" {
+    var exp: dojo.request.script.__MethodOptions
+    export=exp;
+}
+declare module "dojo/request/script.__BaseOptions" {
+    var exp: dojo.request.script.__BaseOptions
+    export=exp;
+}
+declare module "dojo/request/script.__Options" {
+    var exp: dojo.request.script.__Options
+    export=exp;
+}
+declare module "dojo/request/xhr" {
+    var exp: dojo.request.xhr
+    export=exp;
+}
+declare module "dojo/request/xhr.__BaseOptions" {
+    var exp: dojo.request.xhr.__BaseOptions
+    export=exp;
+}
+declare module "dojo/request/xhr.__MethodOptions" {
+    var exp: dojo.request.xhr.__MethodOptions
+    export=exp;
+}
+declare module "dojo/request/xhr.__Options" {
+    var exp: dojo.request.xhr.__Options
+    export=exp;
+}
+declare module "dojo/request/default" {
+    var exp: dojo.request.default_
+    export=exp;
+}
+declare module "dojo/request/util" {
+    var exp: dojo.request.util
+    export=exp;
+}
+declare module "dojo/AdapterRegistry" {
+    var exp: dojo.AdapterRegistry
+    export=exp;
+}
+declare module "dojo/cache" {
+    var exp: dojo.cache
+    export=exp;
+}
+declare module "dojo/cookie" {
+    var exp: dojo.cookie
+    export=exp;
+}
+declare module "dojo/domReady" {
+    var exp: dojo.domReady
+    export=exp;
+}
+declare module "dojo/hash" {
+    var exp: dojo.hash
+    export=exp;
+}
+declare module "dojo/has" {
+    var exp: dojo.has
+    export=exp;
+}
+declare module "dojo/hccss" {
+    var exp: dojo.hccss
+    export=exp;
+}
+declare module "dojo/NodeList-data" {
+    var exp: dojo.NodeList_data
+    export=exp;
+}
+declare module "dojo/NodeList-html" {
+    var exp: dojo.NodeList_html
+    export=exp;
+}
+declare module "dojo/NodeList-fx" {
+    var exp: dojo.NodeList_fx
+    export=exp;
+}
+declare module "dojo/NodeList-dom" {
+    var exp: dojo.NodeList_dom
+    export=exp;
+}
+declare module "dojo/NodeList-manipulate" {
+    var exp: dojo.NodeList_manipulate
+    export=exp;
+}
+declare module "dojo/NodeList-traverse" {
+    var exp: dojo.NodeList_traverse
+    export=exp;
+}
+declare module "dojo/on" {
+    var exp: dojo.on
+    export=exp;
+}
+declare module "dojo/query" {
+    var exp: dojo.query
+    export=exp;
+}
+declare module "dojo/ready" {
+    var exp: dojo.ready
+    export=exp;
+}
+declare module "dojo/sniff" {
+    var exp: dojo.sniff
+    export=exp;
+}
+declare module "dojo/when" {
+    var exp: dojo.when
+    export=exp;
+}
+declare module "dojo/date" {
+    var exp: dojo.date
+    export=exp;
+}
+declare module "dojo/date/stamp" {
+    var exp: dojo.date.stamp
+    export=exp;
+}
+declare module "dojo/date/locale" {
+    var exp: dojo.date.locale
+    export=exp;
+}
+declare module "dojo/date/locale.__FormatOptions" {
+    var exp: dojo.date.locale.__FormatOptions
+    export=exp;
+}
+declare module "dojo/fx" {
+    var exp: dojo.fx
+    export=exp;
+}
+declare module "dojo/fx/Toggler" {
+    var exp: dojo.fx.Toggler
+    export=exp;
+}
+declare module "dojo/fx/easing" {
+    var exp: dojo.fx.easing
+    export=exp;
+}
+declare module "dojo/router" {
+    var exp: dojo.router
+    export=exp;
+}
+declare module "dojo/router/RouterBase" {
+    var exp: typeof dojo.router.RouterBase
+    export=exp;
+}
+declare module "dojo/aspect" {
+    var exp: dojo.aspect
+    export=exp;
+}
+declare module "dojo/back" {
+    var exp: dojo.back
+    export=exp;
+}
+declare module "dojo/colors" {
+    var exp: dojo.colors
+    export=exp;
+}
+declare module "dojo/currency" {
+    var exp: dojo.currency
+    export=exp;
+}
+declare module "dojo/currency.__FormatOptions" {
+    var exp: dojo.currency.__FormatOptions
+    export=exp;
+}
+declare module "dojo/currency.__ParseOptions" {
+    var exp: dojo.currency.__ParseOptions
+    export=exp;
+}
+declare module "dojo/dom" {
+    var exp: dojo.dom
+    export=exp;
+}
+declare module "dojo/dom-attr" {
+    var exp: dojo.dom_attr
+    export=exp;
+}
+declare module "dojo/dom-class" {
+    var exp: dojo.dom_class
+    export=exp;
+}
+declare module "dojo/dom-form" {
+    var exp: dojo.dom_form
+    export=exp;
+}
+declare module "dojo/dom-construct" {
+    var exp: dojo.dom_construct
+    export=exp;
+}
+declare module "dojo/dom-prop" {
+    var exp: dojo.dom_prop
+    export=exp;
+}
+declare module "dojo/dom-prop.names" {
+    var exp: dojo.dom_prop.names
+    export=exp;
+}
+declare module "dojo/dom-style" {
+    var exp: dojo.dom_style
+    export=exp;
+}
+declare module "dojo/dom-geometry" {
+    var exp: dojo.dom_geometry
+    export=exp;
+}
+declare module "dojo/gears" {
+    var exp: dojo.gears
+    export=exp;
+}
+declare module "dojo/gears.available" {
+    var exp: dojo.gears.available
+    export=exp;
+}
+declare module "dojo/html" {
+    var exp: dojo.html
+    export=exp;
+}
+declare module "dojo/html._ContentSetter" {
+    var exp: dojo.html._ContentSetter
+    export=exp;
+}
+declare module "dojo/io-query" {
+    var exp: dojo.io_query
+    export=exp;
+}
+declare module "dojo/i18n" {
+    var exp: dojo.i18n
+    export=exp;
+}
+declare module "dojo/i18n.cache" {
+    var exp: dojo.i18n.cache
+    export=exp;
+}
+declare module "dojo/json" {
+    var exp: dojo.json
+    export=exp;
+}
+declare module "dojo/loadInit" {
+    var exp: dojo.loadInit
+    export=exp;
+}
+declare module "dojo/keys" {
+    var exp: dojo.keys
+    export=exp;
+}
+declare module "dojo/mouse" {
+    var exp: dojo.mouse
+    export=exp;
+}
+declare module "dojo/node" {
+    var exp: dojo.node
+    export=exp;
+}
+declare module "dojo/number" {
+    var exp: dojo.number_
+    export=exp;
+}
+declare module "dojo/number.__FormatAbsoluteOptions" {
+    var exp: dojo.number_.__FormatAbsoluteOptions
+    export=exp;
+}
+declare module "dojo/number.__IntegerRegexpFlags" {
+    var exp: dojo.number_.__IntegerRegexpFlags
+    export=exp;
+}
+declare module "dojo/number.__FormatOptions" {
+    var exp: dojo.number_.__FormatOptions
+    export=exp;
+}
+declare module "dojo/number.__RealNumberRegexpFlags" {
+    var exp: dojo.number_.__RealNumberRegexpFlags
+    export=exp;
+}
+declare module "dojo/number.__ParseOptions" {
+    var exp: dojo.number_.__ParseOptions
+    export=exp;
+}
+declare module "dojo/number.__RegexpOptions" {
+    var exp: dojo.number_.__RegexpOptions
+    export=exp;
+}
+declare module "dojo/parser" {
+    var exp: dojo.parser
+    export=exp;
+}
+declare module "dojo/regexp" {
+    var exp: dojo.regexp
+    export=exp;
+}
+declare module "dojo/require" {
+    var exp: dojo.require
+    export=exp;
+}
+declare module "dojo/robotx" {
+    var exp: dojo.robotx
+    export=exp;
+}
+declare module "dojo/robotx._runsemaphore" {
+    var exp: dojo.robotx._runsemaphore
+    export=exp;
+}
+declare module "dojo/robot" {
+    var exp: dojo.robot
+    export=exp;
+}
+declare module "dojo/robot._runsemaphore" {
+    var exp: dojo.robot._runsemaphore
+    export=exp;
+}
+declare module "dojo/main" {
+    var exp: dojo.main
+    export=exp;
+}
+declare module "dojo/main.__IoArgs" {
+    var exp: dojo.main.__IoArgs
+    export=exp;
+}
+declare module "dojo/main.__IoCallbackArgs" {
+    var exp: dojo.main.__IoCallbackArgs
+    export=exp;
+}
+declare module "dojo/main.__IoPublish" {
+    var exp: dojo.main.__IoPublish
+    export=exp;
+}
+declare module "dojo/main.__XhrArgs" {
+    var exp: dojo.main.__XhrArgs
+    export=exp;
+}
+declare module "dojo/main.Stateful" {
+    var exp: dojo.main.Stateful
+    export=exp;
+}
+declare module "dojo/main._hasResource" {
+    var exp: dojo.main._hasResource
+    export=exp;
+}
+declare module "dojo/main._contentHandlers" {
+    var exp: dojo.main._contentHandlers
+    export=exp;
+}
+declare module "dojo/main.cldr" {
+    var exp: dojo.main.cldr
+    export=exp;
+}
+declare module "dojo/main._nodeDataCache" {
+    var exp: dojo.main._nodeDataCache
+    export=exp;
+}
+declare module "dojo/main.colors" {
+    var exp: dojo.main.colors
+    export=exp;
+}
+declare module "dojo/main.back" {
+    var exp: dojo.main.back
+    export=exp;
+}
+declare module "dojo/main.data" {
+    var exp: dojo.main.data
+    export=exp;
+}
+declare module "dojo/main.config" {
+    var exp: dojo.main.config
+    export=exp;
+}
+declare module "dojo/main.contentHandlers" {
+    var exp: dojo.main.contentHandlers
+    export=exp;
+}
+declare module "dojo/main.date" {
+    var exp: dojo.main.date
+    export=exp;
+}
+declare module "dojo/main.currency" {
+    var exp: dojo.main.currency
+    export=exp;
+}
+declare module "dojo/main.dnd" {
+    var exp: dojo.main.dnd
+    export=exp;
+}
+declare module "dojo/main.doc" {
+    var exp: dojo.main.doc
+    export=exp;
+}
+declare module "dojo/main.gears" {
+    var exp: dojo.main.gears
+    export=exp;
+}
+declare module "dojo/main.global" {
+    var exp: dojo.main.global
+    export=exp;
+}
+declare module "dojo/main.dijit" {
+    var exp: dojo.main.dijit
+    export=exp;
+}
+declare module "dojo/main.io" {
+    var exp: dojo.main.io
+    export=exp;
+}
+declare module "dojo/main.fx" {
+    var exp: dojo.main.fx
+    export=exp;
+}
+declare module "dojo/main.html" {
+    var exp: dojo.main.html
+    export=exp;
+}
+declare module "dojo/main.dojox" {
+    var exp: dojo.main.dojox
+    export=exp;
+}
+declare module "dojo/main.i18n" {
+    var exp: dojo.main.i18n
+    export=exp;
+}
+declare module "dojo/main.scopeMap" {
+    var exp: dojo.main.scopeMap
+    export=exp;
+}
+declare module "dojo/main.regexp" {
+    var exp: dojo.main.regexp
+    export=exp;
+}
+declare module "dojo/main.mouseButtons" {
+    var exp: dojo.main.mouseButtons
+    export=exp;
+}
+declare module "dojo/main.rpc" {
+    var exp: dojo.main.rpc
+    export=exp;
+}
+declare module "dojo/main.number" {
+    var exp: dojo.main.number_
+    export=exp;
+}
+declare module "dojo/main.keys" {
+    var exp: dojo.main.keys
+    export=exp;
+}
+declare module "dojo/main.tests" {
+    var exp: dojo.main.tests
+    export=exp;
+}
+declare module "dojo/main.version" {
+    var exp: dojo.main.version
+    export=exp;
+}
+declare module "dojo/main.string" {
+    var exp: dojo.main.string_
+    export=exp;
+}
+declare module "dojo/main.touch" {
+    var exp: dojo.main.touch
+    export=exp;
+}
+declare module "dojo/main.store" {
+    var exp: dojo.main.store
+    export=exp;
+}
+declare module "dojo/main.window" {
+    var exp: dojo.main.window
+    export=exp;
+}
+declare module "dojo/string" {
+    var exp: dojo.string_
+    export=exp;
+}
+declare module "dojo/text" {
+    var exp: dojo.text
+    export=exp;
+}
+declare module "dojo/topic" {
+    var exp: dojo.topic
+    export=exp;
+}
+declare module "dojo/uacss" {
+    var exp: dojo.uacss
+    export=exp;
+}
+declare module "dojo/window" {
+    var exp: dojo.window
+    export=exp;
+}
+declare module "dojo/touch" {
+    var exp: dojo.touch
+    export=exp;
+}
+declare module "dojo/DeferredList" {
+    var exp: typeof dojo.DeferredList
+    export=exp;
+}
+declare module "dojo/Deferred" {
+    var exp: typeof dojo.Deferred
+    export=exp;
+}
+declare module "dojo/Evented" {
+    var exp: typeof dojo.Evented
+    export=exp;
+}
+declare module "dojo/NodeList" {
+    var exp: typeof dojo.NodeList
+    export=exp;
+}
+declare module "dojo/NodeList._nodeDataCache" {
+    var exp: dojo.NodeList._nodeDataCache
+    export=exp;
+}
+declare module "dojo/Stateful" {
+    var exp: typeof dojo.Stateful
+    export=exp;
+}
+declare module "dojo/_base/declare" {
+    var exp: dojo._base.declare
+    export=exp;
+}
+declare module "dojo/_base/declare.__DeclareCreatedObject" {
+    var exp: dojo._base.declare.__DeclareCreatedObject
+    export=exp;
+}
+declare module "dojo/_base/Deferred" {
+    var exp: dojo._base.Deferred
+    export=exp;
+}
+declare module "dojo/_base/url" {
+    var exp: dojo._base.url
+    export=exp;
+}
+declare module "dojo/_base/url.authority" {
+    var exp: dojo._base.url.authority
+    export=exp;
+}
+declare module "dojo/_base/url.password" {
+    var exp: dojo._base.url.password
+    export=exp;
+}
+declare module "dojo/_base/url.port" {
+    var exp: dojo._base.url.port
+    export=exp;
+}
+declare module "dojo/_base/url.fragment" {
+    var exp: dojo._base.url.fragment
+    export=exp;
+}
+declare module "dojo/_base/url.query" {
+    var exp: dojo._base.url.query
+    export=exp;
+}
+declare module "dojo/_base/url.user" {
+    var exp: dojo._base.url.user
+    export=exp;
+}
+declare module "dojo/_base/url.scheme" {
+    var exp: dojo._base.url.scheme
+    export=exp;
+}
+declare module "dojo/_base/xhr" {
+    var exp: dojo._base.xhr
+    export=exp;
+}
+declare module "dojo/_base/xhr.contentHandlers" {
+    var exp: dojo._base.xhr.contentHandlers
+    export=exp;
+}
+declare module "dojo/_base/browser" {
+    var exp: dojo._base.browser
+    export=exp;
+}
+declare module "dojo/_base/array" {
+    var exp: dojo._base.array
+    export=exp;
+}
+declare module "dojo/_base/connect" {
+    var exp: dojo._base.connect
+    export=exp;
+}
+declare module "dojo/_base/event" {
+    var exp: dojo._base.event
+    export=exp;
+}
+declare module "dojo/_base/html" {
+    var exp: dojo._base.html
+    export=exp;
+}
+declare module "dojo/_base/json" {
+    var exp: dojo._base.json
+    export=exp;
+}
+declare module "dojo/_base/fx" {
+    var exp: dojo._base.fx
+    export=exp;
+}
+declare module "dojo/_base/query" {
+    var exp: dojo._base.query
+    export=exp;
+}
+declare module "dojo/_base/NodeList" {
+    var exp: dojo._base.NodeList
+    export=exp;
+}
+declare module "dojo/_base/sniff" {
+    var exp: dojo._base.sniff
+    export=exp;
+}
+declare module "dojo/_base/lang" {
+    var exp: dojo._base.lang
+    export=exp;
+}
+declare module "dojo/_base/unload" {
+    var exp: dojo._base.unload
+    export=exp;
+}
+declare module "dojo/_base/window" {
+    var exp: dojo._base.window
+    export=exp;
+}
+declare module "dojo/_base/window.doc" {
+    var exp: dojo._base.window.doc
+    export=exp;
+}
+declare module "dojo/_base/window.global" {
+    var exp: dojo._base.window.global
+    export=exp;
+}
+declare module "dojo/_base/kernel" {
+    var exp: dojo._base.kernel
+    export=exp;
+}
+declare module "dojo/_base/kernel.__IoCallbackArgs" {
+    var exp: dojo._base.kernel.__IoCallbackArgs
+    export=exp;
+}
+declare module "dojo/_base/kernel.__IoPublish" {
+    var exp: dojo._base.kernel.__IoPublish
+    export=exp;
+}
+declare module "dojo/_base/kernel.__IoArgs" {
+    var exp: dojo._base.kernel.__IoArgs
+    export=exp;
+}
+declare module "dojo/_base/kernel.__XhrArgs" {
+    var exp: dojo._base.kernel.__XhrArgs
+    export=exp;
+}
+declare module "dojo/_base/kernel.Stateful" {
+    var exp: dojo._base.kernel.Stateful
+    export=exp;
+}
+declare module "dojo/_base/kernel._contentHandlers" {
+    var exp: dojo._base.kernel._contentHandlers
+    export=exp;
+}
+declare module "dojo/_base/kernel._hasResource" {
+    var exp: dojo._base.kernel._hasResource
+    export=exp;
+}
+declare module "dojo/_base/kernel._nodeDataCache" {
+    var exp: dojo._base.kernel._nodeDataCache
+    export=exp;
+}
+declare module "dojo/_base/kernel.back" {
+    var exp: dojo._base.kernel.back
+    export=exp;
+}
+declare module "dojo/_base/kernel.cldr" {
+    var exp: dojo._base.kernel.cldr
+    export=exp;
+}
+declare module "dojo/_base/kernel.colors" {
+    var exp: dojo._base.kernel.colors
+    export=exp;
+}
+declare module "dojo/_base/kernel.config" {
+    var exp: dojo._base.kernel.config
+    export=exp;
+}
+declare module "dojo/_base/kernel.contentHandlers" {
+    var exp: dojo._base.kernel.contentHandlers
+    export=exp;
+}
+declare module "dojo/_base/kernel.dnd" {
+    var exp: dojo._base.kernel.dnd
+    export=exp;
+}
+declare module "dojo/_base/kernel.date" {
+    var exp: dojo._base.kernel.date
+    export=exp;
+}
+declare module "dojo/_base/kernel.doc" {
+    var exp: dojo._base.kernel.doc
+    export=exp;
+}
+declare module "dojo/_base/kernel.data" {
+    var exp: dojo._base.kernel.data
+    export=exp;
+}
+declare module "dojo/_base/kernel.currency" {
+    var exp: dojo._base.kernel.currency
+    export=exp;
+}
+declare module "dojo/_base/kernel.dijit" {
+    var exp: dojo._base.kernel.dijit
+    export=exp;
+}
+declare module "dojo/_base/kernel.global" {
+    var exp: dojo._base.kernel.global
+    export=exp;
+}
+declare module "dojo/_base/kernel.gears" {
+    var exp: dojo._base.kernel.gears
+    export=exp;
+}
+declare module "dojo/_base/kernel.fx" {
+    var exp: dojo._base.kernel.fx
+    export=exp;
+}
+declare module "dojo/_base/kernel.html" {
+    var exp: dojo._base.kernel.html
+    export=exp;
+}
+declare module "dojo/_base/kernel.io" {
+    var exp: dojo._base.kernel.io
+    export=exp;
+}
+declare module "dojo/_base/kernel.dojox" {
+    var exp: dojo._base.kernel.dojox
+    export=exp;
+}
+declare module "dojo/_base/kernel.i18n" {
+    var exp: dojo._base.kernel.i18n
+    export=exp;
+}
+declare module "dojo/_base/kernel.mouseButtons" {
+    var exp: dojo._base.kernel.mouseButtons
+    export=exp;
+}
+declare module "dojo/_base/kernel.rpc" {
+    var exp: dojo._base.kernel.rpc
+    export=exp;
+}
+declare module "dojo/_base/kernel.regexp" {
+    var exp: dojo._base.kernel.regexp
+    export=exp;
+}
+declare module "dojo/_base/kernel.number" {
+    var exp: dojo._base.kernel.number_
+    export=exp;
+}
+declare module "dojo/_base/kernel.scopeMap" {
+    var exp: dojo._base.kernel.scopeMap
+    export=exp;
+}
+declare module "dojo/_base/kernel.tests" {
+    var exp: dojo._base.kernel.tests
+    export=exp;
+}
+declare module "dojo/_base/kernel.keys" {
+    var exp: dojo._base.kernel.keys
+    export=exp;
+}
+declare module "dojo/_base/kernel.store" {
+    var exp: dojo._base.kernel.store
+    export=exp;
+}
+declare module "dojo/_base/kernel.string" {
+    var exp: dojo._base.kernel.string_
+    export=exp;
+}
+declare module "dojo/_base/kernel.version" {
+    var exp: dojo._base.kernel.version
+    export=exp;
+}
+declare module "dojo/_base/kernel.touch" {
+    var exp: dojo._base.kernel.touch
+    export=exp;
+}
+declare module "dojo/_base/kernel.window" {
+    var exp: dojo._base.kernel.window
+    export=exp;
+}
+declare module "dojo/_base/config" {
+    var exp: dojo._base.config
+    export=exp;
+}
+declare module "dojo/_base/config.modulePaths" {
+    var exp: dojo._base.config.modulePaths
+    export=exp;
+}
+declare module "dojo/_base/Color" {
+    var exp: typeof dojo._base.Color
+    export=exp;
+}
+declare module "dojo/_base/Color.named" {
+    var exp: dojo._base.Color.named
+    export=exp;
+}
+declare module "dojo/cldr/monetary" {
+    var exp: dojo.cldr.monetary
+    export=exp;
+}
+declare module "dojo/cldr/supplemental" {
+    var exp: dojo.cldr.supplemental
+    export=exp;
+}
+declare module "dojo/data/ItemFileReadStore" {
+    var exp: typeof dojo.data.ItemFileReadStore
+    export=exp;
+}
+declare module "dojo/data/ObjectStore" {
+    var exp: typeof dojo.data.ObjectStore
+    export=exp;
+}
+declare module "dojo/data/ItemFileWriteStore" {
+    var exp: typeof dojo.data.ItemFileWriteStore
+    export=exp;
+}
+declare module "dojo/data/api/Item" {
+    var exp: typeof dojo.data.api.Item
+    export=exp;
+}
+declare module "dojo/data/api/Identity" {
+    var exp: typeof dojo.data.api.Identity
+    export=exp;
+}
+declare module "dojo/data/api/Request" {
+    var exp: typeof  dojo.data.api.Request
+    export=exp;
+}
+declare module "dojo/data/api/Notification" {
+    var exp: typeof dojo.data.api.Notification
+    export=exp;
+}
+declare module "dojo/data/api/Read" {
+    var exp: typeof dojo.data.api.Read
+    export=exp;
+}
+declare module "dojo/data/api/Write" {
+    var exp: typeof dojo.data.api.Write
+    export=exp;
+}
+declare module "dojo/data/util/filter" {
+    var exp: dojo.data.util.filter
+    export=exp;
+}
+declare module "dojo/data/util/simpleFetch" {
+    var exp: dojo.data.util.simpleFetch
+    export=exp;
+}
+declare module "dojo/data/util/sorter" {
+    var exp: dojo.data.util.sorter
+    export=exp;
+}
+declare module "dojo/dnd/autoscroll" {
+    var exp: dojo.dnd.autoscroll
+    export=exp;
+}
+declare module "dojo/dnd/autoscroll._validOverflow" {
+    var exp: dojo.dnd.autoscroll._validOverflow
+    export=exp;
+}
+declare module "dojo/dnd/autoscroll._validNodes" {
+    var exp: dojo.dnd.autoscroll._validNodes
+    export=exp;
+}
+declare module "dojo/dnd/common" {
+    var exp: dojo.dnd.common
+    export=exp;
+}
+declare module "dojo/dnd/common._empty" {
+    var exp: dojo.dnd.common._empty
+    export=exp;
+}
+declare module "dojo/dnd/common._defaultCreatorNodes" {
+    var exp: dojo.dnd.common._defaultCreatorNodes
+    export=exp;
+}
+declare module "dojo/dnd/move" {
+    var exp: dojo.dnd.move
+    export=exp;
+}
+declare module "dojo/dnd/move.parentConstrainedMoveable" {
+    var exp: dojo.dnd.move.parentConstrainedMoveable
+    export=exp;
+}
+declare module "dojo/dnd/move.boxConstrainedMoveable" {
+    var exp: dojo.dnd.move.boxConstrainedMoveable
+    export=exp;
+}
+declare module "dojo/dnd/move.constrainedMoveable" {
+    var exp: dojo.dnd.move.constrainedMoveable
+    export=exp;
+}
+declare module "dojo/dnd/Avatar" {
+    var exp: typeof dojo.dnd.Avatar
+    export=exp;
+}
+declare module "dojo/dnd/Manager" {
+    var exp: typeof dojo.dnd.Manager
+    export=exp;
+}
+declare module "dojo/dnd/Container" {
+    var exp: typeof dojo.dnd.Container
+    export=exp;
+}
+declare module "dojo/dnd/Container.__ContainerArgs" {
+    var exp: dojo.dnd.Container.__ContainerArgs
+    export=exp;
+}
+declare module "dojo/dnd/AutoSource" {
+    var exp: typeof dojo.dnd.AutoSource
+    export=exp;
+}
+declare module "dojo/dnd/Mover" {
+    var exp: typeof dojo.dnd.Mover
+    export=exp;
+}
+declare module "dojo/dnd/Moveable" {
+    var exp: typeof dojo.dnd.Moveable
+    export=exp;
+}
+declare module "dojo/dnd/Moveable.__MoveableArgs" {
+    var exp: typeof dojo.dnd.Moveable.__MoveableArgs
+    export=exp;
+}
+declare module "dojo/dnd/Selector" {
+    var exp: typeof dojo.dnd.Selector
+    export=exp;
+}
+declare module "dojo/dnd/TimedMoveable" {
+    var exp: typeof dojo.dnd.TimedMoveable
+    export=exp;
+}
+declare module "dojo/dnd/Target" {
+    var exp: typeof dojo.dnd.Target
+    export=exp;
+}
+declare module "dojo/dnd/Source" {
+    var exp: typeof dojo.dnd.Source
+    export=exp;
+}
+declare module "dojo/errors/create" {
+    var exp: dojo.errors.create
+    export=exp;
+}
+declare module "dojo/errors/CancelError" {
+    var exp: dojo.errors.CancelError
+    export=exp;
+}
+declare module "dojo/errors/RequestError" {
+    var exp: dojo.errors.RequestError
+    export=exp;
+}
+declare module "dojo/errors/RequestTimeoutError" {
+    var exp: dojo.errors.RequestTimeoutError
+    export=exp;
+}
+declare module "dojo/io/iframe" {
+    var exp: dojo.io.iframe
+    export=exp;
+}
+declare module "dojo/io/script" {
+    var exp: dojo.io.script
+    export=exp;
+}
+declare module "dojo/promise/all" {
+    var exp: dojo.promise.all
+    export=exp;
+}
+declare module "dojo/promise/first" {
+    var exp: dojo.promise.first
+    export=exp;
+}
+declare module "dojo/promise/instrumentation" {
+    var exp: dojo.promise.instrumentation
+    export=exp;
+}
+declare module "dojo/promise/tracer" {
+    var exp: dojo.promise.tracer
+    export=exp;
+}
+declare module "dojo/promise/Promise" {
+    var exp: typeof dojo.promise.Promise
+    export=exp;
+}
+declare module "dojo/rpc/JsonpService" {
+    var exp: typeof dojo.rpc.JsonpService
+    export=exp;
+}
+declare module "dojo/rpc/JsonService" {
+    var exp: typeof dojo.rpc.JsonService
+    export=exp;
+}
+declare module "dojo/rpc/RpcService" {
+    var exp: typeof  dojo.rpc.RpcService
+    export=exp;
+}
+declare module "dojo/selector/lite" {
+    var exp: dojo.selector.lite
+    export=exp;
+}
+declare module "dojo/selector/acme" {
+    var exp: dojo.selector.acme
+    export=exp;
+}
+declare module "dojo/selector/_loader" {
+    var exp: dojo.selector._loader
+    export=exp;
+}
+declare module "dojo/store/Observable" {
+    var exp: dojo.store.Observable
+    export=exp;
+}
+declare module "dojo/store/Cache" {
+    var exp: typeof  dojo.store.Cache
+    export=exp;
+}
+declare module "dojo/store/DataStore" {
+    var exp: typeof dojo.store.DataStore
+    export=exp;
+}
+declare module "dojo/store/Memory" {
+    var exp: typeof dojo.store.Memory
+    export=exp;
+}
+declare module "dojo/store/JsonRest" {
+    var exp: typeof dojo.store.JsonRest
+    export=exp;
+}
+declare module "dojo/store/api/Store" {
+    var exp: typeof dojo.store.api.Store
+    export=exp;
+}
+declare module "dojo/store/api/Store.PutDirectives" {
+    var exp: typeof dojo.store.api.Store.PutDirectives
+    export=exp;
+}
+declare module "dojo/store/api/Store.QueryOptions" {
+    var exp: typeof dojo.store.api.Store.QueryOptions
+    export=exp;
+}
+declare module "dojo/store/api/Store.QueryResults" {
+    var exp: typeof dojo.store.api.Store.QueryResults
+    export=exp;
+}
+declare module "dojo/store/api/Store.SortInformation" {
+    var exp: typeof dojo.store.api.Store.SortInformation
+    export=exp;
+}
+declare module "dojo/store/api/Store.Transaction" {
+    var exp: typeof  dojo.store.api.Store.Transaction
+    export=exp;
+}
+declare module "dojo/store/util/QueryResults" {
+    var exp: dojo.store.util.QueryResults
+    export=exp;
+}
+declare module "dojo/store/util/SimpleQueryEngine" {
+    var exp: dojo.store.util.SimpleQueryEngine
+    export=exp;
+}

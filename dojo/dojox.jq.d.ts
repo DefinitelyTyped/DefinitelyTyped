@@ -13,3 +13,8 @@ declare module dojox {
     interface jq {
     }
 }
+
+declare module "dojox/jq" {
+    var exp: dojox.jq
+    export=exp;
+}
