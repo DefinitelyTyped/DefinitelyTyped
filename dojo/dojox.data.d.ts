@@ -6598,3 +6598,184 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/data/restListener" {
+    var exp: dojox.data.restListener
+    export=exp;
+}
+declare module "dojox/data/css" {
+    var exp: dojox.data.css
+    export=exp;
+}
+declare module "dojox/data/css.rules" {
+    var exp: dojox.data.css.rules
+    export=exp;
+}
+declare module "dojox/data/dom" {
+    var exp: dojox.data.dom
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore" {
+    var exp: dojox.data.GoogleSearchStore
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.ImageSearch" {
+    var exp: dojox.data.GoogleSearchStore.ImageSearch
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.BookSearch" {
+    var exp: dojox.data.GoogleSearchStore.BookSearch
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.LocalSearch" {
+    var exp: dojox.data.GoogleSearchStore.LocalSearch
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.BlogSearch" {
+    var exp: dojox.data.GoogleSearchStore.BlogSearch
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.VideoSearch" {
+    var exp: dojox.data.GoogleSearchStore.VideoSearch
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.Search" {
+    var exp: dojox.data.GoogleSearchStore.Search
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.WebSearch" {
+    var exp: dojox.data.GoogleSearchStore.WebSearch
+    export=exp;
+}
+declare module "dojox/data/GoogleSearchStore.NewsSearch" {
+    var exp: dojox.data.GoogleSearchStore.NewsSearch
+    export=exp;
+}
+declare module "dojox/data/AndOrReadStore" {
+    var exp: dojox.data.AndOrReadStore
+    export=exp;
+}
+declare module "dojox/data/AppStore" {
+    var exp: dojox.data.AppStore
+    export=exp;
+}
+declare module "dojox/data/AndOrWriteStore" {
+    var exp: dojox.data.AndOrWriteStore
+    export=exp;
+}
+declare module "dojox/data/AtomReadStore" {
+    var exp: dojox.data.AtomReadStore
+    export=exp;
+}
+declare module "dojox/data/ClientFilter" {
+    var exp: dojox.data.ClientFilter
+    export=exp;
+}
+declare module "dojox/data/CouchDBRestStore" {
+    var exp: dojox.data.CouchDBRestStore
+    export=exp;
+}
+declare module "dojox/data/CdfStore" {
+    var exp: dojox.data.CdfStore
+    export=exp;
+}
+declare module "dojox/data/CssRuleStore" {
+    var exp: dojox.data.CssRuleStore
+    export=exp;
+}
+declare module "dojox/data/CssClassStore" {
+    var exp: dojox.data.CssClassStore
+    export=exp;
+}
+declare module "dojox/data/CsvStore" {
+    var exp: dojox.data.CsvStore
+    export=exp;
+}
+declare module "dojox/data/FileStore" {
+    var exp: dojox.data.FileStore
+    export=exp;
+}
+declare module "dojox/data/FlickrRestStore" {
+    var exp: dojox.data.FlickrRestStore
+    export=exp;
+}
+declare module "dojox/data/GoogleFeedStore" {
+    var exp: dojox.data.GoogleFeedStore
+    export=exp;
+}
+declare module "dojox/data/FlickrStore" {
+    var exp: dojox.data.FlickrStore
+    export=exp;
+}
+declare module "dojox/data/HtmlStore" {
+    var exp: dojox.data.HtmlStore
+    export=exp;
+}
+declare module "dojox/data/HtmlTableStore" {
+    var exp: dojox.data.HtmlTableStore
+    export=exp;
+}
+declare module "dojox/data/KeyValueStore" {
+    var exp: dojox.data.KeyValueStore
+    export=exp;
+}
+declare module "dojox/data/JsonRestStore" {
+    var exp: dojox.data.JsonRestStore
+    export=exp;
+}
+declare module "dojox/data/JsonQueryRestStore" {
+    var exp: dojox.data.JsonQueryRestStore
+    export=exp;
+}
+declare module "dojox/data/PersevereStore" {
+    var exp: dojox.data.PersevereStore
+    export=exp;
+}
+declare module "dojox/data/OpenSearchStore" {
+    var exp: dojox.data.OpenSearchStore
+    export=exp;
+}
+declare module "dojox/data/PicasaStore" {
+    var exp: dojox.data.PicasaStore
+    export=exp;
+}
+declare module "dojox/data/OpmlStore" {
+    var exp: dojox.data.OpmlStore
+    export=exp;
+}
+declare module "dojox/data/RailsStore" {
+    var exp: dojox.data.RailsStore
+    export=exp;
+}
+declare module "dojox/data/QueryReadStore" {
+    var exp: dojox.data.QueryReadStore
+    export=exp;
+}
+declare module "dojox/data/S3Store" {
+    var exp: dojox.data.S3Store
+    export=exp;
+}
+declare module "dojox/data/SnapLogicStore" {
+    var exp: dojox.data.SnapLogicStore
+    export=exp;
+}
+declare module "dojox/data/XmlItem" {
+    var exp: dojox.data.XmlItem
+    export=exp;
+}
+declare module "dojox/data/ServiceStore" {
+    var exp: dojox.data.ServiceStore
+    export=exp;
+}
+declare module "dojox/data/WikipediaStore" {
+    var exp: dojox.data.WikipediaStore
+    export=exp;
+}
+declare module "dojox/data/XmlStore" {
+    var exp: dojox.data.XmlStore
+    export=exp;
+}
+declare module "dojox/data/util/JsonQuery" {
+    var exp: dojox.data.util.JsonQuery
+    export=exp;
+}

@@ -2322,7 +2322,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -3747,7 +3747,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -4820,7 +4820,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -5900,7 +5900,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -7114,7 +7114,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -9247,7 +9247,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -11093,7 +11093,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -12997,7 +12997,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -14957,7 +14957,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -20171,7 +20171,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -23032,7 +23032,7 @@ declare module dojox {
                          * serialization.
                          * 
                          */
-                        toString(): String;
+                        toString(): string;
                         /**
                          * 
                          */
@@ -23885,7 +23885,7 @@ declare module dojox {
                          * serialization.
                          * 
                          */
-                        toString(): String;
+                        toString(): string;
                         /**
                          * 
                          */
@@ -26083,4 +26083,480 @@ declare module dojox {
         }
     }
 
+}
+declare module "dojox/grid/_Builder" {
+    var exp: dojox.grid._Builder
+    export=exp;
+}
+declare module "dojox/grid/util" {
+    var exp: dojox.grid.util
+    export=exp;
+}
+declare module "dojox/grid/_EditManager" {
+    var exp: dojox.grid._EditManager
+    export=exp;
+}
+declare module "dojox/grid/_RowManager" {
+    var exp: dojox.grid._RowManager
+    export=exp;
+}
+declare module "dojox/grid/_Layout" {
+    var exp: dojox.grid._Layout
+    export=exp;
+}
+declare module "dojox/grid/_Events" {
+    var exp: dojox.grid._Events
+    export=exp;
+}
+declare module "dojox/grid/_FocusManager" {
+    var exp: dojox.grid._FocusManager
+    export=exp;
+}
+declare module "dojox/grid/_SelectionPreserver" {
+    var exp: dojox.grid._SelectionPreserver
+    export=exp;
+}
+declare module "dojox/grid/_Scroller" {
+    var exp: dojox.grid._Scroller
+    export=exp;
+}
+declare module "dojox/grid/_ViewManager" {
+    var exp: dojox.grid._ViewManager
+    export=exp;
+}
+declare module "dojox/grid/_TreeView" {
+    var exp: dojox.grid._TreeView
+    export=exp;
+}
+declare module "dojox/grid/_View" {
+    var exp: dojox.grid._View
+    export=exp;
+}
+declare module "dojox/grid/_Selector" {
+    var exp: dojox.grid._Selector
+    export=exp;
+}
+declare module "dojox/grid/_RowSelector" {
+    var exp: dojox.grid._RowSelector
+    export=exp;
+}
+declare module "dojox/grid/DataSelection" {
+    var exp: dojox.grid.DataSelection
+    export=exp;
+}
+declare module "dojox/grid/_Grid" {
+    var exp: dojox.grid._Grid
+    export=exp;
+}
+declare module "dojox/grid/DataGrid" {
+    var exp: dojox.grid.DataGrid
+    export=exp;
+}
+declare module "dojox/grid/LazyTreeGridStoreModel" {
+    var exp: dojox.grid.LazyTreeGridStoreModel
+    export=exp;
+}
+declare module "dojox/grid/TreeSelection" {
+    var exp: dojox.grid.TreeSelection
+    export=exp;
+}
+declare module "dojox/grid/Selection" {
+    var exp: dojox.grid.Selection
+    export=exp;
+}
+declare module "dojox/grid/LazyTreeGrid" {
+    var exp: dojox.grid.LazyTreeGrid
+    export=exp;
+}
+declare module "dojox/grid/EnhancedGrid" {
+    var exp: dojox.grid.EnhancedGrid
+    export=exp;
+}
+declare module "dojox/grid/TreeGrid" {
+    var exp: dojox.grid.TreeGrid
+    export=exp;
+}
+declare module "dojox/grid/bidi/_BidiMixin" {
+    var exp: dojox.grid.bidi._BidiMixin
+    export=exp;
+}
+declare module "dojox/grid/cells/dijit" {
+    var exp: dojox.grid.cells.dijit
+    export=exp;
+}
+declare module "dojox/grid/cells/dijit._Widget" {
+    var exp: dojox.grid.cells.dijit._Widget
+    export=exp;
+}
+declare module "dojox/grid/cells/dijit.CheckBox" {
+    var exp: dojox.grid.cells.dijit.CheckBox
+    export=exp;
+}
+declare module "dojox/grid/cells/dijit.DateTextBox" {
+    var exp: dojox.grid.cells.dijit.DateTextBox
+    export=exp;
+}
+declare module "dojox/grid/cells/dijit.Editor" {
+    var exp: dojox.grid.cells.dijit.Editor
+    export=exp;
+}
+declare module "dojox/grid/cells/dijit.ComboBox" {
+    var exp: dojox.grid.cells.dijit.ComboBox
+    export=exp;
+}
+declare module "dojox/grid/cells/tree" {
+    var exp: dojox.grid.cells.tree
+    export=exp;
+}
+declare module "dojox/grid/cells/_base" {
+    var exp: dojox.grid.cells._base
+    export=exp;
+}
+declare module "dojox/grid/cells/_base.AlwaysEdit" {
+    var exp: dojox.grid.cells._base.AlwaysEdit
+    export=exp;
+}
+declare module "dojox/grid/cells/_base.Bool" {
+    var exp: dojox.grid.cells._base.Bool
+    export=exp;
+}
+declare module "dojox/grid/cells/_base.Cell" {
+    var exp: dojox.grid.cells._base.Cell
+    export=exp;
+}
+declare module "dojox/grid/cells/_base.Select" {
+    var exp: dojox.grid.cells._base.Select
+    export=exp;
+}
+declare module "dojox/grid/cells/_base.RowIndex" {
+    var exp: dojox.grid.cells._base.RowIndex
+    export=exp;
+}
+declare module "dojox/grid/enhanced/_Events" {
+    var exp: dojox.grid.enhanced._Events
+    export=exp;
+}
+declare module "dojox/grid/enhanced/_Plugin" {
+    var exp: dojox.grid.enhanced._Plugin
+    export=exp;
+}
+declare module "dojox/grid/enhanced/_PluginManager" {
+    var exp: dojox.grid.enhanced._PluginManager
+    export=exp;
+}
+declare module "dojox/grid/enhanced/_FocusManager" {
+    var exp: dojox.grid.enhanced._FocusManager
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/_StoreLayer" {
+    var exp: dojox.grid.enhanced.plugins._StoreLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/_StoreLayer._ServerSideLayer" {
+    var exp: dojox.grid.enhanced.plugins._StoreLayer._ServerSideLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/_StoreLayer._StoreLayer" {
+    var exp: dojox.grid.enhanced.plugins._StoreLayer._StoreLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/_RowMapLayer" {
+    var exp: dojox.grid.enhanced.plugins._RowMapLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/_SelectionPreserver" {
+    var exp: dojox.grid.enhanced.plugins._SelectionPreserver
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/AutoScroll" {
+    var exp: dojox.grid.enhanced.plugins.AutoScroll
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/DnD" {
+    var exp: dojox.grid.enhanced.plugins.DnD
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/CellMerge" {
+    var exp: dojox.grid.enhanced.plugins.CellMerge
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Exporter" {
+    var exp: dojox.grid.enhanced.plugins.Exporter
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Cookie" {
+    var exp: dojox.grid.enhanced.plugins.Cookie
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Filter" {
+    var exp: dojox.grid.enhanced.plugins.Filter
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Dialog" {
+    var exp: dojox.grid.enhanced.plugins.Dialog
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/IndirectSelection" {
+    var exp: dojox.grid.enhanced.plugins.IndirectSelection
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Menu" {
+    var exp: dojox.grid.enhanced.plugins.Menu
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Printer" {
+    var exp: dojox.grid.enhanced.plugins.Printer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/NestedSorting" {
+    var exp: dojox.grid.enhanced.plugins.NestedSorting
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Rearrange" {
+    var exp: dojox.grid.enhanced.plugins.Rearrange
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Search" {
+    var exp: dojox.grid.enhanced.plugins.Search
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Pagination" {
+    var exp: dojox.grid.enhanced.plugins.Pagination
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/GridSource" {
+    var exp: dojox.grid.enhanced.plugins.GridSource
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/Selector" {
+    var exp: dojox.grid.enhanced.plugins.Selector
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/exporter/_ExportWriter" {
+    var exp: dojox.grid.enhanced.plugins.exporter._ExportWriter
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/exporter/CSVWriter" {
+    var exp: dojox.grid.enhanced.plugins.exporter.CSVWriter
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/exporter/TableWriter" {
+    var exp: dojox.grid.enhanced.plugins.exporter.TableWriter
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_ConditionExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._ConditionExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_ConditionExpr._BiOpExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._ConditionExpr._BiOpExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_ConditionExpr._OperatorExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._ConditionExpr._OperatorExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_ConditionExpr._UniOpExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._ConditionExpr._UniOpExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_ConditionExpr._ConditionExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._ConditionExpr._ConditionExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_ConditionExpr._DataExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._ConditionExpr._DataExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs._BiOpExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs._BiOpExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs._ConditionExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs._ConditionExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs._OperatorExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs._OperatorExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs._UniOpExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs._UniOpExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs.NumberExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs.NumberExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs.DateExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs.DateExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs._DataExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs._DataExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs.StringExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs.StringExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs.BooleanExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs.BooleanExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_DataExprs.TimeExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._DataExprs.TimeExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr._ConditionExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr._ConditionExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr._OperatorExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr._OperatorExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr._BiOpExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr._BiOpExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.BooleanExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.BooleanExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr._DataExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr._DataExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr._UniOpExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr._UniOpExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.EndsWith" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.EndsWith
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.Contains" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.Contains
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.DateExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.DateExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.EqualTo" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.EqualTo
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LargerThan" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LargerThan
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.IsEmpty" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.IsEmpty
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LessThanOrEqualTo" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LessThanOrEqualTo
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LessThan" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LessThan
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LargerThanOrEqualTo" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LargerThanOrEqualTo
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LogicALL" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LogicALL
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LogicAND" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LogicAND
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LogicANY" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LogicANY
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.Matches" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.Matches
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LogicOR" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LogicOR
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LogicNOT" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LogicNOT
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.LogicXOR" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.LogicXOR
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.StringExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.StringExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.NumberExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.NumberExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.TimeExpr" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.TimeExpr
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/_FilterExpr.StartsWith" {
+    var exp: dojox.grid.enhanced.plugins.filter._FilterExpr.StartsWith
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterLayer" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterLayer._ServerSideLayer" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterLayer._ServerSideLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterLayer._StoreLayer" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterLayer._StoreLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterLayer.ServerSideFilterLayer" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterLayer.ServerSideFilterLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterLayer.ClientSideFilterLayer" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterLayer.ClientSideFilterLayer
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterBuilder" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterBuilder
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterStatusTip" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterStatusTip
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterDefDialog" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterDefDialog
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/ClearFilterConfirm" {
+    var exp: dojox.grid.enhanced.plugins.filter.ClearFilterConfirm
+    export=exp;
+}
+declare module "dojox/grid/enhanced/plugins/filter/FilterBar" {
+    var exp: dojox.grid.enhanced.plugins.filter.FilterBar
+    export=exp;
 }

@@ -219,3 +219,28 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/css3/transit" {
+    var exp: dojox.css3.transit
+    export=exp;
+}
+declare module "dojox/css3/transition" {
+    var exp: dojox.css3.transition
+    export=exp;
+}
+declare module "dojox/css3/transition.endState" {
+    var exp: dojox.css3.transition.endState
+    export=exp;
+}
+declare module "dojox/css3/transition.playing" {
+    var exp: dojox.css3.transition.playing
+    export=exp;
+}
+declare module "dojox/css3/transition.startState" {
+    var exp: dojox.css3.transition.startState
+    export=exp;
+}
+declare module "dojox/css3/fx" {
+    var exp: dojox.css3.fx
+    export=exp;
+}
