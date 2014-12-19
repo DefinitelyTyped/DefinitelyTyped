@@ -1,4 +1,4 @@
-/// <reference path="dx.webappjs.d.ts" />
+/// <reference path="dx.webappjs-14.1.d.ts" />
 
 module Test {
     $('<div/>').appendTo(document.body)

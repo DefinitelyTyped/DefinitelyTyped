@@ -15,7 +15,7 @@ client({ path: '/data.json' }).then(function(response) {
     console.log('response: ', response);
 });
 
-client = rest.wrap(mime).wrap(errorCode, { code: 500 });
+client = rest.wrap(mime, { mime: 'application/json' }).wrap(errorCode, { code: 500 });
 client({ path: '/data.json' }).then(
     function(response) {
         console.log('response: ', response);
