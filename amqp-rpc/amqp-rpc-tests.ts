@@ -40,3 +40,41 @@ rpc.call<any>('withoutCB', {}, function (msg) {
 });
 
 rpc.call<any>('withoutCB', {}); //output message on server side console
+
+import os = require('os');
+interface State {
+  type: string;
+}
+
+var counter = 0;
+rpc.onBroadcast<State>('getWorkerStat', function (params, cb) {
+  if (params && params.type == 'fullStat') {
+    cb(null, {
+      pid: process.pid,
+      hostname: os.hostname(),
+      uptime: process.uptime(),
+      counter: counter++
+    });
+  }
+  else {
+    cb(null, { counter: counter++ })
+  }
+});
+
+var all_stats: any = {};
+rpc.callBroadcast<State>(
+  'getWorkerStat',
+  { type: 'fullStat' },                    //request parameters
+  {                                       //call options
+    ttl: 1000,                          //wait response time  (1 seconds), after run onComplete
+    onResponse: function (err: any, stat: any) {  //callback on each worker response
+      all_stats[stat.hostname + ':' + stat.pid] = stat;
+    },
+    onComplete: function () {   //callback on ttl expired
+      console.log('----------------------- WORKER STATISTICS ----------------------------------------');
+      for (var worker in all_stats) {
+        var s: any = all_stats[worker];
+        console.log(worker, '\tuptime=', s.uptime.toFixed(2) + ' seconds', '\tcounter=', s.counter);
+      }
+    }
+  });

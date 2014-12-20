@@ -19,7 +19,6 @@ declare module React {
 
     interface ReactHTMLElement extends ReactElement<HTMLAttributes> {}
     interface ReactSVGElement extends ReactElement<SVGAttributes> {}
-    interface ComponentElement<P> extends ReactElement<P> {}
 
     //
     // React Nodes 
@@ -27,7 +26,10 @@ declare module React {
 
     // type ReactText = string | number;
     // type Fragment = ReactNode[];
-    // type ReactNode = ReactElement<any, any> | Fragment | ReactText;
+    // type ReactNode = ReactElement<any> | Fragment | ReactText | KeyMap;
+    // interface KeyMap {
+    //     [key: string]: ReactNode;
+    // }
 
     //
     // React Components 
@@ -49,13 +51,12 @@ declare module React {
     // ReactElement Factories
     // ----------------------------------------------------------------------
 
-    interface Factory<P> {
+    interface ComponentFactory<P> {
         (props?: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
     }
     
-    interface HTMLFactory extends Factory<HTMLAttributes> {}
-    interface SVGFactory extends Factory<SVGAttributes> {}
-    interface ComponentFactory<P> extends Factory<P> {}
+    interface HTMLFactory extends ComponentFactory<HTMLAttributes> {}
+    interface SVGFactory extends ComponentFactory<SVGAttributes> {}
 
     //
     // Top-Level API
@@ -64,8 +65,8 @@ declare module React {
     interface TopLevelAPI {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
-        createFactory<P>(componentClass: ComponentClass<P>): Factory<P>;
-        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): Component<P>;
+        createFactory<P>(componentClass: ComponentClass<P>): ComponentFactory<P>;
+        render<P>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
         renderToStaticMarkup(element: ReactElement<any>): string;
@@ -85,8 +86,8 @@ declare module React {
         isMounted(): boolean;
 
         props: P;
-        setProps(nextProps: P, callback?: () => void): void;
-        replaceProps(nextProps: P, callback?: () => void): void;
+        setProps(nextProps: P, callback?: () => any): void;
+        replaceProps(nextProps: P, callback?: () => any): void;
     }
 
     interface DOMComponent<P> extends Component<P> {
@@ -98,9 +99,9 @@ declare module React {
     
     interface CompositeComponent<P, S> extends Component<P>, ComponentSpec<P, S> {
         state: S;
-        setState(nextState: S, callback?: () => void): void;
-        replaceState(nextState: S, callback?: () => void): void;
-        forceUpdate(callback?: () => void): void;
+        setState(nextState: S, callback?: () => any): void;
+        replaceState(nextState: S, callback?: () => any): void;
+        forceUpdate(callback?: () => any): void;
         refs: {
             [key: string]: Component<any>
         };
@@ -241,7 +242,7 @@ declare module React {
 
     export interface ReactAttributes {
         children?: any; // ReactNode
-        key?: string;
+        key?: any; // number | string
         ref?: string;
 
         // Event Attributes
@@ -287,7 +288,7 @@ declare module React {
 
     interface CSSProperties {
         columnCount?: number;
-        flex?: number;
+        flex?: any; // number | string
         flexGrow?: number;
         flexShrink?: number;
         fontWeight?: number;
@@ -303,8 +304,6 @@ declare module React {
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
-
-        [key: string]: any; // number | string
     }
 
     interface HTMLAttributes extends ReactAttributes {
@@ -638,27 +637,37 @@ declare module React {
     // React.Children
     // ----------------------------------------------------------------------
 
+    // type Child = ReactElement<any> | ReactText;
+
     interface ReactChildren {
-        map<T>(children: any/*ReactNode*/, fn: (child: any/*ReactNode*/) => T): { [key:string]: T };
-        forEach(children: any/*ReactNode*/, fn: (child: any/*ReactNode*/) => any): void;
+        map<T>(children: any/*ReactNode*/, fn: (child: any/*Child*/) => T): { [key:string]: T };
+        forEach(children: any/*ReactNode*/, fn: (child: any/*Child*/) => any): void;
         count(children: any/*ReactNode*/): number;
-        only(children: any/*ReactNode*/): any;
+        only(children: any/*ReactNode*/): any/*Child*/;
+    }
+
+    //
+    // React.addons
+    // ----------------------------------------------------------------------
+
+    interface ClassSet {
+        [key: string]: boolean;
     }
 
     //
     // React.addons (Transitions)
     // ----------------------------------------------------------------------
 
-    interface CSSTransitionGroupProps {
+    interface TransitionGroupProps {
+        component?: any; // ReactType
+        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
+    }
+
+    interface CSSTransitionGroupProps extends TransitionGroupProps {
         transitionName: string;
         transitionAppear?: boolean;
         transitionEnter?: boolean;
         transitionLeave?: boolean;
-    }
-
-    interface TransitionGroupProps {
-        component?: any; // ReactType
-        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
 
     interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
@@ -869,11 +878,11 @@ declare module React {
             PureRenderMixin: PureRenderMixin;
             TransitionGroup: TransitionGroup;
 
-            batchedUpdates<A, B>(callback: (a: A, b: B) => void, a: A, b: B): void;
-            batchedUpdates<A>(callback: (a: A) => void, a: A): void;
-            batchedUpdates(callback: () => void): void;
+            batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
+            batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+            batchedUpdates(callback: () => any): void;
 
-            classSet(cx: { [key: string]: boolean }): string;
+            classSet(cx: ClassSet): string;
             cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
             update(value: any[], spec: UpdateArraySpec): any[];

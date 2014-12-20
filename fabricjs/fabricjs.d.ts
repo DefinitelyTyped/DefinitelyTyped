@@ -274,13 +274,13 @@ declare module fabric {
 
         hasControls: boolean;
         hasRotatingPoint: boolean;
-        
+
         height: number;
         getHeight(): number;
         setHeight(value: number): IObject;
 
         includeDefaultValues: boolean;
-        
+
         left: number;
         getLeft(): number;
         setLeft(value: number): IObject;
@@ -296,7 +296,7 @@ declare module fabric {
         padding: number;
         perPixelTargetFind: boolean;
         rotatingPointOffset: number;
-        
+
         scaleX: number;
         getScaleX(): number;
         setScaleX(value: number): IObject;
@@ -310,7 +310,7 @@ declare module fabric {
         stroke: string;
         strokeDashArray: any[];
         strokeWidth: number;
-        
+
         top: number;
         getTop(): number;
         setTop(value: number): IObject;
@@ -318,7 +318,7 @@ declare module fabric {
         transformMatrix: any[];
         transparentCorners: boolean;
         type: string;
-        
+
         width: number;
         getWidth(): number;
         setWidth(value: number): IObject;
@@ -453,7 +453,7 @@ declare module fabric {
         toSVG(): string;
     }
 
-    
+
 
     export interface IPath extends IObject {
         complexity(): number;
@@ -511,7 +511,7 @@ declare module fabric {
         renderOnAddition: boolean;
         stateful: boolean;
 
-        // static 
+        // static
         EMPTY_JSON: string;
         supports(methodName: string): boolean;
 
@@ -546,7 +546,7 @@ declare module fabric {
 
         sendBackwards(object: IObject): ICanvas;
         sendToBack(object: IObject): ICanvas;
-        setBackgroundImage(object: IObject): ICanvas;
+        setBackgroundImage(image: any, callback: () => any, options?): ICanvas;
         setDimensions(object: { width: number; height: number; }): ICanvas;
         setHeight(height: number): ICanvas;
         setOverlayImage(url: string, callback: () => any, options): ICanvas;
@@ -681,7 +681,7 @@ declare module fabric {
     }
 
     export interface IRectOptions extends IObjectOptions {
-        x?: number; 
+        x?: number;
         y?: number;
         rx?: number;
         ry?: number;
@@ -798,7 +798,7 @@ declare module fabric {
         new (element: HTMLImageElement, objObjects: IObjectOptions): IImage;
         prototype: any;
 
-        filters: 
+        filters:
         {
             Grayscale: {
                 new (): IGrayscaleFilter;

@@ -76,3 +76,15 @@ declare module dojox {
     }
 
 }
+declare module "dojox/analytics" {
+    var exp: dojox.analytics
+    export=exp;
+}
+declare module "dojox/analytics/Urchin" {
+    var exp: dojox.analytics.Urchin
+    export=exp;
+}
+declare module "dojox/analytics/plugins/consoleMessages" {
+    var exp: dojox.analytics.plugins.consoleMessages
+    export=exp;
+}
