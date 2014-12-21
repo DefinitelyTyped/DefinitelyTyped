@@ -13,6 +13,7 @@
 // Library documentation : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html
 
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
+/// <reference path="../webaudioapi/waa.d.ts" />
 
 declare module createjs {
 
@@ -222,7 +223,7 @@ declare module createjs {
 
     export class WebAudioLoader
         {
-        static context: Object; // AudioContext;
+        static context: AudioContext;
         }
 
     export class WebAudioPlugin extends AbstractPlugin
@@ -230,9 +231,10 @@ declare module createjs {
         constructor();
         
         // properties
-        context: any;
-        dynamicsCompressorNode: any;
-        gainNode: any;
+        static context: AudioContext;
+        context: AudioContext;
+        dynamicsCompressorNode: DynamicsCompressorNode;
+        gainNode: GainNode;
         
         // methods
         static isSupported(): boolean;
@@ -244,10 +246,10 @@ declare module createjs {
         constructor(src: string, startTime: number, duration: number, playbackResource: Object);
 
         // properties
-        static context: Object;     // AudioContext;
-        static destinationNode: Object; // AudioNode;
-        gainNode: Object;   // AudioGainNode;
-        panNode: Object;    // AudioPannerNode;
-        sourceNode: Object; // AudioNode;
+        static context: AudioContext;
+        static destinationNode: AudioNode;
+        gainNode: GainNode;
+        panNode: PannerNode;
+        sourceNode: AudioNode;
         }
 }
