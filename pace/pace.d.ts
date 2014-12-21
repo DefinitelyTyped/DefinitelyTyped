@@ -45,7 +45,7 @@ interface PaceEventCallback {
 interface Pace {
     options: PaceOptions;
 
-    start(options: PaceOptions): void;
+    start(options?: PaceOptions): void;
     restart(): void;
     stop(): void;
     track(func: Function): void;

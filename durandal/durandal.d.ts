@@ -45,7 +45,7 @@ interface DurandalSystemModule {
      * @param {object} obj The object whose module id you wish to set.
      * @param {string} id The id to set for the specified object.
      */
-    setModuleId(obj, id: string): void;
+    setModuleId(obj: any, id: string): void;
 
     /**
      * Resolves the default object instance for a module. If the module is an object, the module is returned. If the module is a function, that function is called with `new` and it's result is returned.
@@ -295,7 +295,7 @@ interface DurandalViewEngineModule {
      * @param {string} id The view id whose view should be cached.
      * @param {DOMElement} view The view to cache.
      */
-    putViewInCache(id:string, view:HTMLElement);
+    putViewInCache(id:string, view:HTMLElement): void;
 
     /**
      * Creates the view associated with the view id.
@@ -547,7 +547,7 @@ declare module 'durandal/composition' {
      * @param {object} [config] The binding handler instance. If none is provided, the name will be used to look up an existing handler which will then be converted to a composition handler.
      * @param {function} [initOptionsFactory] If the registered binding needs to return options from its init call back to knockout, this function will server as a factory for those options. It will receive the same parameters that the init function does.
     */
-    export function addBindingHandler(name, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any);
+    export function addBindingHandler(name: string, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any): void;
 
     /**
      * Gets an object keyed with all the elements that are replacable parts, found within the supplied elements. The key will be the part name and the value will be the element itself.
@@ -663,13 +663,13 @@ declare module 'plugins/dialog' {
          * In this function, you are expected to add a DOM element to the tree which will serve as the "host" for the modal's composed view. You must add a property called host to the modalWindow object which references the dom element. It is this host which is passed to the composition module.
          * @param {Dialog} theDialog The dialog model.
         */
-        addHost(theDialog: Dialog);
+        addHost(theDialog: Dialog): void;
 
         /**
          * This function is expected to remove any DOM machinery associated with the specified dialog and do any other necessary cleanup.
          * @param {Dialog} theDialog The dialog model.
         */
-        removeHost(theDialog: Dialog);
+        removeHost(theDialog: Dialog): void;
 
         /**
          * This function is called after the modal is fully composed into the DOM, allowing your implementation to do any final modifications, such as positioning or animation. You can obtain the original dialog object by using `getDialog` on context.model.
@@ -677,7 +677,7 @@ declare module 'plugins/dialog' {
          * @param {DOMElement} parent The parent view.
          * @param {object} context The composition context.
         */
-        compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext);
+        compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext): void;
     }
 
     interface Dialog {
@@ -964,7 +964,7 @@ declare module 'plugins/observable' {
          * @param {function|object} evaluatorOrOptions The Knockout computed function or computed options object.
          * @returns {KnockoutComputed} The underlying computed observable.
          */
-        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>);
+        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>): void;
 
         /**
          * Installs the plugin into the view model binder's `beforeBind` hook so that objects are automatically converted before being bound.
@@ -1046,7 +1046,7 @@ declare module 'plugins/serializer' {
      * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
      * @returns {string} The JSON string.
     */
-    export function serialize(object: any, settings?: string);
+    export function serialize(object: any, settings?: string): string;
 
     /**
      * Serializes the object.
@@ -1054,7 +1054,7 @@ declare module 'plugins/serializer' {
      * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
      * @returns {string} The JSON string.
     */
-    export function serialize(object: any, settings?: number);
+    export function serialize(object: any, settings?: number): string;
 
     /**
      * Serializes the object.
@@ -1062,7 +1062,7 @@ declare module 'plugins/serializer' {
      * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
      * @returns {string} The JSON string.
     */
-    export function serialize(object: any, settings?: SerializerOptions);
+    export function serialize(object: any, settings?: SerializerOptions): string;
 
     /**
      * Gets the type id for an object instance, using the configured `typeAttribute`.
@@ -1081,7 +1081,7 @@ declare module 'plugins/serializer' {
     * @param {string} typeId The type id.
     * @param {function} constructor The constructor.
     */
-    export function registerType(typeId: string, constructor: () => any);
+    export function registerType(typeId: string, constructor: () => any): void;
 
     /**
      * The default reviver function used during deserialization. By default is detects type properties on objects and uses them to re-construct the correct object using the provided constructor mapping.
@@ -1091,7 +1091,7 @@ declare module 'plugins/serializer' {
      * @param {object} getConstructor A custom function used to get the constructor function associated with a type id.
      * @returns {object} The value.
     */
-    export function reviver(key: string, value: any, getTypeId: (value: any) => string, getConstructor: (string) => () => any): any;
+    export function reviver(key: string, value: any, getTypeId: (value: any) => string, getConstructor: (x: string) => () => any): any;
 
     /**
      * Deserialize the JSON.
@@ -1128,7 +1128,7 @@ declare module 'plugins/widget' {
      * Creates a ko binding handler for the specified kind.
      * @param {string} kind The kind to create a custom binding handler for.
     */
-    export function registerKind(kind: string);
+    export function registerKind(kind: string): void;
 
     /**
      * Maps views and module to the kind identifier if a non-standard pattern is desired.
@@ -1136,7 +1136,7 @@ declare module 'plugins/widget' {
      * @param {string} [viewId] The unconventional view id to map the kind to.
      * @param {string} [moduleId] The unconventional module id to map the kind to.
     */
-    export function mapKind(kind: string, viewId?: string, moduleId?: string);
+    export function mapKind(kind: string, viewId?: string, moduleId?: string): void;
 
     /**
      * Maps a kind name to it's module id. First it looks up a custom mapped kind, then falls back to `convertKindToModulePath`.
@@ -1172,7 +1172,7 @@ declare module 'plugins/widget' {
      * @param {object} settings The widget settings.
      * @param {object} [bindingContext] The current binding context.
     */
-    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext);
+    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext): void;
 }
 
 /**
@@ -1286,7 +1286,7 @@ interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
      * @param {object} obj The object whose dialog should be closed.
      * @param {object} results* The results to return back to the dialog caller after closing.
      */
-    closeDialog(obj: any, ...results);
+    closeDialog(obj: any, ...results: any[]): void;
 
     /**
      * Shows a message box via the dialog plugin.
@@ -1462,7 +1462,7 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
     /**
       * Sets up a collection representing a pool of objects which the activator will activate. See below for details. Activators without an item bool always close their values on deactivate. Activators with an items pool only deactivate, but do not close them.
       */
-    forItems(items): DurandalActivator<T>;
+    forItems(items: T[]): DurandalActivator<T>;
 }
 
 interface DurandalHistoryOptions {
@@ -1501,8 +1501,8 @@ interface DurandalHistoryOptions {
 }
 
 interface DurandalNavigationOptions {
-    trigger: boolean;
-    replace: boolean;
+    trigger?: boolean;
+    replace?: boolean;
 }
 
 interface DurandalRouteConfiguration {
@@ -1515,7 +1515,7 @@ interface DurandalRouteConfiguration {
     isActive?: KnockoutComputed<boolean>;
     nav?: any;
     hasChildRoutes?: boolean;
-    viewUrl?:string;
+    viewUrl?: string;
 }
 
 interface DurandalRouteInstruction {
