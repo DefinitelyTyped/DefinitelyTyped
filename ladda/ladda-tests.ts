@@ -12,6 +12,9 @@ var l = Ladda.create(document.querySelector('.my-button'));
 // Start loading
 l.start();
 
+// Start loading after a delay
+l.startAfter(300);
+
 // Will display a progress bar for 50% of the button width
 l.setProgress(0.5);
 
@@ -23,6 +26,9 @@ l.toggle();
 
 // Check the current state
 l.isLoading();
+
+// Remove the element
+l.remove();
 
 // Test bind
 Ladda.bind('button.ladda-button', { timeout: 42, callback: btn => alert('Clicked!!!') });

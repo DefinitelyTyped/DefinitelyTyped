@@ -12,6 +12,12 @@ declare module "nock" {
 
 	module nock {
 		export function cleanAll(): void;
+
+		export function disableNetConnect(): void;
+		export function enableNetConnect(): void;
+		export function enableNetConnect(regex: RegExp): void;
+		export function enableNetConnect(domain: string): void;
+
 		export var recorder: Recorder;
 
 		export interface Scope {

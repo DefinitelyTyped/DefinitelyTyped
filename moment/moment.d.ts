@@ -35,6 +35,8 @@ interface Duration {
 
     humanize(withSuffix?: boolean): string;
 
+    as(units: string): number;
+
     milliseconds(): number;
     asMilliseconds(): number;
 
@@ -55,6 +57,10 @@ interface Duration {
 
     years(): number;
     asYears(): number;
+
+    add(n: number, p: string): Duration;
+    add(n: number): Duration;
+    add(d: Duration): Duration;
 
     subtract(n: number, p: string): Duration;
     subtract(n: number): Duration;
@@ -170,12 +176,20 @@ interface Moment {
     day(): number;
     date(d: number): Moment;
     date(): number;
+    hour(h: number): Moment;
+    hour(): number;
     hours(h: number): Moment;
     hours(): number;
+    minute(m: number): Moment;
+    minute(): number;
     minutes(m: number): Moment;
     minutes(): number;
+    second(s: number): Moment;
+    second(): number;
     seconds(s: number): Moment;
     seconds(): number;
+    millisecond(ms: number): Moment;
+    millisecond(): number;
     milliseconds(ms: number): Moment;
     milliseconds(): number;
     weekday(): number;
@@ -196,6 +210,8 @@ interface Moment {
     isoWeeks(d: number): Moment;
     weeksInYear(): number;
     isoWeeksInYear(): number;
+    dayOfYear(): number;
+    dayOfYear(d: number): Moment;
 
     from(f: Moment): string;
     from(f: Moment, suffix: boolean): string;

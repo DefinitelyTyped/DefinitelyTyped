@@ -1,70 +1,76 @@
-// Type definitions for socket.io
+// Type definitions for socket.io 1.2.0
 // Project: http://socket.io/
-// Definitions by: William Orr <https://github.com/worr>
+// Definitions by: PROGRE <https://github.com/progre/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 
 ///<reference path='../node/node.d.ts' />
 
-declare module "socket.io" {
-	import http = require('http');
+declare module 'socket.io' {
+    var server: SocketIOStatic;
 
-	export function listen(server: http.Server, options: any, fn: Function): SocketManager;
-	export function listen(server: http.Server, fn?: Function): SocketManager;
-	export function listen(port: Number): SocketManager;
-
-
-  interface Socket {
-    id: string;
-    json:any;
-    log: any;
-    volatile: any;
-    broadcast: any;
-    handshake: any;
-    in(room: string): Socket;
-    to(room: string): Socket;
-    join(name: string, fn: Function): Socket;
-    leave(name: string, fn: Function): Socket;
-    set(key: string, value: any, fn: Function): Socket;
-    get(key: string, fn: Function): Socket;
-    has(key: string, fn: Function): Socket;
-    del(key: string, fn: Function): Socket;
-    disconnect(): Socket;
-    send(data: any, fn: Function): Socket;
-    emit(ev: any, ...data:any[]): Socket;
-    on(ns: string, fn: Function): Socket;
-  }
-
-  interface SocketNamespace {
-    clients(room: string): Socket[];
-    log: any;
-    store: any;
-    json: any;
-    volatile: any;
-    in(room: string): SocketNamespace;
-    on(evt: string, fn: (socket: Socket) => void): SocketNamespace;
-    to(room: string): SocketNamespace;
-    except(id: any): SocketNamespace;
-    send(data: any): any;
-    emit(ev: any, ...data:any[]): Socket;
-    socket(sid: any, readable: boolean): Socket;
-    authorization(fn: Function): SocketNamespace;
-  }
-
-  interface SocketManager {
-    get(key: any): any;
-    set(key: any, value: any): SocketManager;
-    enable(key: any): SocketManager;
-    disable(key: any): SocketManager;
-    enabled(key: any): boolean;
-    disabled(key: any): boolean;
-    configure(env: string, fn: Function): SocketManager;
-    configure(fn: Function): SocketManager;
-    of(nsp: string): SocketNamespace;
-    on(ns: string, fn: Function): SocketManager;
-    sockets: SocketNamespace;
-  }
-
-
+    export = server;
 }
 
+interface SocketIOStatic {
+    (): SocketIO.Server;
+    (srv: any, opts?: any): SocketIO.Server;
+    (port: number, opts?: any): SocketIO.Server;
+    (opts: any): SocketIO.Server;
+
+    listen: SocketIOStatic;
+}
+
+declare module SocketIO {
+    interface Server {
+        serveClient(v: boolean): Server;
+        path(v: string): Server;
+        adapter(v: any): Server;
+        origins(v: string): Server;
+        sockets: Namespace;
+        attach(srv: any, opts?: any): Server;
+        attach(port: number, opts?: any): Server;
+        listen(srv: any, opts?: any): Server;
+        listen(port: number, opts?: any): Server;
+        bind(srv: any): Server;
+        onconnection(socket: any): Server;
+        of(nsp: string): Namespace;
+        emit(name: string, ...args: any[]): Socket;
+        use(fn: Function): Namespace;
+
+        on(event: 'connection', listener: (socket: Socket) => void): any;
+        on(event: 'connect', listener: (socket: Socket) => void): any;
+        on(event: string, listener: Function): any;
+    }
+
+    interface Namespace extends NodeJS.EventEmitter {
+        name: string;
+        connected: { [id: number]: Socket };
+        use(fn: Function): Namespace
+
+        on(event: 'connection', listener: (socket: Socket) => void): any;
+        on(event: 'connect', listener: (socket: Socket) => void): any;
+        on(event: string, listener: Function): any;
+    }
+
+    interface Socket {
+        rooms: string[];
+        client: Client;
+        conn: Socket;
+        request: any;
+        id: string;
+        emit(name: string, ...args: any[]): Socket;
+        join(name: string, fn?: Function): Socket;
+        leave(name: string, fn?: Function): Socket;
+        to(room: string): Socket;
+        in(room: string): Socket;
+
+        on(event: string, listener: Function): any;
+        broadcast: Socket;
+        volatile: Socket;
+    }
+
+    interface Client {
+        conn: any;
+        request: any;
+    }
+}

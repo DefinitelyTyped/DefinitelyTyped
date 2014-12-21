@@ -319,3 +319,11 @@ declare module dojox {
     }
 
 }
+declare module "dojox/dnd/BoundingBoxController" {
+    var exp: dojox.dnd.BoundingBoxController
+    export=exp;
+}
+declare module "dojox/dnd/Selector" {
+    var exp: dojox.dnd.Selector
+    export=exp;
+}

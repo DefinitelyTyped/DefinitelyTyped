@@ -297,6 +297,8 @@ declare module breeze {
         getValidationErrors(property: IProperty): ValidationError[];
         hasValidationErrors: boolean;
 
+        isNavigationPropertyLoaded(navigationProperty: string): boolean;
+        isNavigationPropertyLoaded(navigationProperty: NavigationProperty): boolean;
         loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): Q.Promise<QueryResult>;
         loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): Q.Promise<QueryResult>;
 
@@ -376,6 +378,7 @@ declare module breeze {
         clear(): void;
         createEmptyCopy(): EntityManager;
         createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol) : Entity;
+        createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol, mergeStrategy?: StrategySymbol): Entity;
         createEntity(entityType: EntityType, config?: {}, entityState?: EntityStateSymbol): Entity;
         detachEntity(entity: Entity): boolean;
         executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Q.Promise<QueryResult>;
@@ -525,6 +528,7 @@ declare module breeze {
         where(property: string, operator: string, value: any): EntityQuery;
         where(property: string, operator: FilterQueryOpSymbol, value: any): EntityQuery;
         where(predicate: FilterQueryOpSymbol): EntityQuery;
+        where(property: string, filterop: FilterQueryOpSymbol, property2: string, filterop2: FilterQueryOpSymbol,value:any): EntityQuery;
         withParameters(params: Object): EntityQuery;
     }
 
@@ -617,6 +621,7 @@ declare module breeze {
         LessThanOrEqual: FilterQueryOpSymbol;
         NotEquals: FilterQueryOpSymbol;
         StartsWith: FilterQueryOpSymbol;
+        Any: FilterQueryOpSymbol;
     }
     var FilterQueryOp: FilterQueryOp;
 
@@ -651,7 +656,7 @@ declare module breeze {
         getEntityTypes(): IStructuralType[];
         hasMetadataFor(serviceName: string): boolean;
         static importMetadata(exportedString: string): MetadataStore;
-        importMetadata(exportedString: string): MetadataStore;
+        importMetadata(exportedString: string, allowMerge?: boolean): MetadataStore;
         isEmpty(): boolean;
         registerEntityTypeCtor(entityTypeName: string, entityCtor: Function, initializationFn?: (entity: Entity) =>void ): void;
         trackUnmappedType(entityCtor: Function, interceptor?: Function): void;

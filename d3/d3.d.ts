@@ -10,6 +10,10 @@ declare module D3 {
         */
         select: {
             /**
+            * Returns the empty selection
+            */
+            (): Selection;
+            /**
             * Selects the first element that matches the specified selector string
             *
             * @param selector Selection String to match
@@ -89,7 +93,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        min<T, U>(arr: T[], map: (v: T) => U): U;
+        min<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
         /**
         * Find the minimum value in an array
         *
@@ -102,7 +106,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        max<T, U>(arr: T[], map: (v: T) => U): U;
+        max<T, U>(arr: T[], map: (v?: T, i?: number) => U): U;
         /**
         * Find the maximum value in an array
         *
@@ -232,6 +236,13 @@ declare module D3 {
         * @param matrix Two dimensional array to transpose
         */
         transpose(matrix: any[]): any[];
+        /**
+        * Creates an array containing tuples of adjacent pairs
+        *
+        * @param arr An array containing entries to pair
+        * @returns any[][] An array of 2-element tuples for each pair
+        */
+        pairs(arr: any[]): any[][];
         /**
         * List the keys of an associative array.
         *
@@ -915,7 +926,7 @@ declare module D3 {
                 (name: string, value: any, priority?: string): Transition;
                 (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Transition;
             };
-            call(callback: (selection: Selection) => void ): Transition;
+            call(callback: (transition: Transition, ...args: any[]) => void, ...args: any[]): Transition;
             /**
             * Select an element from the current document
             */
@@ -1151,7 +1162,7 @@ declare module D3 {
             /**
             * If separation is specified, uses the specified function to compute separation between neighboring nodes. If separation is not specified, returns the current separation function
             */
-            seperation: {
+            separation: {
                 /**
                 * Gets the current separation function
                 */
@@ -1159,7 +1170,7 @@ declare module D3 {
                 /**
                 * Sets the specified function to compute separation between neighboring nodes
                 */
-                (seperation: (a: GraphNode, b: GraphNode) => number): TreeLayout;
+                (separation: (a: GraphNode, b: GraphNode) => number): TreeLayout;
             };
             /**
             * Gets or sets the available layout size
@@ -1371,9 +1382,9 @@ declare module D3 {
             }
             nodes(root: GraphNode): GraphNode[];
             links(nodes: GraphNode[]): GraphLink[];
-            seperation: {
+            separation: {
                 (): (a: GraphNode, b: GraphNode) => number;
-                (seperation: (a: GraphNode, b: GraphNode) => number): ClusterLayout;
+                (separation: (a: GraphNode, b: GraphNode) => number): ClusterLayout;
             }
             size: {
                 (): number[];
@@ -1739,6 +1750,8 @@ declare module D3 {
 
         export interface Axis {
             (selection: Selection): void;
+            (transition: Transition.Transition): void;
+            
             scale: {
                 (): any;
                 (scale: any): Axis;

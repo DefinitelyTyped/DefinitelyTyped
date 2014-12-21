@@ -6179,6 +6179,18 @@ declare module _ {
         **/
         parseInt(value: string): number;
     }
+    
+    
+    //_.property
+    interface LoDashStatic {
+        /**
+         * # Ⓢ
+         * Creates a "_.pluck" style function, which returns the key value of a given object.
+         * @param key (string)
+         * @return the value of that key on the object
+         **/
+        property<T,RT>(key: string): (obj: T) => RT;
+    }
 
     //_.random
     interface LoDashStatic {
@@ -6310,6 +6322,14 @@ declare module _ {
          * A no-operation function.
          **/
         noop(): void;
+    }
+
+    //_.constant
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns value..
+         **/
+        constant<T>(value: T): () => T;
     }
 
     //_.create

@@ -1,4 +1,4 @@
-// Type definitions for ref-union
+// Type definitions for ref-struct
 // Project: https://github.com/TooTallNate/ref-struct
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
