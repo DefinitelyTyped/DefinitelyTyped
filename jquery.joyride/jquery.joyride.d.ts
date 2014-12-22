@@ -180,7 +180,7 @@ interface JoyrideOptions {
 	modal?: boolean;
 
 	/**
-	*  Whether to expose the elements at each step in the tour (requires modal?:true)
+	*  Whether to expose the elements at each step in the tour (requires modal:true)
 	* @member {boolean}
 	*/
 	expose?: boolean;
@@ -192,7 +192,7 @@ interface JoyrideOptions {
 	* @param {JQuery} nextTip Tip object
 	* @param {JQuery} el Element
 	*/
-	postExposeCallback?: (index?: number, nextTip?: JQuery, el?: JQuery) => void;
+	postExposeCallback?: (index: number, nextTip: JQuery, el?: JQuery) => void;
 
 	/**
 	* A method to call before the tour starts (passed index, tip, and cloned exposed element)
@@ -201,7 +201,7 @@ interface JoyrideOptions {
 	* @param {JQuery} currentTip Current Tip object
 	* @param {JQuery} el Element
 	*/
-	preRideCallback?: (index?: number, currentTip?: JQuery, el?: JQuery) => void;
+	preRideCallback?: (index: number, currentTip: JQuery, el?: JQuery) => void;
 
 	/**
 	* a method to call once the tour closes
@@ -210,7 +210,7 @@ interface JoyrideOptions {
 	* @param {JQuery} currentTip Current Tip object
 	* @param {boolean} isAborted Is Aborted?
 	*/
-	postRideCallback?: (index?: number, currentTip?: JQuery, isAborted?: boolean) => void;
+	postRideCallback?: (index: number, currentTip: JQuery, isAborted?: boolean) => void;
 
 	/**
 	* A method to call after each step
@@ -219,7 +219,7 @@ interface JoyrideOptions {
 	* @param {JQuery} currentTip Current Tip object
 	* @param {boolean} isAborted Is Aborted?
 	*/
-	postStepCallback?: (index?: number, currentTip?: JQuery, isAborted?: boolean) => void;
+	postStepCallback?: (index: number, currentTip: JQuery, isAborted?: boolean) => void;
 
 	/**
 	* A method to call before each step
@@ -228,7 +228,7 @@ interface JoyrideOptions {
 	* @param {JQuery} nextTip Tip object
 	* @param {JQuery} el Element
 	*/
-	preStepCallback?: (index?: number, nextTip?: JQuery, el?: JQuery) => void;
+	preStepCallback?: (index: number, nextTip: JQuery, el?: JQuery) => void;
 
 	/**
 	* HTML segments for tip layout
