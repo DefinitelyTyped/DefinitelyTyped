@@ -59,12 +59,7 @@ declare module createjs {
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Bitmap;
     }
     
-    /**
-     * @deprecated renamed to Sprite, here for backwards compatibility
-     */
-    export class BitmapAnimation extends Sprite {
-    }
-    
+
     export class BitmapText extends DisplayObject {
         constructor(text?:string, spriteSheet?:SpriteSheet);
 
@@ -76,10 +71,6 @@ declare module createjs {
         spaceWidth: number;
         spriteSheet: SpriteSheet;
         text: string;
-
-        // methods
-        set(props: Object): BitmapText;
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): BitmapText;
     }
     
     export class BlurFilter extends Filter {
@@ -159,12 +150,7 @@ declare module createjs {
         clone(): ColorMatrixFilter;
     }
     
-    export class Command {
-        // methods
-        constructor(f: any, params: any, path?: any);
-        exec(scope: any): void;
-    }
-    
+
     export class Container extends DisplayObject {
         constructor();
 
