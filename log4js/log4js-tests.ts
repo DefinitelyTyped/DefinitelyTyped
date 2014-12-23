@@ -1,4 +1,4 @@
-/// <reference path="./log4js-node.d.ts" />
+/// <reference path="./log4js.d.ts" />
 import log4js = require('log4js');
 
 log4js.addAppender(log4js.appenders.file('logs/cheese.log'), 'cheese');
