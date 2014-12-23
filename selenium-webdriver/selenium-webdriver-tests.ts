@@ -777,7 +777,7 @@ function TestWebElementPromise() {
     elementPromise.then();
     elementPromise.then(function (element: webdriver.WebElement) { });
     elementPromise.then(function (element: webdriver.WebElement) { }, function (error: any) { });
-    elementPromise.then<string>(function (element: webdriver.WebElement) { }, function (error: any) { }).then(function (result: string) { });
+    elementPromise.then(function (element: webdriver.WebElement) { return "foo"; }, function (error: any) { }).then(function (result: string) { });
 
     elementPromise.thenCatch(function (error: any) { }).then(function (value: any) { });
 
@@ -1029,10 +1029,9 @@ function TestPromiseClass() {
     var isPending: boolean = promise.isPending();
 
     promise = promise.then();
-    promise = promise.then(function( a: string ) { });
     promise = promise.then(function( a: string ) { return 'cde'; });
-    promise = promise.then(function( a: string ) {}, function( e: any) {});
-    promise = promise.then(function (a: string) { }, function (e: any) { return 123; });
+    promise = promise.then(function( a: string ) { return 'cde'; }, function( e: any) {});
+    promise = promise.then(function( a: string ) { return 'cde'; }, function (e: any) { return 123; });
 
     promise = promise.thenCatch(function (error: any) { });
 
@@ -1047,10 +1046,9 @@ function TestThenableClass() {
     var isPending: boolean = thenable.isPending();
 
     thenable = thenable.then();
-    thenable = thenable.then(function (a: string) { });
     thenable = thenable.then(function (a: string) { return 'cde'; });
-    thenable = thenable.then(function (a: string) { }, function (e: any) { });
-    thenable = thenable.then(function (a: string) { }, function (e: any) { return 123; });
+    thenable = thenable.then(function (a: string) { return 'cde'; }, function (e: any) { });
+    thenable = thenable.then(function (a: string) { return 'cde'; }, function (e: any) { return 123; });
 
     thenable = thenable.thenCatch(function (error: any) { });
 
