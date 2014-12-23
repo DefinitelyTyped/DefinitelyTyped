@@ -1,0 +1,283 @@
+// Type definitions for When 2.4.0
+// Project: https://github.com/cujojs/when
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// This file is <( 'not' )>generated, please change when.d.ts.ejs and run
+// `npm install && npm run build` in the `when` directory to update it.
+
+declare function When<T>(value: When.Promise<T>): When.Promise<T>;
+declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
+declare function When<T>(value: T): When.Promise<T>;
+
+declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): When.Promise<U>;
+declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
+declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
+
+<(
+    function combinations(count) {
+        if (count === 0) {
+            return [[]];
+        } else {
+            var result = [];
+            combinations(count - 1).forEach(function (combination) {
+                result.push(combination.concat(false));
+                result.push(combination.concat(true));
+            });
+            return result;
+        }
+    }
+
+    var allCombinations = [];
+    (function () {
+        for (var i = 0; i < 5; i++) {
+            allCombinations.push(combinations(i + 1));
+        }
+    })();
+
+    function TArgs(combination) {
+        combination.forEach(function (isPromise, i) {
+            )>TArg<(=i)><(
+            if (i != combination.length - 1) {
+                )>, <(
+            }
+        });
+    }
+
+    function args(combination) {
+        combination.forEach(function (isPromise, i) {
+            )>arg<(=i)>: TArg<(=i)><(
+            if (i != combination.length - 1) {
+                )>, <(
+            }
+        });
+    }
+
+    function PromiseArgs(combination, prefix) {
+        combination.forEach(function (isPromise, i) {
+            if (isPromise) {
+                )>arg<(=i)>: <(=prefix || '')>Promise<TArg<(=i)>><(
+            } else {
+                )>arg<(=i)>: TArg<(=i)><(
+            }
+            if (i != combination.length - 1) {
+                )>, <(
+            }
+        });
+    }
+)>
+
+declare module When {
+    function promise<T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): Promise<T>;
+
+    function reject<T>(reason: any): Promise<T>;
+
+    /**
+     * Return a promise that will resolve only once all the supplied promisesOrValues
+     * have resolved. The resolution value of the returned promise will be an array
+     * containing the resolution values of each of the promisesOrValues.
+     * @memberOf when
+     *
+     * @param promisesOrValues array of anything, may contain a mix
+     *      of {@link Promise}s and values
+     */
+    function all<T>(promisesOrValues: any[]): Promise<T>;
+
+    /**
+     * Creates a {promise, resolver} pair, either or both of which
+     * may be given out safely to consumers.
+     * The resolver has resolve, reject, and progress.  The promise
+     * has then plus extended promise API.
+     */
+    function defer<T>(): Deferred<T>;
+
+    /**
+     * Joins multiple promises into a single returned promise.
+     * @return a promise that will fulfill when *all* the input promises
+     * have fulfilled, or will reject when *any one* of the input promises rejects.
+     */
+    function join<T>(...promises: Promise<T>[]): Promise<T[]>;
+    /**
+     * Joins multiple promises into a single returned promise.
+     * @return a promise that will fulfill when *all* the input promises
+     * have fulfilled, or will reject when *any one* of the input promises rejects.
+     */
+    function join<T>(...promises: any[]): Promise<T[]>;
+
+    /**
+     * Returns a resolved promise. The returned promise will be
+     *  - fulfilled with promiseOrValue if it is a value, or
+     *  - if promiseOrValue is a promise
+     *    - fulfilled with promiseOrValue's value after it is fulfilled
+     *    - rejected with promiseOrValue's reason after it is rejected
+     */
+    function resolve<T>(promise: Promise<T>): Promise<T>;
+    function resolve<T>(foreign: Thenable<T>): Promise<T>;
+    function resolve<T>(value?: T): Promise<T>;
+
+    interface Deferred<T> {
+        notify(update: any): void;
+        promise: Promise<T>;
+        reject(reason: any): void;
+        resolve(value?: T): void;
+        resolve(value?: Promise<T>): void;
+    }
+
+    interface Promise<T> {
+        catch<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(onRejected?: (reason: any) => U): Promise<U>;
+
+        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(filter: (reason: any) => boolean, onRejected?: (reason: any) => U): Promise<U>;
+
+        // Make sure you test any usage of these overloads, exceptionType must
+        // be a constructor with prototype set to an instance of Error.
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => U): Promise<U>;
+
+        finally(onFulfilledOrRejected: Function): Promise<T>;
+
+        ensure(onFulfilledOrRejected: Function): Promise<T>;
+
+        inspect(): Snapshot<T>;
+
+        yield<U>(value: Promise<U>): Promise<U>;
+        yield<U>(value: U): Promise<U>;
+
+        else(value: T): Promise<T>;
+        orElse(value: T): Promise<T>;
+
+        tap(onFulfilledSideEffect: (value: T) => void): Promise<T>;
+
+        delay(milliseconds: number): Promise<T>;
+
+        timeout(milliseconds: number, reason?: any): Promise<T>;
+
+        with(thisArg: any): Promise<T>;
+        withThis(thisArg: any): Promise<T>;
+
+        otherwise<U>(onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        otherwise<U>(onRejected?: (reason: any) => U): Promise<U>;
+
+        otherwise<U>(predicate: (reason: any) => boolean, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        otherwise<U>(predicate: (reason: any) => boolean, onRejected?: (reason: any) => U): Promise<U>;
+
+        // Make sure you test any usage of these overloads, exceptionType must
+        // be a constructor with prototype set to an instance of Error.
+        otherwise<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U): Promise<U>;
+
+        then<U>(onFulfilled: (value: T) => Promise<U>, onRejected?: (reason: any) => Promise<U>, onProgress?: (update: any) => void): Promise<U>;
+        then<U>(onFulfilled: (value: T) => Promise<U>, onRejected?: (reason: any) => U, onProgress?: (update: any) => void): Promise<U>;
+        then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => Promise<U>, onProgress?: (update: any) => void): Promise<U>;
+        then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U, onProgress?: (update: any) => void): Promise<U>;
+
+        done<U>(onFulfilled: (value: T) => void, onRejected?: (reason: any) => void): void;
+
+        fold<U, V>(combine: (value1: T, value2: V) => Promise<U>, value2: V): Promise<U>;
+        fold<U, V>(combine: (value1: T, value2: V) => Promise<U>, value2: Promise<V>): Promise<U>;
+
+        fold<U, V>(combine: (value1: T, value2: V) => U, value2: V): Promise<U>;
+        fold<U, V>(combine: (value1: T, value2: V) => U, value2: Promise<V>): Promise<U>;
+    }
+
+    interface Thenable<T> {
+        then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U): Thenable<U>;
+    }
+
+    interface Snapshot<T> {
+        state: string;
+        value?: T;
+        reason?: any;
+    }
+
+<(
+allCombinations.forEach(function (combinations) {
+)>
+    interface LiftedFunction<(=combinations[0].length)><TResult, <( TArgs(combinations[0]) )>> {<(
+    combinations.forEach(function (combination) {
+)>
+        (<( PromiseArgs(combination) )>): Promise<TResult>;<(
+    });
+)>
+    }
+<( });)>
+
+    function attempt<T>(f: () => T): Promise<T>;
+<(
+allCombinations.forEach(function (combinations) {
+    combinations.forEach(function (combination) {
+)>
+    function attempt<TResult, <( TArgs(combination) )>>(f: (<( args(combination) )>) => TResult, <( PromiseArgs(combination) )>): Promise<TResult>;<(
+    });
+)>
+<( });)>
+
+    function lift<T>(f: () => T): () => Promise<T>;
+<(
+allCombinations.forEach(function (combinations) {
+)>
+    function lift<TResult, <( TArgs(combinations[0]) )>>(f: (<( args(combinations[0]) )>) => TResult): LiftedFunction<(=combinations[0].length)><TResult, <( TArgs(combinations[0]) )>>;<(
+    });
+)>
+}
+
+declare module "when" {
+    export = When;
+}
+
+declare module "when/node" {
+    import when = require('when');
+
+    function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;
+
+    function liftCallback<TArg>(callback: (err: any, arg: TArg) => void): (value: when.Promise<TArg>) => when.Promise<TArg>;
+
+    function bindCallback<TArg>(arg: when.Promise<TArg>, callback: (err: any, arg: TArg) => void): when.Promise<TArg>;
+
+    interface Resolver<T> {
+        reject(reason: any): void;
+        resolve(value?: T): void;
+        resolve(value?: when.Promise<T>): void;
+    }
+
+    function createCallback<TArg>(resolver: Resolver<TArg>): (err: any, arg: TArg) => void;
+
+
+    interface NodeFunction0<TResult> {
+        (callback: (err: any, result: TResult) => void): void;
+    }
+<(
+allCombinations.forEach(function (combinations) {
+)>
+    interface NodeFunction<(=combinations[0].length)><TResult, <( TArgs(combinations[0]) )>> {
+        (<( args(combinations[0]) )>, callback: (err: any, result: TResult) => void): void;
+    }
+<( });)>
+
+    function lift<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => when.Promise<TResult>;
+<(
+allCombinations.forEach(function (combinations) {
+)>
+    function lift<TResult, <( TArgs(combinations[0]) )>>(f: NodeFunction<(=combinations[0].length)><TResult, <( TArgs(combinations[0]) )>>): when.LiftedFunction<(=combinations[0].length)><TResult, <( TArgs(combinations[0]) )>>;<(
+    });
+)>
+
+    function call<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): when.Promise<TResult>;
+<(
+allCombinations.forEach(function (combinations) {
+    combinations.forEach(function (combination) {
+)>
+    function call<TResult, <( TArgs(combination) )>>(f: NodeFunction<(=combination.length)><TResult, <( TArgs(combination) )>>, <( PromiseArgs(combination, 'when.') )>): when.Promise<TResult>;<(
+    });
+)>
+<( });)>
+
+
+    function apply<TResult>(fn: (callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, arg2: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, arg2: any, arg3: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+}
+
+// vim:ft=typescript:sw=4:ts=4:et:

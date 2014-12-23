@@ -3,6 +3,9 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// This file is generated, please change when.d.ts.ejs and run
+// `npm install && npm run build` in the `when` directory to update it.
+
 declare function When<T>(value: When.Promise<T>): When.Promise<T>;
 declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
 declare function When<T>(value: T): When.Promise<T>;
@@ -11,31 +14,9 @@ declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): W
 declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
 
+
+
 declare module When {
-    function attempt<T>(f: () => T): Promise<T>;
-
-    function attempt<T, A>(f: (a: A) => T, a: Promise<A>): Promise<T>;
-    function attempt<T, A>(f: (a: A) => T, a: A): Promise<T>;
-
-    function attempt<T, A, B>(f: (a: A, b: B) => T, a: Promise<A>, b: Promise<B>): Promise<T>;
-    function attempt<T, A, B>(f: (a: A, b: B) => T, a: Promise<A>, b: B): Promise<T>;
-    function attempt<T, A, B>(f: (a: A, b: B) => T, a: A, b: Promise<B>): Promise<T>;
-    function attempt<T, A, B>(f: (a: A, b: B) => T, a: A, b: B): Promise<T>;
-
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: Promise<B>, c: Promise<C>): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: Promise<B>, c: C): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: B, c: Promise<C>): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: Promise<A>, b: B, c: C): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: Promise<B>, c: Promise<C>): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: Promise<B>, c: C): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: B, c: Promise<C>): Promise<T>;
-    function attempt<T, A, B, C>(f: (a: A, b: B, c: C) => T, a: A, b: B, c: C): Promise<T>;
-
-    function lift<T>(f: () => T): () => Promise<T>;
-    function lift<T, A>(f: (a: A) => T): (a: Promise<A>) => Promise<T>;
-    function lift<T, A, B>(f: (a: A, b: B) => T): (a: Promise<A>, b: Promise<B>) => Promise<T>;
-    function lift<T, A, B, C>(f: (a: A, b: B, c: C) => T): (a: Promise<A>, b: Promise<B>, c: Promise<C>) => Promise<T>;
-
     function promise<T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): Promise<T>;
 
     function reject<T>(reason: any): Promise<T>;
@@ -158,6 +139,163 @@ declare module When {
         value?: T;
         reason?: any;
     }
+
+
+    interface LiftedFunction1<TResult, TArg0> {
+        (arg0: TArg0): Promise<TResult>;
+        (arg0: Promise<TArg0>): Promise<TResult>;
+    }
+
+    interface LiftedFunction2<TResult, TArg0, TArg1> {
+        (arg0: TArg0, arg1: TArg1): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>): Promise<TResult>;
+    }
+
+    interface LiftedFunction3<TResult, TArg0, TArg1, TArg2> {
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>): Promise<TResult>;
+    }
+
+    interface LiftedFunction4<TResult, TArg0, TArg1, TArg2, TArg3> {
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+    }
+
+    interface LiftedFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4> {
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+        (arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    }
+
+
+    function attempt<T>(f: () => T): Promise<T>;
+
+    function attempt<TResult, TArg0>(f: (arg0: TArg0) => TResult, arg0: TArg0): Promise<TResult>;
+    function attempt<TResult, TArg0>(f: (arg0: TArg0) => TResult, arg0: Promise<TArg0>): Promise<TResult>;
+
+    function attempt<TResult, TArg0, TArg1>(f: (arg0: TArg0, arg1: TArg1) => TResult, arg0: TArg0, arg1: TArg1): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1>(f: (arg0: TArg0, arg1: TArg1) => TResult, arg0: TArg0, arg1: Promise<TArg1>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1>(f: (arg0: TArg0, arg1: TArg1) => TResult, arg0: Promise<TArg0>, arg1: TArg1): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1>(f: (arg0: TArg0, arg1: TArg1) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>): Promise<TResult>;
+
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>): Promise<TResult>;
+
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>): Promise<TResult>;
+
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: TArg0, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: TArg1, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: TArg2, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: TArg3, arg4: Promise<TArg4>): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: TArg4): Promise<TResult>;
+    function attempt<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult, arg0: Promise<TArg0>, arg1: Promise<TArg1>, arg2: Promise<TArg2>, arg3: Promise<TArg3>, arg4: Promise<TArg4>): Promise<TResult>;
+
+
+    function lift<T>(f: () => T): () => Promise<T>;
+
+    function lift<TResult, TArg0>(f: (arg0: TArg0) => TResult): LiftedFunction1<TResult, TArg0>;
+    function lift<TResult, TArg0, TArg1>(f: (arg0: TArg0, arg1: TArg1) => TResult): LiftedFunction2<TResult, TArg0, TArg1>;
+    function lift<TResult, TArg0, TArg1, TArg2>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2) => TResult): LiftedFunction3<TResult, TArg0, TArg1, TArg2>;
+    function lift<TResult, TArg0, TArg1, TArg2, TArg3>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3) => TResult): LiftedFunction4<TResult, TArg0, TArg1, TArg2, TArg3>;
+    function lift<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4) => TResult): LiftedFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>;
 }
 
 declare module "when" {
@@ -167,46 +305,11 @@ declare module "when" {
 declare module "when/node" {
     import when = require('when');
 
-    function lift<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => when.Promise<TResult>;
-    function lift<TArg1, TResult>(fn: (arg1: TArg1, callback: (err: any, result: TResult) => void) => void): (arg1: when.Promise<TArg1>) => when.Promise<TResult>;
-    function lift<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void): (arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>) => when.Promise<TResult>;
-    function lift<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void): (arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>) => when.Promise<TResult>;
-
-
     function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;
-
-
-    function call<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): when.Promise<TResult>;
-
-    function call<TArg1, TResult>(fn: (arg1: TArg1, callback: (err: any, result: TResult) => void) => void, arg1: TArg1): when.Promise<TResult>;
-    function call<TArg1, TResult>(fn: (arg1: TArg1, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>): when.Promise<TResult>;
-
-    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: TArg2): when.Promise<TResult>;
-    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: TArg2): when.Promise<TResult>;
-    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: when.Promise<TArg2>): when.Promise<TResult>;
-    function call<TArg1, TArg2, TResult>(fn: (arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>): when.Promise<TResult>;
-
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
-    function call<TArg1, TArg2, TArg3, TResult>(fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void) => void, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
-
-
-    function apply<TResult>(fn: (callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
-    function apply<TResult>(fn: (arg1: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
-    function apply<TResult>(fn: (arg1: any, arg2: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
-    function apply<TResult>(fn: (arg1: any, arg2: any, arg3: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
-
 
     function liftCallback<TArg>(callback: (err: any, arg: TArg) => void): (value: when.Promise<TArg>) => when.Promise<TArg>;
 
-
     function bindCallback<TArg>(arg: when.Promise<TArg>, callback: (err: any, arg: TArg) => void): when.Promise<TArg>;
-
 
     interface Resolver<T> {
         reject(reason: any): void;
@@ -215,4 +318,116 @@ declare module "when/node" {
     }
 
     function createCallback<TArg>(resolver: Resolver<TArg>): (err: any, arg: TArg) => void;
+
+
+    interface NodeFunction0<TResult> {
+        (callback: (err: any, result: TResult) => void): void;
+    }
+
+    interface NodeFunction1<TResult, TArg0> {
+        (arg0: TArg0, callback: (err: any, result: TResult) => void): void;
+    }
+
+    interface NodeFunction2<TResult, TArg0, TArg1> {
+        (arg0: TArg0, arg1: TArg1, callback: (err: any, result: TResult) => void): void;
+    }
+
+    interface NodeFunction3<TResult, TArg0, TArg1, TArg2> {
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, callback: (err: any, result: TResult) => void): void;
+    }
+
+    interface NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3> {
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, callback: (err: any, result: TResult) => void): void;
+    }
+
+    interface NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4> {
+        (arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4, callback: (err: any, result: TResult) => void): void;
+    }
+
+
+    function lift<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => when.Promise<TResult>;
+
+    function lift<TResult, TArg0>(f: NodeFunction1<TResult, TArg0>): when.LiftedFunction1<TResult, TArg0>;
+    function lift<TResult, TArg0, TArg1>(f: NodeFunction2<TResult, TArg0, TArg1>): when.LiftedFunction2<TResult, TArg0, TArg1>;
+    function lift<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>): when.LiftedFunction3<TResult, TArg0, TArg1, TArg2>;
+    function lift<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>): when.LiftedFunction4<TResult, TArg0, TArg1, TArg2, TArg3>;
+    function lift<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>): when.LiftedFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>;
+
+    function call<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): when.Promise<TResult>;
+
+    function call<TResult, TArg0>(f: NodeFunction1<TResult, TArg0>, arg0: TArg0): when.Promise<TResult>;
+    function call<TResult, TArg0>(f: NodeFunction1<TResult, TArg0>, arg0: when.Promise<TArg0>): when.Promise<TResult>;
+
+    function call<TResult, TArg0, TArg1>(f: NodeFunction2<TResult, TArg0, TArg1>, arg0: TArg0, arg1: TArg1): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1>(f: NodeFunction2<TResult, TArg0, TArg1>, arg0: TArg0, arg1: when.Promise<TArg1>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1>(f: NodeFunction2<TResult, TArg0, TArg1>, arg0: when.Promise<TArg0>, arg1: TArg1): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1>(f: NodeFunction2<TResult, TArg0, TArg1>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>): when.Promise<TResult>;
+
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: TArg0, arg1: TArg1, arg2: TArg2): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2>(f: NodeFunction3<TResult, TArg0, TArg1, TArg2>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>): when.Promise<TResult>;
+
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3>(f: NodeFunction4<TResult, TArg0, TArg1, TArg2, TArg3>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>): when.Promise<TResult>;
+
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: TArg0, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: TArg1, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: TArg2, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: TArg3, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: TArg4): when.Promise<TResult>;
+    function call<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>(f: NodeFunction5<TResult, TArg0, TArg1, TArg2, TArg3, TArg4>, arg0: when.Promise<TArg0>, arg1: when.Promise<TArg1>, arg2: when.Promise<TArg2>, arg3: when.Promise<TArg3>, arg4: when.Promise<TArg4>): when.Promise<TResult>;
+
+
+
+    function apply<TResult>(fn: (callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, arg2: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
+    function apply<TResult>(fn: (arg1: any, arg2: any, arg3: any, callback: (err: any, result: TResult) => void) => void, args: any[]): when.Promise<TResult>;
 }
+
+// vim:ft=typescript:sw=4:ts=4:et:
