@@ -43,7 +43,7 @@ declare module createjs {
         destroy(): void;
         getItem(value?: string): Object;
         getLoadedItems(): Object[];
-        getResult(raw?: boolean): Object;
+        getResult(value?: any, rawResult?: boolean): Object;
         getTag(): Object;
         load(): void;
         setTag(tag: Object): void;
