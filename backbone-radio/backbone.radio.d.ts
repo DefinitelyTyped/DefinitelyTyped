@@ -17,7 +17,7 @@ declare module Backbone {
         var VERSION: string;
         var DEBUG: boolean;
 
-        function log(channelName: string, eventName: string, ...args: any[]);
+        function log(channelName: string, eventName: string, ...args: any[]): void;
         function tuneIn(channelName: string): Radio;
         function tuneOut(channelName: string): Radio;
         function channel(channelName: string): Channel;
