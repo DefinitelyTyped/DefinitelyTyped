@@ -124,6 +124,8 @@ moment().isoWeek();
 moment().isoWeek(45);
 moment().isoWeeks();
 moment().isoWeeks(45);
+moment().dayOfYear();
+moment().dayOfYear(45);
 
 var getMilliseconds: number = moment().milliseconds();
 var getSeconds: number = moment().seconds();

@@ -35,7 +35,7 @@ declare module "amqp-rpc" {
   }
 
   export interface BroadcastOptions {
-    ttl?: boolean;
+    ttl?: number;
     onResponse?: any;
     context?: any;
     onComplete?: any;
@@ -52,6 +52,10 @@ declare module "amqp-rpc" {
     (...args: any[]): void;
   }
 
+  export interface CallbackWithError {
+    (err: any, ...args: any[]): void;
+  }
+
   export function factory(opt?: Options): amqpRPC;
 
   export class amqpRPC {
@@ -61,8 +65,8 @@ declare module "amqp-rpc" {
     call<T>(cmd: string, params: T, cb?: Callback, context?: any, options?: CallOptions): string;
     on<T>(cmd: string, cb: (param?: T, cb?: Callback, info?: CommandInfo) => void, context?: any, options?: HandlerOptions): boolean;
     off(cmd: string): boolean;
-    callBroadcast(cmd: string, params: any, options: BroadcastOptions): void;
-    onBroadcast(cmd: string, cb: (err: any) => void, context: any, options?: any): boolean;
+    callBroadcast<T>(cmd: string, params: T, options?: BroadcastOptions): void;
+    onBroadcast<T>(cmd: string, cb?: (params?: T, cb?: CallbackWithError) => void, context?: any, options?: any): boolean;
     offBroadcast(cmd: string): boolean;
   }
 }
