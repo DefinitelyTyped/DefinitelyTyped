@@ -87,6 +87,11 @@ interface AudioContext {
     createMediaStreamSource(mediaStream: any): MediaStreamAudioSourceNode;
 
     /**
+     * Creates a MediaStreamAudioDestinationNode.
+     */
+    createMediaStreamDestination(): MediaStreamAudioDestinationNode;
+
+    /**
      * Creates a ScriptProcessorNode for direct audio processing using JavaScript. An exception will be thrown if bufferSize or numberOfInputChannels or numberOfOutputChannels are outside the valid range.
      * It is invalid for both numberOfInputChannels and numberOfOutputChannels to be zero.
      * @param bufferSize  the buffer size in units of sample-frames. It must be one of the following values: 256, 512, 1024, 2048, 4096, 8192, 16384. This value controls how frequently the onaudioprocess event handler is called and how many sample-frames need to be processed each call. Lower values for bufferSize will result in a lower (better) latency. Higher values will be necessary to avoid audio breakup and glitches. The value chosen must carefully balance between latency and audio quality.
@@ -1141,4 +1146,18 @@ interface WaveTable {
  *    numberOfOutputs : 1
  */
 interface MediaStreamAudioSourceNode extends AudioSourceNode {
+}
+
+/**
+ * This interface is an audio destination representing a MediaStream with a single AudioMediaStreamTrack. This MediaStream is created when the node is created and is accessible via the stream attribute. This stream can be used in a similar way as a MediaStream obtained via getUserMedia(), and can, for example, be sent to a remote peer using the RTCPeerConnection addStream() method.
+ *
+ *    numberOfInputs  : 1
+ *    numberOfOutputs : 0
+ *
+ *    channelCount = 2;
+ *    channelCountMode = "explicit";
+ *    channelInterpretation = "speakers";
+ */
+interface MediaStreamAudioDestinationNode extends AudioNode {
+  stream: MediaStream;
 }
