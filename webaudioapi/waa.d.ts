@@ -1159,5 +1159,5 @@ interface MediaStreamAudioSourceNode extends AudioSourceNode {
  *    channelInterpretation = "speakers";
  */
 interface MediaStreamAudioDestinationNode extends AudioNode {
-  stream: MediaStream;
+  stream: any;
 }
