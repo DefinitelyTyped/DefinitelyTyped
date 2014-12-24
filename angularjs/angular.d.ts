@@ -1277,9 +1277,14 @@ declare module ng {
         then<TResult>(successCallback: (response: IHttpPromiseCallbackArg<T>) => TResult, errorCallback?: (response: IHttpPromiseCallbackArg<any>) => any): IPromise<TResult>;
     }
 
+    /**
+    * Object that controls the defaults for $http provider
+    * https://docs.angularjs.org/api/ng/service/$http#defaults
+    */
     interface IHttpProviderDefaults {
         xsrfCookieName?: string;
         xsrfHeaderName?: string;
+        withCredentials?: boolean;
         headers?: {
             common?: any;
             post?: any;
