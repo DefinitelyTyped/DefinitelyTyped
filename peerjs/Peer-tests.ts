@@ -1,16 +1,22 @@
-/// <reference path="Peer.d.ts" />
+/// <reference path="./Peer.d.ts" />
 /// <reference path="../webrtc/RTCPeerConnection.d.ts" />
 
-var peerByOption: Peer = new Peer({
+var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',
     debug: 3,
     logFunction: ()=>{
     }
 });
 
-var peerById: Peer = new Peer("peerid");
+peerByOption.listAllPeers(function(items){
+    for(var i in items){
+        console.log(decodeURI(items[i]));
+    }
+});
 
-var peerByIdAndOption: Peer = new Peer(
+var peerById: PeerJs.Peer = new Peer("peerid");
+
+var peerByIdAndOption: PeerJs.Peer = new Peer(
     "peerId",
     {
         key: 'peerKey',
@@ -42,3 +48,5 @@ peerById.on("call", (media)=> console.log("call"));
 peerById.on("close", ()=> console.log("close"));
 peerById.on("disconnected", ()=> console.log("disconnected"));
 peerById.on("error", (err)=> console.log(err));
+
+var connection2 = peerById.getConnection(peerByOption, "callto-id");
