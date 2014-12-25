@@ -3,6 +3,8 @@
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../express/express.d.ts" />
+
 declare module "log4js" {
   import express = require('express');
 
