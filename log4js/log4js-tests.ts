@@ -1,4 +1,6 @@
 /// <reference path="./log4js.d.ts" />
+/// <reference path="../express/express.d.ts" />
+
 import log4js = require('log4js');
 
 log4js.addAppender(log4js.appenders.file('logs/cheese.log'), 'cheese');
@@ -25,3 +27,32 @@ log4js.configure({
 
 var defaultLogger = log4js.getDefaultLogger();
 defaultLogger.debug('Got cheese.');
+
+
+import express = require('express');
+var app = express();
+app.configure(() => {
+  app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO, format: ':method :url' }));
+});
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
+app.listen(5000);
+
+log4js.configure({
+  "appenders": [
+    {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d %p %c - %m"
+      }
+    }
+  ],
+  "levels": {
+    "[all]": "INFO",
+    "category1": "ERROR",
+    "category2": "DEBUG"
+  }
+});
+
