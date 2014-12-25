@@ -172,19 +172,6 @@ declare module Fancytree {
         warn(msg: any): void;
     }
 
-    enum FancytreeClickFolderMode {
-        activate = 1,
-        expand = 2,
-        activate_and_expand = 3,
-        activate_dblclick_expands = 4
-    }
-
-    enum FancytreeSelectMode {
-        single = 1,
-        multi = 2,
-        mutlti_hier = 3
-    }
-
     /** A FancytreeNode represents the hierarchical data model and operations. */
     interface FancytreeNode {
         //#region Properties
@@ -338,8 +325,300 @@ declare module Fancytree {
           */
         findFirst(match: (node: FancytreeNode) => boolean): FancytreeNode;
 
+        /** Fix selection status, after this node was (de)selected in multi-hier mode. This includes (de)selecting all children. */
+        fixSelection3AfterClick(): void;
 
+        /** Fix selection status for multi-hier mode. Only end-nodes are considered to update the descendants branch and parents. Should be called after this node has loaded new children or after children have been modified using the API. */
+        fixSelection3FromEndNodes(): void;
+
+        /** Update node data. If dict contains 'children', then also replace the hole sub tree.  */
+        fromDict(dict: NodeData): void;
+
+        /** Return the list of child nodes (undefined for unexpanded lazy nodes). */
+        getChildren(): FancytreeNode[];
+
+        /** [ext-clones] Return a list of clone-nodes or null. */
+        getCloneList(includeSelf?: boolean): FancytreeNode[];
+
+        /** Return the first child node or null. */
+        getFirstChild(): FancytreeNode;
+
+        /** Return the 0-based child index. */
+        getIndex(): number;
+
+        /** Return the hierarchical child index (1-based, e.g. '3.2.4').  */
+        getIndexHier(): string;
+
+        /** Return the parent keys separated by options.keyPathSeparator, e.g. "id_1/id_17/id_32". */
+        getKeyPath(excludeSelf: boolean): string;
+
+        /** Return the last child of this node or null. */
+        getLastChild(): FancytreeNode;
+
+        /** Return node depth. 0: System root node, 1: visible top-level node, 2: first sub-level, ... . */
+        getLevel(): number;
+
+        /** Return the successor node (under the same parent) or null. */
+        getNextSibling(): FancytreeNode;
+
+        /** Return the parent node (null for the system root node).  */
+        getParent(): FancytreeNode;
+
+        /**Return an array of all parent nodes (top-down). 
+         * 
+         * @param includeRoot Include the invisible system root node. (default=false)
+         * @param includeSelf Include the node itself (default=false).
+          */
+        getParentList(includeRoot: boolean, includeSelf: boolean): FancytreeNode[];
+
+        /** Return the predecessor node (under the same parent) or null. */
+        getPrevSibling(): FancytreeNode;
+
+        /** Return true if node has children. Return undefined if not sure, i.e. the node is lazy and not yet loaded). */
+        hasChildren(): boolean;
+
+        /** Return true if node has keyboard focus. */
+        hasFocus(): boolean;
+
+        /** Write to browser console if debugLevel >= 1 (prepending node info)  */
+        info(msg: string): void;
+
+        /** Return true if node is active (see also FancytreeNode.isSelected). */
+        isActive(): boolean;
+
+        /** Return true if node is a direct child of otherNode. */
+        isChildOf(otherNode: FancytreeNode): boolean;
+
+        /** [ext-clones] Return true if this node has at least another clone with same refKey. */
+        isClone(): boolean;
+
+        /** Return true, if node is a direct or indirect sub node of otherNode. */
+        isDescendantOf(otherNode: FancytreeNode): boolean;
+
+        /** [ext-edit] Check if this node is in edit mode. */
+        isEditing(): boolean;
+
+        /** Return true if node is expanded.  */
+        isExpanded(): boolean;
+
+        /** Return true if node is the first node of its parent's children.  */
+        isFirstSibling(): boolean;
+
+        /** Return true if node is a folder, i.e. has the node.folder attribute set. */
+        isFolder(): boolean;
+
+        /** Return true if node is the last node of its parent's children.  */
+        isLastSibling(): boolean;
+
+        /** Return true if node is lazy (even if data was already loaded)  */
+        isLazy(): boolean;
+
+        /** Return true if node is lazy and loaded. For non-lazy nodes always return true.  */
+        isLoaded(): boolean;
+
+        /**Return true if children are currently beeing loaded, i.e. a Ajax request is pending.  */
+        isLoading(): boolean;
+
+        /** Return true if this is the (invisible) system root node. */
+        isRootNode(): boolean;
+
+        /** Return true if node is selected, i.e. has a checkmark set (see also FancytreeNode#isActive). */
+        isSelected(): boolean;
+
+        /** Return true if this node is a temporarily generated system node like 'loading', or 'error' (node.statusNodeType contains the type). */
+        isStatusNode(): boolean;
+
+        /** Return true if this a top level node, i.e. a direct child of the (invisible) system root node. */
+        isTopLevel(): boolean;
+
+        /** Return true if node is lazy and not yet loaded. For non-lazy nodes always return false. */
+        isUndefined(): boolean;
+
+        /** Return true if all parent nodes are expanded. Note: this does not check whether the node is scrolled into the visible part of the screen. */
+        isVisible(): boolean;
+
+        /** Load all children of a lazy node if neccessary. The *expanded* state is maintained. 
+         * 
+         * @param forceReload Pass true to discard any existing nodes before.
+         */
+        load(forceReload?: boolean): JQueryPromise<any>;
+
+        /** Expand all parents and optionally scroll into visible area as neccessary. Promise is resolved, when lazy loading and animations are done. 
+         * 
+         * @param opts passed to `setExpanded()`. Defaults to {noAnimation: false, noEvents: false, scrollIntoView: true}
+         */
+        makeVisible(opts?: Object): JQueryPromise<any>;
+
+        /** Move this node to targetNode. 
+         * 
+         * @param mode 'child': append this node as last child of targetNode.
+         *                       This is the default. To be compatble with the D'n'd
+         *                       hitMode, we also accept 'over'.
+         *              'before': add this node as sibling before targetNode.
+         *              'after': add this node as sibling after targetNode.
+         *
+         * @param map optional callback(FancytreeNode) to allow modifcations
+         */
+        moveTo(targetNode: FancytreeNode, mode: string, map?: (node: FancytreeNode) => void): void;
+
+        /** Set focus relative to this node and optionally activate. 
+         * 
+         * @param where The keyCode that would normally trigger this move, e.g. `$.ui.keyCode.LEFT` would collapse the node if it is expanded or move to the parent oterwise.
+         * @param activate (default=true)
+         */
+        navigate(where: number, activate?: boolean): JQueryPromise<any>;
+
+        /** Remove this node (not allowed for system root).  */
+        remove(): void;
+
+        /** Remove childNode from list of direct children. */
+        removeChild(childNode: FancytreeNode): void;
+
+        /** Remove all child nodes and descendents. This converts the node into a leaf.
+         * If this was a lazy node, it is still considered 'loaded'; call node.resetLazy() in order to trigger lazyLoad on next expand. 
+         */
+        removeChildren(): void;
+
+        /** This method renders and updates all HTML markup that is required to display this node in its current state.
+         * 
+         * @param force re-render, even if html markup was already created
+         * @param deep  also render all descendants, even if parent is collapsed
+         */
+        render(force?: boolean, deep?: boolean): void;
+
+        /** Update element's CSS classes according to node state. */
+        renderStatus(): void;
+
+        /** Create HTML markup for the node's outer (expander, checkbox, icon, and title).  */
+        renderTitle(): void;
+
+        /** [ext-clones] Update key and/or refKey for an existing node. */
+        reRegister(key: string, refKey: string): boolean;
+
+        /** Remove all children, collapse, and set the lazy-flag, so that the lazyLoad event is triggered on next expand. */
+        resetLazy(): void;
+
+        /** Schedule activity for delayed execution (cancel any pending request). scheduleAction('cancel') will only cancel a pending request (if any). */
+        scheduleAction(mode: string, ms: number);
+
+        /** 
+         * @param effects animation options.
+         * @param options {topNode: null, effects: ..., parent: ...} this node will remain visible in any case, even if `this` is outside the scroll pane.
+         */
+        scrollIntoView(effects?: boolean, options?: Object): JQueryPromise<any>;
+
+        /** 
+         * @param effects animation options. 
+         * @param options {topNode: null, effects: ..., parent: ...} this node will remain visible in any case, even if `this` is outside the scroll pane.
+         */
+        scrollIntoView(effects?: Object, options?: Object): JQueryPromise<any>;
+
+        /** 
+         * @param flag pass false to deactivate
+         * @param opts additional options. Defaults to {noEvents: false}
+         */
+        setActive(flag?: boolean, opts?: Object): JQueryPromise<any>;
+
+        /** 
+         * @param flag pass false to collapse.
+         * @param opts additional options. Defaults to {noAnimation:false, noEvents:false}
+         */
+        setExpanded(flag?: boolean, opts?: Object): JQueryPromise<any>;
+
+        /** 
+         * Set keyboard focus to this node. 
+         * 
+         * @param flag pass false to blur.
+         */
+        setFocus(flag?: boolean): void;
+
+        /** 
+         * Select this node, i.e. check the checkbox. 
+         * 
+         * @param flag pass false to deselect.
+         */
+        setSelected(flag?: boolean): void;
+
+        /** 
+         * Mark a lazy node as 'error', 'loading', or 'ok'. 
+         * 
+         * @param status 'error', 'ok'
+         */
+        setStatus(status: string, message?: string, details?: string): void;
+
+        /** Rename this node. */
+        setTitle(title: string): void;
+
+        /** 
+         * Sort child list by title. 
+         * 
+         * @param cmp custom compare function(a, b) that returns -1, 0, or 1 (defaults to sort by title).
+         * @param deep pass true to sort all descendant nodes
+         */
+        sortChildren(cmp?: (a: FancytreeNode, b: FancytreeNode) => number, deep?: boolean): void;
+
+        /** 
+         * Convert node (or whole branch) into a plain object. The result is compatible with node.addChildren(). 
+         * 
+         * @param recursive include child nodes.
+         * @param callback callback(dict) is called for every node, in order to allow modifications
+         */
+        toDict(recursive?: boolean, callback?: (dict: NodeData) => void): NodeData;
+
+        /** Flip expanded status. */
+        toggleExpanded(): void;
+
+        /** Flip selection status. */
+        toggleSelected(): void;
+
+        /** 
+         * Call fn(node) for all child nodes.
+         * Stop iteration, if fn() returns false. Skip current branch, 
+         * if fn() returns "skip". Return false if iteration was stopped. 
+         * 
+         * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and its children only.
+         * @param includeSelf (default=false)
+         */
+        visit(fn: (node: FancytreeNode) => any, includeSelf?: boolean): boolean;
+
+        /**
+         * Call fn(node) for all child nodes and recursively load lazy children.
+         * Note: If you need this method, you probably should consider to review your architecture! Recursivley loading nodes is 
+         * a perfect way for lazy programmers to flood the server with requests ;-)          
+         * 
+         * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and its children only.
+         * @param includeSelf (default=false)
+         */
+        visitAndLoad(fn: (node: FancytreeNode) => any, includeSelf?: boolean): JQueryPromise<any>;
+
+        /**
+         * Call fn(node) for all parent nodes, bottom-up, including invisible system root.
+         * Stop iteration, if fn() returns false.
+         * Return false if iteration was stopped. 
+         * 
+         * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and its children only.
+         * @param includeSelf (default=false)
+         */
+        visitParents(fn: (node: FancytreeNode) => any, includeSelf?: boolean): boolean;
+
+        /** 
+         * Write warning to browser console (prepending node info) 
+         */
+        warn(msg: any): void;
         //#endregion
+    }
+
+    enum FancytreeClickFolderMode {
+        activate = 1,
+        expand = 2,
+        activate_and_expand = 3,
+        activate_dblclick_expands = 4
+    }
+
+    enum FancytreeSelectMode {
+        single = 1,
+        multi = 2,
+        mutlti_hier = 3
     }
 
     /** Context object passed to events and hook functions. */
@@ -363,69 +642,67 @@ declare module Fancytree {
         response: any;
     }
 
-
-
     /** The `this` context of any event function is set to tree's the HTMLDivElement  */
     interface FancytreeEvents {
         /** 'data.node' was deactivated. */
-        activate(event: JQueryEventObject, data: EventData): void;
+        activate?(event: JQueryEventObject, data: EventData): void;
         /** Return false to prevent default processing */
-        beforeActivate(event: JQueryEventObject, data: EventData): boolean;
+        beforeActivate?(event: JQueryEventObject, data: EventData): boolean;
         /** Return `false` to prevent default processing */
-        beforeExpand(event: JQueryEventObject, data: EventData): boolean;
+        beforeExpand?(event: JQueryEventObject, data: EventData): boolean;
         /** Return `false` to prevent default processing */
-        beforeSelect(event: JQueryEventObject, data: EventData): boolean;
+        beforeSelect?(event: JQueryEventObject, data: EventData): boolean;
         /** `data.node` lost keyboard focus */
-        blur(event: JQueryEventObject, data: EventData): void;
+        blur?(event: JQueryEventObject, data: EventData): void;
         /** `data.tree` lost keyboard focus */
-        blurTree(event: JQueryEventObject, data: EventData): void;
+        blurTree?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was clicked. `data.targetType` contains the region ("title", "expander", ...). Return `false` to prevent default processing, i.e. activating, etc. */
-        click(event: JQueryEventObject, data: EventData): boolean;
+        click?(event: JQueryEventObject, data: EventData): boolean;
         /** `data.node` was collapsed */
-        collapse(event: JQueryEventObject, data: EventData): void;
+        collapse?(event: JQueryEventObject, data: EventData): void;
         /** Widget was created (called only once, even if re-initialized). */
-        create(event: JQueryEventObject, data: EventData): void;
+        create?(event: JQueryEventObject, data: EventData): void;
         /** Allow tweaking and binding, after node was created for the first time (NOTE: this event is only available as callback, but not for bind()) */
-        createNode(event: JQueryEventObject, data: EventData): void;
+        createNode?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was double-clicked. `data.targetType` contains the region ("title", "expander", ...). Return `false` to prevent default processing, i.e. expanding, etc. */
-        dblclick(event: JQueryEventObject, data: EventData): boolean;
+        dblclick?(event: JQueryEventObject, data: EventData): boolean;
         /** `data.node` was deactivated */
-        deactivate(event: JQueryEventObject, data: EventData): void;
+        deactivate?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was expanded */
-        expand(event: JQueryEventObject, data: EventData): void;
+        expand?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` received keyboard focus */
-        focus(event: JQueryEventObject, data: EventData): void;
+        focus?(event: JQueryEventObject, data: EventData): void;
         /**`data.tree` received keyboard focus */
-        focusTree(event: JQueryEventObject, data: EventData): void;
+        focusTree?(event: JQueryEventObject, data: EventData): void;
         /** Widget was (re-)initialized. */
-        init(event: JQueryEventObject, data: EventData): void;
+        init?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` received key. `event.which` contains the key. Return `false` to prevent default processing, i.e. navigation. Call `data.result = "preventNav";` to prevent navigation but still allow default handling inside embedded input controls. */
-        keydown(event: JQueryEventObject, data: EventData): boolean;
+        keydown?(event: JQueryEventObject, data: EventData): boolean;
         /** (currently unused) */
-        keypress(event: JQueryEventObject, data: EventData): void;
+        keypress?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` is a lazy node that is expanded for the first time. The new child data must be returned in the `data.result` property (see `source` option for available formats). */
-        lazyLoad(event: JQueryEventObject, data: EventData): void;
+        lazyLoad?(event: JQueryEventObject, data: EventData): void;
         /** Node data was loaded, i.e. `node.nodeLoadChildren()` finished */
-        loadChildren(event: JQueryEventObject, data: EventData): void;
+        loadChildren?(event: JQueryEventObject, data: EventData): void;
         /** A load error occured. Return `false` to prevent default processing. */
-        loadError(event: JQueryEventObject, data: EventData): boolean;
+        loadError?(event: JQueryEventObject, data: EventData): boolean;
         /** Allows to modify the ajax response. */
-        postProcess(event: JQueryEventObject, data: EventData): void;
+        postProcess?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was removed (NOTE: this event is only available as callback, but not for bind()) */
-        removeNode(event: JQueryEventObject, data: EventData): void;
+        removeNode?(event: JQueryEventObject, data: EventData): void;
         /** (used by table extension) */
-        renderColumns(event: JQueryEventObject, data: EventData): void;
+        renderColumns?(event: JQueryEventObject, data: EventData): void;
         /** Allow tweaking after node state was rendered (NOTE: this event is only available as callback, but not for bind()) */
-        renderNode(event: JQueryEventObject, data: EventData): void;
+        renderNode?(event: JQueryEventObject, data: EventData): void;
         /** Allow replacing the `<span class='fancytree-title'>` markup (NOTE: this event is only available as callback, but not for bind()) */
-        renderTitle(event: JQueryEventObject, data: EventData): void;
+        renderTitle?(event: JQueryEventObject, data: EventData): void;
         /** ext-persist has expanded, selected, and activated the previous state */
-        restore(event: JQueryEventObject, data: EventData): void;
+        restore?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was selected */
-        select(event: JQueryEventObject, data: EventData): void;
+        select?(event: JQueryEventObject, data: EventData): void;
     }
 
-    interface FancytreeOptions {
+    interface FancytreeOptions extends FancytreeEvents {
         /** Make sure that the active node is always visible, i.e. its parents are expanded (default: true). */
         activeVisible?: boolean;
         /** Default options for ajax requests. */
@@ -484,8 +761,6 @@ declare module Fancytree {
         titlesTabbable?: boolean;
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
         toggleEffect?: Object;
-
-        // TODO: Add events
     }
 
     /** Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by meber methods, e.g. `node.isExpanded()` and `node.setSelected(false)`.  */
@@ -519,11 +794,11 @@ declare module Fancytree {
       * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
     interface NodePatch {
         /** (not yet implemented) */
-        appendChildren: NodeData;
+        appendChildren?: NodeData;
         /** (not yet implemented) */
-        replaceChildren: NodeData;
+        replaceChildren?: NodeData;
         /** (not yet implemented) */
-        insertChildren: NodeData;
+        insertChildren?: NodeData;
     }
 
     /** May be passed to Fancytree#applyPatch. */
@@ -532,7 +807,40 @@ declare module Fancytree {
     }
 
     interface FancytreeStatic {
+        /** Throw an error if condition fails (debug method).  */
+        assert(cond: boolean, msg: string);
+
+        /** Return a function that executes *fn* at most every *timeout* ms. */
+        debounce(timeout: number, fn: () => any, invokeAsap?: boolean, ctx?: any);
+
+        debug(msg: string): void;
+
+        error(msg: string): void;
+
+        escapeHtml(s: string): string;
+
+        getEventTarget(event: Event): Object;
+
+        getEventTargetType(event: Event): string;
+
+        getNode(el: JQuery): FancytreeNode;
+        getNode(el: Event): FancytreeNode;
+        getNode(el: Element): FancytreeNode;
+
         info(msg: string): void;
+
+        /** Convert a keydown event to a string like 'ctrl+a', 'ctrl+shift+f2'.  */
+        keyEventToString(event: Event): string;
+
+        /** Parse tree data from HTML markup */
+        parseHtml($ul: JQuery): NodeData[];
+
+        /** Add Fancytree extension definition to the list of globally available extensions. */
+        registerExtension(definition: Object): void;
+
+        unescapeHtml(s: string): string;
+
+        warn(msg: string): void;
     }
 }
 
