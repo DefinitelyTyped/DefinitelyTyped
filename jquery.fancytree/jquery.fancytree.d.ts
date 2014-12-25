@@ -283,7 +283,7 @@ declare module Fancytree {
          * @param map callback function(NodeData) that could modify the new node
          * @returns new node.
          */
-        copyTo(node: FancytreeNode, mode?: string, map?: (node: NodeData) => void);
+        copyTo(node: FancytreeNode, mode?: string, map?: (node: NodeData) => void) : FancytreeNode;
 
         /** Count direct and indirect children. 
          * 
@@ -508,7 +508,7 @@ declare module Fancytree {
         resetLazy(): void;
 
         /** Schedule activity for delayed execution (cancel any pending request). scheduleAction('cancel') will only cancel a pending request (if any). */
-        scheduleAction(mode: string, ms: number);
+        scheduleAction(mode: string, ms: number) : void;
 
         /** 
          * @param effects animation options.
@@ -821,7 +821,7 @@ declare module Fancytree {
         version: string;
 
         /** Throw an error if condition fails (debug method).  */
-        assert(cond: boolean, msg: string);
+        assert(cond: boolean, msg: string): void;
 
         /** Return a function that executes *fn* at most every *timeout* ms. */
         debounce<T extends (...args: any[]) => void>(timeout: number, fn: T, invokeAsap?: boolean, ctx?: any): T;
