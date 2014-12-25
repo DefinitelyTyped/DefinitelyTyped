@@ -1,4 +1,10 @@
-﻿///<reference path="../jquery/jquery.d.ts" />
+﻿// Type definitions for jquery.fancytree 2.7.0
+// Project: https://github.com/mar10/fancytree
+// Definitions by: Peter Palotas <https://github.com/alphaleonis>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+
+///<reference path="../jquery/jquery.d.ts" />
 ///<reference path="../jqueryui/jqueryui.d.ts" />
 
 declare module JQueryUI {
@@ -12,9 +18,7 @@ interface JQuery {
     fancytree(option?: string, ...rest: any[]): any;
 }
 
-
 declare module Fancytree {
-
     interface Fancytree {
         /** Activate node with a given key and fire focus and 
          * activate events. A prevously activated node will be 
@@ -135,6 +139,13 @@ declare module Fancytree {
          */
         loadKeyPath(keyPathList: string[], callback: (node: FancytreeNode, status: string) => void): JQueryPromise<any>;
 
+        /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.  
+         * 
+         * @param keyPath a key path (e.g. '/3/2_1/7')
+         * @param callback callback(node, status) is called for every visited node ('loading', 'loaded', 'ok', 'error')
+         */
+        loadKeyPath(keyPath: string, callback: (node: FancytreeNode, status: string) => void): JQueryPromise<any>;
+
         /** Re-fire beforeActivate and activate events. */
         reactivate(): void;
 
@@ -197,8 +208,6 @@ declare module Fancytree {
         statusNodeType: string;
         /** True if this node is loaded on demand, i.e. on first expansion. */
         lazy: boolean;
-        /** Use isSelected(), setSelected() to access this property. */
-        selected: boolean;
         /** Alternative description used as hover banner */
         tooltip: string;
         //#endregion
@@ -768,26 +777,26 @@ declare module Fancytree {
         /** node text (may contain HTML tags) */
         title: string;
         /** unique key for this node (auto-generated if omitted) */
-        key: string;
+        key?: string;
         /** (reserved) */
-        refKey: string;
-        expanded: boolean;
+        refKey?: string;
+        expanded?: boolean;
         /** (initialization only, but will not be stored with the node). */
-        active: boolean;
+        active?: boolean;
         /** (initialization only, but will not be stored with the node). */
-        focus: boolean;
-        folder: boolean;
-        hideCheckbox: boolean;
-        lazy: boolean;
-        selected: boolean;
-        unselectable: boolean;
+        focus?: boolean;
+        folder?: boolean;
+        hideCheckbox?: boolean;
+        lazy?: boolean;
+        selected?: boolean;
+        unselectable?: boolean;
         /** optional array of child nodes */
-        children: NodeData[];
-        tooltip: string;
+        children?: NodeData[];
+        tooltip?: string;
         /** class names added to the node markup (separate with space) */
-        extraClasses: string;
+        extraClasses?: string;
         /** all properties from will be copied to `node.data` */
-        data: Object;
+        data?: Object;
     }
 
     /** Data object similar to NodeData, but with additional options. 
@@ -807,11 +816,15 @@ declare module Fancytree {
     }
 
     interface FancytreeStatic {
+        buildType: string;
+        debugLevel: number;
+        version: string;
+
         /** Throw an error if condition fails (debug method).  */
         assert(cond: boolean, msg: string);
 
         /** Return a function that executes *fn* at most every *timeout* ms. */
-        debounce(timeout: number, fn: () => any, invokeAsap?: boolean, ctx?: any);
+        debounce<T extends (...args: any[]) => void>(timeout: number, fn: T, invokeAsap?: boolean, ctx?: any): T;
 
         debug(msg: string): void;
 
