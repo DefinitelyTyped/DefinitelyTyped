@@ -11,22 +11,32 @@ declare module "asyncblock" {
     export function nostack<T>(f: (flow: asyncblock.IFlow) => void, callback?: (err: any, res: T) => void): void;
 
     export interface IFlow {
-      add(responseFormat?: string[]): any;
-      add(key: string, responseFormat?: string[]): any;
-      add(key: number, responseFormat?: string[]): any;
-      add(options: IFlowOptions): any;
-      callback(responseFormat?: string[]): any;
-      callback(key: string, responseFormat?: string[]): any;
-      callback(key: number, responseFormat?: string[]): any;
-      callback(options: IFlowOptions): any;
-      sync<T>(f: void): T;
+      add(responseFormat?: string[]): IExecuteFunction;
+      add(key: string, responseFormat?: string[]): IExecuteFunction;
+      add(key: number, responseFormat?: string[]): IExecuteFunction;
+      add(options: IFlowOptions): IExecuteFunction;
+      callback(responseFormat?: string[]): IExecuteFunction;
+      callback(key: string, responseFormat?: string[]): IExecuteFunction;
+      callback(key: number, responseFormat?: string[]): IExecuteFunction;
+      callback(options: IFlowOptions): IExecuteFunction;
       wait<T>(key?: string): T;
       wait<T>(key?: number): T;
 
       get<T>(key: string): T;
-      set(key: string, responseFormat?: string[]): any;
-      set(options: IFlowOptions): any;
+      set(key: string, responseFormat?: string[]): IExecuteFunction;
+      set(options: IFlowOptions): IExecuteFunction;
       del(key: string): void;
+
+      sync<T>(task: any): T;
+      queue(toExecute: IExecuteFunction): void;
+      queue(key: string, toExecute: IExecuteFunction): void;
+      queue(key: number, toExecute: IExecuteFunction): void;
+      queue(responseFormat: string[], toExecute: IExecuteFunction): void;
+      queue(key: string, responseFormat: string[], toExecute: IExecuteFunction): void;
+      queue(key: number, responseFormat: string[], toExecute: IExecuteFunction): void;
+      queue(options: IFlowOptions, toExecute: IExecuteFunction): void;
+      doneAdding(): void;
+      forceWait<T>(): T;
 
       maxParallel: number;
       errorCallback: (err: any) => void;
@@ -41,7 +51,19 @@ declare module "asyncblock" {
       timeout?: number;
       timeoutIsError?: boolean;
       dontWait?: boolean;
-      firstArgIsError?: boolean;  // default false
+      firstArgIsError?: boolean;  // default true
+    }
+
+    export interface IExecuteFunction {
+      <T1, T2, T3>(err: any, res1: T1, res2: T2, res3: T3): any;
+      <T1, T2>(err: any, res1: T1, res2: T2): any;
+      <T>(err: any, res: T): any;
+      (err: any): any;
+
+      // firstArgIsError === false
+      <T1, T2, T3>(res1: T1, res2: T2, res3: T3): any;
+      <T1, T2>(res1: T1, res2: T2): any;
+      <T>(res: T): any;
     }
 
   }

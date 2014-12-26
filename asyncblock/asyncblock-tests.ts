@@ -117,6 +117,55 @@ asyncblock(function(flow) {
 })();
 
 
+// Parallel task rate limiting
+(function() {
+
+asyncblock(function(flow) {
+   flow.queue(function(callback: Function) {
+       setTimeout(callback, 1000);
+   });
+
+   flow.wait(); //This will wait for about a second
+});
+
+asyncblock(function(flow) {
+   flow.maxParallel = 2;
+
+   process.nextTick(function(){
+       flow.queue(function(callback: Function) {
+           setTimeout(callback, 1000);
+       });
+
+       flow.queue(function(callback: Function) {
+           setTimeout(callback, 2000);
+       });
+
+       flow.queue(function(callback: Function) {
+           setTimeout(callback, 3000);
+       });
+
+       flow.doneAdding();
+   });
+
+   flow.forceWait();
+});
+
+asyncblock(function(flow) {
+    setTimeout(flow.callback(), 1000);
+
+    flow.queue(function(callback: Function) {
+        setTimeout(callback, 1000);
+    });
+    flow.queue((callback: (err: any, res: string) => void) => {
+      callback(null, '');
+    });
+
+    flow.wait();
+});
+
+})();
+
+
 // Task timeouts
 (function() {
 
