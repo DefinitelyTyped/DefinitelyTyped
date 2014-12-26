@@ -65,16 +65,89 @@ declare module Backbone {
         reset?: boolean;
     }
 
+    /**
+     * Events is a class that can be extended by any object, giving the object 
+     * the ability to bind and trigger custom named events. Events do not have 
+     * to be declared before they are bound, and may take passed arguments.      
+     */
     class Events {
+        /**
+         * Bind a callback function to an object. The callback will be invoked 
+         * whenever the specified event (or events) is fired.
+         * @param eventName The event to bind to. This may also be a space-delimited list of several events. Callbacks bound to the special "all" event will be triggered when any event occurs, and are passed the name of the event as the first argument.
+         * @param callback The callback function to invoke whenever the event is fired.
+         * @param context To supply a context value for this when the callback is invoked, pass it as this argument.
+         */
         on(eventName: string, callback?: Function, context?: any): any;
+
+        /**
+         * Bind one or more callback functions to an object. 
+         * @param eventMap An object containing key-value pairs mapping event names to callback functions.
+         */
+        on(eventMap: { [key: string]: Function });
+
+        /**
+         * Remove a previously-bound callback function from an object.
+         * @param eventName The event for which to remove callbacks. If not specified, callbacks for all events will be removed.
+         * @param callback The callback function to remove bindings to. If no callback is specified, all callbacks for the specified eventName will be removed.
+         * @param context The context for which to remove bindings. If no context is specified, all of the versions of the callback with different contexts will be removed.
+         */
         off(eventName?: string, callback?: Function, context?: any): any;
+
+        /** 
+         * Trigger callbacks for the given event, or space-delimited list of events. Subsequent arguments to trigger will be passed along to the event callbacks. 
+         * @param eventName The name of the event to trigger, or a space-delimited list of events.
+         * @param args Additional arguments that will be passed along to event callbacks.
+         */
         trigger(eventName: string, ...args: any[]): any;
+
+        /**
+         * Bind a callback function to an object. The callback will be invoked 
+         * whenever the specified event (or events) is fired.
+         * @param eventName The event to bind to. This may also be a space-delimited list of several events. Callbacks bound to the special "all" event will be triggered when any event occurs, and are passed the name of the event as the first argument.
+         * @param callback The callback function to invoke whenever the event is fired.
+         * @param context To supply a context value for this when the callback is invoked, pass it as this argument.
+         */
         bind(eventName: string, callback: Function, context?: any): any;
+
+        /**
+         * Remove a previously-bound callback function from an object.
+         * @param eventName The event for which to remove callbacks. If not specified, callbacks for all events will be removed.
+         * @param callback The callback function to remove bindings to. If no callback is specified, all callbacks for the specified eventName will be removed.
+         * @param context The context for which to remove bindings. If no context is specified, all of the versions of the callback with different contexts will be removed.
+         */
         unbind(eventName?: string, callback?: Function, context?: any): any;
 
+        /**
+         * Just like on, but causes the bound callback to only fire once before being removed. Handy for saying "the next time that X happens, do this". 
+         * @param eventName The event to bind to. This may also be a space-delimited list of several events. Callbacks bound to the special "all" event will be triggered when any event occurs, and are passed the name of the event as the first argument.
+         * @param callback The callback function to invoke whenever the event is fired.
+         * @param context To supply a context value for this when the callback is invoked, pass it as this argument.
+         */
         once(events: string, callback: Function, context?: any): any;
+
+        /** 
+         * Tell an object to listen to a particular event on an other object. The callback will always be called with object as context. 
+         * @param object the object to listen to events on.
+         * @param events The event to listen for.
+         * @param callback The callback function to invoke when the event occurs.
+         */
         listenTo(object: any, events: string, callback: Function): any;
+
+        /** 
+         * Tell an object to listen to a particular event to occur once on another object. 
+         * @param object the object to listen to events on.
+         * @param events The event to listen for.
+         * @param callback The callback function to invoke when the event occurs.
+         */
         listenToOnce(object: any, events: string, callback: Function): any;
+
+        /**
+         * Tell an object to stop listening to events. Either call stopListening with no arguments to have the object remove all of its registered callbacks ... or be more precise by telling it to remove just the events it's listening to on a specific object, or a specific event, or just a specific callback. 
+         * @param object The object to stop listening to events from.
+         * @param events The event for which to remove callbacks. If not specified, callbacks for all events will be removed.
+         * @param callback The callback function to remove bindings to. If no callback is specified, all callbacks for the specified events will be removed.
+         */
         stopListening(object?: any, events?: string, callback?: Function): any;
     }
 
