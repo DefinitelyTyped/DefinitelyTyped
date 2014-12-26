@@ -532,6 +532,7 @@ interface BaseJQueryEventObject extends Event {
     result: any;
     stopImmediatePropagation(): void;
     stopPropagation(): void;
+    target: Element;
     pageX: number;
     pageY: number;
     which: number;
