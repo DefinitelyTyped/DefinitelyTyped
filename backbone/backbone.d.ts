@@ -12,13 +12,47 @@ declare module Backbone {
         at?: number;
     }
 
+    /** 
+     * Options available for the history global router.
+     */
     interface HistoryOptions extends Silenceable {
+        /**
+         * Set to true to enable pushState. Older browsers that don't support 
+         * pushState will continue to use hash-based URL fragments, and if a 
+         * hash URL is visited by a pushState-capable browser, it will be 
+         * transparently upgraded to the true URL.
+         */
         pushState?: boolean;
+
+        /**
+         * If your application is not being served from the root url / of your domain, 
+         * this option must be specified to tell History where the root really is.
+         */
         root?: string;
+
+        /**
+         *  If you'd like to use pushState, but have browsers that don't support it 
+         * natively use full page refreshes instead, you can add {hashChange: false}
+         *  to the options. 
+         */
+        hashChange?: boolean;
     }
 
+    /** 
+     * Defines options for the Router.navigate function.
+     */
     interface NavigateOptions {
+        /** 
+         * If you wish to call the route function upon nvaigation, set the 
+         * this option to true.
+         */
         trigger?: boolean;
+        
+        /**
+         * To update the URL without creating an entry in the browser's history, 
+         * set this option to true
+         */
+        replace?: boolean;
     }
 
     interface RouterOptions {
@@ -350,11 +384,57 @@ declare module Backbone {
         **/
         routes(): any;
 
+        /**
+         * When creating a new router, you may pass its routes hash directly as an option, if you choose. All options will also be passed to your initialize function, if defined. 
+         */
         constructor(options?: RouterOptions);
+
+        /** 
+         * Called upon instance construction.
+         * @param options The options passed to the constructor.
+         */
         initialize(options?: RouterOptions): void;
+
+        /**
+         * Manually create a route for the router. 
+         * Each matching capture from the route will be passed as an argument 
+         * to the callback. 
+         * Routes added later may override previously declared routes. 
+         * @param route The routing string.
+         * @param name The name of the route. The name argument will be triggered as a "route:name" event whenever the route is matched. 
+         * @param callback The function to invoke when the route is matched. If the callback argument is omitted router[name] will be used instead. 
+         */
         route(route: string, name: string, callback?: Function): Router;
+
+        /**
+         * Manually create a route for the router. 
+         * Each matching capture from the regular expression will be passed as an argument 
+         * to the callback. 
+         * Routes added later may override previously declared routes. 
+         * @param route The routing regular expression.
+         * @param name The name of the route. The name argument will be triggered as a "route:name" event whenever the route is matched. 
+         * @param callback The function to invoke when the route is matched. If the callback argument is omitted router[name] will be used instead. 
+         */
         route(route: RegExp, name: string, callback?: Function): Router;
+
+        /**
+         * Whenever you reach a point in your application that you'd like to save 
+         * as a URL, call navigate in order to update the URL. If you wish to 
+         * also call the route function, set the trigger option to true. 
+         * To update the URL without creating an entry in the browser's 
+         * history, set the replace option to true. 
+         * @param fragment The URL fragment to save as a URL.
+         * @param option The navigation options.
+         */
         navigate(fragment: string, options?: NavigateOptions): Router;
+
+        /**
+         * Whenever you reach a point in your application that you'd like to save 
+         * as a URL, call navigate in order to update the URL. If you wish to 
+         * also call the route function, set the trigger parameter to true. 
+         * @param fragment The URL fragment to save as a URL.
+         * @param trigger Set this to true if you wish to also call the route function.
+         */
         navigate(fragment: string, trigger?: boolean): Router;
 
         private _bindRoutes(): void;
@@ -362,13 +442,24 @@ declare module Backbone {
         private _extractParameters(route: RegExp, fragment: string): string[];
     }
 
+    /** 
+     * History serves as a global router (per frame) to handle hashchange events or pushState, match the appropriate route, and trigger callbacks. 
+     */
     var history: History;
 
+    /** 
+     * History serves as a global router (per frame) to handle hashchange events or pushState, match the appropriate route, and trigger callbacks. You shouldn't ever have to create one of these yourself since Backbone.history already contains one. 
+     */
     class History extends Events {
 
         handlers: any[];
         interval: number;
 
+        /**
+         * When all of your Routers have been created, and all of the routes are set up properly, call Backbone.history.start() to begin monitoring hashchange events, and dispatching routes. Subsequent calls to Backbone.history.start() will throw an error, and Backbone.History.started is a boolean value indicating whether it has already been called. 
+         * @param options Options for the router.
+         * @returns true if a route succeeds with a match for the current URL. If no defined route matches the current URL, it returns false. 
+         */
         start(options?: HistoryOptions): boolean;
 
         getHash(window?: Window): string;
