@@ -184,11 +184,42 @@ declare module Backbone {
          */
         stopListening(object?: any, events?: string, callback?: Function): any;
     }
-
+    
     class ModelBase extends Events {
+        /** 
+         * Returns the relative URL where the model's resource would be located on 
+         * the server. If your models are located somewhere else, override 
+         * this method with the correct logic. Generates URLs of the form: 
+         * "[collection.url]/[id]" by default, but you may override by specifying 
+         * an explicit urlRoot if the model's collection shouldn't be taken into 
+         * account. 
+         */
         url: any;
+
+        /**
+         * Called whenever a model's data is returned by the server, in fetch, 
+         * and save. The function is passed the raw response object, and should 
+         * return the attributes hash to be set on the model. The default 
+         * implementation is a no-op, simply passing through the JSON response. 
+         * Override this if you need to work with a preexisting API, or 
+         * better namespace your responses. 
+         * @param response The raw response object.
+         */
         parse(response: any, options?: any): any;
+
+        /**
+         * Return a shallow copy of the model's attributes for JSON stringification. 
+         * This can be used for persistence, serialization, or for augmentation 
+         * before being sent to the server. The name of this method is a bit 
+         * confusing, as it doesn't actually return a JSON string — but I'm afraid 
+         * that it's the way that the JavaScript API for JSON.stringify works. 
+         */
         toJSON(options?: any): any;
+
+        /**
+         * Uses Backbone.sync to persist the state of a model to the server. 
+         * Can be overridden for custom behavior. 
+         */
         sync(...arg: any[]): JQueryXHR;
     }
 
@@ -199,8 +230,31 @@ declare module Backbone {
         **/
         private static extend(properties: any, classProperties?: any): any;
 
+        /**
+         * The attributes property is the internal hash containing the model's state 
+         * — usually (but not necessarily) a form of the JSON object representing the 
+         * model data on the server. 
+         * 
+         * Please use set to update the attributes instead of modifying them 
+         * directly. If you'd like to retrieve and munge a copy of the model's 
+         * attributes, use _.clone(model.attributes) instead. 
+         */
         attributes: any;
+
+        /**
+         * The changed property is the internal hash containing all the 
+         * attributes that have changed since the last set. Please do not update 
+         * changed directly since its state is internally maintained by set. 
+         * A copy of changed can be acquired from changedAttributes. 
+         */
         changed: any[];
+
+        /**
+         * A special property of models, the cid or client id is a unique identifier 
+         * automatically assigned to all models when they're first created. Client ids 
+         * are handy when the model has not yet been saved to the server, and does not 
+         * yet have its eventual true id, but already needs to be visible in the UI. 
+         */
         cid: string;
         collection: Collection<any>;
 
@@ -210,9 +264,32 @@ declare module Backbone {
         * That works only if you set it in the constructor or the initialize method.
         **/
         defaults(): any;
+
+        /** 
+         * A special property of models, the id is an arbitrary string 
+         * (integer id or UUID). If you set the id in the attributes hash, it 
+         * will be copied onto the model as a direct property. Models can be 
+         * retrieved by id from collections, and the id is used to generate model 
+         * URLs by default. 
+         */
         id: any;
+
+        /** 
+         * A model's unique identifier is stored under the id attribute. If you're 
+         * directly communicating with a backend (CouchDB, MongoDB) that uses a different 
+         * unique key, you may set a Model's idAttribute to transparently map from 
+         * that key to id.
+         */
         idAttribute: string;
+
+        /** The value returned by validate during the last failed validation. */
         validationError: any;
+
+        /**
+         * Specify a urlRoot if you're using a model outside of a collection, to enable 
+         * the default url function to generate URLs based on the model id. "[urlRoot]/id".
+         * Normally, you won't need to define this. Note that urlRoot may also be a function. 
+         */
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
