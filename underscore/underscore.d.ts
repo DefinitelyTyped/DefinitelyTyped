@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.6.0
+// Type definitions for Underscore 1.7.0
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1082,13 +1082,24 @@ interface UnderscoreStatic {
 	* Creates a version of the function that will only be run after first being called count times. Useful
 	* for grouping asynchronous responses, where you want to be sure that all the async calls have finished,
 	* before proceeding.
-	* @param count Number of times to be called before actually executing.
-	* @fn The function to defer execution `count` times.
+	* @param number count Number of times to be called before actually executing.
+	* @param Function fn The function to defer execution `count` times.
 	* @return Copy of `fn` that will not execute until it is invoked `count` times.
 	**/
-	after<T extends Function>(
+	after(
 		count: number,
-		fn: T): T;
+		fn: Function): Function;
+
+	/**
+	* Creates a version of the function that can be called no more than count times.  The result of
+	* the last function call is memoized and returned when count has been reached.
+	* @param number count  The maxmimum number of times the function can be called.
+	* @param Function fn The function to limit the number of times it can be called.
+	* @return Copy of `fn` that can only be called `count` times.
+	**/
+	before(
+		count: number,
+		fn: Function): Function;
 
 	/**
 	* Wraps the first function inside of the wrapper function, passing it as the first argument. This allows
@@ -1101,6 +1112,13 @@ interface UnderscoreStatic {
 	wrap(
 		fn: Function,
 		wrapper: (fn: Function, ...args: any[]) => any): Function;
+
+	/**
+	* Returns a negated version of the pass-in predicate.
+	* @param Function predicate
+	* @return boolean
+	**/
+	negate(predicate: Function): boolean;
 
 	/**
 	* Returns the composition of a list of functions, where each function consumes the return value of the
@@ -1180,6 +1198,13 @@ interface UnderscoreStatic {
 		...keys: any[]): any;
 
 	/**
+	* @see _.pick
+	**/
+	pick(
+		object: any,
+		fn: (value: any, key: any, object: any) => any): any;
+
+	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
 	* @param object Object to strip unwanted key/value pairs.
 	* @param keys The key/value pairs to remove on `object`.
@@ -1195,6 +1220,13 @@ interface UnderscoreStatic {
 	omit(
 		object: any,
 		keys: string[]): any;
+
+	/**
+	* @see _.omit
+	**/
+	omit(
+		object: any,
+		iteratee: Function): any;
 
 	/**
 	* Fill in null and undefined properties in object with values from the defaults objects,
@@ -1391,6 +1423,14 @@ interface UnderscoreStatic {
 	constant<T>(value: T): () => T;
 
 	/**
+	* Returns undefined irrespective of the arguments passed to it.  Useful as the default 
+	* for optional callback arguments.
+	* Note there is no way to indicate a 'undefined' return, so it is currently typed as void.
+	* @return undefined
+	**/
+	noop(): void;
+
+	/**
 	* Invokes the given iterator function n times.
 	* Each invocation of iterator is called with an index argument
 	* @param n Number of times to invoke `iterator`.
@@ -1421,6 +1461,19 @@ interface UnderscoreStatic {
 	* @param object Mixin object containing key/function pairs to add to the Underscore object.
 	**/
 	mixin(object: any): void;
+
+	/**
+	* A mostly-internal function to generate callbacks that can be applied to each element
+	* in a collection, returning the desired result -- either identity, an arbitrary callback,
+	* a property matcher, or a propetery accessor.
+	* @param string|Function|Object value The value to iterate over, usually the key.
+	* @param any context
+	* @param number argCount
+	* @return Callback that can be applied to each element in a collection.
+	**/
+	iteratee(value: string): Function;
+	iteratee(value: Function, context?: any, argCount?: number): Function;
+	iteratee(value: Object): Function;
 
 	/**
 	* Generate a globally-unique id for client-side models or DOM elements that need one.
@@ -1473,7 +1526,6 @@ interface UnderscoreStatic {
 	* @return Returns the compiled Underscore HTML template.
 	**/
 	template(templateString: string, settings?: _.TemplateSettings): (...data: any[]) => string;
-    	template(templateString: string, data: any, settings?: _.TemplateSettings): string;
     	
 	/**
 	* By default, Underscore uses ERB-style template delimiters, change the
@@ -2035,13 +2087,25 @@ interface Underscore<T> {
 	* Wrapped type `number`.
 	* @see _.after
 	**/
-	after(func: Function): Function;
+	after(fn: Function): Function;
+
+	/**
+	* Wrapped type `number`.
+	* @see _.before
+	**/
+	before(fn: Function): Function;
 
 	/**
 	* Wrapped type `Function`.
 	* @see _.wrap
 	**/
 	wrap(wrapper: Function): () => Function;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.negate
+	**/
+	negate(): boolean;
 
 	/**
 	* Wrapped type `Function[]`.
@@ -2100,6 +2164,7 @@ interface Underscore<T> {
 	**/
 	pick(...keys: string[]): any;
 	pick(keys: string[]): any;
+	pick(fn: (value: any, key: any, object: any) => any): any;
 
 	/**
 	* Wrapped type `object`.
@@ -2107,6 +2172,7 @@ interface Underscore<T> {
 	**/
 	omit(...keys: string[]): any;
 	omit(keys: string[]): any;
+	omit(fn: Function): any;
 
 	/**
 	* Wrapped type `object`.
@@ -2257,6 +2323,12 @@ interface Underscore<T> {
 	constant(): () => T;
 
 	/**
+	* Wrapped type `any`.
+	* @see _.noop
+	**/
+	noop(): void;
+
+	/**
 	* Wrapped type `number`.
 	* @see _.times
 	**/
@@ -2278,6 +2350,12 @@ interface Underscore<T> {
 	* @see _.mixin
 	**/
 	mixin(): void;
+
+	/**
+	* Wrapped type `string|Function|Object`.
+	* @see _.iteratee
+	**/
+	iteratee(context?: any, argCount?: number): Function;
 
 	/**
 	* Wrapped type `string`.
@@ -2307,7 +2385,7 @@ interface Underscore<T> {
 	* Wrapped type `string`.
 	* @see _.template
 	**/
-	template(data?: any, settings?: _.TemplateSettings): (...data: any[]) => string;
+	template(settings?: _.TemplateSettings): (...data: any[]) => string;
 
 	/********** *
 	 * Chaining *
@@ -2869,10 +2947,22 @@ interface _Chain<T> {
 	after(func: Function): _Chain<T>;
 
 	/**
+	* Wrapped type `number`.
+	* @see _.before
+	**/
+	before(fn: Function): _Chain<T>;
+
+	/**
 	* Wrapped type `Function`.
 	* @see _.wrap
 	**/
 	wrap(wrapper: Function): () => _Chain<T>;
+
+	/**
+	* Wrapped type `Function`.
+	* @see _.negate
+	**/
+	negate(): _Chain<T>;
 
 	/**
 	* Wrapped type `Function[]`.
@@ -2930,12 +3020,15 @@ interface _Chain<T> {
 	* @see _.pick
 	**/
 	pick(...keys: string[]): _Chain<T>;
+	pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.omit
 	**/
 	omit(...keys: string[]): _Chain<T>;
+	omit(keys: string[]): _Chain<T>;
+	omit(iteratee: Function): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
@@ -3086,6 +3179,12 @@ interface _Chain<T> {
 	constant(): _Chain<T>;
 
 	/**
+	* Wrapped type `any`.
+	* @see _.noop
+	**/
+	noop(): _Chain<T>;
+
+	/**
 	* Wrapped type `number`.
 	* @see _.times
 	**/
@@ -3107,6 +3206,12 @@ interface _Chain<T> {
 	* @see _.mixin
 	**/
 	mixin(): _Chain<T>;
+
+	/**
+	* Wrapped type `string|Function|Object`.
+	* @see _.iteratee
+	**/
+	iteratee(context?: any, argCount?: number): _Chain<T>;
 
 	/**
 	* Wrapped type `string`.
@@ -3136,7 +3241,7 @@ interface _Chain<T> {
 	* Wrapped type `string`.
 	* @see _.template
 	**/
-	template(data?: any, settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
+	template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
 
 	/********** *
 	 * Chaining *
