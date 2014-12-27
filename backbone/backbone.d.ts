@@ -223,6 +223,13 @@ declare module Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
+    /**
+     * Models are the heart of any JavaScript application, containing the 
+     * interactive data as well as a large part of the logic surrounding it: 
+     * conversions, validations, computed properties, and access control. 
+     * You extend Backbone.Model with your domain-specific methods, and 
+     * Model provides a basic set of functionality for managing changes. 
+     */
     class Model extends ModelBase {
 
         /**
@@ -256,6 +263,10 @@ declare module Backbone {
          * yet have its eventual true id, but already needs to be visible in the UI. 
          */
         cid: string;
+
+        /**
+         * The collection to which this model belongs (if any).
+         */
         collection: Collection<any>;
 
         /**
@@ -292,9 +303,29 @@ declare module Backbone {
          */
         urlRoot: any;
 
+        /** 
+         * When creating an instance of a model, you can pass in the initial 
+         * values of the attributes, which will be set on the model.
+         * @param attributes the initial attribute values to set on the model.
+         * @param options If you pass a {collection: ...} as the options, the model 
+         * gains a collection property that will be used to indicate which collection 
+         * the model belongs to, and is used to help compute the model's url. 
+         * The model.collection property is normally created automatically 
+         * when you first add a model to a collection. Note that the reverse 
+         * is not true, as passing this option to the constructor will not 
+         * automatically add the model to the collection. 
+         * 
+         * If {parse: true} is passed as an option, the attributes will 
+         * first be converted by parse before being set on the model
+         */
         constructor(attributes?: any, options?: any);
         initialize(attributes?: any, options?: any): void;
 
+        /**
+         * Resets the model's state from the server by delegating to Backbone.sync.
+         * Useful if the model has never been populated with data, or if you'd 
+         * like to ensure that you have the latest server state. 
+         */
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
         /**
@@ -317,32 +348,144 @@ declare module Backbone {
         set(obj: any, options?: ModelSetOptions): Model;
 
         change(): any;
+
+        /**
+         * Retrieve a hash of only the model's attributes that have changed since the 
+         * last set, or false if there are none.
+         * @param attributes Optionally, an external attributes hash can be passed in, returning the attributes in that hash which differ from the model. This can be used to figure out which portions of a view should be updated, or what calls need to be made to sync the changes to the server. 
+         */
         changedAttributes(attributes?: any): any[];
+
+        /** 
+         * Removes all attributes from the model, including the id attribute. Fires a 
+         * "change" event unless silent is passed as an option. 
+         */
         clear(options?: Silenceable): any;
+
+        /**
+         * Returns a new instance of the model with identical attributes. 
+         */
         clone(): Model;
+
+        /**
+         * Destroys the model on the server by delegating an HTTP DELETE request to Backbone.sync. 
+         * Triggers a "destroy" event on the model, which will bubble up through any collections 
+         * that contain it, a "request" event as it begins the Ajax request to the server, and a "sync" 
+         * event, after the server has successfully acknowledged the model's deletion.
+         * @returns a jqXHR object, or false if the model isNew.
+         */
         destroy(options?: ModelDestroyOptions): any;
+
+        /** 
+         * Similar to get, but returns the HTML-escaped version of a model's attribute. 
+         * If you're interpolating data from the model into HTML, using escape to 
+         * retrieve attributes will prevent XSS attacks. 
+         * @param attribute the name of the attribute to retrieve.
+         */
         escape(attribute: string): string;
+
+        /** 
+         * Returns true if the attribute is set to a non-null or non-undefined value. 
+         * @param attribute the name of the attribtue to look for.
+         */
         has(attribute: string): boolean;
+
+        /** 
+         * Has the model changed since the last set? Note that this method is only useful during the course of a "change" event. 
+         * @param attribute If an attribute is passed, returns true if that specific attribute has changed. 
+         */
         hasChanged(attribute?: string): boolean;
+
+        /**
+         * Returns a value indicating whether this model has been saved to the server yet.
+         * If the model does not yet have an id, it is considered to be new. 
+         */
         isNew(): boolean;
-        isValid(options?:any): boolean;
+
+        /** 
+         * Run validate to check the model state. 
+         */
+        isValid(options?: any): boolean;
+
+        /** 
+         * During a "change" event, this method can be used to get the previous value of a changed attribute. 
+         * @param attribute the name of the attribute.
+         */
         previous(attribute: string): any;
+
+        /**
+         * Return a copy of the model's previous attributes. Useful for getting a diff between versions of a model, or getting back to a valid state after an error occurs. 
+         */
         previousAttributes(): any[];
+
+        /**
+         * Save a model to your database (or alternative persistence layer), by delegating to Backbone.sync.
+         * @param attributes The attributes hash (as in set) should contain the attributes you'd like to change — keys that aren't mentioned won't be altered — but, a complete representation of the resource will be sent to the server.
+         * @returns a jqXHR if validation is successful and false otherwise.
+         */
         save(attributes?: any, options?: ModelSaveOptions): any;
+
+        /**
+         * Remove an attribute by deleting it from the internal attributes hash. Fires a "change" event unless silent is passed as an option. 
+         * @param attribute the name of the attribute to delete.
+         */
         unset(attribute: string, options?: Silenceable): Model;
+
+        /**
+         * This method is left undefined, and you're encouraged to override it with your custom validation logic, if you have any that can be performed in JavaScript. By default validate is called before save, but can also be called before set if {validate:true} is passed. 
+         * If the attributes are valid, don't return anything from validate; if they are invalid return an error of your choosing.
+         * @param attributes The model attributes.
+         * @param options the options from set or save.
+         */
         validate(attributes: any, options?: any): any;
 
         private _validate(attrs: any, options: any): boolean;
 
         // mixins from underscore
-
+        /**
+         * Retrieve all the names of the model's properties. 
+         */
         keys(): string[];
+
+        /**
+         * Return all of the values of the model's properties. 
+         */
         values(): any[];
+
+        /** Convert the model into a list of [key, value] pairs. */
         pairs(): any[];
+
+        /**
+         * Returns a copy of this model object where the keys have become the 
+         * values and the values the keys. For this to work, all of your object's 
+         * values should be unique and string serializable. 
+         */
         invert(): any;
+
+        /**
+         * Return a copy of this model, filtered to only have values for the whitelisted 
+         * keys (or array of valid keys). Alternatively accepts a predicate indicating 
+         * which keys to pick. 
+         */
         pick(keys: string[]): any;
+        
+        /**
+         * Return a copy of this model, filtered to only have values for the whitelisted 
+         * keys (or array of valid keys). Alternatively accepts a predicate indicating 
+         * which keys to pick. 
+         */
         pick(...keys: string[]): any;
+
+        /**
+         * Return a copy of this model, filtered to omit the blacklisted keys (or 
+         * array of keys). 
+         */
         omit(keys: string[]): any;
+
+        /**
+         * Return a copy of this model, filtered to omit the blacklisted keys (or 
+         * array of keys). 
+         */
         omit(...keys: string[]): any;
     }
 
