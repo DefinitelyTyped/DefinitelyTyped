@@ -1,6 +1,6 @@
 // Type definitions for vuejs 0.11.0
 // Project: https://github.com/yyx990803/vue
-// Definitions by: odangosan https://github.com/odangosan
+// Definitions by: odangosan <https://github.com/odangosan>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module vuejs {
