@@ -8,8 +8,29 @@
 
 declare module Backbone {
 
+    /** 
+     * Options specific to an add operation.
+     */
     interface AddOptions extends Silenceable {
+        /**
+         * Specify an index here to splice the model into the collection at the 
+         * specified index.
+         */
         at?: number;
+
+        /**
+         * If specified and set to false sorting of the collection is disabled
+         * when adding the model.
+         */
+        sort?: boolean;
+
+        /**
+         * If you're adding models to the collection that are already in the 
+         * collection, they'll be ignored, unless this option is set to 
+         * 'true', in which case their attributes will be merged into the 
+         * corresponding models, firing any appropriate "change" events. 
+         */
+        merge?: boolean;
     }
 
     /** 
@@ -60,25 +81,56 @@ declare module Backbone {
     }
 
     interface Silenceable {
+        /**
+         * If set to true prevents an event from being triggered from the action.
+         */
         silent?: boolean;
     }
 
     interface Validable {
+        /**
+         * Set to true to perform validation.
+         */
         validate?: boolean;
     }
 
     interface Waitable {
+        /**
+         * If set to true waits for the server to respond before performing
+         * the operation.
+         */
         wait?: boolean;
     }
 
     interface Parseable {
+        /**
+         * If set to true the attributes will first be converted by parse before 
+         * being set on the model.
+         */
         parse?: any;
     }
 
     interface PersistenceOptions {
+        /**
+         * If specified this url will be used for the ajax call to the server.
+         */
         url?: string;
+
+        /**
+         * A pre-request callback function that can be used to modify 
+         * the jqXHR object before it is sent. Use this to set custom 
+         * headers, etc.
+         */
         beforeSend?: (jqxhr: JQueryXHR) => void;
+
+        /** 
+         * A function to be called if the request succeeds.
+         */
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
+
+        /**
+         * A function to be called if the request fails.
+         */
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
     }
 
@@ -89,6 +141,10 @@ declare module Backbone {
     }
 
     interface ModelSaveOptions extends Silenceable, Waitable, Validable, Parseable, PersistenceOptions {
+        /**
+         * Set this to true if you'd only like the changed attributes to be sent 
+         * to the server as a PATCH request. 
+         */
         patch?: boolean;
     }
 
@@ -96,7 +152,32 @@ declare module Backbone {
     }
 
     interface CollectionFetchOptions extends PersistenceOptions, Parseable {
+        /**
+         * When the model data returns from the server, it uses set to (intelligently) 
+         * merge the fetched models, unless you set this option to true, in which 
+         * case the collection will be (efficiently) reset.
+         */
         reset?: boolean;
+    }
+
+    interface CollectionSetOptions extends Silenceable, Parseable {
+        /**
+         * If specified and set to false models not already in the
+         * collection will not be added.
+         */
+        add?: boolean;
+
+        /**
+         * If specified and set to false models that already exist in 
+         * the collection will not have their attributes merged.
+         */
+        merge?: boolean;
+        /**
+         * If specified and set to false and the collection contains any models that
+         * aren't present in the list these will still remain in the collection, otherwise
+         * they are removed.
+         */
+        remove?: boolean;
     }
 
     /**
@@ -489,6 +570,12 @@ declare module Backbone {
         omit(...keys: string[]): any;
     }
 
+    /**
+     * Collections are ordered sets of models. You can bind "change" events to be 
+     * notified when any model in the collection has been modified, listen for 
+     * "add" and "remove" events, fetch the collection from the server, and use 
+     * a full suite of Underscore.js methods. 
+     */
     class Collection<TModel extends Model> extends ModelBase {
 
         /**
@@ -496,42 +583,198 @@ declare module Backbone {
         **/
         private static extend(properties: any, classProperties?: any): any;
 
+        /**
+         * Override this property to specify the model class that the collection 
+         * contains. If defined, you can pass raw attributes objects (and arrays) 
+         * to add, create, and reset, and the attributes will be converted into a 
+         * model of the proper type. 
+         */
         // TODO: this really has to be typeof TModel
         //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
+        model: { new (): TModel; }; // workaround
+
+        /** 
+         * Raw access to the JavaScript array of models inside of the collection. 
+         * Usually you'll want to use get, at, or the Underscore methods to access 
+         * model objects, but occasionally a direct reference to the array is 
+         * desired. 
+         */
         models: TModel[];
+
+        /**
+         * Like an array, a Collection maintains a length property, counting the 
+         * number of models it contains. 
+         */
         length: number;
 
+        /**
+         * When creating a Collection, you may choose to pass in the initial array 
+         * of models. The collection's comparator may be included as an option. 
+         * Passing false as the comparator option will prevent sorting.
+         */
         constructor(models?: TModel[], options?: any);
+
+        /**
+         * Function that if defined will be invoked when the collection is 
+         * created with the same arguments as the constructor.
+         */
         initialize(models?: TModel[], options?: any): void;
 
+        /**
+         * Fetch the default set of models for this collection from the server, 
+         * setting them on the collection when they arrive. 
+         */
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
+        /**
+         * If you define a comparator, it will be used to maintain the collection in sorted 
+         * order. This means that as models are added, they are inserted at the correct 
+         * index in collection.models. This function will be used as an underscore sortBy.         
+         */
         comparator(element: TModel): number;
+
+        /**
+         * If you define a comparator, it will be used to maintain the collection in sorted 
+         * order. This means that as models are added, they are inserted at the correct 
+         * index in collection.models. This function will be used as an underscore sort.         
+         */
         comparator(compare: TModel, to?: TModel): number;
 
-        add(model: TModel, options?: AddOptions): Collection<TModel>;
-        add(models: TModel[], options?: AddOptions): Collection<TModel>;
-        at(index: number): TModel;
         /**
-         * Get a model from a collection, specified by an id, a cid, or by passing in a model.
+         * Add a model to the collection, firing an "add" event. 
+         * @returns Returns the added (or preexisting, if duplicate) models.
+         */
+        add(model: TModel, options?: AddOptions): Collection<TModel>;
+
+        /**
+         * Add an array of models to the collection, firing an "add" event. 
+         * @returns Returns the added (or preexisting, if duplicate) models.
+         */
+        add(models: TModel[], options?: AddOptions): Collection<TModel>;
+
+        /**
+         * Get a model from a collection, specified by index. Useful if your 
+         * collection is sorted, and if your collection isn't sorted, at will 
+         * still retrieve models in insertion order. 
+         */
+        at(index: number): TModel;
+
+        /**
+         * Get a model from a collection.
+         * @param id the id or cid of the model.
          **/
         get(id: number): TModel;
+
+        /**
+         * Get a model from a collection.
+         * @param id the id or cid of the model.
+         **/
         get(id: string): TModel;
-        get(id: Model): TModel;
+
+        /**
+         * Get a model from a collection.
+         * @param model the model to get.
+         **/
+        get(model: Model): TModel;
+
+        /**
+         * Convenience to create a new instance of a model within a collection. 
+         * Equivalent to instantiating a model with a hash of attributes, saving 
+         * the model to the server, and adding the model to the set after being 
+         * successfully created. 
+         * @param attributes the attributes to add to the created model.
+         * @param options additional options controlling how to perform the operation.
+         * @returns  Returns the new model.
+         */
         create(attributes: any, options?: ModelSaveOptions): TModel;
+
+        /** 
+         * Pluck an attribute from each model in the collection. Equivalent to 
+         * calling map and returning a single attribute from the iterator. 
+         */
         pluck(attribute: string): any[];
+
+        /**
+         * Add a model at the end of a collection. 
+         * @param model the model to add to the collection.
+         * @param options additional options controlling how to perform the operation.
+         */
         push(model: TModel, options?: AddOptions): TModel;
+
+        /**
+         * Remove and return the last model from a collection. 
+         * @param options additional options controlling how to perform the operation.
+         */
         pop(options?: Silenceable): TModel;
+
+        /**
+         * Remove a model from the collection, and returns them. Fires a "remove" 
+         * event, which you can use silent to suppress. The model's index before 
+         * removal is available to listeners as options.index. 
+         */
         remove(model: TModel, options?: Silenceable): TModel;
+
+        /**
+         * Remove an array of models from the collection, and returns them. Fires 
+         * a "remove" event, which you can use silent to suppress. The model's 
+         * index before removal is available to listeners as options.index. 
+         */
         remove(models: TModel[], options?: Silenceable): TModel[];
+
+        /**
+         * Use reset to replace a collection with a new list of models (or attribute hashes), 
+         * triggering a single "reset" event at the end. For convenience, within a 
+         * "reset" event, the list of any previous models is available as 
+         * options.previousModels. 
+         * @returns the newly-set models.
+         */
         reset(models?: TModel[], options?: Silenceable): TModel[];
-        set(models?: TModel[], options?: Silenceable): TModel[];
+
+        /**
+         * The set method performs a "smart" update of the collection with the 
+         * passed list of models. If a model in the list isn't yet in the 
+         * collection it will be added; if the model is already in the collection 
+         * its attributes will be merged; and if the collection contains any 
+         * models that aren't present in the list, they'll be removed. 
+         * 
+         * All of the appropriate "add", "remove", and "change" events are fired 
+         * as this happens. 
+         * 
+         * @returns the touched models in the collection. 
+         * 
+         */
+        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
+
+        /**
+         * Remove and return the first model from a collection. 
+         */
         shift(options?: Silenceable): TModel;
+
+        /**
+         * Force a collection to re-sort itself. You don't need to call this under 
+         * normal circumstances, as a collection with a comparator will sort itself 
+         * whenever a model is added. To disable sorting when adding a model, 
+         * pass {sort: false} to add. Calling sort triggers a "sort" event on 
+         * the collection. 
+         */
         sort(options?: Silenceable): Collection<TModel>;
+
+        /**
+         * Add a model at the beginning of a collection. 
+         */
         unshift(model: TModel, options?: AddOptions): TModel;
-        where(properies: any): TModel[];
-        findWhere(properties: any): TModel;
+
+        /**
+         * Return an array of all the models in a collection that match the passed 
+         * attributes. Useful for simple cases of filter. 
+         */
+        where(attributes: any): TModel[];
+
+        /**
+         * Returns the first model in a collection that match the passed 
+         * attributes. Useful for simple cases of filter. 
+         */
+        findWhere(attributes: any): TModel;
 
         private _prepareModel(attrs?: any, options?: any): any;
         private _removeReference(model: TModel): void;
@@ -539,54 +782,317 @@ declare module Backbone {
 
         // mixins from underscore
 
+        /**
+         * Returns true if all of the values in the list pass the predicate truth test. 
+         * @alias every
+         */
         all(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found. 
+         */
         any(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Produces a new array of values by mapping each value in list through a 
+         * transformation function (iterator).
+         * @alias map
+         */
         collect(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
+
+        /**
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects until value is called. 
+         * See underscore.js documentation for more information.
+         */
         chain(): any;
+
+        /**
+         * Returns true if the value is present in the list.
+         * @alias include 
+         */
         contains(value: any): boolean;
+
+        /**
+         * Sorts a list into groups and returns a count for the number of objects in each group. 
+         * Similar to groupBy, but instead of returning a list of values, returns a count 
+         * for the number of values in that group. 
+         */
         countBy(iterator: (element: TModel, index: number) => any): _.Dictionary<number>;
+
+        /**
+         * Sorts a list into groups and returns a count for the number of objects in each group. 
+         * Similar to groupBy, but instead of returning a list of values, returns a count 
+         * for the number of values in that group. 
+         */
         countBy(attribute: string): _.Dictionary<number>;
+
+        /**
+         * Looks through each value in the list, returning the first one that passes a truth test (predicate), or undefined if no value passes the test.The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list. 
+         * @alias find
+         */
         detect(iterator: (item: any) => boolean, context?: any): any; // ???
-        drop(): TModel;
-        drop(n: number): TModel[];
+
+        /**
+         * Returns the rest of the elements of the collection. 
+         * Pass an index to return the values of the array from that index onward. If not
+         * specified the first item in the collection is dropped.
+         * @alias tail, rest
+         */
+        drop(n?: number): TModel[];
+
+        /**
+         * Iterates over the models in the collection, yielding each in turn to an 
+         * iterator function. The iterator is bound to the context object, if one 
+         * is passed.
+         * @alias forEach 
+         */
         each(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
+
+        /**
+         * Returns true if all of the values in the list pass the predicate truth test. 
+         * @alias all
+         */
         every(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Looks through each value in the collection, returning an array of all 
+         * the values that pass a truth test (predicate). 
+         * @alias select
+         */
         filter(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
+
+        /**
+         * Looks through each value in the list, returning the first one that passes a truth test (predicate), or undefined if no value passes the test.The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list. 
+         * @alias detect
+         */
         find(iterator: (element: TModel, index: number) => boolean, context?: any): TModel;
+
+        /**
+         * Returns the first element of an array. 
+         * @alias head
+         */
         first(): TModel;
+
+        /**
+         * Returns the first n elements of the array.
+         * @alias head
+         */
         first(n: number): TModel[];
-        foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
+
+        /**
+         * Reduces a collection into a single value.
+         * @alias reduce, inject
+         * @param iterator a function invoked for each element and should return 
+         * the successive step of the reduction. Note that if initialMemo is not
+         * specified this function will not be invoked for the first element of the
+         * list, instead this element is passed as the memo in the first invocation 
+         * of this function on the next element in the list.
+         * @param initialMemo the initial state of the reduction passed to the first
+         * invocation of iterator. if not specified the first element is passed as the
+         * memo to the first invocation of iterator.
+         * @param context the context of the iterator function.
+         */
+        foldl(iterator: (memo: any, element: TModel, index: number) => any, initialMemo?: any, context?: any): any;
+
+         /**
+         * Iterates over the models in the collection, yielding each in turn to an 
+         * iterator function. The iterator is bound to the context object, if one 
+         * is passed. 
+         * @alias each
+         */
         forEach(iterator: (element: TModel, index: number, list?: any) => void, context?: any): any;
+
+        /**
+         * Splits a collection into sets, grouped by the result of running each value 
+         * through iterator. 
+         */
         groupBy(iterator: (element: TModel, index: number) => string, context?: any): _.Dictionary<TModel[]>;
+
+        /**
+         * Splits a collection into sets, grouped by the attribute specified.
+         */
         groupBy(attribute: string, context?: any): _.Dictionary<TModel[]>;
+
+        /**
+         * Returns true if the value is present in the list.
+         * @alias contains 
+         */
         include(value: any): boolean;
+
+        /**
+         * Returns the index at which element can be found in the collection, 
+         * or -1 if element is not present in the collection. 
+         * If you're working with a large collection, and you know that the collection
+         * is already sorted, pass true for isSorted to use a faster binary 
+         * search.
+         */
         indexOf(element: TModel, isSorted?: boolean): number;
-        initial(): TModel;
-        initial(n: number): TModel[];
+        
+        /**
+         * Returns the index at which element can be found in the collection starting 
+         * at the specified index, or -1 if element is not found. 
+         * @param startIndex The index of the collection at which to start the search.
+         */
+        indexOf(element: TModel, startIndex: number): number;
+
+        /**
+         * Returns everything but the last n entries of the array. 
+         * @param n if specified determines the number of elements to exclude,
+         * otherwise only the last element is excluded.
+         */
+        initial(n?: number): TModel[];
+
+        /**
+         * Reduces a collection into a single value.
+         * @alias foldl, reduce
+         * @param iterator a function invoked for each element and should return 
+         * the successive step of the reduction. Note that if initialMemo is not
+         * specified this function will not be invoked for the first element of the
+         * list, instead this element is passed as the memo in the first invocation 
+         * of this function on the next element in the list.
+         * @param initialMemo the initial state of the reduction passed to the first
+         * invocation of iterator. if not specified the first element is passed as the
+         * memo to the first invocation of iterator.
+         * @param context the context of the iterator function.
+         */
         inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
+
+        /**
+         * Returns true the collection contains no values.
+         */
         isEmpty(object: any): boolean;
+
+        /**
+         * Calls the method named by methodName on each value in the collection. Any extra 
+         * arguments passed to invoke will be forwarded on to the method invocation. 
+         */
         invoke(methodName: string, arguments?: any[]): any;
+
+        /**
+         * Returns the last element of a collection. 
+         */
         last(): TModel;
+
+        /**
+         * Returns the last n elements of the collection.
+         */
         last(n: number): TModel[];
+
+        /**
+         * Returns the index of the last occurrence of element in the collection, or -1 if 
+         * element is not present. 
+         * @param fromIndex if specified starts the search at the given index.
+         */
         lastIndexOf(element: TModel, fromIndex?: number): number;
+
+        /**
+         * Produces a new array of values by mapping each value in the collection through a 
+         * transformation function (iterator).
+         * @alias collect
+         */
         map(iterator: (element: TModel, index: number, context?: any) => any, context?: any): any[];
+
+        /**
+         * Returns the maximum value of the collection. If an iterator function is 
+         * provided, it will be used on each value to generate the criterion by 
+         * which the value is ranked. -Infinity is returned if list is empty, 
+         * so an isEmpty guard may be required. 
+         */
         max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
+
+        /**
+         * Returns the minimum value of the collection. If an iterator function is 
+         * provided, it will be used on each value to generate the criterion by 
+         * which the value is ranked. -Infinity is returned if list is empty, 
+         * so an isEmpty guard may be required. 
+         */
         min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
+
+        /**
+         * Reduces a collection into a single value.
+         * @alias foldl, inject
+         * @param iterator a function invoked for each element and should return 
+         * the successive step of the reduction. Note that if initialMemo is not
+         * specified this function will not be invoked for the first element of the
+         * list, instead this element is passed as the memo in the first invocation 
+         * of this function on the next element in the list.
+         * @param initialMemo the initial state of the reduction passed to the first
+         * invocation of iterator. if not specified the first element is passed as the
+         * memo to the first invocation of iterator.
+         * @param context the context of the iterator function.
+         */
         reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
+
+        /**
+         * Looks through each value in the collection, returning an array of all 
+         * the values that pass a truth test (predicate). 
+         * @alias filter
+         */
         select(iterator: any, context?: any): any[];
+
+        /**
+         * Returns the number of models in the collection.
+         */
         size(): number;
+
+        /**
+         * Returns a shuffled array containing the items of the collection, using a version of the Fisher-Yates shuffle. 
+         */
         shuffle(): any[];
+
+        /**
+         * Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found. 
+         * @alias any
+         */
         some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Returns a (stably) sorted array containing the items of the collection, ranked in ascending 
+         * order by the results of running each value through iterator. 
+         */
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
+
+        /**
+         * Returns a (stably) sorted array containing the items of the collection, ranked in ascending 
+         * order by attribute specified.
+         */
         sortBy(attribute: string, context?: any): TModel[];
-        sortedIndex(element: TModel, iterator?: (element: TModel, index: number) => number): number;
+
+        /**
+         * The right-associative version of reduce. 
+         */
         reduceRight(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any[];
+
+        /**
+         * Returns the values in the collection without the elements that the truth test 
+         * (predicate) passes. The opposite of filter. 
+         */
         reject(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
-        rest(): TModel;
-        rest(n: number): TModel[];
-        tail(): TModel;
+
+        /**
+         * Returns the rest of the elements of the collection. 
+         * Pass an index to return the values of the array from that index onward. If not
+         * specified the first item in the collection is dropped.
+         * @alias tail, drop
+         */
+        rest(n?: number): TModel[];
+
+        /**
+         * Returns the rest of the elements of the collection. 
+         * Pass an index to return the values of the array from that index onward. If not
+         * specified the first item in the collection is dropped.
+         * @alias rest, drop
+         */
         tail(n: number): TModel[];
+
+        /**
+         * Creates an array from the collection.
+         */
         toArray(): any[];
+
+        /**
+         * Returns an array of all the models in the collection except the ones specified. 
+         */
         without(...values: any[]): TModel[];
     }
 
