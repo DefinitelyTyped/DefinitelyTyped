@@ -3,7 +3,7 @@
 // Definitions by: odangosan https://github.com/odangosan
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module vue {
+declare module vuejs {
   export class Vue {
     /**
      * The Vue Constructor
@@ -15,19 +15,62 @@ declare module vue {
      * Options
      * http://vuejs.org/api/options.html
      */
-    // still...
-
+    /**
+     * Data
+     * http://vuejs.org/api/options.html#Data
+     */
+    data: {};
+    methods: {};
+    computed: {};
+    paramAttributes:{}[];
+    /**
+     * DOM
+     * http://vuejs.org/api/options.html#DOM
+     */
+    el: {};
+    template: string;
+    replace: boolean;
+    /**
+     * Lifecycle
+     * http://vuejs.org/api/options.html#Lifecycle
+     */
+    created: VueCallback;
+    beforeCompile: VueCallback;
+    compiled: VueCallback;
+    ready: VueCallback;
+    attached: VueCallback;
+    detached: VueCallback;
+    beforeDestroy: VueCallback;
+    destroyed: VueCallback;
+    /**
+     * Assets
+     * http://vuejs.org/api/options.html#Assets
+     */
+    directives: {};
+    filters: {};
+    components: {};
+    partials: {};
+    transitions: {};
+    /**
+     * Others
+     * http://vuejs.org/api/options.html#Others
+     */
+    inherit: boolean;
+    events: {};
+    watch: {};
+    mixins:{}[];
+    name: string;
     /**
      * Instance Properties
      * http://vuejs.org/api/instance-properties.html
      */
     $el: HTMLElement;
-    $data: Object;
-    $options: Object;
+    $data: {};
+    $options: {};
     $parent: Vue;
     $root: Vue;
-    $: Object;
-    $$: Object;
+    $: {};
+    $$: {};
 
     /**
      * Instance Methods
@@ -70,7 +113,7 @@ declare module vue {
     $mount(element?: any): Vue;// element or selector
     $destroy(remove?: boolean): void;
     $compile(element: HTMLElement): VueCallback;// returns a decompile function
-    $addChild(options?: Object, constructor?: Function): Vue;
+    $addChild(options?: {}, constructor?: Function): Vue;
 
     /**
      * Global Api
@@ -78,17 +121,17 @@ declare module vue {
      */
     static config: VueConfig;
     static extend(options: {}): Vue;
-    static directive(id: string, definition?: Object): void;
+    static directive(id: string, definition?: {}): void;
     static directive(id: string, definition?: VueCallback): void;
-    static filter(id: string, definition?: VueCallback): void;
+    static filter(id: string, definition?: FilterCallback): void;
     static component(id: string, definition: Vue): void;
-    static component(id: string, definition?: Object): void;
-    static transition(id: string, definition?: Object): void;
+    static component(id: string, definition?: {}): void;
+    static transition(id: string, definition?: {}): void;
     static partial(id: string, definition?: string): void;
     static partial(id: string, definition?: HTMLElement): void;
     static nextTick(callback: VueCallback): void;
     static require(module: string): void;
-    static use(plugin: Object, ...args: any[]): Vue;
+    static use(plugin: {}, ...args: any[]): Vue;
     static use(plugin: VueCallback, ...args: any[]): Vue;
 
     /**
@@ -97,27 +140,6 @@ declare module vue {
     _init(options: {}): void;
     _cleanup(): void;
     // static require(module:string) : void;
-    el: string;
-    data: {};
-    ready: VueCallback;
-    beforeCompile: VueCallback;
-    compiled: VueCallback;
-    created: VueCallback;
-    attached: VueCallback;
-    detached: VueCallback;
-    beforeDestroy: VueCallback;
-    destroyed: VueCallback;
-
-    directives: {};
-    filters: {};
-    partials: {};
-    transitions: {};
-    components: {};
-    watch: {};
-    events: {};
-    methods: {};
-    computed: {};
-
   }
 
   class VueConfig {
@@ -137,5 +159,8 @@ declare module vue {
   interface VueCallback {
     (): void;
   }
+  interface FilterCallback {
+    (value:{},begin?:{},end?:{}): {};
+  }
 }
-import Vue = vue.Vue;
+import Vue = vuejs.Vue;
