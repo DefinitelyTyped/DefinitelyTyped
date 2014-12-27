@@ -1083,7 +1083,7 @@ declare module Backbone {
          * specified the first item in the collection is dropped.
          * @alias rest, drop
          */
-        tail(n: number): TModel[];
+        tail(n?: number): TModel[];
 
         /**
          * Creates an array from the collection.
