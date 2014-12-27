@@ -104,3 +104,20 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/timing" {
+    var exp: dojox.timing
+    export=exp;
+}
+declare module "dojox/timing/Sequence" {
+    var exp: dojox.timing.Sequence
+    export=exp;
+}
+declare module "dojox/timing/doLater" {
+    var exp: dojox.timing.doLater
+    export=exp;
+}
+declare module "dojox/timing/Streamer" {
+    var exp: dojox.timing.Streamer
+    export=exp;
+}

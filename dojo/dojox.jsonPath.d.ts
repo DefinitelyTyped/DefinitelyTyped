@@ -29,3 +29,12 @@ declare module dojox {
     
 
 }
+
+declare module "dojox/jsonPath" {
+    var exp: dojox.jsonPath
+    export=exp;
+}
+declare module "dojox/jsonPath/query" {
+    var exp: dojox.jsonPath.query
+    export=exp;
+}

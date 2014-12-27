@@ -1,4 +1,4 @@
-// Type definitions for PreloadJS 0.4.1
+// Type definitions for PreloadJS 0.6.0
 // Project: http://www.createjs.com/#!/PreloadJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -17,87 +17,276 @@
 declare module createjs {
     export class AbstractLoader extends EventDispatcher {
         // properties
-        canceled: boolean;
-        loaded: boolean;
-        progress: number;
-        
-        // methods
-        buildPath(src: string, data?: Object): string;
-        close(): void;
-        load(): void;
-    }
-    
-    export class LoadQueue extends AbstractLoader {
-        constructor(useXHR?: boolean, basePath?: string, crossOrigin?: string);
-        constructor(useXHR?: boolean, basePath?: string, crossOrigin?: boolean);
-
-        // properties
         static BINARY: string;
+        canceled: boolean;
         static CSS: string;
+        GET: string;
         static IMAGE: string;
         static JAVASCRIPT: string;
         static JSON: string;
         static JSONP: string;
-        static loadTimeout: number;
-        maintainScriptOrder: boolean;
+        loaded: boolean;
         static MANIFEST: string;
-        next: LoadQueue;
+        POST: string;
+        progress: number;
+        resultFormatter: () => any;
         static SOUND: string;
-        stopOnError: boolean;
+        static SPRITESHEET: string;
         static SVG: string;
         static TEXT: string;
-        useXHR: boolean;
+        type: string;
+        static VIDEO: string;
         static XML: string;
-        
+
         // methods
-        getItem(value: string): Object;
-        getResult(value: string, rawResult?: boolean): Object;
-        installPlugin(plugin: any): void;
+        cancel(): void;
+        destroy(): void;
+        getItem(value?: string): Object;
+        getLoadedItems(): Object[];
+        getResult(value?: any, rawResult?: boolean): Object;
+        getTag(): Object;
+        load(): void;
+        setTag(tag: Object): void;
+        toString(): string;
+    }
+
+    export class AbstractMediaLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean, type: string);
+        }
+
+    export class AbstractRequest
+        {
+        constructor(item: LoadItem);
+
+        cancel(): void;
+        destroy(): void;
+        load(): void;
+        }
+
+    export class BinaryLoader
+        {
+        constructor(loadItem: Object);
+
+        // methods
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class CSSLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean);
+
+        // methods
+        canLoadItem(item: Object): boolean;
+        }
+
+    export module DataUtils
+        {
+        export function parseJSON(value: string): Object;
+        export function parseXML(text: string, type: string): XMLDocument;
+        }
+
+    export class ErrorEvent
+        {
+        constructor(title?: string, message?: string, data?: Object);
+
+        // properties
+        data: Object;
+        message: string;
+        title: string;
+        }
+
+    export class ImageLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class JavaScriptLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class JSONLoader
+        {
+        constructor(loadItem: Object);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class JSONPLoader
+        {
+        constructor(loadItem: Object);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class LoadItem
+        {
+        // properties
+        callback: string;
+        crossOrigin: boolean;
+        data: Object;
+        headers: Object;
+        id: string;
+        loadTimeout: number;
+        maintainOrder: boolean;
+        method: string;
+        mimeType: string;
+        src: string;
+        type: string;
+        values: Object;
+        withCredentials: boolean;
+
+        // methods
+        static create(value: Object): Object;   // 'value' is a LoadItem, string or Object. Returns Object or LoadItem
+        set(props: Object): LoadItem;
+        }
+    
+    export class LoadQueue extends AbstractLoader
+        {
+        constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: string);
+        constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: boolean);
+
+        // properties
+        maintainScriptOrder: boolean;
+        next: LoadQueue;
+        stopOnError: boolean;
+
+        // methods
+        close(): void;
+        getItems(loaded: boolean): Object[];
+        installPlugin(plugin: () => any): void;
         loadFile(file: Object, loadNow?: boolean, basePath?: string): void;
         loadFile(file: string, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: Object, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: string, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: any[], loadNow?: boolean, basePath?: string): void;
+        registerLoader(loader: AbstractLoader): void;
         remove(idsOrUrls: string): void;
         remove(idsOrUrls: any[]): void;
         removeAll(): void;
         reset(): void;
         setMaxConnections(value: number): void;
         setPaused(value: boolean): void;
+        setPreferXHR(value: boolean): boolean;
+        /**
+         * @deprecated - use 'preferXHR' property instead (or setUseXHR())
+         */
         setUseXHR(value: boolean): void;
+        unregisterLoader(loader: AbstractLoader): void;
     }
-    
-    export class PreloadJS {
+
+    export class ManifestLoader
+        {
+        constructor(loadItem: Object);  // 'loadItem' Object or LoadItem
+
+        // methods
+        static canLoadItem(item: Object): boolean;  // 'item' Object or LoadItem
+        }
+
+    export class MediaTagRequest
+        {
+        constructor(loadItem: LoadItem, tag: HTMLAudioElement, srcAttribute: string);
+        constructor(loadItem: LoadItem, tag: HTMLVideoElement, srcAttribute: string);
+        }
+
+    export class PreloadJS
+        {
         static buildDate: string;
         static version: string;
-    }
-    
-    /*
-        NOTE: It is commented out because it conflicts with SamplePlugin class of TweenJS.
-              this class is mainly for documentation purposes.
-              http://www.createjs.com/Docs/PreloadJS/classes/SamplePlugin.html
-    */
-    /*
-    export class SamplePlugin {
-        static fileLoadHandler(event: Object): void;
-        static getPreloadHandlers(): Object;
-        static preloadHandler(src: string, type: string, id: string, data: any, basePath: string, queue: LoadQueue): any;
-    }
-    */
+        }
 
-    export class TagLoader extends AbstractLoader {
-        constructor (item: Object);
-        
+    export class ProgressEvent
+        {
+        constructor(loaded: number, total?: number);
+
+        // properties
+        loaded: number;
+        progress: number;
+        total: number;
+
         // methods
-        getResult(): any;
-    }
-    
-    export class XHRLoader extends AbstractLoader {
-        constructor (item: Object, crossOrigin?: string);
-        
+        clone(): ProgressEvent;
+        }
+
+    export class RequestUtils
+        {
+        // properties
+        static ABSOLUTE_PATH: RegExp;
+        static EXTENSION_PATT: RegExp;
+        static RELATIVE_PATH: RegExp;
+
+        // methods
+        static buildPath(src: string, data?: Object): string;
+        static formatQueryString(data: Object, query?: Object[]): string;
+        static getTypeByExtension(extension: string): string;
+        static isAudioTag(item: Object): boolean;
+        static isBinary(type: string): boolean;
+        static isCrossDomain(item: Object): boolean;
+        static isImageTag(item: Object): boolean;
+        static isLocal(item: Object): boolean;
+        static isText(type: string): boolean;
+        static isVideoTag(item: Object): boolean;
+        static parseURI(path: string): Object;
+        }
+
+    export class SoundLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class SpriteSheetLoader
+        {
+        constructor(loadItem: Object);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class SVGLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class TagRequest
+        {
+
+        }
+
+    export class TextLoader
+        {
+        constructor(loadItem: Object);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class VideoLoader
+        {
+        constructor(loadItem: Object, preferXHR: boolean);
+
+        static canLoadItem(item: Object): boolean;
+        }
+
+    export class XHRRequest extends AbstractLoader
+        {
+        constructor(item: Object);
+
         // methods
         getAllResponseHeaders(): string;
         getResponseHeader(header: string): string;
-        getResult (rawResult?: boolean): Object;
-    }
+        }
+
+    export class XMLLoader
+        {
+        constructor(loadItem: Object);
+
+        static canLoadItem(item: Object): boolean;
+        }
 }

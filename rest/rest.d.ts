@@ -14,7 +14,7 @@ declare module "rest" {
 	function rest(request: rest.Request): rest.ResponsePromise;
 
 	module rest {
-		export function wrap(interceptor: Interceptor): Client;
+		export function wrap(interceptor: Interceptor, config?: any): Client;
 
 		export interface Request {
 			method?: string;
