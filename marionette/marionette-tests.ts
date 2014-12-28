@@ -67,11 +67,11 @@ module Marionette.Tests {
             super(options);
         }
 
-        get name(): string {
+        getName(): string {
             return this.get('name');
         }
 
-        set name(value: string) {
+        setName(value: string) {
             this.set(value);
         }
     }
