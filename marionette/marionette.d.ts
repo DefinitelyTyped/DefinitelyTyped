@@ -125,10 +125,46 @@ declare module Backbone {
 
 declare module Marionette {
 
-    function getOption(target, optionName): any;
-    function triggerMethod(name, ...args: any[]): any;
+    /**
+     * Retrieve an object's attribute either directly from the object, or 
+     * from the object's this.options, with this.options taking precedence.
+     */
+    function getOption(target: any, optionName: string): any;
+    
+    /**
+     * Trigger an event and a corresponding method on the target object.
+     * All arguments that are passed to the triggerMethod call are passed along 
+     * to both the event and the method, with the exception of the event name not 
+     * being passed to the corresponding method.
+     */
+    function triggerMethod(name: string, ...args: any[]): any;
+
+    /**
+     * Invoke triggerMethod on a specific context.
+     * This is useful when it's not clear that the object has triggerMethod defined.
+     */
+    function triggerMethodOn(ctx: any, name: string, ...args: any[]): any;
+
+    /**
+     * Monitor a view's state, and after it has been rendered and shown in the DOM,
+     * trigger a "dom:refresh" event every time it is re-rendered.
+     */
     function MonitorDOMRefresh(view: Backbone.View<Backbone.Model>): void;
-    function bindEntityEvents(target, entity, bindings);
+
+    /**
+     * This method is used to bind a backbone "entity" (collection/model) to methods on a target object.
+     * @param target An object that must have a listenTo method from the EventBinder object.
+     * @param entity The entity (Backbone.Model or Backbone.Collection) to bind the events from.
+     * @param bindings a hash of { "event:name": "eventHandler" } configuration. Multiple handlers can be separated by a space. A function can be supplied instead of a string handler name.
+     */
+    function bindEntityEvents(target: any, entity: any, bindings: any): void;
+
+    /**
+     * This method can be used to unbind callbacks from entities' (collection/model) events. It's the opposite of bindEntityEvents
+     * @param target An object that must have a listenTo method from the EventBinder object.
+     * @param entity The entity (Backbone.Model or Backbone.Collection) to bind the events from.
+     * @param bindings a hash of { "event:name": "eventHandler" } configuration. Multiple handlers can be separated by a space. A function can be supplied instead of a string handler name.
+     */
     function unbindEntityEvents(target, entity, bindings);
 
     class Callbacks {
@@ -1130,25 +1166,82 @@ declare module Marionette {
         appRoute(route: string, methodName: string): void;
     }
 
+    /**
+     * The Backbone.Marionette.Application object is the hub of your composite 
+     * application. It organizes, initializes and coordinates the various pieces 
+     * of your app. It also provides a starting point for you to call into from 
+     * your HTML script block, or directly from your JavaScript files if you 
+     * prefer to go that route. The Application is meant to be instantiated 
+     * directly, although you can extend it to add your own functionality.
+     */
     class Application extends Backbone.Events {
 
+        /**
+         * The Event Aggregator is available through this property. It is 
+         * convenient for passively sharing information between pieces of your 
+         * application as events occur.
+         * Note! To access this application channel from other objects within your 
+         * app you are encouraged to get a handle of the systems through the 
+         * Wreqr API instead of the Application instance itself.
+         */
         vent: Backbone.Wreqr.EventAggregator;
+
+        /**
+         * Commands are used to make any component tell another component to 
+         * perform an action without a direct reference to it.
+         */
         commands: Backbone.Wreqr.Commands;
+
+        /**
+         * Request Response is a means for any component to request information 
+         * from another component without being tightly coupled.
+         */
         reqres: Backbone.Wreqr.RequestResponse;
+
         submodules: any;
 
+        /** Command execution, facilitated by Backbone.Wreqr.Commands */
         execute(...args: any[]);
+
+        /** Request/response, facilitated by Backbone.Wreqr.RequestResponse */
         request(...args: any[]);
+
+        /** Deprecated! Initializers, you should use events to manage start-up logic. */
         addInitializer(initializer);
-        start(options?);
+
+        /**
+         * Once you have your application configured, you can kick everything off 
+         * by calling this method.
+         * @param options This parameter will be passed to each of your initializer functions, as well as the initialize events. This allows you to provide extra configuration for various parts of your app throughout the initialization sequence.
+         */
+        start(options?: any): void;
+
+        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         addRegions(regions);
+
+        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         emptyRegions(): void;
+
+        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         removeRegion(region: Region);
+
+        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         getRegion(regionName: string): Region;
+
         module(moduleNames, moduleDefinition);
+
+        /**
+         * Called just before the Application starts and before the initializers are executed.
+         */
+        onBeforeStart(options?: any): void;
+
+        /**
+         * Called after the Application has started and after the initializers have been executed.
+         */
+        onStart(options?: any): void;
     }
 
-    // modules mapped for convenience, but you should probably use TypeScript modules instead
+    // modules mapped for convenience, but you should probably use TypeScript modules instead    
     class Module extends Backbone.Events {
 
         constructor(moduleName: string, app: Application);
