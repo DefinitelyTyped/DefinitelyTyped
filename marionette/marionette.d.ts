@@ -29,12 +29,12 @@ declare module Backbone {
         any(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
         contains(value: any): boolean;
         detect(iterator: (item: any) => boolean, context?: any): any;
-        each(iterator: (element: View<TModel>, index: number, list?: any) => void , context?: any);
+        each(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any);
         every(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
         filter(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
         find(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>;
         first(): View<TModel>;
-        forEach(iterator: (element: View<TModel>, index: number, list?: any) => void , context?: any);
+        forEach(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any);
         include(value: any): boolean;
         initial(): View<TModel>;
         initial(n: number): View<TModel>[];
@@ -58,27 +58,27 @@ declare module Backbone {
     module Wreqr {
 
         module radio {
-            
+
             function channel(channelName: string): Channel;
 
         }
 
         class Channel {
-            
+
             constructor(channelName: string);
-            
+
             vent: Backbone.Wreqr.EventAggregator;
             reqres: Backbone.Wreqr.RequestResponse;
             commands: Backbone.Wreqr.Commands;
             channelName: string;
-            
+
             reset(): Channel;
             connectEvents(hash: string, context: any): Channel;
             connectCommands(hash: string, context: any): Channel;
             connectRequests(hash: string, context: any): Channel;
 
         }
-        
+
         class Handlers extends Backbone.Events {
 
             constructor(options?: any);
@@ -358,7 +358,7 @@ declare module Marionette {
          * @returns an object literal with all the created regions.
          */
         addRegions(regionDefinitions: Function, defaults?: RegionDefaults): any;
-        
+
         /**
          * Adds one or more regions to this RegionManager instance. 
          * @param regionDefinitions an object literal containing region names as keys and region
@@ -458,18 +458,18 @@ declare module Marionette {
          * Returns the first Region of this RegionManager.
          */
         first(): Region;
-        
+
         /**
          * Returns the first n Regions of this RegionManager.
          */
         first(n: number): Region[];
 
-       /**
-        * Iterates over the regions in this instance, yielding each in turn to an 
-        * iterator function. The iterator is bound to the context object, if one 
-        * is passed. 
-        * @alias each
-        */
+        /**
+         * Iterates over the regions in this instance, yielding each in turn to an 
+         * iterator function. The iterator is bound to the context object, if one 
+         * is passed. 
+         * @alias each
+         */
         forEach(iterator: (element: Region, index: number, list?: any) => void, context?: any);
 
         /**
@@ -761,7 +761,7 @@ declare module Marionette {
          * onRender callbacks to layer in additional functionality to the 
          * rendering of your view.
          */
-        render(): ItemView<TModel>;     
+        render(): ItemView<TModel>;
 
         /**
          * Triggered before an ItemView is rendered.
@@ -865,7 +865,7 @@ declare module Marionette {
          * and renders them individually as an childView.
          */
         render(): CollectionView<TModel>;
-        
+
         /**
          * The addChild method is responsible for rendering the childViews and 
          * adding them to the HTML for the collectionView instance. It is also 
@@ -900,7 +900,7 @@ declare module Marionette {
          * If empty, show the empty view
          */
         checkEmpty(): void;
-                
+
         destroyChildren(): void;
 
         /**
@@ -926,7 +926,7 @@ declare module Marionette {
          * in the collection that the model came from. This is useful for sorting 
          * a collection and displaying the sorted list in the correct order on the 
          * screen.
-         */        
+         */
         attachHtml(collectionView: CollectionView<TModel>, childView: Backbone.View<TModel>, index: number): void;
 
         /**
@@ -1010,7 +1010,10 @@ declare module Marionette {
          */
         childViewContainer: any;
 
-        render(): CompositeView<TModel>;                
+        /**
+        * Renders the view.
+        */
+        render(): CompositeView<TModel>;
 
         /**
          * Invoked before the model has been rendered
@@ -1033,14 +1036,54 @@ declare module Marionette {
         onRenderCollection(): void;
     }
 
+    /**
+     * A LayoutView is a hybrid of an ItemView and a collection of Region objects. 
+     * They are ideal for rendering application layouts with multiple sub-regions 
+     * managed by specified region managers.
+     * A layoutView can also act as a composite-view to aggregate multiple views 
+     * and sub-application areas of the screen allowing applications to attach 
+     * multiple region managers to dynamically rendered HTML.
+     * You can create complex views by nesting layoutView managers within Regions.
+     */
     class LayoutView<TModel extends Backbone.Model> extends ItemView<TModel> {
+        /**
+         * f you have the need to replace the Region with a region class of your 
+         * own implementation, you can specify an alternate class to use with this 
+         * property.
+         */
+        regionClass: any;
 
+        /**
+         * Constructor.
+         * A hash that can contain a regions hash that allows you to specify regions per 
+         * LayoutView instance.
+         */
         constructor(options?: any);
 
+        /** Adds a region to the layout view. */
         addRegion(name: string, definition: any): Region;
+
+        /**
+         * Add multiple regions as a {name: definition, name2: def2} object literal.
+         */
         addRegions(regions: any): any;
+
+        /**
+         * Renders the view.
+         */
         render(): LayoutView<TModel>;
-        removeRegion(name: string);
+
+        /** 
+         * Removes the region with the specified name.
+         * @param name the name of the region to remove.
+         */
+        removeRegion(name: string): any;
+
+        /** Enable easy overriding of the default `RegionManager`
+          * for customized region interactions and business specific
+          * view logic for better control over single regions.
+          */
+        getRegionManager();
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {
@@ -1052,8 +1095,8 @@ declare module Marionette {
 
         constructor(options?: AppRouterOptions);
         processAppRoutes(controller: any, appRoutes: any);
-        appRoute(route:string, methodName:string):void;
-        
+        appRoute(route: string, methodName: string): void;
+
     }
 
     class Application extends Backbone.Events {
