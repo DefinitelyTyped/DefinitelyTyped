@@ -141,24 +141,24 @@ declare module Marionette {
         close();
     }
 
-    class Region<TModel extends Backbone.Model> extends Backbone.Events {
+    class Region extends Backbone.Events {
 
-        static buildRegion(regionConfig, defaultRegionType): Region<Backbone.Model>;
+        static buildRegion(regionConfig, defaultRegionType): Region;
 
         el: any;
 
-        show(view: Backbone.View<TModel>): void;
+        show<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
         ensureEl(): void;
-        open(view: Backbone.View<TModel>): void;
+        open<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
         close(): void;
-        attachView(view: Backbone.View<TModel>);
+        attachView<TModel extends Backbone.Model>(view: Backbone.View<TModel>);
         reset();
     }
 
-    class RegionManager<TModel extends Backbone.Model> extends Controller {
+    class RegionManager extends Controller {
         addRegions(regionDefinitions, defaults?): any;
-        addRegion(name, definition): Region<TModel>;
-        get(name: string): Region<TModel>;
+        addRegion(name, definition): Region;
+        get(name: string): Region;
         removeRegion(name): void;
         removeRegions(): void;
         closeRegions(): void;
@@ -166,33 +166,33 @@ declare module Marionette {
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
-        all(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): boolean;
-        any(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): boolean;
+        all(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
         contains(value: any): boolean;
         detect(iterator: (item: any) => boolean, context?: any): any;
-        each(iterator: (element: Region<TModel>, index: number, list?: any) => void , context?: any);
-        every(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): boolean;
-        filter(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): Region<TModel>[];
-        find(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): Region<TModel>;
-        first(): Region<TModel>;
-        forEach(iterator: (element: Region<TModel>, index: number, list?: any) => void , context?: any);
+        each(iterator: (element: Region, index: number, list?: any) => void , context?: any);
+        every(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
+        find(iterator: (element: Region, index: number) => boolean, context?: any): Region;
+        first(): Region;
+        forEach(iterator: (element: Region, index: number, list?: any) => void , context?: any);
         include(value: any): boolean;
-        initial(): Region<TModel>;
-        initial(n: number): Region<TModel>[];
+        initial(): Region;
+        initial(n: number): Region[];
         invoke(methodName: string, arguments?: any[]);
         isEmpty(object: any): boolean;
-        last(): Region<TModel>;
-        last(n: number): Region<TModel>[];
-        lastIndexOf(element: Region<TModel>, fromIndex?: number): number;
-        map(iterator: (element: Region<TModel>, index: number, context?: any) => any[], context?: any): any[];
+        last(): Region;
+        last(n: number): Region[];
+        lastIndexOf(element: Region, fromIndex?: number): number;
+        map(iterator: (element: Region, index: number, context?: any) => any[], context?: any): any[];
         pluck(attribute: string): any[];
-        reject(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): Region<TModel>[];
-        rest(): Region<TModel>;
-        rest(n: number): Region<TModel>[];
+        reject(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
+        rest(): Region;
+        rest(n: number): Region[];
         select(iterator: any, context?: any): any[];
-        some(iterator: (element: Region<TModel>, index: number) => boolean, context?: any): boolean;
+        some(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
         toArray(): any[];
-        without(...values: any[]): Region<TModel>[];
+        without(...values: any[]): Region[];
     }
 
     class TemplateCache {
@@ -285,7 +285,7 @@ declare module Marionette {
 
         constructor(options?: any);
 
-        addRegion(name: string, definition: any): Region<TModel>;
+        addRegion(name: string, definition: any): Region;
         addRegions(regions: any): any;
         render(): LayoutView<TModel>;
         removeRegion(name: string);
@@ -304,7 +304,7 @@ declare module Marionette {
         
     }
 
-    class Application<TModel extends Backbone.Model> extends Backbone.Events {
+    class Application extends Backbone.Events {
 
         vent: Backbone.Wreqr.EventAggregator;
         commands: Backbone.Wreqr.Commands;
@@ -317,15 +317,15 @@ declare module Marionette {
         start(options?);
         addRegions(regions);
         closeRegions(): void;
-        removeRegion(region: Region<TModel>);
-        getRegion(regionName: string): Region<TModel>;
+        removeRegion(region: Region);
+        getRegion(regionName: string): Region;
         module(moduleNames, moduleDefinition);
     }
 
     // modules mapped for convenience, but you should probably use TypeScript modules instead
-    class Module<TModel extends Backbone.Model> extends Backbone.Events {
+    class Module extends Backbone.Events {
 
-        constructor(moduleName: string, app: Application<TModel>);
+        constructor(moduleName: string, app: Application);
 
         submodules: any;
         triggerMethod(name, ...args: any[]): any;
