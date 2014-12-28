@@ -599,8 +599,24 @@ declare module Marionette {
         compileTemplate(rawTemplate: any): any;
     }
 
+    /**
+     * The Renderer object was extracted from the ItemView rendering process, in 
+     * order to create a consistent and re-usable method of rendering a template 
+     * with or without data.
+     */
     class Renderer {
-        static render(template, data): void;
+        /**
+         *  This method returns a string containing the result of applying the 
+         * template using the data object as the context.
+         * @param template The template to render. If this is a function this is 
+         * treated as a pre-compiled template and does not try to compile it again. This 
+         * allows any view that supports a template parameter to specify a pre-compiled 
+         * template function as the template setting. The template function does not 
+         * have to be any specific template engine. It only needs to be a function 
+         * that returns valid HTML as a string from the data parameter passed to 
+         * the function.
+         */
+        static render(template: any, data: any): string;
     }
 
     class View<TModel extends Backbone.Model> extends Backbone.View<TModel> {
