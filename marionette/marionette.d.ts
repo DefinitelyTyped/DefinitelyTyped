@@ -323,6 +323,12 @@ declare module Marionette {
          */
         attachView<TModel extends Backbone.Model>(view: Backbone.View<TModel>, options?: RegionShowOptions): any;
 
+        /** 
+         * Override this method to change how the new view is
+         * appended to the `$el` that the region is managing
+         */    
+        attachHtml<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
+
         /**
          * A region can be reset at any time. This destroys any existing view 
          * being displayed, and deletes the cached el. The next time the region 
