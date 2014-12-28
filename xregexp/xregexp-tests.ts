@@ -9,6 +9,7 @@ import TokenOpts = X.TokenOpts;
 var exp: RegExp;
 var expArr: RegExp[];
 var chain: RegExp[];
+var groupChain: { regex: RegExp; backref: string }[];
 var regex: RegExp;
 var value: any;
 var str: string;
@@ -91,6 +92,7 @@ XRegExp.install(obj);
 bool = XRegExp.isInstalled(str);
 bool = XRegExp.isRegExp(value);
 strArr = XRegExp.matchChain(str, chain);
+strArr = XRegExp.matchChain(str, groupChain);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
