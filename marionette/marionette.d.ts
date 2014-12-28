@@ -619,22 +619,78 @@ declare module Marionette {
         static render(template: any, data: any): string;
     }
 
+    /**
+     * This base view provides some common and core functionality for other views 
+     * to take advantage of.
+     * Note: The Marionette.View class is not intended to be used directly. It 
+     * exists as a base view for other view classes to be extended from, and to 
+     * provide a common location for behaviors that are shared across all views.
+     */
     class View<TModel extends Backbone.Model> extends Backbone.View<TModel> {
 
-        constructor(options?: any);
+        constructor(options?: Backbone.ViewOptions<TModel>);
 
+        /**
+         * A configuration hash for models. The left side is the event on 
+         * the model, and the right side is the name of the 
+         * method on the view or a function to handle the event. This property
+         * can also be a function that returns the hash described above.
+         */
         modelEvents: any;
+
+        /**
+         * A configuration hash for collections. The left side is the event on 
+         * the collection, and the right side is the name of the 
+         * method on the view or a function to handle the event. This property
+         * can also be a function that returns the hash described above.
+         */
         collectionEvents: any;
+
+        /**
+         * In several cases you need to access ui elements inside the view to 
+         * retrieve their data or manipulate them. For example you have a certain 
+         * div element you need to show/hide based on some state, or other ui 
+         * element that you wish to set a css class to it. Instead of having 
+         * jQuery selectors hanging around in the view's code you can define a 
+         * ui hash that contains a mapping between the ui element's name and its 
+         * jQuery selector. Afterwards you can simply access it via 
+         * this.ui.elementName.
+         */
         ui(): any;
 
+        /**
+         * There may be some cases where you need to change the template that is 
+         * used for a view, based on some simple logic such as the value of a 
+         * specific attribute in the view's model. To do this, you can provide a 
+         * getTemplate function on your views and use this to return the template 
+         * that you need.
+         */
         getTemplate(): any;
+
+
         mixinTemplateHelpers(target?: any): any;
         configureTriggers(): any;
-        delegateEvents(events?: any): any;
-        undelegateEvents();
 
-        destroy();
+        /**
+         * View implements a destroy method, which is called by the region managers automatically. As part of the implementation.
+         */
+        destroy(...args: any[]): void;
+
+        /**
+         * In several cases you need to access ui elements inside the view to 
+         * retrieve their data or manipulate them. For example you have a certain 
+         * div element you need to show/hide based on some state, or other ui 
+         * element that you wish to set a css class to it. Instead of having jQuery 
+         * selectors hanging around in the view's code you can define a ui hash 
+         * that contains a mapping between the ui element's name and its jQuery 
+         * selector. Afterwards you can simply access it via this.ui.elementName. 
+         * This functionality is provided via the bindUIElements method. 
+         * Since View doesn't implement the render method, then if you directly 
+         * extend from View you will need to invoke this method from your render 
+         * method. In ItemView and CompositeView this is already taken care of.
+         */
         bindUIElements();
+
         unbindUIElements();
 
         triggerMethod(name, ...args: any[]): any;
