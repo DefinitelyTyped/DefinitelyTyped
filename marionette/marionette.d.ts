@@ -138,7 +138,7 @@ declare module Marionette {
     }
 
     class Controller extends Backbone.Events {
-        close();
+        destroy();        
     }
 
     class Region<TModel extends Backbone.Model> extends Backbone.Events {
@@ -150,9 +150,12 @@ declare module Marionette {
         show(view: Backbone.View<TModel>): void;
         ensureEl(): void;
         open(view: Backbone.View<TModel>): void;
-        close(): void;
+        destroy(): void;
         attachView(view: Backbone.View<TModel>);
         reset();
+        hasView(): boolean;
+        empty();
+
     }
 
     class RegionManager<TModel extends Backbone.Model> extends Controller {
@@ -161,8 +164,8 @@ declare module Marionette {
         get(name: string): Region<TModel>;
         removeRegion(name): void;
         removeRegions(): void;
-        closeRegions(): void;
-        close();
+        emptyRegions(): void;        
+        destroy();
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
@@ -221,7 +224,7 @@ declare module Marionette {
         delegateEvents(events?: any): any;
         undelegateEvents();
 
-        close();
+        destroy();
         bindUIElements();
         unbindUIElements();
 
@@ -235,8 +238,7 @@ declare module Marionette {
         ui(): any;
 
         serializeData(): any;
-        render(): ItemView<TModel>;
-        close();
+        render(): ItemView<TModel>;        
     }
 
     class CollectionView<TModel extends Backbone.Model> extends View<TModel> {
@@ -260,13 +262,13 @@ declare module Marionette {
         buildItemView(item: any, ItemViewType: any, itemViewOptions: any): any;
         removeItemView(item: any);
         removeChildView(view: View<TModel>);
-
+        isEmpty(): boolean;
         checkEmpty();
 
         appendHtml(collectionView: View<TModel>, itemView: View<TModel>, index: Number);
 
-        close();
-        closeChildren();
+        destroy();
+        destroyChildren();
     }
 
     class CompositeView<TModel extends Backbone.Model> extends CollectionView<TModel> {
@@ -290,7 +292,7 @@ declare module Marionette {
         render(): LayoutView<TModel>;
         removeRegion(name: string);
     }
-    
+
     interface AppRouterOptions extends Backbone.RouterOptions {
         appRoutes: any;
         controller: any;
@@ -316,7 +318,7 @@ declare module Marionette {
         addInitializer(initializer);
         start(options?);
         addRegions(regions);
-        closeRegions(): void;
+        emptyRegions(): void;
         removeRegion(region: Region<TModel>);
         getRegion(regionName: string): Region<TModel>;
         module(moduleNames, moduleDefinition);
