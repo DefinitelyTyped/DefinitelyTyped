@@ -404,32 +404,163 @@ declare module Marionette {
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
+        /**
+         * Returns true if all of the values in the list pass the predicate truth test. 
+         * @alias every
+         */
         all(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found. 
+         */
         any(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Returns true if the value is present in the list.
+         * @alias include 
+         */
         contains(value: any): boolean;
+
+        /**
+         * Looks through each value in the list, returning the first one that passes a truth test (predicate), or undefined if no value passes the test.The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list. 
+         * @alias find
+         */
         detect(iterator: (item: any) => boolean, context?: any): any;
-        each(iterator: (element: Region, index: number, list?: any) => void , context?: any);
+
+        /**
+         * Iterates over the regions in this instance, yielding each in turn to an 
+         * iterator function. The iterator is bound to the context object, if one 
+         * is passed.
+         * @alias forEach 
+         */
+        each(iterator: (element: Region, index: number, list?: any) => void, context?: any);
+
+        /**
+         * Returns true if all of the values in the list pass the predicate truth test. 
+         * @alias all
+         */
         every(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
+
+        /**
+         * Looks through each Region in the collection, returning an array of all 
+         * the values that pass a truth test (predicate). 
+         * @alias select
+         */
         filter(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
+
+        /**
+         * Looks through each Region in this instance, returning the first one that passes a truth test (predicate), or undefined if no value passes the test.The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list. 
+         * @alias detect
+         */
         find(iterator: (element: Region, index: number) => boolean, context?: any): Region;
+
+        /**
+         * Returns the first Region of this RegionManager.
+         */
         first(): Region;
-        forEach(iterator: (element: Region, index: number, list?: any) => void , context?: any);
+        
+        /**
+         * Returns the first n Regions of this RegionManager.
+         */
+        first(n: number): Region[];
+
+       /**
+        * Iterates over the regions in this instance, yielding each in turn to an 
+        * iterator function. The iterator is bound to the context object, if one 
+        * is passed. 
+        * @alias each
+        */
+        forEach(iterator: (element: Region, index: number, list?: any) => void, context?: any);
+
+        /**
+         * Returns true if the value is present in the list.
+         * @alias contains 
+         */
         include(value: any): boolean;
-        initial(): Region;
+
+        /**
+         * Returns everything but the last n Regions of this instance.
+         * @param n if specified determines the number of regions to exclude,
+         * otherwise only the last element is excluded.
+         */
         initial(n: number): Region[];
+
+        /**
+         * Calls the method named by methodName on each value in the collection. Any extra 
+         * arguments passed to invoke will be forwarded on to the method invocation. 
+         */
         invoke(methodName: string, arguments?: any[]);
+
+        /**
+         * Returns true if the RegionManager contains no regions.
+         */
         isEmpty(object: any): boolean;
+
+        /**
+         * Returns the last element of a collection. 
+         */
         last(): Region;
+
+        /**
+         * Returns the last n elements of the collection.
+         */
         last(n: number): Region[];
+
+        /**
+         * Returns the index of the last occurrence of element in the collection, or -1 if 
+         * element is not present. 
+         * @param fromIndex if specified starts the search at the given index.
+         */
         lastIndexOf(element: Region, fromIndex?: number): number;
+
+        /**
+         * Produces a new array of values by mapping each value in the collection through a 
+         * transformation function (iterator).
+         * @alias collect
+         */
         map(iterator: (element: Region, index: number, context?: any) => any[], context?: any): any[];
+
+        /** 
+         * Pluck an attribute from each model in the collection. Equivalent to 
+         * calling map and returning a single attribute from the iterator. 
+         */
         pluck(attribute: string): any[];
+
+        /**
+         * Returns the values in the collection without the elements that the truth test 
+         * (predicate) passes. The opposite of filter. 
+         */
         reject(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
-        rest(): Region;
+
+        /**
+         * Returns the rest of the elements of the collection. 
+         * Pass an index to return the values of the array from that index onward. If not
+         * specified the first item in the collection is dropped.
+         * @alias tail, drop
+         */
         rest(n: number): Region[];
-        select(iterator: any, context?: any): any[];
+
+        /**
+         * Looks through each value in the collection, returning an array of all 
+         * the values that pass a truth test (predicate). 
+         * @alias filter
+         */
+        select(iterator: any, context?: any): Region[];
+
+        /**
+         * Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found. 
+         * @alias any
+         */
         some(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
-        toArray(): any[];
+
+        /**
+         * Creates an array containing the regions in this instance.
+         */
+        toArray(): Region[];
+
+        /**
+         * Returns an array of all the regions in the RegionManager except the ones specified. 
+         */
         without(...values: any[]): Region[];
     }
 
