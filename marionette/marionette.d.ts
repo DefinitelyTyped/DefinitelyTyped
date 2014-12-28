@@ -694,16 +694,86 @@ declare module Marionette {
         unbindUIElements();
 
         triggerMethod(name, ...args: any[]): any;
+
+        /**
+         * Called on the view instance when the view has been rendered and 
+         * displayed. This event can be used to react to when a view has been 
+         * shown via a region. A common use case for the onShow method is to 
+         * use it to add children views.
+         */
+        onShow();
+
+        /**
+         * Triggered just after the view has been destroyed.
+         */
+        onDestroy();
+
+        /**
+         * When destroying a view, an onBeforeDestroy method will be called, if 
+         * it has been provided, just before the view destroys. It will be passed 
+         * any arguments that destroy was invoked with.
+         */
+        onBeforeDestroy(...args: any[]);
+
+        /**
+         * Called anytime that showing the view in a Region causes it to be 
+         * attached to the document. 
+         */
+        onAttach();
+
+        /**
+         * Triggered right before the view is attached to the document.
+         */
+        onBeforeAttach();
+
+        /**
+         * Triggered after the view has been rendered, has been shown in the DOM via a Marionette.Region, and has been re-rendered. 
+         * This event / callback is useful for DOM-dependent UI plugins such as jQueryUI or KendoUI.
+         */
+        onDomRefresh();
     }
 
+    /**
+     * An ItemView is a view that represents a single item. That item may be 
+     * a Backbone.Model or may be a Backbone.Collection. Whichever it is though, 
+     * it will be treated as a single item.
+     */
     class ItemView<TModel extends Backbone.Model> extends View<TModel> {
 
         constructor(options?: any);
 
-        ui(): any;
-
+        /**
+         * Item views will serialize a model or collection, by default, by calling 
+         * .toJSON on either the model or collection. If both a model and 
+         * collection are attached to an item view, the model will be used as the 
+         * data source. The results of the data serialization will be passed to 
+         * the template that is rendered.
+         * 
+         * If you need custom serialization for your data, you can provide a serializeData 
+         * method on your view. It must return a valid JSON object, as if you had 
+         * called .toJSON on a model or collection.
+         */
         serializeData(): any;
-        render(): ItemView<TModel>;        
+
+        /** 
+         * Renders the view. It is unwise to override the render method of any 
+         * Marionette view. Instead, you should use the onBeforeRender and 
+         * onRender callbacks to layer in additional functionality to the 
+         * rendering of your view.
+         */
+        render(): ItemView<TModel>;     
+
+        /**
+         * Triggered before an ItemView is rendered.
+         */
+        onBeforeRender();
+
+        /**
+         * Triggered after the view has been rendered. You can implement this in 
+         * your view to provide custom code for dealing with the view's el after 
+         * it has been rendered.
+         */
+        onRender();
     }
 
     class CollectionView<TModel extends Backbone.Model> extends View<TModel> {
