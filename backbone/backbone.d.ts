@@ -199,7 +199,7 @@ declare module Backbone {
          * Bind one or more callback functions to an object. 
          * @param eventMap An object containing key-value pairs mapping event names to callback functions.
          */
-        on(eventMap: { [key: string]: Function });
+        on(eventMap: { [key: string]: Function }): any;
 
         /**
          * Remove a previously-bound callback function from an object.
