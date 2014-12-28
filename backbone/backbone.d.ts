@@ -1096,6 +1096,11 @@ declare module Backbone {
         without(...values: any[]): TModel[];
     }
 
+    /**
+     * Backbone.Router provides methods for routing client-side pages, and connecting them 
+     * to actions and events. For browsers which don't yet support the History API, the Router 
+     * handles graceful fallback and transparent translation to the fragment version of the URL. 
+     */
     class Router extends Events {
 
         /**
@@ -1202,12 +1207,42 @@ declare module Backbone {
     }
 
     interface ViewOptions<TModel extends Model> {
+        /** 
+         * The model to attach to the view.
+         */
         model?: TModel;
+
+        /**
+         * The collection to attach to the view.
+         */
         collection?: Backbone.Collection<TModel>;
+        
+        /**
+         *  If you'd like to create a view that references an element already in the DOM, pass in the 
+         * element as this option.
+         */
         el?: any;
+
+        /** 
+         * The id to attach to the view.
+         */
         id?: string;
+
+        /**
+         * The className of the view's root element.
+         */
         className?: string;
+
+        /**
+         * The tagName of the view's root element. If not specified, div will be used.
+         */
         tagName?: string;
+
+        /**
+         * A hash of attributes that will be set as HTML DOM element attributes on 
+         * the view's el (id, class, data-properties, etc.), or a function that 
+         * returns such a hash. 
+         */
         attributes?: any[];
     }
 
@@ -1228,39 +1263,183 @@ declare module Backbone {
         **/
         events(): any;
 
-        $(selector: string): JQuery;
+        /**
+         * The model attached to this view.
+         */
         model: TModel;
+
+        /**
+         * The collection attached to this view (if any).
+         */
         collection: Collection<TModel>;
+
         //template: (json, options?) => string;
+
+        /**
+         * If you'd like to apply a Backbone view to a different DOM element, use this function, 
+         * which will also create the cached $el reference and move the view's 
+         * delegated events from the old element to the new one. 
+         * @param element the element to apply the Backbone view to.
+         * @param delegate if specified and set to false will not move the view's delegated events from the old element to the new one. The default is true.
+         */
         setElement(element: HTMLElement, delegate?: boolean): View<TModel>;
+
+        /**
+         * If you'd like to apply a Backbone view to a different DOM element, use this function, 
+         * which will also create the cached $el reference and move the view's 
+         * delegated events from the old element to the new one. 
+         * @param element the element to apply the Backbone view to.
+         * @param delegate if specified and set to false will not move the view's delegated events from the old element to the new one. The default is true.
+         */
         setElement(element: JQuery, delegate?: boolean): View<TModel>;
+
+        // TODO: Do we really need this overload? Shouldn't the two above be enough?
+        /**
+         * If you'd like to apply a Backbone view to a different DOM element, use this function, 
+         * which will also create the cached $el reference and move the view's 
+         * delegated events from the old element to the new one. 
+         * @param element the element to apply the Backbone view to.
+         * @param delegate if specified and set to false will not move the view's delegated events from the old element to the new one. The default is true.
+         */
+        setElement(element: any, delegate?: boolean): View<TModel>;
+
+
+        /** The id attached to this view. */
         id: string;
+
+        /** The cid attached to this view. */
         cid: string;
+
+        /**
+         * Specifies the className of the view's root element.
+         */
         className: string;
+
+        /** 
+         * Specifies the tagName of the view's root element.
+         */
         tagName: string;
 
+        /**
+         * Contains the DOM element associated with the view. This is created from 
+         * the view's tagName, className, id and attributes properties, if 
+         * specified. If not, el is an empty div. 
+         */
         el: any;
+
+        /**
+         * A cached jQuery object for the view's element. A handy reference instead of re-wrapping the DOM element all the time. 
+         */
         $el: JQuery;
-        setElement(element: any): View<TModel>;
+
+        /**
+         * A hash of attributes that will be set as HTML DOM element attributes on 
+         * the view's el (id, class, data-properties, etc.), or a function that 
+         * returns such a hash. 
+         */
         attributes: any;
+
+        /**
+         * If jQuery is included on the page, this function runs queries 
+         * scoped within the view's element. If you use this scoped jQuery 
+         * function, you don't have to use model ids as part of your query to 
+         * pull out specific elements in a list, and can rely much more on HTML 
+         * class attributes. It's equivalent to running: view.$el.find(selector)
+         */
         $(selector: any): JQuery;
+
+        /**
+         * The default implementation of render is a no-op. Override this function 
+         * with your code that renders the view template from model data, and 
+         * updates this.el with the new HTML. A good convention is to return this 
+         * at the end of render to enable chained calls. 
+         */
         render(): View<TModel>;
+
+        /**
+         * Removes a view from the DOM, and calls stopListening to remove any 
+         * bound events that the view has listenTo'd. 
+         */
         remove(): View<TModel>;
-        make(tagName: any, attributes?: any, content?: any): any;
+
+        /**
+         * Uses jQuery's on function to provide declarative callbacks for DOM events 
+         * within a view.
+         * By default, delegateEvents is called within the View's constructor for 
+         * you, so if you have a simple events hash, all of your DOM events will 
+         * always already be connected, and you will never have to call this 
+         * function yourself. 
+         * 
+         * @param events If not specified this.events will be used as the source. 
+         * Events are written in the format {"event selector": "callback"}. The callback may be 
+         * either the name of a method on the view, or a direct function body. 
+         * Omitting the selector causes the event to be bound to the view's root 
+         * element (this.el). 
+         */
         delegateEvents(events?: any): any;
+
+        /**
+         * Removes all of the view's delegated events. Useful if you want to 
+         * disable or remove a view from the DOM temporarily. 
+         */
         undelegateEvents(): any;
 
         _ensureElement(): void;
     }
 
     // SYNC
+
+    /**
+     * Backbone.sync is the function that Backbone calls every time it attempts to 
+     * read or save a model to the server. By default, it uses jQuery.ajax to make 
+     * a RESTful JSON request and returns a jqXHR. You can override it in order to 
+     * use a different persistence strategy, such as WebSockets, XML transport, or 
+     * Local Storage. 
+     * @param method the CRUD method ("create", "read", "update", or "delete")
+     * @param model the model to be saved (or collection to be read)
+     * @param options  success and error callbacks, and all other jQuery request options
+     */
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
+
+    /**
+     * If you want to use a custom AJAX function, or your endpoint doesn't support 
+     * the jQuery.ajax API and you need to tweak things, you can do so by setting 
+     * Backbone.ajax. 
+     */
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
+
+    /**
+     * If you want to work with a legacy web server that doesn't support Backbone's 
+     * default REST/HTTP approach, you may choose to turn on Backbone.emulateHTTP. 
+     * Setting this option will fake PUT, PATCH and DELETE requests with a HTTP POST, 
+     * setting the X-HTTP-Method-Override header with the true method. If emulateJSON 
+     * is also on, the true method will be passed as an additional _method parameter. 
+     */
     var emulateHTTP: boolean;
+
+    /**
+     * If you're working with a legacy web server that can't handle requests encoded 
+     * as application/json, setting Backbone.emulateJSON = true; will cause the JSON 
+     * to be serialized under a model parameter, and the request to be made with a 
+     * application/x-www-form-urlencoded MIME type, as if from an HTML form. 
+     */
     var emulateJSON: boolean;
 
     // Utility
+    /**
+     * Returns the Backbone object back to its original value. You can use the 
+     * return value of Backbone.noConflict() to keep a local reference to Backbone. 
+     * Useful for embedding Backbone on third-party websites, where you don't want 
+     * to clobber the existing Backbone. 
+     */
     function noConflict(): typeof Backbone;
+
+    /**
+     * If you have multiple copies of jQuery on the page, or simply want to tell 
+     * Backbone to use a particular object as its DOM / Ajax library, this is the 
+     * property for you. If you're loading Backbone with CommonJS (e.g. node, 
+     * component, or browserify) you must set this property manually.
+     */
     var $: JQueryStatic;
 }
 
