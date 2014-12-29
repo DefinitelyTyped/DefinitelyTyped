@@ -19,7 +19,7 @@ declare module Backbone {
         findByCustom(index: number): View<TModel>;
         findByIndex(index: number): View<TModel>;
         findByCid(cid: string): View<TModel>;
-        remove(view: View<TModel>);
+        remove(view: View<TModel>): void;
         call(method: any): void;
         apply(method: any, args?: any[]): void;
 
@@ -34,7 +34,7 @@ declare module Backbone {
         filter(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
         find(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>;
         first(): View<TModel>;
-        forEach(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any);
+        forEach(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any): void;
         include(value: any): boolean;
         initial(): View<TModel>;
         initial(n: number): View<TModel>[];
@@ -88,7 +88,7 @@ declare module Backbone {
             setHandler(name: string, handler: any, context?: any): void;
             hasHandler(name: string): boolean;
             getHandler(name: string): Function;
-            removeHandler(name: string);
+            removeHandler(name: string): void;
             removeAllHandlers(): void;
         }
 
@@ -165,7 +165,7 @@ declare module Marionette {
      * @param entity The entity (Backbone.Model or Backbone.Collection) to bind the events from.
      * @param bindings a hash of { "event:name": "eventHandler" } configuration. Multiple handlers can be separated by a space. A function can be supplied instead of a string handler name.
      */
-    function unbindEntityEvents(target: any, entity: any, bindings: any);
+    function unbindEntityEvents(target: any, entity: any, bindings: any): void;
 
     class Callbacks {
         add(callback: Function, contextOverride: any): void;
@@ -740,7 +740,7 @@ declare module Marionette {
 
         unbindUIElements(): any;
 
-        triggerMethod(name, ...args: any[]): any;
+        triggerMethod(name: string, ...args: any[]): any;
 
         /**
          * Called on the view instance when the view has been rendered and 
@@ -1218,7 +1218,7 @@ declare module Marionette {
         request(...args: any[]): any;
 
         /** Deprecated! Initializers, you should use events to manage start-up logic. */
-        addInitializer(initializer): void;
+        addInitializer(initializer: any): void;
 
         /**
          * Once you have your application configured, you can kick everything off 
@@ -1228,7 +1228,7 @@ declare module Marionette {
         start(options?: any): void;
 
         /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        addRegions(regions): any;
+        addRegions(regions: any): any;
 
         /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         emptyRegions(): void;
@@ -1258,10 +1258,10 @@ declare module Marionette {
         constructor(moduleName: string, app: Application);
 
         submodules: any;
-        triggerMethod(name, ...args: any[]): any;
+        triggerMethod(name: string, ...args: any[]): any;
 
-        addInitializer(callback): void;
-        addFinalizer(callback): void;
+        addInitializer(callback: any): void;
+        addFinalizer(callback: any): void;
         start(options?: any): void;        
         addDefinition(moduleDefinition: any, customArgs: any): any;
     }

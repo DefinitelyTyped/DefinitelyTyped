@@ -176,7 +176,7 @@ module Marionette.Tests {
                 }
             };
 
-            this.childViewOptions = function (model, index) {
+            this.childViewOptions = function (model: any, index: any): any {
                 // do some calculations based on the model
                 return {
                     foo: "bar",
@@ -258,7 +258,7 @@ module Marionette.Tests {
 
         app.mainRegion.reset();
 
-        Marionette.Region.prototype.attachHtml = function (view) {
+        Marionette.Region.prototype.attachHtml = function (view: any): void {
             this.$el.empty().append(view.el);
         }
 
@@ -268,7 +268,7 @@ module Marionette.Tests {
 
         app.mainRegion.attachView(myView);
 
-        app.mainRegion.on("empty", function (view, region, options) {
+        app.mainRegion.on("empty", function (view: any, region: any, options: any) {
             // manipulate the `view` or do something extra
             // with the `region`
             // you also have access to the `options` that were passed to the Region.show call
