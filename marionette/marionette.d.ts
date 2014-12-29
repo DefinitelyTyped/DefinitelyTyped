@@ -880,7 +880,7 @@ declare module Marionette {
          * The keys of the hash can either be a function or a string that is the 
          * name of a method on the collection view.
          */
-        childViewEvents: any;
+        childEvents: any;
 
         /**
          * When a collection has no children, and you need to render a view other than 
@@ -1341,9 +1341,10 @@ declare module Marionette {
         /**
          * This method has a default implementation that is simple to override. It 
          * is responsible for the lookup of single behavior from within the 
-         * Behaviors.behaviorsLookup or elsewhere.
+         * Behaviors.behaviorsLookup or elsewhere. Note that it should return the type of the 
+         * class to instantiate, not an instance of that class.
          */
-        static getBehaviorClass(options: any, key: string): Behavior;
+        static getBehaviorClass(options: any, key: string): any;
     }
 }
 
