@@ -25,11 +25,27 @@ module Marionette.Tests {
 
     Marionette.Behaviors.getBehaviorClass = (options, key) => {
         if (key === "DestroyWarn")
-            return new DestroyWarn();
+            return DestroyWarn;
 
         return undefined;
     };
 
+    class MyRouter extends Marionette.AppRouter {
+        // "someMethod" must exist at controller.someMethod
+        appRoutes = {
+            "some/route": "someMethod"
+        };
+
+        /* standard routes can be mixed with appRoutes/Controllers above */
+        routes = {
+            "some/otherRoute": "someOtherMethod"
+        };
+
+        someOtherMethod() {
+            // do something here.
+        }
+
+    }
 
     class MyApplication extends Marionette.Application {
         initialize(options?: any) {
@@ -95,7 +111,7 @@ module Marionette.Tests {
         }
 
         template() {
-            return '<h1>Hello from my model</h1> <button class="destroy">Destroy Me</button>';
+            return '<h1>' + this.model.getName() + '</h1> <button class="destroy">Destroy Me</button>';
         }
     };
 
@@ -151,7 +167,39 @@ module Marionette.Tests {
         }
     }
 
-    export var app : MyApplication;
+    class MyCollectionView extends Marionette.CollectionView<MyModel> {
+        constructor() {
+            this.childView = MyView;
+            this.childEvents = {
+                render: function () {
+                    console.log("a childView has been rendered");
+                }
+            };
+
+            this.childViewOptions = function (model, index) {
+                // do some calculations based on the model
+                return {
+                    foo: "bar",
+                    childIndex: index
+                }
+            };
+
+            this.childViewOptions = {
+                foo: "bar"
+            };
+
+            this.childViewEventPrefix = "some:prefix";
+
+            super();
+
+            this.on('some:prefix:render', function () {
+
+            });
+
+        }
+    }
+
+    export var app: MyApplication;
 
     function ApplicationTests() {
         app = new MyApplication();
@@ -195,16 +243,18 @@ module Marionette.Tests {
     }
 
     function RegionTests() {
-        var myView : Marionette.View<MyModel> = new MyView(new MyModel());
+        var myView: Marionette.View<MyModel> = new MyView(new MyModel());
 
         // render and display the view
         app.mainRegion.show(myView);
 
         // empties the current view
         app.mainRegion.empty();
+
+        myView = new MyView(new MyModel());
         app.mainRegion.show(myView, { preventDestroy: true, forceShow: true, triggerAttach: true, triggerBeforeAttach: false });
 
-        var hasView : boolean = app.mainRegion.hasView();
+        var hasView: boolean = app.mainRegion.hasView();
 
         app.mainRegion.reset();
 
@@ -225,5 +275,27 @@ module Marionette.Tests {
         });
 
     }
-    
+
+    function CollectionViewTests() {
+        var cv = new MyCollectionView();
+        cv.collection.add(new MyModel());
+        app.mainRegion.attachView(cv);
+    }
+
+    class MyController extends Marionette.Controller {
+
+    }
+
+    function AppRouterTests() {
+        var myController = new MyController();
+        var router = new MyRouter();
+
+        router.appRoute("/foo", "fooThat");
+
+        router.processAppRoutes(myController, {
+            "foo": "doFoo",
+            "bar/:id": "doBar"
+        });
+
+    }
 }
