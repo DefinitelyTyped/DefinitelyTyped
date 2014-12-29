@@ -13,15 +13,15 @@ declare module Backbone {
 
         constructor(initialViews?: any[]);
 
-        add(view: View<TModel>, customIndex?: number);
-        findByModel(model): View<TModel>;
-        findByModelCid(modelCid): View<TModel>;
+        add(view: View<TModel>, customIndex?: number): void;
+        findByModel(model: TModel): View<TModel>;
+        findByModelCid(modelCid: string): View<TModel>;
         findByCustom(index: number): View<TModel>;
         findByIndex(index: number): View<TModel>;
-        findByCid(cid): View<TModel>;
+        findByCid(cid: string): View<TModel>;
         remove(view: View<TModel>);
-        call(method);
-        apply(method: any, args?: any[]);
+        call(method: any): void;
+        apply(method: any, args?: any[]): void;
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
@@ -29,7 +29,7 @@ declare module Backbone {
         any(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
         contains(value: any): boolean;
         detect(iterator: (item: any) => boolean, context?: any): any;
-        each(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any);
+        each(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any): any;
         every(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
         filter(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
         find(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>;
@@ -38,7 +38,7 @@ declare module Backbone {
         include(value: any): boolean;
         initial(): View<TModel>;
         initial(n: number): View<TModel>[];
-        invoke(methodName: string, arguments?: any[]);
+        invoke(methodName: string, arguments?: any[]): any;
         isEmpty(object: any): boolean;
         last(): View<TModel>;
         last(n: number): View<TModel>[];
@@ -97,7 +97,7 @@ declare module Backbone {
             constructor(options?: any);
 
             getCommands(commandName: string): Commands;
-            addCommand(commandName: string, args: any);
+            addCommand(commandName: string, args: any): void;
             clearCommands(commandName: string): void;
         }
 
@@ -106,14 +106,14 @@ declare module Backbone {
             constructor(options?: any);
 
             storageType: CommandStorage;
-            execute(name: string, ...args: any[]);
+            execute(name: string, ...args: any[]): void;
         }
 
         class RequestResponse extends Handlers {
 
             constructor(options?: any);
 
-            request(...args: any[]);
+            request(...args: any[]): any;
         }
 
         class EventAggregator extends Backbone.Events {
@@ -130,7 +130,7 @@ declare module Marionette {
      * from the object's this.options, with this.options taking precedence.
      */
     function getOption(target: any, optionName: string): any;
-    
+
     /**
      * Trigger an event and a corresponding method on the target object.
      * All arguments that are passed to the triggerMethod call are passed along 
@@ -165,7 +165,7 @@ declare module Marionette {
      * @param entity The entity (Backbone.Model or Backbone.Collection) to bind the events from.
      * @param bindings a hash of { "event:name": "eventHandler" } configuration. Multiple handlers can be separated by a space. A function can be supplied instead of a string handler name.
      */
-    function unbindEntityEvents(target, entity, bindings);
+    function unbindEntityEvents(target: any, entity: any, bindings: any);
 
     class Callbacks {
         add(callback: Function, contextOverride: any): void;
@@ -182,7 +182,7 @@ declare module Marionette {
          * Initialize is called immediately after the Object has been instantiated, 
          * and is invoked with the same arguments that the constructor received.
          */
-        initialize(options?: any);
+        initialize(options?: any): void;
 
         /**
          * Retrieve an object's attribute either directly from the object, or from 
@@ -326,7 +326,7 @@ declare module Marionette {
         /** 
          * Override this method to change how the new view is
          * appended to the `$el` that the region is managing
-         */    
+         */
         attachHtml<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
 
         /**
@@ -442,7 +442,7 @@ declare module Marionette {
          * Destroys the RegionManager instance entierly which both destroys and
          * removes all regions from the RegionManager instance.
          */
-        destroy();
+        destroy(): void;
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
@@ -475,7 +475,7 @@ declare module Marionette {
          * is passed.
          * @alias forEach 
          */
-        each(iterator: (element: Region, index: number, list?: any) => void, context?: any);
+        each(iterator: (element: Region, index: number, list?: any) => void, context?: any): void;
 
         /**
          * Returns true if all of the values in the list pass the predicate truth test. 
@@ -512,7 +512,7 @@ declare module Marionette {
          * is passed. 
          * @alias each
          */
-        forEach(iterator: (element: Region, index: number, list?: any) => void, context?: any);
+        forEach(iterator: (element: Region, index: number, list?: any) => void, context?: any): void;
 
         /**
          * Returns true if the value is present in the list.
@@ -531,7 +531,7 @@ declare module Marionette {
          * Calls the method named by methodName on each value in the collection. Any extra 
          * arguments passed to invoke will be forwarded on to the method invocation. 
          */
-        invoke(methodName: string, arguments?: any[]);
+        invoke(methodName: string, arguments?: any[]): any;
 
         /**
          * Returns true if the RegionManager contains no regions.
@@ -736,9 +736,9 @@ declare module Marionette {
          * extend from View you will need to invoke this method from your render 
          * method. In ItemView and CompositeView this is already taken care of.
          */
-        bindUIElements();
+        bindUIElements(): any;
 
-        unbindUIElements();
+        unbindUIElements(): any;
 
         triggerMethod(name, ...args: any[]): any;
 
@@ -748,36 +748,36 @@ declare module Marionette {
          * shown via a region. A common use case for the onShow method is to 
          * use it to add children views.
          */
-        onShow();
+        onShow(): void;
 
         /**
          * Triggered just after the view has been destroyed.
          */
-        onDestroy();
+        onDestroy(): void;
 
         /**
          * When destroying a view, an onBeforeDestroy method will be called, if 
          * it has been provided, just before the view destroys. It will be passed 
          * any arguments that destroy was invoked with.
          */
-        onBeforeDestroy(...args: any[]);
+        onBeforeDestroy(...args: any[]): void;
 
         /**
          * Called anytime that showing the view in a Region causes it to be 
          * attached to the document. 
          */
-        onAttach();
+        onAttach(): void;
 
         /**
          * Triggered right before the view is attached to the document.
          */
-        onBeforeAttach();
+        onBeforeAttach(): void;
 
         /**
          * Triggered after the view has been rendered, has been shown in the DOM via a Marionette.Region, and has been re-rendered. 
          * This event / callback is useful for DOM-dependent UI plugins such as jQueryUI or KendoUI.
          */
-        onDomRefresh();
+        onDomRefresh(): void;
     }
 
     /**
@@ -813,14 +813,14 @@ declare module Marionette {
         /**
          * Triggered before an ItemView is rendered.
          */
-        onBeforeRender();
+        onBeforeRender(): void;
 
         /**
          * Triggered after the view has been rendered. You can implement this in 
          * your view to provide custom code for dealing with the view's el after 
          * it has been rendered.
          */
-        onRender();
+        onRender(): void;
     }
 
 
@@ -921,7 +921,7 @@ declare module Marionette {
          */
         addChild(item: any, ChildView: Backbone.View<TModel>, index: Number): void;
 
-        renderChildView(view: Backbone.View<TModel>, index: Number);
+        renderChildView(view: Backbone.View<TModel>, index: Number): void;
 
         /**
          * When a custom view instance needs to be created for the childView that 
@@ -935,7 +935,7 @@ declare module Marionette {
          * Remove the child view and destroy it. This function also updates the indices of
          * later views in the collection in order to keep the children in sync with the collection.
          */
-        removeChildView(view: any);
+        removeChildView(view: any): void;
 
         /**
          * Determines if the view is empty. If you want to control when the empty 
@@ -1130,7 +1130,7 @@ declare module Marionette {
           * for customized region interactions and business specific
           * view logic for better control over single regions.
           */
-        getRegionManager();
+        getRegionManager(): any;
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {
@@ -1138,11 +1138,11 @@ declare module Marionette {
          * The appRoutes.
          */
         appRoutes?: any;
-        
+
         /**
          * The controller to associate with this router.
          */
-        controller?: any;        
+        controller?: any;
     }
 
     /**
@@ -1167,8 +1167,8 @@ declare module Marionette {
          * this method. However, In this case the current controller of AppRouter 
          * will not change.
          */
-        processAppRoutes(controller: any, appRoutes: any);
-        
+        processAppRoutes(controller: any, appRoutes: any): void;
+
         /**
          * Adds an app route at runtime to this instance. It works the same as the 
          * built-in router.route() call from Backbone's Router, but has all the 
@@ -1212,13 +1212,13 @@ declare module Marionette {
         submodules: any;
 
         /** Command execution, facilitated by Backbone.Wreqr.Commands */
-        execute(...args: any[]);
+        execute(...args: any[]): void;
 
         /** Request/response, facilitated by Backbone.Wreqr.RequestResponse */
-        request(...args: any[]);
+        request(...args: any[]): any;
 
         /** Deprecated! Initializers, you should use events to manage start-up logic. */
-        addInitializer(initializer);
+        addInitializer(initializer): void;
 
         /**
          * Once you have your application configured, you can kick everything off 
@@ -1228,18 +1228,18 @@ declare module Marionette {
         start(options?: any): void;
 
         /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        addRegions(regions);
+        addRegions(regions): any;
 
         /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         emptyRegions(): void;
 
         /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        removeRegion(region: Region);
+        removeRegion(region: Region): void;
 
         /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
         getRegion(regionName: string): Region;
 
-        module(moduleNames, moduleDefinition);
+        module(moduleNames: any, moduleDefinition: any): Module;
 
         /**
          * Called just before the Application starts and before the initializers are executed.
@@ -1262,9 +1262,8 @@ declare module Marionette {
 
         addInitializer(callback): void;
         addFinalizer(callback): void;
-        start(options?: any): void;
-        stopvoid;
-        addDefinition(moduleDefinition, customArgs);
+        start(options?: any): void;        
+        addDefinition(moduleDefinition: any, customArgs: any): any;
     }
 
     /**
