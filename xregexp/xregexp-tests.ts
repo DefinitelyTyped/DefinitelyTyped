@@ -10,6 +10,7 @@ var exp: RegExp;
 var expArr: RegExp[];
 var chain: RegExp[];
 var groupChain: { regex: RegExp; backref: string }[];
+var groupChain1: { regex: RegExp; backref: number }[];
 var regex: RegExp;
 var value: any;
 var str: string;
@@ -93,6 +94,7 @@ bool = XRegExp.isInstalled(str);
 bool = XRegExp.isRegExp(value);
 strArr = XRegExp.matchChain(str, chain);
 strArr = XRegExp.matchChain(str, groupChain);
+strArr = XRegExp.matchChain(str, groupChain1);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
