@@ -42,6 +42,7 @@ declare module ng.ui {
     interface IUrlMatcherFactory {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
+        type(name: string, definition: any, definitionFn?: any): any;
     }
 
     interface IUrlRouterProvider extends IServiceProvider {
