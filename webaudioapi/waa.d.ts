@@ -71,7 +71,7 @@ interface AudioContext {
      * @param  callback function which will be invoked when the decoding is finished. The single argument to this callback is an AudioBuffer representing the decoded PCM audio data.
      * @param callback function which will be invoked if there is an error decoding the audio file data.
      */
-    decodeAudioData(audioData: ArrayBuffer,  successCallback: any, errorCallback?: any): void;
+    decodeAudioData(audioData: ArrayBuffer, successCallback?: (decodedData: AudioBuffer) => any, errorCallback?: (error: DOMException) => any): void;
 
     /**
      * Creates an AudioBufferSourceNode.
@@ -166,7 +166,7 @@ interface AudioContext {
      * @param real an array of cosine terms (traditionally the A terms). In audio terminology, the first element (index 0) is the DC-offset of the periodic waveform and is usually set to zero. The second element (index 1) represents the fundamental frequency. The third element represents the first overtone, and so on.
      * @param imag an array of sine terms (traditionally the B terms). The first element (index 0) should be set to zero (and will be ignored) since this term does not exist in the Fourier series. The second element (index 1) represents the fundamental frequency. The third element represents the first overtone, and so on.
      */
-    createWaveTable(real: any, imag: any): WaveTable;
+    createWaveTable(real: Float32Array, imag: Float32Array): WaveTable;
 }
 
 declare var AudioContext: {
@@ -821,19 +821,25 @@ interface AnalyserNode extends AudioNode {
      * Copies the current frequency data into the passed floating-point array. If the array has fewer elements than the frequencyBinCount, the excess elements will be dropped.
      * @param array where frequency-domain analysis data will be copied.
      */
-    getFloatFrequencyData(array: any): void;
+    getFloatFrequencyData(array: Float32Array): void;
 
     /**
      * Copies the current frequency data into the passed unsigned byte array. If the array has fewer elements than the frequencyBinCount, the excess elements will be dropped.
-     * @param Tarray where frequency-domain analysis data will be copied.
+     * @param array where frequency-domain analysis data will be copied.
      */
-    getByteFrequencyData(array: any): void;
+    getByteFrequencyData(array: Uint8Array): void;
 
     /**
-     * Copies the current time-domain (waveform) data into the passed unsigned byte array. If the array has fewer elements than the frequencyBinCount, the excess elements will be dropped.
-     * @param array where time-domain analysis data will be copied.
+     * Copies the current time-domain (waveform) data into the passed floating-point array. If the array has fewer elements than the value of fftSize, the excess elements will be dropped. If the array has more elements than fftSize, the excess elements will be ignored.
+     * @param array where the time-domain sample data will be copied.
      */
-    getByteTimeDomainData(array: any): void;
+    getFloatTimeDomainData(array: Float32Array): void;
+
+    /**
+     * Copies the current time-domain (waveform) data into the passed unsigned byte array. If the array has fewer elements than the frequencyBinCount, the excess elements will be dropped. If the array has more elements than fftSize, the excess elements will be ignored.
+     * @param array where the time-domain sample data will be copied.
+     */
+    getByteTimeDomainData(array: Uint8Array): void;
 
     /**
      * The size of the FFT used for frequency-domain analysis. This must be a power of two.
@@ -1050,7 +1056,7 @@ interface BiquadFilterNode extends AudioNode {
      * @param magResponse an output array receiving the linear magnitude response values.
      * @param phaseResponse an output array receiving the phase response values in radians.
      */
-    getFrequencyResponse(frequencyHz: any, magResponse: any, phaseResponse: any): void;
+    getFrequencyResponse(frequencyHz: Float32Array, magResponse: Float32Array, phaseResponse: Float32Array): void;
 }
 
 /**
