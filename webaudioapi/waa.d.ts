@@ -3,6 +3,8 @@
 // Definitions by: Baruch Berger <https://github.com/bbss>, Kon <http://phyzkit.net/>, kubosho <https://github.com/kubosho>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../webrtc/MediaStream.d.ts' />
+
 /**
  * This interface represents a set of AudioNode objects and their connections. It allows for arbitrary routing of signals to the AudioDestinationNode (what the user ultimately hears). Nodes are created from the context and are then connected together. In most use cases, only a single AudioContext is used per document. An AudioContext is constructed as follows:
  *
@@ -84,7 +86,7 @@ interface AudioContext {
     /**
      * Creates a MediaStreamAudioSourceNode given a MediaStream. As a consequence of calling this method, audio playback from the MediaStream will be re-routed into the processing graph of the AudioContext.
      */    
-    createMediaStreamSource(mediaStream: any): MediaStreamAudioSourceNode;
+    createMediaStreamSource(mediaStream: MediaStream): MediaStreamAudioSourceNode;
 
     /**
      * Creates a MediaStreamAudioDestinationNode.
@@ -164,7 +166,7 @@ interface AudioContext {
      * @param real an array of cosine terms (traditionally the A terms). In audio terminology, the first element (index 0) is the DC-offset of the periodic waveform and is usually set to zero. The second element (index 1) represents the fundamental frequency. The third element represents the first overtone, and so on.
      * @param imag an array of sine terms (traditionally the B terms). The first element (index 0) should be set to zero (and will be ignored) since this term does not exist in the Fourier series. The second element (index 1) represents the fundamental frequency. The third element represents the first overtone, and so on.
      */
-    createWaveTable(real: any,imag: any): WaveTable;
+    createWaveTable(real: any, imag: any): WaveTable;
 }
 
 declare var AudioContext: {
@@ -1159,5 +1161,5 @@ interface MediaStreamAudioSourceNode extends AudioSourceNode {
  *    channelInterpretation = "speakers";
  */
 interface MediaStreamAudioDestinationNode extends AudioNode {
-  stream: any;
+  stream: MediaStream;
 }
