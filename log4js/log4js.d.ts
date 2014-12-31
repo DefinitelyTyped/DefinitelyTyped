@@ -99,6 +99,14 @@ declare module "log4js" {
     setLevel(level: string): void;
     setLevel(level: Level): void;
 
+    isLevelEnabled(level: Level): boolean;
+    isTraceEnabled(): boolean;
+    isDebugEnabled(): boolean;
+    isInfoEnabled(): boolean;
+    isWarnEnabled(): boolean;
+    isErrorEnabled(): boolean;
+    isFatalEnabled(): boolean;
+
     trace(message: string, ...args: any[]): void;
     debug(message: string, ...args: any[]): void;
     info(message: string, ...args: any[]): void;
