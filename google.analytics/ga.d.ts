@@ -40,6 +40,7 @@ declare module UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 
     interface ga {
+        (callback: (tracker: {}) => void): void;
         (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
         (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         (command: string, hitDetails: {}): void;
