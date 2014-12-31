@@ -55,6 +55,18 @@ server.methods.sumObj([5, 6], (err: any, result: any) => {
 	console.log(result);
 });
 
+// auth scheme + strategy
+var scheme = function (server: Hapi.Server, options: any) {
+	return {
+		authenticate: function (request: Hapi.Request, reply: any) {
+			return reply.continue();
+		}
+	};
+};
+
+server.auth.scheme('schemeName', scheme);
+server.auth.strategy('default', 'schemeName');
+
 // Add the route
 server.route({
 	method: 'GET',
