@@ -3,6 +3,8 @@
 // Definitions by: Panu Horsmalahti
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare module ProtoBuf {
 	export interface IBuilder {
 		build: <T>() => T;
