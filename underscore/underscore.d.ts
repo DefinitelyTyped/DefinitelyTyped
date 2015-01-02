@@ -2737,7 +2737,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.last
 	**/
-	last(): _Chain<T>;
+	last(): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
