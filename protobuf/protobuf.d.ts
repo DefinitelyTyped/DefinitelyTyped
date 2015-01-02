@@ -1,6 +1,6 @@
 // Type definitions for ProtoBuf.js
 // Project: https://github.com/dcodeIO/ProtoBuf.js
-// Definitions by: Panu Horsmalahti
+// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
