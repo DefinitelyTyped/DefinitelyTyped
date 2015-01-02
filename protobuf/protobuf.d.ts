@@ -4,11 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module ProtoBuf {
-	interface IBuilder {
+	export interface IBuilder {
 		build: <T>() => T;
 	}
 
-	interface IProtoBufMessage {
+	export interface IProtoBufMessage {
 	    toArrayBuffer(): ArrayBuffer;
 	    toBuffer(): Buffer;
 	}
