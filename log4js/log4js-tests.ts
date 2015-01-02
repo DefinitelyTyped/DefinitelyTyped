@@ -8,6 +8,21 @@ log4js.addAppender(log4js.appenders.file('logs/cheese.log'), 'cheese');
 var logger = log4js.getLogger('cheese');
 logger.setLevel('ERROR');
 
+if (logger.isLevelEnabled(log4js.levels.DEBUG))
+  logger.info('DEBUG is enabled');
+if (logger.isTraceEnabled())
+  logger.info('TRACE is enabled');
+if (logger.isDebugEnabled())
+  logger.info('DEBUG is enabled');
+if (logger.isInfoEnabled())
+  logger.info('INFO is enabled');
+if (logger.isWarnEnabled())
+  logger.info('WARN is enabled');
+if (logger.isErrorEnabled())
+  logger.info('ERROR is enabled');
+if (logger.isFatalEnabled())
+  logger.info('FATAL is enabled');
+
 logger.trace('Entering cheese testing');
 logger.debug('Got cheese.');
 logger.info('Cheese is Gouda.');
