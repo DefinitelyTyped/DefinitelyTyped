@@ -1,5 +1,4 @@
 /// <reference path="protobuf.d.ts" />
-/// <reference path="../node/node.d.ts" />
 
 import ProtoBuf = require("protobufjs");
 
