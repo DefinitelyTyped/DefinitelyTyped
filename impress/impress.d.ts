@@ -12,4 +12,4 @@ interface Impress {
     next(): any;
 }
 
-declare function impress(): Impress;
+declare function impress(id?: string): Impress;

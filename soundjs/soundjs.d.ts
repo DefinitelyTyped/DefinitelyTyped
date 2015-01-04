@@ -182,7 +182,7 @@ declare module createjs {
         static registerSound(src: Object, id?: string, data?: Object, basePath?: string): Object;
         static removeAllSounds(): void;
         static removeManifest(manifest: any[], basePath: string): Object;
-        static removeSound(src: string, basePath: string): boolean;
+        static removeSound(src: string, basePath?: string): boolean;
         static removeSound(src: Object, basePath: string): boolean;
         static setMute(value: boolean): boolean;
         static setVolume(value: number): void;
