@@ -3,20 +3,20 @@
 // Definitions by: Timothy Morris <https://github.com/dcrusader>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface di {
+interface DiLite {
     version: string;
-    createContext(): CreateContext;
+    createContext(): DiCreateContext;
     dependencyExpression(depExp: string): string;
-    entry(name: string, ctx: CreateContext);
-    strategy: Strategy;
-    factory: Factory;
-    utils: Utils;
+    entry(name: string, ctx: DiCreateContext);
+    strategy: DiStrategy;
+    factory: DiFactory;
+    utils: DiUtils;
 }
 
-interface CreateContext {
+interface DiCreateContext {
     map: Object;
     entry(name: string): Object;
-    register(name: string, service: any): CreateContext;
+    register(name: string, service: any): DiEntry;
     has(name: string): boolean;
     "get"(name: string): any;
     create(name: string, args: any)
@@ -27,32 +27,32 @@ interface CreateContext {
     ready(o: Object): Object;
 }
 
-interface Entry {
-    create(newArgs: any): Entry;
+interface DiEntry {
+    create(newArgs: any): DiEntry;
     object(): Object;
-    object(o: Object): Entry;
-    strategy(s: Function): Entry;
-    type(t: any): Entry;
-    dependencies(d: string): Entry;
-    args(a: any): Entry;
-    factory(f: Function): Entry;
+    object(o: Object): DiEntry;
+    strategy(s: Function): DiEntry;
+    type(t: any): DiEntry;
+    dependencies(d: string): DiEntry;
+    args(a: any): DiEntry;
+    factory(f: Function): DiEntry;
 }
 
-interface Strategy {
-    proto(name: string, object: Object, type: any, args: any, ctx: CreateContext, dependencies: string): Object;
-    singleton(name: string, object: Object, type: any, args: any, ctx?: CreateContext, dependencies?: string): Object;
+interface DiStrategy {
+    proto(name: string, object: Object, type: any, args: any, ctx: DiCreateContext, dependencies: string): Object;
+    singleton(name: string, object: Object, type: any, args: any, ctx?: DiCreateContext, dependencies?: string): Object;
 }
 
-interface Factory {
+interface DiFactory {
     "constructor"(type: any, args: any): Object;
     func(type: any, args: any): any;
 }
 
-interface Utils {
+interface DiUtils {
     invokeStmt(args: any, op: string): string;
 }
 
-declare var di: di;
-declare module "di" {
+declare module "di-lite" {
     export = di;
 }
+declare var di: DiLite;
