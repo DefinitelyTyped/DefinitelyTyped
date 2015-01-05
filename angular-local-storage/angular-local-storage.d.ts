@@ -75,7 +75,7 @@ declare module ng.local.storage {
 
   }
 
-  interface ILocalStorageService {
+  interface ILocalStorageService<T> {
     /**
      * Checks if the browser support the current storage type(e.g: localStorage, sessionStorage).
      * Returns: Boolean
@@ -99,7 +99,7 @@ declare module ng.local.storage {
      * Returns: value from local storage
      * @param key
      */
-    get(key: string): string;
+    get(key: string): T;
     /**
      * Return array of keys for local storage, ignore keys that not owned.
      * Returns: value from local storage
