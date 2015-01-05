@@ -1,6 +1,7 @@
 /// <reference path="restify.d.ts" />
 
 import restify = require("restify");
+import bunyan = require("bunyan");
 
 var server = restify.createServer({
   formatters: {
@@ -20,7 +21,7 @@ server = restify.createServer({
     certificate: "test",
     key: "test",
     formatters: {},
-    log: {},
+    log: bunyan.createLogger({ name: 'test' }),
     name: "test",
     spdy: {},
     version: "",
@@ -37,34 +38,32 @@ server.use((req, res, next)=>{});
 server.use([(req, res, next)=>{}]);
 server.use((req, res, next)=>{}, (req, res, next)=>{});
 
-function send(req, res, next) {
-    req.header('key', 'val');
+function send(req: restify.Request, res: restify.Response, next: restify.Next) {
+    req.header('key', 'val') === 'val';
     req.header('key') === 'val';
-    
+
     req.accepts('test') === true;
     req.is('test') === true;
 
-    req.getLogger('test');
+    req.log.debug({ params: req.params }, 'Hello there %s', 'foo');
 
-    var log = req.log;
-    log.debug({params: req.params}, 'Hello there %s', 'foo');
-
-    req.contentLength === 50;
-    req.contentType === 'test';
+    req.contentLength() === 50;
+    req.contentType() === 'test';
     req.href() === 'test';
-    req.id === 'test';
+    req.id() === 'test';
     req.path() === 'test';
-    req.query === 'test';
-    req.secure === true;
-    req.time === 50;
-    req.params;
+    req.query() === 'test';
+    req.isSecure() === true;
+    req.time() === 50;
 
     res.header('test');
-    res.header('test', {});
+    res.header('test', '%s-val', 'other');
     res.header('test', new Date());
 
     res.cache();
     res.cache('testst', {});
+    res.cache('testst', { maxAge: 2 });
+    res.cache({ maxAge: 2 });
 
     res.status(344);
 
@@ -75,14 +74,9 @@ function send(req, res, next) {
     res.json(201, {hello: 'world'});
     res.json({hello: 'world'});
 
-    res.code === 50;
-    res.contentLength === 50;
-    res.charSet === 'test';
-    res.contentType === 'test';
-    res.headers;
-    res.id === 'test';
+    res.statusCode === 50;
 
-    res.send('hello ' + req.params.name);
+    res.send('hello ' + req.params['name']);
     return next();
 }
 
@@ -119,7 +113,7 @@ new restify.WrongAcceptError("message");
 
 server.name = "";
 server.version = "";
-server.log = {};
+server.log = bunyan.createLogger({ name: 'test' });
 server.acceptable = ["test"];
 server.url = "";
 
@@ -180,11 +174,11 @@ client = restify.createStringClient({
     version: ""
 });
 
-client.get("test", send);
-client.head('test', send);
-client.post('path', {}, send);
-client.put('path', {}, send);
-client.del('path', send);
+client.get("test", (err, req, res, obj) => send(req, res, null));
+client.head('test', (err, req, res) => send(req, res, null));
+client.post('path', {}, (err, req, res, obj) => send(req, res, null));
+client.put('path', {}, (err, req, res, obj) => send(req, res, null));
+client.del('path', (err, req, res) => send(req, res, null));
 
 client.post('/foo', { hello: 'world' }, function(err, req, res, obj) {
     console.log('%d -> %j', res.statusCode, res.headers);
