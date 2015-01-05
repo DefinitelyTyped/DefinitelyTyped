@@ -438,7 +438,7 @@ declare module "express" {
              * 
              * @param code
              */
-            sendStatus(code: number): Send;
+            sendStatus(code: number): Response;
             
             /**
              * Set Link header field with the given `links`.
