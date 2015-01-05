@@ -92,7 +92,7 @@ declare module ng.local.storage {
      * @param key
      * @param value
      */
-    set(key: string, value: string): boolean;
+    set(key: string, value: T): boolean;
     /**
      * Directly get a value from local storage.
      * If local storage is not supported, use cookies instead.
