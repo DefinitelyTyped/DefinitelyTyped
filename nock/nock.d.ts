@@ -22,11 +22,26 @@ declare module "nock" {
 
 		export interface Scope {
 			get(path: string, data?: string): Scope;
+
 			post(path: string, data?: string): Scope;
+			post(path: string, data?: Object): Scope;
+
+			patch(path: string, data?: string): Scope;
+			patch(path: string, data?: Object): Scope;
+
 			put(path: string, data?: string): Scope;
+			put(path: string, data?: Object): Scope;
+
 			head(path: string): Scope;
+
 			delete(path: string, data?: string): Scope;
+			delete(path: string, data?: Object): Scope;
+
+			merge(path: string, data?: string): Scope;
+			merge(path: string, data?: Object): Scope;
+
 			intercept(path: string, verb: string, body?: string, options?: any): Scope;
+			intercept(path: string, verb: string, body?: Object, options?: any): Scope;
 
 			reply(responseCode: number, body?: string, headers?: Object): Scope;
 			reply(responseCode: number, body?: Object, headers?: Object): Scope;
@@ -44,18 +59,29 @@ declare module "nock" {
 			persist(): Scope;
 			log(out: () => void): Scope;
 
+			delay(timeMs: number): Scope;
+			delayConnection(timeMs: number): Scope;
+
 			done(): void;
 			isDone(): boolean;
 			restore(): void;
+			pendingMocks(): Object[];
 		}
 
 		export interface Recorder {
 			rec(capture?: boolean): void;
-			play(): string[];
+			rec(options?: RecorderOptions): void;
+			play(): any[];
 		}
 
 		export interface Options {
 			allowUnmocked?: boolean;
+		}
+
+		export interface RecorderOptions {
+			dont_print?: boolean;
+			output_objects?: boolean;
+			enable_reqheaders_recording?: boolean;
 		}
 	}
 }
