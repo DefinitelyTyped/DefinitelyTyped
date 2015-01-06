@@ -4,7 +4,7 @@ interface Dependency {
     dependencies?: string;
 }
 
-function doTest(test: (ctx, ...obj: Dependency[]) => void) {
+function doTest(test: (ctx: any, ...obj: Dependency[]) => void) {
     // create di context
     var ctx = di.createContext(),
         A: Dependency = () => {
