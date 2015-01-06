@@ -16,7 +16,7 @@ interface DiLite {
 interface DiCreateContext {
     map: Object;
     entry(name: string): Object;
-    register(name: string, service: any): DiEntry;
+    register(name: string, type?: any, args?: any): DiEntry;
     has(name: string): boolean;
     "get"(name: string): any;
     create(name: string, args: any)
