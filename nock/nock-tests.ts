@@ -23,28 +23,35 @@ inst = inst.get(str, data);
 inst = inst.patch(str);
 inst = inst.patch(str, str);
 inst = inst.patch(str, obj);
+inst = inst.patch(str, regex);
 
 inst = inst.post(str);
 inst = inst.post(str, data);
 inst = inst.post(str, obj);
+inst = inst.post(str, regex);
 
 inst = inst.put(str);
 inst = inst.put(str, data);
 inst = inst.put(str, obj);
+inst = inst.put(str, regex);
 
 inst = inst.delete(str);
 inst = inst.delete(str, data);
 inst = inst.delete(str, obj);
+inst = inst.delete(str, regex);
 
 inst = inst.merge(str);
 inst = inst.merge(str, data);
 inst = inst.merge(str, obj);
+inst = inst.merge(str, regex);
 
 inst = inst.intercept(str, str);
 inst = inst.intercept(str, str, str);
 inst = inst.intercept(str, str, obj);
+inst = inst.intercept(str, str, regex);
 inst = inst.intercept(str, str, str, value);
-inst = inst.intercept(str, str, obj, str);
+inst = inst.intercept(str, str, obj, value);
+inst = inst.intercept(str, str, regex, value);
 
 inst = inst.reply(num);
 inst = inst.reply(num, str);
@@ -58,6 +65,11 @@ inst = inst.reply(num, (uri: string, body: string) => {
 	return str;
 }, headers);
 inst = inst.replyWithFile(num, str);
+
+inst = inst.times(4);
+inst = inst.once();
+inst = inst.twice();
+inst = inst.thrice();
 
 inst = inst.defaultReplyHeaders(value);
 inst = inst.matchHeader(str, str);
