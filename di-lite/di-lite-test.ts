@@ -1,8 +1,10 @@
+/// <reference path="di-lite.d.ts" />
+
 interface Dependency {
     dependencies?: string;
 }
 
-function doTest(test: (ctx: DiCreateContext, ...obj: Dependency[]) => void) {
+function doTest(test: (ctx, ...obj: Dependency[]) => void) {
     // create di context
     var ctx = di.createContext(),
         A: Dependency = () => {
@@ -92,11 +94,11 @@ module CyclicalDependency {
 
 module FunctionalObject {
     doTest(ctx => {
-        var FuncObject = spec => {
+        var FuncObject = (spec: any) => {
                 var that = {};
                 return that;
             },
-            spec = [];
+            spec: any = [];
 
         ctx.register("funcObjSingleton", FuncObject, spec).factory(di.factory.func);
 
