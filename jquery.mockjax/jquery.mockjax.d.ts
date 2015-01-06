@@ -26,11 +26,13 @@ interface MockJaxSettings {
 
 interface MockJaxStatic {
     (options: MockJaxSettings): number;
-    mockedAjaxCalls(): any; // TODO: any?
-    unfiredHandlers(): any; // TODO: any?
+    clear(id?: number): void;
+    handler(id?: number): any;
+    mockedAjaxCalls(): any[];
+    unfiredHandlers(): any[];
+    unmockedAjaxCalls(): any[];
 }
 
 interface JQueryStatic {
     mockjax: MockJaxStatic;
-    mockjaxClear(id?: number): any;
 }
