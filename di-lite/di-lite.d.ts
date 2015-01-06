@@ -7,7 +7,7 @@ interface DiLite {
     version: string;
     createContext(): DiCreateContext;
     dependencyExpression(depExp: string): string;
-    entry(name: string, ctx: DiCreateContext);
+    entry(name: string, ctx: DiCreateContext): DiEntry;
     strategy: DiStrategy;
     factory: DiFactory;
     utils: DiUtils;
@@ -19,7 +19,7 @@ interface DiCreateContext {
     register(name: string, type?: any, args?: any): DiEntry;
     has(name: string): boolean;
     "get"(name: string): any;
-    create(name: string, args: any)
+    create(name: string, args: any): any;
     initialize(): void;
     clear(): void;
     inject(name: string, o: Object, dependencies: string): Object;
