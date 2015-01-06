@@ -3243,6 +3243,25 @@ interface _Chain<T> {
 	**/
 	template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
 
+	/************* *
+	 * Array proxy *
+	************** */
+	
+	concat(...arr: Array<T>): _Chain<T>;
+	indexOf(item: T): _Chain<T>;
+	join(separator?: any): _Chain<T>;
+	lastIndexOf(item: T): _Chain<T>;
+	pop(): _Chain<T>;
+	push(...item: Array<T>): _Chain<T>;
+	reverse(): _Chain<T>;
+	shift(): _Chain<T>;
+	slice(start: number, end?: number): _Chain<T>;
+	sort(compareFn: (a: T, b: T) => boolean): _Chain<T>;
+	splice(index: number, quantity: number, ...item: Array<T>): _Chain<T>;
+	toString(): _Chain<T>;
+	unshift(...item: Array<T>): _Chain<T>;
+	valueOf(): _Chain<T>;
+
 	/********** *
 	 * Chaining *
 	*********** */
