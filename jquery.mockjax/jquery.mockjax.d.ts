@@ -1,3 +1,10 @@
+// Type definitions for jQuery Mockjax 1.5
+// Project: https://github.com/jakerella/jquery-mockjax
+// Definitions by: https://github.com/laszlojakab
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+///<reference path="../jquery/jquery.d.ts" />
+
 interface MockJaxSettings {
     url?: string;
     data?: any;
