@@ -10,7 +10,7 @@ import path = require('path');
 import should = require('should');
 import Stream = require('stream');
 import through = require('through2');
-var es = require('event-stream');
+var es = require<any>('event-stream'); // TODO: reference event-stream.d.ts and use import
 
 // ReSharper disable WrongExpressionStatement
 describe('File()', () => {
@@ -219,7 +219,7 @@ describe('template()', () => {
 	//});
 
 	it('should ignore modified templateSettings', done => {
-		var templateSettings = require('lodash.templatesettings');
+		var templateSettings = require<any>('lodash.templatesettings');
 		templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
 		var opt = {
