@@ -2,6 +2,8 @@
 // Project: http://www.w3.org/TR/webaudio/
 // Definitions by: Baruch Berger <https://github.com/bbss>, Kon <http://phyzkit.net/>, kubosho <https://github.com/kubosho>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+//
+// This file refers to the latest published working draft (currently from 10 october 2013) http://www.w3.org/TR/2013/WD-webaudio-20131010/, not to be confused with the latest editor's draft http://webaudio.github.io/web-audio-api/
 
 /// <reference path='../webrtc/MediaStream.d.ts' />
 
@@ -71,7 +73,7 @@ interface AudioContext {
      * @param  callback function which will be invoked when the decoding is finished. The single argument to this callback is an AudioBuffer representing the decoded PCM audio data.
      * @param callback function which will be invoked if there is an error decoding the audio file data.
      */
-    decodeAudioData(audioData: ArrayBuffer, successCallback?: (decodedData: AudioBuffer) => any, errorCallback?: (error: DOMException) => any): void;
+    decodeAudioData(audioData: ArrayBuffer, successCallback: (decodedData: AudioBuffer) => any, errorCallback?: Function): void;
 
     /**
      * Creates an AudioBufferSourceNode.
@@ -162,11 +164,12 @@ interface AudioContext {
     createOscillator(): OscillatorNode;
 
     /**
-     * Creates a WaveTable representing a waveform containing arbitrary harmonic content. The real and imag parameters must be of type Float32Array of equal lengths greater than zero and less than or equal to 4096 or an exception will be thrown. These parameters specify the Fourier coefficients of a Fourier series representing the partials of a periodic waveform. The created WaveTable will be used with an OscillatorNode and will represent a normalized time-domain waveform having maximum absolute peak value of 1. Another way of saying this is that the generated waveform of an OscillatorNode will have maximum peak value at 0dBFS. Conveniently, this corresponds to the full-range of the signal values used by the Web Audio API. Because the WaveTable will be normalized on creation, the real and imag parameters represent relative values.
+     * Creates a PeriodicWave representing a waveform containing arbitrary harmonic content. The real and imag parameters must be of type Float32Array (described in [TYPED-ARRAYS]) of equal lengths greater than zero and less than or equal to 4096 or an IndexSizeError exception must be thrown. These parameters specify the Fourier coefficients of a Fourier series representing the partials of a periodic waveform. The created PeriodicWave will be used with an OscillatorNode and will represent a normalized time-domain waveform having maximum absolute peak value of 1. Another way of saying this is that the generated waveform of an OscillatorNode will have maximum peak value at 0dBFS. Conveniently, this corresponds to the full-range of the signal values used by the Web Audio API. Because the PeriodicWave will be normalized on creation, the real and imag parameters represent relative values.
+     * As PeriodicWave objects maintain their own representation, any modification of the arrays uses as the real and imag parameters after the call to createPeriodicWave() will have no effect on the PeriodicWave object.
      * @param real an array of cosine terms (traditionally the A terms). In audio terminology, the first element (index 0) is the DC-offset of the periodic waveform and is usually set to zero. The second element (index 1) represents the fundamental frequency. The third element represents the first overtone, and so on.
      * @param imag an array of sine terms (traditionally the B terms). The first element (index 0) should be set to zero (and will be ignored) since this term does not exist in the Fourier series. The second element (index 1) represents the fundamental frequency. The third element represents the first overtone, and so on.
      */
-    createWaveTable(real: Float32Array, imag: Float32Array): WaveTable;
+    createPeriodicWave(real: Float32Array, imag: Float32Array): PeriodicWave;
 }
 
 declare var AudioContext: {
@@ -830,12 +833,6 @@ interface AnalyserNode extends AudioNode {
     getByteFrequencyData(array: Uint8Array): void;
 
     /**
-     * Copies the current time-domain (waveform) data into the passed floating-point array. If the array has fewer elements than the value of fftSize, the excess elements will be dropped. If the array has more elements than fftSize, the excess elements will be ignored.
-     * @param array where the time-domain sample data will be copied.
-     */
-    getFloatTimeDomainData(array: Float32Array): void;
-
-    /**
      * Copies the current time-domain (waveform) data into the passed unsigned byte array. If the array has fewer elements than the frequencyBinCount, the excess elements will be dropped. If the array has more elements than fftSize, the excess elements will be ignored.
      * @param array where the time-domain sample data will be copied.
      */
@@ -1083,7 +1080,7 @@ declare enum OscillatorType {
 }
 
 /**
- * OscillatorNode represents an audio source generating a periodic waveform. It can be set to a few commonly used waveforms. Additionally, it can be set to an arbitrary periodic waveform through the use of a WaveTable object.
+ * OscillatorNode represents an audio source generating a periodic waveform. It can be set to a few commonly used waveforms. Additionally, it can be set to an arbitrary periodic waveform through the use of a PeriodicWave object.
  *
  * Oscillators are common foundational building blocks in audio synthesis. An OscillatorNode will start emitting sound at the time specified by the start() method.
  *
@@ -1104,7 +1101,7 @@ declare enum OscillatorType {
  */
 interface OscillatorNode extends AudioSourceNode {
     /**
-     * The shape of the periodic waveform. It may directly be set to any of the type constant values except for "custom". The setWaveTable() method can be used to set a custom waveform, which results in this attribute being set to "custom". The default value is "sine".
+     * The shape of the periodic waveform. It may directly be set to any of the type constant values except for "custom". The setPeriodicWave() method can be used to set a custom waveform, which results in this attribute being set to "custom". The default value is "sine".
      */
     type: OscillatorType;
 
@@ -1136,15 +1133,15 @@ interface OscillatorNode extends AudioSourceNode {
     stop(when: number): void;
 
     /**
-     * Sets an arbitrary custom periodic waveform given a WaveTable.
+     * Sets an arbitrary custom periodic waveform given a PeriodicWave.
      */
-    setWaveTable(waveTable: WaveTable): void;
+    setPeriodicWave(periodicWave: PeriodicWave): void;
 }
 
 /**
- * WaveTable represents an arbitrary periodic waveform to be used with an OscillatorNode. Please see createWaveTable() and setWaveTable() and for more details.
+ * PeriodicWave represents an arbitrary periodic waveform to be used with an OscillatorNode. Please see createPeriodicWave() and setPeriodicWave() and for more details.
  */
-interface WaveTable {
+interface PeriodicWave {
 }
 
 /**
