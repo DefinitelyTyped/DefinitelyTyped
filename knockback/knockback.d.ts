@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+/// <reference path="../backbone/backbone.d.ts" />a
 /// <reference path="../knockout/knockout.d.ts" />
 
 declare module Knockback {
@@ -163,6 +163,8 @@ declare module Knockback {
     }
 
     interface Static extends Utils {
+    	ViewModel;
+    	CollectionObservable;
         collectionObservable(model?: Backbone.Collection<Backbone.Model>, options?: CollectionOptions): CollectionObservable;
     	/** Base class for observing model attributes. */
     	observable(
