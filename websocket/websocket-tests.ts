@@ -48,7 +48,7 @@ import http = require('http');
 }
 
 {
-    var WebSocketClient = require('websocket').client;
+    var WebSocketClient = require<any>('websocket').client;
     var client = new WebSocketClient();
 
     client.on('connectFailed', (error: Error) => {
