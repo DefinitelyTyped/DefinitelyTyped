@@ -2218,6 +2218,7 @@ declare module Em {
     **/
     var $: typeof Ember.$;
     var A: typeof Ember.A;
+    class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
     class Application extends Ember.Application { }
     class Array extends Ember.Array { }
     class ArrayController extends Ember.ArrayController { }
