@@ -1,6 +1,6 @@
 /// <reference path="mongoose.d.ts" />
 
-var fs = require('fs');
+import fs = require('fs');
 import mongoose = require('mongoose');
 
 var createInstance = new mongoose.Mongoose();
