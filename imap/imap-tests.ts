@@ -9,8 +9,10 @@
 
 
 import Imap     = require('imap');
+import fs       = require('fs');
 import util     = require('util');
 import inspect  = util.inspect;
+
 
 var imap = new Imap({
     user: 'mygmailname@gmail.com',
@@ -119,8 +121,6 @@ openInbox(function(err : Error, box : IMAP.Box) {
 
 
 // using the functions and variables already defined in the first example ...
-
-var fs = require('fs');
 
 openInbox(function(err : Error, box : IMAP.Box) {
     if (err) throw err;
