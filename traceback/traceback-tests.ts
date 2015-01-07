@@ -24,6 +24,6 @@ function testTraceback() {
 
 	var traceback: Traceback[] = TracebackStaticClass();
 
-	var TBReq: TracebackStatic = require('traceback');
+	var TBReq = require<TracebackStatic>('traceback');
 	var traceback: Traceback[] = TBReq();
 }
