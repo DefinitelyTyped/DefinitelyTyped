@@ -2,6 +2,7 @@
 /// <reference path="jake.d.ts" />
 
 import path = require("path");
+import assert = require('assert');
 
 desc('This is the default task.');
 task('default', function (params) {
@@ -234,8 +235,7 @@ var t = new jake.TestTask('fonebone', function () {
   this.testName = 'testMainAndAdapters';
 });
 
-var assert = require('assert')
-  , tests;
+var tests;
 
 tests = {
   'sync test': function () {
