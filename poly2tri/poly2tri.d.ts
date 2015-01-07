@@ -49,13 +49,13 @@ declare module poly2tri {
 
         static mul(s: number, p: IPointLike): Point;
 
-        static cross(a: number, b: number);
+        static cross(a: number, b: number): number;
 
-        static cross(a: IPointLike, b: number);
+        static cross(a: IPointLike, b: number): number;
 
-        static cross(a: IPointLike, b: IPointLike);
+        static cross(a: IPointLike, b: IPointLike): number;
 
-        static cross(a: number, b: IPointLike);
+        static cross(a: number, b: IPointLike): number;
 
         static toStringBase(p: IPointLike): string;
 
