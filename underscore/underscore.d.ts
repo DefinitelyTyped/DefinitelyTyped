@@ -3271,9 +3271,9 @@ interface _Chain<T> {
 	/**
 	* Adds one or more elements to the end of an array and returns the new length of the array.
 	* @param item The elements to add to the end of the array.
-	* @return The new length property of the object upon which the method was called.
+	* @return The array with the element added to the end.
 	**/
-	push(...item: Array<T>): _ChainSingle<T>;
+	push(...item: Array<T>): _Chain<T>;
 
 	/**
 	* Reverses an array in place. The first array element becomes the last and the last becomes the first.
@@ -3320,9 +3320,9 @@ interface _Chain<T> {
 	/**
 	* Adds one or more elements to the beginning of an array and returns the new length of the array.
 	* @param items The elements to add to the front of the array.
-	* @return The new length property of the object upon which the method was called.
+	* @return The array with the element added to the beginning.
 	**/
-	unshift(...items: Array<T>): _ChainSingle<T>;
+	unshift(...items: Array<T>): _Chain<T>;
 
 	/********** *
 	 * Chaining *
