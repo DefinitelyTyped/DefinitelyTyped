@@ -28,7 +28,7 @@ declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]
 declare function clearImmediate(immediateId: any): void;
 
 declare var require: {
-    (id: string): any;
+    <TModule>(id: string): TModule;
     resolve(id:string): string;
     cache: any;
     extensions: any;
