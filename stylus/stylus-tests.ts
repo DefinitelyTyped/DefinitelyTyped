@@ -42,7 +42,7 @@ stylus(str)
  * https://github.com/LearnBoost/stylus/blob/master/docs/js.md#includepath
  */
 stylus(str)
-    .include(require('nib').path)
+    .include(require<any>('nib').path) // TODO: use import
     .include(process.env.HOME + '/mixins')
     .render(function (err, css) {
         // logic

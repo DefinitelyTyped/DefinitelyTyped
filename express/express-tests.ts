@@ -3,8 +3,8 @@
 import express = require('express');
 var app = express();
 
-app.engine('jade', require('jade').__express);
-app.engine('html', require('ejs').renderFile);
+app.engine('jade', require<any>('jade').__express);  // TODO: use import for jade and ejs
+app.engine('html', require<any>('ejs').renderFile);
 
 app.use('/static', express.static(__dirname + '/public'));
 

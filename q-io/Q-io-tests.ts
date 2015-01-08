@@ -1,8 +1,8 @@
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="Q-io.d.ts" />
 
-var fs:typeof QioFS = require('q-io/fs');
-var http:typeof QioHTTP = require('q-io/http');
+var fs = require<typeof QioFS>('q-io/fs');
+var http = require<typeof QioHTTP>('q-io/http');
 
 var bool:boolean;
 var num:number;

@@ -36,6 +36,6 @@ function testEach() {
 
 	var each: Each = EachStaticClass([1, 2, 3]);
 
-	var EachReq: EachStatic = require("each");
+	var EachReq = require<EachStatic>("each");
 	var each: Each = EachReq([4, 5, 6]);
 }

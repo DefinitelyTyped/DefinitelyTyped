@@ -8,5 +8,5 @@ b.add('./browser/main.js');
 b.transform('deamdify');
 b.bundle().pipe(fs.createWriteStream('bundle.js'));
 
-var customBrowsify: Browserify = require("browserify");
+var customBrowsify = require<Browserify>("browserify");
 customBrowsify({entries: []});
