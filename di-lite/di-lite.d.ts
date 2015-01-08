@@ -3,56 +3,67 @@
 // Definitions by: Timothy Morris <https://github.com/dcrusader>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface DiLite {
-    version: string;
-    createContext(): DiCreateContext;
-    dependencyExpression(depExp: string): string;
-    entry(name: string, ctx: DiCreateContext): DiEntry;
-    strategy: DiStrategy;
-    factory: DiFactory;
-    utils: DiUtils;
-}
+declare module DiLite {
+    interface DiLiteStatic {
+        version: string;
+        createContext(): CreateContext;
+        dependencyExpression(depExp: string): string;
+        entry(name: string, ctx: CreateContext): any;
+        strategy: StrategyEnum;
+        factory: FactoryEnum;
+        utils: Utils;
+    }
 
-interface DiCreateContext {
-    map: Object;
-    entry(name: string): Object;
-    register(name: string, type?: any, args?: any): DiEntry;
-    has(name: string): boolean;
-    "get"(name: string): any;
-    create(name: string, args: any): any;
-    initialize(): void;
-    clear(): void;
-    inject(name: string, o: Object, dependencies: string): Object;
-    ready(o: Function): Object;
-    ready(o: Object): Object;
-}
+    interface Dictionary<T> {
+        [index: string]: T;
+    }
 
-interface DiEntry {
-    create(newArgs: any): DiEntry;
-    object(): Object;
-    object(o: Object): DiEntry;
-    strategy(s: Function): DiEntry;
-    type(t: any): DiEntry;
-    dependencies(d: string): DiEntry;
-    args(a: any): DiEntry;
-    factory(f: Function): DiEntry;
-}
+    interface CreateContext {
+        map: Dictionary<any>;
+        entry<T>(name: string): T;
+        register<T>(name: string, service: T): Entry;
+        has(name: string): boolean;
+        get(name: string): any;
+        create<T>(name: string, args: any): T;
+        initialize(): void;
+        clear(): void;
+        inject<T>(name: string, o: T, dependencies: string): T;
+        ready<T>(o: Function): T;
+        ready<T>(o: any): T;
+    }
 
-interface DiStrategy {
-    proto(name: string, object: Object, type: any, args: any, ctx: DiCreateContext, dependencies: string): Object;
-    singleton(name: string, object: Object, type: any, args: any, ctx?: DiCreateContext, dependencies?: string): Object;
-}
+    interface Entry {
+        create(newArgs: any): Entry;
+        object<T>(o: T): Entry;
+        object<T>(): T;
+        strategy<T>(s: Function): Entry;
+        strategy<T>(): T;
+        type<T>(t: T): Entry;
+        type<T>(): T;
+        dependencies<T>(d: T): Entry;
+        dependencies<T>(): T;
+        args<T>(a: T): Entry;
+        args<T>(): T;
+        factory(f: Function): Entry;
+        factory<T>(): T;
+    }
 
-interface DiFactory {
-    "constructor"(type: any, args: any): Object;
-    func(type: any, args: any): any;
-}
+    interface StrategyEnum {
+        proto<TObject, TType>(name: string, object: TObject, type: TType, args: any, ctx: CreateContext, dependencies: any): TObject;
+        singleton<TObject, TType>(name: string, object: TObject, type: TType, args: any, ctx?: CreateContext, dependencies?: any): TObject;
+    }
 
-interface DiUtils {
-    invokeStmt(args: any, op: string): string;
+    interface FactoryEnum {
+        constructor<T>(type: T, args: any): T;
+        func<T>(type: T, args: any): T;
+    }
+
+    interface Utils {
+        invokeStmt(args: any, op: string): string;
+    }
 }
 
 declare module "di-lite" {
     export = di;
 }
-declare var di: DiLite;
+declare var di: DiLite.DiLiteStatic;
