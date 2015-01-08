@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />a
+/// <reference path="../backbone/backbone.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
 
 declare module Knockback {
