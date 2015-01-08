@@ -2846,18 +2846,18 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.indexOf
 	**/
-	indexOf(value: T, isSorted?: boolean): _Chain<T>;
+	indexOf(value: T, isSorted?: boolean): _ChainSingle<T>;
 
 	/**
 	* @see _.indexOf
 	**/
-	indexOf(value: T, startFrom: number): _Chain<T>;
+	indexOf(value: T, startFrom: number): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.lastIndexOf
 	**/
-	lastIndexOf(value: T, from?: number): _Chain<T>;
+	lastIndexOf(value: T, from?: number): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -3242,6 +3242,87 @@ interface _Chain<T> {
 	* @see _.template
 	**/
 	template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
+
+	/************* *
+	* Array proxy *
+	************** */
+	
+	/**
+	* Returns a new array comprised of the array on which it is called
+	* joined with the array(s) and/or value(s) provided as arguments.
+	* @param arr Arrays and/or values to concatenate into a new array. See the discussion below for details.
+	* @return A new array comprised of the array on which it is called
+	**/
+	concat(...arr: Array<T>): _Chain<T>;
+
+	/**
+	* Join all elements of an array into a string.
+	* @param separator Optional. Specifies a string to separate each element of the array. The separator is converted to a string if necessary. If omitted, the array elements are separated with a comma.
+	* @return The string conversions of all array elements joined into one string.
+	**/
+	join(separator?: any): _ChainSingle<T>;
+
+	/**
+	* Removes the last element from an array and returns that element.
+	* @return Returns the popped element.
+	**/
+	pop(): _ChainSingle<T>;
+
+	/**
+	* Adds one or more elements to the end of an array and returns the new length of the array.
+	* @param item The elements to add to the end of the array.
+	* @return The array with the element added to the end.
+	**/
+	push(...item: Array<T>): _Chain<T>;
+
+	/**
+	* Reverses an array in place. The first array element becomes the last and the last becomes the first.
+	* @return The reversed array.
+	**/
+	reverse(): _Chain<T>;
+
+	/**
+	* Removes the first element from an array and returns that element. This method changes the length of the array.
+	* @return The shifted element.
+	**/
+	shift(): _ChainSingle<T>;
+
+	/**
+	* Returns a shallow copy of a portion of an array into a new array object.
+	* @param start Zero-based index at which to begin extraction.
+	* @param end Optional. Zero-based index at which to end extraction. slice extracts up to but not including end.
+	* @return A shallow copy of a portion of an array into a new array object.
+	**/
+	slice(start: number, end?: number): _Chain<T>;
+
+	/**
+	* Sorts the elements of an array in place and returns the array. The sort is not necessarily stable. The default sort order is according to string Unicode code points.
+	* @param compareFn Optional. Specifies a function that defines the sort order. If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.
+	* @return The sorted array.
+	**/
+	sort(compareFn: (a: T, b: T) => boolean): _Chain<T>;
+
+	/**
+	* Changes the content of an array by removing existing elements and/or adding new elements.
+	* @param index Index at which to start changing the array. If greater than the length of the array, actual starting index will be set to the length of the array. If negative, will begin that many elements from the end.
+	* @param quantity An integer indicating the number of old array elements to remove. If deleteCount is 0, no elements are removed. In this case, you should specify at least one new element. If deleteCount is greater than the number of elements left in the array starting at index, then all of the elements through the end of the array will be deleted.
+	* @param items The element to add to the array. If you don't specify any elements, splice will only remove elements from the array.
+	* @return An array containing the deleted elements. If only one element is removed, an array of one element is returned. If no elements are removed, an empty array is returned.
+	**/
+	splice(index: number, quantity: number, ...items: Array<T>): _Chain<T>;
+
+	/**
+	* A string representing the specified array and its elements.
+	* @return A string representing the specified array and its elements.
+	**/
+	toString(): _ChainSingle<T>;
+
+	/**
+	* Adds one or more elements to the beginning of an array and returns the new length of the array.
+	* @param items The elements to add to the front of the array.
+	* @return The array with the element added to the beginning.
+	**/
+	unshift(...items: Array<T>): _Chain<T>;
 
 	/********** *
 	 * Chaining *
