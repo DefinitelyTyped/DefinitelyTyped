@@ -2630,13 +2630,13 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.groupBy
 	**/
-	groupBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+	groupBy(iterator?: _.ListIterator<T, any>, context?: any): _ChainOfArrays<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.groupBy
 	**/
-	groupBy(iterator: string, context?: any): _Chain<T>;
+	groupBy(iterator: string, context?: any): _ChainOfArrays<T>;
 
 	/**
 	* Wrapped type `any[]`.
