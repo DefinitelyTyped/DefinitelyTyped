@@ -128,7 +128,7 @@ declare class TimelineLite extends SimpleTimeline {
     insert(value:any, timeOrLabel?:any):any;
     insertMultiple(tweens:any[], timeOrLabel?:any, align?:string, stagger?:number):any;
     invalidate():any;
-    progress(value:number):any;
+    progress(value?:number, suppressEvents?:boolean):any;s
     remove(value:any):any;
     removeLabel(label:string):any;
     set(target: Object, vars: Object, position?:any):any;
@@ -152,7 +152,7 @@ declare class TimelineMax extends TimelineLite {
     getLabelBefore(time:number):string;
     getLabelsArray():any[];
     invalidate():any;
-    progress(value:number):any;
+    progress(value?:number, suppressEvents?:boolean):any;
     removeCallback(callback:Function, timeOrLabel?:any):TimelineMax;
     repeat(value?:number):any;
     repeatDelay(value?:number):any;
