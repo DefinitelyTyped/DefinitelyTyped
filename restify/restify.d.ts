@@ -4,10 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-
+/// <reference path="../bunyan/bunyan.d.ts" />
 
 declare module "restify" {
   import http = require('http');
+  import bunyan = require('bunyan');
 
 
   interface addressInterface {
@@ -24,7 +25,7 @@ declare module "restify" {
     contentLength: number;
     contentType: string;
     href: () => string;
-    log: Object;
+    log: bunyan.Logger;
     id: string;
     path: () => string;
     query: any;
@@ -210,7 +211,7 @@ declare module "restify" {
   export function fullResponse(): RequestHandler;
   export var defaultResponseHeaders : any;
   export var CORS: CORS;
-  
+
   export module pre {
       export function pause(): RequestHandler;
       export function sanitizePath(options?: any): RequestHandler;
