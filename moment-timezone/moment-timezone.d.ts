@@ -5,8 +5,14 @@
 
 /// <reference path="../moment/moment.d.ts" />
 
-interface Moment {
-    tz(timezone: string): Moment;
+declare module moment {
+    interface Moment {
+        tz(timezone: string): Moment;
+    }
+
+    interface MomentStatic {
+        tz: MomentTimezone;
+    }
 }
 
 interface MomentZone {
@@ -21,12 +27,12 @@ interface MomentZone {
 }
 
 interface MomentTimezone {
-    (date: number, timezone: string): Moment;
-    (date: number[], timezone: string): Moment;
-    (date: string, format: string, timezone: string): Moment;
-    (date: Date, timezone: string): Moment;
-    (date: Moment, timezone: string): Moment;
-    (date: Object, timezone: string): Moment;
+    (date: number, timezone: string): moment.Moment;
+    (date: number[], timezone: string): moment.Moment;
+    (date: string, format: string, timezone: string): moment.Moment;
+    (date: Date, timezone: string): moment.Moment;
+    (date: moment.Moment, timezone: string): moment.Moment;
+    (date: Object, timezone: string): moment.Moment;
 
     zone(timezone: string): MomentZone;
 
@@ -45,12 +51,8 @@ interface MomentTimezone {
     names(): string[];
 }
 
-interface MomentStatic {
-    tz: MomentTimezone;
-}
-
 declare module 'moment-timezone' {
-    var _tmp: MomentStatic;
+    var _tmp: moment.MomentStatic;
 
     export = _tmp;
 }
