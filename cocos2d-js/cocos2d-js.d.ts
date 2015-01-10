@@ -40642,10 +40642,10 @@ declare module cc {
     function isCrossOrigin(url): boolean;
 }
 declare module cc {
-    function log();
-    function warn();
-    function error();
-    function assert();
+    function log(message?);
+    function warn(message?);
+    function error(message?);
+    function assert(message?);
 }
 declare module cc {
     /**
@@ -40672,7 +40672,7 @@ declare module cc {
  * var seq = cc.sequence(actArray);
  * todo: It should be use new
  */
-    function sequence(/*Multiple Arguments*/tempArray?): cc.Sequence;
+    function sequence(/*Multiple Arguments*/tempArray?, t1?, t2?, t3?, t4?, t5?, t6?, t7?, t8?): cc.Sequence;
 
 
     /**
@@ -40710,7 +40710,7 @@ declare module cc {
      * var action = cc.spawn(cc.jumpBy(2, cc.p(300, 0), 50, 4), cc.rotateBy(2, 720));
      * todo:It should be the direct use new
      */
-    function spawn(/*Multiple Arguments*/tempArray?): cc.FiniteTimeAction;
+    function spawn(/*Multiple Arguments*/tempArray?, t1?, t2?, t3?, t4?, t5?, t6?, t7?, t8?): cc.FiniteTimeAction;
 
     /**
      * Creates a RotateTo action with separate rotation angles.
