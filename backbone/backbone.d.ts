@@ -311,14 +311,14 @@ declare module Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model> {
-        model?: TModel;
-        collection?: Backbone.Collection<TModel>;
-        el?: any;
-        id?: string;
-        className?: string;
-        tagName?: string;
-        attributes?: any[];
+   interface ViewOptions<TModel extends Model> {
+      model?: TModel;
+      collection?: Backbone.Collection<TModel>;
+      el?: any;
+      id?: string;
+      className?: string;
+      tagName?: string;
+      attributes?: {[id: string]: any};
     }
 
     class View<TModel extends Model> extends Events {
