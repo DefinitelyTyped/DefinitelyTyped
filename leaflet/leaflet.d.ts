@@ -2335,6 +2335,10 @@ declare module L {
           */
         attributionControl: Control.Attribution;
 
+        /**
+          * Map state options
+          */
+        options: MapOptions;
 
         ////////////////
         ////////////////
