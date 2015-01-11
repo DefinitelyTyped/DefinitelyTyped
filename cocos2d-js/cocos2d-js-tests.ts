@@ -1,1 +1,1 @@
-/// <reference path="cocos2d-js.d.ts" />
+﻿/// <reference path="cocos2d-js.d.ts" />

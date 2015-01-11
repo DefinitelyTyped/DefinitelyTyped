@@ -1,4 +1,4 @@
-// Type definitions for Cocos2d-JS-v3.2
+ï»¿// Type definitions for Cocos2d-JS-v3.2
 // Project: http://cocos2d-x.org/
 // Definitions by: Johnson Zhong <http: />/zhongzf.cnblogs.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -31,7 +31,7 @@ Base class for cc.Action objects.
             /**
             * Please use cc.action instead.
             */
-            static create: cc.Action;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Action;
             /**
             * - The original target of the action.
             */
@@ -199,7 +199,7 @@ Base class for Easing actions
             * Please use cc.actionEase instead
 creates the action of ActionEase
             */
-            static create: cc.ActionEase;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ActionEase;
             /**
             * {cc.ActionEase}
 clone()
@@ -363,7 +363,7 @@ then running it again in Reverse mode.
             /**
             * Please use cc.actionInterval instead.
             */
-            static create: cc.ActionInterval;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ActionInterval;
             /**
             * {cc.ActionInterval}
 clone()
@@ -591,7 +591,7 @@ Returns:
 {Array} a list of targets whose actions were paused.
 
             */
-            pauseAllRunningActions(): Array;
+            pauseAllRunningActions(): Array<any>;
             /**
             * pauseTarget(target)
 Pauses the target: all running actions and newly added actions will be paused.
@@ -655,7 +655,7 @@ Parameters:
 {Array} targetsToResume
 
             */
-            resumeTargets(targetsToResume?: Array);
+            resumeTargets(targetsToResume?: Array<any>);
             /**
             * update(dt)
 Parameters:
@@ -682,7 +682,7 @@ cc.ActionTween is an action that lets you update any property of an object.
             /**
             * Please use cc.actionTween instead.
             */
-            static create: cc.ActionTween;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ActionTween;
             /**
             * &amp;lt;static&amp;gt;
 {cc.ActionTween}
@@ -802,7 +802,7 @@ Animates a sprite given the name of an Animation
             * Please use cc.animate instead
 create the animate with animation
             */
-            static create: cc.Animate;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Animate;
             /**
             * {cc.Animate}
 clone()
@@ -891,7 +891,7 @@ You can animate a cc.Animation object by using the cc.Animate action.
             * 
 A cc.Animation object is used to perform animations on the cc.Sprite objects.
             */
-            constructor(frames?: Array, delay?: number, loops?: number);
+            constructor(frames?: Array<any>, delay?: number, loops?: number);
             /**
             * 
             */
@@ -970,7 +970,7 @@ See:
 cc.Animation
 
             */
-            static create(frames?: Array, delay?: number, loops?: number): cc.Animation;
+            static create(frames?: Array<any>, delay?: number, loops?: number): cc.Animation;
             /**
             * {Number}
 getDelayPerUnit()
@@ -997,7 +997,7 @@ Returns:
 {Array}
 
             */
-            getFrames(): Array;
+            getFrames(): Array<any>;
             /**
             * {Number}
 getLoops()
@@ -1035,7 +1035,7 @@ Parameters:
 Optional, Default: 1
 
             */
-            initWithAnimationFrames(arrayOfAnimationFrames?: Array, delayPerUnit?: number, loops?: number);
+            initWithAnimationFrames(arrayOfAnimationFrames?: Array<any>, delayPerUnit?: number, loops?: number);
             /**
             * initWithSpriteFrames(frames, delay, loops)
 Initializes a cc.Animation with frames and a delay between frames, do not call this method yourself, please pass parameters to constructor to initialize.
@@ -1046,7 +1046,7 @@ Parameters:
 Optional, Default: 1
 
             */
-            initWithSpriteFrames(frames?: Array, delay?: number, loops?: number);
+            initWithSpriteFrames(frames?: Array<any>, delay?: number, loops?: number);
             /**
             * release()
 Currently JavaScript Bindings (JSB), in some cases, needs to use retain and release. This is a bug in JSB,
@@ -1094,7 +1094,7 @@ Parameters:
 {Array} frames
 
             */
-            setFrames(frames?: Array);
+            setFrames(frames?: Array<any>);
             /**
             * setLoops(value)
 Sets how many times the animation is going to loop. 0 means animation is not animated. 1, animation is executed one time, ...
@@ -1890,11 +1890,11 @@ Relative to its movement.
             /**
             * An action that moves the target with a cubic Bezier curve by a certain distance.
             */
-            constructor(t?: number, c?: Array);
+            constructor(t?: number, c?: Array<any>);
             /**
             * Please use cc.bezierBy instead.
             */
-            static create: cc.BezierBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.BezierBy;
             /**
             * {cc.BezierBy}
 clone()
@@ -1914,7 +1914,7 @@ time in seconds
 Array of points
 
             */
-            ctor(t?: number, c?: Array);
+            ctor(t?: number, c?: Array<any>);
             /**
             * {Boolean}
 initWithDuration(t, c)
@@ -1928,7 +1928,7 @@ Returns:
 {Boolean}
 
             */
-            initWithDuration(t?: number, c?: Array): boolean;
+            initWithDuration(t?: number, c?: Array<any>): boolean;
             /**
             * {cc.BezierBy}
 reverse()
@@ -1966,11 +1966,11 @@ An action that moves the target with a cubic Bezier curve to a destination point
             /**
             * An action that moves the target with a cubic Bezier curve to a destination point.
             */
-            constructor(t?: number, c?: Array);
+            constructor(t?: number, c?: Array<any>);
             /**
             * Please use cc.bezierTo instead
             */
-            static create: cc.BezierTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.BezierTo;
             /**
             * {cc.BezierTo}
 clone()
@@ -1990,7 +1990,7 @@ array of points
 var bezierTo = new cc.BezierTo(2, bezier);
 
             */
-            ctor(t?: number, c?: Array);
+            ctor(t?: number, c?: Array<any>);
             /**
             * {Boolean}
 initWithDuration(t, c)
@@ -2004,7 +2004,7 @@ Returns:
 {Boolean}
 
             */
-            initWithDuration(t?: number, c?: Array): boolean;
+            initWithDuration(t?: number, c?: Array<any>): boolean;
             /**
             * startWithTarget(target)
 Start the action with target.
@@ -2042,7 +2042,7 @@ Blinks a cc.Node object by modifying it&#39;s visible attribute
             /**
             * Please use cc.blink instead.
             */
-            static create: cc.Blink;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Blink;
             /**
             * {cc.Blink}
 clone()
@@ -2125,7 +2125,7 @@ Calls a &#39;callback&#39;.
             /**
             * Please use cc.callFunc instead.
             */
-            static create: cc.CallFunc;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.CallFunc;
             /**
             * {cc.CallFunc}
 clone()
@@ -2209,7 +2209,7 @@ Relative coordinates.
             /**
             * Cardinal Spline path.
             */
-            constructor(duration?: number, points?: Array, tension?: number);
+            constructor(duration?: number, points?: Array<any>, tension?: number);
             /**
             * {cc.CardinalSplineBy}
 clone()
@@ -2235,7 +2235,7 @@ Returns:
 {cc.CardinalSplineBy}
 
             */
-            static create(duration?: number, points?: Array, tension?: number): cc.CardinalSplineBy;
+            static create(duration?: number, points?: Array<any>, tension?: number): cc.CardinalSplineBy;
             /**
             * ctor(duration, points, tension)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -2246,7 +2246,7 @@ Parameters:
 {Number} tension
 
             */
-            ctor(duration?: number, points?: Array, tension?: number);
+            ctor(duration?: number, points?: Array<any>, tension?: number);
             /**
             * {cc.CardinalSplineBy}
 reverse()
@@ -2285,7 +2285,7 @@ Absolute coordinates.
             /**
             * Cardinal Spline path.
             */
-            constructor(duration?: number, points?: Array, tension?: number);
+            constructor(duration?: number, points?: Array<any>, tension?: number);
             /**
             * {cc.CardinalSplineTo}
 clone()
@@ -2312,7 +2312,7 @@ Returns:
 {cc.CardinalSplineTo}
 
             */
-            static create(duration?: number, points?: Array, tension?: number): cc.CardinalSplineTo;
+            static create(duration?: number, points?: Array<any>, tension?: number): cc.CardinalSplineTo;
             /**
             * ctor(duration, points, tension)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -2324,7 +2324,7 @@ array of control points
 {Number} tension
 
             */
-            ctor(duration?: number, points?: Array, tension?: number);
+            ctor(duration?: number, points?: Array<any>, tension?: number);
             /**
             * {Array}
 getPoints()
@@ -2333,7 +2333,7 @@ Returns:
 {Array}
 
             */
-            getPoints(): Array;
+            getPoints(): Array<any>;
             /**
             * {Boolean}
 initWithDuration(duration, points, tension)
@@ -2347,7 +2347,7 @@ Returns:
 {Boolean}
 
             */
-            initWithDuration(duration?: number, points?: Array, tension?: number): boolean;
+            initWithDuration(duration?: number, points?: Array<any>, tension?: number): boolean;
             /**
             * {cc.CardinalSplineTo}
 reverse()
@@ -2365,7 +2365,7 @@ Parameters:
 {Array} points
 
             */
-            setPoints(points?: Array);
+            setPoints(points?: Array<any>);
             /**
             * startWithTarget(target)
 called before the action start. It will also set the target.
@@ -2405,12 +2405,12 @@ Relative coordinates.
             /**
             * An action that moves the target with a CatmullRom curve by a certain distance.
             */
-            constructor(dt?: number, points?: Array);
+            constructor(dt?: number, points?: Array<any>);
             /**
             * Please use cc.catmullRomBy instead
 Creates an action with a Cardinal Spline array of points and tension
             */
-            static create;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): CatmullRomBy;
         }
     }
 declare module cc {
@@ -2426,11 +2426,11 @@ Absolute coordinates.
             /**
             * An action that moves the target with a CatmullRom curve to a destination point.
             */
-            constructor(dt?: number, points?: Array);
+            constructor(dt?: number, points?: Array<any>);
             /**
             * Please use cc.catmullRomTo instead.
             */
-            static create: cc.CatmullRomTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.CatmullRomTo;
             /**
             * {cc.CatmullRomTo}
 clone()
@@ -2449,7 +2449,7 @@ Parameters:
 {Array} points
 
             */
-            ctor(dt?: number, points?: Array);
+            ctor(dt?: number, points?: Array<any>);
             /**
             * initWithDuration(dt, points)
 Initializes the action with a duration and an array of points
@@ -2458,7 +2458,7 @@ Parameters:
 {Array} points
 
             */
-            initWithDuration(dt?: number, points?: Array);
+            initWithDuration(dt?: number, points?: Array<any>);
         }
     }
 declare module cc {
@@ -2673,7 +2673,7 @@ Returns:
 {cc.Component}
 
             */
-            static create(): cc.Component;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.Component;
             /**
             * ctor()
 Construction of cc.Component
@@ -3267,7 +3267,7 @@ Returns:
 {ControlButton}
 
             */
-            static create(): ControlButton;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ControlButton;
             /**
             * {Boolean}
 doesAdjustBackgroundImage()
@@ -3481,7 +3481,7 @@ Returns:
 {ControlColourPicker}
 
             */
-            static create(): ControlColourPicker;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ControlColourPicker;
         }
     }
 declare module cc {
@@ -3526,7 +3526,7 @@ Returns:
 {ControlHuePicker}
 
             */
-            static create(): ControlHuePicker;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ControlHuePicker;
             /**
             * ctor(target, pos)
 The constructor of cc.ControlHuePicker
@@ -3600,7 +3600,7 @@ Returns:
 {ControlPotentiometer}
 
             */
-            static create(): ControlPotentiometer;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ControlPotentiometer;
             /**
             * {Number}
 distanceBetweenPointAndPoint(point1, point2)
@@ -3748,7 +3748,7 @@ See:
 cc.ControlSlider
 
             */
-            static create();
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ControlSlider;
             /**
             * initWithSprites(backgroundSprite, progressSprite, thumbSprite)
 Initializes a slider with a background sprite, a progress bar and a thumb
@@ -3869,7 +3869,7 @@ onLabel
 offLabel
 
             */
-            static create();
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ControlSwitch;
             /**
             * initWithMaskSprite(maskSprite, onSprite, offSprite, thumbSprite, onLabel, offLabel)
 Creates a switch with a mask sprite, on/off sprites for on/off states, a thumb sprite and an on/off labels.
@@ -3964,7 +3964,7 @@ Delays the action a certain amount of seconds
             /**
             * Please use cc.delayTime instead.
             */
-            static create: cc.DelayTime;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.DelayTime;
             /**
             * {cc.DelayTime}
 clone()
@@ -4549,7 +4549,7 @@ Returns:
 {cc.DrawNode}
 
             */
-            static create(): cc.DrawNode;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.DrawNode;
             /**
             * ctor()
 The cc.DrawNodeCanvas&#39;s constructor.
@@ -4569,7 +4569,7 @@ Parameters:
 {cc.Color} color
 
             */
-            drawCardinalSpline(config?: Array, tension?: number, segments?: number, lineWidth?: number, color?: cc.Color);
+            drawCardinalSpline(config?: Array<any>, tension?: number, segments?: number, lineWidth?: number, color?: cc.Color);
             /**
             * drawCatmullRom(points, segments, lineWidth, color)
 draw a CatmullRom curve
@@ -4580,7 +4580,7 @@ Parameters:
 {cc.Color} color
 
             */
-            drawCatmullRom(points?: Array, segments?: number, lineWidth?: number, color?: cc.Color);
+            drawCatmullRom(points?: Array<any>, segments?: number, lineWidth?: number, color?: cc.Color);
             /**
             * drawCircle(center, radius, angle, segments, drawLineToCenter, lineWidth, color)
 draws a circle given the center, radius and number of segments.
@@ -4631,7 +4631,7 @@ point of array
 {cc.Color} color
 
             */
-            drawDots(points?: Array, radius?: number, color?: cc.Color);
+            drawDots(points?: Array<any>, radius?: number, color?: cc.Color);
             /**
             * drawPoly(verts, fillColor, lineWidth, color)
 draw a polygon with a fill color and line color, copying the vertex list
@@ -4642,7 +4642,7 @@ Parameters:
 {cc.Color} color
 
             */
-            drawPoly(verts?: Array, fillColor?: cc.Color, lineWidth?: number, color?: cc.Color);
+            drawPoly(verts?: Array<any>, fillColor?: cc.Color, lineWidth?: number, color?: cc.Color);
             /**
             * drawPoly_(verts, fillColor, lineWidth, color)
 draw a polygon with a fill color and line color without copying the vertex list
@@ -4653,7 +4653,7 @@ Parameters:
 {cc.Color} color
 
             */
-            drawPoly_(verts?: Array, fillColor?: cc.Color, lineWidth?: number, color?: cc.Color);
+            drawPoly_(verts?: Array<any>, fillColor?: cc.Color, lineWidth?: number, color?: cc.Color);
             /**
             * drawQuadBezier(origin, control, destination, segments, lineWidth, color)
 draws a quad bezier path
@@ -4967,7 +4967,7 @@ Returns:
 {cc.EaseBezierAction}
 
             */
-            static create(): cc.EaseBezierAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseBezierAction;
             /**
             * ctor(action)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -5285,7 +5285,7 @@ Returns:
 {cc.EaseCircleActionIn}
 
             */
-            static create(): cc.EaseCircleActionIn;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseCircleActionIn;
             /**
             * {cc.EaseCircleActionIn}
 reverse()
@@ -5347,7 +5347,7 @@ Returns:
 {cc.EaseCircleActionInOut}
 
             */
-            static create(): cc.EaseCircleActionInOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseCircleActionInOut;
             /**
             * {cc.EaseCircleActionInOut}
 reverse()
@@ -5409,7 +5409,7 @@ Returns:
 {cc.EaseCircleActionOut}
 
             */
-            static create(): cc.EaseCircleActionOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseCircleActionOut;
             /**
             * {cc.EaseCircleActionOut}
 reverse()
@@ -5471,7 +5471,7 @@ Returns:
 {cc.EaseCubicActionIn}
 
             */
-            static create(): cc.EaseCubicActionIn;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseCubicActionIn;
             /**
             * {cc.EaseCubicActionIn}
 reverse()
@@ -5533,7 +5533,7 @@ Returns:
 {cc.EaseCubicActionInOut}
 
             */
-            static create(): cc.EaseCubicActionInOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseCubicActionInOut;
             /**
             * {cc.EaseCubicActionInOut}
 reverse()
@@ -5595,7 +5595,7 @@ Returns:
 {cc.EaseCubicActionOut}
 
             */
-            static create(): cc.EaseCubicActionOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseCubicActionOut;
             /**
             * {cc.EaseCubicActionOut}
 reverse()
@@ -6306,7 +6306,7 @@ Returns:
 {cc.EaseQuadraticActionIn}
 
             */
-            static create(): cc.EaseQuadraticActionIn;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuadraticActionIn;
             /**
             * {cc.EaseQuadraticActionIn}
 reverse()
@@ -6368,7 +6368,7 @@ Returns:
 {cc.EaseQuadraticActionInOut}
 
             */
-            static create(): cc.EaseQuadraticActionInOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuadraticActionInOut;
             /**
             * {cc.EaseQuadraticActionInOut}
 reverse()
@@ -6430,7 +6430,7 @@ Returns:
 {cc.EaseQuadraticActionOut}
 
             */
-            static create(): cc.EaseQuadraticActionOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuadraticActionOut;
             /**
             * {cc.EaseQuadraticActionOut}
 reverse()
@@ -6492,7 +6492,7 @@ Returns:
 {cc.EaseQuarticActionIn}
 
             */
-            static create(): cc.EaseQuarticActionIn;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuarticActionIn;
             /**
             * {cc.EaseQuarticActionIn}
 reverse()
@@ -6554,7 +6554,7 @@ Returns:
 {cc.EaseQuarticActionInOut}
 
             */
-            static create(): cc.EaseQuarticActionInOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuarticActionInOut;
             /**
             * {cc.EaseQuarticActionInOut}
 reverse()
@@ -6616,7 +6616,7 @@ Returns:
 {cc.EaseQuarticActionOut}
 
             */
-            static create(): cc.EaseQuarticActionOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuarticActionOut;
             /**
             * {cc.EaseQuarticActionOut}
 reverse()
@@ -6678,7 +6678,7 @@ Returns:
 {cc.EaseQuinticActionIn}
 
             */
-            static create(): cc.EaseQuinticActionIn;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuinticActionIn;
             /**
             * {cc.EaseQuinticActionIn}
 reverse()
@@ -6740,7 +6740,7 @@ Returns:
 {cc.EaseQuinticActionInOut}
 
             */
-            static create(): cc.EaseQuinticActionInOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuinticActionInOut;
             /**
             * {cc.EaseQuinticActionInOut}
 reverse()
@@ -6802,7 +6802,7 @@ Returns:
 {cc.EaseQuinticActionOut}
 
             */
-            static create(): cc.EaseQuinticActionOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.EaseQuinticActionOut;
             /**
             * {cc.EaseQuinticActionOut}
 reverse()
@@ -6836,7 +6836,7 @@ Base class for Easing actions with rate parameters
             /**
             * Please use cc.easeRateAction instead.
             */
-            static create: cc.EaseRateAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.EaseRateAction;
             /**
             * {cc.EaseRateAction}
 clone()
@@ -7827,7 +7827,7 @@ Returns:
 {Array}
 
             */
-            getTouches(): Array;
+            getTouches(): Array<any>;
         }
     }
 declare module cc {
@@ -7845,7 +7845,7 @@ The &quot;reverse&quot; of this action is FadeOut
             /**
             * Please use cc.fadeIn instead.
             */
-            static create: cc.FadeIn;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeIn;
             /**
             * {cc.FadeIn}
 clone()
@@ -7898,7 +7898,7 @@ The &quot;reverse&quot; of this action is FadeIn
             /**
             * Please use cc.fadeOut instead.
             */
-            static create: cc.FadeOut;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeOut;
             /**
             * {cc.FadeOut}
 clone()
@@ -7943,7 +7943,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.fadeOutBLTiles instead.
             */
-            static create: cc.FadeOutBLTiles;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeOutBLTiles;
             /**
             * testFunc(pos, time)
 Test function
@@ -7970,7 +7970,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.fadeOutDownTiles instead.
             */
-            static create: cc.FadeOutDownTiles;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeOutDownTiles;
         }
     }
 declare module cc {
@@ -7988,7 +7988,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.fadeOutTRTiles instead.
             */
-            static create: cc.FadeOutTRTiles;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeOutTRTiles;
             /**
             * testFunc(pos, time)
 Test function
@@ -8048,7 +8048,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.fadeOutUpTiles instead.
             */
-            static create: cc.FadeOutUpTiles;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeOutUpTiles;
         }
     }
 declare module cc {
@@ -8065,7 +8065,7 @@ Fades an object that implements the cc.RGBAProtocol protocol. It modifies the op
             /**
             * Please use cc.fadeTo instead.
             */
-            static create: cc.FadeTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FadeTo;
             /**
             * {cc.FadeTo}
 clone()
@@ -8170,7 +8170,7 @@ Returns:
 {Null}
 
             */
-            reverse(): Null;
+            reverse(): void;
             /**
             * setDuration(duration)
 set duration of the action. (seconds)
@@ -8195,7 +8195,7 @@ Flips the sprite horizontally.
             /**
             * Plese use cc.flipX instead.
             */
-            static create: cc.FlipX;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FlipX;
             /**
             * {cc.FiniteTimeAction}
 clone()
@@ -8262,7 +8262,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.flipX3D instead.
             */
-            static create: cc.FlipX3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FlipX3D;
             /**
             * ctor(duration)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -8320,7 +8320,7 @@ Flips the sprite vertically
             * Please use cc.flipY instead
 Create a FlipY action to flip or unflip the target
             */
-            static create: cc.FlipY;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FlipY;
             /**
             * {cc.FlipY}
 clone()
@@ -8386,7 +8386,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.flipY3D instead.
             */
-            static create: cc.FlipY3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FlipY3D;
             /**
             * ctor(duration)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -8424,7 +8424,7 @@ cc.Follow is an action that &quot;follows&quot; a node.
             /**
             * Please use cc.follow instead.
             */
-            static create: any;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):Follow;
             /**
             * - world leftBoundary.
             */
@@ -9096,7 +9096,7 @@ Grid3D actions can modify a non-tiled grid.
             /**
             * Please use cc.grid3DAction instead.
             */
-            static create: cc.Grid3DAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Grid3DAction;
             /**
             * {cc.Grid3D}
 getGrid()
@@ -9153,7 +9153,7 @@ Base class for Grid actions
             /**
             * Please use cc.gridAction instead.
             */
-            static create: cc.GridAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.GridAction;
             /**
             * {cc.Action}
 clone()
@@ -9385,7 +9385,7 @@ Hide the node.
             /**
             * Hide the node.
             */
-            static create: cc.Hide;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Hide;
             /**
             * {cc.Hide}
 clone()
@@ -9429,7 +9429,7 @@ TGA format
             /**
             * TGA format
             */
-            constructor(status?: number, type?: number, pixelDepth?: number, width?: number, height?: number, imageData?: Array, flipped?: number);
+            constructor(status?: number, type?: number, pixelDepth?: number, width?: number, height?: number, imageData?: Array<any>, flipped?: number);
         }
     }
 declare module cc {
@@ -9757,7 +9757,7 @@ Returns:
 {Array}
 
             */
-            getSetOfTouchesEndOrCancel(touches?: Array): Array;
+            getSetOfTouchesEndOrCancel(touches?: Array<any>): Array<any>;
             /**
             * {cc.Touch}
 getTouchByXY(tx, ty, pos)
@@ -9780,35 +9780,35 @@ Returns:
 {Array}
 
             */
-            getTouchesByEvent(event?: Touch, pos?: cc.Point): Array;
+            getTouchesByEvent(event?: Touch, pos?: cc.Point): Array<any>;
             /**
             * handleTouchesBegin(touches)
 Parameters:
 {Array} touches
 
             */
-            handleTouchesBegin(touches?: Array);
+            handleTouchesBegin(touches?: Array<any>);
             /**
             * handleTouchesCancel(touches)
 Parameters:
 {Array} touches
 
             */
-            handleTouchesCancel(touches?: Array);
+            handleTouchesCancel(touches?: Array<any>);
             /**
             * handleTouchesEnd(touches)
 Parameters:
 {Array} touches
 
             */
-            handleTouchesEnd(touches?: Array);
+            handleTouchesEnd(touches?: Array<any>);
             /**
             * handleTouchesMove(touches)
 Parameters:
 {Array} touches
 
             */
-            handleTouchesMove(touches?: Array);
+            handleTouchesMove(touches?: Array<any>);
             /**
             * registerSystemEvent(element)
 Parameters:
@@ -9860,7 +9860,7 @@ Relative to its movement.
             /**
             * Please use cc.jumpBy instead.
             */
-            static create: cc.JumpBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.JumpBy;
             /**
             * {cc.JumpBy}
 clone()
@@ -9944,7 +9944,7 @@ Reference the test cases (Effects Test)
             * Please use cc.jumpTiles3D instead
 creates the action with the number of jumps, the sin amplitude, the grid size and the duration.
             */
-            static create: cc.JumpTiles3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.JumpTiles3D;
             /**
             * ctor(duration, gridSize, numberOfJumps, amplitude)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -10027,7 +10027,7 @@ Jump to the specified location.
             /**
             * Please use cc.jumpTo instead.
             */
-            static create: cc.JumpTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.JumpTo;
             /**
             * {cc.JumpTo}
 clone()
@@ -10885,7 +10885,7 @@ See:
 cc.Layer
 
             */
-            static create(): any;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): Layer;
             /**
             * ctor()
 Constructor of cc.Layer, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -11276,7 +11276,7 @@ Features:
             /**
             * CCMultipleLayer is a CCLayer with the ability to multiplex it&#39;s children.
             */
-            constructor(layers?: Array);
+            constructor(layers?: Array<any>);
             /**
             * addLayer(layer)
 Add a layer to the multiplex layers list
@@ -11298,7 +11298,7 @@ See:
 cc.LayerMultiplex
 
             */
-            static create(): any;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): LayerMultiplex;
             /**
             * ctor(layers)
 Constructor of cc.LayerMultiplex
@@ -11307,7 +11307,7 @@ Parameters:
 an array of cc.Layer
 
             */
-            ctor(layers?: Array);
+            ctor(layers?: Array<any>);
             /**
             * {Boolean}
 initWithLayers(layers)
@@ -11319,7 +11319,7 @@ Returns:
 {Boolean}
 
             */
-            initWithLayers(layers?: Array): boolean;
+            initWithLayers(layers?: Array<any>): boolean;
             /**
             * switchTo(n)
 Switches to a certain layer indexed by n.
@@ -11359,7 +11359,7 @@ Reference the test cases (Effects Test)
             * Please use cc.lens3D instead
 creates a lens 3d action with center position, radius
             */
-            static create: cc.Lens3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Lens3D;
             /**
             * ctor(duration, gridSize, position, radius)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -11454,7 +11454,7 @@ Reference the test cases (Effects Test)
             * Please use cc.liquid instead
 creates the action with amplitude, a grid and duration
             */
-            static create: cc.Liquid;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Liquid;
             /**
             * ctor(duration, gridSize, waves, amplitude)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -11609,7 +11609,7 @@ Returns:
 {Image}
 
             */
-            loadImg(url?: !string, option?: any, callback?: any): Image;
+            loadImg(url?: string, option?: any, callback?: any): any;
             /**
             * {*}
 loadJs(baseDir, jsList, cb)
@@ -11628,7 +11628,7 @@ Returns:
 {*}
 
             */
-            loadJs(baseDir?: string, jsList?: array, cb?: any): any;
+            loadJs(baseDir?: string, jsList?: Array<any>, cb?: any): any;
             /**
             * loadJson(url, cb)
 Load a single resource as json.
@@ -11651,7 +11651,7 @@ Optional
 Optional
 
             */
-            loadJsWithImg(baseDir?: string, jsList?: array, cb?: any);
+            loadJsWithImg(baseDir?: string, jsList?: Array<any>, cb?: any);
             /**
             * loadTxt(url, cb)
 Load a single resource as txt.
@@ -11801,7 +11801,7 @@ Returns:
 {Boolean}
 
             */
-            initWithArray(arrayOfItems?: Array): boolean;
+            initWithArray(arrayOfItems?: Array<any>): boolean;
             /**
             * {Boolean}
 initWithItems(args)
@@ -11812,7 +11812,7 @@ Returns:
 {Boolean}
 
             */
-            initWithItems(args?: Array): boolean;
+            initWithItems(args?: Array<any>): boolean;
             /**
             * {Boolean}
 isEnabled()
@@ -12552,7 +12552,7 @@ Returns:
 {cc.MenuItemSprite}
 
             */
-            static create(normalSprite?: Image, selectedSprite?: any, three?: any, four?: any, five?: any): cc.MenuItemSprite;
+            static create(normalSprite?: any, selectedSprite?: any, three?: any, four?: any, five?: any): cc.MenuItemSprite;
             /**
             * ctor(normalSprite, selectedSprite, three, four, five)
 Constructor of cc.MenuItemSprite
@@ -12713,7 +12713,7 @@ The inner items can be any MenuItem
             /**
             * - Sub items
             */
-            subItems: Array;
+            subItems: Array<any>;
             /**
             * activate()
 activate the menu item
@@ -12740,7 +12740,7 @@ Returns:
 {cc.MenuItemToggle}
 
             */
-            static create(): cc.MenuItemToggle;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.MenuItemToggle;
             /**
             * ctor()
 Constructor of cc.MenuItemToggle
@@ -12782,7 +12782,7 @@ Returns:
 {Array}
 
             */
-            getSubItems(): Array;
+            getSubItems(): Array<any>;
             /**
             * {Boolean}
 initWithItems(args[last-1], args[last])
@@ -12798,7 +12798,7 @@ Returns:
 {Boolean}
 
             */
-            initWithItems(args[last-1], args[last]): boolean;
+            initWithItems(args?, args_last?): boolean;
             /**
             * onEnter()
 *
@@ -12939,7 +12939,7 @@ Parameters:
 item
 
             */
-            static create();
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): MenuPassive;
             /**
             * &amp;lt;static&amp;gt;
 cc.MenuPassive.createWithItem(item)
@@ -13256,7 +13256,7 @@ Moves a CCNode object x,y pixels by modifying it&#39;s position attribute.
             /**
             * Please use cc.moveBy instead.
             */
-            static create: cc.MoveBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.MoveBy;
             /**
             * {cc.MoveBy}
 clone()
@@ -13336,7 +13336,7 @@ movement will be the sum of individual movements.
             /**
             * Please use cc.moveTo instead.
             */
-            static create: cc.MoveBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.MoveBy;
             /**
             * {cc.MoveTo}
 clone()
@@ -13468,7 +13468,7 @@ Order in transformations with grid enabled
             /**
             * -  All children nodes
             */
-            children: Array;
+            children: Array<any>;
             /**
             * -  Number of children
             */
@@ -13722,7 +13722,7 @@ See:
 cc.Node
 
             */
-            static create(): cc.Node;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.Node;
             /**
             * ctor()
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -13821,7 +13821,7 @@ Returns:
 {cc.Camera} A CCCamera object that lets you move the node using a gluLookAt
 
             */
-            getCamera(): cc.Camera;
+            getCamera(): any;
             /**
             * {cc.Node}
 getChildByName(name)
@@ -13858,7 +13858,7 @@ Returns:
 {Array} An array of children
 
             */
-            getChildren(): Array;
+            getChildren(): Array<any>;
             /**
             * {Number}
 getChildrenCount()
@@ -15105,7 +15105,7 @@ parent&#39;s render command
 whether call its children&#39;s transform
 
             */
-            transform(parentCmd?: cc.Node.RenderCmd, recursive?: boolean);
+            transform(parentCmd?: any, recursive?: boolean);
             /**
             * unschedule(callback_fn)
 unschedules a custom callback function.
@@ -15175,7 +15175,7 @@ Parameters:
 {cc.Node.RenderCmd} parentCmd
 
             */
-            visit(parentCmd?: cc.Node.RenderCmd);
+            visit(parentCmd?: any);
             /**
             * worldToNodeTransform()
 Deprecated:
@@ -15203,7 +15203,7 @@ This action simulates a page turn from the bottom right hand corner of the scree
             * Please use cc.pageTurn3D instead
 create PageTurn3D action
             */
-            static create: cc.PageTurn3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.PageTurn3D;
             /**
             * update(time)
 Update each tick
@@ -15231,7 +15231,7 @@ The children will be moved faster / slower than the parent according the the par
             /**
             * - Parallax nodes array
             */
-            parallaxArray: Array;
+            parallaxArray: Array<any>;
             /**
             * addChild(child, z, ratio, offset)
 Adds a child to the container with a z-order, a parallax ratio and a position offset
@@ -15259,7 +15259,7 @@ Returns:
 {cc.ParallaxNode}
 
             */
-            static create(): cc.ParallaxNode;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParallaxNode;
             /**
             * ctor()
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -15274,7 +15274,7 @@ Returns:
 {Array}
 
             */
-            getParallaxArray(): Array;
+            getParallaxArray(): Array<any>;
             /**
             * removeAllChildren(cleanup)
 Remove all children with cleanup
@@ -15301,7 +15301,7 @@ Parameters:
 {Array} value
 
             */
-            setParallaxArray(value?: Array);
+            setParallaxArray(value?: Array<any>);
         }
     }
 declare module cc {
@@ -15585,7 +15585,7 @@ Returns:
 {cc.ParticleExplosion}
 
             */
-            static create(): cc.ParticleExplosion;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleExplosion;
             /**
             * ctor()
 The cc.ParticleExplosion&#39;s constructor.
@@ -15629,7 +15629,7 @@ Returns:
 {cc.ParticleFire}
 
             */
-            static create(): cc.ParticleFire;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleFire;
             /**
             * ctor()
 The cc.ParticleFire&#39;s constructor.
@@ -15673,7 +15673,7 @@ Returns:
 {cc.ParticleFireworks}
 
             */
-            static create(): cc.ParticleFireworks;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleFireworks;
             /**
             * ctor()
 The cc.ParticleFireworks&#39;s constructor.
@@ -15717,7 +15717,7 @@ Returns:
 {cc.ParticleFlower}
 
             */
-            static create(): cc.ParticleFlower;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleFlower;
             /**
             * ctor()
 The cc.ParticleFlower&#39;s constructor.
@@ -15761,7 +15761,7 @@ Returns:
 {cc.ParticleGalaxy}
 
             */
-            static create(): cc.ParticleGalaxy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleGalaxy;
             /**
             * ctor()
 The cc.ParticleGalaxy&#39;s constructor.
@@ -15805,7 +15805,7 @@ Returns:
 {cc.ParticleMeteor}
 
             */
-            static create(): cc.ParticleMeteor;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleMeteor;
             /**
             * ctor()
 The cc.ParticleMeteor&#39;s constructor.
@@ -15849,7 +15849,7 @@ Returns:
 {cc.ParticleRain}
 
             */
-            static create(): cc.ParticleRain;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleRain;
             /**
             * ctor()
 The cc.ParticleRain&#39;s constructor.
@@ -15893,7 +15893,7 @@ Returns:
 {cc.ParticleSmoke}
 
             */
-            static create(): cc.ParticleSmoke;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleSmoke;
             /**
             * ctor()
 The cc.ParticleSmoke&#39;s constructor.
@@ -15937,7 +15937,7 @@ Returns:
 {cc.ParticleSnow}
 
             */
-            static create(): cc.ParticleSnow;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleSnow;
             /**
             * ctor()
 The cc.ParticleSnow&#39;s constructor.
@@ -15981,7 +15981,7 @@ Returns:
 {cc.ParticleSpiral}
 
             */
-            static create(): cc.ParticleSpiral;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleSpiral;
             /**
             * ctor()
 The cc.ParticleSpiral&#39;s constructor.
@@ -16025,7 +16025,7 @@ Returns:
 {cc.ParticleSun}
 
             */
-            static create(): cc.ParticleSun;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.ParticleSun;
             /**
             * ctor()
 The cc.ParticleSun&#39;s constructor.
@@ -17573,7 +17573,7 @@ Places the node in a certain position
             /**
             * Please use cc.place instead.
             */
-            static create: cc.Place;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Place;
             /**
             * {cc.Place}
 clone()
@@ -17824,7 +17824,7 @@ Progress from a percentage to another percentage
             /**
             * Creates and initializes the action with a duration, a &quot;from&quot; percentage and a &quot;to&quot; percentage
             */
-            static create: cc.ProgressFromTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ProgressFromTo;
             /**
             * {cc.ProgressFromTo}
 clone()
@@ -17930,7 +17930,7 @@ The progress can be Radial, Horizontal or vertical.
             /**
             * - Type of the progress timer: cc.ProgressTimer.TYPE_RADIAL|cc.ProgressTimer.TYPE_BAR.
             */
-            type: enum;
+            type: any;
             /**
             * Bar
             */
@@ -18159,7 +18159,7 @@ Progress to percentage
             * Please use cc.progressTo instead
 Creates and initializes with a duration and a percent
             */
-            static create: cc.ProgressTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ProgressTo;
             /**
             * {cc.ProgressTo}
 clone()
@@ -18264,7 +18264,7 @@ Returns:
 cc.ProtectedNode
 
             */
-            static create();
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ProtectedNode;
             /**
             * ctor()
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -18407,7 +18407,7 @@ Delete self in the next frame.
             /**
             * Please use cc.removeSelf instead.
             */
-            static create: cc.RemoveSelf;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.RemoveSelf;
         }
     }
 declare module cc {
@@ -18744,7 +18744,7 @@ To repeat an action forever use the CCRepeatForever action.
             * Please use cc.repeat instead
 Creates a Repeat action.
             */
-            static create: cc.Repeat;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Repeat;
             /**
             * {cc.Repeat}
 clone()
@@ -18850,7 +18850,7 @@ To repeat the an action for a limited number of times use the Repeat action.
             * Please use cc.repeatForever instead
 Create a acton which repeat forever
             */
-            static create: cc.RepeatForever;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.RepeatForever;
             /**
             * {cc.RepeatForever}
 clone()
@@ -19047,7 +19047,7 @@ cc.ReuseGrid action
             * Please use cc.reuseGrid instead
 creates an action with the number of times that the current grid will be reused
             */
-            static create: cc.ReuseGrid;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ReuseGrid;
             /**
             * ctor(times)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -19091,7 +19091,7 @@ Executes an action in reverse order, from time=duration to time=0
             /**
             * Please use cc.reverseTime instead.
             */
-            static create: cc.ReverseTime;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ReverseTime;
             /**
             * {cc.ReverseTime}
 clone()
@@ -19182,7 +19182,7 @@ Reference the test cases (Effects Test)
             * Please use cc.ripple3D instead
 creates a ripple 3d action with radius, number of waves, amplitude
             */
-            static create: cc.Ripple3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Ripple3D;
             /**
             * ctor(duration, gridSize, position, radius, waves, amplitude)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -19289,7 +19289,7 @@ Relative to its properties to modify.
             /**
             * Please use cc.rotateBy instead.
             */
-            static create: cc.RotateBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.RotateBy;
             /**
             * {cc.RotateBy}
 clone()
@@ -19374,7 +19374,7 @@ The direction will be decided by the shortest angle.
             * Please use cc.rotateTo instead
 Creates a RotateTo action with separate rotation angles.
             */
-            static create: cc.RotateTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.RotateTo;
             /**
             * {cc.RotateTo}
 clone()
@@ -19828,7 +19828,7 @@ Relative to its changes.
             /**
             * Please use cc.scaleBy instead.
             */
-            static create: cc.ScaleBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ScaleBy;
             /**
             * {cc.ScaleBy}
 clone()
@@ -19871,7 +19871,7 @@ Scales a cc.Node object to a zoom factor by modifying it&#39;s scale attribute.
             /**
             * Please use cc.scaleTo instead.
             */
-            static create: cc.ScaleTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ScaleTo;
             /**
             * {cc.ScaleTo}
 clone()
@@ -19955,7 +19955,7 @@ Returns:
 {cc.Scene}
 
             */
-            static create(): cc.Scene;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): cc.Scene;
         }
     }
 declare module cc {
@@ -20042,7 +20042,7 @@ Parameters:
 {Array} targetsToResume
 
             */
-            resumeTargets(targetsToResume?: Array);
+            resumeTargets(targetsToResume?: Array<any>);
             /**
             * scheduleCallbackForTarget(target, callback_fn, interval, repeat, delay, paused)
 The scheduled method will be called every &#39;interval&#39; seconds.
@@ -20420,7 +20420,7 @@ Runs actions sequentially, one after another.
             /**
             * Please use cc.sequence instead.
             */
-            static create: cc.Sequence;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Sequence;
             /**
             * {cc.Sequence}
 clone()
@@ -20589,7 +20589,7 @@ Reference the test cases (Effects Test)
             * Please use cc.shaky3D instead
 creates the action with a range, shake Z vertices, a grid and duration
             */
-            static create: cc.Shaky3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Shaky3D;
             /**
             * ctor(duration, gridSize, range, shakeZ)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -20641,7 +20641,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.shakyTiles3D instead.
             */
-            static create: cc.ShakyTiles3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ShakyTiles3D;
             /**
             * ctor(duration, gridSize, range, shakeZ)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -20693,7 +20693,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.shatteredTiles3D instead.
             */
-            static create: cc.ShatteredTiles3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ShatteredTiles3D;
             /**
             * ctor(duration, gridSize, range, shatterZ)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -20744,7 +20744,7 @@ Show the node.
             /**
             * Show the Node.
             */
-            static create: cc.Show;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Show;
             /**
             * {cc.FiniteTimeAction}
 clone()
@@ -20793,7 +20793,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.shuffleTiles instead.
             */
-            static create: cc.ShuffleTiles;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ShuffleTiles;
             /**
             * ctor(duration, gridSize, seed)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -20843,7 +20843,7 @@ Parameters:
 {Number} len
 
             */
-            shuffle(array?: Array, len?: number);
+            shuffle(array?: Array<any>, len?: number);
             /**
             * startWithTarget(target)
 Start with target
@@ -20890,7 +20890,7 @@ Relative to its attribute modification.
             /**
             * Please use cc.skewBy instead.
             */
-            static create: cc.SkewBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.SkewBy;
             /**
             * {cc.SkewBy}
 clone()
@@ -20962,7 +20962,7 @@ Skews a cc.Node object to given angles by modifying it&#39;s skewX and skewY att
             /**
             * Please use cc.skewTo instead.
             */
-            static create: cc.SkewTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.SkewTo;
             /**
             * {cc.SkewTo}
 clone()
@@ -21068,7 +21068,7 @@ Spawn a new action immediately
             /**
             * Please use cc.spawn instead.
             */
-            static create: cc.FiniteTimeAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.FiniteTimeAction;
             /**
             * {cc.Spawn}
 clone()
@@ -21148,7 +21148,7 @@ or less (speed
             /**
             * Please use cc.speed instead.
             */
-            static create: cc.Speed;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Speed;
             /**
             * {cc.Speed}
 clone()
@@ -21277,7 +21277,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.splitCols instead.
             */
-            static create: cc.SplitCols;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.SplitCols;
             /**
             * ctor(duration, cols)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -21334,7 +21334,7 @@ Reference the test cases (Effects Test)
             * Please use cc.splitRows instead
 creates the action with the number of rows to split and the duration.
             */
-            static create: cc.SplitRows;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.SplitRows;
             /**
             * ctor(duration, rows)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -21990,7 +21990,7 @@ A cc.SpriteBatchNode can reference one and only one texture (one image file, one
             /**
             * -  Descendants of sprite batch node
             */
-            descendants: Array;
+            descendants: Array<any>;
             /**
             * - The texture atlas
             */
@@ -22088,7 +22088,7 @@ Returns:
 {Array}
 
             */
-            getDescendants(): Array;
+            getDescendants(): Array<any>;
             /**
             * {cc.Texture2D}
 getTexture()
@@ -22676,7 +22676,7 @@ cc.StopGrid action.
             * Please use cc.stopGrid instead
 Allocates and initializes the action
             */
-            static create: cc.StopGrid;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.StopGrid;
             /**
             * startWithTarget(target)
 called before the action start. It will also set the target.
@@ -22692,10 +22692,6 @@ declare module cc {
         * 
         */
         export class sys  {
-            /**
-            * 
-            */
-            constructorcc.sys.ANDROID;
             /**
             * 
             */
@@ -23081,7 +23077,7 @@ specified at action creation rather than the one specified by runAction.
             * Please use cc.targetedAction instead
 Create an action with the specified action and forced target
             */
-            static create: cc.TargetedAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.TargetedAction;
             /**
             * {cc.TargetedAction}
 clone()
@@ -23715,11 +23711,11 @@ The TextureAtlas capacity can be increased or decreased in runtime.
             /**
             * -  Quads that are going to be rendered
             */
-            quads: Array;
+            quads: Array<any>;
             /**
             * - Image texture for cc.TextureAtlas.
             */
-            texture: Image;
+            texture: any;
             /**
             * -  Quantity of quads that are going to be drawn.
             */
@@ -23808,7 +23804,7 @@ Returns:
 {Array}
 
             */
-            getQuads(): Array;
+            getQuads(): Array<any>;
             /**
             * {Image}
 getTexture()
@@ -23903,7 +23899,7 @@ Parameters:
 {Number} amount
 
             */
-            insertQuads(quads?: Array, index?: number, amount?: number);
+            insertQuads(quads?: Array<any>, index?: number, amount?: number);
             /**
             * {boolean}
 isDirty()
@@ -23978,7 +23974,7 @@ Parameters:
 {Array} quads
 
             */
-            setQuads(quads?: Array);
+            setQuads(quads?: Array<any>);
             /**
             * setTexture(texture)
 Parameters:
@@ -24114,7 +24110,7 @@ Returns:
 {Array}
 
             */
-            getTextureColors(texture?: Image): Array;
+            getTextureColors(texture?: Image): Array<any>;
             /**
             * {cc.Texture2D|Null}
 getTextureForKey(textureKeyName)
@@ -24279,7 +24275,7 @@ Base class for cc.TiledGrid3D actions.
             * Please use cc.tiledGrid3DAction instead
 Creates the action with duration and grid size
             */
-            static create: cc.TiledGrid3DAction;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.TiledGrid3DAction;
             /**
             * {cc.TiledGrid3D}
 getGrid()
@@ -24404,7 +24400,7 @@ Relative to their own color change.
             /**
             * Please use cc.tintBy instead.
             */
-            static create: cc.TintBy;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.TintBy;
             /**
             * {cc.TintBy}
 clone()
@@ -24485,7 +24481,7 @@ Tints a cc.Node that implements the cc.NodeRGB protocol from current tint to a c
             /**
             * Please use cc.tintTo instead.
             */
-            static create: cc.TintTo;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.TintTo;
             /**
             * {cc.TintTo}
 clone()
@@ -24591,7 +24587,7 @@ The value 0 should work for most cases, but if you have tiles that are semi-tran
             /**
             * - Properties from the layer.
             */
-            properties: Array;
+            properties: Array<any>;
             /**
             * - Height of a tile
             */
@@ -24599,7 +24595,7 @@ The value 0 should work for most cases, but if you have tiles that are semi-tran
             /**
             * - Tiles for layer
             */
-            tiles: Array;
+            tiles: Array<any>;
             /**
             * - Tileset for layer
             */
@@ -24703,7 +24699,7 @@ Returns:
 {Array}
 
             */
-            getProperties(): Array;
+            getProperties(): Array<any>;
             /**
             * {*}
 getProperty(propertyName)
@@ -24781,7 +24777,7 @@ Returns:
 {Array}
 
             */
-            getTiles(): Array;
+            getTiles(): Array<any>;
             /**
             * {cc.TMXTilesetInfo}
 getTileset()
@@ -24883,7 +24879,7 @@ Parameters:
 {Array} Var
 
             */
-            setProperties(Var?: Array);
+            setProperties(Var?: Array<any>);
             /**
             * setTileGID(gid, posOrX, flagsOrY, flags)
 Sets the tile gid (gid = tile global id) at a given tile coordinate.
@@ -24907,7 +24903,7 @@ Parameters:
 {Array} Var
 
             */
-            setTiles(Var?: Array);
+            setTiles(Var?: Array<any>);
             /**
             * setTileset(Var)
 Tile set information for the layer
@@ -24964,7 +24960,7 @@ This information is obtained from the TMX file.
             /**
             * - Properties of the layer info.
             */
-            properties: Array;
+            properties: Array<any>;
             /**
             * {Array}
 getProperties()
@@ -24973,7 +24969,7 @@ Returns:
 {Array}
 
             */
-            getProperties(): Array;
+            getProperties(): Array<any>;
             /**
             * setProperties(value)
 Set the Properties.
@@ -25046,7 +25042,7 @@ This information is obtained from the TMX file.
             /**
             * - Properties of the map info.
             */
-            properties: Array;
+            properties: Array<any>;
             /**
             * - Is reading storing characters stream.
             */
@@ -25118,7 +25114,7 @@ Returns:
 {Array}
 
             */
-            getLayers(): Array;
+            getLayers(): Array<any>;
             /**
             * {cc.Size}
 getMapSize()
@@ -25136,7 +25132,7 @@ Returns:
 {Array}
 
             */
-            getObjectGroups(): Array;
+            getObjectGroups(): Array<any>;
             /**
             * {Number}
 getOrientation()
@@ -25172,7 +25168,7 @@ Returns:
 {Array}
 
             */
-            getProperties(): Array;
+            getProperties(): Array<any>;
             /**
             * {Boolean}
 getStoringCharacters()
@@ -25199,7 +25195,7 @@ Returns:
 {Array}
 
             */
-            getTilesets(): Array;
+            getTilesets(): Array<any>;
             /**
             * {cc.Size}
 getTileSize()
@@ -25397,7 +25393,7 @@ cc.TMXObjectGroup represents the TMX object group.
             /**
             * - Properties from the group.
             */
-            properties: Array;
+            properties: Array<any>;
             /**
             * ctor()
 The cc.TMXObjectGroup&#39;s constructor.
@@ -25423,7 +25419,7 @@ Returns:
 {Array}
 
             */
-            getObjects(): Array;
+            getObjects(): Array<any>;
             /**
             * {cc.Point}
 getPositionOffset()
@@ -25441,7 +25437,7 @@ Returns:
 {Array}
 
             */
-            getProperties(): Array;
+            getProperties(): Array<any>;
             /**
             * {object|Null}
 objectNamed(objectName)
@@ -25572,11 +25568,11 @@ object.getProperty(name_of_the_property);
             /**
             * - Object groups of the map
             */
-            objectGroups: Array;
+            objectGroups: Array<any>;
             /**
             * - Properties from the map.
             */
-            properties: Array;
+            properties: Array<any>;
             /**
             * - Height of a tile
             */
@@ -25593,7 +25589,7 @@ Returns:
 {Array}
 
             */
-            allLayers(): Array;
+            allLayers(): Array<any>;
             /**
             * &amp;lt;static&amp;gt;
 {cc.TMXTiledMap|undefined}
@@ -25672,7 +25668,7 @@ Returns:
 {Array}
 
             */
-            getObjectGroups(): Array;
+            getObjectGroups(): Array<any>;
             /**
             * {object}
 getProperties()
@@ -25773,7 +25769,7 @@ Parameters:
 {Array} Var
 
             */
-            setObjectGroups(Var?: Array);
+            setObjectGroups(Var?: Array<any>);
             /**
             * setProperties(Var)
 Set the properties
@@ -25870,7 +25866,7 @@ Toggles the visibility of a node.
             /**
             * Toggles the visibility of a node.
             */
-            static create: cc.ToggleVisibility;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.ToggleVisibility;
             /**
             * {cc.ToggleVisibility}
 clone()
@@ -27936,7 +27932,7 @@ Reference the test cases (Effects Test)
             /**
             * Please use cc.turnOffTiles instead.
             */
-            static create: cc.TurnOffTiles;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.TurnOffTiles;
             /**
             * ctor(duration, gridSize, seed)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -27971,7 +27967,7 @@ Parameters:
 {Number} len
 
             */
-            shuffle(array?: Array, len?: number);
+            shuffle(array?: Array<any>, len?: number);
             /**
             * startWithTarget(target)
 called before the action start. It will also set the target.
@@ -28022,7 +28018,7 @@ Reference the test cases (Effects Test)
             * Please use cc.twirl instead
 creates the action with center position, number of twirls, amplitude, a grid size and duration
             */
-            static create: cc.Twirl;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Twirl;
             /**
             * ctor(duration, gridSize, position, twirls, amplitude)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -28605,7 +28601,7 @@ Reference the test cases (Effects Test)
             * Please use cc.waves instead
 initializes the action with amplitude, horizontal sin, vertical sin, a grid and duration
             */
-            static create: cc.Waves;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.Waves;
             /**
             * ctor(duration, gridSize, waves, amplitude, horizontal, vertical)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -28695,7 +28691,7 @@ Reference the test cases (Effects Advanced Test)
             /**
             * Please use cc.waves3D instead.
             */
-            static create;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): Waves3D;
             /**
             * ctor(duration, gridSize, waves, amplitude)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -28782,7 +28778,7 @@ Reference the test cases (Effects Test)
             * Please use cc.wavesTiles3D instead
 creates the action with a number of waves, the waves amplitude, the grid size and the duration.
             */
-            static create: cc.WavesTiles3D;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any):cc.WavesTiles3D;
             /**
             * ctor(duration, gridSize, waves, amplitude)
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -28954,7 +28950,7 @@ Parameters:
 {Array} parameter
 
             */
-            setEasingParameter(parameter?: Array);
+            setEasingParameter(parameter?: Array<any>);
             /**
             * setEasingType(easingType)
 Sets the easing type to ccs.ActionFrame
@@ -30002,7 +29998,7 @@ Returns:
 {ccs.ArmatureAnimation}
 
             */
-            static create(): ccs.ArmatureAnimation;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.ArmatureAnimation;
             /**
             * frameEvent(bone, frameEventName, originFrameIndex, currentFrameIndex)
 Emits a frame event
@@ -30182,7 +30178,7 @@ Parameters:
 {Boolean} loop
 
             */
-            playWithIndexes(movementIndexes?: Array, durationTo?: number, loop?: boolean);
+            playWithIndexes(movementIndexes?: Array<any>, durationTo?: number, loop?: boolean);
             /**
             * playWithNames(movementNames, durationTo, loop)
 Plays animation with names
@@ -30192,7 +30188,7 @@ Parameters:
 {Boolean} loop
 
             */
-            playWithNames(movementNames?: Array, durationTo?: number, loop?: boolean);
+            playWithNames(movementNames?: Array<any>, durationTo?: number, loop?: boolean);
             /**
             * resume()
 Resumes armature animation.
@@ -30714,7 +30710,7 @@ The Bone of Armature, it has bone data, display manager and transform data for a
             /**
             * -  All children bones
             */
-            childrenBone: Array;
+            childrenBone: Array<any>;
             /**
             * - The collider filter
             */
@@ -30819,7 +30815,7 @@ Returns:
 {ccs.Bone}
 
             */
-            static create(): ccs.Bone;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.Bone;
             /**
             * {ccs.Armature}
 getArmature()
@@ -30866,7 +30862,7 @@ Returns:
 {Array}
 
             */
-            getChildrenBone(): Array;
+            getChildrenBone(): Array<any>;
             /**
             * {Array|null}
 getColliderBodyList()
@@ -31220,7 +31216,7 @@ BoneData used to init a Bone.
             /**
             * - the display data list
             */
-            displayDataList: Array;
+            displayDataList: Array<any>;
             /**
             * - the name of Bone
             */
@@ -31309,7 +31305,7 @@ Returns:
 {Array}
 
             */
-            getCalculatedVertexList(): Array;
+            getCalculatedVertexList(): Array<any>;
             /**
             * {ccs.ColliderFilter}
 getColliderFilter()
@@ -31401,7 +31397,7 @@ Parameters:
 {Array} contourDataList
 
             */
-            addContourDataList(contourDataList?: Array);
+            addContourDataList(contourDataList?: Array<any>);
             /**
             * {ccs.ColliderFilter}
 getColliderFilter()
@@ -31472,7 +31468,7 @@ Returns:
 {ccs.ComAttribute}
 
             */
-            static create(): ccs.ComAttribute;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.ComAttribute;
             /**
             * ctor()
 Construction of ccs.ComAttribute
@@ -31642,7 +31638,7 @@ Returns:
 {ccs.ComAudio}
 
             */
-            static create(): ccs.ComAudio;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.ComAudio;
             /**
             * ctor()
 Construction of ccs.ComAudio
@@ -31900,7 +31896,7 @@ Returns:
 {ccs.ComController}
 
             */
-            static create(): ccs.ComController;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.ComController;
             /**
             * ctor()
 Construction of ccs.ComController.
@@ -31972,7 +31968,7 @@ Returns:
 {ccs.ComRender}
 
             */
-            static create(): ccs.ComRender;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.ComRender;
             /**
             * ctor(node, comName)
 Construction of ccs.ComRender
@@ -32379,7 +32375,7 @@ Returns:
 {ccs.DecorativeDisplay}
 
             */
-            static create(): ccs.DecorativeDisplay;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccs.DecorativeDisplay;
             /**
             * {ccs.ColliderDetector}
 getColliderDetector()
@@ -32614,7 +32610,7 @@ MovementBoneData saved the name, delay, frame list of Bone&#39;s movement.
             /**
             * - the frame list of bone&#39;s movement.
             */
-            frameList: Array;
+            frameList: Array<any>;
             /**
             * - the name of bone&#39;s movement.
             */
@@ -35114,7 +35110,7 @@ Returns:
 {ccui.Layout}
 
             */
-            static create(): ccui.Layout;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.Layout;
             /**
             * ctor()
 Allocates and initializes an UILayout.
@@ -35535,7 +35531,7 @@ Returns:
 {ccui.LayoutParameter}
 
             */
-            static create(): ccui.LayoutParameter;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.LayoutParameter;
             /**
             * ctor()
 The constructor of ccui.LayoutParameter.
@@ -35633,7 +35629,7 @@ Returns:
 {ccui.LinearLayoutParameter}
 
             */
-            static create(): ccui.LinearLayoutParameter;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.LinearLayoutParameter;
             /**
             * ctor()
 The constructor of ccui.LinearLayoutParameter.
@@ -35762,7 +35758,7 @@ Deprecated:
 since v3.0, please use new ccui.ListView() instead.
 
             */
-            static create();
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ListView;
             /**
             * ctor()
 allocates and initializes a UIListView.
@@ -35827,7 +35823,7 @@ Returns:
 {Array}
 
             */
-            getItems(): Array;
+            getItems(): Array<any>;
             /**
             * {Number}
 getItemsMargin()
@@ -36330,7 +36326,7 @@ Returns:
 {ccui.PageView}
 
             */
-            static create(): ccui.PageView;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.PageView;
             /**
             * ctor()
 Allocates and initializes a UIPageView.
@@ -36393,7 +36389,7 @@ Returns:
 {Array}
 
             */
-            getPages(): Array;
+            getPages(): Array<any>;
             /**
             * {boolean}
 init()
@@ -36722,7 +36718,7 @@ Returns:
 {ccui.RelativeLayoutParameter}
 
             */
-            static create(): ccui.RelativeLayoutParameter;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.RelativeLayoutParameter;
             /**
             * ctor()
 The constructor of ccui.RelativeLayoutParameter
@@ -37284,7 +37280,7 @@ Returns:
 {ccui.ScrollView}
 
             */
-            static create(): ccui.ScrollView;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.ScrollView;
             /**
             * ctor()
 Allocates and initializes a UIScrollView.
@@ -37339,7 +37335,7 @@ Returns:
 {Array}
 
             */
-            getChildren(): Array;
+            getChildren(): Array<any>;
             /**
             * {Number}
 getChildrenCount()
@@ -37418,7 +37414,7 @@ Returns:
 {Array}
 
             */
-            getNodes(): Array;
+            getNodes(): Array<any>;
             /**
             * {boolean}
 init()
@@ -37850,7 +37846,7 @@ Returns:
 {ccui.Slider}
 
             */
-            static create(): ccui.Slider;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.Slider;
             /**
             * ctor()
 allocates and initializes a UISlider.
@@ -38816,7 +38812,7 @@ Returns:
 {ccui.Widget}
 
             */
-            static create(): ccui.Widget;
+            static create(arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): ccui.Widget;
             /**
             * ctor()
 Constructor function, override it to extend the construction behavior, remember to call &quot;this._super()&quot; in the extended &quot;ctor&quot; function.
@@ -38978,7 +38974,7 @@ Returns:
 {Array}
 
             */
-            getNodes(): Array;
+            getNodes(): Array<any>;
             /**
             * {cc.Point}
 getPositionPercent()
@@ -39665,7 +39661,7 @@ Returns:
 {jsb.AssetsManager::State}
 
             */
-            getState(): jsb.AssetsManager::State;
+            getState(): any;
             /**
             * {String}
 getStoragePath()
@@ -39704,7 +39700,7 @@ Parameters:
 {int} arg8
 
             */
-            EventAssetsManager(arg0?: string, arg1?: cc.AssetsManager, arg2?: cc.EventAssetsManager::EventCode, arg3?: float, arg4?: float, arg5?: string, arg6?: string, arg7?: int, arg8?: int);
+            EventAssetsManager(arg0?: string, arg1?: any, arg2?: any, arg3?: number, arg4?: number, arg5?: string, arg6?: string, arg7?: number, arg8?: number);
             /**
             * {String}
 getAssetId()
@@ -39720,7 +39716,7 @@ Returns:
 {cc.AssetsManager}
 
             */
-            getAssetsManager(): cc.AssetsManager;
+            getAssetsManager(): any;
             /**
             * {int}
 getCURLECode()
@@ -39728,7 +39724,7 @@ Returns:
 {int}
 
             */
-            getCURLECode(): int;
+            getCURLECode(): number;
             /**
             * {int}
 getCURLMCode()
@@ -39736,7 +39732,7 @@ Returns:
 {int}
 
             */
-            getCURLMCode(): int;
+            getCURLMCode(): number;
             /**
             * {cc.EventAssetsManager::EventCode}
 getEventCode()
@@ -39744,7 +39740,7 @@ Returns:
 {cc.EventAssetsManager::EventCode}
 
             */
-            getEventCode(): cc.EventAssetsManager::EventCode;
+            getEventCode(): any;
             /**
             * {String}
 getMessage()
@@ -39760,7 +39756,7 @@ Returns:
 {float}
 
             */
-            getPercent(): float;
+            getPercent(): number;
             /**
             * {float}
 getPercentByFile()
@@ -39768,7 +39764,7 @@ Returns:
 {float}
 
             */
-            getPercentByFile(): float;
+            getPercentByFile(): number;
         }
     }
 declare module jsb {
@@ -39887,7 +39883,7 @@ Returns:
 {long}
 
             */
-            getFileSize(arg0?: string): long;
+            getFileSize(arg0?: string): number;
             /**
             * {Array}
 getSearchPaths()
@@ -39895,7 +39891,7 @@ Returns:
 {Array}
 
             */
-            getSearchPaths(): Array;
+            getSearchPaths(): Array<any>;
             /**
             * {Array}
 getSearchResolutionsOrder()
@@ -39903,7 +39899,7 @@ Returns:
 {Array}
 
             */
-            getSearchResolutionsOrder(): Array;
+            getSearchResolutionsOrder(): Array<any>;
             /**
             * {String}
 getStringFromFile(arg0)
@@ -39923,7 +39919,7 @@ Returns:
 {map_object}
 
             */
-            getValueMapFromFile(arg0?: string): map_object;
+            getValueMapFromFile(arg0?: string): any;
             /**
             * {Array}
 getValueVectorFromFile(arg0)
@@ -39933,7 +39929,7 @@ Returns:
 {Array}
 
             */
-            getValueVectorFromFile(arg0?: string): Array;
+            getValueVectorFromFile(arg0?: string): Array<any>;
             /**
             * {String}
 getWritablePath()
@@ -40030,14 +40026,14 @@ Parameters:
 {Array} arg0
 
             */
-            setSearchPaths(arg0?: Array);
+            setSearchPaths(arg0?: Array<any>);
             /**
             * setSearchResolutionsOrder(arg0)
 Parameters:
 {Array} arg0
 
             */
-            setSearchResolutionsOrder(arg0?: Array);
+            setSearchResolutionsOrder(arg0?: Array<any>);
             /**
             * {bool}
 writeStringToFile(arg0, arg1)
@@ -40059,7 +40055,7 @@ Returns:
 {bool}
 
             */
-            writeToFile(arg0?: map_object, arg1?: string): boolean;
+            writeToFile(arg0?: any, arg1?: string): boolean;
         }
     }
 declare module jsb {
@@ -40209,7 +40205,7 @@ Returns:
             /**
             * {spine.RegionAttachment|spine.BoundingBoxAttachment}
 getAttachment(slotName, attachmentName)
-Returns the attachment for the slot and attachment name. The skeleton looks first in its skin, then in the skeleton data’s default skin.
+Returns the attachment for the slot and attachment name. The skeleton looks first in its skin, then in the skeleton dataâ€™s default skin.
 Parameters:
 {String} slotName
 {String} attachmentName
@@ -40277,7 +40273,7 @@ Returns:
             isOpacityModifyRGB(): boolean;
             /**
             * setAttachment(slotName, attachmentName)
-Sets the attachment for the slot and attachment name. The skeleton looks first in its skin, then in the skeleton data’s default skin.
+Sets the attachment for the slot and attachment name. The skeleton looks first in its skin, then in the skeleton dataâ€™s default skin.
 Parameters:
 {String} slotName
 {String} attachmentName
@@ -40508,7 +40504,8 @@ Delta time since last update
             */
             update(dt?: number);
         }
-    }
+}
+
 declare module cc {
     /**
      * Canvas of render type
@@ -40843,7 +40840,7 @@ declare module cc {
      * var bezier = [cc.p(0, windowSize.height / 2), cc.p(300, -windowSize.height / 2), cc.p(300, 100)];
      * var bezierForward = cc.bezierBy(3, bezier);
      */
-    function bezierBy(t?: number, c?: Array): cc.BezierBy;
+    function bezierBy(t?: number, c?: Array<any>): cc.BezierBy;
     /**
      * An action that moves the target with a cubic Bezier curve to a destination point.
      * @function
@@ -40855,7 +40852,7 @@ declare module cc {
      * var bezier = [cc.p(0, windowSize.height / 2), cc.p(300, -windowSize.height / 2), cc.p(300, 100)];
      * var bezierTo = cc.bezierTo(2, bezier);
      */
-    function bezierTo(t?: number, c?: Array): cc.BezierTo;
+    function bezierTo(t?: number, c?: Array<any>): cc.BezierTo;
     /**
      * Scales a cc.Node object to a zoom factor by modifying it's scale attribute.
      * @function
@@ -41345,4 +41342,60 @@ declare module cc {
      * @type Number
      */
     var VERTICAL_TEXT_ALIGNMENT_BOTTOM: number;
+}
+
+declare module cc {
+    interface IMEKeyboardNotificationInfo {
+    }
+    interface DirectorDelegate {
+    }
+    interface BlendFunc {
+    }
+    interface Image {
+    }
+    interface Quad3 {
+    }
+    interface ScrollViewDelegate {
+    }
+    interface SkeletonData {
+    }
+    interface TableViewDataSource {
+    }
+    interface TableViewDelegate {
+    }
+    interface EventListenerAssetsManager {
+    }
+    interface V3F_C4B_T2F_Quad {
+    }
+    interface ActionFrame { }
+    interface AssetsManager { }
+    interface ColliderFilter { }
+}
+declare module ccs {
+    interface DataInfo {
+    }
+    interface Shape {
+    }
+    interface DisplayManager {
+    }
+    interface objectFactory {
+    }
+    interface TweenType { }
+}
+declare module ccui {
+    interface Text { }
+    interface TextAtlas { }
+    interface TextBMFont { }
+}
+declare module spine {
+    interface Skin {
+    }
+    interface Slot {
+    }
+    interface SkeletonData {
+    }
+    interface Bone {
+    }
+    interface AnimationStateData {
+    }
 }
