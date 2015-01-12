@@ -1,10 +1,10 @@
 /// <reference path="./which.d.ts" />
 
-import when = require("when");
+import which = require("which");
 
-when("cat", (err, path) => {
+which("cat", (err, path) => {
   console.log(path);
 });
 
-var path = when.sync("cat");
+var path = which.sync("cat");
 console.log(path);
