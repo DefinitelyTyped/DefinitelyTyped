@@ -1,8 +1,22 @@
 /// <reference path="./rest.d.ts" />
 
 import rest = require('rest');
+
+import defaultRequest = require('rest/interceptor/defaultRequest');
+import hateoas = require('rest/interceptor/hateoas');
+import location = require('rest/interceptor/location');
 import mime = require('rest/interceptor/mime');
+import pathPrefix = require('rest/interceptor/pathPrefix');
+import basicAuth = require('rest/interceptor/basicAuth');
+import oAuth = require('rest/interceptor/oAuth');
+import csrf = require('rest/interceptor/csrf');
 import errorCode = require('rest/interceptor/errorCode');
+import retry = require('rest/interceptor/retry');
+import timeout = require('rest/interceptor/timeout');
+import jsonp = require('rest/interceptor/jsonp');
+import xdomain = require('rest/interceptor/ie/xdomain');
+import xhr = require('rest/interceptor/ie/xhr');
+
 import registry = require('rest/mime/registry');
 
 rest('/').then(function(response) {
@@ -38,3 +52,18 @@ registry.register('application/vnd.com.example', {
     }
 });
 
+client = rest
+	.wrap(defaultRequest)
+	.wrap(hateoas)
+	.wrap(location)
+	.wrap(mime)
+	.wrap(pathPrefix)
+	.wrap(basicAuth)
+	.wrap(oAuth)
+	.wrap(csrf)
+	.wrap(errorCode)
+	.wrap(retry)
+	.wrap(timeout)
+	.wrap(jsonp)
+	.wrap(xdomain)
+	.wrap(xhr);

@@ -62,12 +62,28 @@ declare module "rest" {
 	}
 }
 
-declare module "rest/interceptor/errorCode" {
+declare module "rest/interceptor/defaultRequest" {
 	import rest = require("rest");
 
-	var errorCode: rest.Interceptor;
+	var defaultRequest: rest.Interceptor;
 
-	export = errorCode;
+	export = defaultRequest;
+}
+
+declare module "rest/interceptor/hateoas" {
+	import rest = require("rest");
+
+	var hateoas: rest.Interceptor;
+
+	export = hateoas;
+}
+
+declare module "rest/interceptor/location" {
+	import rest = require("rest");
+
+	var location: rest.Interceptor;
+
+	export = location;
 }
 
 declare module "rest/interceptor/mime" {
@@ -76,6 +92,86 @@ declare module "rest/interceptor/mime" {
 	var mime: rest.Interceptor;
 
 	export = mime;
+}
+
+declare module "rest/interceptor/pathPrefix" {
+	import rest = require("rest");
+
+	var pathPrefix: rest.Interceptor;
+
+	export = pathPrefix;
+}
+
+declare module "rest/interceptor/basicAuth" {
+	import rest = require("rest");
+
+	var basicAuth: rest.Interceptor;
+
+	export = basicAuth;
+}
+
+declare module "rest/interceptor/oAuth" {
+	import rest = require("rest");
+
+	var oAuth: rest.Interceptor;
+
+	export = oAuth;
+}
+
+declare module "rest/interceptor/csrf" {
+	import rest = require("rest");
+
+	var csrf: rest.Interceptor;
+
+	export = csrf;
+}
+
+declare module "rest/interceptor/errorCode" {
+	import rest = require("rest");
+
+	var errorCode: rest.Interceptor;
+
+	export = errorCode;
+}
+
+declare module "rest/interceptor/retry" {
+	import rest = require("rest");
+
+	var retry: rest.Interceptor;
+
+	export = retry;
+}
+
+declare module "rest/interceptor/timeout" {
+	import rest = require("rest");
+
+	var timeout: rest.Interceptor;
+
+	export = timeout;
+}
+
+declare module "rest/interceptor/jsonp" {
+	import rest = require("rest");
+
+	var jsonp: rest.Interceptor;
+
+	export = jsonp;
+}
+
+declare module "rest/interceptor/ie/xdomain" {
+	import rest = require("rest");
+
+	var xdomain: rest.Interceptor;
+
+	export = xdomain;
+}
+
+declare module "rest/interceptor/ie/xhr" {
+	import rest = require("rest");
+
+	var xhr: rest.Interceptor;
+
+	export = xhr;
 }
 
 declare module "rest/mime/registry" {
