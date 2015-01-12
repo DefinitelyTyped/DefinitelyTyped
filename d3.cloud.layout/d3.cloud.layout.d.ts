@@ -3,7 +3,7 @@
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 
 
-/// <reference path="../d3.d.ts" />
+/// <reference path="../d3/d3.d.ts" />
 
 declare module D3 {
   export module Layout {
