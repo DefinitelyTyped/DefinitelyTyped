@@ -71,26 +71,28 @@ declare module "rest/interceptor" {
 	import when = require("when");
 	import rest = require("rest");
 
-	// TODO: These two configs should be merged to use union output types.
+	function interceptor(config: interceptor.Config): rest.Interceptor;
+	function interceptor(config: interceptor.PromiseConfig): rest.Interceptor;
 
-	interface Config {
-		init?: (config: any) => any;
-		request?: (request: rest.Request, config: any, meta: rest.Meta) => rest.Request;
-		response?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
-		success?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
-		error?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
+	module interceptor {
+		// TODO: These two configs should be merged to use union output types.
+
+		interface Config {
+			init?: (config: any) => any;
+			request?: (request: rest.Request, config: any, meta: rest.Meta) => rest.Request;
+			response?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
+			success?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
+			error?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
+		}
+
+		interface PromiseConfig {
+			init?: (config: any) => any;
+			request?: (request: rest.Request, config: any, meta: rest.Meta) => when.Promise<rest.Request>;
+			response?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
+			success?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
+			error?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
+		}
 	}
-
-	interface PromiseConfig {
-		init?: (config: any) => any;
-		request?: (request: rest.Request, config: any, meta: rest.Meta) => when.Promise<rest.Request>;
-		response?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
-		success?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
-		error?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
-	}
-
-	function interceptor(config: Config): rest.Interceptor;
-	function interceptor(config: PromiseConfig): rest.Interceptor;
 
 	export = interceptor;
 }
