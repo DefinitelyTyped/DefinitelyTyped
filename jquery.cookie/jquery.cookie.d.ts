@@ -21,6 +21,8 @@ interface JQueryCookieStatic {
     (name: string): any;
     (name: string, value: string): void;
     (name: string, value: string, options: JQueryCookieOptions): void;
+    (name: string, converter: (value: string) => any): void;
+    (name: string, converter: (value: string) => any, options: JQueryCookieOptions): void;
     (name: string, value: any): void;
     (name: string, value: any, options: JQueryCookieOptions): void;
 }
