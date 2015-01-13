@@ -37,6 +37,18 @@ declare module Gamepad{
          * @readonly
          */
         buttons:GamepadButton[];
+
+        /**
+         * Indicates whether the physical device represented by this object is still connected to the system. When a gamepad becomes unavailable, whether by being physically disconnected, powered off or otherwise unusable, the connected attribute must be set to false.
+         * @readonly
+         */
+        connected:boolean;
+
+        /**
+         * The mapping in use for this device. If the user agent has knowledge of the layout of the device, then it should indicate that a mapping is in use by setting this property to a known mapping name. Currently the only known mapping is "standard", which corresponds to the Standard Gamepad layout. If the user agent does not have knowledge of the device layout and is simply providing the controls as represented by the driver in use, then it must set the mapping property to an empty string.
+         * @readonly
+         */
+        mapping:string;
     }
 
     /**
