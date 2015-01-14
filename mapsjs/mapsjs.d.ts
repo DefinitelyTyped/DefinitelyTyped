@@ -399,7 +399,7 @@ declare module mapsjs {
 			 * @param {number} [idx] Index of the line to return.
 			 * @returns {number[]} A line as an array of points in the form [xn,yn].
 			 */
-            getLine(idx: number): number[];
+            getLine(idx?: number): number[];
 			
 			/**
 			 * Adds a new line to this polyline's line collection.
@@ -471,7 +471,7 @@ declare module mapsjs {
 			 * @param {number} [idx] Index of the ring to return.
 			 * @returns {number[]} A ring as an array of points in the form [xn,yn].
 			 */
-            getRing(idx: number): number[];
+            getRing(idx?: number): number[];
 			
 			/**
 			 * Adds a new ring to this polygon's ring collection.
@@ -2257,6 +2257,12 @@ declare module mapsjs {
             queryByPolygon(poly: geometry.polygon): localFeatureData;
 
             /**
+             * Query data-rows by envelope.
+             * @param {envelope} env A query envelope to search with.
+             */
+            queryByEnvelope(env: envelope): localFeatureData;
+
+            /**
              * Query data-rows by attribute.
              * @param {string[]} fields An array of field names to search.
              * @param {string} val A string value to match against.
@@ -2355,6 +2361,7 @@ declare module mapsjs {
         nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
         nodeMoveAction?: (x: number, y: number, actionType: string, activeSetIdx?: number, activeNodeIdx?: number) => any;
         shapeChangeAction?: () => void;
+	shapeDragAction?: (pt1: point, pt2: point) => void;
         envelopeEndAction?: (env: envelope) => void;
         circleEndAction?: (circle: geometry.polygon) => void;
         suppressNodeAdd?: boolean;
@@ -2675,8 +2682,9 @@ declare module mapsjs {
 		 * @param {HTMLElement} element The existing DOM element to move.
 		 * @param {number} mapUnitsX The new x coordinate in map units.
 		 * @param {number} mapUnitsY The new y coordinate in map units.
+         * @param {number} duration Optional mS animation duration - omit to not animate
 		 */
-        moveFixedContentElement(element: HTMLElement, mapUnitsX: number, mapUnitsY: number): void;
+        moveFixedContentElement(element: HTMLElement, mapUnitsX: number, mapUnitsY: number, duration?: number): void;
         
 		/**
 		 * Removes a fixed content element.
@@ -2724,7 +2732,7 @@ declare module mapsjs {
 		 * click locations.
 		 * @param {object} options JavaScript object of the form { key,
 		 * shapeType, geometryStyle, styledGeometry, nodeTapAndHoldAction, nodeMoveAction,
-		 * shapeChangeAction, envelopeEndAction, circleEndAction, supressNodeAdd, leavePath }
+		 * shapeChangeAction, shapeDragAction, envelopeEndAction, circleEndAction, supressNodeAdd, leavePath }
 		 * where key is a a string associated with this geometry, shapeType
 		 * is the type of shape this geometry is, one of 'polygon', 'polyline', 'multipoint', 'envelope' or 'circle', 
          * geometryStyle is a geometryStyle which should be applied
