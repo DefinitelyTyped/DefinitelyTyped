@@ -1,6 +1,7 @@
-// Type definitions for Esprima v1.2.0
+// Type definitions for Esprima v1.2.2
 // Project: http://esprima.org
 // Definitions by: teppeis <https://github.com/teppeis/>
+// Definitions by: Oleksandr Nikitin <https://github.com/wizzard0/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module esprima {
@@ -109,7 +110,7 @@ declare module esprima {
         }
         interface TryStatement extends Statement {
             block: BlockStatement
-            handler: CatchClause // | null
+            handlers: CatchClause[] // | null
             guardedHandlers: CatchClause[]
             finalizer: BlockStatement // | null
         }
