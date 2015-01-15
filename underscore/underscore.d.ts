@@ -3253,7 +3253,7 @@ interface _Chain<T> {
 	* @param arr Arrays and/or values to concatenate into a new array. See the discussion below for details.
 	* @return A new array comprised of the array on which it is called
 	**/
-	concat(...arr: Array<T>): _Chain<T>;
+	concat(...arr: Array<T[]>): _Chain<T>;
 
 	/**
 	* Join all elements of an array into a string.
