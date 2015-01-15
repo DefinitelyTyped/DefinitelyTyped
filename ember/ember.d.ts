@@ -88,16 +88,17 @@ interface Array<T> {
     every(callback: Function, target?: any): boolean;
     everyBy(key: string, value?: string): boolean;
     everyProperty(key: string, value?: any): boolean;
-    filter(callback: Function, target: any): any[];
+    filter(callback: Function, target?: any): any[];
     filterBy(key: string, value?: string): any[];
-    find(callback: Function, target: any): any;
+    find(callback: Function, target?: any): any;
     findBy(key: string, value?: string): any;
     forEach(callback: Function, target?: any): any;
     getEach(key: string): any[];
-    indexOf(object: any, startAt: number): number;
+    indexOf(object: any, startAt?: number): number;
     insertAt(idx: number, object: any): any[];
     invoke(methodName: string, ...args: any[]): any[];
-    lastIndexOf(object: any, startAt: number): number;
+    lastIndexOf(object: any, startAt?: number): number;
+    map(callback: Function, target?: any): any[];
     mapBy(key: string): any[];
     nextObject(index: number, previousObject: any, context: any): any;
     objectAt(idx: number): any;
@@ -154,6 +155,9 @@ interface Array<T> {
     toggleProperty(keyName: string): any;
     copy(deep: boolean): any[];
     frozenCopy(): any[];
+    // 1.3
+    isAny(key: string, value?: string): boolean;
+    isEvery(key: string, value?: string): boolean;
 }
 
 interface ApplicationCreateArguments {
