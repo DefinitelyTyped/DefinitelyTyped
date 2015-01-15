@@ -9,12 +9,6 @@
 interface JQuery {
 
     /**
-     * Initializes the input element that it is called on
-     * as a spectrum colorpicker instance.
-     */
-    spectrum(options?: Spectrum.Options): JQuery;
-
-    /**
      * Shows the colorpicker.
      */
     spectrum(methodName: "show"): JQuery;
@@ -97,6 +91,12 @@ interface JQuery {
      */
     spectrum(methodName: string): any; // in most cases this is JQuery except for the get method which returns a tinycolorInstance
 
+    /**
+     * Initializes the input element that it is called on
+     * as a spectrum colorpicker instance.
+     */
+    spectrum(options?: Spectrum.Options): JQuery;
+    
     /**
      * Called at the beginning of a drag event on either hue slider, alpha slider, or main color picker areas.
      */
