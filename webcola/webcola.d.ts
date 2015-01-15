@@ -32,3 +32,4 @@ declare module WebCola{
 }
 
 declare var cola: WebCola.Cola;
+
