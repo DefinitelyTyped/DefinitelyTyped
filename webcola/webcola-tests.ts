@@ -1,5 +1,5 @@
 /// <reference path="webcola.d.ts"/>
-module SigmaJsTests {
+module WebColaTests {
   var adaptor = cola.adaptor({
     trigger: function() {
     },
