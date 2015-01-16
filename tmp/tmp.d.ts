@@ -1,5 +1,5 @@
 ﻿// Type definitions for tmp v0.0.24
-// Project: https://github.com/raszi/node-tmp
+// Project: https://www.npmjs.com/package/tmp
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
