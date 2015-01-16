@@ -64,7 +64,7 @@ declare module "bunyan" {
         type?: string;
         level?: any; // number | string
         path?: string;
-        stream?: WritableStream;
+        stream?: any; // WritableStream | Stream;
         closeOnExit?: boolean;
     }
 
