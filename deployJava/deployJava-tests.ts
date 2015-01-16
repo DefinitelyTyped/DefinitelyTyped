@@ -1,16 +1,16 @@
 /// <reference path="deployJava.d.ts" />
 
 /**
- * @summary Asserts for the method: "allowPlugin".
+ * @summary Test for the method: "allowPlugin".
  */
-function assertAllowPlugin() {
+function testAllowPlugin() {
     var result: boolean = deployJava.allowPlugin();
 }
 
 /**
- * @summary Asserts for the method: "compareVersions".
+ * @summary Test for the method: "compareVersions".
  */
-function assertCompareVersions() {
+function testCompareVersions() {
     var installed = '1.8';
     var required = '1.7';
     
@@ -18,9 +18,9 @@ function assertCompareVersions() {
 }
 
 /**
- * @summary Asserts for the method: "compareVersionToPattern".
+ * @summary Test for the method: "compareVersionToPattern".
  */
-function assertCompareVersionToPattern() {
+function testCompareVersionToPattern() {
     var version: string = '1.8';
     var patternArray: Array<string> = ['1.6', '1.7', '1.8'];
     var familyMatch: boolean = false;
@@ -30,150 +30,150 @@ function assertCompareVersionToPattern() {
 }
 
 /**
- * @summary Asserts for the method: "enableAlerts".
+ * @summary Test for the method: "enableAlerts".
  */
-function assertEnableAlerts() {
+function testEnableAlerts() {
     deployJava.enableAlerts();
 }
 
 /**
- * @summary Asserts for the method: "FFInstall".
+ * @summary Test for the method: "FFInstall".
  */
-function assertFFInstall() {
+function testFFInstall() {
     var result: boolean = deployJava.FFInstall();
 }
 
 /**
- * @summary Asserts for the method: "getBrowser".
+ * @summary Test for the method: "getBrowser".
  */
-function assertGetBrowser() {
+function testGetBrowser() {
     var result: string = deployJava.getBrowser();
 }
 
 /**
- * @summary Asserts for the method: "getJPIVersionUsingMimeType".
+ * @summary Test for the method: "getJPIVersionUsingMimeType".
  */
-function assertGetJPIVersionUsingMimeType() {
+function testGetJPIVersionUsingMimeType() {
     deployJava.getJPIVersionUsingMimeType();
 }
 
 /**
- * @summary Asserts for the method: "getJREs".
+ * @summary Test for the method: "getJREs".
  */
-function assertGetJREs() {
+function testGetJREs() {
     var versions: Array<String> = deployJava.getJREs();
 }
 
 /**
- * @summary Asserts for the method: "getPlugin".
+ * @summary Test for the method: "getPlugin".
  */
-function assertGetPlugin() {
+function testGetPlugin() {
     var versions: HTMLElement = deployJava.getPlugin();
 }
 
 /**
- * @summary Asserts for the method: "IEInstall".
+ * @summary Test for the method: "IEInstall".
  */
-function assertIEInstall() {
+function testIEInstall() {
     var result: boolean = deployJava.IEInstall();
 }
 
 /**
- * @summary Asserts for the method: "installJRE".
+ * @summary Test for the method: "installJRE".
  */
-function assertInstallJRE() {
+function testInstallJRE() {
     var requestVersion: string = '1.8';
     var result: boolean = deployJava.installJRE(requestVersion);
 }
 
 /**
- * @summary Asserts for the method: "installLatestJRE".
+ * @summary Test for the method: "installLatestJRE".
  */
-function assertInstallLatestJRE() {
+function testInstallLatestJRE() {
     var installCallback: Function = () => {};
     var result: boolean = deployJava.installLatestJRE(installCallback);
 }
 
 /**
- * @summary Asserts for the method: "isAutoInstallEnabled".
+ * @summary Test for the method: "isAutoInstallEnabled".
  */
-function assertIsAutoInstallEnabled() {
+function testIsAutoInstallEnabled() {
     var requestedJREVersion: string = '1.8';
     var result: boolean = deployJava.isAutoInstallEnabled();
     var result: boolean = deployJava.isAutoInstallEnabled(requestedJREVersion);
 }
 
 /**
- * @summary Asserts for the method: "isAutoUpdateEnabled".
+ * @summary Test for the method: "isAutoUpdateEnabled".
  */
-function assertIsAutoUpdateEnabled() {
+function testIsAutoUpdateEnabled() {
     var result: boolean = deployJava.isAutoUpdateEnabled();
 }
 
 /**
- * @summary Asserts for the method: "isCallbackSupported".
+ * @summary Test for the method: "isCallbackSupported".
  */
-function assertIsCallbackSupported() {
+function testIsCallbackSupported() {
     var result: boolean = deployJava.isCallbackSupported();
 }
 
 /**
- * @summary Asserts for the method: "isPlugin2".
+ * @summary Test for the method: "isPlugin2".
  */
-function assertIsPlugin2() {
+function testIsPlugin2() {
     var result: boolean = deployJava.isPlugin2();
 }
 
 /**
- * @summary Asserts for the method: "isPluginInstalled".
+ * @summary Test for the method: "isPluginInstalled".
  */
-function assertIsPluginInstalled() {
+function testIsPluginInstalled() {
     var result: boolean = deployJava.isPluginInstalled();
 }
 
 /**
- * @summary Asserts for the method: "isWebStartInstalled".
+ * @summary Test for the method: "isWebStartInstalled".
  */
-function assertIsWebStartInstalled() {
+function testIsWebStartInstalled() {
     var minimumVersion: string = '1.7';
     var result: boolean = deployJava.isWebStartInstalled();
     var result: boolean = deployJava.isWebStartInstalled(minimumVersion);
 }
 
 /**
- * @summary Asserts for the method: "launch".
+ * @summary Test for the method: "launch".
  */
-function assertLaunch() {
+function testLaunch() {
     var jnlp: string = 'http://www.example.com/';
     var result: boolean = deployJava.launch(jnlp);
 }
 
 /**
- * @summary Asserts for the method: "launchWebStartApplication".
+ * @summary Test for the method: "launchWebStartApplication".
  */
-function assertLaunchWebStartApplication() {
+function testLaunchWebStartApplication() {
     var jnlp: string = 'http://www.example.com/';
     deployJava.launchWebStartApplication(jnlp);
 }
 
 /**
- * @summary Asserts for the method: "poll".
+ * @summary Test for the method: "poll".
  */
-function assertPool() {
+function testPool() {
     deployJava.poll();
 }
 
 /**
- * @summary Asserts for the method: "refresh".
+ * @summary Test for the method: "refresh".
  */
-function assertRefresh() {
+function testRefresh() {
     deployJava.refresh();
 }
 
 /**
- * @summary Asserts for the method: "runApplet".
+ * @summary Test for the method: "runApplet".
  */
-function assertRunApplet() {
+function testRunApplet() {
     var attributes: Object = {
         code:'java2d.Java2DemoApplet.class',
         archive:'Java2Demo.jar',
@@ -189,78 +189,78 @@ function assertRunApplet() {
 }
 
 /**
- * @summary Asserts for the method: "setAdditionalPackages".
+ * @summary Test for the method: "setAdditionalPackages".
  */
-function assertSetAdditionalPackages() {
+function testSetAdditionalPackages() {
     var packageList: string = 'javax.swing';
     var result: boolean = deployJava.setAdditionalPackages(packageList);
 }
 
 /**
- * @summary Asserts for the method: "setAutoUpdateEnabled".
+ * @summary Test for the method: "setAutoUpdateEnabled".
  */
-function assertSetAutoUpdateEnabled() {
+function testSetAutoUpdateEnabled() {
     deployJava.setAutoUpdateEnabled();
 }
 
 /**
- * @summary Asserts for the method: "setEarlyAccess".
+ * @summary Test for the method: "setEarlyAccess".
  */
-function assertSetEarlyAccess() {
+function testSetEarlyAccess() {
     var enabled: string = 'true';
     deployJava.setEarlyAccess(enabled);
 }
 
 /**
- * @summary Asserts for the method: "setInstallerType".
+ * @summary Test for the method: "setInstallerType".
  */
-function assertSetInstallerType() {
+function testSetInstallerType() {
     var type: string = 'kernel';
     deployJava.setInstallerType(type);
 }
 
 /**
- * @summary Asserts for the method: "testForMSVM".
+ * @summary Test for the method: "testForMSVM".
  */
-function assertTestForMSVM() {
+function testTestForMSVM() {
     var result: boolean = deployJava.testForMSVM();
 }
 
 /**
- * @summary Asserts for the method: "testUsingActiveX".
+ * @summary Test for the method: "testUsingActiveX".
  */
-function assertTestUsingActiveX() {
+function testTestUsingActiveX() {
     var version: string = '1.7.0';
     var result: boolean = deployJava.testUsingActiveX(version);
 }
 
 /**
- * @summary Asserts for the method: "testUsingMimeTypes".
+ * @summary Test for the method: "testUsingMimeTypes".
  */
-function assertTestUsingMimeTypes() {
+function testTestUsingMimeTypes() {
     var version: string = '1.7.0';
     var result: boolean = deployJava.testUsingMimeTypes(version);
 }
 
 /**
- * @summary Asserts for the method: "testUsingPluginsArray".
+ * @summary Test for the method: "testUsingPluginsArray".
  */
-function assertTestUsingPluginsArray() {
+function testTestUsingPluginsArray() {
     var version: string = '1.7.0';
     var result: boolean = deployJava.testUsingPluginsArray(version);
 }
 
 /**
- * @summary Asserts for the method: "versionCheck".
+ * @summary Test for the method: "versionCheck".
  */
-function assertVersionCheck() {
+function testVersionCheck() {
     deployJava.versionCheck('1.x');
 }
 
 /**
- * @summary Asserts for the method: "writeAppletTag".
+ * @summary Test for the method: "writeAppletTag".
  */
-function assertWriteAppletTag() {
+function testWriteAppletTag() {
     var attributes: Object = {
         code:'java2d.Java2DemoApplet.class',
         archive:'Java2Demo.jar',
@@ -273,8 +273,8 @@ function assertWriteAppletTag() {
 }
 
 /**
- * @summary Asserts for the method: "writeEmbedTag".
+ * @summary Test for the method: "writeEmbedTag".
  */
-function assertWriteEmbedTag() {
+function testWriteEmbedTag() {
     deployJava.writeEmbedTag();
 }
