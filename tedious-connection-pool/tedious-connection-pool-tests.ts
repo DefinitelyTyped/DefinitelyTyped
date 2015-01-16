@@ -1,6 +1,6 @@
 // Type definitions for tedious-connection-pool
 // Project: https://github.com/pekim/tedious-connection-pool
-// Definitions by: Cyprien Autexier https://github.com/sandorfr
+// Definitions by: Cyprien Autexier <https://github.com/sandorfr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="./tedious-connection-pool.d.ts" />
