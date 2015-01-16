@@ -7,7 +7,7 @@
 
 "use strict";
 
-import tediousConnectionPool = require("tedious-connection-pool");
+import ConnectionPool = require("tedious-connection-pool");
 import tedious = require("tedious");
 
 var config: tedious.ConnectionConfig = {
@@ -20,18 +20,18 @@ var config: tedious.ConnectionConfig = {
 	}
 };
 
-var poolConfig : tediousConnectionPool.PoolConfig = {
+var poolConfig : ConnectionPool.PoolConfig = {
 	min: 1,
 	max: 4
 };
 
-var pool: tediousConnectionPool.ConnectionPool = new tediousConnectionPool(poolConfig, config);
+var pool: ConnectionPool = new ConnectionPool(poolConfig, config);
 
 pool.on('error', (err: Error) => {
 	console.error(err);
 });
 
-pool.acquire((err: Error, connection: tediousConnectionPool.PooledConnection) =>{
+pool.acquire((err: Error, connection: ConnectionPool.PooledConnection) =>{
 	console.log("hurray");
 	connection.beginTransaction((error: Error): void => {}, "some name");
 	connection.rollbackTransaction((error: Error): void => {});

@@ -68,37 +68,42 @@ declare module "tedious-connection-pool" {
             acquireTimeout?: number;
         }
 
-        /**
-         * Tedious Connection Pool Interface
-         */
-        export interface ConnectionPool {
 
-            /**
-             * acquires a connection from the pool
-             * @param callback invoked when the connection is retrieved and ready
-             */
-            acquire(callback:ConnectionCallback):void;
-
-            /**
-             * listens for a specific connection pool event
-             * @param event the event name
-             * @param callback invoked when the event is raised
-             */
-            on(event:string, callback:Function):void;
-
-            /**
-             * closes opened connections
-             */
-            drain():void;
-        }
     }
 
     /**
-     * Connection Pool constructor
-     * @param poolConfig the pool configuration
-     * @param connectionConfig the connection configuration
+     * Tedious Connection Pool Class
      */
-    function tcp(poolConfig:tcp.PoolConfig, connectionConfig:any): void;
+    class tcp {
+
+        /**
+         * Connection Pool constructor
+         * @param poolConfig the pool configuration
+         * @param connectionConfig the connection configuration
+         */
+        constructor(poolConfig:tcp.PoolConfig, connectionConfig:tedious.ConnectionConfig);
+
+        /**
+         * acquires a connection from the pool
+         * @param callback invoked when the connection is retrieved and ready
+         */
+        acquire(callback:tcp.ConnectionCallback):void;
+
+        /**
+         * listens for a specific connection pool event
+         * @param event the event name
+         * @param callback invoked when the event is raised
+         */
+        on(event:string, callback:Function):void;
+
+        /**
+         * closes opened connections
+         */
+        drain():void;
+    }
+
+
+
 
     export = tcp;
 }
