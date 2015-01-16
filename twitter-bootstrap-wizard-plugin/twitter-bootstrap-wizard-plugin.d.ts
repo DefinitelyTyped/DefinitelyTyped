@@ -1,4 +1,4 @@
-// Type definitions for Twitter Bootstrap Wizard Plugin.
+// Type definitions for Twitter Bootstrap Wizard Plugin
 // Project: https://github.com/VinceG/twitter-bootstrap-wizard
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
