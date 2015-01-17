@@ -3020,6 +3020,7 @@ interface _Chain<T> {
 	* @see _.pick
 	**/
 	pick(...keys: string[]): _Chain<T>;
+	pick(keys: string[]): _Chain<T>;
 	pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
 
 	/**
