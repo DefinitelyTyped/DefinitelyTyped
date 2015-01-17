@@ -42,7 +42,7 @@ declare module ng.route {
          * {(string|function()=}
          * Controller fn that should be associated with newly created scope or the name of a registered controller if passed as a string.
          */
-        controller?: any;
+        controller?: string|Function;
         /**
          * A controller alias name. If present the controller will be published to scope under the controllerAs name.
          */
