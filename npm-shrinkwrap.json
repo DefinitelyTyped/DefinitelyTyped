@@ -243,9 +243,9 @@
       }
     },
     "typescript": {
-      "version": "1.4.0",
-      "from": "git://github.com/Microsoft/TypeScript#v1.4",
-      "resolved": "git://github.com/Microsoft/TypeScript#7b7febde0bff35d34664e2a241c2e827b8850013"
+      "version": "1.4.1",
+      "from": "typescript@1.4.1",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-1.4.1.tgz"
     }
   }
 }
