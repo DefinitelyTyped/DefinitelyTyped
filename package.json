@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "definition-tester": "0.2.0",
-    "typescript": "Microsoft/TypeScript#v1.4"
+    "typescript": "1.4.1"
   }
 }
