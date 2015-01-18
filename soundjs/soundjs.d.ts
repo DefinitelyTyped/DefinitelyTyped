@@ -13,6 +13,7 @@
 // Library documentation : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html
 
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
+/// <reference path="../preloadjs/preloadjs.d.ts" />
 /// <reference path="../webaudioapi/waa.d.ts" />
 
 declare module createjs {
@@ -47,7 +48,7 @@ declare module createjs {
         playState: string;
         position: number;
         src: string;
-        uniqueId: any;   // number or string
+        uniqueId: number | string;
         volume: number;
 
         // methods
@@ -59,8 +60,7 @@ declare module createjs {
         getPaused(): boolean;
         getPosition(): number;
         getVolume(): number;
-        play(interrupt?: string, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
-        play(interrupt?: Object, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
+        play(interrupt?: string | Object, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
         setDuration(value: number): AbstractSoundInstance;
         setLoop(value: number): void;
         setMute(value: boolean): AbstractSoundInstance;
@@ -71,7 +71,7 @@ declare module createjs {
         stop(): AbstractSoundInstance;
         }
 
-    export class FlashAudioLoader //extends AbstractLoader
+    export class FlashAudioLoader extends AbstractLoader
         {
         // properties
         flashId: string;
@@ -167,7 +167,7 @@ declare module createjs {
         // methods
         static createInstance(src: string): AbstractSoundInstance;
         static getCapabilities(): Object;
-        static getCapability(key: string): any;    //HERE can return string | number | bool;
+        static getCapability(key: string): number | boolean;
         static getMute(): boolean;
         static getVolume(): number;
         static initializeDefaultPlugins(): boolean;
@@ -176,14 +176,10 @@ declare module createjs {
         static play(src: string, interrupt?: any, delay?: number, offset?: number, loop?: number, volume?: number, pan?: number): AbstractSoundInstance;
         static registerManifest(manifest: Object[], basePath: string): Object;
         static registerPlugins(plugins: any[]): boolean;
-        static registerSound(src: string, id?: string, data?: number, basePath?: string): Object;
-        static registerSound(src: string, id?: string, data?: Object, basePath?: string): Object;
-        static registerSound(src: Object, id?: string, data?: number, basePath?: string): Object;
-        static registerSound(src: Object, id?: string, data?: Object, basePath?: string): Object;
+        static registerSound(src: string | Object, id?: string, data?: number | Object, basePath?: string): Object;
         static removeAllSounds(): void;
         static removeManifest(manifest: any[], basePath: string): Object;
-        static removeSound(src: string, basePath: string): boolean;
-        static removeSound(src: Object, basePath: string): boolean;
+        static removeSound(src: string | Object, basePath: string): boolean;
         static setMute(value: boolean): boolean;
         static setVolume(value: number): void;
         static stop(): void;
@@ -193,9 +189,7 @@ declare module createjs {
         static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        static dispatchEvent(eventObj: Object, target?: Object): boolean;
-        static dispatchEvent(eventObj: string, target?: Object): boolean;
-        static dispatchEvent(eventObj: Event, target?: Object): boolean;
+        static dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
         static off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
