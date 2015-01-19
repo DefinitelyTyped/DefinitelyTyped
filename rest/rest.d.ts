@@ -71,15 +71,15 @@ declare module "rest/interceptor" {
 	import when = require("when");
 	import rest = require("rest");
 
-	function interceptor<T>(config: interceptor.Config<T>): rest.Interceptor<T>;
+	function interceptor<T, U>(config: interceptor.Config<T, U>): rest.Interceptor<T>;
 
 	module interceptor {
-		interface Config<T> {
-			init?: (config: T) => T;
-			request?: (request: rest.Request, config: T, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>;
-			response?: (response: rest.Response, config: T, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
-			success?: (response: rest.Response, config: T, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
-			error?: (response: rest.Response, config: T, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
+		interface Config<T, U> {
+			init?: (config: T) => U;
+			request?: (request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>;
+			response?: (response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
+			success?: (response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
+			error?: (response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
 		}
 	}
 

@@ -91,12 +91,18 @@ interface KnownConfig {
     prop: string;
 }
 var knownConfig = interceptor({
-    init: (config: KnownConfig) => {
-        config.prop = config.prop || 'default-value';
-        return config;
-    },
     success: (response: rest.Response, config: KnownConfig) => {
-        console.log(config.prop);
+        console.log(config);
+        return response;
+    },
+});
+
+var transformedConfig = interceptor({
+    init: (config: KnownConfig) => {
+        return config.prop;
+    },
+    success: (response: rest.Response, config: string) => {
+        console.log(config);
         return response;
     },
 });
@@ -127,4 +133,5 @@ client = rest
     .wrap(xhr)
     .wrap(noop)
     .wrap(fail)
-    .wrap(knownConfig, { prop: 'value' });
+    .wrap(knownConfig, { prop: 'value' })
+    .wrap(transformedConfig, { prop: 'value' });
