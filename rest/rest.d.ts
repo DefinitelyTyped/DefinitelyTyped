@@ -307,8 +307,8 @@ declare module "rest/mime/registry" {
 
 	module registry {
 		interface MIMEConverter {
-			read(value: string): any; // any or when.Promise<any>;
-			write(value: any): any; // string or when.Promise<string>;
+			read(value: string): any | when.Promise<any>;
+			write(value: any): string | when.Promise<string>;
 		}
 
 		interface Registry {
