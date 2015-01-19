@@ -87,6 +87,29 @@ var defaulted = interceptor({
     },
 });
 
+interface KnownConfig {
+    prop: string;
+}
+var knownConfig = interceptor({
+    init: (config: KnownConfig) => {
+        config.prop = config.prop || 'default-value';
+        return config;
+    },
+    success: (response: rest.Response, config: KnownConfig) => {
+        console.log(config.prop);
+        return response;
+    },
+});
+
+var promiseOrResponse = interceptor({
+    success: (response: rest.Response) => {
+        return response;
+    },
+    error: (response: rest.Response) => {
+        return when(response);
+    },
+});
+
 client = rest
     .wrap(defaultRequest)
     .wrap(hateoas)
