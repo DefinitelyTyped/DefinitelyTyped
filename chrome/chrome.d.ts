@@ -140,7 +140,7 @@ declare module chrome.browserAction {
 
     interface TitleDetails {
         title: string;
-        tabId?: number;WebNavigationReferenceFragmentUpdatedEvent
+        tabId?: number;
     }
 
     interface TabDetails {
