@@ -16,7 +16,7 @@ declare module "formidable" {
 		keepExtensions: boolean;
 		maxFieldsSize: number;
 		maxFields: number;
-		hash: string;
+		hash: string | boolean;
 		multiples: boolean;
 		type: string;
 		bytesReceived: number;

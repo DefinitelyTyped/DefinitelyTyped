@@ -37,7 +37,7 @@ form.uploadDir = '/my/dir';
 form.keepExtensions = false;
 form.maxFieldsSize = 2 * 1024 * 1024;
 form.maxFields = 1000;
-// form.hash = false; TODO: Waiting on unions
+form.hash = false;
 form.hash = 'sha1';
 form.multiples = false;
 
