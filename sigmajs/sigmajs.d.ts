@@ -3,7 +3,6 @@
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
 declare module SigmaJs{
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
@@ -129,6 +128,7 @@ declare module SigmaJs{
         refresh(): void;
         renderers: Renderer[];
         settings(key: string): any;
+        settings(settings: { [index: string]: any }): void;
 
         // forceAtlas2 layout
         configForceAtlas2(configs: { [key: string]: any }): void;
