@@ -1321,14 +1321,7 @@ interface JQuery {
      * @param attributeName The name of the attribute to set.
      * @param value A value to set for the attribute.
      */
-    attr(attributeName: string, value: string): JQuery;
-    /**
-     * Set one or more attributes for the set of matched elements.
-     *
-     * @param attributeName The name of the attribute to set.
-     * @param value A value to set for the attribute.
-     */
-    attr(attributeName: string, value: number): JQuery;
+    attr(attributeName: string, value: string|number): JQuery;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -1384,21 +1377,7 @@ interface JQuery {
      * @param propertyName The name of the property to set.
      * @param value A value to set for the property.
      */
-    prop(propertyName: string, value: string): JQuery;
-    /**
-     * Set one or more properties for the set of matched elements.
-     *
-     * @param propertyName The name of the property to set.
-     * @param value A value to set for the property.
-     */
-    prop(propertyName: string, value: number): JQuery;
-    /**
-     * Set one or more properties for the set of matched elements.
-     *
-     * @param propertyName The name of the property to set.
-     * @param value A value to set for the property.
-     */
-    prop(propertyName: string, value: boolean): JQuery;
+    prop(propertyName: string, value: string|number|boolean): JQuery;
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -1470,49 +1449,14 @@ interface JQuery {
      *
      * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
      */
-    val(value: string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
-     */
-    val(value: string[]): JQuery;
+    val(value: string|string[]): JQuery;
     /**
      * Set the value of each element in the set of matched elements.
      *
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
     val(func: (index: number, value: string) => string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string[]) => string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: number) => string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string) => string[]): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string[]) => string[]): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: number) => string[]): JQuery;
+
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
@@ -1526,42 +1470,14 @@ interface JQuery {
      * @param propertyName A CSS property name.
      * @param value A value to set for the property.
      */
-    css(propertyName: string, value: string): JQuery;
-    /**
-     * Set one or more CSS properties for the set of matched elements.
-     *
-     * @param propertyName A CSS property name.
-     * @param value A value to set for the property.
-     */
-    css(propertyName: string, value: number): JQuery;
-    /**
-     * Set one or more CSS properties for the set of matched elements.
-     *
-     * @param propertyName A CSS property name.
-     * @param value A value to set for the property.
-     */
-    css(propertyName: string, value: string[]): JQuery;
-    /**
-     * Set one or more CSS properties for the set of matched elements.
-     *
-     * @param propertyName A CSS property name.
-     * @param value A value to set for the property.
-     */
-    css(propertyName: string, value: number[]): JQuery;
+    css(propertyName: string, value: string|number): JQuery;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
      * @param propertyName A CSS property name.
      * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
-    css(propertyName: string, value: (index: number, value: string) => string): JQuery;
-    /**
-     * Set one or more CSS properties for the set of matched elements.
-     *
-     * @param propertyName A CSS property name.
-     * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    css(propertyName: string, value: (index: number, value: number) => number): JQuery;
+    css(propertyName: string, value: (index: number, value: string) => string|number): JQuery;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
@@ -1578,37 +1494,13 @@ interface JQuery {
      *
      * @param value An integer representing the number of pixels, or an integer with an optional unit of measure appended (as a string).
      */
-    height(value: number): JQuery;
-    /**
-     * Set the CSS height of every matched element.
-     *
-     * @param value An integer representing the number of pixels, or an integer with an optional unit of measure appended (as a string).
-     */
-    height(value: string): JQuery;
+    height(value: number|string): JQuery;
     /**
      * Set the CSS height of every matched element.
      *
      * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
      */
-    height(func: (index: number, height: number) => number): JQuery;
-    /**
-     * Set the CSS height of every matched element.
-     *
-     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
-     */
-    height(func: (index: number, height: string) => string): JQuery;
-    /**
-     * Set the CSS height of every matched element.
-     *
-     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
-     */
-    height(func: (index: number, height: string) => number): JQuery;
-    /**
-     * Set the CSS height of every matched element.
-     *
-     * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
-     */
-    height(func: (index: number, height: number) => string): JQuery;
+    height(func: (index: number, height: number) => number|string): JQuery;
 
     /**
      * Get the current computed height for the first element in the set of matched elements, including padding but not border.
@@ -1721,25 +1613,7 @@ interface JQuery {
      *
      * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
      */
-    width(func: (index: number, width: number) => number): JQuery;
-    /**
-     * Set the CSS width of each element in the set of matched elements.
-     *
-     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
-     */
-    width(func: (index: number, width: string) => string): JQuery;
-    /**
-     * Set the CSS width of each element in the set of matched elements.
-     *
-     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
-     */
-    width(func: (index: number, width: string) => number): JQuery;
-    /**
-     * Set the CSS width of each element in the set of matched elements.
-     *
-     * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
-     */
-    width(func: (index: number, width: number) => string): JQuery;
+    width(func: (index: number, width: number) => number|string): JQuery;
 
     /**
      * Remove from the queue all items that have not yet been run.
