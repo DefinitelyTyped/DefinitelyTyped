@@ -89,7 +89,18 @@ declare module "rest/interceptor" {
 declare module "rest/interceptor/defaultRequest" {
 	import rest = require("rest");
 
-	var defaultRequest: rest.Interceptor<any>;
+	var defaultRequest: rest.Interceptor<defaultRequest.Config>;
+
+	module defaultRequest {
+		interface Config {
+			method?: string;
+			path?: string;
+			params?: any;
+			headers?: any;
+			entity?: any;
+			mixin?: any;
+		}
+	}
 
 	export = defaultRequest;
 }
@@ -97,7 +108,14 @@ declare module "rest/interceptor/defaultRequest" {
 declare module "rest/interceptor/hateoas" {
 	import rest = require("rest");
 
-	var hateoas: rest.Interceptor<any>;
+	var hateoas: rest.Interceptor<hateoas.Config>;
+
+	module hateoas {
+		interface Config {
+			target?: string;
+			client?: rest.Client;
+		}
+	}
 
 	export = hateoas;
 }
@@ -105,15 +123,32 @@ declare module "rest/interceptor/hateoas" {
 declare module "rest/interceptor/location" {
 	import rest = require("rest");
 
-	var location: rest.Interceptor<any>;
+	var location: rest.Interceptor<location.Config>;
+
+	module location {
+		interface Config {
+			client?: rest.Client;
+			code?: number;
+		}
+	}
 
 	export = location;
 }
 
 declare module "rest/interceptor/mime" {
 	import rest = require("rest");
+	import registry = require("rest/mime/registry");
 
-	var mime: rest.Interceptor<any>;
+	var mime: rest.Interceptor<mime.Config>;
+
+	module mime {
+		interface Config {
+			mime?: string;
+			accept?: string;
+			registry?: registry.Registry;
+			permissive?: boolean;
+		}
+	}
 
 	export = mime;
 }
@@ -121,7 +156,13 @@ declare module "rest/interceptor/mime" {
 declare module "rest/interceptor/pathPrefix" {
 	import rest = require("rest");
 
-	var pathPrefix: rest.Interceptor<any>;
+	var pathPrefix: rest.Interceptor<pathPrefix.Config>;
+
+	module pathPrefix {
+		interface Config {
+			prefix?: string;
+		}
+	}
 
 	export = pathPrefix;
 }
@@ -129,7 +170,14 @@ declare module "rest/interceptor/pathPrefix" {
 declare module "rest/interceptor/basicAuth" {
 	import rest = require("rest");
 
-	var basicAuth: rest.Interceptor<any>;
+	var basicAuth: rest.Interceptor<basicAuth.Config>;
+
+	module basicAuth {
+		interface Config {
+			username?: string;
+			password?: string;
+		}
+	}
 
 	export = basicAuth;
 }
@@ -137,7 +185,23 @@ declare module "rest/interceptor/basicAuth" {
 declare module "rest/interceptor/oAuth" {
 	import rest = require("rest");
 
-	var oAuth: rest.Interceptor<any>;
+	var oAuth: rest.Interceptor<oAuth.Config>;
+
+	module oAuth {
+		interface DismissWindow {
+			(): void;
+		}
+		interface Config {
+			token?: string;
+			clientId?: string;
+			scope?: string;
+			authorizationUrl?: string;
+			redirectUrl?: string;
+			windowStrategy?: (url: string) => DismissWindow;
+			oAuthCallback?: (hash: string) => void;
+			oAuthCallbackName?: string;
+		}
+	}
 
 	export = oAuth;
 }
@@ -145,7 +209,14 @@ declare module "rest/interceptor/oAuth" {
 declare module "rest/interceptor/csrf" {
 	import rest = require("rest");
 
-	var csrf: rest.Interceptor<any>;
+	var csrf: rest.Interceptor<csrf.Config>;
+
+	module csrf {
+		interface Config {
+			name?: string;
+			token?: string;
+		}
+	}
 
 	export = csrf;
 }
@@ -153,7 +224,13 @@ declare module "rest/interceptor/csrf" {
 declare module "rest/interceptor/errorCode" {
 	import rest = require("rest");
 
-	var errorCode: rest.Interceptor<any>;
+	var errorCode: rest.Interceptor<errorCode.Config>;
+
+	module errorCode {
+		interface Config {
+			code?: number;
+		}
+	}
 
 	export = errorCode;
 }
@@ -161,7 +238,15 @@ declare module "rest/interceptor/errorCode" {
 declare module "rest/interceptor/retry" {
 	import rest = require("rest");
 
-	var retry: rest.Interceptor<any>;
+	var retry: rest.Interceptor<retry.Config>;
+
+	module retry {
+		interface Config {
+			initial?: number;
+			multiplier?: number;
+			max?: number;
+		}
+	}
 
 	export = retry;
 }
@@ -169,7 +254,14 @@ declare module "rest/interceptor/retry" {
 declare module "rest/interceptor/timeout" {
 	import rest = require("rest");
 
-	var timeout: rest.Interceptor<any>;
+	var timeout: rest.Interceptor<timeout.Config>;
+
+	module timeout {
+		interface Config {
+			timeout?: number;
+			transient?: boolean;
+		}
+	}
 
 	export = timeout;
 }
@@ -177,7 +269,17 @@ declare module "rest/interceptor/timeout" {
 declare module "rest/interceptor/jsonp" {
 	import rest = require("rest");
 
-	var jsonp: rest.Interceptor<any>;
+	var jsonp: rest.Interceptor<jsonp.Config>;
+
+	module jsonp {
+		interface Config {
+			callback?: {
+				param?: string;
+				prefix?: string;
+				name?: string;
+			}
+		}
+	}
 
 	export = jsonp;
 }
@@ -185,7 +287,7 @@ declare module "rest/interceptor/jsonp" {
 declare module "rest/interceptor/ie/xdomain" {
 	import rest = require("rest");
 
-	var xdomain: rest.Interceptor<any>;
+	var xdomain: rest.Interceptor<{}>;
 
 	export = xdomain;
 }
@@ -193,7 +295,7 @@ declare module "rest/interceptor/ie/xdomain" {
 declare module "rest/interceptor/ie/xhr" {
 	import rest = require("rest");
 
-	var xhr: rest.Interceptor<any>;
+	var xhr: rest.Interceptor<{}>;
 
 	export = xhr;
 }
@@ -201,12 +303,19 @@ declare module "rest/interceptor/ie/xhr" {
 declare module "rest/mime/registry" {
 	import when = require("when");
 
-	export interface MIMEConverter {
-		read(value: string): any; // any or when.Promise<any>;
-		write(value: any): any; // string or when.Promise<string>;
+	var registry: registry.Registry;
+
+	module registry {
+		interface MIMEConverter {
+			read(value: string): any; // any or when.Promise<any>;
+			write(value: any): any; // string or when.Promise<string>;
+		}
+
+		interface Registry {
+			lookup(mimeType: string): when.Promise<MIMEConverter>;
+			register(mimeType: string, converter: MIMEConverter): void;
+		}
 	}
 
-	export function lookup(mimeType: string): when.Promise<MIMEConverter>;
-
-	export function register(mimeType: string, converter: MIMEConverter): void;
+	export = registry;
 }
