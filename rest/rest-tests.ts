@@ -31,7 +31,7 @@ client({ path: '/data.json' }).then(function(response) {
     console.log('response: ', response);
 });
 
-client = rest.wrap(mime, { mime: 'application/json' }).wrap(errorCode, { code: 500 });
+client = rest.wrap<mime.Config>(mime, { mime: 'application/json' }).wrap(errorCode, { code: 500 });
 client({ path: '/data.json' }).then(
     function(response) {
         console.log('response: ', response);
@@ -87,6 +87,35 @@ var defaulted = interceptor({
     },
 });
 
+interface KnownConfig {
+    prop: string;
+}
+var knownConfig = interceptor({
+    success: (response: rest.Response, config: KnownConfig) => {
+        console.log(config);
+        return response;
+    },
+});
+
+var transformedConfig = interceptor({
+    init: (config: KnownConfig) => {
+        return config.prop;
+    },
+    success: (response: rest.Response, config: string) => {
+        console.log(config);
+        return response;
+    },
+});
+
+var promiseOrResponse = interceptor({
+    success: (response: rest.Response) => {
+        return response;
+    },
+    error: (response: rest.Response) => {
+        return when(response);
+    },
+});
+
 client = rest
     .wrap(defaultRequest)
     .wrap(hateoas)
@@ -103,4 +132,6 @@ client = rest
     .wrap(xdomain)
     .wrap(xhr)
     .wrap(noop)
-    .wrap(fail);
+    .wrap(fail)
+    .wrap(knownConfig, { prop: 'value' })
+    .wrap(transformedConfig, { prop: 'value' });
