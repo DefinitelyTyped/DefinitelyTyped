@@ -71,26 +71,15 @@ declare module "rest/interceptor" {
 	import when = require("when");
 	import rest = require("rest");
 
-	function interceptor(config: interceptor.Config): rest.Interceptor;
-	function interceptor(config: interceptor.PromiseConfig): rest.Interceptor;
+	function interceptor<T>(config: interceptor.Config<T>): rest.Interceptor;
 
 	module interceptor {
-		// TODO: These two configs should be merged to use union output types.
-
-		interface Config {
-			init?: (config: any) => any;
-			request?: (request: rest.Request, config: any, meta: rest.Meta) => rest.Request;
-			response?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
-			success?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
-			error?: (response: rest.Response, config: any, meta: rest.Meta) => rest.Response;
-		}
-
-		interface PromiseConfig {
-			init?: (config: any) => any;
-			request?: (request: rest.Request, config: any, meta: rest.Meta) => when.Promise<rest.Request>;
-			response?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
-			success?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
-			error?: (response: rest.Response, config: any, meta: rest.Meta) => when.Promise<rest.Response>;
+		interface Config<T> {
+			init?: (config: T) => T;
+			request?: (request: rest.Request, config: T, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>;
+			response?: (response: rest.Response, config: T, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
+			success?: (response: rest.Response, config: T, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
+			error?: (response: rest.Response, config: T, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
 		}
 	}
 
