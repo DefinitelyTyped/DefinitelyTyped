@@ -41,7 +41,11 @@ declare module React {
         propTypes?: ValidationMap<P>;
     }
 
-    interface ComponentClass<P> extends ComponentStatics<P> {
+    interface ComponentClassType<P> extends ComponentStatics<P> {
+        new (): ComponentClass<P>;
+    }
+
+    interface ComponentClass<P> {
         // Deprecated in 0.12. See http://fb.me/react-legacyfactory
         // new(props: P): ReactElement<P>;
         // (props: P): ReactElement<P>;
@@ -63,9 +67,9 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface TopLevelAPI {
-        createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
+        createClass<P>(spec: ComponentSpec<P, any>): ComponentClassType<P>;
         createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
-        createFactory<P>(componentClass: ComponentClass<P>): ComponentFactory<P>;
+        createFactory<P>(componentClass: ComponentClassType<P>): ComponentFactory<P>;
         render<P>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
@@ -670,9 +674,6 @@ declare module React {
         transitionLeave?: boolean;
     }
 
-    interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
-    interface TransitionGroup extends ComponentClass<TransitionGroupProps> {}
-
     //
     // React.addons (Mixins)
     // ----------------------------------------------------------------------
@@ -873,10 +874,10 @@ declare module React {
 
     interface AddonsExports extends Exports {
         addons: {
-            CSSTransitionGroup: CSSTransitionGroup;
+            CSSTransitionGroup: ComponentClassType<CSSTransitionGroupProps>;
             LinkedStateMixin: LinkedStateMixin;
             PureRenderMixin: PureRenderMixin;
-            TransitionGroup: TransitionGroup;
+            TransitionGroup: ComponentClassType<TransitionGroupProps>;
 
             batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
             batchedUpdates<A>(callback: (a: A) => any, a: A): void;
