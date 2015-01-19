@@ -14,7 +14,7 @@ declare module "rest" {
 	function rest(request: rest.Request): rest.ResponsePromise;
 
 	module rest {
-		export function wrap(interceptor: Interceptor, config?: any): Client;
+		export function wrap<T>(interceptor: Interceptor<T>, config?: T): Client;
 
 		export interface Request {
 			method?: string;
@@ -48,8 +48,8 @@ declare module "rest" {
 			header(headerName: string): when.Promise<any>; // string or string[]
 		}
 
-		export interface Interceptor {
-			(parent?: Client, config?: any): Client;
+		export interface Interceptor<T> {
+			(parent?: Client, config?: T): Client;
 		}
 
 		export interface Client {
@@ -57,7 +57,7 @@ declare module "rest" {
 			(request: Request): ResponsePromise;
 
 			skip(): Client;
-			wrap(interceptor: Interceptor, config?: any): Client;
+			wrap<T>(interceptor: Interceptor<T>, config?: T): Client;
 		}
 
 		export interface Meta {
@@ -71,7 +71,7 @@ declare module "rest/interceptor" {
 	import when = require("when");
 	import rest = require("rest");
 
-	function interceptor<T>(config: interceptor.Config<T>): rest.Interceptor;
+	function interceptor<T>(config: interceptor.Config<T>): rest.Interceptor<T>;
 
 	module interceptor {
 		interface Config<T> {
@@ -89,7 +89,7 @@ declare module "rest/interceptor" {
 declare module "rest/interceptor/defaultRequest" {
 	import rest = require("rest");
 
-	var defaultRequest: rest.Interceptor;
+	var defaultRequest: rest.Interceptor<any>;
 
 	export = defaultRequest;
 }
@@ -97,7 +97,7 @@ declare module "rest/interceptor/defaultRequest" {
 declare module "rest/interceptor/hateoas" {
 	import rest = require("rest");
 
-	var hateoas: rest.Interceptor;
+	var hateoas: rest.Interceptor<any>;
 
 	export = hateoas;
 }
@@ -105,7 +105,7 @@ declare module "rest/interceptor/hateoas" {
 declare module "rest/interceptor/location" {
 	import rest = require("rest");
 
-	var location: rest.Interceptor;
+	var location: rest.Interceptor<any>;
 
 	export = location;
 }
@@ -113,7 +113,7 @@ declare module "rest/interceptor/location" {
 declare module "rest/interceptor/mime" {
 	import rest = require("rest");
 
-	var mime: rest.Interceptor;
+	var mime: rest.Interceptor<any>;
 
 	export = mime;
 }
@@ -121,7 +121,7 @@ declare module "rest/interceptor/mime" {
 declare module "rest/interceptor/pathPrefix" {
 	import rest = require("rest");
 
-	var pathPrefix: rest.Interceptor;
+	var pathPrefix: rest.Interceptor<any>;
 
 	export = pathPrefix;
 }
@@ -129,7 +129,7 @@ declare module "rest/interceptor/pathPrefix" {
 declare module "rest/interceptor/basicAuth" {
 	import rest = require("rest");
 
-	var basicAuth: rest.Interceptor;
+	var basicAuth: rest.Interceptor<any>;
 
 	export = basicAuth;
 }
@@ -137,7 +137,7 @@ declare module "rest/interceptor/basicAuth" {
 declare module "rest/interceptor/oAuth" {
 	import rest = require("rest");
 
-	var oAuth: rest.Interceptor;
+	var oAuth: rest.Interceptor<any>;
 
 	export = oAuth;
 }
@@ -145,7 +145,7 @@ declare module "rest/interceptor/oAuth" {
 declare module "rest/interceptor/csrf" {
 	import rest = require("rest");
 
-	var csrf: rest.Interceptor;
+	var csrf: rest.Interceptor<any>;
 
 	export = csrf;
 }
@@ -153,7 +153,7 @@ declare module "rest/interceptor/csrf" {
 declare module "rest/interceptor/errorCode" {
 	import rest = require("rest");
 
-	var errorCode: rest.Interceptor;
+	var errorCode: rest.Interceptor<any>;
 
 	export = errorCode;
 }
@@ -161,7 +161,7 @@ declare module "rest/interceptor/errorCode" {
 declare module "rest/interceptor/retry" {
 	import rest = require("rest");
 
-	var retry: rest.Interceptor;
+	var retry: rest.Interceptor<any>;
 
 	export = retry;
 }
@@ -169,7 +169,7 @@ declare module "rest/interceptor/retry" {
 declare module "rest/interceptor/timeout" {
 	import rest = require("rest");
 
-	var timeout: rest.Interceptor;
+	var timeout: rest.Interceptor<any>;
 
 	export = timeout;
 }
@@ -177,7 +177,7 @@ declare module "rest/interceptor/timeout" {
 declare module "rest/interceptor/jsonp" {
 	import rest = require("rest");
 
-	var jsonp: rest.Interceptor;
+	var jsonp: rest.Interceptor<any>;
 
 	export = jsonp;
 }
@@ -185,7 +185,7 @@ declare module "rest/interceptor/jsonp" {
 declare module "rest/interceptor/ie/xdomain" {
 	import rest = require("rest");
 
-	var xdomain: rest.Interceptor;
+	var xdomain: rest.Interceptor<any>;
 
 	export = xdomain;
 }
@@ -193,7 +193,7 @@ declare module "rest/interceptor/ie/xdomain" {
 declare module "rest/interceptor/ie/xhr" {
 	import rest = require("rest");
 
-	var xhr: rest.Interceptor;
+	var xhr: rest.Interceptor<any>;
 
 	export = xhr;
 }

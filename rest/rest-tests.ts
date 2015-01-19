@@ -126,4 +126,5 @@ client = rest
     .wrap(xdomain)
     .wrap(xhr)
     .wrap(noop)
-    .wrap(fail);
+    .wrap(fail)
+    .wrap(knownConfig, { prop: 'value' });
