@@ -1,4 +1,4 @@
-/// <reference path="animationframe.d.ts"/>
+/// <reference path="animation-frame.d.ts"/>
 module AnimationFrameTests {
   var animation = new AnimationFrame();
   function frame() {
