@@ -2089,10 +2089,19 @@ declare module chrome.webNavigation {
     interface GetFrameResultDetails {
         url: string;
         errorOccurred: boolean;
+        parentFrameId: number;
     }
 
     interface GetAllFrameDetails {
         tabId: number;
+    }
+    
+    interface GetAllFrameResultDetails {
+        url: string;
+        errorOccurred: boolean;
+        processId: number;
+        frameId: number;
+        parentFrameId: number;
     }
 
     interface ReferenceFragmentUpdatedDetails {
@@ -2144,6 +2153,7 @@ declare module chrome.webNavigation {
         url: string;
         timeStamp: number;
         frameId: number;
+        parentFrameId: number;
     }
 
     interface CommittedDetails {
@@ -2214,7 +2224,7 @@ declare module chrome.webNavigation {
     }
 
     export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
-    export function getAllFrames(details: GetAllFrameDetails, callback: (details?: Object[]) => void): void;
+    export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
     
     var onReferenceFragmentUpdated: WebNavigationReferenceFragmentUpdatedEvent;
     var onCompleted: WebNavigationCompletedEvent;
