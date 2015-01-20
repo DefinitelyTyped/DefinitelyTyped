@@ -306,7 +306,7 @@ interface KnockoutUtils {
 
     triggerEvent(element: any, eventType: any): void;
 
-    unwrapObservable<T>(value: KnockoutObservable<T>): T;
+    unwrapObservable<T>(value: KnockoutObservable<T> | T): T;
 
     peekObservable<T>(value: KnockoutObservable<T>): T;
 
