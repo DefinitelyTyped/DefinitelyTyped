@@ -276,28 +276,7 @@ interface JQueryGenericPromise<T> {
      * @param doneFilter A function that is called when the Deferred is resolved.
      * @param failFilter An optional function that is called when the Deferred is rejected.
      */
-    then<U>(doneFilter: (value: T) => U, failFilter?: (reason: any) => U): JQueryGenericPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     */
-    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (reason: any) => U): JQueryGenericPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     */
-    then<U>(doneFilter: (value: T) => U, failFilter?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     */
-    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+    then<U>(doneFilter: (value: T) => U|JQueryGenericPromise<U>, failFilter?: (reason: any) => U|JQueryGenericPromise<U>): JQueryGenericPromise<U>;
 }
 
 /**
@@ -360,31 +339,7 @@ interface JQueryPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
      */
-    then<U>(doneFilter: (value: T) => U, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-     */
-    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-     */
-    then<U>(doneFilter: (value: T) => U, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-     */
-    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(doneFilter: (value: T) => U|JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => U|JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
 
     // Because JQuery Promises Suck
     /**
@@ -394,31 +349,7 @@ interface JQueryPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
      */
-    then<U>(doneFilter: (...values: any[]) => U, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-     */
-    then<U>(doneFilter: (...values: any[]) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-     */
-    then<U>(doneFilter: (...values: any[]) => U, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-    /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-     * 
-     * @param doneFilter A function that is called when the Deferred is resolved.
-     * @param failFilter An optional function that is called when the Deferred is rejected.
-     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-     */
-    then<U>(doneFilter: (...values: any[]) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(doneFilter: (...values: any[]) => U|JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => U|JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
 }
 
 /**
