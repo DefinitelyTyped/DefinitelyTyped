@@ -24,7 +24,7 @@
 
         scene = new THREE.Scene();
 
-        var geometry = new THREE.PlaneGeometry(2, 2);
+        var geometry = new THREE.PlaneBufferGeometry(2, 2);
 
         uniforms = {
             time: { type: "f", value: 1.0 },
@@ -43,6 +43,7 @@
         scene.add(mesh);
 
         renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
         stats = new Stats();
@@ -58,10 +59,10 @@
 
     function onWindowResize() {
 
-        uniforms.resolution.value.x = window.innerWidth;
-        uniforms.resolution.value.y = window.innerHeight;
-
         renderer.setSize(window.innerWidth, window.innerHeight);
+
+        uniforms.resolution.value.x = renderer.domElement.width;
+        uniforms.resolution.value.y = renderer.domElement.height;
 
     }
 

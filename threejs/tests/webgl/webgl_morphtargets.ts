@@ -24,7 +24,6 @@
     animate();
 
     function init() {
-        var light: THREE.Light;
 
         container = document.createElement('div');
         document.body.appendChild(container);
@@ -35,12 +34,12 @@
         scene = new THREE.Scene();
         scene.fog = new THREE.Fog(0x000000, 1, 15000);
 
-        light = new THREE.PointLight(0xff2200);
+        var light = new THREE.PointLight(0xff2200);
         light.position.set(100, 100, 100);
         scene.add(light);
 
-        light = new THREE.AmbientLight(0x111111);
-        scene.add(light);
+        var amblight = new THREE.AmbientLight(0x111111);
+        scene.add(amblight);
 
 
         var geometry = new THREE.BoxGeometry(100, 100, 100);
@@ -77,7 +76,8 @@
         //
 
         renderer = new THREE.WebGLRenderer();
-        renderer.setClearColor(0x222222, 1);
+        renderer.setClearColor(0x222222);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.sortObjects = false;
         container.appendChild(renderer.domElement);
