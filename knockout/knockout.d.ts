@@ -442,7 +442,7 @@ interface KnockoutStatic {
     cleanNode(node: Element): Element;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
-	unwrap(value: any): any;
+	unwrap<T>(value: KnockoutObservable<T> | T): T;
 
 	computedContext: KnockoutComputedContext;
 
