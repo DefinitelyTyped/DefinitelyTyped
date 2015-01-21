@@ -90,6 +90,29 @@ interface Array<T> {
     everyProperty(key: string, value?: any): boolean;
     filter(callback: Function, target?: any): any[];
     filterBy(key: string, value?: string): any[];
+
+ /**
+    Returns the first item in the array for which the callback returns true.
+    This method works similar to the `filter()` method defined in JavaScript 1.6
+    except that it will stop working on the array once a match is found.
+    The callback method you provide should have the following signature (all
+    parameters are optional):
+    ```javascript
+    function(item, index, enumerable);
+    ```
+    - `item` is the current item in the iteration.
+    - `index` is the current index in the iteration.
+    - `enumerable` is the enumerable object itself.
+    It should return the `true` to include the item in the results, `false`
+    otherwise.
+    Note that in addition to a callback, you can also pass an optional target
+    object that will be set as `this` on the context. This is a good way
+    to give your iterator function access to the current object.
+    @function find
+    @arg callback The callback to execute
+    @arg {Object} [target] The target object to use
+    @return {Object} Found item or `undefined`.
+*/
     find(callback: Function, target?: any): any;
     findBy(key: string, value?: string): any;
     forEach(callback: Function, target?: any): any;
@@ -403,7 +426,7 @@ declare module Ember {
         everyProperty(key: string, value?: string): boolean;
         filter(callback: Function, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
+        find(callback: Function, target?: any): any;
         findBy(key: string, value?: string): any;
         forEach(callback: Function, target?: any): any;
         getEach(key: string): any[];
@@ -1005,8 +1028,8 @@ declare module Ember {
     module Handlebars {
         function compile(string: string): Function;
         function get(root: any, path: string, options?: {}): any;
-        function helper(name: string, func: Function, dependentKeys: string): void;
-        function helper(name: string, view: View, dependentKeys: string): void;
+        function helper(name: string, func: Function, dependentKeys?: string): void;
+        function helper(name: string, view: View, dependentKeys?: string): void;
         class helpers {
             action(actionName: string, context: any, options?: {}): void;
             bindAttr(options?: {}): string;
