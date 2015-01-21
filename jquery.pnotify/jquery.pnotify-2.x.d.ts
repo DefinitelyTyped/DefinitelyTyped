@@ -1,3 +1,8 @@
+// Type definitions for jquery.pnotify 2.x
+// Project: https://github.com/sciactive/pnotify
+// Definitions by: David Sichau <https://github.com/DavidSichau> & Louis Grignon <https://github.com/lgrignon>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 interface PNotifyStack {
 	dir1?: string;
 	dir2?: string;
