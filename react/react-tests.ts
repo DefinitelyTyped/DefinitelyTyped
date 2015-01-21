@@ -193,9 +193,7 @@ var childMap: { [key: string]: number } =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
-var onlyChild = React.Children.only([null, [[["Hallo"], true]], false, {
-    test: null
-}]);
+var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 
 //
 // Example from http://facebook.github.io/react/
