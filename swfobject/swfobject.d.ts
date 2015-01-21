@@ -45,8 +45,8 @@ declare module swfobject {
     getFlashPlayerVersion(): IFlashPlayerVersion;
 
     hasFlashPlayerVersion(
-      rv: string
-    ): void;
+      rev: string
+    ): boolean;
 
     createSWF(
       attObj: ISwfObjectAttribute,
