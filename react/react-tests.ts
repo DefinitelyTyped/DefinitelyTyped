@@ -59,11 +59,24 @@ var reactClass = React.createClass<Props>({
     }
 });
 
+class PureReactClass implements React.Component<Props> {
+    getDOMNode: <TElement extends Element>() => TElement;
+    isMounted: () => boolean;
+
+    props: Props;
+    setProps: (nextProps: Props, callback?: () => any) => void;
+    replaceProps: (nextProps: Props, callback?: () => any) => void;
+}
+
 var reactElement: React.ReactElement<Props> =
     React.createElement<Props>(reactClass, props);
 
+reactElement = React.createElement(PureReactClass, props);
+
 var reactFactory: React.ComponentFactory<Props> =
     React.createFactory<Props>(reactClass);
+
+reactFactory = React.createFactory(PureReactClass);
 
 var component: React.Component<Props> =
     React.render<Props>(reactElement, container);
