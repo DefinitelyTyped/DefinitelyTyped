@@ -133,10 +133,10 @@ declare module 'zmq' {
         /**
          * Send the given `msg`.
          *
-         * @param msg The message
-         * @param flags Message flags
+         * @param msg {Buffer} The message
+         * @param flags {number} Optional message flags
          */
-        send(msg: ArrayBuffer, flags?: number): Socket;
+        send(msg: Buffer, flags?: number): Socket;
 
         /**
         * Send the given `msg`.

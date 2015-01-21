@@ -216,8 +216,8 @@ declare module Snap {
 	clear():void;
 	el(name:string, attr:Object):Snap.Element;
 	gradient(gradient:string):any;
-	g(varargs:any):Object;
-	group(el:any,...els:any[]):any;
+	g(varargs?:any):any;
+	group(el?:any,...els:any[]):any;
 	mask(varargs:any):Object;
 	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
 	svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;

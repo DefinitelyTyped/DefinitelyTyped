@@ -275,7 +275,7 @@ declare module Backbone {
         * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        routes(): any;
+        routes: any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -311,14 +311,14 @@ declare module Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model> {
-        model?: TModel;
-        collection?: Backbone.Collection<TModel>;
-        el?: any;
-        id?: string;
-        className?: string;
-        tagName?: string;
-        attributes?: any[];
+   interface ViewOptions<TModel extends Model> {
+      model?: TModel;
+      collection?: Backbone.Collection<TModel>;
+      el?: any;
+      id?: string;
+      className?: string;
+      tagName?: string;
+      attributes?: {[id: string]: any};
     }
 
     class View<TModel extends Model> extends Events {

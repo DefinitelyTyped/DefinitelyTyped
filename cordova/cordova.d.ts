@@ -2,9 +2,9 @@
 // Project: http://cordova.apache.org
 // Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// 
+//
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="plugins/BatteryStatus.d.ts"/>
 /// <reference path="plugins/Camera.d.ts"/>
@@ -22,6 +22,7 @@
 /// <reference path="plugins/NetworkInformation.d.ts"/>
 /// <reference path="plugins/Push.d.ts"/>
 /// <reference path="plugins/Splashscreen.d.ts"/>
+/// <reference path="plugins/StatusBar.d.ts"/>
 /// <reference path="plugins/Vibration.d.ts"/>
 /// <reference path="plugins/WebSQL.d.ts"/>
 
