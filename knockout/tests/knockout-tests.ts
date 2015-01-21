@@ -649,3 +649,10 @@ function test_Components() {
 		ko.components.register('name', { /* No config needed */ });
     }
 }
+
+function testUnwrapUnion() {
+    
+    var possibleObs: KnockoutObservable<number> | number;
+    var num = ko.unwrap(possibleObs);
+
+}
