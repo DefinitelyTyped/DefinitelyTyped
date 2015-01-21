@@ -1,5 +1,5 @@
 /// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.pnotify.d.ts" />
+/// <reference path="jquery.pnotify-1.x.d.ts" />
 
 function test_pnotify() {
 
