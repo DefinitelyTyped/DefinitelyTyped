@@ -120,7 +120,8 @@ declare module Sammy {
         trigger(name: string, data?: any): Application;
         unload(): Application;
         use(...params: any[]): void;
-
+	last_location: string[];
+	
         // Features provided by oauth2 plugin 
         oauthorize: string;
         requireOAuth();

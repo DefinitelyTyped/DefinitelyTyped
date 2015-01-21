@@ -97,180 +97,180 @@ declare module OpenLayers {
 
     export class Events {
         /**
-		 * Method: attachToElement
-		 *
-		 * Parameters:
-		 * element - {HTMLDOMElement} a DOM element to attach browser events to
-		 */
-		attachToElement(element: HTMLElement) : void;
+         * Method: attachToElement
+         *
+         * Parameters:
+         * element - {HTMLDOMElement} a DOM element to attach browser events to
+         */
+        attachToElement(element: HTMLElement): void;
 
-		/**
-		 * APIMethod: on
-		 * Convenience method for registering listeners with a common scope.
-		 *     Internally, this method calls <register> as shown in the examples
-		 *     below.
-		 *
-		 * Example use:
-		 * (code)
-		 * // register a single listener for the "loadstart" event
-		 * events.on({"loadstart": loadStartListener});
-		 *
-		 * // this is equivalent to the following
-		 * events.register("loadstart", undefined, loadStartListener);
-		 *
-		 * // register multiple listeners to be called with the same `this` object
-		 * events.on({
-		 *     "loadstart": loadStartListener,
-		 *     "loadend": loadEndListener,
-		 *     scope: object
-		 * });
-		 *
-		 * // this is equivalent to the following
-		 * events.register("loadstart", object, loadStartListener);
-		 * events.register("loadend", object, loadEndListener);
-		 * (end)
-		 *
-		 * Parameters:
-		 *  object - {Object}     
-		 */
-		on(object: any) : void;
+        /**
+         * APIMethod: on
+         * Convenience method for registering listeners with a common scope.
+         *     Internally, this method calls <register> as shown in the examples
+         *     below.
+         *
+         * Example use:
+         * (code)
+         * // register a single listener for the "loadstart" event
+         * events.on({"loadstart": loadStartListener});
+         *
+         * // this is equivalent to the following
+         * events.register("loadstart", undefined, loadStartListener);
+         *
+         * // register multiple listeners to be called with the same `this` object
+         * events.on({
+         *     "loadstart": loadStartListener,
+         *     "loadend": loadEndListener,
+         *     scope: object
+         * });
+         *
+         * // this is equivalent to the following
+         * events.register("loadstart", object, loadStartListener);
+         * events.register("loadend", object, loadEndListener);
+         * (end)
+         *
+         * Parameters:
+         *  object - {Object}     
+         */
+        on(object: any): void;
 
-		/**
-		 * APIMethod: register
-		 * Register an event on the events object.
-		 *
-		 * When the event is triggered, the 'func' function will be called, in the
-		 * context of 'obj'. Imagine we were to register an event, specifying an 
-		 * OpenLayers.Bounds Object as 'obj'. When the event is triggered, the 
-		 * context in the callback function will be our Bounds object. This means
-		 * that within our callback function, we can access the properties and 
-		 * methods of the Bounds object through the "this" variable. So our 
-		 * callback could execute something like: 
-		 * :    leftStr = "Left: " + this.left;
-		 *   
-		 *                   or
-		 *  
-		 * :    centerStr = "Center: " + this.getCenterLonLat();
-		 *
-		 * Parameters:
-		 * type - {String} Name of the event to register
-		 * obj - {Object} The object to bind the context to for the callback#.
-		 *     If no object is specified, default is the Events's 'object' property.
-		 * func - {Function} The callback function. If no callback is 
-		 *     specified, this function does nothing.
-		 * priority - {Boolean|Object} If true, adds the new listener to the
-		 *     *front* of the events queue instead of to the end.
-		 *
-		 * Valid options for priority:
-		 * extension - {Boolean} If true, then the event will be registered as
-		 *     extension event. Extension events are handled before all other
-		 *     events.
-		 */
-		register(type: string, obj: any, func: () => void, priority: boolean) : void;
+        /**
+         * APIMethod: register
+         * Register an event on the events object.
+         *
+         * When the event is triggered, the 'func' function will be called, in the
+         * context of 'obj'. Imagine we were to register an event, specifying an 
+         * OpenLayers.Bounds Object as 'obj'. When the event is triggered, the 
+         * context in the callback function will be our Bounds object. This means
+         * that within our callback function, we can access the properties and 
+         * methods of the Bounds object through the "this" variable. So our 
+         * callback could execute something like: 
+         * :    leftStr = "Left: " + this.left;
+         *   
+         *                   or
+         *  
+         * :    centerStr = "Center: " + this.getCenterLonLat();
+         *
+         * Parameters:
+         * type - {String} Name of the event to register
+         * obj - {Object} The object to bind the context to for the callback#.
+         *     If no object is specified, default is the Events's 'object' property.
+         * func - {Function} The callback function. If no callback is 
+         *     specified, this function does nothing.
+         * priority - {Boolean|Object} If true, adds the new listener to the
+         *     *front* of the events queue instead of to the end.
+         *
+         * Valid options for priority:
+         * extension - {Boolean} If true, then the event will be registered as
+         *     extension event. Extension events are handled before all other
+         *     events.
+         */
+        register(type: string, obj: any, func: () => void, priority: boolean): void;
 
-		/**
-		 * APIMethod: registerPriority
-		 * Same as register() but adds the new listener to the *front* of the
-		 *     events queue instead of to the end.
-		 *    
-		 *     TODO: get rid of this in 3.0 - Decide whether listeners should be 
-		 *     called in the order they were registered or in reverse order.
-		 *
-		 *
-		 * Parameters:
-		 * type - {String} Name of the event to register
-		 * obj - {Object} The object to bind the context to for the callback#.
-		 *                If no object is specified, default is the Events's 
-		 *                'object' property.
-		 * func - {Function} The callback function. If no callback is 
-		 *                   specified, this function does nothing.
-		 */
-		registerPriority(type: string, obj: any, func: () => void) : void;
+        /**
+         * APIMethod: registerPriority
+         * Same as register() but adds the new listener to the *front* of the
+         *     events queue instead of to the end.
+         *    
+         *     TODO: get rid of this in 3.0 - Decide whether listeners should be 
+         *     called in the order they were registered or in reverse order.
+         *
+         *
+         * Parameters:
+         * type - {String} Name of the event to register
+         * obj - {Object} The object to bind the context to for the callback#.
+         *                If no object is specified, default is the Events's 
+         *                'object' property.
+         * func - {Function} The callback function. If no callback is 
+         *                   specified, this function does nothing.
+         */
+        registerPriority(type: string, obj: any, func: () => void): void;
 
-		/**
-		 * APIMethod: un
-		 * Convenience method for unregistering listeners with a common scope.
-		 *     Internally, this method calls <unregister> as shown in the examples
-		 *     below.
-		 *
-		 * Example use:
-		 * (code)
-		 * // unregister a single listener for the "loadstart" event
-		 * events.un({"loadstart": loadStartListener});
-		 *
-		 * // this is equivalent to the following
-		 * events.unregister("loadstart", undefined, loadStartListener);
-		 *
-		 * // unregister multiple listeners with the same `this` object
-		 * events.un({
-		 *     "loadstart": loadStartListener,
-		 *     "loadend": loadEndListener,
-		 *     scope: object
-		 * });
-		 *
-		 * // this is equivalent to the following
-		 * events.unregister("loadstart", object, loadStartListener);
-		 * events.unregister("loadend", object, loadEndListener);
-		 * (end)
-		 */
-		un(object: any) : void;
+        /**
+         * APIMethod: un
+         * Convenience method for unregistering listeners with a common scope.
+         *     Internally, this method calls <unregister> as shown in the examples
+         *     below.
+         *
+         * Example use:
+         * (code)
+         * // unregister a single listener for the "loadstart" event
+         * events.un({"loadstart": loadStartListener});
+         *
+         * // this is equivalent to the following
+         * events.unregister("loadstart", undefined, loadStartListener);
+         *
+         * // unregister multiple listeners with the same `this` object
+         * events.un({
+         *     "loadstart": loadStartListener,
+         *     "loadend": loadEndListener,
+         *     scope: object
+         * });
+         *
+         * // this is equivalent to the following
+         * events.unregister("loadstart", object, loadStartListener);
+         * events.unregister("loadend", object, loadEndListener);
+         * (end)
+         */
+        un(object: any): void;
 
-		/**
-		 * APIMethod: unregister
-		 *
-		 * Parameters:
-		 * type - {String} 
-		 * obj - {Object} If none specified, defaults to this.object
-		 * func - {Function} 
-		 */
-		unregister(type: string, obj: any, func: () => void) : void;
+        /**
+         * APIMethod: unregister
+         *
+         * Parameters:
+         * type - {String} 
+         * obj - {Object} If none specified, defaults to this.object
+         * func - {Function} 
+         */
+        unregister(type: string, obj: any, func: () => void): void;
 
-		/** 
-		 * Method: remove
-		 * Remove all listeners for a given event type. If type is not registered,
-		 *     does nothing.
-		 *
-		 * Parameters:
-		 * type - {String} 
-		 */
-		remove(type: string) : void;
+        /** 
+         * Method: remove
+         * Remove all listeners for a given event type. If type is not registered,
+         *     does nothing.
+         *
+         * Parameters:
+         * type - {String} 
+         */
+        remove(type: string): void;
 
-		/**
-		 * APIMethod: triggerEvent
-		 * Trigger a specified registered event.  
-		 * 
-		 * Parameters:
-		 * type - {String} 
-		 * evt - {Event || Object} will be passed to the listeners.
-		 *
-		 * Returns:
-		 * {Boolean} The last listener return.  If a listener returns false, the
-		 *     chain of listeners will stop getting called.
-		 */
-		triggerEvent(type: string, evt: Event) : boolean;
+        /**
+         * APIMethod: triggerEvent
+         * Trigger a specified registered event.  
+         * 
+         * Parameters:
+         * type - {String} 
+         * evt - {Event || Object} will be passed to the listeners.
+         *
+         * Returns:
+         * {Boolean} The last listener return.  If a listener returns false, the
+         *     chain of listeners will stop getting called.
+         */
+        triggerEvent(type: string, evt: Event): boolean;
 
-		/**
-		 * Method: handleBrowserEvent
-		 * Basically just a wrapper to the triggerEvent() function, but takes 
-		 *     care to set a property 'xy' on the event with the current mouse 
-		 *     position.
-		 *
-		 * Parameters:
-		 * evt - {Event} 
-		 */
-		handleBrowserEvent(evt: Event) : void;
+        /**
+         * Method: handleBrowserEvent
+         * Basically just a wrapper to the triggerEvent() function, but takes 
+         *     care to set a property 'xy' on the event with the current mouse 
+         *     position.
+         *
+         * Parameters:
+         * evt - {Event} 
+         */
+        handleBrowserEvent(evt: Event): void;
 
-		/**
-		 * Method: getMousePosition
-		 * 
-		 * Parameters:
-		 * evt - {Event} 
-		 * 
-		 * Returns:
-		 * {<OpenLayers.Pixel>} The current xy coordinate of the mouse, adjusted
-		 *                      for offsets
-		 */
-		getMousePosition(evt: Event) : Pixel;
+        /**
+         * Method: getMousePosition
+         * 
+         * Parameters:
+         * evt - {Event} 
+         * 
+         * Returns:
+         * {<OpenLayers.Pixel>} The current xy coordinate of the mouse, adjusted
+         *                      for offsets
+         */
+        getMousePosition(evt: Event): Pixel;
     }
 
     export class Feature {
@@ -1438,7 +1438,7 @@ declare module OpenLayers {
         /**
          * The element that contains the map (or an id for that element).
          */
-        div: Object;
+        div: HTMLElement;
 
         /**
          * The map is currently being dragged.
@@ -4558,8 +4558,143 @@ declare module OpenLayers {
             getFullRequestString(newParams: Object, altUrl: string): string;
         }
 
-        export class Image {
-            // TODO
+        export class Image extends Layer {
+            /**
+             * Property: isBaseLayer
+             * {Boolean} The layer is a base layer. Default is true. Set this property
+             * in the layer options
+             */
+            isBaseLayer: boolean;
+
+            /**
+             * Property: url
+             * {String} URL of the image to use
+             */
+            url: string;
+
+            /**
+             * Property: extent
+             * {<OpenLayers.Bounds>} The image bounds in map units. This extent will
+             * also be used as the default maxExtent for the layer. If you wish
+             * to have a maxExtent that is different than the image extent, set the
+             * maxExtent property of the options argument (as with any other layer).
+             */
+            extent: OpenLayers.Bounds;
+
+            /**
+             * Property: size
+             * {<OpenLayers.Size>} The image size in pixels
+             */
+            size: OpenLayers.Size;
+
+            /**
+             * Property: tile
+             * {<OpenLayers.Tile.Image>}
+             */
+            tile: OpenLayers.Tile.Image;
+
+            /**
+             * Property: aspectRatio
+             * {Float} The ratio of height/width represented by a single pixel in the
+             * graphic
+             */
+            aspectRatio: number;
+
+            /**
+             * Constructor: OpenLayers.Layer.Image
+             * Create a new image layer
+             *
+             * Parameters:
+             * name - {String} A name for the layer.
+             * url - {String} Relative or absolute path to the image
+             * extent - {<OpenLayers.Bounds>} The extent represented by the image
+             * size - {<OpenLayers.Size>} The size (in pixels) of the image
+             * options - {Object} Hashtable of extra options to tag onto the layer
+             */
+            constructor(name: string, url: string, extent: OpenLayers.Bounds, size: OpenLayers.Size, options: any);
+
+            /**
+             * Method: destroy
+             * Destroy this layer
+             */
+            destroy(): void;
+
+            /**
+             * Method: clone
+             * Create a clone of this layer
+             *
+             * Parameters:
+             * obj - {Object} An optional layer (is this ever used?)
+             *
+             * Returns:
+             * {<OpenLayers.Layer.Image>} An exact copy of this layer
+             */
+            clone(obj?: any): OpenLayers.Layer.Image;
+
+            /**
+             * APIMethod: setMap
+             *
+             * Parameters:
+             * map - {<OpenLayers.Map>}
+             */
+            setMap(map: OpenLayers.Map): void;
+
+            /**
+             * Method: moveTo
+             * Create the tile for the image or resize it for the new resolution
+             *
+             * Parameters:
+             * bounds - {<OpenLayers.Bounds>}
+             * zoomChanged - {Boolean}
+             * dragging - {Boolean}
+             */
+            moveTo(bounds: OpenLayers.Bounds, zoomChanged: boolean, dragging: boolean): void;
+
+            /**
+             * Set the tile size based on the map size.
+             */
+            setTileSize(): void;
+
+            /**
+             * Method: addTileMonitoringHooks
+             * This function takes a tile as input and adds the appropriate hooks to
+             * the tile so that the layer can keep track of the loading tiles.
+             *
+             * Parameters:
+             * tile - {<OpenLayers.Tile>}
+             */
+            addTileMonitoringHooks(tile: OpenLayers.Tile): void;
+
+            /**
+             * Method: removeTileMonitoringHooks
+             * This function takes a tile as input and removes the tile hooks
+             * that were added in <addTileMonitoringHooks>.
+             *
+             * Parameters:
+             * tile - {<OpenLayers.Tile>}
+             */
+            removeTileMonitoringHooks(tile: OpenLayers.Tile): void;
+
+            /**
+             * APIMethod: setUrl
+             *
+             * Parameters:
+             * newUrl - {String}
+             */
+            setUrl(newUrl: string): void;
+
+            /**
+             * APIMethod: getURL
+             * The url we return is always the same (the image itself never changes)
+             * so we can ignore the bounds parameter (it will always be the same,
+             * anyways)
+             *
+             * Parameters:
+             * bounds - {<OpenLayers.Bounds>}
+             */
+            getURL(bounds: OpenLayers.Bounds): string;
+
+            CLASS_NAME: string;
         }
         export class KaMap {
             // TODO
@@ -4823,7 +4958,7 @@ declare module OpenLayers {
              * url - {String}
              * options - {Object} Hashtable of extra options to tag onto the layer
              */
-            constructor(name: number, url: string, options: {});
+            constructor(name: string, url: string, options?: any);
 
             /**
              * APIMethod: clone
@@ -4835,7 +4970,7 @@ declare module OpenLayers {
              * Returns:
              * {<OpenLayers.Layer.XYZ>} An exact clone of this OpenLayers.Layer.XYZ
              */
-            clone(obj?: Object): Layer.XYZ;
+            clone(obj?: any): Layer.XYZ;
 
             /**
              * Method: getURL

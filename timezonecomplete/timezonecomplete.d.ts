@@ -1,4 +1,4 @@
-// Type definitions for timezonecomplete 1.10.0
+// Type definitions for timezonecomplete 1.12.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -641,12 +641,11 @@ declare module '__timezonecomplete/datetime' {
          */
         lessEqual(other: DateTime): boolean;
         /**
-         * @return True iff this and other represent the same time in UTC
+         * @return True iff this and other represent the same moment in time in UTC
          */
         equals(other: DateTime): boolean;
         /**
-         * @return True iff this and other represent the same time and
-         * have the same zone
+         * @return True iff this and other represent the same time and the same zone
          */
         identical(other: DateTime): boolean;
         /**
@@ -961,9 +960,10 @@ declare module '__timezonecomplete/period' {
          * @param amount	The amount of units.
          * @param unit	The unit.
          * @param dst	Specifies how to handle Daylight Saving Time. Not relevant
-         *				if the time zone of the start datetime does not have DST.
+         *              if the time zone of the start datetime does not have DST.
+         *              Defaults to RegularLocalTime.
          */
-        constructor(start: datetime.DateTime, amount: number, unit: basics.TimeUnit, dst: PeriodDst);
+        constructor(start: datetime.DateTime, amount: number, unit: basics.TimeUnit, dst?: PeriodDst);
         /**
          * The start date
          */
@@ -1004,6 +1004,16 @@ declare module '__timezonecomplete/period' {
          * (expensive!)
          */
         isBoundary(occurrence: datetime.DateTime): boolean;
+        /**
+         * Returns true iff this period has the same effect as the given one.
+         * i.e. a period of 24 hours is equal to one of 1 day if they have the same UTC start moment
+         * and same dst.
+         */
+        equals(other: Period): boolean;
+        /**
+         * Returns true iff this period was constructed with identical arguments to the other one.
+         */
+        identical(other: Period): boolean;
         /**
          * Returns an ISO duration string e.g.
          * 2014-01-01T12:00:00.000+01:00/P1H
@@ -1167,6 +1177,10 @@ declare module '__timezonecomplete/timezone' {
          * each other. Other time zones are not mapped onto each other.
          */
         equals(other: TimeZone): boolean;
+        /**
+         * Returns true iff the constructor arguments were identical, so UTC !== GMT
+         */
+        identical(other: TimeZone): boolean;
         /**
          * Is this zone equivalent to UTC?
          */
