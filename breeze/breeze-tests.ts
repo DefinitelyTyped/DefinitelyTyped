@@ -23,7 +23,7 @@ function test_dataProperty() {
         maxLength: 20
     });
     var personEntityType: breeze.EntityType;
-    personEntityType.addProperty(lastNameProp);
+    personEntityType.addProperty(lastNameProp);   
 }
 
 function test_dataService() {
@@ -732,7 +732,7 @@ function test_validator() {
     var custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
     custType.validators.push(zipCodeValidator);
     var numericRangeValidator = function (context: NumericRange) {
-        var valFn = function (v: any, ctx: NumericRangeValidatorFunctionContext) {
+        var valFn = function (v, ctx: NumericRangeValidatorFunctionContext) {
             if (v == null) return true;
             if (typeof (v) !== "number") return false;
             if (ctx.min != null && v < ctx.min) return false;
@@ -794,7 +794,7 @@ function test_validator() {
     var sameValidator = result.validator;
     var valFn = function (v: any) {
         if (v == null) return true;
-        return (v.substr(0,2) === "US");
+        return (v.substr(0,2) ===  "US");
     };
     var countryValidator = new breeze.Validator("countryIsUS", valFn, { displayName: "Country" });
     breeze.Validator.messageTemplates["countryIsUS"] = "'%displayName%' must start with 'US'";
