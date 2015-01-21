@@ -42,7 +42,10 @@ declare module React {
     }
 
     interface ComponentClass<P> extends ComponentStatics<P> {
+        // Not intended for usage. Please do not call "new MyComponent()"
         new (): Component<P>;
+        // Deprecated in 0.12. See http://fb.me/react-legacyfactory
+        // (props: P): ReactElement<P>;
     }
 
     //
