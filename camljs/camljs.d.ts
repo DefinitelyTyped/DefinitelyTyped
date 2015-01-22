@@ -12,6 +12,8 @@ declare class CamlBuilder {
     @param viewFields If omitted, default view fields are requested; otherwise, only values for the fields with the specified internal names are returned.
     Specifying view fields is a good practice, as it decreases traffic between server and client. */
     public View(viewFields?: string[]): CamlBuilder.IView;
+    /** Generate <ViewFields> tag for SPServices */
+    public ViewFields(viewFields: string[]): CamlBuilder.IFinalizableToString;
     /** Use for:
     1. SPServices CAMLQuery attribute
     2. Creating partial expressions
@@ -58,9 +60,11 @@ declare module CamlBuilder {
     interface IQuery {
         Where(): IFieldExpression;
     }
-    interface IFinalizable {
+    interface IFinalizableToString {
         /** Get the resulting CAML query as string */
         ToString(): string;
+    }
+    interface IFinalizable extends IFinalizableToString {
         /** Get the resulting CAML query as SP.CamlQuery object */
         ToCamlQuery(): any;
     }
@@ -333,6 +337,7 @@ declare module CamlBuilder {
     }
     class Internal {
         static createView(viewFields?: string[]): IView;
+        static createViewFields(viewFields: string[]): IFinalizableToString;
         static createWhere(): IFieldExpression;
         static createExpression(): IFieldExpression;
     }
