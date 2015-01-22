@@ -18,9 +18,6 @@ var foreign = new ForeignPromise<number>(1);
 var error = new Error("boom!");
 var example: () => void;
 
-// TODO: with TypeScript 1.4 a lot of these functions should change to use PromiseOrValue<T>
-//    type PromiseOrValue<T> = Promise<T> | T;
-
 /* * * * * * *
  *   Core    *
  * * * * * * */
@@ -58,14 +55,37 @@ promise = when.attempt((a: number, b: number, c: number) => a + b + c, 1, when(2
 promise = when.attempt((a: number, b: number, c: number) => a + b + c, when(1), 2, when(3));
 promise = when.attempt((a: number, b: number, c: number) => a + b + c, when(1), when(2), when(3));
 
+promise = when.attempt((a: number, b: number, c: number, d: number, e: number) => a + b + c + d + e, when(1), when(2), when(3), when(4), when(5));
+
 /* when.lift(f) */
 
-// TODO: This is the major issue with lack of union types, it's not possible to represent the return type of when.lift without them.
+var liftedFunc0 = when.lift(() => 2);
+var liftedFunc1 = when.lift((a: number) => a + a);
+var liftedFunc2 = when.lift((a: number, b: number) => a + b);
+var liftedFunc3 = when.lift((a: number, b: number, c: number) => a + b + c);
 
-var liftedFunc0: () => when.Promise<number> = when.lift(() => 2);
-var liftedFunc1: (a: when.Promise<number>) => when.Promise<number> = when.lift((a: number) => a + a);
-var liftedFunc2: (a: when.Promise<number>, b: when.Promise<number>) => when.Promise<number> = when.lift((a: number, b: number) => a + b);
-var liftedFunc3: (a: when.Promise<number>, b: when.Promise<number>, c: when.Promise<number>) => when.Promise<number> = when.lift((a: number, b: number, c: number) => a + b + c);
+var liftedFunc5 = when.lift((a: number, b: number, c: number, d: number, e: number) => a + b + c + d + e);
+
+promise = liftedFunc0();
+
+promise = liftedFunc1(1);
+promise = liftedFunc1(when(1));
+
+promise = liftedFunc2(1, 2);
+promise = liftedFunc2(when(1), 2);
+promise = liftedFunc2(1, when(2));
+promise = liftedFunc2(when(1), when(2));
+
+promise = liftedFunc3(1, 2, 3);
+promise = liftedFunc3(when(1), 2, 3);
+promise = liftedFunc3(1, when(2), 3);
+promise = liftedFunc3(when(1), when(2), 3);
+promise = liftedFunc3(1, 2, when(3));
+promise = liftedFunc3(when(1), 2, when(3));
+promise = liftedFunc3(1, when(2), when(3));
+promise = liftedFunc3(when(1), when(2), when(3));
+
+promise = liftedFunc5(when(1), when(2), when(3), when(4), when(5));
 
 /* when.join(...promises) */
 
@@ -196,17 +216,40 @@ import nodefn = require('when/node');
 
 /* node.lift */
 
-// TODO: Again it's not possible to represent the return type of node.lift without union types.
-
 var nodeFn0 = (callback: (err: any, result: number) => void) => callback(null, 0);
 var nodeFn1 = (a: number, callback: (err: any, result: number) => void) => callback(null, a);
 var nodeFn2 = (a: number, b: number, callback: (err: any, result: number) => void) => callback(null, a + b);
 var nodeFn3 = (a: number, b: number, c: number, callback: (err: any, result: number) => void) => callback(null, a + b + c);
 
-var promiseFunc0: () => when.Promise<number> = nodefn.lift(nodeFn0);
-var promiseFunc1: (a: when.Promise<number>) => when.Promise<number> = nodefn.lift(nodeFn1);
-var promiseFunc2: (a: when.Promise<number>, b: when.Promise<number>) => when.Promise<number> = nodefn.lift(nodeFn2);
-var promiseFunc3: (a: when.Promise<number>, b: when.Promise<number>, c: when.Promise<number>) => when.Promise<number> = nodefn.lift(nodeFn3);
+var nodeFn5 = (a: number, b: number, c: number, d: number, e: number, callback: (err: any, result: number) => void) => callback(null, a + b + c + d + e);
+
+var liftedNodeFunc0 = nodefn.lift(nodeFn0);
+var liftedNodeFunc1 = nodefn.lift(nodeFn1);
+var liftedNodeFunc2 = nodefn.lift(nodeFn2);
+var liftedNodeFunc3 = nodefn.lift(nodeFn3);
+
+var liftedNodeFunc5 = nodefn.lift(nodeFn5);
+
+promise = liftedNodeFunc0();
+
+promise = liftedNodeFunc1(1);
+promise = liftedNodeFunc1(when(1));
+
+promise = liftedNodeFunc2(1, 2);
+promise = liftedNodeFunc2(when(1), 2);
+promise = liftedNodeFunc2(1, when(2));
+promise = liftedNodeFunc2(when(1), when(2));
+
+promise = liftedNodeFunc3(1, 2, 3);
+promise = liftedNodeFunc3(when(1), 2, 3);
+promise = liftedNodeFunc3(1, when(2), 3);
+promise = liftedNodeFunc3(when(1), when(2), 3);
+promise = liftedNodeFunc3(1, 2, when(3));
+promise = liftedNodeFunc3(when(1), 2, when(3));
+promise = liftedNodeFunc3(1, when(2), when(3));
+promise = liftedNodeFunc3(when(1), when(2), when(3));
+
+promise = liftedNodeFunc5(when(1), when(2), when(3), when(4), when(5));
 
 example = function() {
 	var resolveAddress = nodefn.lift(dns.resolve);
@@ -284,6 +327,8 @@ promise = nodefn.call(nodeFn3, 1, 2, when(3));
 promise = nodefn.call(nodeFn3, 1, when(2), when(3));
 promise = nodefn.call(nodeFn3, when(1), 2, when(3));
 promise = nodefn.call(nodeFn3, when(1), when(2), when(3));
+
+promise = nodefn.call(nodeFn5, when(1), when(2), when(3), when(4), when(5));
 
 example = function () {
 	var loadPasswd = nodefn.call(fs.readFile, '/etc/passwd');
