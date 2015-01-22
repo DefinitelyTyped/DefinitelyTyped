@@ -426,6 +426,10 @@ declare module D3 {
         */
         interpolateTransform: Transition.BaseInterpolate;
         /*
+        * Interpolate two views a and b of a two-dimensional plane
+        */
+        interpolateZoom:Transition.BaseInterpolate;
+        /*
         * The array of built-in interpolator factories
         */
         interpolators: Transition.InterpolateFactory[];
