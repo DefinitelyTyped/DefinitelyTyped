@@ -9,7 +9,6 @@ interface PNotifyStack {
 	push?: string;
 	spacing1?: number;
 	spacing2?: number;
-	context?: JQuery
 }
 
 interface PNotifyLabel {
