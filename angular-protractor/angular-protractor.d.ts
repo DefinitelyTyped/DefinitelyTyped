@@ -918,6 +918,7 @@ declare module protractor {
         * @return {!webdriver.promise.Promise} A promise that resolves to the final
         *     value of the accumulator. 
         */
+        reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => webdriver.promise.Promise<T>, initialValue: T): webdriver.promise.Promise<T>;
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => T, initialValue: T): webdriver.promise.Promise<T>;
 
         /**

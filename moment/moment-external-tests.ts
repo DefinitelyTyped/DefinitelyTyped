@@ -302,7 +302,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    months : function (momentToFormat: Moment, format: string) {
+    months : function (momentToFormat: moment.Moment, format: string) {
         // momentToFormat is the moment currently being formatted
         // format is the formatting string
         if (/^MMMM/.test(format)) { // if the format starts with 'MMMM'
@@ -321,7 +321,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    monthsShort : function (momentToFormat: Moment, format: string) {
+    monthsShort : function (momentToFormat: moment.Moment, format: string) {
         if (/^MMMM/.test(format)) {
             return this.nominative[momentToFormat.month()];
         } else {
@@ -337,7 +337,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdays : function (momentToFormat: Moment) {
+    weekdays : function (momentToFormat: moment.Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
@@ -347,7 +347,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdaysShort : function (momentToFormat: Moment) {
+    weekdaysShort : function (momentToFormat: moment.Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
@@ -357,7 +357,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdaysMin : function (momentToFormat: Moment) {
+    weekdaysMin : function (momentToFormat: moment.Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });
