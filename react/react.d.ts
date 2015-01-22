@@ -11,7 +11,7 @@ declare module React {
     type ReactType = ComponentClass<any> | string;
 
     interface ReactElement<P> {
-        type: ReactType
+        type: ComponentClass<P> | string;
         props: P;
         key: number | string;
         ref: string;
@@ -26,13 +26,11 @@ declare module React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactEmpty = boolean; // | undefined | null
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNode | ReactEmpty> but type aliases cannot be recursive
-    type ReactFragment = Array<ReactChild | any[] | ReactEmpty>;
-    type ReactNode = ReactChild | ReactFragment;
-    type ReactNodeList = ReactNode | ReactEmpty;
+    // Should be Array<ReactNode> but type aliases cannot be recursive
+    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // React Components 
@@ -71,7 +69,7 @@ declare module React {
 
     interface TopLevelAPI {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClassType<P>;
-        createElement<P>(type: ReactType, props: P, ...children: ReactNode[]): ReactElement<P>;
+        createElement<P>(type: ComponentClass<P> | string, props: P, ...children: ReactNode[]): ReactElement<P>;
         createFactory<P>(componentClass: ComponentClassType<P>): ComponentFactory<P>;
         render<P>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
