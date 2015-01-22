@@ -3,12 +3,15 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts"/>
+
 interface PNotifyStack {
 	dir1?: string;
 	dir2?: string;
 	push?: string;
 	spacing1?: number;
 	spacing2?: number;
+	context?: JQuery
 }
 
 interface PNotifyLabel {
@@ -161,8 +164,10 @@ interface PNotifyOptions {
 }
 
 interface PNotify {
-	update(options?: PNotifyOptions);
-	remove();
+	elem: JQuery;
+	
+	update(options?: PNotifyOptions): void;
+	remove(): void;
 }
 
 interface PNotifyConstructor {
