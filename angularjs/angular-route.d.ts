@@ -42,7 +42,7 @@ declare module ng.route {
          * {(string|function()=}
          * Controller fn that should be associated with newly created scope or the name of a registered controller if passed as a string.
          */
-        controller?: any;
+        controller?: string|Function;
         /**
          * A controller alias name. If present the controller will be published to scope under the controllerAs name.
          */
@@ -59,7 +59,7 @@ declare module ng.route {
          * 
          * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
          */
-        template?: string;
+        template?: string|{($routeParams?: ng.route.IRouteParamsService) : string;}
         /**
          * {string=|function()=}
          * Path or function that returns a path to an html template that should be used by ngView.
@@ -68,14 +68,14 @@ declare module ng.route {
          * 
          * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
          */
-        templateUrl?: any;
+        templateUrl?: string|{ ($routeParams?: ng.route.IRouteParamsService): string; }
         /**
          * {Object.<string, function>=} - An optional map of dependencies which should be injected into the controller. If any of these dependencies are promises, the router will wait for them all to be resolved or one to be rejected before the controller is instantiated. If all the promises are resolved successfully, the values of the resolved promises are injected and $routeChangeSuccess event is fired. If any of the promises are rejected the $routeChangeError event is fired. The map object is:
          * 
          * - key - {string}: a name of a dependency to be injected into the controller.
          * - factory - {string|function}: If string then it is an alias for a service. Otherwise if function, then it is injected and the return value is treated as the dependency. If the result is a promise, it is resolved before its value is injected into the controller. Be aware that ngRoute.$routeParams will still refer to the previous route within these resolve functions. Use $route.current.params to access the new route parameters, instead.
          */
-	 resolve?: {[key: string]: any};
+        resolve?: {[key: string]: any};
         /**
          * {(string|function())=}
          * Value to update $location path with and trigger route redirection.
@@ -87,7 +87,7 @@ declare module ng.route {
          * - {Object} - current $location.search()
          * - The custom redirectTo function is expected to return a string which will be used to update $location.path() and $location.search().
          */
-        redirectTo?: any;
+        redirectTo?: string|{($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) : string};
         /**
          * Reload route when only $location.search() or $location.hash() changes. 
          * 

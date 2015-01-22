@@ -8,6 +8,12 @@ module SigmaJsTests {
         }
     });
 
+    s.settings({
+      maxNodeSize: 10
+    });
+
+    s.settings("maxNodeSize");
+
     s.addRenderer({
         type: 'canvas',
         container: container

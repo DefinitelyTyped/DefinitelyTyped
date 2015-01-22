@@ -59,7 +59,7 @@ declare module spiderMonkeyParserAPI {
             params: Pattern[];
             defaults: Expression[];
             rest?: Identifier;
-            body?: any; // BlockStatement | Expression;
+            body?: BlockStatement | Expression;
             generator: boolean;
             expression: boolean;
         }
@@ -74,7 +74,7 @@ declare module spiderMonkeyParserAPI {
          * An empty statement, i.e., a solitary semicolon.
          */
         interface EmptyStatement extends Statement {
-            type: string; //"EmptyStatement";
+            type: string; // "EmptyStatement";
         }
 
         /**
@@ -190,7 +190,7 @@ declare module spiderMonkeyParserAPI {
          */
         interface ForStatement extends Statement {
             type: string; // "ForStatement";
-            init?: any; // VariableDeclaration | Expression;
+            init?: VariableDeclaration | Expression;
             test?: Expression;
             update?: Expression;
             body: Statement;
@@ -201,7 +201,7 @@ declare module spiderMonkeyParserAPI {
          */
         interface ForInStatement extends Statement {
             type: string; // "ForInStatement";
-            left: any; // VariableDeclaration | Expression;
+            left: VariableDeclaration | Expression;
             right: Expression;
             body: Statement;
             each: boolean;
@@ -212,7 +212,7 @@ declare module spiderMonkeyParserAPI {
          */
         interface ForOfStatement extends Statement {
             type: string; // "ForOfStatement";
-            left: any; // VariableDeclaration | Expression;
+            left: VariableDeclaration | Expression;
             right: Expression;
             body: Statement;
         }
@@ -248,7 +248,7 @@ declare module spiderMonkeyParserAPI {
             params: Pattern[];
             defaults: Expression[];
             rest?: Identifier;
-            body: any; // BlockStatement | Expression;
+            body: BlockStatement | Expression;
             generator: boolean;
             expression: boolean;
         }
@@ -307,7 +307,7 @@ declare module spiderMonkeyParserAPI {
          */
         interface Property extends Node {
             type: string; // "Property";
-            key: any; // Literal | Identifier;
+            key: Literal | Identifier;
             value: Expression;
             kind: string; // "init" | "get" | "set";
         }
@@ -321,7 +321,7 @@ declare module spiderMonkeyParserAPI {
             params: Pattern[];
             defaults: Expression[];
             rest?: Identifier;
-            body: any; // BlockStatement | Expression;
+            body: BlockStatement | Expression;
             generator: boolean;
             expression: boolean;
         }
@@ -334,7 +334,7 @@ declare module spiderMonkeyParserAPI {
             params: Pattern[];
             defaults: Expression[];
             rest?: Identifier;
-            body: any; // BlockStatement | Expression;
+            body: BlockStatement | Expression;
             generator: boolean;
             expression: boolean;
         }
@@ -433,7 +433,7 @@ declare module spiderMonkeyParserAPI {
         interface MemberExpression extends Expression {
             type: string; // "MemberExpression";
             object: Expression;
-            property: any; // Identifier | Expression;
+            property: Identifier | Expression;
             computed: boolean;
         }
 
@@ -510,7 +510,7 @@ declare module spiderMonkeyParserAPI {
          */
         interface ObjectPattern extends Pattern {
             type: string; // "ObjectPattern";
-            properties: {key: any /* Literal | Identifier */; value: Pattern;}[]; // [ { key: Literal | Identifier, value: Pattern } ];
+            properties: {key: Literal | Identifier; value: Pattern;}[]; // [ { key: Literal | Identifier, value: Pattern } ];
         }
 
         /**
@@ -565,8 +565,7 @@ declare module spiderMonkeyParserAPI {
          */
         interface Literal extends Node, Expression {
             type: string; // "Literal";
-            // TODO union types
-            value: any; // string | boolean | null | number | RegExp;
+            value?: string | boolean | number | RegExp;
         }
 
         /**

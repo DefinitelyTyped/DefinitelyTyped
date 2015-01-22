@@ -80,6 +80,8 @@ n = t.offsetForZoneDate(new Date(2014, 1, 1, 13, 0, 5, 123), tc.DateFunctions.Ge
 s = t.toString();
 s = tc.TimeZone.offsetToString(2);
 n = tc.TimeZone.stringToOffset("+00:01");
+b = t.equals(t);
+b = t.identical(t);
 
 // REALTIMESOURCE
 
@@ -187,6 +189,8 @@ dt = p.findNext(dt);
 s = p.toIsoString();
 s = p.toString();
 b = p.isBoundary(dt);
+b = p.equals(p);
+b = p.identical(p);
 
 
 // GLOBALS

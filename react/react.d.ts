@@ -8,12 +8,12 @@ declare module React {
     // React Elements 
     // ----------------------------------------------------------------------
 
-    // type ReactType = ComponentClass<any> | string;
+    type ReactType = ComponentClass<any> | string;
 
     interface ReactElement<P> {
-        type: any; // ReactType
+        type: ComponentClass<P> | string;
         props: P;
-        key: any; // number | string
+        key: number | string;
         ref: string;
     }
 
@@ -22,14 +22,15 @@ declare module React {
 
     //
     // React Nodes 
+    // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
-    // type ReactText = string | number;
-    // type Fragment = ReactNode[];
-    // type ReactNode = ReactElement<any> | Fragment | ReactText | KeyMap;
-    // interface KeyMap {
-    //     [key: string]: ReactNode;
-    // }
+    type ReactText = string | number;
+    type ReactChild = ReactElement<any> | ReactText;
+
+    // Should be Array<ReactNode> but type aliases cannot be recursive
+    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // React Components 
@@ -41,7 +42,11 @@ declare module React {
         propTypes?: ValidationMap<P>;
     }
 
-    interface ComponentClass<P> extends ComponentStatics<P> {
+    interface ComponentClassType<P> extends ComponentStatics<P> {
+        new (): ComponentClass<P>;
+    }
+
+    interface ComponentClass<P> {
         // Deprecated in 0.12. See http://fb.me/react-legacyfactory
         // new(props: P): ReactElement<P>;
         // (props: P): ReactElement<P>;
@@ -52,7 +57,7 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface ComponentFactory<P> {
-        (props?: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
+        (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
     
     interface HTMLFactory extends ComponentFactory<HTMLAttributes> {}
@@ -63,9 +68,9 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface TopLevelAPI {
-        createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
-        createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
-        createFactory<P>(componentClass: ComponentClass<P>): ComponentFactory<P>;
+        createClass<P>(spec: ComponentSpec<P, any>): ComponentClassType<P>;
+        createElement<P>(type: ComponentClass<P> | string, props: P, ...children: ReactNode[]): ReactElement<P>;
+        createFactory<P>(componentClass: ComponentClassType<P>): ComponentFactory<P>;
         render<P>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
@@ -241,8 +246,8 @@ declare module React {
     // ----------------------------------------------------------------------
 
     export interface ReactAttributes {
-        children?: any; // ReactNode
-        key?: any; // number | string
+        children?: ReactNode;
+        key?: number | string;
         ref?: string;
 
         // Event Attributes
@@ -282,13 +287,13 @@ declare module React {
         onWheel?: WheelEventHandler;
 
         dangerouslySetInnerHTML?: {
-            __html: string
+            __html: string;
         };
     }
 
     interface CSSProperties {
         columnCount?: number;
-        flex?: any; // number | string
+        flex?: number | string;
         flexGrow?: number;
         flexShrink?: number;
         fontWeight?: number;
@@ -318,8 +323,8 @@ declare module React {
         autoComplete?: boolean;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        cellPadding?: any; // number | string
-        cellSpacing?: any; // number | string
+        cellPadding?: number | string;
+        cellSpacing?: number | string;
         charSet?: string;
         checked?: boolean;
         classID?: string;
@@ -342,8 +347,8 @@ declare module React {
         encType?: string;
         form?: string;
         formNoValidate?: boolean;
-        frameBorder?: any; // number | string
-        height?: any; // number | string
+        frameBorder?: number | string;
+        height?: number | string;
         hidden?: boolean;
         href?: string;
         hrefLang?: string;
@@ -356,12 +361,12 @@ declare module React {
         list?: string;
         loop?: boolean;
         manifest?: string;
-        max?: any; // number | string
+        max?: number | string;
         maxLength?: number;
         media?: string;
         mediaGroup?: string;
         method?: string;
-        min?: any; // number | string
+        min?: number | string;
         multiple?: boolean;
         muted?: boolean;
         name?: string;
@@ -394,7 +399,7 @@ declare module React {
         srcDoc?: string;
         srcSet?: string;
         start?: number;
-        step?: any; // number | string
+        step?: number | string;
         style?: CSSProperties;
         tabIndex?: number;
         target?: string;
@@ -402,7 +407,7 @@ declare module React {
         type?: string;
         useMap?: string;
         value?: string;
-        width?: any; // number | string
+        width?: number | string;
         wmode?: string;
 
         // Non-standard Attributes
@@ -415,49 +420,49 @@ declare module React {
     }
 
     interface SVGAttributes extends ReactAttributes {
-        cx?: any; // SVGLength | SVGAnimatedLength
+        cx?: SVGLength | SVGAnimatedLength;
         cy?: any; 
         d?: string;
-        dx?: any; // SVGLength | SVGAnimatedLength
-        dy?: any; // SVGLength | SVGAnimatedLength
+        dx?: SVGLength | SVGAnimatedLength;
+        dy?: SVGLength | SVGAnimatedLength;
         fill?: any; // SVGPaint | string
-        fillOpacity?: any; // number | string
+        fillOpacity?: number | string;
         fontFamily?: string;
-        fontSize?: any; // number | string
-        fx?: any; // SVGLength | SVGAnimatedLength
-        fy?: any; // SVGLength | SVGAnimatedLength
-        gradientTransform?: any; // SVGTransformList | SVGAnimatedTransformList
+        fontSize?: number | string;
+        fx?: SVGLength | SVGAnimatedLength;
+        fy?: SVGLength | SVGAnimatedLength;
+        gradientTransform?: SVGTransformList | SVGAnimatedTransformList;
         gradientUnits?: string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
-        offset?: any; // number | string
-        opacity?: any; // number | string
+        offset?: number | string;
+        opacity?: number | string;
         patternContentUnits?: string;
         patternUnits?: string;
         points?: string;
         preserveAspectRatio?: string;
-        r?: any; // SVGLength | SVGAnimatedLength
-        rx?: any; // SVGLength | SVGAnimatedLength
-        ry?: any; // SVGLength | SVGAnimatedLength
+        r?: SVGLength | SVGAnimatedLength;
+        rx?: SVGLength | SVGAnimatedLength;
+        ry?: SVGLength | SVGAnimatedLength;
         spreadMethod?: string;
         stopColor?: any; // SVGColor | string
-        stopOpacity?: any; // number | string
+        stopOpacity?: number | string;
         stroke?: any; // SVGPaint
         strokeDasharray?: string;
         strokeLinecap?: string;
-        strokeOpacity?: any; // number | string
-        strokeWidth?: any; // SVGLength | SVGAnimatedLength
+        strokeOpacity?: number | string;
+        strokeWidth?: SVGLength | SVGAnimatedLength;
         textAnchor?: string;
-        transform?: any; // SVGTransformList | SVGAnimatedTransformList
+        transform?: SVGTransformList | SVGAnimatedTransformList;
         version?: string;
         viewBox?: string;
-        x1?: any; // SVGLength | SVGAnimatedLength
-        x2?: any; // SVGLength | SVGAnimatedLength
-        x?: any; // SVGLength | SVGAnimatedLength
-        y1?: any; // SVGLength | SVGAnimatedLength
-        y2?: any; // SVGLength | SVGAnimatedLength
-        y?: any; // SVGLength | SVGAnimatedLength
+        x1?: SVGLength | SVGAnimatedLength;
+        x2?: SVGLength | SVGAnimatedLength;
+        x?: SVGLength | SVGAnimatedLength;
+        y1?: SVGLength | SVGAnimatedLength;
+        y2?: SVGLength | SVGAnimatedLength
+        y?: SVGLength | SVGAnimatedLength;
     }
 
     //
@@ -637,13 +642,11 @@ declare module React {
     // React.Children
     // ----------------------------------------------------------------------
 
-    // type Child = ReactElement<any> | ReactText;
-
     interface ReactChildren {
-        map<T>(children: any/*ReactNode*/, fn: (child: any/*Child*/) => T): { [key:string]: T };
-        forEach(children: any/*ReactNode*/, fn: (child: any/*Child*/) => any): void;
-        count(children: any/*ReactNode*/): number;
-        only(children: any/*ReactNode*/): any/*Child*/;
+        map<T>(children: ReactNode, fn: (child: ReactChild) => T): { [key:string]: T };
+        forEach(children: ReactNode, fn: (child: ReactChild) => any): void;
+        count(children: ReactNode): number;
+        only(children: ReactNode): ReactChild;
     }
 
     //
@@ -659,7 +662,7 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface TransitionGroupProps {
-        component?: any; // ReactType
+        component?: ReactType;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
 
@@ -669,9 +672,6 @@ declare module React {
         transitionEnter?: boolean;
         transitionLeave?: boolean;
     }
-
-    interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
-    interface TransitionGroup extends ComponentClass<TransitionGroupProps> {}
 
     //
     // React.addons (Mixins)
@@ -757,7 +757,7 @@ declare module React {
 
         mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
 
-        isElementOfType(element: ReactElement<any>, type: any/*ReactType*/): boolean;
+        isElementOfType(element: ReactElement<any>, type: ReactType): boolean;
         isDOMComponent(instance: Component<any>): boolean;
         isCompositeComponent(instance: Component<any>): boolean;
         isCompositeComponentWithType(instance: Component<any>, type: ComponentClass<any>): boolean;
@@ -873,10 +873,10 @@ declare module React {
 
     interface AddonsExports extends Exports {
         addons: {
-            CSSTransitionGroup: CSSTransitionGroup;
+            CSSTransitionGroup: ComponentClassType<CSSTransitionGroupProps>;
             LinkedStateMixin: LinkedStateMixin;
             PureRenderMixin: PureRenderMixin;
-            TransitionGroup: TransitionGroup;
+            TransitionGroup: ComponentClassType<TransitionGroupProps>;
 
             batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
             batchedUpdates<A>(callback: (a: A) => any, a: A): void;

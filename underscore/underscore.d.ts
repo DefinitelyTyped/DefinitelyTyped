@@ -2458,39 +2458,39 @@ interface _Chain<T> {
 	/**
 	* @see _.map
 	**/
-	collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<T>;
+	collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
 
 	/**
 	* @see _.map
 	**/
-	collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<T>;
+	collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.reduce
 	**/
-	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<T>;
+	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* @see _.reduce
 	**/
-	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<T>;
+	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* @see _.reduce
 	**/
-	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<T>;
+	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.reduceRight
 	**/
-	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<T>;
+	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* @see _.reduceRight
 	**/
-	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<T>;
+	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -3253,7 +3253,7 @@ interface _Chain<T> {
 	* @param arr Arrays and/or values to concatenate into a new array. See the discussion below for details.
 	* @return A new array comprised of the array on which it is called
 	**/
-	concat(...arr: Array<T>): _Chain<T>;
+	concat(...arr: Array<T[]>): _Chain<T>;
 
 	/**
 	* Join all elements of an array into a string.
