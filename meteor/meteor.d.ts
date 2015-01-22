@@ -288,7 +288,7 @@ declare module Accounts {
 	function config(options: {
 				sendVerificationEmail?: boolean;
 				forbidClientAccountCreation?: Boolean;
-				restrictCreationByEmailDomain?: string;
+				restrictCreationByEmailDomain?: string | Function;
 				loginExpirationInDays?: number;
 				oauthSecretKey?: string;
 			}): void;
@@ -320,27 +320,17 @@ declare module Accounts {
 
 declare module Blaze {
 	var currentView: Blaze.View;
-	function With(data: Object, contentFunc: Function): Blaze.View;
-	function With(data: Function, contentFunc: Function): Blaze.View;
+	function With(data: Object | Function, contentFunc: Function): Blaze.View;
 	function If(conditionFunc: Function, contentFunc: Function, elseFunc?: Function): Blaze.View;
 	function Unless(conditionFunc: Function, contentFunc: Function, elseFunc?: Function): Blaze.View;
 	function Each(argFunc: Function, contentFunc: Function, elseFunc?: Function): Blaze.View;
 	function isTemplate(value: any): boolean;
-	function render(templateOrView: Template, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function render(templateOrView: Blaze.View, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function renderWithData(templateOrView: Template, data: Object, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function renderWithData(templateOrView: Template, data: Function, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function renderWithData(templateOrView: Blaze.View, data: Object, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function renderWithData(templateOrView: Blaze.View, data: Function, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
+	function render(templateOrView: Template | Blaze.View, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
+	function renderWithData(templateOrView: Template | Blaze.View, data: Object | Function, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
 	function remove(renderedView: Blaze.View): void;
-	function toHTML(templateOrView: Template): string;
-	function toHTML(templateOrView: Blaze.View): string;
-	function toHTMLWithData(templateOrView: Template, data: Object): string;
-	function toHTMLWithData(templateOrView: Template, data: Function): string;
-	function toHTMLWithData(templateOrView: Blaze.View, data: Object): string;
-	function toHTMLWithData(templateOrView: Blaze.View, data: Function): string;
-	function getData(elementOrView?: HTMLElement): Object;
-	function getData(elementOrView?: Blaze.View): Object;
+	function toHTML(templateOrView: Template | Blaze.View): string;
+	function toHTMLWithData(templateOrView: Template | Blaze.View, data: Object | Function): string;
+	function getData(elementOrView?: HTMLElement | Blaze.View): Object;
 	function getView(element?: HTMLElement): Blaze.View;
 	function Template(viewName?: string, renderFunction?: Function): void;
 	function TemplateInstance(view: Blaze.View): void;
@@ -372,7 +362,7 @@ declare module EJSON {
 	function toJSONValue(val: EJSON): JSON;
 	function fromJSONValue(val: JSON): any;
 	function stringify(val: EJSON, options?: {
-				indent?: boolean;
+				indent?: boolean | number | string;
 				canonical?: Boolean;
 			}): string;
 	function parse(str: string): EJSON;
@@ -410,9 +400,7 @@ declare module Meteor {
 				userEmail?: string;
 				loginStyle?: string;
 			}, callback?: Function): void;
-	function loginWithPassword(user: Object, password: string, callback?: Function): void;
-	function loginWithPassword(user: string, password: string, callback?: Function): void;
-	function subscribe(name: string, ...args): SubscriptionHandle;
+	function loginWithPassword(user: Object | string, password: string, callback?: Function): void;
 	function subscribe(name: string, ...args): SubscriptionHandle;
 	function call(name: string, ...args): void;
 	function apply(name: string, args: EJSON[], options?: {
@@ -553,12 +541,13 @@ declare module Package {
 				version?: string;
 				name?: string;
 				git?: string;
+				documentation?: string;
 			}): void;
 	function onUse(func: Function): void;
 	function onTest(func: Function): void;
 	function registerBuildPlugin(options?: {
 				name?: string;
-				use?: string;
+				use?: string | string[];
 				sources?: string[];
 				npmDependencies?: Object;
 			}): void;
@@ -574,16 +563,10 @@ declare module Cordova {
 }
 
 declare module Session {
-	function set(key: string, value: EJSON): void;
-	function set(key: string, value: any /** Undefined **/): void;
-	function setDefault(key: string, value: EJSON): void;
-	function setDefault(key: string, value: any /** Undefined **/): void;
+	function set(key: string, value: EJSON | any /** Undefined **/): void;
+	function setDefault(key: string, value: EJSON | any /** Undefined **/): void;
 	function get(key: string): any;
-	function equals(key: string, value: string): boolean;
-	function equals(key: string, value: number): boolean;
-	function equals(key: string, value: boolean): boolean;
-	function equals(key: string, value: any /** Null **/): boolean;
-	function equals(key: string, value: any /** Undefined **/): boolean;
+	function equals(key: string, value: string | number | boolean | any /** Null **/ | any /** Undefined **/): boolean;
 }
 
 declare module HTTP {
@@ -606,10 +589,10 @@ declare module HTTP {
 declare module Email {
 	function send(options: {
 				from?: string;
-				to?: string;
-				 cc?: string;
-				 bcc?: string;
-				 replyTo?: string;
+				to?: string | string[];
+				 cc?: string | string[];
+				 bcc?: string | string[];
+				 replyTo?: string | string[];
 				subject?: string;
 				text?: string;
 				 html?: string;
@@ -638,6 +621,9 @@ declare module ReactiveVar {
 
 declare function Template(): void;
 declare module Template {
+	var onCreated; /** TODO: add return value **/
+	var onRendered; /** TODO: add return value **/
+	var onDestroyed; /** TODO: add return value **/
 	var created: Function;
 	var rendered: Function;
 	var destroyed: Function;
@@ -647,7 +633,7 @@ declare module Template {
 	function instance(): Blaze.TemplateInstance;
 	function currentData(): {};
 	function parentData(numLevels?: number): {};
-	function registerHelper(name: string, func: Function): void;
+	function registerHelper(name: string, helperFunction: Function): void;
 }
 
 declare function CompileStep(): void;
@@ -674,29 +660,20 @@ declare module CompileStep {
 				sourcePath?: string;
 			}); /** TODO: add return value **/
 	function addAsset(options: {
-			}, path: string, data: any /** Buffer **/); /** TODO: add return value **/
-	function addAsset(options: {
-			}, path: string, data: string); /** TODO: add return value **/
+			}, path: string, data: any /** Buffer **/ | string); /** TODO: add return value **/
 	function error(options: {
 			}, message: string, sourcePath?: string, line?: number, func?: string); /** TODO: add return value **/
 }
 
 declare function PackageAPI(): void;
 declare module PackageAPI {
-	function use(packageNames: string, architecture?: string, options?: {
+	function use(packageNames: string | string[], architecture?: string, options?: {
 				weak?: boolean;
 				unordered?: Boolean;
 			}): void;
-	function use(packageNames: string[], architecture?: string, options?: {
-				weak?: boolean;
-				unordered?: Boolean;
-			}): void;
-	function imply(packageSpecs: string): void;
-	function imply(packageSpecs: string[]): void;
-	function addFiles(filename: string, architecture?: string): void;
-	function addFiles(filename: string[], architecture?: string): void;
-	function versionsFrom(meteorRelease: string): void;
-	function versionsFrom(meteorRelease: string[]): void;
+	function imply(packageSpecs: string | string[]): void;
+	function addFiles(filename: string | string[], architecture?: string): void;
+	function versionsFrom(meteorRelease: string | string[]): void;
 	// function export(exportedObject: string, architecture?: string): void;
 }
 
