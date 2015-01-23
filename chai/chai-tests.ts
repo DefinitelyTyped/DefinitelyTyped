@@ -38,6 +38,12 @@ function ok() {
     }, "expected 'test' to be falsy");
 }
 
+function should() {
+    var obj: Object = {};
+    expect(obj).to.have.property('should');
+    expect(obj.should).to.have.property('to');
+}
+
 function _false() {
     expect(false).to.be.false;
     expect(true).to.not.be.false;

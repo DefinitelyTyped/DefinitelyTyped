@@ -1,6 +1,6 @@
 // Type definitions for chai 1.7.2
 // Project: http://chaijs.com/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>, otiai10 <https://github.com/otiai10>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module chai {
@@ -13,6 +13,12 @@ declare module chai {
     }
 
     export function expect(target: any, message?: string): Expect;
+
+    // The should style allows for the same chainable assertions as the expect interface, by extending any object to have 'should' property.
+    export function should(): Expect;
+    interface ShouldChainable {
+        should: Expect;
+    }
 
     export var assert: Assert;
     export var config: Config;
@@ -282,3 +288,5 @@ declare module chai {
 declare module "chai" {
     export = chai;
 }
+
+interface Object extends chai.ShouldChainable {}
