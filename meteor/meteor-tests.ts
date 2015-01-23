@@ -124,7 +124,7 @@ Meteor.methods({
 
     var you_want_to_throw_an_error = true;
     if (you_want_to_throw_an_error)
-    throw new Meteor.Error(404, "Can't find my pants");
+    throw new Meteor.Error("404", "Can't find my pants");
     return "some return value";
   },
 
@@ -376,7 +376,7 @@ Accounts.ui.config({
 Accounts.validateNewUser(function (user) {
   if (user.username && user.username.length >= 3)
     return true;
-  throw new Meteor.Error(403, "Username must have at least 3 characters");
+  throw new Meteor.Error("403", "Username must have at least 3 characters");
 });
 // Validate username, without a specific error message.
 Accounts.validateNewUser(function (user) {
@@ -530,13 +530,6 @@ Meteor.methods({
     // Let other method calls from the same client start running,
     // without waiting for the email sending to complete.
     this.unblock();
-
-    Email.send({
-      to: to,
-      from: from,
-      subject: subject,
-      text: text
-    });
   }
 });
 
@@ -561,3 +554,9 @@ Blaze.toHTMLWithData(testTemplate, {test: 1});
 Blaze.toHTMLWithData(testTemplate, function() {});
 Blaze.toHTMLWithData(testView, {test: 1});
 Blaze.toHTMLWithData(testView, function() {});
+
+var reactiveVar1 = new ReactiveVar('test value');
+var reactiveVar2 = new ReactiveVar('test value', function(oldVal) { return true; });
+
+var varValue: string = reactiveVar1.get();
+reactiveVar1.set('new value');
