@@ -1,6 +1,6 @@
 // Type definitions for Breeze 1.4
 // Project: http://www.breezejs.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Updated Jan 14 2011 - Jay Traband ( www.ideablade.com).
