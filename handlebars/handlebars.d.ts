@@ -53,8 +53,8 @@ declare module hbs {
         static toString(): string;
     }
 
-    class Utils {
-        static escapeExpression(str: string): string;
+    module Utils {
+        function escapeExpression(str: string): string;
     }
 }
 
