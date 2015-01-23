@@ -99,11 +99,11 @@ declare module SigmaJs{
     }
 
     interface Renderer {
-        container: Element;
+        container: HTMLElement;
         refresh(): Sigma;
         render(): Sigma;
         resize(): Sigma;
-        settings(settings: { [index: string]: any }): void;
+        settings(settings: Settings): void;
     }
 
     interface RendererConfigs{
@@ -128,7 +128,7 @@ declare module SigmaJs{
         refresh(): void;
         renderers: Renderer[];
         settings(key: string): any;
-        settings(settings: { [index: string]: any }): void;
+        settings(settings: Settings): void;
 
         // forceAtlas2 layout
         configForceAtlas2(configs: { [key: string]: any }): void;
@@ -175,10 +175,11 @@ declare module SigmaJs{
         minArrowSize?: number;
         font?: string;
         fontStyle?: string;
+        labelAlignment?: string;
         labelColor?: string;
         labelSize?: string;
         labelSizeRatio?: string;
-        labelThreshold?: string;
+        labelThreshold?: number;
         webglOversamplingRatio?: number;
 
         // hovered node customizations
