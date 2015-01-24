@@ -32,7 +32,7 @@ var INPUT_REF: string = "input";
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var reactClass = React.createClass<Props>({
+var reactClass: React.ComponentClass<Props> = React.createClass<Props>({
     getDefaultProps: () => {
         return <Props>{
             hello: undefined,
