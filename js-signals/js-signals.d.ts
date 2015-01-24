@@ -3,6 +3,12 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare var signals: SignalWrapper;
+
+interface SignalWrapper {
+    Signal: Signal
+}
+
 interface SignalBinding {
     active: boolean;
     context: any;
@@ -16,6 +22,15 @@ interface SignalBinding {
 }
 
 interface Signal {
+    /**
+     * Custom event broadcaster
+     * <br />- inspired by Robert Penner's AS3 Signals.
+     * @name Signal
+     * @author Miller Medeiros
+     * @constructor
+     */
+    new();
+
     /**
      * If Signal is active and should broadcast events.
      */
