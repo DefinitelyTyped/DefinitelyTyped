@@ -26,8 +26,8 @@ interface BootboxButton {
 }
 
 interface BootboxDialogOptions {
-	message: string | Element
-	title?: string | Element
+	message: string | Element;
+	title?: string | Element;
 	callback?: (result: boolean) => any;
 	show?: boolean;
 	onEscape?: () => any;
