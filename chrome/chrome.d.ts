@@ -2096,12 +2096,9 @@ declare module chrome.webNavigation {
         tabId: number;
     }
     
-    interface GetAllFrameResultDetails {
-        url: string;
-        errorOccurred: boolean;
+    interface GetAllFrameResultDetails extends GetFrameResultDetails {
         processId: number;
         frameId: number;
-        parentFrameId: number;
     }
 
     interface ReferenceFragmentUpdatedDetails {
