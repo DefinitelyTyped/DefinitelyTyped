@@ -8,13 +8,13 @@
 interface MithrilStatic {
 	(selector: string, attributes: Object, children?: any): MithrilVirtualElement;
 	(selector: string, children?: any): MithrilVirtualElement;
-	prop(value?: any): (value?: any) => any;
+    prop<T>(value?: T): (value?: T) => T;
 	withAttr(property: string, callback: (value: any) => void): (e: Event) => any;
 	module(rootElement: Node, module: MithrilModule): void;
 	trust(html: string): String;
 	render(rootElement: Element, children?: any): void;
 	render(rootElement: HTMLDocument, children?: any): void;
-	redraw(): void;
+    redraw: MithrilRedraw;
 	route(rootElement: Element, defaultRoute: string, routes: { [key: string]: MithrilModule }): void;
 	route(rootElement: HTMLDocument, defaultRoute: string, routes: { [key: string]: MithrilModule }): void;
 	route(path: string, params?: any, shouldReplaceHistory?: boolean): void;
@@ -25,6 +25,11 @@ interface MithrilStatic {
 	sync(promises: MithrilPromise[]): MithrilPromise;
 	startComputation(): void;
 	endComputation(): void;
+}
+
+interface MithrilRedraw {
+    (): void;
+    strategy: (value?: string) => string;
 }
 
 interface MithrilVirtualElement {
