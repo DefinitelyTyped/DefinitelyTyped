@@ -17,7 +17,7 @@ module Signals.Tests {
   };
 
   //single listener
-  function onStarted(param1, param2){
+  function onStarted(param1:string, param2:string){
     alert(param1 + param2);
   }
 
@@ -189,14 +189,14 @@ module Signals.AdvancedTests {
   myObject.started.dispatch(); //will alert "it's over 9000!"
 
   //Add default parameters to Signal dispatch (v0.6.3+)
-  var binding:SignalBinding = myObject.started.add(function(a, b, c){
+  var binding:SignalBinding = myObject.started.add(function(a:string, b:string, c:string){
     alert(a +' '+ b +' '+ c);
   });
   binding.params = ['lorem', 'ipsum']; //set default parameters of the binding
   myObject.started.dispatch('dolor'); //will alert "lorem ipsum dolor"
 
   //Check if Signal has specific listener (v0.7.0+)
-  function onStart(a){
+  function onStart(a:string){
     console.log(a);
   }
   myObject.started.add(onStart);
