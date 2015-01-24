@@ -14,7 +14,7 @@ interface SignalBinding {
     context: any;
     params: any;
     detach();
-    execute(paramsArr);
+    execute(paramsArr?);
     getListener(): Function;
     getSignal(): Signal;
     isBound(): boolean;
@@ -63,7 +63,7 @@ interface Signal {
      * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
      * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
      */
-    addOnce(listener: Function, listenerContext, priority): SignalBinding;
+    addOnce(listener: Function, listenerContext?, priority?): SignalBinding;
 
     /**
      * Dispatch/Broadcast Signal to all listeners added to the queue.
