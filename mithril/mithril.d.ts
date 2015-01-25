@@ -20,9 +20,9 @@ interface MithrilStatic {
 	route(path: string, params?: any, shouldReplaceHistory?: boolean): void;
 	route(): string;
 	route(element: Element, isInitialized: boolean): void;
-	request(options: MithrilXHROptions): MithrilPromise;
-	deferred(): MithrilDeferred;
-	sync(promises: MithrilPromise[]): MithrilPromise;
+	request(options: MithrilXHROptions): MithrilPromise<any>;
+	deferred<T>(): MithrilDeferred<T>;
+	sync<T>(promises: MithrilPromise<T>[]): MithrilPromise<T>;
 	startComputation(): void;
 	endComputation(): void;
 }
@@ -43,15 +43,15 @@ interface MithrilModule {
 	view: Function;
 }
 
-interface MithrilDeferred {
-	resolve(value?: any): void;
-	reject(value?: any): void;
-	promise: MithrilPromise;
+interface MithrilDeferred<T> {
+    resolve(value?: T): void;
+    reject(value?: any): void;
+    promise: MithrilPromise<T>;
 }
 
-interface MithrilPromise {
-	(value?: any): any;
-	then(successCallback?: (value: any) => any, errorCallback?: (value: any) => any): MithrilPromise;
+interface MithrilPromise<T> {
+    (value?: T): T;
+    then<R>(successCallback?: (value: T) => R, errorCallback?: (value: any) => any): MithrilPromise<R>;
 }
 
 interface MithrilXHROptions {
