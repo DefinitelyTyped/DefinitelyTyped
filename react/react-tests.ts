@@ -18,6 +18,8 @@ interface MyComponent extends React.CompositeComponent<Props, State> {
 }
 
 var props: Props = {
+    key: 42,
+    ref: "myComponent42",
     hello: "world",
     foo: 42,
     bar: true
@@ -60,7 +62,7 @@ var reactClass: React.ComponentClass<Props> = React.createClass<Props>({
 var reactElement: React.ReactElement<Props> =
     React.createElement<Props>(reactClass, props);
 
-var reactFactory: React.Factory<Props> =
+var reactFactory: React.ComponentFactory<Props> =
     React.createFactory<Props>(reactClass);
 
 var component: React.Component<Props> =
@@ -116,7 +118,34 @@ var myComponent = <MyComponent>compComponent;
 myComponent.reset();
 
 //
-// PropTypes
+// Attributes
+// --------------------------------------------------------------------------
+
+var children = ["Hello world", [null], React.DOM.span(null)];
+var divStyle = { // CSSProperties
+    flex: "1 1 main-size",
+    backgroundImage: "url('hello.png')"
+};
+var htmlAttr: React.HTMLAttributes = {
+    key: 36,
+    ref: "htmlComponent",
+    children: children,
+    className: "test-attr",
+    style: divStyle,
+    onClick: (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    dangerouslySetInnerHTML: {
+        __html: "<strong>STRONG</strong>"
+    }
+};
+React.DOM.div(htmlAttr);
+React.DOM.span(htmlAttr);
+React.DOM.input(htmlAttr);
+
+//
+// React.PropTypes
 // --------------------------------------------------------------------------
 
 var PropTypesSpecification: React.ComponentSpec<any, any> = {
@@ -155,6 +184,16 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         return null;
     }
 };
+
+//
+// React.Children
+// --------------------------------------------------------------------------
+
+var childMap: { [key: string]: number } =
+    React.Children.map<number>(children, (child) => { return 42; });
+React.Children.forEach(children, (child) => {});
+var nChildren: number = React.Children.count(children);
+var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 
 //
 // Example from http://facebook.github.io/react/

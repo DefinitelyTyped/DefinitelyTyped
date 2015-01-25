@@ -9,6 +9,7 @@ interface KnockoutPostBox {
     subscribe<T>(topic: string, handler: (value: T) => void , target?: any): KnockoutSubscription;
     publish<T>(topic: string, value?: T): void;
     defaultComparer<T>(newValue: T, oldValue: T): boolean;
+    serializer: (object: any) => string;
 }
 
 interface KnockoutObservable<T> {

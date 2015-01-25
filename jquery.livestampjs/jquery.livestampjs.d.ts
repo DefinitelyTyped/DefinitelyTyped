@@ -22,7 +22,7 @@ interface JQueryStatic {
 
 interface JQuery {
 	livestamp(date: Date): JQuery;
-	livestamp(moment: Moment): JQuery;
+	livestamp(moment: moment.Moment): JQuery;
 	livestamp(timestamp: number): JQuery;
 	livestamp(timestamp: string): JQuery;
 }

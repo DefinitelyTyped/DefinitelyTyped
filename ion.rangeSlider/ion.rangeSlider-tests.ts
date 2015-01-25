@@ -5,6 +5,7 @@ var sliderInputElement = $('<input />');
 sliderInputElement.ionRangeSlider({
     decorate_both: true,
     disable: false,
+    drag_interval: false,
     force_edges: false,
     from: 30,
     from_fixed: false,

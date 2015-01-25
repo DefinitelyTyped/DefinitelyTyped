@@ -11,13 +11,16 @@ function test1() {
 function test2() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
-    sock.send(new ArrayBuffer(1000));
+    sock.send(new Buffer(1000));
 }
 
 function test3() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.send(['hello', 'world']);
+    sock.on('message', function (buffer: Buffer) {
+        //
+    });
 }
 
 function test4() {
@@ -32,4 +35,6 @@ function test5() {
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
     });
+    sock.monitor();
+    sock.monitor(10);
 }

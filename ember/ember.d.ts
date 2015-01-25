@@ -253,6 +253,20 @@ declare module Ember {
     **/
     function A(arr?: any[]): NativeArray;
     /**
+    The Ember.ActionHandler mixin implements support for moving an actions property to an _actions 
+    property at extend time, and adding _actions to the object's mergedProperties list.
+    **/
+    class ActionHandlerMixin {
+        /**
+        Triggers a named action on the ActionHandler
+        **/
+        send(name: string, ...args: any[]): void;
+        /** 
+        The collection of functions, keyed by name, available on this ActionHandler as action targets.
+        **/
+        actions: ActionsHash;
+    }
+    /**
     An instance of Ember.Application is the starting point for every Ember application. It helps to
     instantiate, initialize and coordinate the many objects that make up your app.
     **/
@@ -446,6 +460,11 @@ declare module Ember {
         controllers: {};
         needs: string[];
         target: any;
+        model: any;
+        queryParams: any;
+        send(name: string, ...args: any[]): void;
+        actions: {};
+
     }
     /**
     Array polyfills to support ES5 features in older browsers.
@@ -719,15 +738,27 @@ declare module Ember {
         static isClass: boolean;
         static isMethod: boolean;
     }
-    class Controller extends Object { }
-    /**
-    Additional methods for the ControllerMixin.
-    **/
-    class ControllerMixin {
+    class Controller extends Object implements ControllerMixin {
         replaceRoute(name: string, ...args: any[]): void;
         transitionToRoute(name: string, ...args: any[]): void;
         controllers: {};
+        model: any;
         needs: string[];
+        queryParams: any;
+        target: any;
+        send(name: string, ...args: any[]): void;
+        actions: ActionsHash;
+    }
+    /**
+    Additional methods for the ControllerMixin.
+    **/
+    class ControllerMixin extends ActionHandlerMixin {
+        replaceRoute(name: string, ...args: any[]): void;
+        transitionToRoute(name: string, ...args: any[]): void;
+        controllers: {};
+        model : any;
+        needs: string[];
+        queryParams: any;
         target: any;
     }
     /**
@@ -790,7 +821,7 @@ declare module Ember {
     and other classes like Ember._SimpleMetamorphView that don't need the fully functionaltiy of Ember.View.
     Unless you have specific needs for CoreView, you will use Ember.View in your applications.
     **/
-    class CoreView extends Object {
+    class CoreView extends Object implements ActionHandlerMixin {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -805,6 +836,8 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
+        send(name: string, ...args: any[]): void;
+        actions: ActionsHash;
         parentView: CoreView;
     }
     class DAG {
@@ -1449,6 +1482,10 @@ declare module Ember {
         controllers: Object;
         needs: string[];
         target: any;
+        model: any;
+        queryParams: any;
+        send(name: string, ...args: any[]): void;
+        actions: {};
     }
     class ObjectProxy extends Object {
         static detect(obj: any): boolean;
@@ -1527,7 +1564,7 @@ declare module Ember {
         elementTag: string;
         parentBuffer: RenderBuffer;
     }
-    class Route extends Object {
+    class Route extends Object implements ActionHandlerMixin {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2181,6 +2218,7 @@ declare module Em {
     **/
     var $: typeof Ember.$;
     var A: typeof Ember.A;
+    class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
     class Application extends Ember.Application { }
     class Array extends Ember.Array { }
     class ArrayController extends Ember.ArrayController { }

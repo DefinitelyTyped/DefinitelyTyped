@@ -3,7 +3,6 @@
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
 declare module SigmaJs{
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
@@ -29,6 +28,10 @@ declare module SigmaJs{
         new(setting: Settings): Configurable;
         new(settings: Settings[]): Configurable;
         (key: string): string;
+    }
+
+    interface CustomShapes {
+        init(sigma: Sigma): void;
     }
 
     interface DragNodes {
@@ -78,8 +81,10 @@ declare module SigmaJs{
     interface Node {
         color?: string;
         id: string;
+        image?: any;
         label?: string;
         size?: number;
+        type?: string;
         x?: number;
         y?: number;
     }
@@ -94,17 +99,21 @@ declare module SigmaJs{
     }
 
     interface Renderer {
-        container: Element;
+        container: HTMLElement;
         refresh(): Sigma;
         render(): Sigma;
         resize(): Sigma;
-        settings(settings: { [index: string]: any }): void;
+        settings(settings: Settings): void;
     }
 
     interface RendererConfigs{
         container?: Element;
         id?: string;
         type?: string;
+    }
+
+    interface ShapeLibrary {
+        enumerate(): any;
     }
 
     interface Sigma {
@@ -119,6 +128,7 @@ declare module SigmaJs{
         refresh(): void;
         renderers: Renderer[];
         settings(key: string): any;
+        settings(settings: Settings): void;
 
         // forceAtlas2 layout
         configForceAtlas2(configs: { [key: string]: any }): void;
@@ -165,10 +175,11 @@ declare module SigmaJs{
         minArrowSize?: number;
         font?: string;
         fontStyle?: string;
+        labelAlignment?: string;
         labelColor?: string;
         labelSize?: string;
         labelSizeRatio?: string;
-        labelThreshold?: string;
+        labelThreshold?: number;
         webglOversamplingRatio?: number;
 
         // hovered node customizations
@@ -253,3 +264,5 @@ declare module SigmaJs{
 }
 
 declare var sigma: SigmaJs.SigmaFactory;
+declare var CustomShapes: SigmaJs.CustomShapes;
+declare var ShapeLibrary: SigmaJs.CustomShapes;

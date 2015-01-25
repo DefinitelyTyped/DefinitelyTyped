@@ -2,6 +2,7 @@
   "private": true,
   "name": "DefinitelyTyped",
   "version": "0.0.1",
+  "private": true,
   "homepage": "https://github.com/borisyankov/DefinitelyTyped",
   "repository": {
     "type": "git",
@@ -20,20 +21,22 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "node ./_infrastructure/runner.js --changes",
-    "changes": "node ./_infrastructure/runner.js --changes",
-    "lint": "node ./_infrastructure/runner.js --lint",
-    "tscparams": "node ./_infrastructure/runner.js --tscparams --no-tests --no-headers",
-    "all": "node ./_infrastructure/runner.js ",
-    "dry": "node ./_infrastructure/runner.js --dry --changes",
-    "list": "node ./_infrastructure/runner.js --dry --print-files --print-refmap",
-    "last": "node ./_infrastructure/runner.js --dry --print-files --print-refmap --changes",
-    "files": "node ./_infrastructure/runner.js --dry --print-files",
-    "refmap": "node ./_infrastructure/runner.js --dry --print-refmap",
-    "help": "node ./_infrastructure/runner.js -h"
+    "test": "./node_modules/.bin/dt --changes",
+    "changes": "./node_modules/.bin/dt --changes",
+    "lint": "./node_modules/.bin/dt --lint",
+    "tscparams": "./node_modules/.bin/dt --tscparams --no-tests --no-headers",
+    "all": "./node_modules/.bin/dt",
+    "dry": "./node_modules/.bin/dt --dry --changes",
+    "list": "./node_modules/.bin/dt --dry --print-files --print-refmap",
+    "last": "./node_modules/.bin/dt --dry --print-files --print-refmap --changes",
+    "files": "./node_modules/.bin/dt --dry --print-files",
+    "refmap": "./node_modules/.bin/dt --dry --print-refmap",
+    "help": "./node_modules/.bin/dt -h"
   },
   "dependencies": {
-    "definition-tester": "~0.1.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "definition-tester": "0.2.0",
+    "typescript": "1.4.1"
+  }
 }

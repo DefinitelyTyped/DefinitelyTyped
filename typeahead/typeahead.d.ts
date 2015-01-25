@@ -218,7 +218,7 @@ declare module Bloodhound
     /**
     * A compare function used to sort matched datums for a given query.
     */
-    sorter?: (a: T, b: T) => T[];
+    sorter?: (a: T, b: T) => number;
     /**
     *An array of datums or a function that returns an array of datums.
     */
