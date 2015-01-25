@@ -7,13 +7,13 @@
 // For ddescribe / iit use : https://github.com/borisyankov/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 declare function describe(description: string, specDefinitions: () => void): void;
-// declare function ddescribe(description: string, specDefinitions: () => void): void; Not a part of jasmine. Angular team adds these
+declare function fdescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion?: () => void): void;
 declare function it(expectation: string, assertion?: (done: () => void) => void): void;
-// declare function iit(expectation: string, assertion?: () => void): void; Not a part of jasmine. Angular team adds these
-// declare function iit(expectation: string, assertion?: (done: () => void) => void): void; Not a part of jasmine. Angular team adds these
+declare function fit(expectation: string, assertion?: () => void): void;
+declare function fit(expectation: string, assertion?: (done: () => void) => void): void;
 declare function xit(expectation: string, assertion?: () => void): void;
 declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
 

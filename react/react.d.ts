@@ -8,26 +8,29 @@ declare module React {
     // React Elements 
     // ----------------------------------------------------------------------
 
-    // type ReactType = ComponentClass<any> | string;
+    type ReactType = ComponentClass<any> | string;
 
     interface ReactElement<P> {
-        type: any; // ReactType
+        type: ComponentClass<P> | string;
         props: P;
-        key: any; // number | string
+        key: number | string;
         ref: string;
     }
 
     interface ReactHTMLElement extends ReactElement<HTMLAttributes> {}
     interface ReactSVGElement extends ReactElement<SVGAttributes> {}
-    interface ComponentElement<P> extends ReactElement<P> {}
 
     //
     // React Nodes 
+    // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
-    // type ReactText = string | number;
-    // type Fragment = ReactNode[];
-    // type ReactNode = ReactElement<any, any> | Fragment | ReactText;
+    type ReactText = string | number;
+    type ReactChild = ReactElement<any> | ReactText;
+
+    // Should be Array<ReactNode> but type aliases cannot be recursive
+    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // React Components 
@@ -49,13 +52,12 @@ declare module React {
     // ReactElement Factories
     // ----------------------------------------------------------------------
 
-    interface Factory<P> {
-        (props?: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
+    interface ComponentFactory<P> {
+        (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
     
-    interface HTMLFactory extends Factory<HTMLAttributes> {}
-    interface SVGFactory extends Factory<SVGAttributes> {}
-    interface ComponentFactory<P> extends Factory<P> {}
+    interface HTMLFactory extends ComponentFactory<HTMLAttributes> {}
+    interface SVGFactory extends ComponentFactory<SVGAttributes> {}
 
     //
     // Top-Level API
@@ -63,9 +65,9 @@ declare module React {
 
     interface TopLevelAPI {
         createClass<P>(spec: ComponentSpec<P, any>): ComponentClass<P>;
-        createElement<P>(type: any/*ReactType*/, props: P, ...children: any/*ReactNode*/[]): ReactElement<P>;
-        createFactory<P>(componentClass: ComponentClass<P>): Factory<P>;
-        render<P>(element: ReactElement<P>, container: Element, callback?: () => void): Component<P>;
+        createElement<P>(type: ComponentClass<P> | string, props: P, ...children: ReactNode[]): ReactElement<P>;
+        createFactory<P>(componentClass: ComponentClass<P>): ComponentFactory<P>;
+        render<P>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
         renderToStaticMarkup(element: ReactElement<any>): string;
@@ -85,8 +87,8 @@ declare module React {
         isMounted(): boolean;
 
         props: P;
-        setProps(nextProps: P, callback?: () => void): void;
-        replaceProps(nextProps: P, callback?: () => void): void;
+        setProps(nextProps: P, callback?: () => any): void;
+        replaceProps(nextProps: P, callback?: () => any): void;
     }
 
     interface DOMComponent<P> extends Component<P> {
@@ -98,9 +100,9 @@ declare module React {
     
     interface CompositeComponent<P, S> extends Component<P>, ComponentSpec<P, S> {
         state: S;
-        setState(nextState: S, callback?: () => void): void;
-        replaceState(nextState: S, callback?: () => void): void;
-        forceUpdate(callback?: () => void): void;
+        setState(nextState: S, callback?: () => any): void;
+        replaceState(nextState: S, callback?: () => any): void;
+        forceUpdate(callback?: () => any): void;
         refs: {
             [key: string]: Component<any>
         };
@@ -240,8 +242,8 @@ declare module React {
     // ----------------------------------------------------------------------
 
     export interface ReactAttributes {
-        children?: any; // ReactNode
-        key?: string;
+        children?: ReactNode;
+        key?: number | string;
         ref?: string;
 
         // Event Attributes
@@ -281,13 +283,13 @@ declare module React {
         onWheel?: WheelEventHandler;
 
         dangerouslySetInnerHTML?: {
-            __html: string
+            __html: string;
         };
     }
 
     interface CSSProperties {
         columnCount?: number;
-        flex?: number;
+        flex?: number | string;
         flexGrow?: number;
         flexShrink?: number;
         fontWeight?: number;
@@ -303,8 +305,6 @@ declare module React {
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
-
-        [key: string]: any; // number | string
     }
 
     interface HTMLAttributes extends ReactAttributes {
@@ -319,8 +319,8 @@ declare module React {
         autoComplete?: boolean;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        cellPadding?: any; // number | string
-        cellSpacing?: any; // number | string
+        cellPadding?: number | string;
+        cellSpacing?: number | string;
         charSet?: string;
         checked?: boolean;
         classID?: string;
@@ -343,8 +343,8 @@ declare module React {
         encType?: string;
         form?: string;
         formNoValidate?: boolean;
-        frameBorder?: any; // number | string
-        height?: any; // number | string
+        frameBorder?: number | string;
+        height?: number | string;
         hidden?: boolean;
         href?: string;
         hrefLang?: string;
@@ -357,12 +357,12 @@ declare module React {
         list?: string;
         loop?: boolean;
         manifest?: string;
-        max?: any; // number | string
+        max?: number | string;
         maxLength?: number;
         media?: string;
         mediaGroup?: string;
         method?: string;
-        min?: any; // number | string
+        min?: number | string;
         multiple?: boolean;
         muted?: boolean;
         name?: string;
@@ -395,7 +395,7 @@ declare module React {
         srcDoc?: string;
         srcSet?: string;
         start?: number;
-        step?: any; // number | string
+        step?: number | string;
         style?: CSSProperties;
         tabIndex?: number;
         target?: string;
@@ -403,7 +403,7 @@ declare module React {
         type?: string;
         useMap?: string;
         value?: string;
-        width?: any; // number | string
+        width?: number | string;
         wmode?: string;
 
         // Non-standard Attributes
@@ -416,49 +416,49 @@ declare module React {
     }
 
     interface SVGAttributes extends ReactAttributes {
-        cx?: any; // SVGLength | SVGAnimatedLength
+        cx?: SVGLength | SVGAnimatedLength;
         cy?: any; 
         d?: string;
-        dx?: any; // SVGLength | SVGAnimatedLength
-        dy?: any; // SVGLength | SVGAnimatedLength
+        dx?: SVGLength | SVGAnimatedLength;
+        dy?: SVGLength | SVGAnimatedLength;
         fill?: any; // SVGPaint | string
-        fillOpacity?: any; // number | string
+        fillOpacity?: number | string;
         fontFamily?: string;
-        fontSize?: any; // number | string
-        fx?: any; // SVGLength | SVGAnimatedLength
-        fy?: any; // SVGLength | SVGAnimatedLength
-        gradientTransform?: any; // SVGTransformList | SVGAnimatedTransformList
+        fontSize?: number | string;
+        fx?: SVGLength | SVGAnimatedLength;
+        fy?: SVGLength | SVGAnimatedLength;
+        gradientTransform?: SVGTransformList | SVGAnimatedTransformList;
         gradientUnits?: string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
-        offset?: any; // number | string
-        opacity?: any; // number | string
+        offset?: number | string;
+        opacity?: number | string;
         patternContentUnits?: string;
         patternUnits?: string;
         points?: string;
         preserveAspectRatio?: string;
-        r?: any; // SVGLength | SVGAnimatedLength
-        rx?: any; // SVGLength | SVGAnimatedLength
-        ry?: any; // SVGLength | SVGAnimatedLength
+        r?: SVGLength | SVGAnimatedLength;
+        rx?: SVGLength | SVGAnimatedLength;
+        ry?: SVGLength | SVGAnimatedLength;
         spreadMethod?: string;
         stopColor?: any; // SVGColor | string
-        stopOpacity?: any; // number | string
+        stopOpacity?: number | string;
         stroke?: any; // SVGPaint
         strokeDasharray?: string;
         strokeLinecap?: string;
-        strokeOpacity?: any; // number | string
-        strokeWidth?: any; // SVGLength | SVGAnimatedLength
+        strokeOpacity?: number | string;
+        strokeWidth?: SVGLength | SVGAnimatedLength;
         textAnchor?: string;
-        transform?: any; // SVGTransformList | SVGAnimatedTransformList
+        transform?: SVGTransformList | SVGAnimatedTransformList;
         version?: string;
         viewBox?: string;
-        x1?: any; // SVGLength | SVGAnimatedLength
-        x2?: any; // SVGLength | SVGAnimatedLength
-        x?: any; // SVGLength | SVGAnimatedLength
-        y1?: any; // SVGLength | SVGAnimatedLength
-        y2?: any; // SVGLength | SVGAnimatedLength
-        y?: any; // SVGLength | SVGAnimatedLength
+        x1?: SVGLength | SVGAnimatedLength;
+        x2?: SVGLength | SVGAnimatedLength;
+        x?: SVGLength | SVGAnimatedLength;
+        y1?: SVGLength | SVGAnimatedLength;
+        y2?: SVGLength | SVGAnimatedLength
+        y?: SVGLength | SVGAnimatedLength;
     }
 
     //
@@ -639,26 +639,34 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T>(children: any/*ReactNode*/, fn: (child: any/*ReactNode*/) => T): { [key:string]: T };
-        forEach(children: any/*ReactNode*/, fn: (child: any/*ReactNode*/) => any): void;
-        count(children: any/*ReactNode*/): number;
-        only(children: any/*ReactNode*/): any;
+        map<T>(children: ReactNode, fn: (child: ReactChild) => T): { [key:string]: T };
+        forEach(children: ReactNode, fn: (child: ReactChild) => any): void;
+        count(children: ReactNode): number;
+        only(children: ReactNode): ReactChild;
+    }
+
+    //
+    // React.addons
+    // ----------------------------------------------------------------------
+
+    interface ClassSet {
+        [key: string]: boolean;
     }
 
     //
     // React.addons (Transitions)
     // ----------------------------------------------------------------------
 
-    interface CSSTransitionGroupProps {
+    interface TransitionGroupProps {
+        component?: ReactType;
+        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
+    }
+
+    interface CSSTransitionGroupProps extends TransitionGroupProps {
         transitionName: string;
         transitionAppear?: boolean;
         transitionEnter?: boolean;
         transitionLeave?: boolean;
-    }
-
-    interface TransitionGroupProps {
-        component?: any; // ReactType
-        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
 
     interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps> {}
@@ -748,7 +756,7 @@ declare module React {
 
         mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
 
-        isElementOfType(element: ReactElement<any>, type: any/*ReactType*/): boolean;
+        isElementOfType(element: ReactElement<any>, type: ReactType): boolean;
         isDOMComponent(instance: Component<any>): boolean;
         isCompositeComponent(instance: Component<any>): boolean;
         isCompositeComponentWithType(instance: Component<any>, type: ComponentClass<any>): boolean;
@@ -869,11 +877,11 @@ declare module React {
             PureRenderMixin: PureRenderMixin;
             TransitionGroup: TransitionGroup;
 
-            batchedUpdates<A, B>(callback: (a: A, b: B) => void, a: A, b: B): void;
-            batchedUpdates<A>(callback: (a: A) => void, a: A): void;
-            batchedUpdates(callback: () => void): void;
+            batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
+            batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+            batchedUpdates(callback: () => any): void;
 
-            classSet(cx: { [key: string]: boolean }): string;
+            classSet(cx: ClassSet): string;
             cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
             update(value: any[], spec: UpdateArraySpec): any[];

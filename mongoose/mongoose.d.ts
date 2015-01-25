@@ -12,7 +12,7 @@ declare module "mongoose" {
   function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
   function disconnect(callback?: (err?: any) => void): Mongoose;
 
-  function model<T extends Document>(name: string, schema: Schema, collection?: string, skipInit?: boolean): Model<T>;
+  function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
   function modelNames(): string[];
   function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
 
@@ -31,7 +31,7 @@ declare module "mongoose" {
     createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
     disconnect(callback?: (err?: any) => void): Mongoose;
     get(key: string): any;
-    model<T extends Document>(name: string, schema: Schema, collection?: string, skipInit?: boolean): Model<T>;
+    model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
     modelNames(): string[];
     plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
     set(key: string, value: any): void;
@@ -47,7 +47,7 @@ declare module "mongoose" {
 
     close(callback?: (err: any) => void): Connection;
     collection(name: string, options?: Object): Collection;
-    model<T extends Document>(name: string, schema: Schema, collection?: string): Model<T>;
+    model<T extends Document>(name: string, schema?: Schema, collection?: string): Model<T>;
     modelNames(): string[];
     open(host: string, database?: string, port?: number, options?: ConnectionOption, callback?: (err: any) => void): Connection;
     openSet(uris: string, database?: string, options?: ConnectionSetOption, callback?: (err: any) => void): Connection;
@@ -78,7 +78,9 @@ declare module "mongoose" {
     set(fn: Function): VirtualType;
   }
   export module Types {
-    export class ObjectId {}
+    export class ObjectId {
+        toHexString(): string;
+    }
   }
 
   export class Schema {

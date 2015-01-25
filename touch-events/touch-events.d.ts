@@ -16,6 +16,7 @@ interface TouchEvent extends UIEvent {
 interface TouchList {
     length: number;
     item: (index: number) => Touch;
+    [index: number]: Touch;
 }
 
 interface Touch {

@@ -16,3 +16,8 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/robot/recorder" {
+    var exp: dojox.robot.recorder
+    export=exp;
+}

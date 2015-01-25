@@ -1,4 +1,4 @@
-// Type definitions for EaselJS 0.7.1
+// Type definitions for EaselJS 0.8.0
 // Project: http://www.createjs.com/#!/EaselJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -22,21 +22,20 @@ interface NativeMouseEvent extends MouseEvent {
 
 declare module createjs {
     export class AlphaMapFilter extends Filter {
-        constructor(alphaMap: HTMLImageElement);
-        constructor(alphaMap: HTMLCanvasElement);
+        constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
+
         // properties
-        alphaMap: any;    //Image or HTMLCanvasElement
+        alphaMap: HTMLImageElement | HTMLCanvasElement;
 
         // methods
         clone(): AlphaMapFilter;
     }
 
     export class AlphaMaskFilter extends Filter {
-        constructor(mask: HTMLImageElement);
-        constructor(mask: HTMLCanvasElement);
+        constructor(mask: HTMLImageElement | HTMLCanvasElement);
 
         // properties
-        mask: any;    // Image or HTMLCanvasElement
+        mask: HTMLImageElement | HTMLCanvasElement;
 
         // methods
         clone(): AlphaMaskFilter;
@@ -44,29 +43,21 @@ declare module createjs {
 
 
     export class Bitmap extends DisplayObject {
-        constructor(imageOrUrl: HTMLImageElement);
-        constructor(imageOrUrl: HTMLCanvasElement);
-        constructor(imageOrUrl: HTMLVideoElement);
-        constructor(imageOrUrl: string);
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string);
 
         // properties
-        image: any; // Image or HTMLCanvasElement or HTMLVideoElement
+        image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
         sourceRect: Rectangle;
 
         // methods
         clone(): Bitmap;
-        set(props: Object): Bitmap;
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Bitmap;
     }
     
-    /**
-     * @deprecated renamed to Sprite, here for backwards compatibility
-     */
-    export class BitmapAnimation extends Sprite {
-    }
-    
+
     export class BitmapText extends DisplayObject {
         constructor(text?:string, spriteSheet?:SpriteSheet);
+
+        static maxPoolSize: number;
 
         // properties
         letterSpacing: number;
@@ -74,10 +65,6 @@ declare module createjs {
         spaceWidth: number;
         spriteSheet: SpriteSheet;
         text: string;
-
-        // methods
-        set(props: Object): BitmapText;
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): BitmapText;
     }
     
     export class BlurFilter extends Filter {
@@ -97,14 +84,22 @@ declare module createjs {
         constructor(target: MovieClip, outLabel?: string, overLabel?: string, downLabel?: string, play?: boolean, hitArea?: DisplayObject, hitLabel?: string);
 
         // properties
-        downLabel: any; // String or Number
-        outLabel: any; // String or Number
-        overLabel: any; // String or Number
+        downLabel: string | number;
+        outLabel: string | number;
+        overLabel: string | number;
         play: boolean;
-        target: DisplayObject; // MovieClip or Sprite
+        target: MovieClip | Sprite;
+        enabled: boolean;
 
         // methods
+        /**
+         * @deprecated - use the 'enabled' property instead
+         */
         setEnabled(value: boolean): void;
+        /**
+         * @deprecated - use the 'enabled' property instead
+         */
+        getEnabled(): boolean;
         toString(): string;
     }
 
@@ -137,33 +132,32 @@ declare module createjs {
         clone(): ColorMatrix;
         concat(...matrix: number[]): ColorMatrix;
         concat(matrix: ColorMatrix): ColorMatrix;
-        copyMatrix(...matrix: number[]): ColorMatrix;
-        copyMatrix(matrix: ColorMatrix): ColorMatrix;
+        copy(...matrix: number[]): ColorMatrix;
+        copy(matrix: ColorMatrix): ColorMatrix;
         reset(): ColorMatrix;
+        setColor( brightness: number, contrast: number, saturation: number, hue: number ): ColorMatrix;
         toArray(): number[];
         toString(): string;
     }
     
     export class ColorMatrixFilter extends Filter {
-        constructor(matrix: number[]);
-        constructor(matrix: ColorMatrix);
+        constructor(matrix: number[] | ColorMatrix);
+
+        // properties
+        matrix: number[] | ColorMatrix;
 
         // methods
         clone(): ColorMatrixFilter;
     }
     
-    export class Command {
-        // methods
-        constructor(f: any, params: any, path?: any);
-        exec(scope: any): void;
-    }
-    
+
     export class Container extends DisplayObject {
         constructor();
 
         // properties
         children: DisplayObject[];
         mouseChildren: boolean;
+        numChildren: number;
         tickChildren: boolean;
 
         // methods
@@ -175,15 +169,16 @@ declare module createjs {
         getChildAt(index: number): DisplayObject;
         getChildByName(name: string): DisplayObject;
         getChildIndex(child: DisplayObject): number;
+        /**
+         * @deprecated - use numChildren property instead.
+         */
         getNumChildren(): number;
-        getObjectsUnderPoint(x: number, y: number): DisplayObject[];
-        getObjectUnderPoint(x: number, y: number): DisplayObject;
+        getObjectsUnderPoint(x: number, y: number, mode: number): DisplayObject[];
+        getObjectUnderPoint(x: number, y: number, mode: number): DisplayObject;
         removeAllChildren(): void;
         removeChild(...child: DisplayObject[]): boolean;
         removeChildAt(...index: number[]): boolean;
-        set(props: Object): Container;
         setChildIndex(child: DisplayObject, index: number): void;
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Container;
         sortChildren(sortFunction: (a: DisplayObject, b: DisplayObject) => number): void;
         swapChildren(child1: DisplayObject, child2: DisplayObject): void;
         swapChildrenAt(index1: number, index2: number): void;
@@ -194,7 +189,7 @@ declare module createjs {
 
         // properties
         alpha: number;
-        cacheCanvas: any; // HTMLCanvasElement or Object
+        cacheCanvas: HTMLCanvasElement | Object;
         cacheID: number;
         compositeOperation: string;
         cursor: string;
@@ -213,12 +208,11 @@ declare module createjs {
         shadow: Shadow;
         skewX: number;
         skewY: number;
-        /**
-         * @deprecated
-         */
         snapToPixel: boolean;
+        stage: Stage;
         static suppressCrossDomainErrors: boolean;
         tickEnabled: boolean;
+        transformMatrix: Matrix2D;
         visible: boolean;
         x: number;
         y: number;
@@ -229,23 +223,45 @@ declare module createjs {
         draw(ctx: CanvasRenderingContext2D, ignoreCache?: boolean): boolean;
         getBounds(): Rectangle;
         getCacheDataURL(): string;
+        getConcatenatedDisplayProps(props?: DisplayProps): DisplayProps;
         getConcatenatedMatrix(mtx?: Matrix2D): Matrix2D;
         getMatrix(matrix?: Matrix2D): Matrix2D;
+        /**
+         * @deprecated
+         */
         getStage(): Stage;
         getTransformedBounds(): Rectangle;
-        globalToLocal(x: number, y: number): Point;
+        globalToLocal(x: number, y: number, pt?: Point | Object): Point;
         hitTest(x: number, y: number): boolean;
         isVisible(): boolean;
-        localToGlobal(x: number, y: number): Point;
-        localToLocal(x: number, y: number, target: DisplayObject): Point;
+        localToGlobal(x: number, y: number, pt?: Point | Object): Point;
+        localToLocal(x: number, y: number, target: DisplayObject, pt?: Point | Object): Point;
         set(props: Object): DisplayObject;
         setBounds(x: number, y: number, width: number, height: number): void;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DisplayObject;
         uncache(): void;
         updateCache(compositeOperation?: string): void;
         updateContext(ctx: CanvasRenderingContext2D): void;
-        
     }
+
+    export class DisplayProps {
+        constructor(visible?: number, alpha?: number, shadow?: number, compositeOperation?: number, matrix?: number);
+
+        // properties
+        alpha: number;
+        compositeOperation: string;
+        matrix: Matrix2D;
+        shadow: Shadow;
+        visible: boolean;
+
+        // methods
+        append(visible: boolean, alpha: number, shadow: Shadow, compositeOperation: string, matrix?: Matrix2D): DisplayProps;
+        clone(): DisplayProps;
+        identity(): DisplayProps;
+        prepend(visible: boolean, alpha: number, shadow: Shadow, compositeOperation: string, matrix?: Matrix2D): DisplayProps;
+        setValues(visible?: boolean, alpha?: number, shadow?: number, compositeOperation?: number, matrix?: number): DisplayProps;
+    }
+
 
     export class DOMElement extends DisplayObject {
         constructor(htmlElement: HTMLElement);
@@ -281,11 +297,14 @@ declare module createjs {
 
         // properties
         static BASE_64: Object;
-        static Command: any;
+        static beginCmd: Graphics.BeginPath;
+        command: Object;
+        instructions: Object[]; // array of graphics command objects (Graphics.Fill, etc)
         static STROKE_CAPS_MAP: string[];
         static STROKE_JOINTS_MAP: string[];
 
         // methods
+        append(command: Object, clean?: boolean): Graphics;
         arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean): Graphics;
         arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
         beginBitmapFill(image: Object, repetition?: string, matrix?: Matrix2D): Graphics;
@@ -300,7 +319,7 @@ declare module createjs {
         clear(): Graphics;
         clone(): Graphics;
         closePath(): Graphics;
-        curveTo (cpx: number, cpy: number, x: number, y: number): Graphics;
+        curveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
         decodePath(str: string): Graphics;
         draw(ctx: CanvasRenderingContext2D): void;
         drawAsPath(ctx: CanvasRenderingContext2D): void;
@@ -313,18 +332,21 @@ declare module createjs {
         endFill(): Graphics;
         endStroke(): Graphics;
         static getHSL(hue: number, saturation: number, lightness: number, alpha?: number): string;
+        /**
+         * @deprecated - use the instructions property instead
+         */
+        getInstructions(): Object[];
         static getRGB(r: number, g: number, b: number, alpha?: number): string;
-        inject(callback: (data: any) => any,  data: any): Graphics;
+        inject(callback: (data: any) => any,  data: any): Graphics; // deprecated
         isEmpty(): boolean;
         lineTo(x: number, y: number): Graphics;
         moveTo(x: number, y: number): Graphics;
         quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
         rect(x: number, y: number, w: number, h: number): Graphics;
-        setStrokeStyle(thickness: number, caps?: string, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;  // caps and joints can be a string or number
-        setStrokeStyle(thickness: number, caps?: number, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        setStrokeStyle(thickness: number, caps?: string, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        setStrokeStyle(thickness: number, caps?: number, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        setStrokeStyle(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        store(): Graphics;
         toString(): string;
+        unstore(): Graphics;
 
 
         // tiny API - short forms of methods above
@@ -354,52 +376,213 @@ declare module createjs {
         mt(x: number, y: number): Graphics;
         qt(cpx: number, cpy: number, x: number, y: number): Graphics;
         r(x: number, y: number, w: number, h: number): Graphics;
-        ss(thickness: number, caps?: string, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;  // caps and joints can be a string or number
-        ss(thickness: number, caps?: number, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        ss(thickness: number, caps?: string, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        ss(thickness: number, caps?: number, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        ss(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
     }
+
+
+    module Graphics
+        {
+        export class Arc
+            {
+            constructor(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: number);
+
+            // properties
+            anticlockwise: number;
+            endAngle: number;
+            radius: number;
+            startAngle: number;
+            x: number;
+            y: number;
+            }
+
+        export class ArcTo
+            {
+            constructor(x1: number, y1: number, x2: number, y2: number, radius: number);
+
+            // properties
+            x1: number;
+            y1: number;
+            x2: number;
+            y2: number;
+            radius: number;
+            }
+
+        export class BeginPath
+            {
+
+            }
+
+        export class BezierCurveTo
+            {
+            constructor(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number);
+
+            // properties
+            cp1x: number;
+            cp1y: number;
+            cp2x: number;
+            cp2y: number;
+            x: number;
+            y: number;
+            }
+
+        export class Circle
+            {
+            constructor(x: number, y: number, radius: number);
+
+            // properties
+            x: number;
+            y: number;
+            radius: number;
+            }
+
+        export class ClosePath
+            {
+
+            }
+
+        export class Fill
+            {
+            constructor(style: Object, matrix?: Matrix2D);
+
+            // properties
+            style: Object;
+            matrix: Matrix2D;
+
+            // methods
+            bitmap(image: HTMLImageElement, repetition?: string): Fill;
+            linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Fill;
+            radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Fill;
+            }
+
+        export class LineTo
+            {
+            constructor(x: number, y: number);
+
+            // properties
+            x: number;
+            y: number;
+            }
+
+        export class MoveTo
+            {
+            constructor(x: number, y: number);
+
+            x: number;
+            y: number;
+            }
+
+        export class PolyStar
+            {
+            constructor(x: number, y: number, radius: number, sides: number, pointSize: number, angle: number);
+
+            // properties
+            angle: number;
+            pointSize: number;
+            radius: number;
+            sides: number;
+            x: number;
+            y: number;
+            }
+
+        export class QuadraticCurveTo
+            {
+            constructor(cpx: number, cpy: number, x: number, y: number);
+
+            // properties
+            cpx: number;
+            cpy: number;
+            x: number;
+            y: number;
+            }
+
+        export class Rect
+            {
+            constructor(x: number, y: number, w: number, h: number);
+
+            // properties
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+            }
+
+        export class RoundRect
+            {
+            constructor(x: number, y: number, w: number, h: number, radiusTL: number, radiusTR: number, radiusBR: number, radiusBL: number);
+
+            // properties
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+            radiusTL: number;
+            radiusTR: number;
+            radiusBR: number;
+            radiusBL: number;
+            }
+
+        export class Stroke
+            {
+            constructor(style: Object, ignoreScale: boolean);
+
+            // properties
+            style: Object;
+            ignoreScale: boolean;
+
+            // methods
+            bitmap(image: HTMLImageElement, repetition?: string): Stroke;
+            linearGradient(colors: number[], ratios: number[], x0: number, y0: number, x1: number, y1: number): Stroke;
+            radialGradient(colors: number[], ratios: number[], x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): Stroke;
+            }
+
+        export class StrokeStyle
+            {
+            constructor(width: number, caps: string, joints: number, miterLimit: number);
+
+            // properties
+            caps: string;
+            joints: string;
+            miterLimit: number;
+            width: number;
+            }
+        }
+
+
 
     export class Matrix2D {
         constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
 
         // properties
         a: number;
-        alpha: number;
         b: number;
         c: number;
-        compositeOperation: string;
         d: number;
         static DEG_TO_RAD: number;
         static identity: Matrix2D;
-        shadow: Shadow;
         tx: number;
         ty: number;
 
         // methods
         append(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         appendMatrix(matrix: Matrix2D): Matrix2D;
-        appendProperties(alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
         appendTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
         clone(): Matrix2D;
         copy(matrix: Matrix2D): Matrix2D;
         decompose(): {x: number; y: number; scaleX: number; scaleY: number; rotation: number; skewX: number; skewY: number};
         decompose(target: Object): Matrix2D;
+        equals(matrix: Matrix2D): boolean;
         identity(): Matrix2D;
-        initialize(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
         invert(): Matrix2D;
         isIdentity(): boolean;
         prepend(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix2D;
         prependMatrix(matrix: Matrix2D): Matrix2D;
-        prependProperties(alpha: number, shadow: Shadow, compositeOperation: string): Matrix2D;
         prependTransform(x: number, y: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number, regX?: number, regY?: number): Matrix2D;
-        reinitialize(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number, alpha?: number, shadow?: Shadow, compositeOperation?: string): Matrix2D;
         rotate(angle: number): Matrix2D;
         scale(x: number, y: number): Matrix2D;
+        setValues(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
         skew(skewX: number, skewY: number): Matrix2D;
         toString(): string;
-        transformPoint(x: number, y: number, pt?: Point): Point;
-        transformPoint(x: number, y: number, pt?: Object): Point;
+        transformPoint(x: number, y: number, pt?: Point | Object): Point;
         translate(x: number, y: number): Matrix2D;
     }
 
@@ -408,6 +591,7 @@ declare module createjs {
         constructor(type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
         
         // properties
+        isTouch: boolean;
         localX: number;
         localY: number;
         nativeEvent: NativeMouseEvent;
@@ -426,9 +610,7 @@ declare module createjs {
         addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        dispatchEvent(eventObj: Object, target?: Object): boolean;
-        dispatchEvent(eventObj: string, target?: Object): boolean;
-        dispatchEvent(eventObj: Event, target?: Object): boolean;
+        dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
         hasEventListener(type: string): boolean;
         off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
@@ -458,34 +640,40 @@ declare module createjs {
         autoReset: boolean;
         static buildDate: string;
         currentFrame: number;
+        currentLabel: string;
         frameBounds: Rectangle[];
+        framerate: number;
         static INDEPENDENT: string;
+        labels: Object[];
         loop: boolean;
         mode: string;
         paused: boolean;
         static SINGLE_FRAME: string;
         startPosition: number;
         static SYNCHED: string;
-        timeline: Timeline; //HERE requires tweenJS
+        timeline: Timeline;
         static version: string;
 
         // methods
+        advance(time?: number): void;
         clone(): MovieClip; // not supported
-        getCurrentLabel(): string;
+        /**
+         * @deprecated - use 'currentLabel' property instead
+         */
+        getCurrentLabel(): string;  // deprecated
+        /**
+         * @deprecated - use 'labels' property instead
+         */
         getLabels(): Object[];
-        gotoAndPlay(positionOrLabel: string): void;
-        gotoAndPlay(positionOrLabel: number): void;
-        gotoAndStop(positionOrLabel: string): void;
-        gotoAndStop(positionOrLabel: number): void;
+        gotoAndPlay(positionOrLabel: string | number): void;
+        gotoAndStop(positionOrLabel: string | number): void;
         play(): void;
         stop(): void;
     }
     
     export class MovieClipPlugin {
         // methods
-        tween(tween: Tween, prop: string, value: string, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void; 
-        tween(tween: Tween, prop: string, value: number, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void; 
-        tween(tween: Tween, prop: string, value: boolean, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void; 
+        tween(tween: Tween, prop: string, value: string | number | boolean, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void;
     }
     
     export class Point {
@@ -498,7 +686,7 @@ declare module createjs {
         // methods
         clone(): Point;
         copy(point: Point): Point;
-        initialize (x?: number, y?: number): Point;
+        setValues(x?: number, y?: number): Point;
         toString(): string;
     }
 
@@ -513,9 +701,15 @@ declare module createjs {
 
         // methods
         clone(): Rectangle;
+        contains(x: number, y: number, width?: number, height?: number): boolean;
         copy(rectangle: Rectangle): Rectangle;
-        initialize(x?: number, y?: number, width?: number, height?: number): Rectangle;
+        extend(x: number, y: number, width?: number, height?: number): Rectangle;
+        intersection(rect: Rectangle): Rectangle;
+        intersects(rect: Rectangle): boolean;
+        isEmpty(): boolean;
+        setValues(x?: number, y?: number, width?: number, height?: number): Rectangle;
         toString(): string;
+        union(rect: Rectangle): Rectangle;
     }
 
 
@@ -549,8 +743,7 @@ declare module createjs {
 
 
     export class Sprite extends DisplayObject {
-        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: string);
-        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: number);
+        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: string | number);
 
         // properties
         currentAnimation: string;
@@ -568,16 +761,21 @@ declare module createjs {
         advance(time?: number): void;
         clone(): Sprite;
         getBounds(): Rectangle;
-        gotoAndPlay(frameOrAnimation: string): void;
-        gotoAndPlay(frameOrAnimation: number): void;
-        gotoAndStop(frameOrAnimation: string): void;
-        gotoAndStop(frameOrAnimation: number): void;
+        gotoAndPlay(frameOrAnimation: string | number): void;
+        gotoAndStop(frameOrAnimation: string | number): void;
         play(): void;
         set(props: Object): Sprite;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Sprite;
         stop(): void;
         
     }
+
+    export class SpriteContainer extends Container
+        {
+        constructor(spriteSheet?: SpriteSheet);
+
+        spriteSheet: SpriteSheet;
+        }
 
     // what is returned from SpriteSheet.getAnimation(string)
     interface SpriteSheetAnimation {
@@ -597,12 +795,16 @@ declare module createjs {
         constructor(data: Object);
 
         // properties
+        animations: string[];
         complete: boolean;
         framerate: number;
         
         // methods
         clone(): SpriteSheet;
         getAnimation(name: string): SpriteSheetAnimation;
+        /**
+         * @deprecated - use the 'animations' property instead
+         */
         getAnimations(): string[];
         getFrame(frameIndex: number): SpriteSheetFrame;
         getFrameBounds(frameIndex: number, rectangle?: Rectangle): Rectangle;
@@ -624,14 +826,12 @@ declare module createjs {
 
         // methods
         addAnimation(name: string, frames: number[], next?: string, frequency?: number): void;
-        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupParams?: any[], setupScope?: Object): number;
-        addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number): void;
+        addFrame(source: DisplayObject, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object): number;
+        addMovieClip(source: MovieClip, sourceRect?: Rectangle, scale?: number, setupFunction?: () => any, setupData?: Object, labelFunction?: () => any): void;
         build(): SpriteSheet;
         buildAsync(timeSlice?: number): void;
         clone(): void; // throw error
         stopAsync(): void;
-
-
     }
 
     export class SpriteSheetUtils {
@@ -639,22 +839,38 @@ declare module createjs {
          * @deprecated
          */
         static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: boolean, vertical?: boolean, both?: boolean): void; // deprecated
-        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation : number): HTMLImageElement;
-        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation: string): HTMLImageElement;
+        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation: number | string): HTMLImageElement;
         /**
          * @deprecated
          */
         static mergeAlpha(rgbImage: HTMLImageElement, alphaImage: HTMLImageElement, canvas?: HTMLCanvasElement): HTMLCanvasElement; // deprecated
     }
 
+    export class SpriteStage extends Stage
+        {
+        constructor(canvas: HTMLCanvasElement | string, preserveDrawingBuffer?: boolean, antialias?: boolean);
+
+        // properties
+        static INDICES_PER_BOX: number;
+        isWebGL: boolean;
+        static MAX_BOXES_POINTS_INCREMENT: number;
+        static MAX_INDEX_SIZE: number;
+        static NUM_VERTEX_PROPERTIES: number;
+        static NUM_VERTEX_PROPERTIES_PER_BOX: number;
+        static POINTS_PER_BOX: number;
+
+        // methods
+        clearImageTexture(image: Object): void;
+        updateViewport(width: number, height: number): void;
+        }
+
     export class Stage extends Container {
-        constructor(canvas: HTMLCanvasElement);
-        constructor(canvas: string);
-        constructor(canvas: Object);
+        constructor(canvas: HTMLCanvasElement | string | Object);
 
         // properties
         autoClear: boolean;
-        canvas: any; // HTMLCanvasElement or Object
+        canvas: HTMLCanvasElement | Object;
+        drawRect: Rectangle;
         handleEvent: Function;
         mouseInBounds: boolean;
         mouseMoveOutside: boolean;
@@ -664,6 +880,7 @@ declare module createjs {
         /**
          * @deprecated
          */
+        preventSelection: boolean;
         snapToPixelEnabled: boolean;  // deprecated
         tickOnUpdate: boolean;
         
@@ -672,6 +889,7 @@ declare module createjs {
         clone(): Stage;
         enableDOMEvents(enable?: boolean): void;
         enableMouseOver(frequency?: number): void;
+        tick(props?: Object): void;
         toDataURL(backgroundColor: string, mimeType: string): string;
         update(...arg: any[]): void;
         
@@ -697,13 +915,17 @@ declare module createjs {
         getMeasuredHeight(): number;
         getMeasuredLineHeight(): number;
         getMeasuredWidth(): number;
+        getMetrics(): Object;
         set(props: Object): Text;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Text;
     }
 
     export class Ticker {
         // properties
+        static framerate: number;
+        static interval: number;
         static maxDelta: number;
+        static paused: number;
         static RAF: string;
         static RAF_SYNCHED: string;
         static TIMEOUT: string;
@@ -715,17 +937,35 @@ declare module createjs {
 
         // methods
         static getEventTime(runTime?: boolean): number;
+        /**
+         * @deprecated - use the 'framerate' property instead
+         */
         static getFPS(): number;
+        /**
+         * @deprecated - use the 'interval' property instead
+         */
         static getInterval(): number;
         static getMeasuredFPS(ticks?: number): number;
         static getMeasuredTickTime(ticks?: number): number;
+        /**
+         * @deprecated - use the 'paused' property instead
+         */
         static getPaused(): boolean;
         static getTicks(pauseable?: boolean): number;
         static getTime(runTime?: boolean): number;
         static init(): void;
         static reset(): void;
+        /**
+         * @deprecated - use the 'framerate' property instead
+         */
         static setFPS(value: number): void;
+        /**
+         * @deprecated - use the 'interval' property instead
+         */
         static setInterval(interval: number): void;
+        /**
+         * @deprecated - use the 'paused' property instead
+         */
         static setPaused(value: boolean): void;
 
         // EventDispatcher mixins
@@ -734,9 +974,7 @@ declare module createjs {
         static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        static dispatchEvent(eventObj: Object, target?: Object): boolean;
-        static dispatchEvent(eventObj: string, target?: Object): boolean;
-        static dispatchEvent(eventObj: Event, target?: Object): boolean;
+        static dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
         static off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;

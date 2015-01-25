@@ -78,3 +78,5 @@ Handlebars.registerHelper('list', (items: any, fn: (item: any) => string) => {
 Handlebars.registerHelper('fullName', (person: typeof context.author) => {
     return person.firstName + ' ' + person.lastName;
 });
+
+var escapedExpression = Handlebars.Utils.escapeExpression('<script>alert(\'xss\');</script>');

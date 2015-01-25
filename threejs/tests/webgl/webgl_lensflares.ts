@@ -116,7 +116,7 @@
             lensFlare.add(textureFlare3, 70, 1.0, THREE.AdditiveBlending);
 
             lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-            lensFlare.position.copy( light.position );
+            lensFlare.position.copy(light.position);
 
             scene.add(lensFlare);
 
@@ -125,9 +125,9 @@
         // renderer
 
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setClearColor(scene.fog.color);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(scene.fog.color, 1);
-
         container.appendChild(renderer.domElement);
 
         //

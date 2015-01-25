@@ -13,6 +13,13 @@ myApp.config((
     $urlMatcherFactory: ng.ui.IUrlMatcherFactory) => {
 
   var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
+
+  $urlMatcherFactory.type("myType2", {
+    encode: function (item: any) { return item; },
+    decode: function (item: any) { return item; },
+    is: function (item: any) { return true; }
+  });
+
   var obj: Object = matcher.exec('/user/bob', { x:'1', q:'hello' });
   var concat: ng.ui.IUrlMatcher = matcher.concat('/test');
   var str: string = matcher.format({ id:'bob', q:'yes' });

@@ -2444,7 +2444,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -3400,7 +3400,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -4333,7 +4333,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -5173,7 +5173,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -6226,7 +6226,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -7074,7 +7074,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -7224,4 +7224,105 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/atom/io/model" {
+    var exp: dojox.atom.io.model
+    export=exp;
+}
+declare module "dojox/atom/io/model.Category" {
+    var exp: dojox.atom.io.model.Category
+    export=exp;
+}
+declare module "dojox/atom/io/model.Content" {
+    var exp: dojox.atom.io.model.Content
+    export=exp;
+}
+declare module "dojox/atom/io/model.AtomItem" {
+    var exp: dojox.atom.io.model.AtomItem
+    export=exp;
+}
+declare module "dojox/atom/io/model.Generator" {
+    var exp: dojox.atom.io.model.Generator
+    export=exp;
+}
+declare module "dojox/atom/io/model.Entry" {
+    var exp: dojox.atom.io.model.Entry
+    export=exp;
+}
+declare module "dojox/atom/io/model.Collection" {
+    var exp: dojox.atom.io.model.Collection
+    export=exp;
+}
+declare module "dojox/atom/io/model.Feed" {
+    var exp: dojox.atom.io.model.Feed
+    export=exp;
+}
+declare module "dojox/atom/io/model.Link" {
+    var exp: dojox.atom.io.model.Link
+    export=exp;
+}
+declare module "dojox/atom/io/model.Node" {
+    var exp: dojox.atom.io.model.Node
+    export=exp;
+}
+declare module "dojox/atom/io/model.Person" {
+    var exp: dojox.atom.io.model.Person
+    export=exp;
+}
+declare module "dojox/atom/io/model.Service" {
+    var exp: dojox.atom.io.model.Service
+    export=exp;
+}
+declare module "dojox/atom/io/model.Workspace" {
+    var exp: dojox.atom.io.model.Workspace
+    export=exp;
+}
+declare module "dojox/atom/io/model._Constants" {
+    var exp: dojox.atom.io.model._Constants
+    export=exp;
+}
+declare module "dojox/atom/io/model._actions" {
+    var exp: dojox.atom.io.model._actions
+    export=exp;
+}
+declare module "dojox/atom/io/model.util" {
+    var exp: dojox.atom.io.model.util
+    export=exp;
+}
+declare module "dojox/atom/io/Connection" {
+    var exp: dojox.atom.io.Connection
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedViewer" {
+    var exp: dojox.atom.widget.FeedViewer
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedViewer.CategoryIncludeFilter" {
+    var exp: dojox.atom.widget.FeedViewer.CategoryIncludeFilter
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedViewer.AtomEntryCategoryFilter" {
+    var exp: dojox.atom.widget.FeedViewer.AtomEntryCategoryFilter
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedViewer.FeedViewerEntry" {
+    var exp: dojox.atom.widget.FeedViewer.FeedViewerEntry
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedViewer.FeedViewerGrouping" {
+    var exp: dojox.atom.widget.FeedViewer.FeedViewerGrouping
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedEntryViewer" {
+    var exp: dojox.atom.widget.FeedEntryViewer
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedEntryViewer.EntryHeader" {
+    var exp: dojox.atom.widget.FeedEntryViewer.EntryHeader
+    export=exp;
+}
+declare module "dojox/atom/widget/FeedEntryEditor" {
+    var exp: dojox.atom.widget.FeedEntryEditor
+    export=exp;
 }
