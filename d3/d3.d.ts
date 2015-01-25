@@ -967,8 +967,8 @@ declare module D3 {
                 (elements: EventTarget[]): Transition;
             }
             each: {
-            	(type: (data: any, index: number) => any) => Transition;
-            	(type: string, eachFunction: (data: any, index: number) => any) => Transition;
+            	(type: (data: any, index: number) => any) : Transition;
+            	(type: string, eachFunction: (data: any, index: number) => any) : Transition;
             }
             transition: () => Transition;
             ease: (value: string, ...arrs: any[]) => Transition;
