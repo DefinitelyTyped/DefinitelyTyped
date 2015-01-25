@@ -39,8 +39,8 @@ interface MithrilVirtualElement {
 }
 
 interface MithrilModule {
-	controller: Function;
-	view: Function;
+    controller: Function;
+    view: (controller?: any) => MithrilVirtualElement;
 }
 
 interface MithrilDeferred<T> {
