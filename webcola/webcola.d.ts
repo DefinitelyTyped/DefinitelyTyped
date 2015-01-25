@@ -29,6 +29,24 @@ declare module WebCola{
         start(): void;
         stop(): void;
     }
+
+    interface FlowLayout{
+        axis: string;
+        minSeparation?: number;
+    }
+
+    interface Options {
+        avoidOverlaps?: boolean;
+        convergenceThreshold?: number;
+        constraints?: {[key: string]: any}[];
+        flowLayout?: FlowLayout;
+        handleDisconnected?: boolean;
+        linkDistance?: number;
+        initialUnconstrainedIterations?: number;
+        initialUserConstraintIterations?: number;
+        initialAllConstraintsIterations?: number;
+        symmetricDiffLinkLengths?: number;
+    }
 }
 
 declare var cola: WebCola.Cola;
