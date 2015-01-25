@@ -213,7 +213,7 @@ declare var webkitOfflineAudioContext: {
  *
  * For performance reasons, practical implementations will need to use block processing, with each AudioNode processing a fixed number of sample-frames of size block-size. In order to get uniform behavior across implementations, we will define this value explicitly. block-size is defined to be 128 sample-frames which corresponds to roughly 3ms at a sample-rate of 44.1KHz.
  */
-interface AudioNode {
+interface AudioNode extends EventTarget {
     /**
      * Connects the AudioNode to another AudioNode.
      *
