@@ -27,6 +27,7 @@ interface HandlebarsCommon {
 
     Exception(message: string): void;
     SafeString: typeof hbs.SafeString;
+    Utils: typeof hbs.Utils;
 
     logger: Logger;
     log(level: number, obj: any): void;
@@ -50,6 +51,10 @@ declare module hbs {
     class SafeString {
         constructor(str: string);
         static toString(): string;
+    }
+
+    module Utils {
+        function escapeExpression(str: string): string;
     }
 }
 
