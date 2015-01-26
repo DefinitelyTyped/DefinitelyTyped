@@ -2699,6 +2699,7 @@ declare module D3 {
 
         export interface OrdinalScale extends GenericScale<OrdinalScale> {
             rangePoints(interval: any[], padding?: number): OrdinalScale;
+            rangeRoundPoints(interval: any[], padding?: number): OrdinalScale;
             rangeBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeBand(): number;
