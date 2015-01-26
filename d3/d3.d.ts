@@ -588,7 +588,7 @@ declare module D3 {
         map:{
         	<T>():Map<T>;
         	<T>(object: {[key: string]: T; }) : Map<T>;
-        	<T>(object: Array<T>, accessor?: (d: T, index?: number)) : Map<T>;
+        	<T>(object: Array<T>, accessor?: (d: T, index?: number) => T) : Map<T>;
         }
         set:{
         	<T>():Set<T>;
