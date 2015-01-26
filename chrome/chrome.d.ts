@@ -2089,10 +2089,16 @@ declare module chrome.webNavigation {
     interface GetFrameResultDetails {
         url: string;
         errorOccurred: boolean;
+        parentFrameId: number;
     }
 
     interface GetAllFrameDetails {
         tabId: number;
+    }
+    
+    interface GetAllFrameResultDetails extends GetFrameResultDetails {
+        processId: number;
+        frameId: number;
     }
 
     interface ReferenceFragmentUpdatedDetails {
@@ -2144,6 +2150,7 @@ declare module chrome.webNavigation {
         url: string;
         timeStamp: number;
         frameId: number;
+        parentFrameId: number;
     }
 
     interface CommittedDetails {
@@ -2173,20 +2180,24 @@ declare module chrome.webNavigation {
         error: string;
     }
 
+    interface WebNavigationEventFilters {
+        url: chrome.events.UrlFilter[];
+    }
+
     interface WebNavigationReferenceFragmentUpdatedEvent extends chrome.events.Event {
-        addListener(callback: (details: ReferenceFragmentUpdatedDetails) => void): void;
+        addListener(callback: (details: ReferenceFragmentUpdatedDetails) => void, filters? : WebNavigationEventFilters): void;
     }
 
     interface WebNavigationCompletedEvent extends chrome.events.Event {
-        addListener(callback: (details: CompletedDetails) => void): void;
+        addListener(callback: (details: CompletedDetails) => void, filters? : WebNavigationEventFilters): void;
     }
 
     interface WebNavigationHistoryStateUpdatedEvent extends chrome.events.Event {
-        addListener(callback: (details: HistoryStateUpdatedDetails) => void): void;
+        addListener(callback: (details: HistoryStateUpdatedDetails) => void, filters?: WebNavigationEventFilters): void;
     }
 
     interface WebNavigationCreatedNavigationTargetEvent extends chrome.events.Event {
-        addListener(callback: (details: CreatedNavigationTargetDetails) => void): void;
+        addListener(callback: (details: CreatedNavigationTargetDetails) => void, filters?: WebNavigationEventFilters): void;
     }
 
     interface WebNavigationTabReplacedEvent extends chrome.events.Event {
@@ -2194,23 +2205,23 @@ declare module chrome.webNavigation {
     }
 
     interface WebNavigationBeforeNavigateEvent extends chrome.events.Event {
-        addListener(callback: (details: BeforeNavigateDetails) => void): void;
+        addListener(callback: (details: BeforeNavigateDetails) => void, filters?: WebNavigationEventFilters): void;
     }
 
     interface WebNavigationCommittedEvent extends chrome.events.Event {
-        addListener(callback: (details: CommittedDetails) => void): void;
+        addListener(callback: (details: CommittedDetails) => void, filters?: WebNavigationEventFilters): void;
     }
 
     interface WebNavigationDomContentLoadedEvent extends chrome.events.Event {
-        addListener(callback: (details: DomContentLoadedDetails) => void): void;
+        addListener(callback: (details: DomContentLoadedDetails) => void, filters?: WebNavigationEventFilters): void;
     }
 
     interface WebNavigationErrorOccurredEvent extends chrome.events.Event {
-        addListener(callback: (details: ErrorOccurredDetails) => void): void;
+        addListener(callback: (details: ErrorOccurredDetails) => void, filters?: WebNavigationEventFilters): void;
     }
 
     export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
-    export function getAllFrames(details: GetAllFrameDetails, callback: (details?: Object[]) => void): void;
+    export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
     
     var onReferenceFragmentUpdated: WebNavigationReferenceFragmentUpdatedEvent;
     var onCompleted: WebNavigationCompletedEvent;
