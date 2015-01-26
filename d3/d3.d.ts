@@ -1008,6 +1008,7 @@ declare module D3 {
             	(type: string, eachFunction: (data: any, index: number) => any) : Transition;
             }
             transition: () => Transition;
+            tween: (name: string, tween?: (d: any, i: number, a: any) => BaseInterpolate): Transition;
             ease: (value: string, ...arrs: any[]) => Transition;
             attrTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate): Transition;
             styleTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate, priority?: string): Transition;
