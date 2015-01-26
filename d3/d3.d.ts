@@ -1,4 +1,4 @@
-// Type definitions for d3JS
+// Type definitions for d3JS v3.5.0
 // Project: http://d3js.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1231,6 +1231,13 @@ declare module D3 {
                 (angle: (d : any) => number): PieLayout
                 (angle: (d : any, i: number) => number): PieLayout;
             };
+            padAngle:{
+            	():number;
+            	(angle:number):PieLayout;
+            	(angle:()=>number):PieLayout;
+                (angle: (d : any) => number): PieLayout
+                (angle: (d : any, i: number) => number): PieLayout;
+            }
         }
 
         export interface ArcDescriptor {
@@ -1836,6 +1843,13 @@ declare module D3 {
                 (angle: (data: any) => number): Arc;
                 (angle: (data: any, index: number) => number): Arc;
             };
+            cornerRadius:{
+                (): (data: any, index?: number) => number;
+                (radius: number): Arc;
+                (radius: () => number): Arc;
+                (radius: (data: any) => number): Arc;
+                (radius: (data: any, index: number) => number): Arc;
+            }
             centroid(data: any, index?: number): number[];
         }
 
