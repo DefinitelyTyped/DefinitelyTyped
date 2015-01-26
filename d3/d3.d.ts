@@ -1,4 +1,4 @@
-// Type definitions for d3JS
+// Type definitions for d3JS v3.5.0
 // Project: http://d3js.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -119,7 +119,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        extent<T, U>(arr: T[], map: (v: T) => U): U[];
+        extent<T, U>(arr: T[], map: (v: T, i?: number) => U): U[];
         /**
         * Find the minimum and maximum value in an array
         *
@@ -129,42 +129,72 @@ declare module D3 {
         /**
         * Compute the sum of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         * @param map Accsessor function
         */
-        sum<T>(arr: T[], map: (v: T) => number): number;
+        sum<T>(arr: T[], map: (v: T, i?: number) => number): number;
         /**
         * Compute the sum of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         */
         sum(arr: number[]): number;
         /**
         * Compute the arithmetic mean of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         * @param map Accsessor function
         */
-        mean<T>(arr: T[], map: (v: T) => number): number;
+        mean<T>(arr: T[], map: (v: T, i?: number) => number): number;
         /**
         * Compute the arithmetic mean of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         */
         mean(arr: number[]): number;
         /**
         * Compute the median of an array of numbers (the 0.5-quantile).
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         * @param map Accsessor function
         */
-        median<T>(arr: T[], map: (v: T) => number): number;
+        median<T>(arr: T[], map: (v: T, i?: number) => number): number;
         /**
         * Compute the median of an array of numbers (the 0.5-quantile).
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         */
         median(arr: number[]): number;
+
+        /**
+        * Compute the variance of an array of numbers.
+        *
+        * @param arr Array to compute
+        * @param map Accsessor function
+        */
+        variance<T>(arr: T[], map: (v: T, i?: number) => number): number;
+        /**
+        * Compute the variance of an array of numbers.
+        *
+        * @param arr Array to compute
+        */
+        variance(arr: number[]): number;
+
+        /**
+        * Compute the deviation of an array of numbers.
+        *
+        * @param arr Array to compute
+        * @param map Accsessor function
+        */
+        deviation<T>(arr: T[], map: (v: T, i?: number) => number): number;
+        /**
+        * Compute the deviation of an array of numbers.
+        *
+        * @param arr Array to compute
+        */
+        deviation(arr: number[]): number;
+
+
         /**
         * Compute a quantile for a sorted array of numbers.
         *
@@ -209,8 +239,10 @@ declare module D3 {
         * Randomize the order of an array.
         *
         * @param arr Array to randomize
+        * @param low Lower bound index of array subset
+        * @param high Upper bound index of array subset
         */
-        shuffle<T>(arr: T[]): T[];
+        shuffle<T>(arr: T[], low?: number, hight?: number): T[];
         /**
         * Reorder an array of elements according to an array of indexes
         *
@@ -426,6 +458,10 @@ declare module D3 {
         */
         interpolateTransform: Transition.BaseInterpolate;
         /*
+        * Interpolate two views a and b of a two-dimensional plane
+        */
+        interpolateZoom:Transition.BaseInterpolate;
+        /*
         * The array of built-in interpolator factories
         */
         interpolators: Transition.InterpolateFactory[];
@@ -549,10 +585,15 @@ declare module D3 {
         functor<R,T>(value: (p : R) => T): (p : R) => T;
         functor<T>(value: T): (p : any) => T;
 
-        map(): Map<any>;
-        set(): Set<any>;
-        map<T>(object: {[key: string]: T; }): Map<T>;
-        set<T>(array: T[]): Set<T>;
+        map:{
+        	<T>():Map<T>;
+        	<T>(object: {[key: string]: T; }) : Map<T>;
+        	<T>(object: Array<T>, accessor?: (d: T, index?: number) => T) : Map<T>;
+        }
+        set:{
+        	<T>():Set<T>;
+        	<T>(array: T[]):Set<T>;
+        }
         dispatch(...types: string[]): Dispatch;
         rebind(target: any, source: any, ...names: any[]): any;
         requote(str: string): string;
@@ -560,7 +601,7 @@ declare module D3 {
             (funct: () => boolean, delay?: number, mark?: number): void;
             flush(): void;
         }
-        transition(): Transition.Transition;
+        transition(name?: string): Transition.Transition;
 
         round(x: number, n: number): number;
     }
@@ -796,8 +837,9 @@ declare module D3 {
         /**
         * Starts a transition for the current selection. Transitions behave much like selections,
         * except operators animate smoothly over time rather than applying instantaneously.
+        * by giving transitions different names transitions can run at the same time on the same element without interference.
         */
-        transition(): Transition.Transition;
+        transition(name?: string): Transition.Transition;
 
         /**
         * Sorts the elements in the current selection according to the specified comparator
@@ -962,7 +1004,10 @@ declare module D3 {
                 */
                 (elements: EventTarget[]): Transition;
             }
-            each: (type?: string, eachFunction?: (data: any, index: number) => any) => Transition;
+            each: {
+            	(type: (data: any, index: number) => any) : Transition;
+            	(type: string, eachFunction: (data: any, index: number) => any) : Transition;
+            }
             transition: () => Transition;
             ease: (value: string, ...arrs: any[]) => Transition;
             attrTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate): Transition;
@@ -1224,6 +1269,13 @@ declare module D3 {
                 (angle: (d : any) => number): PieLayout
                 (angle: (d : any, i: number) => number): PieLayout;
             };
+            padAngle:{
+            	():number;
+            	(angle:number):PieLayout;
+            	(angle:()=>number):PieLayout;
+                (angle: (d : any) => number): PieLayout
+                (angle: (d : any, i: number) => number): PieLayout;
+            }
         }
 
         export interface ArcDescriptor {
@@ -1829,6 +1881,13 @@ declare module D3 {
                 (angle: (data: any) => number): Arc;
                 (angle: (data: any, index: number) => number): Arc;
             };
+            cornerRadius:{
+                (): (data: any, index?: number) => number;
+                (radius: number): Arc;
+                (radius: () => number): Arc;
+                (radius: (data: any) => number): Arc;
+                (radius: (data: any, index: number) => number): Arc;
+            }
             centroid(data: any, index?: number): number[];
         }
 
@@ -2671,6 +2730,7 @@ declare module D3 {
 
         export interface OrdinalScale extends GenericScale<OrdinalScale> {
             rangePoints(interval: any[], padding?: number): OrdinalScale;
+            rangeRoundPoints(interval: any[], padding?: number): OrdinalScale;
             rangeBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeRoundBands(interval: any[], padding?: number, outerPadding?: number): OrdinalScale;
             rangeBand(): number;
@@ -2737,11 +2797,11 @@ declare module D3 {
             */
             scale: {
                 /**
-                * Get the current current zoom scale
+                * Get the current zoom scale
                 */
                 (): number;
                 /**
-                * Set the current current zoom scale
+                * Set the current zoom scale
                 *
                 * @param origin Zoom scale
                 */
@@ -2812,6 +2872,39 @@ declare module D3 {
                 */
                 (y: D3.Scale.Scale): Zoom;
             };
+
+            /**
+            * Gets or set the viewport size
+            */
+            size:{
+                /**
+                * Get the current viewport size
+                */
+                (): number[];
+                /**
+                * Set the viewport size
+                *
+                * @param viewport size
+                */
+                (extent: number[]): Zoom;
+            }
+
+            /**
+            * Gets or set the zoom duration
+            */
+            duration:{
+                /**
+                * Get the current zoom duration
+                */
+                (): number;
+                /**
+                * Set the zoom duration
+                *
+                * @param origin Zoom duration
+                */
+                (duration: number): Zoom;
+
+            }
         }
 
         export interface Drag {
@@ -3268,7 +3361,11 @@ declare module D3 {
             * Constructs a new quadtree for the specified array of points.
             */
             (points: Point[], width: number, height: number): Quadtree;
-
+            /**
+            * Constructs a new quadtree for the specified array of points.
+            * Each point cloud be store as array [x,y];
+            */
+            (points: Array<number[]>):Quadtree;
             x: {
                 (): (d: any) => any;
                 (accesor: (d: any) => any): QuadtreeFactory;
@@ -3291,6 +3388,10 @@ declare module D3 {
             */
             add(point: Point): void;
             visit(callback: any): void;
+            /**
+            * the point is a Array of number with two element : [x, y]
+            */
+            find(point: number[]):Point;
         }
 
         export interface Point {

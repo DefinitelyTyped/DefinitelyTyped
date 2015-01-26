@@ -2626,3 +2626,200 @@ function multiTest() {
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 }
+
+//Tests for d3.layout.pie.padAngle
+//Adopted from http://bl.ocks.org/mbostock/f098d146315be4d1db52
+function padAngleTest(){
+    var data = [1, 1, 2, 3, 5, 8, 13, 21];
+
+    var width = 960,
+        height = 500,
+        radius = height / 2 - 10;
+
+    var arc = d3.svg.arc()
+        .innerRadius(radius - 40)
+        .outerRadius(radius);
+
+    var pie = d3.layout.pie()
+        .padAngle(.02);
+
+    var color = d3.scale.category10();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    svg.selectAll("path")
+        .data(pie(data))
+      .enter().append("path")
+        .style("fill", function(d, i) { return color(i); })
+        .attr("d", arc);
+}
+
+//Tests for d3.svg.arc.cornerRadius
+//Adopted from http://bl.ocks.org/mbostock/aff9e559c5c9968b7ac6
+function cornerRadiusTest(){
+    var data = [1, 1, 2, 3, 5, 8, 13];
+
+    var width = 960,
+        height = 500,
+        outerRadius = height / 2 - 10,
+        innerRadius = outerRadius - 60,
+        cornerRadius = 12,
+        padAngle = .03;
+
+    var pie = d3.layout.pie()
+        .padAngle(padAngle);
+
+    var arcs = pie(data);
+
+    var arc = d3.svg.arc()
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius)
+        .cornerRadius(cornerRadius);
+
+    var color = d3.scale.category10();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    svg.append("circle")
+        .style("fill", "none")
+        .style("stroke", "#555")
+        .attr("r", innerRadius);
+
+    svg.append("circle")
+        .style("fill", "none")
+        .style("stroke", "#555")
+        .attr("r", outerRadius);
+
+    svg.append("g")
+        .style("stroke", "#555")
+        .style("fill", "none")
+        .attr("class", "corner")
+      .selectAll("circle")
+        .data(d3.merge(arcs.map(function(d) {
+          return [
+            {angle: d.startAngle + padAngle / 2, radius: outerRadius - cornerRadius, start: +1},
+            {angle:   d.endAngle - padAngle / 2, radius: outerRadius - cornerRadius, start: -1},
+            {angle:   d.endAngle - padAngle / 2 * outerRadius / innerRadius, radius: innerRadius + cornerRadius, start: -1},
+            {angle: d.startAngle + padAngle / 2 * outerRadius / innerRadius, radius: innerRadius + cornerRadius, start: +1}
+          ];
+        })))
+      .enter().append("circle")
+        .attr("cx", function(d) { return d.start * cornerRadius * Math.cos(d.angle) + Math.sqrt(d.radius * d.radius - cornerRadius * cornerRadius) * Math.sin(d.angle); })
+        .attr("cy", function(d) { return d.start * cornerRadius * Math.sin(d.angle) - Math.sqrt(d.radius * d.radius - cornerRadius * cornerRadius) * Math.cos(d.angle); })
+        .attr("r", cornerRadius);
+
+    svg.append("g").selectAll("path")
+        .data(arcs)
+      .enter().append("path")
+        .style("fill", function(d, i) { return color(i); })
+        .style("fill-opacity", .25)
+        .style("stroke", "#000")
+        .style("stroke-width", "1.5px")
+        .attr("d", arc);
+}
+
+//Tests for d3.geom.quadtree.find
+//Adopted from http://bl.ocks.org/mbostock/9078690#index.html
+function quadtreeFindTest(){
+    var width = 960,
+    height = 500;
+
+    var data = d3.range(2500).map(function() {
+      return [Math.random() * width, Math.random() * height];
+    });
+
+    var quadtree = d3.geom.quadtree()
+        .extent([[-1, -1], [width + 1, height + 1]])
+        (data);
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.selectAll(".node")
+        .data(nodes(quadtree))
+      .enter().append("rect")
+        .attr("class", "node")
+        .attr("x", function(d) { return d.x0; })
+        .attr("y", function(d) { return d.y0; })
+        .attr("width", function(d) { return d.y1 - d.y0; })
+        .attr("height", function(d) { return d.x1 - d.x0; });
+
+    var point = svg.selectAll(".point")
+        .data(data)
+      .enter().append("circle")
+        .attr("class", "point")
+        .attr("cx", function(d) { return d[0]; })
+        .attr("cy", function(d) { return d[1]; })
+        .attr("r", 4);
+
+    svg.append("rect")
+        .attr("class", "overlay")
+        .attr("width", width)
+        .attr("height", height)
+        .on("mousemove", mousemoved);
+
+    function mousemoved() {
+      point.each(function(d) { d.scanned = false; });
+      var p = quadtree.find(d3.mouse(this));
+      point.classed("scanned", function(d) { return d.scanned; });
+      point.classed("selected", function(d) { return d === p; });
+    }
+
+    // Collapse the quadtree into an array of rectangles.
+    function nodes(quadtree) {
+      var nodes = [];
+      quadtree.visit(function(node, x0, y0, x1, y1) {
+        node.x0 = x0, node.y0 = y0;
+        node.x1 = x1, node.y1 = y1;
+        nodes.push(node);
+      });
+      return nodes;
+    }
+}
+
+//Tests for named d3.transition()
+//Adopted from http://bl.ocks.org/mbostock/5d8039fb983a29e2ad49
+function namedTransitionTest(){
+    var width = 960,
+    height = 500;
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("g")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
+      .append("path")
+        .attr("d", d3.svg.symbol().type("cross").size(50000))
+        .call(twizzle, 20000)
+        .call(plonk, 2000);
+
+    function twizzle(path, duration) {
+      path.transition("twizzle")
+          .duration(duration)
+          .attrTween("transform", function() { return d3.interpolateString("rotate(0)", "rotate(720)"); })
+        .transition()
+          .duration(Math.random() * duration)
+          .each("end", function() { path.call(twizzle, duration); });
+    }
+
+    function plonk(path, duration) {
+      path.transition("plonk")
+          .duration(duration)
+          .style("stroke-width", "30px")
+        .transition()
+          .style("stroke-width", "0px")
+        .transition()
+          .duration(Math.random() * duration)
+          .each("end", function() { path.call(plonk, duration); });
+    }
+}
