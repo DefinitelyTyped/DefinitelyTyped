@@ -601,7 +601,7 @@ declare module D3 {
             (funct: () => boolean, delay?: number, mark?: number): void;
             flush(): void;
         }
-        transition(): Transition.Transition;
+        transition(name?: string): Transition.Transition;
 
         round(x: number, n: number): number;
     }
@@ -837,8 +837,9 @@ declare module D3 {
         /**
         * Starts a transition for the current selection. Transitions behave much like selections,
         * except operators animate smoothly over time rather than applying instantaneously.
+        * by giving transitions different names transitions can run at the same time on the same element without interference.
         */
-        transition(): Transition.Transition;
+        transition(name?: string): Transition.Transition;
 
         /**
         * Sorts the elements in the current selection according to the specified comparator

@@ -2785,3 +2785,41 @@ function quadtreeFindTest(){
       return nodes;
     }
 }
+
+//Tests for named d3.transition()
+//Adopted from http://bl.ocks.org/mbostock/5d8039fb983a29e2ad49
+function namedTransitionTest(){
+    var width = 960,
+    height = 500;
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("g")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
+      .append("path")
+        .attr("d", d3.svg.symbol().type("cross").size(50000))
+        .call(twizzle, 20000)
+        .call(plonk, 2000);
+
+    function twizzle(path, duration) {
+      path.transition("twizzle")
+          .duration(duration)
+          .attrTween("transform", function() { return d3.interpolateString("rotate(0)", "rotate(720)"); })
+        .transition()
+          .duration(Math.random() * duration)
+          .each("end", function() { path.call(twizzle, duration); });
+    }
+
+    function plonk(path, duration) {
+      path.transition("plonk")
+          .duration(duration)
+          .style("stroke-width", "30px")
+        .transition()
+          .style("stroke-width", "0px")
+        .transition()
+          .duration(Math.random() * duration)
+          .each("end", function() { path.call(plonk, duration); });
+    }
+}
