@@ -2736,7 +2736,7 @@ function quadtreeFindTest(){
       return [Math.random() * width, Math.random() * height];
     });
 
-    var quadtree = d3.geom.quadtree
+    var quadtree = d3.geom.quadtree()
         .extent([[-1, -1], [width + 1, height + 1]])
         (data);
 

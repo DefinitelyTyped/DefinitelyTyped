@@ -3361,7 +3361,11 @@ declare module D3 {
             * Constructs a new quadtree for the specified array of points.
             */
             (points: Point[], width: number, height: number): Quadtree;
-
+            /**
+            * Constructs a new quadtree for the specified array of points.
+            * Each point cloud be store as array [x,y];
+            */
+            (points: Array<number[]>):Quadtree;
             x: {
                 (): (d: any) => any;
                 (accesor: (d: any) => any): QuadtreeFactory;
