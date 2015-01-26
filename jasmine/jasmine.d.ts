@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.0
+// Type definitions for Jasmine 2.1
 // Project: http://pivotal.github.com/jasmine/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -24,6 +24,11 @@ declare function beforeEach(action: () => void): void;
 declare function beforeEach(action: (done: () => void) => void): void;
 declare function afterEach(action: () => void): void;
 declare function afterEach(action: (done: () => void) => void): void;
+
+declare function beforeAll(action: () => void): void;
+declare function beforeAll(action: (done: () => void) => void): void;
+declare function afterAll(action: () => void): void;
+declare function afterAll(action: (done: () => void) => void): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
@@ -103,8 +108,10 @@ declare module jasmine {
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
         beforeEach(beforeEachFunction: () => void): void;
+        beforeAll(beforeAllFunction: () => void): void;
         currentRunner(): Runner;
         afterEach(afterEachFunction: () => void): void;
+        afterAll(afterAllFunction: () => void): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
@@ -266,6 +273,8 @@ declare module jasmine {
         execute(): void;
         beforeEach(beforeEachFunction: SpecFunction): void;
         afterEach(afterEachFunction: SpecFunction): void;
+        beforeAll(beforeAllFunction: SpecFunction): void;
+        afterAll(afterAllFunction: SpecFunction): void;
         finishCallback(): void;
         addSuite(suite: Suite): void;
         add(block: Block): void;
@@ -335,6 +344,8 @@ declare module jasmine {
         finish(onComplete?: () => void): void;
         beforeEach(beforeEachFunction: SpecFunction): void;
         afterEach(afterEachFunction: SpecFunction): void;
+        beforeAll(beforeAllFunction: SpecFunction): void;
+        afterAll(afterAllFunction: SpecFunction): void;
         results(): NestedResults;
         add(suiteOrSpec: SuiteOrSpec): void;
         specs(): Spec[];
