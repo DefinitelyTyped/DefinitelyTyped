@@ -209,8 +209,10 @@ declare module D3 {
         * Randomize the order of an array.
         *
         * @param arr Array to randomize
+        * @param low 
+        * @param high
         */
-        shuffle<T>(arr: T[]): T[];
+        shuffle<T>(arr: T[], low?: number, hight?: number): T[];
         /**
         * Reorder an array of elements according to an array of indexes
         *
