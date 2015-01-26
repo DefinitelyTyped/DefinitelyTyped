@@ -2,27 +2,30 @@
 
 These are the definitions for version 1.0.3.1 of Meteor.
 
-Although these definitions can be downloaded separately for use, the recommended way to use these
-definitions in a Meteor application is by installing the [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.  
-The smart package contains TypeScript definitions forMeteor, common third-party libraries (e.g. jquery, underscore, d3 etc.), and common smart packages 
-(e.g. iron-router, etc).
+Although these definitions can be downloaded separately for use, the recommended way to use these definitions in a Meteor application is by installing the
+[typescript-libs](https://atmospherejs.com/meteortypescript/typescript-libs) Meteor smart package from atmosphere.  The smart package contains TypeScript
+definitions forMeteor, common third-party libraries (e.g. jquery, underscore, d3 etc.), and common smart packages (e.g. iron-router, etc).
 
 From within any Meteor application that is version 0.9.0 or later, install this package in the standard manner:
 
-    $ meteor add typescript-libs
+    $ meteor add meteortypescript:typescript-libs
 
+These definitions were generated from the from the same [Meteor data.js file] (https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used
+to generate the official [Meteor docs] (http://docs.meteor.com/).
 
 
 ## Usage
 
-1. Add a symbolic link to the definitions from within some directory within your project (e.g. ".typescript" or "lib").  The definitions can be found somewhere
-deep within `<project_root_dir>/.meteor/...`.  The following will probably work:
+1. If you are using the smart package, add a symbolic link to the definitions from within some directory within your project (e.g. ".typescript" or "lib").  The
+definitions can be found somewhere deep within `<project_root_dir>/.meteor/...`.  The following will probably work:
 
         $ ln -s ../.meteor/local/build/programs/server/assets/packages/meteortypescript_typescript-libs/definitions package_defs
 
 
    If the definitions can't be found within the .meteor directory, you will have to manually pull down the definitions from github and add them to your project:
     <https://github.com/meteor-typescript/meteor-typescript-libs>
+
+   If you are just using the *meteor.d.ts* file from this source, you can just add the file to any directory in your project (e.g. ".typescript" or "lib").
 
 2. Install the [Typescript compiler for Meteor](https://github.com/meteor-typescript/meteor-typescript-compiler) or an [IDE which can transpile TypeScript to JavaScript](#transpiling-typescript).
 3. From the typescript files, add references.  Reference the definition files with a single line:
