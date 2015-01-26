@@ -2796,11 +2796,11 @@ declare module D3 {
             */
             scale: {
                 /**
-                * Get the current current zoom scale
+                * Get the current zoom scale
                 */
                 (): number;
                 /**
-                * Set the current current zoom scale
+                * Set the current zoom scale
                 *
                 * @param origin Zoom scale
                 */
@@ -2871,6 +2871,39 @@ declare module D3 {
                 */
                 (y: D3.Scale.Scale): Zoom;
             };
+
+            /**
+            * Gets or set the viewport size
+            */
+            size:{
+                /**
+                * Get the current viewport size
+                */
+                (): number[];
+                /**
+                * Set the viewport size
+                *
+                * @param viewport size
+                */
+                (extent: number[]): Zoom;
+            }
+
+            /**
+            * Gets or set the zoom duration
+            */
+            duration:{
+                /**
+                * Get the current zoom duration
+                */
+                (): number;
+                /**
+                * Set the zoom duration
+                *
+                * @param origin Zoom duration
+                */
+                (duration: number): Zoom;
+
+            }
         }
 
         export interface Drag {
