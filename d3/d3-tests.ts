@@ -2725,3 +2725,63 @@ function cornerRadiusTest(){
         .style("stroke-width", "1.5px")
         .attr("d", arc);
 }
+
+//Tests for d3.geom.quadtree.find
+//Adopted from http://bl.ocks.org/mbostock/9078690#index.html
+function quadtreeFindTest(){
+    var width = 960,
+    height = 500;
+
+    var data = d3.range(2500).map(function() {
+      return [Math.random() * width, Math.random() * height];
+    });
+
+    var quadtree = d3.geom.quadtree()
+        .extent([[-1, -1], [width + 1, height + 1]])
+        (data);
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.selectAll(".node")
+        .data(nodes(quadtree))
+      .enter().append("rect")
+        .attr("class", "node")
+        .attr("x", function(d) { return d.x0; })
+        .attr("y", function(d) { return d.y0; })
+        .attr("width", function(d) { return d.y1 - d.y0; })
+        .attr("height", function(d) { return d.x1 - d.x0; });
+
+    var point = svg.selectAll(".point")
+        .data(data)
+      .enter().append("circle")
+        .attr("class", "point")
+        .attr("cx", function(d) { return d[0]; })
+        .attr("cy", function(d) { return d[1]; })
+        .attr("r", 4);
+
+    svg.append("rect")
+        .attr("class", "overlay")
+        .attr("width", width)
+        .attr("height", height)
+        .on("mousemove", mousemoved);
+
+    function mousemoved() {
+      point.each(function(d) { d.scanned = false; });
+      var p = quadtree.find(d3.mouse(this));
+      point.classed("scanned", function(d) { return d.scanned; });
+      point.classed("selected", function(d) { return d === p; });
+    }
+
+    // Collapse the quadtree into an array of rectangles.
+    function nodes(quadtree) {
+      var nodes = [];
+      quadtree.visit(function(node, x0, y0, x1, y1) {
+        node.x0 = x0, node.y0 = y0;
+        node.x1 = x1, node.y1 = y1;
+        nodes.push(node);
+      });
+      return nodes;
+    }
+}

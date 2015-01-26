@@ -3383,6 +3383,10 @@ declare module D3 {
             */
             add(point: Point): void;
             visit(callback: any): void;
+            /**
+            * the point is a Array of number with two element : [x, y]
+            */
+            find(point: number[]):Point;
         }
 
         export interface Point {
