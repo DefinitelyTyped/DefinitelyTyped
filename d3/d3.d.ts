@@ -119,7 +119,7 @@ declare module D3 {
         * @param arr Array to search
         * @param map Accsessor function
         */
-        extent<T, U>(arr: T[], map: (v: T) => U): U[];
+        extent<T, U>(arr: T[], map: (v: T, i?: number) => U): U[];
         /**
         * Find the minimum and maximum value in an array
         *
@@ -129,42 +129,72 @@ declare module D3 {
         /**
         * Compute the sum of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         * @param map Accsessor function
         */
-        sum<T>(arr: T[], map: (v: T) => number): number;
+        sum<T>(arr: T[], map: (v: T, i?: number) => number): number;
         /**
         * Compute the sum of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         */
         sum(arr: number[]): number;
         /**
         * Compute the arithmetic mean of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         * @param map Accsessor function
         */
-        mean<T>(arr: T[], map: (v: T) => number): number;
+        mean<T>(arr: T[], map: (v: T, i?: number) => number): number;
         /**
         * Compute the arithmetic mean of an array of numbers
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         */
         mean(arr: number[]): number;
         /**
         * Compute the median of an array of numbers (the 0.5-quantile).
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         * @param map Accsessor function
         */
-        median<T>(arr: T[], map: (v: T) => number): number;
+        median<T>(arr: T[], map: (v: T, i?: number) => number): number;
         /**
         * Compute the median of an array of numbers (the 0.5-quantile).
         *
-        * @param arr Array to search
+        * @param arr Array to compute
         */
         median(arr: number[]): number;
+
+        /**
+        * Compute the variance of an array of numbers.
+        *
+        * @param arr Array to compute
+        * @param map Accsessor function
+        */
+        variance<T>(arr: T[], map: (v: T, i?: number) => number): number;
+        /**
+        * Compute the variance of an array of numbers.
+        *
+        * @param arr Array to compute
+        */
+        variance(arr: number[]): number;
+
+        /**
+        * Compute the deviation of an array of numbers.
+        *
+        * @param arr Array to compute
+        * @param map Accsessor function
+        */
+        deviation<T>(arr: T[], map: (v: T, i?: number) => number): number;
+        /**
+        * Compute the deviation of an array of numbers.
+        *
+        * @param arr Array to compute
+        */
+        deviation(arr: number[]): number;
+
+
         /**
         * Compute a quantile for a sorted array of numbers.
         *
@@ -558,7 +588,7 @@ declare module D3 {
         map:{
         	<T>():Map<T>;
         	<T>(object: {[key: string]: T; }) : Map<T>;
-        	<T>(object: Array<T>, accessor?: (d: T, index: number)) : Map<T>;
+        	<T>(object: Array<T>, accessor?: (d: T, index?: number)) : Map<T>;
         }
         set:{
         	<T>():Set<T>;
