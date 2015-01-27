@@ -8,6 +8,8 @@
 
 console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + cordova.platformId);
 
+console.log(typeof window.cordova);
+
 cordova.exec(null, null, "NativeClassName", "MethodName");
 
 cordova.define('mymodule', (req, exp, mod)=> {
