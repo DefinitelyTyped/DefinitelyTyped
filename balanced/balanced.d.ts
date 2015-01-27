@@ -20,8 +20,10 @@ declare module Balanced {
     }
 
     interface CallbackFunctionArgs {
-        errors?: ErrorObject[];
         status_code: number;
+        errors?: ErrorObject[];
+        bank_accounts?: FundingInstrument[];
+        cards?: FundingInstrument[];
     }
 
     interface Address {
@@ -73,6 +75,11 @@ declare module Balanced {
         lookupRoutingNumber(routingNumber: string, callback: CallbackFunction): void;
         validateType(type: string): boolean;
         create(data: BankAccount, callback: CallbackFunction): void;
+    }
+
+    interface FundingInstrument {
+        href: string;
+        id: string;
     }
 
     interface EmailAddressStatic {
