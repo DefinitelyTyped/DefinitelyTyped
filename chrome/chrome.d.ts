@@ -2269,49 +2269,42 @@ declare module chrome.webRequest {
         file?: string;
     }
 
-    interface OnCompletedDetails {
-        tabId: number;
-        ip?: string;
-        statusLine?: string;
-        frameId: number;
-        responseHeaders?: HttpHeader[];
-        parentFrameId: number;
-        fromCache: boolean;
-        url: string;
-        timeStamp: number;
+    interface BaseCallbackDetails {
         requestId: string;
+        url: string;
+        tabId: number;
+        frameId: number;
+        parentFrameId: number;
+        timeStamp: number;
+    }
+
+    interface CallbackDetails extends BaseCallbackDetails {
         type: string;
         method: string;
+    }
+
+    interface OnCompletedDetails extends CallbackDetails {
+        ip?: string;
+        statusLine?: string;
+        responseHeaders?: HttpHeader[];
+        fromCache: boolean;        
         statusCode: number;
     }
 
-    interface OnHeadersReceivedDetails {
-        tabId: number;
+    interface OnHeadersReceivedDetails extends CallbackDetails {
         parentFrameId: number;
-        url: string;
         timeStamp: number;
         statusLine?: string;
-        frameId: number;
-        requestId: string;
         responseHeaders?: HttpHeader[];
-        type: string;
-        method: string;
     }
 
-    interface OnBeforeRedirectDetails {
-        tabId: number;
+    interface OnBeforeRedirectDetails extends CallbackDetails {
         ip?: string;
         statusLine?: string;
-        frameId: number;
         responseHeaders?: HttpHeader[];
         parentFrameId: number;
         fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
         redirectUrl: string;
-        type: string;
-        method: string;
         statusCode: number;
     }
 
@@ -2320,75 +2313,35 @@ declare module chrome.webRequest {
         port: number;
     }
 
-    interface OnAuthRequiredDetails {
-        tabId: number;
+    interface OnAuthRequiredDetails extends CallbackDetails {
         statusLine?: string;
-        frameId: number;
         challenger: Challenger;
         responseHeaders?: HttpHeader[];
         isProxy: boolean;
         realm?: string;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        requestId: string;
         scheme: string;
-        type: string;
-        method: string;
     }
 
-    interface OnBeforeSendHeadersDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        frameId: number;
-        requestId: number;
+    interface OnBeforeSendHeadersDetails extends CallbackDetails {
         requestHeaders?: HttpHeader[];
-        type: string;
-        method: string;
     }
 
-    interface OnErrorOccurredDetails {
-        tabId: number;
+    interface OnErrorOccurredDetails extends CallbackDetails {
         ip?: string;
-        frameId: number;
-        parentFrameId: number;
         fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
         error: string;
-        type: string;
-        method: string;
     }
 
-    interface OnResponseStartedDetails {
-        tabId: number;
+    interface OnResponseStartedDetails extends CallbackDetails {
         ip?: string;
         statusLine?: string;
-        frameId: number;
         responseHeaders?: HttpHeader[];
-        parentFrameId: number;
         fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
-        type: string;
-        method: string;
         statusCode: number;
     }
 
-    interface OnSendHeadersDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        frameId: number;
-        requestId: string;
+    interface OnSendHeadersDetails extends CallbackDetails {
         requestHeaders?: HttpHeader[];
-        type: string;
-        method: string;
     }
 
     interface RequestBody {
@@ -2397,12 +2350,7 @@ declare module chrome.webRequest {
         formData?: Object;
     }
 
-    interface OnBeforeRequestDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        frameId: number;
+    interface OnBeforeRequestDetails extends BaseCallbackDetails {        
         requestBody: RequestBody;
     }
 
