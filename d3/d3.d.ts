@@ -1,4 +1,4 @@
-// Type definitions for d3JS v3.5.0
+// Type definitions for d3JS v3.5.3
 // Project: http://d3js.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
