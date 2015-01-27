@@ -67,6 +67,8 @@ declare module SocketIO {
         on(event: string, listener: Function): any;
         broadcast: Socket;
         volatile: Socket;
+        connected: boolean;
+        disconnect(close: boolean): Socket;
     }
 
     interface Client {
