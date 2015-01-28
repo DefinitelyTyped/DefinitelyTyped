@@ -197,7 +197,11 @@ declare module Q {
     export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
     export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
     
-    //export function try(method: Function, ...args: any[]): Promise<any>; // <- This is broken currently - not sure how to fix.
+    /** 
+     * Currently "impossible" (and I use the term loosely) to implement due to TypeScript limitations as it is now.
+     * See: https://github.com/Microsoft/TypeScript/issues/1784 for discussion on it.
+     */
+    // export function try(method: Function, ...args: any[]): Promise<any>; 
 
     export function fbind<T>(method: (...args: any[]) => IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
     export function fbind<T>(method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => Promise<T>;
