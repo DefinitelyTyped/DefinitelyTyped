@@ -2422,8 +2422,8 @@ declare module chrome.webRequest {
     }
 
     interface WebRequestAuthRequiredEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]) => void): void;
-        removeListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void): void;
+        addListener(callback: (details: OnAuthRequiredDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        removeListener(callback: (details: OnAuthRequiredDetails) => BlockingResponse) : void;
     }
 
     interface WebRequestBeforeSendHeadersEvent extends chrome.events.Event { 
