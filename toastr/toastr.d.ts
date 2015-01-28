@@ -114,6 +114,11 @@ interface ToastrOptions {
 	**/
 	newestOnTop?: boolean;
 
+    /**
+     * Rather than having identical toasts stack, set the preventDuplicates property to true. Duplicates are matched to the previous toast based on their message content.
+     */
+    preventDuplicates?: boolean;
+
 	/**
 	* Function to execute on toast click
 	*/
