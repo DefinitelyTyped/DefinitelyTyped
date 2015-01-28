@@ -10,7 +10,7 @@
 ////////////////////
 declare module chrome.alarms {
     interface AlarmCreateInfo {
-        delayInMinutes?: number;ad
+        delayInMinutes?: number;
         periodInMinutes?: number;
         when?: number;
     }
