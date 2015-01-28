@@ -1,4 +1,4 @@
-/// <reference path="balanced.d.ts" />
+/// <reference path="balanced.js.d.ts" />
 
 import balancedReq = require('balanced');
 
