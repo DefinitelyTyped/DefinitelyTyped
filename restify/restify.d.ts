@@ -194,6 +194,8 @@ declare module "restify" {
   export class RequestThrottledError { constructor(message: any); }
   export class ResourceNotFoundError { constructor(message: any); }
   export class WrongAcceptError { constructor(message: any); }
+  export class UnsupportedMediaTypeError { constructor(message: any); }
+  export class RequestTimeoutError { constructor(message: any); }
 
   export function acceptParser(parser: any): RequestHandler;
   export function authorizationParser(): RequestHandler;
