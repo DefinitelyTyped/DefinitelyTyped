@@ -261,7 +261,7 @@ declare module Marionette {
          * Regions that are attached to the document when you execute show are 
          * special in that the views that they show will also become attached 
          * to the document. These regions fire a pair of triggerMethods on all 
-         * of the views that are about to be attached – even the nested ones. 
+         * of the views that are about to be attached ï¿½ even the nested ones. 
          * This can cause a performance issue if you're rendering hundreds or 
          * thousands of views at once.
          * If you think these events might be causing some lag in your app, you 
@@ -274,7 +274,7 @@ declare module Marionette {
          * Regions that are attached to the document when you execute show are 
          * special in that the views that they show will also become attached 
          * to the document. These regions fire a pair of triggerMethods on all 
-         * of the views that are about to be attached – even the nested ones. 
+         * of the views that are about to be attached ï¿½ even the nested ones. 
          * This can cause a performance issue if you're rendering hundreds or 
          * thousands of views at once.
          * If you think these events might be causing some lag in your app, you 
@@ -676,6 +676,12 @@ declare module Marionette {
          * Defines behaviors attached to this view. 
          */
         behaviors: any;
+
+        /**
+         * Defines `triggers` to forward DOM events to view
+         * events. `triggers: {"click .foo": "do:foo"}`
+         */
+        triggers:{[key:string]:any};
 
         /**
          * A configuration hash for models. The left side is the event on 
