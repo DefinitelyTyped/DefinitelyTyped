@@ -1,4 +1,4 @@
-// Type definitions for es6-promise
+﻿// Type definitions for es6-promise
 // Project: https://github.com/jakearchibald/ES6-Promise
 // Definitions by: François de Campredon <https://github.com/fdecampredon/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -96,25 +96,6 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onRejected called when/if "promise" rejects
 	 */
 	then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): Promise<U>;
-
-	/**
-	 * Sugar for promise.then(undefined, onRejected)
-	 * 
-	 * @param onRejected called when/if "promise" rejects
-	 */
-	catch<U>(onRejected?: (error: any) => Thenable<U>): Promise<U>;
-	/**
-	 * Sugar for promise.then(undefined, onRejected)
-	 * 
-	 * @param onRejected called when/if "promise" rejects
-	 */
-	catch<U>(onRejected?: (error: any) => U): Promise<U>;
-	/**
-	 * Sugar for promise.then(undefined, onRejected)
-	 *
-	 * @param onRejected called when/if "promise" rejects
-	 */
-	catch<U>(onRejected?: (error: any) => void): Promise<U>;
 }
 
 declare module Promise {
@@ -138,12 +119,12 @@ declare module Promise {
 	 * the array passed to all can be a mixture of promise-like objects and other objects. 
 	 * The fulfillment value is an array (in order) of fulfillment values. The rejection value is the first rejection value.
 	 */
-	function all<R>(promises: Promise<R>[]): Promise<R[]>;
+	function all<R>(promises: Thenable<R>[]): Promise<R[]>;
 	
 	/**
 	 * Make a Promise that fulfills when any item fulfills, and rejects if any item rejects.
 	 */
-	function race<R>(promises: Promise<R>[]): Promise<R>;
+	function race<R>(promises: Thenable<R>[]): Promise<R>;
 }
 
 declare module 'es6-promise' {
