@@ -72,6 +72,10 @@ interface Document {
     removeEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
 }
 
+interface Window {
+  cordova:Cordova;
+}
+
 // cordova/argscheck module
 interface ArgsCheck {
     checkArgs(argsSpec: string, functionName: string, args: any[], callee?: any): void;
