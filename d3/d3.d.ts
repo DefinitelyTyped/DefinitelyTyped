@@ -242,7 +242,7 @@ declare module D3 {
         * @param low Lower bound index of array subset
         * @param high Upper bound index of array subset
         */
-        shuffle<T>(arr: T[], low?: number, hight?: number): T[];
+        shuffle<T>(arr: T[], low?: number, high?: number): T[];
         /**
         * Reorder an array of elements according to an array of indexes
         *
@@ -585,14 +585,14 @@ declare module D3 {
         functor<R,T>(value: (p : R) => T): (p : R) => T;
         functor<T>(value: T): (p : any) => T;
 
-        map:{
-        	<T>():Map<T>;
-        	<T>(object: {[key: string]: T; }) : Map<T>;
-        	<T>(object: Array<T>, accessor?: (d: T, index?: number) => T) : Map<T>;
+        map: {
+            <T>():Map<T>;
+            <T>(object: {[key: string]: T; }) : Map<T>;
+            <T>(object: Array<T>, accessor?: (d: T, index?: number) => T) : Map<T>;
         }
-        set:{
-        	<T>():Set<T>;
-        	<T>(array: T[]):Set<T>;
+        set: {
+            <T>():Set<T>;
+            <T>(array: T[]):Set<T>;
         }
         dispatch(...types: string[]): Dispatch;
         rebind(target: any, source: any, ...names: any[]): any;
@@ -1005,8 +1005,8 @@ declare module D3 {
                 (elements: EventTarget[]): Transition;
             }
             each: {
-            	(type: (data: any, index: number) => any) : Transition;
-            	(type: string, eachFunction: (data: any, index: number) => any) : Transition;
+                (eachFunction: (data: any, index: number) => any) : Transition;
+                (type: string, eachFunction: (data: any, index: number) => any) : Transition;
             }
             transition: () => Transition;
             ease: (value: string, ...arrs: any[]) => Transition;
@@ -1270,9 +1270,9 @@ declare module D3 {
                 (angle: (d : any, i: number) => number): PieLayout;
             };
             padAngle:{
-            	():number;
-            	(angle:number):PieLayout;
-            	(angle:()=>number):PieLayout;
+                ():number;
+                (angle:number):PieLayout;
+                (angle:()=>number):PieLayout;
                 (angle: (d : any) => number): PieLayout
                 (angle: (d : any, i: number) => number): PieLayout;
             }
@@ -3389,7 +3389,7 @@ declare module D3 {
             add(point: Point): void;
             visit(callback: any): void;
             /**
-            * the point is a Array of number with two element : [x, y]
+            * The point is a Array of number with two elements : [x, y]
             */
             find(point: number[]):Point;
         }
