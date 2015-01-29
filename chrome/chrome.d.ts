@@ -2269,7 +2269,7 @@ declare module chrome.webRequest {
         file?: string;
     }
 
-    interface CallbackDetails {
+    interface WebRequestCallbackDetails {
         requestId: string;
         url: string;		
         method: string;
@@ -2280,7 +2280,7 @@ declare module chrome.webRequest {
         type: string;
     }
 
-    interface OnCompletedDetails extends CallbackDetails {
+    interface OnCompletedDetails extends WebRequestCallbackDetails {
         ip?: string;
         statusLine?: string;
         responseHeaders?: HttpHeader[];
@@ -2288,18 +2288,15 @@ declare module chrome.webRequest {
         statusCode: number;
     }
 
-    interface OnHeadersReceivedDetails extends CallbackDetails {
-        parentFrameId: number;
-        timeStamp: number;
+    interface OnHeadersReceivedDetails extends WebRequestCallbackDetails {
         statusLine?: string;
         responseHeaders?: HttpHeader[];
     }
 
-    interface OnBeforeRedirectDetails extends CallbackDetails {
+    interface OnBeforeRedirectDetails extends WebRequestCallbackDetails {
         ip?: string;
         statusLine?: string;
         responseHeaders?: HttpHeader[];
-        parentFrameId: number;
         fromCache: boolean;
         redirectUrl: string;
         statusCode: number;
@@ -2310,7 +2307,7 @@ declare module chrome.webRequest {
         port: number;
     }
 
-    interface OnAuthRequiredDetails extends CallbackDetails {
+    interface OnAuthRequiredDetails extends WebRequestCallbackDetails {
         statusLine?: string;
         challenger: Challenger;
         responseHeaders?: HttpHeader[];
@@ -2319,17 +2316,17 @@ declare module chrome.webRequest {
         scheme: string;
     }
 
-    interface OnBeforeSendHeadersDetails extends CallbackDetails {
+    interface OnBeforeSendHeadersDetails extends WebRequestCallbackDetails {
         requestHeaders?: HttpHeader[];
     }
 
-    interface OnErrorOccurredDetails extends CallbackDetails {
+    interface OnErrorOccurredDetails extends WebRequestCallbackDetails {
         ip?: string;
         fromCache: boolean;
         error: string;
     }
 
-    interface OnResponseStartedDetails extends CallbackDetails {
+    interface OnResponseStartedDetails extends WebRequestCallbackDetails {
         ip?: string;
         statusLine?: string;
         responseHeaders?: HttpHeader[];
@@ -2337,7 +2334,7 @@ declare module chrome.webRequest {
         statusCode: number;
     }
 
-    interface OnSendHeadersDetails extends CallbackDetails {
+    interface OnSendHeadersDetails extends WebRequestCallbackDetails {
         requestHeaders?: HttpHeader[];
     }
 
@@ -2347,8 +2344,8 @@ declare module chrome.webRequest {
         formData?: Object;
     }
 
-    interface OnBeforeRequestDetails extends CallbackDetails {        
-        requestBody: RequestBody;
+    interface OnBeforeRequestDetails extends WebRequestCallbackDetails {        
+        requestBody?: RequestBody;
     }
 
     interface WebRequestCompletedEvent extends chrome.events.Event { 
