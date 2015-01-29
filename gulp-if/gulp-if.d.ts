@@ -6,6 +6,9 @@
 /// <reference path="../node/node.d.ts"/>
 
 declare module "gulp-if" {
-    function gulpIf(condition: boolean, stream: NodeJS.ReadWriteStream, elseStream?: NodeJS.ReadWriteStream): NodeJS.ReadWriteStream;
+    function gulpIf(
+        condition: boolean,
+        stream: NodeJS.ReadWriteStream,
+        elseStream?: NodeJS.ReadWriteStream): NodeJS.ReadWriteStream;
     export = gulpIf;
 }

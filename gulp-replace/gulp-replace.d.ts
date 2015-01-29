@@ -7,7 +7,7 @@
 
 declare module "gulp-replace" {
     interface Options {
-        skipBinary: boolean;
+        skipBinary?: boolean;
     }
 
     function replace(pattern: string, replacement: string, opts?: Options): NodeJS.ReadWriteStream;
