@@ -13,7 +13,7 @@ declare module "gulp-tslint" {
 
     module GulpTsLint {
         interface Options {
-            configuration?: Object;
+            configuration?: {};
             rulesDirectory?: string;
             emitError?: boolean;
         }

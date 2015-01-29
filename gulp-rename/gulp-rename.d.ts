@@ -6,15 +6,19 @@
 /// <reference path="../node/node.d.ts"/>
 
 declare module "gulp-rename" {
-    interface Options {
+    interface ParsedPath {
         dirname?: string;
         basename?: string;
-        prefix?: string;
-        suffix?: string;
         extname?: string;
     }
+
+    interface Options extends ParsedPath {
+        prefix?: string;
+        suffix?: string;
+    }
+
     function rename(name: string): NodeJS.ReadWriteStream;
-    function rename(callback: (path: Options) => any): NodeJS.ReadWriteStream;
+    function rename(callback: (path: ParsedPath) => any): NodeJS.ReadWriteStream;
     function rename(opts: Options): NodeJS.ReadWriteStream;
     export = rename;
 }
