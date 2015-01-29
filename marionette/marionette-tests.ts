@@ -96,6 +96,7 @@ module Marionette.Tests {
 
       constructor() {
         super();
+        this.getOption<string>('foo');
         this.triggers = {
           'click .foo': 'bar'
         };
