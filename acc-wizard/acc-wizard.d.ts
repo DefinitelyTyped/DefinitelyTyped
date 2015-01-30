@@ -97,5 +97,5 @@ interface AccWizardOptions {
  * @version 1.0
  */
 interface JQuery {
-    accwizard(options: AccWizardOptions): void;
+    accwizard(options?: AccWizardOptions): void;
 }
