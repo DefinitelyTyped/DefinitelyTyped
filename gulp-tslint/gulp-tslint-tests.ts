@@ -45,3 +45,11 @@ gulp.task('tslint-json', function(){
         }))
         .pipe(tslint.report('prose'));;
 });
+
+gulp.task("lint", () => {
+      return gulp.src(["gulpfile.ts", "{src,test}/**/*.ts"])
+          .pipe(tslint())
+          .pipe(tslint.report("verbose", {
+              emitError: true
+          }));
+});
