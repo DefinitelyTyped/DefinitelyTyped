@@ -19,10 +19,11 @@ declare module ARHS {
 
         /** 
          * @summary Convert the passed BBAN to an IBAN for this country specification.
-         * @param {string} bban The BBAN to convert to IBAN 
-         * @returns {string} The IBAN 
+         * @param {string} countryCode The country of the BBAN.
+         * @param {string} bban The BBAN to convert to IBAN.
+         * @returns {string} The IBAN.
          */ 
-        fromBBAN(bban: string): string;
+        fromBBAN(countryCode: string, bban: string): string;
 
         /**
          * @summary Check if the passed iban is valid according to this specification.
@@ -33,10 +34,11 @@ declare module ARHS {
 
         /**
          * @summary Check of the passed BBAN is valid.
-         * @param {string} bban The BBAN to validate
+         * @param {string} countryCode The country of the BBAN.
+         * @param {string} bban The BBAN to validate.
          * @returns {boolean} True if valid, false otherwise.
          */
-        isValidBBAN(bban: string): boolean;
+        isValidBBAN(countryCode: string, bban: string): boolean;
 
         /** 
          * @summary Returns the IBAN in a print format.
