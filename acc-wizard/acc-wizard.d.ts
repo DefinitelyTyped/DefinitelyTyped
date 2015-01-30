@@ -96,6 +96,6 @@ interface AccWizardOptions {
  * @author  Cyril Schumacher
  * @version 1.0
  */
-interface JQueryStatic {
+interface JQuery {
     accwizard(options: AccWizardOptions): void;
 }
