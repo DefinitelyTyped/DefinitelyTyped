@@ -33,6 +33,8 @@ declare module "gulp-tslint" {
         }
 
         export function report(reporter?: string): NodeJS.ReadWriteStream;
+        export function report(reporter: string, options?: Options): NodeJS.ReadWriteStream;
+        export function report(options?: Options): NodeJS.ReadWriteStream;
         export function report(reporter?: (output: Output[], file: vinyl, options: Options) => any): NodeJS.ReadWriteStream;
 
     }
