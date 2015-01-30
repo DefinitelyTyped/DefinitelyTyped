@@ -114,9 +114,9 @@ interface DropotronConfiguration {
     
     /**
      * @summary Opener class.
-     * @type {number}
+     * @type {string}
      */
-    openerClass: number;
+    openerClass: string;
     
     /**
      * @summary Parent jQuery object.

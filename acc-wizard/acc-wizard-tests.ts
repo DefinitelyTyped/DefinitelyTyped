@@ -11,7 +11,7 @@ function testBasic() {
 /**
  * @summary Test for "accwizard" with options.
  */
-function testBasic() {
+function testWithOptions() {
     var options: AccWizardOptions = {
         addButtons:     true,
         sidebar:        '.acc-wizard-sidebar',
