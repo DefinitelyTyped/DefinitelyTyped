@@ -92,6 +92,17 @@ module Marionette.Tests {
         }
     }
 
+    class MyBaseView extends Marionette.View<MyModel> {
+
+      constructor() {
+        super();
+        this.triggers = {
+          'click .foo': 'bar'
+        };
+      }
+
+    }
+
     class MyView extends Marionette.ItemView<MyModel> {
         behaviors: any;
 
