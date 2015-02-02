@@ -255,8 +255,8 @@ declare module ngData
         lastModified(resourceName:string, id?:string):number // timestamp
         lastModified(resourceName:string, id?:number):number // timestamp
 
-        lastModified(resourceName:string, id?:string):number // timestamp
-        lastModified(resourceName:string, id?:number):number // timestamp
+        lastSaved(resourceName:string, id?:string):number // timestamp
+        lastSaved(resourceName:string, id?:number):number // timestamp
 
         link<T>(resourceName:string, id:string, relations?:Array<string>):T;
         link<T>(resourceName:string, id:number, relations?:Array<string>):T;
