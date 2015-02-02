@@ -193,6 +193,7 @@ declare module jquery.flot {
     }
 
     interface axis extends axisOptions {
+        options: axisOptions;
         p2c(point: point):canvasPoint;
         c2p(canvasPoint: canvasPoint):point;
     }
@@ -213,6 +214,8 @@ declare module jquery.flot {
         shutdown(): void;
         getData(): dataSeries[];
         getAxes(): axes;
+        getXAxes(): axis[];
+        getYAxes(): axis[];
         getPlaceholder(): JQuery;
         getCanvas(): HTMLCanvasElement;
         getPlotOffset(): canvasPoint;
