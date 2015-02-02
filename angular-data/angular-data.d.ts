@@ -174,7 +174,22 @@ declare module ngData
 
     interface DSResourceConfiguration
     {
-
+        class: string;
+        endpoint: string;
+        name: string;
+        allowSimpleWhere: boolean;
+        baseUrl: string;
+        cacheResponse: boolean;
+        defaultAdapter: string;
+        eagerEject: boolean;
+        eagerInject: boolean;
+        events: string;
+        idAttribute: string;
+        keepChangeHistory: boolean;
+        notify: boolean;
+        resetHistoryOnInject: boolean;
+        upsert: boolean;
+        useClass: boolean;
         //TODO reverse engineer
     }
 
