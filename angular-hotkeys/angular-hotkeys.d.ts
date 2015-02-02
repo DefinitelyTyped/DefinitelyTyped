@@ -24,6 +24,8 @@ declare module ng.hotkeys {
 
         del(combo: string): void;
 
+        del(hotkeyObj: ng.hotkeys.Hotkey): void;
+
         get(combo: string): ng.hotkeys.Hotkey;
 
         toggleCheatSheet(): void;
