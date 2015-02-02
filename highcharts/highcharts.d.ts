@@ -990,6 +990,7 @@ interface HighchartsChartObject {
     addSeries(options: HighchartsSeriesOptions, redraw: boolean): HighchartsSeriesOptions;
     addSeries(options: HighchartsSeriesOptions, redraw: boolean, animation: boolean): HighchartsSeriesOptions;
     addSeries(options: HighchartsSeriesOptions, redraw: boolean, animation: HighchartsAnimation): HighchartsSeriesOptions;
+    addAxis(options: HighchartsAxisOptions): HighchartsAxisObject;
     container: HTMLElement;
     destroy(): void;
     exportChart(): void;
