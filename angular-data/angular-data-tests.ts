@@ -377,23 +377,23 @@ module AngularDataTests
                                    }
                                } );
 
-            DS.defineResource( 'user', {
-                computed: {
-                    // each function's argument list defines the fields
-                    // that the computed property depends on
-                    fullName: [
-                        'first', 'last', function (first:String, last:String) {
-                            return first + ' ' + last;
-                        }
-                    ],
-                    // shortand, use the array syntax above if you want
-                    // you computed properties to work after you've
-                    // minified your code
-                    initials: function (first:String, last:String) {
-                        return first.toUpperCase()[ 0 ] + '. ' + last.toUpperCase()[ 0 ] + '.';
-                    }
-                }
-            } );
+            //DS.defineResource( 'user', {
+            //    computed: {
+            //        // each function's argument list defines the fields
+            //        // that the computed property depends on
+            //        fullName: [
+            //            'first', 'last', function (first:String, last:String) {
+            //                return first + ' ' + last;
+            //            }
+            //        ],
+            //        // shortand, use the array syntax above if you want
+            //        // you computed properties to work after you've
+            //        // minified your code
+            //        initials: function (first:String, last:String) {
+            //            return first.toUpperCase()[ 0 ] + '. ' + last.toUpperCase()[ 0 ] + '.';
+            //        }
+            //    }
+            //} );
 
             var user2 = DS.inject<TestResourceComputedProperties>( 'user', {
                 id: 1,

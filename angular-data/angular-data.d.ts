@@ -235,12 +235,12 @@ declare module ngData {
 
         findAll(params?:DSFilterParams, options?:DSFindOptions):ng.IPromise<Array<T>>;
 
-        loadRelations(id:string, relations?:string, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations(id:number, relations?:string, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations(instance:Object, relations?:string, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations(id:string, relations?:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations(id:number, relations?:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations(instance:Object, relations?:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations(id:string, relations:string, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations(id:number, relations:string, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations(instance:Object, relations:string, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations(id:string, relations:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations(id:number, relations:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations(instance:Object, relations:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
 
         refresh(id:string, options?:DSFindOptions):ng.IPromise<T>;
         refresh(id:number, options?:DSFindOptions):ng.IPromise<T>;
@@ -289,7 +289,6 @@ declare module ngData {
 
         defineResource<T>(resourceName:string):DSResourceDefinition<T>
         defineResource<T>(definition:DSResourceDefinitionConfiguration):DSResourceDefinition<T>
-        defineResource<T>(resourceName:string, definition:DSResourceDefinitionConfiguration):DSResourceDefinition<T>
 
         digest():void;
 
@@ -344,12 +343,12 @@ declare module ngData {
 
         findAll<T>(resourceName:string, params?:DSFilterParams, options?:DSFindOptions):ng.IPromise<Array<T>>;
 
-        loadRelations<T>(resourceName:string, id:string, relations?:string, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations<T>(resourceName:string, id:number, relations?:string, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations<T>(resourceName:string, instance:Object, relations?:string, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations<T>(resourceName:string, id:string, relations?:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations<T>(resourceName:string, id:number, relations?:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
-        loadRelations<T>(resourceName:string, instance:Object, relations?:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations<T>(resourceName:string, id:string, relations:string, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations<T>(resourceName:string, id:number, relations:string, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations<T>(resourceName:string, instance:Object, relations:string, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations<T>(resourceName:string, id:string, relations:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations<T>(resourceName:string, id:number, relations:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
+        loadRelations<T>(resourceName:string, instance:Object, relations:Array<string>, options?:DSFindOptions):ng.IPromise<T>;
 
         refresh<T>(resourceName:string, id:string, options?:DSFindOptions):ng.IPromise<T>;
         refresh<T>(resourceName:string, id:number, options?:DSFindOptions):ng.IPromise<T>;
