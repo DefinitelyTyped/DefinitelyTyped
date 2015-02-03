@@ -3,6 +3,10 @@
 // Definitions by: SaschaNaz <https://github.com/saschanaz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Spec version: 19 October 2012
+// Errata version: 6 June 2014
+// Corrected unofficial spec version: 6 June 2014
+
 interface SpeechRecognition extends EventTarget {
     grammars: SpeechGrammarList;
     lang: string;
@@ -15,16 +19,16 @@ interface SpeechRecognition extends EventTarget {
     stop(): void;
     abort(): void;
 
-    onaudiostart: (ev: SpeechRecognitionEvent) => any;
-    onsoundstart: (ev: SpeechRecognitionEvent) => any;
-    onspeechstart: (ev: SpeechRecognitionEvent) => any;
-    onspeechend: (ev: SpeechRecognitionEvent) => any;
-    onsoundend: (ev: SpeechRecognitionEvent) => any;
+    onaudiostart: (ev: Event) => any;
+    onsoundstart: (ev: Event) => any;
+    onspeechstart: (ev: Event) => any;
+    onspeechend: (ev: Event) => any;
+    onsoundend: (ev: Event) => any;
     onresult: (ev: SpeechRecognitionEvent) => any;
     onnomatch: (ev: SpeechRecognitionEvent) => any;
     onerror: (ev: SpeechRecognitionError) => any;
-    onstart: (ev: SpeechRecognitionEvent) => any;
-    onend: (ev: SpeechRecognitionEvent) => any;
+    onstart: (ev: Event) => any;
+    onend: (ev: Event) => any;
 }
 interface SpeechRecognitionStatic {
     prototype: SpeechRecognition;
@@ -47,7 +51,8 @@ interface SpeechRecognitionResult {
     length: number;
     item(index: number): SpeechRecognitionAlternative;
     [index: number]: SpeechRecognitionAlternative;
-    final: boolean;
+    /* Errata 02 */
+    isFinal: boolean;
 }
 
 interface SpeechRecognitionResultList {
@@ -88,16 +93,21 @@ interface SpeechGrammarListStatic {
 declare var SpeechGrammarList: SpeechGrammarListStatic;
 declare var webkitSpeechGrammarList: SpeechGrammarListStatic;
 
-interface SpeechSynthesis {
+/* Errata 08 */
+interface SpeechSynthesis extends EventTarget {
     pending: boolean;
     speaking: boolean;
     paused: boolean;
+
+    /* Errata 11 */
+    onvoiceschanged: (ev: Event) => any;
 
     speak(utterance: SpeechSynthesisUtterance): void;
     cancel(): void;
     pause(): void;
     resume(): void;
-    getVoices(): SpeechSynthesisVoiceList;
+    /* Errata 05 */
+    getVoices(): SpeechSynthesisVoice[];
 }
 
 interface SpeechSynthesisGetter {
@@ -110,14 +120,16 @@ declare var speechSynthesis: SpeechSynthesis;
 interface SpeechSynthesisUtterance extends EventTarget {
     text: string;
     lang: string;
-    voiceURI: string;
+    /* Errata 07 */
+    voice: SpeechSynthesisVoice;
     volume: number;
     rate: number;
     pitch: number;
 
     onstart: (ev: SpeechSynthesisEvent) => any;
     onend: (ev: SpeechSynthesisEvent) => any;
-    onerror: (ev: ErrorEvent) => any;
+    /* Errata 12 */
+    onerror: (ev: SpeechSynthesisErrorEvent) => any;
     onpause: (ev: SpeechSynthesisEvent) => any;
     onresume: (ev: SpeechSynthesisEvent) => any;
     onmark: (ev: SpeechSynthesisEvent) => any;
@@ -131,9 +143,16 @@ interface SpeechSynthesisUtteranceStatic {
 declare var SpeechSynthesisUtterance: SpeechSynthesisUtteranceStatic;
 
 interface SpeechSynthesisEvent extends Event {
+    /* Errata 08 */
+    utterance: SpeechSynthesisUtterance;
     charIndex: number;
     elapsedTime: number;
     name: string;
+}
+
+/* Errata 12 */
+interface SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
+    error: string;
 }
 
 interface SpeechSynthesisVoice {
@@ -142,10 +161,4 @@ interface SpeechSynthesisVoice {
     lang: string;
     localService: boolean;
     default: boolean;
-}
-
-interface SpeechSynthesisVoiceList {
-    length: number;
-    item(index: number): SpeechSynthesisVoice;
-    [index: number]: SpeechSynthesisVoice;
 }
