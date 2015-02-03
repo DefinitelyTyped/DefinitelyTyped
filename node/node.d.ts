@@ -273,6 +273,7 @@ declare module "http" {
     import events = require("events");
     import net = require("net");
     import stream = require("stream");
+    import tls = require("tls");
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
@@ -291,7 +292,7 @@ declare module "http" {
         setEncoding(encoding?: string): void;
         pause(): void;
         resume(): void;
-        connection: net.Socket;
+        connection: net.Socket|tls.ClearTextStream;
     }
     export interface ServerResponse extends events.EventEmitter, stream.Writable {
         // Extended base methods
