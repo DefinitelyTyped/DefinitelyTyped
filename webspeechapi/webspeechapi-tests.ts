@@ -44,7 +44,7 @@ declare var select: HTMLSelectElement;
 /*
 This example has some changes from the one in spec.
 `var i = resultIndex` -> `var i = event.resultIndex` (Recorded as Errata 16)
-`event.results.final` -> `event.results[i].final`
+`event.results.final` -> `event.results[i].isFinal` (Recorded as Errata 02)
 */
 declare var textarea: HTMLTextAreaElement;
 declare var button: HTMLButtonElement;
@@ -57,7 +57,7 @@ declare var button: HTMLButtonElement;
 
     recognition.onresult = function (event) {
         for (var i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].final) {
+            if (event.results[i].isFinal) {
                 textarea.value += event.results[i][0].transcript;
             }
         }
@@ -83,7 +83,8 @@ declare var button: HTMLButtonElement;
 // Example 4
 /*
 This example has a change from the one in spec.
-`recognition.interim = true;` -> `recognition.interimResults = true;` (Recorded as Errata 1)
+`recognition.interim = true;` -> `recognition.interimResults = true;` (Recorded as Errata 01)
+`event.results[i].final` -> `event.results[i].isFinal` (Recorded as Errata 02)
 */
 declare var button: HTMLButtonElement;
 declare var final_span: HTMLSpanElement;
@@ -100,7 +101,7 @@ declare var interim_span: HTMLSpanElement;
         var final = "";
         var interim = "";
         for (var i = 0; i < event.results.length; ++i) {
-            if (event.results[i].final) {
+            if (event.results[i].isFinal) {
                 final += event.results[i][0].transcript;
             } else {
                 interim += event.results[i][0].transcript;
@@ -135,7 +136,7 @@ declare var interim_span: HTMLSpanElement;
 // Example 1
 /*
 This example has a change from the one in spec.
-`SpeechSynthesisUtterance('Hello World')` -> `new SpeechSynthesisUtterance('Hello World')`
+`SpeechSynthesisUtterance('Hello World')` -> `new SpeechSynthesisUtterance('Hello World')` (Recorded as Errata 09)
 */
 () => {
     speechSynthesis.speak(new SpeechSynthesisUtterance('Hello World'));
