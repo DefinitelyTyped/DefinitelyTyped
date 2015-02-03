@@ -46,12 +46,14 @@ interface SpeechRecognitionAlternative {
 interface SpeechRecognitionResult {
     length: number;
     item(index: number): SpeechRecognitionAlternative;
+    [index: number]: SpeechRecognitionAlternative;
     final: boolean;
 }
 
 interface SpeechRecognitionResultList {
     length: number;
     item(index: number): SpeechRecognitionResult;
+    [index: number]: SpeechRecognitionResult;
 }
 
 interface SpeechRecognitionEvent extends Event {
@@ -75,6 +77,7 @@ declare var webkitSpeechGrammar: SpeechGrammarStatic;
 interface SpeechGrammarList {
     length: number;
     item(index: number): SpeechGrammar;
+    [index: number]: SpeechGrammar;
     addFromURI(src: string, weight: number): void;
     addFromString(string: string, weight: number): void;
 }
@@ -102,6 +105,7 @@ interface SpeechSynthesisGetter {
 }
 interface Window extends SpeechSynthesisGetter {
 }
+declare var speechSynthesis: SpeechSynthesis;
 
 interface SpeechSynthesisUtterance extends EventTarget {
     text: string;
@@ -143,4 +147,5 @@ interface SpeechSynthesisVoice {
 interface SpeechSynthesisVoiceList {
     length: number;
     item(index: number): SpeechSynthesisVoice;
+    [index: number]: SpeechSynthesisVoice;
 }
