@@ -167,7 +167,7 @@ declare class HammerInput
   center:HammerPoint;
 
   /** Source event object, type TouchEvent, MouseEvent or PointerEvent. */
-  srcEvent:Event;    // TODO: Update to Union Type (TouchEvent | MouseEvent | PointerEvent) if it lands in TS1.4
+  srcEvent:TouchEvent | MouseEvent | PointerEvent;
 
   /** Target that received the event. */
   target:HTMLElement;
