@@ -30,6 +30,13 @@ declare module WebCola{
         stop(): void;
     }
 
+    interface Constraint {
+        axis: string;
+        gap: number;
+        left: number;
+        right: number;
+    }
+
     interface FlowLayout{
         axis: string;
         minSeparation?: number;
