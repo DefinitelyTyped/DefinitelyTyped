@@ -1,9 +1,13 @@
 // Type definitions for Hammer.js 2.0.4
 // Project: http://hammerjs.github.io/
-// Definitions by: Philip Bulley <https://github.com/milkisevil/>
+// Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var Hammer:HammerStatic;
+
+declare module "Hammer" {
+    export = Hammer;
+}
 
 interface HammerStatic
 {
