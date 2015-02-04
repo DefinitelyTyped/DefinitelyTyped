@@ -41,9 +41,9 @@ declare module JQueryLazyLoad {
 
 interface JQuery {
     /**
-     * Show notify bar.
+     *  lazyloads all Elements
      *
-     * @param options notify bar options
+     * @param options LazyLoad options
      */
     lazyload(options?:JQueryLazyLoad.LazyLoadOptions): void;
 }
