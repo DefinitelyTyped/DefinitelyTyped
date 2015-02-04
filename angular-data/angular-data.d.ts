@@ -201,6 +201,7 @@ declare module ngData {
         hasChanges(id:number):boolean;
 
         inject(attrs:T, options?:DSInjectOptions):T;
+        inject(items:Array<T>, options?:DSInjectOptions):Array<T>;
 
         lastModified(id?:string):number // timestamp
         lastModified(id?:number):number // timestamp
@@ -309,6 +310,7 @@ declare module ngData {
         hasChanges(resourceName:string, id:number):boolean;
 
         inject<T>(resourceName:string, attrs:T, options?:DSInjectOptions):T;
+        inject<T>(resourceName:string, items:Array<T>, options?:DSInjectOptions):Array<T>;
 
         lastModified(resourceName:string, id?:string):number // timestamp
         lastModified(resourceName:string, id?:number):number // timestamp
