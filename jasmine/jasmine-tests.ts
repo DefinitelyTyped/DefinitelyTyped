@@ -455,7 +455,8 @@ describe("A spy", function () {
         foo.setBar(123);
         expect(bar).toEqual(123);
 
-        foo.setBar.and.stub();
+        foo.setBar.and.stub(1);
+        expect(bar).toEqual(1);
         bar = null;
 
         foo.setBar(123);
