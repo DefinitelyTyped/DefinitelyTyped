@@ -3,31 +3,32 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface Dict<T> { [key: string]: T; }
+interface Dictionary<T> { [key: string]: T; }
 
 interface ErrorCallback { (err?: Error): void; }
 interface AsyncResultCallback<T> { (err: Error, result: T): void; }
 interface AsyncResultArrayCallback<T> { (err: Error, results: T[]): void; }
-interface AsyncResultDictCallback<T> { (err: Error, results: Dict<T>): void; }
+interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): void; }
 interface AsyncTimesCallback<T> { (n: number, callback: AsyncResultArrayCallback<T>): void; }
 
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
 
-interface AsyncWorker<T> { (task: T, callback: Function): void; }
+interface AsyncWorker<T> { (task: T, callback: ErrorCallback): void; }
 
-interface AsyncTaskFn<T> { (callback: AsyncResultCallback<T>): void; }
+interface AsyncFunction<T> { (callback: AsyncResultCallback<T>): void; }
+interface AsyncVoidFunction { (callback: ErrorCallback): void; }
 
 interface AsyncQueue<T> {
     length(): number;
     concurrency: number;
     started: boolean;
     paused: boolean;
-    push(task: T, callback?: AsyncResultArrayCallback<T>): void;
-    push(task: T[], callback?: AsyncResultArrayCallback<T>): void;
-    unshift(task: T, callback?: AsyncResultArrayCallback<T>): void;
-    unshift(task: T[], callback?: AsyncResultArrayCallback<T>): void;
+    push(task: T, callback?: ErrorCallback): void;
+    push(task: T[], callback?: ErrorCallback): void;
+    unshift(task: T, callback?: ErrorCallback): void;
+    unshift(task: T[], callback?: ErrorCallback): void;
     saturated: () => any;
     empty: () => any;
     drain: () => any;
@@ -86,23 +87,23 @@ interface Async {
     concatSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R[]>, callback: AsyncResultArrayCallback<R>): any;
 
     // Control Flow
-    series<T>(tasks: Array<AsyncTaskFn<T>>, callback?: AsyncResultArrayCallback<T>): void;
-    series<T>(tasks: Dict<AsyncTaskFn<T>>, callback?: AsyncResultDictCallback<T>): void;
-    parallel<T>(tasks: Array<AsyncTaskFn<T>>, callback?: AsyncResultArrayCallback<T>): void;
-    parallel<T>(tasks: Dict<AsyncTaskFn<T>>, callback?: AsyncResultDictCallback<T>): void;
-    parallelLimit<T>(tasks: Array<AsyncTaskFn<T>>, limit: number, callback?: AsyncResultArrayCallback<T>): void;
-    parallelLimit<T>(tasks: Dict<AsyncTaskFn<T>>, limit: number, callback?: AsyncResultDictCallback<T>): void;
-    whilst(test: Function, fn: Function, callback: Function): void;
-    until(test: Function, fn: Function, callback: Function): void;
-    waterfall<T>(tasks: Function[], callback?: AsyncResultArrayCallback<T>): void;
-    waterfall<T>(tasks: Function, callback?: AsyncResultArrayCallback<T>): void;
+    series<T>(tasks: Array<AsyncFunction<T>>, callback?: AsyncResultArrayCallback<T>): void;
+    series<T>(tasks: Dictionary<AsyncFunction<T>>, callback?: AsyncResultObjectCallback<T>): void;
+    parallel<T>(tasks: Array<AsyncFunction<T>>, callback?: AsyncResultArrayCallback<T>): void;
+    parallel<T>(tasks: Dictionary<AsyncFunction<T>>, callback?: AsyncResultObjectCallback<T>): void;
+    parallelLimit<T>(tasks: Array<AsyncFunction<T>>, limit: number, callback?: AsyncResultArrayCallback<T>): void;
+    parallelLimit<T>(tasks: Dictionary<AsyncFunction<T>>, limit: number, callback?: AsyncResultObjectCallback<T>): void;
+    whilst(test: () => boolean, fn: AsyncVoidFunction, callback: (err: any) => void): void;
+    doWhilst(fn: AsyncVoidFunction, test: () => boolean, callback: (err: any) => void): void;
+    until(test: () => boolean, fn: AsyncVoidFunction, callback: (err: any) => void): void;
+    doUntil(fn: AsyncVoidFunction, test: () => boolean, callback: (err: any) => void): void;
+    waterfall(tasks: Function[], callback?: AsyncResultArrayCallback<any>): void;
     queue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncQueue<T>;
     priorityQueue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncPriorityQueue<T>;
-    // auto(tasks: any[], callback?: AsyncResultArrayCallback<T>): void;
     auto(tasks: any, callback?: AsyncResultArrayCallback<any>): void;
     iterator(tasks: Function[]): Function;
-    apply<T>(fn: Function, ...arguments: any[]): AsyncTaskFn<T>;
-    nextTick<T>(callback: Function): void;
+    apply(fn: Function, ...arguments: any[]): AsyncFunction<any>;
+    nextTick(callback: Function): void;
 
     times<T> (n: number, callback: AsyncTimesCallback<T>): void;
     timesSeries<T> (n: number, callback: AsyncTimesCallback<T>): void;
