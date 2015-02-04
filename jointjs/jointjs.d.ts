@@ -40,6 +40,7 @@ declare module joint {
         }
 
         class Element extends Cell {
+            wrapper : any;
             position(x: number, y: number): Element;
             translate(tx: number, ty?: number): Element;
             resize(width: number, height: number): Element;
