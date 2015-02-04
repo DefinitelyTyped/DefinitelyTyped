@@ -714,6 +714,22 @@ describe("Asynchronous specs", function () {
     });
 });
 
+describe("Fail", function () {
+
+  it("should fail test when called without arguments", function () {
+    fail();
+  });
+
+  it("should fail test when called with a fail message", function () {
+    fail("The test failed");
+  });
+
+  it("should fail test when called an error", function () {
+    fail(new Error("The test failed with this error"));
+  });
+
+});
+
 (() => {
     // from boot.js
     var env = jasmine.getEnv();
