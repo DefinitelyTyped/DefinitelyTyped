@@ -9,27 +9,27 @@
 interface OrbitOptions {
     animation?: string;
     animationSpeed?: number;
-    timer?: bool;
-    resetTimerOnClick?: bool;
+    timer?: boolean;
+    resetTimerOnClick?: boolean;
     advanceSpeed?: number;
-    pauseOnHover?: bool;
-    startClockOnMouseOut?: bool;
+    pauseOnHover?: boolean;
+    startClockOnMouseOut?: boolean;
     startClockOnMouseOutAfter?: number;
     directionalNav?: number;
     captions?: number;
     captionAnimation?: string;
     captionAnimationSpeed?: number;
-    bullets?: bool;
-    bulletThumbs?: bool;
+    bullets?: boolean;
+    bulletThumbs?: boolean;
     bulletThumbLocation?: string;
     afterSlideChange?: () => void;
-    fluid?: bool;
+    fluid?: boolean;
 }
 
 interface RevealOptions {
     animation?: string;
     animationSpeed?: number;
-    closeOnBackgroundClick?: bool;
+    closeOnBackgroundClick?: boolean;
     dismissModalClass?: string;
     /**
     * The class of the modals background.
@@ -65,14 +65,14 @@ interface JoyrideOptions {
     nubPosition?: string;
     scrollSpeed?: number;
     timer?: number;
-    startTimerOnClick?: bool;
-    nextButton?: bool;
+    startTimerOnClick?: boolean;
+    nextButton?: boolean;
     tipAnimation?: string;
     pauseAfter?: number[];
     tipAnimationFadeSpeed?: number;
-    cookieMonster?: bool;
+    cookieMonster?: boolean;
     cookieName?: string;
-    cookieDomain?: bool;
+    cookieDomain?: boolean;
     tipContainer?: string;
     postRideCallback?: () => void;
     postStepCallback?: () => void;

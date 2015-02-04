@@ -1,4 +1,4 @@
-﻿// Type definitions for typescript.bgiframe 1.0
+﻿// Type definitions for bgiframe 1.0
 // Project: https://github.com/sumegizoltan/BgiFrame
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,15 +12,15 @@
  *       Copyright (c) 2013 Brandon Aaron (http://brandonaaron.net)
  */
 
-module BgiFrame {
+declare module BgiFrame {
     interface ISettings {
         top: string;
         left: string;
         width: string;
         height: string;
-        opacity: bool;
+        opacity: boolean;
         src: string;
-        conditional: bool;
+        conditional: boolean;
     }
 
     interface IBgiframe {

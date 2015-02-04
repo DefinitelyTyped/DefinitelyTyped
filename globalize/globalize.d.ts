@@ -88,9 +88,10 @@ interface GlobalizeCulture {
     name: string;
     englishName: string;
     nativeName: string;
-    isRTL: bool;
+    isRTL: boolean;
     language: string;
     numberFormat: GlobalizeNumberFormat;
+    calendar: GlobalizeCalendar;
     calendars: GlobalizeCalendars;
     messages: any;
 }
@@ -100,21 +101,25 @@ interface GlobalizeCultures {
 
 interface GlobalizeStatic {
     cultures: GlobalizeCultures;
-    init(cultureSelector: string);
+    init(cultureSelector: string): GlobalizeStatic;
     cultureSelector: string;
 
     culture(): GlobalizeCulture;
     culture(cultureSelector: string): GlobalizeCulture;
     culture(cultureSelector: string[]): GlobalizeCulture;
 
-    addCultureInfo(cultureName, baseCultureName, info? );
-    findClosestCulture(cultureSelector: string);
-    format(value, format, cultureSelector? );
-    localize(key, cultureSelector?);
+    addCultureInfo(cultureName: string, baseCultureName: string, info: Object): void;
+    addCultureInfo(cultureName: string, info: Object): void;
+    addCultureInfo(info: Object): void;
+    findClosestCulture(cultureSelector: string): GlobalizeStatic;
+    format(value: number, format: string, cultureSelector?: string): string;
+    format(value: Date, format: string, cultureSelector?: string): string;
+    localize(key: string, cultureSelector?: string): string;
 
-    parseDate(value: string, formats? , cultureSelector?: string): Date;
-    parseInt(value: string, radix? , cultureSelector?: string): number;
-    parseFloat(value: string, radix? , cultureSelector?: string): number;
+    parseDate(value: string, format?: string, cultureSelector?: string): Date;
+    parseDate(value: string, formats?: string[], cultureSelector?: string): Date;
+    parseInt(value: string, radix?: number, cultureSelector?: string): number;
+    parseFloat(value: string, radix?: number, cultureSelector?: string): number;
 }
 
 declare var Globalize: GlobalizeStatic;

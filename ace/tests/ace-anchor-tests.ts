@@ -1,6 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var exports = {
 
     "test create anchor" : function() {
         var doc = new AceAjax.Document("juhu");

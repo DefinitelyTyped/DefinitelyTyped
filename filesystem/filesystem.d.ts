@@ -1,4 +1,4 @@
-// Type Definitions for File API: Directories and System (File System API)
+// Type definitions for File System API
 // Project: http://www.w3.org/TR/file-system-api/
 // Definitions by: Kon <http://phyzkit.net/> 
 // Definitions: https://github.com/borisyankov/DefinitelyTyped 
@@ -88,12 +88,12 @@ interface Flags {
     /**
      * Used to indicate that the user wants to create a file or directory if it was not previously there.
      */
-    create?:bool;
+    create?:boolean;
 
     /**
      * By itself, exclusive must have no effect. Used with create, it must cause getFile and getDirectory to fail if the target path already exists.
      */
-    exclusive?:bool;
+    exclusive?:boolean;
 }
 
 /** 
@@ -110,7 +110,7 @@ interface FileSystem{
      * The root directory of the file system.
      * @readonly
      */
-    root:any;
+    root: DirectoryEntry;
 }
 
 interface Entry {
@@ -118,12 +118,12 @@ interface Entry {
     /**
      * Entry is a file.
      */
-    isFile:bool;
+    isFile:boolean;
 
     /**
      * Entry is a directory.
      */
-    isDirectory:bool;
+    isDirectory:boolean;
 
     /**
      * Look up metadata about this entry.
@@ -373,13 +373,13 @@ interface EntrySync{
      * EntrySync is a file.
      * @readonly
      */
-    isFile:bool;
+    isFile:boolean;
 
     /**
      * EntrySync is a directory.
      * @readonly
      */
-    isDirectory:bool;
+    isDirectory:boolean;
 
     /**
      * Look up metadata about this entry.

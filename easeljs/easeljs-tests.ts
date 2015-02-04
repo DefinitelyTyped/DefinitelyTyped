@@ -25,18 +25,18 @@ function test_animation() {
         "images": ["./assets/runningGrant.png"]
     });
 
-    ss.getAnimation("run").frequency = 2;
+    ss.getAnimation("run").speed = 2;
     ss.getAnimation("run").next = "jump";
     ss.getAnimation("jump").next = "run";
 
-    var bitmapAnimation = new createjs.BitmapAnimation(ss);
-    bitmapAnimation.scaleY = bitmapAnimation.scaleX = .4;
+    var sprite = new createjs.Sprite(ss);
+    sprite.scaleY = sprite.scaleX = .4;
 
-    bitmapAnimation.gotoAndPlay("run");
+    sprite.gotoAndPlay("run");
 
     createjs.Ticker.setFPS(60);
-    createjs.Ticker.addListener(stage);
-    stage.addChild(bitmapAnimation);
+    createjs.Ticker.addEventListener('tick', stage);
+    stage.addChild(sprite);
 }
 
 function test_graphics() {
@@ -53,4 +53,36 @@ function test_graphics() {
 
     var myGraphics: createjs.Graphics;
     myGraphics.beginStroke("#F00").beginFill("#00F").drawRect(20, 20, 100, 50).draw(myContext2D);
+}
+
+function colorMatrixTest() {
+    var shape = new createjs.Shape().set({ x: 100, y: 100 });
+    shape.graphics.beginFill("#ff0000").drawCircle(0, 0, 50);
+
+    var matrix = new createjs.ColorMatrix().adjustHue(180).adjustSaturation(100);
+    shape.filters = [
+        new createjs.ColorMatrixFilter(matrix)
+    ];
+
+    shape.cache(-50, -50, 100, 100);
+}
+
+function test_canvas_tick() {
+    var canvas = <HTMLCanvasElement>document.getElementById('canvas');
+    var stage = new createjs.Stage(canvas);
+    var stage = createjs.Ticker.addEventListener("tick", stage);
+}
+
+function matrixDecompose() {
+    var matrix = new createjs.Matrix2D();
+    var shape = new createjs.Shape();
+    var transform = matrix.decompose(shape);
+    var transformData = matrix.decompose();
+    shape.x = transformData.x;
+    shape.y = transformData.y;
+    shape.scaleX = transformData.scaleX;
+    shape.scaleY = transformData.scaleY;
+    shape.skewX = transformData.skewX;
+    shape.skewY = transformData.skewY;
+    shape.rotation = transformData.rotation;
 }

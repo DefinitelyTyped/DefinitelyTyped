@@ -21,7 +21,7 @@ interface ScrollToOptions {
     /**
     * If true, the margin of the target element will be deducted from the final position.
     */
-    margin?: bool;
+    margin?: boolean;
     /**
     * Add/deduct from the end position. 
     * One number for both axes or { top:x, left:y }.
@@ -36,7 +36,7 @@ interface ScrollToOptions {
     * If true, and both axis are given.
     * The 2nd axis will only be animated after the first one ends.
     */
-    queue?: bool;
+    queue?: boolean;
     /**
     * Function to be called after the scrolling ends. 
     */

@@ -1,7 +1,7 @@
 // Tests for Video.js API
 /// <reference path="videojs.d.ts" />
 
-_V_("example_video_1").ready(function(){
+videojs("example_video_1").ready(function(){
 
 	var myPlayer:VideoJSPlayer = this;
 
@@ -10,8 +10,8 @@ _V_("example_video_1").ready(function(){
 
 	myPlayer.pause();
 
-	var isPaused: bool = myPlayer.paused();
-	var isPlaying: bool = !myPlayer.paused();
+	var isPaused: boolean = myPlayer.paused();
+	var isPlaying: boolean = !myPlayer.paused();
 
 	myPlayer.src("http://www.example.com/path/to/video.mp4");
 
@@ -68,7 +68,6 @@ _V_("example_video_1").ready(function(){
 		var myPlayer: VideoJSPlayer = this;
 		// Do something when the event is fired
 	};
-	myPlayer.addEvent("volumechange", myFunc);
-	myPlayer.removeEvent("volumechange", myFunc);
-
+	//myPlayer.addEvent("volumechange", myFunc);
+	//myPlayer.removeEvent("volumechange", myFunc);
 });
