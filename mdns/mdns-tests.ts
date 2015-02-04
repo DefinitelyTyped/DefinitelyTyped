@@ -2,7 +2,7 @@
  * Created by stefansteinhart on 30.01.15.
  */
 
-/// <reference path="node_mdns.d.ts" />
+/// <reference path="mdns.d.ts" />
 
 var mdns = require('mdns')
 

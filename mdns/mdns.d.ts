@@ -5,11 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-// interface for extending with custom resolvers
-interface MDNSResolverSequenceTasks {
-
-}
-
 declare module MDNS {
 
     // --- Error ---
@@ -96,6 +91,11 @@ declare module MDNS {
 
         fromJSON(serviceTypeIdentifier:{name:string; protocol:string; subtypes?:Array<string>}):ServiceType;
         fromJSON(serviceType:ServiceType):ServiceType;
+    }
+
+    // interface for extending with custom resolvers
+    interface MDNSResolverSequenceTasks {
+
     }
 
     interface DefaultResolverSequenceTasks extends MDNSResolverSequenceTasks {
