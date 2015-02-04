@@ -174,9 +174,11 @@ declare module ngData {
         bindOne(scope:ng.IScope, expr:string, id:string, cb?:(err:DSError, item:T)=>void): Function;
         bindOne(scope:ng.IScope, expr:string, id:number, cb?:(err:DSError, item:T)=>void): Function;
 
+        //TODO check return types and if generic applies here
         changeHistory(id?:string):Array<T>;
         changeHistory(id?:number):Array<T>;
 
+        //TODO check return types and if generic applies here
         changes(id:string, options?:DSChangeOptions):T;
         changes(id:number, options?:DSChangeOptions):T;
 
@@ -257,8 +259,7 @@ declare module ngData {
 
     interface DSResource {
 
-        //TODO reverse engineer
-        constructor:any;
+        //TODO reverse engineer needed?
     }
 
     // DS
@@ -276,9 +277,11 @@ declare module ngData {
         bindOne<T>(scope:ng.IScope, expr:string, resourceName:string, id:string, cb?:(err:DSError, item:T)=>void): Function;
         bindOne<T>(scope:ng.IScope, expr:string, resourceName:string, id:number, cb?:(err:DSError, item:T)=>void): Function;
 
+        //TODO check return types and if generic makes sense here
         changeHistory<T>(resourceName:string, id?:string):Array<T>;
         changeHistory<T>(resourceName:string, id?:number):Array<T>;
 
+        //TODO check return types and if generic makes sense here
         changes<T>(resourceName:string, id:string, options?:DSChangeOptions):T;
         changes<T>(resourceName:string, id:number, options?:DSChangeOptions):T;
 
@@ -448,7 +451,6 @@ declare module ngData {
         idAttribute: string;
         defaultAdapter: string;
         events: string;
-        //TODO possibly open this interface for extending because this is a customization point
         filter: (collection:Array<any>, resourceName:string, params:DSFilterParams, options:DSFilterOptions)=>Array<any>;
     }
 
