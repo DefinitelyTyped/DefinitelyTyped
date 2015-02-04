@@ -95,6 +95,7 @@ declare module "restify" {
     listen(... args: any[]): any;
     close(... args: any[]): any;
     pre(routeCallBack: RequestHandler): any;
+    server: http.Server;
 
   }
 
