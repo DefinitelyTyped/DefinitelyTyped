@@ -33,6 +33,8 @@ declare function afterAll(action: (done: () => void) => void): void;
 declare function expect(spy: Function): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
 
+declare function fail(e?: any): void;
+
 declare function spyOn(object: any, method: string): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
