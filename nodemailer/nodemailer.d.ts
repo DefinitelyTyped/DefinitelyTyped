@@ -1,10 +1,11 @@
 // Type definitions for Nodemailer
-// Nodemailer is an easy to use module to send e-mails with Node.JS (using SMTP or sendmail or Amazon SES) and is unicode friendly .
 // Project: https://github.com/andris9/Nodemailer
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-class Transport {
+// Nodemailer is an easy to use module to send e-mails with Node.JS (using SMTP or sendmail or Amazon SES) and is unicode friendly .
+
+declare class Transport {
 	static transports: {
 		SMTP: Transport;
 		SES: Transport;
@@ -16,8 +17,8 @@ class Transport {
 	options: Object;
 	transportType: string;
 	sendMailWithTransport(emailMessage: MailComposer, callback?: (err: Error) => any): any;
-	useDKIM(dkim: DKIMOptions);
-	close(callback?: (err: Error) => any);
+	useDKIM(dkim: DKIMOptions): void;
+	close(callback?: (err: Error) => any): any;
 	sendMail(message: MailComposer, callback?: (err: Error) => any): any;
 	send_mail(message:MailComposer, callback?: (err: Error) => any): any;
 }
@@ -38,7 +39,7 @@ interface MailComposer {
 	text?: string;  // plaintext body
 	html?: string;  // HTML body
 	attachments?: NodeMailerAttachment[];  // An array of attachments
-	forceEmbeddedImages?: bool;
+	forceEmbeddedImages?: boolean;
 }
 
 interface DKIMOptions{
@@ -47,7 +48,7 @@ interface DKIMOptions{
 	privateKey: any;
 }
 
-class XOAuthGenerator {
+declare class XOAuthGenerator {
 	constructor(options: XOAuthGeneratorOptions);
 	generate(callback: () => any): string;
 }
@@ -70,7 +71,7 @@ interface XOAuth2Options {
 interface NodemailerTransportOptions {
 	service?: string;
 	auth?: NodemailerAuthInterface;
-	debug?: bool;
+	debug?: boolean;
 	AWSAccessKeyID?: string;
 	AWSSecretKey: string;
 	ServiceUrl: string;
@@ -87,11 +88,11 @@ interface NodemailerSMTPTransportOptions {
 	service?:          string;
 	host?:             string;
 	port?:             number;
-	secureConnection?: bool;
+	secureConnection?: boolean;
 	name?:             string;
 	auth:              NodemailerAuthInterface;
-	ignoreTLS?:        bool;
-	debug?:            bool;
+	ignoreTLS?:        boolean;
+	debug?:            boolean;
 	maxConnections?:   number;
 }
 
@@ -102,4 +103,9 @@ interface Nodemailer {
 	createTransport(type: string, options: NodemailerSMTPTransportOptions): Transport;
 	createTransport(type: string, path: string): Transport;
 	createXOAuthGenerator(options: XOAuthGeneratorOptions): XOAuthGenerator;
+}
+
+declare module "nodemailer" {
+	var nodemailer: Nodemailer;
+	export = nodemailer;
 }

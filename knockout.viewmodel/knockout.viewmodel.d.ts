@@ -12,7 +12,7 @@ interface KnockoutViewModelStatic {
     
     // INTERNAL flag: enable logging of conversions
     // logs will be written to console
-    logging: bool;
+    logging: boolean;
 }
 
 // Extend ko global

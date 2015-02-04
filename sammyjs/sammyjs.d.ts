@@ -1,25 +1,32 @@
 // Type definitions for Sammy.js
 // Project: http://sammyjs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Oisin Grehan <https://github.com/oising>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-module Sammy {
-    export function (): Sammy.Application;
-    export function (selector: string): Sammy.Application;
-    export function (handler: Function): Sammy.Application;
-    export function (selector: string, handler: Function): Sammy.Application;
+declare function Sammy(): Sammy.Application;
+declare function Sammy(selector: string): Sammy.Application;
+declare function Sammy(handler: Function): Sammy.Application;
+declare function Sammy(selector: string, handler: Function): Sammy.Application;
 
-    export function Cache(app, options);
+declare module Sammy {
+	interface SammyFunc {
+		(): Sammy.Application;
+		(selector: string): Sammy.Application;
+		(handler: Function): Sammy.Application;
+		(selector: string, handler: Function): Sammy.Application;
+	}
+
+	export function Cache(app, options);
     export function DataCacheProxy(initial, $element);
-    export function DataLocationProxy(app, data_name, href_attribute);
+    export var DataLocationProxy:DataLocationProxy;
     export function DefaultLocationProxy(app, run_interval_every);
     export function EJS(app, method_alias);
 
     export function Exceptional(app, errorReporter);
     export function Flash(app);
+    export var FormBuilder: FormBuilder;
     export function Form(app); // formFor ( name, object, content_callback )
 
     export function Haml(app, method_alias);
@@ -37,26 +44,28 @@ module Sammy {
     export function PushLocationProxy(app);
     export function Session(app, options);
     export function Storage(app);
+    export var Store: Store;
 
     export function Title();
+    export function Template(app, method_alias);
     export function Tmpl(app, method_alias);
     export function addLogger(logger);
-    export function log();
+    export function log(...args:any[]);
 
-    export interface Object {
+    export class Object {
 
-        new (obj: any);
+        constructor(obj: any);
 
         escapeHTML(s: string): string;
         h(s: string): string;
 
-        has(key: string): bool;
+        has(key: string): boolean;
         join(...args: any[]): string;
-        keys(attributes_only?: bool): string[];
+        keys(attributes_only?: boolean): string[];
         log(...args: any[]): void;
         toHTML(): string;
         toHash(): any;
-        toString(include_functions?: bool): string;
+        toString(include_functions?: boolean): string;
     }
 
     export interface Application extends Object {
@@ -69,14 +78,14 @@ module Sammy {
         $element(selector?: string): JQuery;
         after(callback: Function): Application;
         any(verb: string, path: string, callback: Function): void;
-        route(verb: string, path: string, callback: Function): void;
         around(callback: Function): Application;
+        before(callback: Function): Application;
         before(options: any, callback: Function): Application;
         bind(name: string, callback: Function): Application;
         bind(name: string, data: any, callback: Function): Application;
         bindToAllEvents(callback: Function): Application;
         clearTemplateCache(): any;
-        contextMatchesOptions(context: any, match_options: any, positive?: bool): bool;
+        contextMatchesOptions(context: any, match_options: any, positive?: boolean): boolean;
         del(path: string, callback: Function): Application;
         del(path: RegExp, callback: Function): Application;
         destroy(): Application;
@@ -85,9 +94,9 @@ module Sammy {
         get(path: string, callback: Function): Application;
         get(path: RegExp, callback: Function): Application;
         getLocation(): string;
-        helper(name: string, method: Function): Application;
-        helpers(extensions: any): Application;
-        isRunning(): bool;
+        helper(name: string, method: Function): any; // Behaviour similar to _.extend
+        helpers(extensions: any): any; // Behaviour similar to _.extend
+        isRunning(): boolean;
         log(...params: any[]): void;
         lookupRoute(verb: string, path: string): any;
         mapRoutes(route_array: any[]): Application;
@@ -102,19 +111,28 @@ module Sammy {
         route(verb: string, path: RegExp, callback: Function): Application;
         run(start_url?: string): Application;
         runRoute(verb: string, path?: string, params?: any, target?: any): any;
+        send(...params: any[]);
         setLocation(new_location: string): string;
         setLocationProxy(new_proxy: DataLocationProxy): void;
-        swap(content: any, callback: Function): string;
+        swap(content: any, callback: Function): any;
         templateCache(key: string, value: any): any;
         toString(): string;
         trigger(name: string, data?: any): Application;
         unload(): Application;
         use(...params: any[]): void;
+	last_location: string[];
+	
+        // Features provided by oauth2 plugin 
+        oauthorize: string;
+        requireOAuth();
+        requireOAuth(path?:string);
+        requireOAuth(callback?: Function);
     }
 
     export interface DataLocationProxy {
 
-        new (app, run_interval_every): DataLocationProxy;
+        new (app, run_interval_every?): DataLocationProxy;
+        new (app, data_name, href_attribute): DataLocationProxy;
 
         fullPath(location_obj): string;
         bind(): void;
@@ -131,19 +149,25 @@ module Sammy {
         engineFor(engine: any): any;
         eventNamespace(): string;
         interpolate(content: any, data: any, engine: any, partials): EventContext;
+        json(str: any): any;
         json(str: string): any;
         load(location: any, options?: any, callback?: Function): any;
         loadPartials(partials);
         notFound(): any;
-        partial(location: string, data: any, callback: Function, partials): RenderContext;
-        params: Object;
+        partial(location: string, data?: any, callback?: Function, partials?): RenderContext;
+        partials: any;
+        params: any;
         redirect(...params: any[]): void;
-        render(location: string, data: any, callback: Function, partials): RenderContext;
-        renderEach(location: any, name?: string, data?: any, callback?: Function): RenderContext;
+        render(location: string, data?: any, callback?: Function, partials?): RenderContext;
+        renderEach(location: any, data?: { name: string;data?:any}[],callback?: Function): RenderContext;
         send(...params: any[]): RenderContext;
         swap(contents: any, callback: Function): string;
         toString(): string;
         trigger(name: string, data?: any): EventContext;
+
+        // Provided by common sammy modules: 
+        name: any;
+        title: any;
     }
 
     export interface FormBuilder {
@@ -175,13 +199,23 @@ module Sammy {
         track(path);
     }
 
+    export interface Haml extends EventContext { }
+
+    export interface Handlebars extends EventContext { }
+
+    export interface Hogan extends EventContext { }
+
+    export interface JSON extends EventContext { }
+
+    export interface Mustache extends EventContext { }
+
     export interface RenderContext extends Object {
 
         new (event_context);
 
         appendTo(selector: string): RenderContext;
-        collect(array: any[], callback: Function, now?: bool): RenderContext;
-        interpolate(data: any, engine?: any, retain?: bool): RenderContext;
+        collect(array: any[], callback: Function, now?: boolean): RenderContext;
+        interpolate(data: any, engine?: any, retain?: boolean): RenderContext;
         load(location: string, options?: any, callback?: Function): RenderContext;
         loadPartials(partials?: any): RenderContext;
         next(content: any): void;
@@ -193,16 +227,15 @@ module Sammy {
         render(location: string, callback: Function, partials?: any): RenderContext;
         render(location: string, data: any, callback: Function): RenderContext;
         render(location: string, data: any, callback: Function, partials: any): RenderContext;
-        renderEach(location: string, name: string, data: any, callback: Function): RenderContext;
+        renderEach(location: string, name?: string, data?: any, callback?: Function): RenderContext;
         replace(selector: string): RenderContext;
         send(...params: any[]): RenderContext;
-        swap(callback: Function): RenderContext;
+        swap(callback?: Function): RenderContext;
         then(callback: Function): RenderContext;
         trigger(name, data);
         wait(): void;
     }
-
-
+	
     export interface StoreOptions {
         name?: string;
         element?: string;
@@ -218,17 +251,17 @@ module Sammy {
 
         stores: any;
 
-        new (options);
+        new (options?:any);
 
         clear(key: string): any;
         clearAll(): void;
-        each(callback: Function): bool;
-        exists(key: string): bool;
+        each(callback: Function): boolean;
+        exists(key: string): boolean;
         fetch(key: string, callback: Function): any;
-        filter(callback: Function): bool;
-        first(callback: Function): bool;
+        filter(callback: Function): boolean;
+        first(callback: Function): boolean;
         get(key: string): any;
-        isAvailable(): bool;
+        isAvailable(): boolean;
         keys(): string[];
         load(key: string, path: string, callback: Function): void;
         set(key: string, value: any): any;
@@ -240,8 +273,10 @@ module Sammy {
         SessionStorage(name, element);
         isAvailable(type);
         Template(app, method_alias);
-    }
+	}
 }
+
 interface JQueryStatic {
-    sammy: Sammy;
+	sammy: Sammy.SammyFunc;
+	log: Function;
 }

@@ -1,6 +1,6 @@
 /// <reference path="msnodesql.d.ts" />
 
-import sql = module('msnodesql');
+import sql = require('msnodesql');
 
 function test_streaming() {
 
@@ -14,15 +14,31 @@ function test_streaming() {
     stmt.on('error', function (err) { console.log("We had an error :-( " + err); });
 }
 
+function test_callback() {
+    var conn_str = "Driver={SQL Server Native Client 11.0};Server={(local)\\SQLEXPRESS};Database={DBName};Trusted_Connection={Yes};";
+
+    sql.query(conn_str, "SELECT * FROM TestTable", (err, results) => {
+        if (err) {
+            console.error(err);
+        }
+        else if (results.length) {
+            console.log(results);
+        }
+        else {
+            console.log("No results");
+        }
+    });
+}
+
 function test_explicit() {
     var conn_str = "Driver={SQL Server Native Client 11.0};Server={(localdb)\\v11.0};Database={DBName};Trusted_Connection={Yes};";
 
-    sql.open(conn_str, function (err, conn) {
+    sql.open(conn_str, function (err?: Error, connection?: sql.Connection) {
         if (err) {
             console.log("Error opening the connection!");
             return;
         }
-        conn.queryRaw("SELECT * FROM TestTable", function (err, results) {
+        connection.queryRaw("SELECT * FROM TestTable", function (err?: Error, results?: sql.QueryRawResult, more?: boolean) {
             if (err) {
                 console.log("Error running query!");
                 return;

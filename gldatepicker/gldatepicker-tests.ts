@@ -40,6 +40,7 @@ $('#example3').glDatePicker(
         {
             date: new Date(0, 0, 1),
             data: { message: 'Happy New Year!' },
+            repeatMonth: false,
             repeatYear: true
         },
     ],

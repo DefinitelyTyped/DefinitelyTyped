@@ -1,7 +1,9 @@
-﻿/// <reference path="../knockout/knockout.d.ts" />
+﻿// Type definitions for knockout-editables 0.9
+// Project: http://romanych.github.com/ko.editables/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// build: ko.editables 0.9
-// http://romanych.github.com/ko.editables/
+/// <reference path="../knockout/knockout.d.ts" />
 
 // bestowed by ko.editable(target)
 interface KnockoutEditable {
@@ -9,15 +11,15 @@ interface KnockoutEditable {
     beginEdit(): void;
     commit(): void;
     rollback(): void;
-    hasChanges(): bool;
+    hasChanges(): boolean;
 }
 
 interface KnockoutEditableStatic {
-    (viewModel: any, autoInit?: bool): void;
+    (viewModel: any, autoInit?: boolean): void;
     beginEdit(scope: string): void;
     commit(scope: string): void;
     rollback(scope: string): void;
-    hasChanges(scope: string): bool;
+    hasChanges(scope: string): boolean;
 
     // INTERNAL
     //getHasChangesFlag(scope: string): any;

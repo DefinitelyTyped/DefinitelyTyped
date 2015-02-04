@@ -1,19 +1,19 @@
 // Type definitions for Zynga Scroller
 // Project: https://github.com/zynga/scroller
-// Definitions by: Boris Yankov https://github.com/borisyankov
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface ScrollerOptions {
-    scrollingX?: bool;
-    scrollingY?: bool;
-    animating?: bool;
+    scrollingX?: boolean;
+    scrollingY?: boolean;
+    animating?: boolean;
     animationDuration?: number;
-    bouncing?: bool;
-    locking?: bool;
-    paging?: bool;
-    snapping?: bool;
-    zooming?: bool;
+    bouncing?: boolean;
+    locking?: boolean;
+    paging?: boolean;
+    snapping?: boolean;
+    zooming?: boolean;
     minZoom?: number;
     maxZoom?: number;
     speedMultiplier?: number;
@@ -28,7 +28,7 @@ interface ScrollValuesWithZoom extends ScrollValues {
     zoom: number;
 }
 
-class Scroller {
+declare class Scroller {
     constructor (callback: (left: number, top: number, zoom: number) => void , options: ScrollerOptions);
 
     setDimensions(clientWidth: number, clientHeight: number, contentWidth: number, contentHeight: number): void;
@@ -38,10 +38,10 @@ class Scroller {
     finishPullToRefresh(): void;
     getValues(): ScrollValuesWithZoom;
     getScrollMax(): ScrollValues;
-    zoomTo(level: number, animate?: bool, originLeft?: bool, originTop?: bool): void;
-    zoomBy(factor: number, animate?: bool, originLeft?: bool, originTop?: bool): void;
-    scrollTo(left?: number, top?: number, animate?: number, zoom?: number): void;
-    scrollBy(left?: number, top?: number, animate?: number): void;
+    zoomTo(level: number, animate?: boolean, originLeft?: number, originTop?: number, callback?: Function): void;
+    zoomBy(factor: number, animate?: boolean, originLeft?: number, originTop?: number, callback?: Function): void;
+    scrollTo(left?: number, top?: number, animate?: boolean, zoom?: number): void;
+    scrollBy(left?: number, top?: number, animate?: boolean): void;
 
     doMouseZoom(wheelDelta: number, timeStamp: number, pageX: number, pageY: number): void;
     doTouchStart(touches: any[], timeStamp: number): void;

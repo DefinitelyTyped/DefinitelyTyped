@@ -1,6 +1,6 @@
 /// <reference path="platform.d.ts" />
 
-declare interface ITestContainer {
+interface ITestContainer {
     [name: string]: PlatformStatic;
 }
 
@@ -44,7 +44,7 @@ function runTests() {
     var p: PlatformStatic;
     var x: string;
     var px: any;
-    var res: bool;
+    var res: boolean;
     var onFalse: (name: string) => () => any;
 
     for (var n in tests) {
@@ -54,7 +54,7 @@ function runTests() {
 
 
         onFalse = (name: string) => {
-            return function () => {
+            return () => {
                 console.log('\tfailed on prop "' + name + '" for "' + n + '"');
             }
         }
@@ -78,7 +78,7 @@ function runTests() {
     }
 }
 
-function falsy(condition: () => bool, action: () => any) {
+function falsy(condition: () => boolean, action: () => any) {
     if (condition() === false)
         action();
 }

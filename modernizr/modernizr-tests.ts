@@ -2,7 +2,7 @@
 
 declare var $: any;
 
-function alert(thing: any) {
+window.alert = function(thing?: string) {
     $('#content').append('<div>' + thing + '</div>');
 }
 
@@ -15,7 +15,7 @@ $(function () {
     if (Modernizr.webgl) {
         // loadAllWebGLScripts();
     } else {
-        var msg = 'With a different browser you’ll get to see the WebGL experience here: get.webgl.org.';
+        var msg = 'With a different browser youâ€™ll get to see the WebGL experience here: get.webgl.org.';
         document.getElementById('#notice').innerHTML = msg;
     }
 
@@ -47,4 +47,8 @@ $(function () {
 
     var elem;
     Modernizr.hasEvent('gesturestart', elem);
+	
+    if (!Modernizr.autofocus) {
+          $("[autofocus]").focus();
+    }
 });

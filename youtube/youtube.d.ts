@@ -1,10 +1,9 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>
-// Updated by: Ian Obermiller <http://ianobermiller.com>
+// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>, Ian Obermiller <http://ianobermiller.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module YT {
+declare module YT {
     interface EventArgs {
         target: Player;
         data: any;
@@ -72,6 +71,13 @@ module YT {
         suggestedQuality?: string;
     }
 
+    export interface VideoData
+    {
+        video_id: string;
+        author: string;
+        title: string;
+    }
+
     export class Player {
         // Constructor
         constructor(id: string, playerOptions: PlayerOptions);
@@ -89,12 +95,12 @@ module YT {
 
         // Properties
         size;
-        
+
         // Playing
         playVideo(): void;
         pauseVideo(): void;
         stopVideo(): void;
-        seekTo(seconds:number, allowSeekAhead:bool): void;
+        seekTo(seconds:number, allowSeekAhead:boolean): void;
         clearVideo(): void;
 
         // Playlist
@@ -105,7 +111,7 @@ module YT {
         // Volume
         mute(): void;
         unMute(): void;
-        isMuted(): bool;
+        isMuted(): boolean;
         setVolume(volume: number): void;
         getVolume(): number;
 
@@ -116,10 +122,10 @@ module YT {
         getPlaybackRate(): number;
         setPlaybackRate(suggestedRate:number): void;
         getAvailablePlaybackRates(): number[];
-        
+
         // Behavior
-        setLoop(loopPlaylists: bool): void;
-        setShuffle(shufflePlaylist: bool): void;
+        setLoop(loopPlaylists: boolean): void;
+        setShuffle(shufflePlaylist: boolean): void;
 
         // Status
         getVideoLoadedFraction(): number;
@@ -133,11 +139,12 @@ module YT {
         getDuration(): number;
         getVideoUrl(): string;
         getVideoEmbedCode(): string;
+        getVideoData(): VideoData;
 
         // Playlist
         getPlaylist(): any[];
         getPlaylistIndex(): number;
-        
+
         // Event Listener
         addEventListener(event: string, listener: string): void;
     }
@@ -148,5 +155,5 @@ module YT {
         ENDED,
         PAUSED,
         PLAYING
-    };
+    }
 }

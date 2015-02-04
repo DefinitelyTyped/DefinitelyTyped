@@ -1,7 +1,10 @@
-// Type definitions for the Web Audio API, currently only implemented in WebKit browsers
-// Conforms to the: http://www.w3.org/TR/2012/WD-webaudio-20120802/ specification
-// Definitions by: Baruch Berger (https://github.com/bbss)
+// Type definitions for Web Audio API
+// Project: http://www.w3.org/TR/2012/WD-webaudio-20120802/
+// Definitions by: Baruch Berger <https://github.com/bbss>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Conforms to the: http://www.w3.org/TR/2012/WD-webaudio-20120802/ specification
+// Currently only implemented in WebKit browsers
 
 interface webkitAudioContext {
     destination: AudioDestinationNode;
@@ -11,7 +14,7 @@ interface webkitAudioContext {
     activeSourceCount: number;
 
     createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBuffer;
-    createBuffer(buffer: ArrayBuffer, mixToMono: bool): AudioBuffer;
+    createBuffer(buffer: ArrayBuffer, mixToMono: boolean): AudioBuffer;
 
     decodeAudioData(audioData: ArrayBuffer,  successCallback: any, errorCallback?: any): void;
     
@@ -71,7 +74,7 @@ interface AudioNode {
     numberOfInputs: number;
     numberOfOutputs: number;
 
-};
+}
 
 interface AudioSourceNode extends AudioNode {
 
@@ -125,7 +128,7 @@ interface AudioBufferSourceNode extends AudioSourceNode {
     playbackState: number; 
     buffer: AudioBuffer;
     playbackRate: AudioParam; 
-    loop: bool;
+    loop: boolean;
     noteOn(when: number): void;
     noteGrainOn(when: number, grainOffset: number, grainDuration: number): void;
     noteOff(when: number): void;
@@ -238,7 +241,7 @@ interface MediaStreamAudioSourceNode extends AudioSourceNode {
 interface ConvolverNode extends AudioNode {
 
     buffer: AudioBuffer;
-    normalize: bool;
+    normalize: boolean;
 
 }
 

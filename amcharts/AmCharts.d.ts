@@ -1,8 +1,13 @@
-﻿/// AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page.
-declare module AmChartsStatic {
+// Type definitions for amCharts
+// Project: http://www.amcharts.com/
+// Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page.
+declare module AmCharts {
 
     /** Set it to true if you have base href set for your page. This will fix rendering problems in Firefox caused by base href. */
-    var baseHref: bool;
+    var baseHref: boolean;
 
     /** Array of day names, used when formatting dates (if categoryAxis.parseDates is set to true) ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] */
     var dayNames: string[];
@@ -17,7 +22,7 @@ declare module AmChartsStatic {
     var shortMonthNames: string[];
 
     /** Set it to true if you want UTC time to be used instead of local time. */
-    var useUTC: bool;
+    var useUTC: boolean;
 
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
@@ -31,7 +36,7 @@ declare module AmChartsStatic {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    declare class AmPieChart {
+    class AmPieChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
@@ -59,7 +64,7 @@ declare module AmChartsStatic {
         /** Description of the group slice. */
         groupedDescription: string;
         /** If this is set to true, the group slice will be pulled out when the chart loads. */
-        groupedPulled: bool;
+        groupedPulled: boolean;
         /** Title of the group slice. Other */
         groupedTitle: string;
         /** If there is more than one slice whose percentage of the pie is less than this number, those slices will be grouped together into one slice. This is the "other" slice. It will always be the last slice in a pie. */
@@ -81,7 +86,7 @@ declare module AmChartsStatic {
         /** Specifies whether data labels are visible.
             @default true
         */
-        labelsEnabled: bool;
+        labelsEnabled: boolean;
         /** Label text. The following tags can be used: [[value]], [[title]], [[percents]], [[description]]. [[title]]: [[percents]]% */
         labelText: string;
         /** Label tick opacity. Value range is 0 - 1. 0.2 */
@@ -134,13 +139,13 @@ declare module AmChartsStatic {
         /** Pull out effect. Possible values are ">", "<", elastic" and "bounce". bounce */
         pullOutEffect: string;
         /** If this is set to true, only one slice can be pulled out at a time. If the viewer clicks on a slice, any other pulled-out slice will be pulled in. */
-        pullOutOnlyOne: bool;
+        pullOutOnlyOne: boolean;
         /** Pull out radius, in pixels or percents 0.2 */
         pullOutRadius: any;
         /** Radius of a pie, in pixels or percents. By default, radius is calculated automatically. */
         radius: any;
         /** Specifies whether the animation should be sequenced or all slices should appear at once. */
-        sequencedAnimation: bool;
+        sequencedAnimation: boolean;
         /** Initial opacity of all slices. If you set startDuration higher than 0, slices will fade in from startAlpha.
             @default 1
         */
@@ -232,7 +237,7 @@ declare module AmChartsStatic {
       chart.write("chartdiv");
     }
     */
-    declare class AmRadarChart extends AmCoordinateChart {
+    class AmRadarChart extends AmCoordinateChart {
         /** Bottom margin of the chart. */
         marginBottom: number;
         /** Left margin of the chart. */
@@ -290,11 +295,11 @@ declare module AmChartsStatic {
                               
             chart.write("chartdiv);
     */
-    declare class AmXYChart extends AmRectangularChart {
+    class AmXYChart extends AmRectangularChart {
         /** Specifies if Scrollbar of X axis (horizontal) should be hidden. */
-        hideXScrollbar: bool;
+        hideXScrollbar: boolean;
         /** Specifies if Scrollbar of Y axis (vertical) should be hidden. */
-        hideYScrollbar: bool;
+        hideYScrollbar: boolean;
         /** Maximum zoom factor of the chart.
             @default 20
         */
@@ -305,7 +310,7 @@ declare module AmChartsStatic {
     /** Guides are straight vertical or horizontal lines or areas supported by AmSerialChart, AmXYChart and AmRadarChart. You can have guides both on value and category axes. To add/remove a guide to an axis, use axis.addGuide(guide)/axis.removeGuide(guide) methods.
 
 If you do not set properties such as dashLength, lineAlpha, lineColor, etc - values of the axis are used.*/
-    declare class Guide {
+    class Guide {
         /** Radar chart only. Specifies angle at which guide should start. Affects only fills, not lines. */
         angle: number;
         /** Baloon fill color. */
@@ -323,7 +328,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Fill color. */
         fillColor: string;
         /** Specifies whether label should be placed inside or outside plot area. */
-        inside: bool;
+        inside: boolean;
         /** The label which will be displayed near the guide. */
         label: string;
         /** Rotation angle of a guide label. */
@@ -348,7 +353,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         value: number;
     }
     /** ImagesSettings is a class which holds common settings of all MapImage objects. */
-    declare class ImagesSettings {
+    class ImagesSettings {
         /** Opacity of the image. 
             @default 1
         */
@@ -358,7 +363,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if the image's center should be placed in the provided coordinates. If false, top-left corner will be at provided coordinates.
             @default true
         */
-        centered: bool;
+        centered: boolean;
         /** Color of image. This will affect only predefined images (with "type" property set) and images with svgPath set. This property won't affect bitmap images and loaded SVG images. #000000 */
         color: string;
         /** Height of a description window. */
@@ -402,13 +407,13 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AreasSettings is a class which holds common settings of all MapArea objects. */
-    declare class AreasSettings {
+    class AreasSettings {
         /** Opacity of areas.
             @default 1
         */
         alpha: number;
         /** Specifies if the areas should be zoomed-in when user clicks on them, event if zoom properties are not set. */
-        autoZoom: bool;
+        autoZoom: boolean;
         /** Text which is displayed in a roll-over balloon. You can use the following tags: [[title]], [[description]], [[value]] and [[percent]] [[title]] */
         balloonText: string;
         /** Color of the areas. #FFCC00 */
@@ -454,7 +459,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** Slice is an item of AmPieChart's chartData Array and holds all the information about the slice. When working with a pie chart, you do not create slices or change it's properties directly, instead you set array of data using dataProvider property. Consider properties of a Slice read-only - change values in chart's data provider if you need to. */
-    declare class Slice {
+    class Slice {
         /** Opacity of a slice. */
         alpha: number;
         /** Color of a slice. */
@@ -464,11 +469,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Slice description. */
         description: string;
         /** Specifies whether the slice is hidden */
-        hidden: bool;
+        hidden: boolean;
         /** Percent value of a slice. */
         percents: number;
         /** Specifies whether the slice is pulled or not. */
-        pulled: bool;
+        pulled: boolean;
         /** Slice title */
         title: string;
         /** Url of a slice */
@@ -476,20 +481,20 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Value of a slice */
         value: number;
         /** specifies whether this slice has a legend entry */
-        visibleInLegend: bool;
+        visibleInLegend: boolean;
     }
 
 
     /** AmStockChart is a main class Stock chart. */
-    declare class AmStockChart {
+    class AmStockChart {
         /** Specifies if animation was already played. Animation is only played once, when chart is rendered for the first time. If you want the animation to be repeated, set this property to false. */
-        animationPlayed: bool;
+        animationPlayed: boolean;
         /** Balloon object. */
         balloon: AmBalloon;
         /** Settings for category axes. */
         categoryAxesSettings: CategoryAxesSettings;
         /** Indicates if the chart is created. */
-        chartCreated: bool;
+        chartCreated: boolean;
         /** Chart cursor settings. */
         chartCursorSettings: ChartCursorSettings;
         /** Chart scrollbar settings. */
@@ -508,7 +513,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @default 1 */
         firstDayOfWeek: number;
         /** If set to true the scope of the data view will be set to the end after data update. */
-        glueToTheEnd: bool;
+        glueToTheEnd: boolean;
         /** Legend settings. */
         legendSettings: LegendSettings;
         /** Data set selected as main. */
@@ -530,7 +535,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** read-only. Indicates current version of a script. */
         version: string;
         /** Specifies whether the chart should zoom-out when main data set is changed. */
-        zoomOutOnDataSetChange: bool;
+        zoomOutOnDataSetChange: boolean;
 
         /** Adds panel to the stock chart. Requires stockChart.validateNow() method to be called after this action. */
         addPanel(panel: StockPanel);
@@ -613,11 +618,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** ValueAxesSettings settings set 's settings for all ValueAxes. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ValueAxis class will be used. */
-    declare class ValueAxesSettings {
+    class ValueAxesSettings {
         /** Specifies whether number for gridCount is specified automatically, according to the axis size.
             @default true
         */
-        autoGridCount: bool;
+        autoGridCount: boolean;
         /** Axis opacity. */
         axisAlpha: number;
         /** Axis color.  */
@@ -641,31 +646,31 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Thickness of grid lines. */
         gridThickness: number;
         /** Specifies whether guide values should be included when calculating min and max of the axis. */
-        includeGuidesInMinMax: bool;
+        includeGuidesInMinMax: boolean;
         /** If true, the axis will include hidden graphs when calculating min and max values. */
-        includeHidden: bool;
+        includeHidden: boolean;
         /** Specifies whether values should be placed inside or outside plot area. In case you set this to false, you'll have to adjust marginLeft or marginRight in [[PanelsSettings]] in order labels to be visible.
             @default true
         */
-        inside: bool;
+        inside: boolean;
         /** Specifies whether values on axis can only be integers or both integers and doubles. */
-        integersOnly: bool;
+        integersOnly: boolean;
         /** Frequency at which labels should be placed.  */
         labelFrequency: number;
         /** Specifies whether value labels are displayed. */
-        labelsEnabled: bool;
+        labelsEnabled: boolean;
         /** Set to true if value axis is logarithmic, false otherwise. */
-        logarithmic: bool;
+        logarithmic: boolean;
         /** The distance of the axis to the plot area, in pixels. Useful if you have more then one axis on the same side.  */
         offset: number;
         /** Position of the value axis. Possible values are "left" and "right". */
         position: string;
         /** Set to true if value axis is reversed (smaller values on top), false otherwise. */
-        reversed: bool;
+        reversed: boolean;
         /** Specifies if first label of value axis should be displayed. */
-        showFirstLabel: bool;
+        showFirstLabel: boolean;
         /** Specifies if last label of value axis should be displayed. */
-        showLastLabel: bool;
+        showLastLabel: boolean;
         /** Stacking mode of the axis. Possible values are: "none", "regular", "100%", "3d". */
         stackType: string;
         /** Tick length. */
@@ -684,14 +689,14 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             var legend = new AmCharts.AmLegend();
             chart.addLegend(legend);
     */
-    declare class AmLegend {
+    class AmLegend {
 
         /** Alignment of legend entries. Possible values are: "left", "center", "right". left */
         align: string;
         /** Used if chart is Serial or XY. In case true, margins of the legend are adjusted and made equal to chart's margins.
             @default true
         */
-        autoMargins: bool;
+        autoMargins: boolean;
         /** Opacity of legend's background. Value range is 0 - 1 */
         backgroundAlpha: number;
         /** Background color. You should set backgroundAlpha to >0 vallue in order background to be visible. #FFFFFF */
@@ -709,7 +714,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if each of legend entry should be equal to the most wide entry. Won't look good if legend has more than one line.
             @default true
         */
-        equalWidths: bool;
+        equalWidths: boolean;
         /** Font size. Will use chart's font size if not set. */
         fontSize: number;
         /** Horizontal space between legend item and left/right border. */
@@ -755,7 +760,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Position of a legend. Possible values are: "bottom", "top", "left", "right" and "absolute". In case "absolute", you should set left and top properties too. (this setting is ignored in Stock charts). In case legend is used with AmMap, position is set to "absolute" automatically.  bottom */
         position: string;
         /** Specifies whether legend entries should be placed in reversed order. */
-        reversedOrder: bool;
+        reversedOrder: boolean;
         /** In case legend position is set to "absolute", you can set distance from right side of the chart, in pixels. */
         right: number;
         /** Legend item text color on roll-over.  #CC0000 */
@@ -767,7 +772,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** You can use this property to turn all the legend entries off.
             @default true
         */
-        showEntries: bool;
+        showEntries: boolean;
         /** Horizontal space between legend items, in pixels.
             @default 10
         */
@@ -775,17 +780,17 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Whether showing/hiding of graphs by clicking on the legend marker is enabled or not. In case legend is used with AmMap, this is set to false automatically.
             @default true
         */
-        switchable: bool;
+        switchable: boolean;
         /** Legend switch color. #FFFFFF */
         switchColor: string;
         /** Legend switch type (in case the legend is switchable). Possible values are "x" and "v". x */
         switchType: string;
         /** If true, clicking on the text will show/hide balloon of the graph. Otherwise it will show/hide graph/slice, if switchable is set to true.  */
-        textClickEnabled: bool;
+        textClickEnabled: boolean;
         /** In case legend position is set to "absolute", you can set distance from top of the chart, in pixels. */
         top: number;
         /** Specifies if legend labels should be use same color as corresponding markers. */
-        useMarkerColorForLabels: bool;
+        useMarkerColorForLabels: boolean;
         /** Alignment of the value text. Possible values are "left" and "right". right */
         valueAlign: string;
         /** The text which will be displayed in the value portion of the legend. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents]], [[description]]. [[value]] */
@@ -822,7 +827,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** StockLegend is a legend of StockPanel. */
 
-    declare class StockLegend extends AmLegend {
+    class StockLegend extends AmLegend {
         /** The text which will be displayed in the value portion of the legend when graph is comparable and at least one dataSet is selected for comparing. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents.value/open/close/low/high]], [[description]]. [[percents.value]]% */
 
         valueTextComparing: string;
@@ -833,15 +838,15 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** StockPanel class creates stock panels (charts). AmStockChart can have multiple Stock panels. */
 
-    declare class StockPanel extends AmSerialChart {
+    class StockPanel extends AmSerialChart {
         /** Specifies whether x button will be displayed near the panel. This button allows turning panel off. */
-        allowTurningOff: bool;
+        allowTurningOff: boolean;
         /** If true, drawing icons will be displayed in top-right corner. */
-        drawingIconsEnabled: bool;
+        drawingIconsEnabled: boolean;
         /** Specifies on which value axis user can draw trend lines. Set drawingIconsEnabled to true if you want drawing icons to be visible. First value axis will be used if not set here. */
         drawOnAxis: ValueAxis;
         /** Specifies if all trend lines should be erased when erase button is clicked. If false, trend lines can be erased one by one. */
-        eraseAll: bool;
+        eraseAll: boolean;
         /** Size of trend line drawing icons. If you change this size, you should update icon images if you want them to look properly.
             @default 18
         */
@@ -853,7 +858,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether this panel will show category axis.
             @default true
         */
-        showCategoryAxis: bool;
+        showCategoryAxis: boolean;
         /**  */
         stockGraphs: StockGraph[];
         /** Stock chart legend. */
@@ -879,8 +884,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AmChart is a base class of all charts. It can not be instantiated explicitly. AmCoordinateChart, AmPieChart and AmMap extend AmChart class. */
-    declare class AmChart {
-        /** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
+    class AmChart {
+    	/** used when constructing a chart with a theme */
+    	constructor(theme: any);
+    	/** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
         backgroundColor: string;
         /** The chart creates AmBalloon class itself. If you want to customize balloon, get balloon instance using this property, and then change balloon's properties.  AmBalloon */
         balloon: AmBalloon;
@@ -907,7 +914,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Object with precision, decimalSeparator and thousandsSeparator set which will be used for number formatting. Precision set to -1 means that values won't be rounded.  {precision:-1, decimalSeparator:'.', thousandsSeparator:','} */
         numberFormatter: Object;
         /** This setting affects touch-screen devices only. If a chart is on a page, and panEventsEnabled are set to true, the page won't move if the user touches the chart first. If a chart is big enough and occupies all the screen of your touch device, the user won’t be able to move the page at all. That's why the default value is "false". If you think that selecting/panning the chart or moving/pinching the map is a primary purpose of your users, you should set panEventsEnabled to true. */
-        panEventsEnabled: bool;
+        panEventsEnabled: boolean;
         /** Object with precision, decimalSeparator and thousandsSeparator set which will be used for formatting percent values. {precision:2, decimalSeparator:'.', thousandsSeparator:','} */
         percentFormatter: Object;
         /** Prefixes which are used to make big numbers shorter: 2M instead of 2000000, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true. [{number:1e+3,prefix:"k"},{number:1e+6,prefix:"M"},{number:1e+9,prefix:"G"},{number:1e+12,prefix:"T"},{number:1e+15,prefix:"P"},{number:1e+18,prefix:"E"},{number:1e+21,prefix:"Z"},{number:1e+24,prefix:"Y"}] */
@@ -915,7 +922,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Prefixes which are used to make small numbers shorter: 2μ instead of 0.000002, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true. [{number:1e-24, prefix:"y"},{number:1e-21, prefix:"z"},{number:1e-18, prefix:"a"},{number:1e-15, prefix:"f"},{number:1e-12, prefix:"p"},{number:1e-9, prefix:"n"},{number:1e-6, prefix:"μ"},{number:1e-3, prefix:"m"}] */
         prefixesOfSmallNumbers: any[];
         /** If true, prefixes will be used for big and small numbers. You can set arrays of prefixes via prefixesOfSmallNumbers and prefixesOfBigNumbers properties. */
-        usePrefixes: bool;
+        usePrefixes: boolean;
         /** Read-only. Indicates current version of a script. */
         version: string;
         /** Adds a label on a chart.
@@ -931,14 +938,14 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number, y: number, text: string, align: string, size, color: string, rotation, alpha: number, bold: bool, url: string);
+        addLabel(x: number, y: number, text: string, align: string, size, color: string, rotation, alpha: number, bold: boolean, url: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
             @param legend
             @param legendDivId - Id of the legend div (optional).
         */
-        addLegend(legend: AmLegend, legendDivId: string);
+        addLegend(legend: AmLegend, legendDivId?: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
@@ -988,7 +995,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmCoordinateChart is a base class of AmRectangularChart. It can not be instantiated explicitly. */
 
-    declare class AmCoordinateChart extends AmChart {
+    class AmCoordinateChart extends AmChart {
         /** Specifies the colors of the graphs if the lineColor of a graph is not set.
             It there are more graphs then colors in this array, the chart picks random color.
             @default ['#FF6600', '#FCD202', '#B0DE09', '#0D8ECF', '#2A0CD0', '#CD0D74', '#CC0000', '#00CC00', '#0000CC', '#DDDDDD', '#999999', '#333333', '#990000'] */
@@ -1020,7 +1027,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether the animation should be sequenced or all objects should appear at once.
             @default true
         */
-        sequencedAnimation: bool;
+        sequencedAnimation: boolean;
         /** The initial opacity of the column/line.
             If you set startDuration to a value higher than 0, the columns/lines will fade in from startAlpha.
             Value range is 0 - 1.
@@ -1098,7 +1105,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** GraphDataItem holds all the information about the graph's data item. When working with a chart, you do not create GraphDataItem objects or change it's properties directly. GraphDataItem is passed to you by events when user interacts with data item on the chart. The list of properties below will help you to extract data item's value/coordinate/etc. */
-    declare class GraphDataItem {
+    class GraphDataItem {
         /** Opacity of the data item. */
         alpha: number;
         /** Bullet type. */
@@ -1132,7 +1139,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** SerialDataItem holds all the information about each series. When working with a chart, you do not create SerialDataItem objects or change it's properties directly. Consider properties of a SerialDataItem read-only - change values in chart's data provider if you need to. When serial chart parses dataProvider, it generates "chartData" array. Objects of this array are SerialDataItem objects. */
-    declare class SerialDataItem {
+    class SerialDataItem {
         
         /** You can access each GraphDataItem using this object. The data structure is: graphDataItem = serialDataItem.axes[axisId].graphs[graphId]. */
         axes: Object;
@@ -1147,18 +1154,18 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         x: number;
     }
 
-    declare class CategoryAxis extends AxisBase {
+    class CategoryAxis extends AxisBase {
         
         /** When parse dates is on for the category axis, the chart will try to highlight the beginning of the periods, like month, in bold. Set this to false to disable the functionality.
             @default true
         */
-        boldPeriodBeginning: bool;
+        boldPeriodBeginning: boolean;
         
         /** Date formats of different periods. Possible period values: fff - milliseconds, ss - seconds, mm - minutes, hh - hours, DD - days, MM - months, WW - weeks, YYYY - years. Check this page for date formatting strings. [{period:'fff',format:'JJ:NN:SS'},{period:'ss',format:'JJ:NN:SS'},{period:'mm',format:'JJ:NN'},{period:'hh',format:'JJ:NN'},{period:'DD',format:'MMM DD'},{period:'WW',format:'MMM DD'},{period:'MM',format:'MMM'},{period:'YYYY',format:'YYYY'}] */
         dateFormats: any[];
         
         /** In case your category axis values are Date objects and parseDates is set to true, the chart will parse dates and will place your data points at irregular intervals. However if you want dates to be parsed (displayed on the axis, baloons, etc), but data points to be placed at equal intervals (omiting dates with no data), set equalSpacing to true. */
-        equalSpacing: bool;
+        equalSpacing: boolean;
         
         /** Field in data provider which specifies if the category value should always be shown. For example: categoryAxis.forceShowField = "forceShow"; Field in data provider which specifies if the category value should always be shown. For example: categoryAxis.forceShowField = "forceShow";
         And in data:
@@ -1173,10 +1180,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         minPeriod: string;
 
         /** In case your category axis values are Date objects, set this to true. In this case the chart will parse dates and will place your data points at irregular intervals. If you want dates to be parsed, but data points to be placed at equal intervals, set both parseDates and equalSpacing to true. */
-        parseDates: bool;
+        parseDates: boolean;
 
         /** Specifies whether the graph should start on axis or not. In case you display columns, it is recommended to set this to false. If parseDates is set to true, startOnAxis will allways be false, unless equalSpacing is set to true. */
-        startOnAxis: bool;
+        startOnAxis: boolean;
 
         /** Number returns coordinate of a category. Works only if parseDates is false. If parseDates is true, use dateToCoordinate method. category - String */
         categoryToCoordinate(category);
@@ -1197,9 +1204,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             var chartScrollbar = new AmCharts.ChartScrollbar();
             chart.addChartScrollbar(chartScrollbar);
     */
-    declare class ChartScrollbar {
+    class ChartScrollbar {
         /** Specifies whether number of gridCount is specified automatically, acoarding to the axis size. */
-        autoGridCount: bool;
+        autoGridCount: boolean;
         /** Background opacity.
             @default 1
         */
@@ -1231,11 +1238,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** The number of grid lines. */
         gridCount: number;
         /** Specifies whether resize grips are hidden when mouse is away from the scrollbar. */
-        hideResizeGrips: bool;
+        hideResizeGrips: boolean;
         /** Specifies whether scrollbar has a resize feature.
             @default true
         */
-        resizeEnabled: bool;
+        resizeEnabled: boolean;
         /** Height (width, if chart is rotated) of a scrollbar.  20 */
         scrollbarHeight: number;
         /** Duration of scrolling, when the user clicks on scrollbar's background, in seconds.
@@ -1257,11 +1264,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Selected graph's line color. #000000 */
         selectedGraphLineColor: string;
         /** Specifies if the chart should be updated while dragging/resizing the scrollbar or only at the moment when user releases mouse button. */
-        updateOnReleaseOnly: bool;
+        updateOnReleaseOnly: boolean;
     }
 
     /** AmRectangularChart is a base class of AmSerialChart and AmXYChart. It can not be instantiated explicitly.*/
-    declare class AmRectangularChart extends AmCoordinateChart {
+    class AmRectangularChart extends AmCoordinateChart {
         /** The angle of the 3D part of plot area. This creates a 3D effect (if the "depth3D" is > 0). */
         angle: number;
         /** Space left from axis labels/title to the chart's outside border, if autoMargins set to true.
@@ -1271,7 +1278,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if margins of a chart should be calculated automatically so that labels of axes would fit. The chart will adjust only margins with axes. Other margins will use values set with marginRight, marginTop, marginLeft and marginBottom properties.
             @default true
         */
-        autoMargins: bool;
+        autoMargins: boolean;
         /** Chart cursor. */
         chartCursor: ChartCursor;
         /** Chart scrollbar. */
@@ -1291,7 +1298,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         marginRight: number;
         /** Flag which should be set to false if you need margins to be recalculated on next chart.validateNow() call. */
-        marginsUpdated: bool;
+        marginsUpdated: boolean;
         /** Number of pixels between the container's top border and plot area. This space can be used for top axis' values. If autoMargin is true and top side has axis, this property is ignored.
             @default 20
         */
@@ -1324,7 +1331,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             trendLine.lineColor = "#CC0000";
             chart.addTrendLine(trendLine);
     */
-    declare class TrendLine {
+    class TrendLine {
 
     }
 
@@ -1334,9 +1341,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             var chartCursor = new AmCharts.ChartCursor();
             chart.addChartCursor(chartCursor);
     */
-    declare class ChartCursor {
+    class ChartCursor {
         /** Specifies if bullet for each graph will follow the cursor. */
-        bulletsEnabled: bool;
+        bulletsEnabled: boolean;
         /** Size of bullets, following the cursor.
             @default 8
         */
@@ -1352,7 +1359,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether category balloon is enabled. 
             @default true
         */
-        categoryBalloonEnabled: bool;
+        categoryBalloonEnabled: boolean;
         /** Text color. #FFFFFF */
         color: string;
         /** Opacity of the cursor line.  1 */
@@ -1364,25 +1371,25 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether cursor is enabled.
             @default true
         */
-        enabled: bool;
+        enabled: boolean;
         /** If this is set to true, only one balloon at a time will be displayed. Note, this is quite CPU consuming. */
-        oneBalloonOnly: bool;
+        oneBalloonOnly: boolean;
         /** If this is set to true, the user will be able to pan the chart (Serial only) instead of zooming. */
-        pan: bool;
+        pan: boolean;
         /** Opacity of the selection. */
         selectionAlpha: number;
         /** Specifies if cursor should only mark selected area but not zoom-in after user releases mouse button. */
-        selectWithoutZooming: bool;
+        selectWithoutZooming: boolean;
         /** Specifies whether value balloons are enabled. In case they are not, the balloons might be displayed anyway, when the user rolls-over the column or bullet.
             @default true
         */
-        valueBalloonsEnabled: bool;
+        valueBalloonsEnabled: boolean;
         /** Specifies if the user can zoom-in the chart. If pan is set to true, zoomable is switched to false automatically.
             @default true
         */
-        zoomable: bool;
+        zoomable: boolean;
         /** Indicates if currently user is selecting some chart area to zoom-in. */
-        zooming: bool;
+        zooming: boolean;
 
 
         /** Hides cursor. */
@@ -1393,7 +1400,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @param type Always "changed".
             @param handler Dispatched when cursor position is changed. "index" is a series index over which chart cursors currently is. "zooming" specifies if user is currently zooming (is selecting) the chart. mostCloseGraph property is set only when oneBalloonOnly is set to true.*/
         addListener(type: string, handler: (e: {/** Always "changed". */
-            type: string; index: number; zooming: bool; mostCloseGraph: AmGraph; chart: AmChart;
+            type: string; index: number; zooming: boolean; mostCloseGraph: AmGraph; chart: AmChart;
         }) => void );
         /** Adds event listener of the type "onHideCursor" to the object.
             @param type Always "onHideCursor".
@@ -1408,7 +1415,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
                 If the type is "zoomed". Dispatched when user zooms to some period. start and end are indices or timestamp (when categoryAxis.parseDates is true) of selection start/end.
         */
         addListener(type: string, handler: (e: {/** Always "zoomed". */
-            type: string; index: number; zooming: bool; chart: AmChart;
+            type: string; index: number; zooming: boolean; chart: AmChart;
         }) => void );
 
         /** Removes event listener from chart object. */
@@ -1431,8 +1438,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 			
             chart.write("chartdiv");
     */
-    declare class AmSerialChart extends AmRectangularChart {
-        /** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
+    class AmSerialChart extends AmRectangularChart {
+    	/** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
         categoryAxis: CategoryAxis;
         /** Category field name tells the chart the name of the field in your dataProvider object which will be used for category axis values. */
         categoryField: string;
@@ -1457,7 +1464,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** The shortest time span allowed to select (in milliseconds) for example, 1000 will limit selection to 1 second. */
         minSelectedTime: number;
         /** If you set this to true, the chart will be rotated by 90 degrees (the columns will become bars). */
-        rotate: bool;
+        rotate: boolean;
         /** Read-only. If category axis parses dates startDate indicates date from which the chart is currently displayed. */
         startDate: Date;
         /** Read-only. Category index from which the chart is currently displayed. */
@@ -1465,7 +1472,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if chart should zoom-out when data is updated.
             @default true
          */
-        zoomOutOnDataUpdate: bool;
+        zoomOutOnDataUpdate: boolean;
 
         /** Number Returns index of the specified category value. value - series (category value) which index you want to find. */
         getCategoryIndexByValue(value);
@@ -1479,7 +1486,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomToIndexes(start, end);
     }
 
-    declare class PeriodSelector {
+    class PeriodSelector {
         /** Date format of date input fields. Check [[http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/mx/formatters/DateFormatter.html DD-MM-YYYY */
         dateFormat: string;
         /** Text displayed next to "from" date input field. From: */
@@ -1487,11 +1494,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if period buttons with date range bigger than available data should be hidden.
             @default true
         */
-        hideOutOfScopePeriods: bool;
+        hideOutOfScopePeriods: boolean;
         /** Specifies whether period selector displays "from" and "to" date input fields.
             @default true
         */
-        inputFieldsEnabled: bool;
+        inputFieldsEnabled: boolean;
         /** Width of date input fields, in pixels. Works only if period selector is horizontal.
             @default 100
         */
@@ -1503,7 +1510,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Possible values: "right", "left", "top", "bottom". bottom */
         position: string;
         /** Specifies whether predefined period buttons should select a period from the beginning or the end of the data. */
-        selectFromStart: bool;
+        selectFromStart: boolean;
         /** Text displayed next to "to" date input field. To: */
         toText: string;
         /** Width of a period selector, when position is "left" or "right".
@@ -1531,7 +1538,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** PanelsSettings settings set's settings for all StockPanels. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockPanel class will be used. */
 
-    declare class PanelsSettings {
+    class PanelsSettings {
         /** The angle of the 3D part of plot area. This creates a 3D effect (if the "depth3D" is > 0). */
         angle: number;
         /** Opacity of panel background. Possible values are 1 and 0. Values like 0.5 will not make it half-transparent. */
@@ -1563,7 +1570,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         panelSpacing: number;
         /** This setting affects touch-screen devices only. If a chart is on a page, and panEventsEnabled are set to true, the page won't move if the user touches the chart first. If a chart is big enough and occupies all the screen of your touch device, the user won’t be able to move the page at all. That's why the default value is "false". If you think that selecting or or panning the chart is a primary purpose of your chart users, you should set panEventsEnabled to true. */
-        panEventsEnabled: bool;
+        panEventsEnabled: boolean;
         /** The opacity of plot area's border. */
         plotAreaBorderAlpha: number;
         /** The color of the plot area's border. */
@@ -1577,7 +1584,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Prefixes which are used to make small numbers shorter: 2μ instead of 0.000002, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true. [{number:1e-24, prefix:"y"},{number:1e-21, prefix:"z"},{number:1e-18, prefix:"a"},{number:1e-15, prefix:"f"},{number:1e-12, prefix:"p"},{number:1e-9, prefix:"n"},{number:1e-6, prefix:"μ"},{number:1e-3, prefix:"m"}] */
         prefixesOfSmallNumbers: any[];
         /** Specifies whether the animation should be sequenced or all objects should appear at once. */
-        sequencedAnimation: bool;
+        sequencedAnimation: boolean;
         /** The initial opacity of the column/line. If you set startDuration to a value higher than 0, the columns/lines will fade in from startAlpha. */
         startAlpha: number;
         /** Duration of the animation, in seconds. */
@@ -1585,18 +1592,18 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Possible values are: "linear", "<", ">" "<>", "elastic", "bounce". */
         startEffect: string;
         /** If true, prefixes will be used for big and small numbers. */
-        usePrefixes: bool;
+        usePrefixes: boolean;
     }
 
     /** DataSet is objects which holds all information about data. */
 
-    declare class DataSet {
+    class DataSet {
         /** Category field name in your dataProvider. */
         categoryField: string;
         /** Color of the data set. One of colors from AmStockChart.colors array will be used if not set. */
         color: string;
         /** Whether this data set is selected for comparing. If you change this property, you should call stockChart.validateData() method in order the changes to be applied. */
-        compared: bool;
+        compared: boolean;
         /** Data provider of the data set. */
         dataProvider: any[];
         /** Array of field mappings. Field mapping is an object with fromField and toField properties. fromField is a name of your value field in dataProvider. toField might be chosen freely, it will be used to set value/open/close/high/low fields for the StockGraph. Example: {fromField:"val1", toField:"value"}. */
@@ -1604,20 +1611,20 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether this data set should be visible in "compare to" list.
             @default true
         */
-        showInCompare: bool;
+        showInCompare: boolean;
         /** Specifies whether this data set should be visible in "select" dropdown.
             @default true
          */
-        showInSelect: bool;
+        showInSelect: boolean;
         /** Array of StockEvent objects. */
         stockEvents: StockEvent[];
         /** DataSet title. */
         title: string;
     }
 
-    declare class StockGraph extends AmGraph {
+    class StockGraph extends AmGraph {
         /** Specifies whether this graph will be compared if some data set is selected for comparing. */
-        comparable: bool;
+        comparable: boolean;
         /** Specifies a field to be used to generate comparing graph. Note, this field is not the one used in your dataProvider, but toField from FieldMapping object. */
         compareField: string;
         /** Balloon color of comparing graph. */
@@ -1645,17 +1652,17 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if compare graph is visible in legend.
             @default true
         */
-        compareGraphVisibleInLegend: bool;
+        compareGraphVisibleInLegend: boolean;
         /** When data is grouped to periods, the graph must know which period value should be used. Possible values are: "Open", "Low", "High", "Close", "Average" and "Sum". Close */
         periodValue: string;
         /** Specifies whether data set color should be used as this graph's lineColor.
             @default true
         */
-        useDataSetColors: bool;
+        useDataSetColors: boolean;
     }
 
     /** StockEvent is object which holds information about event(bullet).Values from StockEventsSettings will be used if not set.Stock event bullet's size depends on it's graphs fontSize.When user rolls - over, clicks or rolls - out of the event bullet, AmStockChart dispatches events.*/
-    declare class StockEvent {
+    class StockEvent {
         /** Opacity of bullet background.
             @default 1
         */
@@ -1677,7 +1684,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Roll-over background color. #CC0000 */
         rollOverColor: string;
         /** Specifies if the event should be displayed on category axis */
-        showOnAxis: bool;
+        showOnAxis: boolean;
         /** Letter which will be displayed on the event. Not all types can display letters. "text" type can display longer texts. */
         text: string;
         /** Type of bullet. Possible values are: "flag", "sign", "pin", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "text", "arrowUp", "arrowDown". sign */
@@ -1689,11 +1696,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** Common settings of legends. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockLegend class will be used. */
-    declare class LegendSettings {
+    class LegendSettings {
         /** Alignment of legend entries. Possible values are: "left", "right" and "center". */
         align: string;
         /** Specifies if each legend entry should take the same space as the longest legend entry. */
-        equalWidths: bool;
+        equalWidths: boolean;
         /** Horizontal space between legend item and left/right border. */
         horizontalGap: number;
         /** The text which will be displayed in the legend. Tag [[title]] will be replaced with the title of the graph. */
@@ -1717,21 +1724,21 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Shape of the legend marker (key). Possible values are: "square", "circle", "line", "dashedLine", "triangleUp", "triangleDown", "bubble", "none". */
         markerType: string;
         /** Specifies whether legend entries should be placed in reversed order. */
-        reversedOrder: bool;
+        reversedOrder: boolean;
         /** Legend item text color on roll-over. */
         rollOverColor: string;
         /** When you roll-over the legend entry, all other graphs can reduce their opacity, so that the graph you rolled-over would be distinguished. This property specifies the opacity of the graphs. */
         rollOverGraphAlpha: number;
         /** Whether showing/hiding of graphs by clicking on the legend marker is enabled or not. */
-        switchable: bool;
+        switchable: boolean;
         /** Legend switch color. */
         switchColor: string;
         /** Legend switch type (in case the legend is switchable). Possible values are: "x" and "v". */
         switchType: string;
         /** Specifies whether the legend text is clickable or not. Clicking on legend text can show/hide value balloons if they are enabled. */
-        textClickEnabled: bool;
+        textClickEnabled: boolean;
         /** Specifies if legend labels should be use same color as corresponding markers. */
-        useMarkerColorForLabels: bool;
+        useMarkerColorForLabels: boolean;
         /** The text which will be displayed in the value portion of the legend when graph is comparable and at least one dataSet is selected for comparing. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents]], [[description]]. */
         valueTextComparing: string;
         /** The text which will be displayed in the value portion of the legend. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents]], [[description]]. */
@@ -1744,7 +1751,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** DataSetSelector is a tool for selecting data set's as main and for comparing with main data set. */
-    declare class DataSetSelector {
+    class DataSetSelector {
         /** Text displayed in the "compare to" combobox (when position is "top" or "bottom"). Select... */
         comboBoxSelectText: string;
         /** Text displayed near "compare to" list. Compare to: */
@@ -1774,9 +1781,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             balloon.cornerRadius = 5;
             balloon.fillColor = "#FFFFFF";
     */
-    declare class AmBalloon {
+    class AmBalloon {
         /** If this is set to true, border color instead of background color will be changed when user rolls-over the slice, graph, etc. */
-        adjustBorderColor: bool;
+        adjustBorderColor: boolean;
         /** Balloon border opacity. Value range is 0 - 1.
             @default 1
         */
@@ -1810,7 +1817,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         pointerWidth: number;
         /** If cornerRadius of a balloon is >0, showBullet is set to true for value balloons when ChartCursor is used. If you don't want the bullet near the balloon, set it to false: chart.balloon.showBullet = false */
-        showBullet: bool;
+        showBullet: boolean;
         /** Text alignment, possible values "left", "middle" and "right" middle */
         textAlign: string;
         /** Color of the text shadow. #000000 */
@@ -1830,11 +1837,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** CategoryAxesSettings settings set's settings common for all CategoryAxes of StockPanels. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of CategoryAxis class will be used. */
-    declare class CategoryAxesSettings {
+    class CategoryAxesSettings {
         /** Specifies whether number of gridCount is specified automatically, according to the axis size.
             @default true
         */
-        autoGridCount: bool;
+        autoGridCount: boolean;
         /** Axis opacity. */
         axisAlpha: number;
         /** Axis color. */
@@ -1852,7 +1859,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Date formats of different periods. Possible period values: fff - milliseconds, ss - seconds, mm - minutes, hh - hours, DD - days, MM - months, WW - weeks, YYYY - years. Check this page for date formatting strings. */
         dateFormats: any[];
         /** If you want data points to be placed at equal intervals (omiting dates with no data), set equalSpacing to true. */
-        equalSpacing: bool;
+        equalSpacing: boolean;
         /** Fill opacity. Every second space between grid lines can be filled with fillColor. */
         fillAlpha: number;
         /** Fill color. Every second space between grid lines can be filled with color. Set fillAlpha to a value greater than 0 to see the fills. */
@@ -1872,7 +1879,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Periods to which data will be gruoped in case there are more data items in the selected period than specified in maxSeries property. ["ss", "10ss", "30ss", "mm", "10mm", "30mm", "hh", "DD", "WW", "MM", "YYYY"] */
         groupToPeriods: any[];
         /** Specifies whether values should be placed inside or outside of plot area. */
-        inside: bool;
+        inside: boolean;
         /** Rotation angle of a label. */
         labelRotation: number;
         /** Maximum series shown at a time. In case there are more data points in the selection than maxSeries, the chart will group data to longer periods, for example - you have 250 days in the selection, and maxSeries is 150 - the chart will group data to weeks.
@@ -1884,15 +1891,15 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** top or "bottom". */
         position: string;
         /** Specifies whether the graph should start on axis or not. In case you display columns, it is recommended to set this to false. startOnAxis can be set to true only if equalSpacing is set to true. */
-        startOnAxis: bool;
+        startOnAxis: boolean;
         /** Tick length. */
         tickLength: number;
     }
 
     /** ChartCursorSettings settings set's settings for chart cursor. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ChartCursor class will be used. */
-    declare class ChartCursorSettings {
+    class ChartCursorSettings {
         /** Specifies if bullet for each graph will follow the cursor. */
-        bulletsEnabled: bool;
+        bulletsEnabled: boolean;
         /** Size of bullets, following the cursor. */
         bulletSize: number;
         /** Opacity of the category balloon. */
@@ -1902,7 +1909,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Array of date format objects. Date format object must have "period" and "format" items. Available periods are: fff - millisecond, ss - second, mm - minute, hh - hour, DD - date, WW - week, MM - month, YYYY - year. [{period:"YYYY", format:"YYYY"}, {period:"MM", format:"MMM, YYYY"}, {period:"WW", format:"MMM DD, YYYY"}, {period:"DD", format:"MMM DD, YYYY"}, {period:"hh", format:"JJ:NN"}, {period:"mm", format:"JJ:NN"}, {period:"ss", format:"JJ:NN:SS"}, {period:"fff", format:"JJ:NN:SS"}] */
         categoryBalloonDateFormats: any[];
         /** Specifies whether category balloon is enabled. */
-        categoryBalloonEnabled: bool;
+        categoryBalloonEnabled: boolean;
         /** Opacity of the cursor line. */
         cursorAlpha: number;
         /** Color of the cursor line. */
@@ -1912,21 +1919,21 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Set this to "false" if you don't want chart cursor to appear in your charts.
             @default true
         */
-        enabled: bool;
+        enabled: boolean;
         /** If this is set to true, the user will be able to pan the chart instead of zooming. */
-        pan: bool;
+        pan: boolean;
         /** Specifies whether value balloons are enabled. In case they are not, the balloons might be displayed anyway, when the user rolls-over the column or bullet. */
-        valueBalloonsEnabled: bool;
+        valueBalloonsEnabled: boolean;
         /** Specifies if the user can zoom-in the chart. If pan is set to true, zoomable is switched to false automatically. */
-        zoomable: bool;
+        zoomable: boolean;
     }
 
     /* ChartScrollbarSettings settings set's settings for chart scrollbar. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ChartScrollbar class will be used.*/
-    declare class ChartScrollbarSettings {
+    class ChartScrollbarSettings {
         /** Specifies whether number of gridCount is specified automatically, according to the axis size.
             @default true
         */
-        autoGridCount: bool;
+        autoGridCount: boolean;
         /** Background opacity. */
         backgroundAlpha: number;
         /** Background color of the scrollbar. */
@@ -1936,7 +1943,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Set false if you don't need scrollbar.
             @default true
         */
-        enabled: bool;
+        enabled: boolean;
         /** Font size. */
         fontSize: number;
         /** Specifies which graph will be displayed in the scrollbar. */
@@ -1962,7 +1969,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         height: number;
         /** Specifies whether resize grips are hidden when mouse is away from the scrollbar. */
-        hideResizeGrips: bool;
+        hideResizeGrips: boolean;
         /** Duration of scrolling, when the user clicks on scrollbar's background, in seconds. */
         scrollDuration: number;
         /** Selected background opacity. */
@@ -1980,7 +1987,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if the chart should be updated while dragging/resizing the scrollbar or only at the moment when user releases mouse button. Usefull when working with large data sets.
             @default true
         */
-        updateOnReleaseOnly: bool;
+        updateOnReleaseOnly: boolean;
     }
 
     /** AmGraph class displays all types of graphs - line, column, step line, smoothed line, ohlc and candlestick.
@@ -1992,7 +1999,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             graph.fillAlphas = 1;
             chart.addGraph(graph);
     */
-    declare class AmGraph {
+    class AmGraph {
         /** Name of the alpha field in your dataProvider. */
         alphaField: string;
         /** Value balloon color. Will use graph or data item color if not set. */
@@ -2000,7 +2007,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Balloon text. You can use tags like [[value]], [[description]], [[percents]], [[open]], [[category]] [[value]] */
         balloonText: string;
         /** Specifies if the line graph should be placed behind column graphs */
-        behindColumns: bool;
+        behindColumns: boolean;
         /** Type of the bullets. Possible values are: "none", "round", "square", "triangleUp", "triangleDown", "bubble", "custom". none */
         bullet: string;
         /** Opacity of bullets. Value range is 0 - 1.
@@ -2038,7 +2045,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether to connect data points if data is missing. The default value is true.
             @default true
         */
-        connect: bool;
+        connect: boolean;
         /** Corner radius of column. It can be set both in pixels or in percents. The chart's depth and angle styles must be set to 0. The default value is 0. Note, cornerRadiusTop will be applied for all corners of the column, JavaScript charts do not have a possibility to set separate corner radius for top and bottom. As we want all the property names to be the same both on JS and Flex, we didn't change this too. */
         cornerRadiusTop: number;
         /** If bulletsEnabled of ChartCurosor is true, a bullet on each graph follows the cursor. You can set opacity of each graphs bullet. In case you want to disable these bullets for a certain graph, set opacity to 0.
@@ -2066,7 +2073,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Orientation of the gradient fills (only for "column" graph type). Possible values are "vertical" and "horizontal". vertical */
         gradientOrientation: string;
         /** Specifies whether the graph is hidden. Do not use this to show/hide the graph, use hideGraph(graph) and showGraph(graph) methods instead. */
-        hidden: bool;
+        hidden: boolean;
         /** If there are more data points than hideBulletsCount, the bullets will not be shown. 0 means the bullets will always be visible. */
         hideBulletsCount: number;
         /** Name of the high field (used by candlesticks and ohlc) in your dataProvider. */
@@ -2074,7 +2081,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Whether to include this graph when calculating min and max value of the axis.
             @default true
         */
-        includeInMinMax: bool;
+        includeInMinMax: boolean;
         /** Name of label color field in data provider. */
         labelColorField: string;
         /** Position of value label. Possible values are: "bottom", "top", "right", "left", "inside", "middle". Sometimes position is changed by the chart, depending on a graph type, rotation, etc. top */
@@ -2124,17 +2131,17 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies where data points should be placed - on the beginning of the period (day, hour, etc) or in the middle (only when parseDates property of categoryAxis is set to true). This setting affects Serial chart only. Possible values are "start" and "middle". middle */
         pointPosition: string;
         /** If graph's type is column and labelText is set, graph hides labels which do not fit into the column's space. If you don't want these labels to be hidden, set this to true. */
-        showAllValueLabels: bool;
+        showAllValueLabels: boolean;
         /** Specifies whether the value balloon of this graph is shown when mouse is over data item or chart's indicator is over some series.
             @default true
         */
-        showBalloon: bool;
+        showBalloon: boolean;
         /** Specifies graphs value at which cursor is showed. This is only important for candlestick and ohlc charts, also if column chart has "open" value. Possible values are: "open", "close", "high", "low". close */
         showBalloonAt: string;
         /** If the value axis of this graph has stack types like "regular" or "100%" You can exclude this graph from stacking.
             @default true
         */
-        stackable: bool;
+        stackable: boolean;
         /** Graph title. */
         title: string;
         /** Type of the graph. Possible values are: "line", "column", "step", "smoothedLine", "candlestick", "ohlc". XY and Radar charts can only display "line" type graphs. line */
@@ -2150,7 +2157,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether this graph should be shown in the Legend.
             @default true
         */
-        visibleInLegend: bool;
+        visibleInLegend: boolean;
         /** XY chart only. A horizontal value axis object to attach graph to. */
         xAxis: ValueAxis;
         /** XY chart only. Name of the x field in your dataProvider. */
@@ -2162,11 +2169,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** AxisBase is the base class for ValueAxis and CategoryAxis. It can not be instantiated explicitly. */
-    declare class AxisBase {
+    class AxisBase {
         /** Specifies whether number of gridCount is specified automatically, acoarding to the axis size.
             @default true
         */
-        autoGridCount: bool;
+        autoGridCount: boolean;
         /** Axis opacity. Value range is 0 - 1.
             @default 1
         */
@@ -2202,9 +2209,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** The array of guides belonging to this axis. */
         guides: any[];
         /** If autoMargins of a chart is set to true, but you want this axis not to be measured when calculating margin, set ignoreAxisWidth to true.  */
-        ignoreAxisWidth: bool;
+        ignoreAxisWidth: boolean;
         /** Specifies whether values should be placed inside or outside plot area. */
-        inside: bool;
+        inside: boolean;
         /** Frequency at which labels should be placed. Doesn't work for CategoryAxis if parseDates is set to true.
             @default 1
         */
@@ -2214,7 +2221,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether axis displays category axis' labels and value axis' values.
             @default true
         */
-        labelsEnabled: bool;
+        labelsEnabled: boolean;
         /** The distance of the axis to the plot area, in pixels. Negative values can also be used.  */
         offset: number;
         /** Possible values are: "top", "bottom", "left", "right". If axis is vertical, default position is "left". If axis is horizontal, default position is "bottom".  */
@@ -2222,11 +2229,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Whether to show first axis label or not.
             @default true
         */
-        showFirstLabel: bool;
+        showFirstLabel: boolean;
         /** Whether to show last axis label or not.
             @default true
         */
-        showLastLabel: bool;
+        showLastLabel: boolean;
         /** Length of the tick marks.
             @default 5
         */
@@ -2236,7 +2243,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if title should be bold or not.
             @default true
         */
-        titleBold: bool;
+        titleBold: boolean;
         /** Color of axis title. Will use text color of chart if not set any. */
         titleColor: string;
         /** Font size of axis title. Will use font size of chart plus two pixels if not set any. */
@@ -2249,7 +2256,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     }
 
     /** ValueAxis is the class which displays value axis for the chart. The chart can have any number of value axes. For Serial chart one value axis is created automatically. For XY Chart two value axes (horizontal and vertical) are created automatically. */
-    declare class ValueAxis extends AxisBase {
+    class ValueAxis extends AxisBase {
         /** Radar chart only. Specifies distance from axis to the axis title (category)  10 */
         axisTitleOffset: number;
         /** Read-only. Coordinate of the base value. */
@@ -2263,13 +2270,13 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Radar chart only. Possible values are: "polygons" and "circles". Set "circles" for polar charts. polygons */
         gridType: string;
         /** Specifies whether guide values should be included when calculating min and max of the axis. */
-        includeGuidesInMinMax: bool;
+        includeGuidesInMinMax: boolean;
         /** If true, the axis will include hidden graphs when calculating min and max values. */
-        includeHidden: bool;
+        includeHidden: boolean;
         /** Specifies whether values on axis can only be integers or both integers and doubles. */
-        integersOnly: bool;
+        integersOnly: boolean;
         /** Specifies if this value axis' scale should be logarithmic. */
-        logarithmic: bool;
+        logarithmic: boolean;
         /** Read-only. Maximum value of the axis. */
         max: number;
         /** If you don't want max value to be calculated by the chart, set it using this property. This value might still be adjusted so that it would be possible to draw grid at rounded intervals. */
@@ -2285,11 +2292,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Radar chart only. Specifies if categories (axes' titles) should be displayed near axes)
             @default true
         */
-        radarCategoriesEnabled: bool;
+        radarCategoriesEnabled: boolean;
         /** pecifies if graphs's values should be recalculated to percents. */
-        recalculateToPercents: bool;
+        recalculateToPercents: boolean;
         /** Specifies if value axis should be reversed (smaller values on top).  */
-        reversed: bool;
+        reversed: boolean;
         /** Stacking mode of the axis. Possible values are: "none", "regular", "100%", "3d". none Note, only graphs of one type will be stacked. */
         stackType: string;
         /** Read-only. Value difference between two grid lines. */
@@ -2303,9 +2310,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Position of the unit. Possible values are "left" and "right". right */
         unitPosition: string;
         /** If true, prefixes will be used for big and small numbers. You can set arrays of prefixes directly to the chart object via prefixesOfSmallNumbers and prefixesOfBigNumbers. */
-        usePrefixes: bool;
+        usePrefixes: boolean;
         /** If true, values will always be formatted using scientific notation (5e+8, 5e-8...) Otherwise only values bigger then 1e+21 and smaller then 1e-7 will be displayed in scientific notation. */
-        useScientificNotation: bool;
+        useScientificNotation: boolean;
 
         /** Adds event listener to the object.  type - string like 'axisChanged' (should be listed in 'events' section of this class or classes which extend this class). handler - function which is called when event happens */
         addListener(type, handler);
@@ -2341,6 +2348,3 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         removeListener(chart: AmChart, type: string, handler: any);
     }
 }
-
-/** AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page. */
-var AmCharts: AmChartsStatic;

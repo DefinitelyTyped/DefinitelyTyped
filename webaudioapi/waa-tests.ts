@@ -60,6 +60,9 @@ declare var footstepsBuffer: any;
     lowpassFilter.connect(wet1);
     dry1.connect(masterDry);
     wet1.connect(reverb);
+    source1.loop = true;
+    source1.loopStart = 0;
+    source1.loopEnd = 300;
 
     // Connect source2
     var dry2 = context.createGain();
@@ -78,11 +81,20 @@ declare var footstepsBuffer: any;
     panner.connect(wet3);
     dry3.connect(masterDry);
     wet3.connect(reverb);
-    
+
     // Start the sources now.
     source1.start(0);
-    source2.start(0);
+    // MEMO: should be when parameter is 0
+    // http://www.w3.org/TR/webaudio/#AudioBufferSourceNode
+    source2.start();
     source3.start(0);
+
+    // Stop the sources are 2 seconds later.
+    source1.stop(2);
+    // MEMO: should be when parameter is 0
+    // http://www.w3.org/TR/webaudio/#AudioBufferSourceNode
+    source2.stop();
+    source3.stop(2);
 };
 
 ()=>{
@@ -302,4 +314,12 @@ declare var footstepsBuffer: any;
 	    oneShotSound.start(context.currentTime + 0.75);
 	}
 };
+
+()=>{
+    var context = new webkitOfflineAudioContext(1, 2, 44100.5);
+    context.oncomplete = function(e) {
+        context.createBufferSource().buffer;
+    }
+    context.startRendering();
+}
 

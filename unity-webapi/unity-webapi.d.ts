@@ -1,7 +1,11 @@
 // Type definitions for Ubuntu Unity Web API 1.0
 // Project: https://launchpad.net/libunity-webapps
-// Definitions by: John Vrbanac <john.vrbanac@linux.com> | https://github.com/jmvrbanac
+// Definitions by: John Vrbanac <jhttps://github.com/jmvrbanac>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+interface External {
+	getUnityObject(version:number):Unity;
+}
 
 declare class UnitySettings {
    public name:String;
@@ -9,7 +13,7 @@ declare class UnitySettings {
    public onInit:Function;
 }
 
-enum UnityPlaybackState {
+declare enum UnityPlaybackState {
    Playing,
    Paused
 }
