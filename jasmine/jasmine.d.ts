@@ -382,7 +382,7 @@ declare module jasmine {
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string): void;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
-        stub(): Spy;
+        stub(...params:any[]): Spy;
     }
 
     interface Calls {
