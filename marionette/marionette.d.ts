@@ -231,6 +231,8 @@ declare module Marionette {
          * @param optionName the name of the option to retrieve.
          */
         getOption(optionName: string): any;
+
+        triggerMethod(name: string, ...args: any[]): any;
     }
 
     interface RegionConstructionOptions {
