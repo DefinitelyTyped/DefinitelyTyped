@@ -5,6 +5,7 @@ import zmq = require('zmq');
 function test1() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
+    sock.unbindSync('tcp://127.0.0.1:3000');
     sock.send("some work");
 }
 
@@ -27,6 +28,9 @@ function test4() {
     var sock = zmq.socket(zmq.types.pull);
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
+    });
+    sock.unbind('tcp://127.0.0.1', err => {
+        //
     });
 }
 
