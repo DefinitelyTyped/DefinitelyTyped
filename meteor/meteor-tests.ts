@@ -1,4 +1,4 @@
-/// <reference path='meteor.d.ts'/>
+/// <reference path='../definitions/meteor.d.ts'/>
 
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
@@ -98,7 +98,7 @@ Tracker.autorun(function () {
 });
 
 console.log("Current room has " +
-    Counts.findOne(Session.get("roomId")).count +
+    Counts.find(Session.get("roomId")).count +
     " messages.");
 
 /**
@@ -144,8 +144,15 @@ var result = Meteor.call('foo', 1, 2);
  * From Collections, Mongo.Collection section
  */
 // DA: I added the "var" keyword in there
-var Chatrooms = new Mongo.Collection("chatrooms");
-Messages = new Mongo.Collection("messages");
+
+interface ChatroomsDAO {
+    _id?: string;
+}
+interface MessagesDAO {
+    _id?: string;
+}
+var Chatrooms = new Mongo.Collection<ChatroomsDAO>("chatrooms");
+Messages = new Mongo.Collection<MessagesDAO>("messages");
 
 var myMessages = Messages.find({userId: Session.get('myUserId')}).fetch();
 
