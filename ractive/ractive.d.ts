@@ -1,4 +1,4 @@
-﻿// Type definitions for Ractive 0.7.0 edge Tue Feb 03 2015 03:53:28 GMT+0000 (UTC) - commit f22ab8ad0a640591b1c263f57e21d1565cb26bf5
+﻿// Type definitions for Ractive 0.7.0 edge f22ab8ad0a640591b1c263f57e21d1565cb26bf5
 // Project: http://ractivejs.org
 // Definitions by: Han Lin Yap <http://yap.nu>
 // Definitions: https://github.com/codler/Ractive-TypeScript-Definition
