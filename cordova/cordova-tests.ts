@@ -179,6 +179,20 @@ file.download('http://some.server.com/download.php',
     { headers: null },
     true);
 
+file.upload('cdvfile://localhost/persistent/path/to/downloads/',
+    'http://some.server.com/download.php',
+    (result: FileUploadResult)=> { console.log('File uploaded. Bytes uploaded: ' + result.bytesSent); },
+    (err: FileTransferError) => {
+        console.error('Error ' + err.code);
+        if (err.exception) {
+            console.error('Failed with exception ' + err.exception);
+        }
+    },
+    { headers: null, httpMethod: "PUT" },
+    true);
+
+file.abort();
+
 file.abort();
 
 

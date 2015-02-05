@@ -2269,49 +2269,36 @@ declare module chrome.webRequest {
         file?: string;
     }
 
-    interface OnCompletedDetails {
+    interface WebRequestCallbackDetails {
+        requestId: string;
+        url: string;		
+        method: string;
         tabId: number;
+        frameId: number;
+        parentFrameId: number;
+        timeStamp: number;
+        type: string;
+    }
+
+    interface OnCompletedDetails extends WebRequestCallbackDetails {
         ip?: string;
         statusLine?: string;
-        frameId: number;
         responseHeaders?: HttpHeader[];
-        parentFrameId: number;
-        fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
-        type: string;
-        method: string;
+        fromCache: boolean;        
         statusCode: number;
     }
 
-    interface OnHeadersReceivedDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
+    interface OnHeadersReceivedDetails extends WebRequestCallbackDetails {
         statusLine?: string;
-        frameId: number;
-        requestId: string;
         responseHeaders?: HttpHeader[];
-        type: string;
-        method: string;
     }
 
-    interface OnBeforeRedirectDetails {
-        tabId: number;
+    interface OnBeforeRedirectDetails extends WebRequestCallbackDetails {
         ip?: string;
         statusLine?: string;
-        frameId: number;
         responseHeaders?: HttpHeader[];
-        parentFrameId: number;
         fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
         redirectUrl: string;
-        type: string;
-        method: string;
         statusCode: number;
     }
 
@@ -2320,75 +2307,35 @@ declare module chrome.webRequest {
         port: number;
     }
 
-    interface OnAuthRequiredDetails {
-        tabId: number;
+    interface OnAuthRequiredDetails extends WebRequestCallbackDetails {
         statusLine?: string;
-        frameId: number;
         challenger: Challenger;
         responseHeaders?: HttpHeader[];
         isProxy: boolean;
         realm?: string;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        requestId: string;
         scheme: string;
-        type: string;
-        method: string;
     }
 
-    interface OnBeforeSendHeadersDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        frameId: number;
-        requestId: number;
+    interface OnBeforeSendHeadersDetails extends WebRequestCallbackDetails {
         requestHeaders?: HttpHeader[];
-        type: string;
-        method: string;
     }
 
-    interface OnErrorOccurredDetails {
-        tabId: number;
+    interface OnErrorOccurredDetails extends WebRequestCallbackDetails {
         ip?: string;
-        frameId: number;
-        parentFrameId: number;
         fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
         error: string;
-        type: string;
-        method: string;
     }
 
-    interface OnResponseStartedDetails {
-        tabId: number;
+    interface OnResponseStartedDetails extends WebRequestCallbackDetails {
         ip?: string;
         statusLine?: string;
-        frameId: number;
         responseHeaders?: HttpHeader[];
-        parentFrameId: number;
         fromCache: boolean;
-        url: string;
-        timeStamp: number;
-        requestId: string;
-        type: string;
-        method: string;
         statusCode: number;
     }
 
-    interface OnSendHeadersDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        frameId: number;
-        requestId: string;
+    interface OnSendHeadersDetails extends WebRequestCallbackDetails {
         requestHeaders?: HttpHeader[];
-        type: string;
-        method: string;
     }
 
     interface RequestBody {
@@ -2397,13 +2344,8 @@ declare module chrome.webRequest {
         formData?: Object;
     }
 
-    interface OnBeforeRequestDetails {
-        tabId: number;
-        parentFrameId: number;
-        url: string;
-        timeStamp: number;
-        frameId: number;
-        requestBody: RequestBody;
+    interface OnBeforeRequestDetails extends WebRequestCallbackDetails {        
+        requestBody?: RequestBody;
     }
 
     interface WebRequestCompletedEvent extends chrome.events.Event { 
@@ -2422,7 +2364,7 @@ declare module chrome.webRequest {
     }
 
     interface WebRequestAuthRequiredEvent extends chrome.events.Event { 
-        addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]) => void): void;
+        addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void): void;
     }
 
