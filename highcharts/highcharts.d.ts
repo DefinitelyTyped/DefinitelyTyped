@@ -136,7 +136,7 @@ interface HighchartsAxisOptions {
     tickWidth?: number;
     tickmarkPlacement?: string; // "between" or "on"
     title?: HighchartsAxisTitle;
-    type?: string; // "linear", "logarithmic" or "datetime"    
+    type?: string; // "linear", "logarithmic" or "datetime"
 }
 
 interface HighchartsExtremes {
@@ -175,7 +175,7 @@ interface HighchartsColorOrGradient {
         cx: number; cy: number; r: number;
     };
     stops?: any[][];
-    
+
     brighten?(amount: number): HighchartsColorOrGradient;
     get?(type: string): string;
 }
@@ -986,10 +986,10 @@ interface HighchartsAxisObject {
 }
 
 interface HighchartsChartObject {
-    addSeries(options: HighchartsSeriesOptions): HighchartsSeriesOptions;
-    addSeries(options: HighchartsSeriesOptions, redraw: boolean): HighchartsSeriesOptions;
-    addSeries(options: HighchartsSeriesOptions, redraw: boolean, animation: boolean): HighchartsSeriesOptions;
-    addSeries(options: HighchartsSeriesOptions, redraw: boolean, animation: HighchartsAnimation): HighchartsSeriesOptions;
+    addSeries(options: HighchartsSeriesOptions, redraw?: boolean, animation?: boolean): HighchartsSeriesOptions;
+    addSeries(options: HighchartsSeriesOptions, redraw?: boolean, animation?: HighchartsAnimation): HighchartsSeriesOptions;
+    addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean): HighchartsAxisObject;
+    addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: HighchartsAnimation): HighchartsAxisObject;
     container: HTMLElement;
     destroy(): void;
     exportChart(): void;
@@ -1057,7 +1057,7 @@ interface HighchartsStatic {
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
     setOptions(options: HighchartsOptions): HighchartsOptions;
     getOptions(): HighchartsOptions;
-    
+
     map(array: any[], fn: Function): any[];
 }
 declare var Highcharts: HighchartsStatic;
@@ -1103,9 +1103,9 @@ interface HighchartsSeriesObject {
     select(): void;
     select(selected?: boolean): void;
     selected: boolean;
-    setData(data: number[]): void; // [value1,value2, ... ] 
+    setData(data: number[]): void; // [value1,value2, ... ]
     setData(data: number[], redraw: boolean): void;
-    setData(data: number[][]): void; // [[x1,y1],[x2,y2],... ] 
+    setData(data: number[][]): void; // [[x1,y1],[x2,y2],... ]
     setData(data: number[][], redraw: boolean): void;
     setData(data: HighchartsDataPoint[]): void; // HighchartsDataPoint[]
     setData(data: HighchartsDataPoint[], redraw: boolean): void;

@@ -1,6 +1,6 @@
 // Type definitions for Jasmine 2.1
-// Project: http://pivotal.github.com/jasmine/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>
+// Project: http://jasmine.github.io/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -32,6 +32,8 @@ declare function afterAll(action: (done: () => void) => void): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
+
+declare function fail(e?: any): void;
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
 
@@ -372,15 +374,15 @@ declare module jasmine {
 
     interface SpyAnd {
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
-        callThrough(): void;
+        callThrough(): Spy;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
         returnValue(val: any): void;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
-        callFake(fn: Function): void;
+        callFake(fn: Function): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string): void;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
-        stub(): void;
+        stub(): Spy;
     }
 
     interface Calls {

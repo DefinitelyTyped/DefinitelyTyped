@@ -17,6 +17,9 @@ declare module React {
         ref: string;
     }
 
+    interface ReactClassicElement<P> extends ReactElement<P> {
+    }
+
     interface ReactHTMLElement extends ReactElement<HTMLAttributes> {}
     interface ReactSVGElement extends ReactElement<SVGAttributes> {}
 
@@ -112,8 +115,10 @@ declare module React {
 
     interface TopLevelAPI {
         createClass<P, S, C>(spec: ComponentSpec<P, S, C>): ClassicComponentClass<P, S, C>;
+        createElement<P>(type: ClassicComponentClass<P, any, any>, props: P, ...children: ReactNode[]): ReactClassicElement<P>;
         createElement<P>(type: ComponentClass<P, any, any> | string, props: P, ...children: ReactNode[]): ReactElement<P>;
         createFactory<P>(type: ComponentClass<P, any, any> | string): ComponentFactory<P>;
+        render<P, S>(element: ReactClassicElement<P>, container: Element, callback?: () => any): ClassicComponent<P, S, any>;
         render<P, S>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P, S, any>;
         unmountComponentAtNode(container: Element): boolean;
         renderToString(element: ReactElement<any>): string;
