@@ -399,6 +399,8 @@ declare module moment {
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
         isMoment(m: any): boolean;
+        isDuration(): boolean;
+        isDuration(d: any): boolean;
 
         // Deprecated in 2.8.0.
         lang(language?: string): string;

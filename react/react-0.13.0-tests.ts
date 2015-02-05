@@ -42,7 +42,7 @@ var INPUT_REF: string = "input";
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var reactClass: React.ComponentClass<Props, State, Context> = React.createClass<Props, State, Context>({
+var reactClassicClass: React.ClassicComponentClass<Props, State, Context> = React.createClass<Props, State, Context>({
     getDefaultProps: () => {
         return <Props>{
             hello: undefined,
@@ -68,6 +68,8 @@ var reactClass: React.ComponentClass<Props, State, Context> = React.createClass<
             }));
     }
 });
+
+var reactClass: React.ComponentClass<Props, State, Context> = reactClassicClass;
 
 class ModernComponent extends React.Component<Props, State, Context> implements React.ChildContextProvider<ChildContext> {
     constructor(props: Props, context: Context) {
@@ -149,6 +151,11 @@ var isValid = React.isValidElement(reactElement); // true
 React.initializeTouchEvents(true);
 var domNode: Element = React.findDOMNode(component);
 
+var reactClassicElement: React.ReactClassicElement<Props>;
+reactClassicElement = React.createElement<Props>(reactClassicClass, props);
+var classicComponent: React.ClassicComponent<Props, State, Context>;
+classicComponent = React.render<Props, State>(reactClassicElement, container);
+
 //
 // React Elements
 // --------------------------------------------------------------------------
@@ -177,8 +184,6 @@ component.setState({ inputValue: "!!!" });
 component.forceUpdate();
 
 // classic
-var classicComponent = <React.ClassicComponent<Props, State, Context>>component;
-
 var htmlElement: Element = classicComponent.getDOMNode();
 var divElement: HTMLDivElement = classicComponent.getDOMNode<HTMLDivElement>();
 var isMounted: boolean = classicComponent.isMounted();
