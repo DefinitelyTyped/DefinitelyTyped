@@ -2112,18 +2112,18 @@ declare module chrome.webNavigation {
         frameId: number;
     }
 
-    interface CallbackUpdatedDetails extends CallbackDetails {
+    interface CallbackTransitionDetails extends CallbackDetails {
         transitionType: string;
-        transitionQualifiers: string;
+        transitionQualifiers: string[];
     }
 
-    interface ReferenceFragmentUpdatedDetails extends CallbackUpdatedDetails {
+    interface ReferenceFragmentUpdatedDetails extends CallbackTransitionDetails {
     }
 
     interface CompletedDetails extends CallbackDetails {
     }
 
-    interface HistoryStateUpdatedDetails extends CallbackUpdatedDetails {
+    interface HistoryStateUpdatedDetails extends CallbackTransitionDetails {
     }
 
     interface CreatedNavigationTargetDetails extends CallbackBasicDetails {
@@ -2141,9 +2141,7 @@ declare module chrome.webNavigation {
         parentFrameId: number;
     }
 
-    interface CommittedDetails extends CallbackDetails {
-        transitionType: string;
-        transitionQualifiers: string[];
+    interface CommittedDetails extends CallbackTransitionDetails {
     }
 
     interface DomContentLoadedDetails extends CallbackDetails {
