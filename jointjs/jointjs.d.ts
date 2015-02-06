@@ -1,6 +1,7 @@
-// Type definitions for Joint JS 0.6
+// Type definitions for Joint JS 0.9.3
 // Project: http://www.jointjs.com/
-// Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>
+// Definitions by: Aidan Reel <http://github.com/areel>, 
+// David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
@@ -103,34 +104,7 @@ declare module joint {
 
     }
 
-    module ui {
-        interface Handle {
-            name : string;
-            position : string;
-            icon: string;
-        }
-
-        class SelectionView extends Backbone.Model {
-            paper:joint.dia.Paper;
-            graph:joint.dia.Graph;
-            model:Backbone.Collection<joint.dia.Cell>;
-
-            constructor(opt:{
-                paper : joint.dia.Paper;
-                graph  : joint.dia.Graph;
-                model : Backbone.Collection<joint.dia.Cell>
-            });
-
-            createSelectionBox(cellView:joint.dia.CellView);
-            destroySelectionBox(cellView:joint.dia.CellView);
-            startSelecting(evt:any);
-            cancelSelection();
-
-            addHandle(handle:Handle);
-            removeHandle(name:string);
-            changeHandle(name:string, handle:Handle);
-        }
-    }
+    module ui {}
 
     module shapes {
         module basic {
