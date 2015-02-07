@@ -14,7 +14,6 @@ interface JQueryStatic {
     * @type {JSTreeStatic}
     */
     jstree?: JSTreeStatic;
-
 }
 
 interface JQuery {
@@ -347,6 +346,12 @@ interface JSTreeStaticDefaultsCore {
     * @name $.jstree.defaults.core.force_text
     */
     force_text?: boolean;
+
+    /**
+    * Should the node should be toggled if the text is double clicked . Defaults to `true`
+    * @name $.jstree.defaults.core.dblclick_toggle
+    */
+    dblclick_toggle?: boolean;
 }
 
 interface JSTreeStaticDefaultsCoreThemes {
@@ -524,6 +529,27 @@ interface JSTreeStaticDefaultsDragNDrop {
     * @plugin dnd
     */
     inside_pos: any;
+
+    /**
+    * when starting the drag on a node that is selected this setting controls if all selected nodes are dragged or only the single node, default is `true`, which means all selected nodes are dragged when the drag is started on a selected node
+    * @name $.jstree.defaults.dnd.drag_selection
+    * @plugin dnd
+    */
+    drag_selection: boolean;
+
+    /**
+    * controls whether dnd works on touch devices. If left as boolean true dnd will work the same as in desktop browsers, which in some cases may impair scrolling. If set to boolean false dnd will not work on touch devices. There is a special third option - string "selected" which means only selected nodes can be dragged on touch devices.
+    * @name $.jstree.defaults.dnd.touch
+    * @plugin dnd
+    */
+    touch: boolean;
+
+    /**
+    * controls whether items can be dropped anywhere on the node, not just on the anchor, by default only the node anchor is a valid drop target. Works best with the wholerow plugin. If enabled on mobile depending on the interface it might be hard for the user to cancel the drop, since the whole tree container will be a valid drop target.
+    * @name $.jstree.defaults.dnd.large_drop_target
+    * @plugin dnd
+    */
+    large_drop_target: boolean;
 }
 
 interface JSTreeStaticDefaultsSearch {
@@ -638,11 +664,64 @@ interface JSTreeStaticDefaultsUnique {
 
 interface JSTree extends JQuery {
     /**
+    * used to decorate an instance with a plugin. Used internally.
+    * @private
+    * @name plugin(deco [, opts])
+    * @param  {String} deco the plugin to decorate with
+    * @param  {Object} opts options for the plugin
+    * @return {jsTree}
+    */
+    plugin: (deco: string, opts?: any) => JSTree;
+
+    /**
+    * used to decorate an instance with a plugin. Used internally.
+    * @private
+    * @name init(el, options)
+    * @param {DOMElement|jQuery|String} el the element we are transforming
+    * @param {Object} options options for this instance
+    * @trigger init.jstree, loading.jstree, loaded.jstree, ready.jstree, changed.jstree
+    */
+    init: (el:any, options:any) => void;
+
+    /**
     * destroy an instance
     * @name destroy()
     * @param  {Boolean} keep_html if not set to `true` the container will be emptied, otherwise the current DOM elements will be kept intact
     */
     destroy: (keep_html?: boolean) => void;
+
+    /**
+    * part of the destroying of an instance. Used internally.
+    * @private
+    * @name teardown()
+    */
+    teardown: () => void;
+
+    /**
+    * bind all events. Used internally.
+    * @private
+    * @name bind()
+    */
+    bind: () => any;
+
+    /**
+    * part of the destroying of an instance. Used internally.
+    * @private
+    * @name unbind()
+    */
+    unbind: () => any;
+
+    /**
+    * trigger an event. Used internally.
+    * @private
+    * @name trigger(ev [, data])
+    * @param  {String} ev the name of the event to trigger
+    * @param  {Object} data additional data to pass with the event
+    */
+    /*
+     * defined in JQuery
+     */
+    // trigger: (ev: string, data?: Object) => any;
     
     /**
     * returns the jQuery extended instance container
@@ -650,6 +729,50 @@ interface JSTree extends JQuery {
     * @return {jQuery}
     */
     get_container: () => JQuery;
+
+    /**
+    * returns the jQuery extended main UL node inside the instance container. Used internally.
+    * @private
+    * @name get_container_ul()
+    * @return {jQuery}
+    */
+    get_container_ul: () => JQuery;
+
+    /**
+    * gets string replacements (localization). Used internally.
+    * @private
+    * @name get_string(key)
+    * @param  {String} key
+    * @return {String}
+    */
+    get_string: (key: string) => string;
+
+    /**
+    * gets the first child of a DOM node. Used internally.
+    * @private
+    * @name _firstChild(dom)
+    * @param  {DOMElement} dom
+    * @return {DOMElement}
+    */
+    _firstChild: (dom: HTMLElement) => HTMLElement;
+
+    /**
+    * gets the next sibling of a DOM node. Used internally.
+    * @private
+    * @name _nextSibling(dom)
+    * @param  {DOMElement} dom
+    * @return {DOMElement}
+    */
+    _nextSibling: (dom: HTMLElement) => HTMLElement;
+
+    /**
+    * gets the previous sibling of a DOM node. Used internally.
+    * @private
+    * @name _previousSibling(dom)
+    * @param  {DOMElement} dom
+    * @return {DOMElement}
+    */
+    _previousSibling: (dom: HTMLElement) => HTMLElement;
 
     /**
     * get the JSON representation of a node (or the actual jQuery extended DOM node) by using any input (child DOM element, ID string, selector, etc)
@@ -764,11 +887,131 @@ interface JSTree extends JQuery {
     load_node: (obj: any, callback: (node: any, status: boolean) => void) => boolean;
 
     /**
+    * load an array of nodes (will also load unavailable nodes as soon as the appear in the structure). Used internally.
+    * @private
+    * @name _load_nodes(nodes [, callback])
+    * @param  {array} nodes
+    * @param  {function} callback a function to be executed once loading is complete, the function is executed in the instance's scope and receives one argument - the array passed to _load_nodes
+    * @param  {Boolean} is_callback - if false reloads node (AP - original comment missing in source code)
+    */
+    _load_nodes: (nodes: any[], callback?: (nodes: any[]) => void, is_callback?: boolean) => void;
+
+    /**
+    * loads all unloaded nodes
+    * @name load_all([obj, callback])
+    * @param {mixed} obj the node to load recursively, omit to load all nodes in the tree
+    * @param {function} callback a function to be executed once loading all the nodes is complete,
+    * @trigger load_all.jstree
+    */
+    load_all: (obj: any, callback: () => void) => void;
+
+    /**
+    * handles the actual loading of a node. Used only internally.
+    * @private
+    * @name _load_node(obj [, callback])
+    * @param  {mixed} obj
+    * @param  {function} callback a function to be executed once loading is complete, the function is executed in the instance's scope and receives one argument - a boolean status
+    * @return {Boolean}
+    */
+    _load_node: (obj: any, callback?: (status: boolean) => void) => boolean;
+    
+    /**
+    * adds a node to the list of nodes to redraw. Used only internally.
+    * @private
+    * @name _node_changed(obj)
+    * @param  {mixed} obj
+    */
+    _node_changed: (obj: any) => void;
+
+    /**
+    * appends HTML content to the tree. Used internally.
+    * @private
+    * @name _append_html_data(obj, data)
+    * @param  {mixed} obj the node to append to
+    * @param  {String} data the HTML string to parse and append
+    * @param {function} callback function which takes boolean flag executes after append (AP: originally lack of comment)
+    * @trigger model.jstree, changed.jstree
+    */
+    _append_html_data: (dom: any, data: string, cb: (flag: boolean) => void) => void;
+
+    /**
+    * appends JSON content to the tree. Used internally.
+    * @private
+    * @name _append_json_data(obj, data)
+    * @param  {mixed} dom the node to append to
+    * @param  {String} data the JSON object to parse and append
+    * @param  {function} cb function which takes boolean flag executes after append (AP: originally lack of comment)
+    * @param  {Boolean} force_processing internal param - do not set
+    * @trigger model.jstree, changed.jstree
+    */
+    _append_json_data: (dom: any, data: string, cb: (flag: boolean) => void, force_processing: boolean) => void;
+
+    /**
+    * parses a node from a jQuery object and appends them to the in memory tree model. Used internally.
+    * @private
+    * @name _parse_model_from_html(d [, p, ps])
+    * @param  {jQuery} d the jQuery object to parse
+    * @param  {String} p the parent ID
+    * @param  {Array} ps list of all parents
+    * @return {String} the ID of the object added to the model
+    */
+    _parse_model_from_html: (d: JQuery, p?: string, ps?: any[]) => string;
+
+    /**
+    * parses a node from a JSON object (used when dealing with flat data, which has no nesting of children, but has id and parent properties) and appends it to the in memory tree model. Used internally.
+    * @private
+    * @name _parse_model_from_flat_json(d [, p, ps])
+    * @param  {Object} d the JSON object to parse
+    * @param  {String} p the parent ID
+    * @param  {Array} ps list of all parents
+    * @return {String} the ID of the object added to the model
+    */
+    _parse_model_from_flat_json: (d: any, p?: string, ps?: any[]) => string;
+
+    /**
+    * parses a node from a JSON object and appends it to the in memory tree model. Used internally.
+    * @private
+    * @name _parse_model_from_json(d [, p, ps])
+    * @param  {Object} d the JSON object to parse
+    * @param  {String} p the parent ID
+    * @param  {Array} ps list of all parents
+    * @return {String} the ID of the object added to the model
+    */
+    _parse_model_from_json: (d: any, p?: string, ps?: any[]) => string;
+
+    /**
+    * redraws all nodes that need to be redrawn. Used internally.
+    * @private
+    * @name _redraw()
+    * @trigger redraw.jstree
+    */
+    _redraw: () => void ;
+    
+    /**
     * redraws all nodes that need to be redrawn or optionally - the whole tree
     * @name redraw([full])
     * @param {Boolean} full if set to `true` all nodes are redrawn.
     */
     redraw: (full?: boolean) => void;
+
+    /**
+    * redraws a single node's children. Used internally.
+    * @private
+    * @name draw_children(node)
+    * @param {mixed} node the node whose children will be redrawn
+    */
+    draw_children: (node: any) => void;
+
+    /**
+    * redraws a single node. Used internally.
+    * @private
+    * @name redraw_node(node, deep, is_callback, force_render)
+    * @param {mixed} node the node to redraw
+    * @param {Boolean} deep should child nodes be redrawn too
+    * @param {Boolean} is_callback is this a recursion call
+    * @param {Boolean} force_render should children of closed parents be drawn anyway
+    */
+    redraw_node: (node: any, deep: boolean, is_callback: boolean, force_render: boolean) => void;
 
     /**
     * opens a node, revaling its children. If the node is not loaded it will be loaded and opened once ready.
@@ -780,6 +1023,14 @@ interface JSTree extends JQuery {
     * @trigger open_node.jstree, after_open.jstree, before_open.jstree
     */
     open_node: (obj: any, callback?: any, animation?: any) => void;
+
+    /**
+    * opens every parent of a node (node should be loaded)
+    * @name _open_to(obj)
+    * @param {mixed} obj the node to reveal
+    * @private
+    */
+    _open_to: (obj:any) => void;
 
     /**
     * closes a node, hiding its children
@@ -840,6 +1091,34 @@ interface JSTree extends JQuery {
     * @trigger disable_node.jstree
     */
     disable_node: (obj: any) => boolean;
+
+    /**
+    * called when a node is selected by the user. Used internally.
+    * @private
+    * @name activate_node(obj, e)
+    * @param {mixed} obj the node
+    * @param {Object} e the related event
+    * @trigger activate_node.jstree, changed.jstree
+    */
+    activate_node: (obj: any, e: any) => void;
+
+    /**
+    * applies the hover state on a node, called when a node is hovered by the user. Used internally.
+    * @private
+    * @name hover_node(obj)
+    * @param {mixed} obj
+    * @trigger hover_node.jstree
+    */
+    hover_node: (obj: any) => void;
+
+    /**
+    * removes the hover state from a nodecalled when a node is no longer hovered by the user. Used internally.
+    * @private
+    * @name dehover_node(obj)
+    * @param {mixed} obj
+    * @trigger dehover_node.jstree
+    */
+    dehover_node: (obj: any) => void;
 
     /**
     * select a node
@@ -909,6 +1188,24 @@ interface JSTree extends JQuery {
     get_bottom_selected: (full?: any) => any[];
 
     /**
+    * gets the current state of the tree so that it can be restored later with `set_state(state)`. Used internally.
+    * @name get_state()
+    * @private
+    * @return {Object}
+    */
+    get_state: () => any;
+
+    /**
+    * sets the state of the tree. Used internally.
+    * @name set_state(state [, callback])
+    * @private
+    * @param {Object} state the state to restore
+    * @param {Function} callback an optional function to execute once the state is restored.
+    * @trigger set_state.jstree
+    */
+    set_state: (state, callback: () => void) => void;
+
+    /**
     * refreshes the tree - all nodes are reloaded with calls to `load_node`.
     * @name refresh()
     * @param {Boolean} skip_loading an option to skip showing the loading indicator
@@ -942,6 +1239,17 @@ interface JSTree extends JQuery {
     * @return {String}
     */
     get_text: (obj: any) => string;
+
+    /**
+    * set the text value of a node. Used internally, please use `rename_node(obj, val)`.
+    * @private
+    * @name set_text(obj, val)
+    * @param  {mixed} obj the node, you can pass an array to set the text on multiple nodes
+    * @param  {String} val the new text value
+    * @return {Boolean}
+    * @trigger set_text.jstree
+    */
+    set_text: (obj:any, val:string) => boolean;
 
     /**
     * gets a JSON representation of a node (or the whole tree)
@@ -988,6 +1296,19 @@ interface JSTree extends JQuery {
     * @trigger delete_node.jstree, changed.jstree
     */
     delete_node: (obj: any) => boolean;
+
+    /**
+    * check if an operation is premitted on the tree. Used internally.
+    * @private
+    * @name check(chk, obj, par, pos)
+    * @param  {String} chk the operation to check, can be "create_node", "rename_node", "delete_node", "copy_node" or "move_node"
+    * @param  {mixed} obj the node
+    * @param  {mixed} par the parent
+    * @param  {mixed} pos the position to insert at, or if "rename_node" - the new name
+    * @param  {mixed} more some various additional information, for example if a "move_node" operations is triggered by DND this will be the hovered node
+    * @return {Boolean}
+    */
+    check: (chk: string, obj: any, par: any, pos: any, more: any) => boolean;
 
     /**
     * get the last error
@@ -1193,15 +1514,12 @@ interface JSTree extends JQuery {
     show_icon: (obj: any) => void;
 
     /**
-    * redraws a single node. Used internally.
+    * set the undetermined state where and if necessary. Used internally.
     * @private
-    * @name redraw_node(node, deep, is_callback)
-    * @param {mixed} node the node to redraw
-    * @param {Boolean} deep should child nodes be redrawn too
-    * @param {Boolean} is_callback is this a recursion call
-    * @param {Boolean} force_render should children of closed parents be drawn anyway
+    * @name _undetermined()
+    * @plugin checkbox
     */
-    redraw_node: (obj: any, deep?: boolean, is_callback?: boolean, force_render?: boolean) => any;
+    _undetermined: () => void;
 
     /**
     * show the node checkbox icons
@@ -1231,16 +1549,6 @@ interface JSTree extends JQuery {
     * @return {Boolean}
     */
     is_undetermined: (obj: any) => boolean;
-
-    /**
-    * called when a node is selected by the user. Used internally.
-    * @private
-    * @name activate_node(obj, e)
-    * @param {mixed} obj the node
-    * @param {Object} e the related event
-    * @trigger activate_node.jstree, changed.jstree
-    */
-    activate_node: (obj: any, e: any) => any;
 
     /**
     * check a node (only if tie_selection in checkbox settings is false, otherwise select_node will be called internally)
@@ -1315,7 +1623,6 @@ interface JSTree extends JQuery {
     /**
     * context menu plugin
     */
-    teardown: () => void;
 
     /**
     * prepare and show the context menu for a node
@@ -1328,6 +1635,19 @@ interface JSTree extends JQuery {
     * @trigger show_contextmenu.jstree
     */
     show_contextmenu: (obj: any, x?: number, y?: number, e?: any) => void;
+
+    /**
+    * show the prepared context menu for a node
+    * @name _show_contextmenu(obj, x, y, i)
+    * @param {mixed} obj the node
+    * @param {Number} x the x-coordinate relative to the document to show the menu at
+    * @param {Number} y the y-coordinate relative to the document to show the menu at
+    * @param {Number} i the object of items to show
+    * @plugin contextmenu
+    * @trigger show_contextmenu.jstree
+    * @private
+    */
+    _show_contextmenu: (obj: any, x: number, y: number, i: number) => void;
 
     /**
     * used to search the tree nodes for a given string
@@ -1347,6 +1667,15 @@ interface JSTree extends JQuery {
     * @trigger clear_search.jstree
     */
     clear_search: () => void;
+
+    /**
+    * opens nodes that need to be opened to reveal the search results. Used only internally.
+    * @private
+    * @name _search_open(d)
+    * @param {Array} d an array of node IDs
+    * @plugin search
+    */
+    _search_open: (d: string[]) => void;
 
     /**
     * used to sort a node's children
