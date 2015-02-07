@@ -2587,7 +2587,7 @@ interface JQuery {
      * 
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert after each element in the set of matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      */
-    after(func: (index: number) => string|Element|JQuery): JQuery;
+    after(func: (index: number, html: string) => string|Element|JQuery): JQuery;
 
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
@@ -2622,7 +2622,7 @@ interface JQuery {
      * 
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert before each element in the set of matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      */
-    before(func: (index: number) => string|Element|JQuery): JQuery;
+    before(func: (index: number, html: string) => string|Element|JQuery): JQuery;
 
     /**
      * Create a deep copy of the set of matched elements.
