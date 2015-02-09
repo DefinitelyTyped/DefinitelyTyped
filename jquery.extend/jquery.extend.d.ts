@@ -1,6 +1,6 @@
 // Type definitions for jQuery 1.10.x / 2.0.x
 // Project: http://jquery.com/
-// Definitions by: falsandtru, jquery.d.ts definitors
+// Definitions by: falsandtru<https://github.com/falsandtru>, jquery.d.ts definitors<https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /* *****************************************************************************
@@ -18,8 +18,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-// Escape reference when committing.
-//// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
 /**
  * Interface for the JQuery callback
