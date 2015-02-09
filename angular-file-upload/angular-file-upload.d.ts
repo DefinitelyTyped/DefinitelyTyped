@@ -9,7 +9,7 @@ declare module ng.angularFileUpload  {
 
     interface IUploadService {
 
-        http<T>(config: IFileUploadConfig): IUploadPromise<T>;
+        http<T>(config: ng.IRequestConfig): IUploadPromise<T>;
         upload<T>(config: IFileUploadConfig): IUploadPromise<T>;
     }
 
