@@ -246,7 +246,7 @@ declare module SigmaJs{
 
         // Global settings
         autoResize?: boolean;
-        autoRescale?: boolean;
+        autoRescale?: any;
         enableCamera?: boolean;
         enableHovering?: boolean;
         enableEdgeHovering?: boolean;
