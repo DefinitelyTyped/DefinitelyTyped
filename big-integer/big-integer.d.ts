@@ -175,11 +175,7 @@ interface BigInteger {
     and( number: string ): BigInteger;
 
     /** Performs the bitwise NOT operation. */
-    not( number: number ): BigInteger;
-    /** Performs the bitwise NOT operation. */
-    not( number: BigInteger ): BigInteger;
-    /** Performs the bitwise NOT operation. */
-    not( number: string ): BigInteger;
+    not(): BigInteger;
 
     /** Performs the bitwise OR operation. */
     or( number: number ): BigInteger;
