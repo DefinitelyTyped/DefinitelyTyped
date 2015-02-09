@@ -1,5 +1,5 @@
 // Type definitions for Java
-// Project: https://www.java.com/js/deployJava.txt
+// Project: https://www.java.com/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
