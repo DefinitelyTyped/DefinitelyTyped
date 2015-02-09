@@ -1,4 +1,4 @@
-/// <reference path="java.d.ts" />
+/// <reference path="java-applet.d.ts" />
 
 /**
  * @summary Test for the applet status.
