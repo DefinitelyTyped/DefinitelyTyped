@@ -1,4 +1,4 @@
-// Type definitions for Java
+// Type definitions for Java Applet
 // Project: https://www.java.com/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
