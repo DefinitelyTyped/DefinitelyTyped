@@ -1,6 +1,6 @@
 // Type definitions for jQuery 1.10.x / 2.0.x
 // Project: http://jquery.com/
-// Definitions by: falsandtru<https://github.com/falsandtru>, jquery.d.ts definitors<https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts>
+// Definitions by: falsandtru <https://github.com/falsandtru>, jquery.d.ts definitors <https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
