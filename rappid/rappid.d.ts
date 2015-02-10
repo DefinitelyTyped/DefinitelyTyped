@@ -25,14 +25,14 @@ declare module joint{
                 model : Backbone.Collection<joint.dia.Cell>
             });
 
-            createSelectionBox(cellView:joint.dia.CellView);
-            destroySelectionBox(cellView:joint.dia.CellView);
-            startSelecting(evt:any);
-            cancelSelection();
+            createSelectionBox(cellView:joint.dia.CellView) : void;
+            destroySelectionBox(cellView:joint.dia.CellView) : void;
+            startSelecting(evt:any) : void;
+            cancelSelection() : void;
 
-            addHandle(handle:Handle);
-            removeHandle(name:string);
-            changeHandle(name:string, handle:Handle);
+            addHandle(handle:Handle) : void;
+            removeHandle(name:string) : void;
+            changeHandle(name:string, handle:Handle) : void;
         }
     }
 }
