@@ -33,10 +33,6 @@ interface JQueryCallback {
 /**
  * Interface for the JQuery promise/deferred callbacks
  */
-interface JQueryPromiseCallback<T> {
-    (value?: T, ...args: any[]): void;
-}
-
 interface JQueryPromiseOperator<T, R> {
     (callback: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...callbacks: JQueryPromiseCallback<T>[]): JQueryPromise<R>;
 }
