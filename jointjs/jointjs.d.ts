@@ -1,7 +1,6 @@
 // Type definitions for Joint JS 0.9.3
 // Project: http://www.jointjs.com/
-// Definitions by: Aidan Reel <http://github.com/areel>, 
-// David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>
+// Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
@@ -77,7 +76,6 @@ declare module joint {
             findViewByModel(modelOrId:any):CellView;
             findViewsFromPoint(p:{ x: number; y: number; }):CellView[];
             findViewsInArea(r:{ x: number; y: number; width: number; height: number; }):CellView[];
-            snapToGrid(p):{ x: number; y: number; };
         }
 
         class ElementView extends CellView {
