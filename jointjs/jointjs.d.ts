@@ -45,7 +45,7 @@ declare module joint {
             position(x:number, y:number):Element;
             translate(tx:number, ty?:number):Element;
             resize(width:number, height:number):Element;
-            rotate(angle:number, absolute):Element;
+            rotate(angle:number, options : {absolute : boolean; origin: {x:number;y:number}}):Element;
         }
 
         interface IDefaults {
