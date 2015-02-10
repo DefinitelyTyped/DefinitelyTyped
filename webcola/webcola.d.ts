@@ -37,9 +37,18 @@ declare module WebCola{
         right: number;
     }
 
-    interface FlowLayout{
+    interface FlowLayout {
         axis: string;
         minSeparation?: number;
+    }
+
+    interface Node {
+        height: number;
+        id: string;
+        size: number;
+        width: number;
+        x: number;
+        y: number;
     }
 
     interface Options {
