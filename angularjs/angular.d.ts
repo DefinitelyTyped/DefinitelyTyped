@@ -589,37 +589,37 @@ declare module ng {
      * $scope for ngRepeat directive.
      * see https://docs.angularjs.org/api/ng/directive/ngRepeat
      */
-	interface IRepeatScope extends IScope {
+    interface IRepeatScope extends IScope {
 	
         /**
          * iterator offset of the repeated element (0..length-1).
          */
-		$index: number;
+        $index: number;
 
         /**
          * true if the repeated element is first in the iterator.
          */
-		$first: boolean;
+        $first: boolean;
 
         /**
          * true if the repeated element is between the first and last in the iterator.
          */
-		$middle: boolean;
+        $middle: boolean;
 
         /**
          * true if the repeated element is last in the iterator.
          */
-		$last: boolean;
+        $last: boolean;
 
         /**
          * true if the iterator position $index is even (otherwise false).
          */
-		$even: boolean;
+        $even: boolean;
 
         /**
          * true if the iterator position $index is odd (otherwise false).
          */
-		$odd: boolean;
+        $odd: boolean;
 	
 	}
 
