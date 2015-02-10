@@ -17,24 +17,25 @@ declare module joint {
         }
 
         class Graph extends Backbone.Model {
-            initialize();
-            fromJSON(json:any);
-            clear();
-            addCell(cell:Cell);
-            addCells(cells:Cell[]);
+            addCell(cell:Cell) : void;
+            addCells(cells:Cell[]) : void;
+            initialize() : void;
+            fromJSON(json:any) : void;
+            toJSON() : Object;
+            clear() : void;
             getConnectedLinks(cell:Cell, opt?:any):Link[];
-            disconnectLinks(cell:Cell);
-            removeLinks(cell:Cell);
+            disconnectLinks(cell:Cell) : void;
+            removeLinks(cell:Cell) : void;
             findModelsFromPoint(point:{x : number; y: number}):Element[];
         }
 
         class Cell extends Backbone.Model {
-            toJSON();
-            remove(options?:any);
-            toFront();
-            toBack();
-            embed(cell:Cell);
-            unembed(cell:Cell);
+            toJSON() : Object;
+            remove(options?:any) : void;
+            toFront() : void;
+            toBack() : void;
+            embed(cell:Cell) : void;
+            unembed(cell:Cell) : void;
             getEmbeddedCells():Cell[];
             clone(opt?:any):Backbone.Model;      // @todo: return can either be Cell or Cell[].
             attr(attrs:any):Cell;
@@ -69,7 +70,7 @@ declare module joint {
         class Paper extends Backbone.View<Backbone.Model> {
             options:IOptions;
 
-            setDimensions(width:number, height:number);
+            setDimensions(width:number, height:number) : void;
             scale(sx:number, sy?:number, ox?:number, oy?:number):Paper;
             rotate(deg:number, ox?:number, oy?:number):Paper;      // @todo not released yet though it's in the source code already
             findView(el:any):CellView;
@@ -80,15 +81,15 @@ declare module joint {
         }
 
         class ElementView extends CellView {
-            scale(sx:number, sy:number);
+            scale(sx:number, sy:number) : void;
         }
 
         class CellView extends Backbone.View<Cell> {
             getBBox():{ x: number; y: number; width: number; height: number; };
-            highlight(el?:any);
-            unhighlight(el?:any);
-            findMagnet(el:any);
-            getSelector(el:any);
+            highlight(el?:any): void;
+            unhighlight(el?:any): void;
+            findMagnet(el:any): void;
+            getSelector(el:any): void;
 
             pointerdblclick(evt:any, x:number, y:number):void;
             pointerclick(evt:any, x:number, y:number):void;
