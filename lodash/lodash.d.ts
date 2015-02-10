@@ -2641,6 +2641,15 @@ declare module _ {
             whereValue: W): LoDashArrayWrapper<T>;
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.filter
+        **/
+        filter<T extends {}>(
+            callback: ObjectIterator<T, boolean>,
+            thisArg?: any): LoDashObjectWrapper<T>;
+    }
+
     //_.find
     interface LoDashStatic {
         /**
