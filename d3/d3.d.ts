@@ -1258,23 +1258,17 @@ declare module D3 {
             startAngle: {
                 (): number;
                 (angle: number): PieLayout;
-                (angle: () => number): PieLayout;
-                (angle: (d : any) => number): PieLayout;
-                (angle: (d : any, i: number) => number): PieLayout;
+                (angle: (d?: any) => number): PieLayout;
             };
             endAngle: {
                 (): number;
                 (angle: number): PieLayout;
-                (angle: () => number): PieLayout;
-                (angle: (d : any) => number): PieLayout
-                (angle: (d : any, i: number) => number): PieLayout;
+                (angle: (d?: any) => number): PieLayout
             };
             padAngle:{
                 ():number;
                 (angle:number):PieLayout;
-                (angle:()=>number):PieLayout;
-                (angle: (d : any) => number): PieLayout
-                (angle: (d : any, i: number) => number): PieLayout;
+                (angle: (d?: any) => number): PieLayout
             }
         }
 
@@ -1857,36 +1851,31 @@ declare module D3 {
                 (): (data: any, index?: number) => number;
                 (radius: number): Arc;
                 (radius: () => number): Arc;
-                (radius: (data: any) => number): Arc;
-                (radius: (data: any, index: number) => number): Arc;
+                (radius: (data: any, index?: number) => number): Arc;
             };
             outerRadius: {
                 (): (data: any, index?: number) => number;
                 (radius: number): Arc;
                 (radius: () => number): Arc;
-                (radius: (data: any) => number): Arc;
-                (radius: (data: any, index: number) => number): Arc;
+                (radius: (data: any, index?: number) => number): Arc;
             };
             startAngle: {
                 (): (data: any, index?: number) => number;
                 (angle: number): Arc;
                 (angle: () => number): Arc;
-                (angle: (data: any) => number): Arc;
-                (angle: (data: any, index: number) => number): Arc;
+                (angle: (data: any, index?: number) => number): Arc;
             };
             endAngle: {
                 (): (data: any, index?: number) => number;
                 (angle: number): Arc;
                 (angle: () => number): Arc;
-                (angle: (data: any) => number): Arc;
-                (angle: (data: any, index: number) => number): Arc;
+                (angle: (data: any, index?: number) => number): Arc;
             };
             cornerRadius:{
                 (): (data: any, index?: number) => number;
                 (radius: number): Arc;
                 (radius: () => number): Arc;
-                (radius: (data: any) => number): Arc;
-                (radius: (data: any, index: number) => number): Arc;
+                (radius: (data: any, index?: number) => number): Arc;
             }
             centroid(data: any, index?: number): number[];
         }
@@ -1912,8 +1901,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Line;
-                (accessor: (data: any, index: number) => number): Line;
+                (accessor: (data: any, index?: number) => number): Line;
                 /**
                 * Set the  x-coordinate to a constant.
                 *
@@ -1928,14 +1916,13 @@ declare module D3 {
                 /**
                 * Get the y-coordinate accessor.
                 */
-                (): (data: any, index ?: number) => number;
+                (): (data: any, index?: number) => number;
                 /**
                 * Set the y-coordinate accessor.
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Line;
-                (accessor: (data: any, index: number) => number): Line;
+                (accessor: (data: any, index?: number) => number): Line;
                 /**
                 * Set the  y-coordinate to a constant.
                 *
@@ -2005,14 +1992,13 @@ declare module D3 {
                 /**
                 * Get the x-coordinate accessor.
                 */
-                (): (data: any, index ?: number) => number;
+                (): (data: any, index?: number) => number;
                 /**
                 * Set the x-coordinate accessor.
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): LineRadial;
-                (accessor: (data: any, index: number) => number): LineRadial;
+                (accessor: (data: any, index?: number) => number): LineRadial;
 
                 /**
                 * Set the  x-coordinate to a constant.
@@ -2034,8 +2020,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): LineRadial;
-                (accessor: (data: any, index: number) => number): LineRadial;
+                (accessor: (data: any, index?: number) => number): LineRadial;
                 /**
                 * Set the  y-coordinate to a constant.
                 *
@@ -2091,14 +2076,12 @@ declare module D3 {
             radius: {
                 (): (d: any, i?: number) => number;
                 (radius: number): LineRadial;
-                (radius: (d: any) => number): LineRadial;
-                (radius: (d: any, i: number) => number): LineRadial;
+                (radius: (d: any, index?: number) => number): LineRadial;
             }
             angle: {
                 (): (d: any, i?: any) => number;
                 (angle: number): LineRadial;
-                (angle: (d: any) => number): LineRadial;
-                (angle: (d: any, i: any) => number): LineRadial;
+                (angle: (d: any, index?: any) => number): LineRadial;
             }
         }
 
@@ -2120,8 +2103,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
+                (accessor: (data: any, index?: number) => number): Area;
                 /**
                 * Set the  x-coordinate to a constant.
                 *
@@ -2142,8 +2124,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
+                (accessor: (data: any, index?: number) => number): Area;
                 /**
                 * Set the  x0-coordinate (baseline) to a constant.
                 *
@@ -2158,14 +2139,13 @@ declare module D3 {
                 /**
                 * Get the  x1-coordinate (topline) accessor.
                 */
-                (): (data: any, index ?: number) => number;
+                (): (data: any, index?: number) => number;
                 /**
                 * Set the  x1-coordinate (topline) accessor.
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
+                (accessor: (data: any, index?: number) => number): Area;
                 /**
                 * Set the  x1-coordinate (topline) to a constant.
                 *
@@ -2186,8 +2166,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
+                (accessor: (data: any, index?: number) => number): Area;
                 /**
                 * Set the y-coordinate to a constant.
                 *
@@ -2208,8 +2187,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
+                (accessor: (data: any, index?: number) => number): Area;
                 /**
                 * Set the y0-coordinate (baseline) to a constant.
                 *
@@ -2230,8 +2208,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): Area;
-                (accessor: (data: any, index: number) => number): Area;
+                (accessor: (data: any, index?: number) => number): Area;
                 /**
                 * Set the y1-coordinate (baseline) to a constant.
                 *
@@ -2304,8 +2281,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
+                (accessor: (data: any, index?: number) => number): AreaRadial;
                 /**
                 * Set the  x-coordinate to a constant.
                 *
@@ -2326,8 +2302,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
+                (accessor: (data: any, index?: number) => number): AreaRadial;
                 /**
                 * Set the  x0-coordinate to a constant.
                 *
@@ -2348,8 +2323,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
+                (accessor: (data: any, index?: number) => number): AreaRadial;
                 /**
                 * Set the  x1-coordinate to a constant.
                 *
@@ -2370,8 +2344,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
+                (accessor: (data: any, index?: number) => number): AreaRadial;
                 /**
                 * Set the y-coordinate to a constant.
                 *
@@ -2392,8 +2365,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
+                (accessor: (data: any, index?: number) => number): AreaRadial;
                 /**
                 * Set the  y0-coordinate to a constant.
                 *
@@ -2414,8 +2386,7 @@ declare module D3 {
                 *
                 * @param accessor The new accessor function
                 */
-                (accessor: (data: any) => number): AreaRadial;
-                (accessor: (data: any, index: number) => number): AreaRadial;
+                (accessor: (data: any, index?: number) => number): AreaRadial;
                 /**
                 * Set the  y1-coordinate to a constant.
                 *
@@ -2472,43 +2443,37 @@ declare module D3 {
                 (): number;
                 (radius: number): AreaRadial;
                 (radius: () => number): AreaRadial;
-                (radius: (data: any) => number): AreaRadial;
-                (radius: (data: any, index: number) => number): AreaRadial;
+                (radius: (data: any, index?: number) => number): AreaRadial;
             };
             innerRadius: {
                 (): number;
                 (radius: number): AreaRadial;
                 (radius: () => number): AreaRadial;
-                (radius: (data: any) => number): AreaRadial;
-                (radius: (data: any, index: number) => number): AreaRadial;
+                (radius: (data: any, index?: number) => number): AreaRadial;
             };
             outerRadius: {
                 (): number;
                 (radius: number): AreaRadial;
                 (radius: () => number): AreaRadial;
-                (radius: (data: any) => number): AreaRadial;
-                (radius: (data: any, index: number) => number): AreaRadial;
+                (radius: (data: any, index?: number) => number): AreaRadial;
             };
             angle: {
                 (): number;
                 (angle: number): AreaRadial;
                 (angle: () => number): AreaRadial;
-                (angle: (data: any) => number): AreaRadial;
-                (angle: (data: any, index: number) => number): AreaRadial;
+                (angle: (data: any, index?: number) => number): AreaRadial;
             };
             startAngle: {
                 (): number;
                 (angle: number): AreaRadial;
                 (angle: () => number): AreaRadial;
-                (angle: (data: any) => number): AreaRadial;
-                (angle: (data: any, index: number) => number): AreaRadial;
+                (angle: (data: any, index?: number) => number): AreaRadial;
             };
             endAngle: {
                 (): number;
                 (angle: number): AreaRadial;
                 (angle: () => number): AreaRadial;
-                (angle: (data: any) => number): AreaRadial;
-                (angle: (data: any, index: number) => number): AreaRadial;
+                (angle: (data: any, index?: number) => number): AreaRadial;
             };
         }
 
@@ -2545,19 +2510,16 @@ declare module D3 {
             (datum: any, index?: number): string;
             projection: {
                 (): (datum: any, index?: number) => number[];
-                (proj: (datum: any) => number[]): Diagonal;
-                (proj: (datum: any, index: number) => number[]): Diagonal;
+                (proj: (datum: any, index?: number) => number[]): Diagonal;
             };
             source: {
                 (): (datum: any, index?: number) => any;
-                (src: (datum: any) => any): Diagonal;
-                (src: (datum: any, index: number) => any): Diagonal;
+                (src: (datum: any, index?: number) => any): Diagonal;
                 (src: any): Diagonal;
             };
             target: {
                 (): (datum: any, index?: number) => any;
-                (target: (d: any) => any): Diagonal;
-                (target: (d: any, i: number) => any): Diagonal;
+                (target: (d: any, index?: number) => any): Diagonal;
                 (target: any): Diagonal;
             };
         }
