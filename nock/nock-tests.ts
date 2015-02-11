@@ -72,7 +72,10 @@ inst = inst.twice();
 inst = inst.thrice();
 
 inst = inst.defaultReplyHeaders(value);
+
 inst = inst.matchHeader(str, str);
+inst = inst.matchHeader(str, regex);
+inst = inst.matchHeader(str, (val: string) => true);
 
 inst = inst.delay(num);
 inst = inst.delayConnection(num);
