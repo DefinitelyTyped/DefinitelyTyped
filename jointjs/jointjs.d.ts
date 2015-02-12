@@ -45,6 +45,7 @@ declare module joint {
             translate(tx:number, ty?:number):Element;
             resize(width:number, height:number):Element;
             rotate(angle:number, options : {absolute : boolean; origin: {x:number;y:number}}):Element;
+            remove(): void;
         }
 
         interface IDefaults {
@@ -55,6 +56,7 @@ declare module joint {
             defaults():IDefaults;
             disconnect():Link;
             label(idx?:number, value?:any):any;   // @todo: returns either a label under idx or Link if both idx and value were passed
+            remove(): void;
         }
 
         interface IOptions {
