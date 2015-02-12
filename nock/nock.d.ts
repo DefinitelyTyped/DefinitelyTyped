@@ -55,7 +55,10 @@ declare module "nock" {
 			replyWithFile(responseCode: number, fileName: string): Scope;
 
 			defaultReplyHeaders(headers: Object): Scope;
+			
 			matchHeader(name: string, value: string): Scope;
+			matchHeader(name: string, regex: RegExp): Scope;
+			matchHeader(name: string, fn: (value: string) => boolean): Scope;
 
 			filteringPath(regex: RegExp, replace: string): Scope;
 			filteringPath(fn: (path: string) => string): Scope;

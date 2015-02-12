@@ -2309,10 +2309,14 @@ declare module chrome.webRequest {
         requestHeaders?: HttpHeader[];
     }
 
+    interface FormData {
+        [key: string]: string[];
+    }
+
     interface RequestBody {
         raw?: UploadData;
         error?: string;
-        formData?: Object;
+        formData?: FormData;
     }
 
     interface OnBeforeRequestDetails extends CallbackDetails {
