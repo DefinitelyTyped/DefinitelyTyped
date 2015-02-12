@@ -37,7 +37,7 @@ declare module L {
     export function bounds(points: Point[]): Bounds;
 
 
-    export var Bounds: {
+    export interface BoundsStatic extends ClassStatic {
         /**
           * Creates a Bounds object from two coordinates (usually top-left and bottom-right
           * corners).
@@ -48,7 +48,8 @@ declare module L {
           * Creates a Bounds object defined by the points it contains.
           */
         new(points: Point[]): Bounds;
-    };
+    }
+    export var Bounds: BoundsStatic;
 
     export interface Bounds {
         /**
@@ -181,13 +182,14 @@ declare module L {
       */
     function circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
 
-    export var Circle: {
+    export interface CircleStatic extends ClassStatic {
         /**
           * Instantiates a circle object given a geographical point, a radius in meters
           * and optionally an options object.
           */
         new(latlng: LatLng, radius: number, options?: PathOptions): Circle;
-    };
+    }
+    export var Circle: CircleStatic;
 
     export interface Circle extends Path {
         /**
@@ -228,14 +230,15 @@ declare module L {
     function circleMarker(latlng: LatLng, options?: PathOptions): CircleMarker;
 
 
-    export var CircleMarker: {
+    export interface CircleMarkerStatic extends ClassStatic {
         /**
           * Instantiates a circle marker given a geographical point and optionally
           * an options object. The default radius is 10 and can be altered by passing a
           * "radius" member in the path options object.
           */
         new(latlng: LatLng, options?: PathOptions): CircleMarker;
-    };
+    }
+    export var CircleMarker: CircleMarkerStatic;
 
     export interface CircleMarker extends Circle {
         /**
@@ -254,9 +257,8 @@ declare module L {
         toGeoJSON(): any;
     }
 }
- 
-declare module L {
 
+declare module L {
     export interface ClassExtendOptions {
         /**
           * options is a special property that unlike other objects that you pass 
@@ -282,64 +284,49 @@ declare module L {
         static?: any;
     }
 
-    /**
-      * L.Class powers the OOP facilities of Leaflet and is used to create
-      * almost all of the Leaflet classes documented.
-      */
-    module Class {
-
+    export interface ClassStatic {
         /**
           * You use L.Class.extend to define new classes, but you can use the
           * same method on any class to inherit from it.
           */
-        function extend(options: ClassExtendOptions): any;
+        extend(options: ClassExtendOptions): any;
+        extend<Options, NewClass>(options: ClassExtendOptions): { new(options?: Options): NewClass };
 
         /**
           * You can also use the following shortcut when you just need to make
           * one additional method call.
           */
-        function addInitHook(methodName: string, ...args: any[]): void;
+        addInitHook(methodName: string, ...args: any[]): void;
+    }
+
+
+    /**
+      * L.Class powers the OOP facilities of Leaflet and is used to create
+      * almost all of the Leaflet classes documented.
+      */
+    module Class {
+        /**
+          * You use L.Class.extend to define new classes, but you can use the
+          * same method on any class to inherit from it.
+          */
+        function extend(options: ClassExtendOptions): any;
     }
 
 }
 
 declare module L {
-    export var Control: {
+    export interface ControlStatic extends ClassStatic {
         /**
           * Creates a control with the given options.
           */
         new(options?: ControlOptions): Control;
 
-        Zoom: {
-            /**
-              * Creates a zoom control.
-              */
-            new(options?: ZoomOptions): Control.Zoom;
-        };
-
-        Attribution: {
-            /**
-              * Creates an attribution control.
-              */
-            new(options?: AttributionOptions): Control.Attribution;
-        };
-
-        Layers: {
-            /**
-              * Creates an attribution control with the given layers. Base layers will be
-              * switched with radio buttons, while overlays will be switched with checkboxes.
-              */
-            new(baseLayers?: any, overlays?: any, options?: LayersOptions): Control.Layers;
-        };
-
-        Scale: {
-            /**
-              * Creates an scale control with the given options.
-              */
-            new(options?: ScaleOptions): Control.Scale;
-        };
-
-    };
+        Zoom: Control.ZoomStatic;
+        Attribution: Control.AttributionStatic;
+        Layers: Control.LayersStatic;
+        Scale: Control.ScaleStatic;
+    }
+    export var Control: ControlStatic;
 
     export interface Control extends IControl {
         /**
@@ -385,7 +372,21 @@ declare module L {
     }
 
     module Control {
+        export interface ZoomStatic extends ClassStatic {
+            /**
+              * Creates a zoom control.
+              */
+            new(options?: ZoomOptions): Zoom;
+        }
+
         export interface Zoom extends L.Control {
+        }
+
+        export interface AttributionStatic extends ClassStatic {
+            /**
+              * Creates an attribution control.
+              */
+            new(options?: AttributionOptions): Attribution;
         }
 
         export interface Attribution extends L.Control {
@@ -404,6 +405,14 @@ declare module L {
               */
             removeAttribution(text: string): Attribution;
 
+        }
+
+        export interface LayersStatic extends ClassStatic {
+            /**
+              * Creates an attribution control with the given layers. Base layers will be
+              * switched with radio buttons, while overlays will be switched with checkboxes.
+              */
+            new(baseLayers?: any, overlays?: any, options?: LayersOptions): Layers;
         }
 
         export interface Layers extends L.Control, IEventPowered<Layers> {
@@ -438,6 +447,13 @@ declare module L {
             clearAllEventListeners(): Layers;
             on(eventMap: any, context?: any): Layers;
             off(eventMap?: any, context?: any): Layers;
+        }
+
+        export interface ScaleStatic extends ClassStatic {
+            /**
+              * Creates an scale control with the given options.
+              */
+            new(options?: ScaleOptions): Scale;
         }
 
         export interface Scale extends L.Control {
@@ -529,12 +545,13 @@ declare module L {
       */
     function divIcon(options: DivIconOptions): DivIcon;
 
-    export var DivIcon: {
+    export interface DivIconStatic extends ClassStatic {
         /**
           * Creates a div icon instance with the given options.
           */
         new(options: DivIconOptions): DivIcon;
-    };
+    }
+    export var DivIcon: DivIconStatic;
 
     export interface DivIcon extends Icon {
     }
@@ -746,13 +763,14 @@ declare module L {
       */
     function draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
 
-    export var Draggable: {
+    export interface DraggableStatic extends ClassStatic {
         /**
           * Creates a Draggable object for moving the given element when you start dragging
           * the dragHandle element (equals the element itself by default).
           */
         new(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
-    };
+    }
+    export var Draggable: DraggableStatic;
 
 
     export interface Draggable extends IEventPowered<Draggable> {
@@ -795,12 +813,13 @@ declare module L {
     function featureGroup<T extends ILayer>(layers?: T[]): FeatureGroup<T>;
 
 
-    export var FeatureGroup: {
+    export interface FeatureGroupStatic extends ClassStatic {
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
         new<T extends ILayer>(layers?: T[]): FeatureGroup<T>;
-    };
+    }
+    export var FeatureGroup: FeatureGroupStatic;
 
     export interface FeatureGroup<T extends ILayer> extends LayerGroup<T>, ILayer, IEventPowered<FeatureGroup<T>> {
         /**
@@ -910,7 +929,7 @@ declare module L {
       */
     function geoJson(geojson?: any, options?: GeoJSONOptions): GeoJSON;
 
-    export var GeoJSON: {
+    export interface GeoJSONStatic extends ClassStatic {
         /**
           * Creates a GeoJSON layer. Optionally accepts an object in GeoJSON format
           * to display on the map (you can alternatively add it later with addData method)
@@ -937,7 +956,8 @@ declare module L {
           * true, the numbers will be interpreted as (longitude, latitude).
           */
         coordsToLatlngs(coords: number[], levelsDeep?: number, reverse?: boolean): LatLng[];
-    };
+    }
+    export var GeoJSON: GeoJSONStatic;
 
     export interface GeoJSON extends FeatureGroup<ILayer> {
         /**
@@ -1007,7 +1027,7 @@ declare module L {
       */
     function icon(options: IconOptions): Icon;
 
-    export var Icon: {
+    export interface IconStatic extends ClassStatic {
         /**
           * Creates an icon instance with the given options.
           */
@@ -1021,7 +1041,8 @@ declare module L {
 
             imagePath: string;
         };
-    };
+    }
+    export var Icon: IconStatic;
 
     export interface Icon {
     }
@@ -1314,13 +1335,14 @@ declare module L {
       */
     function imageOverlay(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
 
-    export var ImageOverlay: {
+    export interface ImageOverlayStatic extends ClassStatic {
         /**
           * Instantiates an image overlay object given the URL of the image and the geographical
           * bounds it is tied to.
           */
         new(imageUrl: string, bounds: LatLngBounds, options?: ImageOverlayOptions): ImageOverlay;
-    };
+    }
+    export var ImageOverlay: ImageOverlayStatic;
 
     export interface ImageOverlay extends ILayer {
         /**
@@ -1419,7 +1441,7 @@ declare module L {
       */
     function latLng(coords: number[]): LatLng;
 
-    export var LatLng: {
+    export interface LatLngStatic extends ClassStatic {
         /**
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
@@ -1452,7 +1474,8 @@ declare module L {
           * Value: 1.0E-9.
           */
         MAX_MARGIN: number;
-    };
+    }
+    export var LatLng: LatLngStatic;
 
     export interface LatLng {
         /**
@@ -1504,7 +1527,7 @@ declare module L {
       */
     function latLngBounds(latlngs: LatLng[]): LatLngBounds;
 
-    export var LatLngBounds: {
+    export interface LatLngBoundsStatic extends ClassStatic {
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
@@ -1516,7 +1539,8 @@ declare module L {
           * Very useful for zooming the map to fit a particular set of locations with fitBounds.
           */
         new(latlngs: LatLng[]): LatLngBounds;
-    };
+    }
+    export var LatLngBounds: LatLngBoundsStatic;
 
     export interface LatLngBounds {
         /**
@@ -1603,12 +1627,13 @@ declare module L {
     function layerGroup<T extends ILayer>(layers?: T[]): LayerGroup<T>;
 
 
-    export var LayerGroup: {
+    export interface LayerGroupStatic extends ClassStatic {
         /**
           * Create a layer group, optionally given an initial set of layers.
           */
         new<T extends ILayer>(layers?: T[]): LayerGroup<T>;
-    };
+    }
+    export var LayerGroup: LayerGroupStatic;
 
     export interface LayerGroup<T extends ILayer> extends ILayer {
         /**
@@ -2011,7 +2036,7 @@ declare module L {
     function map(id: string, options?: MapOptions): Map;
 
 
-    export var Map: {
+    export interface MapStatic extends ClassStatic {
         /**
           * Instantiates a map object given a div element and optionally an
           * object literal with map options described below.
@@ -2027,7 +2052,8 @@ declare module L {
           * @constructor
           */
         new(id: string, options?: MapOptions): Map;
-    };
+    }
+    export var Map: MapStatic;
 
     export interface Map extends IEventPowered<Map> {
         // Methods for Modifying Map State
@@ -2905,14 +2931,15 @@ declare module L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export var MultiPolylgon: {
+    export interface MultiPolylgonStatic extends ClassStatic {
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
           * for each individual polygon) and optionally an options object (the same
           * as for MultiPolyline).
           */
         new(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
-    };
+    }
+    export var MultiPolylgon: MultiPolylgonStatic;
 
     export interface MultiPolygon extends FeatureGroup<Polygon> {
         /**
@@ -2946,13 +2973,14 @@ declare module L {
       */
     function multiPolyline(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
 
-    export var MultiPolyline: {
+    export interface MultiPolylineStatic extends ClassStatic {
         /**
           * Instantiates a multi-polyline object given an array of arrays of geographical
           * points (one for each individual polyline) and optionally an options object.
           */
         new(latlngs: LatLng[][], options?: PolylineOptions): MultiPolyline;
-    };
+    }
+    export var MultiPolyline: MultiPolylineStatic;
 
     export interface MultiPolyline extends FeatureGroup<Polyline> {
         /**
@@ -3246,13 +3274,14 @@ declare module L {
       */
     function point(x: number, y: number, round?: boolean): Point;
 
-    export var Point: {
+    export interface PointStatic extends ClassStatic {
         /**
           * Creates a Point object with the given x and y coordinates. If optional round
           * is set to true, rounds the x and y values.
           */
         new(x: number, y: number, round?: boolean): Point;
-    };
+    }
+    export var Point: PointStatic;
 
     export interface Point {
         /**
@@ -3325,7 +3354,7 @@ declare module L {
     function polygon(latlngs: LatLng[], options?: PolylineOptions): Polygon;
 
 
-    export var Polygon: {
+    export interface PolygonStatic extends ClassStatic {
         /**
           * Instantiates a polygon object given an array of geographical points and
           * optionally an options object (the same as for Polyline). You can also create
@@ -3334,7 +3363,8 @@ declare module L {
           * the holes inside.
           */
         new(latlngs: LatLng[], options?: PolylineOptions): Polygon;
-    };
+    }
+    export var Polygon: PolygonStatic;
 
     export interface Polygon extends Polyline {
     }
@@ -3348,13 +3378,14 @@ declare module L {
       */
     function polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
 
-    export var Polyline: {
+    export interface PolylineStatic extends ClassStatic {
         /**
           * Instantiates a polyline object given an array of geographical points and
           * optionally an options object.
           */
         new(latlngs: LatLng[], options?: PolylineOptions): Polyline;
-    };
+    }
+    export var Polyline: PolylineStatic;
 
     export interface Polyline extends Path {
         /**
@@ -3435,14 +3466,15 @@ declare module L {
       */
     function popup(options?: PopupOptions, source?: any): Popup;
 
-    export var Popup: {
+    export interface PopupStatic extends ClassStatic {
         /**
           * Instantiates a Popup object given an optional options object that describes
           * its appearance and location and an optional object that is used to tag the
           * popup with a reference to the source object to which it refers.
           */
         new(options?: PopupOptions, source?: any): Popup;
-    };
+    }
+    export var Popup: PopupStatic;
 
     export interface Popup extends ILayer {
         /**
@@ -3594,12 +3626,13 @@ declare module L {
  
 declare module L {
 
-    export var PosAnimation: {
+    export interface PosAnimationStatic extends ClassStatic {
         /**
           * Creates a PosAnimation object.
           */
         new(): PosAnimation;
-    };
+    }
+    export var PosAnimation: PosAnimationStatic;
 
     export interface PosAnimation extends IEventPowered<PosAnimation> {
         /**
@@ -3664,13 +3697,14 @@ declare module L {
       */
     function rectangle(bounds: LatLngBounds, options?: PathOptions): Rectangle;
 
-    export var Rectangle: {
+    export interface RectangleStatic extends ClassStatic {
         /**
           * Instantiates a rectangle object with the given geographical bounds and
           * optionally an options object.
           */
         new(bounds: LatLngBounds, options?: PathOptions): Rectangle;
-    };
+    }
+    export var Rectangle: RectangleStatic;
 
     export interface Rectangle extends Polygon {
         /**
@@ -3721,7 +3755,7 @@ declare module L {
  
 declare module L {
 
-    export var TileLayer: {
+    export interface TileLayerStatic extends ClassStatic {
         /**
           * Instantiates a tile layer object given a URL template and optionally an options
           * object.
@@ -3742,7 +3776,8 @@ declare module L {
               */
             new(options?: TileLayerOptions): TileLayer.Canvas;
         };
-    };
+    }
+    export var TileLayer: TileLayerStatic;
 
     export interface TileLayer extends ILayer, IEventPowered<TileLayer> {
         /**
@@ -4009,12 +4044,13 @@ declare module L {
 }
 
 declare module L {
-    export var Transformation: {
+    export interface TransformationStatic extends ClassStatic {
         /**
           * Creates a transformation object with the given coefficients.
           */
         new(a: number, b: number, c: number, d: number): Transformation;
-    };
+    }
+    export var Transformation: TransformationStatic;
 
     export interface Transformation {
         /**
