@@ -156,7 +156,7 @@ obj = fooSequence.toObject();
 
 // ArrayLikeSequence
 
-fooArraySeq = fooArraySeq.concat();
+fooArraySeq = fooArraySeq.concat(fooArr);
 fooArraySeq = fooArraySeq.first();
 fooArraySeq = fooArraySeq.first(num);
 foo = fooArraySeq.get(num);
