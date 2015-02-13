@@ -308,15 +308,16 @@ declare module "react/addons" {
     interface WheelEventHandler extends EventHandler<WheelEvent> {}
 
     //
-    // Attributes
+    // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
-    interface ReactAttributes {
+    interface Props {
         children?: ReactNode;
         key?: number | string;
         ref?: string;
+    }
 
-        // Event Attributes
+    interface DOMAttributes extends Props {
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
@@ -377,7 +378,7 @@ declare module "react/addons" {
         strokeOpacity?: number;
     }
 
-    interface HTMLAttributes extends ReactAttributes {
+    interface HTMLAttributes extends DOMAttributes {
         accept?: string;
         acceptCharset?: string;
         accessKey?: string;
@@ -485,7 +486,7 @@ declare module "react/addons" {
         itemType?: string;
     }
 
-    interface SVGAttributes extends ReactAttributes {
+    interface SVGAttributes extends DOMAttributes {
         cx?: SVGLength | SVGAnimatedLength;
         cy?: any;
         d?: string;

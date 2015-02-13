@@ -3,7 +3,7 @@
 // TODO: import "react" once 0.13.0 is released
 import React = require("react/addons");
 
-interface Props {
+interface Props extends React.Props {
     hello: string;
     world?: string;
     foo: number;
