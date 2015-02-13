@@ -1,0 +1,3 @@
+﻿interface JQuery {
+    unveil(): JQuery;
+}
