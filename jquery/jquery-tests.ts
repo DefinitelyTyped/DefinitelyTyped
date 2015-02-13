@@ -3043,7 +3043,7 @@ function test_merge() {
     var first = ['a', 'b', 'c'];
     var second = ['d', 'e', 'f'];
     $.merge($.merge([], first), second);
-    var z = $.merge([0, 1, 2], ['a', 'b', 'c']);
+    var z = $.merge<any>([0, 1, 2], ['a', 'b', 'c']);
 }
 
 function test_prop() {

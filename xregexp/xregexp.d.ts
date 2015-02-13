@@ -41,6 +41,8 @@ declare module 'xregexp' {
 		function isInstalled(feature: string): boolean;
 		function isRegExp(value: any): boolean;
 		function matchChain(str: string, chain: RegExp[]): string[];
+		function matchChain(str: string, chain: { regex: RegExp; backref: string }[]): string[];
+		function matchChain(str: string, chain: { regex: RegExp; backref: number }[]): string[];
 		function matchRecursive(str: string, left: string, right: string, flags?: string, options?: Object): string[];
 
 		function replace(str: string, search: string, replacement: string, scope?: string): string;

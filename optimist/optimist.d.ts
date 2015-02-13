@@ -23,7 +23,7 @@ declare module "optimist" {
 			wrap(columns: number): Optimist;
 
 			help(): void;
-			showHelp(fn: Function): void;
+			showHelp(fn?: Function): void;
 
 			usage(message: string): Optimist;
 

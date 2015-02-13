@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////
 
 /// <reference path="../../stats/stats.d.ts" />
+/// <reference path="../../dat-gui/dat-gui.d.ts" />
 /// <reference path="../detector.d.ts" />
 /// <reference path="../three-canvasrenderer.d.ts" />
 /// <reference path="../three-css3drenderer.d.ts" />

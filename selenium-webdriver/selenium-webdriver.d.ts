@@ -505,10 +505,10 @@ declare module firefox {
 }
 
 declare module executors {
-    /** 
-     * Creates a command executor that uses WebDriver's JSON wire protocol. 
-     * @param url The server's URL, or a promise that will resolve to that URL. 
-     * @returns {!webdriver.CommandExecutor} The new command executor. 
+    /**
+     * Creates a command executor that uses WebDriver's JSON wire protocol.
+     * @param url The server's URL, or a promise that will resolve to that URL.
+     * @returns {!webdriver.CommandExecutor} The new command executor.
      */
     function createExecutor(url: string): webdriver.CommandExecutor;
     function createExecutor(url: webdriver.promise.Promise<string>): webdriver.CommandExecutor;
@@ -1055,17 +1055,30 @@ declare module webdriver {
             /**
              * Registers listeners for when this instance is resolved.
              *
-             * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
+             * @param opt_callback The
              *     function to call if this promise is successfully resolved. The function
              *     should expect a single argument: the promise's resolved value.
-             * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
+             * @param opt_errback The
              *     function to call if this promise is rejected. The function should expect
              *     a single argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             * @return A new promise which will be
              *     resolved with the result of the invoked callback.
-             * @template R
              */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers listeners for when this instance is resolved.
+             *
+             * @param opt_callback The
+             *     function to call if this promise is successfully resolved. The function
+             *     should expect a single argument: the promise's resolved value.
+             * @param opt_errback The
+             *     function to call if this promise is rejected. The function should expect
+             *     a single argument: the rejection reason.
+             * @return A new promise which will be
+             *     resolved with the result of the invoked callback.
+             */
+            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -1161,17 +1174,30 @@ declare module webdriver {
             /**
              * Registers listeners for when this instance is resolved.
              *
-             * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
+             * @param opt_callback The
              *     function to call if this promise is successfully resolved. The function
              *     should expect a single argument: the promise's resolved value.
-             * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
+             * @param opt_errback The
              *     function to call if this promise is rejected. The function should expect
              *     a single argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             * @return A new promise which will be
              *     resolved with the result of the invoked callback.
-             * @template R
              */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers listeners for when this instance is resolved.
+             *
+             * @param opt_callback The
+             *     function to call if this promise is successfully resolved. The function
+             *     should expect a single argument: the promise's resolved value.
+             * @param opt_errback The
+             *     function to call if this promise is rejected. The function should expect
+             *     a single argument: the rejection reason.
+             * @return A new promise which will be
+             *     resolved with the result of the invoked callback.
+             */
+            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -1304,16 +1330,31 @@ declare module webdriver {
              * Registers listeners for when this instance is resolved. This function most
              * overridden by subtypes.
              *
-             * @param {Function=} opt_callback The function to call if this promise is
+             * @param opt_callback The function to call if this promise is
              *     successfully resolved. The function should expect a single argument: the
              *     promise's resolved value.
-             * @param {Function=} opt_errback The function to call if this promise is
+             * @param opt_errback The function to call if this promise is
              *     rejected. The function should expect a single argument: the rejection
              *     reason.
-             * @return {!webdriver.promise.Promise} A new promise which will be resolved
+             * @return A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers listeners for when this instance is resolved. This function most
+             * overridden by subtypes.
+             *
+             * @param opt_callback The function to call if this promise is
+             *     successfully resolved. The function should expect a single argument: the
+             *     promise's resolved value.
+             * @param opt_errback The function to call if this promise is
+             *     rejected. The function should expect a single argument: the rejection
+             *     reason.
+             * @return A new promise which will be resolved
+             *     with the result of the invoked callback.
+             */
+            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -1762,7 +1803,7 @@ declare module webdriver {
 
     module until {
         /**
-         * Defines a condition to 
+         * Defines a condition to
          */
         class Condition<T> {
             /**
@@ -3536,7 +3577,7 @@ declare module webdriver {
          *     capabilities for the new session.
          * @param {webdriver.promise.ControlFlow=} opt_flow The control flow all driver
          *     commands should execute under, including the initial session creation.
-         *     Defaults to the {@link webdriver.promise.controlFlow() currently active} 
+         *     Defaults to the {@link webdriver.promise.controlFlow() currently active}
          *     control flow.
          * @return {!webdriver.WebDriver} The driver for the newly created session.
          */
@@ -4554,17 +4595,30 @@ declare module webdriver {
         /**
          * Registers listeners for when this instance is resolved.
          *
-         * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
+         * @param opt_callback The
          *     function to call if this promise is successfully resolved. The function
          *     should expect a single argument: the promise's resolved value.
-         * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
+         * @param opt_errback The
          *     function to call if this promise is rejected. The function should expect
          *     a single argument: the rejection reason.
-         * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+         * @return A new promise which will be
          *     resolved with the result of the invoked callback.
-         * @template R
          */
-        then<R>(opt_callback?: (value: WebElement) => any, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
+        then<R>(opt_callback?: (value: WebElement) => webdriver.promise.Promise<R>, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
+
+        /**
+         * Registers listeners for when this instance is resolved.
+         *
+         * @param opt_callback The
+         *     function to call if this promise is successfully resolved. The function
+         *     should expect a single argument: the promise's resolved value.
+         * @param opt_errback The
+         *     function to call if this promise is rejected. The function should expect
+         *     a single argument: the rejection reason.
+         * @return A new promise which will be
+         *     resolved with the result of the invoked callback.
+         */
+        then<R>(opt_callback?: (value: WebElement) => R, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
 
 
         /**
@@ -4795,11 +4849,11 @@ declare module 'selenium-webdriver/chrome' {
 
 declare module 'selenium-webdriver/firefox' {
     export = firefox;
-} 
+}
 
 declare module 'selenium-webdriver/executors' {
     export = executors;
-} 
+}
 
 declare module 'selenium-webdriver' {
     export = webdriver;

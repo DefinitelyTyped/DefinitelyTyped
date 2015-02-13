@@ -1,6 +1,6 @@
 ﻿// Type definitions for nconf
 // Project: https://github.com/flatiron/nconf
-// Definitions by: Jeff Goddard <https://github.com/jedigo>
+// Definitions by: Jeff Goddard <https://github.com/jedigo>, Jean-Martin Thibault <https://github.com/jmthibault>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
@@ -38,9 +38,14 @@ declare module "nconf" {
 	export function loadFiles(files: any, callback?: ICallbackFunction): void;
 	export function loadFilesSync(files: any, callback?: ICallbackFunction): void;
 
-	export enum formats {
-		json,
-		ini
+	export var formats: {
+		json: IFormat;
+		ini: IFormat;
+	};
+
+	export interface IFormat {
+		stringify: (obj: any, replacer: any, spacing?: any) => string;
+		parse: (str: string) => any;
 	}
 
 	export interface IOptions {
@@ -51,6 +56,7 @@ declare module "nconf" {
 		file?: string;
 		dir?: string;
 		search?: boolean;
+		format?: IFormat;
 		json_spacing?: number;
 	}
 

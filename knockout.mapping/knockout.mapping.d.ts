@@ -43,6 +43,20 @@ interface KnockoutMapping {
     visitModel(rootObject: any, callback: Function, options?: { visitedObjects?: any; parentName?: string; ignore?: string[]; copy?: string[]; include?: string[]; }): any;
 }
 
+interface KnockoutObservableArrayFunctions<T> {
+    mappedCreate(item: T): T;
+
+    mappedRemove(item: T): T[];
+    mappedRemove(removeFunction: (item: T) => boolean): T[];
+    mappedRemoveAll(items: T[]): T[];
+    mappedRemoveAll(): T[];
+
+    mappedDestroy(item: T): void;
+    mappedDestroy(destroyFunction: (item: T) => boolean): void;
+    mappedDestroyAll(items: T[]): void;
+    mappedDestroyAll(): void;
+}
+
 interface KnockoutStatic {
     mapping: KnockoutMapping;
 }

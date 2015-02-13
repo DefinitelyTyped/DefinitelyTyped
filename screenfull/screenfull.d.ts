@@ -1,19 +1,26 @@
-﻿
+// Type definitions for screenfull.js 2.0.0
+// Project: https://github.com/sindresorhus/screenfull.js
+// Definitions by: Ilia Choly <http://github.com/icholy>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface ScreenfullStatic {
-    enabled: boolean;
-    isFullscreen: boolean;
-    element: HTMLElement;
-    raw: any;
 
-    request(element?: HTMLElement): void;
-    exit(): void;
-    toggle(): void;
+declare var screenfull: IScreenfull;
+
+interface IScreenfullRaw {
+  requestFullscreen?: string;
+  exitFullscreen?: string;
+  fullscreenElement?: string;
+  fullscreenEnabled?: string;
+  fullscreenchange?: string;
+  fullscreenerror?: string;
 }
 
-
-declare module "screenfull" {
-    var theModule: ScreenfullStatic
-    export = theModule;
+interface IScreenfull {
+  isFullscreen: boolean;
+  element: Element;
+  enabled: boolean;
+  raw: IScreenfullRaw;
+  request(elem?: Element): void;
+  toggle(elem?: Element): void;
+  exit(): void;
 }
-
