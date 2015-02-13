@@ -176,7 +176,7 @@ declare module LazyJS {
 
     interface ArrayLikeSequence<T> extends Sequence<T> {
         // define()X;
-        concat(): ArrayLikeSequence<T>;
+        concat(var_args: T[]): ArrayLikeSequence<T>;
         first(count?: number): ArrayLikeSequence<T>;
         get(index: number): T;
         length(): number;
