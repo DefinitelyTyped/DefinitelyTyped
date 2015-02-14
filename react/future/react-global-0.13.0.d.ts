@@ -1,9 +1,9 @@
-// Type definitions for React 0.13.0
+// Type definitions for React v0.13.0 (internal module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "react" {
+declare module React {
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -15,7 +15,7 @@ declare module "react" {
         ref: string;
     }
 
-    interface ReactElement<P> 
+    interface ReactElement<P>
         extends ReactElementBase<ComponentClass<P, any, any>, P> {}
 
     interface ReactClassicElement<P>
