@@ -4,7 +4,24 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module lf {
+
+    export enum Driver {}
+    export var INDEXEDDB: Driver;
+    export var WEBSQL: Driver;
+    export var LOCALSTORAGE: Driver;
+
+    interface IConfigParams {
+        driver?: Driver | [Driver];
+        name?: string;
+        size?: number;
+        storeName?: string;
+        version?: number;
+        description?: string;
+    }
+
     interface ILocalForage<T> {
+        setDriver(driver: Driver | [Driver]): void
+        config(params: IConfigParams): void
         clear(): void
         key(index: number): T
         length: number
@@ -23,4 +40,8 @@ declare module lf {
     interface IPromise<T> {
         then(callback: ICallback<T>): void
     }
+}
+
+declare module 'localforage' {
+    export = lf;
 }
