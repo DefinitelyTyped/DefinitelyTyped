@@ -186,7 +186,7 @@ interface Validator
      * 
      * @param element An element to validate, must be inside the validated form. eg "#myselect"
      */
-	element(element: string): boolean;
+	element(element: string|JQuery): boolean;
     /**
      * Validates the form, returns true if it is valid, false otherwise.
      */
