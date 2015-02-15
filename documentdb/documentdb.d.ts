@@ -1,6 +1,6 @@
 // Type definitions for DocumentDB
 // Project: https://github.com/Azure/azure-documentdb-node
-// Definitions by: Noel Abrahams
+// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/documentdb
 
 declare module 'documentdb' {
