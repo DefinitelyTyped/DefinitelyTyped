@@ -17,16 +17,16 @@ declare class jBinary
     constructor(data:jDataView, typeSet:Object);
     constructor(bufferSize:number, typeSet:Object);
 
-    read(type:string, offset:number = this.tell()):any;
+    read(type:string, offset?:number):any;
     readAll():any;
 
-    write(type:string, data:any, offset:number = this.tell());
-    writeAll(data:any);
+    write(type:string, data:any, offset?:number):number;
+    writeAll(data:any):number;
 
     tell():number;
     seek(position:number, callback):number;
     skip(count:number, callback):number;
 
-    slice(start:number, end:number, forceCopy:boolean = false):jBinary;
-    as(typeSet:Object, modifyOriginal:boolean = false):jBinary;
+    slice(start:number, end:number, forceCopy?:boolean):jBinary;
+    as(typeSet:Object, modifyOriginal?:boolean):jBinary;
 }
