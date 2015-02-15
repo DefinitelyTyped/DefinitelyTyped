@@ -24,8 +24,8 @@ declare class jBinary
     writeAll(data:any):number;
 
     tell():number;
-    seek(position:number, callback):number;
-    skip(count:number, callback):number;
+    seek(position:number, callback: (prop:jBinary, data:any) => any):number;
+    skip(count:number, callback: (prop:jBinary, data:any) => any):number;
 
     slice(start:number, end:number, forceCopy?:boolean):jBinary;
     as(typeSet:Object, modifyOriginal?:boolean):jBinary;
