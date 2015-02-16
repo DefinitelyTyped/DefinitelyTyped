@@ -58,6 +58,12 @@ declare module L {
 		zoomAnimation?: boolean;
 	}
 
+	export interface LabelStatic extends ClassStatic {
+		new(options?: LabelOptions): Label;
+	}
+
+	export var Label: LabelStatic;
+
 	export interface Label extends IEventPowered<Label> {
 		onAdd(map: Map): void;
 		onRemove(map: Map): void;

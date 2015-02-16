@@ -67,6 +67,8 @@ path = path.unbindLabel();
 
 // Label
 
+label = new L.Label();
+
 label.setOpacity(0.7);
 label.updateZIndex(5);
 label.setLatLng(new L.LatLng(3, 3));
