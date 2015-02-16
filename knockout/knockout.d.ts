@@ -616,7 +616,7 @@ interface KnockoutComponentTemplate {
 }
 
 interface KnockoutComponentInfo {
-    element: any;
+    element: Node;
 }
 /* end register overloads */
 interface KnockoutComponentDefinition {
