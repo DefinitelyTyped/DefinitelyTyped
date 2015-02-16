@@ -4,10 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
- * @summary Applet Status.
- * {@link http://docs.oracle.com/javase/8/docs/technotes/guides/deploy/applet_dev_guide.html#JSDPG719|Applet Status And Event Handlers}
+ * @summary Java applet Status. More details: {@link http://docs.oracle.com/javase/8/docs/technotes/guides/deploy/applet_dev_guide.html#JSDPG719|Applet Status And Event Handlers}
+ * @enum {number}
+ * @readonly
  */
-declare enum AppletStatus {
+declare enum JavaAppletStatus {
     /**
      * @summary Applet is loading.
      */
@@ -25,28 +26,32 @@ declare enum AppletStatus {
 }
 
 /**
- * @summary Interface for Java object.
+ * @summary Interface for Java applet object.
  * @author  Cyril Schumacher
  * @version 1.0
  */
-interface Java {
+interface JavaApplet extends HTMLAppletElement {
     /**
-     * Handler if the applet status is ERROR. An error has occurred while loading the applet.
+     * @summary Handler if the applet status is {@link JavaAppletStatus#Error}. An error has occurred while loading the applet.
+     * @type {Function}
      */
     onError?: Function;
     
     /**
-     * Handler if the applet status is READY. Applet has finished loading and is ready to receive JavaScript calls.
+     * @summary Handler if the applet status is {@link JavaAppletStatus#Ready}. Applet has finished loading and is ready to receive JavaScript calls.
+     * @type {Function}
      */
     onLoad?: Function;
     
     /**
-     * Handler if the applet has stopped.
+     * @summary Handler if the applet has stopped.
+     * @type {Function}
      */
     onStop?: Function;
     
     /**
-     * @summary Applet Status.
+     * @summary Java applet Status.
+     * @type {JavaAppletStatus}
      */
-    status?: AppletStatus;
+    status?: JavaAppletStatus;
 }
