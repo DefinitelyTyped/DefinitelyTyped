@@ -1,42 +1,179 @@
-// Type definitions for React 0.13.0
+// Type definitions for React v0.13.0 (external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module React {
+declare module "react" {
     //
-    // React Elements 
+    // React Elements
     // ----------------------------------------------------------------------
-    
-    type ReactType = ComponentClass<any, any, any> | string;
 
-    interface ReactElement<P> {
-        type: ComponentClass<P, any, any> | string;
+    interface ReactElementBase<T, P> {
+        type: T;
         props: P;
         key: number | string;
         ref: string;
     }
 
-    interface ReactClassicElement<P> extends ReactElement<P> {
-    }
+    interface ReactElement<P>
+        extends ReactElementBase<ComponentClass<P, any, any>, P> {}
 
-    interface ReactHTMLElement extends ReactElement<HTMLAttributes> {}
-    interface ReactSVGElement extends ReactElement<SVGAttributes> {}
+    interface ReactClassicElement<P>
+        extends ReactElementBase<ClassicComponentClass<P, any, any> | string, P> {}
+
+    interface ReactDOMElement<P> // subtype of ReactClassicElement
+        extends ReactElementBase<string, P> {}
+
+    type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
+    type ReactSVGElement = ReactDOMElement<SVGAttributes>;
 
     //
-    // React Nodes 
+    // Factories
+    // ----------------------------------------------------------------------
+
+    interface Factory<P> {
+        (props?: P, ...children: ReactNode[]): ReactElement<P>;
+    }
+
+    interface ClassicFactory<P> {
+        (props?: P, ...children: ReactNode[]): ReactClassicElement<P>;
+    }
+
+    interface DOMFactory<P> {
+        (props?: P, ...children: ReactNode[]): ReactDOMElement<P>;
+    }
+
+    type HTMLFactory = DOMFactory<HTMLAttributes>;
+    type SVGFactory = DOMFactory<SVGAttributes>;
+
+    //
+    // React Nodes
     // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElement<any> | ReactText;
+    type ReactChild = ReactElementBase<any, any> | ReactText;
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = Array<ReactChild | any[] | boolean>;
     type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
-    // React Components 
+    // Top Level API
+    // ----------------------------------------------------------------------
+
+    function createClass<P, S, C>(
+        spec: ComponentSpec<P, S, C>): ClassicComponentClass<P, S, C>;
+
+    function createFactory<P>(
+        type: string): DOMFactory<P>;
+    function createFactory<P>(
+        type: ClassicComponentClass<P, any, any> | string): ClassicFactory<P>;
+    function createFactory<P>(
+        type: ComponentClass<P, any, any>): Factory<P>;
+
+    function createElement<P>(
+        type: string,
+        props?: P,
+        ...children: ReactNode[]): ReactDOMElement<P>;
+    function createElement<P>(
+        type: ClassicComponentClass<P, any, any> | string,
+        props?: P,
+        ...children: ReactNode[]): ReactClassicElement<P>;
+    function createElement<P>(
+        type: ComponentClass<P, any, any>,
+        props?: P,
+        ...children: ReactNode[]): ReactElement<P>;
+
+    function render<P>(
+        element: ReactDOMElement<P>,
+        container: Element,
+        callback?: () => any): DOMComponent<P>;
+    function render<P, S>(
+        element: ReactClassicElement<P>,
+        container: Element,
+        callback?: () => any): ClassicComponent<P, S, {}>;
+    function render<P, S>(
+        element: ReactElement<P>,
+        container: Element,
+        callback?: () => any): Component<P, S, {}>;
+
+    function unmountComponentAtNode(container: Element): boolean;
+    function renderToString(element: ReactElementBase<any, any>): string;
+    function renderToStaticMarkup(element: ReactElementBase<any, any>): string;
+    function isValidElement(object: {}): boolean;
+    function initializeTouchEvents(shouldUseTouch: boolean): void;
+
+    function findDOMNode<TElement extends Element>(
+        componentOrElement: Component<any, any, any> | Element): TElement;
+    function findDOMNode(
+        componentOrElement: Component<any, any, any> | Element): Element;
+
+    var DOM: ReactDOM;
+    var PropTypes: ReactPropTypes;
+    var Children: ReactChildren;
+
+    //
+    // Component API
+    // ----------------------------------------------------------------------
+
+    // Base component for plain JS classes
+    class Component<P, S, C> implements ComponentLifecycle<P, S, C> {
+        constructor(props: P, context: C);
+        setState(state: S, callback?: () => any): void;
+        forceUpdate(): void;
+        props: P;
+        state: S;
+        context: C;
+        refs: {
+            [key: string]: Component<any, any, any>
+        };
+    }
+
+    interface ClassicComponent<P, S, C> extends Component<P, S, C> {
+        replaceState(nextState: S, callback?: () => any): void;
+        getDOMNode<TElement extends Element>(): TElement;
+        getDOMNode(): Element;
+        isMounted(): boolean;
+        getInitialState?(): S;
+        setProps(nextProps: P, callback?: () => any): void;
+        replaceProps(nextProps: P, callback?: () => any): void;
+    }
+
+    interface DOMComponent<P> extends ClassicComponent<P, any, any> {
+        tagName: string;
+    }
+
+    type HTMLComponent = DOMComponent<HTMLAttributes>;
+    type SVGComponent = DOMComponent<SVGAttributes>;
+
+    interface ChildContextProvider<CC> {
+        getChildContext(): CC;
+    }
+
+    //
+    // Class Interfaces
+    // ----------------------------------------------------------------------
+
+    interface ComponentClassBase<P, C> {
+        propTypes?: ValidationMap<P>;
+        contextTypes?: ValidationMap<C>;
+        childContextTypes?: ValidationMap<{}>;
+    }
+
+    interface ComponentClass<P, S, C> extends ComponentClassBase<P, C> {
+        new(props?: P, context?: C): Component<P, S, C>;
+        defaultProps?: P;
+    }
+
+    interface ClassicComponentClass<P, S, C> extends ComponentClassBase<P, C> {
+        new(props?: P, context?: C): ClassicComponent<P, S, C>;
+        getDefaultProps?(): P;
+        displayName?: string;
+    }
+
+    //
+    // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
     interface ComponentLifecycle<P, S, C> {
@@ -48,102 +185,7 @@ declare module React {
         componentDidUpdate?(prevProps: P, prevState: S, prevContext: C): void;
         componentWillUnmount?(): void;
     }
-    
-    // "modern" ES6 classes
-    class Component<P, S, C> implements ComponentLifecycle<P, S, C> {
-        constructor(props: P, context: C);
-        // static members can't be type checked with generics. However, see ComponentClass<P, S, C>
-        static defaultProps: any;
-        static propTypes: ValidationMap<any>;
-        static contextTypes: ValidationMap<any>;
-        static childContextTypes: ValidationMap<any>;
-        static displayName: string;
-        setState(state: S, callback?: () => any): void;
-        forceUpdate(): void;
-        props: P;
-        state: S;
-        context: C;
-        refs: {
-            [key: string]: Component<any, any, any>
-        };
-    }
-    
-    interface ComponentClass<P, S, C> {
-        new (props: P, context: C): Component<P, S, C>;
-        // can cast to get type checking for generics if desired
-        defaultProps: P;
-        getDefaultProps?(): P;
-        propTypes: ValidationMap<P>;
-        contextTypes: ValidationMap<C>;
-        childContextTypes: ValidationMap<any>;
-        displayName: string;
-    }
-    
-    // "classic" createClass
-    class ClassicComponent<P, S, C> extends Component<P, S, C> {
-        replaceState(nextState: S, callback?: () => any): void;
-        getDOMNode<TElement extends Element>(): TElement;
-        getDOMNode(): Element;
-        isMounted(): boolean;
-        getInitialState(): S;
-        setProps(nextProps: P, callback?: () => any): void;
-        replaceProps(nextProps: P, callback?: () => any): void;
-    }
-    
-    interface ClassicComponentClass<P, S, C> extends ComponentClass<P, S, C> {
-        new (props: P, context: C): ClassicComponent<P, S, C>;
-    }
-    
-    interface ChildContextProvider<C> {
-        getChildContext: () => C;
-    }
-    
-    //
-    // ReactElement Factories
-    // ----------------------------------------------------------------------
 
-    interface ComponentFactory<P> {
-        (props?: P, ...children: ReactNode[]): ReactElement<P>;
-    }
-    
-    interface HTMLFactory extends ComponentFactory<HTMLAttributes> {}
-    interface SVGFactory extends ComponentFactory<SVGAttributes> {}
-
-    //
-    // Top-Level API
-    // ----------------------------------------------------------------------
-
-    interface TopLevelAPI {
-        createClass<P, S, C>(spec: ComponentSpec<P, S, C>): ClassicComponentClass<P, S, C>;
-        createElement<P>(type: ClassicComponentClass<P, any, any>, props: P, ...children: ReactNode[]): ReactClassicElement<P>;
-        createElement<P>(type: ComponentClass<P, any, any> | string, props: P, ...children: ReactNode[]): ReactElement<P>;
-        createFactory<P>(type: ComponentClass<P, any, any> | string): ComponentFactory<P>;
-        render<P, S>(element: ReactClassicElement<P>, container: Element, callback?: () => any): ClassicComponent<P, S, any>;
-        render<P, S>(element: ReactElement<P>, container: Element, callback?: () => any): Component<P, S, any>;
-        unmountComponentAtNode(container: Element): boolean;
-        renderToString(element: ReactElement<any>): string;
-        renderToStaticMarkup(element: ReactElement<any>): string;
-        isValidElement(object: {}): boolean;
-        initializeTouchEvents(shouldUseTouch: boolean): void;
-        findDOMNode(component: Component<any, any, any>): Element;
-        findDOMNode<TElement extends Element>(component: Component<any, any, any>): TElement;
-    }
-
-    //
-    // Component API
-    // ----------------------------------------------------------------------
-
-    class DOMComponent<P> extends ClassicComponent<P, any, any> {
-        tagName: string;
-    }
-
-    interface HTMLComponent extends DOMComponent<HTMLAttributes> {}
-    interface SVGComponent extends DOMComponent<SVGAttributes> {}
-
-    //
-    // Component Specs and Lifecycle
-    // ----------------------------------------------------------------------
-    
     interface Mixin<P, S, C> extends ComponentLifecycle<P, S, C> {
         mixins?: Mixin<P, S, C>;
         statics?: {
@@ -154,13 +196,13 @@ declare module React {
         propTypes?: ValidationMap<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>
-        
+
         getInitialState?(): S;
         getDefaultProps?(): P;
     }
 
     interface ComponentSpec<P, S, C> extends Mixin<P, S, C> {
-        render(): ReactElement<any>;
+        render(): ReactElementBase<any, any>;
     }
 
     //
@@ -266,15 +308,16 @@ declare module React {
     interface WheelEventHandler extends EventHandler<WheelEvent> {}
 
     //
-    // Attributes
+    // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
-    interface ReactAttributes {
+    interface Props {
         children?: ReactNode;
         key?: number | string;
         ref?: string;
+    }
 
-        // Event Attributes
+    interface DOMAttributes extends Props {
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
@@ -335,7 +378,7 @@ declare module React {
         strokeOpacity?: number;
     }
 
-    interface HTMLAttributes extends ReactAttributes {
+    interface HTMLAttributes extends DOMAttributes {
         accept?: string;
         acceptCharset?: string;
         accessKey?: string;
@@ -443,9 +486,9 @@ declare module React {
         itemType?: string;
     }
 
-    interface SVGAttributes extends ReactAttributes {
+    interface SVGAttributes extends DOMAttributes {
         cx?: SVGLength | SVGAnimatedLength;
-        cy?: any; 
+        cy?: any;
         d?: string;
         dx?: SVGLength | SVGAnimatedLength;
         dy?: SVGLength | SVGAnimatedLength;
@@ -490,7 +533,7 @@ declare module React {
     }
 
     //
-    // React.DOM 
+    // React.DOM
     // ----------------------------------------------------------------------
 
     interface ReactDOM {
@@ -674,255 +717,6 @@ declare module React {
     }
 
     //
-    // React.addons
-    // ----------------------------------------------------------------------
-
-    interface ClassSet {
-        [key: string]: boolean;
-    }
-
-    //
-    // React.addons (Transitions)
-    // ----------------------------------------------------------------------
-
-    interface TransitionGroupProps {
-        component?: ReactType;
-        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
-    }
-
-    interface CSSTransitionGroupProps extends TransitionGroupProps {
-        transitionName: string;
-        transitionAppear?: boolean;
-        transitionEnter?: boolean;
-        transitionLeave?: boolean;
-    }
-
-    interface CSSTransitionGroup extends ComponentClass<CSSTransitionGroupProps, any, any> {}
-    interface TransitionGroup extends ComponentClass<TransitionGroupProps, any, any> {}
-
-    //
-    // React.addons (Mixins)
-    // ----------------------------------------------------------------------
-
-    interface ReactLink<T> {
-        value: T;
-        requestChange(newValue: T): void;
-    }
-
-    interface LinkedStateMixin extends Mixin<any, any, any> {
-        linkState<T>(key: string): ReactLink<T>;
-    }
-
-    interface PureRenderMixin extends Mixin<any, any, any> {
-    }
-
-    //
-    // Reat.addons.update
-    // ----------------------------------------------------------------------
-
-    interface UpdateSpec {
-        $set: any;
-        $merge: {};
-        $apply(value: any): any;
-        // [key: string]: UpdateSpec;
-    }
-
-    interface UpdateArraySpec extends UpdateSpec {
-        $push?: any[];
-        $unshift?: any[];
-        $splice?: any[][];
-    }
-
-    //
-    // React.addons.Perf
-    // ----------------------------------------------------------------------
-
-    interface ComponentPerfContext {
-        current: string;
-        owner: string;
-    }
-
-    interface NumericPerfContext {
-        [key: string]: number;
-    }
-
-    interface Measurements {
-        exclusive: NumericPerfContext;
-        inclusive: NumericPerfContext;
-        render: NumericPerfContext;
-        counts: NumericPerfContext;
-        writes: NumericPerfContext;
-        displayNames: {
-            [key: string]: ComponentPerfContext;
-        };
-        totalTime: number;
-    }
-
-    interface ReactPerf {
-        start(): void;
-        stop(): void;
-        printInclusive(measurements: Measurements[]): void;
-        printExclusive(measurements: Measurements[]): void;
-        printWasted(measurements: Measurements[]): void;
-        printDOM(measurements: Measurements[]): void;
-        getLastMeasurements(): Measurements[];
-    }
-
-    //
-    // React.addons.TestUtils
-    // ----------------------------------------------------------------------
-
-    interface MockedComponentClass {
-        new(): any;
-    }
-
-    interface ReactTestUtils {
-        Simulate: Simulate;
-
-        renderIntoDocument<P>(element: ReactElement<P>): Component<P, any, any>;
-        renderIntoDocument<C extends Component<any, any, any>>(element: ReactElement<any>): C;
-
-        mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
-
-        isElementOfType(element: ReactElement<any>, type: ReactType): boolean;
-        isDOMComponent(instance: Component<any, any, any>): boolean;
-        isCompositeComponent(instance: Component<any, any, any>): boolean;
-        isCompositeComponentWithType(instance: Component<any, any, any>, type: ComponentClass<any, any, any>): boolean;
-        isTextComponent(instance: Component<any, any, any>): boolean;
-
-        findAllInRenderedTree(tree: Component<any, any, any>, fn: (i: Component<any, any, any>) => boolean): Component<any, any, any>;
-
-        scryRenderedDOMComponentsWithClass(tree: Component<any, any, any>, className: string): DOMComponent<any>[];
-        findRenderedDOMComponentWithClass(tree: Component<any, any, any>, className: string): DOMComponent<any>;
-
-        scryRenderedDOMComponentsWithTag(tree: Component<any, any, any>, tagName: string): DOMComponent<any>[];
-        findRenderedDOMComponentWithTag(tree: Component<any, any, any>, tagName: string): DOMComponent<any>;
-
-        scryRenderedComponentsWithType<P, S, C>(
-            tree: Component<any, any, any>, type: ComponentClass<P, S, C>): Component<P, S, C>[];
-        scryRenderedComponentsWithType<C extends Component<any, any, any>>(
-            tree: Component<any, any, any>, type: ComponentClass<any, any, any>): C[];
-
-        findRenderedComponentWithType<P, S, C>(
-            tree: Component<any, any, any>, type: ComponentClass<P, S, C>): Component<P, S, C>;
-        findRenderedComponentWithType<C extends Component<any, any, any>>(
-            tree: Component<any, any, any>, type: ComponentClass<any, any, any>): C;
-    }
-
-    interface SyntheticEventData {
-        altKey?: boolean;
-        button?: number;
-        buttons?: number;
-        clientX?: number;
-        clientY?: number;
-        changedTouches?: TouchList;
-        charCode?: boolean;
-        clipboardData?: DataTransfer;
-        ctrlKey?: boolean;
-        deltaMode?: number;
-        deltaX?: number;
-        deltaY?: number;
-        deltaZ?: number;
-        detail?: number;
-        getModifierState?(key: string): boolean;
-        key?: string;
-        keyCode?: number;
-        locale?: string;
-        location?: number;
-        metaKey?: boolean;
-        pageX?: number;
-        pageY?: number;
-        relatedTarget?: EventTarget;
-        repeat?: boolean;
-        screenX?: number;
-        screenY?: number;
-        shiftKey?: boolean;
-        targetTouches?: TouchList;
-        touches?: TouchList;
-        view?: AbstractView;
-        which?: number;
-    }
-
-    interface EventSimulator {
-        (element: Element, eventData?: SyntheticEventData): void;
-        (descriptor: Component<any, any, any>, eventData?: SyntheticEventData): void;
-    }
-
-    interface Simulate {
-        blur: EventSimulator;
-        change: EventSimulator;
-        click: EventSimulator;
-        cut: EventSimulator;
-        doubleClick: EventSimulator;
-        drag: EventSimulator;
-        dragEnd: EventSimulator;
-        dragEnter: EventSimulator;
-        dragExit: EventSimulator;
-        dragLeave: EventSimulator;
-        dragOver: EventSimulator;
-        dragStart: EventSimulator;
-        drop: EventSimulator;
-        focus: EventSimulator;
-        input: EventSimulator;
-        keyDown: EventSimulator;
-        keyPress: EventSimulator;
-        keyUp: EventSimulator;
-        mouseDown: EventSimulator;
-        mouseEnter: EventSimulator;
-        mouseLeave: EventSimulator;
-        mouseMove: EventSimulator;
-        mouseOut: EventSimulator;
-        mouseOver: EventSimulator;
-        mouseUp: EventSimulator;
-        paste: EventSimulator;
-        scroll: EventSimulator;
-        submit: EventSimulator;
-        touchCancel: EventSimulator;
-        touchEnd: EventSimulator;
-        touchMove: EventSimulator;
-        touchStart: EventSimulator;
-        wheel: EventSimulator;
-    }
-
-    //
-    // react Exports
-    // ----------------------------------------------------------------------
-
-    interface Exports extends TopLevelAPI {
-        DOM: ReactDOM;
-        PropTypes: ReactPropTypes;
-        Children: ReactChildren;
-        Component: ComponentClass<any, any, any>;
-    }
-
-    //
-    // react/addons Exports
-    // ----------------------------------------------------------------------
-
-    interface AddonsExports extends Exports {
-        addons: {
-            CSSTransitionGroup: CSSTransitionGroup;
-            LinkedStateMixin: LinkedStateMixin;
-            PureRenderMixin: PureRenderMixin;
-            TransitionGroup: TransitionGroup;
-
-            batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-            batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-            batchedUpdates(callback: () => any): void;
-
-            classSet(cx: ClassSet): string;
-            cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
-
-            update(value: any[], spec: UpdateArraySpec): any[];
-            update(value: {}, spec: UpdateSpec): any;
-
-            // Development tools
-            Perf: ReactPerf;
-            TestUtils: ReactTestUtils;
-        };
-    }
-
-    //
     // Browser Interfaces
     // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     // ----------------------------------------------------------------------
@@ -949,15 +743,5 @@ declare module React {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
-}
-
-declare module "react" {
-    var exports: React.Exports;
-    export = exports;
-}
-
-declare module "react/addons" {
-    var exports: React.AddonsExports;
-    export = exports;
 }
 
