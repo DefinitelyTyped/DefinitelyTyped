@@ -70,7 +70,7 @@ interface KnockoutComputedStatic {
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
 	fn: KnockoutComputedFunctions<any>;
-	
+
 	dispose(): void;
 	isActive(): boolean;
 	getDependenciesCount(): number;
@@ -98,8 +98,8 @@ interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObserva
 	(value: T): void;
 
 	peek(): T;
-	valueHasMutated?:{(): void;};
-	valueWillMutate?:{(): void;};
+	valueHasMutated?: { (): void; };
+	valueWillMutate?: { (): void; };
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
@@ -132,8 +132,8 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler {
-    init? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    init?: (element: any, valueAccessor: <T>() => T, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean };
+    update?: (element: any, valueAccessor: <T>() => T, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
 }
@@ -183,17 +183,17 @@ interface KnockoutMemoization {
     parseMemoText(memoText: string): string;
 }
 
-interface KnockoutVirtualElement {}
+interface KnockoutVirtualElement { }
 
 interface KnockoutVirtualElements {
     allowedBindings: { [bindingName: string]: boolean; };
-    emptyNode(node: KnockoutVirtualElement ): void;
-    firstChild(node: KnockoutVirtualElement ): KnockoutVirtualElement;
-    insertAfter( container: KnockoutVirtualElement, nodeToInsert: Node, insertAfter: Node ): void;
+    emptyNode(node: KnockoutVirtualElement): void;
+    firstChild(node: KnockoutVirtualElement): KnockoutVirtualElement;
+    insertAfter(container: KnockoutVirtualElement, nodeToInsert: Node, insertAfter: Node): void;
     nextSibling(node: KnockoutVirtualElement): Node;
-    prepend(node: KnockoutVirtualElement, toInsert: Node ): void;
-    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: Node; } ): void;
-    childNodes(node: KnockoutVirtualElement ): Node[];
+    prepend(node: KnockoutVirtualElement, toInsert: Node): void;
+    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: Node; }): void;
+    childNodes(node: KnockoutVirtualElement): Node[];
 }
 
 interface KnockoutExtenders {
@@ -227,9 +227,9 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domData: {
-        get (node: Element, key: string): any;
+        get(node: Element, key: string): any;
 
-        set (node: Element, key: string, value: any): void;
+        set(node: Element, key: string, value: any): void;
 
         getAll(node: Element, createIfNotFound: boolean): any;
 
@@ -365,8 +365,8 @@ interface KnockoutTemplateAnonymous extends KnockoutTemplateSourcesDomElement {
 interface KnockoutTemplateSources {
 
     domElement: {
-	    prototype: KnockoutTemplateSourcesDomElement
-	    new (element: Element): KnockoutTemplateSourcesDomElement
+		prototype: KnockoutTemplateSourcesDomElement
+		new (element: Element): KnockoutTemplateSourcesDomElement
     };
 
     anonymousTemplate: {
@@ -554,7 +554,7 @@ interface KnockoutStatic {
 interface KnockoutBindingProvider {
 	nodeHasBindings(node: Node): boolean;
 	getBindings(node: Node, bindingContext: KnockoutBindingContext): {};
-	getBindingAccessors?(node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string; };
+	getBindingAccessors? (node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string; };
 }
 
 interface KnockoutComponents {
@@ -621,7 +621,7 @@ interface KnockoutComponentInfo {
 /* end register overloads */
 interface KnockoutComponentDefinition {
 	template: Node[];
-	createViewModel?(params: any, options: { element: Node; }): any;
+	createViewModel? (params: any, options: { element: Node; }): any;
 }
 
 interface KnockoutComponentLoader {
@@ -648,3 +648,4 @@ declare module "knockout" {
 }
 
 declare var ko: KnockoutStatic;
+
