@@ -41,8 +41,12 @@ interface JQuery {
 // DirtyFlag /////////////////////////////////////////////
 
 interface DirtyFlag {
-    isDirty: KnockoutComputed<boolean>;
     new (objectToTrack: any, isInitiallyDirty?: boolean, hashFunction?: () => any);
+    (): DirtyFlagResult;
+}
+
+interface DirtyFlagResult {
+    isDirty: KnockoutComputed<boolean>;
     reset(): void;
 }
 
@@ -50,6 +54,15 @@ interface KnockoutStatic {
     DirtyFlag: DirtyFlag;
 }
 
+interface DirtyFlagStatic {
+    DirtyFlag: DirtyFlag;
+}
+
+declare module "knockout.dirtyFlag" {
+    export = df;
+}
+
+declare var df: DirtyFlagStatic;
 
 // Command /////////////////////////////////////////////
 
