@@ -323,3 +323,11 @@ declare var footstepsBuffer: any;
     context.startRendering();
 }
 
+// Test automatic type inference of the audio processing event handler
+() => {
+    var context = new AudioContext();
+    var recorder = context.createScriptProcessor(2048, 1, 1);
+    recorder.onaudioprocess = function (e) {
+        e.inputBuffer;
+    };
+}

@@ -1,9 +1,7 @@
-/// <reference path="react-0.13.0.d.ts" />
+/// <reference path="react-addons-0.13.0.d.ts" />
+import React = require("react/addons");
 
-// requiring react/addons instead of react so react.d.ts doesn't get picked up
-import React = require('react/addons'); 
-
-interface Props {
+interface Props extends React.Props {
     hello: string;
     world?: string;
     foo: number;
@@ -42,36 +40,37 @@ var INPUT_REF: string = "input";
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var reactClassicClass: React.ClassicComponentClass<Props, State, Context> = React.createClass<Props, State, Context>({
-    getDefaultProps: () => {
-        return <Props>{
-            hello: undefined,
-            world: "peace",
-            foo: undefined,
-            bar: undefined
-        };
-    },
-    getInitialState: () => {
-        return {
-            inputValue: this.context.someValue,
-            seconds: this.props.foo
-        };
-    },
-    reset: () => {
-        this.replaceState(this.getInitialState());
-    },
-    render: () => {
-        return React.DOM.div(null,
-            React.DOM.input({
-                ref: INPUT_REF,
-                value: this.state.inputValue
-            }));
-    }
-});
+var ClassicComponent: React.ClassicComponentClass<Props, State, Context> =
+    React.createClass<Props, State, Context>({
+        getDefaultProps: () => {
+            return <Props>{
+                hello: undefined,
+                world: "peace",
+                foo: undefined,
+                bar: undefined
+            };
+        },
+        getInitialState: () => {
+            return {
+                inputValue: this.context.someValue,
+                seconds: this.props.foo
+            };
+        },
+        reset: () => {
+            this.replaceState(this.getInitialState());
+        },
+        render: () => {
+            return React.DOM.div(null,
+                React.DOM.input({
+                    ref: INPUT_REF,
+                    value: this.state.inputValue
+                }));
+        }
+    });
 
-var reactClass: React.ComponentClass<Props, State, Context> = reactClassicClass;
+class ModernComponent extends React.Component<Props, State, Context>
+    implements React.ChildContextProvider<ChildContext> {
 
-class ModernComponent extends React.Component<Props, State, Context> implements React.ChildContextProvider<ChildContext> {
     constructor(props: Props, context: Context) {
         super(props, context);
         this.state = {
@@ -80,18 +79,17 @@ class ModernComponent extends React.Component<Props, State, Context> implements 
         };
     }
     
-    // this should work but doesn't. Due to TypeScript bug?
-    //static propTypes = {
-    //    foo: React.PropTypes.number
-    //}
+    static propTypes: React.ValidationMap<Props> = {
+        foo: React.PropTypes.number
+    }
     
-    //static contextTypes = {
-    //    someValue: React.PropTypes.string
-    //}
+    static contextTypes: React.ValidationMap<Context> = {
+        someValue: React.PropTypes.string
+    }
     
-    //static childContextTypes = {
-    //    someOtherValue: React.PropTypes.string
-    //}
+    static childContextTypes: React.ValidationMap<ChildContext> = {
+        someOtherValue: React.PropTypes.string
+    }
     
     getChildContext() {
         return {
@@ -120,66 +118,71 @@ class ModernComponent extends React.Component<Props, State, Context> implements 
     }
 }
 
-ModernComponent.propTypes = {
-    foo: React.PropTypes.string,
-}
+// React.createFactory
+var factory: React.Factory<Props> =
+    React.createFactory(ModernComponent);
+var factoryElement: React.ReactElement<Props> =
+    factory(props);
 
-ModernComponent.contextTypes = {
-    someValue: React.PropTypes.string
-}
+var classicFactory: React.ClassicFactory<Props> =
+    React.createFactory(ClassicComponent);
+var classicFactoryElement: React.ReactClassicElement<Props> =
+    classicFactory(props);
 
-ModernComponent.childContextTypes = {
-    someOtherValue: React.PropTypes.string
-}
+var domFactory: React.DOMFactory<any> =
+    React.createFactory("foo");
+var domFactoryElement: React.ReactDOMElement<any> =
+    domFactory();
 
-var reactElement: React.ReactElement<Props>;
-reactElement = React.createElement<Props>(reactClass, props);
-reactElement = React.createElement(ModernComponent, props);
+// React.createElement
+var element: React.ReactElement<Props> =
+    React.createElement(ModernComponent, props);
+var classicElement: React.ReactClassicElement<Props> =
+    React.createElement(ClassicComponent, props);
+var domElement: React.ReactHTMLElement =
+    React.createElement("div");
 
-var reactFactory: React.ComponentFactory<Props>;
-reactFactory = React.createFactory<Props>(reactClass);
-reactFactory = React.createFactory<Props>(ModernComponent);
+// React.render
+var component: React.Component<Props, any, any> =
+    React.render(element, container);
+var classicComponent: React.ClassicComponent<Props, any, any> =
+    React.render(classicElement, container);
+var domComponent: React.DOMComponent<any> =
+    React.render(domElement, container);
 
-var component: React.Component<Props, State, Context> =
-    React.render<Props, State>(reactElement, container);
-
+// Other Top-Level API
 var unmounted: boolean = React.unmountComponentAtNode(container);
-var str: string = React.renderToString(reactElement);
-var markup: string = React.renderToStaticMarkup(reactElement);
+var str: string = React.renderToString(element);
+var markup: string = React.renderToStaticMarkup(element);
 var notValid: boolean = React.isValidElement(props); // false
-var isValid = React.isValidElement(reactElement); // true
+var isValid = React.isValidElement(element); // true
 React.initializeTouchEvents(true);
 var domNode: Element = React.findDOMNode(component);
-
-var reactClassicElement: React.ReactClassicElement<Props>;
-reactClassicElement = React.createElement<Props>(reactClassicClass, props);
-var classicComponent: React.ClassicComponent<Props, State, Context>;
-classicComponent = React.render<Props, State>(reactClassicElement, container);
+domNode = React.findDOMNode(domNode);
 
 //
 // React Elements
 // --------------------------------------------------------------------------
 
-var type = reactElement.type;
-var elementProps: Props = reactElement.props;
-var key = reactElement.key;
-var ref: string = reactElement.ref;
-var factoryElement: React.ReactElement<Props> = reactFactory(elementProps);
+var type = element.type;
+var elementProps: Props = element.props;
+var key = element.key;
+var ref: string = element.ref;
 
 //
 // React Components
 // --------------------------------------------------------------------------
 
-var displayName: string = reactClass.displayName;
-var defaultProps: Props = reactClass.getDefaultProps();
-var propTypes: React.ValidationMap<Props> = reactClass.propTypes;
+var displayName: string = ClassicComponent.displayName;
+var defaultProps: Props = ClassicComponent.getDefaultProps();
+var propTypes: React.ValidationMap<Props> = ClassicComponent.propTypes;
 
 //
 // Component API
 // --------------------------------------------------------------------------
 
 // modern
-var initialState: State = component.state;
+var componentState: State = component.state;
 component.setState({ inputValue: "!!!" });
 component.forceUpdate();
 
@@ -324,33 +327,61 @@ var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 interface TimerState {
     secondsElapsed: number;
 }
-interface Timer extends React.Component<{}, TimerState, any> {
-}
-var Timer = React.createClass({
-    displayName: "Timer",
-    getInitialState: () => {
-        return { secondsElapsed: 0 };
-    },
-    tick: () => {
-        var me = <Timer>this;
-        me.setState({
-            secondsElapsed: me.state.secondsElapsed + 1
-        });
-    },
-    componentDidMount: () => {
-        this.interval = setInterval(this.tick, 1000);
-    },
-    componentWillUnmount: () => {
-        clearInterval(this.interval);
-    },
-    render: () => {
-        var me = <Timer>this;
+class Timer extends React.Component<{}, TimerState, {}> {
+    static state = {
+        secondsElapsed: 0
+    }
+    private _interval: number;
+    tick() {
+        this.setState({ secondsElapsed: this.state.secondsElapsed + 1 });
+    }
+    componentDidMount() {
+        var me = this;
+        this._interval = setInterval(() => me.tick(), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this._interval);
+    }
+    render() {
         return React.DOM.div(
             null,
             "Seconds Elapsed: ",
-            me.state.secondsElapsed
+            this.state.secondsElapsed
         );
     }
+}
+React.render(React.createElement(Timer), container);
+
+//
+// React.addons
+// --------------------------------------------------------------------------
+
+var cx = React.addons.classSet;
+var className: string = cx({ a: true, b: false, c: true });
+className = cx("a", null, "b");
+
+//
+// React.addons (Transitions)
+// --------------------------------------------------------------------------
+
+React.createFactory(React.addons.TransitionGroup)({ component: "div" });
+React.createFactory(React.addons.CSSTransitionGroup)({
+    component: React.createClass({
+        render: (): React.ReactElement<any> => null
+    }),
+    childFactory: (c) => c,
+    transitionName: "transition",
+    transitionAppear: false,
+    transitionEnter: true,
+    transitionLeave: true
 });
-var mountNode: Element;
-React.render(React.createElement(Timer, null), mountNode);
+
+//
+// React.addons.TestUtils
+// --------------------------------------------------------------------------
+
+var node: Element;
+React.addons.TestUtils.Simulate.click(node);
+React.addons.TestUtils.Simulate.change(node);
+React.addons.TestUtils.Simulate.keyDown(node, { key: "Enter" });
+
