@@ -1,8 +1,3 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.dataTables.d.ts"/>
-
-// http://www.datatables.net/api
-
 $(document).ready(function () {
     //#region "Language"
 
@@ -34,28 +29,28 @@ $(document).ready(function () {
 
     //#region "Column"
 
-    var colCreatedCellFunc: DataTables.IFunctionColumnCreatedCell = function (cell, cellData, rowData, rowIndex, colIndex) {
+    var colCreatedCellFunc: DataTables.FunctionColumnCreatedCell = function (cell, cellData, rowData, rowIndex, colIndex) {
 
     }
 
-    var colDataObject: DataTables.IObjectColumnData = {
+    var colDataObject: DataTables.ObjectColumnData = {
         _: "phone",
         filter: "phone_filter",
         display: "phone_display",
         sort: "asc"
     };
 
-    var colDataFunc: DataTables.IFunctionColumnData = function (row, type, set, meta) {
+    var colDataFunc: DataTables.FunctionColumnData = function (row, type, set, meta) {
     };
 
-    var colRenderObject: DataTables.IObjectColumnRender = {
+    var colRenderObject: DataTables.ObjectColumnRender = {
         _: "phone",
         filter: "phone_filter",
         display: "phone_display",
         sort: "asc"
     };
 
-    var colRenderFunc: DataTables.IFunctionColumnRender = function (data, type, row, meta) {
+    var colRenderFunc: DataTables.FunctionColumnRender = function (data, type, row, meta) {
 
     };
 
@@ -136,27 +131,27 @@ $(document).ready(function () {
 
     //#region "Callbacks"
 
-    var createRowFunc: DataTables.IFunctionCreateRow = function (row, data, dataIndex) { };
-    var drawCallbackFunc: DataTables.IFunctionDrawCallback = function (settings) { };
-    var footerCallbackFunc: DataTables.IFunctionFooterCallback = function (tfoot, data, start, end, display) { };
-    var formatNumberFunc: DataTables.IFunctionFormatNumber = function (toForm) { };
-    var headerCallbackFunc: DataTables.IFunctionHeaderCallback = function (thead, data, start, end, display) { };
-    var infoCallbackFunc: DataTables.IFunctionInfoCallback = function (settings, start, end, total, pre) { };
-    var initCallbackFunc: DataTables.IFunctionInitComplete = function (settings, json) { };
-    var preDrawFunc: DataTables.IFunctionPreDrawCallback = function (settings) { };
-    var rowCallbackFunc: DataTables.IFunctionRowCallback = function (row, data) { };
-    var stateLoadCallbackFunc: DataTables.IFunctionStateLoadCallback = function (settings) { };
-    var stateLoadedCallbackFunc: DataTables.IFunctionStateLoaded = function (settings, data) { };
-    var stateSaveCallbackFunc: DataTables.IFunctionStateSaveCallback = function (settings, data) { };
-    var stateSaveParamsFunc: DataTables.IFunctionStateSaveParams = function (settings, data) { };
+    var createRowFunc: DataTables.FunctionCreateRow = function (row, data, dataIndex) { };
+    var drawCallbackFunc: DataTables.FunctionDrawCallback = function (settings) { };
+    var footerCallbackFunc: DataTables.FunctionFooterCallback = function (tfoot, data, start, end, display) { };
+    var formatNumberFunc: DataTables.FunctionFormatNumber = function (toForm) { };
+    var headerCallbackFunc: DataTables.FunctionHeaderCallback = function (thead, data, start, end, display) { };
+    var infoCallbackFunc: DataTables.FunctionInfoCallback = function (settings, start, end, total, pre) { };
+    var initCallbackFunc: DataTables.FunctionInitComplete = function (settings, json) { };
+    var preDrawFunc: DataTables.FunctionPreDrawCallback = function (settings) { };
+    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data) { };
+    var stateLoadCallbackFunc: DataTables.FunctionStateLoadCallback = function (settings) { };
+    var stateLoadedCallbackFunc: DataTables.FunctionStateLoaded = function (settings, data) { };
+    var stateSaveCallbackFunc: DataTables.FunctionStateSaveCallback = function (settings, data) { };
+    var stateSaveParamsFunc: DataTables.FunctionStateSaveParams = function (settings, data) { };
 
     //#endregion "Callbacks
 
     //#region "Ajax"
 
-    var ajaxFunc: DataTables.IFunctionAjax = function (data, callback, settings) { };
+    var ajaxFunc: DataTables.FunctionAjax = function (data, callback, settings) { };
 
-    var ajaxDataFunc: DataTables.IFunctionAjaxData = function (data) {
+    var ajaxDataFunc: DataTables.FunctionAjaxData = function (data) {
         return data;
     };
 
@@ -361,7 +356,7 @@ $(document).ready(function () {
 
     //#endregion "Methods-Core"
 
-    var modifier: DataTables.IObjectSelectorModifier = {
+    var modifier: DataTables.ObjectSelectorModifier = {
         order: "current",
         search: "none",
         page: "all",
@@ -534,15 +529,15 @@ $(document).ready(function () {
     });
 
     var columns_data = columns.data();
-    //$('#listData').html(
-    //    dt
-    //        .columns(0)
-    //        .data()
-    //        .eq(0)      // Reduce the 2D array into a 1D array of data
-    //        .sort()       // Sort data alphabetically
-    //        .unique()     // Reduce to unique values
-    //        .join('<br>')
-    //    );
+    $('#listData').html(
+        dt
+            .columns(0)
+            .data()
+            .eq(0)      // Reduce the 2D array into a 1D array of data
+            .sort()       // Sort data alphabetically
+            .unique()     // Reduce to unique values
+            .join('<br>')
+        );
 
     //var idx = dt
     //    .columns('.check')
@@ -610,20 +605,20 @@ $(document).ready(function () {
     dt
         .column(0)
         .cache('search')
-    //    .sort()
-    //    .unique()
-    //    .each(function (d) {
-    //    select.append($('<option value="' + d + '">' + d + '</option>'));
-    //});
+        .sort()
+        .unique()
+        .each(function (d) {
+        select.append($('<option value="' + d + '">' + d + '</option>'));
+    });
 
     var column_data = column.data();
     alert('Column 4 sum: ' +
         dt
             .column(4)
             .data()
-    //.reduce(function (a, b) {
-    //return a + b;
-    //})
+    .reduce(function (a, b) {
+    return a + b;
+    })
         );
 
     var column_dataSrc = column.dataSrc();
@@ -633,7 +628,7 @@ $(document).ready(function () {
     });
 
     var column_footer = column.footer();
-    //var column_p = dt.column(0);
+    var column_p = dt.column(0);
     //$(column.footer()).html(
     //    column_p
     //        .data()
@@ -677,29 +672,29 @@ $(document).ready(function () {
             .draw();
     });
 
-    //dt.columns('.select-filter').eq(0).each(function (colIdx) {
-    //    // Create the select list and search operation
-    //    var select = $('<select />')
-    //        .appendTo(
-    //        dt.column(colIdx).footer()
-    //        )
-    //        .on('change', function () {
-    //            dt
-    //            .column(colIdx)
-    //            .search($(this).val())
-    //            .draw();
-    //    });
+    dt.columns('.select-filter').eq(0).each(function (colIdx) {
+        // Create the select list and search operation
+        var select = $('<select />')
+            .appendTo(
+            dt.column(colIdx).footer()
+            )
+            .on('change', function () {
+                dt
+                .column(colIdx)
+                .search($(this).val())
+                .draw();
+        });
  
-    //    // Get the search data for the first column and add to the select list
-    //    dt
-    //        .column(colIdx)
-    //        .cache('search')
-    //        .sort()
-    //        .unique()
-    //        .each(function (d) {
-    //        select.append($('<option value="' + d + '">' + d + '</option>'));
-    //    });
-    //});
+        // Get the search data for the first column and add to the select list
+        dt
+            .column(colIdx)
+            .cache('search')
+            .sort()
+            .unique()
+            .each(function (d) {
+            select.append($('<option value="' + d + '">' + d + '</option>'));
+        });
+    });
 
     var column_visible_get = column.visible();
     var column_visible_set = column.visible(false);

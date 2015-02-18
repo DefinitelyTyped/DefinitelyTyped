@@ -12,10 +12,10 @@ interface JQuery {
     DataTable(param?: DataTables.Settings): DataTables.DataTable;
 }
 
-interface JQueryStatic {
-    //TODO: Wrong, as jquery.d.ts has no interface for fn
-    dataTable: DataTables.StaticFunctions;
-}
+//TODO: Wrong, as jquery.d.ts has no interface for fn
+//interface JQueryStatic {
+//    dataTable: DataTables.StaticFunctions;
+//}
 
 declare module DataTables {
     export interface DataTable extends DataTableCore {
@@ -37,7 +37,7 @@ declare module DataTables {
         * @param cellSelector Cell selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        cell(cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: IObjectSelectorModifier): CellMethods;
+        cell(cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: ObjectSelectorModifier): CellMethods;
 
         /**
         * Select the cell found by a cell selector
@@ -46,14 +46,14 @@ declare module DataTables {
         * @param cellSelector Cell selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        cell(rowSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: IObjectSelectorModifier): CellMethods;
+        cell(rowSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: ObjectSelectorModifier): CellMethods;
 
         /**
         * Select all cells
         *
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        cells(modifier?: IObjectSelectorModifier): CellsMethods;
+        cells(modifier?: ObjectSelectorModifier): CellsMethods;
 
         /**
         * Select cells found by a cell selector
@@ -61,7 +61,7 @@ declare module DataTables {
         * @param cellSelector Cell selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        cells(cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: IObjectSelectorModifier): CellsMethods;
+        cells(cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: ObjectSelectorModifier): CellsMethods;
 
         /**
         * Select cells found by both row and column selectors
@@ -70,7 +70,7 @@ declare module DataTables {
         * @param cellSelector Cell selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        cells(rowSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: IObjectSelectorModifier): CellsMethods;
+        cells(rowSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], cellSelector: (string | Node | Function | JQuery | Object) | (string | Node | Function | JQuery | Object)[], modifier?: ObjectSelectorModifier): CellsMethods;
         //#endregion "Cell/Cells"
 
         //#region "Column/Columns"
@@ -129,7 +129,7 @@ declare module DataTables {
         [index: number]: DataTable;
     }
 
-    interface IObjectSelectorModifier {
+    interface ObjectSelectorModifier {
         /**
         * The order modifier provides the ability to control which order the rows are processed in.
         * Values: 'current', 'applied', 'index',  'original'
@@ -157,10 +157,10 @@ declare module DataTables {
         /**
         * Get jquery object
         */
-        $(selector: string | Node | Node[]| JQuery, modifier?: IObjectSelectorModifier): JQuery;
+        $(selector: string | Node | Node[]| JQuery, modifier?: ObjectSelectorModifier): JQuery;
 
         ///// Almost identical to $ in operation, but in this case returns the data for the matched rows.
-        //_(selector: string | Node | Node[] | JQuery, modifier?: IObjectSelectorModifier): JQuery;
+        //_(selector: string | Node | Node[] | JQuery, modifier?: ObjectSelectorModifier): JQuery;
 
         /**
         * Ajax Methods
@@ -390,7 +390,12 @@ declare module DataTables {
         length: number;
         order: (string | number)[][];
         search: SearchSettings;
-        columns: Array<Object>;
+        columns: StateReturnModelColumns[];
+    }
+
+    interface StateReturnModelColumns {
+        search: SearchSettings;
+        visible: boolean;
     }
 
     //#endregion "state-methods"
@@ -674,7 +679,7 @@ declare module DataTables {
         * @param cellSelector Cell selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        (columnSelector: any, modifier?: IObjectSelectorModifier): ColumnMethods;
+        (columnSelector: any, modifier?: ObjectSelectorModifier): ColumnMethods;
 
         /**
         * Convert from the input column index type to that required.
@@ -689,7 +694,7 @@ declare module DataTables {
         /**
         * Get the data for the cells in the selected column.
         */
-        data(): DataTable[];
+        data(): DataTable;
 
         /**
         * Get the data source property for the selected column
@@ -715,7 +720,7 @@ declare module DataTables {
         *
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        (modifier?: IObjectSelectorModifier): ColumnsMethods;
+        (modifier?: ObjectSelectorModifier): ColumnsMethods;
 
         /**
         * Select columns found by a cell selector
@@ -723,7 +728,7 @@ declare module DataTables {
         * @param cellSelector Cell selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        (columnSelector: any, modifier?: IObjectSelectorModifier): ColumnsMethods;
+        (columnSelector: any, modifier?: ObjectSelectorModifier): ColumnsMethods;
 
         /**
         * Recalculate the column widths for layout.
@@ -735,7 +740,7 @@ declare module DataTables {
         /**
         * Obtain the data for the columns from the selector
         */
-        data(): DataTable[][];
+        data(): DataTable;
 
         /**
         * Get the data source property for the selected columns.
@@ -833,7 +838,7 @@ declare module DataTables {
         * @param rowSelector Row selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        (rowSelector: any, modifier?: IObjectSelectorModifier): RowMethods;
+        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods;
 
         /**
         * Add a new row to the table using the given data
@@ -883,7 +888,7 @@ declare module DataTables {
         *
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        (modifier?: IObjectSelectorModifier): RowsMethods;
+        (modifier?: ObjectSelectorModifier): RowsMethods;
 
         /**
         * Select rows found by a row selector
@@ -891,7 +896,7 @@ declare module DataTables {
         * @param cellSelector Row selector.
         * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
         */
-        (rowSelector: any, modifier?: IObjectSelectorModifier): RowsMethods;
+        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods;
 
         /**
         * Add new rows to the table using the data given
@@ -1124,7 +1129,7 @@ declare module DataTables {
         /**
         * Load data for the table's content from an Ajax source. Since: 1.10
         */
-        ajax?: string | AjaxSettings | IFunctionAjax;
+        ajax?: string | AjaxSettings | FunctionAjax;
 
         /**
         * Data to use as the display data for the table. Since: 1.10
@@ -1257,72 +1262,72 @@ declare module DataTables {
         /**
         * Callback for whenever a TR element is created for the table's body. Since: 1.10
         */
-        createdRow?: IFunctionCreateRow;
+        createdRow?: FunctionCreateRow;
 
         /**
         * Function that is called every time DataTables performs a draw. Since: 1.10
         */
-        drawCallback?: IFunctionDrawCallback;
+        drawCallback?: FunctionDrawCallback;
 
         /**
         * Footer display callback function. Since: 1.10
         */
-        footerCallback?: IFunctionFooterCallback;
+        footerCallback?: FunctionFooterCallback;
 
         /**
         * Number formatting callback function. Since: 1.10
         */
-        formatNumber?: IFunctionFormatNumber;
+        formatNumber?: FunctionFormatNumber;
 
         /**
         * Header display callback function. Since: 1.10
         */
-        headerCallback?: IFunctionHeaderCallback;
+        headerCallback?: FunctionHeaderCallback;
 
         /**
         * Table summary information display callback. Since: 1.10
         */
-        infoCallback?: IFunctionInfoCallback;
+        infoCallback?: FunctionInfoCallback;
 
         /**
         * Initialisation complete callback. Since: 1.10
         */
-        initComplete?: IFunctionInitComplete;
+        initComplete?: FunctionInitComplete;
 
         /**
         * Pre-draw callback. Since: 1.10
         */
-        preDrawCallback?: IFunctionPreDrawCallback;
+        preDrawCallback?: FunctionPreDrawCallback;
 
         /**
         * Row draw callback.. Since: 1.10
         */
-        rowCallback?: IFunctionRowCallback;
+        rowCallback?: FunctionRowCallback;
 
         /**
         * Callback that defines where and how a saved state should be loaded. Since: 1.10
         */
-        stateLoadCallback?: IFunctionStateLoadCallback;
+        stateLoadCallback?: FunctionStateLoadCallback;
 
         /**
         * State loaded callback. Since: 1.10
         */
-        stateLoaded?: IFunctionStateLoaded;
+        stateLoaded?: FunctionStateLoaded;
 
         /**
         * State loaded - data manipulation callback. Since: 1.10
         */
-        stateLoadParams?: IFunctionStateLoadParams;
+        stateLoadParams?: FunctionStateLoadParams;
 
         /**
         * Callback that defines how the table state is stored and where. Since: 1.10
         */
-        stateSaveCallback?: IFunctionStateSaveCallback;
+        stateSaveCallback?: FunctionStateSaveCallback;
 
         /**
         * State save - data manipulation callback. Since: 1.10
         */
-        stateSaveParams?: IFunctionStateSaveParams;
+        stateSaveParams?: FunctionStateSaveParams;
 
         //#endregion "Callbacks"
 
@@ -1335,11 +1340,47 @@ declare module DataTables {
 
     //#region "ajax-settings"
 
+    export interface AjaxDataRequest {
+        draw: number;
+        start: number;
+        length: number;
+        data: any;
+        order: AjaxDataRequestOrder[];
+        columns: AjaxDataRequestColumn[];
+        search: AjaxDataRequestSearch;
+    }
+
+    export interface AjaxDataRequestSearch {
+        value: string;
+        regex: boolean;
+    }
+
+    export interface AjaxDataRequestOrder {
+        column: number;
+        dir: string;
+    }
+
+    export interface AjaxDataRequestColumn {
+        data: string | number;
+        name: string;
+        searchable: boolean;
+        orderable: boolean;
+        search: AjaxDataRequestSearch;
+    }
+
+    export interface AjaxData {
+        draw: number;
+        recordsTotal: number;
+        recordsFiltered: number;
+        data: any;
+        error?: string;
+    }
+
     interface AjaxSettings extends JQueryAjaxSettings {
         /**
         * Add or modify data submitted to the server upon an Ajax request. Since: 1.10
         */
-        data?: Object | IFunctionAjaxData;
+        data?: Object | FunctionAjaxData;
 
         /**
         * Data property or manipulation method for table data. Since: 1.10
@@ -1347,11 +1388,11 @@ declare module DataTables {
         dataSrc?: string | Function;
     }
 
-    interface IFunctionAjax {
-        (data: Object, callback: Function, settings: Settings): void;
+    interface FunctionAjax {
+        (data: Object, callback: Function, settings: SettingsLegacy): void;
     }
 
-    interface IFunctionAjaxData {
+    interface FunctionAjaxData {
         (data: Object): string | Object;
     }
 
@@ -1378,12 +1419,12 @@ declare module DataTables {
         /**
         * Cell created callback to allow DOM manipulation. Since: 1.10
         */
-        createdCell?: IFunctionColumnCreatedCell;
+        createdCell?: FunctionColumnCreatedCell;
 
         /**
         * Class to assign to each cell in the column. Since: 1.10
         */
-        data?: number | string | IObjectColumnData | IFunctionColumnData;
+        data?: number | string | ObjectColumnData | FunctionColumnData;
 
         /**
         * Set default, static, content for a column. Since: 1.10
@@ -1418,7 +1459,7 @@ declare module DataTables {
         /**
         * Render (process) the data for use in the table. Since: 1.10
         */
-        render?: number | string | IObjectColumnRender | IFunctionColumnRender;
+        render?: number | string | ObjectColumnRender | FunctionColumnRender;
 
         /**
         * Enable or disable filtering on the data in this column. Since: 1.10
@@ -1450,15 +1491,15 @@ declare module DataTables {
         targets: string | number | (number | string)[]
     }
 
-    interface IFunctionColumnCreatedCell {
+    interface FunctionColumnCreatedCell {
         (cell: Node, cellData: any, rowData: any, row: number, col: number): void;
     }
 
-    interface IFunctionColumnData {
+    interface FunctionColumnData {
         (row: any, t: string, s: any, meta: Object): void;
     }
 
-    interface IObjectColumnData {
+    interface ObjectColumnData {
         _: string;
         filter?: string;
         display?: string;
@@ -1466,10 +1507,10 @@ declare module DataTables {
         sort?: string;
     }
 
-    interface IObjectColumnRender extends IObjectColumnData {
+    interface ObjectColumnRender extends ObjectColumnData {
     }
 
-    interface IFunctionColumnRender {
+    interface FunctionColumnRender {
         (data: Node, t: Node, row: Node, meta: Object): void;
     }
 
@@ -1508,60 +1549,60 @@ declare module DataTables {
 
     //#region "callback-functions"
 
-    interface IFunctionCreateRow {
+    interface FunctionCreateRow {
         (row: Node, data: any[]| Object, dataIndex: number): void;
     }
 
-    interface IFunctionDrawCallback {
-        (settings: Settings): void;
+    interface FunctionDrawCallback {
+        (settings: SettingsLegacy): void;
     }
 
-    interface IFunctionFooterCallback {
+    interface FunctionFooterCallback {
         (tfoot: Node, data: any[], start: number, end: number, display: any[]): void;
     }
 
-    interface IFunctionFormatNumber {
+    interface FunctionFormatNumber {
         (formatNumber: number): void;
     }
 
-    interface IFunctionHeaderCallback {
+    interface FunctionHeaderCallback {
         (thead: Node, data: any[], start: number, end: number, display: any[]): void;
     }
 
-    interface IFunctionInfoCallback {
-        (settings: Settings, start: number, end: number, mnax: number, total: number, pre: string): void;
+    interface FunctionInfoCallback {
+        (settings: SettingsLegacy, start: number, end: number, mnax: number, total: number, pre: string): void;
     }
 
-    interface IFunctionInitComplete {
-        (settings: Settings, json: Object): void;
+    interface FunctionInitComplete {
+        (settings: SettingsLegacy, json: Object): void;
     }
 
-    interface IFunctionPreDrawCallback {
-        (settings: Settings): void;
+    interface FunctionPreDrawCallback {
+        (settings: SettingsLegacy): void;
     }
 
-    interface IFunctionRowCallback {
+    interface FunctionRowCallback {
         (row: Node, data: any[]| Object): void;
     }
 
-    interface IFunctionStateLoadCallback {
-        (settings: Settings): void;
+    interface FunctionStateLoadCallback {
+        (settings: SettingsLegacy): void;
     }
 
-    interface IFunctionStateLoaded {
-        (settings: Settings, data: Object): void;
+    interface FunctionStateLoaded {
+        (settings: SettingsLegacy, data: Object): void;
     }
 
-    interface IFunctionStateLoadParams {
-        (settings: Settings, data: Object): void;
+    interface FunctionStateLoadParams {
+        (settings: SettingsLegacy, data: Object): void;
     }
 
-    interface IFunctionStateSaveCallback {
-        (settings: Settings, data: Object): void;
+    interface FunctionStateSaveCallback {
+        (settings: SettingsLegacy, data: Object): void;
     }
 
-    interface IFunctionStateSaveParams {
-        (settings: Settings, data: Object): void;
+    interface FunctionStateSaveParams {
+        (settings: SettingsLegacy, data: Object): void;
     }
 
     //#endregion "callback-functions"
@@ -1599,4 +1640,187 @@ declare module DataTables {
     //#endregion "language-settings"
 
     //#endregion "Settings"
+
+    //#region "SettingsLegacy"
+
+    interface ArrayStringNode {
+        [index: string]: Node;
+    }
+
+    export interface SettingsLegacy {
+        oApi: any;
+        oFeatures: FeaturesLegacy;
+        oScroll: ScrollingLegacy;
+        oLanguage: LanguageLegacy; // | { fnInfoCallback: FunctionInfoCallback; };
+        oBrowser: { bScrollOversize: boolean; };
+        aanFeatures: ArrayStringNode[][];
+        aoData: RowLegacy[];
+        aiDisplay: number[];
+        //bServerSide: boolean;
+        aiDisplayMaster: number[];
+        aoColumns: ColumnLegacy[];
+        aoHeader: any[];
+        aoFooter: any[];
+        asDataSearch: string[];
+        oPreviousSearch: any;
+        aoPreSearchCols: any[];
+        aaSorting: any[][];
+        aaSortingFixed: any[][];
+        asStripeClasses: string[];
+        asDestroyStripes: string[];
+        sDestroyWidth: number;
+        aoRowCallback: FunctionRowCallback[];
+        aoHeaderCallback: FunctionHeaderCallback[];
+        aoFooterCallback: FunctionFooterCallback[];
+        aoDrawCallback: FunctionDrawCallback[];
+        aoRowCreatedCallback: FunctionCreateRow[];
+        aoPreDrawCallback: FunctionPreDrawCallback[];
+        aoInitComplete: FunctionInitComplete[];
+        aoStateSaveParams: FunctionStateSaveParams[];
+        aoStateLoadParams: FunctionStateLoadParams[];
+        aoStateLoaded: FunctionStateLoaded[];
+        sTableId: string;
+        nTable: Node;
+        nTHead: Node;
+        nTFoot: Node;
+        nTBody: Node;
+        nTableWrapper: Node;
+        bDeferLoading: boolean;
+        bInitialized: boolean;
+        aoOpenRows: any[];
+        sDom: string;
+        sPaginationType: string;
+        iCookieDuration: number;
+        sCookiePrefix: string;
+        fnCookieCallback: CookieCallbackLegacy;
+        aoStateSave: FunctionStateSaveCallback[];
+        aoStateLoad: FunctionStateLoadCallback[];
+        oLoadedState: any;
+        sAjaxSource: string;
+        sAjaxDataProp: string;
+        bAjaxDataGet: boolean;
+        jqXHR: any;
+        fnServerData: any;
+        aoServerParams: any[];
+        sServerMethod: string;
+        fnFormatNumber: FunctionFormatNumber;
+        aLengthMenu: any[];
+        iDraw: number;
+        bDrawing: boolean;
+        iDrawError: number;
+        _iDisplayLength: number;
+        _iDisplayStart: number;
+        _iDisplayEnd: number;
+        _iRecordsTotal: number;
+        _iRecordsDisplay: number;
+        bJUI: boolean;
+        oClasses: any;
+        bFiltered: boolean;
+        bSorted: boolean;
+        bSortCellsTop: boolean;
+        oInit: any;
+        aoDestroyCallback: any[];
+        fnRecordsTotal: () => number;
+        fnRecordsDisplay: () => number;
+        fnDisplayEnd: () => number;
+        oInstance: any;
+        sInstance: string;
+        iTabIndex: number;
+        nScrollHead: Node;
+        nScrollFoot: Node;
+    }
+
+    export interface FeaturesLegacy {
+        bAutoWidth: boolean;
+        bDeferRender: boolean;
+        bFilter: boolean;
+        bInfo: boolean;
+        bLengthChange: boolean;
+        bPaginate: boolean;
+        bProcessing: boolean;
+        bServerSide: boolean;
+        bSort: boolean;
+        bSortClasses: boolean;
+        bStateSave: boolean;
+    }
+
+    export interface ScrollingLegacy {
+        bAutoCss: boolean;
+        bCollapse: boolean;
+        bInfinite: boolean;
+        iBarWidth: number;
+        iLoadGap: number;
+        sX: string;
+        sY: string;
+    }
+
+    export interface RowLegacy {
+        nTr: Node;
+        _aData: any;
+        _aSortData: any[];
+        _anHidden: Node[];
+        _sRowStripe: string;
+    }
+
+    export interface ColumnLegacy {
+        aDataSort: any;
+        asSorting: string[];
+        bSearchable: boolean;
+        bSortable: boolean;
+        bVisible: boolean;
+        _bAutoType: boolean;
+        fnCreatedCell: FunctionColumnCreatedCell;
+        fnGetData: (data: any, specific: string) => any;
+        fnSetData: (data: any, value: any) => void;
+        mData: any;
+        mRender: any;
+        nTh: Node;
+        nIf: Node;
+        sClass: string;
+        sContentPadding: string;
+        sDefaultContent: string;
+        sName: string;
+        sSortDataType: string;
+        sSortingClass: string;
+        sSortingClassJUI: string;
+        sTitle: string;
+        sType: string;
+        sWidth: string;
+        sWidthOrig: string;
+    }
+
+    export interface CookieCallbackLegacy {
+        (name: string, data: any, expires: string, path: string, cookie: string): void;
+    }
+
+    export interface LanguageLegacy {
+        oAria?: LanguageAriaLegacy;
+        oPaginate?: LanguagePaginateLegacy;
+        sEmptyTable?: string;
+        sInfo?: string;
+        sInfoEmpty?: string;
+        sInfoFiltered?: string;
+        sInfoPostFix?: string;
+        sInfoThousands?: string;
+        sLengthMenu?: string;
+        sLoadingRecords?: string;
+        sProcessing?: string;
+        sSearch?: string;
+        sUrl?: string;
+        sZeroRecords?: string;
+    }
+
+    export interface LanguageAriaLegacy {
+        sSortAscending?: string;
+        sSortDescending?: string;
+    }
+
+    export interface LanguagePaginateLegacy {
+        sFirst?: string;
+        sLast?: string;
+        sNext?: string;
+        sPrevious?: string;
+    }
+    //#endregion "SettingsLegacy"
+
 }
