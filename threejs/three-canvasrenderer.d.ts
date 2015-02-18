@@ -1,4 +1,4 @@
-// Type definitions for CanvasRenderer.js
+// Type definitions for three.js (CanvasRenderer.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/CanvasRenderer.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -29,7 +29,6 @@ declare module THREE {
         constructor(parameters?: CanvasRendererParameters);
 
         domElement: HTMLCanvasElement;
-        devicePixelRatio: number;
         autoClear: boolean;
         sortObjects: boolean;
         sortElements: boolean;
@@ -37,6 +36,8 @@ declare module THREE {
 
         supportsVertexTextures(): void;
         setFaceCulling(): void;
+        getPixelRatio(): number;
+        setPixelRatio(value: number): void;
         setSize(width: number, height: number, updateStyle?: boolean): void;
         setViewport(x: number, y: number, width: number, height: number): void;
         setScissor(): void;

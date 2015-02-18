@@ -1235,7 +1235,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -2225,7 +2225,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -3196,7 +3196,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -4090,7 +4090,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -5121,7 +5121,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -5942,7 +5942,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -6790,7 +6790,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -7716,7 +7716,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -9832,7 +9832,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -12047,7 +12047,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -13008,7 +13008,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -13967,7 +13967,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -15154,7 +15154,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -15302,4 +15302,173 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/editor/plugins/_SpellCheckParser" {
+    var exp: dojox.editor.plugins._SpellCheckParser
+    export=exp;
+}
+declare module "dojox/editor/plugins/AutoSave" {
+    var exp: dojox.editor.plugins.AutoSave
+    export=exp;
+}
+declare module "dojox/editor/plugins/AutoSave._AutoSaveSettingDialog" {
+    var exp: dojox.editor.plugins.AutoSave._AutoSaveSettingDialog
+    export=exp;
+}
+declare module "dojox/editor/plugins/Blockquote" {
+    var exp: dojox.editor.plugins.Blockquote
+    export=exp;
+}
+declare module "dojox/editor/plugins/AutoUrlLink" {
+    var exp: dojox.editor.plugins.AutoUrlLink
+    export=exp;
+}
+declare module "dojox/editor/plugins/Breadcrumb" {
+    var exp: dojox.editor.plugins.Breadcrumb
+    export=exp;
+}
+declare module "dojox/editor/plugins/Breadcrumb._BreadcrumbMenuTitle" {
+    var exp: dojox.editor.plugins.Breadcrumb._BreadcrumbMenuTitle
+    export=exp;
+}
+declare module "dojox/editor/plugins/CollapsibleToolbar" {
+    var exp: dojox.editor.plugins.CollapsibleToolbar
+    export=exp;
+}
+declare module "dojox/editor/plugins/CollapsibleToolbar._CollapsibleToolbarButton" {
+    var exp: dojox.editor.plugins.CollapsibleToolbar._CollapsibleToolbarButton
+    export=exp;
+}
+declare module "dojox/editor/plugins/_SmileyPalette" {
+    var exp: dojox.editor.plugins._SmileyPalette
+    export=exp;
+}
+declare module "dojox/editor/plugins/_SmileyPalette.Emoticon" {
+    var exp: dojox.editor.plugins._SmileyPalette.Emoticon
+    export=exp;
+}
+declare module "dojox/editor/plugins/InsertAnchor" {
+    var exp: dojox.editor.plugins.InsertAnchor
+    export=exp;
+}
+declare module "dojox/editor/plugins/NormalizeIndentOutdent" {
+    var exp: dojox.editor.plugins.NormalizeIndentOutdent
+    export=exp;
+}
+declare module "dojox/editor/plugins/FindReplace" {
+    var exp: dojox.editor.plugins.FindReplace
+    export=exp;
+}
+declare module "dojox/editor/plugins/FindReplace._FindReplaceCloseBox" {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceCloseBox
+    export=exp;
+}
+declare module "dojox/editor/plugins/FindReplace._FindReplaceCheckBox" {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceCheckBox
+    export=exp;
+}
+declare module "dojox/editor/plugins/FindReplace._FindReplaceTextBox" {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceTextBox
+    export=exp;
+}
+declare module "dojox/editor/plugins/FindReplace._FindReplaceToolbar" {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceToolbar
+    export=exp;
+}
+declare module "dojox/editor/plugins/InsertEntity" {
+    var exp: dojox.editor.plugins.InsertEntity
+    export=exp;
+}
+declare module "dojox/editor/plugins/PasteFromWord" {
+    var exp: dojox.editor.plugins.PasteFromWord
+    export=exp;
+}
+declare module "dojox/editor/plugins/PageBreak" {
+    var exp: dojox.editor.plugins.PageBreak
+    export=exp;
+}
+declare module "dojox/editor/plugins/Preview" {
+    var exp: dojox.editor.plugins.Preview
+    export=exp;
+}
+declare module "dojox/editor/plugins/PrettyPrint" {
+    var exp: dojox.editor.plugins.PrettyPrint
+    export=exp;
+}
+declare module "dojox/editor/plugins/ResizeTableColumn" {
+    var exp: dojox.editor.plugins.ResizeTableColumn
+    export=exp;
+}
+declare module "dojox/editor/plugins/NormalizeStyle" {
+    var exp: dojox.editor.plugins.NormalizeStyle
+    export=exp;
+}
+declare module "dojox/editor/plugins/EntityPalette" {
+    var exp: dojox.editor.plugins.EntityPalette
+    export=exp;
+}
+declare module "dojox/editor/plugins/EntityPalette.LatinEntity" {
+    var exp: dojox.editor.plugins.EntityPalette.LatinEntity
+    export=exp;
+}
+declare module "dojox/editor/plugins/Save" {
+    var exp: dojox.editor.plugins.Save
+    export=exp;
+}
+declare module "dojox/editor/plugins/SafePaste" {
+    var exp: dojox.editor.plugins.SafePaste
+    export=exp;
+}
+declare module "dojox/editor/plugins/ShowBlockNodes" {
+    var exp: dojox.editor.plugins.ShowBlockNodes
+    export=exp;
+}
+declare module "dojox/editor/plugins/LocalImage" {
+    var exp: dojox.editor.plugins.LocalImage
+    export=exp;
+}
+declare module "dojox/editor/plugins/Smiley" {
+    var exp: dojox.editor.plugins.Smiley
+    export=exp;
+}
+declare module "dojox/editor/plugins/TextColor" {
+    var exp: dojox.editor.plugins.TextColor
+    export=exp;
+}
+declare module "dojox/editor/plugins/TextColor._TextColorDropDown" {
+    var exp: dojox.editor.plugins.TextColor._TextColorDropDown
+    export=exp;
+}
+declare module "dojox/editor/plugins/StatusBar" {
+    var exp: dojox.editor.plugins.StatusBar
+    export=exp;
+}
+declare module "dojox/editor/plugins/StatusBar._StatusBar" {
+    var exp: dojox.editor.plugins.StatusBar._StatusBar
+    export=exp;
+}
+declare module "dojox/editor/plugins/SpellCheck" {
+    var exp: dojox.editor.plugins.SpellCheck
+    export=exp;
+}
+declare module "dojox/editor/plugins/SpellCheck._SpellCheckScriptMultiPart" {
+    var exp: dojox.editor.plugins.SpellCheck._SpellCheckScriptMultiPart
+    export=exp;
+}
+declare module "dojox/editor/plugins/SpellCheck._SpellCheckControl" {
+    var exp: dojox.editor.plugins.SpellCheck._SpellCheckControl
+    export=exp;
+}
+declare module "dojox/editor/plugins/TablePlugins" {
+    var exp: dojox.editor.plugins.TablePlugins
+    export=exp;
+}
+declare module "dojox/editor/plugins/UploadImage" {
+    var exp: dojox.editor.plugins.UploadImage
+    export=exp;
+}
+declare module "dojox/editor/plugins/ToolbarLineBreak" {
+    var exp: dojox.editor.plugins.ToolbarLineBreak
+    export=exp;
 }

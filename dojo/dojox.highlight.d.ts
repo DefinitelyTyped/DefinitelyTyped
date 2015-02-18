@@ -2222,7 +2222,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -2370,4 +2370,185 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/highlight" {
+    var exp: dojox.highlight
+    export=exp;
+}
+declare module "dojox/highlight/_base" {
+    var exp: dojox.highlight._base
+    export=exp;
+}
+declare module "dojox/highlight/_base.constants" {
+    var exp: dojox.highlight._base.constants
+    export=exp;
+}
+declare module "dojox/highlight/languages/css" {
+    var exp: dojox.highlight.languages.css
+    export=exp;
+}
+declare module "dojox/highlight/languages/css.defaultMode" {
+    var exp: dojox.highlight.languages.css.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/delphi" {
+    var exp: dojox.highlight.languages.delphi
+    export=exp;
+}
+declare module "dojox/highlight/languages/delphi.defaultMode" {
+    var exp: dojox.highlight.languages.delphi.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/cpp" {
+    var exp: dojox.highlight.languages.cpp
+    export=exp;
+}
+declare module "dojox/highlight/languages/cpp.defaultMode" {
+    var exp: dojox.highlight.languages.cpp.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/django" {
+    var exp: dojox.highlight.languages.django
+    export=exp;
+}
+declare module "dojox/highlight/languages/django.defaultMode" {
+    var exp: dojox.highlight.languages.django.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/html" {
+    var exp: dojox.highlight.languages.html
+    export=exp;
+}
+declare module "dojox/highlight/languages/html.HTML_ATTR" {
+    var exp: dojox.highlight.languages.html.HTML_ATTR
+    export=exp;
+}
+declare module "dojox/highlight/languages/html.defaultMode" {
+    var exp: dojox.highlight.languages.html.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/html.HTML_VALUE" {
+    var exp: dojox.highlight.languages.html.HTML_VALUE
+    export=exp;
+}
+declare module "dojox/highlight/languages/html.HTML_DOCTYPE" {
+    var exp: dojox.highlight.languages.html.HTML_DOCTYPE
+    export=exp;
+}
+declare module "dojox/highlight/languages/html.HTML_TAGS" {
+    var exp: dojox.highlight.languages.html.HTML_TAGS
+    export=exp;
+}
+declare module "dojox/highlight/languages/groovy" {
+    var exp: dojox.highlight.languages.groovy
+    export=exp;
+}
+declare module "dojox/highlight/languages/groovy.defaultMode" {
+    var exp: dojox.highlight.languages.groovy.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/groovy.GROOVY_KEYWORDS" {
+    var exp: dojox.highlight.languages.groovy.GROOVY_KEYWORDS
+    export=exp;
+}
+declare module "dojox/highlight/languages/javascript" {
+    var exp: dojox.highlight.languages.javascript
+    export=exp;
+}
+declare module "dojox/highlight/languages/javascript.defaultMode" {
+    var exp: dojox.highlight.languages.javascript.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/java" {
+    var exp: dojox.highlight.languages.java
+    export=exp;
+}
+declare module "dojox/highlight/languages/java.defaultMode" {
+    var exp: dojox.highlight.languages.java.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/python" {
+    var exp: dojox.highlight.languages.python
+    export=exp;
+}
+declare module "dojox/highlight/languages/python.defaultMode" {
+    var exp: dojox.highlight.languages.python.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/sql" {
+    var exp: dojox.highlight.languages.sql
+    export=exp;
+}
+declare module "dojox/highlight/languages/sql.defaultMode" {
+    var exp: dojox.highlight.languages.sql.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/xquery" {
+    var exp: dojox.highlight.languages.xquery
+    export=exp;
+}
+declare module "dojox/highlight/languages/xquery.defaultMode" {
+    var exp: dojox.highlight.languages.xquery.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/xquery.XQUERY_COMMENT" {
+    var exp: dojox.highlight.languages.xquery.XQUERY_COMMENT
+    export=exp;
+}
+declare module "dojox/highlight/languages/xml" {
+    var exp: dojox.highlight.languages.xml
+    export=exp;
+}
+declare module "dojox/highlight/languages/xml.defaultMode" {
+    var exp: dojox.highlight.languages.xml.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/xml.XML_ATTR" {
+    var exp: dojox.highlight.languages.xml.XML_ATTR
+    export=exp;
+}
+declare module "dojox/highlight/languages/xml.XML_COMMENT" {
+    var exp: dojox.highlight.languages.xml.XML_COMMENT
+    export=exp;
+}
+declare module "dojox/highlight/languages/xml.XML_VALUE" {
+    var exp: dojox.highlight.languages.xml.XML_VALUE
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/css" {
+    var exp: dojox.highlight.languages.pygments.css
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/css.defaultMode" {
+    var exp: dojox.highlight.languages.pygments.css.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/xml" {
+    var exp: dojox.highlight.languages.pygments.xml
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/xml.defaultMode" {
+    var exp: dojox.highlight.languages.pygments.xml.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/html" {
+    var exp: dojox.highlight.languages.pygments.html
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/html.defaultMode" {
+    var exp: dojox.highlight.languages.pygments.html.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/javascript" {
+    var exp: dojox.highlight.languages.pygments.javascript
+    export=exp;
+}
+declare module "dojox/highlight/languages/pygments/javascript.defaultMode" {
+    var exp: dojox.highlight.languages.pygments.javascript.defaultMode
+    export=exp;
+}
+declare module "dojox/highlight/widget/Code" {
+    var exp: dojox.highlight.widget.Code
+    export=exp;
 }

@@ -13,11 +13,18 @@ myApp.config((
     $urlMatcherFactory: ng.ui.IUrlMatcherFactory) => {
 
   var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
+
+  $urlMatcherFactory.type("myType2", {
+    encode: function (item: any) { return item; },
+    decode: function (item: any) { return item; },
+    is: function (item: any) { return true; }
+  });
+
   var obj: Object = matcher.exec('/user/bob', { x:'1', q:'hello' });
   var concat: ng.ui.IUrlMatcher = matcher.concat('/test');
   var str: string = matcher.format({ id:'bob', q:'yes' });
   var arr: string[] = matcher.parameters();
-  
+
   $urlRouterProvider
       .when('/test', '/list')
       .when('/test', '/list')
@@ -34,7 +41,11 @@ myApp.config((
   $stateProvider
     .state('state1', {
       url: "/state1",
-      templateUrl: "partials/state1.html"
+      templateUrl: "partials/state1.html",
+      params: {
+        param1: "defaultValue",
+        param2: undefined
+      }
     })
     .state('state1.list', {
       url: "/list",
@@ -135,7 +146,7 @@ myApp.service("urlLocatorTest", UrlLocatorTestService);
 
 module UiViewScrollProviderTests {
     var app = angular.module("uiViewScrollProviderTests", ["ui.router"]);
-    
+
     app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: ng.ui.IUiViewScrollProvider) {
         // This prevents unwanted scrolling to the active nested state view.
         // Use this when you have nested states, but you don't want the browser to scroll down the page

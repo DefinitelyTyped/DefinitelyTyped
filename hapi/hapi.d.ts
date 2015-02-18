@@ -306,6 +306,7 @@ declare module Hapi {
 		log(tags: Array<string>, data?: string, timestamp?: number): void;
 		log(tags: string, data?: any, timestamp?: number): void;
 		log(tags: Array<string>, data?: any, timestamp?: number): void;
+		connection(options?: ServerOptions): void;
 		state(name: string, options?: {
 			ttl: number;
 			isSecure: boolean;

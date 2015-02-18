@@ -1,19 +1,19 @@
-// Type definitions for Jasmine 2.0
-// Project: http://pivotal.github.com/jasmine/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>
+// Type definitions for Jasmine 2.1
+// Project: http://jasmine.github.io/
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 // For ddescribe / iit use : https://github.com/borisyankov/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 declare function describe(description: string, specDefinitions: () => void): void;
-// declare function ddescribe(description: string, specDefinitions: () => void): void; Not a part of jasmine. Angular team adds these
+declare function fdescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion?: () => void): void;
 declare function it(expectation: string, assertion?: (done: () => void) => void): void;
-// declare function iit(expectation: string, assertion?: () => void): void; Not a part of jasmine. Angular team adds these
-// declare function iit(expectation: string, assertion?: (done: () => void) => void): void; Not a part of jasmine. Angular team adds these
+declare function fit(expectation: string, assertion?: () => void): void;
+declare function fit(expectation: string, assertion?: (done: () => void) => void): void;
 declare function xit(expectation: string, assertion?: () => void): void;
 declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
 
@@ -25,8 +25,15 @@ declare function beforeEach(action: (done: () => void) => void): void;
 declare function afterEach(action: () => void): void;
 declare function afterEach(action: (done: () => void) => void): void;
 
+declare function beforeAll(action: () => void): void;
+declare function beforeAll(action: (done: () => void) => void): void;
+declare function afterAll(action: () => void): void;
+declare function afterAll(action: (done: () => void) => void): void;
+
 declare function expect(spy: Function): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
+
+declare function fail(e?: any): void;
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
 
@@ -103,8 +110,10 @@ declare module jasmine {
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
         beforeEach(beforeEachFunction: () => void): void;
+        beforeAll(beforeAllFunction: () => void): void;
         currentRunner(): Runner;
         afterEach(afterEachFunction: () => void): void;
+        afterAll(afterAllFunction: () => void): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
@@ -223,11 +232,8 @@ declare module jasmine {
         message(): any;
 
         toBe(expected: any): boolean;
-        toNotBe(expected: any): boolean;
         toEqual(expected: any): boolean;
-        toNotEqual(expected: any): boolean;
         toMatch(expected: any): boolean;
-        toNotMatch(expected: any): boolean;
         toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toBeNull(): boolean;
@@ -235,10 +241,8 @@ declare module jasmine {
         toBeTruthy(): boolean;
         toBeFalsy(): boolean;
         toHaveBeenCalled(): boolean;
-        wasNotCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toContain(expected: any): boolean;
-        toNotContain(expected: any): boolean;
         toBeLessThan(expected: any): boolean;
         toBeGreaterThan(expected: any): boolean;
         toBeCloseTo(expected: any, precision: any): boolean;
@@ -271,6 +275,8 @@ declare module jasmine {
         execute(): void;
         beforeEach(beforeEachFunction: SpecFunction): void;
         afterEach(afterEachFunction: SpecFunction): void;
+        beforeAll(beforeAllFunction: SpecFunction): void;
+        afterAll(afterAllFunction: SpecFunction): void;
         finishCallback(): void;
         addSuite(suite: Suite): void;
         add(block: Block): void;
@@ -340,6 +346,8 @@ declare module jasmine {
         finish(onComplete?: () => void): void;
         beforeEach(beforeEachFunction: SpecFunction): void;
         afterEach(afterEachFunction: SpecFunction): void;
+        beforeAll(beforeAllFunction: SpecFunction): void;
+        afterAll(afterAllFunction: SpecFunction): void;
         results(): NestedResults;
         add(suiteOrSpec: SuiteOrSpec): void;
         specs(): Spec[];
@@ -366,15 +374,15 @@ declare module jasmine {
 
     interface SpyAnd {
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
-        callThrough(): void;
+        callThrough(): Spy;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
         returnValue(val: any): void;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
-        callFake(fn: Function): void;
+        callFake(fn: Function): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string): void;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
-        stub(): void;
+        stub(): Spy;
     }
 
     interface Calls {

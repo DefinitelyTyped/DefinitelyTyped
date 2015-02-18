@@ -438,7 +438,7 @@ declare module "express" {
              * 
              * @param code
              */
-            sendStatus(code: number): Send;
+            sendStatus(code: number): Response;
             
             /**
              * Set Link header field with the given `links`.
@@ -680,6 +680,9 @@ declare module "express" {
 
             header(field: any): Response;
             header(field: string, value?: string): Response;
+
+            // Property indicating if HTTP headers has been sent for the response.
+            headersSent: boolean;
 
             /**
              * Get value for header `field`.

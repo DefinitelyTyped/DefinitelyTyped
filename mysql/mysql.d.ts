@@ -3,29 +3,37 @@
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module mysql {
-    export interface IMySql {
-        createConnection(connectionUri: string): IConnection;
-        createConnection(config: IConnectionConfig): IConnection;
+///<reference path='../node/node.d.ts' />
 
-        createPool(config: IPoolConfig): IPool;
+declare module "mysql" {
+	import stream = require("stream");
 
-        createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
+	function createConnection(connectionUri: string): IConnection;
+	function createConnection(config: IConnectionConfig): IConnection;
+	function createPool(config: IPoolConfig): IPool;
+	function createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
+	function escape(value: any): string;
+	function format(sql: string): string;
+	function format(sql: string, values: Array<any>): string;
 
-        escape(value: any): string;
+	interface IMySql {
+		createConnection(connectionUri: string): IConnection;
+		createConnection(config: IConnectionConfig): IConnection;
+		createPool(config: IPoolConfig): IPool;
+		createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
+		escape(value: any): string;
+		format(sql: string): string;
+		format(sql: string, values: Array<any>): string;
+	}
 
-        format(sql: string): string;
-        format(sql: string, values: Array<any>): string;
-    }
-
-    export interface IConnectionStatic {
+    interface IConnectionStatic {
         createQuery(sql: string): IQuery;
         createQuery(sql: string, callback: (err: IError, ...args: any[]) => void): IQuery;
         createQuery(sql: string, values: Array<any>): IQuery;
         createQuery(sql: string, values: Array<any>, callback: (err: IError, ...args: any[]) => void): IQuery;
     }
 
-    export interface IConnection {
+    interface IConnection {
         config: IConnectionConfig;
 
         threadId: number;
@@ -68,7 +76,7 @@ declare module mysql {
         rollback(callback: () => void): void;
     }
 
-    export interface IPool {
+    interface IPool {
         config: IPoolConfig;
 
         getConnection(callback: (err: IError, connection: IConnection) => void): void;
@@ -80,7 +88,7 @@ declare module mysql {
         on(ev: 'error', callback: (err: IError) => void): IPool;
     }
 
-    export interface IPoolCluster {
+    interface IPoolCluster {
         config: IPoolClusterConfig;
 
         add(config: IPoolConfig): void;
@@ -101,7 +109,7 @@ declare module mysql {
         on(ev: 'error', callback: (err: IError) => void): IPoolCluster;
     }
 
-    export interface IQuery {
+    interface IQuery {
         /**
          * The SQL for a constructed query
          */
@@ -125,7 +133,7 @@ declare module mysql {
          * 
          * @param options The options for the stream.
          */
-        stream(options: IStreamOptions): IQuery;
+        stream(options: IStreamOptions): stream.Readable;
 
         /**
          * Pipes a stream downstream, providing automatic pause/resume based on the 
@@ -142,7 +150,7 @@ declare module mysql {
         on(ev: 'end', callback: () => void): IQuery;
     }
 
-    export interface IQueryFunction {
+    interface IQueryFunction {
         (sql: string): IQuery;
         (sql: string, callback: (err: IError, ...args: any[]) => void): IQuery;
         (sql: string, values: Array<any>): IQuery;
@@ -157,7 +165,7 @@ declare module mysql {
         (options: IQueryOptions, values: any, callback: (err: IError, ...args: any[]) => void): IQuery;
     }
 
-    export interface IQueryOptions {
+    interface IQueryOptions {
         /**
          * The SQL for the query
          */
@@ -200,7 +208,7 @@ declare module mysql {
         typeCast?: any;
     }
 
-    export interface IStreamOptions {
+    interface IStreamOptions {
         /**
          * Sets the max buffer size in objects of a stream
          */
@@ -212,7 +220,7 @@ declare module mysql {
         objectMode?: any;
     }
 
-    export interface IConnectionOptions {
+    interface IConnectionOptions {
         /**
          * The MySQL user to authenticate as
          */
@@ -236,7 +244,7 @@ declare module mysql {
         charset?: string;
     }
 
-    export interface IConnectionConfig extends IConnectionOptions {
+    interface IConnectionConfig extends IConnectionOptions {
         /**
          * The hostname of the database you are connecting to. (Default: localhost)
          */
@@ -356,7 +364,7 @@ declare module mysql {
         ssl?: any;
     }
 
-    export interface IPoolConfig extends IConnectionConfig {
+    interface IPoolConfig extends IConnectionConfig {
         /**
          * The milliseconds before a timeout occurs during the connection acquisition. This is slightly different from connectTimeout, 
          * because acquiring a pool connection does not always involve making a connection. (Default: 10 seconds)
@@ -382,7 +390,7 @@ declare module mysql {
         queueLimit?: number;
     }
 
-    export interface IPoolClusterConfig {
+    interface IPoolClusterConfig {
         /**
          * If true, PoolCluster will attempt to reconnect when connection fails. (Default: true)
          */
@@ -403,7 +411,7 @@ declare module mysql {
         defaultSelector?: string;
     }
 
-    export interface ISslCredentials {
+    interface ISslCredentials {
         /**
          * A string or buffer holding the PFX or PKCS12 encoded private key, certificate and CA certificates
          */
@@ -440,7 +448,7 @@ declare module mysql {
         ciphers?: string;
     }
 
-    export interface IError extends Error {
+    interface IError extends Error {
         /**
          * Either a MySQL server error (e.g. 'ER_ACCESS_DENIED_ERROR'), 
          * a node.js error (e.g. 'ECONNREFUSED') or an internal error 
@@ -480,8 +488,3 @@ declare module mysql {
     }
 }
 
-declare module 'mysql' {
-    var mysql: mysql.IMySql;
-
-    export = mysql;
-}
