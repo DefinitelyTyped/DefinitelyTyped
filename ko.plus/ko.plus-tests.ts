@@ -9,6 +9,8 @@
 /*
     Version 1.0 - initial commit
 
+    Version 1.1 - added test for makeEditable
+
     Note: Typescript version 1.4 or higher is required for union types
     and type declarations
 */
@@ -64,6 +66,8 @@ function EditableTests() {
 
     var edit4 = ko.editable<string|number>(1); // with union types
     var edit5 = ko.editable<string|number>("test"); 
+
+    ko.editable.makeEditable(this);
 
     // test getting the value
     var value = edit1();

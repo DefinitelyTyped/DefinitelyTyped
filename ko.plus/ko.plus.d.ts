@@ -14,21 +14,20 @@
  *
  * Version 1.0 - initial commit
  *
+ * Version 1.1 - fixed bug - makeEditable is now a function on .editable
+ *               also refactored how the Editable classes inherit to simplify
  */
-
 
 //
 // Add methods to the 'ko' Knockout object
 //
 interface KnockoutStatic {
-
     // create a command - two overloads
     command: (param: KoPlus.Callback | KoPlus.CommandOptions) => KoPlus.Command;
 
     editable: KoPlus.EditableStatic;
     editableArray: KoPlus.EditableArrayStatic;
 }
-
 
 //#region Sortable type extensions
 
@@ -46,12 +45,10 @@ interface KnockoutObservableArray<T> {
 
 //#endregion
 
-
 //
-// declare new binding handlers in ko-plus
+// declare new binding handlers in ko.plus
 //
 interface KnockoutBindingHandlers {
-
     loadingWhen: KnockoutBindingHandler;
 
     command: KnockoutBindingHandler;
@@ -60,13 +57,11 @@ interface KnockoutBindingHandlers {
 }
 
 //
-// namespace for ko-plus types
+// namespace for ko.plus types
 //
 declare module KoPlus {
-
     // predefine a callback type
     export type Callback = () => void;
-
 
     //#region Command types
 
@@ -78,7 +73,7 @@ declare module KoPlus {
         (): void;
 
         //
-        // properties: https://github.com/stevegreatrex/ko.plus#properties 
+        // properties: https://github.com/stevegreatrex/ko.plus#properties
         //
         isRunning: KnockoutObservable<boolean>;
 
@@ -89,7 +84,7 @@ declare module KoPlus {
         completed: KnockoutObservable<boolean>;
 
         //
-        // functions 
+        // functions
         // see https://github.com/stevegreatrex/ko.plus#functions
         //
         done: (callback: (data: any) => void) => Command;
@@ -99,7 +94,6 @@ declare module KoPlus {
         always: (callback: Callback) => Command;
 
         then: (resolve: Callback, reject: Callback) => Command;
-
     }
 
     //
@@ -107,7 +101,6 @@ declare module KoPlus {
     // see https://github.com/stevegreatrex/ko.plus#options
     //
     export interface CommandOptions {
-
         // [required] sets the command action method
         action: Callback;
 
@@ -122,22 +115,23 @@ declare module KoPlus {
 
     //#region Editable types
 
-    export interface EditableArrayStatic {
-        fn: KnockoutObservableArrayFunctions<any>;
-        <T>(value?: Array<T>): EditableArray<T>;
-    }
-
-    export interface EditableStatic {
-        fn: KnockoutObservableFunctions<any>;
+    export interface EditableStatic extends KnockoutObservableStatic {
         <T>(value?: T): Editable<T>;
 
         makeEditable(target: any): void;
     }
 
+    export interface EditableArrayStatic extends KnockoutObservableArrayStatic {
+        <T>(value?: Array<T>): EditableArray<T>;
+
+        makeEditable(target: any): void; //>
+    }
+
     //
     // defines common editable functions and isEditing property
+    // (used by both editable and editableArray
     //
-    export interface EditableBase<T> extends KnockoutObservableFunctions<T> {
+    export interface EditableFunctions {
         isEditing: KnockoutObservable<boolean>;
         beginEdit(): void;
         endEdit(): void;
@@ -145,23 +139,17 @@ declare module KoPlus {
         rollback(): void;
     }
 
-    export interface Editable<T> extends EditableBase<T> {
-        (): T;
-        (value: T): void;
-
-        subscribe(callback: (newValue: T) => void, target?: any, topic?: string): KnockoutSubscription;
-        notifySubscribers(valueToWrite: T, topic?: string): void;
+    //
+    // extend the standard KnockoutObservable to add editable functions
+    //
+    export interface Editable<T> extends KnockoutObservable<T>, EditableFunctions {
     }
 
-    export interface EditableArray<T> extends KnockoutObservableArrayFunctions<T>, EditableBase<T> {
-        (): T[];
-        (value: T[]): void;
-
-        subscribe(callback: (newValue: T[]) => void, target?: any, topic?: string): KnockoutSubscription;
-        notifySubscribers(valueToWrite: T[], topic?: string): void;
+    //
+    // extend the standard KnockoutObservableArray to add editable functions
+    //
+    export interface EditableArray<T> extends KnockoutObservableArray<T>, EditableFunctions {
     }
-
 
     //#endregion
-
 }
