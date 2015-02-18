@@ -899,7 +899,10 @@ interface JQueryStatic {
      *
      * @param beforeStart A function that is called just before the constructor returns.
      */
-    Deferred<T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
+    Deferred: {
+        <T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
+        new <T>(beforeStart?: (deferred: JQueryDeferred<T>) => any): JQueryDeferred<T>;
+    };
 
     /**
      * Effects
