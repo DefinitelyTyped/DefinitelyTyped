@@ -3,8 +3,6 @@
 // Definitions by: PROGRE <https://github.com/progre/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../node/node.d.ts' />
-
 declare var io: SocketIOClientStatic;
 
 declare module 'socket.io-client' {
@@ -25,10 +23,11 @@ declare module SocketIOClient {
     interface Socket {
         on(event: string, fn: Function): Socket;
         once(event: string, fn: Function): Socket;
-        off(event: string, fn: Function): Socket;
+        off(event?: string, fn?: Function): Socket;
         emit(event: string, ...args: any[]): Socket;
         listeners(event: string): Function[];
         hasListeners(event: string): boolean;
+        connected: boolean;
     }
 
     interface ManagerStatic {

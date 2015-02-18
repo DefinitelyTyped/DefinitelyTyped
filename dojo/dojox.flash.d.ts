@@ -22,3 +22,8 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/flash" {
+    var exp: dojox.flash
+    export=exp;
+}

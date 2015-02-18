@@ -1,4 +1,4 @@
-// Type definitions for EffectComposer.js
+// Type definitions for three.js (EffectComposer.js)
 // Project: https://github.com/mrdoob/three.js/blob/r68/examples/js/postprocessing/EffectComposer.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -21,7 +21,7 @@ declare module THREE {
 		swapBuffers(): void;
 		addPass(pass: any): void;
 		insertPass(pass: any, index: number): void;
-		render(delta: number): void;
+		render(delta?: number): void;
 		reset(renderTarget?: WebGLRenderTarget): void;
 		setSize( width: number, height: number ): void;
 	}

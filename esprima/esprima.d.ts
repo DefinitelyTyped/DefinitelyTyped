@@ -49,7 +49,7 @@ declare module esprima {
 
         // Program
         interface Program extends Node {
-            body: SomeStatement[]
+            body: Statement[]
             comments?: Comment[]
         }
 
@@ -57,14 +57,13 @@ declare module esprima {
         interface Function extends Node {
             id: Identifier // | null
             params: Identifier[]
-            defaults: SomeExpression[]
+            defaults: Expression[]
             rest: Identifier // | null
             body: BlockStatementOrExpression
             generator: boolean
             expression: boolean
         }
-        interface BlockStatementOrExpression extends Array<SomeStatement>, BlockStatement, SomeExpression {
-            body: BlockStatementOrExpression
+        interface BlockStatementOrExpression extends BlockStatement, Expression {
         }
 
         // Statement
@@ -73,19 +72,19 @@ declare module esprima {
         interface EmptyStatement extends Statement {
         }
         interface BlockStatement extends Statement {
-            body: SomeStatement[]
+            body: Statement[]
         }
         interface ExpressionStatement extends Statement {
-            expression: SomeExpression
+            expression: Expression
         }
         interface IfStatement extends Statement {
-            test: SomeExpression
-            consequent: SomeStatement
-            alternate: SomeStatement
+            test: Expression
+            consequent: Statement
+            alternate: Statement
         }
         interface LabeledStatement extends Statement {
             label: Identifier
-            body: SomeStatement
+            body: Statement
         }
         interface BreakStatement extends Statement {
             label: Identifier // | null
@@ -94,19 +93,19 @@ declare module esprima {
             label: Identifier // | null
         }
         interface WithStatement extends Statement {
-            object: SomeExpression
-            body: SomeStatement
+            object: Expression
+            body: Statement
         }
         interface SwitchStatement extends Statement {
-            discriminant: SomeExpression
+            discriminant: Expression
             cases: SwitchCase[]
             lexical: boolean
         }
         interface ReturnStatement extends Statement {
-            argument: SomeExpression // | null
+            argument: Expression // | null
         }
         interface ThrowStatement extends Statement {
-            argument: SomeExpression
+            argument: Expression
         }
         interface TryStatement extends Statement {
             block: BlockStatement
@@ -115,80 +114,73 @@ declare module esprima {
             finalizer: BlockStatement // | null
         }
         interface WhileStatement extends Statement {
-            test: SomeExpression
-            body: SomeStatement
+            test: Expression
+            body: Statement
         }
         interface DoWhileStatement extends Statement {
-            body: SomeStatement
-            test: SomeExpression
+            body: Statement
+            test: Expression
         }
         interface ForStatement extends Statement {
             init: VariableDeclaratorOrExpression // | null
-            test: SomeExpression // | null
-            update: SomeExpression // | null
-            body: SomeStatement
+            test: Expression // | null
+            update: Expression // | null
+            body: Statement
         }
         interface ForInStatement extends Statement {
             left: VariableDeclaratorOrExpression
-            right: SomeExpression
-            body: SomeStatement
+            right: Expression
+            body: Statement
             each: boolean
         }
-        interface VariableDeclaratorOrExpression extends VariableDeclarator, SomeExpression {
+        interface VariableDeclaratorOrExpression extends VariableDeclarator, Expression {
         }
         interface DebuggerStatement extends Statement {
         }
-        interface SomeStatement extends 
-            EmptyStatement, ExpressionStatement, BlockStatement, IfStatement,
-            LabeledStatement, BreakStatement, ContinueStatement, WithStatement,
-            SwitchStatement, ReturnStatement, ThrowStatement, TryStatement,
-            WhileStatement, DoWhileStatement, ForStatement, ForInStatement, DebuggerStatement {
-            body: SomeStatementOrList
-        }
-        interface SomeStatementOrList extends Array<SomeStatement>, SomeStatement {
+        interface StatementOrList extends Array<Statement>, Statement {
         }
 
-        // Declration
-        interface Declration extends Statement {
+        // Declaration
+        interface Declaration extends Statement {
         }
-        interface FunctionDeclration extends Declration {
+        interface FunctionDeclaration extends Declaration {
             id: Identifier
             params: Identifier[] // Pattern
-            defaults: SomeExpression[]
+            defaults: Expression[]
             rest: Identifier
             body: BlockStatementOrExpression
             generator: boolean
             expression: boolean
         }
-        interface VariableDeclaration extends Declration {
+        interface VariableDeclaration extends Declaration {
             declarations: VariableDeclarator[]
             kind: string // "var" | "let" | "const"
         }
         interface VariableDeclarator extends Node {
             id: Identifier // Pattern
-            init: SomeExpression
+            init: Expression
         }
 
         // Expression
         interface Expression extends Node { // | Pattern
         }
-        interface SomeExpression extends 
-            ThisExpression, ArrayExpression, ObjectExpression, FunctionExpression,
-            ArrowFunctionExpression, SequenceExpression, UnaryExpression, BinaryExpression,
-            AssignmentExpression, UpdateExpression, LogicalExpression, ConditionalExpression,
-            NewExpression, CallExpression, MemberExpression {
-        }
+        //interface Expression extends
+        //    ThisExpression, ArrayExpression, ObjectExpression, FunctionExpression,
+        //    ArrowFunctionExpression, SequenceExpression, UnaryExpression, BinaryExpression,
+        //    AssignmentExpression, UpdateExpression, LogicalExpression, ConditionalExpression,
+        //    NewExpression, CallExpression, MemberExpression {
+        //}
         interface ThisExpression extends Expression {
         }
         interface ArrayExpression extends Expression {
-            elements: SomeExpression[] // [ Expression | null ]
+            elements: Expression[] // [ Expression | null ]
         }
         interface ObjectExpression extends Expression {
             properties: Property[]
         }
         interface Property extends Node {
             key: LiteralOrIdentifier // Literal | Identifier
-            value: SomeExpression
+            value: Expression
             kind: string // "init" | "get" | "set"
         }
         interface LiteralOrIdentifier extends Literal, Identifier {
@@ -198,66 +190,66 @@ declare module esprima {
         interface ArrowFunctionExpression extends Function, Expression {
         }
         interface SequenceExpression extends Expression {
-            expressions: SomeExpression[]
+            expressions: Expression[]
         }
         interface UnaryExpression extends Expression {
             operator: string // UnaryOperator
             prefix: boolean
-            argument: SomeExpression
+            argument: Expression
         }
         interface BinaryExpression extends Expression {
             operator: string // BinaryOperator
-            left: SomeExpression
-            right: SomeExpression
+            left: Expression
+            right: Expression
         }
         interface AssignmentExpression extends Expression {
             operator: string // AssignmentOperator
-            left: SomeExpression
-            right: SomeExpression
+            left: Expression
+            right: Expression
         }
         interface UpdateExpression extends Expression {
             operator: string // UpdateOperator
-            argument: SomeExpression
+            argument: Expression
             prefix: boolean
         }
         interface LogicalExpression extends Expression {
             operator: string // LogicalOperator
-            left: SomeExpression
-            right: SomeExpression
+            left: Expression
+            right: Expression
         }
         interface ConditionalExpression extends Expression {
-            test: SomeExpression
-            alternate: SomeExpression
-            consequent: SomeExpression
+            test: Expression
+            alternate: Expression
+            consequent: Expression
         }
         interface NewExpression extends Expression {
-            callee: SomeExpression
-            arguments: SomeExpression[]
+            callee: Expression
+            arguments: Expression[]
         }
         interface CallExpression extends Expression {
-            callee: SomeExpression
-            arguments: SomeExpression[]
+            callee: Expression
+            arguments: Expression[]
         }
         interface MemberExpression extends Expression {
-            object: SomeExpression
+            object: Expression
             property: IdentifierOrExpression // Identifier | Expression
             computed: boolean
         }
-        interface IdentifierOrExpression extends Identifier, SomeExpression {
+        interface IdentifierOrExpression extends Identifier, Expression {
         }
 
         // Pattern
-        // interface Pattern extends Node { 
-        // }                                
+        // interface Pattern extends Node {
+        // }
 
         // Clauses
         interface SwitchCase extends Node {
-            test: SomeExpression
-            consequent: SomeStatement[]
+            test: Expression
+            consequent: Statement[]
         }
         interface CatchClause extends Node {
             param: Identifier // Pattern
-            guard: SomeExpression
+            guard: Expression
             body: BlockStatement
         }
 

@@ -645,6 +645,14 @@ function test_Components() {
         // object template for element and inline function (commonly used in examples)
         ko.components.register("name", { template: { require: "module" }, viewModel: { instance: null } });
 
-        //
+        // Empty config for registering custom elements that are handled by name convention
+		ko.components.register('name', { /* No config needed */ });
     }
+}
+
+function testUnwrapUnion() {
+    
+    var possibleObs: KnockoutObservable<number> | number;
+    var num = ko.unwrap(possibleObs);
+
 }

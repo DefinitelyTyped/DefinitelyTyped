@@ -1,6 +1,6 @@
 // Type definitions for jquery.validation 1.11.1
 // Project: http://jqueryvalidation.org/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>, Johj Reilly <https://github.com/johnnyreilly>
+// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -89,21 +89,21 @@ interface ValidationOptions
      * Set to a Function to decide for yourself when to run validation.
      * A boolean true is not a valid value.
      */
-	onclick?: any;
+	onclick?: boolean|Function;
     /**
      * Boolean or Function. Validate elements (except checkboxes/radio buttons) on blur. If nothing is entered, all rules are skipped, except when the field was already marked as invalid.
      *
      * Set to a Function to decide for yourself when to run validation.
      * A boolean true is not a valid value.
      */
-	onfocusout?: any;
+    onfocusout?: boolean|Function;
     /**
      * Boolean or Function. Validate elements on keyup. As long as the field is not marked as invalid, nothing happens. Otherwise, all rules are checked on each key up event. Set to false to disable.
      * 
      * Set to a Function to decide for yourself when to run validation.
      * A boolean true is not a valid value.
      */
-	onkeyup?: any;
+    onkeyup?: boolean|Function;
     /**
      * Validate the form on submit. Set to false to use only other events for validation. 
      * Set to a Function to decide for yourself when to run validation. 
@@ -127,7 +127,7 @@ interface ValidationOptions
     /**
      * String or Function. If specified, the error label is displayed to show a valid element. If a String is given, it is added as a class to the label. If a Function is given, it is called with the label (as a jQuery object) and the validated input (as a DOM element). The label can be used to add a text like "ok!".
      */
-	success?: any;
+	success?: string|{($label: JQuery, validatedInput: HTMLElement):void};
     /**
      * Called to revert changes made by option highlight, same arguments as highlight.
      * 
@@ -180,13 +180,13 @@ interface Validator
      * @param name The name of the method used to identify it and referencing it; this must be a valid JavaScript identifier
      * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
      */
-	addMethod(name: string, method: (value: any, element: any, params: any) => any, message?: any): void;
+	addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => any, message?: any): void;
     /**
      * Validates a single element, returns true if it is valid, false otherwise.
      * 
      * @param element An element to validate, must be inside the validated form. eg "#myselect"
      */
-	element(element: any): boolean;
+	element(element: string|JQuery): boolean;
     /**
      * Validates the form, returns true if it is valid, false otherwise.
      */

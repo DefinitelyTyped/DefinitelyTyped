@@ -2328,3 +2328,56 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/main" {
+    var exp: dojox.main
+    export=exp;
+}
+declare module "dojox/main.languages" {
+    var exp: dojox.main.languages
+    export=exp;
+}
+declare module "dojox/main.islamic" {
+    var exp: dojox.main.islamic
+    export=exp;
+}
+declare module "dojox/main.buddhist" {
+    var exp: dojox.main.buddhist
+    export=exp;
+}
+declare module "dojox/main.charting" {
+    var exp: dojox.main.charting
+    export=exp;
+}
+declare module "dojox/main.hebrew" {
+    var exp: dojox.main.hebrew
+    export=exp;
+}
+declare module "dojox/main.functional" {
+    var exp: dojox.main.functional
+    export=exp;
+}
+declare module "dojox/main.relative" {
+    var exp: dojox.main.relative
+    export=exp;
+}
+declare module "dojox/main.util" {
+    var exp: dojox.main.util
+    export=exp;
+}
+declare module "dojox/main.regexp" {
+    var exp: dojox.main.regexp
+    export=exp;
+}
+declare module "dojox/main.umalqura" {
+    var exp: dojox.main.umalqura
+    export=exp;
+}
+declare module "dojox/main.persian" {
+    var exp: dojox.main.persian
+    export=exp;
+}
+declare module "dojox/main.utils" {
+    var exp: dojox.main.utils
+    export=exp;
+}

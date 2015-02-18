@@ -1,4 +1,4 @@
-// Type definitions for timezonecomplete 1.9.0
+// Type definitions for timezonecomplete 1.12.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -22,8 +22,15 @@ declare module 'timezonecomplete' {
     export import secondOfDay = basics.secondOfDay;
     import datetime = require("__timezonecomplete/datetime");
     export import DateTime = datetime.DateTime;
+    export import now = datetime.now;
+    export import nowLocal = datetime.nowLocal;
+    export import nowUtc = datetime.nowUtc;
     import duration = require("__timezonecomplete/duration");
     export import Duration = duration.Duration;
+    export import hours = duration.hours;
+    export import minutes = duration.minutes;
+    export import seconds = duration.seconds;
+    export import milliseconds = duration.milliseconds;
     import javascript = require("__timezonecomplete/javascript");
     export import DateFunctions = javascript.DateFunctions;
     import period = require("__timezonecomplete/period");
@@ -37,6 +44,9 @@ declare module 'timezonecomplete' {
     export import NormalizeOption = timezone.NormalizeOption;
     export import TimeZoneKind = timezone.TimeZoneKind;
     export import TimeZone = timezone.TimeZone;
+    export import local = timezone.local;
+    export import utc = timezone.utc;
+    export import zone = timezone.zone;
     import globals = require("__timezonecomplete/globals");
     export import min = globals.min;
     export import max = globals.max;
@@ -299,9 +309,22 @@ declare module '__timezonecomplete/basics' {
 declare module '__timezonecomplete/datetime' {
     import basics = require("__timezonecomplete/basics");
     import duration = require("__timezonecomplete/duration");
-    import javascript = require("__timezonecomplete/javascript");
 	import timesource = require("__timezonecomplete/timesource");
+    import javascript = require("__timezonecomplete/javascript");
     import timezone = require("__timezonecomplete/timezone");
+    /**
+     * Current date+time in local time
+     */
+    export function nowLocal(): DateTime;
+    /**
+     * Current date+time in UTC time
+     */
+    export function nowUtc(): DateTime;
+    /**
+     * Current date+time in the given time zone
+     * @param timeZone	The desired time zone (optional, defaults to UTC).
+     */
+    export function now(timeZone?: timezone.TimeZone): DateTime;
     /**
      * DateTime class which is time zone-aware
      * and which can be mocked for testing purposes.
@@ -314,18 +337,18 @@ declare module '__timezonecomplete/datetime' {
          */
         static timeSource: timesource.TimeSource;
         /**
-         * Current date+time in local time (derived from DateTime.timeSource.now()).
+         * Current date+time in local time
          */
         static nowLocal(): DateTime;
         /**
-         * Current date+time in UTC time (derived from DateTime.timeSource.now()).
+         * Current date+time in UTC time
          */
         static nowUtc(): DateTime;
         /**
-         * Current date+time in the given time zone (derived from DateTime.timeSource.now()).
-         * @param timeZone	The desired time zone.
+         * Current date+time in the given time zone
+         * @param timeZone	The desired time zone (optional, defaults to UTC).
          */
-        static now(timeZone: timezone.TimeZone): DateTime;
+        static now(timeZone?: timezone.TimeZone): DateTime;
         /**
          * Constructor. Creates current time in local timezone.
          */
@@ -605,6 +628,11 @@ declare module '__timezonecomplete/datetime' {
          */
         diff(other: DateTime): duration.Duration;
         /**
+         * Chops off the time part, yields the same date at 00:00:00.000
+         * @return a new DateTime
+         */
+        startOfDay(): DateTime;
+        /**
          * @return True iff (this < other)
          */
         lessThan(other: DateTime): boolean;
@@ -613,12 +641,11 @@ declare module '__timezonecomplete/datetime' {
          */
         lessEqual(other: DateTime): boolean;
         /**
-         * @return True iff this and other represent the same time in UTC
+         * @return True iff this and other represent the same moment in time in UTC
          */
         equals(other: DateTime): boolean;
         /**
-         * @return True iff this and other represent the same time and
-         * have the same zone
+         * @return True iff this and other represent the same time and the same zone
          */
         identical(other: DateTime): boolean;
         /**
@@ -674,6 +701,30 @@ declare module '__timezonecomplete/datetime' {
 declare module '__timezonecomplete/duration' {
     import basics = require("__timezonecomplete/basics");
     /**
+     * Construct a time duration
+     * @param n	Number of hours (may be fractional or negative)
+     * @return A duration of n hours
+     */
+    export function hours(n: number): Duration;
+    /**
+     * Construct a time duration
+     * @param n	Number of minutes (may be fractional or negative)
+     * @return A duration of n minutes
+     */
+    export function minutes(n: number): Duration;
+    /**
+     * Construct a time duration
+     * @param n	Number of seconds (may be fractional or negative)
+     * @return A duration of n seconds
+     */
+    export function seconds(n: number): Duration;
+    /**
+     * Construct a time duration
+     * @param n	Number of milliseconds (may be fractional or negative)
+     * @return A duration of n milliseconds
+     */
+    export function milliseconds(n: number): Duration;
+    /**
      * Time duration. Create one e.g. like this: var d = Duration.hours(1).
      * Note that time durations do not take leap seconds etc. into account:
      * one hour is simply represented as 3600000 milliseconds.
@@ -681,25 +732,25 @@ declare module '__timezonecomplete/duration' {
     export class Duration {
         /**
          * Construct a time duration
-         * @param n	Number of hours
+         * @param n	Number of hours (may be fractional or negative)
          * @return A duration of n hours
          */
         static hours(n: number): Duration;
         /**
          * Construct a time duration
-         * @param n	Number of minutes
+         * @param n	Number of minutes (may be fractional or negative)
          * @return A duration of n minutes
          */
         static minutes(n: number): Duration;
         /**
          * Construct a time duration
-         * @param n	Number of seconds
+         * @param n	Number of seconds (may be fractional or negative)
          * @return A duration of n seconds
          */
         static seconds(n: number): Duration;
         /**
          * Construct a time duration
-         * @param n	Number of milliseconds
+         * @param n	Number of milliseconds (may be fractional or negative)
          * @return A duration of n milliseconds
          */
         static milliseconds(n: number): Duration;
@@ -909,9 +960,10 @@ declare module '__timezonecomplete/period' {
          * @param amount	The amount of units.
          * @param unit	The unit.
          * @param dst	Specifies how to handle Daylight Saving Time. Not relevant
-         *				if the time zone of the start datetime does not have DST.
+         *              if the time zone of the start datetime does not have DST.
+         *              Defaults to RegularLocalTime.
          */
-        constructor(start: datetime.DateTime, amount: number, unit: basics.TimeUnit, dst: PeriodDst);
+        constructor(start: datetime.DateTime, amount: number, unit: basics.TimeUnit, dst?: PeriodDst);
         /**
          * The start date
          */
@@ -953,6 +1005,16 @@ declare module '__timezonecomplete/period' {
          */
         isBoundary(occurrence: datetime.DateTime): boolean;
         /**
+         * Returns true iff this period has the same effect as the given one.
+         * i.e. a period of 24 hours is equal to one of 1 day if they have the same UTC start moment
+         * and same dst.
+         */
+        equals(other: Period): boolean;
+        /**
+         * Returns true iff this period was constructed with identical arguments to the other one.
+         */
+        identical(other: Period): boolean;
+        /**
          * Returns an ISO duration string e.g.
          * 2014-01-01T12:00:00.000+01:00/P1H
          * 2014-01-01T12:00:00.000+01:00/PT1M   (one minute)
@@ -993,6 +1055,35 @@ declare module '__timezonecomplete/timesource' {
 
 declare module '__timezonecomplete/timezone' {
     import javascript = require("__timezonecomplete/javascript");
+    /**
+     * The local time zone for a given date as per OS settings. Note that time zones are cached
+     * so you don't necessarily get a new object each time.
+     */
+    export function local(): TimeZone;
+    /**
+     * Coordinated Universal Time zone. Note that time zones are cached
+     * so you don't necessarily get a new object each time.
+     */
+    export function utc(): TimeZone;
+    /**
+     * @param offset offset w.r.t. UTC in minutes, e.g. 90 for +01:30. Note that time zones are cached
+     * so you don't necessarily get a new object each time.
+     * @returns a time zone with the given fixed offset
+     */
+    export function zone(offset: number): TimeZone;
+    /**
+     * Time zone for an offset string or an IANA time zone string. Note that time zones are cached
+     * so you don't necessarily get a new object each time.
+     * @param s Empty string for no time zone (null is returned),
+     *          "localtime" for local time,
+     *          a TZ database time zone name (e.g. Europe/Amsterdam),
+     *          or an offset string (either +01:30, +0130, +01, Z). For a full list of names, see:
+     *          https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+     * @param dst	Optional, default true: adhere to Daylight Saving Time if applicable. Note for
+     *              "localtime", timezonecomplete will adhere to the computer settings, the DST flag
+     *              does not have any effect.
+     */
+    export function zone(name: string, dst?: boolean): TimeZone;
     /**
      * The type of time zone
      */
@@ -1046,29 +1137,37 @@ declare module '__timezonecomplete/timezone' {
          */
         static utc(): TimeZone;
         /**
-         * Returns a time zone object from the cache. If it does not exist, it is created.
-         * @return The time zone with the given offset w.r.t. UTC in minutes, e.g. 90 for +01:30
+         * Time zone with a fixed offset
+         * @param offset	offset w.r.t. UTC in minutes, e.g. 90 for +01:30
          */
         static zone(offset: number): TimeZone;
         /**
-         * Returns a time zone object from the cache. If it does not exist, it is created.
-         * @param s: Empty string for local time, a TZ database time zone name (e.g. Europe/Amsterdam)
-         *			 or an offset string (either +01:30, +0130, +01, Z). For a full list of names, see:
-         *			 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+         * Time zone for an offset string or an IANA time zone string. Note that time zones are cached
+         * so you don't necessarily get a new object each time.
+         * @param s Empty string for no time zone (null is returned),
+         *          "localtime" for local time,
+         *          a TZ database time zone name (e.g. Europe/Amsterdam),
+         *          or an offset string (either +01:30, +0130, +01, Z). For a full list of names, see:
+         *          https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+         * @param dst	Optional, default true: adhere to Daylight Saving Time if applicable. Note for
+         *              "localtime", timezonecomplete will adhere to the computer settings, the DST flag
+         *              does not have any effect.
          */
-        static zone(s: string): TimeZone;
+        static zone(s: string, dst?: boolean): TimeZone;
         /**
          * Do not use this constructor, use the static
          * TimeZone.zone() method instead.
          * @param name NORMALIZED name, assumed to be correct
+         * @param dst	Adhere to Daylight Saving Time if applicable, ignored for local time and fixed offsets
          */
-        constructor(name: string);
+        constructor(name: string, dst?: boolean);
         /**
          * The time zone identifier. Can be an offset "-01:30" or an
          * IANA time zone name "Europe/Amsterdam", or "localtime" for
          * the local time zone.
          */
         name(): string;
+        dst(): boolean;
         /**
          * The kind of time zone (Local/Offset/Proper)
          */
@@ -1078,6 +1177,10 @@ declare module '__timezonecomplete/timezone' {
          * each other. Other time zones are not mapped onto each other.
          */
         equals(other: TimeZone): boolean;
+        /**
+         * Returns true iff the constructor arguments were identical, so UTC !== GMT
+         */
+        identical(other: TimeZone): boolean;
         /**
          * Is this zone equivalent to UTC?
          */

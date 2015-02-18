@@ -122,8 +122,7 @@ declare module grunt {
          * {@link http://gruntjs.com/sample-gruntfile}
          */
         interface IProjectConfig{
-            [plugin: string]: any
-            pkg: any; // unfortunate. It is actually a string
+            [plugin: string]: any;
         }                
 
         /**

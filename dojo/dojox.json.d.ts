@@ -130,3 +130,12 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/json/query" {
+    var exp: dojox.json.query
+    export=exp;
+}
+declare module "dojox/json/ref" {
+    var exp: dojox.json.ref
+    export=exp;
+}
