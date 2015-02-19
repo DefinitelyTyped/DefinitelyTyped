@@ -39,6 +39,7 @@ declare module SigmaJs{
     }
 
     interface Edge {
+        cssClass?: string;
         color?: string;
         id: string;
         size?: number;
@@ -79,6 +80,7 @@ declare module SigmaJs{
     }
 
     interface Node {
+        cssClass?: string;
         color?: string;
         id: string;
         image?: any;
