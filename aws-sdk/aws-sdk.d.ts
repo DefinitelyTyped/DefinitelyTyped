@@ -126,6 +126,11 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 	}
 
+	export class Kinesis {
+		constructor(options?: any);
+		public client: Kinesis.Client
+	}
+
 	export module Sqs {
 
 		export interface Client {
@@ -983,5 +988,182 @@ declare module "aws-sdk" {
 			VersionId?: string;
 		}
 
+	}
+
+	export module Kinesis {
+		export interface Client {
+			config: ClientConfig;
+
+			addTagsToStream(params: AddTagsToStreamRequest, callback: (err: any) => void): void;
+			createStream(params: CreateStreamRequest, callback: (err: any) => void): void;
+			deleteStream(params: DeleteStreamRequest, callback: (err: any) => void): void;
+			describeStream(params: DescribeStreamRequest, callback: (err: any, data: DescribeStreamResult) => void): void;
+			getRecords(params: GetRecordsRequest, callback: (err: any, data: GetRecordsResult) => void): void;
+			getShardIterator(params: GetShardIteratorRequest, callback: (err: any, data: GetShardIteratorResult) => void): void;
+			listStreams(params: ListStreamsRequest, callback: (err: any, data: ListStreamsResult) => void): void;
+			listTagsForStream(params: ListTagsForStreamRequest, callback: (err: any, data: ListTagsForStreamResult) => void): void;
+			mergeShards(params: MergeShardsRequest, callback: (err: any) => void): void;
+			putRecord(params: PutRecordRequest, callback: (err: any, data: PutRecordResult) => void): void;
+			putRecords(params: PutRecordsRequest, callback: (err: any, data: PutRecordsResult) => void): void;
+			removeTagsFromStream(params: RemoveTagsFromStreamRequest, callback: (err: any) => void): void;
+			splitShard(params: SplitShardRequest, callback: (err: any) => void): void;
+		}
+
+		// Responses
+		export interface DescribeStreamResult {
+			StreamDescription: StreamDescription
+		}
+
+		export interface GetRecordsResult {
+			NextShardIterator?: string;
+			Records: Record[];
+		}
+
+		export interface GetShardIteratorResult {
+			ShardIterator: string;
+		}
+
+		export interface ListStreamsResult {
+			HasMoreShards: Boolean;
+			StreamNames: string[];
+		}
+
+		export interface ListTagsForStreamResult extends NamedStream {
+			ExclusiveStartTagKey?: string;
+			Limit?: number;
+		}
+
+		export interface PutRecordResult extends ShardIdentifier {
+			SequenceNumber: string;
+		}
+
+		export interface PutRecordsResult {
+			FailedRecordCount: number;
+			Records: PutRecordsResultEntry[];
+		}
+
+
+		// Requests
+		export interface AddTagsToStreamRequest extends NamedStream {
+			Tags: Object;
+		}
+
+		export interface CreateStreamRequest extends NamedStream {
+			ShardCount: number;
+		}
+
+		export interface DeleteStreamRequest extends NamedStream {}
+
+		export interface DescribeStreamRequest extends NamedStream {}
+
+		export interface GetRecordsRequest {
+			ShardIterator: string;
+			Limit?: number;
+		}
+
+		export interface GetShardIteratorRequest extends NamedStream, ShardIdentifier {
+			ShardIteratorType: string;
+			StartingSequenceNumber?: string;
+		}
+
+		export interface ListStreamsRequest {
+			ExclusiveStartStreamName?: string;
+			Limit?: number;
+		}
+
+		export interface ListTagsForStreamRequest {
+			HasMoreShards: Boolean;
+			Tags: Object;
+		}
+
+		export interface MergeShardsRequest extends NamedStream {
+			ShardToMerge: string;
+			AdjacentShardToMerge: string;
+		}
+
+		export interface PutRecordRequest extends NamedStream {
+			Data: Blob;
+			PartitionKey: string;
+			ExplicitiHashKey?: string;
+			SequenceNumberForOrdering?: string;
+		}
+
+		export interface PutRecordsRequest extends NamedStream, SinglePutRecordRequest {
+			SequenceNumberForOrdering?: string;
+		}
+
+		export interface PutRecordsRequest extends NamedStream {
+			Records: SinglePutRecordRequest[];
+		}
+
+		export interface RemoveTagsFromStreamRequest extends NamedStream {
+			TagKeys: string[];
+		}
+
+		export interface SplitShardRequest extends NamedStream {
+			ShardToSplit: string;
+			NewStartingHashKey: string;
+		}
+
+
+		// Internal response data
+		export interface StreamDescription {
+			HasMoreShards: Boolean;
+			Shards: Shard[];
+			StreamARN: string;
+			StreamName: string;
+			StreamStatus: string;
+		}
+
+		export interface Shard extends ShardIdentifier {
+			AdjacentParentShardId?: string;
+			HashKeyRange: HashKeyRange;
+			ParentShardId?: string;
+			SequenceNumberRange: SequenceNumberRange;
+		}
+
+		export interface SequenceNumberRange {
+			StartingSequenceNumber: string;
+			EndingSequenceNumber?: string;
+		}
+
+		export interface HashKeyRange {
+			StartingHashKey: string;
+			EndingHashKey: string;
+		}
+
+		export interface Record {
+			Data: Buffer;
+			PartitionKey: string;
+			SequenceNumber: string;
+		}
+
+		export interface PutRecordsResultEntry {
+			ErrorCode?: string;
+			ErrorMessage?: string;
+			SequenceNumber?: string;
+			ShardId?: string;
+		}
+
+
+		// Internal request data
+
+		export interface SinglePutRecordRequest {
+			Data: Blob;
+			PartitionKey: string;
+			ExplicitHashKey?: string;
+		}
+
+
+		// Common parameters
+		export interface NamedStream {
+			StreamName: string;
+		}
+
+		export interface ShardIdentifier {
+			ShardId: string;
+		}
+
+		type Blob = String|Buffer
 	}
 }
