@@ -88,7 +88,9 @@ interface Async {
     parallelLimit<T>(tasks: T[], limit: number, callback?: AsyncResultsCallback<T>): void;
     parallelLimit<T>(tasks: T, limit: number, callback?: AsyncResultsCallback<T>): void;
     whilst(test: Function, fn: Function, callback: Function): void;
+    doWhilst(fn: Function, test: Function, callback: Function): void;
     until(test: Function, fn: Function, callback: Function): void;
+    doUntil(fn: Function, test: Function, callback: Function): void;
     waterfall<T>(tasks: T[], callback?: AsyncResultsCallback<T>): void;
     waterfall<T>(tasks: T, callback?: AsyncResultsCallback<T>): void;
     queue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncQueue<T>;
