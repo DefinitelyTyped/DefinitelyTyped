@@ -2253,20 +2253,20 @@ declare module chrome.webRequest {
 
     interface OnCompletedDetails extends CallbackDetails {
         ip?: string;
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
         fromCache: boolean;
         statusCode: number;
     }
 
     interface OnHeadersReceivedDetails extends CallbackDetails {
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
     }
 
     interface OnBeforeRedirectDetails extends CallbackDetails {
         ip?: string;
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
         fromCache: boolean;
         redirectUrl: string;
@@ -2279,7 +2279,7 @@ declare module chrome.webRequest {
     }
 
     interface OnAuthRequiredDetails extends CallbackDetails {
-        statusLine?: string;
+        statusLine: string;
         challenger: Challenger;
         responseHeaders?: HttpHeader[];
         isProxy: boolean;
@@ -2299,7 +2299,7 @@ declare module chrome.webRequest {
 
     interface OnResponseStartedDetails extends CallbackDetails {
         ip?: string;
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
         fromCache: boolean;
         statusCode: number;
