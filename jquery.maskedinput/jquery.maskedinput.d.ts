@@ -1,4 +1,5 @@
 ﻿// Type definitions for Masked Input plugin for jQuery
+// Project: http://digitalbush.com/projects/masked-input-plugin
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -17,17 +18,17 @@ interface JQueryMaskedInputOptions {
     showMaskOnFocus?: boolean;
     showMaskOnHover?: boolean;
     showToolTip?: boolean;
-    isComplete?: (buffer, options) => {};
+    isComplete?: (buffer: any, options: any) => {};
     numeric?: boolean;
     radixPoint?: string;
     rightAlignNumerics?: boolean;
     oncomplete?: (value?: any) => void;
     onincomplete?: () => void;
     oncleared?: () => void;
-    onUnMask?: (maskedValue, unmaskedValue) => void;
-    onBeforeMask?: (initialValue) => void;
-    onKeyValidation?: (result) => void;
-    onBeforePaste?: (pastedValue) => void;
+    onUnMask?: (maskedValue: any, unmaskedValue: any) => void;
+    onBeforeMask?: (initialValue: any) => void;
+    onKeyValidation?: (result: any) => void;
+    onBeforePaste?: (pastedValue: any) => void;
 }
 
 interface MaskedInputStatic {
@@ -41,8 +42,8 @@ interface MaskedInputStaticDefaults {
 }
 
 interface MaskedInputDefaults {
-    aliases;
-    definitions;
+    aliases: any;
+    definitions: any;
 }
 
 interface JQueryStatic {
