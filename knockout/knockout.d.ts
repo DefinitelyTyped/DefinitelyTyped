@@ -343,6 +343,7 @@ interface KnockoutArrayChange<T> {
     status: string;
     value: T;
     index: number;
+    moved?: number;
 }
 
 //////////////////////////////////
