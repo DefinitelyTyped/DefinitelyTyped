@@ -294,7 +294,7 @@ interface KnockoutUtils {
 
     stringTokenize(str: string, delimiter: string): string[];
 
-    stringStartsWith(str: string, startsWith: string): string;
+    stringStartsWith(str: string, startsWith: string): boolean;
 
     domNodeIsContainedBy(node: any, containedByNode: any): boolean;
 
