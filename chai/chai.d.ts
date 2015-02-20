@@ -1,6 +1,6 @@
-// Type definitions for chai 1.7.2
+// Type definitions for chai 2.0.0
 // Project: http://chaijs.com/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>, Jonathan M. Lane <https://github.com/jmlane>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module chai {
