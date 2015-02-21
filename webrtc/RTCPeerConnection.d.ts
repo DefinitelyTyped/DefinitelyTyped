@@ -268,7 +268,7 @@ interface RTCPeerConnection {
   getRemoteStreams(): MediaStream[];
   createDataChannel(label?: string,
                     dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
-  ondatachannel: (event: Event) => void;
+  ondatachannel: (event: RTCDataChannelEvent) => void;
   addStream(stream: MediaStream, constraints?: RTCMediaConstraints): void;
   removeStream(stream: MediaStream): void;
   close(): void;
