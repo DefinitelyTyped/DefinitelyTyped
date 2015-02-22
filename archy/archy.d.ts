@@ -9,8 +9,8 @@ declare module "archy" {
 
     module archy {
         interface Data {
-            label?: string;
-            nodes?: Data[];
+            label: string;
+            nodes?: (Data | string)[];
         }
         interface Options {
             unicode?: boolean;
