@@ -3,4 +3,4 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.jqgrid.d.ts" />
+/// <reference path="jqgrid.d.ts" />
