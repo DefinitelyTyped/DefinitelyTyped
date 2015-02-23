@@ -5,14 +5,14 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.httpAuth {
+declare module angular.httpAuth {
     interface IAuthService {
         loginConfirmed(data?:any, configUpdater?:Function):void;
         loginCancelled(data?:any, reason?:any):void;
     }
 
     interface IHttpBuffer {
-        append(config:ng.IRequestConfig, deferred:{resolve(data:any):void; reject(data:any):void;}):void;
+        append(config:angular.IRequestConfig, deferred:{resolve(data:any):void; reject(data:any):void;}):void;
         rejectAll(reason?:any):void;
         retryAll(updater?:Function):void;
     }

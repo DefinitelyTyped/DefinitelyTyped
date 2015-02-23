@@ -10,13 +10,13 @@ module controllers {
 
         static $inject = ["$upload"];
         constructor(
-            private $upload: ng.angularFileUpload.IUploadService
+            private $upload: angular.angularFileUpload.IUploadService
             ) {
         }
 
         onFileSelect($files: File[]) {
             //$files: an array of files selected, each file has name, size, and type.
-            var uploads: ng.IPromise<any>[] = [];
+            var uploads: angular.IPromise<any>[] = [];
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
                 uploads.push(this.$upload.upload<any>({

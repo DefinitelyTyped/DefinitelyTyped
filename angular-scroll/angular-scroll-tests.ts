@@ -4,12 +4,12 @@ module TestApp {
 
     class TestController {
 
-        constructor($scope: ng.IScope, $document: duScroll.IDocumentService) {
+        constructor($scope: angular.IScope, $document: duScroll.IDocumentService) {
             var positionFromTop = 400;
             var positionFromLeft = 200;
             var offsetInPixels = 100;
             var durationInMillis = 2000;
-            var someElement: ng.IAugmentedJQuery;
+            var someElement: angular.IAugmentedJQuery;
 
             $document.duScrollTo(positionFromLeft, positionFromTop);
             $document.duScrollTo(positionFromLeft, positionFromTop, durationInMillis).then(this.onScrollCompleted);

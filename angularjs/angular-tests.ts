@@ -267,10 +267,11 @@ function test_angular_forEach() {
 }
 
 // angular.element() tests
-var element = angular.element("div.myApp");
-var scope: angular.IScope = element.scope();
-var isolateScope: angular.IScope = element.isolateScope();
-
+function elementTest() {
+    var element = angular.element("div.myApp");
+    var scope: angular.IScope = element.scope();
+    var isolateScope: angular.IScope = element.isolateScope();
+}
 
 
 function test_IAttributes(attributes: angular.IAttributes){

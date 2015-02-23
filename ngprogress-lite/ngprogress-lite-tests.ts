@@ -5,7 +5,7 @@ var app = angular.module('testApp', ['ngProgressLite']);
 
 app.config(
     ['ngProgressLiteProvider',
-        (ngProgressLiteProvider: ng.progressLite.INgProgressLiteProvider) => {
+        (ngProgressLiteProvider: angular.progressLite.INgProgressLiteProvider) => {
             ngProgressLiteProvider.settings.ease = 'ease';
             ngProgressLiteProvider.settings.minimum = 0.08,
             ngProgressLiteProvider.settings.speed = 300;
@@ -15,7 +15,7 @@ app.config(
         }
     ]);
 
-app.controller('testCtrl', ($scope: ng.IScope, ngProgressLite : ng.progressLite.INgProgressLite) => {
+app.controller('testCtrl', ($scope: angular.IScope, ngProgressLite : angular.progressLite.INgProgressLite) => {
 
     ngProgressLite.set(0.4);
 
