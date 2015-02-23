@@ -14,31 +14,7 @@ declare var inject: (...fns: Function[]) => any;
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
-
-    ///////////////////////////////////////////////////////////////////////////
-    // AngularStatic
-    // We reopen it to add the MockStatic definition
-    ///////////////////////////////////////////////////////////////////////////
-    interface IAngularStatic {
-        mock: IMockStatic;
-    }
-
-    interface IMockStatic {
-        // see http://docs.angularjs.org/api/angular.mock.dump
-        dump(obj: any): string;
-
-        // see http://docs.angularjs.org/api/angular.mock.inject
-        inject(...fns: Function[]): any;
-        inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
-
-        // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: any[]): any;
-
-        // see http://docs.angularjs.org/api/angular.mock.TzDate
-        TzDate(offset: number, timestamp: number): Date;
-        TzDate(offset: number, timestamp: string): Date;
-    }
+declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -59,7 +35,7 @@ declare module ng {
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // IntervalService
     // see http://docs.angularjs.org/api/ngMock.$interval
@@ -210,6 +186,20 @@ declare module ng {
     }
 
     export module mock {
+
+        // see http://docs.angularjs.org/api/angular.mock.dump
+        function dump(obj: any): string;
+
+        // see http://docs.angularjs.org/api/angular.mock.inject
+        function inject(...fns: Function[]): any;
+        function inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+
+        // see http://docs.angularjs.org/api/angular.mock.module
+        function module(...modules: any[]): any;
+
+        // see http://docs.angularjs.org/api/angular.mock.TzDate
+        function TzDate(offset: number, timestamp: number): Date;
+        function TzDate(offset: number, timestamp: string): Date;
 
         // returned interface by the the mocked HttpBackendService expect/when methods
         interface IRequestHandler {

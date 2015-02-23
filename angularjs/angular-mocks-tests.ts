@@ -1,12 +1,6 @@
 /// <reference path="angular-mocks.d.ts" />
 
-///////////////////////////////////////
-// IAngularStatic
-///////////////////////////////////////
-var angular: ng.IAngularStatic;
-var mock: ng.IMockStatic;
-
-mock = angular.mock;
+var mock = angular.mock;
 
 
 ///////////////////////////////////////
@@ -22,13 +16,13 @@ mock.inject(
     );
 
 mock.inject(
-    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 1; }]);
+    ['$rootScope', function ($rootScope: angular.IRootScopeService) { return 1; }]);
 
 // This overload is not documented on the website, but flows from
 // how the injector works.
 mock.inject(
-    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 1; }],
-    ['$rootScope', function ($rootScope: ng.IRootScopeService) { return 2; }]);
+    ['$rootScope', function ($rootScope: angular.IRootScopeService) { return 1; }],
+    ['$rootScope', function ($rootScope: angular.IRootScopeService) { return 2; }]);
 
 mock.module('module1', 'module2');
 mock.module(
@@ -44,7 +38,7 @@ date = mock.TzDate(-8, 12345678);
 ///////////////////////////////////////
 // IExceptionHandlerProvider
 ///////////////////////////////////////
-var exceptionHandlerProvider: ng.IExceptionHandlerProvider;
+var exceptionHandlerProvider: angular.IExceptionHandlerProvider;
 
 exceptionHandlerProvider.mode('log');
 
@@ -52,7 +46,7 @@ exceptionHandlerProvider.mode('log');
 ///////////////////////////////////////
 // ITimeoutService
 ///////////////////////////////////////
-var timeoutService: ng.ITimeoutService;
+var timeoutService: angular.ITimeoutService;
 
 timeoutService.flush();
 timeoutService.flush(1234);
@@ -63,7 +57,7 @@ timeoutService.verifyNoPendingTasks();
 ////////////////////////////////////////
 // IIntervalService
 ////////////////////////////////////////
-var intervalService: ng.IIntervalService;
+var intervalService: angular.IIntervalService;
 var intervalServiceTimeActuallyAdvanced: number;
 
 intervalServiceTimeActuallyAdvanced = intervalService.flush();
@@ -72,8 +66,8 @@ intervalServiceTimeActuallyAdvanced = intervalService.flush(1234);
 ///////////////////////////////////////
 // ILogService, ILogCall
 ///////////////////////////////////////
-var logService: ng.ILogService;
-var logCall: ng.ILogCall;
+var logService: angular.ILogService;
+var logCall: angular.ILogCall;
 var logs: string[];
 
 logService.assertEmpty();
@@ -91,8 +85,8 @@ logs = logCall.logs;
 ///////////////////////////////////////
 // IHttpBackendService
 ///////////////////////////////////////
-var httpBackendService: ng.IHttpBackendService;
-var requestHandler: ng.mock.IRequestHandler;
+var httpBackendService: angular.IHttpBackendService;
+var requestHandler: angular.mock.IRequestHandler;
 
 httpBackendService.flush();
 httpBackendService.flush(1234);

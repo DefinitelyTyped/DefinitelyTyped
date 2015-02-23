@@ -6,7 +6,7 @@
  * License: MIT
  */
 
-declare var $routeProvider: ng.route.IRouteProvider;
+declare var $routeProvider: angular.route.IRouteProvider;
 $routeProvider
     .when('/projects/:projectId/dashboard', {
         controller: 'I am a string',
@@ -18,7 +18,7 @@ $routeProvider
         controller: function () {
             //Look at me - I'm a function!
         },
-        template: function ($routeParams?: ng.route.IRouteParamsService) {
+        template: function ($routeParams?: angular.route.IRouteParamsService) {
             return "I return a string"
         }
     })
@@ -28,9 +28,9 @@ $routeProvider
     })
     .when('/projects/:projectId/dashboard4', {
         controller: 'I am a string',
-        templateUrl: function ($routeParams?: ng.route.IRouteParamsService) {
+        templateUrl: function ($routeParams?: angular.route.IRouteParamsService) {
             return "I return a string"
         }
     })
     .otherwise({ redirectTo: '/' })
-    .otherwise({ redirectTo: ($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) => "" });
+    .otherwise({ redirectTo: ($routeParams?: angular.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) => "" });
