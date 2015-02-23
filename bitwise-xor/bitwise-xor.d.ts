@@ -3,6 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
 declare module "bitwise-xor" {
 
 	/**
