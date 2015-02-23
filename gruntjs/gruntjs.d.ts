@@ -790,6 +790,12 @@ declare module grunt {
              */
             registerMultiTask(taskName: string, taskFunction: Function): void
             registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
+            
+            /**
+             * Check with the name, if a task exists in the registered tasks.
+             * @since 0.4.5
+             */
+            exists(name: string): boolean;
         }
 
         /**
