@@ -3,6 +3,8 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+interface FileEntry {}
+
 declare module zip {
 	export var useWebWorkers: boolean;
 	export var workerScriptsPath: string;
@@ -13,8 +15,8 @@ declare module zip {
 
 	export class Reader {
 		public size: number;
-		public init(callback: () => void, onerror: (error) => void): void;
-		public readUint8Array(index: number, length: number, callback: (result: Uint8Array) => void, onerror?: (error) => void): void;
+		public init(callback: () => void, onerror: (error: any) => void): void;
+		public readUint8Array(index: number, length: number, callback: (result: Uint8Array) => void, onerror?: (error: any) => void): void;
 	}
 
 	export class TextReader extends Reader {
@@ -33,11 +35,11 @@ declare module zip {
 		constructor(url: string);
 	}
 
-	export function createReader(reader: zip.Reader, callback: (zipReader: ZipReader) => void, onerror?: (error) => void): void;
+	export function createReader(reader: zip.Reader, callback: (zipReader: ZipReader) => void, onerror?: (error: any) => void): void;
 
 	export class ZipReader {
-		getEntries(callback: (entries: zip.Entry[]) => void);
-		close(callback: () => void): void;
+		getEntries(callback: (entries: zip.Entry[]) => void): void;
+		close(callback?: () => void): void;
 	}
 
 	export interface Entry {
@@ -54,9 +56,9 @@ declare module zip {
 	}
 
 	export class Writer {
-		public init(callback: () => void, onerror?: (error) => void): void;
-		public writeUint8Array(array: Uint8Array, callback: () => void, onerror?: (error) => void): void;
-		public getData(callback: (data) => void, onerror?: (error) => void);
+		public init(callback: () => void, onerror?: (error: any) => void): void;
+		public writeUint8Array(array: Uint8Array, callback: () => void, onerror?: (error: any) => void): void;
+		public getData(callback: (data) => void, onerror?: (error: any) => void) : void;
 	}
 
 	export class TextWriter extends Writer {
@@ -75,7 +77,7 @@ declare module zip {
 		constructor(mimeString?: string);
 	}
 
-	export function createWriter(writer: zip.Writer, callback: (zipWriter: zip.ZipWriter) => void, onerror?: (error) => void, dontDeflate?: boolean): void;
+	export function createWriter(writer: zip.Writer, callback: (zipWriter: zip.ZipWriter) => void, onerror?: (error: any) => void, dontDeflate?: boolean): void;
 
 	export interface WriteOptions {
 		directory?: boolean;
