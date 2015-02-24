@@ -18,6 +18,11 @@ var padding: number[] = [0, 1, 2]
 
 var offset: number = 15
 
+var buf : number[] = []
+
+uuid.parse(uid4, buf, offset)
+uuid.unparse(buf, offset)
+
 uuid.v1(options, padding, offset)
 uuid.v2(options, padding, offset)
 uuid.v3(options, padding, offset)
