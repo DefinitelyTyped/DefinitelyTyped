@@ -183,7 +183,6 @@ List of Definitions
 * [NProgress](https://github.com/rstacruz/nprogress) (by [Judah Gabriel Himango](https://github.com/judahgabriel))
 * [Numeral.js](https://github.com/adamwdraper/Numeral-js) (by [Vincent Bortone](https://github.com/vbortone/))
 * [OpenLayers] (https://github.com/openlayers/openlayers) (by [Ilya Bolkhovsky](https://github.com/bolhovsky/))
-* [PaperJS] (http://www.paperjs.org) (by [Chris Dallaire] (https://github.com/3dsorcery/))
 * [Parallel.js](https://github.com/adambom/parallel.js) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [PDF.js](https://github.com/mozilla/pdf.js) (by [Josh Baldwin](https://github.com/jbaldwin))
 * [Persona](http://www.mozilla.org/en-US/persona) (by [James Frasca](https://github.com/Nycto))
