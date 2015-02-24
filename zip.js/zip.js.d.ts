@@ -58,7 +58,7 @@ declare module zip {
 	export class Writer {
 		public init(callback: () => void, onerror?: (error: any) => void): void;
 		public writeUint8Array(array: Uint8Array, callback: () => void, onerror?: (error: any) => void): void;
-		public getData(callback: (data) => void, onerror?: (error: any) => void) : void;
+		public getData(callback: (data: any) => void, onerror?: (error: any) => void) : void;
 	}
 
 	export class TextWriter extends Writer {
