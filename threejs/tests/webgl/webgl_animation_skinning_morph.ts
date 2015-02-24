@@ -5,16 +5,13 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var material: THREE.SpriteMaterial;
-    var geometry: THREE.JSonLoaderResultGeometry;
-    var dat:any;
     // -------
 
     var SCREEN_WIDTH = window.innerWidth;
     var SCREEN_HEIGHT = window.innerHeight;
     var FLOOR = -250;
 
-    var container,stats;
+    var container, stats;
 
     var camera, scene;
     var renderer;
@@ -28,56 +25,56 @@
 
     var clock = new THREE.Clock();
 
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
 
     init();
     animate();
 
     function init() {
 
-        container = document.getElementById( 'container' );
+        container = document.getElementById('container');
 
-        camera = new THREE.PerspectiveCamera( 30, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+        camera = new THREE.PerspectiveCamera(30, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
         camera.position.z = 2200;
 
         scene = new THREE.Scene();
 
-        scene.fog = new THREE.Fog( 0xffffff, 2000, 10000 );
+        scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
 
-        scene.add( camera );
+        scene.add(camera);
 
         // GROUND
 
-        var groundMaterial = new THREE.MeshPhongMaterial( { emissive: 0xbbbbbb } );
-        var planeGeometry = new THREE.PlaneGeometry( 16000, 16000 );
+        var geometry = new THREE.PlaneBufferGeometry(16000, 16000);
+        var material = new THREE.MeshPhongMaterial({ emissive: 0xbbbbbb });
 
-        var ground = new THREE.Mesh( planeGeometry, groundMaterial );
-        ground.position.set( 0, FLOOR, 0 );
-        ground.rotation.x = -Math.PI/2;
-        scene.add( ground );
+        var ground = new THREE.Mesh(geometry, material);
+        ground.position.set(0, FLOOR, 0);
+        ground.rotation.x = -Math.PI / 2;
+        scene.add(ground);
 
         ground.receiveShadow = true;
 
 
         // LIGHTS
 
-        var ambient = new THREE.AmbientLight( 0x222222 );
-        scene.add( ambient );
+        var ambient = new THREE.AmbientLight(0x222222);
+        scene.add(ambient);
 
 
-        var light = new THREE.DirectionalLight( 0xebf3ff, 1.6 );
-        light.position.set( 0, 140, 500 ).multiplyScalar( 1.1 );
-        scene.add( light );
+        var light = new THREE.DirectionalLight(0xebf3ff, 1.6);
+        light.position.set(0, 140, 500).multiplyScalar(1.1);
+        scene.add(light);
 
         light.castShadow = true;
 
-        light.shadowMapWidth = 2048;
+        light.shadowMapWidth = 1024;
         light.shadowMapHeight = 2048;
 
         var d = 390;
 
-        light.shadowCameraLeft = -d * 2;
-        light.shadowCameraRight = d * 2;
+        light.shadowCameraLeft = -d;
+        light.shadowCameraRight = d;
         light.shadowCameraTop = d * 1.5;
         light.shadowCameraBottom = -d;
 
@@ -86,19 +83,19 @@
 
         //
 
-        var light = new THREE.DirectionalLight( 0x497f13, 1 );
-        light.position.set( 0, -1, 0 );
-        scene.add( light );
+        var light = new THREE.DirectionalLight(0x497f13, 1);
+        light.position.set(0, -1, 0);
+        scene.add(light);
 
         // RENDERER
 
-        renderer = new THREE.WebGLRenderer( { antialias: true } );
-        renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setClearColor(scene.fog.color);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         renderer.domElement.style.position = "relative";
 
-        renderer.setClearColor( scene.fog.color, 1 );
-
-        container.appendChild( renderer.domElement );
+        container.appendChild(renderer.domElement);
 
         renderer.gammaInput = true;
         renderer.gammaOutput = true;
@@ -109,16 +106,16 @@
         // STATS
 
         stats = new Stats();
-        container.appendChild( stats.domElement );
+        container.appendChild(stats.domElement);
 
         //
 
         var loader = new THREE.JSONLoader();
-        loader.load( "models/skinned/knight.js", function ( geometry, materials ) {
+        loader.load("models/skinned/knight.js", function (geometry, materials) {
 
-            createScene( geometry, materials, 0, FLOOR, -300, 60 )
+            createScene(geometry, materials, 0, FLOOR, -300, 60)
 
-        } );
+				});
 
         // GUI
 
@@ -126,7 +123,7 @@
 
         //
 
-        window.addEventListener( 'resize', onWindowResize, false );
+        window.addEventListener('resize', onWindowResize, false);
 
     }
 
@@ -138,18 +135,18 @@
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
     }
 
-    function ensureLoop( animation ) {
+    function ensureLoop(animation) {
 
-        for ( var i = 0; i < animation.hierarchy.length; i ++ ) {
+        for (var i = 0; i < animation.hierarchy.length; i++) {
 
-            var bone = animation.hierarchy[ i ];
+            var bone = animation.hierarchy[i];
 
-            var first = bone.keys[ 0 ];
-            var last = bone.keys[ bone.keys.length - 1 ];
+            var first = bone.keys[0];
+            var last = bone.keys[bone.keys.length - 1];
 
             last.pos = first.pos;
             last.rot = first.rot;
@@ -159,9 +156,9 @@
 
     }
 
-    function createScene( geometry, materials, x, y, z, s ) {
+    function createScene(geometry, materials, x, y, z, s) {
 
-        ensureLoop( geometry.animation );
+        ensureLoop(geometry.animation);
 
         geometry.computeBoundingBox();
         var bb = geometry.boundingBox;
@@ -182,16 +179,16 @@
         //var bumpMap = THREE.ImageUtils.generateDataTexture( 1, 1, new THREE.Color() );
         //var bumpMap = THREE.ImageUtils.loadTexture( "textures/water.jpg" );
 
-        for ( var i = 0; i < materials.length; i ++ ) {
+        for (var i = 0; i < materials.length; i++) {
 
-            var m = materials[ i ];
+            var m = materials[i];
             m.skinning = true;
             m.morphTargets = true;
 
-            m.specular.setHSL( 0, 0, 0.1 );
+            m.specular.setHSL(0, 0, 0.1);
 
-            m.color.setHSL( 0.6, 0, 0.6 );
-            m.ambient.copy( m.color );
+            m.color.setHSL(0.6, 0, 0.6);
+            m.ambient.copy(m.color);
 
             //m.map = map;
             //m.envMap = envMap;
@@ -205,20 +202,20 @@
 
         }
 
-        mesh = new THREE.SkinnedMesh( geometry, new THREE.MeshFaceMaterial( materials ) );
-        mesh.position.set( x, y - bb.min.y * s, z );
-        mesh.scale.set( s, s, s );
-        scene.add( mesh );
+        mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshFaceMaterial(materials));
+        mesh.position.set(x, y - bb.min.y * s, z);
+        mesh.scale.set(s, s, s);
+        scene.add(mesh);
 
         mesh.castShadow = true;
         mesh.receiveShadow = true;
 
-        helper = new THREE.SkeletonHelper( mesh );
+        helper = new THREE.SkeletonHelper(mesh);
         helper.material.linewidth = 3;
         helper.visible = false;
-        scene.add( helper );
+        scene.add(helper);
 
-        var animation = new THREE.Animation( mesh, geometry.animation );
+        var animation = new THREE.Animation(mesh, geometry.animation);
         animation.play();
 
     }
@@ -226,22 +223,22 @@
     function initGUI() {
 
         var API = {
-            'show model'    : true,
-            'show skeleton' : false
+            'show model': true,
+            'show skeleton': false
         };
 
         var gui = new dat.GUI();
 
-        gui.add( API, 'show model' ).onChange( function() { mesh.visible = API[ 'show model' ]; } );
+        gui.add(API, 'show model').onChange(function () { mesh.visible = API['show model']; });
 
-        gui.add( API, 'show skeleton' ).onChange( function() { helper.visible = API[ 'show skeleton' ]; } );
+        gui.add(API, 'show skeleton').onChange(function () { helper.visible = API['show skeleton']; });
 
     }
 
-    function onDocumentMouseMove( event ) {
+    function onDocumentMouseMove(event) {
 
-        mouseX = ( event.clientX - windowHalfX );
-        mouseY = ( event.clientY - windowHalfY );
+        mouseX = (event.clientX - windowHalfX);
+        mouseY = (event.clientY - windowHalfY);
 
     }
 
@@ -249,7 +246,7 @@
 
     function animate() {
 
-        requestAnimationFrame( animate );
+        requestAnimationFrame(animate);
 
         render();
         stats.update();
@@ -260,38 +257,38 @@
 
         var delta = 0.75 * clock.getDelta();
 
-        camera.position.x += ( mouseX - camera.position.x ) * .05;
-        camera.position.y = THREE.Math.clamp( camera.position.y + ( - mouseY - camera.position.y ) * .05, 0, 1000 );
+        camera.position.x += (mouseX - camera.position.x) * .05;
+        camera.position.y = THREE.Math.clamp(camera.position.y + (- mouseY - camera.position.y) * .05, 0, 1000);
 
-        camera.lookAt( scene.position );
+        camera.lookAt(scene.position);
 
         // update skinning
 
-        THREE.AnimationHandler.update( delta );
+        THREE.AnimationHandler.update(delta);
 
-        if ( helper !== undefined ) helper.update();
+        if (helper !== undefined) helper.update();
 
         // update morphs
 
-        if ( mesh ) {
+        if (mesh) {
 
             var time = Date.now() * 0.001;
 
             // mouth
 
-            mesh.morphTargetInfluences[ 1 ] = ( 1 + Math.sin( 4 * time ) ) / 2;
+            mesh.morphTargetInfluences[1] = (1 + Math.sin(4 * time)) / 2;
 
             // frown ?
 
-            mesh.morphTargetInfluences[ 2 ] = ( 1 + Math.sin( 2 * time ) ) / 2;
+            mesh.morphTargetInfluences[2] = (1 + Math.sin(2 * time)) / 2;
 
             // eyes
 
-            mesh.morphTargetInfluences[ 3 ] = ( 1 + Math.cos( 4 * time ) ) / 2;
+            mesh.morphTargetInfluences[3] = (1 + Math.cos(4 * time)) / 2;
 
         }
 
-        renderer.render( scene, camera );
+        renderer.render(scene, camera);
 
     }
 }

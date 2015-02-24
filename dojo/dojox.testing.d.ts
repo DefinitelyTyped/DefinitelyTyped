@@ -80,3 +80,7 @@ declare module dojox {
     }
 
 }
+declare module "dojox/testing/DocTest" {
+    var exp: dojox.testing.DocTest
+    export=exp;
+}

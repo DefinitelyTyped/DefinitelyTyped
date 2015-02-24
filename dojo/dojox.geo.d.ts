@@ -1045,7 +1045,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -1990,7 +1990,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -3538,7 +3538,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -4721,4 +4721,177 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/geo/charting/_base" {
+    var exp: dojox.geo.charting._base
+    export=exp;
+}
+declare module "dojox/geo/charting/_Marker" {
+    var exp: dojox.geo.charting._Marker
+    export=exp;
+}
+declare module "dojox/geo/charting/Feature" {
+    var exp: dojox.geo.charting.Feature
+    export=exp;
+}
+declare module "dojox/geo/charting/KeyboardInteractionSupport" {
+    var exp: dojox.geo.charting.KeyboardInteractionSupport
+    export=exp;
+}
+declare module "dojox/geo/charting/MouseInteractionSupport" {
+    var exp: dojox.geo.charting.MouseInteractionSupport
+    export=exp;
+}
+declare module "dojox/geo/charting/TouchInteractionSupport" {
+    var exp: dojox.geo.charting.TouchInteractionSupport
+    export=exp;
+}
+declare module "dojox/geo/charting/Map" {
+    var exp: dojox.geo.charting.Map
+    export=exp;
+}
+declare module "dojox/geo/charting/widget/Legend" {
+    var exp: dojox.geo.charting.widget.Legend
+    export=exp;
+}
+declare module "dojox/geo/charting/widget/Map" {
+    var exp: dojox.geo.charting.widget.Map
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base" {
+    var exp: dojox.geo.openlayers._base
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.Geometry" {
+    var exp: dojox.geo.openlayers._base.Geometry
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.Collection" {
+    var exp: dojox.geo.openlayers._base.Collection
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.Feature" {
+    var exp: dojox.geo.openlayers._base.Feature
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.JsonImport" {
+    var exp: dojox.geo.openlayers._base.JsonImport
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.GfxLayer" {
+    var exp: dojox.geo.openlayers._base.GfxLayer
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.LineString" {
+    var exp: dojox.geo.openlayers._base.LineString
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.Layer" {
+    var exp: dojox.geo.openlayers._base.Layer
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.GeometryFeature" {
+    var exp: dojox.geo.openlayers._base.GeometryFeature
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.Point" {
+    var exp: dojox.geo.openlayers._base.Point
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.Map" {
+    var exp: dojox.geo.openlayers._base.Map
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.TouchInteractionSupport" {
+    var exp: dojox.geo.openlayers._base.TouchInteractionSupport
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.WidgetFeature" {
+    var exp: dojox.geo.openlayers._base.WidgetFeature
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.__JsonImportArgs" {
+    var exp: dojox.geo.openlayers._base.__JsonImportArgs
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.__WidgetFeatureArgs" {
+    var exp: dojox.geo.openlayers._base.__WidgetFeatureArgs
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.__MapArgs" {
+    var exp: dojox.geo.openlayers._base.__MapArgs
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.BaseLayerType" {
+    var exp: dojox.geo.openlayers._base.BaseLayerType
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.GreatCircle" {
+    var exp: dojox.geo.openlayers._base.GreatCircle
+    export=exp;
+}
+declare module "dojox/geo/openlayers/_base.widget" {
+    var exp: dojox.geo.openlayers._base.widget
+    export=exp;
+}
+declare module "dojox/geo/openlayers/GreatCircle" {
+    var exp: dojox.geo.openlayers.GreatCircle
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Patch" {
+    var exp: dojox.geo.openlayers.Patch
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Collection" {
+    var exp: dojox.geo.openlayers.Collection
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Feature" {
+    var exp: dojox.geo.openlayers.Feature
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Geometry" {
+    var exp: dojox.geo.openlayers.Geometry
+    export=exp;
+}
+declare module "dojox/geo/openlayers/GfxLayer" {
+    var exp: dojox.geo.openlayers.GfxLayer
+    export=exp;
+}
+declare module "dojox/geo/openlayers/JsonImport" {
+    var exp: dojox.geo.openlayers.JsonImport
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Layer" {
+    var exp: dojox.geo.openlayers.Layer
+    export=exp;
+}
+declare module "dojox/geo/openlayers/LineString" {
+    var exp: dojox.geo.openlayers.LineString
+    export=exp;
+}
+declare module "dojox/geo/openlayers/GeometryFeature" {
+    var exp: dojox.geo.openlayers.GeometryFeature
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Point" {
+    var exp: dojox.geo.openlayers.Point
+    export=exp;
+}
+declare module "dojox/geo/openlayers/WidgetFeature" {
+    var exp: dojox.geo.openlayers.WidgetFeature
+    export=exp;
+}
+declare module "dojox/geo/openlayers/TouchInteractionSupport" {
+    var exp: dojox.geo.openlayers.TouchInteractionSupport
+    export=exp;
+}
+declare module "dojox/geo/openlayers/Map" {
+    var exp: dojox.geo.openlayers.Map
+    export=exp;
+}
+declare module "dojox/geo/openlayers/widget/Map" {
+    var exp: dojox.geo.openlayers.widget.Map
+    export=exp;
 }

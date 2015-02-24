@@ -20,7 +20,7 @@ navigator.getUserMedia({ audio: true, video: true },
 
 peerConnection.onaddstream = ev => console.log(ev.type);
 peerConnection.ondatachannel = ev => console.log(ev.type);
-peerConnection.onicechange = ev => console.log(ev.type);
+peerConnection.oniceconnectionstatechange = ev => console.log(ev.type);
 peerConnection.onnegotiationneeded = ev => console.log(ev.type);
 peerConnection.onopen = ev => console.log(ev.type);
 peerConnection.onicecandidate = ev => console.log(ev.type);
@@ -47,6 +47,38 @@ peerConnection.setRemoteDescription(sessionDescription, () => {
       error => console.log(
           "Error setting local description from created answer: " + error +
           "; answer.sdp=" + answer.sdp));
+    },
+  error => console.log("Error creating answer: " + error));
+},
+error => console.log('Error setting remote description: ' + error +
+    "; offer.sdp=" + offer.sdp));
+
+var webkitSessionDescription = new webkitRTCSessionDescription(offer);
+
+peerConnection.setRemoteDescription(webkitSessionDescription, () => {
+  peerConnection.createAnswer(
+    answer => {
+      peerConnection.setLocalDescription(answer,
+        () => console.log('Set local description'),
+      error => console.log(
+         "Error setting local description from created answer: " + error +
+         "; answer.sdp=" + answer.sdp));
+    },
+  error => console.log("Error creating answer: " + error));
+},
+error => console.log('Error setting remote description: ' + error +
+    "; offer.sdp=" + offer.sdp));
+
+var mozSessionDescription = new mozRTCSessionDescription(offer);
+
+peerConnection.setRemoteDescription(mozSessionDescription, () => {
+  peerConnection.createAnswer(
+    answer => {
+      peerConnection.setLocalDescription(answer,
+        () => console.log('Set local description'),
+      error => console.log(
+         "Error setting local description from created answer: " + error +
+         "; answer.sdp=" + answer.sdp));
     },
   error => console.log("Error creating answer: " + error));
 },

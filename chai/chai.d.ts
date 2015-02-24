@@ -12,8 +12,8 @@ declare module chai {
         stack: string;
     }
 
-    function expect(target: any, message?: string): Expect;
-    
+    export function expect(target: any, message?: string): Expect;
+
     export var assert: Assert;
     export var config: Config;
 
@@ -94,6 +94,7 @@ declare module chai {
         that: Expect;
         and: Expect;
         have: Expect;
+        has: Expect;
         with: Expect;
         at: Expect;
         of: Expect;

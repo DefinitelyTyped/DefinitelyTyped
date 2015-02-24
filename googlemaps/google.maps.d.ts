@@ -1263,8 +1263,8 @@ declare module google.maps {
         }
 
         export class poly {
-            containsLocation(point: LatLng, polygon: Polygon): boolean;
-            isLocationOnEdge(point: LatLng, poly: any, tolerance?: number): boolean;
+            static containsLocation(point: LatLng, polygon: Polygon): boolean;
+            static isLocationOnEdge(point: LatLng, poly: any, tolerance?: number): boolean;
         }
     }
 
@@ -1574,13 +1574,13 @@ declare module google.maps {
         }
 
         export interface HeatmapLayerOptions {
-            data: LatLng[];
-            dissipating: boolean;
-            gradient: string[];
-            map: Map;
-            maxIntensity: number;
-            opacity: number;
-            radius: number;
+            data: any;
+            dissipating?: boolean;
+            gradient?: string[];
+            map?: Map;
+            maxIntensity?: number;
+            opacity?: number;
+            radius?: number;
         }
 
         export interface WeightedLocation {

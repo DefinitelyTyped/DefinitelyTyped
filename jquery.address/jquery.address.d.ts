@@ -6,7 +6,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface JQueryAddressStatic {
-    ();
+    (): any;
     /**
      * Binds any supported event type to a function with support for an optional map of data.
      */

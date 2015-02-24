@@ -4,7 +4,6 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_camera_orthographic.html
 
 () => {
-
     var container, stats;
     var camera, scene, renderer;
 
@@ -47,10 +46,9 @@
 
         }
 
-        var material1 = new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 });
+        var material = new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 });
 
-        var line = new THREE.Line(geometry, material1);
-        line.type = THREE.LinePieces;
+        var line = new THREE.Line(geometry, material, THREE.LinePieces);
         scene.add(line);
 
         // Cubes
@@ -93,8 +91,8 @@
 
         renderer = new THREE.CanvasRenderer();
         renderer.setClearColor(0xf0f0f0);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         stats = new Stats();

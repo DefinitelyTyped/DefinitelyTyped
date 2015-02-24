@@ -494,6 +494,11 @@ interface ZeptoCollection {
 	appendTo(target: HTMLElement[]): ZeptoCollection;
 
 	/**
+	* @see ZeptoCollection.appendTo
+	**/
+	appendTo(target: ZeptoCollection): ZeptoCollection;
+
+	/**
 	* Read or set DOM attributes. When no value is given, reads specified attribute from the first element in the collection. When value is given, sets the attribute to that value on each element in the collection. When value is null, the attribute is removed (like with removeAttr). Multiple attributes can be set by passing an object with name-value pairs.
 	* To read DOM properties such as checked or selected, use prop.
 	* @param name
@@ -987,6 +992,12 @@ interface ZeptoCollection {
 	* @param content
 	**/
 	prependTo(content: HTMLElement[]): ZeptoCollection;
+
+        /**
+	* @see ZeptoCollection.prependTo
+	* @param content
+	**/
+	prependTo(content: ZeptoCollection): ZeptoCollection;
 
 	/**
 	* Get the previous sibling—optionally filtered by selector—of each element in the collection.
@@ -1569,13 +1580,20 @@ interface ZeptoAjaxSettings {
 	data?: any;
 	processData?: boolean;
 	contentType?: string;
+	mimeType?: string;
 	dataType?: string;
+	jsonp?: string;
+	jsonpCallback?: any; // string or Function
 	timeout?: number;
-	headers?: string;
+	headers?: { [key: string]: string };
 	async?: boolean;
 	global?: boolean;
 	context?: any;
 	traditional?: boolean;
+	cache?: boolean;
+	xhrFields?: { [key: string]: any };
+	username?: string;
+	password?: string;
 	beforeSend?: (xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => boolean;
 	success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
 	error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;

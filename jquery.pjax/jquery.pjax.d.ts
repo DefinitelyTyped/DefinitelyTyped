@@ -5,6 +5,16 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+/**
+ * Interface for pjax:popstate event.
+ */
+interface PjaxPopStateEventObject extends JQueryEventObject {
+    /**
+     * Navigation direction. Could be "back" or "forward".
+     */
+    direction: string
+}
+
 interface PjaxSettings extends JQueryAjaxSettings {
     /**
      * A jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
@@ -131,7 +141,7 @@ interface PjaxStatic {
     /**
      * Reload current page with pjax.
      */
-    reload(): JQueryXHR;
+    reload(container: string, options?: PjaxSettings): JQueryXHR;
 }
 
 interface JQuerySupport {
