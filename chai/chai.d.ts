@@ -251,25 +251,25 @@ declare module chai {
 
         lengthOf(exp: any, len: number, msg?: string):void;
         //alias frenzy
-        throw(fn: Function, msg?: string):void;
-        throw(fn: Function, regExp: RegExp):void;
-        throw(fn: Function, errType: Function, msg?: string):void;
-        throw(fn: Function, errType: Function, regExp: RegExp):void;
+        throw(fn: Function, msg?: string):Error;
+        throw(fn: Function, regExp: RegExp):Error;
+        throw(fn: Function, errType: Function, msg?: string):Error;
+        throw(fn: Function, errType: Function, regExp: RegExp):Error;
 
-        throws(fn: Function, msg?: string):void;
-        throws(fn: Function, regExp: RegExp):void;
-        throws(fn: Function, errType: Function, msg?: string):void;
-        throws(fn: Function, errType: Function, regExp: RegExp):void;
+        throws(fn: Function, msg?: string):Error;
+        throws(fn: Function, regExp: RegExp):Error;
+        throws(fn: Function, errType: Function, msg?: string):Error;
+        throws(fn: Function, errType: Function, regExp: RegExp):Error;
 
-        Throw(fn: Function, msg?: string):void;
-        Throw(fn: Function, regExp: RegExp):void;
-        Throw(fn: Function, errType: Function, msg?: string):void;
-        Throw(fn: Function, errType: Function, regExp: RegExp):void;
+        Throw(fn: Function, msg?: string):Error;
+        Throw(fn: Function, regExp: RegExp):Error;
+        Throw(fn: Function, errType: Function, msg?: string):Error;
+        Throw(fn: Function, errType: Function, regExp: RegExp):Error;
 
-        doesNotThrow(fn: Function, msg?: string):void;
-        doesNotThrow(fn: Function, regExp: RegExp):void;
-        doesNotThrow(fn: Function, errType: Function, msg?: string):void;
-        doesNotThrow(fn: Function, errType: Function, regExp: RegExp):void;
+        doesNotThrow(fn: Function, msg?: string):Error;
+        doesNotThrow(fn: Function, regExp: RegExp):Error;
+        doesNotThrow(fn: Function, errType: Function, msg?: string):Error;
+        doesNotThrow(fn: Function, errType: Function, regExp: RegExp):Error;
 
         operator(val: any, operator: string, val2: any, msg?: string):void;
         closeTo(act: number, exp: number, delta: number, msg?: string):void;
