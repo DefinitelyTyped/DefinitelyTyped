@@ -2,6 +2,7 @@
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../node/node.d.ts" />
 
 declare module yo {
   export interface IYeomanGenerator {
@@ -20,7 +21,7 @@ declare module yo {
     sourceRoot(rootPath: string): string;
   }
 
-	export class YeomanGeneratorBase implements IYeomanGenerator {
+	export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
 		argument(name: string, config: IArgumentConfig): void;
 		composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
 		defaultFor(name: string): void;
@@ -34,6 +35,14 @@ declare module yo {
 		run(args: any, callback?: Function): void;
 		runHooks(callback?: Function): void;
 		sourceRoot(rootPath: string): string;
+		addListener(event: string, listener: Function): NodeJS.EventEmitter;
+		on(event: string, listener: Function): NodeJS.EventEmitter;
+		once(event: string, listener: Function): NodeJS.EventEmitter;
+		removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+		removeAllListeners(event?: string): NodeJS.EventEmitter;
+		setMaxListeners(n: number): void;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
 	}
 
   export interface IArgumentConfig {
