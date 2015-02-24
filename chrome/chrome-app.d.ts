@@ -1,7 +1,9 @@
 ﻿// Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>
+// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path='../filesystem/filesystem.d.ts'/>
 
 ////////////////////
 // App Runtime
@@ -16,16 +18,16 @@ declare module chrome.app.runtime {
     }
 
     interface LaunchDataItem {
-        entry: File;
+        entry: FileEntry;
         type: string;
     }
 
     interface LaunchedEvent {
-        addListener(callback: (launchData: LaunchData) => void);
+        addListener(callback: (launchData: LaunchData) => void): void;
     }
 
     interface RestartedEvent {
-        addListener(callback: () => void);
+        addListener(callback: () => void): void;
     }
 
     var onLaunched: LaunchedEvent;
@@ -36,11 +38,63 @@ declare module chrome.app.runtime {
 // App Window
 ////////////////////
 declare module chrome.app.window {
-    interface Bounds {
+    interface ContentBounds {
         left?: number;
         top?: number;
         width?: number;
         height?: number;
+    }
+
+    interface BoundsSpecification {
+        left?: number;
+        top?: number;
+        width?: number;
+        height?: number;
+        minWidth?: number;
+        minHeight?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+    }
+
+    interface Bounds {
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+        minWidth?: number;
+        minHeight?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+        setPosition(left: number, top: number): void;
+        setSize(width: number, height: number): void;
+        setMinimumSize(minWidth: number, minHeight: number): void;
+        setMaximumSize(maxWidth: number, maxHeight: number): void;
+    }
+    interface FrameOptions {
+        type?: string;
+        color?: string;
+        activeColor?: string;
+        inactiveColor?: string;
+    }
+
+    interface CreateWindowOptions {
+        id?: string;
+        innerBounds?: BoundsSpecification;
+        outerBounds?: BoundsSpecification;
+        minWidth?: number;
+        minHeight?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+        frame?: any; // string ("none", "chrome") or FrameOptions
+        bounds?: ContentBounds;
+        alphaEnabled?: boolean;
+        state?: string; // "normal", "fullscreen", "maximized", "minimized" 
+        hidden?: boolean;
+        resizable?: boolean;
+        singleton?: boolean;
+        alwaysOnTop?: boolean;
+        focused?: boolean;
+        visibleOnAllWorkspaces?: boolean;
     }
 
     interface AppWindow {
@@ -59,27 +113,18 @@ declare module chrome.app.window {
         close: () => void;
         show: () => void;
         hide: () => void;
-        getBounds: () => Bounds;
-        setBounds: (bounds: Bounds) => void;
+        getBounds: () => ContentBounds;
+        setBounds: (bounds: ContentBounds) => void;
+        isAlwaysOnTop: () => boolean;
+        setAlwaysOnTop: (alwaysOnTop: boolean) => void;
+        setVisibleOnAllWorkspaces: (alwaysVisible: boolean) => void;
         contentWindow: Window;
+        id: string;
+        innerBounds: Bounds;
+        outerBounds: Bounds;
     }
 
-    interface CreateOptions {
-        id?: string;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        frame?: string; // "none", "chrome"
-        bounds?: Bounds;
-        transparentBackground?: boolean;
-        state?: string; // "normal", "fullscreen", "maximized", "minimized" 
-        hidden?: boolean;
-        resizable?: boolean;
-        singleton?: boolean;
-    }
-
-    export function create(url: string, options?: CreateOptions, callback?: (created_window: AppWindow) => void): void;
+    export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
     export function current(): AppWindow;
 
     interface WindowEvent {
@@ -94,6 +139,50 @@ declare module chrome.app.window {
     var onRestored: WindowEvent;
 }
 
+////////////////////
+// fileSystem
+////////////////////
+declare module chrome.fileSystem {
+
+    interface ChildChangeInfo {
+        entry: Entry;
+        type: string;
+    }
+
+    interface EntryChangedEvent {
+        target: Entry;
+        childChanges?: ChildChangeInfo[];
+    }
+
+    interface EntryRemovedEvent {
+        target: Entry;
+    }
+
+    interface AcceptOptions {
+        description?: string;
+        mimeTypes?: string[];
+        extensions?: string[];
+    }
+
+    interface ChooseEntryOptions {
+        type?: string;
+        suggestedName?: string;
+        accepts?: AcceptOptions[];
+        acceptsAllTypes?: boolean;
+        acceptsMultiple?: boolean;
+    }
+
+    export function getDisplayPath(entry: Entry, callback: (displayPath: string) => void): void;
+    export function getWritableEntry(entry: Entry, callback: (entry: Entry) => void): void;
+    export function isWritableEntry(entry: Entry, callback: (isWritable: boolean) => void): void;
+    export function chooseEntry(callback: (entry: Entry) => void): void;
+    export function chooseEntry(callback: (fileEntries: FileEntry[]) => void): void;
+    export function chooseEntry(options: ChooseEntryOptions, callback: (entry: Entry) => void): void;
+    export function chooseEntry(options: ChooseEntryOptions, callback: (fileEntries: FileEntry[]) => void): void;
+    export function restoreEntry(id: string, callback: (entry: Entry) => void): void;
+    export function isRestorable(id: string, callback: (isRestorable: boolean) => void): void;
+    export function retainEntry(entry: Entry): string;
+}
 
 ////////////////////
 // Sockets

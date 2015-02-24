@@ -72,7 +72,7 @@ declare class URI {
     segment(level: string): string;
     search(): string;
     search(qry: string): URI;
-    search(qry: boolean): Object;
+    search(qry: boolean): any;
     search(qry: Object): URI;
     query(): string;
     query(qry: string): URI;

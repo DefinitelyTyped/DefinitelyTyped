@@ -109,7 +109,7 @@ declare module Backbone {
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
-        initialize(attributes?: any): void;
+        initialize(attributes?: any, options?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -176,6 +176,7 @@ declare module Backbone {
         length: number;
 
         constructor(models?: TModel[], options?: any);
+        initialize(models?: TModel[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -241,7 +242,7 @@ declare module Backbone {
         last(): TModel;
         last(n: number): TModel[];
         lastIndexOf(element: TModel, fromIndex?: number): number;
-        map(iterator: (element: TModel, index: number, context?: any) => any[], context?: any): any[];
+        map(iterator: (element: TModel, index: number, context?: any) => any, context?: any): any[];
         max(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         min(iterator?: (element: TModel, index: number) => any, context?: any): TModel;
         reduce(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
@@ -274,11 +275,12 @@ declare module Backbone {
         * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        routes(): any;
+        routes: any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
         route(route: string, name: string, callback?: Function): Router;
+        route(route: RegExp, name: string, callback?: Function): Router;
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
@@ -309,14 +311,14 @@ declare module Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model> {
-        model?: TModel;
-        collection?: Backbone.Collection<TModel>;
-        el?: any;
-        id?: string;
-        className?: string;
-        tagName?: string;
-        attributes?: any[];
+   interface ViewOptions<TModel extends Model> {
+      model?: TModel;
+      collection?: Backbone.Collection<TModel>;
+      el?: any;
+      id?: string;
+      className?: string;
+      tagName?: string;
+      attributes?: {[id: string]: any};
     }
 
     class View<TModel extends Model> extends Events {
@@ -327,6 +329,7 @@ declare module Backbone {
         private static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
+        initialize(options?: ViewOptions<TModel>): void;
 
         /**
         * Events hash or a method returning the events hash that maps events/selectors to methods on your View.

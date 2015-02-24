@@ -1,4 +1,3 @@
-/// <reference path="../jquery/jquery.d.ts" />
 /// <reference path='jszip.d.ts' />
 
 var SEVERITY = {
@@ -10,30 +9,29 @@ var SEVERITY = {
 }
 
 function testJSZip() {
-
 	var newJszip = new JSZip();
 
 	newJszip.file("test.txt", "test string");
 	newJszip.file("test/test.txt", "test string");
 
-	var serializedZip = newJszip.generate({compression: "DEFLATE", type:"base64"});
+	var serializedZip = newJszip.generate({compression: "DEFLATE", type: "base64"});
 
 	newJszip = new JSZip();
 	newJszip.load(serializedZip, {base64: true, checkCRC32: true});
 
-	if(newJszip.file("test.txt").data === "test string") {
+    if (newJszip.file("test.txt").asText() === "test string") {
 		log(SEVERITY.INFO, "all ok");
 	} else {
 		log(SEVERITY.ERROR, "no matching file found");
 	}
-	if(newJszip.file("test/test.txt").data === "test string") {
+    if (newJszip.file("test/test.txt").asText() === "test string") {
 		log(SEVERITY.INFO, "all ok");
 	} else {
 		log(SEVERITY.ERROR, "no matching file found");
 	}
 
 	var folder = newJszip.folder("test");
-	if(folder.file("test.txt").data == "test string") {
+	if(folder.file("test.txt").asText() == "test string") {
 		log(SEVERITY.INFO, "all ok");
 	} 
 	else {
@@ -44,7 +42,7 @@ function testJSZip() {
 	
 	if(folders.length == 1) {
 		log(SEVERITY.INFO, "all ok");
-		if(folders[0].options.dir == true) {
+		if(folders[0].dir == true) {
 			log(SEVERITY.INFO, "all ok");
 		} 
 		else {
@@ -57,7 +55,7 @@ function testJSZip() {
 	var files = newJszip.file(new RegExp("^test"));
 	if(files.length == 2) {
 		log(SEVERITY.INFO, "all ok");
-		if(files[0].data == "test string" && files[1].data == "test string") {
+        if (files[0].asText() == "test string" && files[1].asText() == "test string") {
 			log(SEVERITY.INFO, "all ok");
 		}
 		else {
@@ -68,11 +66,11 @@ function testJSZip() {
 		log(SEVERITY.ERROR, "wrong number of files");
 	}
 
-	var filterFiles = newJszip.filter((relativePath: string, file: jszip.JSZipFile) => { 
-			if(file.data == "test string") {
-				return true;
-			}
-			return false;
+	var filterFiles = newJszip.filter((relativePath: string, file: JSZipObject) => { 
+        if (file.asText() == "test string") {
+			return true;
+		}
+		return false;
 	});
 
 	if(filterFiles.length == 2) {
@@ -84,11 +82,11 @@ function testJSZip() {
 
 	newJszip.remove("test/test.txt");
 
-	filterFiles = newJszip.filter((relativePath: string, file: jszip.JSZipFile) => { 
-			if(file.data == "test string") {
-				return true;
-			}
-			return false;
+	filterFiles = newJszip.filter((relativePath: string, file: JSZipObject) => { 
+        if (file.asText() == "test string") {
+			return true;
+		}
+		return false;
 	});
 
 	if(filterFiles.length == 1) {
@@ -97,11 +95,6 @@ function testJSZip() {
 	else {
 		log(SEVERITY.ERROR, "wrong number of files");
 	}
-
-	log(SEVERITY.INFO, newJszip.crc32("Test"));
-	log(SEVERITY.INFO, newJszip.utf8encode("Test"));
-	log(SEVERITY.INFO, newJszip.utf8decode("Test"));
-	newJszip.clone();
 }
 
 function log(severity:number, message: any) {

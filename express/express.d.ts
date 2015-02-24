@@ -78,6 +78,8 @@ declare module "express" {
             param(name: string, handler: RequestParamHandler): T;
             param(name: string, matcher: RegExp): T;
             param(name: string, mapper: (param: any) => any): T;
+            // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+            param(callback: (name: string, matcher: RegExp) => RequestParamHandler): T;
 
             /**
              * Special-cased "all" method, applying the given route `path`,
@@ -422,7 +424,22 @@ declare module "express" {
              * @param code
              */
             status(code: number): Response;
-
+            
+            /**
+             * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
+             * @link http://expressjs.com/4x/api.html#res.sendStatus
+             * 
+             * Examples:
+             * 
+             *    res.sendStatus(200); // equivalent to res.status(200).send('OK')
+             *    res.sendStatus(403); // equivalent to res.status(403).send('Forbidden')
+             *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
+             *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
+             * 
+             * @param code
+             */
+            sendStatus(code: number): Response;
+            
             /**
              * Set Link header field with the given `links`.
              *
@@ -664,6 +681,9 @@ declare module "express" {
             header(field: any): Response;
             header(field: string, value?: string): Response;
 
+            // Property indicating if HTTP headers has been sent for the response.
+            headersSent: boolean;
+
             /**
              * Get value for header `field`.
              *
@@ -833,15 +853,18 @@ declare module "express" {
              *    app.set('foo', 'bar');
              *    app.get('foo');
              *    // => "bar"
+             *    app.set('foo', ['bar', 'baz']);
+             *    app.get('foo');
+             *    // => ["bar", "baz"]
              *
              * Mounted servers inherit their parent server's settings.
              *
              * @param setting
              * @param val
              */
-            set(setting: string, val: string): Application;
+            set(setting: string, val: any): Application;
             get: {
-                (name: string): string; // Getter
+                (name: string): any; // Getter
                 (name: string, ...handlers: RequestHandler[]): Application;
                 (name: RegExp, ...handlers: RequestHandler[]): Application;
             };

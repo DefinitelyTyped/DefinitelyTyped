@@ -178,7 +178,7 @@ declare module "mongodb" {
   // Current definition by documentation version 1.3.13 (28.08.2013)
   export interface DbCreateOptions {
     //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
-    w?: string;
+    w?: any;
 
     // set the timeout for waiting for write concern to finish (combines with w option).
     wtimeout?: number;
@@ -253,9 +253,49 @@ declare module "mongodb" {
     pkFactory?: PKFactory;
   }
 
+  // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
+  export interface CollStats {
+    // Namespace.
+    ns: string;
+
+    // Number of documents.
+    count: number;
+
+    // Collection size in bytes.
+    size: number;
+
+    // Average object size in bytes.
+    avgObjSize: number;
+
+    // (Pre)allocated space for the collection in bytes.
+    storageSize: number;
+
+    // Number of extents (contiguously allocated chunks of datafile space).
+    numExtents: number;
+
+    // Number of indexes.
+    nindexes: number;
+
+    // Size of the most recently created extent in bytes.
+    lastExtentSize: number;
+
+    // Padding can speed up updates if documents grow.
+    paddingFactor: number;
+    flags: number;
+
+     // Total index size in bytes.
+    totalIndexSize: number;
+
+    // Size of specific indexes in bytes.
+    indexSizes: {
+            _id_: number;
+            username: number;
+    };
+  }
+
   // Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
   export interface Collection {
-    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions);
+    new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions): Collection; // is this right?
 
     insert(query: any, callback: (err: Error, result: any) => void): void;
     insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
@@ -272,11 +312,11 @@ declare module "mongodb" {
     update(selector: Object, document: any, options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
 
     distinct(key: string, query: Object, callback: (err: Error, result: any) => void): void;
-    distinct(key: string, query: Object, options: { readPreferences: string; }, callback: (err: Error, result: any) => void): void;
+    distinct(key: string, query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
 
     count(callback: (err: Error, result: any) => void): void;
     count(query: Object, callback: (err: Error, result: any) => void): void;
-    count(query: Object, options: { readPreferences: string; }, callback: (err: Error, result: any) => void): void;
+    count(query: Object, options: { readPreference: string; }, callback: (err: Error, result: any) => void): void;
 
     drop(callback?: (err: Error, result: any) => void): void;
 
@@ -326,8 +366,8 @@ declare module "mongodb" {
     indexes(callback: Function): void;
     aggregate(pipeline: any[], callback: (err: Error, results: any) => void): void;
     aggregate(pipeline: any[], options: {readPreference: string}, callback: (err: Error, results: any) => void): void;
-    stats(options: {readPreference: string; scale: number}, callback: Function): void;
-    stats(callback: (err: Error, results: any) => void): void;
+    stats(options: {readPreference: string; scale: number}, callback: (err: Error, results: CollStats) => void): void;
+    stats(callback: (err: Error, results: CollStats) => void): void;
 
     hint: any;
   }
@@ -429,7 +469,7 @@ declare module "mongodb" {
     showDiskLoc?: boolean;
     comment?: String;
     raw?: boolean;
-    readPreferences?: String;
+    readPreference?: String;
     partial?: boolean;
   }
 
@@ -438,6 +478,6 @@ declare module "mongodb" {
     serializeFunctions?: any;
     raw?: boolean;
     pkFactory?: any;
-    readPreferences?: string;
+    readPreference?: string;
   }
 }

@@ -61,7 +61,7 @@ declare module 'request' {
 			uri?: string;
 			callback?: (error: any, response: any, body: any) => void;
 			jar?: any; // CookieJar
-			form?: FormData;
+			form?: any; // Object or string
 			oauth?: OAuthOptions;
 			aws?: AWSOptions;
 			hawk ?: HawkOptions;
@@ -109,6 +109,8 @@ declare module 'request' {
 			aws(opts: AWSOptions, now?: boolean): Request;
 			oauth(oauth: OAuthOptions): Request;
 			jar(jar: CookieJar): Request;
+
+			on(event: string, listener: Function): Request;
 
 			write(buffer: Buffer, cb?: Function): boolean;
 			write(str: string, cb?: Function): boolean;

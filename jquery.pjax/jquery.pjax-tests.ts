@@ -39,7 +39,7 @@ function test_disable() {
 }
 
 function test_reload() {
-    $.pjax.reload();
+    $.pjax.reload("#pjax-container");
 }
 
 function test_defauluts() {
@@ -57,4 +57,12 @@ function test_defauluts() {
 
 function test_support() {
     console.log($.support.pjax);
+}
+
+function test_events() {
+	$(document).on('pjax:popstate', function(e: PjaxPopStateEventObject) {
+		if (e.direction === 'back') {
+			console.log('pjax:popstate is OK');
+		}
+	});
 }

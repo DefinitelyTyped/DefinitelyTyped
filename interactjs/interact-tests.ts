@@ -103,5 +103,6 @@ interact.deltaSource("page");
 interact.restrict({
     "drag": rectangle,
     "resize": rectangle,
-    "gesture": rectangle
+    "gesture": rectangle,
+    "elementRect": { top: 0, left: 0, bottom: 1, right: 1 }
 });

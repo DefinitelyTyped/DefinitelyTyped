@@ -134,7 +134,7 @@ interface KnockoutValidationStatic {
 
 interface KnockoutStatic {
     validation: KnockoutValidationStatic;
-    validatedObservable(initialValue: any): KnockoutObservable<any>;
+    validatedObservable<T>(initialValue?: T): KnockoutObservable<T>;
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
@@ -142,7 +142,10 @@ interface KnockoutSubscribableFunctions<T> {
     isValid: KnockoutComputed<boolean>;
     isValidating: KnockoutObservable<boolean>;
     rules: KnockoutObservableArray<KnockoutValidationRule>;
-    isModified(val: boolean): void;
+    isModified: KnockoutObservable<boolean>;
+    error: KnockoutComputed<string>;
+    setError(error: string): void;
+    clearError(): void;
 }
 
 declare module "knockout.validation" {
