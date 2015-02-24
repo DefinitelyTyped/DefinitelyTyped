@@ -80,7 +80,6 @@ declare module yo {
   }
 
   export interface IBase extends INamedBase {
-  	extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
   }
 
   export interface IAssert {
@@ -144,12 +143,12 @@ declare module yo {
   var test: ITestHelper;
   module generators {
 
-	  export class Namedbase extends YeomanGeneratorBase implements INamedBase {
+	  export class NamedBase extends YeomanGeneratorBase implements INamedBase {
 		  constructor(args: string | string[], options: any);
 	  }
 
-	  export class Base extends Namedbase implements IBase {
-		  extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
+	  export class Base extends NamedBase implements IBase {
+		  static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
 	  }
   }
 }
