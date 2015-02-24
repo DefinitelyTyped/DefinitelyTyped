@@ -230,6 +230,7 @@ declare module chai {
 
         include(exp: string, inc: any, msg?: string):void;
         include(exp: any[], inc: any, msg?: string):void;
+        include(exp: Object, inc: any, msg?: string):void;
 
         notInclude(exp: string, inc: any, msg?: string):void;
         notInclude(exp: any[], inc: any, msg?: string):void;
