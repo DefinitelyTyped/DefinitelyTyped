@@ -83,14 +83,6 @@ declare module yo {
   	extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
   }
 
-  export class Namedbase extends YeomanGeneratorBase implements INamedBase {
-  	constructor(args: string | string[], options: any);
-  }
-
-  export class Base extends Namedbase implements IBase {
-  	extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
-  }
-
   export interface IAssert {
     file(path: string): void;
     file(paths: string[]): void;
@@ -150,10 +142,16 @@ declare module yo {
   var file: any;
   var assert: IAssert;
   var test: ITestHelper;
-  var generators: {
-    Base: IBase;
-    NamedBase: INamedBase;
-  };
+  module generators {
+
+	  export class Namedbase extends YeomanGeneratorBase implements INamedBase {
+		  constructor(args: string | string[], options: any);
+	  }
+
+	  export class Base extends Namedbase implements IBase {
+		  extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
+	  }
+  }
 }
 
 declare module "yeoman-generator" {
