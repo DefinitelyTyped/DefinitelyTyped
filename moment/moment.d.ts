@@ -227,6 +227,7 @@ declare module moment {
 
         toDate(): Date;
         toISOString(): string;
+        toJSON(): string;
         unix(): number;
 
         isLeapYear(): boolean;
