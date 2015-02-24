@@ -1,3 +1,5 @@
+/// <reference path="zip.js.d.ts" />
+
 // create the blob object storing the data to compress
 var blob: Blob = new Blob([ "Lorem ipsum dolor sit amet, consectetuer adipiscing elit..." ], {
   type : "text/plain"
@@ -38,6 +40,6 @@ function unzipBlob(blob: Blob, callback: (unzippedBlob: Blob) => void) {
   }, theErrorHandler);
 }
 
-function theErrorHandler(message) {
+function theErrorHandler(message: any) {
   console.error(message);
 }
