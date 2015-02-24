@@ -76,15 +76,19 @@ declare module yo {
     end: () => void;
   }
 
-  export interface IBase {
-    new(args: string, options: any): IYeomanGenerator;
-    new(args: string[], options: any): IYeomanGenerator;
-    extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
+  export interface INamedBase extends IYeomanGenerator {
   }
 
-  export interface INamedBase {
-    new(args: string, options: any): IYeomanGenerator;
-    new(args: string[], options: any): IYeomanGenerator;
+  export interface IBase extends INamedBase {
+  	extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
+  }
+
+  export class Namedbase extends YeomanGeneratorBase implements INamedBase {
+  	constructor(args: string | string[], options: any);
+  }
+
+  export class Base extends Namedbase implements IBase {
+  	extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
   }
 
   export interface IAssert {
