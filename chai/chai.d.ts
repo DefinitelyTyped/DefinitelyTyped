@@ -290,6 +290,7 @@ declare module chai {
         decreases(func: Function, object: Object, property: string, message?: string):void;
         doesNotDecrease(func: Function, object: Object, property: string, message?: string):void;
 
+        // Undocumented & untested
         ifError(val: any, msg?: string):void;
     }
 }
