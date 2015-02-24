@@ -1,6 +1,6 @@
 /// <reference path="webcola.d.ts"/>
 module WebColaTests {
-  var adaptor = cola.adaptor({
+  var adaptor = new cola.adaptor({
     trigger: function() {
     },
     kick: function() {
@@ -23,8 +23,9 @@ module WebColaTests {
     .flowLayout('y', 0);
 
   adaptor.start(1, 2, 3);
-  adaptor.dragstart({});
-  adaptor.dragend({});
   adaptor.stop();
   adaptor.resume();
+
+  cola.colaDragstart({});
+  cola.colaDragend({});
 }
