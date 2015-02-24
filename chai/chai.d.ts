@@ -198,6 +198,9 @@ declare module chai {
         isTrue(val: any, msg?: string):void;
         isFalse(val: any, msg?: string):void;
 
+        isAbove(valueToCheck: any, valueToBeAbove: any, message?: string):void;
+        isBelow(valueToCheck: any, valueToBeBelow: any, message?: string):void;
+
         isNull(val: any, msg?: string):void;
         isNotNull(val: any, msg?: string):void;
 
@@ -275,7 +278,17 @@ declare module chai {
         closeTo(act: number, exp: number, delta: number, msg?: string):void;
 
         sameMembers(set1: any[], set2: any[], msg?: string):void;
+        sameDeepMembers(set1: any[], set2: any[], message?: string):void;
         includeMembers(set1: any[], set2: any[], msg?: string):void;
+
+        changes(func: Function, object: Object, property: string, message?: string):void;
+        doesNotChange(func: Function, object: Object, property: string, message?: string):void;
+
+        increases(func: Function, object: Object, property: string, message?: string):void;
+        doesNotIncrease(func: Function, object: Object, property: string, message?: string):void;
+
+        decreases(func: Function, object: Object, property: string, message?: string):void;
+        doesNotDecrease(func: Function, object: Object, property: string, message?: string):void;
 
         ifError(val: any, msg?: string):void;
     }
