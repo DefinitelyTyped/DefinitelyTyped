@@ -704,7 +704,7 @@ declare module D3 {
         * @param string delimited formatted string to parse
         * @param accessor to modify properties of each row
         */
-        parse(string: string, accessor?: (row: any) => any): any[];
+        parse(string: string, accessor?: (row: any, index?: number) => any): any[];
         /**
         * Parse a delimited string into tuples, ignoring the header row.
         *
