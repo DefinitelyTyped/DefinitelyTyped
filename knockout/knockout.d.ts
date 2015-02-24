@@ -118,6 +118,7 @@ interface KnockoutBindingContext {
     $parents: any[];
     $root: any;
     $data: any;
+    $rawData: any | KnockoutObservable<any>;
     $index?: KnockoutObservable<number>;
     $parentContext?: KnockoutBindingContext;
 
