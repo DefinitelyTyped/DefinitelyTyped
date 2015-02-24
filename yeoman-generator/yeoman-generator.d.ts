@@ -20,6 +20,22 @@ declare module yo {
     sourceRoot(rootPath: string): string;
   }
 
+	export class YeomanGeneratorBase implements IYeomanGenerator {
+		argument(name: string, config: IArgumentConfig): void;
+		composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
+		defaultFor(name: string): void;
+		destinationRoot(rootPath: string): string;
+		determineAppname(): void;
+		getCollisionFilter(): (output: any) => void;
+		hookFor(name: string, config: IHookConfig): void;
+		option(name: string, config: IYeomanGeneratorOption): void;
+		rootGeneratorName(): string;
+		run(args?: any): void;
+		run(args: any, callback?: Function): void;
+		runHooks(callback?: Function): void;
+		sourceRoot(rootPath: string): string;
+	}
+
   export interface IArgumentConfig {
     desc: string;
     required: boolean;
