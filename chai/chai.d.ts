@@ -179,6 +179,7 @@ declare module chai {
 
     export interface Assert {
         (express: any, msg?: string):void;
+        (express: any, msg?: (any) => string):void;
 
         fail(actual?: any, expected?: any, msg?: string, operator?: string):void;
 
