@@ -44,7 +44,7 @@ declare module SocketIO {
 
     interface Namespace extends NodeJS.EventEmitter {
         name: string;
-        connected: { [id: number]: Socket };
+        connected: { [id: string]: Socket };
         use(fn: Function): Namespace
 
         on(event: 'connection', listener: (socket: Socket) => void): any;
@@ -68,7 +68,7 @@ declare module SocketIO {
         broadcast: Socket;
         volatile: Socket;
         connected: boolean;
-        disconnect(close: boolean): Socket;
+        disconnect(close?: boolean): Socket;
     }
 
     interface Client {
