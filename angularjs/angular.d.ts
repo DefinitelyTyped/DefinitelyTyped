@@ -1024,7 +1024,7 @@ declare module ng {
             // Not garanteed to have, since it's a non-mandatory option
             //capacity: number;
         };
-        put(key: string, value?: any): void;
+        put<T>(key: string, value?: T): T;
         get(key: string): any;
         remove(key: string): void;
         removeAll(): void;
@@ -1501,7 +1501,7 @@ declare module ng {
     // see http://docs.angularjs.org/api/ng.$animate
     ///////////////////////////////////////////////////////////////////////
     interface IAnimateService {
-        addClass(element: JQuery, className: string, done?: Function): void;
+        addClass(element: JQuery, className: string, done?: Function): IPromise<any>;
         enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
         leave(element: JQuery, done?: Function): void;
         move(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
