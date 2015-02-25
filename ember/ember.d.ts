@@ -14,14 +14,14 @@ declare module EmberStates {
         targetName: string;
         urlMethod: string;
         intent: any;
-        params: {};
+        params: any;
         pivotHandler: any;
         resolveIndex: number;
         handlerInfos: any;
-        resolvedModels: {};
+        resolvedModels: any;
         isActive: boolean;
         state: any;
-        queryParams: {};
+        queryParams: any;
         queryParamsOnly: boolean;
 
         isTransition: boolean;
@@ -1581,6 +1581,7 @@ declare module Ember {
         Creates a subclass of the Object class.
         **/
         static extend<T>(arguments?: CoreObjectArguments): T;
+        static extend<T>(mixins? : Mixin, arguments?: CoreObjectArguments): T;
         /**
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
@@ -2378,6 +2379,247 @@ declare module Em {
     /**
     Alias for jQuery.
     **/
+    var $: typeof Ember.$;
+    var A: typeof Ember.A;
+    class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
+    class Application extends Ember.Application { }
+    class Array extends Ember.Array { }
+    class ArrayController extends Ember.ArrayController { }
+    var ArrayPolyfills: typeof Ember.ArrayPolyfills;
+    class ArrayProxy extends Ember.ArrayProxy { }
+    var BOOTED: typeof Ember.BOOTED;
+    class Binding extends Ember.Binding { }
+    class Button extends Ember.Button { }
+    class Checkbox extends Ember.Checkbox { }
+    class CollectionView extends Ember.CollectionView { }
+    class Comparable extends Ember.Comparable { }
+    class Component extends Ember.Component { }
+    class ComputedProperty extends Ember.ComputedProperty { }
+    class Container extends Ember.Container { }
+    class ContainerView extends Ember.ContainerView { }
+    class Controller extends Ember.Controller { }
+    class ControllerMixin extends Ember.ControllerMixin { }
+    class Copyable extends Ember.Copyable { }
+    class CoreObject extends Ember.CoreObject { }
+    class CoreView extends Ember.CoreView { }
+    class DAG extends Ember.DAG { }
+    var DEFAULT_GETTER_FUNCTION: typeof Ember.DEFAULT_GETTER_FUNCTION;
+    class DefaultResolver extends Ember.DefaultResolver { }
+    class Deffered extends Ember.Deferred { }
+    class DeferredMixin extends Ember.DeferredMixin { }
+    class Descriptor extends Ember.Descriptor { }
+    var EMPTY_META: typeof Ember.EMPTY_META;
+    var ENV: typeof Ember.ENV;
+    var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
+    class EachProxy extends Ember.EachProxy { }
+    class Enumerable extends Ember.Enumerable { }
+    var EnumerableUtils: typeof Ember.EnumerableUtils;
+    var Error: typeof Ember.Error;
+    class EventDispatcher extends Ember.EventDispatcher { }
+    class Evented extends Ember.Evented { }
+    var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
+    class Freezable extends Ember.Freezable { }
+    var GUID_KEY: typeof Ember.GUID_KEY;
+    module Handlebars {
+        var compile: typeof Ember.Handlebars.compile;
+        var get: typeof Ember.Handlebars.get;
+        var helper: typeof Ember.Handlebars.helper;
+        class helpers extends Ember.Handlebars.helpers { }
+        var precompile: typeof Ember.Handlebars.precompile;
+        var registerBoundHelper: typeof Ember.Handlebars.registerBoundHelper;
+        class Compiler extends Ember.Handlebars.Compiler { }
+        class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler { }
+        var registerHelper: typeof Ember.Handlebars.registerHelper;
+        var registerPartial: typeof Ember.Handlebars.registerPartial;
+        var K: typeof Ember.Handlebars.K;
+        var createFrame: typeof Ember.Handlebars.createFrame;
+        var Exception: typeof Ember.Handlebars.Exception;
+        class SafeString extends Ember.Handlebars.SafeString { }
+        var parse: typeof Ember.Handlebars.parse;
+        var print: typeof Ember.Handlebars.print;
+        var logger: typeof Ember.Handlebars.logger;
+        var log: typeof Ember.Handlebars.log;
+    }
+    class HashLocation extends Ember.HashLocation { }
+    class HistoryLocation extends Ember.HistoryLocation { }
+    var IS_BINDING: typeof Ember.IS_BINDING;
+    class Instrumentation extends Ember.Instrumentation { }
+    var K: typeof Ember.K;
+    var LOG_BINDINGS: typeof Ember.LOG_BINDINGS;
+    var LOG_STACKTRACE_ON_DEPRECATION: typeof Ember.LOG_STACKTRACE_ON_DEPRECATION;
+    var LOG_VERSION: typeof Ember.LOG_VERSION;
+    class LinkView extends Ember.LinkView { }
+    class Location extends Ember.Location { }
+    var Logger: typeof Ember.Logger;
+    var MANDATORY_SETTER_FUNCTION: typeof Ember.MANDATORY_SETTER_FUNCTION;
+    var META_KEY: typeof Ember.META_KEY;
+    class Map extends Ember.Map { }
+    class MapWithDefault extends Ember.MapWithDefault { }
+    class Mixin extends Ember.Mixin { }
+    class MutableArray extends Ember.MutableArray { }
+    class MutableEnumerable extends Ember.MutableEnumberable { }
+    var NAME_KEY: typeof Ember.NAME_KEY;
+    class Namespace extends Ember.Namespace { }
+    class NativeArray extends Ember.NativeArray { }
+    class NoneLocation extends Ember.NoneLocation { }
+    var ORDER_DEFINITION: typeof Ember.ORDER_DEFINITION;
+    class Object extends Ember.Object { }
+    class ObjectController extends Ember.ObjectController { }
+    class ObjectProxy extends Ember.ObjectProxy { }
+    class Observable extends Ember.Observable { }
+    class OrderedSet extends Ember.OrderedSet { }
+    module RSVP {
+        class Promise extends Ember.RSVP.Promise { }
+    }
+    class RenderBuffer extends Ember.RenderBuffer { }
+    class Route extends Ember.Route { }
+    class Router extends Ember.Router { }
+    class RouterDSL extends Ember.RouterDSL { }
+    var SHIM_ES5: typeof Ember.SHIM_ES5;
+    var STRINGS: typeof Ember.STRINGS;
+    class Select extends Ember.Select { }
+    class SelectOption extends Ember.SelectOption { }
+    class Set extends Ember.Set { }
+    class SortableMixin extends Ember.SortableMixin { }
+    class State extends Ember.State { }
+    class StateManager extends Ember.StateManager { }
+    module String {
+        var camelize: typeof Ember.String.camelize;
+        var capitalize: typeof Ember.String.capitalize;
+        var classify: typeof Ember.String.classify;
+        var dasherize: typeof Ember.String.dasherize;
+        var decamelize: typeof Ember.String.decamelize;
+        var fmt: typeof Ember.String.fmt;
+        var htmlSafe: typeof Ember.String.htmlSafe;
+        var loc: typeof Ember.String.loc;
+        var underscore: typeof Ember.String.underscore;
+        var w: typeof Ember.String.w;
+    }
+    var TEMPLATES: typeof Ember.TEMPLATES;
+    class TargetActionSupport extends Ember.TargetActionSupport { }
+    class Test extends Ember.Test { }
+    class TextArea extends Ember.TextArea { }
+    class TextField extends Ember.TextField { }
+    class TextSupport extends Ember.TextSupport { }
+    var VERSION: typeof Ember.VERSION;
+    class View extends Ember.View { }
+    class ViewTargetActionSupport extends Ember.ViewTargetActionSupport { }
+    var ViewUtils: typeof Ember.ViewUtils;
+    var addBeforeObserver: typeof Ember.addBeforeObserver;
+    var addListener: typeof Ember.addListener;
+    var addObserver: typeof Ember.addObserver;
+    var alias: typeof Ember.alias;
+    var aliasMethod: typeof Ember.aliasMethod;
+    var anyUnprocessedMixins: typeof Ember.anyUnprocessedMixins;
+    var assert: typeof Ember.assert;
+    var beforeObserver: typeof Ember.beforeObserver;
+    var beforeObserversFor: typeof Ember.beforeObserversFor;
+    var beginPropertyChanges: typeof Ember.beginPropertyChanges;
+    var bind: typeof Ember.bind;
+    var cacheFor: typeof Ember.cacheFor;
+    var canInvoke: typeof Ember.canInvoke;
+    var changeProperties: typeof Ember.changeProperties;
+    var compare: typeof Ember.compare;
+    var computed: typeof Ember.computed;
+    var config: typeof Ember.config;
+    var controllerFor: typeof Ember.controllerFor;
+    var copy: typeof Ember.copy;
+    var create: typeof Ember.create;
+    var debug: typeof Ember.debug;
+    var defineProperty: typeof defineProperty;
+    var deprecate: typeof deprecate;
+    var deprecateFunc: typeof deprecateFunc;
+    var destroy: typeof Ember.destroy;
+    var empty: typeof deprecateFunc;
+    var endPropertyChanges: typeof Ember.endPropertyChanges;
+    var exports: typeof Ember.exports;
+    var finishChains: typeof Ember.finishChains;
+    var flushPendingChains: typeof Ember.flushPendingChains;
+    var generateController: typeof Ember.generateController;
+    var generateGuid: typeof Ember.generateGuid;
+    var get: typeof Ember.get;
+    var getMeta: typeof Ember.getMeta;
+    var getPath: typeof Ember.getPath;
+    var getWithDefault: typeof Ember.getWithDefault;
+    var guidFor: typeof Ember.guidFor;
+    var handleErrors: typeof Ember.handleErrors;
+    var hasListeners: typeof Ember.hasListeners;
+    var hasOwnProperty: typeof Ember.hasOwnProperty;
+    var immediateObserver: typeof immediateObserver;
+    var imports: typeof Ember.imports;
+    var inspect: typeof Ember.inspect;
+    var instrument: typeof Ember.instrument;
+    var isArray: typeof Ember.isArray;
+    var isEmpty: typeof Ember.isEmpty;
+    var isEqual: typeof Ember.isEqual;
+    var isGlobalPath: typeof Ember.isGlobalPath;
+    var isNamespace: typeof Ember.isNamespace;
+    var isNone: typeof Ember.isNone;
+    var isPrototypeOf: typeof Ember.isPrototypeOf;
+    var isWatching: typeof Ember.isWatching;
+    var keys: typeof Ember.keys;
+    var listenersDiff: typeof Ember.listenersDiff;
+    var listenersFor: typeof Ember.listenersFor;
+    var listenersUnion: typeof Ember.listenersUnion;
+    var lookup: typeof Ember.lookup;
+    var makeArray: typeof Ember.makeArray;
+    var merge: typeof Ember.merge;
+    var meta: typeof Ember.meta;
+    var metaPath: typeof Ember.metaPath;
+    var mixin: typeof Ember.mixin;
+    var none: typeof Ember.none;
+    var normalizeTuple: typeof Ember.normalizeTuple;
+    var observer: typeof Ember.observer;
+    var observersFor: typeof Ember.observersFor;
+    var onLoad: typeof Ember.onLoad;
+    var oneWay: typeof Ember.oneWay;
+    var onError: typeof Ember.onError;
+    var overrideChains: typeof Ember.overrideChains;
+    var platform: typeof Ember.platform;
+    var propertyDidChange: typeof Ember.propertyDidChange;
+    var propertyIsEnumerable: typeof Ember.propertyIsEnumerable;
+    var propertyWillChange: typeof Ember.propertyWillChange;
+    var removeBeforeObserver: typeof Ember.removeBeforeObserver;
+    var removeChainWatcher: typeof Ember.removeChainWatcher;
+    var removeListener: typeof Ember.removeListener;
+    var removeObserver: typeof Ember.removeObserver;
+    var required: typeof Ember.required;
+    var rewatch: typeof Ember.rewatch;
+    var run: typeof Ember.run;
+    var runLoadHooks: typeof Ember.runLoadHooks;
+    var sendEvent: typeof Ember.sendEvent;
+    var set: typeof Ember.set;
+    var setMeta: typeof Ember.setMeta;
+    var setPath: typeof Ember.setPath;
+    var setProperties: typeof Ember.setProperties;
+    var subscribe: typeof Ember.subscribe;
+    var toLocaleString: typeof Ember.toLocaleString;
+    var toString: typeof Ember.toString;
+    var tryCatchFinally: typeof Ember.tryCatchFinally;
+    var tryFinally: typeof Ember.tryFinally;
+    var tryInvoke: typeof Ember.tryInvoke;
+    var trySet: typeof Ember.trySet;
+    var trySetPath: typeof Ember.trySetPath;
+    var typeOf: typeof Ember.typeOf;
+    var unwatch: typeof Ember.unwatch;
+    var unwatchKey: typeof Ember.unwatchKey;
+    var unwatchPath: typeof Ember.unwatchPath;
+    var uuid: typeof Ember.uuid;
+    var valueOf: typeof Ember.valueOf;
+    var warn: typeof Ember.warn;
+    var watch: typeof Ember.watch;
+    var watchKey: typeof Ember.watchKey;
+    var watchPath: typeof Ember.watchPath;
+    var watchedEvents: typeof Ember.watchedEvents;
+    var wrap: typeof Ember.wrap;
+}
+
+/**
+ * External ambient module - to allow "import Ember = require('Ember');" to work correctly
+ */
+
+declare module "Ember" {
+
     var $: typeof Ember.$;
     var A: typeof Ember.A;
     class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
