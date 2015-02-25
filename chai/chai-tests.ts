@@ -3,6 +3,12 @@
 
 declare var err: Function;
 
+declare class Buffer {
+    constructor(array?: any[]);
+}
+
+import chai = require('chai');
+
 describe('assert', function () {
     var assert = chai.assert;
 
@@ -788,7 +794,7 @@ describe('expect', function () {
     });
 
     it('arguments', function(){
-        var args = (function(){ return arguments; })(1,2,3);
+        var args = (function(...rest){ return arguments; })(1,2,3);
         expect(args).to.be.arguments;
         expect([]).to.not.be.arguments;
         expect(args).to.be.an('arguments').and.be.arguments;
@@ -811,7 +817,7 @@ describe('expect', function () {
             expect('test').to.not.be.a('string');
         }, "expected 'test' not to be a string");
 
-        (function () {
+        (function (...rest) {
             expect(arguments).to.be.an('arguments');
         })(1, 2);
 
@@ -1344,16 +1350,6 @@ describe('expect', function () {
             expect({ foo: 1 }).to.contain.keys([]);
         }, "keys required");
 
-        var mixedArgsMsg = 'keys must be given single argument of Array|Object|String, or multiple String arguments'
-
-        err(function(){
-            expect({}).contain.keys(['a'], "b");
-        }, mixedArgsMsg);
-
-        err(function(){
-            expect({}).contain.keys({ 'a': 1 }, "b");
-        }, mixedArgsMsg);
-
         err(function(){
             expect({ foo: 1 }).to.have.keys(['bar']);
         }, "expected { foo: 1 } to have key 'bar'");
@@ -1594,17 +1590,16 @@ describe('expect', function () {
         }, "blah: expected [Function] to throw error including 'hello' but got 'testing'");
 
         err(function () {
-            (customErrFn).should.not.throw();
+            expect(customErrFn).to.not.throw();
         }, "expected [Function] to not throw an error but 'CustomError: foo' was thrown");
     });
 
     it('respondTo', function(){
         function Foo(){};
         Foo.prototype.bar = function(){};
-        Foo.func = function() {};
-
+        Object.defineProperty(Foo, 'func', {value: function () {}});
         var bar = {};
-        bar.foo = function(){};
+        Object.defineProperty(bar, 'foo', {value: function(){}});
 
         expect(Foo).to.respondTo('bar');
         expect(Foo).to.not.respondTo('foo');
@@ -1650,14 +1645,6 @@ describe('expect', function () {
         err(function() {
             expect([1.5]).to.be.closeTo(1.0, 0.5);
         }, "expected [ 1.5 ] to be a number");
-
-        err(function() {
-            expect(1.5).to.be.closeTo("1.0", 0.5);
-        }, "the arguments to closeTo must be numbers");
-
-        err(function() {
-            expect(1.5).to.be.closeTo(1.0, true);
-        }, "the arguments to closeTo must be numbers");
     });
 
     it('include.members', function() {
