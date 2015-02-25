@@ -16,10 +16,10 @@ declare module React {
     }
 
     interface ReactElement<P>
-        extends ReactElementBase<ComponentClass<P, any, any>, P> {}
+        extends ReactElementBase<ComponentClass<P, any>, P> {}
 
     interface ReactClassicElement<P>
-        extends ReactElementBase<ClassicComponentClass<P, any, any> | string, P> {}
+        extends ReactElementBase<ClassicComponentClass<P, any> | string, P> {}
 
     interface ReactDOMElement<P> // subtype of ReactClassicElement
         extends ReactElementBase<string, P> {}
@@ -62,26 +62,26 @@ declare module React {
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S, C>(
-        spec: ComponentSpec<P, S, C>): ClassicComponentClass<P, S, C>;
+    function createClass<P, S>(
+        spec: ComponentSpec<P, S>): ClassicComponentClass<P, S>;
 
     function createFactory<P>(
         type: string): DOMFactory<P>;
     function createFactory<P>(
-        type: ClassicComponentClass<P, any, any> | string): ClassicFactory<P>;
+        type: ClassicComponentClass<P, any> | string): ClassicFactory<P>;
     function createFactory<P>(
-        type: ComponentClass<P, any, any>): Factory<P>;
+        type: ComponentClass<P, any>): Factory<P>;
 
     function createElement<P>(
         type: string,
         props?: P,
         ...children: ReactNode[]): ReactDOMElement<P>;
     function createElement<P>(
-        type: ClassicComponentClass<P, any, any> | string,
+        type: ClassicComponentClass<P, any> | string,
         props?: P,
         ...children: ReactNode[]): ReactClassicElement<P>;
     function createElement<P>(
-        type: ComponentClass<P, any, any>,
+        type: ComponentClass<P, any>,
         props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -92,11 +92,11 @@ declare module React {
     function render<P, S>(
         element: ReactClassicElement<P>,
         container: Element,
-        callback?: () => any): ClassicComponent<P, S, {}>;
+        callback?: () => any): ClassicComponent<P, S>;
     function render<P, S>(
         element: ReactElement<P>,
         container: Element,
-        callback?: () => any): Component<P, S, {}>;
+        callback?: () => any): Component<P, S>;
 
     function unmountComponentAtNode(container: Element): boolean;
     function renderToString(element: ReactElementBase<any, any>): string;
@@ -105,9 +105,9 @@ declare module React {
     function initializeTouchEvents(shouldUseTouch: boolean): void;
 
     function findDOMNode<TElement extends Element>(
-        componentOrElement: Component<any, any, any> | Element): TElement;
+        componentOrElement: Component<any, any> | Element): TElement;
     function findDOMNode(
-        componentOrElement: Component<any, any, any> | Element): Element;
+        componentOrElement: Component<any, any> | Element): Element;
 
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
@@ -118,19 +118,19 @@ declare module React {
     // ----------------------------------------------------------------------
 
     // Base component for plain JS classes
-    class Component<P, S, C> implements ComponentLifecycle<P, S, C> {
-        constructor(props: P, context: C);
+    class Component<P, S> implements ComponentLifecycle<P, S> {
+        constructor(props: P, context: any);
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
         props: P;
         state: S;
-        context: C;
+        context: any;
         refs: {
-            [key: string]: Component<any, any, any>
+            [key: string]: Component<any, any>
         };
     }
 
-    interface ClassicComponent<P, S, C> extends Component<P, S, C> {
+    interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
         getDOMNode<TElement extends Element>(): TElement;
         getDOMNode(): Element;
@@ -140,7 +140,7 @@ declare module React {
         replaceProps(nextProps: P, callback?: () => any): void;
     }
 
-    interface DOMComponent<P> extends ClassicComponent<P, any, any> {
+    interface DOMComponent<P> extends ClassicComponent<P, any> {
         tagName: string;
     }
 
@@ -155,19 +155,19 @@ declare module React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    interface ComponentClassBase<P, C> {
+    interface ComponentClassBase<P> {
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap<C>;
-        childContextTypes?: ValidationMap<{}>;
+        contextTypes?: ValidationMap<any>;
+        childContextTypes?: ValidationMap<any>;
     }
 
-    interface ComponentClass<P, S, C> extends ComponentClassBase<P, C> {
-        new(props?: P, context?: C): Component<P, S, C>;
+    interface ComponentClass<P, S> extends ComponentClassBase<P> {
+        new(props?: P, context?: any): Component<P, S>;
         defaultProps?: P;
     }
 
-    interface ClassicComponentClass<P, S, C> extends ComponentClassBase<P, C> {
-        new(props?: P, context?: C): ClassicComponent<P, S, C>;
+    interface ClassicComponentClass<P, S> extends ComponentClassBase<P> {
+        new(props?: P, context?: any): ClassicComponent<P, S>;
         getDefaultProps?(): P;
         displayName?: string;
     }
@@ -176,18 +176,18 @@ declare module React {
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
-    interface ComponentLifecycle<P, S, C> {
+    interface ComponentLifecycle<P, S> {
         componentWillMount?(): void;
         componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P, nextContext: C): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: C): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S, nextContext: C): void;
-        componentDidUpdate?(prevProps: P, prevState: S, prevContext: C): void;
+        componentWillReceiveProps?(nextProps: P, nextContext: any): void;
+        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: any): boolean;
+        componentWillUpdate?(nextProps: P, nextState: S, nextContext: any): void;
+        componentDidUpdate?(prevProps: P, prevState: S, prevContext: any): void;
         componentWillUnmount?(): void;
     }
 
-    interface Mixin<P, S, C> extends ComponentLifecycle<P, S, C> {
-        mixins?: Mixin<P, S, C>;
+    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
+        mixins?: Mixin<P, S>;
         statics?: {
             [key: string]: any;
         };
@@ -201,7 +201,7 @@ declare module React {
         getDefaultProps?(): P;
     }
 
-    interface ComponentSpec<P, S, C> extends Mixin<P, S, C> {
+    interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactElementBase<any, any>;
     }
 
