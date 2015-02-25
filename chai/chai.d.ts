@@ -12,12 +12,16 @@ declare module chai {
         stack: string;
     }
 
-    export function expect(target: any, message?: string): Expect;
+    export var expect: {
+        (target: any, message?: string): Expect;
+        (target: any, message?: () => string): Expect;
+        fail(actual: any, expect: any, message?: string, operator?: string): Error;
+    };
 
     export var assert: Assert;
     export var config: Config;
 
-    export interface Config {
+    interface Config {
         includeStack: boolean;
     }
 
@@ -177,9 +181,9 @@ declare module chai {
         (constructor: Function, expected?: RegExp, message?: string): Expect;
     }
 
-    export interface Assert {
+    interface Assert {
         (express: any, msg?: string):void;
-        (express: any, msg?: (any) => string):void;
+        (express: any, msg?: () => string):void;
 
         fail(actual?: any, expected?: any, msg?: string, operator?: string):void;
 
