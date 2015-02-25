@@ -1003,13 +1003,13 @@ describe('assert', function () {
     it('deepEqual (circular)', function() {
         var circularObject = {}
             , secondCircularObject = {};
-        circularObject.field = circularObject;
-        secondCircularObject.field = secondCircularObject;
+        Object.defineProperty(circularObject, 'field', {value: circularObject});
+        Object.defineProperty(secondCircularObject, 'field', {value: secondCircularObject});
 
         assert.deepEqual(circularObject, secondCircularObject);
 
         err(function() {
-            secondCircularObject.field2 = secondCircularObject;
+            Object.defineProperty(secondCircularObject, 'field2', {value:secondCircularObject});
             assert.deepEqual(circularObject, secondCircularObject);
         }, "expected { field: [Circular] } to deeply equal { Object (field, field2) }");
     });
@@ -1025,8 +1025,8 @@ describe('assert', function () {
     it('notDeepEqual (circular)', function() {
         var circularObject = {}
             , secondCircularObject = { tea: 'jasmine' };
-        circularObject.field = circularObject;
-        secondCircularObject.field = secondCircularObject;
+        Object.defineProperty(circularObject, 'field', {value: circularObject});
+        Object.defineProperty(secondCircularObject, 'field', {value: secondCircularObject});
 
         assert.notDeepEqual(circularObject, secondCircularObject);
 
