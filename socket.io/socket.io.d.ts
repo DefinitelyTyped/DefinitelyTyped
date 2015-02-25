@@ -63,8 +63,8 @@ declare module SocketIO {
         leave(name: string, fn?: Function): Socket;
         to(room: string): Socket;
         in(room: string): Socket;
-        send(): Socket;
-        write(): Socket;
+        send(...args: any[]): Socket;
+        write(...args: any[]): Socket;
 
         on(event: string, listener: Function): Socket;
         once(event: string, listener: Function): Socket;
