@@ -129,7 +129,7 @@ declare module EmberStates {
           @arg {Boolean} [ignoreFailure=false] a boolean specifying whether unhandled events throw an error
           @arg {String} name the name of the event to fire
          */
-        trigger(ignoreFailure:boolean, eventName: string);
+        trigger(ignoreFailure:boolean, eventName: string): void;
         /**
           Fires an event on the current list of resolved/resolving
           handlers within this transition. Useful for firing events
@@ -139,7 +139,7 @@ declare module EmberStates {
   
           @arg {String} name the name of the event to fire
          */
-        trigger(eventName: string);
+        trigger(eventName: string): void;
 
         /**
           Transitions are aborted and their promises rejected
@@ -193,7 +193,7 @@ interface String {
 }
 
 interface Array<T> {
-    constructor(arr: any[]);
+    constructor(arr: any[]): void;
     activate(): void;
     addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
     addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
@@ -267,7 +267,7 @@ interface Array<T> {
     removeArrayObserver(target: any, opts: EnumerableConfigurationOptions): any[];
     removeAt(start: number, len: number): any;
     removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];
-    replace(idx: number, amt: number, objects: any[]);
+    replace(idx: number, amt: number, objects: any[]): void;
     reverseObjects(): any[];
     setEach(key: string, value?: any): any;
     setObjects(objects: any[]): any[];
@@ -334,7 +334,7 @@ interface ApplicationInitializerArguments {
 }
 
 interface ApplicationInitializerFunction {
-    (container: Ember.Container, application: Ember.Application);
+    (container: Ember.Container, application: Ember.Application): void;
 }
 
 interface CoreObjectArguments {
@@ -361,11 +361,11 @@ interface ItemIndexEnumerableCallbackTarget {
 }
 
 interface ItemIndexEnumerableCallback {
-    (item: any, index: number, enumerable: Ember.Enumerable);
+    (item: any, index: number, enumerable: Ember.Enumerable): void;
 }
 
 interface ReduceCallback {
-    (previousValue: any, item: any, index: number, enumerable: Ember.Enumerable);
+    (previousValue: any, item: any, index: number, enumerable: Ember.Enumerable): void;
 }
 
 interface TransitionsHash {
@@ -392,10 +392,10 @@ interface RenderOptions {
 }
 
 interface ModifyObserver {
-    (obj: any, path: string, target: any, method?: Function);
-    (obj: any, path: string, target: any, method?: string);
-    (obj: any, path: string, func: Function, method?: Function);
-    (obj: any, path: string, func: Function, method?: string);
+    (obj: any, path: string, target: any, method?: Function): void;
+    (obj: any, path: string, target: any, method?: string): void;
+    (obj: any, path: string, func: Function, method?: Function): void;
+    (obj: any, path: string, func: Function, method?: string): void;
 }
 
 declare module Ember {
@@ -1117,8 +1117,9 @@ declare module Ember {
     /**
     A subclass of the JavaScript Error object for use in Ember.
     **/
+    // Restore this to 'typeof Error' when https://github.com/Microsoft/TypeScript/issues/983 is resolved
     // ReSharper disable once DuplicatingLocalDeclaration
-    var Error: typeof Error;
+    var Error: any; // typeof Error;
     /**
     Handles delegating browser events to their corresponding Ember.Views. For example, when you click on
     a view, Ember.EventDispatcher ensures that that view's mouseDown method gets called.
@@ -2526,9 +2527,9 @@ declare module Em {
     var copy: typeof Ember.copy;
     var create: typeof Ember.create;
     var debug: typeof Ember.debug;
-    var defineProperty: typeof defineProperty;
-    var deprecate: typeof deprecate;
-    var deprecateFunc: typeof deprecateFunc;
+    var defineProperty: typeof Ember.defineProperty;
+    var deprecate: typeof Ember.deprecate;
+    var deprecateFunc: typeof Ember.deprecateFunc;
     var destroy: typeof Ember.destroy;
     var empty: typeof deprecateFunc;
     var endPropertyChanges: typeof Ember.endPropertyChanges;
@@ -2545,7 +2546,7 @@ declare module Em {
     var handleErrors: typeof Ember.handleErrors;
     var hasListeners: typeof Ember.hasListeners;
     var hasOwnProperty: typeof Ember.hasOwnProperty;
-    var immediateObserver: typeof immediateObserver;
+    var immediateObserver: typeof Ember.immediateObserver;
     var imports: typeof Ember.imports;
     var inspect: typeof Ember.inspect;
     var instrument: typeof Ember.instrument;
@@ -2767,11 +2768,11 @@ declare module "Ember" {
     var copy: typeof Ember.copy;
     var create: typeof Ember.create;
     var debug: typeof Ember.debug;
-    var defineProperty: typeof defineProperty;
-    var deprecate: typeof deprecate;
-    var deprecateFunc: typeof deprecateFunc;
+    var defineProperty: typeof Ember.defineProperty;
+    var deprecate: typeof Ember.deprecate;
+    var deprecateFunc: typeof Ember.deprecateFunc;
     var destroy: typeof Ember.destroy;
-    var empty: typeof deprecateFunc;
+    var empty: typeof Ember.deprecateFunc;
     var endPropertyChanges: typeof Ember.endPropertyChanges;
     var exports: typeof Ember.exports;
     var finishChains: typeof Ember.finishChains;
@@ -2786,7 +2787,7 @@ declare module "Ember" {
     var handleErrors: typeof Ember.handleErrors;
     var hasListeners: typeof Ember.hasListeners;
     var hasOwnProperty: typeof Ember.hasOwnProperty;
-    var immediateObserver: typeof immediateObserver;
+    var immediateObserver: typeof Ember.immediateObserver;
     var imports: typeof Ember.imports;
     var inspect: typeof Ember.inspect;
     var instrument: typeof Ember.instrument;
