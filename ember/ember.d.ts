@@ -14,14 +14,14 @@ declare module EmberStates {
         targetName: string;
         urlMethod: string;
         intent: any;
-        params: any;
+        params: {}|any;
         pivotHandler: any;
         resolveIndex: number;
         handlerInfos: any;
-        resolvedModels: any;
+        resolvedModels: {}|any;
         isActive: boolean;
         state: any;
-        queryParams: any;
+        queryParams: {}|any;
         queryParamsOnly: boolean;
 
         isTransition: boolean;
