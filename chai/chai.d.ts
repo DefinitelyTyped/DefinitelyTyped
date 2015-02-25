@@ -55,8 +55,12 @@ declare module chai {
         deep: Deep;
         a: TypeComparison;
         an: TypeComparison;
+        any: Expect;
+        all: Expect;
         include: Include;
+        includes: Include;
         contain: Include;
+        contains: Include;
         ok: Expect;
         true: Expect;
         false: Expect;
@@ -88,6 +92,15 @@ declare module chai {
         satisfy(matcher: Function, message?: string): Expect;
         closeTo(expected: number, delta: number, message?: string): Expect;
         members: Members;
+        change: ChangeIncreaseDecrease;
+        Change: ChangeIncreaseDecrease;
+        changes: ChangeIncreaseDecrease;
+        increase: ChangeIncreaseDecrease;
+        Increase: ChangeIncreaseDecrease;
+        increases: ChangeIncreaseDecrease;
+        decrease: ChangeIncreaseDecrease;
+        Decrease: ChangeIncreaseDecrease;
+        decreases: ChangeIncreaseDecrease;
     }
 
     interface LanguageChains {
@@ -96,6 +109,7 @@ declare module chai {
         been: Expect;
         is: Expect;
         that: Expect;
+        which: Expect;
         and: Expect;
         have: Expect;
         has: Expect;
@@ -136,6 +150,7 @@ declare module chai {
     interface Deep {
         equal: Equal;
         property: Property;
+        members: Members;
     }
 
     interface Equal {
@@ -158,6 +173,8 @@ declare module chai {
         (value: Object, message?: string): Expect;
         (value: string, message?: string): Expect;
         (value: number, message?: string): Expect;
+        all: Expect;
+        any: Expect;
         keys: Keys;
         members: Members;
     }
@@ -165,6 +182,7 @@ declare module chai {
     interface Keys {
         (...keys: string[]): Expect;
         (keys: any[]): Expect;
+        (keys: Object): Expect;
     }
 
     interface Members {
@@ -179,6 +197,10 @@ declare module chai {
         (constructor: Error, expected?: RegExp, message?: string): Expect;
         (constructor: Function, expected?: string, message?: string): Expect;
         (constructor: Function, expected?: RegExp, message?: string): Expect;
+    }
+
+    interface ChangeIncreaseDecrease {
+        (object: Object, property: string, message?: string): Expect;
     }
 
     interface Assert {
