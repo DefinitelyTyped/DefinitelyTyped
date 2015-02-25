@@ -38,8 +38,10 @@ interface GoogleAnalytics {
 
 declare module UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
 
     interface ga {
+        (command: string, type: string, category: string, action: string, label: string, value?: number): UniversalAnalytics.Tracker;
         (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
         (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
         (command: string, hitDetails: {}): void;
