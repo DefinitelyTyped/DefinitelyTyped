@@ -656,3 +656,7 @@ function testUnwrapUnion() {
     var num = ko.unwrap(possibleObs);
 
 }
+
+function testDataBindingCall() {
+	ko.bindingHandlers.visible.update(document.body,() => false);
+}
