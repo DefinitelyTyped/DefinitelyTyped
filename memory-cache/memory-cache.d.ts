@@ -17,4 +17,5 @@ declare module "memory-cache" {
 	export function debug(bool: boolean): void;
 	export function hits(): number;
 	export function misses(): number;
+	export function keys() : any;
 }
