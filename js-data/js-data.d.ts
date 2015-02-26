@@ -9,34 +9,28 @@
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
-declare class JSDataPromise<R> extends Promise<R> {
-
-    // enhanced with finally
-    finally<U>(finallyCb?: () => U): Promise<U>;
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 // js-data module (js-data.js)
 ///////////////////////////////////////////////////////////////////////////////
 
-// Support AMD require
-declare module 'js-data' {
-    export = JSData;
-}
+// defining what exists in JSData and how it looks
+declare module JSData_ {
 
-declare module JSData {
+    class JSDataPromise<R> extends Promise<R> {
 
-    class DS {
+        // enhanced with finally
+        finally<U>(finallyCb?:() => U):Promise<U>;
+    }
 
-        constructor(config?:DSConfiguration);
+    //TODO switch to class again when typescript supports open ended class declaration
+    interface DS {
+
+        new(config?:DSConfiguration):DS;
+
+        // rather undocumented
+        errors:DSErrors;
 
         defaults:DSConfiguration;
-
-        //TODO check if still exists
-        adapters:any; // Object consists of key-values pairs where the key is the name of the adapter and the value is
-                      // the adapter itself.
-        //TODO check if still exists
-        errors:DSErrors;
 
         changeHistory(resourceName:string, id?:string):Array<Object>;
         changeHistory(resourceName:string, id?:number):Array<Object>;
@@ -72,7 +66,7 @@ declare module JSData {
         find<T>(resourceName:string, id:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         find<T>(resourceName:string, id:number, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
 
-        findAll<T>(resourceName:string, params:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
+        findAll<T>(resourceName:string, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
 
         get<T>(resourceName:string, id:string, options?:DSConfiguration):T;
         get<T>(resourceName:string, id:number, options?:DSConfiguration):T;
@@ -117,7 +111,7 @@ declare module JSData {
         refresh<T>(resourceName:string, id:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         refresh<T>(resourceName:string, id:number, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
 
-        registerAdapter(adapterId: string, adapter:IDSAdapter, options?:{default: boolean}):void;
+        registerAdapter(adapterId:string, adapter:IDSAdapter, options?:{default: boolean}):void;
 
         save<T>(resourceName:string, id:string, options?:DSSaveConfiguration):JSDataPromise<T>;
         save<T>(resourceName:string, id:number, options?:DSSaveConfiguration):JSDataPromise<T>;
@@ -128,7 +122,7 @@ declare module JSData {
         update<T>(resourceName:string, id:string, attrs:any, options?:DSSaveConfiguration):JSDataPromise<T>;
         update<T>(resourceName:string, id:number, attrs:any, options?:DSSaveConfiguration):JSDataPromise<T>;
 
-        updateAll<T>(resourceName:string, attrs:any, params:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
+        updateAll<T>(resourceName:string, attrs:any, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
     }
 
     interface DSConfiguration extends IDSResourceLifecycleEventHandlers {
@@ -140,8 +134,10 @@ declare module JSData {
         defaultAdapter?: string;
         defaultFilter?: (collection:Array<any>, resourceName:string, params:DSFilterParams, options:DSConfiguration)=>Array<any>;
         eagerEject?: boolean;
+        // TODO enable when eagerInject in DS#create is implemented
+        //eagerInject?: boolean;
         endpoint?: string;
-        error?: (message?: any, ...optionalParams: any[])=> void;
+        error?: (message?:any, ...optionalParams:any[])=> void;
         fallbackAdapters?: Array<string>;
         findAllFallbackAdapters?: Array<string>;
         findAllStrategy?: string;
@@ -152,10 +148,13 @@ declare module JSData {
         findInverseLinks?: boolean;
         findStrategy?: string
         idAttribute?: string;
-        ignoredChanges?:Array<any>;
+        ignoredChanges?: Array<any>;
+        // TODO ignoreMissing is undocumented
+        //ignoreMissing: boolean;
         keepChangeHistory?: boolean;
         loadFromServer?: boolean;
         log?: any;
+        // TODO wait for union types to be supported
         // log: (message?: any, ...optionalParams: any[])=> void;
         // log: boolean;
         maxAge?: number;
@@ -166,7 +165,7 @@ declare module JSData {
         strategy?: string;
         upsert?: boolean;
         useClass?: boolean;
-        useFilter: boolean;
+        useFilter?: boolean;
     }
 
     interface DSAdapterOperationConfiguration extends DSConfiguration {
@@ -224,7 +223,7 @@ declare module JSData {
         find<T>(id:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         find<T>(id:number, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
 
-        findAll<T>(params:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
+        findAll<T>(params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
 
         get<T>(id:string, options?:DSConfiguration):T;
         get<T>(id:number, options?:DSConfiguration):T;
@@ -256,10 +255,10 @@ declare module JSData {
 
         loadRelations<T>(id:string, relations:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         loadRelations<T>(id:number, relations:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
-        loadRelations<T>(instance:Object, relations:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
+        loadRelations<T>(instance:T, relations:string, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         loadRelations<T>(id:string, relations:Array<string>, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
         loadRelations<T>(id:number, relations:Array<string>, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
-        loadRelations<T>(instance:Object, relations:Array<string>, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
+        loadRelations<T>(instance:T, relations:Array<string>, options?:DSAdapterOperationConfiguration):JSDataPromise<T>;
 
         previous<T>(id:string):T;
         previous<T>(id:number):T;
@@ -278,7 +277,7 @@ declare module JSData {
         update<T>(id:string, attrs:any, options?:DSSaveConfiguration):JSDataPromise<T>;
         update<T>(id:number, attrs:any, options?:DSSaveConfiguration):JSDataPromise<T>;
 
-        updateAll<T>(attrs:any, params:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
+        updateAll<T>(attrs:any, params?:DSFilterParams, options?:DSAdapterOperationConfiguration):JSDataPromise<Array<T>>;
     }
 
     interface DSFilterParams {
@@ -290,13 +289,13 @@ declare module JSData {
         offset?: number;
 
         orderBy?: any;
-        // wait for union types to be supported
+        // TODO wait for union types to be supported
         //orderBy?: Array<Array<string>>;
         //orderBy?: Array<string>;
         //orderBy?: string;
 
         sort?: any;
-        // wait for union types to be supported
+        // TODO wait for union types to be supported
         //sort?: string;
         //sort?: Array<string>;
         //sort?: Array<Array<string>>;
@@ -354,18 +353,19 @@ declare module JSData {
 
     }
 
-    //TODO check if those are still valid
     // errors
     interface DSErrors {
 
         // types
-        IllegalArgumentError:DSError
-        NonexistentResourceError:DSError
-        RuntimeError:DSError
+        IllegalArgumentError:DSError;
+        IA:DSError;
+        RuntimeError:DSError;
+        R:DSError;
+        NonexistentResourceError:DSError;
+        NER:DSError;
     }
 
-    //TODO check if those are still valid
-    interface DSError {
+    interface DSError extends Error {
         new (message?:string):DSError;
         message: string;
         type: string;
@@ -392,3 +392,13 @@ declare module JSData {
     }
 }
 
+// declaring the existing global js object
+declare var JSData:{
+    DS: JSData_.DS
+};
+
+//Support node require
+declare module 'js-data' {
+
+    export = JSData;
+}

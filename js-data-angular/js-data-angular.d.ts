@@ -6,14 +6,25 @@
 /// <reference path="../js-data/js-data.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module JSData {
+declare module JSData_ {
 
-    class ngDS extends DS {
+    interface DSProvider {
+        defaults:DSConfiguration;
+    }
 
-        // sync methods
-        bindAll<T>(scope:ng.IScope, expr:string, resourceName:string, params:DSFilterParams, cb?:(err:DSError, items:Array<T>)=>void):Function;
+    interface DS {
 
-        bindOne<T>(scope:ng.IScope, expr:string, resourceName:string, id:string, cb?:(err:DSError, item:T)=>void):Function;
-        bindOne<T>(scope:ng.IScope, expr:string, resourceName:string, id:number, cb?:(err:DSError, item:T)=>void):Function;
+        bindAll<T>(resourceName:string, params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T>)=>void):Function;
+
+        bindOne<T>(resourceName:string, id:string, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+        bindOne<T>(resourceName:string, id:number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+    }
+
+    interface DSResourceDefinition<T> {
+
+        bindAll<T>(params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T>)=>void):Function;
+
+        bindOne<T>(id:string, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+        bindOne<T>(id:number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
     }
 }
