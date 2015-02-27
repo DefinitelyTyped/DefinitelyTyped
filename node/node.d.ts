@@ -655,14 +655,13 @@ declare module "child_process" {
         input?: string|Buffer;
         stdio?: any;
         env?: any;
-        uid?:number;
-        gid?:number;
+        uid?: number;
+        gid?: number;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-        maxBuffer?:number;
         encoding?: string;
-    });
+    }): ChildProcess;
 }
 
 declare module "url" {
