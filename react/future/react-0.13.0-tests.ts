@@ -23,7 +23,7 @@ interface ChildContext {
     someOtherValue: string;
 }
 
-interface MyComponent extends React.Component<Props, State, Context> {
+interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
@@ -42,8 +42,8 @@ var INPUT_REF: string = "input";
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var ClassicComponent: React.ClassicComponentClass<Props, State, Context> =
-    React.createClass<Props, State, Context>({
+var ClassicComponent: React.ClassicComponentClass<Props, State> =
+    React.createClass<Props, State>({
         getDefaultProps: () => {
             return <Props>{
                 hello: undefined,
@@ -70,7 +70,7 @@ var ClassicComponent: React.ClassicComponentClass<Props, State, Context> =
         }
     });
 
-class ModernComponent extends React.Component<Props, State, Context>
+class ModernComponent extends React.Component<Props, State>
     implements React.ChildContextProvider<ChildContext> {
 
     constructor(props: Props, context: Context) {
@@ -145,9 +145,9 @@ var domElement: React.ReactHTMLElement =
     React.createElement("div");
 
 // React.render
-var component: React.Component<Props, any, any> =
+var component: React.Component<Props, any> =
     React.render(element, container);
-var classicComponent: React.ClassicComponent<Props, any, any> =
+var classicComponent: React.ClassicComponent<Props, any> =
     React.render(classicElement, container);
 var domComponent: React.DOMComponent<any> =
     React.render(domElement, container);
@@ -234,7 +234,7 @@ React.DOM.input(htmlAttr);
 // React.PropTypes
 // --------------------------------------------------------------------------
 
-var PropTypesSpecification: React.ComponentSpec<any, any, any> = {
+var PropTypesSpecification: React.ComponentSpec<any, any> = {
     propTypes: {
         optionalArray: React.PropTypes.array,
         optionalBool: React.PropTypes.bool,
@@ -275,7 +275,7 @@ var PropTypesSpecification: React.ComponentSpec<any, any, any> = {
 // ContextTypes
 // --------------------------------------------------------------------------
 
-var ContextTypesSpecification: React.ComponentSpec<any, any, any> = {
+var ContextTypesSpecification: React.ComponentSpec<any, any> = {
     contextTypes: {
         optionalArray: React.PropTypes.array,
         optionalBool: React.PropTypes.bool,
@@ -329,7 +329,7 @@ var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 interface TimerState {
     secondsElapsed: number;
 }
-class Timer extends React.Component<{}, TimerState, {}> {
+class Timer extends React.Component<{}, TimerState> {
     static state = {
         secondsElapsed: 0
     }
