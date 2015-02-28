@@ -601,6 +601,10 @@ interface AudioBufferSourceNode extends AudioNode {
 interface MediaElementAudioSourceNode extends AudioNode {
 }
 
+interface AudioProcessingEventHandler {
+    (e: AudioProcessingEvent): void;
+}
+
 /**
  * This interface is an AudioNode which can generate, process, or analyse audio directly using JavaScript.
  *
@@ -617,7 +621,7 @@ interface ScriptProcessorNode  extends AudioNode {
     /**
      * An event listener which is called periodically for audio processing. An event of type AudioProcessingEvent will be passed to the event handler.
      */
-    onaudioprocess: EventHandler;
+    onaudioprocess: AudioProcessingEventHandler;
 
     /**
      * The size of the buffer (in sample-frames) which needs to be processed each time onprocessaudio is called. Legal values are (256, 512, 1024, 2048, 4096, 8192, 16384).
