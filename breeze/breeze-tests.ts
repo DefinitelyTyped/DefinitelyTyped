@@ -405,6 +405,11 @@ function test_entityQuery() {
         .where("toUpper(substring(CompanyName, 1, 2))", breeze.FilterQueryOp.Equals, "OM");
     var q2 = query.toType("foo").orderBy("foo2");
 
+    var pred = new breeze.Predicate('items', 'any', 'serialNumber', 'contains', '12345');
+    var pred = new breeze.Predicate('items', breeze.FilterQueryOp.Any, 'serialNumber', breeze.FilterQueryOp.Contains, '12345');
+    var pred = breeze.Predicate.create('items', 'any', 'serialNumber', 'contains', '12345');
+    var pred = breeze.Predicate.create('items', breeze.FilterQueryOp.Any, 'serialNumber', breeze.FilterQueryOp.Contains, '12345');
+
     var json = query.toJSON();
 }
 
