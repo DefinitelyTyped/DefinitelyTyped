@@ -702,8 +702,9 @@ declare module D3 {
         * Parse a delimited string into objects using the header row.
         *
         * @param string delimited formatted string to parse
+        * @param accessor to modify properties of each row
         */
-        parse(string: string): any[];
+        parse(string: string, accessor?: (row: any, index?: number) => any): any[];
         /**
         * Parse a delimited string into tuples, ignoring the header row.
         *
@@ -849,7 +850,7 @@ declare module D3 {
         sortKeys(comparator: (d1: any, d2: any) => number): Nest;
         sortValues(comparator: (d1: any, d2: any) => number): Nest;
         rollup(rollupFunction: (data: any, index: number) => any): Nest;
-        map(values: any[]): any;
+        map(values: any[], mapType?: any): any;
         entries(values: any[]): NestKeyValue[];
     }
 
