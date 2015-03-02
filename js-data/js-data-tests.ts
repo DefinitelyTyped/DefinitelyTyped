@@ -90,13 +90,13 @@ var UserWithComputedProperty = store.defineResource<IUserWithComputedProperty>({
     computed: {
         // each function's argument list defines the fields
         // that the computed property depends on
-        fullName: ['first', 'last', function (first: string, last: string) {
+        fullName: ['first', 'last', function (first:string, last:string) {
             return first + ' ' + last;
         }],
         // shortand, use the array syntax above if you want
         // you computed properties to work after you've
         // minified your code. Shorthand style won't work when minified
-        initials: function (first: string, last: string) {
+        initials: function (first:string, last:string) {
             return first.toUpperCase()[0] + '. ' + last.toUpperCase()[0] + '.';
         }
     }
@@ -491,3 +491,32 @@ module CustomAdapterTest {
     store.registerAdapter('mca', new MyCustomAdapter(), {default: true});
     // the data store will now use your custom adapter by default
 }
+
+/**
+ * showing the use of open ended interface to realize typings
+ * on the Datastore.definitions object where all resource definitions
+ * are saved.
+ */
+
+interface MyCustomDataStore {
+
+    myResource: JSData_.DSResourceDefinition<MyResourceDefinition>
+}
+
+interface MyResourceDefinition {
+
+}
+
+module JSData_ {
+
+    interface DS {
+
+        definitions: MyCustomDataStore;
+    }
+}
+
+var store = new JSData.DS();
+
+var myResourceDefinition = store.defineResource<MyResourceDefinition>('myResource');
+
+myResourceDefinition = store.definitions.myResource;
