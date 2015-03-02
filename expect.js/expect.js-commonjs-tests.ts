@@ -1,5 +1,7 @@
 /// <reference path="expect.js.d.ts" />
 
+import expect = require("expect.js");
+
 function test_expect() {
     expect();
     expect(1);
