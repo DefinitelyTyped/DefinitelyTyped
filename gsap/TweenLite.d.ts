@@ -3,6 +3,9 @@
 // Definitions by: VILIC VANE <https://vilic.github.io/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="Core.d.ts" />
+/// <reference path="Ease.d.ts" />
+
 declare class TweenLite {
     constructor(target: any, duration: number, vars: any);
 
