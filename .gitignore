@@ -32,6 +32,9 @@ _infrastructure/tests/build
 #rx.js
 !rx.js
 
+#zip.js
+!zip.js
+
 node_modules
 
 .sublimets
