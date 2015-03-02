@@ -1,4 +1,4 @@
-// Type definitions for Breeze 1.4
+// Type definitions for Breeze 1.5.x
 // Project: http://www.breezejs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,6 +10,7 @@
 // Updated Aug 22 2014 for Breeze 1.4.17 and removing Q dependency - Steve Schmitt ( www.ideablade.com)
 // Updated Jan 16 2015 for Breeze 1.4.17 to add support for noimplicitany - Kevin Wilson ( www.kwilson.me.uk )
 // Updated Jan 20 2015 for Breeze 1.5.2 and merging changes from DefinitelyTyped
+// Updated Feb 28 2015 add any/all clause on Predicate
 
 declare module breeze.core {
 
@@ -770,6 +771,8 @@ declare module breeze {
         constructor(property: string, operator: FilterQueryOpSymbol, value: any);
         constructor(property: string, operator: string, value: { value: any; isLiteral?: boolean; dataType?: breeze.DataType });
         constructor(property: string, operator: FilterQueryOpSymbol, value: { value: any; isLiteral?: boolean; dataType?: breeze.DataType });
+        constructor(property: string, filterop: FilterQueryOpSymbol, property2: string, filterop2: FilterQueryOpSymbol, value: any);  // for any/all clauses
+        constructor(property: string, filterop: string, property2: string, filterop2: string, value: any);  // for any/all clauses
         /** Create predicate from an expression tree */
         constructor(tree: Object);
 
@@ -798,6 +801,8 @@ declare module breeze {
         (...predicates: Predicate[]): Predicate;
         (property: string, operator: string, value: any, valueIsLiteral?: boolean): Predicate;
         (property: string, operator: FilterQueryOpSymbol, value: any, valueIsLiteral?: boolean): Predicate;
+        (property: string, filterop: FilterQueryOpSymbol, property2: string, filterop2: FilterQueryOpSymbol, value: any): Predicate;  // for any/all clauses
+        (property: string, filterop: string, property2: string, filterop2: string, value: any): Predicate;  // for any/all clauses
     }
 
     class QueryOptions {
