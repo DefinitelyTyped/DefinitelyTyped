@@ -1,3 +1,8 @@
+// Type definitions for leaflet-draw
+// Project: https://github.com/Leaflet/Leaflet.draw
+// Definitions by: Lukas Pohl <https://github.com/fieldy1234>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../../typings/leaflet/leaflet.d.ts" />
 
 declare module L {
