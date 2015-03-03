@@ -22,4 +22,9 @@ hotkeyProvider.bindTo(scope)
 		description: 'blah blah',
 		callback: function() {}
 	});
+	.add({
+		combo: ['w', 'mod+w'],
+		description: 'blah blah',
+		callback: function() {}
+	});
 

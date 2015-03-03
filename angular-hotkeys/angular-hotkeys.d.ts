@@ -40,7 +40,7 @@ declare module ng.hotkeys {
     }
 
     interface Hotkey {
-        combo: string;
+        combo: string | string[];
         description?: string;
         callback: (event: Event, hotkey: ng.hotkeys.Hotkey) => void;
         action?: string;
