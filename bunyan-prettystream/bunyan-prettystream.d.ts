@@ -1,6 +1,7 @@
-﻿// type definitions for bunyan-prettystream
-// project: https://www.npmjs.com/package/bunyan-prettystream
-// definitions by jasons@novaleaf.com
+﻿// Type definitions for bunyan-prettystream
+// Project: https://www.npmjs.com/package/bunyan-prettystream
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
