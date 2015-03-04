@@ -36,7 +36,7 @@ example = () => {
 
 
 example = () => {
-	map.on('draw:created', function (e: L.Draw.DrawCreatedEvent) {
+	map.on('draw:created', function (e: L.Draw.CreatedEvent) {
 		var type = e.layerType,
 			layer = e.layer;
 
@@ -50,7 +50,7 @@ example = () => {
 }
 
 example = () => {
-	map.on('draw:edited', function (e: L.Draw.DrawEditedEvent) {
+	map.on('draw:edited', function (e: L.Draw.EditedEvent) {
 		var layers = e.layers;
 		layers.eachLayer(function (layer) {
 			//do whatever you want, most likely save back to db

@@ -7,37 +7,37 @@
 
 declare module L {
 	export module Draw {
-		export interface DrawCreatedEvent {
+		export interface CreatedEvent {
 			layer: L.ILayer;
 			
 			layerType: string;
 		}
 		
-		export interface DrawDrawstopEvent {
+		export interface StopEvent {
 			layerType: string;
 		}
 		
-		export interface DrawEditedEvent {
+		export interface EditedEvent {
 			layers: L.LayerGroup<L.ILayer>;
 		}
 		
-		export interface DrawEditstartEvent {
+		export interface EditstartEvent {
 			handler: string;
 		}
 		
-		export interface DrawEditstopEvent {
+		export interface EditstopEvent {
 			handler: string;
 		}
 		
-		export interface DrawDeletedEvent {
+		export interface DeletedEvent {
 			layers: L.LayerGroup<L.ILayer>;
 		}
 		
-		export interface DrawDeletestartEvent {
+		export interface DeletestartEvent {
 			handler: string;
 		}
 		
-		export interface DrawDeletestopEvent {
+		export interface DeletestopEvent {
 			handler: string;
 		}
 		
@@ -141,6 +141,6 @@ declare module L {
 }
 
 declare module "leaflet-draw" {
-	var draw: any;
+	var draw: {};
 	export = draw;
 }
