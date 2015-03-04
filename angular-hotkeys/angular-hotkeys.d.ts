@@ -14,19 +14,19 @@ declare module ng.hotkeys {
         cheatSheetHotkey: string;
         cheatSheetDescription: string;
 
-        add(combo: string, callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
+        add(combo: string|string[], callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
 
-        add(combo: string, description: string, callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
+        add(combo: string|string[], description: string, callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
 
         add(hotkeyObj: ng.hotkeys.Hotkey): ng.hotkeys.Hotkey;
 
         bindTo(scope : ng.IScope): ng.hotkeys.HotkeysProviderChained;
 
-        del(combo: string): void;
+        del(combo: string|string[]): void;
 
         del(hotkeyObj: ng.hotkeys.Hotkey): void;
 
-        get(combo: string): ng.hotkeys.Hotkey;
+        get(combo: string|string[]): ng.hotkeys.Hotkey;
 
         toggleCheatSheet(): void;
 
@@ -34,13 +34,13 @@ declare module ng.hotkeys {
     }
 
     interface HotkeysProviderChained {
-        add(combo: string, description: string, callback: (event: Event, hotkeys: ng.hotkeys.Hotkey) => void): HotkeysProviderChained;
+        add(combo: string|string[], description: string, callback: (event: Event, hotkeys: ng.hotkeys.Hotkey) => void): HotkeysProviderChained;
 
         add(hotkeyObj: ng.hotkeys.Hotkey): HotkeysProviderChained;
     }
 
     interface Hotkey {
-        combo: string;
+        combo: string|string[];
         description?: string;
         callback: (event: Event, hotkey: ng.hotkeys.Hotkey) => void;
         action?: string;
