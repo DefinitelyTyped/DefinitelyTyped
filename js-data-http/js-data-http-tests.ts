@@ -4,7 +4,7 @@ var adapter = new DSHttpAdapter();
 var store = new JSData.DS();
 store.registerAdapter('http', adapter, { default: true });
 
-var ADocument:JSData_.DSResourceDefinition<any> = store.defineResource<any>('document');
+var ADocument:JSData.DSResourceDefinition<any> = store.defineResource<any>('document');
 
 ADocument.inject({ id: 5, author: 'John' });
 
@@ -73,7 +73,7 @@ adapter.GET('/user/1').then(function (data) {
     data.config; //{...}
 });
 
-var User:JSData_.DSResourceDefinition<any> = store.defineResource('user');
+var User:JSData.DSResourceDefinition<any> = store.defineResource('user');
 
 var params:any = {
     age: {

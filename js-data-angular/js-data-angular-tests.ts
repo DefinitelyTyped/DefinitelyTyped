@@ -12,7 +12,7 @@ interface CustomScope extends ng.IScope {
 }
 
 angular.module('myApp')
-    .controller('commentsCtrl', function ($scope:CustomScope, store:JSData_.DS, Comment:JSData_.DSResourceDefinition<any>, User:JSData_.DSResourceDefinition<any>) {
+    .controller('commentsCtrl', function ($scope:CustomScope, store:JSData.DS, Comment:JSData.DSResourceDefinition<any>, User:JSData.DSResourceDefinition<any>) {
 
         Comment.findAll().then(function (comments) {
             $scope.comments = comments;
@@ -54,7 +54,7 @@ angular.module('myApp')
     });
 
 angular.module('myApp')
-    .run(function (DS:JSData_.DS) {
+    .run(function (DS:JSData.DS) {
         // We don't register the "User" resource
         // as a service, so it can only be used
         // via DS.<method>('user', ...)
@@ -63,7 +63,7 @@ angular.module('myApp')
         // only ever have to inject "DS"
         DS.defineResource('user');
     })
-    .factory('Comment', function (DS:JSData_.DS) {
+    .factory('Comment', function (DS:JSData.DS) {
         // This code won't execute unless you actually
         // inject "Comment" somewhere in your code.
         // Thanks Angular...
@@ -73,6 +73,6 @@ angular.module('myApp')
     });
 
 angular.module('myApp')
-    .config(function (DSProvider:JSData_.DSProvider) {
+    .config(function (DSProvider:JSData.DSProvider) {
         DSProvider.defaults.basePath = '/myApi'; // etc.
     });

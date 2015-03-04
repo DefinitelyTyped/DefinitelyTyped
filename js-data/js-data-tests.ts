@@ -127,7 +127,7 @@ interface IComment {
     profile?: any;
 }
 
-var aComment:JSData_.DSResourceDefinition<IComment> = store.defineResource<IComment>('comment');
+var aComment:JSData.DSResourceDefinition<IComment> = store.defineResource<IComment>('comment');
 
 // Get all comments where comment.userId == 5
 aComment.filter({
@@ -276,7 +276,7 @@ interface IPost {
 
 }
 
-var Post:JSData_.DSResourceDefinition<IPost>;
+var Post:JSData.DSResourceDefinition<IPost>;
 
 // Grab the first "page" of posts
 Post.filter({
@@ -426,7 +426,7 @@ User.create({name: 'John'}, {
 
 module CustomAdapterTest {
 
-    class MyCustomAdapter implements JSData_.IDSAdapter {
+    class MyCustomAdapter implements JSData.IDSAdapter {
 
         // All of the methods shown here must return a promise
 
@@ -437,52 +437,52 @@ module CustomAdapterTest {
 // was passed into the DS method that is calling
 // the adapter method
 
-        create(definition:JSData_.DSResourceDefinition<any>, attrs:Object, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        create(definition:JSData.DSResourceDefinition<any>, attrs:Object, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must resolve the promise with the created item
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
 
-        find(definition:JSData_.DSResourceDefinition<any>, id:any, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        find(definition:JSData.DSResourceDefinition<any>, id:any, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must resolve the promise with the found item
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
 
-        findAll(definition:JSData_.DSResourceDefinition<any>, params:JSData_.DSFilterParams, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        findAll(definition:JSData.DSResourceDefinition<any>, params:JSData.DSFilterParams, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must resolve the promise with the found items
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
 
-        update(definition:JSData_.DSResourceDefinition<any>, id:any, attrs:Object, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        update(definition:JSData.DSResourceDefinition<any>, id:any, attrs:Object, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must resolve the promise with the updated items
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
 
-        updateAll(definition:JSData_.DSResourceDefinition<any>, attrs:Object, params:JSData_.DSFilterParams, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        updateAll(definition:JSData.DSResourceDefinition<any>, attrs:Object, params:JSData.DSFilterParams, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must resolve the promise with the updated items
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
 
-        destroy(definition:JSData_.DSResourceDefinition<any>, id:any, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        destroy(definition:JSData.DSResourceDefinition<any>, id:any, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must return a promise
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
 
-        destroyAll(definition:JSData_.DSResourceDefinition<any>, params:JSData_.DSFilterParams, options:JSData_.DSConfiguration):JSData_.JSDataPromise<any> {
+        destroyAll(definition:JSData.DSResourceDefinition<any>, params:JSData.DSFilterParams, options:JSData.DSConfiguration):JSData.JSDataPromise<any> {
             // Must return a promise
 
-            var promise:JSData_.JSDataPromise<any>;
+            var promise:JSData.JSDataPromise<any>;
             return promise;
         }
     }
@@ -500,14 +500,14 @@ module CustomAdapterTest {
 
 interface MyCustomDataStore {
 
-    myResource: JSData_.DSResourceDefinition<MyResourceDefinition>
+    myResource: JSData.DSResourceDefinition<MyResourceDefinition>
 }
 
 interface MyResourceDefinition {
 
 }
 
-module JSData_ {
+module JSData {
 
     interface DS {
 

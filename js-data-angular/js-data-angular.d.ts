@@ -6,7 +6,7 @@
 /// <reference path="../js-data/js-data.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module JSData_ {
+declare module JSData {
 
     interface DSProvider {
         defaults:DSConfiguration;
