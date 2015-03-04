@@ -652,7 +652,7 @@ declare module "child_process" {
     }): ChildProcess;
     export function execSync(command: string, options?: {
         cwd?: string;
-        input?: string|Buffer;
+        input?: any; // string | Buffer;
         stdio?: any;
         env?: any;
         uid?: number;
