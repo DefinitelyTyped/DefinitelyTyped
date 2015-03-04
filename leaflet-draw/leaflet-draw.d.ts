@@ -7,6 +7,40 @@
 
 declare module L {
 	export module Draw {
+		export interface DrawCreatedEvent {
+			layer: L.ILayer;
+			
+			layerType: string;
+		}
+		
+		export interface DrawDrawstopEvent {
+			layerType: string;
+		}
+		
+		export interface DrawEditedEvent {
+			layers: L.LayerGroup<L.ILayer>;
+		}
+		
+		export interface DrawEditstartEvent {
+			handler: string;
+		}
+		
+		export interface DrawEditstopEvent {
+			handler: string;
+		}
+		
+		export interface DrawDeletedEvent {
+			layers: L.LayerGroup<L.ILayer>;
+		}
+		
+		export interface DrawDeletestartEvent {
+			handler: string;
+		}
+		
+		export interface DrawDeletestopEvent {
+			handler: string;
+		}
+		
 		interface MarkerOptions {
 			icon?: L.Icon;
 		
@@ -100,6 +134,8 @@ declare module L {
 			draw: any;
 
 			edit: EditOptions;
+
+			setDrawingOptions(options: any): void;
 		}
 	}
 }
