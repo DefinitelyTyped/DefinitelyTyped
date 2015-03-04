@@ -128,7 +128,7 @@ declare class TimelineLite extends SimpleTimeline {
     insert(value:any, timeOrLabel?:any):any;
     insertMultiple(tweens:any[], timeOrLabel?:any, align?:string, stagger?:number):any;
     invalidate():any;
-    progress(value?:number, suppressEvents?:boolean):any;s
+    progress(value?:number, suppressEvents?:boolean):any;
     remove(value:any):any;
     removeLabel(label:string):any;
     set(target: Object, vars: Object, position?:any):any;
