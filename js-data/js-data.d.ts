@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // defining what exists in JSData and how it looks
-declare module JSData_ {
+declare module JSData {
 
     interface JSDataPromise<R> extends Promise<R> {
 
@@ -398,8 +398,8 @@ declare module JSData_ {
 
 // declaring the existing global js object
 declare var JSData:{
-    DS: JSData_.DS;
-    DSErrors: JSData_.DSErrors;
+    DS: JSData.DS;
+    DSErrors: JSData.DSErrors;
 };
 
 //Support node require
