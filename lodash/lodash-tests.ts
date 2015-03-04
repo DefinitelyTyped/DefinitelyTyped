@@ -176,50 +176,23 @@ result = <number>_.findLastIndex(['apple', 'banana', 'beet'], 'apple');
 result = <number>_.findLastIndex([{ food: 'apple' }, { food: 'banana' }, { food: 'beet' }], { food: 'apple' });
 
 result = <number>_.first([1, 2, 3]);
-result = <number[]>_.first([1, 2, 3], 2);
-result = <number[]>_.first([1, 2, 3], function (num) {
+result = <number[]>_.take([1, 2, 3], 2);
+result = <number[]>_.takeWhile([1, 2, 3], function (num) {
     return num < 3;
 });
-result = <IFoodOrganic[]>_.first(foodsOrganic, 'organic');
-result = <IFoodType[]>_.first(foodsType, { 'type': 'fruit' });
+result = <IFoodOrganic[]>_.takeWhile(foodsOrganic, 'organic');
+result = <IFoodType[]>_.takeWhile(foodsType, { 'type': 'fruit' });
 
 result = <number>_([1, 2, 3]).first();
-result = <number[]>_([1, 2, 3]).first(2).value();
-result = <number[]>_([1, 2, 3]).first(function (num) {
+result = <number[]>_([1, 2, 3]).take(2).value();
+result = <number[]>_([1, 2, 3]).takeWhile(function (num) {
     return num < 3;
 }).value();
-result = <IFoodOrganic[]>_(foodsOrganic).first('organic').value();
-result = <IFoodType[]>_(foodsType).first({ 'type': 'fruit' }).value();
+result = <IFoodOrganic[]>_(foodsOrganic).takeWhile('organic').value();
+result = <IFoodType[]>_(foodsType).takeWhile({ 'type': 'fruit' }).value();
 
 result = <number>_.head([1, 2, 3]);
-result = <number[]>_.head([1, 2, 3], 2);
-result = <number[]>_.head([1, 2, 3], function (num) {
-    return num < 3;
-});
-result = <IFoodOrganic[]>_.head(foodsOrganic, 'organic');
-result = <IFoodType[]>_.head(foodsType, { 'type': 'fruit' });
-
 result = <number>_([1, 2, 3]).head();
-result = <number[]>_([1, 2, 3]).head(2).value();
-result = <number[]>_([1, 2, 3]).head(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).head('organic').value();
-result = <IFoodType[]>_(foodsType).head({ 'type': 'fruit' }).value();
-
-result = <number>_.take([1, 2, 3]);
-result = <number[]>_.take([1, 2, 3], 2);
-result = <number[]>_.take([1, 2, 3], (num) => num < 3);
-result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
-result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
-
-result = <number>_([1, 2, 3]).take();
-result = <number[]>_([1, 2, 3]).take(2).value();
-result = <number[]>_([1, 2, 3]).take(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
-result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
@@ -245,12 +218,20 @@ result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
 result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
 result = <number>_.last([1, 2, 3]);
-result = <number[]>_.last([1, 2, 3], 2);
-result = <number[]>_.last([1, 2, 3], function (num) {
+result = <number[]>_.takeRight([1, 2, 3], 2);
+result = <number[]>_.takeRightWhile([1, 2, 3], function (num) {
     return num > 1;
 });
-result = <IFoodOrganic[]>_.last(foodsOrganic, 'organic');
-result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
+result = <IFoodOrganic[]>_.takeRightWhile(foodsOrganic, 'organic');
+result = <IFoodType[]>_.takeRightWhile(foodsType, { 'type': 'vegetable' });
+
+result = <number>_([1, 2, 3]).last();
+result = <number[]>_([1, 2, 3]).takeRight(2).value();
+result = <number[]>_([1, 2, 3]).takeRightWhile(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).takeRightWhile('organic').value();
+result = <IFoodType[]>_(foodsType).takeRightWhile({ 'type': 'fruit' }).value();
 
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
