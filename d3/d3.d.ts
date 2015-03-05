@@ -728,7 +728,7 @@ declare module D3 {
         };
 
         classed: {
-            (name: string): string;
+            (name: string): boolean;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
             (classValueMap: Object): Selection;
