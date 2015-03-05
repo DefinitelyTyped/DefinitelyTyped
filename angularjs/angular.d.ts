@@ -1448,7 +1448,7 @@ declare module ng {
         controller?: any;
         controllerAs?: string;
         bindToController?: boolean;
-        link?: IDirectiveLinkFn;
+        link?: IDirectiveLinkFn | IDirectivePrePost;
         name?: string;
         priority?: number;
         replace?: boolean;
