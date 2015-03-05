@@ -4,22 +4,20 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///////////////////////////////////////////////////////////////////////////////
-// Promises in js-data are ES6 polyfill promises
-///////////////////////////////////////////////////////////////////////////////
-
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
-///////////////////////////////////////////////////////////////////////////////
 // js-data module (js-data.js)
 ///////////////////////////////////////////////////////////////////////////////
 
 // defining what exists in JSData and how it looks
 declare module JSData {
 
-    interface JSDataPromise<R> extends Promise<R> {
+    interface JSDataPromise<R> {
+
+        then<U>(onFulfilled?: (value: R) => U | JSDataPromise<U>,  onRejected?: (error: any) => U | JSDataPromise<U>): JSDataPromise<U>;
+
+        catch<U>(onRejected?: (error: any) => U | JSDataPromise<U>): JSDataPromise<U>;
 
         // enhanced with finally
-        finally<U>(finallyCb?:() => U):Promise<U>;
+        finally<U>(finallyCb?:() => U):JSDataPromise<U>;
     }
 
     //TODO switch to class again when typescript supports open ended class declaration

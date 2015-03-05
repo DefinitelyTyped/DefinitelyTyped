@@ -35,11 +35,11 @@ declare module JSData {
         new(options?:DSHttpAdapterOptions):DSHttpAdapter;
 
         // DSHttpAdapter uses axios so options are axios config objects.
-        HTTP(options?:Object):Promise<DSHttpAdapterPromiseResolveType>;
-        DEL(url:string, data?:Object, options?:Object):Promise<DSHttpAdapterPromiseResolveType>;
-        GET(url:string, data?:Object, options?:Object):Promise<DSHttpAdapterPromiseResolveType>;
-        POST(url:string, data?:Object, options?:Object):Promise<DSHttpAdapterPromiseResolveType>;
-        PUT(url:string, data?:Object, options?:Object):Promise<DSHttpAdapterPromiseResolveType>;
+        HTTP(options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;
+        DEL(url:string, data?:Object, options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;
+        GET(url:string, data?:Object, options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;
+        POST(url:string, data?:Object, options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;
+        PUT(url:string, data?:Object, options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;
     }
 }
 

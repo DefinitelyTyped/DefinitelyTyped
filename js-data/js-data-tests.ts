@@ -387,7 +387,9 @@ OtherOtherComment.find(5, {params: {postId: 4}}); // GET /post/4/comment/5
 
 // vs
 
-OtherOtherComment.find(5); // GET /comment/5
+var promise = OtherOtherComment.find(5); // GET /comment/5
+
+promise.then().catch().finally();
 
 OtherOtherComment.inject({id: 1, postId: 2});
 
