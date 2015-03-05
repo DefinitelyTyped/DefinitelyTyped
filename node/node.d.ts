@@ -609,7 +609,7 @@ declare module "child_process" {
         stderr: stream.Readable;
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle: any): void;
+        send(message: any, sendHandle?: any): void;
         disconnect(): void;
     }
 
