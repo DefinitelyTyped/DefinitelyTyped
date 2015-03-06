@@ -27,6 +27,20 @@ declare module "react" {
     type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
     type ReactSVGElement = ReactDOMElement<SVGAttributes>;
 
+
+    //
+    // React Nodes
+    // http://facebook.github.io/react/docs/glossary.html
+    // ----------------------------------------------------------------------
+
+    type ReactText = string | number;
+    type ReactChild = ReactElementBase<any, any> | ReactText;
+
+    // Should be Array<ReactNode> but type aliases cannot be recursive
+    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactNode = ReactChild | ReactFragment | boolean;
+
+
     //
     // Factories
     // ----------------------------------------------------------------------
@@ -46,17 +60,6 @@ declare module "react" {
     type HTMLFactory = DOMFactory<HTMLAttributes>;
     type SVGFactory = DOMFactory<SVGAttributes>;
 
-    //
-    // React Nodes
-    // http://facebook.github.io/react/docs/glossary.html
-    // ----------------------------------------------------------------------
-
-    type ReactText = string | number;
-    type ReactChild = ReactElementBase<any, any> | ReactText;
-
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // Top Level API
