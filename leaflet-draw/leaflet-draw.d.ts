@@ -84,14 +84,14 @@ declare module L {
 		
 			repeatMode?: Boolean;
 		}
-
+		
 		interface SimpleShapeStatic extends ClassStatic {
 			new(map: L.Map, options: SimpleShapeOptions): SimpleShape;
 		}
 		interface SimpleShape extends L.IHandler {
 		}
 		export var SimpleShape: SimpleShapeStatic;
-
+		
 		interface PolygonStatic extends ClassStatic {
 			new(map: L.Map, options: PolygonOptions): Polygon;
 		}
@@ -105,6 +105,13 @@ declare module L {
 		interface Polyline extends L.Draw.Feature {
 		}
 		export var Polyline: PolylineStatic;
+
+		interface RectangleStatic extends SimpleShapeStatic {
+		}
+		interface Rectangle extends L.Draw.SimpleShape {
+			new(map: L.Map, options: SimpleShapeOptions): Rectangle;
+		}
+		export var Rectangle: RectangleStatic;
 		
 		interface CircleStatic extends SimpleShapeStatic {
 		}
