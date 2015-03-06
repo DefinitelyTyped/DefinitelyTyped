@@ -119,28 +119,28 @@ var factoryElement: React.ReactElement<Props> =
 
 var classicFactory: React.ClassicFactory<Props> =
     React.createFactory(ClassicComponent);
-var classicFactoryElement: React.ReactClassicElement<Props> =
+var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
 var domFactory: React.DOMFactory<any> =
     React.createFactory("foo");
-var domFactoryElement: React.ReactDOMElement<any> =
+var domFactoryElement: React.DOMElement<any> =
     domFactory();
 
 // React.createElement
-var element: React.ReactModernElement<Props> =
+var element: React.ModernElement<Props> =
     React.createElement(ModernComponent, props);
-var classicElement: React.ReactClassicElement<Props> =
+var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
-var domElement: React.ReactHTMLElement =
+var domElement: React.HTMLElement =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ReactModernElement<Props> =
+var clonedElement: React.ModernElement<Props> =
     React.cloneElement(element, props);
-var clonedClassicElement: React.ReactClassicElement<Props> =
+var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
-var clonedDOMElement: React.ReactHTMLElement =
+var clonedDOMElement: React.HTMLElement =
     React.cloneElement(domElement);
 
 // React.render
@@ -260,7 +260,7 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
             return null;
         }
     },
-    render: (): React.ReactHTMLElement => {
+    render: (): React.ReactElement<any> => {
         return null;
     }
 };
@@ -301,7 +301,7 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
             return null;
         }
     },
-    render: (): React.ReactHTMLElement => {
+    render: (): React.ReactElement<any> => {
         return null;
     }
 };

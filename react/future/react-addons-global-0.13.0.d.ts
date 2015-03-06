@@ -23,9 +23,9 @@ declare module React {
         classSet(cx: { [key: string]: boolean }): string;
         classSet(...classList: string[]): string;
 
-        cloneWithProps<P>(element: ReactDOMElement<P>, props: P): ReactDOMElement<P>;
-        cloneWithProps<P>(element: ReactClassicElement<P>, props: P): ReactClassicElement<P>;
-        cloneWithProps<P>(element: ReactModernElement<P>, props: P): ReactModernElement<P>;
+        cloneWithProps<P>(element: DOMElement<P>, props: P): DOMElement<P>;
+        cloneWithProps<P>(element: ClassicElement<P>, props: P): ClassicElement<P>;
+        cloneWithProps<P>(element: ModernElement<P>, props: P): ModernElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
         createFragment(object: { [key: string]: ReactNode }): ReactFragment;

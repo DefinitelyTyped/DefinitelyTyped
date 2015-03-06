@@ -17,24 +17,24 @@ declare module React {
         ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ReactModernElement<P> extends ReactElement<P> {
+    interface ModernElement<P> extends ReactElement<P> {
         type: ModernComponentClass<P, any>;
         ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ReactClassicElement<P> extends ReactElement<P> {
+    interface ClassicElement<P> extends ReactElement<P> {
         type: string | ClassicComponentClass<P, any>;
         ref: string | ((component: ClassicComponent<P, any>) => any);
     }
 
-    // subtype of ReactClassicElement
-    interface ReactDOMElement<P> extends ReactElement<P> {
+    // subtype of ClassicElement
+    interface DOMElement<P> extends ReactElement<P> {
         type: string;
         ref: string | ((component: DOMComponent<P>) => any);
     }
 
-    type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
-    type ReactSVGElement = ReactDOMElement<SVGAttributes>;
+    type HTMLElement = DOMElement<HTMLAttributes>;
+    type SVGElement = DOMElement<SVGAttributes>;
 
     //
     // Factories
@@ -45,15 +45,15 @@ declare module React {
     }
 
     interface ModernFactory<P> extends Factory<P> {
-        (props?: P, ...children: ReactNode[]): ReactModernElement<P>;
+        (props?: P, ...children: ReactNode[]): ModernElement<P>;
     }
 
     interface ClassicFactory<P> extends Factory<P> {
-        (props?: P, ...children: ReactNode[]): ReactClassicElement<P>;
+        (props?: P, ...children: ReactNode[]): ClassicElement<P>;
     }
 
     interface DOMFactory<P> extends Factory<P> {
-        (props?: P, ...children: ReactNode[]): ReactDOMElement<P>;
+        (props?: P, ...children: ReactNode[]): DOMElement<P>;
     }
 
     type HTMLFactory = DOMFactory<HTMLAttributes>;
@@ -85,39 +85,39 @@ declare module React {
     function createElement<P>(
         type: string,
         props?: P,
-        ...children: ReactNode[]): ReactDOMElement<P>;
+        ...children: ReactNode[]): DOMElement<P>;
     function createElement<P>(
         type: ClassicComponentClass<P, any> | string,
         props?: P,
-        ...children: ReactNode[]): ReactClassicElement<P>;
+        ...children: ReactNode[]): ClassicElement<P>;
     function createElement<P>(
         type: ModernComponentClass<P, any>,
         props?: P,
-        ...children: ReactNode[]): ReactModernElement<P>;
+        ...children: ReactNode[]): ModernElement<P>;
 
     function cloneElement<P>(
-        element: ReactDOMElement<P>,
+        element: DOMElement<P>,
         props?: P,
-        ...children: ReactNode[]): ReactDOMElement<P>;
+        ...children: ReactNode[]): DOMElement<P>;
     function cloneElement<P>(
-        element: ReactClassicElement<P>,
+        element: ClassicElement<P>,
         props?: P,
-        ...children: ReactNode[]): ReactClassicElement<P>;
+        ...children: ReactNode[]): ClassicElement<P>;
     function cloneElement<P>(
-        element: ReactModernElement<P>,
+        element: ModernElement<P>,
         props?: P,
-        ...children: ReactNode[]): ReactModernElement<P>;
+        ...children: ReactNode[]): ModernElement<P>;
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
     function render<P>(
-        element: ReactDOMElement<P>,
+        element: DOMElement<P>,
         container: Element,
         callback?: () => any): DOMComponent<P>;
     function render<P, S>(
-        element: ReactClassicElement<P>,
+        element: ClassicElement<P>,
         container: Element,
         callback?: () => any): ClassicComponent<P, S>;
     function render<P, S>(
