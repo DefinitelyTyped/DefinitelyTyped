@@ -1,4 +1,4 @@
-// Type definitions for ReactWithAddons v0.13.0 (external module)
+// Type definitions for ReactWithAddons v0.13.0 RC2 (external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -9,20 +9,26 @@ declare module "react/addons" {
     // ----------------------------------------------------------------------
 
     interface ReactElementBase<T, P> {
-        type: T;
+        type: string | ComponentClassBase<P>;
         props: P;
-        key: number | string;
-        ref: string;
+        key: string | number;
+        ref: string | ((component: T) => any);
     }
 
     interface ReactElement<P>
-        extends ReactElementBase<ComponentClass<P, any>, P> {}
+        extends ReactElementBase<Component<P, any>, P> {
+        type: ComponentClass<P, any>;
+    }
 
     interface ReactClassicElement<P>
-        extends ReactElementBase<ClassicComponentClass<P, any> | string, P> {}
+        extends ReactElementBase<ClassicComponent<P, any>, P> {
+        type: string | ClassicComponentClass<P, any>;
+    }
 
     interface ReactDOMElement<P> // subtype of ReactClassicElement
-        extends ReactElementBase<string, P> {}
+        extends ReactElementBase<DOMComponent<P>, P> {
+        type: string;
+    }
 
     type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
     type ReactSVGElement = ReactDOMElement<SVGAttributes>;
@@ -85,6 +91,19 @@ declare module "react/addons" {
         props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
+    function cloneElement<P>(
+        element: ReactDOMElement<P>,
+        props?: P,
+        ...children: ReactNode[]): ReactDOMElement<P>;
+    function cloneElement<P>(
+        element: ReactClassicElement<P>,
+        props?: P,
+        ...children: ReactNode[]): ReactClassicElement<P>;
+    function cloneElement<P>(
+        element: ReactElement<P>,
+        props?: P,
+        ...children: ReactNode[]): ReactElement<P>;
+
     function render<P>(
         element: ReactDOMElement<P>,
         container: Element,
@@ -120,6 +139,7 @@ declare module "react/addons" {
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props: P, context: any);
+        setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
         props: P;
@@ -144,7 +164,7 @@ declare module "react/addons" {
         tagName: string;
     }
 
-    type HTMLComponent = DOMComponent<HTMLAttributes>;
+    export type HTMLComponent = DOMComponent<HTMLAttributes>;
     type SVGComponent = DOMComponent<SVGAttributes>;
 
     interface ChildContextProvider<CC> {
@@ -311,13 +331,13 @@ declare module "react/addons" {
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
-    interface Props {
+    interface Props<T> {
         children?: ReactNode;
-        key?: number | string;
-        ref?: string;
+        key?: string | number;
+        ref?: string | ((component: T) => any);
     }
 
-    interface DOMAttributes extends Props {
+    interface DOMAttributes extends Props<DOMComponent<any>> {
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
@@ -379,6 +399,8 @@ declare module "react/addons" {
     }
 
     interface HTMLAttributes extends DOMAttributes {
+        ref?: string | ((component: HTMLComponent) => void);
+
         accept?: string;
         acceptCharset?: string;
         accessKey?: string;
@@ -487,6 +509,8 @@ declare module "react/addons" {
     }
 
     interface SVGAttributes extends DOMAttributes {
+        ref?: string | ((component: SVGComponent) => void);
+
         cx?: SVGLength | SVGAnimatedLength;
         cy?: any;
         d?: string;
@@ -734,7 +758,11 @@ declare module "react/addons" {
         classSet(cx: { [key: string]: boolean }): string;
         classSet(...classList: string[]): string;
 
+        cloneWithProps<P>(element: ReactDOMElement<P>, props: P): ReactDOMElement<P>;
+        cloneWithProps<P>(element: ReactClassicElement<P>, props: P): ReactClassicElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
+
+        createFragment(object: { [key: string]: ReactNode }): ReactFragment;
 
         update(value: any[], spec: UpdateArraySpec): any[];
         update(value: {}, spec: UpdateSpec): any;

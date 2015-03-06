@@ -1,4 +1,4 @@
-// Type definitions for React v0.13.0 (internal module)
+// Type definitions for React v0.13.0 RC2 (internal module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -9,20 +9,26 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface ReactElementBase<T, P> {
-        type: T;
+        type: string | ComponentClassBase<P>;
         props: P;
-        key: number | string;
-        ref: string;
+        key: string | number;
+        ref: string | ((component: T) => any);
     }
 
     interface ReactElement<P>
-        extends ReactElementBase<ComponentClass<P, any>, P> {}
+        extends ReactElementBase<Component<P, any>, P> {
+        type: ComponentClass<P, any>;
+    }
 
     interface ReactClassicElement<P>
-        extends ReactElementBase<ClassicComponentClass<P, any> | string, P> {}
+        extends ReactElementBase<ClassicComponent<P, any>, P> {
+        type: string | ClassicComponentClass<P, any>;
+    }
 
     interface ReactDOMElement<P> // subtype of ReactClassicElement
-        extends ReactElementBase<string, P> {}
+        extends ReactElementBase<DOMComponent<P>, P> {
+        type: string;
+    }
 
     type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
     type ReactSVGElement = ReactDOMElement<SVGAttributes>;
@@ -55,7 +61,7 @@ declare module React {
     type ReactChild = ReactElementBase<any, any> | ReactText;
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
     type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
@@ -83,6 +89,19 @@ declare module React {
     function createElement<P>(
         type: ComponentClass<P, any>,
         props?: P,
+        ...children: ReactNode[]): ReactElement<P>;
+
+    function cloneElement<P>(
+        element: ReactDOMElement<P>,
+        props: P,
+        ...children: ReactNode[]): ReactDOMElement<P>;
+    function cloneElement<P>(
+        element: ReactClassicElement<P>,
+        props: P,
+        ...children: ReactNode[]): ReactClassicElement<P>;
+    function cloneElement<P>(
+        element: ReactElement<P>,
+        props: P,
         ...children: ReactNode[]): ReactElement<P>;
 
     function render<P>(
@@ -120,6 +139,7 @@ declare module React {
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props: P, context: any);
+        setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
         props: P;
@@ -311,13 +331,13 @@ declare module React {
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
-    interface Props {
+    interface Props<T> {
         children?: ReactNode;
-        key?: number | string;
-        ref?: string;
+        key?: string | number;
+        ref?: string | ((component: T) => any);
     }
 
-    interface DOMAttributes extends Props {
+    interface DOMAttributes extends Props<DOMComponent<any>> {
         onCopy?: ClipboardEventHandler;
         onCut?: ClipboardEventHandler;
         onPaste?: ClipboardEventHandler;
@@ -379,6 +399,8 @@ declare module React {
     }
 
     interface HTMLAttributes extends DOMAttributes {
+        ref?: string | ((component: HTMLComponent) => void);
+
         accept?: string;
         acceptCharset?: string;
         accessKey?: string;
@@ -487,6 +509,8 @@ declare module React {
     }
 
     interface SVGAttributes extends DOMAttributes {
+        ref?: string | ((component: SVGComponent) => void);
+
         cx?: SVGLength | SVGAnimatedLength;
         cy?: any;
         d?: string;
