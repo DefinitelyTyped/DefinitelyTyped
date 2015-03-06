@@ -9,7 +9,7 @@ declare module "byline" {
     import stream = require("stream");
 
     export interface LineStreamOptions extends stream.TransformOptions {
-        keepEmptyLines: boolean;
+        keepEmptyLines?: boolean;
     }
 
     export interface LineStream extends stream.Transform {
