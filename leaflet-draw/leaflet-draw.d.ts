@@ -86,9 +86,9 @@ declare module L {
 		}
 		
 		interface SimpleShapeStatic extends ClassStatic {
-			new(map: L.Map, options: SimpleShapeOptions): SimpleShape;
 		}
 		interface SimpleShape extends L.IHandler {
+			new(map: L.Map, options: SimpleShapeOptions): SimpleShape;
 		}
 		export var SimpleShape: SimpleShapeStatic;
 		
@@ -106,17 +106,17 @@ declare module L {
 		}
 		export var Polyline: PolylineStatic;
 
-		interface RectangleStatic extends SimpleShapeStatic {
+		interface RectangleStatic extends ClassStatic {
+			new(map: L.Map, options: SimpleShapeOptions): Rectangle;
 		}
 		interface Rectangle extends L.Draw.SimpleShape {
-			new(map: L.Map, options: SimpleShapeOptions): Rectangle;
 		}
 		export var Rectangle: RectangleStatic;
 		
-		interface CircleStatic extends SimpleShapeStatic {
+		interface CircleStatic extends ClassStatic {
+			new(map: L.Map, options: SimpleShapeOptions): Circle;
 		}
 		interface Circle extends L.Draw.SimpleShape {
-			new(map: L.Map, options: SimpleShapeOptions): Circle;
 		}
 		export var Circle: CircleStatic;
 		
