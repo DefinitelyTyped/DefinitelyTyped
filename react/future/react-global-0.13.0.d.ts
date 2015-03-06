@@ -8,26 +8,29 @@ declare module React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    interface ReactElementBase<T, P> {
-        type: string | ComponentClassBase<P>;
+    type ReactType = ComponentClass<any> | string;
+
+    interface ReactElement<P> {
+        type: string | ComponentClass<P>;
         props: P;
         key: string | number;
-        ref: string | ((component: T) => any);
+        ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ReactElement<P>
-        extends ReactElementBase<Component<P, any>, P> {
-        type: ComponentClass<P, any>;
+    interface ReactModernElement<P> extends ReactElement<P> {
+        type: ModernComponentClass<P, any>;
+        ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ReactClassicElement<P>
-        extends ReactElementBase<ClassicComponent<P, any>, P> {
+    interface ReactClassicElement<P> extends ReactElement<P> {
         type: string | ClassicComponentClass<P, any>;
+        ref: string | ((component: ClassicComponent<P, any>) => any);
     }
 
-    interface ReactDOMElement<P> // subtype of ReactClassicElement
-        extends ReactElementBase<DOMComponent<P>, P> {
+    // subtype of ReactClassicElement
+    interface ReactDOMElement<P> extends ReactElement<P> {
         type: string;
+        ref: string | ((component: DOMComponent<P>) => any);
     }
 
     type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
@@ -41,11 +44,15 @@ declare module React {
         (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
 
-    interface ClassicFactory<P> {
+    interface ModernFactory<P> extends Factory<P> {
+        (props?: P, ...children: ReactNode[]): ReactModernElement<P>;
+    }
+
+    interface ClassicFactory<P> extends Factory<P> {
         (props?: P, ...children: ReactNode[]): ReactClassicElement<P>;
     }
 
-    interface DOMFactory<P> {
+    interface DOMFactory<P> extends Factory<P> {
         (props?: P, ...children: ReactNode[]): ReactDOMElement<P>;
     }
 
@@ -58,7 +65,7 @@ declare module React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElementBase<any, any> | ReactText;
+    type ReactChild = ReactElement<any> | ReactText;
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
@@ -68,15 +75,12 @@ declare module React {
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S>(
-        spec: ComponentSpec<P, S>): ClassicComponentClass<P, S>;
+    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P, S>;
 
-    function createFactory<P>(
-        type: string): DOMFactory<P>;
-    function createFactory<P>(
-        type: ClassicComponentClass<P, any> | string): ClassicFactory<P>;
-    function createFactory<P>(
-        type: ComponentClass<P, any>): Factory<P>;
+    function createFactory<P>(type: string): DOMFactory<P>;
+    function createFactory<P>(type: ClassicComponentClass<P, any> | string): ClassicFactory<P>;
+    function createFactory<P>(type: ModernComponentClass<P, any>): ModernFactory<P>;
+    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     function createElement<P>(
         type: string,
@@ -87,21 +91,25 @@ declare module React {
         props?: P,
         ...children: ReactNode[]): ReactClassicElement<P>;
     function createElement<P>(
-        type: ComponentClass<P, any>,
+        type: ModernComponentClass<P, any>,
         props?: P,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNode[]): ReactModernElement<P>;
 
     function cloneElement<P>(
         element: ReactDOMElement<P>,
-        props: P,
+        props?: P,
         ...children: ReactNode[]): ReactDOMElement<P>;
     function cloneElement<P>(
         element: ReactClassicElement<P>,
-        props: P,
+        props?: P,
         ...children: ReactNode[]): ReactClassicElement<P>;
     function cloneElement<P>(
+        element: ReactModernElement<P>,
+        props?: P,
+        ...children: ReactNode[]): ReactModernElement<P>;
+    function cloneElement<P>(
         element: ReactElement<P>,
-        props: P,
+        props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
     function render<P>(
@@ -118,8 +126,8 @@ declare module React {
         callback?: () => any): Component<P, S>;
 
     function unmountComponentAtNode(container: Element): boolean;
-    function renderToString(element: ReactElementBase<any, any>): string;
-    function renderToStaticMarkup(element: ReactElementBase<any, any>): string;
+    function renderToString(element: ReactElement<any>): string;
+    function renderToStaticMarkup(element: ReactElement<any>): string;
     function isValidElement(object: {}): boolean;
     function initializeTouchEvents(shouldUseTouch: boolean): void;
 
@@ -175,18 +183,18 @@ declare module React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    interface ComponentClassBase<P> {
+    interface ComponentClass<P> {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
     }
 
-    interface ComponentClass<P, S> extends ComponentClassBase<P> {
+    interface ModernComponentClass<P, S> extends ComponentClass<P> {
         new(props?: P, context?: any): Component<P, S>;
         defaultProps?: P;
     }
 
-    interface ClassicComponentClass<P, S> extends ComponentClassBase<P> {
+    interface ClassicComponentClass<P, S> extends ComponentClass<P> {
         new(props?: P, context?: any): ClassicComponent<P, S>;
         getDefaultProps?(): P;
         displayName?: string;
@@ -222,7 +230,7 @@ declare module React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElementBase<any, any>;
+        render(): ReactElement<any>;
     }
 
     //

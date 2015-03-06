@@ -25,6 +25,7 @@ declare module React {
 
         cloneWithProps<P>(element: ReactDOMElement<P>, props: P): ReactDOMElement<P>;
         cloneWithProps<P>(element: ReactClassicElement<P>, props: P): ReactClassicElement<P>;
+        cloneWithProps<P>(element: ReactModernElement<P>, props: P): ReactModernElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
         createFragment(object: { [key: string]: ReactNode }): ReactFragment;
@@ -41,8 +42,6 @@ declare module React {
     // React.addons (Transitions)
     // ----------------------------------------------------------------------
 
-    type ReactType = ComponentClass<any, any> | string;
-
     interface TransitionGroupProps {
         component?: ReactType;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
@@ -55,10 +54,8 @@ declare module React {
         transitionLeave?: boolean;
     }
 
-    type CSSTransitionGroup =
-        ComponentClass<CSSTransitionGroupProps, any>;
-    type TransitionGroup =
-        ComponentClass<TransitionGroupProps, any>;
+    type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
+    type TransitionGroup = ComponentClass<TransitionGroupProps>;
 
     //
     // React.addons (Mixins)
@@ -150,7 +147,7 @@ declare module React {
         isCompositeComponent(instance: Component<any, any>): boolean;
         isCompositeComponentWithType(
             instance: Component<any, any>,
-            type: ComponentClass<any, any>): boolean;
+            type: ComponentClass<any>): boolean;
 
         findAllInRenderedTree(
             tree: Component<any, any>,
@@ -170,19 +167,19 @@ declare module React {
             tree: Component<any, any>,
             tagName: string): DOMComponent<any>;
 
-        scryRenderedComponentsWithType<P, S>(
+        scryRenderedComponentsWithType<P>(
             tree: Component<any, any>,
-            type: ComponentClass<P, S>): Component<P, S>[];
+            type: ComponentClass<P>): Component<P, {}>[];
         scryRenderedComponentsWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
-            type: ComponentClass<any, any>): C[];
+            type: ComponentClass<any>): C[];
 
-        findRenderedComponentWithType<P, S>(
+        findRenderedComponentWithType<P>(
             tree: Component<any, any>,
-            type: ComponentClass<P, S>): Component<P, S>;
+            type: ComponentClass<P>): Component<P, {}>;
         findRenderedComponentWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
-            type: ComponentClass<any, any>): C;
+            type: ComponentClass<any>): C;
     }
 
     interface SyntheticEventData {
