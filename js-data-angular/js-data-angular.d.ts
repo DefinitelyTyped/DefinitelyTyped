@@ -16,15 +16,13 @@ declare module JSData {
 
         bindAll<T>(resourceName:string, params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T>)=>void):Function;
 
-        bindOne<T>(resourceName:string, id:string, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
-        bindOne<T>(resourceName:string, id:number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+        bindOne<T>(resourceName:string, id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
     }
 
     interface DSResourceDefinition<T> {
 
         bindAll<T>(params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T>)=>void):Function;
 
-        bindOne<T>(id:string, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
-        bindOne<T>(id:number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
+        bindOne<T>(id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T)=>void):Function;
     }
 }
