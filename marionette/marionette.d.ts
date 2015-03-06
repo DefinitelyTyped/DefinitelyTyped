@@ -43,7 +43,7 @@ declare module Backbone {
         last(): View<TModel>;
         last(n: number): View<TModel>[];
         lastIndexOf(element: View<TModel>, fromIndex?: number): number;
-        map(iterator: (element: View<TModel>, index: number, context?: any) => any[], context?: any): any[];
+        map<U>(iterator: (element: View<TModel>, index: number, context?: any) => U, context?: any): U[];
         pluck(attribute: string): any[];
         reject(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
         rest(): View<TModel>;
