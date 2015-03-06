@@ -1,4 +1,4 @@
-// Type definitions for ReactWithAddons v0.13.0 (internal module)
+// Type definitions for ReactWithAddons v0.13.0 RC2 (internal module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -23,7 +23,11 @@ declare module React {
         classSet(cx: { [key: string]: boolean }): string;
         classSet(...classList: string[]): string;
 
+        cloneWithProps<P>(element: ReactDOMElement<P>, props: P): ReactDOMElement<P>;
+        cloneWithProps<P>(element: ReactClassicElement<P>, props: P): ReactClassicElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
+
+        createFragment(object: { [key: string]: ReactNode }): ReactFragment;
 
         update(value: any[], spec: UpdateArraySpec): any[];
         update(value: {}, spec: UpdateSpec): any;

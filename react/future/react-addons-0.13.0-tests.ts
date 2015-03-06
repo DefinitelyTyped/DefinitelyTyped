@@ -1,7 +1,7 @@
 /// <reference path="react-addons-0.13.0.d.ts" />
 import React = require("react/addons");
 
-interface Props extends React.Props {
+interface Props extends React.Props<MyComponent> {
     hello: string;
     world?: string;
     foo: number;
@@ -34,7 +34,6 @@ var props: Props = {
 };
 
 var container: Element;
-var INPUT_REF: string = "input";
 
 //
 // Top-Level API
@@ -62,7 +61,7 @@ var ClassicComponent: React.ClassicComponentClass<Props, State> =
         render: () => {
             return React.DOM.div(null,
                 React.DOM.input({
-                    ref: INPUT_REF,
+                    ref: input => this._input = input,
                     value: this.state.inputValue
                 }));
         }
@@ -70,14 +69,6 @@ var ClassicComponent: React.ClassicComponentClass<Props, State> =
 
 class ModernComponent extends React.Component<Props, State>
     implements React.ChildContextProvider<ChildContext> {
-
-    constructor(props: Props, context: Context) {
-        super(props, context);
-        this.state = {
-            inputValue: context.someValue,
-            seconds: props.foo
-        };
-    }
     
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
@@ -108,11 +99,13 @@ class ModernComponent extends React.Component<Props, State>
             seconds: this.props.foo
         });
     }
+
+    private _input: React.HTMLComponent;
     
     render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: INPUT_REF,
+                ref: input => this._input = input,
                 value: this.state.inputValue
             }));
     }
@@ -142,6 +135,14 @@ var classicElement: React.ReactClassicElement<Props> =
 var domElement: React.ReactHTMLElement =
     React.createElement("div");
 
+// React.cloneElement
+var clonedElement: React.ReactElement<Props> =
+    React.cloneElement(element, props);
+var clonedClassicElement: React.ReactClassicElement<Props> =
+    React.cloneElement(classicElement, props);
+var clonedDOMElement: React.ReactHTMLElement =
+    React.cloneElement(domElement);
+
 // React.render
 var component: React.Component<Props, any> =
     React.render(element, container);
@@ -167,7 +168,6 @@ domNode = React.findDOMNode(domNode);
 var type = element.type;
 var elementProps: Props = element.props;
 var key = element.key;
-var ref: string = element.ref;
 
 //
 // React Components
@@ -193,10 +193,6 @@ var isMounted: boolean = classicComponent.isMounted();
 classicComponent.setProps(elementProps);
 classicComponent.replaceProps(props);
 classicComponent.replaceState({ inputValue: "???", seconds: 60 });
-
-var inputRef: React.HTMLComponent =
-    <React.HTMLComponent>component.refs[INPUT_REF];
-var value: string = inputRef.getDOMNode<HTMLInputElement>().value;
 
 var myComponent = <MyComponent>component;
 myComponent.reset();
@@ -327,17 +323,18 @@ var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 interface TimerState {
     secondsElapsed: number;
 }
-class Timer extends React.Component<{}, TimerState> {
+class Timer extends React.Component<React.Props<Timer>, TimerState> {
     static state = {
         secondsElapsed: 0
     }
     private _interval: number;
     tick() {
-        this.setState({ secondsElapsed: this.state.secondsElapsed + 1 });
+        this.setState((prevState, props) => ({
+            secondsElapsed: prevState.secondsElapsed + 1
+        }));
     }
     componentDidMount() {
-        var me = this;
-        this._interval = setInterval(() => me.tick(), 1000);
+        this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
         clearInterval(this._interval);
@@ -359,6 +356,11 @@ React.render(React.createElement(Timer), container);
 var cx = React.addons.classSet;
 var className: string = cx({ a: true, b: false, c: true });
 className = cx("a", null, "b");
+
+React.addons.createFragment({
+    a: React.DOM.div(),
+    b: ["a", false, React.createElement("span")]
+});
 
 //
 // React.addons (Transitions)
