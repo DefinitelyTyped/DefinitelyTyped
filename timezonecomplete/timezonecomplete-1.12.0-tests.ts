@@ -1,6 +1,6 @@
-/// <reference path="timezonecomplete.d.ts" />
+/// <reference path="timezonecomplete-1.12.0.d.ts" />
 
-import tc = require("timezonecomplete");
+import tc = require("timezonecomplete-1.12.0");
 
 var b: boolean;
 var n: number;
@@ -96,7 +96,6 @@ var ts: tc.TimeSource = tc.DateTime.timeSource;
 dt = tc.DateTime.nowLocal();
 dt = tc.DateTime.nowUtc();
 dt = tc.DateTime.now(tc.TimeZone.local());
-dt = tc.DateTime.fromExcel(1.5);
 dt = tc.nowLocal();
 dt = tc.nowUtc();
 dt = tc.now(tc.TimeZone.local());
