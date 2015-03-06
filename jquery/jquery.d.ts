@@ -287,7 +287,7 @@ interface JQueryPromiseCallback<T> {
 }
 
 interface JQueryPromiseOperator<T, U> {
-    (callback1: JQueryPromiseCallback<T>|JQueryPromiseCallback<any>[], ...callbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<U>;
+    (callback1: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...callbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<U>;
 }
 
 /**
