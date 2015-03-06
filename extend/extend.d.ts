@@ -1,7 +1,7 @@
-// Type definitions for Node.js v0.12.0
-// Project: http://nodejs.org/
+// Type definitions for extend v2.0.0
+// Project: https://www.npmjs.com/package/extend
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/borisyankov/DefinitelyType
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module "extend" {
 
     function extend(deepOrObject:boolean | Object, ...objectN: Object[]): any;
