@@ -1,25 +1,16 @@
 // Type definitions for chokidar 1.0.0
 // Project: https://github.com/paulmillr/chokidar
-// Definitions by: Stefan Steinhart <https://github.com/reppners/>
+// Definitions by: Stefan Steinhart <https://github.com/reppners/>, Arnaud Tournier <https://github.com/ltearno>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "fs"
-{
-    interface FSWatcher
-    {
-        add(fileDirOrGlob:string):void;
-        add(filesDirsOrGlobs:Array<string>):void;
-        unwatch(fileDirOrGlob:string):void;
-        unwatch(filesDirsOrGlobs:Array<string>):void;
-    }
-}
+declare module "chokidar" {
 
-declare module "chokidar"
-{
-    interface WatchOptions
-    {
+    import fs = require("fs");
+    import events = require("events");
+
+    export interface ChokidarOptions {
         persistent?:boolean;
         ignored?:any;
         ignoreInitial?:boolean;
@@ -35,8 +26,28 @@ declare module "chokidar"
         atomic?:boolean;
     }
 
-    import fs = require("fs");
+    export interface FSWatcher extends events.EventEmitter {
+        new(options?:ChokidarOptions): FSWatcher;
 
-    function watch( fileDirOrGlob:string, options?:WatchOptions ):fs.FSWatcher;
-    function watch( filesDirsOrGlobs:Array<string>, options?:WatchOptions ):fs.FSWatcher;
+        add(path:string | string[]): FSWatcher;
+        unwatch(path:string | string[]): FSWatcher;
+
+        close(): FSWatcher;
+
+        on(event:string, callback:Function): FSWatcher;
+
+        on(event:'add', callback:(path:string, stats?:fs.Stats)=> void): FSWatcher;
+        on(event:'addDir', callback:(path:string, stats?:fs.Stats)=> void): FSWatcher;
+        on(event:'change', callback:(path:string, stats?:fs.Stats)=> void): FSWatcher;
+        on(event:'unlink', callback:(path:string)=> void): FSWatcher;
+        on(event:'unlinkDir', callback:(path:string)=> void): FSWatcher;
+        on(event:'error', callback:(error:Error)=> void): FSWatcher;
+        on(event:'ready', callback:()=> void): FSWatcher;
+        on(event:'raw', callback:(event:any, path:string, details:any)=> void): FSWatcher;
+
+        on(event:'all', callback:(event:any, path:string)=> void): FSWatcher;
+    }
+
+    export var FSWatcher: FSWatcher;
+    export function watch(fileDirOrGlob:string | string[], options?:ChokidarOptions): FSWatcher;
 }

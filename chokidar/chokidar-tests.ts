@@ -3,7 +3,10 @@
 import fs = require('fs');
 import chokidar = require('chokidar');
 
-var watcher = chokidar.watch('file, dir, or glob', {
+var FSWatcher = chokidar.FSWatcher;
+var watcher = new FSWatcher();
+
+watcher = chokidar.watch('file, dir, or glob', {
     ignored: /[\/\\]\./, persistent: true
 });
 
@@ -17,7 +20,7 @@ watcher
     .on('unlinkDir', function(path:string) { log('Directory', path, 'has been removed'); })
     .on('error', function(error:any) { log('Error happened', error); })
     .on('ready', function() { log('Initial scan complete. Ready for changes.'); })
-    .on('raw', function(event:Event, path:string, details:any) { log('Raw event info:', event, path, details); })
+    .on('raw', function(event:Event, path:string, details:any) { log('Raw event info:', event, path, details); });
 
 // 'add', 'addDir' and 'change' events also receive stat() results as second
 // argument when available: http://nodejs.org/api/fs.html#fs_class_fs_stats
