@@ -8,26 +8,29 @@ declare module "react/addons" {
     // React Elements
     // ----------------------------------------------------------------------
 
-    interface ReactElementBase<T, P> {
-        type: string | ComponentClassBase<P>;
+    type ReactType = ComponentClass<any> | string;
+
+    interface ReactElement<P> {
+        type: string | ComponentClass<P>;
         props: P;
         key: string | number;
-        ref: string | ((component: T) => any);
+        ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ReactElement<P>
-        extends ReactElementBase<Component<P, any>, P> {
-        type: ComponentClass<P, any>;
+    interface ReactModernElement<P> extends ReactElement<P> {
+        type: ModernComponentClass<P, any>;
+        ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ReactClassicElement<P>
-        extends ReactElementBase<ClassicComponent<P, any>, P> {
+    interface ReactClassicElement<P> extends ReactElement<P> {
         type: string | ClassicComponentClass<P, any>;
+        ref: string | ((component: ClassicComponent<P, any>) => any);
     }
 
-    interface ReactDOMElement<P> // subtype of ReactClassicElement
-        extends ReactElementBase<DOMComponent<P>, P> {
+    // subtype of ReactClassicElement
+    interface ReactDOMElement<P> extends ReactElement<P> {
         type: string;
+        ref: string | ((component: DOMComponent<P>) => any);
     }
 
     type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
@@ -41,11 +44,15 @@ declare module "react/addons" {
         (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
 
-    interface ClassicFactory<P> {
+    interface ModernFactory<P> extends Factory<P> {
+        (props?: P, ...children: ReactNode[]): ReactModernElement<P>;
+    }
+
+    interface ClassicFactory<P> extends Factory<P> {
         (props?: P, ...children: ReactNode[]): ReactClassicElement<P>;
     }
 
-    interface DOMFactory<P> {
+    interface DOMFactory<P> extends Factory<P> {
         (props?: P, ...children: ReactNode[]): ReactDOMElement<P>;
     }
 
@@ -58,25 +65,22 @@ declare module "react/addons" {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElementBase<any, any> | ReactText;
+    type ReactChild = ReactElement<any> | ReactText;
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
     type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S>(
-        spec: ComponentSpec<P, S>): ClassicComponentClass<P, S>;
+    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P, S>;
 
-    function createFactory<P>(
-        type: string): DOMFactory<P>;
-    function createFactory<P>(
-        type: ClassicComponentClass<P, any> | string): ClassicFactory<P>;
-    function createFactory<P>(
-        type: ComponentClass<P, any>): Factory<P>;
+    function createFactory<P>(type: string): DOMFactory<P>;
+    function createFactory<P>(type: ClassicComponentClass<P, any> | string): ClassicFactory<P>;
+    function createFactory<P>(type: ModernComponentClass<P, any>): ModernFactory<P>;
+    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     function createElement<P>(
         type: string,
@@ -87,9 +91,9 @@ declare module "react/addons" {
         props?: P,
         ...children: ReactNode[]): ReactClassicElement<P>;
     function createElement<P>(
-        type: ComponentClass<P, any>,
+        type: ModernComponentClass<P, any>,
         props?: P,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNode[]): ReactModernElement<P>;
 
     function cloneElement<P>(
         element: ReactDOMElement<P>,
@@ -99,6 +103,10 @@ declare module "react/addons" {
         element: ReactClassicElement<P>,
         props?: P,
         ...children: ReactNode[]): ReactClassicElement<P>;
+    function cloneElement<P>(
+        element: ReactModernElement<P>,
+        props?: P,
+        ...children: ReactNode[]): ReactModernElement<P>;
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: P,
@@ -118,8 +126,8 @@ declare module "react/addons" {
         callback?: () => any): Component<P, S>;
 
     function unmountComponentAtNode(container: Element): boolean;
-    function renderToString(element: ReactElementBase<any, any>): string;
-    function renderToStaticMarkup(element: ReactElementBase<any, any>): string;
+    function renderToString(element: ReactElement<any>): string;
+    function renderToStaticMarkup(element: ReactElement<any>): string;
     function isValidElement(object: {}): boolean;
     function initializeTouchEvents(shouldUseTouch: boolean): void;
 
@@ -164,7 +172,7 @@ declare module "react/addons" {
         tagName: string;
     }
 
-    export type HTMLComponent = DOMComponent<HTMLAttributes>;
+    type HTMLComponent = DOMComponent<HTMLAttributes>;
     type SVGComponent = DOMComponent<SVGAttributes>;
 
     interface ChildContextProvider<CC> {
@@ -175,18 +183,18 @@ declare module "react/addons" {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    interface ComponentClassBase<P> {
+    interface ComponentClass<P> {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
     }
 
-    interface ComponentClass<P, S> extends ComponentClassBase<P> {
+    interface ModernComponentClass<P, S> extends ComponentClass<P> {
         new(props?: P, context?: any): Component<P, S>;
         defaultProps?: P;
     }
 
-    interface ClassicComponentClass<P, S> extends ComponentClassBase<P> {
+    interface ClassicComponentClass<P, S> extends ComponentClass<P> {
         new(props?: P, context?: any): ClassicComponent<P, S>;
         getDefaultProps?(): P;
         displayName?: string;
@@ -222,7 +230,7 @@ declare module "react/addons" {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElementBase<any, any>;
+        render(): ReactElement<any>;
     }
 
     //
@@ -760,6 +768,7 @@ declare module "react/addons" {
 
         cloneWithProps<P>(element: ReactDOMElement<P>, props: P): ReactDOMElement<P>;
         cloneWithProps<P>(element: ReactClassicElement<P>, props: P): ReactClassicElement<P>;
+        cloneWithProps<P>(element: ReactModernElement<P>, props: P): ReactModernElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
         createFragment(object: { [key: string]: ReactNode }): ReactFragment;
@@ -776,8 +785,6 @@ declare module "react/addons" {
     // React.addons (Transitions)
     // ----------------------------------------------------------------------
 
-    type ReactType = ComponentClass<any, any> | string;
-
     interface TransitionGroupProps {
         component?: ReactType;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
@@ -790,10 +797,8 @@ declare module "react/addons" {
         transitionLeave?: boolean;
     }
 
-    type CSSTransitionGroup =
-        ComponentClass<CSSTransitionGroupProps, any>;
-    type TransitionGroup =
-        ComponentClass<TransitionGroupProps, any>;
+    type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
+    type TransitionGroup = ComponentClass<TransitionGroupProps>;
 
     //
     // React.addons (Mixins)
@@ -885,7 +890,7 @@ declare module "react/addons" {
         isCompositeComponent(instance: Component<any, any>): boolean;
         isCompositeComponentWithType(
             instance: Component<any, any>,
-            type: ComponentClass<any, any>): boolean;
+            type: ComponentClass<any>): boolean;
 
         findAllInRenderedTree(
             tree: Component<any, any>,
@@ -905,19 +910,19 @@ declare module "react/addons" {
             tree: Component<any, any>,
             tagName: string): DOMComponent<any>;
 
-        scryRenderedComponentsWithType<P, S>(
+        scryRenderedComponentsWithType<P>(
             tree: Component<any, any>,
-            type: ComponentClass<P, S>): Component<P, S>[];
+            type: ComponentClass<P>): Component<P, {}>[];
         scryRenderedComponentsWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
-            type: ComponentClass<any, any>): C[];
+            type: ComponentClass<any>): C[];
 
-        findRenderedComponentWithType<P, S>(
+        findRenderedComponentWithType<P>(
             tree: Component<any, any>,
-            type: ComponentClass<P, S>): Component<P, S>;
+            type: ComponentClass<P>): Component<P, {}>;
         findRenderedComponentWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
-            type: ComponentClass<any, any>): C;
+            type: ComponentClass<any>): C;
     }
 
     interface SyntheticEventData {

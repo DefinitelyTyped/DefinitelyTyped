@@ -128,7 +128,7 @@ var domFactoryElement: React.ReactDOMElement<any> =
     domFactory();
 
 // React.createElement
-var element: React.ReactElement<Props> =
+var element: React.ReactModernElement<Props> =
     React.createElement(ModernComponent, props);
 var classicElement: React.ReactClassicElement<Props> =
     React.createElement(ClassicComponent, props);
@@ -136,7 +136,7 @@ var domElement: React.ReactHTMLElement =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ReactElement<Props> =
+var clonedElement: React.ReactModernElement<Props> =
     React.cloneElement(element, props);
 var clonedClassicElement: React.ReactClassicElement<Props> =
     React.cloneElement(classicElement, props);
