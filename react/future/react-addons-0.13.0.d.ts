@@ -74,18 +74,26 @@ declare module "react/addons" {
     function createFactory<P>(
         type: ComponentClass<P, any>): Factory<P>;
 
+    //
+    // Unfortunately these definitions are too stringent and do not allow a sufficiently flexible syntax for the Element Type
+    // see example project with react-templates at:  https://github.com/bgrieder/react-templates-typescript-test.git
+    //
+    //function createElement<P>(
+    //    type: string,
+    //    props?: P,
+    //    ...children: ReactNode[]): ReactDOMElement<P>;
+    //function createElement<P>(
+    //    type: ClassicComponentClass<P, any> | string,
+    //    props?: P,
+    //    ...children: ReactNode[]): ReactClassicElement<P>;
+    //function createElement<P>(
+    //    type: ComponentClass<P, any>,
+    //    props?: P,
+    //    ...children: ReactNode[]): ReactElement<P>;
     function createElement<P>(
-        type: string,
+        etype: any,
         props?: P,
         ...children: ReactNode[]): ReactDOMElement<P>;
-    function createElement<P>(
-        type: ClassicComponentClass<P, any> | string,
-        props?: P,
-        ...children: ReactNode[]): ReactClassicElement<P>;
-    function createElement<P>(
-        type: ComponentClass<P, any>,
-        props?: P,
-        ...children: ReactNode[]): ReactElement<P>;
 
     function render<P>(
         element: ReactDOMElement<P>,
