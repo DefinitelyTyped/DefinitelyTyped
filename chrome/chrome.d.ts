@@ -1545,7 +1545,8 @@ declare module chrome.runtime {
     }
 
     interface Port {
-        postMessage: Function;
+        postMessage: (message: Object) => void;
+        disconnect: () => void;
         sender?: MessageSender;
         onDisconnect: chrome.events.Event;
         onMessage: PortMessageEvent;
