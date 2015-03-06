@@ -3,7 +3,7 @@
 // Definitions by: Lukas Pohl <https://github.com/fieldy1234>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../../typings/leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet.d.ts" />
 
 declare module L {
 	export module Draw {
@@ -49,7 +49,7 @@ declare module L {
 			repeatMode?: Boolean;
 		}
 
-		class Feature extends L.Handler {
+		interface Feature extends L.Handler {
 			enable(): void;
 
 			disable(): void;
@@ -85,35 +85,110 @@ declare module L {
 			repeatMode?: Boolean;
 		}
 
-		class SimpleShape extends L.Handler {
-			enable(): void;
-
-			disable(): void;
-			
-			constructor(map: L.Map, options: SimpleShapeOptions);
+		interface SimpleShapeStatic extends ClassStatic {
+			new(map: L.Map, options: SimpleShapeOptions): SimpleShape;
 		}
-
-		class Rectangle extends L.Draw.SimpleShape {
+		interface SimpleShape extends L.IHandler {
 		}
+		export var SimpleShape: SimpleShapeStatic;
 
-		class Polygon extends L.Draw.Polyline {
-			constructor(map: L.Map, options: PolygonOptions);
+		interface PolygonStatic extends ClassStatic {
+			new(map: L.Map, options: PolygonOptions): Polygon;
 		}
+		interface Polygon extends L.Draw.Polyline {
+		}
+		export var Polygon: PolygonStatic;
 
-		class Polyline extends L.Draw.Feature {
-			constructor(map: L.Map, options: PolylineOptions);
+		interface PolylineStatic extends ClassStatic {
+			new(map: L.Map, options: PolylineOptions): Polyline;
 		}
-
-		class Circle extends L.Draw.SimpleShape {
+		interface Polyline extends L.Draw.Feature {
 		}
-
-		class Marker extends L.Draw.Feature {
-			constructor(map: L.Map, options: MarkerOptions);
+		export var Polyline: PolylineStatic;
+		
+		interface CircleStatic extends SimpleShapeStatic {
 		}
+		interface Circle extends L.Draw.SimpleShape {
+			new(map: L.Map, options: SimpleShapeOptions): Circle;
+		}
+		export var Circle: CircleStatic;
+		
+		interface MarkerStatic extends ClassStatic {
+			new(map: L.Map, options: MarkerOptions): Marker;
+		}
+		interface Marker extends L.Draw.Feature {
+		}
+		export var Marker: MarkerStatic;
 	}
 
+        /**
+          * Creates a control with the given options.
+          */
+/*        new(options?: ControlOptions): Control;
+
+        Zoom: Control.ZoomStatic;
+        Attribution: Control.AttributionStatic;
+        Layers: Control.LayersStatic;
+        Scale: Control.ScaleStatic;
+    }*/
+	
+		/*export interface DrawStatic extends ControlStatic {
+			new(options?: any): Draw;
+		}
+		
+		export var Draw: DrawStatic;
+		
+		export interface Draw extends L.Control {
+		}
+		
+		export var Control: DrawStatic;*/
+	
+	export interface ControlStatic {
+		Draw: Control.DrawStatic;
+	}
+	
 	module Control {
-		interface DeleteHandlerOptions {
+		export interface DrawStatic extends ClassStatic {
+			new(options?: any): Draw;
+		}
+		
+		export interface Draw extends L.Control {
+			setDrawingOptions(options: any): void;
+		}
+		/*export interface DrawStatic {
+			new(options?: any): Draw;
+		}
+		export var Draw: DrawStatic;
+
+		export interface Draw {
+		}*/
+	/*
+		export interface ControlStatic extends ClassStatic {
+			new(options?: ControlOptions): Control;
+
+			Zoom: Control.ZoomStatic;
+			Attribution: Control.AttributionStatic;
+			Layers: Control.LayersStatic;
+			Scale: Control.ScaleStatic;
+		}
+		export var Control: ControlStatic;
+
+		export interface Control extends IControl {
+		} */
+	
+		/*export interface DrawStatic extends ControlStatic {
+		}
+		
+		export interface Draw extends DrawStatic {
+		}*/
+		/*export interface DrawStatic extends ControlStatic {
+		}
+		
+		export var Draw: DrawStatic;
+		
+		export interface Draw extends DrawStatic {
+		}*/
+		/*interface DeleteHandlerOptions {
 		}
 
 		interface EditHandlerOptions {
@@ -128,7 +203,7 @@ declare module L {
 			remove: DeleteHandlerOptions;
 		}
 		
-		export class Draw extends L.Control {
+		export interface Draw extends L.Control {
 			position: string;
 
 			draw: any;
@@ -136,11 +211,11 @@ declare module L {
 			edit: EditOptions;
 
 			setDrawingOptions(options: any): void;
-		}
+		}*/
 	}
 }
 
 declare module "leaflet-draw" {
-	var draw: {};
+	var draw: any;
 	export = draw;
 }
