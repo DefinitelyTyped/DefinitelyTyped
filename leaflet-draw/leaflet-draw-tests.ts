@@ -74,7 +74,8 @@ example = () => {
 }
 
 example = () => {
-	var polygon = new L.Draw.Polygon(map, {
+	var polygon: L.Draw.Polygon;
+	polygon	= new L.Draw.Polygon(map, {
 		shapeOptions: shapeOptions,
 		allowIntersection: false,
 		metric: false,
@@ -91,7 +92,8 @@ example = () => {
 }
 
 example = () => {
-	var polyline = new L.Draw.Polyline(map, {
+	var polyline: L.Draw.Polyline;
+	polyline = new L.Draw.Polyline(map, {
 		shapeOptions: shapeOptions,
 		allowIntersection: false,
 		metric: false,
@@ -107,7 +109,8 @@ example = () => {
 }
 
 example = () => {
-	var circle = new L.Draw.Circle(map, {
+	var circle: L.Draw.Circle;
+	circle = new L.Draw.Circle(map, {
 		shapeOptions: shapeOptions,
 		repeatMode: false
 	});
@@ -116,7 +119,18 @@ example = () => {
 }
 
 example = () => {
-	var marker = new L.Draw.Marker(map, {
+	var rectangle: L.Draw.Rectangle;
+	rectangle = new L.Draw.Rectangle(map, {
+		shapeOptions: shapeOptions,
+		repeatMode: false
+	});
+	
+	rectangle.disable();
+}
+
+example = () => {
+	var marker: L.Draw.Marker;
+	marker = new L.Draw.Marker(map, {
 		icon: L.icon({
 			iconUrl: 'my-icon.png'
 		}),
