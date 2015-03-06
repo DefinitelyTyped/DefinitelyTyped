@@ -544,6 +544,9 @@ declare module CodeMirror {
             insertLeft?: boolean;
         }): CodeMirror.TextMarker;
 
+        /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
+        findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
+
         /** Returns an array of all the bookmarks and marked ranges present at the given position. */
         findMarksAt(pos: CodeMirror.Position): TextMarker[];
         

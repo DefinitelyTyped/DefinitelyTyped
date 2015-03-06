@@ -44,6 +44,12 @@ interface UUID {
 
     v4(options?: UUIDOptions, buffer?: number[], offset?: number): string
     v4(options?: UUIDOptions, buffer?: Buffer, offset?: number): string
+
+    parse(id: string, buffer?: number[], offset?: number): number[]
+    parse(id: string, buffer?: Buffer, offset?: number): Buffer
+
+    unparse(buffer: number[], offset?: number): string
+    unparse(buffer: Buffer, offset?: number): string
 }
 
 declare module "node-uuid" {

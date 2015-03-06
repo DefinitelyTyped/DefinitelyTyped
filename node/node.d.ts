@@ -349,7 +349,42 @@ declare module "http" {
         pause(): void;
         resume(): void;
     }
-    export interface Agent { maxSockets: number; sockets: any; requests: any; }
+
+	export interface AgentOptions {
+		/**
+		 * Keep sockets around in a pool to be used by other requests in the future. Default = false
+		 */
+		keepAlive?: boolean;
+		/**
+		 * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
+		 * Only relevant if keepAlive is set to true.
+		 */
+		keepAliveMsecs?: number;
+		/**
+		 * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
+		 */
+		maxSockets?: number;
+		/**
+		 * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
+		 */
+		maxFreeSockets?: number;
+	}
+
+    export class Agent {
+		maxSockets: number;
+		sockets: any;
+		requests: any;
+
+		constructor(opts?: AgentOptions);
+
+		/**
+		 * Destroy any sockets that are currently in use by the agent.
+		 * It is usually not necessary to do this. However, if you are using an agent with KeepAlive enabled,
+		 * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
+		 * sockets may hang open for quite a long time before the server terminates them.
+		 */
+		destroy(): void;
+	}
 
     export var STATUS_CODES: {
         [errorCode: number]: string;
@@ -609,7 +644,7 @@ declare module "child_process" {
         stderr: stream.Readable;
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle: any): void;
+        send(message: any, sendHandle?: any): void;
         disconnect(): void;
     }
 
@@ -648,6 +683,18 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
+        encoding?: string;
+    }): ChildProcess;
+    export function execSync(command: string, options?: {
+        cwd?: string;
+        input?: string|Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
         encoding?: string;
     }): ChildProcess;
 }
@@ -953,14 +1000,27 @@ declare module "fs" {
 }
 
 declare module "path" {
+
+    export interface ParsedPath {
+        root: string;
+        dir: string;
+        base: string;
+        ext: string;
+        name: string;
+    }
+
     export function normalize(p: string): string;
     export function join(...paths: any[]): string;
     export function resolve(...pathSegments: any[]): string;
+    export function isAbsolute(p: string): boolean;
     export function relative(from: string, to: string): string;
     export function dirname(p: string): string;
     export function basename(p: string, ext?: string): string;
     export function extname(p: string): string;
     export var sep: string;
+    export var delimiter: string;
+    export function parse(p: string): ParsedPath;
+    export function format(pP: ParsedPath): string;
 }
 
 declare module "string_decoder" {

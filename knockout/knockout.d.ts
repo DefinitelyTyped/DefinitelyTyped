@@ -118,6 +118,7 @@ interface KnockoutBindingContext {
     $parents: any[];
     $root: any;
     $data: any;
+    $rawData: any | KnockoutObservable<any>;
     $index?: KnockoutObservable<number>;
     $parentContext?: KnockoutBindingContext;
 
@@ -132,8 +133,8 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler {
-    init? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
-    update? (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext): void;
+    init?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
+    update?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
 }
@@ -294,7 +295,7 @@ interface KnockoutUtils {
 
     stringTokenize(str: string, delimiter: string): string[];
 
-    stringStartsWith(str: string, startsWith: string): string;
+    stringStartsWith(str: string, startsWith: string): boolean;
 
     domNodeIsContainedBy(node: any, containedByNode: any): boolean;
 
@@ -343,6 +344,7 @@ interface KnockoutArrayChange<T> {
     status: string;
     value: T;
     index: number;
+    moved?: number;
 }
 
 //////////////////////////////////

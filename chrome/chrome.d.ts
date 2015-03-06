@@ -6,6 +6,13 @@
 /// <reference path='../webrtc/MediaStream.d.ts'/>
 
 ////////////////////
+// Global object
+////////////////////
+interface Window {
+    chrome: typeof chrome;
+}
+
+////////////////////
 // Alarms
 ////////////////////
 declare module chrome.alarms {
@@ -1524,8 +1531,11 @@ declare module chrome.runtime {
     }
 
     interface MessageSender {
-        id: string;
+        id?: string;
         tab?: chrome.tabs.Tab;
+        frameId?: number;
+        url?: string;
+        tlsChannelId?: string;
     }
 
     interface PlatformInfo {
@@ -1538,7 +1548,7 @@ declare module chrome.runtime {
         postMessage: Function;
         sender?: MessageSender;
         onDisconnect: chrome.events.Event;
-        onMessage: chrome.events.Event;
+        onMessage: PortMessageEvent;
         name: string;
     }
 
@@ -1548,6 +1558,10 @@ declare module chrome.runtime {
 
     interface UpdateCheckDetails {
         version: string;
+    }
+
+    interface PortMessageEvent extends chrome.events.Event {
+        addListener(callback: (message: Object, port: Port) => void): void;
     }
 
     interface ExtensionMessageEvent extends chrome.events.Event {
@@ -2253,20 +2267,20 @@ declare module chrome.webRequest {
 
     interface OnCompletedDetails extends CallbackDetails {
         ip?: string;
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
         fromCache: boolean;
         statusCode: number;
     }
 
     interface OnHeadersReceivedDetails extends CallbackDetails {
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
     }
 
     interface OnBeforeRedirectDetails extends CallbackDetails {
         ip?: string;
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
         fromCache: boolean;
         redirectUrl: string;
@@ -2279,7 +2293,7 @@ declare module chrome.webRequest {
     }
 
     interface OnAuthRequiredDetails extends CallbackDetails {
-        statusLine?: string;
+        statusLine: string;
         challenger: Challenger;
         responseHeaders?: HttpHeader[];
         isProxy: boolean;
@@ -2299,7 +2313,7 @@ declare module chrome.webRequest {
 
     interface OnResponseStartedDetails extends CallbackDetails {
         ip?: string;
-        statusLine?: string;
+        statusLine: string;
         responseHeaders?: HttpHeader[];
         fromCache: boolean;
         statusCode: number;

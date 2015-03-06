@@ -37,7 +37,7 @@ declare module React {
     // React.addons (Transitions)
     // ----------------------------------------------------------------------
 
-    type ReactType = ComponentClass<any, any, any> | string;
+    type ReactType = ComponentClass<any, any> | string;
 
     interface TransitionGroupProps {
         component?: ReactType;
@@ -52,9 +52,9 @@ declare module React {
     }
 
     type CSSTransitionGroup =
-        ComponentClass<CSSTransitionGroupProps, any, any>;
+        ComponentClass<CSSTransitionGroupProps, any>;
     type TransitionGroup =
-        ComponentClass<TransitionGroupProps, any, any>;
+        ComponentClass<TransitionGroupProps, any>;
 
     //
     // React.addons (Mixins)
@@ -65,11 +65,11 @@ declare module React {
         requestChange(newValue: T): void;
     }
 
-    interface LinkedStateMixin extends Mixin<any, any, any> {
+    interface LinkedStateMixin extends Mixin<any, any> {
         linkState<T>(key: string): ReactLink<T>;
     }
 
-    interface PureRenderMixin extends Mixin<any, any, any> {
+    interface PureRenderMixin extends Mixin<any, any> {
     }
 
     //
@@ -135,50 +135,50 @@ declare module React {
     interface ReactTestUtils {
         Simulate: Simulate;
 
-        renderIntoDocument<P>(element: ReactElement<P>): Component<P, any, any>;
-        renderIntoDocument<C extends Component<any, any, any>>(element: ReactElement<any>): C;
+        renderIntoDocument<P>(element: ReactElement<P>): Component<P, any>;
+        renderIntoDocument<C extends Component<any, any>>(element: ReactElement<any>): C;
 
         mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
 
         isElementOfType(element: ReactElement<any>, type: ReactType): boolean;
-        isTextComponent(instance: Component<any, any, any>): boolean;
-        isDOMComponent(instance: Component<any, any, any>): boolean;
-        isCompositeComponent(instance: Component<any, any, any>): boolean;
+        isTextComponent(instance: Component<any, any>): boolean;
+        isDOMComponent(instance: Component<any, any>): boolean;
+        isCompositeComponent(instance: Component<any, any>): boolean;
         isCompositeComponentWithType(
-            instance: Component<any, any, any>,
-            type: ComponentClass<any, any, any>): boolean;
+            instance: Component<any, any>,
+            type: ComponentClass<any, any>): boolean;
 
         findAllInRenderedTree(
-            tree: Component<any, any, any>,
-            fn: (i: Component<any, any, any>) => boolean): Component<any, any, any>;
+            tree: Component<any, any>,
+            fn: (i: Component<any, any>) => boolean): Component<any, any>;
 
         scryRenderedDOMComponentsWithClass(
-            tree: Component<any, any, any>,
+            tree: Component<any, any>,
             className: string): DOMComponent<any>[];
         findRenderedDOMComponentWithClass(
-            tree: Component<any, any, any>,
+            tree: Component<any, any>,
             className: string): DOMComponent<any>;
 
         scryRenderedDOMComponentsWithTag(
-            tree: Component<any, any, any>,
+            tree: Component<any, any>,
             tagName: string): DOMComponent<any>[];
         findRenderedDOMComponentWithTag(
-            tree: Component<any, any, any>,
+            tree: Component<any, any>,
             tagName: string): DOMComponent<any>;
 
-        scryRenderedComponentsWithType<P, S, C>(
-            tree: Component<any, any, any>,
-            type: ComponentClass<P, S, C>): Component<P, S, C>[];
-        scryRenderedComponentsWithType<C extends Component<any, any, any>>(
-            tree: Component<any, any, any>,
-            type: ComponentClass<any, any, any>): C[];
+        scryRenderedComponentsWithType<P, S>(
+            tree: Component<any, any>,
+            type: ComponentClass<P, S>): Component<P, S>[];
+        scryRenderedComponentsWithType<C extends Component<any, any>>(
+            tree: Component<any, any>,
+            type: ComponentClass<any, any>): C[];
 
-        findRenderedComponentWithType<P, S, C>(
-            tree: Component<any, any, any>,
-            type: ComponentClass<P, S, C>): Component<P, S, C>;
-        findRenderedComponentWithType<C extends Component<any, any, any>>(
-            tree: Component<any, any, any>,
-            type: ComponentClass<any, any, any>): C;
+        findRenderedComponentWithType<P, S>(
+            tree: Component<any, any>,
+            type: ComponentClass<P, S>): Component<P, S>;
+        findRenderedComponentWithType<C extends Component<any, any>>(
+            tree: Component<any, any>,
+            type: ComponentClass<any, any>): C;
     }
 
     interface SyntheticEventData {
@@ -217,7 +217,7 @@ declare module React {
 
     interface EventSimulator {
         (element: Element, eventData?: SyntheticEventData): void;
-        (descriptor: Component<any, any, any>, eventData?: SyntheticEventData): void;
+        (component: Component<any, any>, eventData?: SyntheticEventData): void;
     }
 
     interface Simulate {
