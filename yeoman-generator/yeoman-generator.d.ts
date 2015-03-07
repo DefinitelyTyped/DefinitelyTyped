@@ -2,6 +2,7 @@
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../node/node.d.ts" />
 
 declare module yo {
   export interface IYeomanGenerator {
@@ -19,6 +20,30 @@ declare module yo {
     runHooks(callback?: Function): void;
     sourceRoot(rootPath: string): string;
   }
+
+	export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
+		argument(name: string, config: IArgumentConfig): void;
+		composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
+		defaultFor(name: string): void;
+		destinationRoot(rootPath: string): string;
+		determineAppname(): void;
+		getCollisionFilter(): (output: any) => void;
+		hookFor(name: string, config: IHookConfig): void;
+		option(name: string, config: IYeomanGeneratorOption): void;
+		rootGeneratorName(): string;
+		run(args?: any): void;
+		run(args: any, callback?: Function): void;
+		runHooks(callback?: Function): void;
+		sourceRoot(rootPath: string): string;
+		addListener(event: string, listener: Function): NodeJS.EventEmitter;
+		on(event: string, listener: Function): NodeJS.EventEmitter;
+		once(event: string, listener: Function): NodeJS.EventEmitter;
+		removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+		removeAllListeners(event?: string): NodeJS.EventEmitter;
+		setMaxListeners(n: number): void;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+	}
 
   export interface IArgumentConfig {
     desc: string;
@@ -60,15 +85,10 @@ declare module yo {
     end: () => void;
   }
 
-  export interface IBase {
-    new(args: string, options: any): IYeomanGenerator;
-    new(args: string[], options: any): IYeomanGenerator;
-    extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
+  export interface INamedBase extends IYeomanGenerator {
   }
 
-  export interface INamedBase {
-    new(args: string, options: any): IYeomanGenerator;
-    new(args: string[], options: any): IYeomanGenerator;
+  export interface IBase extends INamedBase {
   }
 
   export interface IAssert {
@@ -130,10 +150,16 @@ declare module yo {
   var file: any;
   var assert: IAssert;
   var test: ITestHelper;
-  var generators: {
-    Base: IBase;
-    NamedBase: INamedBase;
-  };
+  module generators {
+
+	  export class NamedBase extends YeomanGeneratorBase implements INamedBase {
+		  constructor(args: string | string[], options: any);
+	  }
+
+	  export class Base extends NamedBase implements IBase {
+		  static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
+	  }
+  }
 }
 
 declare module "yeoman-generator" {

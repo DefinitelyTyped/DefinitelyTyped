@@ -74,6 +74,14 @@ declare module SigmaJs{
         nodes(ids: string[]): Node[];
     }
 
+    interface Image {
+        clip?: number;
+        scale?: number;
+        url?: string;
+        x?: number;
+        y?: number;
+    }
+
     interface Miscellaneous {
         animation: Animation;
     }

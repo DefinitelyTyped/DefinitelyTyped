@@ -14,6 +14,10 @@ declare module "rest" {
 	function rest(request: rest.Request): rest.ResponsePromise;
 
 	module rest {
+		export function setDefaultClient(client: Client): void;
+		export function getDefaultClient(): Client;
+		export function resetDefaultClient(): void;
+
 		export function wrap<T>(interceptor: Interceptor<T>, config?: T): Client;
 
 		export interface Request {
@@ -318,4 +322,28 @@ declare module "rest/mime/registry" {
 	}
 
 	export = registry;
+}
+
+declare module "rest/client/xhr" {
+	import rest = require("rest");
+	var xhr: rest.Client;
+	export = xhr;
+}
+
+declare module "rest/client/node" {
+	import rest = require("rest");
+	var node: rest.Client;
+	export = node;
+}
+
+declare module "rest/client/jsonp" {
+	import rest = require("rest");
+	var jsonp: rest.Client;
+	export = jsonp;
+}
+
+declare module "rest/client/xdr" {
+	import rest = require("rest");
+	var xdr: rest.Client;
+	export = xdr;
 }
