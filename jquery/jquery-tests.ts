@@ -3373,7 +3373,10 @@ function test_promise_then_change_type() {
 }
 
 function test_promise_then_not_return_deferred() {
+  var state: string;
+
   var deferred: JQueryDeferred<any> = $.Deferred();
+  state = deferred.state();
   deferred = deferred.progress();
   deferred = deferred.done();
   deferred = deferred.fail();
@@ -3381,15 +3384,14 @@ function test_promise_then_not_return_deferred() {
   deferred = deferred.notify();
   deferred = deferred.resolve();
   deferred = deferred.reject();
-  deferred.state();
   promise = deferred.promise();
   promise = deferred.then(function () { });
 
   var promise: JQueryPromise<any> = $.Deferred().promise();
+  state = promise.state();
   promise = promise.then(function () { });
   promise = promise.progress();
   promise = promise.done();
   promise = promise.fail();
   promise = promise.always();
-  promise.state();
 }
