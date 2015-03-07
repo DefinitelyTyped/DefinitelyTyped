@@ -3,6 +3,8 @@
 // Definitions by: Ry Racherbaumer <http://github.com/rygine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../underscore/underscore.d.ts" />
+
 interface UnderscoreStatic {
     str: UnderscoreStringStatic;
     string: UnderscoreStringStatic;

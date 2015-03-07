@@ -224,9 +224,11 @@ declare module moment {
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
         diff(b: Moment, unitOfTime: string, round: boolean): number;
-
+        
+        toArray(): number[];
         toDate(): Date;
         toISOString(): string;
+        toJSON(): string;
         unix(): number;
 
         isLeapYear(): boolean;

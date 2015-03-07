@@ -51,7 +51,7 @@ declare module "oboe" {
 		}
 
 		interface FailReason {
-			thrown?: string;
+			thrown?: Error;
 			statusCode?: number;
 			body?: string;
 			jsonBody?: Object;
