@@ -1,10 +1,9 @@
-/// <reference path="web-audio.d.ts" />
-
 // Type definitions for TONE.JS
 // Project: https://github.com/TONEnoTONE/Tone.js
 // Definitions by: Luke Phillips <https://github.com/lukephills>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="web-audio.d.ts" />
 interface Tone {
     new(inputs?: number, outputs?: number): Tone;
     context: AudioContext;
@@ -156,8 +155,9 @@ declare module Tone {
         onload: (e: any)=>any;
         url: string; // Readonly
         load(url:string, callback?: (e: any)=>any): Tone.Buffer;
-        onerror();
-        onprogress();
+        onload():void;
+        onerror():void;
+        onprogress():void;
         dispose(): Tone.Buffer;
         get(): AudioBuffer;
         set(buffer: any): Tone.Buffer; //TODO: change any to AudioBuffer | Tone.Buffer
@@ -834,8 +834,8 @@ declare module Tone {
     interface PolySynth extends Tone.Instrument {
         voices: any[];
         dispose(): Tone.PolySynth;
-        get(params?: any[]);
-        set(params: Object);
+        get(params?: any[]):any;
+        set(params: Object): Tone.PolySynth;
         setPreset(presetName: string): Tone.PolySynth;
         triggerAttack(value: any, time?: Tone.Time, velocity?: number): Tone.PolySynth; //todo: string | number | Object| string[] | number[]
         triggerAttackRelease(value: any, duration: Tone.Time, time?: Tone.Time, velocity?: number): Tone.PolySynth; //todo: string | number | Object | string[] | number[]
