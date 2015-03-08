@@ -7,7 +7,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 
 // http://foundation.zurb.com/docs/components/abide.html#optional-javascript-configuration
-interface AbidePatterns {
+interface FoundationAbidePatterns {
     alpha? : RegExp;
     alpha_numeric? : RegExp;
     integer? : RegExp;
@@ -25,18 +25,18 @@ interface AbidePatterns {
     color? : RegExp;
 }
 
-interface AbideOptions {
+interface FoundationAbideOptions {
     live_validate? : boolean;
     validate_on_blur? : boolean;
     focus_on_invalid? : boolean;
     error_labels? : boolean;
     timeout? : number;
-    patterns? : AbidePatterns;
+    patterns? : FoundationAbidePatterns;
     validators? : Object;
 }
 
 // http://foundation.zurb.com/docs/components/accordion.html#optional-javascript-configuration
-interface AccordionOptions {
+interface FoundationAccordionOptions {
     content_class? : string;
     active_class? : string;
     multi_expand? : boolean;
@@ -45,12 +45,12 @@ interface AccordionOptions {
 }
 
 // http://foundation.zurb.com/docs/components/alert_boxes.html
-interface AlertOptions {
+interface FoundationAlertOptions {
     callback? : () => any;
 }
 
 // http://foundation.zurb.com/docs/components/clearing.html#optional-javascript-configuration
-interface ClearingOptions {
+interface FoundationClearingOptions {
     templates? : Object;
     close_selectors? : string;
     open_selectors? : string;
@@ -61,7 +61,7 @@ interface ClearingOptions {
 }
 
 // http://foundation.zurb.com/docs/components/dropdown.html#optional-javascript-configuration
-interface DropdownOptions {
+interface FoundationDropdownOptions {
     active_class? : string;
     disabled_class? : string;
     mega_class? : string;
@@ -73,20 +73,20 @@ interface DropdownOptions {
 }
 
 // http://foundation.zurb.com/docs/components/equalizer.html#optional-javascript-configuration
-interface EqualizerOptions {
+interface FoundationEqualizerOptions {
     use_tallest? : boolean;
     equalize_on_stack? : boolean;
 }
 
 // http://foundation.zurb.com/docs/components/interchange.html#custom-named-queries
-interface InterchangeOptions {
+interface FoundationInterchangeOptions {
     load_attr? : string;
     named_queries? : Object;
     directives? : Object;
 }
 
 // http://foundation.zurb.com/docs/components/joyride.html#optional-javascript-configuration
-interface JoyrideOptions {
+interface FoundationJoyrideOptions {
     expose? : boolean;
     modal? : boolean;
     keyboard? : boolean;
@@ -133,7 +133,7 @@ interface JoyrideOptions {
 }
 
 // http://foundation.zurb.com/docs/components/magellan.html#js
-interface MagellanOptions {
+interface FoundationMagellanOptions {
     active_class? : string;
     threshold? : number;
     destination_threshold? : number;
@@ -145,13 +145,13 @@ interface MagellanOptions {
 }
 
 // http://foundation.zurb.com/docs/components/offcanvas.html#optional-javascript-configuration
-interface OffCanvasOptions {
+interface FoundationOffCanvasOptions {
     open_method? : string;
     close_on_click? : boolean;
 }
 
 // http://foundation.zurb.com/docs/components/orbit.html#advanced
-interface OrbitOptions {
+interface FoundationOrbitOptions {
     animation? : string;
     timer_speed? : number;
     pause_on_hover? : boolean;
@@ -188,13 +188,13 @@ interface OrbitOptions {
 }
 
 // http://foundation.zurb.com/docs/components/reveal.html
-interface RevealCSSOptions {
+interface FoundationRevealCSSOptions {
     opacity? : number;
     visibility? : string;
     display? : string;
 }
 
-interface RevealOptions {
+interface FoundationRevealOptions {
     animation? : string;
     animation_speed? : number;
     close_on_background_click? : boolean;
@@ -209,13 +209,13 @@ interface RevealOptions {
     closed? : () => any;
     bg? : JQuery;
     css? : {
-        open? : RevealCSSOptions;
-        close? : RevealCSSOptions;
+        open? : FoundationRevealCSSOptions;
+        close? : FoundationRevealCSSOptions;
     };
 }
 
 // http://foundation.zurb.com/docs/components/range_slider.html
-interface SliderOptions {
+interface FoundationSliderOptions {
     start? : number;
     end? : number;
     step? : number;
@@ -227,7 +227,7 @@ interface SliderOptions {
 }
 
 // http://foundation.zurb.com/docs/components/tabs.html
-interface TabOptions {
+interface FoundationTabOptions {
     active_class? : string;
     callback? : () => any;
     deep_linking? : boolean;
@@ -235,7 +235,7 @@ interface TabOptions {
     is_hover? : boolean;
 }
 
-interface TooltipOptions {
+interface FoundationTooltipOptions {
     additional_inheritable_classes? : string[];
     tooltip_class? : string;
     append_to? : string;
@@ -246,7 +246,7 @@ interface TooltipOptions {
     tip_template? : (selector : string, content : string) => string;
 }
 
-interface TopbarOptions {
+interface FoundationTopbarOptions {
     index? : number;
     sticky_class? : string;
     custom_back_text? : boolean;
@@ -258,22 +258,22 @@ interface TopbarOptions {
 }
 
 interface FoundationOptions {
-    abide? : AbideOptions;
-    accordion? : AccordionOptions;
-    alert? : AlertOptions;
-    clearing? : ClearingOptions;
-    dropdown? : DropdownOptions;
-    equalizer? : EqualizerOptions;
-    interchange? : InterchangeOptions;
-    joyride? : JoyrideOptions;
-    magellan? : MagellanOptions;
-    offcanvas? : OffCanvasOptions;
-    orbit? : OrbitOptions;
-    reveal? : RevealOptions;
-    slider? : SliderOptions;
-    tab? : TabOptions;
-    tooltip? : TooltipOptions;
-    topbar? : TopbarOptions;
+    abide? : FoundationAbideOptions;
+    accordion? : FoundationAccordionOptions;
+    alert? : FoundationAlertOptions;
+    clearing? : FoundationClearingOptions;
+    dropdown? : FoundationDropdownOptions;
+    equalizer? : FoundationEqualizerOptions;
+    interchange? : FoundationInterchangeOptions;
+    joyride? : FoundationJoyrideOptions;
+    magellan? : FoundationMagellanOptions;
+    offcanvas? : FoundationOffCanvasOptions;
+    orbit? : FoundationOrbitOptions;
+    reveal? : FoundationRevealOptions;
+    slider? : FoundationSliderOptions;
+    tab? : FoundationTabOptions;
+    tooltip? : FoundationTooltipOptions;
+    topbar? : FoundationTopbarOptions;
 }
 
 interface FoundationStatic {

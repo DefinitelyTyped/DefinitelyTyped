@@ -24,7 +24,7 @@ function plugin_list() {
 }
 
 function abide_patterns() {
-    var patterns : AbidePatterns;
+    var patterns : FoundationAbidePatterns;
     patterns.alpha = /^[a-zA-Z]+$/;
     patterns.alpha_numeric = /^[a-zA-Z0-9]+$/;
     patterns.integer = /^[-+]?\d+$/;
@@ -44,7 +44,7 @@ function abide_patterns() {
 }
 
 function abide_options() {
-    var opts : AbideOptions = {};
+    var opts : FoundationAbideOptions = {};
     opts.live_validate = false;
     opts.validate_on_blur = true;
     opts.focus_on_invalid = true;
@@ -65,7 +65,7 @@ function abide_options() {
 }
 
 function accordion_options() {
-    var opts : AccordionOptions = {};
+    var opts : FoundationAccordionOptions = {};
     opts.content_class = "content";
     opts.active_class = "class-name";
     opts.multi_expand = false;
@@ -75,13 +75,13 @@ function accordion_options() {
 }
 
 function alert_options() {
-    var opts : AlertOptions = {};
+    var opts : FoundationAlertOptions = {};
     opts.callback = empty_callback;
     return opts;
 }
 
 function clearing_options() {
-    var opts : ClearingOptions = {};
+    var opts : FoundationClearingOptions = {};
     opts.templates = {
         viewing : '<div>Some HTML</div>'
     };
@@ -95,7 +95,7 @@ function clearing_options() {
 }
 
 function dropdown_options() {
-    var opts : DropdownOptions = {};
+    var opts : FoundationDropdownOptions = {};
     opts.active_class = "class-name";
     opts.disabled_class = "disabled-class";
     opts.mega_class = "big";
@@ -108,14 +108,14 @@ function dropdown_options() {
 }
 
 function equalizer_options() {
-    var opts : EqualizerOptions = {};
+    var opts : FoundationEqualizerOptions = {};
     opts.use_tallest = true;
     opts.equalize_on_stack = false;
     return opts;
 }
 
 function interchange_options() {
-    var opts : InterchangeOptions = {};
+    var opts : FoundationInterchangeOptions = {};
     opts.load_attr = "interchange";
     opts.named_queries = {
         my_custom_query: "only screen and (max-width: 200px)"
@@ -127,7 +127,7 @@ function interchange_options() {
 }
 
 function joyride_options() {
-    var opts : JoyrideOptions = {};
+    var opts : FoundationJoyrideOptions = {};
     opts.expose = false;
     opts.modal = true;
     opts.keyboard = true;
@@ -176,7 +176,7 @@ function joyride_options() {
 }
 
 function magellan_options() {
-    var opts : MagellanOptions = {};
+    var opts : FoundationMagellanOptions = {};
     opts.active_class = ".active-element";
     opts.threshold = 20;
     opts.destination_threshold = 30;
@@ -189,14 +189,14 @@ function magellan_options() {
 }
 
 function offcanvas_options() {
-    var opts : OffCanvasOptions = {};
+    var opts : FoundationOffCanvasOptions = {};
     opts.open_method = "overlap_single";
     opts.close_on_click = true;
     return opts;
 }
 
 function orbit_options() {
-    var opts : OrbitOptions = {};
+    var opts : FoundationOrbitOptions = {};
     opts.animation = 'slide';
     opts.timer_speed = 10000;
     opts.pause_on_hover = true;
@@ -234,7 +234,7 @@ function orbit_options() {
 }
 
 function reveal_css_options() {
-    var opts : RevealCSSOptions = {};
+    var opts : FoundationRevealCSSOptions = {};
     opts.opacity = 0;
     opts.visibility = 'hidden';
     opts.display = "inline-block";
@@ -242,7 +242,7 @@ function reveal_css_options() {
 }
 
 function reveal_options() {
-    var opts : RevealOptions = {};
+    var opts : FoundationRevealOptions = {};
     opts.animation = "linear";
     opts.animation_speed = 500;
     opts.close_on_background_click = false;
@@ -264,7 +264,7 @@ function reveal_options() {
 }
 
 function slider_options() {
-    var opts : SliderOptions;
+    var opts : FoundationSliderOptions;
     opts.start = -1000;
     opts.end = 1000;
     opts.step = 50;
@@ -277,7 +277,7 @@ function slider_options() {
 }
 
 function tab_options() {
-    var opts : TabOptions = {};
+    var opts : FoundationTabOptions = {};
     opts.active_class = "class-name";
     opts.callback = empty_callback;
     opts.deep_linking = false;
@@ -287,7 +287,7 @@ function tab_options() {
 }
 
 function tooltip_options() {
-    var opts : TooltipOptions = {};
+    var opts : FoundationTooltipOptions = {};
     opts.additional_inheritable_classes = ["class1", "class2"];
     opts.tooltip_class = "tooltip";
     opts.append_to = "append-class";
@@ -304,7 +304,7 @@ function tooltip_options() {
 }
 
 function topbar_options() {
-    var opts : TopbarOptions = {};
+    var opts : FoundationTopbarOptions = {};
     opts.index = 1;
     opts.sticky_class = "top-bar";
     opts.custom_back_text = true;
@@ -316,7 +316,7 @@ function topbar_options() {
     return opts;
 }
 
-function foundation_options() : FoundationOptions {
+function foundation_options() {
     var opts : FoundationOptions = {};
     opts.abide = abide_options();
     opts.accordion = accordion_options();
