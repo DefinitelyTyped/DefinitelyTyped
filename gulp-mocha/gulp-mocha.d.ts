@@ -7,6 +7,6 @@
 /// <reference path="../node/node.d.ts"/>
 
 declare module "gulp-mocha" {
-    function mocha(setupOptions: MochaSetupOptions): NodeJS.ReadWriteStream;
+    function mocha(setupOptions?: MochaSetupOptions): NodeJS.ReadWriteStream;
     export = mocha;
 }
