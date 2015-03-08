@@ -155,7 +155,6 @@ declare module Tone {
         onload: (e: any)=>any;
         url: string; // Readonly
         load(url:string, callback?: (e: any)=>any): Tone.Buffer;
-        onload():void;
         onerror():void;
         onprogress():void;
         dispose(): Tone.Buffer;
