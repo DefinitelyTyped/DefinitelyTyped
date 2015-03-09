@@ -41,7 +41,7 @@ var container: Element;
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var ClassicComponent: React.ClassicComponentClass<Props, State> =
+var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
         getDefaultProps: () => {
             return <Props>{
@@ -130,7 +130,7 @@ var domFactoryElement: React.DOMElement<any> =
     domFactory();
 
 // React.createElement
-var element: React.ModernElement<Props> =
+var element: React.ReactElement<Props> =
     React.createElement(ModernComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
@@ -138,7 +138,7 @@ var domElement: React.HTMLElement =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ModernElement<Props> =
+var clonedElement: React.ReactElement<Props> =
     React.cloneElement(element, props);
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);

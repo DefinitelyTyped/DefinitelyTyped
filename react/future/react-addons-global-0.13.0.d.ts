@@ -25,7 +25,6 @@ declare module React {
 
         cloneWithProps<P>(element: DOMElement<P>, props: P): DOMElement<P>;
         cloneWithProps<P>(element: ClassicElement<P>, props: P): ClassicElement<P>;
-        cloneWithProps<P>(element: ModernElement<P>, props: P): ModernElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
         createFragment(object: { [key: string]: ReactNode }): ReactFragment;
