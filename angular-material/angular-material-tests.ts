@@ -27,7 +27,7 @@ myApp.config((
         .icon('work:chair', 'my/app/chair.svg');  // Register icon in a specific set
 });
 
-app.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.MDBottomSheetService) => {
+myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.MDBottomSheetService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
             template: '<md-bottom-sheet>Hello!</md-bottom-sheet>'
@@ -37,7 +37,7 @@ app.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.m
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
 });
 
-app.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.MDDialogService) => {
+myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.MDDialogService) => {
     $scope['openDialog'] = () => {
         $mdDialog.show({
             template: '<md-dialog>Hello!</md-dialog>'
@@ -71,7 +71,7 @@ class IconDirective implements ng.IDirective {
 }
 myApp.directive('icon-directive', ($mdIcon: ng.material.MDIcon) => new IconDirective($mdIcon));
 
-app.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.MDMedia) => {
+myApp.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.MDMedia) => {
     $scope.$watch(() => $mdMedia('lg'), (big: boolean) => {
         $scope['bigScreen'] = big;
     });
@@ -80,7 +80,7 @@ app.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.MDMe
     $scope['anotherCustom'] = $mdMedia('max-width: 300px');
 });
 
-app.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.MDSidenavService) => {
+myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.MDSidenavService) => {
     var componentId = 'left';
     $scope['toggle'] = () => $mdSidenav(componentId).toggle();
     $scope['open'] = () => $mdSidenav(componentId).open();
@@ -89,8 +89,6 @@ app.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.
     $scope['isLockedOpen'] = $mdSidenav(componentId).isLockedOpen();
 });
 
-app.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.MDToastService) => {
-    $scope['openToast'] = function($event) {
-        $mdToast.show($mdToast.simple().content('Hello!'));
-    };
+myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.MDToastService) => {
+    $scope['openToast'] = () => $mdToast.show($mdToast.simple().content('Hello!'));
 });
