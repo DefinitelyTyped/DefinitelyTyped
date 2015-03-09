@@ -27,6 +27,20 @@ declare module "react" {
     type ReactHTMLElement = ReactDOMElement<HTMLAttributes>;
     type ReactSVGElement = ReactDOMElement<SVGAttributes>;
 
+
+    //
+    // React Nodes
+    // http://facebook.github.io/react/docs/glossary.html
+    // ----------------------------------------------------------------------
+
+    type ReactText = string | number;
+    type ReactChild = ReactElementBase<any, any> | ReactText;
+
+    // Should be Array<ReactNode> but type aliases cannot be recursive
+    type ReactFragment = Array<ReactChild | any[] | boolean>;
+    type ReactNode = ReactChild | ReactFragment | boolean;
+
+
     //
     // Factories
     // ----------------------------------------------------------------------
@@ -46,17 +60,6 @@ declare module "react" {
     type HTMLFactory = DOMFactory<HTMLAttributes>;
     type SVGFactory = DOMFactory<SVGAttributes>;
 
-    //
-    // React Nodes
-    // http://facebook.github.io/react/docs/glossary.html
-    // ----------------------------------------------------------------------
-
-    type ReactText = string | number;
-    type ReactChild = ReactElementBase<any, any> | ReactText;
-
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // Top Level API
@@ -72,18 +75,26 @@ declare module "react" {
     function createFactory<P>(
         type: ComponentClass<P, any>): Factory<P>;
 
+    //
+    // Unfortunately these definitions are too stringent and do not allow a sufficiently flexible syntax for the Element Type
+    // see example project with react-templates at:  https://github.com/bgrieder/react-templates-typescript-test.git
+    //
+    //function createElement<P>(
+    //    type: string,
+    //    props?: P,
+    //    ...children: ReactNode[]): ReactDOMElement<P>;
+    //function createElement<P>(
+    //    type: ClassicComponentClass<P, any> | string,
+    //    props?: P,
+    //    ...children: ReactNode[]): ReactClassicElement<P>;
+    //function createElement<P>(
+    //    type: ComponentClass<P, any>,
+    //    props?: P,
+    //    ...children: ReactNode[]): ReactElement<P>;
     function createElement<P>(
-        type: string,
+        etype: any,
         props?: P,
         ...children: ReactNode[]): ReactDOMElement<P>;
-    function createElement<P>(
-        type: ClassicComponentClass<P, any> | string,
-        props?: P,
-        ...children: ReactNode[]): ReactClassicElement<P>;
-    function createElement<P>(
-        type: ComponentClass<P, any>,
-        props?: P,
-        ...children: ReactNode[]): ReactElement<P>;
 
     function render<P>(
         element: ReactDOMElement<P>,
