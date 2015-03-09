@@ -277,14 +277,6 @@ interface JQueryGenericPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      */
     then<U>(doneFilter: (value: T, ...values: any[]) => U|JQueryPromise<U>, failFilter?: (...reasons: any[]) => U|JQueryPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
-
-    /**
-     * Determine the current state of a Deferred object.
-     */
-    state(): string;
-
-    // Deprecated - given no typings
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 }
 
 /**
@@ -302,6 +294,10 @@ interface JQueryPromiseOperator<T, U> {
  * Interface for the JQuery promise, part of callbacks
  */
 interface JQueryPromise<T> extends JQueryGenericPromise<T> {
+    /**
+     * Determine the current state of a Deferred object.
+     */
+    state(): string;
     /**
      * Add handlers to be called when the Deferred object is either resolved or rejected.
      * 
@@ -329,12 +325,19 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
      */
     progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
+
+    // Deprecated - given no typings
+    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 }
 
 /**
  * Interface for the JQuery deferred, part of callbacks
  */
 interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
+    /**
+     * Determine the current state of a Deferred object.
+     */
+    state(): string;
     /**
      * Add handlers to be called when the Deferred object is either resolved or rejected.
      * 
@@ -414,6 +417,9 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param target Object onto which the promise methods have to be attached
      */
     promise(target?: any): JQueryPromise<T>;
+
+    // Deprecated - given no typings
+    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 }
 
 /**
