@@ -10,8 +10,12 @@ declare module "gulp-replace" {
         skipBinary?: boolean;
     }
 
-    function replace(pattern: string, replacement: string, opts?: Options): NodeJS.ReadWriteStream;
-    function replace(pattern: RegExp, replacement: string, opts?: Options): NodeJS.ReadWriteStream;
+    interface Replacer {
+      (match: string): string
+    }
+
+    function replace(pattern: string, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
+    function replace(pattern: RegExp, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
 
     export = replace;
 }
