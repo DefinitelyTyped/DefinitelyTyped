@@ -17,18 +17,12 @@ declare module "react/addons" {
         ref: string | ((component: Component<P, any>) => any);
     }
 
-    interface ModernElement<P> extends ReactElement<P> {
-        type: ModernComponentClass<P, any>;
-        ref: string | ((component: Component<P, any>) => any);
-    }
-
     interface ClassicElement<P> extends ReactElement<P> {
-        type: string | ClassicComponentClass<P, any>;
+        type: string | ClassicComponentClass<P>;
         ref: string | ((component: ClassicComponent<P, any>) => any);
     }
 
-    // subtype of ClassicElement
-    interface DOMElement<P> extends ReactElement<P> {
+    interface DOMElement<P> extends ClassicElement<P> {
         type: string;
         ref: string | ((component: DOMComponent<P>) => any);
     }
@@ -44,15 +38,11 @@ declare module "react/addons" {
         (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
 
-    interface ModernFactory<P> extends Factory<P> {
-        (props?: P, ...children: ReactNode[]): ModernElement<P>;
-    }
-
     interface ClassicFactory<P> extends Factory<P> {
         (props?: P, ...children: ReactNode[]): ClassicElement<P>;
     }
 
-    interface DOMFactory<P> extends Factory<P> {
+    interface DOMFactory<P> extends ClassicFactory<P> {
         (props?: P, ...children: ReactNode[]): DOMElement<P>;
     }
 
@@ -75,11 +65,10 @@ declare module "react/addons" {
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P, S>;
+    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
     function createFactory<P>(type: string): DOMFactory<P>;
-    function createFactory<P>(type: ClassicComponentClass<P, any> | string): ClassicFactory<P>;
-    function createFactory<P>(type: ModernComponentClass<P, any>): ModernFactory<P>;
+    function createFactory<P>(type: ClassicComponentClass<P> | string): ClassicFactory<P>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     function createElement<P>(
@@ -87,13 +76,13 @@ declare module "react/addons" {
         props?: P,
         ...children: ReactNode[]): DOMElement<P>;
     function createElement<P>(
-        type: ClassicComponentClass<P, any> | string,
+        type: ClassicComponentClass<P> | string,
         props?: P,
         ...children: ReactNode[]): ClassicElement<P>;
     function createElement<P>(
-        type: ModernComponentClass<P, any>,
+        type: ComponentClass<P>,
         props?: P,
-        ...children: ReactNode[]): ModernElement<P>;
+        ...children: ReactNode[]): ReactElement<P>;
 
     function cloneElement<P>(
         element: DOMElement<P>,
@@ -103,10 +92,6 @@ declare module "react/addons" {
         element: ClassicElement<P>,
         props?: P,
         ...children: ReactNode[]): ClassicElement<P>;
-    function cloneElement<P>(
-        element: ModernElement<P>,
-        props?: P,
-        ...children: ReactNode[]): ModernElement<P>;
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: P,
@@ -184,18 +169,15 @@ declare module "react/addons" {
     // ----------------------------------------------------------------------
 
     interface ComponentClass<P> {
+        new(props?: P, context?: any): Component<P, any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
-    }
-
-    interface ModernComponentClass<P, S> extends ComponentClass<P> {
-        new(props?: P, context?: any): Component<P, S>;
         defaultProps?: P;
     }
 
-    interface ClassicComponentClass<P, S> extends ComponentClass<P> {
-        new(props?: P, context?: any): ClassicComponent<P, S>;
+    interface ClassicComponentClass<P> extends ComponentClass<P> {
+        new(props?: P, context?: any): ClassicComponent<P, any>;
         getDefaultProps?(): P;
         displayName?: string;
     }
@@ -225,8 +207,8 @@ declare module "react/addons" {
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>
 
-        getInitialState?(): S;
         getDefaultProps?(): P;
+        getInitialState?(): S;
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
@@ -768,7 +750,6 @@ declare module "react/addons" {
 
         cloneWithProps<P>(element: DOMElement<P>, props: P): DOMElement<P>;
         cloneWithProps<P>(element: ClassicElement<P>, props: P): ClassicElement<P>;
-        cloneWithProps<P>(element: ModernElement<P>, props: P): ModernElement<P>;
         cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
 
         createFragment(object: { [key: string]: ReactNode }): ReactFragment;
