@@ -27,14 +27,14 @@ declare module angular.animate {
 
         /**
          * Performs an inline animation on the element.
-         * 
+         *
          * @param element the element that will be the focus of the animation
          * @param from a collection of CSS styles that will be applied to the element at the start of the animation
          * @param to a collection of CSS styles that the element will animate towards
          * @param className an optional CSS class that will be added to the element for the duration of the animation (the default class is 'ng-inline-animate')
          * @returns the animation callback promise
          */
-        animate(element: JQuery, from: any, to: any, className?: string): ng.IPromise<void>;
+        animate(element: JQuery, from: any, to: any, className?: string): angular.IPromise<void>;
 
         /**
          * Appends the element to the parentElement element that resides in the document and then runs the enter animation.
