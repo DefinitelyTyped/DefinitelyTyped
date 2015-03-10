@@ -43,6 +43,6 @@ declare var numeral: Numeral;
 
 declare module "numeral" {
 
-    export = Numeral;
+    export = numeral;
 
 }
