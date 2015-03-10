@@ -6,6 +6,13 @@
 /// <reference path='../webrtc/MediaStream.d.ts'/>
 
 ////////////////////
+// Global object
+////////////////////
+interface Window {
+    chrome: typeof chrome;
+}
+
+////////////////////
 // Alarms
 ////////////////////
 declare module chrome.alarms {
@@ -1538,7 +1545,8 @@ declare module chrome.runtime {
     }
 
     interface Port {
-        postMessage: Function;
+        postMessage: (message: Object) => void;
+        disconnect: () => void;
         sender?: MessageSender;
         onDisconnect: chrome.events.Event;
         onMessage: PortMessageEvent;

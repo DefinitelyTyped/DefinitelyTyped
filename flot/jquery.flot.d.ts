@@ -107,7 +107,7 @@ declare module jquery.flot {
         ticks?: any;                                    // null or number or ticks array or (fn: axis -> ticks array)
         tickSize?: any;                                 // number or array
         minTickSize?: any;                              // number or array
-        tickFormatter?: (t: number) => string;                            // (fn: number, object -> string) or string
+        tickFormatter?: (t: number, a?: axis) => string;                            // (fn: number, object -> string) or string
         tickDecimals?: number;
 
         labelWidth?: number;
