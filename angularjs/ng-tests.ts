@@ -1,3 +1,3 @@
-/// <reference path="ng.d.ts" />
+/// <reference path="angular.d.ts" />
 
 var myAngular: ng.IModule = angular.module('asd', []);

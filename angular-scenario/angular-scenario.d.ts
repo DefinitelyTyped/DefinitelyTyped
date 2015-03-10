@@ -6,10 +6,8 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng {
-    export interface IAngularStatic {
-        scenario: any;
-    }
+declare module angular {
+    var scenario: any;
 }
 
 declare module angularScenario {
