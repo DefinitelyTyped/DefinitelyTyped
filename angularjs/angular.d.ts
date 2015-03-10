@@ -11,6 +11,10 @@ interface Function {
     $inject?: string[];
 }
 
+// For backwards compatibility, publish types on 'ng' as well as 'angular'.
+import ng = angular;
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // angular module (angular.js)
 // see http://docs.angularjs.org/api
