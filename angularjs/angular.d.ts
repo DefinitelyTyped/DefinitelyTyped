@@ -16,6 +16,8 @@ interface Function {
 // see http://docs.angularjs.org/api
 ///////////////////////////////////////////////////////////////////////////////
 declare module angular {
+    // Allows referring to angular.IAngularStatic as an alias for Angular's static functions.
+    type IAngularStatic = typeof angular;
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
