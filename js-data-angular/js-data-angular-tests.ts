@@ -4,7 +4,7 @@ interface IUser {
 
 }
 
-interface CustomScope extends ng.IScope {
+interface CustomScope extends angular.IScope {
 
     comments: Array<any>;
     user: IUser;
