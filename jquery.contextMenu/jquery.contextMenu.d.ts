@@ -1,4 +1,4 @@
-// Type definitions for jQuery contextMenu 1.5.25
+// Type definitions for jQuery contextMenu 1.6.6
 // Project: http://medialize.github.com/jQuery-contextMenu/
 // Definitions by: Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -30,4 +30,5 @@ interface JQueryContextMenuOptions {
 
 interface JQueryStatic {
     contextMenu(options?: JQueryContextMenuOptions): JQuery;
+    contextMenu(type: string): JQuery;
 }

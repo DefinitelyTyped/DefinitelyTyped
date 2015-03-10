@@ -5613,7 +5613,7 @@ declare module THREE {
         constructor(object: Object3D, hex?: number);
 
         object: Object3D;
-        box: Box3[];
+        box: Box3;
 
         update(): void;
     }

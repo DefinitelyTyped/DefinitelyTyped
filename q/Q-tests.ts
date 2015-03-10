@@ -67,6 +67,7 @@ Q.allResolved([])
 declare var arrayPromise: Q.IPromise<number[]>;
 declare var stringPromise: Q.IPromise<string>;
 declare function returnsNumPromise(text: string): Q.Promise<number>;
+declare function returnsNumPromise(text: string): JQueryPromise<number>;
 
 Q<number[]>(arrayPromise) // type specification required
     .then(arr => arr.join(','))

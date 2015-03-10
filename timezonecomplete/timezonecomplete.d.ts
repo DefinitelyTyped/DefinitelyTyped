@@ -1,4 +1,4 @@
-// Type definitions for timezonecomplete 1.12.0
+// Type definitions for timezonecomplete 1.13.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -349,6 +349,11 @@ declare module '__timezonecomplete/datetime' {
          * @param timeZone	The desired time zone (optional, defaults to UTC).
          */
         static now(timeZone?: timezone.TimeZone): DateTime;
+        /**
+         * Create a DateTime from a Lotus 123 / Microsoft Excel date-time value
+         * i.e. a double representing days since 1-1-1900 where 1900 is incorrectly seen as leap year
+         */
+        static fromExcel(n: number, timeZone?: timezone.TimeZone): DateTime;
         /**
          * Constructor. Creates current time in local timezone.
          */

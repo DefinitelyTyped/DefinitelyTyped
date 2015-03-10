@@ -96,6 +96,7 @@ var ts: tc.TimeSource = tc.DateTime.timeSource;
 dt = tc.DateTime.nowLocal();
 dt = tc.DateTime.nowUtc();
 dt = tc.DateTime.now(tc.TimeZone.local());
+dt = tc.DateTime.fromExcel(1.5);
 dt = tc.nowLocal();
 dt = tc.nowUtc();
 dt = tc.now(tc.TimeZone.local());
