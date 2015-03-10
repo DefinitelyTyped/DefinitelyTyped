@@ -1,3 +1,8 @@
+// Type definitions for json-path-processor
+// Project: https://github.com/zordius/json-path-processor
+// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 declare module "json-path-processor" {
 
