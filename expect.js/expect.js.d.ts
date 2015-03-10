@@ -214,3 +214,9 @@ declare module Expect {
         own: Assertion;
     }
 }
+
+declare module "expect.js" {
+
+    export = expect;
+
+}
