@@ -102,7 +102,7 @@ declare module angular.route {
         caseInsensitiveMatch?: boolean;
     }
 
-    // see http://docs.angularjs.org/api/angular.$route#current
+    // see http://docs.angularjs.org/api/ng.$route#current
     interface ICurrentRoute extends IRoute {
         locals: {
             $scope: IScope;
