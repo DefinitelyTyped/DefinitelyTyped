@@ -3212,7 +3212,7 @@ function test_EventIsCallable() {
 }
 
 $.when<any>($.ajax("/my/page.json")).then(a => a.asdf); // is type JQueryPromise<any>
-$.when($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
+$.when<any>($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
 $.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
 
 var f1 = $.when("fetch"); // Is type JQueryPromise<string>
@@ -3370,4 +3370,28 @@ function test_promise_then_change_type() {
 	count().done(data => {
 	}).fail((exception: Error) => {
 	});
+}
+
+function test_promise_then_not_return_deferred() {
+  var state: string;
+
+  var deferred: JQueryDeferred<any> = $.Deferred();
+  state = deferred.state();
+  deferred = deferred.progress();
+  deferred = deferred.done();
+  deferred = deferred.fail();
+  deferred = deferred.always();
+  deferred = deferred.notify();
+  deferred = deferred.resolve();
+  deferred = deferred.reject();
+  promise = deferred.promise();
+  promise = deferred.then(function () { });
+
+  var promise: JQueryPromise<any> = $.Deferred().promise();
+  state = promise.state();
+  promise = promise.then(function () { });
+  promise = promise.progress();
+  promise = promise.done();
+  promise = promise.fail();
+  promise = promise.always();
 }
