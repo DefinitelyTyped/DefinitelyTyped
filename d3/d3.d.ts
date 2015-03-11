@@ -1279,10 +1279,8 @@ declare module D3 {
         export interface ForceLayout {
             (): ForceLayout;
             size: {
-                (): number;
+                (): number[];
                 (mysize: number[]): ForceLayout;
-                (accessor: (d: any, index: number) => {}): ForceLayout;
-
             };
             linkDistance: {
                 (): number;
