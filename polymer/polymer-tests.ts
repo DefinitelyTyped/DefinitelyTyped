@@ -10,10 +10,6 @@ class AbstractPolymerElement implements PolymerElement {
 	asyncFire(eventName: string, details?: any, targetNode?: any, bubbles?: boolean, cancelable?: boolean): void { }
 
 	cancelUnbindAll(): void { }
-
-	// these are mix in API's.. hacky way to deal with them at the moment.
-	resizableAttachedHandler;
-	resizableDetachedHandler;
 }
 
 class AbstractWebComponent extends AbstractPolymerElement {
@@ -30,11 +26,10 @@ class AbstractWebComponent extends AbstractPolymerElement {
 	}
 }
 
-function registerWebComponent(webComponentClass: Function, ...mixins): void {
+function registerWebComponent(webComponentClass: Function, ...mixins: any[]): void {
 		
 	// we need a flat object, without prototype in order to polymer to work on our components
-	var flattenedComponent = {};
-	var poly_func = ["async", "job", "fire", "asyncFire", "cancelUnbindAll"];
+	var flattenedComponent: any = {};
 	if (mixins) {
 		// apply mixins
 		mixins.forEach(mixin => {
@@ -47,7 +42,8 @@ function registerWebComponent(webComponentClass: Function, ...mixins): void {
 	}
 	var webComponent: AbstractWebComponent = new (<any>webComponentClass)();
 	for (var i in webComponent) {
-		if (!_.contains(poly_func, i)) {
+		// do not include polymer functions
+		if (i != "async" && i != "job" && i != "fire" && i != "asyncFire" && i != "cancelUnbindAll") {
 			flattenedComponent[i] = webComponent[i];
 		}
 	}

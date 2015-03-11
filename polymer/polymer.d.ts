@@ -22,16 +22,16 @@ interface PolymerElement {
 
 interface Polymer {
 
-    importElements(node: Node, callback: Function);
+    importElements(node: Node, callback: Function): void;
     import(url: string, callback?: () => void): void;
 
-    mixin(target: any, ...obj1): any;
+    mixin(target: any, ...mixins: any[]): any;
     waitingFor(): Array<string>;
     // should be an "integer" for milliseconds
     forceReady(timeout: number): void;
 
-    (tag_name: string, prototype: PolymerElement): void;
-    (tag_name: string, prototype: any): void;
+    (tagName: string, prototype: PolymerElement): void;
+    (tagName: string, prototype: any): void;
     (prototype: PolymerElement): void;
     (): void;
 	// hacks for mixins
