@@ -16,7 +16,7 @@ declare module jquery.flot {
         xaxes?: axisOptions[];
         yaxes?: axisOptions[];
         grid?: gridOptions;
-        interfaction?: interaction;
+        interaction?: interaction;
         hooks?: hooks;
     }
 
