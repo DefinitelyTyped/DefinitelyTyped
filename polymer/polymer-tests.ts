@@ -44,7 +44,8 @@ function registerWebComponent(webComponentClass: Function, ...mixins: any[]): vo
 	for (var i in webComponent) {
 		// do not include polymer functions
 		if (i != "async" && i != "job" && i != "fire" && i != "asyncFire" && i != "cancelUnbindAll") {
-			flattenedComponent[i] = webComponent[i];
+			var attribute: any = webComponent[i];
+			flattenedComponent[i] = attribute;
 		}
 	}
 
