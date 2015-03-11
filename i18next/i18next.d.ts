@@ -7,6 +7,9 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+interface LoadComplete {
+    (errorMessage: string, data?: any): void;
+}
 interface IResourceStore {
     [language: string]: IResourceStoreLanguage;
 }
@@ -23,7 +26,7 @@ interface I18nextOptions {
     preload?: string[];                     // Default value: []
     lowerCaseLng?: boolean;                    // Default value: false
     returnObjectTrees?: boolean;               // Default value: false
-    fallbackLng?: string;                   // Default value: 'dev'
+    fallbackLng?: string|boolean;           // Default value: 'dev'
     detectLngQS?: string;                   // Default value: 'setLng'
     ns?: any;                               // Default value: 'translation' (string), can also be an object
     nsseparator?: string;                   // Default value: '::'
@@ -62,6 +65,8 @@ interface I18nextOptions {
     cookieName?: string;                    // Default value: 'i18next'
 
     postProcess?: string;                   // Default value: undefined
+
+    customLoad?: (log: string, ns: string, options: I18nextOptions, loadComplete: LoadComplete) => void;
 }
 
 interface I18nextStatic {
