@@ -14,6 +14,7 @@ interface Function {
 // For backwards compatibility, publish types on 'ng' as well as 'angular'.
 import ng = angular;
 
+export = angular;
 
 ///////////////////////////////////////////////////////////////////////////////
 // angular module (angular.js)
