@@ -963,7 +963,29 @@ declare module D3 {
                 */
                 (elements: EventTarget[]): Transition;
             }
-            each: (type?: string, eachFunction?: (data: any, index: number) => any) => Transition;
+            each: {
+                /**
+                 * Immediately invokes the specified function for each element in the current
+                 * transition, passing in the current datum and index, with the this context
+                 * of the current DOM element. Similar to D3.Selection.each.
+                 *
+                 * @param eachFunction The function to be invoked for each element in the
+                 * current transition, passing in the current datum and index, with the this
+                 * context of the current DOM element.
+                 */
+                (eachFunction: (data: any, index: number) => any): Transition;
+                /**
+                 * Adds a listener for transition events, supporting "start", "end" and
+                 * "interrupt" events. The listener will be invoked for each individual
+                 * element in the transition.
+                 *
+                 * @param type Type of transition event. Supported values are "start", "end"
+                 * and "interrupt".
+                 * @param listener The listener to be invoked for each individual element in
+                 * the transition.
+                 */
+                (type: string, listener: (data: any, index: number) => any): Transition;
+            }
             transition: () => Transition;
             ease: (value: string, ...arrs: any[]) => Transition;
             attrTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate): Transition;
