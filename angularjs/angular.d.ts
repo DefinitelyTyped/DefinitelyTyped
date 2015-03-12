@@ -1490,9 +1490,6 @@ declare module ng {
         // TODO: events, how to define?
         //$destroy
 
-        find(selector: string): jqLite;
-        find(element: any): jqLite;
-        find(obj: jqLite): jqLite;
         controller(): any;
         controller(name: string): any;
         injector(): any;
