@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.ui.bootstrap {
+declare module angular.ui.bootstrap {
 
     interface IAccordionConfig {
         /**
