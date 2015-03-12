@@ -22,47 +22,47 @@ interface SortLogInfo {
 myApp.controller('sortableController', function ($scope: MySortableControllerScope) {
   $scope.sortableOptions = {
     activate: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     beforeStop: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     change: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     deactivate: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     out: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     over: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     receive: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     remove: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     sort: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     start: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
     },
     stop: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
       var uiitem: ng.ui.UISortableUIItem<SortableModelInfo> = ui.item;
       var uiitemscope: ng.IScope = uiitem.scope();
@@ -85,7 +85,7 @@ myApp.controller('sortableController', function ($scope: MySortableControllerSco
       $scope.sortingLog.push(logEntry);
     },
     update: function(e, ui) {
-      var jQueryEventObject: JQueryEventObject = e;
+      var jQueryEventObject: Event = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
       var voidcanceled: void = ui.item.sortable.cancel();
       var isCanceled: Boolean = ui.item.sortable.isCanceled();
@@ -119,7 +119,7 @@ myApp.controller('sortableController', function ($scope: MySortableControllerSco
   $scope.sortableOptions.grid = [20, 10];
   $scope.sortableOptions.handle = '.handle';
   $scope.sortableOptions.helper = 'clone';
-  $scope.sortableOptions.helper = function(e: JQueryEventObject, item: ng.IAugmentedJQuery) {
+  $scope.sortableOptions.helper = function(e: Event, item: ng.IAugmentedJQuery) {
     return item.clone();
   };
   $scope.sortableOptions.items = '> li:not(.disabled)';

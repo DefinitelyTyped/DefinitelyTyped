@@ -23,7 +23,7 @@ declare module ng.animate {
         * @param element If provided then the element will be used to represent the enable/disable operation.
         * @returns current animation state
         */
-        enabled(value?: boolean, element?: JQuery): boolean;
+        enabled(value?: boolean, element?: jqLite): boolean;
 
         /**
          * Performs an inline animation on the element.
@@ -34,7 +34,7 @@ declare module ng.animate {
          * @param className an optional CSS class that will be added to the element for the duration of the animation (the default class is 'ng-inline-animate')
          * @returns the animation callback promise
          */
-        animate(element: JQuery, from: any, to: any, className?: string): ng.IPromise<void>;
+        animate(element: jqLite, from: any, to: any, className?: string): ng.IPromise<void>;
 
         /**
          * Appends the element to the parentElement element that resides in the document and then runs the enter animation.
@@ -44,7 +44,7 @@ declare module ng.animate {
          * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the enter animation
          * @returns the animation callback promise
          */
-        enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
+        enter(element: jqLite, parentElement: jqLite, afterElement?: jqLite): ng.IPromise<void>;
 
         /**
          * Runs the leave animation operation and, upon completion, removes the element from the DOM.
@@ -52,7 +52,7 @@ declare module ng.animate {
          * @param element the element that will be the focus of the leave animation
          * @returns the animation callback promise
          */
-        leave(element: JQuery): ng.IPromise<void>;
+        leave(element: jqLite): ng.IPromise<void>;
 
         /**
          * Fires the move DOM operation. Just before the animation starts, the animate service will either append
@@ -64,7 +64,7 @@ declare module ng.animate {
          * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the move animation
          * @returns the animation callback promise
          */
-        move(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
+        move(element: jqLite, parentElement: jqLite, afterElement?: jqLite): ng.IPromise<void>;
 
         /**
          * Triggers a custom animation event based off the className variable and then attaches the className
@@ -74,7 +74,7 @@ declare module ng.animate {
          * @param className the CSS class that will be added to the element and then animated
          * @returns the animation callback promise
          */
-        addClass(element: JQuery, className: string): ng.IPromise<void>;
+        addClass(element: jqLite, className: string): ng.IPromise<void>;
 
         /**
          * Triggers a custom animation event based off the className variable and then removes the CSS class
@@ -84,7 +84,7 @@ declare module ng.animate {
          * @param className the CSS class that will be animated and then removed from the element
          * @returns the animation callback promise
          */
-        removeClass(element: JQuery, className: string): ng.IPromise<void>;
+        removeClass(element: jqLite, className: string): ng.IPromise<void>;
 
         /**
          * Adds and/or removes the given CSS classes to and from the element. Once complete, the done() callback
@@ -95,7 +95,7 @@ declare module ng.animate {
          * @param remove the CSS class which will be removed from the element CSS classes have been set on the element
          * @returns the animation callback promise
          */
-        setClass(element: JQuery, add: string, remove: string): ng.IPromise<void>;
+        setClass(element: jqLite, add: string, remove: string): ng.IPromise<void>;
 
         /**
          * Cancels the provided animation.

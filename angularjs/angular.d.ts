@@ -4,8 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery.d.ts" />
-
 declare var angular: ng.IAngularStatic;
 
 // Support for painless dependency injection
@@ -91,7 +89,7 @@ declare module ng {
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: JQuery, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: jqLite, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
          * Use this function to manually start up angular application.
          *
@@ -102,7 +100,7 @@ declare module ng {
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: JQuery, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: jqLite, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
          * Use this function to manually start up angular application.
          *
@@ -113,7 +111,7 @@ declare module ng {
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: JQuery, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: jqLite, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
          * Use this function to manually start up angular application.
          *
@@ -195,11 +193,11 @@ declare module ng {
         copy<T>(source: T, destination?: T): T;
 
         /**
-         * Wraps a raw DOM element or HTML string as a jQuery element.
+         * Wraps a raw DOM element or HTML string as a jqLite/jQuery element.
          *
          * If jQuery is available, angular.element is an alias for the jQuery function. If jQuery is not available, angular.element delegates to Angular's built-in subset of jQuery, called "jQuery lite" or "jqLite."
          */
-        element: IAugmentedJQueryStatic;
+        element: jqLiteStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
 
@@ -895,7 +893,7 @@ declare module ng {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends IAugmentedJQuery {}
+    interface IDocumentService extends jqLite {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -909,7 +907,7 @@ declare module ng {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootElementService extends JQuery {}
+    interface IRootElementService extends jqLite {}
 
     interface IQResolveReject<T> {
         (): void;
@@ -1039,7 +1037,7 @@ declare module ng {
     interface ICompileService {
         (element: string, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
         (element: Element, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
-        (element: JQuery, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: jqLite, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
     }
 
     interface ICompileProvider extends IServiceProvider {
@@ -1059,20 +1057,20 @@ declare module ng {
 
     interface ICloneAttachFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (clonedElement?: JQuery, scope?: IScope): any;
+        (clonedElement?: jqLite, scope?: IScope): any;
     }
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): jqLite;
     }
 
     // This corresponds to $transclude (and also the transclude function passed to link).
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction): jqLite;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (cloneAttachFn?: ICloneAttachFunction): jqLite;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1432,7 +1430,7 @@ declare module ng {
     interface IDirectiveLinkFn {
         (
             scope: IScope,
-            instanceElement: IAugmentedJQuery,
+            instanceElement: jqLite,
             instanceAttributes: IAttributes,
             controller: any,
             transclude: ITranscludeFunction
@@ -1446,7 +1444,7 @@ declare module ng {
 
     interface IDirectiveCompileFn {
         (
-            templateElement: IAugmentedJQuery,
+            templateElement: jqLite,
             templateAttributes: IAttributes,
             transclude: ITranscludeFunction
         ): IDirectivePrePost;
@@ -1472,49 +1470,377 @@ declare module ng {
 
     /**
      * angular.element
-     * when calling angular.element, angular returns a jQuery object,
+     * when calling angular.element, angular returns a jqLite object,
      * augmented with additional methods like e.g. scope.
      * see: http://docs.angularjs.org/api/angular.element
      */
-    interface IAugmentedJQueryStatic extends JQueryStatic {
-        (selector: string, context?: any): IAugmentedJQuery;
-        (element: Element): IAugmentedJQuery;
-        (object: {}): IAugmentedJQuery;
-        (elementArray: Element[]): IAugmentedJQuery;
-        (object: JQuery): IAugmentedJQuery;
-        (func: Function): IAugmentedJQuery;
-        (array: any[]): IAugmentedJQuery;
-        (): IAugmentedJQuery;
+    interface jqLiteStatic {
+        (selector: string, context?: any): jqLite;
+        (element: Element): jqLite;
+        (object: {}): jqLite;
+        (elementArray: Element[]): jqLite;
+        (object: jqLite): jqLite;
+        (func: Function): jqLite;
+        (array: any[]): jqLite;
+        (): jqLite;
     }
+    interface IAugmentedJQueryStatic extends jqLiteStatic {}
 
-    interface IAugmentedJQuery extends JQuery {
+    interface jqLite {
         // TODO: events, how to define?
         //$destroy
 
-        find(selector: string): IAugmentedJQuery;
-        find(element: any): IAugmentedJQuery;
-        find(obj: JQuery): IAugmentedJQuery;
         controller(): any;
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
         isolateScope(): IScope;
 
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
+        inheritedData(key: string, value: any): jqLite;
+        inheritedData(obj: { [key: string]: any; }): jqLite;
         inheritedData(key?: string): any;
+
+        // jqLite
+
+        [n: number]: HTMLElement;
+
+        /**
+         * Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.
+         */
+        length: number;
+
+        /**
+         * Appends new elements to an array, and returns the new length of the array.
+         * @param items New elements of the Array.
+         */
+        push(...items: HTMLElement[]): number;
+
+        /**
+         * Sorts an array.
+         * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
+         */
+        sort(compareFn?: (a: HTMLElement, b: HTMLElement) => number): jqLite;
+
+        /**
+         * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+         * @param start The zero-based location in the array from which to start removing elements.
+         */
+        splice(start: number): HTMLElement[];
+
+        /**
+         * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+         * @param start The zero-based location in the array from which to start removing elements.
+         * @param deleteCount The number of elements to remove.
+         * @param items Elements to insert into the array in place of the deleted elements.
+         */
+        splice(start: number, deleteCount: number, ...items: HTMLElement[]): HTMLElement[];
+
+        /**
+         * Returns a string representation of an array.
+         */
+        toString(): string;
+
+        /**
+         * Reduce the set of matched elements to the one at the specified index.
+         *
+         * @param index An integer indicating the 0-based position of the element. OR An integer indicating the position of the element, counting backwards from the last element in the set.
+         */
+        eq(index: number): jqLite;
+
+        /**
+         * Store arbitrary data associated with the matched elements.
+         *
+         * @param key A string naming the piece of data to set.
+         * @param value The new data value; it can be any Javascript type including Array or Object.
+         */
+        data(key: string, value: any): jqLite;
+        /**
+         * Store arbitrary data associated with the matched elements.
+         *
+         * @param obj An object of key-value pairs of data to update.
+         */
+        data(obj: { [key: string]: any; }): jqLite;
+        /**
+         * Return the value at the named data store for the first element in the jqLite collection, as set by data(name, value) or by an HTML5 data-* attribute.
+         *
+         * @param key Name of the data stored.
+         */
+        data(key: string): any;
+        /**
+         * Return the value at the named data store for the first element in the jqLite collection, as set by data(name, value) or by an HTML5 data-* attribute.
+         */
+        data(): any;
+
+        /**
+         * Remove a previously-stored piece of data.
+         *
+         * @param name A string naming the piece of data to delete or space-separated string naming the pieces of data to delete.
+         */
+        removeData(name: string): jqLite;
+        /**
+         * Remove a previously-stored piece of data.
+         *
+         * @param list An array of strings naming the pieces of data to delete.
+         */
+        removeData(list: string[]): jqLite;
+
+
+        /**
+         * Remove an attribute from each element in the set of matched elements.
+         *
+         * @param attributeName An attribute to remove; as of version 1.7, it can be a space-separated list of attributes.
+         */
+        removeAttr(attributeName: string): jqLite;
+
+        /**
+         * Determine whether any of the matched elements are assigned the given class.
+         *
+         * @param className The class name to search for.
+         */
+        hasClass(className: string): boolean;
+
+        /**
+         * Get the value of style properties for the first element in the set of matched elements.
+         *
+         * @param propertyName A CSS property.
+         */
+        css(propertyName: string): string;
+        /**
+         * Set one or more CSS properties for the set of matched elements.
+         *
+         * @param propertyName A CSS property name.
+         * @param value A value to set for the property.
+         */
+        css(propertyName: string, value: string): jqLite;
+
+        /**
+         * Get the value of an attribute for the first element in the set of matched elements.
+         *
+         * @param attributeName The name of the attribute to get.
+         */
+        attr(attributeName: string): string;
+        /**
+         * Set one or more attributes for the set of matched elements.
+         *
+         * @param attributeName The name of the attribute to set.
+         * @param value A value to set for the attribute.
+         */
+        attr(attributeName: string, value: string|number): jqLite;
+
+        /**
+         * Get the value of a property for the first element in the set of matched elements.
+         *
+         * @param propertyName The name of the property to get.
+         */
+        prop(propertyName: string): any;
+        /**
+         * Set one or more properties for the set of matched elements.
+         *
+         * @param propertyName The name of the property to set.
+         * @param value A value to set for the property.
+         */
+        prop(propertyName: string, value: string|number|boolean): jqLite;
+
+        /**
+         * Get the combined text contents of each element in the set of matched elements, including their descendants.
+         */
+        text(): string;
+        /**
+         * Set the content of each element in the set of matched elements to the specified text.
+         *
+         * @param text The text to set as the content of each matched element. When Number or Boolean is supplied, it will be converted to a String representation.
+         */
+        text(text: string): jqLite;
+
+        /**
+         * Get the current value of the first element in the set of matched elements.
+         */
+        val(): number|string[]|number[];
+        /**
+         * Set the value of each element in the set of matched elements.
+         *
+         * @param value A string of text corresponding to the value of each matched element to set as selected/checked.
+         */
+        val(value: string): jqLite;
+        /**
+         * Set the value of each element in the set of matched elements.
+         *
+         * @param value An array of strings corresponding to the value of each matched element to set as selected/checked.
+         */
+        val(value: string[]): jqLite;
+
+        /**
+         * Get the HTML contents of the first element in the set of matched elements.
+         */
+        html(): string;
+        /**
+         * Set the HTML contents of each element in the set of matched elements.
+         *
+         * @param htmlString A string of HTML to set as the content of each matched element.
+         */
+        html(htmlString: string): jqLite;
+
+        /**
+         * Remove all child nodes of the set of matched elements from the DOM.
+         */
+        empty(): jqLite;
+
+        /**
+         * Remove an event handler.
+         */
+        off(): jqLite;
+        /**
+         * Remove an event handler.
+         *
+         * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
+         * @param handler A handler function previously attached for the event(s), or the special value false.
+         */
+        off(events: string, handler?: EventListener): jqLite;
+
+        /**
+         * Attach an event handler function for one or more events to the selected elements.
+         *
+         * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+         * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false. Rest parameter args is for optional parameters passed to jQuery.trigger(). Note that the actual parameters on the event handler function must be marked as optional (? syntax).
+         */
+        on(events: string, handler: EventListener): jqLite;
+
+        /**
+         * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+         *
+         * @param events A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+         * @param handler A function to execute at the time the event is triggered.
+         */
+        one(events: string, handler: EventListener): jqLite;
+
+        /**
+         * Specify a function to execute when the DOM is fully loaded.
+         *
+         * @param handler A function to execute after the DOM is ready.
+         */
+        ready(handler: Function): jqLite;
+
+        /**
+         * Get the children of each element in the set of matched elements, optionally filtered by a selector.
+         */
+        children(): jqLite;
+
+        /**
+         * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
+         *
+         * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jqLite object.
+         */
+        replaceWith(newContent: jqLite|any[]|Element|string): jqLite;
+
+        /**
+         * Get the children of each element in the set of matched elements, including text and comment nodes.
+         */
+        contents(): jqLite;
+
+        /**
+         * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
+         *
+         * param node DOM element, array of elements, HTML string, or jqLite object to insert at the end of each element in the set of matched elements.
+         */
+        append(node: Element|string): jqLite;
+
+        /**
+         * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
+         *
+         * param node DOM element, array of elements, HTML string, or jqLite object to insert at the beginning of each element in the set of matched elements.
+         */
+        prepend(node: Element|string): jqLite;
+
+        /**
+         * Wrap an HTML structure around each element in the set of matched elements.
+         *
+         * @param wrapNode A selector, element, HTML string, or jqLite object specifying the structure to wrap around the matched elements.
+         */
+        wrap(wrapNode: Element|string): jqLite;
+
+        /**
+         * Remove the set of matched elements from the DOM.
+         *
+         * @param keepData If keepData is truthy, then proceed a [detach].
+         */
+        remove(keepData?: boolean): jqLite;
+
+        /**
+         * Remove the set of matched elements from the DOM.
+         */
+        detach(): jqLite;
+
+        /**
+         * Insert content, specified by the parameter, after each element in the set of matched elements.
+         *
+         * param newElement HTML string, DOM element, array of elements, or jqLite object to insert after each element in the set of matched elements.
+         */
+        after(newElement: Element|string): jqLite;
+
+        /**
+         * Adds the specified class(es) to each of the set of matched elements.
+         *
+         * @param cssClasses One or more space-separated classes to be added to the class attribute of each matched element.
+         */
+        addClass(cssClasses: string): jqLite;
+
+        /**
+         * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+         *
+         * @param cssClasses One or more space-separated classes to be removed from the class attribute of each matched element.
+         */
+        removeClass(cssClasses: string): jqLite;
+
+        /**
+         * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the switch argument.
+         *
+         * @param cssClasses One or more class names (separated by spaces) to be toggled for each element in the matched set.
+         * @param condition A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
+         */
+        toggleClass(cssClasses: string, condition?: boolean): jqLite;
+
+        /**
+         * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
+         */
+        parent(): jqLite;
+
+        /**
+         * Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
+         */
+        next(): jqLite;
+
+        /**
+         * Get the descendants of each element in the current set of matched elements, filtered by a tag name.
+         *
+         * @param tagName A string containing a tag name to match elements against.
+         */
+        find(tagName: string): jqLite;
+
+        /**
+         * Create a deep copy of the set of matched elements.
+         */
+        clone(): jqLite;
+
+        /**
+         * Execute all handlers attached to an element for an event.
+         *
+         * @param eventType A string containing a JavaScript event type, such as click or submit.
+         * @param extraParameters An array of additional parameters to pass along to the event handler.
+         */
+        triggerHandler(eventType: string, ...extraParameters: any[]): jqLite;
     }
+    interface IAugmentedJQuery extends jqLite {}
 
     ///////////////////////////////////////////////////////////////////////
     // AnimateService
     // see http://docs.angularjs.org/api/ng.$animate
     ///////////////////////////////////////////////////////////////////////
     interface IAnimateService {
-        addClass(element: JQuery, className: string, done?: Function): IPromise<any>;
-        enter(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
-        leave(element: JQuery, done?: Function): void;
-        move(element: JQuery, parent: JQuery, after: JQuery, done?: Function): void;
-        removeClass(element: JQuery, className: string, done?: Function): void;
+        addClass(element: jqLite, className: string, done?: Function): IPromise<any>;
+        enter(element: jqLite, parent: jqLite, after: jqLite, done?: Function): void;
+        leave(element: jqLite, done?: Function): void;
+        move(element: jqLite, parent: jqLite, after: jqLite, done?: Function): void;
+        removeClass(element: jqLite, className: string, done?: Function): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
