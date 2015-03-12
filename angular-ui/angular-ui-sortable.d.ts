@@ -93,7 +93,7 @@ declare module ng.ui {
     }
 
     interface SortableHelperFunctionOption {
-        (event: JQueryEventObject, ui: ng.IAugmentedJQuery): JQuery;
+        (event: Event, ui: ng.jqLite): jqLite;
     }
 
     interface SortableOptions<T> extends SortableEvents<T> {
@@ -189,7 +189,7 @@ declare module ng.ui {
     }
 
     interface SortableEvent<T> {
-        (event: JQueryEventObject, ui: UISortableUIParams<T>): void;
+        (event: Event, ui: UISortableUIParams<T>): void;
     }
 
     interface SortableEvents<T> {
