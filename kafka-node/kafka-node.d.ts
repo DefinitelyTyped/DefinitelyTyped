@@ -86,8 +86,8 @@ declare module 'kafka-node' {
     }
 
     export interface ConsumerOptions {
-        groupId: string;
-        autoCommit: boolean;
+        groupId?: string;
+        autoCommit?: boolean;
         autoCommitIntervalMs?: number;
         fetchMaxWaitMs?: number;
         fetchMinBytes?: number;
