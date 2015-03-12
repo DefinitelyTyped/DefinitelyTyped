@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.httpAuth {
+declare module angular.httpAuth {
     interface IAuthService {
         loginConfirmed(data?:any, configUpdater?:Function):void;
         loginCancelled(data?:any, reason?:any):void;

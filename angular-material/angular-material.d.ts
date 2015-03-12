@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module ng.material {
+declare module angular.material {
 
     interface MDBottomSheetOptions {
         templateUrl?: string;

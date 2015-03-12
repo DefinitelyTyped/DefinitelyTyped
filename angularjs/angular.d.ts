@@ -6,13 +6,15 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare var angular: ng.IAngularStatic;
+declare var angular: angular.IAngularStatic;
 
 // Support for painless dependency injection
 interface Function {
     $inject?: string[];
 }
 
+// Collapse angular into ng
+import ng = angular;
 // Support AMD require
 declare module 'angular' {
     export = angular;
@@ -21,7 +23,7 @@ declare module 'angular' {
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare module angular {
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
