@@ -21,5 +21,5 @@ export class TestController {
 }
 
 var app = angular.module('angularLocalStorageTests', ['angularLocalStorage']);
-app.controller('testCtrl', ['$scope', 'storage',  ($scope: TestScope, storage: ng.localStorage.ILocalStorageService) => new ng.LocalStorageTests.TestController($scope, storage)]);
+app.controller('testCtrl', ['$scope', 'storage',  ($scope: TestScope, storage: ng.localStorage.ILocalStorageService) => new TestController($scope, storage)]);
 
