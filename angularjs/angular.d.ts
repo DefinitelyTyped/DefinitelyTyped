@@ -1827,7 +1827,7 @@ declare module ng {
          * @param eventType A string containing a JavaScript event type, such as click or submit.
          * @param extraParameters An array of additional parameters to pass along to the event handler.
          */
-        triggerHandler(eventType: string, ...extraParameters: any[]);
+        triggerHandler(eventType: string, ...extraParameters: any[]): jqLite;
     }
     interface IAugmentedJQuery extends jqLite {}
 

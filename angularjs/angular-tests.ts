@@ -737,7 +737,7 @@ function test_jqLite() {
 
     el.ready(() => {})
         .on('click', event => event.preventDefault())
-        .one('click', event => event.target.focus())
+        .one('click', event => event.target)
         .off('click', () => {})
         .off('click')
         .off();
