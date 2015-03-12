@@ -14,7 +14,8 @@ interface Function {
 }
 
 // Collapse ng into angular 
-import angular = ng;
+// NOTE: this is going to be deprecated
+import ng = angular;
 
 // Support AMD require
 declare module 'angular' {
@@ -22,9 +23,9 @@ declare module 'angular' {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// ng module (angular.js)
+// angular module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare module angular {
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
