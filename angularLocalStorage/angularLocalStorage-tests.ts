@@ -5,20 +5,18 @@ interface TestScope extends ng.IScope {
   viewType: string;
 }
 
-module angular.LocalStorageTests {
-  export class TestController {
-    constructor(private $scope: TestScope, private storage: ng.localStorage.ILocalStorageService) {
-      storage.bind($scope, 'varName');
-      storage.bind($scope,'varName', { defaultValue: 'randomValue123', storeName: 'customStoreKey' });
-      $scope.viewType = 'ANYTHING';
-      storage.unbind($scope, 'viewType');
+export class TestController {
+  constructor(private $scope: TestScope, private storage: ng.localStorage.ILocalStorageService) {
+    storage.bind($scope, 'varName');
+    storage.bind($scope,'varName', { defaultValue: 'randomValue123', storeName: 'customStoreKey' });
+    $scope.viewType = 'ANYTHING';
+    storage.unbind($scope, 'viewType');
 
-      storage.set('key', 'value');
-      storage.get('key');
-      storage.remove('key');
+    storage.set('key', 'value');
+    storage.get('key');
+    storage.remove('key');
 
-      storage.clearAll();
-    }
+    storage.clearAll();
   }
 }
 
