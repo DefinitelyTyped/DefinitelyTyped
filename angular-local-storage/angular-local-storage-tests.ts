@@ -70,4 +70,4 @@ app.config(function (localStorageServiceProvider: ng.local.storage.ILocalStorage
     .setNotify(true, true);
 });
 
-app.controller('TestController', ng.local.storage.tests.TestController);
+app.controller('TestController', TestController);
