@@ -146,7 +146,7 @@ declare module angular.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module ng {
+declare module angular {
 
     interface IModule {
         /** creating a resource service factory */
