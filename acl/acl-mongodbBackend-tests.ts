@@ -14,3 +14,4 @@ acl.allow('guest', 'blogs', 'view');
 
 // allow function accepts arrays as any parameter
 acl.allow('member', 'blogs', ['edit','view', 'delete']);
+

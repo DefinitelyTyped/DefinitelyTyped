@@ -13,7 +13,7 @@ declare module "acl" {
     mongodbBackend: MongodbBackendStatic;
   }
 
-  interface MongodbBackend extends Backend<ErrCallback> { }
+  interface MongodbBackend extends Backend<Callback> { }
   interface MongodbBackendStatic {
     new(db: mongo.Db, prefix: string, useSingle: boolean): MongodbBackend;
     new(db: mongo.Db, prefix: string): MongodbBackend;
