@@ -6,7 +6,7 @@ import mongodb = require('mongodb');
 
 var db: mongodb.Db;
 
-// Using the memory backend
+// Using the mongo db backend
 var acl = new Acl(new Acl.mongodbBackend(db, 'acl_', true));
 
 // guest is allowed to view blogs

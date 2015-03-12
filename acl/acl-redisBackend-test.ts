@@ -6,7 +6,7 @@ import redis = require('redis');
 
 var client: redis.RedisClient;
 
-// Using the memory backend
+// Using the redis backend
 var acl = new Acl(new Acl.redisBackend(client, 'acl_'));
 
 // guest is allowed to view blogs
