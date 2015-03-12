@@ -17,9 +17,9 @@ imageList.push({
 var lightBox:angular.bootstrap.lightbox.ILightbox = <any> {};
 lightBox.openModal(imageList, 0);
 
-var provider:angular.bootstrap.lightbox.ILightBoxProvider = <any> {};
-provider.templateUrl = 'templateUrl';
-provider.calculateImageDimensionLimits = (dimensions:angular.bootstrap.lightbox.IImageDimensionParameter):angular.bootstrap.lightbox.IImageDimensionLimits=> {
+var lightBoxProvider:angular.bootstrap.lightbox.ILightBoxProvider = <any> {};
+lightBoxProvider.templateUrl = 'templateUrl';
+lightBoxProvider.calculateImageDimensionLimits = (dimensions:angular.bootstrap.lightbox.IImageDimensionParameter):angular.bootstrap.lightbox.IImageDimensionLimits=> {
 	return {
 		minWidth: 100,
 		minHeight: 100,
@@ -27,7 +27,7 @@ provider.calculateImageDimensionLimits = (dimensions:angular.bootstrap.lightbox.
 		maxHeight: dimensions.windowHeight - 136
 	};
 };
-provider.calculateModalDimensions = (dimensions:angular.bootstrap.lightbox.IModalDimensionsParameter):angular.bootstrap.lightbox.IModalDimensions=> {
+lightBoxProvider.calculateModalDimensions = (dimensions:angular.bootstrap.lightbox.IModalDimensionsParameter):angular.bootstrap.lightbox.IModalDimensions=> {
     return {
       width: Math.max(500, dimensions.imageDisplayWidth + 42),
      height: Math.max(500, dimensions.imageDisplayHeight + 76)

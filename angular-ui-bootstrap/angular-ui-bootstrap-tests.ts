@@ -3,16 +3,16 @@
 var testApp = angular.module('testApp');
 
 testApp.config((
-    $accordionConfig: ng.ui.bootstrap.IAccordionConfig,
-    $buttonConfig: ng.ui.bootstrap.IButtonConfig,
-    $datepickerConfig: ng.ui.bootstrap.IDatepickerConfig,
-    $datepickerPopupConfig: ng.ui.bootstrap.IDatepickerPopupConfig,
-    $paginationConfig: ng.ui.bootstrap.IPaginationConfig,
-    $pagerConfig: ng.ui.bootstrap.IPagerConfig,
-    $progressConfig: ng.ui.bootstrap.IProgressConfig,
-    $ratingConfig: ng.ui.bootstrap.IRatingConfig,
-    $timepickerConfig: ng.ui.bootstrap.ITimepickerConfig,
-    $tooltipProvider: ng.ui.bootstrap.ITooltipProvider)=> {
+    $accordionConfig: angular.ui.bootstrap.IAccordionConfig,
+    $buttonConfig: angular.ui.bootstrap.IButtonConfig,
+    $datepickerConfig: angular.ui.bootstrap.IDatepickerConfig,
+    $datepickerPopupConfig: angular.ui.bootstrap.IDatepickerPopupConfig,
+    $paginationConfig: angular.ui.bootstrap.IPaginationConfig,
+    $pagerConfig: angular.ui.bootstrap.IPagerConfig,
+    $progressConfig: angular.ui.bootstrap.IProgressConfig,
+    $ratingConfig: angular.ui.bootstrap.IRatingConfig,
+    $timepickerConfig: angular.ui.bootstrap.ITimepickerConfig,
+    $tooltipProvider: angular.ui.bootstrap.ITooltipProvider)=> {
 
     /**
      * $accordionConfig tests
@@ -118,12 +118,12 @@ testApp.config((
 });
 
 testApp.controller('TestCtrl', (
-    $scope: ng.ui.bootstrap.IModalScope,
-    $log: ng.ILogService,
-    $modal: ng.ui.bootstrap.IModalService,
-    $modalStack: ng.ui.bootstrap.IModalStackService,
-    $position: ng.ui.bootstrap.IPositionService,
-    $transition: ng.ui.bootstrap.ITransitionService)=> {
+    $scope: angular.ui.bootstrap.IModalScope,
+    $log: angular.ILogService,
+    $modal: angular.ui.bootstrap.IModalService,
+    $modalStack: angular.ui.bootstrap.IModalStackService,
+    $position: angular.ui.bootstrap.IPositionService,
+    $transition: angular.ui.bootstrap.ITransitionService)=> {
 
     /**
      * test the $modal service
@@ -170,7 +170,7 @@ testApp.controller('TestCtrl', (
     /**
      * test the $position service
      */
-    var elementLogger = (coordinates: ng.ui.bootstrap.IPositionCoordinates): void=> {
+    var elementLogger = (coordinates: angular.ui.bootstrap.IPositionCoordinates): void=> {
         $log.log('height', coordinates.height);
         $log.log('left', coordinates.left);
         $log.log('top', coordinates.top);
@@ -196,8 +196,8 @@ testApp.controller('TestCtrl', (
 
 testApp.controller('ModalTestCtrl', (
     $scope: IModalTestCtrlScope,
-    $log: ng.ILogService,
-    $modalInstance: ng.ui.bootstrap.IModalServiceInstance,
+    $log: angular.ILogService,
+    $modalInstance: angular.ui.bootstrap.IModalServiceInstance,
     items: Array<number>)=> {
 
     items.forEach(item=> {

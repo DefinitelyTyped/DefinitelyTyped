@@ -1,7 +1,7 @@
 /// <reference path='../angularjs/angular.d.ts' />
 /// <reference path='angular-local-storage.d.ts' />
 
-interface TestScope extends ng.IScope {
+interface TestScope extends angular.IScope {
   submit: (key: string, value: string) => boolean;
   getItem: (key: string) => string;
   removeItem: (key: string) => boolean;
@@ -12,9 +12,9 @@ interface TestScope extends ng.IScope {
   property: string;
 }
 
-module ng.local.storage.tests {
+module angular.local.storage.tests {
   export class TestController {
-    constructor($scope: TestScope, localStorageService: ng.local.storage.ILocalStorageService<string>) {
+    constructor($scope: TestScope, localStorageService: angular.local.storage.ILocalStorageService<string>) {
       // isSupported
       if (localStorageService.isSupported) {
         // do something
@@ -65,11 +65,11 @@ module ng.local.storage.tests {
 }
 
 var app = angular.module('angular-local-storage-tests', ['LocalStorageModule']);
-app.config(function (localStorageServiceProvider: ng.local.storage.ILocalStorageServiceProvider) {
+app.config(function (localStorageServiceProvider: angular.local.storage.ILocalStorageServiceProvider) {
   localStorageServiceProvider
     .setPrefix('myApp')
     .setStorageType('sessionStorage')
     .setNotify(true, true);
 });
 
-app.controller('TestController', ng.local.storage.tests.TestController);
+app.controller('TestController', angular.local.storage.tests.TestController);

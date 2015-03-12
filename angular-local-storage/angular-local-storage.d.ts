@@ -5,7 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module ng.local.storage {
+declare module angular.local.storage {
   interface ILocalStorageServiceProvider extends IServiceProvider {
     /**
      * Setter for the prefix
@@ -129,7 +129,7 @@ declare module ng.local.storage {
      * @param value optional
      * @param key The corresponding key used in local storage
      */
-    bind(scope:ng.IScope, property: string, value?: any, key?: string): Function;
+    bind(scope:angular.IScope, property: string, value?: any, key?: string): Function;
     /**
      * Return the derive key
      * Returns String

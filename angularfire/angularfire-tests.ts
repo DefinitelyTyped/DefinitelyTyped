@@ -2,7 +2,7 @@
 
 var myapp = angular.module("myapp", ["firebase"]);
 
-interface AngularFireScope extends ng.IScope {
+interface AngularFireScope extends angular.IScope {
     data: any;
 }
 
@@ -163,7 +163,7 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
     }
 ]);
 
-interface AngularFireAuthScope extends ng.IScope {
+interface AngularFireAuthScope extends angular.IScope {
     loginObj: AngularFireAuth;
 }
 

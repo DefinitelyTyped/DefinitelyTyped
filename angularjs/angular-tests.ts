@@ -13,13 +13,13 @@ class AuthService {
       * Holds all the requests which failed due to 401 response,
       * so they can be re-requested in future, once login is completed.
       */
-    buffer: { config: ng.IRequestConfig; deferred: ng.IDeferred<any>; }[] = [];
+    buffer: { config: angular.IRequestConfig; deferred: angular.IDeferred<any>; }[] = [];
 
     /**
      * Required by HTTP interceptor.
      * Function is attached to provider to be invisible for regular users of this service.
      */
-    pushToBuffer = function(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
+    pushToBuffer = function(config: angular.IRequestConfig, deferred: angular.IDeferred<any>) {
         this.buffer.push({
             config: config,
             deferred: deferred
@@ -27,9 +27,9 @@ class AuthService {
     }
 
     $get = [
-        '$rootScope', '$injector', <any>function($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
-            var $http: ng.IHttpService; //initialized later because of circular dependency problem
-            function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
+        '$rootScope', '$injector', <any>function($rootScope: angular.IScope, $injector: angular.auto.IInjectorService) {
+            var $http: angular.IHttpService; //initialized later because of circular dependency problem
+            function retry(config: angular.IRequestConfig, deferred: angular.IDeferred<any>) {
                 $http = $http || $injector.get('$http');
                 $http(config).then(function (response) {
                     deferred.resolve(response);
@@ -60,14 +60,14 @@ angular.module('http-auth-interceptor', [])
  * $http interceptor.
  * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
  */
-    .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
+    .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: angular.IHttpProvider, authServiceProvider: any) {
 
-        var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
-            function success(response: ng.IHttpPromiseCallbackArg<any>) {
+        var interceptor = ['$rootScope', '$q', <any>function ($rootScope: angular.IScope, $q: angular.IQService) {
+            function success(response: angular.IHttpPromiseCallbackArg<any>) {
                 return response;
             }
 
-            function error(response: ng.IHttpPromiseCallbackArg<any>) {
+            function error(response: angular.IHttpPromiseCallbackArg<any>) {
                 if (response.status === 401) {
                     var deferred = $q.defer<void>();
                     authServiceProvider.pushToBuffer(response.config, deferred);
@@ -78,7 +78,7 @@ angular.module('http-auth-interceptor', [])
                 return $q.reject(response);
             }
 
-          return function (promise: ng.IHttpPromise<any>) {
+          return function (promise: angular.IHttpPromise<any>) {
                 return promise.then(success, error);
             }
 
@@ -95,7 +95,7 @@ module HttpAndRegularPromiseTests {
 
     interface ExpectedResponse extends Person { }
 
-    interface SomeControllerScope extends ng.IScope {
+    interface SomeControllerScope extends angular.IScope {
         person: Person;
         theAnswer: number;
         letters: string[];
@@ -103,14 +103,14 @@ module HttpAndRegularPromiseTests {
         nothing?: string;
     }
 
-    var someController: Function = ($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) => {
+    var someController: Function = ($scope: SomeControllerScope, $http: angular.IHttpService, $q: angular.IQService) => {
         $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .success((data: ExpectedResponse) => {
                 $scope.person = data;
             });
 
         $http.get<ExpectedResponse>("http://somewhere/some/resource")
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
+            .then((response: angular.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
                 // would type check
@@ -118,36 +118,36 @@ module HttpAndRegularPromiseTests {
             });
 
         $http.get<ExpectedResponse>("http://somewhere/some/resource")
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
+            .then((response: angular.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
                 // would NOT type check
                 $scope.person = response.data;
             });
 
-        var aPromise: ng.IPromise<Person> = $q.when({ firstName: "Jack", lastName: "Sparrow" });
+        var aPromise: angular.IPromise<Person> = $q.when({ firstName: "Jack", lastName: "Sparrow" });
         aPromise.then((person: Person) => {
             $scope.person = person;
         });
 
-        var bPromise: ng.IPromise<number> = $q.when(42);
+        var bPromise: angular.IPromise<number> = $q.when(42);
         bPromise.then((answer: number) => {
             $scope.theAnswer = answer;
         });
 
-        var cPromise: ng.IPromise<string[]> = $q.when(["a", "b", "c"]);
+        var cPromise: angular.IPromise<string[]> = $q.when(["a", "b", "c"]);
         cPromise.then((letters: string[]) => {
             $scope.letters = letters;
         });
 
         // When $q.when is passed an IPromise<T>, it returns an IPromise<T>
-        var dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
+        var dPromise: angular.IPromise<string> = $q.when($q.when("ALBATROSS!"));
         dPromise.then((snack: string) => {
             $scope.snack = snack;
         });
 
         // $q.when may be called without arguments
-        var ePromise: ng.IPromise<void> = $q.when();
+        var ePromise: angular.IPromise<void> = $q.when();
         ePromise.then(() => {
             $scope.nothing = "really nothing";
         });
@@ -155,11 +155,11 @@ module HttpAndRegularPromiseTests {
 
   // Test that we can pass around a type-checked success/error Promise Callback
   var anotherController: Function = ($scope: SomeControllerScope, $http:
-        ng.IHttpService, $q: ng.IQService) => {
+        angular.IHttpService, $q: angular.IQService) => {
 
         var buildFooData: Function = () => 42;
 
-        var doFoo: Function = (callback: ng.IHttpPromiseCallback<ExpectedResponse>) => {
+        var doFoo: Function = (callback: angular.IHttpPromiseCallback<ExpectedResponse>) => {
             $http.get<ExpectedResponse>('/foo', buildFooData())
                 .success(callback);
         }
@@ -176,24 +176,24 @@ module My.Namespace {
 
 // IModule Registering Test
 var mod = angular.module('tests', []);
-mod.controller('name', function ($scope: ng.IScope) { })
-mod.controller('name', ['$scope', <any>function ($scope: ng.IScope) { }])
+mod.controller('name', function ($scope: angular.IScope) { })
+mod.controller('name', ['$scope', <any>function ($scope: angular.IScope) { }])
 mod.controller(My.Namespace);
-mod.directive('name', <any>function ($scope: ng.IScope) { })
-mod.directive('name', ['$scope', <any>function ($scope: ng.IScope) { }])
+mod.directive('name', <any>function ($scope: angular.IScope) { })
+mod.directive('name', ['$scope', <any>function ($scope: angular.IScope) { }])
 mod.directive(My.Namespace);
-mod.factory('name', function ($scope: ng.IScope) { })
-mod.factory('name', ['$scope', <any>function ($scope: ng.IScope) { }])
+mod.factory('name', function ($scope: angular.IScope) { })
+mod.factory('name', ['$scope', <any>function ($scope: angular.IScope) { }])
 mod.factory(My.Namespace);
-mod.filter('name', function ($scope: ng.IScope) { })
-mod.filter('name', ['$scope', <any>function ($scope: ng.IScope) { }])
+mod.filter('name', function ($scope: angular.IScope) { })
+mod.filter('name', ['$scope', <any>function ($scope: angular.IScope) { }])
 mod.filter(My.Namespace);
-mod.provider('name', function ($scope: ng.IScope) { return { $get: () => { } } })
+mod.provider('name', function ($scope: angular.IScope) { return { $get: () => { } } })
 mod.provider('name', TestProvider);
-mod.provider('name', ['$scope', <any>function ($scope: ng.IScope) { }])
+mod.provider('name', ['$scope', <any>function ($scope: angular.IScope) { }])
 mod.provider(My.Namespace);
-mod.service('name', function ($scope: ng.IScope) { })
-mod.service('name', ['$scope', <any>function ($scope: ng.IScope) { }])
+mod.service('name', function ($scope: angular.IScope) { })
+mod.service('name', ['$scope', <any>function ($scope: angular.IScope) { }])
 mod.service(My.Namespace);
 mod.constant('name', 23);
 mod.constant('name', "23");
@@ -202,8 +202,8 @@ mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
 
-class TestProvider implements ng.IServiceProvider {
-    constructor(private $scope: ng.IScope) {
+class TestProvider implements angular.IServiceProvider {
+    constructor(private $scope: angular.IScope) {
     }
 
     $get() {
@@ -211,7 +211,7 @@ class TestProvider implements ng.IServiceProvider {
 }
 
 // Promise signature tests
-var foo: ng.IPromise<number>;
+var foo: angular.IPromise<number>;
 foo.then((x) => {
     // x is inferred to be a number
     return "asdf";
@@ -232,7 +232,7 @@ foo.then((x) => {
     // Object is inferred here
     x.a = 123;
     //Try a promise
-    var y: ng.IPromise<number>;
+    var y: angular.IPromise<number>;
     return y;
 }).then((x) => {
     // x is infered to be a number, which is the resolved value of a promise
@@ -240,10 +240,10 @@ foo.then((x) => {
 });
 
 
-var httpFoo: ng.IHttpPromise<number>;
+var httpFoo: angular.IHttpPromise<number>;
 httpFoo.then((x) => {
     // When returning a promise the generic type must be inferred.
-    var innerPromise : ng.IPromise<number>;
+    var innerPromise : angular.IPromise<number>;
     return innerPromise;
 }).then((x) => {
     // must still be number.
@@ -267,13 +267,14 @@ function test_angular_forEach() {
 }
 
 // angular.element() tests
-var element = angular.element("div.myApp");
-var scope: ng.IScope = element.scope();
-var isolateScope: ng.IScope = element.isolateScope();
+function elementTest() {
+    var element = angular.element("div.myApp");
+    var scope: angular.IScope = element.scope();
+    var isolateScope: angular.IScope = element.isolateScope();
+}
 
 
-
-function test_IAttributes(attributes: ng.IAttributes){
+function test_IAttributes(attributes: angular.IAttributes){
     return attributes;
 }
 
@@ -287,49 +288,49 @@ test_IAttributes({
     $attr: {}
 });
 
-class SampleDirective implements ng.IDirective {
+class SampleDirective implements angular.IDirective {
     public restrict = 'A';
     name = 'doh';
 
-    compile(templateElement: ng.IAugmentedJQuery) {
+    compile(templateElement: angular.IAugmentedJQuery) {
         return {
             post: this.link
         };
     }
 
-    static instance():ng.IDirective {
+    static instance():angular.IDirective {
         return new SampleDirective();
     }
 
-    link(scope: ng.IScope) {
+    link(scope: angular.IScope) {
 
     }
 }
 
-class SampleDirective2 implements ng.IDirective {
+class SampleDirective2 implements angular.IDirective {
     public restrict = 'EAC';
 
-    compile(templateElement: ng.IAugmentedJQuery) {
+    compile(templateElement: angular.IAugmentedJQuery) {
         return {
             pre: this.link
         };
     }
 
-    static instance():ng.IDirective {
+    static instance():angular.IDirective {
         return new SampleDirective2();
     }
 
-    link(scope: ng.IScope) {
+    link(scope: angular.IScope) {
 
     }
 }
 
 angular.module('SameplDirective', []).directive('sampleDirective', SampleDirective.instance).directive('sameplDirective2', SampleDirective2.instance);
 
-angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpolate', '$q', ($interpolate: ng.IInterpolateService, $q: ng.IQService) => {
+angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpolate', '$q', ($interpolate: angular.IInterpolateService, $q: angular.IQService) => {
     return {
         restrict: 'A',
-        link: (scope: ng.IScope, el: ng.IAugmentedJQuery, attr: ng.IAttributes) => {
+        link: (scope: angular.IScope, el: angular.IAugmentedJQuery, attr: angular.IAttributes) => {
             $interpolate(attr['test'])(scope);
             $interpolate('', true)(scope);
             $interpolate('', true, 'html')(scope);
@@ -465,7 +466,7 @@ angular.module('docsTimeDirective', [])
     .directive('myCurrentTime', ['$interval', 'dateFilter', function($interval: any, dateFilter: any) {
 
         return {
-            link: function(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs:ng.IAttributes) {
+            link: function(scope: angular.IScope, element: angular.IAugmentedJQuery, attrs:angular.IAttributes) {
                 var format: any,
                     timeoutId: any;
 
@@ -512,7 +513,7 @@ angular.module('docsTransclusionExample', [])
             transclude: true,
             scope: {},
             templateUrl: 'my-dialog.html',
-            link: function (scope: ng.IScope, element: ng.IAugmentedJQuery) {
+            link: function (scope: angular.IScope, element: angular.IAugmentedJQuery) {
                 scope['name'] = 'Jeff';
             }
         };
@@ -582,7 +583,7 @@ angular.module('docsTabsExample', [])
             restrict: 'E',
             transclude: true,
             scope: {},
-            controller: function($scope: ng.IScope) {
+            controller: function($scope: angular.IScope) {
                 var panes: any = $scope['panes'] = [];
 
                 $scope['select'] = function(pane: any) {
@@ -610,7 +611,7 @@ angular.module('docsTabsExample', [])
             scope: {
                 title: '@'
             },
-            link: function(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, tabsCtrl: any) {
+            link: function(scope: angular.IScope, element: angular.IAugmentedJQuery, attrs: angular.IAttributes, tabsCtrl: any) {
                 tabsCtrl.addPane(scope);
             },
             templateUrl: 'my-pane.html'
@@ -650,7 +651,7 @@ angular.module('copyExample', [])
 
 module locationTests {
 
-    var $location: ng.ILocationService;
+    var $location: angular.ILocationService;
 
     /*
      * From https://docs.angularjs.org/api/ng/service/$location

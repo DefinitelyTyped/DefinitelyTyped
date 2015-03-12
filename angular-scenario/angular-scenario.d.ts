@@ -4,11 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng {
-    export interface IAngularStatic {
-        scenario: any;
-    }
+declare module angular {
+    var scenario: any;
 }
 
 declare module angularScenario {
@@ -163,4 +162,3 @@ declare function input(ngModelBinding: string): angularScenario.Input;
 declare function repeater(selector: string, repeaterDescription?: string): angularScenario.Repeater;
 declare function select(ngModelBinding: string): angularScenario.Select;
 declare function element(selector: string, elementDescription?: string): angularScenario.Element;
-declare var angular: ng.IAngularStatic;

@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.ui {
+declare module angular.ui {
 
     interface UISortableOptions<T> extends SortableOptions<T> {
         'ui-floating'?: string|boolean;
@@ -51,7 +51,7 @@ declare module ng.ui {
         /**
          * Holds the ui-sortable element that the dragged item originated from.
          */
-        source: ng.IAugmentedJQuery
+        source: angular.IAugmentedJQuery
 
         /**
          * Holds the array that is specified by the `ng-model` of the [`source`](#source) ui-sortable element.
@@ -75,7 +75,7 @@ declare module ng.ui {
         isCustomHelperUsed(): Boolean;
     }
 
-    interface UISortableUIItem<T> extends ng.IAugmentedJQuery {
+    interface UISortableUIItem<T> extends angular.IAugmentedJQuery {
         sortable: UISortableProperties<T>;
     }
 
@@ -93,7 +93,7 @@ declare module ng.ui {
     }
 
     interface SortableHelperFunctionOption {
-        (event: JQueryEventObject, ui: ng.IAugmentedJQuery): JQuery;
+        (event: JQueryEventObject, ui: angular.IAugmentedJQuery): JQuery;
     }
 
     interface SortableOptions<T> extends SortableEvents<T> {
@@ -179,13 +179,13 @@ declare module ng.ui {
     }
 
     interface SortableUIParams {
-        helper: ng.IAugmentedJQuery;
-        item: ng.IAugmentedJQuery;
+        helper: angular.IAugmentedJQuery;
+        item: angular.IAugmentedJQuery;
         offset: any;
         position: any;
         originalPosition: any;
-        sender: ng.IAugmentedJQuery;
-        placeholder: ng.IAugmentedJQuery;
+        sender: angular.IAugmentedJQuery;
+        placeholder: angular.IAugmentedJQuery;
     }
 
     interface SortableEvent<T> {

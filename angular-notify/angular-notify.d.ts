@@ -5,7 +5,7 @@
 
 ///<reference path="../angularjs/angular.d.ts" />
 
-declare module ng.cgNotify {
+declare module angular.cgNotify {
 
     interface INotifyService {
 
@@ -45,7 +45,7 @@ declare module ng.cgNotify {
             /**
              * Optional. A valid Angular scope object. The scope of the template will be created by calling $new() on this scope.
              */
-            $scope? : ng.IScope;
+            $scope? : angular.IScope;
 
             /**
              * Optional. Currently center and right are the only acceptable values.

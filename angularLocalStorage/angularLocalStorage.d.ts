@@ -5,18 +5,18 @@
 
 /// <reference path="../angularjs/angular.d.ts"/>
 
-declare module ng.localStorage {
+declare module angular.localStorage {
   interface ILocalStorageService {
     set(key: string, value: any): any;
     get(key: string): any;
     remove(key: string): boolean;
     clearAll(): void;
 
-    bind($scope: ng.IScope, key: string, opts?: {
+    bind($scope: angular.IScope, key: string, opts?: {
       defaultValue?: any;
       storeName?: string;
     }): any;
-    unbind($scope: ng.IScope, key: string, storeName?: string): void;
+    unbind($scope: angular.IScope, key: string, storeName?: string): void;
   }
 }
 

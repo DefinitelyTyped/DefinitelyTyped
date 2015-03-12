@@ -19,9 +19,9 @@ declare module oc {
     }
 
     interface ILazyLoad {
-        load(module:any):ng.IPromise<any>;
-        loadTemplateFile(url:string, config:ILazyLoadModuleConfig):ng.IPromise<any>;
-        loadTemplateFile(urls:string[], config:ILazyLoadModuleConfig):ng.IPromise<any>;
+        load(module:any):angular.IPromise<any>;
+        loadTemplateFile(url:string, config:ILazyLoadModuleConfig):angular.IPromise<any>;
+        loadTemplateFile(urls:string[], config:ILazyLoadModuleConfig):angular.IPromise<any>;
         getModuleName(moduleName:string):string;
         getModules():string[];
         getModuleConfig(name:string):ILazyLoadModuleConfig;

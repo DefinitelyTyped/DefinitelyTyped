@@ -2,9 +2,9 @@
 
 var shouldBeString: string;
 
-declare var $sanitizeService: ng.sanitize.ISanitizeService;
+declare var $sanitizeService: angular.sanitize.ISanitizeService;
 shouldBeString = $sanitizeService(shouldBeString);
 
-declare var $linky: ng.sanitize.filter.ILinky;
+declare var $linky: angular.sanitize.filter.ILinky;
 shouldBeString = $linky(shouldBeString);
 shouldBeString = $linky(shouldBeString, shouldBeString);

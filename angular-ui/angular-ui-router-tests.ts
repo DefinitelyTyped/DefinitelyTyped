@@ -2,17 +2,17 @@
 
 var myApp = angular.module('testModule');
 
-interface MyAppScope extends ng.IScope {
+interface MyAppScope extends angular.IScope {
 	items: string[];
 	things: string[];
 }
 
 myApp.config((
-    $stateProvider: ng.ui.IStateProvider,
-    $urlRouterProvider: ng.ui.IUrlRouterProvider,
-    $urlMatcherFactory: ng.ui.IUrlMatcherFactory) => {
+    $stateProvider: angular.ui.IStateProvider,
+    $urlRouterProvider: angular.ui.IUrlRouterProvider,
+    $urlMatcherFactory: angular.ui.IUrlMatcherFactory) => {
 
-  var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
+  var matcher: angular.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
 
   $urlMatcherFactory.type("myType2", {
     encode: function (item: any) { return item; },
@@ -21,7 +21,7 @@ myApp.config((
   });
 
   var obj: Object = matcher.exec('/user/bob', { x:'1', q:'hello' });
-  var concat: ng.ui.IUrlMatcher = matcher.concat('/test');
+  var concat: angular.ui.IUrlMatcher = matcher.concat('/test');
   var str: string = matcher.format({ id:'bob', q:'yes' });
   var arr: string[] = matcher.parameters();
 
@@ -30,11 +30,11 @@ myApp.config((
       .when('/test', '/list')
       .when('/test', '/list')
       .when(/\/test\d/, '/list')
-      .when(/\/test\d/, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
-      .when(/\/test\d/,['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .when(/\/test\d/, ($injector: angular.auto.IInjectorService, $location: angular.ILocationService) => '/list')
+      .when(/\/test\d/,['$injector', '$location', ($injector: angular.auto.IInjectorService, $location: angular.ILocationService) => '/list'])
       .when(matcher, '/list')
-      .when(matcher, ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list')
-      .when(matcher, ['$injector', '$location', ($injector: ng.auto.IInjectorService, $location: ng.ILocationService) => '/list'])
+      .when(matcher, ($injector: angular.auto.IInjectorService, $location: angular.ILocationService) => '/list')
+      .when(matcher, ['$injector', '$location', ($injector: angular.auto.IInjectorService, $location: angular.ILocationService) => '/list'])
       .otherwise("/state1");
 
   // Now set up the states
@@ -96,17 +96,17 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
     static $inject = ["$http", "$rootScope", "$urlRouter", "$state"];
 
     constructor(
-        private $http: ng.IHttpService,
-        private $rootScope: ng.IRootScopeService,
-        private $urlRouter: ng.ui.IUrlRouterService,
-        private $state: ng.ui.IStateService
+        private $http: angular.IHttpService,
+        private $rootScope: angular.IRootScopeService,
+        private $urlRouter: angular.ui.IUrlRouterService,
+        private $state: angular.ui.IStateService
     ) {
-        $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
+        $rootScope.$on("$locationChangeSuccess", (event: angular.IAngularEvent) => this.onLocationChangeSuccess(event));
     }
 
     public currentUser: any;
 
-    private onLocationChangeSuccess(event: ng.IAngularEvent) {
+    private onLocationChangeSuccess(event: angular.IAngularEvent) {
         if (!this.currentUser) {
             // If the current user is unknown, halt the state change and request current
             // user details from the server
@@ -147,7 +147,7 @@ myApp.service("urlLocatorTest", UrlLocatorTestService);
 module UiViewScrollProviderTests {
     var app = angular.module("uiViewScrollProviderTests", ["ui.router"]);
 
-    app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: ng.ui.IUiViewScrollProvider) {
+    app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: angular.ui.IUiViewScrollProvider) {
         // This prevents unwanted scrolling to the active nested state view.
         // Use this when you have nested states, but you don't want the browser to scroll down the page
         // to the nested state view.

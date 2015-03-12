@@ -4,7 +4,7 @@
 
 To do that, simply add `/// <reference path="angular.d.ts" />` at the top of your code.
 
-That will make available to your code all interfaces AngularJS' main module **ng** implements, as well as the **AUTO** module.
+That will make available to your code all interfaces AngularJS' main module **angular** implements, as well as the **AUTO** module.
 
 If you are including other AngularJS' modules in your code, like **ngResource**, just like you needed to include the additional module implementation file in your code, _angular-resource.js_, you will also need to reference the definitions file related to that module. Your code would then have the following definitions files reference:
 
@@ -23,28 +23,24 @@ The following extra definition files are available for referencing:
 
 (postfix with version number for specific verion, eg. angular-resource-1.0.d.ts)
 
-## The Angular Static
-
-The definitions declare the AngularJS static variable `angular` as ambient. That means that, after referencing the AngularJS definition, you will be able to get type checks and code assistance for the global `angular` member.
-
 
 ## Definitions modularized
 
 To avoid cluttering the list of suggestions as you type in your IDE, all interfaces reside in their respective module namespace:
 
-* `ng` for AngularJS' **ng** module
-* `ng.auto` for **AUTO**
-* `ng.cookies` for **ngCookies**
-* `ng.mock` for **ngMock**
-* `ng.resource` for **ngResource**
-* `ng.route` for **ngRoute**
-* `ng.sanitize` for **ngSanitize**
+* `angular` for AngularJS' **ng** module
+* `angular.auto` for **AUTO**
+* `angular.cookies` for **ngCookies**
+* `angular.mock` for **ngMock**
+* `angular.resource` for **ngResource**
+* `angular.route` for **ngRoute**
+* `angular.sanitize` for **ngSanitize**
 
 **ngMockE2E** does not define a new namespace, but rather modifies some of **ng**'s interfaces.
 
 Bellow is an example of how to use the interfaces:
 ```ts
-function MainController($scope: ng.IScope, $http: ng.IHttpService) {
+function MainController($scope: angular.IScope, $http: angular.IHttpService) {
     // code assistance will now be available for $scope and $http
 }
 ```
@@ -57,13 +53,13 @@ All known services interfaces have been defined, and were named using the follow
 
 **I + 'ServiceName' + 'Service'**
 
-So, for instance, the **$parse** service has it's interface defined as **ng.IParseService**.
+So, for instance, the **$parse** service has it's interface defined as **angular.IParseService**.
 
 Service providers, by the same logic, follow this convention:
 
 **I + 'ServiceName' + 'Provider'**
 
-The **$httpProvider**, thus, is defined by **ng.IHttpProvider**.
+The **$httpProvider**, thus, is defined by **angular.IHttpProvider**.
 
 
 ## A word on $scope and assigning new members
@@ -81,17 +77,17 @@ That will not produce any compilation error because the compiler does not know t
 
 Now consider this:
 ```ts
-function Controller($scope: ng.IScope) {
+function Controller($scope: angular.IScope) {
     $scope.$broadcast('myEvent');
     $scope.title = 'Yabadabadu';
 }
 ```
 
-Now we annotated `$scope` with the interface `ng.IScope`. The compiler now knows that, among other members, `$scope` has a method called `$broadcast`. That interface, however, does not define a `title` property. The compiler will complain about it.
+Now we annotated `$scope` with the interface `angular.IScope`. The compiler now knows that, among other members, `$scope` has a method called `$broadcast`. That interface, however, does not define a `title` property. The compiler will complain about it.
 
 Since you are augmenting the $scope object, you should let the compiler know what to expect then:
 ```ts
-interface ICustomScope extends ng.IScope {
+interface ICustomScope extends angular.IScope {
     title: string;
 }
 
@@ -113,7 +109,7 @@ interface IArticleParameters {
     id: number;
 }
 
-interface IArticleResource extends ng.resource.IResource<IArticleResource> {
+interface IArticleResource extends angular.resource.IResource<IArticleResource> {
     title: string;
     text: string;
     date: Date;
@@ -126,9 +122,9 @@ interface IArticleResource extends ng.resource.IResource<IArticleResource> {
 }
 
 // Let's define a custom resource
-interface IArticleResourceClass extends ng.resource.IResourceClass<IArticleResource> {
+interface IArticleResourceClass extends angular.resource.IResourceClass<IArticleResource> {
     // Overload get to accept our custom parameters
-    get(): ng.resource.IResource;
+    get(): angular.resource.IResource;
     get(params: IArticleParameters, onSuccess: Function): IArticleResource;
 
     // Add our custom resource actions
@@ -137,11 +133,11 @@ interface IArticleResourceClass extends ng.resource.IResourceClass<IArticleResou
     unpublish(params: IArticleParameters): IArticleResource;
 }
 
-function MainController($resource: ng.resource.IResourceService) {
+function MainController($resource: angular.resource.IResourceService) {
 
     // IntelliSense will provide IActionDescriptor interface and will validate
     // your assignment against it
-    var publishDescriptor: ng.resource.IActionDescriptor;
+    var publishDescriptor: angular.resource.IActionDescriptor;
     publishDescriptor = {
         method: 'GET',
         isArray: false
@@ -179,24 +175,24 @@ function MainController($resource: ng.resource.IResourceService) {
 /// <reference path="angular-resource-1.0.d.ts" />
 
 // Let's define a custom resource
-interface IArticleResourceClass extends ng.resource.IResourceClass {
-    publish: ng.resource.IActionCall;
-    unpublish: ng.resource.IActionCall;
+interface IArticleResourceClass extends angular.resource.IResourceClass {
+    publish: angular.resource.IActionCall;
+    unpublish: angular.resource.IActionCall;
 }
-interface IArticleResource extends ng.resource.IResource {
+interface IArticleResource extends angular.resource.IResource {
     title: string;
     text: string;
     date: Date;
     author: number;
-    $publish: ng.resource.IActionCall;
-    $unpublish: ng.resource.IActionCall;
+    $publish: angular.resource.IActionCall;
+    $unpublish: angular.resource.IActionCall;
 }
 
-function MainController($resource: ng.resource.IResourceService) {
+function MainController($resource: angular.resource.IResourceService) {
 
     // IntelliSense will provide IActionDescriptor interface and will validate
     // your assignment against it
-    var publishDescriptor: ng.resource.IActionDescriptor;
+    var publishDescriptor: angular.resource.IActionDescriptor;
     publishDescriptor = {
         method: 'GET',
         isArray: false

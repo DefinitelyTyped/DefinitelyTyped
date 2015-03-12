@@ -8,40 +8,40 @@
 declare module aa {
 
 	export interface ILabelStrategies  {
-		[strategyName: string]: (element:ng.IAugmentedJQueryStatic, labelText:string, isRequired:boolean)=>void;
+		[strategyName: string]: (element:angular.IAugmentedJQueryStatic, labelText:string, isRequired:boolean)=>void;
 	}
-	
+
 	export interface IFieldGroupStrategies {
-		[strategyName: string]: (element:ng.IAugmentedJQueryStatic)=>void;
+		[strategyName: string]: (element:angular.IAugmentedJQueryStatic)=>void;
 	}
-	
+
 	export interface IValMsgPlacementStrategies {
-		[strategyName: string]: (formFieldElement:ng.IAugmentedJQueryStatic, formName:string, formFieldName:string)=>void;
+		[strategyName: string]: (formFieldElement:angular.IAugmentedJQueryStatic, formName:string, formFieldName:string)=>void;
 	}
-	
+
 	export interface IValidIconStrategy {
 		validIcon:string;
 		invalidIcon:string;
-		getContainer(element:ng.IAugmentedJQueryStatic):void;
+		getContainer(element:angular.IAugmentedJQueryStatic):void;
 	}
-	
+
 	export interface ISpinnerClickStrategies {
-		[strategyName: string]: (element:ng.IAugmentedJQueryStatic)=>void;
+		[strategyName: string]: (element:angular.IAugmentedJQueryStatic)=>void;
 	}
-	
+
 	export interface IOnNavigateAwayStrategies {
-		[strategyName: string]: (rootFormScope:ng.IScope, rootForm:ng.IAugmentedJQueryStatic, $injector:ng.auto.IInjectorService)=>void;
+		[strategyName: string]: (rootFormScope:angular.IScope, rootForm:angular.IAugmentedJQueryStatic, $injector:angular.auto.IInjectorService)=>void;
 	}
-	
+
 	export interface IValidationMessages {
 		[validationKey: string]: string;
 	}
-	
+
 	export interface IGlobalSettings {
 		[settingName: string]: any;
 	}
 
-	export interface IFormExtensionsProvider extends ng.IServiceProvider {
+	export interface IFormExtensionsProvider extends angular.IServiceProvider {
 		defaultLabelStrategy:string;
 		defaultFieldGroupStrategy:string;
 		defaultValMsgPlacementStrategy:string;
@@ -53,18 +53,18 @@ declare module aa {
 		valMsgForTemplate:string;
 		confirmResetStrategy:()=>boolean;
 		globalSettings:IGlobalSettings;
-		
+
 		labelStrategies:ILabelStrategies;
 		fieldGroupStrategies:IFieldGroupStrategies;
 		valMsgPlacementStrategies:IValMsgPlacementStrategies;
 		spinnerClickStrategies:ISpinnerClickStrategies;
 		onNavigateAwayStrategies:IOnNavigateAwayStrategies;
 	}
-	
+
 	export interface INotifyPredicate {
 		(message:string, options:any, notifier:any):any;
 	}
-	
+
 	export interface INotifyDefaults {
 		success: INotifyPredicate;
 		info: INotifyPredicate;
@@ -72,7 +72,7 @@ declare module aa {
 		danger: INotifyPredicate;
 		error: INotifyPredicate;
 	}
-	
+
 	export interface INotifyConfig {
 		name:string;
 		template?:string;
@@ -80,22 +80,22 @@ declare module aa {
 		options:INotifyOptions;
 		namedDefaults:INotifyDefaults;
 	}
-	
+
 	export interface INotifyOptions {
 		cssClasses?:string;
 		messageType:string;
 		allowHtml:boolean;
 		message:string;
 	}
-	
-	export interface INotifyConfigProvider extends ng.IServiceProvider {
+
+	export interface INotifyConfigProvider extends angular.IServiceProvider {
 		notifyConfigs:any;
 		defaultTargetContainerName:string;
 		defaultNotifyConfig:string;
 		addOrUpdateNotifyConfig(name:string, opts:INotifyConfig):void;
-		optionsTransformer(options:INotifyOptions, $sce:ng.ISCEService):void;
+		optionsTransformer(options:INotifyOptions, $sce:angular.ISCEService):void;
 	}
-	
+
 	export interface IExternalFormValidationConfig {
 		validations:any;
 		ignore?:any;

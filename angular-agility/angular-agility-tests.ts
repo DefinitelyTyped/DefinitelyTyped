@@ -4,7 +4,7 @@
 var validIconStrategy:aa.IValidIconStrategy = <aa.IValidIconStrategy>{};
 validIconStrategy.validIcon = "";
 validIconStrategy.invalidIcon = "";
-validIconStrategy.getContainer(<ng.IAugmentedJQueryStatic>{});
+validIconStrategy.getContainer(<angular.IAugmentedJQueryStatic>{});
 
 var provider:aa.IFormExtensionsProvider = <aa.IFormExtensionsProvider>{};
 provider.defaultLabelStrategy = "";
@@ -18,11 +18,11 @@ provider.validationMessages['testName'] = 'testMessages';
 provider.valMsgForTemplate = "";
 provider.confirmResetStrategy = ():boolean=>{ return false; };
 provider.globalSettings['testSetting'] = 'test';
-provider.labelStrategies['testLabelStratgey'] = (element:ng.IAugmentedJQueryStatic, labelText:string, isRequired:boolean):void=>{};
-provider.fieldGroupStrategies['testFieldGroupStratgey'] = (element:ng.IAugmentedJQueryStatic):void=>{};
-provider.valMsgPlacementStrategies['testValMsgPlacementStrategy'] = (formFieldElement:ng.IAugmentedJQueryStatic, formName:string, formFieldName:string):void=>{};
-provider.spinnerClickStrategies['testSpinnerClickStratgey'] = (element:ng.IAugmentedJQueryStatic):void=>{};
-provider.onNavigateAwayStrategies['testOnNavigateAwayStrategy'] = (rootFormScope:ng.IScope, rootForm:ng.IAugmentedJQueryStatic, $injector:ng.auto.IInjectorService)=>{};
+provider.labelStrategies['testLabelStratgey'] = (element:angular.IAugmentedJQueryStatic, labelText:string, isRequired:boolean):void=>{};
+provider.fieldGroupStrategies['testFieldGroupStratgey'] = (element:angular.IAugmentedJQueryStatic):void=>{};
+provider.valMsgPlacementStrategies['testValMsgPlacementStrategy'] = (formFieldElement:angular.IAugmentedJQueryStatic, formName:string, formFieldName:string):void=>{};
+provider.spinnerClickStrategies['testSpinnerClickStratgey'] = (element:angular.IAugmentedJQueryStatic):void=>{};
+provider.onNavigateAwayStrategies['testOnNavigateAwayStrategy'] = (rootFormScope:angular.IScope, rootForm:angular.IAugmentedJQueryStatic, $injector:angular.auto.IInjectorService)=>{};
 
 var defaults:aa.INotifyDefaults = <aa.INotifyDefaults>{};
 defaults.success = (message:string, options:any, notifier:any):any=>{};
@@ -63,7 +63,7 @@ notifyConfigProvider.notifyConfigs = {};
 notifyConfigProvider.defaultTargetContainerName = "";
 notifyConfigProvider.defaultNotifyConfig = "";
 notifyConfigProvider.addOrUpdateNotifyConfig("", configWithTemplate);
-notifyConfigProvider.optionsTransformer(notifyOptionsWithCssClasses, <ng.ISCEService>{});
+notifyConfigProvider.optionsTransformer(notifyOptionsWithCssClasses, <angular.ISCEService>{});
 
 var fullExternalConfig:aa.IExternalFormValidationConfig = {
 	validations: "",
