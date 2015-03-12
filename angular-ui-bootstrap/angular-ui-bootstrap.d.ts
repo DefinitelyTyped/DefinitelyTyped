@@ -462,12 +462,12 @@ declare module ng.ui.bootstrap {
         /**
          * Provides a read-only equivalent of jQuery's position function.
          */
-        position(element: JQuery): IPositionCoordinates;
+        position(element: jqLite): IPositionCoordinates;
 
         /**
          * Provides a read-only equivalent of jQuery's offset function.
          */
-        offset(element: JQuery): IPositionCoordinates;
+        offset(element: jqLite): IPositionCoordinates;
     }
 
 
@@ -623,7 +623,7 @@ declare module ng.ui.bootstrap {
          *
          * @return A promise that is resolved when the transition finishes.
          */
-        (element: ng.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): ng.IPromise<ng.IAugmentedJQuery>;
+        (element: ng.jqLite, trigger: any, options?: ITransitionServiceOptions): ng.IPromise<ng.jqLite>;
     }
 
     interface ITransitionServiceOptions {

@@ -291,7 +291,7 @@ class SampleDirective implements ng.IDirective {
     public restrict = 'A';
     name = 'doh';
 
-    compile(templateElement: ng.IAugmentedJQuery) {
+    compile(templateElement: ng.jqLite) {
         return {
             post: this.link
         };
@@ -309,7 +309,7 @@ class SampleDirective implements ng.IDirective {
 class SampleDirective2 implements ng.IDirective {
     public restrict = 'EAC';
 
-    compile(templateElement: ng.IAugmentedJQuery) {
+    compile(templateElement: ng.jqLite) {
         return {
             pre: this.link
         };
@@ -329,7 +329,7 @@ angular.module('SameplDirective', []).directive('sampleDirective', SampleDirecti
 angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpolate', '$q', ($interpolate: ng.IInterpolateService, $q: ng.IQService) => {
     return {
         restrict: 'A',
-        link: (scope: ng.IScope, el: ng.IAugmentedJQuery, attr: ng.IAttributes) => {
+        link: (scope: ng.IScope, el: ng.jqLite, attr: ng.IAttributes) => {
             $interpolate(attr['test'])(scope);
             $interpolate('', true)(scope);
             $interpolate('', true, 'html')(scope);
@@ -465,7 +465,7 @@ angular.module('docsTimeDirective', [])
     .directive('myCurrentTime', ['$interval', 'dateFilter', function($interval: any, dateFilter: any) {
 
         return {
-            link: function(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs:ng.IAttributes) {
+            link: function(scope: ng.IScope, element: ng.jqLite, attrs:ng.IAttributes) {
                 var format: any,
                     timeoutId: any;
 
@@ -512,7 +512,7 @@ angular.module('docsTransclusionExample', [])
             transclude: true,
             scope: {},
             templateUrl: 'my-dialog.html',
-            link: function (scope: ng.IScope, element: ng.IAugmentedJQuery) {
+            link: function (scope: ng.IScope, element: ng.jqLite) {
                 scope['name'] = 'Jeff';
             }
         };
@@ -610,7 +610,7 @@ angular.module('docsTabsExample', [])
             scope: {
                 title: '@'
             },
-            link: function(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, tabsCtrl: any) {
+            link: function(scope: ng.IScope, element: ng.jqLite, attrs: ng.IAttributes, tabsCtrl: any) {
                 tabsCtrl.addPane(scope);
             },
             templateUrl: 'my-pane.html'
@@ -700,3 +700,72 @@ module locationTests {
     $location.url() == '/foo/bar?x=y'
     $location.absUrl() == 'http://example.com/#!/foo/bar?x=y'
 }
+
+/*
+ jqLite
+*/
+
+function test_jqLite() {
+    var el = angular.element(document.body);
+    var otherNode = document.createElement('div');
+
+    var toString: string = el.toString();
+    var length: number = el.length;
+    el.push(el[0]);
+    el.sort().splice(1);
+
+    el.eq(0)
+        .append(otherNode)
+        .prepend(otherNode)
+        .wrap(otherNode)
+
+        .remove()
+        .remove(true)
+
+        .detach()
+
+        .after(otherNode)
+
+        .addClass('angular-class first-class')
+        .removeClass('angular-class first-class')
+        .toggleClass('angular-class first-class')
+
+        .parent()
+        .next()
+        .find('div')
+        .clone();
+
+    el.ready(() => {})
+        .on('click', event => event.preventDefault())
+        .one('click', event => event.target.focus())
+        .off('click', () => {})
+        .off('click')
+        .off();
+
+    var jq: ng.jqLite;
+
+    jq = el.removeAttr('name');
+    var hasClass: boolean = el.hasClass('angular-class');
+    var css: string = el.css('display');
+    jq = el.css('display', 'none');
+
+    var attr = el.attr('id');
+    el.attr('id', 'el1');
+
+    var prop = el.prop('id');
+    el.prop('id', 1);
+
+    var text = el.text();
+    el.text('textContent');
+
+    var val = el.val();
+    el.val("1");
+
+    var html = el.html();
+    el.html('<span></span>');
+
+    el.empty();
+
+    var el0 = el[0];
+}
+
