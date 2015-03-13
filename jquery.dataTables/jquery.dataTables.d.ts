@@ -1,8 +1,8 @@
 // Type definitions for JQuery DataTables 1.10.5 / Typescript 1.4
 // Project: http://www.datatables.net
-// Definitions by: Armin Sander <https://github.com/pragmatrix/>
-// 1.10.5 (newAPI) Definitions by: Barrie Nemetchek
+// Definitions by: Armin Sander <https://github.com/pragmatrix/>, Barrie Nemetchek (1.10.5 / newAPI) <https://github.com/bnemetchek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
