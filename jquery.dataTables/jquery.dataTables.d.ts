@@ -1,6 +1,8 @@
-// Type definitions for JQuery DataTables 1.9.4
+// Type definitions for JQuery DataTables 1.10.5
+// Typescript 1.4
 // Project: http://www.datatables.net
 // Definitions by: Armin Sander <https://github.com/pragmatrix/>
+// 1.10.5 (newAPI) Definitions by: Barrie Nemetchek
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // missing:
@@ -9,112 +11,355 @@
 
 interface JQuery
 {
-	dataTable(param? :DataTables.Options) : DataTables.DataTable;
+	dataTable(): JQuery;
+	DataTable(param?: DataTables.Options): DataTables.DataTable;
+	/// Perform a jQuery selector action on the table's TR elements (from the tbody) and return the resulting jQuery object.
+	DataTable(selector: DataTables.Selector, opts?: DataTables.SelectorModifier): DataTables.DataTable;
+
 }
 
-declare module DataTables
-{
-	export interface DataTable
-	{
-		/// Perform a jQuery selector action on the table's TR elements (from the tbody) and return the resulting jQuery object.
-		$(selector:string, opts?:RowParams): JQuery;
-		$(selector:Node[], opts?:RowParams): JQuery;
-		$(selector:JQuery, opts?:RowParams): JQuery;
+declare module DataTables {
+	export type Selector = Number|String|Object|Function|JQuery|Array<String|Number|Object|Function|JQuery>;
+	export type SelectorModifier = { order?: String; search?: String; page?: String };
+	
+	export interface ajaxLoadResult extends DataTable {
+		load(callback?: Function, resetPaging?: boolean);
+	}
+	export interface DataTableAPI<T> {
+		/// CORE
+		$(selector: Selector, modifier?: SelectorModifier): JQuery;
+		ajax: {
+			json(): Object;
+			params(): Object;
+			reload(callback?: Function, resetPaging?: boolean): DataTable;
+			url: {
+				(): String;
+				(url: String): ajaxLoadResult;
+			}
+		}
 
-		/// Almost identical to $ in operation, but in this case returns the data for the matched rows.
-		_(selector:string, opts?:RowParams): any[];
-		_(selector:Node[], opts?:RowParams): any[];
-		_(selector:JQuery, opts?:RowParams): any[];
+		/// Clear the table of all data.
+		clear(): DataTable;
+		/// Retrieve the data for the whole table, in row index order.
+		data(): DataTableAPI<any>;
+		/// Destroy the DataTables in the current context.
+		destroy(remove?: boolean): DataTable;
+		/// Redraw the table.
+		draw(reset?: boolean): DataTable;
+		/// Table events listener.
+		on(event: string, callback?: (...args) => void);
+		/// Table events removal.
+		off(event: string, callback?: (...args) => void);
+		/// Listen for a table event once and then remove the listener.
+		one(event: string, callback?: (...args) => void);
+		/// Gets/sets the current ordering of the table
+		order: {
+			/// Gets/sets the current ordering of the table
+			(): Array<Array<any>>;
+			/// Set the ordering to apply to the table using a 2D ordering array
+			(order: Array<Array<any>>): DataTable;
+			/// Add an ordering listener to an element, for a given column.
+			listener(node: Element|JQuery|String, column: Number, callback: () => void): DataTable;
+		}
+		/// Gets or sets the current page of the table
+		page: {
+			/// Get the current page of the table
+			(): number;
+			/// Set the page to be displayed by the table
+			(set: String|Number): DataTable;
+			/// Get paging information about the table
+			info(): { page: Number; pages: Number; Start: Number; end: Number; length: Number; recordsTotal: Number; recordsDisplay: Number };
+			/// Get the page length of the table
+			len(): Number;
+			/// Set the page length to be used for the display
+			len(set: Number): DataTable;
+		}
+		/// Get the currently applied global search.
+		search(): String;
+		/// Set the global search to use on the table
+		search(input: String, regex?: boolean, smart?: boolean, caseInsen?: boolean): DataTable;
+		/// Obtain the table's settings object
+		settings(): DataTableAPI<Settings>;
+		state: {
+			/// Get the last saved state of the table
+			(): state;
+			/// Clear the saved state of the table.
+			clear(): DataTable;
+			/// Get the table state that was loaded during initialisation.
+			loaded(): state;
+			/// Trigger a state save
+			save(): DataTable;
+		}
 
-		/// Add a single new row or multiple rows of data to the table.
-		fnAddData(data:any, redraw?:boolean) : number[];
+		cell: {
+			/// Select the cell found by a cell selector
+			(cellSelector: Selector, modifier?: SelectorModifier): DataTableCellResult;
+			/// Select the cell found from both row and column selectors
+			(rowSelector: Selector, columnSelector: Selector, modifier?: SelectorModifier): DataTableCellResult;
+		}
+		cells: {
+			/// Select the cell found by a cell selector
+			(modifier?: SelectorModifier): DataTableCellsResult;
+			(cellSelector: Selector, modifier?: SelectorModifier): DataTableCellsResult;
+		}
 
-		/// This function will make DataTables recalculate the column sizes.
-		fnAdjustColumnSizing(redraw? : boolean) : void;
+		column: {
+			/// Select the column found by a column selector
+			(columnSelector: Selector, modifier?: SelectorModifier): DataTableColumnResult;
+		}
 
-		/// Quickly and simply clear a table
-		fnClearTable(redraw? : boolean) : void;
+		columns: {
+			/// Select all columns
+			(modifier?: SelectorModifier): DataTableColumnsResult;
+			/// Select columns found by a column selector
+			(columnSelector: Selector, modifier?: SelectorModifier): DataTableColumnsResult;
+		}
 
-		/// The exact opposite of 'opening' a row, this function will close any rows which are currently 'open'.
-		fnClose(node: Node) : number;
+		row: {
+			/// Select the row found by a row selector
+			(rowSelector: Selector, modifier?: SelectorModifier): DataTableRowResult;
+			
+			/// Add a new row to the table.
+			add(data: Array<any>|Object): DataTable;
+		}
 
-		///	Remove a row for the table
-		fnDeleteRow(index: number, callback?: () => void, redraw?: boolean) : any[];
-		fnDeleteRow(tr: Node, callback?: () => void, redraw?: boolean) : any[];
+		rows: {
+			/// Select multiple rows from a table.
+			(modifier?: SelectorModifier): DataTableRowsResult;
+			/// Select the row found by a row selector
+			(rowSelector: Selector, modifier?: SelectorModifier): DataTableRowsResult;
 
-		/// Restore the table to it's original state in the DOM by removing all of DataTables enhancements,
-		/// alterations to the DOM structure of the table and event listeners.
-		fnDestroy(remove?: boolean) : void;
+			/// Add multiple new rows to the table
+			add(data: Array<any>): String;
+		}
 
-		/// Redraw the table
-		fnDraw(complete? : boolean) : void;
+		table: {
+			/// Select a table based on a selector from the API's context
+			(tableSelector: Selector): DataTable;
+		}
 
-		/// Filter the input based on data
-		fnFilter(input: string, column? : number, regex?: boolean, smart? : boolean, showGlobal?: boolean, caseInsensitive? : boolean) : void;
+		// Utility
+		[n: number]: T;
+		concat: <U extends T[]>(...items: U[]) => T[];
+		forEach: (callbackfn: (value: T, index?: number, API?: DataTableAPI<T>) => void, thisArg?: any) => void;
+		eq(idx: Number): DataTableAPI<T>;
+		filter: (callbackfn: (value: T, index?: number, API?: DataTableAPI<T>) => boolean, thisArg?: any) => DataTableAPI<T>;
+		flatten: () => DataTableAPI<T>;
+		indexOf: (value: any) => number;
+		iterator: {
+			(type: String, callbackfn: (settings: Settings) => void, returns?: boolean): any; // Table
+			(type: String, callbackfn: (settings: Settings, value: Column, index?: number) => void, returns?: boolean): any; // Columns
+			(type: String, callbackfn: (settings: Settings, columnindex: Number, tableCounter: Number, columnCounter: number) => void, returns?: boolean): any; // Column
+			(type: String, callbackfn: (settings: Settings, columnindex: Number, tableCounter: Number, columnCounter: number, rowIndexes: Number) => void, returns?: boolean): any; // Column-Rows
+			(type: String, callbackfn: (settings: Settings, value: Row, index?: number) => void, returns?: boolean): any; // Rows
+			(type: String, callbackfn: (settings: Settings, rowIndex: Number, tableCounter: Number, rowCounter: number) => void, returns?: boolean): any; // Row
+			(type: String, callbackfn: (settings: Settings, rowIndex: Number, columnIndex: Number, tableCounter: Number, cellCounter: number) => void, returns?: boolean): any; // Cell
+		};
+		join: (separator?: string) => string;
+		lastIndexOf: (value: T) => number;
+		length: number;
+		map: <U>(callbackfn: (value: T, index: number, API?: DataTableAPI<T>) => U, thisArg?: any) => DataTableAPI<U>;
+		pluck: (property: String|Number) => DataTableAPI<any>;
+		pop: () => T;
+		push: (...items: T[]) => number;
+		reduce: <U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, API?: DataTableAPI<T>) => U, initialValue?: U) => U;
+		reduceRight: <U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, API?: DataTableAPI<T>) => U, initialValue?: U) => U;
+		reverse: () => DataTableAPI<T>;
+		shift: () => T;
+		sort: (compareFn?: (a: T, b: T) => number) => DataTableAPI<T>;
+		splice: (start?: number, deleteCount?: number, ...items: T[]) => T[];
+		to$: () => JQuery;
+		toArray: () => Array<T>;
+		toJQuery: () => JQuery;
+		unique: () => DataTableAPI<T>;
+		unshift: (...items: T[]) => number;
+	}
+	export interface DataTableCellResult extends DataTableAPI<Cell> {
+		/// Get the DataTables cached data for the selected cell
+		cache(type: String): DataTableAPI<Cell>;
+		/// Get the data for the selected cell
+		data(): any;
+		/// Set the data for the selected cell
+		data(set: any): DataTableAPI<Cell>;
+		/// Get index information about the selected cell
+		index(): Index;
+		/// Invalidate information in the selected cell
+		invalidate(source?: String): DataTableAPI<Cell>;
+		/// Get the DOM element for the selected cell
+		node(): Node;
+		/// Get rendered data for a cell
+		render(type: String): Object;
+	}
+	export interface DataTableCellsResult extends DataTableAPI<Cell> {
+		/// Get the DataTables cached data for the selected cells
+		cache(type: String): DataTableAPI<Cell>;
+		/// Get the data for the selected cells
+		data(): any;
+		/// Get index information about the selected cells
+		indexes(): DataTableAPI<Index>;
+		/// Invalidate information in the selected cells
+		invalidate(source?: String): DataTableAPI<Cell>;
+		/// Get the DOM element for the selected cells
+		nodes(): DataTableAPI<Element>;
+		/// Get rendered data for a cell
+		render(type: String): DataTableAPI<Object>;
+	}
+	export interface DataTableColumnResult extends DataTableAPI<Column> {
+		/// Get the DataTables cached data for the selected column
+		cache(type: String): DataTableColumnResult;
+		/// Get the data for the selected column
+		data(): DataTableAPI<any>;
+		/// Get the data source property for the selected column.
+		dataSrc(): Number|String|Function;
+		/// Get the footer node for the selected column.
+		footer(): Node;
+		/// Get the header node for the selected column.
+		header(): Node;
+		/// Get index information about the selected column
+		index(type?: String): DataTableAPI<Index>;
+		/// Convert between column index formats
+		index(type: String, index: Number): Number;
+		/// Get the DOM element for the selected column
+		nodes(): DataTableAPI<Node>;
+		order: {
+			/// Order the table by the selected column.
+			(direction: String): DataTableAPI<Column>;
+			/// Gets/sets the current ordering of the table
+			(): Array<Array<any>>;
+			/// Set the ordering to apply to the table using a 2D ordering array
+			(order: Array<Array<any>>): DataTable;
+			/// Add an ordering listener to an element, for a given column.
+			listener(node: Element|JQuery|String, column: Number, callback: () => void): DataTable;
+		}
+		/// Get the currently applied column search.
+		search(): String;
+		/// Set the search term for the column from the selector
+		search(input: String, regex?: boolean, smart?: boolean, caseInsen?: boolean): DataTable;
+		/// Get the visibility of the selected column.
+		visible(): boolean;
+		visible(show: boolean, redrawCalculations?: boolean): DataTableAPI<Column>;
+	}
 
-		/// Get the data for the whole table, an individual row or an individual cell based on the provided parameters.
-		fnGetData(row?: Node, col? : number) : any;
-		fnGetData(row?: number, col? : number) : any;
+	export interface DataTableColumnsResult extends DataTableAPI<Column> {
+		/// Get the DataTables cached data for the selected columns
+		cache(type: String): DataTableColumnResult;
+		/// Get the data for the selected columns
+		data(): DataTableAPI<any>;
+		/// Get the data source property for the selected column.
+		dataSrc(): Number|String|Function;
+		/// Get the footer nodes for the selected column.
+		footer(): DataTableAPI<Node>;
+		/// Get the header node for the selected column.
+		header(): DataTableAPI<Node>;
+		/// Get index information about the selected columns
+		indexes(type?: String): DataTableAPI<Index>;
+		/// Convert between column index formats
+		nodes(): DataTableAPI<Node>;
+		order: {
+			/// Order the table by the selected columns
+			(direction: String): DataTableAPI<Column>;
+			/// Gets/sets the current ordering of the table
+			(): Array<Array<any>>;
+			/// Set the ordering to apply to the table using a 2D ordering array
+			(order: Array<Array<any>>): DataTable;
+			/// Add an ordering listener to an element, for a given column.
+			listener(node: Element|JQuery|String, column: Number, callback: () => void): DataTable;
+		}
+		/// Get the visibility of the selected columns.
+		visible(): DataTableAPI<boolean>;
+		visible(show: boolean, redrawCalculations?: boolean): DataTableAPI<Column>;
+		/// Recalculate the column widths
+		adjust(): DataTable;
+	}
 
-		/// Get an array of the TR nodes that are used in the table's body.
-		fnGetNodes(row? : number) : any; // Node[] | Node
+	export interface DataTableRowResult extends DataTableAPI<Row> {
+		/// Get the DataTables cached data for the selected row
+		cache(type: String): DataTable;
+		/// Get the data for the selected row
+		data(): DataTableAPI<any>;
+		data(d: Array<any>|Object): DataTable;
+		/// Get index information about the selected row
+		index(type?: String): DataTable;
+		/// Invalidate the data held in DataTables for the selected row
+		invalidate(source?: String): DataTable;
+		/// Obtain the tr node for the selected row
+		node(): Node;
 
-		/// Get the array indexes of a particular cell from it's DOM element and column index including hidden columns
-		fnGetPosition(node: Node) : any; // number | number[]
 
-		/// Check to see if a row is 'open' or not.
-		fnIsOpen(tr: Node) : boolean;
+		///// Hide the child row(s) of a parent row
+		//hide(): DataTable;
+		///// Make the child row(s) of a parent row visible
+		//show(): DataTable;
+		///// Delete the selected row from the DataTable.
+		//remove(): Node;
 
-		/// This function will place a new row directly after a row which is currently on display on the page,
-		/// with the HTML contents that is passed into the function.
-		fnOpen(node: Node, html: string, clazz: string) : Node;
-		fnOpen(node: Node, html: Node, clazz: string) : Node;
-		fnOpen(node: Node, html: JQuery, clazz: string) : Node;
 
-		/// Change the pagination - provides the internal logic for pagination in a simple API function.
-		fnPageChange(action: string, redraw?: boolean) : void;
-		fnPageChange(page: number, redraw?: boolean) : void;
+		child: {
+			/// Select a single row from a table.
+			(): JQuery;
+			/// Show or remove and destroy the child rows for the selected row.
+			(showRemove: boolean): DataTableRowChildResult;
+			/// Set the data to show in the child row(s)
+			(data: String|Node|JQuery|Array<any>, className?: String): DataTableRowChildResult;
 
-		/// Show a particular column
-		fnSetColumnVis(column: number, show: boolean, redraw?: boolean) : void;
+			/// Hide the child row(s) of a parent row
+			hide(): DataTable;
+			/// Check if the child rows of a parent row are visible
+			isShown(): boolean;
+			/// Destroy child row(s) for the selected parent row
+			remove(): DataTableAPI<Child>;
+			/// Make the child row(s) of a parent row visible
+			show(): DataTableAPI<Child>;
+		}
+	}
 
-		/// Get the settings for a particular table for external manipulation
-		fnSettings() : Settings;
+	export interface DataTableRowChildResult extends DataTableAPI<Child> {
+		/// Hide child rows after creating new child rows
+		hide(): DataTable;
+		/// Destroy child row(s) for the selected parent row
+		remove(): DataTableRowResult;
+		/// Make newly defined child rows visible
+		show(): DataTableRowResult;
+	}
 
-		/// Sort the table by a particular column
-		fnSort(col: number) : void;
-		fnSort(col: any[][]) : void;
+	export interface DataTableRowsResult extends DataTableAPI<Row> {
+		/// Get the DataTables cached data for the selected row
+		cache(type: String): DataTable;
+		/// Get the data for the rows from the selector
+		data: {
+			(): Array<any>|any;
+			(d: Array<any>|any): DataTableAPI<Row>;
+		}
+		/// Get the rows indexes of the selected rows
+		indexes(): DataTableAPI<Row>;
+		/// Invalidate the data held in DataTables for the selected rows
+		invalidate(source?: String): DataTableAPI<Row>;
+		// Get the row TR nodes for the selected rows
+		nodes(): DataTableAPI<Node>;
+		/// Delete the selected rows from the DataTable
+		remove(): DataTableAPI<Row>;
+	}
 
-		/// Attach a sort listener to an element for a given column
-		fnSortListener(node: Node, column: number, callback? : () => void): void;
-
-		/// Update a table cell or row - this method will accept either a single value to update the cell with,
-		/// an array of values with one element for each column or an object in the same format as the original data source.
-		fnUpdate(data: any, row: Node, column?:number, redraw?: boolean, action? : boolean) : number;
-		fnUpdate(data: any, dataIndex: number, column?:number, redraw?: boolean, action? : boolean) : number;
-
-		/// Provide a common method for plug-ins to check the version of DataTables being used,
-		/// in order to ensure compatibility.
-		fnVersionCheck(version: string) : boolean;
+	export interface DataTable extends DataTableAPI<any> {
 	}
 
 	export interface Static
 	{
 		/// Provide a common method for plug-ins to check the version of DataTables being used,
 		/// in order to ensure compatibility.
-		fnVersionCheck(version: string) : boolean;
+		versionCheck(version: string) : boolean;
 
 		/// Check if a TABLE node is a DataTable table already or not.
-		fnIsDataTable(table: Node) : boolean;
+		isDataTable(table: Node) : boolean;
 
 		/// Get all DataTable tables that have been initialised.
-		fnTables(visible? : boolean) : Node[];
+		tables(visible? : boolean) : Node[];
 	}
 
 	export interface RowParams
 	{
 		/// Select TR elements that meet the current filter criterion ("applied") or all TR elements (i.e. no filter).
-		filter?: string;
+		search?: string;
 
 		/// Order of the TR elements in the processed array.
 		/// Can be either 'current', whereby the current sorting of the table is used, or
@@ -129,127 +374,153 @@ declare module DataTables
 
 	export interface Options
 	{
-		aaData?: any[];
-		aaSorting?: any[];
-		aaSortingFixed?: any[];
-		ajax?: any;
-		aLengthMenu?: any[];
-		aoColumns?: ColumnOptions[];
-		aoColumnDefs?: ColumnDef[];
-		aoSearchCols?: any[];
-		asStripClasses?: string[];
-		bAutoWidth?: boolean;
-		bDeferRender?: boolean;
-		bDestroy?: boolean;
-		bFilter?: boolean;
-		bInfo?: boolean;
-		bJQueryUI?: boolean;
-		bLengthChange?: boolean;
-		bPaginate?: boolean;
-		bProcessing?: boolean;
-		bRetrieve?: boolean;
-		bScrollAutoCss?: boolean;
-		bScrollCollapse?: boolean;
-		bScrollInfinite?: boolean;
-		bServerSide?: boolean;
-		bSort?: boolean;
-		bSortCellsTop?: boolean;
-		bSortClasses?: boolean;
-		bStateSave?: boolean;
-		fnCookieCallback?: CookieCallback;
-		fnCreatedRow?: RowCreatedCallback;
-		fnDrawCallback?: DrawCallback;
-		fnFooterCallback?: FooterCallback;
-		fnFormatNumber?: FormatNumber;
-		fnHeaderCallback?: HeaderCallback;
-		fnInfoCallback?: InfoCallback;
-		fnInitComplete?: InitComplete;
-		fnPreDrawCallback?: PreDrawCallback;
-		fnRowCallback?: RowCallback;
+		// Features
+		autoWidth?: boolean;
+		deferRender?: boolean;
+		info?: boolean;
+		jQueryUI?: boolean;
+		lengthChange?: boolean;
+		ordering?: boolean;
+		paging?: boolean;
+		processing?: boolean;
+		scrollX?: boolean;
+		scrollY?: boolean;
+		searching?: boolean;
+		serverSide?: boolean;
+		stateSave?: boolean;
 
-		fnStateLoadCallback?: StateLoadCallback;
-		fnStateLoadParams?: StateLoadParams;
-		fnStateLoaded?: StateLoaded;
-		fnStateSaveCallback?: StateSaveCallback;
-		fnStateSaveParams?: StateSaveParams;
-		iCookieDuration?: number;
-		iDeferLoading?: any;
-		iDisplayLength?: number;
-		iDisplayStart?: number;
-		iScrollLoadGap?: number;
-		iTabIndex?: number;
-		oLanguage?: LanguageOptions;
-		oSearch?: any;
-		sAjaxDataProp?: string;
-		sAjaxSource?: string;
-		sCookiePrefix?: string;
-		sDom?: string;
-		sPaginationType?: string;
-		sScrollX?: string;
-		sScrollXInner?: string;
-		sScrollY?: string;
-		sServerMethod? : string;
+		// Data
+		ajax?: {
+			(URL: string): void;
+			(ajaxData: Object): void;
+			(data: any, callback: (resultData) => void, settings: Settings): void;
+		};
+		data?: any[];
+
+		// Callbacks
+		createdRow?: RowCreatedCallback;
+		drawCallback?: DrawCallback;
+		footerCallback?: FooterCallback;
+		formatNumber?: FormatNumber;
+		headerCallback?: HeaderCallback;
+		infoCallback?: InfoCallback;
+		initComplete?: InitComplete;
+		preDrawCallback?: PreDrawCallback;
+		rowCallback?: RowCallback;
+		stateLoadCallback?: StateLoadCallback;
+		stateLoadParams?: StateLoadParams;
+
+		// Options
+		deferLoading?: boolean;
+		destroy?: boolean;
+		displayStart?: number;
+		dom?: string;
+		lengthMenu?: Array<number>;
+		orderCellsTop?: boolean;
+		orderClasses?: boolean;
+		order?: Array<Array<number|string>>;
+		orderFixed?: Array<Array<number|string>>;
+		orderMulti?: boolean;
+		pageLength?: number;
+		pagingType?: string;
+		renderer?: Object;
+		retrieve?: boolean;
+		scrollCollapse?: boolean;
+		search?: {
+			(caseInsensitive: boolean, regex: RegExp, smart: boolean): void;
+			search?: string;
+		}
+		//search?: { search: Object };
+		stateDuration?: number;
+		stripeClasses?: Array<string>;
+		tabIndex?: number;
+		columns?: ColumnOptions[];
+		columnDefs?: ColumnDef[];
+		language?: LanguageOptions;
 	}
 
 	export interface LanguageOptions
 	{
-		oAria? : AriaOptions;
-		oPaginate? : PaginateOptions;
-		sEmptyTable?: string;
-		sInfo?: string;
-		sInfoEmpty?: string;
-		sInfoFiltered?: string;
-		sInfoPostFix?: string;
-		sInfoThousands?: string;
-		sLengthMenu?: string;
-		sLoadingRecords?: string;
-		sProcessing?: string;
-		sSearch?: string;
-		sUrl?: string;
-		sZeroRecords?: string;
+		aria? : AriaOptions;
+		decimal?: string;
+		emptyTable?: string;
+		info?: string;
+		infoEmpty?: string;
+		infoFiltered?: string;
+		infoPostFix?: string;
+		lengthMenu?: string;
+		paginate?: PaginateOptions;
+		loadingRecords?: string;
+		processing?: string;
+		search?: string;
+		thousands?: string;searchPlaceholder?: string;
+		url?: string;
+		zeroRecords?: string;
+	}
+
+	export interface state {
+		time: Number;
+		start: Number;
+		length: Number;
+		order: Array<Array<any>>;
+		search: Search;
+		columns: Array<columnState>;
+	}
+
+	export interface Search {
+		search: String;
+		regex: boolean;
+		smart: boolean;
+		caseInsensitive: boolean;
+	}
+
+	export interface columnState {
+		visible: boolean;
+		search: Search;
 	}
 
 	export interface AriaOptions
 	{
-		sSortAscending?: string;
-		sSortDescending?: string;
+		sortAscending?: string;
+		sortDescending?: string;
 	}
 
 	export interface PaginateOptions
 	{
-		sFirst?: string;
-		sLast?: string;
-		sNext?: string;
-		sPrevious?: string;
+		first?: string;
+		last?: string;
+		next?: string;
+		previous?: string;
 	}
 
 	export interface ColumnOptions
 	{
-		aDataSort?: number[];
-		asSorting?: string[];
-		bSearchable? : boolean;
-		bSortable? : boolean;
-		bVisible? : boolean;
-		_bAutoType? : boolean;
-		fnCreatedCell?: CreatedCell;
-		iDataSort?: number;
-		mData?: any;
-		mRender?: any;
-		sCellType?: string;
-		sClass?: string;
-		sContentPadding?: string;
-		sDefaultContent?: string;
-		sName?: string;
-		sSortDataType?: string;
-		sSortingClass?: string;
-		sTitle?: string;
-		sType?: string;
-		sWidth?: string;
+		cellType?: string;
+		className?: string;
+		contentPadding?: string;		
+		createdCell?: CreatedCell;
+		data?: any;
+		defaultContent?: string;
+		name?: string;
+		orderable?: boolean;
+		orderData?: any;
+		orderDataType?: string;
+		render?: any;
+		searchable?: boolean;
+		title?: string;
+		type?: string;
+		visible?: boolean;
+		width?: string;
 	}
 
 	export interface ColumnDef extends ColumnOptions
 	{
-		aTargets: any[];
+		targets: any;
+	}
+	export interface Index {
+		row: Number;
+		column: Number;
+		columnVisible: Number
 	}
 
 	export interface Settings
@@ -395,6 +666,12 @@ declare module DataTables
 		sType: string;
 		sWidth: string;
 		sWidthOrig: string;
+	}
+
+	export interface Cell {
+	}
+
+	export interface Child {
 	}
 
 	export interface CookieCallback
