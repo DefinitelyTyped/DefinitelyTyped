@@ -23,7 +23,7 @@ declare module DataTables {
 	export type SelectorModifier = { order?: String; search?: String; page?: String };
 	
 	export interface ajaxLoadResult extends DataTable {
-		load(callback?: Function, resetPaging?: boolean);
+		load(callback?: Function, resetPaging?: boolean): DataTable;
 	}
 	export interface DataTableAPI<T> {
 		/// CORE
@@ -47,11 +47,11 @@ declare module DataTables {
 		/// Redraw the table.
 		draw(reset?: boolean): DataTable;
 		/// Table events listener.
-		on(event: string, callback?: (...args) => void);
+		on(event: string, callback?: (...args: any[]) => void): DataTable;
 		/// Table events removal.
-		off(event: string, callback?: (...args) => void);
+		off(event: string, callback?: (...args: any[]) => void): DataTable;
 		/// Listen for a table event once and then remove the listener.
-		one(event: string, callback?: (...args) => void);
+		one(event: string, callback?: (...args: any[]) => void): DataTable;
 		/// Gets/sets the current ordering of the table
 		order: {
 			/// Gets/sets the current ordering of the table
@@ -393,7 +393,7 @@ declare module DataTables {
 		ajax?: {
 			(URL: string): void;
 			(ajaxData: Object): void;
-			(data: any, callback: (resultData) => void, settings: Settings): void;
+			(data: any, callback: (resultData: any) => void, settings: Settings): void;
 		};
 		data?: any[];
 
