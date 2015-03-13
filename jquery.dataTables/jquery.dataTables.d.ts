@@ -1,5 +1,4 @@
-// Type definitions for JQuery DataTables 1.10.5
-// Typescript 1.4
+// Type definitions for JQuery DataTables 1.10.5 / Typescript 1.4
 // Project: http://www.datatables.net
 // Definitions by: Armin Sander <https://github.com/pragmatrix/>
 // 1.10.5 (newAPI) Definitions by: Barrie Nemetchek
