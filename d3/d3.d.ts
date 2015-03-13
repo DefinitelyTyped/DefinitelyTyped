@@ -1239,8 +1239,8 @@ declare module D3 {
             id: number;
             index: number;
             name: string;
-            px: number;
-            py: number;
+            dx: number;
+            dy: number;
             size: number;
             weight: number;
             x: number;
