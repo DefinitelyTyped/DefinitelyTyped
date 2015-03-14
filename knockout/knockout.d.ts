@@ -1,4 +1,4 @@
-// Type definitions for Knockout v3.2.0
+﻿// Type definitions for Knockout v3.2.0
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -637,12 +637,8 @@ interface KnockoutComponents {
     getComponentNameForNode(node: Node): string;
 }
 
-
-
-
+declare var ko: KnockoutStatic;
 
 declare module "knockout" {
 	export = ko;
 }
-
-declare var ko: KnockoutStatic;
