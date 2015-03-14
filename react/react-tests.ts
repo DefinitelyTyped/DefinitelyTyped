@@ -224,6 +224,21 @@ React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
+React.DOM.svg({ viewBox: "0 0 48 48" },
+    React.DOM.rect({
+      x: 22,
+      y: 10,
+      width: 4,
+      height: 28
+    }),
+    React.DOM.rect({
+      x: 10,
+      y: 22,
+      width: 28,
+      height: 4
+    }));
+
+
 //
 // React.PropTypes
 // --------------------------------------------------------------------------
