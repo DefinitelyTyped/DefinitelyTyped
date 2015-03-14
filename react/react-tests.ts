@@ -324,7 +324,7 @@ interface TimerState {
     secondsElapsed: number;
 }
 class Timer extends React.Component<{}, TimerState> {
-    static state = {
+    state = {
         secondsElapsed: 0
     }
     private _interval: number;
@@ -334,8 +334,7 @@ class Timer extends React.Component<{}, TimerState> {
         }));
     }
     componentDidMount() {
-        var me = this;
-        this._interval = setInterval(() => me.tick(), 1000);
+        this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
         clearInterval(this._interval);
