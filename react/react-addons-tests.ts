@@ -324,7 +324,7 @@ interface TimerState {
     secondsElapsed: number;
 }
 class Timer extends React.Component<React.Props<Timer>, TimerState> {
-    static state = {
+    state = {
         secondsElapsed: 0
     }
     private _interval: number;
