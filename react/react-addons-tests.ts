@@ -387,3 +387,8 @@ React.addons.TestUtils.Simulate.click(node);
 React.addons.TestUtils.Simulate.change(node);
 React.addons.TestUtils.Simulate.keyDown(node, { key: "Enter" });
 
+var renderer: React.ShallowRenderer =
+    React.addons.TestUtils.createRenderer();
+renderer.render(React.createElement(Timer));
+var output: Timer = renderer.getRenderOutput<Timer>();
+

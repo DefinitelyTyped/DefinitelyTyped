@@ -904,6 +904,8 @@ declare module "react/addons" {
         findRenderedComponentWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
             type: ComponentClass<any>): C;
+
+        createRenderer(): ShallowRenderer;
     }
 
     interface SyntheticEventData {
@@ -979,6 +981,12 @@ declare module "react/addons" {
         touchMove: EventSimulator;
         touchStart: EventSimulator;
         wheel: EventSimulator;
+    }
+
+    class ShallowRenderer {
+        getRenderOutput<C extends Component<any, any>>(): C;
+        render(element: ReactElement<any>, context?: any): void;
+        unmount(): void;
     }
 
     //
