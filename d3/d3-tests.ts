@@ -47,6 +47,37 @@ function testPieChart() {
     });
 }
 
+function testMapConstructor() {
+    //No arg constructor
+    var emptyMap: D3.Map<any> = d3.map();
+
+    //Object constructor
+    var object:{[key: string]: number } = {a: 1, b: 2, c: 3};
+    var objectMap: D3.Map<number> = d3.map<number>(object);
+
+    //Array constructor
+    var numberArray: number[] = [1, 2, 3]
+    var numberArrayMap: D3.Map<number> = d3.map<number>(numberArray);
+
+    //Array with keyFn constructor
+    var objectArray: {key: string}[] = [{key: "v1"}, {key: "v2"}, {key: "v3"}];
+    var indexes: number[] = [];
+    //keyFn with index
+    var objectArrayMap1: D3.Map<{key: string}>
+            = d3.map<{key: string}>(objectArray, (o: {key: string}, index: number) => {
+        indexes.push(index);
+        return o.key;
+    });
+    //keyFn without index
+    var objectArrayMap2: D3.Map<{key: string}>
+            = d3.map<{key: string}>(objectArray, (o: {key: string}) => {
+        return o.key;
+    });
+
+    //Map constructor
+    var duplicateMap: D3.Map<number> = d3.map(numberArrayMap);
+}
+
 //Example from http://bl.ocks.org/3887051
 interface GroupedData {
     State: string;
