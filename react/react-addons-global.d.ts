@@ -1,4 +1,4 @@
-// Type definitions for ReactWithAddons v0.13.0 RC2 (internal module)
+// Type definitions for ReactWithAddons v0.13.0 (internal module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

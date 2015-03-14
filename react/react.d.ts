@@ -1,4 +1,4 @@
-// Type definitions for React v0.13.0 RC2 (external module)
+// Type definitions for React v0.13.0 (external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
