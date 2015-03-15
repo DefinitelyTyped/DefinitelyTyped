@@ -24,7 +24,7 @@ function plugin_list() {
 }
 
 function abide_patterns() {
-    var patterns : FoundationAbidePatterns;
+    var patterns : Foundation.AbidePatterns = {};
     patterns.alpha = /^[a-zA-Z]+$/;
     patterns.alpha_numeric = /^[a-zA-Z0-9]+$/;
     patterns.integer = /^[-+]?\d+$/;
@@ -44,7 +44,7 @@ function abide_patterns() {
 }
 
 function abide_options() {
-    var opts : FoundationAbideOptions = {};
+    var opts : Foundation.AbideOptions = {};
     opts.live_validate = false;
     opts.validate_on_blur = true;
     opts.focus_on_invalid = true;
@@ -65,7 +65,7 @@ function abide_options() {
 }
 
 function accordion_options() {
-    var opts : FoundationAccordionOptions = {};
+    var opts : Foundation.AccordionOptions = {};
     opts.content_class = "content";
     opts.active_class = "class-name";
     opts.multi_expand = false;
@@ -75,13 +75,13 @@ function accordion_options() {
 }
 
 function alert_options() {
-    var opts : FoundationAlertOptions = {};
+    var opts : Foundation.AlertOptions = {};
     opts.callback = empty_callback;
     return opts;
 }
 
 function clearing_options() {
-    var opts : FoundationClearingOptions = {};
+    var opts : Foundation.ClearingOptions = {};
     opts.templates = {
         viewing : '<div>Some HTML</div>'
     };
@@ -95,7 +95,7 @@ function clearing_options() {
 }
 
 function dropdown_options() {
-    var opts : FoundationDropdownOptions = {};
+    var opts : Foundation.DropdownOptions = {};
     opts.active_class = "class-name";
     opts.disabled_class = "disabled-class";
     opts.mega_class = "big";
@@ -108,14 +108,14 @@ function dropdown_options() {
 }
 
 function equalizer_options() {
-    var opts : FoundationEqualizerOptions = {};
+    var opts : Foundation.EqualizerOptions = {};
     opts.use_tallest = true;
     opts.equalize_on_stack = false;
     return opts;
 }
 
 function interchange_options() {
-    var opts : FoundationInterchangeOptions = {};
+    var opts : Foundation.InterchangeOptions = {};
     opts.load_attr = "interchange";
     opts.named_queries = {
         my_custom_query: "only screen and (max-width: 200px)"
@@ -127,7 +127,7 @@ function interchange_options() {
 }
 
 function joyride_options() {
-    var opts : FoundationJoyrideOptions = {};
+    var opts : Foundation.JoyrideOptions = {};
     opts.expose = false;
     opts.modal = true;
     opts.keyboard = true;
@@ -176,7 +176,7 @@ function joyride_options() {
 }
 
 function magellan_options() {
-    var opts : FoundationMagellanOptions = {};
+    var opts : Foundation.MagellanOptions = {};
     opts.active_class = ".active-element";
     opts.threshold = 20;
     opts.destination_threshold = 30;
@@ -189,14 +189,14 @@ function magellan_options() {
 }
 
 function offcanvas_options() {
-    var opts : FoundationOffCanvasOptions = {};
+    var opts : Foundation.OffCanvasOptions = {};
     opts.open_method = "overlap_single";
     opts.close_on_click = true;
     return opts;
 }
 
 function orbit_options() {
-    var opts : FoundationOrbitOptions = {};
+    var opts : Foundation.OrbitOptions = {};
     opts.animation = 'slide';
     opts.timer_speed = 10000;
     opts.pause_on_hover = true;
@@ -234,7 +234,7 @@ function orbit_options() {
 }
 
 function reveal_css_options() {
-    var opts : FoundationRevealCSSOptions = {};
+    var opts : Foundation.RevealCSSOptions = {};
     opts.opacity = 0;
     opts.visibility = 'hidden';
     opts.display = "inline-block";
@@ -242,7 +242,7 @@ function reveal_css_options() {
 }
 
 function reveal_options() {
-    var opts : FoundationRevealOptions = {};
+    var opts : Foundation.RevealOptions = {};
     opts.animation = "linear";
     opts.animation_speed = 500;
     opts.close_on_background_click = false;
@@ -264,7 +264,7 @@ function reveal_options() {
 }
 
 function slider_options() {
-    var opts : FoundationSliderOptions;
+    var opts : Foundation.SliderOptions = {};
     opts.start = -1000;
     opts.end = 1000;
     opts.step = 50;
@@ -277,7 +277,7 @@ function slider_options() {
 }
 
 function tab_options() {
-    var opts : FoundationTabOptions = {};
+    var opts : Foundation.TabOptions = {};
     opts.active_class = "class-name";
     opts.callback = empty_callback;
     opts.deep_linking = false;
@@ -287,7 +287,7 @@ function tab_options() {
 }
 
 function tooltip_options() {
-    var opts : FoundationTooltipOptions = {};
+    var opts : Foundation.TooltipOptions = {};
     opts.additional_inheritable_classes = ["class1", "class2"];
     opts.tooltip_class = "tooltip";
     opts.append_to = "append-class";
@@ -304,7 +304,7 @@ function tooltip_options() {
 }
 
 function topbar_options() {
-    var opts : FoundationTopbarOptions = {};
+    var opts : Foundation.TopbarOptions = {};
     opts.index = 1;
     opts.sticky_class = "top-bar";
     opts.custom_back_text = true;
@@ -317,7 +317,7 @@ function topbar_options() {
 }
 
 function foundation_options() {
-    var opts : FoundationOptions = {};
+    var opts : Foundation.Options = {};
     opts.abide = abide_options();
     opts.accordion = accordion_options();
     opts.alert = alert_options();
