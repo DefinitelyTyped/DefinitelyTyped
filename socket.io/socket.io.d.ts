@@ -55,7 +55,7 @@ declare module SocketIO {
     interface Socket {
         rooms: string[];
         client: Client;
-        conn: Socket;
+        conn: any;
         request: any;
         id: string;
         emit(name: string, ...args: any[]): Socket;
