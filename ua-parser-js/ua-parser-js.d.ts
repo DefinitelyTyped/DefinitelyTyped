@@ -53,6 +53,6 @@ interface UAParser {
 
 declare var uaParser: UAParser;
 
-declare module 'ua-parser' {
+declare module 'ua-parser-js' {
     export = uaParser;
 }
