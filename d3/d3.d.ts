@@ -549,10 +549,17 @@ declare module D3 {
         functor<R,T>(value: (p : R) => T): (p : R) => T;
         functor<T>(value: T): (p : any) => T;
 
-        map(): Map<any>;
-        set(): Set<any>;
-        map<T>(object: {[key: string]: T; }): Map<T>;
-        set<T>(array: T[]): Set<T>;
+        map: {
+            (): Map<any>;
+            <T>(object: {[key: string]: T; }): Map<T>;
+            <T>(map: Map<T>): Map<T>;
+            <T>(array: T[]): Map<T>;
+            <T>(array: T[], keyFn: (object: T, index?: number) => string): Map<T>;
+        };
+        set: {
+            (): Set<any>;
+            <T>(array: T[]): Set<T>;
+        };
         dispatch(...types: string[]): Dispatch;
         rebind(target: any, source: any, ...names: any[]): any;
         requote(str: string): string;
