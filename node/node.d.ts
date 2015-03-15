@@ -697,6 +697,18 @@ declare module "child_process" {
         killSignal?: string;
         encoding?: string;
     }): ChildProcess;
+    export function execFileSync(command: string, args?: string[], options?: {
+        cwd?: string;
+        input?: string|Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+        encoding?: string;
+    }): ChildProcess;
 }
 
 declare module "url" {
