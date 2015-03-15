@@ -319,32 +319,26 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientRequest extends events.EventEmitter, stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
 
-        write(chunk: any, encoding?: string): void;
+	/**
+	 * Object returned by http.request()
+	 */
+    export interface ClientRequest extends events.EventEmitter, NodeJS.WritableStream {
         abort(): void;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
-
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
     }
-    export interface ClientResponse extends events.EventEmitter, stream.Readable {
+
+	/**
+	 * The client version of http.IncomingMessage
+	 */
+    export interface ClientResponse extends events.EventEmitter, NodeJS.ReadableStream {
         statusCode: number;
         httpVersion: string;
         headers: any;
         trailers: any;
+		socket: net.Socket;
         setEncoding(encoding?: string): void;
         pause(): void;
         resume(): void;
@@ -386,17 +380,65 @@ declare module "http" {
 		destroy(): void;
 	}
 
+	/**
+	 * Options for http.request()
+	 */
+	export interface RequestOptions {
+		/**
+		 * A domain name or IP address of the server to issue the request to. Defaults to 'localhost'.
+		 */
+		host?: string;
+		/**
+		 * To support url.parse() hostname is preferred over host
+		 */
+		hostname?: string;
+		/**
+		 * Port of remote server. Defaults to 80.
+		 */
+		port?: number;
+		/**
+		 * Local interface to bind for network connections.
+		 */
+		localAddress?: string;
+		/**
+		 * Unix Domain Socket (use one of host:port or socketPath)
+		 */
+		socketPath?: string;
+		/**
+		 * A string specifying the HTTP request method. Defaults to 'GET'.
+		 */
+		method?: string;
+		/**
+		 * Request path. Defaults to '/'. Should include query string if any. E.G. '/index.html?page=12'
+		 */
+		path?: string;
+		/**
+		 * An object containing request headers.
+		 */
+		headers?: { [index: string]: string };
+		/**
+		 * Basic authentication i.e. 'user:password' to compute an Authorization header.
+		 */
+		auth?: string;
+		/**
+		 * Controls Agent behavior. When an Agent is used request will default to Connection: keep-alive. Possible values:
+		 * - undefined (default): use global Agent for this host and port.
+		 * - Agent object: explicitly use the passed in Agent.
+		 * - false: opts out of connection pooling with an Agent, defaults request to Connection: close.
+		 */
+		agent?: Agent|boolean;
+	}
+
     export var STATUS_CODES: {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
     export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: Function): ClientRequest;
-    export function get(options: any, callback?: Function): ClientRequest;
+    export function request(options: RequestOptions, callback?: (response: ClientResponse) => void): ClientRequest;
+    export function get(options: RequestOptions, callback?: (response: ClientResponse) => void): ClientRequest;
     export var globalAgent: Agent;
 }
-
 declare module "cluster" {
     import child  = require("child_process");
     import events = require("events");
