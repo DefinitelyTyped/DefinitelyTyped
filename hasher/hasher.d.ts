@@ -1,7 +1,7 @@
 // Type definitions for Hasher.js
-// Project: https:// github.com/millermedeiros/hasher/
+// Project: https://github.com/millermedeiros/hasher/
 // Definitions by: flyfishMT
-// Definitions: https:// github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../js-signals/js-signals.d.ts" />
 
