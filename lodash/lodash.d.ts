@@ -3597,228 +3597,6 @@ declare module _ {
             thisArg?: any): LoDashArrayWrapper<TResult>;
     }
 
-    //_.max
-    interface LoDashStatic {
-        /**
-        * Retrieves the maximum value of a collection. If the collection is empty or falsey -Infinity is 
-        * returned. If a callback is provided it will be executed for each value in the collection to 
-        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked 
-        * with three arguments; (value, index, collection).
-        * 
-        * If a property name is provided for callback the created "_.pluck" style callback will return the 
-        * property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return true for 
-        * elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the maximum value.
-        **/
-        max<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.max
-        **/
-        max<T>(
-            collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.max
-        **/
-        max<T>(
-            collection: Dictionary<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.max
-        **/
-        max(
-            callback?: ListIterator<T, any>,
-            thisArg?: any): LoDashWrapper<T>;
-
-        /**
-        * @see _.max
-        * @param pluckValue _.pluck style callback
-        **/
-        max(
-            pluckValue: string): LoDashWrapper<T>;
-
-        /**
-        * @see _.max
-        * @param whereValue _.where style callback
-        **/
-        max<W>(
-            whereValue: W): LoDashWrapper<T>;
-    }
-
-    //_.min
-    interface LoDashStatic {
-        /**
-        * Retrieves the minimum value of a collection. If the collection is empty or falsey 
-        * Infinity is returned. If a callback is provided it will be executed for each value 
-        * in the collection to generate the criterion by which the value is ranked. The callback 
-        * is bound to thisArg and invoked with three arguments; (value, index, collection).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback 
-        * will return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will 
-        * return true for elements that have the properties of the given object, else false.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        * @return Returns the maximum value.
-        **/
-        min<T>(
-            collection: Array<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.min
-        **/
-        min<T>(
-            collection: List<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.min
-        **/
-        min<T>(
-            collection: Dictionary<T>,
-            callback?: ListIterator<T, any>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-    }
-
-    interface LoDashArrayWrapper<T> {
-        /**
-        * @see _.min
-        **/
-        min(
-            callback?: ListIterator<T, any>,
-            thisArg?: any): LoDashWrapper<T>;
-
-        /**
-        * @see _.min
-        * @param pluckValue _.pluck style callback
-        **/
-        min(
-            pluckValue: string): LoDashWrapper<T>;
-
-        /**
-        * @see _.min
-        * @param whereValue _.where style callback
-        **/
-        min<W>(
-            whereValue: W): LoDashWrapper<T>;
-    }
-
     //_.pluck
     interface LoDashStatic {
         /**
@@ -5148,6 +4926,165 @@ declare module _ {
         wrap(
             value: any,
             wrapper: (func: Function, ...args: any[]) => any): Function;
+    }
+
+    /*************
+     * Math      *
+     ************/
+
+    //_.add
+    interface LoDashStatic {
+        /**
+        * Adds two numbers.
+        * @param augend The first number to add.
+        * @param addend The second number to add.
+        * @return Returns the sum.
+        **/
+        add(augend: number, addend: number): number;
+    }
+
+    //_.max
+    interface LoDashStatic {
+        /**
+        * Gets the maximum value of a collection. If the collection is empty or falsey -Infinity is
+        * returned. If a callback is provided it will be executed for each value in the collection to
+        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked
+        * with three arguments; (value, index, collection).
+        *
+        * If a property name is provided for callback the created "_.property" style callback returns the
+        * property value of the given element.
+        *
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback returns
+        * true for elements that have a matching property value, else false.
+        *
+        * If an object is provided for predicate the created "_.matches" style callback returns true for
+        * elements that have the properties of the given object, else false.
+        * 
+        * @param collection The collection to iterate over.
+        * @param iteratee The function invoked per iteration.
+        * @param thisArg The this binding of iteratee.
+        * @return Returns the maximum value.
+        **/
+        max: {
+            <T>(collection: Array<T>, iteratee?: ListIterator<T, any>, thisArg?: any): T;
+            <T>(collection: List<T>, iteratee?: ListIterator<T, any>, thisArg?: any): T;
+            <T>(collection: Dictionary<T>, iteratee?: ListIterator<T, any>, thisArg?: any): T;
+            <T>(collection: Array<T>, propertyName: string, matchValue?: any): T;
+            <T>(collection: List<T>, propertyName: string, matchValue?: any): T;
+            <T>(collection: Dictionary<T>, propertyName: string, matchValue?: any): T;
+            <W, T>(collection: Array<T>, whereValue: W): T;
+            <W, T>(collection: List<T>, whereValue: W): T;
+            <W, T>(collection: Dictionary<T>, whereValue: W): T;
+        }
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * Gets the maximum value of a collection. If the collection is empty or falsey -Infinity is
+        * returned. If a callback is provided it will be executed for each value in the collection to
+        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked
+        * with three arguments; (value, index, collection).
+        *
+        * If a property name is provided for callback the created "_.property" style callback returns the
+        * property value of the given element.
+        *
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback returns
+        * true for elements that have a matching property value, else false.
+        *
+        * If an object is provided for predicate the created "_.matches" style callback returns true for
+        * elements that have the properties of the given object, else false.
+        * 
+        * @param iteratee The function invoked per iteration.
+        * @param thisArg The this binding of iteratee.
+        * @return Returns the maximum value.
+        **/
+        max: {
+            (iteratee?: ListIterator<T, any>, thisArg?: any): LoDashWrapper<T>;
+            (propertyName: string, matchValue?: any): LoDashWrapper<T>;
+            <W>(whereValue: W): LoDashWrapper<T>;
+        }
+    }
+
+    //_.min
+    interface LoDashStatic {
+        /**
+        * Gets the minimum value of a collection. If the collection is empty or falsey Infinity is
+        * returned. If a callback is provided it will be executed for each value in the collection to
+        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked
+        * with three arguments; (value, index, collection).
+        *
+        * If a property name is provided for callback the created "_.property" style callback returns the
+        * property value of the given element.
+        *
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback returns
+        * true for elements that have a matching property value, else false.
+        *
+        * If an object is provided for predicate the created "_.matches" style callback returns true for
+        * elements that have the properties of the given object, else false.
+        * 
+        * @param collection The collection to iterate over.
+        * @param iteratee The function invoked per iteration.
+        * @param thisArg The this binding of iteratee.
+        * @return Returns the minimum value.
+        **/
+        min: {
+            <T>(collection: Array<T>, iteratee?: ListIterator<T, any>, thisArg?: any): T;
+            <T>(collection: List<T>, iteratee?: ListIterator<T, any>, thisArg?: any): T;
+            <T>(collection: Dictionary<T>, iteratee?: ListIterator<T, any>, thisArg?: any): T;
+            <T>(collection: Array<T>, propertyName: string, matchValue?: any): T;
+            <T>(collection: List<T>, propertyName: string, matchValue?: any): T;
+            <T>(collection: Dictionary<T>, propertyName: string, matchValue?: any): T;
+            <W, T>(collection: Array<T>, whereValue: W): T;
+            <W, T>(collection: List<T>, whereValue: W): T;
+            <W, T>(collection: Dictionary<T>, whereValue: W): T;
+        }
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * Gets the minimum value of a collection. If the collection is empty or falsey -Infinity is
+        * returned. If a callback is provided it will be executed for each value in the collection to
+        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked
+        * with three arguments; (value, index, collection).
+        *
+        * If a property name is provided for callback the created "_.property" style callback returns the
+        * property value of the given element.
+        *
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback returns
+        * true for elements that have a matching property value, else false.
+        *
+        * If an object is provided for predicate the created "_.matches" style callback returns true for
+        * elements that have the properties of the given object, else false.
+        * 
+        * @param iteratee The function invoked per iteration.
+        * @param thisArg The this binding of iteratee.
+        * @return Returns the minimum value.
+        **/
+        min: {
+            (iteratee?: ListIterator<T, any>, thisArg?: any): LoDashWrapper<T>;
+            (propertyName: string, matchValue?: any): LoDashWrapper<T>;
+            <W>(whereValue: W): LoDashWrapper<T>;
+        }
+    }
+
+    //_.sum
+    interface LoDashStatic {
+        /**
+        * Gets the sum of the values in collection.
+        * @param collection The collection to iterate over.
+        **/
+        sum: {
+            <T>(collection: Array<T>): number;
+            <T>(collection: List<T>): number;
+            <T>(collection: Dictionary<T>): number;
+        }
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * Gets the sum of the values in collection.
+        **/
+        sum(): number;
     }
 
     /*************
