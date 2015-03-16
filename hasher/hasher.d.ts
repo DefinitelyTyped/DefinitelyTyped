@@ -110,6 +110,7 @@ declare module HasherJs {
 
 declare var hasher: HasherJs.HasherStatic; 
 
+// AMD
 declare module 'hasher'{
     export = hasher;
 }
