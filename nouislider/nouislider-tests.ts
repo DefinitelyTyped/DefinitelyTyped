@@ -1,4 +1,4 @@
-/// <reference path="jquery.nouislider.d.ts" />
+/// <reference path="nouislider.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
 //basic
