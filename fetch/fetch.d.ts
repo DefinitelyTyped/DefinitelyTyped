@@ -3,7 +3,7 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../typescript-services/typescriptservices.d.ts" />
+/// <reference path="../typescript-services/typescriptServices.d.ts" />
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare class Request {
