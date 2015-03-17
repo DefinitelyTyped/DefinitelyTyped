@@ -5,6 +5,16 @@
 
 /// <reference path="angular.d.ts" />
 
+declare module "angular-mocks/ngMock" {
+    var _: string;
+    export = _;
+}
+
+declare module "angular-mocks/ngAnimateMock" {
+    var _: string;
+    export = _;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // functions attached to global object (window)
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,7 +69,7 @@ declare module angular {
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // IntervalService
     // see http://docs.angularjs.org/api/ngMock.$interval
