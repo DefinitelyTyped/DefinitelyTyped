@@ -5,6 +5,10 @@
 
 /// <reference path="angular.d.ts" />
 
+declare module "angular-animate" {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngAnimate module (angular-animate.js)
@@ -27,7 +31,7 @@ declare module angular.animate {
 
         /**
          * Performs an inline animation on the element.
-         * 
+         *
          * @param element the element that will be the focus of the animation
          * @param from a collection of CSS styles that will be applied to the element at the start of the animation
          * @param to a collection of CSS styles that the element will animate towards
