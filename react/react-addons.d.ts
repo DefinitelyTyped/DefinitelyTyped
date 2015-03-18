@@ -1,4 +1,4 @@
-// Type definitions for ReactWithAddons v0.13.0 (external module)
+// Type definitions for ReactWithAddons v0.13.1 (external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -131,7 +131,7 @@ declare module "react/addons" {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
-        constructor(props: P, context: any);
+        constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
