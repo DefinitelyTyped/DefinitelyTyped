@@ -224,6 +224,21 @@ React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
+React.DOM.svg({ viewBox: "0 0 48 48" },
+    React.DOM.rect({
+      x: 22,
+      y: 10,
+      width: 4,
+      height: 28
+    }),
+    React.DOM.rect({
+      x: 10,
+      y: 22,
+      width: 28,
+      height: 4
+    }));
+
+
 //
 // React.PropTypes
 // --------------------------------------------------------------------------
@@ -324,7 +339,7 @@ interface TimerState {
     secondsElapsed: number;
 }
 class Timer extends React.Component<{}, TimerState> {
-    static state = {
+    state = {
         secondsElapsed: 0
     }
     private _interval: number;
@@ -334,8 +349,7 @@ class Timer extends React.Component<{}, TimerState> {
         }));
     }
     componentDidMount() {
-        var me = this;
-        this._interval = setInterval(() => me.tick(), 1000);
+        this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
         clearInterval(this._interval);

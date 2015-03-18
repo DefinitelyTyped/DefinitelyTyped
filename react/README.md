@@ -1,4 +1,4 @@
-# React v0.13.0-beta Type Definitions
+# React v0.13.0 Type Definitions
 
 This folder contains the following `.d.ts` files:
 * `react-0.13.0.d.ts` declares the external module `"react"`
