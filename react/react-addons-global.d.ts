@@ -1,4 +1,4 @@
-// Type definitions for ReactWithAddons v0.13.0 RC2 (internal module)
+// Type definitions for ReactWithAddons v0.13.1 (internal module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -179,6 +179,8 @@ declare module React {
         findRenderedComponentWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
             type: ComponentClass<any>): C;
+
+        createRenderer(): ShallowRenderer;
     }
 
     interface SyntheticEventData {
@@ -254,6 +256,12 @@ declare module React {
         touchMove: EventSimulator;
         touchStart: EventSimulator;
         wheel: EventSimulator;
+    }
+
+    class ShallowRenderer {
+        getRenderOutput<C extends Component<any, any>>(): C;
+        render(element: ReactElement<any>, context?: any): void;
+        unmount(): void;
     }
 }
 

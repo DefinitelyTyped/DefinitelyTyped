@@ -1,4 +1,4 @@
-// Type definitions for React v0.13.0 RC2 (external module)
+// Type definitions for React v0.13.1 (external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -131,7 +131,7 @@ declare module "react" {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
-        constructor(props: P, context: any);
+        constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
@@ -368,14 +368,18 @@ declare module "react" {
         };
     }
 
+    // This interface is not complete. Only properties accepting
+    // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
+        boxFlex?: number;
+        boxFlexGroup?: number;
         columnCount?: number;
         flex?: number | string;
         flexGrow?: number;
         flexShrink?: number;
-        fontWeight?: number;
+        fontWeight?: number | string;
         lineClamp?: number;
-        lineHeight?: number;
+        lineHeight?: number | string;
         opacity?: number;
         order?: number;
         orphans?: number;
@@ -386,6 +390,7 @@ declare module "react" {
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
+        strokeWidth?: number;
     }
 
     interface HTMLAttributes extends DOMAttributes {
@@ -501,18 +506,18 @@ declare module "react" {
     interface SVGAttributes extends DOMAttributes {
         ref?: string | ((component: SVGComponent) => void);
 
-        cx?: SVGLength | SVGAnimatedLength;
-        cy?: any;
+        cx?: number | string;
+        cy?: number | string;
         d?: string;
-        dx?: SVGLength | SVGAnimatedLength;
-        dy?: SVGLength | SVGAnimatedLength;
-        fill?: any; // SVGPaint | string
+        dx?: number | string;
+        dy?: number | string;
+        fill?: string;
         fillOpacity?: number | string;
         fontFamily?: string;
         fontSize?: number | string;
-        fx?: SVGLength | SVGAnimatedLength;
-        fy?: SVGLength | SVGAnimatedLength;
-        gradientTransform?: SVGTransformList | SVGAnimatedTransformList;
+        fx?: number | string;
+        fy?: number | string;
+        gradientTransform?: string;
         gradientUnits?: string;
         markerEnd?: string;
         markerMid?: string;
@@ -523,27 +528,27 @@ declare module "react" {
         patternUnits?: string;
         points?: string;
         preserveAspectRatio?: string;
-        r?: SVGLength | SVGAnimatedLength;
-        rx?: SVGLength | SVGAnimatedLength;
-        ry?: SVGLength | SVGAnimatedLength;
+        r?: number | string;
+        rx?: number | string;
+        ry?: number | string;
         spreadMethod?: string;
-        stopColor?: any; // SVGColor | string
+        stopColor?: string;
         stopOpacity?: number | string;
-        stroke?: any; // SVGPaint
+        stroke?: string;
         strokeDasharray?: string;
         strokeLinecap?: string;
         strokeOpacity?: number | string;
-        strokeWidth?: SVGLength | SVGAnimatedLength;
+        strokeWidth?: number | string;
         textAnchor?: string;
-        transform?: SVGTransformList | SVGAnimatedTransformList;
+        transform?: string;
         version?: string;
         viewBox?: string;
-        x1?: SVGLength | SVGAnimatedLength;
-        x2?: SVGLength | SVGAnimatedLength;
-        x?: SVGLength | SVGAnimatedLength;
-        y1?: SVGLength | SVGAnimatedLength;
-        y2?: SVGLength | SVGAnimatedLength
-        y?: SVGLength | SVGAnimatedLength;
+        x1?: number | string;
+        x2?: number | string;
+        x?: number | string;
+        y1?: number | string;
+        y2?: number | string
+        y?: number | string;
     }
 
     //
