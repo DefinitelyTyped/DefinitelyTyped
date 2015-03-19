@@ -38,14 +38,14 @@ declare module "serve-static" {
         etag?: boolean;
 
         /**
-         * Set file extension fallbacks. When set, if a file is not found, the given extensions will be added to the file name and search for. 
+         * Set file extension fallbacks. When set, if a file is not found, the given extensions will be added to the file name and search for.
          * The first that exists will be served. Example: ['html', 'htm'].
          * The default value is false.
          */
-        extensions?: boolean;
+        extensions?: string[];
 
         /**
-         * By default this module will send "index.html" files in response to a request on a directory. 
+         * By default this module will send "index.html" files in response to a request on a directory.
          * To disable this set false or to supply a new index pass a string or an array in preferred order.
          */
         index?: boolean;
@@ -63,17 +63,17 @@ declare module "serve-static" {
         /**
          * Redirect to trailing "/" when the pathname is a dir. Defaults to true.
          */
-        redirect?: number;
+        redirect?: boolean;
 
         /**
-         * Function to set custom headers on response. Alterations to the headers need to occur synchronously. 
+         * Function to set custom headers on response. Alterations to the headers need to occur synchronously.
          * The function is called as fn(res, path, stat), where the arguments are:
          * res the response object
          * path the file path that is being sent
          * stat the stat object of the file that is being sent
          */
-        setHeaders?: (res, path, stat) => any;
+        setHeaders?: (res: express.Response, path: string, stat: any) => any;
     }): express.Handler;
-    
+
     export = serveStatic;
 }
