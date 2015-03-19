@@ -1,9 +1,9 @@
 ﻿// Type definitions for serve-favicon 2.1.6
 // Project: https://github.com/expressjs/serve-favicon
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
     import serveFavicon = require('serve-favicon');
     app.use(serveFavicon(__dirname + '/public/favicon.ico'));

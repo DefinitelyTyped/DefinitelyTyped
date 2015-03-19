@@ -1,9 +1,9 @@
 ﻿// Type definitions for serve-static 1.7.1
 // Project: https://github.com/expressjs/serve-static
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
     import serveStatic = require('serve-static');
     app.use(serveStatic('public/ftp', {'index': ['default.html', 'default.htm']}))
