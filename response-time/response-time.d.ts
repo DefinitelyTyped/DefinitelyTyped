@@ -1,9 +1,9 @@
 ﻿// Type definitions for response-time 2.2.0
 // Project: https://github.com/expressjs/response-time
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
     import responseTime = require('response-time');
     app.use(responseTime());
