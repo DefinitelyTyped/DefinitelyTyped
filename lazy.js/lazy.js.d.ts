@@ -73,6 +73,10 @@ declare module LazyJS {
         (index: number): T;
     }
 
+    interface CompareCallback {
+        (x: any, y: any): number;
+    }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     interface Iterator<T> {
@@ -153,7 +157,9 @@ declare module LazyJS {
         rest(count?: number): Sequence<T>;
         shuffle(): Sequence<T>;
         some(predicateFn?: TestCallback<T>): boolean;
-        sortBy(sortFn: NumberCallback<T>): Sequence<T>;
+        sort(sortFn?: CompareCallback, descending?: boolean): Sequence<T>;
+        sortBy(sortFn: string, descending?: boolean): Sequence<T>;
+        sortBy(sortFn: NumberCallback<T>, descending?: boolean): Sequence<T>;
         sortedIndex(value: T): Sequence<T>;
         size(): number;
         sum(valueFn?: NumberCallback<T>): Sequence<T>;
@@ -161,6 +167,7 @@ declare module LazyJS {
         union(var_args: T[]): Sequence<T>;
         uniq(): Sequence<T>;
         where(properties: Object): Sequence<T>;
+        without(...var_args: T[]): Sequence<T>;
         without(var_args: T[]): Sequence<T>;
         zip(var_args: T[]): Sequence<T>;
 
@@ -176,7 +183,7 @@ declare module LazyJS {
 
     interface ArrayLikeSequence<T> extends Sequence<T> {
         // define()X;
-        concat(): ArrayLikeSequence<T>;
+        concat(var_args: T[]): ArrayLikeSequence<T>;
         first(count?: number): ArrayLikeSequence<T>;
         get(index: number): T;
         length(): number;

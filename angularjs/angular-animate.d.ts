@@ -1,15 +1,19 @@
 // Type definitions for Angular JS 1.3 (ngAnimate module)
 // Project: http://angularjs.org
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>, Raphael Schweizer <https://github.com/rasch>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
 
+declare module "angular-animate" {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngAnimate module (angular-animate.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng.animate {
+declare module angular.animate {
 
     ///////////////////////////////////////////////////////////////////////////
     // AnimateService
@@ -24,6 +28,17 @@ declare module ng.animate {
         * @returns current animation state
         */
         enabled(value?: boolean, element?: JQuery): boolean;
+
+        /**
+         * Performs an inline animation on the element.
+         *
+         * @param element the element that will be the focus of the animation
+         * @param from a collection of CSS styles that will be applied to the element at the start of the animation
+         * @param to a collection of CSS styles that the element will animate towards
+         * @param className an optional CSS class that will be added to the element for the duration of the animation (the default class is 'ng-inline-animate')
+         * @returns the animation callback promise
+         */
+        animate(element: JQuery, from: any, to: any, className?: string): ng.IPromise<void>;
 
         /**
          * Appends the element to the parentElement element that resides in the document and then runs the enter animation.

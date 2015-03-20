@@ -2641,6 +2641,15 @@ declare module _ {
             whereValue: W): LoDashArrayWrapper<T>;
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.filter
+        **/
+        filter<T extends {}>(
+            callback: ObjectIterator<T, boolean>,
+            thisArg?: any): LoDashObjectWrapper<T>;
+    }
+
     //_.find
     interface LoDashStatic {
         /**
@@ -6124,6 +6133,50 @@ declare module _ {
         values(object: any): any[];
     }
 
+    /**********
+     * String *
+     **********/
+
+    interface LoDashStatic {
+        camelCase(str?: string): string;
+        capitalize(str?: string): string;
+        deburr(str?: string): string;
+        endsWith(str?: string, target?: string, position?: number): boolean;
+        escape(str?: string): string;
+        escapeRegExp(str?: string): string;
+        kebabCase(str?: string): string;
+        pad(str?: string, length?: number, chars?: string): string;
+        padLeft(str?: string, length?: number, chars?: string): string;
+        padRight(str?: string, length?: number, chars?: string): string;
+        repeat(str?: string, n?: number): string;
+        snakeCase(str?: string): string;
+        startCase(str?: string): string;
+        startsWith(str?: string, target?: string, position?: number): boolean;
+        trim(str?: string, chars?: string): string;
+        trimLeft(str?: string, chars?: string): string;
+        trimRight(str?: string, chars?: string): string;
+        trunc(str?: string, len?: number): string;
+        trunc(str?: string, options?: { length?: number; omission?: string; separator?: string }): string;
+        trunc(str?: string, options?: { length?: number; omission?: string; separator?: RegExp }): string;
+        words(str?: string, pattern?: string): string[];
+        words(str?: string, pattern?: RegExp): string[];
+    }
+
+    //_.parseInt
+    interface LoDashStatic {
+        /**
+        * Converts the given value into an integer of the specified radix. If radix is undefined or 0 a 
+        * radix of 10 is used unless the value is a hexadecimal, in which case a radix of 16 is used.
+        *
+        * Note: This method avoids differences in native ES3 and ES5 parseInt implementations. See 
+        * http://es5.github.io/#E.
+        * @param value The value to parse.
+        * @param radix The radix used to interpret the value to parse.
+        * @return The new integer value.
+        **/
+        parseInt(value: string, radix?: number): number;
+    }
+
     /*************
      * Utilities *
      *************/
@@ -6165,22 +6218,6 @@ declare module _ {
         noConflict(): typeof _;
     }
 
-    //_.parseInt
-    interface LoDashStatic {
-        /**
-        * Converts the given value into an integer of the specified radix. If radix is undefined or 0 a 
-        * radix of 10 is used unless the value is a hexadecimal, in which case a radix of 16 is used.
-        *
-        * Note: This method avoids differences in native ES3 and ES5 parseInt implementations. See 
-        * http://es5.github.io/#E.
-        * @param value The value to parse.
-        * @param radix The radix used to interpret the value to parse.
-        * @return The new integer value.
-        **/
-        parseInt(value: string): number;
-    }
-    
-    
     //_.property
     interface LoDashStatic {
         /**

@@ -4,11 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module WebCola{
     interface Adaptor {
+        new(options: { [index:number]: any }): Adaptor;
         avoidOverlaps(avodOverLaps: boolean): Adaptor;
         constraints(constraints: any): Adaptor;
         convergenceThreshold(convergenceThreshold: number): Adaptor;
-        dragend(node: { [index: number]: any }): void;
-        dragstart(node: { [index: number]: any }): void;
         flowLayout(axis: string, minSeparation: number): Adaptor;
         handleDisconnected(handleDisconnected: boolean): Adaptor;
         links(links: any): Adaptor;
@@ -22,17 +21,36 @@ declare module WebCola{
             initialAllConstraintsIterations: number
         ): void;
         stop(): void;
+        tick(): any;
     }
 
     interface Cola {
-        adaptor(options: { [index:number]: any }): Adaptor;
+        adaptor: Adaptor;
+        colaDragstart(node: { [index: number]: any }): void;
+        colaDragend(node: { [index: number]: any }): void;
         start(): void;
         stop(): void;
     }
 
-    interface FlowLayout{
+    interface Constraint {
+        axis: string;
+        gap: number;
+        left: number;
+        right: number;
+    }
+
+    interface FlowLayout {
         axis: string;
         minSeparation?: number;
+    }
+
+    interface Node {
+        height: number;
+        id: string;
+        size: number;
+        width: number;
+        x: number;
+        y: number;
     }
 
     interface Options {

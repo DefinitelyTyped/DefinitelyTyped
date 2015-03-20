@@ -317,7 +317,17 @@ declare var footstepsBuffer: any;
 
 ()=>{
     var context = new webkitOfflineAudioContext(1, 2, 44100.5);
+    context.oncomplete = function(e) {
+        context.createBufferSource().buffer;
+    }
     context.startRendering();
-    context.oncomplete(context.createBufferSource().buffer);
 }
 
+// Test automatic type inference of the audio processing event handler
+() => {
+    var context = new AudioContext();
+    var recorder = context.createScriptProcessor(2048, 1, 1);
+    recorder.onaudioprocess = function (e) {
+        e.inputBuffer;
+    };
+}

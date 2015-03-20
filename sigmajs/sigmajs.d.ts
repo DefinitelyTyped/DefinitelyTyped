@@ -74,6 +74,14 @@ declare module SigmaJs{
         nodes(ids: string[]): Node[];
     }
 
+    interface Image {
+        clip?: number;
+        scale?: number;
+        url?: string;
+        x?: number;
+        y?: number;
+    }
+
     interface Miscellaneous {
         animation: Animation;
     }
@@ -246,7 +254,7 @@ declare module SigmaJs{
 
         // Global settings
         autoResize?: boolean;
-        autoRescale?: boolean;
+        autoRescale?: any;
         enableCamera?: boolean;
         enableHovering?: boolean;
         enableEdgeHovering?: boolean;

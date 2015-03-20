@@ -224,9 +224,11 @@ declare module moment {
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
         diff(b: Moment, unitOfTime: string, round: boolean): number;
-
+        
+        toArray(): number[];
         toDate(): Date;
         toISOString(): string;
+        toJSON(): string;
         unix(): number;
 
         isLeapYear(): boolean;
@@ -399,6 +401,8 @@ declare module moment {
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
         isMoment(m: any): boolean;
+        isDuration(): boolean;
+        isDuration(d: any): boolean;
 
         // Deprecated in 2.8.0.
         lang(language?: string): string;

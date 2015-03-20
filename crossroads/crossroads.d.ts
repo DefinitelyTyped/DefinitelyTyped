@@ -153,3 +153,7 @@ declare module CrossroadsJs {
 }
 
 declare var crossroads: CrossroadsJs.CrossRoadsStatic;
+
+declare module 'crossroads'{
+    export = crossroads;
+}

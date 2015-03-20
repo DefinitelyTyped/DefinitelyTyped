@@ -43,7 +43,7 @@ declare module Backbone {
         last(): View<TModel>;
         last(n: number): View<TModel>[];
         lastIndexOf(element: View<TModel>, fromIndex?: number): number;
-        map(iterator: (element: View<TModel>, index: number, context?: any) => any[], context?: any): any[];
+        map<U>(iterator: (element: View<TModel>, index: number, context?: any) => U, context?: any): U[];
         pluck(attribute: string): any[];
         reject(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
         rest(): View<TModel>;
@@ -231,6 +231,8 @@ declare module Marionette {
          * @param optionName the name of the option to retrieve.
          */
         getOption(optionName: string): any;
+
+        triggerMethod(name: string, ...args: any[]): any;
     }
 
     interface RegionConstructionOptions {
@@ -720,6 +722,12 @@ declare module Marionette {
          */
         getTemplate(): any;
 
+
+        /**
+         * Retrieve an object's attribute either directly from the object, or
+         * from the object's this.options, with this.options taking precedence.
+         */
+        getOption<T>(optionName:string): T;
 
         mixinTemplateHelpers(target?: any): any;
         configureTriggers(): any;
