@@ -586,13 +586,13 @@ declare module angular {
     }
 
     interface IScope extends IRootScopeService { }
-	
+
     /**
      * $scope for ngRepeat directive.
      * see https://docs.angularjs.org/api/ng/directive/ngRepeat
      */
     interface IRepeatScope extends IScope {
-	
+
         /**
          * iterator offset of the repeated element (0..length-1).
          */
@@ -622,7 +622,7 @@ declare module angular {
          * true if the iterator position $index is odd (otherwise false).
          */
         $odd: boolean;
-	
+
 	}
 
     interface IAngularEvent {
@@ -891,6 +891,7 @@ declare module angular {
         // implementation tests it as boolean, which makes more sense
         // since this is a toggler
         html5Mode(active: boolean): ILocationProvider;
+        html5Mode(mode: { enabled?: boolean; requireBase?: boolean; rewriteLinks?: boolean; }): ILocationProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
