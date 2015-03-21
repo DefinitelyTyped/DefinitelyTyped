@@ -369,7 +369,6 @@ declare module jasmine {
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
         wasCalled: boolean;
-        callCount: number;
     }
 
     interface SpyAnd {
