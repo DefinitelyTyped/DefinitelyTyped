@@ -180,7 +180,7 @@ interface Validator
      * @param name The name of the method used to identify it and referencing it; this must be a valid JavaScript identifier
      * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
      */
-	addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => any, message?: any): void;
+	addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string): void;
     /**
      * Validates a single element, returns true if it is valid, false otherwise.
      * 
@@ -223,9 +223,12 @@ interface Validator
 	valid(): boolean;
 	validElements(): HTMLElement[];
 	size(): number;
+	focusInvalid(): void;
+	messages: { [index: string]: string };
 
-   	errorMap: ErrorDictionary;
+	errorMap: ErrorDictionary;
 	errorList: ErrorListItem[];
+	methods: { [index: string]: Function };
 }
 
 interface JQuery
