@@ -79,7 +79,7 @@ declare var Buffer: {
 ************************************************/
 declare module NodeJS {
     export interface ErrnoException extends Error {
-        errno?: any;
+        errno?: number;
         code?: string;
         path?: string;
         syscall?: string;
