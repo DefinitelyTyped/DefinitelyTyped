@@ -98,7 +98,7 @@ declare module NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        read(size?: number): any;
+        read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
@@ -1225,7 +1225,7 @@ declare module "stream" {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
-        read(size?: number): any;
+        read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
