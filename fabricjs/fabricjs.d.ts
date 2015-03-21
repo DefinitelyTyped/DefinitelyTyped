@@ -881,5 +881,19 @@ declare module fabric {
         toArray(arrayLike): any[];
         toFixed(number, fractionDigits);
         wrapElement(element: HTMLElement, wrapper, attributes);
+        rotatePoint(point: IPoint, origin: IPoint, radians: number);
+        transformPoint(p: IPoint, t: any[], ignoreOffset: boolean);
+        invertTransform(t: any[]);
+        parseUnit(value: number|string, fontSize?: number);
+        getKlass(type: string, namespace: string); 
+        resolveNamespace(namespace: string);
+        enlivenObjects(objects: any[], callback: Function, namespace: string, reviver: Function);
+        drawDashedLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number, da: any[]);
+        createCanvasElement(canvasEl?: HTMLElement);
+        createImage();
+        createAccessors(klass: Object);
+        clipContext(receiver: IObject, ctx: CanvasRenderingContext2D);
+        isTransparent(ctx: CanvasRenderingContext2D, x: number, y: number, tolerance: number);
+
     }
 }
