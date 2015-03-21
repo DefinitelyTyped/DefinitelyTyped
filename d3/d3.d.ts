@@ -779,9 +779,34 @@ declare module D3 {
         };
 
         datum: {
+            /**
+             * Sets the element's bound data to the return value of the specified function evaluated
+             * for each selected element.
+             * Unlike the D3.Selection.data method, this method does not compute a join (and thus
+             * does not compute enter and exit selections).
+             * @param values The function to be evaluated for each selected element, being passed the
+             * previous datum d and the current index i, with the this context as the current DOM
+             * element. The function is then used to set each element's data. A null value will
+             * delete the bound data. This operator has no effect on the index.
+             */
             (values: (data: any, index: number) => any): UpdateSelection;
+            /**
+             * Sets the element's bound data to the specified value on all selected elements.
+             * Unlike the D3.Selection.data method, this method does not compute a join (and thus
+             * does not compute enter and exit selections).
+             * @param values The same data to be given to all elements.
+             */
             (values: any): UpdateSelection;
-            () : any;
+            /**
+             * Returns the bound datum for the first non-null element in the selection.
+             * This is generally useful only if you know the selection contains exactly one element.
+             */
+            (): any;
+            /**
+             * Returns the bound datum for the first non-null element in the selection.
+             * This is generally useful only if you know the selection contains exactly one element.
+             */
+            <T>(): T;
         };
 
         filter: {
