@@ -28,8 +28,8 @@ interface LinearChartData {
 interface CircularChartData {
     value: number;
     color: string;
-    highlight: string;
-    label: string;
+    highlight?: string;
+    label?: string;
 }
 
 interface ChartSettings {
