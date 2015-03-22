@@ -42,7 +42,7 @@ declare module "redis" {
 		retry_max_delay?: number;
 		connect_timeout?: number;
 		max_attempts?: number;
-		auth_pass?: boolean;
+		auth_pass?: string;
 	}
 
 	interface RedisClient extends NodeJS.EventEmitter {
