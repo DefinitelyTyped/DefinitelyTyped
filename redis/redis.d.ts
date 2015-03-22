@@ -33,7 +33,7 @@ declare module "redis" {
 	}
 
 	interface ClientOpts {
-		parser: string;
+		parser?: string;
 		return_buffers?: boolean;
 		detect_buffers?: boolean;
 		socket_nodelay?: boolean;
