@@ -114,7 +114,3 @@ declare module Backbone {
   }
 }
 
-declare module 'backbone.marionette' {
-    import Backbone = require('backbone');
-}
-
