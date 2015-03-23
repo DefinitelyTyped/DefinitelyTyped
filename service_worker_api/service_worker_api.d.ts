@@ -557,7 +557,7 @@ interface ServiceWorker extends Worker {
      *
      * @param [statechangeevent]
      */
-    onstatechange: (statechangeevent?: Event) => void;
+    onstatechange: (statechangeevent?: any) => void;
 }
 
 /**
