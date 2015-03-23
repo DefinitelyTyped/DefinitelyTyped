@@ -32,8 +32,35 @@ interface S3UploaderOptions {
     versions?: S3UploaderVersion;
 }
 
+declare class Meta {
+    public format: string;
+    public fileSize: string;
+    public imageSize: imageSize;
+    public orientation: string;
+    public colorSpace: string;
+    public compression: string;
+    public quallity: string;
+}
+
+declare class imageSize {
+    public height: number;
+    public width: number;
+}
+
+declare class image {
+    public etag: string;
+    public format: string;
+    public height: number;
+    public original: boolean;
+    public path: string;
+    public size: string;
+    public src: string;
+    public url: string;
+    public width: number;
+}
+
 declare class Upload {
     public constructor(awsBucketName: string, opts: S3UploaderOptions);
 
-    public upload(src: string, opts?: S3UploaderOptions, cb?: (err, images, meta) => void);
+    public upload(src: string, opts?: S3UploaderOptions, cb?: (err: string, images: image[], meta: Meta) => void): void;
 }
