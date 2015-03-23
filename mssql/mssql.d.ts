@@ -42,17 +42,17 @@ declare module "mssql" {
 
         public constructor(config: config, callback?: (err?: any) => void);
 
-        public connect(callback?: (err?: any) => void);
+        public connect(callback?: (err?: any) => void): void;
 
-        public close();
+        public close(): void;
     }
 
     class columns {
-        public add(name: string, type: any, options: any);
+        public add(name: string, type: any, options: any): void;
     }
 
     class rows {
-        public add(any);
+        public add(any): void;
     }
 
     export class Table {
@@ -65,32 +65,32 @@ declare module "mssql" {
 
     export class Request {
         public constructor(connection?: Connection);
-        public execute(procedure: string, callback?: (err?: any, recordsets?: any, returnValue?: any) => void);
-        public input(name: string, value: any);
-        public input(name: string, type: any, value: any);
-        public output(name: string, type: any, value?: any);
-        public pipe(stream: any);
-        public query(command: string, callback?: (err?: any, recordset?: any) => void);
-        public batch(batch: string, callback?: (err?: any, recordset?: any) => void);
-        public bulk(table: Table, callback?: (err?: any, rowCount?: any) => void);
-        public cancel();
+        public execute(procedure: string, callback?: (err?: any, recordsets?: any, returnValue?: any) => void): void;
+        public input(name: string, value: any): void;
+        public input(name: string, type: any, value: any): void;
+        public output(name: string, type: any, value?: any): void;
+        public pipe(stream: any): void;
+        public query(command: string, callback?: (err?: any, recordset?: any) => void): void;
+        public batch(batch: string, callback?: (err?: any, recordset?: any) => void): void;
+        public bulk(table: Table, callback?: (err?: any, rowCount?: any) => void): void;
+        public cancel(): void;
         public parameters: any;
     }
 
     export class Transaction {
         public constructor(connection?: Connection);
-        public begin(isolationLevel?: any, callback?: (err?: any) => void);
-        public begin(callback?: (err?: any) => void);
-        public commit(callback?: (err?: any) => void);
-        public rollback(callback?: (err?: any) => void);
+        public begin(isolationLevel?: any, callback?: (err?: any) => void): void;
+        public begin(callback?: (err?: any) => void): void;
+        public commit(callback?: (err?: any) => void): void;
+        public rollback(callback?: (err?: any) => void): void;
     }
 
     export class PreparedStatement {
         public constructor(connection?: Connection);
-        public input(name: string, type: any);
-        public output(name: string, type: any);
-        public prepare(statement: string, callback?: (err?: any) => void);
-        public execute(values: any, callback?: (err?: any) => void);
-        public unprepare(callback?: (err?: any) => void);
+        public input(name: string, type: any): void;
+        public output(name: string, type: any): void;
+        public prepare(statement: string, callback?: (err?: any) => void): void;
+        public execute(values: any, callback?: (err?: any) => void): void;
+        public unprepare(callback?: (err?: any) => void): void;
     }
 }
