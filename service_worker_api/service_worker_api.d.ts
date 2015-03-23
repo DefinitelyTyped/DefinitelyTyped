@@ -1,6 +1,6 @@
 // Type definitions for service_worker_api
 // Project: https://developer.mozilla.org/fr/docs/Web/API/ServiceWorker_API
-// Definitions by: Tristan Caron <contact@tristan-caron.com>
+// Definitions by: Tristan Caron <https://github.com/tristancaron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
@@ -526,9 +526,9 @@ interface FetchEvent extends Event {
     /**
      * Resolves by returning a Response or a network error to Fetch.
      *
-     * @param any
+     * @param all
      */
-    respondWith(any): Response;
+    respondWith(all: any): Response;
 }
 
 /**
@@ -658,7 +658,7 @@ interface ServiceWorkerRegistration extends EventTarget {
     /**
      * Allows you to update a service worker.
      */
-    update();
+    update(): void;
 
     /**
      * Unregisters the service worker registration and returns a promise
