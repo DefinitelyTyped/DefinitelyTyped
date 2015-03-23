@@ -136,7 +136,7 @@ navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(functi
     // The service worker will not handle requests until this page and any
     // other instances of this page (in other tabs, etc.) have been
     // closed/reloaded.
-    var serviceWorker: ServiceWorkerRegistration;
+    var serviceWorker: ServiceWorker;
     if (registration.installing) {
         serviceWorker = registration.installing;
     } else if (registration.waiting) {
@@ -146,7 +146,7 @@ navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(functi
     }
     if (serviceWorker) {
         console.log(serviceWorker.state);
-        serviceWorker.addEventListener('statechange', function(e: Event) {
+        serviceWorker.addEventListener('statechange', function(e: any) {
             console.log(e.target.state);
         });
     }
