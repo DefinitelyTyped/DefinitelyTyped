@@ -1290,24 +1290,24 @@ declare module D3 {
         }
 
         export interface GraphNode  {
-            id: number;
-            index: number;
-            name: string;
-            px: number;
-            py: number;
-            size: number;
-            weight: number;
-            x: number;
-            y: number;
-            subindex: number;
-            startAngle: number;
-            endAngle: number;
-            value: number;
-            fixed: boolean;
-            children: GraphNode[];
-            _children: GraphNode[];
-            parent: GraphNode;
-            depth: number;
+            id?: number;
+            index?: number;
+            name?: string;
+            px?: number;
+            py?: number;
+            size?: number;
+            weight?: number;
+            x?: number;
+            y?: number;
+            subindex?: number;
+            startAngle?: number;
+            endAngle?: number;
+            value?: number;
+            fixed?: boolean;
+            children?: GraphNode[];
+            _children?: GraphNode[];
+            parent?: GraphNode;
+            depth?: number;
         }
 
         export interface GraphLink {
