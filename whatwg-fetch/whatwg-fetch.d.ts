@@ -3,7 +3,6 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../typescript-services/typescriptServices.d.ts" />
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare class Request {
@@ -38,17 +37,13 @@ declare enum RequestMode { "same-origin", "no-cors", "cors" }
 declare enum RequestCredentials { "omit", "same-origin", "include" }
 declare enum RequestCache { "default", "no-store", "reload", "no-cache", "force-cache", "only-if-cached" }
 
-declare class Headers implements TypeScript.Iterator<string> {
+declare class Headers {
 	append(name: string, value: string): void;
 	delete(name: string):void;
 	get(name: string): string;
 	getAll(name: string): Array<string>;
 	has(name: string): boolean;
 	set(name: string, value: string): void;
-
-	moveNext(): boolean;
-
-	current(): string;
 }
 
 declare class Body {
