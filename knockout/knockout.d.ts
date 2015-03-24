@@ -121,6 +121,8 @@ interface KnockoutBindingContext {
     $rawData: any | KnockoutObservable<any>;
     $index?: KnockoutObservable<number>;
     $parentContext?: KnockoutBindingContext;
+    $component: any;
+    $componentTemplateNodes: Node[];
 
     extend(properties: any): any;
     createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
@@ -603,7 +605,8 @@ declare module KnockoutComponentTypes {
     }
 
     interface ComponentInfo {
-        element: any;
+        element: Node;
+        templateNodes: Node[];
     }
 
     interface TemplateElement {
