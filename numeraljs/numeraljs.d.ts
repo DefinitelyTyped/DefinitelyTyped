@@ -40,3 +40,9 @@ interface Numeral {
 }
 
 declare var numeral: Numeral;
+
+declare module "numeral" {
+
+    export = numeral;
+
+}

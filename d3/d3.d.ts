@@ -549,10 +549,17 @@ declare module D3 {
         functor<R,T>(value: (p : R) => T): (p : R) => T;
         functor<T>(value: T): (p : any) => T;
 
-        map(): Map<any>;
-        set(): Set<any>;
-        map<T>(object: {[key: string]: T; }): Map<T>;
-        set<T>(array: T[]): Set<T>;
+        map: {
+            (): Map<any>;
+            <T>(object: {[key: string]: T; }): Map<T>;
+            <T>(map: Map<T>): Map<T>;
+            <T>(array: T[]): Map<T>;
+            <T>(array: T[], keyFn: (object: T, index?: number) => string): Map<T>;
+        };
+        set: {
+            (): Set<any>;
+            <T>(array: T[]): Set<T>;
+        };
         dispatch(...types: string[]): Dispatch;
         rebind(target: any, source: any, ...names: any[]): any;
         requote(str: string): string;
@@ -702,8 +709,9 @@ declare module D3 {
         * Parse a delimited string into objects using the header row.
         *
         * @param string delimited formatted string to parse
+        * @param accessor to modify properties of each row
         */
-        parse(string: string): any[];
+        parse(string: string, accessor?: (row: any, index?: number) => any): any[];
         /**
         * Parse a delimited string into tuples, ignoring the header row.
         *
@@ -727,7 +735,7 @@ declare module D3 {
         };
 
         classed: {
-            (name: string): string;
+            (name: string): boolean;
             (name: string, value: any): Selection;
             (name: string, valueFunction: (data: any, index: number) => any): Selection;
             (classValueMap: Object): Selection;
@@ -771,14 +779,39 @@ declare module D3 {
         };
 
         datum: {
+            /**
+             * Sets the element's bound data to the return value of the specified function evaluated
+             * for each selected element.
+             * Unlike the D3.Selection.data method, this method does not compute a join (and thus
+             * does not compute enter and exit selections).
+             * @param values The function to be evaluated for each selected element, being passed the
+             * previous datum d and the current index i, with the this context as the current DOM
+             * element. The function is then used to set each element's data. A null value will
+             * delete the bound data. This operator has no effect on the index.
+             */
             (values: (data: any, index: number) => any): UpdateSelection;
+            /**
+             * Sets the element's bound data to the specified value on all selected elements.
+             * Unlike the D3.Selection.data method, this method does not compute a join (and thus
+             * does not compute enter and exit selections).
+             * @param values The same data to be given to all elements.
+             */
             (values: any): UpdateSelection;
-            () : any;
+            /**
+             * Returns the bound datum for the first non-null element in the selection.
+             * This is generally useful only if you know the selection contains exactly one element.
+             */
+            (): any;
+            /**
+             * Returns the bound datum for the first non-null element in the selection.
+             * This is generally useful only if you know the selection contains exactly one element.
+             */
+            <T>(): T;
         };
 
         filter: {
             (filter: (data: any, index: number) => boolean, thisArg?: any): UpdateSelection;
-            //(filter: string): UpdateSelection;
+            (filter: string): UpdateSelection;
         };
 
         call(callback: (selection: Selection, ...args: any[]) => void, ...args: any[]): Selection;
@@ -849,7 +882,7 @@ declare module D3 {
         sortKeys(comparator: (d1: any, d2: any) => number): Nest;
         sortValues(comparator: (d1: any, d2: any) => number): Nest;
         rollup(rollupFunction: (data: any, index: number) => any): Nest;
-        map(values: any[]): any;
+        map(values: any[], mapType?: any): any;
         entries(values: any[]): NestKeyValue[];
     }
 
@@ -962,7 +995,29 @@ declare module D3 {
                 */
                 (elements: EventTarget[]): Transition;
             }
-            each: (type?: string, eachFunction?: (data: any, index: number) => any) => Transition;
+            each: {
+                /**
+                 * Immediately invokes the specified function for each element in the current
+                 * transition, passing in the current datum and index, with the this context
+                 * of the current DOM element. Similar to D3.Selection.each.
+                 *
+                 * @param eachFunction The function to be invoked for each element in the
+                 * current transition, passing in the current datum and index, with the this
+                 * context of the current DOM element.
+                 */
+                (eachFunction: (data: any, index: number) => any): Transition;
+                /**
+                 * Adds a listener for transition events, supporting "start", "end" and
+                 * "interrupt" events. The listener will be invoked for each individual
+                 * element in the transition.
+                 *
+                 * @param type Type of transition event. Supported values are "start", "end"
+                 * and "interrupt".
+                 * @param listener The listener to be invoked for each individual element in
+                 * the transition.
+                 */
+                (type: string, listener: (data: any, index: number) => any): Transition;
+            }
             transition: () => Transition;
             ease: (value: string, ...arrs: any[]) => Transition;
             attrTween(name: string, tween: (d: any, i: number, a: any) => BaseInterpolate): Transition;
@@ -1235,24 +1290,24 @@ declare module D3 {
         }
 
         export interface GraphNode  {
-            id: number;
-            index: number;
-            name: string;
-            px: number;
-            py: number;
-            size: number;
-            weight: number;
-            x: number;
-            y: number;
-            subindex: number;
-            startAngle: number;
-            endAngle: number;
-            value: number;
-            fixed: boolean;
-            children: GraphNode[];
-            _children: GraphNode[];
-            parent: GraphNode;
-            depth: number;
+            id?: number;
+            index?: number;
+            name?: string;
+            px?: number;
+            py?: number;
+            size?: number;
+            weight?: number;
+            x?: number;
+            y?: number;
+            subindex?: number;
+            startAngle?: number;
+            endAngle?: number;
+            value?: number;
+            fixed?: boolean;
+            children?: GraphNode[];
+            _children?: GraphNode[];
+            parent?: GraphNode;
+            depth?: number;
         }
 
         export interface GraphLink {
@@ -1278,10 +1333,8 @@ declare module D3 {
         export interface ForceLayout {
             (): ForceLayout;
             size: {
-                (): number;
+                (): number[];
                 (mysize: number[]): ForceLayout;
-                (accessor: (d: any, index: number) => {}): ForceLayout;
-
             };
             linkDistance: {
                 (): number;
@@ -1672,8 +1725,8 @@ declare module D3 {
         }
 
         export interface Symbol {
-            type: (string:string) => Symbol;
-            size: (number:number) => Symbol;
+            type: (symbolType: string | ((datum: any, index: number) => string)) => Symbol;
+            size: (size: number | ((datum: any, index: number) => number)) => Symbol;
             (datum:any, index:number): string;
         }
 
@@ -1751,7 +1804,7 @@ declare module D3 {
         export interface Axis {
             (selection: Selection): void;
             (transition: Transition.Transition): void;
-            
+
             scale: {
                 (): any;
                 (scale: any): Axis;
@@ -1789,7 +1842,7 @@ declare module D3 {
                 (): number;
                 (value: number): Axis;
             }
-            tickFormat(formatter: (value: any) => string): Axis;
+            tickFormat(formatter: (value: any, index?: number) => string): Axis;
             nice(count?: number): Axis;
         }
 

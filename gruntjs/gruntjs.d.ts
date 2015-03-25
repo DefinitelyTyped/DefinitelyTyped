@@ -790,6 +790,22 @@ declare module grunt {
              */
             registerMultiTask(taskName: string, taskFunction: Function): void
             registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
+            
+            /**
+             * Check with the name, if a task exists in the registered tasks.
+             * @param name The task name to check.
+             * @since 0.4.5
+             */
+            exists(name: string): boolean;
+            
+            /**
+             * Rename a task. This might be useful if you want to override the default behavior of a task, while retaining the old name.
+             * Note that if a task has been renamed, the this.name and this.nameArgs properties will change accordingly.
+             * @see ITask
+             * @param oldname The previous name of the task.
+             * @param newname The new name for the task.
+             */
+            renameTask(oldname: string, newname: string): void
         }
 
         /**
