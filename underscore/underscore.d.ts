@@ -42,15 +42,15 @@ declare module _ {
 	}
 
 	interface ListIterator<T, TResult> {
-		(value: T, index: number, list: T[]): TResult;
+		(value: T, index?: number, list?: T[]): TResult;
 	}
 
 	interface ObjectIterator<T, TResult> {
-		(element: T, key: string, list: any): TResult;
+		(element: T, key?: string, list?: any): TResult;
 	}
 
 	interface MemoIterator<T, TResult> {
-		(prev: TResult, curr: T, index: number, list: T[]): TResult;
+		(prev: TResult, curr: T, index?: number, list?: T[]): TResult;
 	}
 
 	interface Collection<T> { }
