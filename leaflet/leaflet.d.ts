@@ -955,7 +955,7 @@ declare module L {
           * 1 for an array of arrays of points, etc., 0 by default). If reverse is set to
           * true, the numbers will be interpreted as (longitude, latitude).
           */
-        coordsToLatLngs(coords: number[], levelsDeep?: number, reverse?: boolean): LatLng[];
+        coordsToLatLngs(coords: any[], levelsDeep?: number, reverse?: boolean): any[];
     }
     export var GeoJSON: GeoJSONStatic;
 
