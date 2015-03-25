@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "react" {
+declare module React {
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -762,5 +762,9 @@ declare module "react" {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
+}
+
+declare module "react" {
+    export = React
 }
 
