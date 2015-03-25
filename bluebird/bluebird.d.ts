@@ -404,7 +404,12 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 *
 	 * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
 	 */
-	// TODO how to model promisify?
+	static promisify<T>(func: (callback: (err:any, result: T) => void) => void, receiver?: any): () => Promise<T>;
+	static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1) => Promise<T>;
+	static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2) => Promise<T>;
+	static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3) => Promise<T>;
+	static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Promise<T>;
+	static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Promise<T>;
 	static promisify(nodeFunction: Function, receiver?: any): Function;
 
 	/**

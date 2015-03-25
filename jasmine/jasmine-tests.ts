@@ -712,6 +712,23 @@ describe("Asynchronous specs", function () {
         expect(value).toBeGreaterThan(0);
         done();
     });
+
+    describe("long asynchronous specs", function() {
+        beforeEach(function(done) {
+          done();
+        }, 1000);
+
+        it("takes a long time", function(done) {
+          setTimeout(function() {
+            done();
+          }, 9000);
+        }, 10000);
+
+        afterEach(function(done) {
+          done();
+        }, 1000);
+    });
+
 });
 
 describe("Fail", function () {

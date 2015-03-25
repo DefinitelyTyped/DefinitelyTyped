@@ -16,7 +16,7 @@ declare module jquery.flot {
         xaxes?: axisOptions[];
         yaxes?: axisOptions[];
         grid?: gridOptions;
-        interfaction?: interaction;
+        interaction?: interaction;
         hooks?: hooks;
     }
 
@@ -107,7 +107,7 @@ declare module jquery.flot {
         ticks?: any;                                    // null or number or ticks array or (fn: axis -> ticks array)
         tickSize?: any;                                 // number or array
         minTickSize?: any;                              // number or array
-        tickFormatter?: (t: number) => string;                            // (fn: number, object -> string) or string
+        tickFormatter?: (t: number, a?: axis) => string;                            // (fn: number, object -> string) or string
         tickDecimals?: number;
 
         labelWidth?: number;
@@ -198,9 +198,16 @@ declare module jquery.flot {
         c2p(canvasPoint: canvasPoint):point;
     }
 
+    interface plugin {
+        init(options: plotOptions): any;
+        options?: any;
+        name?: string;
+        version?: string;
+    }
+
     interface plot {
         highlight(series: dataSeries, datapoint: item): void;
-        unhightlight(): void;
+        unhighlight(): void;
         unhighlight(series: dataSeries, datapoint: item): void;
         setData(data: any): void;
         setupGrid(): void;
@@ -221,9 +228,14 @@ declare module jquery.flot {
         getPlotOffset(): canvasPoint;
         getOptions(): plotOptions;
     }
+
+    interface plotStatic {
+        (placeholder: JQuery, data: dataSeries[], options?: plotOptions): plot;
+        (placeholder: JQuery, data: any[], options?: plotOptions): plot;
+        plugins: plugin[];
+    }
 }
 
 interface JQueryStatic {
-    plot(placeholder: JQuery, data: jquery.flot.dataSeries[], options?: jquery.flot.plotOptions): jquery.flot.plot;
-    plot(placeholder: JQuery, data: any[], options?: jquery.flot.plotOptions): jquery.flot.plot;
+    plot: jquery.flot.plotStatic;
 }

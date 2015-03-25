@@ -14,14 +14,14 @@ declare module Dagre{
         edge(id: string): any;
         nodes(): string[];
         node(id: string): any;
-        setDefaultEdgeLabel(callback: () => void): void;
-        setEdge(sourceId: string, targetId: string): void;
-        setGraph(options: { [key: string]: any }): void;
-        setNode(id: string, node: { [key: string]: any }): void;
+        setDefaultEdgeLabel(callback: () => void): Graph;
+        setEdge(sourceId: string, targetId: string): Graph;
+        setGraph(options: { [key: string]: any }): Graph;
+        setNode(id: string, node: { [key: string]: any }): Graph;
     }
 
     interface GraphLib {
-        Graph: Graph
+        Graph: Graph;
     }
 }
 
