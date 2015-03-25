@@ -1,15 +1,12 @@
 // Type definitions for JQuery DataTables 1.10.5
 // Project: http://www.datatables.net
-// Definitions by: Kiarash Ghiaseddin <kiarash@si-co.net>
+// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
 // - Plugin and extension definitions are not typed.
 // - Some return types are not fully wokring
-
-
-/// <reference path="../jquery/jquery.d.ts" />
 
 interface JQuery {
     DataTable(param?: DataTables.Settings): DataTables.DataTable;
@@ -1651,6 +1648,7 @@ declare module DataTables {
     }
 
     export interface SettingsLegacy {
+        ajax: any;
         oApi: any;
         oFeatures: FeaturesLegacy;
         oScroll: ScrollingLegacy;
@@ -1659,7 +1657,6 @@ declare module DataTables {
         aanFeatures: ArrayStringNode[][];
         aoData: RowLegacy[];
         aiDisplay: number[];
-        //bServerSide: boolean;
         aiDisplayMaster: number[];
         aoColumns: ColumnLegacy[];
         aoHeader: any[];
