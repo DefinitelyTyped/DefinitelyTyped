@@ -353,6 +353,10 @@ declare module "http" {
         statusMessage: string;
         socket: net.Socket;
     }
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export interface ClientResponse extends IncomingMessage { }
 
 	export interface AgentOptions {
 		/**
