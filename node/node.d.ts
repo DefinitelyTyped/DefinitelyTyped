@@ -340,14 +340,18 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientResponse extends events.EventEmitter, stream.Readable {
-        statusCode: number;
+    export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
         headers: any;
+        rawHeaders: string[];
         trailers: any;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
+        rawTrailers: any;
+        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
+        method: string;
+        url: string;
+        statusCode: number;
+        statusMessage: string;
+        socket: net.Socket;
     }
 
 	export interface AgentOptions {
@@ -392,8 +396,8 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: Function): ClientRequest;
-    export function get(options: any, callback?: Function): ClientRequest;
+    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -563,8 +567,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
