@@ -128,7 +128,7 @@ declare module "mongoose" {
     versionKey?: boolean;
   }
 
-  export interface Model<T extends Document> {
+  export interface Model<T extends Document> extends NodeJS.EventEmitter {
     new(doc: Object): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
