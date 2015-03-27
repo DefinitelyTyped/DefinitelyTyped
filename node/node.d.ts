@@ -282,15 +282,10 @@ declare module "http" {
         address(): { port: number; family: string; address: string; };
         maxHeadersCount: number;
     }
-    export interface ServerRequest extends events.EventEmitter, stream.Readable {
-        method: string;
-        url: string;
-        headers: any;
-        trailers: string;
-        httpVersion: string;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
     export interface ServerResponse extends events.EventEmitter, stream.Writable {
@@ -398,7 +393,7 @@ declare module "http" {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
-    export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
+    export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
     export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
