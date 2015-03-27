@@ -550,14 +550,20 @@ knex.select('*')
 // Migrations
 //
 var config = { };
-knex.migrate.make(name, [config]);
+knex.migrate.make(name, config);
+knex.migrate.make(name);
 
-knex.migrate.latest([config]);
+knex.migrate.latest(config);
+knex.migrate.latest();
 
-knex.migrate.rollback([config]);
+knex.migrate.rollback(config);
+knex.migrate.rollback();
 
-knex.migrate.currentversion([config]);
+knex.migrate.currentversion(config);
+knex.migrate.currentversion();
 
-knex.seed.make(name, [config]);
+knex.seed.make(name, config);
+knex.seed.make(name);
 
-knex.seed.run([config]);
+knex.seed.run(config);
+knex.seed.run();
