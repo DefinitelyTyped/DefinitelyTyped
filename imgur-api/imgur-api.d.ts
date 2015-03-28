@@ -32,9 +32,6 @@ declare module ImgurApi {
         blocked_users: Array<BlockedUser>;
     }
 
-    /**
-     * This model represents the data for albums
-     */
     interface Album {
         id: string;
         title: string;
