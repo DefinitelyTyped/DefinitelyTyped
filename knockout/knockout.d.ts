@@ -325,8 +325,6 @@ interface KnockoutUtils {
 
     range(min: any, max: any): any;
 
-    makeArray(arrayLikeObject: any): any[];
-
     getFormFields(form: any, fieldName: string): any[];
 
     parseJson(jsonString: string): any;
