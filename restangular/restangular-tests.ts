@@ -82,6 +82,9 @@ myApp.controller('TestCtrl', (
   Restangular.one('accounts', 123).getList('buildings');
   Restangular.one('accounts', 123).getList<String>('buildings');
 
+  var accountData = Restangular.one('accounts', 123).plain();
+  var accountClone: restangular.IElement = Restangular.one('accounts', 123).clone();
+
   baseAccounts.getList().then(function (accounts) {
     var firstAccount = accounts[0];
     $scope.buildings = firstAccount.getList("buildings");
