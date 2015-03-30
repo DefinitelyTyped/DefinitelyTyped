@@ -342,10 +342,22 @@ declare module "http" {
         trailers: any;
         rawTrailers: any;
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
-        method: string;
-        url: string;
-        statusCode: number;
-        statusMessage: string;
+        /**
+         * Only valid for request obtained from http.Server.
+         */
+        method?: string;
+        /**
+         * Only valid for request obtained from http.Server.
+         */
+        url?: string;
+        /**
+         * Only valid for response obtained from http.ClientRequest.
+         */
+        statusCode?: number;
+        /**
+         * Only valid for response obtained from http.ClientRequest.
+         */
+        statusMessage?: string;
         socket: net.Socket;
     }
     /**
