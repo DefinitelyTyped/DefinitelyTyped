@@ -57,7 +57,9 @@ declare module D3 {
         x: number;
         y: number;
         keyCode: number;
-        altKey: any;
+        altKey?: boolean;
+        ctrlKey?: boolean;
+        metaKey?: boolean;
         type: string;
     }
 

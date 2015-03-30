@@ -2657,3 +2657,17 @@ function multiTest() {
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 }
+
+// Tests miscellaneous keyboard events
+function keyboardEventsTest() {
+    var keyPressed: string;
+    d3.select("body").on("keydown", () => {
+        if (d3.event.metaKey) {
+            keyPressed = "meta";
+        } else if (d3.event.ctrlKey) {
+            keyPressed = "ctrl";
+        } else if (d3.event.altKey) {
+            keyPressed = "alt";
+        }
+    });
+}
