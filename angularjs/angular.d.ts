@@ -931,11 +931,19 @@ declare module angular {
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
-         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         * Returns a single promise that will be resolved with an array of values, each value corresponding to the promise at the same index in the promises array. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
          *
-         * @param promises An array or hash of promises.
+         * @param promises An array of promises.
          */
-        all(promises: IPromise<any>[]|{ [id: string]: IPromise<any>; }): IPromise<any[]>;
+        all(promises: IPromise<any>[]): IPromise<any[]>;
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         *
+         * Returns a single promise that will be resolved with a hash of values, each value corresponding to the promise at the same key in the promises hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         *
+         * @param promises A hash of promises.
+         */
+        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
