@@ -3,7 +3,7 @@
 // Definitions by: Tim Jonischkat <http://www.tim-jonischkat.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module yamljs {
+declare module "yamljs" {
 
     export function load(path : string) : any;
 
