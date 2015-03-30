@@ -147,11 +147,11 @@ declare module "hapi" {
 		};
 
 		/** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime.*/
-		mime: any;
+		mime?: any;
 		/**  if true, does not load the inert (file and directory support), h2o2 (proxy support), and vision (views support) plugins automatically. The plugins can be loaded manually after construction. Defaults to false (plugins loaded). */
-		minimal: boolean;
+		minimal?: boolean;
 		/** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}.*/
-		plugins: IDictionary<any>;
+		plugins?: IDictionary<any>;
 
 	}
 
