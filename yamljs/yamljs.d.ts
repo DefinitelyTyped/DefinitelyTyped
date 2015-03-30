@@ -5,6 +5,10 @@
 
 declare module yamljs {
 
-    export function load(path : string) : any[];
+    export function load(path : string) : any;
+
+    export function stringify(nativeObject : any, inline? : number, spaces? : number) : string;
+
+    export function parse(yamlString : string) : any;
 
 }
