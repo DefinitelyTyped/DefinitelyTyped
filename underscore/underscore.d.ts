@@ -278,7 +278,7 @@ interface UnderscoreStatic {
     findIndex<T>(
         list: _.List<T>,
         iterator: _.ListIterator<T, boolean>,
-        context?: any): T;
+        context?: any): number;
 
 
 	/**
