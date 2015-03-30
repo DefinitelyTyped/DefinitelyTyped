@@ -1279,6 +1279,13 @@ declare module D3 {
                 (angle: (d : any) => number): PieLayout
                 (angle: (d : any, i: number) => number): PieLayout;
             };
+            padAngle: {
+                (): number;
+                (angle: number): PieLayout;
+                (angle: () => number): PieLayout;
+                (angle: (d : any) => number): PieLayout
+                (angle: (d : any, i: number) => number): PieLayout;
+            };
         }
 
         export interface ArcDescriptor {
