@@ -4398,6 +4398,20 @@ declare module _ {
         shuffle<T>(collection: Dictionary<T>): T[];
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.shuffle
+         **/
+        shuffle(): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.shuffle
+         **/
+        shuffle(): LoDashArrayWrapper<T>;
+    }
+
     //_.size
     interface LoDashStatic {
         /**
