@@ -1,5 +1,7 @@
 /// <reference path="yamljs.d.ts" />
 
+import yamljs = require('yamljs');
+
 yamljs.load('yaml-testfile.yml');
 
 yamljs.parse('this_is_no_ymlstring');
