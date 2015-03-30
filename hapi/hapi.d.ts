@@ -2051,10 +2051,12 @@ declare module "hapi" {
 		register(plugins: any|any[], options: {
 			select: string|string[];
 			routes: {
-				prefix: string; vhost: string|string[]
+				prefix: string; vhost?: string|string[]
 			};
 		}
 			, callback: (err: any) => void):void;
+
+		register(plugins: any|any[], callback: (err: any) => void):void;
 
 		/**server.render(template, context, [options], callback)
 		Utilizes the server views manager to render a template where:
