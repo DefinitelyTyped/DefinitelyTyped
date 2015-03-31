@@ -5,7 +5,7 @@
 
 declare module PolymerComponents {
 	export module Paper {
-		export interface Toast extends HTMLElement {
+		export interface Toast extends PolymerElement, HTMLElement {
 			/**
 			 * The text shows in a toast.
 			 * default: ''

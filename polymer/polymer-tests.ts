@@ -10,6 +10,31 @@ class AbstractPolymerElement implements PolymerElement {
 	asyncFire(eventName: string, details?: any, targetNode?: any, bubbles?: boolean, cancelable?: boolean): void { }
 
 	cancelUnbindAll(): void { }
+		
+	/**
+	 * User must call from attached callback
+	 */
+	resizableAttachedHandler(): void {}
+
+	/**
+	 * User must call from detached callback
+	 */
+	resizableDetachedHandler(): void {}
+
+	/**
+	 * User must call from attached callback
+	 */
+	resizerAttachedHandler(): void {}
+
+	/**
+	 * User must call from detached callback
+	 */
+	resizerDetachedHandler(): void {}
+
+	/**
+	 * User should call when resizing or un-hiding children
+	 */
+	notifyResize(): void {}
 }
 
 class AbstractWebComponent extends AbstractPolymerElement {
