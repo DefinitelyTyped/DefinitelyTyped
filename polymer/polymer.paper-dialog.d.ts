@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path="polymer.d.ts"/>
+///<reference path="polymer.core-overlay.d.ts"/>
 
 declare module PolymerComponents {
 	export module Paper {
