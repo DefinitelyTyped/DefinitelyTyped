@@ -1502,8 +1502,11 @@ declare module d3 {
             copy(): Linear<Range, Output>;
         }
 
+        export function sqrt(): Pow<number, number>;
         export function sqrt<Output>(): Pow<Output, Output>;
         export function sqrt<Range, Output>(): Pow<Range, Output>;
+
+        export function pow(): Pow<number, number>;
         export function pow<Output>(): Pow<Output, Output>;
         export function pow<Range, Output>(): Pow<Range, Output>;
 
@@ -1538,6 +1541,7 @@ declare module d3 {
             copy(): Pow<Range, Output>;
         }
 
+        export function log(): Log<number, number>;
         export function log<Output>(): Log<Output, Output>;
         export function log<Range, Output>(): Log<Range, Output>;
 
