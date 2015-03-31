@@ -39,6 +39,7 @@ interface pickadateOptions extends pickerOptions {
     formatSubmit?: string; // e.g. 'yyyy/mm/dd'
     hiddenPrefix?: string; // default undefined
     hiddenSuffix?: string; // default '_submit'
+    hiddenName?: boolean;  // default undefined
 
     // Dropdown selectors
     selectYears?: any; // Specify the number of years selectable using an even integer - half before and half after the year in focus:
@@ -223,23 +224,21 @@ interface TimePickerSetThings extends SetThings {
     interval?: any;
 }
 
-interface PickerObject {
+interface PickerObject<TPickerObject, TItemObject extends PickerItemObject, TOptions extends SetThings> {
     /** The picker's relative input element wrapped as a jQuery object. */
     $node: JQuery;
 
     /** The picker's relative root holder element wrapped as a jQuery object. */
     $root: JQuery;
-}
 
-interface DatePickerObject extends PickerObject {
-    open(withoutFocus?: boolean): DatePickerObject;
-    close(withFocus?: boolean): DatePickerObject;
+    open(withoutFocus?: boolean): TPickerObject;
+    close(withFocus?: boolean): TPickerObject;
 
     /** Rebuild the picker. */
-    start(): DatePickerObject;
+    start(): TPickerObject;
 
     /** Destroy the picker. */
-    stop(): DatePickerObject;
+    stop(): TPickerObject;
 
     /**
     * Refresh the picker box after adding something to the holder.
@@ -247,10 +246,10 @@ interface DatePickerObject extends PickerObject {
     * has it’s contents re-rendered. To render the entire picker from 
     * the root up, pass true as the first argument.
     */
-    render(entirePicker?: boolean): DatePickerObject;
+    render(entirePicker?: boolean): TPickerObject;
 
     /** Clear the value in the picker's input element. */
-    clear(): DatePickerObject;
+    clear(): TPickerObject;
 
     /** Short for picker.get('value') */
     get(): string;
@@ -262,19 +261,19 @@ interface DatePickerObject extends PickerObject {
     get(thing: 'value'): string;
 
     /** Returns the item object that is visually selected. */
-    get(thing: 'select'): DatePickerItemObject;
+    get(thing: 'select'): TItemObject;
 
     /** Returns the item object that is visually highlighted. */
-    get(thing: 'highlight'): DatePickerItemObject;
+    get(thing: 'highlight'): TItemObject;
 
     /** Returns the item object that sets the current view. */
-    get(thing: 'view'): DatePickerItemObject;
+    get(thing: 'view'): TItemObject;
 
     /** Returns the item object that limits the picker's lower range. */
-    get(thing: 'min'): DatePickerItemObject;
+    get(thing: 'min'): TItemObject;
 
     /** Returns the item object that limits the picker's upper range. */
-    get(thing: 'max'): DatePickerItemObject;
+    get(thing: 'max'): TItemObject;
 
     /** Returns a boolean value of whether the picker is open or not. */
     get(thing: 'open'): boolean;
@@ -292,99 +291,29 @@ interface DatePickerObject extends PickerObject {
     get(thing: string, format: string): string;
 
     /** Set the properties, objects, and states to change the state of the picker. */
-    set(thing: string, value?: any): DatePickerObject;
-    set(things: SetThings): DatePickerObject;
+    set(thing: string, value?: any, options?: any): TPickerObject;
+    set(things: TOptions, options?: any): TPickerObject;
 
     /** Bind callbacks to get fired off when the relative picker method is called. */
-    on(methodName, callback: () => void ): DatePickerObject;
+    on(methodName, callback: () => void): TPickerObject;
 
     /** Bind multiple callbacks at once to get fired off when the relative picker method is called. */
-    on(callbackObject: CallbackObject): DatePickerObject;
+    on(callbackObject: CallbackObject): TPickerObject;
 
     /** Trigger callbacks that have been queued up using the the on method. */
-    trigger(event: string): DatePickerObject;
+    trigger(event: string): TPickerObject;
 }
 
-interface TimePickerObject extends PickerObject {
-    open(withoutFocus?: boolean): TimePickerObject;
-    close(withFocus?: boolean): TimePickerObject;
-
-    /** Rebuild the picker. */
-    start(): TimePickerObject;
-
-    /** Destroy the picker. */
-    stop(): TimePickerObject;
-
-    /**
-    * Refresh the picker box after adding something to the holder.
-    * By default, only the "face" of the picker (i.e. the box element)
-    * has it’s contents re-rendered. To render the entire picker from 
-    * the root up, pass true as the first argument.
-    */
-    render(entirePicker?: boolean): TimePickerObject;
-
-    /** Clear the value in the picker's input element. */
-    clear(): TimePickerObject;
-
-    /** Short for picker.get('value') */
-    get(): string;
-
-    /** Get the properties, objects, and states that make up the current state of the picker. */
-    get(thing: string): any;
-
-    /** Returns the string value of the picker's input element. */
-    get(thing: 'value'): string;
-
-    /** Returns the item object that is visually selected. */
-    get(thing: 'select'): TimePickerItemObject;
-
-    /** Returns the item object that is visually highlighted. */
-    get(thing: 'highlight'): TimePickerItemObject;
-
-    /** Returns the item object that sets the current view. */
-    get(thing: 'view'): TimePickerItemObject;
-
-    /** Returns the item object that limits the picker's lower range. */
-    get(thing: 'min'): TimePickerItemObject;
-
-    /** Returns the item object that limits the picker's upper range. */
-    get(thing: 'max'): TimePickerItemObject;
-
-    /** Returns a boolean value of whether the picker is open or not. */
-    get(thing: 'open'): boolean;
-
-    /** Returns a boolean value of whether the picker has started or not. */
-    get(thing: 'start'): boolean;
-
-    /** Returns a unique 9-digit integer that is the ID of the picker. */
-    get(thing: 'id'): number;
-
-    /** Returns an array of items that determine which item objects to disable on the picker. */
-    get(thing: 'disable'): any[];
-
-    /** Returns a formatted string for the item object specified by `thing` */
-    get(thing: string, format: string): string;
-
-    /** Set the properties, objects, and states to change the state of the picker. */
-    set(thing: string, value?: any): TimePickerObject;
-    set(things: TimePickerSetThings): TimePickerObject;
-
-    /** Bind callbacks to get fired off when the relative picker method is called. */
-    on(methodName, callback: () => void ): TimePickerObject;
-
-    /** Bind multiple callbacks at once to get fired off when the relative picker method is called. */
-    on(callbackObject: CallbackObject): TimePickerObject;
-
-    /** Trigger callbacks that have been queued up using the the on method. */
-    trigger(event: string): TimePickerObject;
-}
+interface DatePickerObject extends PickerObject<DatePickerObject, DatePickerItemObject, SetThings> { }
+interface TimePickerObject extends PickerObject<TimePickerObject, TimePickerItemObject, TimePickerSetThings> { }
 
 interface JQuery {
-    pickadate(options?: pickadateOptions): HTMLInputElement;
-    pickatime(options?: pickatimeOptions): HTMLInputElement;
+    pickadate(methodName: "picker"): DatePickerObject;
+    pickadate(methodName: string): any;
+    pickadate(options?: pickadateOptions): JQuery;
+
+    pickatime(methodName: "picker"): TimePickerObject;
+    pickatime(methodName: string): any;
+    pickatime(options?: pickatimeOptions): JQuery;
 }
 
-interface HTMLInputElement {
-    pickadate(picker: string): DatePickerObject;
-    pickatime(picker: string): TimePickerObject;
-}
