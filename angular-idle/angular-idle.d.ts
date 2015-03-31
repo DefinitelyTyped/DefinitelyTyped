@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.idle {
+declare module angular.idle {
 
     /**
      * Used to configure the $keepalive service.

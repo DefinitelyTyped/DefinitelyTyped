@@ -146,7 +146,7 @@ declare module YT {
         getPlaylistIndex(): number;
 
         // Event Listener
-        addEventListener(event: string, listener: string): void;
+        addEventListener(event: string, handler: EventHandler): void;
     }
 
     export enum PlayerState {

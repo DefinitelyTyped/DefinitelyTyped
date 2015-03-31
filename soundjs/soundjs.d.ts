@@ -177,6 +177,7 @@ declare module createjs {
         static registerManifest(manifest: Object[], basePath: string): Object;
         static registerPlugins(plugins: any[]): boolean;
         static registerSound(src: string | Object, id?: string, data?: number | Object, basePath?: string): Object;
+        static registerSounds(sounds: Object[], basePath?: string): Object[];
         static removeAllSounds(): void;
         static removeManifest(manifest: any[], basePath: string): Object;
         static removeSound(src: string | Object, basePath: string): boolean;

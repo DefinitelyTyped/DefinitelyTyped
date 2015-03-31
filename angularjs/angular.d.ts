@@ -6,13 +6,15 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare var angular: ng.IAngularStatic;
+declare var angular: angular.IAngularStatic;
 
 // Support for painless dependency injection
 interface Function {
     $inject?: string[];
 }
 
+// Collapse angular into ng
+import ng = angular;
 // Support AMD require
 declare module 'angular' {
     export = angular;
@@ -21,7 +23,7 @@ declare module 'angular' {
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare module angular {
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
@@ -450,9 +452,9 @@ declare module ng {
         $invalid: boolean;
         $submitted: boolean;
         $error: any;
-        $addControl(control: ng.INgModelController): void;
-        $removeControl(control: ng.INgModelController): void;
-        $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
+        $addControl(control: INgModelController): void;
+        $removeControl(control: INgModelController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
         $commitViewValue(): void;
@@ -507,7 +509,7 @@ declare module ng {
     }
 
     interface IAsyncModelValidators {
-        [index: string]: (...args: any[]) => ng.IPromise<boolean>;
+        [index: string]: (...args: any[]) => IPromise<boolean>;
     }
 
     interface IModelParser {
@@ -584,13 +586,13 @@ declare module ng {
     }
 
     interface IScope extends IRootScopeService { }
-	
+
     /**
      * $scope for ngRepeat directive.
      * see https://docs.angularjs.org/api/ng/directive/ngRepeat
      */
     interface IRepeatScope extends IScope {
-	
+
         /**
          * iterator offset of the repeated element (0..length-1).
          */
@@ -620,7 +622,7 @@ declare module ng {
          * true if the iterator position $index is odd (otherwise false).
          */
         $odd: boolean;
-	
+
 	}
 
     interface IAngularEvent {
@@ -889,6 +891,7 @@ declare module ng {
         // implementation tests it as boolean, which makes more sense
         // since this is a toggler
         html5Mode(active: boolean): ILocationProvider;
+        html5Mode(mode: { enabled?: boolean; requireBase?: boolean; rewriteLinks?: boolean; }): ILocationProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -928,11 +931,19 @@ declare module ng {
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
-         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         * Returns a single promise that will be resolved with an array of values, each value corresponding to the promise at the same index in the promises array. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
          *
-         * @param promises An array or hash of promises.
+         * @param promises An array of promises.
          */
-        all(promises: IPromise<any>[]|{ [id: string]: IPromise<any>; }): IPromise<any[]>;
+        all(promises: IPromise<any>[]): IPromise<any[]>;
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         *
+         * Returns a single promise that will be resolved with a hash of values, each value corresponding to the promise at the same key in the promises hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         *
+         * @param promises A hash of promises.
+         */
+        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1151,6 +1162,15 @@ declare module ng {
          * @param config Optional configuration object
          */
         put<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
+
+        /**
+         * Shortcut method to perform PATCH request.
+         *
+         * @param url Relative or absolute URL specifying the destination of the request
+         * @param data Request content
+         * @param config Optional configuration object
+         */
+        patch<T>(url: string, data: any, config?: IRequestShortcutConfig): IHttpPromise<T>;
 
         /**
          * Runtime equivalent of the $httpProvider.defaults property. Allows configuration of default headers, withCredentials as well as request and response transformations.
@@ -1561,12 +1581,12 @@ declare module ng {
              * $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
              */
             decorator(name: string, inlineAnnotatedFunction: any[]): void;
-            factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
-            factory(name: string, inlineAnnotatedFunction: any[]): ng.IServiceProvider;
-            provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
-            provider(name: string, serviceProviderConstructor: Function): ng.IServiceProvider;
-            service(name: string, constructor: Function): ng.IServiceProvider;
-            value(name: string, value: any): ng.IServiceProvider;
+            factory(name: string, serviceFactoryFunction: Function): IServiceProvider;
+            factory(name: string, inlineAnnotatedFunction: any[]): IServiceProvider;
+            provider(name: string, provider: IServiceProvider): IServiceProvider;
+            provider(name: string, serviceProviderConstructor: Function): IServiceProvider;
+            service(name: string, constructor: Function): IServiceProvider;
+            value(name: string, value: any): IServiceProvider;
         }
 
     }
