@@ -20,6 +20,16 @@ declare module DC {
         (t: T, r?: R): V;
     }
 
+    export interface Scale<T> {
+        (x: any): T;
+
+        domain(values: any[]): Scale<T>;
+        domain(): any[];
+
+        range(values: T[]): Scale<T>;
+        range(): T[];
+    }
+
     export interface Accessor<T, V> {
         (datum: T, index?: number): V;
     }
@@ -160,9 +170,9 @@ declare module DC {
     }
 
     export interface ColorMixin<T> {
-        colors: IGetSet<Array<string> | { (n: number): string; domain(colors: any[]): any }, T>;
+        colors: IGetSet<Array<string> | Scale<string | d3.Color>, T>;
         ordinalColors(r: Array<string>): void;
-        linearColors(r: Array<number>): void;
+        linearColors(r: Array<string>): void;
         colorAccessor: IGetSet<Accessor<any, string>, T>;
         colorDomain: IGetSet<Array<any>, T>;
         calculateColorDomain(): void;
@@ -187,7 +197,7 @@ declare module DC {
         isOrdinal(): boolean;
         xAxisLabel: IBiGetSet<string, number, T>;
         yAxisLabel: IBiGetSet<string, number, T>;
-        y: IGetSet<(n: any) => any, T>;
+        y: IGetSet<Scale<number>, T>;
         yAxis: IGetSet<d3.svg.Axis, T>;
         elasticY: IGetSet<boolean, T>;
         renderHorizontalGridLines: IGetSet<boolean, T>;
@@ -219,7 +229,7 @@ declare module DC {
     }
 
     export interface BubbleMixin<T> extends ColorMixin<T> {
-        r: IGetSet<(n: any) => any, T>;
+        r: IGetSet<Scale<number>, T>;
         radiusValueAccessor: IGetSet<Accessor<any, number>, T>;
         minRadiusWithLabel: IGetSet<number, T>;
         maxBubbleRelativeSize: IGetSet<number, T>;
@@ -325,7 +335,7 @@ declare module DC {
     }
 
     export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
-        x: IGetSet<(n: any) => any, RowChart>;
+        x: IGetSet<Scale<number>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
         xAxis: IGetSet<d3.svg.Axis, RowChart>;
         fixedBarHeight: IGetSet<number, RowChart>;
