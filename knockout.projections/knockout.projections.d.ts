@@ -5,18 +5,21 @@
 
 /// <reference path="../knockout/knockout.d.ts" />
 
+interface KnockoutMappedObservableArray<T> extends KnockoutObservableArray<T>, KnockoutSubscription {
+}
+
 interface KnockoutObservableArrayFunctions<T> {
     map<TResult>(mappingOptions: {
         mappingWithDisposeCallback: (value: T) => {
             mappedValue: TResult;
             dispose: () => void;
         };
-    }): KnockoutObservableArray<TResult>;
+    }): KnockoutMappedObservableArray<TResult>;
     map<TResult>(mappingOptions: {
         mapping: (value: T) => TResult;
         disposeItem?: (mappedItem: TResult) => void;
-    }): KnockoutObservableArray<TResult>;
-    map<TResult>(mappingOptions: (value: T) => TResult): KnockoutObservableArray<TResult>;
+    }): KnockoutMappedObservableArray<TResult>;
+    map<TResult>(mappingOptions: (value: T) => TResult): KnockoutMappedObservableArray<TResult>;
     
-    filter(predicate: (value: T) => boolean): KnockoutObservableArray<T>;
+    filter(predicate: (value: T) => boolean): KnockoutMappedObservableArray<T>;
 }
