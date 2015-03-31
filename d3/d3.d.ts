@@ -1627,31 +1627,36 @@ declare module d3 {
             copy(): Threshold<Domain, Range>;
         }
 
-        export function ordinal<T>(): Ordinal<T>;
-        export function category10(): Ordinal<string>;
-        export function category20(): Ordinal<string>;
-        export function category20b(): Ordinal<string>;
-        export function category20c(): Ordinal<string>;
+        export function ordinal<Range>(): Ordinal<string, Range>;
+        export function ordinal<Domain extends { toString(): string }, Range>(): Ordinal<Domain, Range>;
+        export function category10(): Ordinal<string, string>;
+        export function category10<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+        export function category20(): Ordinal<string, string>;
+        export function category20<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+        export function category20b(): Ordinal<string, string>;
+        export function category20b<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+        export function category20c(): Ordinal<string,string>;
+        export function category20c<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
+ 
+        interface Ordinal<Domain extends { toString(): string }, Range> {
+            (x: Domain): Range;
 
-        interface Ordinal<T> {
-            (x: Primitive): T;
+            domain(): Domain[];
+            domain(values: Domain[]): Ordinal<Domain, Range>;
 
-            domain(): string[];
-            domain(values: Primitive[]): Ordinal<T>;
+            range(): Range[];
+            range(values: Range[]): Ordinal<Domain, Range>;
 
-            range(): T[];
-            range(values: T[]): Ordinal<T>;
+            rangePoints(interval: [number, number], padding?: number): Ordinal<Domain, number>;
+            rangeRoundPoints(interval: [number, number], padding?: number): Ordinal<Domain, number>;
 
-            rangePoints(interval: [number, number], padding?: number): Ordinal<number>;
-            rangeRoundPoints(interval: [number, number], padding?: number): Ordinal<number>;
-
-            rangeBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<number>;
-            rangeRoundBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<number>;
+            rangeBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<Domain, number>;
+            rangeRoundBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<Domain, number>;
 
             rangeBand(): number;
             rangeExtent(): [number, number];
 
-            copy(): Ordinal<T>;
+            copy(): Ordinal<Domain, Range>;
         }
     }
 
