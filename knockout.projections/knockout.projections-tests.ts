@@ -54,3 +54,11 @@ var complexItems2 = sourceItems.map({
         };
     }
 });
+
+// Test disposal
+
+evenSquares.dispose();
+
+complexItems.dispose();
+
+complexItems2.dispose();
