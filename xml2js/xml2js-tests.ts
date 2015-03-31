@@ -15,3 +15,5 @@ var builder = new xml2js.Builder({
 var outString = builder.buildObject({
     'hello': 'xml2js!'
 });
+
+var parser = new xml2js.Parser();

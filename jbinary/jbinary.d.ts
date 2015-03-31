@@ -13,6 +13,12 @@
 declare class jBinary
 {
 
+    static loadData(source:any, callback?: (error:string, data:any) => any):any;
+    static load(source:any, typeSet?:any, callback?: (error:string, data:any) => any):any;
+
+    static saveAs(destination:any, mimeType?:string, callback?: (error:string, data:any) => any):any;
+    static toURI(mimeType?:string):any;
+
     constructor(data:Array<number>);
     constructor(data:jDataView, typeSet:Object);
     constructor(bufferSize:number, typeSet:Object);

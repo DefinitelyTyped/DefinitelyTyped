@@ -200,6 +200,11 @@ interface PDFRenderParams {
 	continueCallback?: (_continue: () => void) => void;
 }
 
+interface PDFViewerParams {
+	container: HTMLElement;
+	viewer?: HTMLElement;
+}
+
 /**
 * RenderTask is basically a promise but adds a cancel function to termiate it.
 **/
@@ -295,12 +300,12 @@ interface PDFObjects {
 }
 
 interface PDFJSStatic {
-	
+
 	/**
 	* The maximum allowed image size in total pixels e.g. width * height.  Images above this value will not be drawn.  Use -1 for no limit.
 	**/
 	maxImageSize: number;
-	
+
 	/**
 	* By default fonts are converted to OpenType fonts and loaded via font face rules.  If disabled, the font will be rendered using a built in font renderer that constructs the glyphs with primitive path commands.
 	**/
@@ -337,6 +342,8 @@ interface PDFJSStatic {
 		passwordCallback?: (fn: (password: string) => void, reason: string) => string,
 		progressCallback?: (progressData: PDFProgressData) => void)
 		: PDFPromise<PDFDocumentProxy>;
+
+	PDFViewer(params: PDFViewerParams): void;
 }
 
 declare var PDFJS: PDFJSStatic;

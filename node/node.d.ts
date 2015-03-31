@@ -79,7 +79,7 @@ declare var Buffer: {
 ************************************************/
 declare module NodeJS {
     export interface ErrnoException extends Error {
-        errno?: any;
+        errno?: number;
         code?: string;
         path?: string;
         syscall?: string;
@@ -98,7 +98,7 @@ declare module NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        read(size?: number): any;
+        read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
@@ -697,6 +697,18 @@ declare module "child_process" {
         killSignal?: string;
         encoding?: string;
     }): ChildProcess;
+    export function execFileSync(command: string, args?: string[], options?: {
+        cwd?: string;
+        input?: string|Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+        encoding?: string;
+    }): ChildProcess;
 }
 
 declare module "url" {
@@ -775,7 +787,10 @@ declare module "net" {
         ref(): void;
 
         remoteAddress: string;
+        remoteFamily: string;
         remotePort: number;
+        localAddress: string;
+        localPort: number;
         bytesRead: number;
         bytesWritten: number;
 
@@ -1210,7 +1225,7 @@ declare module "stream" {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
-        read(size?: number): any;
+        read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;

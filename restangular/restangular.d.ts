@@ -112,7 +112,10 @@ declare module restangular {
     trace(queryParams?: any, headers?: any): IPromise<any>;
     options(queryParams?: any, headers?: any): IPromise<any>;
     patch(queryParams?: any, headers?: any): IPromise<any>;
+    clone(): IElement;
+    plain(): any;
     withHttpConfig(httpConfig: IRequestConfig): IElement;
+    save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
   }
 

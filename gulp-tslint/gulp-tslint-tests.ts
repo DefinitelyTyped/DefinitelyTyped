@@ -33,6 +33,12 @@ gulp.task('invalid-custom', function(){
         .pipe(tslint.report(testReporter));
 });
 
+gulp.task('invalid-custom', function () {
+    gulp.src('invalid.ts')
+        .pipe(tslint())
+        .pipe(tslint.report(testReporter, { emitError: false }));
+});
+
 gulp.task('tslint-json', function(){
     gulp.src('invalid.ts')
         .pipe(tslint({
