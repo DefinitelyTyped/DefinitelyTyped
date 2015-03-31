@@ -113,11 +113,11 @@ function groupedBarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", <any> function (error, data: Array<GroupedData>) {
+    d3.csv("data.csv", <any> function (error: any, data: Array<GroupedData>) {
         var ageNames = d3.keys(data[0]).filter(function (key) { return key !== "State"; });
 
         data.forEach(function (d) {
-            d.ages = ageNames.map(function (name) { return { name: name, value: +d[name] }; });
+            d.ages = ageNames.map(function (name) { return { name: name, value: +(<any> d)[name] }; });
         });
 
         x0.domain(data.map(function (d) { return d.State; }));
@@ -206,18 +206,18 @@ function stackedBarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error, data: any) {
+    d3.csv("data.csv", function (error: any, data: any) {
         color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
 
-        data.forEach(function (d) {
+        data.forEach(function (d: any) {
             var y0 = 0;
             d.ages = color.domain().map(function (name) { return { name: name, y0: y0, y1: y0 += +d[name] }; });
             d.total = d.ages[d.ages.length - 1].y1;
         });
 
-        data.sort(function (a, b) { return b.total - a.total; });
+        data.sort(function (a: any, b: any) { return b.total - a.total; });
 
-        x.domain(data.map(function (d) { return d.State; }));
+        x.domain(data.map(function (d: any) { return d.State; }));
         y.domain([0, d3.max(data, function (d: { total: number }) { return d.total; })]);
 
         svg.append("g")
@@ -304,15 +304,15 @@ function normalizedBarChart() {
     d3.csv("data.csv", function (error, data) {
         color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
 
-        data.forEach(function (d) {
+        data.forEach(function (d: any) {
             var y0 = 0;
             d.ages = color.domain().map(function (name) { return { name: name, y0: y0, y1: y0 += +d[name] }; });
-            d.ages.forEach(function (d) { d.y0 /= y0; d.y1 /= y0; });
+            d.ages.forEach(function (d: any) { d.y0 /= y0; d.y1 /= y0; });
         });
 
-        data.sort(function (a, b) { return b.ages[0].y1 - a.ages[0].y1; });
+        data.sort(function (a: any, b: any) { return b.ages[0].y1 - a.ages[0].y1; });
 
-        x.domain(data.map(function (d) { return d.State; }));
+        x.domain(data.map(function (d: any) { return d.State; }));
 
         svg.append("g")
             .attr("class", "x axis")
@@ -383,13 +383,13 @@ function sortablebarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.tsv("data.tsv", function (error, data: any) {
+    d3.tsv("data.tsv", function (error: any, data: any) {
 
-        data.forEach(function (d) {
+        data.forEach(function (d: any) {
             d.frequency = +d.frequency;
         });
 
-        x.domain(data.map(function (d) { return d.letter; }));
+        x.domain(data.map(function (d: any) { return d.letter; }));
         y.domain([0, d3.max(data, function (d: any) { return d.frequency; })]);
 
         svg.append("g")
@@ -426,17 +426,17 @@ function sortablebarChart() {
             clearTimeout(sortTimeout);
 
             var x0 = x.domain(data.sort(this.checked
-                ? function (a, b) { return b.frequency - a.frequency; }
-                : function (a, b) { return d3.ascending(a.letter, b.letter); })
-                .map(function (d) { return d.letter; }))
+                ? function (a: any, b: any) { return b.frequency - a.frequency; }
+                : function (a: any, b: any) { return d3.ascending(a.letter, b.letter); })
+                .map(function (d: any) { return d.letter; }))
                 .copy();
 
             var transition = svg.transition().duration(750),
-                delay = function (d, i) { return i * 50; };
+                delay = function (d: any, i: number) { return i * 50; };
 
             transition.selectAll(".bar")
                 .delay(delay)
-                .attr("x", function (d) { return x0(d.letter); });
+                .attr("x", function (d: any) { return x0(d.letter); });
 
             transition.select(".x.axis")
                 .call(xAxis)
@@ -506,7 +506,7 @@ function callenderView() {
             .text(function (d) { return d + ": " + percent(data[d]); });
     });
 
-    function monthPath(t0) {
+    function monthPath(t0: Date) {
         var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
             d0 = +day(t0), w0 = +week(t0),
             d1 = +day(t1), w1 = +week(t1);
@@ -552,8 +552,8 @@ function lineChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.tsv("data.tsv", function (error, data) {
-        data.forEach(function (d) {
+    d3.tsv("data.tsv", function (error: any, data: any) {
+        data.forEach(function (d: any) {
             d.date = parseDate(d.date);
             d.close = +d.close;
         });
@@ -616,8 +616,8 @@ function bivariateAreaChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.tsv("data.tsv", function (error, data: any) {
-        data.forEach(function (d) {
+    d3.tsv("data.tsv", function (error: any, data: any) {
+        data.forEach(function (d: any) {
             d.date = parseDate(d.date);
             d.low = +d.low;
             d.high = +d.high;
@@ -670,7 +670,7 @@ function dragMultiples() {
         .attr("cy", function (d) { return d.y; })
         .call(drag);
 
-    function dragmove(d) {
+    function dragmove(d: { x: number; y: number }) {
         d3.select(this)
             .attr("cx", d.x = Math.max(radius, Math.min(width - radius, (<any> d3.event).x)))
             .attr("cy", d.y = Math.max(radius, Math.min(height - radius, (<any> d3.event).y)));
@@ -753,7 +753,7 @@ function chainedTransitions() {
         .attr("cy", y)
         .each(slide(20, w - 20));
 
-    function slide(x0, x1) {
+    function slide(x0: number, x1: number) {
       t += 50;
       return function() {
         d3.select(this).transition()
@@ -805,7 +805,7 @@ function populationPyramid() {
         .attr("dy", ".71em")
         .text(2000);
 
-    d3.csv("population.csv", <any> function (error, rows: Array<PyramidData>) {
+    d3.csv("population.csv", <any> function (error: any, rows: Array<PyramidData>) {
 
         // Convert strings to numbers.
         rows.forEach(function (d) {
@@ -980,7 +980,7 @@ module forcedBasedLabelPlacemant {
     } ).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
 
     var updateLink = function () {
-        this.attr("x1", function (d) {
+        (<d3.Selection<any>> this).attr("x1", function (d) {
             return d.source.x;
         } ).attr("y1", function (d) {
                 return d.source.y;
@@ -993,7 +993,7 @@ module forcedBasedLabelPlacemant {
     }
 
     var updateNode = function () {
-        this.attr("transform", function (d) {
+        (<d3.Selection<any>> this).attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         } );
 
@@ -1044,9 +1044,9 @@ module forceCollapsable {
 
     var w = 1280,
         h = 800,
-        node,
-        link,
-        root;
+        node: d3.selection.Update<Node>,
+        link: d3.selection.Update<d3.layout.force.Link<Node>>,
+        root: any;
 
     var force = d3.layout.force<Node>()
         .on("tick", tick)
@@ -1124,12 +1124,12 @@ module forceCollapsable {
     }
 
     // Color leaf nodes orange, and packages white or blue.
-    function color(d) {
+    function color(d: Node) {
         return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
     }
 
     // Toggle children on click.
-    function click(d) {
+    function click(d: Node) {
         if (d.children) {
             d._children = d.children;
             d.children = null;
@@ -1141,12 +1141,12 @@ module forceCollapsable {
     }
 
     // Returns a list of all nodes under the root.
-    function flatten(root) {
-        var nodes = [], i = 0;
+    function flatten(root: Node) {
+        var nodes: Node[] = [], i = 0;
 
-        function recurse(node) {
+        function recurse(node: Node) {
             if (node.children) node.size = node.children.reduce(function (p, v) { return p + recurse(v); } , 0);
-            if (!node.id) node.id = ++i;
+            if (!node.id) node.id = String(++i);
             nodes.push(node);
             return node.size;
         }
@@ -1202,7 +1202,7 @@ function azimuthalEquidistant() {
             .attr("d", path);
 
         svg.insert("path", ".graticule")
-            .datum(topojson.mesh(world, world.objects.countries, function (a, b) { return a !== b; } ))
+            .datum(topojson.mesh(world, world.objects.countries, function (a: any, b: any) { return a !== b; } ))
             .attr("class", "boundary")
             .attr("d", path);
     } );
@@ -1251,7 +1251,6 @@ function forceDirectedVoronoi() {
     var w = window.innerWidth > 960 ? 960 : (window.innerWidth || 960),
         h = window.innerHeight > 500 ? 500 : (window.innerHeight || 500),
         radius = 5.25,
-        links = [],
         simulate = true,
         zoomToAdd = true,
         color = d3.scale.quantize<string>().domain([10000, 7250]).range(["#dadaeb","#bcbddc","#9e9ac8","#807dba","#6a51a3","#54278f","#3f007d"])
@@ -1441,7 +1440,7 @@ function quadtree() {
     brushed();
 
     function brushed() {
-        var extent = brush.extent();
+        var extent = <[[number, number], [number, number]]> brush.extent();
         point.each(function (d) { d.scanned = d.selected = false; } );
         search(quadtree, extent[0][0], extent[0][1], extent[1][0], extent[1][1]);
         point.classed("scanned", function (d) { return d.scanned; } );
@@ -1449,8 +1448,8 @@ function quadtree() {
     }
 
     // Collapse the quadtree into an array of rectangles.
-    function nodes(quadtree) {
-        var nodes = [];
+    function nodes(quadtree: d3.geom.quadtree.Quadtree<[number, number]>) {
+        var nodes: Array<{x: number; y: number; width: number; height: number}> = [];
         quadtree.visit(function (node, x1, y1, x2, y2) {
             nodes.push({ x: x1, y: y1, width: x2 - x1, height: y2 - y1 });
         } );
@@ -1458,12 +1457,12 @@ function quadtree() {
     }
 
     // Find the nodes within the specified rectangle.
-    function search(quadtree, x0, y0, x3, y3) {
+    function search(quadtree: d3.geom.quadtree.Quadtree<{ scanned?: boolean; selected?: boolean; 0: number; 1: number }>, x0: number, y0: number, x3: number, y3: number) {
         quadtree.visit(function (node, x1, y1, x2, y2) {
             var p = node.point;
             if (p) {
                 p.scanned = true;
-                p.selected = (p.x >= x0) && (p.x < x3) && (p.y >= y0) && (p.y < y3);
+                p.selected = (p[0] >= x0) && (p[0] < x3) && (p[1] >= y0) && (p[1] < y3);
             }
             return x1 >= x3 || y1 >= y3 || x2 < x0 || y2 < y0;
         } );
@@ -1563,11 +1562,11 @@ module hierarchicalEdgeBundling {
     var packages = {
 
         // Lazily construct the package hierarchy from class names.
-        root: function (classes) {
-            var map = {};
+        root: function (classes: any[]) {
+            var map: {[key: string]: Result} = {};
 
-            function find(name, data?) {
-                var node = map[name], i;
+            function find(name: string, data?: any) {
+                var node: Result = map[name], i: number;
                 if (!node) {
                     node = map[name] = data || { name: name, children: [] };
                     if (name.length) {
@@ -1587,9 +1586,9 @@ module hierarchicalEdgeBundling {
         } ,
 
         // Return a list of imports for the given array of nodes.
-        imports: function (nodes) {
-            var map = {},
-                imports = [];
+        imports: function (nodes: any[]) {
+            var map: {[key: string]: Result} = {},
+                imports: d3.layout.cluster.Link<Result>[] = [];
 
             // Compute a map from name to node.
             nodes.forEach(function (d) {
@@ -1598,7 +1597,7 @@ module hierarchicalEdgeBundling {
 
             // For each import, construct a link from the source to target node.
             nodes.forEach(function (d) {
-                if (d.imports) d.imports.forEach(function (i) {
+                if (d.imports) d.imports.forEach(function (i: string) {
                     imports.push({ source: map[d.name], target: map[i] });
                 } );
             } );
@@ -1702,9 +1701,9 @@ function streamGraph() {
     }
 
     // Inspired by Lee Byron's test data generator.
-    function bumpLayer(n): Array<{x: number; y: number;y0?:number;}> {
+    function bumpLayer(n: number): Array<{x: number; y: number;y0?:number;}> {
 
-        function bump(a) {
+        function bump(a: number[]) {
             var x = 1 / (.1 + Math.random()),
                 y = 2 * Math.random() - .5,
                 z = 10 / (.1 + Math.random());
@@ -1714,7 +1713,7 @@ function streamGraph() {
             }
         }
 
-        var a = [], i;
+        var a: number[] = [], i: number;
         for (i = 0; i < n; ++i) a[i] = 0;
         for (i = 0; i < 5; ++i) bump(a);
         return a.map(function (d, i) { return { x: i, y: Math.max(0, d) }; } );
@@ -1724,6 +1723,7 @@ function streamGraph() {
 // example from http://mbostock.github.io/d3/talk/20111116/force-collapsible.html
 module forceCollapsable2 {
     interface Node extends d3.layout.force.Node {
+        children: Node[];
         _children: Node[];
         size: number;
         id: string;
@@ -1731,9 +1731,9 @@ module forceCollapsable2 {
 
     var w = 1280,
         h = 800,
-        node,
-        link,
-        root;
+        node: d3.selection.Update<Node>,
+        link: d3.selection.Update<d3.layout.force.Link<Node>>,
+        root: Node;
 
     var force = d3.layout.force<Node>()
         .on("tick", tick)
@@ -1811,12 +1811,12 @@ module forceCollapsable2 {
     }
 
     // Color leaf nodes orange, and packages white or blue.
-    function color(d) {
+    function color(d: Node) {
         return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
     }
 
     // Toggle children on click.
-    function click(d) {
+    function click(d: Node) {
         if (d.children) {
             d._children = d.children;
             d.children = null;
@@ -1828,12 +1828,12 @@ module forceCollapsable2 {
     }
 
     // Returns a list of all nodes under the root.
-    function flatten(root) {
-        var nodes = [], i = 0;
+    function flatten(root: Node) {
+        var nodes: Node[] = [], i = 0;
 
-        function recurse(node) {
+        function recurse(node: Node) {
             if (node.children) node.size = node.children.reduce(function (p, v) { return p + recurse(v); } , 0);
-            if (!node.id) node.id = ++i;
+            if (!node.id) node.id = String(++i);
             nodes.push(node);
             return node.size;
         }
@@ -1915,7 +1915,7 @@ function chordDiagram() {
         .style("opacity", 1);
 
     // Returns an array of tick angles and labels, given a group.
-    function groupTicks(d) {
+    function groupTicks(d: d3.layout.chord.Node) {
         var k = (d.endAngle - d.startAngle) / d.value;
         return d3.range(0, d.value, 1000).map(function (v, i) {
             return {
@@ -1926,8 +1926,8 @@ function chordDiagram() {
     }
 
     // Returns an event handler for fading a given chord group.
-    function fade(opacity) {
-        return function (g, i) {
+    function fade(opacity: number) {
+        return function (g: {}, i: number) {
             svg.selectAll(".chord path")
                 .filter(function (d) { return d.source.index != i && d.target.index != i; } )
                 .transition()
@@ -1946,11 +1946,11 @@ function irisParallel() {
         h = 800 - m[0] - m[2];
 
     var x = d3.scale.ordinal().domain(traits).rangePoints([0, w]),
-        y = {};
+        y: {[key: string]: any} = {};
 
     var line = d3.svg.line(),
         axis = d3.svg.axis().orient("left"),
-        foreground;
+        foreground: d3.Selection<{ [key: string]: string}>;
 
     var svg = d3.select("body").append("svg:svg")
         .attr("width", w + m[1] + m[3])
@@ -2004,7 +2004,7 @@ function irisParallel() {
             .attr("class", "trait")
             .attr("transform", function (d) { return "translate(" + x(d) + ")"; } )
             .call(d3.behavior.drag<string>()
-                .origin(function (d) { return { x: x(d), y: undefined }; } )
+                .origin(function (d) { return { x: x(d), y: NaN }; } )
                 .on("dragstart", dragstart)
                 .on("drag", drag)
                 .on("dragend", dragend));
@@ -2026,18 +2026,18 @@ function irisParallel() {
             .attr("x", -8)
             .attr("width", 16);
 
-        function dragstart(d) {
+        function dragstart(d: string) {
             i = traits.indexOf(d);
         }
 
-        function drag(d) {
+        function drag(d: string) {
             x.range()[i] = (<any> d3.event).x;
             traits.sort(function (a, b) { return x(a) - x(b); } );
             g.attr("transform", function (d) { return "translate(" + x(d) + ")"; } );
             foreground.attr("d", path);
         }
 
-        function dragend(d) {
+        function dragend(d: string) {
             x.domain(traits).rangePoints([0, w]);
             var t = d3.transition().duration(500);
             t.selectAll(".trait").attr("transform", function (d) { return "translate(" + x(d) + ")"; } );
@@ -2046,7 +2046,7 @@ function irisParallel() {
     } );
 
     // Returns the path for a given data point.
-    function path(d) {
+    function path(d: any): string {
         return line(traits.map(function (p): [number, number] { return [x(p), y[p](d[p])]; } ));
     }
 
@@ -2065,11 +2065,11 @@ function irisParallel() {
 //example from
 function healthAndWealth() {
     // Various accessors that specify the four dimensions of data to visualize.
-    function x(d) { return d.income; }
-    function y(d) { return d.lifeExpectancy; }
-    function radius(d) { return d.population; }
-    function color(d) { return d.region; }
-    function key(d) { return d.name; }
+    function x(d: any) { return d.income; }
+    function y(d: any) { return d.lifeExpectancy; }
+    function radius(d: any) { return d.population; }
+    function color(d: any) { return d.region; }
+    function key(d: any) { return d.name; }
 
     // Chart dimensions.
     var margin = { top: 19.5, right: 19.5, bottom: 19.5, left: 39.5 },
@@ -2133,7 +2133,7 @@ function healthAndWealth() {
     d3.json("nations.json", function (nations: any[]) {
 
         // A bisector since many nation's data is sparsely-defined.
-        var bisect = d3.bisector(function (d) { return d[0]; } );
+        var bisect = d3.bisector(function (d: any) { return d[0]; } );
 
         // Add a dot per nation. Initialize the data at 1800, and set the colors.
         var dot = svg.append("g")
@@ -2169,14 +2169,14 @@ function healthAndWealth() {
             .each("end", enableInteraction);
 
         // Positions the dots based on data.
-        function position(dot) {
+        function position(dot: d3.Selection<any>) {
             dot.attr("cx", function (d) { return xScale(x(d)); } )
                 .attr("cy", function (d) { return yScale(y(d)); } )
                 .attr("r", function (d) { return radiusScale(radius(d)); } );
         }
 
         // Defines a sort order so that the smallest dots are drawn on top.
-        function order(a, b) {
+        function order(a: any, b: any) {
             return radius(b) - radius(a);
         }
 
@@ -2213,17 +2213,17 @@ function healthAndWealth() {
         // For the interpolated data, the dots and label are redrawn.
         function tweenYear() {
             var year = d3.interpolateNumber(1800, 2009);
-            return function (t) { displayYear(year(t)); };
+            return function (t: number) { displayYear(year(t)); };
         }
 
         // Updates the display to show the specified year.
-        function displayYear(year) {
+        function displayYear(year: number) {
             dot.data(interpolateData(year), key).call(position).sort(order);
             label.text(Math.round(year));
         }
 
         // Interpolates the dataset for the given (fractional) year.
-        function interpolateData(year) {
+        function interpolateData(year: number) {
             return nations.map(function (d) {
                 return {
                     name: d.name,
@@ -2236,7 +2236,7 @@ function healthAndWealth() {
         }
 
         // Finds (and possibly interpolates) the value for the specified year.
-        function interpolateValues(values, year) {
+        function interpolateValues(values: any[], year: number) {
             var i = bisect.left(values, year, 0, values.length - 1),
                 a = values[i];
             if (i > 0) {
@@ -2252,7 +2252,7 @@ function healthAndWealth() {
 // Test for d3.functor
 function functorTest () {
     var f: (n: number) => number = d3.functor(10);
-    var g = d3.functor(function (v) { return v; });
+    var g = d3.functor(function (v: number) { return v; });
 
     return f(10) === g(10);
 }
@@ -2287,7 +2287,7 @@ function nestTest () {
     var n2 = d3.nest<{ a: number; b: number[] }>()
                 .key(function (d) { return String(d.a); })
                 .sortValues(function (x1, x2) {
-                        return x1[0] < x1[1] ? -1 : (x1[0] > x1[0] ? 1 : 0); });
+                        return x1.b[0] < x1.b[1] ? -1 : (x1.b[0] > x1.b[0] ? 1 : 0); });
     n2.map(data);
     n2.entries(data);
 
@@ -2387,7 +2387,7 @@ function brushTest() {
                     .x(xScale)
                     .y(yScale)
                     .on('brush', function () {
-                        var extent = brush2.extent();
+                        var extent = <[[number, number], [number, number]]> brush2.extent();
                         var xExtent = extent[0],
                             yExtent = extent[1];
 
@@ -2538,23 +2538,30 @@ function svgArcTest () {
 
     l.innerRadius(f).innerRadius() === f;
     l.innerRadius(0);
-    l.innerRadius(function (d) { return d[0]; });
+    l.innerRadius(function (d) { return d.innerRadius; });
     l.innerRadius(function (d, i) { return i; });
 
     l.outerRadius(f).outerRadius() === f;
     l.outerRadius(0);
-    l.outerRadius(function (d) { return d[1]; });
+    l.outerRadius(function (d) { return d.outerRadius; });
     l.outerRadius(function (d, i) { return i; });
 
     l.startAngle(f).startAngle() === f;
     l.startAngle(0);
-    l.startAngle(function (d) { return d[0]; });
+    l.startAngle(function (d) { return d.innerRadius; });
     l.startAngle(function (d, i) { return i; });
 
     l.endAngle(f).endAngle() === f;
     l.endAngle(0);
-    l.endAngle(function (d) { return d[1]; });
+    l.endAngle(function (d) { return d.outerRadius; });
     l.endAngle(function (d, i) { return i; });
+}
+
+function svgArcTest2 () {
+    var l = d3.svg.arc<[number, number]>();
+
+    l.innerRadius(d => d[0]);
+    l.outerRadius(d => d[1]);
 }
 
 // Tests for d3.svg.diagonal
