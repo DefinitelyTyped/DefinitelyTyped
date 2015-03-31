@@ -6,7 +6,17 @@
 /// <reference path="../knockout/knockout.d.ts" />
 
 interface KnockoutObservableArrayFunctions<T> {
-
-    map<TResult>(mapping: (value: T) => TResult): KnockoutObservableArray<TResult>;
+    map<TResult>(mappingOptions: {
+        mappingWithDisposeCallback: (value: T) => {
+            mappedValue: TResult;
+            dispose: () => void;
+        };
+    }): KnockoutObservableArray<TResult>;
+    map<TResult>(mappingOptions: {
+        mapping: (value: T) => TResult;
+        disposeItem?: (mappedItem: TResult) => void;
+    }): KnockoutObservableArray<TResult>;
+    map<TResult>(mappingOptions: (value: T) => TResult): KnockoutObservableArray<TResult>;
+    
     filter(predicate: (value: T) => boolean): KnockoutObservableArray<T>;
 }
