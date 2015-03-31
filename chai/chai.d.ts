@@ -142,6 +142,10 @@ declare module chai {
     interface Property {
         (name: string, value?: any, message?: string): Expect;
     }
+    
+    interface Object {
+    should: chai.Expect;
+    }
 
     interface OwnProperty {
         (name: string, message?: string): Expect;
