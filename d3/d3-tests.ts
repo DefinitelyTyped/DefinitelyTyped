@@ -738,7 +738,7 @@ function panAndZoom() {
 function chainedTransitions() {
     var w = 960,
     h = 500,
-    y = d3.scale.ordinal().domain(d3.range(50)).rangePoints([20, h - 20]),
+    y = d3.scale.ordinal<number, number>().domain(d3.range(50)).rangePoints([20, h - 20]),
     t = Date.now();
 
     var svg = d3.select("body").append("svg:svg")
@@ -1629,7 +1629,7 @@ function roundedRectangles() {
         .attr("width", 25)
         .attr("height", 25)
         .attr("transform", function (d, i) { return "scale(" + (1 - d / 25) * 20 + ")"; } )
-        .style("fill", d3.scale.category20c());
+        .style("fill", d3.scale.category20c<number>());
 
     var g0 = g.datum(function (d) {
         return { center: [0, 0], angle: 0 };
@@ -1862,7 +1862,7 @@ function chordDiagram() {
         innerRadius = Math.min(width, height) * .41,
         outerRadius = innerRadius * 1.1;
 
-    var fill = d3.scale.ordinal<string>()
+    var fill = d3.scale.ordinal<number, string>()
         .domain(d3.range(4))
         .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
 
