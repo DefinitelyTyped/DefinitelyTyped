@@ -5,7 +5,7 @@
 
 declare module PolymerComponents {
 	export module Core {
-		export interface DrawerPanel extends HTMLElement {
+		export interface DrawerPanel extends PolymerElement, HTMLElement {
 			/**
 			 * Width of the drawer panel. default: '256px'
 			 */
