@@ -1,6 +1,6 @@
-// Type definitions for SweetAlert v0.5.0
-// Project: https://github.com/t4t5/sweetalert
-// Definitions by: Markus Peloso https://github.com/ToastHawaii
+// Type definitions for SweetAlert 0.5.0
+// Project: https://github.com/t4t5/sweetalert/
+// Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare var sweetAlert: SweetAlert.SweetAlertStatic;
