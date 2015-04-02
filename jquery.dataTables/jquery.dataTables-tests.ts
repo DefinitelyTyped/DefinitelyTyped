@@ -3,47 +3,33 @@
 
 // http://www.datatables.net/api
 
-// $
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Highlight every second row
-	oTable.$('tr:odd').css('backgroundColor', 'blue');
+    // Highlight every second row
+    table.$('tr:odd').css('backgroundColor', 'blue');
 } );
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Filter to rows with 'Webkit' in them, add a background colour and then
-	// remove the filter, thus highlighting the 'Webkit' rows only.
-	oTable.fnFilter('Webkit');
-	oTable.$('tr', {"filter": "applied"}).css('backgroundColor', 'blue');
-	oTable.fnFilter('');
+    // Filter to rows with 'Webkit' in them, add a background colour and then
+    // remove the filter, thus highlighting the 'Webkit' rows only.
+    table.fnFilter('Webkit');
+    table.$('tr', {filter: "applied"}).css('backgroundColor', 'blue');
+    table.fnFilter('');
 } );
 
-// _
-
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Get the data from the first row in the table
-	var data = oTable._('tr:first');
+    // Filter to 'Webkit' and get all data for
+    table.fnFilter('Webkit');
+    var data = table.$('tr', {filter: "applied"});
 
-	// Do something useful with the data
-	alert( "First cell is: "+data[0] );
-} );
-
-
-$(document).ready(function() {
-	var oTable = $('#example').dataTable();
-
-	// Filter to 'Webkit' and get all data for
-	oTable.fnFilter('Webkit');
-	var data = oTable._('tr', {"filter": "applied"});
-
-	// Do something with the data
-	alert( data.length+" rows matched the filter" );
+    // Do something with the data
+    alert( data.length+" rows matched the filter" );
 } );
 
 // fnAddData
@@ -51,1395 +37,1366 @@ $(document).ready(function() {
 var giCount = 2;
 
 $(document).ready(function() {
-	$('#example').dataTable();
+    $('#example').DataTable();
 } );
 
 function fnClickAddRow() {
-	$('#example').dataTable().fnAddData( [
-		giCount+".1",
-		giCount+".2",
-		giCount+".3",
-		giCount+".4" ]
-	);
+    $('#example').DataTable().rows.add( [
+        giCount+".1",
+        giCount+".2",
+        giCount+".3",
+        giCount+".4" ]
+    );
 
-	giCount++;
+    giCount++;
 }
 
 // fnAdjustColumnSizing
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable( {
-		"sScrollY": "200px",
-		"bPaginate": false
-	} );
+    var table = $('#example').DataTable( {
+        scrollY: "200px",
+        paging: false
+    } );
 
-	$(window).bind('resize', function () {
-		oTable.fnAdjustColumnSizing();
-	} );
+    $(window).bind('resize', function () {
+        table.columns.adjust();
+    } );
 } );
 
 // fnClearTable
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Immediately 'nuke' the current rows (perhaps waiting for an Ajax callback...)
-	oTable.fnClearTable();
+    // Immediately 'nuke' the current rows (perhaps waiting for an Ajax callback...)
+    table.clear();
 } );
 
 // fnClose
 
 $(document).ready(function() {
-	var oTable;
+    var table;
 
-	// 'open' an information row when a row is clicked on
-	$('#example tbody tr').click( function () {
-		if ( oTable.fnIsOpen(this) ) {
-			oTable.fnClose( this );
-		} else {
-			oTable.fnOpen( this, "Temporary row opened", "info_row" );
-		}
-	} );
+    // 'open' an information row when a row is clicked on
+    $('#example tbody tr').click( function () {
+        if ( table.fnIsOpen(this) ) {
+            table.fnClose( this );
+        } else {
+            table.fnOpen( this, "Temporary row opened", "info_row" );
+        }
+    } );
 
-	oTable = $('#example').dataTable();
+    table = $('#example').DataTable();
 } );
 
 // fnDeleteRow
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Immediately remove the first row
-	oTable.fnDeleteRow( 0 );
+    // Immediately remove the first row
+    table.fnDeleteRow( 0 );
 } );
 
 // fnDestroy
 
 $(document).ready(function() {
-	// This example is fairly pointless in reality, but shows how fnDestroy can be used
-	var oTable = $('#example').dataTable();
-	oTable.fnDestroy();
+    // This example is fairly pointless in reality, but shows how fnDestroy can be used
+    var table = $('#example').DataTable();
+    table.fnDestroy();
 } );
 
 // fnDraw
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Re-draw the table - you wouldn't want to do it here, but it's an example :-)
-	oTable.fnDraw();
+    // Re-draw the table - you wouldn't want to do it here, but it's an example :-)
+    table.fnDraw();
 } );
 
 // fnFilter
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Sometime later - filter...
-	oTable.fnFilter( 'test string' );
+    // Sometime later - filter...
+    table.fnFilter( 'test string' );
 } );
 
 // fnGetData
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	oTable.$('tr').click( function () {
-		var data = oTable.fnGetData( this );
-		// ... do something with the array / object of data for the row
-	} );
+    table.$('tr').click( function () {
+        var data = table.fnGetData( this );
+        // ... do something with the array / object of data for the row
+    } );
 } );
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	oTable.$('td').click( function () {
-		var sData = oTable.fnGetData( this );
-		alert( 'The cell clicked on had the value of '+sData );
-	} );
+    table.$('td').click( function () {
+        var sData = table.fnGetData( this );
+        alert( 'The cell clicked on had the value of '+sData );
+    } );
 } );
 
 // fnGetNodes
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Get the nodes from the table
-	var nNodes = oTable.fnGetNodes( );
+    // Get the nodes from the table
+    var nNodes = table.fnGetNodes( );
 } );
 
 // fnGetPosition
 
 $(document).ready(function() {
-	$('#example tbody td').click( function () {
-		// Get the position of the current data from the node
-		var aPos = oTable.fnGetPosition( this );
+    $('#example tbody td').click( function () {
+        // Get the position of the current data from the node
+        var aPos = table.fnGetPosition( this );
 
-		// Get the data array for this row
-		var aData = oTable.fnGetData( aPos[0] );
+        // Get the data array for this row
+        var aData = table.fnGetData( aPos[0] );
 
-		// Update the data array and return the value
-		aData[ aPos[1] ] = 'clicked';
-		this.innerHTML = 'clicked';
-	} );
+        // Update the data array and return the value
+        aData[ aPos[1] ] = 'clicked';
+        this.innerHTML = 'clicked';
+    } );
 
-	// Init DataTables
-	var oTable = $('#example').dataTable();
+    // Init DataTables
+    var table = $('#example').DataTable();
 } );
 
 // fnIsOpen
 
 $(document).ready(function() {
-	var oTable;
+    var table;
 
-	// 'open' an information row when a row is clicked on
-	$('#example tbody tr').click( function () {
-		if ( oTable.fnIsOpen(this) ) {
-			oTable.fnClose( this );
-		} else {
-			oTable.fnOpen( this, "Temporary row opened", "info_row" );
-		}
-	} );
+    // 'open' an information row when a row is clicked on
+    $('#example tbody tr').click( function () {
+        if ( table.fnIsOpen(this) ) {
+            table.fnClose( this );
+        } else {
+            table.fnOpen( this, "Temporary row opened", "info_row" );
+        }
+    } );
 
-	oTable = $('#example').dataTable();
+    table = $('#example').DataTable();
 } );
 
 // fnOpen
 
 $(document).ready(function() {
-	var oTable;
+    var table;
 
-	// 'open' an information row when a row is clicked on
-	$('#example tbody tr').click( function () {
-		if ( oTable.fnIsOpen(this) ) {
-			oTable.fnClose( this );
-		} else {
-			oTable.fnOpen( this, "Temporary row opened", "info_row" );
-		}
-	} );
+    // 'open' an information row when a row is clicked on
+    $('#example tbody tr').click( function () {
+        if ( table.fnIsOpen(this) ) {
+            table.fnClose( this );
+        } else {
+            table.fnOpen( this, "Temporary row opened", "info_row" );
+        }
+    } );
 
-	oTable = $('#example').dataTable();
+    table = $('#example').DataTable();
 } );
 
 // fnPageChange
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
-	oTable.fnPageChange( 'next' );
+    var table = $('#example').DataTable();
+    table.fnPageChange( 'next' );
 } );
 
 // fnSetColumnVis
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Hide the second column after initialisation
-	oTable.fnSetColumnVis( 1, false );
+    // Hide the second column after initialisation
+    table.fnSetColumnVis( 1, false );
 } );
 
 // fnSettings
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
-	var oSettings = oTable.fnSettings();
+    var table = $('#example').DataTable();
+    var oSettings = table.fnSettings();
 
-	// Show an example parameter from the settings
-	alert("" + oSettings._iDisplayStart);
+    // Show an example parameter from the settings
+    alert("" + oSettings._iDisplayStart);
 } );
 
 // fnSort
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Sort immediately with columns 0 and 1
-	oTable.fnSort( [ [0,'asc'], [1,'asc'] ] );
+    // Sort immediately with columns 0 and 1
+    table.fnSort( [ [0,'asc'], [1,'asc'] ] );
 } );
 
 // fnSortListener
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
+    var table = $('#example').DataTable();
 
-	// Sort on column 1, when 'sorter' is clicked on
-	oTable.fnSortListener( document.getElementById('sorter'), 1 );
+    // Sort on column 1, when 'sorter' is clicked on
+    table.fnSortListener( document.getElementById('sorter'), 1 );
 } );
 
 // fnUpdate
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
-	oTable.fnUpdate( 'Example update', 0, 0 ); // Single cell
-	oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+    var table = $('#example').DataTable();
+    table.fnUpdate( 'Example update', 0, 0 ); // Single cell
+    table.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
 } );
 
 // fnVersionCheck
 
 $(document).ready(function() {
-	var oTable = $('#example').dataTable();
-	oTable.fnVersionCheck( '1.9.0');
+    var table = $('#example').DataTable();
+    table.fnVersionCheck( '1.9.0');
 } );
 
 // http://datatables.net/usage/features
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bAutoWidth": false
-	} );
+    $('#example').DataTable( {
+        autoWidth: false
+    } );
 } );
 
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/arrays.txt",
-		"bDeferRender": true
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/arrays.txt",
+        deferRender: true
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bFilter": false
-	} );
+    $('#example').DataTable( {
+        searching: false
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bInfo": false
-	} );
+    $('#example').DataTable( {
+        info: false
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bJQueryUI": true
-	} );
+    $('#example').DataTable( {
+        jQueryUI: true
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bLengthChange": false
-	} );
+    $('#example').DataTable( {
+        lengthChange: false
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bPaginate": false
-	} );
+    $('#example').DataTable( {
+        paging: false
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bProcessing": true
-	} );
+    $('#example').DataTable( {
+        processing: true
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bScrollInfinite": true,
-		"bScrollCollapse": true,
-		"sScrollY": "200px"
-	} );
+    $('#example').DataTable( {
+        scrollCollapse: true,
+        scrollY: "200px"
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bServerSide": true,
-		"sAjaxSource": "xhr.php"
-	} );
+    $('#example').DataTable( {
+        serverSide: true,
+        ajax: "xhr.php"
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bSort": false
-	} );
+    $('#example').DataTable( {
+        ordering: false
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bSortClasses": false
-	} );
+    $('#example').DataTable( {
+        orderClasses: false
+    } );
 } );
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bStateSave": true
-	} );
+    $('#example').DataTable( {
+        stateSave: true
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sScrollX": "100%",
-		"bScrollCollapse": true
-	} );
+    $('#example').DataTable( {
+        scrollX: "100%",
+        scrollCollapse: true
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sScrollY": "200px",
-		"bPaginate": false
-	} );
+    $('#example').DataTable( {
+        scrollY: "200px",
+        paging: false
+    } );
 } );
 
 // http://datatables.net/usage/options
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sScrollY": "200px",
-		"bPaginate": false
-	} );
+    $('#example').DataTable( {
+        scrollY: "200px",
+        paging: false
+    } );
 
-	// Some time later....
-	$('#example').dataTable( {
-		"bFilter": false,
-		"bDestroy": true
-	} );
+    // Some time later....
+    $('#example').DataTable( {
+        searching: false,
+        destroy: true
+    } );
 } );
 
 $(document).ready( function() {
-	initTable();
-	tableActions();
+    initTable();
+    tableActions();
 } );
 
 function initTable ()
 {
-	return $('#example').dataTable( {
-		"sScrollY": "200px",
-		"bPaginate": false,
-		"bRetrieve": true
-	} );
+    return $('#example').DataTable( {
+        scrollY: "200px",
+        paging: false,
+        retrieve: true
+    } );
 }
 
 function tableActions ()
 {
-	var oTable = initTable();
-	// perform API operations with oTable
+    var table = initTable();
+    // perform API operations with table
 }
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bScrollAutoCss": false,
-		"sScrollY": "200px"
-	} );
+    $('#example').DataTable( {
+        scrollY: "200px"
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sScrollY": "200",
-		"bScrollCollapse": true
-	} );
+    $('#example').DataTable( {
+        scrollY: "200",
+        scrollCollapse: true
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bSortCellsTop": true
-	} );
+    $('#example').DataTable( {
+        orderCellsTop: true
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"iCookieDuration": 60*60*24 // 1 day
-	} );
+    $('#example').DataTable( {
+        stateDuration: 60*60*24 // 1 day
+    } );
 } );
 
 // 57 records available in the table, no filtering applied
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bServerSide": true,
-		"sAjaxSource": "scripts/server_processing.php",
-		"iDeferLoading": 57
-	} );
+    $('#example').DataTable( {
+        serverSide: true,
+        ajax: "scripts/server_processing.php",
+        deferLoading: 57
+    } );
 } );
 
 
 // 57 records after filtering, 100 without filtering (an initial filter applied)
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bServerSide": true,
-		"sAjaxSource": "scripts/server_processing.php",
-		"iDeferLoading": [ 57, 100 ],
-		"oSearch": {
-			"sSearch": "my_filter"
-		}
-	} );
+    $('#example').DataTable( {
+        serverSide: true,
+        ajax: "scripts/server_processing.php",
+        deferLoading: [ 57, 100 ],
+        search: {
+            search: "my_filter"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"iDisplayLength": 50
-	} );
+    $('#example').DataTable( {
+        pageLength: 50
+    } );
 } )
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"iDisplayStart": 20
-	} );
+    $('#example').DataTable( {
+        displayStart: 20
+    } );
 } )
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bScrollInfinite": true,
-		"bScrollCollapse": true,
-		"sScrollY": "200px",
-		"iScrollLoadGap": 50
-	} );
+    $('#example').DataTable( {
+        scrollCollapse: true,
+        scrollY: "200px"
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"iTabIndex": 1
-	} );
+    $('#example').DataTable( {
+        tabIndex: 1
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oSearch": {"sSearch": "Initial search"}
-	} );
+    $('#example').DataTable( {
+        search: {search: "Initial search"}
+    } );
 } )
 
-// Get data from { "data": [...] }
+// Get data from { data: [...] }
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/data.txt",
-		"sAjaxDataProp": "data"
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/data.txt",
+        dataSrc: "data"
+    } );
 } );
 
 
-// Get data from { "data": { "inner": [...] } }
+// Get data from { data: { inner: [...] } }
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/data.txt",
-		"sAjaxDataProp": "data.inner"
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/data.txt",
+        dataSrc: "data.inner"
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sAjaxSource": "http://www.sprymedia.co.uk/dataTables/json.php"
-	} );
-} )
-
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"sCookiePrefix": "my_datatable_"
-	} );
-} );
-
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"sDom": '<"top"i>rt<"bottom"flp><"clear">'
-	} );
-} );
-
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"sPaginationType": "full_numbers"
-	} );
+    $('#example').DataTable( {
+        ajax: "http://www.sprymedia.co.uk/dataTables/json.php"
+    } );
 } )
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sScrollX": "100%",
-		"sScrollXInner": "110%"
-	} );
+    $('#example').DataTable( {
+        dom: '<"top"i>rt<"bottom"flp><"clear">'
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bServerSide": true,
-		"sAjaxSource": "scripts/post.php",
-		"sServerMethod": "POST"
-	} );
+    $('#example').DataTable( {
+        pagingType: "full_numbers"
+    } );
+} )
+
+$(document).ready( function() {
+    $('#example').DataTable( {
+        scrollX: "100%",
+        scrollXInner: "110%"
+    } );
+} );
+
+$(document).ready( function() {
+    $('#example').DataTable( {
+        serverSide: true,
+        ajax: "scripts/post.php",
+        //ajax: "POST"
+    } );
 } );
 
 // http://datatables.net/usage/callbacks
 
-$(document).ready( function () {
-	$('#example').dataTable( {
-		"fnCookieCallback": function (sName, oData, sExpires, sPath) {
-			// Customise oData or sName or whatever else here
-			return sName + "="+JSON.stringify(oData)+"; expires=" + sExpires +"; path=" + sPath;
-		}
-	} );
+$(document).ready( function() {
+    $('#example').DataTable( {
+        createdRow: function( nRow, aData, iDataIndex ) {
+            // Bold the grade for all 'A' grade browsers
+            if ( aData[4] == "A" )
+            {
+                $('td:eq(4)', nRow).html( '<b>A</b>' );
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnCreatedRow": function( nRow, aData, iDataIndex ) {
-			// Bold the grade for all 'A' grade browsers
-			if ( aData[4] == "A" )
-			{
-				$('td:eq(4)', nRow).html( '<b>A</b>' );
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        drawCallback: function( oSettings ) {
+            alert( 'DataTables has redrawn the table' );
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnDrawCallback": function( oSettings ) {
-			alert( 'DataTables has redrawn the table' );
-		}
-	} );
-} );
-
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"fnFooterCallback": function( nFoot, aData, iStart, iEnd, aiDisplay ) {
-			(<HTMLElement> (nFoot.getElementsByTagName('th')[0])).innerHTML = "Starting index is "+iStart;
-		}
-	} );
+    $('#example').DataTable( {
+        footerCallback: function( nFoot, aData, iStart, iEnd, aiDisplay ) {
+            (<HTMLElement> (nFoot.getElementsByTagName('th')[0])).innerHTML = "Starting index is "+iStart;
+        }
+    } );
 } )
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnFormatNumber": function ( iIn ) {
-			if ( iIn < 1000 ) {
-				return iIn.toString();
-			} else {
-				var
-					s=(iIn+""),
-					a=s.split(""), out="",
-					iLen=s.length;
+    $('#example').DataTable( {
+        formatNumber: function ( iIn ) {
+            if ( iIn < 1000 ) {
+                return iIn.toString();
+            } else {
+                var
+                    s=(iIn+""),
+                    a=s.split(""), out="",
+                    iLen=s.length;
 
-				for ( var i=0 ; i<iLen ; i++ ) {
-					if ( i%3 === 0 && i !== 0 ) {
-						out = "'"+out;
-					}
-					out = a[iLen-i-1]+out;
-				}
-			}
-			return out;
-		}
+                for ( var i=0 ; i<iLen ; i++ ) {
+                    if ( i%3 === 0 && i !== 0 ) {
+                        out = "'"+out;
+                    }
+                    out = a[iLen-i-1]+out;
+                }
+            }
+            return out;
+        }
 } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
-			(<HTMLElement> nHead.getElementsByTagName('th')[0]).innerHTML = "Displaying "+(iEnd-iStart)+" records";
-		}
-	} );
+    $('#example').DataTable( {
+        headerCallback: function( nHead, aData, iStart, iEnd, aiDisplay ) {
+            (<HTMLElement> nHead.getElementsByTagName('th')[0]).innerHTML = "Displaying "+(iEnd-iStart)+" records";
+        }
+    } );
 } )
 
-$('#example').dataTable( {
-	"fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {
-		return iStart +" to "+ iEnd;
-	}
+$('#example').DataTable( {
+    infoCallback: function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {
+        return iStart +" to "+ iEnd;
+    }
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnInitComplete": function(oSettings, json) {
-			alert( 'DataTables has finished its initialisation.' );
-		}
-	} );
+    $('#example').DataTable( {
+        initComplete: function(oSettings, json) {
+            alert( 'DataTables has finished its initialisation.' );
+        }
+    } );
 } )
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnPreDrawCallback": function( oSettings ) {
-			if ( $('#test').val() == 1 ) {
-				return false;
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        preDrawCallback: function( oSettings ) {
+            if ( $('#test').val() == 1 ) {
+                return false;
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			// Bold the grade for all 'A' grade browsers
-			if ( aData[4] == "A" )
-			{
-				$('td:eq(4)', nRow).html( '<b>A</b>' );
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        rowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+            // Bold the grade for all 'A' grade browsers
+            if ( aData[4] == "A" )
+            {
+                $('td:eq(4)', nRow).html( '<b>A</b>' );
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bProcessing": true,
-		"bServerSide": true,
-		"sAjaxSource": "xhr.php",
-		"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
-			oSettings.jqXHR = $.ajax( {
-				"dataType": 'json',
-				"type": "POST",
-				"url": sSource,
-				"data": aoData,
-				"success": fnCallback
-			} );
-		}
-	} );
+    $('#example').DataTable( {
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "xhr.php",
+            dataType: 'json',
+            type: "POST",
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bProcessing": true,
-		"bServerSide": true,
-		"sAjaxSource": "scripts/server_processing.php",
-		"fnServerParams": function ( aoData ) {
-			aoData.push( { "name": "more_data", "value": "my_value" } );
-		}
-	} );
+    $('#example').DataTable( {
+        processing: true,
+        serverSide: true,
+        ajax: "scripts/server_processing.php",
+        //ajax: function ( aoData ) {
+        //    aoData.push( { name: "more_data", value: "my_value" } );
+        //}
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bStateSave": true,
-		"fnStateLoad": function (oSettings) {
-			var o;
+    $('#example').DataTable( {
+        stateSave: true,
+        stateLoadCallback: function (oSettings) {
+            var o;
 
-			// Send an Ajax request to the server to get the data. Note that
-			// this is a synchronous request.
-			$.ajax( {
-				"url": "/state_load",
-				"async": false,
-				"dataType": "json",
-				"success": function (json) {
-					o = json;
-				}
-			} );
+            // Send an Ajax request to the server to get the data. Note that
+            // this is a synchronous request.
+            $.ajax( {
+                url: "/state_load",
+                async: false,
+                dataType: "json",
+                success: function (json) {
+                    o = json;
+                }
+            } );
 
-			return o;
-		}
-	} );
+            return o;
+        }
+    } );
 } );
 
 // Remove a saved filter, so filtering is never loaded
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bStateSave": true,
-		"fnStateLoadParams": function (oSettings, oData) {
-			oData.oSearch.sSearch = "";
-		}
-	} );
+    $('#example').DataTable( {
+        stateSave: true,
+        stateLoadParams: function (oSettings, oData) {
+            oData.search.search = "";
+        }
+    } );
 } );
 
 
 // Disallow state loading by returning false
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bStateSave": true,
-		"fnStateLoadParams": function (oSettings, oData) {
-			return false;
-		}
-	} );
+    $('#example').DataTable( {
+        stateSave: true,
+        stateLoadParams: function (oSettings, oData) {
+            return false;
+        }
+    } );
 } );
 
 // Show an alert with the filtering value that was saved
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bStateSave": true,
-		"fnStateLoaded": function (oSettings, oData) {
-			alert( 'Saved filter was: '+oData.oSearch.sSearch );
-		}
-	} );
+    $('#example').DataTable( {
+        stateSave: true,
+        stateLoaded: function (oSettings, oData) {
+            alert( 'Saved filter was: '+oData.search.search );
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bStateSave": true,
-		"fnStateSave": function (oSettings, oData) {
-			// Send an Ajax request to the server with the state object
-			$.ajax( {
-				"url": "/state_save",
-				"data": oData,
-				"dataType": "json",
-				"method": "POST",
-				"success": function () {}
-			} );
-		}
-	} );
+    $('#example').DataTable( {
+        stateSave: true,
+        stateSaveCallback: function (oSettings, oData) {
+            // Send an Ajax request to the server with the state object
+            $.ajax( {
+                url: "/state_save",
+                data: oData,
+                dataType: "json",
+                method: "POST",
+                success: function () {}
+            } );
+        }
+    } );
 } );
 
 // Remove a saved filter, so filtering is never saved
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bStateSave": true,
-		"fnStateSaveParams": function (oSettings, oData) {
-			oData.oSearch.sSearch = "";
-		}
-	} );
+    $('#example').DataTable( {
+        stateSave: true,
+        stateSaveParams: function (oSettings, oData) {
+            oData.search.search = "";
+        }
+    } );
 } );
 
 // http://datatables.net/usage/columns
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "aDataSort": [ 0, 1 ], "aTargets": [ 0 ] },
-			{ "aDataSort": [ 1, 0 ], "aTargets": [ 1 ] },
-			{ "aDataSort": [ 2, 3, 4 ], "aTargets": [ 2 ] }
-		]
-	} );
+    $('#example').DataTable( {
+        columnDefs: [
+            { orderData: [ 0, 1 ], targets: [ 0 ] },
+            { orderData: [ 1, 0 ], targets: [ 1 ] },
+            { orderData: [ 2, 3, 4 ], targets: [ 2 ] }
+        ]
+    } );
 } );
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "aDataSort": [ 0, 1 ] },
-			{ "aDataSort": [ 1, 0 ] },
-			{ "aDataSort": [ 2, 3, 4 ] },
-			null,
-			null
-		]
-	} );
+    $('#example').DataTable( {
+        columns: [
+            { orderData: [ 0, 1 ] },
+            { orderData: [ 1, 0 ] },
+            { orderData: [ 2, 3, 4 ] },
+            null,
+            null
+        ]
+    } );
 } );
 
-// Using aoColumnDefs
+// Using columnDefs
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "asSorting": [ "asc" ], "aTargets": [ 1 ] },
-			{ "asSorting": [ "desc", "asc", "asc" ], "aTargets": [ 2 ] },
-			{ "asSorting": [ "desc" ], "aTargets": [ 3 ] }
-		]
-	} );
-} );
-
-
-// Using aoColumns
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			null,
-			{ "asSorting": [ "asc" ] },
-			{ "asSorting": [ "desc", "asc", "asc" ] },
-			{ "asSorting": [ "desc" ] },
-			null
-		]
-	} );
-} );
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "bSearchable": false, "aTargets": [ 0 ] }
-		] } );
+    $('#example').DataTable( {
+        columnDefs: [
+            { orderSequence: [ "asc" ], targets: [ 1 ] },
+            { orderSequence: [ "desc", "asc", "asc" ], targets: [ 2 ] },
+            { orderSequence: [ "desc" ], targets: [ 3 ] }
+        ]
+    } );
 } );
 
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "bSearchable": false },
-			null,
-			null,
-			null,
-			null
-		] } );
+    $('#example').DataTable( {
+        columns: [
+            null,
+            { orderSequence: [ "asc" ] },
+            { orderSequence: [ "desc", "asc", "asc" ] },
+            { orderSequence: [ "desc" ] },
+            null
+        ]
+    } );
 } );
 
-// Using aoColumnDefs
+// Using columnDefs
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "bSortable": false, "aTargets": [ 0 ] }
-		] } );
-} );
-
-
-// Using aoColumns
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "bSortable": false },
-			null,
-			null,
-			null,
-			null
-		] } );
-} );
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "bVisible": false, "aTargets": [ 0 ] }
-		] } );
+    $('#example').DataTable( {
+        columnDefs: [
+            { searchable: false, targets: [ 0 ] }
+        ] } );
 } );
 
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "bVisible": false },
-			null,
-			null,
-			null,
-			null
-		] } );
+    $('#example').DataTable( {
+        columns: [
+            { searchable: false },
+            null,
+            null,
+            null,
+            null
+        ] } );
 } );
 
+// Using columnDefs
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [ {
-			"aTargets": [3],
-			"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-				if ( sData == "1.7" ) {
-					$(nTd).css('color', 'blue')
-				}
-			}
-		} ]
-	});
-} );
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "iDataSort": 1, "aTargets": [ 0 ] }
-		]
-	} );
+    $('#example').DataTable( {
+        columnDefs: [
+            { orderable: false, targets: [ 0 ] }
+        ] } );
 } );
 
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "iDataSort": 1 },
-			null,
-			null,
-			null,
-			null
-		]
-	} );
+    $('#example').DataTable( {
+        columns: [
+            { orderable: false },
+            null,
+            null,
+            null,
+            null
+        ] } );
+} );
+
+// Using columnDefs
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            { visible: false, targets: [ 0 ] }
+        ] } );
+} );
+
+
+// Using columns
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columns: [
+            { visible: false },
+            null,
+            null,
+            null,
+            null
+        ] } );
+} );
+
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [ {
+            targets: [3],
+            createdCell: function (nTd, sData, oData, iRow, iCol) {
+                if ( sData == "1.7" ) {
+                    $(nTd).css('color', 'blue')
+                }
+            }
+        } ]
+    });
+} );
+
+// Using columnDefs
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            { orderData: [ 1 ], targets: [ 0 ] }
+        ]
+    } );
+} );
+
+
+// Using columns
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columns: [
+            { orderData: [ 1 ] },
+            null,
+            null,
+            null,
+            null
+        ]
+    } );
 } );
 
 // Read table data from objects
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/deep.txt",
-		"aoColumns": [
-			{ "mData": "engine" },
-			{ "mData": "browser" },
-			{ "mData": "platform.inner" },
-			{ "mData": "platform.details.0" },
-			{ "mData": "platform.details.1" }
-		]
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/deep.txt",
+        columns: [
+            { data: "engine" },
+            { data: "browser" },
+            { data: "platform.inner" },
+            { data: "platform.details.0" },
+            { data: "platform.details.1" }
+        ]
+    } );
 } );
 
 
-// Using mData as a function to provide different information for
+// Using data as a function to provide different information for
 // sorting, filtering and display. In this case, currency (price)
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"aoColumnDefs": [ {
-			"aTargets": [ 0 ],
-			"mData": function ( source, type, val ) {
-				if (type === 'set') {
-					source.price = val;
-					// Store the computed dislay and filter values for efficiency
-					source.price_display = val=="" ? "" : "$"+val;
-					source.price_filter  = val=="" ? "" : "$"+val+" "+val;
-					return;
-				}
-				else if (type === 'display') {
-					return source.price_display;
-				}
-				else if (type === 'filter') {
-					return source.price_filter;
-				}
-				// 'sort', 'type' and undefined all just use the integer
-				return source.price;
-			}
-		} ]
-	} );
+    var table = $('#example').DataTable( {
+        columnDefs: [ {
+            targets: [ 0 ],
+            data: function ( source, type, val ) {
+                if (type === 'set') {
+                    source.price = val;
+                    // Store the computed dislay and filter values for efficiency
+                    source.price_display = val=="" ? "" : "$"+val;
+                    source.price_filter  = val=="" ? "" : "$"+val+" "+val;
+                    return;
+                }
+                else if (type === 'display') {
+                    return source.price_display;
+                }
+                else if (type === 'filter') {
+                    return source.price_filter;
+                }
+                // 'sort', 'type' and undefined all just use the integer
+                return source.price;
+            }
+        } ]
+    } );
 } );
 
 // Create a comma separated list from an array of objects
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/deep.txt",
-		"aoColumns": [
-			{ "mData": "engine" },
-			{ "mData": "browser" },
-			{
-				"mData": "platform",
-				"mRender": "[, ].name"
-			}
-		]
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/deep.txt",
+        columns: [
+            { data: "engine" },
+            { data: "browser" },
+            {
+                data: "platform",
+                render: "[, ].name"
+            }
+        ]
+    } );
 } );
 
 
 // Use as a function to create a link from the data source
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"aoColumnDefs": [ {
-			"aTargets": [ 0 ],
-			"mData": "download_link",
-			"mRender": function ( data, type, full ) {
-				return '<a href="'+data+'">Download</a>';
-			}
-		} ]
-	} );
+    var table = $('#example').DataTable( {
+        columnDefs: [ {
+            targets: [ 0 ],
+            data: "download_link",
+            render: function ( data, type, full ) {
+                return '<a href="'+data+'">Download</a>';
+            }
+        } ]
+    } );
 } );
 
 // Make the first column use TH cells
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"aoColumnDefs": [ {
-			"aTargets": [ 0 ],
-			"sCellType": "th"
-		} ]
-	} );
+    var table = $('#example').DataTable( {
+        columnDefs: [ {
+            targets: [ 0 ],
+            cellType: "th"
+        } ]
+    } );
 } );
 
-// Using aoColumnDefs
+// Using columnDefs
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "sClass": "my_class", "aTargets": [ 0 ] }
-		]
-	} );
-} );
-
-
-// Using aoColumns
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "sClass": "my_class" },
-			null,
-			null,
-			null,
-			null
-		]
-	} );
-} );
-
-// Using aoColumns
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			null,
-			null,
-			null,
-			{
-				"sContentPadding": "mmm"
-			}
-		]
-	} );
-} );
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{
-				"mData": null,
-				"sDefaultContent": "Edit",
-				"aTargets": [ -1 ]
-			}
-		]
-	} );
+    $('#example').DataTable( {
+        columnDefs: [
+            { className: "my_class", targets: [ 0 ] }
+        ]
+    } );
 } );
 
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			null,
-			null,
-			null,
-			{
-				"mData": null,
-				"sDefaultContent": "Edit"
-			}
-		]
-	} );
+    $('#example').DataTable( {
+        columns: [
+            { className: "my_class" },
+            null,
+            null,
+            null,
+            null
+        ]
+    } );
 } );
 
-// Using aoColumnDefs
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "sName": "engine", "aTargets": [ 0 ] },
-			{ "sName": "browser", "aTargets": [ 1 ] },
-			{ "sName": "platform", "aTargets": [ 2 ] },
-			{ "sName": "version", "aTargets": [ 3 ] },
-			{ "sName": "grade", "aTargets": [ 4 ] }
-		]
-	} );
+    $('#example').DataTable( {
+        columns: [
+            null,
+            null,
+            null,
+            {
+                contentPadding: "mmm"
+            }
+        ]
+    } );
 } );
 
-
-// Using aoColumns
+// Using columnDefs
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "sName": "engine" },
-			{ "sName": "browser" },
-			{ "sName": "platform" },
-			{ "sName": "version" },
-			{ "sName": "grade" }
-		]
-	} );
-} );
-
-/*
-
-This test does not compile, because - for some hard to find reason - the compiler is missing the aTargets 
-property of the second element. 
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "sSortDataType": "dom-text", "aTargets": [ 2, 3 ] },
-			{ "sType": "numeric", "aTargets": [ 3 ] },
-			{ "sSortDataType": "dom-select", "aTargets": [ 4 ] },
-			{ "sSortDataType": "dom-checkbox", "aTargets": [ 5 ] }
-		]
-	} );
-} );
-
-*/
-
-// Using aoColumns
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			null,
-			null,
-			{ "sSortDataType": "dom-text" },
-			{ "sSortDataType": "dom-text", "sType": "numeric" },
-			{ "sSortDataType": "dom-select" },
-			{ "sSortDataType": "dom-checkbox" }
-		]
-	} );
-} );
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "sTitle": "My column title", "aTargets": [ 0 ] }
-		]
-	} );
+    $('#example').DataTable( {
+        columnDefs: [
+            {
+                data: null,
+                defaultContent: "Edit",
+                targets: [ -1 ]
+            }
+        ]
+    } );
 } );
 
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "sTitle": "My column title" },
-			null,
-			null,
-			null,
-			null
-		]
-	} );
+    $('#example').DataTable( {
+        columns: [
+            null,
+            null,
+            null,
+            {
+                data: null,
+                defaultContent: "Edit"
+            }
+        ]
+    } );
 } );
 
-// Using aoColumnDefs
+// Using columnDefs
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "sType": "html", "aTargets": [ 0 ] }
-		]
-	} );
-} );
-
-
-// Using aoColumns
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "sType": "html" },
-			null,
-			null,
-			null,
-			null
-		]
-	} );
-} );
-
-// Using aoColumnDefs
-$(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumnDefs": [
-			{ "sWidth": "20%", "aTargets": [ 0 ] }
-		]
-	} );
+    $('#example').DataTable( {
+        columnDefs: [
+            { name: "engine", targets: [ 0 ] },
+            { name: "browser", targets: [ 1 ] },
+            { name: "platform", targets: [ 2 ] },
+            { name: "version", targets: [ 3 ] },
+            { name: "grade", targets: [ 4 ] }
+        ]
+    } );
 } );
 
 
-// Using aoColumns
+// Using columns
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"aoColumns": [
-			{ "sWidth": "20%" },
-			null,
-			null,
-			null,
-			null
-		]
-	} );
+    $('#example').DataTable( {
+        columns: [
+            { name: "engine" },
+            { name: "browser" },
+            { name: "platform" },
+            { name: "version" },
+            { name: "grade" }
+        ]
+    } );
+} );
+
+// Using columnDefs
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            { orderDataType: "dom-text", targets: [ 2, 3 ] },
+            { type: "numeric", targets: [ 3 ] },
+            { orderDataType: "dom-select", targets: [ 4 ] },
+            { orderDataType: "dom-checkbox", targets: [ 5 ] }
+        ]
+    } );
+} );
+
+// Using columns
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columns: [
+            null,
+            null,
+            { orderDataType: "dom-text" },
+            { orderDataType: "dom-text", type: "numeric" },
+            { orderDataType: "dom-select" },
+            { orderDataType: "dom-checkbox" }
+        ]
+    } );
+} );
+
+// Using columnDefs
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            { title: "My column title", targets: [ 0 ] }
+        ]
+    } );
+} );
+
+
+// Using columns
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columns: [
+            { title: "My column title" },
+            null,
+            null,
+            null,
+            null
+        ]
+    } );
+} );
+
+// Using columnDefs
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            { type: "html", targets: [ 0 ] }
+        ]
+    } );
+} );
+
+
+// Using columns
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columns: [
+            { type: "html" },
+            null,
+            null,
+            null,
+            null
+        ]
+    } );
+} );
+
+// Using columnDefs
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            { width: "20%", targets: [ 0 ] }
+        ]
+    } );
+} );
+
+
+// Using columns
+$(document).ready( function() {
+    $('#example').DataTable( {
+        columns: [
+            { width: "20%" },
+            null,
+            null,
+            null,
+            null
+        ]
+    } );
 } );
 
 // http://www.datatables.net/usage/i18n
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"oAria": {
-				"sSortAscending": " - click/return to sort ascending"
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            aria: {
+                sortAscending: " - click/return to sort ascending"
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"oAria": {
-				"sSortDescending": " - click/return to sort descending"
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            aria: {
+                sortDescending: " - click/return to sort descending"
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"oPaginate": {
-				"sFirst": "First page"
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            paginate: {
+                first: "First page"
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"oPaginate": {
-				"sLast": "Last page"
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            paginate: {
+                last: "Last page"
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"oPaginate": {
-				"sNext": "Next page"
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            paginate: {
+                next: "Next page"
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"oPaginate": {
-				"sPrevious": "Previous page"
-			}
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            paginate: {
+                previous: "Previous page"
+            }
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sEmptyTable": "No data available in table"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            emptyTable: "No data available in table"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sInfo": "Got a total of _TOTAL_ entries to show (_START_ to _END_)"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            info: "Got a total of _TOTAL_ entries to show (_START_ to _END_)"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sInfoEmpty": "No entries to show"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            infoEmpty: "No entries to show"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sInfoFiltered": " - filtering from _MAX_ records"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            infoFiltered: " - filtering from _MAX_ records"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sInfoPostFix": "All records shown are derived from real information."
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            infoPostFix: "All records shown are derived from real information."
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sInfoThousands": "'"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            thousands: "'"
+        }
+    } );
 } );
 
 // Language change only
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sLengthMenu": "Display _MENU_ records"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            lengthMenu: "Display _MENU_ records"
+        }
+    } );
 } );
 
 
 // Language and options change
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sLengthMenu": 'Display <select>'+
-				'<option value="10">10</option>'+
-				'<option value="20">20</option>'+
-				'<option value="30">30</option>'+
-				'<option value="40">40</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select> records'
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            lengthMenu: 'Display <select>'+
+                '<option value="10">10</option>'+
+                '<option value="20">20</option>'+
+                '<option value="30">30</option>'+
+                '<option value="40">40</option>'+
+                '<option value="50">50</option>'+
+                '<option value="-1">All</option>'+
+                '</select> records'
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sLoadingRecords": "Please wait - loading..."
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            loadingRecords: "Please wait - loading..."
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sProcessing": "DataTables is currently busy"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            processing: "DataTables is currently busy"
+        }
+    } );
 } );
 
 // Input text box will be appended at the end automatically
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sSearch": "Filter records:"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            search: "Filter records:"
+        }
+    } );
 } );
 
 
 // Specify where the filter should appear
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sSearch": "Apply filter _INPUT_ to table"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            search: "Apply filter _INPUT_ to table"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sUrl": "http://www.sprymedia.co.uk/dataTables/lang.txt"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            url: "http://www.sprymedia.co.uk/dataTables/lang.txt"
+        }
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"oLanguage": {
-			"sZeroRecords": "No records to display"
-		}
-	} );
+    $('#example').DataTable( {
+        language: {
+            zeroRecords: "No records to display"
+        }
+    } );
 } );
 
 // http://www.datatables.net/usage/server-side
 
 $(document).ready( function () {
-	$('#example').dataTable( {
-		"bServerSide": true,
-		"sAjaxSource": "xhr.php"
-	} );
+    $('#example').DataTable( {
+        serverSide: true,
+        ajax: "xhr.php"
+    } );
 } );
 
 // POST data to server
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bProcessing": true,
-		"bServerSide": true,
-		"sAjaxSource": "xhr.php",
-		"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
-			oSettings.jqXHR = $.ajax( {
-				"dataType": 'json',
-				"type": "POST",
-				"url": sSource,
-				"data": aoData,
-				"success": fnCallback
-			} );
-		}
-	} );
+    $('#example').DataTable( {
+        processing: true,
+        serverSide: true,
+        ajax: "xhr.php",
+        //ajax: function ( sSource, aoData, fnCallback, oSettings ) {
+        //    oSettings.jqXHR = $.ajax( {
+        //        dataType: 'json',
+        //        type: "POST",
+        //        url: sSource,
+        //        data: aoData,
+        //        success: fnCallback
+        //    } );
+        //}
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bProcessing": true,
-		"bServerSide": true,
-		"sAjaxSource": "scripts/server_processing.php",
-		"fnServerParams": function ( aoData ) {
-			aoData.push( { "name": "more_data", "value": "my_value" } );
-		}
-	} );
+    $('#example').DataTable( {
+        processing: true,
+        serverSide: true,
+        ajax: "scripts/server_processing.php",
+        //ajax: function ( aoData ) {
+        //    aoData.push( { name: "more_data", value: "my_value" } );
+        //}
+    } );
 } );
 
-// Get data from { "data": [...] }
+// Get data from { data: [...] }
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/data.txt",
-		"sAjaxDataProp": "data"
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/data.txt",
+        dataSrc: "data"
+    } );
 } );
 
 
-// Get data from { "data": { "inner": [...] } }
+// Get data from { data: { inner: [...] } }
 $(document).ready( function() {
-	var oTable = $('#example').dataTable( {
-		"sAjaxSource": "sources/data.txt",
-		"sAjaxDataProp": "data.inner"
-	} );
+    var table = $('#example').DataTable( {
+        ajax: "sources/data.txt",
+        dataSrc: "data.inner"
+    } );
 } );
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"sAjaxSource": "http://www.sprymedia.co.uk/dataTables/json.php"
-	} );
+    $('#example').DataTable( {
+        ajax: "http://www.sprymedia.co.uk/dataTables/json.php"
+    } );
 } )
 
 $(document).ready( function() {
-	$('#example').dataTable( {
-		"bServerSide": true,
-		"sAjaxSource": "scripts/post.php",
-		"sServerMethod": "POST"
-	} );
+    $('#example').DataTable( {
+        serverSide: true,
+        ajax: {
+            url: "scripts/post.php",
+            type: "POST"
+        }
+    } );
 } );
