@@ -6,18 +6,12 @@
 declare var sweetAlert: SweetAlert.SweetAlertStatic;
 declare var swal: SweetAlert.SweetAlertStatic;
 
-declare module "sweetalert" {
-    export = sweetAlert;
+declare module "sweet-alert" {
+    export = swal;
 }
 
 declare module SweetAlert {
-    interface Settings {
-        /**
-         * The title of the modal.
-         * Default: null (required)
-         */
-        title?: string;
-
+    interface SettingsBase {
         /**
          * A description for the modal.
          * Default: null
@@ -109,7 +103,7 @@ declare module SweetAlert {
         html?: boolean;
 
         /**
-         * If set to false, the modal's animation will be disabled. Possible animations: "pop", "none", "slide-from-top" and "slide-from-bottom".
+         * If set to false, the modal's animation will be disabled. Possible animations: "slide-from-top", "slide-from-bottom", "pop" (use true instead) and "none" (use false instead).
          * Default: true, "pop"
          */
         animation?: boolean | string;
@@ -121,21 +115,58 @@ declare module SweetAlert {
         inputType?: string;
     }
 
+    interface Settings extends SettingsBase {
+        /**
+         * The title of the modal.
+         */
+        title: string;
+    }
+
+    interface SetDefaultsSettings extends SettingsBase {
+        /**
+         * The title of the modal.
+         * Default: null
+         */
+        title?: string;
+    }
+
+    /**
+     * Is true or false if the user confirms or cancels the alert. Except for the type "input", then when the user confirms the alert, this variable contains the value of the input element.
+     */
+    type CallbackArgument = boolean | string;
+
     interface SweetAlertStatic {
         /**
          * SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. An awesome replacement for JavaScript's alert.
+         * @param title The title of the modal.
          */
-        (title: string, text?: string, type?: string): void;
+        (title: string): void;
 
         /**
          * SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. An awesome replacement for JavaScript's alert.
+         * @param title The title of the modal.
+         * @param text A description for the modal.
          */
-        (settings: Settings, callback?: (isConfirmOrInputValue: boolean | string) => any): void;
+        (title: string, text: string): void;
+
+        /**
+         * SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. An awesome replacement for JavaScript's alert.
+         * @param title The title of the modal.
+         * @param text A description for the modal.
+         * @param type The type of the modal. SweetAlert comes with 4 built-in types which will show a corresponding icon animation: "warning", "error", "success" and "info". You can also set it as "input" to get a prompt modal.
+         */
+        (title: string, text: string, type: string): void;
+
+        /**
+         * SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. An awesome replacement for JavaScript's alert.
+         * @param callback The callback from the users action. The value is true or false if the user confirms or cancels the alert. Except for the type "input", then when the user confirms the alert, the argument contains the value of the input element.
+         */
+        (settings: Settings, callback?: (isConfirmOrInputValue: CallbackArgument) => any): void;
 
         /**
          * If you end up using a lot of the same settings when calling SweetAlert, you can use setDefaults at the start of your program to set them once and for all!
          */
-        setDefaults(settings: Settings): void;
+        setDefaults(settings: SetDefaultsSettings): void;
 
         /**
          * Close the currently open SweetAlert programmatically.
@@ -143,7 +174,7 @@ declare module SweetAlert {
         close(): void;
 
         /**
-         * Show an error message after validating the input field, if the user's data is bad
+         * Show an error message after validating the input field, if the user's data is bad.
          */
         showInputError(errorMessage: string): void;
     }

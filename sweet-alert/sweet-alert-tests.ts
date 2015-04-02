@@ -1,11 +1,15 @@
 /// <reference path="sweet-alert.d.ts" />
 
+// A basic message
 swal("Here's a message!");
 
+// A title with a text under
 swal("Here's a message!", "It's pretty, isn't it?");
 
+// A success message!
 swal("Good job!", "You clicked the button!", "success");
 
+// A warning message, with a function attached to the "Confirm"-button...
 swal({
     title: "Are you sure?",
     text: "You will not be able to recover this imaginary file!",
@@ -19,6 +23,7 @@ swal({
         swal("Deleted!", "Your imaginary file has been deleted.", "success");
     });
 
+// ... and by passing a parameter, you can execute something else for "Cancel".
 swal({
     title: "Are you sure?",
     text: "You will not be able to recover this imaginary file!",
@@ -38,18 +43,21 @@ swal({
         }
     });
 
+// A message with a custom icon
 swal({
     title: "Sweet!",
     text: "Here's a custom image.",
     imageUrl: "images/thumbs-up.jpg"
 });
 
+// An HTML message
 swal({
     title: "HTML <small>Title</small>!",
     text: "A custom <span style=\"color: #F8BB86\">html<span> message.",
     html: true
 });
 
+// A message with auto close timer
 swal({
     title: "Auto close alert!",
     text: "I will close in 2 seconds.",
@@ -57,6 +65,7 @@ swal({
     showConfirmButton: false
 });
 
+// A replacement for the "prompt" function
 swal({
     title: "An input!",
     text: "Write something interesting:",
@@ -70,14 +79,14 @@ swal({
 
         if (inputValue === "") {
             swal.showInputError("You need to write something!");
-            return false
+            return false;
         }
 
         swal("Nice!", "You wrote: " + inputValue, "success");
     }
     );
 
-swal.setDefaults({ confirmButtonColor: '#0000' });
+swal.setDefaults({ confirmButtonColor: "#000000" });
 
 swal.close();
 
