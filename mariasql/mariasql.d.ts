@@ -3,7 +3,7 @@
 // Definitions by: MichaelBennett <https://github.com/bennett000/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module MARIASQL {
+declare module mariasql {
     export interface MariaCallBackError {
         (error:Error):void
     }
@@ -97,6 +97,6 @@ declare module MARIASQL {
 }
 
 declare module "mariasql" {
-    var Client:MARIASQL.Client;
+    var Client:mariasql.Client;
     export = Client;
 }
