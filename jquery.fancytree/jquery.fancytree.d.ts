@@ -20,6 +20,10 @@ interface JQuery {
 
 declare module Fancytree {
     interface Fancytree {
+        $div: JQuery;
+
+        rootNode: FancytreeNode;
+        
         /** Activate node with a given key and fire focus and 
          * activate events. A prevously activated node will be 
          * deactivated. If activeVisible option is set, all parents 
