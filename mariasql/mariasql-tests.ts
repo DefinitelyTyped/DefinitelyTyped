@@ -7,7 +7,7 @@
 import util = require('util');
 import Client = require('mariasql');
 
-var c:mariasql.MariaClient = new Client(),
+var c:Client = new Client(),
     inspect = util.inspect;
 
 c.connect({

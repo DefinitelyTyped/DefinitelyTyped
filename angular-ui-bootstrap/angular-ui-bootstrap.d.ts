@@ -190,15 +190,15 @@ declare module angular.ui.bootstrap {
         /**
          * a promise that is resolved when a modal is closed and rejected when a modal is dismissed
          */
-        result: angular.IPromise<any>;
+        result: ng.IPromise<any>;
 
         /**
          * a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
          */
-        opened: angular.IPromise<any>;
+        opened: ng.IPromise<any>;
     }
 
-    interface IModalScope extends angular.IScope {
+    interface IModalScope extends ng.IScope {
         /**
          * Those methods make it easy to close a modal window without a need to create a dedicated controller
          */
@@ -623,7 +623,7 @@ declare module angular.ui.bootstrap {
          *
          * @return A promise that is resolved when the transition finishes.
          */
-        (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
+        (element: ng.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): ng.IPromise<ng.IAugmentedJQuery>;
     }
 
     interface ITransitionServiceOptions {

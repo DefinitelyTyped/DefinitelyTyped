@@ -7,6 +7,6 @@
 
 declare module "errorhandler" {
     import express = require('express');
-    function e(options?: {log?: any}): express.ErrorRequestHandler;
+    function e(): express.ErrorRequestHandler;
     export = e;
 }
