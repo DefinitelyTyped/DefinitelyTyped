@@ -209,11 +209,11 @@ declare module Xrm
             ( item: T, index?: number ): void;
         }
 
-       /**
-         * Interface for an item collection.
-         *
-         * @tparam  T   Generic type parameter.
-         */
+        /**
+          * Interface for an item collection.
+          *
+          * @tparam  T   Generic type parameter.
+          */
         export interface ItemCollection<T>
         {
             /**
@@ -278,7 +278,7 @@ declare module Xrm
         /**
          * Enumeration of entity form states/types.
          */
-        export enum FormType
+        export const enum FormType
         {
             Undefined = 0,
             Create = 1,
@@ -291,7 +291,7 @@ declare module Xrm
         /**
          * Enumeration of entity form save modes.
          */
-        export enum SaveMode
+        export const enum SaveMode
         {
             Save = 1,
             SaveAndClose = 2,
@@ -1792,7 +1792,7 @@ declare module Xrm
         /**
          * An enumeration for view types.
          */
-        export enum ViewType
+        export const enum ViewType
         {
             SystemView = 1039,
             UserView = 4230
@@ -2020,7 +2020,7 @@ declare module Xrm
          * @param   {string}    id                  (Optional) The unique identifier for the record.
          * @param   {FormParameters}    parameters  (Optional) Options for controlling the operation.
          */
-        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters): void;
+        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters ): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
