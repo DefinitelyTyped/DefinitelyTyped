@@ -565,6 +565,8 @@ result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
+result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
 result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
