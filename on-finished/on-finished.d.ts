@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module OnFinished {
+declare module 'on-finished' {
 
     export function onFinished(msg:NodeJS.EventEmitter, listener:Function): NodeJS.EventEmitter;
     export function isFinished(msg:NodeJS.EventEmitter):boolean;

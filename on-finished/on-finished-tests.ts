@@ -2,6 +2,7 @@
 /// <reference path="./on-finished.d.ts" />
 
 import events = require('events');
+import OnFinished = require('on-finished');
 
 function test_finished() {
 
