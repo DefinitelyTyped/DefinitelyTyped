@@ -3,8 +3,10 @@
 // Definitions by: Honza Dvorsky <http://github.com/czechboy0>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module 'on-finished' {
+/// <reference path="../node/node.d.ts" />
 
-    export function onFinished(msg:any, listener:Function):any;
-    export function isFinished(msg:any):boolean;
+declare module OnFinished {
+
+    export function onFinished(msg:NodeJS.EventEmitter, listener:Function): NodeJS.EventEmitter;
+    export function isFinished(msg:NodeJS.EventEmitter):boolean;
 }
