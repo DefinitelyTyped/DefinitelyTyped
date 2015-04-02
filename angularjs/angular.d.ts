@@ -452,9 +452,9 @@ declare module angular {
         $invalid: boolean;
         $submitted: boolean;
         $error: any;
-        $addControl(control: ng.INgModelController): void;
-        $removeControl(control: ng.INgModelController): void;
-        $setValidity(validationErrorKey: string, isValid: boolean, control: ng.INgModelController): void;
+        $addControl(control: INgModelController): void;
+        $removeControl(control: INgModelController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController): void;
         $setDirty(): void;
         $setPristine(): void;
         $commitViewValue(): void;
@@ -509,7 +509,7 @@ declare module angular {
     }
 
     interface IAsyncModelValidators {
-        [index: string]: (...args: any[]) => ng.IPromise<boolean>;
+        [index: string]: (...args: any[]) => IPromise<boolean>;
     }
 
     interface IModelParser {
@@ -931,11 +931,19 @@ declare module angular {
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
-         * Returns a single promise that will be resolved with an array/hash of values, each value corresponding to the promise at the same index/key in the promises array/hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         * Returns a single promise that will be resolved with an array of values, each value corresponding to the promise at the same index in the promises array. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
          *
-         * @param promises An array or hash of promises.
+         * @param promises An array of promises.
          */
-        all(promises: IPromise<any>[]|{ [id: string]: IPromise<any>; }): IPromise<any[]>;
+        all(promises: IPromise<any>[]): IPromise<any[]>;
+        /**
+         * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
+         *
+         * Returns a single promise that will be resolved with a hash of values, each value corresponding to the promise at the same key in the promises hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         *
+         * @param promises A hash of promises.
+         */
+        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1573,12 +1581,12 @@ declare module angular {
              * $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
              */
             decorator(name: string, inlineAnnotatedFunction: any[]): void;
-            factory(name: string, serviceFactoryFunction: Function): ng.IServiceProvider;
-            factory(name: string, inlineAnnotatedFunction: any[]): ng.IServiceProvider;
-            provider(name: string, provider: ng.IServiceProvider): ng.IServiceProvider;
-            provider(name: string, serviceProviderConstructor: Function): ng.IServiceProvider;
-            service(name: string, constructor: Function): ng.IServiceProvider;
-            value(name: string, value: any): ng.IServiceProvider;
+            factory(name: string, serviceFactoryFunction: Function): IServiceProvider;
+            factory(name: string, inlineAnnotatedFunction: any[]): IServiceProvider;
+            provider(name: string, provider: IServiceProvider): IServiceProvider;
+            provider(name: string, serviceProviderConstructor: Function): IServiceProvider;
+            service(name: string, constructor: Function): IServiceProvider;
+            value(name: string, value: any): IServiceProvider;
         }
 
     }
