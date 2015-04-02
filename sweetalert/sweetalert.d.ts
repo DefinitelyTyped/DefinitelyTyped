@@ -6,7 +6,7 @@
 declare var sweetAlert: SweetAlert.SweetAlertStatic;
 declare var swal: SweetAlert.SweetAlertStatic;
 
-declare module "sweet-alert" {
+declare module "sweetalert" {
     export = swal;
 }
 
