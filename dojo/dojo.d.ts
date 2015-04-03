@@ -451,7 +451,7 @@ declare module dojo {
          * 
          * @param dfd The Deferred object to watch.     
          */
-        interface watch { (dfd: dojo.Deferred): void }
+        interface watch { (dfd: dojo.Deferred<any>): void }
         interface watch {
             /**
              * Function used to check if basic IO call worked. Gets the dfd
@@ -927,80 +927,15 @@ declare module dojo {
          *
          * 
          */
-        class __Promise extends dojo.promise.Promise {
-            constructor();
+        class __Promise extends dojo.promise.Promise<any> {
+            
             /**
              * A promise resolving to an object representing
              * the response from the server.
              * 
              */
             "response": Object;
-            /**
-             * Add a callback to be invoked when the promise is resolved
-             * or rejected.
-             * 
-             * @param callbackOrErrback               OptionalA function that is used both as a callback and errback.             
-             */
-            always(callbackOrErrback: Function): any;
-            /**
-             * Inform the deferred it may cancel its asynchronous operation.
-             * Inform the deferred it may cancel its asynchronous operation.
-             * The deferred's (optional) canceler is invoked and the
-             * deferred will be left in a rejected state. Can affect other
-             * promises that originate with the same deferred.
-             * 
-             * @param reason A message that may be sent to the deferred's canceler,explaining why it's being canceled.             
-             * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be canceled.             
-             */
-            cancel(reason: any, strict: boolean): any;
-            /**
-             * Checks whether the promise has been canceled.
-             * 
-             */
-            isCanceled(): boolean;
-            /**
-             * Checks whether the promise has been resolved or rejected.
-             * 
-             */
-            isFulfilled(): boolean;
-            /**
-             * Checks whether the promise has been rejected.
-             * 
-             */
-            isRejected(): boolean;
-            /**
-             * Checks whether the promise has been resolved.
-             * 
-             */
-            isResolved(): boolean;
-            /**
-             * Add new errbacks to the promise.
-             * 
-             * @param errback               OptionalCallback to be invoked when the promise is rejected.             
-             */
-            otherwise(errback: Function): any;
-            /**
-             * Add new callbacks to the promise.
-             * Add new callbacks to the deferred. Callbacks can be added
-             * before or after the deferred is fulfilled.
-             * 
-             * @param callback               OptionalCallback to be invoked when the promise is resolved.Receives the resolution value.             
-             * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
-             * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
-             */
-            then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
-            /**
-             * 
-             */
-            toString(): String;
-            /**
-             * 
-             */
-            trace(): dojo.promise.Promise;
-            /**
-             * 
-             */
-            traceRejected(): dojo.promise.Promise;
+
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/default.html
@@ -1783,7 +1718,7 @@ declare module dojo {
      * @param errback       OptionalCallback to be invoked when the promise is rejected.     
      * @param progback       OptionalCallback to be invoked when the promise emits a progress update.     
      */
-    interface when{(valueOrPromise: any, callback?: Function, errback?: Function, progback?: Function): void}
+    interface when { <T, U>(valueOrPromise: T|dojo.promise.Promise<T>, callback?: dojo.promise.Callback<T, U>, errback?: dojo.promise.Callback<any, U>, progback?: Function): U|dojo.promise.Promise<U> }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/DeferredList.html
      *
@@ -1817,43 +1752,12 @@ declare module dojo {
      * 
      * @param canceler       OptionalWill be invoked if the deferred is canceled. The cancelerreceives the reason the deferred was canceled as its argument.The deferred is rejected with its return value, or a newdojo/errors/CancelError instance.     
      */
-    class Deferred {
+    class Deferred<T> extends promise.Promise<T> {
         constructor(canceler?: Function);
         /**
          * 
          */
-        "promise": dojo.promise.Promise;
-        /**
-         * Inform the deferred it may cancel its asynchronous operation.
-         * Inform the deferred it may cancel its asynchronous operation.
-         * The deferred's (optional) canceler is invoked and the
-         * deferred will be left in a rejected state. Can affect other
-         * promises that originate with the same deferred.
-         * 
-         * @param reason A message that may be sent to the deferred's canceler,explaining why it's being canceled.             
-         * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be canceled.             
-         */
-        cancel(reason: any, strict: boolean): any;
-        /**
-         * Checks whether the deferred has been canceled.
-         * 
-         */
-        isCanceled(): boolean;
-        /**
-         * Checks whether the deferred has been resolved or rejected.
-         * 
-         */
-        isFulfilled(): boolean;
-        /**
-         * Checks whether the deferred has been rejected.
-         * 
-         */
-        isRejected(): boolean;
-        /**
-         * Checks whether the deferred has been resolved.
-         * 
-         */
-        isResolved(): boolean;
+        promise: dojo.promise.Promise<T>;
         /**
          * Emit a progress update on the deferred.
          * Emit a progress update on the deferred. Progress updates
@@ -1863,7 +1767,7 @@ declare module dojo {
          * @param update The progress update. Passed to progbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently no progress can be emitted.             
          */
-        progress(update: any, strict: boolean): dojo.promise.Promise;
+        progress(update: any, strict: boolean): dojo.promise.Promise<T>;
         /**
          * Reject the deferred.
          * Reject the deferred, putting it in an error state.
@@ -1879,21 +1783,7 @@ declare module dojo {
          * @param value The result of the deferred. Passed to callbacks.             
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be resolved.             
          */
-        resolve(value: any, strict?: boolean): dojo.promise.Promise;
-        /**
-         * Add new callbacks to the deferred.
-         * Add new callbacks to the deferred. Callbacks can be added
-         * before or after the deferred is fulfilled.
-         * 
-         * @param callback               OptionalCallback to be invoked when the promise is resolved.Receives the resolution value.             
-         * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
-         * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
-         */
-        then(callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
-        /**
-         * 
-         */
-        toString(): String;
+        resolve(value: T, strict?: boolean): dojo.promise.Promise<T>;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/Evented.html
@@ -9119,7 +9009,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
              */
-            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+            when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
             /**
              * signal fired by impending window destruction. You may use
              * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -16050,20 +15940,7 @@ declare module dojo {
          * 
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.     
          */
-        interface all{(objectOrArray?: Object): void}
-        /**
-         * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/all.html
-         *
-         * Takes multiple promises and returns a new promise that is fulfilled
-         * when all promises have been fulfilled.
-         * Takes multiple promises and returns a new promise that is fulfilled
-         * when all promises have been fulfilled. If one of the promises is rejected,
-         * the returned promise is also rejected. Canceling the returned promise will
-         * not cancel any passed promises.
-         * 
-         * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.     
-         */
-        interface all{(objectOrArray?: any[]): void}
+        interface all{(objectOrArray?: Object): Promise<any>}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
          *
@@ -16106,7 +15983,12 @@ declare module dojo {
          * 
          * @param Deferred     
          */
-        interface instrumentation{(Deferred: any): void}
+        interface instrumentation{ (Deferred: any): void }
+
+        interface Callback<T, U> {
+            (arg: T): U|Promise<U>;
+        }
+
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/Promise.html
          *
@@ -16115,7 +15997,7 @@ declare module dojo {
          * instances of this class.
          * 
          */
-        class Promise {
+        class Promise<T> {
             constructor();
             /**
              * Add a callback to be invoked when the promise is resolved
@@ -16123,7 +16005,7 @@ declare module dojo {
              * 
              * @param callbackOrErrback               OptionalA function that is used both as a callback and errback.             
              */
-            always(callbackOrErrback: Function): any;
+            always<U>(callbackOrErrback: Callback<any, U>): Promise<U>;
             /**
              * Inform the deferred it may cancel its asynchronous operation.
              * Inform the deferred it may cancel its asynchronous operation.
@@ -16160,7 +16042,7 @@ declare module dojo {
              * 
              * @param errback               OptionalCallback to be invoked when the promise is rejected.             
              */
-            otherwise(errback: Function): any;
+            otherwise<U>(errback: Callback<any, U>): Promise<U>;
             /**
              * Add new callbacks to the promise.
              * Add new callbacks to the deferred. Callbacks can be added
@@ -16170,7 +16052,7 @@ declare module dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.             
              * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.             
              */
-            then(callback: Function, errback?: Function, progback?: Function): dojo.promise.Promise;
+            then<U>(callback: Callback<T, U>, errback?: Callback<any, U>, progback?: Function): Promise<U>;
             /**
              * 
              */
@@ -16184,7 +16066,7 @@ declare module dojo {
              * to handle traces.
              * 
              */
-            trace(): dojo.promise.Promise;
+            trace(): Promise<T>;
             /**
              * Trace rejection of the promise.
              * Tracing allows you to transparently log progress,
@@ -16194,7 +16076,7 @@ declare module dojo {
              * to handle traces.
              * 
              */
-            traceRejected(): dojo.promise.Promise;
+            traceRejected(): Promise<T>;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/tracer.html
@@ -16248,7 +16130,7 @@ declare module dojo {
              * @param deferredRequestHandler The Deferred object for this particular request             
              * @param url             
              */
-            bind(method: String, parameters: dojo._base.array, deferredRequestHandler: dojo.Deferred, url: any): void;
+            bind(method: String, parameters: dojo._base.array, deferredRequestHandler: dojo.Deferred<any>, url: any): void;
             /**
              * create a JSONP req
              * 
@@ -16330,7 +16212,7 @@ declare module dojo {
              * @param deferredRequestHandler The Deferred object for this particular request             
              * @param url             
              */
-            bind(method: String, parameters: any[], deferredRequestHandler: dojo.Deferred, url: any): void;
+            bind(method: String, parameters: any[], deferredRequestHandler: dojo.Deferred<any>, url: any): void;
             /**
              * call an arbitrary remote method without requiring it to be
              * predefined with SMD
@@ -17467,7 +17349,7 @@ declare module dojo {
              * 
              * @param results The result set as an array, or a promise for an array.     
              */
-            interface QueryResults{(results: dojo.promise.Promise): void}
+            interface QueryResults{(results: dojo.promise.Promise<any>): void}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/SimpleQueryEngine.html
              *
@@ -20782,7 +20664,7 @@ declare module dojo {
          * @param root               OptionalA default starting root node from which to start the parsing. Can beomitted, defaulting to the entire document. If omitted, the optionsobject can be passed in this place. If the options object has arootNode member, that is used.             
          * @param options a kwArgs options object, see parse() for details             
          */
-        scan(root: HTMLElement, options: Object): dojo.promise.Promise;
+        scan(root: HTMLElement, options: Object): dojo.promise.Promise<any>;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/regexp.html
@@ -24419,7 +24301,7 @@ declare module dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.             
          * @param progback               OptionalCallback to be invoked when the promise emits a progress update.             
          */
-        when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise;
+        when(valueOrPromise: any, callback: Function, errback: Function, progback: Function): dojo.promise.Promise<any>;
         /**
          * signal fired by impending window destruction. You may use
          * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
