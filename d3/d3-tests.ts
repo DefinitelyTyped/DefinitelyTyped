@@ -475,7 +475,7 @@ function callenderView() {
         .style("text-anchor", "middle")
         .text(function (d) { return d; });
 
-    var rect: D3.UpdateSelection = svg.selectAll(".day")
+    var rect = svg.selectAll(".day")
         .data(function (d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
       .enter().append("rect")
         .attr("class", "day")
@@ -973,7 +973,7 @@ module forcedBasedLabelPlacemant {
 
     var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks)//.enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
 
-    var anchorNode: D3.Selection = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+    var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
     anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
     anchorNode.append("svg:text").text(function (d, i) {
         return i % 2 == 0 ? "" : d.node.label
