@@ -2,15 +2,15 @@
 /// <reference path="./on-finished.d.ts" />
 
 import events = require('events');
-import OnFinished = require('on-finished');
+import onFinished = require('on-finished');
 
 function test_finished() {
 
 	var e = new events.EventEmitter();
 
-	var ret: NodeJS.EventEmitter = OnFinished.onFinished(e, () => {
+	var ret: NodeJS.EventEmitter = onFinished(e, () => {
 		//callback
 		});
 
-	var finished: boolean = OnFinished.isFinished(e);
+	var finished: boolean = onFinished.isFinished(e);
 }
