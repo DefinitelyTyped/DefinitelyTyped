@@ -18,6 +18,31 @@ interface PolymerElement {
 	domReady? (): void;
 	detached? (): void;
 	attributeChanged? (attrName: string, oldVal: any, newVal: any): void;
+	
+	/**
+	 * User must call from attached callback
+	 */
+	resizableAttachedHandler(): void;
+
+	/**
+	 * User must call from detached callback
+	 */
+	resizableDetachedHandler(): void;
+
+	/**
+	 * User must call from attached callback
+	 */
+	resizerAttachedHandler(): void;
+
+	/**
+	 * User must call from detached callback
+	 */
+	resizerDetachedHandler(): void;
+
+	/**
+	 * User should call when resizing or un-hiding children
+	 */
+	notifyResize(): void;
 }
 
 interface Polymer {
@@ -34,9 +59,6 @@ interface Polymer {
     (tagName: string, prototype: any): void;
     (prototype: PolymerElement): void;
     (): void;
-	// hacks for mixins
-    CoreResizer: any;
-    CoreResizable: any;
 }
 
 declare var Polymer: Polymer;
