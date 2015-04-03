@@ -10,6 +10,8 @@ interface UnderscoreStatic {
     string: UnderscoreStringStatic;
 }
 
+declare var s : UnderscoreStringStatic;
+
 interface UnderscoreStringStatic extends UnderscoreStringStaticExports {
     /**
      * Tests if string contains a substring.

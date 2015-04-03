@@ -2251,7 +2251,7 @@ declare module chrome.webRequest {
     }
 
     interface UploadData {
-        bytes?: any[];
+        bytes?: ArrayBuffer;
         file?: string;
     }
 
@@ -2329,7 +2329,7 @@ declare module chrome.webRequest {
     }
 
     interface RequestBody {
-        raw?: UploadData;
+        raw?: UploadData[];
         error?: string;
         formData?: FormData;
     }

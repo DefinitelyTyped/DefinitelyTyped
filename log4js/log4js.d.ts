@@ -64,6 +64,7 @@ declare module "log4js" {
   export function shutdown(cb: Function): void;
 
   export function configure(config: IConfig, options?: any): void;
+  export function configure(filename: string, options?: any): void;
 
   export function setGlobalLogLevel(level: string): void;
   export function setGlobalLogLevel(level: Level): void;
