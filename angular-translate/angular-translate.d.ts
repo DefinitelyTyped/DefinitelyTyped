@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.translate {
+declare module angular.translate {
     
     interface ITranslatePartialLoaderService {
         addPart(name: string): ITranslatePartialLoaderService;

@@ -29,5 +29,13 @@ declare module THREE {
         keys:number[];
 
         update():void;
+        reset():void;
+        checkDistances():void;
+        zoomCamera():void;
+        panCamera():void;
+        rotateCamera():void;
+
+        handleResize():void;
+        handleEvent(event: any):void;
     }
 }

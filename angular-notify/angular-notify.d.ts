@@ -5,7 +5,7 @@
 
 ///<reference path="../angularjs/angular.d.ts" />
 
-declare module ng.cgNotify {
+declare module angular.cgNotify {
 
     interface INotifyService {
 
