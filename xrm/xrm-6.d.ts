@@ -1,9 +1,9 @@
-﻿// Type definitions for Microsoft Dynamics xRM API v7.1
-// Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>
+﻿// Type definitions for Microsoft Dynamics xRM API v6
+// Project: http://msdn.microsoft.com/en-us/library/gg328255.aspx
+// Definitions by: David Berry <https://github.com/6ix4our/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Xrm 
+declare module Xrm
 {
     /**
      * Interface for the client context.
@@ -54,8 +54,6 @@ declare module Xrm
          */
         getCurrentTheme(): string;
 
-        getIsAutoSaveEnabled(): boolean;
-
         /**
          * Gets organization's LCID (language code).
          *
@@ -80,8 +78,6 @@ declare module Xrm
          * @return  The query string parameters, in a dictionary object representing name and value pairs.
          */
         getQueryStringParameters(): { [index: string]: any };
-
-        getTimeZoneOffsetMinutes(): number;
 
         /**
          * Gets user's unique identifier.
@@ -135,17 +131,29 @@ declare module Xrm
     export module Async
     {
         /**
-         * Called when the operation is successful.
+         * Interface for success callbacks.
          */
-        export type SuccessCallbackDelegate = () => void;
+        export interface SuccessCallbackDelegate
+        {
+            /**
+             * Called when the operation is successful.
+             */
+            (): void;
+        }
 
         /**
-         * Called when the operation fails.
-         *
-         * @param   {number}    errorCode   The error code.
-         * @param   {string}    message     The message.
+         * Interface for error callbacks.
          */
-        export type ErrorCallbackDelegate = ( errorCode: number, message: string ) => void;
+        export interface ErrorCallbackDelegate
+        {
+            /**
+             * Called when the operation fails.
+             *
+             * @param   {number}    errorCode   The error code.
+             * @param   {string}    message     The message.
+             */
+            ( errorCode: number, message: string ): void;
+        }
 
         /**
          * Interface for Xrm.Page.data promises.
@@ -298,111 +306,6 @@ declare module Xrm
             Disqualify = 15
         }
 
-        export const enum StageCategory
-        {
-            Qualify = 0,
-            Develop = 1,
-            Propose = 2,
-            Close = 3,
-            Identify = 4,
-            Research = 5,
-            Resolve = 6
-        }
-
-        export const enum GridControlContext
-        {
-            Unknown = 0,
-            RibbonContextForm = 1,
-            RibbonContextListing = 2,
-            FormContextUnrelated = 3,
-            FormContextRelated = 4
-        }
-
-        export interface Process
-        {
-            /**
-            * Returns the unique identifier of the process.
-            *
-            * @return Value represents the string representation of a GUID value.
-            */
-            getId(): string;
-
-            /**
-                * Returns the name of the process.
-                */
-            getName(): string;
-
-            /**
-                * Returns an collection of stages in the process.
-                */
-            getStages(): Collection.ItemCollection<Stage>;
-
-            /**
-                * Returns a boolean value to indicate if the process is rendered
-                *
-                * @return true if the process is rendered, false if not
-                */
-            isRendered(): boolean;
-        }
-
-        export interface Stage
-        {
-            /**
-                * Returns an object with a getValue method which will return the integer value of the business process flow category.
-                */
-            getCategory(): { getValue(): StageCategory };
-
-            /**
-                * Returns the logical name of the entity associated with the stage.
-                */
-            getEntityName(): string;
-
-            /**
-                * Returns the unique identifier of the stage
-                */
-            getId(): string;
-
-            /**
-                * Returns the name of the stage
-                */
-            getName(): string;
-
-            /**
-                * Returns the status of the stage
-                *
-                * @remarks This method will return either "active" or "inactive".
-                */
-            getStatus(): string;
-
-            /**
-                * Returns a collection of steps in the stage
-                */
-            getSteps(): Step[];
-        }
-
-        export interface Step
-        {
-            /**
-                * Returns the logical name of the attribute associated to the step.
-                *
-                * @remarks Some steps don’t contain an attribute value.
-                */
-            getAttribute(): string;
-
-            /**
-                * Returns the name of the step.
-                */
-            getName(): string;
-
-            /**
-                * Returns whether the step is required in the business process flow.
-                *
-                * @remarks Returns true if the step is marked as required in the Business Process Flow editor; otherwise, false. There is no connection between this value and the values you
-                * can change in the Xrm.Page.data.entity attribute RequiredLevel methods.
-                */
-            isRequired(): boolean;
-        }
-
         /**
          * Interface for the event context.
          */
@@ -435,6 +338,8 @@ declare module Xrm
              * Gets a reference to the object for which event occurred.
              *
              * @return  The event source.
+             * 
+             * @remarks Of type Xrm.Page.Attribute or Xrm.Page.Entity
              */
             getEventSource(): Xrm.Page.Attribute | Xrm.Page.Entity;
 
@@ -584,6 +489,11 @@ declare module Xrm
          */
         export interface Attribute
         {
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             */
+            controls: Collection.ItemCollection<Control>;
+
             /**
              * Adds a handler to be called when the attribute's value is changed.
              *
@@ -744,11 +654,6 @@ declare module Xrm
              * @remarks The default value is "dirty"
              */
             setSubmitMode( submitMode: string ): void;
-
-            /**
-             * A collection of all the controls on the form that interface with this attribute.
-             */
-            controls: Collection.ItemCollection<Control>;
         }
 
         /**
@@ -998,6 +903,11 @@ declare module Xrm
         export interface Entity
         {
             /**
+             * The collection of attributes for the record.
+             */
+            attributes: Collection.ItemCollection<Attribute>;
+
+            /**
              * Adds a handler to be called when the record is saved.
              *
              * @param   {ContextSensitiveHandler}   handler The handler.
@@ -1085,11 +995,6 @@ declare module Xrm
              *                                  "saveandnew".
              */
             save( saveMode: string ): void;
-
-            /**
-             * The collection of attributes for the record.
-             */
-            attributes: Collection.ItemCollection<Attribute>;
         }
 
         /**
@@ -1133,8 +1038,13 @@ declare module Xrm
         /**
          * Interface for the Xrm.Page.data API.
          */
-        export interface data
+        export interface Data
         {
+            /**
+             * The record context of the form.
+             */
+            entity: Entity;
+
             /**
              * Asynchronously refreshes data on the form, without reloading the page.
              *
@@ -1150,122 +1060,6 @@ declare module Xrm
              * @return  An Async.XrmPromise.
              */
             save(): Async.XrmPromise;
-        }
-
-        export module data
-        {
-            /**
-             * The record context of the form.
-             */
-            export var entity: Entity;
-
-            /**
-             * Interface for the Xrm.Page.data.process API.
-             */
-            export interface ProcessManager
-            {
-                /**
-                 * Returns a Process object representing the active process.
-                 *
-                 * @return current active process
-                 */
-                getActiveProcess(): Process;
-
-                /**
-                 * Set a Process as the active process.
-                 *
-                 * @param {string} processId the Id of the process to make the active process
-                 * @param {function} callbackFunction a function to call when the operation is complete.
-                 */
-                setActiveProcess( processId: string, callbackFunction?: ProcessCallbackDelegate ): void;
-
-                /**
-                 * Returns a Stage object representing the active stage
-                 *
-                 * @return current active stage
-                 */
-                getActiveStage(): Stage;
-
-                /**
-                 * Set a stage as the active stage.
-                 *
-                 * @param {string} stageId the Id of the stage to make the active stage.
-                 * @param {function} callbackFunction a function to call when the operation is complete.
-                 */
-                setActiveStage( stageId: string, callbackFunction?: ProcessCallbackDelegate ): void;
-
-                /**
-                 * Use this method to get a collection of stages currently in the active path with methods to interact with the stages displayed in the business process flow control.
-                 * The active path represents stages currently rendered in the process control based on the branching rules and current data in the record.
-                 *
-                 * @return A collection of all completed stages, the currently active stage, and the predicted set of future stages based on satisfied conditions in the branching rule. This may be a subset of the stages returned with
-                 * Xrm.Page.data.process.getActiveProcess because it will only include those stages which represent a valid transition from the current stage based on branching that has occurred in the process.
-                 */
-                getActivePath(): Collection.ItemCollection<Stage>;
-
-                /**
-                 * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an entity.
-                 *
-                 * @param {function} callbackFunction. The callback function must accept a parameter that contains an object with dictionary properties where the name of the property is the Id of the business process flow
-                 * and the value of the property is the name of the business process flow.
-                 *
-                 * The enabled processes are filtered according to the user’s privileges. The list of enabled processes is the same ones a user can see in the UI if they want to change the process manually.
-                 */
-                getEnabledProcesses( callbackFunction: ( enabledProcesses: ProcessDictionary ) => void ): void;
-
-                /**
-                 * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the business process flow stage changes.
-                 *
-                 * @param {function} callbackFunction. The function will be added to the bottom of the event handler pipeline. The execution context is automatically set to be the first parameter passed to the event handler.
-                 */
-                addOnStageChange( handler: ContextSensitiveHandler ): void;
-
-                /**
-                 * Use this to remove a function as an event handler for the OnStageChange event.
-                 *
-                 * @param {function} handler. If an anonymous function is set using the addOnStageChange method it cannot be removed using this method.
-                 */
-                removeOnStageSelected( handler: ContextSensitiveHandler ): void;
-
-                /**
-                 * Progresses to the next stage.
-                 *
-                 * @param {function} callbackFunction. A function to call when the operation is complete.
-                 */
-                moveNext( callbackFunction?: ProcessCallbackDelegate ): void;
-
-                /**
-                 * Moves to the previous stage.
-                 *
-                 * @param {function} callbackFunction. A function to call when the operation is complete.
-                 */
-                movePrevious( callbackFunction?: ProcessCallbackDelegate ): void;
-            }
-
-            /**
-             * Called when process change methods have completed.
-             *
-             * @param   {string} status     The result of the process change operation.
-             *
-             * @remarks Values returned are: success        (The operation succeeded.)
-             *                               crossEntity    (The previous stage is for a different entity.)
-             *                               beginning      (The active stage is the first stage of the active path.)
-             *                               invalid        (The operation failed because the selected stage isn’t the same as the active stage.)
-             *                               unreachable    (The stage exists on a different path.)
-             */
-            export type ProcessCallbackDelegate = ( status: string ) => void;
-
-            /**
-             * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
-             */
-            export type ProcessDictionary = { [index: string]: string };
-
-            /**
-             * The process API for Xrm.Page.data.
-             *
-             * @remarks This member may be undefined when Process Flows are not used by the current entity.
-             */
-            export var process: ProcessManager;
         }
 
         /**
@@ -1298,7 +1092,6 @@ declare module Xrm
              *                               webresource
              *                               notes
              *                               timercontrol
-             *                               kbsearch (CRM Online Only)
              */
             getControlType(): string;
 
@@ -1370,7 +1163,6 @@ declare module Xrm
              * @return  The attribute.
              */
             getAttribute<T extends Attribute>(): T;
-            getAttribute(): Attribute;
         }
 
         /**
@@ -1386,13 +1178,6 @@ declare module Xrm
              * @return  The attribute.
              */
             getAttribute(): DateAttribute;
-
-            /**
-             * Gets the status of the time-of-day component of the Date control.
-             *
-             * @return  true if the time is shown, otherwise false.
-             */
-            getShowTime(): boolean;
 
             /**
              * Sets the visibility of the time component of the Date control.
@@ -1530,24 +1315,12 @@ declare module Xrm
          */
         export interface GridControl extends Control
         {
-            addOnLoad( handler: () => void ): void;
-
-            getContextType(): GridControlContext;
-
-            getEntityName(): string;
-
-            getGrid(): ui.Grid;
-
-            getViewSelector(): ui.ViewSelector;
-
             /**
              * Refreshes the sub grid.
              * 
              * @remarks Not available during the "on load" event of the form.
              */
             refresh(): void;
-
-            removeOnLoad( handler: () => void ): void;
         }
 
         /**
@@ -1649,6 +1422,11 @@ declare module Xrm
         export interface Tab extends UiElement, UiFocusable
         {
             /**
+             * A reference to the collection of form sections within this tab.
+             */
+            sections: Collection.ItemCollection<Section>;
+
+            /**
              * Gets display state of the tab.
              *
              * @return  The display state, as either "expanded" or "collapsed"
@@ -1667,7 +1445,7 @@ declare module Xrm
              *
              * @return  The parent.
              */
-            getParent(): ui;
+            getParent(): Ui;
 
             /**
              * Sets display state of the tab.
@@ -1689,11 +1467,6 @@ declare module Xrm
              * @param   {string}    displayState   Display state of the tab, as either "expanded" or "collapsed"
              */
             setDisplayState( displayState: string ): void;
-
-            /**
-             * A reference to the collection of form sections within this tab.
-             */
-            sections: Collection.ItemCollection<Section>;
         }
 
         /**
@@ -1703,6 +1476,11 @@ declare module Xrm
          */
         export interface Section extends UiElement
         {
+            /**
+             * A reference to the collection of controls within this tab.
+             */
+            controls: Collection.ItemCollection<Control>;
+
             /**
              * Gets the name of the section.
              *
@@ -1716,19 +1494,37 @@ declare module Xrm
              * @return  The parent.
              */
             getParent(): Tab;
-
-            /**
-             * A reference to the collection of controls within this tab.
-             */
-            controls: Collection.ItemCollection<Control>;
         }
-
 
         /**
          * Interface for Xrm.Page.ui API.
          */
-        export interface ui
+        export interface Ui
         {
+            /**
+             * A reference to the collection of controls on the form.
+             */
+            controls: Collection.ItemCollection<Control>;
+
+            /**
+             * The form selector API.
+             * 
+             * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
+             */
+            formSelector: FormSelector;
+
+            /**
+             * The navigation API.
+             * 
+             * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
+             */
+            navigation: Navigation;
+
+            /**
+             * A reference to the collection of tabs on the form.
+             */
+            tabs: Collection.ItemCollection<Tab>;
+
             /**
              * Clears the form notification described by uniqueId.
              *
@@ -1828,110 +1624,6 @@ declare module Xrm
             setFormNotification( message: string, level: string, uniqueId: string ): boolean;
         }
 
-        export module ui
-        {
-            export interface ProcessManager
-            {
-                /**
-                 * Sets display state of the process flow control.
-                 *
-                 * @param   {"collapsed"}   displayState    Collapsed process flow control.
-                 */
-                setDisplayState( displayState: "collapsed" ): void;
-
-                /**
-                 * Sets display state of the process flow control.
-                 *
-                 * @param   {"expanded"}    displayState    Expanded process flow control.
-                 */
-                setDisplayState( displayState: "expanded" ): void;
-
-                /**
-                 * Sets display state of the process flow control.
-                 *
-                 * @param   {string}    displayState   Display state of the process flow control, as either "expanded" or "collapsed"
-                 */
-                setDisplayState( displayState: string ): void;
-
-                /**
-                 * Sets the visibility state.
-                 *
-                 * @param   {boolean}   visible true to show, false to hide.
-                 */
-                setVisible( visible: boolean ): void;
-            }
-
-            export interface Grid
-            {
-                getRows(): Collection.ItemCollection<GridRow>;
-
-                getSelectedRows(): Collection.ItemCollection<GridRow>;
-
-                getTotalRecordCount(): number;
-            }
-
-            export interface GridRow
-            {
-                getData(): GridRowData;
-            }
-
-            export interface GridRowData
-            {
-                getEntity(): GridEntity;
-            }
-
-            export interface GridEntity
-            {
-                getEntityName(): string;
-
-                getEntityReference(): LookupValue;
-
-                getId(): string;
-
-                getPrimaryAttributeValue(): string;
-            }
-
-            export interface ViewSelector
-            {
-                getCurrentView(): ViewSelectorItem;
-
-                isVisible(): boolean;
-
-                setCurrentView( viewSelectorItem: ViewSelectorItem ): void;
-            }
-
-            export interface ViewSelectorItem
-            {
-                getEntityReference(): LookupValue;
-            }
-
-            export var process: ProcessManager;
-
-            /**
-             * A reference to the collection of controls on the form.
-             */
-            export var controls: Collection.ItemCollection<Control>;
-
-            /**
-             * The form selector API.
-             * 
-             * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
-             */
-            export var formSelector: FormSelector;
-
-            /**
-             * The navigation API.
-             * 
-             * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
-             */
-            export var navigation: Navigation;
-
-            /**
-             * A reference to the collection of tabs on the form.
-             */
-            export var tabs: Collection.ItemCollection<Tab>;
-        }
-
         /**
          * Interface for a navigation item.
          *
@@ -2010,6 +1702,16 @@ declare module Xrm
         export var context: Context;
 
         /**
+         * A reference to the form's user interface API.
+         */
+        export var ui: Ui;
+
+        /**
+         * A reference to the form's data API.
+         */
+        export var data: Data;
+
+        /**
          * Gets all attributes.
          *
          * @return  An array of attributes.
@@ -2025,7 +1727,6 @@ declare module Xrm
          * @return  The attribute.
          */
         export function getAttribute<T extends Attribute>( attributeName: string ): T;
-        export function getAttribute( attributeName: string ): Attribute;
 
         /**
          * Gets an attribute by index.
@@ -2061,7 +1762,6 @@ declare module Xrm
          * @return  The control.
          */
         export function getControl<T extends Control>( controlName: string ): T;
-        export function getControl( controlName: string ): Control;
 
         /**
          * Gets a control by index.
@@ -2252,21 +1952,10 @@ declare module Xrm
      */
     export module Utility
     {
-        export interface OpenParameters
-        {
-            /**
-             * Additional parameters can be provided to the request, by overloading
-             * this object with additional key and value pairs. This can only be used
-             * to provide default field values for the form, or pass data to custom
-             * parameters that have been customized for the form.
-             */
-            [index: string]: string;
-        }
-
         /**
          * Interface for defining parameters on a Xrm.Utility.openEntityForm() request.
          */
-        export interface FormOpenParameters extends OpenParameters
+        export interface FormOpenParameters
         {
             /**
              * The identifier of the form to use, when several are available.
@@ -2288,11 +1977,14 @@ declare module Xrm
              *                      "false"   (The command bar is not displayed.)
              */
             cmdbar?: string;
-        }
 
-        export interface WindowOptions
-        {
-            openInNewWindow: boolean;
+            /**
+             * Additional parameters can be provided to the request, by overloading
+             * this object with additional key and value pairs. This can only be used
+             * to provide default field values for the form, or pass data to custom
+             * parameters that have been customized for the form.
+             */
+            [index: string]: string;
         }
 
         /**
@@ -2328,9 +2020,7 @@ declare module Xrm
          * @param   {string}    id                  (Optional) The unique identifier for the record.
          * @param   {FormParameters}    parameters  (Optional) Options for controlling the operation.
          */
-        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters, windowOptions?: WindowOptions ): void;
-
-        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void, entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: OpenParameters ): void;
+        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters ): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
@@ -2354,6 +2044,5 @@ declare module Xrm
          *                                              formid
          */
         export function openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
-
     }
 }

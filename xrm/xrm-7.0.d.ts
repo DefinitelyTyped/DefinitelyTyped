@@ -1,4 +1,4 @@
-﻿// Type definitions for Microsoft Dynamics xRM API v7.1
+﻿// Type definitions for Microsoft Dynamics xRM API v7.0
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -80,8 +80,6 @@ declare module Xrm
          * @return  The query string parameters, in a dictionary object representing name and value pairs.
          */
         getQueryStringParameters(): { [index: string]: any };
-
-        getTimeZoneOffsetMinutes(): number;
 
         /**
          * Gets user's unique identifier.
@@ -307,15 +305,6 @@ declare module Xrm
             Identify = 4,
             Research = 5,
             Resolve = 6
-        }
-
-        export const enum GridControlContext
-        {
-            Unknown = 0,
-            RibbonContextForm = 1,
-            RibbonContextListing = 2,
-            FormContextUnrelated = 3,
-            FormContextRelated = 4
         }
 
         export interface Process
@@ -1298,7 +1287,6 @@ declare module Xrm
              *                               webresource
              *                               notes
              *                               timercontrol
-             *                               kbsearch (CRM Online Only)
              */
             getControlType(): string;
 
@@ -1386,13 +1374,6 @@ declare module Xrm
              * @return  The attribute.
              */
             getAttribute(): DateAttribute;
-
-            /**
-             * Gets the status of the time-of-day component of the Date control.
-             *
-             * @return  true if the time is shown, otherwise false.
-             */
-            getShowTime(): boolean;
 
             /**
              * Sets the visibility of the time component of the Date control.
@@ -1530,24 +1511,12 @@ declare module Xrm
          */
         export interface GridControl extends Control
         {
-            addOnLoad( handler: () => void ): void;
-
-            getContextType(): GridControlContext;
-
-            getEntityName(): string;
-
-            getGrid(): ui.Grid;
-
-            getViewSelector(): ui.ViewSelector;
-
             /**
              * Refreshes the sub grid.
              * 
              * @remarks Not available during the "on load" event of the form.
              */
             refresh(): void;
-
-            removeOnLoad( handler: () => void ): void;
         }
 
         /**
@@ -1859,50 +1828,6 @@ declare module Xrm
                  * @param   {boolean}   visible true to show, false to hide.
                  */
                 setVisible( visible: boolean ): void;
-            }
-
-            export interface Grid
-            {
-                getRows(): Collection.ItemCollection<GridRow>;
-
-                getSelectedRows(): Collection.ItemCollection<GridRow>;
-
-                getTotalRecordCount(): number;
-            }
-
-            export interface GridRow
-            {
-                getData(): GridRowData;
-            }
-
-            export interface GridRowData
-            {
-                getEntity(): GridEntity;
-            }
-
-            export interface GridEntity
-            {
-                getEntityName(): string;
-
-                getEntityReference(): LookupValue;
-
-                getId(): string;
-
-                getPrimaryAttributeValue(): string;
-            }
-
-            export interface ViewSelector
-            {
-                getCurrentView(): ViewSelectorItem;
-
-                isVisible(): boolean;
-
-                setCurrentView( viewSelectorItem: ViewSelectorItem ): void;
-            }
-
-            export interface ViewSelectorItem
-            {
-                getEntityReference(): LookupValue;
             }
 
             export var process: ProcessManager;
@@ -2252,21 +2177,10 @@ declare module Xrm
      */
     export module Utility
     {
-        export interface OpenParameters
-        {
-            /**
-             * Additional parameters can be provided to the request, by overloading
-             * this object with additional key and value pairs. This can only be used
-             * to provide default field values for the form, or pass data to custom
-             * parameters that have been customized for the form.
-             */
-            [index: string]: string;
-        }
-
         /**
          * Interface for defining parameters on a Xrm.Utility.openEntityForm() request.
          */
-        export interface FormOpenParameters extends OpenParameters
+        export interface FormOpenParameters
         {
             /**
              * The identifier of the form to use, when several are available.
@@ -2288,11 +2202,14 @@ declare module Xrm
              *                      "false"   (The command bar is not displayed.)
              */
             cmdbar?: string;
-        }
 
-        export interface WindowOptions
-        {
-            openInNewWindow: boolean;
+            /**
+             * Additional parameters can be provided to the request, by overloading
+             * this object with additional key and value pairs. This can only be used
+             * to provide default field values for the form, or pass data to custom
+             * parameters that have been customized for the form.
+             */
+            [index: string]: string;
         }
 
         /**
@@ -2328,9 +2245,7 @@ declare module Xrm
          * @param   {string}    id                  (Optional) The unique identifier for the record.
          * @param   {FormParameters}    parameters  (Optional) Options for controlling the operation.
          */
-        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters, windowOptions?: WindowOptions ): void;
-
-        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void, entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: OpenParameters ): void;
+        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters ): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
@@ -2354,6 +2269,5 @@ declare module Xrm
          *                                              formid
          */
         export function openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
-
     }
 }
