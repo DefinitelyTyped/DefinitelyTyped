@@ -27,6 +27,7 @@ interface HandlebarsCommon {
 
     Exception(message: string): void;
     SafeString: typeof hbs.SafeString;
+    Utils: typeof hbs.Utils;
 
     logger: Logger;
     log(level: number, obj: any): void;
@@ -37,19 +38,23 @@ interface HandlebarsStatic extends HandlebarsCommon {
     compile(input: any, options?: any): HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsTemplates {
-    [index: string]: HandlebarsTemplateDelegate;
+interface HandlebarsTemplates {
+    [index: string]: HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsRuntimeStatic extends HandlebarsCommon {
+interface HandlebarsRuntimeStatic extends HandlebarsCommon {
     // Handlebars.templates is the default template namespace in precompiler.
-    templates: HandlebarsTemplates;
+    templates: HandlebarsTemplates;
 }
 
 declare module hbs {
     class SafeString {
         constructor(str: string);
         static toString(): string;
+    }
+
+    module Utils {
+        function escapeExpression(str: string): string;
     }
 }
 

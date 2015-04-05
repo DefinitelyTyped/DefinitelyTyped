@@ -299,3 +299,29 @@ tileLayer.bringToBack()
 	.redraw()
 	.setUrl('http://perdu.com')
 	.getContainer();
+
+module CustomControl {
+	export interface Options {
+		title: string;
+		position?: string;
+	}
+}
+interface CustomControl extends L.Control {
+	getTitle(): string;
+	setTitle(title: string): CustomControl;
+}
+var CustomControl: { new(options: CustomControl.Options): CustomControl };
+CustomControl = L.Control.extend<CustomControl.Options, CustomControl>({
+	initialize: function(options: CustomControl.Options) {
+		L.Control.prototype.initialize.call(this, {
+			position: options.position || 'bottomleft',
+		});
+		this.title = options.title;
+	},
+	getTitle: function() {
+		return this.title;
+	},
+	setTitle: function(title: string) {
+		this.title = title;
+	},
+});

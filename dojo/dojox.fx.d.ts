@@ -709,7 +709,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -2015,4 +2015,69 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/fx" {
+    var exp: dojox.fx
+    export=exp;
+}
+declare module "dojox/fx/Shadow" {
+    var exp: dojox.fx.Shadow
+    export=exp;
+}
+declare module "dojox/fx/_core" {
+    var exp: dojox.fx._core
+    export=exp;
+}
+declare module "dojox/fx/scroll" {
+    var exp: dojox.fx.scroll
+    export=exp;
+}
+declare module "dojox/fx/_arg" {
+    var exp: dojox.fx._arg
+    export=exp;
+}
+declare module "dojox/fx/easing" {
+    var exp: dojox.fx.easing
+    export=exp;
+}
+declare module "dojox/fx/_base" {
+    var exp: dojox.fx._base
+    export=exp;
+}
+declare module "dojox/fx/flip" {
+    var exp: dojox.fx.flip
+    export=exp;
+}
+declare module "dojox/fx/style" {
+    var exp: dojox.fx.style
+    export=exp;
+}
+declare module "dojox/fx/text" {
+    var exp: dojox.fx.text
+    export=exp;
+}
+declare module "dojox/fx/split" {
+    var exp: dojox.fx.split
+    export=exp;
+}
+declare module "dojox/fx/Timeline" {
+    var exp: dojox.fx.Timeline
+    export=exp;
+}
+declare module "dojox/fx/ext-dojo/reverse" {
+    var exp: dojox.fx.ext_dojo.reverse
+    export=exp;
+}
+declare module "dojox/fx/ext-dojo/complex" {
+    var exp: dojox.fx.ext_dojo.complex
+    export=exp;
+}
+declare module "dojox/fx/ext-dojo/NodeList" {
+    var exp: dojox.fx.ext_dojo.NodeList
+    export=exp;
+}
+declare module "dojox/fx/ext-dojo/NodeList-style" {
+    var exp: dojox.fx.ext_dojo.NodeList_style
+    export=exp;
 }

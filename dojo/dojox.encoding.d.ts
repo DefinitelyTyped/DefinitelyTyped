@@ -585,3 +585,92 @@ declare module dojox {
     
 
 }
+
+declare module "dojox/encoding/_base" {
+    var exp: dojox.encoding._base
+    export=exp;
+}
+declare module "dojox/encoding/ascii85" {
+    var exp: dojox.encoding.ascii85
+    export=exp;
+}
+declare module "dojox/encoding/base64" {
+    var exp: dojox.encoding.base64
+    export=exp;
+}
+declare module "dojox/encoding/bits" {
+    var exp: dojox.encoding.bits
+    export=exp;
+}
+declare module "dojox/encoding/easy64" {
+    var exp: dojox.encoding.easy64
+    export=exp;
+}
+declare module "dojox/encoding/compression/splay" {
+    var exp: dojox.encoding.compression.splay
+    export=exp;
+}
+declare module "dojox/encoding/compression/lzw" {
+    var exp: dojox.encoding.compression.lzw
+    export=exp;
+}
+declare module "dojox/encoding/crypto/_base" {
+    var exp: dojox.encoding.crypto._base
+    export=exp;
+}
+declare module "dojox/encoding/crypto/_base.RSAKey" {
+    var exp: dojox.encoding.crypto._base.RSAKey
+    export=exp;
+}
+declare module "dojox/encoding/crypto/_base.cipherModes" {
+    var exp: dojox.encoding.crypto._base.cipherModes
+    export=exp;
+}
+declare module "dojox/encoding/crypto/_base.outputTypes" {
+    var exp: dojox.encoding.crypto._base.outputTypes
+    export=exp;
+}
+declare module "dojox/encoding/crypto/RSAKey" {
+    var exp: dojox.encoding.crypto.RSAKey
+    export=exp;
+}
+declare module "dojox/encoding/crypto/RSAKey-ext" {
+    var exp: dojox.encoding.crypto.RSAKey_ext
+    export=exp;
+}
+declare module "dojox/encoding/digests/MD5" {
+    var exp: dojox.encoding.digests.MD5
+    export=exp;
+}
+declare module "dojox/encoding/digests/SHA1" {
+    var exp: dojox.encoding.digests.SHA1
+    export=exp;
+}
+declare module "dojox/encoding/digests/SHA224" {
+    var exp: dojox.encoding.digests.SHA224
+    export=exp;
+}
+declare module "dojox/encoding/digests/SHA512" {
+    var exp: dojox.encoding.digests.SHA512
+    export=exp;
+}
+declare module "dojox/encoding/digests/SHA256" {
+    var exp: dojox.encoding.digests.SHA256
+    export=exp;
+}
+declare module "dojox/encoding/digests/SHA384" {
+    var exp: dojox.encoding.digests.SHA384
+    export=exp;
+}
+declare module "dojox/encoding/digests/_base" {
+    var exp: dojox.encoding.digests._base
+    export=exp;
+}
+declare module "dojox/encoding/digests/_base.outputTypes" {
+    var exp: dojox.encoding.digests._base.outputTypes
+    export=exp;
+}
+declare module "dojox/encoding/digests/_sha-64" {
+    var exp: dojox.encoding.digests._sha_64
+    export=exp;
+}

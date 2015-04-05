@@ -1,8 +1,8 @@
 ﻿/**
-* Test suite created by Maxime LUCE <https://github.com/SomaticIT>
-*
-* Created by using code samples from https://github.com/npm/node-tar.
-*/
+ * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
+ *
+ * Created by using code samples from https://github.com/npm/node-tar.
+ */
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="tar.d.ts" />
@@ -26,3 +26,6 @@ readStream.pipe(extract);
 extract.on("entry", (entry: any) => {
 
 });
+
+var packStream: tar.PackStream = tar.Pack();
+packStream = tar.Pack({ path: 'test' });

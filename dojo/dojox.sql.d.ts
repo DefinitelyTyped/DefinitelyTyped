@@ -28,3 +28,12 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/sql" {
+    var exp: dojox.sql
+    export=exp;
+}
+declare module "dojox/sql/_crypto" {
+    var exp: dojox.sql._crypto
+    export=exp;
+}

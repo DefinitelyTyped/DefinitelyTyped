@@ -18,7 +18,7 @@ declare module chrome.app.runtime {
     }
 
     interface LaunchDataItem {
-        entry: File;
+        entry: FileEntry;
         type: string;
     }
 

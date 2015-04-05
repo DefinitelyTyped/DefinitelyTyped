@@ -1,4 +1,4 @@
-// Type definitions for CasperJS v1.0.0 API
+// Type definitions for CasperJS v1.0.0
 // Project: http://casperjs.org/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

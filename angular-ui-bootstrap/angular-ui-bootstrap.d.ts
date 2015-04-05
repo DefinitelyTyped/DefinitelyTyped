@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ng.ui.bootstrap {
+declare module angular.ui.bootstrap {
 
     interface IAccordionConfig {
         /**
@@ -190,15 +190,15 @@ declare module ng.ui.bootstrap {
         /**
          * a promise that is resolved when a modal is closed and rejected when a modal is dismissed
          */
-        result: ng.IPromise<any>;
+        result: angular.IPromise<any>;
 
         /**
          * a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
          */
-        opened: ng.IPromise<any>;
+        opened: angular.IPromise<any>;
     }
 
-    interface IModalScope extends ng.IScope {
+    interface IModalScope extends angular.IScope {
         /**
          * Those methods make it easy to close a modal window without a need to create a dedicated controller
          */
@@ -623,7 +623,7 @@ declare module ng.ui.bootstrap {
          *
          * @return A promise that is resolved when the transition finishes.
          */
-        (element: ng.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): ng.IPromise<ng.IAugmentedJQuery>;
+        (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
     }
 
     interface ITransitionServiceOptions {

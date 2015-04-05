@@ -18,7 +18,7 @@ declare module SvgPanZoom {
         beforeZoom?: (scale:number) => void;
         onZoom?: (scale:number) => void;
         beforePan?: (point:IPoint) => void;
-        onPan?: (point:IPoint) => void;
+        onPan?: (x:number, y:number) => void;
         refreshRate?: any; // in hz
     }
 
@@ -55,7 +55,7 @@ declare module SvgPanZoom {
 
         setBeforePan(fn: (point:IPoint)=> void): void;
 
-        setOnPan(fn: (point:IPoint)=> void): void;
+        setOnPan(fn: (x:number, y:number)=> void): void;
 
         enableZoom(): void;
 

@@ -1,4 +1,4 @@
-// Type definitions for CSS3DRenderer.js
+// Type definitions for three.js (CSS3DRenderer.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/CSS3DRenderer.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

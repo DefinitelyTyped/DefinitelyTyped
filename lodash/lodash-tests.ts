@@ -565,6 +565,8 @@ result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
+result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
 result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
@@ -723,7 +725,7 @@ var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
 
-var fibonacci = <Function>_.memoize(function (n: any) {
+var fibonacci = <Function>_.memoize(function (n: any): number {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
@@ -1095,6 +1097,41 @@ result = <string>_.unescape('Moe, Larry &amp; Curly');
 
 result = <string>_.uniqueId('contact_');
 result = <string>_.uniqueId();
+
+/*********
+* String
+*********/
+
+result = <string>_.camelCase('Foo Bar');
+result = <string>_.capitalize('fred');
+result = <string>_.deburr('déjà vu');
+result = <boolean>_.endsWith('abc', 'c');
+result = <string>_.escape('fred, barney, & pebbles');
+result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
+result = <string>_.kebabCase('Foo Bar');
+result = <string>_.pad('abc', 8);
+result = <string>_.pad('abc', 8, '_-');
+result = <string>_.padLeft('abc', 6);
+result = <string>_.padLeft('abc', 6, '_-');
+result = <string>_.padRight('abc', 6);
+result = <string>_.padRight('abc', 6, '_-');
+result = <string>_.repeat('*', 3);
+result = <string>_.snakeCase('Foo Bar');
+result = <string>_.startCase('--foo-bar');
+result = <boolean>_.startsWith('abc', 'a');
+result = <string>_.trim('  abc  ');
+result = <string>_.trim('-_-abc-_-', '_-');
+result = <string>_.trimLeft('  abc  ');
+result = <string>_.trimLeft('-_-abc-_-', '_-');
+result = <string>_.trimRight('  abc  ');
+result = <string>_.trimRight('-_-abc-_-', '_-');
+result = <string>_.trunc('hi-diddly-ho there, neighborino');
+result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
+result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
+result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
+result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+result = <string[]>_.words('fred, barney, & pebbles');
+result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
 
 /**********
 * Utilities *

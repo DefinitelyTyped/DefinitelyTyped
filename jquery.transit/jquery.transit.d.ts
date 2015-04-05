@@ -25,4 +25,12 @@ interface JQuery {
     transition(options: JQueryTransitOptions, duration: number, easing: string): JQuery;
     transition(options: JQueryTransitOptions, complete: () => void): JQuery;
     transition(options: JQueryTransitOptions, duration: number, easing: string, complete: () => void): JQuery;
+
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     */
+    css(propertyName: string, value: number[]): JQuery;
 }

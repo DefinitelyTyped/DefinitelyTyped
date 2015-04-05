@@ -12,3 +12,8 @@ declare module dojox {
     interface storage {
     }
 }
+
+declare module "dojox/storage" {
+    var exp: dojox.storage
+    export=exp;
+}

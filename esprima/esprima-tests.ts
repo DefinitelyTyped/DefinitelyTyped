@@ -7,9 +7,8 @@ var token: esprima.Token;
 var options: esprima.Options;
 var comment: Syntax.Comment;
 var program: Syntax.Program;
-var statement: Syntax.SomeStatement;
-var blockStatement: Syntax.BlockStatement;
-var expression: Syntax.SomeExpression;
+var statement: Syntax.Statement;
+var expression: Syntax.Expression;
 var property: Syntax.Property;
 var identifier: Syntax.Identifier;
 var literal: Syntax.Literal;
@@ -52,94 +51,136 @@ string = comment.value;
 
 // Statement
 // BlockStatement
-string = statement.type;
-statement = statement.body[0];
-comment = statement.leadingComments[0]
-comment = statement.trailingComments[0]
+var blockStatement: Syntax.BlockStatement;
+string = blockStatement.type;
+statement = blockStatement.body[0];
+comment = blockStatement.leadingComments[0];
+comment = blockStatement.trailingComments[0];
 
 // ExpressionStatement
-expression = statement.expression;
+var expressionStatement: Syntax.ExpressionStatement;
+expression = expressionStatement.expression;
 
 // IfStatement
-expression = statement.test;
-statement = statement.consequent;
-statement = statement.alternate;
+var ifStatement: Syntax.IfStatement;
+expression = ifStatement.test;
+statement = ifStatement.consequent;
+statement = ifStatement.alternate;
 
 // LabeledStatement
-identifier = statement.label;
-statement = statement.body;
+var labeledStatement: Syntax.LabeledStatement;
+identifier = labeledStatement.label;
+statement = labeledStatement.body;
 
 // WithStatement
-expression = statement.object;
+var withStatement: Syntax.WithStatement;
+expression = withStatement.object;
 
 // SwitchStatement
-expression = statement.discriminant;
-switchCase = statement.cases[0];
-boolean = statement.lexical;
+var switchStatement: Syntax.SwitchStatement;
+expression = switchStatement.discriminant;
+switchCase = switchStatement.cases[0];
+boolean = switchStatement.lexical;
 
 // ReturnStatement
-expression = statement.argument;
+var returnStatement: Syntax.ReturnStatement;
+expression = returnStatement.argument;
 
 // TryStatement
-blockStatement = statement.block;
-catchClause = statement.handler;
-catchClause = statement.guardedHandlers[0];
-blockStatement = statement.finalizer;
+var tryStatement: Syntax.TryStatement;
+blockStatement = tryStatement.block;
+catchClause = tryStatement.handler;
+catchClause = tryStatement.guardedHandlers[0];
+blockStatement = tryStatement.finalizer;
 
 // ForStatement
-variableDeclaratorOrExpression = statement.init;
-expression = statement.update;
+var forStatement: Syntax.ForStatement;
+variableDeclaratorOrExpression = forStatement.init;
+expression = forStatement.update;
 
 // ForInStatement
-variableDeclaratorOrExpression = statement.left;
-expression = statement.right;
-boolean = statement.each;
+var forInStatement: Syntax.ForInStatement;
+variableDeclaratorOrExpression = forInStatement.left;
+expression = forInStatement.right;
+boolean = forInStatement.each;
 
 // Expression
 // ArrayExpression
-string = expression.type;
-expression = expression.elements[0];
+var arrayExpression: Syntax.ArrayExpression;
+string = arrayExpression.type;
+expression = arrayExpression.elements[0];
 
 // ObjectExpression
-property = expression.properties[0];
+var objectExpression: Syntax.ObjectExpression;
+property = objectExpression.properties[0];
 string = property.type;
 literalOrIdentifier = property.key;
 expression = property.value;
 string = property.kind;
 
 // FunctionExpression
-identifier = expression.id;
-identifier = expression.params[0];
-expression = expression.defaults[0];
-identifier = expression.rest;
-blockStatementOrExpression = expression.body;
-boolean = expression.generator;
-boolean = expression.expression;
+var functionExpression: Syntax.FunctionExpression;
+identifier = functionExpression.id;
+identifier = functionExpression.params[0];
+expression = functionExpression.defaults[0];
+identifier = functionExpression.rest;
+blockStatementOrExpression = functionExpression.body;
+boolean = functionExpression.generator;
+boolean = functionExpression.expression;
 
 // SequenceExpression
-expression = expression.expressions[0]
+var sequenceExpression: Syntax.SequenceExpression;
+expression = sequenceExpression.expressions[0]
 
 // UnaryExpression
-string = expression.operator;
-boolean = expression.prefix;
+var unaryExpression: Syntax.UnaryExpression;
+string = unaryExpression.operator;
+boolean = unaryExpression.prefix;
 
 // BinaryExpression
-expression = expression.left;
-expression = expression.right;
+var binaryExpression: Syntax.BinaryExpression;
+expression = binaryExpression.left;
+expression = binaryExpression.right;
 
 // ConditionalExpression
-expression = expression.test;
-expression = expression.alternate;
-expression = expression.consequent;
+var conditionalExpression: Syntax.ConditionalExpression;
+expression = conditionalExpression.test;
+expression = conditionalExpression.alternate;
+expression = conditionalExpression.consequent;
 
-// ConditionalExpression
-expression = expression.callee;
-expression = expression.arguments[0];
+// NewExpression
+var newExpression: Syntax.NewExpression;
+expression = newExpression.callee;
+expression = newExpression.arguments[0];
+
+// CallExpression
+var callExpression: Syntax.CallExpression;
+expression = callExpression.callee;
+expression = callExpression.arguments[0];
 
 // MemberExpression
-expression = expression.object;
-identifierOrExpression = expression.property;
-boolean = expression.computed;
+var memberExpression: Syntax.MemberExpression;
+expression = memberExpression.object;
+identifierOrExpression = memberExpression.property;
+boolean = memberExpression.computed;
+
+// Declarations
+var functionDeclaration: Syntax.FunctionDeclaration;
+identifier = functionDeclaration.id;
+var params:Syntax.Identifier[] = functionDeclaration.params;
+var defaults:Syntax.Expression[] = functionDeclaration.defaults;
+identifier = functionDeclaration.rest;
+var body:Syntax.BlockStatementOrExpression = functionDeclaration.body;
+boolean = functionDeclaration.generator;
+boolean = functionDeclaration.expression;
+
+var variableDeclaration: Syntax.VariableDeclaration;
+var declarations:Syntax.VariableDeclarator[] = variableDeclaration.declarations;
+string = variableDeclaration.kind; // "var" | "let" | "const"
+
+var variableDeclarator: Syntax.VariableDeclarator;
+identifier = variableDeclarator.id; // Pattern
+expression = variableDeclarator.init;
 
 // Clauses
 // SwitchCase

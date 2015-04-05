@@ -976,7 +976,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -2148,7 +2148,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -3325,7 +3325,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -4686,7 +4686,7 @@ declare module dojox {
              * Returns widget as a printable string using the widget's value
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -6019,7 +6019,7 @@ declare module dojox {
              * Returns widget as a printable string using the widget's value
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -7332,7 +7332,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -8396,7 +8396,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -9387,7 +9387,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -10409,7 +10409,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -11446,7 +11446,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -12695,7 +12695,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -13888,7 +13888,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -15200,7 +15200,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -16348,7 +16348,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -17389,7 +17389,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -18415,7 +18415,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -19733,7 +19733,7 @@ declare module dojox {
              * Returns widget as a printable string using the widget's value
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -20767,7 +20767,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -22014,7 +22014,7 @@ declare module dojox {
              * Returns widget as a printable string using the widget's value
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -23490,7 +23490,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -24780,7 +24780,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -26168,7 +26168,7 @@ declare module dojox {
              * Returns widget as a printable string using the widget's value
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Restore the value to the last value passed to onChange
              * 
@@ -27716,7 +27716,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -28665,7 +28665,7 @@ declare module dojox {
                  * serialization.
                  * 
                  */
-                toString(): String;
+                toString(): string;
                 /**
                  * Deprecated. Override destroy() instead to implement custom widget tear-down
                  * behavior.
@@ -29056,4 +29056,177 @@ declare module dojox {
         }
     }
 
+}
+
+declare module "dojox/form/_HasDropDown" {
+    var exp: dojox.form._HasDropDown
+    export=exp;
+}
+declare module "dojox/form/DropDownStack" {
+    var exp: dojox.form.DropDownStack
+    export=exp;
+}
+declare module "dojox/form/RadioStack" {
+    var exp: dojox.form.RadioStack
+    export=exp;
+}
+declare module "dojox/form/_SelectStackMixin" {
+    var exp: dojox.form._SelectStackMixin
+    export=exp;
+}
+declare module "dojox/form/BusyButton" {
+    var exp: dojox.form.BusyButton
+    export=exp;
+}
+declare module "dojox/form/_FormSelectWidget" {
+    var exp: dojox.form._FormSelectWidget
+    export=exp;
+}
+declare module "dojox/form/_FormSelectWidget.__SelectOption" {
+    var exp: dojox.form._FormSelectWidget.__SelectOption
+    export=exp;
+}
+declare module "dojox/form/CheckedMultiSelect" {
+    var exp: dojox.form.CheckedMultiSelect
+    export=exp;
+}
+declare module "dojox/form/DayTextBox" {
+    var exp: dojox.form.DayTextBox
+    export=exp;
+}
+declare module "dojox/form/DropDownSelect" {
+    var exp: dojox.form.DropDownSelect
+    export=exp;
+}
+declare module "dojox/form/DropDownSelect._Menu" {
+    var exp: dojox.form.DropDownSelect._Menu
+    export=exp;
+}
+declare module "dojox/form/FileInput" {
+    var exp: dojox.form.FileInput
+    export=exp;
+}
+declare module "dojox/form/DateTextBox" {
+    var exp: dojox.form.DateTextBox
+    export=exp;
+}
+declare module "dojox/form/FileInputBlind" {
+    var exp: dojox.form.FileInputBlind
+    export=exp;
+}
+declare module "dojox/form/FileInputAuto" {
+    var exp: dojox.form.FileInputAuto
+    export=exp;
+}
+declare module "dojox/form/FileUploader" {
+    var exp: dojox.form.FileUploader
+    export=exp;
+}
+declare module "dojox/form/Manager" {
+    var exp: dojox.form.Manager
+    export=exp;
+}
+declare module "dojox/form/FilePickerTextBox" {
+    var exp: dojox.form.FilePickerTextBox
+    export=exp;
+}
+declare module "dojox/form/RangeSlider" {
+    var exp: dojox.form.RangeSlider
+    export=exp;
+}
+declare module "dojox/form/ListInput" {
+    var exp: dojox.form.ListInput
+    export=exp;
+}
+declare module "dojox/form/PasswordValidator" {
+    var exp: dojox.form.PasswordValidator
+    export=exp;
+}
+declare module "dojox/form/Rating" {
+    var exp: dojox.form.Rating
+    export=exp;
+}
+declare module "dojox/form/MonthTextBox" {
+    var exp: dojox.form.MonthTextBox
+    export=exp;
+}
+declare module "dojox/form/MultiComboBox" {
+    var exp: dojox.form.MultiComboBox
+    export=exp;
+}
+declare module "dojox/form/TimeSpinner" {
+    var exp: dojox.form.TimeSpinner
+    export=exp;
+}
+declare module "dojox/form/TriStateCheckBox" {
+    var exp: dojox.form.TriStateCheckBox
+    export=exp;
+}
+declare module "dojox/form/Uploader" {
+    var exp: dojox.form.Uploader
+    export=exp;
+}
+declare module "dojox/form/YearTextBox" {
+    var exp: dojox.form.YearTextBox
+    export=exp;
+}
+declare module "dojox/form/manager/_ClassMixin" {
+    var exp: dojox.form.manager._ClassMixin
+    export=exp;
+}
+declare module "dojox/form/manager/_DisplayMixin" {
+    var exp: dojox.form.manager._DisplayMixin
+    export=exp;
+}
+declare module "dojox/form/manager/_EnableMixin" {
+    var exp: dojox.form.manager._EnableMixin
+    export=exp;
+}
+declare module "dojox/form/manager/_FormMixin" {
+    var exp: dojox.form.manager._FormMixin
+    export=exp;
+}
+declare module "dojox/form/manager/_Mixin" {
+    var exp: dojox.form.manager._Mixin
+    export=exp;
+}
+declare module "dojox/form/manager/_NodeMixin" {
+    var exp: dojox.form.manager._NodeMixin
+    export=exp;
+}
+declare module "dojox/form/manager/_ValueMixin" {
+    var exp: dojox.form.manager._ValueMixin
+    export=exp;
+}
+declare module "dojox/form/uploader/_HTML5" {
+    var exp: dojox.form.uploader._HTML5
+    export=exp;
+}
+declare module "dojox/form/uploader/_Flash" {
+    var exp: dojox.form.uploader._Flash
+    export=exp;
+}
+declare module "dojox/form/uploader/_IFrame" {
+    var exp: dojox.form.uploader._IFrame
+    export=exp;
+}
+declare module "dojox/form/uploader/_Base" {
+    var exp: dojox.form.uploader._Base
+    export=exp;
+}
+declare module "dojox/form/uploader/FileList" {
+    var exp: dojox.form.uploader.FileList
+    export=exp;
+}
+declare module "dojox/form/uploader/plugins/Flash" {
+    var exp: dojox.form.uploader.plugins.Flash
+    export=exp;
+}
+declare module "dojox/form/uploader/plugins/HTML5" {
+    var exp: dojox.form.uploader.plugins.HTML5
+    export=exp;
+}
+declare module "dojox/form/uploader/plugins/IFrame" {
+    var exp: dojox.form.uploader.plugins.IFrame
+    export=exp;
 }

@@ -215,11 +215,8 @@ declare module jasmine {
         message(): any;
 
         toBe(expected: any): boolean;
-        toNotBe(expected: any): boolean;
         toEqual(expected: any): boolean;
-        toNotEqual(expected: any): boolean;
         toMatch(expected: any): boolean;
-        toNotMatch(expected: any): boolean;
         toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toBeNull(): boolean;
@@ -227,10 +224,8 @@ declare module jasmine {
         toBeTruthy(): boolean;
         toBeFalsy(): boolean;
         toHaveBeenCalled(): boolean;
-        wasNotCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toContain(expected: any): boolean;
-        toNotContain(expected: any): boolean;
         toBeLessThan(expected: any): boolean;
         toBeGreaterThan(expected: any): boolean;
         toBeCloseTo(expected: any, precision: any): boolean;

@@ -334,6 +334,8 @@ declare module Parse {
         static extend(className: string, protoProps?: any, classProps?: any): any;
         static fetchAll<T>(list: Object[], options: ParseDefaultOptions): Promise<T>;
         static fetchAllIfNeeded<T>(list: Object[], options: ParseDefaultOptions): Promise<T>;
+        static destroyAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
+        static saveAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
 
         initialize(): void;
         add(attr: string, item: any): Object;
@@ -343,7 +345,6 @@ declare module Parse {
         clear(options: any): any;
         clone(): Object;
         destroy<T>(options?: ParseDefaultOptions): Promise<T>;
-        destroyAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
         dirty(attr: String): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
@@ -361,7 +362,6 @@ declare module Parse {
         relation(attr: string): Relation;
         remove(attr: string, item: any): any;
         save<T>(options?: ParseDefaultOptions, arg2?: any, arg3?: any): Promise<T>;
-        saveAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
         set(key: string, value: any, options?: ParseDefaultOptions): boolean;
         setACL(acl: ACL, options?: ParseDefaultOptions): boolean;
         unset(attr: string, options?: any): any;

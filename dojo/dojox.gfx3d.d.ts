@@ -3235,3 +3235,156 @@ declare module dojox {
     }
 
 }
+declare module "dojox/gfx3d" {
+    var exp: dojox.gfx3d
+    export=exp;
+}
+declare module "dojox/gfx3d/object" {
+    var exp: dojox.gfx3d.object
+    export=exp;
+}
+declare module "dojox/gfx3d/gradient" {
+    var exp: dojox.gfx3d.gradient
+    export=exp;
+}
+declare module "dojox/gfx3d/_base" {
+    var exp: dojox.gfx3d._base
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Cube" {
+    var exp: dojox.gfx3d._base.Cube
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Cylinder" {
+    var exp: dojox.gfx3d._base.Cylinder
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Edges" {
+    var exp: dojox.gfx3d._base.Edges
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Polygon" {
+    var exp: dojox.gfx3d._base.Polygon
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Orbit" {
+    var exp: dojox.gfx3d._base.Orbit
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Object" {
+    var exp: dojox.gfx3d._base.Object
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Path3d" {
+    var exp: dojox.gfx3d._base.Path3d
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Quads" {
+    var exp: dojox.gfx3d._base.Quads
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Triangles" {
+    var exp: dojox.gfx3d._base.Triangles
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Scene" {
+    var exp: dojox.gfx3d._base.Scene
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.Viewport" {
+    var exp: dojox.gfx3d._base.Viewport
+    export=exp;
+}
+declare module "dojox/gfx3d/_base._creators" {
+    var exp: dojox.gfx3d._base._creators
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultCube" {
+    var exp: dojox.gfx3d._base.defaultCube
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultEdges" {
+    var exp: dojox.gfx3d._base.defaultEdges
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultOrbit" {
+    var exp: dojox.gfx3d._base.defaultOrbit
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultCylinder" {
+    var exp: dojox.gfx3d._base.defaultCylinder
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultPath3d" {
+    var exp: dojox.gfx3d._base.defaultPath3d
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultPolygon" {
+    var exp: dojox.gfx3d._base.defaultPolygon
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultQuads" {
+    var exp: dojox.gfx3d._base.defaultQuads
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.defaultTriangles" {
+    var exp: dojox.gfx3d._base.defaultTriangles
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.drawer" {
+    var exp: dojox.gfx3d._base.drawer
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.lighting" {
+    var exp: dojox.gfx3d._base.lighting
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.scheduler" {
+    var exp: dojox.gfx3d._base.scheduler
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.matrix" {
+    var exp: dojox.gfx3d._base.matrix
+    export=exp;
+}
+declare module "dojox/gfx3d/_base.vector" {
+    var exp: dojox.gfx3d._base.vector
+    export=exp;
+}
+declare module "dojox/gfx3d/scheduler" {
+    var exp: dojox.gfx3d.scheduler
+    export=exp;
+}
+declare module "dojox/gfx3d/scheduler.BinarySearchTree" {
+    var exp: dojox.gfx3d.scheduler.BinarySearchTree
+    export=exp;
+}
+declare module "dojox/gfx3d/scheduler.drawer" {
+    var exp: dojox.gfx3d.scheduler.drawer
+    export=exp;
+}
+declare module "dojox/gfx3d/scheduler.scheduler" {
+    var exp: dojox.gfx3d.scheduler.scheduler
+    export=exp;
+}
+declare module "dojox/gfx3d/lighting" {
+    var exp: dojox.gfx3d.lighting
+    export=exp;
+}
+declare module "dojox/gfx3d/lighting.Model" {
+    var exp: dojox.gfx3d.lighting.Model
+    export=exp;
+}
+declare module "dojox/gfx3d/lighting.finish" {
+    var exp: dojox.gfx3d.lighting.finish
+    export=exp;
+}
+declare module "dojox/gfx3d/vector" {
+    var exp: dojox.gfx3d.vector
+    export=exp;
+}
+declare module "dojox/gfx3d/matrix" {
+    var exp: dojox.gfx3d.matrix
+    export=exp;
+}
+

@@ -4620,7 +4620,7 @@ declare module dojox {
                      * serialization.
                      * 
                      */
-                    toString(): String;
+                    toString(): string;
                     /**
                      * Deprecated. Override destroy() instead to implement custom widget tear-down
                      * behavior.
@@ -14195,4 +14195,401 @@ declare module dojox {
 
     }
 
+}
+
+declare module "dojox/drawing" {
+    var exp: dojox.drawing
+    export=exp;
+}
+declare module "dojox/drawing/_base" {
+    var exp: dojox.drawing._base
+    export=exp;
+}
+declare module "dojox/drawing/Drawing" {
+    var exp: dojox.drawing.Drawing
+    export=exp;
+}
+declare module "dojox/drawing/defaults" {
+    var exp: dojox.drawing.defaults
+    export=exp;
+}
+declare module "dojox/drawing/defaults.arrows" {
+    var exp: dojox.drawing.defaults.arrows
+    export=exp;
+}
+declare module "dojox/drawing/defaults.disabled" {
+    var exp: dojox.drawing.defaults.disabled
+    export=exp;
+}
+declare module "dojox/drawing/defaults.anchors" {
+    var exp: dojox.drawing.defaults.anchors
+    export=exp;
+}
+declare module "dojox/drawing/defaults.highlighted" {
+    var exp: dojox.drawing.defaults.highlighted
+    export=exp;
+}
+declare module "dojox/drawing/defaults.button" {
+    var exp: dojox.drawing.defaults.button
+    export=exp;
+}
+declare module "dojox/drawing/defaults.hitSelected" {
+    var exp: dojox.drawing.defaults.hitSelected
+    export=exp;
+}
+declare module "dojox/drawing/defaults.hitNorm" {
+    var exp: dojox.drawing.defaults.hitNorm
+    export=exp;
+}
+declare module "dojox/drawing/defaults.hitHighlighted" {
+    var exp: dojox.drawing.defaults.hitHighlighted
+    export=exp;
+}
+declare module "dojox/drawing/defaults.selected" {
+    var exp: dojox.drawing.defaults.selected
+    export=exp;
+}
+declare module "dojox/drawing/defaults.norm" {
+    var exp: dojox.drawing.defaults.norm
+    export=exp;
+}
+declare module "dojox/drawing/defaults.textMode" {
+    var exp: dojox.drawing.defaults.textMode
+    export=exp;
+}
+declare module "dojox/drawing/defaults.textDisabled" {
+    var exp: dojox.drawing.defaults.textDisabled
+    export=exp;
+}
+declare module "dojox/drawing/defaults.text" {
+    var exp: dojox.drawing.defaults.text
+    export=exp;
+}
+declare module "dojox/drawing/annotations/Label" {
+    var exp: dojox.drawing.annotations.Label
+    export=exp;
+}
+declare module "dojox/drawing/annotations/Label.Label" {
+    var exp: dojox.drawing.annotations.Label.Label
+    export=exp;
+}
+declare module "dojox/drawing/annotations/Angle" {
+    var exp: dojox.drawing.annotations.Angle
+    export=exp;
+}
+declare module "dojox/drawing/annotations/BoxShadow" {
+    var exp: dojox.drawing.annotations.BoxShadow
+    export=exp;
+}
+declare module "dojox/drawing/annotations/Arrow" {
+    var exp: dojox.drawing.annotations.Arrow
+    export=exp;
+}
+declare module "dojox/drawing/library/icons" {
+    var exp: dojox.drawing.library.icons
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.ellipse" {
+    var exp: dojox.drawing.library.icons.ellipse
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.arrow" {
+    var exp: dojox.drawing.library.icons.arrow
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.axes" {
+    var exp: dojox.drawing.library.icons.axes
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.pan" {
+    var exp: dojox.drawing.library.icons.pan
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.line" {
+    var exp: dojox.drawing.library.icons.line
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.path" {
+    var exp: dojox.drawing.library.icons.path
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.equation" {
+    var exp: dojox.drawing.library.icons.equation
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.iconize" {
+    var exp: dojox.drawing.library.icons.iconize
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.pencil" {
+    var exp: dojox.drawing.library.icons.pencil
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.plus" {
+    var exp: dojox.drawing.library.icons.plus
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.triangle" {
+    var exp: dojox.drawing.library.icons.triangle
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.vector" {
+    var exp: dojox.drawing.library.icons.vector
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.rect" {
+    var exp: dojox.drawing.library.icons.rect
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.zoom100" {
+    var exp: dojox.drawing.library.icons.zoom100
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.textBlock" {
+    var exp: dojox.drawing.library.icons.textBlock
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.zoomIn" {
+    var exp: dojox.drawing.library.icons.zoomIn
+    export=exp;
+}
+declare module "dojox/drawing/library/icons.zoomOut" {
+    var exp: dojox.drawing.library.icons.zoomOut
+    export=exp;
+}
+declare module "dojox/drawing/library/greek" {
+    var exp: dojox.drawing.library.greek
+    export=exp;
+}
+declare module "dojox/drawing/manager/_registry" {
+    var exp: dojox.drawing.manager._registry
+    export=exp;
+}
+declare module "dojox/drawing/manager/keys" {
+    var exp: dojox.drawing.manager.keys
+    export=exp;
+}
+declare module "dojox/drawing/manager/Anchors" {
+    var exp: dojox.drawing.manager.Anchors
+    export=exp;
+}
+declare module "dojox/drawing/manager/Canvas" {
+    var exp: dojox.drawing.manager.Canvas
+    export=exp;
+}
+declare module "dojox/drawing/manager/StencilUI" {
+    var exp: dojox.drawing.manager.StencilUI
+    export=exp;
+}
+declare module "dojox/drawing/manager/Undo" {
+    var exp: dojox.drawing.manager.Undo
+    export=exp;
+}
+declare module "dojox/drawing/manager/Mouse" {
+    var exp: dojox.drawing.manager.Mouse
+    export=exp;
+}
+declare module "dojox/drawing/manager/Stencil" {
+    var exp: dojox.drawing.manager.Stencil
+    export=exp;
+}
+declare module "dojox/drawing/plugins/_Plugin" {
+    var exp: dojox.drawing.plugins._Plugin
+    export=exp;
+}
+declare module "dojox/drawing/plugins/drawing/Grid" {
+    var exp: dojox.drawing.plugins.drawing.Grid
+    export=exp;
+}
+declare module "dojox/drawing/plugins/drawing/GreekPalette" {
+    var exp: dojox.drawing.plugins.drawing.GreekPalette
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Zoom" {
+    var exp: dojox.drawing.plugins.tools.Zoom
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Zoom.Zoom100" {
+    var exp: dojox.drawing.plugins.tools.Zoom.Zoom100
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Zoom.ZoomOut" {
+    var exp: dojox.drawing.plugins.tools.Zoom.ZoomOut
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Zoom.ZoomIn" {
+    var exp: dojox.drawing.plugins.tools.Zoom.ZoomIn
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Iconize" {
+    var exp: dojox.drawing.plugins.tools.Iconize
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Iconize.setup" {
+    var exp: dojox.drawing.plugins.tools.Iconize.setup
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Pan" {
+    var exp: dojox.drawing.plugins.tools.Pan
+    export=exp;
+}
+declare module "dojox/drawing/plugins/tools/Pan.setup" {
+    var exp: dojox.drawing.plugins.tools.Pan.setup
+    export=exp;
+}
+declare module "dojox/drawing/stencil/_Base" {
+    var exp: dojox.drawing.stencil._Base
+    export=exp;
+}
+declare module "dojox/drawing/stencil/Line" {
+    var exp: dojox.drawing.stencil.Line
+    export=exp;
+}
+declare module "dojox/drawing/stencil/Ellipse" {
+    var exp: dojox.drawing.stencil.Ellipse
+    export=exp;
+}
+declare module "dojox/drawing/stencil/Path" {
+    var exp: dojox.drawing.stencil.Path
+    export=exp;
+}
+declare module "dojox/drawing/stencil/Rect" {
+    var exp: dojox.drawing.stencil.Rect
+    export=exp;
+}
+declare module "dojox/drawing/stencil/Image" {
+    var exp: dojox.drawing.stencil.Image
+    export=exp;
+}
+declare module "dojox/drawing/stencil/Text" {
+    var exp: dojox.drawing.stencil.Text
+    export=exp;
+}
+declare module "dojox/drawing/tools/Arrow" {
+    var exp: dojox.drawing.tools.Arrow
+    export=exp;
+}
+declare module "dojox/drawing/tools/Arrow.setup" {
+    var exp: dojox.drawing.tools.Arrow.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/Ellipse" {
+    var exp: dojox.drawing.tools.Ellipse
+    export=exp;
+}
+declare module "dojox/drawing/tools/Ellipse.setup" {
+    var exp: dojox.drawing.tools.Ellipse.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/Pencil" {
+    var exp: dojox.drawing.tools.Pencil
+    export=exp;
+}
+declare module "dojox/drawing/tools/Pencil.setup" {
+    var exp: dojox.drawing.tools.Pencil.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/Rect" {
+    var exp: dojox.drawing.tools.Rect
+    export=exp;
+}
+declare module "dojox/drawing/tools/Rect.setup" {
+    var exp: dojox.drawing.tools.Rect.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/Path" {
+    var exp: dojox.drawing.tools.Path
+    export=exp;
+}
+declare module "dojox/drawing/tools/Path.setup" {
+    var exp: dojox.drawing.tools.Path.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/Line" {
+    var exp: dojox.drawing.tools.Line
+    export=exp;
+}
+declare module "dojox/drawing/tools/Line.setup" {
+    var exp: dojox.drawing.tools.Line.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/TextBlock" {
+    var exp: dojox.drawing.tools.TextBlock
+    export=exp;
+}
+declare module "dojox/drawing/tools/TextBlock.setup" {
+    var exp: dojox.drawing.tools.TextBlock.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/custom/Axes" {
+    var exp: dojox.drawing.tools.custom.Axes
+    export=exp;
+}
+declare module "dojox/drawing/tools/custom/Axes.setup" {
+    var exp: dojox.drawing.tools.custom.Axes.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/custom/Vector" {
+    var exp: dojox.drawing.tools.custom.Vector
+    export=exp;
+}
+declare module "dojox/drawing/tools/custom/Vector.setup" {
+    var exp: dojox.drawing.tools.custom.Vector.setup
+    export=exp;
+}
+declare module "dojox/drawing/tools/custom/Equation" {
+    var exp: dojox.drawing.tools.custom.Equation
+    export=exp;
+}
+declare module "dojox/drawing/tools/custom/Equation.setup" {
+    var exp: dojox.drawing.tools.custom.Equation.setup
+    export=exp;
+}
+declare module "dojox/drawing/ui/Button" {
+    var exp: dojox.drawing.ui.Button
+    export=exp;
+}
+declare module "dojox/drawing/ui/Toolbar" {
+    var exp: dojox.drawing.ui.Toolbar
+    export=exp;
+}
+declare module "dojox/drawing/ui/Tooltip" {
+    var exp: dojox.drawing.ui.Tooltip
+    export=exp;
+}
+declare module "dojox/drawing/ui/dom/Toolbar" {
+    var exp: dojox.drawing.ui.dom.Toolbar
+    export=exp;
+}
+declare module "dojox/drawing/ui/dom/Pan" {
+    var exp: dojox.drawing.ui.dom.Pan
+    export=exp;
+}
+declare module "dojox/drawing/ui/dom/Pan.setup" {
+    var exp: dojox.drawing.ui.dom.Pan.setup
+    export=exp;
+}
+declare module "dojox/drawing/ui/dom/Zoom" {
+    var exp: dojox.drawing.ui.dom.Zoom
+    export=exp;
+}
+declare module "dojox/drawing/util/positioning" {
+    var exp: dojox.drawing.util.positioning
+    export=exp;
+}
+declare module "dojox/drawing/util/oo" {
+    var exp: dojox.drawing.util.oo
+    export=exp;
+}
+declare module "dojox/drawing/util/typeset" {
+    var exp: dojox.drawing.util.typeset
+    export=exp;
+}
+declare module "dojox/drawing/util/common" {
+    var exp: dojox.drawing.util.common
+    export=exp;
+}
+declare module "dojox/drawing/util/common.objects" {
+    var exp: dojox.drawing.util.common.objects
+    export=exp;
 }

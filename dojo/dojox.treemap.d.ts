@@ -995,7 +995,7 @@ declare module dojox {
              * serialization.
              * 
              */
-            toString(): String;
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
@@ -1104,4 +1104,29 @@ declare module dojox {
         }
     }
 
+}
+
+declare module "dojox/treemap/_utils" {
+    var exp: dojox.treemap._utils
+    export=exp;
+}
+declare module "dojox/treemap/GroupLabel" {
+    var exp: dojox.treemap.GroupLabel
+    export=exp;
+}
+declare module "dojox/treemap/DrillDownUp" {
+    var exp: dojox.treemap.DrillDownUp
+    export=exp;
+}
+declare module "dojox/treemap/Keyboard" {
+    var exp: dojox.treemap.Keyboard
+    export=exp;
+}
+declare module "dojox/treemap/ScaledLabel" {
+    var exp: dojox.treemap.ScaledLabel
+    export=exp;
+}
+declare module "dojox/treemap/TreeMap" {
+    var exp: dojox.treemap.TreeMap
+    export=exp;
 }

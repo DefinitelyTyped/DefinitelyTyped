@@ -12,10 +12,7 @@ declare module PromisesAPlus {
 		new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): Thenable<T>;
 	}
 
-	interface Thenable<R> {
-		then<U>(onFulfill: (value: R) => Thenable<U>, onReject: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfill: (value: R) => Thenable<U>, onReject?: (error: any) => U): Thenable<U>;
-		then<U>(onFulfill: (value: R) => U, onReject: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfill?: (value: R) => U, onReject?: (error: any) => U): Thenable<U>;
+	interface Thenable<T> {
+		then<R>(onFulfill?: (value: T) => Thenable<R>|R, onReject?: (error: any) => Thenable<R>|R): Thenable<R>;
 	}
 }

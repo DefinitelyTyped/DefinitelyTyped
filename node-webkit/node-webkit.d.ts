@@ -3,7 +3,7 @@
 // Definitions by: Pedro Casaubon <https://github.com/xperiments>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module nw.gui {
+declare module "nw.gui" {
 
     interface IEventEmitter {
         addListener(event: string, listener: Function): EventEmitter;

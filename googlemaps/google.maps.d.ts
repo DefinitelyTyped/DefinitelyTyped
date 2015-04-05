@@ -1574,13 +1574,13 @@ declare module google.maps {
         }
 
         export interface HeatmapLayerOptions {
-            data: LatLng[];
-            dissipating: boolean;
-            gradient: string[];
-            map: Map;
-            maxIntensity: number;
-            opacity: number;
-            radius: number;
+            data: any;
+            dissipating?: boolean;
+            gradient?: string[];
+            map?: Map;
+            maxIntensity?: number;
+            opacity?: number;
+            radius?: number;
         }
 
         export interface WeightedLocation {

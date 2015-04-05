@@ -1,4 +1,4 @@
-// Type definitions for TrackballControls.js
+// Type definitions for three.js (TrackballControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/TrackballControls.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference path="./three.d.ts" />
 
 declare module THREE {
-    class TrackballControls {
+    class TrackballControls extends EventDispatcher {
         constructor(object:Camera, domElement?:HTMLElement);
 
         object:Camera;
@@ -29,5 +29,13 @@ declare module THREE {
         keys:number[];
 
         update():void;
+        reset():void;
+        checkDistances():void;
+        zoomCamera():void;
+        panCamera():void;
+        rotateCamera():void;
+
+        handleResize():void;
+        handleEvent(event: any):void;
     }
 }

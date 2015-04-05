@@ -44,7 +44,7 @@ declare module jest {
         toMatch(expected: RegExp): boolean;
         toContain(expected: string): boolean;
         toBeCloseTo(expected: number, delta: number): boolean;
-        toBeGreaterThen(expected: number): boolean;
+        toBeGreaterThan(expected: number): boolean;
         toBeLessThen(expected: number): boolean;
         toBeCalled(): boolean;
         toBeCalledWith(...args: any[]): boolean;

@@ -11804,3 +11804,391 @@ declare module dojox {
     }
 
 }
+declare module "dojox/gfx" {
+    var exp: dojox.gfx
+    export=exp;
+}
+declare module "dojox/gfx.__MoveableCtorArgs" {
+    var exp: dojox.gfx.__MoveableCtorArgs
+    export=exp;
+}
+declare module "dojox/gfx.Circle" {
+    var exp: dojox.gfx.Circle
+    export=exp;
+}
+declare module "dojox/gfx.Ellipse" {
+    var exp: dojox.gfx.Ellipse
+    export=exp;
+}
+declare module "dojox/gfx/path" {
+    var exp: dojox.gfx.path
+    export=exp;
+}
+declare module "dojox/gfx/Mover" {
+    var exp: dojox.gfx.Mover
+    export=exp;
+}
+declare module "dojox/gfx/Moveable" {
+    var exp: dojox.gfx.Moveable
+    export=exp;
+}
+declare module "dojox/gfx.Line" {
+    var exp: dojox.gfx.Line
+    export=exp;
+}
+declare module "dojox/gfx.Point" {
+    var exp: dojox.gfx.Point
+    export=exp;
+}
+declare module "dojox/gfx.Group" {
+    var exp: dojox.gfx.Group
+    export=exp;
+}
+declare module "dojox/gfx.Polyline" {
+    var exp: dojox.gfx.Polyline
+    export=exp;
+}
+declare module "dojox/gfx.Rect" {
+    var exp: dojox.gfx.Rect
+    export=exp;
+}
+declare module "dojox/gfx.Rectangle" {
+    var exp: dojox.gfx.Rectangle
+    export=exp;
+}
+declare module "dojox/gfx.Surface" {
+    var exp: dojox.gfx.Surface
+    export=exp;
+}
+declare module "dojox/gfx.TextPath" {
+    var exp: dojox.gfx.TextPath
+    export=exp;
+}
+declare module "dojox/gfx.Text" {
+    var exp: dojox.gfx.Text
+    export=exp;
+}
+declare module "dojox/gfx.VectorFont" {
+    var exp: dojox.gfx.VectorFont
+    export=exp;
+}
+declare module "dojox/gfx/VectorText" {
+    var exp: dojox.gfx.VectorText
+    export=exp;
+}
+declare module "dojox/gfx/decompose" {
+    var exp: dojox.gfx.decompose
+    export=exp;
+}
+declare module "dojox/gfx._vectorFontCache" {
+    var exp: dojox.gfx._vectorFontCache
+    export=exp;
+}
+declare module "dojox/gfx._svgFontCache" {
+    var exp: dojox.gfx._svgFontCache
+    export=exp;
+}
+declare module "dojox/gfx/arc" {
+    var exp: dojox.gfx.arc
+    export=exp;
+}
+declare module "dojox/gfx/bezierutils" {
+    var exp: dojox.gfx.bezierutils
+    export=exp;
+}
+declare module "dojox/gfx/_base" {
+    var exp: dojox.gfx._base
+    export=exp;
+}
+declare module "dojox/gfx/_gfxBidiSupport" {
+    var exp: dojox.gfx._gfxBidiSupport
+    export=exp;
+}
+declare module "dojox/gfx/canvas" {
+    var exp: dojox.gfx.canvas
+    export=exp;
+}
+declare module "dojox/gfx/canvasWithEvents" {
+    var exp: dojox.gfx.canvasWithEvents
+    export=exp;
+}
+declare module "dojox/gfx.defaultCircle" {
+    var exp: dojox.gfx.defaultCircle
+    export=exp;
+}
+declare module "dojox/gfx/canvasext" {
+    var exp: dojox.gfx.canvasext
+    export=exp;
+}
+declare module "dojox/gfx.defaultImage" {
+    var exp: dojox.gfx.defaultImage
+    export=exp;
+}
+declare module "dojox/gfx.defaultLine" {
+    var exp: dojox.gfx.defaultLine
+    export=exp;
+}
+declare module "dojox/gfx/canvas_attach" {
+    var exp: dojox.gfx.canvas_attach
+    export=exp;
+}
+declare module "dojox/gfx.defaultLinearGradient" {
+    var exp: dojox.gfx.defaultLinearGradient
+    export=exp;
+}
+declare module "dojox/gfx.defaultEllipse" {
+    var exp: dojox.gfx.defaultEllipse
+    export=exp;
+}
+declare module "dojox/gfx.defaultFont" {
+    var exp: dojox.gfx.defaultFont
+    export=exp;
+}
+declare module "dojox/gfx.defaultPath" {
+    var exp: dojox.gfx.defaultPath
+    export=exp;
+}
+declare module "dojox/gfx.defaultPattern" {
+    var exp: dojox.gfx.defaultPattern
+    export=exp;
+}
+declare module "dojox/gfx.defaultRadialGradient" {
+    var exp: dojox.gfx.defaultRadialGradient
+    export=exp;
+}
+declare module "dojox/gfx.defaultRect" {
+    var exp: dojox.gfx.defaultRect
+    export=exp;
+}
+declare module "dojox/gfx.defaultPolyline" {
+    var exp: dojox.gfx.defaultPolyline
+    export=exp;
+}
+declare module "dojox/gfx.defaultStroke" {
+    var exp: dojox.gfx.defaultStroke
+    export=exp;
+}
+declare module "dojox/gfx.defaultText" {
+    var exp: dojox.gfx.defaultText
+    export=exp;
+}
+declare module "dojox/gfx.Fill" {
+    var exp: dojox.gfx.Fill
+    export=exp;
+}
+declare module "dojox/gfx.defaultVectorFont" {
+    var exp: dojox.gfx.defaultVectorFont
+    export=exp;
+}
+declare module "dojox/gfx.defaultVectorText" {
+    var exp: dojox.gfx.defaultVectorText
+    export=exp;
+}
+declare module "dojox/gfx.defaultTextPath" {
+    var exp: dojox.gfx.defaultTextPath
+    export=exp;
+}
+declare module "dojox/gfx/fx" {
+    var exp: dojox.gfx.fx
+    export=exp;
+}
+declare module "dojox/gfx/gradient" {
+    var exp: dojox.gfx.gradient
+    export=exp;
+}
+declare module "dojox/gfx.Font" {
+    var exp: dojox.gfx.Font
+    export=exp;
+}
+declare module "dojox/gfx/gradutils" {
+    var exp: dojox.gfx.gradutils
+    export=exp;
+}
+declare module "dojox/gfx.LinearGradient" {
+    var exp: dojox.gfx.LinearGradient
+    export=exp;
+}
+declare module "dojox/gfx/move" {
+    var exp: dojox.gfx.move
+    export=exp;
+}
+declare module "dojox/gfx/matrix" {
+    var exp: dojox.gfx.matrix
+    export=exp;
+}
+declare module "dojox/gfx.Pattern" {
+    var exp: dojox.gfx.Pattern
+    export=exp;
+}
+declare module "dojox/gfx.RadialGradient" {
+    var exp: dojox.gfx.RadialGradient
+    export=exp;
+}
+declare module "dojox/gfx/shape" {
+    var exp: dojox.gfx.shape
+    export=exp;
+}
+declare module "dojox/gfx/silverlight" {
+    var exp: dojox.gfx.silverlight
+    export=exp;
+}
+declare module "dojox/gfx.Stroke" {
+    var exp: dojox.gfx.Stroke
+    export=exp;
+}
+declare module "dojox/gfx/silverlight_attach" {
+    var exp: dojox.gfx.silverlight_attach
+    export=exp;
+}
+declare module "dojox/gfx/svgext" {
+    var exp: dojox.gfx.svgext
+    export=exp;
+}
+declare module "dojox/gfx/svg" {
+    var exp: dojox.gfx.svg
+    export=exp;
+}
+declare module "dojox/gfx.vectorFontFitting" {
+    var exp: dojox.gfx.vectorFontFitting
+    export=exp;
+}
+declare module "dojox/gfx/utils" {
+    var exp: dojox.gfx.utils
+    export=exp;
+}
+declare module "dojox/gfx/vml" {
+    var exp: dojox.gfx.vml
+    export=exp;
+}
+declare module "dojox/gfx/filters" {
+    var exp: dojox.gfx.filters
+    export=exp;
+}
+declare module "dojox/gfx/registry" {
+    var exp: dojox.gfx.registry
+    export=exp;
+}
+declare module "dojox/gfx/renderer" {
+    var exp: dojox.gfx.renderer
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach" {
+    var exp: dojox.gfx.svg_attach
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Ellipse" {
+    var exp: dojox.gfx.svg_attach.Ellipse
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Group" {
+    var exp: dojox.gfx.svg_attach.Group
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Circle" {
+    var exp: dojox.gfx.svg_attach.Circle
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Line" {
+    var exp: dojox.gfx.svg_attach.Line
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Image" {
+    var exp: dojox.gfx.svg_attach.Image
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Path" {
+    var exp: dojox.gfx.svg_attach.Path
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Polyline" {
+    var exp: dojox.gfx.svg_attach.Polyline
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Surface" {
+    var exp: dojox.gfx.svg_attach.Surface
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Shape" {
+    var exp: dojox.gfx.svg_attach.Shape
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Rect" {
+    var exp: dojox.gfx.svg_attach.Rect
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.Text" {
+    var exp: dojox.gfx.svg_attach.Text
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.TextPath" {
+    var exp: dojox.gfx.svg_attach.TextPath
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.dasharray" {
+    var exp: dojox.gfx.svg_attach.dasharray
+    export=exp;
+}
+declare module "dojox/gfx/svg_attach.xmlns" {
+    var exp: dojox.gfx.svg_attach.xmlns
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach" {
+    var exp: dojox.gfx.vml_attach
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Circle" {
+    var exp: dojox.gfx.vml_attach.Circle
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Group" {
+    var exp: dojox.gfx.vml_attach.Group
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Ellipse" {
+    var exp: dojox.gfx.vml_attach.Ellipse
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Image" {
+    var exp: dojox.gfx.vml_attach.Image
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Line" {
+    var exp: dojox.gfx.vml_attach.Line
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Polyline" {
+    var exp: dojox.gfx.vml_attach.Polyline
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Surface" {
+    var exp: dojox.gfx.vml_attach.Surface
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Rect" {
+    var exp: dojox.gfx.vml_attach.Rect
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Path" {
+    var exp: dojox.gfx.vml_attach.Path
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Shape" {
+    var exp: dojox.gfx.vml_attach.Shape
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.Text" {
+    var exp: dojox.gfx.vml_attach.Text
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.TextPath" {
+    var exp: dojox.gfx.vml_attach.TextPath
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach._bool" {
+    var exp: dojox.gfx.vml_attach._bool
+    export=exp;
+}
+declare module "dojox/gfx/vml_attach.text_alignment" {
+    var exp: dojox.gfx.vml_attach.text_alignment
+    export=exp;
+}

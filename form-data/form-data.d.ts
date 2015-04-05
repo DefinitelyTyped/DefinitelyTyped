@@ -1,4 +1,4 @@
-// Type definitions for fibers
+// Type definitions for form-data
 // Project: https://github.com/felixge/node-form-data
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

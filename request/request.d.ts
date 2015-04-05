@@ -110,6 +110,8 @@ declare module 'request' {
 			oauth(oauth: OAuthOptions): Request;
 			jar(jar: CookieJar): Request;
 
+			on(event: string, listener: Function): Request;
+
 			write(buffer: Buffer, cb?: Function): boolean;
 			write(str: string, cb?: Function): boolean;
 			write(str: string, encoding: string, cb?: Function): boolean;

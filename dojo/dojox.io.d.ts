@@ -242,3 +242,44 @@ declare module dojox {
     }
 
 }
+
+declare module "dojox/io/httpParse" {
+    var exp: dojox.io.httpParse
+    export=exp;
+}
+declare module "dojox/io/xhrMultiPart" {
+    var exp: dojox.io.xhrMultiPart
+    export=exp;
+}
+declare module "dojox/io/xhrWindowNamePlugin" {
+    var exp: dojox.io.xhrWindowNamePlugin
+    export=exp;
+}
+declare module "dojox/io/xhrScriptPlugin" {
+    var exp: dojox.io.xhrScriptPlugin
+    export=exp;
+}
+declare module "dojox/io/windowName" {
+    var exp: dojox.io.windowName
+    export=exp;
+}
+declare module "dojox/io/scriptFrame" {
+    var exp: dojox.io.scriptFrame
+    export=exp;
+}
+declare module "dojox/io/scriptFrame._loadedIds" {
+    var exp: dojox.io.scriptFrame._loadedIds
+    export=exp;
+}
+declare module "dojox/io/scriptFrame._waiters" {
+    var exp: dojox.io.scriptFrame._waiters
+    export=exp;
+}
+declare module "dojox/io/proxy/xip" {
+    var exp: dojox.io.proxy.xip
+    export=exp;
+}
+declare module "dojox/io/proxy/xip._state" {
+    var exp: dojox.io.proxy.xip._state
+    export=exp;
+}

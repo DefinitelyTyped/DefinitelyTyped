@@ -17,6 +17,7 @@
     animate();
 
     function init() {
+
         container = document.createElement('div');
         document.body.appendChild(container);
 
@@ -85,13 +86,14 @@
 
         }
 
-        var particles = new THREE.PointCloud( geometry, new THREE.PointCloudMaterial( { color: 0x888888 } ) );
+        var particles = new THREE.PointCloud(geometry, new THREE.PointCloudMaterial({ color: 0x888888 }));
         scene.add(particles);
 
         //
 
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         renderer.domElement.style.position = "relative";
         container.appendChild(renderer.domElement);
@@ -168,6 +170,7 @@
 
     }
 
+
     function render() {
 
         var r = Date.now() * 0.0005;
@@ -191,6 +194,7 @@
             cameraOrthoHelper.visible = false;
 
         } else {
+
             cameraOrtho.far = mesh.position.length();
             cameraOrtho.updateProjectionMatrix();
 
@@ -214,5 +218,6 @@
 
         renderer.setViewport(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
         renderer.render(scene, camera);
+
     }
 }

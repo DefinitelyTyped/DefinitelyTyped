@@ -6,6 +6,13 @@
 ///<reference path="rx-lite.d.ts"/>
 
 declare module Rx {
+	export module config {
+		/**
+		* Configuration option to determine whether to use native events only
+		*/
+		export var useNativeEvents: boolean;
+	}
+
     interface ObservableStatic {
 		/**
 		* Invokes the asynchronous function, surfacing the result through an observable sequence.

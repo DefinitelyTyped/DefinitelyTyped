@@ -27,6 +27,40 @@ declare module Pickadate {
         get(field: string, format?: string): any;
 
         /**
+        * Returns the string value of the picker’s input element.
+        */
+        get(field: "value"): string;
+
+        /**
+        * Returns a boolean value of whether the picker is open or not.
+        */
+        get(field: "open"): boolean;
+
+        /**
+        * Returns a boolean value of whether the picker has started or not.
+        */
+        get(field: "start"): boolean;
+
+        /**
+        * Returns a unique string that is the ID of the picker and it’s element. If the element has no ID, it is set to something random.
+        */
+        get(field: "id"): string;
+
+        /**
+        * "enable" and "disable" work together to determine which item objects to disable on the picker.
+        *
+        * "enable" returns 1 to represent a base enabled state, meaning that specific dates or times are disabled and all others are enabled;
+        * or -1 to indicate a base disabled state, meaning that specific dates or times are enabled and all others are disabled.
+        */
+        get(field: "enable"): number;
+
+        /**
+        * If "enable" is 1, returns the collection of dates or times to disable. If "enable" is -1, returns the collection of dates or
+        * times to *not* disable.
+        */
+        get(field: "disable"): any;
+
+        /**
         * Unbind callbacks that are bound using the `on` method.
         * @param methodName one of [ "open, "close", "render", "start", "stop", "set" ]
         */
@@ -49,7 +83,7 @@ declare module Pickadate {
 
         /**
         * Refresh the picker after adding something to the holder.
-        * By default, only the “face” of the picker (i.e. the box element), has its contents re-rendered.
+        * By default, only the "face" of the picker (i.e. the box element), has its contents re-rendered.
         *
         * @param fromRoot whether to render the entire picker from the root up (default: false)
         */
@@ -98,6 +132,65 @@ declare module Pickadate {
         * This is meant to be mostly for internal use.
         */
         _hidden: JQuery;
+    }
+
+    export interface DateApi extends Api {
+        get(field: string, format?: string): any;
+
+        /**
+        * Returns the item object or formatted string of the date that is visually selected.
+        * Defaults to null when there’s no value.
+        */
+        get(field: "select"): DateItem;
+        get(field: "select", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that is visually highlighted.
+        * Defaults to "today" when there’s no value.
+        */
+        get(field: "highlight"): DateItem;
+        get(field: "highlight", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that determines the current view.
+        * Defaults to the first day of the current month when there’s no value.
+        */
+        get(field: "view"): DateItem;
+        get(field: "view", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that determines the lower limit.
+        * Defaults to a -Infinity item object when it is not explicitly set in the options or through the picker’s API.
+        */
+        get(field: "min"): DateItem;
+        get(field: "min", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that determines the upper limit.
+        * Defaults to an Infinity item object when it is not explicitly set in the options or through the picker’s API.
+        */
+        get(field: "max"): DateItem;
+        get(field: "max", format: string): string;
+    }
+
+    export interface DateItem {
+        // The full year.
+        year: number;
+
+        // The month with zero-as-index.
+        month: number;
+
+        // The date of the month.
+        date: number;
+
+        // The day of the week with zero-as-index.
+        day: number;
+
+        // The underlying JavaScript Date object.
+        obj: Date;
+
+        // The "pick" value used for comparisons.
+        pick: number;
     }
 
     export interface DateOptions {
@@ -214,6 +307,56 @@ declare module Pickadate {
         buttonToday?: string
     }
 
+    export interface TimeApi extends Api {
+        get(field: string, format?: string): any;
+
+        /**
+        * Returns the item object or formatted string of the date that is visually selected.
+        * Defaults to null when there’s no value.
+        */
+        get(field: "select"): TimeItem;
+        get(field: "select", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that is visually highlighted.
+        * Defaults to "now" when there’s no value.
+        */
+        get(field: "highlight"): TimeItem;
+        get(field: "highlight", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that determines the current view.
+        * Defaults to "now" when there’s no value.
+        */
+        get(field: "view"): TimeItem;
+        get(field: "view", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that determines the lower limit.
+        * Defaults to a -Infinity item object when it is not explicitly set in the options or through the picker’s API.
+        */
+        get(field: "min"): TimeItem;
+        get(field: "min", format: string): string;
+
+        /**
+        * Returns the item object or formatted string of the date that determines the upper limit.
+        * Defaults to an Infinity item object when it is not explicitly set in the options or through the picker’s API.
+        */
+        get(field: "max"): TimeItem;
+        get(field: "max", format: string): string;
+    }
+
+    export interface TimeItem {
+        // Hour of the day from 0 to 23.
+        hour: number;
+
+        // The minutes of the hour from 0 to 59 (based on the interval).
+        mins: number;
+
+        // The "pick" value used for comparisons.
+        pick: number;
+    }
+
     export interface TimeOptions {
         // Translations and clear button
         clear?: string;
@@ -291,7 +434,7 @@ interface JQuery {
     /**
      * Access the API object after initialization.
      */
-    pickadate(keyword: "picker"): Pickadate.Api;
+    pickadate(keyword: "picker"): Pickadate.DateApi;
     pickadate(objectName: "$node"): JQuery;
     pickadate(objectName: "$root"): JQuery;
     pickadate(objectName: "_hidden"): JQuery;
@@ -310,7 +453,7 @@ interface JQuery {
     pickadate(options?: Pickadate.DateOptions): JQuery;
 
 
-    pickatime(keyword: "picker"): Pickadate.Api;
+    pickatime(keyword: "picker"): Pickadate.TimeApi;
     pickatime(objectName: "$node"): JQuery;
     pickatime(objectName: "$root"): JQuery;
     pickatime(objectName: "_hidden"): JQuery;

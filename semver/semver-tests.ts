@@ -20,10 +20,9 @@ var loose:boolean;
 str = mod.valid(str);
 
 str = mod.valid(str, loose);
-//TODO maybe add an enum for release?
 str = mod.inc(str, str, loose);
 
-//Comparison
+// Comparison
 bool = mod.gt(v1, v2, loose);
 bool = mod.gte(v1, v2, loose);
 bool = mod.lt(v1, v2, loose);
@@ -34,9 +33,9 @@ bool = mod.cmp(v1, x, v2, loose);
 num = mod.compare(v1, v2, loose);
 num = mod.rcompare(v1, v2, loose);
 
-//Ranges
+// Ranges
 str = mod.validRange(str, loose);
-str = mod.satisfies(version, str, loose);
+bool = mod.satisfies(version, str, loose);
 str = mod.maxSatisfying(versions, str, loose);
 bool = mod.gtr(version, str, loose);
 bool = mod.ltr(version, str, loose);

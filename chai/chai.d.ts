@@ -1,4 +1,4 @@
-// Type definitions for chai 1.7.2
+// Type definitions for chai 2.0.0
 // Project: http://chaijs.com/
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,8 +12,8 @@ declare module chai {
         stack: string;
     }
 
-    function expect(target: any, message?: string): Expect;
-    
+    export function expect(target: any, message?: string): Expect;
+
     export var assert: Assert;
     export var config: Config;
 
@@ -92,6 +92,7 @@ declare module chai {
         been: Expect;
         is: Expect;
         that: Expect;
+        which: Expect;
         and: Expect;
         have: Expect;
         has: Expect;

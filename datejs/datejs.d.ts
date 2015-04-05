@@ -15,7 +15,7 @@ interface IDateJSLiteral {
 }
 
 /** DateJS Public Static Methods */
-interface IDateJSStatic extends Date {
+interface IDateJSStatic extends IDateJS {
     /** Gets a date that is set to the current date. The time is set to the start of the day (00:00 or 12:00 AM) */
     today(): IDateJS;
     /** Compares the first date to the second date and returns an number indication of their relative values. -1 = this is lessthan date. 0 = values are equal. 1 = this is greaterthan date. */

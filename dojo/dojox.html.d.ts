@@ -568,3 +568,44 @@ declare module dojox {
 
     }
 }
+
+declare module "dojox/html" {
+    var exp: dojox.html
+    export=exp;
+}
+declare module "dojox/html/ellipsis" {
+    var exp: dojox.html.ellipsis
+    export=exp;
+}
+declare module "dojox/html/entities" {
+    var exp: dojox.html.entities
+    export=exp;
+}
+declare module "dojox/html/metrics" {
+    var exp: dojox.html.metrics
+    export=exp;
+}
+declare module "dojox/html/styles" {
+    var exp: dojox.html.styles
+    export=exp;
+}
+declare module "dojox/html/styles._ContentSetter" {
+    var exp: dojox.html.styles._ContentSetter
+    export=exp;
+}
+declare module "dojox/html/styles.ext-dojo" {
+    var exp: dojox.html.styles.ext_dojo
+    export=exp;
+}
+declare module "dojox/html/styles.metrics" {
+    var exp: dojox.html.styles.metrics
+    export=exp;
+}
+declare module "dojox/html/styles.entities" {
+    var exp: dojox.html.styles.entities
+    export=exp;
+}
+declare module "dojox/html/_base._ContentSetter" {
+    var exp: dojox.html._base._ContentSetter
+    export=exp;
+}

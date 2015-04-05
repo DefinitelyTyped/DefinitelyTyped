@@ -24,6 +24,13 @@ interface NProgressStatic {
     inc(): NProgressStatic;
 
     /**
+     * Increments the progress bar with a set amount.
+     * @param {number} amount This will get the current status value and adds the value until status is max 0.994
+     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
+     */
+    inc(amount: number): NProgressStatic;
+
+    /**
      * Removes the progress indicator.
      */
     remove(): void;
@@ -103,3 +110,7 @@ interface NProgressConfigureOptions {
 }
 
 declare var NProgress: NProgressStatic;
+
+declare module "nprogress" {
+    export = NProgress;
+}
