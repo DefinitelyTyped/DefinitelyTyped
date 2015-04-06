@@ -338,8 +338,6 @@ declare module Xrm
              * Gets a reference to the object for which event occurred.
              *
              * @return  The event source.
-             * 
-             * @remarks Of type Xrm.Page.Attribute or Xrm.Page.Entity
              */
             getEventSource(): Xrm.Page.Attribute | Xrm.Page.Entity;
 
@@ -1163,6 +1161,13 @@ declare module Xrm
              * @return  The attribute.
              */
             getAttribute<T extends Attribute>(): T;
+
+            /**
+             * Gets the control's bound attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute(): Attribute;
         }
 
         /**
@@ -1199,7 +1204,7 @@ declare module Xrm
              *
              * @param   {Function}  handler The handler.
              */
-            addPreSearch( handler: Function ): void;
+            addPreSearch( handler: () => void ): void;
 
             /**
              * Adds an additional custom filter to the lookup, with the "AND" filter operator.
@@ -1258,7 +1263,7 @@ declare module Xrm
              *
              * @param   {Function}  handler The handler.
              */
-            removePreSearch( handler: Function ): void;
+            removePreSearch( handler: () => void ): void;
 
             /**
              * Sets the Lookup's default view.
@@ -1309,7 +1314,7 @@ declare module Xrm
         }
 
         /**
-         * Interface for a sub grid control.
+         * Interface for a CRM grid control.
          *
          * @sa  Control
          */
@@ -1729,6 +1734,15 @@ declare module Xrm
         export function getAttribute<T extends Attribute>( attributeName: string ): T;
 
         /**
+         * Gets an attribute matching attributeName.
+         *
+         * @param   {string}    attributeName   Name of the attribute.
+         *
+         * @return  The attribute.
+         */
+        export function getAttribute( attributeName: string ): Attribute;
+
+        /**
          * Gets an attribute by index.
          *
          * @param   {number}    index   The attribute index.
@@ -1762,6 +1776,15 @@ declare module Xrm
          * @return  The control.
          */
         export function getControl<T extends Control>( controlName: string ): T;
+
+        /**
+         * Gets a control matching controlName.
+         *
+         * @param   {string}    controlName Name of the control.
+         *
+         * @return  The control.
+         */
+        export function getControl( controlName: string ): Control;
 
         /**
          * Gets a control by index.

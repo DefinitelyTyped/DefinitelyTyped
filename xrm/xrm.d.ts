@@ -3,7 +3,7 @@
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Xrm 
+declare module Xrm
 {
     /**
      * Interface for the client context.
@@ -54,6 +54,11 @@ declare module Xrm
          */
         getCurrentTheme(): string;
 
+        /**
+         * Gets whether automatic save is enabled.
+         *
+         * @return  true if automatic saving is enabled, otherwise false.
+         */
         getIsAutoSaveEnabled(): boolean;
 
         /**
@@ -81,6 +86,11 @@ declare module Xrm
          */
         getQueryStringParameters(): { [index: string]: any };
 
+        /**
+         * Returns the difference between the local time and Coordinated Universal Time (UTC).
+         *
+         * @return  The time zone offset, in minutes.
+         */
         getTimeZoneOffsetMinutes(): number;
 
         /**
@@ -298,6 +308,9 @@ declare module Xrm
             Disqualify = 15
         }
 
+        /**
+         * Enumeration of stage categories.
+         */
         export const enum StageCategory
         {
             Qualify = 0,
@@ -309,6 +322,9 @@ declare module Xrm
             Resolve = 6
         }
 
+        /**
+         * Enumeration of grid control context resolutions.
+         */
         export const enum GridControlContext
         {
             Unknown = 0,
@@ -318,88 +334,122 @@ declare module Xrm
             FormContextRelated = 4
         }
 
+        /**
+         * Interface for a CRM Business Process Flow instance.
+         */
         export interface Process
         {
             /**
             * Returns the unique identifier of the process.
             *
-            * @return Value represents the string representation of a GUID value.
+            * @return The identifier for this process, in GUID format.
+            *         
+            * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
             */
             getId(): string;
 
             /**
-                * Returns the name of the process.
-                */
+             * Returns the name of the process.
+             *
+             * @return  The name.
+             */
             getName(): string;
 
             /**
-                * Returns an collection of stages in the process.
-                */
+             * Returns an collection of stages in the process.
+             *
+             * @return  The stages.
+             */
             getStages(): Collection.ItemCollection<Stage>;
 
             /**
-                * Returns a boolean value to indicate if the process is rendered
-                *
-                * @return true if the process is rendered, false if not
-                */
+             * Returns a boolean value to indicate if the process is rendered.
+             *
+             * @return  true if the process is rendered, false if not.
+             */
             isRendered(): boolean;
         }
 
+        /**
+         * Interface for CRM Business Process Flow stages.
+         */
         export interface Stage
         {
             /**
-                * Returns an object with a getValue method which will return the integer value of the business process flow category.
-                */
+             * Returns an object with a getValue method which will return the integer value of the business process flow
+             * category.
+             *
+             * @return  The stage category.
+             */
             getCategory(): { getValue(): StageCategory };
 
             /**
-                * Returns the logical name of the entity associated with the stage.
-                */
+             * Returns the logical name of the entity associated with the stage.
+             *
+             * @return  The entity name.
+             */
             getEntityName(): string;
 
             /**
-                * Returns the unique identifier of the stage
-                */
+             * Returns the unique identifier of the stage.
+             *
+             * @return  The identifier of the Stage, in GUID format.
+             *          
+             * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
+             */
             getId(): string;
 
             /**
-                * Returns the name of the stage
-                */
+             * Returns the name of the stage.
+             *
+             * @return  The name.
+             */
             getName(): string;
 
             /**
-                * Returns the status of the stage
-                *
-                * @remarks This method will return either "active" or "inactive".
-                */
+             * Returns the status of the stage.
+             *
+             * @return  The status.
+             *
+             * @remarks  This method will return either "active" or "inactive".
+             */
             getStatus(): string;
 
             /**
-                * Returns a collection of steps in the stage
-                */
+             * Returns a collection of steps in the stage.
+             *
+             * @return  An array of Step.
+             */
             getSteps(): Step[];
         }
 
         export interface Step
         {
             /**
-                * Returns the logical name of the attribute associated to the step.
-                *
-                * @remarks Some steps don’t contain an attribute value.
-                */
+             * Returns the logical name of the attribute associated to the step.
+             *
+             * @return  The attribute.
+             *
+             * @remarks  Some steps don’t contain an attribute value.
+             */
             getAttribute(): string;
 
             /**
-                * Returns the name of the step.
-                */
+             * Returns the name of the step.
+             *
+             * @return  The name.
+             */
             getName(): string;
 
             /**
-                * Returns whether the step is required in the business process flow.
-                *
-                * @remarks Returns true if the step is marked as required in the Business Process Flow editor; otherwise, false. There is no connection between this value and the values you
-                * can change in the Xrm.Page.data.entity attribute RequiredLevel methods.
-                */
+             * Returns whether the step is required in the business process flow.
+             *
+             * @return  true if required, false if not.
+             *
+             * @remarks     Returns true if the step is marked as required in the Business Process Flow editor; otherwise, false.
+             *              There is no connection between this value and the values you can change in the Xrm.Page.data.entity
+             *              attribute RequiredLevel methods.
+             */
             isRequired(): boolean;
         }
 
@@ -1143,77 +1193,94 @@ declare module Xrm
                 /**
                  * Returns a Process object representing the active process.
                  *
-                 * @return current active process
+                 * @return  current active process.
                  */
                 getActiveProcess(): Process;
 
                 /**
                  * Set a Process as the active process.
                  *
-                 * @param {string} processId the Id of the process to make the active process
-                 * @param {function} callbackFunction a function to call when the operation is complete.
+                 * @param   {string}    processId           the Id of the process to make the active process.
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
                 setActiveProcess( processId: string, callbackFunction?: ProcessCallbackDelegate ): void;
 
                 /**
-                 * Returns a Stage object representing the active stage
+                 * Returns a Stage object representing the active stage.
                  *
-                 * @return current active stage
+                 * @return  current active stage.
                  */
                 getActiveStage(): Stage;
 
                 /**
                  * Set a stage as the active stage.
                  *
-                 * @param {string} stageId the Id of the stage to make the active stage.
-                 * @param {function} callbackFunction a function to call when the operation is complete.
+                 * @param   {string}    stageId             the Id of the stage to make the active stage.
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
                 setActiveStage( stageId: string, callbackFunction?: ProcessCallbackDelegate ): void;
 
                 /**
-                 * Use this method to get a collection of stages currently in the active path with methods to interact with the stages displayed in the business process flow control.
-                 * The active path represents stages currently rendered in the process control based on the branching rules and current data in the record.
+                 * Use this method to get a collection of stages currently in the active path with methods to interact with the
+                 * stages displayed in the business process flow control. The active path represents stages currently rendered in
+                 * the process control based on the branching rules and current data in the record.
                  *
-                 * @return A collection of all completed stages, the currently active stage, and the predicted set of future stages based on satisfied conditions in the branching rule. This may be a subset of the stages returned with
-                 * Xrm.Page.data.process.getActiveProcess because it will only include those stages which represent a valid transition from the current stage based on branching that has occurred in the process.
+                 * @return  A collection of all completed stages, the currently active stage, and the predicted set of future stages
+                 *          based on satisfied conditions in the branching rule. This may be a subset of the stages returned with
+                 *          Xrm.Page.data.process.getActiveProcess because it will only include those stages which represent a valid
+                 *          transition from the current stage based on branching that has occurred in the process.
                  */
                 getActivePath(): Collection.ItemCollection<Stage>;
 
                 /**
-                 * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an entity.
+                 * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an
+                 * entity.
                  *
-                 * @param {function} callbackFunction. The callback function must accept a parameter that contains an object with dictionary properties where the name of the property is the Id of the business process flow
-                 * and the value of the property is the name of the business process flow.
-                 *
-                 * The enabled processes are filtered according to the user’s privileges. The list of enabled processes is the same ones a user can see in the UI if they want to change the process manually.
+                 * @param   {Function} callbackFunction                                 The callback function must accept a parameter
+                 *                                                                      that contains an object with dictionary
+                 *                                                                      properties where the name of the property is the
+                 *                                                                      Id of the business process flow and the value of
+                 *                                                                      the property is the name of the business process
+                 *                                                                      flow.
+                 *                                                                      
+                 *                                                                      The enabled processes are filtered according to
+                 *                                                                      the user’s privileges. The list of enabled
+                 *                                                                      processes is the same ones a user can see in the
+                 *                                                                      UI if they want to change the process manually.
                  */
                 getEnabledProcesses( callbackFunction: ( enabledProcesses: ProcessDictionary ) => void ): void;
 
                 /**
-                 * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the business process flow stage changes.
+                 * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
+                 * business process flow stage changes.
                  *
-                 * @param {function} callbackFunction. The function will be added to the bottom of the event handler pipeline. The execution context is automatically set to be the first parameter passed to the event handler.
+                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event handler
+                 *                                              pipeline. The execution context is automatically set to be the first
+                 *                                              parameter passed to the event handler.
                  */
                 addOnStageChange( handler: ContextSensitiveHandler ): void;
 
                 /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
                  *
-                 * @param {function} handler. If an anonymous function is set using the addOnStageChange method it cannot be removed using this method.
+                 * @param   {ContextSensitiveHandler}   handler If an anonymous function is set using the addOnStageChange method it
+                 *                                              cannot be removed using this method.
                  */
                 removeOnStageSelected( handler: ContextSensitiveHandler ): void;
 
                 /**
                  * Progresses to the next stage.
                  *
-                 * @param {function} callbackFunction. A function to call when the operation is complete.
+                 * @param   {ProcessCallbackDelegate}   callbackFunction    (Optional) A function to call when the operation is
+                 *                                                          complete.
                  */
                 moveNext( callbackFunction?: ProcessCallbackDelegate ): void;
 
                 /**
                  * Moves to the previous stage.
                  *
-                 * @param {function} callbackFunction. A function to call when the operation is complete.
+                 * @param   {ProcessCallbackDelegate}   callbackFunction    (Optional) A function to call when the operation is
+                 *                                                          complete.
                  */
                 movePrevious( callbackFunction?: ProcessCallbackDelegate ): void;
             }
@@ -1221,13 +1288,13 @@ declare module Xrm
             /**
              * Called when process change methods have completed.
              *
-             * @param   {string} status     The result of the process change operation.
-             *
-             * @remarks Values returned are: success        (The operation succeeded.)
-             *                               crossEntity    (The previous stage is for a different entity.)
-             *                               beginning      (The active stage is the first stage of the active path.)
-             *                               invalid        (The operation failed because the selected stage isn’t the same as the active stage.)
-             *                               unreachable    (The stage exists on a different path.)
+             * @param       {string}    status  The result of the process change operation.
+             * @remarks     Values returned are: success        (The operation succeeded.)
+             *                                   crossEntity    (The previous stage is for a different entity.)
+             *                                   beginning      (The active stage is the first stage of the active path.)
+             *                                   invalid        (The operation failed because the selected stage isn’t the same
+             *                                   as the active stage.)
+             *                                   unreachable    (The stage exists on a different path.)
              */
             export type ProcessCallbackDelegate = ( status: string ) => void;
 
@@ -1239,7 +1306,7 @@ declare module Xrm
             /**
              * Asynchronously refreshes data on the form, without reloading the page.
              *
-             * @param   {boolean}   save    true to save the record, after the refresh
+             * @param   {boolean}   save    true to save the record, after the refresh.
              *
              * @return  An Async.XrmPromise.
              */
@@ -1295,7 +1362,7 @@ declare module Xrm
              *                               webresource
              *                               notes
              *                               timercontrol
-             *                               kbsearch (CRM Online Only)
+             *                               kbsearch (CRM Online Only, use parature.d.ts)
              */
             getControlType(): string;
 
@@ -1367,6 +1434,12 @@ declare module Xrm
              * @return  The attribute.
              */
             getAttribute<T extends Attribute>(): T;
+
+            /**
+             * Gets the control's bound attribute.
+             *
+             * @return  The attribute.
+             */
             getAttribute(): Attribute;
         }
 
@@ -1521,20 +1594,45 @@ declare module Xrm
         }
 
         /**
-         * Interface for a sub grid control.
+         * Interface for a CRM grid control.
          *
          * @sa  Control
          */
         export interface GridControl extends Control
         {
+            /**
+             * Use this method to add event handlers to the GridControl's OnLoad event.
+             *
+             * @param   {Function} handler The event handler.
+             */
             addOnLoad( handler: () => void ): void;
 
+            /**
+             * This method returns context information about the GridControl.
+             *
+             * @return  The context type.
+             */
             getContextType(): GridControlContext;
 
+            /**
+             * Use this method to get the logical name of the entity data displayed in the grid.
+             *
+             * @return  The entity name.
+             */
             getEntityName(): string;
 
+            /**
+             * Use this method to get access to the Grid available in the GridControl.
+             *
+             * @return  The grid.
+             */
             getGrid(): ui.Grid;
 
+            /**
+             * Use this method to get access to the ViewSelector available for the GridControl when it is configured to display views.
+             *
+             * @return  The view selector.
+             */
             getViewSelector(): ui.ViewSelector;
 
             /**
@@ -1544,6 +1642,11 @@ declare module Xrm
              */
             refresh(): void;
 
+            /**
+             * Use this method to remove event handlers from the GridControl's OnLoad event.
+             *
+             * @param   {Function} handler The handler.
+             */
             removeOnLoad( handler: () => void ): void;
         }
 
@@ -1725,6 +1828,9 @@ declare module Xrm
          */
         export module ui
         {
+            /**
+             * Interface for Xrm.Page.ui.process API
+             */
             export interface ProcessManager
             {
                 /**
@@ -1756,47 +1862,138 @@ declare module Xrm
                 setVisible( visible: boolean ): void;
             }
 
+            /**
+             * Interface for a grid.  Use Grid methods to access information about data in the grid. Grid is returned by the
+             * GridControl.getGrid method.
+             */
             export interface Grid
             {
+                /**
+                 * Returns a collection of every GridRow in the Grid.
+                 *
+                 * @return  The rows.
+                 */
                 getRows(): Collection.ItemCollection<GridRow>;
 
+                /**
+                 * Returns a collection of every selected GridRow in the Grid.
+                 *
+                 * @return  The selected rows.
+                 */
                 getSelectedRows(): Collection.ItemCollection<GridRow>;
 
+                /**
+                 * Returns the total number of records in the Grid.
+                 *
+                 * @return  The total record count.
+                 */
                 getTotalRecordCount(): number;
             }
 
+            /**
+             * Interface for a grid row.  Use the GridRow.getData method to access the GridRowData. A collection of GridRow is
+             * returned by Grid.getRows and Grid.getSelectedRows methods.
+             */
             export interface GridRow
             {
+                /**
+                 * Returns the GridRowData for the GridRow.
+                 *
+                 * @return  The data.
+                 */
                 getData(): GridRowData;
             }
 
+            /**
+             * Interface for grid row data.  Use the GridRowData.getEntity method to access the GridEntity. GridRowData is
+             * returned by the GridRow.getData method.
+             */
             export interface GridRowData
             {
+                /**
+                 * Returns the GridEntity for the GridRowData.
+                 *
+                 * @return  The entity.
+                 */
                 getEntity(): GridEntity;
             }
 
+            /**
+             * Interface for a grid entity.  Use the GridEntity methods to access data about the specific records in the rows.
+             * GridEntity is returned by the GridRowData.getEntity method.
+             */
             export interface GridEntity
             {
+                /**
+                 * Returns the logical name for the record in the row.
+                 *
+                 * @return  The entity name.
+                 */
                 getEntityName(): string;
 
+                /**
+                 * Returns a LookupValue that references this record.
+                 *
+                 * @return  The entity reference.
+                 */
                 getEntityReference(): LookupValue;
 
+                /**
+                 * Returns the id for the record in the row.
+                 *
+                 * @return  The identifier of the GridEntity, in GUID format.
+                 *          
+                 * @remarks Example return: "{00000000-0000-0000-0000-000000000000}"
+                 */
                 getId(): string;
 
+                /**
+                 * Returns the primary attribute value for the record in the row.  (Commonly the name.)
+                 *
+                 * @return  The primary attribute value.
+                 */
                 getPrimaryAttributeValue(): string;
             }
 
+            /**
+             * Interface for the view selector.  Use the ViewSelector methods to get or set information about the view selector
+             * of the grid control.
+             */
             export interface ViewSelector
             {
+                /**
+                 * Use this method to get a reference to the current view.
+                 *
+                 * @return  The current view.
+                 */
                 getCurrentView(): ViewSelectorItem;
 
+                /**
+                 * Use this method to determine whether the view selector is visible.
+                 *
+                 * @return  true if visible, false if not.
+                 */
                 isVisible(): boolean;
 
+                /**
+                 * Use this method to set the current view.
+                 *
+                 * @param   {ViewSelectorItem}  viewSelectorItem    The view selector item.
+                 */
                 setCurrentView( viewSelectorItem: ViewSelectorItem ): void;
             }
 
+            /**
+             * Interface for a view selector item.  This object contains data that identifies a view. Use this as a parameter to
+             * the ViewSelector.setCurrentView method.
+             */
             export interface ViewSelectorItem
             {
+                /**
+                 * Returns a LookupValue that references this view.
+                 *
+                 * @return  The entity reference.
+                 */
                 getEntityReference(): LookupValue;
             }
 
@@ -2018,6 +2215,14 @@ declare module Xrm
          * @return  The attribute.
          */
         export function getAttribute<T extends Attribute>( attributeName: string ): T;
+
+        /**
+         * Gets an attribute matching attributeName.
+         *
+         * @param   {string}    attributeName   Name of the attribute.
+         *
+         * @return  The attribute.
+         */
         export function getAttribute( attributeName: string ): Attribute;
 
         /**
@@ -2054,6 +2259,14 @@ declare module Xrm
          * @return  The control.
          */
         export function getControl<T extends Control>( controlName: string ): T;
+
+        /**
+         * Gets a control matching controlName.
+         *
+         * @param   {string}    controlName Name of the control.
+         *
+         * @return  The control.
+         */
         export function getControl( controlName: string ): Control;
 
         /**
@@ -2283,8 +2496,14 @@ declare module Xrm
             cmdbar?: string;
         }
 
+        /**
+         * Interface for window options.
+         */
         export interface WindowOptions
         {
+            /**
+             * Direct the form to open in a new window.
+             */
             openInNewWindow: boolean;
         }
 
@@ -2319,11 +2538,27 @@ declare module Xrm
          *
          * @param   {string}    name                The entity's logical name.
          * @param   {string}    id                  (Optional) The unique identifier for the record.
-         * @param   {FormParameters}    parameters  (Optional) Options for controlling the operation.
+         * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
+         * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
          */
         export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters, windowOptions?: WindowOptions ): void;
 
-        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void, entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: OpenParameters ): void;
+        /**
+         * Opens quick create.
+         *
+         * @param   {Function}  callback                    The function that will be called when a record is created. This
+         *                                                  function is passed a LookupValue object as a parameter.
+         * @param   {string}    entityLogicalName           The logical name of the entity to create.
+         * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
+         *                                                  based on mapped attribute values.
+         * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
+         *                                                  parameters to the form. Invalid query string parameters will cause an
+         *                                                  error.
+         */
+        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void,
+            entityLogicalName: string,
+            createFromEntity?: Page.LookupValue,
+            parameters?: OpenParameters ): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
