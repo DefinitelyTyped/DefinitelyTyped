@@ -1120,34 +1120,10 @@ declare module Xrm
         }
 
         /**
-         * Interface for the Xrm.Page.data API.
+         * Module for the Xrm.Page.data API.
          */
-        export interface data
-        {
-            /**
-             * Asynchronously refreshes data on the form, without reloading the page.
-             *
-             * @param   {boolean}   save    true to save the record, after the refresh
-             *
-             * @return  An Async.XrmPromise.
-             */
-            refresh( save: boolean ): Async.XrmPromise;
-
-            /**
-             * Asynchronously saves the record.
-             *
-             * @return  An Async.XrmPromise.
-             */
-            save(): Async.XrmPromise;
-        }
-
         export module data
         {
-            /**
-             * The record context of the form.
-             */
-            export var entity: Entity;
-
             /**
              * Interface for the Xrm.Page.data.process API.
              */
@@ -1248,6 +1224,27 @@ declare module Xrm
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
              */
             export type ProcessDictionary = { [index: string]: string };
+
+            /**
+             * Asynchronously refreshes data on the form, without reloading the page.
+             *
+             * @param   {boolean}   save    true to save the record, after the refresh
+             *
+             * @return  An Async.XrmPromise.
+             */
+            export function refresh( save: boolean ): Async.XrmPromise;
+
+            /**
+             * Asynchronously saves the record.
+             *
+             * @return  An Async.XrmPromise.
+             */
+            export function save(): Async.XrmPromise;
+
+            /**
+             * The record context of the form.
+             */
+            export var entity: Entity;
 
             /**
              * The process API for Xrm.Page.data.
@@ -1636,7 +1633,7 @@ declare module Xrm
              *
              * @return  The parent.
              */
-            getParent(): ui;
+            getParent(): typeof ui;
 
             /**
              * Sets display state of the tab.
@@ -1692,111 +1689,9 @@ declare module Xrm
             controls: Collection.ItemCollection<Control>;
         }
 
-
         /**
-         * Interface for Xrm.Page.ui API.
+         * Module for Xrm.Page.ui API.
          */
-        export interface ui
-        {
-            /**
-             * Clears the form notification described by uniqueId.
-             *
-             * @param   {string}    uniqueId    Unique identifier.
-             *
-             * @return  true if it succeeds, otherwise false.
-             */
-            clearFormNotification( uniqueId: string ): boolean;
-
-            /**
-             * Closes the form.
-             */
-            close(): void;
-
-            /**
-             * Gets form type.
-             *
-             * @return  The form type.
-             *
-             * @remarks     Values returned are: 0  Undefined
-             *                                   1  Create 
-             *                                   2  Update 
-             *                                   3  Read Only 
-             *                                   4  Disabled 
-             *                                   6  Bulk Edit
-             *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
-             */
-            getFormType(): FormType;
-
-            /**
-             * Gets view port height.
-             *
-             * @return  The view port height, in pixels.
-             * 
-             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
-             */
-            getViewPortHeight(): number;
-
-            /**
-             * Gets view port width.
-             *
-             * @return  The view port width, in pixels.
-             * 
-             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
-             */
-            getViewPortWidth(): number;
-
-            /**
-             * Re-evaluates the ribbon's configured EnableRules
-             * 
-             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
-             */
-            refreshRibbon(): void;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {"ERROR"}   level       An error message.
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, false if it fails.
-             */
-            setFormNotification( message: string, level: "ERROR", uniqueId: string ): boolean;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {"WARNING"} level       A warning message.
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, false if it fails.
-             */
-            setFormNotification( message: string, level: "WARNING", uniqueId: string ): boolean;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {"INFO"}    level       An informational message.
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, false if it fails.
-             */
-            setFormNotification( message: string, level: "INFO", uniqueId: string ): boolean;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {string}    level       The level, as either "ERROR", "WARNING", or "INFO".
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, otherwise false.
-             */
-            setFormNotification( message: string, level: string, uniqueId: string ): boolean;
-        }
-
         export module ui
         {
             export interface ProcessManager
@@ -1829,6 +1724,104 @@ declare module Xrm
                  */
                 setVisible( visible: boolean ): void;
             }
+
+            /**
+             * Clears the form notification described by uniqueId.
+             *
+             * @param   {string}    uniqueId    Unique identifier.
+             *
+             * @return  true if it succeeds, otherwise false.
+             */
+            export function clearFormNotification( uniqueId: string ): boolean;
+
+            /**
+             * Closes the form.
+             */
+            export function close(): void;
+
+            /**
+             * Gets form type.
+             *
+             * @return  The form type.
+             *
+             * @remarks     Values returned are: 0  Undefined
+             *                                   1  Create 
+             *                                   2  Update 
+             *                                   3  Read Only 
+             *                                   4  Disabled 
+             *                                   6  Bulk Edit
+             *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
+             */
+            export function getFormType(): FormType;
+
+            /**
+             * Gets view port height.
+             *
+             * @return  The view port height, in pixels.
+             * 
+             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
+             */
+            export function getViewPortHeight(): number;
+
+            /**
+             * Gets view port width.
+             *
+             * @return  The view port width, in pixels.
+             * 
+             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
+             */
+            export function getViewPortWidth(): number;
+
+            /**
+             * Re-evaluates the ribbon's configured EnableRules
+             * 
+             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
+             */
+            export function refreshRibbon(): void;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {"ERROR"}   level       An error message.
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, false if it fails.
+             */
+            export function setFormNotification( message: string, level: "ERROR", uniqueId: string ): boolean;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {"WARNING"} level       A warning message.
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, false if it fails.
+             */
+            export function setFormNotification( message: string, level: "WARNING", uniqueId: string ): boolean;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {"INFO"}    level       An informational message.
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, false if it fails.
+             */
+            export function setFormNotification( message: string, level: "INFO", uniqueId: string ): boolean;
+
+            /**
+             * Sets a form-level notification.
+             *
+             * @param   {string}    message     The message.
+             * @param   {string}    level       The level, as either "ERROR", "WARNING", or "INFO".
+             * @param   {string}    uniqueId    A unique identifier for the message.
+             *
+             * @return  true if it succeeds, otherwise false.
+             */
+            export function setFormNotification( message: string, level: string, uniqueId: string ): boolean;
 
             export var process: ProcessManager;
 
