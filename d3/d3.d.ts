@@ -1952,13 +1952,13 @@ declare module D3 {
                 /**
                 * Get the interpolation accessor.
                 */
-                (): string;
+                (): string | ((points: number[][]) => string);
                 /**
                 * Set the interpolation accessor.
                 *
                 * @param interpolate The interpolation mode
                 */
-                (interpolate: string): Line;
+                (interpolate: string | ((points: number[][]) => string)): Line;
             };
             /**
             * Get or set the cardinal spline tension.
@@ -2248,13 +2248,13 @@ declare module D3 {
                 /**
                 * Get the interpolation accessor.
                 */
-                (): string;
+                (): string | ((points: number[][]) => string);
                 /**
                 * Set the interpolation accessor.
                 *
                 * @param interpolate The interpolation mode
                 */
-                (interpolate: string): Area;
+                (interpolate: string | ((points: number[][]) => string)): Area;
             };
             /**
             * Get or set the cardinal spline tension.
