@@ -28,7 +28,7 @@ interface JsonRpcClient {
     *
     * @return {object} Returns the deferred object that $.ajax returns or {null} for websockets
     */
-    call(method: string, params: Object | Array<any>, successCb?: (result: any) => void, errorCb?: (result: any) => void): JQueryDeferred<JQueryXHR>;
+    call(method: string, params: Object | Array<any>, successCb: (result: any) => void, errorCb: (result: any) => void): JQueryDeferred<JQueryXHR>;
         
     /**
     * Notify sends a command to the server that won't need a response.  In http, there is probably
@@ -62,7 +62,7 @@ interface JsonRpcClient {
     *                    Note, that batch calls should always get an overall success, and the
     *                    only error
     */
-    batch(callback: (batch: JsonRpcClient) => void, allDoneCb?: (result: any) => void, errorCb?: (error: any) => void): void;
+    batch(callback: (batch: JsonRpcClient) => void, allDoneCb: (result: any) => void, errorCb: (error: any) => void): void;
 }
 
 interface JsonRpcClientFactory {
