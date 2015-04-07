@@ -121,6 +121,8 @@ interface KnockoutBindingContext {
     $rawData: any | KnockoutObservable<any>;
     $index?: KnockoutObservable<number>;
     $parentContext?: KnockoutBindingContext;
+    $component: any;
+    $componentTemplateNodes: Node[];
 
     extend(properties: any): any;
     createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
@@ -133,8 +135,8 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler {
-    init?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
-    update?: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => void;
+    init?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
+    update?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
 }
@@ -572,7 +574,7 @@ interface KnockoutComputedContext {
 declare module KnockoutComponentTypes {
 
     interface Config {
-        viewModel: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
     }
 
@@ -603,7 +605,8 @@ declare module KnockoutComponentTypes {
     }
 
     interface ComponentInfo {
-        element: any;
+        element: Node;
+        templateNodes: Node[];
     }
 
     interface TemplateElement {

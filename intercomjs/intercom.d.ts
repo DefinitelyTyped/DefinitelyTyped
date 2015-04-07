@@ -18,6 +18,12 @@ declare module intercom {
           */
         on(name: string, fn: Function): void;
         /**
+         * Remove a registered event listener
+         * @param name The string event listener name.
+         * @param fn The listener method to remove.
+         */
+        off(name: string, fn: Function): void;
+        /**
           * Given a unique key to represent the function, fn will be invoked in only one window. The ttl argument represents the number of seconds before the function can be called again.
           * @param key The unique function identifier key
           * @param fn The function to be called once

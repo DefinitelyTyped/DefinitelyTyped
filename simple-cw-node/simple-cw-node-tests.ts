@@ -10,7 +10,7 @@ var Deferred:any = client.Deferred;
 client.init({ token: 'YOUR_TOKEN' });
 
 // get your info.
-client.get('me', (err, res) => {
+client.get('me', function (err, res) {
 	console.log(arguments);
 });
 

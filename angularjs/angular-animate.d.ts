@@ -36,9 +36,10 @@ declare module angular.animate {
          * @param from a collection of CSS styles that will be applied to the element at the start of the animation
          * @param to a collection of CSS styles that the element will animate towards
          * @param className an optional CSS class that will be added to the element for the duration of the animation (the default class is 'ng-inline-animate')
+         * @param options an optional collection of styles that will be picked up by the CSS transition/animation
          * @returns the animation callback promise
          */
-        animate(element: JQuery, from: any, to: any, className?: string): ng.IPromise<void>;
+        animate(element: JQuery, from: any, to: any, className?: string, options?: IAnimationOptions): ng.IPromise<void>;
 
         /**
          * Appends the element to the parentElement element that resides in the document and then runs the enter animation.
@@ -46,17 +47,19 @@ declare module angular.animate {
          * @param element the element that will be the focus of the enter animation
          * @param parentElement the parent element of the element that will be the focus of the enter animation
          * @param afterElement the sibling element (which is the previous element) of the element that will be the focus of the enter animation
+         * @param options an optional collection of styles that will be picked up by the CSS transition/animation
          * @returns the animation callback promise
          */
-        enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery): ng.IPromise<void>;
+        enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery, options?: IAnimationOptions): ng.IPromise<void>;
 
         /**
          * Runs the leave animation operation and, upon completion, removes the element from the DOM.
          *
          * @param element the element that will be the focus of the leave animation
+         * @param options an optional collection of styles that will be picked up by the CSS transition/animation
          * @returns the animation callback promise
          */
-        leave(element: JQuery): ng.IPromise<void>;
+        leave(element: JQuery, options?: IAnimationOptions): ng.IPromise<void>;
 
         /**
          * Fires the move DOM operation. Just before the animation starts, the animate service will either append
@@ -76,9 +79,10 @@ declare module angular.animate {
          *
          * @param element the element that will be animated
          * @param className the CSS class that will be added to the element and then animated
+         * @param options an optional collection of styles that will be picked up by the CSS transition/animation
          * @returns the animation callback promise
          */
-        addClass(element: JQuery, className: string): ng.IPromise<void>;
+        addClass(element: JQuery, className: string, options?: IAnimationOptions): ng.IPromise<void>;
 
         /**
          * Triggers a custom animation event based off the className variable and then removes the CSS class
@@ -86,9 +90,10 @@ declare module angular.animate {
          *
          * @param element the element that will be animated
          * @param className the CSS class that will be animated and then removed from the element
+         * @param options an optional collection of styles that will be picked up by the CSS transition/animation
          * @returns the animation callback promise
          */
-        removeClass(element: JQuery, className: string): ng.IPromise<void>;
+        removeClass(element: JQuery, className: string, options?: IAnimationOptions): ng.IPromise<void>;
 
         /**
          * Adds and/or removes the given CSS classes to and from the element. Once complete, the done() callback
@@ -97,9 +102,10 @@ declare module angular.animate {
          * @param element the element which will have its CSS classes changed removed from it
          * @param add the CSS classes which will be added to the element
          * @param remove the CSS class which will be removed from the element CSS classes have been set on the element
+         * @param options an optional collection of styles that will be picked up by the CSS transition/animation
          * @returns the animation callback promise
          */
-        setClass(element: JQuery, add: string, remove: string): ng.IPromise<void>;
+        setClass(element: JQuery, add: string, remove: string, options?: IAnimationOptions): ng.IPromise<void>;
 
         /**
          * Cancels the provided animation.
@@ -128,4 +134,13 @@ declare module angular.animate {
          */
         classNameFilter(expression?: RegExp): RegExp;
     }
+
+	///////////////////////////////////////////////////////////////////////////
+    // Angular Animation Options
+	// see https://docs.angularjs.org/api/ngAnimate/#applying-directive-specific-styles-to-an-animation
+	///////////////////////////////////////////////////////////////////////////
+	interface IAnimationOptions {
+		to?: Object;
+		from?: Object;
+	}
 }

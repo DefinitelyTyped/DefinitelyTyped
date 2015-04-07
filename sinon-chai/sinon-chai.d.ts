@@ -11,6 +11,7 @@ declare module chai {
         calledOnce: Expect;
         calledTwice: Expect;
         calledThrice: Expect;
+        callCount(count: number): Expect;
         calledBefore(spy: Function): Expect;
         calledAfter(spy: Function): Expect;
         calledWithNew: Expect;

@@ -9,6 +9,12 @@ declare module drop {
 
     interface DropStatic {
         new(options: IDropOptions): Drop;
+        createContext(options: IDropContextOptions): DropStatic;
+    }
+
+    interface IDropContextOptions {
+        classPrefix?: string;
+        defaults?: IDropOptions;
     }
 
     interface IDropOptions {
