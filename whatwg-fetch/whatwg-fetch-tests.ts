@@ -11,6 +11,16 @@ function test_fetchUrlWithOptions() {
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
 
+function test_fetchUrlWithHeadersObject() {
+	var requestOptions: RequestInit = {
+		method: "POST",
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	};
+	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
+}
+
 function test_fetchUrl() {
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php"));
 }

@@ -147,11 +147,11 @@ declare module "hapi" {
 		};
 
 		/** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime.*/
-		mime: any;
+		mime?: any;
 		/**  if true, does not load the inert (file and directory support), h2o2 (proxy support), and vision (views support) plugins automatically. The plugins can be loaded manually after construction. Defaults to false (plugins loaded). */
-		minimal: boolean;
+		minimal?: boolean;
 		/** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}.*/
-		plugins: IDictionary<any>;
+		plugins?: IDictionary<any>;
 
 	}
 
@@ -726,7 +726,7 @@ declare module "hapi" {
 					a relative or absolute file path string (relative paths are resolved based on the route files configuration).
 		a function with the signature function(request) which returns the relative or absolute file path.
 		an object with the following options */
-		file: string | IRequestHandler<void> |IFileHandlerConfig;
+		file?: string | IRequestHandler<void> |IFileHandlerConfig;
 		/** directory - generates a directory endpoint for serving static content from a directory. Routes using the directory handler must include a path parameter at the end of the path string (e.g. /path/to/somewhere/{param} where the parameter name does not matter). The path parameter can use any of the parameter options (e.g. {param} for one level files only, {param?} for one level files or the directory root, {param*} for any level, or {param*3} for a specific level). If additional path parameters are present, they are ignored for the purpose of selecting the file system resource. The directory handler is an object with the following options:
 					path - (required) the directory root path (relative paths are resolved based on the route files configuration). Value can be:
 		a single path string used as the prefix for any resources requested by appending the request path parameter to the provided string.
@@ -738,7 +738,7 @@ declare module "hapi" {
 		redirectToSlash - optional boolean, determines if requests for a directory without a trailing slash are redirected to the same path with the missing slash. Useful for ensuring relative links inside the response are resolved correctly. Disabled when the server config router.stripTrailingSlash is true.Defaults to false.
 		lookupCompressed - optional boolean, instructs the file processor to look for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.
 		defaultExtension - optional string, appended to file requests if the requested file is not found. Defaults to no extension.*/
-		directory: {
+		directory?: {
 			path: string |Array<string> | IRequestHandler<string> | IRequestHandler<Array<string>>;
 			index?: boolean;
 			listing?: boolean;
@@ -748,7 +748,7 @@ declare module "hapi" {
 			defaultExtension?: string;
 		};
 		proxy?: IProxyHandlerConfig;
-		view: string | {
+		view?: string | {
 			template: string;
 			context: {
 				payload: any;
@@ -757,7 +757,7 @@ declare module "hapi" {
 				pre: any;
 			}
 		};
-		config: {
+		config?: {
 			handler: any;
 			bind: any;
 			app: any;
@@ -2051,10 +2051,12 @@ declare module "hapi" {
 		register(plugins: any|any[], options: {
 			select: string|string[];
 			routes: {
-				prefix: string; vhost: string|string[]
+				prefix: string; vhost?: string|string[]
 			};
 		}
 			, callback: (err: any) => void):void;
+
+		register(plugins: any|any[], callback: (err: any) => void):void;
 
 		/**server.render(template, context, [options], callback)
 		Utilizes the server views manager to render a template where:
