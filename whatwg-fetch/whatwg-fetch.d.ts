@@ -19,7 +19,7 @@ declare class Request {
 
 interface RequestInit {
 	method?: string;
-	headers?: HeaderInit;
+	headers?: HeaderInit|{ [index: string]: string };
 	body?: BodyInit;
 	mode?: RequestMode;
 	credentials?: RequestCredentials;
