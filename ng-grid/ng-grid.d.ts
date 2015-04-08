@@ -30,9 +30,9 @@ declare module ngGrid {
     export interface IDomAccessProvider {
         previousColumn:IColumn;
         grid:IGridInstance;
-        changeUserSelect(elm:ng.IAugmentedJQuery, value:string):void;
+        changeUserSelect(elm:angular.IAugmentedJQuery, value:string):void;
         focusCellElement($scope:IGridScope, index:number):void;
-        selectionHandlers($scope:IGridScope, elm:ng.IAugmentedJQuery):void;
+        selectionHandlers($scope:IGridScope, elm:angular.IAugmentedJQuery):void;
     }
     
     export interface IStyleProviderStatic {
@@ -43,7 +43,7 @@ declare module ngGrid {
     }
     
     export interface ISearchProviderStatic {
-        new($scope:IGridScope, grid:IGridInstance, $filter:ng.IFilterService):ISearchProvider;
+        new($scope:IGridScope, grid:IGridInstance, $filter:angular.IFilterService):ISearchProvider;
     }
 
     export interface ISearchProvider {
@@ -53,7 +53,7 @@ declare module ngGrid {
     }
     
     export interface ISelectionProviderStatic {
-        new(grid:IGridInstance, $scope:IGridScope, $parse:ng.IParseService):ISelectionProvider;
+        new(grid:IGridInstance, $scope:IGridScope, $parse:angular.IParseService):ISelectionProvider;
     }
 
     export interface ISelectionProvider {
@@ -62,7 +62,7 @@ declare module ngGrid {
         selectedIndex:number;
         lastClickedRow:any;
         ignoreSelectedItemChanges:boolean;
-        pKeyParser:ng.ICompiledExpression;
+        pKeyParser:angular.ICompiledExpression;
         ChangeSelection(rowItem:any, event:any):void;
         getSelection(entity:any):number;
         getSelectionIndex(entity:any):number;
@@ -71,7 +71,7 @@ declare module ngGrid {
     }
     
     export interface IEventProviderStatic {
-        new(grid:IGridInstance, $scope:IGridScope, domUtilityService:service.IDomUtilityService, $timeout:ng.ITimeoutService):IEventProvider;
+        new(grid:IGridInstance, $scope:IGridScope, domUtilityService:service.IDomUtilityService, $timeout:angular.ITimeoutService):IEventProvider;
     }
 
     export interface IEventProvider {
@@ -203,7 +203,7 @@ declare module ngGrid {
     }
     
     export interface IColumnStatic {
-        new(config:IGridOptions, $scope:IGridScope, grid:IGridInstance, domUtilityService:service.IDomUtilityService, $templateCache:ng.ITemplateCacheService, $utils:any):IColumn;
+        new(config:IGridOptions, $scope:IGridScope, grid:IGridInstance, domUtilityService:service.IDomUtilityService, $templateCache:angular.ITemplateCacheService, $utils:any):IColumn;
     }
 
     export interface IColumn {
@@ -251,7 +251,7 @@ declare module ngGrid {
         setVars(fromCol:IColumn):void;
     }
 
-    export interface IGridScope extends ng.IScope {
+    export interface IGridScope extends angular.IScope {
         elementsNeedMeasuring:boolean;
         columns:any[];
         renderedRows:any[];
@@ -292,15 +292,15 @@ declare module ngGrid {
     }
 
     export interface IGridInstance {
-        $canvas:ng.IAugmentedJQuery;
-        $viewport:ng.IAugmentedJQuery;
-        $groupPanel:ng.IAugmentedJQuery;
-        $footerPanel:ng.IAugmentedJQuery;
-        $headerScroller:ng.IAugmentedJQuery;
-        $headerContainer:ng.IAugmentedJQuery;
-        $headers:ng.IAugmentedJQuery;
-        $topPanel:ng.IAugmentedJQuery;
-        $root:ng.IAugmentedJQuery;
+        $canvas:angular.IAugmentedJQuery;
+        $viewport:angular.IAugmentedJQuery;
+        $groupPanel:angular.IAugmentedJQuery;
+        $footerPanel:angular.IAugmentedJQuery;
+        $headerScroller:angular.IAugmentedJQuery;
+        $headerContainer:angular.IAugmentedJQuery;
+        $headers:angular.IAugmentedJQuery;
+        $topPanel:angular.IAugmentedJQuery;
+        $root:angular.IAugmentedJQuery;
         config:IGridOptions;
         data:any;
         elementDims:IElementDimension;
@@ -327,9 +327,9 @@ declare module ngGrid {
         configureColumnWidths():void;
         fixColumnIndexes():void;
         fixGroupIndexes():void;
-        getTemplate(key:string):ng.IPromise<any>;
-        init():ng.IPromise<any>;
-        initTemplates():ng.IPromise<any>;
+        getTemplate(key:string):angular.IPromise<any>;
+        init():angular.IPromise<any>;
+        initTemplates():angular.IPromise<any>;
         minRowsToRender():void;
         refreshDomSizes():void;
         resizeOnData(col:IColumn):void;
@@ -379,7 +379,7 @@ declare module ngGrid {
         /** Data updated callback, fires every time the data is modified from outside the grid. */
         dataUpdated?: Function;
 
-        /** Enables cell editing. */
+        /** Enables cell editiangular. */
         enableCellEdit?: boolean;
 
         /** Enables cell selection. */
@@ -400,7 +400,7 @@ declare module ngGrid {
         /** Enable column pinning */
         enablePinning?: boolean;
 
-        /** Enable drag and drop row reordering. Only works in HTML5 compliant browsers. */
+        /** Enable drag and drop row reorderiangular. Only works in HTML5 compliant browsers. */
         enableRowReordering?: boolean;
 
         /** To be able to have selectable rows in grid. */
@@ -440,7 +440,7 @@ declare module ngGrid {
         /** Prevent unselections when in single selection mode. */
         keepLastSelected?: boolean;
 
-        /** Maintains the column widths while resizing. 
+        /** Maintains the column widths while resiziangular. 
         Defaults to true when using *'s or undefined widths. Can be ovverriden by setting to false. */
         maintainColumnRatios?: boolean;
 
@@ -496,7 +496,7 @@ declare module ngGrid {
         /** Set the tab index of the Vieport. */
         tabIndex?: number;
 
-        /** Prevents the internal sorting from executing. 
+        /** Prevents the internal sorting from executiangular. 
         The sortInfo object will be updated with the sorting information so you can handle sorting (see sortInfo)*/
         useExternalSorting?: boolean;
 
@@ -602,7 +602,7 @@ declare module ngGrid {
             eventStorage:any;
             numberOfGrids:number;
             immediate:number;
-            AssignGridContainers($scope:IGridScope, rootel:ng.IAugmentedJQuery, grid:IGridInstance):void;
+            AssignGridContainers($scope:IGridScope, rootel:angular.IAugmentedJQuery, grid:IGridInstance):void;
             getRealWidth(obj:IDimension):number;
             UpdateGridLayout($scope:IGridScope, grid:IGridInstance):void;
             setStyleText(grid:IGridInstance, css:string):void;
