@@ -379,7 +379,7 @@ declare module ngGrid {
         /** Data updated callback, fires every time the data is modified from outside the grid. */
         dataUpdated?: Function;
 
-        /** Enables cell editiangular. */
+        /** Enables cell editing. */
         enableCellEdit?: boolean;
 
         /** Enables cell selection. */
@@ -400,7 +400,7 @@ declare module ngGrid {
         /** Enable column pinning */
         enablePinning?: boolean;
 
-        /** Enable drag and drop row reorderiangular. Only works in HTML5 compliant browsers. */
+        /** Enable drag and drop row reordering. Only works in HTML5 compliant browsers. */
         enableRowReordering?: boolean;
 
         /** To be able to have selectable rows in grid. */
@@ -440,7 +440,7 @@ declare module ngGrid {
         /** Prevent unselections when in single selection mode. */
         keepLastSelected?: boolean;
 
-        /** Maintains the column widths while resiziangular. 
+        /** Maintains the column widths while resizing. 
         Defaults to true when using *'s or undefined widths. Can be ovverriden by setting to false. */
         maintainColumnRatios?: boolean;
 
@@ -496,7 +496,7 @@ declare module ngGrid {
         /** Set the tab index of the Vieport. */
         tabIndex?: number;
 
-        /** Prevents the internal sorting from executiangular. 
+        /** Prevents the internal sorting from executing. 
         The sortInfo object will be updated with the sorting information so you can handle sorting (see sortInfo)*/
         useExternalSorting?: boolean;
 
