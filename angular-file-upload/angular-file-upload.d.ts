@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.angularFileUpload  {
+declare module ng.angularFileUpload  {
 
     interface IUploadService {
 
