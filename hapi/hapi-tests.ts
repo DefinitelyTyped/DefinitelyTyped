@@ -82,5 +82,18 @@ server.route([{
 	}
 }]);
 
+// config.validate parameters should be optional
+server.route([{
+    method: 'GET',
+    path: '/hello2',
+    handler: function(request: Hapi.Request, reply: Function) {
+        reply('hello world2');
+    },
+    config: {
+        validate: {
+        }
+    }
+}]);
+
 // Start the server
 server.start();
