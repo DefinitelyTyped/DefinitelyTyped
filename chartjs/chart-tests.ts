@@ -252,12 +252,12 @@ var myPolarAreaChart = new Chart(ctx).PolarArea(polarAreaData, {
 
 var myPolarAreaChartLegend: string = myPolarAreaChart.generateLegend();
 var myPolarAreaChartImage: string = myPolarAreaChart.toBase64Image();
-myPolarAreaChart.addData([{
+myPolarAreaChart.addData({
     value: 120,
     color: "#4D5360",
     highlight: "#616774",
     label: "Dark Grey"
-}], 0);
+}, 0);
 myPolarAreaChart.clear();
 myPolarAreaChart.removeData(0);
 myPolarAreaChart.resize();
@@ -329,12 +329,12 @@ var myDoughnutChart = new Chart(ctx).Doughnut(pieData, {
 
 var myDoughnutChartLegend: string = myDoughnutChart.generateLegend();
 var myDoughnutChartImage: string = myDoughnutChart.toBase64Image();
-myPieChart.addData([{
+myPieChart.addData({
     value: 120,
     color: "#4D5360",
     highlight: "#616774",
     label: "Dark Grey"
-}], 0);
+}, 0);
 myDoughnutChart.clear();
 myDoughnutChart.removeData(0);
 myDoughnutChart.resize();
