@@ -301,12 +301,12 @@ var myPieChart = new Chart(ctx).Pie(pieData, {
 
 var myPieChartLegend: string = myPieChart.generateLegend();
 var myPieChartImage: string = myPieChart.toBase64Image();
-myPieChart.addData([{
+myPieChart.addData({
     value: 120,
     color: "#4D5360",
     highlight: "#616774",
     label: "Dark Grey"
-}], 0);
+}, 0);
 myPieChart.clear();
 myPieChart.removeData(0);
 myPieChart.resize();
