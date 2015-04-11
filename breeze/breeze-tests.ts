@@ -3,7 +3,6 @@
 import core = breeze.core;
 import config = breeze.config;
 
-
 function test_dataType() {
     var typ = breeze.DataType.DateTime;
     var nm = typ.getName();
