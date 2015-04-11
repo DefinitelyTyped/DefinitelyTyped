@@ -11,7 +11,6 @@ function test_dataType() {
     var x = typ.parentEnum === <breeze.core.IEnum> breeze.DataType;
     var isFalse = breeze.DataType.contains(breeze.DataType.Double);
     var dt = breeze.DataType.fromName("Decimal");
-    
 }
 
 function test_dataProperty() {
