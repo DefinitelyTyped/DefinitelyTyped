@@ -24,7 +24,7 @@ declare module Spin {
     }
 
 
-    declare class Spinner {
+    class Spinner {
         /** The Spinner's HTML element - can be used to manually insert the spinner into the DOM  */
         public el: HTMLElement;
         constructor(options?: SpinnerOptions);
