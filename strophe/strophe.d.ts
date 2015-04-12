@@ -785,7 +785,7 @@ declare module Strophe {
          *  Parameters:
          *    (XMLElement) elem - The XML data received by the connection.
          */
-        xmlInput: (elem: Element) => void;
+        xmlInput(elem: Element): void;
 
         /** Function: xmlOutput
          *  User overrideable function that receives XML data sent to the
@@ -805,7 +805,7 @@ declare module Strophe {
          *  Parameters:
          *    (XMLElement) elem - The XMLdata sent by the connection.
          */
-        xmlOutput: (elem: Element) => void;
+        xmlOutput(elem: Element): void;
 
         /** Function: rawInput
          *  User overrideable function that receives raw data coming into the
@@ -819,7 +819,7 @@ declare module Strophe {
          *  Parameters:
          *    (String) data - The data received by the connection.
          */
-        rawInput: (data: string) => void;
+        rawInput(data: string): void;
 
         /** Function: rawOutput
          *  User overrideable function that receives raw data sent to the
@@ -833,7 +833,7 @@ declare module Strophe {
          *  Parameters:
          *    (String) data - The data sent by the connection.
          */
-        rawOutput: (data: string) => void;
+        rawOutput(data: string): void;
 
         /** Function: send
          *  Send a stanza.
