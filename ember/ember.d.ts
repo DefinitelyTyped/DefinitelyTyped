@@ -444,7 +444,7 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
-        static initializer(arguments?: ApplicationInitializerArguments): void;
+        static initializer(args?: ApplicationInitializerArguments): void;
         /**
         Call advanceReadiness after any asynchronous setup logic has completed.
         Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -1318,9 +1318,9 @@ declare module Ember {
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Mixin>(arguments?: {}): T;
+        static create<T extends Mixin>(args: {}): T;
         detect(obj: any): boolean;
-        reopen<T extends Mixin>(arguments?: {}): T;
+        reopen<T extends Mixin>(args?: {}): T;
     }
     class MutableArray implements Array, MutableEnumberable {
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
@@ -1581,17 +1581,17 @@ declare module Ember {
         /**
         Creates a subclass of the Object class.
         **/
-        static extend<T>(arguments?: CoreObjectArguments): T;
-        static extend<T>(mixins? : Mixin, arguments?: CoreObjectArguments): T;
+        static extend<T>(args?: CoreObjectArguments): T;
+        static extend<T>(mixins? : Mixin, args?: CoreObjectArguments): T;
         /**
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends {}>(arguments?: {}): T;
+        static create<T extends {}>(args?: {}): T;
         /**
         Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
         **/
-        static createWithMixins<T extends {}>(arguments?: {}): T;
+        static createWithMixins<T extends {}>(args?: {}): T;
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -1608,13 +1608,13 @@ declare module Ember {
         Augments a constructor's prototype with additional properties and functions.
         To add functions and properties to the constructor itself, see reopenClass.
         **/
-        static reopen<T extends {}>(arguments?: {}): T;
+        static reopen<T extends {}>(args?: {}): T;
         /**
         Augments a constructor's own properties and functions.
         To add functions and properties to instances of a constructor by extending the
         constructor's prototype see reopen.
         **/
-        static reopenClass<T extends {}>(arguments?: {}): T;
+        static reopenClass<T extends {}>(args?: {}): T;
         static isClass: boolean;
         static isMethod: boolean;
         addObserver: ModifyObserver;

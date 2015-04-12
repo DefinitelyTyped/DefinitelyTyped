@@ -38,7 +38,7 @@ declare module Backbone {
         include(value: any): boolean;
         initial(): View<TModel>;
         initial(n: number): View<TModel>[];
-        invoke(methodName: string, arguments?: any[]): any;
+        invoke(methodName: string, args?: any[]): any;
         isEmpty(object: any): boolean;
         last(): View<TModel>;
         last(n: number): View<TModel>[];
@@ -533,7 +533,7 @@ declare module Marionette {
          * Calls the method named by methodName on each value in the collection. Any extra 
          * arguments passed to invoke will be forwarded on to the method invocation. 
          */
-        invoke(methodName: string, arguments?: any[]): any;
+        invoke(methodName: string, args?: any[]): any;
 
         /**
          * Returns true if the RegionManager contains no regions.
