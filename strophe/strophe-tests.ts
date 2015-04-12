@@ -59,7 +59,6 @@ function onMessage(msg: Element): boolean {
     return true;
 }
 
-HTMLElement
 
 function sendMessage() {
     var message = "some message";
