@@ -1,4 +1,8 @@
-﻿
+﻿// Type definitions for Strophe.js v1.2.0
+// Project: http://strophe.im/strophejs/
+// Definitions by: David Deutsch
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /** Function: $build
  *  Create a Strophe.Builder.
  *  This is an alias for 'new Strophe.Builder(name, attrs)'.
@@ -164,7 +168,7 @@ declare module Strophe {
      *    (Function) func - The function to apply to each child.  This
      *      function should take a single argument, a DOM element.
      */
-    function forEachChild(elem: Element, elemName: string, func:(child: Element) => void): void; 
+    function forEachChild(elem: Element, elemName: string, func:(child: Element) => any): void; 
 
     /** Function: isTagEqual
      *  Compare an element's tag name with a string.
@@ -739,7 +743,7 @@ declare module Strophe {
          *      should almost always be set to 1 (the default).
          *    (String) route - The optional route value.
          */
-        connect(jid?: string, pass?: string, callback?: (status: Status, condition: string) => void, wait?: number, hold?: number, route?: string): void;
+        connect(jid?: string, pass?: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, route?: string): void;
 
         /** Function: attach
          *  Attach to an already created and authenticated BOSH session.
@@ -765,7 +769,7 @@ declare module Strophe {
          *    (Integer) wind - The optional HTTBIND window value.  This is the
          *      allowed range of request ids that are valid.  The default is 5.
          */
-        attach(jid: string, sid: string, rid: string, callback?: (status: Status, condition: string) => void, wait?: number, hold?: number, wind?: number): void;
+        attach(jid: string, sid: string, rid: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, wind?: number): void;
 
         /** Function: xmlInput
          *  User overrideable function that receives XML data coming into the
@@ -873,7 +877,7 @@ declare module Strophe {
          *  Returns:
          *    The id used to send the IQ.
         */
-        sendIQ(elem: Element | Builder, callback?: (stanza: Element) => void, errback?: (stanza: Element) => void, timeout?: number): string; //todo: Is callback correct?
+        sendIQ(elem: Element | Builder, callback?: (stanza: Element) => any, errback?: (stanza: Element) => any, timeout?: number): string; //todo: Is callback correct?
 
         /** Function: addTimedHandler
          *  Add a timed handler to the connection.
