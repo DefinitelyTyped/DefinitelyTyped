@@ -148,7 +148,7 @@ declare module Strophe {
      *      referenced under Strophe.NS
      *    (String) value - The actual namespace.
      */
-    var addNamespace: (name: string, value: string) => void; 
+    function addNamespace(name: string, value: string): void; 
 
     /** Function: forEachChild
      *  Map a function over some or all child elements of a given element.
@@ -164,7 +164,7 @@ declare module Strophe {
      *    (Function) func - The function to apply to each child.  This
      *      function should take a single argument, a DOM element.
      */
-    var forEachChild: (elem: HTMLElement, elemName: string, func:(child: HTMLElement) => void) => void; 
+    function forEachChild(elem: Element, elemName: string, func:(child: Element) => void): void; 
 
     /** Function: isTagEqual
      *  Compare an element's tag name with a string.
@@ -179,7 +179,7 @@ declare module Strophe {
      *    true if the element's tag name matches _el_, and false
      *    otherwise.
      */
-    var isTagEqual: (el: HTMLElement, name: string) => boolean;
+    function isTagEqual(el: Element, name: string): boolean;
 
     /** Function: xmlGenerator
      *  Get the DOM document to generate elements.
@@ -187,7 +187,7 @@ declare module Strophe {
      *  Returns:
      *    The currently used DOM document.
      */
-    var xmlGenerator: () => Document;
+    function xmlGenerator(): Document;
 
     /** Function: xmlElement
      *  Create an XML DOM element.
@@ -207,8 +207,8 @@ declare module Strophe {
      *  Returns:
      *    A new XML DOM element.
      */
-    function xmlElement(name: string, attrs?: any, text?: string): HTMLElement; 
-    function xmlElement(name: string, text?: string, attrs?: any): HTMLElement; 
+    function xmlElement(name: string, attrs?: any, text?: string): Element; 
+    function xmlElement(name: string, text?: string, attrs?: any): Element; 
 
     /*  Function: xmlescape
      *  Excapes invalid xml characters.
@@ -219,7 +219,7 @@ declare module Strophe {
      *  Returns:
      *      Escaped text.
      */
-    var xmlescape: (text: string) => string;
+    function xmlescape(text: string): string;
 
     /*  Function: xmlunescape
     *  Unexcapes invalid xml characters.
@@ -230,7 +230,7 @@ declare module Strophe {
     *  Returns:
     *      Unescaped text.
     */
-    var xmlunescape: (text: string) => string;
+    function xmlunescape(text: string): string;
 
     /** Function: xmlTextNode
      *  Creates an XML DOM text node.
@@ -243,7 +243,7 @@ declare module Strophe {
      *  Returns:
      *    A new XML DOM text node.
      */
-    var xmlTextNode: (text: string) => Text;
+    function xmlTextNode(text: string): Text;
 
     /** Function: xmlHtmlNode
      *  Creates an XML DOM html node.
@@ -254,7 +254,7 @@ declare module Strophe {
      *  Returns:
      *    A new XML DOM text node.
      */
-    var xmlHtmlNode: (html: string) => Document; 
+    function xmlHtmlNode(html: string): Document; 
 
     /** Function: getText
          *  Get the concatenation of all text children of an element.
@@ -265,7 +265,7 @@ declare module Strophe {
          *  Returns:
          *    A String with the concatenated text of all text element children.
          */
-    var getText: (elem: HTMLElement) => string;
+    function getText(elem: Element): string;
 
     /** Function: copyElement
      *  Copy an XML DOM element.
@@ -279,7 +279,7 @@ declare module Strophe {
      *  Returns:
      *    A new, copied DOM element tree.
      */
-    var copyElement: (elem: HTMLElement) => HTMLElement; 
+    function copyElement(elem: Element): Element; 
 
     /** Function: createHtml
      *  Copy an HTML DOM element into an XML DOM.
@@ -288,12 +288,12 @@ declare module Strophe {
      *  the new copy.
      *
      *  Parameters:
-     *    (HTMLElement) elem - A DOM element.
+     *    (Element) elem - A DOM element.
      *
      *  Returns:
      *    A new, copied DOM element tree.
      */
-    var createHtml: (elem: HTMLElement) => HTMLElement; 
+    function createHtml(elem: Element): Element; 
 
     /** Function: escapeNode
      *  Escape the node part (also called local part) of a JID.
@@ -304,7 +304,7 @@ declare module Strophe {
      *  Returns:
      *    An escaped node (or local part).
      */
-    var escapeNode: (node: string) => string;
+    function escapeNode(node: string): string;
 
     /** Function: unescapeNode
      *  Unescape a node part (also called local part) of a JID.
@@ -315,7 +315,7 @@ declare module Strophe {
      *  Returns:
      *    An unescaped node (or local part).
      */
-    var unescapeNode: (node: string) => string;
+    function unescapeNode(node: string): string;
 
     /** Function: getNodeFromJid
      *  Get the node portion of a JID String.
@@ -326,7 +326,7 @@ declare module Strophe {
      *  Returns:
      *    A String containing the node.
      */
-    var getNodeFromJid: (jid: string) => string;
+    function getNodeFromJid(jid: string): string;
 
     /** Function: getDomainFromJid
      *  Get the domain portion of a JID String.
@@ -337,7 +337,7 @@ declare module Strophe {
      *  Returns:
      *    A String containing the domain.
      */
-    var getDomainFromJid: (jid: string) => string;
+    function getDomainFromJid(jid: string): string;
 
     /** Function: getResourceFromJid
      *  Get the resource portion of a JID String.
@@ -348,7 +348,7 @@ declare module Strophe {
      *  Returns:
      *    A String containing the resource.
      */
-    var getResourceFromJid: (jid: string) => string;
+    function getResourceFromJid(jid: string): string;
 
     /** Function: getBareJidFromJid
      *  Get the bare JID from a JID String.
@@ -359,7 +359,7 @@ declare module Strophe {
      *  Returns:
      *    A String containing the bare JID.
      */
-    var getBareJidFromJid: (jid: string) => string;
+    function getBareJidFromJid(jid: string): string;
 
     /** Function: log
      *  User overrideable logging function.
@@ -390,7 +390,7 @@ declare module Strophe {
      *      be one of the values in Strophe.LogLevel.
      *    (String) msg - The log message.
      */
-    var log: (level: LogLevel, msg: string) => void;
+    function log(level: LogLevel, msg: string): void;
 
     /** Functions: debug, info, warn, error
      *  Log a message at the appropriate Strophe.LogLevel 
@@ -398,11 +398,11 @@ declare module Strophe {
      *  Parameters:
      *    (String) msg - The log message.
      */
-    var debug: (msg: string) => void; 
-    var info: (msg: string) => void; 
-    var warn: (msg: string) => void; 
-    var error: (msg: string) => void; 
-    var fatal: (msg: string) => void; 
+    function debug(msg: string): void; 
+    function info(msg: string): void; 
+    function warn(msg: string): void; 
+    function error(msg: string): void; 
+    function fatal(msg: string): void; 
 
     /** Function: serialize
      *  Render a DOM element and all descendants to a String.
@@ -413,7 +413,7 @@ declare module Strophe {
      *  Returns:
      *    The serialized element tree as a String.
      */
-    var serialize: (elem: HTMLElement | Builder) => string;
+    function serialize(elem: Element | Builder): string;
 
     /** Function: addConnectionPlugin
      *  Extends the Strophe.Connection object with the given plugin.
@@ -422,7 +422,7 @@ declare module Strophe {
      *    (String) name - The name of the extension.
      *    (Object) ptype - The plugin's prototype.
      */
-    var addConnectionPlugin: (name: string, ptype: any) => void;
+    function addConnectionPlugin(name: string, ptype: any): void;
 
     /** Class: Strophe.Builder
      *  XML DOM builder.
@@ -476,7 +476,7 @@ declare module Strophe {
          *  Returns:
          *    The DOM tree as a element object.
          */
-        tree(): HTMLElement;
+        tree(): Element;
 
         /** Function: toString
          *  Serialize the DOM tree to a String.
@@ -785,7 +785,7 @@ declare module Strophe {
          *  Parameters:
          *    (XMLElement) elem - The XML data received by the connection.
          */
-        xmlInput: (elem: HTMLElement) => void;
+        xmlInput: (elem: Element) => void;
 
         /** Function: xmlOutput
          *  User overrideable function that receives XML data sent to the
@@ -805,7 +805,7 @@ declare module Strophe {
          *  Parameters:
          *    (XMLElement) elem - The XMLdata sent by the connection.
          */
-        xmlOutput: (elem: HTMLElement) => void;
+        xmlOutput: (elem: Element) => void;
 
         /** Function: rawInput
          *  User overrideable function that receives raw data coming into the
@@ -847,7 +847,7 @@ declare module Strophe {
          *     [XMLElement] |
          *     Strophe.Builder) elem - The stanza to send.
          */
-        send(elem: HTMLElement | HTMLElement[]| Builder): void;
+        send(elem: Element | Element[]| Builder): void;
 
         /** Function: flush
          *  Immediately send any pending outgoing data.
@@ -873,7 +873,7 @@ declare module Strophe {
          *  Returns:
          *    The id used to send the IQ.
         */
-        sendIQ(elem: HTMLElement | Builder, callback?: (stanza: HTMLElement) => void, errback?: (stanza: HTMLElement) => void, timeout?: number): string; //todo: Is callback correct?
+        sendIQ(elem: Element | Builder, callback?: (stanza: Element) => void, errback?: (stanza: Element) => void, timeout?: number): string; //todo: Is callback correct?
 
         /** Function: addTimedHandler
          *  Add a timed handler to the connection.
@@ -950,7 +950,7 @@ declare module Strophe {
          *  Returns:
          *    A reference to the handler that can be used to remove it.
          */
-        addHandler(handler: (stanza: HTMLElement) => boolean, ns: string, name: string, type?: string, id?: string, from?: string, options?: { matchBare: boolean }): any; //todo: is callback correct? Also, are the elements specified as optional truly optional?
+        addHandler(handler: (stanza: Element) => boolean, ns: string, name: string, type?: string, id?: string, from?: string, options?: { matchBare: boolean }): any; //todo: is callback correct? Also, are the elements specified as optional truly optional?
 
         /** Function: deleteHandler
          *  Delete a stanza handler for a connection.
