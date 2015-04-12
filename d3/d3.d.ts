@@ -1373,7 +1373,20 @@ declare module D3 {
                 (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
-
+            /**
+             * If distance is specified, sets the maximum distance over which 
+             * charge forces are applied. If distance is not specified, returns 
+             * the current maximum charge distance, which defaults to infinity. 
+             * Specifying a finite charge distance improves the performance of 
+             * the force layout and produces a more localized layout; 
+             * distance-limited charge forces are especially useful in 
+             * conjunction with custom gravity.
+             */
+            chargeDistance: {
+                (): number;
+                (distance: number): ForceLayout;
+                (accessor: (d: any, index: number) => number): ForceLayout;
+            };
             theta: {
                 (): number;
                 (number:number): ForceLayout;
