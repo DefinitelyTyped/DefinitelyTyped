@@ -611,9 +611,13 @@ declare module Strophe {
     class Connection {
 
         jid: string;
+        authzid: string;
+        pass: string;
+        authcid: string;
         domain: string;
+        servtype: string;
         maxRetries: number;
-        //todo: what other memebers are meant to be public?
+        //todo: what other members are meant to be public?
 
         /** Constructor: Strophe.Connection
          *  Create and initialize a Strophe.Connection object.
