@@ -7,6 +7,7 @@
 
 declare module moment {
     interface Moment {
+        tz(): string;
         tz(timezone: string): Moment;
     }
 
@@ -27,9 +28,11 @@ interface MomentZone {
 }
 
 interface MomentTimezone {
+    (timezone: string): moment.Moment;
     (date: number, timezone: string): moment.Moment;
     (date: number[], timezone: string): moment.Moment;
     (date: string, format: string, timezone: string): moment.Moment;
+    (date: string, format: string, useStrict: boolean, timezone: string): moment.Moment;
     (date: Date, timezone: string): moment.Moment;
     (date: moment.Moment, timezone: string): moment.Moment;
     (date: Object, timezone: string): moment.Moment;
