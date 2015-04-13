@@ -44,6 +44,26 @@ passport.use(new local.Strategy(function (username, password, done) {
     });
 }));
 
+passport.use(new local.Strategy({
+    passReqToCallback: true
+}, function (req, username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+        if (err) {
+            return done(err);
+        }
+
+        if (!user) {
+            return done(null, false);
+        }
+
+        if (!user.verifyPassword(password)) {
+            return done(null, false);
+        }
+
+        return done(null, user);
+    });
+}));
+
 // Sample from https://github.com/jaredhanson/passport-local#authenticate-requests
 var app = express();
 app.post('/login',
