@@ -1,4 +1,4 @@
-// Type definitions for Angular Material 0.8.3+ (ng.material module)
+// Type definitions for Angular Material 0.8.3+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,14 +12,14 @@ declare module angular.material {
         controller?: any;
         locals?: {[index: string]: any};
         targetEvent?: any;
-        resolve?: {[index: string]: ng.IPromise<any>}
+        resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
         parent?: Element;
         disableParentScroll?: boolean;
     }
 
     interface MDBottomSheetService {
-        show(options: MDBottomSheetOptions): ng.IPromise<any>;
+        show(options: MDBottomSheetOptions): angular.IPromise<any>;
         hide(response?: any): void;
         cancel(response?: any): void;
     }
@@ -49,14 +49,14 @@ declare module angular.material {
         controller?: any;
         locals?: {[index: string]: any};
         bindToController?: boolean;
-        resolve?: {[index: string]: ng.IPromise<any>}
+        resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
         parent?: Element;
         onComplete?: Function;
     }
 
     interface MDDialogService {
-        show(dialog: MDDialogOptions|MDPresetDialog<any>): ng.IPromise<any>;
+        show(dialog: MDDialogOptions|MDPresetDialog<any>): angular.IPromise<any>;
         confirm(): MDConfirmDialog;
         alert(): MDAlertDialog;
         hide(response?: any): void;
@@ -64,7 +64,7 @@ declare module angular.material {
     }
 
     interface MDIcon {
-        (path: string): ng.IPromise<Element>;
+        (path: string): angular.IPromise<Element>;
     }
 
     interface MDIconProvider {
@@ -110,14 +110,14 @@ declare module angular.material {
         controller?: any;
         locals?: {[index: string]: any};
         bindToController?: boolean;
-        resolve?: {[index: string]: ng.IPromise<any>}
+        resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
         parent?: Element;
     }
 
     interface MDToastService {
-        show(optionsOrPreset: MDToastOptions|MDToastPreset<any>): ng.IPromise<any>;
-        showSimple(): ng.IPromise<any>;
+        show(optionsOrPreset: MDToastOptions|MDToastPreset<any>): angular.IPromise<any>;
+        showSimple(): angular.IPromise<any>;
         simple(): MDSimpleToastPreset;
         build(): MDToastPreset<any>;
         updateContent(): void;
