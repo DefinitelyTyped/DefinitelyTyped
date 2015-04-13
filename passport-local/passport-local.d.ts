@@ -31,7 +31,6 @@ declare module 'passport-local' {
     }
 
     interface VerifyFunction {
-        (req: express.Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
         (username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
     }
 
