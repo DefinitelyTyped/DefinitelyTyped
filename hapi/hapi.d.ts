@@ -568,7 +568,7 @@ declare module "hapi" {
 			optionsthe server validation options.
 			next(err, value)the callback function called when validation is completed.
 			*/
-			headers: boolean | IJoi | IValidationFunction;
+			headers?: boolean | IJoi | IValidationFunction;
 
 		
 			/** validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params.Values allowed:
@@ -579,7 +579,7 @@ declare module "hapi" {
 			valuethe object containing the path parameters.
 			optionsthe server validation options.
 			next(err, value)the callback function called when validation is completed. */
-			params: boolean | IJoi | IValidationFunction;
+			params?: boolean | IJoi | IValidationFunction;
 			/** validation rules for an incoming request URI query component (the key- value part of the URI between '?' and '#').The query is parsed into its individual key- value pairs (using the qs module) and stored in request.query prior to validation.Values allowed:
 			trueany query parameters allowed (no validation performed).This is the default.
 			falseno query parameters allowed.
@@ -588,7 +588,7 @@ declare module "hapi" {
 			valuethe object containing the query parameters.
 			optionsthe server validation options.
 			next(err, value)the callback function called when validation is completed. */
-			query: boolean | IJoi | IValidationFunction;
+			query?: boolean | IJoi | IValidationFunction;
 			/**  validation rules for an incoming request payload (request body).Values allowed:
 			trueany payload allowed (no validation performed).This is the default.
 			falseno payload allowed.
@@ -597,9 +597,9 @@ declare module "hapi" {
 			valuethe object containing the payload object.
 			optionsthe server validation options.
 			next(err, value)the callback function called when validation is completed.  */
-			payload: boolean | IJoi | IValidationFunction;
+			payload?: boolean | IJoi | IValidationFunction;
 			/** an optional object with error fields copied into every validation error response. */
-			errorFields: any;
+			errorFields?: any;
 			/** determines how to handle invalid requests.Allowed values are:
 			'error'return a Bad Request (400) error response.This is the default value.
 			'log'log the error but continue processing the request.
@@ -609,9 +609,9 @@ declare module "hapi" {
 			replythe continuation reply interface.
 			sourcethe source of the invalid field (e.g. 'path', 'query', 'payload').
 			errorthe error object prepared for the client response (including the validation function error under error.data). */
-			failAction: string | IRouteFailFunction;
+			failAction?: string | IRouteFailFunction;
 			/** options to pass to Joi.Useful to set global options such as stripUnknown or abortEarly (the complete list is available here: https://github.com/hapijs/joi#validatevalue-schema-options-callback ).Defaults to no options. */
-			options: any;
+			options?: any;
 		};
 		/** define timeouts for processing durations: */
 		timeout?: {
