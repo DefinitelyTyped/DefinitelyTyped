@@ -4,11 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'stripe' {    
-    var out: typeof Stripe.Stripe;
+    var out: typeof StripeNode.Stripe;
     export = out;
 }
 
-declare module Stripe {
+declare module StripeNode {
     class Stripe {
         static DEFAULT_HOST: string;
         static DEFAULT_PORT: string;

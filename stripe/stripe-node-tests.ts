@@ -1,8 +1,8 @@
 /// <reference path="stripe-node.d.ts" />
 
-import Stripe = require('stripe');
+import StripeNode = require('stripe');
 
-var stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
+var stripe = new StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2015-02-18');
 stripe.customers.list({ limit: 3 }, function (err, customers) {
