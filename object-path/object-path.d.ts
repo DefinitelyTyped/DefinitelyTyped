@@ -1,4 +1,4 @@
-// Type definitions for objectPath v0.6.0
+// Type definitions for objectPath v0.9.x
 // Project: https://github.com/mariocasciaro/object-path
 // Definitions by: Paulo Cesar <https://github.com/pocesar/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -16,6 +16,11 @@ declare module objectPath {
     }
 
     interface IObjectPathStatic {
+        /**
+         * Binds an object
+         */
+        <T extends {}>(object: T): IObjectPathBound<T>;
+
         /*======== Del =========*/
 
         /**
@@ -45,6 +50,35 @@ declare module objectPath {
          * @see objectPath.del
          */
         del():void;
+
+        /*======== Has =========*/
+        /**
+         * Tests path existence
+         * @param {object} object
+         * @param {string[]|string} path
+         * @return object
+         */
+        has<T extends {}>(object: T, path: IStringArray): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has<T extends {}>(object: T, path: INumberArray): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has<T extends {}>(object: T, path: string): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has<T extends {}>(object: T, path: number): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has<T extends {}>(object: T): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(): boolean;
 
         /*======== Get =========*/
         /**
@@ -231,8 +265,206 @@ declare module objectPath {
         insert<T extends {}>(object: T, path: number, value: any, at?: number):void;
     }
 
+    interface IObjectPathBound<T extends {}> {
+        /*======== Del =========*/
+
+        /**
+         * @see objectPath.ensureExists
+         */
+        del(path: IStringArray): T;
+        /**
+         * @see objectPath.del
+         */
+        del(path: INumberArray): T;
+        /**
+         * @see objectPath.del
+         */
+        del(path: number): T;
+        /**
+         * @see objectPath.del
+         */
+        del(path: string): T;
+        /**
+         * @see objectPath.del
+         */
+        del(): T;
+
+        /*======== Has =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        has(path: IStringArray): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(path: INumberArray): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(path: string): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(path: number): boolean;
+        /**
+         * @see objectPath.has
+         */
+        has(): boolean;
+
+        /*======== Get =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        get<TResult>(path: string, defaultValue?: TResult): TResult;
+        /**
+         * @see objectPath.get
+         */
+        get<TResult>(path: IStringArray, defaultValue?: TResult): TResult;
+        /**
+         * @see objectPath.get
+         */
+        get<TResult>(path: number, defaultValue?: TResult): TResult;
+        /**
+         * @see objectPath.get
+         */
+        get<TResult>(path: INumberArray, defaultValue?: TResult): TResult;
+        /**
+         * @see objectPath.get
+         */
+        get(): T;
+
+        /*======== Set =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        set<TExisting>(path: string, value: any, doNotReplace?:boolean): TExisting;
+        /**
+         * @see objectPath.set
+         */
+        set<TExisting>(path: number, value: any, doNotReplace?:boolean): TExisting;
+        /**
+         * @see objectPath.set
+         */
+        set<TExisting>(path: IStringArray, value: any, doNotReplace?:boolean): TExisting;
+        /**
+         * @see objectPath.set
+         */
+        set<TExisting>(path: INumberArray, value: any, doNotReplace?:boolean): TExisting;
+        /**
+         * @see objectPath.set
+         */
+        set(): T;
+
+        /*======== Push =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        push(path: INumberArray, ...args:any[]):void;
+        /**
+         * @see objectPath.push
+         */
+        push(path: IStringArray, ...args:any[]):void;
+        /**
+         * @see objectPath.push
+         */
+        push(path: number, ...args:any[]):void;
+        /**
+         * @see objectPath.push
+         */
+        push(path: string, ...args:any[]):void;
+        /**
+         * @see objectPath.push
+         */
+        push():void;
+
+        /*======== Coalesce =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        coalesce<TResult>(paths: IStringArray, defaultValue?: any):TResult;
+        /**
+         * @see objectPath.coalesce
+         */
+        coalesce<TResult>(paths: INumberArray, defaultValue?: any):TResult;
+        /**
+         * @see objectPath.coalesce
+         */
+        coalesce<TResult>(paths: IStringArray[], defaultValue?: any):TResult;
+        /**
+         * @see objectPath.coalesce
+         */
+        coalesce<TResult>(paths: INumberArray[], defaultValue?: any):TResult;
+
+        /*======== Empty =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        empty<TResult>(path: string):TResult;
+        /**
+         * @see objectPath.empty
+         */
+        empty<TResult>(path: INumberArray):TResult;
+        /**
+         * @see objectPath.empty
+         */
+        empty<TResult>(path: IStringArray):TResult;
+        /**
+         * @see objectPath.empty
+         */
+        empty<TResult>(path: number):TResult;
+        /**
+         * @see objectPath.empty
+         */
+        empty():T;
+
+        /*======== EnsureExists =========*/
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists<TResult>(path: string, value: any):TResult;
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists<TResult>(path: number, value: any):TResult;
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists<TResult>(path: INumberArray, value: any):TResult;
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists<TResult>(path: IStringArray, value: any):TResult;
+        /**
+         * @see objectPath.ensureExists
+         */
+        ensureExists(): T;
+
+        /*======== Insert =========*/
+        /**
+         * @see objectPath.insert
+         */
+        insert(path: string, value: any, at?: number):void;
+        /**
+         * @see objectPath.insert
+         */
+        insert(path: INumberArray, value: any, at?: number):void;
+        /**
+         * @see objectPath.insert
+         */
+        insert(path: IStringArray, value: any, at?: number):void;
+        /**
+         * @see objectPath.insert
+         */
+        insert(path: number, value: any, at?: number):void;
+    }
 }
 
+// browser version
 declare module 'objectPath' {
+    export = objectPath;
+}
+
+// node version
+declare module 'object-path' {
     export = objectPath;
 }
