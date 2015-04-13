@@ -6,8 +6,6 @@
 /// <reference path="../es6-promise/es6-promise.d.ts"/>
 
 declare module Axios {
-  export enum HTTPMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
-  export enum ResponseType { arraybuffer, blob, document, json, text }
 
   /**
    * <T> - request body data type
@@ -46,7 +44,7 @@ declare module Axios {
      * indicates the type of data that the server will respond with
      * options are 'arraybuffer', 'blob', 'document', 'json', 'text'
      */
-    responseType?: Axios.ResponseType;
+    responseType?: string;
 
     /**
      * name of the cookie to use as a value for xsrf token
@@ -65,14 +63,15 @@ declare module Axios {
    */
   interface AxiosXHRConfig<T> extends AxiosXHRConfigBase<T>  {
       /**
-       * server URL that will be used for the request
+       * server URL that will be used for the request, options are:
+       * GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH
        */
       url: string;
 
       /**
        * request method to be used when making the request
        */
-      method?: Axios.HTTPMethod;
+      method?: string;
 
       /**
        * data to be sent as the request body
@@ -86,7 +85,7 @@ declare module Axios {
    * <T> - expected response type, 
    * <U> - request body data type
    */
-  interface AxiosXHR<T, U> {
+  interface AxiosXHR<T> {
       /**
        * Response that was provided by the server
        */
@@ -110,7 +109,7 @@ declare module Axios {
       /**
        * config that was provided to `axios` for the request
        */
-      config: AxiosXHRConfig<U>;
+      config: AxiosXHRConfig<T>;
   }
 
   /**
@@ -119,40 +118,40 @@ declare module Axios {
    */
   interface AxiosStatic {
 
-    <T, U>(config: AxiosXHRConfig<U>): Promise<AxiosXHR<T, U>>;
+    <T>(config: AxiosXHRConfig<T>): Promise<AxiosXHR<T>>;
 
-    new <T, U>(config: AxiosXHRConfig<U>): Promise<AxiosXHR<T, U>>;
+    new <T>(config: AxiosXHRConfig<T>): Promise<AxiosXHR<T>>;
 
     /**
      * convenience alias, method = GET
      */
-    get<T, U>(url: string, config?: AxiosXHRConfigBase<U>): Promise<AxiosXHR<T, U>>;
+    get<T>(url: string, config?: AxiosXHRConfigBase<T>): Promise<AxiosXHR<T>>;
 
 
     /**
      * convenience alias, method = DELETE
      */
-    delete<T, U>(url: string, config?: AxiosXHRConfigBase<U>): Promise<AxiosXHR<T, U>>;
+    delete<T>(url: string, config?: AxiosXHRConfigBase<T>): Promise<AxiosXHR<T>>;
 
     /**
      * convenience alias, method = HEAD
      */
-    head<T, U>(url: string, config?: AxiosXHRConfigBase<U>): Promise<AxiosXHR<T, U>>;
+    head<T>(url: string, config?: AxiosXHRConfigBase<T>): Promise<AxiosXHR<T>>;
 
     /**
      * convenience alias, method = POST
      */
-    post<T, U>(url: string, data?: any, config?: AxiosXHRConfigBase<U>): Promise<AxiosXHR<T, U>>;
+    post<T>(url: string, data?: any, config?: AxiosXHRConfigBase<T>): Promise<AxiosXHR<T>>;
 
     /**
      * convenience alias, method = PUT
      */
-    put<T, U>(url: string, data?: any, config?: AxiosXHRConfigBase<U>): Promise<AxiosXHR<T, U>>;
+    put<T>(url: string, data?: any, config?: AxiosXHRConfigBase<T>): Promise<AxiosXHR<T>>;
 
     /**
      * convenience alias, method = PATCH
      */
-    patch<T, U>(url: string, data?: any, config?: AxiosXHRConfigBase<U>): Promise<AxiosXHR<T, U>>;
+    patch<T>(url: string, data?: any, config?: AxiosXHRConfigBase<T>): Promise<AxiosXHR<T>>;
   }
 }
 

@@ -1,23 +1,18 @@
 /// <reference path="axios.d.ts" />
 
-interface InputBody {
-    random: number;
-}
+enum HttpMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
+enum ResponseType { arraybuffer, blob, document, json, text }
 
 interface Repository {
   id: number;
   name: string;
 }
 
-function convenientGet () {
-  axios.get<Repository, InputBody>("https://api.github.com/repos/mzabriskie/axios")
-       .then(r => console.log(r.config.data.random));
-}
+axios.get<Repository>("https://api.github.com/repos/mzabriskie/axios")
+     .then(r => console.log(r.config.method));
 
-function get() {
-  axios<Repository, any>({
-      url: "https://api.github.com/repos/mzabriskie/axios",
-      method: Axios.HTTPMethod.GET,
-      headers: {},
-  }).then(r => console.log("ID:" + r.data.id + " Name: " + r.data.name));
-}
+axios<Repository>({
+    url: "https://api.github.com/repos/mzabriskie/axios",
+    method: HttpMethod[HttpMethod.GET],
+    headers: {},
+}).then(r => console.log("ID:" + r.data.id + " Name: " + r.data.name));

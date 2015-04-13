@@ -170,7 +170,7 @@ interface QUnitAssert {
     * resolution callback for each async operation. The callback returned from assert.async()
     * will throw an Error if is invoked more than once.
     */
-    async(): any;
+    async(): () => void;
 
 	/**
 	* A deep recursive comparison assertion, working on primitive types, arrays, objects, 

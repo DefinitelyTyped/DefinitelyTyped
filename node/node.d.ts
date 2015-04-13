@@ -282,15 +282,10 @@ declare module "http" {
         address(): { port: number; family: string; address: string; };
         maxHeadersCount: number;
     }
-    export interface ServerRequest extends events.EventEmitter, stream.Readable {
-        method: string;
-        url: string;
-        headers: any;
-        trailers: string;
-        httpVersion: string;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
     export interface ServerResponse extends events.EventEmitter, stream.Writable {
@@ -340,15 +335,35 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientResponse extends events.EventEmitter, stream.Readable {
-        statusCode: number;
+    export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
         headers: any;
+        rawHeaders: string[];
         trailers: any;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
+        rawTrailers: any;
+        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
+        /**
+         * Only valid for request obtained from http.Server.
+         */
+        method?: string;
+        /**
+         * Only valid for request obtained from http.Server.
+         */
+        url?: string;
+        /**
+         * Only valid for response obtained from http.ClientRequest.
+         */
+        statusCode?: number;
+        /**
+         * Only valid for response obtained from http.ClientRequest.
+         */
+        statusMessage?: string;
+        socket: net.Socket;
     }
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export interface ClientResponse extends IncomingMessage { }
 
 	export interface AgentOptions {
 		/**
@@ -390,10 +405,10 @@ declare module "http" {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
-    export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
+    export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: Function): ClientRequest;
-    export function get(options: any, callback?: Function): ClientRequest;
+    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -563,8 +578,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1036,6 +1051,36 @@ declare module "path" {
     export var delimiter: string;
     export function parse(p: string): ParsedPath;
     export function format(pP: ParsedPath): string;
+
+    export module posix {
+      export function normalize(p: string): string;
+      export function join(...paths: any[]): string;
+      export function resolve(...pathSegments: any[]): string;
+      export function isAbsolute(p: string): boolean;
+      export function relative(from: string, to: string): string;
+      export function dirname(p: string): string;
+      export function basename(p: string, ext?: string): string;
+      export function extname(p: string): string;
+      export var sep: string;
+      export var delimiter: string;
+      export function parse(p: string): ParsedPath;
+      export function format(pP: ParsedPath): string;
+    }
+
+    export module win32 {
+      export function normalize(p: string): string;
+      export function join(...paths: any[]): string;
+      export function resolve(...pathSegments: any[]): string;
+      export function isAbsolute(p: string): boolean;
+      export function relative(from: string, to: string): string;
+      export function dirname(p: string): string;
+      export function basename(p: string, ext?: string): string;
+      export function extname(p: string): string;
+      export var sep: string;
+      export var delimiter: string;
+      export function parse(p: string): ParsedPath;
+      export function format(pP: ParsedPath): string;
+    }
 }
 
 declare module "string_decoder" {

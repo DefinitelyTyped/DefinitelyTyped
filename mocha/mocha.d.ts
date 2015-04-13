@@ -37,10 +37,10 @@ interface MochaSetupOptions {
     reporter?: any;
 
     // bail on the first test failure
-    bail?: Boolean;
+    bail?: boolean;
 
     // ignore global leaks
-    ignoreLeaks?: Boolean;
+    ignoreLeaks?: boolean;
 
     // grep string or regexp to filter tests with
     grep?: any;

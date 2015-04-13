@@ -574,7 +574,7 @@ interface KnockoutComputedContext {
 declare module KnockoutComponentTypes {
 
     interface Config {
-        viewModel: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
     }
 

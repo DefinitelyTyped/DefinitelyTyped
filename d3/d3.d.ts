@@ -12,19 +12,19 @@ declare module D3 {
             /**
             * Returns the empty selection
             */
-            (): Selection;
+            (): _Selection<any>;
             /**
             * Selects the first element that matches the specified selector string
             *
             * @param selector Selection String to match
             */
-            (selector: string): Selection;
+            (selector: string): _Selection<any>;
             /**
             * Selects the specified node
             *
             * @param element Node element to select
             */
-            (element: EventTarget): Selection;
+            (element: EventTarget): _Selection<any>;
         };
 
         /**
@@ -36,13 +36,13 @@ declare module D3 {
             *
             * @param selector Selection String to match
             */
-            (selector: string): Selection;
+            (selector: string): _Selection<any>;
             /**
             * Selects the specified array of elements
             *
             * @param elements Array of node elements to select
             */
-            (elements: EventTarget[]): Selection;
+            (elements: EventTarget[]): _Selection<any>;
         };
     }
 
@@ -57,7 +57,9 @@ declare module D3 {
         x: number;
         y: number;
         keyCode: number;
-        altKey: any;
+        altKey?: boolean;
+        ctrlKey?: boolean;
+        metaKey?: boolean;
         type: string;
     }
 
@@ -458,7 +460,7 @@ declare module D3 {
         /**
         * Returns the root selection
         */
-        selection(): Selection;
+        selection(): _Selection<any>;
         ns: {
             /**
             * The map of registered namespace prefixes
@@ -726,56 +728,56 @@ declare module D3 {
         format(rows: any[]): string;
     }
 
-    export interface Selection extends Selectors, Array<any> {
+    export interface _Selection<T> extends Selectors, Array<any> {
         attr: {
             (name: string): string;
-            (name: string, value: any): Selection;
-            (name: string, valueFunction: (data: any, index: number) => any): Selection;
-            (attrValueMap : Object): Selection;
+            (name: string, value: any): _Selection<T>;
+            (name: string, valueFunction: (data: T, index: number) => any): _Selection<T>;
+            (attrValueMap: Object): _Selection<T>;
         };
 
         classed: {
             (name: string): boolean;
-            (name: string, value: any): Selection;
-            (name: string, valueFunction: (data: any, index: number) => any): Selection;
-            (classValueMap: Object): Selection;
+            (name: string, value: any): _Selection<T>;
+            (name: string, valueFunction: (data: T, index: number) => any): _Selection<T>;
+            (classValueMap: Object): _Selection<T>;
         };
 
         style: {
             (name: string): string;
-            (name: string, value: any, priority?: string): Selection;
-            (name: string, valueFunction: (data: any, index: number) => any, priority?: string): Selection;
-            (styleValueMap : Object): Selection;
+            (name: string, value: any, priority?: string): _Selection<T>;
+            (name: string, valueFunction: (data: T, index: number) => any, priority?: string): _Selection<T>;
+            (styleValueMap: Object): _Selection<T>;
         };
 
         property: {
             (name: string): void;
-            (name: string, value: any): Selection;
-            (name: string, valueFunction: (data: any, index: number) => any): Selection;
-            (propertyValueMap : Object): Selection;
+            (name: string, value: any): _Selection<T>;
+            (name: string, valueFunction: (data: T, index: number) => any): _Selection<T>;
+            (propertyValueMap: Object): _Selection<T>;
         };
 
         text: {
             (): string;
-            (value: any): Selection;
-            (valueFunction: (data: any, index: number) => any): Selection;
+            (value: any): _Selection<T>;
+            (valueFunction: (data: T, index: number) => any): _Selection<T>;
         };
 
         html: {
             (): string;
-            (value: any): Selection;
-            (valueFunction: (data: any, index: number) => any): Selection;
+            (value: any): _Selection<T>;
+            (valueFunction: (data: T, index: number) => any): _Selection<T>;
         };
 
-        append: (name: string) => Selection;
-        insert: (name: string, before: string) => Selection;
-        remove: () => Selection;
+        append: (name: string) => _Selection<T>;
+        insert: (name: string, before: string) => _Selection<T>;
+        remove: () => _Selection<T>;
         empty: () => boolean;
 
         data: {
-            (values: (data: any, index?: number) => any[], key?: (data: any, index?: number) => any): UpdateSelection;
-            (values: any[], key?: (data: any, index?: number) => any): UpdateSelection;
-            (): any[];
+            <U>(values: (data: T, index?: number) => U[], key?: (data: U, index?: number) => any): _UpdateSelection<U>;
+            <U>(values: U[], key?: (data: U, index?: number) => any): _UpdateSelection<U>;
+            (): T[];
         };
 
         datum: {
@@ -789,36 +791,31 @@ declare module D3 {
              * element. The function is then used to set each element's data. A null value will
              * delete the bound data. This operator has no effect on the index.
              */
-            (values: (data: any, index: number) => any): UpdateSelection;
+            <U>(values: (data: U, index: number) => any): _UpdateSelection<U>;
             /**
              * Sets the element's bound data to the specified value on all selected elements.
              * Unlike the D3.Selection.data method, this method does not compute a join (and thus
              * does not compute enter and exit selections).
              * @param values The same data to be given to all elements.
              */
-            (values: any): UpdateSelection;
+            <U>(values: U): _UpdateSelection<U>;
             /**
              * Returns the bound datum for the first non-null element in the selection.
              * This is generally useful only if you know the selection contains exactly one element.
              */
-            (): any;
-            /**
-             * Returns the bound datum for the first non-null element in the selection.
-             * This is generally useful only if you know the selection contains exactly one element.
-             */
-            <T>(): T;
+            (): T;
         };
 
         filter: {
-            (filter: (data: any, index: number) => boolean, thisArg?: any): UpdateSelection;
-            (filter: string): UpdateSelection;
+            (filter: (data: T, index: number) => boolean, thisArg?: any): _UpdateSelection<T>;
+            (filter: string): _UpdateSelection<T>;
         };
 
-        call(callback: (selection: Selection, ...args: any[]) => void, ...args: any[]): Selection;
-        each(eachFunction: (data: any, index: number) => any): Selection;
+        call(callback: (selection: _Selection<T>, ...args: any[]) => void, ...args: any[]): _Selection<T>;
+        each(eachFunction: (data: T, index: number) => any): _Selection<T>;
         on: {
             (type: string): (data: any, index: number) => any;
-            (type: string, listener: (data: any, index: number) => any, capture?: boolean): Selection;
+            (type: string, listener: (data: any, index: number) => any, capture?: boolean): _Selection<T>;
         };
 
         /**
@@ -840,37 +837,43 @@ declare module D3 {
         * to compare, and should return either a negative, positive, or zero value to indicate
         * their relative order.
         */
-        sort<T>(comparator?: (a: T, b: T) => number): Selection;
+        sort(comparator?: (a: T, b: T) => number): _Selection<T>;
 
         /**
         * Re-inserts elements into the document such that the document order matches the selection
         * order. This is equivalent to calling sort() if the data is already sorted, but much
         * faster.
         */
-        order: () => Selection;
+        order: () => _Selection<T>;
 
         /**
         * Returns the first non-null element in the current selection. If the selection is empty,
         * returns null.
         */
-        node: <T extends Element>() => T;
+        node: <E extends Element>() => E;
     }
 
-    export interface EnterSelection {
-        append: (name: string) => Selection;
-        insert: (name: string, before?: string) => Selection;
-        select: (selector: string) => Selection;
+    export interface Selection extends _Selection<any> { }
+
+    export interface _EnterSelection<T> {
+        append: (name: string) => _Selection<T>;
+        insert: (name: string, before?: string) => _Selection<T>;
+        select: (selector: string) => _Selection<T>;
         empty: () => boolean;
         node: () => Element;
-        call: (callback: (selection: EnterSelection) => void) => EnterSelection;
+        call: (callback: (selection: _EnterSelection<T>) => void) => _EnterSelection<T>;
         size: () => number;
     }
 
-    export interface UpdateSelection extends Selection {
-        enter: () => EnterSelection;
-        update: () => Selection;
-        exit: () => Selection;
+    export interface EnterSelection extends _EnterSelection<any> { }
+
+    export interface _UpdateSelection<T> extends _Selection<T> {
+        enter: () => _EnterSelection<T>;
+        update: () => _Selection<T>;
+        exit: () => _Selection<T>;
     }
+
+    export interface UpdateSelection extends _UpdateSelection<any> { }
 
     export interface NestKeyValue {
         key: string;
@@ -1279,6 +1282,13 @@ declare module D3 {
                 (angle: (d : any) => number): PieLayout
                 (angle: (d : any, i: number) => number): PieLayout;
             };
+            padAngle: {
+                (): number;
+                (angle: number): PieLayout;
+                (angle: () => number): PieLayout;
+                (angle: (d : any) => number): PieLayout
+                (angle: (d : any, i: number) => number): PieLayout;
+            };
         }
 
         export interface ArcDescriptor {
@@ -1363,7 +1373,20 @@ declare module D3 {
                 (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
-
+            /**
+             * If distance is specified, sets the maximum distance over which 
+             * charge forces are applied. If distance is not specified, returns 
+             * the current maximum charge distance, which defaults to infinity. 
+             * Specifying a finite charge distance improves the performance of 
+             * the force layout and produces a more localized layout; 
+             * distance-limited charge forces are especially useful in 
+             * conjunction with custom gravity.
+             */
+            chargeDistance: {
+                (): number;
+                (distance: number): ForceLayout;
+                (accessor: (d: any, index: number) => number): ForceLayout;
+            };
             theta: {
                 (): number;
                 (number:number): ForceLayout;
@@ -1727,14 +1750,14 @@ declare module D3 {
         export interface Symbol {
             type: (symbolType: string | ((datum: any, index: number) => string)) => Symbol;
             size: (size: number | ((datum: any, index: number) => number)) => Symbol;
-            (datum:any, index:number): string;
+            (datum?: any, index?: number): string;
         }
 
         export interface Brush {
             /**
             * Draws or redraws this brush into the specified selection of elements
             */
-            (selection: Selection): void;
+            (selection: _Selection<any>): void;
             /**
             * Gets or sets the x-scale associated with the brush
             */
@@ -1802,7 +1825,7 @@ declare module D3 {
         }
 
         export interface Axis {
-            (selection: Selection): void;
+            (selection: _Selection<any>): void;
             (transition: Transition.Transition): void;
 
             scale: {
@@ -1944,13 +1967,13 @@ declare module D3 {
                 /**
                 * Get the interpolation accessor.
                 */
-                (): string;
+                (): string | ((points: number[][]) => string);
                 /**
                 * Set the interpolation accessor.
                 *
                 * @param interpolate The interpolation mode
                 */
-                (interpolate: string): Line;
+                (interpolate: string | ((points: number[][]) => string)): Line;
             };
             /**
             * Get or set the cardinal spline tension.
@@ -2240,13 +2263,13 @@ declare module D3 {
                 /**
                 * Get the interpolation accessor.
                 */
-                (): string;
+                (): string | ((points: number[][]) => string);
                 /**
                 * Set the interpolation accessor.
                 *
                 * @param interpolate The interpolation mode
                 */
-                (interpolate: string): Area;
+                (interpolate: string | ((points: number[][]) => string)): Area;
             };
             /**
             * Get or set the cardinal spline tension.
@@ -2775,7 +2798,7 @@ declare module D3 {
             * registering the necessary event listeners to support
             * panning and zooming.
             */
-            (selection: Selection): void;
+            (selection: _Selection<any>): void;
 
             /**
             * Registers a listener to receive events
