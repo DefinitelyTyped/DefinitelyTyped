@@ -10,10 +10,10 @@ declare module Express {
         (err?: any): void;
     }
     export interface Session {
-        login(callback: Function);
-        login(extend: Object, callback: ErrorCallback);
-        login(role: string, callback: ErrorCallback);
-        login(role: string, extend: Object, callback: ErrorCallback);
+        login(callback: Function): void;
+        login(extend: Object, callback: ErrorCallback): void;
+        login(role: string, callback: ErrorCallback): void;
+        login(role: string, extend: Object, callback: ErrorCallback): void;
         logout(callback: ErrorCallback): void;
         isLoggedIn(role?: string): boolean;
         isGuest(): boolean;
