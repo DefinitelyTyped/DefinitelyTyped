@@ -10,7 +10,7 @@ app.use(flash({
     unsafe: false
 }));
 
-app.use(function(req: Express.Request, res, next) {
+app.use(function(req: Express.Request, res: Express.Response, next: Function) {
     req.flash('Message');
     req.flash('info', 'Message');
 });
