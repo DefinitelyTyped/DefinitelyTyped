@@ -18,7 +18,7 @@ declare function xit(expectation: string, assertion?: () => void, timeout?: numb
 declare function xit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
 
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
-declare function pending(): void;
+declare function pending(reason?: string): void;
 
 declare function beforeEach(action: () => void, timeout?: number): void;
 declare function beforeEach(action: (done: () => void) => void, timeout?: number): void;
