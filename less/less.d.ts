@@ -51,6 +51,16 @@ declare module Less {
         rootFileInfo?: RootFileInfo;
     }
 
+    interface RenderError {
+        column: number;
+        extract: string[];
+        filename: string;
+        index: number;
+        line: number;
+        message: string;
+        type: string;
+    }
+
     interface RenderOutput {
         css: string;
         map: string;
@@ -59,8 +69,8 @@ declare module Less {
 }
 
 interface LessStatic {
-    render(input: string, callback: (output: Less.RenderOutput) => void): void;
-    render(input: string, options: Less.Options, callback: (output: Less.RenderOutput) => void): void;
+    render(input: string, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
+    render(input: string, options: Less.Options, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
 
     render(input: string): Less.Promise<Less.RenderOutput>;
     render(input: string, options: Less.Options): Less.Promise<Less.RenderOutput>;
