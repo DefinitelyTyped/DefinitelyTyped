@@ -997,7 +997,7 @@ declare module Strophe {
         disconnect(reason: string): void;
     }
 
-    /** Class: Strophe.SASLMechanism
+    /** Interface: Strophe.SASLMechanism
      *
      *  encapsulates SASL authentication mechanisms.
      *
@@ -1011,21 +1011,7 @@ declare module Strophe {
      *  DIGEST-MD5 - 30
      *  Plain - 20
      */
-    class SASLMechanism {
-        /**
-         * PrivateConstructor: Strophe.SASLMechanism
-         * SASL auth mechanism abstraction.
-         *
-         *  Parameters:
-         *    (String) name - SASL Mechanism name.
-         *    (Boolean) isClientFirst - If client should send response first without challenge.
-         *    (Number) priority - Priority.
-         *
-         *  Returns:
-         *    A new Strophe.SASLMechanism object.
-         */
-        constructor(name: string, isClientFirst: boolean, priority: number);
-
+    interface SASLMechanism {
         /**
        *  Function: test
        *  Checks if mechanism able to run.
@@ -1046,36 +1032,24 @@ declare module Strophe {
        */
         test(connection: Connection): boolean;
 
-        /** PrivateFunction: onStart
-         *  Called before starting mechanism on some connection.
-         *
-         *  Parameters:
-         *    (Strophe.Connection) connection - Target Connection.
-         */
-        protected onStart(connection: Connection): void;
-
-        /** PrivateFunction: onChallenge
-       *  Called by protocol implementation on incoming challenge. If client is
-       *  first (isClientFirst == true) challenge will be null on the first call.
+        /** Variable: priority
+       *  Determines which <SASLMechanism> is chosen for authentication (Higher is better).
+       *  Users may override this to prioritize mechanisms differently.
        *
-       *  Parameters:
-       *    (Strophe.Connection) connection - Target Connection.
-       *    (String) challenge - current challenge to handle.
+       *  In the default configuration the priorities are
        *
-       *  Returns:
-       *    (String) Mechanism response.
+       *  SCRAM-SHA1 - 40
+       *  DIGEST-MD5 - 30
+       *  Plain - 20
+       *
+       *  Example: (This will cause Strophe to choose the mechanism that the server sent first)
+       *
+       *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
+       *
+       *  See <SASL mechanisms> for a list of available mechanisms.
+       *
        */
-        protected onChallenge(connection: Connection, challenge: string): string;
-
-        /** PrivateFunction: onFailure
-       *  Protocol informs mechanism implementation about SASL failure.
-       */
-        protected onFailure(): void;
-        
-        /** PrivateFunction: onSuccess
-       *  Protocol informs mechanism implementation about SASL success.
-       */
-        protected onSuccess(): void;
+        priority: number;
     }
 
     /** Constants: SASL mechanisms
