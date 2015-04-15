@@ -428,6 +428,27 @@ declare module Strophe {
      */
     function addConnectionPlugin(name: string, ptype: any): void;
 
+    var Builder: {
+        /** Constructor: Strophe.Builder
+         *  Create a Strophe.Builder object.
+         *
+         *  The attributes should be passed in object notation.  For example
+         *  > var b = new Builder('message', {to: 'you', from: 'me'});
+         *  or
+         *  > var b = new Builder('messsage', {'xml:lang': 'en'});
+         *
+         *  Parameters:
+         *    (String) name - The name of the root element.
+         *    (Object) attrs - The attributes for the root element in object notation.
+         *
+         *  Returns:
+         *    A new Strophe.Builder.
+         */
+        new (name: string, attrs?: any): Builder;
+        prototype: any;
+    }
+    
+
     /** Class: Strophe.Builder
      *  XML DOM builder.
      *
@@ -453,25 +474,8 @@ declare module Strophe {
      *  > builder.c('child1', ...).up().c('child2', ...)
      *  The next operation on the Builder will be relative to the second child.
      */
-    class Builder {
-         /** Constructor: Strophe.Builder
-         *  Create a Strophe.Builder object.
-         *
-         *  The attributes should be passed in object notation.  For example
-         *  > var b = new Builder('message', {to: 'you', from: 'me'});
-         *  or
-         *  > var b = new Builder('messsage', {'xml:lang': 'en'});
-         *
-         *  Parameters:
-         *    (String) name - The name of the root element.
-         *    (Object) attrs - The attributes for the root element in object notation.
-         *
-         *  Returns:
-         *    A new Strophe.Builder.
-         */
-        constructor(name: string, attrs?: any);
-
-        /** Function: tree
+    interface Builder {
+         /** Function: tree
          *  Return the DOM tree.
          *
          *  This function returns the current DOM tree as an element object.  This
@@ -586,39 +590,7 @@ declare module Strophe {
         protocol?: string;
         sync?: boolean; 
     }
-
-    /** Class: Strophe.Connection
-     *  XMPP Connection manager.
-     *
-     *  This class is the main part of Strophe.  It manages a BOSH connection
-     *  to an XMPP server and dispatches events to the user callbacks as
-     *  data arrives.  It supports SASL PLAIN, SASL DIGEST-MD5, SASL SCRAM-SHA1
-     *  and legacy authentication.
-     *
-     *  After creating a Strophe.Connection object, the user will typically
-     *  call connect() with a user supplied callback to handle connection level
-     *  events like authentication failure, disconnection, or connection
-     *  complete.
-     *
-     *  The user will also have several event handlers defined by using
-     *  addHandler() and addTimedHandler().  These will allow the user code to
-     *  respond to interesting stanzas or do something periodically with the
-     *  connection.  These handlers will be active once authentication is
-     *  finished.
-     *
-     *  To send data to the connection, use send().
-     */
-    class Connection {
-
-        jid: string;
-        authzid: string;
-        pass: string;
-        authcid: string;
-        domain: string;
-        servtype: string;
-        maxRetries: number;
-        //todo: what other members are meant to be public?
-
+    var Connection: {
         /** Constructor: Strophe.Connection
          *  Create and initialize a Strophe.Connection object.
          *
@@ -666,7 +638,41 @@ declare module Strophe {
          *  Returns:
          *    A new Strophe.Connection object.
          */
-        constructor(service: string, options?: ConnectionOptions);
+        new (service: string, options?: ConnectionOptions): Connection; 
+        prototype: any; 
+    }
+
+    /** Class: Strophe.Connection
+     *  XMPP Connection manager.
+     *
+     *  This class is the main part of Strophe.  It manages a BOSH connection
+     *  to an XMPP server and dispatches events to the user callbacks as
+     *  data arrives.  It supports SASL PLAIN, SASL DIGEST-MD5, SASL SCRAM-SHA1
+     *  and legacy authentication.
+     *
+     *  After creating a Strophe.Connection object, the user will typically
+     *  call connect() with a user supplied callback to handle connection level
+     *  events like authentication failure, disconnection, or connection
+     *  complete.
+     *
+     *  The user will also have several event handlers defined by using
+     *  addHandler() and addTimedHandler().  These will allow the user code to
+     *  respond to interesting stanzas or do something periodically with the
+     *  connection.  These handlers will be active once authentication is
+     *  finished.
+     *
+     *  To send data to the connection, use send().
+     */
+    interface Connection {
+
+        jid: string;
+        authzid: string;
+        pass: string;
+        authcid: string;
+        domain: string;
+        servtype: string;
+        maxRetries: number;
+        //todo: what other members are meant to be public?
 
         /** Function: reset
         *  Reset the connection.
@@ -991,7 +997,7 @@ declare module Strophe {
         disconnect(reason: string): void;
     }
 
-    /** Class: Strophe.SASLMechanism
+    /** Interface: Strophe.SASLMechanism
      *
      *  encapsulates SASL authentication mechanisms.
      *
@@ -1005,21 +1011,7 @@ declare module Strophe {
      *  DIGEST-MD5 - 30
      *  Plain - 20
      */
-    class SASLMechanism {
-        /**
-         * PrivateConstructor: Strophe.SASLMechanism
-         * SASL auth mechanism abstraction.
-         *
-         *  Parameters:
-         *    (String) name - SASL Mechanism name.
-         *    (Boolean) isClientFirst - If client should send response first without challenge.
-         *    (Number) priority - Priority.
-         *
-         *  Returns:
-         *    A new Strophe.SASLMechanism object.
-         */
-        constructor(name: string, isClientFirst: boolean, priority: number);
-
+    interface SASLMechanism {
         /**
        *  Function: test
        *  Checks if mechanism able to run.
@@ -1040,36 +1032,24 @@ declare module Strophe {
        */
         test(connection: Connection): boolean;
 
-        /** PrivateFunction: onStart
-         *  Called before starting mechanism on some connection.
-         *
-         *  Parameters:
-         *    (Strophe.Connection) connection - Target Connection.
-         */
-        protected onStart(connection: Connection): void;
-
-        /** PrivateFunction: onChallenge
-       *  Called by protocol implementation on incoming challenge. If client is
-       *  first (isClientFirst == true) challenge will be null on the first call.
+        /** Variable: priority
+       *  Determines which <SASLMechanism> is chosen for authentication (Higher is better).
+       *  Users may override this to prioritize mechanisms differently.
        *
-       *  Parameters:
-       *    (Strophe.Connection) connection - Target Connection.
-       *    (String) challenge - current challenge to handle.
+       *  In the default configuration the priorities are
        *
-       *  Returns:
-       *    (String) Mechanism response.
+       *  SCRAM-SHA1 - 40
+       *  DIGEST-MD5 - 30
+       *  Plain - 20
+       *
+       *  Example: (This will cause Strophe to choose the mechanism that the server sent first)
+       *
+       *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
+       *
+       *  See <SASL mechanisms> for a list of available mechanisms.
+       *
        */
-        protected onChallenge(connection: Connection, challenge: string): string;
-
-        /** PrivateFunction: onFailure
-       *  Protocol informs mechanism implementation about SASL failure.
-       */
-        protected onFailure(): void;
-        
-        /** PrivateFunction: onSuccess
-       *  Protocol informs mechanism implementation about SASL success.
-       */
-        protected onSuccess(): void;
+        priority: number;
     }
 
     /** Constants: SASL mechanisms
