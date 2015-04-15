@@ -1573,6 +1573,26 @@ declare module L {
           */
         getSouthEast(): LatLng;
 
+      	/**
+          * Returns the west longitude in degrees of the bounds.
+          */
+	getWest(): number;
+
+        /**
+          * Returns the east longitude in degrees of the bounds.
+          */
+	getEast(): number;
+
+        /**
+          * Returns the north latitude in degrees of the bounds.
+          */
+	getNorth(): number;
+
+        /**
+          * Returns the south latitude in degrees of the bounds.
+          */
+	getSouth(): number;
+
         /**
           * Returns the center point of the bounds.
           */

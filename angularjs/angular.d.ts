@@ -665,6 +665,7 @@ declare module angular {
     // TODO undocumented, so we need to get it from the source code
     ///////////////////////////////////////////////////////////////////////////
     interface IBrowserService {
+        defer: ng.ITimeoutService;
         [key: string]: any;
     }
 
