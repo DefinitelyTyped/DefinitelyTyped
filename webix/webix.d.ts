@@ -3202,7 +3202,7 @@ interface form extends webix.ui.baseview{
 	getParentView():any;
 	getScrollState():any;
 	getTopParentView():webix.ui.baseview;
-	getValues(details?:any):any[];
+	getValues(details?:any):any;
 	hasEvent(name:string):boolean;
 	hide():void;
 	index(obj:any):number;
