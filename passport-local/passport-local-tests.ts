@@ -26,7 +26,7 @@ class User implements IUser {
 //#endregion
 
 // Sample from https://github.com/jaredhanson/passport-local#configure-strategy
-passport.use(new local.Strategy(function (username, password, done) {
+passport.use(new local.Strategy((username: any, password: any, done: any) => {
     User.findOne({ username: username }, function (err, user) {
         if (err) {
             return done(err);
