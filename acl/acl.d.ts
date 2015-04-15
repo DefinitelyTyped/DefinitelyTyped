@@ -19,7 +19,7 @@ declare module "acl" {
   type AllowedCallback = (err: Error, allowed: boolean) => any;
   type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
 
-  interface AclStatic {
+  export interface AclStatic {
     new (backend: Backend<any>, logger: Logger, options: Option): Acl;
     new (backend: Backend<any>, logger: Logger): Acl;
     new (backend: Backend<any>): Acl;
