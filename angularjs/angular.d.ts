@@ -1278,7 +1278,7 @@ declare module angular {
     interface IHttpPromiseCallbackArg<T> {
         data?: T;
         status?: number;
-        headers?: (headerName: string) => string;
+        headers?: IHttpHeadersGetter;
         config?: IRequestConfig;
         statusText?: string;
     }
