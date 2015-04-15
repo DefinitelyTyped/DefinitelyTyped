@@ -47,7 +47,7 @@ declare module ExpressValidator {
     assert(field:string, message:string): Validator;
 
     onValidationError(func:(msg:string) => void): void;
-    validationErrors(): any;
+    validationErrors(mapErrors?: boolean): any;
   }
 
   export interface Validator {
