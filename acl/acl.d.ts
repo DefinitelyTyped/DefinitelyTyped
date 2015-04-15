@@ -14,7 +14,7 @@ declare module "acl" {
   type Value = string|number;
   type Values = Value|Value[];
   type Action = () => any;
-  type Callback = (err: Error) => any;
+  export type Callback = (err: Error) => any;
   type AnyCallback = (err: Error, obj: any) => any;
   type AllowedCallback = (err: Error, allowed: boolean) => any;
   type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
@@ -84,7 +84,7 @@ declare module "acl" {
   //
   // For internal use
   //
-  interface Backend<T> {
+  export interface Backend<T> {
     begin: () => T;
     end: (transaction: T, cb?: Action) => void;
     clean: (cb?: Action) => void;
