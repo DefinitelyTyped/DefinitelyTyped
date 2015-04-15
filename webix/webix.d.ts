@@ -7530,4 +7530,4 @@ interface window extends webix.ui.baseview{
 
 }}
 
-declare function $$(id: string|Event|HTMLElement):webix.ui.view;
+declare function $$(id: string|Event|HTMLElement):webix.ui.baseview;
