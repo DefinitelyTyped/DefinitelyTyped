@@ -21,6 +21,12 @@ plugin.register.attributes = {
 	version: "1.0.0"
 };
 
+// optional options parameter
+server.register({}, function (err) {});
+
+// optional options.routes.vhost parameter 
+server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
+
 //server.pack.register(plugin, (err: Object) => {
 //	if (err) { throw err; }
 //});
@@ -74,6 +80,19 @@ server.route([{
 	handler: function (request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	}
+}]);
+
+// config.validate parameters should be optional
+server.route([{
+    method: 'GET',
+    path: '/hello2',
+    handler: function(request: Hapi.Request, reply: Function) {
+        reply('hello world2');
+    },
+    config: {
+        validate: {
+        }
+    }
 }]);
 
 // Start the server
