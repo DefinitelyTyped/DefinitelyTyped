@@ -665,6 +665,7 @@ declare module angular {
     // TODO undocumented, so we need to get it from the source code
     ///////////////////////////////////////////////////////////////////////////
     interface IBrowserService {
+        defer: angular.ITimeoutService;
         [key: string]: any;
     }
 
@@ -1277,7 +1278,7 @@ declare module angular {
     interface IHttpPromiseCallbackArg<T> {
         data?: T;
         status?: number;
-        headers?: (headerName: string) => string;
+        headers?: IHttpHeadersGetter;
         config?: IRequestConfig;
         statusText?: string;
     }

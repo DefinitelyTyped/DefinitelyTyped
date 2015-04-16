@@ -14,6 +14,7 @@ function test_Notify_constructor() {
         body : "fuga",
         icon : "./logo.png",
         tag  : "user",
+        timeout  : 1000,
         notifyShow : (e:Event)=> console.log("notifyShow", e),
         notifyClose : ()=> console.log("notifyClose"),
         notifyClick : ()=> console.log("notifyClick"),

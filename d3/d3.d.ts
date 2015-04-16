@@ -57,7 +57,9 @@ declare module D3 {
         x: number;
         y: number;
         keyCode: number;
-        altKey: any;
+        altKey?: boolean;
+        ctrlKey?: boolean;
+        metaKey?: boolean;
         type: string;
     }
 
@@ -1371,7 +1373,20 @@ declare module D3 {
                 (number:number): ForceLayout;
                 (accessor: (d: any, index: number) => number): ForceLayout;
             };
-
+            /**
+             * If distance is specified, sets the maximum distance over which 
+             * charge forces are applied. If distance is not specified, returns 
+             * the current maximum charge distance, which defaults to infinity. 
+             * Specifying a finite charge distance improves the performance of 
+             * the force layout and produces a more localized layout; 
+             * distance-limited charge forces are especially useful in 
+             * conjunction with custom gravity.
+             */
+            chargeDistance: {
+                (): number;
+                (distance: number): ForceLayout;
+                (accessor: (d: any, index: number) => number): ForceLayout;
+            };
             theta: {
                 (): number;
                 (number:number): ForceLayout;
@@ -1952,13 +1967,13 @@ declare module D3 {
                 /**
                 * Get the interpolation accessor.
                 */
-                (): string;
+                (): string | ((points: number[][]) => string);
                 /**
                 * Set the interpolation accessor.
                 *
                 * @param interpolate The interpolation mode
                 */
-                (interpolate: string): Line;
+                (interpolate: string | ((points: number[][]) => string)): Line;
             };
             /**
             * Get or set the cardinal spline tension.
@@ -2248,13 +2263,13 @@ declare module D3 {
                 /**
                 * Get the interpolation accessor.
                 */
-                (): string;
+                (): string | ((points: number[][]) => string);
                 /**
                 * Set the interpolation accessor.
                 *
                 * @param interpolate The interpolation mode
                 */
-                (interpolate: string): Area;
+                (interpolate: string | ((points: number[][]) => string)): Area;
             };
             /**
             * Get or set the cardinal spline tension.
