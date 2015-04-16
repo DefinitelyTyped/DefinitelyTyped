@@ -9,7 +9,7 @@
 declare module "acl" {
   import redis = require('redis');
 
-  export interface AclStatic {
+  interface AclStatic {
     redisBackend: RedisBackendStatic;
   }
 
