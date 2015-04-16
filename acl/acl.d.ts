@@ -14,12 +14,12 @@ declare module "acl" {
   type Value = string|number;
   type Values = Value|Value[];
   type Action = () => any;
-  export type Callback = (err: Error) => any;
+  type Callback = (err: Error) => any;
   type AnyCallback = (err: Error, obj: any) => any;
   type AllowedCallback = (err: Error, allowed: boolean) => any;
   type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
 
-  export interface AclStatic {
+  interface AclStatic {
     new (backend: Backend<any>, logger: Logger, options: Option): Acl;
     new (backend: Backend<any>, logger: Logger): Acl;
     new (backend: Backend<any>): Acl;
@@ -84,7 +84,7 @@ declare module "acl" {
   //
   // For internal use
   //
-  export interface Backend<T> {
+  interface Backend<T> {
     begin: () => T;
     end: (transaction: T, cb?: Action) => void;
     clean: (cb?: Action) => void;
