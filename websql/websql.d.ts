@@ -164,14 +164,14 @@ interface SQLResultSetRowList {
 /** 4.6 Errors and exceptions - asynchronous database API error
  */
 declare class SQLError {
-    static UNKNOWN_ERR; // = 0;
-    static DATABASE_ERR; // = 1;
-    static VERSION_ERR; // = 2;
-    static TOO_LARGE_ERR; // = 3;
-    static QUOTA_ERR; // = 4;
-    static SYNTAX_ERR; // = 5;
-    static CONSTRAINT_ERR; // = 6;
-    static TIMEOUT_ERR; // = 7;
+    static UNKNOWN_ERR: number; // = 0;
+    static DATABASE_ERR: number; // = 1;
+    static VERSION_ERR: number; // = 2;
+    static TOO_LARGE_ERR: number; // = 3;
+    static QUOTA_ERR: number; // = 4;
+    static SYNTAX_ERR: number; // = 5;
+    static CONSTRAINT_ERR: number; // = 6;
+    static TIMEOUT_ERR: number; // = 7;
 
     code: number;
     message: DOMString;
@@ -182,34 +182,34 @@ declare class SQLException {
     /** Code 0 - The transaction failed for reasons unrelated to the database itself
      * and not covered by any other error code.
      */
-    static UNKNOWN_ERR; // = 0;
+    static UNKNOWN_ERR: number; // = 0;
     /** Code 1 - The statement failed for database reasons not covered by any other error code. */
-    static DATABASE_ERR; // = 1;
+    static DATABASE_ERR: number; // = 1;
     /** Code 2 - The operation failed because the actual database version was not what it should be.
      * For example, a statement found that the actual database version no longer matched the
      * expected version of the Database or DatabaseSync object, or the Database.changeVersion()
      * or DatabaseSync.changeVersion() methods were passed a version that doesn't match the actual database version.
      */
-    static VERSION_ERR; // = 2;
+    static VERSION_ERR: number; // = 2;
     /** Code 3 - The statement failed because the data returned from the database was too large.
      * The SQL "LIMIT" modifier might be useful to reduce the size of the result set.
      */
-    static TOO_LARGE_ERR; // = 3;
+    static TOO_LARGE_ERR: number; // = 3;
     /** Code 4 - The statement failed because there was not enough remaining storage space,
      * or the storage quota was reached and the user declined to give more space to the database.
      */
-    static QUOTA_ERR; // = 4;
+    static QUOTA_ERR: number; // = 4;
     /** Code 5 - The statement failed because of a syntax error, or the number of arguments did
      * not match the number of ? placeholders in the statement, or the statement tried to use a
      * statement that is not allowed, such as BEGIN, COMMIT, or ROLLBACK, or the statement tried
      * to use a verb that could modify the database but the transaction was read-only. */
-    static SYNTAX_ERR; // = 5;
+    static SYNTAX_ERR: number; // = 5;
     /** Code 6 - An INSERT, UPDATE, or REPLACE statement failed due to a constraint failure.
      * For example, because a row was being inserted and the value given for the primary
      * key column duplicated the value of an existing row. */
-    static CONSTRAINT_ERR; // = 6;
+    static CONSTRAINT_ERR: number; // = 6;
     /** Code 7 - A lock for the transaction could not be obtained in a reasonable time. */
-    static TIMEOUT_ERR; // = 7;
+    static TIMEOUT_ERR: number; // = 7;
 
     code: number;
     message: DOMString;
