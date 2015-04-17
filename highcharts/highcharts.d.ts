@@ -882,6 +882,22 @@ interface HighchartsPlotOptions {
     spline?: HighchartsSplineChart;
 }
 
+interface HighchartsSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSeriesChart { }
+interface HighchartsAreaChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
+interface HighchartsAreaRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
+interface HighchartsAreaSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
+interface HighchartsAreaSplineRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
+interface HighchartsBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart { }
+interface HighchartsColumnChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart { }
+interface HighchartsColumnRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnRangeChart { }
+interface HighchartsGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsGaugeChart { }
+interface HighchartsLineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsLineChart { }
+interface HighchartsPieChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPieChart { }
+interface HighchartsScatterChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsScatterChart { }
+interface HighchartsSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSplineChart { }
+
+
+
 interface HighchartsDataPoint {
     color?: string;
     dataLabels?: HighchartsDataLabels;
@@ -895,8 +911,8 @@ interface HighchartsDataPoint {
     y?: number;
 }
 
-interface HighchartsSeriesOptions extends HighchartsSeriesChart{
-    data?: any[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
+interface HighchartsIndividualSeriesOptions {
+	data?: any[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
     index?: number;
     legendIndex?: number;
     name?: string;
@@ -905,6 +921,7 @@ interface HighchartsSeriesOptions extends HighchartsSeriesChart{
     xAxis?: number;
     yAxis?: number;
 }
+
 
 interface HighchartsSubtitleOptions {
     align?: string;
@@ -969,7 +986,7 @@ interface HighchartsOptions {
     navigation?: HighchartsNavigationOptions;
     pane?: HighchartsPaneOptions;
     plotOptions?: HighchartsPlotOptions;
-    series?: HighchartsSeriesOptions[];
+    series?: HighchartsIndividualSeriesOptions[];
     subtitle?: HighchartsSubtitleOptions;
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
@@ -994,8 +1011,8 @@ interface HighchartsAxisObject {
 }
 
 interface HighchartsChartObject {
-    addSeries(options: HighchartsSeriesOptions, redraw?: boolean, animation?: boolean): HighchartsSeriesOptions;
-    addSeries(options: HighchartsSeriesOptions, redraw?: boolean, animation?: HighchartsAnimation): HighchartsSeriesOptions;
+    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean): T;
+    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: HighchartsAnimation): T;
     addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean): HighchartsAxisObject;
     addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: HighchartsAnimation): HighchartsAxisObject;
     container: HTMLElement;
@@ -1104,7 +1121,7 @@ interface HighchartsSeriesObject {
     chart: HighchartsChartObject;
     data: HighchartsDataPoint[];
     hide(): void;
-    options: HighchartsSeriesOptions;
+    options: HighchartsIndividualSeriesOptions;
     remove(): void;
     remove(redraw: boolean): void;
     name: string;
