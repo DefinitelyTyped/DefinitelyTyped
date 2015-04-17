@@ -1034,6 +1034,7 @@ interface HighchartsChart {
 interface HighchartsElementObject {
     add(): HighchartsElementObject;
     add(parent: HighchartsElementObject): HighchartsElementObject;
+	animate(attributes: any, animation?: any): HighchartsElementObject;
     attr(hash: any): HighchartsElementObject;
     css(hash: HighchartsCSSObject): HighchartsElementObject;
     destroy(): void;
