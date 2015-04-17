@@ -28,8 +28,8 @@ export class TestController {
     };
 
     // get
-    $scope.getItem = (key : string) => {
-      return localStorageService.get(key);
+    $scope.getItem = (key) => {
+      return localStorageService.get<string>(key);
     };
 
     // remove
