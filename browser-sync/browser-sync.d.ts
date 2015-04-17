@@ -65,7 +65,7 @@ declare module "browser-sync" {
         }
         
         interface ServerOptions {
-            baseDir?: string;
+            baseDir?: string | string[];
             directory?: boolean;
             index?: string;
             routes?: {[path: string]: string};
