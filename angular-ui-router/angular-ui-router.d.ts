@@ -45,13 +45,15 @@ declare module angular.ui {
         views?: {};
         abstract?: boolean;
         /**
-         * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
+         * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
+         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
          */
-        onEnter?: Function;
+        onEnter?: Function|(string|Function)[];
         /**
          * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
+         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
          */
-        onExit?: Function;
+        onExit?: Function|(string|Function)[];
         /**
          * Arbitrary data object, useful for custom configuration.
          */
