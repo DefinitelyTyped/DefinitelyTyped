@@ -116,7 +116,7 @@ interface Results {
     function createTable(dbState: DbState, name: string, columns: string[], callback: (rec: SQLResultSet[]) => void) {
         var sqls: SqlQuery[] = [];
         var colDefs = columns.map((col) => {
-            var colType = null;
+            var colType: string = null;
             var type = col.charAt(0);
             switch (type) {
                 case 'i':
@@ -152,14 +152,14 @@ interface Results {
      * other - null
      */
     function createMockRecord(columns: string[]): any {
-        var rec = {};
+        var rec: { [id: string]: any } = {};
         for (var i = 0, size = columns.length; i < size; i++) {
             var col = columns[i];
             var type = col.charAt(0);
             switch (type) {
                 case 'i':
                 case 'l':
-                    rec[col] = parseInt(Math.random() * 1000000);
+                    rec[col] = parseInt((Math.random() * 1000000).toString());
                     break;
                 case 'f':
                 case 'd':
@@ -244,7 +244,7 @@ interface Results {
     function resultSetToResults(results: SQLResultSet[]) {
         var resObjs: Results[] = [];
         for (var i = 0, count = results.length; i < count; i++) {
-            var resAry = [];
+            var resAry: any[] = [];
             var sqlRsI = results[i];
             var resObj = {
                 data: resAry,
@@ -262,7 +262,7 @@ interface Results {
     }
 
 
-    function compareRecords(rec1, rec2): boolean {
+    function compareRecords(rec1: any, rec2: any): boolean {
         var props = Object.keys(rec1);
         for (var i = 0, size = props.length; i < size; i++) {
             var prop = props[i];
