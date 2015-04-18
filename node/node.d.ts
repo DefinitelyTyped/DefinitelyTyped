@@ -679,8 +679,8 @@ declare module "child_process" {
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string,
         callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[],
