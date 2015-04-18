@@ -410,7 +410,7 @@ interface HighchartsPaneBackground {
 
 interface HighchartsPaneOptions {
     background?: HighchartsPaneBackground[];
-    center?: any[]; // [x,y] | ["50%","50%" ]
+    center?: [number|string, number|string]; // [x,y] | ["50%","50%" ]
     endAngle?: number;
     startAngle?: number;
 }
@@ -882,6 +882,20 @@ interface HighchartsPlotOptions {
     spline?: HighchartsSplineChart;
 }
 
+/* You will rarely, if ever, want to use this interface directly. Instead it is much more useful to use one of the derived
+ * interfaces (HighchartsAreaChartSeriesOptions, HighchartsLineChartSeriesOptions, etc.)
+ */
+interface HighchartsIndividualSeriesOptions {
+    data?: number[]|[number, number][]| HighchartsDataPoint[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
+    index?: number;
+    legendIndex?: number;
+    name?: string;
+    stack?: any; // type doesn't matter, as long as grouped series' stack options match each other.
+    type?: string;
+    xAxis?: number;
+    yAxis?: number;
+}
+
 interface HighchartsSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSeriesChart { }
 interface HighchartsAreaChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
 interface HighchartsAreaRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
@@ -896,8 +910,6 @@ interface HighchartsPieChartSeriesOptions extends HighchartsIndividualSeriesOpti
 interface HighchartsScatterChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsScatterChart { }
 interface HighchartsSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSplineChart { }
 
-
-
 interface HighchartsDataPoint {
     color?: string;
     dataLabels?: HighchartsDataLabels;
@@ -910,18 +922,6 @@ interface HighchartsDataPoint {
     x?: number;
     y?: number;
 }
-
-interface HighchartsIndividualSeriesOptions {
-	data?: any[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
-    index?: number;
-    legendIndex?: number;
-    name?: string;
-    stack?: any; // String | Number | any to match
-    type?: string;
-    xAxis?: number;
-    yAxis?: number;
-}
-
 
 interface HighchartsSubtitleOptions {
     align?: string;
@@ -956,7 +956,7 @@ interface HighchartsTooltipOptions {
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
-    crosshairs?: any; // boolean | [boolean,bool] | CrosshairObject | [CrosshairObject,CrosshairObject]
+    crosshairs?: boolean |[boolean, boolean]| HighchartsCrosshairObject |[HighchartsCrosshairObject, HighchartsCrosshairObject];
     enabled?: boolean;
     footerFormat?: string;
     formatter?: () => any;
@@ -1020,7 +1020,7 @@ interface HighchartsChartObject {
     exportChart(): void;
     exportChart(options: HighchartsExportingOptions): void;
     exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsChartOptions): void;
-    get(id: string): any; // Axis|Series|Point
+    get(id: string): HighchartsAxisObject | HighchartsSeriesObject | HighchartsPointObject;
     getSVG(): string;
     getSVG(additionalOptions: HighchartsChartOptions): string;
     getSelectedPoints(): HighchartsPointObject[];
@@ -1089,7 +1089,7 @@ interface HighchartsStatic {
 declare var Highcharts: HighchartsStatic;
 
 interface HighchartsPointObject {
-    category: any; // String|Number
+    category: string | number;
     percentage: number;
     remove(): void;
     remove(redraw: boolean): void;
