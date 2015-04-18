@@ -1,4 +1,4 @@
-// Type definitions for Angular Material 0.9.0-rc1+ (angular.material module)
+// Type definitions for Angular Material 0.8.3+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -9,15 +9,13 @@ declare module angular.material {
     interface MDBottomSheetOptions {
         templateUrl?: string;
         template?: string;
-        scope?: angular.IScope; // default: new child scope
-        preserveScope?: boolean; // default: false
-        controller?: string|Function;
+        controller?: any;
         locals?: {[index: string]: any};
-        targetEvent?: MouseEvent;
+        targetEvent?: any;
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
-        parent?: string|Element|JQuery; // default: root node
-        disableParentScroll?: boolean; // default: true
+        parent?: Element;
+        disableParentScroll?: boolean;
     }
 
     interface MDBottomSheetService {
@@ -29,7 +27,7 @@ declare module angular.material {
     interface MDPresetDialog<T> {
         title(title: string): T;
         content(content: string): T;
-        ok(ok: string): T;
+        ok(content: string): T;
         theme(theme: string): T;
     }
 
@@ -37,31 +35,28 @@ declare module angular.material {
     }
 
     interface MDConfirmDialog extends MDPresetDialog<MDConfirmDialog> {
-        cancel(cancel: string): MDConfirmDialog;
+        cancel(reason?: string): MDConfirmDialog;
     }
 
     interface MDDialogOptions {
         templateUrl?: string;
         template?: string;
-        targetEvent?: MouseEvent;
-        scope?: angular.IScope; // default: new child scope
-        preserveScope?: boolean; // default: false
-        disableParentScroll?: boolean; // default: true
-        hasBackdrop?: boolean // default: true
-        clickOutsideToClose?: boolean; // default: false
-        escapeToClose?: boolean; // default: true
-        focusOnOpen?: boolean; // default: true
-        controller?: string|Function;
+        domClickEvent?: any;
+        disableParentScroll?: boolean;
+        clickOutsideToClose?: boolean;
+        hasBackdrop?: boolean;
+        escapeToClose?: boolean;
+        controller?: any;
         locals?: {[index: string]: any};
-        bindToController?: boolean; // default: false
+        bindToController?: boolean;
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
-        parent?: string|Element|JQuery; // default: root node
+        parent?: Element;
         onComplete?: Function;
     }
 
     interface MDDialogService {
-        show(dialog: MDDialogOptions|MDAlertDialog|MDConfirmDialog): angular.IPromise<any>;
+        show(dialog: MDDialogOptions|MDPresetDialog<any>): angular.IPromise<any>;
         confirm(): MDConfirmDialog;
         alert(): MDAlertDialog;
         hide(response?: any): void;
@@ -69,14 +64,14 @@ declare module angular.material {
     }
 
     interface MDIcon {
-        (id: string): angular.IPromise<Element>; // id is a unique ID or URL
+        (path: string): angular.IPromise<Element>;
     }
 
     interface MDIconProvider {
-        icon(id: string, url: string, iconSize?: string): MDIconProvider; // iconSize default: '24px'
-        iconSet(id: string, url: string, iconSize?: string): MDIconProvider; // iconSize default: '24px'
-        defaultIconSet(url: string, iconSize?: string): MDIconProvider; // iconSize default: '24px'
-        defaultIconSize(iconSize: string): MDIconProvider; // default: '24px'
+        icon(id: string, url: string, iconSize?: string): MDIconProvider;
+        iconSet(id: string, url: string, iconSize?: string): MDIconProvider;
+        defaultIconSet(url: string, iconSize?: string): MDIconProvider;
+        defaultIconSize(iconSize: string): MDIconProvider;
     }
 
     interface MDMedia {
@@ -84,9 +79,9 @@ declare module angular.material {
     }
 
     interface MDSidenavObject {
-        toggle(): angular.IPromise<void>;
-        open(): angular.IPromise<void>;
-        close(): angular.IPromise<void>;
+        toggle(): void;
+        open(): void;
+        close(): void;
         isOpen(): boolean;
         isLockedOpen(): boolean;
     }
@@ -110,16 +105,14 @@ declare module angular.material {
     interface MDToastOptions {
         templateUrl?: string;
         template?: string;
-        scope?: angular.IScope; // default: new child scope
-        preserveScope?: boolean; // default: false
-        hideDelay?: number; // default (ms): 3000
-        position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
-        controller?: string|Function;
+        hideDelay?: number;
+        position?: string;
+        controller?: any;
         locals?: {[index: string]: any};
-        bindToController?: boolean; // default: false
+        bindToController?: boolean;
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
-        parent?: string|Element|JQuery; // default: root node
+        parent?: Element;
     }
 
     interface MDToastService {
@@ -182,7 +175,6 @@ declare module angular.material {
 
     interface MDTheme {
         name: string;
-        isDark: boolean;
         colors: MDThemeColors;
         foregroundPalette: MDThemeGrayScalePalette;
         foregroundShadow: string;
