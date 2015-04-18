@@ -3,17 +3,12 @@
 // Definitions by: Paulo Cesar <https://github.com/pocesar/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var objectPath: objectPath.IObjectPathStatic;
+declare var objectPath: ObjectPathGlobal.IObjectPathStatic;
 
-declare module objectPath {
+declare module ObjectPathGlobal {
 
-    interface IStringArray {
-        [index: number]: string;
-    }
-
-    interface INumberArray {
-        [index: number]: number;
-    }
+    var Path: Array<number|string>|number|string;
+    var multiArray: Array<typeof Path>;
 
     interface IObjectPathStatic {
         /**
@@ -29,23 +24,11 @@ declare module objectPath {
          * @param {string[]|string} path
          * @return object
          */
-        del<T extends {}>(object: T, path: IStringArray): T;
+        del<T extends {}>(object: T, path: typeof Path): T;
         /**
          * @see objectPath.del
          */
-        del<T extends {}>(object: T, path: INumberArray): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T, path: number): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T, path: string): T;
-        /**
-         * @see objectPath.del
-         */
-        del<T extends {}>(object: T): T;
+        del<T extends {}>(object: T):T;
         /**
          * @see objectPath.del
          */
@@ -58,19 +41,7 @@ declare module objectPath {
          * @param {string[]|string} path
          * @return object
          */
-        has<T extends {}>(object: T, path: IStringArray): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has<T extends {}>(object: T, path: INumberArray): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has<T extends {}>(object: T, path: string): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has<T extends {}>(object: T, path: number): boolean;
+        has<T extends {}>(object: T, path: typeof Path): boolean;
         /**
          * @see objectPath.has
          */
@@ -87,19 +58,7 @@ declare module objectPath {
          * @param {string|string[]|number|number[]} path
          * @param {*} [defaultValue=undefined]
          */
-        get<T extends {}, TResult>(object: T, path: string, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}, TResult>(object: T, path: IStringArray, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}, TResult>(object: T, path: number, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<T extends {}, TResult>(object: T, path: INumberArray, defaultValue?: TResult): TResult;
+        get<T extends {}, TResult>(object: T, path: typeof Path, defaultValue?: TResult): TResult;
         /**
          * @see objectPath.get
          */
@@ -118,19 +77,7 @@ declare module objectPath {
          * @param {boolean} [doNotReplace=false]
          * @return Any existing value on the path if any
          */
-        set<T extends {}, TExisting>(object: T, path: string, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}, TExisting>(object: T, path: number, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}, TExisting>(object: T, path: IStringArray, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<T extends {}, TExisting>(object: T, path: INumberArray, value: any, doNotReplace?:boolean): TExisting;
+        set<T extends {}, TExisting>(object: T, path: typeof Path, value: any, doNotReplace?:boolean): TExisting;
         /**
          * @see objectPath.set
          */
@@ -145,19 +92,7 @@ declare module objectPath {
          * Create (if path isn't an array) and push the value to it. Can push unlimited number of values
          * @param {object} object
          */
-        push<T extends {}>(object: T, path: INumberArray, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push<T extends {}>(object: T, path: IStringArray, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push<T extends {}>(object: T, path: number, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push<T extends {}>(object: T, path: string, ...args:any[]):void;
+        push<T extends {}>(object: T, path: typeof Path, ...args:any[]):void;
         /**
          * @see objectPath.push
          */
@@ -171,19 +106,7 @@ declare module objectPath {
          * @param {*} defaultValue
          * @return {*}
          */
-        coalesce<T extends {}, TResult>(object: T, paths: IStringArray, defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<T extends {}, TResult>(object: T, paths: INumberArray, defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<T extends {}, TResult>(object: T, paths: IStringArray[], defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<T extends {}, TResult>(object: T, paths: INumberArray[], defaultValue?: any):TResult;
+        coalesce<T extends {}, TResult>(object: T, paths: typeof multiArray, defaultValue?: TResult):TResult;
 
         /*======== Empty =========*/
         /**
@@ -192,19 +115,7 @@ declare module objectPath {
          * @param {object} object
          * @param {string|string[]|number[]} path
          */
-        empty<T extends {}, TResult>(object: T, path: string):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}, TResult>(object: T, path: INumberArray):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}, TResult>(object: T, path: IStringArray):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<T extends {}, TResult>(object: T, path: number):TResult;
+        empty<T extends {}, TResult>(object: T, path: typeof Path):TResult;
         /**
          * @see objectPath.empty
          */
@@ -220,19 +131,7 @@ declare module objectPath {
          * @param {object} object
          * @param {string|string[]|number|number[]} path
          */
-        ensureExists<T extends {}, TResult>(object: T, path: string, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}, TResult>(object: T, path: number, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}, TResult>(object: T, path: INumberArray, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<T extends {}, TResult>(object: T, path: IStringArray, value: any):TResult;
+        ensureExists<T extends {}, TExisting>(object: T, path: typeof Path, value: any):TExisting;
         /**
          * @see objectPath.ensureExists
          */
@@ -250,19 +149,7 @@ declare module objectPath {
          * @param {*} value
          * @param {number} [at=0]
          */
-        insert<T extends {}>(object: T, path: string, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert<T extends {}>(object: T, path: INumberArray, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert<T extends {}>(object: T, path: IStringArray, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert<T extends {}>(object: T, path: number, value: any, at?: number):void;
+        insert<T extends {}>(object: T, path: typeof Path, value: any, at?: number):void;
     }
 
     interface IObjectPathBound<T extends {}> {
@@ -271,19 +158,7 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        del(path: IStringArray): T;
-        /**
-         * @see objectPath.del
-         */
-        del(path: INumberArray): T;
-        /**
-         * @see objectPath.del
-         */
-        del(path: number): T;
-        /**
-         * @see objectPath.del
-         */
-        del(path: string): T;
+        del(path: typeof Path): T;
         /**
          * @see objectPath.del
          */
@@ -293,19 +168,7 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        has(path: IStringArray): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has(path: INumberArray): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has(path: string): boolean;
-        /**
-         * @see objectPath.has
-         */
-        has(path: number): boolean;
+        has(path: typeof Path): boolean;
         /**
          * @see objectPath.has
          */
@@ -315,19 +178,7 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        get<TResult>(path: string, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<TResult>(path: IStringArray, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<TResult>(path: number, defaultValue?: TResult): TResult;
-        /**
-         * @see objectPath.get
-         */
-        get<TResult>(path: INumberArray, defaultValue?: TResult): TResult;
+        get<TResult>(path: typeof Path, defaultValue?: TResult): TResult;
         /**
          * @see objectPath.get
          */
@@ -337,19 +188,7 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        set<TExisting>(path: string, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<TExisting>(path: number, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<TExisting>(path: IStringArray, value: any, doNotReplace?:boolean): TExisting;
-        /**
-         * @see objectPath.set
-         */
-        set<TExisting>(path: INumberArray, value: any, doNotReplace?:boolean): TExisting;
+        set<TExisting>(path: typeof Path, value: any, doNotReplace?:boolean): TExisting;
         /**
          * @see objectPath.set
          */
@@ -359,19 +198,7 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        push(path: INumberArray, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push(path: IStringArray, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push(path: number, ...args:any[]):void;
-        /**
-         * @see objectPath.push
-         */
-        push(path: string, ...args:any[]):void;
+        push(path: typeof Path, ...args:any[]):void;
         /**
          * @see objectPath.push
          */
@@ -381,37 +208,13 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        coalesce<TResult>(paths: IStringArray, defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<TResult>(paths: INumberArray, defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<TResult>(paths: IStringArray[], defaultValue?: any):TResult;
-        /**
-         * @see objectPath.coalesce
-         */
-        coalesce<TResult>(paths: INumberArray[], defaultValue?: any):TResult;
+        coalesce<TResult>(paths: typeof multiArray, defaultValue?: TResult):TResult;
 
         /*======== Empty =========*/
         /**
          * @see objectPath.ensureExists
          */
-        empty<TResult>(path: string):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<TResult>(path: INumberArray):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<TResult>(path: IStringArray):TResult;
-        /**
-         * @see objectPath.empty
-         */
-        empty<TResult>(path: number):TResult;
+        empty(path: typeof Path):T;
         /**
          * @see objectPath.empty
          */
@@ -421,19 +224,7 @@ declare module objectPath {
         /**
          * @see objectPath.ensureExists
          */
-        ensureExists<TResult>(path: string, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<TResult>(path: number, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<TResult>(path: INumberArray, value: any):TResult;
-        /**
-         * @see objectPath.ensureExists
-         */
-        ensureExists<TResult>(path: IStringArray, value: any):TResult;
+        ensureExists<TExisting>(path: typeof Path, value: any):TExisting;
         /**
          * @see objectPath.ensureExists
          */
@@ -443,19 +234,7 @@ declare module objectPath {
         /**
          * @see objectPath.insert
          */
-        insert(path: string, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert(path: INumberArray, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert(path: IStringArray, value: any, at?: number):void;
-        /**
-         * @see objectPath.insert
-         */
-        insert(path: number, value: any, at?: number):void;
+        insert(path: typeof Path, value: any, at?: number):void;
     }
 }
 
