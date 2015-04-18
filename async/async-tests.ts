@@ -320,6 +320,10 @@ async.nextTick(function () {
 });
 call_order.push('one');
 
+async.times(4, function (n, callback) { });
+
+async.times(4, function (n, callback) { }, function (err, results) { });
+
 var slow_fn = function (name, callback) {
     callback(null, 123);
 };

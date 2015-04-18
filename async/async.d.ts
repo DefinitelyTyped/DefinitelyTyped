@@ -9,7 +9,7 @@ interface ErrorCallback { (err?: Error): void; }
 interface AsyncResultCallback<T> { (err: Error, result: T): void; }
 interface AsyncResultArrayCallback<T> { (err: Error, results: T[]): void; }
 interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): void; }
-interface AsyncTimesCallback<T> { (n: number, callback: AsyncResultArrayCallback<T>): void; }
+interface AsyncTimesCallback<T> { (n: number, callback: AsyncResultCallback<T>): void; }
 
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
@@ -105,8 +105,8 @@ interface Async {
     apply(fn: Function, ...arguments: any[]): AsyncFunction<any>;
     nextTick(callback: Function): void;
 
-    times<T> (n: number, callback: AsyncTimesCallback<T>): void;
-    timesSeries<T> (n: number, callback: AsyncTimesCallback<T>): void;
+    times<T> (n: number, iterator: AsyncTimesCallback<T>, callback?: AsyncResultArrayCallback<T>): void;
+    timesSeries<T> (n: number, iterator: AsyncTimesCallback<T>, callback?: AsyncResultArrayCallback<T>): void;
 
     // Utils
     memoize(fn: Function, hasher?: Function): Function;
