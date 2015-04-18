@@ -74,7 +74,7 @@ declare module "yargs" {
 			help(): string;
 			help(option: string, description?: string): Argv;
 
-			version(version: string, option: string, description?: string): Argv;
+			version(version: string, option?: string, description?: string): Argv;
 
 			showHelpOnFail(enable: boolean, message?: string): Argv;
 
