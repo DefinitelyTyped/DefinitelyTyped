@@ -16,7 +16,7 @@ interface FooBarInterface {
   greet() : string;
 }
 
-export class Foo implements FooInterface {
+class Foo implements FooInterface {
   public name : string;
   constructor() {
     this.name = "foo";
@@ -67,8 +67,8 @@ kernel.bind(fooBarBinding);
 
 // Resolve
 var foo = kernel.resolve<Foo>(fooRuntimeIdentifier);
-var bar = kernel.resolve<Foo>(barRuntimeIdentifier);
-var fooBar = kernel.resolve<Foo>(fooBarRuntimeIdentifier);
+var bar = kernel.resolve<Bar>(barRuntimeIdentifier);
+var fooBar = kernel.resolve<FooBar>(fooBarRuntimeIdentifier);
 
 // Unbind
 kernel.unbind(fooRuntimeIdentifier);
