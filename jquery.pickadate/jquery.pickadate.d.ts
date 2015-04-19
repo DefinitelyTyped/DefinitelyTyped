@@ -260,7 +260,8 @@ declare module Pickadate {
          * By default, any callbacks bound with the on method will be fired when its relevant thing is set.
          * To silently set a thing, pass an options object with the muted parameter set to true.
          */
-        muted: boolean;
+        muted?: boolean;
+        format?: string;
     }
 
     interface Picker<TPickerObject, TItemObject extends Item, TOptions extends SetObject> {
