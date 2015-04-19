@@ -255,6 +255,14 @@ declare module Pickadate {
         interval?: number;
     }
 
+    interface SetOptions {
+        /**
+         * By default, any callbacks bound with the on method will be fired when its relevant thing is set.
+         * To silently set a thing, pass an options object with the muted parameter set to true.
+         */
+        muted: boolean;
+    }
+
     interface Picker<TPickerObject, TItemObject extends Item, TOptions extends SetObject> {
         /** The picker's relative input element wrapped as a jQuery object. */
         $node: JQuery;
@@ -322,8 +330,8 @@ declare module Pickadate {
         get(thing: string, format: string): string;
 
         /** Set the properties, objects, and states to change the state of the picker. */
-        set(thing: string, value?: any, options?: any): TPickerObject;
-        set(things: TOptions, options?: any): TPickerObject;
+        set(thing: string, value?: any, options?: SetOptions): TPickerObject;
+        set(things: TOptions, options?: SetOptions): TPickerObject;
 
         /** Bind callbacks to get fired off when the relative picker method is called. */
         on(methodName: string, callback: (data?: any) => void): TPickerObject;

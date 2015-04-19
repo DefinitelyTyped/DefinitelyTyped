@@ -421,6 +421,26 @@ picker.get('id');
 picker.get('enable');
 picker.get('disable');
 
+// Set multiple at once
+picker.set({
+    select: new Date(2015, 3, 20),
+    highlight: [2015, 3, 20],
+    min: -4
+});
+
+// Muted callbacks
+
+// One at a time
+picker.set('disable', 'flip', { muted: true })
+
+// Multiple at once
+picker.set({
+    select: [1988, 7, 14],
+    view: new Date(1988, 7, 14),
+    max: 4
+}, { muted: true });
+
+// Clear the value in the picker’s input element.
 picker.set('clear');
 
 // Set select for a date item object
