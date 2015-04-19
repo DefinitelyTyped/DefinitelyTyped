@@ -537,19 +537,19 @@ declare module "express" {
             sendFile(path: string, options: any, fn: Errback): void;
 
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, options: any): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, fn: Errback): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, options: any, fn: Errback): void;
 
