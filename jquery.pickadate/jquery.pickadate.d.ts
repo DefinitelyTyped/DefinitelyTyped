@@ -280,11 +280,11 @@ declare module Pickadate {
         stop(): TPickerObject;
 
         /**
-        * Refresh the picker box after adding something to the holder.
-        * By default, only the "face" of the picker (i.e. the box element)
-        * has it’s contents re-rendered. To render the entire picker from 
-        * the root up, pass true as the first argument.
-        */
+         * Refresh the picker box after adding something to the holder.
+         * By default, only the "face" of the picker (i.e. the box element)
+         * has it’s contents re-rendered. To render the entire picker from 
+         * the root up, pass true as the first argument.
+         */
         render(entirePicker?: boolean): TPickerObject;
 
         /** Clear the value in the picker's input element. */
