@@ -39,6 +39,10 @@ interface IKey {
     code: number;
 }
 
+interface IDictionary<T> {
+    [index: string]: T;
+}
+
 var foodsOrganic: IFoodOrganic[] = [
     { name: 'banana', organic: true },
     { name: 'beet', organic: false },
@@ -61,7 +65,10 @@ var stoogesAges: IStoogesAge[] = [
     { 'name': 'moe', 'age': 40 },
     { 'name': 'larry', 'age': 50 }
 ];
-
+var stoogesAgesDict: IDictionary<IStoogesAge> = {
+    first: { 'name': 'moe', 'age': 40 },
+    second: { 'name': 'larry', 'age': 50 }
+};
 var stoogesCombined: IStoogesCombined[] = [
     { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
     { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
@@ -500,6 +507,23 @@ result = <IStoogesAge>_.min(stoogesAges, 'age');
 result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
+
+result = <number>_.sum([4, 2, 8, 6]);
+result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
+result = <number>_.sum({a: 2, b: 4});
+result = <number>_.sum({a: 2, b: 4}, function(v) { return v; });
+result = <number>_.sum(stoogesAges, function (stooge) { return stooge.age; });
+result = <number>_.sum(stoogesAges, 'age');
+result = <number>_.sum(stoogesAgesDict, function(stooge) { return stooge.age; });
+result = <number>_.sum(stoogesAgesDict, 'age');
+result = <number>_([4, 2, 8, 6]).sum();
+result = <number>_([4, 2, 8, 6]).sum(function(v) { return v; });
+result = <number>_({a: 2, b: 4}).sum();
+result = <number>_({a: 2, b: 4}).sum(function(v) { return v; });
+result = <number>_(stoogesAges).sum(function (stooge) { return stooge.age; });
+result = <number>_(stoogesAges).sum('age');
+result = <number>_(stoogesAgesDict).sum(function (stooge) { return stooge.age; });
+result = <number>_(stoogesAgesDict).sum('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
