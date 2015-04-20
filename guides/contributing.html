@@ -110,7 +110,7 @@
 <p>The typing must have tests in a files called <code>library-tests.ts</code>. The tests are not runnable in the TDD way but contain code that should compile with no errors, usually taken from the documentation samples of the library.</p>
 <p>Example: <code>backbone.d.ts</code> has a test file named <code>backbone-tests.ts</code>, with this <a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/backbone/backbone-tests.ts">example of a real test file</a>.</p>
 <p>There are a few ways to test changes:</p>
-<div class="ui ordered list"><div class="ui item">Simply compile the test file:<div class="ui list"><div class="ui item"><code>tsc --noImplicitAny your/code.-tests.ts</code></div>
+<div class="ui ordered list"><div class="ui item">Simply compile the test file:<div class="ui list"><div class="ui item"><code>tsc --noImplicitAny your/code-tests.ts</code></div>
 <div class="ui item"><code>tsc --noImplicitAny --module commonjs your/code-tests.ts</code></div>
 </div></div>
 <div class="ui item">Run <code>npm test</code> before sending your pull request.<div class="ui list"><div class="ui item">If you created new files add them to git so the tester picks them as changes.</div>
