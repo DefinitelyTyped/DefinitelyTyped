@@ -21,6 +21,14 @@ declare module MailcheckModule {
         (element: JQuery, suggested: ISuggestion): void;
     }
 
+    export interface IJQueryEmpty {
+        (element: JQuery): void;
+    }
+
+    export interface IEmpty {
+        (): void;
+    }
+
     export interface ISuggested {
         (suggested: ISuggestion): void;
     }
@@ -41,13 +49,8 @@ declare module MailcheckModule {
         domains?: string[];
         topLevelDomains?: string[];
         distanceFunction?: IDistanceFunction;
-        suggested?: ISuggested;
-        empty?: () => void;
-    }
-
-    export interface IJQueryOptions extends IOptions {
-        suggested?: IJQuerySuggested;
-        empty?: (element: JQuery) => void;
+        suggested?: ISuggested | IJQuerySuggested;
+        empty?: IEmpty | IJQueryEmpty;
     }
 
     export interface Static {
@@ -67,7 +70,7 @@ declare module MailcheckModule {
 }
 
 interface JQuery {
-    mailcheck(opts: MailcheckModule.IJQueryOptions): void;
+    mailcheck(opts: MailcheckModule.IOptions): void;
 }
 
 declare module 'mailcheck' {
