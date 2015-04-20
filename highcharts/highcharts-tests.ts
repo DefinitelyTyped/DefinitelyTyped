@@ -1,6 +1,19 @@
 ﻿/// <reference path="highcharts.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
+
+Highcharts.setOptions({
+    lang: {
+        months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+    }
+});
+
 
 var animate: HighchartsAnimation = {
     duration: 200,
@@ -121,6 +134,6 @@ var highChartSettings: HighchartsOptions = {
     }]
 };
 
-var container = $("#container").highcharts(highChartSettings, function (chart) {
+var container = $("#container").highcharts(highChartSettings, (chart) => {
     chart.series[0].setVisible(true, true);
 });
