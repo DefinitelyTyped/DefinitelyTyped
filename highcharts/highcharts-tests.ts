@@ -29,10 +29,21 @@ var chart1 = new Highcharts.Chart({
     },
     xAxis: [{
     }],
-    series: [{
-        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+    series: [<HighchartsLineChartSeriesOptions>{
+        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        type: "line",
+        allowPointSelect: true
     }]
 });
+
+
+chart1.addSeries<HighchartsBarChartSeriesOptions>({
+    enableMouseTracking: true,
+    data: [1, 2, 3, 4, 5]
+});
+
+
+console.log((<HighchartsLineChartSeriesOptions>chart1.series[0].options).dashStyle);
 
 var chart2 = new Highcharts.Chart({
     chart: {
@@ -63,7 +74,7 @@ var chart2 = new Highcharts.Chart({
     legend: {
         enabled: false
     },
-    series: [{
+    series: [<HighchartsScatterChartSeriesOptions>{
         data: [
             [550, 870], [738, 362], [719, 711], [547, 665], [595, 197], [332, 144],
             [581, 555], [196, 862], [6, 837], [400, 924], [888, 148], [785, 730],
@@ -105,7 +116,7 @@ var highChartSettings: HighchartsOptions = {
     },
     xAxis: [{
     }],
-    series: [{
+    series: [<HighchartsPieChartSeriesOptions>{
         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
     }]
 };
@@ -113,7 +124,3 @@ var highChartSettings: HighchartsOptions = {
 var container = $("#container").highcharts(highChartSettings, function (chart) {
     chart.series[0].setVisible(true, true);
 });
-
-var options = Highcharts.getOptions();
-
-var options2 = Highcharts.setOptions(options);
