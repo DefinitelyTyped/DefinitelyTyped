@@ -29,6 +29,9 @@ _infrastructure/tests/build
 *.iml
 *.js.map
 
+#decimal.js
+!decimal.js
+
 #rx.js
 !rx.js
 
