@@ -410,7 +410,7 @@ interface HighchartsPaneBackground {
 
 interface HighchartsPaneOptions {
     background?: HighchartsPaneBackground[];
-    center?: any[]; // [x,y] | ["50%","50%" ]
+    center?: [number|string, number|string]; // [x,y] | ["50%","50%" ]
     endAngle?: number;
     startAngle?: number;
 }
@@ -882,6 +882,34 @@ interface HighchartsPlotOptions {
     spline?: HighchartsSplineChart;
 }
 
+/* You will rarely, if ever, want to use this interface directly. Instead it is much more useful to use one of the derived
+ * interfaces (HighchartsAreaChartSeriesOptions, HighchartsLineChartSeriesOptions, etc.)
+ */
+interface HighchartsIndividualSeriesOptions {
+    data?: number[]|[number, number][]| HighchartsDataPoint[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
+    index?: number;
+    legendIndex?: number;
+    name?: string;
+    stack?: any; // type doesn't matter, as long as grouped series' stack options match each other.
+    type?: string;
+    xAxis?: number;
+    yAxis?: number;
+}
+
+interface HighchartsSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSeriesChart { }
+interface HighchartsAreaChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
+interface HighchartsAreaRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
+interface HighchartsAreaSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
+interface HighchartsAreaSplineRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
+interface HighchartsBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart { }
+interface HighchartsColumnChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart { }
+interface HighchartsColumnRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnRangeChart { }
+interface HighchartsGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsGaugeChart { }
+interface HighchartsLineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsLineChart { }
+interface HighchartsPieChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPieChart { }
+interface HighchartsScatterChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsScatterChart { }
+interface HighchartsSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSplineChart { }
+
 interface HighchartsDataPoint {
     color?: string;
     dataLabels?: HighchartsDataLabels;
@@ -893,17 +921,6 @@ interface HighchartsDataPoint {
     sliced?: boolean;
     x?: number;
     y?: number;
-}
-
-interface HighchartsSeriesOptions extends HighchartsSeriesChart{
-    data?: any[]; // [value1,value2, ... ] | [[x1,y1],[x2,y2],... ] | HighchartsDataPoint[]
-    index?: number;
-    legendIndex?: number;
-    name?: string;
-    stack?: any; // String | Number | any to match
-    type?: string;
-    xAxis?: number;
-    yAxis?: number;
 }
 
 interface HighchartsSubtitleOptions {
@@ -939,7 +956,7 @@ interface HighchartsTooltipOptions {
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
-    crosshairs?: any; // boolean | [boolean,bool] | CrosshairObject | [CrosshairObject,CrosshairObject]
+    crosshairs?: boolean |[boolean, boolean]| HighchartsCrosshairObject |[HighchartsCrosshairObject, HighchartsCrosshairObject];
     enabled?: boolean;
     footerFormat?: string;
     formatter?: () => any;
@@ -969,7 +986,7 @@ interface HighchartsOptions {
     navigation?: HighchartsNavigationOptions;
     pane?: HighchartsPaneOptions;
     plotOptions?: HighchartsPlotOptions;
-    series?: HighchartsSeriesOptions[];
+    series?: HighchartsIndividualSeriesOptions[];
     subtitle?: HighchartsSubtitleOptions;
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
@@ -994,8 +1011,8 @@ interface HighchartsAxisObject {
 }
 
 interface HighchartsChartObject {
-    addSeries(options: HighchartsSeriesOptions, redraw?: boolean, animation?: boolean): HighchartsSeriesOptions;
-    addSeries(options: HighchartsSeriesOptions, redraw?: boolean, animation?: HighchartsAnimation): HighchartsSeriesOptions;
+    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean): T;
+    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: HighchartsAnimation): T;
     addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean): HighchartsAxisObject;
     addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: HighchartsAnimation): HighchartsAxisObject;
     container: HTMLElement;
@@ -1003,7 +1020,7 @@ interface HighchartsChartObject {
     exportChart(): void;
     exportChart(options: HighchartsExportingOptions): void;
     exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsChartOptions): void;
-    get(id: string): any; // Axis|Series|Point
+    get(id: string): HighchartsAxisObject | HighchartsSeriesObject | HighchartsPointObject;
     getSVG(): string;
     getSVG(additionalOptions: HighchartsChartOptions): string;
     getSelectedPoints(): HighchartsPointObject[];
@@ -1034,6 +1051,7 @@ interface HighchartsChart {
 interface HighchartsElementObject {
     add(): HighchartsElementObject;
     add(parent: HighchartsElementObject): HighchartsElementObject;
+	animate(attributes: any, animation?: any): HighchartsElementObject;
     attr(hash: any): HighchartsElementObject;
     css(hash: HighchartsCSSObject): HighchartsElementObject;
     destroy(): void;
@@ -1071,7 +1089,7 @@ interface HighchartsStatic {
 declare var Highcharts: HighchartsStatic;
 
 interface HighchartsPointObject {
-    category: any; // String|Number
+    category: string | number;
     percentage: number;
     remove(): void;
     remove(redraw: boolean): void;
@@ -1103,7 +1121,7 @@ interface HighchartsSeriesObject {
     chart: HighchartsChartObject;
     data: HighchartsDataPoint[];
     hide(): void;
-    options: HighchartsSeriesOptions;
+    options: HighchartsIndividualSeriesOptions;
     remove(): void;
     remove(redraw: boolean): void;
     name: string;
