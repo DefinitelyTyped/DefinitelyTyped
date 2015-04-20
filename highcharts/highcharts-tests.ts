@@ -2,14 +2,19 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 
-var animate: HighchartsBoolOrAnimation;
-animate = true;
-animate = { duration: 200, easing: "linear" };
+var animate: HighchartsAnimation = {
+    duration: 200,
+    easing: "linear"
+};
 
 
-var gradient: HighchartsColorOrGradient;
-gradient = {
-    linearGradient: { x0: 0, y0: 0, x1: 500, y1: 500 },
+var gradient: HighchartsGradient = {
+    linearGradient: {
+        x0: 0,
+        y0: 0,
+        x1: 500,
+        y1: 500
+    },
     stops: [
         [0, 'rgb(255, 255, 255)'],
         [1, 'rgb(200, 200, 255)']
@@ -17,11 +22,6 @@ gradient = {
 }
 
 var color = "#fcfcff";
-
-var backgound: HighchartsColorOrGradient;
-
-backgound = gradient;
-backgound = color;
 
 var chart1 = new Highcharts.Chart({
     chart: {

@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 2.3.3
+// Type definitions for Highcharts 4.0.4
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -151,9 +151,6 @@ interface HighchartsAnimation {
     easing?: string; // "linear" | "swing"
 }
 
-interface HighchartsBoolOrAnimation extends HighchartsAnimation {
-}
-
 interface HighchartsSelectionEvent extends Event {
     xAxis: HighchartsAxisOptions[];
     yAxis: HighchartsAxisOptions[];
@@ -167,7 +164,7 @@ interface HighchartsChartEvents {
     selection?: (event: HighchartsSelectionEvent) => void;
 }
 
-interface HighchartsColorOrGradient {
+interface HighchartsGradient {
     linearGradient?: {
         x0: number; y0: number; x1: number; y1: number;
     };
@@ -175,12 +172,11 @@ interface HighchartsColorOrGradient {
         cx: number; cy: number; r: number;
     };
     stops?: any[][];
-
-    brighten?(amount: number): HighchartsColorOrGradient;
-    get?(type: string): string;
+    brighten? (amount: number): string | HighchartsGradient;
+    get? (type: string): string;
 }
 
-interface HighchartsBoolOrShadow {
+interface HighchartsShadow {
     color?: string;
     offsetX?: number;
     offsetY?: number;
@@ -191,21 +187,21 @@ interface HighchartsBoolOrShadow {
 interface HighchartsChartResetZoomButton {
     position: HighchartsPosition;
     relativeTo?: string;
-    theme?: HighchartsChartResetZoomButtonTheme; //TO DO
+    theme?: HighchartsChartResetZoomButtonTheme;
 }
 
 interface HighchartsChartResetZoomButtonTheme {
-    fill?:string; //css HEX colours. 
+    fill?: string; //css HEX colours. 
     stroke?: string;//css HEX colours. 
     r?: number; // Radius %
     states?: any; // HTML element states eg: hover, with css attributes in object. 
-    display?:string; // css attr eg: 'none' 
+    display?: string; // css attr eg: 'none' 
 }
 
 interface HighchartsChartOptions {
     alignTicks?: boolean;
-    animation?: HighchartsBoolOrAnimation;
-    backgroundColor?: HighchartsColorOrGradient;
+    animation?: boolean | HighchartsAnimation;
+    backgroundColor?: string | HighchartsGradient;
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
@@ -220,17 +216,17 @@ interface HighchartsChartOptions {
     marginLeft?: number;
     marginRight?: number;
     marginTop?: number;
-    plotBackGroundColor?: HighchartsColorOrGradient;
+    plotBackGroundColor?: string | HighchartsGradient;
     plotBackGroundImage?: string;
     plotBorderColor?: string;
     plotBorderWidth?: number;
-    plotShadow?: HighchartsBoolOrShadow;
+    plotShadow?: boolean | HighchartsShadow;
     polar?: boolean;
     reflow?: boolean;
     renderTo?: any;
     resetZoomButton?: HighchartsChartResetZoomButton;
     selectionMarkerFill?: string;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showAxes?: boolean;
     spacingBottom?: number;
     spacingLeft?: number;
@@ -272,7 +268,7 @@ interface HighchartsMenuItem {
 
 interface HighchartsButton {
     align?: string;
-    backgroundColor?: HighchartsColorOrGradient;
+    backgroundColor?: string | HighchartsGradient;
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
@@ -310,8 +306,10 @@ interface HighchartsExportingOptions {
 }
 
 interface HighchartsGlobalOptions {
+	Date?: any;
     VMLRadialGradientURL?: string;
     canvasToolsURL?: string;
+	timezoneOffset?: number;
     useUTC?: boolean;
 }
 
@@ -345,7 +343,7 @@ interface HighchartsLangOptions {
 
 interface HighchartsLegendNavigationOptions {
     activeColor?: string;
-    animation?: HighchartsBoolOrAnimation;
+    animation?: boolean | HighchartsAnimation;
     arrowSize?: number;
     inactiveColor?: string;
     style?: HighchartsCSSObject;
@@ -353,7 +351,7 @@ interface HighchartsLegendNavigationOptions {
 
 interface HighchartsLegendOptions {
     align?: string;
-    backgroundColor?: HighchartsColorOrGradient;
+    backgroundColor?: string | HighchartsGradient;
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
@@ -375,7 +373,7 @@ interface HighchartsLegendOptions {
     reversed?: boolean;
     rtl?: boolean;
     verticalAlign?: string;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     style?: HighchartsCSSObject;
     symbolPadding?: number;
     symbolWidth?: number;
@@ -401,7 +399,7 @@ interface HighchartsNavigationOptions {
 
 // Not sure of this interface
 interface HighchartsPaneBackground {
-    backgroundColor: HighchartsColorOrGradient;
+    backgroundColor: string | HighchartsGradient;
     borderColor?: string;
     borderWidth?: number;
     innerRadius?: string;
@@ -412,12 +410,13 @@ interface HighchartsPaneOptions {
     background?: HighchartsPaneBackground[];
     center?: [number|string, number|string]; // [x,y] | ["50%","50%" ]
     endAngle?: number;
+	size?: number | string;
     startAngle?: number;
 }
 
 interface HighchartsDataLabels {
     align?: string;
-    backgroundColor?: HighchartsColorOrGradient;
+    backgroundColor?: string | HighchartsGradient;
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
@@ -428,7 +427,7 @@ interface HighchartsDataLabels {
     overflow?: string;
     padding?: number;
     rotation?: number;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     staggerLines?: any; // ?? need to check API
     step?: any; // ?? need to check API
     style?: HighchartsCSSObject;
@@ -504,8 +503,8 @@ interface HighchartsAreaChart {
     dataLabels?: HighchartsDataLabels;
     enableMouseTracking?: boolean;
     events?: HighchartsPlotEvents;
-    fillColor?: HighchartsColorOrGradient;
-    fillOpacity?: boolean;
+    fillColor?: string | HighchartsGradient;
+    fillOpacity?: number;
     id?: string;
     lineColor?: string;
     lineWidth?: number;
@@ -514,10 +513,10 @@ interface HighchartsAreaChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     stacking?: string;
@@ -529,13 +528,13 @@ interface HighchartsAreaChart {
     tooltip?: HighchartsTooltipOptions;
     trackByArea?: boolean;
     turboThreshold?: number;
-    visible?: number;
+    visible?: boolean;
     zIndex?: number;
 }
 
 interface HighchartsRangeDataLabels {
     align?: string;
-    backgroundColor?: HighchartsColorOrGradient;
+    backgroundColor?: string | HighchartsGradient;
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
@@ -546,7 +545,7 @@ interface HighchartsRangeDataLabels {
     overflow?: string;
     padding?: number;
     rotation?: number;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     staggerLines?: any; // ?? need to check API
     step?: any; // ?? need to check API
     style?: HighchartsCSSObject;
@@ -569,8 +568,8 @@ interface HighchartsAreaRangeChart {
     dataLabels?: HighchartsRangeDataLabels;
     enableMouseTracking?: boolean;
     events?: HighchartsPlotEvents;
-    fillColor?: HighchartsColorOrGradient;
-    fillOpacity?: boolean;
+    fillColor?: string | HighchartsGradient;
+    fillOpacity?: number;
     id?: string;
     lineColor?: string;
     lineWidth?: number;
@@ -578,10 +577,10 @@ interface HighchartsAreaRangeChart {
         events: HighchartsPointEvents;
     };
     pointInterval?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     stacking?: string;
@@ -592,7 +591,7 @@ interface HighchartsAreaRangeChart {
     threshold?: number;
     trackByArea?: boolean;
     turboThreshold?: number;
-    visible?: number;
+    visible?: boolean;
     zIndex?: number;
 }
 
@@ -623,7 +622,7 @@ interface HighchartsBarChart {
     pointStart?: number;
     pointWidth?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     stacking?: string;
@@ -659,12 +658,12 @@ interface HighchartsColumnRangeChart {
     };
     pointInterval?: number;
     pointPadding?: number;
-    pointPlacement?: string; // null, "on", "between"
+    pointPlacement?: string | number; // null, "on", "between"
     pointRange?: number;
     pointStart?: number;
     pointWidth?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     stacking?: string;
@@ -743,7 +742,7 @@ interface HighchartsLineChart {
     pointPlacement?: string; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     stacking?: string;
@@ -771,7 +770,7 @@ interface HighchartsPieChart {
     events?: HighchartsPlotEvents;
     id?: string;
     ignoreHiddenPoint?: boolean;
-    innerSize?: any; // string or number;
+    innerSize?: number | string;
     lineWidth?: number;
     marker?: HighchartsMarker;
     point?: {
@@ -779,9 +778,9 @@ interface HighchartsPieChart {
     };
     pointPlacement?: string; // null, "on", "between"
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showInLegend?: boolean;
-    size?: any; // string or number;
+    size?: number | string;
     slicedOffset?: number;
     states?: {
         hover: HighchartsAreaStates;
@@ -813,7 +812,7 @@ interface HighchartsScatterChart {
     pointPlacement?: string; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     states?: {
@@ -849,7 +848,7 @@ interface HighchartsSeriesChart {
     pointPlacement?: string; // null, "on", "between"
     pointStart?: number;
     selected?: boolean;
-    shadow?: HighchartsBoolOrShadow;
+    shadow?: boolean | HighchartsShadow;
     showCheckbox?: boolean;
     showInLegend?: boolean;
     stacking?: string;
@@ -952,7 +951,7 @@ interface HighchartsPlotPoint {
 
 interface HighchartsTooltipOptions {
     animation?: boolean;
-    backgroundColor?: HighchartsColorOrGradient;
+    backgroundColor?: string | HighchartsGradient;
     borderColor?: string;
     borderRadius?: number;
     borderWidth?: number;
@@ -1005,7 +1004,7 @@ interface HighchartsAxisObject {
     setCategories(categories: string[], redraw: boolean): void;
     setExtremes(min: number, max: number): void;
     setExtremes(min: number, max: number, redraw: boolean): void;
-    setExtremes(min: number, max: number, redraw: boolean, animation: HighchartsBoolOrAnimation): void;
+    setExtremes(min: number, max: number, redraw: boolean, animation: boolean | HighchartsAnimation): void;
     setTitle(title: HighchartsAxisTitle): void;
     setTitle(title: HighchartsAxisTitle, redraw: boolean): void;
 }
@@ -1031,8 +1030,8 @@ interface HighchartsChartObject {
     redraw(): void;
     series: HighchartsSeriesObject[];
     setSize(width: number, height: number): void;
-    setSize(width: number, height: number, anumation: boolean): void;
-    setSize(width: number, height: number, anumation: HighchartsAnimation): void;
+    setSize(width: number, height: number, animation: boolean): void;
+    setSize(width: number, height: number, animation: HighchartsAnimation): void;
     setTitle(title: HighchartsTitleOptions): void;
     setTitle(title: HighchartsTitleOptions, subtitle: HighchartsSubtitleOptions): void;
     showLoading(): void;
@@ -1045,18 +1044,18 @@ interface HighchartsChartObject {
 
 interface HighchartsChart {
     new (options: HighchartsOptions): HighchartsChartObject;
-    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void ): HighchartsChartObject;
+    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
 }
 
 interface HighchartsElementObject {
     add(): HighchartsElementObject;
     add(parent: HighchartsElementObject): HighchartsElementObject;
-	animate(attributes: any, animation?: any): HighchartsElementObject;
+    animate(attributes: any, animation?: any): HighchartsElementObject;
     attr(hash: any): HighchartsElementObject;
     css(hash: HighchartsCSSObject): HighchartsElementObject;
     destroy(): void;
     getBBox(): { x: number; y: number; height: number; width: number; };
-    on(eventType: string, handler: () => void ): HighchartsElementObject;
+    on(eventType: string, handler: () => void): HighchartsElementObject;
     toFront(): HighchartsElementObject;
 }
 
@@ -1077,7 +1076,7 @@ interface HighchartsRenderer {
 interface HighchartsStatic {
     Chart: HighchartsChart;
     Renderer: HighchartsRenderer;
-    Color(color: HighchartsColorOrGradient): HighchartsColorOrGradient;
+    Color(color: string | HighchartsGradient): string | HighchartsGradient;
 
     dateFormat(format: string, time?: number, capitalize?: boolean): string;
     numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
