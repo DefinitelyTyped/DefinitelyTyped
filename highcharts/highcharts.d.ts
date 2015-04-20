@@ -1194,10 +1194,10 @@ interface HighchartsAxisObject {
 interface HighchartsChartObject {
     addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | HighchartsAnimation): HighchartsAxisObject;
     addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | HighchartsAnimation): T;
-    addSeriesAsDrilldown(point: HighchartsPointObject, seriesOptions: HighchartsSeriesOptions);
+    addSeriesAsDrilldown(point: HighchartsPointObject, seriesOptions: HighchartsSeriesOptions): void;
     container: HTMLElement;
     destroy(): void;
-    drillUp();
+    drillUp(): void;
     exportChart(): void;
     exportChart(options: HighchartsExportingOptions): void;
     exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsChartOptions): void;
@@ -1323,7 +1323,7 @@ interface HighchartsSeriesObject {
     setVisible(visible: boolean, redraw: boolean): void;
     show(): void;
     type: string;
-    update(options: HighchartsSeriesOptions, redraw?: boolean);
+    update(options: HighchartsSeriesOptions, redraw?: boolean): void;
     visible: boolean;
     xAxis: HighchartsAxisObject;
     yAxis: HighchartsAxisObject;
