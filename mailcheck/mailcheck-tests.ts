@@ -7,8 +7,9 @@ var domains = ['gmail.com', 'aol.com'];
 var secondLevelDomains = ['hotmail']
 var topLevelDomains = ["com", "net", "org"];
 
-var superStringDistance = function(string1: string, string2: string): void {
+var superStringDistance = function(string1: string, string2: string): number {
     // a string distance algorithm of your choosing
+    return 0;
 };
 
 $('#email').on('blur', function() {
@@ -17,10 +18,10 @@ $('#email').on('blur', function() {
         secondLevelDomains: secondLevelDomains, // optional
         topLevelDomains: topLevelDomains,       // optional
         distanceFunction: superStringDistance,  // optional
-        suggested: function(element, suggestion) {
+        suggested: function(element: JQuery, suggestion: MailcheckModule.ISuggestion) {
           // callback code
         },
-        empty: function(element) {
+        empty: function(element: JQuery) {
           // callback code
         }
     });
@@ -31,7 +32,7 @@ Mailcheck.run({
     secondLevelDomains: secondLevelDomains, // optional
     topLevelDomains: topLevelDomains,       // optional
     distanceFunction: superStringDistance,  // optional
-    suggested: function(suggestion) {
+    suggested: function(suggestion: MailcheckModule.ISuggestion) {
       // callback code
     },
     empty: function() {
@@ -44,7 +45,7 @@ MC.run({
     secondLevelDomains: secondLevelDomains, // optional
     topLevelDomains: topLevelDomains,       // optional
     distanceFunction: superStringDistance,  // optional
-    suggested: function(suggested) {
+    suggested: function(suggested: MailcheckModule.ISuggestion) {
       // callback code
       suggested.address === '' && suggested.full === '' && suggested.domain === '';
     },
