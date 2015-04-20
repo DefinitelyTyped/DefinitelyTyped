@@ -371,6 +371,12 @@ declare module D3 {
         * Request a comma-separated values (CSV) file.
         */
         csv: Dsv;
+
+        /**
+        * Request an arbitrary char-separated values file parser, like semicolon or what ever
+        */
+        dsv: Dsv; 
+        
         /**
         * Request a tab-separated values (TSV) file
         */
@@ -707,6 +713,17 @@ declare module D3 {
         * @param callback Function to invoke when resource is loaded or the request fails
         */
         (url: string, callback?: (error: any, response: any[]) => void ): Xhr;
+        /**
+        * Arbitrary Delimiters:
+        * Constructs a new parser for the given delimiter and mime type. For example, to parse values separated by "|", the vertical bar character, use:
+        * var dsv = d3.dsv("|", "text/plain");
+        *
+        * returns the new parser
+        *
+        * @param separator seperator character
+        * @param contentType 
+        */
+        (separator: string, contentType:string): (url: string, callback?: (error: any, response: any[]) => void )=> Xhr;
         /**
         * Parse a delimited string into objects using the header row.
         *
