@@ -1,11 +1,11 @@
 /// <reference path="../jasmine/jasmine.d.ts" />
 /// <reference path="../jasmine-jquery/jasmine-jquery.d.ts" />
-/// <reference path="../angular-mocks/angular-mocks.d.ts" />
+/// <reference path="../angularjs/angular-mocks.d.ts" />
 /// <reference path="angular-wizard.d.ts" />
 
 // test file taken from https://github.com/mgonto/angular-wizard
 
-module ng.mgoAngularWizard {
+declare module ng.mgoAngularWizard {
   "use strict";
 
   describe( 'AngularWizard', function() {
