@@ -74,7 +74,7 @@ declare module decimal {
         groupSeparator?: string;
         groupSize?: number;
         secondaryGroupSize?: number;
-        fractionGroupSelector?: string;
+        fractionGroupSeparator?: string;
         fractionGroupSize?: number;
     }
 
