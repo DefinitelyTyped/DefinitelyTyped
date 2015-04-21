@@ -1,4 +1,4 @@
-﻿/// <reference path="hal.d.ts"/>
+﻿/// <reference path="hypertext-application-language.d.ts"/>
 
 // Link object
 
