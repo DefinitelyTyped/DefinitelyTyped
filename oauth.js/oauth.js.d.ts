@@ -176,7 +176,7 @@ declare module OAuth {
 
         parseUri(str: string): Uri;
 
-        normalizeParameters(parameters: [string, string][]|{ [key: string]: string; }): string;
+        normalizeParameters(parameters: ParameterListOrMap): string;
     }
 
     interface SignatureMethod {
