@@ -50,8 +50,8 @@ declare module YT {
     }
 
     export interface PlayerOptions {
-        width?: number;
-        height?: number;
+        width?: string;
+        height?: string;
         videoId?: string;
         playerVars?: PlayerVars;
         events?: Events;
@@ -147,6 +147,9 @@ declare module YT {
 
         // Event Listener
         addEventListener(event: string, handler: EventHandler): void;
+        
+        // DOM
+        destroy(): void;
     }
 
     export enum PlayerState {
