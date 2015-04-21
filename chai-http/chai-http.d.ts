@@ -41,7 +41,7 @@ declare module chaiHttp {
 		attach(field: string, file: string, filename: string): Request;
 		attach(field: string, file: Buffer, filename: string): Request;
 		set(field: string, val: string): Request;
-		query(key: string, value: string): Request;
+		query(params: Object): Request;
 		send(data: Object): Request;
 		auth(user: string, name: string): Request;
 		field(name: string, val: string): Request;
