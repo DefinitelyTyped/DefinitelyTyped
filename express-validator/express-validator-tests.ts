@@ -9,7 +9,7 @@ var app = express()
 
 app.use(expressValidator());
 
-app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res) {
+app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res: express.Response) {
 
   // checkBody only checks req.body; none of the other req parameters
   // Similarly checkParams only checks in req.params (URL params) and
@@ -27,7 +27,7 @@ app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res) {
 
   var errors = req.validationErrors();
   if (errors) {
-    res.send('There have been validation errors: ' + util.inspect(errors), 400);
+    res.status(400).send('There have been validation errors: ' + util.inspect(errors));
     return;
   }
   res.json({
