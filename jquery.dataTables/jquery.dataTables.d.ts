@@ -1513,7 +1513,7 @@ declare module DataTables {
     }
 
     interface FunctionColumnRender {
-        (data: Node, t: Node, row: Node, meta: Object): void;
+        (data: any, t: string, row: any, meta: { row: number; col: number; settings: DataTables.Settings }): any;
     }
 
     //#endregion "colunm-settings"
