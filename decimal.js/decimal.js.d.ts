@@ -172,7 +172,7 @@ declare module decimal {
          *
          * The remainder, r, is calculated as: r = a - n * q.
          *
-         * The modes that are most commonly used for the modulus/remainder operation are shown in the following table. Although the other rounding modes can be used, they may not give useful results.
+         * The modes that are most commonly used for the modulus/remainder operation are ROUND_UP, ROUND_DOWN, ROUND_FLOOR, ROUND_HALF_EVEN, and EUCLID. Although the other rounding modes can be used, they may not give useful results.
          */
         modulo?: RoundingMode;
 
