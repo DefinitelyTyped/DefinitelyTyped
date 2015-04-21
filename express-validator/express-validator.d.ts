@@ -16,7 +16,7 @@ declare module "express-validator" {
     }
 
     interface ValidatorFunction { (item: string, message: string): Validator; }
-    interface SanatizerFunction { (item: string): Sanitizer; }
+    interface SanitizerFunction { (item: string): Sanitizer; }
     interface Dictionary<T> { [key: string]: T; }
 
     export interface RequestValidation {
@@ -29,8 +29,8 @@ declare module "express-validator" {
       checkQuery: ValidatorFunction;
       validate: ValidatorFunction;
 
-      filter: SanatizerFunction;
-      sanitize: SanatizerFunction;
+      filter: SanitizerFunction;
+      sanitize: SanitizerFunction;
 
       onValidationError(errback: (msg: string) => void): void;
       validationErrors(mapped?: boolean): Dictionary<any> | any[];
