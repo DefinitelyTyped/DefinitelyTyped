@@ -3,7 +3,7 @@
 // Definitions by: Marko Jurisic <https://github.com/mjurisic>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module ng.mgoAngularWizard {
+declare module angular.mgoAngularWizard {
   interface WizardHandler {
     wizard(name?:string): Wizard;
     addWizard(name:string, wizard:Wizard):void;
