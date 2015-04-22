@@ -206,12 +206,12 @@ declare module angular.ui.bootstrap {
         /**
          * Dismiss the dialog without assigning a value to the promise output
          */
-        $dismiss(reason?: any): void;
+        $dismiss?(reason?: any): void;
 
         /**
          * Close the dialog resolving the promise to the given value
          */
-        $close(result?: any): void;
+        $close?(result?: any): void;
     }
 
     interface IModalSettings {
