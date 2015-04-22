@@ -1,10 +1,9 @@
-// Type definitions for express-validator
+// Type definitions for express-validator 2.9.0
 // Project: https://github.com/ctavan/express-validator
 // Definitions by: Nathan Ridley <https://github.com/axefrog/>, Jonathan Häberle <http://dreampulse.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
-
 
 declare module "express-validator" {
   import express = require('express');
@@ -16,13 +15,31 @@ declare module "express-validator" {
       param: string;
     }
 
+    interface ValidatorFunction { (item: string, message: string): Validator; }
+    interface SanitizerFunction { (item: string): Sanitizer; }
+    interface Dictionary<T> { [key: string]: T; }
+
     export interface RequestValidation {
-      check(field:string, message:string): Validator;
-      assert(field:string, message:string): Validator;
-      sanitize(field:string): Sanitizer;
-      onValidationError(func:(msg:string) => void): void;
-      validationErrors() : any;
+      assert: ValidatorFunction;
+      check: ValidatorFunction;
+      checkBody: ValidatorFunction;
+      checkFiles: ValidatorFunction;
+      checkHeader: ValidatorFunction;
+      checkParams: ValidatorFunction;
+      checkQuery: ValidatorFunction;
+      validate: ValidatorFunction;
+
+      filter: SanitizerFunction;
+      sanitize: SanitizerFunction;
+
+      onValidationError(errback: (msg: string) => void): void;
+      validationErrors(mapped?: boolean): Dictionary<any> | any[];
     }
+
+    /**
+     * Interface for use when using express-validator as middleware for requests
+     */
+    export interface ValidatedRequest extends express.Request, RequestValidation {}
 
     export interface Validator {
       /**
@@ -167,7 +184,6 @@ declare module "express-validator" {
    * @middlewareOptions see: https://github.com/ctavan/express-validator#middleware-options
    */
   function ExpressValidator(middlewareOptions?:any):express.RequestHandler;
-
 
   export = ExpressValidator;
 }
