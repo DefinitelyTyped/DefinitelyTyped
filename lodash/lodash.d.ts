@@ -2185,7 +2185,7 @@ declare module _ {
         /**
         * @see _.contains
         **/
-        include<T>(
+        includes<T>(
             collection: Array<T>,
             target: T,
             fromIndex?: number): boolean;
@@ -2193,7 +2193,7 @@ declare module _ {
         /**
         * @see _.contains
         **/
-        include<T>(
+        includes<T>(
             collection: List<T>,
             target: T,
             fromIndex?: number): boolean;
@@ -2201,7 +2201,7 @@ declare module _ {
         /**
         * @see _.contains
         **/
-        include<T>(
+        includes<T>(
             dictionary: Dictionary<T>,
             key: string,
             fromIndex?: number): boolean;
@@ -2209,7 +2209,7 @@ declare module _ {
         /**
         * @see _.contains
         **/
-        include(
+        includes(
             searchString: string,
             targetString: string,
             fromIndex?: number): boolean;
