@@ -30,6 +30,8 @@ declare module drop {
 
     interface Drop {
         content: HTMLElement;
+        element: HTMLElement;
+        tether: tether.Tether;
         open(): void;
         close(): void;
         remove(): void;
