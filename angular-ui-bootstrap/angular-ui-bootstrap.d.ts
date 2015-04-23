@@ -238,6 +238,12 @@ declare module angular.ui.bootstrap {
         controller?: any;
 
         /**
+         *  an alternative to the controller-as syntax, matching the API of directive definitions.
+         *  Requires the controller option to be provided as well
+         */
+        controllerAs?: string;
+
+        /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
          */
         resolve?: any;
