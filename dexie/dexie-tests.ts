@@ -89,8 +89,8 @@ module AppDb {
             if (id) this.id = id;
         }
 
-        loadEmailsAndPhones() {
-            return Dexie.Promise.all(
+        loadEmailsAndPhones() : Dexie.Promise<Contact> {
+            return Dexie.Promise.all<any>(
                 db.emails
                     .where('contactId').equals(this.id)
                     .toArray(emails => this.emails = emails)
@@ -99,7 +99,7 @@ module AppDb {
                     .where('contactId').equals(this.id)
                     .toArray(phones => this.phones = phones)
 
-                ).then(x => this);
+                ).then(() => this);
         }
 
         save() {
