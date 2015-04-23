@@ -1,6 +1,6 @@
 // Type definitions for chai 2.0.0
 // Project: http://chaijs.com/
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker/>, Bart van der Schoor <https://github.com/Bartvds>, Jonathan M. Lane <https://github.com/jmlane>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module chai {
@@ -12,12 +12,16 @@ declare module chai {
         stack: string;
     }
 
-    export function expect(target: any, message?: string): Expect;
+    export var expect: {
+        (target: any, message?: string): Expect;
+        (target: any, message?: () => string): Expect;
+        fail(actual: any, expect: any, message?: string, operator?: string): Error;
+    };
 
     export var assert: Assert;
     export var config: Config;
 
-    export interface Config {
+    interface Config {
         includeStack: boolean;
     }
 
@@ -51,8 +55,12 @@ declare module chai {
         deep: Deep;
         a: TypeComparison;
         an: TypeComparison;
+        any: Expect;
+        all: Expect;
         include: Include;
+        includes: Include;
         contain: Include;
+        contains: Include;
         ok: Expect;
         true: Expect;
         false: Expect;
@@ -84,6 +92,15 @@ declare module chai {
         satisfy(matcher: Function, message?: string): Expect;
         closeTo(expected: number, delta: number, message?: string): Expect;
         members: Members;
+        change: ChangeIncreaseDecrease;
+        Change: ChangeIncreaseDecrease;
+        changes: ChangeIncreaseDecrease;
+        increase: ChangeIncreaseDecrease;
+        Increase: ChangeIncreaseDecrease;
+        increases: ChangeIncreaseDecrease;
+        decrease: ChangeIncreaseDecrease;
+        Decrease: ChangeIncreaseDecrease;
+        decreases: ChangeIncreaseDecrease;
     }
 
     interface LanguageChains {
@@ -133,6 +150,7 @@ declare module chai {
     interface Deep {
         equal: Equal;
         property: Property;
+        members: Members;
     }
 
     interface Equal {
@@ -155,6 +173,8 @@ declare module chai {
         (value: Object, message?: string): Expect;
         (value: string, message?: string): Expect;
         (value: number, message?: string): Expect;
+        all: Expect;
+        any: Expect;
         keys: Keys;
         members: Members;
     }
@@ -162,6 +182,7 @@ declare module chai {
     interface Keys {
         (...keys: string[]): Expect;
         (keys: any[]): Expect;
+        (keys: Object): Expect;
     }
 
     interface Members {
@@ -178,8 +199,13 @@ declare module chai {
         (constructor: Function, expected?: RegExp, message?: string): Expect;
     }
 
-    export interface Assert {
+    interface ChangeIncreaseDecrease {
+        (object: Object, property: string, message?: string): Expect;
+    }
+
+    interface Assert {
         (express: any, msg?: string):void;
+        (express: any, msg?: () => string):void;
 
         fail(actual?: any, expected?: any, msg?: string, operator?: string):void;
 
@@ -197,6 +223,9 @@ declare module chai {
 
         isTrue(val: any, msg?: string):void;
         isFalse(val: any, msg?: string):void;
+
+        isAbove(valueToCheck: any, valueToBeAbove: any, message?: string):void;
+        isBelow(valueToCheck: any, valueToBeBelow: any, message?: string):void;
 
         isNull(val: any, msg?: string):void;
         isNotNull(val: any, msg?: string):void;
@@ -230,6 +259,7 @@ declare module chai {
 
         include(exp: string, inc: any, msg?: string):void;
         include(exp: any[], inc: any, msg?: string):void;
+        include(exp: Object, inc: any, msg?: string):void;
 
         notInclude(exp: string, inc: any, msg?: string):void;
         notInclude(exp: any[], inc: any, msg?: string):void;
@@ -250,32 +280,43 @@ declare module chai {
 
         lengthOf(exp: any, len: number, msg?: string):void;
         //alias frenzy
-        throw(fn: Function, msg?: string):void;
-        throw(fn: Function, regExp: RegExp):void;
-        throw(fn: Function, errType: Function, msg?: string):void;
-        throw(fn: Function, errType: Function, regExp: RegExp):void;
+        throw(fn: Function, msg?: string):Error;
+        throw(fn: Function, regExp: RegExp):Error;
+        throw(fn: Function, errType: Function, msg?: string):Error;
+        throw(fn: Function, errType: Function, regExp: RegExp):Error;
 
-        throws(fn: Function, msg?: string):void;
-        throws(fn: Function, regExp: RegExp):void;
-        throws(fn: Function, errType: Function, msg?: string):void;
-        throws(fn: Function, errType: Function, regExp: RegExp):void;
+        throws(fn: Function, msg?: string):Error;
+        throws(fn: Function, regExp: RegExp):Error;
+        throws(fn: Function, errType: Function, msg?: string):Error;
+        throws(fn: Function, errType: Function, regExp: RegExp):Error;
 
-        Throw(fn: Function, msg?: string):void;
-        Throw(fn: Function, regExp: RegExp):void;
-        Throw(fn: Function, errType: Function, msg?: string):void;
-        Throw(fn: Function, errType: Function, regExp: RegExp):void;
+        Throw(fn: Function, msg?: string):Error;
+        Throw(fn: Function, regExp: RegExp):Error;
+        Throw(fn: Function, errType: Function, msg?: string):Error;
+        Throw(fn: Function, errType: Function, regExp: RegExp):Error;
 
-        doesNotThrow(fn: Function, msg?: string):void;
-        doesNotThrow(fn: Function, regExp: RegExp):void;
-        doesNotThrow(fn: Function, errType: Function, msg?: string):void;
-        doesNotThrow(fn: Function, errType: Function, regExp: RegExp):void;
+        doesNotThrow(fn: Function, msg?: string):Error;
+        doesNotThrow(fn: Function, regExp: RegExp):Error;
+        doesNotThrow(fn: Function, errType: Function, msg?: string):Error;
+        doesNotThrow(fn: Function, errType: Function, regExp: RegExp):Error;
 
         operator(val: any, operator: string, val2: any, msg?: string):void;
         closeTo(act: number, exp: number, delta: number, msg?: string):void;
 
         sameMembers(set1: any[], set2: any[], msg?: string):void;
+        sameDeepMembers(set1: any[], set2: any[], message?: string):void;
         includeMembers(set1: any[], set2: any[], msg?: string):void;
 
+        changes(func: Function, object: Object, property: string, message?: string):void;
+        doesNotChange(func: Function, object: Object, property: string, message?: string):void;
+
+        increases(func: Function, object: Object, property: string, message?: string):void;
+        doesNotIncrease(func: Function, object: Object, property: string, message?: string):void;
+
+        decreases(func: Function, object: Object, property: string, message?: string):void;
+        doesNotDecrease(func: Function, object: Object, property: string, message?: string):void;
+
+        // Undocumented & untested
         ifError(val: any, msg?: string):void;
     }
 }
