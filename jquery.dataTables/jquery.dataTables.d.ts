@@ -3,24 +3,22 @@
 // Definitions by: Armin Sander <https://github.com/pragmatrix/>, Barrie Nemetchek <https://github.com/bnemetchek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
 // - Plugin and extension definitions are not typed.
 
-interface JQuery
-{
+interface JQuery {
 	dataTable(): JQuery;
-	DataTable(param?: DataTables.Options): DataTables.DataTable;
+	DataTable(param?: DataTables.Options): DataTables.DataTableSettingsResult;
 	/// Perform a jQuery selector action on the table's TR elements (from the tbody) and return the resulting jQuery object.
-	DataTable(selector: DataTables.Selector, opts?: DataTables.SelectorModifier): DataTables.DataTable;
+	DataTable(selector: DataTables.Selector, opts?: DataTables.SelectorModifier): DataTables.DataTableTableResult;
 
 }
 
 declare module DataTables {
 	export type Selector = Number|String|Object|Function|JQuery|Array<String|Number|Object|Function|JQuery>;
 	export type SelectorModifier = { order?: String; search?: String; page?: String };
-	
+
 	export interface ajaxLoadResult extends DataTable {
 		load(callback?: Function, resetPaging?: boolean): DataTable;
 	}
@@ -134,7 +132,14 @@ declare module DataTables {
 
 		table: {
 			/// Select a table based on a selector from the API's context
-			(tableSelector: Selector): DataTable;
+			(tableSelector: Selector): DataTableTableResult;
+		}
+
+		tables: {
+			/// Select all tables
+			(): DataTableTablesResult;
+			/// Select tables based on the given selector
+			(tableSelector: Selector): DataTableTablesResult;
 		}
 
 		// Utility
@@ -173,6 +178,39 @@ declare module DataTables {
 		unique: () => DataTableAPI<T>;
 		unshift: (...items: T[]) => number;
 	}
+	export interface DataTableTableResult extends DataTableAPI<DataTable> {
+		/// Get the tbody node for the table in the API's context
+		body(): Node;
+		/// Get the div container node for the table in the API's context
+		container(): Node;
+		/// Get the tfoot node for the table in the API's context
+		footer(): Node;
+		/// Get the thead node for the table in the API's context
+		header(): Node;
+		/// Get the table node for the table in the API's context
+		node(): Node;
+		/// context
+		context: Array<Node>;
+	}
+
+	export interface DataTableSettingsResult extends DataTableAPI<Settings> {
+		context: Array<Settings>;
+	}
+
+	export interface DataTableTablesResult extends DataTableAPI<DataTable> {
+		/// Get the tbody nodes for the tables in the API's context
+		body(): DataTableAPI<DataTable>;
+		/// Get the div container nodes for the tables in the API's context
+		container(): DataTableAPI<DataTable>;
+		/// Get the tfoot nodes for the tables in the API's context
+		footer(): DataTableAPI<DataTable>;
+		/// Get the thead nodes for the tables in the API's context
+		header(): DataTableAPI<DataTable>;
+		/// Get the table nodes for the tables in the API's context
+		node(): DataTableAPI<DataTable>;
+		/// context
+		context: Array<Node>;
+	}
 	export interface DataTableCellResult extends DataTableAPI<Cell> {
 		/// Get the DataTables cached data for the selected cell
 		cache(type: String): DataTableAPI<Cell>;
@@ -188,6 +226,8 @@ declare module DataTables {
 		node(): Node;
 		/// Get rendered data for a cell
 		render(type: String): Object;
+		/// context
+		context: Array<Node>;
 	}
 	export interface DataTableCellsResult extends DataTableAPI<Cell> {
 		/// Get the DataTables cached data for the selected cells
@@ -202,6 +242,8 @@ declare module DataTables {
 		nodes(): DataTableAPI<Element>;
 		/// Get rendered data for a cell
 		render(type: String): DataTableAPI<Object>;
+		/// context
+		context: Array<Node>;
 	}
 	export interface DataTableColumnResult extends DataTableAPI<Column> {
 		/// Get the DataTables cached data for the selected column
@@ -237,6 +279,8 @@ declare module DataTables {
 		/// Get the visibility of the selected column.
 		visible(): boolean;
 		visible(show: boolean, redrawCalculations?: boolean): DataTableAPI<Column>;
+		/// context
+		context: Array<Node>;
 	}
 
 	export interface DataTableColumnsResult extends DataTableAPI<Column> {
@@ -269,6 +313,8 @@ declare module DataTables {
 		visible(show: boolean, redrawCalculations?: boolean): DataTableAPI<Column>;
 		/// Recalculate the column widths
 		adjust(): DataTable;
+		/// context
+		context: Array<Node>;
 	}
 
 	export interface DataTableRowResult extends DataTableAPI<Row> {
@@ -310,6 +356,8 @@ declare module DataTables {
 			/// Make the child row(s) of a parent row visible
 			show(): DataTableAPI<Child>;
 		}
+		/// context
+		context: Array<Node>;
 	}
 
 	export interface DataTableRowChildResult extends DataTableAPI<Child> {
@@ -319,6 +367,8 @@ declare module DataTables {
 		remove(): DataTableRowResult;
 		/// Make newly defined child rows visible
 		show(): DataTableRowResult;
+		/// context
+		context: Array<Node>;
 	}
 
 	export interface DataTableRowsResult extends DataTableAPI<Row> {
@@ -337,26 +387,26 @@ declare module DataTables {
 		nodes(): DataTableAPI<Node>;
 		/// Delete the selected rows from the DataTable
 		remove(): DataTableAPI<Row>;
+		/// context
+		context: Array<Node>;
 	}
 
 	export interface DataTable extends DataTableAPI<any> {
 	}
 
-	export interface Static
-	{
+	export interface Static {
 		/// Provide a common method for plug-ins to check the version of DataTables being used,
 		/// in order to ensure compatibility.
-		versionCheck(version: string) : boolean;
+		versionCheck(version: string): boolean;
 
 		/// Check if a TABLE node is a DataTable table already or not.
-		isDataTable(table: Node) : boolean;
+		isDataTable(table: Node): boolean;
 
 		/// Get all DataTable tables that have been initialised.
-		tables(visible? : boolean) : Node[];
+		tables(visible?: boolean): Node[];
 	}
 
-	export interface RowParams
-	{
+	export interface RowParams {
 		/// Select TR elements that meet the current filter criterion ("applied") or all TR elements (i.e. no filter).
 		search?: string;
 
@@ -371,8 +421,7 @@ declare module DataTables {
 		page?: string;
 	}
 
-	export interface Options
-	{
+	export interface Options {
 		// Features
 		autoWidth?: boolean;
 		deferRender?: boolean;
@@ -438,9 +487,8 @@ declare module DataTables {
 		language?: LanguageOptions;
 	}
 
-	export interface LanguageOptions
-	{
-		aria? : AriaOptions;
+	export interface LanguageOptions {
+		aria?: AriaOptions;
 		decimal?: string;
 		emptyTable?: string;
 		info?: string;
@@ -452,7 +500,7 @@ declare module DataTables {
 		loadingRecords?: string;
 		processing?: string;
 		search?: string;
-		thousands?: string;searchPlaceholder?: string;
+		thousands?: string; searchPlaceholder?: string;
 		url?: string;
 		zeroRecords?: string;
 	}
@@ -478,25 +526,22 @@ declare module DataTables {
 		search: Search;
 	}
 
-	export interface AriaOptions
-	{
+	export interface AriaOptions {
 		sortAscending?: string;
 		sortDescending?: string;
 	}
 
-	export interface PaginateOptions
-	{
+	export interface PaginateOptions {
 		first?: string;
 		last?: string;
 		next?: string;
 		previous?: string;
 	}
 
-	export interface ColumnOptions
-	{
+	export interface ColumnOptions {
 		cellType?: string;
 		className?: string;
-		contentPadding?: string;		
+		contentPadding?: string;
 		createdCell?: CreatedCell;
 		data?: any;
 		defaultContent?: string;
@@ -512,8 +557,7 @@ declare module DataTables {
 		width?: string;
 	}
 
-	export interface ColumnDef extends ColumnOptions
-	{
+	export interface ColumnDef extends ColumnOptions {
 		targets: any;
 	}
 	export interface Index {
@@ -522,12 +566,11 @@ declare module DataTables {
 		columnVisible: Number
 	}
 
-	export interface Settings
-	{
-		oFeatures : Features;
+	export interface Settings {
+		oFeatures: Features;
 		oScroll: ScrollingSettings;
-		oLanguage : { fnInfoCallback : InfoCallback; };
-		oBrowser : { bScrollOversize : boolean; };
+		oLanguage: { fnInfoCallback: InfoCallback; };
+		oBrowser: { bScrollOversize: boolean; };
 		aanFeatures: Node[][];
 		aoData: Row[];
 		aiDisplay: number[];
@@ -597,15 +640,14 @@ declare module DataTables {
 		fnRecordsTotal: () => number;
 		fnRecordsDisplay: () => number;
 		fnDisplayEnd: () => number;
-		oInstance : any;
+		oInstance: any;
 		sInstance: string;
 		iTabIndex: number;
 		nScrollHead: Node;
 		nScrollFoot: Node;
 	}
 
-	export interface Features
-	{
+	export interface Features {
 		bAutoWidth: boolean;
 		bDeferRender: boolean;
 		bFilter: boolean;
@@ -619,9 +661,8 @@ declare module DataTables {
 		bStateSave: boolean;
 	}
 
-	export interface ScrollingSettings
-	{
-		bAutoCss : boolean;
+	export interface ScrollingSettings {
+		bAutoCss: boolean;
 		bCollapse: boolean;
 		bInfinite: boolean;
 		iBarWidth: number;
@@ -630,8 +671,7 @@ declare module DataTables {
 		sY: string;
 	}
 
-	export interface Row
-	{
+	export interface Row {
 		nTr: Node;
 		_aData: any;
 		_aSortData: any[];
@@ -639,14 +679,13 @@ declare module DataTables {
 		_sRowStripe: string;
 	}
 
-	export interface Column
-	{
+	export interface Column {
 		aDataSort: any;
 		asSorting: string[];
-		bSearchable : boolean;
-		bSortable : boolean;
-		bVisible : boolean;
-		_bAutoType : boolean;
+		bSearchable: boolean;
+		bSortable: boolean;
+		bVisible: boolean;
+		_bAutoType: boolean;
 		fnCreatedCell: CreatedCell;
 		fnGetData: (data: any, specific: string) => any;
 		fnSetData: (data: any, value: any) => void;
@@ -673,83 +712,67 @@ declare module DataTables {
 	export interface Child {
 	}
 
-	export interface CookieCallback
-	{
-		(name: string, data: any, expires: string, path: string, cookie: string) : void;
+	export interface CookieCallback {
+		(name: string, data: any, expires: string, path: string, cookie: string): void;
 	}
 
-	export interface RowCreatedCallback
-	{
-		(row: Node, data: any[], dataIndex: number) : void;
+	export interface RowCreatedCallback {
+		(row: Node, data: any[], dataIndex: number): void;
 	}
 
-	export interface DrawCallback
-	{
-		(settings: Settings) : void;
+	export interface DrawCallback {
+		(settings: Settings): void;
 	}
 
-	export interface FooterCallback
-	{
-		(foot: Element, data: any[], start:number, end:number, display: number[]) : void;
+	export interface FooterCallback {
+		(foot: Element, data: any[], start: number, end: number, display: number[]): void;
 	}
 
-	export interface FormatNumber
-	{
-		(toFormat: number) : string;
+	export interface FormatNumber {
+		(toFormat: number): string;
 	}
 
-	export interface HeaderCallback
-	{
-		(head: Element, data: any[], start:number, end:number, display: number[]) : void;
+	export interface HeaderCallback {
+		(head: Element, data: any[], start: number, end: number, display: number[]): void;
 	}
 
-	export interface InfoCallback
-	{
-		(settings: Settings, start: number, end: number, max:number, total: number, pre: string) : string;
+	export interface InfoCallback {
+		(settings: Settings, start: number, end: number, max: number, total: number, pre: string): string;
 	}
 
-	export interface InitComplete
-	{
-		(settings: Settings, json: any) : void;
+	export interface InitComplete {
+		(settings: Settings, json: any): void;
 	}
 
-	export interface PreDrawCallback
-	{
-		(settings: Settings) : boolean;
+	export interface PreDrawCallback {
+		(settings: Settings): boolean;
 	}
 
-	export interface RowCallback
-	{
-		(row : Settings, data: any[], displayIndex: number, displayIndexFull: number) : void;
+	export interface RowCallback {
+		(row: Settings, data: any[], displayIndex: number, displayIndexFull: number): void;
 	}
 
-	export interface StateLoadCallback
-	{
-		(settings: Settings) : any;
+	export interface StateLoadCallback {
+		(settings: Settings): any;
 	}
 
-	export interface StateLoadParams
-	{
-		(settings: Settings, data: any) : void;
+	export interface StateLoadParams {
+		(settings: Settings, data: any): void;
 	}
 
-	export interface StateLoaded
-	{
-		(settings: Settings, data: any) : void;
+	export interface StateLoaded {
+		(settings: Settings, data: any): void;
 	}
 
-	export interface StateSaveCallback
-	{
-		(settings: any, data:any) : void;
+	export interface StateSaveCallback {
+		(settings: any, data: any): void;
 	}
 
-	export interface StateSaveParams
-	{
-		(settings: any, data:any) : void;
+	export interface StateSaveParams {
+		(settings: any, data: any): void;
 	}
 
-	export interface CreatedCell
-	{
-		(nTd: Node, cellData: any, rowData: any, row: number, col: number) : void;
+	export interface CreatedCell {
+		(nTd: Node, cellData: any, rowData: any, row: number, col: number): void;
 	}
 }
