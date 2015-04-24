@@ -22,6 +22,8 @@ d.remove();
 d.toggle();
 d.position();
 d.destroy();
+d.element.appendChild(document.createElement("div"));
+d.tether.position();
 
 d.on("open", () => null);
 d.on("close", () => null);
