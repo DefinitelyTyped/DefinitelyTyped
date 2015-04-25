@@ -11,7 +11,7 @@ var File = pathwatcher.File;
 class SampleView extends _atom.ScrollView {
 
 	editorId:string;
-	file:pathwatcher.IFile;
+	file:PathWatcher.IFile;
 	editor:AtomCore.IEditor;
 
 	static deserialize(state:any):SampleView {

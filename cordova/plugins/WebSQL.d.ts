@@ -1,5 +1,5 @@
 // Type definitions for Apache Cordova WebSQL plugin.
-// Project: https://github.com/sgrebnov/cordova-plugin-websql
+// Project: https://github.com/MSOpenTech/cordova-plugin-websql
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // 
@@ -43,7 +43,7 @@ interface Database {
         successCallback?: () => void): void;
     name: string;
     version: string;
-    displayname: string;
+    displayName: string;
     size: number;
 }
 
@@ -62,12 +62,12 @@ interface SqlTransaction {
      * @param sql SQL statement to execute.
      * @param arguments SQL stetement arguments.
      * @param successCallback Called in case of query has been successfully done.
-     * @param errorCallback   Called, when query fails.
+     * @param errorCallback   Called, when query fails. Return false to continue transaction; true or no return to rollback.
      */
     executeSql(sql: string,
         arguments?: any[],
         successCallback?: (transaction: SqlTransaction, resultSet: SqlResultSet) => void,
-        errorCallback?: (transaction: SqlTransaction, error: SqlError) => void): void;
+        errorCallback?: (transaction: SqlTransaction, error: SqlError) => any): void;
 }
 
 declare var SqlTransaction: {

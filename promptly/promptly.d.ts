@@ -6,6 +6,7 @@
 ///<reference path="../node/node.d.ts"/>
 
 declare module "promptly" {
+  import stream = require('stream');
 
   interface Callback {
     (err: Error, value: string): void;
@@ -17,8 +18,8 @@ declare module "promptly" {
     validator?: any;
     retry?: boolean;
     silent?: boolean;
-    input?: ReadableStream;
-    output?: WritableStream;
+    input?: NodeJS.ReadableStream;
+    output?: NodeJS.WritableStream;
   }
 
   export function prompt(message: string, fn?: Callback):any;

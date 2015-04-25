@@ -1,14 +1,15 @@
-// Type definitions for Minimatch
+// Type definitions for Minimatch 1.0.0
 // Project: https://github.com/isaacs/minimatch
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "minimatch" {
 
-	function M(target:string, pattern:string, options?:M.IOptions):void;
+	function M(target:string, pattern:string, options?:M.IOptions): boolean;
 
 	module M {
-		function match(filenames:string[], pattern:string, options:IOptions):string[];
+		function match(filenames:string[], pattern:string, options?:IOptions):string[];
+		function filter(pattern:string, options?:IOptions): (target: string) => boolean;
 
 		var Minimatch:IMinimatchStatic;
 
@@ -27,7 +28,7 @@ declare module "minimatch" {
 		}
 
 		interface IMinimatchStatic {
-			new (pattern:string, options:IOptions):IMinimatch;
+			new (pattern:string, options?:IOptions):IMinimatch;
 		}
 
 		interface IMinimatch {
@@ -36,11 +37,11 @@ declare module "minimatch" {
 			parseNegate():void;
 			braceExpand(pattern:string, options:IOptions):void;
 			parse(pattern:string, isSub?:boolean):void;
-			makeRe():any; // regexp or boolean
-			match(file:string, pattern:string, options:IOptions):boolean;
-			matchOne(file:string, pattern:string, partial:any):boolean;
+			makeRe():RegExp; // regexp or boolean
+			match(file:string):boolean;
+			matchOne(files:string[], pattern:string[], partial:any):boolean;
 		}
 	}
 
-	export = M;
+export = M;
 }

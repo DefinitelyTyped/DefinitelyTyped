@@ -187,6 +187,7 @@ function test_methods() {
     });
     $("#myform").validate().form();
     $("#myform").validate().element("#myselect");
+    $("#myform").validate().element($("#myselect"));
     var validator = $("#myform").validate();
     validator.resetForm();
     validator.showErrors({ "firstname": "I know that your firstname is Pete, Pete!" });
@@ -227,4 +228,6 @@ function test_methods() {
             maxlength: 5
         }
     });
+    var invalidElements: HTMLElement[] = validator.invalidElements();
+    var validElements: HTMLElement[] = validator.validElements();
 }

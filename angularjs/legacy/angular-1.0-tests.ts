@@ -64,7 +64,7 @@ angular.module('http-auth-interceptor', [])
 
             function error(response: ng.IHttpPromiseCallbackArg<any>) {
                 if (response.status === 401) {
-                    var deferred = $q.defer();
+                    var deferred = $q.defer<void>();
                     authServiceProvider.pushToBuffer(response.config, deferred);
                     $rootScope.$broadcast('event:auth-loginRequired');
                     return deferred.promise;

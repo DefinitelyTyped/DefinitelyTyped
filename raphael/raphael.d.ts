@@ -1,7 +1,7 @@
 // Type definitions for Raphael 2.1
 // Project: http://raphaeljs.com
-// Definitions by: https://github.com/CheCoxshall
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: CheCoxshall <https://github.com/CheCoxshall>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 interface BoundingBox {
@@ -28,9 +28,9 @@ interface RaphaelElement {
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, params: any, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, animation: RaphaelAnimation): RaphaelElement;
     attr(attrName: string, value: any): RaphaelElement;
-    attr(params: any): RaphaelElement;
     attr(attrName: string): any;
     attr(attrNames: string[]): any[];
+    attr(params: any): RaphaelElement;
     click(handler: Function): RaphaelElement;
     clone(): RaphaelElement;
     data(key: string): any;
@@ -215,7 +215,7 @@ interface RaphaelPaper {
     renderfix(): void;
     safari(): void;
     set(elements?: RaphaelElement[]): RaphaelSet;
-    setFinish(): void;
+    setFinish(): RaphaelSet;
     setSize(width: number, height: number): void;
     setStart(): void;
     setViewBox(x: number, y: number, w: number, h: number, fit: boolean): void;

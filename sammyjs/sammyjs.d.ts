@@ -1,7 +1,6 @@
 // Type definitions for Sammy.js
 // Project: http://sammyjs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions by: Oisin Grehan <https://github.com/oising>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Oisin Grehan <https://github.com/oising>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -121,7 +120,8 @@ declare module Sammy {
         trigger(name: string, data?: any): Application;
         unload(): Application;
         use(...params: any[]): void;
-
+	last_location: string[];
+	
         // Features provided by oauth2 plugin 
         oauthorize: string;
         requireOAuth();

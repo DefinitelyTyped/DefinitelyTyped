@@ -1,7 +1,7 @@
 ﻿// Type definitions for Jasmine-JQuery 1.5.8
 // Project: https://github.com/velesin/jasmine-jquery
 // Definitions by: Gregor Stamac <https://github.com/gstamac/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jasmine/jasmine.d.ts"/>
 /// <reference path="../jquery/jquery.d.ts"/>

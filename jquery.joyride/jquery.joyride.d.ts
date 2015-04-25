@@ -13,43 +13,43 @@ interface JoyrideTemplate {
 	* Link template
 	* @member {string}
 	*/
-	link: string;
+	link?: string;
 
 	/**
 	* Timer template
 	* @member {string}
 	*/
-	timer: string;
+	timer?: string;
 
 	/**
 	* Tip template
 	* @member {string}
 	*/
-	tip: string;    
+	tip?: string;    
 
 	/**
 	* Wrapper template
 	* @member {string}
 	*/
-	wrapper: string;
+	wrapper?: string;
 
 	/**
 	* Button template
 	* @member {string}
 	*/
-	button: string;
+	button?: string;
 
 	/**
 	* Modal template
 	* @member {string}
 	*/
-	modal: string;
+	modal?: string;
 
 	/**
 	* Exposed Cover template
 	* @member {string}
 	*/
-	exposeCover: string;
+	exposeCover?: string;
 }
 
 interface JoyrideOptions {
@@ -57,133 +57,133 @@ interface JoyrideOptions {
 	* Version
 	* @member {string}
 	*/
-	version: string;
+	version?: string;
 
 	/** 
 	* 'top' or 'bottom' in relation to parent
 	* @member {string}
 	*/
-	tipLocation: string;
+	tipLocation?: string;
 
 	/**
 	* override on a per tooltip bases
 	* @member {any}
 	*/
-	nubPosition: any;
+	nubPosition?: any;
 
 	/**
 	* whether to scroll to tips
 	* @member {boolean}
 	*/
-	scroll: boolean;
+	scroll?: boolean;
 
 	/**
 	* Page scrolling speed in ms
 	* @member {number}
 	*/
-	scrollSpeed: number;
+	scrollSpeed?: number;
 
 	/**
 	* 0 = off, all other numbers = time(ms)
 	* @member {number}
 	*/
-	timer: number;
+	timer?: number;
 
 	/**
 	* true or false - false tour starts when restart called
 	* @member {boolean}
 	*/
-	autoStart: boolean;
+	autoStart?: boolean;
 
 	/**
 	* true/false to start timer on first click
 	* @member {boolean}
 	*/
-	startTimerOnClick: boolean;
+	startTimerOnClick?: boolean;
 
 	/**
 	* the index of the tooltip you want to start on (index of the li)
 	* @member {number}
 	*/
-	startOffset: number;
+	startOffset?: number;
 
 	/**
 	* true/false for next button visibility
 	* @member {boolean}
 	*/
-	nextButton: boolean;
+	nextButton?: boolean;
 
 	/**
 	* 'pop' or 'fade' in each tip
 	* @member {string}
 	*/
-	tipAnimation: string;
+	tipAnimation?: string;
 
 	/**
 	* array of indexes where to pause the tour after
 	* @member {any[]}
 	*/
-	pauseAfter: any[];
+	pauseAfter?: any[];
 
 	/**
 	* if 'fade'- speed in ms of transition
 	* @member {number}
 	*/
-	tipAnimationFadeSpeed: number;
+	tipAnimationFadeSpeed?: number;
 
 	/**
 	* true/false for whether cookies are used
 	* @member {boolean}
 	*/
-	cookieMonster: boolean;
+	cookieMonster?: boolean;
 
 	/**
 	* choose your own cookie name
 	* member {string}
 	*/
-	cookieName: string;
+	cookieName?: string;
 
 	/**
 	* Will this cookie be attached to a domain, ie. '.notableapp.com'
 	* @member {any}
 	*/
-	cookieDomain: any;
+	cookieDomain?: any;
 
 	/**
 	* Set to '/' if you want the cookie for the whole website
 	* @member {any}
 	*/
-	cookiePath: any;
+	cookiePath?: any;
 
 	/**
 	* true or false to control whether localstorage is used
 	* @member {boolean}
 	*/
-	localStorage: boolean;
+	localStorage?: boolean;
 
 	/**
 	* Keyname in localstorage
 	@member {string}
 	*/
-	localStorageKey: string;
+	localStorageKey?: string;
 
 	/**
 	* Where the tip be attached if not inline
 	* @member {HTMLElement}
 	*/
-	tipContainer: HTMLElement;
+	tipContainer?: HTMLElement;
 
 	/**
 	* Whether to cover page with modal during the tour
 	* @member {boolean}
 	*/
-	modal: boolean;
+	modal?: boolean;
 
 	/**
 	*  Whether to expose the elements at each step in the tour (requires modal:true)
 	* @member {boolean}
 	*/
-	expose: boolean;
+	expose?: boolean;
 
 	/**
 	* A method to call after an element has been exposed
@@ -192,7 +192,7 @@ interface JoyrideOptions {
 	* @param {JQuery} nextTip Tip object
 	* @param {JQuery} el Element
 	*/
-	postExposeCallback: (index: number, nextTip: JQuery, el?: JQuery) => void;
+	postExposeCallback?: (index: number, nextTip: JQuery, el?: JQuery) => void;
 
 	/**
 	* A method to call before the tour starts (passed index, tip, and cloned exposed element)
@@ -201,7 +201,7 @@ interface JoyrideOptions {
 	* @param {JQuery} currentTip Current Tip object
 	* @param {JQuery} el Element
 	*/
-	preRideCallback: (index: number, currentTip: JQuery, el?: JQuery) => void;
+	preRideCallback?: (index: number, currentTip: JQuery, el?: JQuery) => void;
 
 	/**
 	* a method to call once the tour closes
@@ -210,7 +210,7 @@ interface JoyrideOptions {
 	* @param {JQuery} currentTip Current Tip object
 	* @param {boolean} isAborted Is Aborted?
 	*/
-	postRideCallback: (index: number, currentTip: JQuery, isAborted?: boolean) => void;
+	postRideCallback?: (index: number, currentTip: JQuery, isAborted?: boolean) => void;
 
 	/**
 	* A method to call after each step
@@ -219,7 +219,7 @@ interface JoyrideOptions {
 	* @param {JQuery} currentTip Current Tip object
 	* @param {boolean} isAborted Is Aborted?
 	*/
-	postStepCallback: (index: number, currentTip: JQuery, isAborted?: boolean) => void;
+	postStepCallback?: (index: number, currentTip: JQuery, isAborted?: boolean) => void;
 
 	/**
 	* A method to call before each step
@@ -228,13 +228,13 @@ interface JoyrideOptions {
 	* @param {JQuery} nextTip Tip object
 	* @param {JQuery} el Element
 	*/
-	preStepCallback: (index: number, nextTip: JQuery, el?: JQuery) => void;
+	preStepCallback?: (index: number, nextTip: JQuery, el?: JQuery) => void;
 
 	/**
 	* HTML segments for tip layout
 	* @member {JoyrideTemplate}
 	*/
-	template: JoyrideTemplate;
+	template?: JoyrideTemplate;
 }
 
 interface Joyride

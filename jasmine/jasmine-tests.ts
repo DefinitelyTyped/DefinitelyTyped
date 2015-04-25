@@ -1,6 +1,6 @@
 /// <reference path="jasmine.d.ts" />
 
-// tests based on http://jasmine.github.io/2.0/introduction.html
+// tests based on http://jasmine.github.io/2.2/introduction.html
 
 describe("A suite", function () {
     it("contains spec with an expectation", function () {
@@ -248,7 +248,8 @@ describe("Pending specs", function () {
 
     it("can be declared by calling 'pending' in the spec body", function () {
         expect(true).toBe(false);
-        pending();
+        pending(); // without reason
+        pending('this is why it is pending');
     });
 });
 
@@ -397,6 +398,44 @@ describe("A spy, when configured to throw a value", function () {
         expect(function () {
             foo.setBar(123)
     }).toThrowError("quux");
+    });
+});
+
+describe("A spy, when configured with multiple actions", function () {
+    var foo: any, bar: any, fetchedBar: any;
+
+    beforeEach(function () {
+        foo = {
+            setBar: function (value: any) {
+                bar = value;
+            },
+            getBar: function () {
+                return bar;
+            }
+        };
+
+        spyOn(foo, 'getBar').and.callThrough().and.callFake(() => {
+          this.fakeCalled = true;
+        });
+
+        foo.setBar(123);
+        fetchedBar = foo.getBar();
+    });
+
+    it("tracks that the spy was called", function () {
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not effect other functions", function () {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called returns the requested value", function () {
+        expect(fetchedBar).toEqual(123);
+    });
+
+    it("should have called the fake implementation", function () {
+        expect(this.fakeCalled).toEqual(true);
     });
 });
 
@@ -674,6 +713,39 @@ describe("Asynchronous specs", function () {
         expect(value).toBeGreaterThan(0);
         done();
     });
+
+    describe("long asynchronous specs", function() {
+        beforeEach(function(done) {
+          done();
+        }, 1000);
+
+        it("takes a long time", function(done) {
+          setTimeout(function() {
+            done();
+          }, 9000);
+        }, 10000);
+
+        afterEach(function(done) {
+          done();
+        }, 1000);
+    });
+
+});
+
+describe("Fail", function () {
+
+  it("should fail test when called without arguments", function () {
+    fail();
+  });
+
+  it("should fail test when called with a fail message", function () {
+    fail("The test failed");
+  });
+
+  it("should fail test when called an error", function () {
+    fail(new Error("The test failed with this error"));
+  });
+
 });
 
 (() => {
@@ -698,3 +770,5 @@ describe("Asynchronous specs", function () {
     };
 
 })();
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
