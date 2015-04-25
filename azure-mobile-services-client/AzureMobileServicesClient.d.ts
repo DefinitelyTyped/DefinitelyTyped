@@ -13,11 +13,12 @@ declare module Microsoft.WindowsAzure {
         currentUser: User;
         //for provider:string use one of ProviderEnum: 'microsoftaccount', 'facebook', 'twitter', 'google'
         login(provider: string, token: string, callback: (error: any, user: User) => void ): void;
-        login(provider: string, token: string): asyncPromise;
+        login(provider: string, credentials: { access_token: string }): asyncPromise;
         login(provider: string, callback: (error: any, user: User) => void ): void;
         login(provider: string): asyncPromise;
         logout(): void;
         getTable(tableName: string): MobileServiceTable;
+        invokeApi(apiName: string, params: any): asyncPromise;
         withFilter(serviceFilter: (request: any, next: (request: any, callback: (error:any, response: any) => void ) => void, callback: (error: any, response: any) => void ) => void ) : MobileServiceClient;
         invokeApi(apiName: string, options?:InvokeApiOptions): asyncPromise;
     }
