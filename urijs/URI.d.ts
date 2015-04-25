@@ -97,6 +97,10 @@ declare module uri {
         segment(position: number): string;
         segment(position: number, level: string): string;
         segment(level: string): string;
+        setQuery(key: string, value: string): URI;
+        setQuery(qry: Object): URI;
+        setSearch(key: string, value: string): URI;
+        setSearch(qry: Object): URI;
         subdomain(): string;
         subdomain(subdomain: string): URI;
         suffix(): string;
