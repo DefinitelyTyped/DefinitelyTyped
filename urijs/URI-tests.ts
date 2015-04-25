@@ -26,4 +26,9 @@ new URI({
     fragment: 'frag'
 });
 
+URI('').setQuery('foo', 'bar');
+URI('').setQuery({ foo: 'bar' });
+URI('').setSearch('foo', 'bar');
+URI('').setSearch({ foo: 'bar' });
+
 var uri: uri.URI = $('a').uri();
