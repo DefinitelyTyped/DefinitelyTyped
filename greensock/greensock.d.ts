@@ -21,7 +21,7 @@ declare class Animation {
     constructor(duration?:number, vars?:Object);
 
     delay(value:number):any;
-    duration(value:number):any;
+    duration(value?:number):any;
     eventCallback(type:string, callback?:Function, params?:any[], scope?:any):any;
     invalidate():any;
     isActive():boolean;
@@ -37,7 +37,7 @@ declare class Animation {
     startTime(value:number):any;
     time(value:number, suppressEvents?:boolean):any;
     timeScale(value:number):any;
-    totalDuration(value:number):any;
+    totalDuration(value?:number):any;
     totalTime(time:number, suppressEvents?:boolean):any;
 }
 
@@ -92,7 +92,7 @@ declare class TweenMax extends TweenLite {
     static killDelayedCallsTo(func:Function):void;
     static killTweensOf(target:Object, vars?:Object):void;
     static pauseAll(tweens?:boolean, delayedCalls?:boolean, timelines?:boolean):void;
-    progress(value:number):any;
+    progress(value?:number):any;
     repeat(value:number):any;
     repeatDelay(value:number):any;
     static resumeAll(tweens?:boolean, delayedCalls?:boolean, timelines?:boolean):void;
@@ -102,8 +102,8 @@ declare class TweenMax extends TweenLite {
     static staggerTo(targets:any, duration:number, vars:Object, stagger:number, onCompleteAll?:Function, onCompleteAllParams?:any[], onCompleteAllScope?:any):any[];
     time(value:number, suppressEvents?:boolean):any;
     static to(target:Object, duration:number, vars:Object):TweenMax;
-    totalDuration(value:number):any;
-    totalProgress(value:number):any;
+    totalDuration(value?:number):any;
+    totalProgress(value?:number):any;
     updateTo(vars:Object, resetDuration?:boolean):any;
     yoyo(value?:boolean):any;
 }
@@ -118,7 +118,7 @@ declare class TimelineLite extends SimpleTimeline {
     appendMultiple(tweens:any[], offsetOrLabel?:any, align?:string, stagger?:number):any;
     call(callback:Function, params?:any[], scope?:any, position?:any):any;
     clear(labels?:boolean):any;
-    duration(value:number):any;
+    duration(value?:number):any;
     exportRoot(vars?:Object, omitDelayedCalls?:boolean):TimelineLite;
     from(target:Object, duration:number, vars:Object, position?:any):any;
     fromTo(target:Object, duration:number, fromVars:Object, toVars:Object, position?:any):any;
@@ -128,7 +128,7 @@ declare class TimelineLite extends SimpleTimeline {
     insert(value:any, timeOrLabel?:any):any;
     insertMultiple(tweens:any[], timeOrLabel?:any, align?:string, stagger?:number):any;
     invalidate():any;
-    progress(value:number):any;
+    progress(value?:number):any;
     remove(value:any):any;
     removeLabel(label:string):any;
     set(target: Object, vars: Object, position?:any):any;
@@ -152,13 +152,13 @@ declare class TimelineMax extends TimelineLite {
     getLabelBefore(time:number):string;
     getLabelsArray():any[];
     invalidate():any;
-    progress(value:number):any;
+    progress(value?:number):any;
     removeCallback(callback:Function, timeOrLabel?:any):TimelineMax;
     repeat(value?:number):any;
     repeatDelay(value?:number):any;
     time(value:number, suppressEvents?:boolean):any;
-    totalDuration(value:number):any;
-    totalProgress(value:number):any;
+    totalDuration(value?:number):any;
+    totalProgress(value?:number):any;
     tweenFromTo(fromPosition:any, toPosition:any, vars?:Object):TweenLite;
     tweenTo(position:any, vars?:Object):TweenLite;
     yoyo(value?:boolean):any;
