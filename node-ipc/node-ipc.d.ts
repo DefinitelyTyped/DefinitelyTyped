@@ -36,56 +36,56 @@ declare module nodeIPC {
      * may have several sockets with the same id, but if you change the appspace,
      * you will still have app specic unique sockets.
      */
-    appspace: string
+    appspace?: string
     /**
      * The directory in which to create or bind to a Unix Socket
      */
-    socketRoot: string
+    socketRoot?: string
     /**
      * The id of this socket or service
      */
-    id: string
+    id?: string
     /**
      * The local or remote host on which TCP, TLS or UDP Sockets should connect
      */
-    networkHost: string
+    networkHost?: string
     /**
      * The default port on which TCP, TLS, or UDP sockets should connect
      */
-    networkPort: number
+    networkPort?: number
     /**
      * The default encoding for data sent on sockets
      */
-    encoding: string
+    encoding?: string
     /**
      * Turn on/off logging default is false which means logging is on
      */
-    silent: boolean
+    silent?: boolean
     /**
      * This is the max number of connections allowed to a socket. It is
      * currently only being set on Unix Sockets. Other Socket types are using
      * the system defaults.
      */
-    maxConnections: number
+    maxConnections?: number
     /**
      * This is the time in milliseconds a client will wait before trying to
      * reconnect to a server if the connection is lost. This does not effect UDP
      * sockets since they do not have a client server relationship like Unix
      * Sockets and TCP Sockets.
      */
-    retry: number
+    retry?: number
     /**
      * If set, it represents the maximum number of retries after each disconnect
      * before giving up and completely killing a specific connection
      */
-    maxRetries: number|boolean
+    maxRetries?: number|boolean
     /**
      * Defaults to false mwaning clients will continue to retryt to connect to
      * servers indefinately at the retry interval. If set to any number the client
      * will stop retrying when that number is exceeded after each disconnect. If
      * set to 0, the client will NOT try to reconnect.
      */
-    stopRetrying: boolean
+    stopRetrying?: boolean
   }
   export function log (message: string, ...messages: string[]): void
 
