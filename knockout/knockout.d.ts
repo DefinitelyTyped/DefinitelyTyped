@@ -210,6 +210,9 @@ interface KnockoutExtenders {
 }
 
 interface KnockoutUtils {
+    /**
+    * COMMENTED FUNCTIONS ARE NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js)
+    */
 
     //////////////////////////////////
     // utils.domManipulation.js
@@ -217,7 +220,7 @@ interface KnockoutUtils {
 
     simpleHtmlParse(html: string): any[];
 
-    jQueryHtmlParse(html: string): any[];
+    // jQueryHtmlParse(html: string): any[];
 
     parseHtmlFragment(html: string): any[];
 
@@ -230,11 +233,11 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domData: {
-        get (node: Element, key: string): any;
+        // get (node: Element, key: string): any;
 
-        set (node: Element, key: string, value: any): void;
+        // set (node: Element, key: string, value: any): void;
 
-        getAll(node: Element, createIfNotFound: boolean): any;
+        // getAll(node: Element, createIfNotFound: boolean): any;
 
         clear(node: Element): boolean;
     };
@@ -248,9 +251,9 @@ interface KnockoutUtils {
 
         removeDisposeCallback(node: Element, callback: Function): void;
 
-        cleanNode(node: Element): Element;
+        // cleanNode(node: Element): Element;
 
-        removeNode(node: Element): void;
+        // removeNode(node: Element): void;
     };
 
     //////////////////////////////////
@@ -260,6 +263,8 @@ interface KnockoutUtils {
     fieldsIncludedWithJsonPost: any[];
 
     compareArrays<T>(a: T[], b: T[]): Array<KnockoutArrayChange<T>>;
+
+    addOrRemoveItem<T>(array: T[], value: T, included: boolean): void;
 
     arrayForEach<T>(array: T[], action: (item: T) => void): void;
 
@@ -281,29 +286,29 @@ interface KnockoutUtils {
 
     extend(target: Object, source: Object): Object;
 
-    emptyDomNode(domNode: HTMLElement): void;
+    // emptyDomNode(domNode: HTMLElement): void;
 
-    moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
+    // moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
 
-    cloneNodes(nodesArray: any[], shouldCleanNodes: boolean): any[];
+    // cloneNodes(nodesArray: any[], shouldCleanNodes: boolean): any[];
 
-    setDomNodeChildren(domNode: any, childNodes: any[]): void;
+    // setDomNodeChildren(domNode: any, childNodes: any[]): void;
 
-    replaceDomNodes(nodeToReplaceOrNodeArray: any, newNodesArray: any[]): void;
+    // replaceDomNodes(nodeToReplaceOrNodeArray: any, newNodesArray: any[]): void;
 
-    setOptionNodeSelectionState(optionNode: any, isSelected: boolean): void;
+    // setOptionNodeSelectionState(optionNode: any, isSelected: boolean): void;
 
-    stringTrim(str: string): string;
+    // stringTrim(str: string): string;
 
-    stringTokenize(str: string, delimiter: string): string[];
+    // stringTokenize(str: string, delimiter: string): string[];
 
-    stringStartsWith(str: string, startsWith: string): boolean;
+    // stringStartsWith(str: string, startsWith: string): boolean;
 
-    domNodeIsContainedBy(node: any, containedByNode: any): boolean;
-
-    domNodeIsAttachedToDocument(node: any): boolean;
-
-    tagNameLower(element: any): string;
+    // domNodeIsContainedBy(node: any, containedByNode: any): boolean;
+ 
+    // domNodeIsAttachedToDocument(node: any): boolean;
+ 
+    // tagNameLower(element: any): string;
 
     registerEventHandler(element: any, eventType: any, handler: Function): void;
 
@@ -315,17 +320,17 @@ interface KnockoutUtils {
 
     toggleDomNodeCssClass(node: any, className: string, shouldHaveClass: boolean): void;
 
-    //setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
+    // setTextContent(element: any, textContent: string): void; // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
 
-    setElementName(element: any, name: string): void;
+    // setElementName(element: any, name: string): void;
 
-    forceRefresh(node: any): void;
+    // forceRefresh(node: any): void;
 
-    ensureSelectElementIsRenderedCorrectly(selectElement: any): void;
+    // ensureSelectElementIsRenderedCorrectly(selectElement: any): void;
 
     range(min: any, max: any): any;
 
-    makeArray(arrayLikeObject: any): any[];
+    // makeArray(arrayLikeObject: any): any[];
 
     getFormFields(form: any, fieldName: string): any[];
 
@@ -335,11 +340,11 @@ interface KnockoutUtils {
 
     postJson(urlOrForm: any, data: any, options: any): void;
 
-    ieVersion: number;
+    // ieVersion: number;
 
-    isIe6: boolean;
+    // isIe6: boolean;
 
-    isIe7: boolean;
+    // isIe7: boolean;
 }
 
 interface KnockoutArrayChange<T> {
