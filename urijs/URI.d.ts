@@ -1,4 +1,4 @@
-// Type definitions for URI.js
+// Type definitions for URI.js 1.15.1
 // Project: https://github.com/medialize/URI.js
 // Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -128,6 +128,9 @@ declare module uri {
     }
 
     interface URIStatic {
+        (): URI;
+        (value: string | URIOptions): URI;
+
         new (): URI;
         new (value: string | URIOptions): URI;
 
