@@ -133,10 +133,10 @@ declare module uri {
 
     interface URIStatic {
         (): URI;
-        (value: string | URIOptions): URI;
+        (value: string | URIOptions | HTMLElement): URI;
 
         new (): URI;
-        new (value: string | URIOptions): URI;
+        new (value: string | URIOptions | HTMLElement): URI;
 
         addQuery(data: Object, prop: string, value: string): Object;
         addQuery(data: Object, qryObj: Object): Object;

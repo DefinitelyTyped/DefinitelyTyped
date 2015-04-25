@@ -12,6 +12,7 @@ URI({
     query: 'foo=bar&bar=baz',
     fragment: 'frag'
 });
+URI(document.createElement('a'));
 
 new URI();
 new URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');
@@ -25,6 +26,7 @@ new URI({
     query: 'foo=bar&bar=baz',
     fragment: 'frag'
 });
+new URI(document.createElement('a'));
 
 URI('').setQuery('foo', 'bar');
 URI('').setQuery({ foo: 'bar' });
