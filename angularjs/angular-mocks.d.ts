@@ -18,7 +18,12 @@ declare module "angular-mocks/ngAnimateMock" {
 ///////////////////////////////////////////////////////////////////////////////
 // functions attached to global object (window)
 ///////////////////////////////////////////////////////////////////////////////
-declare var module: (...modules: any[]) => any;
+
+// Note: This is disabled because it conflicts with other modules at compile-time.
+// "module" is a very overloaded keyword in global space.
+// Instead you can call angular.mock.module(...modules: any[]) => any;
+//declare var module: (...modules: any[]) => any;
+
 declare var inject: (...fns: Function[]) => any;
 
 ///////////////////////////////////////////////////////////////////////////////
