@@ -4,8 +4,12 @@ declare var els: Element[];
 declare var mixinFn: Function;
 
 function TestComponent() {
-    var self: Flight.Component = this;                   
-          
+    var self: Flight.Component = this;      
+	
+    self.attributes({
+       fooSelector: '.bar'
+    });    
+	
     self.defaultAttrs({
        fooSelector: '.bar'
     });
@@ -14,7 +18,7 @@ function TestComponent() {
         var el: HTMLElement = data.el;
         self.select('fooSelector').addClass('bar');
     };
-                                           
+
     self.around('initialize', function () { });
     self.before('initialize', function () { });
     self.after("initialize", function () {

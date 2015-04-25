@@ -1315,6 +1315,80 @@ function test_datepicker() {
         // setter
         var $set: JQuery = $(".selector").datepicker("option", "currentText", "Now");
     }
+
+    function dateFormat() {
+        $(".selector").datepicker({ dateFormat: "yy-mm-dd" });
+
+        var dateFormat: string = $(".selector").datepicker("option", "dateFormat");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "dateFormat", "yy-mm-dd");
+    }
+
+    function dayNames() {
+        $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
+
+        var dayNames: string[] = $(".selector").datepicker("option", "dayNames");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "dayNames", ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]);
+    }
+
+    function dayNamesMin() {
+        $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
+
+        var dayNamesMin: string[] = $(".selector").datepicker("option", "dayNamesMin");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "dayNamesMin", ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"]);
+    }
+
+    function dayNamesShort() {
+        $(".selector").datepicker({ dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"] });
+
+        var dayNamesShort: string[] = $(".selector").datepicker("option", "dayNamesShort");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "dayNamesShort", ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]);
+    }
+
+    function defaultDate() {
+        $(".selector").datepicker({ defaultDate: +7 });
+
+        var defaultDate: any = $(".selector").datepicker("option", "defaultDate");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "defaultDate", +7);
+        $set = $(".selector").datepicker("option", "defaultDate", new Date());
+        $set = $(".selector").datepicker("option", "defaultDate", "+1m +7d");
+    }
+
+    function duration() {
+        $(".selector").datepicker({ duration: "slow" });
+
+        var duration: string = $(".selector").datepicker("option", "duration");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "duration", "slow");
+    }
+
+    function firstDay() {
+        $(".selector").datepicker({ firstDay: 1 });
+
+        var firstDay: number = $(".selector").datepicker("option", "firstDay");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "firstDay", 1);
+    }
+
+    function gotoCurrent() {
+        $(".selector").datepicker({ gotoCurrent: true });
+
+        var gotoCurrent: boolean = $(".selector").datepicker("option", "gotoCurrent");
+
+        // setter
+        var $set: JQuery = $(".selector").datepicker("option", "gotoCurrent", true);
+    }
 }
 
 

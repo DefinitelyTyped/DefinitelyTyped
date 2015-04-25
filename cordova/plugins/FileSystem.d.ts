@@ -18,24 +18,23 @@ interface Window {
         type: number,
         size: number,
         successCallback: (fileSystem: FileSystem) => void,
-        errorCallback?: (fileError: Error) => void): void;
+        errorCallback?: (fileError: FileError) => void): void;
+    /**
+     * Look up file system Entry referred to by local URI.
+     * @param string uri       URI referring to a local file or directory
+     * @param successCallback  invoked with Entry object corresponding to URI
+     * @param errorCallback    invoked if error occurs retrieving file system entry
+     */
+    resolveLocalFileSystemURI(uri: string,
+        successCallback: (entry: Entry) => void,
+        errorCallback?: (error: FileError) => void): void;
     TEMPORARY: number;
     PERSISTENT: number;
 }
 
 /** This interface represents a file system. */
 interface FileSystem {
-    /**
-     * Constructor for FileSystem object
-     * @param name This is the name of the file system. The specifics of naming filesystems
-     *             is unspecified, but a name must be unique across the list of exposed file systems.
-     * @param root The root directory of the file system.
-     */
-    new (name: string, root: DirectoryEntry)
-    /**
-     * This is the name of the file system. The specifics of naming filesystems
-     * is unspecified, but a name must be unique across the list of exposed file systems.
-     */
+    /* The name of the file system, unique across the list of exposed file systems. */
     name: string;
     /** The root directory of the file system. */
     root: DirectoryEntry;
@@ -46,8 +45,6 @@ interface FileSystem {
  * each of which may be a File or DirectoryEntry.
  */
 interface Entry {
-    /** Constructor for Entry object */
-    new ( isFile: boolean, isDirectory: boolean, name: string, fullPath: string, fileSystem: FileSystem, nativeURL: string) ;
     /** Entry is a file. */
     isFile: boolean;
     /** Entry is a directory. */
@@ -66,7 +63,7 @@ interface Entry {
      */
     getMetadata(
         successCallback: (metadata: Metadata) => void,
-        errorCallback?: (error: Error) => void): void;
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Move an entry to a different location on the file system. It is an error to try to:
      *     move a directory inside itself or to any child at any depth;move an entry into its parent if a name different from its current one isn't provided;
@@ -81,9 +78,9 @@ interface Entry {
      * @param errorCallback   A callback that is called when errors happen.
      */
     moveTo(parent: DirectoryEntry,
-            newName?: string,
-            successCallback?: (entry: Entry) => void ,
-            errorCallback?: (error: Error) => void ): void;
+        newName?: string,
+        successCallback?: (entry: Entry) => void,
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Copy an entry to a different location on the file system. It is an error to try to:
      *     copy a directory inside itself or to any child at any depth;
@@ -100,24 +97,34 @@ interface Entry {
      * @param errorCallback A callback that is called when errors happen.
      */
     copyTo(parent: DirectoryEntry,
-            newName?: string,
-            successCallback?: (entry: Entry) => void ,
-            errorCallback?: (error: Error) => void ): void;
+        newName?: string,
+        successCallback?: (entry: Entry) => void,
+        errorCallback?: (error: FileError) => void): void;
+    /**
+     * Returns a URL that can be used as the src attribute of a <video> or <audio> tag.
+     * If that is not possible, construct a cdvfile:// URL.
+     * @return string URL
+     */
     toURL(): string;
+    /**
+     * Return a URL that can be passed across the bridge to identify this entry.
+     * @return string URL that can be passed across the bridge to identify this entry
+     */
+    toInternalURL(): string;
     /**
      * Deletes a file or directory. It is an error to attempt to delete a directory that is not empty. It is an error to attempt to delete the root directory of a filesystem.
      * @param successCallback A callback that is called on success.
      * @param errorCallback   A callback that is called when errors happen.
      */
-    remove(successCallback: () => void ,
-            errorCallback?: (error: Error) => void ): void;
+    remove(successCallback: () => void,
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Look up the parent DirectoryEntry containing this Entry. If this Entry is the root of its filesystem, its parent is itself.
      * @param successCallback A callback that is called with the time of the last modification.
      * @param errorCallback   A callback that is called when errors happen.
      */
-    getParent(successCallback: (entry: Entry) => void ,
-            errorCallback?: (error: Error) => void ): void;
+    getParent(successCallback: (entry: Entry) => void,
+        errorCallback?: (error: FileError) => void): void;
 }
 
 /** This interface supplies information about the state of a file or directory. */
@@ -149,7 +156,7 @@ interface DirectoryEntry extends Entry {
      */
     getFile(path: string, options?: Flags,
         successCallback?: (entry: FileEntry) => void,
-        errorCallback?: (error: Error) => void): void;
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Creates or looks up a directory.
      * @param path    Either an absolute path or a relative path from this DirectoryEntry
@@ -165,7 +172,7 @@ interface DirectoryEntry extends Entry {
      */
     getDirectory(path: string, options?: Flags,
         successCallback?: (entry: DirectoryEntry) => void,
-        errorCallback?: (error: Error) => void): void;
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Deletes a directory and all of its contents, if any. In the event of an error (e.g. trying
      * to delete a directory that contains a file that cannot be removed), some of the contents
@@ -174,7 +181,7 @@ interface DirectoryEntry extends Entry {
      * @param errorCallback   A callback that is called when errors happen.
      */
     removeRecursively(successCallback: () => void,
-        errorCallback?: (error: Error) => void): void;
+        errorCallback?: (error: FileError) => void): void;
 }
 
 /**
@@ -206,7 +213,9 @@ interface DirectoryReader {
      *                        of readEntries, successCallback must be called with a zero-length array as an argument.
      * @param errorCallback   A callback indicating that there was an error reading from the Directory.
      */
-    readEntries(successCallback: (entries: Entry[]) => void, errorCallback?: (error: Error) => void): void;
+    readEntries(
+        successCallback: (entries: Entry[]) => void,
+        errorCallback?: (error: FileError) => void): void;
 }
 
 /** This interface represents a file on a file system. */
@@ -218,14 +227,14 @@ interface FileEntry extends Entry {
      */
     createWriter(successCallback: (
         writer: FileWriter) => void,
-        errorCallback?: (error: Error) => void): void;
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Returns a File that represents the current state of the file that this FileEntry represents.
      * @param successCallback A callback that is called with the File.
      * @param errorCallback   A callback that is called when errors happen.
      */
     file(successCallback: (file: File) => void,
-        errorCallback?: (error: Error) => void): void;
+        errorCallback?: (error: FileError) => void): void;
 }
 
 /**
@@ -265,13 +274,13 @@ interface FileSaver extends EventTarget {
  */
 interface FileWriter extends FileSaver {
     /**
-     * The byte offset at which the next write to the file will occur. This must be no greater than length.
-     * A newly-created FileWriter must have position set to 0.
+     * The byte offset at which the next write to the file will occur. This always less or equal than length.
+     * A newly-created FileWriter will have position set to 0.
      */
     position: number;
     /**
      * The length of the file. If the user does not have read access to the file,
-     * this must be the highest byte offset at which the user has written.
+     * this will be the highest byte offset at which the user has written.
      */
     length: number;
     /**
@@ -287,8 +296,69 @@ interface FileWriter extends FileSaver {
     seek(offset: number): void;
     /**
      * Changes the length of the file to that specified. If shortening the file, data beyond the new length
-     * must be discarded. If extending the file, the existing data must be zero-padded up to the new length.
+     * will be discarded. If extending the file, the existing data will be zero-padded up to the new length.
      * @param size The size to which the length of the file is to be adjusted, measured in bytes.
      */
     truncate(size: number): void;
 }
+
+/* FileWriter states */
+declare var FileWriter: {
+    INIT: number;
+    WRITING: number;
+    DONE: number
+};
+
+interface FileError {
+    /** Error code */
+    code: number;
+}
+
+declare var FileError: {
+    new (code: number): FileError;
+    NOT_FOUND_ERR: number;
+    SECURITY_ERR: number;
+    ABORT_ERR: number;
+    NOT_READABLE_ERR: number;
+    ENCODING_ERR: number;
+    NO_MODIFICATION_ALLOWED_ERR: number;
+    INVALID_STATE_ERR: number;
+    SYNTAX_ERR: number;
+    INVALID_MODIFICATION_ERR: number;
+    QUOTA_EXCEEDED_ERR: number;
+    TYPE_MISMATCH_ERR: number;
+    PATH_EXISTS_ERR: number;
+};
+
+/*
+ * Constants defined in fileSystemPaths
+ */
+interface Cordova {
+    file: {
+        /* Read-only directory where the application is installed. */
+        applicationDirectory: string;
+        /* Root of app's private writable storage */
+        applicationStorageDirectory: string;
+        /* Where to put app-specific data files. */
+        dataDirectory: string;
+        /* Cached files that should survive app restarts. Apps should not rely on the OS to delete files in here. */
+        cacheDirectory: string;
+        /* Android: the application space on external storage. */
+        externalApplicationStorageDirectory: string;
+        /* Android: Where to put app-specific data files on external storage. */
+        externalDataDirectory: string;
+        /* Android: the application cache on external storage. */
+        externalCacheDirectory: string;
+        /* Android: the external storage (SD card) root. */
+        externalRootDirectory: string;
+        /* iOS: Temp directory that the OS can clear at will. */
+        tempDirectory: string;
+        /* iOS: Holds app-specific files that should be synced (e.g. to iCloud). */
+        syncedDataDirectory: string;
+        /* iOS: Files private to the app, but that are meaningful to other applciations (e.g. Office files) */
+        documentsDirectory: string;
+        /* BlackBerry10: Files globally available to all apps */
+        sharedDirectory: string
+    }
+}
+

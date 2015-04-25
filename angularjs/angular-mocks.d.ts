@@ -1,9 +1,19 @@
-// Type definitions for Angular JS 1.2 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS 1.3 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
+
+declare module "angular-mocks/ngMock" {
+    var _: string;
+    export = _;
+}
+
+declare module "angular-mocks/ngAnimateMock" {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // functions attached to global object (window)
@@ -14,7 +24,7 @@ declare var inject: (...fns: Function[]) => any;
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
@@ -30,11 +40,10 @@ declare module ng {
 
         // see http://docs.angularjs.org/api/angular.mock.inject
         inject(...fns: Function[]): any;
+        inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
 
         // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: string[]): any;
-        module(...modules: Function[]): any;
-        module(modules: Object): any;
+        module(...modules: any[]): any;
 
         // see http://docs.angularjs.org/api/angular.mock.TzDate
         TzDate(offset: number, timestamp: number): Date;
@@ -59,6 +68,15 @@ declare module ng {
         flush(delay?: number): void;
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // IntervalService
+    // see http://docs.angularjs.org/api/ngMock.$interval
+    // Augments the original service
+    ///////////////////////////////////////////////////////////////////////////
+    interface IIntervalService {
+        flush(millis?: number): number;
     }
 
     ///////////////////////////////////////////////////////////////////////////

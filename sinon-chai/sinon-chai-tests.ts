@@ -3,12 +3,17 @@
 
 declare var expect: chai.ExpectStatic;
 
+import chai = require('chai');
+import sinonChai = require('sinon-chai');
+
+chai.use(sinonChai);
+
 function test() {
     var spy: Function;
     var anotherSpy: Function;
-    var context;
-    var match;
-
+    var context: any;
+    var match: any;
+    
     expect(spy).to.have.been.called;
     expect(spy).to.have.been.calledOnce;
     expect(spy).to.have.been.calledTwice;

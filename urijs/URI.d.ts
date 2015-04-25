@@ -72,7 +72,7 @@ declare class URI {
     segment(level: string): string;
     search(): string;
     search(qry: string): URI;
-    search(qry: boolean): Object;
+    search(qry: boolean): any;
     search(qry: Object): URI;
     query(): string;
     query(qry: string): URI;
@@ -95,7 +95,7 @@ declare class URI {
     removeQuery(qry: Object): URI;
     addFragment(fragment: string): URI;
     //fragmentPrefix: string;
-    fragmentPrefix(prefix: string);
+    fragmentPrefix(prefix: string): URI;
     normalize(): URI;
     normalizeProtocol(): URI;
     normalizeHostname(): URI;

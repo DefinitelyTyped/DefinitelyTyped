@@ -6,7 +6,7 @@
 /// <reference path="i18next.d.ts" />
 
 declare function done(): void;
- 
+
 describe('i18next', function () {
 
     var i18n = $.i18n
@@ -682,6 +682,23 @@ describe('i18next', function () {
 
             it('it should translate correctly', function () {
                 expect(i18n.t('empty')).to.be('');
+            });
+        });
+
+        describe('exists functionality', function () {
+            var resStore = {
+                dev: { translation: { empty: '' } },
+                en: { translation: {} },
+                'en-US': { translation: {} }
+            };
+
+            beforeEach(function (done) {
+                i18n.init($.extend(opts, { resStore: resStore }),
+                    function (t) { done(); });
+            });
+
+            it('it should be able to test if a key exists', function () {
+                expect(i18n.exists('empty')).to.be(false);
             });
         });
 

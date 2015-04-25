@@ -1,12 +1,8 @@
 // Type definitions for FabricJS
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* 
-USAGE
-///<reference path="fabricjs.d.ts"/>
-*/
 declare module fabric {
 
     function createCanvasForNode(width: number, height: number): ICanvas;
@@ -278,13 +274,13 @@ declare module fabric {
 
         hasControls: boolean;
         hasRotatingPoint: boolean;
-        
+
         height: number;
         getHeight(): number;
         setHeight(value: number): IObject;
 
         includeDefaultValues: boolean;
-        
+
         left: number;
         getLeft(): number;
         setLeft(value: number): IObject;
@@ -300,7 +296,7 @@ declare module fabric {
         padding: number;
         perPixelTargetFind: boolean;
         rotatingPointOffset: number;
-        
+
         scaleX: number;
         getScaleX(): number;
         setScaleX(value: number): IObject;
@@ -314,7 +310,7 @@ declare module fabric {
         stroke: string;
         strokeDashArray: any[];
         strokeWidth: number;
-        
+
         top: number;
         getTop(): number;
         setTop(value: number): IObject;
@@ -322,13 +318,13 @@ declare module fabric {
         transformMatrix: any[];
         transparentCorners: boolean;
         type: string;
-        
+
         width: number;
         getWidth(): number;
         setWidth(value: number): IObject;
 
         // methods
-        bringForward(): IObject;
+        bringForward(intersecting?: boolean): IObject;
         bringToFront(): IObject;
         center(): IObject;
         centerH(): IObject;
@@ -339,6 +335,7 @@ declare module fabric {
         drawBorders(context: CanvasRenderingContext2D): IObject;
         drawCorners(context: CanvasRenderingContext2D): IObject;
         get (property: string): any;
+        getBoundingRect(): {left:number; top:number; width:number; height:number};
         getBoundingRectHeight(): number;
         getBoundingRectWidth(): number;
         getSvgStyles(): string;
@@ -358,7 +355,7 @@ declare module fabric {
         scale(value: number): IObject;
         scaleToHeight(value: number): IObject;
         scaleToWidth(value: number): IObject;
-        sendBackwards(): IObject;
+        sendBackwards(intersecting?: boolean): IObject;
         sendToBack(): IObject;
 
         set (properties: IObjectOptions): IObject;
@@ -456,7 +453,7 @@ declare module fabric {
         toSVG(): string;
     }
 
-    
+
 
     export interface IPath extends IObject {
         complexity(): number;
@@ -514,7 +511,7 @@ declare module fabric {
         renderOnAddition: boolean;
         stateful: boolean;
 
-        // static 
+        // static
         EMPTY_JSON: string;
         supports(methodName: string): boolean;
 
@@ -549,7 +546,7 @@ declare module fabric {
 
         sendBackwards(object: IObject): ICanvas;
         sendToBack(object: IObject): ICanvas;
-        setBackgroundImage(object: IObject): ICanvas;
+        setBackgroundImage(image: any, callback: () => any, options?): ICanvas;
         setDimensions(object: { width: number; height: number; }): ICanvas;
         setHeight(height: number): ICanvas;
         setOverlayImage(url: string, callback: () => any, options): ICanvas;
@@ -610,6 +607,21 @@ declare module fabric {
         loadFromDatalessJSON(json, callback: () => void): void;
     }
 
+    export interface IPattern {
+        (options: IPatternOptions): IPattern;
+
+        initialise(options: IPatternOptions): IPattern;
+
+        toLive(ctx: CanvasRenderingContext2D): IPattern;
+        toObject(): any;
+        toSVG(): string;
+
+        offsetX: number;
+        offsetY: number;
+        repeat: string;
+        source: any;
+    }
+
     export interface IBrightnessFilter {
     }
     export interface IInvertFilter {
@@ -661,8 +673,15 @@ declare module fabric {
         stateful?: boolean;
     }
 
+    export interface IPatternOptions {
+        source: any;
+        offsetX: number;
+        offsetY: number;
+        repeat: string;
+    }
+
     export interface IRectOptions extends IObjectOptions {
-        x?: number; 
+        x?: number;
         y?: number;
         rx?: number;
         ry?: number;
@@ -697,6 +716,12 @@ declare module fabric {
 
         EMPTY_JSON: string;
         supports(methodName: string): boolean;
+        prototype: any;
+    }
+
+    var Pattern: {
+        new (options: IPatternOptions): IPattern;
+
         prototype: any;
     }
 
@@ -773,7 +798,7 @@ declare module fabric {
         new (element: HTMLImageElement, objObjects: IObjectOptions): IImage;
         prototype: any;
 
-        filters: 
+        filters:
         {
             Grayscale: {
                 new (): IGrayscaleFilter;
@@ -856,5 +881,19 @@ declare module fabric {
         toArray(arrayLike): any[];
         toFixed(number, fractionDigits);
         wrapElement(element: HTMLElement, wrapper, attributes);
+        rotatePoint(point: IPoint, origin: IPoint, radians: number);
+        transformPoint(p: IPoint, t: any[], ignoreOffset: boolean);
+        invertTransform(t: any[]);
+        parseUnit(value: number|string, fontSize?: number);
+        getKlass(type: string, namespace: string); 
+        resolveNamespace(namespace: string);
+        enlivenObjects(objects: any[], callback: Function, namespace: string, reviver: Function);
+        drawDashedLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number, da: any[]);
+        createCanvasElement(canvasEl?: HTMLElement);
+        createImage();
+        createAccessors(klass: Object);
+        clipContext(receiver: IObject, ctx: CanvasRenderingContext2D);
+        isTransparent(ctx: CanvasRenderingContext2D, x: number, y: number, tolerance: number);
+
     }
 }

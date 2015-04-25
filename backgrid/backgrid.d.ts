@@ -9,20 +9,20 @@ declare module Backgrid {
 
     interface GridOptions {
 	columns: Column[];
-	collection: Backbone.Collection;
+	collection: Backbone.Collection<Backbone.Model>;
 	header: Header;
 	body: Body;
 	row: Row;
 	footer: Footer;
     }
 
-    class Header extends Backbone.View {
+    class Header extends Backbone.View<Backbone.Model> {
     }
 
-    class Footer extends Backbone.View {
+    class Footer extends Backbone.View<Backbone.Model> {
     }
     
-    class Row extends Backbone.View {
+    class Row extends Backbone.View<Backbone.Model> {
     }
 
     class Command {
@@ -50,19 +50,19 @@ declare module Backgrid {
 	initialize(options?: any);
     }
 
-    class Body extends Backbone.View {
+    class Body extends Backbone.View<Backbone.Model> {
 	tagName: string;
 
 	initialize(options?: any);
-	insertRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
+	insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
 	moveToNextCell(model: Backbone.Model, cell: Column, command: Command);
 	refresh(): Body;
 	remove(): Body;
-	removeRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
+	removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
 	render(): Body;
     }
 
-    class Grid extends Backbone.View {
+    class Grid extends Backbone.View<Backbone.Model> {
 	body: Backgrid.Body;
 	className: string;
 	footer: any;
@@ -72,10 +72,10 @@ declare module Backgrid {
 	initialize(options: any);
 	getSelectedModels(): Backbone.Model[];
 	insertColumn(...options: any[]): Grid;
-	insertRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
+	insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
 	remove():Grid;
 	removeColumn(...options: any[]): Grid;
-	removeRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
+	removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
 	render():Grid;
     }
 

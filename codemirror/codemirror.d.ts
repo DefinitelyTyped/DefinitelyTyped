@@ -9,7 +9,7 @@ declare function CodeMirror(callback: (host: HTMLElement) => void , options?: Co
 declare module CodeMirror {
     export var Pass: any;
 
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.Editor;
+    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     var version: string;
 
@@ -86,6 +86,11 @@ declare module CodeMirror {
     or the line the widget is on require the widget to be redrawn. */
     function on(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
     function off(line: LineWidget, eventName: 'redraw', handler: () => void ): void;
+        
+    /** Various CodeMirror-related objects emit events, which allow client code to react to various situations. 
+    Handlers for such events can be registered with the on and off methods on the objects that the event fires on. 
+    To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
+    function signal(target: any, name: string, ...args: any[]): void;
 
     interface Editor {
     
@@ -369,6 +374,18 @@ declare module CodeMirror {
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
     }
+    
+    interface EditorFromTextArea extends Editor {
+    
+        /** Copy the content of the editor into the textarea. */
+        save(): void;
+    
+        /** Remove the editor, and restore the original textarea (with the editor's current content). */
+        toTextArea(): void;
+    
+        /** Returns the textarea that the instance was based on. */
+        getTextArea(): HTMLTextAreaElement;
+    }
 
     class Doc {
         constructor (text: string, mode?: any, firstLineNumber?: number);
@@ -526,6 +543,9 @@ declare module CodeMirror {
             Set this option to true to make it go to the left instead. */
             insertLeft?: boolean;
         }): CodeMirror.TextMarker;
+
+        /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
+        findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
 
         /** Returns an array of all the bookmarks and marked ranges present at the given position. */
         findMarksAt(pos: CodeMirror.Position): TextMarker[];
@@ -789,4 +809,201 @@ declare module CodeMirror {
         By default, a marker appears only in its target document. */
         shared?: boolean;
     }
+    
+    interface StringStream {
+        lastColumnPos: number;
+        lastColumnValue: number;
+        lineStart: number;
+
+        /**
+         * Current position in the string.
+         */
+        pos: number;
+
+        /**
+         * Where the stream's position was when it was first passed to the token function.
+         */
+        start: number;
+
+        /**
+         * The current line's content.
+         */
+        string: string;
+
+        /**
+         * Number of spaces per tab character.
+         */
+        tabSize: number;
+
+        /**
+         * Returns true only if the stream is at the end of the line.
+         */
+        eol(): boolean;
+
+        /**
+         * Returns true only if the stream is at the start of the line.
+         */
+        sol(): boolean;
+
+        /**
+         * Returns the next character in the stream without advancing it. Will return an null at the end of the line.
+         */
+        peek(): string;
+
+        /**
+         * Returns the next character in the stream and advances it. Also returns null when no more characters are available.
+         */
+        next(): string;
+
+        /**
+         * match can be a character, a regular expression, or a function that takes a character and returns a boolean.
+         * If the next character in the stream 'matches' the given argument, it is consumed and returned.
+         * Otherwise, undefined is returned.
+         */
+        eat(match: string): string;
+        eat(match: RegExp): string;
+        eat(match: (char: string) => boolean): string;
+
+        /**
+         * Repeatedly calls eat with the given argument, until it fails. Returns true if any characters were eaten.
+         */
+        eatWhile(match: string): boolean;
+        eatWhile(match: RegExp): boolean;
+        eatWhile(match: (char: string) => boolean): boolean;
+
+        /**
+         * Shortcut for eatWhile when matching white-space.
+         */
+        eatSpace(): boolean;
+
+        /**
+         * Moves the position to the end of the line.
+         */
+        skipToEnd(): void;
+
+        /**
+         * Skips to the next occurrence of the given character, if found on the current line (doesn't advance the stream if
+         * the character does not occur on the line).
+         *
+         * Returns true if the character was found.
+         */
+        skipTo(ch: string): boolean;
+
+        /**
+         * Act like a multi-character eat - if consume is true or not given - or a look-ahead that doesn't update the stream
+         * position - if it is false. pattern can be either a string or a regular expression starting with ^. When it is a
+         * string, caseFold can be set to true to make the match case-insensitive. When successfully matching a regular
+         * expression, the returned value will be the array returned by match, in case you need to extract matched groups.
+         */
+        match(pattern: string, consume?: boolean, caseFold?: boolean): boolean;
+        match(pattern: RegExp, consume?: boolean): string[];
+
+        /**
+         * Backs up the stream n characters. Backing it up further than the start of the current token will cause things to
+         * break, so be careful.
+         */
+        backUp(n: number): void;
+
+        /**
+         * Returns the column (taking into account tabs) at which the current token starts.
+         */
+        column(): number;
+
+        /**
+         * Tells you how far the current line has been indented, in spaces. Corrects for tab characters.
+         */
+        indentation(): number;
+
+        /**
+         * Get the string between the start of the current token and the current stream position.
+         */
+        current(): string;
+    }
+
+    /**
+     * A Mode is, in the simplest case, a lexer (tokenizer) for your language — a function that takes a character stream as input,
+     * advances it past a token, and returns a style for that token. More advanced modes can also handle indentation for the language.
+     */
+    interface Mode<T> {
+        /**
+         * This function should read one token from the stream it is given as an argument, optionally update its state,
+         * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
+         */
+        token(stream: StringStream, state: T): string;
+
+        /**
+         * A function that produces a state object to be used at the start of a document.
+         */
+        startState?: () => T;
+        /**
+         * For languages that have significant blank lines, you can define a blankLine(state) method on your mode that will get called
+         * whenever a blank line is passed over, so that it can update the parser state.
+         */
+        blankLine?: (state: T) => void;
+        /**
+         * Given a state returns a safe copy of that state.
+         */
+        copyState?: (state: T) => T;
+
+        /**
+         * The indentation method should inspect the given state object, and optionally the textAfter string, which contains the text on
+         * the line that is being indented, and return an integer, the amount of spaces to indent.
+         */
+        indent?: (state: T, textAfter: string) => number;
+
+        /** The four below strings are used for working with the commenting addon. */
+        /**
+         * String that starts a line comment.
+         */
+        lineComment?: string;
+        /**
+         * String that starts a block comment.
+         */
+        blockCommentStart?: string;
+        /**
+         * String that ends a block comment.
+         */
+        blockCommentEnd?: string;
+        /**
+         * String to put at the start of continued lines in a block comment.
+         */
+        blockCommentLead?: string;
+
+        /**
+         * Trigger a reindent whenever one of the characters in the string is typed.
+         */
+        electricChars?: string
+        /**
+         * Trigger a reindent whenever the regex matches the part of the line before the cursor.
+         */
+        electricinput?: RegExp
+    }
+
+    /**
+     * A function that, given a CodeMirror configuration object and an optional mode configuration object, returns a mode object.
+     */
+    interface ModeFactory<T> {
+        (config: CodeMirror.EditorConfiguration, modeOptions?: any): Mode<T>
+    }
+
+    /**
+     * id will be the id for the defined mode. Typically, you should use this second argument to defineMode as your module scope function
+     * (modes should not leak anything into the global scope!), i.e. write your whole mode inside this function.
+     */
+    function defineMode(id: string, modefactory: ModeFactory<any>): void;
+
+    /**
+     * The first argument is a configuration object as passed to the mode constructor function, and the second argument
+     * is a mode specification as in the EditorConfiguration mode option.
+     */
+    function getMode<T>(config: CodeMirror.EditorConfiguration, mode: any): Mode<T>;
+
+    /**
+     * Utility function from the overlay.js addon that allows modes to be combined. The mode given as the base argument takes care of
+     * most of the normal mode functionality, but a second (typically simple) mode is used, which can override the style of text.
+     * Both modes get to parse all of the text, but when both assign a non-null style to a piece of code, the overlay wins, unless
+     * the combine argument was true and not overridden, or state.overlay.combineTokens was true, in which case the styles are combined.
+     */
+    function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>
+
 }

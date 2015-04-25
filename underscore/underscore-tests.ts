@@ -1,6 +1,6 @@
 /// <reference path="underscore.d.ts" />
 
-declare var $;
+declare var $: any;
 
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
@@ -33,6 +33,10 @@ _.every([true, 1, null, 'yes'], _.identity);
 
 _.any([null, 0, 'yes', false]);
 
+_.some([1, 2, 3, 4], l => l % 3 === 0);
+
+_.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+
 _.contains([1, 2, 3], 3);
 
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
@@ -40,11 +44,11 @@ _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
 _.pluck(stooges, 'name');
 
-_.max<{ name: string; age: number }>(stooges, (stooge) => stooge.age);
-
-_.max([1, 2, 3, 4, 5]);
+_.max(stooges, (stooge) => stooge.age);
+_.min(stooges, (stooge) => stooge.age);
 
 var numbers = [10, 5, 100, 2, 1000];
+_.max(numbers);
 _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
@@ -65,18 +69,18 @@ _.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
 
-(function(a, b, c, d){ return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+(function (a, b, c, d) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
 _.size({ one: 1, two: 2, three: 3 });
 
-_.partition<number>([0, 1, 2, 3, 4, 5], (num)=>{return num % 2 ==0});
+_.partition<number>([0, 1, 2, 3, 4, 5], (num) => {return num % 2 == 0 });
 
 interface Family {
 	name: string;
-	relation : string;
+	relation: string;
 }
-var isUncleMoe = _.matches<Family, boolean>({name : 'moe', relation : 'uncle'});
-_.filter([{name: 'larry', relation : 'father'}, {name : 'moe', relation : 'uncle'}], isUncleMoe);
+var isUncleMoe = _.matches<Family, boolean>({ name: 'moe', relation: 'uncle' });
+_.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
 
 
 
@@ -136,18 +140,18 @@ _.delay(log, 1000, 'logged later');
 
 _.defer(function () { alert('deferred'); });
 
-var updatePosition = () => alert('updating position...');
+var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
 
-var calculateLayout = () => alert('calculating layout...');
+var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
 
-var createApplication = () => alert('creating application...');
+var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
-initialize();
-initialize();
+initialize("me");
+initialize("me");
 
 var notes: any[];
 var render = () => alert("rendering...");
@@ -247,7 +251,7 @@ _.isUndefined((<any>window).missingVariable);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-var UncleMoe = {name: 'moe'};
+var UncleMoe = { name: 'moe' };
 _.constant(UncleMoe)();
 
 typeof _.now() === "number";
@@ -292,7 +296,7 @@ _.templateSettings = {
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { answer: 'no' }, { variable: 'data' });
+_.template("Using 'with': <%= data.answer %>", { variable: 'data' });
 
 
 _(['test', 'test']).pick(['test2', 'test2']);
@@ -324,4 +328,20 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
+		
+	var firstVal: number = _.chain([1, 2, 3])
+		.first()
+		.value();
 }
+
+var obj: { [k: string] : number } = {
+       'test' : 5,
+       'another' : 8,
+       'third' : 10
+    },
+    empty = {};
+
+_.chain(obj).map(function (value, key) {
+    empty[key] = value;
+    console.log("vk", value, key);
+});

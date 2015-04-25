@@ -1263,8 +1263,8 @@ declare module google.maps {
         }
 
         export class poly {
-            containsLocation(point: LatLng, polygon: Polygon): boolean;
-            isLocationOnEdge(point: LatLng, poly: any, tolerance?: number): boolean;
+            static containsLocation(point: LatLng, polygon: Polygon): boolean;
+            static isLocationOnEdge(point: LatLng, poly: any, tolerance?: number): boolean;
         }
     }
 
@@ -1345,6 +1345,55 @@ declare module google.maps {
     }
 
     export module places {
+
+        export class AutocompleteService extends MVCObject {
+            constructor();
+            getPlacePredictions(request: AutocompletionRequest, callback: (result: AutocompletePrediction[], status: PlacesServiceStatus) => void): void;
+            getQueryPredictions(request: QueryAutocompletionRequest, callback: (result: QueryAutocompletePrediction[], status: PlacesServiceStatus) => void): void;
+        }
+
+        export interface AutocompletionRequest {
+            input: string;
+            bounds?: LatLngBounds;
+            componentRestrictions?: ComponentRestrictions;
+            location?: LatLng;
+            offset?: number;
+            radius?: number;
+            types?: string[];
+        }
+
+        export interface QueryAutocompletionRequest {
+            input: string;
+            bounds?: LatLngBounds;
+            location?: LatLng;
+            offset?: number;
+            radius?: number;
+        }
+
+        export interface AutocompletePrediction {
+            description: string;
+            matched_substrings: PredictionSubstring[];
+            place_id: string;
+            terms: PredictionTerm[];
+            types: string[]
+        }
+
+        export interface PredictionTerm {
+            offset: number;
+            value: string;
+        }
+
+        export interface PredictionSubstring {
+            length: number;
+            offset: number;
+        }
+
+        export interface QueryAutocompletePrediction {
+            description: string;
+            matched_substrings: PredictionSubstring[];
+            place_id: string;
+            terms: PredictionTerm[];
+        }
 
         export class Autocomplete extends MVCObject {
             constructor (inputField: HTMLInputElement, opts?: AutocompleteOptions);
@@ -1574,13 +1623,13 @@ declare module google.maps {
         }
 
         export interface HeatmapLayerOptions {
-            data: LatLng[];
-            dissipating: boolean;
-            gradient: string[];
-            map: Map;
-            maxIntensity: number;
-            opacity: number;
-            radius: number;
+            data: any;
+            dissipating?: boolean;
+            gradient?: string[];
+            map?: Map;
+            maxIntensity?: number;
+            opacity?: number;
+            radius?: number;
         }
 
         export interface WeightedLocation {

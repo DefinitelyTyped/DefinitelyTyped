@@ -91,6 +91,7 @@ interface GlobalizeCulture {
     isRTL: boolean;
     language: string;
     numberFormat: GlobalizeNumberFormat;
+    calendar: GlobalizeCalendar;
     calendars: GlobalizeCalendars;
     messages: any;
 }

@@ -269,3 +269,7 @@ declare module svgjs {
         f?: number;
     }
 }
+
+declare module "svg.js" {
+    export = svgjs
+}

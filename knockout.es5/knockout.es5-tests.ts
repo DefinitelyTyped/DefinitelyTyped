@@ -5,7 +5,7 @@ var empty = {},
     observable = ko.observable(123),
     computed = ko.computed(function () { return observable() + 1; }),
     model = { prop: 100 },
-    notifiedValues = [];
+    notifiedValues: any[] = [];
 
 
 // Basic properties

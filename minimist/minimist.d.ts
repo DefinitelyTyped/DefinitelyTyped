@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'minimist' {
-	function minimist(args?: string[], opts?: minimist.Opts):Object;
+	function minimist(args?: string[], opts?: minimist.Opts): minimist.ParsedArgs;
 
 	module minimist {
 		export interface Opts {
@@ -19,6 +19,10 @@ declare module 'minimist' {
 			alias?: {[key:string]: string[]};
 			// an object mapping string argument names to default values
 			default?: {[key:string]: any};
+		}
+
+		export interface ParsedArgs {
+			_: string[];
 		}
 	}
 

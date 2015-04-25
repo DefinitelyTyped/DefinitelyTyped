@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "through" {
-	import Stream = require("stream");
+	import stream = require("stream");
 
 	function through(write?: (data) => void,
 		end?: () => void,
@@ -15,7 +15,7 @@ declare module "through" {
 		}): through.ThroughStream;
 
 	module through {
-		export interface ThroughStream extends ReadWriteStream {
+		export interface ThroughStream extends stream.Transform {
 			autoDestroy: boolean;
 		}
 	}

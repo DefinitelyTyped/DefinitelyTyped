@@ -1,6 +1,6 @@
 // Type definitions for jQuery UI Timepicker 0.3
 // Project: http://fgelinas.com/code/timepicker/
-// Definitions by: https://github.com/anwarjaved
+// Definitions by: Anwar Javed <https://github.com/anwarjaved>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
