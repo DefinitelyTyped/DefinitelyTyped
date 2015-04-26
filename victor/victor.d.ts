@@ -1,9 +1,8 @@
-/**
- * Type definitions for Victor.js 0.8.0
- * Project: http://victorjs.org/
- * Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
- * Definitions: https://github.com/borisyankov/DefinitelyTyped
- */
+// Type definitions for Victor.js 0.8.0
+// Project: http://victorjs.org/
+// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 
 interface VictorCoordinates
 {
