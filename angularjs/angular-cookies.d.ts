@@ -1,6 +1,6 @@
-// Type definitions for Angular JS 1.3 (ngCookies module)
+// Type definitions for Angular JS 1.4 (ngCookies module)
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Anthony Ciccarello <http://github.com/aciccarello>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -28,10 +28,13 @@ declare module angular.cookies {
     // CookieStoreService
     // see http://docs.angularjs.org/api/ngCookies.$cookieStore
     ///////////////////////////////////////////////////////////////////////////
-    interface ICookieStoreService {
-        get(key: string): any;
-        put(key: string, value: any): void;
-        remove(key: string): void;
+    interface ICookiesService {
+        get(key: string): string;
+        getObject(key: string): any;
+        getAll(): any;
+        put(key: string, value: string, options?: any): void;
+        putObject(key: string, value: any, options?: any): void;
+        remove(key: string, options?: any): void;
     }
 
 }
