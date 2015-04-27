@@ -93,7 +93,7 @@ declare module restangular {
     withConfig(configurer: (RestangularProvider: IProvider) => any): IService;
     restangularizeElement(parent: any, element: any, route: string, collection?: any, reqParams?: any): IElement;
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
-    service(route: string, parent: any): IService;
+    service(route: string, parent?: any): IService;
     stripRestangular(element: any): any;
   }
 
