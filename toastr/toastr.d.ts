@@ -119,6 +119,11 @@ interface ToastrOptions {
      */
     preventDuplicates?: boolean;
 
+    /**
+     * Visually indicates how long before a toast expires.
+     */
+    progressBar?: boolean;
+    
 	/**
 	* Function to execute on toast click
 	*/

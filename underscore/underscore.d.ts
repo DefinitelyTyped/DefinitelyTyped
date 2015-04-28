@@ -264,7 +264,22 @@ interface UnderscoreStatic {
 	detect<T>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, boolean>,
-		context?: any): T;
+        context?: any): T;
+
+    /**
+	* Looks through each value in the list, returning the index of the first one that passes a truth
+	* test (iterator). The function returns as soon as it finds an acceptable element,
+	* and doesn't traverse the entire list.
+	* @param list Searches for a value in this list.
+	* @param iterator Search iterator function for each element in `list`.
+	* @param context `this` object in `iterator`, optional.
+	* @return The index of the first acceptable found element in `list`, if nothing is found -1 is returned.
+	**/
+    findIndex<T>(
+        list: _.List<T>,
+        iterator: _.ListIterator<T, boolean>,
+        context?: any): number;
+
 
 	/**
 	* Looks through each value in the list, returning an array of all the values that pass a truth

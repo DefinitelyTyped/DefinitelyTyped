@@ -1211,11 +1211,11 @@ declare module THREE {
 
         getObjectByProperty( name: string, value: string, recursive?: boolean ): Object3D;
         
-        getWorldPosition(optionalTarget: Vector3): Vector3;
-        getWorldQuaternion(optionalTarget: Quaternion): Quaternion;
-        getWorldRotation(optionalTarget: Euler): Euler;
-        getWorldScale(optionalTarget: Vector3): Vector3;
-        getWorldDirection(optionalTarget: Vector3): Vector3;
+        getWorldPosition(optionalTarget?: Vector3): Vector3;
+        getWorldQuaternion(optionalTarget?: Quaternion): Quaternion;
+        getWorldRotation(optionalTarget?: Euler): Euler;
+        getWorldScale(optionalTarget?: Vector3): Vector3;
+        getWorldDirection(optionalTarget?: Vector3): Vector3;
 
         /**
          * Translates object along arbitrary axis by distance.
@@ -5613,7 +5613,7 @@ declare module THREE {
         constructor(object: Object3D, hex?: number);
 
         object: Object3D;
-        box: Box3[];
+        box: Box3;
 
         update(): void;
     }

@@ -11,7 +11,7 @@ supertest(app)
   .expect('Content-Type', /json/)
   .expect('Content-Length', '20')
   .expect(201)
-  .end((err, res) => {
+  .end((err: any, res: supertest.Response) => {
     if (err) throw err;
   });
 
@@ -20,13 +20,13 @@ var request = supertest(app);
 var agent = supertest.agent();
 request
   .post('/login')
-  .end((err, res) => {
+  .end((err: any, res: supertest.Response) => {
     if (err) throw err;
     agent.saveCookies(res);
 
     var req = request.get('/admin');
     agent.attachCookies(req);
-    req.expect(200, (err, res) => {
+    req.expect(200, (err: any, res: supertest.Response) => {
       if (err) throw err;
     });
   });
@@ -35,11 +35,11 @@ request
 var client = supertest.agent(app);
 client
   .post('/login')
-  .end((err, res) => {
+  .end((err: any, res: supertest.Response) => {
     if (err) throw err;
 
     client.get('/admin')
-      .expect(200, (err, res) => {
+      .expect(200, (err: any, res: supertest.Response) => {
         if (err) throw err;
       });
   });
@@ -48,7 +48,7 @@ client
 supertest(app)
   .get('/')
   .expect(hasPreviousAndNextKeys)
-  .end((err, res) => {
+  .end((err: any, res: supertest.Response) => {
     if (err) throw err;
   });
 

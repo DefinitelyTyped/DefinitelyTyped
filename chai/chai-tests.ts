@@ -337,6 +337,11 @@ function deepEqual3(Date) {
     expect(a).not.to.deep.equal({});
 }
 
+function deepInclude(val) {
+    expect(['foo', 'bar']).to.deep.include(['bar', 'foo']);
+    expect(['foo', 'bar']).not.to.deep.equal(['foo', 'baz' ]);
+}
+
 function empty() {
     function FakeArgs() { };
     FakeArgs.prototype.length = 0;

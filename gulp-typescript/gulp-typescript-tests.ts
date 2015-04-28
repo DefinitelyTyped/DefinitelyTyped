@@ -38,3 +38,8 @@ gulp.task('scripts', function() {
 gulp.task('watch', ['scripts'], function() {
     gulp.watch('lib/*.ts', ['scripts']);
 });
+
+gulp.task('scripts', function () {
+    return gulp.src('lib/*.ts')
+        .pipe(typescript(tsProject, undefined, typescript.reporter.fullReporter()));
+});

@@ -93,7 +93,7 @@ declare module restangular {
     withConfig(configurer: (RestangularProvider: IProvider) => any): IService;
     restangularizeElement(parent: any, element: any, route: string, collection?: any, reqParams?: any): IElement;
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
-    service(route: string, parent: any): IService;
+    service(route: string, parent?: any): IService;
     stripRestangular(element: any): any;
   }
 
@@ -112,7 +112,10 @@ declare module restangular {
     trace(queryParams?: any, headers?: any): IPromise<any>;
     options(queryParams?: any, headers?: any): IPromise<any>;
     patch(queryParams?: any, headers?: any): IPromise<any>;
+    clone(): IElement;
+    plain(): any;
     withHttpConfig(httpConfig: IRequestConfig): IElement;
+    save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
   }
 

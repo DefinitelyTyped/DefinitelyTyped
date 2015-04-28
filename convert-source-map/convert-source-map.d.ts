@@ -6,20 +6,20 @@
 declare module "convert-source-map" {
 	export interface SourceMapConverter {
 		toObject(): any;
-		toJSON(space?): string;
+		toJSON(space?: any): string;
 		toBase64(): string;
 		toComment(): string;
 
-		addProperty(key, value): SourceMapConverter;
-		setProperty(key, value): SourceMapConverter;
+		addProperty(key: string, value: any): SourceMapConverter;
+		setProperty(key: string, value: any): SourceMapConverter;
 
-		getProperty(key): any;
+		getProperty(key: string): any;
 	}
 
-	export function removeComments(src): string;
+	export function removeComments(src: string): string;
 	export var commentRegex: RegExp;
 
-	export function fromObject(obj): SourceMapConverter;
+	export function fromObject(obj: any): SourceMapConverter;
 	export function fromJSON(json: string): SourceMapConverter;
 	export function fromBase64(base64: string): SourceMapConverter;
 	export function fromComment(comment: string): SourceMapConverter;

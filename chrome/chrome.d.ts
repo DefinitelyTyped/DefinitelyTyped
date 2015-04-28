@@ -6,6 +6,13 @@
 /// <reference path='../webrtc/MediaStream.d.ts'/>
 
 ////////////////////
+// Global object
+////////////////////
+interface Window {
+    chrome: typeof chrome;
+}
+
+////////////////////
 // Alarms
 ////////////////////
 declare module chrome.alarms {
@@ -1524,8 +1531,11 @@ declare module chrome.runtime {
     }
 
     interface MessageSender {
-        id: string;
+        id?: string;
         tab?: chrome.tabs.Tab;
+        frameId?: number;
+        url?: string;
+        tlsChannelId?: string;
     }
 
     interface PlatformInfo {
@@ -1535,10 +1545,11 @@ declare module chrome.runtime {
     }
 
     interface Port {
-        postMessage: Function;
+        postMessage: (message: Object) => void;
+        disconnect: () => void;
         sender?: MessageSender;
         onDisconnect: chrome.events.Event;
-        onMessage: chrome.events.Event;
+        onMessage: PortMessageEvent;
         name: string;
     }
 
@@ -1548,6 +1559,10 @@ declare module chrome.runtime {
 
     interface UpdateCheckDetails {
         version: string;
+    }
+
+    interface PortMessageEvent extends chrome.events.Event {
+        addListener(callback: (message: Object, port: Port) => void): void;
     }
 
     interface ExtensionMessageEvent extends chrome.events.Event {
@@ -2046,14 +2061,19 @@ declare module chrome.ttsEngine {
 // Types
 ////////////////////
 declare module chrome.types {
-    interface ChromeSettingSetDetails {
+    interface ChromeSettingClearDetails {
         scope?: string;
+    }
+
+    interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
         value: any;
     }
 
     interface ChromeSettingGetDetails {
         incognito?: boolean;
     }
+
+    type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
     interface ChromeSettingGetResultDetails {
         levelOfControl: string;
@@ -2062,7 +2082,7 @@ declare module chrome.types {
     }
 
     interface ChromeSettingChangedEvent extends chrome.events.Event {
-        addListener(callback: (details: ChromeSettingGetResultDetails) => void): void;
+        addListener(callback: DetailsCallback): void;
     }
 
     interface ChromeSetting {
@@ -2071,7 +2091,8 @@ declare module chrome.types {
             callback?: Function;
         };
         set(details: ChromeSettingSetDetails, callback?: Function): void;
-        get(details: ChromeSettingGetDetails, callback?: ChromeSettingGetResultDetails): void;
+        get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+        clear(details: ChromeSettingClearDetails, callback?: Function): void;
         onChange: ChromeSettingChangedEvent;
     }
 }
@@ -2236,7 +2257,7 @@ declare module chrome.webRequest {
     }
 
     interface UploadData {
-        bytes?: any[];
+        bytes?: ArrayBuffer;
         file?: string;
     }
 
@@ -2314,7 +2335,7 @@ declare module chrome.webRequest {
     }
 
     interface RequestBody {
-        raw?: UploadData;
+        raw?: UploadData[];
         error?: string;
         formData?: FormData;
     }

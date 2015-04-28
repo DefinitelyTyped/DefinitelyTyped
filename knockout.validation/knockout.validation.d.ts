@@ -108,7 +108,6 @@ interface KnockoutValidationGroup {
 
 interface KnockoutValidationStatic {
     init(options?: KnockoutValidationConfiguration, force?: boolean): void;
-    configure(options: KnockoutValidationConfiguration): void;
     reset(): void;
 
     group(obj: any, options?: any): KnockoutValidationErrors;

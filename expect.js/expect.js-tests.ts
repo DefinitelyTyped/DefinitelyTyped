@@ -28,7 +28,7 @@ function test_expect_properties() {
     expect(0).to.not.include;
     expect(0).to.not.only.have.own;
     expect(0).to.only.have.own;
-    expect(0).be
+    expect(0).be;
 }
 
 function test_ok() {

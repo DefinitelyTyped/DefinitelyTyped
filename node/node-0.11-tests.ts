@@ -60,6 +60,13 @@ class Networker extends events.EventEmitter {
     }
 }
 
+var errno: number;
+fs.readFile('testfile', (err, data) => {
+    if (err && err.errno) {
+        errno = err.errno;
+    }
+});
+
 url.format(url.parse('http://www.example.com/xyz'));
 
 // https://google.com/search?q=you're%20a%20lizard%2C%20gary
