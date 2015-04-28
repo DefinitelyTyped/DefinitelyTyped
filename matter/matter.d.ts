@@ -1,5 +1,5 @@
 // Type definitions for Matter.js 0.8.0
-// Project: http://brm.io/matter-src/
+// Project: http://brm.io/matter-js/
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -1506,4 +1506,3 @@ declare module Matter
 
     }
 }
-
