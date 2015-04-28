@@ -131,6 +131,7 @@ testApp.controller('TestCtrl', (
     var modalInstance = $modal.open({
         backdrop: 'static',
         controller: 'ModalTestCtrl',
+        controllerAs: 'vm',
         keyboard: true,
         resolve: {
             items: ()=> {

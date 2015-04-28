@@ -15,7 +15,7 @@
 *                                               *
 ************************************************/
 declare var process: NodeJS.Process;
-declare var global: any;
+declare var global: NodeJS.Global;
 
 declare var __filename: string;
 declare var __dirname: string;
@@ -79,7 +79,7 @@ declare var Buffer: {
 ************************************************/
 declare module NodeJS {
     export interface ErrnoException extends Error {
-        errno?: any;
+        errno?: number;
         code?: string;
         path?: string;
         syscall?: string;
@@ -98,7 +98,7 @@ declare module NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        read(size?: number): any;
+        read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;
@@ -188,6 +188,70 @@ declare module NodeJS {
 
         // Worker
         send?(message: any, sendHandle?: any): void;
+    }
+
+    export interface Global {
+        Array: typeof Array;
+        ArrayBuffer: typeof ArrayBuffer;
+        Boolean: typeof Boolean;
+        Buffer: typeof Buffer;
+        DataView: typeof DataView;
+        Date: typeof Date;
+        Error: typeof Error;
+        EvalError: typeof EvalError;
+        Float32Array: typeof Float32Array;
+        Float64Array: typeof Float64Array;
+        Function: typeof Function;
+        GLOBAL: Global;
+        Infinity: typeof Infinity;
+        Int16Array: typeof Int16Array;
+        Int32Array: typeof Int32Array;
+        Int8Array: typeof Int8Array;
+        Intl: typeof Intl;
+        JSON: typeof JSON;
+        Map: typeof Map;
+        Math: typeof Math;
+        NaN: typeof NaN;
+        Number: typeof Number;
+        Object: typeof Object;
+        Promise: Function;
+        RangeError: typeof RangeError;
+        ReferenceError: typeof ReferenceError;
+        RegExp: typeof RegExp;
+        Set: typeof Set;
+        String: typeof String;
+        Symbol: Function;
+        SyntaxError: typeof SyntaxError;
+        TypeError: typeof TypeError;
+        URIError: typeof URIError;
+        Uint16Array: typeof Uint16Array;
+        Uint32Array: typeof Uint32Array;
+        Uint8Array: typeof Uint8Array;
+        Uint8ClampedArray: Function;
+        WeakMap: typeof WeakMap;
+        WeakSet: Function;
+        clearImmediate: (immediateId: any) => void;
+        clearInterval: (intervalId: NodeJS.Timer) => void;
+        clearTimeout: (timeoutId: NodeJS.Timer) => void;
+        console: typeof console;
+        decodeURI: typeof decodeURI;
+        decodeURIComponent: typeof decodeURIComponent;
+        encodeURI: typeof encodeURI;
+        encodeURIComponent: typeof encodeURIComponent;
+        escape: (str: string) => string;
+        eval: typeof eval;
+        global: Global;
+        isFinite: typeof isFinite;
+        isNaN: typeof isNaN;
+        parseFloat: typeof parseFloat;
+        parseInt: typeof parseInt;
+        process: Process;
+        root: Global;
+        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
+        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        undefined: typeof undefined;
+        unescape: (str: string) => string;    
     }
 
     export interface Timer {
@@ -282,15 +346,10 @@ declare module "http" {
         address(): { port: number; family: string; address: string; };
         maxHeadersCount: number;
     }
-    export interface ServerRequest extends events.EventEmitter, stream.Readable {
-        method: string;
-        url: string;
-        headers: any;
-        trailers: string;
-        httpVersion: string;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
     export interface ServerResponse extends events.EventEmitter, stream.Writable {
@@ -340,25 +399,80 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientResponse extends events.EventEmitter, stream.Readable {
-        statusCode: number;
+    export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
         headers: any;
+        rawHeaders: string[];
         trailers: any;
-        setEncoding(encoding?: string): void;
-        pause(): void;
-        resume(): void;
+        rawTrailers: any;
+        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
+        /**
+         * Only valid for request obtained from http.Server.
+         */
+        method?: string;
+        /**
+         * Only valid for request obtained from http.Server.
+         */
+        url?: string;
+        /**
+         * Only valid for response obtained from http.ClientRequest.
+         */
+        statusCode?: number;
+        /**
+         * Only valid for response obtained from http.ClientRequest.
+         */
+        statusMessage?: string;
+        socket: net.Socket;
     }
-    export interface Agent { maxSockets: number; sockets: any; requests: any; }
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export interface ClientResponse extends IncomingMessage { }
+
+	export interface AgentOptions {
+		/**
+		 * Keep sockets around in a pool to be used by other requests in the future. Default = false
+		 */
+		keepAlive?: boolean;
+		/**
+		 * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
+		 * Only relevant if keepAlive is set to true.
+		 */
+		keepAliveMsecs?: number;
+		/**
+		 * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
+		 */
+		maxSockets?: number;
+		/**
+		 * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
+		 */
+		maxFreeSockets?: number;
+	}
+
+    export class Agent {
+		maxSockets: number;
+		sockets: any;
+		requests: any;
+
+		constructor(opts?: AgentOptions);
+
+		/**
+		 * Destroy any sockets that are currently in use by the agent.
+		 * It is usually not necessary to do this. However, if you are using an agent with KeepAlive enabled,
+		 * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
+		 * sockets may hang open for quite a long time before the server terminates them.
+		 */
+		destroy(): void;
+	}
 
     export var STATUS_CODES: {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
-    export function createServer(requestListener?: (request: ServerRequest, response: ServerResponse) =>void ): Server;
+    export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: any, callback?: Function): ClientRequest;
-    export function get(options: any, callback?: Function): ClientRequest;
+    export function request(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -528,8 +642,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.ClientResponse) =>void ): http.ClientRequest;
+    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) =>void ): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -609,7 +723,7 @@ declare module "child_process" {
         stderr: stream.Readable;
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle: any): void;
+        send(message: any, sendHandle?: any): void;
         disconnect(): void;
     }
 
@@ -629,8 +743,8 @@ declare module "child_process" {
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string,
         callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[],
@@ -648,6 +762,30 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
+        encoding?: string;
+    }): ChildProcess;
+    export function execSync(command: string, options?: {
+        cwd?: string;
+        input?: string|Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+        encoding?: string;
+    }): ChildProcess;
+    export function execFileSync(command: string, args?: string[], options?: {
+        cwd?: string;
+        input?: string|Buffer;
+        stdio?: any;
+        env?: any;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
         encoding?: string;
     }): ChildProcess;
 }
@@ -728,7 +866,10 @@ declare module "net" {
         ref(): void;
 
         remoteAddress: string;
+        remoteFamily: string;
         remotePort: number;
+        localAddress: string;
+        localPort: number;
         bytesRead: number;
         bytesWritten: number;
 
@@ -953,14 +1094,57 @@ declare module "fs" {
 }
 
 declare module "path" {
+
+    export interface ParsedPath {
+        root: string;
+        dir: string;
+        base: string;
+        ext: string;
+        name: string;
+    }
+
     export function normalize(p: string): string;
     export function join(...paths: any[]): string;
     export function resolve(...pathSegments: any[]): string;
+    export function isAbsolute(p: string): boolean;
     export function relative(from: string, to: string): string;
     export function dirname(p: string): string;
     export function basename(p: string, ext?: string): string;
     export function extname(p: string): string;
     export var sep: string;
+    export var delimiter: string;
+    export function parse(p: string): ParsedPath;
+    export function format(pP: ParsedPath): string;
+
+    export module posix {
+      export function normalize(p: string): string;
+      export function join(...paths: any[]): string;
+      export function resolve(...pathSegments: any[]): string;
+      export function isAbsolute(p: string): boolean;
+      export function relative(from: string, to: string): string;
+      export function dirname(p: string): string;
+      export function basename(p: string, ext?: string): string;
+      export function extname(p: string): string;
+      export var sep: string;
+      export var delimiter: string;
+      export function parse(p: string): ParsedPath;
+      export function format(pP: ParsedPath): string;
+    }
+
+    export module win32 {
+      export function normalize(p: string): string;
+      export function join(...paths: any[]): string;
+      export function resolve(...pathSegments: any[]): string;
+      export function isAbsolute(p: string): boolean;
+      export function relative(from: string, to: string): string;
+      export function dirname(p: string): string;
+      export function basename(p: string, ext?: string): string;
+      export function extname(p: string): string;
+      export var sep: string;
+      export var delimiter: string;
+      export function parse(p: string): ParsedPath;
+      export function format(pP: ParsedPath): string;
+    }
 }
 
 declare module "string_decoder" {
@@ -1150,7 +1334,7 @@ declare module "stream" {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
-        read(size?: number): any;
+        read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
         resume(): void;

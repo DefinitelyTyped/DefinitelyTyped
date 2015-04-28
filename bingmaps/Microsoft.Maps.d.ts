@@ -390,11 +390,10 @@ declare module Microsoft.Maps {
     }
 
     export interface PolylineOptions {
-
-        strokeColor: Color;
-        strokeDashArray: string;
-        strokeThickness: number;
-        visible: boolean;
+        strokeColor?: Color;
+        strokeDashArray?: string;
+        strokeThickness?: number;
+        visible?: boolean;
     }
 
     export class Polygon implements Entity {
@@ -422,11 +421,12 @@ declare module Microsoft.Maps {
     }
 
     export interface PolygonOptions {
-
-        strokeColor: Color;
-        strokeDashArray: string;
-        strokeThickness: number;
-        visible: boolean;
+        fillColor?: Color;
+        infoBox?: Infobox;
+        strokeColor?: Color;
+        strokeDashArray?: string;
+        strokeThickness?: number;
+        visible?: boolean;
     }
 
     export class Pushpin implements Entity {

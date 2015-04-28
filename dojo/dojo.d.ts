@@ -9754,7 +9754,7 @@ declare module dojo {
                  *       </div>
                  *     </div>
                  *   </div>
-                 * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/_base/kernel.back" class="feedback">Error in the documentation? Can’t find what you are looking for? Let us know!</a>
+                 * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/_base/kernel.back" class="feedback">Error in the documentation? Can't find what you are looking for? Let us know!</a>
                  */
                 init(): void;
             }
@@ -18375,7 +18375,7 @@ declare module dojo {
          *       </div>
          *     </div>
          *   </div>
-         * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/back" class="feedback">Error in the documentation? Can’t find what you are looking for? Let us know!</a>
+         * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/back" class="feedback">Error in the documentation? Can't find what you are looking for? Let us know!</a>
          */
         init(): void;
     }
@@ -25085,7 +25085,7 @@ declare module dojo {
              *       </div>
              *     </div>
              *   </div>
-             * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/main.back" class="feedback">Error in the documentation? Can’t find what you are looking for? Let us know!</a>
+             * </div><a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=/api/1.9/dojo/main.back" class="feedback">Error in the documentation? Can't find what you are looking for? Let us know!</a>
              */
             init(): void;
         }

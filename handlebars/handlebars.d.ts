@@ -38,13 +38,13 @@ interface HandlebarsStatic extends HandlebarsCommon {
     compile(input: any, options?: any): HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsTemplates {
-    [index: string]: HandlebarsTemplateDelegate;
+interface HandlebarsTemplates {
+    [index: string]: HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsRuntimeStatic extends HandlebarsCommon {
+interface HandlebarsRuntimeStatic extends HandlebarsCommon {
     // Handlebars.templates is the default template namespace in precompiler.
-    templates: HandlebarsTemplates;
+    templates: HandlebarsTemplates;
 }
 
 declare module hbs {

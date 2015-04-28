@@ -1,6 +1,6 @@
 /// <reference path="jasmine.d.ts" />
 
-// tests based on http://jasmine.github.io/2.0/introduction.html
+// tests based on http://jasmine.github.io/2.2/introduction.html
 
 describe("A suite", function () {
     it("contains spec with an expectation", function () {
@@ -248,7 +248,8 @@ describe("Pending specs", function () {
 
     it("can be declared by calling 'pending' in the spec body", function () {
         expect(true).toBe(false);
-        pending();
+        pending(); // without reason
+        pending('this is why it is pending');
     });
 });
 
@@ -712,6 +713,23 @@ describe("Asynchronous specs", function () {
         expect(value).toBeGreaterThan(0);
         done();
     });
+
+    describe("long asynchronous specs", function() {
+        beforeEach(function(done) {
+          done();
+        }, 1000);
+
+        it("takes a long time", function(done) {
+          setTimeout(function() {
+            done();
+          }, 9000);
+        }, 10000);
+
+        afterEach(function(done) {
+          done();
+        }, 1000);
+    });
+
 });
 
 describe("Fail", function () {

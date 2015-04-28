@@ -424,22 +424,22 @@ declare module "express" {
              * @param code
              */
             status(code: number): Response;
-            
+
             /**
              * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
              * @link http://expressjs.com/4x/api.html#res.sendStatus
-             * 
+             *
              * Examples:
-             * 
+             *
              *    res.sendStatus(200); // equivalent to res.status(200).send('OK')
              *    res.sendStatus(403); // equivalent to res.status(403).send('Forbidden')
              *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
              *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
-             * 
+             *
              * @param code
              */
             sendStatus(code: number): Response;
-            
+
             /**
              * Set Link header field with the given `links`.
              *
@@ -537,19 +537,19 @@ declare module "express" {
             sendFile(path: string, options: any, fn: Errback): void;
 
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, options: any): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, fn: Errback): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, options: any, fn: Errback): void;
 
@@ -796,7 +796,7 @@ declare module "express" {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Handler extends RequestHandler {}
+        interface Handler extends RequestHandler {}
 
         interface RequestParamHandler {
             (req: Request, res: Response, next: Function, param: any): any;

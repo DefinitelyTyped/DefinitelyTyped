@@ -5,7 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module ng.local.storage {
+declare module angular.local.storage {
   interface ILocalStorageServiceProvider extends IServiceProvider {
     /**
      * Setter for the prefix
@@ -75,7 +75,7 @@ declare module ng.local.storage {
 
   }
 
-  interface ILocalStorageService<T> {
+  interface ILocalStorageService {
     /**
      * Checks if the browser support the current storage type(e.g: localStorage, sessionStorage).
      * Returns: Boolean
@@ -92,14 +92,14 @@ declare module ng.local.storage {
      * @param key
      * @param value
      */
-    set(key: string, value: T): boolean;
+    set<T>(key: string, value: T): boolean;
     /**
      * Directly get a value from local storage.
      * If local storage is not supported, use cookies instead.
      * Returns: value from local storage
      * @param key
      */
-    get(key: string): T;
+    get<T>(key: string): T;
     /**
      * Return array of keys for local storage, ignore keys that not owned.
      * Returns: value from local storage

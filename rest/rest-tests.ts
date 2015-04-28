@@ -135,3 +135,17 @@ client = rest
     .wrap(fail)
     .wrap(knownConfig, { prop: 'value' })
     .wrap(transformedConfig, { prop: 'value' });
+
+import xhrClient = require('rest/client/xhr');
+import nodeClient = require('rest/client/node');
+import jsonpClient = require('rest/client/jsonp');
+import xdrClient = require('rest/client/xdr');
+
+rest.setDefaultClient(xhrClient);
+rest.setDefaultClient(nodeClient);
+rest.setDefaultClient(jsonpClient);
+rest.setDefaultClient(xdrClient);
+
+var defaultClient: rest.Client = rest.getDefaultClient();
+
+rest.resetDefaultClient();

@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.1
+// Type definitions for Jasmine 2.2
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,25 +10,25 @@ declare function describe(description: string, specDefinitions: () => void): voi
 declare function fdescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
-declare function it(expectation: string, assertion?: () => void): void;
-declare function it(expectation: string, assertion?: (done: () => void) => void): void;
-declare function fit(expectation: string, assertion?: () => void): void;
-declare function fit(expectation: string, assertion?: (done: () => void) => void): void;
-declare function xit(expectation: string, assertion?: () => void): void;
-declare function xit(expectation: string, assertion?: (done: () => void) => void): void;
+declare function it(expectation: string, assertion?: () => void, timeout?: number): void;
+declare function it(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function fit(expectation: string, assertion?: () => void, timeout?: number): void;
+declare function fit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function xit(expectation: string, assertion?: () => void, timeout?: number): void;
+declare function xit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
 
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
-declare function pending(): void;
+declare function pending(reason?: string): void;
 
-declare function beforeEach(action: () => void): void;
-declare function beforeEach(action: (done: () => void) => void): void;
-declare function afterEach(action: () => void): void;
-declare function afterEach(action: (done: () => void) => void): void;
+declare function beforeEach(action: () => void, timeout?: number): void;
+declare function beforeEach(action: (done: () => void) => void, timeout?: number): void;
+declare function afterEach(action: () => void, timeout?: number): void;
+declare function afterEach(action: (done: () => void) => void, timeout?: number): void;
 
-declare function beforeAll(action: () => void): void;
-declare function beforeAll(action: (done: () => void) => void): void;
-declare function afterAll(action: () => void): void;
-declare function afterAll(action: (done: () => void) => void): void;
+declare function beforeAll(action: () => void, timeout?: number): void;
+declare function beforeAll(action: (done: () => void) => void, timeout?: number): void;
+declare function afterAll(action: () => void, timeout?: number): void;
+declare function afterAll(action: (done: () => void) => void, timeout?: number): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
@@ -369,7 +369,6 @@ declare module jasmine {
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
         wasCalled: boolean;
-        callCount: number;
     }
 
     interface SpyAnd {
