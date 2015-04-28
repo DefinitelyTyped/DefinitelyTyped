@@ -48,11 +48,11 @@ declare module EmberStates {
         /**
           A standard promise hook that resolves if the transition
           succeeds and rejects if it fails/redirects/aborts.
-  
+
           Forwards to the internal `promise` property which you can
           use in situations where you want to pass around a thennable,
           but not the Transition itself.
-  
+
           @arg {Function} onFulfilled
           @arg {Function} onRejected
           @arg {String} label optional string for labeling the promise. Useful for tooling.
@@ -64,7 +64,7 @@ declare module EmberStates {
           Forwards to the internal `promise` property which you can
           use in situations where you want to pass around a thennable,
           but not the Transition itself.
-  
+
           @method catch
           @arg {Function} onRejection
           @arg {String} label optional string for labeling the promise.
@@ -77,7 +77,7 @@ declare module EmberStates {
           Forwards to the internal `promise` property which you can
           use in situations where you want to pass around a thennable,
           but not the Transition itself.
-  
+
           @method finally
           @arg {Function} callback
           @arg {String} label optional string for labeling the promise.
@@ -85,7 +85,7 @@ declare module EmberStates {
           @return {Promise}
          */
         finally(callback: Function, label?: string): Ember.RSVP.Promise;
-        
+
         /**
          Aborts the Transition. Note you can also implicitly abort a transition
          by initiating another transition while a previous one is underway.
@@ -123,9 +123,9 @@ declare module EmberStates {
           Fires an event on the current list of resolved/resolving
           handlers within this transition. Useful for firing events
           on route hierarchies that haven't fully been entered yet.
-  
+
           Note: This method is also aliased as `send`
-  
+
           @arg {Boolean} [ignoreFailure=false] a boolean specifying whether unhandled events throw an error
           @arg {String} name the name of the event to fire
          */
@@ -134,9 +134,9 @@ declare module EmberStates {
           Fires an event on the current list of resolved/resolving
           handlers within this transition. Useful for firing events
           on route hierarchies that haven't fully been entered yet.
-  
+
           Note: This method is also aliased as `send`
-  
+
           @arg {String} name the name of the event to fire
          */
         trigger(eventName: string): void;
@@ -147,7 +147,7 @@ declare module EmberStates {
           that will follow any redirects that occur and fulfill
           with the value fulfilled by any redirecting transitions
           that occur.
-  
+
           @return {Promise} a promise that fulfills with the same
             value that the final redirecting transition fulfills with
          */
@@ -412,7 +412,7 @@ declare module Ember {
     **/
     function A(arr?: any[]): NativeArray;
     /**
-    The Ember.ActionHandler mixin implements support for moving an actions property to an _actions 
+    The Ember.ActionHandler mixin implements support for moving an actions property to an _actions
     property at extend time, and adding _actions to the object's mergedProperties list.
     **/
     class ActionHandlerMixin {
@@ -420,7 +420,7 @@ declare module Ember {
         Triggers a named action on the ActionHandler
         **/
         send(name: string, ...args: any[]): void;
-        /** 
+        /**
         The collection of functions, keyed by name, available on this ActionHandler as action targets.
         **/
         actions: ActionsHash;
@@ -931,49 +931,149 @@ declare module Ember {
         frozenCopy(): Copyable;
     }
     class CoreObject {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
         /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
+        An overridable method called when objects are instantiated. By default,
+        does nothing unless it is overridden during class definition.
+        @method init
         **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-        /**
-        Destroys an object by setting the isDestroyed flag and removing its metadata, which effectively
-        destroys observers and bindings. If you try to set a property on a destroyed object, an exception
-        will be raised. Note that destruction is scheduled for the end of the run loop and does not
-        happen immediately. It will set an isDestroying flag immediately.
-        **/
-        destroy(): CoreObject;
         init(): void;
-        /**
-        Returns a string representation which attempts to provide more information than Javascript's toString
-        typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
-        **/
-        toString(): string;
-        willDestroy(): void;
 
         /**
         Defines the properties that will be concatenated from the superclass (instead of overridden).
+        @property concatenatedProperties
+        @type Array
+        @default null
         **/
         concatenatedProperties: any[];
+
         /**
         Destroyed object property flag. If this property is true the observers and bindings were
         already removed by the effect of calling the destroy() method.
+        @property isDestroyed
+        @default false
         **/
         isDestroyed: boolean;
         /**
         Destruction scheduled flag. The destroy() method has been called. The object stays intact
         until the end of the run loop at which point the isDestroyed flag is set.
+        @property isDestroying
+        @default false
         **/
         isDestroying: boolean;
+
+        /**
+        Destroys an object by setting the `isDestroyed` flag and removing its
+        metadata, which effectively destroys observers and bindings.
+        If you try to set a property on a destroyed object, an exception will be
+        raised.
+        Note that destruction is scheduled for the end of the run loop and does not
+        happen immediately.  It will set an isDestroying flag immediately.
+        @method destroy
+        @return {Ember.Object} receiver
+        */
+        destroy(): CoreObject;
+
+        /**
+        Override to implement teardown.
+        @method willDestroy
+        */
+        willDestroy(): void;
+
+        /**
+        Returns a string representation which attempts to provide more information than Javascript's toString
+        typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
+        @method toString
+        @return {String} string representation
+        **/
+        toString(): string;
+
+        static isClass: boolean;
+        static isMethod: boolean;
+
+        /**
+        Creates a new subclass.
+        @method extend
+        @static
+        @param {Object} [args] - Object containing values to use within the new class
+        **/
+        static extend<T>(args ?: CoreObjectArguments): T;
+        /**
+        Creates a new subclass.
+        @method extend
+        @static
+        @param {Mixin} [mixins] - One or more Mixin classes
+        @param {Object} [args] - Object containing values to use within the new class
+        **/
+        static extend<T>(mixins?: Mixin, args?: CoreObjectArguments): T;
+
+        /**
+        Creates a new subclass.
+        @method extend
+        @param {Object} [args] - Object containing values to use within the new class
+        Non-static method because Ember classes aren't currently 'real' TypeScript classes.
+        **/
+        extend<T>(args ?: CoreObjectArguments): T;
+        /**
+        Creates a new subclass.
+        @method extend
+        @param {Mixin} [mixins] - One or more Mixin classes
+        @param {Object} [args] - Object containing values to use within the new class
+        Non-static method because Ember classes aren't currently 'real' TypeScript classes.
+        **/
+        extend<T>(mixins ? : Mixin, args ?: CoreObjectArguments): T;
+
+        /**
+        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
+        @method createWithMixins
+        @static
+        @param [args]
+        **/
+        static createWithMixins<T extends {}>(args?: {}): T;
+
+        /**
+        Creates an instance of the class.
+        @method create
+        @static
+        @param [args] - A hash containing values with which to initialize the newly instantiated object.
+        **/
+        static create<T extends {}>(args?: {}): T;
+
+        /**
+        Augments a constructor's prototype with additional properties and functions.
+        To add functions and properties to the constructor itself, see reopenClass.
+        @method reopen
+        **/
+        static reopen<T extends {}>(args?: {}): T;
+
+        /**
+        Augments a constructor's own properties and functions.
+        To add functions and properties to instances of a constructor by extending the
+        constructor's prototype see reopen.
+        @method reopenClass
+        **/
+        static reopenClass<T extends {}>(args?: {}): T;
+
+        static detect(obj: any): boolean;
+        static detectInstance(obj: any): boolean;
+
+        /**
+        Returns the original hash that was passed to meta().
+        @method metaForProperty
+        @static
+        @param key {String} property name
+        **/
+        static metaForProperty(key: string): {};
+
+        /**
+        Iterate over each computed property for the class, passing its name and any
+        associated metadata (see metaForProperty) to the callback.
+
+        @method eachComputedProperty
+        @static
+        @param {Function} callback
+        @param {Object} binding
+        **/
+        static eachComputedProperty(callback: Function, binding: {}): void;
     }
     /**
     An abstract class that exists to give view-like behavior to both Ember's main view class Ember.View
@@ -1578,45 +1678,6 @@ declare module Ember {
     }
     var ORDER_DEFINITION: string[];
     class Object extends CoreObject implements Observable {
-        /**
-        Creates a subclass of the Object class.
-        **/
-        static extend<T>(args?: CoreObjectArguments): T;
-        static extend<T>(mixins? : Mixin, args?: CoreObjectArguments): T;
-        /**
-        Creates an instance of the class.
-        @param arguments A hash containing values with which to initialize the newly instantiated object.
-        **/
-        static create<T extends {}>(args?: {}): T;
-        /**
-        Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
-        **/
-        static createWithMixins<T extends {}>(args?: {}): T;
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        /**
-        Augments a constructor's prototype with additional properties and functions.
-        To add functions and properties to the constructor itself, see reopenClass.
-        **/
-        static reopen<T extends {}>(args?: {}): T;
-        /**
-        Augments a constructor's own properties and functions.
-        To add functions and properties to instances of a constructor by extending the
-        constructor's prototype see reopen.
-        **/
-        static reopenClass<T extends {}>(args?: {}): T;
-        static isClass: boolean;
-        static isMethod: boolean;
         addObserver: ModifyObserver;
         beginPropertyChanges(): Observable;
         cacheFor(keyName: string): any;
