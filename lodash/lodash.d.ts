@@ -41,6 +41,7 @@ declare module _ {
         (value: number): LoDashWrapper<number>;
         (value: string): LoDashWrapper<string>;
         (value: boolean): LoDashWrapper<boolean>;
+        (value: Array<number>): LoDashNumberArrayWrapper;
         <T>(value: Array<T>): LoDashArrayWrapper<T>;
         <T extends {}>(value: T): LoDashObjectWrapper<T>;
         (value: any): LoDashWrapper<any>;
@@ -204,6 +205,8 @@ declare module _ {
         splice(start: number, deleteCount: number, ...items: any[]): LoDashArrayWrapper<T>;
         unshift(...items: any[]): LoDashWrapper<number>;
     }
+
+    interface LoDashNumberArrayWrapper extends LoDashArrayWrapper<number> { }
 
     //_.chain
     interface LoDashStatic {
@@ -3917,12 +3920,21 @@ declare module _ {
             property: string): number;
     }
     
-    interface LoDashArrayWrapper<T> {
+    interface LoDashNumberArrayWrapper {
         /**
         * @see _.sum
         **/
         sum(): number
 
+        /**
+        * @see _.sum
+        **/
+        sum(
+            iteratee: ListIterator<number, number>,
+            thisArg?: any): number;
+    }
+
+    interface LoDashArrayWrapper<T> {
         /**
         * @see _.sum
         **/
