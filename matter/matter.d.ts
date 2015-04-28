@@ -46,7 +46,7 @@ declare module Matter
          * Clears the engine including the world, pairs and broadphase.
          * @param engine
          */
-        static clear(engine:Engine);
+        static clear(engine:Engine):void;
 
         /**
          * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults. All properties have default values, and many are pre-calculated automatically based on other properties. See the properites section below for detailed information on what you can pass via the options object.
@@ -60,20 +60,20 @@ declare module Matter
          * @param engineA
          * @param engineB
          */
-        static merge(engineA:Engine, engineB:Engine);
+        static merge(engineA:Engine, engineB:Engine):void;
 
         /**
          * Renders the world by calling its defined renderer engine.render.controller. Triggers beforeRender and afterRender events.
          * @param engineA
          * @param engineB
          */
-        static render(engineA:Engine, engineB:Engine);
+        static render(engineA:Engine, engineB:Engine):void;
 
         /**
          * An optional utility function that provides a game loop, that handles updating the engine for you. Calls Engine.update and Engine.render on the requestAnimationFrame event automatically. Handles time correction and non-fixed dynamic timing (if enabled). Triggers beforeTick, tick and afterTick events.
          * @param engine
          */
-        static run(engine:Engine);
+        static run(engine:Engine):void;
 
         /**
          * Moves the simulation forward in time by delta ms. Triggers beforeUpdate and afterUpdate events.
@@ -82,7 +82,7 @@ declare module Matter
          * @param delta
          * @param correction
          */
-        static update(engine:Engine, delta:number, correction?:number);
+        static update(engine:Engine, delta:number, correction?:number):void;
 
         /**
          * An integer Number that specifies the number of constraint iterations to perform each update. The higher the value, the higher quality the simulation will be at the expense of performance. The default value of 2 is usually very adequate.
@@ -166,7 +166,7 @@ declare module Matter
          * @param world
          * @param keepStatic
          */
-        static clear(world:World, keepStatic:boolean);
+        static clear(world:World, keepStatic:boolean):void;
 
         /**
          * Creates a new world composite. The options parameter is an object that specifies any properties you wish to override the defaults. See the properites section below for detailed information on what you can pass via the options object.
@@ -222,14 +222,14 @@ declare module Matter
          * @param position
          * @param force
          */
-        static applyForce(body:Body, position:Vector, force:Vector);
+        static applyForce(body:Body, position:Vector, force:Vector):void;
 
         /**
          * Applys a mass dependant force to all given bodies.
          * @param bodies
          * @param gravity
          */
-        static applyGravityAll(bodies:Array<Body>, gravity:Vector);
+        static applyGravityAll(bodies:Array<Body>, gravity:Vector):void;
 
         /**
          * Creates a new rigid body model. The options parameter is an object that specifies any properties you wish to override the defaults. All properties have default values, and many are pre-calculated automatically based on other properties. See the properites section below for detailed information on what you can pass via the options object.
@@ -246,20 +246,20 @@ declare module Matter
          * Zeroes the body.force and body.torque force buffers.
          * @param bodies
          */
-        static resetForcesAll(bodies:Array<Body>);
+        static resetForcesAll(bodies:Array<Body>):void;
 
         /**
          * Rotates a body by a given angle relative to its current angle, without imparting any angular velocity.
          * @param body
          * @param angle
          */
-        static rotate(body:Body, angle:number);
+        static rotate(body:Body, angle:number):void;
 
         /**
          * Sets the body as static, including isStatic flag and setting mass and inertia to Infinity.
          * @param isStatic
          */
-        setStatic(isStatic:boolean);
+        setStatic(isStatic:boolean):void;
 
         /**
          * Scales the body, including updating physical properties (mass, area, axes, inertia), from a world-space point (default is body centre).
@@ -268,7 +268,7 @@ declare module Matter
          * @param scaleY
          * @param poinst
          */
-        static scale(body:Body, scaleX:number, scaleY:number, poinst?:Vector);
+        static scale(body:Body, scaleX:number, scaleY:number, poinst?:Vector):void;
 
         /**
          * Moves a body by a given vector relative to its current position, without imparting any velocity.
@@ -276,7 +276,7 @@ declare module Matter
          * @param body
          * @param translation
          */
-        static translate(body:Body, translation:Vector);
+        static translate(body:Body, translation:Vector):void;
 
         /**
          *Performs a simulation step for the given body, including updating position and angle using Verlet integration.
@@ -286,7 +286,7 @@ declare module Matter
          * @param timeScale
          * @param correction
          */
-        static update(body:Body, deltaTime:number, timeScale:number, correction:number);
+        static update(body:Body, deltaTime:number, timeScale:number, correction:number):void;
 
         /**
          * Applys Body.update to all given bodies.
@@ -297,7 +297,7 @@ declare module Matter
          * @param correction
          * @param worldBounds
          */
-        static updateAll ( bodies:Array<Body>,  deltaTime:number,  timeScale:number,  correction:number,  worldBounds:Bounds );
+        static updateAll ( bodies:Array<Body>,  deltaTime:number,  timeScale:number,  correction:number,  worldBounds:Bounds ):void;
 
         /**
          * A Number specifying the angle of the body, in radians.
@@ -1000,7 +1000,7 @@ declare module Matter
          * @param keepStatic
          * @param deep
          */
-        static clear(world:World, keepStatic:boolean, deep?:boolean);
+        static clear(world:World, keepStatic:boolean, deep?:boolean):void;
 
         /**
          * Creates a new composite. The options parameter is an object that specifies any properties you wish to override the defaults. See the properites section below for detailed information on what you can pass via the options object.
@@ -1111,7 +1111,7 @@ declare module Matter
          * @param isModified
          * @param updateParents
          */
-        static setModified(composite:Composite, isModified:boolean, updateParents?:boolean);
+        static setModified(composite:Composite, isModified:boolean, updateParents?:boolean):void;
 
         /**
          * An array of Body that are direct children of this composite. To add or remove bodies you should use Composite.add and Composite.remove methods rather than directly modifying this property. If you wish to recursively find all descendants, you should use the Composite.allBodies method.
@@ -1316,7 +1316,7 @@ declare module Matter
          * Chamfers a set of vertices by giving them rounded corners, returns a new set of vertices. The radius parameter is a single number or an array to specify the radius for each vertex.
          * @param vertices
          */
-        static chamfer ( vertices:Array<Vector>,  radius:Array<number>,  quality:number,  qualityMin:number,  qualityMax:number );
+        static chamfer ( vertices:Array<Vector>,  radius:Array<number>,  quality:number,  qualityMin:number,  qualityMax:number ):void;
 
 
         /**
@@ -1335,7 +1335,7 @@ declare module Matter
          * @param vertices
          * @param body
          */
-        static create ( vertices:Array<Vector>,  body:Body);
+        static create ( vertices:Array<Vector>,  body:Body):void;
 
         /**
          * Parses a simple SVG-style path into a set of Matter.Vector points.
@@ -1360,7 +1360,7 @@ declare module Matter
          * @param angle
          * @param point
          */
-        static static  ( vertices:Array<Vector>,  angle:number,  point:Vector );
+        static static  ( vertices:Array<Vector>,  angle:number,  point:Vector ):void;
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
@@ -1370,14 +1370,14 @@ declare module Matter
          * @param scaleY
          * @param point
          */
-        static scale( vertices:Array<Vector>,  scaleX:number,  scaleY:number,  point:Vector );
+        static scale( vertices:Array<Vector>,  scaleX:number,  scaleY:number,  point:Vector ):void;
 
         /**
          * Translates the set of vertices in-place.
          *
          * @param vertices
          */
-        static translate ( vertices:Array<Vector>,  vector:Vector,  scalar:number );
+        static translate ( vertices:Array<Vector>,  vector:Vector,  scalar:number ):void;
     }
 
     export class Render
