@@ -1343,7 +1343,7 @@ declare module Matter
          * @param path
          * @returns vertices
          */
-        static fromPath ( path ):Array<Vector>;
+        static fromPath ( path:string ):Array<Vector>;
 
         /**
          * Returns the moment of inertia (second moment of area) of the set of vertices given the total mass.
