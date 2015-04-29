@@ -8495,6 +8495,14 @@ declare module Windows {
                 export class WebAuthenticationBroker {
                     static authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     static authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
+                    /** Windows Phone only. */
+                    static authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): void;
+                    /** Windows Phone only. */
+                    static authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri, continuationData: Windows.Foundation.Collections.ValueSet, options: Windows.Security.Authentication.Web.WebAuthenticationOptions): void;
+                    /** Windows Phone only. */
+                    static authenticateSilentlyAsync(requestUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
+                    /** Windows Phone only. */
+                    static authenticateSilentlyAsync(requestUri: Windows.Foundation.Uri, options: Windows.Security.Authentication.Web.WebAuthenticationOptions): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     static getCurrentApplicationCallbackUri(): Windows.Foundation.Uri;
                 }
             }
