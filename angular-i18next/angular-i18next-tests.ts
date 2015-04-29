@@ -3,6 +3,6 @@
 * @summary Test for "angular-i18next" with options.
 */
 function testOptions() {
-    var $provider: I18nextProvider;
+    var $provider: angular.i18next.I18nextProvider;
     $provider.options = {};
 }
