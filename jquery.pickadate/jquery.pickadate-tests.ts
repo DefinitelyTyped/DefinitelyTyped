@@ -282,7 +282,7 @@ picker.set('disable', undefined);
 picker.set('select', [2013, 3, 20]);
 
 // Using JavaScript Date objects.
-picker.set('select', new Date(2013,03,20));
+picker.set('select', new Date(2013, 3, 20));
 
 // Using positive integers as UNIX timestamps.
 picker.set('select', 1365961912346);
