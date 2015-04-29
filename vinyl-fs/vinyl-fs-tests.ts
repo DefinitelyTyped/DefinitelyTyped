@@ -227,7 +227,7 @@ var dataWrap = function(fn:any) {
 };
 
 var realMode = function(n:any) {
-	return n & 07777;
+	return n & parseInt("07777", 8);
 };
 
 describe('dest stream', function() {
@@ -370,7 +370,7 @@ describe('dest stream', function() {
 		var expectedContents = fs.readFileSync(inputPath);
 		var expectedCwd = __dirname;
 		var expectedBase = path.join(__dirname, "./out-fixtures");
-		var expectedMode = 0655;
+		var expectedMode = parseInt("0655", 8);
 
 		var expectedFile = new File({
 			base: inputBase,
@@ -410,7 +410,7 @@ describe('dest stream', function() {
 		var expectedContents = fs.readFileSync(inputPath);
 		var expectedCwd = __dirname;
 		var expectedBase = path.join(__dirname, "./out-fixtures");
-		var expectedMode = 0655;
+		var expectedMode = parseInt("0655", 8);
 
 		var contentStream = through.obj();
 		var expectedFile = new File({
@@ -454,7 +454,7 @@ describe('dest stream', function() {
 		var expectedPath = path.join(__dirname, "./out-fixtures/test");
 		var expectedCwd = __dirname;
 		var expectedBase = path.join(__dirname, "./out-fixtures");
-		var expectedMode = 0655;
+		var expectedMode = parseInt("0655", 8);
 
 		var expectedFile = new File({
 			base: inputBase,
