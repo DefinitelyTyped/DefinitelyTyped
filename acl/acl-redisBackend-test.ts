@@ -1,4 +1,4 @@
-/// <reference path='acl.d.ts'/>
+/// <reference path='acl-redisBackend.d.ts'/>
 
 // https://github.com/OptimalBits/node_acl/blob/master/Readme.md
 import Acl = require('acl');

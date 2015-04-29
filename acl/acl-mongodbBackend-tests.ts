@@ -1,4 +1,4 @@
-/// <reference path='acl.d.ts'/>
+/// <reference path='acl-mongodbBackend.d.ts'/>
 
 // https://github.com/OptimalBits/node_acl/blob/master/Readme.md
 import Acl = require('acl');
@@ -14,3 +14,4 @@ acl.allow('guest', 'blogs', 'view');
 
 // allow function accepts arrays as any parameter
 acl.allow('member', 'blogs', ['edit','view', 'delete']);
+
