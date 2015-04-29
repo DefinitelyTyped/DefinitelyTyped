@@ -229,13 +229,19 @@ declare module angular.ui.bootstrap {
          * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
          * Defaults to `$rootScope`.
          */
-        scope?: IModalScope;
+        scope?: angular.IScope|IModalScope;
 
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
          * A controller can be injected with `$modalInstance`
          */
         controller?: any;
+
+        /**
+         *  an alternative to the controller-as syntax, matching the API of directive definitions.
+         *  Requires the controller option to be provided as well
+         */
+        controllerAs?: string;
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
