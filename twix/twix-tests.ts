@@ -1,4 +1,6 @@
-﻿var someMoment = moment("20111031", "YYYYMMDD");
+﻿/// <reference path="twix.d.ts" />
+
+var someMoment = moment("20111031", "YYYYMMDD");
 var otherMoment = moment("20120620", "YYYYMMDD");
 var startTime = moment('20120701');
 var endTime = moment('20120801');

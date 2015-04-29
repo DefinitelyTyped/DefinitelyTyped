@@ -65,7 +65,7 @@ declare module moment {
 
     interface TwixSimpleFormatOptions {
         allDay?: string;
-        template?: (left, right) => any;
+        template?: (left: any, right: any) => any;
     }
 
     interface TwixIter {
@@ -123,7 +123,7 @@ declare module moment {
     }
 
     interface TwixStatic {
-        formatTemplate?: (left, right) => any;
+        formatTemplate?: (left: any, right: any) => any;
     }
 }
 
