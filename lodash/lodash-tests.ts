@@ -139,6 +139,15 @@ result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1'
 // /*************
 //  * Arrays *
 //  *************/
+result = <any[][]>_.chunk([1, '2', '3', false]);
+result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk();
+result = <any[][]>_.chunk([1, '2', '3', false], 2);
+result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk(2);
+result = <number[][]>_.chunk([1, 2, 3, 4]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk();
+result = <number[][]>_.chunk([1, 2, 3, 4], 2);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk(2);
+
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
 
