@@ -1,35 +1,46 @@
-/// <reference path="./express-validator.d.ts" />
+/// <reference path="./express-validator.d.ts"/>
 
-// @todo Most of the sanitize/validator methods are not tested here.
+/* Usage Example from https://github.com/ctavan/express-validator */
 
-import express = require('express');
-import expressValidator = require('express-validator');
-
+import util = require('util')
+import express = require('express')
+import expressValidator = require('express-validator')
 var app = express();
 
-// Add the middleware to make sure it includes.
-app.use(expressValidator({
-	errorFormatter: function(param: string, msg: string, value: string): {} {
-		return {};
-	}
-}));
+app.use(expressValidator());
 
-var router: express.Router = express.Router();
+app.post('/:urlparam', function(req: expressValidator.ValidatedRequest, res: express.Response) {
 
-// Add a sample route so we can use the request.
-router.get('/test/:testParam', function(req: express.Request, res: express.Response): void {
-
-	// Various different request tests.
-	// The fluid calls are just random, making sure to cover a portion of the Validator.
-	req.checkParams('testParam', 'Invalid testParam').notEmpty().isInt();
-	req.checkBody('testBody', 'Invalid testBody').isNumeric();
-	req.checkFiles('testFiles', 'Invalid testFiles').isUrl();
-	req.checkQuery('testQuery', 'Invalid testQuery').isDate();
+  // checkBody only checks req.body; none of the other req parameters
+  // Similarly checkParams only checks in req.params (URL params) and
+  // checkQuery only checks req.query (GET params).
+  req.checkBody('postparam', 'Invalid postparam').notEmpty().isInt();
+  req.checkParams('urlparam', 'Invalid urlparam').isAlpha();
+  req.checkQuery('getparam', 'Invalid getparam').isInt();
 	req.checkHeader('testHeader', 'Invalid testHeader').isLowercase().isUppercase();
+	req.checkFiles('testFiles', 'Invalid testFiles').isUrl();
 
-	var test = req.filter('postparam').toBoolean();
-	var test2 = req.sanitize('postparam').toInt();
 
-	var errors = req.validationErrors();
-	var mappedErrors = req.validationErrors(true);
+	// OR assert can be used to check on all 3 types of params.
+  // req.assert('postparam', 'Invalid postparam').notEmpty().isInt();
+  // req.assert('urlparam', 'Invalid urlparam').isAlpha();
+  // req.assert('getparam', 'Invalid getparam').isInt();
+
+  req.sanitize('postparam').toBoolean();
+	req.filter('postparam').toBoolean();
+
+  var errors = req.validationErrors();
+  var mappedErrors = req.validationErrors(true);
+
+  if (errors) {
+    res.status(400).send('There have been validation errors: ' + util.inspect(errors));
+    return;
+  }
+  res.json({
+    urlparam: req.param('urlparam'),
+    getparam: req.param('getparam'),
+    postparam: req.param('postparam')
+  });
 });
+
+app.listen(8888);

@@ -2511,10 +2511,10 @@ function test_jQuery() {
     $foo.triggerHandler('eventName');
     $("div > p").css("border", "1px solid gray");
     $("input:radio", document.forms[0]);
-	var xml: any;
+    var xml: any;
     $("div", xml.responseXML);
     $(document.body).css("background", "black");
-	var myForm: any;
+    var myForm: any;
     $(myForm.elements).hide();
     $('<p id="test">My <em>new</em> text</p>').appendTo('body');
     $('<img />');
@@ -2537,6 +2537,10 @@ function test_jQuery() {
         }
     }).appendTo("body");
     jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
+    jQuery(document).ready(function ($) {
+        // Your code using failsafe $ alias here...
     });
 }
 

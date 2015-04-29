@@ -3,6 +3,10 @@
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare module L {
+    type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
+    type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
+}
 
 declare module L {
 
@@ -180,14 +184,14 @@ declare module L {
       * Instantiates a circle object given a geographical point, a radius in meters
       * and optionally an options object.
       */
-    function circle(latlng: LatLng, radius: number, options?: PathOptions): Circle;
+    function circle(latlng: LatLngExpression, radius: number, options?: PathOptions): Circle;
 
     export interface CircleStatic extends ClassStatic {
         /**
           * Instantiates a circle object given a geographical point, a radius in meters
           * and optionally an options object.
           */
-        new(latlng: LatLng, radius: number, options?: PathOptions): Circle;
+        new(latlng: LatLngExpression, radius: number, options?: PathOptions): Circle;
     }
     export var Circle: CircleStatic;
 
@@ -205,7 +209,7 @@ declare module L {
         /**
           * Sets the position of a circle to a new location.
           */
-        setLatLng(latlng: LatLng): Circle;
+        setLatLng(latlng: LatLngExpression): Circle;
 
         /**
           * Sets the radius of a circle. Units are in meters.
@@ -227,7 +231,7 @@ declare module L {
       * an options object. The default radius is 10 and can be altered by passing a
       * "radius" member in the path options object.
       */
-    function circleMarker(latlng: LatLng, options?: PathOptions): CircleMarker;
+    function circleMarker(latlng: LatLngExpression, options?: PathOptions): CircleMarker;
 
 
     export interface CircleMarkerStatic extends ClassStatic {
@@ -236,7 +240,7 @@ declare module L {
           * an options object. The default radius is 10 and can be altered by passing a
           * "radius" member in the path options object.
           */
-        new(latlng: LatLng, options?: PathOptions): CircleMarker;
+        new(latlng: LatLngExpression, options?: PathOptions): CircleMarker;
     }
     export var CircleMarker: CircleMarkerStatic;
 
@@ -244,7 +248,7 @@ declare module L {
         /**
           * Sets the position of a circle marker to a new location.
           */
-        setLatLng(latlng: LatLng): CircleMarker;
+        setLatLng(latlng: LatLngExpression): CircleMarker;
 
         /**
           * Sets the radius of a circle marker. Units are in pixels.
@@ -1439,7 +1443,7 @@ declare module L {
       * Creates an object representing a geographical point with the given latitude
       * and longitude.
       */
-    function latLng(coords: number[]): LatLng;
+    function latLng(coords: LatLngExpression): LatLng;
 
     export interface LatLngStatic extends ClassStatic {
         /**
@@ -1452,7 +1456,7 @@ declare module L {
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
           */
-        new(coords: number[]): LatLng;
+        new(coords: LatLngExpression): LatLng;
 
         /**
           * A multiplier for converting degrees into radians.
@@ -1482,13 +1486,13 @@ declare module L {
           * Returns the distance (in meters) to the given LatLng calculated using the
           * Haversine formula. See description on wikipedia
           */
-        distanceTo(otherLatlng: LatLng): number;
+        distanceTo(otherLatlng: LatLngExpression): number;
 
         /**
           * Returns true if the given LatLng point is at the same position (within a small
           * margin of error).
           */
-        equals(otherLatlng: LatLng): boolean;
+        equals(otherLatlng: LatLngExpression): boolean;
 
         /**
           * Returns a string representation of the point (for debugging purposes).
@@ -1519,26 +1523,26 @@ declare module L {
       * Creates a LatLngBounds object by defining south-west and north-east corners
       * of the rectangle.
       */
-    function latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
+    function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
     /**
       * Creates a LatLngBounds object defined by the geographical points it contains.
       * Very useful for zooming the map to fit a particular set of locations with fitBounds.
       */
-    function latLngBounds(latlngs: LatLng[]): LatLngBounds;
+    function latLngBounds(latlngs: LatLngBoundsExpression): LatLngBounds;
 
     export interface LatLngBoundsStatic extends ClassStatic {
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
           */
-        new(southWest: LatLng, northEast: LatLng): LatLngBounds;
+        new(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
         /**
           * Creates a LatLngBounds object defined by the geographical points it contains.
           * Very useful for zooming the map to fit a particular set of locations with fitBounds.
           */
-        new(latlngs: LatLng[]): LatLngBounds;
+        new(latlngs: LatLngBoundsExpression): LatLngBounds;
     }
     export var LatLngBounds: LatLngBoundsStatic;
 
@@ -1546,12 +1550,12 @@ declare module L {
         /**
           * Extends the bounds to contain the given point.
           */
-        extend(latlng: LatLng): LatLngBounds;
+        extend(latlng: LatLngExpression): LatLngBounds;
 
         /**
           * Extends the bounds to contain the given bounds.
           */
-        extend(latlng: LatLngBounds): LatLngBounds;
+        extend(latlng: LatLngBoundsExpression): LatLngBounds;
 
         /**
           * Returns the south-west point of the bounds.
@@ -1601,23 +1605,23 @@ declare module L {
         /**
           * Returns true if the rectangle contains the given one.
           */
-        contains(otherBounds: LatLngBounds): boolean;
+        contains(otherBounds: LatLngBoundsExpression): boolean;
 
         /**
           * Returns true if the rectangle contains the given point.
           */
-        contains(latlng: LatLng): boolean;
+        contains(latlng: LatLngExpression): boolean;
 
         /**
           * Returns true if the rectangle intersects the given bounds.
           */
-        intersects(otherBounds: LatLngBounds): boolean;
+        intersects(otherBounds: LatLngBoundsExpression): boolean;
 
         /**
           * Returns true if the rectangle is equivalent (within a small margin of error)
           * to the given bounds.
           */
-        equals(otherBounds: LatLngBounds): boolean;
+        equals(otherBounds: LatLngBoundsExpression): boolean;
 
         /**
           * Returns a string with bounding box coordinates in a 'southwest_lng,southwest_lat,northeast_lng,northeast_lat'
@@ -2082,7 +2086,7 @@ declare module L {
           * Sets the view of the map (geographical center and zoom) with the given
           * animation options.
           */
-        setView(center: LatLng, zoom?: number, options?: ZoomPanOptions): Map;
+        setView(center: LatLngExpression, zoom?: number, options?: ZoomPanOptions): Map;
 
         /**
           * Sets the zoom of the map.
@@ -2103,7 +2107,7 @@ declare module L {
           * Zooms the map while keeping a specified point on the map stationary
           * (e.g. used internally for scroll zoom and double-click zoom).
           */
-        setZoomAround(latlng: LatLng, zoom: number, options?: ZoomOptions): Map;
+        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): Map;
 
         /**
           * Sets a map view that contains the given geographical bounds with the maximum
@@ -2121,7 +2125,7 @@ declare module L {
           * Pans the map to a given center. Makes an animated pan if new center is not more
           * than one screen away from the current one.
           */
-        panTo(latlng: LatLng, options?: PanOptions): Map;
+        panTo(latlng: LatLngExpression, options?: PanOptions): Map;
 
         /**
           * Pans the map to the closest view that would lie inside the given bounds (if
@@ -2253,13 +2257,13 @@ declare module L {
           * Creates a popup with the specified options and opens it in the given point
           * on a map.
           */
-        openPopup(html: string, latlng: LatLng, options?: PopupOptions): Map;
+        openPopup(html: string, latlng: LatLngExpression, options?: PopupOptions): Map;
 
         /**
           * Creates a popup with the specified options and opens it in the given point
           * on a map.
           */
-        openPopup(el: HTMLElement, latlng: LatLng, options?: PopupOptions): Map;
+        openPopup(el: HTMLElement, latlng: LatLngExpression, options?: PopupOptions): Map;
 
         /**
           * Closes the popup previously opened with openPopup (or the given one).
@@ -2282,7 +2286,7 @@ declare module L {
           * Returns the map layer point that corresponds to the given geographical coordinates
           * (useful for placing overlays on the map).
           */
-        latLngToLayerPoint(latlng: LatLng): Point;
+        latLngToLayerPoint(latlng: LatLngExpression): Point;
 
         /**
           * Returns the geographical coordinates of a given map layer point.
@@ -2305,7 +2309,7 @@ declare module L {
           * Returns the map container point that corresponds to the given geographical
           * coordinates.
           */
-        latLngToContainerPoint(latlng: LatLng): Point;
+        latLngToContainerPoint(latlng: LatLngExpression): Point;
 
         /**
           * Returns the geographical coordinates of a given map container point.
@@ -2316,7 +2320,7 @@ declare module L {
           * Projects the given geographical coordinates to absolute pixel coordinates
           * for the given zoom level (current zoom level by default).
           */
-        project(latlng: LatLng, zoom?: number): Point;
+        project(latlng: LatLngExpression, zoom?: number): Point;
 
         /**
           * Projects the given absolute pixel coordinates to geographical coordinates
@@ -2718,14 +2722,14 @@ declare module L {
       * Instantiates a Marker object given a geographical point and optionally
       * an options object.
       */
-    function marker(latlng: LatLng, options?: MarkerOptions): Marker;
+    function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
     var Marker: {
         /**
           * Instantiates a Marker object given a geographical point and optionally
           * an options object.
           */
-        new(latlng: LatLng, options?: MarkerOptions): Marker;
+        new(latlng: LatLngExpression, options?: MarkerOptions): Marker;
     };
 
     export interface Marker extends ILayer, IEventPowered<Marker> {
@@ -2742,7 +2746,7 @@ declare module L {
         /**
           * Changes the marker position to the given point.
           */
-        setLatLng(latlng: LatLng): Marker;
+        setLatLng(latlng: LatLngExpression): Marker;
 
         /**
           * Changes the marker icon.
@@ -3095,7 +3099,7 @@ declare module L {
           * Opens the popup previously bound by the bindPopup method in the given point,
           * or in one of the path's points if not specified.
           */
-        openPopup(latlng?: LatLng): Path;
+        openPopup(latlng?: LatLngExpression): Path;
 
         /**
           * Closes the path's bound popup if it is opened.
@@ -3371,7 +3375,7 @@ declare module L {
       * latlngs array representing the exterior ring while the remaining represent
       * the holes inside.
       */
-    function polygon(latlngs: LatLng[], options?: PolylineOptions): Polygon;
+    function polygon(latlngs: LatLngBoundsExpression, options?: PolylineOptions): Polygon;
 
 
     export interface PolygonStatic extends ClassStatic {
@@ -3382,7 +3386,7 @@ declare module L {
           * latlngs array representing the exterior ring while the remaining represent
           * the holes inside.
           */
-        new(latlngs: LatLng[], options?: PolylineOptions): Polygon;
+        new(latlngs: LatLngBoundsExpression, options?: PolylineOptions): Polygon;
     }
     export var Polygon: PolygonStatic;
 
@@ -3396,14 +3400,14 @@ declare module L {
       * Instantiates a polyline object given an array of geographical points and
       * optionally an options object.
       */
-    function polyline(latlngs: LatLng[], options?: PolylineOptions): Polyline;
+    function polyline(latlngs: LatLngBoundsExpression, options?: PolylineOptions): Polyline;
 
     export interface PolylineStatic extends ClassStatic {
         /**
           * Instantiates a polyline object given an array of geographical points and
           * optionally an options object.
           */
-        new(latlngs: LatLng[], options?: PolylineOptions): Polyline;
+        new(latlngs: LatLngBoundsExpression, options?: PolylineOptions): Polyline;
     }
     export var Polyline: PolylineStatic;
 
@@ -3411,13 +3415,13 @@ declare module L {
         /**
           * Adds a given point to the polyline.
           */
-        addLatLng(latlng: LatLng): Polyline;
+        addLatLng(latlng: LatLngExpression): Polyline;
 
         /**
           * Replaces all the points in the polyline with the given array of geographical
           * points.
           */
-        setLatLngs(latlngs: LatLng[]): Polyline;
+        setLatLngs(latlngs: LatLngBoundsExpression): Polyline;
 
         /**
           * Returns an array of the points in the path.
@@ -3510,7 +3514,7 @@ declare module L {
         /**
           * Sets the geographical point where the popup will open.
           */
-        setLatLng(latlng: LatLng): Popup;
+        setLatLng(latlng: LatLngExpression): Popup;
 
         /**
           * Returns the geographical point of popup.

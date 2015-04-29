@@ -1,4 +1,4 @@
-// Type definitions for Async 0.1.23
+// Type definitions for Async 0.9.2
 // Project: https://github.com/caolan/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -9,7 +9,6 @@ interface ErrorCallback { (err?: Error): void; }
 interface AsyncResultCallback<T> { (err: Error, result: T): void; }
 interface AsyncResultArrayCallback<T> { (err: Error, results: T[]): void; }
 interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): void; }
-interface AsyncTimesCallback<T> { (n: number, callback: AsyncResultArrayCallback<T>): void; }
 
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
@@ -105,8 +104,8 @@ interface Async {
     apply(fn: Function, ...arguments: any[]): AsyncFunction<any>;
     nextTick(callback: Function): void;
 
-    times<T> (n: number, callback: AsyncTimesCallback<T>): void;
-    timesSeries<T> (n: number, callback: AsyncTimesCallback<T>): void;
+    times<R> (n: number, iterator: AsyncResultIterator<number, R>, callback: AsyncResultArrayCallback<R>): void;
+    timesSeries<R> (n: number, iterator: AsyncResultIterator<number, R>, callback: AsyncResultArrayCallback<R>): void;
 
     // Utils
     memoize(fn: Function, hasher?: Function): Function;
