@@ -15,7 +15,7 @@ declare module restangular {
     $object: T;
 }
 
-  interface ICollectionPromise<T> extends ng.IPromise<T> {
+  interface ICollectionPromise<T> extends ng.IPromise<T[]> {
     push(object: any): ICollectionPromise<T>;
     call(methodName: string, params?: any): ICollectionPromise<T>;
     get(fieldName: string): ICollectionPromise<T>;
@@ -114,6 +114,7 @@ declare module restangular {
     patch(queryParams?: any, headers?: any): IPromise<any>;
     clone(): IElement;
     plain(): any;
+	plain<T>(): T;
     withHttpConfig(httpConfig: IRequestConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
@@ -130,6 +131,9 @@ declare module restangular {
     patch(queryParams?: any, headers?: any): IPromise<any>;
     putElement(idx: any, params: any, headers: any): IPromise<any>;
     withHttpConfig(httpConfig: IRequestConfig): ICollection;
+	clone(): ICollection;
+    plain(): any;
+	plain<T>(): T[];
     getRestangularUrl(): string;
   }
 }
