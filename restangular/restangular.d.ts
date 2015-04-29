@@ -15,7 +15,7 @@ declare module restangular {
     $object: T;
 }
 
-  interface ICollectionPromise<T> extends ng.IPromise<T> {
+  interface ICollectionPromise<T> extends ng.IPromise<T[]> {
     push(object: any): ICollectionPromise<T>;
     call(methodName: string, params?: any): ICollectionPromise<T>;
     get(fieldName: string): ICollectionPromise<T>;
