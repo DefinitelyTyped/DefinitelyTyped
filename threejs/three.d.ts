@@ -4517,6 +4517,7 @@ declare module THREE {
         generateMipmaps: boolean;
         shareDepthFrom: any;
 
+        setSize(width: number, height: number): void;
         clone(): WebGLRenderTarget;
         dispose(): void;
 
