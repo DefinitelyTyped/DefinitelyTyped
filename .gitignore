@@ -41,3 +41,4 @@ _infrastructure/tests/build
 node_modules
 
 .sublimets
+.settings/launch.json
