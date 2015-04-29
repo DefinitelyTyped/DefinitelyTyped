@@ -23,8 +23,13 @@ chrome.app.runtime.onLaunched.addListener(function (launchData: runtime.LaunchDa
 
 chrome.app.runtime.onRestarted.addListener(function () { return; });
 
-// Get Current Window
+// retrieving windows
 var currentWindow: cwindow.AppWindow = chrome.app.window.current();
+var otherWindow: cwindow.AppWindow = chrome.app.window.get('some-string');
+var allWindows: cwindow.AppWindow[] = chrome.app.window.getAll();
+
+// check platform capabilities
+var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces();
 
 // FileSystem
 // https://developer.chrome.com/apps/fileSystem
