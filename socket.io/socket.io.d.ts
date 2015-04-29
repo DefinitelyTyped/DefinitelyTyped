@@ -46,6 +46,7 @@ declare module SocketIO {
         name: string;
         connected: { [id: string]: Socket };
         use(fn: Function): Namespace;
+        in(room: string): Namespace;
 
         on(event: 'connection', listener: (socket: Socket) => void): Namespace;
         on(event: 'connect', listener: (socket: Socket) => void): Namespace;
