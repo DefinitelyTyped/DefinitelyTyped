@@ -31,9 +31,9 @@ declare module Windows {
                 collectionChange: Windows.Foundation.Collections.CollectionChange;
                 index: number;
             }
-            export interface IPropertySet extends Windows.Foundation.Collections.IObservableMap<string, any>, Windows.Foundation.Collections.IMap<string, any>, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<string, any>> {
+            export interface IPropertySet extends Windows.Foundation.Collections.IObservableMap<string, any> {
             }
-            export class PropertySet implements Windows.Foundation.Collections.IPropertySet, Windows.Foundation.Collections.IObservableMap<string, any>, Windows.Foundation.Collections.IMap<string, any>, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<string, any>> {
+            export class PropertySet implements Windows.Foundation.Collections.IPropertySet {
                 size: number;
                 onmapchanged: any/* TODO */;
                 lookup(key: string): any;
