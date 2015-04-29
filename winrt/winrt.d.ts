@@ -44,6 +44,18 @@ declare module Windows {
                 clear(): void;
                 first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
             }
+            /** Windows Phone only. */
+            export class ValueSet implements Windows.Foundation.Collections.IPropertySet {
+                size: number;
+                onmapchanged: any/* TODO */;
+                lookup(key: string): any;
+                hasKey(key: string): boolean;
+                getView(): Windows.Foundation.Collections.IMapView<string, any>;
+                insert(key: string, value: any): boolean;
+                remove(key: string): void;
+                clear(): void;
+                first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
+            }
             export interface IIterable<T> {
                 first(): Windows.Foundation.Collections.IIterator<T>;
             }
