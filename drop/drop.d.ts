@@ -1,4 +1,4 @@
-// Type definitions for Drop v0.5
+// Type definitions for Drop v0.5.7
 // Project: http://github.hubspot.com/drop/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -19,7 +19,7 @@ declare module drop {
 
     interface IDropOptions {
         target?: Element;
-        content?: Element | string | (() => string);
+        content?: Element | string | ((drop?: Drop) => string) | ((drop?: Drop) => Element);
         position?: string;
         openOn?: string;
         constrainToWindow?: boolean;
@@ -30,6 +30,8 @@ declare module drop {
 
     interface Drop {
         content: HTMLElement;
+        element: HTMLElement;
+        tether: tether.Tether;
         open(): void;
         close(): void;
         remove(): void;

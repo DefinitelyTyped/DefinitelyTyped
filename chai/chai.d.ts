@@ -132,6 +132,7 @@ declare module chai {
 
     interface Deep {
         equal: Equal;
+        include: Include;
         property: Property;
     }
 

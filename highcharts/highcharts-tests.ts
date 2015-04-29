@@ -1,15 +1,33 @@
 ﻿/// <reference path="highcharts.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
 
-var animate: HighchartsBoolOrAnimation;
-animate = true;
-animate = { duration: 200, easing: "linear" };
+Highcharts.setOptions({
+    lang: {
+        months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+    }
+});
 
 
-var gradient: HighchartsColorOrGradient;
-gradient = {
-    linearGradient: { x0: 0, y0: 0, x1: 500, y1: 500 },
+var animate: HighchartsAnimation = {
+    duration: 200,
+    easing: "linear"
+};
+
+
+var gradient: HighchartsGradient = {
+    linearGradient: {
+        x0: 0,
+        y0: 0,
+        x1: 500,
+        y1: 500
+    },
     stops: [
         [0, 'rgb(255, 255, 255)'],
         [1, 'rgb(200, 200, 255)']
@@ -17,11 +35,6 @@ gradient = {
 }
 
 var color = "#fcfcff";
-
-var backgound: HighchartsColorOrGradient;
-
-backgound = gradient;
-backgound = color;
 
 var chart1 = new Highcharts.Chart({
     chart: {
@@ -121,6 +134,6 @@ var highChartSettings: HighchartsOptions = {
     }]
 };
 
-var container = $("#container").highcharts(highChartSettings, function (chart) {
+var container = $("#container").highcharts(highChartSettings, (chart) => {
     chart.series[0].setVisible(true, true);
 });

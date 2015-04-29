@@ -101,6 +101,8 @@ model.belongsTo<modelInst, modelPojo>(model);
 model.belongsTo<modelInst, modelPojo>(model, assocOpts);
 model.hasMany<modelInst, modelPojo>(model);
 model.hasMany<modelInst, modelPojo>(model, assocOpts);
+model.belongsToMany<modelInst, modelPojo>(model);
+model.belongsToMany<modelInst, modelPojo>(model, assocOpts);
 
 promiseMe = model.sync();
 promiseMe = model.drop(dropOpts);

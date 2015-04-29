@@ -4151,13 +4151,13 @@ declare module THREE {
     }
 
     export class SkinnedMesh extends Mesh {
-        constructor(geometry?: Geometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
-        constructor(geometry?: Geometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
-        constructor(geometry?: Geometry, material?: MeshFaceMaterial, useVertexTexture?: boolean);
-        constructor(geometry?: Geometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
-        constructor(geometry?: Geometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
-        constructor(geometry?: Geometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
-        constructor(geometry?: Geometry, material?: ShaderMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: MeshFaceMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
+        constructor(geometry?: Geometry|BufferGeometry, material?: ShaderMaterial, useVertexTexture?: boolean);
 
         bindMode: string;
         bindMatrix: Matrix4;
@@ -4517,6 +4517,7 @@ declare module THREE {
         generateMipmaps: boolean;
         shareDepthFrom: any;
 
+        setSize(width: number, height: number): void;
         clone(): WebGLRenderTarget;
         dispose(): void;
 

@@ -234,6 +234,10 @@ declare module "react" {
         type: string;
     }
 
+    interface DragEvent extends SyntheticEvent {
+        dataTransfer: DataTransfer;
+    }
+
     interface ClipboardEvent extends SyntheticEvent {
         clipboardData: DataTransfer;
     }
@@ -308,6 +312,7 @@ declare module "react" {
         (event: E): void;
     }
 
+    interface DragEventHandler extends EventHandler<DragEvent> {}
     interface ClipboardEventHandler extends EventHandler<ClipboardEvent> {}
     interface KeyboardEventHandler extends EventHandler<KeyboardEvent> {}
     interface FocusEventHandler extends EventHandler<FocusEvent> {}
@@ -341,14 +346,14 @@ declare module "react" {
         onSubmit?: FormEventHandler;
         onClick?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
-        onDrag?: MouseEventHandler;
-        onDragEnd?: MouseEventHandler;
-        onDragEnter?: MouseEventHandler;
-        onDragExit?: MouseEventHandler;
-        onDragLeave?: MouseEventHandler;
-        onDragOver?: MouseEventHandler;
-        onDragStart?: MouseEventHandler;
-        onDrop?: MouseEventHandler;
+        onDrag?: DragEventHandler;
+        onDragEnd?: DragEventHandler;
+        onDragEnter?: DragEventHandler;
+        onDragExit?: DragEventHandler;
+        onDragLeave?: DragEventHandler;
+        onDragOver?: DragEventHandler;
+        onDragStart?: DragEventHandler;
+        onDrop?: DragEventHandler;
         onMouseDown?: MouseEventHandler;
         onMouseEnter?: MouseEventHandler;
         onMouseLeave?: MouseEventHandler;
