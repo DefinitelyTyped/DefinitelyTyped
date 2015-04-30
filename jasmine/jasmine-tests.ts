@@ -748,6 +748,82 @@ describe("Fail", function () {
 
 });
 
+// test based on http://jasmine.github.io/2.2/custom_equality.html
+describe("custom equality", function() {
+    var myCustomEquality: jasmine.CustomEqualityTester = function(first: any, second: any): boolean {
+        if (typeof first == "string" && typeof second == "string") {
+            return first[0] == second[1];
+        }
+    };
+
+    beforeEach(function() {
+        jasmine.addCustomEqualityTester(myCustomEquality);
+    });
+
+
+    it("should be custom equal", function() {
+        expect("abc").toEqual("aaa");
+    });
+
+    it("should be custom not equal", function() {
+        expect("abc").not.toEqual("abc");
+    });
+});
+
+// test based on http://jasmine.github.io/2.2/custom_matcher.html
+var customMatchers: jasmine.CustomMatcherFactories = {
+    toBeGoofy: function (util: jasmine.MatchersUtil, customEqualityTesters: Array<jasmine.CustomEqualityTester>) {
+        return {
+            compare: function (actual: any, expected: any): jasmine.CustomMatcherResult {
+                if (expected === undefined) {
+                    expected = '';
+                }
+                var result: jasmine.CustomMatcherResult = { pass: false, message: ''};
+
+                result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
+
+                if (result.pass) {
+                    result.message = "Expected " + actual + " not to be quite so goofy";
+                } else {
+                    result.message = "Expected " + actual + " to be goofy, but it was not very goofy";
+                }
+
+                return result;
+            }
+        };
+    }
+};
+// add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
+declare module jasmine {
+    interface Matchers {
+        toBeGoofy(expected?: any): boolean;
+    }
+}
+
+describe("Custom matcher: 'toBeGoofy'", function () {
+    beforeEach(function () {
+        jasmine.addMatchers(customMatchers);
+    });
+
+    it("is available on an expectation", function () {
+        expect({
+            hyuk: 'gawrsh'
+        }).toBeGoofy();
+    });
+
+    it("can take an 'expected' parameter", function () {
+        expect({
+            hyuk: 'gawrsh is fun'
+        }).toBeGoofy(' is fun');
+    });
+
+    it("can be negated", function () {
+        expect({
+            hyuk: 'this is fun'
+        }).not.toBeGoofy();
+    });
+});
+
 (() => {
     // from boot.js
     var env = jasmine.getEnv();
