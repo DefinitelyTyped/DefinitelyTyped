@@ -32,6 +32,9 @@ _infrastructure/tests/build
 #decimal.js
 !decimal.js
 
+#egg.js
+!egg.js
+
 #rx.js
 !rx.js
 
