@@ -29,7 +29,7 @@ World.add(engine.world, [box2, circle1])
 
 
 //Composites
-var stack = Composites.stack(0, 100, 5, 1, 20, 0, function(x, y, column, row) {
+var stack = Composites.stack(0, 100, 5, 1, 20, 0, function(x:number, y:number, column:number, row:number) {
             return Bodies.circle(x, y, 75, { restitution: 0.9 });
         });
         
