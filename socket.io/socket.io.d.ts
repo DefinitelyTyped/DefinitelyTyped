@@ -59,6 +59,17 @@ declare module SocketIO {
         conn: any;
         request: any;
         id: string;
+        handshake: {
+            headers: any;
+            time: string;
+            address: any;
+            xdomain: boolean;
+            secure: boolean;
+            issued: number;
+            url: string;
+            query: any;
+        };
+
         emit(name: string, ...args: any[]): Socket;
         join(name: string, fn?: Function): Socket;
         leave(name: string, fn?: Function): Socket;
