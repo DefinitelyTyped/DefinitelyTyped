@@ -44,7 +44,7 @@ declare module Matter
     {
         /**
          * Clears the engine including the world, pairs and broadphase.
-         * @param engine
+         * @param engine 
          */
         static clear(engine:Engine):void;
 
@@ -843,6 +843,30 @@ declare module Matter
          Default: "constraint"
          */
             type?:string;
+    }
+    
+    export class Query
+    {
+        /**
+         * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
+         * 
+         * @param bodies 
+         * @param startPoint 
+         * @param endPoint 
+         * @param [rayWidth]
+         * 
+         * @returns Object[] Collisions
+         */
+        static ray( bodies:Array<Body>,  startPoint:Vector,  endPoint:Vector,  rayWidth?:number ):Array<any>;
+        
+        /**
+         * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
+         * 
+         * @param bodies
+         * @param bounds
+         * @returns Body[] The bodies matching the query
+         */
+        static region( bodies:Array<Body>,  bounds:Bounds,  outside?:boolean ):Array<Body>;
     }
 
     export class Mouse
