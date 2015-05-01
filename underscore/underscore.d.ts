@@ -53,6 +53,10 @@ declare module _ {
 		(prev: TResult, curr: T, index: number, list: T[]): TResult;
 	}
 
+	interface MemoObjectIterator<T, TResult> {
+		(prev: TResult, curr: T, key: string, list: any): TResult;
+	}
+
 	interface Collection<T> { }
 
 	// Common interface between Arrays and jQuery objects
@@ -181,7 +185,7 @@ interface UnderscoreStatic {
 
 	reduce<T, TResult>(
 		list: _.Dictionary<T>,
-		iterator: _.ObjectIterator<T, TResult>,
+		iterator: _.MemoObjectIterator<T, TResult>,
 		memo?: TResult,
 		context?: any): TResult;
 
