@@ -1498,7 +1498,7 @@ declare module DataTables {
     }
 
     interface FunctionColumnData {
-        (row: any, t: string, s: any, meta: Object): void;
+        (row: any, t: string, s: any, meta: CellMetaSettings): void;
     }
 
     interface ObjectColumnData {
@@ -1513,7 +1513,13 @@ declare module DataTables {
     }
 
     interface FunctionColumnRender {
-        (data: Node, t: Node, row: Node, meta: Object): void;
+        (data: any, t: string, row: any, meta: CellMetaSettings): void;
+    }
+
+    interface CellMetaSettings {
+        row: number;
+        col: number;
+        settings: DataTables.Settings;
     }
 
     //#endregion "colunm-settings"
