@@ -6,7 +6,6 @@
 /// <reference path="../express/express.d.ts" />
 
 declare module "cookie-parser" {
-    import express = require('express');
-    function e(secret?: string, options?: any): express.RequestHandler;
-    export = e;
+    import { RequestHandler } from "express";
+    export default function e(secret?: string, options?: any): RequestHandler;
 }

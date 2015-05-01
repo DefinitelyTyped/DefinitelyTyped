@@ -1,7 +1,7 @@
 /// <reference path="compression.d.ts" />
 
 import express = require('express');
-import compress = require('compression');
+import compress from "compression";
 
 var app = express();
 app.use(compress());

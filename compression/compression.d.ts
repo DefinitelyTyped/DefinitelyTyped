@@ -6,7 +6,7 @@
 /// <reference path="../express/express.d.ts" />
 
 declare module "compression" {
-    import express = require('express');
+    import { RequestHandler } from "express";
 
     module e {
         interface CompressionOptions  {
@@ -15,6 +15,5 @@ declare module "compression" {
         }
     }
 
-    function e(options?: e.CompressionOptions): express.RequestHandler;
-    export = e;
+    export default function e(options?: e.CompressionOptions): RequestHandler;
 }

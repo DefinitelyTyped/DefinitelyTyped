@@ -12,7 +12,7 @@ declare module Express {
 }
 
 declare module "csurf" {
-  import express = require('express');
+  import * as express from "express";
 
   function csurf(options?: {
     value?: (req: express.Request) => string;
@@ -25,6 +25,6 @@ declare module "csurf" {
     }
   }
 
-  export = csurf;
+  export default csurf;
 }
 
