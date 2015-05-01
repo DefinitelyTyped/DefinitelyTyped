@@ -340,6 +340,7 @@ declare module "http" {
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
+        listen(port: number, hostname?: string, callback?: Function): Server;
         listen(path: string, callback?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
         close(cb?: any): Server;
