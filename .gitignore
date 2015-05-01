@@ -28,18 +28,7 @@ _infrastructure/tests/build
 .idea
 *.iml
 *.js.map
-
-#decimal.js
-!decimal.js
-
-#egg.js
-!egg.js
-
-#rx.js
-!rx.js
-
-#zip.js
-!zip.js
+!*.js/
 
 node_modules
 
