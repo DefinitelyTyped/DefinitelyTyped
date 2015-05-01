@@ -1,4 +1,4 @@
-// Type definitions for SweetAlert 0.5.0
+// Type definitions for SweetAlert 1.0.0-beta
 // Project: https://github.com/t4t5/sweetalert/
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -28,7 +28,7 @@ declare module SweetAlert {
          * If set to true, the user can dismiss the modal by pressing the Escape key.
          * Default: true
          */
-        allowEsxcapeKey?: boolean;
+        allowEscapeKey?: boolean;
 
         /**
          * A custom CSS class for the modal.
@@ -79,6 +79,12 @@ declare module SweetAlert {
         closeOnConfirm?: boolean;
 
         /**
+         * Set to false if you want the modal to stay open even if the user presses the "Cancel"-button. This is especially useful if the function attached to the "Cancel"-button is another SweetAlert.
+         * Default: true
+         */
+        closeOnCancel?: boolean;
+
+        /**
          * Add a customized icon for the modal.Should contain a string with the path to the image.
          * Default: null
          */
@@ -104,7 +110,7 @@ declare module SweetAlert {
 
         /**
          * If set to false, the modal's animation will be disabled. Possible animations: "slide-from-top", "slide-from-bottom", "pop" (use true instead) and "none" (use false instead).
-         * Default: true, "pop"
+         * Default: true
          */
         animation?: boolean | string;
 
@@ -113,6 +119,12 @@ declare module SweetAlert {
          * Default: "text"
          */
         inputType?: string;
+
+        /**
+         * When using the input-type, you can specify a placeholder to help the user.
+         * Default: null
+         */
+        inputPlaceholder?: string;
     }
 
     interface Settings extends SettingsBase {
