@@ -41,22 +41,6 @@ declare module _ {
 		escape?: RegExp;
 	}
 
-	interface ListIterator<T, TResult> {
-		(value: T, index: number, list: T[]): TResult;
-	}
-
-	interface ObjectIterator<T, TResult> {
-		(element: T, key: string, list: any): TResult;
-	}
-
-	interface MemoIterator<T, TResult> {
-		(prev: TResult, curr: T, index: number, list: T[]): TResult;
-	}
-
-	interface MemoObjectIterator<T, TResult> {
-		(prev: TResult, curr: T, key: string, list: any): TResult;
-	}
-
 	interface Collection<T> { }
 
 	// Common interface between Arrays and jQuery objects
@@ -67,6 +51,22 @@ declare module _ {
 
 	interface Dictionary<T> extends Collection<T> {
 		[index: string]: T;
+	}
+
+	interface ListIterator<T, TResult> {
+		(value: T, index: number, list: List<T>): TResult;
+	}
+
+	interface ObjectIterator<T, TResult> {
+		(element: T, key: string, list: Dictionary<T>): TResult;
+	}
+
+	interface MemoIterator<T, TResult> {
+		(prev: TResult, curr: T, index: number, list: List<T>): TResult;
+	}
+
+	interface MemoObjectIterator<T, TResult> {
+		(prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
 	}
 }
 
