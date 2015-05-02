@@ -98,7 +98,7 @@ declare module _ {
     **/
     interface Support {
         /**
-        * Detect if an arguments object’s [[Class]] is resolvable (all but Firefox < 4, IE < 9).
+        * Detect if an arguments object's [[Class]] is resolvable (all but Firefox < 4, IE < 9).
         **/
         argsClass: boolean;
 
@@ -258,7 +258,7 @@ declare module _ {
     //_.chunk
     interface LoDashStatic {
         /**
-        * Creates an array of elements split into groups the length of size. If collection can’t be
+        * Creates an array of elements split into groups the length of size. If collection can't be
         * split evenly, the final chunk will be the remaining elements.
         * @param array The array to process.
         * @param size The length of each chunk.
@@ -4997,7 +4997,7 @@ declare module _ {
         * @param wait The number of milliseconds to delay.
         * @param options The options object.
         * @param options.leading Specify execution on the leading edge of the timeout.
-        * @param options.maxWait The maximum time func is allowed to be delayed before it’s called.
+        * @param options.maxWait The maximum time func is allowed to be delayed before it's called.
         * @param options.trailing Specify execution on the trailing edge of the timeout.
         * @return The new debounced function.
         **/
@@ -5023,7 +5023,7 @@ declare module _ {
         leading?: boolean;
 
         /**
-        * The maximum time func is allowed to be delayed before it’s called.
+        * The maximum time func is allowed to be delayed before it's called.
         **/
         maxWait?: number;
 
@@ -6063,7 +6063,7 @@ declare module _ {
     //_.pairs
     interface LoDashStatic {
         /**
-        * Creates a two dimensional array of an object’s key-value pairs, 
+        * Creates a two dimensional array of an object's key-value pairs, 
         * i.e. [[key1, value1], [key2, value2]].
         * @param object The object to inspect.
         * @return Aew array of key-value pairs.
@@ -6271,7 +6271,7 @@ declare module _ {
     //_.property
     interface LoDashStatic {
         /**
-         * # Ⓢ
+         * # S
          * Creates a "_.pluck" style function, which returns the key value of a given object.
          * @param key (string)
          * @return the value of that key on the object
@@ -6343,7 +6343,7 @@ declare module _ {
         * @param options.evaluate The "evaluate" delimiter.
         * @param options.import An object to import into the template as local variables.
         * @param options.interpolate The "interpolate" delimiter.
-        * @param sourceURL The sourceURL of the template’s compiled source.
+        * @param sourceURL The sourceURL of the template's compiled source.
         * @param variable The data object variable name.
         * @return Returns the compiled Lo-Dash HTML template or a TemplateExecutor if no data is passed.
         **/
