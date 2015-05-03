@@ -1049,6 +1049,12 @@ _.mixin({
     }
 });
 
+_.mixin({
+    'pushAll': function <T> (dest : Array<T>, src : Array<T>[]) {
+        return dest.push.apply(dest, src);
+    }
+});
+
 var lodash = <typeof _>_.noConflict();
 
 result = <number>_.parseInt('08');

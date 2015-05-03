@@ -6256,7 +6256,7 @@ declare module _ {
         * Adds function properties of a source object to the lodash function and chainable wrapper.
         * @param object The object of function properties to add to lodash.
         **/
-        mixin(object: Dictionary<(value: any) => any>): void;
+        mixin(object: Dictionary<Function>): void;
     }
 
     //_.noConflict
