@@ -267,11 +267,11 @@ interface Firebase extends FirebaseQuery {
 	/**
 	 * Updates the email associated with an email / password user account.
 	 */
-	changeEmail(credentials: FirebaseNewUserCredentials, onComplete: (error: any) => void): void;
+	changeEmail(credentials: FirebaseChangeEmailCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Change the password of an existing user using an email / password combination.
 	 */
-	changePassword(credentials: FirebaseNewPasswordCredentials, onComplete: (error: any) => void): void;
+	changePassword(credentials: FirebaseChangePasswordCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Removes an existing user account using an email / password combination.
 	 */
@@ -320,13 +320,13 @@ interface FirebaseCredentials {
 	password: string;
 }
 
-interface FirebaseNewPasswordCredentials {
+interface FirebaseChangePasswordCredentials {
 	email: string;
 	oldPassword: string;
 	newPassword: string;
 }
 
-interface FirebaseNewUserCredentials {
+interface FirebaseChangeEmailCredentials {
 	oldEmail: string;
 	newEmail: string;
 	password: string;
