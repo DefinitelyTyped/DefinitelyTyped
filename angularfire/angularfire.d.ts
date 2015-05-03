@@ -86,7 +86,7 @@ interface AngularFireAuth {
 	$requireAuth(): ng.IPromise<any>;
 	$createUser(credentials: FirebaseCredentials): ng.IPromise<any>;
 	$removeUser(credentials: FirebaseCredentials): ng.IPromise<any>;
-	$changeEmail(credentials: FirebaseNewUserCredentials): ng.IPromise<any>;
-	$changePassword(credentials: FirebaseNewPasswordCredentials): ng.IPromise<any>;
+	$changeEmail(credentials: FirebaseChangeEmailCredentials): ng.IPromise<any>;
+	$changePassword(credentials: FirebaseChangePasswordCredentials): ng.IPromise<any>;
 	$resetPassword(credentials: FirebaseResetPasswordCredentials): ng.IPromise<any>;
 }
