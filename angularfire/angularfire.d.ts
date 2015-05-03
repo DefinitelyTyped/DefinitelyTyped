@@ -39,6 +39,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
 	$destroy(): void;
 }
 interface AngularFireObjectService {
+	(firebase: Firebase): AngularFireObject;
 	$extend(ChildClass: Object, methods?: Object): Object;
 }
 
@@ -57,6 +58,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
 	$destroy(): void;
 }
 interface AngularFireArrayService {
+	(firebase: Firebase): AngularFireArray;
 	$extend(ChildClass: Object, methods?: Object): Object;
 }
 
