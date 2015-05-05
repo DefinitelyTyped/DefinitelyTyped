@@ -209,12 +209,12 @@ $('.timepicker').pickatime();
 // Extend the default picker options for all instances.
 $.extend($.fn.pickatime.defaults, {
     clear: 'Effacer'
-})
+});
 
 // Or, pass the months and weekdays as an array for each invocation.
 $('.timepicker').pickatime({
     clear: 'Effacer'
-})
+});
 
 // Change the text or hide the button completely by passing a false-y value
 $('.timepicker').pickatime({
@@ -431,7 +431,7 @@ picker.set({
 // Muted callbacks
 
 // One at a time
-picker.set('disable', 'flip', { muted: true })
+picker.set('disable', 'flip', { muted: true });
 
 // Multiple at once
 picker.set({
