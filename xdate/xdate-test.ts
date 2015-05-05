@@ -1040,7 +1040,7 @@ module XDate_Test
 	// }
 
 	public setWeek()  :  boolean {
-	    function test(xdate, n) {
+	    function test(xdate : XDate , n :  number) {
 		var year = xdate.getFullYear();
 		xdate.setWeek(n);
 		return xdate.getWeek() == n &&
@@ -1058,7 +1058,7 @@ module XDate_Test
 	}
 
 	public setWeek_with_year() : boolean {
-	    function test(xdate, n, year) {
+	    function test(xdate : XDate , n : number , year : number) {
 		xdate.setWeek(n, year);
 		return xdate.getWeek() == n &&
 		    xdate.getFullYear() == year &&
@@ -1075,7 +1075,7 @@ module XDate_Test
 	}
 
 	public setUTCWeek() : boolean {
-	    function test(xdate, n) {
+	    function test(xdate : XDate , n : number) {
 		var year = xdate.getUTCFullYear();
 		xdate.setUTCWeek(n);
 		return xdate.getUTCWeek() == n &&
@@ -1093,7 +1093,7 @@ module XDate_Test
 	}
 
 	public setUTCWeek_with_year() : boolean{
-	    function test(xdate, n, year) {
+	    function test(xdate : XDate , n : number , year : number ) {
 		xdate.setUTCWeek(n, year);
 		return xdate.getUTCWeek() == n &&
 		    xdate.getUTCFullYear() == year &&
