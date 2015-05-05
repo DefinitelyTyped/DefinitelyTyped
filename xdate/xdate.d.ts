@@ -12,6 +12,16 @@ interface formatters_info
     vvv?: (xdate : XDate , useutc : boolean ) => string;
 }
 
+interface locale_detail
+{
+    monthNames? : string [];
+    monthNamesShort?: string [];
+    dayNames?: string[];
+    dayNamesShort?: string [];
+    amDesignator?: string;
+    pmDesignator?: string;
+}
+
 
 declare class XDate {
 
@@ -354,7 +364,7 @@ declare class XDate {
     public static UTC(year : number , month : number , date : number , hours : number,
 		      minutes : number , seconds : number , milliseconds : number ) : XDate;
 
-    public static locales : Object;
+    public static locales : { [key: string]: locale_detail; };
 
     public static defaultLocale : string;
     public static formatters : formatters_info;
