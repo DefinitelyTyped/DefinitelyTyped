@@ -4,13 +4,15 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module jsuri {
-  class Uri {
+  type Primitive = string | number | boolean;
+
+  export class Uri {
     /**
      * Creates a new Uri object
      * @constructor
      * @param {string} str
      */
-    constructor(str: string);
+    constructor(str?: string);
 
     /**
      * Define getter/setter methods
@@ -67,7 +69,7 @@ declare module jsuri {
      * @param  {integer} [index]    specific index to add the value at
      * @return {Uri}                returns self for fluent chaining
      */
-    addQueryParam(key: string, val: string, index?: number): Uri;
+    addQueryParam(key: string, val: Primitive, index?: number): Uri;
 
     /**
      * test for the existence of a query parameter
@@ -83,7 +85,7 @@ declare module jsuri {
      * @param  {string} [oldVal]    replace only one specific value (otherwise replaces all)
      * @return {Uri}                returns self for fluent chaining
      */
-    replaceQueryParam(key: string, newVal: string, oldVal?:string): Uri;
+    replaceQueryParam(key: string, newVal: Primitive, oldVal?: Primitive): Uri;
 
     /**
      * Define fluent setter methods (setProtocol, setHasAuthorityPrefix, etc)
