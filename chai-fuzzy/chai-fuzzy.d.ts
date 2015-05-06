@@ -5,13 +5,72 @@
 
 ///<reference path="../chai/chai.d.ts" />
 
-declare module chai {
-	interface Assert {
-		like(act:any, exp:any, msg?:string);
-		notLike(act:any, exp:any, msg?:string);
-		containOneLike(act:any, exp:any, msg?:string);
-		notContainOneLike(act:any, exp:any, msg?:string);
-		jsonOf(act:any, exp:any, msg?:string);
-		notJsonOf(act:any, exp:any, msg?:string);
+declare module Chai {
+
+	interface Assertion {
+		/**
+		 * Compare object attributes and values rather than checking to see if
+		 * they're the same reference.
+		 */
+		like(expected: any, message?: string): Assertion;
+		/**
+		 * Compare object attributes and values rather than checking to see if
+		 * they're the same reference.
+		 */
+		notLike(expected: any, message?: string): Assertion;
+		/**
+		 * Check the first level of the container for a value like the one provided.
+		 */
+		containOneLike(expected: any, message?: string): Assertion;
+		/**
+		 * Check the first level of the container for a value like the one provided.
+		 */
+		notContainOneLike(expected: any, message?: string): Assertion;
+		/**
+		 * Check that the given javascript object is like the JSON-ified expected
+		 * value. Useful for checking stringification and parsing of an object.
+		 */
+		jsonOf(expected: any, message?: string): Assertion;
+		/**
+		 * Check that the given javascript object is like the JSON-ified expected
+		 * value. Useful for checking stringification and parsing of an object.
+		 */
+		notJsonOf(expected: any, message?: string): Assertion;
 	}
+
+	export interface Assert {
+		/**
+		 * Compare object attributes and values rather than checking to see if
+		 * they're the same reference.
+		 */
+		like(actual: any, expected: any, message?: string): void;
+		/**
+		 * Compare object attributes and values rather than checking to see if
+		 * they're the same reference.
+		 */
+		notLike(actual: any, expected: any, message?: string): void;
+		/**
+		 * Check the first level of the container for a value like the one provided.
+		 */
+		containOneLike(actual: any, expected: any, message?: string): void;
+		/**
+		 * Check the first level of the container for a value like the one provided.
+		 */
+		notContainOneLike(actual: any, expected: any, message?: string): void;
+		/**
+		 * Check that the given javascript object is like the JSON-ified expected
+		 * value. Useful for checking stringification and parsing of an object.
+		 */
+		jsonOf(actual: any, expected: any, message?: string): void;
+		/**
+		 * Check that the given javascript object is like the JSON-ified expected
+		 * value. Useful for checking stringification and parsing of an object.
+		 */
+		notJsonOf(actual: any, expected: any, message?: string): void;
+	}
+}
+
+declare module "chai-fuzzy" {
+	function chaiFuzzy(chai: any, utils: any): void;
+	export = chaiFuzzy;
 }
