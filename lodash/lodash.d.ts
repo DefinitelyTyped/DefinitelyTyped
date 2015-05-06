@@ -4833,7 +4833,7 @@ declare module _ {
         bind(
             func: Function,
             thisArg: any,
-            ...args: any[]): () => any;
+            ...args: any[]): (...args: any[]) => any;
     }
 
     interface LoDashObjectWrapper<T> {
@@ -4842,7 +4842,7 @@ declare module _ {
         **/
         bind(
             thisArg: any,
-            ...args: any[]): LoDashObjectWrapper<() => any>;
+            ...args: any[]): LoDashObjectWrapper<(...args: any[]) => any>;
     }
 
     //_.bindAll
