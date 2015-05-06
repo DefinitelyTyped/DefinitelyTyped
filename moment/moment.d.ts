@@ -325,7 +325,7 @@ declare module moment {
       weekdays?: any;
       weekdaysShort?: any;
       weekdaysMin?: any;
-      longDateFormat?: MomentLongDateFormat;
+      longDateFormat(formatType: string): string;
       relativeTime?: MomentRelativeTime;
       meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
       calendar?: MomentCalendar;
