@@ -60,6 +60,7 @@ declare module D3 {
         altKey?: boolean;
         ctrlKey?: boolean;
         metaKey?: boolean;
+        shiftKey?: boolean;
         type: string;
     }
 
