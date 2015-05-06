@@ -41,8 +41,7 @@ chai.request(app)
 
 chai.request(app)
 	.get('/search')
-	.query('name', 'foo')
-	.query('limit', '10');
+	.query({name: 'foo', limit: 10});
 
 chai.request(app)
 	.put('/user/me')
