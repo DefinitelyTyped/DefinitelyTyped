@@ -166,6 +166,9 @@ declare module Pickadate {
         onSet?: (event: any) => void;
         onStop?: (event: any) => void;
     }
+    
+    type MinOrMaxDateOption = Date | [number, number, number] | number | boolean;
+    type MinOrMaxTimeOption = Date | [number, number] | number | boolean;
 
     export interface DateOptions extends Options {
         // Strings and translations
@@ -211,13 +214,13 @@ declare module Pickadate {
          * for a date relative to today, or a boolean (`true` sets it to today,
          * `false` removes any limit).
          */
-        min?: Date | [number, number, number] | number | boolean;
+        min?: MinOrMaxDateOption;
 
         /**
          * Set the maximum selectable date on the picker.
          * Accepts the same values as the `min` property.
          */
-        max?: Date | [number, number, number] | number | boolean;
+        max?: MinOrMaxDateOption;
 
         /**
          * Disable a specific or arbitrary set of dates selectable on the
@@ -253,13 +256,13 @@ declare module Pickadate {
          * for a time relative to now, or a boolean (`true` sets it to now, and
          * `false` removes any limit).
          */
-        min?: Date | [number, number] | number | boolean;
+        min?: MinOrMaxTimeOption;
 
         /**
          * Set the maximum selectable time on the picker.
          * Accepts the same values as the `min` property.
          */
-        max?: Date | [number, number] | number | boolean;
+        max?: MinOrMaxTimeOption;
 
         /**
          * Disable a specific or arbitrary set of times selectable on the picker.
