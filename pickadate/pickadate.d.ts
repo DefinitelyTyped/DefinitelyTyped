@@ -330,7 +330,7 @@ declare module Pickadate {
         render?: () => void;
         start?: () => void;
         stop?: () => void;
-        set?: (thingset: any) => void;
+        set?: (thingSet: any) => void;
     }
 
     export interface SetObject {
