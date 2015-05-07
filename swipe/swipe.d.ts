@@ -16,7 +16,7 @@ interface SwipeOptions {
 }
 
 declare class Swipe {
-    constructor(container: HTMLElement, options: SwipeOptions);
+    constructor(container: HTMLElement, options?: SwipeOptions);
     prev(): void;
     next(): void;
     getPos(): number;
