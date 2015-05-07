@@ -1,4 +1,4 @@
-///<reference path="jquery.pickadate.d.ts" />
+///<reference path="pickadate.d.ts" />
 
 // Date picker tests from http://amsul.ca/pickadate.js/date/
 
