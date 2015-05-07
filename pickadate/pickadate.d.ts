@@ -255,7 +255,7 @@ declare module Pickadate {
         interval?: number;
     }
 
-    interface SetOptions {
+    export interface SetOptions {
         /**
          * By default, any callbacks bound with the on method will be fired when its relevant thing is set.
          * To silently set a thing, pass an options object with the muted parameter set to true.
@@ -347,8 +347,8 @@ declare module Pickadate {
         trigger(event: string, data?: any): TPickerObject;
     }
 
-    interface DatePicker extends Picker<DatePicker, DateItem, SetObject> { }
-    interface TimePicker extends Picker<TimePicker, TimeItem, TimeSetObject> { }
+    export interface DatePicker extends Picker<DatePicker, DateItem, SetObject> { }
+    export interface TimePicker extends Picker<TimePicker, TimeItem, TimeSetObject> { }
 }
 
 interface JQuery {
