@@ -382,6 +382,9 @@ var $input = $('.datepicker').pickadate();
 // Use the picker object directly.
 var picker = $input.pickadate('picker');
 
+picker.$node;
+picker.$root;
+
 picker.open().clear().close();
 
 picker.open();

@@ -6,7 +6,7 @@
 ///<reference path="../jquery/jquery.d.ts" />
 
 declare module Pickadate {
-    /** KlassOptions shared between date and time pickers */
+    // KlassOptions shared between date and time pickers
     interface KlassOptions {
         // The element states
         input?: string; // default 'picker__input'
@@ -83,44 +83,80 @@ declare module Pickadate {
         viewset?: string; // default 'picker__list-item--viewset'
     }
 
-    /** Options shared between date and time pickers */
+    // options shared between date and time pickers
     interface Options {
-        /** Set clear button text */
-        clear?: string; // default 'Clear'
+        /**
+         * Set the clear button text.
+         * Defaults to 'Clear'
+         */
+        clear?: string;
 
         /**
          * The human-friendly display format.
          * Escape any "rule" characters with an exclamation mark (!).
+         * Defaults to 'd mmmm, yyyy'
          */
-        format?: string; // default 'd mmmm, yyyy'
-
-        /** An alternate format to submit to the server. */
-        formatSubmit?: string; // default undefined
-        hiddenPrefix?: string; // default undefined
-        hiddenSuffix?: string; // default '_submit'
+        format?: string;
 
         /**
-         * A majority of the time, the value that needs to be sent to the server is just the hidden value
-         * and not the visible one. To make this happen, use the hiddenName option.
-         * This essentially nullifies the hiddenPrefix and hiddenSuffix, strips the name attribute from the source input, and then sets it as the name of the hidden input:
+         * An alternate format to submit to the server.
+         * Defaults to undefined.
          */
-        hiddenName?: boolean;  // default undefined
+        formatSubmit?: string;
 
         /**
-         * By default, typing into the input is disabled by giving it a readOnly attribute.
-         * Setting the editable option to true allows the input field to be edited directly.
+         * An optional name prefix for the new hidden input element used
+         * when a custom human-friendly display format is specified.
+         * Defaults to undefined.
+         */
+        hiddenPrefix?: string;
+
+        /**
+         * An optional name suffix for the new hidden input element used
+         * when a custom human-friendly display format is specified.
+         * Defaults to '_submit'
+         */
+        hiddenSuffix?: string;
+
+        /**
+         * A majority of the time, the value that needs to be sent to the server
+         * is just the hidden value and not the visible one. To make this happen,
+         * use the hiddenName option. This essentially nullifies the hiddenPrefix
+         * and hiddenSuffix, strips the name attribute from the source input, and
+         * then sets it as the name of the hidden input. Defaults to undefined.
+         */
+        hiddenName?: boolean;
+
+        /**
+         * By default, typing into the input is disabled by giving it a readOnly
+         * attribute. Setting the editable option to true allows the input field
+         * to be edited directly.
          */
         editable?: boolean;
 
-        /** Specify where to insert the picker's root element by passing any valid CSS selector to this option */
-        container?: string; // default undefined
+        /**
+         * Specify where to insert the picker's root element by passing any
+         * valid CSS selector to this option. Defaults to undefined.
+         */
+        container?: string;
 
-        /** The hidden input container */
-        containerHidden?: string; // default undefined
+        /**
+         * The hidden input container.
+         * Defaults to undefined.
+         */
+        containerHidden?: string;
 
-        // Close on a user action
-        closeOnSelect?: boolean; // default true
-        closeOnClear?: boolean; // default true
+        /**
+         * Whether or not to close the picker when a date is selected.
+         * Defaults to `true`.
+         */
+        closeOnSelect?: boolean;
+
+        /**
+         * Whether or not to close the picker when the "clear" button is pressed.
+         * Defaults to `true`.
+         */
+        closeOnClear?: boolean;
 
         // Events
         onStart?: (event: any) => void;
@@ -133,10 +169,10 @@ declare module Pickadate {
 
     export interface DateOptions extends Options {
         // Strings and translations
-        monthsFull?: string[]; // default 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-        monthsShort?: string[]; // default 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-        weekdaysFull?: string[]; // default 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
-        weekdaysShort?: string[]; // default 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
+        monthsFull?: string[]; // default 'January' through 'December'
+        monthsShort?: string[]; // default 'Jan' through 'Dec'
+        weekdaysFull?: string[]; // default 'Sunday' through 'Saturday'
+        weekdaysShort?: string[]; // default 'Sun' through 'Sat'
         showMonthsShort?: boolean;
         showWeekdaysFull?: boolean;
 
@@ -152,12 +188,15 @@ declare module Pickadate {
 
         /**
          * True enables the dropdown selector and false replaces it with text.
-         * You can also specify the number of years to show in the dropdown using an even integer
-         * - half before and half after the year in focus. If true the value will default to 10.
+         * You can also specify the number of years to show in the dropdown
+         * using an even integer - half before and half after the year in focus.
+         * If true the value will default to 10.
          */
-        selectYears?: boolean|number;
+        selectYears?: boolean | number;
 
-        /** True enables the dropdown selector and false replaces it with text */
+        /**
+         * True enables the dropdown selector and false replaces it with text
+         */
         selectMonths?: boolean;
 
         /**
@@ -166,12 +205,30 @@ declare module Pickadate {
          */
         firstDay?: boolean|number;
 
-        // Date limits
-        min?: any; // date object, array formatted as [YEAR,MONTH,DATE], or dates relative to today using integers or a boolean (`true` sets it to today. `false` removes any limits).
-        max?: any;
+        /**
+         * Set the minimum selectable date on the picker. Accepts a Date object,
+         * array formatted as [YEAR, MONTH, DATE], a positive or negative integer
+         * for a date relative to today, or a boolean (`true` sets it to today,
+         * `false` removes any limit).
+         */
+        min?: Date | [number, number, number] | number | boolean;
 
-        // Disable dates
-        disable?: any[]; // Date objects, arrays formatted as [YEAR,MONTH,DATE], or integers representing days of the week (from 1 to 7). Switch to whitelist by setting first item in collection to `true`.
+        /**
+         * Set the maximum selectable date on the picker.
+         * Accepts the same values as the `min` property.
+         */
+        max?: Date | [number, number, number] | number | boolean;
+
+        /**
+         * Disable a specific or arbitrary set of dates selectable on the
+         * picker. Accepts an array of Date objects, arrays formatted as
+         * [YEAR, MONTH, DATE], integers representing days of the week
+         * (from 1 to 7), or objects with a range of dates. Switch to a
+         * whitelist by setting `true` as the first item in the collection.
+         * Enable dates that fall within a range of disabled dates by
+         * adding an `inverted` parameter to the item within the collection.
+         */
+        disable?: any[];
 
         // Classes
         klass?: DateKlassOptions;
@@ -182,7 +239,7 @@ declare module Pickadate {
          * The formatLabel option is unique. It can contain HTML and it can 
          * also be a function if you want to create the label during run-time.
          */
-        formatLabel?: string|((time: TimeItem) => string);
+        formatLabel?: string | ((time: TimeItem) => string);
 
         /**
          * Choose the interval in minutes between each time in the list.
@@ -190,44 +247,77 @@ declare module Pickadate {
          */
         interval?: number;
 
-        // Time limits
-        min?: any; // array formatted as [HOUR,MINUTE], or as times relative to now using integers or a boolean (`true` sets it to now, `false` removes any limits).
-        max?: any;
+        /**
+         * Set the minimum selectable time on the picker. Accepts a Date object,
+         * array formatted as [HOUR, MINUTE], a positive or negative integer
+         * for a time relative to now, or a boolean (`true` sets it to now, and
+         * `false` removes any limit).
+         */
+        min?: Date | [number, number] | number | boolean;
 
-        // Disable times
-        disable?: any[]; // arrays formatted as [HOUR,MINUTE] or integers representing hours (from 0 to 23). Switch to whitelist by setting true as the first item in the collection.
+        /**
+         * Set the maximum selectable time on the picker.
+         * Accepts the same values as the `min` property.
+         */
+        max?: Date | [number, number] | number | boolean;
+
+        /**
+         * Disable a specific or arbitrary set of times selectable on the picker.
+         * Accepts an array of Date objects, arrays formatted as [HOUR, MINUTE],
+         * integers representing hours (from 0 to 23), or objects with a range of
+         * times. Switch to a whitelist by setting `true` as the first item in the
+         * collection. Enable times that fall within a range of disabled times by
+         * adding an `inverted` parameter to the item within the collection.
+         */
+        disable?: any[];
 
         // Classes
         klass?: TimeKlassOptions;
     }
 
     interface Item {
-        /** The "pick" value used for comparisons. */
+        /**
+         * The "pick" value used for comparisons.
+         */
         pick: number;
     }
 
     export interface DateItem extends Item {
-        /** The full year. */
+        /**
+         * The full year.
+         */
         year: number;
 
-        /** The month with zero-as-index. */
+        /**
+         * The month with zero-as-index.
+         */
         month: number;
 
-        /** The date of the month. */
+        /**
+         * The date of the month.
+         */
         date: number;
 
-        /** The day of the week with zero-as-index. */
+        /**
+         * The day of the week with zero-as-index.
+         */
         day: number;
 
-        /** The underlying JavaScript Date object. */
+        /**
+         * The underlying JavaScript Date object.
+         */
         obj: Date;
     }
 
     export interface TimeItem extends Item {
-        /** Hour of the day from 0 to 23. */
+        /**
+         * Hour of the day from 0 to 23.
+         */
         hour: number;
 
-        /** The minutes of the hour from 0 to 59 (based on the interval). */
+        /**
+         * The minutes of the hour from 0 to 59 (based on the interval).
+         */
         mins: number;
     }
 
@@ -252,98 +342,152 @@ declare module Pickadate {
     }
 
     export interface TimeSetObject extends SetObject {
+        /**
+         * Choose the minutes interval between each time in the list.
+         * Defaults to 30.
+         */
         interval?: number;
     }
 
     export interface SetOptions {
         /**
-         * By default, any callbacks bound with the on method will be fired when its relevant thing is set.
-         * To silently set a thing, pass an options object with the muted parameter set to true.
+         * By default, any callbacks bound with the on method will be fired
+         * when its relevant thing is set. To silently set a thing, pass an
+         * options object with the muted parameter set to true.
          */
         muted?: boolean;
         format?: string;
     }
 
     interface Picker<TPickerObject, TItemObject extends Item, TOptions extends SetObject> {
-        /** The picker's relative input element wrapped as a jQuery object. */
+        /**
+         * The picker's relative input element wrapped as a jQuery object.
+         */
         $node: JQuery;
 
-        /** The picker's relative root holder element wrapped as a jQuery object. */
+        /**
+         * The picker's relative root holder element wrapped as a jQuery object.
+         */
         $root: JQuery;
 
         open(withoutFocus?: boolean): TPickerObject;
         close(withFocus?: boolean): TPickerObject;
 
-        /** Rebuild the picker. */
+        /**
+         * Rebuild the picker.
+         */
         start(): TPickerObject;
 
-        /** Destroy the picker. */
+        /**
+         * Destroy the picker.
+         */
         stop(): TPickerObject;
 
         /**
          * Refresh the picker box after adding something to the holder.
          * By default, only the "face" of the picker (i.e. the box element)
-         * has it’s contents re-rendered. To render the entire picker from 
+         * has it’s contents re-rendered. To render the entire picker from
          * the root up, pass true as the first argument.
          */
         render(entirePicker?: boolean): TPickerObject;
 
-        /** Clear the value in the picker's input element. */
+        /**
+         * Clear the value in the picker's input element.
+         */
         clear(): TPickerObject;
 
-        /** Short for picker.get('value') */
+        /**
+         * Short for picker.get('value')
+         */
         get(): string;
 
-        /** Get the properties, objects, and states that make up the current state of the picker. */
+        /**
+         * Get the properties, objects, and states that make up the current
+         * state of the picker.
+         */
         get(thing: string): any;
 
-        /** Returns the string value of the picker's input element. */
+        /**
+         * Returns the string value of the picker's input element.
+         */
         get(thing: 'value'): string;
 
-        /** Returns the item object that is visually selected. */
+        /**
+         * Returns the item object that is visually selected.
+         */
         get(thing: 'select'): TItemObject;
 
-        /** Returns the item object that is visually highlighted. */
+        /**
+         * Returns the item object that is visually highlighted.
+         */
         get(thing: 'highlight'): TItemObject;
 
-        /** Returns the item object that sets the current view. */
+        /**
+         * Returns the item object that sets the current view.
+         */
         get(thing: 'view'): TItemObject;
 
-        /** Returns the item object that limits the picker's lower range. */
+        /**
+         * Returns the item object that limits the picker's lower range.
+         */
         get(thing: 'min'): TItemObject;
 
-        /** Returns the item object that limits the picker's upper range. */
+        /**
+         * Returns the item object that limits the picker's upper range.
+         */
         get(thing: 'max'): TItemObject;
 
-        /** Returns a boolean value of whether the picker is open or not. */
+        /**
+         * Returns a boolean value of whether the picker is open or not.
+         */
         get(thing: 'open'): boolean;
 
-        /** Returns a boolean value of whether the picker has started or not. */
+        /**
+         * Returns a boolean value of whether the picker has started or not.
+         */
         get(thing: 'start'): boolean;
 
-        /** Returns a unique 9-digit integer that is the ID of the picker. */
+        /**
+         * Returns a unique 9-digit integer that is the ID of the picker.
+         */
         get(thing: 'id'): number;
 
-        /** Returns an array of items that determine which item objects to disable on the picker. */
+        /**
+         * Returns an array of items that determine which item objects to
+         * disable on the picker.
+         */
         get(thing: 'disable'): any[];
 
-        /** Returns a formatted string for the item object specified by `thing` */
+        /**
+         * Returns a formatted string for the item object specified by `thing`
+         */
         get(thing: string, format: string): string;
 
-        /** Set the properties, objects, and states to change the state of the picker. */
+        /**
+         * Set the properties, objects, and states to change the state of the picker.
+         */
         set(thing: string, value?: any, options?: SetOptions): TPickerObject;
         set(things: TOptions, options?: SetOptions): TPickerObject;
 
-        /** Bind callbacks to get fired off when the relative picker method is called. */
+        /**
+         * Bind callbacks to get fired off when the relative picker method is called.
+         */
         on(methodName: string, callback: (data?: any) => void): TPickerObject;
 
-        /** Bind multiple callbacks at once to get fired off when the relative picker method is called. */
+        /**
+         * Bind multiple callbacks at once to get fired off when the relative
+         * picker method is called.
+         */
         on(callbackObject: CallbackObject): TPickerObject;
 
-        /** Unbind callbacks that are bound using the on method. */
+        /**
+         * Unbind callbacks that are bound using the on method.
+         */
         off(...methodName: string[]): TPickerObject;
 
-        /** Trigger callbacks that have been queued up using the the on method. */
+        /**
+         * Trigger callbacks that have been queued up using the the on method.
+         */
         trigger(event: string, data?: any): TPickerObject;
     }
 
