@@ -1,2 +1,4 @@
+/// <reference path="swipe.d.ts" />
+
 // Creation of element
-window.mySwipe = Swipe(document.getElementById('slider'));
+var mySwipe = Swipe(document.getElementById('slider'));
