@@ -794,6 +794,3 @@ picker.on('open', function (data) {
     console.log('This logs without opening with this data:', data);
 });
 picker.trigger('open', { some: 'value' });
-
-picker.$node;
-picker.$root;
