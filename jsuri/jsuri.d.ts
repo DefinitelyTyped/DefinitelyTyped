@@ -132,7 +132,7 @@ declare module jsuri {
   }
 }
 
-declare var Uri : jsuri.Uri;
+declare type Uri = jsuri.Uri;
 
 declare module 'jsuri' {
   export = Uri;
