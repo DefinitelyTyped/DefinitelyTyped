@@ -203,7 +203,7 @@ declare module Pickadate {
          * The first day of the week can be set to either Sunday or Monday.
          * True or 1 sets it as Monday and false or 0 as Sunday.
          */
-        firstDay?: boolean|number;
+        firstDay?: boolean | number;
 
         /**
          * Set the minimum selectable date on the picker. Accepts a Date object,
