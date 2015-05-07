@@ -11,18 +11,18 @@ interface SwipeOptions {
     continuous?: boolean;
     disableScroll?: boolean;
     stopPropagation?: boolean;
-    callback?: (index, elem) => void;
-    transitionEnd?: (index, elem) => void;
+    callback?: (index: number, elem: HTMLElement) => void;
+    transitionEnd?: (index: number, elem: HTMLElement) => void;
 }
 
 declare class Swipe {
     constructor(container: HTMLElement, options: SwipeOptions);
-    prev();
-    next();
-    getPos();
-    getNumSlides();
-    kill();
-    attachEvents();
-    setup();
-    slide(index: number, duration: number);
+    prev(): void;
+    next(): void;
+    getPos(): number;
+    getNumSlides(): number;
+    kill(): void;
+    attachEvents(): void;
+    setup(): void;
+    slide(index: number, duration: number): void;
 }
