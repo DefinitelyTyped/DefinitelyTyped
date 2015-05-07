@@ -384,6 +384,25 @@ var picker = $input.pickadate('picker');
 
 picker.$node;
 picker.$root;
+picker._hidden;
+
+// Or pass through the element’s plugin data.
+$input.pickadate('open');
+$input.pickadate('close');
+$input.pickadate('close');
+$input.pickadate('start');
+$input.pickadate('stop');
+$input.pickadate('render');
+$input.pickadate('get');
+$input.pickadate('set', 'highlight', 1429970887654);
+$input.pickadate('on', 'open', function () { });
+$input.pickadate('on', 'close', function () { });
+$input.pickadate('off', 'open', 'close');
+$input.pickadate('trigger', 'open');
+
+$input.pickadate('$node');
+$input.pickadate('$root');
+$input.pickadate('_hidden');
 
 picker.open().clear().close();
 

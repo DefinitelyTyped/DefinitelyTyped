@@ -370,6 +370,14 @@ declare module Pickadate {
          */
         $root: JQuery;
 
+        /**
+         * This is the picker’s relative hidden element, which is undefined if
+         * there’s no formatSubmit option. There should be no reason to use this
+         * – it's mostly for internal use. If you have a valid reason for using
+         * this, please mention it in the issues.
+         */
+        _hidden: HTMLInputElement;
+
         open(withoutFocus?: boolean): TPickerObject;
         close(withFocus?: boolean): TPickerObject;
 
@@ -496,11 +504,39 @@ declare module Pickadate {
 }
 
 interface JQuery {
-    pickadate(methodName: "picker"): Pickadate.DatePicker;
-    pickadate(methodName: string): any;
+    /**
+     * Access the API object on an initialized date picker element.
+     */
+    pickadate(keyword: "picker"): Pickadate.DatePicker;
+    pickadate(objectName: "$node"): JQuery;
+    pickadate(objectName: "$root"): JQuery;
+    pickadate(objectName: "_hidden"): HTMLInputElement;
+
+    /**
+     * Invoke API methods after date picker initialization.
+     */
+    pickadate(methodName: string, ...arguments: any[]): any;
+
+    /**
+     * Initialize a date picker.
+     */
     pickadate(options?: Pickadate.DateOptions): JQuery;
 
-    pickatime(methodName: "picker"): Pickadate.TimePicker;
-    pickatime(methodName: string): any;
+    /**
+     * Access the API object on an initialized time picker element.
+     */
+    pickatime(keyword: "picker"): Pickadate.TimePicker;
+    pickatime(objectName: "$node"): JQuery;
+    pickatime(objectName: "$root"): JQuery;
+    pickatime(objectName: "_hidden"): HTMLInputElement;
+    
+    /**
+     * Invoke API methods after time picker initialization.
+     */
+    pickatime(methodName: string, ...arguments: any[]): any;
+
+    /**
+     * Initialize a time picker.
+     */
     pickatime(options?: Pickadate.TimeOptions): JQuery;
 }
