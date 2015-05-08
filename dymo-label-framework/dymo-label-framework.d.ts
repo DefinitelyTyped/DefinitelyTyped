@@ -171,15 +171,15 @@ declare module dymo.label.framework {
 
 	interface CreateTapePrintParamsXmlParams {
 		/** The number of copies to print. */
-		copies: number;
+		copies?: number;
 		/** The print job title/description. */
-		jobTitle: string;
+		jobTitle?: string;
 		/** The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-		flowDirection: FlowDirection;
+		flowDirection?: FlowDirection;
 		/** The label alignment on the tape. Use the dymo.label.framework.TapeAlignment enumeration to specify the value. */
-		alignment: TapeAlignment;
+		alignment?: TapeAlignment;
 		/** The cut mode (if auto-cut is supported by the printer). Use the dymo.label.framework.TapeCutMode enumeration to specify the value. */
-		cutMode: TapeCutMode;
+		cutMode?: TapeCutMode;
 	}
 
 	/**
