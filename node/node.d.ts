@@ -252,6 +252,7 @@ declare module NodeJS {
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
         undefined: typeof undefined;
         unescape: (str: string) => string;    
+        gc: () => void;
     }
 
     export interface Timer {
