@@ -3098,7 +3098,7 @@ declare module dojo {
      */
     class Stateful {
         constructor();
-        inherited: {(arguments: IArguments): any};
+        inherited: {(args: IArguments): any};
         /**
          * Get a property on a Stateful instance.
          * Get a named property on a Stateful object. The property may
