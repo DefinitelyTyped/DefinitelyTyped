@@ -335,8 +335,8 @@ declare module moment {
     }
 
     interface MomentLanguageData extends BaseMomentLanguage {
-        /*
-         * formatType should be L, LL, LLL, LLLL.
+        /**
+         * @param formatType should be L, LL, LLL, LLLL.
          */
         longDateFormat(formatType: string): string;
     }
