@@ -145,6 +145,7 @@ declare module LazyJS {
 
         max(valueFn?: NumberCallback<T>): T;
         min(valueFn?: NumberCallback<T>): T;
+        none(valueFn?: TestCallback<T>): boolean;
         pluck(propertyName: string): Sequence<T>;
         reduce<U>(aggregatorFn: MemoCallback<T, U>, memo?: U): U;
         reduceRight<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;

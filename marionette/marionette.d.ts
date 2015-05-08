@@ -231,6 +231,8 @@ declare module Marionette {
          * @param optionName the name of the option to retrieve.
          */
         getOption(optionName: string): any;
+
+        triggerMethod(name: string, ...args: any[]): any;
     }
 
     interface RegionConstructionOptions {
@@ -261,7 +263,7 @@ declare module Marionette {
          * Regions that are attached to the document when you execute show are 
          * special in that the views that they show will also become attached 
          * to the document. These regions fire a pair of triggerMethods on all 
-         * of the views that are about to be attached – even the nested ones. 
+         * of the views that are about to be attached ï¿½ even the nested ones. 
          * This can cause a performance issue if you're rendering hundreds or 
          * thousands of views at once.
          * If you think these events might be causing some lag in your app, you 
@@ -274,7 +276,7 @@ declare module Marionette {
          * Regions that are attached to the document when you execute show are 
          * special in that the views that they show will also become attached 
          * to the document. These regions fire a pair of triggerMethods on all 
-         * of the views that are about to be attached – even the nested ones. 
+         * of the views that are about to be attached ï¿½ even the nested ones. 
          * This can cause a performance issue if you're rendering hundreds or 
          * thousands of views at once.
          * If you think these events might be causing some lag in your app, you 
@@ -678,6 +680,12 @@ declare module Marionette {
         behaviors: any;
 
         /**
+         * Defines `triggers` to forward DOM events to view
+         * events. `triggers: {"click .foo": "do:foo"}`
+         */
+        triggers:{[key:string]:any};
+
+        /**
          * A configuration hash for models. The left side is the event on 
          * the model, and the right side is the name of the 
          * method on the view or a function to handle the event. This property
@@ -714,6 +722,12 @@ declare module Marionette {
          */
         getTemplate(): any;
 
+
+        /**
+         * Retrieve an object's attribute either directly from the object, or
+         * from the object's this.options, with this.options taking precedence.
+         */
+        getOption<T>(optionName:string): T;
 
         mixinTemplateHelpers(target?: any): any;
         configureTriggers(): any;

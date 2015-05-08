@@ -85,7 +85,7 @@ declare module 'zmq' {
          * @param addr Socket address
          * @param cb Bind callback
          */
-        bind(addr: string, callback: (error: string) => void ): Socket;
+        bind(addr: string, callback?: (error: string) => void ): Socket;
 
         /**
          * Sync bind.
@@ -93,6 +93,23 @@ declare module 'zmq' {
          * @param addr Socket address
          */
         bindSync(addr: string): Socket;
+
+        /**
+         * Async unbind.
+         *
+         * Emits the "unbind" event.
+         *
+         * @param addr Socket address
+         * @param cb Unind callback
+         */
+        unbind(addr: string, callback?: (error: string) => void ): Socket;
+
+        /**
+         * Sync unbind.
+         *
+         * @param addr Socket address
+         */
+        unbindSync(addr: string): Socket;
 
         /**
          * Connect to `addr`.

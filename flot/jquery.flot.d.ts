@@ -173,6 +173,11 @@ declare module jquery.flot {
         y: number;
     }
 
+    interface offset {
+        left: number;
+        top: number;
+    }
+
     interface canvasPoint {
         top: number;
         left: number;
@@ -188,26 +193,29 @@ declare module jquery.flot {
     }
 
     interface axis extends axisOptions {
-        p2c(point):canvasPoint;
-        c2p(canvasPoint):point;
+        options: axisOptions;
+        p2c(point: point):canvasPoint;
+        c2p(canvasPoint: canvasPoint):point;
     }
 
     interface plot {
-        highlight(series: dataSeries, datapoint: item);
-        unhightlight();
-        unhighlight(series: dataSeries, datapoint: item);
-        setData(data: any);
-        setupGrid();
-        draw();
-        triggerRedrawOverlay();
-        width();
-        height();
-        offset();
-        pointOffset(point: point);
-        resize();
-        shutdown();
+        highlight(series: dataSeries, datapoint: item): void;
+        unhightlight(): void;
+        unhighlight(series: dataSeries, datapoint: item): void;
+        setData(data: any): void;
+        setupGrid(): void;
+        draw(): void;
+        triggerRedrawOverlay(): void;
+        width(): number;
+        height(): number;
+        offset(): JQueryCoordinates;
+        pointOffset(point: point): offset;
+        resize(): void;
+        shutdown(): void;
         getData(): dataSeries[];
         getAxes(): axes;
+        getXAxes(): axis[];
+        getYAxes(): axis[];
         getPlaceholder(): JQuery;
         getCanvas(): HTMLCanvasElement;
         getPlotOffset(): canvasPoint;

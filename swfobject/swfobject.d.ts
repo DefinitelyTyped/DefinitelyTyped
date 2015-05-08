@@ -46,7 +46,7 @@ declare module swfobject {
 
     hasFlashPlayerVersion(
       rv: string
-    ): void;
+    ): boolean;
 
     createSWF(
       attObj: ISwfObjectAttribute,

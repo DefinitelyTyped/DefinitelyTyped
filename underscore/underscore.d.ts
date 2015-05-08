@@ -179,6 +179,12 @@ interface UnderscoreStatic {
 		memo?: TResult,
 		context?: any): TResult;
 
+	reduce<T, TResult>(
+		list: _.Dictionary<T>,
+		iterator: _.ObjectIterator<T, TResult>,
+		memo?: TResult,
+		context?: any): TResult;
+
 	/**
 	* @see _.reduce
 	**/

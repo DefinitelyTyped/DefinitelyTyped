@@ -24,6 +24,7 @@ declare module joint {
             getConnectedLinks(cell: Cell, opt?: any): Link[];
             disconnectLinks(cell: Cell);
             removeLinks(cell: Cell);
+            findModelsFromPoint(point:{x : number; y: number}):Element[];
         }
 
         class Cell extends Backbone.Model {
@@ -95,7 +96,34 @@ declare module joint {
     
     }
 
-    module ui { }
+    module ui {
+        interface Handle {
+            name : string;
+            position : string;
+            icon: string;
+        }
+
+        class SelectionView extends Backbone.Model {
+            paper:joint.dia.Paper;
+            graph:joint.dia.Graph;
+            model:Backbone.Collection<joint.dia.Cell>;
+
+            constructor(opt:{
+                paper : joint.dia.Paper;
+                graph  : joint.dia.Graph;
+                model : Backbone.Collection<joint.dia.Cell>
+            });
+
+            createSelectionBox(cellView:joint.dia.CellView);
+            destroySelectionBox(cellView:joint.dia.CellView);
+            startSelecting(evt:any);
+            cancelSelection();
+
+            addHandle(handle:Handle);
+            removeHandle(name:string);
+            changeHandle(name:string, handle:Handle);
+        }
+    }
 
     module shapes {
         module basic {

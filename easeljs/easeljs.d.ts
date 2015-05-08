@@ -22,21 +22,20 @@ interface NativeMouseEvent extends MouseEvent {
 
 declare module createjs {
     export class AlphaMapFilter extends Filter {
-        constructor(alphaMap: HTMLImageElement);
-        constructor(alphaMap: HTMLCanvasElement);
+        constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
+
         // properties
-        alphaMap: any;    //Image or HTMLCanvasElement
+        alphaMap: HTMLImageElement | HTMLCanvasElement;
 
         // methods
         clone(): AlphaMapFilter;
     }
 
     export class AlphaMaskFilter extends Filter {
-        constructor(mask: HTMLImageElement);
-        constructor(mask: HTMLCanvasElement);
+        constructor(mask: HTMLImageElement | HTMLCanvasElement);
 
         // properties
-        mask: any;    // Image or HTMLCanvasElement
+        mask: HTMLImageElement | HTMLCanvasElement;
 
         // methods
         clone(): AlphaMaskFilter;
@@ -44,19 +43,14 @@ declare module createjs {
 
 
     export class Bitmap extends DisplayObject {
-        constructor(imageOrUrl: HTMLImageElement);
-        constructor(imageOrUrl: HTMLCanvasElement);
-        constructor(imageOrUrl: HTMLVideoElement);
-        constructor(imageOrUrl: string);
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string);
 
         // properties
-        image: any; // Image or HTMLCanvasElement or HTMLVideoElement
+        image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
         sourceRect: Rectangle;
 
         // methods
         clone(): Bitmap;
-        set(props: Object): Bitmap;
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Bitmap;
     }
     
 
@@ -90,15 +84,22 @@ declare module createjs {
         constructor(target: MovieClip, outLabel?: string, overLabel?: string, downLabel?: string, play?: boolean, hitArea?: DisplayObject, hitLabel?: string);
 
         // properties
-        downLabel: any; // String or Number
-        outLabel: any; // String or Number
-        overLabel: any; // String or Number
+        downLabel: string | number;
+        outLabel: string | number;
+        overLabel: string | number;
         play: boolean;
-        target: DisplayObject; // MovieClip or Sprite
+        target: MovieClip | Sprite;
         enabled: boolean;
 
         // methods
+        /**
+         * @deprecated - use the 'enabled' property instead
+         */
         setEnabled(value: boolean): void;
+        /**
+         * @deprecated - use the 'enabled' property instead
+         */
+        getEnabled(): boolean;
         toString(): string;
     }
 
@@ -140,11 +141,10 @@ declare module createjs {
     }
     
     export class ColorMatrixFilter extends Filter {
-        constructor(matrix: number[]);
-        constructor(matrix: ColorMatrix);
+        constructor(matrix: number[] | ColorMatrix);
 
         // properties
-        matrix: ColorMatrix;    // or array
+        matrix: number[] | ColorMatrix;
 
         // methods
         clone(): ColorMatrixFilter;
@@ -178,9 +178,7 @@ declare module createjs {
         removeAllChildren(): void;
         removeChild(...child: DisplayObject[]): boolean;
         removeChildAt(...index: number[]): boolean;
-        set(props: Object): Container;
         setChildIndex(child: DisplayObject, index: number): void;
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Container;
         sortChildren(sortFunction: (a: DisplayObject, b: DisplayObject) => number): void;
         swapChildren(child1: DisplayObject, child2: DisplayObject): void;
         swapChildrenAt(index1: number, index2: number): void;
@@ -191,7 +189,7 @@ declare module createjs {
 
         // properties
         alpha: number;
-        cacheCanvas: any; // HTMLCanvasElement or Object
+        cacheCanvas: HTMLCanvasElement | Object;
         cacheID: number;
         compositeOperation: string;
         cursor: string;
@@ -210,9 +208,6 @@ declare module createjs {
         shadow: Shadow;
         skewX: number;
         skewY: number;
-        /**
-         * @deprecated
-         */
         snapToPixel: boolean;
         stage: Stage;
         static suppressCrossDomainErrors: boolean;
@@ -236,18 +231,17 @@ declare module createjs {
          */
         getStage(): Stage;
         getTransformedBounds(): Rectangle;
-        globalToLocal(x: number, y: number, pt?: Object): Point;    // 'pt' is Point or Object
+        globalToLocal(x: number, y: number, pt?: Point | Object): Point;
         hitTest(x: number, y: number): boolean;
         isVisible(): boolean;
-        localToGlobal(x: number, y: number, pt?: Object): Point;    // 'pt' is Point or Object
-        localToLocal(x: number, y: number, target: DisplayObject, pt?: Object): Point;  // 'pt' is Point or Object
+        localToGlobal(x: number, y: number, pt?: Point | Object): Point;
+        localToLocal(x: number, y: number, target: DisplayObject, pt?: Point | Object): Point;
         set(props: Object): DisplayObject;
         setBounds(x: number, y: number, width: number, height: number): void;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): DisplayObject;
         uncache(): void;
         updateCache(compositeOperation?: string): void;
         updateContext(ctx: CanvasRenderingContext2D): void;
-        
     }
 
     export class DisplayProps {
@@ -349,10 +343,7 @@ declare module createjs {
         moveTo(x: number, y: number): Graphics;
         quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): Graphics;
         rect(x: number, y: number, w: number, h: number): Graphics;
-        setStrokeStyle(thickness: number, caps?: string, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;  // caps and joints can be a string or number
-        setStrokeStyle(thickness: number, caps?: number, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        setStrokeStyle(thickness: number, caps?: string, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        setStrokeStyle(thickness: number, caps?: number, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        setStrokeStyle(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
         store(): Graphics;
         toString(): string;
         unstore(): Graphics;
@@ -385,10 +376,7 @@ declare module createjs {
         mt(x: number, y: number): Graphics;
         qt(cpx: number, cpy: number, x: number, y: number): Graphics;
         r(x: number, y: number, w: number, h: number): Graphics;
-        ss(thickness: number, caps?: string, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;  // caps and joints can be a string or number
-        ss(thickness: number, caps?: number, joints?: string, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        ss(thickness: number, caps?: string, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
-        ss(thickness: number, caps?: number, joints?: number, miterLimit?: number, ignoreScale?: boolean): Graphics;
+        ss(thickness: number, caps?: string | number, joints?: string | number, miterLimit?: number, ignoreScale?: boolean): Graphics;
     }
 
 
@@ -594,8 +582,7 @@ declare module createjs {
         setValues(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number): Matrix2D;
         skew(skewX: number, skewY: number): Matrix2D;
         toString(): string;
-        transformPoint(x: number, y: number, pt?: Point): Point;
-        transformPoint(x: number, y: number, pt?: Object): Point;
+        transformPoint(x: number, y: number, pt?: Point | Object): Point;
         translate(x: number, y: number): Matrix2D;
     }
 
@@ -623,9 +610,7 @@ declare module createjs {
         addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        dispatchEvent(eventObj: Object, target?: Object): boolean;
-        dispatchEvent(eventObj: string, target?: Object): boolean;
-        dispatchEvent(eventObj: Event, target?: Object): boolean;
+        dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
         hasEventListener(type: string): boolean;
         off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;
@@ -666,7 +651,7 @@ declare module createjs {
         static SINGLE_FRAME: string;
         startPosition: number;
         static SYNCHED: string;
-        timeline: Timeline; //HERE requires tweenJS
+        timeline: Timeline;
         static version: string;
 
         // methods
@@ -680,19 +665,15 @@ declare module createjs {
          * @deprecated - use 'labels' property instead
          */
         getLabels(): Object[];
-        gotoAndPlay(positionOrLabel: string): void;
-        gotoAndPlay(positionOrLabel: number): void;
-        gotoAndStop(positionOrLabel: string): void;
-        gotoAndStop(positionOrLabel: number): void;
+        gotoAndPlay(positionOrLabel: string | number): void;
+        gotoAndStop(positionOrLabel: string | number): void;
         play(): void;
         stop(): void;
     }
     
     export class MovieClipPlugin {
         // methods
-        tween(tween: Tween, prop: string, value: string, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void; 
-        tween(tween: Tween, prop: string, value: number, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void; 
-        tween(tween: Tween, prop: string, value: boolean, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void; 
+        tween(tween: Tween, prop: string, value: string | number | boolean, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void;
     }
     
     export class Point {
@@ -762,8 +743,7 @@ declare module createjs {
 
 
     export class Sprite extends DisplayObject {
-        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: string);
-        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: number);
+        constructor(spriteSheet: SpriteSheet, frameOrAnimation?: string | number);
 
         // properties
         currentAnimation: string;
@@ -781,10 +761,8 @@ declare module createjs {
         advance(time?: number): void;
         clone(): Sprite;
         getBounds(): Rectangle;
-        gotoAndPlay(frameOrAnimation: string): void;
-        gotoAndPlay(frameOrAnimation: number): void;
-        gotoAndStop(frameOrAnimation: string): void;
-        gotoAndStop(frameOrAnimation: number): void;
+        gotoAndPlay(frameOrAnimation: string | number): void;
+        gotoAndStop(frameOrAnimation: string | number): void;
         play(): void;
         set(props: Object): Sprite;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Sprite;
@@ -861,8 +839,7 @@ declare module createjs {
          * @deprecated
          */
         static addFlippedFrames(spriteSheet: SpriteSheet, horizontal?: boolean, vertical?: boolean, both?: boolean): void; // deprecated
-        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation : number): HTMLImageElement;
-        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation: string): HTMLImageElement;
+        static extractFrame(spriteSheet: SpriteSheet, frameOrAnimation: number | string): HTMLImageElement;
         /**
          * @deprecated
          */
@@ -871,8 +848,7 @@ declare module createjs {
 
     export class SpriteStage extends Stage
         {
-        constructor(canvas: HTMLCanvasElement, preserveDrawingBuffer?: boolean, antialias?: boolean);
-        constructor(canvas: string, preserveDrawingBuffer?: boolean, antialias?: boolean);
+        constructor(canvas: HTMLCanvasElement | string, preserveDrawingBuffer?: boolean, antialias?: boolean);
 
         // properties
         static INDICES_PER_BOX: number;
@@ -889,13 +865,11 @@ declare module createjs {
         }
 
     export class Stage extends Container {
-        constructor(canvas: HTMLCanvasElement);
-        constructor(canvas: string);
-        constructor(canvas: Object);
+        constructor(canvas: HTMLCanvasElement | string | Object);
 
         // properties
         autoClear: boolean;
-        canvas: any; // HTMLCanvasElement or Object
+        canvas: HTMLCanvasElement | Object;
         drawRect: Rectangle;
         handleEvent: Function;
         mouseInBounds: boolean;
@@ -1000,9 +974,7 @@ declare module createjs {
         static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         static addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
-        static dispatchEvent(eventObj: Object, target?: Object): boolean;
-        static dispatchEvent(eventObj: string, target?: Object): boolean;
-        static dispatchEvent(eventObj: Event, target?: Object): boolean;
+        static dispatchEvent(eventObj: Object | string | Event, target?: Object): boolean;
         static hasEventListener(type: string): boolean;
         static off(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): void;
         static off(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): void;

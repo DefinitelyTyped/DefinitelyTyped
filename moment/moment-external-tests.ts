@@ -195,6 +195,10 @@ moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
 
+moment.isDuration();
+moment.isDuration(new Date());
+moment.isDuration(moment.duration());
+
 moment.localeData('fr');
 moment(1316116057189).fromNow();
 

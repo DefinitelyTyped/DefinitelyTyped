@@ -142,14 +142,13 @@ declare module createjs {
         withCredentials: boolean;
 
         // methods
-        static create(value: Object): Object;   // 'value' is a LoadItem, string or Object. Returns Object or LoadItem
+        static create(value: LoadItem | string | Object): Object | LoadItem;
         set(props: Object): LoadItem;
         }
     
     export class LoadQueue extends AbstractLoader
         {
-        constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: string);
-        constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: boolean);
+        constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: string | boolean);
 
         // properties
         maintainScriptOrder: boolean;
@@ -160,14 +159,10 @@ declare module createjs {
         close(): void;
         getItems(loaded: boolean): Object[];
         installPlugin(plugin: () => any): void;
-        loadFile(file: Object, loadNow?: boolean, basePath?: string): void;
-        loadFile(file: string, loadNow?: boolean, basePath?: string): void;
-        loadManifest(manifest: Object, loadNow?: boolean, basePath?: string): void;
-        loadManifest(manifest: string, loadNow?: boolean, basePath?: string): void;
-        loadManifest(manifest: any[], loadNow?: boolean, basePath?: string): void;
+        loadFile(file: Object | string, loadNow?: boolean, basePath?: string): void;
+        loadManifest(manifest: Object | string | any[], loadNow?: boolean, basePath?: string): void;
         registerLoader(loader: AbstractLoader): void;
-        remove(idsOrUrls: string): void;
-        remove(idsOrUrls: any[]): void;
+        remove(idsOrUrls: string | any[]): void;
         removeAll(): void;
         reset(): void;
         setMaxConnections(value: number): void;
@@ -182,16 +177,15 @@ declare module createjs {
 
     export class ManifestLoader
         {
-        constructor(loadItem: Object);  // 'loadItem' Object or LoadItem
+        constructor(loadItem: LoadItem | Object);
 
         // methods
-        static canLoadItem(item: Object): boolean;  // 'item' Object or LoadItem
+        static canLoadItem(item: LoadItem | Object): boolean;
         }
 
     export class MediaTagRequest
         {
-        constructor(loadItem: LoadItem, tag: HTMLAudioElement, srcAttribute: string);
-        constructor(loadItem: LoadItem, tag: HTMLVideoElement, srcAttribute: string);
+        constructor(loadItem: LoadItem, tag: HTMLAudioElement | HTMLVideoElement, srcAttribute: string);
         }
 
     export class PreloadJS

@@ -317,7 +317,9 @@ declare var footstepsBuffer: any;
 
 ()=>{
     var context = new webkitOfflineAudioContext(1, 2, 44100.5);
+    context.oncomplete = function(e) {
+        context.createBufferSource().buffer;
+    }
     context.startRendering();
-    context.oncomplete(context.createBufferSource().buffer);
 }
 

@@ -212,3 +212,5 @@ declare module "page" {
     var page: PageJS.Static;
     export = page;
 }
+
+declare var page: PageJS.Static;

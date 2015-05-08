@@ -164,6 +164,7 @@ declare module "fs-extra" {
 	export function watch(filename: string, options?: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): FSWatcher;
 	export function exists(path: string, callback?: (exists: boolean) => void ): void;
 	export function existsSync(path: string): boolean;
+    export function ensureDir(path: string, cb: (err: Error) => void): void;
 
 	export interface OpenOptions {
 		encoding?: string;
