@@ -96,11 +96,11 @@ declare module dymo.label.framework {
 	/** Checks that the browser enviroment is suitable for the Framework. */
 	function checkEnvironment(): {
 		/** Indicates whether the browser is supported or not. */
-		isBrowserSupported: boolean,
+		isBrowserSupported: boolean;
 		/** Indicates whether the Framework is installed or not. */
-		isFrameworkInstalled: boolean,
+		isFrameworkInstalled: boolean;
 		/** An empty string if no error is detected; an error message if an error is detected. */
-		errorDetails: string
+		errorDetails: string;
 	};
 
 	/**
