@@ -2,9 +2,13 @@
 
 // Use Typescript 1.4 style imports
 import ng = require("angular2/angular2");
+import di = require("angular2/di");
 
 class Service {
 	
+}
+class Service2 {
+  
 }
 
 class Cmp {
@@ -13,7 +17,7 @@ class Cmp {
 Cmp.annotations = [
   ng.Component({
     selector: 'cmp',
-    injectables: [Service]
+    injectables: [Service, di.bind(Service2).toValue(null)]
   }),
   ng.View({
     template: '{{greeting}} world!',
