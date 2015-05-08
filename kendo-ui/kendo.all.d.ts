@@ -1,4 +1,7 @@
 // Type definitions for Kendo UI
+// Project: http://www.telerik.com/kendo-ui
+// Definitions by: Stefan Rahnev <https://github.com/stefanrahnev/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module kendo {
     function culture(): {
