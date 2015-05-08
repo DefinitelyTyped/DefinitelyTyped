@@ -281,8 +281,6 @@ interface KnockoutUtils {
 
     extend(target: Object, source: Object): Object;
 
-    emptyDomNode(domNode: HTMLElement): void;
-
     moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
 
     cloneNodes(nodesArray: any[], shouldCleanNodes: boolean): any[];
