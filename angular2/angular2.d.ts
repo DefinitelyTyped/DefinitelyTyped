@@ -603,3 +603,20 @@ declare module "angular2/angular2" {
    */
  function Switch(): void;
 }
+
+declare module "angular2/di" {
+  /**
+   * Provides an API for imperatively constructing {@link Binding}s.
+   *
+   * This is only relevant for JavaScript. See {@link BindingBuilder}.
+   *
+   * ## Example
+   *
+   * ```javascript
+   * bind(MyInterface).toClass(MyClass)
+   *
+   * ```
+   *
+   */
+   function bind(token: any): any;
+}
