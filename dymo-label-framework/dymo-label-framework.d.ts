@@ -189,7 +189,7 @@ declare module dymo.label.framework {
 	 * @param params A JavaScript object with the following properties
 	 *   (not all properties must be defined; if a property is not defined, a default value is used)
 	 */
-	function createTapePrintParamsXml(params): string;
+	function createTapePrintParamsXml(params: CreateTapePrintParamsXmlParams): string;
 
 	interface PrinterInfo {
 		/** Indicates whether the Auto-Cut feature is supported by the printer or not. Note: The property is only defined if printerType is "TapePrinter". */
