@@ -5,6 +5,7 @@
 
 /**
  * Top namespace for DYMO Label Framework JavaScript library.
+ * Latest library available at http://labelwriter.com/software/dls/sdk/js/DYMO.Label.Framework.latest.js 
  * 
  * Based on information from http://www.labelwriter.com/software/dls/sdk/docs/DYMOLabelFrameworkJavaScriptHelp/index.html
  * which is Copyright (c), 2010, Sanford, L.P. All Rights Reserved.
