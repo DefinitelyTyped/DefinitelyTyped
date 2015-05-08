@@ -634,12 +634,16 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
-var funcBind = function (greeting: string) { return greeting + ' ' + this.name };
-var funcBind2: () => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
-funcBind2();
+var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
+var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
+funcBound1('!');
 
-var funcBind3: () => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
-funcBind3();
+var funcBound2: (punctuation: string) => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
+funcBound2('!');
+
+var addTwoNumbers = function (x: number, y: number) { return x + y };
+var plusTwo = _.bind(addTwoNumbers, null, 2);
+plusTwo(100);
 
 var view = {
     'label': 'docs',
