@@ -49,6 +49,7 @@ out = vec2.cross(out, vecA, vecB);
 out = vec2.lerp(out, vecA, vecB, 0.5);
 out = vec2.random(out);
 out = vec2.random(out, 5.0);
+out = vec2.transformMat2(out, vecA, matA);
 out = vec2.transformMat2d(out, vecA, matA);
 out = vec2.transformMat3(out, vecA, matA);
 out = vec2.transformMat4(out, vecA, matA);
