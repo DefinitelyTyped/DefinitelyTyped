@@ -5,16 +5,16 @@
 
 /**
  * Top namespace for DYMO Label Framework JavaScript library.
- * Latest library available at http://labelwriter.com/software/dls/sdk/js/DYMO.Label.Framework.latest.js 
- * 
+ * Latest library available at http://labelwriter.com/software/dls/sdk/js/DYMO.Label.Framework.latest.js
+ *
  * Based on information from http://www.labelwriter.com/software/dls/sdk/docs/DYMOLabelFrameworkJavaScriptHelp/index.html
  * which is Copyright (c), 2010, Sanford, L.P. All Rights Reserved.
- * 
+ *
  * Based on information from http://developers.dymo.com/2010/06/02/dymo-label-framework-overview/
  * which is © 2013 DYMO Label Inside Out
  */
 declare module dymo.label.framework {
-	
+
 	/** Enumeration that specifies where to draw the Intellegent Mail barcode for an Address object. */
 	enum AddressBarcodePosition {
 		/** Indicates to print the barcode above the address. */
@@ -24,8 +24,8 @@ declare module dymo.label.framework {
 		/** Indicates to not print the barcode at all. */
 		Suppress
 	}
-	
-	/** 
+
+	/**
 	 * Emuneration that specifies the direction in which objects and object text are laid out on the label.
 	 * For Middle East labels/content specify "RightToLeft", otherwise specify "LeftToRight" (default).
 	 */
@@ -35,9 +35,9 @@ declare module dymo.label.framework {
 		/** Indicates that the content flows from right to left. */
 		RightToLeft
 	}
-	
+
 	/**
-	 * Enumeration that specifies the print quality when printing to a LabelWriter printer. 
+	 * Enumeration that specifies the print quality when printing to a LabelWriter printer.
 	 */
 	enum LabelWriterPrintQuality {
 		/** Indicates that text print quality (fast) is used. */
@@ -47,7 +47,7 @@ declare module dymo.label.framework {
 		/** Indicates that the print quality is automatically determined based on the types of objects on the label. */
 		Auto
 	}
-	
+
 	/** Print Job Status */
 	enum PrintJobStatus {
 		Error,
@@ -61,7 +61,7 @@ declare module dymo.label.framework {
 		ProcessingError,
 		Unknown
 	}
-	
+
 	/** Enumeration that specifies the leader and trailer for a tape label when printing to a Tape printer. */
 	enum TapeAlignment {
 		/** Indicates a 10mm leader and a 10mm trailer. */
@@ -71,7 +71,7 @@ declare module dymo.label.framework {
 		/** Indicates a 10mm leader and a 6mm trailer. */
 		Right
 	}
-	
+
 	/** Enumeration that specifies the tape cut mode when printing multiple labels to a Tape printer. Note: This enumeration affects multiple page print jobs only. If a one page job is printed, the tape is always cut. */
 	enum TapeCutMode {
 		/** Indicates to cut the tape between labels. */
@@ -79,7 +79,7 @@ declare module dymo.label.framework {
 		/** Indicates to print cut marks between labels. */
 		ChainMarks
 	}
-	
+
 	/** Enumeration that specifies which roll to print to when printing to a Twin Turbo printer. */
 	enum TwinTurboRoll {
 		/** Indicates to print to the left roll only. */
@@ -92,7 +92,7 @@ declare module dymo.label.framework {
 
 	/** Returns the library version number, e.g. "1.2.6" */
 	var VERSION: string;
-	
+
 	/** Checks that the browser enviroment is suitable for the Framework. */
 	function checkEnvironment(): {
 		/** Indicates whether the browser is supported or not. */
@@ -136,11 +136,11 @@ declare module dymo.label.framework {
 		 */
 		pngUseDisplayResolution?: boolean;
 	}
-	
+
 	/**
 	 * Creates an XML string suitable to pass to the dymo.label.framework.renderLabel function
 	 * as renderParamsXml parameter. Returns an XML string.
-	 * 
+	 *
 	 * @param params A JavaScript object with the following properties
 	 *   (not all properties must be defined; if a property is not defined, a default value is used)
 	 */
@@ -158,12 +158,12 @@ declare module dymo.label.framework {
 		/** The roll to print to if the printer is a TwinTurbo printer. Use the dymo.label.framework.TwinTurboRoll enumeration to specify the value. */
 		twinTurboRoll?: TwinTurboRoll;
 	}
-	
+
 	/**
 	 * Creates an XML string suitable to to pass to the dymo.label.framework.printLabel function
 	 * as printParamsXml parameter. Created print parameters are for printing to LabelWriter printers.
 	 * Returns an XML string.
-	 * 
+	 *
 	 * @param params A JavaScript object with the following properties
 	 *   (not all properties must be defined; if a property is not defined, a default value is used)
 	 */
@@ -185,7 +185,7 @@ declare module dymo.label.framework {
 	/**
 	 * Creates an XML string suitable to pass to the dymo.label.framework.printLabel function as printParamsXml parameter. Created print parameters are for printing to Tape printers.
 	 * Returns an XML string.
-	 * 
+	 *
 	 * @param params A JavaScript object with the following properties
 	 *   (not all properties must be defined; if a property is not defined, a default value is used)
 	 */
@@ -207,54 +207,54 @@ declare module dymo.label.framework {
 		/** Returns the printer type; "LabelWriterPrinter" or "TapePrinter". */
 		printerType: string;
 	}
-	
-	/** 
+
+	/**
 	 * Gets a list of all printers supported by the DYMO Label Framework.
 	 * Results are returned in an array-like object.
 	 * Each item is of the type dymo.label.framework.PrinterInfo.
 	 * In addition, items can be accessed by printer name.
 	 */
 	function getPrinters(): PrinterInfo[];
-	
+
 	/**
 	 * Convenience method (overload of getPrinters) to get a list of all printers of type "LabelWriterPrinter".
 	 */
 	function getLabelWriterPrinters(): PrinterInfo[];
-	
+
 	/**
 	 * Convenience method (overload of getPrinters) to get a list of all printers of type "TapePrinter".
 	 */
 	function getTapePrinters(): PrinterInfo[];
-	
+
 	/**
 	 * Loads an image from a URL or file and returns it as a base64-encoded PNG stream.
 	 * The loaded image is not necessarily in PNG format.
 	 * The image can be in any format supported by the Framework (by DYMO Label v.8).
 	 * The loaded data can be used to set content for an image object on a label.
 	 * Note: The comments for {@link openLabelFile} apply to this function as well.
-	 * 
+	 *
 	 * @param imageUri URL or file name to load the image from.
-	 * 
+	 *
 	 * @returns A base64-encoded PNG stream.
 	 */
 	function loadImageAsPngBase64(imageUri: string): string;
-	
+
 	/** Print Job */
 	interface PrintJob {
-		/** 
+		/**
 		 * Gets a status of the print job
 		 *
 		 * @param replyCallback a function called when the status is available
 		 */
 		getStatus(replyCallback: (printJobStatusInfo: PrintJobStatusInfo) => any): void;
 	}
-	
+
 	/** Print Job Status Info */
 	interface PrintJobStatusInfo {
 		statusMessage: string;
 		status: PrintJobStatus;
 	}
-	
+
 	/**
 	 * There is no constructor function for ILabel. To get ILabel instance use the
 	 * dymo.label.framework.openLabelFile or dymo.label.framework.openLabelXml function.
@@ -264,39 +264,39 @@ declare module dymo.label.framework {
 	interface ILabel {
 		/**
 		 * Gets the Intelligent Mail barcode position for an Address object.
-		 * 
+		 *
 		 * @param addressIndex The zero-based index of the Address object in a 'virtual' array of all Address objects on the label.
-		 * 
+		 *
 		 * @returns A string with one of the values defined by the dymo.label.framework.AddressBarcodePosition enumeration.
 		 */
 		getAddressBarcodePosition(addressIndex: number): AddressBarcodePosition;
-		
+
 		/**
-		 * Gets the number of Address objects on the label. 
+		 * Gets the number of Address objects on the label.
 		 */
 		getAddressObjectCount(): number;
-		
+
 		/**
 		 * Gets the text content of an Address object.
-		 * 
+		 *
 		 * @param addressIndex The zero-based index of the Address object in a 'virtual' array of all Address objects on the label.
-		 * 
-		 * @returns The plain text from the Address object.  
+		 *
+		 * @returns The plain text from the Address object.
 		 */
 		getAddressText(addressIndex: number): string;
-		
+
 		/**
 		 * Returns the current label as an XML string. The returned XML string can be passed
 		 * to functions that accept label XML as a parameter, or can be used to direct content
 		 * manipulations not currently supported by the Framework.
 		 */
 		getLabelXml(): string;
-		
+
 		/**
 		 * Gets an array of object reference names on the label. Returns an array of strings.
 		 */
 		getObjectNames(): string[];
-		
+
 		/**
 		 * Gets the 'text' content of an object. The content depends on the object type.
          * * Address and Text objects - Returns the object text without formatting.
@@ -304,14 +304,14 @@ declare module dymo.label.framework {
          * * Image - Returns the base64-encoded string on the image's PNG stream (only if image data is embedded with the label and not linked to a URL or file).
          * * Circular Text object - Returns the object text.
          * * Other objects - Returns an empty string.
-		 * 
-		 * @param objectName The name of the object. 
+		 *
+		 * @param objectName The name of the object.
 		 */
 		getObjectText(objectName: string): string;
-		
+
 		/**
 		 * Prints the label.
-		 * 
+		 *
      	 * @param printerName The name of the printer to print to. A list of printers can be obtained using dymo.label.framework.getPrinters.
      	 * @param printParamsXml The print parameters, such as number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}.
      	 * @param labelSetXml
@@ -320,10 +320,10 @@ declare module dymo.label.framework {
 		 *   or construct XML manually according to [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}.
 		 */
 		print(printerName: string, printParamsXml: string, labelSetXml: string): void;
-		
+
 		/**
 		 * Prints a label and runs status checking in a loop
-
+		 *
      	 * @param printerName The name of the printer to print to. A list of printers can be obtained using dymo.label.framework.getPrinters.
      	 * @param printParamsXml The print parameters, such as number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}.
      	 * @param labelSetXml The LabelSet to print.
@@ -338,20 +338,19 @@ declare module dymo.label.framework {
 		 *   boolean value. If true is returned, than pritnAndPollStatus() will poll the service again after the pollInterval passed.
 		 *   If false is returned, then printAndPollStatus() finishes processing.
 		 * @param pollInterval Interval in milliseconds to ask the proxy service for the job status information.
-		 
-		 * @returns The print job. 
-		*/
+		 *
+		 * @returns The print job.
+		 */
 		printAndPollStatus(
 			printerName: string,
 			printParamsXml: string,
 			labelSetXml: string,
 			statusCallback: (printJob: PrintJob, printJobStatusInfo: PrintJobStatusInfo) => boolean,
-			pollInterval: number
-			): PrintJob;
-		
+			pollInterval: number): PrintJob;
+
 		/**
 		 * Creates a label raster image that can be used for label previewing.
-         * 
+         *
 		 * @param renderParamsXml Rendering parameters, such as shadow depth, label color, etc.
 		 *   See [LabelRenderParams.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelRenderParams.xsd}.
          * @param printerName The name of the printer that the preview is generated for.
@@ -360,34 +359,34 @@ declare module dymo.label.framework {
 		 *   If it is not important what printer the label is printed to,
 		 *   an empty string can be passed. In this case, the default printer metrics will
 		 *   be used. The default is LW400 for LabelWriter printers and LW400 DUO Tape for
-		 *   tape printers. 
+		 *   tape printers.
 		 */
 		render(renderParamsXml: string, printerName: string): string;
-		
+
 		/**
 		 * Sets the Intelligent Mail barcode position for an Address object.
-		 * 
+		 *
 		 * @param addressIndex The zero-based index of the Address object in a 'virtual' array of all Address objects on the label.
 		 * @param barcodePosition The barcode position.
-		 * 
+		 *
 		 * @returns self
 		 */
 		setAddressBarcodePosition(addressIndex: number, barcodePosition: AddressBarcodePosition): ILabel;
-		
+
 		/**
 		 * Sets the text content of an Address object.
-		 * 
+		 *
 		 * @param addressIndex The zero-based index of the Address object in a 'virtual' array of all Address objects on the label.
      	 * @param text The plain text string that contains the content of the Address object. Note: The current text formatting is retained on a line-by-line basis.
-		  * 
+		  *
 		  * @returns self
 		 */
 		setAddressText(addressIndex: number, text: string): ILabel;
-		
+
 		/**
 		 * Sets the text content for an object. The content and/or text formatting are set differently
 		 * depending on the object type.
-		 * 
+		 *
 		 * * Address object - The formatting is applied on a line-by-line basis (using list).
 		 * * Text object - The formatting of the current first character is applied to all text.
 		 * * Barcode object - The barcode text.
@@ -395,7 +394,7 @@ declare module dymo.label.framework {
 		 * * CircularText object - The object text.
 		 * * Date and Time and Counter objects - The object's 'Before' text.
 		 * * Other objects - An empty string.
-		 * 
+		 *
 	     * @param objectName The name of the object.
     	 * @param text The plain text string for new object content.
 		 */
@@ -410,47 +409,47 @@ declare module dymo.label.framework {
 	interface ILabelSetRecord {
 		/**
 		 * Adds image data to the record.
-		 * 
+		 *
      	 * @param objectName The name of the object that the markup is set for.
      	 * @param base64Image The string containing the base64-encoded PNG image stream.
-		 * 
+		 *
 		 * @returns self
 		 */
 		setBase64Image(objectName: string, base64Image: string): ILabelSetRecord;
-		
+
 		/** Adds data to the record specified as plain text.
-		 * 
+		 *
          * @param objectName The name of the object that the markup is set for.
          * @param text The object text to set.
-		 * 
+		 *
 		 * @returns self
 		 */
 		setText(objectName: string, text: string): ILabelSetRecord;
-		
+
 		/**
 		 * Adds data to the record specified as text markup.
-		 * 
+		 *
 		 * @param objectName The name of the object that the markup is set for.
      	 * @param textMarkup The markup string. See [TextMarkup.xsd]{@link http://labelwriter.com/software/dls/sdk/TextMarkup.xsd}.
-		 * 
+		 *
 		 * @returns self
 		 */
 		setTextMarkup(objectName: string, textMarkup: string): ILabelSetRecord;
 	}
-	
+
 	/**
 	 * Loads label content from a file or URL.
      * The following considerations should be taken before using this function:
-	 * 
+	 *
      * * The full file name or URL should be specified. The function will not honor relative paths based on document.location.href.
      * * The fileName can be an http:// or file:// URL. On Windows the file name can be a regular file name, for example 'c:\users\desktop\address.label'.
      * * The content of the label will be loaded synchronously. Therefore, if the remote server is down there will be a timeout.
      * * Any local file can be accessed or attempted to be accessed. The function is not limited by any browser restrictions. However, only a valid label file (according to label.xsd schema) can be loaded. This could still be a potential security concern.
      * * The URL is not limited to same-site-origin browser policy. Any URL can be opened.
      * * The proxy settings are the system default settings, these are not necessarily the browser settings.
-	 * 
+	 *
      * Use this function only when there is no other way to load label data. In most cases, label data should be loaded using dymo.label.framework.openLabelXml.
-	 * 
+	 *
 	 * @param fileName FileName or URL to load label from.
 	 * 
 	 * @returns Returns Label object; provides label manipulation methods.
@@ -469,7 +468,7 @@ declare module dymo.label.framework {
 
 	/**
 	 * Prints one or more labels.
-	 * 
+	 *
      * @param printerName The name of the printer to print to. A list of printers can be obtained using
 	 *   dymo.label.framework.getPrinters.
      * @param printParamsXml The print parameters, such as number of copies, print quality, etc.
@@ -481,10 +480,10 @@ declare module dymo.label.framework {
 	 *   [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}.
 	 */
 	function printLabel(printerName: string, printParamsXml: string, labelXml: string, labelSetXml: string): void;
-	
+
 	/**
 	 * Prints a label and returns a print job object
-	 * 
+	 *
 	 * @param printerName The printer to print on. A list of printers can be obtained by getPrinters()
 	 * @param printParamsXml Printing parameters, like number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}
 	 * @param labelXml Label to print
@@ -500,9 +499,9 @@ declare module dymo.label.framework {
 	 * @param printerName The printer to print on. A list of printers can be obtained by getPrinters()
 	 * @param printParamsXml Printing parameters, like number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}
 	 * @param labelXml Label to print
-	 * @param labelSetXml 
+	 * @param labelSetXml
 	 *   LabelSet to print. LabelSet is used to print multiple labels with same layout but different data, e.g.
-	 *   multiple addresses. 
+	 *   multiple addresses.
 	 *   Use LabelSetBuilder to create a LabelSet or construct xml manually according to
 	 *   [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}
 	 * @param statusCallback
@@ -516,9 +515,8 @@ declare module dymo.label.framework {
 		labelXml: string,
 		labelSetXml: string,
 		statusCallback: (printJob: PrintJob, printJobStatusInfo: PrintJobStatusInfo) => boolean,
-		pollInterval: number
-		): PrintJob;
-	
+		pollInterval: number): PrintJob;
+
 	/**
 	 * Creates a label raster image that can be used for label previewing.
 	 * Returns a string that is a base64-encoded PNG stream of the label image.
@@ -532,18 +530,18 @@ declare module dymo.label.framework {
 	 *   with different print head sizes. If it is not important what printer the label is
 	 *   printed to, an empty string can be passed. In this case, the default printer metrics
 	 *   will be used. The default is LW400 for LabelWriter printers and LW400 DUO Tape for tape printers.
-	 * 
-	 * @returns A base64-encoded PNG stream of the label image. 
+	 *
+	 * @returns A base64-encoded PNG stream of the label image.
 	 */
 	function renderLabel(labelXml: string, renderParamsXml: string, printerName: string): string;
-	
+
 	/**
 	 * Undocumented
 	 */
 	interface AddPrinterUriCallback {
 		(printerUri: string): any;
 	}
-	
+
 	/**
 	 * Undocumented, removed, see http://developers.dymo.com/2013/08/14/dymo-sdk-qa/#comment-27119
 	 */
@@ -551,19 +549,18 @@ declare module dymo.label.framework {
 		printerUri: string,
 		location?: string,
 		successCallback?: AddPrinterUriCallback,
-		errorCallback?: AddPrinterUriCallback
-		): void;
-	
+		errorCallback?: AddPrinterUriCallback): void;
+
 	/**
 	 * Undocumented, removed, see http://developers.dymo.com/2013/08/14/dymo-sdk-qa/#comment-27119
 	 */
 	function removePrinterUri(printerUri: string): void;
-	
+
 	/**
 	 * Undocumented, removed, see http://developers.dymo.com/2013/08/14/dymo-sdk-qa/#comment-27119
 	 */
 	function removeAllPrinterUri(): void;
-	
+
 	/**
 	 * LabelSetBuilder is used to create a LabelSet to print multiple labels in one print job.
 	 * LabelSet is a collection of records. Each record contains multiple pairs; each pair consists
@@ -572,28 +569,28 @@ declare module dymo.label.framework {
 	 */
 	class LabelSetBuilder {
 		/**
+		 * Converts record objects to XML format. The XML format schema is defined in [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}.
+		 * Returned XML can be passed to dymo.label.framefork.printLabel as labelSetXml parameter. This function can be used independent of other LabelSetBuilder methods, if records data is generated by other functions.
+		 *
+		 * @param records The records to convert to XML. Records should be an array-like object of associative-arrays with object names as keys and object text as values.
+		 *
+		 * @returns An XML string.
+		 */
+		static toXml(records: {}[]): string;
+
+		/**
 		 * Adds a new record to the LabelSet. Returns a record object.
 		 */
 		addRecord(): ILabelSetRecord;
-		
+
 		/**
 		 * Get all record objects in this LabelSetBuilder.
 		 */
 		getRecords(): ILabelSetRecord[];
-		
+
 		/**
-		 * Converts the builder's content to an XML string suitable to pass to dymo.label.framefork.printLabel. 
+		 * Converts the builder's content to an XML string suitable to pass to dymo.label.framefork.printLabel.
 		 */
 		toString(): string;
-		
-		/**
-		 * Converts record objects to XML format. The XML format schema is defined in [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}.
-		 * Returned XML can be passed to dymo.label.framefork.printLabel as labelSetXml parameter. This function can be used independent of other LabelSetBuilder methods, if records data is generated by other functions.
-		 * 
-		 * @param records The records to convert to XML. Records should be an array-like object of associative-arrays with object names as keys and object text as values.
-		 * 
-		 * @returns An XML string. 
-		 */
-		static toXml(records: {}[]): string;
 	}
 }
