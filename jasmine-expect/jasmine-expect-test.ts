@@ -2,7 +2,7 @@
 /// <reference path="jasmine-expect.d.ts" />
 
 function getArgumentsObject(): IArguments {
-  return (function(...parameters): IArguments {
+  return (function(arg1, arg2, arg3): IArguments {
     return arguments;
   }(1, 2, 3));
 }
@@ -13,6 +13,12 @@ function getArrayLikeObject(): {} {
     1: 2,
     2: 3
   };
+}
+
+interface mockDate {
+  any: Date;
+  early: Date;
+  late: Date;
 }
 
 describe('String Members', function() {
@@ -647,7 +653,8 @@ describe('Number Members', function() {
 
 describe('Date Members', function() {
 
-  var mockDate;
+
+  var mockDate: mockDate;
 
   beforeEach(function() {
     mockDate = {
@@ -965,11 +972,11 @@ describe('Array Members', function() {
       describe('when number of expected items does not match', function() {
         it('should deny', function() {
           expect({
-            memberName: ''
-          }).not.toHaveArrayOfSize('memberName');
-          expect({
             memberName: ['bar']
           }).not.toHaveArrayOfSize('memberName', 0);
+          expect({
+            memberName: ''
+          }).not.toHaveArrayOfSize('memberName');
         });
       });
       describe('when number of expected items does match', function() {
@@ -2042,7 +2049,7 @@ describe('Arrays', function() {
 });
 
 
-function describeWhenNotArray(toBeArraymemberName) {
+function describeWhenNotArray(toBeArraymemberName: string) {
   describe('when subject is not a true Array', function() {
     describe('when subject is Array-like', function() {
       it('should deny', function() {
@@ -2063,7 +2070,18 @@ function describeWhenNotArray(toBeArraymemberName) {
   });
 }
 
-function describeToBeArrayOfX(options) {
+interface Option {
+  name: string;
+  type?: string;
+  whenBoolean?: any;
+  whenPresent?: any;
+  whenMixed?: any;
+  whenValid?: any;
+  whenInvalid?: any;
+  whenArray?: any;
+}
+
+function describeToBeArrayOfX(options: Option) {
   describe(options.name, function() {
     describe('when invoked', function() {
       describe('when subject is a true Array', function() {
@@ -2115,7 +2133,7 @@ function describeToHaveX(options) {
   });
 }
 
-function describeToHaveArrayX(options) {
+function describeToHaveArrayX(options: Option) {
   describeToHaveX({
     name: options.name,
     whenPresent: function() {
@@ -2124,7 +2142,7 @@ function describeToHaveArrayX(options) {
   });
 }
 
-function describeToHaveBooleanX(options) {
+function describeToHaveBooleanX(options: Option) {
   describeToHaveX({
     name: options.name,
     whenPresent: function() {

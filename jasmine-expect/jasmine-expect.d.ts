@@ -47,7 +47,7 @@ declare module jasmine {
 		toHaveArrayOfBooleans(memberName: string): boolean;
 		toHaveArrayOfNumbers(memberName: string): boolean;
 		toHaveArrayOfObjects(memberName: string): boolean;
-		toHaveArrayOfSize(memberName: string, size: number): boolean;
+		toHaveArrayOfSize(memberName: string, size?: number): boolean;
 		toHaveArrayOfStrings(memberName: string): boolean;
 		toHaveEmptyArray(memberName: string): boolean;
 		toHaveNonEmptyArray(memberName: string): boolean;
