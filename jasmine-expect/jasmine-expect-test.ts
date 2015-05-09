@@ -1,13 +1,13 @@
 /// <reference path="../jasmine/jasmine.d.ts" />
 /// <reference path="jasmine-expect.d.ts" />
 
-function getArgumentsObject() {
-  return (function() {
+function getArgumentsObject(): IArguments {
+  return (function(...parameters): IArguments {
     return arguments;
   }(1, 2, 3));
 }
 
-function getArrayLikeObject() {
+function getArrayLikeObject(): {} {
   return {
     0: 1,
     1: 2,

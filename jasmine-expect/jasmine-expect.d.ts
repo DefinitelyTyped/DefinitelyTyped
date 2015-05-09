@@ -72,7 +72,7 @@ declare module jasmine {
 
 	    // Functions and Errors
 		toBeFunction(): boolean;
-		toThrowError(): boolean;
+		toThrowAnyError(): boolean;
 		toThrowErrorOfType(type: string): boolean;
 		toHaveMethod(memberName: string): boolean;
 
