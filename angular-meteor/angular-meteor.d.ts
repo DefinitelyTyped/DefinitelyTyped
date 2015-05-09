@@ -53,7 +53,7 @@ declare module angular.meteor {
          * @param [autoClientSave=true] - By default, changes in the Angular collection will automatically update the Meteor collection. 
          *                              - However if set to false, changes in the client won't be automatically propagated back to the Meteor collection.
          */
-        collection<T>(collection: Mongo.Collection<T>|ReactiveResult, autoClientSave?: boolean): AngularMeteorCollection<T>;
+        collection<T>(collection: Mongo.Collection<T>|ReactiveResult|Function|(()=>T), autoClientSave?: boolean): AngularMeteorCollection<T>;
         
         /**
          * A service that wraps the Meteor collections to enable reactivity within AngularJS.
@@ -64,7 +64,7 @@ declare module angular.meteor {
          *                              - However if set to false, changes in the client won't be automatically propagated back to the Meteor collection.
          * @param [updateCollection] - A collection object which will be used for updates (insert, update, delete).
          */
-        collection<T, U>(collection: Mongo.Collection<T>|ReactiveResult, autoClientSave: boolean, updateCollection: Mongo.Collection<U>): AngularMeteorCollection2<T, U>;
+        collection<T, U>(collection: Mongo.Collection<T>|ReactiveResult|Function|(()=>T), autoClientSave: boolean, updateCollection: Mongo.Collection<U>): AngularMeteorCollection2<T, U>;
         
         /**
          * A service that wraps a Meteor object to enable reactivity within AngularJS. 
@@ -303,7 +303,7 @@ declare module angular.meteor {
          *               - If an object is passed, the method removes the object with that key from the AngularMeteorCollection. 
          *               - If an array is passed, the method removes all objects that matches the keys in the array from the AngularMeteorCollection.
          */
-        remove(keys?: string|number|string[]|number[]): void;
+        remove(keys?: U|string|number|string[]|number[]): void;
         
         /**
          * A shorten (Syntactic sugar) function for the $meteor.subscribe function.
