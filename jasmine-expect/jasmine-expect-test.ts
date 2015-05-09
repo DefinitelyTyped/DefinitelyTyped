@@ -2,7 +2,7 @@
 /// <reference path="jasmine-expect.d.ts" />
 
 function getArgumentsObject(): IArguments {
-  return (function(arg1, arg2, arg3): IArguments {
+  return (function(arg1: number, arg2: number, arg3: number): IArguments {
     return arguments;
   }(1, 2, 3));
 }
@@ -2107,7 +2107,7 @@ function describeToBeArrayOfX(options: Option) {
   });
 }
 
-function describeToHaveX(options) {
+function describeToHaveX(options: Option) {
   describe(options.name, function() {
     describe('when invoked', function() {
       describe('when subject is not an object', function() {
