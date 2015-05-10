@@ -131,6 +131,7 @@ declare module Snap {
 		getSubpath(from:number,to:number):string;
 		getTotalLength():number;
 		hasClass(value:string):boolean;
+		id:string;		
 		inAnim():Object;
 		innerSVG():string;
 		insertAfter(el:Snap.Element):Snap.Element;
