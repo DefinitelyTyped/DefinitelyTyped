@@ -18,6 +18,7 @@ interface CustomScope extends angular.meteor.IScope {
 	
 	todo: ITodo;
 	todoNotAuto: TodoAngularMeteorObject;
+	todoSubscribed: TodoAngularMeteorObject;
 	
 	save: (todo: ITodo) => void;
 	saveAll: () =>void;
@@ -48,6 +49,7 @@ app.controller("mainCtrl", ['$scope', '$meteor', ($scope: CustomScope, $meteor: 
 	$scope.notAutoTodos = $meteor.collection(Todos, false).subscribe("publicTodos");
 	
 	$scope.todoNotAuto = <TodoAngularMeteorObject>$meteor.object(Todos, 'TodoID', false);
+	$scope.todoSubscribed = <TodoAngularMeteorObject>$meteor.object(Todos, 'TodoID').subscribe('todos');
 	$scope.todo = $scope.todoNotAuto.getRawObject();
 	$scope.todoNotAuto.reset();
 	$scope.todoNotAuto.save($scope.todo).then((data) => { return data == 1; });;
