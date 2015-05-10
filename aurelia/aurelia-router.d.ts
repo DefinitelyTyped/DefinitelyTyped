@@ -1,3 +1,7 @@
+// Type definitions for aurelia-router v0.8.1
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-router/navigation-commands' {
 	/**
 	 * Determines if the provided object is a navigation command.

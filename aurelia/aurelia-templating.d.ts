@@ -1,3 +1,7 @@
+// Type definitions for aurelia-templating v0.11.2
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-templating/animator' {
 	export class Animator {
 	    static instance: any;

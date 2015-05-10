@@ -1,3 +1,7 @@
+// Type definitions for aurelia-logging v0.4.0
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-logging/index' {
 	/**
 	 * This library is part of the Aurelia platform and contains a minimal but effective logging mechanism

@@ -1,3 +1,7 @@
+// Type definitions for aurelia-binding v0.6.1
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-binding/access-keyed-observer' {
 	export class AccessKeyedObserver {
 	    objectInfo: any;

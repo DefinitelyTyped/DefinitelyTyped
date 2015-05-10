@@ -1,3 +1,7 @@
+// Type definitions for aurelia-templating-router v0.12.0
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-templating-router/route-loader' {
 	import { RouteLoader } from 'aurelia-router';
 	export class TemplatingRouteLoader extends RouteLoader {

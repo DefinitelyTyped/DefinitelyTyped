@@ -1,3 +1,7 @@
+// Type definitions for aurelia-dependency-injection v0.7.1 
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-dependency-injection/metadata' {
 	/**
 	* Used to allow functions/classes to indicate that they should be registered as transients with the container.

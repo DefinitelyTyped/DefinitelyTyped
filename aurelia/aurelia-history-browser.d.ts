@@ -1,3 +1,7 @@
+// Type definitions for aurelia-history-browser v0.4.0 
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-history-browser/index' {
 	import { History } from 'aurelia-history';
 	export class BrowserHistory extends History {

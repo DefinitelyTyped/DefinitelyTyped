@@ -1,3 +1,7 @@
+// Type definitions for aurelia-metadata v0.5.0
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-metadata/metadata' {
 	/**
 	* Provides helpers for working with metadata.

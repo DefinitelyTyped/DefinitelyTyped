@@ -1,3 +1,7 @@
+// Type definitions for aurelia-templating-resources v0.11.1
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-templating-resources/compose' {
 	export class Compose {
 	    container: any;

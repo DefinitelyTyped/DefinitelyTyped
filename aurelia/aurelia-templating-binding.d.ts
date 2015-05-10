@@ -1,3 +1,7 @@
+// Type definitions for aurelia-templating-binding v0.11.0 
+// Project: https://github.com/aurelia/
+// Definitions by: Mike Graham <https://github.com/cmichaelgraham>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module 'aurelia-templating-binding/syntax-interpreter' {
 	export class SyntaxInterpreter {
 	    static inject(): any[];
