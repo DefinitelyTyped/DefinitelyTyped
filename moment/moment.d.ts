@@ -318,19 +318,27 @@ declare module moment {
 
     }
 
-    interface MomentLanguage {
+    interface BaseMomentLanguage { 
+        months ?: any;
+        monthsShort ?: any;
+        weekdays ?: any;
+        weekdaysShort ?: any;
+        weekdaysMin ?: any;
+        relativeTime ?: MomentRelativeTime;
+        meridiem ?: (hour: number, minute: number, isLowercase: boolean) => string;
+        calendar ?: MomentCalendar;
+        ordinal ?: (num: number) => string;
+    }
 
-      months?: any;
-      monthsShort?: any;
-      weekdays?: any;
-      weekdaysShort?: any;
-      weekdaysMin?: any;
+    interface MomentLanguage extends BaseMomentLanguage {
       longDateFormat?: MomentLongDateFormat;
-      relativeTime?: MomentRelativeTime;
-      meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
-      calendar?: MomentCalendar;
-      ordinal?: (num: number) => string;
+    }
 
+    interface MomentLanguageData extends BaseMomentLanguage {
+        /**
+         * @param formatType should be L, LL, LLL, LLLL.
+         */
+        longDateFormat(formatType: string): string;
     }
 
     interface MomentLongDateFormat {
@@ -412,7 +420,7 @@ declare module moment {
         locale(language?: string[]): string;
         locale(language?: string, definition?: MomentLanguage): string;
 
-        localeData(language?: string): MomentLanguage;
+        localeData(language?: string): MomentLanguageData;
 
         longDateFormat: any;
         relativeTime: any;
