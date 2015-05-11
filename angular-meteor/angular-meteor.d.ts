@@ -277,6 +277,14 @@ declare module angular.meteor {
          * The returned object is then safe to use as a parameter for method calls, or anywhere else where the data needs to be converted to JSON.
          */
         getRawObject(): T;
+
+        /**
+         * A shorten (Syntactic sugar) function for the $meteor.subscribe function.
+         * Takes only one parameter and not returns a promise like $meteor.subscribe does.
+         * 
+         * @param subscriptionName - The subscription name to subscribe to. Exactly like the first parameter in $meteor.subscribe service.
+         */        
+        subscribe(subscriptionName:string): AngularMeteorObject<T>;
     }
     
     /**
