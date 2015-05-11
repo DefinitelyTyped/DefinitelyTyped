@@ -10,20 +10,25 @@ declare var Notify: {
      * Check is permission is needed for the user to receive notifications.
      * @return true : needs permission, false : does not need
      */
-    needsPermission() : boolean;
+    needsPermission : boolean;
 
     /**
      * Asks the user for permission to display notifications
-     * @param onPermissionGrantedCallback A callback for permmision is granted.
-     * @param onPermissionDeniedCallback  A callback for permmision is denied.
+     * @param onPermissionGrantedCallback A callback for permission is granted.
+     * @param onPermissionDeniedCallback  A callback for permission is denied.
      */
     requestPermission(onPermissionGrantedCallback?: ()=> any, onPermissionDeniedCallback? : ()=> any) : void;
 
     /**
      * return true if the browser supports HTML5 Notification
-     * @param true : the browser supports HTML5 Notification, false ; the browswer does not supports HTML5 Notification.
+     * @param true : the browser supports HTML5 Notification, false ; the browser does not supports HTML5 Notification.
      */
-    isSupported() : boolean;
+    isSupported: boolean;
+
+    /**
+     * shows the user's current permission level (granted, denied or default), returns null if notifications are not supported.
+     */
+    permissionLevel: string;
 }
 
 declare module notifyjs {
