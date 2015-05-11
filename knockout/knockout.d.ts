@@ -574,6 +574,7 @@ declare module KnockoutComponentTypes {
     interface Config {
         viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
+        synchronous?: boolean;
     }
 
     interface ComponentConfig {
