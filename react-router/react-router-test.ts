@@ -263,11 +263,22 @@ class CreateTest {
     v: Router.Router;
     
     constructor() {
+        // React.createElement() version
         this.v = Router.create({
             routes: React.createElement(Router.Route, null)
         });
         this.v = Router.create({
             routes: React.createElement(Router.Route, null),
+            location: Router.HistoryLocation,
+            scrollBehavior: Router.ImitateBrowserBehavior
+        });
+        
+        // React.createFactory() version
+        this.v = Router.create({
+            routes: React.createFactory(Router.Route)()
+        });
+        this.v = Router.create({
+            routes: React.createFactory(Router.Route)(),
             location: Router.HistoryLocation,
             scrollBehavior: Router.ImitateBrowserBehavior
         });
@@ -281,10 +292,19 @@ class CreateTest {
 
 class RunTest {
     constructor() {
+        // React.createElement() version
         var v1: Router.Router = Router.run(React.createElement(Router.Route, null), (Handler) => {
             React.render(React.createElement(Handler, null), document.body);
         });
         var v2: Router.Router = Router.run(React.createElement(Router.Route, null), Router.HistoryLocation, (Handler, state) => {
+            React.render(React.createElement(Handler, null), document.body);
+        });
+        
+        // React.createFactory() version
+        var v3: Router.Router = Router.run(React.createFactory(Router.Route)(), (Handler) => {
+            React.render(React.createElement(Handler, null), document.body);
+        });
+        var v4: Router.Router = Router.run(React.createFactory(Router.Route)(), Router.HistoryLocation, (Handler, state) => {
             React.render(React.createElement(Handler, null), document.body);
         });
     }
