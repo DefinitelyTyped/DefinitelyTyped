@@ -2253,7 +2253,7 @@ declare module _ {
         **/
         countBy<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, any>,
+            callback?: DictionaryIterator<T, any>,
             thisArg?: any): Dictionary<number>;
 
         /**
@@ -2338,7 +2338,7 @@ declare module _ {
         **/
         every<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, boolean>,
+            callback?: DictionaryIterator<T, boolean>,
             thisArg?: any): boolean;
 
         /**
@@ -2410,7 +2410,7 @@ declare module _ {
         **/
         all<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, boolean>,
+            callback?: DictionaryIterator<T, boolean>,
             thisArg?: any): boolean;
 
         /**
@@ -2497,7 +2497,7 @@ declare module _ {
         **/
         filter<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T[];
 
         /**
@@ -2569,7 +2569,7 @@ declare module _ {
         **/
         select<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T[];
 
         /**
@@ -2709,7 +2709,7 @@ declare module _ {
         **/
         find<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T;
 
         /**
@@ -2781,7 +2781,7 @@ declare module _ {
         **/
         detect<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T;
 
         /**
@@ -2853,7 +2853,7 @@ declare module _ {
         **/
         findWhere<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T;
 
         /**
@@ -2955,7 +2955,7 @@ declare module _ {
         **/
         findLast<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T;
 
         /**
@@ -3057,7 +3057,7 @@ declare module _ {
         **/
         forEach<T extends {}>(
             object: Dictionary<T>,
-            callback: ObjectIterator<T, void>,
+            callback: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
 
         /**
@@ -3092,7 +3092,7 @@ declare module _ {
         **/
         each<T extends {}>(
             object: Dictionary<T>,
-            callback: ObjectIterator<T, void>,
+            callback: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
 
         /**
@@ -3163,7 +3163,7 @@ declare module _ {
         **/
         forEachRight<T extends {}>(
             object: Dictionary<T>,
-            callback: ObjectIterator<T, void>,
+            callback: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
 
         /**
@@ -3190,7 +3190,7 @@ declare module _ {
         **/
         eachRight<T extends {}>(
             object: Dictionary<T>,
-            callback: ObjectIterator<T, void>,
+            callback: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
     }
 
@@ -3296,7 +3296,7 @@ declare module _ {
         **/
         groupBy<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, any>,
+            callback?: DictionaryIterator<T, any>,
             thisArg?: any): Dictionary<T[]>;
 
         /**
@@ -3518,7 +3518,7 @@ declare module _ {
         **/
         map<T extends {}, TResult>(
             object: Dictionary<T>,
-            callback: ObjectIterator<T, TResult>,
+            callback: DictionaryIterator<T, TResult>,
             thisArg?: any): TResult[];
 
         /**
@@ -3558,7 +3558,7 @@ declare module _ {
         **/
         collect<T extends {}, TResult>(
             object: Dictionary<T>,
-            callback: ObjectIterator<T, TResult>,
+            callback: DictionaryIterator<T, TResult>,
             thisArg?: any): TResult[];
 
         /**
@@ -3657,7 +3657,7 @@ declare module _ {
         **/
         max<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, any>,
+            callback?: DictionaryIterator<T, any>,
             thisArg?: any): T;
 
         /**
@@ -4290,7 +4290,7 @@ declare module _ {
         **/
         reject<T>(
             collection: Dictionary<T>,
-            callback: ListIterator<T, boolean>,
+            callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T[];
 
         /**
@@ -4501,7 +4501,7 @@ declare module _ {
         **/
         some<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, boolean>,
+            callback?: DictionaryIterator<T, boolean>,
             thisArg?: any): boolean;
 
         /**
@@ -4581,7 +4581,7 @@ declare module _ {
         **/
         any<T>(
             collection: Dictionary<T>,
-            callback?: ListIterator<T, boolean>,
+            callback?: DictionaryIterator<T, boolean>,
             thisArg?: any): boolean;
 
         /**
@@ -5524,7 +5524,7 @@ declare module _ {
         **/
         forIn<T>(
             object: Dictionary<T>,
-            callback?: ObjectIterator<T, void>,
+            callback?: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
 
         /**
@@ -5557,7 +5557,7 @@ declare module _ {
         **/
         forInRight<T extends {}>(
             object: Dictionary<T>,
-            callback?: ObjectIterator<T, void>,
+            callback?: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
 
         /**
@@ -5591,7 +5591,7 @@ declare module _ {
         **/
         forOwn<T extends {}>(
             object: Dictionary<T>,
-            callback?: ObjectIterator<T, void>,
+            callback?: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
 
         /**
@@ -5624,7 +5624,7 @@ declare module _ {
         **/
         forOwnRight<T extends {}>(
             object: Dictionary<T>,
-            callback?: ObjectIterator<T, void>,
+            callback?: DictionaryIterator<T, void>,
             thisArg?: any): Dictionary<T>;
         /**
         * @see _.forOwnRight
@@ -6413,11 +6413,15 @@ declare module _ {
     }
     
     interface ListIterator<T, TResult> {
-        (value: T, index: number, list: T[]): TResult;
+        (value: T, index: number, collection: T[]): TResult;
+    }
+
+    interface DictionaryIterator<T, TResult> {
+        (value: T, key: string, collection: Dictionary<T>): TResult;
     }
 
     interface ObjectIterator<T, TResult> {
-        (element: T, key: string, list: any): TResult;
+        (element: T, key: string, collection: any): TResult;
     }
 
     interface MemoVoidIterator<T, TResult> {
