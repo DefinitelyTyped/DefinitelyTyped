@@ -842,7 +842,6 @@ declare module Parse {
         INVALID_CONTENT_LENGTH =  128,
         FILE_TOO_LARGE =  129,
         FILE_SAVE_ERROR =  130,
-        FILE_DELETE_ERROR =  153,
         DUPLICATE_VALUE =  137,
         INVALID_ROLE_NAME =  139,
         EXCEEDED_QUOTA =  140,
