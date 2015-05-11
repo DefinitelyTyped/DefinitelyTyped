@@ -248,9 +248,9 @@ interface KnockoutUtils {
 
         removeDisposeCallback(node: Element, callback: Function): void;
 
-        cleanNode(node: Element): Element;
+        cleanNode(node: Node): Element;
 
-        removeNode(node: Element): void;
+        removeNode(node: Node): void;
     };
 
     //////////////////////////////////
