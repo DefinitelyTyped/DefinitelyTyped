@@ -2,6 +2,7 @@
 // Project: https://github.com/aurelia/
 // Definitions by: Mike Graham <https://github.com/cmichaelgraham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 declare module 'aurelia-router/navigation-commands' {
 	/**
 	 * Determines if the provided object is a navigation command.

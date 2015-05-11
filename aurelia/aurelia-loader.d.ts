@@ -2,6 +2,7 @@
 // Project: https://github.com/aurelia/
 // Definitions by: Mike Graham <https://github.com/cmichaelgraham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 declare module 'aurelia-loader/template-registry-entry' {
 	export class TemplateDependency {
 	    src: any;

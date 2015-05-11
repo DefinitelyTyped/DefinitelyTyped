@@ -1,7 +1,13 @@
-// Type definitions for aurelia-framework v0.11.0 
+// Type definitions for aurelia-framework v0.11.0
 // Project: https://github.com/aurelia/
 // Definitions by: Mike Graham <https://github.com/cmichaelgraham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+/// <reference path="aurelia-dependency-injection.d.ts" />
+/// <reference path="aurelia-binding.d.ts" />
+/// <reference path="aurelia-metadata.d.ts" />
+/// <reference path="aurelia-templating.d.ts" />
+/// <reference path="aurelia-loader.d.ts" />
+/// <reference path="aurelia-task-queue.d.ts" />
 declare module 'aurelia-framework/plugins' {
 	/**
 	 * Manages loading and configuring plugins.
