@@ -1,278 +1,171 @@
-// Type definitions for React Router 0.12.0
+// Type definitions for React Router 0.13.2
 // Project: https://github.com/rackt/react-router
-// Definitions by: Yuichi Murata <https://github.com/mrk21>
+// Definitions by: Duncan Mak <https://github.com/duncanmak>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/legacy/react-0.12.d.ts' />
+/// <reference path="../react/react-global.d.ts" />
 
 declare module ReactRouter {
-    //
-    // Mixin
-    // ----------------------------------------------------------------------
-    interface Navigation {
-        makePath(to: string, params?: {}, query?: {}): string;
-        makeHref(to: string, params?: {}, query?: {}): string;
-        transitionTo(to: string, params?: {}, query?: {}): void;
-        replaceWith(to: string, params?: {}, query?: {}): void;
-        goBack(): void;
+
+    // Based on https://github.com/rackt/react-router/tree/master/docs/api
+    function run(routes: Route, callback: Callback): void;
+    function run<L extends LocationBase>(routes: Route, location: L, callback: Callback): void;
+
+    function create<L extends LocationBase>(options: CreateOption<L>): Router;
+
+    interface Router {
+        run(callback: Callback): void;
     }
-    
-    interface RouteHandlerMixin {
-        getRouteDepth(): number;
-        createChildRouteHandler(props: {}): RouteHandler;
-    }
-    
+
     interface State {
-        getPath(): string;
-        getRoutes(): Route[];
-        getPathname(): string;
-        getParams(): {};
-        getQuery(): {};
-        isActive(to: string, params?: {}, query?: {}): boolean;
+        path: string;
+        action: string;
+        pathname: string;
+        params: any;
+        query: any;
+        routes: Route
     }
-    
-    var Navigation: Navigation;
-    var State: State;
-    var RouteHandlerMixin: RouteHandlerMixin;
-    
-    
-    //
-    // Component
-    // ----------------------------------------------------------------------
-    // DefaultRoute
-    interface DefaultRouteProp {
-        name?: string;
-        handler: React.ComponentClass<any>;
+
+    interface CreateOption<L extends LocationBase> {
+        routes: Route;
+        location?: L;
+        scrollBehavior?: ScrollBehavior;
     }
-    interface DefaultRoute extends React.ReactElement<DefaultRouteProp> {
-        __react_router_default_route__: any; // dummy
+
+    interface Callback {
+        (Handler: React.ComponentClass<any>, state: State): void;
     }
-    interface DefaultRouteClass extends React.ComponentClass<DefaultRouteProp> {
-        __react_router_default_route__: any; // dummy
+
+    interface Context {
+        transitionTo(to: string, params?: any, query?: any): void;
+        replaceWith(to: string, params?: any, query?: any): void;
+        goBack(): void;
+        makePath(to: string, params?: any, query?: any): string;
+        makeHref(to: string, params?: any, query?: any): string;
+
+        getCurrentPath(): string;
+        getCurrentPathname(): string;
+        getCurrentParams(): any;
+        getCurrentQuery(): string;
+        isActive(routeName: string, params: any, query: any): boolean;
+        getCurrentRoutes(): Route[];
     }
-    
-    // Link
-    interface LinkProp {
-        activeClassName?: string;
-        to: string;
-        params?: {};
-        query?: {};
-        onClick?: Function;
-    }
-    interface Link extends React.ReactElement<LinkProp>, Navigation, State {
-        __react_router_link__: any; // dummy
-        
-        getHref(): string;
-        getClassName(): string;
-    }
-    interface LinkClass extends React.ComponentClass<LinkProp> {
-        __react_router_link__: any; // dummy
-    }
-    
-    // NotFoundRoute
-    interface NotFoundRouteProp {
-        name?: string;
-        handler: React.ComponentClass<any>;
-    }
-    interface NotFoundRoute extends React.ReactElement<NotFoundRouteProp> {
-        __react_router_not_found_route__: any; // dummy
-    }
-    interface NotFoundRouteClass extends React.ComponentClass<NotFoundRouteProp> {
-        __react_router_not_found_route__: any; // dummy
-    }
-    
-    // Redirect
-    interface RedirectProp {
-        path?: string;
-        from?: string;
-        to?: string;
-    }
-    interface Redirect extends React.ReactElement<RedirectProp> {
-        __react_router_redirect__: any; // dummy
-    }
-    interface RedirectClass extends React.ComponentClass<RedirectProp> {
-        __react_router_redirect__: any; // dummy
-    }
-    
-    // Route
-    interface RouteProp {
-        name?: string;
-        path?: string;
-        handler?: React.ComponentClass<any>;
-        ignoreScrollBehavior?: boolean;
-    }
-    interface Route extends React.ReactElement<RouteProp> {
-        __react_router_route__: any; // dummy
-    }
-    interface RouteClass extends React.ComponentClass<RouteProp> {
-        __react_router_route__: any; // dummy
-    }
-    
-    // RouteHandler
-    interface RouteHandlerProp {}
-    interface RouteHandler extends React.ReactElement<RouteHandlerProp>, RouteHandlerMixin {
-        __react_router_route_handler__: any; // dummy
-    }
-    interface RouteHandlerClass extends React.ReactElement<RouteHandlerProp> {
-        __react_router_route_handler__: any; // dummy
-    }
-    
-    var DefaultRoute: DefaultRouteClass;
-    var Link: LinkClass;
-    var NotFoundRoute: NotFoundRouteClass;
-    var Redirect: RedirectClass;
-    var Route: RouteClass;
-    var RouteHandler: RouteHandlerClass;
-    
-    
-    //
-    // Location
-    // ----------------------------------------------------------------------
+
     interface LocationBase {
-        push(path: string): void;
-        replace(path: string): void;
-        pop(): void;
         getCurrentPath(): void;
+        toString(): string;
     }
-    
+
     interface LocationListener {
         addChangeListener(listener: Function): void;
         removeChangeListener(listener: Function): void;
     }
-    
-    interface HashLocation extends LocationBase, LocationListener {}
-    interface HistoryLocation extends LocationBase, LocationListener {}
-    interface RefreshLocation extends LocationBase {}
-    
-    var HashLocation: HashLocation;
-    var HistoryLocation: HistoryLocation;
+
+    interface MutableLocation {
+        push(path: string): void;
+        replace(path: string): void;
+        pop(): void;
+    }
+
+    interface Location extends LocationBase, LocationListener, MutableLocation {}
+    interface RefreshLocation extends LocationBase, MutableLocation {}
+
+    var HashLocation:    Location;
+    var HistoryLocation: Location;
     var RefreshLocation: RefreshLocation;
-    
-    
-    //
-    // Behavior
-    // ----------------------------------------------------------------------
-    interface ScrollBehaviorBase {
-        updateScrollPosition(position: {x: number; y: number;}, actionType: string): void;
-    }
-    interface ImitateBrowserBehavior extends ScrollBehaviorBase {}
-    interface ScrollToTopBehavior extends ScrollBehaviorBase {}
-    
-    var ImitateBrowserBehavior: ImitateBrowserBehavior;
-    var ScrollToTopBehavior: ScrollToTopBehavior;
-    
-    
-    //
-    // Router
-    // ----------------------------------------------------------------------
-    interface Router extends React.ReactElement<any> {
-        run(callback: RouterRunCallback): void;
-    }
-    
-    interface RouterState {
-        path: string;
-        action: string;
-        pathname: string;
-        params: {};
-        query: {};
-        routes : Route[];
-    }
-    
-    interface RouterCreateOption {
-        routes: Route;
-        location?: LocationBase;
-        scrollBehavior?: ScrollBehaviorBase;
-    }
-    
-    type RouterRunCallback = (Handler: Router, state: RouterState) => void;
-    
-    function create(options: RouterCreateOption): Router;
-    function run(routes: Route, callback: RouterRunCallback): Router;
-    function run(routes: Route, location: LocationBase, callback: RouterRunCallback): Router;
-    
-    
-    //
-    // History
-    // ----------------------------------------------------------------------
-    interface History {
-        back(): void;
-        length: number;
-    }
-    var History: History;
-    
-    
-    //
-    // Transition
-    // ----------------------------------------------------------------------
+    var LocationBase:    LocationBase;
+    var TestLocation:    Location;
+
     interface Transition {
         abort(): void;
-        redirect(to: string, params?: {}, query?: {}): void;
+        redirect(to: string, params?: any, query?: any): void;
         retry(): void;
     }
-    
-    interface TransitionStaticLifecycle {
-        willTransitionTo?(
+
+    //
+    // Renderable Components
+    //
+    interface RouteHandler extends React.ComponentClass<any> {
+        willTransitionTo(
             transition: Transition,
-            params: {},
-            query: {},
+            params: any,
+            query: any,
             callback: Function
         ): void;
-        
-        willTransitionFrom?(
+
+        willTransitionFrom(
             transition: Transition,
             component: React.ReactElement<any>,
             callback: Function
         ): void;
     }
-}
 
-declare module 'react-router' {
-    import Export = ReactRouter;
-    export = Export;
-}
+    var RouteHandler: RouteHandler;
 
-declare module React {
-    interface TopLevelAPI {
-        // for DefaultRoute
-        createElement(
-            type: ReactRouter.DefaultRouteClass,
-            props: ReactRouter.DefaultRouteProp,
-            ...children: ReactNode[]
-        ): ReactRouter.DefaultRoute;
-        
-        // for Link
-        createElement(
-            type: ReactRouter.LinkClass,
-            props: ReactRouter.LinkProp,
-            ...children: ReactNode[]
-        ): ReactRouter.Link;
-        
-        // for NotFoundRoute
-        createElement(
-            type: ReactRouter.NotFoundRouteClass,
-            props: ReactRouter.NotFoundRouteProp,
-            ...children: ReactNode[]
-        ): ReactRouter.NotFoundRoute;
-        
-        // for Redirect
-        createElement(
-            type: ReactRouter.RedirectClass,
-            props: ReactRouter.RedirectProp,
-            ...children: ReactNode[]
-        ): ReactRouter.Redirect;
-        
-        // for Route
-        createElement(
-            type: ReactRouter.RouteClass,
-            props: ReactRouter.RouteProp,
-            ...children: ReactNode[]
-        ): ReactRouter.Route;
-        
-        // for RouteHandler
-        createElement(
-            type: ReactRouter.RouteHandlerClass,
-            props: ReactRouter.RouteHandlerProp,
-            ...children: ReactNode[]
-        ): ReactRouter.RouteHandler;
+    // Link.propTypes = {
+    //     activeClassName: PropTypes.string.isRequired,
+    //     to: PropTypes.oneOfType([ PropTypes.string, PropTypes.route ]).isRequired,
+    //     params: PropTypes.object,
+    //     query: PropTypes.object,
+    //     activeStyle: PropTypes.object,
+    //     onClick: PropTypes.func
+    // };
+    interface LinkProp {
+        activeClassName?: string; // defaults to 'active'
+        to: string | Route;
+        params?: any;
+        query?: any;
+        activeStyle?: any;
+        onClick?: Function;
     }
+
+    var Link: React.ComponentClass<LinkProp>;
+
+    //
+    // Configuration Components
+    //
+
+    // Route.propTypes = {
+    //   name: PropTypes.string,
+    //   path: PropTypes.string,
+    //   handler: PropTypes.func,
+    //   ignoreScrollBehavior: PropTypes.bool
+    // };
+    interface RouteProp {
+        name?: string;
+        path?: string;
+        handler: Function;
+        ignoreScrollBehavior?: boolean
+    }
+
+    type Route = React.ReactElement<RouteProp>;
+
+    var Route:         React.ComponentClass<RouteProp>;
+    var DefaultRoute:  React.ComponentClass<RouteProp>;
+    var NotFoundRoute: React.ComponentClass<RouteProp>;
+
+    // Redirect.propTypes = {
+    //   path: PropTypes.string,
+    //   from: PropTypes.string, // Alias for path.
+    //   to: PropTypes.string,
+    //   handler: PropTypes.falsy
+    // };
+    interface RedirectProp {
+        path?: string;
+        from?: string;
+        to?: string;
+        handler?: any;
+    }
+    var Redirect: React.ComponentClass<RedirectProp>;
+
+    interface ScrollBehavior {
+        updateScrollPosition(position: { x: number; y: number; }, actionType: string): void;
+    }
+
+    var ImitateBrowserBehavior: ScrollBehavior;
+    var ScrollToTopBehavior:    ScrollBehavior;
+}
+
+declare module "react-router" {
+    export = ReactRouter
 }

@@ -1,326 +1,88 @@
-///<reference path="react-router.d.ts" />
-"use strict";
+/// <reference path="../react/react-global.d.ts" />
+/// <reference path="react-router.d.ts" />
+///
+// From https://github.com/rackt/react-router/blob/master/docs/guides/overview.md
 
-import React = require('react');
 import Router = require('react-router');
 
-// Mixin
-class NavigationTest<T extends Router.Navigation> {
-    v: T;
-    
-    makePath() {
-        var v1: string = this.v.makePath('to');
-        var v2: string = this.v.makePath('to', {id: 1});
-        var v3: string = this.v.makePath('to', {id: 1}, {type: 'json'});
-    }
-    makeHref() {
-        var v1: string = this.v.makeHref('to');
-        var v2: string = this.v.makeHref('to', {id: 1});
-        var v3: string = this.v.makeHref('to', {id: 1}, {type: 'json'});
-    }
-    transitionTo() {
-        var v1: void = this.v.transitionTo('to');
-        var v2: void = this.v.transitionTo('to', {id: 1});
-        var v3: void = this.v.transitionTo('to', {id: 1}, {type: 'json'});
-    }
-    replaceWith() {
-        var v1: void = this.v.replaceWith('to');
-        var v2: void = this.v.replaceWith('to', {id: 1});
-        var v3: void = this.v.replaceWith('to', {id: 1}, {type: 'json'});
-    }
-    goBack() {
-        var v1: void = this.v.goBack();
+var DefaultRoute = React.createFactory(Router.DefaultRoute);
+var Link         = React.createFactory(Router.Link);
+var Route        = React.createFactory(Router.Route);
+var RouteHandler = React.createFactory(Router.RouteHandler);
+
+var DOM = React.DOM;
+
+class App extends React.Component<any, any> {
+    DisplayName = 'App';
+    render() {
+        return DOM.div(
+            {},
+            DOM.header(
+                {},
+                DOM.ul(
+                    {},
+                    DOM.li({}, Link({to: 'app'}, 'Dashboard')),
+                    DOM.li({}, Link({to: 'inbox'}, 'Inbox')),
+                    DOM.li({}, Link({to: 'calendar'}, 'Calendar'))),
+                'Logged in as Jane'),
+            //
+            // Or you can write RouteHandler({}), using the factory
+            // created above
+            //
+            React.createElement(Router.RouteHandler, {}));
     }
 }
 
-class StateTest<T extends Router.State> {
-    v: T;
-    
-    getPath() {
-        var v1: string = this.v.getPath();
-    }
-    
-    getRoutes() {
-        var v1: Router.Route[] = this.v.getRoutes();
-    }
-    
-    getPathname() {
-        var v1: string = this.v.getPathname();
-    }
-    
-    getParams() {
-        var v1: {} = this.v.getParams();
-    }
-    
-    getQuery() {
-        var v1: {} = this.v.getQuery();
-    }
-    
-    isActive() {
-        var v1: boolean = this.v.isActive('to');
-        var v2: boolean = this.v.isActive('to', {id: 1});
-        var v3: boolean = this.v.isActive('to', {id: 1}, {type: 'json'});
+class Inbox extends React.Component<any, any> {
+    DisplayName = 'Inbox';
+    render() {
+        return DOM.div(
+            {},
+            React.createElement(Toolbar, {}),
+            React.createElement(Messages, {}),
+            RouteHandler({})
+        );
     }
 }
 
-class RouteHandlerMixinTest<T extends Router.RouteHandlerMixin> {
-    v: T;
-    
-    getRouteDepth() {
-        var v1: number = this.v.getRouteDepth();
-    }
-    
-    createChildRouteHandler() {
-        var v1: Router.RouteHandler = this.v.createChildRouteHandler({ref: 'hoge'});
-    }
+class Calendar extends React.Component<any, any> {
+    DisplayName = 'Calendar';
+    render = () => DOM.p ({}, 'Calendar');
 }
 
-
-// Location
-class LocationTest<T extends Router.LocationBase> {
-    v: T;
-    
-    push() {
-        var v1: void = this.v.push('path/to/hoge');
-    }
-    
-    replace() {
-        var v1: void = this.v.replace('path/to/hoge');
-    }
-    
-    pop() {
-        var v1: void = this.v.pop();
-    }
-    
-    getCurrentPath() {
-        var v1: void = this.v.getCurrentPath();
-    }
-}
-new LocationTest<Router.HashLocation>();
-new LocationTest<Router.HistoryLocation>();
-new LocationTest<Router.RefreshLocation>();
-
-class LocationListenerTest<T extends Router.LocationListener> {
-    v: T;
-    
-    addChangeListener() {
-        var v1: void = this.v.addChangeListener(() => console.log(1));
-    }
-    
-    removeChangeListener() {
-        var v1: void = this.v.removeChangeListener(() => console.log(1));
-    }
-}
-new LocationListenerTest<Router.HashLocation>();
-new LocationListenerTest<Router.HistoryLocation>();
-
-
-// Behavior
-class ScrollBehaviorTest<T extends Router.ScrollBehaviorBase> {
-    v: T;
-    
-    updateScrollPosition() {
-        var v1: void = this.v.updateScrollPosition({x: 33, y: 102}, 'scrollTop');
-    }
-}
-new ScrollBehaviorTest<Router.ImitateBrowserBehavior>();
-new ScrollBehaviorTest<Router.ScrollToTopBehavior>();
-
-
-// Component
-class DefaultRouteTest {
-    v: Router.DefaultRoute;
-    
-    props() {
-        var name: string = this.v.props.name;
-        var handler: React.ComponentClass<any> = this.v.props.handler;
-    }
-    
-    createElement() {
-        var Handler: React.ComponentClass<any>;
-        React.createElement(Router.DefaultRoute, null);
-        React.createElement(Router.DefaultRoute, {name: 'name', handler: Handler});
-    }
+class Dashboard extends React.Component<any, any> {
+    DisplayName = 'Dashboard';
+    render = () => DOM.p ({}, 'Dashboard');
 }
 
-class LinkTest {
-    v: Router.Link;
-    
-    constructor() {
-        new NavigationTest<Router.Link>();
-        new StateTest<Router.Link>();
-    }
-    
-    props() {
-        var activeClassName: string = this.v.props.activeClassName;
-        var to: string = this.v.props.to;
-        var params: {} = this.v.props.params;
-        var query: {} = this.v.props.query;
-        var onClick: Function = this.v.props.onClick;
-    }
-    
-    getHref() {
-        var v1: string = this.v.getHref();
-    }
-    
-    getClassName() {
-        var v1: string = this.v.getClassName();
-    }
-    
-    createElement() {
-        React.createElement(Router.Link, null);
-        React.createElement(Router.Link, {to: 'home'});
-        React.createElement(Router.Link, {
-            activeClassName: 'name',
-            to: 'home',
-            params: {},
-            query: {},
-            onClick: () => console.log(1)
-        });
-    }
+class Toolbar extends React.Component<any, any> {
+    DisplayName = 'Toolbar';
+    render = () => DOM.p ({}, 'Toolbar');
 }
 
-class NotFoundRouteTest {
-    v: Router.NotFoundRoute;
-    
-    props() {
-        var name: string = this.v.props.name;
-        var handler: React.ComponentClass<any> = this.v.props.handler;
+class Messages extends React.Component<any, any> {
+    static contextTypes: React.ValidationMap<Router.Context> = {
+        router: React.PropTypes.func
     }
-    
-    createElement() {
-        var Handler: React.ComponentClass<any>;
-        React.createElement(Router.NotFoundRoute, null);
-        React.createElement(Router.NotFoundRoute, {handler: Handler});
-        React.createElement(Router.NotFoundRoute, {handler: Handler, name: "home"});
-    }
+
+    DisplayName = 'Messages';
+    render() { return DOM.p ({}, this.context.router.getCurrentParams().messageId); }
 }
 
-class RedirectTest {
-    v: Router.Redirect;
-    
-    props() {
-        var path: string = this.v.props.path;
-        var from: string = this.v.props.from;
-        var to: string = this.v.props.to;
-    }
-    
-    createElement() {
-        React.createElement(Router.Redirect, null);
-        React.createElement(Router.Redirect, {});
-        React.createElement(Router.Redirect, {path: 'a', from: 'a', to: 'b'});
-    }
+class InboxStats extends React.Component<any, any> {
+    DisplayName = 'InboxStats';
+    render = () => DOM.p ({}, 'InboxStats');
 }
 
-class RouteTest {
-    v: Router.Route;
-    
-    props() {
-        var name: string = this.v.props.name;
-        var path: string = this.v.props.path;
-        var handler: React.ComponentClass<any> = this.v.props.handler;
-        var ignoreScrollBehavior: boolean = this.v.props.ignoreScrollBehavior;
-    }
-    
-    createElement() {
-        var Handler: React.ComponentClass<any>;
-        React.createElement(Router.Route, null);
-        React.createElement(Router.Route, {});
-        React.createElement(Router.Route, {name: "home", path: "/", handler: Handler, ignoreScrollBehavior: true});
-    }
-}
+var routes = Route(
+    { name: 'app', path: '/', handler: App },
+    Route(
+        { name: 'inbox', handler: Inbox },
+        Route({ name: 'message', path: ':messageId', handler: Messages }),
+        DefaultRoute({ handler: InboxStats })),
+    Route({name: 'calendar', handler: Calendar }),
+    DefaultRoute({ handler: Dashboard}));
 
-class RouteHandlerTest {
-    v: Router.RouteHandler;
-    
-    constructor() {
-        new RouteHandlerMixinTest<Router.RouteHandler>();
-    }
-    
-    createElement() {
-        React.createElement(Router.RouteHandler, null);
-        React.createElement(Router.RouteHandler, {});
-    }
-}
-
-
-// History
-class HistoryTest {
-    v: Router.History;
-    
-    length() {
-        var v1: number = this.v.length;
-    }
-    
-    back() {
-        var v1: void = this.v.back();
-    }
-}
-
-
-// Router
-class CreateTest {
-    v: Router.Router;
-    
-    constructor() {
-        this.v = Router.create({
-            routes: React.createElement(Router.Route, null)
-        });
-        this.v = Router.create({
-            routes: React.createElement(Router.Route, null),
-            location: Router.HistoryLocation,
-            scrollBehavior: Router.ImitateBrowserBehavior
-        });
-    }
-    
-    run() {
-        this.v.run((Handler) => console.log(Handler));
-        this.v.run((Handler, state) => console.log(Handler, state));
-    }
-}
-
-class RunTest {
-    constructor() {
-        var v1: Router.Router = Router.run(React.createElement(Router.Route, null), (Handler) => {
-            React.render(React.createElement(Handler, null), document.body);
-        });
-        var v2: Router.Router = Router.run(React.createElement(Router.Route, null), Router.HistoryLocation, (Handler, state) => {
-            React.render(React.createElement(Handler, null), document.body);
-        });
-    }
-}
-
-
-// Transition
-class TransitionTest {
-    constructor() {
-        var v1: Router.TransitionStaticLifecycle = {
-            willTransitionTo: (transition, params, query, callback) => {
-                transition.abort();
-                transition.redirect('to');
-                transition.redirect('to', {id: 1});
-                transition.redirect('to', {id: 1}, {type: 'json'});
-                transition.retry();
-            },
-            willTransitionFrom: (transition, component, callback) => {}
-        };
-        var v2: Router.TransitionStaticLifecycle = {
-            willTransitionTo: (transition, params, query) => {},
-            willTransitionFrom: (transition, component) => {}
-        };
-        var v3: Router.TransitionStaticLifecycle = {
-            willTransitionTo: (transition, params) => {},
-            willTransitionFrom: (transition) => {}
-        };
-        var v4: Router.TransitionStaticLifecycle = {
-            willTransitionTo: (transition) => {},
-            willTransitionFrom: () => {}
-        };
-        var v5: Router.TransitionStaticLifecycle = {
-            willTransitionTo: () => {}
-        };
-        var v6: Router.TransitionStaticLifecycle = {
-            willTransitionFrom: () => {}
-        };
-    }
-}
+Router.run(routes, function (Handler) {
+    React.render(React.createElement(Handler, {}), document.body);
+});
