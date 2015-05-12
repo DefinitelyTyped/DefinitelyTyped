@@ -3,13 +3,10 @@
 // Definitions by: Rob Alarcon <https://github.com/rob-alarcon/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-
-
 // Interface options for the plugin 
 interface JQueryFileInputOptions {
 
-	// The drop target element(s), by the default the complete document.
+    // The drop target element(s), by the default the complete document.
     // Set to null to disable drag & drop support:
     dropZone?: HTMLElement;
 
@@ -28,7 +25,6 @@ interface JQueryFileInputOptions {
     // queues and allows change events to be fired for the same file
     // selection, but can be disabled by setting the following option to false:
     replaceFileInput?: boolean;
-
 
     // The parameter name for the file form data (the request argument name).
     // If undefined or empty, the name property of the file input field is
@@ -152,13 +148,16 @@ interface JQueryFileInputOptions {
 
 }
 
-interface JQueryFileUpload {
-
-    contentType:string;
+// Extends JQuery to enable chaining
+interface JQueryFileUpload extends JQuery {
+    contentType: string;
 }
 
-interface JQuery
-{
+interface JQuery {
     // Interface to the main method of jQuery File Upload
     fileupload(settings: JQueryFileInputOptions): JQueryFileUpload;
+}
+
+interface JQuerySupport {
+    fileInput?: boolean;
 }
