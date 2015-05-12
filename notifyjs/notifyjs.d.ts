@@ -1,4 +1,4 @@
-// Type definitions for notify.js 1.2.0
+// Type definitions for notify.js 1.2.3
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -27,6 +27,7 @@ declare var Notify: {
 
     /**
      * shows the user's current permission level (granted, denied or default), returns null if notifications are not supported.
+     * @return 'granted' : permission has been given, 'denied' : permission has been denied, 'default' : permission has not yet been set, null : notifications are not supported
      */
     permissionLevel: string;
 }
