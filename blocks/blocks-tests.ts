@@ -1,7 +1,7 @@
 /// <reference path="blocks.d.ts" />
 
 function test_blocks_methods() {
-	var extended;
+	var extended: Object;
 	blocks.extend(extended, new Object());
 
 	blocks.each([3, 1, 4], function(value, index, collection) {
@@ -24,7 +24,7 @@ function test_blocks_methods() {
 		// -> false
 	}
 
-	function max(collection, callback) {
+	function max(collection: any, callback: any) {
 		callback = callback || blocks.noop;
 	}
 
@@ -119,21 +119,19 @@ function test_blocks_methods() {
 	blocks.isPlainObject(new Object());
 	// -> true
 
-	function Car() {
+	var car = new Object();
 
-	}
-
-	blocks.isPlainObject(new Car());
+	blocks.isPlainObject(car);
 	// -> false
 
-	var alert = blocks.bind(function() {
+	var alert = blocks.bind(() => {
 		alert(this);
 	}, 'Hello bind method!');
 
 	alert();
 	// -> alerts 'Hello bind method'
 
-	var alertAll = blocks.bind(function(firstName, lastName) {
+	var alertAll = blocks.bind((firstName: string, lastName: string) => {
 		alert('My name is ' + firstName + ' ' + lastName);
 	}, null, 'John', 'Doe');
 
@@ -150,16 +148,16 @@ function test_blocks_methods() {
 		message: 'Hello World!'
 	});
 
-    blocks.query({
+	blocks.query({
 		items: ['John', 'Alf', 'Mega'],
-		alertIndex: function(e) {
+		alertIndex: (e: any) => {
 			alert('Clicked an item with index:' + blocks.context(e.target).$index);
 		}
 	});
 
 	blocks.query({
 		items: [1, 2, 3],
-		alertValue: function(e) {
+		alertValue: (e: any) => {
 			alert('Clicked the value: ' + blocks.dataItem(e.target));
 		}
 	});
@@ -175,15 +173,6 @@ function test_blocks_methods() {
 
 	blocks.unwrapObservable(305);
 	// -> 305
-}
-
-function test_observable() {
-	blocks.observable['formatter'] = () => {
-		// your code here
-	};
-
-	// extending using the formatter extender
-	var data = blocks.observable([1, 2, 3]).extend('formatter');
 }
 
 function test_observable_array() {
@@ -272,7 +261,7 @@ function test_Collection() {
 
 	var Users = App.Collection(User, {
 		count: App.Property({
-			value: function() {
+			value: () => {
 				return this().length;
 			}
 		})
@@ -293,18 +282,18 @@ function test_View() {
 	var App = blocks.Application();
 
 	App.View('Clicker', {
-		handleClick: function() {
+		handleClick: () => {
 			alert('Clicky! Click!');
 		}
 	});
 
 
 	App.View('Statistics', {
-		init: function() {
+		init: () => {
 			this.loadRemoteData();
 		},
 
-		loadRemoteData: function() {
+		loadRemoteData: () => {
 			// ...stuff...
 		}
 	});
@@ -314,7 +303,7 @@ function test_View() {
 			route: 'contactus'
 		},
 
-		routed: function() {
+		routed: () => {
 			alert('Navigated to ContactUs page!')
 		}
 	});
@@ -326,7 +315,7 @@ function test_View() {
 	});
 
 	App.View('Navigation', {
-		navigateToContactUs: function() {
+		navigateToContactUs: () => {
 			this.route('contactus')
 		}
 	});
