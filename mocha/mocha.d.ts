@@ -52,7 +52,7 @@ interface MochaDone {
 
 declare var mocha: Mocha;
 
-declare var describe : {
+declare var describe: {
     (description: string, spec: () => void): void;
     only(description: string, spec: () => void): void;
     skip(description: string, spec: () => void): void;
@@ -60,14 +60,33 @@ declare var describe : {
 }
 
 // alias for `describe`
-declare var context : {
+declare var context: {
     (contextTitle: string, spec: () => void): void;
     only(contextTitle: string, spec: () => void): void;
     skip(contextTitle: string, spec: () => void): void;
     timeout(ms: number): void;
-}
+};
+
+// alias for `describe`
+declare var suite: {
+    (suiteTitle: string, spec: () => void): void;
+    only(suiteTitle: string, spec: () => void): void;
+    skip(suiteTitle: string, spec: () => void): void;
+    timeout(ms: number): void;
+};
 
 declare var it: {
+    (expectation: string, assertion?: () => void): void;
+    (expectation: string, assertion?: (done: MochaDone) => void): void;
+    only(expectation: string, assertion?: () => void): void;
+    only(expectation: string, assertion?: (done: MochaDone) => void): void;
+    skip(expectation: string, assertion?: () => void): void;
+    skip(expectation: string, assertion?: (done: MochaDone) => void): void;
+    timeout(ms: number): void;
+};
+
+// alias for `it`
+declare var test: {
     (expectation: string, assertion?: () => void): void;
     (expectation: string, assertion?: (done: MochaDone) => void): void;
     only(expectation: string, assertion?: () => void): void;
