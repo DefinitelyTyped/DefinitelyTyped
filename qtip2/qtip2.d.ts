@@ -98,8 +98,8 @@ declare module QTip2 {
 		classes?: string | boolean;
 		def?: boolean;
 		widget?: boolean;
-		width: string | number | boolean;
-		height: string | number | boolean;
+		width?: string | number | boolean;
+		height?: string | number | boolean;
 		tip?: string | boolean | Tip;
 	}
 
