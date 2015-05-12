@@ -27,7 +27,7 @@ interface BlocksStatic {
 	/**
 	 * Copies properties from all provided objects into the first object parameter
 	 */
-	extend(obj: Object, ...objects): void;
+	extend(obj: Object, ...objects: any[]): void;
 
 	/**
 	 * Iterates over the collection
@@ -173,7 +173,7 @@ interface BlocksStatic {
 	 * @param thisArg The new this binding context value
 	 * @param args Optional arguments that will be passed to the function
 	 */
-	bind(func: Function, thisArg: any, ...args): Function;
+	bind(func: Function, thisArg: any, ...args: any[]): Function;
 	
 	/**
 	 * Determines if two values are deeply equal. Set deepEqual to false to stop recusively equality checking
@@ -228,11 +228,11 @@ interface BlocksStatic {
 	/**
 	 * Creates the server which will automatically handle server-side rendering.
 	 */
-	server(): { express() };
+	server(): { express(): any };
 	/**
 	 * @param options Overrides default jsblocks options
 	 */
-	server(options: Server): { express() };
+	server(options: Server): { express(): any };
 	
 	/**
 	* Make observable property. You can specify initial value in parentheses.
@@ -253,7 +253,7 @@ interface BlocksStatic {
 /////////////////////////////////////////
 
 interface BlocksObservable extends Extendable<BlocksObservable> {
-	(any): BlocksObservable;
+	(arg: any): BlocksObservable;
 	
 	/**
 	 * Updates all elements, expressions and dependencies where the observable is used
@@ -287,12 +287,12 @@ interface BlocksArray extends BlocksObservable {
 	 * 
 	 * @param options Optional options
 	 */
-	extend(...options): BlocksArray;
+	extend(...options: any[]): BlocksArray;
 	/**
 	 * @param name Name of the extender
 	 * @param options Optional options
 	 */
-	extend(name: string, ...options): BlocksArray;
+	extend(name: string, ...options: any[]): BlocksArray;
 
 	/**
 	 * Removes all items from the collection and replaces them with the new value provided.
@@ -419,7 +419,7 @@ interface BlocksArray extends BlocksObservable {
 	 * 
 	 * @param values The item(s) to add to the observable array
 	 */
-	push(...values): number;
+	push(...values: any[]): number;
 	
 	/**
 	 * Reverses the order of the elements in the observable array
@@ -576,7 +576,7 @@ interface ViewPrototype {
 	ready?: Function;
 
 	options?: {
-		route?: any,
+		route?: any;
 		url?: string
 	};
 }
@@ -636,12 +636,12 @@ interface ModelPrototype {
 	isNew?(): boolean;
 
 	options?: {
-		idAttr?: string,
-		baseUrl?: string,
-		read?: { url?: string },
-		create?: { url?: string },
-		destroy?: { url?: string },
-		update?: { url?: string },
+		idAttr?: string;
+		baseUrl?: string;
+		read?: { url?: string };
+		create?: { url?: string };
+		destroy?: { url?: string };
+		update?: { url?: string };
 	};
 }
 
@@ -677,10 +677,10 @@ interface Collection extends Extendable<Collection> {
 
 interface CollectionPrototype {
 	options?: {
-		read?: { url?: string },
-		create?: { url?: string },
-		destroy?: { url?: string },
-		update?: { url?: string },
+		read?: { url?: string };
+		create?: { url?: string };
+		destroy?: { url?: string };
+		update?: { url?: string };
 	};
 }
 
@@ -694,8 +694,8 @@ interface Extendable<T> {
 	 * @param name Name of the extender
 	 * @param options Optional options
 	 */
-	extend(name?: string, ...options): T;
-	extend(any): T;
+	extend(name?: string, ...options: any[]): T;
+	extend(arg: any): T;
 }
 
 interface Server {
@@ -703,25 +703,25 @@ interface Server {
 	/**
 	 * The port at which your application will be run
 	 */
-	port?: number,
+	port?: number;
 	
 	/**
-	 * The folder where your application files like .html, .js and .css are going to be.
+	 * The folder where your application files like .html; .js and .css are going to be.
      * The value is passed to express.static() middleware.
 	 */
-	static?: string,
+	static?: string;
 	
 	/**
 	 * Caches pages result instead of executing them each time.
      * Disabling cache could impact performance.
 	 */
-	cache?: boolean,
+	cache?: boolean;
 	
 	/**
 	 * Provide an express middleware function or an array of middleware functions.
-	 * Use: [compression(), bodyParser()]
+	 * Use: [compression(); bodyParser()]
 	 */
-	use?: any,
+	use?: any;
 }
 
 declare var blocks: BlocksStatic;
