@@ -3,6 +3,8 @@
 // Definitions by: [Exceptionless] <https://github.com/exceptionless>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../es6-promise/es6-promise.d.ts"/>
+
 declare module StackTrace {
   export interface StackTraceOptions {
     filter?: (stackFrame:StackFrame) => boolean;
