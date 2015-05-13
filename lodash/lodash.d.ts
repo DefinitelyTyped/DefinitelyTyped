@@ -5672,16 +5672,39 @@ declare module _ {
         methods(): _.LoDashArrayWrapper<string>;
     }
 
+    //_.get
+    interface LoDashStatic {
+        /**
+         * Gets the property value of path on object.
+         * If the resolved value is undefined the defaultValue is used in its place.
+         * @param object The object to query.
+         * @param path The path of the property to get.
+         * @param defaultValue Returns the resolved value.
+         * @return Returns the resolved value.
+         **/
+        get<T>(object: any, path: string, defaultValue?: T): T;
+
+        /**
+         * @see _.get
+         **/
+        get<T>(object: any, path: Array<string>, defaultValue?: T): T;
+    }
+
     //_.has
     interface LoDashStatic {
         /**
-        * Checks if the specified object property exists and is a direct property, instead of an 
+        * Checks if the specified object property exists and is a direct property, instead of an
         * inherited property.
-        * @param object The object to check.
-        * @param property The property to check for.
-        * @return True if key is a direct property, else false.
+        * @param object The object to query.
+        * @param path The path to check.
+        * @return True if path is a direct property, else false.
         **/
-        has(object: any, property: string): boolean;
+        has(object: any, path: string): boolean;
+
+        /**
+         * @see _.has
+         **/
+        has(object: any, path: Array<string>): boolean;
     }
 
     //_.invert
@@ -6285,14 +6308,25 @@ declare module _ {
     //_.result
     interface LoDashStatic {
         /**
-        * Resolves the value of property on object. If property is a function it will be invoked with 
-        * the this binding of object and its result returned, else the property value is returned. If 
-        * object is falsey then undefined is returned.
-        * @param object The object to inspect.
-        * @param property The property to get the value of.
+        * Resolves the value of property on object. If property is a function it will be invoked with
+        * the this binding of object and its result returned, else the property value is returned. If
+        * object is false then undefined is returned.
+        * @param object The object to query.
+        * @param path The path of the property to resolve.
+        * @param defaultValue The value returned if the resolved value is undefined.
         * @return The resolved value.
         **/
-        result(object: any, property: string): any;
+        result(object: any, path: string, defaultValue?: any): any;
+
+        /**
+         * @see _.result
+         **/
+        result<T>(object: any, path: string, defaultValue?: T): T;
+
+        /**
+         * @see _.result
+         **/
+        result<T>(object: any, path: Array<string>, defaultValue?: T): T;
     }
 
     //_.runInContext
