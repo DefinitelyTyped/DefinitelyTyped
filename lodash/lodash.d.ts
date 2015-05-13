@@ -4401,6 +4401,25 @@ declare module _ {
         sample<T>(collection: Dictionary<T>, n: number): T[];
     }
 
+
+    //_.set
+    interface LoDashStatic {
+        /**
+         * Sets the property value of path on object.
+         * If a portion of path does not exist it is created.
+         * @param object The object to augment.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @return Returns object.
+         **/
+        set(object: any, path: string, value: any): any;
+
+        /**
+         * @see _.set
+         **/
+        set(object: any, path: Array<string>, value: any): any;
+    }
+
     //_.shuffle
     interface LoDashStatic {
         /**
