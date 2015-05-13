@@ -2916,7 +2916,7 @@ declare module Ember {
     **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
-    function observer(func: Function, ...args: string[]): Function;
+    function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
