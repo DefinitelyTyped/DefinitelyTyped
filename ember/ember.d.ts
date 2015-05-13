@@ -2830,7 +2830,7 @@ declare module Ember {
     function compare(v: any, w: any): number;
     // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
-        (callback: Function): ComputedProperty;
+        (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
         any(...args: string[]): ComputedProperty;
