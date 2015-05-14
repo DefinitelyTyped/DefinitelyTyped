@@ -79,7 +79,7 @@ declare module React {
     interface UpdateSpec {
         $set?: any;
         $merge?: {};
-        $apply(value: any)?: any;
+        $apply?(value: any): any;
         // [key: string]: UpdateSpec;
     }
 
