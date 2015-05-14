@@ -611,6 +611,12 @@ result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] }
 result = <IStoogesCombined[]>_(stoogesCombined).where({ 'age': 40 }).value();
 result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }).value();
 
+/********
+ * Date *
+ ********/
+
+result = <number>_.now();
+
 /*************
  * Functions *
  *************/
