@@ -13,7 +13,7 @@ declare module StackTrace {
   }
 
   export interface StackFrame {
-    constructor(functionName:string, args:any, fileName:string, lineNumber:number, columnNumber:number);
+    constructor(functionName:string, args:any, fileName:string, lineNumber:number, columnNumber:number): StackFrame;
 
     functionName?:string;
     args?:any;
@@ -28,7 +28,7 @@ declare module StackTrace {
    * @param options Options Object
    * @return Array[StackFrame]
    */
-  export function get(options: StackTraceOptions): Promise<StackFrame[]>;
+  export function get(options?: StackTraceOptions): Promise<StackFrame[]>;
 
   /**
    * Given an error object, parse it.
@@ -43,7 +43,7 @@ declare module StackTrace {
    * @param options Object options
    * @returns Array[StackFrame]
    */
-  export function generateArtificially(options: StackTraceOptions): Promise<StackFrame[]>;
+  export function generateArtificially(options?: StackTraceOptions): Promise<StackFrame[]>;
 
   /**
    * Given a function, wrap it such that invocations trigger a callback that
@@ -54,7 +54,7 @@ declare module StackTrace {
    * @param {Function} errorCallback optional function to call with error if unable to get stack trace.
    * @param {Object} thisArg optional context object (e.g. window)
    */
-  export function instrument(fn:() => void, callback:(stackFrames:StackFrame[]) => void, errorCallback:() => void, thisArg:any): void;
+  export function instrument(fn:() => void, callback:(stackFrames:StackFrame[]) => void, errorCallback:(error:Error) => void, thisArg?:any): void;
 
   /**
    * Given a function that has been instrumented,
