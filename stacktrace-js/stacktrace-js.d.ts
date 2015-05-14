@@ -1,6 +1,6 @@
 // Type definitions for stacktrace.js
 // Project: https://github.com/stacktracejs/stacktrace.js
-// Definitions by: [Exceptionless] <https://github.com/exceptionless>
+// Definitions by: Exceptionless <https://github.com/exceptionless>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../es6-promise/es6-promise.d.ts"/>
