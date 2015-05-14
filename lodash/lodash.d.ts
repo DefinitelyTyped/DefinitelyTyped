@@ -4795,6 +4795,20 @@ declare module _ {
         where<T, U extends {}>(properties: U): LoDashArrayWrapper<T>;
     }
 
+    /********
+     * Date *
+     ********/
+
+    //_.now
+    interface LoDashStatic {
+        /**
+        * Gets the number of milliseconds that have elapsed since the Unix epoch
+        * (1 January 1970 00:00:00 UTC).
+        * @return The number of milliseconds.
+        **/
+        now(): number;
+    }
+
     /*************
      * Functions *
      *************/
