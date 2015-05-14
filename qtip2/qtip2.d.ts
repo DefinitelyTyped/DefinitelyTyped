@@ -1,6 +1,6 @@
 // Type definitions for qtip2 v2.2.1
 // Project: http://qtip2.com/
-// Definitions by: Nathan Pitman <https://github.com/Seltzer100/>
+// Definitions by: Nathan Pitman <https://github.com/Seltzer>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Notes:
 //   - Type bindings for the QTip2 API and options are included. Bindings for global settings aren't required.
@@ -98,8 +98,8 @@ declare module QTip2 {
 		classes?: string | boolean;
 		def?: boolean;
 		widget?: boolean;
-		width: string | number | boolean;
-		height: string | number | boolean;
+		width?: string | number | boolean;
+		height?: string | number | boolean;
 		tip?: string | boolean | Tip;
 	}
 
