@@ -126,6 +126,9 @@ declare module chrome.app.window {
 
     export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
     export function current(): AppWindow;
+    export function get(id: string): AppWindow;
+    export function getAll(): AppWindow[];
+    export function canSetVisibleOnAllWorkspaces(): boolean;
 
     interface WindowEvent {
         addListener(callback: () => void): void;

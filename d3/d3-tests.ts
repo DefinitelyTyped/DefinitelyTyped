@@ -476,7 +476,7 @@ function callenderView() {
         .style("text-anchor", "middle")
         .text(function (d) { return d; });
 
-    var rect = svg.selectAll(".day")
+    var rect: D3.UpdateSelection = svg.selectAll(".day")
         .data(function (d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
       .enter().append("rect")
         .attr("class", "day")
@@ -960,7 +960,7 @@ function forcedBasedLabelPlacemant() {
 
     var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks)//.enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
 
-    var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+    var anchorNode: D3.Selection = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
     anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
     anchorNode.append("svg:text").text(function (d, i) {
         return i % 2 == 0 ? "" : d.node.label
@@ -1404,7 +1404,7 @@ function quadtree() {
         .attr("width", function (d) { return d.width; } )
         .attr("height", function (d) { return d.height; } );
 
-    var point = svg.selectAll(".point")
+    var point: D3.Selection = svg.selectAll(".point")
         .data(data)
         .enter().append("circle")
         .attr("class", "point")
@@ -2656,4 +2656,18 @@ function multiTest() {
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
+}
+
+// Tests miscellaneous keyboard events
+function keyboardEventsTest() {
+    var keyPressed: string;
+    d3.select("body").on("keydown", () => {
+        if (d3.event.metaKey) {
+            keyPressed = "meta";
+        } else if (d3.event.ctrlKey) {
+            keyPressed = "ctrl";
+        } else if (d3.event.altKey) {
+            keyPressed = "alt";
+        }
+    });
 }

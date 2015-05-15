@@ -470,7 +470,7 @@ declare module google.maps {
         visible?: boolean;
         zIndex?: number;
     }
-    
+
     export enum StrokePosition {
         CENTER,
         INSIDE,
@@ -1346,6 +1346,55 @@ declare module google.maps {
 
     export module places {
 
+        export class AutocompleteService extends MVCObject {
+            constructor();
+            getPlacePredictions(request: AutocompletionRequest, callback: (result: AutocompletePrediction[], status: PlacesServiceStatus) => void): void;
+            getQueryPredictions(request: QueryAutocompletionRequest, callback: (result: QueryAutocompletePrediction[], status: PlacesServiceStatus) => void): void;
+        }
+
+        export interface AutocompletionRequest {
+            input: string;
+            bounds?: LatLngBounds;
+            componentRestrictions?: ComponentRestrictions;
+            location?: LatLng;
+            offset?: number;
+            radius?: number;
+            types?: string[];
+        }
+
+        export interface QueryAutocompletionRequest {
+            input: string;
+            bounds?: LatLngBounds;
+            location?: LatLng;
+            offset?: number;
+            radius?: number;
+        }
+
+        export interface AutocompletePrediction {
+            description: string;
+            matched_substrings: PredictionSubstring[];
+            place_id: string;
+            terms: PredictionTerm[];
+            types: string[]
+        }
+
+        export interface PredictionTerm {
+            offset: number;
+            value: string;
+        }
+
+        export interface PredictionSubstring {
+            length: number;
+            offset: number;
+        }
+
+        export interface QueryAutocompletePrediction {
+            description: string;
+            matched_substrings: PredictionSubstring[];
+            place_id: string;
+            terms: PredictionTerm[];
+        }
+
         export class Autocomplete extends MVCObject {
             constructor (inputField: HTMLInputElement, opts?: AutocompleteOptions);
             getBounds(): LatLngBounds;
@@ -1365,8 +1414,19 @@ declare module google.maps {
             country: string;
         }
 
+        export interface PhotoOptions {
+            maxHeight?: number;
+            maxWidth?: number;
+        }
+
+        export interface PlaceAspectRating {
+            rating: number;
+            type: string;
+        }
+
         export interface PlaceDetailsRequest {
-            reference: string;
+            placeId: string;
+            reference?: string;
         }
 
         export interface PlaceGeometry {
@@ -1374,29 +1434,53 @@ declare module google.maps {
             viewport: LatLngBounds;
         }
 
+        export interface PlacePhoto {
+            height: number;
+            html_attributions: string[];
+            width: number;
+            getUrl(opts: PhotoOptions): string;
+        }
+
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
+            aspects: PlaceAspectRating[];
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
             html_attributions: string[];
             icon: string;
-            id: string;
+            id?: string;
             international_phone_number: string;
             name: string;
+            permanently_closed: boolean;
+            photos: PlacePhoto[];
+            place_id: string;
+            price_level: number;
             rating: number;
-            reference: string;
+            reference?: string;
+            reviews: PlaceReview[];
             types: string[];
             url: string;
             vicinity: string;
             website: string;
         }
 
+        export interface PlaceReview {
+            aspects: PlaceAspectRating[];
+            author_name: string;
+            author_url: string;
+            language: string;
+            text: string;
+        }
+
         export interface PlaceSearchRequest {
             bounds: LatLngBounds;
             keyword: string;
             location: LatLng;
+            maxPriceLevel?: number;
+            minPriceLevel?: number;
             name: string;
+            openNow: boolean;
             radius: number;
             rankBy: RankBy;
             types: string[];
@@ -1412,6 +1496,7 @@ declare module google.maps {
             constructor (attrContainer: Map);
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void ): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void ): void;
+            radarSearch(request: RadarSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void ): void;
             textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void ): void;
         }
 
@@ -1424,27 +1509,37 @@ declare module google.maps {
             ZERO_RESULTS
         }
 
+        export interface RadarSearchRequest {
+            bounds: LatLngBounds;
+            keyword: string;
+            location: LatLng;
+            name: string;
+            radius: number;
+            types: string[];
+        }
+
         export enum RankBy {
             DISTANCE,
             PROMINENCE
         }
-		
-		export class SearchBox {
-			constructor(inputField: HTMLInputElement, opts?: SearchBoxOptions);
-			getBounds(): LatLngBounds;
-			setBounds(bounds: LatLngBounds): void;
-			getPlaces(): PlaceResult[];			
-		}
 
-		export interface SearchBoxOptions {
-			bounds: LatLngBounds;
-		}
+        export class SearchBox extends MVCObject {
+            constructor(inputField: HTMLInputElement, opts?: SearchBoxOptions);
+            getBounds(): LatLngBounds;
+            setBounds(bounds: LatLngBounds): void;
+            getPlaces(): PlaceResult[];
+        }
+
+        export interface SearchBoxOptions {
+            bounds: LatLngBounds;
+        }
 
         export interface TextSearchRequest {
             bounds: LatLngBounds;
             location: LatLng;
             query: string;
             radius: number;
+            types: string[];
         }
     }
 
@@ -1594,6 +1689,6 @@ declare module google.maps {
 
         export class MapsEventListener {
 
-        }        
+        }
     }
 }

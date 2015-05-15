@@ -19,7 +19,7 @@ declare class Request {
 
 interface RequestInit {
 	method?: string;
-	headers?: HeaderInit;
+	headers?: HeaderInit|{ [index: string]: string };
 	body?: BodyInit;
 	mode?: RequestMode;
 	credentials?: RequestCredentials;
@@ -51,7 +51,7 @@ declare class Body {
 	arrayBuffer(): Promise<ArrayBuffer>;
 	blob(): Promise<Blob>;
 	formData(): Promise<FormData>;
-	json(): Promise<JSON>;
+	json(): Promise<any>;
 	text(): Promise<string>;
 }
 declare class Response extends Body {

@@ -139,6 +139,15 @@ result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1'
 // /*************
 //  * Arrays *
 //  *************/
+result = <any[][]>_.chunk([1, '2', '3', false]);
+result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk();
+result = <any[][]>_.chunk([1, '2', '3', false], 2);
+result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk(2);
+result = <number[][]>_.chunk([1, 2, 3, 4]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk();
+result = <number[][]>_.chunk([1, 2, 3, 4], 2);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk(2);
+
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
 
@@ -565,6 +574,8 @@ result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
+result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
 result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
@@ -600,6 +611,12 @@ result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] }
 result = <IStoogesCombined[]>_(stoogesCombined).where({ 'age': 40 }).value();
 result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }).value();
 
+/********
+ * Date *
+ ********/
+
+result = <number>_.now();
+
 /*************
  * Functions *
  *************/
@@ -623,12 +640,16 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
-var funcBind = function (greeting: string) { return greeting + ' ' + this.name };
-var funcBind2: () => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
-funcBind2();
+var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
+var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
+funcBound1('!');
 
-var funcBind3: () => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
-funcBind3();
+var funcBound2: (punctuation: string) => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
+funcBound2('!');
+
+var addTwoNumbers = function (x: number, y: number) { return x + y };
+var plusTwo = _.bind(addTwoNumbers, null, 2);
+plusTwo(100);
 
 var view = {
     'label': 'docs',

@@ -7,6 +7,13 @@ browserSync({
     }
 });
 
+// multiple base directory
+browserSync({
+    server: {
+        baseDir: ["app", "dist"]
+    }
+});
+
 browserSync({
     proxy: "yourlocal.dev"
 });
