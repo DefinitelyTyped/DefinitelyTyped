@@ -95,8 +95,8 @@ declare module VirtualDOM {
   */
   function create(vnode: VText, opts?: {document?: Document, warn?: boolean}): Text;
   function create(vnode: VNode | Widget | Thunk, opts?: {document?: Document, warn?: boolean}): Element;
-  function h(tagName: string, properties: createProperties, ...children: VChild[]): VNode;
-  function h(tagName: string, ...children: VChild[]): VNode;
+  function h(tagName: string, properties: createProperties, children: string | VChild[]): VNode;
+  function h(tagName: string, children: string | VChild[]): VNode;
   function diff(left: VTree, right: VTree): VPatch[];
   /**
   patch() usually just returns rootNode after doing stuff to it, so we want
