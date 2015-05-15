@@ -86,7 +86,8 @@ declare module VirtualDOM {
     key?: string;
     namespace?: string;
   }
-  type createChildren = Array<VTree[] | VTree | string[] | string>;
+
+  type VChild = VTree[] | VTree | string[] | string;
 
   /**
   create() calls either document.createElement() or document.createElementNS(),
@@ -94,8 +95,8 @@ declare module VirtualDOM {
   */
   function create(vnode: VText, opts?: {document?: Document, warn?: boolean}): Text;
   function create(vnode: VNode | Widget | Thunk, opts?: {document?: Document, warn?: boolean}): Element;
-  function h(tagName: string, properties: createProperties, ...children: createChildren): VNode;
-  function h(tagName: string, ...children: createChildren): VNode;
+  function h(tagName: string, properties: createProperties, ...children: VChild[]): VNode;
+  function h(tagName: string, ...children: VChild[]): VNode;
   function diff(left: VTree, right: VTree): VPatch[];
   /**
   patch() usually just returns rootNode after doing stuff to it, so we want
