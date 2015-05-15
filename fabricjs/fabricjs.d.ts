@@ -1,39 +1,79 @@
-// Type definitions for FabricJS
+// Type definitions for FabricJS v1.5.0
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, edited by Joseph Livecchi <https://github.com/joewashear007/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Support AMD require
+declare module "fabric" {
+  export = fabric;  
+}
+
 declare module fabric {
+
+  var isLikelyNode: boolean;
+  var isTouchSupported: boolean;
+
+  /////////////////////////////////////////////////////////////
+  // Functions
+  /////////////////////////////////////////////////////////////
 
   function createCanvasForNode(width: number, height: number): ICanvas;
   function getCSSRules(doc: SVGElement);
   function getGradientDefs(doc: SVGElement);
+
+  // Parser
   function loadSVGFromString(text: string, callback: (results: IObject[], options) => void, reviver?: (el, obj) => void);
   function loadSVGFromURL(url, callback: (results: IObject[], options) => void, reviver?: (el, obj) => void);
-
-  /**
-  * Wrapper around `console.log` (when available) 
-  */
-  function log(values);
   function parseAttributes(element, attributes: any[]): any;
   function parseElements(elements: any[], callback, options, reviver);
   function parsePointsAttribute(points: string): any[];
   function parseStyleAttribute(element: SVGElement);
   function parseSVGDocument(doc: SVGElement, callback: (results, options) => void, reviver?: (el, obj) => void);
   function parseTransformAttribute(attributeValue: string);
+
+  // fabric Log
+  // ---------------
+  /**
+  * Wrapper around `console.log` (when available) 
+  */
+  function log(values);
   /**
   * Wrapper around `console.warn` (when available) 
   */
   function warn(values);
 
-  var isLikelyNode: boolean;
-  var isTouchSupported: boolean;
+
+  ////////////////////////////////////////////////////
+  // Classes
+  ////////////////////////////////////////////////////
+  var Canvas: ICanvasStatic;
+  var StaticCanvas: IStaticCanvasStatic;
+
+  var Color: IColorStatic;
+  var Pattern: IPatternStatic;
+  var Intersection: IIntersectionStatic;
+  var Point: IPointStatic
+
+  var Circle: ICircleStatic;
+  var Group: IGroupStatic;
+  var Image: IImageStatic
+  var Line: ILineStatic;
+  var Object: IObjectStatic;
+  var Path: IPathStatic;
+  var PathGroup: IPathGroupStatic
+  var Polygon: IPolygonStatic
+  var Polyline: IPolylineStatic;
+  var Rect: IRectStatic;
+  var Text: ITextStatic;
+  var Triangle: ITriangleStatic
+
+  var util: Util;
 
   ///////////////////////////////////////////////////////////////////////////////
   // Data Object Interfaces - These intrface are not specific part of fabric, 
   // They are just helpful for for defining function paramters
   //////////////////////////////////////////////////////////////////////////////
-  export interface IDataURLOptions {
+  interface IDataURLOptions {
     /**
     * The format of the output image. Either "jpeg" or "png" 
     */
@@ -63,13 +103,13 @@ declare module fabric {
     */
     height?: number;
   }
-  
-  export interface IEvent {
+
+  interface IEvent {
     e: Event;
-    target?: fabric.IObject;
+    target?: IObject;
   }
 
-  export interface IFillOptions {
+  interface IFillOptions {
     /**
     * options.source Pattern source 
     */
@@ -88,7 +128,7 @@ declare module fabric {
     offsetY?: number;
   }
 
-  export interface IGradientOptions {
+  interface IGradientOptions {
     /**
     * @param {String} [options.type] Type of gradient 'radial' or 'linear' 
     */
@@ -123,7 +163,7 @@ declare module fabric {
     colorStops?: any;
   }
 
-  export interface IToSVGOptions {
+  interface IToSVGOptions {
     /**
     * If true xml tag is not included 
     */
@@ -138,7 +178,7 @@ declare module fabric {
     encoding: string;
   }
 
-  export interface IViewBox {
+  interface IViewBox {
     /**
     * x-cooridnate of viewbox 
     */
@@ -155,42 +195,20 @@ declare module fabric {
     height: number;
   }
 
-  export interface IFilter {
+  interface IFilter {
     new (): IFilter;
     new (options: any): IFilter;
   }
 
-  export interface IEventList {
+  interface IEventList {
     [index: string]: (e: Event) => void;
   }
 
-  export interface IAnimationOptions {
-    /**
-    * Allows to specify starting value of animatable property (if we don't want current value to be used). 
-    */
-    from?: string|number;
-    /**
-    * Defaults to 500 (ms). Can be used to change duration of an animation. 
-    */
-    duration?: number;
-    /**
-    * Callback that's invoked during the animation. 
-    */
-    onChange?: Function;
-    /**
-    * Callback that's invoked at the end of the animation. 
-    */
-    onComplete?: Function
-    /**
-    * Easing function. Default: fabric.util.ease.easeInSine 
-    */
-    easing?: Function;
-  }
   
   ///////////////////////////////////////////////////////////////////////////////
   // Mixins Interfaces 
   //////////////////////////////////////////////////////////////////////////////
-  export interface ICollection<T> {
+  interface ICollection<T> {
     /**
     * Adds objects to collection, then renders canvas (if `renderOnAddRemove` is not `false`)
     * Objects should be instances of (or inherit from) fabric.Object
@@ -266,8 +284,8 @@ declare module fabric {
     */
     complexity(): number;
   }
-  
-  export interface IObservable<T> {
+
+  interface IObservable<T> {
     /**
      * Observes specified event
      * @deprecated `observe` deprecated since 0.8.34 (use `on` instead)
@@ -292,12 +310,88 @@ declare module fabric {
     off(eventName: string|any, handler: (e) => any): T;
   }
 
+  // animation mixin
+  // ----------------------------------------------------
+  interface ICanvasAnimation<T> {
+    FX_DURATION: number;
+    /**
+     * Centers object horizontally with animation.
+     * @param {fabric.Object} object Object to center
+     * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
+     * @param {Function} [callbacks.onComplete] Invoked on completion
+     * @param {Function} [callbacks.onChange] Invoked on every step of animation
+     */
+    fxCenterObjectH(object: IObject, callbacks?: { onComplete: Function; onChange: Function; }): T;
 
+    /**
+     * Centers object vertically with animation.
+     * @param {fabric.Object} object Object to center
+     * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
+     * @param {Function} [callbacks.onComplete] Invoked on completion
+     * @param {Function} [callbacks.onChange] Invoked on every step of animation
+     */
+    fxCenterObjectV(object: IObject, callbacks?: { onComplete: Function; onChange: Function; }): T;
+
+    /**
+     * Same as `fabric.Canvas#remove` but animated
+     * @param {fabric.Object} object Object to remove
+     * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
+     * @param {Function} [callbacks.onComplete] Invoked on completion
+     * @param {Function} [callbacks.onChange] Invoked on every step of animation
+     * @return {fabric.Canvas} thisArg
+     * @chainable
+     */
+    fxRemove(object: IObject, callbacks?: { onComplete: Function; onChange: Function; }): T;
+  }
+  interface IObjectAnimation<T> {
+    /**
+      * Animates object's properties
+      * object.animate('left', ..., {duration: ...});
+      * @param property Property to animate
+      * @param value Value to animate property
+      * @param options The animation options
+      */
+    animate(property: string, value: number | string, options?: IAnimationOptions): IObject;
+    /**
+    * Animates object's properties
+    * object.animate({ left: ..., top: ... }, { duration: ... });
+    * @param properties Properties to animate 
+    * @param value Options object
+    */
+    animate(properties: any, options?: IAnimationOptions): IObject;
+  }
+  interface IAnimationOptions {
+    /**
+    * Allows to specify starting value of animatable property (if we don't want current value to be used). 
+    */
+    from?: string|number;
+    /**
+    * Defaults to 500 (ms). Can be used to change duration of an animation. 
+    */
+    duration?: number;
+    /**
+    * Callback; invoked on every value change
+    */
+    onChange?: Function;
+    /**
+    * Callback; invoked when value change is completed
+    */
+    onComplete?: Function
+    /**
+    * Easing function. Default: fabric.util.ease.easeInSine 
+    */
+    easing?: Function;
+    /**
+     *  Value to modify the property by, default: end - start
+     */
+    by?: number;
+  }
+  
 
   ///////////////////////////////////////////////////////////////////////////////
   // General Fabric Interfaces 
   //////////////////////////////////////////////////////////////////////////////
-  export interface IColor {
+  interface IColor {
     /**
     * Returns source of this color (where source is an array representation; ex: [200, 200, 100, 1]) 
     */
@@ -360,24 +454,83 @@ declare module fabric {
     */
     overlayWith(otherColor: string|IColor): IColor;
   }
+  interface IColorStatic {
+    /**
+      * Color class
+      * The purpose of Color is to abstract and encapsulate common color operations;
+      * @param {String} color optional in hex or rgb(a) format
+      */
+    new (color?: string): IColor;
 
-  export interface IGradient {
+    /**
+    * Returns new color object, when given a color in RGB format
+    * @param {String} color Color value ex: rgb(0-255,0-255,0-255)
+    */
+    fromRgb(color): IColor
+    /**
+    * Returns new color object, when given a color in RGBA format
+    * @param {String} color Color value ex: rgb(0-255,0-255,0-255)
+    */
+    fromRgba(color): IColor
+    /**
+    * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in RGB or RGBA format
+    * @param {String} color Color value ex: rgb(0-255,0-255,0-255), rgb(0%-100%,0%-100%,0%-100%)
+    */
+    sourceFromRgb(color: string): number[];
+    /**
+    * Returns new color object, when given a color in HSL format
+    * @param {String} color Color value ex: hsl(0-260,0%-100%,0%-100%)
+    */
+    fromHsl(color: string): IColor
+    /**
+    * Returns new color object, when given a color in HSLA format
+    * @param {String} color Color value ex: hsl(0-260,0%-100%,0%-100%)
+    */
+    fromHsla(color: string): IColor
+    /**
+    * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in HSL or HSLA format.
+    * @param {String} color Color value ex: hsl(0-360,0%-100%,0%-100%) or hsla(0-360,0%-100%,0%-100%, 0-1)
+    */
+    sourceFromHsl(color: string): number[];
+    /**
+    * Returns new color object, when given a color in HEX format
+    * @param {String} color Color value ex: FF5555
+    */
+    fromHex(color: string): IColor
+
+    /**
+    * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in HEX format
+    * @param {String} color ex: FF5555
+    */
+    sourceFromHex(color: string): number[];
+    /**
+    * Returns new color object, when given color in array representation (ex: [200, 100, 100, 0.5])
+    * @param {Array} source
+    */
+    fromSource(source: number[]): IColor;
+    prototype: any;
+  }
+
+
+  interface IGradient {
     initialize(options): any;
     toObject(): any;
     toLiveGradient(ctx: CanvasRenderingContext2D): any;
   }
-  
-  export interface IIntersection {
+
+  interface IIntersection {
     /**
     * Appends a point to intersection 
     */
-    appendPoint(point: fabric.IPoint);
+    appendPoint(point: IPoint);
     /**
     * Appends points to intersection 
     */
-    appendPoints(point: fabric.IPoint);
+    appendPoints(point: IPoint);
 
     init(status?: string);
+  }
+  interface IIntersectionStatic {
     /**
     * Checks if polygon intersects another polygon 
     */
@@ -395,8 +548,8 @@ declare module fabric {
     */
     intersectPolygonRectangle(points: IPoint[], r1: number, r2: number): IIntersection;
   }
-  
-  export interface IPoint {
+
+  interface IPoint {
     x: number;
     y: number;
     /**
@@ -579,8 +732,12 @@ declare module fabric {
     */
     swap(that: IPoint): IPoint;
   }
-  
-  export interface IShadowOptions {
+  interface IPointStatic {
+    new (x, y): IPoint;
+    prototype: any;
+  }
+
+  interface IShadowOptions {
     /**
     * Whether the shadow should affect stroke operations 
     */
@@ -606,7 +763,7 @@ declare module fabric {
     */
     offsetY: number;
   }
-  export interface IShadow extends IShadowOptions {
+  interface IShadow extends IShadowOptions {
     initialize(options?: IShadowOptions|string): IShadow;
     /**
     * Returns object representation of a shadow 
@@ -631,7 +788,7 @@ declare module fabric {
   ///////////////////////////////////////////////////////////////////////////////
   // Canvas Interfaces
   //////////////////////////////////////////////////////////////////////////////
-  export interface ICanvasDimensions {
+  interface ICanvasDimensions {
     /**
     * Width of canvas element 
     */
@@ -642,7 +799,7 @@ declare module fabric {
     height: number;
   }
 
-  export interface ICanvasDimensionsOptions {
+  interface ICanvasDimensionsOptions {
     /**
     * Set the given dimensions only as canvas backstore dimensions
     */
@@ -653,7 +810,7 @@ declare module fabric {
     cssOnly?: boolean;
   }
 
-  export interface IStaticCanvas extends IObservable<IStaticCanvas>, IStaticCanvasOptions, ICollection<IStaticCanvas> {
+  interface IStaticCanvas extends IObservable<IStaticCanvas>, IStaticCanvasOptions, ICollection<IStaticCanvas>, ICanvasAnimation<IStaticCanvas> {
     /**
     * Calculates canvas element offset relative to the document
     * This method is also attached as "resize" event handler of window
@@ -925,8 +1082,20 @@ declare module fabric {
     onBeforeScaleRotate(target: IObject);
     toGrayscale(propertiesToInclude: any[]): string;
   }
+  interface IStaticCanvasStatic {
+    /**
+    * Constructor
+    * @param {HTMLElement | String} element <canvas> element to initialize instance on
+    * @param {Object} [options] Options object
+    */
+    new (element: HTMLCanvasElement | string, options?: ICanvasOptions): ICanvas;
 
-  export interface ICanvas extends IStaticCanvas, ICanvasOptions {
+    EMPTY_JSON: string;
+    supports(methodName: string): boolean;
+    prototype: any;
+  }
+
+  interface ICanvas extends IStaticCanvas, ICanvasOptions {
     // constructors
     new (element: HTMLCanvasElement|string, options: ICanvasOptions): ICanvas;
 
@@ -1034,12 +1203,24 @@ declare module fabric {
     loadFromJSON(json, callback: () => void): void;
     loadFromDatalessJSON(json, callback: () => void): void;
   }
+  interface ICanvasStatic {
+    /**
+    * Constructor
+    * @param {HTMLElement|String} element <canvas> element to initialize instance on
+    * @param {Object} [options] Options object
+    */
+    new (element: HTMLCanvasElement | string, options?: ICanvasOptions): ICanvas;
+
+    EMPTY_JSON: string;
+    supports(methodName: string): boolean;
+    prototype: any;
+  }
 
   ///////////////////////////////////////////////////////////////////////////////
   // Shape Interfaces
   //////////////////////////////////////////////////////////////////////////////
 
-  export interface ICircleOptions extends IObjectOptions {
+  interface ICircleOptions extends IObjectOptions {
     /**
      * Radius of this circle
      */
@@ -1054,7 +1235,7 @@ declare module fabric {
      */
     endAngle?: number;
   }
-  export interface ICircle extends IObject, ICircleOptions {
+  interface ICircle extends IObject, ICircleOptions {
     initialize(options?: ICircleOptions): ICircle;
 
     /**
@@ -1091,8 +1272,15 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
+  interface ICircleStatic {
+    ATTRIBUTE_NAMES: string[];
+    fromElement(element: SVGElement, options: ICircleOptions): ICircle;
+    fromObject(object): ICircle;
+    new (options?: ICircleOptions): ICircle;
+    prototype: any;
+  }
 
-  export interface IEllipseOptions extends IObjectOptions {
+  interface IEllipseOptions extends IObjectOptions {
     /**
     * Horizontal radius
     */
@@ -1102,7 +1290,7 @@ declare module fabric {
      */
     ry?: number;
   }
-  export interface IEllipse extends IObject, IEllipseOptions {
+  interface IEllipse extends IObject, IEllipseOptions {
     initialize(options?: IEllipseOptions): IEllipse;
     /**
      * Returns horizontal radius of an object (according to how an object is scaled)
@@ -1133,8 +1321,8 @@ declare module fabric {
      */
     complexity(): number;
   }
-  
-  export interface IGroup extends IObject, ICollection<IGroup> {
+
+  interface IGroup extends IObject, ICollection<IGroup> {
     initialize(objects?: IObject[], options?: IObjectOptions): any;
     type: string;
 
@@ -1215,8 +1403,11 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
-  
-  export interface IImageOptions extends IObjectOptions {
+  interface IGroupStatic {
+    new (items?: any[], options?: IObjectOptions): IGroup;
+  }
+
+  interface IImageOptions extends IObjectOptions {
     /**
      * crossOrigin value (one of "", "anonymous", "allow-credentials")
      */
@@ -1246,7 +1437,7 @@ declare module fabric {
      */
     filters: IFilter[];
   }
-  export interface IImage extends IObject, IImageOptions {
+  interface IImage extends IObject, IImageOptions {
     initialize(element?: string|HTMLImageElement, options?: IImageOptions);
     /**
     * Applies filters assigned to this image (from "filters" array)
@@ -1319,8 +1510,59 @@ declare module fabric {
      */
     setSrc(src: string, callback: Function, options: IImageOptions): IImage;
   }
+  interface IImageStatic {
+    fromURL(url: string, callback?: (image: IImage) => any, objObjects?: IObjectOptions): IImage;
+    new (element: HTMLImageElement, objObjects: IObjectOptions): IImage;
+    prototype: any;
 
-  export interface ILineOptions extends IObjectOptions {
+    filters:
+    {
+      Grayscale: {
+        new (): IGrayscaleFilter;
+      };
+      Brightness: {
+        new (options?: { brightness: number; }): IBrightnessFilter;
+      };
+      RemoveWhite: {
+        new (options?: {
+          threshold?: string; // TODO: Check this
+          distance?: string; // TODO: Check this
+        }): IRemoveWhiteFilter;
+      };
+      Invert: {
+        new (): IInvertFilter;
+      };
+      Sepia: {
+        new (): ISepiaFilter;
+      };
+      Sepia2: {
+        new (): ISepia2Filter;
+      };
+      Noise: {
+        new (options?: {
+          noise?: number;
+        }): INoiseFilter;
+      };
+      GradientTransparency: {
+        new (options?: {
+          threshold?: number;
+        }): IGradientTransparencyFilter;
+      };
+      Pixelate: {
+        new (options?: {
+          color?: any;
+        }): IPixelateFilter;
+      };
+      Convolute: {
+        new (options?: {
+          matrix: any;
+        }): IConvoluteFilter;
+      };
+    };
+
+  }
+
+  interface ILineOptions extends IObjectOptions {
     /**
      * x value or first line edge
      */
@@ -1338,7 +1580,7 @@ declare module fabric {
      */
     y2: number;
   }
-  export interface ILine extends IObject, ILineOptions {
+  interface ILine extends IObject, ILineOptions {
     /**
      * Returns complexity of an instance
      * @return {Number} complexity
@@ -1359,8 +1601,15 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
+  interface ILineStatic {
+    ATTRIBUTE_NAMES: string[];
+    fromElement(element: SVGElement, options): ILine;
+    fromObject(object): ILine;
+    prototype: any;
+    new (points: number[], objObjects?: IObjectOptions): ILine;
+  }
 
-  export interface IObjectOptions {
+  interface IObjectOptions {
     /**
     * Type of an object (rect, circle, path, etc.).
     * Note that this property is meant to be read-only and not meant to be modified.
@@ -1647,22 +1896,8 @@ declare module fabric {
     */
     data?: any;
   }
-  export interface IObject extends IObservable<IObject>, IObjectOptions {
-    /**
-    * Animates object's properties
-    * object.animate('left', ..., {duration: ...});
-    * @param property Property to animate
-    * @param value Value to animate property
-    * @param options The animation options
-    */
-    animate(property: string, value: number | string, options?: IAnimationOptions): IObject;
-    /**
-    * Animates object's properties
-    * object.animate({ left: ..., top: ... }, { duration: ... });
-    * @param properties Properties to animate 
-    * @param value Options object
-    */
-    animate(properties: any, options?: IAnimationOptions): IObject;
+  interface IObject extends IObservable<IObject>, IObjectOptions, IObjectAnimation<IObject> {
+
 
     getCurrentWidth(): number;
     getCurrentHeight(): number;
@@ -1932,8 +2167,11 @@ declare module fabric {
     setSourcePath(value: string): IObject;
     toGrayscale(): IObject;
   }
-  
-  export interface IPathOptions extends IObjectOptions {
+  interface IObjectStatic {
+    prototype: any;
+  }
+
+  interface IPathOptions extends IObjectOptions {
     /**
      * Array of path points
      */
@@ -1949,7 +2187,7 @@ declare module fabric {
      */
     minY?: number;
   }
-  export interface IPath extends IObject, IPathOptions {
+  interface IPath extends IObject, IPathOptions {
     initialize(path?: any[], options?: IPathOptions): IPath;
 
     /**
@@ -1988,8 +2226,13 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
-  
-  export interface IPathGroup extends IObject {
+  interface IPathStatic {
+    fromElement(element: SVGElement, options): IPath;
+    fromObject(object): IPath;
+    new (): IPath;
+  }
+
+  interface IPathGroup extends IObject {
     initialize(paths: IPath[], options?: IObjectOptions);
     /**
      * Returns number representation of object's complexity
@@ -2036,8 +2279,13 @@ declare module fabric {
      */
     getObjects(): IPath[];
   }
+  interface IPathGroupStatic {
+    fromObject(object): IPathGroup;
+    new (): IPathGroup;
+    prototype: any;
+  }
 
-  export interface IPolygonOptions extends IObjectOptions {
+  interface IPolygonOptions extends IObjectOptions {
     /**
      * Points array
      */
@@ -2053,7 +2301,7 @@ declare module fabric {
      */
     minY?: number;
   }
-  export interface IPolygon extends IObject, IPolygonOptions {
+  interface IPolygon extends IObject, IPolygonOptions {
     initialize(points?: IPoint[], options?: IPolygonOptions): IPolygon;
     /**
      * Returns complexity of an instance
@@ -2074,8 +2322,14 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
+  interface IPolygonStatic {
+    fromObject(object): IPolygon;
+    fromElement(element: SVGElement, options): IPolygon;
+    new (points: any[], options?: IObjectOptions, skipOffset?: boolean): IPolygon;
+    prototype: any;
+  }
 
-  export interface IPolylineOptions extends IObjectOptions {
+  interface IPolylineOptions extends IObjectOptions {
     /**
      * Points array
      */
@@ -2091,7 +2345,7 @@ declare module fabric {
      */
     minY?: number;
   }
-  export interface IPolyline extends IObject, IPolylineOptions {
+  interface IPolyline extends IObject, IPolylineOptions {
     initialize(points: IPoint[], options?: IPolylineOptions);
     /**
      * Returns complexity of an instance
@@ -2111,8 +2365,14 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
-    
-  export interface IRectOptions extends IObjectOptions {
+  interface IPolylineStatic {
+    fromObject(object): IPolyline;
+    fromElement(element: SVGElement, options): IPolyline;
+    new (): IPolyline;
+    prototype: any;
+  }
+
+  interface IRectOptions extends IObjectOptions {
     x?: number;
     y?: number;
     /**
@@ -2126,7 +2386,7 @@ declare module fabric {
     ry?: number;
 
   }
-  export interface IRect extends IObject, IRectOptions {
+  interface IRect extends IObject, IRectOptions {
     initialize(points?: number[], options?: any): IRect;
     /**
      * Returns complexity of an instance
@@ -2146,8 +2406,14 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
+  interface IRectStatic {
+    fromElement(element: SVGElement, options: IRectOptions): IRect;
+    fromObject(object): IRect;
+    new (options?: IRectOptions): IRect;
+    prototype: any;
+  }
 
-  export interface ITextOptions extends IObjectOptions {
+  interface ITextOptions extends IObjectOptions {
     /**
      * Font size (in pixels)
      */
@@ -2197,7 +2463,7 @@ declare module fabric {
     useNative?: Boolean;
     text?: string;
   }
-  export interface IText extends IObject, ITextOptions {
+  interface IText extends IObject, ITextOptions {
 
 
     initialize(text: string, options?: IITextOptions): IText;
@@ -2313,8 +2579,11 @@ declare module fabric {
     setTextBackgroundColor(textBackgroundColor: string): IText;
 
   }
+  interface ITextStatic {
+    new (text: string, options?: IITextOptions): IText;
+  }
 
-  export interface IITextOptions extends IObjectOptions, ITextOptions {
+  interface IITextOptions extends IObjectOptions, ITextOptions {
     /**
      * Index where text selection starts (or where cursor is when there is no selection)
      */
@@ -2376,7 +2645,7 @@ declare module fabric {
      */
     caching?: boolean;
   }
-  export interface IIText extends IObject, IText, IITextOptions {
+  interface IIText extends IObject, IText, IITextOptions {
     initialize(text?: string, options?: IITextOptions): IText;
 
     /**
@@ -2466,8 +2735,8 @@ declare module fabric {
 
   }
 
-  export interface ITriangleOptions extends IObjectOptions { }
-  export interface ITriangle extends IObject {
+  interface ITriangleOptions extends IObjectOptions { }
+  interface ITriangle extends IObject {
     initialize(options: IObjectOptions): ITriangle;
     
     /**
@@ -2483,18 +2752,12 @@ declare module fabric {
      */
     toSVG(reviver?: Function): string;
   }
+  interface ITriangleStatic {
+    new (options?: ITriangleOptions): ITriangle;  
+  }
 
 
-
-
-
-
-
-
-
-
-
-  export interface IPatternOptions {
+  interface IPatternOptions {
     /**
     * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat) 
     */
@@ -2514,8 +2777,7 @@ declare module fabric {
     */
     source: string|HTMLImageElement;
   }
-
-  export interface IPattern extends IPatternOptions {
+  interface IPattern extends IPatternOptions {
     new (options?: IPatternOptions): IPattern;
 
     initialise(options?: IPatternOptions): IPattern;
@@ -2534,28 +2796,32 @@ declare module fabric {
     */
     toSVG(object: IObject): string;
   }
+  interface IPatternStatic {
+    new (options: IPatternOptions): IPattern;
+    prototype: any;
+  }
 
-  export interface IBrightnessFilter {
+  interface IBrightnessFilter {
   }
-  export interface IInvertFilter {
+  interface IInvertFilter {
   }
-  export interface IRemoveWhiteFilter {
+  interface IRemoveWhiteFilter {
   }
-  export interface IGrayscaleFilter {
+  interface IGrayscaleFilter {
   }
-  export interface ISepiaFilter {
+  interface ISepiaFilter {
   }
-  export interface ISepia2Filter {
+  interface ISepia2Filter {
   }
-  export interface INoiseFilter {
+  interface INoiseFilter {
   }
-  export interface IGradientTransparencyFilter {
+  interface IGradientTransparencyFilter {
   }
-  export interface IPixelateFilter {
+  interface IPixelateFilter {
   }
-  export interface IConvoluteFilter {
+  interface IConvoluteFilter {
   }
-  export interface ICanvasOptions extends IStaticCanvasOptions {
+  interface ICanvasOptions extends IStaticCanvasOptions {
     /**
     * When true, objects can be transformed by one side (unproportionally)
     */
@@ -2656,7 +2922,7 @@ declare module fabric {
     */
     isDrawingMode?: boolean;
   }
-  export interface IStaticCanvasOptions {
+  interface IStaticCanvasOptions {
     /**
     * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas 
     */
@@ -2719,7 +2985,7 @@ declare module fabric {
     * Should be set via setOverlayImage
     * <b>Backwards incompatibility note:</b> The "overlayImageLeft" and "overlayImageTop" properties are deprecated since 1.3.9.
     */
-    overlayImage?: fabric.IImage;
+    overlayImage?: IImage;
     overlayImageLeft?: number;
     overlayImageTop?: number;
     /**
@@ -2735,313 +3001,500 @@ declare module fabric {
   }
 
 
-
-  var Rect: {
-    fromElement(element: SVGElement, options: IRectOptions): IRect;
-    fromObject(object): IRect;
-    new (options?: IRectOptions): IRect;
-    prototype: any;
-  }
-
-  var Triangle: {
-    new (options?: ITriangleOptions): ITriangle;
-  }
-
-  var Canvas: {
-    /**
-    * Constructor
-    * @param {HTMLElement|String} element <canvas> element to initialize instance on
-    * @param {Object} [options] Options object
-    */
-    new (element: HTMLCanvasElement | string, options?: ICanvasOptions): ICanvas;
-
-    EMPTY_JSON: string;
-    supports(methodName: string): boolean;
-    prototype: any;
-  }
-
-  var StaticCanvas: {
-    /**
-    * Constructor
-    * @param {HTMLElement | String} element <canvas> element to initialize instance on
-    * @param {Object} [options] Options object
-    */
-    new (element: HTMLCanvasElement | string, options?: ICanvasOptions): ICanvas;
-
-    EMPTY_JSON: string;
-    supports(methodName: string): boolean;
-    prototype: any;
-  }
-
-  var Color: {
-    /**
-    * Color class
-    * The purpose of Color is to abstract and encapsulate common color operations;
-    * @param {String} color optional in hex or rgb(a) format
-    */
-    new (color?: string): IColor;
-
-    /**
-    * Returns new color object, when given a color in RGB format
-    * @param {String} color Color value ex: rgb(0-255,0-255,0-255)
-    */
-    fromRgb(color): IColor
-    /**
-    * Returns new color object, when given a color in RGBA format
-    * @param {String} color Color value ex: rgb(0-255,0-255,0-255)
-    */
-    fromRgba(color): IColor
-    /**
-    * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in RGB or RGBA format
-    * @param {String} color Color value ex: rgb(0-255,0-255,0-255), rgb(0%-100%,0%-100%,0%-100%)
-    */
-    sourceFromRgb(color: string): number[];
-    /**
-    * Returns new color object, when given a color in HSL format
-    * @param {String} color Color value ex: hsl(0-260,0%-100%,0%-100%)
-    */
-    fromHsl(color: string): IColor
-    /**
-    * Returns new color object, when given a color in HSLA format
-    * @param {String} color Color value ex: hsl(0-260,0%-100%,0%-100%)
-    */
-    fromHsla(color: string): IColor
-    /**
-    * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in HSL or HSLA format.
-    * @param {String} color Color value ex: hsl(0-360,0%-100%,0%-100%) or hsla(0-360,0%-100%,0%-100%, 0-1)
-    */
-    sourceFromHsl(color: string): number[];
-    /**
-    * Returns new color object, when given a color in HEX format
-    * @param {String} color Color value ex: FF5555
-    */
-    fromHex(color: string): IColor
-
-    /**
-    * Returns array represenatation (ex: [100, 100, 200, 1]) of a color that's in HEX format
-    * @param {String} color ex: FF5555
-    */
-    sourceFromHex(color: string): number[];
-    /**
-    * Returns new color object, when given color in array representation (ex: [200, 100, 100, 0.5])
-    * @param {Array} source
-    */
-    fromSource(source: number[]): IColor;
-    prototype: any;
-  }
-  var Pattern: {
-    new (options: IPatternOptions): IPattern;
-
-    prototype: any;
-  }
-
-  var Circle: {
-    ATTRIBUTE_NAMES: string[];
-    fromElement(element: SVGElement, options: ICircleOptions): ICircle;
-    fromObject(object): ICircle;
-    new (options?: ICircleOptions): ICircle;
-    prototype: any;
-  }
-
-  var Group: {
-    new (items?: any[], options?: IObjectOptions): IGroup;
-  }
-
-  var Line: {
-    ATTRIBUTE_NAMES: string[];
-    fromElement(element: SVGElement, options): ILine;
-    fromObject(object): ILine;
-    prototype: any;
-    new (points: number[], objObjects?: IObjectOptions): ILine;
-  }
-
-  var Intersection: {
-    intersectLineLine(a1, a2, b1, b2);
-    intersectLinePolygon(a1, a2, points);
-    intersectPolygonPolygon(points1, points2);
-    intersectPolygonRectangle(points, r1, r2);
-  }
-
-  var Path: {
-    fromElement(element: SVGElement, options): IPath;
-    fromObject(object): IPath;
-    new (): IPath;
-  }
-
-  var PathGroup: {
-    fromObject(object): IPathGroup;
-    new (): IPathGroup;
-    prototype: any;
-  }
-
-  var Point: {
-    new (x, y): IPoint;
-    prototype: any;
-  }
-
-  var Object: {
-    prototype: any;
-  }
-
-  var Polygon: {
-    fromObject(object): IPolygon;
-    fromElement(element: SVGElement, options): IPolygon;
-    new (points: any[], options?: IObjectOptions, skipOffset?: boolean): IPolygon;
-    prototype: any;
-  }
-
-  var Polyline: {
-    fromObject(object): IPolyline;
-    fromElement(element: SVGElement, options): IPolyline;
-    new (): IPolyline;
-    prototype: any;
-  }
-
-  var Text: {
-    new (text: string, options?: IITextOptions): IText;
-  }
-
-  var Image: {
-    fromURL(url: string, callback?: (image: IImage) => any, objObjects?: IObjectOptions): IImage;
-    new (element: HTMLImageElement, objObjects: IObjectOptions): IImage;
-    prototype: any;
-
-    filters:
-    {
-      Grayscale: {
-        new (): IGrayscaleFilter;
-      };
-      Brightness: {
-        new (options?: { brightness: number; }): IBrightnessFilter;
-      };
-      RemoveWhite: {
-        new (options?: {
-          threshold?: string; // TODO: Check this
-          distance?: string; // TODO: Check this
-        }): IRemoveWhiteFilter;
-      };
-      Invert: {
-        new (): IInvertFilter;
-      };
-      Sepia: {
-        new (): ISepiaFilter;
-      };
-      Sepia2: {
-        new (): ISepia2Filter;
-      };
-      Noise: {
-        new (options?: {
-          noise?: number;
-        }): INoiseFilter;
-      };
-      GradientTransparency: {
-        new (options?: {
-          threshold?: number;
-        }): IGradientTransparencyFilter;
-      };
-      Pixelate: {
-        new (options?: {
-          color?: any;
-        }): IPixelateFilter;
-      };
-      Convolute: {
-        new (options?: {
-          matrix: any;
-        }): IConvoluteFilter;
-      };
-    };
-
-  }
   ///////////////////////////////////////////////////////////////////////////////
-  // Fabric ulit Interface
+  // Fabric util Interface
   //////////////////////////////////////////////////////////////////////////////
-  var util: {
-    addClass(element: HTMLElement, className: string);
-    addListener(element, eventName: string, handler);
-    animate(options: {
-      onChange?: (value: number) => void;
-      onComplete?: () => void;
-      startValue?: number;
-      endValue?: number;
-      byValue?: number;
-      easing?: (currentTime, startValue, byValue, duration) => number;
-      duration?: number;
-    });
-    createClass(parent, properties);
+  // animations
+  interface IUtilAnimationOptions {
+    /**
+    * Starting value
+    */
+    startValue?: number;
+    /**
+    * Ending value
+    */
+    endValue?: number;
+    /** 
+     * Value to modify the property by
+     */
+    byValue: number;
+    /**
+    * Duration of change (in ms)
+    */
+    duration?: number;
+    /**
+    * Callback; invoked on every value change
+    */
+    onChange?: Function;
+    /**
+    * Callback; invoked when value change is completed
+    */
+    onComplete?: Function
+    /**
+    * Easing function
+    */
+    easing?: Function;
+  }
+  interface IUtilAnimation {
+    /**
+    * Changes value from one to another within certain period of time, invoking callbacks as value is being changed.
+    * @param {Object} [options] Animation options
+    */
+    animate(options?: IUtilAnimationOptions): void;
+    /**
+   * requestAnimationFrame polyfill based on http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+   * In order to get a precise start time, `requestAnimFrame` should be called as an entry into the method
+   * @param {Function} callback Callback to invoke
+   */
+    requestAnimFrame(callback: Function): void;
+  }
+
+  // anim_ease
+  interface anim_ease {
+    easeInBack(): Function;
+    easeInBounce(): Function;
+    easeInCirc(): Function;
+    easeInCubic(): Function;
+    easeInElastic(): Function;
+    easeInExpo(): Function;
+    easeInOutBack(): Function;
+    easeInOutBounce(): Function;
+    easeInOutCirc(): Function;
+    easeInOutCubic(): Function;
+    easeInOutElastic(): Function;
+    easeInOutExpo(): Function;
+    easeInOutQuad(): Function;
+    easeInOutQuart(): Function;
+    easeInOutQuint(): Function;
+    easeInOutSine(): Function;
+    easeInQuad(): Function;
+    easeInQuart(): Function;
+    easeInQuint(): Function;
+    easeInSine(): Function;
+    easeOutBack(): Function;
+    easeOutBounce(): Function;
+    easeOutCirc(): Function;
+    easeOutCubic(): Function;
+    easeOutElastic(): Function;
+    easeOutExpo(): Function;
+    easeOutQuad(): Function;
+    easeOutQuart(): Function;
+    easeOutQuint(): Function;
+    easeOutSine(): Function;
+  }
+
+  interface IUtilArc {
+    /**
+     * Draws arc
+     * @param {CanvasRenderingContext2D} ctx
+     * @param {Number} fx
+     * @param {Number} fy
+     * @param {Array} coords
+     */
+    drawArc(ctx: CanvasRenderingContext2D, fx: number, fy: number, coords: number[]): void;
+    /**
+     * Calculate bounding box of a elliptic-arc
+     * @param {Number} fx start point of arc
+     * @param {Number} fy
+     * @param {Number} rx horizontal radius
+     * @param {Number} ry vertical radius
+     * @param {Number} rot angle of horizontal axe
+     * @param {Number} large 1 or 0, whatever the arc is the big or the small on the 2 points
+     * @param {Number} sweep 1 or 0, 1 clockwise or counterclockwise direction
+     * @param {Number} tx end point of arc
+     * @param {Number} ty
+     */
+    getBoundsOfArc(fx: number, fy: number, rx: number, ry: number, rot: number, large: number, sweep: number, tx: number, ty: number): IPoint[];
+    /**
+     * Calculate bounding box of a beziercurve
+     * @param {Number} x0 starting point
+     * @param {Number} y0
+     * @param {Number} x1 first control point
+     * @param {Number} y1
+     * @param {Number} x2 secondo control point
+     * @param {Number} y2
+     * @param {Number} x3 end of beizer
+     * @param {Number} y3
+     */
+    getBoundsOfCurve(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): IPoint[];
+
+  }
+
+  interface IUtilDomEvent {
+    /**
+   * Cross-browser wrapper for getting event's coordinates
+   * @param {Event} event Event object
+   * @param {HTMLCanvasElement} upperCanvasEl &lt;canvas> element on which object selection is drawn
+   */
+    getPointer(event: Event, upperCanvasEl: HTMLCanvasElement): IPoint;
+
+    /**
+   * Adds an event listener to an element
+   * @param {HTMLElement} element
+   * @param {String} eventName
+   * @param {Function} handler
+   */
+    addListener(element: HTMLElement, eventName: string, handler: Function): void;
+
+    /**
+   * Removes an event listener from an element
+   * @param {HTMLElement} element
+   * @param {String} eventName
+   * @param {Function} handler
+   */
+    removeListener(element: HTMLElement, eventName: string, handler: Function): void;
+  }
+
+  interface IUtilDomMisc {
+    /**
+     * Takes id and returns an element with that id (if one exists in a document)
+     * @param {String|HTMLElement} id
+     */
+    getById(id: string|HTMLElement): HTMLElement;
+    /**
+    * Converts an array-like object (e.g. arguments or NodeList) to an array
+    * @param {Object} arrayLike
+    */
+    toArray(arrayLike: any): any[];
+    /**
+     * Creates specified element with specified attributes
+     * @memberOf fabric.util
+     * @param {String} tagName Type of an element to create
+     * @param {Object} [attributes] Attributes to set on an element
+     * @return {HTMLElement} Newly created element
+     */
+    makeElement(tagName: string, attributes?: any): HTMLElement;
+    /**
+     * Adds class to an element
+     * @param {HTMLElement} element Element to add class to
+     * @param {String} className Class to add to an element
+     */
+    addClass(element: HTMLElement, classname: string): void;
+    /**
+     * Wraps element with another element
+     * @param {HTMLElement} element Element to wrap
+     * @param {HTMLElement|String} wrapper Element to wrap with
+     * @param {Object} [attributes] Attributes to set on a wrapper
+     */
+    wrapElement(element: HTMLElement, wrapper: HTMLElement|string, attributes?: any): HTMLElement;
+    /**
+   * Returns element scroll offsets
+   * @param {HTMLElement} element Element to operate on
+   * @param {HTMLElement} upperCanvasEl Upper canvas element
+   */
+    getScrollLeftTop(element: HTMLElement, upperCanvasEl: HTMLElement): { left: number; right: number; }
+    /**
+     * Returns offset for a given element
+     * @param {HTMLElement} element Element to get offset for
+     */
+    getElementOffset(element: HTMLElement): { left: number; right: number; }
+    /**
+      * Returns style attribute value of a given element
+      * @param {HTMLElement} element Element to get style attribute for
+      * @param {String} attr Style attribute to get for element
+      */
+    getElementStyle(elment: HTMLElement, attr: string): string;
+    /**
+    * Inserts a script element with a given url into a document; invokes callback, when that script is finished loading
+    * @memberOf fabric.util
+    * @param {String} url URL of a script to load
+    * @param {Function} callback Callback to execute when script is finished loading
+    */
+    getScript(url: string, callback: Function): void;
+    /**
+     * Makes element unselectable
+     * @param {HTMLElement} element Element to make unselectable
+     */
+    makeElementUnselectable(element: HTMLElement): HTMLElement;
+    /**
+     * Makes element selectable
+     * @param {HTMLElement} element Element to make selectable
+     */
+    makeElementSelectable(element: HTMLElement): HTMLElement;
+  }
+
+  interface IUtilDomRequest {
+    /**
+   * Cross-browser abstraction for sending XMLHttpRequest
+   * @param {String} url URL to send XMLHttpRequest to
+   * @param {Object} [options] Options object
+   * @param {String} [options.method="GET"]
+   * @param {Function} options.onComplete Callback to invoke when request is completed
+   */
+    request(url: string, options?: { method?: string; onComplete: Function }): XMLHttpRequest;
+  }
+
+  interface IUtilDomStyle {
+    /**
+     * Cross-browser wrapper for setting element's style
+     * @param {HTMLElement} element
+     * @param {Object} styles
+     */
+    setStyle(element: HTMLElement, styles: any): HTMLElement;
+  }
+
+  interface IUtilArray {
+    /**
+     * Invokes method on all items in a given array
+     * @param {Array} array Array to iterate over
+     * @param {String} method Name of a method to invoke
+     */
+    invoke(array: any[], method: string): any[];
+    /**
+     * Finds minimum value in array (not necessarily "first" one)
+     * @param {Array} array Array to iterate over
+     * @param {String} byProperty
+     */
+    min(array: any[], byProperty: string): any;
+    /**
+   * Finds maximum value in array (not necessarily "first" one)
+   * @param {Array} array Array to iterate over
+   * @param {String} byProperty
+   */
+    max(array: any[], byProperty: string): any;
+  }
+
+  interface IUtilClass {
+    /**
+     * Helper for creation of "classes".
+     * @param {Function} [parent] optional "Class" to inherit from
+     * @param {Object} [properties] Properties shared by all instances of this class
+     *                  (be careful modifying objects defined here as this would affect all instances)
+     */
+    createClass(parent: Function, properties?: any);
+    /**
+     * Helper for creation of "classes".
+     * @param {Object} [properties] Properties shared by all instances of this class
+     *                  (be careful modifying objects defined here as this would affect all instances)
+     */
+    createClass(properties?: any);
+
+  }
+
+  interface IUtilObject {
+    /**
+    * Copies all enumerable properties of one object to another
+    * @param {Object} destination Where to copy to
+    * @param {Object} source Where to copy from
+    */
+    extend(destination: any, source: any): any;
+
+    /**
+     * Creates an empty object and copies all enumerable properties of another object to it
+     * @memberOf fabric.util.object
+     * @param {Object} object Object to clone
+     * @return {Object}
+     */
+    clone(object: any): any
+  }
+
+  interface IUtilString {
+    /**
+     * Camelizes a string
+     * @param {String} string String to camelize
+     */
+    camelize(string: string): string;
+
+    /**
+     * Capitalizes a string
+     * @param {String} string String to capitalize
+     * @param {Boolean} [firstLetterOnly] If true only first letter is capitalized
+     * and other letters stay untouched, if false first letter is capitalized
+     * and other letters are converted to lowercase.
+     */
+    capitalize(string: string, firstLetterOnly: boolean): string;
+
+    /**
+     * Escapes XML in a string
+     * @param {String} string String to escape
+     */
+    escapeXml(string: string): string;
+  }
+
+  interface IUtilMisc {
+    /**
+     * Removes value from an array.
+     * Presence of value (and its position in an array) is determined via `Array.prototype.indexOf`
+     * @param {Array} array
+     * @param {Any} value
+     */
+    removeFromArray(array: any[], value: any): any[];
+
+    /**
+     * Returns random number between 2 specified ones.
+     * @param {Number} min lower limit
+     * @param {Number} max upper limit
+     */
+    getRandomInt(min: number, max: number): number;
+
+    /**
+     * Transforms degrees to radians.
+     * @param {Number} degrees value in degrees
+     */
     degreesToRadians(degrees: number): number;
-    falseFunction(): () => boolean;
-    getById(id: HTMLElement): HTMLElement;
-    getById(id: string): HTMLElement;
-    getElementOffset(element): { left: number; top: number; };
-    getPointer(event: Event);
-    getRandomInt(min: number, max: number);
-    getScript(url: string, callback);
-    groupSVGElements(elements: any[], options?: any): IPathGroup;
-    loadImage(url: string, callback: (image: HTMLImageElement) => any, context?: any, crossOrigin?: any);
-    makeElement(tagName: string, attributes);
-    makeElementSelectable(element: HTMLElement);
-    makeElementUnselectable(element: HTMLElement);
-    populateWithProperties(source, destination, properties): any[];
+
+    /**
+     * Transforms radians to degrees.
+     * @memberOf fabric.util
+     * @param {Number} radians value in radians
+     */
     radiansToDegrees(radians: number): number;
-    removeFromArray(array: any[], value);
-    removeListener(element: HTMLElement, eventName, handler);
-    request(url, options);
-    requestAnimFrame(callback, element);
-    setStyle(element: HTMLElement, styles);
-    toArray(arrayLike): any[];
-    toFixed(number, fractionDigits);
-    wrapElement(element: HTMLElement, wrapper, attributes);
-    rotatePoint(point: IPoint, origin: IPoint, radians: number);
-    transformPoint(p: IPoint, t: any[], ignoreOffset: boolean);
-    invertTransform(t: any[]);
-    parseUnit(value: number|string, fontSize?: number);
-    getKlass(type: string, namespace: string);
-    resolveNamespace(namespace: string);
-    enlivenObjects(objects: any[], callback: Function, namespace: string, reviver?: Function);
-    drawDashedLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number, da: any[]);
-    createCanvasElement(canvasEl?: HTMLElement);
-    createImage();
-    createAccessors(klass: Object);
-    clipContext(receiver: IObject, ctx: CanvasRenderingContext2D);
-    isTransparent(ctx: CanvasRenderingContext2D, x: number, y: number, tolerance: number);
-    object: {
-      clone(object: any): any
-      extends(destination: any, source: any): any
-    };
-    ease: {
-      easeInBack(): Function;
-      easeInBounce(): Function;
-      easeInCirc(): Function;
-      easeInCubic(): Function;
-      easeInElastic(): Function;
-      easeInExpo(): Function;
-      easeInOutBack(): Function;
-      easeInOutBounce(): Function;
-      easeInOutCirc(): Function;
-      easeInOutCubic(): Function;
-      easeInOutElastic(): Function;
-      easeInOutExpo(): Function;
-      easeInOutQuad(): Function;
-      easeInOutQuart(): Function;
-      easeInOutQuint(): Function;
-      easeInOutSine(): Function;
-      easeInQuad(): Function;
-      easeInQuart(): Function;
-      easeInQuint(): Function;
-      easeInSine(): Function;
-      easeOutBack(): Function;
-      easeOutBounce(): Function;
-      easeOutCirc(): Function;
-      easeOutCubic(): Function;
-      easeOutElastic(): Function;
-      easeOutExpo(): Function;
-      easeOutQuad(): Function;
-      easeOutQuart(): Function;
-      easeOutQuint(): Function;
-      easeOutSine(): Function;
 
-    };
+    /**
+     * Rotates `point` around `origin` with `radians`
+     * @param {fabric.Point} point The point to rotate
+     * @param {fabric.Point} origin The origin of the rotation
+     * @param {Number} radians The radians of the angle for the rotation
+     */
+    rotatePoint(point: IPoint, origin: IPoint, radians: number): IPoint;
+
+    /**
+     * Apply transform t to point p
+     * @param  {fabric.Point} p The point to transform
+     * @param  {Array} t The transform
+     * @param  {Boolean} [ignoreOffset] Indicates that the offset should not be applied
+     */
+    transformPoint(p: IPoint, t: any[], ignoreOffset?: boolean): IPoint
+
+    /**
+     * Invert transformation t
+     * @param {Array} t The transform
+     */
+    invertTransform(t: any[]): any[];
+
+    /**
+     * A wrapper around Number#toFixed, which contrary to native method returns number, not string.
+     * @param {Number|String} number number to operate on
+     * @param {Number} fractionDigits number of fraction digits to "leave"
+     */
+    toFixed(number: number, fractionDigits: number): number;
+
+    /**
+     * Converts from attribute value to pixel value if applicable.
+     * Returns converted pixels or original value not converted.
+     * @param {Number|String} value number to operate on
+     */
+    parseUnit(value: number|string, fontSize?: number): number|string;
+
+    /**
+     * Function which always returns `false`.
+     */
+    falseFunction(): boolean
+
+    /**
+     * Returns klass "Class" object of given namespace
+     * @param {String} type Type of object (eg. 'circle')
+     * @param {String} namespace Namespace to get klass "Class" object from
+     */
+    getKlass(type: string, namespace: string): any;
+
+    /**
+     * Returns object of given namespace
+     * @param {String} namespace Namespace string e.g. 'fabric.Image.filter' or 'fabric'
+     */
+    resolveNamespace(namespace: string): any;
+
+    /**
+     * Loads image element from given url and passes it to a callback
+     * @param {String} url URL representing an image
+     * @param {Function} callback Callback; invoked with loaded image
+     * @param {Any} [context] Context to invoke callback in
+     * @param {Object} [crossOrigin] crossOrigin value to set image element to
+     */
+    loadImage(url: string, callback: (image: HTMLImageElement) => {}, context?: any, crossOrigin?: boolean): void;
+
+    /**
+     * Creates corresponding fabric instances from their object representations
+     * @param {Array} objects Objects to enliven
+     * @param {Function} callback Callback to invoke when all objects are created
+     * @param {String} namespace Namespace to get klass "Class" object from
+     * @param {Function} reviver Method for further parsing of object elements, called after each fabric object created.
+     */
+    enlivenObjects(objects: any[], callback: Function, namespace: string, reviver?: Function): void;
+
+    /**
+     * Groups SVG elements (usually those retrieved from SVG document)
+     * @param {Array} elements SVG elements to group
+     * @param {Object} [options] Options object
+     */
+    groupSVGElements(elements: any[], options?: any, path?: any): IPathGroup
+
+    /**
+     * Populates an object with properties of another object
+     * @param {Object} source Source object
+     * @param {Object} destination Destination object
+     * @param {Array} properties Propertie names to include
+     */
+    populateWithProperties(source: any, destination: any, properties: any): void;
+
+    /**
+     * Draws a dashed line between two points
+     *
+     * This method is used to draw dashed line around selection area.
+     *
+     * @param {CanvasRenderingContext2D} ctx context
+     * @param {Number} x  start x coordinate
+     * @param {Number} y start y coordinate
+     * @param {Number} x2 end x coordinate
+     * @param {Number} y2 end y coordinate
+     * @param {Array} da dash array pattern
+     */
+    drawDashedLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number, da: any[]): void;
+
+    /**
+     * Creates canvas element and initializes it via excanvas if necessary
+     * @param {CanvasElement} [canvasEl] optional canvas element to initialize;
+     * when not given, element is created implicitly
+     */
+    createCanvasElement(canvasEl?: HTMLCanvasElement): HTMLCanvasElement;
+
+    /**
+     * Creates image element (works on client and node)
+     */
+    createImage(): HTMLImageElement;
+
+    /**
+     * Creates accessors (getXXX, setXXX) for a "class", based on "stateProperties" array
+     * @param {Object} klass "Class" to create accessors for
+     */
+    createAccessors(klass: any): any;
+
+    /**
+     * @param {fabric.Object} receiver Object implementing `clipTo` method
+     * @param {CanvasRenderingContext2D} ctx Context to clip
+     */
+    clipContext(receiver: IObject, ctx: CanvasRenderingContext2D): void;
+
+    /**
+     * Multiply matrix A by matrix B to nest transformations
+     * @param  {Array} a First transformMatrix
+     * @param  {Array} b Second transformMatrix
+     */
+    multiplyTransformMatrices(a: any[], b: any[]): any[]
+
+    /**
+     * Returns string representation of function body
+     * @param {Function} fn Function to get body of
+     */
+    getFunctionBody(fn: Function): string;
+
+    /**
+     * Returns true if context has transparent pixel
+     * at specified location (taking tolerance into account)
+     * @param {CanvasRenderingContext2D} ctx context
+     * @param {Number} x x coordinate
+     * @param {Number} y y coordinate
+     * @param {Number} tolerance Tolerance
+     */
+    isTransparent(ctx: CanvasRenderingContext2D, x: number, y: number, tolerance: number): boolean;
+  }
 
 
+  interface Util extends IUtilAnimation, IUtilArc, IObservable<Util>, IUtilDomEvent, IUtilDomMisc,
+    IUtilDomRequest, IUtilDomStyle, IUtilClass, IUtilMisc {
+    ease: anim_ease;
+    array: IUtilArray;
+    object: IUtilObject;
+    string: IUtilString;
   }
 }
