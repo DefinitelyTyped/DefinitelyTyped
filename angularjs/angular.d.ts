@@ -539,9 +539,29 @@ declare module angular {
         $applyAsync(exp: string): any;
         $applyAsync(exp: (scope: IScope) => any): any;
 
+        /**
+         * Dispatches an event name downwards to all child scopes (and their children) notifying the registered $rootScope.Scope listeners.
+         * 
+         * The event life cycle starts at the scope on which $broadcast was called. All listeners listening for name event on this scope get notified. Afterwards, the event propagates to all direct and indirect scopes of the current scope and calls all registered listeners along the way. The event cannot be canceled.
+         * 
+         * Any exception emitted from the listeners will be passed onto the $exceptionHandler service.
+         * 
+         * @param name Event name to broadcast.
+         * @param args Optional one or more arguments which will be passed onto the event listeners.
+         */
         $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
         $digest(): void;
+        /**
+         * Dispatches an event name upwards through the scope hierarchy notifying the registered $rootScope.Scope listeners.
+         *
+         * The event life cycle starts at the scope on which $emit was called. All listeners listening for name event on this scope get notified. Afterwards, the event traverses upwards toward the root scope and calls all registered listeners along the way. The event will stop propagating if one of the listeners cancels it.
+         *
+         * Any exception emitted from the listeners will be passed onto the $exceptionHandler service.
+         * 
+         * @param name Event name to emit.
+         * @param args Optional one or more arguments which will be passed onto the event listeners.
+         */
         $emit(name: string, ...args: any[]): IAngularEvent;
 
         $eval(): any;
