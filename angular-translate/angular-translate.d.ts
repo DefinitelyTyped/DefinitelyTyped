@@ -26,7 +26,7 @@ declare module angular.translate {
         set(name: string, value: string): void;
     }
 
-    interface ISTaticFilesLoaderOptions {
+    interface IStaticFilesLoaderOptions {
         prefix: string;
         suffix: string;
         key?: string;
@@ -78,7 +78,7 @@ declare module angular.translate {
         storageKey(): string;
         storageKey(key: string): void; // JeroMiya - the library should probably return ITranslateProvider but it doesn't here
         useUrlLoader(url: string): ITranslateProvider;
-        useStaticFilesLoader(options: ISTaticFilesLoaderOptions): ITranslateProvider;
+        useStaticFilesLoader(options: IStaticFilesLoaderOptions): ITranslateProvider;
         useLoader(loaderFactory: string, options: any): ITranslateProvider;
         useLocalStorage(): ITranslateProvider;
         useCookieStorage(): ITranslateProvider;
