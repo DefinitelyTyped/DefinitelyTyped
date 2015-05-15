@@ -28,7 +28,7 @@ declare module angular.translate {
 
     interface IPartialLoader<T> {
         addPart(name : string, priority : number) : T;
-        setPart(lang : string, part : string, table : ITranslationTable)
+        setPart(lang : string, part : string, table : ITranslationTable) : T;
         deletePart(name : string) : T;
         isPartAvailable(name : string) : boolean;
     }
