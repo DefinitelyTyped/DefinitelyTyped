@@ -3,6 +3,8 @@
 // Definitions by: Rob Alarcon <https://github.com/rob-alarcon/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts"/>
+
 // Interface options for the plugin 
 interface JQueryFileInputOptions {
 
