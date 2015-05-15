@@ -6,13 +6,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module angular.translate {
-    
-    interface ITranslatePartialLoaderService {
-        addPart(name: string): ITranslatePartialLoaderService;
-        deletePart(name: string, removeData?: boolean): ITranslatePartialLoaderService;
-        isPartAvailable(name: string): boolean;
-    }
-  
+
     interface ITranslationTable {
         [key: string]: string;
     }
@@ -30,6 +24,21 @@ declare module angular.translate {
         prefix: string;
         suffix: string;
         key?: string;
+    }
+
+    interface IPartialLoader<T> {
+        addPart(name : string, priority : number) : T;
+        setPart(lang : string, part : string, table : ITranslationTable)
+        deletePart(name : string) : T;
+        isPartAvailable(name : string) : boolean;
+    }
+
+    interface ITranslatePartialLoaderService extends IPartialLoader<ITranslatePartialLoaderService> {
+        getRegisteredParts() : Array<string>;
+        isPartLoaded(name : string, lang : string) : boolean;
+    }
+
+    interface ITranslatePartialLoaderProvider extends angular.IServiceProvider, IPartialLoader<ITranslatePartialLoaderProvider> {
     }
 
     interface ITranslateService {
