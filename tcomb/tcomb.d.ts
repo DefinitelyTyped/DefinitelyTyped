@@ -3,10 +3,6 @@
 // Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module TComb {
-
-  export interface NumbersOnly {
-      [idx:number]:string;
-  }
   export interface tcomb {
     format: (format: string, ...values: any[]) => string;
     getFunctionName: (fn: Function) => string;
