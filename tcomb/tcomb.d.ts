@@ -83,7 +83,7 @@ declare module TComb {
   }
 
   export interface Any_Static extends TCombBase {
-    
+
     new (value: any): Any_Instance;
     (value: any): Any_Instance;
   }
