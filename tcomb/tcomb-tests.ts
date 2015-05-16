@@ -256,9 +256,9 @@ describe('update', function () {
         }
       });
 
-      assert.strictEqual(updated[0], instance[0]);
-      assert.notStrictEqual(updated[1], instance[1]);
-      assert.strictEqual(updated[1].c, instance[1].c);
+      assert.strictEqual((<any> updated)[0], (<any> instance)[0]);
+      assert.notStrictEqual((<any> updated)[1], (<any> instance)[1]);
+      assert.strictEqual((<any> updated)[1].c, (<any> instance)[1].c);
     });
   });
 
@@ -1328,8 +1328,8 @@ describe('tuple', function () {
 
     it('should coerce values', function () {
       var t = T([{}, {}]);
-      ok(S.is(t[0]));
-      ok(S.is(t[1]));
+      ok(S.is((<any> t)[0]));
+      ok(S.is((<any> t)[1]));
     });
 
     it('should accept only valid values', function () {
@@ -1381,8 +1381,8 @@ describe('tuple', function () {
     it('should return a new instance', function () {
       var newInstance = Type.update(instance, {0: {$set: 'b'}});
       assert(Type.is(newInstance));
-      assert(instance[0] === 'a');
-      assert(newInstance[0] === 'b');
+      assert((<any> instance)[0] === 'a');
+      assert((<any> newInstance)[0] === 'b');
     });
 
   });
@@ -1418,7 +1418,7 @@ describe('list', function () {
 
     it('should coerce values', function () {
       var t = T([{}]);
-      ok(S.is(t[0]));
+      ok(S.is((<any> t)[0]));
     });
 
     it('should accept only valid values', function () {
