@@ -1,7 +1,6 @@
 // Type definitions for tcomb v1.0.3
 // Project: http://gcanti.github.io/tcomb/guide/index.html
-// Definitions by: Jed Mao <https://github.com/jedmao>
-//                 and Hans Windhoff <https://github.com/hansrwindhoff>
+// Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module TComb {
 
