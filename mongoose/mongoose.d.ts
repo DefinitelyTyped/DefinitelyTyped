@@ -79,7 +79,13 @@ declare module "mongoose" {
   }
   export module Types {
     export class ObjectId {
-        toHexString(): string;
+      constructor(id: string|number);
+      toHexString(): string;
+      equals(other: ObjectId): boolean;
+      getTimestamp(): Date;
+      isValid(): boolean;
+      static createFromTime(time: number): ObjectId;
+      static createFromHexString(hexString: string): ObjectId;
     }
   }
 
@@ -374,7 +380,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: string;
+    _id: Types.ObjectId;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;
