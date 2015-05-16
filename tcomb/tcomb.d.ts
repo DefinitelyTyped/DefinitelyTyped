@@ -1,10 +1,13 @@
 // Type definitions for tcomb v1.0.3
 // Project: http://gcanti.github.io/tcomb/guide/index.html
-// Definitions by: Jed Mao <https://github.com/jedmao> and Hans Windhoff <https://github.com/hansrwindhoff>
+// Definitions by: Jed Mao <https://github.com/jedmao>
+//                 and Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 declare module TComb {
 
+  export interface NumbersOnly {
+      [idx:number]:string;
+  }
   export interface tcomb {
     format: (format: string, ...values: any[]) => string;
     getFunctionName: (fn: Function) => string;
@@ -12,7 +15,7 @@ declare module TComb {
     mixin: (target: {}, source: {}, overwrite?: boolean) => any;
     slice: typeof Array.prototype.slice;
     shallowCopy: (x: TCombBase) => TCombBase;
-    update: (instance: any, spec: {}) => TCombBase;
+    update: (instance: any, spec: {} ) => TCombBase;
     assert: (condition: boolean, message?: string, ...values: any[]) => void;
     fail: (message?: string) => void;
     Any: Any_Static;
