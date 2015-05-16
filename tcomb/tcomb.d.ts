@@ -2,6 +2,8 @@
 // Project: http://gcanti.github.io/tcomb/guide/index.html
 // Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+// Original Definitions by: Jed Mao <https://github.com/jedmao>
 declare module TComb {
   export interface tcomb {
     format: (format: string, ...values: any[]) => string;
