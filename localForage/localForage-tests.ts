@@ -1,4 +1,4 @@
-/// <reference path="localForage.d.ts" />
+﻿/// <reference path="localForage.d.ts" />
 
 declare var localForage: lf.ILocalForage<string>;
 declare var callback: lf.ICallback<string>;
