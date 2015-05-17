@@ -1,6 +1,6 @@
 ﻿// Type definitions for Mozilla's localForage
 // Project: https://github.com/mozilla/localforage
-// Definitions by: david pichsenmeister <https://github.com/3x14159265>, Yuichi Nukiyama
+// Definitions by: david pichsenmeister <https://github.com/3x14159265>,Yuichi Nukiyama
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module lf {
