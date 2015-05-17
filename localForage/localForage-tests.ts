@@ -14,7 +14,7 @@ declare var promise: lf.IPromise<string>;
         var newError: any = err;
     });
 
-    localforage.iterate((str: string, key: string, num: number) => {
+    localForage.iterate((str: string, key: string, num: number) => {
         var newStr: string = str;
         var newKey: string = key;
         var newNum: number = num;
@@ -30,7 +30,7 @@ declare var promise: lf.IPromise<string>;
         var newValue: string = value;
     });
 
-    localforage.keys((err: any, keys: Array<string>) => {
+    localForage.keys((err: any, keys: Array<string>) => {
         var newError: any = err;
         var newArray: Array<string> = keys;
     });
