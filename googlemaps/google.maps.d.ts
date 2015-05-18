@@ -208,7 +208,7 @@ declare module google.maps {
     }
 
     /***** Data *****/
-     export class Data extends MVCObject {
+    export class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
         add(feature: Data.Feature|Data.FeatureOptions): Data.Feature;
         addGeoJson(geoJson: Object, options?: Data.GeoJsonOptions): Data.Feature[];
@@ -308,14 +308,14 @@ declare module google.maps {
         }
         
         export class Polygon extends Data.Geometry {
-            constructor(elements: LinearRing[]|LatLng[]); // TODO LatLngLiteral
+            constructor(elements: LinearRing[]|LatLng[][]); // TODO LatLngLiteral
             getArray(): LinearRing[];
             getAt(n: number): LinearRing;
             getLength(): number;
         }
         
         export class MultiPolygon extends Data.Geometry {
-            constructor(elements: Data.Polygon[]|LinearRing[]|LatLng[][]); // TODO LatLngLiteral
+            constructor(elements: Data.Polygon[]|LinearRing[][]|LatLng[][][]); // TODO LatLngLiteral
             getArray(): Data.Polygon[];
             getAt(n: number): Data.Polygon;
             getLength(): number;
