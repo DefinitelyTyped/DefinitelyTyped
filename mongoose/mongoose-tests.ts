@@ -364,5 +364,14 @@ schema.virtual('display_name')
   .get(function(): string { return this.name; })
   .set((value: string): void => {});
 
-var id : mongoose.Types.ObjectId;
+var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId('foo');
+var id2: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(123);
+var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromTime(123);
+var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('foo');
 var s = id.toHexString();
+var valid = id.isValid();
+var eq = id.equals(id2);
+
+var kitty1 = new Kitty({});
+var kitty2 = new Kitty({});
+var kittyEq = kitty1._id.equals(kitty2._id);
