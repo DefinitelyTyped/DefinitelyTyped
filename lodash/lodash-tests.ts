@@ -271,8 +271,14 @@ result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
-result = <{ [key: string]: any }>_.zipObject(['moe', 'larry'], [30, 40]);
-result = <{ [key: string]: any }>_.object(['moe', 'larry'], [30, 40]);
+result = <_.Dictionary<any>>_.zipObject(['moe', 'larry'], [30, 40]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).zipObject([30, 40]);
+result = <_.Dictionary<any>>_.object(['moe', 'larry'], [30, 40]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).object([30, 40]);
+result = <_.Dictionary<any>>_.zipObject([['moe', 30], ['larry', 40]]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).zipObject();
+result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 
