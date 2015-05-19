@@ -1,4 +1,6 @@
+/// <reference path="node-irc.d.ts" />
 // https://github.com/martynsmith/node-irc/blob/master/example/bot.js
+
 import irc = require('irc');
 
 var bot = new irc.Client('irc.dollyfish.net.nz', 'nodebot', {

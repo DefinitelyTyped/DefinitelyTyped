@@ -3,6 +3,8 @@
 // Definitions by: phillips1012 <https://github.com/phillips1012>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node-0.10.d.ts" />
+
 /** This library provides IRC client functionality. */
 declare module 'irc' {
     import events = require('events');
