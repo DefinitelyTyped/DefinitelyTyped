@@ -868,7 +868,7 @@ declare module 'irc' {
          * This contains the set of colors available and a function to wrap
          * text in a color.
          */
-        export const codes: {
+        export var codes: {
             [index: string]: string;
         };
     }

@@ -1,7 +1,7 @@
 // https://github.com/martynsmith/node-irc/blob/master/example/bot.js
 import irc = require('irc');
 
-let bot = new irc.Client('irc.dollyfish.net.nz', 'nodebot', {
+var bot = new irc.Client('irc.dollyfish.net.nz', 'nodebot', {
     debug: true,
     channels: ['#blah', '#test']
 });
