@@ -304,7 +304,7 @@ declare module D3 {
             * @param url Url to request
             * @param callback Function to invoke when resource is loaded or the request fails
             */
-            (url: string, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+            (url: string, callback?: (error: any, xhr: XMLHttpRequest) => void ): Xhr;
             /**
             * Creates an asynchronous request for specified url
             *
@@ -312,7 +312,7 @@ declare module D3 {
             * @param mime MIME type to request
             * @param callback Function to invoke when resource is loaded or the request fails
             */
-            (url: string, mime: string, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+            (url: string, mime: string, callback?: (error: any, xhr: XMLHttpRequest) => void ): Xhr;
         };
         /**
         * Request a text file
@@ -324,7 +324,7 @@ declare module D3 {
             * @param url Url to request
             * @param callback Function to invoke when resource is loaded or the request fails
             */
-            (url: string, callback?: (response: string) => void ): Xhr;
+            (url: string, callback?: (error: any, responseText: string) => void ): Xhr;
             /**
             * Request a text file
             *
@@ -332,7 +332,7 @@ declare module D3 {
             * @param mime MIME type to request
             * @param callback Function to invoke when resource is loaded or the request fails
             */
-            (url: string, mime: string, callback?: (response: string) => void ): Xhr;
+            (url: string, mime: string, callback?: (error: any, responseText: string) => void ): Xhr;
         };
         /**
         * Request a JSON blob
@@ -351,7 +351,7 @@ declare module D3 {
             * @param url Url to request
             * @param callback Function to invoke when resource is loaded or the request fails
             */
-            (url: string, callback?: (response: Document) => void ): Xhr;
+            (url: string, callback?: (error: any, response: Document) => void ): Xhr;
             /**
             * Request an HTML document fragment.
             *
@@ -359,7 +359,7 @@ declare module D3 {
             * @param mime MIME type to request
             * @param callback Function to invoke when resource is loaded or the request fails
             */
-            (url: string, mime: string, callback?: (response: Document) => void ): Xhr;
+            (url: string, mime: string, callback?: (error: any, response: Document) => void ): Xhr;
         };
         /**
         * Request an XML document fragment.
@@ -367,7 +367,7 @@ declare module D3 {
         * @param url Url to request
         * @param callback Function to invoke when resource is loaded or the request fails
         */
-        html: (url: string, callback?: (response: DocumentFragment) => void ) => Xhr;
+        html: (url: string, callback?: (error: any, response: DocumentFragment) => void ) => Xhr;
         /**
         * Request a comma-separated values (CSV) file.
         */
@@ -654,7 +654,7 @@ declare module D3 {
         *
         * @param callback Function to invoke on completion of request
         */
-        get(callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+        get(callback?: (error: any, xhr: XMLHttpRequest) => void ): Xhr;
         /**
         * Issue the request using the POST method
         */
