@@ -181,7 +181,6 @@ declare var JSZip: {
 
     prototype: JSZip;
     support: JSZipSupport;
-
     compressions: {
       DEFLATE: DEFLATE;
     }
