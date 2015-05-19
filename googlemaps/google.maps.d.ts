@@ -1,6 +1,6 @@
-// Type definitions for Google Geolocation 0.4.8
+// Type definitions for Google Maps JavaScript API 3.19
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /*
@@ -80,9 +80,10 @@ declare module google.maps {
         setStreetView(panorama: StreetViewPanorama): void;
         setTilt(tilt: number): void;
         setZoom(zoom: number): void;
-        controls: MVCArray[]; //Array.<MVCArray.<Node >>
+        controls: MVCArray[]; //Array<MVCArray.<Node >>
+        data: Data;
         mapTypes: MapTypeRegistry;
-        overlayMapTypes: MVCArray; // MVCArray.<MapType>
+        overlayMapTypes: MVCArray; // MVCArray<MapType>
     }
 
     export interface MapOptions {
@@ -204,6 +205,159 @@ declare module google.maps {
         SMALL,
         ANDROID,
         ZOOM_PAN
+    }
+
+    /***** Data *****/
+    export class Data extends MVCObject {
+        constructor(options?: Data.DataOptions);
+        add(feature: Data.Feature|Data.FeatureOptions): Data.Feature;
+        addGeoJson(geoJson: Object, options?: Data.GeoJsonOptions): Data.Feature[];
+        contains(feature: Data.Feature): boolean;
+        forEach(callback: (feature: Data.Feature) => void): void;
+        getFeatureById(id: number|string): Data.Feature;
+        getMap(): Map;
+        getStyle(): Data.StylingFunction|Data.StyleOptions;
+        loadGeoJson(url: string, options?: Data.GeoJsonOptions, callback?: (features: Data.Feature[]) => void): void;
+        overrideStyle(feature: Data.Feature, style: Data.StyleOptions): void;
+        remove(feature: Data.Feature): void;
+        revertStyle(feature?: Data.Feature): void;
+        setMap(map: Map): void;
+        setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
+        toGeoJson(callback: (feature: Object) => void): void;
+    }
+        
+    export module Data {
+        export interface DataOptions {
+            map?: Map;
+            style?: Data.StylingFunction|Data.StyleOptions;
+        }
+
+        export interface GeoJsonOptions {
+            idPropertyName?: string;
+        }
+
+        export interface StyleOptions {
+            clickable?: boolean;
+            cursor?: string;
+            fillColor?: string;
+            fillOpacity?: number;
+            icon?: any; // TODO string|Icon|Symbol;
+            shape?: MarkerShape;
+            strokeColor?: string;
+            strokeOpacity?: number;
+            strokeWeight?: number;
+            title?: string;
+            visible?: boolean;
+            zIndex?: number;
+        }
+
+        export type StylingFunction = (feature: Data.Feature) => Data.StyleOptions;
+
+        export class Feature {
+            constructor(options?: Data.FeatureOptions);
+            forEachProperty(callback: (value: any, name: string) => void): void;
+            getGeometry(): Data.Geometry;
+            getId(): number|string;
+            getProperty(name: string): any;
+            removeProperty(name: string): void;
+            setGeometry(newGeometry: Data.Geometry|LatLng): void; // TODO LatLngLiteral
+            setProperty(name: string, newValue: any): void
+            toGeoJson(callback: (feature: Object) => void): void
+        }
+
+        export interface FeatureOptions {
+            geometry?: Data.Geometry|LatLng; // TODO LatLngLiteral
+            id?: number|string;
+            properties?: Object;
+        }
+
+        export class Geometry {
+            getType(): string;
+        }
+        
+        export class Point extends Data.Geometry {
+            constructor(latLng: LatLng);  // TODO LatLngLiteral
+            get(): LatLng;
+        }
+        
+        export class MultiPoint extends Data.Geometry {
+            constructor(elements: LatLng[]);  // TODO LatLngLiteral
+            getAt(n: number): LatLng;
+            getLength(): number;
+        }
+        
+        export class LineString extends Data.Geometry {
+            constructor(elements: LatLng[]);  // TODO LatLngLiteral
+            getArray(): LatLng[];
+            getAt(n: number): LatLng;
+            getLength(): number;
+        }
+        
+        export class MultiLineString extends Data.Geometry {
+            constructor(elements: Data.LineString[]|LatLng[]); // TODO LatLngLiteral
+            getArray(): Data.LineString[];
+            getAt(n: number): Data.LineString;
+            getLength(): number;
+        }
+        
+        export class LinearRing extends Data.Geometry {
+            constructor(elements: LatLng[]); // TODO LatLngLiteral
+            getArray(): LatLng[];
+            getAt(n: number): LatLng;
+            getLength(): number;
+        }
+        
+        export class Polygon extends Data.Geometry {
+            constructor(elements: LinearRing[]|LatLng[][]); // TODO LatLngLiteral
+            getArray(): LinearRing[];
+            getAt(n: number): LinearRing;
+            getLength(): number;
+        }
+        
+        export class MultiPolygon extends Data.Geometry {
+            constructor(elements: Data.Polygon[]|LinearRing[][]|LatLng[][][]); // TODO LatLngLiteral
+            getArray(): Data.Polygon[];
+            getAt(n: number): Data.Polygon;
+            getLength(): number;
+        }
+        
+        export class GeometryCollection extends Data.Geometry {
+            constructor(elements: Data.Geometry[]|LatLng[]); // TODO LatLngLiteral
+            getArray(): Data.Geometry[];
+            getAt(n: number): Data.Geometry;
+            getLength(): number;
+        }
+        
+        export interface MouseEvent extends google.maps.MouseEvent {
+            feature: Data.Feature;
+        }
+        
+        export interface AddFeatureEvent {
+            feature: Data.Feature;
+        }
+        
+        export interface RemoveFeatureEvent {
+            feature: Data.Feature;
+        }
+        
+        export interface SetGeometryEvent  {
+            feature: Data.Feature;
+            newGeometry: Data.Geometry;
+            oldGeometry: Data.Geometry;
+        }
+        
+        export interface SetPropertyEvent  {
+            feature: Data.Feature;
+            name: string;
+            newValue: any;
+            oldValue: any;
+        } 
+        
+        export interface RemovePropertyEvent  {
+            feature: Data.Feature;
+            name: string;
+            oldValue: any;
+        }           
     }
 
     /***** Overlays *****/
