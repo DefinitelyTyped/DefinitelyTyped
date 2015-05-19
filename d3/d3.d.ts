@@ -664,14 +664,14 @@ declare module D3 {
             *
             * @param callback Function to invoke on completion of request
             */
-            (callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+            (callback?: (error: any, xhr: XMLHttpRequest) => void ): Xhr;
             /**
             * Issue the request using the POST method
             *
             * @param data Data to post back in the request
             * @param callback Function to invoke on completion of request
             */
-            (data: any, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+            (data: any, callback?: (error: any, xhr: XMLHttpRequest) => void ): Xhr;
         };
         /**
         * Issues this request using the specified method
@@ -683,7 +683,7 @@ declare module D3 {
             * @param method Method to use to make the request
             * @param callback Function to invoke on completion of request
             */
-            (method: string, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+            (method: string, callback?: (eror: any, xhr: XMLHttpRequest) => void ): Xhr;
             /**
             * Issues this request using the specified method
             *
@@ -691,7 +691,7 @@ declare module D3 {
             * @param data Data to post back in the request
             * @param callback Function to invoke on completion of request
             */
-            (method: string, data: any, callback?: (xhr: XMLHttpRequest) => void ): Xhr;
+            (method: string, data: any, callback?: (error: any, xhr: XMLHttpRequest) => void ): Xhr;
         };
         /**
         * Aborts this request, if it is currently in-flight
