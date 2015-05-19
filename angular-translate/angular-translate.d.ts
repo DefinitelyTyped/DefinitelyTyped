@@ -28,7 +28,6 @@ declare module angular.translate {
 
     interface IPartialLoader<T> {
         addPart(name : string, priority? : number) : T;
-        setPart(lang : string, part : string, table : ITranslationTable) : T;
         deletePart(name : string) : T;
         isPartAvailable(name : string) : boolean;
     }
@@ -39,6 +38,7 @@ declare module angular.translate {
     }
 
     interface ITranslatePartialLoaderProvider extends angular.IServiceProvider, IPartialLoader<ITranslatePartialLoaderProvider> {
+        setPart(lang : string, part : string, table : ITranslationTable) : ITranslatePartialLoaderProvider;
     }
 
     interface ITranslateService {
