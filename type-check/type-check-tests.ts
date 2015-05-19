@@ -2,7 +2,7 @@
 /// <reference path="./type-check.d.ts"/>
 import tchecker = require("type-check");
 
-var typeCheck = (i1:string|string[],i2:any,i3?: TypeCheck.Options ) =>  {
+var typeCheck = (i1:string,i2:any,i3?: TypeCheck.Options ) =>  {
   console.log(tchecker.typeCheck(i1,i2,i3));
   } ;
 var parseType = (i1:string) =>  {
