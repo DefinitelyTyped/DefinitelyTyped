@@ -9,10 +9,6 @@ interface Window {
     token: string;
 }
 
-interface Location {
-    origin: string;
-}
-
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
     
