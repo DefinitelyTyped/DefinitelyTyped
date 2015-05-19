@@ -9,7 +9,30 @@ declare module "gulp-typescript" {
     function GulpTypescript(params: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
     module GulpTypescript {
-        export function createProject(params: Params): Params;
+        export interface TsConfig {
+            files?: string[];
+            compilerOptions?: any;
+        }
+        export interface Project {
+            input: any;
+            output: any;
+            previousOutput: any;
+            compiler: any;
+            configFileName: string;
+            config: TsConfig;
+            typescript: any;
+            options: any;
+            noExternalResolve: boolean;
+            sortOutput: boolean;
+            filterSettings: any;
+            singleOutput: boolean;
+            reporter: Reporter;
+            currentDirectory: string;
+            reset(outputJs: NodeJS.ReadableStream, outputDts: NodeJS.ReadableStream);
+            src(): NodeJS.ReadWriteStream;
+        }
+        export function createProject(params: Params): Project;
+        export function createProject(tsconfig: string): Project;
         export function filter(filters: FilterSettings): CompilationStream;
         interface Params {
             declarationFiles?: boolean;
