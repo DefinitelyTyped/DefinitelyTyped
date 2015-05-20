@@ -7,7 +7,7 @@ import Router = require('react-router');
 // Mixin
 class NavigationTest<T extends Router.Navigation> {
     v: T;
-    
+
     makePath() {
         var v1: string = this.v.makePath('to');
         var v2: string = this.v.makePath('to', {id: 1});
@@ -35,27 +35,27 @@ class NavigationTest<T extends Router.Navigation> {
 
 class StateTest<T extends Router.State> {
     v: T;
-    
+
     getPath() {
         var v1: string = this.v.getPath();
     }
-    
+
     getRoutes() {
         var v1: Router.Route[] = this.v.getRoutes();
     }
-    
+
     getPathname() {
         var v1: string = this.v.getPathname();
     }
-    
+
     getParams() {
         var v1: {} = this.v.getParams();
     }
-    
+
     getQuery() {
         var v1: {} = this.v.getQuery();
     }
-    
+
     isActive() {
         var v1: boolean = this.v.isActive('to');
         var v2: boolean = this.v.isActive('to', {id: 1});
@@ -63,35 +63,23 @@ class StateTest<T extends Router.State> {
     }
 }
 
-class RouteHandlerMixinTest<T extends Router.RouteHandlerMixin> {
-    v: T;
-    
-    getRouteDepth() {
-        var v1: number = this.v.getRouteDepth();
-    }
-    
-    createChildRouteHandler() {
-        var v1: Router.RouteHandler = this.v.createChildRouteHandler({ref: 'hoge'});
-    }
-}
-
 
 // Location
-class LocationTest<T extends Router.LocationBase> {
+class LocationTest<T extends Router.Location> {
     v: T;
-    
+
     push() {
         var v1: void = this.v.push('path/to/hoge');
     }
-    
+
     replace() {
         var v1: void = this.v.replace('path/to/hoge');
     }
-    
+
     pop() {
         var v1: void = this.v.pop();
     }
-    
+
     getCurrentPath() {
         var v1: void = this.v.getCurrentPath();
     }
@@ -102,11 +90,11 @@ new LocationTest<Router.RefreshLocation>();
 
 class LocationListenerTest<T extends Router.LocationListener> {
     v: T;
-    
+
     addChangeListener() {
         var v1: void = this.v.addChangeListener(() => console.log(1));
     }
-    
+
     removeChangeListener() {
         var v1: void = this.v.removeChangeListener(() => console.log(1));
     }
@@ -118,7 +106,7 @@ new LocationListenerTest<Router.HistoryLocation>();
 // Behavior
 class ScrollBehaviorTest<T extends Router.ScrollBehaviorBase> {
     v: T;
-    
+
     updateScrollPosition() {
         var v1: void = this.v.updateScrollPosition({x: 33, y: 102}, 'scrollTop');
     }
@@ -130,12 +118,12 @@ new ScrollBehaviorTest<Router.ScrollToTopBehavior>();
 // Component
 class DefaultRouteTest {
     v: Router.DefaultRoute;
-    
+
     props() {
         var name: string = this.v.props.name;
         var handler: React.ComponentClass<any> = this.v.props.handler;
     }
-    
+
     createElement() {
         var Handler: React.ComponentClass<any>;
         React.createElement(Router.DefaultRoute, null);
@@ -145,12 +133,12 @@ class DefaultRouteTest {
 
 class LinkTest {
     v: Router.Link;
-    
+
     constructor() {
         new NavigationTest<Router.Link>();
         new StateTest<Router.Link>();
     }
-    
+
     props() {
         var activeClassName: string = this.v.props.activeClassName;
         var to: string = this.v.props.to;
@@ -158,15 +146,15 @@ class LinkTest {
         var query: {} = this.v.props.query;
         var onClick: Function = this.v.props.onClick;
     }
-    
+
     getHref() {
         var v1: string = this.v.getHref();
     }
-    
+
     getClassName() {
         var v1: string = this.v.getClassName();
     }
-    
+
     createElement() {
         React.createElement(Router.Link, null);
         React.createElement(Router.Link, {to: 'home'});
@@ -182,12 +170,12 @@ class LinkTest {
 
 class NotFoundRouteTest {
     v: Router.NotFoundRoute;
-    
+
     props() {
         var name: string = this.v.props.name;
         var handler: React.ComponentClass<any> = this.v.props.handler;
     }
-    
+
     createElement() {
         var Handler: React.ComponentClass<any>;
         React.createElement(Router.NotFoundRoute, null);
@@ -198,13 +186,13 @@ class NotFoundRouteTest {
 
 class RedirectTest {
     v: Router.Redirect;
-    
+
     props() {
         var path: string = this.v.props.path;
         var from: string = this.v.props.from;
         var to: string = this.v.props.to;
     }
-    
+
     createElement() {
         React.createElement(Router.Redirect, null);
         React.createElement(Router.Redirect, {});
@@ -214,14 +202,14 @@ class RedirectTest {
 
 class RouteTest {
     v: Router.Route;
-    
+
     props() {
         var name: string = this.v.props.name;
         var path: string = this.v.props.path;
         var handler: React.ComponentClass<any> = this.v.props.handler;
         var ignoreScrollBehavior: boolean = this.v.props.ignoreScrollBehavior;
     }
-    
+
     createElement() {
         var Handler: React.ComponentClass<any>;
         React.createElement(Router.Route, null);
@@ -232,11 +220,7 @@ class RouteTest {
 
 class RouteHandlerTest {
     v: Router.RouteHandler;
-    
-    constructor() {
-        new RouteHandlerMixinTest<Router.RouteHandler>();
-    }
-    
+
     createElement() {
         React.createElement(Router.RouteHandler, null);
         React.createElement(Router.RouteHandler, {});
@@ -247,11 +231,11 @@ class RouteHandlerTest {
 // History
 class HistoryTest {
     v: Router.History;
-    
+
     length() {
         var v1: number = this.v.length;
     }
-    
+
     back() {
         var v1: void = this.v.back();
     }
@@ -261,7 +245,7 @@ class HistoryTest {
 // Router
 class CreateTest {
     v: Router.Router;
-    
+
     constructor() {
         // React.createElement() version
         this.v = Router.create({
@@ -272,7 +256,7 @@ class CreateTest {
             location: Router.HistoryLocation,
             scrollBehavior: Router.ImitateBrowserBehavior
         });
-        
+
         // React.createFactory() version
         this.v = Router.create({
             routes: React.createFactory(Router.Route)()
@@ -283,7 +267,7 @@ class CreateTest {
             scrollBehavior: Router.ImitateBrowserBehavior
         });
     }
-    
+
     run() {
         this.v.run((Handler) => console.log(Handler));
         this.v.run((Handler, state) => console.log(Handler, state));
@@ -299,7 +283,7 @@ class RunTest {
         var v2: Router.Router = Router.run(React.createElement(Router.Route, null), Router.HistoryLocation, (Handler, state) => {
             React.render(React.createElement(Handler, null), document.body);
         });
-        
+
         // React.createFactory() version
         var v3: Router.Router = Router.run(React.createFactory(Router.Route)(), (Handler) => {
             React.render(React.createElement(Handler, null), document.body);
