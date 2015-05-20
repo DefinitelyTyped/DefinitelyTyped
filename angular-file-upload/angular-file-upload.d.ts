@@ -23,4 +23,9 @@ declare module angular.angularFileUpload  {
         file: File;
         fileName?: string;
     }
+    
+    interface IFileProgressEvent extends ProgressEvent {
+
+        config: IFileUploadConfig;
+    }
 } 
