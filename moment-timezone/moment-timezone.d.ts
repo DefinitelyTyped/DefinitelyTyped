@@ -28,6 +28,8 @@ interface MomentZone {
 }
 
 interface MomentTimezone {
+    (): moment.Moment;
+    (timezone: string): moment.Moment;
     (date: number, timezone: string): moment.Moment;
     (date: number[], timezone: string): moment.Moment;
     (date: string, timezone: string): moment.Moment;
