@@ -247,7 +247,7 @@ declare module Chai {
         Throw(fn: Function, msg?: string): void;
         Throw(fn: Function, regExp: RegExp): void;
         Throw(fn: Function, errType: Function, msg?: string): void;
-        Throw(fn: Function, errType: Function, regExp: RegExp): void;
+        Throw(fn: Function, regExp: RegExp, msg?: string): void;
 
         doesNotThrow(fn: Function, msg?: string): void;
         doesNotThrow(fn: Function, regExp: RegExp): void;
