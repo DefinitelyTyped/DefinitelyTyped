@@ -4,17 +4,22 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface JasmineAjaxResponse {
-	status?: string;
+	status?: number;
 	statusText?: string;
 	responseText?: string;
 	response?: string;
-	responseType?: string;
 	contentType?: string;
 	responseHeaders?: { [key: string]: string };
 }
 
-interface JasmineAjaxRequest {
+interface JasmineAjaxRequest extends XMLHttpRequest {
 	url: string;
+	method: string;
+	username: string;
+	password: string;
+	requestHeaders: { [key: string]: string };
+	overriddenMimeType: string;
+
 	respondWith(response: JasmineAjaxResponse): void;
 }
 
