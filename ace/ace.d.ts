@@ -1035,6 +1035,8 @@ declare module AceAjax {
     **/
     export interface Editor {
 
+        addEventListener(ev: string, callback: Function);
+        
         inMultiSelectMode: boolean;
 
         selectMoreLines(n: number);
