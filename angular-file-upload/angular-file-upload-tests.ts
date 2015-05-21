@@ -29,8 +29,12 @@ module controllers {
                     },
                     file: file
                 })
+                .abort()
                 .progress((evt: any) => {
                     console.log('progress');
+                })
+                .xhr((evt: any) => {
+                    console.log('xhr');
                 })
                 .then(success => {
                     // file is uploaded successfully
