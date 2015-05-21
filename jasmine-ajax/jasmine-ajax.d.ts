@@ -62,7 +62,7 @@ interface JasmineAjaxParamParser {
 }
 
 declare class MockAjax {
-	constructor(globals);
+	constructor(globals: any);
 
 	install(): void;
 	uninstall(): void;
