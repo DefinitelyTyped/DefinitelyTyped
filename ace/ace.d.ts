@@ -576,7 +576,7 @@ declare module AceAjax {
         /**
          * Returns the current tab size.
         **/
-        getTabSize(): string;
+        getTabSize(): number;
 
         /**
          * Returns `true` if the character at the position is a soft tab.
@@ -1035,6 +1035,8 @@ declare module AceAjax {
     **/
     export interface Editor {
 
+        addEventListener(ev: string, callback: Function);
+        
         inMultiSelectMode: boolean;
 
         selectMoreLines(n: number);

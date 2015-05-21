@@ -41,6 +41,7 @@ declare module _ {
         (value: number): LoDashWrapper<number>;
         (value: string): LoDashWrapper<string>;
         (value: boolean): LoDashWrapper<boolean>;
+        (value: Array<number>): LoDashNumberArrayWrapper;
         <T>(value: Array<T>): LoDashArrayWrapper<T>;
         <T extends {}>(value: T): LoDashObjectWrapper<T>;
         (value: any): LoDashWrapper<any>;
@@ -204,6 +205,8 @@ declare module _ {
         splice(start: number, deleteCount: number, ...items: any[]): LoDashArrayWrapper<T>;
         unshift(...items: any[]): LoDashWrapper<number>;
     }
+
+    interface LoDashNumberArrayWrapper extends LoDashArrayWrapper<number> { }
 
     //_.chain
     interface LoDashStatic {
@@ -2066,25 +2069,47 @@ declare module _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-        * Creates an object composed from arrays of keys and values. Provide either a single 
-        * two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of 
-        * keys and one of corresponding values.
-        * @param keys The array of keys.
-        * @param values The array of values.
-        * @return An object composed of the given keys and corresponding values.
+        * The inverse of _.pairs; this method returns an object composed from arrays of property
+        * names and values. Provide either a single two dimensional array, e.g. [[key1, value1],
+        * [key2, value2]] or two arrays, one of property names and one of corresponding values.
+        * @param props The property names.
+        * @param values The property values.
+        * @return Returns the new object.
         **/
         zipObject<TResult extends {}>(
-            keys: List<string>,
-            values: List<any>): TResult;
+            props: List<string>,
+            values?: List<any>): TResult;
 
         /**
-        * @see _.object
+        * @see _.zipObject
+        **/
+        zipObject<TResult extends {}>(props: List<List<any>>): Dictionary<any>;
+
+        /**
+        * @see _.zipObject
         **/
         object<TResult extends {}>(
-            keys: List<string>,
-            values: List<any>): TResult;
-    }
+            props: List<string>,
+            values?: List<any>): TResult;
 
+        /**
+        * @see _.zipObject
+        **/
+        object<TResult extends {}>(props: List<List<any>>): Dictionary<any>;
+    }
+    
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.zipObject
+        **/
+        zipObject(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+
+        /**
+        * @see _.zipObject
+        **/
+        object(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+    }
+    
     /* *************
      * Collections *
      ************* */
@@ -3841,6 +3866,131 @@ declare module _ {
         **/
         min<W>(
             whereValue: W): LoDashWrapper<T>;
+    }
+    
+    //_.sum
+    interface LoDashStatic {
+        /**
+        * Gets the sum of the values in collection.
+        *
+        * @param collection The collection to iterate over.
+        * @param iteratee The function invoked per iteration.
+        * @param thisArg The this binding of iteratee.
+        * @return Returns the sum.
+        **/
+        sum(
+            collection: Array<number>): number;
+            
+        /**
+        * @see _.sum
+        **/
+        sum(
+            collection: List<number>): number;
+            
+        /**
+        * @see _.sum
+        **/
+        sum(
+            collection: Dictionary<number>): number;
+            
+        /**
+        * @see _.sum
+        **/
+        sum<T>(
+            collection: Array<T>,
+            iteratee: ListIterator<T, number>,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sum
+        **/
+        sum<T>(
+            collection: List<T>,
+            iteratee: ListIterator<T, number>,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sum
+        **/
+        sum<T>(
+            collection: Dictionary<T>,
+            iteratee: ObjectIterator<T, number>,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sum
+        * @param property _.property callback shorthand.
+        **/
+        sum<T>(
+            collection: Array<T>,
+            property: string): number;
+
+        /**
+        * @see _.sum
+        * @param property _.property callback shorthand.
+        **/
+        sum<T>(
+            collection: List<T>,
+            property: string): number;
+
+        /**
+        * @see _.sum
+        * @param property _.property callback shorthand.
+        **/
+        sum<T>(
+            collection: Dictionary<T>,
+            property: string): number;
+    }
+    
+    interface LoDashNumberArrayWrapper {
+        /**
+        * @see _.sum
+        **/
+        sum(): number
+
+        /**
+        * @see _.sum
+        **/
+        sum(
+            iteratee: ListIterator<number, number>,
+            thisArg?: any): number;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.sum
+        **/
+        sum(
+            iteratee: ListIterator<T, number>,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sum
+        * @param property _.property callback shorthand.
+        **/
+        sum(
+            property: string): number;
+    }
+    
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.sum
+        **/
+        sum(): number
+    
+        /**
+        * @see _.sum
+        **/
+        sum(
+            iteratee: ObjectIterator<any, number>,
+            thisArg?: any): number;
+
+        /**
+        * @see _.sum
+        * @param property _.property callback shorthand.
+        **/
+        sum(
+            property: string): number;
     }
 
     //_.pluck

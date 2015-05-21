@@ -787,8 +787,18 @@ declare module D3 {
             (valueFunction: (data: T, index: number) => any): _Selection<T>;
         };
 
-        append: (name: string) => _Selection<T>;
-        insert: (name: string, before: string) => _Selection<T>;
+        append: {
+            (name: string): _Selection<T>;
+            (elementFunction: (data: T, index: number) => any): _Selection<T>;
+        }
+
+        insert: {
+            (name: string, before: string): _Selection<T>;
+            (insertElementFunction: (data: T, index: number) => any, before: string): _Selection<T>;
+            (name: string, beforeElementFunction: (data: T, index: number) => any): _Selection<T>;
+            (insertElementFunction: (data: T, index: number) => any, beforeElementFunction: (data: T, index: number) => any): _Selection<T>;
+        }
+
         remove: () => _Selection<T>;
         empty: () => boolean;
 
@@ -874,8 +884,18 @@ declare module D3 {
     export interface Selection extends _Selection<any> { }
 
     export interface _EnterSelection<T> {
-        append: (name: string) => _Selection<T>;
-        insert: (name: string, before?: string) => _Selection<T>;
+        append: {
+            (name: string): _Selection<T>;
+            (elementFunction: (data: T, index: number) => any): _Selection<T>;
+        }
+
+        insert: {
+            (name: string, before?: string): _Selection<T>;
+            (insertElementFunction: (data: T, index: number) => any, before?: string): _Selection<T>;
+            (name: string, beforeElementFunction?: (data: T, index: number) => any): _Selection<T>;
+            (insertElementFunction: (data: T, index: number) => any, beforeElementFunction?: (data: T, index: number) => any): _Selection<T>;
+        }
+
         select: (selector: string) => _Selection<T>;
         empty: () => boolean;
         node: () => Element;
