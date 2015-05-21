@@ -576,7 +576,7 @@ declare module AceAjax {
         /**
          * Returns the current tab size.
         **/
-        getTabSize(): string;
+        getTabSize(): number;
 
         /**
          * Returns `true` if the character at the position is a soft tab.
