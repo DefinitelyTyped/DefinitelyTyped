@@ -9268,7 +9268,7 @@ declare module Windows {
                 unconsumedBufferLength: number;
                 unicodeEncoding: Windows.Storage.Streams.UnicodeEncoding;
                 readByte(): number;
-                readBytes(): Uint8Array;
+                readBytes(value: Uint8Array): void;
                 readBuffer(length: number): Windows.Storage.Streams.IBuffer;
                 readBoolean(): boolean;
                 readGuid(): string;
@@ -9297,7 +9297,7 @@ declare module Windows {
                 unconsumedBufferLength: number;
                 unicodeEncoding: Windows.Storage.Streams.UnicodeEncoding;
                 readByte(): number;
-                readBytes(): Uint8Array;
+                readBytes(value: Uint8Array): void;
                 readBuffer(length: number): Windows.Storage.Streams.IBuffer;
                 readBoolean(): boolean;
                 readGuid(): string;
