@@ -1032,37 +1032,98 @@ declare module angular {
         disableAutoScrolling(): void;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // CacheFactoryService
-    // see http://docs.angularjs.org/api/ng.$cacheFactory
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * $cacheFactory - service in module ng
+     * 
+     * Factory that constructs Cache objects and gives access to them.
+     * 
+     * see https://docs.angularjs.org/api/ng/service/$cacheFactory
+     */
     interface ICacheFactoryService {
-        // Lets not foce the optionsMap to have the capacity member. Even though
-        // it's the ONLY option considered by the implementation today, a consumer
-        // might find it useful to associate some other options to the cache object.
-        //(cacheId: string, optionsMap?: { capacity: number; }): CacheObject;
-        (cacheId: string, optionsMap?: { capacity: number; }): ICacheObject;
+        /**
+         * Factory that constructs Cache objects and gives access to them.
+         * 
+         * @param cacheId Name or id of the newly created cache.
+         * @param optionsMap Options object that specifies the cache behavior. Properties:
+         * 
+         * capacity — turns the cache into LRU cache.
+         */
+        (cacheId: string, optionsMap?: { capacity?: number; }): ICacheObject;
 
-        // Methods bellow are not documented
+        /**
+         * Get information about all the caches that have been created. 
+         * @returns key-value map of cacheId to the result of calling cache#info
+         */
         info(): any;
+
+        /**
+         * Get access to a cache object by the cacheId used when it was created.
+         * 
+         * @param cacheId Name or id of a cache to access.
+         */
         get(cacheId: string): ICacheObject;
     }
 
+    /**
+     * $cacheFactory.Cache - type in module ng
+     * 
+     * A cache object used to store and retrieve data, primarily used by $http and the script directive to cache templates and other data.
+     * 
+     * see https://docs.angularjs.org/api/ng/type/$cacheFactory.Cache
+     */
     interface ICacheObject {
+        /**
+         * Retrieve information regarding a particular Cache.
+         */
         info(): {
+            /**
+             * the id of the cache instance
+             */
             id: string;
+
+            /**
+             * the number of entries kept in the cache instance
+             */
             size: number;
 
-            // Not garanteed to have, since it's a non-mandatory option
-            //capacity: number;
+            //...: any additional properties from the options object when creating the cache.
         };
+
+        /**
+         * Inserts a named entry into the Cache object to be retrieved later, and incrementing the size of the cache if the key was not already present in the cache. If behaving like an LRU cache, it will also remove stale entries from the set.
+         * 
+         * It will not insert undefined values into the cache.
+         * 
+         * @param key the key under which the cached data is stored.
+         * @param value the value to store alongside the key. If it is undefined, the key will not be stored.
+         */
         put<T>(key: string, value?: T): T;
+
+        /**
+         * Retrieves named data stored in the Cache object.
+         * 
+         * @param key the key of the data to be retrieved
+         */
         get(key: string): any;
+
+        /**
+         * Removes an entry from the Cache object.
+         * 
+         * @param key the key of the entry to be removed
+         */
         remove(key: string): void;
+
+        /**
+         * Clears the cache object of any entries.
+         */
         removeAll(): void;
+
+        /**
+         * Destroys the Cache object entirely, removing it from the $cacheFactory set.
+         */
         destroy(): void;
     }
-
+    
     ///////////////////////////////////////////////////////////////////////////
     // CompileService
     // see http://docs.angularjs.org/api/ng.$compile
