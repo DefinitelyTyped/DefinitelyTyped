@@ -44,6 +44,7 @@ interface HelloJSStatic extends HelloJSEvent {
     settings: HelloJSLoginOptions;
     (network: string): HelloJSStaticNamed;
     init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
+    then(callback: (json?: any) => void, errorCallback?: (boolOrJson?: any) => void);
 }
 
 interface HelloJSStaticNamed {
