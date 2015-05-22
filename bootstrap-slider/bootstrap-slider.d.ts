@@ -79,9 +79,9 @@ interface SliderOptions {
     /**
      * Default: returns the plain value
      * formatter callback. Return the value wanted to be displayed in the tooltip
-     * @param number the current value to display
+     * @param val the current value to display
      */
-    formatter?(number): string;
+    formatter?(val:number): string;
     /**
      * Default: false
      * The natural order is used for the arrow keys. Arrow up select the upper slider value for vertical sliders, arrow right the righter slider value for a horizontal slider - no matter if the slider was reversed or not. By default the arrow keys are oriented by arrow up/right to the higher slider value, arrow down/left to the lower slider value.
@@ -101,7 +101,7 @@ interface SliderOptions {
      * Default: [ ]
      * Defines the labels below the tick marks. Accepts HTML input.
      */
-    ticks_labels?: number[];
+    ticks_labels?: string[];
     /**
      * Default: 0
      * Used to define the snap bounds of a tick. Snaps to the tick if value is within these bounds.
