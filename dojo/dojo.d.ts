@@ -5051,7 +5051,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: any[], callback: Function, thisObject?: Object, Ctr: any): any[];
+            map(arr: any[], callback: Function, thisObject: Object, Ctr: any): any[];
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5066,7 +5066,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: String, callback: Function, thisObject?: Object, Ctr: any): any[];
+            map(arr: String, callback: Function, thisObject: Object, Ctr: any): any[];
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5081,7 +5081,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: any[], callback: String, thisObject?: Object, Ctr: any): any[];
+            map(arr: any[], callback: String, thisObject: Object, Ctr: any): any[];
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5096,7 +5096,7 @@ declare module dojo {
              * @param thisObject               Optionalmay be used to scope the call to callback             
              * @param Ctr             
              */
-            map(arr: String, callback: String, thisObject?: Object, Ctr: any): any[];
+            map(arr: String, callback: String, thisObject: Object, Ctr: any): any[];
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
