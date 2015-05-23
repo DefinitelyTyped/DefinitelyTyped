@@ -102,6 +102,7 @@ declare module angular.material {
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
+        position(position: string): T;
     }
 
     interface MDSimpleToastPreset extends MDToastPreset<MDSimpleToastPreset> {

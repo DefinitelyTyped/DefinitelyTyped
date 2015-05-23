@@ -24,6 +24,18 @@ function test_context() {
     });
 }
 
+function test_suite() {
+    suite('some context', () => { });
+
+    suite.only('some context', () => { });
+
+    suite.skip('some context', () => { });
+
+    suite('some context', function() {
+        this.timeout(2000);
+    });
+}
+
 function test_it() {
 
     it('does something', () => { });
@@ -35,6 +47,21 @@ function test_it() {
     it.skip('does something', () => { });
 
     it('does something', function () {
+        this.timeout(2000);
+    });
+}
+
+function test_test() {
+
+    test('does something', () => { });
+
+    test('does something', (done) => { done(); });
+
+    test.only('does something', () => { });
+
+    test.skip('does something', () => { });
+
+    test('does something', function () {
         this.timeout(2000);
     });
 }
