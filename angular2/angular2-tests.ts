@@ -5,10 +5,10 @@ import ng = require("angular2/angular2");
 import di = require("angular2/di");
 
 class Service {
-	
+
 }
 class Service2 {
-  
+
 }
 
 class Cmp {
@@ -17,11 +17,11 @@ class Cmp {
 Cmp.annotations = [
   ng.Component({
     selector: 'cmp',
-    injectables: [Service, di.bind(Service2).toValue(null)]
+    appInjector: [Service, di.bind(Service2).toValue(null)]
   }),
   ng.View({
-    template: '{{greeting}} world!',
-    directives: [ng.For, ng.If]
+    template: '{{ greeting }} world!',
+    directives: [ng.NgFor, ng.NgIf]
   })
 ];
 
