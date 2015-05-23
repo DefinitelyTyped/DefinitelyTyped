@@ -28,17 +28,19 @@ interface AngularFireObject extends AngularFireSimpleObject {
 	$id: string;
 	$priority: number;
 	$value: any;
+	$remove(): ng.IPromise<Firebase>;
 	$save(): ng.IPromise<Firebase>;
 	$loaded(resolve?: (x: AngularFireObject) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
 	$loaded(resolve?: (x: AngularFireObject) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
 	$loaded(resolve?: (x: AngularFireObject) => void, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
-	$inst(): AngularFire;
+	$ref(): AngularFire;
 	$bindTo(scope: ng.IScope, varName: string): ng.IPromise<any>;
 	$watch(callback: Function, context?: any): Function;
 	$destroy(): void;
 }
 interface AngularFireObjectService {
-	$extendFactory(ChildClass: Object, methods?: Object): Object;
+	(firebase: Firebase): AngularFireObject;
+	$extend(ChildClass: Object, methods?: Object): Object;
 }
 
 interface AngularFireArray extends Array<AngularFireSimpleObject> {
@@ -51,12 +53,13 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
 	$loaded(resolve?: (x: AngularFireArray) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
 	$loaded(resolve?: (x: AngularFireArray) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
 	$loaded(resolve?: (x: AngularFireArray) => void, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
-	$inst(): AngularFire;
+	$ref(): AngularFire;
 	$watch(cb: (event: string, key: string, prevChild: string) => void, context?: any): Function;
 	$destroy(): void;
 }
 interface AngularFireArrayService {
-	$extendFactory(ChildClass: Object, methods?: Object): Object;
+	(firebase: Firebase): AngularFireArray;
+	$extend(ChildClass: Object, methods?: Object): Object;
 }
 
 interface AngularFireSimpleObject {
@@ -72,11 +75,20 @@ interface AngularFireAuthService {
 }
 
 interface AngularFireAuth {
-	$getCurrentUser(): ng.IPromise<any>;
-	$login(provider: string, options?: Object): ng.IPromise<any>;
-	$logout(): void;
-	$createUser(email: string, password: string): ng.IPromise<any>;
-	$changePassword(email: string, oldPassword: string, newPassword: string): ng.IPromise<any>;
-	$removeUser(email: string, password: string): ng.IPromise<any>;
-	$sendPasswordResetEmail(email: string): ng.IPromise<any>;
+	$authWithCustomToken(authToken: string, options?: Object): ng.IPromise<any>;
+	$authAnonymously(options?: Object): ng.IPromise<any>;
+	$authWithPassword(credentials: FirebaseCredentials, options?: Object): ng.IPromise<any>;
+	$authWithOAuthPopup(provider: string, options?: Object): ng.IPromise<any>;
+	$authWithOAuthRedirect(provider: string, options?: Object): ng.IPromise<any>;
+	$authWithOAuthToken(provider: string, credentials: Object|string, options?: Object): ng.IPromise<any>;
+	$getAuth(): FirebaseAuthData;
+	$onAuth(callback: Function, context?: any): Function;
+	$unauth(): void;
+	$waitForAuth(): ng.IPromise<any>;
+	$requireAuth(): ng.IPromise<any>;
+	$createUser(credentials: FirebaseCredentials): ng.IPromise<any>;
+	$removeUser(credentials: FirebaseCredentials): ng.IPromise<any>;
+	$changeEmail(credentials: FirebaseChangeEmailCredentials): ng.IPromise<any>;
+	$changePassword(credentials: FirebaseChangePasswordCredentials): ng.IPromise<any>;
+	$resetPassword(credentials: FirebaseResetPasswordCredentials): ng.IPromise<any>;
 }

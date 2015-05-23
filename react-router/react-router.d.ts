@@ -179,7 +179,7 @@ declare module ReactRouter {
     }
     
     interface RouterCreateOption {
-        routes: Route;
+        routes: React.ReactElement<RouteProp>;
         location?: LocationBase;
         scrollBehavior?: ScrollBehaviorBase;
     }
@@ -187,8 +187,8 @@ declare module ReactRouter {
     type RouterRunCallback = (Handler: Router, state: RouterState) => void;
     
     function create(options: RouterCreateOption): Router;
-    function run(routes: Route, callback: RouterRunCallback): Router;
-    function run(routes: Route, location: LocationBase, callback: RouterRunCallback): Router;
+    function run(routes: React.ReactElement<RouteProp>, callback: RouterRunCallback): Router;
+    function run(routes: React.ReactElement<RouteProp>, location: LocationBase, callback: RouterRunCallback): Router;
     
     
     //

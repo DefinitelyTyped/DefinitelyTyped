@@ -129,7 +129,7 @@ declare module angular.local.storage {
      * @param value optional
      * @param key The corresponding key used in local storage
      */
-    bind(scope:ng.IScope, property: string, value?: any, key?: string): Function;
+    bind(scope: angular.IScope, property: string, value?: any, key?: string): Function;
     /**
      * Return the derive key
      * Returns String
