@@ -2,16 +2,16 @@
 
 var scroller: Scroller = new Scroller((left, top, zoom) => { });
 scroller = new Scroller((left, top, zoom) => { }, {
-  scrollingX: true;
-  scrollingY: true;
-  animating: true;
-  animationDuration: 400;
-  bouncing: false;
-  locking: false;
-  paging: false;
-  snapping: true;
-  zooming: 10;
-  minZoom: 1;
+  scrollingX: true,
+  scrollingY: true,
+  animating: true,
+  animationDuration: 400,
+  bouncing: false,
+  locking: false,
+  paging: false,
+  snapping: true,
+  zooming: 10,
+  minZoom: 1,
   maxZoom: 2
 });
 
