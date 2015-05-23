@@ -1,4 +1,5 @@
 // Type definitions for Zynga Scroller
+// Project: Zynga Scroller
 // Definitions by: Marcelo Haskell Camargo <https://github.com/haskellcamargo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -19,9 +20,9 @@ declare class Scroller {
   setDimensions(clientWidth: number, clientHeight: number, contentWidth: number,
     contentHeight: number): void;
   setPosition(clientLeft: number, clientTop: number): void;
-  setSnapSize(width: number, height: number);
+  setSnapSize(width: number, height: number): void;
   activatePullToRefresh<T>(height: number, activate: () => void,
-    deactivate: () => void, start: () => void);
+    deactivate: () => void, start: () => void): void;
   finishPullToRefresh(): void;
   getValues(): {
     left: number;
@@ -44,6 +45,6 @@ declare class Scroller {
     pageX: number;
     pageY: number
   }, timeStamp: number, scale?: number): void;
-  doTouchMove(touches: [any], timeStamp: number);
+  doTouchMove(touches: [any], timeStamp: number): void;
   doTouchEnd(timeStamp: number): void;
 }
