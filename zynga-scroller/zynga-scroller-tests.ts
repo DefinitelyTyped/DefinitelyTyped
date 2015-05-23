@@ -2,17 +2,17 @@
 
 var scroller: Scroller = new Scroller((left, top, zoom) => { });
 scroller = new Scroller((left, top, zoom) => { }, {
-  scrollingX: true,
-  scrollingY: true,
-  animating: true,
-  animationDuration: 400,
-  bouncing: false,
-  locking: false,
-  paging: false,
-  snapping: true,
-  zooming: 10,
-  minZoom: 1,
-  maxZoom: 2,
+  scrollingX: true;
+  scrollingY: true;
+  animating: true;
+  animationDuration: 400;
+  bouncing: false;
+  locking: false;
+  paging: false;
+  snapping: true;
+  zooming: 10;
+  minZoom: 1;
+  maxZoom: 2
 });
 
 scroller.setDimensions(10, 10, 10, 10);
@@ -21,8 +21,8 @@ scroller.setSnapSize(300, 300);
 scroller.activatePullToRefresh(200, () => { }, () => { }, () => { });
 scroller.finishPullToRefresh();
 var data: {
-  left: number,
-  top: number,
+  left: number;
+  top: number;
   zoom: number
 } = scroller.getValues();
 scroller.zoomTo(10);
