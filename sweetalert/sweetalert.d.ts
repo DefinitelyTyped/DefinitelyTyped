@@ -1,4 +1,4 @@
-// Type definitions for SweetAlert 1.0.0-beta
+// Type definitions for SweetAlert 1.0.1
 // Project: https://github.com/t4t5/sweetalert/
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -97,7 +97,7 @@ declare module SweetAlert {
         imageSize?: string;
 
         /**
-         * Auto close timer of the modal.Set in ms (milliseconds).
+         * Auto close timer of the modal. Set in ms (milliseconds).
          * Default: null
          */
         timer?: number;
@@ -125,6 +125,12 @@ declare module SweetAlert {
          * Default: null
          */
         inputPlaceholder?: string;
+
+        /**
+         * Specify a default text value that you want your input to show when using type: "input"
+         * Default: null
+         */
+        inputValue?: string;
     }
 
     interface Settings extends SettingsBase {
