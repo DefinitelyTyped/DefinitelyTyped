@@ -189,10 +189,8 @@ interface InteractEvent {
 }
 
 interface TouchEvent {
-    changedTouches: any[];
     pageX: number;
     pageY: number;
-    touches: any[];
     type: string;
 }
 
