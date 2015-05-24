@@ -474,6 +474,7 @@ declare module angular {
         // types do work and it's common to use them.
         $setViewValue(value: any, trigger?: string): void;
         $setPristine(): void;
+        $setDirty(): void;
         $validate(): void;
         $setTouched(): void;
         $setUntouched(): void;
