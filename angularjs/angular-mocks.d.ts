@@ -42,7 +42,7 @@ declare module angular {
         inject: {
             (...fns: Function[]): any;
             (...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
-            strictDi(val: boolean): void;
+            strictDi(val?: boolean): void;
         }
 
         // see http://docs.angularjs.org/api/angular.mock.module
