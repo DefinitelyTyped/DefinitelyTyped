@@ -2,7 +2,7 @@
 /// <reference path="multer.d.ts" />
 
 import express = require('express');
-import multer = require('multer');
+import multer from "multer";
 
 var app: express.Express = express();
 app.use(multer());

@@ -6,9 +6,6 @@
 /// <reference path="../express/express.d.ts" />
 
 declare module "multer" {
-    import express = require('express');
-
-    function multer(options?: any): express.RequestHandler;
-
-    export = multer;
+    import { RequestHandler } from "express";
+    export default function multer(options?: any): RequestHandler;
 }
