@@ -39,8 +39,11 @@ declare module angular {
         dump(obj: any): string;
 
         // see http://docs.angularjs.org/api/angular.mock.inject
-        inject(...fns: Function[]): any;
-        inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+        inject: {
+            (...fns: Function[]): any;
+            (...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+            strictDi(val?: boolean): void;
+        }
 
         // see http://docs.angularjs.org/api/angular.mock.module
         module(...modules: any[]): any;
