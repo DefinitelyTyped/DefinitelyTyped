@@ -83,7 +83,7 @@ declare module "piwik-tracker" {
 		send_image? : number;
 	}
 	
-	class PiwikTracker {
+	class PiwikTracker extends EventEmitter {
 		constructor(siteId : number, trackerUrl : string);
 		track(options : PiwikTrackOptions) : void;
 	}
