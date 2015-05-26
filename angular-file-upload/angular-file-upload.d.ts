@@ -1,5 +1,5 @@
-﻿// Type definitions for Angular File Upload 1.6.7
-// Project: https://github.com/danialfarid/angular-file-upload
+﻿// Type definitions for Angular File Upload 4.2.1
+// Project: https://github.com/danialfarid/ng-file-upload
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -9,7 +9,7 @@ declare module angular.angularFileUpload  {
 
     interface IUploadService {
 
-        http<T>(config: ng.IRequestConfig): IUploadPromise<T>;
+        http<T>(config: IRequestConfig): IUploadPromise<T>;
         upload<T>(config: IFileUploadConfig): IUploadPromise<T>;
     }
 
@@ -19,9 +19,14 @@ declare module angular.angularFileUpload  {
         xhr(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
     }
 
-    interface IFileUploadConfig extends ng.IRequestConfig {
+    interface IFileUploadConfig extends IRequestConfig {
 
         file: File;
         fileName?: string;
+    }
+
+    interface IFileProgressEvent extends ProgressEvent {
+
+        config: IFileUploadConfig;
     }
 } 
