@@ -5836,6 +5836,22 @@ declare module _ {
         methods(): _.LoDashArrayWrapper<string>;
     }
 
+    //_.get
+    interface LoDashStatic {
+        /**
+         * Gets the property value at path of object. If the resolved
+         * value is undefined the defaultValue is used in its place.
+         * @param object The object to query.
+         * @param path The path of the property to get.
+         * @param defaultValue The value returned if the resolved value is undefined.
+         * @return Returns the resolved value.
+         **/
+        get<T>(object : Object,
+               path:string|string[],
+               defaultValue?:T
+        ): T;
+    }
+
     //_.has
     interface LoDashStatic {
         /**
