@@ -14,8 +14,9 @@ declare module angular.angularFileUpload  {
     }
 
     interface IUploadPromise<T> extends IHttpPromise<T> {
-
+        abort(): IUploadPromise<T>;
         progress(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
+        xhr(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
     }
 
     interface IFileUploadConfig extends IRequestConfig {

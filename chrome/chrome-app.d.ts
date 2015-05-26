@@ -122,12 +122,6 @@ declare module chrome.app.window {
         id: string;
         innerBounds: Bounds;
         outerBounds: Bounds;
-        onBoundsChanged: WindowEvent;
-        onClosed: WindowEvent;
-        onFullscreened: WindowEvent;
-        onMaximized: WindowEvent;
-        onMinimized: WindowEvent;
-        onRestored: WindowEvent;
     }
 
     export function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;

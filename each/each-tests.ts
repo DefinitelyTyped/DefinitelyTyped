@@ -6,9 +6,9 @@ function testEach() {
 		return {
 			paused: true,
 			readable: false,
-			started: 11,
-			done: 12,
-			total: 22,
+			started: true,
+			done: true,
+			total: true,
 			on: function (eventName: string, cb: (a: any, b?: () => void) => void) {
 				return EachStaticClass([]);
 			},

@@ -38,11 +38,11 @@ declare module YT {
 		iv_load_policy?: number;
 		list?: string;
 		listType?: ListType;
-		loop?: number;
+		loop?;
 		modestbranding?: number;
-		origin?: string;
+		origin?;
         playerpiid?: string;
-		playlist?: string[];
+		playlist?;
 		rel?: number;
         showinfo?: number;
 		start?: number;
@@ -84,17 +84,17 @@ declare module YT {
 
         // Queueing functions
         loadVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
-        loadVideoById(VideoByIdParams: Object): void;
+        loadVideoById(VideoByIdParams): void;
         cueVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
-        cueVideoById(VideoByIdParams: Object): void;
+        cueVideoById(VideoByIdParams): void;
 
         loadVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
-        loadVideoByUrl(VideoByUrlParams: Object): void;
+        loadVideoByUrl(VideoByUrlParams): void;
         cueVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
-        cueVideoByUrl(VideoByUrlParams: Object): void;
+        cueVideoByUrl(VideoByUrlParams): void;
 
         // Properties
-        size: any;
+        size;
 
         // Playing
         playVideo(): void;

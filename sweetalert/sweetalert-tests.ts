@@ -63,10 +63,7 @@ swal({
     text: "I will close in 2 seconds.",
     timer: 2000,
     showConfirmButton: false
-},
-    function () {
-        swal("Time Out!", "The time is out of joint.", "success");
-    });
+});
 
 // A replacement for the "prompt" function
 swal({
@@ -76,8 +73,7 @@ swal({
     showCancelButton: true,
     closeOnConfirm: false,
     animation: "slide-from-top",
-    inputPlaceholder: "Write something plx",
-    inputValue: "Write something"
+    inputPlaceholder: "Write something"
 },
     function (inputValue) {
         if (inputValue === false) return false;

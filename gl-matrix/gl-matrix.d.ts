@@ -6,9 +6,6 @@
 declare module GLM {
     interface IArray
     {
-        /**
-         * Must be indexable like an array
-         */
         [index: number]: number;
     } 
 }
@@ -1588,7 +1585,7 @@ declare module mat3 {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-     export function rotate(out: GLM.IArray, a: GLM.IArray, rad: number): GLM.IArray;
+     export function translate(out: GLM.IArray, a: GLM.IArray, rad: number): GLM.IArray;
 }
 
 // mat4
@@ -2010,7 +2007,7 @@ declare module quat {
      * @returns dot product of a and b
      * @function
      */
-    export function dot(out: GLM.IArray, a: GLM.IArray, b: GLM.IArray): number;
+    export function dot(out: GLM.IArray, a: GLM.IArray, b: GLM.IArray): GLM.IArray;
     
     /**
      * Performs a linear interpolation between two quat's

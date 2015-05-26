@@ -398,7 +398,7 @@ function testStyleProperty() {
 	});
 
 	$a.qtip({
-		style: {
+		show: {
 			classes: false,
 			width: 24,
 			height: 24,
@@ -407,7 +407,7 @@ function testStyleProperty() {
 	});
 
 	$a.qtip({
-		style: {
+		show: {
 			classes: false,
 			width: false,
 			height: false,
@@ -423,7 +423,7 @@ function testStyleProperty() {
 	});
 
 	$a.qtip({
-		style: {
+		show: {
 			tip: {
 				corner: true,
 				mimic: true,
@@ -433,7 +433,7 @@ function testStyleProperty() {
 	});
 
 	$a.qtip({
-		style: {
+		show: {
 			tip: { }
 		}
 	});

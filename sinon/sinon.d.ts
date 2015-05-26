@@ -15,9 +15,9 @@ declare module Sinon {
         calledOn(obj: any): boolean;
         calledWith(...args: any[]): boolean;
         calledWithExactly(...args: any[]): boolean;
-        calledWithMatch(...args: any[]): boolean;
+        calledWithMatch(...args: SinonMatcher[]): boolean;
         notCalledWith(...args: any[]): boolean;
-        notCalledWithMatch(...args: any[]): boolean;
+        notCalledWithMatch(...args: SinonMatcher[]): boolean;
         returned(value: any): boolean;
         threw(): boolean;
         threw(type: string): boolean;
@@ -64,9 +64,9 @@ declare module Sinon {
         alwaysCalledOn(obj: any): boolean;
         alwaysCalledWith(...args: any[]): boolean;
         alwaysCalledWithExactly(...args: any[]): boolean;
-        alwaysCalledWithMatch(...args: any[]): boolean;
+        alwaysCalledWithMatch(...args: SinonMatcher[]): boolean;
         neverCalledWith(...args: any[]): boolean;
-        neverCalledWithMatch(...args: any[]): boolean;
+        neverCalledWithMatch(...args: SinonMatcher[]): boolean;
         alwaysThrew(): boolean;
         alwaysThrew(type: string): boolean;
         alwaysThrew(obj: any): boolean;
@@ -307,9 +307,9 @@ declare module Sinon {
         neverCalledWith(spy: SinonSpy, ...args: any[]): void;
         calledWithExactly(spy: SinonSpy, ...args: any[]): void;
         alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;
-        calledWithMatch(spy: SinonSpy, ...args: any[]): void;
-        alwaysCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
-        neverCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        calledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
+        alwaysCalledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
+        neverCalledWithMatch(spy: SinonSpy, ...args: SinonMatcher[]): void;
         threw(spy: SinonSpy): void;
         threw(spy: SinonSpy, exception: string): void;
         threw(spy: SinonSpy, exception: any): void;

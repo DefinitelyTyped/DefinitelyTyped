@@ -79,13 +79,7 @@ declare module "mongoose" {
   }
   export module Types {
     export class ObjectId {
-      constructor(id: string|number);
-      toHexString(): string;
-      equals(other: ObjectId): boolean;
-      getTimestamp(): Date;
-      isValid(): boolean;
-      static createFromTime(time: number): ObjectId;
-      static createFromHexString(hexString: string): ObjectId;
+        toHexString(): string;
     }
   }
 
@@ -143,7 +137,7 @@ declare module "mongoose" {
     aggregate(aggregation1: Object, aggregation2: Object, aggregation3: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
     count(conditions: Object, callback?: (err: any, count: number) => void): Query<number>;
 
-    create(doc: Object, fn?: (err: any, res: T) => void): Promise<T>;
+    create(doc: Object, fn?: (err: any, res: T) => void): Promise<T[]>;
     create(doc1: Object, doc2: Object, fn?: (err: any, res1: T, res2: T) => void): Promise<T[]>;
     create(doc1: Object, doc2: Object, doc3: Object, fn?: (err: any, res1: T, res2: T, res3: T) => void): Promise<T[]>;
     discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
@@ -380,7 +374,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: Types.ObjectId;
+    _id: string;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;

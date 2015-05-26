@@ -5,10 +5,6 @@
 
 declare var signals: SignalWrapper;
 
-declare module "signals" {
-	export = signals;
-}
-
 interface SignalWrapper {
     Signal: Signal
 }

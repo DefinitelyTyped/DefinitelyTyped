@@ -248,9 +248,9 @@ interface KnockoutUtils {
 
         removeDisposeCallback(node: Element, callback: Function): void;
 
-        cleanNode(node: Node): Element;
+        cleanNode(node: Element): Element;
 
-        removeNode(node: Node): void;
+        removeNode(node: Element): void;
     };
 
     //////////////////////////////////
@@ -574,7 +574,6 @@ declare module KnockoutComponentTypes {
     interface Config {
         viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
-        synchronous?: boolean;
     }
 
     interface ComponentConfig {
