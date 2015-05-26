@@ -33,7 +33,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
 	$loaded(resolve?: (x: AngularFireObject) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
 	$loaded(resolve?: (x: AngularFireObject) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
 	$loaded(resolve?: (x: AngularFireObject) => void, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
-	$ref(): AngularFire;
+	$ref(): Firebase;
 	$bindTo(scope: ng.IScope, varName: string): ng.IPromise<any>;
 	$watch(callback: Function, context?: any): Function;
 	$destroy(): void;
@@ -53,7 +53,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
 	$loaded(resolve?: (x: AngularFireArray) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
 	$loaded(resolve?: (x: AngularFireArray) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
 	$loaded(resolve?: (x: AngularFireArray) => void, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
-	$ref(): AngularFire;
+	$ref(): Firebase;
 	$watch(cb: (event: string, key: string, prevChild: string) => void, context?: any): Function;
 	$destroy(): void;
 }
