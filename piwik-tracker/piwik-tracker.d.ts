@@ -3,6 +3,8 @@
 // Definitions by: Guilherme Bernal <https://github.com/lbguilherme>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare module "piwik-tracker" {
 	
 	export = PiwikTracker;
