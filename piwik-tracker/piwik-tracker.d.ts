@@ -7,6 +7,8 @@
 
 declare module "piwik-tracker" {
 	
+	import events = require('events');
+	
 	export = PiwikTracker;
 	
 	// refer to http://developer.piwik.org/api-reference/tracking-api
@@ -85,7 +87,7 @@ declare module "piwik-tracker" {
 		send_image? : number;
 	}
 	
-	class PiwikTracker extends EventEmitter {
+	class PiwikTracker extends events.EventEmitter {
 		constructor(siteId : number, trackerUrl : string);
 		track(options : PiwikTrackOptions) : void;
 	}
