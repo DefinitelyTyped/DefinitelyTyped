@@ -29,6 +29,10 @@ module controllers {
 			        },
 			        file: file
 		        })
+                .abort()
+                .xhr((evt: any) => {
+                    console.log('xhr');
+                })
 		        .progress((evt: angular.angularFileUpload.IFileProgressEvent) => {
 			        var percent = parseInt((100.0 * evt.loaded / evt.total).toString(), 10);
 			        console.log("upload progress: " + percent + "% for " + evt.config.file.name);
