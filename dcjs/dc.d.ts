@@ -187,7 +187,7 @@ declare module DC {
         isOrdinal(): boolean;
         xAxisLabel: IBiGetSet<string, number, T>;
         yAxisLabel: IBiGetSet<string, number, T>;
-        y: IGetSet<D3.Scale.GenericQuantitativeScale<any>, T>;
+        y: IGetSet<D3.Scale.GenericQuantitativeScale<any, any>, T>;
         yAxis: IGetSet<D3.Svg.Axis, T>;
         elasticY: IGetSet<boolean, T>;
         renderHorizontalGridLines: IGetSet<boolean, T>;
@@ -219,7 +219,7 @@ declare module DC {
     }
 
     export interface BubbleMixin<T> extends ColorMixin<T> {
-        r: IGetSet<D3.Scale.GenericQuantitativeScale<any>, T>;
+        r: IGetSet<D3.Scale.GenericQuantitativeScale<any, any>, T>;
         radiusValueAccessor: IGetSet<Accessor<any, number>, T>;
         minRadiusWithLabel: IGetSet<number, T>;
         maxBubbleRelativeSize: IGetSet<number, T>;
@@ -295,7 +295,7 @@ declare module DC {
         children(): Array<BaseMixin<any>>;
         shareColors: IGetSet<boolean, CompositeChart>;
         shareTitle: IGetSet<boolean, CompositeChart>;
-        rightY: IGetSet<D3.Scale.GenericQuantitativeScale<any>, CompositeChart>;
+        rightY: IGetSet<D3.Scale.GenericQuantitativeScale<any, any>, CompositeChart>;
         rightYAxis: IGetSet<D3.Svg.Axis, CompositeChart>;
     }
 
@@ -325,7 +325,7 @@ declare module DC {
     }
 
     export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
-        x: IGetSet<D3.Scale.GenericQuantitativeScale<any>, RowChart>;
+        x: IGetSet<D3.Scale.GenericQuantitativeScale<any, any>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
         xAxis: IGetSet<D3.Svg.Axis, RowChart>;
         fixedBarHeight: IGetSet<number, RowChart>;
