@@ -1,0 +1,1 @@
+--noImplicitAny --module commonjs --target es5
