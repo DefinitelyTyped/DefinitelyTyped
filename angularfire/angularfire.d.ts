@@ -94,7 +94,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
 	/**
 	 * @returns {Firebase} the original Firebase instance used to create this object.
 	 */
-	$ref(): AngularFire;
+	$ref(): Firebase;
 
 	/**
 	 * Creates a 3-way data sync between this object, the Firebase server, and a
@@ -277,7 +277,7 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
 	/**
 	 * @returns {Firebase} the original Firebase ref used to create this object.
 	 */
-	$ref(): AngularFire;
+	$ref(): Firebase;
 
 	/**
 	 * Listeners passed into this method are notified whenever a new change (add, updated,
