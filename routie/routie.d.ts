@@ -24,7 +24,7 @@ declare module routie {
         lookup(name: string, fn: Function): string;
         remove(path: string, fn: Function): void;
         removeAll(): void;
-        navigate(path: string, options: RouteOptions): void;
+        navigate(path: string, options?: RouteOptions): void;
         noConflict(): Routie;
     }
 
