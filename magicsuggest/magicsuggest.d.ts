@@ -1,7 +1,7 @@
 ﻿// Type definitions for MagicSuggest 2.1.4
 // Project: http://nicolasbize.com/magicsuggest
 // Definitions by: Leonardo Chaia <http://github.com/leonardochaia>
-// Definitions: http://github.com/leonardochaia
+// Definitions: http://github.com/leonardochaia/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 interface JQuery {
