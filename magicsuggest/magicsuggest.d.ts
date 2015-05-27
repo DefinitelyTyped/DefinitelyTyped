@@ -5,7 +5,10 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 interface JQuery {
-    magicSuggest: (configurationObject: MagicSuggest.Configuration) => MagicSuggest.Instance;
+    /**
+    * Initialize MagicSuggest on this selector
+    */
+    magicSuggest(configurationObject?: MagicSuggest.Configuration): MagicSuggest.Instance;
 }
 
 declare module MagicSuggest {
