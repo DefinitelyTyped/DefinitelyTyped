@@ -447,8 +447,9 @@ declare module MagicSuggest {
         /**
          * Sets the current selection with the JSON items provided
          * @param items
+         * @param isSilent - (optional)
          */
-        setSelection(items: Array<any>): void;
+        setSelection(items: Array<any>, isSilet?: boolean): void;
 
         /**
          * Sets a value for the combo box. Value must be an array of values with data type matching valueField one.
