@@ -1,4 +1,4 @@
-// Type definitions for gulp-istanbul v0.9.0
+// Type definitions for gulp-istanbul v0.8.1
 // Project: https://github.com/SBoudrias/gulp-istanbul
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,7 +12,6 @@ declare module "gulp-istanbul" {
         export function hookRequire(): NodeJS.ReadWriteStream;
         export function summarizeCoverage(opts?: {coverageVariable?: string}): Coverage;
         export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;
-        export function enforceThresholds(opts?: ThresholdOptions): NodeJS.ReadWriteStream;
 
         interface Options {
             coverageVariable?: string;
@@ -45,18 +44,6 @@ declare module "gulp-istanbul" {
             reporters?: string[];
             reportOpts?: {dir?: string};
             coverageVariable?: string;
-        }
-
-        interface ThresholdOptions {
-            coverageVariable?: string;
-            thresholds?: { global?: Coverage|number; each?: Coverage|number };
-        }
-
-        interface CoverageOptions {
-            lines?: number;
-            statements?: number;
-            functions?: number;
-            branches?: number;
         }
     }
 
