@@ -14,6 +14,7 @@ declare module Chai {
 
     interface Assertion {
         become(expected: any): Assertion;
+        fulfilled: Assertion;
         rejected: Assertion;
         rejectedWith(expected: any): Assertion;
         notify(fn: Function): Assertion;
