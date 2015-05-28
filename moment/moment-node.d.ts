@@ -69,6 +69,7 @@ declare module moment {
         subtract(d: Duration): Duration;
 
         toISOString(): string;
+        toJSON(): string;
 
     }
 
@@ -276,6 +277,12 @@ declare module moment {
         isSame(b: Date, granularity: string): boolean;
         isSame(b: number[], granularity: string): boolean;
 
+        isBetween(a: Moment, b: Moment, granularity?: string): boolean;
+        isBetween(a: string, b: string, granularity?: string): boolean;
+        isBetween(a: number, b: number, granularity?: string): boolean;
+        isBetween(a: Date, b: Date, granularity?: string): boolean;
+        isBetween(a: number[], b: number[], granularity?: string): boolean;
+
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
         lang(reset: boolean): Moment;
@@ -412,6 +419,7 @@ declare module moment {
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
         isMoment(m: any): boolean;
+        isDate(m: any): boolean;
         isDuration(): boolean;
         isDuration(d: any): boolean;
 
