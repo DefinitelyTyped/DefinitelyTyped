@@ -1004,7 +1004,8 @@ declare module "react/addons" {
     }
 
     class ShallowRenderer {
-        getRenderOutput<C extends Component<any, any>>(): C;
+        getRenderOutput<E extends ReactElement<any>>(): E;
+        getRenderOutput(): ReactElement<any>;
         render(element: ReactElement<any>, context?: any): void;
         unmount(): void;
     }

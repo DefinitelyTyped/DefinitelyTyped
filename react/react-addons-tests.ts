@@ -406,5 +406,5 @@ TestUtils.Simulate.keyDown(node, { key: "Enter" });
 var renderer: React.ShallowRenderer =
     TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
-var output: Timer = renderer.getRenderOutput<Timer>();
-
+var output: React.ReactElement<React.Props<Timer>> =
+    renderer.getRenderOutput();
