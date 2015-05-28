@@ -715,6 +715,14 @@ declare module D3 {
         */
         (url: string, callback?: (error: any, response: any[]) => void ): Xhr;
         /**
+        * Request a delimited values file
+        *
+        * @param url Url to request
+        * @param accessor Accessor function called by d3.csv.parse on each row's data. Uses the return value as the row's data. 
+        * @param callback Function to invoke when resource is loaded or the request fails
+        */
+        (url: string, accessor?: (d: any) => any, callback?: (error: any, response: any[]) => void ): Xhr; 
+        /**
         * Arbitrary Delimiters:
         * Constructs a new parser for the given delimiter and mime type. For example, to parse values separated by "|", the vertical bar character, use:
         * var dsv = d3.dsv("|", "text/plain");
