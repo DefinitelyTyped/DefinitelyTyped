@@ -13,27 +13,27 @@ declare module _ {
         * In addition to Lo-Dash methods, wrappers also have the following Array methods:
         * concat, join, pop, push, reverse, shift, slice, sort, splice, and unshift
         *
-        * Chaining is supported in custom builds as long as the value method is implicitly or 
+        * Chaining is supported in custom builds as long as the value method is implicitly or
         * explicitly included in the build.
         *
         * The chainable wrapper functions are:
-        * after, assign, bind, bindAll, bindKey, chain, chunk, compact, compose, concat, countBy, 
-        * createCallback, curry, debounce, defaults, defer, delay, difference, filter, flatten, 
-        * forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, functions, groupBy, 
-        * indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min, 
-        * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject, 
-        * remove, rest, reverse, shuffle, slice, sort, sortBy, splice, tap, throttle, times, 
+        * after, assign, bind, bindAll, bindKey, chain, chunk, compact, compose, concat, countBy,
+        * createCallback, curry, debounce, defaults, defer, delay, difference, filter, flatten,
+        * forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, functions, groupBy,
+        * indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
+        * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject,
+        * remove, rest, reverse, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
         * toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
         *
         * The non-chainable wrapper functions are:
-        * clone, cloneDeep, contains, escape, every, find, findIndex, findKey, findLast, 
-        * findLastIndex, findLastKey, has, identity, indexOf, isArguments, isArray, isBoolean, 
-        * isDate, isElement, isEmpty, isEqual, isFinite, isFunction, isNaN, isNull, isNumber, 
-        * isObject, isPlainObject, isRegExp, isString, isUndefined, join, lastIndexOf, mixin, 
-        * noConflict, parseInt, pop, random, reduce, reduceRight, result, shift, size, some, 
+        * clone, cloneDeep, contains, escape, every, find, findIndex, findKey, findLast,
+        * findLastIndex, findLastKey, has, identity, indexOf, isArguments, isArray, isBoolean,
+        * isDate, isElement, isEmpty, isEqual, isFinite, isFunction, isNaN, isNull, isNumber,
+        * isObject, isPlainObject, isRegExp, isString, isUndefined, join, lastIndexOf, mixin,
+        * noConflict, parseInt, pop, random, reduce, reduceRight, result, shift, size, some,
         * sortedIndex, runInContext, template, unescape, uniqueId, and value
         *
-        * The wrapper functions first and last return wrapped values when n is provided, otherwise 
+        * The wrapper functions first and last return wrapped values when n is provided, otherwise
         * they return unwrapped values.
         *
         * Explicit chaining can be enabled by using the _.chain method.
@@ -56,14 +56,14 @@ declare module _ {
         support: Support;
 
         /**
-        * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
+        * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
         * (ERB). Change the following template settings to use alternative delimiters.
         **/
         templateSettings: TemplateSettings;
     }
 
     /**
-    * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby 
+    * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
     * (ERB). Change the following template settings to use alternative delimiters.
     **/
     interface TemplateSettings {
@@ -108,7 +108,7 @@ declare module _ {
         argsObject: boolean;
 
         /**
-        * Detect if name or message properties of Error.prototype are enumerable by default. 
+        * Detect if name or message properties of Error.prototype are enumerable by default.
         * (IE < 9, Safari < 5.1)
         **/
         enumErrorProps: boolean;
@@ -119,7 +119,7 @@ declare module _ {
         fastBind: boolean;
 
         /**
-        * Detect if functions can be decompiled by Function#toString (all but PS3 and older Opera 
+        * Detect if functions can be decompiled by Function#toString (all but PS3 and older Opera
         * mobile browsers & avoided in Windows 8 apps).
         **/
         funcDecomp: boolean;
@@ -130,7 +130,7 @@ declare module _ {
         funcNames: boolean;
 
         /**
-        * Detect if arguments object indexes are non-enumerable (Firefox < 4, IE < 9, PhantomJS, 
+        * Detect if arguments object indexes are non-enumerable (Firefox < 4, IE < 9, PhantomJS,
         * Safari < 5.1).
         **/
         nonEnumArgs: boolean;
@@ -138,7 +138,7 @@ declare module _ {
         /**
         * Detect if properties shadowing those on Object.prototype are non-enumerable.
         *
-        * In IE < 9 an objects own properties, shadowing non-enumerable ones, are made 
+        * In IE < 9 an objects own properties, shadowing non-enumerable ones, are made
         * non-enumerable as well (a.k.a the JScript [[DontEnum]] bug).
         **/
         nonEnumShadows: boolean;
@@ -151,9 +151,9 @@ declare module _ {
         /**
         * Detect if Array#shift and Array#splice augment array-like objects correctly.
         *
-        * Firefox < 10, IE compatibility mode, and IE < 9 have buggy Array shift() and splice() 
-        * functions that fail to remove the last element, value[0], of array-like objects even 
-        * though the length property is set to 0. The shift() method is buggy in IE 8 compatibility 
+        * Firefox < 10, IE compatibility mode, and IE < 9 have buggy Array shift() and splice()
+        * functions that fail to remove the last element, value[0], of array-like objects even
+        * though the length property is set to 0. The shift() method is buggy in IE 8 compatibility
         * mode, while splice() is buggy regardless of mode in IE < 9 and buggy in compatibility mode
         * in IE 9.
         **/
@@ -162,7 +162,7 @@ declare module _ {
         /**
         * Detect lack of support for accessing string characters by index.
         *
-        * IE < 8 can't access characters by index and IE 8 can only access characters by index on 
+        * IE < 8 can't access characters by index and IE 8 can only access characters by index on
         * string literals.
         **/
         unindexedChars: boolean;
@@ -232,8 +232,8 @@ declare module _ {
     //_.tap
     interface LoDashStatic {
         /**
-        * Invokes interceptor with the value as the first argument and then returns value. The 
-        * purpose of this method is to "tap into" a method chain in order to perform operations on 
+        * Invokes interceptor with the value as the first argument and then returns value. The
+        * purpose of this method is to "tap into" a method chain in order to perform operations on
         * intermediate results within the chain.
         * @param value The value to provide to interceptor
         * @param interceptor The function to invoke.
@@ -254,7 +254,7 @@ declare module _ {
     /*********
     * Arrays *
     **********/
-    
+
     //_.chunk
     interface LoDashStatic {
         /**
@@ -271,7 +271,7 @@ declare module _ {
         **/
         chunk<T>(array: List<T>, size?: number): T[][];
     }
-    
+
     interface LoDashArrayWrapper<T> {
         /**
         * @see _.chunk
@@ -338,10 +338,10 @@ declare module _ {
     //_.findIndex
     interface LoDashStatic {
         /**
-        * This method is like _.find except that it returns the index of the first element that passes 
+        * This method is like _.find except that it returns the index of the first element that passes
         * the callback check, instead of the element itself.
         * @param array The array to search.
-        * @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
+        * @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be
         * used to create a ".pluck" or ".where" style callback, respectively.
         * @param thisArg The this binding of callback.
         * @return Returns the index of the found element, else -1.
@@ -393,7 +393,7 @@ declare module _ {
         /**
         * This method is like _.findIndex except that it iterates over elements of a collection from right to left.
         * @param array The array to search.
-        * @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be 
+        * @param {(Function|Object|string)} callback The function called per iteration. If a property name or object is provided it will be
         * used to create a ".pluck" or ".where" style callback, respectively.
         * @param thisArg The this binding of callback.
         * @return Returns the index of the found element, else -1.
@@ -443,12 +443,12 @@ declare module _ {
     //_.first
     interface LoDashStatic {
         /**
-        * Gets the first element or first n elements of an array. If a callback is provided 
-        * elements at the beginning of the array are returned as long as the callback returns 
-        * truey. The callback is bound to thisArg and invoked with three arguments; (value, 
+        * Gets the first element or first n elements of an array. If a callback is provided
+        * elements at the beginning of the array are returned as long as the callback returns
+        * truey. The callback is bound to thisArg and invoked with three arguments; (value,
         * index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback 
+        * If a property name is provided for callback the created "_.pluck" style callback
         * will return the property value of the given element.
         *
         * If an object is provided for callback the created "_.where" style callback will return ]
@@ -769,15 +769,15 @@ declare module _ {
     //_.flatten
     interface LoDashStatic {
         /**
-        * Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the 
-        * array will only be flattened a single level. If a callback is provided each element of 
-        * the array is passed through the callback before flattening. The callback is bound to 
+        * Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the
+        * array will only be flattened a single level. If a callback is provided each element of
+        * the array is passed through the callback before flattening. The callback is bound to
         * thisArg and invoked with three arguments; (value, index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param array The array to flatten.
         * @param shallow If true then only flatten one level, optional, default = false.
@@ -936,8 +936,8 @@ declare module _ {
     //_.indexOf
     interface LoDashStatic {
         /**
-        * Gets the index at which the first occurrence of value is found using strict equality 
-        * for comparisons, i.e. ===. If the array is already sorted providing true for fromIndex 
+        * Gets the index at which the first occurrence of value is found using strict equality
+        * for comparisons, i.e. ===. If the array is already sorted providing true for fromIndex
         * will run a faster binary search.
         * @param array The array to search.
         * @param value The value to search for.
@@ -995,15 +995,15 @@ declare module _ {
     //_.initial
     interface LoDashStatic {
         /**
-        * Gets all but the last element or last n elements of an array. If a callback is provided 
-        * elements at the end of the array are excluded from the result as long as the callback 
-        * returns truey. The callback is bound to thisArg and invoked with three arguments; 
+        * Gets all but the last element or last n elements of an array. If a callback is provided
+        * elements at the end of the array are excluded from the result as long as the callback
+        * returns truey. The callback is bound to thisArg and invoked with three arguments;
         * (value, index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param array The array to query.
         * @param n Leaves this many elements behind, optional.
@@ -1086,7 +1086,7 @@ declare module _ {
     //_.intersection
     interface LoDashStatic {
         /**
-        * Creates an array of unique values present in all provided arrays using strict 
+        * Creates an array of unique values present in all provided arrays using strict
         * equality for comparisons, i.e. ===.
         * @param arrays The arrays to inspect.
         * @return Returns an array of composite values.
@@ -1102,14 +1102,14 @@ declare module _ {
     //_.last
     interface LoDashStatic {
         /**
-        * Gets the last element or last n elements of an array. If a callback is provided 
-        * elements at the end of the array are returned as long as the callback returns truey. 
+        * Gets the last element or last n elements of an array. If a callback is provided
+        * elements at the end of the array are returned as long as the callback returns truey.
         * The callback is bound to thisArg and invoked with three arguments; (value, index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param array The array to query.
         * @return Returns the last element(s) of array.
@@ -1191,8 +1191,8 @@ declare module _ {
     //_.lastIndexOf
     interface LoDashStatic {
         /**
-        * Gets the index at which the last occurrence of value is found using strict equality 
-        * for comparisons, i.e. ===. If fromIndex is negative, it is used as the offset from the 
+        * Gets the index at which the last occurrence of value is found using strict equality
+        * for comparisons, i.e. ===. If fromIndex is negative, it is used as the offset from the
         * end of the collection.
         * @param array The array to search.
         * @param value The value to search for.
@@ -1216,7 +1216,7 @@ declare module _ {
     //_.pull
     interface LoDashStatic {
         /**
-        * Removes all provided values from the given array using strict equality for comparisons, 
+        * Removes all provided values from the given array using strict equality for comparisons,
         * i.e. ===.
         * @param array The array to modify.
         * @param values The values to remove.
@@ -1237,8 +1237,8 @@ declare module _ {
     //_.range
     interface LoDashStatic {
         /**
-        * Creates an array of numbers (positive and/or negative) progressing from start up 
-        * to but not including end. If start is less than stop a zero-length range is created 
+        * Creates an array of numbers (positive and/or negative) progressing from start up
+        * to but not including end. If start is less than stop a zero-length range is created
         * unless a negative step is specified.
         * @param start The start of the range.
         * @param end The end of the range.
@@ -1262,14 +1262,14 @@ declare module _ {
     //_.remove
     interface LoDashStatic {
         /**
-        * Removes all elements from an array that the callback returns truey for and returns 
-        * an array of removed elements. The callback is bound to thisArg and invoked with three 
+        * Removes all elements from an array that the callback returns truey for and returns
+        * an array of removed elements. The callback is bound to thisArg and invoked with three
         * arguments; (value, index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param array The array to modify.
         * @param callback The function called per iteration.
@@ -1325,19 +1325,19 @@ declare module _ {
     //_.rest
     interface LoDashStatic {
         /**
-        * The opposite of _.initial this method gets all but the first element or first n elements of 
-        * an array. If a callback function is provided elements at the beginning of the array are excluded 
-        * from the result as long as the callback returns truey. The callback is bound to thisArg and 
+        * The opposite of _.initial this method gets all but the first element or first n elements of
+        * an array. If a callback function is provided elements at the beginning of the array are excluded
+        * from the result as long as the callback returns truey. The callback is bound to thisArg and
         * invoked with three arguments; (value, index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will return 
+        * If a property name is provided for callback the created "_.pluck" style callback will return
         * the property value of the given element.
-        * 
-        * If an object is provided for callback the created "_.where" style callback will return true 
+        *
+        * If an object is provided for callback the created "_.where" style callback will return true
         * for elements that have the properties of the given object, else false.
         * @param array The array to query.
-        * @param {(Function|Object|number|string)} [callback=1] The function called per element or the number 
-        * of elements to exclude. If a property name or object is provided it will be used to create a 
+        * @param {(Function|Object|number|string)} [callback=1] The function called per element or the number
+        * of elements to exclude. If a property name or object is provided it will be used to create a
         * ".pluck" or ".where" style callback, respectively.
         * @param {*} [thisArg] The this binding of callback.
         * @return Returns a slice of array.
@@ -1547,15 +1547,15 @@ declare module _ {
     //_.sortedIndex
     interface LoDashStatic {
         /**
-        * Uses a binary search to determine the smallest index at which a value should be inserted 
-        * into a given sorted array in order to maintain the sort order of the array. If a callback 
-        * is provided it will be executed for value and each element of array to compute their sort 
+        * Uses a binary search to determine the smallest index at which a value should be inserted
+        * into a given sorted array in order to maintain the sort order of the array. If a callback
+        * is provided it will be executed for value and each element of array to compute their sort
         * ranking. The callback is bound to thisArg and invoked with one argument; (value).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param array The sorted list.
         * @param value The value to determine its index within `list`.
@@ -1617,7 +1617,7 @@ declare module _ {
     //_.union
     interface LoDashStatic {
         /**
-        * Creates an array of unique values, in order, of the provided arrays using strict 
+        * Creates an array of unique values, in order, of the provided arrays using strict
         * equality for comparisons, i.e. ===.
         * @param arrays The arrays to inspect.
         * @return Returns an array of composite values.
@@ -1633,16 +1633,16 @@ declare module _ {
     //_.uniq
     interface LoDashStatic {
         /**
-        * Creates a duplicate-value-free version of an array using strict equality for comparisons, 
-        * i.e. ===. If the array is sorted, providing true for isSorted will use a faster algorithm. 
-        * If a callback is provided each element of array is passed through the callback before 
-        * uniqueness is computed. The callback is bound to thisArg and invoked with three arguments; 
+        * Creates a duplicate-value-free version of an array using strict equality for comparisons,
+        * i.e. ===. If the array is sorted, providing true for isSorted will use a faster algorithm.
+        * If a callback is provided each element of array is passed through the callback before
+        * uniqueness is computed. The callback is bound to thisArg and invoked with three arguments;
         * (value, index, array).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param array Array to remove duplicates from.
         * @param isSorted True if `array` is already sorted, optiona, default = false.
@@ -1969,7 +1969,7 @@ declare module _ {
         * @param whereValue _.where style callback
         **/
         unique<W>(
-            whereValue: W): LoDashArrayWrapper<T>;        
+            whereValue: W): LoDashArrayWrapper<T>;
     }
 
     //_.without
@@ -2023,12 +2023,12 @@ declare module _ {
         xor(
             ...others: List<T>[]): LoDashArrayWrapper<T>;
     }
-    
+
     //_.zip
     interface LoDashStatic {
         /**
-        * Creates an array of grouped elements, the first of which contains the first 
-        * elements of the given arrays, the second of which contains the second elements 
+        * Creates an array of grouped elements, the first of which contains the first
+        * elements of the given arrays, the second of which contains the second elements
         * of the given arrays, and so on.
         * @param arrays Arrays to process.
         * @return A new array of grouped elements.
@@ -2066,8 +2066,8 @@ declare module _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-        * Creates an object composed from arrays of keys and values. Provide either a single 
-        * two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of 
+        * Creates an object composed from arrays of keys and values. Provide either a single
+        * two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of
         * keys and one of corresponding values.
         * @param keys The array of keys.
         * @param values The array of values.
@@ -2092,10 +2092,10 @@ declare module _ {
     //_.at
     interface LoDashStatic {
         /**
-        * Creates an array of elements from the specified indexes, or keys, of the collection. 
+        * Creates an array of elements from the specified indexes, or keys, of the collection.
         * Indexes may be specified as individual arguments or as arrays of indexes.
         * @param collection The collection to iterate over.
-        * @param indexes The indexes of collection to retrieve, specified as individual indexes or 
+        * @param indexes The indexes of collection to retrieve, specified as individual indexes or
         * arrays of indexes.
         * @return A new array of elements corresponding to the provided indexes.
         **/
@@ -2142,7 +2142,7 @@ declare module _ {
     //_.contains
     interface LoDashStatic {
         /**
-        * Checks if a given value is present in a collection using strict equality for comparisons, 
+        * Checks if a given value is present in a collection using strict equality for comparisons,
         * i.e. ===. If fromIndex is negative, it is used as the offset from the end of the collection.
         * @param collection The collection to iterate over.
         * @param target The value to check for.
@@ -2218,15 +2218,15 @@ declare module _ {
     //_.countBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element 
-        * of collection through the callback. The corresponding value of each key is the number 
-        * of times the key was returned by the callback. The callback is bound to thisArg and 
+        * Creates an object composed of keys generated from the results of running each element
+        * of collection through the callback. The corresponding value of each key is the number
+        * of times the key was returned by the callback. The callback is bound to thisArg and
         * invoked with three arguments; (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -2304,14 +2304,14 @@ declare module _ {
     //_.every
     interface LoDashStatic {
         /**
-        * Checks if the given callback returns truey value for all elements of a collection. 
-        * The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
+        * Checks if the given callback returns truey value for all elements of a collection.
+        * The callback is bound to thisArg and invoked with three arguments; (value, index|key,
         * collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -2465,14 +2465,14 @@ declare module _ {
     //_.filter
     interface LoDashStatic {
         /**
-        * Iterates over elements of a collection, returning an array of all elements the 
-        * callback returns truey for. The callback is bound to thisArg and invoked with three 
+        * Iterates over elements of a collection, returning an array of all elements the
+        * callback returns truey for. The callback is bound to thisArg and invoked with three
         * arguments; (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -2677,17 +2677,17 @@ declare module _ {
     //_.find
     interface LoDashStatic {
         /**
-        * Iterates over elements of a collection, returning the first element that the callback 
-        * returns truey for. The callback is bound to thisArg and invoked with three arguments; 
+        * Iterates over elements of a collection, returning the first element that the callback
+        * returns truey for. The callback is bound to thisArg and invoked with three arguments;
         * (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param collection Searches for a value in this list.
-        * @param callback The function called per iteration. 
+        * @param callback The function called per iteration.
         * @param thisArg The this binding of callback.
         * @return The found element, else undefined.
         **/
@@ -2930,10 +2930,10 @@ declare module _ {
     //_.findLast
     interface LoDashStatic {
         /**
-        * This method is like _.find except that it iterates over elements of a collection from 
+        * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
         * @param collection Searches for a value in this list.
-        * @param callback The function called per iteration. 
+        * @param callback The function called per iteration.
         * @param thisArg The this binding of callback.
         * @return The found element, else undefined.
         **/
@@ -3032,8 +3032,8 @@ declare module _ {
     //_.forEach
     interface LoDashStatic {
         /**
-        * Iterates over elements of a collection, executing the callback for each element. 
-        * The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
+        * Iterates over elements of a collection, executing the callback for each element.
+        * The callback is bound to thisArg and invoked with three arguments; (value, index|key,
         * collection). Callbacks may exit iteration early by explicitly returning false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3139,7 +3139,7 @@ declare module _ {
     //_.forEachRight
     interface LoDashStatic {
         /**
-        * This method is like _.forEach except that it iterates over elements of a 
+        * This method is like _.forEach except that it iterates over elements of a
         * collection from right to left.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3232,14 +3232,14 @@ declare module _ {
     //_.groupBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element 
-        * of a collection through the callback. The corresponding value of each key is an array 
-        * of the elements responsible for generating the key. The callback is bound to thisArg 
+        * Creates an object composed of keys generated from the results of running each element
+        * of a collection through the callback. The corresponding value of each key is an array
+        * of the elements responsible for generating the key. The callback is bound to thisArg
         * and invoked with three arguments; (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3361,15 +3361,15 @@ declare module _ {
     //_.indexBy
     interface LoDashStatic {
         /**
-        * Creates an object composed of keys generated from the results of running each element 
-        * of the collection through the given callback. The corresponding value of each key is 
-        * the last element responsible for generating the key. The callback is bound to thisArg 
+        * Creates an object composed of keys generated from the results of running each element
+        * of the collection through the given callback. The corresponding value of each key is
+        * the last element responsible for generating the key. The callback is bound to thisArg
         * and invoked with three arguments; (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3425,9 +3425,9 @@ declare module _ {
     //_.invoke
     interface LoDashStatic {
         /**
-        * Invokes the method named by methodName on each element in the collection returning 
-        * an array of the results of each invoked method. Additional arguments will be provided 
-        * to each invoked method. If methodName is a function it will be invoked for, and this 
+        * Invokes the method named by methodName on each element in the collection returning
+        * an array of the results of each invoked method. Additional arguments will be provided
+        * to each invoked method. If methodName is a function it will be invoked for, and this
         * bound to, each element in the collection.
         * @param collection The collection to iterate over.
         * @param methodName The name of the method to invoke.
@@ -3482,14 +3482,14 @@ declare module _ {
     //_.map
     interface LoDashStatic {
         /**
-        * Creates an array of values by running each element in the collection through the callback. 
-        * The callback is bound to thisArg and invoked with three arguments; (value, index|key, 
+        * Creates an array of values by running each element in the collection through the callback.
+        * The callback is bound to thisArg and invoked with three arguments; (value, index|key,
         * collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will return 
+        * If a property name is provided for callback the created "_.pluck" style callback will return
         * the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return true 
+        * If an object is provided for callback the created "_.where" style callback will return true
         * for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3624,15 +3624,15 @@ declare module _ {
     //_.max
     interface LoDashStatic {
         /**
-        * Retrieves the maximum value of a collection. If the collection is empty or falsey -Infinity is 
-        * returned. If a callback is provided it will be executed for each value in the collection to 
-        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked 
+        * Retrieves the maximum value of a collection. If the collection is empty or falsey -Infinity is
+        * returned. If a callback is provided it will be executed for each value in the collection to
+        * generate the criterion by which the value is ranked. The callback is bound to thisArg and invoked
         * with three arguments; (value, index, collection).
-        * 
-        * If a property name is provided for callback the created "_.pluck" style callback will return the 
+        *
+        * If a property name is provided for callback the created "_.pluck" style callback will return the
         * property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return true for 
+        * If an object is provided for callback the created "_.where" style callback will return true for
         * elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3735,15 +3735,15 @@ declare module _ {
     //_.min
     interface LoDashStatic {
         /**
-        * Retrieves the minimum value of a collection. If the collection is empty or falsey 
-        * Infinity is returned. If a callback is provided it will be executed for each value 
-        * in the collection to generate the criterion by which the value is ranked. The callback 
+        * Retrieves the minimum value of a collection. If the collection is empty or falsey
+        * Infinity is returned. If a callback is provided it will be executed for each value
+        * in the collection to generate the criterion by which the value is ranked. The callback
         * is bound to thisArg and invoked with three arguments; (value, index, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback 
+        * If a property name is provided for callback the created "_.pluck" style callback
         * will return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will 
+        * If an object is provided for callback the created "_.where" style callback will
         * return true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -3889,10 +3889,10 @@ declare module _ {
     //_.reduce
     interface LoDashStatic {
         /**
-        * Reduces a collection to a value which is the accumulated result of running each 
-        * element in the collection through the callback, where each successive callback execution 
-        * consumes the return value of the previous execution. If accumulator is not provided the 
-        * first element of the collection will be used as the initial accumulator value. The callback 
+        * Reduces a collection to a value which is the accumulated result of running each
+        * element in the collection through the callback, where each successive callback execution
+        * consumes the return value of the previous execution. If accumulator is not provided the
+        * first element of the collection will be used as the initial accumulator value. The callback
         * is bound to thisArg and invoked with four arguments; (accumulator, value, index|key, collection).
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -4148,7 +4148,7 @@ declare module _ {
     //_.reduceRight
     interface LoDashStatic {
         /**
-        * This method is like _.reduce except that it iterates over elements of a collection from 
+        * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -4259,13 +4259,13 @@ declare module _ {
     //_.reject
     interface LoDashStatic {
         /**
-        * The opposite of _.filter this method returns the elements of a collection that 
+        * The opposite of _.filter this method returns the elements of a collection that
         * the callback does not return truey for.
         *
-        * If a property name is provided for callback the created "_.pluck" style callback 
+        * If a property name is provided for callback the created "_.pluck" style callback
         * will return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will 
+        * If an object is provided for callback the created "_.where" style callback will
         * return true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -4404,7 +4404,7 @@ declare module _ {
     //_.shuffle
     interface LoDashStatic {
         /**
-        * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle. 
+        * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
         * See http://en.wikipedia.org/wiki/Fisher-Yates_shuffle.
         * @param collection The collection to shuffle.
         * @return Returns a new shuffled collection.
@@ -4439,7 +4439,7 @@ declare module _ {
     //_.size
     interface LoDashStatic {
         /**
-        * Gets the size of the collection by returning collection.length for arrays and array-like 
+        * Gets the size of the collection by returning collection.length for arrays and array-like
         * objects or the number of own enumerable properties for objects.
         * @param collection The collection to inspect.
         * @return collection.length
@@ -4469,14 +4469,14 @@ declare module _ {
     //_.some
     interface LoDashStatic {
         /**
-        * Checks if the callback returns a truey value for any element of a collection. The function 
-        * returns as soon as it finds a passing value and does not iterate over the entire collection. 
+        * Checks if the callback returns a truey value for any element of a collection. The function
+        * returns as soon as it finds a passing value and does not iterate over the entire collection.
         * The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will return 
+        * If a property name is provided for callback the created "_.pluck" style callback will return
         * the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return true for 
+        * If an object is provided for callback the created "_.where" style callback will return true for
         * elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -4644,15 +4644,15 @@ declare module _ {
     //_.sortBy
     interface LoDashStatic {
         /**
-        * Creates an array of elements, sorted in ascending order by the results of running each 
-        * element in a collection through the callback. This method performs a stable sort, that 
-        * is, it will preserve the original sort order of equal elements. The callback is bound 
+        * Creates an array of elements, sorted in ascending order by the results of running each
+        * element in a collection through the callback. This method performs a stable sort, that
+        * is, it will preserve the original sort order of equal elements. The callback is bound
         * to thisArg and invoked with three arguments; (value, index|key, collection).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will 
+        * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return 
+        * If an object is provided for callback the created "_.where" style callback will return
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -4763,7 +4763,7 @@ declare module _ {
     //_.where
     interface LoDashStatic {
         /**
-        * Performs a deep comparison of each element in a collection to the given properties 
+        * Performs a deep comparison of each element in a collection to the given properties
         * object, returning an array of all elements that have equivalent property values.
         * @param collection The collection to iterate over.
         * @param properties The object of property values to filter by.
@@ -4802,7 +4802,7 @@ declare module _ {
     //_.after
     interface LoDashStatic {
         /**
-        * Creates a function that executes func, with the this binding and arguments of the 
+        * Creates a function that executes func, with the this binding and arguments of the
         * created function, only after being called n times.
         * @param n The number of times the function must be called before func is executed.
         * @param func The function to restrict.
@@ -4823,7 +4823,7 @@ declare module _ {
     //_.bind
     interface LoDashStatic {
         /**
-        * Creates a function that, when called, invokes func with the this binding of thisArg 
+        * Creates a function that, when called, invokes func with the this binding of thisArg
         * and prepends any additional bind arguments to those provided to the bound function.
         * @param func The function to bind.
         * @param thisArg The this binding of func.
@@ -4848,11 +4848,11 @@ declare module _ {
     //_.bindAll
     interface LoDashStatic {
         /**
-        * Binds methods of an object to the object itself, overwriting the existing method. Method 
-        * names may be specified as individual arguments or as arrays of method names. If no method 
+        * Binds methods of an object to the object itself, overwriting the existing method. Method
+        * names may be specified as individual arguments or as arrays of method names. If no method
         * names are provided all the function properties of object will be bound.
         * @param object The object to bind and assign the bound methods to.
-        * @param methodNames The object method names to bind, specified as individual method names 
+        * @param methodNames The object method names to bind, specified as individual method names
         * or arrays of method names.
         * @return object
         **/
@@ -4871,9 +4871,9 @@ declare module _ {
     //_.bindKey
     interface LoDashStatic {
         /**
-        * Creates a function that, when called, invokes the method at object[key] and prepends any 
-        * additional bindKey arguments to those provided to the bound function. This method differs 
-        * from _.bind by allowing bound functions to reference methods that will be redefined or don't 
+        * Creates a function that, when called, invokes the method at object[key] and prepends any
+        * additional bindKey arguments to those provided to the bound function. This method differs
+        * from _.bind by allowing bound functions to reference methods that will be redefined or don't
         * yet exist. See http://michaux.ca/articles/lazy-function-definition-pattern.
         * @param object The object the method belongs to.
         * @param key The key of the method.
@@ -4898,9 +4898,9 @@ declare module _ {
     //_.compose
     interface LoDashStatic {
         /**
-        * Creates a function that is the composition of the provided functions, where each function 
-        * consumes the return value of the function that follows. For example, composing the functions 
-        * f(), g(), and h() produces f(g(h())). Each function is executed with the this binding of the 
+        * Creates a function that is the composition of the provided functions, where each function
+        * consumes the return value of the function that follows. For example, composing the functions
+        * f(), g(), and h() produces f(g(h())). Each function is executed with the this binding of the
         * composed function.
         * @param funcs Functions to compose.
         * @return The new composed function.
@@ -4918,9 +4918,9 @@ declare module _ {
     //_.createCallback
     interface LoDashStatic {
         /**
-        * Produces a callback bound to an optional thisArg. If func is a property name the created 
-        * callback will return the property value for a given element. If func is an object the created 
-        * callback will return true for elements that contain the equivalent object properties, 
+        * Produces a callback bound to an optional thisArg. If func is a property name the created
+        * callback will return the property value for a given element. If func is an object the created
+        * callback will return true for elements that contain the equivalent object properties,
         * otherwise it will return false.
         * @param func The value to convert to a callback.
         * @param thisArg The this binding of the created callback.
@@ -4962,9 +4962,9 @@ declare module _ {
     //_.curry
     interface LoDashStatic {
         /**
-        * Creates a function which accepts one or more arguments of func that when invoked either 
-        * executes func returning its result, if all func arguments have been provided, or returns 
-        * a function that accepts one or more of the remaining func arguments, and so on. The arity 
+        * Creates a function which accepts one or more arguments of func that when invoked either
+        * executes func returning its result, if all func arguments have been provided, or returns
+        * a function that accepts one or more of the remaining func arguments, and so on. The arity
         * of func can be specified if func.length is not sufficient.
         * @param func The function to curry.
         * @param arity The arity of func.
@@ -4985,13 +4985,13 @@ declare module _ {
     //_.debounce
     interface LoDashStatic {
         /**
-        * Creates a function that will delay the execution of func until after wait milliseconds have 
-        * elapsed since the last time it was invoked. Provide an options object to indicate that func 
-        * should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls 
+        * Creates a function that will delay the execution of func until after wait milliseconds have
+        * elapsed since the last time it was invoked. Provide an options object to indicate that func
+        * should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls
         * to the debounced function will return the result of the last func call.
         *
-        * Note: If leading and trailing options are true func will be called on the trailing edge of 
-        * the timeout only if the the debounced function is invoked more than once during the wait 
+        * Note: If leading and trailing options are true func will be called on the trailing edge of
+        * the timeout only if the the debounced function is invoked more than once during the wait
         * timeout.
         * @param func The function to debounce.
         * @param wait The number of milliseconds to delay.
@@ -5036,7 +5036,7 @@ declare module _ {
     //_.defer
     interface LoDashStatic {
         /**
-        * Defers executing the func function until the current call stack has cleared. Additional 
+        * Defers executing the func function until the current call stack has cleared. Additional
         * arguments will be provided to func when it is invoked.
         * @param func The function to defer.
         * @param args Arguments to invoke the function with.
@@ -5057,7 +5057,7 @@ declare module _ {
     //_.delay
     interface LoDashStatic {
         /**
-        * Executes the func function after wait milliseconds. Additional arguments will be provided 
+        * Executes the func function after wait milliseconds. Additional arguments will be provided
         * to func when it is invoked.
         * @param func The function to delay.
         * @param wait The number of milliseconds to delay execution.
@@ -5082,10 +5082,10 @@ declare module _ {
     //_.memoize
     interface LoDashStatic {
         /**
-        * Creates a function that memoizes the result of func. If resolver is provided it will be 
-        * used to determine the cache key for storing the result based on the arguments provided to 
-        * the memoized function. By default, the first argument provided to the memoized function is 
-        * used as the cache key. The func is executed with the this binding of the memoized function. 
+        * Creates a function that memoizes the result of func. If resolver is provided it will be
+        * used to determine the cache key for storing the result based on the arguments provided to
+        * the memoized function. By default, the first argument provided to the memoized function is
+        * used as the cache key. The func is executed with the this binding of the memoized function.
         * The result cache is exposed as the cache property on the memoized function.
         * @param func Computationally expensive function that will now memoized results.
         * @param resolver Hash function for storing the result of `fn`.
@@ -5099,8 +5099,8 @@ declare module _ {
     //_.once
     interface LoDashStatic {
         /**
-        * Creates a function that is restricted to execute func once. Repeat calls to the function 
-        * will return the value of the first call. The func is executed with the this binding of the 
+        * Creates a function that is restricted to execute func once. Repeat calls to the function
+        * will return the value of the first call. The func is executed with the this binding of the
         * created function.
         * @param func Function to only execute once.
         * @return The new restricted function.
@@ -5111,8 +5111,8 @@ declare module _ {
     //_.partial
     interface LoDashStatic {
         /**
-        * Creates a function that, when called, invokes func with any additional partial arguments 
-        * prepended to those provided to the new function. This method is similar to _.bind except 
+        * Creates a function that, when called, invokes func with any additional partial arguments
+        * prepended to those provided to the new function. This method is similar to _.bind except
         * it does not alter the this binding.
         * @param func The function to partially apply arguments to.
         * @param args Arguments to be partially applied.
@@ -5126,7 +5126,7 @@ declare module _ {
     //_.partialRight
     interface LoDashStatic {
         /**
-        * This method is like _.partial except that partial arguments are appended to those provided 
+        * This method is like _.partial except that partial arguments are appended to those provided
         * to the new function.
         * @param func The function to partially apply arguments to.
         * @param args Arguments to be partially applied.
@@ -5140,12 +5140,12 @@ declare module _ {
     //_.throttle
     interface LoDashStatic {
         /**
-        * Creates a function that, when executed, will only call the func function at most once per 
-        * every wait milliseconds. Provide an options object to indicate that func should be invoked 
-        * on the leading and/or trailing edge of the wait timeout. Subsequent calls to the throttled 
+        * Creates a function that, when executed, will only call the func function at most once per
+        * every wait milliseconds. Provide an options object to indicate that func should be invoked
+        * on the leading and/or trailing edge of the wait timeout. Subsequent calls to the throttled
         * function will return the result of the last func call.
         *
-        * Note: If leading and trailing options are true func will be called on the trailing edge of 
+        * Note: If leading and trailing options are true func will be called on the trailing edge of
         * the timeout only if the the throttled function is invoked more than once during the wait timeout.
         * @param func The function to throttle.
         * @param wait The number of milliseconds to throttle executions to.
@@ -5176,8 +5176,8 @@ declare module _ {
     //_.wrap
     interface LoDashStatic {
         /**
-        * Creates a function that provides value to the wrapper function as its first argument. 
-        * Additional arguments provided to the function are appended to those provided to the 
+        * Creates a function that provides value to the wrapper function as its first argument.
+        * Additional arguments provided to the function are appended to those provided to the
         * wrapper function. The wrapper is executed with the this binding of the created function.
         * @param value The value to wrap.
         * @param wrapper The wrapper function.
@@ -5195,9 +5195,9 @@ declare module _ {
     //_.assign
     interface LoDashStatic {
         /**
-        * Assigns own enumerable properties of source object(s) to the destination object. Subsequent 
-        * sources will overwrite property assignments of previous sources. If a callback is provided 
-        * it will be executed to produce the assigned values. The callback is bound to thisArg and 
+        * Assigns own enumerable properties of source object(s) to the destination object. Subsequent
+        * sources will overwrite property assignments of previous sources. If a callback is provided
+        * it will be executed to produce the assigned values. The callback is bound to thisArg and
         * invoked with two arguments; (objectValue, sourceValue).
         * @param object The destination object.
         * @param s1-8 The source object(s)
@@ -5387,9 +5387,9 @@ declare module _ {
     //_.clone
     interface LoDashStatic {
         /**
-        * Creates a clone of value. If deep is true nested objects will also be cloned, otherwise 
-        * they will be assigned by reference. If a callback is provided it will be executed to produce 
-        * the cloned values. If the callback returns undefined cloning will be handled by the method 
+        * Creates a clone of value. If deep is true nested objects will also be cloned, otherwise
+        * they will be assigned by reference. If a callback is provided it will be executed to produce
+        * the cloned values. If the callback returns undefined cloning will be handled by the method
         * instead. The callback is bound to thisArg and invoked with one argument; (value).
         * @param value The value to clone.
         * @param deep Specify a deep clone.
@@ -5407,13 +5407,13 @@ declare module _ {
     //_.cloneDeep
     interface LoDashStatic {
         /**
-        * Creates a deep clone of value. If a callback is provided it will be executed to produce the 
-        * cloned values. If the callback returns undefined cloning will be handled by the method instead. 
+        * Creates a deep clone of value. If a callback is provided it will be executed to produce the
+        * cloned values. If the callback returns undefined cloning will be handled by the method instead.
         * The callback is bound to thisArg and invoked with one argument; (value).
         *
-        * Note: This method is loosely based on the structured clone algorithm. Functions and DOM nodes 
-        * are not cloned. The enumerable properties of arguments objects and objects created by constructors 
-        * other than Object are cloned to plain Object objects. 
+        * Note: This method is loosely based on the structured clone algorithm. Functions and DOM nodes
+        * are not cloned. The enumerable properties of arguments objects and objects created by constructors
+        * other than Object are cloned to plain Object objects.
         * See http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm.
         * @param value The value to clone.
         * @param callback The function to customize cloning values.
@@ -5429,8 +5429,8 @@ declare module _ {
     //_.defaults
     interface LoDashStatic {
         /**
-        * Assigns own enumerable properties of source object(s) to the destination object for all 
-        * destination properties that resolve to undefined. Once a property is set, additional defaults 
+        * Assigns own enumerable properties of source object(s) to the destination object for all
+        * destination properties that resolve to undefined. Once a property is set, additional defaults
         * of the same property will be ignored.
         * @param object The destination object.
         * @param sources The source objects.
@@ -5451,7 +5451,7 @@ declare module _ {
     //_.findKey
     interface LoDashStatic {
         /**
-        * This method is like _.findIndex except that it returns the key of the first element that 
+        * This method is like _.findIndex except that it returns the key of the first element that
         * passes the callback check, instead of the element itself.
         * @param object The object to search.
         * @param callback The function called per iteration.
@@ -5514,8 +5514,8 @@ declare module _ {
     //_.forIn
     interface LoDashStatic {
         /**
-        * Iterates over own and inherited enumerable properties of an object, executing the callback for 
-        * each property. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+        * Iterates over own and inherited enumerable properties of an object, executing the callback for
+        * each property. The callback is bound to thisArg and invoked with three arguments; (value, key,
         * object). Callbacks may exit iteration early by explicitly returning false.
         * @param object The object to iterate over.
         * @param callback The function called per iteration.
@@ -5548,7 +5548,7 @@ declare module _ {
     //_.forInRight
     interface LoDashStatic {
         /**
-        * This method is like _.forIn except that it iterates over elements of a collection in the 
+        * This method is like _.forIn except that it iterates over elements of a collection in the
         * opposite order.
         * @param object The object to iterate over.
         * @param callback The function called per iteration.
@@ -5581,8 +5581,8 @@ declare module _ {
     //_.forOwn
     interface LoDashStatic {
         /**
-        * Iterates over own enumerable properties of an object, executing the callback for each 
-        * property. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+        * Iterates over own enumerable properties of an object, executing the callback for each
+        * property. The callback is bound to thisArg and invoked with three arguments; (value, key,
         * object). Callbacks may exit iteration early by explicitly returning false.
         * @param object The object to iterate over.
         * @param callback The function called per iteration.
@@ -5615,7 +5615,7 @@ declare module _ {
     //_.forOwnRight
     interface LoDashStatic {
         /**
-        * This method is like _.forOwn except that it iterates over elements of a collection in the 
+        * This method is like _.forOwn except that it iterates over elements of a collection in the
         * opposite order.
         * @param object The object to iterate over.
         * @param callback The function called per iteration.
@@ -5647,7 +5647,7 @@ declare module _ {
     //_.functions
     interface LoDashStatic {
         /**
-        * Creates a sorted array of property names of all enumerable properties, own and inherited, of 
+        * Creates a sorted array of property names of all enumerable properties, own and inherited, of
         * object that have function values.
         * @param object The object to inspect.
         * @return An array of property names that have function values.
@@ -5675,7 +5675,7 @@ declare module _ {
     //_.has
     interface LoDashStatic {
         /**
-        * Checks if the specified object property exists and is a direct property, instead of an 
+        * Checks if the specified object property exists and is a direct property, instead of an
         * inherited property.
         * @param object The object to check.
         * @param property The property to check for.
@@ -5747,14 +5747,14 @@ declare module _ {
     //_.isEmpty
     interface LoDashStatic {
         /**
-        * Checks if value is empty. Arrays, strings, or arguments objects with a length of 0 and objects 
+        * Checks if value is empty. Arrays, strings, or arguments objects with a length of 0 and objects
         * with no own enumerable properties are considered "empty".
         * @param value The value to inspect.
         * @return True if the value is empty, else false.
         **/
         isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
     }
-    
+
     //_.isError
     interface LoDashStatic {
         /**
@@ -5770,9 +5770,9 @@ declare module _ {
     //_.isEqual
     interface LoDashStatic {
         /**
-        * Performs a deep comparison between two values to determine if they are equivalent to each 
-        * other. If a callback is provided it will be executed to compare values. If the callback 
-        * returns undefined comparisons will be handled by the method instead. The callback is bound to 
+        * Performs a deep comparison between two values to determine if they are equivalent to each
+        * other. If a callback is provided it will be executed to compare values. If the callback
+        * returns undefined comparisons will be handled by the method instead. The callback is bound to
         * thisArg and invoked with two arguments; (a, b).
         * @param a The value to compare.
         * @param b The other value to compare.
@@ -5792,7 +5792,7 @@ declare module _ {
         /**
         * Checks if value is, or can be coerced to, a finite number.
         *
-        * Note: This is not the same as native isFinite which will return true for booleans and empty 
+        * Note: This is not the same as native isFinite which will return true for booleans and empty
         * strings. See http://es5.github.io/#x15.1.2.5.
         * @param value The value to check.
         * @return True if the value is finite, else false.
@@ -5815,7 +5815,7 @@ declare module _ {
         /**
         * Checks if value is NaN.
         *
-        * Note: This is not the same as native isNaN which will return true for undefined and other 
+        * Note: This is not the same as native isNaN which will return true for undefined and other
         * non-numeric values. See http://es5.github.io/#x15.1.2.4.
         * @param value The value to check.
         * @return True if the value is NaN, else false.
@@ -5848,7 +5848,7 @@ declare module _ {
     //_.isObject
     interface LoDashStatic {
         /**
-        * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, 
+        * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes,
         * new Number(0), and new String(''))
         * @param value The value to check.
         * @return True if the value is an object, else false.
@@ -5917,19 +5917,22 @@ declare module _ {
     interface LoDashStatic {
         /**
         * Creates an object with the same keys as object and values generated by running each own
-        * enumerable property of object through the callback. The callback is bound to thisArg and
-        * invoked with three arguments; (value, key, object).
+        * enumerable property of object through iteratee. The iteratee function is bound to thisArg
+        * and invoked with three arguments: (value, key, object).
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will return
+        * If a property name is provided iteratee the created "_.property" style callback returns
         * the property value of the given element.
         *
-        * If an object is provided for callback the created "_.where" style callback will return true
+        * If a value is also provided for thisArg the creted "_.matchesProperty" style callback returns
+        * true for elements that have a matching property value, else false;.
+        *
+        * If an object is provided for iteratee the created "_.matches" style callback returns true
         * for elements that have the properties of the given object, else false.
         *
-        * @param object The object to iterate over.
-        * @param callback The function called per iteration.
-        * @param thisArg `this` object in `iterator`, optional.
-        * @return Returns a new object with values of the results of each callback execution.
+        * @param {Object} object The object to iterate over.
+        * @param {Function|Object|string} [iteratee=_.identity]  The function invoked per iteration.
+        * @param {Object} [thisArg] The `this` binding of `iteratee`.
+        * @return {Object} Returns the new mapped object.
         */
         mapValues<T, TResult>(obj: Dictionary<T>, callback: ObjectIterator<T, TResult>, thisArg?: any): Dictionary<TResult>;
         mapValues<T>(obj: Dictionary<T>, where: Dictionary<T>): Dictionary<boolean>;
@@ -5937,14 +5940,46 @@ declare module _ {
         mapValues<T>(obj: T, callback: ObjectIterator<any, any>, thisArg?: any): T;
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.mapValues
+         * TValue is the type of the property values of T.
+         * TResult is the type output by the ObjectIterator function
+         */
+        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>, thisArg?: any): LoDashObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the property specified by pluck.
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResult>(pluck: string): LoDashObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the property specified by pluck.
+         * TResult has to extend Dictionary<> for this to return true.
+         * TResultValueType is the type of the properties on TResult.
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResultValueType, TResult extends Dictionary<TResultValueType>>(pluck: string, where: TResult): LoDashArrayWrapper<Dictionary<boolean>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the properties of each object in the values of T
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResult>(where: Dictionary<TResult>): LoDashArrayWrapper<boolean>;
+    }
+
     //_.merge
     interface LoDashStatic {
         /**
-        * Recursively merges own enumerable properties of the source object(s), that don't resolve 
-        * to undefined into the destination object. Subsequent sources will overwrite property 
-        * assignments of previous sources. If a callback is provided it will be executed to produce 
-        * the merged values of the destination and source properties. If the callback returns undefined 
-        * merging will be handled by the method instead. The callback is bound to thisArg and invoked 
+        * Recursively merges own enumerable properties of the source object(s), that don't resolve
+        * to undefined into the destination object. Subsequent sources will overwrite property
+        * assignments of previous sources. If a callback is provided it will be executed to produce
+        * the merged values of the destination and source properties. If the callback returns undefined
+        * merging will be handled by the method instead. The callback is bound to thisArg and invoked
         * with two arguments; (objectValue, sourceValue).
         * @param object The destination object.
         * @param s1-8 The source object(s)
@@ -5995,10 +6030,10 @@ declare module _ {
     //_.omit
     interface LoDashStatic {
         /**
-        * Creates a shallow clone of object excluding the specified properties. Property names may be 
-        * specified as individual arguments or as arrays of property names. If a callback is provided 
-        * it will be executed for each property of object omitting the properties the callback returns 
-        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+        * Creates a shallow clone of object excluding the specified properties. Property names may be
+        * specified as individual arguments or as arrays of property names. If a callback is provided
+        * it will be executed for each property of object omitting the properties the callback returns
+        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key,
         * object).
         * @param object The source object.
         * @param keys The properties to omit.
@@ -6048,7 +6083,7 @@ declare module _ {
     //_.pairs
     interface LoDashStatic {
         /**
-        * Creates a two dimensional array of an object's key-value pairs, 
+        * Creates a two dimensional array of an object's key-value pairs,
         * i.e. [[key1, value1], [key2, value2]].
         * @param object The object to inspect.
         * @return Aew array of key-value pairs.
@@ -6066,10 +6101,10 @@ declare module _ {
     //_.picks
     interface LoDashStatic {
         /**
-        * Creates a shallow clone of object composed of the specified properties. Property names may be 
-        * specified as individual arguments or as arrays of property names. If a callback is provided 
-        * it will be executed for each property of object picking the properties the callback returns 
-        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key, 
+        * Creates a shallow clone of object composed of the specified properties. Property names may be
+        * specified as individual arguments or as arrays of property names. If a callback is provided
+        * it will be executed for each property of object picking the properties the callback returns
+        * truey for. The callback is bound to thisArg and invoked with three arguments; (value, key,
         * object).
         * @param object Object to strip unwanted key/value pairs.
         * @param keys Property names to pick
@@ -6098,10 +6133,10 @@ declare module _ {
     //_.transform
     interface LoDashStatic {
         /**
-        * An alternative to _.reduce this method transforms object to a new accumulator object which is 
-        * the result of running each of its elements through a callback, with each callback execution 
-        * potentially mutating the accumulator object. The callback is bound to thisArg and invoked with 
-        * four arguments; (accumulator, value, key, object). Callbacks may exit iteration early by 
+        * An alternative to _.reduce this method transforms object to a new accumulator object which is
+        * the result of running each of its elements through a callback, with each callback execution
+        * potentially mutating the accumulator object. The callback is bound to thisArg and invoked with
+        * four arguments; (accumulator, value, key, object). Callbacks may exit iteration early by
         * explicitly returning false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -6198,10 +6233,10 @@ declare module _ {
     //_.parseInt
     interface LoDashStatic {
         /**
-        * Converts the given value into an integer of the specified radix. If radix is undefined or 0 a 
+        * Converts the given value into an integer of the specified radix. If radix is undefined or 0 a
         * radix of 10 is used unless the value is a hexadecimal, in which case a radix of 16 is used.
         *
-        * Note: This method avoids differences in native ES3 and ES5 parseInt implementations. See 
+        * Note: This method avoids differences in native ES3 and ES5 parseInt implementations. See
         * http://es5.github.io/#E.
         * @param value The value to parse.
         * @param radix The radix used to interpret the value to parse.
@@ -6265,8 +6300,8 @@ declare module _ {
     //_.random
     interface LoDashStatic {
         /**
-        * Produces a random number between min and max (inclusive). If only one argument is provided a 
-        * number between 0 and the given number will be returned. If floating is truey or either min or 
+        * Produces a random number between min and max (inclusive). If only one argument is provided a
+        * number between 0 and the given number will be returned. If floating is truey or either min or
         * max are floats a floating-point number will be returned instead of an integer.
         * @param max The maximum possible value.
         * @param floating Specify returning a floating-point number.
@@ -6285,8 +6320,8 @@ declare module _ {
     //_.result
     interface LoDashStatic {
         /**
-        * Resolves the value of property on object. If property is a function it will be invoked with 
-        * the this binding of object and its result returned, else the property value is returned. If 
+        * Resolves the value of property on object. If property is a function it will be invoked with
+        * the this binding of object and its result returned, else the property value is returned. If
         * object is falsey then undefined is returned.
         * @param object The object to inspect.
         * @param property The property to get the value of.
@@ -6308,10 +6343,10 @@ declare module _ {
     //_.template
     interface LoDashStatic {
         /**
-        * A micro-templating method that handles arbitrary delimiters, preserves whitespace, and 
+        * A micro-templating method that handles arbitrary delimiters, preserves whitespace, and
         * correctly escapes quotes within interpolated code.
         *
-        * Note: In the development build, _.template utilizes sourceURLs for easier debugging. See 
+        * Note: In the development build, _.template utilizes sourceURLs for easier debugging. See
         * http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
         *
         * For more information on precompiling templates see:
@@ -6352,7 +6387,7 @@ declare module _ {
     //_.times
     interface LoDashStatic {
         /**
-        * Executes the callback n times, returning an array of the results of each callback execution. 
+        * Executes the callback n times, returning an array of the results of each callback execution.
         * The callback is bound to thisArg and invoked with one argument; (index).
         * @param n The number of times to execute the callback.
         * @param callback The function called per iteration.
@@ -6367,7 +6402,7 @@ declare module _ {
     //_.unescape
     interface LoDashStatic {
         /**
-        * The inverse of _.escape this method converts the HTML entities &amp;, <, &gt;, &quot;, and 
+        * The inverse of _.escape this method converts the HTML entities &amp;, <, &gt;, &quot;, and
         * &#39; in string to their corresponding characters.
         * @param string The string to unescape.
         * @return The unescaped string.
@@ -6385,7 +6420,7 @@ declare module _ {
         **/
         uniqueId(prefix?: string): string;
     }
-    
+
     //_.noop
     interface LoDashStatic {
         /**
@@ -6411,7 +6446,7 @@ declare module _ {
          */
         create<T>(prototype: Object, properties?: Object): Object;
     }
-    
+
     interface ListIterator<T, TResult> {
         (value: T, index: number, collection: T[]): TResult;
     }
