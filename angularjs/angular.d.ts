@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.3+
+// Type definitions for Angular JS 1.4+
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1550,7 +1550,7 @@ declare module angular {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
-        bindToController?: boolean;
+        bindToController?: any;
         link?: IDirectiveLinkFn | IDirectivePrePost;
         name?: string;
         priority?: number;
