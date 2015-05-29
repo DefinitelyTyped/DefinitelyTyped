@@ -3,8 +3,6 @@
 // Definitions by: Martin McWhorter <https://github.com/martinmcwhorter/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-	
 declare class MobileDetect {
 	
 	contructor(userAgent: string, maxPhoneWidth?: number);
