@@ -5,7 +5,7 @@
 
 declare class MobileDetect {
 	
-	contructor(userAgent: string, maxPhoneWidth?: number);
+	contructor(userAgent: string, maxPhoneWidth?: number): MobileDetect;
 	
 	is(key: string): boolean;
 	match(pattern: string|RegExp): boolean
