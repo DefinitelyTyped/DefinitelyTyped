@@ -9,7 +9,7 @@ declare module 'Squire' {
         constructor(context: string);
         mock(name: string, mock: any): Squire;
         mock(mocks: {[name: string]: any}): Squire;
-        require(dependencies: string[], callback: Function, errback: Function): Squire;
+        require(dependencies: string[], callback: Function, errback?: Function): Squire;
         store(name: string | string[]): Squire;
         clean(): Squire;
         clean(name: string | string[]): Squire;

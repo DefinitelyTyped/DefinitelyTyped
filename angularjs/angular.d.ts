@@ -474,6 +474,7 @@ declare module angular {
         // types do work and it's common to use them.
         $setViewValue(value: any, trigger?: string): void;
         $setPristine(): void;
+        $setDirty(): void;
         $validate(): void;
         $setTouched(): void;
         $setUntouched(): void;
@@ -539,9 +540,29 @@ declare module angular {
         $applyAsync(exp: string): any;
         $applyAsync(exp: (scope: IScope) => any): any;
 
+        /**
+         * Dispatches an event name downwards to all child scopes (and their children) notifying the registered $rootScope.Scope listeners.
+         * 
+         * The event life cycle starts at the scope on which $broadcast was called. All listeners listening for name event on this scope get notified. Afterwards, the event propagates to all direct and indirect scopes of the current scope and calls all registered listeners along the way. The event cannot be canceled.
+         * 
+         * Any exception emitted from the listeners will be passed onto the $exceptionHandler service.
+         * 
+         * @param name Event name to broadcast.
+         * @param args Optional one or more arguments which will be passed onto the event listeners.
+         */
         $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
         $digest(): void;
+        /**
+         * Dispatches an event name upwards through the scope hierarchy notifying the registered $rootScope.Scope listeners.
+         *
+         * The event life cycle starts at the scope on which $emit was called. All listeners listening for name event on this scope get notified. Afterwards, the event traverses upwards toward the root scope and calls all registered listeners along the way. The event will stop propagating if one of the listeners cancels it.
+         *
+         * Any exception emitted from the listeners will be passed onto the $exceptionHandler service.
+         * 
+         * @param name Event name to emit.
+         * @param args Optional one or more arguments which will be passed onto the event listeners.
+         */
         $emit(name: string, ...args: any[]): IAngularEvent;
 
         $eval(): any;
@@ -716,17 +737,37 @@ declare module angular {
         eventFn(element: Node, doneFn: () => void): Function;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // FilterService
-    // see http://docs.angularjs.org/api/ng.$filter
-    // see http://docs.angularjs.org/api/ng.$filterProvider
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * $filter - $filterProvider - service in module ng
+     * 
+     * Filters are used for formatting data displayed to the user.
+     * 
+     * see https://docs.angularjs.org/api/ng/service/$filter
+     */
     interface IFilterService {
+        /**
+         * Usage:
+         * $filter(name);
+         * 
+         * @param name Name of the filter function to retrieve
+         */
         (name: string): Function;
     }
 
+    /**
+     * $filterProvider - $filter - provider in module ng
+     * 
+     * Filters are just functions which transform input to an output. However filters need to be Dependency Injected. To achieve this a filter definition consists of a factory function which is annotated with dependencies and is responsible for creating a filter function.
+     * 
+     * see https://docs.angularjs.org/api/ng/provider/$filterProvider
+     */
     interface IFilterProvider extends IServiceProvider {
-        register(name: string, filterFactory: Function): IServiceProvider;
+        /**
+         * register(name);
+         * 
+         * @param name Name of the filter function, or an object map of filters where the keys are the filter names and the values are the filter factories. Note: Filter names must be valid angular Expressions identifiers, such as uppercase or orderBy. Names with special characters, such as hyphens and dots, are not allowed. If you wish to namespace your filters, then you can use capitalization (myappSubsectionFilterx) or underscores (myapp_subsection_filterx).
+         */
+        register(name: string | {}): IServiceProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1012,37 +1053,98 @@ declare module angular {
         disableAutoScrolling(): void;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // CacheFactoryService
-    // see http://docs.angularjs.org/api/ng.$cacheFactory
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * $cacheFactory - service in module ng
+     * 
+     * Factory that constructs Cache objects and gives access to them.
+     * 
+     * see https://docs.angularjs.org/api/ng/service/$cacheFactory
+     */
     interface ICacheFactoryService {
-        // Lets not foce the optionsMap to have the capacity member. Even though
-        // it's the ONLY option considered by the implementation today, a consumer
-        // might find it useful to associate some other options to the cache object.
-        //(cacheId: string, optionsMap?: { capacity: number; }): CacheObject;
-        (cacheId: string, optionsMap?: { capacity: number; }): ICacheObject;
+        /**
+         * Factory that constructs Cache objects and gives access to them.
+         * 
+         * @param cacheId Name or id of the newly created cache.
+         * @param optionsMap Options object that specifies the cache behavior. Properties:
+         * 
+         * capacity — turns the cache into LRU cache.
+         */
+        (cacheId: string, optionsMap?: { capacity?: number; }): ICacheObject;
 
-        // Methods bellow are not documented
+        /**
+         * Get information about all the caches that have been created. 
+         * @returns key-value map of cacheId to the result of calling cache#info
+         */
         info(): any;
+
+        /**
+         * Get access to a cache object by the cacheId used when it was created.
+         * 
+         * @param cacheId Name or id of a cache to access.
+         */
         get(cacheId: string): ICacheObject;
     }
 
+    /**
+     * $cacheFactory.Cache - type in module ng
+     * 
+     * A cache object used to store and retrieve data, primarily used by $http and the script directive to cache templates and other data.
+     * 
+     * see https://docs.angularjs.org/api/ng/type/$cacheFactory.Cache
+     */
     interface ICacheObject {
+        /**
+         * Retrieve information regarding a particular Cache.
+         */
         info(): {
+            /**
+             * the id of the cache instance
+             */
             id: string;
+
+            /**
+             * the number of entries kept in the cache instance
+             */
             size: number;
 
-            // Not garanteed to have, since it's a non-mandatory option
-            //capacity: number;
+            //...: any additional properties from the options object when creating the cache.
         };
+
+        /**
+         * Inserts a named entry into the Cache object to be retrieved later, and incrementing the size of the cache if the key was not already present in the cache. If behaving like an LRU cache, it will also remove stale entries from the set.
+         * 
+         * It will not insert undefined values into the cache.
+         * 
+         * @param key the key under which the cached data is stored.
+         * @param value the value to store alongside the key. If it is undefined, the key will not be stored.
+         */
         put<T>(key: string, value?: T): T;
+
+        /**
+         * Retrieves named data stored in the Cache object.
+         * 
+         * @param key the key of the data to be retrieved
+         */
         get(key: string): any;
+
+        /**
+         * Removes an entry from the Cache object.
+         * 
+         * @param key the key of the entry to be removed
+         */
         remove(key: string): void;
+
+        /**
+         * Clears the cache object of any entries.
+         */
         removeAll(): void;
+
+        /**
+         * Destroys the Cache object entirely, removing it from the $cacheFactory set.
+         */
         destroy(): void;
     }
-
+    
     ///////////////////////////////////////////////////////////////////////////
     // CompileService
     // see http://docs.angularjs.org/api/ng.$compile
