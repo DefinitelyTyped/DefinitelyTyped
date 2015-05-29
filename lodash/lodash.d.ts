@@ -6121,12 +6121,10 @@ declare module _ {
 
         /**
          * @see _.mapValues
-         * TResult is the type of the property specified by pluck.
-         * TResult has to extend Dictionary<> for this to return true.
-         * TResultValueType is the type of the properties on TResult.
-         * T should be a Dictionary<Dictionary<TResult>>
+         * TResult is the type of the properties on the object specified by pluck.
+         * T should be a Dictionary<Dictionary<Dictionary<TResult>>>
          */
-        mapValues<TResultValueType, TResult extends Dictionary<TResultValueType>>(pluck: string, where: TResult): LoDashArrayWrapper<Dictionary<boolean>>;
+        mapValues<TResult>(pluck: string, where: Dictionary<TResult>): LoDashArrayWrapper<Dictionary<boolean>>;
 
         /**
          * @see _.mapValues
