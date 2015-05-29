@@ -910,6 +910,14 @@ declare module "sequelize"
             belongsTo<TInstance, TPojo>(target: Model<TInstance, TPojo>, options?: AssociationOptions): void;
 
             /**
+             * Creates an association to connect sources with multiple targets. Furthermore the targets can also have connections to multiple sources.
+             *
+             * @param target
+             * @param options
+             */
+            belongsToMany<TInstance, TPojo>(target: Model<TInstance, TPojo>, options?: AssociationOptions): void;
+
+            /**
              * Create an association that is either 1:m or n:m.
              *
              * @param target

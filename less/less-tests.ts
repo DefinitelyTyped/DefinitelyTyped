@@ -8,6 +8,6 @@ less.render(".class { width: (1 + 1) }").then((output) => {
 
 less.render("fail").then((output) => {
     throw new Error("promise should have been rejected");
-}, () => {
-    console.log("rejected as expected");
+}, (error: Less.RenderError) => {
+    console.log("rejected as expected on line number " + error.line);
 });

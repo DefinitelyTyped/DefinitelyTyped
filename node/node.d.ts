@@ -15,7 +15,7 @@
 *                                               *
 ************************************************/
 declare var process: NodeJS.Process;
-declare var global: any;
+declare var global: NodeJS.Global;
 
 declare var __filename: string;
 declare var __dirname: string;
@@ -190,6 +190,71 @@ declare module NodeJS {
         send?(message: any, sendHandle?: any): void;
     }
 
+    export interface Global {
+        Array: typeof Array;
+        ArrayBuffer: typeof ArrayBuffer;
+        Boolean: typeof Boolean;
+        Buffer: typeof Buffer;
+        DataView: typeof DataView;
+        Date: typeof Date;
+        Error: typeof Error;
+        EvalError: typeof EvalError;
+        Float32Array: typeof Float32Array;
+        Float64Array: typeof Float64Array;
+        Function: typeof Function;
+        GLOBAL: Global;
+        Infinity: typeof Infinity;
+        Int16Array: typeof Int16Array;
+        Int32Array: typeof Int32Array;
+        Int8Array: typeof Int8Array;
+        Intl: typeof Intl;
+        JSON: typeof JSON;
+        Map: typeof Map;
+        Math: typeof Math;
+        NaN: typeof NaN;
+        Number: typeof Number;
+        Object: typeof Object;
+        Promise: Function;
+        RangeError: typeof RangeError;
+        ReferenceError: typeof ReferenceError;
+        RegExp: typeof RegExp;
+        Set: typeof Set;
+        String: typeof String;
+        Symbol: Function;
+        SyntaxError: typeof SyntaxError;
+        TypeError: typeof TypeError;
+        URIError: typeof URIError;
+        Uint16Array: typeof Uint16Array;
+        Uint32Array: typeof Uint32Array;
+        Uint8Array: typeof Uint8Array;
+        Uint8ClampedArray: Function;
+        WeakMap: typeof WeakMap;
+        WeakSet: Function;
+        clearImmediate: (immediateId: any) => void;
+        clearInterval: (intervalId: NodeJS.Timer) => void;
+        clearTimeout: (timeoutId: NodeJS.Timer) => void;
+        console: typeof console;
+        decodeURI: typeof decodeURI;
+        decodeURIComponent: typeof decodeURIComponent;
+        encodeURI: typeof encodeURI;
+        encodeURIComponent: typeof encodeURIComponent;
+        escape: (str: string) => string;
+        eval: typeof eval;
+        global: Global;
+        isFinite: typeof isFinite;
+        isNaN: typeof isNaN;
+        parseFloat: typeof parseFloat;
+        parseInt: typeof parseInt;
+        process: Process;
+        root: Global;
+        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
+        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        undefined: typeof undefined;
+        unescape: (str: string) => string;    
+        gc: () => void;
+    }
+
     export interface Timer {
         ref() : void;
         unref() : void;
@@ -276,6 +341,7 @@ declare module "http" {
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
+        listen(port: number, hostname?: string, callback?: Function): Server;
         listen(path: string, callback?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
         close(cb?: any): Server;
@@ -679,8 +745,8 @@ declare module "child_process" {
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string,
         callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string, args?: string[],

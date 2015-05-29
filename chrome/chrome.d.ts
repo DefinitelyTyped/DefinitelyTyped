@@ -2061,14 +2061,19 @@ declare module chrome.ttsEngine {
 // Types
 ////////////////////
 declare module chrome.types {
-    interface ChromeSettingSetDetails {
+    interface ChromeSettingClearDetails {
         scope?: string;
+    }
+
+    interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
         value: any;
     }
 
     interface ChromeSettingGetDetails {
         incognito?: boolean;
     }
+
+    type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
     interface ChromeSettingGetResultDetails {
         levelOfControl: string;
@@ -2077,7 +2082,7 @@ declare module chrome.types {
     }
 
     interface ChromeSettingChangedEvent extends chrome.events.Event {
-        addListener(callback: (details: ChromeSettingGetResultDetails) => void): void;
+        addListener(callback: DetailsCallback): void;
     }
 
     interface ChromeSetting {
@@ -2086,7 +2091,8 @@ declare module chrome.types {
             callback?: Function;
         };
         set(details: ChromeSettingSetDetails, callback?: Function): void;
-        get(details: ChromeSettingGetDetails, callback?: ChromeSettingGetResultDetails): void;
+        get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+        clear(details: ChromeSettingClearDetails, callback?: Function): void;
         onChange: ChromeSettingChangedEvent;
     }
 }

@@ -1145,6 +1145,18 @@ declare module AtomCore {
 		new(state:IAtomState):IAtom;
 	}
 
+	class Disposable {
+		constructor(disposalAction:any)
+		dispose():void
+	}
+
+	class CommandRegistry {
+		add(target:string, commandName:string, callback:Function):Disposable
+		findCommands(params:Object):Object[]
+		dispatch(target:any,commandName:string):void
+	}
+
+
 	// https://atom.io/docs/api/v0.106.0/api/classes/Atom.html
 	/* Global Atom class : instance members */
 	interface IAtom {
@@ -1174,6 +1186,8 @@ declare module AtomCore {
 		workspaceView: IWorkspaceView;
 		workspace: IWorkspace;
 		// really exists? end
+
+		commands: CommandRegistry;
 
 		initialize:Function;
 		// registerRepresentationClass:Function;
@@ -1753,6 +1767,8 @@ declare module "atom" {
 
 		cancel():any;
 	}
+
+
 
 	var WorkspaceView:AtomCore.IWorkspaceViewStatic;
 

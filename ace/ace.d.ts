@@ -576,7 +576,7 @@ declare module AceAjax {
         /**
          * Returns the current tab size.
         **/
-        getTabSize(): string;
+        getTabSize(): number;
 
         /**
          * Returns `true` if the character at the position is a soft tab.
@@ -1034,6 +1034,9 @@ declare module AceAjax {
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
     export interface Editor {
+        
+        addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any);
+        addEventListener(ev: string, callback: Function);
 
         inMultiSelectMode: boolean;
 
@@ -1709,6 +1712,13 @@ declare module AceAjax {
          * @param session The `EditSession` to refer to
         **/
         new(renderer: VirtualRenderer, session?: IEditSession): Editor;
+    }
+    
+    interface EditorChangeEvent {
+        start: Position;
+        end: Position;
+        action: string; // insert, remove
+        lines: any[];
     }
 
     ////////////////////////////////
