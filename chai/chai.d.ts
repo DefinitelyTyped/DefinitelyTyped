@@ -1,12 +1,15 @@
 // Type definitions for chai 2.0.0
 // Project: http://chaijs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao/>, Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Jed Mao <https://github.com/jedmao/>,
+//                 Bart van der Schoor <https://github.com/Bartvds>,
+//                 Andrew Brown <https://github.com/AGBrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Chai {
 
     interface ChaiStatic {
         expect: ExpectStatic;
+        should(): Should;
         /**
          * Provides a way to extend the internals of Chai
          */
@@ -23,6 +26,24 @@ declare module Chai {
 
     export interface AssertionStatic {
         (target: any, message?: string): Assertion;
+    }
+
+    interface ShouldAssertion {
+        equal(value1: any, value2: any, message?: string): void;
+        Throw: ShouldThrow;
+        throw: ShouldThrow;
+        exist(value: any, message?: string): void;
+    }
+
+    interface Should extends ShouldAssertion {
+        not: ShouldAssertion;
+        fail(actual: any, expected: any, message?: string, operator?: string): void;
+    }
+
+    interface ShouldThrow {
+        (actual: Function): void;
+        (actual: Function, expected: string|RegExp, message?: string): void;
+        (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
     }
 
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -280,4 +301,8 @@ declare var chai: Chai.ChaiStatic;
 
 declare module "chai" {
     export = chai;
+}
+
+interface Object {
+    should: Chai.Assertion;
 }

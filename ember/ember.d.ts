@@ -58,7 +58,7 @@ declare module EmberStates {
           @arg {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
-        then(onFulfilled: Function, onRejected: Function, label?: string): Ember.RSVP.Promise;
+        then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -2830,7 +2830,7 @@ declare module Ember {
     function compare(v: any, w: any): number;
     // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
-        (callback: Function): ComputedProperty;
+        (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
         any(...args: string[]): ComputedProperty;
@@ -2916,7 +2916,7 @@ declare module Ember {
     **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
-    function observer(func: Function, ...args: string[]): Function;
+    function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;

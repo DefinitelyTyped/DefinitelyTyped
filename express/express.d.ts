@@ -349,6 +349,11 @@ declare module "express" {
             /**
              * Parse the "Host" header field hostname.
              */
+            hostname: string;
+
+            /**
+             * @deprecated Use hostname instead.
+             */
             host: string;
 
             /**
