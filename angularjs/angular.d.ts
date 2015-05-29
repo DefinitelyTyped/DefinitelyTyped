@@ -1550,7 +1550,7 @@ declare module angular {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
-        bindToController?: any;
+        bindToController?: boolean|Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
         name?: string;
         priority?: number;
