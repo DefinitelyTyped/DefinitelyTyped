@@ -1,6 +1,6 @@
 /// <reference path="mobile-detect.d.ts" />
 
-var md: MobileDetect;
+var md: MobileDetect = new MobileDetect(window.navigator.userAgent);
 
 var mobie: string = md.mobile()
 var phone: string = md.phone()
