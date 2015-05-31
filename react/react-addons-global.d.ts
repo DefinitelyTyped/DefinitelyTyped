@@ -9,33 +9,39 @@ declare module React {
     // React.addons
     // ----------------------------------------------------------------------
 
-    export var addons: {
-        CSSTransitionGroup: CSSTransitionGroup;
-        LinkedStateMixin: LinkedStateMixin;
-        PureRenderMixin: PureRenderMixin;
-        TransitionGroup: TransitionGroup;
+    export module addons {
+        export var CSSTransitionGroup: CSSTransitionGroup;
+        export var TransitionGroup: TransitionGroup;
 
-        batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
-        batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-        batchedUpdates(callback: () => any): void;
+        export var LinkedStateMixin: LinkedStateMixin;
+        export var PureRenderMixin: PureRenderMixin;
+
+        export function batchedUpdates<A, B>(
+            callback: (a: A, b: B) => any, a: A, b: B): void;
+        export function batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+        export function batchedUpdates(callback: () => any): void;
 
         // deprecated: use petehunt/react-classset or JedWatson/classnames
-        classSet(cx: { [key: string]: boolean }): string;
-        classSet(...classList: string[]): string;
+        export function classSet(cx: { [key: string]: boolean }): string;
+        export function classSet(...classList: string[]): string;
 
-        cloneWithProps<P>(element: DOMElement<P>, props: P): DOMElement<P>;
-        cloneWithProps<P>(element: ClassicElement<P>, props: P): ClassicElement<P>;
-        cloneWithProps<P>(element: ReactElement<P>, props: P): ReactElement<P>;
+        export function cloneWithProps<P>(
+            element: DOMElement<P>, props: P): DOMElement<P>;
+        export function cloneWithProps<P>(
+            element: ClassicElement<P>, props: P): ClassicElement<P>;
+        export function cloneWithProps<P>(
+            element: ReactElement<P>, props: P): ReactElement<P>;
 
-        createFragment(object: { [key: string]: ReactNode }): ReactFragment;
+        export function createFragment(
+            object: { [key: string]: ReactNode }): ReactFragment;
 
-        update(value: any[], spec: UpdateArraySpec): any[];
-        update(value: {}, spec: UpdateSpec): any;
+        export function update(value: any[], spec: UpdateArraySpec): any[];
+        export function update(value: {}, spec: UpdateSpec): any;
 
         // Development tools
-        Perf: ReactPerf;
-        TestUtils: ReactTestUtils;
-    };
+        export import Perf = ReactPerf;
+        export import TestUtils = ReactTestUtils;
+    }
 
     //
     // React.addons (Transitions)
@@ -114,14 +120,14 @@ declare module React {
         totalTime: number;
     }
 
-    interface ReactPerf {
-        start(): void;
-        stop(): void;
-        printInclusive(measurements: Measurements[]): void;
-        printExclusive(measurements: Measurements[]): void;
-        printWasted(measurements: Measurements[]): void;
-        printDOM(measurements: Measurements[]): void;
-        getLastMeasurements(): Measurements[];
+    module ReactPerf {
+        export function start(): void;
+        export function stop(): void;
+        export function printInclusive(measurements: Measurements[]): void;
+        export function printExclusive(measurements: Measurements[]): void;
+        export function printWasted(measurements: Measurements[]): void;
+        export function printDOM(measurements: Measurements[]): void;
+        export function getLastMeasurements(): Measurements[];
     }
 
     //
@@ -132,55 +138,59 @@ declare module React {
         new(): any;
     }
 
-    interface ReactTestUtils {
-        Simulate: Simulate;
+    module ReactTestUtils {
+        export import Simulate = ReactSimulate;
 
-        renderIntoDocument<P>(element: ReactElement<P>): Component<P, any>;
-        renderIntoDocument<C extends Component<any, any>>(element: ReactElement<any>): C;
+        export function renderIntoDocument<P>(
+            element: ReactElement<P>): Component<P, any>;
+        export function renderIntoDocument<C extends Component<any, any>>(
+            element: ReactElement<any>): C;
 
-        mockComponent(mocked: MockedComponentClass, mockTagName?: string): ReactTestUtils;
+        export function mockComponent(
+            mocked: MockedComponentClass, mockTagName?: string): typeof ReactTestUtils;
 
-        isElementOfType(element: ReactElement<any>, type: ReactType): boolean;
-        isTextComponent(instance: Component<any, any>): boolean;
-        isDOMComponent(instance: Component<any, any>): boolean;
-        isCompositeComponent(instance: Component<any, any>): boolean;
-        isCompositeComponentWithType(
+        export function isElementOfType(
+            element: ReactElement<any>, type: ReactType): boolean;
+        export function isTextComponent(instance: Component<any, any>): boolean;
+        export function isDOMComponent(instance: Component<any, any>): boolean;
+        export function isCompositeComponent(instance: Component<any, any>): boolean;
+        export function isCompositeComponentWithType(
             instance: Component<any, any>,
             type: ComponentClass<any>): boolean;
 
-        findAllInRenderedTree(
+        export function findAllInRenderedTree(
             tree: Component<any, any>,
             fn: (i: Component<any, any>) => boolean): Component<any, any>;
 
-        scryRenderedDOMComponentsWithClass(
+        export function scryRenderedDOMComponentsWithClass(
             tree: Component<any, any>,
             className: string): DOMComponent<any>[];
-        findRenderedDOMComponentWithClass(
+        export function findRenderedDOMComponentWithClass(
             tree: Component<any, any>,
             className: string): DOMComponent<any>;
 
-        scryRenderedDOMComponentsWithTag(
+        export function scryRenderedDOMComponentsWithTag(
             tree: Component<any, any>,
             tagName: string): DOMComponent<any>[];
-        findRenderedDOMComponentWithTag(
+        export function findRenderedDOMComponentWithTag(
             tree: Component<any, any>,
             tagName: string): DOMComponent<any>;
 
-        scryRenderedComponentsWithType<P>(
+        export function scryRenderedComponentsWithType<P>(
             tree: Component<any, any>,
             type: ComponentClass<P>): Component<P, {}>[];
-        scryRenderedComponentsWithType<C extends Component<any, any>>(
+        export function scryRenderedComponentsWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
             type: ComponentClass<any>): C[];
 
-        findRenderedComponentWithType<P>(
+        export function findRenderedComponentWithType<P>(
             tree: Component<any, any>,
             type: ComponentClass<P>): Component<P, {}>;
-        findRenderedComponentWithType<C extends Component<any, any>>(
+        export function findRenderedComponentWithType<C extends Component<any, any>>(
             tree: Component<any, any>,
             type: ComponentClass<any>): C;
 
-        createRenderer(): ShallowRenderer;
+        export function createRenderer(): ShallowRenderer;
     }
 
     interface SyntheticEventData {
@@ -222,44 +232,45 @@ declare module React {
         (component: Component<any, any>, eventData?: SyntheticEventData): void;
     }
 
-    interface Simulate {
-        blur: EventSimulator;
-        change: EventSimulator;
-        click: EventSimulator;
-        cut: EventSimulator;
-        doubleClick: EventSimulator;
-        drag: EventSimulator;
-        dragEnd: EventSimulator;
-        dragEnter: EventSimulator;
-        dragExit: EventSimulator;
-        dragLeave: EventSimulator;
-        dragOver: EventSimulator;
-        dragStart: EventSimulator;
-        drop: EventSimulator;
-        focus: EventSimulator;
-        input: EventSimulator;
-        keyDown: EventSimulator;
-        keyPress: EventSimulator;
-        keyUp: EventSimulator;
-        mouseDown: EventSimulator;
-        mouseEnter: EventSimulator;
-        mouseLeave: EventSimulator;
-        mouseMove: EventSimulator;
-        mouseOut: EventSimulator;
-        mouseOver: EventSimulator;
-        mouseUp: EventSimulator;
-        paste: EventSimulator;
-        scroll: EventSimulator;
-        submit: EventSimulator;
-        touchCancel: EventSimulator;
-        touchEnd: EventSimulator;
-        touchMove: EventSimulator;
-        touchStart: EventSimulator;
-        wheel: EventSimulator;
+    module ReactSimulate {
+        export var blur: EventSimulator;
+        export var change: EventSimulator;
+        export var click: EventSimulator;
+        export var cut: EventSimulator;
+        export var doubleClick: EventSimulator;
+        export var drag: EventSimulator;
+        export var dragEnd: EventSimulator;
+        export var dragEnter: EventSimulator;
+        export var dragExit: EventSimulator;
+        export var dragLeave: EventSimulator;
+        export var dragOver: EventSimulator;
+        export var dragStart: EventSimulator;
+        export var drop: EventSimulator;
+        export var focus: EventSimulator;
+        export var input: EventSimulator;
+        export var keyDown: EventSimulator;
+        export var keyPress: EventSimulator;
+        export var keyUp: EventSimulator;
+        export var mouseDown: EventSimulator;
+        export var mouseEnter: EventSimulator;
+        export var mouseLeave: EventSimulator;
+        export var mouseMove: EventSimulator;
+        export var mouseOut: EventSimulator;
+        export var mouseOver: EventSimulator;
+        export var mouseUp: EventSimulator;
+        export var paste: EventSimulator;
+        export var scroll: EventSimulator;
+        export var submit: EventSimulator;
+        export var touchCancel: EventSimulator;
+        export var touchEnd: EventSimulator;
+        export var touchMove: EventSimulator;
+        export var touchStart: EventSimulator;
+        export var wheel: EventSimulator;
     }
 
     class ShallowRenderer {
-        getRenderOutput<C extends Component<any, any>>(): C;
+        getRenderOutput<E extends ReactElement<any>>(): E;
+        getRenderOutput(): ReactElement<any>;
         render(element: ReactElement<any>, context?: any): void;
         unmount(): void;
     }
