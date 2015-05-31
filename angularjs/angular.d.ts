@@ -384,6 +384,14 @@ declare module angular {
         value(name: string, value: any): IModule;
         value(object: Object): IModule;
 
+        /**
+         * Register a service decorator with the $injector. A service decorator intercepts the creation of a service, allowing it to override or modify the behaviour of the service. The object returned by the decorator may be the original service, or a new service object which replaces or wraps and delegates to the original service.
+         * @param name The name of the service to decorate
+         * @param decorator This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments: $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
+         */
+        decorator(name:string, decoratorConstructor: Function): IModule;
+        decorator(name:string, inlineAnnotatedConstructor: any[]): IModule;
+
         // Properties
         name: string;
         requires: string[];
