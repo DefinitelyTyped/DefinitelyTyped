@@ -45,6 +45,7 @@ declare module angular.resource {
 
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
+        url?: string;
         method: string;
         isArray?: boolean;
         params?: any;
