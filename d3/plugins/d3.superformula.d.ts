@@ -1,38 +1,37 @@
 /// <reference path="../d3.d.ts" />
 
+declare module d3 {
+    export function superformula<T>(): Superformula<T>;
 
-declare module D3 {
-    interface SuperformulaPath
-    {
-        superformulaPath(params: number[], n: number, diameter: number): Superformula;
+    module superformula {
+        interface Type {
+            m: number;
+            n1: number;
+            n2: number;
+            n3: number;
+            a: number;
+            b: number;
+        }
     }
 
+    interface Superformula<T> {
+        (datum: T, index: number): string;
 
-    interface SuperformulaType
-    {
-        (any: any): any;//hans
-        m: number;
-        n1: number;
-        n2: number;
-        n3: number;
-        a: number;
-        b: number;
+        type(): (datum: T, index: number) => string;
+        type(type: string): Superformula<T>;
+        type(type: (datum: T, index: number) => string): Superformula<T>;
+
+        size(): (datum: T, index: number) => number;
+        size(size: number): Superformula<T>;
+        size(size: (datum: T, index: number) => number): Superformula<T>;
+
+        segments(): (datum: T, index: number) => number;
+        segments(segments: number): Superformula<T>;
+        segments(segments: (datum: T, index: number) => number): Superformula<T>;
+
+        param(name: string): number;
+        param(name: string, value: number): Superformula<T>;
     }
 
-    interface Superformula
-    {
-        (): any;
-        type(any: any): any;
-        param(name: string, value: number): Superformula;
-        size(x: number): Superformula;
-        segments(x: number): Superformula;
-    }
-
-
-    interface Base extends Selectors
-    {
-        superformula: Superformula;
-        superformulaPath: SuperformulaPath;
-        superformulaTypes: SuperformulaType[];
-    }
+    export var superformulaTypes: string[];
 }

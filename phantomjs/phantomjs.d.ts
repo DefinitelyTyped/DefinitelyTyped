@@ -173,7 +173,7 @@ interface ResourceResponse {
 interface ResourceRequest {
 	id: number;
 	method: string;
-	ur: string;
+	url: string;
 	time: Date;
 	headers: { [name: string]: string; };
 }
