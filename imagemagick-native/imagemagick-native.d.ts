@@ -3,6 +3,8 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare module "imagemagick-native" {
 
     import stream = require('stream');
