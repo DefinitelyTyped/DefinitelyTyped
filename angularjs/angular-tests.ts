@@ -201,6 +201,9 @@ mod.constant(My.Namespace);
 mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
+mod.decorator('name', function($scope:ng.IScope){ });
+mod.decorator('name', ['$scope', <any>function($scope: ng.IScope){ }]);
+
 
 class TestProvider implements ng.IServiceProvider {
     constructor(private $scope: ng.IScope) {
