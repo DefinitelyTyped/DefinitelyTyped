@@ -9,7 +9,7 @@ declare module "imagemagick-native" {
 
     import stream = require('stream');
     export module streams {
-        export function convert(options: IConvertOptions): stream.Transform;
+        export function convert(options: IStreamConvertOptions): stream.Transform;
     }
 
     function convert(options: IConvertOptions): Buffer;
@@ -23,6 +23,25 @@ declare module "imagemagick-native" {
     function quantumDepth(): number;
     function version(): string;
 
+    export interface IStreamConvertOptions {
+        srcFormat?: string;
+        quality?: number;
+        trim?: boolean;
+        trimFuzz?: number;
+        width?: number;
+        height?: number;
+        density?: number;
+        resizeStyle?: string;
+        gravity?: string;
+        format?: string;
+        filter?: string;
+        blur?: number;
+        strip?: boolean;
+        rotate?: number;
+        flip?: boolean;
+        debug?: boolean;
+        ignoreWarnings?: boolean;
+    }
     export interface IConvertOptions {
         srcData: Buffer;
         srcFormat?: string;

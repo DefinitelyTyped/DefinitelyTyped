@@ -73,7 +73,11 @@ imagemagick.convert(options, (err: any, buffer: Buffer) => {
     // check err, use buffer
 });
 fs.createReadStream('input.png')
-  .pipe(imagemagick.streams.convert(options))
+  .pipe(imagemagick.streams.convert({
+    quality: 75,
+    width: 160,
+    height: 160
+  }))
   .pipe(fs.createWriteStream('output.png'));
 
 
