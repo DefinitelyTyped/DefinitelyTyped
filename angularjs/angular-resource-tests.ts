@@ -136,3 +136,10 @@ mod = mod.factory('factory name', resourceServiceFactoryFunction);
 ///////////////////////////////////////
 // IResource
 ///////////////////////////////////////
+
+
+///////////////////////////////////////
+// IResourceServiceProvider
+///////////////////////////////////////
+var resourceServiceProvider: angular.resource.IResourceServiceProvider;
+resourceServiceProvider.defaults.stripTrailingSlashes = false;
