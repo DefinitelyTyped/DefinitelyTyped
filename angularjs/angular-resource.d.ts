@@ -21,6 +21,7 @@ declare module angular.resource {
         stripTrailingSlashes?: boolean;
     }
 
+
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
     // see http://docs.angularjs.org/api/ngResource.$resource
@@ -144,6 +145,13 @@ declare module angular.resource {
         ($resource: angular.resource.IResourceService): IResourceClass<T>;
         <U extends IResourceClass<T>>($resource: angular.resource.IResourceService): U;
     }
+
+    // IResourceServiceProvider used to configure global settings
+    interface IResourceServiceProvider extends ng.IServiceProvider {
+
+        defaults: IResourceOptions;
+    }
+
 }
 
 /** extensions to base ng based on using angular-resource */
