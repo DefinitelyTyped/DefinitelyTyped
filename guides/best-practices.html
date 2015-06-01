@@ -83,14 +83,6 @@
     <span class="hljs-keyword">export</span> = foo;
 }
 </code></pre>
-<h3 id="type-unions"  class="ui header">Type Unions</h3>
-<p>For config objects / object bags where a particular member can be one of many things (e.g. a number or a string), you will need to use <code>any</code> at the moment with a comment that might replace the <code>any</code> in a future TypeScript version.</p>
-<pre><code class="lang-typescript"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">FooConfig</span> {</span>
-    something: any; <span class="hljs-comment">// number | string</span>
-}
-<span class="hljs-keyword">declare</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(config: FooConfig)</span>;</span>
-</code></pre>
-<p>There is a feature request open to <a href="https://typescript.codeplex.com/workitem/1364">add Type Unions to the language (vote)</a>.</p>
 <h3 id="extending-built-in-types"  class="ui header">Extending built-in types</h3>
 <p>There isn&#39;t a way to add <em>static members</em> to native objects at the moment as <code>lib.d.ts</code> defines them as a <code>var Date:{/*members*/}</code> and <code>var</code>s are not extendable.
  Two solutions are proposed to the TS team. Either <a href="https://typescript.codeplex.com/workitem/1085">use interfaces instead of var in lib.d.ts (vote)</a> and/or <a href="https://typescript.codeplex.com/workitem/917">make variables/classes open ended (vote)</a></p>
