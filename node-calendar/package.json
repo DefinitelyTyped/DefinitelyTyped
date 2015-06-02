@@ -1,0 +1,14 @@
+{
+	"name": "node-calendar.d.ts",
+	"version": "0.0.1",
+	"description": "Type definitions for node-calendar v0.1.4",
+	"main": "node-calendar-tests",
+	"scripts": {
+		"test": "node node-calendar-tests"
+	},
+	"author": "Luzian Zagadinow <luzianz@outlook.com> (https://github.com/luzianz)",
+	"license": "MIT",
+	"dependencies": {
+		"node-calendar": "^0.1.4"
+	}
+}

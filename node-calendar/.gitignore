@@ -1,0 +1,4 @@
+*.js
+tsconfig.json
+node_modules
+.settings
