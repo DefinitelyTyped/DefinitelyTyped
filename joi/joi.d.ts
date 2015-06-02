@@ -47,11 +47,16 @@ declare module 'joi' {
 		contextPrefix?: string;
 	}
 
+	export interface IPOptions {
+		version?: Array<string>;
+		cidr?: string
+	}
+
 	export interface ValidationError {
 		message: string;
 		details: ValidationErrorItem[];
-		simple (): string;
-		annotated (): string;
+		simple(): string;
+		annotated(): string;
 	}
 
 	export interface ValidationErrorItem {
@@ -82,19 +87,19 @@ declare module 'joi' {
 		/**
 		 * Whitelists a value
 		 */
-		allow(value: any, ...values : any[]): T;
+		allow(value: any, ...values: any[]): T;
 		allow(values: any[]): T;
 
 		/**
 		 * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
 		 */
-		valid(value: any, ...values : any[]): T;
+		valid(value: any, ...values: any[]): T;
 		valid(values: any[]): T;
 
 		/**
 		 * Blacklists a value
 		 */
-		invalid(value: any, ...values : any[]): T;
+		invalid(value: any, ...values: any[]): T;
 		invalid(values: any[]): T;
 
 		/**
@@ -257,6 +262,16 @@ declare module 'joi' {
 		 * Requires the string value to contain no whitespace before or after. If the validation convert option is on (enabled by default), the string will be trimmed.
 		 */
 		trim(): StringSchema;
+		
+		/**
+		 * Requires the string value be a valid hostname.
+		 */
+		hostname(): StringSchema;
+		
+		/**
+		 * Requires the string value to be a valid IP address.
+		 */
+		ip(options: IPOptions): StringSchema;
 
 		/**
 		 * Requires the string value to be a valid uri with the passed scheme.
@@ -364,7 +379,7 @@ declare module 'joi' {
 		/**
 		 * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
 		 */
-		unknown(allow?:boolean): ObjectSchema;
+		unknown(allow?: boolean): ObjectSchema;
 	}
 
 	export interface BinarySchema extends AnySchema<BinarySchema> {
@@ -486,5 +501,5 @@ declare module 'joi' {
 	/**
 	 * Generates a reference to the value of the named key.
 	 */
-	export function ref(key:string, options?: ReferenceOptions): Reference;
+	export function ref(key: string, options?: ReferenceOptions): Reference;
 }
