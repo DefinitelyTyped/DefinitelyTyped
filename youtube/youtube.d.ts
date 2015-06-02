@@ -150,7 +150,7 @@ declare module YT {
     }
 
     export enum PlayerState {
-    	UNSTARTED,
+        UNSTARTED,
         BUFFERING,
         CUED,
         ENDED,
