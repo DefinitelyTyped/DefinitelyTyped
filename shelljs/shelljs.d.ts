@@ -3,9 +3,6 @@
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-///<reference path="../node/node.d.ts"/>
-
 declare module "shelljs"
 {
     import child = require("child_process");
