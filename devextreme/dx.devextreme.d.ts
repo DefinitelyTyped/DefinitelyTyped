@@ -1,4 +1,4 @@
-﻿// Type definitions for DevExtreme 14.2+
+// Type definitions for DevExtreme 14.2.7
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -21,6 +21,7 @@ declare module DevExpress {
     export module validationEngine {
         export interface IValidator {
             validate(): ValidatorValidationResult;
+            reset(): void;
         }
         export interface ValidatorValidationResult {
             isValid: boolean;
@@ -38,6 +39,7 @@ declare module DevExpress {
             group: any;
             validators: IValidator[];
             validate(): ValidationGroupValidationResult;
+            reset(): void;
         }
         /** Provides access to the object that represents the specified validation group. */
         export function getGroupConfig(group: any): GroupConfig
@@ -47,6 +49,10 @@ declare module DevExpress {
         export function validateGroup(group: any): ValidationGroupValidationResult;
         /** Validates rules of the validators that belong to the default validation group. */
         export function validateGroup(): ValidationGroupValidationResult;
+        /** Resets the values and validation result of the editors that belong to the specified validation group. */
+        export function resetGroup(group: any): void;
+        /** Resets the values and validation result of the editors that belong to the default validation group. */
+        export function resetGroup(): void;
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
         /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
@@ -245,6 +251,7 @@ declare module DevExpress {
             filter?: Object;
             sort?: Object;
             select?: Object;
+            expand?: Object;
             group?: Object;
             skip?: number;
             take?: number;
@@ -265,7 +272,7 @@ declare module DevExpress {
             updating: JQueryCallback;
             constructor(options?: StoreOptions);
             /** Returns the data item specified by the key. */
-            byKey(key: any, extraOptions?: Object): JQueryPromise<any>;
+            byKey(key: any): JQueryPromise<any>;
             /** Adds an item to the data associated with this Store. */
             insert(values: Object): JQueryPromise<any>;
             /** Returns the key expression specified via the key configuration option. */
@@ -340,7 +347,7 @@ declare module DevExpress {
             byKey?: (key: any) => Promise;
             /**
              * User implementation of the byKey(key, extraOptions) method.
-             * @deprecated Use "byKey" instead
+             * @deprecated byKey.md
              */
             lookup?: (key: any) => Promise;
             /** The user implementation of the insert(values) method. */
@@ -379,6 +386,8 @@ declare module DevExpress {
             searchValue?: Object;
             /** Specifies the initial select option value. */
             select?: Object;
+            /** An array of the strings that represent the names of the navigation properties to be loaded simultaneously with the OData store's entity. */
+            expand?: Object;
             /** Specifies the initial sort option value. */
             sort?: Object;
             /** Specifies the underlying Store instance used to access data. */
@@ -535,6 +544,8 @@ declare module DevExpress {
             constructor(options?: ODataStoreOptions);
             /** Creates the Query object for the OData endpoint. */
             createQuery(loadOptions: Object): Object;
+            /** Returns the data item specified by the key. */
+            byKey(key: any, extraOptions?: { expand?: Object }): JQueryPromise<any>;
         }
         /** An universal chainable data query interface object. */
         export interface Query {
@@ -657,7 +668,7 @@ declare module DevExpress {
             items?: Array<any>;
             /**
              * A function performed when a widget item is selected.
-             * @deprecated Use the 'onSelectionChanged' option instead
+             * @deprecated onSelectionChanged.md
              */
             itemSelectAction?: Function;
             /** The template to be used for rendering items. */
@@ -713,11 +724,11 @@ declare module DevExpress {
             /** The template to be used for rendering items. */
             itemTemplate?: any;
             /** The currently selected value in the widget. */
-            value?: any;
+            value?: Object;
         }
         export interface EditorOptions extends WidgetOptions {
             /** The currently specified value. */
-            value?: any;
+            value?: Object;
             /** A handler for the valueChanged event. */
             onValueChanged?: Function;
             valueChangeAction?: Function;
@@ -729,6 +740,8 @@ declare module DevExpress {
             isValid?: boolean;
             /** Specifies how the message about the validation rules that are not satisfied by this editor's value is displayed. */
             validationMessageMode?: string;
+            /** Resets the editor's value to undefined. */
+            reset(): void;
         }
         /** A base class for editors. */
         export class Editor extends Widget { }
@@ -817,6 +830,24 @@ declare module DevExpress.framework {
         /** Formats an object to a URI. */
         format(obj: Object): string;
     }
+    export interface StateManagerOptions {
+        /** A storage to which the state manager saves the application state.  */
+        storage?: Object;
+    }
+    /** An object used to store the current application state. */
+    export class StateManager {
+        constructor(options?: StateManagerOptions);
+        /** Adds an object that implements an interface of a state source to the state manager's collection of state sources. */
+        addStateSource(stateSource: Object): void;
+        /** Removes a specified state source from the state manager's collection of state sources. */
+        removeStateSource(stateSource: Object): void;
+        /** Saves the current application state. */
+        saveState(): void;
+        /** Restores the application state that has been saved by the saveState() method to the state storage. */
+        restoreState(): void;
+        /** Removes the application state that has been saved by the saveState() method to the state storage. */
+        clearState(): void;
+    }
     export module html {
         export var layoutSets: Array<string>;
         export interface HtmlApplicationOptions {
@@ -824,7 +855,7 @@ declare module DevExpress.framework {
             commandMapping?: Object;
             /**
              * The name of the default layout used by the application.
-             * @deprecated Use the "navigationType" option instead.
+             * @deprecated navigationType.md
              */
             defaultLayout?: string;
             /** Specifies whether or not view caching is disabled. */
@@ -839,14 +870,18 @@ declare module DevExpress.framework {
             navigateToRootViewMode?: string;
             /** An array of dxCommand configuration objects used to define commands available from the application's global navigation. */
             navigation?: Array<any>;
+            /** A state manager to be used in the application. */
+            stateManager?: StateManager;
+            /** Specifies the storage to be used by the application's state manager to store the application state. */
+            stateStorage?: Object;
             /**
              * Specifies a strategy for choosing layouts for views in your application.
-             * @deprecated Use the "layoutSet" option instead.
+             * @deprecated layoutSet.md
              */
             navigationType?: string;
             /**
              * Specifies the object that represents the root namespace of the application.
-             * @deprecated Use the "namespace" option instead.
+             * @deprecated namespace.md
              */
             ns?: Object;
             /** Indicates whether on not to use the title of the previously displayed view as text on the Back button. */
@@ -879,13 +914,15 @@ declare module DevExpress.framework {
             viewCache: ViewCache;
             /** An array of dxCommand components that are created based on the application's navigation option value. */
             navigation: Array<any>;
+            /** Provides access to the StateManager object. */
+            stateManager: StateManager;
             /** Provides access to the Router object. */
             router: Router;
             /** Navigates to the URI preceding the current one in the navigation history. */
             back(): void;
             /** Returns a Boolean value indicating whether or not backwards navigation is currently possible. */
             canBack(): boolean;
-            /** Removes the application state that has been saved by the saveState() method to the state storage. */
+            /** Calls the clearState() method of the application's StateManager object. */
             clearState(): void;
             /** Creates global navigation commands.  */
             createNavigation(navigationConfig: Array<any>): void;
@@ -899,9 +936,9 @@ declare module DevExpress.framework {
             navigate(uri?: any, options?: Object): void;
             /** Renders navigation commands to the navigation command containers that are located in the layouts used in the application. */
             renderNavigation(): void;
-            /** Restores the application state that has been saved by the saveState() method to the state storage, and applies it to the application. */
+            /** Calls the restoreState() method of the application's StateManager object. */
             restoreState(): void;
-            /** Saves the current application state. */
+            /** Calls the saveState method of the application's StateManager object. */
             saveState(): void;
             /** Provides access to the object that defines the current context to be considered when choosing an appropriate template for a view. */
             templateContext(): Object;
@@ -1039,6 +1076,8 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxValidatorOptions);
         /** Validates the value of the editor that is controlled by the current dxValidator object against the list of the specified validation rules. */
         validate(): validationEngine.ValidatorValidationResult;
+        /** Resets the value and validation result of the editor associated with the current dxValidator object. */
+        reset(): void;
     }
     /** The widget that is used in the Knockout and Angular approaches to combine the editors to be validated. */
     export class dxValidationGroup extends DOMComponent {
@@ -1046,6 +1085,8 @@ declare module DevExpress.ui {
         constructor(element: Element);
         /** Validates rules of the validators that belong to the current validation group. */
         validate(): validationEngine.ValidationGroupValidationResult;
+        /** Resets the value and validation result of the editors that are included to the current validation group. */
+        reset(): void;
     }
     export interface dxValidationSummaryOptions extends CollectionWidgetOptions {
         /** Specifies the validation group for which summary should be generated. */
@@ -1082,6 +1123,15 @@ declare module DevExpress.ui {
         searchEnabled?: boolean;
         /** Specifies whether or not the widget displays items by pages. */
         pagingEnabled?: boolean;
+        /** The text or HTML markup displayed by the widget if the item collection is empty. */
+        noDataText?: string;
+        /** A handler for the selectionChanged event. */
+        onSelectionChanged?: Function;
+        /** A handler for the itemClick event. */
+        onItemClick?: Function;
+        onContentReady?: Function;
+        /** Specifies whether or not the widget supports the focused state and keyboard navigation. */
+        focusStateEnabled?: boolean;
     }
     /** A base class for drop-down list widgets. */
     export class dxDropDownList extends dxDropDownEditor {
@@ -1160,12 +1210,19 @@ declare module DevExpress.ui {
         /** Specifies the current value displayed by the widget. */
         value?: any;
         valueUpdateAction?: Function;
-        valueChangeAction?: Function;
         /** Specifies DOM event names that update a widget's value. */
         valueChangeEvent?: string;
         valueUpdateEvent?: string;
         /** Specifies whether or not the widget checks the inner text for spelling mistakes. */
         spellcheck?: boolean;
+        /** Specifies HTML attributes applied to the inner input element of the widget. */
+        attr?: Object;
+        /** The read-only option that holds the text displayed by the widget input element. */
+        text?: string;
+        /** Specifies whether or not the widget supports the focused state and keyboard navigation. */
+        focusStateEnabled?: boolean;
+        /** A Boolean value specifying whether or not the widget changes its state when being hovered by an end user. */
+        hoverStateEnabled?: boolean;
     }
     /** A base class for text editing widgets. */
     export class dxTextEditor extends Editor {
@@ -1197,6 +1254,8 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxTextAreaOptions);
     }
     export interface dxTabsOptions extends CollectionWidgetOptions {
+        /** Specifies whether the widget enables an end-user to select only a single item or multiple items. */
+        selectionMode?: string;
         /** Specifies whether or not an end-user can scroll tabs by swiping. */
         scrollByContent?: boolean;
         /** Specifies whether or not an end-user can scroll tabs. */
@@ -1216,8 +1275,9 @@ declare module DevExpress.ui {
         onTitleHold?: Function;
         /** A handler for the titleRendered event. */
         onTitleRendered?: Function;
-        /** A template to be used for rendering the widget title. */
         titleTemplate?: any;
+        /** The template to be used for rendering an item title. */
+        itemTitleTemplate?: any;
     }
     /** A widget used to display a view and to switch between several views by clicking the appropriate tabs. */
     export class dxTabPanel extends dxMultiView {
@@ -1230,32 +1290,16 @@ declare module DevExpress.ui {
         /** The text that is provided as a hint in the select box editor. */
         placeholder?: string;
         /** Specifies whether or not the widget allows an end-user to enter a custom value. */
-        editEnabled?: boolean;
+        fieldEditEnabled?: boolean;
     }
     /** A widget that allows you to select an item in a dropdown list. */
     export class dxSelectBox extends dxDropDownList {
         constructor(element: JQuery, options?: dxSelectBoxOptions);
         constructor(element: Element, options?: dxSelectBoxOptions);
-        /** Closes the drop-down editor. */
-        close(): void;
-        /** Opens the drop-down editor. */
-        open(): void;
     }
     export interface dxTagBoxOptions extends dxSelectBoxOptions {
         /** Holds the list of selected values. */
         values?: Array<any>;
-        /** Holds the last selected value. */
-        value?: any;
-        /** A handler for the valueChanged event. */
-        onValueChanged?: (e: {
-            component: dxTagBox;
-            element: JQuery;
-            model: Object;
-            value: Object;
-            values: Object;
-            itemData: Object;
-            jQueryEvent: JQueryEventObject;
-        }) => void;
     }
     /** A widget that allows you to select multiple items from a dropdown list. */
     export class dxTagBox extends dxSelectBox {
@@ -1310,6 +1354,12 @@ declare module DevExpress.ui {
         updateAction?: Function;
         /** Indicates whether to use native or simulated scrolling. */
         useNative?: boolean;
+        /** A Boolean value specifying whether to enable or disable the bounce-back effect. */
+        bounceEnabled?: boolean;
+        /** A Boolean value specifying whether or not an end-user can scroll the widget content swiping it up or down. */
+        scrollByContent?: boolean;
+        /** A Boolean value specifying whether or not an end-user can scroll the widget content using the scrollbar. */
+        scrollByThumb?: boolean;
     }
     /** A widget used to display scrollable content. */
     export class dxScrollable extends DOMComponent {
@@ -1369,6 +1419,8 @@ declare module DevExpress.ui {
         width?: any;
         /** Specifies items displayed on the top or bottom toolbar of the popup window. */
         buttons?: Array<any>;
+        /** Specifies whether or not the widget displays the Close button. */
+        showCloseButton?: boolean;
         /** A handler for the titleRendered event. */
         onTitleRendered?: Function;
     }
@@ -1396,6 +1448,8 @@ declare module DevExpress.ui {
     export class dxPopover extends dxPopup {
         constructor(element: JQuery, options?: dxPopoverOptions);
         constructor(element: Element, options?: dxPopoverOptions);
+        /** Displays the widget for the specified target element. */
+        show(target?: any): JQueryPromise<void>;
     }
     export interface dxOverlayOptions extends WidgetOptions {
         /** An object that defines the animation options of the widget. */
@@ -1449,13 +1503,15 @@ declare module DevExpress.ui {
         show(): JQueryPromise<void>;
         /** Toggles the visibility of the widget. */
         toggle(showing: boolean): JQueryPromise<void>;
+        /** A static method that specifies the default z-index for all overlay widgets. */
+        static baseZIndex(zIndex: number): void;
     }
     export interface dxNumberBoxOptions extends dxTextEditorOptions {
         /** The maximum value accepted by the number box. */
         max?: number;
         /** The minimum value accepted by the number box. */
         min?: number;
-        /** Specifies whether to show spin buttons. */
+        /** Specifies whether or not to show spin buttons. */
         showSpinButtons?: boolean;
         useTouchSpinButtons?: boolean;
         /** Specifies by which value the widget value changes when a spin button is clicked. */
@@ -1468,7 +1524,9 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: dxNumberBoxOptions);
         constructor(element: Element, options?: dxNumberBoxOptions);
     }
-    export interface dxNavBarOptions extends dxTabsOptions { }
+    export interface dxNavBarOptions extends dxTabsOptions {
+        scrollingEnabled?: boolean;
+    }
     /** A widget that contains items used to navigate through application views. */
     export class dxNavBar extends dxTabs {
         constructor(element: JQuery, options?: dxNavBarOptions);
@@ -1526,7 +1584,7 @@ declare module DevExpress.ui {
             }
             /**
              * An object, a string, or an array specifying the location displayed at the center of the widget.
-             * @deprecated Use the 'center' option instead
+             * @deprecated center.md
              */
             location?: {
                 lat?: number;
@@ -1586,8 +1644,8 @@ declare module DevExpress.ui {
         clearButtonText?: string;
         /** A Boolean value specifying whether or not the widget is closed if a user clicks outside of the overlaying window. */
         closeOnOutsideClick?: any;
-        /** The text displayed on the Done button. */
-        doneButtonText?: string;
+        /** The text displayed on the Apply button. */
+        applyButtonText?: string;
         /** A Boolean value specifying whether or not to display the lookup in full-screen mode. */
         fullScreen?: boolean;
         /** A Boolean value specifying whether or not to group widget items. */
@@ -1597,8 +1655,6 @@ declare module DevExpress.ui {
         groupTemplate?: any;
         /** The text displayed on the button used to load the next page from the data source. */
         nextButtonText?: string;
-        /** The text or HTML markup displayed by the widget if there are no items satisfying the specified search condition. */
-        noDataText?: string;
         /** A handler for the pageLoading event. */
         onPageLoading?: Function;
         pageLoadingAction?: Function;
@@ -1634,8 +1690,6 @@ declare module DevExpress.ui {
         shading?: boolean;
         /** Specifies whether to display the Cancel button in the lookup window. */
         showCancelButton?: boolean;
-        /** Specifies whether to display the Done button in the lookup window. */
-        showDoneButton?: boolean;
         /** A Boolean value specifying whether the widget loads the next page automatically when you reach the bottom of the list or when a button is clicked. */
         showNextButton?: boolean;
         /** The title of the lookup window. */
@@ -1649,10 +1703,11 @@ declare module DevExpress.ui {
         /** A handler for the valueChanged event. */
         onValueChanged?: Function;
         contentReadyAction?: Function;
-        onContentReady?: Function;
         titleRender?: any;
         /** A handler for the titleRendered event. */
         onTitleRendered?: Function;
+        /** Specifies whether or not the widget supports the focused state and keyboard navigation. */
+        focusStateEnabled?: boolean;
     }
     /** A widget that allows a user to select predefined values from a lookup window. */
     export class dxLookup extends dxDropDownList {
@@ -1703,7 +1758,7 @@ declare module DevExpress.ui {
             deleteEnabled?: boolean;
             /**
              * A mode specifying how to delete a list item.
-             * @deprecated Use the "deleteType" option instead.
+             * @deprecated deleteType.md
              */
             deleteMode?: string;
             /** Specifies the way a user can delete items from the list. */
@@ -1721,14 +1776,14 @@ declare module DevExpress.ui {
             selectionEnabled?: boolean;
             /**
              * A mode specifying how to select a list item.
-             * @deprecated Use the "selectionType" option instead.
+             * @deprecated selectionType.md
              */
             selectionMode?: string;
             /** A type specifying how to select a list item. */
             selectionType?: string;
             /** Specifies whether the item list represented by this widget is editable. */
             editEnabled?: boolean;
-            /** Specifies whether or not to show the load panel during data loading. */
+            /** Specifies whether or not to show the loading panel when the DataSource bound to the widget is loading data. */
             indicateLoading?: boolean;
         };
         /** A Boolean value specifying whether or not to display a grouped list. */
@@ -1736,6 +1791,7 @@ declare module DevExpress.ui {
         groupRender?: any;
         /** The name of the template used to display a group header. */
         groupTemplate?: any;
+        onItemDeleting?: Function;
         /** A handler for the itemDeleted event. */
         onItemDeleted?: Function;
         itemDeleteAction?: Function;
@@ -1774,8 +1830,8 @@ declare module DevExpress.ui {
         selectionMode?: string;
         /** A Boolean value specifying whether the widget loads the next page automatically when you reach the bottom of the list or when a button is clicked. */
         showNextButton?: boolean;
-        /** A Boolean value specifying if the widget scrollbar is visible. */
-        showScrollbar?: boolean;
+        /** Specifies when the widget shows the scrollbar. */
+        showScrollbar?: string;
         /** Specifies whether or not the widget uses native scrolling. */
         useNativeScrolling?: boolean;
         itemUnselectAction?: Function;
@@ -1831,7 +1887,7 @@ declare module DevExpress.ui {
         unselectItem(itemIndex: any): void;
         /**
          * Updates the widget scrollbar according to widget content size.
-         * @deprecated Use the "updateDimensions" method instead.
+         * @deprecated updateDimensions.md
          */
         update(): JQueryPromise<void>;
         /** Updates the widget scrollbar according to widget content size. */
@@ -1844,6 +1900,8 @@ declare module DevExpress.ui {
     export interface dxGalleryOptions extends CollectionWidgetOptions {
         /** The time, in milliseconds, spent on slide animation. */
         animationDuration?: number;
+        /** Specifies whether or not to animate the displayed item change. */
+        animationEnabled?: boolean;
         /** A Boolean value specifying whether or not to allow users to switch between items by clicking an indicator. */
         indicatorEnabled?: boolean;
         /** A Boolean value specifying whether or not to scroll back to the first item after the last item is swiped. */
@@ -1871,16 +1929,25 @@ declare module DevExpress.ui {
         prevItem(animation: boolean): JQueryPromise<any>;
     }
     export interface dxDropDownEditorOptions extends dxTextBoxOptions {
+        /** Specifies the current value displayed by the widget. */
+        value?: Object;
         /** A handler for the closed event. */
         onClosed?: Function;
         /** A handler for the opened event. */
         onOpened?: Function;
-        /** Specifies whether or not the drop-down window is displayed. */
+        /** Specifies whether or not the drop-down editor is displayed. */
         opened?: boolean;
         closeAction?: Function;
         openAction?: Function;
         shownAction?: Function;
         hiddenAction?: Function;
+        /** Specifies whether or not the widget allows an end-user to enter a custom value. */
+        fieldEditEnabled?: boolean;
+        editEnabled?: boolean;
+        /** Specifies the way an end-user applies the selected value. */
+        applyValueMode?: string;
+        /** Specifies whether or not the widget supports the focused state and keyboard navigation. */
+        focusStateEnabled?: boolean;
     }
     /** A drop-down editor widget. */
     export class dxDropDownEditor extends dxTextBox {
@@ -1890,12 +1957,10 @@ declare module DevExpress.ui {
         close(): void;
         /** Opens the drop-down editor. */
         open(): void;
+        /** Resets the widget's value to null. */
+        reset(): void;
     }
     export interface dxDateBoxOptions extends dxTextEditorOptions {
-        /** A dxCalendar configuration object used to initialize the drop-down calendar. */
-        calendarOptions?: dxCalendarOptions;
-        /** Specifies whether or not to close the drop-down calendar when widget value has been changed. */
-        closeOnValueChange?: boolean;
         /** A format used to display date/time information. */
         format?: string;
         /** A Globalize format string specifying the date display format. */
@@ -1906,7 +1971,7 @@ declare module DevExpress.ui {
         min?: Date;
         /** The text displayed by the widget when the widget value is not yet specified. This text is also used as a title of the date picker. */
         placeholder?: string;
-        /** Specifies whether or not a user can pick out a date via the drop-down calendar. */
+        /** Specifies whether or not a user can pick out a date using the drop-down calendar. */
         useCalendar?: boolean;
         /** A Date object specifying the date and time currently selected using the date box. */
         value?: Date;
@@ -1916,7 +1981,7 @@ declare module DevExpress.ui {
         interval?: number;
     }
     /** A date box widget. */
-    export class dxDateBox extends dxTextEditor {
+    export class dxDateBox extends dxDropDownEditor {
         constructor(element: JQuery, options?: dxDateBoxOptions);
         constructor(element: Element, options?: dxDateBoxOptions);
     }
@@ -1990,12 +2055,14 @@ declare module DevExpress.ui {
         /** Specifies the screen factor with which all elements are located in a single column. */
         singleColumnScreen?: string;
     }
-    /** A widget used to build an adaptive markup dependent on screen resolution. */
+    /** A widget used to build an adaptive markup that is dependent on screen resolution. */
     export class dxResponsiveBox extends CollectionWidget {
         constructor(element: JQuery, options?: dxBoxOptions);
         constructor(element: Element, options?: dxBoxOptions);
     }
     export interface dxAutocompleteOptions extends dxDropDownListOptions {
+        /** Specifies the current value displayed by the widget. */
+        value?: string;
         /** The minimum number of characters that must be entered into the text box to begin a search. */
         minSearchLength?: number;
         /** Specifies the maximum count of items displayed by the widget. */
@@ -2041,21 +2108,11 @@ declare module DevExpress.ui {
         /** Expands the specified item. */
         expandItem(index: number): JQueryPromise<dxAccordion>;
     }
-    export interface dxFileUploaderFile {
-        /** Specifies the selected file name. */
-        name?: string;
-        /** Specifies the selected file size in bytes. */
-        size?: number;
-        /** Specifies the MIME type of the selected file. */
-        type?: string;
-        /** Specifies the date and time of the last selected file modification. */
-        lastModifiedDate?: Date;
-    }
     export interface dxFileUploaderOptions extends EditorOptions {
-        /** An object that holds the selected file data. */
-        value?: dxFileUploaderFile;
-        /** Holds data of the files selected in the widget. */
-        values?: Array<dxFileUploaderFile>;
+        /** A read-only option that holds a File instance representing the selected file. */
+        value?: File;
+        /** Holds the File instances representing files selected in the widget. */
+        values?: Array<File>;
         /** Specifies the text displayed on the button opening the file selection dialog. */
         buttonText?: string;
         /** Specifies the text displayed on the area to which an end-user can drop a file. */
@@ -2093,7 +2150,7 @@ declare module DevExpress.ui {
         /** A handler for the complete event. */
         onComplete?: Function;
     }
-    /** A widget used to indicate a progress. */
+    /** A widget used to indicate progress. */
     export class dxProgressBar extends dxTrackBar {
         constructor(element: JQuery, options?: dxProgressBarOptions);
         constructor(element: Element, options?: dxProgressBarOptions);
@@ -2175,7 +2232,7 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: dxSwitchOptions);
         constructor(element: Element, options?: dxSwitchOptions);
     }
-    export interface dxSlideoutOptions extends CollectionWidgetOptions {
+    export interface dxSlideOutOptions extends CollectionWidgetOptions {
         /** A Boolean value specifying whether or not the widget changes its state when interacting with a user. */
         activeStateEnabled?: boolean;
         /** A Boolean value specifying whether or not to display a grouped menu. */
@@ -2190,11 +2247,13 @@ declare module DevExpress.ui {
         menuVisible?: boolean;
         /** Indicates whether the menu can be shown/hidden by swiping the widget's main panel. */
         swipeEnabled?: boolean;
+        /** A template to be used for rendering widget content. */
+        contentTemplate?: any;
     }
-    /** The dxSlideOut widget allows you to slide-out the current view to reveal an item list. */
+    /** The widget that allows you to slide-out the current view to reveal an item list. */
     export class dxSlideOut extends CollectionWidget {
-        constructor(element: JQuery, options?: dxSlideoutOptions);
-        constructor(element: Element, options?: dxSlideoutOptions);
+        constructor(element: JQuery, options?: dxSlideOutOptions);
+        constructor(element: Element, options?: dxSlideOutOptions);
         /** Hides the widget's slide-out menu. */
         hideMenu(): JQueryPromise<void>;
         /** Displays the widget's slide-out menu. */
@@ -2205,6 +2264,8 @@ declare module DevExpress.ui {
     export interface dxPivotOptions extends CollectionWidgetOptions {
         /** The index of the currently active pivot item. */
         selectedIndex?: number;
+        /** A template to be used for rendering widget content. */
+        contentTemplate?: any;
     }
     /** A widget that is similar to a traditional tab control, but optimized for the phone with simplified end-user interaction. */
     export class dxPivot extends CollectionWidget {
@@ -2257,12 +2318,20 @@ declare module DevExpress.ui {
         popupWidth?: any;
         /** The height of the menu popup in pixels. */
         popupHeight?: any;
+        /** Specifies whether or not the drop-down menu is displayed. */
+        opened?: boolean;
+        /** A Boolean value specifying whether or not the widget changes its state when being hovered by an end user. */
+        hoverStateEnabled?: boolean;
     }
     /** A drop-down menu widget. */
     export class dxDropDownMenu extends Widget {
         constructor(element: JQuery, options?: dxDropDownEditorOptions);
         constructor(element: Element, options?: dxDropDownEditorOptions);
         /** This section lists the data source fields that are used in a default template for drop-down menu items. */
+        /** Opens the drop-down menu. */
+        open(): void;
+        /** Closes the drop-down menu. */
+        close(): void;
     }
     export interface dxActionSheetOptions extends CollectionWidgetOptions {
         cancelClickAction?: any;
@@ -2270,7 +2339,7 @@ declare module DevExpress.ui {
         onCancelClick?: any;
         /** The text displayed in the button that closes the action sheet. */
         cancelText?: string;
-        /** Specifies whether to display the Cancel button in action sheet. */
+        /** Specifies whether or not to display the Cancel button in action sheet. */
         showCancelButton?: boolean;
         /** A Boolean value specifying whether or not the title of the action sheet is visible. */
         showTitle?: boolean;
@@ -2297,14 +2366,11 @@ declare module DevExpress.ui {
     export interface dxColorBoxOptions extends dxDropDownEditorOptions {
         /** Specifies the text displayed on the button that applies changes and closes the drop-down editor. */
         applyButtonText?: string;
-        /** Specifies whether the widget value is updated after the Apply button is clicked or immediately after a color is selected in the palette. */
         applyValueMode?: string;
         /** Specifies the text displayed on the button that cancels changes and closes the drop-down editor. */
         cancelButtonText?: string;
         /** Specifies whether or not the widget value includes the alpha channel component. */
         editAlphaChannel?: boolean;
-        /** The color currently selected by the widget. */
-        value?: string;
     }
     /** A widget used to specify a color value. */
     export class dxColorBox extends dxDropDownEditor {
@@ -2323,7 +2389,12 @@ declare module DevExpress.ui {
     export interface dxTreeViewOptions extends CollectionWidgetOptions {
         /** Specifies whether a nested or plain array is used as a data source. */
         dataStructure?: string;
-        /** An array of currently expanded item objects. */
+        /** Specifies whether or not a user can expand all tree view items by the "*" hot key. */
+        expandAllEnabled?: boolean;
+        /**
+         * An array of currently expanded item objects.
+         * @deprecated Use item.expanded field instead
+         */
         expandedItems?: Array<any>;
         /** Specifies whether or not a check box is displayed at each tree view item. */
         showCheckBoxes?: boolean;
@@ -2345,6 +2416,7 @@ declare module DevExpress.ui {
         itemsExpr?: any;
         /** Specifies the name of the data source item field that holds the key of the parent item. */
         parentIdExpr?: any;
+        disabledExpr?: any;
         /** A string value specifying available scrolling directions. */
         scrollDirection?: string;
         /** A handler for the itemSelected event. */
@@ -2370,6 +2442,10 @@ declare module DevExpress.ui {
         collapseItem(itemElement: any): void;
         /** Returns all nodes of the tree view. */
         getNodes(): Array<Object>;
+        /** Selects all widget items. */
+        selectAll(): void;
+        /** Unselects all widget items. */
+        unselectAll(): void;
     }
     export interface dxMenuBaseOptions extends CollectionWidgetOptions {
         /** An object that defines the animation options of the widget. */
@@ -2386,6 +2462,8 @@ declare module DevExpress.ui {
         selectionMode?: string;
         /** Specifies the user interaction by which submenus are shown. */
         showSubmenuMode?: string;
+        /** A Boolean value specifying whether or not the widget changes its state when being hovered by an end user. */
+        hoverStateEnabled?: boolean;
     }
     export class dxMenuBase extends CollectionWidget {
         constructor(element: JQuery, options?: dxMenuBaseOptions);
@@ -2402,8 +2480,6 @@ declare module DevExpress.ui {
         /** Specifies by which user interaction the first-level submenu is shown. */
         showFirstSubmenuMode?: string;
         showPopupMode?: string;
-        /** Specifies by which user interaction secondary-level submenus are shown. */
-        showSubmenuMode?: string;
         /** Specifies the direction at which the submenus are displayed. */
         submenuDirection?: string;
         /** A handler for the submenuHidden event. */
@@ -2445,8 +2521,6 @@ declare module DevExpress.ui {
         positioningAction?: Function;
         showingAction?: Function;
         shownAction?: Function;
-        /** Specifies by which user interaction the context menu is shown. */
-        showSubmenuMode?: string;
         /** Specifies the direction at which submenus are displayed. */
         submenuDirection?: string;
         /** The target element associated with a popover. */
@@ -2458,6 +2532,12 @@ declare module DevExpress.ui {
     export class dxContextMenu extends dxMenuBase {
         constructor(element: JQuery, options?: dxContextMenuOptions);
         constructor(element: Element, options?: dxContextMenuOptions);
+        /** Toggles the visibility of the widget. */
+        toggle(showing: boolean): JQueryPromise<void>;
+        /** Shows the widget. */
+        show(): JQueryPromise<void>;
+        /** Hides the widget. */
+        hide(): JQueryPromise<void>;
     }
     export interface dxRemoteOperations {
         /** Specifies whether or not filtering must be performed on the server side. */
@@ -2973,9 +3053,7 @@ Specifies the message displayed in a group row when the corresponding group cont
         /** Specifies whether text that does not fit into a column should be wrapped. */
         wordWrapEnabled?: boolean;
     }
-    /** 
-A data grid widget.
- */
+    /** A data grid widget. */
     export class dxDataGrid extends Widget {
         constructor(element: JQuery, options?: dxDataGridOptions);
         constructor(element: Element, options?: dxDataGridOptions);
@@ -3070,6 +3148,7 @@ Searches grid records by a search string.
         searchByText(text: string): void;
         /** Selects all grid records. */
         selectAll(): void;
+        deselectAll(): void;
         /** Selects specific grid records. */
         selectRows(keys: Array<any>, preserve: boolean): void;
         /** Deselects specific grid records. */
@@ -3100,8 +3179,13 @@ declare module DevExpress.viz.charts {
         type: string;
         /** Unselects all the selected points of the series. The points are displayed in an initial style. */
         clearSelection(): void;
-        /** Gets a point from the series point collection based on the specified argument. */
+		/**
+         * Gets a point from the series point collection based on the specified argument.
+         * @deprecated getPointsByArg(pointArg).md
+         */
         getPointByArg(pointArg: any): Object;
+        /** Gets points from the series point collection based on the specified argument. */
+        getPointsByArg(pointArg: any): Array<BasePoint>;
         /** Gets a point from the series point collection based on the specified point position. */
         getPointByPos(positionIndex: number): Object;
         /** Selects the series. The series is displayed in a 'selected' style until another series is selected or the current series is deselected programmatically. */
@@ -3239,8 +3323,6 @@ declare module DevExpress.viz.charts {
     }
     /** This section describes the methods that can be used in code to manipulate the Point object. */
     export interface PolarPoint extends BasePoint {
-        /** Gets the parameters of the point's minimum bounding rectangle (MBR). */
-        getBoundingRect(): Object;
         series: PolarSeries;
     }
     export interface Strip {
@@ -3624,8 +3706,6 @@ declare module DevExpress.viz.charts {
         tagField?: string;
         /** Specifies the data source field that provides values for series points. */
         valueField?: string;
-        /** Specifies the required type for series values. */
-        valueType?: string;
     }
     export interface PieSeriesConfig extends CommonPieSeriesConfig {
         /** Sets the series type. */
@@ -3648,8 +3728,12 @@ declare module DevExpress.viz.charts {
         font?: viz.core.Font;
         /** Specifies the position of the constant line label relative to the chart plot. */
         position?: string;
+        /** Indicates whether or not to display labels for the axis constant lines. */
+        visible?: boolean;
     }
     export interface PolarCommonConstantLineLabel {
+        /** Indicates whether or not to display labels for the axis constant lines. */
+        visible?: boolean;
         /** Specifies font options for a constant line label. */
         font?: viz.core.Font;
     }
@@ -3865,6 +3949,8 @@ declare module DevExpress.viz.charts {
         minorTickCount?: number;
         /** Specifies the required type of the value axis. */
         type?: string;
+        /** Specifies the pane on which the current value axis will be displayed. */
+        pane?: string;
         /** Specifies options for value axis strips. */
         strips?: Array<Strip>;
     }
@@ -4285,6 +4371,10 @@ declare module DevExpress.viz.charts {
     export interface PieLegend extends core.BaseLegend {
         /** Specifies what chart elements to highlight when a corresponding item in the legend is hovered over. */
         hoverMode?: string;
+        /** Specifies the text for a hint that appears when a user hovers the mouse pointer over a legend item. */
+        customizeHint?: (pointInfo: { pointName: string; pointIndex: number; pointColor: string; }) => string;
+        /** Specifies a callback function that returns the text to be displayed by a legend item. */
+        customizeText?: (pointInfo: { pointName: string; pointIndex: number; pointColor: string; }) => string;
     }
     export interface dxPieChartOptions extends BaseChartOptions<PiePoint> {
         /** Specifies adaptive layout options. */
@@ -4375,7 +4465,7 @@ declare module DevExpress.viz.core {
         /** Specifies a color for the tooltip. */
         color?: string;
         customizeText?: Function;
-        /** Allows you to change the appearance of particular tooltips. */
+        /** Specifies text and appearance of a particular set of tooltips. */
         customizeTooltip?: (arg: Object) => { color?: string; text?: string };
         /** Specifies whether or not the tooltip is enabled. */
         enabled?: boolean;
@@ -4575,52 +4665,49 @@ declare module DevExpress.viz.gauges {
         /** Specifies the start value for the scale of the gauge. */
         startValue?: number;
     }
-    export interface BaseSubvalueIndicator {
-        /** Specifies the length of an arrow for the subvalue indicator of the textCloud type in pixels. */
-        arrowLength?: number;
-        /** Specifies the color of a subvalue indicator. */
-        color?: string;
-        /** Specifies the length for a subvalue indicator of the triangleMarker type in pixels. */
-        length?: number;
-        /** Sets the array of colors to be used for coloring the subvalue indicators. */
-        palette?: Array<any>;
-        /** Specifies the appearance of the text displayed in a subvalue indicator of the textCloud type. */
-        text?: Object;
-        /** Specifies a callback function that returns the text to be displayed in a subvalue indicator of the textCloud type. */
-        customizeText?: (indicatedSubvalue: { value: number; valueText: string }) => string;
-        /** Specifies font options for the text displayed by a subvalue indicator of the textCloud type. */
-        font?: viz.core.Font;
-        /** Specifies a format for the text displayed in a subvalue indicator of the textCloud type. */
-        format?: string;
-        /** Specifies a precision for the formatted value displayed in a subvalue indicator of the textCloud type. */
-        precision?: number;
-        /** Overriden by descriptions for specific widgets. */
-        type?: string;
-        /** Specifies the width for a subvalue indicator of the triangleMarker type in pixels. */
-        width?: number;
-    }
     export interface BaseValueIndicator {
-        /** Specifies the background color for the value indicator of the rangeBar type. */
+        /** Specifies the type of subvalue indicators. */
+        type?: string;
+        /** Specifies the background color for the indicator of the rangeBar type. */
         backgroundColor?: string;
-        /** Specifies the base value for the value indicator of the rangeBar type. */
+        /** Specifies the base value for the indicator of the rangeBar type. */
         baseValue?: number;
-        /** Specifies the color of the value indicator. */
+        /** Specifies a color of the indicator. */
         color?: string;
-        /** Specifies the range bar size for a value indicator of the rangeBar type. */
+        /** Specifies the range bar size for an indicator of the rangeBar type. */
         size?: number;
-        /** Specifies the appearance of the text displayed in a value indicator of the rangeBar type. */
         text?: {
-            /** Specifies a callback function that returns the text to be displayed in a value indicator of the rangeBar type. */
+            /** Specifies a callback function that returns the text to be displayed in an indicator. */
             customizeText?: (indicatedValue: { value: number; valueText: string }) => string;
-            /** Specifies font options for the text displayed by a value indicator of the rangeBar type. */
             font?: viz.core.Font;
-            /** Specifies a format for the text displayed in a value indicator of the rangeBar type. */
+            /** Specifies a format for the text displayed in an indicator. */
             format?: string;
             /** Specifies the range bar's label indent in pixels. */
             indent?: number;
-            /** Specifies a precision for the formatted value displayed by a value indicator of the rangeBar type. */
+            /** Specifies a precision for the formatted value displayed by an indicator. */
             precision?: number;
         };
+        offset?: number;
+        length?: number;
+        width?: number;
+        /** Specifies the length of an arrow for the indicator of the textCloud type in pixels. */
+        arrowLength?: number;
+        /** Sets the array of colors to be used for coloring subvalue indicators. */
+        palette?: Array<any>;
+        /** Specifies the distance between the needle and the center of a gauge for the indicator of a needle-like type. */
+        indentFromCenter?: number;
+        /** Specifies the second color for the indicator of the twoColorNeedle type. */
+        secondColor?: string;
+        /** Specifies the length of a twoNeedleColor type indicator tip as a percentage. */
+        secondFraction?: number;
+        /** Specifies the spindle's diameter in pixels for the indicator of a needle-like type. */
+        spindleSize?: number;
+        /** Specifies the inner diameter in pixels, so that the spindle has the shape of a ring. */
+        spindleGapSize?: number;
+        /** Specifies the orientation of the rangeBar indicator on a vertically oriented dxLinearGauge widget. */
+        horizontalOrientation?: string;
+        /** Specifies the orientation of the rangeBar indicator on a horizontally oriented dxLinearGauge widget. */
+        verticalOrientation?: string;
     }
     export interface SharedGaugeOptions {
         /** Specifies animation options. */
@@ -4662,7 +4749,7 @@ declare module DevExpress.viz.gauges {
         /** Specifies a gauge's scale options. */
         scale?: BaseScale;
         /** Specifies the appearance options of subvalue indicators. */
-        subvalueIndicator?: BaseSubvalueIndicator;
+        subvalueIndicator?: BaseValueIndicator;
         /** Specifies a set of subvalues to be designated by the subvalue indicators. */
         subvalues?: Array<number>;
         /** Specifies the main value on a gauge. */
@@ -4710,28 +4797,6 @@ declare module DevExpress.viz.gauges {
         /** Specifies the orientation of scale ticks on a horizontally oriented dxLinearGauge widget. */
         verticalOrientation?: string;
     }
-    export interface LinearSubvalueIndicator extends BaseSubvalueIndicator {
-        /** Specifies the orientation of the subvalue indicators on a vertically oriented dxLinearGauge widget. */
-        horizontalOrientation?: string;
-        /** Specifies the distance between a subvalue indicator and an invisible scale line in pixels. */
-        offset?: number;
-        /** Specifies the orientation of the subvalue indicators on a horizontally oriented dxLinearGauge widget. */
-        verticalOrientation?: string;
-    }
-    export interface LinearValueIndicator extends BaseValueIndicator {
-        /** Specifies the orientation of the rangeBar value indicator on a vertically oriented dxLinearGauge widget. */
-        horizontalOrientation?: string;
-        /** Specifies the length of a value indicator in pixels. */
-        length?: number;
-        /** Specifies the distance between a value indicator and an invisible scale line. */
-        offset?: number;
-        /** Specifies the type of the value indicator. */
-        type?: string;
-        /** Specifies the orientation of the rangeBar value indicator on a horizontally oriented dxLinearGauge widget. */
-        verticalOrientation?: string;
-        /** Specifies the width of a value indicator in pixels. */
-        width?: number;
-    }
     export interface dxLinearGaugeOptions extends BaseGaugeOptions {
         /** Specifies the options required to set the geometry of the dxLinearGauge widget. */
         geometry?: {
@@ -4741,8 +4806,6 @@ declare module DevExpress.viz.gauges {
         /** Specifies gauge range container options. */
         rangeContainer?: LinearRangeContainer;
         scale?: LinearScale;
-        subvalueIndicator?: LinearSubvalueIndicator;
-        valueIndicator?: LinearValueIndicator;
     }
     /** A widget that represents a gauge with a linear scale. */
     export class dxLinearGauge extends dxBaseGauge {
@@ -4764,28 +4827,6 @@ declare module DevExpress.viz.gauges {
         /** Specifies the orientation of scale ticks. */
         orientation?: string;
     }
-    export interface CircularSubvalueIndicator extends BaseSubvalueIndicator {
-        /** Specifies the distance between a subvalue indicator and an invisible scale line in pixels. */
-        offset?: number;
-    }
-    export interface CircularValueIndicator extends BaseValueIndicator {
-        /** Specifies the distance between the needle and the center of a gauge for the value indicator of needle-like types. */
-        indentFromCenter?: number;
-        /** Specifies the distance between the value indicator and the invisible scale line. */
-        offset?: number;
-        /** Specifies the second color for the value indicator of the twoColorNeedle type. */
-        secondColor?: string;
-        /** Specifies the length of a twoNeedleColor type value indicator tip as a percentage. */
-        secondFraction?: number;
-        /** Specifies the inner diameter in pixels, so that the spindle has the shape of a ring. */
-        spindleGapSize?: number;
-        /** Specifies the spindle's diameter in pixels for the value indicator of a needle-like type. */
-        spindleSize?: number;
-        /** Specifies the value indicator type. */
-        type?: string;
-        /** Specifies, in pixels, the width for a value indicator of a needle-like type. */
-        width?: number;
-    }
     export interface dxCircularGaugeOptions extends BaseGaugeOptions {
         /** Specifies the options required to set the geometry of the dxCircularGauge widget. */
         geometry?: {
@@ -4797,8 +4838,6 @@ declare module DevExpress.viz.gauges {
         /** Specifies gauge range container options. */
         rangeContainer?: CircularRangeContainer;
         scale?: CircularScale;
-        subvalueIndicator?: CircularSubvalueIndicator;
-        valueIndicator?: CircularValueIndicator;
     }
     /** A widget that represents a gauge with a circular scale. */
     export class dxCircularGauge extends dxBaseGauge {
@@ -5478,165 +5517,268 @@ declare module DevExpress.viz.sparklines {
     }
 }
 interface JQuery {
-    dxProgressBar(options?: DevExpress.ui.dxProgressBarOptions): JQuery;
-    dxProgressBar(methodName: string, ...params: any[]): any;
-    dxProgressBar(methodName: "instance"): DevExpress.ui.dxProgressBar;
-    dxSlider(options?: DevExpress.ui.dxSliderOptions): JQuery;
-    dxSlider(methodName: string, ...params: any[]): any;
-    dxSlider(methodName: "instance"): DevExpress.ui.dxSlider;
-    dxRangeSlider(options?: DevExpress.ui.dxRangeSliderOptions): JQuery;
-    dxRangeSlider(methodName: string, ...params: any[]): any;
-    dxRangeSlider(methodName: "instance"): DevExpress.ui.dxRangeSlider;
-    dxFileUploader(options?: DevExpress.ui.dxFileUploaderOptions): JQuery;
-    dxFileUploader(methodName: string, ...params: any[]): any;
-    dxFileUploader(methodName: "instance"): DevExpress.ui.dxFileUploader;
+    dxProgressBar(): JQuery;
+    dxProgressBar(options: "instance"): DevExpress.ui.dxProgressBar;
+    dxProgressBar(options: string): any;
+    dxProgressBar(options: string, ...params: any[]): any;
+    dxProgressBar(options: DevExpress.ui.dxProgressBarOptions): JQuery;
+    dxSlider(): JQuery;
+    dxSlider(options: "instance"): DevExpress.ui.dxSlider;
+    dxSlider(options: string): any;
+    dxSlider(options: string, ...params: any[]): any;
+    dxSlider(options: DevExpress.ui.dxSliderOptions): JQuery;
+    dxRangeSlider(): JQuery;
+    dxRangeSlider(options: "instance"): DevExpress.ui.dxRangeSlider;
+    dxRangeSlider(options: string): any;
+    dxRangeSlider(options: string, ...params: any[]): any;
+    dxRangeSlider(options: DevExpress.ui.dxRangeSliderOptions): JQuery;
+    dxFileUploader(): JQuery;
+    dxFileUploader(options: "instance"): DevExpress.ui.dxFileUploader;
+    dxFileUploader(options: string): any;
+    dxFileUploader(options: string, ...params: any[]): any;
+    dxFileUploader(options: DevExpress.ui.dxFileUploaderOptions): JQuery;
     dxValidator(): JQuery;
-    dxValidator(methodName: string, ...params: any[]): any;
-    dxValidator(methodName: "instance"): DevExpress.ui.dxValidator;
-    dxValidatonGroup(): JQuery;
-    dxValidatonGroup(methodName: string, ...params: any[]): any;
-    dxValidatonGroup(methodName: "instance"): DevExpress.ui.dxValidationGroup;
+    dxValidator(options: "instance"): DevExpress.ui.dxValidator;
+    dxValidator(options: string): any;
+    dxValidator(options: string, ...params: any[]): any;
+    dxValidationGroup(): JQuery;
+    dxValidationGroup(options: "instance"): DevExpress.ui.dxValidationGroup;
+    dxValidationGroup(options: string): any;
+    dxValidationGroup(options: string, ...params: any[]): any;
     dxValidationSummary(): JQuery;
-    dxValidationSummary(methodName: string, ...params: any[]): any;
-    dxValidationSummary(methodName: "instance"): DevExpress.ui.dxValidationSummary;
-    dxTooltip(options?: DevExpress.ui.dxTooltipOptions): JQuery;
-    dxTooltip(methodName: string, ...params: any[]): any;
-    dxTooltip(methodName: "instance"): DevExpress.ui.dxTooltip;
-    dxDropDownList(options?: DevExpress.ui.dxDropDownListOptions): JQuery;
-    dxDropDownList(methodName: string, ...params: any[]): any;
-    dxDropDownList(methodName: "instance"): DevExpress.ui.dxDropDownList;
-    dxToolbar(options?: DevExpress.ui.dxToolbarOptions): JQuery;
-    dxToolbar(methodName: string, ...params: any[]): any;
-    dxToolbar(methodName: "instance"): DevExpress.ui.dxToolbar;
-    dxToast(options?: DevExpress.ui.dxToastOptions): JQuery;
-    dxToast(methodName: string, ...params: any[]): any;
-    dxToast(methodName: "instance"): DevExpress.ui.dxToast;
-    dxTextEditor(options?: DevExpress.ui.dxTextEditorOptions): JQuery;
-    dxTextEditor(methodName: string, ...params: any[]): any;
-    dxTextEditor(methodName: "instance"): DevExpress.ui.dxTextEditor;
-    dxTextBox(options?: DevExpress.ui.dxTextBoxOptions): JQuery;
-    dxTextBox(methodName: string, ...params: any[]): any;
-    dxTextBox(methodName: "instance"): DevExpress.ui.dxTextBox;
-    dxTextArea(options?: DevExpress.ui.dxTextAreaOptions): JQuery;
-    dxTextArea(methodName: string, ...params: any[]): any;
-    dxTextArea(methodName: "instance"): DevExpress.ui.dxTextArea;
-    dxTabs(options?: DevExpress.ui.dxTabsOptions): JQuery;
-    dxTabs(methodName: string, ...params: any[]): any;
-    dxTabs(methodName: "instance"): DevExpress.ui.dxTabs;
-    dxTabPanel(options?: DevExpress.ui.dxTabPanelOptions): JQuery;
-    dxTabPanel(methodName: string, ...params: any[]): any;
-    dxTabPanel(methodName: "instance"): DevExpress.ui.dxTabPanel;
-    dxSelectBox(options?: DevExpress.ui.dxSelectBoxOptions): JQuery;
-    dxSelectBox(methodName: string, ...params: any[]): any;
-    dxSelectBox(methodName: "instance"): DevExpress.ui.dxSelectBox;
-    dxScrollView(options?: DevExpress.ui.dxScrollViewOptions): JQuery;
-    dxScrollView(methodName: string, ...params: any[]): any;
-    dxScrollView(methodName: "instance"): DevExpress.ui.dxScrollView;
-    dxScrollable(options?: DevExpress.ui.dxScrollableOptions): JQuery;
-    dxScrollable(methodName: string, ...params: any[]): any;
-    dxScrollable(methodName: "instance"): DevExpress.ui.dxScrollable;
-    dxRadioGroup(options?: DevExpress.ui.dxRadioGroupOptions): JQuery;
-    dxRadioGroup(methodName: string, ...params: any[]): any;
-    dxRadioGroup(methodName: "instance"): DevExpress.ui.dxRadioGroup;
-    dxPopup(options?: DevExpress.ui.dxPopupOptions): JQuery;
-    dxPopup(methodName: string, ...params: any[]): any;
-    dxPopup(methodName: "instance"): DevExpress.ui.dxPopup;
-    dxPopover(options?: DevExpress.ui.dxPopoverOptions): JQuery;
-    dxPopover(methodName: string, ...params: any[]): any;
-    dxPopover(methodName: "instance"): DevExpress.ui.dxPopover;
-    dxOverlay(options?: DevExpress.ui.dxOverlayOptions): JQuery;
-    dxOverlay(methodName: string, ...params: any[]): any;
-    dxOverlay(methodName: "instance"): DevExpress.ui.dxOverlay;
-    dxNumberBox(options?: DevExpress.ui.dxNumberBoxOptions): JQuery;
-    dxNumberBox(methodName: string, ...params: any[]): any;
-    dxNumberBox(methodName: "instance"): DevExpress.ui.dxNumberBox;
-    dxNavBar(options?: DevExpress.ui.dxNavBarOptions): JQuery;
-    dxNavBar(methodName: string, ...params: any[]): any;
-    dxNavBar(methodName: "instance"): DevExpress.ui.dxNavBar;
-    dxMultiView(options?: DevExpress.ui.dxMultiViewOptions): JQuery;
-    dxMultiView(methodName: string, ...params: any[]): any;
-    dxMultiView(methodName: "instance"): DevExpress.ui.dxMultiView;
-    dxMap(options?: DevExpress.ui.dxMapOptions): JQuery;
-    dxMap(methodName: string, ...params: any[]): any;
-    dxMap(methodName: "instance"): DevExpress.ui.dxMap;
-    dxLookup(options?: DevExpress.ui.dxLookupOptions): JQuery;
-    dxLookup(methodName: string, ...params: any[]): any;
-    dxLookup(methodName: "instance"): DevExpress.ui.dxLookup;
-    dxLoadPanel(options?: DevExpress.ui.dxLoadPanelOptions): JQuery;
-    dxLoadPanel(methodName: string, ...params: any[]): any;
-    dxLoadPanel(methodName: "instance"): DevExpress.ui.dxLoadPanel;
-    dxLoadIndicator(options?: DevExpress.ui.dxLoadIndicatorOptions): JQuery;
-    dxLoadIndicator(methodName: string, ...params: any[]): any;
-    dxLoadIndicator(methodName: "instance"): DevExpress.ui.dxLoadIndicator;
-    dxList(options?: DevExpress.ui.dxListOptions): JQuery;
-    dxList(methodName: string, ...params: any[]): any;
-    dxList(methodName: "instance"): DevExpress.ui.dxList;
-    dxGallery(options?: DevExpress.ui.dxGalleryOptions): JQuery;
-    dxGallery(methodName: string, ...params: any[]): any;
-    dxGallery(methodName: "instance"): DevExpress.ui.dxGallery;
-    dxDropDownEditor(options?: DevExpress.ui.dxDropDownEditorOptions): JQuery;
-    dxDropDownEditor(methodName: string, ...params: any[]): any;
-    dxDropDownEditor(methodName: "instance"): DevExpress.ui.dxDropDownEditor;
-    dxDateBox(options?: DevExpress.ui.dxDateBoxOptions): JQuery;
-    dxDateBox(methodName: string, ...params: any[]): any;
-    dxDateBox(methodName: "instance"): DevExpress.ui.dxDateBox;
-    dxCheckBox(options?: DevExpress.ui.dxCheckBoxOptions): JQuery;
-    dxCheckBox(methodName: string, ...params: any[]): any;
-    dxCheckBox(methodName: "instance"): DevExpress.ui.dxCheckBox;
-    dxBox(options?: DevExpress.ui.dxBoxOptions): JQuery;
-    dxBox(methodName: string, ...params: any[]): any;
-    dxBox(methodName: "instance"): DevExpress.ui.dxBox;
-    dxButton(options?: DevExpress.ui.dxButtonOptions): JQuery;
-    dxButton(methodName: string, ...params: any[]): any;
-    dxButton(methodName: "instance"): DevExpress.ui.dxButton;
-    dxCalendar(options?: DevExpress.ui.dxCalendarOptions): JQuery;
-    dxCalendar(methodName: string, ...params: any[]): any;
-    dxCalendar(methodName: "instance"): DevExpress.ui.dxCalendar;
-    dxAccordion(options?: DevExpress.ui.dxAccordionOptions): JQuery;
-    dxAccordion(methodName: string, ...params: any[]): any;
-    dxAccordion(methodName: "instance"): DevExpress.ui.dxAccordion;
-    dxAutocomplete(options?: DevExpress.ui.dxAutocompleteOptions): JQuery;
-    dxAutocomplete(methodName: string, ...params: any[]): any;
-    dxAutocomplete(methodName: "instance"): DevExpress.ui.dxAutocomplete;
-    dxTileView(options?: DevExpress.ui.dxTileViewOptions): JQuery;
-    dxTileView(methodName: string, ...params: any[]): any;
-    dxTileView(methodName: "instance"): DevExpress.ui.dxTileView;
-    dxSwitch(options?: DevExpress.ui.dxSwitchOptions): JQuery;
-    dxSwitch(methodName: string, ...params: any[]): any;
-    dxSwitch(methodName: "instance"): DevExpress.ui.dxSwitch;
-    dxSlideOut(options?: DevExpress.ui.dxSlideoutOptions): JQuery;
-    dxSlideOut(methodName: string, ...params: any[]): any;
-    dxSlideOut(methodName: "instance"): DevExpress.ui.dxSlideOut;
-    dxPivot(options?: DevExpress.ui.dxPivotOptions): JQuery;
-    dxPivot(methodName: string, ...params: any[]): any;
-    dxPivot(methodName: "instance"): DevExpress.ui.dxPivot;
-    dxPanorama(options?: DevExpress.ui.dxPanoramaOptions): JQuery;
-    dxPanorama(methodName: string, ...params: any[]): any;
-    dxPanorama(methodName: "instance"): DevExpress.ui.dxPanorama;
-    dxActionSheet(options?: DevExpress.ui.dxActionSheetOptions): JQuery;
-    dxActionSheet(methodName: string, ...params: any[]): any;
-    dxActionSheet(methodName: "instance"): DevExpress.ui.dxActionSheet;
-    dxDropDownMenu(options?: DevExpress.ui.dxDropDownMenuOptions): JQuery;
-    dxDropDownMenu(methodName: string, ...params: any[]): any;
-    dxDropDownMenu(methodName: "instance"): DevExpress.ui.dxDropDownMenu;
-    dxTreeView(options?: DevExpress.ui.dxTreeViewOptions): JQuery;
-    dxTreeView(methodName: string, ...params: any[]): any;
-    dxTreeView(methodName: "instance"): DevExpress.ui.dxTreeView;
-    dxMenuBase(options?: DevExpress.ui.dxMenuBaseOptions): JQuery;
-    dxMenuBase(methodName: string, ...params: any[]): any;
-    dxMenuBase(methodName: "instance"): DevExpress.ui.dxMenuBase;
-    dxMenu(options?: DevExpress.ui.dxMenuOptions): JQuery;
-    dxMenu(methodName: string, ...params: any[]): any;
-    dxMenu(methodName: "instance"): DevExpress.ui.dxMenu;
-    dxContextMenu(options?: DevExpress.ui.dxContextMenuOptions): JQuery;
-    dxContextMenu(methodName: string, ...params: any[]): any;
-    dxContextMenu(methodName: "instance"): DevExpress.ui.dxContextMenu;
-    dxColorBox(options?: DevExpress.ui.dxColorBoxOptions): JQuery;
-    dxColorBox(methodName: string, ...params: any[]): any;
-    dxColorBox(methodName: "instance"): DevExpress.ui.dxColorBox;
-    dxDataGrid(options?: DevExpress.ui.dxDataGridOptions): JQuery;
-    dxDataGrid(methodName: string, ...params: any[]): any;
-    dxDataGrid(methodName: "instance"): DevExpress.ui.dxDataGrid;
+    dxValidationSummary(options: "instance"): DevExpress.ui.dxValidationSummary;
+    dxValidationSummary(options: string): any;
+    dxValidationSummary(options: string, ...params: any[]): any;
+    dxTooltip(): JQuery;
+    dxTooltip(options: "instance"): DevExpress.ui.dxTooltip;
+    dxTooltip(options: string): any;
+    dxTooltip(options: string, ...params: any[]): any;
+    dxTooltip(options: DevExpress.ui.dxTooltipOptions): JQuery;
+    dxDropDownList(): JQuery;
+    dxDropDownList(options: "instance"): DevExpress.ui.dxDropDownList;
+    dxDropDownList(options: string): any;
+    dxDropDownList(options: string, ...params: any[]): any;
+    dxDropDownList(options: DevExpress.ui.dxDropDownListOptions): JQuery;
+    dxToolbar(): JQuery;
+    dxToolbar(options: "instance"): DevExpress.ui.dxToolbar;
+    dxToolbar(options: string): any;
+    dxToolbar(options: string, ...params: any[]): any;
+    dxToolbar(options: DevExpress.ui.dxToolbarOptions): JQuery;
+    dxToast(): JQuery;
+    dxToast(options: "instance"): DevExpress.ui.dxToast;
+    dxToast(options: string): any;
+    dxToast(options: string, ...params: any[]): any;
+    dxToast(options: DevExpress.ui.dxToastOptions): JQuery;
+    dxTextEditor(): JQuery;
+    dxTextEditor(options: "instance"): DevExpress.ui.dxTextEditor;
+    dxTextEditor(options: string): any;
+    dxTextEditor(options: string, ...params: any[]): any;
+    dxTextEditor(options: DevExpress.ui.dxTextEditorOptions): JQuery;
+    dxTextBox(): JQuery;
+    dxTextBox(options: "instance"): DevExpress.ui.dxTextBox;
+    dxTextBox(options: string): any;
+    dxTextBox(options: string, ...params: any[]): any;
+    dxTextBox(options: DevExpress.ui.dxTextBoxOptions): JQuery;
+    dxTextArea(): JQuery;
+    dxTextArea(options: "instance"): DevExpress.ui.dxTextArea;
+    dxTextArea(options: string): any;
+    dxTextArea(options: string, ...params: any[]): any;
+    dxTextArea(options: DevExpress.ui.dxTextAreaOptions): JQuery;
+    dxTabs(): JQuery;
+    dxTabs(options: "instance"): DevExpress.ui.dxTabs;
+    dxTabs(options: string): any;
+    dxTabs(options: string, ...params: any[]): any;
+    dxTabs(options: DevExpress.ui.dxTabsOptions): JQuery;
+    dxTabPanel(): JQuery;
+    dxTabPanel(options: "instance"): DevExpress.ui.dxTabPanel;
+    dxTabPanel(options: string): any;
+    dxTabPanel(options: string, ...params: any[]): any;
+    dxTabPanel(options: DevExpress.ui.dxTabPanelOptions): JQuery;
+    dxSelectBox(): JQuery;
+    dxSelectBox(options: "instance"): DevExpress.ui.dxSelectBox;
+    dxSelectBox(options: string): any;
+    dxSelectBox(options: string, ...params: any[]): any;
+    dxSelectBox(options: DevExpress.ui.dxSelectBoxOptions): JQuery;
+    dxScrollView(): JQuery;
+    dxScrollView(options: "instance"): DevExpress.ui.dxScrollView;
+    dxScrollView(options: string): any;
+    dxScrollView(options: string, ...params: any[]): any;
+    dxScrollView(options: DevExpress.ui.dxScrollViewOptions): JQuery;
+    dxScrollable(): JQuery;
+    dxScrollable(options: "instance"): DevExpress.ui.dxScrollable;
+    dxScrollable(options: string): any;
+    dxScrollable(options: string, ...params: any[]): any;
+    dxScrollable(options: DevExpress.ui.dxScrollableOptions): JQuery;
+    dxRadioGroup(): JQuery;
+    dxRadioGroup(options: "instance"): DevExpress.ui.dxRadioGroup;
+    dxRadioGroup(options: string): any;
+    dxRadioGroup(options: string, ...params: any[]): any;
+    dxRadioGroup(options: DevExpress.ui.dxRadioGroupOptions): JQuery;
+    dxPopup(): JQuery;
+    dxPopup(options: "instance"): DevExpress.ui.dxPopup;
+    dxPopup(options: string): any;
+    dxPopup(options: string, ...params: any[]): any;
+    dxPopup(options: DevExpress.ui.dxPopupOptions): JQuery;
+    dxPopover(): JQuery;
+    dxPopover(options: "instance"): DevExpress.ui.dxPopover;
+    dxPopover(options: string): any;
+    dxPopover(options: string, ...params: any[]): any;
+    dxPopover(options: DevExpress.ui.dxPopoverOptions): JQuery;
+    dxOverlay(): JQuery;
+    dxOverlay(options: "instance"): DevExpress.ui.dxOverlay;
+    dxOverlay(options: string): any;
+    dxOverlay(options: string, ...params: any[]): any;
+    dxOverlay(options: DevExpress.ui.dxOverlayOptions): JQuery;
+    dxNumberBox(): JQuery;
+    dxNumberBox(options: "instance"): DevExpress.ui.dxNumberBox;
+    dxNumberBox(options: string): any;
+    dxNumberBox(options: string, ...params: any[]): any;
+    dxNumberBox(options: DevExpress.ui.dxNumberBoxOptions): JQuery;
+    dxNavBar(): JQuery;
+    dxNavBar(options: "instance"): DevExpress.ui.dxNavBar;
+    dxNavBar(options: string): any;
+    dxNavBar(options: string, ...params: any[]): any;
+    dxNavBar(options: DevExpress.ui.dxNavBarOptions): JQuery;
+    dxMultiView(): JQuery;
+    dxMultiView(options: "instance"): DevExpress.ui.dxMultiView;
+    dxMultiView(options: string): any;
+    dxMultiView(options: string, ...params: any[]): any;
+    dxMultiView(options: DevExpress.ui.dxMultiViewOptions): JQuery;
+    dxMap(): JQuery;
+    dxMap(options: "instance"): DevExpress.ui.dxMap;
+    dxMap(options: string): any;
+    dxMap(options: string, ...params: any[]): any;
+    dxMap(options: DevExpress.ui.dxMapOptions): JQuery;
+    dxLookup(): JQuery;
+    dxLookup(options: "instance"): DevExpress.ui.dxLookup;
+    dxLookup(options: string): any;
+    dxLookup(options: string, ...params: any[]): any;
+    dxLookup(options: DevExpress.ui.dxLookupOptions): JQuery;
+    dxLoadPanel(): JQuery;
+    dxLoadPanel(options: "instance"): DevExpress.ui.dxLoadPanel;
+    dxLoadPanel(options: string): any;
+    dxLoadPanel(options: string, ...params: any[]): any;
+    dxLoadPanel(options: DevExpress.ui.dxLoadPanelOptions): JQuery;
+    dxLoadIndicator(): JQuery;
+    dxLoadIndicator(options: "instance"): DevExpress.ui.dxLoadIndicator;
+    dxLoadIndicator(options: string): any;
+    dxLoadIndicator(options: string, ...params: any[]): any;
+    dxLoadIndicator(options: DevExpress.ui.dxLoadIndicatorOptions): JQuery;
+    dxList(): JQuery;
+    dxList(options: "instance"): DevExpress.ui.dxList;
+    dxList(options: string): any;
+    dxList(options: string, ...params: any[]): any;
+    dxList(options: DevExpress.ui.dxListOptions): JQuery;
+    dxGallery(): JQuery;
+    dxGallery(options: "instance"): DevExpress.ui.dxGallery;
+    dxGallery(options: string): any;
+    dxGallery(options: string, ...params: any[]): any;
+    dxGallery(options: DevExpress.ui.dxGalleryOptions): JQuery;
+    dxDropDownEditor(): JQuery;
+    dxDropDownEditor(options: "instance"): DevExpress.ui.dxDropDownEditor;
+    dxDropDownEditor(options: string): any;
+    dxDropDownEditor(options: string, ...params: any[]): any;
+    dxDropDownEditor(options: DevExpress.ui.dxDropDownEditorOptions): JQuery;
+    dxDateBox(): JQuery;
+    dxDateBox(options: "instance"): DevExpress.ui.dxDateBox;
+    dxDateBox(options: string): any;
+    dxDateBox(options: string, ...params: any[]): any;
+    dxDateBox(options: DevExpress.ui.dxDateBoxOptions): JQuery;
+    dxCheckBox(): JQuery;
+    dxCheckBox(options: "instance"): DevExpress.ui.dxCheckBox;
+    dxCheckBox(options: string): any;
+    dxCheckBox(options: string, ...params: any[]): any;
+    dxCheckBox(options: DevExpress.ui.dxCheckBoxOptions): JQuery;
+    dxBox(): JQuery;
+    dxBox(options: "instance"): DevExpress.ui.dxBox;
+    dxBox(options: string): any;
+    dxBox(options: string, ...params: any[]): any;
+    dxBox(options: DevExpress.ui.dxBoxOptions): JQuery;
+    dxButton(): JQuery;
+    dxButton(options: "instance"): DevExpress.ui.dxButton;
+    dxButton(options: string): any;
+    dxButton(options: string, ...params: any[]): any;
+    dxButton(options: DevExpress.ui.dxButtonOptions): JQuery;
+    dxCalendar(): JQuery;
+    dxCalendar(options: "instance"): DevExpress.ui.dxCalendar;
+    dxCalendar(options: string): any;
+    dxCalendar(options: string, ...params: any[]): any;
+    dxCalendar(options: DevExpress.ui.dxCalendarOptions): JQuery;
+    dxAccordion(): JQuery;
+    dxAccordion(options: "instance"): DevExpress.ui.dxAccordion;
+    dxAccordion(options: string): any;
+    dxAccordion(options: string, ...params: any[]): any;
+    dxAccordion(options: DevExpress.ui.dxAccordionOptions): JQuery;
+    dxAutocomplete(): JQuery;
+    dxAutocomplete(options: "instance"): DevExpress.ui.dxAutocomplete;
+    dxAutocomplete(options: string): any;
+    dxAutocomplete(options: string, ...params: any[]): any;
+    dxAutocomplete(options: DevExpress.ui.dxAutocompleteOptions): JQuery;
+    dxTileView(): JQuery;
+    dxTileView(options: "instance"): DevExpress.ui.dxTileView;
+    dxTileView(options: string): any;
+    dxTileView(options: string, ...params: any[]): any;
+    dxTileView(options: DevExpress.ui.dxTileViewOptions): JQuery;
+    dxSwitch(): JQuery;
+    dxSwitch(options: "instance"): DevExpress.ui.dxSwitch;
+    dxSwitch(options: string): any;
+    dxSwitch(options: string, ...params: any[]): any;
+    dxSwitch(options: DevExpress.ui.dxSwitchOptions): JQuery;
+    dxSlideOut(): JQuery;
+    dxSlideOut(options: "instance"): DevExpress.ui.dxSlideOut;
+    dxSlideOut(options: string): any;
+    dxSlideOut(options: string, ...params: any[]): any;
+    dxSlideOut(options: DevExpress.ui.dxSlideOutOptions): JQuery;
+    dxPivot(): JQuery;
+    dxPivot(options: "instance"): DevExpress.ui.dxPivot;
+    dxPivot(options: string): any;
+    dxPivot(options: string, ...params: any[]): any;
+    dxPivot(options: DevExpress.ui.dxPivotOptions): JQuery;
+    dxPanorama(): JQuery;
+    dxPanorama(options: "instance"): DevExpress.ui.dxPanorama;
+    dxPanorama(options: string): any;
+    dxPanorama(options: string, ...params: any[]): any;
+    dxPanorama(options: DevExpress.ui.dxPanoramaOptions): JQuery;
+    dxActionSheet(): JQuery;
+    dxActionSheet(options: "instance"): DevExpress.ui.dxActionSheet;
+    dxActionSheet(options: string): any;
+    dxActionSheet(options: string, ...params: any[]): any;
+    dxActionSheet(options: DevExpress.ui.dxActionSheetOptions): JQuery;
+    dxDropDownMenu(): JQuery;
+    dxDropDownMenu(options: "instance"): DevExpress.ui.dxDropDownMenu;
+    dxDropDownMenu(options: string): any;
+    dxDropDownMenu(options: string, ...params: any[]): any;
+    dxDropDownMenu(options: DevExpress.ui.dxDropDownMenuOptions): JQuery;
+    dxTreeView(): JQuery;
+    dxTreeView(options: "instance"): DevExpress.ui.dxTreeView;
+    dxTreeView(options: string): any;
+    dxTreeView(options: string, ...params: any[]): any;
+    dxTreeView(options: DevExpress.ui.dxTreeViewOptions): JQuery;
+    dxMenuBase(): JQuery;
+    dxMenuBase(options: "instance"): DevExpress.ui.dxMenuBase;
+    dxMenuBase(options: string): any;
+    dxMenuBase(options: string, ...params: any[]): any;
+    dxMenuBase(options: DevExpress.ui.dxMenuBaseOptions): JQuery;
+    dxMenu(): JQuery;
+    dxMenu(options: "instance"): DevExpress.ui.dxMenu;
+    dxMenu(options: string): any;
+    dxMenu(options: string, ...params: any[]): any;
+    dxMenu(options: DevExpress.ui.dxMenuOptions): JQuery;
+    dxContextMenu(): JQuery;
+    dxContextMenu(options: "instance"): DevExpress.ui.dxContextMenu;
+    dxContextMenu(options: string): any;
+    dxContextMenu(options: string, ...params: any[]): any;
+    dxContextMenu(options: DevExpress.ui.dxContextMenuOptions): JQuery;
+    dxColorBox(): JQuery;
+    dxColorBox(options: "instance"): DevExpress.ui.dxColorBox;
+    dxColorBox(options: string): any;
+    dxColorBox(options: string, ...params: any[]): any;
+    dxColorBox(options: DevExpress.ui.dxColorBoxOptions): JQuery;
+    dxDataGrid(): JQuery;
+    dxDataGrid(options: "instance"): DevExpress.ui.dxDataGrid;
+    dxDataGrid(options: string): any;
+    dxDataGrid(options: string, ...params: any[]): any;
+    dxDataGrid(options: DevExpress.ui.dxDataGridOptions): JQuery;
     dxChart(options?: DevExpress.viz.charts.dxChartOptions): JQuery;
     dxChart(methodName: string, ...params: any[]): any;
     dxChart(methodName: "instance"): DevExpress.viz.charts.dxChart;
