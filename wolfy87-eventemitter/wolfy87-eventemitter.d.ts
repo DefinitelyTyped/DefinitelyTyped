@@ -505,8 +505,9 @@ declare module Wolfy87EventEmitter {
 }
 
 declare module "wolfy87-eventemitter" {
+    class EventEmitter extends Wolfy87EventEmitter.EventEmitter {}
     export = EventEmitter;
 }
 
-declare var EventEmitter: typeof Wolfy87EventEmitter.EventEmitter;
+//declare var EventEmitter: typeof Wolfy87EventEmitter.EventEmitter;
 
