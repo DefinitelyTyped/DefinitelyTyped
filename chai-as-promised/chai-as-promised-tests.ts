@@ -9,6 +9,7 @@ chai.use(chaiAsPromised);
 var promise: any;
 chai.expect(promise).to.eventually.equal(3);
 chai.expect(promise).to.become(3);
+chai.expect(promise).to.be.fulfilled;
 chai.expect(promise).to.be.rejected;
 chai.expect(promise).to.be.rejectedWith(Error);
 chai.expect(promise).to.notify(() => console.log('done'));

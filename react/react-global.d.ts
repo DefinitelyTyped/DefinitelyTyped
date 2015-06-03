@@ -435,10 +435,16 @@ declare module React {
         draggable?: boolean;
         encType?: string;
         form?: string;
+        formAction?: string;
+        formEncType?: string;
+        formMethod?: string;
         formNoValidate?: boolean;
+        formTarget?: string;
         frameBorder?: number | string;
+        headers?: string;
         height?: number | string;
         hidden?: boolean;
+        high?: number;
         href?: string;
         hrefLang?: string;
         htmlFor?: string;
@@ -449,7 +455,10 @@ declare module React {
         lang?: string;
         list?: string;
         loop?: boolean;
+        low?: number;
         manifest?: string;
+        marginHeight?: number;
+        marginWidth?: number;
         max?: number | string;
         maxLength?: number;
         media?: string;
@@ -461,6 +470,7 @@ declare module React {
         name?: string;
         noValidate?: boolean;
         open?: boolean;
+        optimum?: number;
         pattern?: string;
         placeholder?: string;
         poster?: string;
@@ -474,9 +484,8 @@ declare module React {
         rowSpan?: number;
         sandbox?: string;
         scope?: string;
-        scrollLeft?: number;
+        scoped?: boolean;
         scrolling?: string;
-        scrollTop?: number;
         seamless?: boolean;
         selected?: boolean;
         shape?: string;
@@ -506,6 +515,7 @@ declare module React {
         itemProp?: string;
         itemScope?: boolean;
         itemType?: string;
+        unselectable?: boolean;
     }
 
     interface SVGAttributes extends DOMAttributes {
