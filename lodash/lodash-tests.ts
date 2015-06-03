@@ -922,6 +922,8 @@ result = <string[]>_.methods(_);
 result = <_.LoDashArrayWrapper<string>>_(_).functions();
 result = <_.LoDashArrayWrapper<string>>_(_).methods();
 
+result = <number>_.get({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 interface FirstSecond {

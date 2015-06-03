@@ -70,3 +70,13 @@ evt.on("init", function () {
 });
 
 browserSync(config);
+
+var bs = browserSync.create();
+
+bs.init({
+    server: "./app"
+});
+
+bs.reload();
+
+
