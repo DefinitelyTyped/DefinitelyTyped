@@ -12,6 +12,11 @@ declare module 'passport-twitter' {
 
     interface Profile extends passport.Profile {
         gender: string;
+        username: string;
+
+        _raw: string;
+        _json: any;
+        _accessLevel: string;
     }
 
     interface IStrategyOption {

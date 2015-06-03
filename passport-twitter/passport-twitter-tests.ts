@@ -12,9 +12,9 @@ var User = {
 }
 
 passport.use(new twitter.Strategy({
-            clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_FACEBOOK_CALLBACK_URL
+            consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
+            consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
+            callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL
     },
     function(accessToken:string, refreshToken:string, profile:twitter.Profile, done:(error:any, user?:any) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {

@@ -14,6 +14,9 @@ declare module 'passport-facebook' {
         gender: string;
         profileUrl: string;
         username: string;
+
+        _raw: string;
+        _json: any;
     }
 
     interface IStrategyOption {
