@@ -13,7 +13,7 @@ declare module d3 {
      * Find the first element that matches the given selector string.
      */
     export function select(selector: string): Selection<any>;
-    
+
     /**
      * Create a selection from the given node reference.
      */
@@ -86,7 +86,7 @@ declare module d3 {
             attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number) => Primitive) }): Update<Datum>;
 
             /**
-             * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match. 
+             * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match.
              *
              * @param name The class list to query.
              */
@@ -476,7 +476,7 @@ declare module d3 {
         attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number) => Primitive) }): Selection<Datum>;
 
         /**
-         * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match. 
+         * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match.
          *
          * @param name The class list to query.
          */
@@ -928,20 +928,20 @@ declare module d3 {
      */
     export function mouse(container: EventTarget): [number, number];
 
-    /** 
+    /**
      * Given a container element and a touch identifier, determine the x and y coordinates of the touch.
      * @param container the container element (e.g., an SVG <svg> element)
      * @param identifier the given touch identifier
      */
     export function touch(container: EventTarget, identifer: number): [number, number];
 
-    /** 
+    /**
      * Given a container element, a list of touches, and a touch identifier, determine the x and y coordinates of the touch.
      * @param container the container element (e.g., an SVG <svg> element)
      * @param identifier the given touch identifier
      */
     export function touch(container: EventTarget, touches: TouchList, identifer: number): [number, number];
-    
+
     /**
      * Given a container element and an optional list of touches, return the position of every touch relative to the container.
      * @param container the container element
@@ -1024,7 +1024,7 @@ declare module d3 {
      * Return the min and max simultaneously.
      */
     export function extent(array: number[]): [number, number];
-    
+
     /**
      * Return the min and max simultaneously.
      */
@@ -1172,7 +1172,7 @@ declare module d3 {
          * Calls the function for each key and value pair in the map. The 'this' context is the map itself.
          */
         forEach(func: (key: string, value: T) => any): void;
-        
+
         /**
          * Is this map empty?
          */
@@ -1495,6 +1495,8 @@ declare module d3 {
             clamp(): boolean;
             clamp(clamp: boolean): Linear<Range, Output>;
 
+            nice(count?: number): Linear<Range, Output>;
+
             ticks(count?: number): number[];
 
             tickFormat(count?: number, format?: string): (n: number) => string;
@@ -1637,7 +1639,7 @@ declare module d3 {
         export function category20b<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
         export function category20c(): Ordinal<string,string>;
         export function category20c<Domain extends { toString(): string }>(): Ordinal<Domain, string>;
- 
+
         interface Ordinal<Domain extends { toString(): string }, Range> {
             (x: Domain): Range;
 
@@ -1728,7 +1730,7 @@ declare module d3 {
 
             range(start: Date, stop: Date, step?: number): Date[];
 
-            offset(date: Date, step: Date): Date;
+            offset(date: Date, step: number): Date;
 
             utc: {
                 (d: Date): Date;
@@ -1741,7 +1743,7 @@ declare module d3 {
 
                 range(start: Date, stop: Date, step?: number): Date[];
 
-                offset(date: Date, step: Date): Date;
+                offset(date: Date, step: number): Date;
             }
         }
 
@@ -1768,7 +1770,7 @@ declare module d3 {
         export function wednesdayOfYear(d: Date): number;
         export function fridayOfYear(d: Date): number;
         export function saturdayOfYear(d: Date): number;
-        
+
         export function format(specifier: string): Format;
 
         export module format {
@@ -1935,7 +1937,7 @@ declare module d3 {
 
             minorStep(): [number, number];
             minorStep(step: [number, number]): Graticule;
-          
+
             precision(): number;
             precision(precision: number): Graticule;
         }
@@ -2281,7 +2283,7 @@ declare module d3 {
             tension(tension: number): Area<T>;
 
             defined(): (d: T, i: number) => boolean;
-            defined(): (d: T, i: number) => boolean;
+            defined(defined: (d: T, i: number) => boolean): Area<T>;
         }
 
         module area {
@@ -2332,7 +2334,7 @@ declare module d3 {
                 tension(tension: number): Radial<T>;
 
                 defined(): (d: T, i: number) => boolean;
-                defined(): (d: T, i: number) => boolean;
+                defined(defined: (d: T, i: number) => boolean): Radial<T>;
             }
         }
 
@@ -2388,7 +2390,7 @@ declare module d3 {
         export function symbol<T>(): Symbol<T>;
 
         interface Symbol<T> {
-            (d: T, i: number): string;
+            (d: T, i?: number): string;
 
             type(): (d: T, i: number) => string;
             type(type: string): Symbol<T>;
@@ -2647,7 +2649,7 @@ declare module d3 {
         parseRows<T>(string: string, accessor: (row: string[], index: number) => T): T[];
 
         format(rows: Object[]): string;
-        
+
         formatRows(rows: string[][]): string;
     }
 
