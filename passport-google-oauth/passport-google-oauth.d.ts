@@ -12,6 +12,9 @@ declare module 'passport-google-oauth' {
 
     interface Profile extends passport.Profile {
         gender: string;
+
+        _raw: string;
+        _json: any;
     }
 
     interface IOAuthStrategyOption {
