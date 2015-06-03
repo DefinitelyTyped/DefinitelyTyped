@@ -397,21 +397,84 @@ declare module google.maps {
     }
 
     export interface MarkerOptions {
+        /** Which animation to play when marker is added to a map. */
         animation?: Animation;
+        /** 
+         * If true, the marker receives mouse and touch events.
+         * @default true
+         */
         clickable?: boolean;
+        /** Mouse cursor to show on hover. */
         cursor?: string;
+        /** 
+         * If true, the marker can be dragged.
+         * @default false
+         */
         draggable?: boolean;
         flat?: boolean;
+        /**
+         * Icon for the foreground. 
+         * If a string is provided, it is treated as though it were an Icon with the string as url.
+         * @type {(string|Icon|Symbol)}
+         */
         icon?: any;
+        /**
+         * Map on which to display Marker.
+         * @type {(Map|StreetViewPanorama)}
+         */
         map?: any;
+        /**
+         * Optimization renders many markers as a single static element.
+         * Optimized rendering is enabled by default.
+         * Disable optimized rendering for animated GIFs or PNGs, or when each marker must be rendered 
+         * as a separate DOM element (advanced usage only).
+         */
         optimized?: boolean;
+        /**
+         * Marker position. Required.
+         */
         position?: LatLng;
         raiseOnDrag?: boolean;
         shadow?: any;
+        /** Image map region definition used for drag/click. */
         shape?: MarkerShape;
+        /** Rollover text. */
         title?: string;
+        /** If true, the marker is visible. */
         visible?: boolean;
+        /**
+         * All markers are displayed on the map in order of their zIndex, 
+         * with higher values displaying in front of markers with lower values.
+         * By default, markers are displayed according to their vertical position on screen, 
+         * with lower markers appearing in front of markers further up the screen.
+         */
         zIndex?: number;
+    }
+
+    export interface Icon {
+        /**
+         * The position at which to anchor an image in correspondence to the location of the marker on the map. 
+         * By default, the anchor is located along the center point of the bottom of the image.
+         */
+        anchor?: Point;
+        /**
+         * The position of the image within a sprite, if any.
+         * By default, the origin is located at the top left corner of the image (0, 0).
+         */
+        origin?: Point;
+        /**
+         * The size of the entire image after scaling, if any.
+         * Use this property to stretch/ shrink an image or a sprite.
+         */
+        scaledSize?: Size;
+        /**
+         * The display size of the sprite or image.
+         * When using sprites, you must specify the sprite size.
+         * If the size is not provided, it will be set when the image loads.
+         */
+        size?: Size;
+        /** The URL of the image or sprite sheet. */
+        url?: string;
     }
 
     export class MarkerImage {
@@ -429,22 +492,68 @@ declare module google.maps {
     }
 
     export interface Symbol {
+        /**
+         * The position of the symbol relative to the marker or polyline. 
+         * The coordinates of the symbol's path are translated left and up by the anchor's x and y coordinates respectively. 
+         * By default, a symbol is anchored at (0, 0). 
+         * The position is expressed in the same coordinate system as the symbol's path.
+         */
         anchor?: Point;
+        /**
+         * The symbol's fill color. 
+         * All CSS3 colors are supported except for extended named colors. For symbol markers, this defaults to 'black'. 
+         * For symbols on polylines, this defaults to the stroke color of the corresponding polyline.
+         */
         fillColor?: string;
+        /**
+         * The symbol's fill opacity.
+         * @default 0
+         */
         fillOpacity?: number;
+        /**
+         * The symbol's path, which is a built-in symbol path, or a custom path expressed using SVG path notation. Required.
+         * @type {(SymbolPath|string)}
+         */
         path?: any;
+        /**
+         * The angle by which to rotate the symbol, expressed clockwise in degrees. 
+         * Defaults to 0. 
+         * A symbol in an IconSequence where fixedRotation is false is rotated relative to the angle of the edge on which it lies.
+         */
         rotation?: number;
+        /**
+         * The amount by which the symbol is scaled in size. 
+         * For symbol markers, this defaults to 1; after scaling, the symbol may be of any size. 
+         * For symbols on a polyline, this defaults to the stroke weight of the polyline; 
+         * after scaling, the symbol must lie inside a square 22 pixels in size centered at the symbol's anchor.
+         */
         scale?: number;
+        /**
+         * The symbol's stroke color. All CSS3 colors are supported except for extended named colors. 
+         * For symbol markers, this defaults to 'black'.
+         * For symbols on a polyline, this defaults to the stroke color of the polyline.
+         */
         strokeColor?: string;
+        /**
+         * The symbol's stroke opacity. For symbol markers, this defaults to 1. 
+         * For symbols on a polyline, this defaults to the stroke opacity of the polyline.
+         */
         strokeOpacity?: number;
+        /** The symbol's stroke weight. Defaults to the scale of the symbol.v*/
         strokeWeight?: number;
     }
 
+    /** Built-in symbol paths. */
     export enum SymbolPath {
+        /** A backward-pointing closed arrow. */
         BACKWARD_CLOSED_ARROW,
+        /** A backward-pointing open arrow. */
         BACKWARD_OPEN_ARROW,
+        /** A circle. */
         CIRCLE,
+        /** A forward-pointing closed arrow. */
         FORWARD_CLOSED_ARROW,
+        /** A forward-pointing open arrow. */
         FORWARD_OPEN_ARROW
     }
 
@@ -453,13 +562,33 @@ declare module google.maps {
         DROP
     }
 
+    /**
+     * An overlay that looks like a bubble and is often connected to a marker.
+     * This class extends MVCObject. 
+     */
     export class InfoWindow extends MVCObject {
-        constructor (opts?: InfoWindowOptions);
+        /**
+         * Creates an info window with the given options.
+         * An InfoWindow can be placed on a map at a particular position or above a marker, 
+         * depending on what is specified in the options.
+         * Unless auto-pan is disabled, an InfoWindow will pan the map to make itself visible when it is opened.
+         * After constructing an InfoWindow, you must call open to display it on the map.
+         * The user can click the close button on the InfoWindow to remove it from the map, or the developer can call close() for the same effect.
+         */
+        constructor(opts?: InfoWindowOptions);
+        /** Closes this InfoWindow by removing it from the DOM structure. */
         close(): void;
         getContent(): any; // string or Element
         getPosition(): LatLng;
         getZIndex(): number;
         open(map?: Map, anchor?: MVCObject): void;
+        /**
+         * Opens this InfoWindow on the given map. Optionally, an InfoWindow can be associated with an anchor.
+         * In the core API, the only anchor is the Marker class.
+         * However, an anchor can be any MVCObject that exposes a LatLng position property and optionally 
+         * a Point anchorPoint property for calculating the pixelOffset (see InfoWindowOptions).
+         * The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow.
+         */
         open(map?: StreetViewPanorama, anchor?: MVCObject): void;
         setContent(content: Node): void;
         setContent(content: string): void;
@@ -469,11 +598,40 @@ declare module google.maps {
     }
 
     export interface InfoWindowOptions {
+        /**
+         * Content to display in the InfoWindow. This can be an HTML element, a plain-text string, or a string containing HTML.
+         * The InfoWindow will be sized according to the content.
+         * To set an explicit size for the content, set content to be a HTML element with that size.
+         * @type {(string|Node)}
+         */
         content?: any;
+        /**
+         * Disable auto-pan on open. By default, the info window will pan the map so that it is fully visible when it opens.
+         */
         disableAutoPan?: boolean;
+        /**
+         * Maximum width of the infowindow, regardless of content's width.
+         * This value is only considered if it is set before a call to open.
+         * To change the maximum width when changing content, call close, setOptions, and then open.
+         */
         maxWidth?: number;
+        /**
+         * The offset, in pixels, of the tip of the info window from the point on the map 
+         * at whose geographical coordinates the info window is anchored. 
+         * If an InfoWindow is opened with an anchor, the pixelOffset will be calculated from the anchor's anchorPoint property.
+         */
         pixelOffset?: Size;
+        /**
+         * The LatLng at which to display this InfoWindow. If the InfoWindow is opened with an anchor, the anchor's position will be used instead.
+         */
         position?: LatLng;
+        /**
+         * All InfoWindows are displayed on the map in order of their zIndex, 
+         * with higher values displaying in front of InfoWindows with lower values. 
+         * By default, InfoWindows are displayed according to their latitude, 
+         * with InfoWindows of lower latitudes appearing in front of InfoWindows at higher latitudes.
+         * InfoWindows are always displayed in front of markers.
+         */
         zIndex?: number;
     }
 
@@ -1356,15 +1514,43 @@ declare module google.maps {
         latLng: LatLng;
     }
 
-    /***** Base *****/
-    export class LatLng {
-        constructor (lat: number, lng: number, noWrap?: boolean);
-        equals(other: LatLng): boolean;
-        lat(): number;
-        lng(): number;
-        toString(): string;
-        toUrlValue(precision?: number): string;
+    /* **** Base **** */
 
+    /**
+     * A LatLng is a point in geographical coordinates: latitude and longitude.
+     * 
+     * * Latitude ranges between -90 and 90 degrees, inclusive.
+     *   Values above or below this range will be clamped to the range [-90, 90].
+     *   This means that if the value specified is less than -90, it will be set to -90.
+     *   And if the value is greater than 90, it will be set to 90.
+     * * Longitude ranges between -180 and 180 degrees, inclusive.
+     *   Values above or below this range will be wrapped so that they fall within the range.
+     *   For example, a value of -190 will be converted to 170. A value of 190 will be converted to -170.
+     *   This reflects the fact that longitudes wrap around the globe.
+     * 
+     * Although the default map projection associates longitude with the x-coordinate of the map, and latitude with the y-coordinate, 
+     * the latitude coordinate is always written first, followed by the longitude.
+     * Notice that you cannot modify the coordinates of a LatLng. If you want to compute another point, you have to create a new one.
+     */
+    export class LatLng {
+        /**
+         * Creates a LatLng object representing a geographic point.
+         * Note the ordering of latitude and longitude.
+         * @param lat Latitude is specified in degrees within the range [-90, 90].
+         * @param lng Longitude is specified in degrees within the range [-180, 180].
+         * @param noWrap Set noWrap to true to enable values outside of this range.
+         */
+        constructor(lat: number, lng: number, noWrap?: boolean);
+        /** Comparison function. */
+        equals(other: LatLng): boolean;
+        /** Returns the latitude in degrees. */
+        lat(): number;
+        /** Returns the longitude in degrees. */
+        lng(): number;
+        /** Converts to string representation. */
+        toString(): string;
+        /** Returns a string of the form "lat,lng". We round the lat/lng values to 6 decimal places by default. */
+        toUrlValue(precision?: number): string;
     }
 
     export class LatLngBounds {
@@ -1383,11 +1569,17 @@ declare module google.maps {
         union(other: LatLngBounds): LatLngBounds;
     }
 
+
     export class Point {
-        constructor (x: number, y: number);
+        /** A point on a two-dimensional plane. */
+        constructor(x: number, y: number);
+        /** The X coordinate */
         x: number;
+        /** The Y coordinate */
         y: number;
+        /** Compares two Points */
         equals(other: Point): boolean;
+        /** Returns a string representation of this Point. */
         toString(): string;
     }
 
