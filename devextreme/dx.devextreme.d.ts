@@ -740,11 +740,12 @@ declare module DevExpress {
             isValid?: boolean;
             /** Specifies how the message about the validation rules that are not satisfied by this editor's value is displayed. */
             validationMessageMode?: string;
-            /** Resets the editor's value to undefined. */
-            reset(): void;
         }
         /** A base class for editors. */
-        export class Editor extends Widget { }
+        export class Editor extends Widget { 
+            /** Resets the editor's value to undefined. */
+            reset(): void;        
+        }
         /** An object that serves as a namespace for methods displaying a message in an application/site. */
         export var dialog: {
             /** Creates an alert dialog message containing a single "OK" button. */
