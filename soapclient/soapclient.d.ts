@@ -9,7 +9,7 @@ declare class SOAPClientParameters {
 }
 
 interface SOAPClient {
-	public invoke(url: string, method: string, parameters: SOAPClientParameters, async: boolean, callback?: (response: any) => any): any;
+	invoke(url: string, method: string, parameters: SOAPClientParameters, async: boolean, callback?: (response: any) => any): any;
 }
 
 declare var SOAPClient: SOAPClient;
