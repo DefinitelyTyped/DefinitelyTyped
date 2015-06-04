@@ -1236,11 +1236,27 @@ declare module "tls" {
         cleartext: any;
     }
 
+    export interface SecureContextOptions {
+        pfx?: any;   //string | buffer
+        key?: any;   //string | buffer
+        passphrase?: string;
+        cert?: any;  // string | buffer
+        ca?: any;    // string | buffer
+        crl?: any;   // string | string[]
+        ciphers?: string;
+        honorCipherOrder?: boolean;
+    }
+
+    export interface SecureContext { 
+        context: any;
+    } 
+
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) =>void ): Server;
     export function connect(options: TlsOptions, secureConnectionListener?: () =>void ): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    export function createSecureContext(details: SecureContextOptions): SecureContext;
 }
 
 declare module "crypto" {
