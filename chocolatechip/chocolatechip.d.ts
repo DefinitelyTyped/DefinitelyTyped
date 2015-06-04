@@ -1,6 +1,6 @@
 // Type definitions for chocolatechip v3.8.8
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
-// Definitions by: Robert Biggs http://chocolatechip-ui.com>
+// Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -728,10 +728,10 @@ interface ChocolateChipXHR {
 }
 
 interface ChocolateChipJSONP {
-        url: string, 
-        success?: (data: any) => Promise<any>, 
-        callbackType?: string, 
-        timeout?: number 
+        url: string; 
+        success?: (data: any) => Promise<any>; 
+        callbackType?: string; 
+        timeout?: number; 
 }
 
 interface ChocolateChipElementArray extends Array<HTMLElement> {
