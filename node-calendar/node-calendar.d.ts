@@ -340,63 +340,63 @@ declare module 'node-calendar' {
 	 */
 	export function weekday(year: number, month: number, day: number): number;
 	
-	/**
-	 * Error indicating a nonexistent or unsupported locale specified.
-	 * 
-	 * @param {string} message
-	 *  Optional custom error message.
-	 */
+	/** Error indicating a nonexistent or unsupported locale specified. */
 	export class IllegalLocaleError implements Error {
 		public name: string;
 		public message: string;
+		
+		/**
+		 * @param {string} message
+		 *  Optional custom error message.
+		 */
 		constructor(message?: string)
 	}
 	
-	/**
-	 * Error indicating a day index specified outside of the valid range.
-	 * 
-	 * @param {string} message
-	 *  Optional custom error message.
-	 */
+	/** Error indicating a day index specified outside of the valid range. */
 	export class IllegalDayError implements Error {
 		public name: string;
 		public message: string;
+		
+		/**
+		 * @param {string} message
+		 *  Optional custom error message.
+		 */
 		constructor(message?: string)
 	}
 	
-	/**
-	 * Error indicating a month index specified outside of the expected range (1-12 ~ Jan-Dec).
-	 * 
-	 * @param {string} message
-	 *  Optional custom error message.
-	 */
+	/** Error indicating a month index specified outside of the expected range (1-12 ~ Jan-Dec). */
 	export class IllegalMonthError implements Error {
 		public name: string;
 		public message: string;
+		
+		/**
+		 * @param {string} message
+		 *  Optional custom error message.
+		 */
 		constructor(message?: string)
 	}
 	
-	/**
-	 * Error indicating a time element is outside of the valid range.
-	 * 
-	 * @param {string} message
-	 *  Optional custom error message.
-	 */
+	/** Error indicating a time element is outside of the valid range. */
 	export class IllegalTimeError implements Error {
 		public name: string;
 		public message: string;
+		
+		/**
+		 * @param {string} message
+		 *  Optional custom error message.
+		 */
 		constructor(message?: string)
 	}
 	
-	/**
-	 * Error indicating a weekday index specified outside of the expected range (0-6 ~ Mon-Sun).
-	 * 
-	 * @param {string} message
-	 *  Optional custom error message.
-	 */
+	/** Error indicating a weekday index specified outside of the expected range (0-6 ~ Mon-Sun). */
 	export class IllegalWeekdayError implements Error {
 		public name: string;
 		public message: string;
+		
+		/**
+		 * @param {string} message
+		 *  Optional custom error message.
+		 */
 		constructor(message?: string)
 	}
 }
