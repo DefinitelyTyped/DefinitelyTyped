@@ -301,7 +301,7 @@ declare module 'node-calendar' {
 	 * 
 	 * @throws {IllegalLocaleError} if the provided locale is invalid.
 	 */
-	export function setlocale(locale?: string);
+	export function setlocale(locale?: string): void;
 	
 	/**
 	 * Unrelated but handy function to calculate Unix timestamp from GMT.
