@@ -44,6 +44,17 @@ declare module Windows {
                 clear(): void;
                 first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
             }
+            export class ValueSet implements Windows.Foundation.Collections.IPropertySet, Windows.Foundation.Collections.IObservableMap<string, any>, Windows.Foundation.Collections.IMap<string, any>, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<string, any>> {
+                size: number;
+                onmapchanged: any/* TODO */;
+                lookup(key: string): any;
+                hasKey(key: string): boolean;
+                getView(): Windows.Foundation.Collections.IMapView<string, any>;
+                insert(key: string, value: any): boolean;
+                remove(key: string): void;
+                clear(): void;
+                first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
+            }
             export interface IIterable<T> {
                 first(): Windows.Foundation.Collections.IIterator<T>;
             }
@@ -10986,6 +10997,11 @@ declare module Windows {
                 pickSingleFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
                 pickMultipleFilesAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFile>>;
             }
+            export interface IFileOpenPicker2 {
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickMultipleFilesAndContinue(): void;
+                pickSingleFileAndContinue(): void;
+            }
             export interface IFileSavePicker {
                 commitButtonText: string;
                 defaultFileExtension: string;
@@ -10996,6 +11012,10 @@ declare module Windows {
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 pickSaveFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
             }
+            export interface IFileSavePicker2 {
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickSaveFileAndContinue(): void;
+            }
             export interface IFolderPicker {
                 commitButtonText: string;
                 fileTypeFilter: Windows.Foundation.Collections.IVector<string>;
@@ -11004,16 +11024,23 @@ declare module Windows {
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
                 pickSingleFolderAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFolder>;
             }
-            export class FileOpenPicker implements Windows.Storage.Pickers.IFileOpenPicker {
+            export interface IFolderPicker2 {
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickFolderAndContinue(): void;
+            }
+            export class FileOpenPicker implements Windows.Storage.Pickers.IFileOpenPicker, Windows.Storage.Pickers.IFileOpenPicker2 {
                 commitButtonText: string;
                 fileTypeFilter: Windows.Foundation.Collections.IVector<string>;
                 settingsIdentifier: string;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickSingleFileAndContinue(): void;
                 pickSingleFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
+                pickMultipleFilesAndContinue(): void;
                 pickMultipleFilesAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFile>>;
             }
-            export class FileSavePicker implements Windows.Storage.Pickers.IFileSavePicker {
+            export class FileSavePicker implements Windows.Storage.Pickers.IFileSavePicker, Windows.Storage.Pickers.IFileSavePicker2 {
                 commitButtonText: string;
                 defaultFileExtension: string;
                 fileTypeChoices: Windows.Foundation.Collections.IMap<string, Windows.Foundation.Collections.IVector<string>>;
@@ -11021,14 +11048,18 @@ declare module Windows {
                 suggestedFileName: string;
                 suggestedSaveFile: Windows.Storage.StorageFile;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickSaveFileAndContinue(): void;
                 pickSaveFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
             }
-            export class FolderPicker implements Windows.Storage.Pickers.IFolderPicker {
+            export class FolderPicker implements Windows.Storage.Pickers.IFolderPicker, Windows.Storage.Pickers.IFolderPicker2 {
                 commitButtonText: string;
                 fileTypeFilter: Windows.Foundation.Collections.IVector<string>;
                 settingsIdentifier: string;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickFolderAndContinue(): void;
                 pickSingleFolderAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFolder>;
             }
         }
