@@ -88,12 +88,35 @@ assertYearGrid(cal.yeardatescalendar(2009, 3), assertIsDate);
 assertYearGrid(cal.yeardays2calendar(2008, 2), assertDayOfWeekMonth);
 assertYearGrid(cal.yeardayscalendar(2007, 4), assertIsNumber);
 
+node_calendar.setlocale('en_US');
+
+assertIsError(new node_calendar.IllegalDayError());
+assertIsError(new node_calendar.IllegalLocaleError());
+assertIsError(new node_calendar.IllegalMonthError());
+assertIsError(new node_calendar.IllegalTimeError);
+assertIsError(new node_calendar.IllegalWeekdayError());
+
+assertIsBoolean(node_calendar.isleap(2000));
+assertIsNumber(node_calendar.weekday(2015, node_calendar.JULY, 7));
+assertIsNumber(node_calendar.leapdays(2000, 2010));
+
+node_calendar.monthrange(2015, node_calendar.JANUARY).forEach(assertIsNumber);
+
+var timegmt:[number,number,number,number,number,number] = [2014, node_calendar.JULY, 7, 12, 41, 59];
+assertIsNumber(node_calendar.timegm(timegmt));
+
+
+// FUNCTIONS ------------------------------------------------------------------
 function assertIsDate(d: Date) {
 	assert(d instanceof Date, 'Should be a date');
 }
 
 function assertIsNumber(n: number) {
 	assert(typeof n == 'number', 'Should be a number');
+}
+
+function assertIsBoolean(b: boolean) {
+	assert(typeof b == 'boolean', 'Should be a boolean');
 }
 
 function assertDayOfWeekMonth(d: [number, number]) {
@@ -122,4 +145,9 @@ function assertYearGrid<T>(grid: IYearGrid<T>, assertItemType: (item: T) => void
 function assert(condition: boolean, msg?: string): void {
 	if (condition) return;
 	throw new Error(msg);
+}
+
+function assertIsError(error: Error) {
+	assert(typeof error.name == 'string', 'Error name should exist and be a string');
+	assert(typeof error.message == 'string', 'Error message should exist and be a string');
 }
