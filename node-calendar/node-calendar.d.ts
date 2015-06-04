@@ -15,7 +15,7 @@ interface IMonthRow<T> extends Array<IMonthGrid<T>> {
 	[monthColumnIndex: number]: IMonthGrid<T>;
 }
 
-interface IYearGrid<T> extends Array<IMonthRow<T>>{
+interface IYearGrid<T> extends Array<IMonthRow<T>> {
 	[monthRowIndex: number]: IMonthRow<T>;
 }
 
@@ -59,7 +59,7 @@ declare module 'node-calendar' {
 	export var MARCH: number;
 	
 	/** 4 */
-	export var APRIL:number;
+	export var APRIL: number;
 	
 	/** 5 */
 	export var MAY: number;
@@ -150,6 +150,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} month
 		 *  Month for which the calendar should be generated.
 		 */
@@ -161,6 +162,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} month
 		 *  Month for which the calendar should be generated.
 		 */
@@ -172,6 +174,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} month
 		 *  Month for which the calendar should be generated.
 		 */
@@ -183,6 +186,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} month
 		 *  Month for which the calendar should be generated.
 		 */
@@ -194,6 +198,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} month
 		 *  Month for which the calendar should be generated.
 		 */
@@ -206,6 +211,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} month
 		 *  Month for which the calendar should be generated.
 		 */
@@ -219,6 +225,7 @@ declare module 'node-calendar' {
 		 * 
 		 * @param {number} year
 		 *  Year for which the calendar should be generated.
+		 * 
 		 * @param {number} width
 		 *  The number of months to include in each row. Default: 3
 		 */
@@ -230,7 +237,8 @@ declare module 'node-calendar' {
 		 * month are zero.
 		 * 
 		 * @param {number} year
-		 *  Year for which the calendar should be generated.
+		 *  Year for which the calendar should be generated
+		 * 
 		 * @param {number} width
 		 *  The number of months to include in each row. Default: 3
 		 */
@@ -242,22 +250,153 @@ declare module 'node-calendar' {
 		 * Day numbers outside this month are zero.
 		 * 
 		 * @param {number} year
-		 *  Year for which the calendar should be generated.
+		 *  Year for which the calendar should be generated
+		 * 
 		 * @param {number} width
 		 *  The number of months to include in each row. Default: 3
 		 */
 		yeardays2calendar(year: number, width?: number): IYearGrid<[number, number]>;
 	}
 	
-	// Undocumented
-	//export function isleap(year: number): boolean;
-	//export function leapdays(beginYear: number, endYear: number): number;
-	//export function monthrange(year: number, month: number): number[];
-	//export function weekday(year: number, month: number, day: number): number;
-	//export function timegm(dateParams: number[]): number;
-	//export function IllegalLocaleError(): Error;
-	//export function IllegalDayError(): Error;
-	//export function IllegalMonthError(): Error;
-	//export function IllegalTimeError(): Error;
-	//export function IllegalWeekdayError(): Error;
+	/**
+	 * @param {number} year
+	 *  Year to test.
+	 * 
+	 * @return {boolean}
+	 *  true for leap years, false for non-leap years.
+	 */
+	export function isleap(year: number): boolean;
+	
+	/**
+	 * @param {number} y1
+	 *  Beginning year in the range to test.
+	 * 
+	 * @param {number} y2
+	 *  Ending year in the range to test.
+	 * 
+	 * @return {number}
+	 *  Number of leap years in range (y1...y2). Assumes y1 <= y2.
+	 */
+	export function leapdays(y1: number, y2: number): number;
+	
+	/**
+	 * @param {number} year
+	 *  Year for which the range should be calculated.
+	 * 
+	 * @param {number} month
+	 *  Month for which the range should be calculated.
+	 * 
+	 * @throws {IllegalMonthError} if the provided month is invalid.
+	 * 
+	 * @return {number[]} 
+	 *  starting weekday (0-6 ~ Mon-Sun) and number of days (28-31) for year, month.
+	 */
+	export function monthrange(year: number, month: number): number[];
+	
+	/**
+	 * Sets the locale for use in extracting month and weekday names.
+	 * 
+	 * @param {string} locale
+	 *  Locale to set on the calendar object. Default: en_US
+	 * 
+	 * @throws {IllegalLocaleError} if the provided locale is invalid.
+	 */
+	export function setlocale(locale?: string);
+	
+	/**
+	 * Unrelated but handy function to calculate Unix timestamp from GMT.
+	 * 
+	 * @param timegmt {[number, number, number, number, number, number]}
+	 *  An array containing the elements from a time structure dataset.
+	 *  Format: [tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec]
+	 * 
+	 * @throws {IllegalMonthError} if the provided month element is invalid.
+	 * 
+	 * @throws {IllegalDayError} if the provided day element is invalid.
+	 * 
+	 * @throws {IllegalTimeError} if any of the the provided time elements are invalid.
+	 * 
+	 * @return {number}
+	 *  Unix timestamp from GMT.
+	 */
+	export function timegm(timegmt: [number, number, number, number, number, number]): number;
+	
+	/**
+	 * @param {number} year
+	 *  Year for which the weekday should be calculated.
+	 * 
+	 * @param {number} month
+	 *  Month for which the weekday should be calculated.
+	 * 
+	 * @param {number} day
+	 *  Day for which the weekday should be calculated.
+	 * 
+	 * @throws {IllegalMonthError} if the provided month element is invalid.
+	 * 
+	 * @throws {IllegalDayError} if the provided day element is invalid.
+	 * 
+	 * @return {number}
+	 *  weekday (0-6 ~ Mon-Sun) for year (1970-...), month (1-12), day (1-31).
+	 */
+	export function weekday(year: number, month: number, day: number): number;
+	
+	/**
+	 * Error indicating a nonexistent or unsupported locale specified.
+	 * 
+	 * @param {string} message
+	 *  Optional custom error message.
+	 */
+	export class IllegalLocaleError implements Error {
+		public name: string;
+    	public message: string;
+		constructor(message?: string)
+	}
+	
+	/**
+	 * Error indicating a day index specified outside of the valid range.
+	 * 
+	 * @param {string} message
+	 *  Optional custom error message.
+	 */
+	export class IllegalDayError implements Error {
+		public name: string;
+    	public message: string;
+		constructor(message?: string)
+	}
+	
+	/**
+	 * Error indicating a month index specified outside of the expected range (1-12 ~ Jan-Dec).
+	 * 
+	 * @param {string} message
+	 *  Optional custom error message.
+	 */
+	export class IllegalMonthError implements Error {
+		public name: string;
+    	public message: string;
+		constructor(message?: string)
+	}
+	
+	/**
+	 * Error indicating a time element is outside of the valid range.
+	 * 
+	 * @param {string} message
+	 *  Optional custom error message.
+	 */
+	export class IllegalTimeError implements Error {
+		public name: string;
+    	public message: string;
+		constructor(message?: string)
+	}
+	
+	/**
+	 * Error indicating a weekday index specified outside of the expected range (0-6 ~ Mon-Sun).
+	 * 
+	 * @param {string} message
+	 *  Optional custom error message.
+	 */
+	export class IllegalWeekdayError implements Error {
+		public name: string;
+    	public message: string;
+		constructor(message?: string)
+	}
 }
