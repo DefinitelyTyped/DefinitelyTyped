@@ -348,7 +348,7 @@ declare module 'node-calendar' {
 	 */
 	export class IllegalLocaleError implements Error {
 		public name: string;
-    	public message: string;
+		public message: string;
 		constructor(message?: string)
 	}
 	
@@ -360,7 +360,7 @@ declare module 'node-calendar' {
 	 */
 	export class IllegalDayError implements Error {
 		public name: string;
-    	public message: string;
+		public message: string;
 		constructor(message?: string)
 	}
 	
@@ -372,7 +372,7 @@ declare module 'node-calendar' {
 	 */
 	export class IllegalMonthError implements Error {
 		public name: string;
-    	public message: string;
+		public message: string;
 		constructor(message?: string)
 	}
 	
@@ -384,7 +384,7 @@ declare module 'node-calendar' {
 	 */
 	export class IllegalTimeError implements Error {
 		public name: string;
-    	public message: string;
+		public message: string;
 		constructor(message?: string)
 	}
 	
@@ -396,7 +396,7 @@ declare module 'node-calendar' {
 	 */
 	export class IllegalWeekdayError implements Error {
 		public name: string;
-    	public message: string;
+		public message: string;
 		constructor(message?: string)
 	}
 }
