@@ -1,5 +1,4 @@
 /// <reference path="node-calendar" />
-/// <reference path="../node/node" />
 
 import node_calendar = require('node-calendar');
 
@@ -97,7 +96,7 @@ function assertIsNumber(n: number) {
 	assert(typeof n == 'number', 'Should be a number');
 }
 
-function assertDayOfWeekMonth(d: IDayOfWeekMonth) {
+function assertDayOfWeekMonth(d: [number, number]) {
 	assert(d instanceof Array, 'Day of weak/month should be an array');
 	assert(d.length == 2, 'Day of weak/month array should contain 2 items');
 	assert(typeof d[0] == 'number', 'Day of month should be a number');
