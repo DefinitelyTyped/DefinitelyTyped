@@ -26,6 +26,7 @@ declare module "superagent" {
       put(url: string, callback?: CallbackHandler): Req;
       head(url: string, callback?: CallbackHandler): Req;
       del(url: string, callback?: CallbackHandler): Req;
+      delete(url: string, callback?: CallbackHandler): Req;
       options(url: string, callback?: CallbackHandler): Req;
       trace(url: string, callback?: CallbackHandler): Req;
       copy(url: string, callback?: CallbackHandler): Req;
