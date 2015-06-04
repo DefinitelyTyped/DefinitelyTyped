@@ -288,10 +288,10 @@ declare module 'node-calendar' {
 	 * 
 	 * @throws {IllegalMonthError} if the provided month is invalid.
 	 * 
-	 * @return {number[]} 
+	 * @return {[number, number]}
 	 *  starting weekday (0-6 ~ Mon-Sun) and number of days (28-31) for year, month.
 	 */
-	export function monthrange(year: number, month: number): number[];
+	export function monthrange(year: number, month: number): [number, number];
 	
 	/**
 	 * Sets the locale for use in extracting month and weekday names.
