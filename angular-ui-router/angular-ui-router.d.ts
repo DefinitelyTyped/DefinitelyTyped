@@ -30,6 +30,13 @@ declare module angular.ui {
          * Function (injectable), returns the actual controller function or string.
          */
         controllerProvider?: Function;
+        
+        /**
+         * Specifies the parent state of this state
+         */
+        parent?: string | IState
+        
+        
         resolve?: {};
         /**
          * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
