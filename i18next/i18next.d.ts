@@ -66,6 +66,7 @@ interface I18nextOptions {
 
 interface I18nextStatic {
 
+    addResources(language: string, namespace: string, resources: IResourceStoreKey): void;
     addPostProcessor(name: string, fn: (value: any, key: string, options: any) => string): void;
     detectLanguage(): string;
     functions: {
@@ -129,5 +130,9 @@ interface JQuery {
 declare var i18n: I18nextStatic;
 
 declare module 'i18next' {
+    export = i18n;
+}
+
+declare module 'i18next-client' {
     export = i18n;
 }
