@@ -1296,6 +1296,14 @@ declare module _ {
         remove(
             array: List<any>,
             wherealue?: Dictionary<any>): any[];
+
+        /**
+         * @see _.remove
+         * @param item The item to remove
+         **/
+        remove<T>(
+            array:Array<T>,
+            item:T): T[];
     }
 
     //_.rest
