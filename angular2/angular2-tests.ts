@@ -21,7 +21,7 @@ Cmp.annotations = [
   }),
   ng.View({
     template: '{{greeting}} world!',
-    directives: [ng.For, ng.If]
+    directives: [ng.NgFor, ng.NgIf]
   })
 ];
 

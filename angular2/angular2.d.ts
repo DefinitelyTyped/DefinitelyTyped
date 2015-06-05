@@ -1,4 +1,4 @@
-// Type definitions for Angular v2.0.0-alpha.22
+// Type definitions for Angular v2.0.0-alpha.26
 // Project: http://angular.io/
 // Definitions by: angular team <https://github.com/angular/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -533,7 +533,7 @@ declare module "angular2/angular2" {
    * - `<template [for]="#item" [of]="items" #i="index"><li>...</li></template>`
    *
    */
-  function For(): void;
+  function NgFor(): void;
   
   /**
    * Removes or recreates a portion of the DOM tree based on an {expression}.
@@ -557,7 +557,7 @@ declare module "angular2/angular2" {
    * - `<template [if]="condition"><div>...</div></template>`
    *
    */
-  function If(): void;
+  function NgIf(): void;
   
   /**
    * The `NonBindable` directive tells Angular not to compile or bind the contents of the current
@@ -573,7 +573,7 @@ declare module "angular2/angular2" {
    * ```
    *
    */
-  function NonBindable(): void;
+  function NgNonBindable(): void;
   
   /**
    * The `Switch` directive is used to conditionally swap DOM structure on your template based on a
@@ -601,7 +601,11 @@ declare module "angular2/angular2" {
    * ```
    *
    */
- function Switch(): void;
+ function NgSwitch(): void;
+
+  function NgSwitchWhen():void;
+  function NgSwitchDefault():void;
+
 }
 
 declare module "angular2/di" {
