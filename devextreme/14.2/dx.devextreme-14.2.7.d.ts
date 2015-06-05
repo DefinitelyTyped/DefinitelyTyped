@@ -1,9 +1,9 @@
-// Type definitions for DevExtreme 14.2.7
+﻿// Type definitions for DevExtreme 14.2.7
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference path="../../jquery/jquery.d.ts" />
 
 declare module DevExpress {
     /** A mixin that provides a capability to fire and subscribe to events. */
