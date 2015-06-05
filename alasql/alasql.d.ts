@@ -45,8 +45,9 @@ interface AlaSQLAST {
 
 interface AlaSQL {
 	(sql:any,params?:any,cb?:AlaSQLCallback,scope?:any):any;
-	parse(sql):AlaSQLAST;
-	options:AlaSQLOptions;
+	parse(sql:string):AlaSQLAST;
+	compile(sql: string): AlaSQLAST;
+	options: AlaSQLOptions;
 	error: Error;
 }
 
