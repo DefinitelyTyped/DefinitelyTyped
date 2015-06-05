@@ -7,22 +7,27 @@
 //   realtime-client-utils.js
 // which you can find in the tutorial section of the project's homepage.
 
+declare var $ : any;
+interface JQuery {
+	[key: string]: any;
+};
+
+type CollabModel = googleRealtime.Model;
+type CollabDoc = googleRealtime.Document;
+interface CollaborativeObject extends googleRealtime.CollaborativeObject {}
+interface CollaborativeList<T> extends googleRealtime.CollaborativeList<T> {}
+interface CollaborativeMap<T> extends googleRealtime.CollaborativeMap<T> {}
+interface IndexReference<T> extends googleRealtime.IndexReference<T> {}
+interface CollaborativeString extends googleRealtime.CollaborativeString {}
+
+type CListOfCObj = CollaborativeList<CollaborativeObject>
+type CObjOrStr = CollaborativeObject | string;
+type CMapOfCObjOrStr = CollaborativeMap<CObjOrStr>;
+
+
 module GRealtime {
-	var $ : any;
-	interface JQuery {
-	};
 
-	import CollabModel = googleRealtime.Model;
-	import CollabDoc = googleRealtime.Document;
-	interface CollaborativeObject extends googleRealtime.CollaborativeObject {}
-	interface CollaborativeList<T> extends googleRealtime.CollaborativeList<T> {}
-	interface CollaborativeMap<T> extends googleRealtime.CollaborativeMap<T> {}
-	interface IndexReference<T> extends googleRealtime.IndexReference<T> {}
-	interface CollaborativeString extends googleRealtime.CollaborativeString {}
 
-	type CListOfCObj = CollaborativeList<CollaborativeObject>
-	type CObjOrStr = CollaborativeObject | string;
-	type CMapOfCObjOrStr = CollaborativeMap<CObjOrStr>;
 
 
 	var default_loader_options : googleRealtime.LoaderOptions = {
@@ -67,7 +72,7 @@ module GRealtime {
 
 	export class MyRTLoader {
 		public loader_options : googleRealtime.LoaderOptions = $.extend({},default_loader_options);
-		private rtloader_client : googleRealtime.Loader;
+		private rtloader_client : googleRealtime.RealtimeLoader;
 
 		// call after setting loader_options appropriately
 		authorize() {
@@ -92,8 +97,8 @@ module GRealtime {
 		private myRTLoader = new GRealtime.MyRTLoader();
 
 		newFile(title: string,
-		        initializeModel: (CollabModel) => void,
-		        onFileLoaded: (CollabDoc) => void) : void {
+		        initializeModel: (x:CollabModel) => void,
+		        onFileLoaded: (x:CollabDoc) => void) : void {
 
 			var _afterAuth = () => {
 				this.myRTLoader.createNew(title, (file:googleRealtime.DriveAPIFileResource) => {
@@ -103,7 +108,7 @@ module GRealtime {
 				})
 			}
 
-			var _initializeModel = (model) => {
+			var _initializeModel = (model:CollabModel) => {
 				console.log("\n\nRTModel initialized for NEW document.\n\n");
 				this.rtmodel = model;
 				if( initializeModel ) {
@@ -111,7 +116,7 @@ module GRealtime {
 				}
 			}
 
-			var _onFileLoaded = (doc) => {
+			var _onFileLoaded = (doc:CollabDoc) => {
 				console.log("\n\nNEW document loaded.\n\n");
 				this.rtmodel = doc.getModel();
 				this.rtdoc = doc;
@@ -127,11 +132,11 @@ module GRealtime {
 		}
 
 		loadExisting(fileid: string,
-		             onFileLoaded: (CollabDoc) => void) : void {
+		             onFileLoaded: (doc:CollabDoc) => void) : void {
 
 			rtclient.params.fileIds = fileid;
 
-			var _onFileLoaded = (doc) => {
+			var _onFileLoaded = (doc:CollabDoc) => {
 				console.log("\n\nEXISTING document loaded.\n\n");
 				this.rtdoc = doc;
 				this.rtmodel = doc.getModel();
@@ -164,10 +169,28 @@ module GRealtime {
 
 	}
 
-	// alternative to RealtimePSDoc.bindString
-	function registerStringChangeListener(x:CollaborativeString, listener_or_callback: (e:Event) => void | EventListener) : void {
-		x.addEventListener(gapi.drive.realtime.TextInsertedEvent.type, listener_or_callback);
-		x.addEventListener(gapi.drive.realtime.TextDeletedEvent.type, listener_or_callback);
+		// alternative to RealtimePSDoc.bindString
+	function registerLocalStringChangeListener(
+		                   x: CollaborativeString,
+		                   listener_or_callback:  (e:Event) => void | EventListener)  : void {
+		x.addEventListener(gapi.drive.realtime.EventType.TEXT_INSERTED, listener_or_callback);
+		x.addEventListener(gapi.drive.realtime.EventType.TEXT_DELETED, listener_or_callback);
 	}
 
 }
+
+
+// Next example from https://developers.google.com/google-apps/realtime/model-events
+
+declare var doc : CollabDoc;
+function displayObjectChangedEvent(evt:googleRealtime.EventRecordsPerChangedObject) {
+  var events = evt.events;
+  var eventCount = evt.events.length;
+  for (var i = 0; i < eventCount; i++) {
+    console.log('Event type: '  + events[i].type);
+    console.log('Local event: ' + events[i].isLocal);
+    console.log('User ID: '     + events[i].userId);
+    console.log('Session ID: '  + events[i].sessionId);
+  }
+}
+doc.getModel().getRoot().addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, displayObjectChangedEvent);
