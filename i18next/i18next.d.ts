@@ -66,8 +66,8 @@ interface I18nextOptions {
 
 interface I18nextStatic {
 
-    addResources(language: string, namespace: string, resources: IResourceStoreKey): void;
     addPostProcessor(name: string, fn: (value: any, key: string, options: any) => string): void;
+    addResources(language: string, namespace: string, resources: IResourceStoreKey): void;
     detectLanguage(): string;
     functions: {
         extend(target: any, ...objs: any[]): Object;
