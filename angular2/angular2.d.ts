@@ -1,4 +1,4 @@
-// Type definitions for Angular v2.0.0-alpha.22
+// Type definitions for Angular v2.0.0-alpha.26
 // Project: http://angular.io/
 // Definitions by: angular team <https://github.com/angular/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
