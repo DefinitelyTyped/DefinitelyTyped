@@ -282,7 +282,21 @@ interface _ViewArg {
    */
   directives?: List<Type>;
 }
-  
+
+/**
+ * Directive arguments.
+ * https://angular.io/docs/js/latest/api/annotations/Directive-class.html
+ */
+interface _DirectiveArg {
+  selector?: string;
+  properties?: any;
+  events?: List<any>;
+  hostListeners?: any;
+  hostProperties?: any;
+  lifecycle?: List<any>;
+  compileChildren?: boolean;
+}
+
 declare module "angular2/angular2" {
   /**
    * Bootstrapping for Angular applications.
@@ -501,7 +515,13 @@ declare module "angular2/angular2" {
    *
    */
   function View(arg: _ViewArg): (target: any) => any;
-  
+
+  /**
+   * Directive.
+   * https://angular.io/docs/js/latest/api/annotations/Directive-class.html
+   */
+  function Directive(arg: _DirectiveArg): (target: any) => any;
+
   /**
    * The `For` directive instantiates a template once per item from an iterable. The context for each
    * instantiated template inherits from the outer context with the given loop variable set to the

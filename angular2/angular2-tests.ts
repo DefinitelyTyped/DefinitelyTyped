@@ -22,6 +22,12 @@ Cmp.annotations = [
   ng.View({
     template: '{{greeting}} world!',
     directives: [ng.For, ng.If]
+  }),
+  ng.Directive({
+    selector: '[my-selector]',
+    properties: {
+      'id':'my-selector'
+    }
   })
 ];
 
