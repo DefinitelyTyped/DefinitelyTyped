@@ -216,8 +216,8 @@ declare module moment {
         dayOfYear(): number;
         dayOfYear(d: number): Moment;
 
-        from(f: Moment|string|number|Date|number[], suffix?: boolean): string;
-        to(f: Moment|string|number|Date|number[], suffix?: boolean): string;
+        from(f: MomentLike, suffix?: boolean): string;
+        to(f: MomentLike, suffix?: boolean): string;
 
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
@@ -240,13 +240,13 @@ declare module moment {
         isDST(): boolean;
 
         isBefore(): boolean;
-        isBefore(b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isBefore(b: MomentLike, granularity?: string): boolean;
 
         isAfter(): boolean;
-        isAfter(b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isAfter(b: MomentLike, granularity?: string): boolean;
 
-        isSame(b: Moment|string|number|Date|number[], granularity?: string): boolean;
-        isBetween(a: Moment|string|number|Date|number[], b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isSame(b: MomentLike, granularity?: string): boolean;
+        isBetween(a: MomentLike, b: MomentLike, granularity?: string): boolean;
 
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
@@ -262,11 +262,11 @@ declare module moment {
         localeData(): MomentLanguage;
 
         // Deprecated as of 2.7.0.
-        max(date: Moment|string|number|Date|any[]): Moment;
+        max(date: MomentLike|any[]): Moment;
         max(date: string, format: string): Moment;
 
         // Deprecated as of 2.7.0.
-        min(date: Moment|string|number|Date|any[]): Moment;
+        min(date: MomentLike|any[]): Moment;
         min(date: string, format: string): Moment;
 
         get(unit: string): number;
@@ -438,6 +438,9 @@ declare module moment {
         ISO_8601(): void;
 
     }
+
+    // Moment.js automatically converts datetime parameters from a number of types
+    type MomentLike = Moment | string | number | Date | number[];
 
 }
 
