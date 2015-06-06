@@ -21,6 +21,16 @@ Cmp.annotations = [
   ng.View({
     template: '{{greeting}} world!',
     directives: [ng.NgFor, ng.NgIf]
+  }),
+  ng.Directive({
+    selector: '[tooltip]',
+    properties: [
+      'text: tooltip'
+    ],
+    hostListeners: {
+      'onmouseenter': 'onMouseEnter()',
+      'onmouseleave': 'onMouseLeave()'
+    }
   })
 ];
 
