@@ -1,4 +1,4 @@
-// Type definitions for body-parser
+// Type definitions for rivets
 // Project: http://rivetsjs.com/
 // Definitions by: Trevor Baron <https://github.com/TrevorDev>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
