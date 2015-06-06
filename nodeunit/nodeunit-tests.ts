@@ -1,7 +1,5 @@
 /// <reference path="nodeunit.d.ts" />
 
-import nodeunit = require('nodeunit');
-
 var num: number;
 var value: any;
 var actual: any;
@@ -13,7 +11,7 @@ var block: () =>{
 
 };
 
-export var testGroup: nodeunit.ITestGroup = {
+var testGroup: nodeunit.ITestGroup = {
 	setUp: function (callback: nodeunit.ICallbackFunction) {
 		callback();
 	},
