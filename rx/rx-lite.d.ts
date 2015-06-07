@@ -589,6 +589,8 @@ declare module Rx {
 		merge<T>(scheduler: IScheduler, sources: Observable<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, sources: IPromise<T>[]): Observable<T>;
 
+		pairs<T>(obj: { [key: string]: T }, scheduler?: IScheduler): Observable<[string, T]>;
+
 		zip<T1, T2, TResult>(first: Observable<T1>, sources: Observable<T2>[], resultSelector: (item1: T1, ...right: T2[]) => TResult): Observable<TResult>;
 		zip<T1, T2, TResult>(first: Observable<T1>, sources: IPromise<T2>[], resultSelector: (item1: T1, ...right: T2[]) => TResult): Observable<TResult>;
 		zip<T1, T2, TResult>(source1: Observable<T1>, source2: Observable<T2>, resultSelector: (item1: T1, item2: T2) => TResult): Observable<TResult>;
