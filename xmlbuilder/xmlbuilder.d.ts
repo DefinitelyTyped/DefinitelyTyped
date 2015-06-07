@@ -1,6 +1,6 @@
 // Type definitions for xmlbuilder
 // Project: https://github.com/oozcitak/xmlbuilder-js
-// Definitions by: Oskar Gewalli
+// Definitions by: Wallymathieu <http://github.com/wallymathieu>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'xmlbuilder' {
