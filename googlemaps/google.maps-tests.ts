@@ -105,3 +105,14 @@ var removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
     name: "test",
     oldValue: {}
 };
+
+
+/***** Overlays *****/
+
+var icon: google.maps.Icon = {
+    anchor: new google.maps.Point(16, 16),
+    origin: new google.maps.Point(0, 0),
+    scaledSize: new google.maps.Size(32, 32),
+    size: new google.maps.Size(32, 32),
+    url: "dummy"
+}
