@@ -64,7 +64,16 @@ myApp.config((
 		controller: function ($scope: MyAppScope) {
           $scope.things = ["A", "Set", "Of", "Things"];
         }
-      }).state('index', {
+      })
+    .state('list', {
+      parent: 'state3',
+      url: "/list",
+      templateUrl: "partials/state3.list.html",
+      controller: function ($scope: MyAppScope) {
+      $scope.things = ["A", "Set", "Of", "Things"];
+      }
+    })
+    .state('index', {
       url: "",
       views: {
         "viewA": { template: "index.viewA" },
