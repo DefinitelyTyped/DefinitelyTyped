@@ -3,83 +3,87 @@
 // Definitions by: Oskar Gewalli
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare class XMLDocType {
-    clone(): XMLDocType;
-    element(name, value): XMLDocType;
-    attList(elementName, attributeName, attributeType, defaultValueType, defaultValue): XMLDocType;
-    entity(name, value): XMLDocType;
-    pEntity(name, value): XMLDocType;
-    notation(name, value): XMLDocType;
-    cdata(value): XMLDocType;
-    comment(value): XMLDocType;
-    instruction(target, value): XMLDocType;
-    root(): XMLDocType;
-    document(): any;
-    toString(options, level): string;
-
-    ele(name, value): XMLDocType;
-    att(elementName, attributeName, attributeType, defaultValueType, defaultValue): XMLDocType;
-    ent(name, value): XMLDocType;
-    pent(name, value): XMLDocType;
-    not(name, value): XMLDocType;
-    dat(value): XMLDocType;
-    com(value): XMLDocType;
-    ins(target, value): XMLDocType;
-    up(): XMLDocType;
-    doc(): any;
-}
-
-declare class XMLNode {
-    element(name, attributes, text): XMLNode;
-    ele(name, attributes, text): XMLNode;
-    insertBefore(name, attributes, text): XMLNode;
-    insertAfter(name, attributes, text): XMLNode;
-    remove(): XMLNode;
-    node(name, attributes, text): XMLNode;
-    text(value): XMLNode;
-    cdata(value): XMLNode;
-    comment(value): XMLNode;
-    raw(value): XMLNode;
-    declaration(version, encoding, standalone): XMLNode;
-    doctype(pubID, sysID): XMLDocType;
-    up(): XMLNode;
-    root(): XMLNode;
-    document(): any;
-    end(options): string;
-    prev(): XMLNode;
-    next(): XMLNode;
-    nod(name, attributes, text): XMLNode;
-    txt(value): XMLNode;
-    dat(value): XMLNode;
-    com(value): XMLNode;
-    doc(value): XMLNode;
-    dec(version, encoding, standalone): XMLNode;
-    dtd(pubID, sysID): XMLDocType;
-    e(name, attributes, text): XMLNode;
-    n(name, attributes, text): XMLNode;
-    t(value): XMLNode;
-    d(value): XMLNode;
-    c(value): XMLNode;
-    r(value): XMLNode;
-    u(value): XMLNode;
-}
-
-declare class XMLElement extends XMLNode {
-    clone(): XMLElement;
-    attribute(name: string, value: any): XMLElement;
-    att(name: string, value: any): XMLElement;
-    removeAttribute(name: string): XMLElement;
-    instruction(target, value): XMLElement;
-    ins(target, value): XMLElement;
-    a(name, value): XMLElement;
-    i(target, value): XMLElement;
-    toString(options?, level?): string;
-}
-
-interface XMLBuilderStatic {
-    create(name: string, xmldec?: Object, doctype?: string, options?: Object): XMLElement;
-}
-
 declare module 'xmlbuilder' {
-    export = XMLBuilderStatic;
+    export = xmlbuilder;
+    class XMLDocType {
+        clone(): XMLDocType;
+        element(name: string, value?: Object): XMLDocType;
+        attList(elementName: string, attributeName: string, attributeType: string, defaultValueType?: string, defaultValue?: any): XMLDocType;
+        entity(name: string, value: any): XMLDocType;
+        pEntity(name: string, value: any): XMLDocType;
+        notation(name: string, value: any): XMLDocType;
+        cdata(value: string): XMLDocType;
+        comment(value: string): XMLDocType;
+        instruction(target: string, value: any): XMLDocType;
+        root(): XMLDocType;
+        document(): any;
+        toString(options?: Object, level?: Number): string;
+
+        ele(name: string, value?: Object): XMLDocType;
+        att(elementName: string, attributeName: string, attributeType: string, defaultValueType?: string, defaultValue?: any): XMLDocType;
+        ent(name: string, value: any): XMLDocType;
+        pent(name: string, value: any): XMLDocType;
+        not(name: string, value: any): XMLDocType;
+        dat(value: string): XMLDocType;
+        com(value: string): XMLDocType;
+        ins(target: string, value: any): XMLDocType;
+        up(): XMLDocType;
+        doc(): any;
+    }
+
+    class XMLElementOrXMLNode {
+        // XMLElement:
+        clone(): XMLElementOrXMLNode;
+        attribute(name: any, value?: any): XMLElementOrXMLNode;
+        att(name: any, value?: any): XMLElementOrXMLNode;
+        removeAttribute(name: string): XMLElementOrXMLNode;
+        instruction(target: string, value: any): XMLElementOrXMLNode;
+        instruction(array: Array<any>): XMLElementOrXMLNode;
+        instruction(obj: Object): XMLElementOrXMLNode;
+        ins(target: string, value: any): XMLElementOrXMLNode;
+        ins(array: Array<any>): XMLElementOrXMLNode;
+        ins(obj: Object): XMLElementOrXMLNode;
+        a(name: any, value?: any): XMLElementOrXMLNode;
+        i(target: string, value: any): XMLElementOrXMLNode;
+        i(array: Array<any>): XMLElementOrXMLNode;
+        i(obj: Object): XMLElementOrXMLNode;
+        toString(options?:Object, level?:Number): string;
+        // XMLNode:
+        element(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        ele(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        insertBefore(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        insertAfter(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        remove(): XMLElementOrXMLNode;
+        node(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        text(value: string): XMLElementOrXMLNode;
+        cdata(value: string): XMLElementOrXMLNode;
+        comment(value: string): XMLElementOrXMLNode;
+        raw(value: string): XMLElementOrXMLNode;
+        declaration(version: string, encoding: string, standalone: boolean): XMLElementOrXMLNode;
+        doctype(pubID: string, sysID: string): XMLDocType;
+        up(): XMLElementOrXMLNode;
+        root(): XMLElementOrXMLNode;
+        document(): any;
+        end(options?: Object): string;
+        prev(): XMLElementOrXMLNode;
+        next(): XMLElementOrXMLNode;
+        nod(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        txt(value: string): XMLElementOrXMLNode;
+        dat(value: string): XMLElementOrXMLNode;
+        com(value: string): XMLElementOrXMLNode;
+        doc(): XMLElementOrXMLNode;
+        dec(version: string, encoding: string, standalone: boolean): XMLElementOrXMLNode;
+        dtd(pubID: string, sysID: string): XMLDocType;
+        e(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        n(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
+        t(value: string): XMLElementOrXMLNode;
+        d(value: string): XMLElementOrXMLNode;
+        c(value: string): XMLElementOrXMLNode;
+        r(value: string): XMLElementOrXMLNode;
+        u(): XMLElementOrXMLNode;
+    }
+
+    module xmlbuilder {
+        function create(name: string, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    }
 }
