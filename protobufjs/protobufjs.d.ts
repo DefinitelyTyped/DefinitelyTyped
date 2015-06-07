@@ -3,7 +3,6 @@
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../collection/collection.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module ProtoBuf {
@@ -32,31 +31,28 @@ declare module ProtoBuf {
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
     
-    export function newBuilder(options?: Dictionary): ProtoBuilder;
+    export function newBuilder(options?: {[key: string]: any}): ProtoBuilder;
   
     
     // ==========
     // protobufjs/src/ProtoBuf/Builder.js
     
-    /**
-     * TODO: constructor returns type ProtoBuilder
-     */
     export interface Builder {
-        (options?: Dictionary): void; // returns ProtoBuilder
+        new(options?: {[key: string]: any}): ProtoBuilder;
         Message: Message;
         Service: Service;
-        isValidMessage(def: Dictionary): boolean;
-        isValidMessageField(def: Dictionary): boolean;
-        isValidEnum(def: Dictionary): boolean;
-        isValidService(def: Dictionary): boolean;
-        isValidExtend(def: Dictionary): boolean;
+        isValidMessage(def: {[key: string]: any}): boolean;
+        isValidMessageField(def: {[key: string]: any}): boolean;
+        isValidEnum(def: {[key: string]: any}): boolean;
+        isValidService(def: {[key: string]: any}): boolean;
+        isValidExtend(def: {[key: string]: any}): boolean;
     }
     
     /**
      * TODO: Confirm that message needs no further implementation
      */
     export interface Message {
-        (values?: Dictionary, var_args?: string[]): void;
+        new(values?: {[key: string]: any}, var_args?: string[]): Message;
         [field: string]: any;
   	}
     
@@ -64,7 +60,7 @@ declare module ProtoBuf {
      * TODO: Implement service interface
      */
     export interface Service {
-        (rpcImpl?: Function): void;
+        new(rpcImpl?: Function): Service;
     }
     
     
@@ -78,22 +74,22 @@ declare module ProtoBuf {
         result: ProtoBuf;
         files: string[];
         importRoot: string;
-        options: Dictionary;
+        options: {[key: string]: any};
         syntax: string;
         reset(): void;
-        define(pkg: string, options?: Dictionary): ProtoBuilder;
-        create(defs?: Dictionary[]): ProtoBuilder;
+        define(pkg: string, options?: {[key: string]: any}): ProtoBuilder;
+        create(defs?: {[key: string]: any}[]): ProtoBuilder;
         resolveAll(): void;
     		build(path?: string): ProtoBuf;
         lookup(path?: string): ReflectT;
   	}
     
     export interface ProtoBuf {
-        [package: string]: Thesaurus<MetaMessage | any>;
+        [package: string]: {[key: string]: MetaMessage | any};
     }
     
     export interface MetaMessage {
-        (values?: Dictionary, var_args?: string[]): void; // returns Message
+        new(values?: {[key: string]: any}, var_args?: string[]): Message;
         decode(buffer?: Buffer, enc?: string): Message;
         decodeDelimited(buffer?: Buffer, enc?: string): Message;
         decode64(str: string): Message;
@@ -109,14 +105,14 @@ declare module ProtoBuf {
     }
     
     export interface Parser {
-        (proto: string): void;
+        new(proto: string): Parser;
         tn: Tokenizer;
         parse(): MetaProto;
         toString(): string;
     }
     
     export interface Tokenizer {
-        (proto: string): void;
+        new(proto: string): Tokenizer;
         source: string;
         index: number;
         line: number;
@@ -136,14 +132,14 @@ declare module ProtoBuf {
         messages: ProtoMessage[];
         enums: ProtoEnum[];
         imports: string[];
-        options: Dictionary;
+        options: {[key: string]: any};
         services: ProtoService[];
     }
     
     export interface ProtoEnum {
         name: string;
         values: ProtoEnumValue;
-        options: Dictionary;
+        options: {[key: string]: any};
     }
     
     export interface ProtoEnumValue {
@@ -153,7 +149,7 @@ declare module ProtoBuf {
     
     export interface ProtoField {
         rule: string;
-        options: Dictionary;
+        options: {[key: string]: any};
         type: string;
         name: string;
         id: number;
@@ -166,20 +162,20 @@ declare module ProtoBuf {
         fields: ProtoField[];
         enums: ProtoEnum[];
         messages: ProtoMessage[];
-        options: Dictionary;
-        oneofs: Thesaurus<number[]>;
+        options: {[key: string]: any};
+        oneofs: {[key: string]:number[]};
     }
     
     export interface ProtoRpcService {
         request: string;
         response: string;
-        options: Dictionary;
+        options: {[key: string]: any};
     }
     
     export interface ProtoService {
         name: string;
-        rpc: Thesaurus<ProtoRpcService>;
-        options: Dictionary;
+        rpc: {[key: string]:ProtoRpcService};
+        options: {[key: string]: any};
     }
     
     
@@ -196,7 +192,7 @@ declare module ProtoBuf {
     }
     
     export interface ReflectT {
-        (builder?: ProtoBuilder, parent?: ReflectT, name?: string): void;
+        new(builder?: ProtoBuilder, parent?: ReflectT, name?: string): ReflectT;
         builder: ProtoBuilder;
         parent: ReflectT;
         name: string;
@@ -205,72 +201,74 @@ declare module ProtoBuf {
     }
     
     export interface ReflectNamespace extends ReflectT {
-        (builder?: ProtoBuilder, parent?: ReflectNamespace, name?: string,
-            options?: Dictionary): void;
+        new(builder?: ProtoBuilder, parent?: ReflectNamespace, name?: string,
+            options?: {[key: string]: any}): ReflectNamespace;
         className: string;
         children: ReflectT[];
-        options: Dictionary;
+        options: {[key: string]: any};
         syntax: string;
         getChildren(type?: ReflectT): ReflectT[];
         addChild(child: ReflectT): void;
         getChild(nameOrId?: string | number): ReflectT;
         resolve(qn: string, excludeFields?: boolean): ReflectNamespace;
-        build(): any; // TODO: discover the return type of build
-        buildOpt(): Dictionary;
+        build(): ProtoBuf;
+        buildOpt(): {[key: string]: any};
         getOption(name?: string): any;
     }
     
     export interface ReflectMessage extends ReflectNamespace {
-        (builder?: ProtoBuilder, parent?: ReflectNamespace, name?: string,
-            options?: Dictionary, isGroup?: boolean): void;
-        Field: ReflectField; // TODO: only for new ProtoBuf.Reflect.Message.Field();
-        ExtensionField: ReflectExtensionField; // TODO: only for
+        new(builder?: ProtoBuilder, parent?: ReflectNamespace, name?: string,
+            options?: {[key: string]: any}, isGroup?: boolean): ReflectMessage;
+        Field: ReflectField; // NOTE: only for new ProtoBuf.Reflect.Message.Field();
+        ExtensionField: ReflectExtensionField; // NOTE: only for
                                           // new ProtoBuf.Reflect.Message.ExtensionField();
-        OneOf: ReflectOneOf; // TODO: only for new ProtoBuf.Reflect.Message.OneOf();
+        OneOf: ReflectOneOf; // NOTE: only for new ProtoBuf.Reflect.Message.OneOf();
         extensions: number[];
-        clazz(): any; //TODO: discover type of clazz
+        clazz(): MetaMessage;
         isGroup: boolean;
-        build(rebuild?: boolean): any; // TODO: discover the return type of build
+        build(rebuild?: boolean): MetaMessage|any;
         encode(message: Message, buffer: Buffer, noVerify?: boolean): Buffer;
         calculate(message: Message): number;
         decode(buffer: Buffer, length?: number, expectedGroupEndId?: number): Message;
     }
     
     export interface ReflectEnum extends ReflectNamespace {
-        (builder?: ProtoBuilder, parent?: ReflectT, name?: string,
-            options?: Dictionary): void;
-        Value: ReflectValue; // TODO: only for new ProtoBuf.Reflect.Enum.Value();
-        object: Thesaurus<number>;
-        build(): any; // TODO: discover the return type of build
+        new(builder?: ProtoBuilder, parent?: ReflectT, name?: string,
+            options?: {[key: string]: any}): ReflectEnum;
+        Value: ReflectValue; // NOTE: only for new ProtoBuf.Reflect.Enum.Value();
+        object: {[key: string]:number};
+        build(): {[key: string]: any};
     }
     
     export interface ReflectExtension extends ReflectT {
-        (builder?: ProtoBuilder, parent?: ReflectT, name?: string, field?: ReflectField): void;
+        new(builder?: ProtoBuilder, parent?: ReflectT, name?: string,
+            field?: ReflectField): ReflectExtension;
         field: ReflectField;
     }
     
     export interface ReflectService extends ReflectNamespace {
-        Method: ReflectMethod; // TODO: only for new ProtoBuf.Reflect.Service.Method();
-        RPCMethod: ReflectRPCMethod; // TODO: only for new ProtoBuf.Reflect.Service.RPCMethod();
-        clazz(): any; // TODO: discover type of clazz
-        build(rebuild?: boolean): any; // TODO: discover the return type of build
+        new(): ReflectService;
+        Method: ReflectMethod; // NOTE: only for new ProtoBuf.Reflect.Service.Method();
+        RPCMethod: ReflectRPCMethod; // NOTE: only for new ProtoBuf.Reflect.Service.RPCMethod();
+        clazz(): Function;
+        build(rebuild?: boolean): Function|any;
     }
     
     // TODO: check that the runtime instance of this type reflects this definition
     export interface ReflectField extends ReflectT {
-        (builder: ProtoBuilder, message: ReflectMessage, rule: string, type: string,
-            name: string, id: number, options: Dictionary, oneof: ReflectOneOf): void;
+        new(builder: ProtoBuilder, message: ReflectMessage, rule: string, type: string,
+            name: string, id: number, options: {[key: string]: any}, oneof: ReflectOneOf): ReflectField;
         className: string;
         required: boolean;
         repeated: boolean;
         type: string | WireTuple;
         resolvedType: ReflectT;
         id: number;
-        options: Dictionary;
+        options: {[key: string]: any};
         defaultValue: any;
         oneof: ReflectOneOf;
         originalName: string;
-        build(): any; // TODO: discover the return type of build
+        build(): {[key: string]: any};
         mkLong(value: any, unsigned?: boolean): number;
         verifyValue(value: any, skipRepeated?: boolean): any;
         encode(value: any, buffer: Buffer): Buffer;
@@ -287,32 +285,33 @@ declare module ProtoBuf {
     
     // TODO: check that the runtime instance of this type reflects this definition
     export interface ReflectExtensionField extends ReflectField {
-        (builder: ProtoBuilder, message: ReflectMessage, rule: string, type: string,
-            name: string, id: number, options: Dictionary): void;
+        new(builder: ProtoBuilder, message: ReflectMessage, rule: string, type: string,
+            name: string, id: number, options: {[key: string]: any}): ReflectExtensionField;
         extension: ReflectExtension;
     }
     
     export interface ReflectOneOf extends ReflectT {
-        (builder: ProtoBuilder, message: ReflectMessage, name: string): void;
+        new(builder?: ProtoBuilder, message?: ReflectMessage, name?: string): ReflectOneOf;
         fields: ReflectField[];
     }
     
     export interface ReflectValue extends ReflectT {
-        (builder?: ProtoBuilder, enm?: ReflectEnum, name?: string, id?: number): void;
+        new(builder?: ProtoBuilder, enm?: ReflectEnum, name?: string, id?: number): ReflectValue;
         className: string;
         id: number;
     }
     
     export interface ReflectMethod extends ReflectT {
-        (builder: ProtoBuilder, svc: ReflectService, name: string, options: Dictionary): void;
+        new(builder?: ProtoBuilder, svc?: ReflectService, name?: string,
+            options?: {[key: string]: any}): ReflectMethod;
         className: string;
-        options: Dictionary;
-        buildOpt(): Dictionary;
+        options: {[key: string]: any};
+        buildOpt(): {[key: string]: any};
     }
     
     export interface ReflectRPCMethod extends ReflectMethod {
-        (builder: ProtoBuilder, svc: ReflectService, name: string, request: string,
-            response: string, options: Dictionary): void;
+        new(builder?: ProtoBuilder, svc?: ReflectService, name?: string, request?: string,
+            response?: string, options?: {[key: string]: any}): ReflectRPCMethod;
         requestName: string;
         responseName: string;
         resolvedRequestType: ReflectMessage;

@@ -1,8 +1,8 @@
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="protobufjs.d.ts" />
 
-import {assert} from 'chai';
-import {readFileSync} from 'fs';
+var assert = require('chai').assert;
+var readFileSync = require('fs').readFileSync;
 import ProtoBuf = require("protobufjs");
 
 function testProtoBufJs() {
@@ -23,7 +23,7 @@ function testProtoBufJs() {
     var jsonFileProto: ProtoBuf.ProtoBuilder = ProtoBuf.loadJsonFile("test.json");
     assertIsProtoBuilder(jsonFileProto, "loadJsonFile");
     
-    ProtoBuf.loadJsonFile("test.json", (error, builder: ProtoBuf.ProtoBuilder) => {
+    ProtoBuf.loadJsonFile("test.json", (error: any, builder: ProtoBuf.ProtoBuilder) => {
         assertIsProtoBuilder(builder, "loadJsonFile callback");
       });
       
@@ -34,7 +34,7 @@ function testProtoBufJs() {
     var protoFile: ProtoBuf.ProtoBuilder = ProtoBuf.loadProtoFile("test.proto");
     assertIsProtoBuilder(protoFile, "loadProtoFile");
     
-    ProtoBuf.loadProtoFile("test.proto", (error, builder: ProtoBuf.ProtoBuilder) => {
+    ProtoBuf.loadProtoFile("test.proto", (error: any, builder: ProtoBuf.ProtoBuilder) => {
         assertIsProtoBuilder(builder, "loadProtoFile callback");
       });
       
