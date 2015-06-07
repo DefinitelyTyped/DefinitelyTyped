@@ -249,6 +249,16 @@ declare module angular {
         isString(value: any): boolean;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
+        
+        /**
+         * Deeply extends the destination object dst by copying own enumerable properties from the src object(s) to dst. You can specify multiple src objects. If you want to preserve original objects, you can do so by passing an empty object as the target: var object = angular.merge({}, object1, object2).
+         * 
+         * Unlike extend(), merge() recursively descends into object properties of source objects, performing a deep copy.
+         * 
+         * @param dst Destination object.
+         * @param src Source object(s).
+         */
+        merge(dst: any, ...src: any[]): any;
 
         /**
          * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.
