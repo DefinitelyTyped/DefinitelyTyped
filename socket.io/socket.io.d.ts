@@ -91,5 +91,6 @@ declare module SocketIO {
     interface Client {
         conn: any;
         request: any;
+        id: string;
     }
 }
