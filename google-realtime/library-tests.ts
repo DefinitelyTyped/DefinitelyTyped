@@ -183,7 +183,7 @@ module GRealtime {
 // Next example from https://developers.google.com/google-apps/realtime/model-events
 
 declare var doc : CollabDoc;
-function displayObjectChangedEvent(evt:googleRealtime.EventRecordsPerChangedObject) {
+function displayObjectChangedEvent(evt:googleRealtime.ObjectChangedEvent) {
   var events = evt.events;
   var eventCount = evt.events.length;
   for (var i = 0; i < eventCount; i++) {
