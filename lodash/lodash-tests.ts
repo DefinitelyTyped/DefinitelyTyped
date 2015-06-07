@@ -143,6 +143,8 @@ result = <string>_('test').value();
 result = <number[]>_([1, 2, 3]).value();
 result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
 
+result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).value();
+
 // /*************
 //  * Arrays *
 //  *************/
