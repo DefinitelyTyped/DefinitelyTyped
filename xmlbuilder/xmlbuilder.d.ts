@@ -1,3 +1,8 @@
+// Type definitions for xmlbuilder
+// Project: https://github.com/oozcitak/xmlbuilder-js
+// Definitions by: Oskar Gewalli
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare class XMLDocType {
     clone(): XMLDocType;
     element(name, value): XMLDocType;
