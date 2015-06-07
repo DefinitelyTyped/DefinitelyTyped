@@ -7,6 +7,7 @@ import zlib = require("zlib");
 import url = require('url');
 import util = require("util");
 import crypto = require("crypto");
+import tls = require("tls");
 import http = require("http");
 import net = require("net");
 import dgram = require("dgram");
@@ -142,6 +143,16 @@ function crypto_cipher_decipher_buffer_test() {
 
 	assert.deepEqual(clearText2, clearText);
 }
+
+////////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html
+////////////////////////////////////////////////////
+
+var ctx: tls.SecureContext = tls.createSecureContext({
+    key: "NOT REALLY A KEY",
+    cert: "SOME CERTIFICATE",
+});
+var blah = ctx.context;
 
 ////////////////////////////////////////////////////
 
