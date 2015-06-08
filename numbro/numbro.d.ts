@@ -27,7 +27,8 @@ interface Numbro {
 	language(key: string, values?: NumbroLanguage): Numbro;
 	zeroFormat(format: string): string;
 	clone(): Numbro;
-	format(inputString: string): string;
+	format(inputString?: string): string;
+	formatCurrency(inputString?: string): string;
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;
