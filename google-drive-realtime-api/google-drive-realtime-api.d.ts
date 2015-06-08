@@ -3,16 +3,19 @@
 // Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// For Typescript newbs: To get shorter names, use e.g.
-//   type CollabModel = googleRealtime.Model;
-//   interface CollabList<T> extends googleRealtime.CollaborativeList<T> {}
-// See section "Type Aliases" of http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
+// This definition file is merge-compatible with ../gapi/gapi.d.ts
 
 // Note the occurrences of "INCOMPLETE". For some interfaces and object types, I have only included
 // the properties and methods that I've actually used so-far, and will add more as they become useful to me.
 // Or, maybe you want to complete them?
 
-declare module googleRealtime {
+// For Typescript newbs: To get shorter names, use e.g.
+//   type CollabModel = gapi.drive.realtime.Model;
+//   interface CollabList<T> extends gapi.drive.realtime.CollaborativeList<T> {}
+// See section "Type Aliases" of http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
+
+// gapi is a global var introduced by https://apis.google.com/js/api.js
+declare module gapi.drive.realtime {
 
 	type GoogEventHandler = ((evt:ObjectChangedEvent) => void) | ((e:Event) => void) | EventListener;
 
@@ -31,14 +34,14 @@ declare module googleRealtime {
 		// Adds an event listener to the event target. The same handler can only be added once per the type.
 		// Even if you add the same handler multiple times using the same type then it will only be called once
 		// when the event is dispatched.
-		addEventListener(type:string, listener: GoogEventHandler, opt_capture?:boolean):void;
+		addEventListener(type:string, listener:GoogEventHandler, opt_capture?:boolean):void;
 
 		// Removes all event listeners from this object.
 		removeAllEventListeners():void;
 
 		// Removes an event listener from the event target. The handler must be the same object as the one added.
 		// If the handler has not been added then nothing is done.
-		removeEventListener(type:string, listener: GoogEventHandler, opt_capture?:boolean):void;
+		removeEventListener(type:string, listener:GoogEventHandler, opt_capture?:boolean):void;
 
 		// Returns a string representation of this collaborative object.
 		toString():string;
@@ -309,13 +312,13 @@ declare module googleRealtime {
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.BaseModelEvent
 	interface BaseModelEvent {
 		// Whether this event bubbles.
-		bubbles :	boolean;
+		bubbles :  boolean;
 
 		// The list of names from the hierarchy of compound operations that initiated this event.
 		compoundOperationNames : string[];
 
 		// True if this event originated in the local session.
-		isLocal	: boolean;
+		isLocal  : boolean;
 
 		// True if this event originated from a redo call.
 		isRedo : boolean;
@@ -325,54 +328,54 @@ declare module googleRealtime {
 
 		// Prevents an event from performing its default action. In the Realtime API, this function is only present
 		// for compatibility with the DOM event interface and therefore it does nothing.
-		preventDefault()	: void;
+		preventDefault()  : void;
 
 		// The id of the session that initiated this event.
-		sessionId :	string;
+		sessionId :  string;
 
 		// The collaborative object that initiated this event.
-		target :	Object;
+		target :  Object;
 
 		// The type of the event.
-		type :	string;
+		type :  string;
 
 		// The user id of the user that initiated this event.
-		userId :	string;
+		userId :  string;
 
 		// Stops an event which bubbles from propagating to the target's parent.
-		stopPropagation() :	void;
+		stopPropagation() :  void;
 
 		/* Parameters:
-		target
-		gapi.drive.realtime.CollaborativeObject
-		The collaborative object that initiated the event.
-		Value must not be null.
+		 target
+		 gapi.drive.realtime.CollaborativeObject
+		 The collaborative object that initiated the event.
+		 Value must not be null.
 
-		sessionId
-		string
-		The id of the session that initiated the event.
+		 sessionId
+		 string
+		 The id of the session that initiated the event.
 
-		userId
-		string
-		The user id of the user that initiated the event.
+		 userId
+		 string
+		 The user id of the user that initiated the event.
 
-		compoundOperationNames
-		Array of string
-		The list of names from the hierarchy of compound operations that initiated the event.
-		Value must not be null.
-		isLocal
-		boolean
-		True if the event originated in the local session.
+		 compoundOperationNames
+		 Array of string
+		 The list of names from the hierarchy of compound operations that initiated the event.
+		 Value must not be null.
+		 isLocal
+		 boolean
+		 True if the event originated in the local session.
 
-		isUndo
-		boolean
-		True if the event originated from an undo call.
+		 isUndo
+		 boolean
+		 True if the event originated from an undo call.
 
-		isRedo
-		boolean
-		True if the event originated from a redo call.
-		*/
-		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames: string[],
+		 isRedo
+		 boolean
+		 True if the event originated from a redo call.
+		 */
+		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames:string[],
 		     isLocal:boolean, isUndo:boolean, isRedo:boolean) : BaseModelEvent;
 	}
 
@@ -384,7 +387,7 @@ declare module googleRealtime {
 		// Array of gapi.drive.realtime.BaseModelEvent
 		// The specific events that document the changes that occurred on the object.
 		// Value must not be null.
-		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames: string[],
+		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames:string[],
 		     isLocal:boolean, isUndo:boolean, isRedo:boolean, events:BaseModelEvent[]) : ObjectChangedEvent;
 
 		// The specific events that document the changes that occurred on the object.
@@ -404,6 +407,46 @@ declare module googleRealtime {
 		// or model objects will throw a gapi.drive.realtime.DocumentClosedError.
 		// Calling this function after the document has been closed will have no effect.
 		close():void;
+	}
+}
+
+
+declare module gapi.drive.realtime.databinding {
+	// COMPLETE
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.databinding.Binding
+	export interface  Binding {
+		// Throws gapi.drive.realtime.databinding.AlreadyBoundError If domElement has already been bound.
+
+		// The collaborative object to bind.
+		collaborativeObject : CollaborativeObject;
+
+		// The DOM element that the collaborative object is bound to. Value must not be null.
+		domElement : Element;
+
+		// Unbinds the domElement from collaborativeObject.
+		unbind() : void;
+	}
+
+	export function bindString(s:CollaborativeString, textinput:HTMLInputElement) : Binding
+}
+
+
+declare module gapi.drive.realtime.EventType {
+	export var TEXT_INSERTED: string
+	export var TEXT_DELETED: string
+	export var OBJECT_CHANGED: string
+}
+
+
+// rtclient is a global var introduced by realtime-client-utils.js
+declare module rtclient {
+	// INCOMPLETE
+	export interface RealtimeLoader {
+		start():void;
+		load():void;
+	}
+	interface RealtimeLoaderFactory {
+		new (options:LoaderOptions) : RealtimeLoader;
 	}
 
 	// ***********************************
@@ -444,24 +487,15 @@ declare module googleRealtime {
 		afterAuth: () => void;
 
 		// Function to be called when a Realtime model is first created.
-		initializeModel: (model:Model) => void;
+		initializeModel: (model:gapi.drive.realtime.Model) => void;
 
 		// Function to be called every time a Realtime file is loaded.
-		onFileLoaded: (rtdoc:Document) => void;
+		onFileLoaded: (rtdoc:gapi.drive.realtime.Document) => void;
 	}
 
 	// INCOMPLETE
 	export interface DriveAPIFileResource {
 		id: string;
-	}
-
-	// INCOMPLETE
-	export interface RealtimeLoader {
-		start():void;
-		load():void;
-	}
-	interface RealtimeLoaderFactory {
-		new (options:googleRealtime.LoaderOptions) : RealtimeLoader;
 	}
 
 	// INCOMPLETE
@@ -482,40 +516,20 @@ declare module googleRealtime {
 		createRealtimeFile(title:string, mimeType:string, callback:(file:DriveAPIFileResource) => void) : void;
 	}
 
-	// COMPLETE
-	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.databinding.Binding
-	export interface  Binding {
-		// Throws gapi.drive.realtime.databinding.AlreadyBoundError If domElement has already been bound.
+	export var RealtimeLoader : RealtimeLoaderFactory
 
-		// The collaborative object to bind.
-		collaborativeObject : CollaborativeObject;
-
-		// The DOM element that the collaborative object is bound to. Value must not be null.
-		domElement : Element;
-
-		// Unbinds the domElement from collaborativeObject.
-		unbind() : void;
-	}
-
-	export interface GoogleAPI {
-		drive : {
-			realtime : {
-				databinding : {
-					bindString(s:googleRealtime.CollaborativeString, textinput:HTMLInputElement) : googleRealtime.Binding;
-				}
-				EventType : {
-					TEXT_INSERTED: string;
-					TEXT_DELETED: string;
-					OBJECT_CHANGED: string;
-				}
-			}
-		}
-	}
-
+	/**
+	 * Creates a new Realtime file.
+	 * @param title {string} title of the newly created file.
+	 * @param mimeType {string} the MIME type of the new file.
+	 * @param callback {(file:DriveAPIFileResource) => void} the callback to call after creation.
+	 */
+	export function createRealtimeFile(title:string, mimeType:string, callback:(file:DriveAPIFileResource) => void) : void
 }
 
-// global var introduced by realtime-client-utils.js
-declare var rtclient:googleRealtime.ClientUtils;
+// INCOMPLETE
+declare module rtclient.params {
+	// string containing one or more file ids separated by spaces.
+	export var fileIds:string
+}
 
-// global var introduced by https://apis.google.com/js/api.js
-declare var gapi: googleRealtime.GoogleAPI;
