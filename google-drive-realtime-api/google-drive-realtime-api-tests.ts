@@ -1,4 +1,4 @@
-/// <reference path="google-realtime.d.ts" />
+/// <reference path="google-drive-realtime-api.d.ts" />
 
 // Don't use this as a reference. Use the examples at
 //   https://developers.google.com/google-apps/realtime/
@@ -12,13 +12,13 @@ interface JQuery {
 	[key: string]: any;
 };
 
-type CollabModel = googleRealtime.Model;
-type CollabDoc = googleRealtime.Document;
-interface CollaborativeObject extends googleRealtime.CollaborativeObject {}
-interface CollaborativeList<T> extends googleRealtime.CollaborativeList<T> {}
-interface CollaborativeMap<T> extends googleRealtime.CollaborativeMap<T> {}
-interface IndexReference<T> extends googleRealtime.IndexReference<T> {}
-interface CollaborativeString extends googleRealtime.CollaborativeString {}
+type CollabModel = gapi.drive.realtime.Model;
+type CollabDoc = gapi.drive.realtime.Document;
+interface CollaborativeObject extends gapi.drive.realtime.CollaborativeObject {}
+interface CollaborativeList<T> extends gapi.drive.realtime.CollaborativeList<T> {}
+interface CollaborativeMap<T> extends gapi.drive.realtime.CollaborativeMap<T> {}
+interface IndexReference<T> extends gapi.drive.realtime.IndexReference<T> {}
+interface CollaborativeString extends gapi.drive.realtime.CollaborativeString {}
 
 type CListOfCObj = CollaborativeList<CollaborativeObject>
 type CObjOrStr = CollaborativeObject | string;
@@ -30,7 +30,7 @@ module GRealtime {
 
 
 
-	var default_loader_options : googleRealtime.LoaderOptions = {
+	var default_loader_options : rtclient.LoaderOptions = {
 		// Your Application ID from the Google APIs Console.
 		appId: "YOUR_APP_ID",
 
@@ -71,8 +71,8 @@ module GRealtime {
 	};
 
 	export class MyRTLoader {
-		public loader_options : googleRealtime.LoaderOptions = $.extend({},default_loader_options);
-		private rtloader_client : googleRealtime.RealtimeLoader;
+		public loader_options : rtclient.LoaderOptions = $.extend({},default_loader_options);
+		private rtloader_client : rtclient.RealtimeLoader;
 
 		// call after setting loader_options appropriately
 		authorize() {
@@ -101,7 +101,7 @@ module GRealtime {
 		        onFileLoaded: (x:CollabDoc) => void) : void {
 
 			var _afterAuth = () => {
-				this.myRTLoader.createNew(title, (file:googleRealtime.DriveAPIFileResource) => {
+				this.myRTLoader.createNew(title, (file:rtclient.DriveAPIFileResource) => {
 					console.log(`\n\nThis is the createNew callback. New file's id: ${file.id}\n\n`);
 					$("#file-id-text-input").val(file.id);
 					this.myRTLoader.loadAfterAuth(file.id)
@@ -160,7 +160,7 @@ module GRealtime {
 			this.rtmodel.getRoot().set(key,x.pdata);
 		}
 
-		bindString(istring:CollaborativeString, $textinput: JQuery) : googleRealtime.Binding {
+		bindString(istring:CollaborativeString, $textinput: JQuery) : gapi.drive.realtime.databinding.Binding {
 			return gapi.drive.realtime.databinding.bindString(
 				<CollaborativeString>istring,
 				<HTMLInputElement>$textinput[0] );
@@ -183,7 +183,7 @@ module GRealtime {
 // Next example from https://developers.google.com/google-apps/realtime/model-events
 
 declare var doc : CollabDoc;
-function displayObjectChangedEvent(evt:googleRealtime.ObjectChangedEvent) {
+function displayObjectChangedEvent(evt:gapi.drive.realtime.ObjectChangedEvent) {
   var events = evt.events;
   var eventCount = evt.events.length;
   for (var i = 0; i < eventCount; i++) {
