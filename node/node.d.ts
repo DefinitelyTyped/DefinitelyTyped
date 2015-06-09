@@ -61,14 +61,71 @@ declare var SlowBuffer: {
 
 // Buffer class
 interface Buffer extends NodeBuffer {}
+
+/**
+ * Raw data is stored in instances of the Buffer class.
+ * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
+ * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+ */
 declare var Buffer: {
+    /**
+     * Allocates a new buffer containing the given {str}.
+     *
+     * @param str String to store in buffer.
+     * @param encoding encoding to use, optional.  Default is 'utf8'
+     */
     new (str: string, encoding?: string): Buffer;
+    /**
+     * Allocates a new buffer of {size} octets.
+     *
+     * @param size count of octets to allocate.
+     */
     new (size: number): Buffer;
-    new (size: Uint8Array): Buffer;
+    /**
+     * Allocates a new buffer containing the given {array} of octets.
+     *
+     * @param array The octets to store.
+     */
+    new (array: Uint8Array): Buffer;
+    /**
+     * Allocates a new buffer containing the given {array} of octets.
+     *
+     * @param array The octets to store.
+     */
     new (array: any[]): Buffer;
     prototype: Buffer;
+    /**
+     * Returns true if {obj} is a Buffer
+     *
+     * @param obj object to test.
+     */
     isBuffer(obj: any): boolean;
+    /**
+     * Returns true if {encoding} is a valid encoding argument.
+     * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+     *
+     * @param encoding string to test.
+     */
+    isEncoding(encoding: string): boolean;
+    /**
+     * Gives the actual byte length of a string. encoding defaults to 'utf8'.
+     * This is not the same as String.prototype.length since that returns the number of characters in a string.
+     *
+     * @param string string to test.
+     * @param encoding encoding used to evaluate (defaults to 'utf8')
+     */
     byteLength(string: string, encoding?: string): number;
+    /**
+     * Returns a buffer which is the result of concatenating all the buffers in the list together.
+     *
+     * If the list has no items, or if the totalLength is 0, then it returns a zero-length buffer.
+     * If the list has exactly one item, then the first item of the list is returned.
+     * If the list has more than one item, then a new Buffer is created.
+     *
+     * @param list An array of Buffer objects to concatenate
+     * @param totalLength Total length of the buffers when concatenated.
+     *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
+     */
     concat(list: Buffer[], totalLength?: number): Buffer;
 };
 
@@ -251,7 +308,7 @@ declare module NodeJS {
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
         undefined: typeof undefined;
-        unescape: (str: string) => string;    
+        unescape: (str: string) => string;
         gc: () => void;
     }
 
@@ -977,7 +1034,18 @@ declare module "fs" {
         close(): void;
     }
 
+    /**
+     * Asynchronous rename.
+     * @param oldPath
+     * @param newPath
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /**
+     * Synchronous rename
+     * @param oldPath
+     * @param newPath
+     */
     export function renameSync(oldPath: string, newPath: string): void;
     export function truncate(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function truncate(path: string, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
@@ -1017,15 +1085,71 @@ declare module "fs" {
     export function readlinkSync(path: string): string;
     export function realpath(path: string, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
     export function realpath(path: string, cache: {[path: string]: string}, callback: (err: NodeJS.ErrnoException, resolvedPath: string) =>any): void;
-    export function realpathSync(path: string, cache?: {[path: string]: string}): string;
+    export function realpathSync(path: string, cache?: { [path: string]: string }): string;
+    /*
+     * Asynchronous unlink - deletes the file specified in {path}
+     *
+     * @param path
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function unlink(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /*
+     * Synchronous unlink - deletes the file specified in {path}
+     *
+     * @param path
+     */
     export function unlinkSync(path: string): void;
+    /*
+     * Asynchronous rmdir - removes the directory specified in {path}
+     *
+     * @param path
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function rmdir(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /*
+     * Synchronous rmdir - removes the directory specified in {path}
+     *
+     * @param path
+     */
     export function rmdirSync(path: string): void;
+    /*
+     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+     *
+     * @param path
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function mkdir(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /*
+     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+     *
+     * @param path
+     * @param mode
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function mkdir(path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /*
+     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+     *
+     * @param path
+     * @param mode
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function mkdir(path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /*
+     * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+     *
+     * @param path
+     * @param mode
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function mkdirSync(path: string, mode?: number): void;
+    /*
+     * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+     *
+     * @param path
+     * @param mode
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
     export function mkdirSync(path: string, mode?: string): void;
     export function readdir(path: string, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
     export function readdirSync(path: string): string[];
@@ -1050,12 +1174,57 @@ declare module "fs" {
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
     export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    /*
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param encoding
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
     export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    /*
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
     export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    /*
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
     export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-    export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void ): void;
+    /*
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
+    export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    /*
+     * Synchronous readFile - Synchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param encoding
+     */
     export function readFileSync(filename: string, encoding: string): string;
+    /*
+     * Synchronous readFile - Synchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
+     */
     export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    /*
+     * Synchronous readFile - Synchronously reads the entire contents of a file.
+     *
+     * @param fileName
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
+     */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
     export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
@@ -1097,26 +1266,118 @@ declare module "fs" {
 
 declare module "path" {
 
+    /**
+     * A parsed path object generated by path.parse() or consumed by path.format().
+     */
     export interface ParsedPath {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
         root: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
         dir: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
         base: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
         ext: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
         name: string;
     }
 
+    /**
+     * Normalize a string path, reducing '..' and '.' parts.
+     * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
+     *
+     * @param p string path to normalize.
+     */
     export function normalize(p: string): string;
+    /**
+     * Join all arguments together and normalize the resulting path.
+     * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
+     *
+     * @param paths string paths to join.
+     */
     export function join(...paths: any[]): string;
+    /**
+     * Join all arguments together and normalize the resulting path.
+     * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
+     *
+     * @param paths string paths to join.
+     */
+    export function join(...paths: string[]): string;
+    /**
+     * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
+     *
+     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     *
+     * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
+     *
+     * @param pathSegments string paths to join.  Non-string arguments are ignored.
+     */
     export function resolve(...pathSegments: any[]): string;
-    export function isAbsolute(p: string): boolean;
+    /**
+     * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
+     *
+     * @param path path to test.
+     */
+    export function isAbsolute(path: string): boolean;
+    /**
+     * Solve the relative path from {from} to {to}.
+     * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
+     *
+     * @param from
+     * @param to
+     */
     export function relative(from: string, to: string): string;
+    /**
+     * Return the directory name of a path. Similar to the Unix dirname command.
+     *
+     * @param p the path to evaluate.
+     */
     export function dirname(p: string): string;
+    /**
+     * Return the last portion of a path. Similar to the Unix basename command.
+     * Often used to extract the file name from a fully qualified path.
+     *
+     * @param p the path to evaluate.
+     * @param ext optionally, an extension to remove from the result.
+     */
     export function basename(p: string, ext?: string): string;
+    /**
+     * Return the extension of the path, from the last '.' to end of string in the last portion of the path.
+     * If there is no '.' in the last portion of the path or the first character of it is '.', then it returns an empty string
+     *
+     * @param p the path to evaluate.
+     */
     export function extname(p: string): string;
+    /**
+     * The platform-specific file separator. '\\' or '/'.
+     */
     export var sep: string;
+    /**
+     * The platform-specific file delimiter. ';' or ':'.
+     */
     export var delimiter: string;
-    export function parse(p: string): ParsedPath;
-    export function format(pP: ParsedPath): string;
+    /**
+     * Returns an object from a path string - the opposite of format().
+     *
+     * @param pathString path to evaluate.
+     */
+    export function parse(pathString: string): ParsedPath;
+    /**
+     * Returns a path string from an object - the opposite of parse().
+     *
+     * @param pathString path to evaluate.
+     */
+    export function format(pathObject: ParsedPath): string;
 
     export module posix {
       export function normalize(p: string): string;
@@ -1236,11 +1497,27 @@ declare module "tls" {
         cleartext: any;
     }
 
+    export interface SecureContextOptions {
+        pfx?: any;   //string | buffer
+        key?: any;   //string | buffer
+        passphrase?: string;
+        cert?: any;  // string | buffer
+        ca?: any;    // string | buffer
+        crl?: any;   // string | string[]
+        ciphers?: string;
+        honorCipherOrder?: boolean;
+    }
+
+    export interface SecureContext {
+        context: any;
+    }
+
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) =>void ): Server;
     export function connect(options: TlsOptions, secureConnectionListener?: () =>void ): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () =>void ): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    export function createSecureContext(details: SecureContextOptions): SecureContext;
 }
 
 declare module "crypto" {
