@@ -41,6 +41,8 @@ declare module "knex" {
     fn: any;
   }
 
+  function Knex( config : Config ) : Knex;
+
   //
   // QueryInterface
   //
@@ -452,6 +454,5 @@ declare module "knex" {
     tableName?: string;
   }
 
-  var _: KnexStatic;
-  export = _;
+  export = Knex;
 }
