@@ -1,17 +1,6 @@
-/// <reference path="dx.devextreme.d.ts" />
+/// <reference path="dx.devextreme-14.2.7.d.ts" />
 
 module Tests.ui {
-
-    $("#myResizable").dxResizable({
-        handles: 'right bottom',
-        minHeight: 100,
-        minWidth: 200,
-        maxHeight: 400,
-        maxWidth: 300,
-        height: 150,
-        width: 250
-    });
-
     var dataGridOptions: DevExpress.ui.dxDataGridOptions = {
         activeStateEnabled: true,
         allowColumnReordering: true,
