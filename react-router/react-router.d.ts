@@ -3,7 +3,7 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/legacy/react-0.12.d.ts' />
+/// <reference path='../react/react.d.ts' />
 
 declare module ReactRouter {
     //
@@ -113,7 +113,7 @@ declare module ReactRouter {
     interface RouteHandler extends React.ReactElement<RouteHandlerProp>, RouteHandlerMixin {
         __react_router_route_handler__: any; // dummy
     }
-    interface RouteHandlerClass extends React.ReactElement<RouteHandlerProp> {
+    interface RouteHandlerClass extends React.ComponentClass<RouteHandlerProp> {
         __react_router_route_handler__: any; // dummy
     }
     
