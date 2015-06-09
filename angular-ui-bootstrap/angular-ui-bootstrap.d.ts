@@ -590,7 +590,14 @@ declare module angular.ui.bootstrap {
          *
          * @default false
          */
-        appendtoBody?: boolean;
+        appendToBody?: boolean;
+
+        /**
+         * Determines the default open triggers for tooltips and popovers
+         *
+         * @default 'mouseenter' for tooltip, 'click' for popover
+         */
+        trigger?: string;
     }
 
     interface ITooltipProvider {
