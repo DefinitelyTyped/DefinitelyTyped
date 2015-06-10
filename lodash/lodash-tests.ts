@@ -371,6 +371,11 @@ result = <boolean>_.include([1, 2, 3], 1, 2);
 result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
 result = <boolean>_.include('curly', 'ur');
 
+result = <boolean>_.includes([1, 2, 3], 1);
+result = <boolean>_.includes([1, 2, 3], 1, 2);
+result = <boolean>_.includes({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.includes('curly', 'ur');
+
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
 result = <_.Dictionary<number>>_.countBy(['one', 'two', 'three'], 'length');
