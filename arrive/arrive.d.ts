@@ -1,4 +1,4 @@
-// Type definitions for Arrove
+// Type definitions for Arrive
 // Project: https://github.com/uzairfarooq/arrive
 // Definitions by: Alexander Makarov <https://github.com/samdark/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
