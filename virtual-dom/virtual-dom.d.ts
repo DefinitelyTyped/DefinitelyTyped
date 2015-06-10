@@ -1,3 +1,8 @@
+// Type definitions for virtual-dom 2.0.1
+// Project: https://github.com/Matt-Esch/virtual-dom
+// Definitions by: Christopher Brown <https://github.com/chbrown>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module VirtualDOM {
   interface VHook {
     hook(node: Element, propertyName: string): void;
@@ -39,7 +44,7 @@ declare module VirtualDOM {
 
   interface VText {
     text: string;
-    new (text: any);
+    new(text: any): VText;
     version: string;
     type: string; // 'VirtualText'
   }
@@ -71,7 +76,7 @@ declare module VirtualDOM {
   //   THUNK = 8
   // }
   interface VPatch {
-    vNode: VNode,
+    vNode: VNode;
     patch: any;
     new(type: number, vNode: VNode, patch: any): VPatch;
     version: string;
@@ -93,8 +98,8 @@ declare module VirtualDOM {
   create() calls either document.createElement() or document.createElementNS(),
   for which the common denominator is Element (not HTMLElement).
   */
-  function create(vnode: VText, opts?: {document?: Document, warn?: boolean}): Text;
-  function create(vnode: VNode | Widget | Thunk, opts?: {document?: Document, warn?: boolean}): Element;
+  function create(vnode: VText, opts?: {document?: Document; warn?: boolean}): Text;
+  function create(vnode: VNode | Widget | Thunk, opts?: {document?: Document; warn?: boolean}): Element;
   function h(tagName: string, properties: createProperties, children: string | VChild[]): VNode;
   function h(tagName: string, children: string | VChild[]): VNode;
   function diff(left: VTree, right: VTree): VPatch[];
@@ -106,16 +111,21 @@ declare module VirtualDOM {
 }
 
 declare module "virtual-dom/h" {
-  export = VirtualDOM.h;
+  // export = VirtualDOM.h; works just fine, but the DT checker doesn't like it
+  import h = VirtualDOM.h;
+  export = h;
 }
 declare module "virtual-dom/create-element" {
-  export = VirtualDOM.create;
+  import create = VirtualDOM.create;
+  export = create;
 }
 declare module "virtual-dom/diff" {
-  export = VirtualDOM.diff;
+  import diff = VirtualDOM.diff;
+  export = diff;
 }
 declare module "virtual-dom/patch" {
-  export = VirtualDOM.patch;
+  import patch = VirtualDOM.patch;
+  export = patch;
 }
 declare module "virtual-dom" {
   export = VirtualDOM;
