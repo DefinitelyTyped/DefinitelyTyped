@@ -343,6 +343,9 @@ declare module "knex" {
     uuid(columnName: string): ColumnBuilder;
     comment(val: string): TableBuilder;
     specificType(columnName: string, type: string): ColumnBuilder;
+    primary(columnNames: string[]) : TableBuilder;
+    index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
+    unique(columnNames: string[], indexName?: string) : TableBuilder;    
   }
 
   interface CreateTableBuilder extends TableBuilder {
