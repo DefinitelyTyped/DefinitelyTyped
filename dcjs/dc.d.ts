@@ -185,7 +185,7 @@ declare module DC {
         colorCalculator: IGetSet<Accessor<any, string>, T>;
     }
 
-    export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, BaseMixin<T> {
+    export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, ColorMixin<T> {
         rangeChart: IGetSet<BaseMixin<any>, T>;
         zoomScale: IGetSet<Array<any>, T>;
         zoomOutRestrict: IGetSet<boolean, T>;
