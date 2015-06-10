@@ -29,7 +29,7 @@ declare module jasmine {
         toBeArrayOfBooleans(): boolean;
         toBeArrayOfNumbers(): boolean;
         toBeArrayOfObjects(): boolean;
-        toBeArrayOfSize(size): boolean;
+        toBeArrayOfSize(size: any): boolean;
         toBeArrayOfStrings(): boolean;
         toBeEmptyArray(): boolean;
         toBeNonEmptyArray(): boolean;
