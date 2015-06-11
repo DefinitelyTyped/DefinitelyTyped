@@ -389,8 +389,6 @@ declare module "express" {
 
             authenticatedUser: any;
 
-            files: any;
-
             /**
              * Clear cookie `name`.
              *
