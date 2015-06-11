@@ -226,7 +226,7 @@ declare module gapi.drive.realtime {
 
 		// Returns the collaborative object with the given id.
 		// @return non-null Object
-		getObject:any;
+		getObject: (id:string) => CollaborativeObject;
 
 		// An estimate of the number of bytes used by data stored in the model.
 		bytesUsed:number;
@@ -334,7 +334,7 @@ declare module gapi.drive.realtime {
 		sessionId :  string;
 
 		// The collaborative object that initiated this event.
-		target :  Object;
+		target :  CollaborativeObject;
 
 		// The type of the event.
 		type :  string;
