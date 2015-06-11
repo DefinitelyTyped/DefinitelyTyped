@@ -18,3 +18,9 @@ app.use(serveStatic('/3', {
         res.setHeader('Server', 'server-static middleware');
     }
 }));
+
+serveStatic.mime.define({
+    'application/babylon': ['babylon'],
+    'application/babylonmeshdata': ['babylonmeshdata'],
+    'application/fx': ['fx']
+});
