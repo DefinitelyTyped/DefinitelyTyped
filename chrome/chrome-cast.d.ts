@@ -188,7 +188,7 @@ declare module chrome.cast {
         receiver: chrome.cast.Receiver,
         successCallback: Function,
         errorCallback: (error: chrome.cast.Error) => void
-    )
+    ): void
 
     interface ApiConfig {
         /**
@@ -207,7 +207,7 @@ declare module chrome.cast {
             receiverListener: (receiverAvailability: chrome.cast.ReceiverAvailability) => void,
             autoJoinPolicy?: chrome.cast.AutoJoinPolicy,
             defaultActionPolicy?: chrome.cast.DefaultActionPolicy
-        );
+        ):ApiConfig;
 
         sessionRequest: chrome.cast.SessionRequest;
         sessionListener: (session: chrome.cast.Session) => void;
@@ -228,7 +228,7 @@ declare module chrome.cast {
             code: chrome.cast.ErrorCode,
             description?: string,
             details?: Object
-        );
+        ):Error;
 
         code: chrome.cast.ErrorCode;
         description?: string;
@@ -244,7 +244,7 @@ declare module chrome.cast {
          */
         new(
             url: string
-        );
+        ):Image;
 
         url: string;
         height?: number;
@@ -255,7 +255,7 @@ declare module chrome.cast {
 
         new(
             platform: chrome.cast.SenderPlatform
-        );
+        ):SenderApplication;
 
         platform: chrome.cast.SenderPlatform;
         url?: string;
@@ -274,7 +274,7 @@ declare module chrome.cast {
             appId: string,
             capabilities?: Array<chrome.cast.Capability>,
             timeout?: number
-        );
+        ):SessionRequest;
 
         appId: string;
         capabilities: Array<chrome.cast.Capability>;
@@ -298,7 +298,7 @@ declare module chrome.cast {
             displayName: string,
             appImages: Array<chrome.cast.Image>,
             receiver: chrome.cast.Receiver
-        );
+        ):Session;
 
         sessionId: string;
         appId: string;
@@ -319,7 +319,7 @@ declare module chrome.cast {
             newLevel: number,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
 
         /**
          * @param {boolean} muted
@@ -330,7 +330,7 @@ declare module chrome.cast {
             muted: boolean,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
 
         /**
          * @param {function()} successCallback
@@ -339,7 +339,7 @@ declare module chrome.cast {
         leave(
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
 
         /**
          * @param {function()} successCallback
@@ -348,7 +348,7 @@ declare module chrome.cast {
         stop(
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
 
         /**
          * @param {string} namespace
@@ -361,21 +361,21 @@ declare module chrome.cast {
             message: string,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
 
         /**
          * @param {function(boolean)} listener
          */
         addUpdateListener(
-            listener: (boolean) => void
-        )
+            listener: (isAlive:boolean) => void
+        ):void
 
         /**
          * @param {function(boolean)} listener
          */
         removeUpdateListener(
-            listener: (boolean) => void
-        )
+            listener: (isAlive:boolean) => void
+        ):void
 
         /**
          * @param {string} namespace
@@ -383,8 +383,8 @@ declare module chrome.cast {
          */
         addMessageListener(
             namespace: string,
-            listener: (string, string) => void
-        )
+            listener: (namespace: string, message: string) => void
+        ):void
 
         /**
          * @param {string} namespace
@@ -392,22 +392,22 @@ declare module chrome.cast {
          */
         removeMessageListener(
             namespace: string,
-            listener: (string, string) => void
-        )
+            listener: (namespace:string, message:string) => void
+        ):void
 
         /**
          * @param {function(!chrome.cast.media.Media)} listener
          */
         addMediaListener(
             listener: (media: chrome.cast.media.Media) => void
-        )
+        ):void
 
         /**
          * @param {function(!chrome.cast.media.Media)} listener
          */
         removeMediaListener(
             listener: (media: chrome.cast.media.Media) => void
-        )
+        ):void
 
         /**
          * @param {!chrome.cast.media.LoadRequest} loadRequest
@@ -418,7 +418,7 @@ declare module chrome.cast {
             loadRequest: chrome.cast.media.LoadRequest,
             successCallback: (media: chrome.cast.media.Media) => void,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
         
         /**
          * @param {!chrome.cast.media.QueueLoadRequest} queueLoadRequest
@@ -429,7 +429,7 @@ declare module chrome.cast {
             queueLoadRequest: chrome.cast.media.QueueLoadRequest,
             successCallback: (media: chrome.cast.media.Media) => void,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ):void
     }
 
     interface Receiver {
@@ -446,7 +446,7 @@ declare module chrome.cast {
             friendlyName: string,
             capabilities?: Array<chrome.cast.Capability>,
             volume?: chrome.cast.Volume
-        );
+        ):Receiver;
 
         label: string;
         friendlyName: string;
@@ -466,7 +466,7 @@ declare module chrome.cast {
         new(
             statusText: string,
             appImages: Array<chrome.cast.Image>
-        );
+        ):ReceiverDisplayStatus;
 
         statusText: string;
         appImages: Array<chrome.cast.Image>;
@@ -482,7 +482,7 @@ declare module chrome.cast {
         new(
             level?: number,
             muted?: boolean
-        );
+        ):Volume;
 
         level?: number;
         muted?: boolean;
@@ -491,7 +491,7 @@ declare module chrome.cast {
 
 declare module chrome.cast.media {
     
-    const DEFAULT_MEDIA_RECEIVER_APP_ID: string;
+    var DEFAULT_MEDIA_RECEIVER_APP_ID: string;
     
     /**
      * @enum {string}
@@ -573,7 +573,7 @@ declare module chrome.cast.media {
     interface QueueItem {
         new(
             mediaInfo: chrome.cast.media.MediaInfo
-        );
+        ):QueueItem;
         
         activeTrackIds: Array<Number>;
         autoplay: boolean;
@@ -590,7 +590,7 @@ declare module chrome.cast.media {
     interface QueueLoadRequest {
         new(
             items: Array<chrome.cast.media.QueueItem>
-        );
+        ):QueueLoadRequest;
         
         customData: Object;
         items: Array<chrome.cast.media.QueueItem>;
@@ -604,7 +604,7 @@ declare module chrome.cast.media {
     interface QueueInsertItemsRequest {
         new(
             itemsToInsert: Array<chrome.cast.media.QueueItem>
-        );
+        ):QueueInsertItemsRequest;
         
         customData: Object;
         insertBefore:number;
@@ -617,7 +617,7 @@ declare module chrome.cast.media {
     interface QueueRemoveItemsRequest {
         new(
             itemIdsToRemove: Array<number>
-        );
+        ):QueueRemoveItemsRequest;
         
         customData: Object;
         itemIds: Array<number>;
@@ -629,7 +629,7 @@ declare module chrome.cast.media {
     interface QueueReorderItemsRequest {
         new(
             itemIdsToReorder: Array<number>
-        );
+        ):QueueReorderItemsRequest;
         
         customData: Object;
         insertBefore: number;
@@ -642,7 +642,7 @@ declare module chrome.cast.media {
     interface QueueUpdateItemsRequest {
         new(
             itemsToUpdate: Array<chrome.cast.media.QueueItem>
-        );
+        ):QueueUpdateItemsRequest;
         
         customData: Object;
         item: Array<chrome.cast.media.QueueItem>;
@@ -722,7 +722,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.GetStatusRequest
          */
-        new();
+        new():GetStatusRequest;
 
         customData: Object;
     }
@@ -732,7 +732,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PauseRequest
          */
-        new();
+        new():PauseRequest;
 
         customData: Object;
     }
@@ -742,7 +742,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PlayRequest
          */
-        new();
+        new():PlayRequest;
 
         customData: Object;
     }
@@ -752,7 +752,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.SeekRequest
          */
-        new();
+        new():SeekRequest;
 
         currentTime: number;
         resumeState: chrome.cast.media.ResumeState;
@@ -764,7 +764,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.StopRequest
          */
-        new();
+        new():StopRequest;
 
         customData: Object;
     }
@@ -777,7 +777,7 @@ declare module chrome.cast.media {
          */
         new(
             volume: chrome.cast.Volume
-        );
+        ):VolumeRequest;
 
         volume: chrome.cast.Volume;
         customData: Object;
@@ -791,7 +791,7 @@ declare module chrome.cast.media {
          */
         new(
             mediaInfo: chrome.cast.media.MediaInfo
-        );
+        ):LoadRequest;
 
         activeTrackIds: Array<number>;
         autoplay: boolean;
@@ -810,7 +810,7 @@ declare module chrome.cast.media {
         new(
             activeTrackIds?: Array<number>,
             textTrackStyle?: chrome.cast.media.TextTrackStyle
-        );
+        ):EditTracksInfoRequest;
 
         activeTrackIds: Array<number>;
         textTrackStyle: chrome.cast.media.TextTrackStyle;
@@ -821,17 +821,17 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.GenericMediaMetadata
          */
-        new();
+        new():GenericMediaMetadata;
 
-        metadataType: chrome.cast.media.MetadataType;
-        title: string;
-        subtitle: string;
         images: Array<chrome.cast.Image>;
+        metadataType: chrome.cast.media.MetadataType;
         releaseDate: string;
+        releaseYear: number;
+        subtitle: string;
+        title: string;
 
         /** Deprecated. Use metadataType instead. */ 
         type: chrome.cast.media.MetadataType;
-        releaseYear: number;
     }
 
     interface MovieMediaMetadata {
@@ -839,18 +839,18 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MovieMediaMetadata
          */
-        new();
-
+        new():MovieMediaMetadata;
+        
+        images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
+        releaseDate: string;
+        releaseYear: number;
+        subtitle: string;
         title: string;
         studio: string;
-        subtitle: string;
-        images: Array<chrome.cast.Image>;
-        releaseDate: string;
-
+        
         /** Deprecated. Use metadataType instead. */ 
         type: chrome.cast.media.MetadataType;
-        releaseYear: number;
     }
 
     interface TvShowMediaMetadata {
@@ -858,7 +858,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TvShowMediaMetadata
          */
-        new();
+        new(): TvShowMediaMetadata;
 
         metadataType: chrome.cast.media.MetadataType;
         seriesTitle: string;
@@ -881,7 +881,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MusicTrackMediaMetadata
          */
-        new();
+        new(): MusicTrackMediaMetadata;
 
         metadataType: chrome.cast.media.MetadataType;
         albumName: string;
@@ -906,7 +906,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PhotoMediaMetadata
          */
-        new();
+        new(): PhotoMediaMetadata;
 
         metadataType: chrome.cast.media.MetadataType;
         title: string;
@@ -933,7 +933,7 @@ declare module chrome.cast.media {
         new(
             contentId: string,
             contentType: string
-        );
+        ): MediaInfo;
 
         contentId: string;
         streamType: chrome.cast.media.StreamType;
@@ -955,7 +955,7 @@ declare module chrome.cast.media {
         new(
             sessionId: string,
             mediaSessionId: number
-        );
+        ): Media;
 
         activeTrackIds: Array<number>;
         currentItemId: number;
@@ -1065,15 +1065,15 @@ declare module chrome.cast.media {
          * @param {function(boolean)} listener
          */
         addUpdateListener(
-            listener: (boolean) => void
-        )
+            listener: (isAlive:boolean) => void
+        ): void
 
         /**
          * @param {function(boolean)} listener
          */
         removeUpdateListener(
-            listener: (boolean) => void
-        )
+            listener: (isAlive:boolean) => void
+        ): void
 
         /**
          * @return {number}
@@ -1090,7 +1090,7 @@ declare module chrome.cast.media {
             item: chrome.cast.media.QueueItem,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!chrome.cast.media.QueueInsertItemsRequest} queueInsertItemsRequest
@@ -1101,7 +1101,7 @@ declare module chrome.cast.media {
             queueInsertItemsRequest: chrome.cast.media.QueueInsertItemsRequest,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!number} itemId
@@ -1112,7 +1112,7 @@ declare module chrome.cast.media {
             itemId: number,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!number} itemId
@@ -1125,7 +1125,7 @@ declare module chrome.cast.media {
             newIndex: number,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {function()} successCallback
@@ -1134,7 +1134,7 @@ declare module chrome.cast.media {
         queueNext (
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**         
          * @param {function()} successCallback
@@ -1143,7 +1143,7 @@ declare module chrome.cast.media {
         queuePrev (
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!number} itemId
@@ -1154,7 +1154,7 @@ declare module chrome.cast.media {
             itemId: number,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!chrome.cast.media.QueueReorderItemsRequest} queueReorderItemsRequest
@@ -1165,7 +1165,7 @@ declare module chrome.cast.media {
             queueReorderItemsRequest: chrome.cast.media.QueueReorderItemsRequest,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!chrome.cast.media.RepeatMode} repeatMode
@@ -1176,7 +1176,7 @@ declare module chrome.cast.media {
             repeatMode: chrome.cast.media.RepeatMode,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
         /**
          * @param {!chrome.cast.media.QueueUpdateItemsRequest} queueUpdateItemsRequest
@@ -1187,7 +1187,7 @@ declare module chrome.cast.media {
             queueUpdateItemsRequest: chrome.cast.media.QueueUpdateItemsRequest,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
-        )
+        ): void
         
     }
 
@@ -1201,7 +1201,7 @@ declare module chrome.cast.media {
         new(
             trackId: number,
             trackType: chrome.cast.media.TrackType
-        );
+        ): Track;
 
         trackId: number;
         trackContentId: string;
@@ -1218,7 +1218,7 @@ declare module chrome.cast.media {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackStyle
          */
-        new();
+        new(): TextTrackStyle;
 
         foregroundColor: string;
         backgroundColor: string;
