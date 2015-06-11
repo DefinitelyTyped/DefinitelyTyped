@@ -3557,6 +3557,11 @@ declare module L {
           * something inside changed, e.g. image loaded.
           */
         update(): Popup;
+        
+        /**
+         * The options used to intanstiate the popup.
+         */
+        options: { [key: string]: any }
     }
 }
 
