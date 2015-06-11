@@ -265,6 +265,11 @@ declare module angular.ui.bootstrap {
         keyboard?: boolean;
 
         /**
+         * additional CSS class(es) to be added to a modal backdrop template
+         */
+        backdropClass?: string;
+
+        /**
          * additional CSS class(es) to be added to a modal window template
          */
         windowClass?: string;
