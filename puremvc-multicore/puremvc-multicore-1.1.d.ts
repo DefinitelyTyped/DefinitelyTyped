@@ -1,6 +1,6 @@
 // Type definitions for PureMVC MultiCore v1.1
 // Project: http://puremvc.org/
-// Definitions by: <tekool https://github.com/tekool>
+// Definitions by: tekool <https://github.com/tekool>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module puremvc
 {
