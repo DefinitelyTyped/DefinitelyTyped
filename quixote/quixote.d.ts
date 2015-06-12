@@ -226,7 +226,7 @@ declare module "quixote" {
     class Quixote {
         constructor();
         
-        createFrame(options, callback(err, frame)): QFrame;
+        createFrame(options, callback: (err: Error, frame: QFrame) => void): QFrame;
     }
 
     export = Quixote;
