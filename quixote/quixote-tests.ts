@@ -2,7 +2,7 @@
 /// <reference path="quixote.d.ts" />
 
 function test_createFrame() {
-    var frame;
+    var frame: QFrame;
     before((done) => {
         var options = { src: "" };
         frame = quixote.createFrame(options, done());
@@ -10,7 +10,7 @@ function test_createFrame() {
 }
 
 function test_resetFrame() {
-    var frame;
+    var frame: QFrame;
     before((done) => {
         var options = { src: "" };
         frame = quixote.createFrame(options, done());
@@ -22,7 +22,7 @@ function test_resetFrame() {
 }
 
 function test_removeFrame() {
-    var frame;
+    var frame: QFrame;
     before((done) => {
         var options = { src: "" };
         frame = quixote.createFrame(options, done());
