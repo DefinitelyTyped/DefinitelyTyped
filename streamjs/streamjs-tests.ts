@@ -31,6 +31,7 @@ var strStream = numStream
 					.takeWhile(s => s.length < 5)
 					.takeWhile(/^aa.*$/)
 					.slice(5, 2)
+					.forEach(s => console.log(s))
 					;
 					
 var strArray = strStream.toArray();
