@@ -1,6 +1,6 @@
 // Type definitions for PureMVC Standard v1.0
 // Project: http://puremvc.org/
-// Definitions by: tekool https://github.com/tekool
+// Definitions by: tekool <https://github.com/tekool>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module puremvc
 {
