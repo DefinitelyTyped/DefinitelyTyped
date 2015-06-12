@@ -158,13 +158,13 @@ interface PositionDescriptor {
     plus(amount: SizeDescriptor): PositionDescriptor;
     
     // Create a new descriptor that is further down the page or to the right.
-    plus(amount: nubmer): PositionDescriptor;
+    plus(amount: number): PositionDescriptor;
     
     // Create a new descriptor that is further down the page or to the right.
     minus(amount: SizeDescriptor): PositionDescriptor;
     
     // Create a new descriptor that is further down the page or to the right.
-    minus(amount: nubmer): PositionDescriptor;
+    minus(amount: number): PositionDescriptor;
 }
 
 // Size descriptors represent width or height.
@@ -173,16 +173,16 @@ interface SizeDescriptor {
     plus(amount: SizeDescriptor): SizeDescriptor;
     
     // Create a descriptor that's bigger than this one.
-    plus(amount: nubmer): SizeDescriptor;
+    plus(amount: number): SizeDescriptor;
     
     // Create a descriptor that's smaller than this one.
     minus(amount: SizeDescriptor): SizeDescriptor;
     
     // Create a descriptor that's smaller than this one.
-    minus(amount: nubmer): SizeDescriptor;
+    minus(amount: number): SizeDescriptor;
     
     // Create a new descriptor that's a multiple or fraction of the size of this one.
-    times(multiple: nubmer): SizeDescriptor;
+    times(multiple: number): SizeDescriptor;
 }
 
 interface QuixoteFrameOptions {
@@ -226,7 +226,7 @@ declare module "quixote" {
     class Quixote {
         constructor();
         
-        createFrame(options, callback: (err: Error, frame: QFrame) => void): QFrame;
+        createFrame(options: QuixoteFrameOptions, callback: (err: Error, loadedFrame: QFrame) => void): QFrame;
     }
 
     export = Quixote;
