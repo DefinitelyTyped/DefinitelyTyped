@@ -102,5 +102,11 @@ declare module Stream {
 		filter(predicate: (elem: T) => boolean): Optional<T>;
 		map<U>(mapper: (elem: T) => U): Optional<U>;
 		flatMap<U>(mapper: (elem: T) => Stream.Optional<U>): Optional<U>;
+		isPresent(): boolean;
+		get(): T;
+		ifPresent(consumer: (elem: T) => void): void;
+		orElse(other: T): T;
+		orElseGet(supplier: () => T): T;
+		orElseThrow(error: any): T;
 	}
 }

@@ -116,9 +116,16 @@ var done: boolean = iter.done;
 
 var optNum: Stream.Optional<number> = Stream.Optional.of(2);
 optNum = Stream.Optional.ofNullable(null);
-optNum = Stream.Optional.empty();
+//optNum = Stream.Optional.empty();
 
 var optStr: Stream.Optional<String> = optNum.filter(n => n % 2 == 0)
 	.map(n => "number" + n)
 	.flatMap(n => Stream.Optional.of(n + 2))
 	;
+	
+var isPresent: boolean = optNum.isPresent();
+var num: number = optNum.get();
+optNum.ifPresent(n => console.log(n));
+var def: number = optNum.orElse(2);
+def = optNum.orElseGet(() => 3);
+def = optNum.orElseThrow("something went wrong");
