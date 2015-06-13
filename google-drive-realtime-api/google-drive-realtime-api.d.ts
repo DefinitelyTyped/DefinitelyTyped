@@ -19,8 +19,41 @@ declare module gapi.drive.realtime {
 
 	type GoogEventHandler = ((evt:ObjectChangedEvent) => void) | ((e:Event) => void) | EventListener;
 
-	// TODO
-	export class Collaborator {}
+	// Complete
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.Collaborator
+	export class Collaborator {
+		// The HTML color associated with this collaborator. When possible, collaborators are assigned unique colors.
+		color	: string;
+
+		// The display name for this collaborator.
+		displayName	: string;
+
+		// True if this collaborator is anonymous, false otherwise.
+		isAnonymous	: boolean
+
+		// True if this collaborator is the local user, false otherwise.
+		isMe :	boolean;
+
+		// The permission ID for this collaborator. This ID is stable for a given user and is compatible with the
+		// Drive API permissions APIs. Use the userId property for all other uses.
+		permissionId : string;
+
+		// A URL that points to the profile photo for this collaborator, or to a generic profile photo for
+		// anonymous collaborators.
+		photoUrl : string;
+
+		// The session ID for this collaborator. A single user may have multiple sessions if they have the same document
+		// open on multiple devices or in multiple browser tabs.
+		sessionId	: string;
+
+		// The user ID for this collaborator. This ID is stable for a given user and is compatible with most Google APIs
+		// except the Drive API permission APIs. For an ID which is compatible with the Drive API permission APIs,
+		// use the permissionId property.
+		userId : string;
+
+		new (sessionId:string, userId:string, displayName:string, color:string, isMe:boolean, isAnonymous:boolean,
+		     photoUrl:string, permissionId:string) : Collaborator;
+	}
 
 	// Complete
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.CollaborativeObject
