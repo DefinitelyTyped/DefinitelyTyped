@@ -11,7 +11,7 @@ declare class Stream<T> {
 	static generate <T> (supplier: () => T): Stream<T>;
 	// static empty<T>(): Stream<T>;
 	
-	anyMatch(predicate: (elem: T) => boolean): boolean;
+	anyMatch(predicate: Stream.Predicate): boolean;
 	anyMatch(regexp: RegExp): boolean;
 	allMatch(predicate: (elem: T) => boolean): boolean;
 	allMatch(regexp: RegExp): boolean;
@@ -72,6 +72,10 @@ declare class Stream<T> {
 }
 
 declare module Stream {
+
+	export interface Predicate<T> {
+		(elem: T): boolean;
+	}
 
 	export interface Iterator<T> {
 		next(): T;
