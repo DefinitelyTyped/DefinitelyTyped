@@ -81,4 +81,38 @@ module Rx.Tests.Async {
 	function startAsync() {
 		var o: Rx.Observable<string> = Rx.Observable.startAsync(() => <Rx.IPromise<string>>null);
 	}
+
+	function fromEvent() {
+		var oMouse: Rx.Observable<MouseEvent>;
+		oMouse = Rx.Observable.fromEvent(document, "click");
+		oMouse = Rx.Observable.fromEvent(document, "dblclick");
+		oMouse = Rx.Observable.fromEvent(document, "mousedown");
+		oMouse = Rx.Observable.fromEvent(document, "mousemove");
+		oMouse = Rx.Observable.fromEvent(document, "mouseup");
+		oMouse = Rx.Observable.fromEvent(document, "mouseover");
+		oMouse = Rx.Observable.fromEvent(document, "mouseout");
+		oMouse = Rx.Observable.fromEvent(document, "mouseenter");
+		oMouse = Rx.Observable.fromEvent(document, "mouseleave");
+
+		var oWheel: Rx.Observable<WheelEvent>;
+		oWheel = Rx.Observable.fromEvent(document, "wheel");
+
+		var oKeyboard: Rx.Observable<KeyboardEvent>;
+		oKeyboard = Rx.Observable.fromEvent(document, "keydown");
+		oKeyboard = Rx.Observable.fromEvent(document, "keyup");
+		oKeyboard = Rx.Observable.fromEvent(document, "keypress");
+
+		var oPointer: Rx.Observable<PointerEvent>;
+		oPointer = Rx.Observable.fromEvent(document, "pointerdown");
+		oPointer = Rx.Observable.fromEvent(document, "pointerup");
+		oPointer = Rx.Observable.fromEvent(document, "pointercancel");
+		oPointer = Rx.Observable.fromEvent(document, "pointermove");
+		oPointer = Rx.Observable.fromEvent(document, "pointerover");
+		oPointer = Rx.Observable.fromEvent(document, "pointerout");
+
+		var oMotion: Rx.Observable<DeviceMotionEvent>;
+		var oOrientation: Rx.Observable<DeviceOrientationEvent>;
+		oMotion = Rx.Observable.fromEvent(document, "devicemotion");
+		oOrientation = Rx.Observable.fromEvent(document, "deviceorientation");
+	}
 }

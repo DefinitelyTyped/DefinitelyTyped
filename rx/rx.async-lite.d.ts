@@ -66,6 +66,45 @@ declare module Rx {
 		};
 
 		fromEvent<T>(element: NodeList, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
+
+		// mouse events
+		fromEvent(element: Node, eventName: "click", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "dblclick", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mousemove", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mousedown", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mouseup", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mouseover", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mouseout", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mouseenter", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+		fromEvent(element: Node, eventName: "mouseleave", selector?: (arguments: any[]) => MouseEvent): Observable<MouseEvent>;
+
+		// wheel event
+		fromEvent(element: Node, eventName: "wheel", selector?: (arguments: any[]) => WheelEvent): Observable<WheelEvent>;
+
+		// keyboard events
+		fromEvent(element: Node, eventName: "keydown", selector?: (arguments: any[]) => KeyboardEvent): Observable<KeyboardEvent>;
+		fromEvent(element: Node, eventName: "keyup", selector?: (arguments: any[]) => KeyboardEvent): Observable<KeyboardEvent>;
+		fromEvent(element: Node, eventName: "keypress", selector?: (arguments: any[]) => KeyboardEvent): Observable<KeyboardEvent>;
+
+		// touch events
+		// TODO: define TouchEvent in lib.d.ts
+		//fromEvent(element: Node, eventName: "touchstart", selector?: (arguments: any[]) => TouchEvent): Observable<TouchEvent>;
+		//fromEvent(element: Node, eventName: "touchmove", selector?: (arguments: any[]) => TouchEvent): Observable<TouchEvent>;
+		//fromEvent(element: Node, eventName: "touchend", selector?: (arguments: any[]) => TouchEvent): Observable<TouchEvent>;
+		//fromEvent(element: Node, eventName: "touchcancel", selector?: (arguments: any[]) => TouchEvent): Observable<TouchEvent>;
+
+		// pointer events
+		fromEvent(element: Node, eventName: "pointerdown", selector?: (arguments: any[]) => PointerEvent): Observable<PointerEvent>;
+		fromEvent(element: Node, eventName: "pointerup", selector?: (arguments: any[]) => PointerEvent): Observable<PointerEvent>;
+		fromEvent(element: Node, eventName: "pointercancel", selector?: (arguments: any[]) => PointerEvent): Observable<PointerEvent>;
+		fromEvent(element: Node, eventName: "pointermove", selector?: (arguments: any[]) => PointerEvent): Observable<PointerEvent>;
+		fromEvent(element: Node, eventName: "pointerover", selector?: (arguments: any[]) => PointerEvent): Observable<PointerEvent>;
+		fromEvent(element: Node, eventName: "pointerout", selector?: (arguments: any[]) => PointerEvent): Observable<PointerEvent>;
+
+		// device motion/orientation
+		fromEvent(element: Node, eventName: "devicemotion", selector?: (arguments: any[]) => DeviceMotionEvent): Observable<DeviceMotionEvent>;
+		fromEvent(element: Node, eventName: "deviceorientation", selector?: (arguments: any[]) => DeviceOrientationEvent): Observable<DeviceOrientationEvent>;
+
 		fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
         fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[])=>T): Observable<T>;
 	}
