@@ -12,6 +12,8 @@ Stream.generate(function() {
 });
 Stream.generate(() => 1);
 
+numStream = Stream.iterate(1, (n) => n * 2);
+
 var comparator = (s1, s2) => 0;
 
 numStream = numStream.filter(n => n % 2 == 0);

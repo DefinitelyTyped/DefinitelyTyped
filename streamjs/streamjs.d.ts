@@ -9,6 +9,7 @@ declare class Stream<T> {
 	static range (startInclusive: number, endExclusive: number): Stream<number>;
 	static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
 	static generate <T> (supplier: Stream.Supplier<T>): Stream<T>;
+	static iterate<T>(seed: T, fn: Stream.Function<T, T>): Stream<T>;
 	// static empty<T>(): Stream<T>;
 	
 	anyMatch(predicate: Stream.Predicate<T>): boolean;
