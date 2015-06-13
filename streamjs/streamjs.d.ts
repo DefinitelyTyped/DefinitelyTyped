@@ -9,6 +9,7 @@ declare class Stream<T> {
 	static range (startInclusive: number, endExclusive: number): Stream<number>;
 	static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
 	static generate <T> (supplier: () => T): Stream<T>;
+	// static empty<T>(): Stream<T>;
 	
 	anyMatch(predicate: (elem: T) => boolean): boolean;
 	anyMatch(regexp: RegExp): boolean;
@@ -28,8 +29,7 @@ declare class Stream<T> {
 	
 	groupBy(mapper: (elem: T) => string): Stream.GroupingResult<T>;
 	groupingBy(mapper: (elem: T) => string): Stream.GroupingResult<T>;
-	toMap(keyMapper: (elem: T) => string, mergeFunction?: (elem1: T, elem2: T) => T): T[];
-	
+	indexBy(keyMapper: (elem: T) => string, mergeFunction?: (elem1: T, elem2: T) => T): T[];
 	map <U> (mapper: (T) => U): Stream<U>;
 	max(): Stream.Optional<T>;
 	max(comparator: (e1: T, e2: T) => number): Stream.Optional<T>;
@@ -38,7 +38,20 @@ declare class Stream<T> {
 	noneMatch(predicate: (elem: T) => boolean): boolean;
 	noneMatch(regexp: RegExp): boolean;
 	flatMap <U> (mapper: (T) => U[]): Stream<U>;
+	iterator(): Stream.Iterator<T>;
+	joining(): string;
+	joining(delimiter: string): string;
+	joining(options: Stream.JoinOptions): string;
+	join(): string;
+	join(delimiter: string): string;
+	join(options: Stream.JoinOptions): string;
 	limit(limit: number): Stream<T>;
+	partitioningBy(predicate: (elem: T) => boolean): T[][];
+	partitionBy(predicate: (elem: T) => boolean): T[][];
+	partitioningBy(regexp: RegExp): T[][];
+	partitionBy(regexp: RegExp): T[][];
+	partitioningBy(size: number): T[][];
+	partitionBy(size: number): T[][];
 	peek(consumer: (elem: T) => void ): Stream<T>;
 	reduce(identity: T, accumulator: (e1: T, e2: T) => T): T;
 	reduce(accumulator: (e1: T, e2: T) => T): Stream.Optional<T>;
@@ -55,9 +68,22 @@ declare class Stream<T> {
 	takeWhile(predicate: (elem: T) => boolean): Stream<T>;
 	takeWhile(regexp: RegExp): Stream<string>;
 	toArray(): T[];
+	toMap(keyMapper: (elem: T) => string, mergeFunction?: (elem1: T, elem2: T) => T): T[];
 }
 
 declare module Stream {
+
+	export interface Iterator<T> {
+		next(): T;
+		done: boolean;
+	}
+
+	export interface JoinOptions {
+		prefix: string;
+		delimiter: string;
+		suffix: string;
+	}
+
 	export interface GroupingResult<T> {
 		[index: string]: T
 	}
@@ -69,6 +95,12 @@ declare module Stream {
 	}
 
 	export class Optional<T> {
-
+		static of<T>(elem: T): Optional<T>;
+		static ofNullable<T>(elem: T): Optional<T>;
+		static empty<T>(): Optional<T>;
+		
+		filter(predicate: (elem: T) => boolean): Optional<T>;
+		map<U>(mapper: (elem: T) => U): Optional<U>;
+		flatMap<U>(mapper: (elem: T) => Stream.Optional<U>): Optional<U>;
 	}
 }

@@ -5,6 +5,7 @@ var numStream: Stream<number>;
 numStream = Stream.make([10, 20]);
 numStream = Stream.range(1, 5);
 numStream = Stream.rangeClosed(1, 5);
+// numStream = Stream.empty();
 
 Stream.generate(function() {
 	return 1;
@@ -90,3 +91,34 @@ var mappingResult = myStream.toMap(lst => lst.name, (e1, e2) => e2);
 console.log(mappingResult["a"]);
 
 myStream.toMap(lst => lst.name);
+
+mappingResult = myStream.indexBy(lst => lst.name, (e1, e2) => e2);
+
+var partitionedNums: number[][] = numStream.partitioningBy(n => n % 2 == 0);
+partitionedNums = numStream.partitionBy(n => n % 2 == 0);
+
+var partitionedStrings : string[][] = strStream.partitionBy(/^a$/);
+partitionedStrings = strStream.partitioningBy(/^a$/);
+partitionedStrings = strStream.partitioningBy(5);
+partitionedStrings = strStream.partitionBy(5);
+
+var s: string = numStream.joining();
+s = numStream.join();
+s = numStream.joining(", ");
+s = numStream.join(", ");
+s = numStream.joining({prefix: "{", delimiter: ", ", suffix: "}"});
+s = numStream.join({prefix: "{", delimiter: ", ", suffix: "}"});
+
+
+var iter = numStream.iterator();
+var n: number = iter.next();
+var done: boolean = iter.done;
+
+var optNum: Stream.Optional<number> = Stream.Optional.of(2);
+optNum = Stream.Optional.ofNullable(null);
+optNum = Stream.Optional.empty();
+
+var optStr: Stream.Optional<String> = optNum.filter(n => n % 2 == 0)
+	.map(n => "number" + n)
+	.flatMap(n => Stream.Optional.of(n + 2))
+	;
