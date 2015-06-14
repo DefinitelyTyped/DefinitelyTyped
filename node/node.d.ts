@@ -329,6 +329,14 @@ interface NodeBuffer {
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
+    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
     readUInt8(offset: number, noAsset?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
