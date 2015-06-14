@@ -1980,7 +1980,7 @@ declare module L {
         /**
           * Returns the closest point from a point p on a segment p1 to p2.
           */
-        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): number;
+        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
 
         /**
           * Clips the segment a to b by rectangular bounds (modifying the segment points
