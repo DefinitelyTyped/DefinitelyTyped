@@ -1,11 +1,9 @@
 // <reference file="streamjs.d.ts" />
 
 var numStream: Stream<number>;
-// numStream = Stream.make(10, 20);
-numStream = Stream.make([10, 20]);
+numStream = Stream.of(1, 2, 3);
 numStream = Stream.range(1, 5);
 numStream = Stream.rangeClosed(1, 5);
-// numStream = Stream.empty();
 
 Stream.generate(function() {
 	return 1;
@@ -37,7 +35,9 @@ var strStream = numStream
 					;
 					
 var strArray = strStream.toArray();
-
+strArray = strStream.toList();
+strStream.each(s => console.log(s));
+strStream.filter(/^$/);
 strStream.forEach(s => console.log(s));
 var opt: Stream.Optional<string> = strStream.findFirst();
 opt = strStream.findAny();

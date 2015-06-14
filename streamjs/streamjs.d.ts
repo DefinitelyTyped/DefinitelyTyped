@@ -6,6 +6,7 @@
 declare class Stream<T> {
 	// static make <T> (...elems: T[]): Stream<T>;
 	static make <T> (elems: T[]): Stream<T>;
+	static of<T>(...elems: T[]): Stream<T>;
 	static range (startInclusive: number, endExclusive: number): Stream<number>;
 	static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
 	static generate <T> (supplier: Stream.Supplier<T>): Stream<T>;
@@ -23,7 +24,9 @@ declare class Stream<T> {
 	distinct(): Stream<T>;
 	dropWhile(predicate: Stream.Predicate<T>): Stream<T>;
 	dropWhile(regexp: RegExp): Stream<string>;
+	each(consumer: Stream.Consumer<T>): void;
 	filter(predicate: Stream.Predicate<T>): Stream<T>;
+	filter(regexp: RegExp): Stream<string>;
 	findAny(): Stream.Optional<T>;
 	findFirst(): Stream.Optional<T>;
 	forEach(consumer: Stream.Consumer<T>): void;
@@ -69,6 +72,7 @@ declare class Stream<T> {
 	takeWhile(predicate: Stream.Predicate<T>): Stream<T>;
 	takeWhile(regexp: RegExp): Stream<string>;
 	toArray(): T[];
+	toList(): T[];
 	toMap(keyMapper: Stream.Function<T, string>, mergeFunction?: Stream.Accumulator<T>): T[];
 }
 
