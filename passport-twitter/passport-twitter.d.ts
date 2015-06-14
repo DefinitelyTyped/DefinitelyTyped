@@ -5,28 +5,32 @@
 
 /// <reference path="../passport/passport.d.ts"/>
 
-declare module 'passport-facebook' {
+declare module 'passport-twitter' {
 
     import passport = require('passport');
     import express = require('express');
 
     interface Profile extends passport.Profile {
         gender: string;
-        profileUrl: string;
         username: string;
 
         _raw: string;
         _json: any;
+        _accessLevel: string;
     }
 
     interface IStrategyOption {
-        clientID: string;
-        clientSecret: string;
+        consumerKey: string;
+        consumerSecret: string;
         callbackURL: string;
 
-        scopeSeparator?: string;
-        enableProof?: boolean;
-        profileFields?: string[];
+        reguestTokenURL?: string;
+        accessTokenURL?: string;
+        userAuthorizationURL?: string;
+        sessionKey?: string;
+
+        userProfileURL?: string;
+        skipExtendedUserProfile?: boolean;
     }
 
     class Strategy implements passport.Strategy {
