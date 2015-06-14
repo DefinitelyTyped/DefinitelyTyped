@@ -46,6 +46,7 @@ declare module jasmine {
     var clock: () => Clock;
 
     function any(aclass: any): Any;
+    function anything(): Any;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
