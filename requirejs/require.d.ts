@@ -30,12 +30,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 declare module 'module' {
-    var mod: {
-        config: () => any;
-        id: string;
-        uri: string;
-    }
-    export = mod;
+	var mod: {
+		config: () => any;
+		id: string;
+		uri: string;
+	}
+	export = mod;
 }
 
 interface RequireError extends Error {
