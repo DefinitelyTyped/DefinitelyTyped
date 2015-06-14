@@ -126,7 +126,7 @@ declare module Stream {
 	export class Optional<T> {
 		static of<T>(elem: T): Optional<T>;
 		static ofNullable<T>(elem: T): Optional<T>;
-		static empty<T>(): Optional<T>;
+		// static empty<T>(): Optional<T>;
 		
 		filter(predicate: (elem: T) => boolean): Optional<T>;
 		map<U>(mapper: (elem: T) => U): Optional<U>;
