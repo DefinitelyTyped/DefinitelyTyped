@@ -22,8 +22,10 @@ var strStream = numStream
 					.limit(100)
 					.sorted()
 					.sort()
+					.sort("propName")
 					.sorted(comparator)
 					.sort(comparator)
+					.sorted("propName")
 					.shuffle()
 					.reverse()
 					.distinct()
@@ -47,8 +49,11 @@ opt = strStream.min();
 opt = strStream.min((s1, s2) => 0);
 
 var sum = numStream.sum();
+sum = numStream.sum("foo");
 var avg = numStream.average();
+avg = numStream.average("foo");
 avg = numStream.avg();
+avg = numStream.avg("foo");
 
 var count = numStream.count();
 count = numStream.size();
@@ -78,6 +83,13 @@ elems = myStream
 	.toArray();
 	//.forEach(s => console.log(s));
 
+myStream = myStream.takeWhile({name: "foo"});
+myStream = myStream.dropWhile({name: "foo"});
+myStream = myStream.filter({name: "foo"});
+var myResult = myStream.min("name");
+myResult = myStream.max("name");
+var match: boolean = myStream.allMatch({name: "foo"});
+match = myStream.anyMatch({name: "foo"});
 
 numStream.collect({
 	supplier: () => 0,
@@ -88,9 +100,13 @@ numStream.collect({
 var groupingResult = myStream.groupBy(lst => lst.name);
 var elems = groupingResult["hello"].elems;
 groupingResult = myStream.groupingBy(lst => lst.name);
+groupingResult = myStream.groupBy("name");
+groupingResult = myStream.groupingBy("name");
 
 var mappingResult = myStream.toMap(lst => lst.name, (e1, e2) => e2);
-console.log(mappingResult["a"]);
+var aMappingResult: MyList = mappingResult["a"];
+
+mappingResult = myStream.toMap("a");
 
 myStream.toMap(lst => lst.name);
 
@@ -103,6 +119,9 @@ var partitionedStrings : string[][] = strStream.partitionBy(/^a$/);
 partitionedStrings = strStream.partitioningBy(/^a$/);
 partitionedStrings = strStream.partitioningBy(5);
 partitionedStrings = strStream.partitionBy(5);
+
+var partitionedList: MyList[][] = myStream.partitionBy({name : "foo"});
+partitionedList = myStream.partitioningBy({name : "foo"});
 
 var s: string = numStream.joining();
 s = numStream.join();
@@ -131,3 +150,5 @@ optNum.ifPresent(n => console.log(n));
 var def: number = optNum.orElse(2);
 def = optNum.orElseGet(() => 3);
 def = optNum.orElseThrow("something went wrong");
+
+
