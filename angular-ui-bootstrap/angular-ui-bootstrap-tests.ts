@@ -7,6 +7,7 @@ testApp.config((
     $buttonConfig: ng.ui.bootstrap.IButtonConfig,
     $datepickerConfig: ng.ui.bootstrap.IDatepickerConfig,
     $datepickerPopupConfig: ng.ui.bootstrap.IDatepickerPopupConfig,
+    $modalProvider: ng.ui.bootstrap.IModalProvider,
     $paginationConfig: ng.ui.bootstrap.IPaginationConfig,
     $pagerConfig: ng.ui.bootstrap.IPagerConfig,
     $progressConfig: ng.ui.bootstrap.IProgressConfig,
@@ -41,6 +42,7 @@ testApp.config((
     $datepickerConfig.startingDay = 1;
     $datepickerConfig.yearFormat = 'y';
     $datepickerConfig.yearRange = 10;
+    $datepickerConfig.shortcutPropagation = true;
 
 
     /**
@@ -54,6 +56,12 @@ testApp.config((
     $datepickerPopupConfig.dateFormat = 'dd-MM-yyyy';
     $datepickerPopupConfig.showButtonBar = false;
     $datepickerPopupConfig.toggleWeeksText = 'Show Weeks';
+
+
+    /**
+     * $modalProvider tests
+     */
+    $modalProvider.options.animation = false;
 
 
     /**
@@ -110,7 +118,8 @@ testApp.config((
         placement: 'bottom',
         animation: false,
         popupDelay: 1000,
-        appendtoBody: true
+        appendtoBody: true,
+        useContentExp: true
     });
     $tooltipProvider.setTriggers({
         'customOpenTrigger': 'customCloseTrigger'
@@ -129,7 +138,9 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     var modalInstance = $modal.open({
+        animation: false,
         backdrop: 'static',
+        backdropClass: 'testing',
         controller: 'ModalTestCtrl',
         controllerAs: 'vm',
         keyboard: true,
@@ -149,12 +160,23 @@ testApp.controller('TestCtrl', (
         $log.log('modal opened');
     });
 
+    modalInstance.rendered.then(() => {
+        $log.log('modal rendered');
+    });
+
     modalInstance.result.then((closeResult:any)=> {
         $log.log('modal closed', closeResult);
     }, (dismissResult:any)=> {
         $log.log('modal dismissed', dismissResult);
     });
 
+    $modal.open({
+        backdrop: 'static'
+    });
+
+    $modal.open({
+        templateUrl: () => '/templates/modal.html'
+    });
 
     /**
      * test the $modalStack service
