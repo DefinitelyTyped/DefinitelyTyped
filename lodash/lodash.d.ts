@@ -22,7 +22,7 @@ declare module _ {
         * forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, functions, groupBy,
         * indexBy, initial, intersection, invert, invoke, keys, map, max, memoize, merge, min,
         * object, omit, once, pairs, partial, partialRight, pick, pluck, pull, push, range, reject,
-        * remove, rest, reverse, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
+        * remove, rest, reverse, sample, shuffle, slice, sort, sortBy, splice, tap, throttle, times,
         * toArray, transform, union, uniq, unshift, unzip, values, where, without, wrap, and zip
         *
         * The non-chainable wrapper functions are:
@@ -4557,6 +4557,18 @@ declare module _ {
         * @param n The number of elements to sample.
         **/
         sample<T>(collection: Dictionary<T>, n: number): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.sample
+         **/
+        sample(n: number): LoDashArrayWrapper<T>;
+
+        /**
+         * @see _.sample
+         **/
+        sample(): LoDashArrayWrapper<T>;
     }
 
     //_.shuffle
