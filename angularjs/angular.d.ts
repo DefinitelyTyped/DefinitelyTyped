@@ -524,11 +524,11 @@ declare module angular {
     }
 
     interface IModelValidators {
-        [index: string]: (...args: any[]) => boolean;
+        [index: string]: (modelValue: any, viewValue: string) => boolean;
     }
 
     interface IAsyncModelValidators {
-        [index: string]: (...args: any[]) => IPromise<boolean>;
+        [index: string]: (modelValue: any, viewValue: string) => IPromise<any>;
     }
 
     interface IModelParser {
