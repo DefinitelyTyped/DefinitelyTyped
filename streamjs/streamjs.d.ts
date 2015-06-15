@@ -1,11 +1,12 @@
-// Type definitions for streamjs 1.4.0
-// Project: https://github.com/winterbe/streamjs
+// Type definitions for streamjs 1.5.0
+// Project: http://winterbe.github.io/streamjs/
 // Definitions by: Bence Eros <https://github.com/erosb>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Stream<T> {
 	// static make <T> (...elems: T[]): Stream<T>;
-	static make <T> (elems: T[]): Stream<T>;
+	static from <T> (elems: T[]): Stream<T>;
+	static from(str: string): Stream<string>;
 	static of<T>(...elems: T[]): Stream<T>;
 	static range (startInclusive: number, endExclusive: number): Stream<number>;
 	static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
