@@ -150,8 +150,6 @@ var classicComponent: React.ClassicComponent<Props, any> =
     React.render(classicElement, container);
 var domComponent: React.DOMComponent<any> =
     React.render(domElement, container);
-var modernComponent = 
-    React.render(React.createElement(ModernComponent, props), container);
 
 // Other Top-Level API
 var unmounted: boolean = React.unmountComponentAtNode(container);
