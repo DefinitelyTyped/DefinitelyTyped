@@ -483,6 +483,36 @@ declare module gapi.drive.realtime {
 		saveAs(fileId:string)	: void;
 
 	}
+
+	// INCOMPLETE
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.Error
+	export class Error { }
+
+	// Complete
+	// Opens the debugger application on the current page. The debugger shows all realtime documents that the
+	// page has loaded and is able to view, edit and debug all aspects of each realtime document.
+	export function debug() : void;
+
+	/* Creates a new file with fake network communications. This file will not talk to the server and will only
+	   exist in memory for as long as the browser session persists.
+	   https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime#.newInMemoryDocument
+	 @Param opt_onLoaded {function(non-null gapi.drive.realtime.Document)}
+	 A callback that will be called when the realtime document is ready. The created or opened realtime document
+	 object will be passed to this function.
+
+	 @Param opt_initializerFn {function(non-null gapi.drive.realtime.Model)}
+	 An optional initialization function that will be called before onLoaded only the first time that the document
+	 is loaded. The document's gapi.drive.realtime.Model object will be passed to this function.
+
+	 @Param opt_errorFn {function(non-null gapi.drive.realtime.Error)}
+	 An optional error handling function that will be called if an error occurs while the document is being
+	 loaded or edited. A gapi.drive.realtime.Error object describing the error will be passed to this function.
+	*/
+	export function newInMemoryDocument(
+		opt_onLoaded? : (d:Document) => void,
+		opt_initializerFn? : (m:Model) => void,
+		opt_errorFn? : (e:gapi.drive.realtime.Error) => void
+	) : Document;
 }
 
 
