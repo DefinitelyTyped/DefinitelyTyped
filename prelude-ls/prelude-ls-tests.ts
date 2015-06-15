@@ -107,28 +107,31 @@ prelude.intersection([1, 2, 3], [2, 1, 3], [3, 1, 2]); //=> [1, 2, 3]
 var unionRes: Array<number> =
   prelude.union([1, 5, 7], [3, 5], []); //=> [1, 5, 7, 3]
 
-// --- UNION ---
-
-prelude.countBy(prelude.floor, [4.2, 6.1, 6.4]);         //=> {4: 1, 6: 2}
+var countByRes: Object = prelude.countBy(prelude.floor, [4.2, 6.1, 6.4]);
+//=> {4: 1, 6: 2}
 prelude.countBy(x => x.length, ["one", "two", "three"]); //=> {3: 2, 5: 1}
 
-prelude.groupBy(prelude.floor, [4.2, 6.1, 6.4]);         //=> {4: [4.2], 6: [6.1, 6.4]}
-prelude.groupBy(x => x.length, ["one", "two", "three"]); //=> {3: ["one", "two"], 5: ["three"]}
+var groupByRes: Object = prelude.groupBy(prelude.floor, [4.2, 6.1, 6.4]);
+//=> {4: [4.2], 6: [6.1, 6.4]}
+prelude.groupBy(x => x.length, ["one", "two", "three"]);
+//=> {3: ["one", "two"], 5: ["three"]}
 
-prelude.andList([true, 2 + 2 == 4]);  //=> true
+var andListRes: boolean = prelude.andList([true, 2 + 2 == 4]);  //=> true
 prelude.andList([true, true, false]); //=> false
 prelude.andList([]);                  //=> true
 
-prelude.orList([false, false, true, false]); //=> true
+var orListRes: boolean = prelude.orList([false, false, true, false]); //=> true
 prelude.orList([]);                          //=> false
 
-prelude.any(prelude.even, [3, 5, 7, 8, 9]); //=> true
+var anyRes: boolean = prelude.any(prelude.even, [3, 5, 7, 8, 9]); //=> true
 prelude.any(prelude.even, []);              //=> false
 
-prelude.all(prelude.isType("String"), ["ha", "ma", "la"]); //=> true
+var allRes: boolean = prelude.all(prelude.isType("String"), ["ha", "ma", "la"]);
+//=> true
 prelude.all(prelude.isType("String"), []);                 //=> true
 
-prelude.sort([3, 1, 5, 2, 4, 6]); //=> [1, 2, 3, 4, 5, 6]
+var sortRes: Array<number> = prelude.sort([3, 1, 5, 2, 4, 6]);
+//=> [1, 2, 3, 4, 5, 6]
 
 var f = (x: string) => (y: string) =>
     x.length > y.length ?
@@ -137,11 +140,18 @@ var f = (x: string) => (y: string) =>
       -1
   :
       0;
-prelude.sortWith(f, ["three", "one", "two"]); //=> ["one", "two", "three"]
 
-prelude.sortBy(x => x.length, ["there", "hey", "a", "ha"]); //=> ["a", "ha", "hey", "there"]
+var sortWithRes: Array<string> = prelude.sortWith(f, ["three", "one", "two"]);
+//=> ["one", "two", "three"]
 
-var table = [{
+var sortByRes: Array<string> =
+  prelude.sortBy(x => x.length, ["there", "hey", "a", "ha"]);
+  //=> ["a", "ha", "hey", "there"]
+
+var table: Array<{
+  id: number,
+  name: string
+}> = [{
   id: 1,
   name: "george"
 }, {
