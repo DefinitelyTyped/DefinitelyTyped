@@ -20,32 +20,40 @@ prelude.replicate(0, "a"); //=> []
 
 // List
 
-var dblStrArray: Array<Array<string>> =
+var eachRes: Array<Array<string>> =
   prelude.each(x => x.push("boom"), [["a"], ["b"], ["c"]]);
 //=> [["a", "boom"], ["b", "boom"], ["c", "boom"]]
 
-prelude.map(x => x * 2, [1, 2, 3, 4, 5]);         //=> [2, 4, 6, 8, 10]
+var mapRes: Array<string> =
+  prelude.map(x => x.toString(), [1, 2, 3, 4, 5]) //=> ["1", "2", "3", "4", "5"]
+
 prelude.map(x => x.toUpperCase(), ["ha", "ma"]); //=> ["HA", "MA"]
 prelude.map(x => x.num, [{num: 3}, {num: 1}]);    //=> [3, 1]
 
-prelude.compact([0, 1, false, true, "", "ha"]) //=> [1, true, "ha"]
+var compactRes: Array<any> =
+  prelude.compact([0, 1, false, true, "", "ha"]) //=> [1, true, "ha"]
 
-prelude.filter(x => x < 3, [1, 2, 3, 4, 5]); //=> [1, 2]
+var filterRes: Array<number> =
+  prelude.filter(x => x < 3, [1, 2, 3, 4, 5]); //=> [1, 2]
 prelude.filter(prelude.even, [3, 4, 0]);     //=> [4, 0]
 
-prelude.reject(prelude.odd, [1, 2, 3, 4, 5]); //=> [2, 4]
+var rejectRes: Array<number> =
+  prelude.reject(prelude.odd, [1, 2, 3, 4, 5]); //=> [2, 4]
 
-prelude.partition(x => x > 60, [49, 58, 76, 43, 88, 77, 90]); //=> [[76, 88, 77, 90], [49, 58, 43]]
+var partitionRes: Array<Array<number>> =
+  prelude.partition(x => x > 60, [49, 58, 76, 43, 88, 77, 90]);
+  //=> [[76, 88, 77, 90], [49, 58, 43]]
 
-prelude.find(prelude.odd, [2, 4, 6, 7, 8, 9, 10]); //=> 7
+var findRes: number = prelude.find(prelude.odd, [2, 4, 6, 7, 8, 9, 10]); //=> 7
 
-prelude.head([1, 2, 3, 4, 5]); //=> 1
+var headRes: number = prelude.head([1, 2, 3, 4, 5]); //=> 1
 
-prelude.tail([1, 2, 3, 4, 5]); //=> [2, 3, 4, 5]
+var tailRes: Array<number> = prelude.tail([1, 2, 3, 4, 5]); //=> [2, 3, 4, 5]
 
-prelude.last([1, 2, 3, 4, 5]); //=> 5
+var lastRes: number = prelude.last([1, 2, 3, 4, 5]); //=> 5
 
-prelude.initial([1, 2, 3, 4, 5]); //=> [1, 2, 3, 4]
+var initialRes: Array<number> =
+  prelude.initial([1, 2, 3, 4, 5]); //=> [1, 2, 3, 4]
 
 prelude.empty([]); //=> true
 

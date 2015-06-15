@@ -27,11 +27,11 @@ declare module "prelude-ls" {
 		export function reject<A>(f: (x: A) => boolean, xs: A[]): A[];
 		export function partition<A>(f: (x: A) => Boolean): (xs: A[]) => [A[], A[]];
 		export function partition<A>(f: (x: A) => Boolean, xs: A[]): [A[], A[]];
-		export function find<A>(f: (x: A) => Boolean): (xs: A[]) => (A | void);
-		export function find<A>(f: (x: A) => Boolean, xs: A[]): (A | void);
-		export function head<A>(xs: A[]): (A | void);
+		export function find<A>(f: (x: A) => Boolean): (xs: A[]) => A;
+		export function find<A>(f: (x: A) => Boolean, xs: A[]): A;
+		export function head<A>(xs: A[]): A;
 		export function tail<A>(xs: A[]): A[];
-		export function last<A>(xs: A[]): (A | void);
+		export function last<A>(xs: A[]): A;
 		export function initial<A>(xs: A[]): A[];
 		export function empty<A>(xs: A[]): boolean;
 		export function reverse<A>(xs: A[]): A[];
