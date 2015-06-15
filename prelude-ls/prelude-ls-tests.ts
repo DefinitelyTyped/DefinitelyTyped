@@ -162,23 +162,25 @@ var table: Array<{
    name: "donald"
 }];
 prelude.sortBy(x => x.name, table);
-//=> [{"id": 3, "name": "donald"}, {"id": 1, "name": "george"}, {"id": 2, "name": "mike"}]
+//=> [{"id": 3, "name": "donald"},
+//    {"id": 1, "name": "george"},
+//    {"id": 2, "name": "mike"}]
 
-prelude.sum([1, 2, 3, 4, 5]); //=> 15
+var sumRes: number = prelude.sum([1, 2, 3, 4, 5]); //=> 15
 prelude.sum([]);              //=> 0
 
-prelude.product([1, 2, 3]); //=> 6
+var productRes: number = prelude.product([1, 2, 3]); //=> 6
 prelude.product([]);        //=> 1
 
-prelude.mean([1, 2, 3, 4, 5]); //=> 3
+var meanRes: number = prelude.mean([1, 2, 3, 4, 5]); //=> 3
 
-prelude.maximum([4, 1, 9, 3]); //=> 9
+var maximumRes: number = prelude.maximum([4, 1, 9, 3]); //=> 9
 
-prelude.minimum(["c", "e", "a", "d", "b"]); //=> "a"
+var minimumRes: string = prelude.minimum(["c", "e", "a", "d", "b"]); //=> "a"
 
-prelude.maximumBy(x => x.length, ["hi", "there", "I", "am", "looooong"]); //=> "looooong"
-
-prelude.maximumBy(x => x.length, ["hi", "there", "I", "am", "looooong"]); //=> "looooong"
+var maximumByRes: string =
+  prelude.maximumBy(x => x.length, ["hi", "there", "I", "am", "looooong"]);
+  //=> "looooong"
 
 prelude.scan(x => y => x + y, 0, [1, 2, 3]); //=> [0, 1, 3, 6]
 
