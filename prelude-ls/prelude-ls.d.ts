@@ -3,6 +3,8 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Change [0]: 2015/06/14 - Marcelo Camargo <https://github.com/haskellcamargo>
+
 declare module "prelude-ls" {
 	module PreludeLS {
 		export function id<A>(x: A): A;
@@ -14,8 +16,8 @@ declare module "prelude-ls" {
 		
 		// List
 		
-		export function each<A>(f: (x: A) => void): (xs: A[]) => void;
-		export function each<A>(f: (x: A) => void, xs: A[]): void;
+		export function each<A>(f: (x: A) => void): (xs: A[]) => A[];
+		export function each<A>(f: (x: A) => void, xs: A[]): A[];
 		export function map<A, B>(f: (x: A) => B): (xs: A[]) => B[];
 		export function map<A, B>(f: (x: A) => B, xs: A[]): B[];
 		export function compact<A>(xs: A[]): A[];
