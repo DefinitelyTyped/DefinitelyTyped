@@ -1,23 +1,27 @@
+/// <reference path="./prelude-ls.d.ts" />
+
 import prelude = require("prelude-ls");
 
-prelude.id(5);  //=> 5
-prelude.id({}); //=> {}
+var five: number = prelude.id(5);  //=> 5
+var emptyObj: Object = prelude.id({}); //=> {}
 
-prelude.isType("Undefined", void 8); //=> true
+var expectBool: boolean = prelude.isType("Undefined", void 8); //=> true
 prelude.isType("Boolean", true);     //=> true
 prelude.isType("Number", 1);         //=> true
 prelude.isType("String", "hi");      //=> true
 prelude.isType("Object", {});        //=> true
 prelude.isType("Array", []);         //=> true
 
-prelude.replicate(4, 3);   //=> [3, 3, 3, 3]
-prelude.replicate(4, "a"); //=> ["a", "a", "a", "a"]
+var numberArray: Array<number> = prelude.replicate(4, 3);   //=> [3, 3, 3, 3]
+var strArray: Array<string> =
+  prelude.replicate(4, "a"); //=> ["a", "a", "a", "a"]
 prelude.replicate(0, "a"); //=> []
 
 
 // List
 
-prelude.each(x => x.push("boom"), [["a"], ["b"], ["c"]]);
+var dblStrArray: Array<Array<string>> =
+  prelude.each(x => x.push("boom"), [["a"], ["b"], ["c"]]);
 //=> [["a", "boom"], ["b", "boom"], ["c", "boom"]]
 
 prelude.map(x => x * 2, [1, 2, 3, 4, 5]);         //=> [2, 4, 6, 8, 10]
