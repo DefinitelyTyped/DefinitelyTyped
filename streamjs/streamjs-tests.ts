@@ -81,7 +81,6 @@ var myStream = Stream.from([new MyList, new MyList]);
 elems = myStream
 	.flatMap(list => list.elems)
 	.toArray();
-	//.forEach(s => console.log(s));
 
 myStream = myStream.takeWhile({name: "foo"});
 myStream = myStream.dropWhile({name: "foo"});
@@ -137,7 +136,6 @@ var done: boolean = iter.done;
 
 var optNum: Stream.Optional<number> = Stream.Optional.of(2);
 optNum = Stream.Optional.ofNullable(null);
-//optNum = Stream.Optional.empty();
 
 var optStr: Stream.Optional<String> = optNum.filter(n => n % 2 == 0)
 	.map(n => "number" + n)

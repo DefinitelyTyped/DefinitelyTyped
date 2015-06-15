@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Stream<T> {
-	// static make <T> (...elems: T[]): Stream<T>;
 	static from <T> (elems: T[]): Stream<T>;
 	static from(str: string): Stream<string>;
 	static of<T>(...elems: T[]): Stream<T>;
@@ -12,7 +11,6 @@ declare class Stream<T> {
 	static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
 	static generate <T> (supplier: Stream.Supplier<T>): Stream<T>;
 	static iterate<T>(seed: T, fn: Stream.Function<T, T>): Stream<T>;
-	// static empty<T>(): Stream<T>;
 	
 	anyMatch(predicate: Stream.Predicate<T>): boolean;
 	anyMatch(regexp: RegExp): boolean;
@@ -148,7 +146,6 @@ declare module Stream {
 	export class Optional<T> {
 		static of<T>(elem: T): Optional<T>;
 		static ofNullable<T>(elem: T): Optional<T>;
-		// static empty<T>(): Optional<T>;
 		
 		filter(predicate: (elem: T) => boolean): Optional<T>;
 		map<U>(mapper: (elem: T) => U): Optional<U>;
