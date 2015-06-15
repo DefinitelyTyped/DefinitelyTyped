@@ -4,7 +4,7 @@ var numStream: Stream<number>;
 numStream = Stream.of(1, 2, 3);
 numStream = Stream.range(1, 5);
 numStream = Stream.rangeClosed(1, 5);
-
+numStream = Stream.from([1, 2, 3]);
 Stream.generate(function() {
 	return 1;
 });
@@ -35,7 +35,7 @@ var strStream = numStream
 					.takeWhile(/^aa.*$/)
 					.slice(5, 2)
 					;
-					
+strStream = Stream.from("foobar");
 var strArray = strStream.toArray();
 strArray = strStream.toList();
 strStream.each(s => console.log(s));
@@ -77,7 +77,7 @@ class MyList {
 
 var elems: any[];
 
-var myStream = Stream.make([new MyList, new MyList]);
+var myStream = Stream.from([new MyList, new MyList]);
 elems = myStream
 	.flatMap(list => list.elems)
 	.toArray();
