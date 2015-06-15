@@ -242,19 +242,27 @@ var findIndicesRes: Array<number> =
 
 // Obj
 
-prelude.keys({a: 2, b: 3, c: 9}); //=> ["a", "b", "c"]
+var keysRes: Array<string> = prelude.keys({a: 2, b: 3, c: 9});
+//=> ["a", "b", "c"]
 
-prelude.values({a: 2, b: 3, c: 9}); //=> [2, 3, 9]
+var valuesRes: Array<number> = prelude.values({a: 2, b: 3, c: 9});
+//=> [2, 3, 9]
 
-prelude.pairsToObj<string | number>([["a", "b"], ["c", "d"], ["e", 1]]); //=> {a: "b", c: "d", e: 1}
+var pairsToObjRes: Object =
+  prelude.pairsToObj<string | number>([["a", "b"], ["c", "d"], ["e", 1]]); //=> {a: "b", c: "d", e: 1}
 
-prelude.objToPairs({a: "b", c: "d", e: 1}); //=> [["a", "b"], ["c", "d"], ["e", 1]]
+var objToPairsRes: Array<Array<string | number>> =
+  prelude.objToPairs({a: "b", c: "d", e: 1});
+  //=> [["a", "b"], ["c", "d"], ["e", 1]]
 
-prelude.listsToObj(["a", "b", "c"], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+var listsToObjRes: Object =
+  prelude.listsToObj(["a", "b", "c"], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
 
-prelude.objToLists({a: 1, b: 2, c: 3}); //=> [["a", "b", "c"], [1, 2, 3]]
+var objToListsRes  =
+  prelude.objToLists({a: 1, b: 2, c: 3});
+  //=> [["a", "b", "c"], [1, 2, 3]]
 
-prelude.Obj.empty({}); //=> true
+var objEmptyRes: boolean = prelude.Obj.empty({}); //=> true
 
 var count = 4;
 prelude.Obj.each(x => count += x, {a: 1, b: 2, c: 3});
