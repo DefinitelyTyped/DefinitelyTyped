@@ -1082,6 +1082,7 @@ declare module chrome.history {
 ////////////////////
 declare module chrome.identity {
     var getAuthToken: (options: any, cb: (token: {}) => void) => void;
+    var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
 }
 
 

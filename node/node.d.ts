@@ -329,6 +329,14 @@ interface NodeBuffer {
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
+    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
     readUInt8(offset: number, noAsset?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
@@ -596,12 +604,19 @@ declare module "zlib" {
     export function createUnzip(options?: ZlibOptions): Unzip;
 
     export function deflate(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function deflateSync(buf: Buffer, options?: ZlibOptions): any;
     export function deflateRaw(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function deflateRawSync(buf: Buffer, options?: ZlibOptions): any;
     export function gzip(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function gzipSync(buf: Buffer, options?: ZlibOptions): any;
     export function gunzip(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function gunzipSync(buf: Buffer, options?: ZlibOptions): any;
     export function inflate(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function inflateSync(buf: Buffer, options?: ZlibOptions): any;
     export function inflateRaw(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function inflateRawSync(buf: Buffer, options?: ZlibOptions): any;
     export function unzip(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
+    export function unzipSync(buf: Buffer, options?: ZlibOptions): any;
 
     // Constants
     export var Z_NO_FLUSH: number;

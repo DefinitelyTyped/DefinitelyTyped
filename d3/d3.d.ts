@@ -918,7 +918,13 @@ declare module d3 {
     }
 
     /**
-     * The current event's value. Use this variable in a handler registered with selection.on.
+     * Interface for any and all d3 events.
+     */
+    interface Event extends KeyboardEvent, MouseEvent {
+    }
+
+    /**
+     * The current event's value. Use this variable in a handler registered with `selection.on`.
      */
     export var event: Event;
 
