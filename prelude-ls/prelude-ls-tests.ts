@@ -107,6 +107,8 @@ prelude.intersection([1, 2, 3], [2, 1, 3], [3, 1, 2]); //=> [1, 2, 3]
 var unionRes: Array<number> =
   prelude.union([1, 5, 7], [3, 5], []); //=> [1, 5, 7, 3]
 
+// --- UNION ---
+
 prelude.countBy(prelude.floor, [4.2, 6.1, 6.4]);         //=> {4: 1, 6: 2}
 prelude.countBy(x => x.length, ["one", "two", "three"]); //=> {3: 2, 5: 1}
 
@@ -300,94 +302,100 @@ prelude.Str.breakStr(x => x === "h", "mmmmmhmm"); //=> ["mmmmm", "hmm"]
 
 // Func
 
-prelude.apply((x, y) => x + y, [2, 3]); //=> 5
+var applyRes: number = prelude.apply((x, y) => x + y, [2, 3]); //=> 5
 
 var add = (x: number, y: number) => x + y;
 var addCurried = prelude.curry(add);
 var addFour = addCurried(4);
 addFour(2); //=> 6
 
-var invertedPower = prelude.flip<number, number, number>(x => y => Math.pow(x, y));
-invertedPower(2)(3); //=> 9
+var flipRes: (x: number) => (y: number) => number
+  = prelude.flip<number, number, number>(x => y => Math.pow(x, y));
 
-prelude.fix((fib: (n: number) => number) => (n: number) => n <= 1 ? 1 : fib(n - 1) + fib(n - 2))(9); //=> 55
+var fixRes: number = prelude.fix(
+  (fib: (n: number) => number) => (n: number) =>
+    n <= 1
+      ? 1
+      : fib(n - 1) + fib(n - 2)
+)(9); //=> 55
 
-var sameLength = prelude.over<string, number, boolean>((x, y) => x == y, x => x.length);
+var sameLength: (x: string, y: string) => boolean
+  = prelude.over<string, number, boolean>((x, y) => x == y, x => x.length);
 sameLength('hi', 'me');    //=> true
 sameLength('one', 'boom'); //=> false
 
 // Num
 
 prelude.max(3, 1);     //=> 3
-prelude.max("a", "c"); //=> "c"
+var maxRes: string = prelude.max("a", "c"); //=> "c"
 
-prelude.min(3, 1);     //=> 1
+var minRes: number = prelude.min(3, 1);     //=> 1
 prelude.min("a", "c"); //=> "a"
 
-prelude.negate(3);  //=> -3
+var negateRes: number = prelude.negate(3);  //=> -3
 prelude.negate(-2); //=>  2
 
-prelude.abs(-2); //=> 2
+var absRes: number = prelude.abs(-2); //=> 2
 prelude.abs(2);  //=> 2
 
-prelude.signum(-5); //=> -1
+var signumRes: number = prelude.signum(-5); //=> -1
 prelude.signum(0);  //=>  0
 prelude.signum(9);  //=>  1
 
-prelude.quot(-20, 3); //=> -6
+var quotRes: number = prelude.quot(-20, 3); //=> -6
 
-prelude.rem(-20, 3); //=> -2
+var remRes: number = prelude.rem(-20, 3); //=> -2
 
-prelude.div(-20, 3); //=> -7
+var divRes: number = prelude.div(-20, 3); //=> -7
 
-prelude.mod(-20, 3); //=> 1
+var modRes: number = prelude.mod(-20, 3); //=> 1
 
-prelude.recip(4); //=> 0.25
+var recipRes: number = prelude.recip(4); //=> 0.25
 
-prelude.pi; //=> 3.141592653589793
+var piRes: number = prelude.pi; //=> 3.141592653589793
 
-prelude.tau; //=> 6.283185307179586
+var tauRes: number = prelude.tau; //=> 6.283185307179586
 
-prelude.exp(1); //=> 2.718281828459045
+var expRes: number = prelude.exp(1); //=> 2.718281828459045
 
-prelude.sqrt(4); //=> 2
+var sqrtRes: number = prelude.sqrt(4); //=> 2
 
-prelude.ln(10); //=> 2.302585092994046
+var lnRes: number = prelude.ln(10); //=> 2.302585092994046
 
-prelude.pow(-2, 2); //=> 4
+var powRes: number = prelude.pow(-2, 2); //=> 4
 
-prelude.sin(prelude.pi / 2); //=> 1
+var sinRes: number = prelude.sin(prelude.pi / 2); //=> 1
 
-prelude.cos(prelude.pi); //=> -1
+var cosRes: number = prelude.cos(prelude.pi); //=> -1
 
-prelude.tan(prelude.pi / 4); //=> 1
+var aTanRes: number = prelude.tan(prelude.pi / 4); //=> 1
 
-prelude.asin(0); //=> 0
+var asinRes: number = prelude.asin(0); //=> 0
 
-prelude.acos(1); //=> 0
+var acosRes: number = prelude.acos(1); //=> 0
 
 prelude.atan(0); //=> 0
 
-prelude.atan2(1, 0); //=> 1.5707963267948966
+var atanRes: number = prelude.atan2(1, 0); //=> 1.5707963267948966
 
-prelude.truncate(-1.5); //=> -1
+var truncateRes: number = prelude.truncate(-1.5); //=> -1
 prelude.truncate(1.5);  //=>  1
 
-prelude.round(0.6); //=> 1
+var roundRes: number = prelude.round(0.6); //=> 1
 prelude.round(0.5); //=> 1
 prelude.round(0.4); //=> 0
 
-prelude.ceiling(0.1); //=> 1
+var ceilingRes: number = prelude.ceiling(0.1); //=> 1
 
-prelude.floor(0.9); //=> 0
+var floorRes: number = prelude.floor(0.9); //=> 0
 
-prelude.isItNaN(prelude.sqrt(-1)); //=> true
+var isItNanRes: boolean = prelude.isItNaN(prelude.sqrt(-1)); //=> true
 
-prelude.even(4); //=> true
+var evenRes: boolean = prelude.even(4); //=> true
 prelude.even(0); //=> true
 
-prelude.odd(3); //=> true
+var oddRes: boolean = prelude.odd(3); //=> true
 
-prelude.gcd(12, 18); //=> 6
+var gcdRes: number = prelude.gcd(12, 18); //=> 6
 
-prelude.lcm(12, 18); //=> 36
+var lcmRes: number = prelude.lcm(12, 18); //=> 36
