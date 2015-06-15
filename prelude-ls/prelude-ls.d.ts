@@ -60,8 +60,8 @@ declare module "prelude-ls" {
 		export function concatMap<A, B>(f: (x: A) => B[], xs: A[]): B[];
 		export function flatten(xs: any[]): any[];
 		export function difference<A>(...xss: A[][]): A[];
-		export function intersection<A>(...xss: A[]): A[];
-		export function union<A>(...xss: A[]): A[];
+		export function intersection<A>(...xss: A[][]): A[];
+		export function union<A>(...xss: A[][]): A[];
 		export function countBy<A, B>(f: (x: A) => B): (xs: A[]) => any;
 		export function countBy<A, B>(f: (x: A) => B, xs: A[]): any;
 		export function groupBy<A, B>(f: (x: A) => B): (xs: A[]) => any;

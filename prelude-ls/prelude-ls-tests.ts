@@ -55,41 +55,57 @@ var lastRes: number = prelude.last([1, 2, 3, 4, 5]); //=> 5
 var initialRes: Array<number> =
   prelude.initial([1, 2, 3, 4, 5]); //=> [1, 2, 3, 4]
 
-prelude.empty([]); //=> true
+var emptyRes: boolean = prelude.empty([]); //=> true
 
-prelude.reverse([1, 2, 3]); //=> [3, 2, 1]
+var reverseRes: Array<number> = prelude.reverse([1, 2, 3]); //=> [3, 2, 1]
 
-prelude.unique([1, 1, 1, 3, 3, 6, 7, 8]); //=> [1, 3, 6, 7, 8]
+var uniqueRes: Array<number> =
+  prelude.unique([1, 1, 1, 3, 3, 6, 7, 8]); //=> [1, 3, 6, 7, 8]
 
-prelude.uniqueBy(x => x.length, ["and", "here", "are", "some", "words"]); //=> ["and", "here", "words"]
+var uniqueByRes: Array<string> =
+  prelude.uniqueBy(x => x.length, ["and", "here", "are", "some", "words"]); //=> ["and", "here", "words"]
 
-prelude.fold(x => y => x + y, 0, [1, 2, 3, 4, 5]); //=> 15
-var product = prelude.fold<number, number>(x => y => x * y, 1);
+var foldRes: number =
+  prelude.fold(x => y => x + y, 0, [1, 2, 3, 4, 5]); //=> 15
 
-prelude.fold1(x => y => x + y, [1, 2, 3]); //=> 6
+var fold1Res: number =
+  prelude.fold1(x => y => x + y, [1, 2, 3]); //=> 6
 
-prelude.foldr(x => y => x - y, 9, [1, 2, 3, 4]); //=> 7
-prelude.foldr(x => y => x + y, "e", ["a", "b", "c", "d"]); //=> "abcde"
+var foldrRes: number =
+  prelude.foldr(x => y => x - y, 9, [1, 2, 3, 4]); //=> 7
 
-prelude.foldr1(x => y => x - y, [1, 2, 3, 4, 9]); //=> 7
+var foldrStrRes: string =
+  prelude.foldr(x => y => x + y, "e", ["a", "b", "c", "d"]); //=> "abcde"
 
-prelude.unfoldr(x => x === 0 ? null : [x, x - 1], 10);
-//=> [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+var foldr1Res: number =
+  prelude.foldr1(x => y => x - y, [1, 2, 3, 4, 9]); //=> 7
 
-prelude.concat([[1], [2, 3], [4]]); //=> [1, 2, 3, 4]
+var unfoldrRes: Array<number> =
+  prelude.unfoldr(x => x === 0 ? null : [x, x - 1], 10);
+  //=> [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
-prelude.concatMap(x => ["hoge", x, x + 2], [1, 2, 3]); //=> ["hoge", 1, 3, "hoge", 2, 4, "hoge", 3, 5]
+var concatRes: Array<number> =
+  prelude.concat([[1], [2, 3], [4]]); //=> [1, 2, 3, 4]
 
-prelude.flatten([1, [[2], 3], [4, [[5]]]]); //=> [1, 2, 3, 4, 5]
+var concatMapRes: Array<any> =
+  prelude.concatMap(x => ["hoge", x, x + 2], [1, 2, 3]);
+  //=> ["hoge", 1, 3, "hoge", 2, 4, "hoge", 3, 5]
 
-prelude.difference([1, 2, 3], [1]);                  //=> [2, 3]
+var flattenRes: Array<number> =
+  prelude.flatten([1, [[2], 3], [4, [[5]]]]); //=> [1, 2, 3, 4, 5]
+
+var differenceRes: Array<number> =
+  prelude.difference([1, 2, 3], [1]);                  //=> [2, 3]
 prelude.difference([1, 2, 3, 4, 5], [5, 2, 10], [9]); //=> [1, 3, 4]
 
-prelude.intersection([2, 3], [9, 8], [12, 1], [99]);                     //=> []
-prelude.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1], [-1, 0, 1, 2]); //=> [1, 2]
-prelude.intersection([1, 2, 3], [2, 1, 3], [3, 1, 2]);                   //=> [1, 2, 3]
+prelude.intersection([2, 3], [9, 8], [12, 1], [99]); //=> []
+var intersectionRes: Array<number> =
+  prelude.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1], [-1, 0, 1, 2]);
+//=> [1, 2]
+prelude.intersection([1, 2, 3], [2, 1, 3], [3, 1, 2]); //=> [1, 2, 3]
 
-prelude.union([1, 5, 7], [3, 5], []); //=> [1, 5, 7, 3]
+var unionRes: Array<number> =
+  prelude.union([1, 5, 7], [3, 5], []); //=> [1, 5, 7, 3]
 
 prelude.countBy(prelude.floor, [4.2, 6.1, 6.4]);         //=> {4: 1, 6: 2}
 prelude.countBy(x => x.length, ["one", "two", "three"]); //=> {3: 2, 5: 1}
