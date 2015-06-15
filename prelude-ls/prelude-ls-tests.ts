@@ -182,48 +182,63 @@ var maximumByRes: string =
   prelude.maximumBy(x => x.length, ["hi", "there", "I", "am", "looooong"]);
   //=> "looooong"
 
-prelude.scan(x => y => x + y, 0, [1, 2, 3]); //=> [0, 1, 3, 6]
+var scanRes: Array<number> = prelude.scan(x => y => x + y, 0, [1, 2, 3]);
+//=> [0, 1, 3, 6]
 
-prelude.scan1(x => y => x + y, [1, 2, 3]); //=> [1, 3, 6]
+var scan1Res: Array<number> = prelude.scan1(x => y => x + y, [1, 2, 3]);
+//=> [1, 3, 6]
 
-prelude.scanr(x => y => x + y, 0, [1, 2, 3]); //=> [6, 5, 3, 0]
+var scanrRes: Array<number> = prelude.scanr(x => y => x + y, 0, [1, 2, 3]);
+//=> [6, 5, 3, 0]
 
-prelude.scanr1(x => y => x + y, [1, 2, 3]); //=> [6, 5, 3]
+var scanr1Res: Array<number> = prelude.scanr1(x => y => x + y, [1, 2, 3]);
+//=> [6, 5, 3]
 
-prelude.slice(2, 4, [1, 2, 3, 4, 5]); //=> [3, 4]
+var sliceRes: Array<number> = prelude.slice(2, 4, [1, 2, 3, 4, 5]); //=> [3, 4]
 
-prelude.take(2, [1, 2, 3, 4, 5]); //=> [1, 2]
+var takeRes: Array<number> = prelude.take(2, [1, 2, 3, 4, 5]); //=> [1, 2]
 
-prelude.drop(2, [1, 2, 3, 4, 5]); //=> [3, 4, 5]
+var dropRes: Array<number> = prelude.drop(2, [1, 2, 3, 4, 5]); //=> [3, 4, 5]
 
-prelude.splitAt(2, [1, 2, 3, 4, 5]); //=> [[1, 2], [3, 4, 5]]
+var splitAtRes: Array<Array<number>> =
+  prelude.splitAt(2, [1, 2, 3, 4, 5]); //=> [[1, 2], [3, 4, 5]]
 
-prelude.takeWhile(prelude.odd, [1, 3, 5, 4, 8, 7, 9]); //=> [1, 3, 5]
+var takeWhileRes: Array<number> =
+  prelude.takeWhile(prelude.odd, [1, 3, 5, 4, 8, 7, 9]); //=> [1, 3, 5]
 
-prelude.dropWhile(prelude.even, [2, 4, 5, 6]); //=> [5, 6]
+var dropWhileRes: Array<number> =
+  prelude.dropWhile(prelude.even, [2, 4, 5, 6]); //=> [5, 6]
 
+var spanRes: Array<Array<number>> =
 prelude.span(prelude.even, [2, 4, 5, 6]); //=> [[2, 4], [5, 6]]
 
-prelude.breakList(x => x == 3, [1, 2, 3, 4, 5]); //=> [[1, 2], [3, 4, 5]]
+var breakListRes: Array<Array<number>> =
+  prelude.breakList(x => x == 3, [1, 2, 3, 4, 5]); //=> [[1, 2], [3, 4, 5]]
 
-prelude.zip([1, 2, 3], [4, 5, 6]); //=> [[1, 4], [2, 5], [3, 6]]
+var zipRes: Array<Array<number>> = prelude.zip([1, 2, 3], [4, 5, 6]);
+//=> [[1, 4], [2, 5], [3, 6]]
 
-prelude.zipWith(x => y => x + y, [1, 2, 3], [4, 5, 6]); //=> [5, 7, 9]
+var zipWithRes: Array<number> =
+  prelude.zipWith(x => y => x + y, [1, 2, 3], [4, 5, 6]); //=> [5, 7, 9]
 
+var zipAllRes: Array<Array<number>> =
 prelude.zipAll([1, 2, 3], [4, 5, 6], [7, 8, 9]); //=> [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 
+var zipAllWithRes: Array<number> =
 prelude.zipAllWith((a, b, c) => a + b + c, [1, 2, 3], [3, 2, 1], [1, 1, 1]); //=> [5, 5, 5]
 
-prelude.at(2, [1, 2, 3, 4]); //=> 3
+var atRes: number = prelude.at(2, [1, 2, 3, 4]); //=> 3
 prelude.at(-3, [1, 2, 3, 4]); //=> 2
 
-prelude.elemIndex("a", ["c", "a", "b", "a"]); //=> 1
+var elemIndexRes: number = prelude.elemIndex("a", ["c", "a", "b", "a"]); //=> 1
 
-prelude.elemIndices("a", ["c", "a", "b", "a"]); //=> [1, 3]
+var elemIndicesRes: Array<number> =
+  prelude.elemIndices("a", ["c", "a", "b", "a"]); //=> [1, 3]
 
-prelude.findIndex(prelude.even, [1, 2, 3, 4]); //=> 1
+var findIndexRes: number = prelude.findIndex(prelude.even, [1, 2, 3, 4]); //=> 1
 
-prelude.findIndices(prelude.even, [1, 2, 3, 4]); //=> [1, 3]
+var findIndicesRes: Array<number> =
+  prelude.findIndices(prelude.even, [1, 2, 3, 4]); //=> [1, 3]
 
 // Obj
 
