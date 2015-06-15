@@ -149,8 +149,8 @@ var sortByRes: Array<string> =
   //=> ["a", "ha", "hey", "there"]
 
 var table: Array<{
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }> = [{
   id: 1,
   name: "george"
