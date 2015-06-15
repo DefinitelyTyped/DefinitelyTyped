@@ -2456,6 +2456,14 @@ interface JQuery {
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
 
     /**
+     * Execute all handlers attached to an element for an event.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters An array of additional parameters to pass along to the event handler.
+     */
+    triggerHandler(event: JQueryEventObject, ...extraParameters: any[]): Object;
+
+    /**
      * Remove a previously-attached event handler from the elements.
      * 
      * @param eventType A string containing a JavaScript event type, such as click or submit.

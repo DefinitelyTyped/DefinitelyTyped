@@ -65,7 +65,7 @@ declare module google.maps {
         getCenter(): LatLng;
         getDiv(): Element;
         getHeading(): number;
-        getMapTypeId(): MapTypeId;
+        getMapTypeId(): MapTypeId | string;
         getProjection(): Projection;
         getStreetView(): StreetViewPanorama;
         getTilt(): number;
@@ -75,7 +75,7 @@ declare module google.maps {
         panToBounds(latLngBounds: LatLngBounds): void;
         setCenter(latlng: LatLng): void;
         setHeading(heading: number): void;
-        setMapTypeId(mapTypeId: MapTypeId): void;
+        setMapTypeId(mapTypeId: MapTypeId | string): void;
         setOptions(options: MapOptions): void;
         setStreetView(panorama: StreetViewPanorama): void;
         setTilt(tilt: number): void;
@@ -133,7 +133,7 @@ declare module google.maps {
 
     /***** Controls *****/
     export interface MapTypeControlOptions {
-        mapTypeIds?: MapTypeId[];
+        mapTypeIds?: (MapTypeId | string)[];
         position?: ControlPosition;
         style?: MapTypeControlStyle;
     }
