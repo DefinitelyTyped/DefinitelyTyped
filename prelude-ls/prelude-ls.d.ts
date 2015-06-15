@@ -77,9 +77,9 @@ declare module "prelude-ls" {
 		export function sortWith<A>(f: (x: A) => (y: A) => number, xs: A[]): A[];
 		export function sortBy<A, B>(f: (x: A) => B): (xs: A[]) => A[];
 		export function sortBy<A, B>(f: (x: A) => B, xs: A[]): A[];
-		export function sum(xs: number[]): number[];
-		export function product(xs: number[]): number[];
-		export function mean(xs: number[]): number[];
+		export function sum(xs: number[]): number;
+		export function product(xs: number[]): number;
+		export function mean(xs: number[]): number;
 		export function maximum<A>(xs: A[]): A;
 		export function minimum<A>(xs: A[]): A;
 		export function maximumBy<A, B>(f: (x: A) => B): (xs: A[]) => A;
