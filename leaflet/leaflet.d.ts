@@ -3886,7 +3886,7 @@ declare module L {
             setParams(params: WMS, noRedraw?: boolean): WMS;
         }
 
-        export interface Canvas {
+        export interface Canvas extends TileLayer {
             /**
               * You need to define this method after creating the instance to draw tiles;
               * canvas is the actual canvas tile on which you can draw, tilePoint represents
