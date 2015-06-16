@@ -1,4 +1,4 @@
-// <reference file="streamjs.d.ts" />
+/// <reference path="streamjs.d.ts" />
 
 var numStream: Stream<number>;
 numStream = Stream.of(1, 2, 3);
@@ -12,11 +12,11 @@ Stream.generate(() => 1);
 
 numStream = Stream.iterate(1, (n) => n * 2);
 
-var comparator = (s1, s2) => 0;
+var comparator = (s1: string, s2: string) => 0;
 
 numStream = numStream.filter(n => n % 2 == 0);
 var strStream = numStream
-					.dropWhile((n) => n % 2 == 0)
+					.dropWhile((n: number) => n % 2 == 0)
 					.map(n => "number " + n)
 					.dropWhile(/^$/)
 					.limit(100)
@@ -77,7 +77,7 @@ class MyList {
 
 var elems: any[];
 
-var myStream = Stream.from([new MyList, new MyList]);
+var myStream: Stream<MyList> = Stream.from([new MyList, new MyList]);
 elems = myStream
 	.flatMap(list => list.elems)
 	.toArray();
@@ -102,7 +102,7 @@ groupingResult = myStream.groupingBy(lst => lst.name);
 groupingResult = myStream.groupBy("name");
 groupingResult = myStream.groupingBy("name");
 
-var mappingResult = myStream.toMap(lst => lst.name, (e1, e2) => e2);
+var mappingResult = myStream.toMap((lst) => lst.name, (e1: MyList, e2: MyList) => e2);
 var aMappingResult: MyList = mappingResult["a"];
 
 mappingResult = myStream.toMap("a");
