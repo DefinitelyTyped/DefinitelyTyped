@@ -40,7 +40,7 @@ declare class Stream<T> {
 	groupBy(path: string): Stream.GroupingResult<T>;
 	groupingBy(mapper: Stream.Function<T, string>): Stream.GroupingResult<T>;
 	groupingBy(path: string): Stream.GroupingResult<T>;
-	indexBy(keyMapper: Stream.Function<T, string>, mergeFunction?: Stream.Accumulator<T>): T[];
+	indexBy(keyMapper: Stream.Function<T, string>, mergeFunction?: Stream.Accumulator<T>): Stream.Map<T>;
 	map <U> (mapper: Stream.Function<T, U>): Stream<U>;
 	max(): Stream.Optional<T>;
 	max(comparator: Stream.Comparator<T>): Stream.Optional<T>;
@@ -80,7 +80,7 @@ declare class Stream<T> {
 	sort(path: string): Stream<T>;
 	shuffle(): Stream<T>;
 	skip(n: number): Stream<T>;
-	slice(begin, end): Stream<T>;
+	slice(begin: number, end: number): Stream<T>;
 	sum(): number;
 	sum(path: string): number;
 	takeWhile(predicate: Stream.Predicate<T>): Stream<T>;
@@ -88,11 +88,16 @@ declare class Stream<T> {
 	takeWhile(sample: Stream.Sample): Stream<T>;
 	toArray(): T[];
 	toList(): T[];
-	toMap(keyMapper: Stream.Function<T, string>, mergeFunction?: Stream.Accumulator<T>): T[];
-	toMap(path: string, mergeFunction?: Stream.Accumulator<T>): T[];
+	toMap(keyMapper: Stream.Function<T, string>, mergeFunction?: Stream.Accumulator<T>): Stream.Map<T>;
+	toMap(path: string, mergeFunction?: Stream.Accumulator<T>): Stream.Map<T>;
 }
 
 declare module Stream {
+
+	export interface Map<T> {
+		[index: string]: T
+	}
+	
 
 	export interface Sample {
 		[index: string]: any
