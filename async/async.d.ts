@@ -1,9 +1,15 @@
 // Type definitions for Async 0.9.2
 // Project: https://github.com/caolan/async
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Dictionary<T> { [key: string]: T; }
+
+// Common interface between Arrays and Array-like objects
+interface List<T> {
+    [index: number]: T;
+    length: number;
+}
 
 interface ErrorCallback { (err?: Error): void; }
 interface AsyncResultCallback<T> { (err: Error, result: T): void; }
@@ -11,6 +17,7 @@ interface AsyncResultArrayCallback<T> { (err: Error, results: T[]): void; }
 interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): void; }
 
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
+interface AsyncForEachOfIterator<T> { (item: T, index: number, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
 
@@ -61,6 +68,9 @@ interface Async {
     each<T>(arr: T[], iterator: AsyncIterator<T>, callback: ErrorCallback): void;
     eachSeries<T>(arr: T[], iterator: AsyncIterator<T>, callback: ErrorCallback): void;
     eachLimit<T>(arr: T[], limit: number, iterator: AsyncIterator<T>, callback: ErrorCallback): void;
+    forEachOf<T>(obj: List<T>, iterator: AsyncForEachOfIterator<T>, callback: ErrorCallback): void;
+    forEachOfSeries<T>(obj: List<T>, iterator: AsyncForEachOfIterator<T>, callback: ErrorCallback): void;
+    forEachOfLimit<T>(obj: List<T>, limit: number, iterator: AsyncForEachOfIterator<T>, callback: ErrorCallback): void;
     map<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback: AsyncResultArrayCallback<R>): any;
     mapSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback: AsyncResultArrayCallback<R>): any;
     mapLimit<T, R>(arr: T[], limit: number, iterator: AsyncResultIterator<T, R>, callback: AsyncResultArrayCallback<R>): any;
