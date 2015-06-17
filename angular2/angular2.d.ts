@@ -4621,5 +4621,609 @@ declare module "angular2/angular2" {
   
 }
 
+declare var zone: any;
+declare var Zone: any;
+
+
+declare module "angular2/change_detection" {
+    class Pipe { }
+    class NullPipeFactory { }
+    class PipeRegistry {
+        constructor(pipes: any)
+    }
+    class JitChangeDetection { }
+    class ChangeDetection { }
+    class DynamicChangeDetection { }
+    var defaultPipes: any;
+}
+
+
+declare module "angular2/src/core/zone/ng_zone" {
+    class NgZone {
+        runOutsideAngular(func: Function): any
+    }
+}
+
+declare module 'angular2/src/services/url_resolver' {
+    class UrlResolver { }
+}
+
+declare module "angular2/src/facade/async" {
+    class Observable { }
+    class EventEmitter {
+        next(val: any)
+        return(val: any)
+        throw(val: any)
+    }
+}
+
+declare module "angular2/src/render/dom/shadow_dom/style_url_resolver" {
+    class StyleUrlResolver { }
+}
+
+declare module "angular2/src/core/life_cycle/life_cycle" {
+    class LifeCycle {
+        tick(): any;
+    }
+}
+
+declare module "zone.js" {
+    var zone: any;
+    var Zone: any;
+}
+
+declare module "angular2/directives" {
+    function NgSwitch(): void;
+    function NgSwitchWhen(): void;
+    function NgSwitchDefault(): void;
+    function NgNonBindable(): void;
+    function NgIf(): void;
+    function NgFor(): void;
+
+    var formDirectives: any;
+    var coreDirectives: any;
+
+}
+
+declare module "angular2/forms" {
+    var formDirectives: any;
+    class FormBuilder {
+        group(controls: any): any;
+    }
+    class Control {
+        constructor(controls: any)
+        updateValue(value: any)
+        _valueChanges: any
+        valueChanges: any
+    }
+    class ControlArray {
+        removeAt(index: any)
+        push(item: any)
+    }
+    class ControlGroup {
+        constructor(controls: any)
+        controls: any;
+        valueChanges: any;
+    }
+    class Validators {
+        static required: any;
+    }
+}
+
+declare module "angular2/render" {
+    class EmulatedScopedShadowDomStrategy {
+        constructor(styleInliner: any, styleUrlResolver: any, styleHost: any)
+    }
+    class EmulatedUnscopedShadowDomStrategy {
+        constructor(styleUrlResolver: any, styleHost: any)
+    }
+    class NativeShadowDomStrategy {
+        constructor(styleUrlResolver: any)
+    }
+    class ShadowDomStrategy { }
+}
+
+declare module "angular2/src/facade/browser" {
+    var __esModule: boolean;
+    var win: any;
+    var document: any;
+    var location: any;
+    var gc: () => void;
+    const Event: any;
+    const MouseEvent: any;
+    const KeyboardEvent: any;
+}
+
+declare module "angular2/src/router/browser_location" {
+    class BrowserLocation {
+        path(): string
+    }
+}
+
+declare module "angular2/src/router/location" {
+    class Location {
+        normalize(url: string): string
+    }
+}
+
+declare module "angular2/router" {
+    class Instruction {
+        component: any;
+        capturedUrl: string;
+        accumulatedUrl: string;
+        params: StringMap<string, string>;
+        reuse: boolean;
+        specificity: number;
+        constructor({params, component, children, matchedUrl, parentSpecificity}?: {
+            params?: StringMap<string, any>;
+            component?: any;
+            children?: StringMap<string, Instruction>;
+            matchedUrl?: string;
+            parentSpecificity?: number;
+        });
+        hasChild(outletName: string): boolean;
+        /**
+         * Returns the child instruction with the given outlet name
+         */
+        getChild(outletName: string): Instruction;
+        /**
+         * (child:Instruction, outletName:string) => {}
+         */
+        forEachChild(fn: Function): void;
+        /**
+         * Does a synchronous, breadth-first traversal of the graph of instructions.
+         * Takes a function with signature:
+         * (child:Instruction, outletName:string) => {}
+         */
+        traverseSync(fn: Function): void;
+        /**
+         * Takes a currently active instruction and sets a reuse flag on each of this instruction's
+         * children
+         */
+        reuseComponentsFrom(oldInstruction: Instruction): void;
+    }
+
+    class Pipeline {
+        steps: List<Function>;
+        constructor();
+        process(instruction: Instruction): Promise<any>;
+    }
+
+    class RouteRegistry {
+        constructor();
+        /**
+         * Given a component and a configuration object, add the route to this registry
+         */
+        config(parentComponent: any, config: StringMap<string, any>): void;
+        /**
+         * Reads the annotations of a component and configures the registry based on them
+         */
+        configFromComponent(component: any): void;
+        /**
+         * Given a URL and a parent component, return the most specific instruction for navigating
+         * the application into the state specified by the
+         */
+        recognize(url: string, parentComponent: any): Instruction;
+        generate(name: string, params: StringMap<string, string>, hostComponent: any): string;
+    }
+
+    class Router {
+        parent: Router;
+
+        hostComponent: any;
+        navigating: boolean;
+        lastNavigationAttempt: string;
+        previousUrl: string;
+
+        constructor(registry: RouteRegistry, pipeline: Pipeline, parent: Router, hostComponent: any);
+        /**
+         * Constructs a child router. You probably don't need to use this unless you're writing a reusable
+         * component.
+         */
+        childRouter(hostComponent: any): Router;
+        /**
+         * Register an object to notify of route changes. You probably don't need to use this unless
+         * you're writing a reusable component.
+         */
+        registerOutlet(outlet: RouterOutlet, name?: string): Promise<boolean>;
+        /**
+         * Dynamically update the routing configuration and trigger a navigation.
+         *
+         * # Usage
+         *
+         * ```
+         * router.config({ 'path': '/', 'component': IndexCmp});
+         * ```
+         *
+         * Or:
+         *
+         * ```
+         * router.config([
+         *   { 'path': '/', 'component': IndexComp },
+         *   { 'path': '/user/:id', 'component': UserComp },
+         * ]);
+         * ```
+         *
+         */
+        config(config: any): Promise<any>;
+        /**
+         * Navigate to a URL. Returns a promise that resolves to the canonical URL for the route.
+         *
+         * If the given URL begins with a `/`, router will navigate absolutely.
+         * If the given URL does not begin with `/`, the router will navigate relative to this component.
+         */
+        navigate(url: string): Promise<any>;
+        _startNavigating(): void;
+        _finishNavigating(): void;
+        /**
+         * Subscribe to URL updates from the router
+         */
+        subscribe(onNext: any): void;
+        /**
+         *
+         */
+        commit(instruction: Instruction): Promise<List<any>>;
+        /**
+         * Recursively remove all components contained by this router's outlets.
+         * Calls deactivate hooks on all descendant components
+         */
+        deactivate(): Promise<any>;
+        /**
+         * Recursively activate.
+         * Calls the "activate" hook on descendant components.
+         */
+        activate(instruction: Instruction): Promise<any>;
+        _eachOutletAsync(fn: any): Promise<any>;
+        /**
+         * Given a URL, returns an instruction representing the component graph
+         */
+        recognize(url: string): Instruction;
+        /**
+         * Navigates to either the last URL successfully navigated to, or the last URL requested if the
+         * router has yet to successfully navigate.
+         */
+        renavigate(): Promise<any>;
+        /**
+         * Generate a URL from a component name and optional map of parameters. The URL is relative to the
+         * app's base href.
+         */
+        generate(name: string, params: StringMap<string, string>): string;
+    }
+
+    class RouterOutlet {
+        constructor(elementRef: any, loader: any, parentRouter: Router, injector: any, nameAttr: string);
+        /**
+         * Given an instruction, update the contents of this viewport.
+         */
+        activate(instruction: Instruction): Promise<any>;
+        deactivate(): Promise<any>;
+        canDeactivate(instruction: Instruction): Promise<boolean>;
+    }
+
+    var RouterLink: any;
+    var RouteParams: any;
+    var routerInjectables: List<any>;
+    var RouteConfigAnnotation: any;
+    var RouteConfig: any;
+}
+
+
+declare module "angular2/src/dom/browser_adapter" {
+    class BrowserDomAdapter {
+        static makeCurrent(): void;
+        logError(error: any): void;
+        attrToPropMap: any;
+        query(selector: string): any;
+        querySelector(el: any, selector: string): Node;
+        querySelectorAll(el: any, selector: string): List<any>;
+        on(el: any, evt: any, listener: any): void;
+        onAndCancel(el: any, evt: any, listener: any): Function;
+        dispatchEvent(el: any, evt: any): void;
+        createMouseEvent(eventType: string): MouseEvent;
+        createEvent(eventType: any): Event;
+        getInnerHTML(el: any): any;
+        getOuterHTML(el: any): any;
+        nodeName(node: Node): string;
+        nodeValue(node: Node): string;
+        type(node: HTMLInputElement): string;
+        content(node: Node): Node;
+        firstChild(el: any): Node;
+        nextSibling(el: any): Node;
+        parentElement(el: any): any;
+        childNodes(el: any): List<Node>;
+        childNodesAsList(el: any): List<any>;
+        clearNodes(el: any): void;
+        appendChild(el: any, node: any): void;
+        removeChild(el: any, node: any): void;
+        replaceChild(el: Node, newChild: any, oldChild: any): void;
+        remove(el: any): any;
+        insertBefore(el: any, node: any): void;
+        insertAllBefore(el: any, nodes: any): void;
+        insertAfter(el: any, node: any): void;
+        setInnerHTML(el: any, value: any): void;
+        getText(el: any): any;
+        setText(el: any, value: string): void;
+        getValue(el: any): any;
+        setValue(el: any, value: string): void;
+        getChecked(el: any): any;
+        setChecked(el: any, value: boolean): void;
+        createTemplate(html: any): HTMLElement;
+        createElement(tagName: any, doc?: Document): HTMLElement;
+        createTextNode(text: string, doc?: Document): Text;
+        createScriptTag(attrName: string, attrValue: string, doc?: Document): HTMLScriptElement;
+        createStyleElement(css: string, doc?: Document): HTMLStyleElement;
+        createShadowRoot(el: HTMLElement): DocumentFragment;
+        getShadowRoot(el: HTMLElement): DocumentFragment;
+        getHost(el: HTMLElement): HTMLElement;
+        clone(node: Node): Node;
+        hasProperty(element: any, name: string): boolean;
+        getElementsByClassName(element: any, name: string): any;
+        getElementsByTagName(element: any, name: string): any;
+        classList(element: any): List<any>;
+        addClass(element: any, classname: string): void;
+        removeClass(element: any, classname: string): void;
+        hasClass(element: any, classname: string): any;
+        setStyle(element: any, stylename: string, stylevalue: string): void;
+        removeStyle(element: any, stylename: string): void;
+        getStyle(element: any, stylename: string): any;
+        tagName(element: any): string;
+        attributeMap(element: any): any;
+        hasAttribute(element: any, attribute: string): any;
+        getAttribute(element: any, attribute: string): any;
+        setAttribute(element: any, name: string, value: string): void;
+        removeAttribute(element: any, attribute: string): any;
+        templateAwareRoot(el: any): any;
+        createHtmlDocument(): Document;
+        defaultDoc(): Document;
+        getBoundingClientRect(el: any): any;
+        getTitle(): string;
+        setTitle(newTitle: string): void;
+        elementMatches(n: any, selector: string): boolean;
+        isTemplateElement(el: any): boolean;
+        isTextNode(node: Node): boolean;
+        isCommentNode(node: Node): boolean;
+        isElementNode(node: Node): boolean;
+        hasShadowRoot(node: any): boolean;
+        isShadowRoot(node: any): boolean;
+        importIntoDoc(node: Node): Node;
+        isPageRule(rule: any): boolean;
+        isStyleRule(rule: any): boolean;
+        isMediaRule(rule: any): boolean;
+        isKeyframesRule(rule: any): boolean;
+        getHref(el: Element): string;
+        getEventKey(event: any): string;
+        getGlobalEventTarget(target: string): EventTarget;
+        getHistory(): History;
+        getLocation(): Location;
+        getBaseHref(): any;
+    }
+}
+
+declare module "angular2/di" {
+
+    function bind(token: any): any;
+    class Injector {
+        resolveAndCreateChild(bindings: [any]): Injector;
+    }
+    var Binding: any;
+    var ResolvedBinding: any;
+    var Dependency: any;
+    var Key: any;
+    var KeyRegistry: any;
+    var TypeLiteral: any;
+    var NoBindingError: any;
+    var AbstractBindingError: any;
+    var AsyncBindingError: any;
+    var CyclicDependencyError: any;
+    var InstantiationError: any;
+    var InvalidBindingError: any;
+    var NoAnnotationError: any;
+    var OpaqueToken: any;
+    var ___esModule: any;
+    var InjectAnnotation: any;
+    var InjectPromiseAnnotation: any;
+    var InjectLazyAnnotation: any;
+    var OptionalAnnotation: any;
+    var InjectableAnnotation: any;
+    var DependencyAnnotation: any;
+    var Inject: any;
+    var InjectPromise: any;
+    var InjectLazy: any;
+    var Optional: any;
+    var Injectable: any;
+}
+
+declare module "angular2/http" {
+
+    enum RequestModesOpts { Cors, NoCors, SameOrigin }
+
+    enum RequestCacheOpts { Default, NoStore, Reload, NoCache, ForceCache, OnlyIfCached }
+
+    enum RequestCredentialsOpts { Omit, SameOrigin, Include }
+
+    enum RequestMethods { GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH }
+
+    enum ReadyStates { UNSENT, OPEN, HEADERS_RECEIVED, LOADING, DONE, CANCELLED }
+
+    enum ResponseTypes { Basic, Cors, Default, Error, Opaque }
+
+    class URLSearchParams {
+        constructor(rawParams: string);
+
+        has(param: string): boolean;
+
+        get(param: string): string;
+
+        getAll(param: string): List<string>;
+
+        append(param: string, val: string): void;
+
+        toString(): string;
+
+        delete(param): void;
+    }
+
+    class BrowserXHR {
+        constructor();
+    }
+
+    interface Connection {
+        readyState: ReadyStates;
+        request: Request;
+        response: Rx.Subject<Response>;
+        dispose(): void;
+    }
+
+    interface ConnectionBackend {
+        createConnection(observer: any, config: Request): Connection;
+    }
+    
+    class XHRBackend implements ConnectionBackend {
+        constructor(_NativeConstruct: BrowserXHR);
+        createConnection(request: Request): Connection;
+    }
+
+    class Headers {
+        constructor(headers?: Headers | Object);
+
+        append(name: string, value: string): void;
+
+        delete(name: string): void;
+
+        forEach(fn: Function);
+
+        get(header: string): string;
+
+        has(header: string): boolean;
+
+        keys(): string[];
+
+        set(header: string, value: string | List<string>): void;
+
+        values(): string [];
+
+        getAll(header: string): Array<string>;
+
+        entries();
+    }
+
+    interface IRequestOptions {
+        method?: RequestMethods;
+        headers?: Headers;
+        body?: URLSearchParams | FormData | Blob | string;
+        mode?: RequestModesOpts;
+        credentials?: RequestCredentialsOpts;
+        cache?: RequestCacheOpts;
+    }
+
+    interface Request {
+        method: RequestMethods;
+        mode: RequestModesOpts;
+        credentials: RequestCredentialsOpts;
+    }
+
+    interface ResponseOptions {
+        status?: number;
+        statusText?: string;
+        headers?: Headers | Object;
+        type?: ResponseTypes;
+        url?: string;
+    }
+
+    interface Response {
+        headers: Headers;
+        ok: boolean;
+        status: number;
+        statusText: string;
+        type: ResponseTypes;
+        url: string;
+        totalBytes: number;
+        bytesLoaded: number;
+        blob(): Blob;
+        arrayBuffer(): ArrayBuffer;
+        text(): string;
+        json(): Object;
+    }
+
+    interface IHttp { (url: string, options?: IRequestOptions): Rx.Observable<Response> }
+
+    class RequestOptions implements IRequestOptions {
+        /**
+         * Http method with which to execute the request.
+         *
+         * Defaults to "GET".
+         */
+        method: RequestMethods;
+        /**
+         * Headers object based on the `Headers` class in the [Fetch
+         * Spec](https://fetch.spec.whatwg.org/#headers-class).
+         */
+        headers: Headers;
+        /**
+         * Body to be used when creating the request.
+         */
+        body: URLSearchParams | FormData | Blob | string;
+        mode: RequestModesOpts;
+        credentials: RequestCredentialsOpts;
+        cache: RequestCacheOpts;
+        constructor({method, headers, body, mode, credentials, cache}: IRequestOptions);
+
+        /**
+         * Creates a copy of the `RequestOptions` instance, using the optional input as values to override
+         * existing values.
+         */
+        merge(opts: IRequestOptions): RequestOptions;
+    }
+
+    class BaseRequestOptions extends RequestOptions {
+        constructor();
+    }
+
+    function httpRequest(backend: XHRBackend, request: Request): Rx.Observable<Response>;
+
+    class Http {
+        constructor(_backend: XHRBackend, _defaultOptions: BaseRequestOptions);
+
+        /**
+         * Performs any type of http request. First argument is required, and can either be a url or
+         * a {@link Request} instance. If the first argument is a url, an optional {@link RequestOptions}
+         * object can be provided as the 2nd argument. The options object will be merged with the values
+         * of {@link BaseRequestOptions} before performing the request.
+         */
+        request(url: string | Request, options?: IRequestOptions): Rx.Observable<Response>;
+
+        /**
+         * Performs a request with `get` http method.
+         */
+        get(url: string, options?: IRequestOptions): Rx.Observable<Response>;
+
+        /**
+         * Performs a request with `post` http method.
+         */
+        post(url: string, body: URLSearchParams | FormData | Blob | string, options?: IRequestOptions): Rx.Observable<Response>;
+
+        /**
+         * Performs a request with `put` http method.
+         */
+        put(url: string, body: URLSearchParams | FormData | Blob | string, options?: IRequestOptions): Rx.Observable<Response>;
+
+        /**
+         * Performs a request with `delete` http method.
+         */
+        delete(url: string, options?: IRequestOptions): Rx.Observable<Response>;
+
+        /**
+         * Performs a request with `patch` http method.
+         */
+        patch(url: string, body: URLSearchParams | FormData | Blob | string, options?: IRequestOptions): Rx.Observable<Response>;
+
+        /**
+         * Performs a request with `head` http method.
+         */
+        head(url: string, options?: IRequestOptions): Rx.Observable<Response>;
+    }
+
+    var httpInjectables: any[];
+}
 
 
