@@ -106,13 +106,14 @@ declare module chrome.cast {
     }
 
     /**
-     * @const {!Array.<number>}
-     * @see https://developers.google.com/cast/docs/reference/chrome/
+     * @const {!Array<number>}
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.VERSION
      */
     var VERSION: Array<number>;
 
     /**
      * @type {boolean}
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.isAvailable
      */
     var isAvailable: boolean;
 
@@ -169,7 +170,7 @@ declare module chrome.cast {
     ): void
 
     /**
-     * @param {!Array.<chrome.cast.Receiver>} receivers
+     * @param {!Array<chrome.cast.Receiver>} receivers
      * @param {function()} successCallback
      * @param {function(chrome.cast.Error)} errorCallback
      */
@@ -194,7 +195,7 @@ declare module chrome.cast {
         /**
          * @param {!chrome.cast.SessionRequest} sessionRequest
          * @param {function(!chrome.cast.Session)} sessionListener
-         * @param {function(!chrome.cast.ReceiverAvailability,Array.<Object>)}
+         * @param {function(!chrome.cast.ReceiverAvailability,Array<Object>)}
          *     receiverListener
          * @param {chrome.cast.AutoJoinPolicy=} opt_autoJoinPolicy
          * @param {chrome.cast.DefaultActionPolicy=} opt_defaultActionPolicy
@@ -216,14 +217,14 @@ declare module chrome.cast {
         defaultActionPolicy: chrome.cast.DefaultActionPolicy;
     }
 
-    /**
-     * @param {!chrome.cast.ErrorCode} code
-     * @param {string=} opt_description
-     * @param {Object=} opt_details
-     * @constructor
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Error
-     */
     interface Error {
+        /**
+         * @param {!chrome.cast.ErrorCode} code
+         * @param {string=} opt_description
+         * @param {Object=} opt_details
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Error
+         */
         new(
             code: chrome.cast.ErrorCode,
             description?: string,
@@ -252,7 +253,11 @@ declare module chrome.cast {
     }
 
     interface SenderApplication {
-
+        /**
+         * @param {!chrome.cast.SenderPlatform} platform
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SenderApplication
+         */
         new(
             platform: chrome.cast.SenderPlatform
         ):SenderApplication;
@@ -265,7 +270,7 @@ declare module chrome.cast {
     interface SessionRequest {
         /**
          * @param {string} appId
-         * @param {!Array.<chrome.cast.Capability>=} opt_capabilities
+         * @param {!Array<chrome.cast.Capability>=} opt_capabilities
          * @param {number=} opt_timeout
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SessionRequest
@@ -287,7 +292,7 @@ declare module chrome.cast {
          * @param {string} sessionId
          * @param {string} appId
          * @param {string} displayName
-         * @param {!Array.<chrome.cast.Image>} appImages
+         * @param {!Array<chrome.cast.Image>} appImages
          * @param {!chrome.cast.Receiver} receiver
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Session
@@ -436,7 +441,7 @@ declare module chrome.cast {
         /**
          * @param {string} label
          * @param {string} friendlyName
-         * @param {Array.<chrome.cast.Capability>=} opt_capabilities
+         * @param {Array<chrome.cast.Capability>=} opt_capabilities
          * @param {chrome.cast.Volume=} opt_volume
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Receiver
@@ -459,7 +464,7 @@ declare module chrome.cast {
     interface ReceiverDisplayStatus {
         /**
          * @param {string} statusText
-         * @param {!Array.<chrome.cast.Image>} appImages
+         * @param {!Array<chrome.cast.Image>} appImages
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverDisplayStatus
          */
@@ -558,7 +563,8 @@ declare module chrome.cast.media {
     }
     
     /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueLoadRequest
+     * @enum {string}
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.RepeatMode
      */
     interface RepeatMode {
         OFF:string;
@@ -567,10 +573,12 @@ declare module chrome.cast.media {
         ALL_AND_SHUFFLE:string;
     }
     
-    /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueItem
-     */
     interface QueueItem {
+        /**
+         * @param {!chrome.cast.media.MediaInfo} mediaInfo
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueItem
+         */
         new(
             mediaInfo: chrome.cast.media.MediaInfo
         ):QueueItem;
@@ -584,10 +592,12 @@ declare module chrome.cast.media {
         startTime: number;
     }
     
-    /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueLoadRequest
-     */
     interface QueueLoadRequest {
+        /**
+         * @param {!Array<chrome.cast.media.QueueItem>} items
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueLoadRequest
+         */
         new(
             items: Array<chrome.cast.media.QueueItem>
         ):QueueLoadRequest;
@@ -598,10 +608,12 @@ declare module chrome.cast.media {
         startIndex: number;
     }
     
-    /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueInsertItemsRequest
-     */
     interface QueueInsertItemsRequest {
+        /**
+         * @param {!Array<chrome.cast.media.QueueItem>}
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueInsertItemsRequest
+         */
         new(
             itemsToInsert: Array<chrome.cast.media.QueueItem>
         ):QueueInsertItemsRequest;
@@ -611,10 +623,12 @@ declare module chrome.cast.media {
         items: Array<chrome.cast.media.QueueItem>;
     }
     
-    /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueRemoveItemsRequest
-     */
     interface QueueRemoveItemsRequest {
+        /**
+         * @param {!Array<number>}
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueRemoveItemsRequest
+         */
         new(
             itemIdsToRemove: Array<number>
         ):QueueRemoveItemsRequest;
@@ -623,10 +637,12 @@ declare module chrome.cast.media {
         itemIds: Array<number>;
     }
     
-    /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueReorderItemsRequest
-     */
     interface QueueReorderItemsRequest {
+        /**
+         * @param {!Array<number>}
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueReorderItemsRequest
+         */
         new(
             itemIdsToReorder: Array<number>
         ):QueueReorderItemsRequest;
@@ -636,10 +652,12 @@ declare module chrome.cast.media {
         itemIds: Array<number>;
     }
     
-    /**
-     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueUpdateItemsRequest
-     */
     interface QueueUpdateItemsRequest {
+        /**
+         * @param {!Array<chrome.cast.media.QueueItem>}
+         * @constructor
+         * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueUpdateItemsRequest
+         */
         new(
             itemsToUpdate: Array<chrome.cast.media.QueueItem>
         ):QueueUpdateItemsRequest;
@@ -802,7 +820,7 @@ declare module chrome.cast.media {
 
     interface EditTracksInfoRequest {
         /**
-         * @param {Array.<number>=} opt_activeTrackIds
+         * @param {Array<number>=} opt_activeTrackIds
          * @param {chrome.cast.media.TextTrackStyle=} opt_textTrackStyle
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.EditTracksInfoRequest
@@ -826,11 +844,11 @@ declare module chrome.cast.media {
         images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
         releaseDate: string;
+        /** @deprecated. Use releaseDate instead. */
         releaseYear: number;
         subtitle: string;
         title: string;
-
-        /** Deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */ 
         type: chrome.cast.media.MetadataType;
     }
 
@@ -844,12 +862,12 @@ declare module chrome.cast.media {
         images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
         releaseDate: string;
+        /** @deprecated. Use releaseDate instead. */
         releaseYear: number;
         subtitle: string;
         title: string;
         studio: string;
-        
-        /** Deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
     }
 
@@ -868,11 +886,15 @@ declare module chrome.cast.media {
         images: Array<chrome.cast.Image>;
         originalAirdate: string;
 
-        /** Deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
+        /** @deprecated. Use title instead. */
         episodeTitle: string;
+        /** @deprecated. Use season instead. */
         seasonNumber: number;
+        /** @deprecated. Use episode instead. */
         episodeNumber: number;
+        /** @deprecated. Use originalAirdate instead. */
         releaseYear: number;
     }
 
@@ -895,9 +917,11 @@ declare module chrome.cast.media {
         images: Array<chrome.cast.Image>;
         releaseDate: string;
 
-        /** Deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */ 
         type: chrome.cast.media.MetadataType;
+        /** @deprecated. Use artist instead. */ 
         artistName: string;
+        /** @deprecated. Use releaseDate instead. */ 
         releaseYear: number;
     }
 
@@ -919,7 +943,7 @@ declare module chrome.cast.media {
         height: number;
         creationDateTime: string;
 
-        /** Deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */ 
         type: chrome.cast.media.MetadataType;
     }
 
@@ -973,7 +997,7 @@ declare module chrome.cast.media {
         supportedMediaCommands: Array<chrome.cast.media.MediaCommand>;
         volume: chrome.cast.Volume;
         
-        /** Deprecated. Use getEstimatedTime instead */
+        /** @deprecated. Use getEstimatedTime instead */
         currentTime: number;
 
         /**
