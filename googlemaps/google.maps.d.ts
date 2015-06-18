@@ -225,7 +225,7 @@ declare module google.maps {
         setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
         toGeoJson(callback: (feature: Object) => void): void;
     }
-        
+
     export module Data {
         export interface DataOptions {
             map?: Map;
@@ -1204,8 +1204,8 @@ declare module google.maps {
     }
 
     export interface MapTypeStyle {
-        elementType?: MapTypeStyleElementType;
-        featureType?: MapTypeStyleFeatureType;
+        elementType?: string|MapTypeStyleElementType;
+        featureType?: string|MapTypeStyleFeatureType;
         stylers?: MapTypeStyler[];
     }
 
