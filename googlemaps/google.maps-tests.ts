@@ -115,4 +115,28 @@ var icon: google.maps.Icon = {
     scaledSize: new google.maps.Size(32, 32),
     size: new google.maps.Size(32, 32),
     url: "dummy"
-}
+};
+
+/***** MapTypeStyle *****/
+
+var mapTypeStyle: google.maps.MapTypeStyle ={
+    featureType: 'all',
+};
+
+var mapTypeStyle: google.maps.MapTypeStyle ={
+    featureType: 'administrative.country',
+    elementType: 'all',
+    stylers: [],
+};
+
+var mapTypeStyle: google.maps.MapTypeStyle ={
+    featureType: 'landscape.natural',
+    elementType: 'geometry',
+    stylers: [],
+};
+
+var mapTypeStyle: google.maps.MapTypeStyle ={
+    featureType: 'poi.school',
+    elementType: 'labels',
+    stylers: [],
+};
