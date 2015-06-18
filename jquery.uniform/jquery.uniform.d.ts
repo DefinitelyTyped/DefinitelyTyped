@@ -35,8 +35,8 @@ interface UniformOptions {
 }
 interface Uniform {
     (options?: UniformOptions): JQuery;
-    update(any?): void;
-    restore(any?): void;
+    update(elemOrSelector?: any): void;
+    restore(elemOrSelector?: any): void;
     elements: JQuery[];
 }
 interface JQueryStatic {
