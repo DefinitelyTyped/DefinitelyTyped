@@ -1,5 +1,5 @@
-/// <reference path="jquery.notifyBar.d.ts" /
-//
+/// <reference path="jquery.uniform.d.ts" /
+
 // Style all <select> elements
 $("select").uniform();
 // Style everything
@@ -50,7 +50,7 @@ $("input").uniform({inputClass: "inputElement"});
 
 $(":radio").uniform({radioClass: 'myRadioClass'});
 
-$("input[type='reset']).uniform({resetDefaultHtml: "Clear"});
+$("input[type='reset']").uniform({resetDefaultHtml: "Clear"});
 
 $("select").uniform({resetSelector: 'input[type="reset"]'});
 
