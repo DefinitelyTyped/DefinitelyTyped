@@ -13,10 +13,10 @@ declare module ScrollToFixed {
 		zIndex? : number;
 		spacerClass? : string;
 		preFixed?: () => void;
-		fixed?: () => void;
 		postFixed?: () => void;
-		preUnfixed?: () => void;
+		fixed?: () => void;
 		unfixed?: () => void;
+		preUnfixed?: () => void;
 		postUnfixed?: () => void;
 		preAbsolute?: () => void;
 		postAbsolute?: () => void;
@@ -26,6 +26,8 @@ declare module ScrollToFixed {
 		dontCheckForPositionFixedSupport? : boolean;
 		dontSetWidth? : boolean;
 		removeOffsets? : boolean;
+		baseClassName?: string;
+		className?: string;
 	}
 }
 
