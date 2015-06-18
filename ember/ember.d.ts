@@ -1418,9 +1418,9 @@ declare module Ember {
         apply(obj: any): any;
         /**
         Creates an instance of the class.
-        @param args A hash containing values with which to initialize the newly instantiated object.
+        @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Mixin>(...args: []): T;
+        static create<T extends Mixin>(...arguments: []): T;
         detect(obj: any): boolean;
         reopen<T extends Mixin>(args?: {}): T;
     }
