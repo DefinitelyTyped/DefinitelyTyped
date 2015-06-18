@@ -10,11 +10,11 @@ $('select[class!="skip_these"]').uniform();  // Method 2
 
 $("select").uniform({
   fileDefaultText: 'Keine Datei ausgewählt',
-  fileBtnText: 'Wählen Sie Datei',
+  fileButtonText: 'Wählen Sie Datei',
 });
 
 $.uniform.defaults.checkedClass = "uniformCheckedClass";
-$.uniform.defaults.fileBtnHtml = "Pick a file";
+$.uniform.defaults.fileButtonHtml = "Pick a file";
 
 $("select").uniform({activeClass: 'myActiveClass'});
 
