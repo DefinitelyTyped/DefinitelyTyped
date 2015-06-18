@@ -209,20 +209,20 @@ declare module google.maps {
 
     /***** Data *****/
     export class Data extends MVCObject {
-        constructor(options?: Data.DataOptions);
-        add(feature: Data.Feature|Data.FeatureOptions): Data.Feature;
-        addGeoJson(geoJson: Object, options?: Data.GeoJsonOptions): Data.Feature[];
-        contains(feature: Data.Feature): boolean;
-        forEach(callback: (feature: Data.Feature) => void): void;
-        getFeatureById(id: number|string): Data.Feature;
+        constructor(options?: google.maps.Data.DataOptions);
+        add(feature: google.maps.Data.Feature|google.maps.Data.FeatureOptions): google.maps.Data.Feature;
+        addGeoJson(geoJson: Object, options?: google.maps.Data.GeoJsonOptions): google.maps.Data.Feature[];
+        contains(feature: google.maps.Data.Feature): boolean;
+        forEach(callback: (feature:google.maps.Data.Feature) => void): void;
+        getFeatureById(id: number|string): google.maps.Data.Feature;
         getMap(): Map;
-        getStyle(): Data.StylingFunction|Data.StyleOptions;
-        loadGeoJson(url: string, options?: Data.GeoJsonOptions, callback?: (features: Data.Feature[]) => void): void;
-        overrideStyle(feature: Data.Feature, style: Data.StyleOptions): void;
-        remove(feature: Data.Feature): void;
-        revertStyle(feature?: Data.Feature): void;
+        getStyle(): google.maps.Data.StylingFunction|google.maps.Data.StyleOptions;
+        loadGeoJson(url: string, options?: google.maps.Data.GeoJsonOptions, callback?: (features:google.maps.Data.Feature[]) => void): void;
+        overrideStyle(feature: google.maps.Data.Feature, style: google.maps.Data.StyleOptions): void;
+        remove(feature: google.maps.Data.Feature): void;
+        revertStyle(feature?: google.maps.Data.Feature): void;
         setMap(map: Map): void;
-        setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
+        setStyle(style: google.maps.Data.StylingFunction|google.maps.Data.StyleOptions): void;
         toGeoJson(callback: (feature: Object) => void): void;
     }
 
