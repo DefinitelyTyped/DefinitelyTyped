@@ -43,3 +43,7 @@ interface Uniform {
 interface JQueryStatic {
     uniform: Uniform;
 }
+
+interface JQuery {
+    uniform: Uniform;
+}
