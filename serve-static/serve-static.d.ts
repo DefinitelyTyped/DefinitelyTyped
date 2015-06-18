@@ -11,6 +11,7 @@
  =============================================== */
 
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
     import express = require('express');
@@ -74,6 +75,12 @@ declare module "serve-static" {
          */
         setHeaders?: (res: express.Response, path: string, stat: any) => any;
     }): express.Handler;
+
+    import m = require('mime');
+
+    module serveStatic {
+        var mime: typeof m;
+    }
 
     export = serveStatic;
 }
