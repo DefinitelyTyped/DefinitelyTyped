@@ -1,4 +1,4 @@
-/// <reference path="jquery.uniform.d.ts" /
+/// <reference path="jquery.uniform.d.ts" />
 
 // Style all <select> elements
 $("select").uniform();
@@ -58,7 +58,7 @@ $("select").uniform({selectClass: 'mySelectClass'});
 
 $("select").uniform({selectMultiClass: 'myMultiSelectClass'});
 
-$("input[type='submit']).uniform({resetDefaultHtml: "Submit Form"});
+$("input[type='submit']").uniform({resetDefaultHtml: "Submit Form"});
 
 $("textarea").uniform({textareaClass: "myTextareaClass"});
 
