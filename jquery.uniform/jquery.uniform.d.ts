@@ -3,7 +3,7 @@
 // Definitions by: flyfishMT <https://github.com/flyfishMT/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface UniformOptions {
     activeClass?: string;
@@ -38,6 +38,7 @@ interface Uniform {
     update(elemOrSelector?: any): void;
     restore(elemOrSelector?: any): void;
     elements: JQuery[];
+	defaults: UniformOptions;
 }
 interface JQueryStatic {
     uniform: Uniform;
