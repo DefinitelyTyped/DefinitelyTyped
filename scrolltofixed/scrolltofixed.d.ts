@@ -31,15 +31,19 @@ declare module ScrollToFixed {
 	}
 }
 
-interface JQuery {
+interface JQuery {	
+    scrollToFixed : (options? : ScrollToFixed.ScrollToFixedOptions) => JQuery[];
+}
+
+interface JQueryStatic {
 	isScrollToFixed(el: Element) : JQuery;
 	isScrollToFixed(el: Element[]) : JQuery;
 	isScrollToFixed(el: {}) : JQuery;
 	isScrollToFixed(el: JQuery) : JQuery;
+	
+    ScrollToFixed(el: Element, options: ScrollToFixed.ScrollToFixedOptions): void;
 	ScrollToFixed(el : Element, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
 	ScrollToFixed(el: Element[], options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
 	ScrollToFixed(el: {}, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
-	ScrollToFixed(el: JQuery, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
-	
-    scrollToFixed : (options? : ScrollToFixed.ScrollToFixedOptions) => JQuery[];
+	ScrollToFixed(el: JQuery, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;	
 }
