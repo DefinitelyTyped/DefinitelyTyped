@@ -17,9 +17,6 @@ $(document).ready(function() {
         postFixed: function() { $(this).find('h1').css('color', ''); }
     });
 
-    // Order matters because our summary limit is based on the position
-    // of the footer.  On window refresh, the summary needs to recalculate
-    // after the footer.
     $('#summary').scrollToFixed({
         marginTop: $('.header').outerHeight() + 10,
         limit: function() {
@@ -33,3 +30,5 @@ $(document).ready(function() {
         postAbsolute: function() { $(this).find('.title').css('color', ''); }
     });
 });
+
+var b = $.isScrollToFixed('.header');
