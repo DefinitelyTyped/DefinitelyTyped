@@ -261,8 +261,8 @@ declare module google.maps {
             getProperty(name: string): any;
             removeProperty(name: string): void;
             setGeometry(newGeometry: Data.Geometry|LatLng): void; // TODO LatLngLiteral
-            setProperty(name: string, newValue: any): void
-            toGeoJson(callback: (feature: Object) => void): void
+            setProperty(name: string, newValue: any): void;
+            toGeoJson(callback: (feature: Object) => void): void;
         }
 
         export interface FeatureOptions {
