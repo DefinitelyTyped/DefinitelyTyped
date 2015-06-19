@@ -67,7 +67,7 @@ declare module Sdk
          * Adds a column to the collection.
          * @param column The logical name of the attribute to add.
          */
-        addColumn( column: string );
+        addColumn( column: string ): void;
 
         /**
          * Adds a string array of column names.
