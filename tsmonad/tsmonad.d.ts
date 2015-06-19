@@ -1,7 +1,6 @@
 // Type definitions for TsMonad
 // Project: https://github.com/cbowdon/TsMonad
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
-// Definitions by: Valentin Trinque <https://github.com/ValentinTrinque>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module TsMonad {
