@@ -79,7 +79,7 @@ declare module Sdk
          * Sets the AllColumns property.
          * @params allColumns A boolean value.
          */
-        setAllColumns( allColumns: boolean );
+        setAllColumns( allColumns: boolean ): void;
 
         /**
          * Whether all columns will be returned.
@@ -309,7 +309,7 @@ declare module Sdk
          * Sets the collection of entity references.
          * @param entityReferences The entity references
          */
-        setEntityReferences( entityReferences: Sdk.Collection<EntityReference> );
+        setEntityReferences( entityReferences: Sdk.Collection<EntityReference> ): void;
         
         
         /// prototype methods
@@ -842,7 +842,7 @@ declare module Sdk
         /**
          * Generates properties for the entity based on metadata.
          */
-        initializeSubClass( metadata ): void;
+        initializeSubClass( metadata: any ): void;
 
         /**
          * Sets the value of the specified attribute.
@@ -2092,38 +2092,38 @@ declare module Sdk.Mdq
 
     export interface IEntityMetadata
     {
-        ActivityTypeMask;
+        ActivityTypeMask: any;
         Attributes: Array<IAttributeMetadata>;
-        AutoCreateAccessTeams;
+        AutoCreateAccessTeams: any;
         AutoRouteToOwnerQueue: boolean;
-        CanBeInManyToMany;
-        CanBePrimaryEntityInRelationship;
-        CanBeRelatedEntityInRelationship;
-        CanCreateAttributes;
-        CanCreateCharts;
-        CanCreateForms;
-        CanCreateViews;
-        CanModifyAdditionalSettings;
+        CanBeInManyToMany: any;
+        CanBePrimaryEntityInRelationship: any;
+        CanBeRelatedEntityInRelationship: any;
+        CanCreateAttributes: any;
+        CanCreateCharts: any;
+        CanCreateForms: any;
+        CanCreateViews: any;
+        CanModifyAdditionalSettings: any;
         CanTriggerWorkflow: boolean;
-        Description;
-        DisplayCollectionName;
-        DisplayName;
-        IconLargeName;
-        IconMediumName;
-        IconSmallName;
-        IntroducedVersion;
+        Description: any;
+        DisplayCollectionName: any;
+        DisplayName: any;
+        IconLargeName: any;
+        IconMediumName: any;
+        IconSmallName: any;
+        IntroducedVersion: any;
         IsActivity: boolean;
         IsActivityParty: boolean;
-        IsAIRUpdated;
-        IsAuditEnabled;
+        IsAIRUpdated: any;
+        IsAuditEnabled: any;
         IsAvailableOffline: boolean;
-        IsBusinessProcessEnabled;
+        IsBusinessProcessEnabled: any;
         IsChildEntity: boolean;
-        IsConnectionsEnabled;
+        IsConnectionsEnabled: any;
         IsCustomEntity: boolean;
-        IsCustomizable;
+        IsCustomizable: any;
         IsDocumentManagementEnabled: boolean;
-        IsDuplicateDetectionEnabled;
+        IsDuplicateDetectionEnabled: any;
         IsEnabledForCharts: boolean;
         IsImportable: boolean;
         IsIntersect: boolean;
@@ -2138,66 +2138,66 @@ declare module Sdk.Mdq
         IsVisibleInMobile: boolean;
         IsVisibleInMobileClient: boolean;
         LogicalName: string;
-        ManyToManyRelationships;
-        ManyToOneRelationships;
-        MetadataId;
+        ManyToManyRelationships: any;
+        ManyToOneRelationships: any;
+        MetadataId: any;
         ObjectTypeCode: number;
-        OneToManyRelationships;
+        OneToManyRelationships: any;
         OwnershipType: string;
         PrimaryIdAttribute: string;
-        PrimaryImageAttribute;
+        PrimaryImageAttribute: any;
         PrimaryNameAttribute: string;
-        Privileges;
-        RecurrenceBaseEntityLogicalName;
+        Privileges: any;
+        RecurrenceBaseEntityLogicalName: any;
         ReportViewName: string;
         SchemaName: string;
     }
 
     export interface IAttributeMetadata
     {
-        AttributeOf;
-        AttributeType;
-        AttributeTypeName;
-        CalculationOf;
-        CanBeSecuredForCreate;
-        CanBeSecuredForRead;
-        CanBeSecuredForUpdate;
-        CanModifyAdditionalSettings;
-        ColumnNumber;
-        DefaultFormValue;
-        DefaultValue;
-        DeprecatedVersion;
-        Description;
-        DisplayName;
-        EntityLogicalName;
-        Format;
-        FormatName;
-        ImeMode;
-        IntroducedVersion;
-        IsAuditEnabled;
-        IsCustomAttribute;
-        IsCustomizable;
-        IsManaged;
-        IsPrimaryId;
-        IsPrimaryName;
-        IsRenameable;
-        IsSecured;
-        IsValidForAdvancedFind;
-        IsValidForCreate;
-        IsValidForRead;
-        IsValidForUpdate;
-        LinkedAttributeId;
-        LogicalName;
-        MaxLength;
-        MaxValue;
-        MetadataId;
-        MinValue;
-        OptionSet;
-        Precision;
-        PrecisionSource;
-        RequiredLevel;
-        SchemaName;
+        AttributeOf: any;
+        AttributeType: any;
+        AttributeTypeName: any;
+        CalculationOf: any;
+        CanBeSecuredForCreate: any;
+        CanBeSecuredForRead: any;
+        CanBeSecuredForUpdate: any;
+        CanModifyAdditionalSettings: any;
+        ColumnNumber: any;
+        DefaultFormValue: any;
+        DefaultValue: any;
+        DeprecatedVersion: any;
+        Description: any;
+        DisplayName: any;
+        EntityLogicalName: any;
+        Format: any;
+        FormatName: any;
+        ImeMode: any;
+        IntroducedVersion: any;
+        IsAuditEnabled: any;
+        IsCustomAttribute: any;
+        IsCustomizable: any;
+        IsManaged: any;
+        IsPrimaryId: any;
+        IsPrimaryName: any;
+        IsRenameable: any;
+        IsSecured: any;
+        IsValidForAdvancedFind: any;
+        IsValidForCreate: any;
+        IsValidForRead: any;
+        IsValidForUpdate: any;
+        LinkedAttributeId: any;
+        LogicalName: any;
+        MaxLength: any;
+        MaxValue: any;
+        MetadataId: any;
+        MinValue: any;
+        OptionSet: any;
+        Precision: any;
+        PrecisionSource: any;
+        RequiredLevel: any;
+        SchemaName: any;
         Targets: string[];
-        YomiOf;
+        YomiOf: any;
     }
 }
