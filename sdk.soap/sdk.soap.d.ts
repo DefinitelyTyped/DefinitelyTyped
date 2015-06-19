@@ -73,7 +73,7 @@ declare module Sdk
          * Adds a string array of column names.
          * @param columns A string array of column names.
          */
-        addColumns( columns: Array<string> );
+        addColumns( columns: Array<string> ): void;
 
         /**
          * Sets the AllColumns property.
@@ -141,7 +141,7 @@ declare module Sdk
          * Adds an array of objects to the collection.
          * @param items An array of items to add to the collection.
          */
-        addRange( items ): void;
+        addRange( items: T[] ): void;
 
         /**
          * Removes all items from the collection.
@@ -158,7 +158,7 @@ declare module Sdk
          * Applies the action contained within a delegate function.
          * @param fn Delegate function with parameters for item and index.
          */
-        forEach( fn: ( item: T, index: number ) => any );
+        forEach( fn: ( item: T, index: number ) => any ): void;
 
         /**
          * Gets the item in the collection at the specified index.
@@ -279,7 +279,7 @@ declare module Sdk
          * Sets whether the results of the query exceeds the total record count.
          * @param totalRecordCountLimitExceeded Whether the results of the query exceeds the total record count.
          */
-        setTotalRecordCountLimitExceeded( totalRecordCountLimitExceeded: boolean );
+        setTotalRecordCountLimitExceeded( totalRecordCountLimitExceeded: boolean ): void;
 
         /**
          * XML definition of an the child nodes of an entity.
@@ -318,7 +318,7 @@ declare module Sdk
          * Removes an entity reference to the collection.
          * @param entityReference The entity reference to remove.
          */
-        remove( entityReference: Sdk.EntityReference ); 
+        remove( entityReference: Sdk.EntityReference ): void; 
  
         /**
          * Returns a view of the data in an entity reference collection instance.
@@ -455,7 +455,7 @@ declare module Sdk
         /**
          * Internal Use Only
          */
-        setValidValue( value );
+        setValidValue( value: any ): void;
         
         
         /// prototype methods
@@ -463,7 +463,7 @@ declare module Sdk
         /**
          * XML node for Attribute.
          */
-        toXml( action ): string;
+        toXml( action: string ): string;
     }
 
     class Boolean extends AttributeBase
@@ -750,7 +750,7 @@ declare module Sdk
          * Sets the collection of attributes for the entity.
          * @param attributes The collection of attributes for the entity.
          */
-        setAttributes( attributes: Sdk.AttributeCollection );
+        setAttributes( attributes: Sdk.AttributeCollection ): void;
 
         /**
          * Gets the state of the entity.
@@ -795,7 +795,7 @@ declare module Sdk
          * Sets the logical name of the entity.
          * @param type The logical name of the entity.
          */
-        setType( type ): void;
+        setType( type: string ): void;
 
         /**
          * Gets a collection of related entities.
@@ -813,7 +813,7 @@ declare module Sdk
          * @param attribute The attribute to add
          * @param isChanged Whether the attribute should be considered changed, the default is true.
          */
-        addAttribute( attribute: Sdk.AttributeBase, isChanged?: boolean );
+        addAttribute( attribute: Sdk.AttributeBase, isChanged?: boolean ): void;
 
         /**
          * Adds an entity to the related entities.
@@ -831,7 +831,7 @@ declare module Sdk
          * Sets the value to indicate whether data for the entity has changed.
          * @param isChanged The value to indicate whether data for the entity has changed.
          */
-        setIsChanged( isChanged: boolean );
+        setIsChanged( isChanged: boolean ): void;
 
         /**
          * Gets the value of the specified attribute.
@@ -842,7 +842,7 @@ declare module Sdk
         /**
          * Generates properties for the entity based on metadata.
          */
-        initializeSubClass( metadata );
+        initializeSubClass( metadata ): void;
 
         /**
          * Sets the value of the specified attribute.
