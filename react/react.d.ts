@@ -511,7 +511,7 @@ declare module "react" {
         // Non-standard Attributes
         autoCapitalize?: boolean;
         autoCorrect?: boolean;
-        property?: string;
+        // property?: string;
         itemProp?: string;
         itemScope?: boolean;
         itemType?: string;
@@ -778,4 +778,3 @@ declare module "react" {
         identifiedTouch(identifier: number): Touch;
     }
 }
-
