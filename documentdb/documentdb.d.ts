@@ -1,6 +1,6 @@
 // Type definitions for DocumentDB
 // Project: https://github.com/Azure/azure-documentdb-node
-// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>
+// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/documentdb
 
 declare module 'documentdb' {
@@ -59,7 +59,7 @@ declare module 'documentdb' {
         name: string;
         
         /** The value of the parameter. */
-        value: string;
+        value: any;
     }
     
     /** The Sql query specification. */
