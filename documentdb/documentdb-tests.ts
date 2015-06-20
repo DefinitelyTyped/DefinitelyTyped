@@ -13,7 +13,7 @@ docDBClient.createDatabase({ id: 'foo' }, undefined, (error, result) => {
     }
 });
 
-var dbQuerySpec: docDB.SqlQuerySpec = {query: 'SELECT * FROM database d WHERE d.id = @id', parameters: [{name: '@id', value: 'foo'}]}
+var dbQuerySpec: docDB.SqlQuerySpec = {query: 'SELECT * FROM d WHERE d.meta = @meta', parameters: [{name: '@meta', value: {creator: 'John Smith', type: 'documentdb'}}]};
 docDBClient.queryDatabases(dbQuerySpec).toArray((error, result) => {
     
     if (error) {
@@ -27,7 +27,7 @@ docDBClient.queryDatabases(dbQuerySpec).toArray((error, result) => {
             console.log('Found database: ' + result[0].id);
         }
     }
-})
+});
 
 docDBClient.createCollection('database', { id: 'foo' }, undefined, (error, result) => {
 
@@ -63,7 +63,7 @@ var trigger: docDB.Trigger = {
     },
     triggerType: 'pre',
     triggerOperation: 'all'
-}
+};
 
 docDBClient.createTrigger('collection', trigger, undefined, (error, result) => {
     
@@ -75,7 +75,7 @@ docDBClient.createTrigger('collection', trigger, undefined, (error, result) => {
     }
 });
 
-var triggerQuerySpec: docDB.SqlQuerySpec = {query: 'SELECT * FROM trigger t WHERE t.id = @id', parameters: [{name: '@id', value: 'trigger-foo'}]}
+var triggerQuerySpec: docDB.SqlQuerySpec = {query: 'SELECT * FROM t WHERE t.id = @id', parameters: [{name: '@id', value: 'trigger-foo'}]};
 docDBClient.queryTriggers('collection', triggerQuerySpec).toArray((error, result) => {
     
     if (error) {
