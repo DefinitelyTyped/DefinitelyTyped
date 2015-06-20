@@ -124,4 +124,3 @@ docDBClient.executeStoredProcedure('procedure', [10, 'foo'], (error, result) => 
         console.log('Procedure result: ' + result);
     }
 });
-
