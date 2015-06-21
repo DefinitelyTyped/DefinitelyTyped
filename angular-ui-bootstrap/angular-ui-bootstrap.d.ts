@@ -265,6 +265,11 @@ declare module angular.ui.bootstrap {
         keyboard?: boolean;
 
         /**
+         * additional CSS class(es) to be added to a modal backdrop template
+         */
+        backdropClass?: string;
+
+        /**
          * additional CSS class(es) to be added to a modal window template
          */
         windowClass?: string;
@@ -590,7 +595,14 @@ declare module angular.ui.bootstrap {
          *
          * @default false
          */
-        appendtoBody?: boolean;
+        appendToBody?: boolean;
+
+        /**
+         * Determines the default open triggers for tooltips and popovers
+         *
+         * @default 'mouseenter' for tooltip, 'click' for popover
+         */
+        trigger?: string;
     }
 
     interface ITooltipProvider {

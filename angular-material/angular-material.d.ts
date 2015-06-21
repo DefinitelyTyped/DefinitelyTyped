@@ -102,6 +102,7 @@ declare module angular.material {
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
+        position(position: string): T;
     }
 
     interface MDSimpleToastPreset extends MDToastPreset<MDSimpleToastPreset> {
@@ -149,8 +150,8 @@ declare module angular.material {
         A400?: string;
         A700?: string;
         contrastDefaultColor?: string;
-        contrastDarkColors?: string;
-        contrastStrongLightColors?: string;
+        contrastDarkColors?: string|string[];
+        contrastLightColors?: string|string[];
     }
 
     interface MDThemeHues {

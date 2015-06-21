@@ -53,6 +53,8 @@ declare module "yargs" {
 			usage(message: string, options?: { [key: string]: Options }): Argv;
 			usage(options?: { [key: string]: Options }): Argv;
 
+			command(command: string, description: string): Argv;
+
 			example(command: string, description: string): Argv;
 
 			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => boolean): Argv;

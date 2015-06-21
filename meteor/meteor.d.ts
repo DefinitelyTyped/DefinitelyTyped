@@ -16,17 +16,17 @@ interface JSONable {
 interface EJSON extends EJSONable {}
 
 declare module Match {
-	var Any;
-	var String;
-	var Integer;
-	var Boolean;
-	var undefined;
+	var Any:any;
+	var String:any;
+	var Integer:any;
+	var Boolean:any;
+	var undefined:any;
 	//function null();  // not allowed in TypeScript
-	var Object;
-	function Optional(pattern):boolean;
-	function ObjectIncluding(dico):boolean;
-	function OneOf(...patterns);
-	function Where(condition);
+	var Object:any;
+	function Optional(pattern:any):boolean;
+	function ObjectIncluding(dico:any):boolean;
+	function OneOf(...patterns:any[]):any;
+	function Where(condition:any):any;
 }
 
 declare module Meteor {
@@ -89,8 +89,8 @@ declare module Meteor {
 	}
 
 	interface Tinytest {
-		add(name:string, func:Function);
-		addAsync(name:string, func:Function);
+		add(name:string, func:Function):any;
+		addAsync(name:string, func:Function):any;
 	}
 
 	enum StatusEnum {
@@ -145,9 +145,9 @@ declare module Mongo {
 		MONGO
 	}
 	interface AllowDenyOptions {
-		insert?: (userId:string, doc) => boolean;
-		update?: (userId, doc, fieldNames, modifier) => boolean;
-		remove?: (userId, doc) => boolean;
+		insert?: (userId:string, doc:any) => boolean;
+		update?: (userId:string, doc:any, fieldNames:string[], modifier:any) => boolean;
+		remove?: (userId:string, doc:any) => boolean;
 		fetch?: string[];
 		transform?: Function;
 	}
@@ -184,10 +184,10 @@ declare module HTTP {
 declare module Email {
 	interface EmailMessage {
 		from: string;
-		to: any;  // string or string[]
-		cc?: any; // string or string[]
-		bcc?: any; // string or string[]
-		replyTo?: any; // string or string[]
+		to: string|string[];
+		cc?: string|string[];
+		bcc?: string|string[];
+		replyTo?: string|string[];
 		subject: string;
 		text?: string;
 		html?: string;
@@ -197,14 +197,14 @@ declare module Email {
 
 declare module DDP {
 	interface DDPStatic {
-		subscribe(name, ...rest);
-		call(method:string, ...parameters):void;
-		apply(method:string, ...parameters):void;
-		methods(IMeteorMethodsDictionary);
+		subscribe(name:string, ...rest:any[]):void;
+		call(method:string, ...parameters:any[]):void;
+		apply(method:string, ...parameters:any[]):void;
+		methods(IMeteorMethodsDictionary:any):any;
 		status():DDPStatus;
-		reconnect();
-		disconnect();
-		onReconnect();
+		reconnect():void;
+		disconnect():void;
+		onReconnect():void;
 	}
 
 	interface DDPStatus {
@@ -344,7 +344,7 @@ declare module Accounts {
 declare module App {
 	function accessRule(domainRule: string, options?: {
 		launchExternal?: boolean;
-	}); /** TODO: add return value **/
+	}):any; /** TODO: add return value **/
 function configurePlugin(pluginName: string, config: Object): void;
 	function icons(icons: Object): void;
 	function info(options: {
@@ -393,7 +393,7 @@ declare module Blaze {
 		findAll(selector: string): Blaze.TemplateInstance[];
 		firstNode: Object;
 		lastNode: Object;
-		subscribe(name: string, ...args): Meteor.SubscriptionHandle;
+		subscribe(name: string, ...args: any[]): Meteor.SubscriptionHandle;
 		subscriptionsReady(): boolean;
 		view: Object;
 	}
@@ -475,7 +475,7 @@ declare module Meteor {
 		wait?: boolean;
 		onResultReceived?: Function;
 	}, asyncCallback?: Function): any;
-	function call(name: string, ...args): any;
+	function call(name: string, ...args: any[]): any;
 	function clearInterval(id: number): void;
 	function clearTimeout(id: number): void;
 	function disconnect(): void;
@@ -503,7 +503,7 @@ declare module Meteor {
 	var settings: {[id:string]: any};
 	function startup(func: Function): void;
 	function status(): Meteor.StatusEnum;
-	function subscribe(name: string, ...args): Meteor.SubscriptionHandle;
+	function subscribe(name: string, ...args: any[]): Meteor.SubscriptionHandle;
 	function user(): Meteor.User;
 	function userId(): string;
 	var users: Mongo.Collection<User>;
@@ -521,16 +521,16 @@ declare module Mongo {
 	}
 	interface Collection<T> {
 		allow(options: {
-			insert?: (userId:string, doc) => boolean;
-			update?: (userId, doc, fieldNames, modifier) => boolean;
-			remove?: (userId, doc) => boolean;
+			insert?: (userId:string, doc:any) => boolean;
+			update?: (userId:string, doc:any, fieldNames:string[], modifier:any) => boolean;
+			remove?: (userId:string, doc:any) => boolean;
 			fetch?: string[];
 			transform?: Function;
 		}): boolean;
 		deny(options: {
-			insert?: (userId:string, doc) => boolean;
-			update?: (userId, doc, fieldNames, modifier) => boolean;
-			remove?: (userId, doc) => boolean;
+			insert?: (userId:string, doc:any) => boolean;
+			update?: (userId:string, doc:any, fieldNames:string[], modifier:any) => boolean;
+			remove?: (userId:string, doc:any) => boolean;
 			fetch?: string[];
 			transform?: Function;
 		}): boolean;
@@ -684,30 +684,30 @@ interface CompileStepStatic {
 }
 interface CompileStep {
 	addAsset(options: {
-	}, path: string, data: any /** Buffer **/ | string); /** TODO: add return value **/
+	}, path: string, data: any /** Buffer **/ | string): any; /** TODO: add return value **/
 	addHtml(options: {
 		section?: string;
 		data?: string;
-	}); /** TODO: add return value **/
+	}): any; /** TODO: add return value **/
 	addJavaScript(options: {
 		path?: string;
 		data?: string;
 		sourcePath?: string;
-	}); /** TODO: add return value **/
+	}): any; /** TODO: add return value **/
 	addStylesheet(options: {
-	}, path: string, data: string, sourceMap: string); /** TODO: add return value **/
-	arch; /** TODO: add return value **/
-	declaredExports; /** TODO: add return value **/
+	}, path: string, data: string, sourceMap: string): any; /** TODO: add return value **/
+	arch: any; /** TODO: add return value **/
+	declaredExports: any; /** TODO: add return value **/
 	error(options: {
-	}, message: string, sourcePath?: string, line?: number, func?: string); /** TODO: add return value **/
-	fileOptions; /** TODO: add return value **/
-	fullInputPath; /** TODO: add return value **/
-	inputPath; /** TODO: add return value **/
-	inputSize; /** TODO: add return value **/
-	packageName; /** TODO: add return value **/
-	pathForSourceMap; /** TODO: add return value **/
+	}, message: string, sourcePath?: string, line?: number, func?: string): any; /** TODO: add return value **/
+	fileOptions: any; /** TODO: add return value **/
+	fullInputPath: any; /** TODO: add return value **/
+	inputPath: any; /** TODO: add return value **/
+	inputSize: any; /** TODO: add return value **/
+	packageName: any; /** TODO: add return value **/
+	pathForSourceMap: any; /** TODO: add return value **/
 	read(n?: number): any;
-	rootOutputPath; /** TODO: add return value **/
+	rootOutputPath: any; /** TODO: add return value **/
 }
 
 declare var PackageAPI: PackageAPIStatic;
@@ -777,5 +777,5 @@ interface Template {
 }
 
 declare function MethodInvocation(options: {
-}); /** TODO: add return value **/
+}): any; /** TODO: add return value **/
 declare function check(value: any, pattern: any): void;

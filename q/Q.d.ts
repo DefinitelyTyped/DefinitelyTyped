@@ -122,6 +122,12 @@ declare module Q {
          * A sugar method, equivalent to promise.then(function () { throw reason; }).
          */
         thenReject(reason: any): Promise<T>;
+
+        /**
+         * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned by the onFulfilled handler.
+         */
+        tap(onFulfilled: (value: T) => any): Promise<T>;
+
         timeout(ms: number, message?: string): Promise<T>;
         /**
          * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
