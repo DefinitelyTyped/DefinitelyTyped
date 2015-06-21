@@ -39,6 +39,10 @@ interface IKey {
     code: number;
 }
 
+interface IDictionary<T> {
+    [index: string]: T;
+}
+
 var foodsOrganic: IFoodOrganic[] = [
     { name: 'banana', organic: true },
     { name: 'beet', organic: false },
@@ -61,7 +65,10 @@ var stoogesAges: IStoogesAge[] = [
     { 'name': 'moe', 'age': 40 },
     { 'name': 'larry', 'age': 50 }
 ];
-
+var stoogesAgesDict: IDictionary<IStoogesAge> = {
+    first: { 'name': 'moe', 'age': 40 },
+    second: { 'name': 'larry', 'age': 50 }
+};
 var stoogesCombined: IStoogesCombined[] = [
     { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
     { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
@@ -135,6 +142,8 @@ result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1'
 result = <string>_('test').value();
 result = <number[]>_([1, 2, 3]).value();
 result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
+
+result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).value();
 
 // /*************
 //  * Arrays *
@@ -264,8 +273,14 @@ result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
 
-result = <{ [key: string]: any }>_.zipObject(['moe', 'larry'], [30, 40]);
-result = <{ [key: string]: any }>_.object(['moe', 'larry'], [30, 40]);
+result = <_.Dictionary<any>>_.zipObject(['moe', 'larry'], [30, 40]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).zipObject([30, 40]);
+result = <_.Dictionary<any>>_.object(['moe', 'larry'], [30, 40]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_(['moe', 'larry']).object([30, 40]);
+result = <_.Dictionary<any>>_.zipObject([['moe', 30], ['larry', 40]]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).zipObject();
+result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
+result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 
@@ -279,6 +294,7 @@ result = <number[]>_.range(0);
 result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
 result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
+var typedResult: IFoodType[] = _.remove([ <IFoodType>{ name: 'apple' }, <IFoodType>{ name: 'orange' }], <IFoodType>{ name: 'orange' });
 
 result = <number>_.sortedIndex([20, 30, 50], 40);
 result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
@@ -501,6 +517,23 @@ result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
 
+result = <number>_.sum([4, 2, 8, 6]);
+result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
+result = <number>_.sum({a: 2, b: 4});
+result = <number>_.sum({a: 2, b: 4}, function(v) { return v; });
+result = <number>_.sum(stoogesAges, function (stooge) { return stooge.age; });
+result = <number>_.sum(stoogesAges, 'age');
+result = <number>_.sum(stoogesAgesDict, function(stooge) { return stooge.age; });
+result = <number>_.sum(stoogesAgesDict, 'age');
+result = <number>_([4, 2, 8, 6]).sum();
+result = <number>_([4, 2, 8, 6]).sum(function(v) { return v; });
+result = <number>_({a: 2, b: 4}).sum();
+result = <number>_({a: 2, b: 4}).sum(function(v) { return v; });
+result = <number>_(stoogesAges).sum(function (stooge) { return stooge.age; });
+result = <number>_(stoogesAges).sum('age');
+result = <number>_(stoogesAgesDict).sum(function (stooge) { return stooge.age; });
+result = <number>_(stoogesAgesDict).sum('age');
+
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
 
@@ -611,6 +644,12 @@ result = <IStoogesCombined[]>_.where(stoogesCombined, { 'quotes': ['Poifect!'] }
 result = <IStoogesCombined[]>_(stoogesCombined).where({ 'age': 40 }).value();
 result = <IStoogesCombined[]>_(stoogesCombined).where({ 'quotes': ['Poifect!'] }).value();
 
+/********
+ * Date *
+ ********/
+
+result = <number>_.now();
+
 /*************
  * Functions *
  *************/
@@ -634,12 +673,16 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
-var funcBind = function (greeting: string) { return greeting + ' ' + this.name };
-var funcBind2: () => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
-funcBind2();
+var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
+var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
+funcBound1('!');
 
-var funcBind3: () => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
-funcBind3();
+var funcBound2: (punctuation: string) => any = _(funcBind).bind({ 'name': 'moe' }, 'hi').value();
+funcBound2('!');
+
+var addTwoNumbers = function (x: number, y: number) { return x + y };
+var plusTwo = _.bind(addTwoNumbers, null, 2);
+plusTwo(100);
 
 var view = {
     'label': 'docs',
@@ -881,6 +924,8 @@ result = <string[]>_.methods(_);
 
 result = <_.LoDashArrayWrapper<string>>_(_).functions();
 result = <_.LoDashArrayWrapper<string>>_(_).methods();
+
+result = <number>_.get({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 

@@ -591,7 +591,7 @@ declare module AtomCore {
 		getTextInRange(range:any):any;
 		getLineCount():number;
 		getBuffer():TextBuffer.ITextBuffer;
-		getUri():string;
+		getURI():string;
 		isBufferRowBlank(bufferRow:any):boolean;
 		isBufferRowCommented(bufferRow:any):void;
 		nextNonBlankBufferRow(bufferRow:any):void;
@@ -886,8 +886,8 @@ declare module AtomCore {
 		saveItem(item:any, nextAction:Function):void;
 		saveItemAs(item:any, nextAction:Function):void;
 		saveItems():any[];
-		itemForUri(uri:any):any;
-		activateItemForUri(uri:any):any;
+		itemForURI(uri:any):any;
+		activateItemForURI(uri:any):any;
 		copyActiveItem():void;
 		splitLeft(params:any):IPane;
 		splitRight(params:any):IPane;
@@ -978,7 +978,7 @@ declare module AtomCore {
 		open(uri:string, options:any):Q.Promise<View>;
 		openLicense():void;
 		openSync(uri:string, options:any):any;
-		openUriInPane(uri:string, pane:any, options:any):Q.Promise<View>;
+		openURIInPane(uri:string, pane:any, options:any):Q.Promise<View>;
 		reopenItemSync():any;
 		registerOpener(opener:(urlToOpen:string)=>any):void;
 		unregisterOpener(opener:Function):void;
@@ -988,7 +988,7 @@ declare module AtomCore {
 		saveAll():void;
 		activateNextPane():any;
 		activatePreviousPane():any;
-		paneForUri: (uri:string) => IPane;
+		paneForURI: (uri:string) => IPane;
 		saveActivePaneItem():any;
 		saveActivePaneItemAs():any;
 		destroyActivePaneItem():any;

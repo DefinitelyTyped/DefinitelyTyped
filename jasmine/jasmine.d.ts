@@ -46,20 +46,30 @@ declare module jasmine {
     var clock: () => Clock;
 
     function any(aclass: any): Any;
+    function anything(): Any;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function getEnv(): Env;
-    function addMatchers(matchers: any): Any;
-
+    function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
+    function addMatchers(matchers: CustomMatcherFactories): void;
+    function stringMatching(str: string): Any;
+    function stringMatching(str: RegExp): Any;
+    
     interface Any {
 
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
         jasmineToString(): string;
+    }
+
+    // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
+    interface ArrayLike<T> {
+        length: number;
+        [n: number]: T;
     }
 
     interface ObjectContaining {
@@ -89,6 +99,34 @@ declare module jasmine {
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
+    }
+
+    interface CustomEqualityTester {
+        (first: any, second: any): boolean;
+    }
+
+    interface CustomMatcher {
+        compare<T>(actual: T, expected: T): CustomMatcherResult;
+        compare(actual: any, expected: any): CustomMatcherResult;
+    }
+
+    interface CustomMatcherFactory {
+        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
+    }
+
+    interface CustomMatcherFactories {
+        [index: string]: CustomMatcherFactory;
+    }
+
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string;
+    }
+
+    interface MatchersUtil {
+        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
     }
 
     interface Env {
@@ -122,7 +160,8 @@ declare module jasmine {
         compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
         equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
         contains_(haystack: any, needle: any): boolean;
-        addEqualityTester(equalityTester: (a: any, b: any, env: Env, mismatchKeys: string[], mismatchValues: string[]) => boolean): void;
+        addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
+        addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
     }
 
@@ -320,7 +359,7 @@ declare module jasmine {
         waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
         fail(e?: any): void;
         getMatchersClass_(): Matchers;
-        addMatchers(matchersPrototype: any): void;
+        addMatchers(matchersPrototype: CustomMatcherFactories): void;
         finishCallback(): void;
         finish(onComplete?: () => void): void;
         after(doAfter: SpecFunction): void;

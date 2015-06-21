@@ -564,7 +564,7 @@ declare module protractor {
         */
         element(subLocator: webdriver.Locator): ElementFinder;
 
-        /** 
+        /**
         * Calls to element may be chained to find an array of elements within a parent.
         *
         * @alias element(locator).all(locator)
@@ -652,7 +652,7 @@ declare module protractor {
         /**
         * Override for WebElement.prototype.isElementPresent so that protractor waits
         * for Angular to settle before making the check.
-        * 
+        *
         * @see ElementFinder.isPresent
         *
         * @param {webdriver.Locator} subLocator Locator for element to look for.
@@ -879,7 +879,7 @@ declare module protractor {
         *   filteredElements[0].click();
         * });
         *
-        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn 
+        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn
         *     Filter function that will test if an element should be returned.
         *     filterFn can either return a boolean or a promise that resolves to a boolean.
         * @return {!ElementArrayFinder} A ElementArrayFinder that represents an array
@@ -888,11 +888,11 @@ declare module protractor {
         filter(filterFn: (element: ElementFinder, index: number) => any): ElementArrayFinder;
 
         /**
-        * Apply a reduce function against an accumulator and every element found 
+        * Apply a reduce function against an accumulator and every element found
         * using the locator (from left-to-right). The reduce function has to reduce
-        * every element into a single value (the accumulator). Returns promise of 
-        * the accumulator. The reduce function receives the accumulator, current 
-        * ElementFinder, the index, and the entire array of ElementFinders, 
+        * every element into a single value (the accumulator). Returns promise of
+        * the accumulator. The reduce function receives the accumulator, current
+        * ElementFinder, the index, and the entire array of ElementFinders,
         * respectively.
         *
         * @alias element.all(locator).reduce(reduceFn)
@@ -912,11 +912,11 @@ declare module protractor {
         *
         * expect(value).toEqual('First Second Third ');
         *
-        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)} 
+        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)}
         *     reduceFn Reduce function that reduces every element into a single value.
-        * @param {*} initialValue Initial value of the accumulator. 
+        * @param {*} initialValue Initial value of the accumulator.
         * @return {!webdriver.promise.Promise} A promise that resolves to the final
-        *     value of the accumulator. 
+        *     value of the accumulator.
         */
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => webdriver.promise.Promise<T>, initialValue: T): webdriver.promise.Promise<T>;
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => T, initialValue: T): webdriver.promise.Promise<T>;
@@ -924,7 +924,7 @@ declare module protractor {
         /**
         * Represents the ElementArrayFinder as an array of ElementFinders.
         *
-        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list 
+        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
         *     of ElementFinders specified by the locator.
         */
         asElementFinders_(): ElementFinder[];
@@ -1221,6 +1221,7 @@ declare module protractor {
 
     interface LocatorWithColumn extends webdriver.Locator {
         column(index: number): webdriver.Locator;
+        column(name: string): webdriver.Locator;
     }
 
     interface RepeaterLocator extends LocatorWithColumn {
@@ -1299,7 +1300,7 @@ declare module protractor {
          * expect(element(by.exactBinding('person_phone')).isPresent()).toBe(true);
          * expect(element(by.exactBinding('person_phone|uppercase')).isPresent()).toBe(true);
          * expect(element(by.exactBinding('phone')).isPresent()).toBe(false);
-         * 
+         *
          * @param {string} bindingDescriptor
          * @return {{findElementsOverride: findElementsOverride, toString: Function|string}}
          */
