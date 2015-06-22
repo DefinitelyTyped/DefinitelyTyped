@@ -511,7 +511,7 @@ declare module "react/addons" {
         // Non-standard Attributes
         autoCapitalize?: boolean;
         autoCorrect?: boolean;
-        property?: string;
+        // property?: string;
         itemProp?: string;
         itemScope?: boolean;
         itemType?: string;
@@ -1048,4 +1048,3 @@ declare module "react/addons" {
         identifiedTouch(identifier: number): Touch;
     }
 }
-
