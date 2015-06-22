@@ -21,33 +21,37 @@ declare module loglevel {
 	 * Output trace message to console.
 	 * This will also include a full stack trace
 	 *
-	 * @param msg the message to print
+	 * @param msg any data to log to the console
 	 */
-	export function trace(msg:string):void;
+	export function trace(msg:any):void;
 
 	/**
 	 * Output debug message to console including appropriate icons
-	 * @param msg the message to print
+	 *
+	 * @param msg any data to log to the console
 	 */
-	export function debug(msg:string):void;
+	export function debug(msg:any):void;
 
 	/**
 	 * Output info message to console including appropriate icons
-	 * @param msg the message to print
+	 *
+	 * @param msg any data to log to the console
 	 */
-	export function info(msg:string):void;
+	export function info(msg:any):void;
 
 	/**
 	 * Output warn message to console including appropriate icons
-	 * @param msg the message to print
+	 *
+	 * @param msg any data to log to the console
 	 */
-	export function warn(msg:string):void;
+	export function warn(msg:any):void;
 
 	/**
 	 * Output error message to console including appropriate icons
-	 * @param msg the message to print
+	 *
+	 * @param msg any data to log to the console
 	 */
-	export function error(msg:string):void;
+	export function error(msg:any):void;
 
 
 	/**
