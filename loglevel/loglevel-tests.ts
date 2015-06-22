@@ -5,6 +5,7 @@ log.debug("Debug message");
 log.info("Info message");
 log.warn("Warn message");
 log.error("Error message");
+log.debug(["Hello", "world", 42]);
 
 log.setLevel(0);
 log.setLevel(0, false);
