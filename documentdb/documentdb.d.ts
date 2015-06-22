@@ -1,6 +1,6 @@
 // Type definitions for DocumentDB
 // Project: https://github.com/Azure/azure-documentdb-node
-// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>
+// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/documentdb
 
 declare module 'documentdb' {
@@ -52,7 +52,25 @@ declare module 'documentdb' {
         /** Disables the automatic id generation. If id is missing in the body and this option is true, an error will be returned. */
         disableAutomaticIdGeneration?: boolean;
     }
-
+    
+    /** The Sql query parameter. */
+    interface SqlParameter {
+        /** The name of the parameter. */
+        name: string;
+        
+        /** The value of the parameter. */
+        value: any;
+    }
+    
+    /** The Sql query specification. */
+    interface SqlQuerySpec {
+        /** The body of the query. */
+        query: string;
+        
+        /** The array of SqlParameters. */
+        parameters: SqlParameter[];
+    }
+    
     /** Represents the error object returned from a failed query. */
     interface QueryError {
 
@@ -130,6 +148,13 @@ declare module 'documentdb' {
     interface ProcedureMeta extends AbstractMeta {
         body: string;
     }
+    
+    /** Represents the meta data for a trigger. */
+    interface TriggerMeta extends AbstractMeta {
+        body: string;
+        triggerType: string;
+        triggerOperation: string;
+    }
 
     /** An object that is used for authenticating requests and must contains one of the options. */
     export interface AuthOptions {
@@ -148,6 +173,18 @@ declare module 'documentdb' {
     export interface Procedure extends UniqueId {
 
         /** The function representing the stored procedure. */
+        body(...params: any[]): void;
+    }
+    
+    /** Represents a DocumentDB trigger. */
+    export interface Trigger extends UniqueId {
+        /** The type of the trigger. Should be either 'pre' or 'post'. */
+        triggerType: string;
+        
+        /** The trigger operation. Should be one of 'all', 'create', 'update', 'delete', or 'replace'. */
+        triggerOperation: string;
+        
+        /** The function representing the trigger. */
         body(...params: any[]): void;
     }
 
@@ -195,12 +232,9 @@ declare module 'documentdb' {
         ExcludedPaths: string[];
     }
 
-
-
     /** Provides a client-side logical representation of the Azure DocumentDB database account. This client is used to configure and execute requests against the service.
       */
     export class DocumentClient {
-
         /**
          * Constructs a DocumentClient.
          * @param urlConnection           - The service endpoint to use to create the client.
@@ -250,6 +284,19 @@ declare module 'documentdb' {
          * @param callback          - The callback for the request.
          */
         public createStoredProcedure(collectionLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
+        
+        /**
+         * Create a trigger.
+         * <p>
+         * DocumentDB supports pre and post triggers defined in JavaScript to be executed on creates, updates and deletes. <br>
+         * For additional details, refer to the server-side JavaScript API documentation.
+         * </p>
+         * @param collectionLink  - The self-link of the collection.
+         * @param trigger         - Represents the body of the trigger.
+         * @param [options]       - The request options.
+         * @param callback        - The callback for the request.
+         */
+        public createTrigger(collectionLink: string, trigger: Trigger, options: RequestOptions, callback: RequestCallback<TriggerMeta>): void;
 
         /**
          * Create a document.
@@ -277,7 +324,7 @@ declare module 'documentdb' {
          * @param [options] - The feed options.
          * @returns         - An instance of QueryIterator to handle reading feed.
          */
-        public queryDatabases(query: string): QueryIterator<DatabaseMeta>;
+        public queryDatabases(query: string | SqlQuerySpec): QueryIterator<DatabaseMeta>;
 
         /**
          * Query the collections for the database.
@@ -286,7 +333,7 @@ declare module 'documentdb' {
          * @param [options]     - Represents the feed options.
          * @returns             - An instance of queryIterator to handle reading feed.
          */
-        public queryCollections(databaseLink: string, query: string): QueryIterator<CollectionMeta>;
+        public queryCollections(databaseLink: string, query: string | SqlQuerySpec): QueryIterator<CollectionMeta>;
 
         /**
          * Query the storedProcedures for the collection.
@@ -295,7 +342,7 @@ declare module 'documentdb' {
          * @param [options]         - Represents the feed options.
          * @returns                 - An instance of queryIterator to handle reading feed.
          */
-        public queryStoredProcedures(collectionLink: string, query: string): QueryIterator<ProcedureMeta>;
+        public queryStoredProcedures(collectionLink: string, query: string | SqlQuerySpec): QueryIterator<ProcedureMeta>;
 
         /**
         * Query the documents for the collection.
@@ -304,8 +351,17 @@ declare module 'documentdb' {
         * @param [options]      - Represents the feed options.
         * @returns              - An instance of queryIterator to handle reading feed.
         */
-        public queryDocuments<TDocument>(collectionLink: string, query: string, options?: FeedOptions): QueryIterator<RetrievedDocument<TDocument>>;
+        public queryDocuments<TDocument>(collectionLink: string, query: string | SqlQuerySpec, options?: FeedOptions): QueryIterator<RetrievedDocument<TDocument>>;
 
+        /**
+         * Query the triggers for the collection.
+         * @param {string} collectionLink         - The self-link of the collection.
+         * @param {SqlQuerySpec | string} query   - A SQL query.
+         * @param {FeedOptions} [options]         - Represents the feed options.
+         * @returns {QueryIterator}               - An instance of queryIterator to handle reading feed.
+         */
+        public queryTriggers(collectionLink: string, query: string | SqlQuerySpec, options?: FeedOptions): QueryIterator<TriggerMeta>;
+        
         /**
          * Delete the document object.
          * @param documentLink  - The self-link of the document.
@@ -337,7 +393,16 @@ declare module 'documentdb' {
          * @param callback      - The callback for the request.
         */
         public deleteStoredProcedure(procedureLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
-
+        
+        /**
+         * Replace the document object.
+         * @param {string} documentLink      - The self-link of the document.
+         * @param {object} document          - Represent the new document body.
+         * @param {RequestOptions} [options] - The request options.
+         * @param {RequestCallback} callback - The callback for the request.
+         */
+        public replaceDocument<TDocument>(documentLink: string, document: NewDocument<TDocument>, options: RequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+        
         /**
          * Replace the StoredProcedure object.
          * @param procedureLink - The self-link of the stored procedure.
