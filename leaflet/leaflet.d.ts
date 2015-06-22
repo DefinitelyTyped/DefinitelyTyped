@@ -3448,7 +3448,7 @@ declare module L {
 
 declare module L {
 
-    export interface PolylineOptions {
+    export interface PolylineOptions extends PathOptions {
 
         /**
           * How much to simplify the polyline on each zoom level. More means better performance
