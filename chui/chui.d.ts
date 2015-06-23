@@ -1,5 +1,4 @@
-
-// Type definitions for chui v3.8.9
+// Type definitions for chui v3.8.10
 // Project: https://github.com/chocolatechipui/chocolatechip-ui
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
