@@ -3,8 +3,6 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>, Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-
 interface MochaSetupOptions {
     //milliseconds to wait before considering a test slow
     slow?: number;
@@ -30,7 +28,7 @@ interface MochaSetupOptions {
     // grep string or regexp to filter tests with
     grep?: any;
 }
-    
+
 interface MochaDone {
     (error?: Error): void;
 }
@@ -118,7 +116,7 @@ declare class Mocha {
 // merge the Mocha class declaration with a module
 declare module Mocha {
     /** Partial interface for Mocha's `Runnable` class. */
-    interface IRunnable extends NodeJS.EventEmitter {
+    interface IRunnable {
         title: string;
         fn: Function;
         async: boolean;
@@ -127,10 +125,10 @@ declare module Mocha {
     }
 
     /** Partial interface for Mocha's `Suite` class. */
-    interface ISuite extends NodeJS.EventEmitter {
+    interface ISuite {
         parent: ISuite;
         title: string;
-    
+
         fullTitle(): string;
     }
 
@@ -138,12 +136,12 @@ declare module Mocha {
     interface ITest extends IRunnable {
         parent: ISuite;
         pending: boolean;
-        
+
         fullTitle(): string;
     }
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner extends NodeJS.EventEmitter {}
+    interface IRunner {}
 
     interface IContextDefinition {
         (description: string, spec: () => void): ISuite;
@@ -151,7 +149,7 @@ declare module Mocha {
         skip(description: string, spec: () => void): void;
         timeout(ms: number): void;
     }
-    
+
     interface ITestDefinition {
         (expectation: string, assertion?: () => void): ITest;
         (expectation: string, assertion?: (done: MochaDone) => void): ITest;
@@ -174,7 +172,7 @@ declare module Mocha {
 
             constructor(runner: IRunner);
         }
-    
+
         export class Doc extends Base {}
         export class Dot extends Base {}
         export class HTML extends Base {}
