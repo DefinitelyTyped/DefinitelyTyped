@@ -5,13 +5,9 @@
 
 /// <reference path="../geojson/geojson.d.ts" />
 
-interface NumberArray {
-  [index: number]: number;
-}
-
 interface Polyline {
-  decode(string: string, precision?: number): NumberArray[];
-  encode(coordinate: NumberArray[], precision?: number): string;
+  decode(string: string, precision?: number): number[][];
+  encode(coordinate: number[][], precision?: number): string;
   fromGeoJSON(geojson: GeoJSON.GeoJsonObject, precision?: number): string;
 }
 
