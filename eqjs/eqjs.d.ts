@@ -3,14 +3,14 @@
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var eqjs: eqjs.EqjsStatic;
+declare var eqjs: eq.EqjsStatic;
 
 // Support AMD require
 declare module 'eqjs' {
 	export = eqjs;
 }
 
-declare module eqjs {
+declare module eq {
 	type AvailableElementType = HTMLElement|HTMLElement[]|NodeList|JQuery;
 
 	interface EqjsStatic {
