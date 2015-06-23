@@ -1264,6 +1264,19 @@ declare module "fs" {
     export function watch(filename: string, options: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): FSWatcher;
     export function exists(path: string, callback?: (exists: boolean) => void): void;
     export function existsSync(path: string): boolean;
+    /** Constant for fs.access(). File is visible to the calling process. */
+    export var F_OK: number;
+    /** Constant for fs.access(). File can be read by the calling process. */
+    export var R_OK: number;
+    /** Constant for fs.access(). File can be written by the calling process. */
+    export var W_OK: number;
+    /** Constant for fs.access(). File can be executed by the calling process. */
+    export var X_OK: number;
+    /** Tests a user's permissions for the file specified by path. */
+    export function access(path: string, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function access(path: string, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
+    export function accessSync(path: string, mode ?: number): void;
     export function createReadStream(path: string, options?: {
         flags?: string;
         encoding?: string;
