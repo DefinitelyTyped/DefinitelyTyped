@@ -180,6 +180,13 @@ declare module When {
 
         then<U>(onFulfilled: (value: T) => U | Promise<U>, onRejected?: (reason: any) => U | Promise<U>, onProgress?: (update: any) => void): Promise<U>;
 
+        spread<T>(onFulfilled: _.Fn0<Promise<T> | T>): Promise<T>;
+        spread<A1, T>(onFulfilled: _.Fn1<A1, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, T>(onFulfilled: _.Fn2<A1, A2, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, A3, T>(onFulfilled: _.Fn3<A1, A2, A3, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, A3, A4, T>(onFulfilled: _.Fn4<A1, A2, A3, A4, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, A3, A4, A5, T>(onFulfilled: _.Fn5<A1, A2, A3, A4, A5, Promise<T> | T>): Promise<T>;
+
         done<U>(onFulfilled: (value: T) => void, onRejected?: (reason: any) => void): void;
 
         fold<U, V>(combine: (value1: T, value2: V) => U | Promise<U>, value2: V | Promise<V>): Promise<U>;
