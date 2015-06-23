@@ -5,13 +5,13 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular_gettext {
+declare module angular.gettext {
   interface gettextCatalog {
-    
+
     //////////////
     /// Fields ///
     //////////////
-    
+
     /** (default: false): Whether or not to prefix untranslated strings with [MISSING]: or a custom prefix. */
     debug: boolean;
     /** (default: [MISSING]:): Custom prefix for untranslated strings. */
@@ -33,7 +33,7 @@ declare module angular_gettext {
     ///////////////
     /// Methods ///
     ///////////////
-    
+
     /** Sets the current language and makes sure that all translations get updated correctly. */
     setCurrentLanguage(lang: string): void;
 
@@ -41,10 +41,11 @@ declare module angular_gettext {
     getCurrentLanguage(): string;
 
     /** Processes an object of string definitions. More details https://angular-gettext.rocketeer.be/dev-guide/manual-setstrings/
-    @param language A language code.
-    @param strings A dictionary of strings. The format of this dictionary is:
-                  - Keys: Singular English strings (as defined in the source files)
-                  - Values: Either a single string for signular-only strings or an array of plural forms. */
+     * @param language A language code.
+     * @param strings A dictionary of strings. The format of this dictionary is:
+     *                   - Keys: Singular English strings (as defined in the source files)
+     *                   - Values: Either a single string for signular-only strings or an array of plural forms.
+     */
     setStrings(language: string, strings: { [key: string]: string|string[] }): void;
 
     /** Get the correct pluralized (but untranslated) string for the value of n. */
@@ -56,7 +57,7 @@ declare module angular_gettext {
      * The context parameter is optional: pass null (or don't pass anything) if you're not using it: this skips interpolation and is a lot faster.
      */
     getString(string: string, context?: any): string;
-    
+
     /** Translate a plural string with the given context. */
     getPlural(n: number, string: string, stringPlural: string, context?: any): string;
 
@@ -65,6 +66,8 @@ declare module angular_gettext {
   }
 
   /** If you have text that should be translated in your JavaScript code, wrap it with a call to a function named gettext. This module provides an injectable function to do so */
-  function gettext(dummyString: string): string;
+  interface gettextFunction {
+    (dummyString: string): string;
+  }
 }
 
