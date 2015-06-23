@@ -5,12 +5,13 @@
 
 declare var eqjs: eqjs.EqjsStatic;
 
- // Support AMD require
+// Support AMD require
 declare module 'eqjs' {
 	export = eqjs;
 }
 
 declare module eqjs {
+	type AvailableElementType = HTMLElement|HTMLElement[]|NodeList|JQuery;
 
 	interface EqjsStatic {
 	
@@ -29,7 +30,7 @@ declare module eqjs {
 		 * @param nodes 
 		 * @param callback function to use as a callback once query and nodeWrites have finished
 		 */
-		query(nodes: HTMLElement[]|JQuery, callback?: Function): void;
+		query(nodes: AvailableElementType, callback?: Function): void;
 
 		/**
 		 *  Refreshes the list of nodes for eqjs to work with
@@ -41,14 +42,14 @@ declare module eqjs {
 		 * @param obj e.g. "small: 380, medium: 490, large: 600"
 		 * @returns {}
 		 */
-		sortObj(obj: string): EqjsKeyValuePair;
+		sortObj(obj: string): EqjsKeyValuePair[];
 
 		/**
 		 * Runs through all nodes and writes their eq status.
 		 * @param nodes An array or NodeList of nodes to query
 		 * @returns {} 
 		 */
-		nodeWrites(nodes?: HTMLElement[]|JQuery);
+		nodeWrites(nodes?: AvailableElementType): void;
 	}
 
 	interface EqjsKeyValuePair {
@@ -57,9 +58,9 @@ declare module eqjs {
 	}
 
 	interface EqjsNodesTable {
-		[key: string]: HTMLElement;
+		[index: number]: HTMLElement;
 	}
-	
+
 }
 
 // Support jQuery selectors.
