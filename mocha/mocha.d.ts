@@ -37,11 +37,13 @@ interface MochaDone {
 
 declare var mocha: Mocha;
 declare var describe: Mocha.IContextDefinition;
+declare var xdescribe: Mocha.IContextDefinition;
 // alias for `describe`
 declare var context: Mocha.IContextDefinition;
 // alias for `describe`
 declare var suite: Mocha.IContextDefinition;
 declare var it: Mocha.ITestDefinition;
+declare var xit: Mocha.ITestDefinition;
 // alias for `it`
 declare var test: Mocha.ITestDefinition;
 
