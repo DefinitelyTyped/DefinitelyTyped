@@ -21,9 +21,9 @@ declare module SigmaJs{
     }
 
     interface Canvas {
-        edges: {[renderType: string]: Function};
-        labels: {[renderType: string]: Function};
-        nodes: {[renderType: string]: Function};
+        edges: {[renderType: string]: (edge: Edge, source: Node, target: Node, ...a:any[]) => void};
+        labels: {[renderType: string]: (node: Node, ...a:any[]) => void};
+        nodes: {[renderType: string]: (node: Node, ...a:any[]) => void};
     }
 
     interface Classes {
