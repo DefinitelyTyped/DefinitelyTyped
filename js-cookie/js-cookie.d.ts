@@ -4,23 +4,42 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Cookies {
-    interface CookieOptions {
+    interface CookieAttributes {
+        /**
+         * Define when the cookie will be removed. Value can be a Number
+         * which will be interpreted as days from time of creation or a
+         * Date instance. If omitted, the cookie becomes a session cookie.
+         */
         expires?: number | Date;
+
+        /**
+         * Define the path where the cookie is available. Defaults to '/'
+         */
         path?: string;
+
+        /**
+         * Define the domain where the cookie is available. Defaults to
+         * the domain of the page where the cookie was created.
+         */
         domain?: string;
+
+        /**
+         * A Boolean indicating if the cookie transmission requires a
+         * secure protocol (https). Defaults to false.
+         */
         secure?: boolean;
     }
     
     interface CookiesStatic {
         /**
-         * Allows default cookie options to be accessed, changed, or reset
+         * Allows default cookie attributes to be accessed, changed, or reset
          */
-        defaults: CookieOptions;
+        defaults: CookieAttributes;
         
         /**
          * Create a cookie
          */
-        set(name: string, value: string | any, options?: CookieOptions): void;
+        set(name: string, value: string | any, options?: CookieAttributes): void;
         
         /**
          * Read cookie
@@ -47,7 +66,7 @@ declare module Cookies {
         /**
          * Delete cookie
          */
-        remove(name: string, options?: CookieOptions): void;
+        remove(name: string, options?: CookieAttributes): void;
         
         /**
          * If there is any danger of a conflict with the namespace Cookies,
