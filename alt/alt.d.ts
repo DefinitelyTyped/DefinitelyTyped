@@ -1,10 +1,9 @@
-// Type definitions for Alt 0.16.7
+// Type definitions for Alt 0.16.10
 // Project: https://github.com/goatslacker/alt
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../flux/flux.d.ts"/>
-/// <reference path="../eventemitter3/eventemitter3.d.ts"/>
 
 
 declare module AltJS {
@@ -34,7 +33,6 @@ declare module AltJS {
     listen(handler:(state:S) => any):() => void;
     unlisten(handler:(state:S) => any):void;
     emitChange():void;
-    getEventEmitter():EventEmitter3.EventEmitter;
   }
 
   export enum lifeCycleEvents {
@@ -74,7 +72,7 @@ declare module "alt/AltContainer" {
 
   class AltContainer extends React.Component<ContainerProps, any> {
   }
-  
+
   export = AltContainer;
 }
 
