@@ -1,5 +1,7 @@
-// Type definitions for request-promise (v0.4.2)
-// Definitions by: Christopher Glantschnig <https://github.com/cglantschnig>
+// Type definitions for request-promise v0.4.2
+// Project: https://www.npmjs.com/package/request-promise
+// Definitions by: Christopher Glantschnig <https://github.com/cglantschnig/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../form-data/form-data.d.ts" />
@@ -14,9 +16,8 @@ declare module 'request-promise' {
 
     export = RequestPromiseAPI;
 
-    function RequestPromiseAPI(uri: string, options?: RequestPromiseAPI.Options): Promise<any>;
+    function RequestPromiseAPI(options: RequestPromiseAPI.Options): request.Request;
     function RequestPromiseAPI(uri: string): Promise<request.Request>;
-    function RequestPromiseAPI(options: RequestPromiseAPI.Options, callback?: (error: any, response: http.IncomingMessage, body: any) => void): request.Request;
 
     module RequestPromiseAPI {
         export interface Options extends request.Options {
