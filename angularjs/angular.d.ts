@@ -984,9 +984,9 @@ declare module angular {
      * See http://docs.angularjs.org/api/ng/service/$q
      */
     interface IQService {
-        new (resolver: (resolve: IQResolveReject<any>) => any): IPromise<any>;
-        new (resolver: (resolve: IQResolveReject<any>, reject: IQResolveReject<any>) => any): IPromise<any>;
-        new <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
+        (resolver: (resolve: IQResolveReject<any>) => any): IPromise<any>;
+        (resolver: (resolve: IQResolveReject<any>, reject: IQResolveReject<any>) => any): IPromise<any>;
+        <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
 
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
