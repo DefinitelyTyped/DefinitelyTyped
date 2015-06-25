@@ -16,7 +16,7 @@ declare module 'request-promise' {
 
     export = RequestPromiseAPI;
 
-    function RequestPromiseAPI(options: RequestPromiseAPI.Options): request.Request;
+    function RequestPromiseAPI(options: RequestPromiseAPI.Options): Promise<any>;
     function RequestPromiseAPI(uri: string): Promise<request.Request>;
 
     module RequestPromiseAPI {
