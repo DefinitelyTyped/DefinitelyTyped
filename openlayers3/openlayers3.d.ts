@@ -2549,13 +2549,237 @@ declare module ol {
 
     module tilegrid {
 
+        /**
+         * Base class for setting the grid pattern for sources accessing tiled-image servers.
+         */
         class TileGrid {
+
+            /**
+             * @constructor
+             * @param options Tile grid options
+             */
+            constructor(options?: TileGridOptions);
+
+            /**
+             * Creates a TileCoord transform function for use with this tile grid. Transforms the internal tile coordinates with bottom-left origin to the tile coordinates used by the ol.TileUrlFunction. The returned function expects an ol.TileCoord as first and an ol.proj.Projection as second argument and returns a transformed ol.TileCoord.
+             */
+            // TODO: Check if this is correct, unclear in documentation
+            createTileCoordTransform(): any;
+
+            /**
+             * Get the maximum zoom level for the grid.
+             * @returns Max zoom
+             */
+            getMaxZoom(): number;
+
+            /**
+             * Get the minimum zoom level for the grid.
+             * @returns Min zoom
+             */
+            getMinZoom(): number;
+
+            /**
+             * Get the origin for the grid at the given zoom level.
+             * @param z Z
+             * @returns Origin
+             */
+            getOrigin(z: number): ol.Coordinate;
+
+            /**
+             * Get the list of resolutions for the tile grid.
+             * @param z Z
+             * @returns Resolution
+             */
+            getResolution(z: number): number;
+
+            /**
+             * Get the list of resolutions for the tile grid.
+             * @returns Resolutions
+             */
+            getResolutions(): Array<number>;
+
+            /**
+             * Get the tile coordinate for the given map coordinate and resolution. This method considers that coordinates that intersect tile boundaries should be assigned the higher tile coordinate.
+             * @param coordinate Coordinate
+             * @param resolution Resolution
+             * @param tileCoord Destination ol.TileCoord object.
+             * @returns Tile coordinate
+             */
+            getTileCoordForCoordAndResolution(coordinate: ol.Coordinate, resolution: number, tileCoord?: ol.TileCoord): ol.TileCoord;
+
+            /**
+             * Get a tile coordinate given a map coordinate and zoom level.
+             * @param coordinate Coordinate
+             * @param z Zoom level
+             * @param tileCoord Destination ol.TileCoord object
+             * @returns Tile coordinate
+             */
+            getTileCoordForCoordAndZ(coordinate: ol.Coordinate, z: number, tileCoord?: ol.TileCoord): ol.TileCoord;
+
+            /**
+             * Get the tile size for a zoom level. The type of the return value matches the tileSize or tileSizes that the tile grid was configured with. To always get an ol.Size, run the result through ol.size.toSize().
+             * @param z Z
+             * @returns Tile size
+             */
+            getTileSize(z: number): number | ol.Size;
+        }
+        interface TileGridOptions {
+
+            /**
+             * Extent for the tile grid. No tiles outside this extent will be requested by ol.source.Tile sources. When no origin or origins are configured, the origin will be set to the bottom-left corner of the extent. When no sizes are configured, they will be calculated from the extent.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * Minimum zoom. Default is 0.
+             */
+            minZoom?: number;
+
+            /**
+             * Origin, i.e. the bottom-left corner of the grid. Default is null.
+             */
+            origin?: ol.Coordinate;
+
+            /**
+             * Origins, i.e. the bottom-left corners of the grid for each zoom level. If given, the array length should match the length of the resolutions array, i.e. each resolution can have a different origin.
+             */
+            origins?: Array<ol.Coordinate>;
+
+            /**
+             * Resolutions. The array index of each resolution needs to match the zoom level. This means that even if a minZoom is configured, the resolutions array will have a length of maxZoom + 1.
+             */
+            resolutions?: Array<number>;
+
+            /**
+             * Tile size. Default is [256, 256].
+             */
+            tileSize?: number | ol.Size;
+
+            /**
+             * Tile sizes. If given, the array length should match the length of the resolutions array, i.e. each resolution can have a different tile size.
+             */
+            tileSizes?: Array<number | ol.Size>;
         }
 
-        class WMTS {
+        /**
+         * Set the grid pattern for sources accessing WMTS tiled-image servers.
+         */
+        class WMTS extends TileGrid {
+
+            /**
+             * @constructor
+             * @param options WMTS options
+             */
+            constructor(options: WMTSOptions);
+
+            /**
+             * Create a tile grid from a WMTS capabilities matrix set.
+             * @param matrixSet An object representing a matrixSet in the capabilities document.
+             * @param extent An optional extent to restrict the tile ranges the server provides.
+             * @returns WMTS tilegrid instance
+             */
+            createFromCapabilitiesMatrixSet(matrixSet: any, extent: ol.Extent): ol.tilegrid.WMTS;
+
+            /**
+             * Get the list of matrix identifiers.
+             * @returns MatrixIds
+             */
+            getMatrixIds(): Array<string>;
+        }
+        interface WMTSOptions {
+
+            /**
+             * Extent for the tile grid. No tiles outside this extent will be requested by ol.source.WMTS sources. When no origin or origins are configured, the origin will be calculated from the extent. When no sizes are configured, they will be calculated from the extent.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * Origin, i.e. the top-left corner of the grid.
+             */
+            origin?: ol.Coordinate;
+
+            /**
+             * Origins, i.e. the top-left corners of the grid for each zoom level. The length of this array needs to match the length of the resolutions array.
+             */
+            origins?: Array<ol.Coordinate>;
+
+            /**
+             * Resolutions. The array index of each resolution needs to match the zoom level. This means that even if a minZoom is configured, the resolutions array will have a length of maxZoom + 1
+             */
+            resolutions?: Array<number>;
+
+            /**
+             * matrix IDs. The length of this array needs to match the length of the resolutions array.
+             */
+            matrixIds?: Array<string>;
+
+            /**
+             * Number of tile rows and columns of the grid for each zoom level. The values here are the TileMatrixWidth and TileMatrixHeight advertised in the GetCapabilities response of the WMTS, and define the grid's extent together with the origin. An extent can be configured in addition, and will further limit the extent for which tile requests are made by sources.
+             */
+            sizes?: Array<ol.Size>;
+
+            /**
+             * Tile size.
+             */
+            tileSize?: number | ol.Size;
+
+            /**
+             * Tile sizes. The length of this array needs to match the length of the resolutions array.
+             */
+            tileSizes?: Array<number | ol.Size>;
+            
+            /**
+             * Number of tile columns that cover the grid's extent for each zoom level. Only required when used with a source that has wrapX set to true, and only when the grid's origin differs from the one of the projection's extent. The array length has to match the length of the resolutions array, i.e. each resolution will have a matching entry here.
+             */
+            widths?: Array<number>;
         }
 
-        class Zoomify {
+        /**
+         * Set the grid pattern for sources accessing Zoomify tiled-image servers.
+         */
+        class Zoomify extends TileGrid {
+
+            /**
+             * @constructor
+             * @param options Options
+             */
+            constructor(options?: ZoomifyOptions);
+        }
+        interface ZoomifyOptions {
+
+            /**
+             * Resolutions
+             */
+            resolutions: Array<number>;
+        }
+
+        /**
+         * Creates a tile grid with a standard XYZ tiling scheme.
+         * @param options Tile grid options.
+         * @returns The grid instance
+         */
+        function createXYZ(options: CreateXYZOptions): ol.tilegrid.TileGrid;
+        interface CreateXYZOptions {
+
+            /**
+             * Extent for the tile grid. The origin for an XYZ tile grid is the top-left corner of the extent. The zero level of the grid is defined by the resolution at which one tile fits in the provided extent. If not provided, the extent of the EPSG:3857 projection is used.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * Maximum zoom. The default is ol.DEFAULT_MAX_ZOOM. This determines the number of levels in the grid set. For example, a maxZoom of 21 means there are 22 levels in the grid set.
+             */
+            maxZoom?: number;
+
+            /**
+             * Minimum zoom. Default is 0.
+             */
+            minZoom?: number;
+
+            /**
+             * Tile size in pixels. Default is [256, 256].
+             */
+            tileSize?: number | ol.Size;
         }
     }
 
