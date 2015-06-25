@@ -132,9 +132,11 @@ promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
 
 /* promise.spread(onFulfilledArray) */
 
-// TODO: Work out how to do this...
-// promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => a);
-// promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => when(a));
+promise = when([]).spread(() => 2);
+promise = when([1]).spread((a: number) => a);
+promise = when([1, '2']).spread((a: number, b: string) => a);
+promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => a);
+promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => when(a));
 
 /* promise.fold(combine, promise2) */
 
