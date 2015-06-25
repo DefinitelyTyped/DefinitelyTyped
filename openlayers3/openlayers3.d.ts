@@ -1843,26 +1843,477 @@ declare module ol {
 
     module layer {
 
-        class Base {
+        /**
+         * Abstract base class; normally only used for creating subclasses and not instantiated in apps. Note that with ol.layer.Base and all its subclasses, any property set in the options is set as a ol.Object property on the layer object, so is observable, and has get/set accessors.
+         */
+        class Base extends ol.Object {
+
+            /**
+             * @constructor
+             * @param options Layer options.
+             */
+            constructor(options?: BaseOptions);
+
+            /**
+             * Return the brightness of the layer.
+             * @returns The brightness of the layer.
+             */
+            getBrightness(): number;
+
+            /**
+             * Return the contrast of the layer.
+             * @returns The contrast of the layer.
+             */
+            getContrast(): number;
+
+            /**
+             * Return the extent of the layer or undefined if it will be visible regardless of extent.
+             * @returns The layer extent.
+             */
+            getExtent(): ol.Extent;
+
+            /**
+             * Return the hue of the layer.
+             * @returns The hue of the layer
+             */
+            getHue(): number;
+
+            /**
+             * Return the maximum resolution of the layer.
+             * @returns The maximum resolution of the layer
+             */
+            getMaxResolution(): number;
+
+            /**
+             * Return the minimum resolution of the layer.
+             * @returns The minimum resolution of the layer. 
+             */
+            getMinResolution(): number;
+
+            /**
+             * Return the opacity of the layer (between 0 and 1).
+             * @returns The opacity of the layer.
+             */
+            getOpacity(): number;
+
+            /**
+             * Return the saturation of the layer.
+             * @returns The saturation of the layer.
+             */
+            getSaturation(): number;
+
+            /**
+             * Return the visibility of the layer (true or false).
+             * The visibility of the layer
+             */
+            getVisible(): boolean;
+
+            /**
+             * Adjust the layer brightness. A value of -1 will render the layer completely black. A value of 0 will leave the brightness unchanged. A value of 1 will render the layer completely white. Other values are linear multipliers on the effect (values are clamped between -1 and 1).
+             * @param brightness The brightness of the layer
+             */
+            setBrightness(brigthness: number): void;
+
+            /**
+             * Adjust the layer contrast. A value of 0 will render the layer completely grey. A value of 1 will leave the contrast unchanged. Other values are linear multipliers on the effect (and values over 1 are permitted).
+             * @param contrast The contrast of the layer
+             */
+            setContrast(contrast: number): void;
+
+            /**
+             * Set the extent at which the layer is visible. If undefined, the layer will be visible at all extents.
+             * @param extent The extent of the layer
+             */
+            setExtent(extent?: ol.Extent): void;
+
+            /**
+             * Apply a hue-rotation to the layer. A value of 0 will leave the hue unchanged. Other values are radians around the color circle.
+             * @param hue The hue of the layer
+             */
+            setHue(hue: number): void;
+
+            /**
+             * Set the maximum resolution at which the layer is visible.
+             * @param maxResolution The maximum resolution of the layer.
+             */
+            setMaxResolution(maxResolution: number): void;
+
+            /**
+             * Set the minimum resolution at which the layer is visible.
+             * @param minResolution The minimum resolution of the layer.
+             */
+            setMinResolution(minResolution: number): void;
+
+            /**
+             * Set the opacity of the layer, allowed values range from 0 to 1.
+             * @param opactity The opacity of the layer.
+             */
+            setOpacity(opacity: number): void;
+
+            /**
+             * Adjust layer saturation. A value of 0 will render the layer completely unsaturated. A value of 1 will leave the saturation unchanged. Other values are linear multipliers of the effect (and values over 1 are permitted).
+             * @param saturation The saturation of the layer.
+             */
+            setSaturation(saturation: number): void;
+
+            /**
+             * Set the visibility of the layer (true or false).
+             * @param visible The visibility of the layer.
+             */
+            setVisible(visible: boolean): void;
         }
 
-        class Group {
+        /**
+         * A ol.Collection of layers that are handled together.
+         */
+        class Group extends ol.layer.Base {
+
+            /**
+             * @constructor
+             * @param options Layer options.
+             */
+            constructor(options?: GroupOptions);
+
+            /**
+             * Returns the collection of layers in this group.
+             * @returns Collection of layers that are part of this group.
+             */
+            getLayers(): ol.Collection<ol.layer.Base>;
+
+            /**
+             * Set the collection of layers in this group.
+             * @param layers Collection of layers that are part of this group.
+             */
+            setLayers(layers: ol.Collection<ol.layer.Base>): void;
         }
 
-        class Heatmap {
+        /**
+         * Layer for rendering vector data as a heatmap. Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors.
+         */
+        class Heatmap extends ol.layer.Vector {
+
+            /**
+             * @constructor
+             * @param options Options
+             */
+            constructor(options?: HeatmapOptions);
+
+            /**
+             * Return the blur size in pixels.
+             * @returns Blur size in pixels
+             */
+            getBlur(): number;
+
+            /**
+             * Return the gradient colors as array of strings.
+             * @returns Colors
+             */
+            getGradient(): Array<string>;
+
+            /**
+             * Return the size of the radius in pixels.
+             * @returns Radius size in pixel
+             */
+            getRadius(): number;
+
+            /**
+             * Set the blur size in pixels.
+             * @param blur Blur size in pixels
+             */
+            setBlur(blur: number): void;
+
+            /**
+             * Set the gradient colors as array of strings.
+             * @param colors Gradient
+             */
+            setGradient(colors: Array<string>): void;
+
+            /**
+             * Set the size of the radius in pixels.
+             * @param radius Radius size in pixels
+             */
+            setRadius(radius: number): void;
         }
 
-        class Image {
+        /**
+         * Server-rendered images that are available for arbitrary extents and resolutions. Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors.
+         */
+        class Image extends ol.layer.Layer {
+
+            /**
+             * @constructor
+             * @param options Layer options
+             */
+            constructor(options?: ImageOptions);
+
+            /**
+             * Return the associated source of the image layer.
+             * @returns Source.
+             */
+            getSource(): ol.source.Image;
         }
 
-        class Layer {
+        /**
+         * Abstract base class; normally only used for creating subclasses and not instantiated in apps. A visual representation of raster or vector map data. Layers group together those properties that pertain to how the data is to be displayed, irrespective of the source of that data.
+         */
+        class Layer extends ol.layer.Base {
+
+            /**
+             * @constructor 
+             * @param options Layer options
+             */
+            constructor(options?: LayerOptions);
+
+            /**
+             * Get the layer source.
+             * @returns The layer source (or null if not yet set)
+             */
+            getSource(): ol.source.Source;
+
+            /**
+             * Set the layer source.
+             * @param source The layer source.
+             */
+            setSource(source: ol.source.Source): void;
+        }
+        
+        /**
+         * For layer sources that provide pre-rendered, tiled images in grids that are organized by zoom levels for specific resolutions. Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors.
+         */
+        class Tile extends ol.layer.Layer {
+
+            /**
+             * @constructor
+             * @param options Tile layer options.
+             */
+            constructor(options?: TileOptions);
+
+            /**
+             * Return the level as number to which we will preload tiles up to.
+             * @retruns The level to preload tiled up to.
+             */
+            getPreload(): number;
+
+            /**
+             * Return the associated tilesource of the layer.
+             * @returns Source
+             */
+            getSource(): ol.source.Tile;
+
+            /**
+             * Whether we use interim tiles on error.
+             * @returns Use interim tiles on error.
+             */
+            getUseInterimTilesOnError(): boolean;
+
+            /**
+             * Set the level as number to which we will preload tiles up to.
+             * @param preload The level to preload tiled up to
+             */
+            setPreload(preload: number): void;
+
+            /**
+             * Set whether we use interim tiles on error.
+             * @param useInterimTilesOnError Use interim tiles on error.
+             */
+            setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
         }
 
-        class Tile {
-            constructor(options: any);
+        /**
+         * Vector data that is rendered client-side. Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors.
+         */
+        class Vector extends ol.layer.Layer {
+
+            /**
+             * @constructor
+             * @param options Options
+             */
+            constructor(options?: VectorOptions);
+
+            /**
+             * Return the associated vectorsource of the layer.
+             * @returns Source.
+             */
+            getSource(): ol.source.Vector;
+
+            /**
+             * Get the style for features. This returns whatever was passed to the style option at construction or to the setStyle method.
+             */
+            // TODO: Replace returntype any with ol.style.StyleFunction
+            getStyle(): ol.style.Style | Array<ol.style.Style> | any;
+
+            /**
+             * Get the style function.
+             * @returns Layer style function
+             */
+            // TODO: Replace returntype any with ol.style.StyleFunction
+            getStyleFunction(): any;
+
+            /**
+             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
+             */
+            setStyle();
+
+            /**
+             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
+             * @param layer Layer style
+             */
+            setStyle(style: ol.style.Style);
+
+            /**
+             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
+             * @param layer Layer style
+             */
+            setStyle(style: Array<ol.style.Style>);
+
+            /**
+             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
+             * @param Layer style
+             */
+            // TODO: Replace 'any' with ol.style.StyleFunction
+            setStyle(style: any);
         }
 
-        class Vector {
+        interface BaseOptions {
+
+            /**
+             * Brightness. Default is 0.
+             */
+            brightness?: number;
+
+            /**
+             * Contrast. Default is 1.
+             */
+            contrast?: number;
+
+            /**
+             * Hue. Default is 0.
+             */
+            hue?: number;
+
+            /**
+             * Opacity (0, 1). Default is 1.
+             */
+            opacity?: number;
+
+            /**
+             * Saturation. Default is 1.
+             */
+            saturation?: number;
+
+            /**
+             * Visibility. Default is true.
+             */
+            visible?: boolean;
+
+            /**
+             * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * The minimum resolution (inclusive) at which this layer will be visible.
+             */
+            minResolution?: number;
+
+            /**
+             * The maximum resolution (exclusive) below which this layer will be visible.
+             */
+            maxResolution?: number;
+        }
+
+        interface LayerOptions extends BaseOptions {
+
+            /**
+             * The layer source (or null if not yet set).
+             */
+            source?: ol.source.Source;
+        }
+
+        interface GroupOptions extends BaseOptions {
+
+            /**
+             * Child layers
+             */
+            layers?: Array<ol.layer.Base> | ol.Collection<ol.layer.Base>;
+        }
+
+        interface TileOptions extends LayerOptions {
+
+            /**
+             * Preload. Load low-resolution tiles up to preload levels. By default preload is 0, which means no preloading.
+             */
+            preload?: number;
+
+            /**
+             * Source for this layer.
+             */
+            source?: ol.source.Tile;
+
+            /**
+             * Use interim tiles on error. Default is true.
+             */
+            useInterimTilesOnError?: boolean;
+        }
+
+        interface ImageOptions extends LayerOptions {
+        }
+
+        interface VectorOptions extends LayerOptions {
+
+            /**
+             * When set to true, feature batches will be recreated during animations. This means that no vectors will be shown clipped, but the setting will have a performance impact for large amounts of vector data. When set to false, batches will be recreated when no animation is active. Default is false.
+             */
+            updateWhileAnimating?: boolean;
+
+            /**
+             * When set to true, feature batches will be recreated during interactions. See also updateWhileInteracting. Default is false.
+             */
+            updateWhileInteracting?: boolean;
+
+            /**
+             * Render order. Function to be used when sorting features before rendering. By default features are drawn in the order that they are created. Use null to avoid the sort, but get an undefined draw order.
+             */
+            // TODO: replace any with the expected function, unclear in documentation what the parameters are
+            renderOrder?: any;
+
+            /**
+             * The buffer around the viewport extent used by the renderer when getting features from the vector source for the rendering or hit-detection. Recommended value: the size of the largest symbol, line width or label. Default is 100 pixels.
+             */
+            renderBuffer?: number;
+
+            /**
+             * Source.
+             */
+            source?: ol.source.Vector;
+
+            /**
+             * Layer style. See ol.style for default style which will be used if this is not defined.
+             */
+            style?: ol.style.Style | Array<ol.style.Style> | any;
+        }
+
+        interface HeatmapOptions extends VectorOptions {
+
+            /**
+             * The color gradient of the heatmap, specified as an array of CSS color strings. Default is ['#00f', '#0ff', '#0f0', '#ff0', '#f00'].
+             */
+            gradient?: Array<String>;
+
+            /**
+             * Radius size in pixels. Default is 8.
+             */
+            radius?: number;
+
+            /**
+             * Blur size in pixels. Default is 15.
+             */
+            blur?: number;
+
+            /**
+             * Shadow size in pixels. Default is 250.
+             */
+            shadow?: number;
         }
     }
 
