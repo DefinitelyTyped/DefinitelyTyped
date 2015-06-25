@@ -3,6 +3,647 @@
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare module olx {
+
+    interface AttributionOptions {
+
+        /** HTML markup for this attribution. */
+        html: string;
+    }
+
+    interface DeviceOrientationOptions {
+
+        /**
+         * Start tracking. Default is false.
+         */
+        tracking?: boolean;
+    }
+
+    interface FeatureOverlayOptions {
+        
+        /**
+         * Features
+         */
+        // TODO: implement stylefunction
+        features?: Array<ol.Feature> | ol.Collection<ol.Feature> | any;
+
+        /**
+         * Map
+         */
+        map: ol.Map;
+
+        /**
+         * Style
+         */
+        style: ol.style.Style | Array<ol.style.Style>;
+    }
+
+    interface GeolocationOptions {
+
+        /**
+         * Start Tracking. Default is false.
+         */
+        tracking?: boolean;
+
+        /**
+         * Tracking options. See http://www.w3.org/TR/geolocation-API/#position_options_interface.
+         */
+        trackingOptions?: PositionOptions;
+
+        /**
+         * The projection the position is reported in.
+         */
+        projection?: ol.proj.ProjectionLike;
+    }
+
+    interface GraticuleOptions {
+
+        /** Reference to an ol.Map object. */
+        map?: ol.Map;
+
+        /** The maximum number of meridians and parallels from the center of the map. The default value is 100, which means that at most 200 meridians and 200 parallels will be displayed. The default value is appropriate for conformal projections like Spherical Mercator. If you increase the value more lines will be drawn and the drawing performance will decrease. */
+        maxLines?: number;
+
+        /** The stroke style to use for drawing the graticule. If not provided, the lines will be drawn with rgba(0,0,0,0.2), a not fully opaque black. */
+        strokeStyle?: ol.style.Stroke;
+
+        /** The target size of the graticule cells, in pixels. Default value is 100 pixels. */
+        targetSize?: number;
+    }
+
+    interface MapOptions {
+
+        /** Controls initially added to the map. If not specified, ol.control.defaults() is used. */
+        controls?: any;
+
+        /** The ratio between physical pixels and device-independent pixels (dips) on the device. If undefined then it gets set by using window.devicePixelRatio. */
+        pixelRatio?: number;
+
+        /** Interactions that are initially added to the map. If not specified, ol.interaction.defaults() is used. */
+        interactions?: any;
+
+        /** The element to listen to keyboard events on. This determines when the KeyboardPan and KeyboardZoom interactions trigger. For example, if this option is set to document the keyboard interactions will always trigger. If this option is not specified, the element the library listens to keyboard events on is the map target (i.e. the user-provided div for the map). If this is not document the target element needs to be focused for key events to be emitted, requiring that the target element has a tabindex attribute. */
+        keyboardEventTarget?: any;
+
+        /** Layers. If this is not defined, a map with no layers will be rendered. Note that layers are rendered in the order supplied, so if you want, for example, a vector layer to appear on top of a tile layer, it must come after the tile layer. */
+        layers?: Array<any>
+
+        /** When set to true, tiles will be loaded during animations. This may improve the user experience, but can also make animations stutter on devices with slow memory. Default is false. */
+        loadTilesWhileAnimating?: boolean;
+
+        /** When set to true, tiles will be loaded while interacting with the map. This may improve the user experience, but can also make map panning and zooming choppy on devices with slow memory. Default is false. */
+        loadTilesWhileInteracting?: boolean;
+
+        /** The map logo. A logo to be displayed on the map at all times. If a string is provided, it will be set as the image source of the logo. If an object is provided, the src property should be the URL for an image and the href property should be a URL for creating a link. To disable the map logo, set the option to false. By default, the OpenLayers 3 logo is shown. */
+        logo?: any;
+
+        /** Overlays initially added to the map. By default, no overlays are added. */
+        overlays?: any;
+
+        /** Renderer. By default, Canvas, DOM and WebGL renderers are tested for support in that order, and the first supported used. Specify a ol.RendererType here to use a specific renderer. Note that at present only the Canvas renderer supports vector data. */
+        renderer?: any;
+
+        /** The container for the map, either the element itself or the id of the element. If not specified at construction time, ol.Map#setTarget must be called for the map to be rendered. */
+        target?: any;
+
+        /** The map's view. No layer sources will be fetched unless this is specified at construction time or through ol.Map#setView. */
+        view?: ViewOptions;
+    }
+
+    interface OverlayOptions {
+
+        /**
+         * The overlay element.
+         */
+        element?: Element;
+
+        /**
+         * Offsets in pixels used when positioning the overlay. The fist element in the array is the horizontal offset. A positive value shifts the overlay right. The second element in the array is the vertical offset. A positive value shifts the overlay down. Default is [0, 0].
+         */
+        offset?: Array<number>;
+
+        /**
+         * The overlay position in map projection.
+         */
+        position?: ol.Coordinate;
+
+        /**
+         * Defines how the overlay is actually positioned with respect to its position property. Possible values are 'bottom-left', 'bottom-center', 'bottom-right', 'center-left', 'center-center', 'center-right', 'top-left', 'top-center', and 'top-right'. Default is 'top-left'.
+         */
+        positioning?: ol.OverlayPositioning;
+
+        /**
+         * Whether event propagation to the map viewport should be stopped. Default is true. If true the overlay is placed in the same container as that of the controls (CSS class name ol-overlaycontainer-stopevent); if false it is placed in the container with CSS class name ol-overlaycontainer.
+         */
+        stopEvent?: boolean;
+
+        /**
+         * Whether the overlay is inserted first in the overlay container, or appended. Default is true. If the overlay is placed in the same container as that of the controls (see the stopEvent option) you will probably set insertFirst to true so the overlay is displayed below the controls.
+         */
+        insertFirst?: boolean;
+
+        /**
+         * If set to true the map is panned when calling setPosition, so that the overlay is entirely visible in the current viewport. The default is false.
+         */
+        autoPan?: boolean;
+
+        /**
+         * The options used to create a ol.animation.pan animation. This animation is only used when autoPan is enabled. By default the default options for ol.animation.pan are used. If set to null the panning is not animated.
+         */
+        //TODO: replace with olx.animation.PanOptions
+        autoPanAnimation?: any;
+
+        /**
+         * The margin (in pixels) between the overlay and the borders of the map when autopanning. The default is 20.
+         */
+        autoPanMargin?: number;
+    }
+
+    interface ViewOptions {
+
+        /** The initial center for the view. The coordinate system for the center is specified with the projection option. Default is undefined, and layer sources will not be fetched if this is not set. */
+        center?: ol.Coordinate;
+
+        /** Rotation constraint. false means no constraint. true means no constraint, but snap to zero near zero. A number constrains the rotation to that number of values. For example, 4 will constrain the rotation to 0, 90, 180, and 270 degrees. The default is true. */
+        constrainRotation?: boolean;
+
+        /** Enable rotation. Default is true. If false a rotation constraint that always sets the rotation to zero is used. The constrainRotation option has no effect if enableRotation is false. */
+        enableRotation?: boolean;
+
+        /**The extent that constrains the center, in other words, center cannot be set outside this extent. Default is undefined. */
+        extent?: ol.Extent;
+
+        /** The maximum resolution used to determine the resolution constraint. It is used together with minResolution (or maxZoom) and zoomFactor. If unspecified it is calculated in such a way that the projection's validity extent fits in a 256x256 px tile. If the projection is Spherical Mercator (the default) then maxResolution defaults to 40075016.68557849 / 256 = 156543.03392804097. */
+        maxResolution?: number;
+
+        /** The minimum resolution used to determine the resolution constraint. It is used together with maxResolution (or minZoom) and zoomFactor. If unspecified it is calculated assuming 29 zoom levels (with a factor of 2). If the projection is Spherical Mercator (the default) then minResolution defaults to 40075016.68557849 / 256 / Math.pow(2, 28) = 0.0005831682455839253. */
+        minResolution?: number;
+
+        /** The maximum zoom level used to determine the resolution constraint. It is used together with minZoom (or maxResolution) and zoomFactor. Default is 28. Note that if minResolution is also provided, it is given precedence over maxZoom. */
+        maxZoom?: number;
+
+        /** The minimum zoom level used to determine the resolution constraint. It is used together with maxZoom (or minResolution) and zoomFactor. Default is 0. Note that if maxResolution is also provided, it is given precedence over minZoom. */
+        minZoom?: number;
+
+        /** The projection. Default is EPSG:3857 (Spherical Mercator). */
+        projection?: ol.proj.ProjectionLike;
+
+        /** The initial resolution for the view. The units are projection units per pixel (e.g. meters per pixel). An alternative to setting this is to set zoom. Default is undefined, and layer sources will not be fetched if neither this nor zoom are defined. */
+        resolution?: number;
+
+        /** Resolutions to determine the resolution constraint. If set the maxResolution, minResolution, minZoom, maxZoom, and zoomFactor options are ignored. */
+        resolutions?: Array<number>;
+
+        /** The initial rotation for the view in radians (positive rotation clockwise). Default is 0. */
+        rotation?: number;
+
+        /** Only used if resolution is not defined. Zoom level used to calculate the initial resolution for the view. The initial resolution is determined using the ol.View#constrainResolution method. */
+        zoom?: number;
+
+        /** The zoom factor used to determine the resolution constraint. Default is 2. */
+        zoomFactor?: number;
+    }
+    
+    module animation {
+
+        interface BounceOptions {
+            
+            /**
+             * The resolution to start the bounce from, typically map.getView().getResolution().
+             */
+            resolution: number;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+
+        interface PanOptions {
+            
+            /**
+             * The resolution to start the bounce from, typically map.getView().getResolution().
+             */
+            source: ol.Coordinate;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+
+        interface RotateOptions {
+            
+            /**
+             * The rotation value (in radians) to begin rotating from, typically map.getView().getRotation(). If undefined then 0 is assumed.
+             */
+            rotation?: number;
+
+            /**
+             * The rotation center/anchor. The map rotates around the center of the view if unspecified.
+             */
+            anchor?: ol.Coordinate;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+
+        interface ZoomOptions {
+            
+            /**
+             * The resolution to begin zooming from, typically map.getView().getResolution().
+             */
+            resolution: number;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+    }
+
+    module control {
+
+        interface DefaultsOptions {
+
+            /**
+             * Attribution. Default is true.
+             */
+            attribution?: boolean;
+
+            /**
+             * Attribution options.
+             */
+            //TODO: Replace with olx.control.AttributionOptions
+            attributionOptions?: any;
+
+            /**
+             * Rotate. Default is true;
+             */
+            rotate?: boolean;
+
+            /**
+             * Rotate options
+             */
+            //TODO: Replace with olx.control.RotateOptions
+            rotateOptions?: any;
+            
+            /**
+             * Zoom. Default is true
+             */
+            zoom?: boolean;
+
+            /**
+             * 
+             */
+            //TODO: Replace with olx.control.ZoomOptions
+            zoomOptions?: any;
+        }
+    }
+
+    module layer {
+
+        interface BaseOptions {
+
+            /**
+             * Brightness. Default is 0.
+             */
+            brightness?: number;
+
+            /**
+             * Contrast. Default is 1.
+             */
+            contrast?: number;
+
+            /**
+             * Hue. Default is 0.
+             */
+            hue?: number;
+
+            /**
+             * Opacity (0, 1). Default is 1.
+             */
+            opacity?: number;
+
+            /**
+             * Saturation. Default is 1.
+             */
+            saturation?: number;
+
+            /**
+             * Visibility. Default is true.
+             */
+            visible?: boolean;
+
+            /**
+             * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * The minimum resolution (inclusive) at which this layer will be visible.
+             */
+            minResolution?: number;
+
+            /**
+             * The maximum resolution (exclusive) below which this layer will be visible.
+             */
+            maxResolution?: number;
+        }
+
+        interface GroupOptions extends BaseOptions {
+
+            /**
+             * Child layers
+             */
+            layers?: Array<ol.layer.Base> | ol.Collection<ol.layer.Base>;
+        }
+
+        interface HeatmapOptions extends VectorOptions {
+
+            /**
+             * The color gradient of the heatmap, specified as an array of CSS color strings. Default is ['#00f', '#0ff', '#0f0', '#ff0', '#f00'].
+             */
+            gradient?: Array<String>;
+
+            /**
+             * Radius size in pixels. Default is 8.
+             */
+            radius?: number;
+
+            /**
+             * Blur size in pixels. Default is 15.
+             */
+            blur?: number;
+
+            /**
+             * Shadow size in pixels. Default is 250.
+             */
+            shadow?: number;
+        }
+
+        interface ImageOptions extends LayerOptions {
+        }
+
+        interface LayerOptions extends BaseOptions {
+
+            /**
+             * The layer source (or null if not yet set).
+             */
+            source?: ol.source.Source;
+        }
+
+        interface TileOptions extends LayerOptions {
+
+            /**
+             * Preload. Load low-resolution tiles up to preload levels. By default preload is 0, which means no preloading.
+             */
+            preload?: number;
+
+            /**
+             * Source for this layer.
+             */
+            source?: ol.source.Tile;
+
+            /**
+             * Use interim tiles on error. Default is true.
+             */
+            useInterimTilesOnError?: boolean;
+        }
+
+        interface VectorOptions extends LayerOptions {
+
+            /**
+             * When set to true, feature batches will be recreated during animations. This means that no vectors will be shown clipped, but the setting will have a performance impact for large amounts of vector data. When set to false, batches will be recreated when no animation is active. Default is false.
+             */
+            updateWhileAnimating?: boolean;
+
+            /**
+             * When set to true, feature batches will be recreated during interactions. See also updateWhileInteracting. Default is false.
+             */
+            updateWhileInteracting?: boolean;
+
+            /**
+             * Render order. Function to be used when sorting features before rendering. By default features are drawn in the order that they are created. Use null to avoid the sort, but get an undefined draw order.
+             */
+            // TODO: replace any with the expected function, unclear in documentation what the parameters are
+            renderOrder?: any;
+
+            /**
+             * The buffer around the viewport extent used by the renderer when getting features from the vector source for the rendering or hit-detection. Recommended value: the size of the largest symbol, line width or label. Default is 100 pixels.
+             */
+            renderBuffer?: number;
+
+            /**
+             * Source.
+             */
+            source?: ol.source.Vector;
+
+            /**
+             * Layer style. See ol.style for default style which will be used if this is not defined.
+             */
+            style?: ol.style.Style | Array<ol.style.Style> | any;
+        }
+    }
+
+    module tilegrid {
+
+        interface TileGridOptions {
+
+            /**
+             * Extent for the tile grid. No tiles outside this extent will be requested by ol.source.Tile sources. When no origin or origins are configured, the origin will be set to the bottom-left corner of the extent. When no sizes are configured, they will be calculated from the extent.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * Minimum zoom. Default is 0.
+             */
+            minZoom?: number;
+
+            /**
+             * Origin, i.e. the bottom-left corner of the grid. Default is null.
+             */
+            origin?: ol.Coordinate;
+
+            /**
+             * Origins, i.e. the bottom-left corners of the grid for each zoom level. If given, the array length should match the length of the resolutions array, i.e. each resolution can have a different origin.
+             */
+            origins?: Array<ol.Coordinate>;
+
+            /**
+             * Resolutions. The array index of each resolution needs to match the zoom level. This means that even if a minZoom is configured, the resolutions array will have a length of maxZoom + 1.
+             */
+            resolutions?: Array<number>;
+
+            /**
+             * Tile size. Default is [256, 256].
+             */
+            tileSize?: number | ol.Size;
+
+            /**
+             * Tile sizes. If given, the array length should match the length of the resolutions array, i.e. each resolution can have a different tile size.
+             */
+            tileSizes?: Array<number | ol.Size>;
+        }
+
+        interface WMTSOptions {
+
+            /**
+             * Extent for the tile grid. No tiles outside this extent will be requested by ol.source.WMTS sources. When no origin or origins are configured, the origin will be calculated from the extent. When no sizes are configured, they will be calculated from the extent.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * Origin, i.e. the top-left corner of the grid.
+             */
+            origin?: ol.Coordinate;
+
+            /**
+             * Origins, i.e. the top-left corners of the grid for each zoom level. The length of this array needs to match the length of the resolutions array.
+             */
+            origins?: Array<ol.Coordinate>;
+
+            /**
+             * Resolutions. The array index of each resolution needs to match the zoom level. This means that even if a minZoom is configured, the resolutions array will have a length of maxZoom + 1
+             */
+            resolutions?: Array<number>;
+
+            /**
+             * matrix IDs. The length of this array needs to match the length of the resolutions array.
+             */
+            matrixIds?: Array<string>;
+
+            /**
+             * Number of tile rows and columns of the grid for each zoom level. The values here are the TileMatrixWidth and TileMatrixHeight advertised in the GetCapabilities response of the WMTS, and define the grid's extent together with the origin. An extent can be configured in addition, and will further limit the extent for which tile requests are made by sources.
+             */
+            sizes?: Array<ol.Size>;
+
+            /**
+             * Tile size.
+             */
+            tileSize?: number | ol.Size;
+
+            /**
+             * Tile sizes. The length of this array needs to match the length of the resolutions array.
+             */
+            tileSizes?: Array<number | ol.Size>;
+            
+            /**
+             * Number of tile columns that cover the grid's extent for each zoom level. Only required when used with a source that has wrapX set to true, and only when the grid's origin differs from the one of the projection's extent. The array length has to match the length of the resolutions array, i.e. each resolution will have a matching entry here.
+             */
+            widths?: Array<number>;
+        }
+
+        interface XYZOptions {
+
+            /**
+             * Extent for the tile grid. The origin for an XYZ tile grid is the top-left corner of the extent. The zero level of the grid is defined by the resolution at which one tile fits in the provided extent. If not provided, the extent of the EPSG:3857 projection is used.
+             */
+            extent?: ol.Extent;
+
+            /**
+             * Maximum zoom. The default is ol.DEFAULT_MAX_ZOOM. This determines the number of levels in the grid set. For example, a maxZoom of 21 means there are 22 levels in the grid set.
+             */
+            maxZoom?: number;
+
+            /**
+             * Minimum zoom. Default is 0.
+             */
+            minZoom?: number;
+
+            /**
+             * Tile size in pixels. Default is [256, 256].
+             */
+            tileSize?: number | ol.Size;
+        }
+
+        interface ZoomifyOptions {
+
+            /**
+             * Resolutions
+             */
+            resolutions: Array<number>;
+        }
+    }
+
+    module view {
+
+        interface FitGeometryOptions {
+
+            /**
+             * Padding (in pixels) to be cleared inside the view. Values in the array are top, right, bottom and left padding. Default is [0, 0, 0, 0].
+             */
+            padding?: Array<number>;
+
+            /**
+             * Constrain the resolution. Default is true.
+             */
+            constrainResolution?: boolean;
+
+            /**
+             * Get the nearest extent. Default is false.
+             */
+            nearest?: boolean;
+
+            /**
+             * Minimum resolution that we zoom to. Default is 0.
+             */
+            minResolution?: number;
+
+            /**
+             * Maximum zoom level that we zoom to. If minResolution is given, this property is ignored.
+             */
+            maxZoom?: number;
+        }
+    }
+}
+
 /**
  * A high-performance, feature-packed library for all your mapping needs.
  */
@@ -16,7 +657,7 @@ declare module ol {
          * @constructor
          * @param options Attribution options.
          */
-        constructor(options: AttributionOptions);
+        constructor(options: olx.AttributionOptions);
 
         /** 
          * Get the attribution markup. 
@@ -24,12 +665,7 @@ declare module ol {
          */
         getHTML(): string;
     }
-    interface AttributionOptions {
-
-        /** HTML markup for this attribution. */
-        html: string;
-    }
-
+    
     /**
      * An expanded version of standard JS Array, adding convenience methods for manipulation. Add and remove changes to the Collection trigger a Collection event. Note that this does not cover changes to the objects within the Collection; they trigger events on the appropriate object, not on the Collection as a whole.
      */
@@ -141,7 +777,7 @@ declare module ol {
          * @constructor
          * @param options Options.
          */
-        constructor(options: DeviceOrientationOptions);
+        constructor(options?: olx.DeviceOrientationOptions);
 
         /**
          * Rotation around the device z-axis (in radians).
@@ -179,14 +815,7 @@ declare module ol {
          */
         setTracking(tracking: boolean): void;
     }
-    interface DeviceOrientationOptions {
-
-        /**
-         * Start tracking. Default is false.
-         */
-        tracking?: boolean;
-    }
-
+    
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
@@ -284,7 +913,7 @@ declare module ol {
          * @constructor
          * @param options Options.
          */
-        constructor(options: FeatureOverlayOptions);
+        constructor(options?: olx.FeatureOverlayOptions);
 
         /**
          * Add a feature to the overlay.
@@ -344,24 +973,6 @@ declare module ol {
         setStyle(style: Array<ol.style.Style>): void;
         setStyle(style: any): void;
     }
-    interface FeatureOverlayOptions {
-        
-        /**
-         * Features
-         */
-        // TODO: implement stylefunction
-        features?: Array<ol.Feature> | Collection<ol.Feature> | any;
-
-        /**
-         * Map
-         */
-        map: Map;
-
-        /**
-         * Style
-         */
-        style: style.Style | Array<style.Style>;
-    }
 
     /**
      * Helper class for providing HTML5 Geolocation capabilities. The Geolocation API is used to locate a user's position.
@@ -372,7 +983,7 @@ declare module ol {
          * @constructor
          * @param options Options.
          */
-        constructor(options: GeolocationOptions);
+        constructor(options?: olx.GeolocationOptions);
 
         /**
          * Get the accuracy of the position in meters.
@@ -452,23 +1063,6 @@ declare module ol {
          */
         setTrackingOptions(options: PositionOptions): void;
     }
-    interface GeolocationOptions {
-
-        /**
-         * Start Tracking. Default is false.
-         */
-        tracking?: boolean;
-
-        /**
-         * Tracking options. See http://www.w3.org/TR/geolocation-API/#position_options_interface.
-         */
-        trackingOptions?: PositionOptions;
-
-        /**
-         * The projection the position is reported in.
-         */
-        projection?: ol.proj.ProjectionLike;
-    }
 
     /**
      * Render a grid for a coordinate system on a map.
@@ -478,7 +1072,7 @@ declare module ol {
          * @constructor
          * @param options Options.
          */
-        constructor(options: GraticuleOptions);
+        constructor(options?: olx.GraticuleOptions);
 
         /** 
          * Get the map associated with this graticule. 
@@ -504,21 +1098,7 @@ declare module ol {
          */
         setMap(map: Map): void;
     }
-    interface GraticuleOptions {
-
-        /** Reference to an ol.Map object. */
-        map?: Map;
-
-        /** The maximum number of meridians and parallels from the center of the map. The default value is 100, which means that at most 200 meridians and 200 parallels will be displayed. The default value is appropriate for conformal projections like Spherical Mercator. If you increase the value more lines will be drawn and the drawing performance will decrease. */
-        maxLines?: number;
-
-        /** The stroke style to use for drawing the graticule. If not provided, the lines will be drawn with rgba(0,0,0,0.2), a not fully opaque black. */
-        strokeStyle?: style.Stroke;
-
-        /** The target size of the graticule cells, in pixels. Default value is 100 pixels. */
-        targetSize?: number;
-    }
-
+    
     /**
      * 
      */
@@ -574,7 +1154,7 @@ declare module ol {
          * @constructor
          * @params options Options.
          */
-        constructor(options: MapOptions);
+        constructor(options: olx.MapOptions);
 
         /**
          * Add the given control to the map.
@@ -794,45 +1374,7 @@ declare module ol {
          * */
         updateSize(): void;
     }
-    interface MapOptions {
-
-        /** Controls initially added to the map. If not specified, ol.control.defaults() is used. */
-        controls?: any;
-
-        /** The ratio between physical pixels and device-independent pixels (dips) on the device. If undefined then it gets set by using window.devicePixelRatio. */
-        pixelRatio?: number;
-
-        /** Interactions that are initially added to the map. If not specified, ol.interaction.defaults() is used. */
-        interactions?: any;
-
-        /** The element to listen to keyboard events on. This determines when the KeyboardPan and KeyboardZoom interactions trigger. For example, if this option is set to document the keyboard interactions will always trigger. If this option is not specified, the element the library listens to keyboard events on is the map target (i.e. the user-provided div for the map). If this is not document the target element needs to be focused for key events to be emitted, requiring that the target element has a tabindex attribute. */
-        keyboardEventTarget?: any;
-
-        /** Layers. If this is not defined, a map with no layers will be rendered. Note that layers are rendered in the order supplied, so if you want, for example, a vector layer to appear on top of a tile layer, it must come after the tile layer. */
-        layers?: Array<any>
-
-        /** When set to true, tiles will be loaded during animations. This may improve the user experience, but can also make animations stutter on devices with slow memory. Default is false. */
-        loadTilesWhileAnimating?: boolean;
-
-        /** When set to true, tiles will be loaded while interacting with the map. This may improve the user experience, but can also make map panning and zooming choppy on devices with slow memory. Default is false. */
-        loadTilesWhileInteracting?: boolean;
-
-        /** The map logo. A logo to be displayed on the map at all times. If a string is provided, it will be set as the image source of the logo. If an object is provided, the src property should be the URL for an image and the href property should be a URL for creating a link. To disable the map logo, set the option to false. By default, the OpenLayers 3 logo is shown. */
-        logo?: any;
-
-        /** Overlays initially added to the map. By default, no overlays are added. */
-        overlays?: any;
-
-        /** Renderer. By default, Canvas, DOM and WebGL renderers are tested for support in that order, and the first supported used. Specify a ol.RendererType here to use a specific renderer. Note that at present only the Canvas renderer supports vector data. */
-        renderer?: any;
-
-        /** The container for the map, either the element itself or the id of the element. If not specified at construction time, ol.Map#setTarget must be called for the map to be rendered. */
-        target?: any;
-
-        /** The map's view. No layer sources will be fetched unless this is specified at construction time or through ol.Map#setView. */
-        view?: ViewOptions;
-    }
-
+   
     /**
      * Events emitted as map browser events are instances of this type. See ol.Map for which events trigger a map browser event.
      */
@@ -1051,7 +1593,7 @@ declare module ol {
          * @constructor
          * @param options Overlay options.
          */
-        constructor(options: OverlayOptions);
+        constructor(options: olx.OverlayOptions);
 
         /**
          * Get the DOM element of this overlay.
@@ -1113,55 +1655,7 @@ declare module ol {
          */
         setPositioning(positioning: ol.OverlayPositioning): void;
     }
-    interface OverlayOptions {
-
-        /**
-         * The overlay element.
-         */
-        element?: Element;
-
-        /**
-         * Offsets in pixels used when positioning the overlay. The fist element in the array is the horizontal offset. A positive value shifts the overlay right. The second element in the array is the vertical offset. A positive value shifts the overlay down. Default is [0, 0].
-         */
-        offset?: Array<number>;
-
-        /**
-         * The overlay position in map projection.
-         */
-        position?: ol.Coordinate;
-
-        /**
-         * Defines how the overlay is actually positioned with respect to its position property. Possible values are 'bottom-left', 'bottom-center', 'bottom-right', 'center-left', 'center-center', 'center-right', 'top-left', 'top-center', and 'top-right'. Default is 'top-left'.
-         */
-        positioning?: ol.OverlayPositioning;
-
-        /**
-         * Whether event propagation to the map viewport should be stopped. Default is true. If true the overlay is placed in the same container as that of the controls (CSS class name ol-overlaycontainer-stopevent); if false it is placed in the container with CSS class name ol-overlaycontainer.
-         */
-        stopEvent?: boolean;
-
-        /**
-         * Whether the overlay is inserted first in the overlay container, or appended. Default is true. If the overlay is placed in the same container as that of the controls (see the stopEvent option) you will probably set insertFirst to true so the overlay is displayed below the controls.
-         */
-        insertFirst?: boolean;
-
-        /**
-         * If set to true the map is panned when calling setPosition, so that the overlay is entirely visible in the current viewport. The default is false.
-         */
-        autoPan?: boolean;
-
-        /**
-         * The options used to create a ol.animation.pan animation. This animation is only used when autoPan is enabled. By default the default options for ol.animation.pan are used. If set to null the panning is not animated.
-         */
-        //TODO: replace with olx.animation.PanOptions
-        autoPanAnimation?: any;
-
-        /**
-         * The margin (in pixels) between the overlay and the borders of the map when autopanning. The default is 20.
-         */
-        autoPanMargin?: number;
-    }
-
+    
     /**
      * Events emitted by ol.interaction.Select instances are instances of this type.
      */
@@ -1231,7 +1725,7 @@ declare module ol {
          * @constructor
          * @param options Options.
          */
-        constructor(options: ViewOptions);
+        constructor(options?: olx.ViewOptions);
 
         /**
          * Calculate the extent for the current view state and the passed size. The size is the pixel dimensions of the box into which the calculated extent should fit. In most cases you want to get the extent of the entire map, that is map.getSize().
@@ -1277,7 +1771,7 @@ declare module ol {
          * @param size Box pixel size.
          * @param options Options
          */
-        fitGeometry(geometry: ol.geom.SimpleGeometry, size: ol.Size, options?: ViewFitGeometryOptions): void;
+        fitGeometry(geometry: ol.geom.SimpleGeometry, size: ol.Size, options?: olx.view.FitGeometryOptions): void;
 
         /**
          * Get the view center.
@@ -1340,78 +1834,7 @@ declare module ol {
          */
         setZoom(zoom: number): void;
     }
-    interface ViewOptions {
-
-        /** The initial center for the view. The coordinate system for the center is specified with the projection option. Default is undefined, and layer sources will not be fetched if this is not set. */
-        center?: Coordinate;
-
-        /** Rotation constraint. false means no constraint. true means no constraint, but snap to zero near zero. A number constrains the rotation to that number of values. For example, 4 will constrain the rotation to 0, 90, 180, and 270 degrees. The default is true. */
-        constrainRotation?: boolean;
-
-        /** Enable rotation. Default is true. If false a rotation constraint that always sets the rotation to zero is used. The constrainRotation option has no effect if enableRotation is false. */
-        enableRotation?: boolean;
-
-        /**The extent that constrains the center, in other words, center cannot be set outside this extent. Default is undefined. */
-        extent?: Extent;
-
-        /** The maximum resolution used to determine the resolution constraint. It is used together with minResolution (or maxZoom) and zoomFactor. If unspecified it is calculated in such a way that the projection's validity extent fits in a 256x256 px tile. If the projection is Spherical Mercator (the default) then maxResolution defaults to 40075016.68557849 / 256 = 156543.03392804097. */
-        maxResolution?: number;
-
-        /** The minimum resolution used to determine the resolution constraint. It is used together with maxResolution (or minZoom) and zoomFactor. If unspecified it is calculated assuming 29 zoom levels (with a factor of 2). If the projection is Spherical Mercator (the default) then minResolution defaults to 40075016.68557849 / 256 / Math.pow(2, 28) = 0.0005831682455839253. */
-        minResolution?: number;
-
-        /** The maximum zoom level used to determine the resolution constraint. It is used together with minZoom (or maxResolution) and zoomFactor. Default is 28. Note that if minResolution is also provided, it is given precedence over maxZoom. */
-        maxZoom?: number;
-
-        /** The minimum zoom level used to determine the resolution constraint. It is used together with maxZoom (or minResolution) and zoomFactor. Default is 0. Note that if maxResolution is also provided, it is given precedence over minZoom. */
-        minZoom?: number;
-
-        /** The projection. Default is EPSG:3857 (Spherical Mercator). */
-        projection?: any;
-
-        /** The initial resolution for the view. The units are projection units per pixel (e.g. meters per pixel). An alternative to setting this is to set zoom. Default is undefined, and layer sources will not be fetched if neither this nor zoom are defined. */
-        resolution?: number;
-
-        /** Resolutions to determine the resolution constraint. If set the maxResolution, minResolution, minZoom, maxZoom, and zoomFactor options are ignored. */
-        resolutions?: Array<number>;
-
-        /** The initial rotation for the view in radians (positive rotation clockwise). Default is 0. */
-        rotation?: number;
-
-        /** Only used if resolution is not defined. Zoom level used to calculate the initial resolution for the view. The initial resolution is determined using the ol.View#constrainResolution method. */
-        zoom?: number;
-
-        /** The zoom factor used to determine the resolution constraint. Default is 2. */
-        zoomFactor?: number;
-    }
-    interface ViewFitGeometryOptions {
-
-        /**
-         * Padding (in pixels) to be cleared inside the view. Values in the array are top, right, bottom and left padding. Default is [0, 0, 0, 0].
-         */
-        padding?: Array<number>;
-
-        /**
-         * Constrain the resolution. Default is true.
-         */
-        constrainResolution?: boolean;
-
-        /**
-         * Get the nearest extent. Default is false.
-         */
-        nearest?: boolean;
-
-        /**
-         * Minimum resolution that we zoom to. Default is 0.
-         */
-        minResolution?: number;
-
-        /**
-         * Maximum zoom level that we zoom to. If minResolution is given, this property is ignored.
-         */
-        maxZoom?: number;
-    }
-
+    
     // NAMESPACES
 
     /**
@@ -1424,124 +1847,27 @@ declare module ol {
          * @param options Bounce options.
          */
         //TODO: return ol.PreRenderFunction
-        function bounce(options: AnimationBounceOptions): any;
-        interface AnimationBounceOptions {
-            
-            /**
-             * The resolution to start the bounce from, typically map.getView().getResolution().
-             */
-            resolution: number;
-
-            /**
-             * The start time of the animation. Default is immediately.
-             */
-            start?: number;
-
-            /**
-             * The duration of the animation in milliseconds. Default is 1000.
-             */
-            duration?: number;
-
-            /**
-             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
-             */
-            // TODO: Check if it is an ol.easing function
-            easing: () => void;
-        }
-
+        function bounce(options: olx.animation.BounceOptions): any;
+        
         /**
          * Generate an animated transition while updating the view center.
          * @param options Pan options.
          */
         //TODO: return ol.PreRenderFunction
-        function pan(options: AnimationPanOptions): any;
-        interface AnimationPanOptions {
-            
-            /**
-             * The resolution to start the bounce from, typically map.getView().getResolution().
-             */
-            source: ol.Coordinate;
-
-            /**
-             * The start time of the animation. Default is immediately.
-             */
-            start?: number;
-
-            /**
-             * The duration of the animation in milliseconds. Default is 1000.
-             */
-            duration?: number;
-
-            /**
-             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
-             */
-            // TODO: Check if it is an ol.easing function
-            easing: () => void;
-        }
+        function pan(options: olx.animation.PanOptions): any;
 
         /**
          * Generate an animated transition while updating the view rotation.
          * @param options Rotate options.
          */
         //TODO: return ol.PreRenderFunction
-        function rotate(options: AnimationRotateOptions): any;
-        interface AnimationRotateOptions {
-            
-            /**
-             * The rotation value (in radians) to begin rotating from, typically map.getView().getRotation(). If undefined then 0 is assumed.
-             */
-            rotation?: number;
-
-            /**
-             * The rotation center/anchor. The map rotates around the center of the view if unspecified.
-             */
-            anchor?: ol.Coordinate;
-
-            /**
-             * The start time of the animation. Default is immediately.
-             */
-            start?: number;
-
-            /**
-             * The duration of the animation in milliseconds. Default is 1000.
-             */
-            duration?: number;
-
-            /**
-             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
-             */
-            // TODO: Check if it is an ol.easing function
-            easing: () => void;
-        }
+        function rotate(options: olx.animation.RotateOptions): any;
 
         /**
          * Generate an animated transition while updating the view resolution.
          * @param options Zoom options.
          */
-        function pan(options: AnimationZoomOptions): any;
-        interface AnimationZoomOptions {
-            
-            /**
-             * The resolution to begin zooming from, typically map.getView().getResolution().
-             */
-            resolution: number;
-
-            /**
-             * The start time of the animation. Default is immediately.
-             */
-            start?: number;
-
-            /**
-             * The duration of the animation in milliseconds. Default is 1000.
-             */
-            duration?: number;
-
-            /**
-             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
-             */
-            // TODO: Check if it is an ol.easing function
-            easing: () => void;
-        }
+        function pan(options: olx.animation.PanOptions): any;
     }
 
     /**
@@ -1571,43 +1897,8 @@ declare module ol {
          * @param options Defaults options
          * @returns Control.s
          */
-        function defaults(opt_options: ControlDefaultsOptions): ol.Collection<ol.control.Control>;
-        interface ControlDefaultsOptions {
-
-            /**
-             * Attribution. Default is true.
-             */
-            attribution?: boolean;
-
-            /**
-             * Attribution options.
-             */
-            //TODO: Replace with olx.control.AttributionOptions
-            attributionOptions?: any;
-
-            /**
-             * Rotate. Default is true;
-             */
-            rotate?: boolean;
-
-            /**
-             * Rotate options
-             */
-            //TODO: Replace with olx.control.RotateOptions
-            rotateOptions?: any;
-            
-            /**
-             * Zoom. Default is true
-             */
-            zoom?: boolean;
-
-            /**
-             * 
-             */
-            //TODO: Replace with olx.control.ZoomOptions
-            zoomOptions?: any;
-        }
-
+        function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
+        
         /**
          * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
          */
@@ -1852,7 +2143,7 @@ declare module ol {
              * @constructor
              * @param options Layer options.
              */
-            constructor(options?: BaseOptions);
+            constructor(options?: olx.layer.BaseOptions);
 
             /**
              * Return the brightness of the layer.
@@ -1972,7 +2263,7 @@ declare module ol {
              * @constructor
              * @param options Layer options.
              */
-            constructor(options?: GroupOptions);
+            constructor(options?: olx.layer.GroupOptions);
 
             /**
              * Returns the collection of layers in this group.
@@ -1996,7 +2287,7 @@ declare module ol {
              * @constructor
              * @param options Options
              */
-            constructor(options?: HeatmapOptions);
+            constructor(options?: olx.layer.HeatmapOptions);
 
             /**
              * Return the blur size in pixels.
@@ -2044,7 +2335,7 @@ declare module ol {
              * @constructor
              * @param options Layer options
              */
-            constructor(options?: ImageOptions);
+            constructor(options?: olx.layer.ImageOptions);
 
             /**
              * Return the associated source of the image layer.
@@ -2062,7 +2353,7 @@ declare module ol {
              * @constructor 
              * @param options Layer options
              */
-            constructor(options?: LayerOptions);
+            constructor(options?: olx.layer.LayerOptions);
 
             /**
              * Get the layer source.
@@ -2086,7 +2377,7 @@ declare module ol {
              * @constructor
              * @param options Tile layer options.
              */
-            constructor(options?: TileOptions);
+            constructor(options?: olx.layer.TileOptions);
 
             /**
              * Return the level as number to which we will preload tiles up to.
@@ -2128,7 +2419,7 @@ declare module ol {
              * @constructor
              * @param options Options
              */
-            constructor(options?: VectorOptions);
+            constructor(options?: olx.layer.VectorOptions);
 
             /**
              * Return the associated vectorsource of the layer.
@@ -2172,148 +2463,6 @@ declare module ol {
              */
             // TODO: Replace 'any' with ol.style.StyleFunction
             setStyle(style: any): void;
-        }
-
-        interface BaseOptions {
-
-            /**
-             * Brightness. Default is 0.
-             */
-            brightness?: number;
-
-            /**
-             * Contrast. Default is 1.
-             */
-            contrast?: number;
-
-            /**
-             * Hue. Default is 0.
-             */
-            hue?: number;
-
-            /**
-             * Opacity (0, 1). Default is 1.
-             */
-            opacity?: number;
-
-            /**
-             * Saturation. Default is 1.
-             */
-            saturation?: number;
-
-            /**
-             * Visibility. Default is true.
-             */
-            visible?: boolean;
-
-            /**
-             * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
-             */
-            extent?: ol.Extent;
-
-            /**
-             * The minimum resolution (inclusive) at which this layer will be visible.
-             */
-            minResolution?: number;
-
-            /**
-             * The maximum resolution (exclusive) below which this layer will be visible.
-             */
-            maxResolution?: number;
-        }
-
-        interface LayerOptions extends BaseOptions {
-
-            /**
-             * The layer source (or null if not yet set).
-             */
-            source?: ol.source.Source;
-        }
-
-        interface GroupOptions extends BaseOptions {
-
-            /**
-             * Child layers
-             */
-            layers?: Array<ol.layer.Base> | ol.Collection<ol.layer.Base>;
-        }
-
-        interface TileOptions extends LayerOptions {
-
-            /**
-             * Preload. Load low-resolution tiles up to preload levels. By default preload is 0, which means no preloading.
-             */
-            preload?: number;
-
-            /**
-             * Source for this layer.
-             */
-            source?: ol.source.Tile;
-
-            /**
-             * Use interim tiles on error. Default is true.
-             */
-            useInterimTilesOnError?: boolean;
-        }
-
-        interface ImageOptions extends LayerOptions {
-        }
-
-        interface VectorOptions extends LayerOptions {
-
-            /**
-             * When set to true, feature batches will be recreated during animations. This means that no vectors will be shown clipped, but the setting will have a performance impact for large amounts of vector data. When set to false, batches will be recreated when no animation is active. Default is false.
-             */
-            updateWhileAnimating?: boolean;
-
-            /**
-             * When set to true, feature batches will be recreated during interactions. See also updateWhileInteracting. Default is false.
-             */
-            updateWhileInteracting?: boolean;
-
-            /**
-             * Render order. Function to be used when sorting features before rendering. By default features are drawn in the order that they are created. Use null to avoid the sort, but get an undefined draw order.
-             */
-            // TODO: replace any with the expected function, unclear in documentation what the parameters are
-            renderOrder?: any;
-
-            /**
-             * The buffer around the viewport extent used by the renderer when getting features from the vector source for the rendering or hit-detection. Recommended value: the size of the largest symbol, line width or label. Default is 100 pixels.
-             */
-            renderBuffer?: number;
-
-            /**
-             * Source.
-             */
-            source?: ol.source.Vector;
-
-            /**
-             * Layer style. See ol.style for default style which will be used if this is not defined.
-             */
-            style?: ol.style.Style | Array<ol.style.Style> | any;
-        }
-
-        interface HeatmapOptions extends VectorOptions {
-
-            /**
-             * The color gradient of the heatmap, specified as an array of CSS color strings. Default is ['#00f', '#0ff', '#0f0', '#ff0', '#f00'].
-             */
-            gradient?: Array<String>;
-
-            /**
-             * Radius size in pixels. Default is 8.
-             */
-            radius?: number;
-
-            /**
-             * Blur size in pixels. Default is 15.
-             */
-            blur?: number;
-
-            /**
-             * Shadow size in pixels. Default is 250.
-             */
-            shadow?: number;
         }
     }
 
@@ -2558,7 +2707,7 @@ declare module ol {
              * @constructor
              * @param options Tile grid options
              */
-            constructor(options?: TileGridOptions);
+            constructor(options: olx.tilegrid.TileGridOptions);
 
             /**
              * Creates a TileCoord transform function for use with this tile grid. Transforms the internal tile coordinates with bottom-left origin to the tile coordinates used by the ol.TileUrlFunction. The returned function expects an ol.TileCoord as first and an ol.proj.Projection as second argument and returns a transformed ol.TileCoord.
@@ -2623,44 +2772,7 @@ declare module ol {
              */
             getTileSize(z: number): number | ol.Size;
         }
-        interface TileGridOptions {
-
-            /**
-             * Extent for the tile grid. No tiles outside this extent will be requested by ol.source.Tile sources. When no origin or origins are configured, the origin will be set to the bottom-left corner of the extent. When no sizes are configured, they will be calculated from the extent.
-             */
-            extent?: ol.Extent;
-
-            /**
-             * Minimum zoom. Default is 0.
-             */
-            minZoom?: number;
-
-            /**
-             * Origin, i.e. the bottom-left corner of the grid. Default is null.
-             */
-            origin?: ol.Coordinate;
-
-            /**
-             * Origins, i.e. the bottom-left corners of the grid for each zoom level. If given, the array length should match the length of the resolutions array, i.e. each resolution can have a different origin.
-             */
-            origins?: Array<ol.Coordinate>;
-
-            /**
-             * Resolutions. The array index of each resolution needs to match the zoom level. This means that even if a minZoom is configured, the resolutions array will have a length of maxZoom + 1.
-             */
-            resolutions?: Array<number>;
-
-            /**
-             * Tile size. Default is [256, 256].
-             */
-            tileSize?: number | ol.Size;
-
-            /**
-             * Tile sizes. If given, the array length should match the length of the resolutions array, i.e. each resolution can have a different tile size.
-             */
-            tileSizes?: Array<number | ol.Size>;
-        }
-
+        
         /**
          * Set the grid pattern for sources accessing WMTS tiled-image servers.
          */
@@ -2670,7 +2782,7 @@ declare module ol {
              * @constructor
              * @param options WMTS options
              */
-            constructor(options: WMTSOptions);
+            constructor(options: olx.tilegrid.WMTSOptions);
 
             /**
              * Create a tile grid from a WMTS capabilities matrix set.
@@ -2686,54 +2798,7 @@ declare module ol {
              */
             getMatrixIds(): Array<string>;
         }
-        interface WMTSOptions {
-
-            /**
-             * Extent for the tile grid. No tiles outside this extent will be requested by ol.source.WMTS sources. When no origin or origins are configured, the origin will be calculated from the extent. When no sizes are configured, they will be calculated from the extent.
-             */
-            extent?: ol.Extent;
-
-            /**
-             * Origin, i.e. the top-left corner of the grid.
-             */
-            origin?: ol.Coordinate;
-
-            /**
-             * Origins, i.e. the top-left corners of the grid for each zoom level. The length of this array needs to match the length of the resolutions array.
-             */
-            origins?: Array<ol.Coordinate>;
-
-            /**
-             * Resolutions. The array index of each resolution needs to match the zoom level. This means that even if a minZoom is configured, the resolutions array will have a length of maxZoom + 1
-             */
-            resolutions?: Array<number>;
-
-            /**
-             * matrix IDs. The length of this array needs to match the length of the resolutions array.
-             */
-            matrixIds?: Array<string>;
-
-            /**
-             * Number of tile rows and columns of the grid for each zoom level. The values here are the TileMatrixWidth and TileMatrixHeight advertised in the GetCapabilities response of the WMTS, and define the grid's extent together with the origin. An extent can be configured in addition, and will further limit the extent for which tile requests are made by sources.
-             */
-            sizes?: Array<ol.Size>;
-
-            /**
-             * Tile size.
-             */
-            tileSize?: number | ol.Size;
-
-            /**
-             * Tile sizes. The length of this array needs to match the length of the resolutions array.
-             */
-            tileSizes?: Array<number | ol.Size>;
-            
-            /**
-             * Number of tile columns that cover the grid's extent for each zoom level. Only required when used with a source that has wrapX set to true, and only when the grid's origin differs from the one of the projection's extent. The array length has to match the length of the resolutions array, i.e. each resolution will have a matching entry here.
-             */
-            widths?: Array<number>;
-        }
-
+        
         /**
          * Set the grid pattern for sources accessing Zoomify tiled-image servers.
          */
@@ -2743,14 +2808,7 @@ declare module ol {
              * @constructor
              * @param options Options
              */
-            constructor(options?: ZoomifyOptions);
-        }
-        interface ZoomifyOptions {
-
-            /**
-             * Resolutions
-             */
-            resolutions: Array<number>;
+            constructor(options?: olx.tilegrid.ZoomifyOptions);
         }
 
         /**
@@ -2758,29 +2816,7 @@ declare module ol {
          * @param options Tile grid options.
          * @returns The grid instance
          */
-        function createXYZ(options: CreateXYZOptions): ol.tilegrid.TileGrid;
-        interface CreateXYZOptions {
-
-            /**
-             * Extent for the tile grid. The origin for an XYZ tile grid is the top-left corner of the extent. The zero level of the grid is defined by the resolution at which one tile fits in the provided extent. If not provided, the extent of the EPSG:3857 projection is used.
-             */
-            extent?: ol.Extent;
-
-            /**
-             * Maximum zoom. The default is ol.DEFAULT_MAX_ZOOM. This determines the number of levels in the grid set. For example, a maxZoom of 21 means there are 22 levels in the grid set.
-             */
-            maxZoom?: number;
-
-            /**
-             * Minimum zoom. Default is 0.
-             */
-            minZoom?: number;
-
-            /**
-             * Tile size in pixels. Default is [256, 256].
-             */
-            tileSize?: number | ol.Size;
-        }
+        function createXYZ(options?: olx.tilegrid.XYZOptions): ol.tilegrid.TileGrid;
     }
 
     module webgl {
