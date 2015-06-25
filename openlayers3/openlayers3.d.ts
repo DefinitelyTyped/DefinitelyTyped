@@ -1413,13 +1413,206 @@ declare module ol {
     }
 
     // NAMESPACES
+
+    /**
+     * The animation static methods are designed to be used with the ol.Map#beforeRender method.
+     */
     module animation {
+
+        /**
+         * Generate an animated transition that will "bounce" the resolution as it approaches the final value.
+         * @param options Bounce options.
+         */
+        //TODO: return ol.PreRenderFunction
+        function bounce(options: AnimationBounceOptions): any;
+        interface AnimationBounceOptions {
+            
+            /**
+             * The resolution to start the bounce from, typically map.getView().getResolution().
+             */
+            resolution: number;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+
+        /**
+         * Generate an animated transition while updating the view center.
+         * @param options Pan options.
+         */
+        //TODO: return ol.PreRenderFunction
+        function pan(options: AnimationPanOptions): any;
+        interface AnimationPanOptions {
+            
+            /**
+             * The resolution to start the bounce from, typically map.getView().getResolution().
+             */
+            source: ol.Coordinate;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+
+        /**
+         * Generate an animated transition while updating the view rotation.
+         * @param options Rotate options.
+         */
+        //TODO: return ol.PreRenderFunction
+        function rotate(options: AnimationRotateOptions): any;
+        interface AnimationRotateOptions {
+            
+            /**
+             * The rotation value (in radians) to begin rotating from, typically map.getView().getRotation(). If undefined then 0 is assumed.
+             */
+            rotation?: number;
+
+            /**
+             * The rotation center/anchor. The map rotates around the center of the view if unspecified.
+             */
+            anchor?: ol.Coordinate;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
+
+        /**
+         * Generate an animated transition while updating the view resolution.
+         * @param options Zoom options.
+         */
+        function pan(options: AnimationZoomOptions): any;
+        interface AnimationZoomOptions {
+            
+            /**
+             * The resolution to begin zooming from, typically map.getView().getResolution().
+             */
+            resolution: number;
+
+            /**
+             * The start time of the animation. Default is immediately.
+             */
+            start?: number;
+
+            /**
+             * The duration of the animation in milliseconds. Default is 1000.
+             */
+            duration?: number;
+
+            /**
+             * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
+             */
+            // TODO: Check if it is an ol.easing function
+            easing: () => void;
+        }
     }
 
+    /**
+     * Return the color as an array. This function maintains a cache of calculated arrays which means the result should not be modified.
+     */
     module color {
+
+        /**
+         * Return the color as an array. This function maintains a cache of calculated arrays which means the result should not be modified.
+         * @param color Color.
+         */
+        function asArray(color: ol.Color): ol.Color;
+        function asArray(color: string): ol.Color;
+
+        /**
+         * Return the color as an rgba string.
+         * @param color Color.
+         */
+        function asString(color: ol.Color): string;
+        function asString(color: string): string;
     }
 
     module control {
+
+        /**
+         * Set of controls included in maps by default. Unless configured otherwise, this returns a collection containing an instance of each of the following controls: ol.control.Zoom, ol.control.Rotate, ol.control.Attribution
+         * @param options Defaults options
+         * @returns Control.s
+         */
+        function defaults(opt_options: ControlDefaultsOptions): ol.Collection<ol.control.Control>;
+        interface ControlDefaultsOptions {
+
+            /**
+             * Attribution. Default is true.
+             */
+            attribution?: boolean;
+
+            /**
+             * Attribution options.
+             */
+            //TODO: Replace with olx.control.AttributionOptions
+            attributionOptions?: any;
+
+            /**
+             * Rotate. Default is true;
+             */
+            rotate?: boolean;
+
+            /**
+             * Rotate options
+             */
+            //TODO: Replace with olx.control.RotateOptions
+            rotateOptions?: any;
+            
+            /**
+             * Zoom. Default is true
+             */
+            zoom?: boolean;
+
+            /**
+             * 
+             */
+            //TODO: Replace with olx.control.ZoomOptions
+            zoomOptions?: any;
+        }
+
+        /**
+         * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
+         */
+        interface ScaleLineUnits extends String { }
+
         class Attribution {
         }
 
