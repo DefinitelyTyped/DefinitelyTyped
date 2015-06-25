@@ -5,10 +5,15 @@
 
 /// <reference path="../node/node.d.ts"/>
 
+declare module gulpIf {
+    export interface GulpIf {
+        (condition: boolean,
+         stream: NodeJS.ReadWriteStream,
+         elseStream?: NodeJS.ReadWriteStream): NodeJS.ReadWriteStream    
+    }
+}
+
 declare module "gulp-if" {
-    function gulpIf(
-        condition: boolean,
-        stream: NodeJS.ReadWriteStream,
-        elseStream?: NodeJS.ReadWriteStream): NodeJS.ReadWriteStream;
-    export = gulpIf;
+    var gulp_if: gulpIf.GulpIf;
+    export = gulp_if;
 }
