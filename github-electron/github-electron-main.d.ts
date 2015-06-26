@@ -249,13 +249,13 @@ interface NodeRequireFunction {
     (id: 'app'): GitHubElectron.App
     (id: 'auto-updater'): GitHubElectron.AutoUpdater
     (id: 'browser-window'): typeof GitHubElectron.BrowserWindow
-    (id: 'content-tracing'): ContentTracing
-    (id: 'dialog'): Dialog
-    (id: 'global-shortcut'): GlobalShortcut
+    (id: 'content-tracing'): GitHubElectron.ContentTracing
+    (id: 'dialog'): GitHubElectron.Dialog
+    (id: 'global-shortcut'): GitHubElectron.GlobalShortcut
     (id: 'ipc'): NodeJS.EventEmitter
     (id: 'menu'): typeof GitHubElectron.Menu
     (id: 'menu-item'): typeof GitHubElectron.MenuItem
     (id: 'power-monitor'): NodeJS.EventEmitter
-    (id: 'protocol'): Protocol
+    (id: 'protocol'): GitHubElectron.Protocol
     (id: 'tray'): typeof GitHubElectron.Tray
 }
