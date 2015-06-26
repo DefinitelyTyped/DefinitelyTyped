@@ -105,7 +105,7 @@ declare module 'remote' {
 }
 
 declare module 'web-frame' {
-    var webframe: GitHubElectron.Remote;
+    var webframe: GitHubElectron.WebFrame;
     export = webframe;
 }
 
