@@ -158,6 +158,7 @@ declare module chrome.bookmarks {
     var onImportEnded: BookmarkImportEndedEvent;
     var onImportBegan: BookmarkImportBeganEvent;
     var onChanged: BookmarkChangedEvent;
+    var onMoved: BookmarkMovedEvent;
     var onCreated: BookmarkCreatedEvent;
     var onChildrenReordered: BookmarkChildrenReordered;
 }
