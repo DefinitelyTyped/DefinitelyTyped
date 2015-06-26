@@ -79,7 +79,7 @@ declare module "mongoose" {
   }
   export module Types {
     export class ObjectId {
-      constructor(id: string|number);
+      constructor(id?: string|number);
       toHexString(): string;
       equals(other: ObjectId): boolean;
       getTimestamp(): Date;
@@ -458,4 +458,3 @@ declare module "mongoose" {
   }
 
 }
-
