@@ -1131,135 +1131,156 @@ declare module GitHubElectron {
          */
         setContextMenu(menu: Menu): void;
     }
-}
 
-interface Clipboard {
-    /**
-     * @returns The contents of the clipboard as plain text.
-     */
-    readText(type?: string): string;
-    /**
-     * Writes the text into the clipboard as plain text.
-     */
-    writeText(text: string, type?: string): void;
-    /**
-     * @returns The contents of the clipboard as a NativeImage.
-     */
-    readImage: typeof GitHubElectron.Clipboard.readImage;
-    /**
-     * Writes the image into the clipboard.
-     */
-    writeImage: typeof GitHubElectron.Clipboard.writeImage;
-    /**
-     * Clears everything in clipboard.
-     */
-    clear(type?: string): void;
-    /**
-     * Note: This API is experimental and could be removed in future.
-     * @returns Whether the clipboard has data in the specified format.
-     */
-    has(format: string, type?: string): boolean;
-    /**
-     * Reads the data in the clipboard of the specified format.
-     * Note: This API is experimental and could be removed in future.
-     */
-    read(format: string, type?: string): any;
+    interface Clipboard {
+        /**
+         * @returns The contents of the clipboard as plain text.
+         */
+        readText(type?: string): string;
+        /**
+         * Writes the text into the clipboard as plain text.
+         */
+        writeText(text: string, type?: string): void;
+        /**
+         * @returns The contents of the clipboard as a NativeImage.
+         */
+        readImage: typeof GitHubElectron.Clipboard.readImage;
+        /**
+         * Writes the image into the clipboard.
+         */
+        writeImage: typeof GitHubElectron.Clipboard.writeImage;
+        /**
+         * Clears everything in clipboard.
+         */
+        clear(type?: string): void;
+        /**
+         * Note: This API is experimental and could be removed in future.
+         * @returns Whether the clipboard has data in the specified format.
+         */
+        has(format: string, type?: string): boolean;
+        /**
+         * Reads the data in the clipboard of the specified format.
+         * Note: This API is experimental and could be removed in future.
+         */
+        read(format: string, type?: string): any;
+    }
+    
+    interface CrashReporterStartOptions {
+        /**
+        * Default: Electron
+        */
+        productName?: string;
+        /**
+        * Default: GitHub, Inc.
+        */
+        companyName?: string;
+        /**
+        * URL that crash reports would be sent to as POST.
+        * Default: http://54.249.141.255:1127/post
+        */
+        submitUrl?: string;
+        /**
+        * Send the crash report without user interaction.
+        * Default: true.
+        */
+        autoSubmit?: boolean;
+        /**
+        * Default: false.
+        */
+        ignoreSystemCrashHandler?: boolean;
+        /**
+        * An object you can define which content will be send along with the report.
+        * Only string properties are send correctly.
+        * Nested objects are not supported.
+        */
+        extra?: {}
+    }
+    
+    interface CrashReporterPayload extends Object {
+        /**
+        * E.g., "electron-crash-service".
+        */
+        rept: string;
+        /**
+        * The version of Electron.
+        */
+        ver: string;
+        /**
+        * E.g., "win32".
+        */
+        platform: string;
+        /**
+        * E.g., "renderer".
+        */
+        process_type: string;
+        ptime: number;
+        /**
+        * The version in package.json.
+        */
+        _version: string;
+        /**
+        * The product name in the crashReporter options object.
+        */
+        _productName: string;
+        /**
+        * Name of the underlying product. In this case, Electron.
+        */
+        prod: string;
+        /**
+        * The company name in the crashReporter options object.
+        */
+        _companyName: string;
+        /**
+        * The crashreporter as a file.
+        */
+        upload_file_minidump: File;
+    }
+    
+    interface CrashReporter {
+        start(options?: CrashReporterStartOptions): void;
+    
+        /**
+         * @returns The date and ID of the last crash report. When there was no crash report
+         * sent or the crash reporter is not started, null will be returned.
+         */
+        getLastCrashReport(): CrashReporterPayload;
+    }
+    
+    interface Shell{
+        /**
+         * Show the given file in a file manager. If possible, select the file.
+         */
+        showItemInFolder(fullPath: string): void;
+        /**
+         * Open the given file in the desktop's default manner.
+         */
+        openItem(fullPath: string): void;
+        /**
+         * Open the given external protocol URL in the desktop's default manner
+         * (e.g., mailto: URLs in the default mail user agent).
+         */
+        openExternal(url: string): void;
+        /**
+         * Move the given file to trash and returns boolean status for the operation.
+         */
+        moveItemToTrash(fullPath: string): void;
+        /**
+         * Play the beep sound.
+         */
+        beep(): void;
+    }
 }
 
 declare module 'clipboard' {
-    export = Clipboard;
-}
-
-interface CrashReporterStartOptions {
-    /**
-    * Default: Electron
-    */
-    productName?: string;
-    /**
-    * Default: GitHub, Inc.
-    */
-    companyName?: string;
-    /**
-    * URL that crash reports would be sent to as POST.
-    * Default: http://54.249.141.255:1127/post
-    */
-    submitUrl?: string;
-    /**
-    * Send the crash report without user interaction.
-    * Default: true.
-    */
-    autoSubmit?: boolean;
-    /**
-    * Default: false.
-    */
-    ignoreSystemCrashHandler?: boolean;
-    /**
-    * An object you can define which content will be send along with the report.
-    * Only string properties are send correctly.
-    * Nested objects are not supported.
-    */
-    extra?: {}
-}
-
-interface CrashReporterPayload extends Object {
-    /**
-    * E.g., "electron-crash-service".
-    */
-    rept: string;
-    /**
-    * The version of Electron.
-    */
-    ver: string;
-    /**
-    * E.g., "win32".
-    */
-    platform: string;
-    /**
-    * E.g., "renderer".
-    */
-    process_type: string;
-    ptime: number;
-    /**
-    * The version in package.json.
-    */
-    _version: string;
-    /**
-    * The product name in the crashReporter options object.
-    */
-    _productName: string;
-    /**
-    * Name of the underlying product. In this case, Electron.
-    */
-    prod: string;
-    /**
-    * The company name in the crashReporter options object.
-    */
-    _companyName: string;
-    /**
-    * The crashreporter as a file.
-    */
-    upload_file_minidump: File;
-}
-
-interface CrashReporter {
-    start(options?: CrashReporterStartOptions): void;
-
-    /**
-     * @returns The date and ID of the last crash report. When there was no crash report
-     * sent or the crash reporter is not started, null will be returned.
-     */
-    getLastCrashReport(): CrashReporterPayload;
+    export = GitHubElectron.Clipboard;
 }
 
 declare module 'crash-reporter' {
-    export = CrashReporter;
+    export = GitHubElectron.CrashReporter;
 }
 
-//import 'crash-reporter' = module('CrashReporter')
-
 declare module 'native-image' {
-    var NativeImage: typeof GitHubElectron.NativeImage;
-    export = NativeImage;
+    export = typeof GitHubElectron.NativeImage;
 }
 
 declare module 'screen' {
@@ -1267,32 +1288,8 @@ declare module 'screen' {
     export = screen;
 }
 
-interface Shell{
-    /**
-     * Show the given file in a file manager. If possible, select the file.
-     */
-    showItemInFolder(fullPath: string): void;
-    /**
-     * Open the given file in the desktop's default manner.
-     */
-    openItem(fullPath: string): void;
-    /**
-     * Open the given external protocol URL in the desktop's default manner
-     * (e.g., mailto: URLs in the default mail user agent).
-     */
-    openExternal(url: string): void;
-    /**
-     * Move the given file to trash and returns boolean status for the operation.
-     */
-    moveItemToTrash(fullPath: string): void;
-    /**
-     * Play the beep sound.
-     */
-    beep(): void;
-}
-
 declare module 'shell' {
-    export = Shell;
+    export = GitHubElectron.Shell;
 }
 
 interface Window {
@@ -1311,9 +1308,9 @@ interface File {
 }
 
 interface NodeRequireFunction {
-    (id: 'clipboard'): Clipboard
-    (id: 'crash-reporter'): CrashReporter
+    (id: 'clipboard'): GitHubElectron.Clipboard
+    (id: 'crash-reporter'): GitHubElectron.CrashReporter
     (id: 'native-image'): typeof GitHubElectron.NativeImage
     (id: 'screen'): GitHubElectron.Screen
-    (id: 'shell'): Shell
+    (id: 'shell'): GitHubElectron.Shell
 }
