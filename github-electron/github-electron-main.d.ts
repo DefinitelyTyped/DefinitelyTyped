@@ -20,7 +20,7 @@ declare module 'browser-window' {
     export = BrowserWindow;
 }
 
-interface ContentTracing  {
+interface GitHubElectron.ContentTracing  {
     /**
      * Get a set of category groups. The category groups can change as new code paths are reached.
      * @param callback Called once all child processes have acked to the getCategories request.
@@ -104,7 +104,7 @@ declare module 'content-tracing' {
     export = ContentTracing;
 }
 
-interface Dialog {
+interface GitHubElectron.Dialog {
     /**
      * @param callback If supplied, the API call will be asynchronous.
      * @returns On success, returns an array of file paths chosen by the user,
@@ -133,10 +133,10 @@ interface Dialog {
 }
 
 declare module 'dialog' {
-    export = Dialog;
+    export = GitHubElectron.Dialog;
 }
 
-interface GlobalShortcut {
+interface GitHubElectron.GlobalShortcut {
     /**
      * Registers a global shortcut of accelerator.
      * @param accelerator Represents a keyboard shortcut. It can contain modifiers
@@ -164,7 +164,7 @@ interface GlobalShortcut {
 }
 
 declare module 'global-shortcut' {
-    export = GlobalShortcut;
+    export = GitHubElectron.GlobalShortcut;
 }
 
 declare module 'ipc' {
@@ -187,7 +187,7 @@ declare module 'power-monitor' {
     export = powerMonitor;
 }
 
-interface Protocol {
+interface GitHubElectron.Protocol {
     registerProtocol(scheme: string, handler: (request: any) => void): void;
     unregisterProtocol(scheme: string): void;
     isHandledProtocol(scheme: string): boolean;
@@ -237,7 +237,7 @@ declare class RequestBufferJob {
 }
 
 declare module 'protocol' {
-    export = Protocol;
+    export = GitHubElectron.Protocol;
 }
 
 declare module 'tray' {
