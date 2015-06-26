@@ -1272,15 +1272,18 @@ declare module GitHubElectron {
 }
 
 declare module 'clipboard' {
-    export = GitHubElectron.Clipboard;
+    var clipboard: GitHubElectron.Clipboard
+    export = clipboard;
 }
 
 declare module 'crash-reporter' {
-    export = GitHubElectron.CrashReporter;
+    var crashReporter: GitHubElectron.CrashReporter
+    export = crashReporter;
 }
 
 declare module 'native-image' {
-    export = typeof GitHubElectron.NativeImage;
+    var nativeImage: typeof GitHubElectron.NativeImage;
+    export = nativeImage;
 }
 
 declare module 'screen' {
@@ -1289,7 +1292,8 @@ declare module 'screen' {
 }
 
 declare module 'shell' {
-    export = GitHubElectron.Shell;
+    var shell: GitHubElectron.Shell;
+    export = shell;
 }
 
 interface Window {

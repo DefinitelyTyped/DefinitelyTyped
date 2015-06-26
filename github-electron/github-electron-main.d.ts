@@ -207,15 +207,18 @@ declare module 'browser-window' {
 }
 
 declare module 'content-tracing' {
-    export = GitHubElectron.ContentTracing;
+    var contentTracing: GitHubElectron.ContentTracing
+    export = contentTracing;
 }
 
 declare module 'dialog' {
-    export = GitHubElectron.Dialog;
+    var dialog: GitHubElectron.Dialog
+    export = dialog;
 }
 
 declare module 'global-shortcut' {
-    export = GitHubElectron.GlobalShortcut;
+    var globalShortcut: GitHubElectron.GlobalShortcut;
+    export = globalShortcut;
 }
 
 declare module 'ipc' {
@@ -239,7 +242,8 @@ declare module 'power-monitor' {
 }
 
 declare module 'protocol' {
-    export = GitHubElectron.Protocol;
+    var protocol: GitHubElectron.Protocol;
+    export = protocol;
 }
 
 declare module 'tray' {

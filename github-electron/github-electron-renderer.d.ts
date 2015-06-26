@@ -6,7 +6,7 @@
 /// <reference path="./github-electron.d.ts" />
 
 declare module GitHubElectron {
-    class InProcess implements NodeJS.EventEmitter {
+    export class InProcess implements NodeJS.EventEmitter {
         addListener(event: string, listener: Function): InProcess;
         on(event: string, listener: Function): InProcess;
         once(event: string, listener: Function): InProcess;
@@ -95,16 +95,18 @@ declare module GitHubElectron {
 }
 
 declare module 'ipc' {
-    var InProcess: GitHubElectron.InProcess;
-    export = InProcess;
+    var inProcess: GitHubElectron.InProcess;
+    export = inProcess;
 }
 
 declare module 'remote' {
-    export = GitHubElectron.Remote;
+    var remote: GitHubElectron.Remote;
+    export = remote;
 }
 
 declare module 'web-frame' {
-    export = GitHubElectron.WebFrame;
+    var webframe: GitHubElectron.Remote;
+    export = webframe;
 }
 
 interface NodeRequireFunction {
