@@ -47,7 +47,7 @@ declare module 'ipc' {
     export = InProcess;
 }
 
-interface Remote {
+interface GitHubElectron.Remote {
     /**
      * @returns The object returned by require(module) in the main process.
      */
@@ -68,10 +68,10 @@ interface Remote {
 }
 
 declare module 'remote' {
-    export = Remote;
+    export = GitHubElectron.Remote;
 }
 
-interface WebFrame {
+interface GitHubElectron.WebFrame {
     /**
      * Changes the zoom factor to the specified factor, zoom factor is
      * zoom percent / 100, so 300% = 3.0.
@@ -109,11 +109,11 @@ interface WebFrame {
 }
 
 declare module 'web-frame' {
-    export = WebFrame;
+    export = GitHubElectron.WebFrame;
 }
 
 interface NodeRequireFunction {
     (id: 'ipc'): GitHubElectron.InProcess
-    (id: 'remote'): Remote
-    (id: 'web-frame'): WebFrame
+    (id: 'remote'): GitHubElectron.Remote
+    (id: 'web-frame'): GitHubElectron.WebFrame
 }
