@@ -141,14 +141,6 @@ declare module GitHubElectron {
         unregisterAll(): void;
     }
     
-    interface Protocol {
-        registerProtocol(scheme: string, handler: (request: any) => void): void;
-        unregisterProtocol(scheme: string): void;
-        isHandledProtocol(scheme: string): boolean;
-        interceptProtocol(scheme: string, handler: (request: any) => void): void;
-        uninterceptProtocol(scheme: string): void;
-    }
-    
     class RequestFileJob {
         /**
         * Create a request job which would query a file of path and set corresponding mime types.
@@ -188,6 +180,17 @@ declare module GitHubElectron {
             encoding?: string;
             data?: Buffer;
         });
+    }
+    
+    interface Protocol {
+        registerProtocol(scheme: string, handler: (request: any) => void): void;
+        unregisterProtocol(scheme: string): void;
+        isHandledProtocol(scheme: string): boolean;
+        interceptProtocol(scheme: string, handler: (request: any) => void): void;
+        uninterceptProtocol(scheme: string): void;
+        RequestFileJob: typeof RequestFileJob;
+        RequestStringJob: typeof RequestStringJob;
+        RequestBufferJob: typeof RequestBufferJob;
     }
 }
 
