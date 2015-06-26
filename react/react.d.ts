@@ -4,6 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "react" {
+    export = React;
+}
+
+declare module React {
     //
     // React Elements
     // ----------------------------------------------------------------------
