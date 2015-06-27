@@ -1090,8 +1090,8 @@ declare module d3 {
     export function bisectRight<T>(array: T[], x: T, lo?: number, hi?: number): number;
 
     export function bisector<T, U>(accessor: (x: T) => U): {
-        left: (array: T[], x: T, lo?: number, hi?: number) => number;
-        right: (array: T[], x: T, lo?: number, hi?: number) => number;
+        left: (array: T[], x: U, lo?: number, hi?: number) => number;
+        right: (array: T[], x: U, lo?: number, hi?: number) => number;
     }
 
     export function bisector<T, U>(comparator: (a: T, b: U) => number): {
