@@ -164,6 +164,9 @@ promise = when(1).catch((err: any) => when(2));
 promise = when(1).catch((err: any) => err.good, (err: any) => 2);
 promise = when(1).catch((err: any) => err.good, (err: any) => when(2));
 
+promise = when(1).catch(Error, (err: any) => 2);
+promise = when(1).catch(Error, (err: any) => when(2));
+
 //TODO: error constructor predicate
 
 promise = when(1).otherwise((err: any) => 2);

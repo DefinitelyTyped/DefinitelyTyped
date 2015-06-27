@@ -174,7 +174,7 @@ declare module When {
 
         // Make sure you test any usage of these overloads, exceptionType must
         // be a constructor with prototype set to an instance of Error.
-        catch<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
         finally(onFulfilledOrRejected: Function): Promise<T>;
 
