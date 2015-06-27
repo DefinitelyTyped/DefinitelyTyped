@@ -368,6 +368,7 @@ schema.virtual('display_name')
   .set((value: string): void => {});
 
 var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId('foo');
+var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
 var id2: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(123);
 var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromTime(123);
 var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('foo');
