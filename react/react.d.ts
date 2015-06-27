@@ -1,9 +1,9 @@
-// Type definitions for React v0.13.1 (external module)
+// Type definitions for React v0.13.1 (internal and external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "react" {
+declare module React {
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -518,6 +518,11 @@ declare module "react" {
         unselectable?: boolean;
     }
 
+    interface SVGElementAttributes extends HTMLAttributes {
+        viewBox?: string;
+        preserveAspectRatio?: string;
+    }
+
     interface SVGAttributes extends DOMAttributes {
         ref?: string | ((component: SVGComponent) => void);
 
@@ -779,3 +784,6 @@ declare module "react" {
     }
 }
 
+declare module "react" {
+    export = React;
+}
