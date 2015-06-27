@@ -971,12 +971,13 @@ declare module google.maps {
     }
 
     export interface DirectionsRoute {
+        legs: DirectionsLeg[];
+        waypoint_order: number[];
+        overview_path: LatLng[];
+        overview_polyline: string;
         bounds: LatLngBounds;
         copyrights: string;
-        legs: DirectionsLeg[];
-        overview_path: LatLng[];
         warnings: string[];
-        waypoint_order: number[];
     }
 
     export interface DirectionsLeg {
