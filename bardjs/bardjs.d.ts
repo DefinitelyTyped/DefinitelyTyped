@@ -67,12 +67,12 @@ declare module bard {
     function debugging(newFlag?: any): boolean;
 
     /**
-     * Creates a fake logger to be used in testing
+     * Registers a fake logger service that you can spy on
      */
     function fakeLogger($provide: angular.auto.IProvideService): void;
 
     /**
-     * Creates a fake route helper provider to be used in testing
+     * Registers a fake route helper provider service that you can spy on
      */
     function fakeRouteHelperProvider($provide: angular.auto.IProvideService): void;
 
@@ -93,7 +93,7 @@ declare module bard {
     function fakeStateProvider($provide: angular.auto.IProvideService): void;
 
     /**
-     * Creates a fake toastr to be used in testing
+     * Registers a fake toastr service that you can spy on
      */
     function fakeToastr($provide: angular.auto.IProvideService): void;
 
