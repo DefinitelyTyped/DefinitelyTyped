@@ -3,29 +3,64 @@
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../flux/flux.d.ts"/>
-
+///<reference path="../react/react.d.ts"/>
+///<reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module AltJS {
 
-  export interface StoreModel<S> {
-    bindActions?( ...actions:Array<Object>);
-    exportPublicMethods?<M>(exportConfig:M):void;
-    getState?():S;
-    exportAsync?(source:Source);
-    waitFor?(store:AltStore<any>):void;
+  interface StoreReduce {
+    action:any;
+    data: any;
   }
 
-  export type Source = {[name:string]:() => SourceModel};
+  export interface StoreModel<S> {
+    //Actions
+    bindAction?( action:Action<any>, handler:ActionHandler):void;
+    bindActions?(actions:ActionsClass):void;
 
-  export interface SourceModel {
-    local( ...args:Array<any>);
-    remote( ...args:Array<any>);
-    shouldFetch?(state:Object, ...args:Array<any>);
-    loading: ( ...args:Array<any>) => void;
-    success:( ...args:Array<any>) => void;
-    error:( ...args:Array<any>) => void;
-    interceptResponse?(response:Object, action:AltJS.Action<any>, ...args:Array<any>);
+    //Methods/Listeners
+    exportPublicMethods?(exportConfig:any):void;
+    bindListeners?(config:{[methodName:string]:Action<any> | Actions}):void;
+    exportAsync?(source:Source):void;
+    registerAsync?(datasource:Source):void;
+
+    //state
+    setState?(state:S):void;
+    setState?(stateFn:(currentState:S, nextState:S) => S):void;
+    getState?():S;
+    waitFor?(store:AltStore<any>):void;
+
+    //events
+    onSerialize?(fn:(data:any) => any):void;
+    onDeserialize?(fn:(data:any) => any):void;
+    on?(event:AltJS.lifeCycleEvents, callback:() => any):void;
+    emitChange?():void;
+    waitFor?(storeOrStores:AltStore<any> | Array<AltStore<any>>):void;
+    otherwise?(data:any, action:AltJS.Action<any>):void;
+    observe?(alt:Alt):any;
+    reduce?(state:any, config:StoreReduce):Object;
+    preventDefault?():void;
+    afterEach?(payload:Object, state:Object):void;
+    beforeEach?(payload:Object, state:Object):void;
+    // TODO: Embed dispatcher interface in def
+    dispatcher?:any;
+
+    //instance
+    getInstance?():AltJS.AltStore<S>;
+    alt?:Alt;
+    displayName?:string;
+  }
+
+  export type Source = {[name:string]:() => SourceModel<any>};
+
+  export interface SourceModel<S> {
+    local(...args:Array<any>):S;
+    remote(...args:Array<any>):Promise<S>;
+    shouldFetch?(state:Object, ...args:Array<any>):boolean;
+    loading: (action:Action<any>) => void;
+    success:(action:Action<S>) => void;
+    error:(action:Action<any>) => void;
+    interceptResponse?(response:any, action:Action<any>, ...args:Array<any>):any;
   }
 
   export interface AltStore<S> {
@@ -46,111 +81,87 @@ declare module AltJS {
   export type Actions = {[action:string]:Action<any>};
 
   export interface Action<T> {
-    (T);
+    ( args:T):void;
     defer(data:any):void;
   }
 
   export interface ActionsClass {
-    generateActions?( ...action:Array<string>);
-    dispatch( ...payload:Array<any>);
+    generateActions?( ...action:Array<string>):void;
+    dispatch( ...payload:Array<any>):void;
     actions?:Actions;
   }
-}
-
-declare module "alt/utils/chromeDebug" {
-	function chromeDebug(alt:any):void;
-	export = chromeDebug;
-}
-
-declare module "alt/AltContainer" {
-
-  import * as React from "react";
-
-  interface ContainerProps {
-    store:AltJS.AltStore<any>
-  }
-
-  class AltContainer extends React.Component<ContainerProps, any> {
-  }
-
-  export = AltContainer;
-}
-
-declare module "alt" {
-
-  import {Dispatcher} from "flux";
 
   type StateTransform = (store:StoreModel<any>) => AltJS.AltStore<any>;
 
   interface AltConfig {
-    dispatcher?:Dispatcher<any>;
-    serialize?:(data:Object) => string;
-    deserialize?:(serialized:string) => Object;
+    dispatcher?:any;
+    serialize?:(serializeFn:(data:Object) => string) => void;
+    deserialize?:(deserializeFn:(serialData:string) => Object) => void;
     storeTransforms?:Array<StateTransform>;
     batchingFunction?:(callback:( ...data:Array<any>) => any) => void;
   }
 
   class Alt {
     constructor(config?:AltConfig);
-    actions:AltJS.Actions;
-    bootstrap(data:string);
+    actions:Actions;
+    bootstrap(jsonData:string):void;
     takeSnapshot( ...storeNames:Array<string>):string;
     flush():Object;
-    recycle( ...store:Array<AltJS.AltStore<any>>);
-    rollback();
-    dispatch(action?:AltJS.Action<any>, data?:Object, details?:any);
-    addActions(actionsName:string, actions:AltJS.ActionsClass);
-    addStore(name:string, store:StoreModel<any>, saveStore?:boolean);
-    getStore(name:string):AltJS.AltStore<any>;
-    getActions(actionsName:string):AltJS.Actions;
-    createAction<T>(name:string, implementation:AltJS.ActionsClass):AltJS.Action<T>;
-    createAction<T>(name:string, implementation:AltJS.ActionsClass, ...args:Array<any>):AltJS.Action<T>;
+    recycle( ...stores:Array<AltJS.AltStore<any>>):void;
+    rollback():void;
+    dispatch(action?:AltJS.Action<any>, data?:Object, details?:any):void;
+
+    //Actions methods
+    addActions(actionsName:string, ActionsClass: ActionsClassConstructor):void;
     createActions<T>(ActionsClass: ActionsClassConstructor, exportObj?: Object):T;
     createActions<T>(ActionsClass: ActionsClassConstructor, exportObj?: Object, ...constructorArgs:Array<any>):T;
-    generateActions<T>( ...action:Array<string>):T;
+    generateActions<T>( ...actions:Array<string>):T;
+    getActions(actionsName:string):AltJS.Actions;
+
+    //Stores methods
+    addStore(name:string, store:StoreModel<any>, saveStore?:boolean):void;
     createStore<S>(store:StoreModel<S>, name?:string):AltJS.AltStore<S>;
+    getStore(name:string):AltJS.AltStore<any>;
+  }
+
+  export interface AltFactory {
+    new(config?:AltConfig):Alt;
   }
 
   type ActionsClassConstructor = new (alt:Alt) => AltJS.ActionsClass;
 
   type ActionHandler = ( ...data:Array<any>) => any;
-  type ExportConfig = {[key:string]:( ...args:Array<any>) => any};
+  type ExportConfig = {[key:string]:(...args:Array<any>) => any};
+}
 
-  interface StoreReduce {
-    action:any;
-    data: any;
+declare module "alt/utils/chromeDebug" {
+  function chromeDebug(alt:AltJS.Alt):void;
+  export = chromeDebug;
+}
+
+declare module "alt/AltContainer" {
+
+  import React = require("react");
+
+  interface ContainerProps {
+    store?:AltJS.AltStore<any>;
+    stores?:Array<AltJS.AltStore<any>>;
+    inject?:{[key:string]:any};
+    actions?:{[key:string]:Object};
+    render?:(...props:Array<any>) => React.ReactElement<any>;
+    flux?:AltJS.Alt;
+    transform?:(store:AltJS.AltStore<any>, actions:any) => any;
+    shouldComponentUpdate?:(props:any) => boolean;
+    component?:React.Component<any, any>;
   }
 
-  interface StoreModel<S> extends AltJS.StoreModel<S> {
-    setState?(currentState:Object, nextState:Object):Object;
-    getState?():S;
-    onSerialize?(data:any):void;
-    onDeserialize?(data:any):void;
-    on?(event:AltJS.lifeCycleEvents, callback:() => any):void;
-    bindActions?(action:AltJS.Action<any>, method:ActionHandler):void;
-    bindListeners?(config:{string: AltJS.Action<any> | AltJS.Actions});
-    waitFor?(dispatcherSource:any):void;
-    exportPublicMethods?(exportConfig:ExportConfig):void;
-    getInstance?():AltJS.AltStore<S>;
-    emitChange?():void;
-    dispatcher?:Dispatcher<any>;
-    alt?:Alt;
-    displayName?:string;
-    otherwise?(data:any, action:AltJS.Action<any>);
-    reduce?(state:any, config:StoreReduce):Object;
-    preventDefault?();
-    observe?(alt:Alt):any;
-    registerAsync?(datasource:AltJS.Source);
-    beforeEach?(payload:Object, state:Object);
-    afterEach?(payload:Object, state:Object);
-    unlisten?();
-  }
+  type AltContainer = React.ReactElement<ContainerProps>;
+  var AltContainer:React.ComponentClass<ContainerProps>;
 
-  type StoreModelConstructor = (alt:Alt) => StoreModel<any>;
+  export = AltContainer;
+}
 
-  interface AltFactory {
-    new(config?:AltConfig):Alt;
-  }
-
-  export = Alt;
+declare module "alt" {
+  var alt:AltJS.AltFactory;
+  export = alt;
 }
