@@ -53,7 +53,7 @@ declare module olx {
         /**
          * The projection the position is reported in.
          */
-        projection?: ol.proj.ProjectionLike;
+        projection?: ol.proj.ProjectionLike | ol.proj.Projection;
     }
 
     interface GraticuleOptions {
@@ -186,7 +186,7 @@ declare module olx {
         minZoom?: number;
 
         /** The projection. Default is EPSG:3857 (Spherical Mercator). */
-        projection?: ol.proj.ProjectionLike;
+        projection?: ol.proj.ProjectionLike | ol.proj.Projection;
 
         /** The initial resolution for the view. The units are projection units per pixel (e.g. meters per pixel). An alternative to setting this is to set zoom. Default is undefined, and layer sources will not be fetched if neither this nor zoom are defined. */
         resolution?: number;
@@ -227,7 +227,7 @@ declare module olx {
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
             // TODO: Check if it is an ol.easing function
-            easing: () => void;
+            easing?: () => void;
         }
 
         interface PanOptions {
@@ -251,7 +251,7 @@ declare module olx {
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
             // TODO: Check if it is an ol.easing function
-            easing: () => void;
+            easing?: () => void;
         }
 
         interface RotateOptions {
@@ -280,7 +280,7 @@ declare module olx {
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
             // TODO: Check if it is an ol.easing function
-            easing: () => void;
+            easing?: () => void;
         }
 
         interface ZoomOptions {
@@ -304,7 +304,7 @@ declare module olx {
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
             // TODO: Check if it is an ol.easing function
-            easing: () => void;
+            easing?: () => void;
         }
     }
 
@@ -1867,7 +1867,8 @@ declare module ol {
          * Generate an animated transition while updating the view resolution.
          * @param options Zoom options.
          */
-        function pan(options: olx.animation.PanOptions): any;
+        //TODO: return ol.PreRenderFunction
+        function zoom(options: olx.animation.ZoomOptions): any;
     }
 
     /**
