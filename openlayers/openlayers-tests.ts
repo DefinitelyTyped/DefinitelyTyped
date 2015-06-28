@@ -1,4 +1,4 @@
-﻿/// <reference path="openLayers.d.ts" />
+﻿/// <reference path="openlayers.d.ts" />
 
 // Attribution
 var attribution: ol.Attribution = new ol.Attribution({
