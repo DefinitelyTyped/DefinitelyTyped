@@ -51,15 +51,15 @@ declare module AltJS {
     displayName?:string;
   }
 
-  export type Source = {[name:string]:() => SourceModel<any>};
+  export type Source = {[name:string]: () => SourceModel<any>};
 
   export interface SourceModel<S> {
-    local(...args:Array<any>):S;
-    remote(...args:Array<any>):Promise<S>;
-    shouldFetch?(state:Object, ...args:Array<any>):boolean;
-    loading: (action:Action<any>) => void;
-    success:(action:Action<S>) => void;
-    error:(action:Action<any>) => void;
+    local(state:any):any;
+    remote(state:any):Promise<S>;
+    shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
+    loading?:(args:any) => void;
+    success?:(state:S) => void;
+    error?:(args:any) => void;
     interceptResponse?(response:any, action:Action<any>, ...args:Array<any>):any;
   }
 
