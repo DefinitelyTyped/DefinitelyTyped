@@ -3,7 +3,7 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Geometry {
+declare module GeometryDom {
     export interface DOMPointReadOnly {
         /**
          * x coordinate / readonly
@@ -234,13 +234,13 @@ declare module Geometry {
 }
 
 declare var DOMPointReadOnly: {
-    prototype: Geometry.DOMPointReadOnly;
-    new (x: number, y: number, z: number, w: number): Geometry.DOMPointReadOnly;
+    prototype: GeometryDom.DOMPointReadOnly;
+    new (x: number, y: number, z: number, w: number): GeometryDom.DOMPointReadOnly;
 };
 
 declare var DOMPoint: {
-    prototype: Geometry.DOMPoint;
-    new (x?:number, y?:number, z?:number, w?:number): Geometry.DOMPoint;
+    prototype: GeometryDom.DOMPoint;
+    new (x?:number, y?:number, z?:number, w?:number): GeometryDom.DOMPoint;
 };
 
 interface DOMPointInit {
@@ -263,13 +263,13 @@ interface DOMPointInit {
 }
 
 declare var DOMRect: {
-    prototype: Geometry.DOMRect;
-    new (x: number, y: number, width: number, height: number): Geometry.DOMRect;
+    prototype: GeometryDom.DOMRect;
+    new (x: number, y: number, width: number, height: number): GeometryDom.DOMRect;
 };
 
 declare var DOMRectReadOnly: {
-    prototype: Geometry.DOMRectReadOnly;
-    new (x: number, y: number, width: number, height: number): Geometry.DOMRectReadOnly;
+    prototype: GeometryDom.DOMRectReadOnly;
+    new (x: number, y: number, width: number, height: number): GeometryDom.DOMRectReadOnly;
 };
 
 interface DOMRectInit {
@@ -301,26 +301,26 @@ interface DOMRectList {
      * the DOMRect object at index must be returned.
      * @param index
      */
-    item(index: number): Geometry.DOMRect;
+    item(index: number): GeometryDom.DOMRect;
 }
 
 declare var DOMQuad: {
-    prototype: Geometry.DOMQuad;
-    new (rect?: DOMRectInit): Geometry.DOMQuad;
-    new (p1?: DOMPointInit, p2?: DOMPointInit, p3?: DOMPointInit, p4?: DOMPointInit): Geometry.DOMQuad;
+    prototype: GeometryDom.DOMQuad;
+    new (rect?: DOMRectInit): GeometryDom.DOMQuad;
+    new (p1?: DOMPointInit, p2?: DOMPointInit, p3?: DOMPointInit, p4?: DOMPointInit): GeometryDom.DOMQuad;
 };
 
 declare var DOMMatrixReadOnly: {
-    prototype: Geometry.DOMMatrixReadOnly;
-    new (numberSequence: Array<number>): Geometry.DOMMatrixReadOnly;
+    prototype: GeometryDom.DOMMatrixReadOnly;
+    new (numberSequence: Array<number>): GeometryDom.DOMMatrixReadOnly;
 };
 
 declare var DOMMatrix: {
-    prototype: Geometry.DOMMatrix;
-    new (): Geometry.DOMMatrix;
-    new (transformList: string): Geometry.DOMMatrix;
-    new (other: Geometry.DOMMatrixReadOnly): Geometry.DOMMatrix;
-    new (array: Array<number>): Geometry.DOMMatrix;
-    new (a: number, b: number, c: number, d: number, e: number, f: number): Geometry.DOMMatrix;
+    prototype: GeometryDom.DOMMatrix;
+    new (): GeometryDom.DOMMatrix;
+    new (transformList: string): GeometryDom.DOMMatrix;
+    new (other: GeometryDom.DOMMatrixReadOnly): GeometryDom.DOMMatrix;
+    new (array: Array<number>): GeometryDom.DOMMatrix;
+    new (a: number, b: number, c: number, d: number, e: number, f: number): GeometryDom.DOMMatrix;
 };
 
