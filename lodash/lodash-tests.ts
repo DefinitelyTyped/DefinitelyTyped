@@ -605,8 +605,10 @@ result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
 
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sample();
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).sample();
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
+result = <number>_([1, 2, 3, 4]).sample().value();
+result = <number[]>_([1, 2, 3, 4]).sample(2).value();
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
