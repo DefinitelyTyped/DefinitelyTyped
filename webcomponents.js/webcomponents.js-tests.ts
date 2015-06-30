@@ -15,6 +15,8 @@ var XFoo = document.registerElement("x-foo", {
 });
 
 var xFoo = new XFoo();
+xFoo.textContent = "";
+document.body.appendChild(xFoo);
 
 window.CustomElements.hasNative;
 window.CustomElements.flags;

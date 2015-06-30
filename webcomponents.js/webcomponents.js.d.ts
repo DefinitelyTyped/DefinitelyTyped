@@ -11,7 +11,7 @@ declare module webcomponents {
     }
 
     export interface CustomElementConstructor {
-        new():HTMLElement;
+        new(): HTMLElement;
     }
 
     export interface CustomElementsPolyfill {
