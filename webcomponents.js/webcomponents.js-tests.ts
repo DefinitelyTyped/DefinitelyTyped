@@ -10,9 +10,11 @@ var fooProto = Object.create(HTMLElement.prototype, {
     }
 });
 
-document.registerElement("x-foo", {
+var XFoo = document.registerElement("x-foo", {
     prototype: fooProto
 });
+
+var xFoo = new XFoo();
 
 window.CustomElements.hasNative;
 window.CustomElements.flags;
