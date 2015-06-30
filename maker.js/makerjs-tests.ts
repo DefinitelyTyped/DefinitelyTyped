@@ -7,8 +7,8 @@ function test() {
 	var p1: MakerJs.IPoint = [0, 0];
 	var p2: MakerJs.IPoint = [1, 1];
 	var paths = testPaths();
-	var path: MakerJs.IPath = testPaths[0];
-	var arc: MakerJs.IPathArc = testPaths[0];
+	var path = <MakerJs.IPath>testPaths[0];
+	var arc = <MakerJs.IPathArc>testPaths[0];
 	var models = testModels();
 	var model: MakerJs.IModel = models[0];
 	

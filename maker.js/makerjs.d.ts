@@ -1,3 +1,5 @@
+// Type definitions for Maker.js
+// https://github.com/Microsoft/maker.js
 /**
  * Root module for Maker.js.
  *
