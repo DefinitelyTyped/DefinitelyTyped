@@ -658,7 +658,7 @@ describe("jasmine.objectContaining", function () {
 });
 
 describe("jasmine.arrayContaining", function() {
-  var foo;
+  var foo: any;
 
   beforeEach(function() {
     foo = [1, 2, 3, 4];
