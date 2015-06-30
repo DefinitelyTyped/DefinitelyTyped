@@ -1,5 +1,7 @@
 // Type definitions for Maker.js
-// https://github.com/Microsoft/maker.js
+// Project: https://github.com/Microsoft/maker.js
+// Definitions by: Dan Marshall https://github.com/danmarshall
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 /**
  * Root module for Maker.js.
  *
