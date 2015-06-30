@@ -6412,6 +6412,7 @@ declare module _ {
         endsWith(str?: string, target?: string, position?: number): boolean;
         escape(str?: string): string;
         escapeRegExp(str?: string): string;
+		isMatch(str?: string, target?: string): boolean;
         kebabCase(str?: string): string;
         pad(str?: string, length?: number, chars?: string): string;
         padLeft(str?: string, length?: number, chars?: string): string;
