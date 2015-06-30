@@ -7,8 +7,6 @@ function test() {
 	var p1: MakerJs.IPoint = [0, 0];
 	var p2: MakerJs.IPoint = [1, 1];
 	var paths = testPaths();
-	var path = <MakerJs.IPath>testPaths[0];
-	var arc = <MakerJs.IPathArc>testPaths[0];
 	var models = testModels();
 	var model: MakerJs.IModel = models[0];
 	
@@ -27,7 +25,7 @@ function test() {
 	function testAngle() {
 		makerjs.angle.mirror(45, true, false);
 		makerjs.angle.noRevolutions(90);
-		makerjs.angle.ofArcEnd(arc);
+		makerjs.angle.ofArcEnd(paths.arc);
 		makerjs.angle.ofPointInRadians([0,0], [1,1]);
 		makerjs.angle.toDegrees(Math.PI);
 		makerjs.angle.toRadians(90);
@@ -48,10 +46,10 @@ function test() {
 	}
 	
 	function testMeasure() {
-		makerjs.measure.arcAngle(arc);
+		makerjs.measure.arcAngle(paths.arc);
 		makerjs.measure.modelExtents(model).high[0];
-		makerjs.measure.pathExtents(path).low[0];
-		makerjs.measure.pathLength(path);
+		makerjs.measure.pathExtents(paths.circle).low[0];
+		makerjs.measure.pathLength(paths.line);
 		makerjs.measure.pointDistance([0,0], [9,9]);
 	}
 	
@@ -79,25 +77,25 @@ function test() {
 	}
 	
 	function testPath() {	
-		makerjs.path.mirror(path, true, true);
-		makerjs.path.moveRelative(path, [0,0]);
-		makerjs.path.rotate(path, 5, [0,0]);
-		makerjs.path.scale(path, 8);
+		makerjs.path.mirror(paths.arc, true, true);
+		makerjs.path.moveRelative(paths.circle, [0,0]);
+		makerjs.path.rotate(paths.line, 5, [0,0]);
+		makerjs.path.scale(paths.arc, 8);
 	}
 	
-	function testPaths(): MakerJs.IPath[] {
-		return [	
-			new makerjs.paths.Arc('a', [0,0], 7, 0, 180),
-			new MakerJs.paths.Circle('c', [0,0], 5),
-			new makerjs.paths.Line('l', [0,0], [1,1])
-		];
+	function testPaths() {
+		return {	
+			arc: new makerjs.paths.Arc('a', [0,0], 7, 0, 180),
+			circle: new MakerJs.paths.Circle('c', [0,0], 5),
+			line: new makerjs.paths.Line('l', [0,0], [1,1])
+		};
 	}
 	
 	function testPoint() {	
 		makerjs.point.add(p1, p2);
 		makerjs.point.areEqual(p1, p2);
 		makerjs.point.clone(p1);
-		makerjs.point.fromArc(arc);
+		makerjs.point.fromArc(paths.arc);
 		makerjs.point.fromPolar(Math.PI, 7);
 		makerjs.point.mirror(p1, true, false);
 		makerjs.point.rotate(p1, 5, p2);
@@ -107,10 +105,10 @@ function test() {
 	}
 	
 	function testTools() {	
-		makerjs.tools.breakPath(path, .7)[0].newPath.cssStyle;
+		makerjs.tools.breakPath(paths.line, .7)[0].newPath.cssStyle;
 		makerjs.tools.bridgeGaps([p1, p2], [p1, p2]);
 		makerjs.tools.gapPath(model, 'a', 7, .7);
-		makerjs.tools.pathIntersection(path, arc).intersectionPoints;
+		makerjs.tools.pathIntersection(paths.circle, paths.arc).intersectionPoints;
 		makerjs.tools.solveTriangleASA(4, 4, 4);
 		makerjs.tools.solveTriangleSSS(9, 9, 9);
 	}
