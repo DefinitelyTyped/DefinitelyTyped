@@ -4210,7 +4210,7 @@ declare module _ {
     }
 
     interface LoDashArrayWrapper<T> {
-         /**
+        /**
         * @see _.reduce
         **/
         reduce<TResult>(
@@ -4257,7 +4257,7 @@ declare module _ {
     }
 
     interface LoDashObjectWrapper<T> {
-         /**
+        /**
         * @see _.reduce
         **/
         reduce<TValue, TResult>(
@@ -5380,6 +5380,19 @@ declare module _ {
     interface LoDashStatic {
         /**
         * Assigns own enumerable properties of source object(s) to the destination object. Subsequent
+        * sources will overwrite property assignments of previous sources.
+        * invoked with two arguments; (objectValue, sourceValue).
+        * @param object The destination object.
+        * @param ...sources The source object(s)
+        * @return The destination object.
+        **/
+        assign<T, TSource, Result>(
+            object: T,
+            ...sources: TSource[]
+        ): Result;
+
+        /**
+        * Assigns own enumerable properties of source object(s) to the destination object. Subsequent
         * sources will overwrite property assignments of previous sources. If a callback is provided
         * it will be executed to produce the assigned values. The callback is bound to thisArg and
         * invoked with two arguments; (objectValue, sourceValue).
@@ -5389,96 +5402,112 @@ declare module _ {
         * @param thisArg The this binding of callback.
         * @return The destination object.
         **/
-        assign<P, T, S1, Value, Result>(
+        assign<T, S1, Value, Result>(
             object: T,
             s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
 
         /**
         * @see _.assign
         **/
-        assign<P, T, S1, S2, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
-
-        /**
-        * @see _.assign
-        **/
-        assign<P, T, S1, S2, S3, Value, Result>(
+        assign<T, S1, S2, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
 
         /**
         * @see _.assign
         **/
-        assign<P, T, S1, S2, S3, S4, Value, Result>(
+        assign<T, S1, S2, S3, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
             s3: S3,
-            s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
 
         /**
         * @see _.assign
         **/
-        extend<P, T, S1, Value, Result>(
-            object: T,
-            s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
-
-        /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, S2, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
-
-        /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, S2, S3, Value, Result>(
-            object: T,
-            s1: S1,
-            s2: S2,
-            s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
-
-        /**
-        * @see _.assign
-        **/
-        extend<P, T, S1, S2, S3, S4, Value, Result>(
+        assign<T, S1, S2, S3, S4, Value, Result>(
             object: T,
             s1: S1,
             s2: S2,
             s3: S3,
             s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): Result;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
+
+        /**
+        * @see _.assign
+        **/
+        extend<T, TSource, Result>(
+            object: T,
+            ...sources: TSource[]
+        ): Result;
+
+        /**
+        * @see _.assign
+        **/
+        extend<T, S1, Value, Result>(
+            object: T,
+            s1: S1,
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
+
+        /**
+        * @see _.assign
+        **/
+        extend<T, S1, S2, Value, Result>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
+
+        /**
+        * @see _.assign
+        **/
+        extend<T, S1, S2, S3, Value, Result>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
+
+        /**
+        * @see _.assign
+        **/
+        extend<T, S1, S2, S3, S4, Value, Result>(
+            object: T,
+            s1: S1,
+            s2: S2,
+            s3: S3,
+            s4: S4,
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): Result;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
         * @see _.assign
         **/
+        assign<TSource, Result>(
+            object: T,
+            ...sources: TSource[]
+        ): Result;
+
+        /**
+        * @see _.assign
+        **/
         assign<S1, Value, TResult>(
             s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
 
         /**
         * @see _.assign
@@ -5486,8 +5515,8 @@ declare module _ {
         assign<S1, S2, Value, TResult>(
             s1: S1,
             s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
         /**
         * @see _.assign
         **/
@@ -5495,8 +5524,8 @@ declare module _ {
             s1: S1,
             s2: S2,
             s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
         /**
         * @see _.assign
         **/
@@ -5505,8 +5534,8 @@ declare module _ {
             s2: S2,
             s3: S3,
             s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
         /**
         * @see _.assign
         **/
@@ -5516,16 +5545,24 @@ declare module _ {
             s3: S3,
             s4: S4,
             s5: S5,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
+
+        /**
+        * @see _.assign
+        **/
+        extend<TSource, Result>(
+            object: T,
+            ...sources: TSource[]
+        ): Result;
 
         /**
         * @see _.assign
         **/
         extend<S1, Value, TResult>(
             s1: S1,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
 
         /**
         * @see _.assign
@@ -5533,8 +5570,8 @@ declare module _ {
         extend<S1, S2, Value, TResult>(
             s1: S1,
             s2: S2,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
         /**
         * @see _.assign
         **/
@@ -5542,8 +5579,8 @@ declare module _ {
             s1: S1,
             s2: S2,
             s3: S3,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
         /**
         * @see _.assign
         **/
@@ -5552,8 +5589,8 @@ declare module _ {
             s2: S2,
             s3: S3,
             s4: S4,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
         /**
         * @see _.assign
         **/
@@ -5563,8 +5600,8 @@ declare module _ {
             s3: S3,
             s4: S4,
             s5: S5,
-            callback?: (objectValue: Value, sourceValue: Value) => Value,
-            thisArg?: any): TResult;
+            callback: (objectValue: Value, sourceValue: Value) => Value,
+            thisArg: any): TResult;
 
     }
 
