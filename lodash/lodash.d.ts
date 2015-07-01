@@ -2732,6 +2732,11 @@ declare module _ {
             collection: Array<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        **/
         detect<T>(
             collection: Array<T>,
             callback: ListIterator<T, boolean>,
@@ -2744,6 +2749,11 @@ declare module _ {
             collection: List<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        **/
         detect<T>(
             collection: List<T>,
             callback: ListIterator<T, boolean>,
@@ -2756,6 +2766,11 @@ declare module _ {
             collection: Dictionary<T>,
             callback: DictionaryIterator<T, boolean>,
             thisArg?: any): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        **/
         detect<T>(
             collection: Dictionary<T>,
             callback: DictionaryIterator<T, boolean>,
@@ -2768,6 +2783,12 @@ declare module _ {
         find<W, T>(
             collection: Array<T>|List<T>|Dictionary<T>,
             whereValue: W): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        * @param _.matches style callback
+        **/
         detect<W, T>(
             collection: Array<T>|List<T>|Dictionary<T>,
             whereValue: W): T;
@@ -2780,6 +2801,12 @@ declare module _ {
             collection: Array<T>|List<T>|Dictionary<T>,
             path: string,
             srcValue: any): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        * @param _.matchesProperty style callback
+        **/
         detect<T>(
             collection: Array<T>|List<T>|Dictionary<T>,
             path: string,
@@ -2792,6 +2819,12 @@ declare module _ {
         find<T>(
             collection: Array<T>|List<T>|Dictionary<T>,
             pluckValue: string): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        * @param _.property style callback
+        **/
         detect<T>(
             collection: Array<T>|List<T>|Dictionary<T>,
             pluckValue: string): T;
