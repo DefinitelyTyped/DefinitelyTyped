@@ -795,50 +795,14 @@ declare module _ {
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(isShallow?: boolean): LoDashArrayWrapper<Flat>;
+         * @see _.flatten
+         **/
+        flatten<T>(): LoDashArrayWrapper<any>;
 
         /**
         * @see _.flatten
         **/
-        flatten<Flat>(
-            isShallow: boolean,
-            callback: ListIterator<T, Flat>,
-            thisArg?: any): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(
-            callback: ListIterator<T, Flat>,
-            thisArg?: any): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(
-            isShallow: boolean,
-            pluckValue: string): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(
-            pluckValue: string): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat, W>(
-            isShallow: boolean,
-            whereValue: W): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat, W>(
-            whereValue: W): LoDashArrayWrapper<Flat>;
+        flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
     }
 
     //_.indexOf
