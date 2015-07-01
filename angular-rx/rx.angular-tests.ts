@@ -1,3 +1,8 @@
+// Type definitions for angularjs extensions to rxjs
+// Project: http://reactivex.io/
+// Definitions by: Mick Delaney <https://github.com/mickdelaney/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="rx.angular.d.ts" />
 
 var app = angular.module('testModule');

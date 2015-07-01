@@ -1,3 +1,8 @@
+// Type definitions for angularjs extensions to rxjs
+// Project: http://reactivex.io/
+// Definitions by: Mick Delaney <https://github.com/mickdelaney/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../rx/rx.d.ts" />
 /// <reference path="../rx/rx.time.d.ts" />
@@ -5,7 +10,7 @@
 declare module Rx {
 
     interface IObservable<T> {
-        safeApply($scope: ng.IScope, callback: (data: any) => void);
+        safeApply($scope: ng.IScope, callback: (data: any) => void): Rx.Observable<any>;
     }
 }
 
