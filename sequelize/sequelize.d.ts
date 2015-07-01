@@ -2470,6 +2470,11 @@ declare module "sequelize"
              * Shorthand for then(null, onRejected)
              */
             catch(onRejected: (result?: any) => void): Promise;
+            
+             /**
+             * Shorthand for catch(error, onRejected)
+             */
+            catch(error:Error, onRejected: (result?: any) => void): Promise;
         }
 
         interface PromiseT<T> extends Promise {
