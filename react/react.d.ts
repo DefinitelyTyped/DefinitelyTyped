@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module React {
+declare module 'react' {
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -261,7 +261,12 @@ declare module React {
         relatedTarget: EventTarget;
     }
 
+    interface FormEventTarget extends EventTarget {
+        value: string;
+    }
+    
     interface FormEvent extends SyntheticEvent {
+        target: FormEventTarget;
     }
 
     interface MouseEvent extends SyntheticEvent {
@@ -782,8 +787,4 @@ declare module React {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
-}
-
-declare module "react" {
-    export = React;
 }
