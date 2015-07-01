@@ -1,6 +1,6 @@
 // Type definitions for FHIR DSTU2 v0.5.0
 // Project: http://www.hl7.org/fhir/2015May/index.html
-// Definitions by: Artifact Health, LLC <www.artifacthealth.com>
+// Definitions by: Artifact Health <www.artifacthealth.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module fhir {
