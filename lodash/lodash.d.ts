@@ -769,123 +769,28 @@ declare module _ {
         take<W>(whereValue: W): LoDashArrayWrapper<T>;
     }
 
+    interface MaybeNestedList<T> extends List<T|List<T>> { }
+    interface RecursiveList<T> extends List<T|RecursiveList<T>> { }
+
     //_.flatten
     interface LoDashStatic {
         /**
-        * Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the
-        * array will only be flattened a single level. If a callback is provided each element of
-        * the array is passed through the callback before flattening. The callback is bound to
-        * thisArg and invoked with three arguments; (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The array to flatten.
-        * @param shallow If true then only flatten one level, optional, default = false.
-        * @return `array` flattened.
-        **/
-        flatten<T>(array: Array<any>, isShallow?: boolean): T[];
+         * Flattens a nested array.
+         *
+         * @param array The array to flatten.
+         * @return `array` flattened.
+         **/
+        flatten<T>(array: MaybeNestedList<T>): T[];
 
         /**
-        * @see _.flatten
-        **/
-        flatten<T>(array: List<any>, isShallow?: boolean): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            isShallow: boolean,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            isShallow: boolean,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: Array<any>,
-            isShallow: boolean,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: List<any>,
-            isShallow: boolean,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: Array<any>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: List<any>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            isShallow: boolean,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            isShallow: boolean,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            pluckValue: string): T[];
+         * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it is only
+         * flattened a single level.
+         *
+         * @param array The array to flatten.
+         * @param deep Specify a deep flatten.
+         * @return `array` flattened.
+         **/
+        flatten<T>(array: RecursiveList<T>, isDeep: boolean): T[];
     }
 
     interface LoDashArrayWrapper<T> {
