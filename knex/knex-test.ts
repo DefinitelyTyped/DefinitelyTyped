@@ -1,6 +1,9 @@
 /// <reference path='knex.d.ts' />
 /// <reference path='../lodash/lodash.d.ts' />
+/// <reference path="../bluebird/bluebird.d.ts" />
+
 import Knex = require('knex');
+import Promise = require("bluebird");
 import _ = require('lodash');
 'use strict';
 // Initializing the Library

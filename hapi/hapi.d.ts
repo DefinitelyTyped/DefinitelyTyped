@@ -16,6 +16,8 @@ declare module "hapi" {
 	import http = require("http");
 	import stream = require("stream");
 	import Events = require("events");
+	import Promise = require("bluebird");
+	
 
 	interface IDictionary<T> {
 		[key: string]: T;

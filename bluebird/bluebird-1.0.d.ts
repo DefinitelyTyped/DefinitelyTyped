@@ -666,5 +666,5 @@ declare module 'bluebird-1.0' {
 		}
 	}
 
-	export {Promise}
+	export = Promise;
 }

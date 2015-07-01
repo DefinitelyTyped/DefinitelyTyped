@@ -707,5 +707,5 @@ declare module 'bluebird' {
 		export function setScheduler(scheduler: (callback: (...args: any[]) => void) => void): void;
 	}
 
-	export {Promise}
+	export = Promise;
 }
