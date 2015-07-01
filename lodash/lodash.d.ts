@@ -790,7 +790,7 @@ declare module _ {
          * @param deep Specify a deep flatten.
          * @return `array` flattened.
          **/
-        flatten<T>(array: RecursiveList<T>, isDeep: boolean): T[];
+        flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
     }
 
     interface LoDashArrayWrapper<T> {
