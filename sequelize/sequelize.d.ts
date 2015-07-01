@@ -247,38 +247,38 @@ declare module "sequelize"
              *
              * @param schema Name of the schema.
              */
-            createSchema(schema: string): EventEmitter;
+            createSchema(schema: string): Promise;
 
             /**
              * Show all defined schemas.
              */
-            showAllSchemas(): EventEmitter;
+            showAllSchemas(): Promise;
 
             /**
              * Drop a single schema.
              *
              * @param schema Name of the schema.
              */
-            dropSchema(schema: string): EventEmitter;
+            dropSchema(schema: string): Promise;
 
             /**
              * Drop all schemas.
              */
-            dropAllSchemas(): EventEmitter;
+            dropAllSchemas(): Promise;
 
             /**
              * Sync all defined DAOs to the DB.
              *
              * @param options Options.
              */
-            sync(options?: SyncOptions): EventEmitter;
+            sync(options?: SyncOptions): Promise;
 
             /**
              * Drop all tables defined through this sequelize instance. This is done by calling Model.drop on each model.
              *
              * @param options The options passed to each call to Model.drop.
              */
-            drop(options: DropOptions): EventEmitter;
+            drop(options: DropOptions): Promise;
 
             /**
              * Test the connection by trying to authenticate. Alias for 'validate'.
