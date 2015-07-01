@@ -412,7 +412,7 @@ declare module "sequelize"
              * @param queryOptions  Set the query options, e.g. raw, specifying that you want raw data instead of built
              *                      Instances. See sequelize.query for options
              */
-            find(options?: FindOptions, queryOptions?: QueryOptions): PromiseT<TInstance>;
+            findOne(options?: FindOptions, queryOptions?: QueryOptions): PromiseT<TInstance>;
 
             /**
              * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single instance.
@@ -421,7 +421,7 @@ declare module "sequelize"
              * @param queryOptions  Set the query options, e.g. raw, specifying that you want raw data instead of built
              *                      Instances. See sequelize.query for options
              */
-            find(id?: number, queryOptions?: QueryOptions): PromiseT<TInstance>;
+            findById(id?: number, queryOptions?: QueryOptions): PromiseT<TInstance>;
 
             /**
              * Run an aggregation method on the specified field.
@@ -1258,7 +1258,7 @@ declare module "sequelize"
 
         interface Migrator {
             queryInterface: QueryInterface;
-            migrate(options?: MigratorOptions): EventEmitter;
+            migrate(options?: MigratorOptions): Promise;
             getUndoneMigrations(callback: (err: Error, result: Array<Migrator>) => void): void;
             findOrCreateMetaDAO(syncOptions?: SyncOptions): EventEmitter;
             exec(filename: string, options?: MigratorExecOptions): EventEmitter;
