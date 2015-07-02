@@ -1,23 +1,22 @@
 /// <reference path="pdfkit.d.ts" />
 
-import {PDFGradient} from "pdfkit/js/gradient";
+import PDFGradient = require("pdfkit/js/gradient");
 
-import {PDFRadialGradiant,PDFLinearGradient} from "pdfkit/js/gradient";
+let PDFRadialGradiant = PDFGradient.PDFRadialGradiant;
+let PDFLinearGradient = PDFGradient.PDFLinearGradient;
 
-import * as mtext from "pdfkit/js/mixins/text";
+import mtext = require("pdfkit/js/mixins/text");
 
 import PDFDocument = require("pdfkit");
 
-import * as font from "pdfkit/js/mixins/fonts";
-import * as pdfData from "pdfkit/js/data";
+import font = require("pdfkit/js/mixins/fonts");
+import pdfData = require("pdfkit/js/data");
 import text = require("pdfkit/js/mixins/text");
 
 font.registerFont("Arial");
 text.widthOfString("Kila",{ellipsis:true});
 
 var doc = new PDFDocument({compress:false, sizes:[526,525],autoFirstPage:true});
-
-
 
 
 doc.addPage({

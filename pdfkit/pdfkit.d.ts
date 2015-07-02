@@ -35,7 +35,7 @@ declare module PDFKit.Mixins {
         SubType?: string;
         Contents?: string;
         Name?: string;
-        color?: string,
+        color?: string;
         QuadPoints?: Array<number>;
 
         A?: any;
@@ -214,13 +214,13 @@ declare module "pdfkit/js/data" {
 
 declare module PDFKit {
     interface DocumentInfo {
-        Producer?: string,
-        Creator?: string,
-        CreationDate?: Date,
-        Title?: string,
-        Author?: string,
-        Keywords?: string,
-        ModDate?: Date
+        Producer?: string;
+        Creator?: string;
+        CreationDate?: Date;
+        Title?: string;
+        Author?: string;
+        Keywords?: string;
+        ModDate?: Date;
     }
 
     interface PDFDocumentOptions {
@@ -228,7 +228,7 @@ declare module PDFKit {
         info?: DocumentInfo;
         autoFirstPage?: boolean;
         sizes?: number[];
-        margin?: { top: number, left: number, bottom: number, right: number }|number;
+        margin?: { top: number; left: number; bottom: number; right: number }|number;
 
         bufferPages?: boolean;
     }
@@ -288,9 +288,9 @@ declare module "pdfkit" {
 
 declare module "pdfkit/js/gradient" {
     var gradient : {
-        PDFGradient: PDFKit.PDFGradient,
-        PDFLinearGradient: PDFKit.PDFLinearGradient,
-        PDFRadialGradiant: PDFKit.PDFRadialGradient
+        PDFGradient: PDFKit.PDFGradient;
+        PDFLinearGradient: PDFKit.PDFLinearGradient;
+        PDFRadialGradiant: PDFKit.PDFRadialGradient;
     }
 
     export = gradient;
@@ -303,7 +303,7 @@ declare module PDFKit {
     interface PDFPage {
         size: string;
         layout: string;
-        margin: { top: number, left: number, bottom: number, right: number }|number;
+        margin: { top: number; left: number; bottom: number; right: number }|number;
         width: number;
         height: number;
         document: PDFDocument;
@@ -341,7 +341,7 @@ declare module PDFKit {
         compress: boolean;
         uncompressedLength: number;
         chunks: any[];
-        data: { Font?: any, XObject?: any, ExtGState?: any, Pattern: any, Annots: any };
+        data: { Font?: any; XObject?: any; ExtGState?: any; Pattern: any; Annots: any };
         document: PDFDocument;
 
         constructor(document: PDFDocument, id: number, data: {});
