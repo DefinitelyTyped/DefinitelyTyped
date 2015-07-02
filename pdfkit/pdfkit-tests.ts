@@ -2,8 +2,8 @@
 
 import PDFGradient = require("pdfkit/js/gradient");
 
-let PDFRadialGradiant = PDFGradient.PDFRadialGradiant;
-let PDFLinearGradient = PDFGradient.PDFLinearGradient;
+var PDFRadialGradiant = PDFGradient.PDFRadialGradiant;
+var PDFLinearGradient = PDFGradient.PDFLinearGradient;
 
 import mtext = require("pdfkit/js/mixins/text");
 
@@ -67,7 +67,7 @@ doc.circle(100, 50, 50)
   .fillOpacity(0.8)
   .fillAndStroke("red", "#900");
 
-let grad = doc.linearGradient(50, 0, 150, 100)
+var grad = doc.linearGradient(50, 0, 150, 100)
   .stop(0, 'green')
   .stop(1, 'red');
 
@@ -78,7 +78,7 @@ doc.circle(100, 50, 50).dash(5, {
   space: 10
 }).stroke();
 
-let rgrad = doc.radialGradient(300, 50, 0, 300, 50, 50);
+var rgrad = doc.radialGradient(300, 50, 0, 300, 50, 50);
 rgrad.stop(0, 'orange', 0).stop(1, 'orange', 1);
 doc.circle(300, 50, 50)
   .fill(rgrad);
@@ -101,9 +101,9 @@ doc.fontSize(25)
   .fillColor('blue')
   .text('This is a link!', 20, 0);
 
-let width = doc.widthOfString('This is a link!');
+var width = doc.widthOfString('This is a link!');
 
-let height = doc.currentLineHeight();
+var height = doc.currentLineHeight();
 
 doc.underline(20, 0, width, height, {
   color: 'blue'
