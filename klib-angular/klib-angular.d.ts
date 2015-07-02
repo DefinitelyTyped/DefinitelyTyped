@@ -3,6 +3,6 @@
 // Definitions by: Caio Frota <https://github.com/knowlib>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 declare var app: ng.IModule;
