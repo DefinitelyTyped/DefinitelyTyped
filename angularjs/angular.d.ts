@@ -1064,6 +1064,7 @@ declare module angular {
     ///////////////////////////////////////////////////////////////////////////
     interface IAnchorScrollService {
         (): void;
+        (hash: string): void;
         yOffset: any;
     }
 

@@ -47,6 +47,7 @@ declare module jasmine {
 
     function any(aclass: any): Any;
     function anything(): Any;
+    function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
@@ -70,6 +71,13 @@ declare module jasmine {
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
+    }
+    
+    interface ArrayContaining {
+        new (sample: any[]): any;
+
+        asymmetricMatch(other: any): boolean;
+        jasmineToString(): string;
     }
 
     interface ObjectContaining {
