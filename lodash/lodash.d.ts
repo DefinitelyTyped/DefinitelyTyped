@@ -2710,15 +2710,19 @@ declare module _ {
     //_.find
     interface LoDashStatic {
         /**
-        * Iterates over elements of a collection, returning the first element that the callback
-        * returns truey for. The callback is bound to thisArg and invoked with three arguments;
-        * (value, index|key, collection).
+        * Iterates over elements of collection, returning the first element predicate returns
+        * truthy for. The predicate is bound to thisArg and invoked with three arguments:
+        * (value, index|key, collection). 
         *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
+        * If a property name is provided for predicate the created _.property style callback
+        * returns the property value of the given element. 
         *
-        * If an object is provided for callback the created "_.where" style callback will return
+        * If a value is also provided for thisArg the created _.matchesProperty style callback
+        * returns true for elements that have a matching property value, else false. 
+        *
+        * If an object is provided for predicate the created _.matches style callback returns
         * true for elements that have the properties of the given object, else false.
+        *
         * @param collection Searches for a value in this list.
         * @param callback The function called per iteration.
         * @param thisArg The this binding of callback.
@@ -2730,9 +2734,27 @@ declare module _ {
             thisArg?: any): T;
 
         /**
+	* Alias of _.find
+        * @see _.find
+        **/
+        detect<T>(
+            collection: Array<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
         * @see _.find
         **/
         find<T>(
+            collection: List<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        **/
+        detect<T>(
             collection: List<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T;
@@ -2746,70 +2768,7 @@ declare module _ {
             thisArg?: any): T;
 
         /**
-        * @see _.find
-        * @param _.pluck style callback
-        **/
-        find<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.pluck style callback
-        **/
-        find<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.pluck style callback
-        **/
-        find<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
-        find<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
-        find<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
-        find<T>(
-            collection: Dictionary<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
+	* Alias of _.find
         * @see _.find
         **/
         detect<T>(
@@ -2819,50 +2778,55 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.pluck style callback
+        * @param _.matches style callback
+        **/
+        find<W, T>(
+            collection: Array<T>|List<T>|Dictionary<T>,
+            whereValue: W): T;
+
+        /**
+	* Alias of _.find
+        * @see _.find
+        * @param _.matches style callback
         **/
         detect<W, T>(
-            collection: Array<T>,
+            collection: Array<T>|List<T>|Dictionary<T>,
             whereValue: W): T;
 
         /**
         * @see _.find
-        * @param _.pluck style callback
+        * @param _.matchesProperty style callback
         **/
-        detect<W, T>(
-            collection: List<T>,
-            whereValue: W): T;
+        find<T>(
+            collection: Array<T>|List<T>|Dictionary<T>,
+            path: string,
+            srcValue: any): T;
 
         /**
+	* Alias of _.find
         * @see _.find
-        * @param _.pluck style callback
-        **/
-        detect<W, T>(
-            collection: Dictionary<T>,
-            whereValue: W): T;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
+        * @param _.matchesProperty style callback
         **/
         detect<T>(
-            collection: Array<T>,
+            collection: Array<T>|List<T>|Dictionary<T>,
+            path: string,
+            srcValue: any): T;
+
+        /**
+        * @see _.find
+        * @param _.property style callback
+        **/
+        find<T>(
+            collection: Array<T>|List<T>|Dictionary<T>,
             pluckValue: string): T;
 
         /**
+	* Alias of _.find
         * @see _.find
-        * @param _.where style callback
+        * @param _.property style callback
         **/
         detect<T>(
-            collection: List<T>,
-            pluckValue: string): T;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
-        detect<T>(
-            collection: Dictionary<T>,
+            collection: Array<T>|List<T>|Dictionary<T>,
             pluckValue: string): T;
 
         /**
@@ -2891,7 +2855,7 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.pluck style callback
+        * @param _.matches style callback
         **/
         findWhere<W, T>(
             collection: Array<T>,
@@ -2899,7 +2863,7 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.pluck style callback
+        * @param _.matches style callback
         **/
         findWhere<W, T>(
             collection: List<T>,
@@ -2907,7 +2871,7 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.pluck style callback
+        * @param _.matches style callback
         **/
         findWhere<W, T>(
             collection: Dictionary<T>,
@@ -2915,7 +2879,7 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.where style callback
+        * @param _.property style callback
         **/
         findWhere<T>(
             collection: Array<T>,
@@ -2923,7 +2887,7 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.where style callback
+        * @param _.property style callback
         **/
         findWhere<T>(
             collection: List<T>,
@@ -2931,7 +2895,7 @@ declare module _ {
 
         /**
         * @see _.find
-        * @param _.where style callback
+        * @param _.property style callback
         **/
         findWhere<T>(
             collection: Dictionary<T>,
@@ -2947,14 +2911,20 @@ declare module _ {
             thisArg?: any): T;
         /**
         * @see _.find
-        * @param _.where style callback
+        * @param _.matches style callback
         */
         find<W>(
             whereValue: W): T;
-
         /**
         * @see _.find
-        * @param _.where style callback
+        * @param _.matchesProperty style callback
+        */
+        find(
+            path: string,
+            srcValue: any): T;
+        /**
+        * @see _.find
+        * @param _.property style callback
         */
         find(
             pluckValue: string): T;
@@ -4568,7 +4538,7 @@ declare module _ {
         /**
          * @see _.sample
          **/
-        sample(): LoDashArrayWrapper<T>;
+        sample(): LoDashWrapper<T>;
     }
 
     //_.shuffle
