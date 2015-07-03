@@ -1164,6 +1164,7 @@ result = <string>_.deburr('déjà vu');
 result = <boolean>_.endsWith('abc', 'c');
 result = <string>_.escape('fred, barney, & pebbles');
 result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
+result = <boolean>_.isMatch('abc', 'abc');
 result = <string>_.kebabCase('Foo Bar');
 result = <string>_.pad('abc', 8);
 result = <string>_.pad('abc', 8, '_-');
