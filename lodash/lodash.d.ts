@@ -4568,7 +4568,7 @@ declare module _ {
         /**
          * @see _.sample
          **/
-        sample(): LoDashArrayWrapper<T>;
+        sample(): LoDashWrapper<T>;
     }
 
     //_.shuffle
