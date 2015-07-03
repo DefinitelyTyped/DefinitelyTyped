@@ -144,6 +144,7 @@ declare module NodeJS {
         code?: string;
         path?: string;
         syscall?: string;
+        stack?: string;
     }
 
     export interface EventEmitter {
