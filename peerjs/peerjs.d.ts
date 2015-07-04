@@ -5,6 +5,7 @@
 
 
 /// <reference path='../webrtc/RTCPeerConnection.d.ts' />
+/// <reference path="../EventEmitter3/EventEmitter3.d.ts" />
 
 declare module PeerJs{
     interface PeerJSOption{
@@ -25,7 +26,7 @@ declare module PeerJs{
 
     }
 
-    interface DataConnection{
+    interface DataConnection {
         send(data: any): void;
         close(): void;
         on(event: string, cb: ()=>void): void;
@@ -33,6 +34,7 @@ declare module PeerJs{
         on(event: 'open', cb: ()=>void): void;
         on(event: 'close', cb: ()=>void): void;
         on(event: 'error', cb: (err: any)=>void): void;
+        off(event: string, fn: Function, once?: boolean): void;
         dataChannel: RTCDataChannel;
         label: string;
         metadata: any;
@@ -45,13 +47,14 @@ declare module PeerJs{
         buffSize: number;
     }
 
-    interface MediaConnection{
+    interface MediaConnection {
         answer(stream?: any): void;
         close(): void;
         on(event: string, cb: ()=>void): void;
         on(event: 'stream', cb: (stream: any)=>void): void;
         on(event: 'close', cb: ()=>void): void;
         on(event: 'error', cb: (err: any)=>void): void;
+        off(event: string, fn: Function, once?: boolean): void;
         open: boolean;
         metadata: any;
         peer: string;
@@ -70,7 +73,7 @@ declare module PeerJs{
         supports: utilSupportsObj;
     }
 
-    export interface Peer{
+    export interface Peer {
         /**
          *
          * @param id The brokering ID of the remote peer (their peer.id).
@@ -126,6 +129,13 @@ declare module PeerJs{
          * @param cb Callback Function
          */
         on(event: 'error', cb: (err: any)=>void): void;
+        /**
+         * Remove event listeners.(EventEmitter3)
+         * @param {String} event The event we want to remove.
+         * @param {Function} fn The listener that we need to find.
+         * @param {Boolean} once Only remove once listeners.
+         */
+        off(event: string, fn: Function, once?: boolean): void;
         /**
          * Close the connection to the server, leaving all existing data and media connections intact.
          */
