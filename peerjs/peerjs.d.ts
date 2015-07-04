@@ -5,7 +5,6 @@
 
 
 /// <reference path='../webrtc/RTCPeerConnection.d.ts' />
-/// <reference path="../EventEmitter3/EventEmitter3.d.ts" />
 
 declare module PeerJs{
     interface PeerJSOption{
