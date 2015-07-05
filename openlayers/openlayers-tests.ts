@@ -12,9 +12,11 @@ var preRenderFunction: ol.PreRenderFunction;
 var transformFunction: ol.TransformFunction;
 var coordinateFormatType: ol.CoordinateFormatType;
 var featureStyleFunction: ol.FeatureStyleFunction;
+var featureLoader: ol.FeatureLoader;
 var easingFunction: (t: number) => number;
 
 // Type variables for OpenLayers
+var color: ol.Color;
 var coordinate: ol.Coordinate;
 var extent: ol.Extent;
 var boundingCoordinates: Array<ol.Coordinate>;
@@ -23,10 +25,14 @@ var style: ol.style.Style;
 var styleArray: Array<ol.style.Style>;
 var feature: ol.Feature;
 var featureArray: Array<ol.Feature>;
+var graticule: ol.Graticule
 var geometry: ol.geom.Geometry;
 var feature: ol.Feature;
 var featureArray: Array<ol.Feature>;
+var featureFormat: ol.format.Feature;
 var geometry: ol.geom.Geometry;
+var loadingstrategy: ol.LoadingStrategy;
+var tilegrid: ol.tilegrid.TileGrid;
 
 //
 // ol.Attribution
@@ -35,6 +41,14 @@ var geometry: ol.geom.Geometry;
 var attribution: ol.Attribution = new ol.Attribution({
     html: stringValue,
 });
+
+//
+// ol.color
+//
+color = ol.color.asArray(color);
+color = ol.color.asArray(stringValue);
+stringValue = ol.color.asString(color);
+stringValue = ol.color.asString(stringValue);
 
 //
 // ol.extent
@@ -75,6 +89,19 @@ numberValue = ol.extent.getWidth(extent);
 booleanValue = ol.extent.intersects(extent, extent);
 booleanValue = ol.extent.isEmpty(extent);
 
+//
+// ol.featureloader
+//
+featureLoader = ol.featureloader.xhr(stringValue, featureFormat);
+
+//
+// ol.loadingstrategy
+//
+loadingstrategy = ol.loadingstrategy.all;
+loadingstrategy = ol.loadingstrategy.bbox;
+loadingstrategy = ol.loadingstrategy.tile(tilegrid);
+
+//
 //
 // ol.geom.Geometry
 //
@@ -199,7 +226,6 @@ easingFunction = ol.easing.upAndDown;
 //
 // ol.Geolocation
 //
-
 var geolocation: ol.Geolocation = new ol.Geolocation({
     projection: projection
 });
@@ -211,8 +237,8 @@ geolocation.on('change', function (evt) {
 // ol.Graticule
 //
 
-var graticule: ol.Graticule = new ol.Graticule();
-var graticule: ol.Graticule = new ol.Graticule({
+graticule = new ol.Graticule();
+graticule = new ol.Graticule({
     map: map,
 });
 var graticuleMap: ol.Map = graticule.getMap();
