@@ -42,8 +42,7 @@ declare module olx {
         /**
          * Features
          */
-        // TODO: implement stylefunction
-        features?: Array<ol.Feature> | ol.Collection<ol.Feature> | any;
+        features?: Array<ol.Feature> | ol.Collection<ol.Feature> | ol.style.StyleFunction;
 
         /**
          * Map
@@ -168,8 +167,7 @@ declare module olx {
         /**
          * The options used to create a ol.animation.pan animation. This animation is only used when autoPan is enabled. By default the default options for ol.animation.pan are used. If set to null the panning is not animated.
          */
-        //TODO: replace with olx.animation.PanOptions
-        autoPanAnimation?: any;
+        autoPanAnimation?: olx.animation.PanOptions;
 
         /**
          * The margin (in pixels) between the overlay and the borders of the map when autopanning. The default is 20.
@@ -267,7 +265,6 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
             easing?: (t: number) => number;
         }
 
@@ -291,7 +288,6 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
             easing?: (t: number) => number;
         }
 
@@ -320,7 +316,6 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
             easing?: (t: number) => number
         }
 
@@ -344,7 +339,6 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
             easing?: (t: number) => number
         }
     }
@@ -960,8 +954,7 @@ declare module ol {
          * Get the feature's style function.
          * @returns Return a function representing the current style of this feature.
          */
-        // TODO: Implement FeatureStyleFunction
-        getStyleFunction(): any;
+        getStyleFunction(): ol.FeatureStyleFunction;
 
         /**
          * Set the default geometry for the feature. This will update the property with the name returned by ol.Feature#getGeometryName.
@@ -1039,14 +1032,13 @@ declare module ol {
          * Get the style for features. This returns whatever was passed to the style option at construction or to the setStyle method.
          * @returns Overlay style.
          */
-        // TODO: implement stylefunction
-        getStyle(): ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction;
+        getStyle(): ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
 
         /**
          * Get the style function
          * @returns Style function
          */
-        getStyleFunction(): ol.FeatureStyleFunction;
+        getStyleFunction(): ol.style.StyleFunction;
 
         /**
          * Remove a feature from the overlay.
@@ -1082,7 +1074,7 @@ declare module ol {
          * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
          * @param style Overlay style
          */
-        setStyle(style: ol.FeatureStyleFunction): void;
+        setStyle(style: ol.style.StyleFunction): void;
     }
 
     /**
@@ -1324,7 +1316,6 @@ declare module ol {
          * Add functions to be called before rendering. This can be used for attaching animations before updating the map's view. The ol.animation namespace provides several static methods for creating prerender functions.
          * @param var_args Any number of pre-render functions.
          */
-        // TODO: Implement PreRenderFunction
         beforeRender(var_args: ol.PreRenderFunction): void;
 
         /**
@@ -1538,8 +1529,7 @@ declare module ol {
         /**
          * The frame state at the time of the event
          */
-        // TODO: Replace with olx.FrameState
-        frameState: any;
+        frameState: olx.FrameState;
 
         /**
          * The map where the event occured
@@ -1578,8 +1568,7 @@ declare module ol {
         /**
          * The frame state at the time of the event.
          */
-        // TODO: Replace with olx.FrameState
-        frameState: any;
+        frameState: olx.FrameState;
 
         /**
          * The map where the event occurred.
@@ -1991,28 +1980,24 @@ declare module ol {
          * Generate an animated transition that will "bounce" the resolution as it approaches the final value.
          * @param options Bounce options.
          */
-        //TODO: return ol.PreRenderFunction
         function bounce(options: olx.animation.BounceOptions): ol.PreRenderFunction;
         
         /**
          * Generate an animated transition while updating the view center.
          * @param options Pan options.
          */
-        //TODO: return ol.PreRenderFunction
         function pan(options: olx.animation.PanOptions): ol.PreRenderFunction;
 
         /**
          * Generate an animated transition while updating the view rotation.
          * @param options Rotate options.
          */
-        //TODO: return ol.PreRenderFunction
         function rotate(options: olx.animation.RotateOptions): ol.PreRenderFunction;
 
         /**
          * Generate an animated transition while updating the view resolution.
          * @param options Zoom options.
          */
-        //TODO: return ol.PreRenderFunction
         function zoom(options: olx.animation.ZoomOptions): ol.PreRenderFunction;
     }
 
@@ -2026,6 +2011,11 @@ declare module ol {
          * @param color Color.
          */
         function asArray(color: ol.Color): ol.Color;
+
+        /**
+         * Return the color as an array. This function maintains a cache of calculated arrays which means the result should not be modified.
+         * @param color Color.
+         */
         function asArray(color: string): ol.Color;
 
         /**
@@ -2033,6 +2023,11 @@ declare module ol {
          * @param color Color.
          */
         function asString(color: ol.Color): string;
+
+        /**
+         * Return the color as an rgba string.
+         * @param color Color.
+         */
         function asString(color: string): string;
     }
 
@@ -2332,7 +2327,18 @@ declare module ol {
         function isEmpty(extent: ol.Extent): boolean;
     }
 
+    /**
+     * Loading mechanisms for vector data.
+     */
     module featureloader {
+
+        /**
+         * Create an XHR feature loader for a url and format. The feature loader loads features (with XHR), parses the features, and adds them to the vector source.
+         * @param url Feature URL Service
+         * @param format Feature format
+         * @returns The feature loader
+         */
+        function xhr(url: string, format: ol.format.Feature): ol.FeatureLoader;
     }
 
     module format {
@@ -2387,8 +2393,7 @@ declare module ol {
              * @param Source
              * @returns Projection
              */
-            // TODO: Replace any with global 'Object' type instead of ol.Object
-            readProjection(source: Document | Node | any | string): ol.proj.Projection;
+            readProjection(source: Document | Node | JSON | string): ol.proj.Projection;
 
             /**
              * Encode a feature as a GeoJSON Feature string.
@@ -2920,15 +2925,13 @@ declare module ol {
             /**
              * Get the style for features. This returns whatever was passed to the style option at construction or to the setStyle method.
              */
-            // TODO: Replace returntype any with ol.style.StyleFunction
-            getStyle(): ol.style.Style | Array<ol.style.Style> | any;
+            getStyle(): ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
 
             /**
              * Get the style function.
              * @returns Layer style function
              */
-            // TODO: Replace returntype any with ol.style.StyleFunction
-            getStyleFunction(): any;
+            getStyleFunction(): ol.style.StyleFunction;
 
             /**
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
@@ -2951,12 +2954,34 @@ declare module ol {
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
              * @param Layer style
              */
-            // TODO: Replace 'any' with ol.style.StyleFunction
-            setStyle(style: any): void;
+            setStyle(style: ol.style.StyleFunction): void;
         }
     }
 
     module loadingstrategy {
+
+        /**
+         * Strategy function for loading all features with a single request.
+         * @param extent Extent
+         * @param resolution Resolution
+         * @returns Extents
+         */
+        function all(extent: ol.Extent, resolution: number): Array<ol.Extent>;
+
+        /**
+         * Strategy function for loading features based on the view's extent and resolution.
+         * @param extent Extent
+         * @param resolution Resolution
+         * @returns Extents
+         */
+        function bbox(extent: ol.Extent, resolution: number): Array<ol.Extent>;
+
+        /**
+         * Creates a strategy function for loading features based on a tile grid.
+         * @param tilegrid Tile grid
+         * @returns Loading strategy
+         */
+        function tile(tileGrid: ol.tilegrid.TileGrid): ol.LoadingStrategy;
     }
 
     module proj {
@@ -3014,8 +3039,7 @@ declare module ol {
          * @param destination Destination.
          * @returns Transform function.
          */
-        // TODO: Transformfunction
-        function getTransform(source: ProjectionLike, destination: ProjectionLike): any;
+        function getTransform(source: ProjectionLike, destination: ProjectionLike): ol.TransformFunction;
 
         /**
          * Transforms a coordinate to longitude/latitude.
@@ -3184,6 +3208,11 @@ declare module ol {
 
         class Text {
         }
+
+        /**
+         * A function that takes an ol.Feature and a {number} representing the view's resolution. The function should return an array of ol.style.Style. This way e.g. a vector layer can be styled.
+         */
+        interface StyleFunction { (feature: ol.Feature, resolution: number): ol.style.Style }
     }
 
     module tilegrid {
@@ -3202,8 +3231,7 @@ declare module ol {
             /**
              * Creates a TileCoord transform function for use with this tile grid. Transforms the internal tile coordinates with bottom-left origin to the tile coordinates used by the ol.TileUrlFunction. The returned function expects an ol.TileCoord as first and an ol.proj.Projection as second argument and returns a transformed ol.TileCoord.
              */
-            // TODO: Check if this is correct, unclear in documentation
-            createTileCoordTransform(): any;
+            createTileCoordTransform(): { (tilecoord: ol.TileCoord, projection: ol.proj.Projection): ol.TileCoord };
 
             /**
              * Get the maximum zoom level for the grid.
@@ -3312,7 +3340,13 @@ declare module ol {
     module webgl {
 
         class Context {
-            new(canvas: HTMLCanvasElement, gl: WebGLRenderingContext): Context;
+
+            /**
+             * @constructor
+             * @param canvas HTML Canvas Element
+             * @param gl WebGL Rendering context
+             */
+            constructor(canvas: HTMLCanvasElement, gl: WebGLRenderingContext);
 
             /** 
             Get the WebGL rendering context
@@ -3390,9 +3424,19 @@ declare module ol {
     interface CoordinateFormatType { (coordinate?: Coordinate): string; }
 
     /**
+     * Implementation based on the code of OpenLayers, no documentation available (yet). If it is incorrect, please create an issue and I will change it.
+     */
+    interface FeatureLoader { (extent: ol.Extent, number: number, projection: ol.proj.Projection): Array<Feature> }
+
+    /**
      * A function that returns a style given a resolution. The this keyword inside the function references the ol.Feature to be styled.
      */
     interface FeatureStyleFunction { (resolution: number): ol.style.Style }
+
+    /**
+     * Loading strategy
+     */
+    interface LoadingStrategy { (extent: ol.Extent, resolution: number): Array<ol.Extent> }
 
     /**
      * Function to perform manipulations before rendering. This function is called with the ol.Map as first and an optional olx.FrameState as second argument. Return true to keep this function for the next frame, false to remove it.
