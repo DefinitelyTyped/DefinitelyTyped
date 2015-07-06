@@ -31,6 +31,24 @@ declare module angular.material {
         content(content: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
+        templateUrl(templateUrl?: string);
+        template(template?: string);
+        targetEvent(targetEvent?: MouseEvent);
+        scope(scope?: angular.IScope); // default: new child scope
+        preserveScope(preserveScope?: boolean); // default: false
+        disableParentScroll(disableParentScroll?: boolean); // default: true
+        hasBackdrop(hasBackdrop?: boolean); // default: true
+        clickOutsideToClose(clickOutsideToClose?: boolean); // default: false
+        escapeToClose(escapeToClose?: boolean); // default: true
+        focusOnOpen(focusOnOpen?: boolean); // default: true
+        controller(controller?: string|Function);
+        locals(locals?: {[index: string]: any});
+        bindToController(bindToController?: boolean); // default: false
+        resolve(resolve?: {[index: string]: angular.IPromise<any>})
+        controllerAs(controllerAs?: string);
+        parent(parent?: string|Element|JQuery); // default: root node
+        onComplete(onComplete?: Function);
+        ariaLabel(ariaLabel: string);
     }
 
     interface MDAlertDialog extends MDPresetDialog<MDAlertDialog> {
