@@ -21,7 +21,7 @@ declare module 'gulp-watch' {
         close(): NodeJS.ReadWriteStream;
     }
 
-    function watch(glob: string, options?: IOptions, callback?: Function): IWatchStream;
+    function watch(glob: string | Array<string>, options?: IOptions, callback?: Function): IWatchStream;
 
     export = watch;
 }
