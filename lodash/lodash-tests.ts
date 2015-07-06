@@ -143,6 +143,8 @@ result = <string>_('test').value();
 result = <number[]>_([1, 2, 3]).value();
 result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
 
+result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).value();
+
 // /*************
 //  * Arrays *
 //  *************/
@@ -292,6 +294,7 @@ result = <number[]>_.range(0);
 result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
 result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
+var typedResult: IFoodType[] = _.remove([ <IFoodType>{ name: 'apple' }, <IFoodType>{ name: 'orange' }], <IFoodType>{ name: 'orange' });
 
 result = <number>_.sortedIndex([20, 30, 50], 40);
 result = <number>_.sortedIndex([{ 'x': 20 }, { 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
@@ -400,15 +403,13 @@ result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function (num) { return num % 2 
 result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
 result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
 
-result = <number>_.find([1, 2, 3, 4], function (num) {
-    return num % 2 == 0;
-});
+result = <number>_.find([1, 2, 3, 4], num => num % 2 == 0);
 result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.find(foodsCombined, 'type', 'vegetable');
 result = <IFoodCombined>_.find(foodsCombined, 'organic');
-result = <number>_([1, 2, 3, 4]).find(function (num) {
-    return num % 2 == 0;
-});
+result = <number>_([1, 2, 3, 4]).find(num => num % 2 == 0);
 result = <IFoodCombined>_(foodsCombined).find({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).find('type', 'vegetable');
 result = <IFoodCombined>_(foodsCombined).find('organic');
 
 result = <number>_.detect([1, 2, 3, 4], function (num) {
@@ -602,6 +603,10 @@ result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
 
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).sample();
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
+result = <number>_([1, 2, 3, 4]).sample().value();
+result = <number[]>_([1, 2, 3, 4]).sample(2).value();
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
@@ -921,6 +926,8 @@ result = <string[]>_.methods(_);
 
 result = <_.LoDashArrayWrapper<string>>_(_).functions();
 result = <_.LoDashArrayWrapper<string>>_(_).methods();
+
+result = <number>_.get({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
