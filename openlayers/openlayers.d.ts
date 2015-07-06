@@ -19,13 +19,30 @@ declare module olx {
         tracking?: boolean;
     }
 
+    interface FrameState {
+
+        /**
+         * 
+         */
+        pixelRatio: number;
+
+        /**
+         * 
+         */
+        time: number;
+
+        /**
+         * 
+         */
+        viewState: olx.ViewState;
+    }
+
     interface FeatureOverlayOptions {
         
         /**
          * Features
          */
-        // TODO: implement stylefunction
-        features?: Array<ol.Feature> | ol.Collection<ol.Feature> | any;
+        features?: Array<ol.Feature> | ol.Collection<ol.Feature> | ol.style.StyleFunction;
 
         /**
          * Map
@@ -150,8 +167,7 @@ declare module olx {
         /**
          * The options used to create a ol.animation.pan animation. This animation is only used when autoPan is enabled. By default the default options for ol.animation.pan are used. If set to null the panning is not animated.
          */
-        //TODO: replace with olx.animation.PanOptions
-        autoPanAnimation?: any;
+        autoPanAnimation?: olx.animation.PanOptions;
 
         /**
          * The margin (in pixels) between the overlay and the borders of the map when autopanning. The default is 20.
@@ -203,7 +219,30 @@ declare module olx {
         /** The zoom factor used to determine the resolution constraint. Default is 2. */
         zoomFactor?: number;
     }
-    
+
+    interface ViewState {
+
+        /**
+         * 
+         */
+        center: ol.Coordinate;
+
+        /**
+         * 
+         */
+        projection: ol.proj.Projection;
+
+        /**
+         * 
+         */
+        resolution: number;
+
+        /**
+         * 
+         */
+        rotation: number;
+    }
+
     module animation {
 
         interface BounceOptions {
@@ -226,8 +265,7 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
-            easing?: () => void;
+            easing?: (t: number) => number;
         }
 
         interface PanOptions {
@@ -250,8 +288,7 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
-            easing?: () => void;
+            easing?: (t: number) => number;
         }
 
         interface RotateOptions {
@@ -279,8 +316,7 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
-            easing?: () => void;
+            easing?: (t: number) => number
         }
 
         interface ZoomOptions {
@@ -303,8 +339,7 @@ declare module olx {
             /**
              * The easing function to use. Can be an ol.easing or a custom function. Default is ol.easing.upAndDown.
              */
-            // TODO: Check if it is an ol.easing function
-            easing?: () => void;
+            easing?: (t: number) => number
         }
     }
 
@@ -642,6 +677,53 @@ declare module olx {
             maxZoom?: number;
         }
     }
+
+    module format {
+
+        interface GeoJSONOptions {
+
+            /**
+             * Default data projection.
+             */
+            defaultDataProjection?: ol.proj.ProjectionLike | ol.proj.Projection;
+
+            /**
+             * Geometry name to use when creating features
+             */
+            geometryName?: string;
+        }
+
+        interface ReadOptions {
+
+            /**
+             * Projection of the data we are reading. If not provided, the projection will be derived from the data (where possible) or the defaultDataProjection of the format is assigned (where set). If the projection can not be derived from the data and if no defaultDataProjection is set for a format, the features will not be reprojected.
+             */
+            dataProjection?: ol.proj.ProjectionLike | ol.proj.Projection;
+
+            /**
+             * Projection of the feature geometries created by the format reader. If not provided, features will be returned in the dataProjection.
+             */
+            featureProjection?: ol.proj.ProjectionLike | ol.proj.Projection;
+        }
+
+        interface WriteOptions {
+
+            /**
+             * Projection of the data we are writing. If not provided, the defaultDataProjection of the format is assigned (where set). If no defaultDataProjection is set for a format, the features will be returned in the featureProjection.
+             */
+            dataProjection?: ol.proj.ProjectionLike | ol.proj.Projection;
+
+            /**
+             * Projection of the feature geometries that will be serialized by the format writer.
+             */
+            featureProjection?: ol.proj.ProjectionLike | ol.proj.Projection;
+
+            /**
+             * When writing geometries, follow the right-hand rule for linear ring orientation. This means that polygons will have counter-clockwise exterior rings and clockwise interior rings. By default, coordinates are serialized as they are provided at construction. If true, the right-hand rule will be applied. If false, the left-hand rule will be applied (clockwise for exterior and counter-clockwise for interior rings). Note that not all formats support this. The GeoJSON format does use this property when writing geometries.
+             */
+            rightHanded?: boolean;
+        }
+    }
 }
 
 /**
@@ -836,7 +918,8 @@ declare module ol {
          * @constructor
          * @param geometry Geometry.
          */
-        constructor(geometry: ol.geom.Geometry);
+        // TODO: replace any with Object <string, *>
+        constructor(geometryOrProperties?: ol.geom.Geometry | any);
 
         /**
          * Clone this feature. If the original feature has a geometry it is also cloned. The feature id is not set in the clone.
@@ -859,21 +942,19 @@ declare module ol {
         /**
          * @returns Id.
          */
-        getId(): string;
+        getId(): string | number;
 
         /**
          * Get the feature's style. This return for this method depends on what was provided to the ol.Feature#setStyle method.
          * The feature style.
          */
-        // TODO: Implement FeatureStyleFunction
-        getStyle(): ol.style.Style | Array<ol.style.Style> | any;
+        getStyle(): ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction;
 
         /**
          * Get the feature's style function.
          * @returns Return a function representing the current style of this feature.
          */
-        // TODO: Implement FeatureStyleFunction
-        getStyleFunction(): any;
+        getStyleFunction(): ol.FeatureStyleFunction;
 
         /**
          * Set the default geometry for the feature. This will update the property with the name returned by ol.Feature#getGeometryName.
@@ -892,16 +973,30 @@ declare module ol {
          * @param id The feature id.
          */
         setId(id: number): void;
+
+        /**
+         * Set the feature id. The feature id is considered stable and may be used when requesting features or comparing identifiers returned from a remote source. The feature id can be used with the ol.source.Vector#getFeatureById method.
+         * @param id The feature id.
+         */
         setId(id: string): void;
 
         /**
          * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
          * @param style Style for this feature.
          */
-        // TODO: Implement FeatureStyleFunction
         setStyle(style: ol.style.Style): void;
+
+        /**
+         * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
+         * @param style Style for this feature.
+         */
         setStyle(style: Array<ol.style.Style>): void;
-        setStyle(style: any): void;
+
+        /**
+         * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
+         * @param style Style for this feature.
+         */
+        setStyle(style: ol.FeatureStyleFunction): void;
     }
 
     /**
@@ -937,14 +1032,13 @@ declare module ol {
          * Get the style for features. This returns whatever was passed to the style option at construction or to the setStyle method.
          * @returns Overlay style.
          */
-        // TODO: implement stylefunction
-        getStyle(): ol.style.Style | Array<ol.style.Style> | any;
+        getStyle(): ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
 
         /**
          * Get the style function
          * @returns Style function
          */
-        getStyleFunction(): any;
+        getStyleFunction(): ol.style.StyleFunction;
 
         /**
          * Remove a feature from the overlay.
@@ -968,10 +1062,19 @@ declare module ol {
          * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
          * @param style Overlay style
          */
-        // TODO: implement stylefunction
         setStyle(style: ol.style.Style): void;
+
+        /**
+         * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
+         * @param style Overlay style
+         */
         setStyle(style: Array<ol.style.Style>): void;
-        setStyle(style: any): void;
+
+        /**
+         * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
+         * @param style Overlay style
+         */
+        setStyle(style: ol.style.StyleFunction): void;
     }
 
     /**
@@ -1109,7 +1212,21 @@ declare module ol {
          * @param context Object.
          * @returns Image.
          */
-        getImage(context: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement): Image;
+        getImage(context: HTMLCanvasElement): Image;
+
+        /**
+         * Get the HTML image element (may be a Canvas, Image, or Video).
+         * @param context Object.
+         * @returns Image.
+         */
+        getImage(context: HTMLImageElement): Image;
+
+        /**
+         * Get the HTML image element (may be a Canvas, Image, or Video).
+         * @param context Object.
+         * @returns Image.
+         */
+        getImage(context: HTMLVideoElement): Image;
     }
 
     /**
@@ -1128,7 +1245,22 @@ declare module ol {
          * @param context Object.
          * @returns Image.
          */
-        getImage(context: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement): Image;
+        getImage(context: HTMLCanvasElement): Image;
+
+        /**
+         * Get the HTML image element for this tile (may be a Canvas, Image, or Video).
+         * @param context Object.
+         * @returns Image.
+         */
+        getImage(context: HTMLImageElement): Image;
+
+        /**
+         * Get the HTML image element for this tile (may be a Canvas, Image, or Video).
+         * @param context Object.
+         * @returns Image.
+         */
+        getImage(context: HTMLVideoElement): Image;
+
     }
 
     /**
@@ -1184,8 +1316,7 @@ declare module ol {
          * Add functions to be called before rendering. This can be used for attaching animations before updating the map's view. The ol.animation namespace provides several static methods for creating prerender functions.
          * @param var_args Any number of pre-render functions.
          */
-        // TODO: Implement PreRenderFunction
-        beforeRender(var_args: any): void;
+        beforeRender(var_args: ol.PreRenderFunction): void;
 
         /**
          * Detect features that intersect a pixel on the viewport, and execute a callback with each intersecting feature. Layers included in the detection can be configured through opt_layerFilter. Feature overlays will always be included in the detection.
@@ -1358,9 +1489,14 @@ declare module ol {
 
         /**
          * Set the target element to render this map into.
-         * @param target The Element or id of the Element that the map is rendered in.
+         * @param target The Element that the map is rendered in.
          */
         setTarget(target: Element): void;
+
+        /**
+         * Set the target element to render this map into.
+         * @param target The id of the element that the map is rendered in.
+         */
         setTarget(target: string): void;
 
         /** 
@@ -1393,8 +1529,7 @@ declare module ol {
         /**
          * The frame state at the time of the event
          */
-        // TODO: Replace with olx.FrameState
-        frameState: any;
+        frameState: olx.FrameState;
 
         /**
          * The map where the event occured
@@ -1433,8 +1568,7 @@ declare module ol {
         /**
          * The frame state at the time of the event.
          */
-        // TODO: Replace with olx.FrameState
-        frameState: any;
+        frameState: olx.FrameState;
 
         /**
          * The map where the event occurred.
@@ -1846,29 +1980,25 @@ declare module ol {
          * Generate an animated transition that will "bounce" the resolution as it approaches the final value.
          * @param options Bounce options.
          */
-        //TODO: return ol.PreRenderFunction
-        function bounce(options: olx.animation.BounceOptions): any;
+        function bounce(options: olx.animation.BounceOptions): ol.PreRenderFunction;
         
         /**
          * Generate an animated transition while updating the view center.
          * @param options Pan options.
          */
-        //TODO: return ol.PreRenderFunction
-        function pan(options: olx.animation.PanOptions): any;
+        function pan(options: olx.animation.PanOptions): ol.PreRenderFunction;
 
         /**
          * Generate an animated transition while updating the view rotation.
          * @param options Rotate options.
          */
-        //TODO: return ol.PreRenderFunction
-        function rotate(options: olx.animation.RotateOptions): any;
+        function rotate(options: olx.animation.RotateOptions): ol.PreRenderFunction;
 
         /**
          * Generate an animated transition while updating the view resolution.
          * @param options Zoom options.
          */
-        //TODO: return ol.PreRenderFunction
-        function zoom(options: olx.animation.ZoomOptions): any;
+        function zoom(options: olx.animation.ZoomOptions): ol.PreRenderFunction;
     }
 
     /**
@@ -1881,6 +2011,11 @@ declare module ol {
          * @param color Color.
          */
         function asArray(color: ol.Color): ol.Color;
+
+        /**
+         * Return the color as an array. This function maintains a cache of calculated arrays which means the result should not be modified.
+         * @param color Color.
+         */
         function asArray(color: string): ol.Color;
 
         /**
@@ -1888,6 +2023,11 @@ declare module ol {
          * @param color Color.
          */
         function asString(color: ol.Color): string;
+
+        /**
+         * Return the color as an rgba string.
+         * @param color Color.
+         */
         function asString(color: string): string;
     }
 
@@ -1937,9 +2077,94 @@ declare module ol {
     }
 
     module coordinate {
+
+        /**
+         * Add delta to coordinate. coordinate is modified in place and returned by the function.
+         * @param coordinate Coordinate
+         * @param delta Delta
+         * @returns The input coordinate adjusted by the given delta. 
+         */
+        function add(coordinate: ol.Coordinate, delta: ol.Coordinate): ol.Coordinate;
+
+        /**
+         * Returns a ol.CoordinateFormatType function that can be used to format a {ol.Coordinate} to a string.
+         * @param fractionDigits The number of digits to include after the decimal point. Default is 0.
+         * @returns Coordinate format
+         */
+        function createStringXY(fractionDigits?: number): ol.CoordinateFormatType;
+
+        /**
+         * Transforms the given ol.Coordinate to a string using the given string template. The strings {x} and {y} in the template will be replaced with the first and second coordinate values respectively.
+         * @param coordinate Coordinate
+         * @param template A template string with {x} and {y} placeholders that will be replaced by first and second coordinate values.
+         * @param fractionDigits The number of digits to include after the decimal point. Default is 0.
+         * @returns Formatted coordinate
+         */
+        function format(coordinate: ol.Coordinate, template: string, fractionDigits?: number): string;
+
+        /**
+         * Rotate coordinate by angle. coordinate is modified in place and returned by the function.
+         * @param coordinate Coordinate
+         * @param angle Angle in radian
+         * @returns Coordinatee
+         */
+        function rotate(coordinate: ol.Coordinate, angle: number): ol.Coordinate;
+
+        /**
+         * Format a geographic coordinate with the hemisphere, degrees, minutes, and seconds.
+         * @param coordinate COordinate
+         * @returns Hemisphere, degrees, minutes and seconds. 
+         */
+        function toStringHDMS(coordinate?: ol.Coordinate): string;
+
+        /**
+         * Format a coordinate as a comma delimited string.
+         * @param coordinate Coordinate
+         * @param fractionDigits The number of digits to include after the decimal point. Default is 0.
+         * @returns XY
+         */
+        function toStringXY(coordinate?: ol.Coordinate, fractionDigits?: number): string;
     }
 
+    /**
+     * Easing functions for ol.animation.
+     */
     module easing {
+
+        /**
+         * Start slow and speed up.
+         * @param number Input between 0 and 1
+         * @returns Output between 0 and 1
+         */
+        function easeIn(t: number): number;
+
+        /**
+         * Start fast and slow down.
+         * @param number Input between 0 and 1
+         * @returns Output between 0 and 1
+         */
+        function easeOut(t: number): number;
+
+        /**
+        * Start slow, speed up, and then slow down again.
+        * @param number Input between 0 and 1
+        * @returns Output between 0 and 1
+        */
+        function inAndOut (t: number): number;
+
+        /**
+        * Maintain a constant speed over time.
+        * @param number Input between 0 and 1
+        * @returns Output between 0 and 1
+        */
+        function linear(t: number): number;
+
+        /**
+        * Start slow, speed up, and at the very end slow down again. This has the same general behavior as ol.easing.inAndOut, but the final slowdown is delayed.
+        * @param number Input between 0 and 1
+        * @returns Output between 0 and 1
+        */
+        function upAndDown(t: number): number;
     }
 
     module events {
@@ -1948,9 +2173,172 @@ declare module ol {
     }
 
     module extent {
+
+        /**
+         * Apply a transform function to the extent.
+         * @param extent Extent
+         * @param transformFn Transform function. Called with [minX, minY, maxX, maxY] extent coordinates.
+         * @param destinationExtent Destination Extent
+         * @returns Extent
+         */
+        function applyTransform(extent: ol.Extent, transformFn: ol.TransformFunction, destinationExtent?: ol.Extent): ol.Extent;
+
+        /**
+         * Build an extent that includes all given coordinates.
+         * @param coordinates Coordinates
+         * @returns Bounding extent
+         */
+        function boundingExtent(coordinates: Array<ol.Coordinate>): ol.Extent;
+
+        /**
+         * Return extent increased by the provided value.
+         * @param extent Extent
+         * @param value The amount by which the extent should be buffered.
+         * @param destinationExtent Destination Extent
+         * @returns Extent
+         */
+        function buffer(extent: ol.Extent, value: number, destinationExtent?: ol.Extent): ol.Extent;
+
+        /**
+         * Check if the passed coordinate is contained or on the edge of the extent.
+         * @param extent Extent
+         * @param coordinate Coordinate
+         * @returns The coordinate is contained in the extent
+         */
+        function containsCoordinate(extent: ol.Extent, coordinate: ol.Coordinate): boolean;
+
+        /**
+         * Check if one extent contains another. An extent is deemed contained if it lies completely within the other extent, including if they share one or more edges.
+         * @param extent1 Extent 1
+         * @param extent2 Extent 2
+         * @returns The second extent is contained by or on the edge of the first
+         */
+        function containsExtent(extent1: ol.Extent, extent2: ol.Extent): boolean;
+
+        /**
+         * Check if the passed coordinate is contained or on the edge of the extent.
+         * @param extent Extent
+         * @param x X coordinate
+         * @param y Y coordinate
+         * @returns The x, y values are contained in the extent. 
+         */
+        function containsXY(extent: ol.Extent, x: number, y: number): boolean;
+
+        /**
+         * Create an empty extent.
+         * @returns Empty extent
+         */
+        function createEmpty(): ol.Extent;
+
+        /**
+         * Determine if two extents are equivalent.
+         * @param extent1 Extent 1
+         * @param extent2 Extent 2
+         * @returns The two extents are equivalent
+         */
+        function equals(extent1: ol.Extent, extent2: ol.Extent): boolean;
+
+        /**
+         * Modify an extent to include another extent.
+         * @param extent1 The extent to be modified.
+         * @param extent2 The extent that will be included in the first.
+         * @returns A reference to the first (extended) extent.
+         */
+        function extend(extent1: ol.Extent, extent2: ol.Extent): ol.Extent;
+
+        /**
+         * Get the bottom left coordinate of an extent.
+         * @param extent Extent
+         * @returns Bottom left coordinate
+         */
+        function getBottomLeft(extent: ol.Extent): ol.Coordinate;
+
+        /**
+         * Get the bottom right coordinate of an extent.
+         * @param extent Extent
+         * @returns Bottom right coordinate
+         */
+        function getBottomRight(extent: ol.Extent): ol.Coordinate;
+
+        /**
+         * Get the center coordinate of an extent.
+         * @param extent Extent
+         * @returns Center
+         */
+        function getCenter(extent: ol.Extent): ol.Coordinate;
+
+        /**
+         * Get the height of an extent.
+         * @param extent Extent
+         * @returns Height
+         */
+        function getHeight(extent: ol.Extent): number;
+
+        /**
+         * Get the intersection of two extents.
+         * @param extent1 Extent 1
+         * @param extent2 Extent 2
+         * @param extent Optional extent to populate with intersection.
+         * @returns Intersecting extent
+         */
+        function getIntersection(extent1: ol.Extent, extent2: ol.Extent, extent?: ol.Extent): ol.Extent;
+
+        /**
+         * Get the size (width, height) of an extent.
+         * @param extent Extent
+         * @returns The extent size
+         */
+        function getSize(extent: ol.Extent): ol.Size;
+
+        /**
+         * Get the top left coordinate of an extent.
+         * @param extent Extent
+         * @returns Top left coordinate
+         */
+        function getTopLeft(extent: ol.Extent): ol.Coordinate;
+
+        /**
+         * Get the top right coordinate of an extent.
+         * @param extent Extent
+         * @returns Top right coordinate
+         */
+        function getTopRight(extent: ol.Extent): ol.Coordinate;
+
+        /**
+         * Get the width of an extent.
+         * @param extent Extent
+         * @returns Width
+         */
+        function getWidth(extent: ol.Extent): number;
+
+        /**
+         * Determine if one extent intersects another.
+         * @param extent1 Extent 1
+         * @param extent2 Extent 2
+         * @returns The two extents intersects
+         */
+        function intersects(extent1: ol.Extent, extent2: ol.Extent): boolean;
+
+        /**
+         * Determine if an extent is empty.
+         * @param extent Extent
+         * @returns Is empty
+         */
+        function isEmpty(extent: ol.Extent): boolean;
     }
 
+    /**
+     * Loading mechanisms for vector data.
+     */
     module featureloader {
+
+        /**
+         * Create an XHR feature loader for a url and format. The feature loader loads features (with XHR), parses the features, and adds them to the vector source.
+         * @param url Feature URL Service
+         * @param format Feature format
+         * @returns The feature loader
+         */
+        function xhr(url: string, format: ol.format.Feature): ol.FeatureLoader;
     }
 
     module format {
@@ -1965,7 +2353,95 @@ declare module ol {
         class Feature {
         }
 
-        class GeoJSON {
+        /**
+         * Feature format for reading and writing data in the GeoJSON format.
+         */
+        class GeoJSON extends ol.format.JSONFeature {
+            
+            /**
+             * @constructor
+             * @param Options
+             */
+            constructor(options?: olx.format.GeoJSONOptions);
+
+            /**
+             * Read a feature from a GeoJSON Feature source. Only works for Feature, use readFeatures to read FeatureCollection source.
+             * @param source Source
+             * @param options Read options
+             * @returns Feature
+             */
+            readFeature(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.Feature;
+    
+            /**
+             * Read all features from a GeoJSON source. Works with both Feature and FeatureCollection sources.
+             * @param source Source
+             * @param options Read options
+             * @returns Features
+             */
+            readFeatures(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): Array<ol.Feature>;
+
+            /**
+             * Read a geometry from a GeoJSON source.
+             * @param source Source
+             * @param options Read options
+             * @returns Geometry
+             */
+            readGeometry(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.geom.Geometry;
+
+            /**
+             * Read the projection from a GeoJSON source.
+             * @param Source
+             * @returns Projection
+             */
+            readProjection(source: Document | Node | JSON | string): ol.proj.Projection;
+
+            /**
+             * Encode a feature as a GeoJSON Feature string.
+             * @param feature Feature
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeFeature(feature: ol.Feature, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Encode a feature as a GeoJSON Feature object.
+             * @param feature Feature
+             * @param options Write options
+             * @returns GeoJSON object
+             */
+            writeFeatureObject(feature: ol.Feature, options?: olx.format.WriteOptions): JSON;
+
+            /**
+             * Encode an array of features as GeoJSON.
+             * @param features Features
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeFeatures(features: Array<ol.Feature>, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Encode an array of features as a GeoJSON object.
+             * @param features Features
+             * @param options Write options
+             * @returns GeoJSON object
+             */
+            writeFeaturesObject(features: Array<ol.Feature>, options?: olx.format.WriteOptions): JSON;
+
+            /**
+             * Encode a geometry as a GeoJSON string.
+             * @param geometry Geometry
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeGeometry(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Encode a geometry as a GeoJSON object.
+             * @param geometry Geometry
+             * @options Write options
+             * @returns GeoJSON object
+             */
+            writeGeometryObject(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): JSON;
         }
 
         class GML {
@@ -2035,7 +2511,25 @@ declare module ol {
         class Circle {
         }
 
-        class Geometry {
+        /**
+         * Abstract base class; normally only used for creating subclasses and not instantiated in apps. Base class for vector geometries.
+         */
+        class Geometry extends ol.Object {
+
+            /**
+             * Return the closest point of the geometry to the passed point as coordinate.
+             * @param point Point
+             * @param closestPoint Closest Point
+             * @returns Closest Point
+             */
+            getClosestPoint(point: ol.Coordinate, closestPoint?: ol.Coordinate): ol.Coordinate;
+
+            /**
+             * Get the extent of the geometry.
+             * @param Extent
+             * @returns Extent
+             */
+            getExtent(extent?: ol.Extent): ol.Extent;
         }
 
         class GeometryCollection {
@@ -2431,15 +2925,13 @@ declare module ol {
             /**
              * Get the style for features. This returns whatever was passed to the style option at construction or to the setStyle method.
              */
-            // TODO: Replace returntype any with ol.style.StyleFunction
-            getStyle(): ol.style.Style | Array<ol.style.Style> | any;
+            getStyle(): ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
 
             /**
              * Get the style function.
              * @returns Layer style function
              */
-            // TODO: Replace returntype any with ol.style.StyleFunction
-            getStyleFunction(): any;
+            getStyleFunction(): ol.style.StyleFunction;
 
             /**
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
@@ -2462,12 +2954,34 @@ declare module ol {
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
              * @param Layer style
              */
-            // TODO: Replace 'any' with ol.style.StyleFunction
-            setStyle(style: any): void;
+            setStyle(style: ol.style.StyleFunction): void;
         }
     }
 
     module loadingstrategy {
+
+        /**
+         * Strategy function for loading all features with a single request.
+         * @param extent Extent
+         * @param resolution Resolution
+         * @returns Extents
+         */
+        function all(extent: ol.Extent, resolution: number): Array<ol.Extent>;
+
+        /**
+         * Strategy function for loading features based on the view's extent and resolution.
+         * @param extent Extent
+         * @param resolution Resolution
+         * @returns Extents
+         */
+        function bbox(extent: ol.Extent, resolution: number): Array<ol.Extent>;
+
+        /**
+         * Creates a strategy function for loading features based on a tile grid.
+         * @param tilegrid Tile grid
+         * @returns Loading strategy
+         */
+        function tile(tileGrid: ol.tilegrid.TileGrid): ol.LoadingStrategy;
     }
 
     module proj {
@@ -2525,8 +3039,7 @@ declare module ol {
          * @param destination Destination.
          * @returns Transform function.
          */
-        // TODO: Transformfunction
-        function getTransform(source: ProjectionLike, destination: ProjectionLike): any;
+        function getTransform(source: ProjectionLike, destination: ProjectionLike): ol.TransformFunction;
 
         /**
          * Transforms a coordinate to longitude/latitude.
@@ -2695,6 +3208,11 @@ declare module ol {
 
         class Text {
         }
+
+        /**
+         * A function that takes an ol.Feature and a {number} representing the view's resolution. The function should return an array of ol.style.Style. This way e.g. a vector layer can be styled.
+         */
+        interface StyleFunction { (feature: ol.Feature, resolution: number): ol.style.Style }
     }
 
     module tilegrid {
@@ -2713,8 +3231,7 @@ declare module ol {
             /**
              * Creates a TileCoord transform function for use with this tile grid. Transforms the internal tile coordinates with bottom-left origin to the tile coordinates used by the ol.TileUrlFunction. The returned function expects an ol.TileCoord as first and an ol.proj.Projection as second argument and returns a transformed ol.TileCoord.
              */
-            // TODO: Check if this is correct, unclear in documentation
-            createTileCoordTransform(): any;
+            createTileCoordTransform(): { (tilecoord: ol.TileCoord, projection: ol.proj.Projection): ol.TileCoord };
 
             /**
              * Get the maximum zoom level for the grid.
@@ -2823,7 +3340,13 @@ declare module ol {
     module webgl {
 
         class Context {
-            new(canvas: HTMLCanvasElement, gl: WebGLRenderingContext): Context;
+
+            /**
+             * @constructor
+             * @param canvas HTML Canvas Element
+             * @param gl WebGL Rendering context
+             */
+            constructor(canvas: HTMLCanvasElement, gl: WebGLRenderingContext);
 
             /** 
             Get the WebGL rendering context
@@ -2864,11 +3387,6 @@ declare module ol {
     interface Coordinate extends Array<number> { }
 
     /** 
-     * A function that takes a ol.Coordinate and transforms it into a {string}. 
-     */
-    function CoordinateFormatType(coordinate?: Coordinate): string;
-
-    /** 
      * An array of numbers representing an extent: [minx, miny, maxx, maxy]. 
      */
     interface Extent extends Array<number> { }
@@ -2900,8 +3418,33 @@ declare module ol {
 
     // Functions 
 
+    /** 
+     * A function that takes a ol.Coordinate and transforms it into a {string}. 
+     */
+    interface CoordinateFormatType { (coordinate?: Coordinate): string; }
+
+    /**
+     * Implementation based on the code of OpenLayers, no documentation available (yet). If it is incorrect, please create an issue and I will change it.
+     */
+    interface FeatureLoader { (extent: ol.Extent, number: number, projection: ol.proj.Projection): Array<Feature> }
+
+    /**
+     * A function that returns a style given a resolution. The this keyword inside the function references the ol.Feature to be styled.
+     */
+    interface FeatureStyleFunction { (resolution: number): ol.style.Style }
+
+    /**
+     * Loading strategy
+     */
+    interface LoadingStrategy { (extent: ol.Extent, resolution: number): Array<ol.Extent> }
+
+    /**
+     * Function to perform manipulations before rendering. This function is called with the ol.Map as first and an optional olx.FrameState as second argument. Return true to keep this function for the next frame, false to remove it.
+     */
+    interface PreRenderFunction { (map: ol.Map, frameState?: olx.FrameState): boolean }
+
     /**
      * A transform function accepts an array of input coordinate values, an optional output array, and an optional dimension (default should be 2). The function transforms the input coordinate values, populates the output array, and returns the output array.
      */
-    function TransformFunction(input: Array<number>, output?: Array<number>, dimension?: number): Array<number>;
+    interface TransformFunction { (input: Array<number>, output?: Array<number>, dimension?: number): Array<number> }
 }
