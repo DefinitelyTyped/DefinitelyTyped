@@ -58,13 +58,13 @@ declare module Qwest {
 	interface Promise {
 		
 		/** Request is successful */
-		then(callback: (xhr: XMLHttpRequest, response: any) => any): Promise;
+		then(callback: (response: any) => any): Promise;
 		
 		/** Request has failed */
-		catch(callback: (xhr: XMLHttpRequest, response: any) => any): Promise;
+		catch(callback: (e: any, response: any) => any): Promise;
 		
 		/** Always run */
-		complete(callback: (response: any) => any): Promise;
+		complete(callback: () => any): Promise;
 	}
 
 	interface Options {

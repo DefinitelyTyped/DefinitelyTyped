@@ -76,3 +76,7 @@ qwest.get('foo', null, {
 	attempts: 7
 })
 qwest.get('foo', null, {})
+
+qwest.get('foo', null, {}).complete(() => {
+	//done
+})
