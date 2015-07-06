@@ -2508,10 +2508,10 @@ declare module _ {
 	* @return (Array): Returns array.
 	**/
 	fill<T>(
-	    array: Array,
+	    array: Array<any>,
 	    value: any,
 	    start?: number,
-	    end?: number): T;
+	    end?: number): Array<any>;
     }
 
     //_.filter
