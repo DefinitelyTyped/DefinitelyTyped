@@ -10,7 +10,7 @@
   }
 
 
-  var fill = d3.scale.category20();
+  var fill = d3.scale.category20<number>();
   d3.layout.cloud().size([300, 300])
       .words([
         "Hello", "world", "normally", "you", "want", "more", "words",

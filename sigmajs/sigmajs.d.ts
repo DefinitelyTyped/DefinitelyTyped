@@ -15,8 +15,15 @@ declare module SigmaJs{
         graphPosition(x: number, y:number): {x: number; y: number};
         ratio: number;
         readPrefix: string;
+        settings(setting: string) : any;
         x: number;
         y: number;
+    }
+
+    interface Canvas {
+        edges: {[renderType: string]: (edge: Edge, source: Node, target: Node, ...a:any[]) => void};
+        labels: {[renderType: string]: (node: Node, ...a:any[]) => void};
+        nodes: {[renderType: string]: (node: Node, ...a:any[]) => void};
     }
 
     interface Classes {
@@ -39,6 +46,7 @@ declare module SigmaJs{
     }
 
     interface Edge {
+        [key : string] : any;
         color?: string;
         id: string;
         size?: number;
@@ -74,6 +82,11 @@ declare module SigmaJs{
         nodes(ids: string[]): Node[];
     }
 
+    interface GraphData {
+        edges: Edge[];
+        nodes: Node[];
+    }
+
     interface Image {
         clip?: number;
         scale?: number;
@@ -87,6 +100,7 @@ declare module SigmaJs{
     }
 
     interface Node {
+        [key : string] : any;
         color?: string;
         id: string;
         image?: any;
@@ -149,7 +163,7 @@ declare module SigmaJs{
 
     interface SigmaConfigs {
         container?: Element;
-        graph?: Graph;
+        graph?: GraphData;
         id?: string;
         renderers?: Renderer[];
         settings?: { [index: string]: any };
@@ -160,10 +174,12 @@ declare module SigmaJs{
         new(container: string): Sigma;
         new(container: Element): Sigma;
         new(configuration: SigmaConfigs): Sigma;
+        canvas: Canvas;
         classes:Classes;
         misc: Miscellaneous;
         parsers: Parsers;
         plugins: Plugins;
+        svg: SVG;
     }
 
     interface Settings {
@@ -268,6 +284,17 @@ declare module SigmaJs{
 
         // Animation settings
         animationsTime?: number;
+    }
+
+    interface SVG {
+        edges: {[renderType: string]: SVGObject<SigmaJs.Edge>};
+        labels: {[renderType: string]: SVGObject<SigmaJs.Node>};
+        nodes: {[renderType: string]: SVGObject<SigmaJs.Node>};
+    }
+
+    interface SVGObject<T> {
+        create: (object: T, ...a:any[]) => Element;
+        update: (object: T, ...a:any[]) => void;
     }
 }
 

@@ -1671,7 +1671,7 @@ declare module dojo {
      * @param selector A CSS selector to search for.     
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
-    interface query{(selector: String, context?: String): void}
+    interface query{(selector: String, context?: String): NodeList}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
      *
@@ -1713,7 +1713,7 @@ declare module dojo {
      * @param selector A CSS selector to search for.     
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
-    interface query{(selector: String, context?: HTMLElement): void}
+    interface query{(selector: String, context?: HTMLElement): NodeList}
     interface query {
         /**
          * can be used as AMD plugin to conditionally load new query engine
@@ -4873,7 +4873,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: any[], callback: Function, thisObject: Object): boolean;
+            every(arr: any[], callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -4887,7 +4887,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: String, callback: Function, thisObject: Object): boolean;
+            every(arr: String, callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -4901,7 +4901,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: any[], callback: String, thisObject: Object): boolean;
+            every(arr: any[], callback: String, thisObject?: Object): boolean;
             /**
              * Determines whether or not every item in arr satisfies the
              * condition implemented by callback.
@@ -4915,7 +4915,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            every(arr: String, callback: String, thisObject: Object): boolean;
+            every(arr: String, callback: String, thisObject?: Object): boolean;
             /**
              * Returns a new Array with those items from arr that match the
              * condition implemented by callback.
@@ -4929,7 +4929,7 @@ declare module dojo {
              * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            filter(arr: any[], callback: Function, thisObject: Object): any[];
+            filter(arr: any[], callback: Function, thisObject?: Object): any[];
             /**
              * Returns a new Array with those items from arr that match the
              * condition implemented by callback.
@@ -4943,7 +4943,7 @@ declare module dojo {
              * @param callback a function that is invoked with three arguments (item,index, array). The return of this function is expected tobe a boolean which determines whether the passed-in itemwill be included in the returned array.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            filter(arr: any[], callback: String, thisObject: Object): any[];
+            filter(arr: any[], callback: String, thisObject?: Object): any[];
             /**
              * for every item in arr, callback is invoked. Return values are ignored.
              * If you want to break out of the loop, consider using array.every() or array.some().
@@ -5020,7 +5020,7 @@ declare module dojo {
              * @param fromIndex               Optional            
              * @param findLast               OptionalMakes indexOf() work like lastIndexOf().  Used internally; not meant for external usage.             
              */
-            indexOf(arr: any[], value: Object, fromIndex: number, findLast: boolean): number;
+            indexOf(arr: any[], value: Object, fromIndex?: number, findLast?: boolean): number;
             /**
              * locates the last index of the provided value in the passed
              * array. If the value is not found, -1 is returned.
@@ -5036,7 +5036,7 @@ declare module dojo {
              * @param value             
              * @param fromIndex               Optional            
              */
-            lastIndexOf(arr: any, value: any, fromIndex: number): number;
+            lastIndexOf(arr: any, value: any, fromIndex?: number): number;
             /**
              * applies callback to each element of arr and returns
              * an Array with the results
@@ -5110,7 +5110,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: any[], callback: Function, thisObject: Object): boolean;
+            some(arr: any[], callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5124,7 +5124,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: String, callback: Function, thisObject: Object): boolean;
+            some(arr: String, callback: Function, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5138,7 +5138,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: any[], callback: String, thisObject: Object): boolean;
+            some(arr: any[], callback: String, thisObject?: Object): boolean;
             /**
              * Determines whether or not any item in arr satisfies the
              * condition implemented by callback.
@@ -5152,7 +5152,7 @@ declare module dojo {
              * @param callback a function is invoked with three arguments: item, index,and array and returns true if the condition is met.             
              * @param thisObject               Optionalmay be used to scope the call to callback             
              */
-            some(arr: String, callback: String, thisObject: Object): boolean;
+            some(arr: String, callback: String, thisObject?: Object): boolean;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/connect.html

@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.3+
+// Type definitions for Angular JS 1.4+
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -249,6 +249,16 @@ declare module angular {
         isString(value: any): boolean;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
+        
+        /**
+         * Deeply extends the destination object dst by copying own enumerable properties from the src object(s) to dst. You can specify multiple src objects. If you want to preserve original objects, you can do so by passing an empty object as the target: var object = angular.merge({}, object1, object2).
+         * 
+         * Unlike extend(), merge() recursively descends into object properties of source objects, performing a deep copy.
+         * 
+         * @param dst Destination object.
+         * @param src Source object(s).
+         */
+        merge(dst: any, ...src: any[]): any;
 
         /**
          * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.
@@ -384,6 +394,14 @@ declare module angular {
         value(name: string, value: any): IModule;
         value(object: Object): IModule;
 
+        /**
+         * Register a service decorator with the $injector. A service decorator intercepts the creation of a service, allowing it to override or modify the behaviour of the service. The object returned by the decorator may be the original service, or a new service object which replaces or wraps and delegates to the original service.
+         * @param name The name of the service to decorate
+         * @param decorator This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments: $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
+         */
+        decorator(name:string, decoratorConstructor: Function): IModule;
+        decorator(name:string, inlineAnnotatedConstructor: any[]): IModule;
+
         // Properties
         name: string;
         requires: string[];
@@ -506,11 +524,11 @@ declare module angular {
     }
 
     interface IModelValidators {
-        [index: string]: (...args: any[]) => boolean;
+        [index: string]: (modelValue: any, viewValue: string) => boolean;
     }
 
     interface IAsyncModelValidators {
-        [index: string]: (...args: any[]) => IPromise<boolean>;
+        [index: string]: (modelValue: any, viewValue: string) => IPromise<any>;
     }
 
     interface IModelParser {
@@ -737,17 +755,37 @@ declare module angular {
         eventFn(element: Node, doneFn: () => void): Function;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // FilterService
-    // see http://docs.angularjs.org/api/ng.$filter
-    // see http://docs.angularjs.org/api/ng.$filterProvider
-    ///////////////////////////////////////////////////////////////////////////
+    /**
+     * $filter - $filterProvider - service in module ng
+     * 
+     * Filters are used for formatting data displayed to the user.
+     * 
+     * see https://docs.angularjs.org/api/ng/service/$filter
+     */
     interface IFilterService {
+        /**
+         * Usage:
+         * $filter(name);
+         * 
+         * @param name Name of the filter function to retrieve
+         */
         (name: string): Function;
     }
 
+    /**
+     * $filterProvider - $filter - provider in module ng
+     * 
+     * Filters are just functions which transform input to an output. However filters need to be Dependency Injected. To achieve this a filter definition consists of a factory function which is annotated with dependencies and is responsible for creating a filter function.
+     * 
+     * see https://docs.angularjs.org/api/ng/provider/$filterProvider
+     */
     interface IFilterProvider extends IServiceProvider {
-        register(name: string, filterFactory: Function): IServiceProvider;
+        /**
+         * register(name);
+         * 
+         * @param name Name of the filter function, or an object map of filters where the keys are the filter names and the values are the filter factories. Note: Filter names must be valid angular Expressions identifiers, such as uppercase or orderBy. Names with special characters, such as hyphens and dots, are not allowed. If you wish to namespace your filters, then you can use capitalization (myappSubsectionFilterx) or underscores (myapp_subsection_filterx).
+         */
+        register(name: string | {}): IServiceProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1026,6 +1064,7 @@ declare module angular {
     ///////////////////////////////////////////////////////////////////////////
     interface IAnchorScrollService {
         (): void;
+        (hash: string): void;
         yOffset: any;
     }
 
@@ -1376,6 +1415,7 @@ declare module angular {
     * https://docs.angularjs.org/api/ng/service/$http#defaults
     */
     interface IHttpProviderDefaults {
+        cache?: boolean;
         xsrfCookieName?: string;
         xsrfHeaderName?: string;
         withCredentials?: boolean;
@@ -1550,7 +1590,7 @@ declare module angular {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
-        bindToController?: boolean;
+        bindToController?: boolean|Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
         name?: string;
         priority?: number;
