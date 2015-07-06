@@ -1,6 +1,6 @@
 // Type definitions for FullCalendar 1.6.1
 // Project: http://arshaw.com/fullcalendar/
-// Definitions by: Neil Stalker <https://github.com/nestalk>
+// Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -99,7 +99,7 @@ declare module FullCalendar {
         selectHelper?: any; // Boolean/Function
         unselectAuto?: boolean;
         unselectCancel?: string;
-        select?: (startDate: Date, endDate: Date, allDay: boolean, jsEvent: MouseEvent, view: View) => void;
+        select?: (startDate: Date | string, endDate: Date | string, allDay: boolean, jsEvent: MouseEvent, view: View) => void;
         unselect?: (view: View, jsEvent: Event) => void;
 
         // Event Data - http://arshaw.com/fullcalendar/docs/event_data/
@@ -109,7 +109,7 @@ declare module FullCalendar {
          *
          * - EventObject[]
          * - string (JSON feed)
-         * - (start: Date, end: Date, callback: {(events: EventObject[]) => void;}) => void;
+         * - (start: Date | string, end: Date | string, callback: {(events: EventObject[]) => void;}) => void;
          */
         events?: any;
 
@@ -119,7 +119,7 @@ declare module FullCalendar {
          * - EventSource
          * - EventObject[]
          * - string (JSON feed)
-         * - (start: Date, end: Date, callback: {(events: EventObject[]) => void;}) => void;
+         * - (start: Date | string, end: Date | string, callback: {(events: EventObject[]) => void;}) => void;
          */
         eventSources?: any[];
 
@@ -164,8 +164,8 @@ declare module FullCalendar {
     export interface View {
         name: string;
         title: string;
-        start: Date;
-        end: Date;
+        start: Date | string;
+        end: Date | string;
         visStart: Date;
         visEnd: Date;
     }
@@ -214,8 +214,8 @@ declare module FullCalendar {
         id?: any // String/number
         title: string;
         allDay?: boolean;
-        start: Date;
-        end?: Date;
+        start: Date | string;
+        end?: Date | string;
         url?: string;
         className?: any; // string/Array<string>
         editable?: boolean;
@@ -233,7 +233,7 @@ declare module FullCalendar {
          *
          * - EventObject[]
          * - string (JSON feed)
-         * - (start: Date, end: Date, callback: {(events: EventObject[]) => void;}) => void;
+         * - (start: Date | string, end: Date | string, callback: {(events: EventObject[]) => void;}) => void;
          */
         events?: any;
 
@@ -312,7 +312,7 @@ interface JQuery {
     /**
      * Moves the calendar to an arbitrary date.
      */
-    fullCalendar(method: 'gotoDate', date: Date): void;
+    fullCalendar(method: 'gotoDate', date: Date | string): void;
 
     /**
      * Moves the calendar forward/backward an arbitrary amount of time.
