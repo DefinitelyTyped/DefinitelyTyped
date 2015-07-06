@@ -539,6 +539,8 @@ declare module "http" {
 		destroy(): void;
 	}
 
+    export var METHODS: string[];
+
     export var STATUS_CODES: {
         [errorCode: number]: string;
         [errorCode: string]: string;
