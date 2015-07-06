@@ -2494,6 +2494,25 @@ declare module _ {
             collection: Dictionary<T>,
             whereValue: W): boolean;
     }
+    
+    interface LoDashStatic {
+	/**
+	* Fills elements of array with value from start up to, but not including, end.
+	*
+	* Note: This method mutates array.
+	*
+	* @param array (Array): The array to fill.
+	* @param value (*): The value to fill array with.
+	* @param [start=0] (number): The start position.
+	* @param [end=array.length] (number): The end position.
+	* @return (Array): Returns array.
+	**/
+	fill<T>(
+	    array: Array,
+	    value: any,
+	    start?: number,
+	    end?: number): T;
+    }
 
     //_.filter
     interface LoDashStatic {
