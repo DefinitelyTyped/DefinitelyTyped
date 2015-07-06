@@ -17,3 +17,14 @@ gulp.task('callback', (cb) =>
             .on('end', cb)
     )
 );
+
+gulp.task('build', () => {
+    var files = [
+        'app/**/*.ts',
+        'lib/**/*.ts',
+        'components/**/*.ts',
+    ];
+
+    gulp.src(files, { base: '..' })
+        .pipe(watch(files, { base: '..' }));
+});
