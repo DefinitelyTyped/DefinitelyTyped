@@ -10,8 +10,8 @@ declare function BlobStream(): BlobStream.IBlobStream;
 declare module BlobStream {
 
     interface IBlobStream extends NodeJS.WritableStream{
-        toBlob(type: string): Blob;
-        toBlobURL(type: string): string;
+        toBlob(type?: string): Blob;
+        toBlobURL(type?: string): string;
     }
 }
 
