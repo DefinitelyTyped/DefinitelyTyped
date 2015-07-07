@@ -35,6 +35,19 @@ $.validator.unobtrusive.adapters
         return null;
     });
 
+// Test `Adapters` indexer
+var adapterName = $.validator.unobtrusive.adapters[0].name;
+
+// Test `Adapters` iterator
+$.each($.validator.unobtrusive.adapters, function (index, adapter) {
+    console.log(adapter.name);
+    console.log(adapter.params);
+    console.log(adapter.adapt);
+});
+
+// Test `Adapters` array
+$.validator.unobtrusive.adapters.push({ name: "adapter", params: ["param1"], adapt: () => { } });
+
 // Test overloads for `parseElement`
 $.validator.unobtrusive.parseElement("form");
 $.validator.unobtrusive.parseElement(document);

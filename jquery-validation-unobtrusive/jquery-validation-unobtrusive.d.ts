@@ -8,10 +8,15 @@
 declare module MicrosoftJQueryUnobtrusiveValidation {
     type JQuerySelector = string | Document | Element | JQuery;
 
-    interface Adapters {
-        [key: string]: Function;
+    interface Adapter {
+        name: string;
+        params: string[];
+        adapt: Function
+    }
+
+    interface Adapters extends Array<Adapter> {
         add(adapterName: string, fn: Function): Adapters;
-        add(adapterName: string, params: any, fn: Function): Adapters;
+        add(adapterName: string, params: string[], fn: Function): Adapters;
         addMinMax(adapterName: string, minRuleName: string, maxRuleName: string, minMaxRuleName: string, minAttribute?: string, maxAttribute?: string): Adapters;
         addSingleVal(adapterName: string, ruleName: string): Adapters;
         addSingleVal(adapterName: string, attribute: string, ruleName: string): Adapters;
