@@ -34,10 +34,6 @@ declare module AtomCore {
 		content():any;
     }
 
-    interface Disposable {
-        dispose();
-    }
-
 	interface Decoration
 	{
 	    destroy(): void;
@@ -171,8 +167,9 @@ declare module AtomCore {
   }
 
   interface ICommandRegistry {
-    add(selector: string, name: string, callback: (event: any) => void); // selector:'atom-editor'|'atom-workspace'
-		dispatch(selector: any, name:string);
+    add(selector: string, name: string, callback: (event: any) => void): void; // selector:'atom-editor'|'atom-workspace'
+    findCommands(params: Object): Object[];
+		dispatch(selector: any, name:string): void;
   }
 
   interface ICommandPanel {
@@ -896,10 +893,6 @@ declare module AtomCore {
 		onDidChangeCursorPosition(callback: Function): Disposable;
     onDidSave(callback: (event: { path: string }) => void): Disposable;
 
-		screenPositionForPixelPosition: Function;
-    pixelPositionForBufferPosition: Function;
-		getHeight(): number;
-
 		decorateMarker(marker: Marker, options: any): Decoration;
 		getLastCursor(): ICursor;
 	}
@@ -968,7 +961,6 @@ declare module AtomCore {
 		saveItem(item:any, nextAction:Function):void;
 		saveItemAs(item:any, nextAction:Function):void;
 		saveItems():any[];
-		itemForURI(uri:any):any;
 		activateItemForURI(uri:any):any;
 		copyActiveItem():void;
 		splitLeft(params:any):IPane;
@@ -1066,8 +1058,8 @@ declare module AtomCore {
 		getItem():any;
 		getPriority():any;
 		isVisible():boolean;
-		show();
-		hide();
+		show():void;
+		hide():void;
 	}
 
 	interface IWorkspace {
@@ -1270,13 +1262,6 @@ declare module AtomCore {
 		dispose():void
 	}
 
-	class CommandRegistry {
-		add(target:string, commandName:string, callback:Function):Disposable
-		findCommands(params:Object):Object[]
-		dispatch(target:any,commandName:string):void
-	}
-
-
 	// https://atom.io/docs/api/v0.106.0/api/classes/Atom.html
 	/* Global Atom class : instance members */
 	interface IAtom {
@@ -1309,8 +1294,6 @@ declare module AtomCore {
 		workspaceView: IWorkspaceView;
 		workspace: IWorkspace;
 		// really exists? end
-
-		commands: CommandRegistry;
 
 		initialize:Function;
 		// registerRepresentationClass:Function;
