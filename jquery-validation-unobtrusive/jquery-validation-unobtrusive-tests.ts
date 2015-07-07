@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery.validation.unobtrusive.d.ts" />
+﻿/// <reference path="jquery-validation-unobtrusive.d.ts" />
 
 $.validator.unobtrusive.adapters.add("adapter", () => { });
 $.validator.unobtrusive.adapters.add("adapter", function () {
