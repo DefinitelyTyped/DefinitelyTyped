@@ -1173,8 +1173,8 @@ declare module AtomCore {
 		disablePackage(name:string):any;
 		activate():void;
 		registerPackageActivator(activator:any, types:any):void;
-		activatePackages(packages:any):Q.Promise<IPackage>;
-		activatePackage(name:string):any;
+		activatePackages(packages:any):void;
+		activatePackage(name:string):Q.Promise<IPackage>;
 		deactivatePackages():void;
 		deactivatePackage(name:string):void;
 		getActivePackages():any;
@@ -1346,7 +1346,7 @@ declare module AtomCore {
 		beep:Function;
 		getUserInitScriptPath:Function;
 		requireUserInitScript:Function;
-		requireWithGlobals: Function;
+		requireWithGlobals:Function;
 
 		services: any; // TODO: New services api
 	}
