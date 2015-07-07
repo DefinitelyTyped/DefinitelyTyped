@@ -1,7 +1,6 @@
 // Type definitions for Angular Material 0.10.1-rc1+ (angular.material module)
 // Project: https://github.com/angular/material
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions by: Robert Baker <https://github.com/robertbaker>
+// Definitions by: Matt Traynham <https://github.com/mtraynham> and Robert Baker <https://github.com/robertbaker>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -32,24 +31,24 @@ declare module angular.material {
         content(content: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
-        templateUrl(templateUrl?: string);
-        template(template?: string);
-        targetEvent(targetEvent?: MouseEvent);
-        scope(scope?: angular.IScope); // default: new child scope
-        preserveScope(preserveScope?: boolean); // default: false
-        disableParentScroll(disableParentScroll?: boolean); // default: true
-        hasBackdrop(hasBackdrop?: boolean); // default: true
-        clickOutsideToClose(clickOutsideToClose?: boolean); // default: false
-        escapeToClose(escapeToClose?: boolean); // default: true
-        focusOnOpen(focusOnOpen?: boolean); // default: true
-        controller(controller?: string|Function);
-        locals(locals?: {[index: string]: any});
-        bindToController(bindToController?: boolean); // default: false
-        resolve(resolve?: {[index: string]: angular.IPromise<any>})
-        controllerAs(controllerAs?: string);
-        parent(parent?: string|Element|JQuery); // default: root node
-        onComplete(onComplete?: Function);
-        ariaLabel(ariaLabel: string);
+        templateUrl(templateUrl?: string): T;
+        template(template?: string): T;
+        targetEvent(targetEvent?: MouseEvent): T;
+        scope(scope?: angular.IScope): T; // default: new child scope
+        preserveScope(preserveScope?: boolean): T; // default: false
+        disableParentScroll(disableParentScroll?: boolean): T; // default: true
+        hasBackdrop(hasBackdrop?: boolean): T; // default: true
+        clickOutsideToClose(clickOutsideToClose?: boolean): T; // default: false
+        escapeToClose(escapeToClose?: boolean): T; // default: true
+        focusOnOpen(focusOnOpen?: boolean): T; // default: true
+        controller(controller?: string|Function): T;
+        locals(locals?: {[index: string]: any}): T;
+        bindToController(bindToController?: boolean): T; // default: false
+        resolve(resolve?: {[index: string]: angular.IPromise<any>}): T;
+        controllerAs(controllerAs?: string): T;
+        parent(parent?: string|Element|JQuery): T; // default: root node
+        onComplete(onComplete?: Function): T;
+        ariaLabel(ariaLabel: string): T;
     }
 
     interface IAlertDialog extends IPresetDialog<IAlertDialog> {
