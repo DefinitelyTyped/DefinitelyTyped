@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts"/>
 
 declare module "gulp-typescript" {
-    function GulpTypescript(params: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings): GulpTypescript.CompilationStream;
+    function GulpTypescript(params: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
     module GulpTypescript {
         export function createProject(params: Params): Params;
@@ -28,9 +28,19 @@ declare module "gulp-typescript" {
             referencedFrom?: string[];
         }
 
+        interface Reporter {
+            error(error: any): void;
+        }
+
         interface CompilationStream extends NodeJS.ReadWriteStream {
             dts: NodeJS.ReadWriteStream;
             js: NodeJS.ReadWriteStream;
+        }
+
+        module reporter {
+            function nullReporter(): Reporter;
+            function defaultReporter(): Reporter;
+            function fullReporter(showFullFilename?: boolean): Reporter;
         }
     }
 

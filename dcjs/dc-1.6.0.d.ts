@@ -47,8 +47,8 @@ export interface ILegendwidget {
     legend: (l:ILegendwidget) => T;
     chartID: () => number;
     options: (o:Object)=>void ;
-    select: (selector: D3.Selection) => D3.Selection;
-    selectAll: (selector: D3.Selection) => D3.Selection;
+    select: (selector: d3.Selection<any>) => d3.Selection<any>;
+    selectAll: (selector: d3.Selection<any>) => d3.Selection<any>;
   }
 
   export interface IEvents {
@@ -85,8 +85,8 @@ export interface ILegendwidget {
     x: IGetSet<any, T>;
     y: IGetSet<any, T>;
     elasticY: IGetSet<boolean, T>;
-    xAxis: IGetSet<D3.Svg.Axis, T>;
-    yAxis: IGetSet<D3.Svg.Axis, T>;
+    xAxis: IGetSet<d3.svg.Axis, T>;
+    yAxis: IGetSet<d3.svg.Axis, T>;
     yAxisPadding: IGetSet<number, T>;
     xAxisPadding: IGetSet<number, T>;
     renderHorizontalGridLines: IGetSet<boolean, T>;

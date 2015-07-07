@@ -1172,7 +1172,7 @@ declare module Slick {
 		public updateCell(row: number, cell: number): void;
 		public updateRow(row: number): void;
 		public getViewport(viewportTop?: number, viewportLeft?: number): Viewport;
-		public getRenderedRange(viewportTop: number, viewportLeft: number): Viewport;
+		public getRenderedRange(viewportTop?: number, viewportLeft?: number): Viewport;
 		public resizeCanvas(): void;
 		public updateRowCount(): void;
 		public scrollRowIntoView(row: number, doPaging: boolean): void;

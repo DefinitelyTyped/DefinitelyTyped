@@ -46,6 +46,7 @@ declare module SocketIO {
         name: string;
         connected: { [id: string]: Socket };
         use(fn: Function): Namespace;
+        in(room: string): Namespace;
 
         on(event: 'connection', listener: (socket: Socket) => void): Namespace;
         on(event: 'connect', listener: (socket: Socket) => void): Namespace;
@@ -55,9 +56,20 @@ declare module SocketIO {
     interface Socket {
         rooms: string[];
         client: Client;
-        conn: Socket;
+        conn: any;
         request: any;
         id: string;
+        handshake: {
+            headers: any;
+            time: string;
+            address: any;
+            xdomain: boolean;
+            secure: boolean;
+            issued: number;
+            url: string;
+            query: any;
+        };
+
         emit(name: string, ...args: any[]): Socket;
         join(name: string, fn?: Function): Socket;
         leave(name: string, fn?: Function): Socket;
@@ -79,5 +91,6 @@ declare module SocketIO {
     interface Client {
         conn: any;
         request: any;
+        id: string;
     }
 }

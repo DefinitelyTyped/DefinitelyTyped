@@ -81,6 +81,53 @@ myApp.controller('TestCtrl', (
   Restangular.one('accounts', 123).one('buildings', 456).get<String>();
   Restangular.one('accounts', 123).getList('buildings');
   Restangular.one('accounts', 123).getList<String>('buildings');
+  
+  Restangular.setBaseUrl('/api/v1');
+  Restangular.setExtraFields(['name']);
+  Restangular.setResponseExtractor(function (response, operation) {
+      return response.data;
+  });
+
+  Restangular.setDefaultHttpFields({ cache: true });
+  Restangular.setMethodOverriders(["put", "patch"]);
+
+  Restangular.setErrorInterceptor(function (response) {
+      console.error('' + response.status + ' ' + response.data);
+  });
+
+  Restangular.setRequestSuffix('.json');
+
+  Restangular.setRequestInterceptor(function (element, operation, route, url) {
+  });
+
+  Restangular.addElementTransformer('accounts', false, function (elem: any) {
+      elem.accountName = 'Changed';
+      return elem;
+  });
+
+  Restangular.setRestangularFields({
+    id: "_id",
+    route: "restangularRoute",
+    selfLink: "self.href"
+  });
+
+  Restangular.addRequestInterceptor(function(element, operation, route, url) {
+    delete element.name;
+    return element;
+  });
+
+  Restangular.setFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
+    delete element.name;
+    return {
+      element: element,
+      params: params,
+      headers: headers,
+      httpConfig: httpConfig
+    };
+  });
+
+  var accountData = Restangular.one('accounts', 123).plain();
+  var accountClone: restangular.IElement = Restangular.one('accounts', 123).clone();
 
   baseAccounts.getList().then(function (accounts) {
     var firstAccount = accounts[0];

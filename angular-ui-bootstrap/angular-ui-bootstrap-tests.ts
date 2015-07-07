@@ -131,6 +131,7 @@ testApp.controller('TestCtrl', (
     var modalInstance = $modal.open({
         backdrop: 'static',
         controller: 'ModalTestCtrl',
+        controllerAs: 'vm',
         keyboard: true,
         resolve: {
             items: ()=> {
@@ -140,6 +141,7 @@ testApp.controller('TestCtrl', (
         scope: $scope,
         template: "<div>i'm a template!</div>",
         templateUrl: '/templates/modal.html',
+        backdropClass: 'modal-backdrop-test',
         windowClass: 'modal-test'
     });
 

@@ -57,5 +57,6 @@ THE SOFTWARE.
 /// <reference path="./tests/canvas/canvas_materials.ts" />
 /// <reference path="./tests/canvas/canvas_particles_floor.ts" />
 
-// examples test.
+// examples test
 /// <reference path="./tests/examples/detector.ts" />
+/// <reference path="./tests/examples/effects/vreffect.ts" />

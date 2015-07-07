@@ -169,9 +169,7 @@ declare module Backbone {
         **/
         private static extend(properties: any, classProperties?: any): any;
 
-        // TODO: this really has to be typeof TModel
-        //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
+        model: new (...args:any[]) => TModel;
         models: TModel[];
         length: number;
 
@@ -238,7 +236,7 @@ declare module Backbone {
         initial(n: number): TModel[];
         inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         isEmpty(object: any): boolean;
-        invoke(methodName: string, arguments?: any[]): any;
+        invoke(methodName: string, args?: any[]): any;
         last(): TModel;
         last(n: number): TModel[];
         lastIndexOf(element: TModel, fromIndex?: number): number;
