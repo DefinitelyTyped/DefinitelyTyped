@@ -168,14 +168,14 @@ declare module AtomCore {
 		removeLineHighlights():void;
 		addLineHighlight(row:number, emptySelection?:boolean):any;
 		highlightLines():boolean;
-    }
+  }
 
-    interface ICommandRegistry {
-        add(selector: string, name: string, callback: (event: any) => void); // selector:'atom-editor'|'atom-workspace'
+  interface ICommandRegistry {
+    add(selector: string, name: string, callback: (event: any) => void); // selector:'atom-editor'|'atom-workspace'
 		dispatch(selector: any, name:string);
-    }
+  }
 
-    interface ICommandPanel {
+  interface ICommandPanel {
 		// TBD
 	}
 
@@ -603,12 +603,12 @@ declare module AtomCore {
 		subscribeToDisplayBuffer():void;
 		getViewClass():any; // return type are EditorView
 		destroyed():void;
-        isDestroyed():boolean;
+    isDestroyed():boolean;
 		copy():IEditor;
 		getTitle():string;
 		getLongTitle():string;
 		setVisible(visible:boolean):void;
-        setMini(mini:any):void;
+    setMini(mini:any):void;
 		setScrollTop(scrollTop:any):void;
 		getScrollTop():number;
 		setScrollLeft(scrollLeft:any):void;
@@ -891,13 +891,13 @@ declare module AtomCore {
 		// deprecated joinLine():any;
 
 		onDidChange(callback: Function): Disposable;
-        onDidDestroy(callback: Function): Disposable;
-        onDidStopChanging(callback: Function): Disposable;
+    onDidDestroy(callback: Function): Disposable;
+    onDidStopChanging(callback: Function): Disposable;
 		onDidChangeCursorPosition(callback: Function): Disposable;
-        onDidSave(callback: (event: { path: string }) => void): Disposable;
+    onDidSave(callback: (event: { path: string }) => void): Disposable;
 
 		screenPositionForPixelPosition: Function;
-        pixelPositionForBufferPosition: Function;
+    pixelPositionForBufferPosition: Function;
 		getHeight(): number;
 
 		decorateMarker(marker: Marker, options: any): Decoration;
@@ -929,7 +929,7 @@ declare module AtomCore {
 	}
 
 	interface IPane /* extends Theorist.Model */ {
-        itemForURI: (uri:string)=>IEditor;
+    itemForURI: (uri:string)=>IEditor;
 		items:any[];
 		activeItem:any;
 
@@ -1049,7 +1049,7 @@ declare module AtomCore {
 		buildEditorForBuffer(buffer:any, editorOptions:any):IEditor;
 		eachBuffer(...args:any[]):any;
 
-        onDidChangePaths(callback: Function): Disposable;
+    onDidChangePaths(callback: Function): Disposable;
 	}
 
 	interface IWorkspaceStatic {
@@ -1076,17 +1076,17 @@ declare module AtomCore {
 		addRightPanel(options:IWorkspacePanelOptions):Panel;
 		addTopPanel(options:IWorkspacePanelOptions):Panel;
 		addModalPanel(options:IWorkspacePanelOptions):Panel;
-        addOpener(opener: Function): any;
+    addOpener(opener: Function): any;
 
 		deserializeParams(params:any):any;
 		serializeParams():{paneContainer:any;fullScreen:boolean;};
-        eachEditor(callback: Function): void;
+    eachEditor(callback: Function): void;
 		getTextEditors():IEditor[];
 		open(uri:string, options:any):Q.Promise<View>;
 		openLicense():void;
 		openSync(uri:string, options:any):any;
-        openUriInPane(uri: string, pane: any, options: any): Q.Promise<View>;
-        observeTextEditors(callback: Function): Disposable;
+    openUriInPane(uri: string, pane: any, options: any): Q.Promise<View>;
+    observeTextEditors(callback: Function): Disposable;
 		reopenItemSync():any;
 		registerOpener(opener:(urlToOpen:string)=>any):void;
 		unregisterOpener(opener:Function):void;
@@ -1285,8 +1285,8 @@ declare module AtomCore {
 		state:IAtomState;
 		mode:string;
 		deserializers:IDeserializerManager;
-        config: IConfig;
-        commands: ICommandRegistry;
+    config: IConfig;
+    commands: ICommandRegistry;
 		keymaps: IKeymapManager;
 		keymap: IKeymapManager;
 		packages: IPackageManager;
@@ -1365,9 +1365,9 @@ declare module AtomCore {
 		beep:Function;
 		getUserInitScriptPath:Function;
 		requireUserInitScript:Function;
-        requireWithGlobals: Function;
+    requireWithGlobals: Function;
 
-        services: any; // TODO: New services api
+    services: any; // TODO: New services api
 	}
 
 	interface IBufferedNodeProcessStatic {
@@ -1843,7 +1843,7 @@ declare module "atom" {
 		cancelling:boolean;
 		items:any[];
 		list:JQuery;
-        filterEditorView: JQuery;
+    filterEditorView: JQuery;
 
 		previouslyFocusedElement:JQuery;
 
