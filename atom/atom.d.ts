@@ -25,18 +25,16 @@ interface Window {
 
 declare module AtomCore {
 
-// https://atom.io/docs/v0.84.0/advanced/view-system
+	// https://atom.io/docs/v0.84.0/advanced/view-system
 	interface IWorkspaceViewStatic {
 		new ():IWorkspaceView;
-
 		version: number;
 		configDefaults:any;
 		content():any;
-    }
+	}
 
-	interface Decoration
-	{
-	    destroy(): void;
+	interface Decoration {
+		destroy(): void;
 	}
 
 	/**
@@ -44,20 +42,20 @@ declare module AtomCore {
 	 * to represent cursors, folds, snippet targets, misspelled words, any anything else that needs to track a
 	 * logical location in the buffer over time.
 	 */
-    interface Marker {
-        /**
-         * Destroys the marker, causing it to emit the 'destroyed' event. Once destroyed, a marker cannot be
-         * restored by undo/redo operations.
-         */
-        destroy(): void;
+	interface Marker {
+		/**
+		 * Destroys the marker, causing it to emit the 'destroyed' event. Once destroyed, a marker cannot be
+		 * restored by undo/redo operations.
+		 */
+		destroy(): void;
 
-        /**
-         * Gets the screen range of the display marker.
-         */
-        getScreenRange(): Range;
-    }
+		/**
+		 * Gets the screen range of the display marker.
+		 */
+		getScreenRange(): Range;
+	}
 
-    interface IWorkspaceView extends View {
+	interface IWorkspaceView extends View {
 		// Delegator.includeInto(WorkspaceView);
 
 		// delegate to model property's property
@@ -164,15 +162,15 @@ declare module AtomCore {
 		removeLineHighlights():void;
 		addLineHighlight(row:number, emptySelection?:boolean):any;
 		highlightLines():boolean;
-  }
+	}
 
-  interface ICommandRegistry {
-    add(selector: string, name: string, callback: (event: any) => void): void; // selector:'atom-editor'|'atom-workspace'
-    findCommands(params: Object): Object[];
+	interface ICommandRegistry {
+		add(selector: string, name: string, callback: (event: any) => void): void; // selector:'atom-editor'|'atom-workspace'
+		findCommands(params: Object): Object[];
 		dispatch(selector: any, name:string): void;
-  }
+	}
 
-  interface ICommandPanel {
+	interface ICommandPanel {
 		// TBD
 	}
 
@@ -381,12 +379,12 @@ declare module AtomCore {
 		new (arg:{editor:IEditor; marker:IDisplayBufferMarker; id: number;}):ICursor;
 	}
 
-    interface ScopeDescriptor {
+	interface ScopeDescriptor {
 		scopes: string[];
-    }
+	}
 
 	interface ICursor /* extends Theorist.Model */ {
-        getScopeDescriptor(): ScopeDescriptor;
+		getScopeDescriptor(): ScopeDescriptor;
 		screenPosition:any;
 		bufferPosition:any;
 		goalColumn:any;
@@ -600,12 +598,12 @@ declare module AtomCore {
 		subscribeToDisplayBuffer():void;
 		getViewClass():any; // return type are EditorView
 		destroyed():void;
-    isDestroyed():boolean;
+		isDestroyed():boolean;
 		copy():IEditor;
 		getTitle():string;
 		getLongTitle():string;
 		setVisible(visible:boolean):void;
-    setMini(mini:any):void;
+		setMini(mini:any):void;
 		setScrollTop(scrollTop:any):void;
 		getScrollTop():number;
 		setScrollLeft(scrollLeft:any):void;
@@ -888,10 +886,10 @@ declare module AtomCore {
 		// deprecated joinLine():any;
 
 		onDidChange(callback: Function): Disposable;
-    onDidDestroy(callback: Function): Disposable;
-    onDidStopChanging(callback: Function): Disposable;
+		onDidDestroy(callback: Function): Disposable;
+		onDidStopChanging(callback: Function): Disposable;
 		onDidChangeCursorPosition(callback: Function): Disposable;
-    onDidSave(callback: (event: { path: string }) => void): Disposable;
+		onDidSave(callback: (event: { path: string }) => void): Disposable;
 
 		decorateMarker(marker: Marker, options: any): Decoration;
 		getLastCursor(): ICursor;
@@ -922,7 +920,7 @@ declare module AtomCore {
 	}
 
 	interface IPane /* extends Theorist.Model */ {
-    itemForURI: (uri:string)=>IEditor;
+		itemForURI: (uri:string)=>IEditor;
 		items:any[];
 		activeItem:any;
 
@@ -972,7 +970,7 @@ declare module AtomCore {
 		findOrCreateRightmostSibling():IPane;
 	}
 
-// https://atom.io/docs/v0.84.0/advanced/serialization
+	// https://atom.io/docs/v0.84.0/advanced/serialization
 	interface ISerializationStatic<T> {
 		deserialize(data:ISerializationInfo):T;
 		new (data:T): ISerialization;
@@ -1041,7 +1039,7 @@ declare module AtomCore {
 		buildEditorForBuffer(buffer:any, editorOptions:any):IEditor;
 		eachBuffer(...args:any[]):any;
 
-    onDidChangePaths(callback: Function): Disposable;
+		onDidChangePaths(callback: Function): Disposable;
 	}
 
 	interface IWorkspaceStatic {
@@ -1068,17 +1066,17 @@ declare module AtomCore {
 		addRightPanel(options:IWorkspacePanelOptions):Panel;
 		addTopPanel(options:IWorkspacePanelOptions):Panel;
 		addModalPanel(options:IWorkspacePanelOptions):Panel;
-    addOpener(opener: Function): any;
+		addOpener(opener: Function): any;
 
 		deserializeParams(params:any):any;
 		serializeParams():{paneContainer:any;fullScreen:boolean;};
-    eachEditor(callback: Function): void;
+		eachEditor(callback: Function): void;
 		getTextEditors():IEditor[];
 		open(uri:string, options:any):Q.Promise<View>;
 		openLicense():void;
 		openSync(uri:string, options:any):any;
-    openUriInPane(uri: string, pane: any, options: any): Q.Promise<View>;
-    observeTextEditors(callback: Function): Disposable;
+		openUriInPane(uri: string, pane: any, options: any): Q.Promise<View>;
+		observeTextEditors(callback: Function): Disposable;
 		reopenItemSync():any;
 		registerOpener(opener:(urlToOpen:string)=>any):void;
 		unregisterOpener(opener:Function):void;
@@ -1145,7 +1143,7 @@ declare module AtomCore {
 		// TBD
 	}
 
-  interface IPackage {
+	interface IPackage {
 		mainModulePath: string;
 		mainModule: any;
 		enable(): void;
@@ -1157,8 +1155,8 @@ declare module AtomCore {
 		reset(): void;
 		activate(): Q.Promise<any[]>;
 		activateNow(): void;
-	  // TBD
-  }
+		// TBD
+	}
 
 	interface IPackageManager extends Emissary.IEmitter {
 		packageDirPaths:string[];
@@ -1175,7 +1173,7 @@ declare module AtomCore {
 		disablePackage(name:string):any;
 		activate():void;
 		registerPackageActivator(activator:any, types:any):void;
-		activatePackages(packages:any):void;
+		activatePackages(packages:any):Q.Promise<IPackage>;
 		activatePackage(name:string):any;
 		deactivatePackages():void;
 		deactivatePackage(name:string):void;
@@ -1202,12 +1200,12 @@ declare module AtomCore {
 		getAvailablePackageMetadata():any[];
 	}
 
-    interface INotifications {
-        addInfo: Function;
-        addError: Function;
-        addSuccess: Function;
-        addWarning: Function;
-    }
+	interface INotifications {
+		addInfo: Function;
+		addError: Function;
+		addSuccess: Function;
+		addWarning: Function;
+	}
 
 	interface IThemeManager {
 		// TBD
@@ -1270,8 +1268,8 @@ declare module AtomCore {
 		state:IAtomState;
 		mode:string;
 		deserializers:IDeserializerManager;
-    config: IConfig;
-    commands: ICommandRegistry;
+		config: IConfig;
+		commands: ICommandRegistry;
 		keymaps: IKeymapManager;
 		keymap: IKeymapManager;
 		packages: IPackageManager;
@@ -1348,9 +1346,9 @@ declare module AtomCore {
 		beep:Function;
 		getUserInitScriptPath:Function;
 		requireUserInitScript:Function;
-    requireWithGlobals: Function;
+		requireWithGlobals: Function;
 
-    services: any; // TODO: New services api
+		services: any; // TODO: New services api
 	}
 
 	interface IBufferedNodeProcessStatic {
@@ -1826,7 +1824,7 @@ declare module "atom" {
 		cancelling:boolean;
 		items:any[];
 		list:JQuery;
-    filterEditorView: JQuery;
+		filterEditorView: JQuery;
 
 		previouslyFocusedElement:JQuery;
 
