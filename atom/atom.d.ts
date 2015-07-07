@@ -905,9 +905,27 @@ declare module AtomCore {
 	}
 
 	interface IGrammar {
-    	name: any;
+		bundledPackage: boolean;
+		emitter: any;
+		fileTypes: [string];
+		firstLineRegex: any;
+		foldingStopMarker: any;
+		includedGrammarScopes: [any];
+		initialRule: any;
+		injectionSelector: any;
+		injections: any;
+		maxTokensPerLine: Number;
+		name: string;
+		packageName: string;
+		path: string;
+		rawPatterns: [any];
+		rawRepository: any;
+		registration: Disposable;
+		registry: any;
+		repository: Object;
 		scopeName: string;
 		// TBD
+
 	}
 
 	interface IPane /* extends Theorist.Model */ {
