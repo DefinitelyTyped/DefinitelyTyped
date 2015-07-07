@@ -13,14 +13,8 @@ declare module JSData {
         queryTransform?: (resourceName:string, params:DSFilterParams)=>any;
         httpConfig?: any;
         forceTrailingSlash?: boolean;
-        log?: any;
-        // TODO wait for union types to be supported
-        // log: (message?: any, ...optionalParams: any[])=> void;
-        // log: boolean;
-        error?: any;
-        // TODO wait for union types to be supported
-        // error: (message?: any, ...optionalParams: any[])=> void;
-        // error: boolean;
+        log?: boolean | ((message?:any, ...optionalParams:any[])=> void);
+        error?: boolean | ((message?:any, ...optionalParams:any[])=> void);
     }
 
     interface DSHttpAdapterPromiseResolveType {

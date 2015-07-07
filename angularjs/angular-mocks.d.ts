@@ -5,6 +5,16 @@
 
 /// <reference path="angular.d.ts" />
 
+declare module "angular-mocks/ngMock" {
+    var _: string;
+    export = _;
+}
+
+declare module "angular-mocks/ngAnimateMock" {
+    var _: string;
+    export = _;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // functions attached to global object (window)
 ///////////////////////////////////////////////////////////////////////////////
@@ -14,7 +24,7 @@ declare var inject: (...fns: Function[]) => any;
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
@@ -29,8 +39,11 @@ declare module ng {
         dump(obj: any): string;
 
         // see http://docs.angularjs.org/api/angular.mock.inject
-        inject(...fns: Function[]): any;
-        inject(...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+        inject: {
+            (...fns: Function[]): any;
+            (...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+            strictDi(val?: boolean): void;
+        }
 
         // see http://docs.angularjs.org/api/angular.mock.module
         module(...modules: any[]): any;
@@ -59,7 +72,7 @@ declare module ng {
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // IntervalService
     // see http://docs.angularjs.org/api/ngMock.$interval

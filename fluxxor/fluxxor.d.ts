@@ -3,7 +3,7 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference path='../react/legacy/react-0.12.d.ts' />
 ///<reference path='../eventemitter3/eventemitter3.d.ts' />
 
 declare module Fluxxor {

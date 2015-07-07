@@ -15,7 +15,7 @@
 // if js file include to another npm package (e.g. "space-pen", "mixto" and "emissary").
 // you should create a separate file.
 
-// NOTE Document? You should use DevTools hehe...
+// API documentation : https://atom.io/docs/api/v0.106.0/api/docs/README.md.html
 
 interface Window {
 	atom: AtomCore.IAtom;
@@ -539,6 +539,35 @@ declare module AtomCore {
 		screenRangeChanged():any;
 	}
 
+	interface IDecorationParams {
+		id?: number;
+		class: string;
+		type: any /* string or string[] */;
+	}
+
+	interface IDecorationStatic {
+		isType(decorationParams:IDecorationParams, type:any /* string or string[] */):boolean;
+		new (marker:IDisplayBufferMarker, displayBuffer:IDisplayBuffer, params: IDecorationParams): IDecoration;
+	}
+
+	interface IDecoration extends Emissary.IEmitter {
+		marker: IDisplayBufferMarker;
+		displayBuffer: IDisplayBuffer;
+		params: IDecorationParams
+		id: number;
+		flashQueue: any[];
+		isDestroyed: boolean;
+
+		destroy():void;
+		update(newParams:IDecorationParams):void;
+		getMarker():IDisplayBufferMarker;
+		getParams():IDecorationParams;
+		isType(type:string):boolean;
+		matchesPattern(decorationPattern:{[key:string]:IDecorationParams;}):boolean;
+		flash(klass:string, duration?:number):void;
+		consumeNextFlash():any;
+	}
+
 	interface IEditor {
 		// Serializable.includeInto(Editor);
 		// Delegator.includeInto(Editor);
@@ -551,6 +580,8 @@ declare module AtomCore {
 		cursors:ICursor[];
 		selections: ISelection[];
 		suppressSelectionMerging:boolean;
+		updateBatchDepth: number;
+		selectionFlashDuration: number;
 		softTabs: boolean;
 		displayBuffer: IDisplayBuffer;
 
@@ -564,16 +595,20 @@ declare module AtomCore {
 		subscriptionsByObject: any; /* WeakMap */
 		subscriptions: Emissary.ISubscription[];
 
+		mini: any;
+
 		serializeParams():{id:number; softTabs:boolean; scrollTop:number; scrollLeft:number; displayBuffer:any;};
 		deserializeParams(params:any):any;
 		subscribeToBuffer():void;
 		subscribeToDisplayBuffer():void;
 		getViewClass():any; // return type are EditorView
-		isDestroyed():boolean;
+		destroyed():void;
+        isDestroyed():boolean;
 		copy():IEditor;
 		getTitle():string;
 		getLongTitle():string;
 		setVisible(visible:boolean):void;
+        setMini(mini:any):void;
 		setScrollTop(scrollTop:any):void;
 		getScrollTop():number;
 		setScrollLeft(scrollLeft:any):void;
@@ -587,6 +622,7 @@ declare module AtomCore {
 		getTabText():string;
 		getTabLength():number;
 		setTabLength(tabLength:any):void;
+		usesSoftTabs():boolean;
 		clipBufferPosition(bufferPosition:any):void;
 		clipBufferRange(range:any):void;
 		indentationForBufferRow(bufferRow:any):void;
@@ -595,13 +631,14 @@ declare module AtomCore {
 		buildIndentString(number:any):string;
 		save():void;
 		saveAs(filePath:any):void;
+		copyPathToClipboard():void;
 		getPath():string;
 		getText():string;
 		setText(text:any):void;
 		getTextInRange(range:any):any;
 		getLineCount():number;
 		getBuffer():TextBuffer.ITextBuffer;
-		getUri():string;
+		getURI():string;
 		isBufferRowBlank(bufferRow:any):boolean;
 		isBufferRowCommented(bufferRow:any):void;
 		nextNonBlankBufferRow(bufferRow:any):void;
@@ -614,6 +651,7 @@ declare module AtomCore {
 		scanInBufferRange():any;
 		backwardsScanInBufferRange():any;
 		isModified():boolean;
+		isEmpty():boolean;
 		shouldPromptToSave():boolean;
 		screenPositionForBufferPosition(bufferPosition:any, options?:any):TextBuffer.IPoint;
 		bufferPositionForScreenPosition(screenPosition:any, options?:any):TextBuffer.IPoint;
@@ -630,15 +668,20 @@ declare module AtomCore {
 		scopesForBufferPosition(bufferPosition:any):string[];
 		bufferRangeForScopeAtCursor(selector:string):any;
 		tokenForBufferPosition(bufferPosition:any):IToken;
+		getCursorScopes():string[];
+		logCursorScope():void;
 		insertText(text:string, options?:any):TextBuffer.IRange[];
 		insertNewline():TextBuffer.IRange[];
 		insertNewlineBelow():TextBuffer.IRange[];
 		insertNewlineAbove():any;
 		indent(options?:any):any;
 		backspace():any[];
-		backspaceToBeginningOfWord():any[];
-		backspaceToBeginningOfLine():any[];
+		// deprecated backspaceToBeginningOfWord():any[];
+		// deprecated backspaceToBeginningOfLine():any[];
+		deleteToBeginningOfWord():any[];
+		deleteToBeginningOfLine():any[];
 		delete():any[];
+		deleteToEndOfLine():any[];
 		deleteToEndOfWord():any[];
 		deleteLine():TextBuffer.IRange[];
 		indentSelectedRows():TextBuffer.IRange[][];
@@ -661,6 +704,7 @@ declare module AtomCore {
 		foldBufferRow(bufferRow:any):any;
 		unfoldBufferRow(bufferRow:any):any;
 		isFoldableAtBufferRow(bufferRow:any):boolean;
+		isFoldableAtScreenRow(screenRow:any):boolean;
 		createFold(startRow:any, endRow:any):IFold;
 		destroyFoldWithId(id:any):any;
 		destroyFoldsIntersectingBufferRange(bufferRange:any):any;
@@ -674,9 +718,12 @@ declare module AtomCore {
 		moveLineUp():ISelection[];
 		moveLineDown():ISelection[];
 		duplicateLines():any[][];
-		duplicateLine():any[][];
+		// duprecated duplicateLine():any[][];
 		mutateSelectedText(fn:(selection:ISelection)=>any):any;
 		replaceSelectedText(options:any, fn:(selection:string)=>any):any;
+		decorationsForScreenRowRange(startScreenRow:any, endScreenRow:any):{[id:number]: IDecoration[]};
+		decorateMarker(marker:IDisplayBufferMarker, decorationParams: {type:string; class: string;}):IDecoration;
+		decorationForId(id:number):IDecoration;
 		getMarker(id:number):IDisplayBufferMarker;
 		getMarkers():IDisplayBufferMarker[];
 		findMarkers(...args:any[]):IDisplayBufferMarker[];
@@ -688,6 +735,7 @@ declare module AtomCore {
 		getMarkerCount():number;
 		hasMultipleCursors():boolean;
 		getCursors():ICursor[];
+		getCursor():ICursor;
 		addCursorAtScreenPosition(screenPosition:any):ICursor;
 		addCursorAtBufferPosition(bufferPosition:any):ICursor;
 		addCursor(marker:any):ICursor;
@@ -699,6 +747,7 @@ declare module AtomCore {
 		removeSelection(selection:ISelection):any;
 		clearSelections():boolean;
 		consolidateSelections():boolean;
+		selectionScreenRangeChanged(selection:any):void;
 		getSelections():ISelection[];
 		getSelection(index?:number):ISelection;
 		getLastSelection():ISelection;
@@ -727,16 +776,23 @@ declare module AtomCore {
 		moveCursorToBeginningOfScreenLine():void;
 		moveCursorToBeginningOfLine():void;
 		moveCursorToFirstCharacterOfLine():void;
-		moveToEndOfScreenLine():void;
+		moveCursorToEndOfScreenLine():void;
 		moveCursorToEndOfLine():void;
 		moveCursorToBeginningOfWord():void;
 		moveCursorToEndOfWord():void;
 		moveCursorToBeginningOfNextWord():void;
 		moveCursorToPreviousWordBoundary():void;
 		moveCursorToNextWordBoundary():void;
+		moveCursorToBeginningOfNextParagraph():void;
+		moveCursorToBeginningOfPreviousParagraph():void;
+		scrollToCursorPosition(options:any):any;
+		pageUp():void;
+		pageDown():void;
+		selectPageUp():void;
+		selectPageDown():void;
+		getRowsPerPage():number;
 		moveCursors(fn:(cursor:ICursor)=>any):any;
-		moveToBeginningOfLine():any;
-		moveToEndOfLine():any;
+		cursorMoved(event:any):void;
 		selectToScreenPosition(position:TextBuffer.IPoint):any;
 		selectRight():ISelection[];
 		selectLeft():ISelection[];
@@ -763,6 +819,8 @@ declare module AtomCore {
 		selectToEndOfWord():ISelection[];
 		selectToBeginningOfNextWord():ISelection[];
 		selectWord():ISelection[];
+		selectToBeginningOfNextParagraph():ISelection[];
+		selectToBeginningOfPreviousParagraph():ISelection[];
 		selectMarker(marker:any):any;
 		mergeCursors():number[];
 		expandSelectionsForward():any;
@@ -774,16 +832,63 @@ declare module AtomCore {
 		setGrammar(grammer:IGrammar):void;
 		reloadGrammar():any;
 		shouldAutoIndent():boolean;
+		shouldShowInvisibles():boolean;
+		updateInvisibles():void;
 		transact(fn:Function):any;
 		beginTransaction():ITransaction;
 		commitTransaction():any;
 		abortTransaction():any[];
 		inspect():string;
 		logScreenLines(start:number, end:number):any[];
+		handleTokenization():void;
 		handleGrammarChange():void;
 		handleMarkerCreated(marker:any):any;
 		getSelectionMarkerAttributes():{type: string; editorId: number; invalidate: string; };
-		// joinLine():any; // deprecated
+		getVerticalScrollMargin():number;
+		setVerticalScrollMargin(verticalScrollMargin:number):void;
+		getHorizontalScrollMargin():number;
+		setHorizontalScrollMargin(horizontalScrollMargin:number):void;
+		getLineHeightInPixels():number;
+		setLineHeightInPixels(lineHeightInPixels:number):void;
+		batchCharacterMeasurement(fn:Function):void;
+		getScopedCharWidth(scopeNames:any, char:any):any;
+		setScopedCharWidth(scopeNames:any, char:any, width:any):any;
+		getScopedCharWidths(scopeNames:any):any;
+		clearScopedCharWidths():any;
+		getDefaultCharWidth():number;
+		setDefaultCharWidth(defaultCharWidth:number):void;
+		setHeight(height:number):void;
+		getHeight():number;
+		getClientHeight():number;
+		setWidth(width:number):void;
+		getWidth():number;
+		getScrollTop():number;
+		setScrollTop(scrollTop:number):void;
+		getScrollBottom():number;
+		setScrollBottom(scrollBottom:number):void;
+		getScrollLeft():number;
+		setScrollLeft(scrollLeft:number):void;
+		getScrollRight():number;
+		setScrollRight(scrollRight:number):void;
+		getScrollHeight():number;
+		getScrollWidth():number;
+		getVisibleRowRange():number;
+		intersectsVisibleRowRange(startRow:any, endRow:any):any;
+		selectionIntersectsVisibleRowRange(selection:any):any;
+		pixelPositionForScreenPosition(screenPosition:any):any;
+		pixelPositionForBufferPosition(bufferPosition:any):any;
+		screenPositionForPixelPosition(pixelPosition:any):any;
+		pixelRectForScreenRange(screenRange:any):any;
+		scrollToScreenRange(screenRange:any, options:any):any;
+		scrollToScreenPosition(screenPosition:any, options:any):any;
+		scrollToBufferPosition(bufferPosition:any, options:any):any;
+		horizontallyScrollable():any;
+		verticallyScrollable():any;
+		getHorizontalScrollbarHeight():any;
+		setHorizontalScrollbarHeight(height:any):any;
+		getVerticalScrollbarWidth():any;
+		setVerticalScrollbarWidth(width:any):any;
+		// deprecated joinLine():any;
 
 		onDidChange(callback: Function): Disposable;
         onDidDestroy(callback: Function): Disposable;
@@ -845,8 +950,8 @@ declare module AtomCore {
 		saveItem(item:any, nextAction:Function):void;
 		saveItemAs(item:any, nextAction:Function):void;
 		saveItems():any[];
-		itemForUri(uri:any):any;
-		activateItemForUri(uri:any):any;
+		itemForURI(uri:any):any;
+		activateItemForURI(uri:any):any;
 		copyActiveItem():void;
 		splitLeft(params:any):IPane;
 		splitRight(params:any):IPane;
@@ -980,6 +1085,7 @@ declare module AtomCore {
 		saveActivePaneItemAs():any;
 		destroyActivePaneItem():any;
 		destroyActivePane():any;
+		getActiveEditor():IEditor;
 		increaseFontSize():void;
 		decreaseFontSize():void;
 		resetFontSize():void;
@@ -1028,6 +1134,21 @@ declare module AtomCore {
 		defaultTarget:HTMLElement;
 		// TBD
 	}
+
+  interface IPackage {
+		mainModulePath: string;
+		mainModule: any;
+		enable(): void;
+		disable(): void;
+		isTheme(): boolean;
+		getType(): string;
+		getStylesheetType(): string;
+		load(): IPackage;
+		reset(): void;
+		activate(): Q.Promise<any[]>;
+		activateNow(): void;
+	  // TBD
+  }
 
 	interface IPackageManager extends Emissary.IEmitter {
 		packageDirPaths:string[];
@@ -1106,7 +1227,14 @@ declare module AtomCore {
 	interface IAtomStatic extends ISerializationStatic<IAtom> {
 		version: number;
 		loadSettings: IAtomSettings;
+
+		/* Load or create the Atom environment in the given mode */
+		loadOrCreate(mode:'editor'):IAtom;
+		/* Load or create the Atom environment in the given mode */
+		loadOrCreate(mode:'spec'):IAtom;
+		/* Load or create the Atom environment in the given mode */
 		loadOrCreate(mode:string):IAtom;
+
 		loadState(mode:any):void;
 		getStatePath(mode:any):string;
 		getConfigDirPath():string;
@@ -1119,6 +1247,20 @@ declare module AtomCore {
 		new(state:IAtomState):IAtom;
 	}
 
+	class Disposable {
+		constructor(disposalAction:any)
+		dispose():void
+	}
+
+	class CommandRegistry {
+		add(target:string, commandName:string, callback:Function):Disposable
+		findCommands(params:Object):Object[]
+		dispatch(target:any,commandName:string):void
+	}
+
+
+	// https://atom.io/docs/api/v0.106.0/api/classes/Atom.html
+	/* Global Atom class : instance members */
 	interface IAtom {
 		constructor:IAtomStatic;
 
@@ -1149,6 +1291,8 @@ declare module AtomCore {
 		workspaceView: IWorkspaceView;
 		workspace: IWorkspace;
 		// really exists? end
+
+		commands: CommandRegistry;
 
 		initialize:Function;
 		// registerRepresentationClass:Function;
@@ -1731,6 +1875,8 @@ declare module "atom" {
 
 		cancel():any;
 	}
+
+
 
 	var WorkspaceView:AtomCore.IWorkspaceViewStatic;
 
