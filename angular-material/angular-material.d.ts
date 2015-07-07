@@ -1,6 +1,6 @@
 // Type definitions for Angular Material 0.10.1-rc1+ (angular.material module)
 // Project: https://github.com/angular/material
-// Definitions by: Matt Traynham <https://github.com/mtraynham> and Robert Baker <https://github.com/robertbaker>
+// Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
