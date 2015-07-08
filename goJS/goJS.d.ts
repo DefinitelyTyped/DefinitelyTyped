@@ -8761,8 +8761,8 @@ declare module go {
     * This is a structure used by Map to hold key-value pairs.
     */
     interface KeyValuePair<K,V> {  // undocumented
-      key: K,
-      value: V
+      key: K;
+      value: V;
     }
 
     /**
