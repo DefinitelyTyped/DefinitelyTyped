@@ -5,4 +5,7 @@
 
 /// <reference path="moment-internal.d.ts" />
 
-declare var moment: moment.MomentStatic;
+declare module 'moment' {
+  var moment: moment.MomentStatic;
+  export = moment;
+}
