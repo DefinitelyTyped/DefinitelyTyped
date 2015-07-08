@@ -1,4 +1,5 @@
 /// <reference path="angular2.d.ts"/>
+/// <reference path="router.d.ts"/>
 
 // Use Typescript 1.4 style imports
 import ng = require("angular2/angular2");
