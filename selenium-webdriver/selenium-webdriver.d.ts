@@ -63,6 +63,16 @@ declare module chrome {
 
 
         /**
+         * List of Chrome command line switches to exclude that ChromeDriver by default
+         * passes when starting Chrome.  Do not prefix switches with "--".
+         *
+         * @param {...(string|!Array<string>)} var_args The switches to exclude.
+         * @return {!Options} A self reference.
+         */
+        excludeSwitches(...var_args: string[]): Options;
+
+
+        /**
          * Add additional extensions to install when launching Chrome. Each extension
          * should be specified as the path to the packed CRX file, or a Buffer for an
          * extension.

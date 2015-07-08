@@ -14,6 +14,7 @@ function TestChromeOptions() {
 
     options = options.addArguments("a", "b", "c");
     options = options.addExtensions("a", "b", "c");
+    options = options.excludeSwitches("a", "b", "c");
     options = options.detachDriver(true);
     options = options.setChromeBinaryPath("path");
     options = options.setChromeLogFile("logfile");
