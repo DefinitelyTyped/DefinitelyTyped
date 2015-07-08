@@ -7213,7 +7213,7 @@ declare module go {
     * This helper structure for DraggingTool holds the original location Point.
     */
     interface DraggingInfo {  // undocumented
-      point: Point
+        point: Point;
     }
 
     /**
@@ -8529,7 +8529,7 @@ declare module go {
         iterator: Iterator<T>;
 
         /**This read-only property returns the current index to the item in the collection, assuming .next has just returned true.*/
-        key;
+        key: any;
 
         /**This read-only property returns the current item in the collection, assuming .next has just returned true.*/
         value: T;
@@ -8761,8 +8761,8 @@ declare module go {
     * This is a structure used by Map to hold key-value pairs.
     */
     interface KeyValuePair<K,V> {  // undocumented
-      key: K;
-      value: V;
+        key: K;
+        value: V;
     }
 
     /**
