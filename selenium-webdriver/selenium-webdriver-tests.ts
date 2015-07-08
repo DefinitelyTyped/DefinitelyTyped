@@ -39,13 +39,13 @@ function TestServiceBuilder() {
     builder = new chrome.ServiceBuilder("exe");
 
     var anything: any = builder.build();
-    builder = builder.enableVerboseLogging();
+    builder = builder.usingPort(8080);
     builder = builder.loggingTo("path");
+    builder = builder.enableVerboseLogging();
     builder = builder.setNumHttpThreads(5);
+    builder = builder.setUrlBasePath("path");
     builder = builder.setStdio("config");
     builder = builder.setStdio(["A", "B"]);
-    builder = builder.setUrlBasePath("path");
-    builder = builder.usingPort(8080);
     builder = builder.withEnvironment({ "A": "a", "B": "b" });
 }
 
