@@ -133,7 +133,7 @@ interface KnockoutValidationStatic {
 
 interface KnockoutStatic {
     validation: KnockoutValidationStatic;
-    validatedObservable<T>(initialValue?: T): KnockoutObservable<T>;
+    validatedObservable<T>(initialValue?: T): KnockoutValidationGroup;
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
