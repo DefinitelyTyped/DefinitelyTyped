@@ -19,6 +19,12 @@ function TestChromeOptions() {
     options = options.setChromeBinaryPath("path");
     options = options.setChromeLogFile("logfile");
     options = options.setLocalState("state");
+    options = options.androidActivity("com.example.Activity");
+    options = options.androidDeviceSerial("emulator-5554");
+    options = options.androidChrome();
+    options = options.androidPackage("com.android.chrome");
+    options = options.androidProcess("com.android.chrome");
+    options = options.androidUseRunningApp(true);
     options = options.setLoggingPrefs(new webdriver.logging.Preferences());
     options = options.setPerfLoggingPrefs({enableNetwork: true, enablePage: true, enableTimeline: true, tracingCategories: "category", bufferUsageReportingInterval: 1000});
     options = options.setProxy({ proxyType: "proxyType" });
