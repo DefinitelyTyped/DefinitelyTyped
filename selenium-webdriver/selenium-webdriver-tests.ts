@@ -20,6 +20,7 @@ function TestChromeOptions() {
     options = options.setChromeLogFile("logfile");
     options = options.setLocalState("state");
     options = options.setLoggingPrefs(new webdriver.logging.Preferences());
+    options = options.setPerfLoggingPrefs({enableNetwork: true, enablePage: true, enableTimeline: true, tracingCategories: "category", bufferUsageReportingInterval: 1000});
     options = options.setProxy({ proxyType: "proxyType" });
     options = options.setUserPreferences("preferences");
     var capabilities: webdriver.Capabilities = options.toCapabilities();

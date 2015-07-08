@@ -33,6 +33,14 @@ declare module chrome {
         prefs?: any;
     }
 
+    interface IPerfLoggingPrefs {
+      enableNetwork: boolean;
+      enablePage: boolean;
+      enableTimeline: boolean;
+      tracingCategories: string;
+      bufferUsageReportingInterval: number;
+    }
+
     /**
      * Class for managing ChromeDriver specific options.
      */
@@ -123,6 +131,32 @@ declare module chrome {
          * @return {!Options} A self reference.
          */
         setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
+
+        /**
+         * Sets the performance logging preferences. Options include:
+         *
+         * - `enableNetwork`: Whether or not to collect events from Network domain.
+         * - `enablePage`: Whether or not to collect events from Page domain.
+         * - `enableTimeline`: Whether or not to collect events from Timeline domain.
+         *     Note: when tracing is enabled, Timeline domain is implicitly disabled,
+         *     unless `enableTimeline` is explicitly set to true.
+         * - `tracingCategories`: A comma-separated string of Chrome tracing categories
+         *     for which trace events should be collected. An unspecified or empty
+         *     string disables tracing.
+         * - `bufferUsageReportingInterval`: The requested number of milliseconds
+         *     between DevTools trace buffer usage events. For example, if 1000, then
+         *     once per second, DevTools will report how full the trace buffer is. If a
+         *     report indicates the buffer usage is 100%, a warning will be issued.
+         *
+         * @param {{enableNetwork: boolean,
+         *          enablePage: boolean,
+         *          enableTimeline: boolean,
+         *          tracingCategories: string,
+         *          bufferUsageReportingInterval: number}} prefs The performance
+         *     logging preferences.
+         * @return {!Options} A self reference.
+         */
+        setPerfLoggingPrefs(prefs: IPerfLoggingPrefs): Options;
 
 
         /**
