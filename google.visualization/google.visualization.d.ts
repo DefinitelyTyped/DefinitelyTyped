@@ -21,7 +21,7 @@ declare module google {
         export class DateFormat{
             constructor(spec?: DateFormatSpecs);
             format(dataTable: DataTable, columnIndex: number): void;
-            formatValue(value: string);
+            formatValue(value: Date): string;
         }
 
         export interface ChartSpecs {
