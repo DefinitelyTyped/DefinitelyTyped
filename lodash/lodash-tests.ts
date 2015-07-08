@@ -169,13 +169,13 @@ result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
 result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
 
-result = <number>_.drop([1, 2, 3]);
+result = <number[]>_.drop([1, 2, 3]);
 result = <number[]>_.drop([1, 2, 3], 2);
 result = <number[]>_.dropWhile([1, 2, 3], (num) => num < 3);
 result = <IFoodOrganic[]>_.dropWhile(foodsOrganic, 'organic');
 result = <IFoodType[]>_.dropWhile(foodsType, { 'type': 'fruit' });
 
-result = <number>_([1, 2, 3]).drop();
+result = <number[]>_([1, 2, 3]).drop().value();
 result = <number[]>_([1, 2, 3]).drop(2).value();
 result = <number[]>_([1, 2, 3]).dropWhile(function (num) {
     return num < 3;

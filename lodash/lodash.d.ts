@@ -771,7 +771,7 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        drop(): T;
+        drop(): LoDashArrayWrapper<T>;
 
         /**
         * @see _.rest
