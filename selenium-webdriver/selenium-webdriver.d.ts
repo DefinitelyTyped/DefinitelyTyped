@@ -608,7 +608,7 @@ declare module webdriver {
                 UNKNOWN_COMMAND: string;
                 UNKNOWN_ERROR: string;
                 UNSUPPORTED_OPERATION: string;
-            }
+            };
 
             //endregion
 
@@ -1464,7 +1464,7 @@ declare module webdriver {
                 PENDING: number;
                 REJECTED: number;
                 RESOLVED: number;
-            }
+            };
 
             //region Properties
 
@@ -2030,7 +2030,7 @@ declare module webdriver {
         RIGHT: number;
     }
 
-    var Button: IButton
+    var Button: IButton;
 
     /**
      * Representations of pressable keys that aren't text.  These are stored in
@@ -2418,7 +2418,7 @@ declare module webdriver {
         HTMLUNIT: string;
     }
 
-    var Browser: IBrowser
+    var Browser: IBrowser;
 
     interface ProxyConfig {
         proxyType: string;
@@ -4170,7 +4170,7 @@ declare module webdriver {
          *     WebDriver wire protocol.
          * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
          */
-        getId(): webdriver.promise.Promise<IWebElementId>
+        getId(): webdriver.promise.Promise<IWebElementId>;
 
         /**
          * Schedules a command to retrieve the inner HTML of this element.
