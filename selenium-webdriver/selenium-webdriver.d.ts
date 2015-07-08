@@ -169,6 +169,69 @@ declare module chrome {
 
 
         /**
+         * Sets the name of the activity hosting a Chrome-based Android WebView. This
+         * option must be set to connect to an [Android WebView](
+         * https://sites.google.com/a/chromium.org/chromedriver/getting-started/getting-started---android)
+         *
+         * @param {string} name The activity name.
+         * @return {!Options} A self reference.
+         */
+        androidActivity(name: string): Options;
+
+
+        /**
+         * Sets the device serial number to connect to via ADB. If not specified, the
+         * ChromeDriver will select an unused device at random. An error will be
+         * returned if all devices already have active sessions.
+         *
+         * @param {string} serial The device serial number to connect to.
+         * @return {!Options} A self reference.
+         */
+        androidDeviceSerial(serial: string): Options;
+
+
+        /**
+         * Configures the ChromeDriver to launch Chrome on Android via adb. This
+         * function is shorthand for
+         * {@link #androidPackage options.androidPackage('com.android.chrome')}.
+         * @return {!Options} A self reference.
+         */
+        androidChrome(): Options;
+
+
+        /**
+         * Sets the package name of the Chrome or WebView app.
+         *
+         * @param {?string} pkg The package to connect to, or `null` to disable Android
+         *     and switch back to using desktop Chrome.
+         * @return {!Options} A self reference.
+         */
+        androidPackage(pkg: string): Options;
+
+
+        /**
+         * Sets the process name of the Activity hosting the WebView (as given by `ps`).
+         * If not specified, the process name is assumed to be the same as
+         * {@link #androidPackage}.
+         *
+         * @param {string} processName The main activity name.
+         * @return {!Options} A self reference.
+         */
+        androidProcess(processName: string): Options;
+
+
+        /**
+         * Sets whether to connect to an already-running instead of the specified
+         * {@linkplain #androidProcess app} instead of launching the app with a clean
+         * data directory.
+         *
+         * @param {boolean} useRunning Whether to connect to a running instance.
+         * @return {!Options} A self reference.
+         */
+        androidUseRunningApp(useRunning: boolean): Options;
+
+
+        /**
          * Sets the path to Chrome's log file. This path should exist on the machine
          * that will launch Chrome.
          * @param {string} path Path to the log file to use.
