@@ -297,6 +297,17 @@ declare module chrome {
 
 
         /**
+         * Sets which port adb is listening to. _The ChromeDriver will connect to adb
+         * if an {@linkplain Options#androidPackage Android session} is requested, but
+         * adb **must** be started beforehand._
+         *
+         * @param {number} port Which port adb is running on.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        setAdbPort(port: number): ServiceBuilder;
+
+
+        /**
          * Sets the path of the log file the driver should log to. If a log file is
          * not specified, the driver will log to stderr.
          * @param {string} path Path of the log file to use.

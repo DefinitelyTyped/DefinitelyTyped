@@ -40,6 +40,7 @@ function TestServiceBuilder() {
 
     var anything: any = builder.build();
     builder = builder.usingPort(8080);
+    builder = builder.setAdbPort(5037);
     builder = builder.loggingTo("path");
     builder = builder.enableVerboseLogging();
     builder = builder.setNumHttpThreads(5);
