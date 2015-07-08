@@ -169,11 +169,19 @@ result = <number[]>_.rest([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.rest(foodsOrganic, 'test');
 result = <IFoodType[]>_.rest(foodsType, { 'type': 'value' });
 
-result = <number[]>_.drop([1, 2, 3]);
+result = <number>_.drop([1, 2, 3]);
 result = <number[]>_.drop([1, 2, 3], 2);
-result = <number[]>_.drop([1, 2, 3], (num) => num < 3)
-result = <IFoodOrganic[]>_.drop(foodsOrganic, 'test');
-result = <IFoodType[]>_.drop(foodsType, { 'type': 'value' });
+result = <number[]>_.dropWhile([1, 2, 3], (num) => num < 3);
+result = <IFoodOrganic[]>_.dropWhile(foodsOrganic, 'organic');
+result = <IFoodType[]>_.dropWhile(foodsType, { 'type': 'fruit' });
+
+result = <number>_([1, 2, 3]).drop();
+result = <number[]>_([1, 2, 3]).drop(2).value();
+result = <number[]>_([1, 2, 3]).dropWhile(function (num) {
+    return num < 3;
+}).value();
+result = <IFoodOrganic[]>_(foodsOrganic).dropWhile('organic').value();
+result = <IFoodType[]>_(foodsType).dropWhile({ 'type': 'fruit' }).value();
 
 result = <number[]>_.tail([1, 2, 3])
 result = <number[]>_.tail([1, 2, 3], 2)
@@ -238,20 +246,6 @@ result = <number[]>_([1, 2, 3]).takeWhile(function (num) {
 }).value();
 result = <IFoodOrganic[]>_(foodsOrganic).takeWhile('organic').value();
 result = <IFoodType[]>_(foodsType).takeWhile({ 'type': 'fruit' }).value();
-
-result = <number>_.drop([1, 2, 3]);
-result = <number[]>_.drop([1, 2, 3], 2);
-result = <number[]>_.dropWhile([1, 2, 3], (num) => num < 3);
-result = <IFoodOrganic[]>_.dropWhile(foodsOrganic, 'organic');
-result = <IFoodType[]>_.dropWhile(foodsType, { 'type': 'fruit' });
-
-result = <number>_([1, 2, 3]).drop();
-result = <number[]>_([1, 2, 3]).drop(2).value();
-result = <number[]>_([1, 2, 3]).dropWhile(function (num) {
-    return num < 3;
-}).value();
-result = <IFoodOrganic[]>_(foodsOrganic).dropWhile('organic').value();
-result = <IFoodType[]>_(foodsType).dropWhile({ 'type': 'fruit' }).value();
 
 result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
 result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
