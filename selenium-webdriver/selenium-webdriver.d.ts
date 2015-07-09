@@ -4783,39 +4783,39 @@ declare module webdriver {
 
     var By: ILocatorStrategy;
 
-    module By {
-        /**
-         * Short-hand expressions for the primary element locator strategies.
-         * For example the following two statements are equivalent:
-         *
-         *     var e1 = driver.findElement(webdriver.By.id('foo'));
-         *     var e2 = driver.findElement({id: 'foo'});
-         *
-         * Care should be taken when using JavaScript minifiers (such as the
-         * Closure compiler), as locator hashes will always be parsed using
-         * the un-obfuscated properties listed.
-         *
-         * @typedef {(
-         *     {className: string}|
-         *     {css: string}|
-         *     {id: string}|
-         *     {js: string}|
-         *     {linkText: string}|
-         *     {name: string}|
-         *     {partialLinkText: string}|
-         *     {tagName: string}|
-         *     {xpath: string})}
-         */
-        type Hash = {className: string}|
-            {css: string}|
-            {id: string}|
-            {js: string}|
-            {linkText: string}|
-            {name: string}|
-            {partialLinkText: string}|
-            {tagName: string}|
-            {xpath: string};
-    }
+    // module By {
+    //     /**
+    //      * Short-hand expressions for the primary element locator strategies.
+    //      * For example the following two statements are equivalent:
+    //      *
+    //      *     var e1 = driver.findElement(webdriver.By.id('foo'));
+    //      *     var e2 = driver.findElement({id: 'foo'});
+    //      *
+    //      * Care should be taken when using JavaScript minifiers (such as the
+    //      * Closure compiler), as locator hashes will always be parsed using
+    //      * the un-obfuscated properties listed.
+    //      *
+    //      * @typedef {(
+    //      *     {className: string}|
+    //      *     {css: string}|
+    //      *     {id: string}|
+    //      *     {js: string}|
+    //      *     {linkText: string}|
+    //      *     {name: string}|
+    //      *     {partialLinkText: string}|
+    //      *     {tagName: string}|
+    //      *     {xpath: string})}
+    //      */
+    //     type Hash = {className: string}|
+    //         {css: string}|
+    //         {id: string}|
+    //         {js: string}|
+    //         {linkText: string}|
+    //         {name: string}|
+    //         {partialLinkText: string}|
+    //         {tagName: string}|
+    //         {xpath: string};
+    // }
 
     /**
      * An element locator.
