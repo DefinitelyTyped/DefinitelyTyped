@@ -760,6 +760,9 @@ function TestWebDriver() {
     var navigation: webdriver.WebDriverNavigation = driver.navigate();
     var locator: webdriver.WebDriverTargetLocator = driver.switchTo();
 
+    var fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
+    driver.setFileDetector(fileDetector);
+
     voidPromise = driver.quit();
     voidPromise = driver.schedule<void>(new webdriver.Command(webdriver.CommandName.CLICK), 'ABC');
     voidPromise = driver.sleep(123);
