@@ -4786,9 +4786,42 @@ declare module webdriver {
     /**
      * An element locator.
      */
-    interface Locator {
+    class Locator {
+        /**
+         * An element locator.
+         * @param {string} using The type of strategy to use for this locator.
+         * @param {string} value The search target of this locator.
+         * @constructor
+         */
+        constructor(using: string, value: string);
 
-        //region Properties
+
+        /**
+         * Maps {@link webdriver.By.Hash} keys to the appropriate factory function.
+         * @type {!Object.<string, function(string): !(Function|webdriver.Locator)>}
+         * @const
+         */
+        static Strategy: {
+            className: typeof By.className;
+            css: typeof By.css;
+            id: typeof By.id;
+            js: typeof By.js;
+            linkText: typeof By.linkText;
+            name: typeof By.name;
+            partialLinkText: typeof By.partialLinkText;
+            tagName: typeof By.tagName;
+            xpath: typeof By.xpath;
+        };
+
+        /**
+         * Verifies that a {@code value} is a valid locator to use for searching for
+         * elements on the page.
+         *
+         * @param {*} value The value to check is a valid locator.
+         * @return {!(webdriver.Locator|Function)} A valid locator object or function.
+         * @throws {TypeError} If the given value is an invalid locator.
+         */
+        static checkLocator(value: any): Locator | Function;
 
         /**
          * The search strategy to use when searching for an element.
@@ -4802,14 +4835,8 @@ declare module webdriver {
          */
         value: string;
 
-        //endregion
-
-        //region Methods
-
         /** @return {string} String representation of this locator. */
         toString(): string;
-
-        //endregion
     }
 
     /**
