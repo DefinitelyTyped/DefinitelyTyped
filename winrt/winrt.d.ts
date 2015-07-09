@@ -4237,6 +4237,65 @@ declare module Windows {
     }
 }
 declare module Windows {
+    export module Devices {
+        export module Gpio {
+            import TypedEventHandler = Foundation.TypedEventHandler;
+            class EventEmitter<TSender, TResult> {
+                public addEventListener(event: string, handler: TypedEventHandler<TSender, TResult>): void;
+                public removeEventListener(event: string, handler: TypedEventHandler<TSender, TResult>): void;
+            }            
+            export class GpioController {
+                public static getDefault: () => GpioController;
+                public openPin: (pinNumber: number, sharingMode?: GpioSharingMode) => GpioPin;
+                public tryOpenPin: (pinNumber: number, sharingMode: GpioSharingMode) => GpioOpenStatus;
+                public pinCount: number;
+            }
+            export class GpioPin extends EventEmitter<GpioPin, GpioPinValueChangedEventArgs> {
+                public onValueChanged: TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs>;
+                public close: () => void;
+                public getDriveMode: () => GpioPinDriveMode;
+                public isDriveModeSupported(driveMode: GpioPinDriveMode): boolean;
+                public read: () => GpioPinValue;
+                public setDriveMode: (value: GpioPinDriveMode) => void;
+                public write: (value: GpioPinValue) => void;
+                public debounceTimeout: number;
+                public pinNumber: number;
+                public sharingMode: GpioSharingMode;
+            }
+            export class GpioPinValueChangedEventArgs {
+                public edge: GpioPinEdge;
+            }
+            export enum GpioOpenStatus {
+                pinOpened = 0,
+                pinUnavailable = 1,
+                sharingViolation = 2
+            }
+            export enum GpioPinDriveMode {
+                input = 0,
+                output = 1,
+                inputPullUp = 2,
+                inputPullDown = 3,
+                outputStrongLow = 4,
+                outputStrongLowPullUp = 5,
+                outputStrongHigh = 6,
+                outputStrongHighPullDown = 7
+            }
+            export enum GpioPinEdge {
+                fallingEdge = 0,
+                risingEdge = 1
+            }
+            export enum GpioPinValue {
+                low = 0,
+                high = 1
+            }
+            export enum GpioSharingMode {
+                exclusive = 0,
+                sharedReadOnly = 1
+            }
+        }        
+    }
+}
+declare module Windows {
     export module Globalization {
         export module Fonts {
             export interface ILanguageFontGroup {
