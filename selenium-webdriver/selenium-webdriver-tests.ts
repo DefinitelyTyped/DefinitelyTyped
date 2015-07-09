@@ -697,6 +697,7 @@ function TestWebDriver() {
     var booleanPromise: webdriver.promise.Promise<boolean>;
 
     var actions: webdriver.ActionSequence = driver.actions();
+    var touchActions: webdriver.TouchSequence = driver.touchActions();
 
     // call
     stringPromise = driver.call<string>(function(){});

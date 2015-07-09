@@ -3775,6 +3775,22 @@ declare module webdriver {
          */
         actions(): ActionSequence;
 
+
+        /**
+         * Creates a new touch sequence using this driver. The sequence will not be
+         * scheduled for execution until {@link webdriver.TouchSequence#perform} is
+         * called. Example:
+         *
+         *     driver.touchActions().
+         *         tap(element1).
+         *         doubleTap(element2).
+         *         perform();
+         *
+         * @return {!webdriver.TouchSequence} A new touch sequence for this instance.
+         */
+        touchActions(): TouchSequence;
+
+
         /**
          * Schedules a command to execute JavaScript in the context of the currently
          * selected frame or window. The script fragment will be executed as the body
