@@ -528,15 +528,15 @@ function TestLocator() {
     locator = webdriver.By.tagName('tag');
     locator = webdriver.By.xpath('xpath');
 
-    var locatorHash: webdriver.By.Hash;
-    locatorHash = { className: 'class' };
-    locatorHash = { css: 'css' };
-    locatorHash = { id: 'id' };
-    locatorHash = { linkText: 'link' };
-    locatorHash = { name: 'name' };
-    locatorHash = { partialLinkText: 'text' };
-    locatorHash = { tagName: 'tag' };
-    locatorHash = { xpath: 'xpath' };
+    // var locatorHash: webdriver.By.Hash;
+    // locatorHash = { className: 'class' };
+    // locatorHash = { css: 'css' };
+    // locatorHash = { id: 'id' };
+    // locatorHash = { linkText: 'link' };
+    // locatorHash = { name: 'name' };
+    // locatorHash = { partialLinkText: 'text' };
+    // locatorHash = { tagName: 'tag' };
+    // locatorHash = { xpath: 'xpath' };
 
     webdriver.By.js('script', 1, 2, 3)(driver).then(function (abc: number) { });
 }
