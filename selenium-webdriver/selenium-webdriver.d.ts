@@ -4685,14 +4685,99 @@ declare module webdriver {
     }
 
     interface ILocatorStrategy {
+        /**
+         * Locates elements that have a specific class name. The returned locator
+         * is equivalent to searching for elements with the CSS selector ".clazz".
+         *
+         * @param {string} className The class name to search for.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
+         * @see http://www.w3.org/TR/CSS2/selector.html#class-html
+         */
         className(value: string): Locator;
+
+        /**
+         * Locates elements using a CSS selector. For browsers that do not support
+         * CSS selectors, WebDriver implementations may return an
+         * {@linkplain bot.Error.State.INVALID_SELECTOR invalid selector} error. An
+         * implementation may, however, emulate the CSS selector API.
+         *
+         * @param {string} selector The CSS selector to use.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/CSS2/selector.html
+         */
         css(value: string): Locator;
+
+        /**
+         * Locates an element by its ID.
+         *
+         * @param {string} id The ID to search for.
+         * @return {!webdriver.Locator} The new locator.
+         */
         id(value: string): Locator;
-        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+
+        /**
+         * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
+         * text} matches the given string.
+         *
+         * @param {string} text The link text to search for.
+         * @return {!webdriver.Locator} The new locator.
+         */
         linkText(value: string): Locator;
+
+        /**
+         * Locates an elements by evaluating a
+         * {@linkplain webdriver.WebDriver#executeScript JavaScript expression}.
+         * The result of this expression must be an element or list of elements.
+         *
+         * @param {!(string|Function)} script The script to execute.
+         * @param {...*} var_args The arguments to pass to the script.
+         * @return {function(!webdriver.WebDriver): !webdriver.promise.Promise} A new,
+         *     JavaScript-based locator function.
+         */
+        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+
+        /**
+         * Locates elements whose {@code name} attribute has the given value.
+         *
+         * @param {string} name The name attribute to search for.
+         * @return {!webdriver.Locator} The new locator.
+         */
         name(value: string): Locator;
+
+        /**
+         * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
+         * text} contains the given substring.
+         *
+         * @param {string} text The substring to check for in a link's visible text.
+         * @return {!webdriver.Locator} The new locator.
+         */
         partialLinkText(value: string): Locator;
+
+        /**
+         * Locates elements with a given tag name. The returned locator is
+         * equivalent to using the
+         * [getElementsByTagName](https://developer.mozilla.org/en-US/docs/Web/API/Element.getElementsByTagName)
+         * DOM function.
+         *
+         * @param {string} text The substring to check for in a link's visible text.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/REC-DOM-Level-1/level-one-core.html
+         */
         tagName(value: string): Locator;
+
+        /**
+         * Locates elements matching a XPath selector. Care should be taken when
+         * using an XPath selector with a {@link webdriver.WebElement} as WebDriver
+         * will respect the context in the specified in the selector. For example,
+         * given the selector {@code "//div"}, WebDriver will search from the
+         * document root regardless of whether the locator was used with a
+         * WebElement.
+         *
+         * @param {string} xpath The XPath selector to use.
+         * @return {!webdriver.Locator} The new locator.
+         * @see http://www.w3.org/TR/xpath/
+         */
         xpath(value: string): Locator;
     }
 
