@@ -3775,6 +3775,15 @@ declare module webdriver {
          */
         schedule<T>(command: Command, description: string): webdriver.promise.Promise<T>;
 
+
+        /**
+         * Sets the {@linkplain webdriver.FileDetector file detector} that should be
+         * used with this instance.
+         * @param {webdriver.FileDetector} detector The detector to use or {@code null}.
+         */
+        setFileDetector(detector: FileDetector): void;
+
+
         /**
          * @return {!webdriver.promise.Promise} A promise for this client's session.
          */
