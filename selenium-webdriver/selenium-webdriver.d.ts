@@ -1289,28 +1289,39 @@ declare module webdriver {
             static isImplementation(object: any): boolean;
         }
 
+        interface IFulfilledCallback<T> {
+          (value: T|IThenable<T>|Thenable<T>|void): void;
+        }
+
+        interface IRejectedCallback {
+          (reason: any): void;
+        }
+
         /**
          * Represents the eventual value of a completed operation. Each promise may be
-         * in one of three states: pending, resolved, or rejected. Each promise starts
+         * in one of three states: pending, fulfilled, or rejected. Each promise starts
          * in the pending state and may make a single transition to either a
-         * fulfilled or failed state.
+         * fulfilled or rejected state, at which point the promise is considered
+         * resolved.
          *
-         * <p/>This class is based on the Promise/A proposal from CommonJS. Additional
-         * functions are provided for API compatibility with Dojo Deferred objects.
-         *
-         * @see http://wiki.commonjs.org/wiki/Promises/A
+         * @implements {promise.Thenable<T>}
+         * @template T
+         * @see http://promises-aplus.github.io/promises-spec/
          */
         class Promise<T> implements IThenable<T> {
-
-            //region Constructors
-
             /**
-            * @constructor
-            * @see http://wiki.commonjs.org/wiki/Promises/A
+             * @param {function(
+             *           function((T|IThenable<T>|Thenable)=),
+             *           function(*=))} resolver
+             *     Function that is invoked immediately to begin computation of this
+             *     promise's value. The function should accept a pair of callback functions,
+             *     one for fulfilling the promise and another for rejecting it.
+             * @param {promise.ControlFlow=} opt_flow The control flow
+             *     this instance was created under. Defaults to the currently active flow.
+             * @constructor
             */
-            constructor();
-
-            //endregion
+            constructor(resolver: (onFulfilled: IFulfilledCallback<T>, onRejected: IRejectedCallback)=>void, opt_flow?: ControlFlow);
+            constructor(); // For angular-protractor/angular-protractor-tests.ts
 
             //region Methods
 
