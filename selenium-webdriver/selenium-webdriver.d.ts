@@ -2307,6 +2307,143 @@ declare module webdriver {
         //endregion
     }
 
+
+    /**
+     * Class for defining sequences of user touch interactions. Each sequence
+     * will not be executed until {@link #perform} is called.
+     *
+     * Example:
+     *
+     *     new webdriver.TouchSequence(driver).
+     *         tapAndHold({x: 0, y: 0}).
+     *         move({x: 3, y: 4}).
+     *         release({x: 10, y: 10}).
+     *         perform();
+     */
+    class TouchSequence {
+      /*
+       * @param {!webdriver.WebDriver} driver The driver instance to use.
+       * @constructor
+       */
+      constructor(driver: WebDriver);
+
+
+      /**
+       * Executes this action sequence.
+       * @return {!webdriver.promise.Promise} A promise that will be resolved once
+       *     this sequence has completed.
+       */
+      perform(): webdriver.promise.Promise<void>;
+
+
+      /**
+       * Taps an element.
+       *
+       * @param {!webdriver.WebElement} elem The element to tap.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      tap(elem: IWebElement): TouchSequence;
+
+
+      /**
+       * Double taps an element.
+       *
+       * @param {!webdriver.WebElement} elem The element to double tap.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      doubleTap(elem: IWebElement): TouchSequence;
+
+
+      /**
+       * Long press on an element.
+       *
+       * @param {!webdriver.WebElement} elem The element to long press.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      longPress(elem: IWebElement): TouchSequence;
+
+
+      /**
+       * Touch down at the given location.
+       *
+       * @param {{ x: number, y: number }} location The location to touch down at.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      tapAndHold(location: ILocation): TouchSequence;
+
+
+      /**
+       * Move a held {@linkplain #tapAndHold touch} to the specified location.
+       *
+       * @param {{x: number, y: number}} location The location to move to.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      move(location: ILocation): TouchSequence;
+
+
+      /**
+       * Release a held {@linkplain #tapAndHold touch} at the specified location.
+       *
+       * @param {{x: number, y: number}} location The location to release at.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      release(location: ILocation): TouchSequence;
+
+
+      /**
+       * Scrolls the touch screen by the given offset.
+       *
+       * @param {{x: number, y: number}} offset The offset to scroll to.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      scroll(offset: IOffset): TouchSequence;
+
+
+      /**
+       * Scrolls the touch screen, starting on `elem` and moving by the specified
+       * offset.
+       *
+       * @param {!webdriver.WebElement} elem The element where scroll starts.
+       * @param {{x: number, y: number}} offset The offset to scroll to.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      scrollFromElement(elem: IWebElement, offset: IOffset): TouchSequence;
+
+
+      /**
+       * Flick, starting anywhere on the screen, at speed xspeed and yspeed.
+       *
+       * @param {{xspeed: number, yspeed: number}} speed The speed to flick in each
+       direction, in pixels per second.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      flick(speed: ISpeed): TouchSequence;
+
+
+      /**
+       * Flick starting at elem and moving by x and y at specified speed.
+       *
+       * @param {!webdriver.WebElement} elem The element where flick starts.
+       * @param {{x: number, y: number}} offset The offset to flick to.
+       * @param {number} speed The speed to flick at in pixels per second.
+       * @return {!webdriver.TouchSequence} A self reference.
+       */
+      flickElement(elem: IWebElement, offset: IOffset, speed: number): TouchSequence;
+    }
+
+
+    interface IOffset {
+      x: number;
+      y: number;
+    }
+
+
+    interface ISpeed {
+      xspeed: number;
+      yspeed: number;
+    }
+
+
     /**
      * Represents a modal dialog such as {@code alert}, {@code confirm}, or
      * {@code prompt}. Provides functions to retrieve the message displayed with
