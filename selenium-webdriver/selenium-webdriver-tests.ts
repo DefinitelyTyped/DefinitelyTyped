@@ -676,14 +676,14 @@ function TestWebDriver() {
     var element: webdriver.WebElement;
     element = driver.findElement(webdriver.By.id('ABC'));
     element = driver.findElement({id: 'ABC'});
-    element = driver.findElement(webdriver.By.js('function(){}'), 1, 2, 3);
-    element = driver.findElement({js: 'function(){}'}, 1, 2, 3);
+    element = driver.findElement(webdriver.By.js('function(){}'));
+    element = driver.findElement({js: 'function(){}'});
 
     // findElements
     driver.findElements(webdriver.By.className('ABC')).then(function (elements: webdriver.WebElement[]) { });
     driver.findElements({ className: 'ABC' }).then(function (elements: webdriver.WebElement[]) { });
-    driver.findElements(webdriver.By.js('function(){}'), 1, 2, 3).then(function (elements: webdriver.WebElement[]) { });
-    driver.findElements({ js: 'function(){}' }, 1, 2, 3).then(function (elements: webdriver.WebElement[]) { });
+    driver.findElements(webdriver.By.js('function(){}')).then(function (elements: webdriver.WebElement[]) { });
+    driver.findElements({ js: 'function(){}' }).then(function (elements: webdriver.WebElement[]) { });
 
     voidPromise = driver.get('http://www.google.com');
     driver.getAllWindowHandles().then(function (handles: string[]) { });
@@ -696,8 +696,8 @@ function TestWebDriver() {
 
     booleanPromise = driver.isElementPresent(webdriver.By.className('ABC'));
     booleanPromise = driver.isElementPresent({className: 'ABC'});
-    booleanPromise = driver.isElementPresent(webdriver.By.js('function(){}'), 1, 2, 3);
-    booleanPromise = driver.isElementPresent({js: 'function(){}'}, 1, 2, 3);
+    booleanPromise = driver.isElementPresent(webdriver.By.js('function(){}'));
+    booleanPromise = driver.isElementPresent({js: 'function(){}'});
 
     var options: webdriver.WebDriverOptions = driver.manage();
     var navigation: webdriver.WebDriverNavigation = driver.navigate();

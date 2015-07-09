@@ -3867,6 +3867,7 @@ declare module webdriver {
          * {@code webdriver.Locator} object, or a simple JSON object whose sole key
          * is one of the accepted locator strategies, as defined by
          * {@code webdriver.Locator.Strategy}. For example, the following two statements
+         * The search criteria for an element may be defined using one of the
          * are equivalent:
          * <code><pre>
          * var e1 = driver.findElement(By.id('foo'));
@@ -3882,48 +3883,41 @@ declare module webdriver {
          * one this instance is currently focused on), a
          * {@link bot.ErrorCode.NO_SUCH_ELEMENT} error will be returned.
          *
-         * @param {!(webdriver.Locator|Object.<string>|Element)} locatorOrElement The
-         *     locator strategy to use when searching for the element, or the actual
-         *     DOM element to be located by the server.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Element|Function)} locator The
+         *     locator to use.
          * @return {!webdriver.WebElement} A WebElement that can be used to issue
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locatorOrElement: Locator, ...var_args: any[]): WebElementPromise;
-        findElement(locatorOrElement: any, ...var_args: any[]): WebElementPromise;
+        findElement(locatorOrElement: Locator): WebElementPromise;
+        findElement(locatorOrElement: any): WebElementPromise;
 
         /**
          * Schedules a command to test if an element is present on the page.
          *
-         * <p>If given a DOM element, this function will check if it belongs to the
+         * If given a DOM element, this function will check if it belongs to the
          * document the driver is currently focused on. Otherwise, the function will
          * test if at least one element can be found with the given search criteria.
          *
-         * @param {!(webdriver.Locator|Object.<string>|Element)} locatorOrElement The
-         *     locator strategy to use when searching for the element, or the actual
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Element|
+         *           Function)} locatorOrElement The locator to use, or the actual
          *     DOM element to be located by the server.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will resolve to whether
-         *     the element is present on the page.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will resolve
+         *     with whether the element is present on the page.
          */
-        isElementPresent(locatorOrElement: Locator, ...var_args: any[]): webdriver.promise.Promise<boolean>;
-        isElementPresent(locatorOrElement: any, ...var_args: any[]): webdriver.promise.Promise<boolean>;
+        isElementPresent(locatorOrElement: Locator): webdriver.promise.Promise<boolean>;
+        isElementPresent(locatorOrElement: any): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedule a command to search for multiple elements on the page.
          *
-         * @param {webdriver.Locator|Object.<string>} locator The locator
+         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The locator
          *     strategy to use when searching for the element.
-         * @param {...} var_args Arguments to pass to {@code #executeScript} if using a
-         *     JavaScript locator.  Otherwise ignored.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to an
-         *     array of the located {@link webdriver.WebElement}s.
+         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator, ...var_args: any[]): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any, ...var_args: any[]): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedule a command to take a screenshot. The driver makes a best effort to
