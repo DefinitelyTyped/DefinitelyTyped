@@ -100,7 +100,8 @@ function TestFirefoxProfile() {
 
 function TestExecutors() {
     var exec: webdriver.CommandExecutor = executors.createExecutor("url");
-    exec = executors.createExecutor(new webdriver.promise.Promise<string>());
+    var promise: webdriver.promise.Promise<string>;
+    exec = executors.createExecutor(promise);
 }
 
 function TestBuilder() {
@@ -694,7 +695,7 @@ function TestWebDriverWindow() {
 
 function TestWebDriver() {
     var session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
-    var sessionPromise: webdriver.promise.Promise<webdriver.Session> = new webdriver.promise.Promise<webdriver.Session>();
+    var sessionPromise: webdriver.promise.Promise<webdriver.Session>;
     var executor: webdriver.CommandExecutor = executors.createExecutor("http://someserver");
     var flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
     var driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
@@ -780,10 +781,11 @@ function TestWebElement() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
+    var promise: webdriver.promise.Promise<webdriver.IWebElementId>;
     var element: webdriver.WebElement;
 
     element = new webdriver.WebElement(driver, { ELEMENT: 'ID' });
-    element = new webdriver.WebElement(driver, new webdriver.promise.Promise<webdriver.IWebElementId>());
+    element = new webdriver.WebElement(driver, promise);
 
     var voidPromise: webdriver.promise.Promise<void>;
     var stringPromise: webdriver.promise.Promise<string>;
@@ -896,12 +898,12 @@ function TestPromiseModule() {
     var str: string = cancellationError.message;
     str = cancellationError.name;
 
-    var stringPromise: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
+    var stringPromise: webdriver.promise.Promise<string>;
     var numberPromise: webdriver.promise.Promise<number>;
     var booleanPromise: webdriver.promise.Promise<boolean>;
     var voidPromise: webdriver.promise.Promise<void>;
 
-    webdriver.promise.all([new webdriver.promise.Promise<string>()]).then(function (values: string[]) { });
+    webdriver.promise.all([stringPromise]).then(function (values: string[]) { });
 
     webdriver.promise.asap('abc', function(value: any){ return true; });
     webdriver.promise.asap('abc', function(value: any){}, function(err: any) { return 'ABC'; });
@@ -1070,7 +1072,17 @@ function TestDeferred() {
 }
 
 function TestPromiseClass() {
-    var promise: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
+    var controlFlow: webdriver.promise.ControlFlow;
+    var promise: webdriver.promise.Promise<string>;
+    promise = new webdriver.promise.Promise<string>(function(
+          onFulfilled: (value: string)=>void,
+          onRejected: ()=>void) { });
+    promise = new webdriver.promise.Promise<string>(function(
+          onFulfilled: (value: webdriver.promise.Promise<string>)=>void,
+          onRejected: ()=>void) { });
+    promise = new webdriver.promise.Promise<string>(function(
+          onFulfilled: (value: string)=>void,
+          onRejected: ()=>void) { }, controlFlow);
 
     promise.cancel('Abort');
 
