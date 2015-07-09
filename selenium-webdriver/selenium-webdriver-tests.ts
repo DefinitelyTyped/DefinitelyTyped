@@ -1035,18 +1035,10 @@ function TestControlFlow() {
     eventType = webdriver.promise.ControlFlow.EventType.SCHEDULE_TASK;
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
-    var e: any = flow.annotateError(new Error('Error'));
-
     var stringPromise: webdriver.promise.Promise<string>;
-
-    stringPromise = flow.await(stringPromise);
-
-    flow.clearHistory();
 
     stringPromise = flow.execute(function() { return stringPromise; });
     stringPromise = flow.execute(function() { return stringPromise; }, 'Description');
-
-    var history: string[] = flow.getHistory();
 
     var schedule: string = flow.getSchedule();
 

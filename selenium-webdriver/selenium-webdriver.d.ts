@@ -1611,26 +1611,7 @@ declare module webdriver {
             reset(): void;
 
             /**
-             * Returns a summary of the recent task activity for this instance. This
-             * includes the most recently completed task, as well as any parent tasks. In
-             * the returned summary, the task at index N is considered a sub-task of the
-             * task at index N+1.
-             * @return {!Array.<string>} A summary of this instance's recent task
-             *     activity.
              */
-            getHistory(): string[];
-
-            /** Clears this instance's task history. */
-            clearHistory(): void;
-
-            /**
-             * Appends a summary of this instance's recent task history to the given
-             * error's stack trace. This function will also ensure the error's stack trace
-             * is in canonical form.
-             * @param {!(Error|goog.testing.JsUnitException)} e The error to annotate.
-             * @return {!(Error|goog.testing.JsUnitException)} The annotated error.
-             */
-            annotateError(e: any): any;
 
             /**
              * @return {string} The scheduled tasks still pending with this instance.
@@ -1686,15 +1667,6 @@ declare module webdriver {
              *     times out waiting for the condition.
              */
             wait(condition: Function, timeout: number, opt_message?: string): Promise<void>;
-
-            /**
-             * Schedules a task that will wait for another promise to resolve.  The resolved
-             * promise's value will be returned as the task result.
-             * @param {!webdriver.promise.Promise} promise The promise to wait on.
-             * @return {!webdriver.promise.Promise} A promise that will resolve when the
-             *     task has completed.
-             */
-            await<T>(promise: Promise<T>): Promise<T>;
 
             //endregion
         }
