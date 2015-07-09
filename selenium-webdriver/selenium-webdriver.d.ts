@@ -3251,6 +3251,7 @@ declare module webdriver {
         //endregion
     }
 
+
     /**
      * Interface for navigating back and forth in the browser history.
      */
@@ -3270,29 +3271,29 @@ declare module webdriver {
         /**
          * Schedules a command to navigate to a new URL.
          * @param {string} url The URL to navigate to.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     URL has been loaded.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the URL has been loaded.
          */
         to(url: string): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to move backwards in the browser history.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     navigation event has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the navigation event has completed.
          */
         back(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to move forwards in the browser history.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     navigation event has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the navigation event has completed.
          */
         forward(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to refresh the current page.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     navigation event has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the navigation event has completed.
          */
         refresh(): webdriver.promise.Promise<void>;
 
@@ -3785,22 +3786,25 @@ declare module webdriver {
 
 
         /**
-         * @return {!webdriver.promise.Promise} A promise for this client's session.
+         * @return {!webdriver.promise.Promise.<!webdriver.Session>} A promise for this
+         *     client's session.
          */
         getSession(): webdriver.promise.Promise<Session>;
 
+
         /**
-         * @return {!webdriver.promise.Promise} A promise that will resolve with the
-         *     this instance's capabilities.
+         * @return {!webdriver.promise.Promise.<!webdriver.Capabilities>} A promise
+         *     that will resolve with the this instance's capabilities.
          */
         getCapabilities(): webdriver.promise.Promise<Capabilities>;
+
 
         /**
          * Schedules a command to quit the current session. After calling quit, this
          * instance will be invalidated and may no longer be used to issue commands
          * against the browser.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the command has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the command has completed.
          */
         quit(): webdriver.promise.Promise<void>;
 
@@ -3857,20 +3861,20 @@ declare module webdriver {
          * If the script has a return value (i.e. if the script contains a return
          * statement), then the following steps will be taken for resolving this
          * functions return value:
-         * <ul>
-         * <li>For a HTML element, the value will resolve to a
-         *     {@code webdriver.WebElement}</li>
-         * <li>Null and undefined return values will resolve to null</li>
-         * <li>Booleans, numbers, and strings will resolve as is</li>
-         * <li>Functions will resolve to their string representation</li>
-         * <li>For arrays and objects, each member item will be converted according to
-         *     the rules above</li>
-         * </ul>
+         *
+         * - For a HTML element, the value will resolve to a
+         *     {@link webdriver.WebElement}
+         * - Null and undefined return values will resolve to null</li>
+         * - Booleans, numbers, and strings will resolve as is</li>
+         * - Functions will resolve to their string representation</li>
+         * - For arrays and objects, each member item will be converted according to
+         *     the rules above
          *
          * @param {!(string|Function)} script The script to execute.
          * @param {...*} var_args The arguments to pass to the script.
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
+         * @return {!webdriver.promise.Promise.<T>} A promise that will resolve to the
          *    scripts return value.
+         * @template T
          */
         executeScript<T>(script: string, ...var_args: any[]): webdriver.promise.Promise<T>;
         executeScript<T>(script: Function, ...var_args: any[]): webdriver.promise.Promise<T>;
@@ -3888,102 +3892,126 @@ declare module webdriver {
          * Arrays and objects may also be used as script arguments as long as each item
          * adheres to the types previously mentioned.
          *
-         * Unlike executing synchronous JavaScript with
-         * {@code webdriver.WebDriver.prototype.executeScript}, scripts executed with
-         * this function must explicitly signal they are finished by invoking the
-         * provided callback. This callback will always be injected into the
-         * executed function as the last argument, and thus may be referenced with
-         * {@code arguments[arguments.length - 1]}. The following steps will be taken
-         * for resolving this functions return value against the first argument to the
-         * script's callback function:
-         * <ul>
-         * <li>For a HTML element, the value will resolve to a
-         *     {@code webdriver.WebElement}</li>
-         * <li>Null and undefined return values will resolve to null</li>
-         * <li>Booleans, numbers, and strings will resolve as is</li>
-         * <li>Functions will resolve to their string representation</li>
-         * <li>For arrays and objects, each member item will be converted according to
-         *     the rules above</li>
-         * </ul>
+         * Unlike executing synchronous JavaScript with {@link #executeScript},
+         * scripts executed with this function must explicitly signal they are finished
+         * by invoking the provided callback. This callback will always be injected
+         * into the executed function as the last argument, and thus may be referenced
+         * with {@code arguments[arguments.length - 1]}. The following steps will be
+         * taken for resolving this functions return value against the first argument
+         * to the script's callback function:
          *
-         * Example #1: Performing a sleep that is synchronized with the currently
+         * - For a HTML element, the value will resolve to a
+         *     {@link webdriver.WebElement}
+         * - Null and undefined return values will resolve to null
+         * - Booleans, numbers, and strings will resolve as is
+         * - Functions will resolve to their string representation
+         * - For arrays and objects, each member item will be converted according to
+         *     the rules above
+         *
+         * __Example #1:__ Performing a sleep that is synchronized with the currently
          * selected window:
-         * <code><pre>
-         * var start = new Date().getTime();
-         * driver.executeAsyncScript(
-         *     'window.setTimeout(arguments[arguments.length - 1], 500);').
-         *     then(function() {
-         *       console.log('Elapsed time: ' + (new Date().getTime() - start) + ' ms');
-         *     });
-         * </pre></code>
          *
-         * Example #2: Synchronizing a test with an AJAX application:
-         * <code><pre>
-         * var button = driver.findElement(By.id('compose-button'));
-         * button.click();
-         * driver.executeAsyncScript(
-         *     'var callback = arguments[arguments.length - 1];' +
-         *     'mailClient.getComposeWindowWidget().onload(callback);');
-         * driver.switchTo().frame('composeWidget');
-         * driver.findElement(By.id('to')).sendKEys('dog@example.com');
-         * </pre></code>
+         *     var start = new Date().getTime();
+         *     driver.executeAsyncScript(
+         *         'window.setTimeout(arguments[arguments.length - 1], 500);').
+         *         then(function() {
+         *           console.log(
+         *               'Elapsed time: ' + (new Date().getTime() - start) + ' ms');
+         *         });
          *
-         * Example #3: Injecting a XMLHttpRequest and waiting for the result. In this
-         * example, the inject script is specified with a function literal. When using
-         * this format, the function is converted to a string for injection, so it
+         * __Example #2:__ Synchronizing a test with an AJAX application:
+         *
+         *     var button = driver.findElement(By.id('compose-button'));
+         *     button.click();
+         *     driver.executeAsyncScript(
+         *         'var callback = arguments[arguments.length - 1];' +
+         *         'mailClient.getComposeWindowWidget().onload(callback);');
+         *     driver.switchTo().frame('composeWidget');
+         *     driver.findElement(By.id('to')).sendKeys('dog@example.com');
+         *
+         * __Example #3:__ Injecting a XMLHttpRequest and waiting for the result. In
+         * this example, the inject script is specified with a function literal. When
+         * using this format, the function is converted to a string for injection, so it
          * should not reference any symbols not defined in the scope of the page under
          * test.
-         * <code><pre>
-         * driver.executeAsyncScript(function() {
-         *   var callback = arguments[arguments.length - 1];
-         *   var xhr = new XMLHttpRequest();
-         *   xhr.open("GET", "/resource/data.json", true);
-         *   xhr.onreadystatechange = function() {
-         *     if (xhr.readyState == 4) {
-         *       callback(xhr.resposneText);
-         *     }
-         *   }
-         *   xhr.send('');
-         * }).then(function(str) {
-         *   console.log(JSON.parse(str)['food']);
-         * });
-         * </pre></code>
+         *
+         *     driver.executeAsyncScript(function() {
+         *       var callback = arguments[arguments.length - 1];
+         *       var xhr = new XMLHttpRequest();
+         *       xhr.open("GET", "/resource/data.json", true);
+         *       xhr.onreadystatechange = function() {
+         *         if (xhr.readyState == 4) {
+         *           callback(xhr.responseText);
+         *         }
+         *       }
+         *       xhr.send('');
+         *     }).then(function(str) {
+         *       console.log(JSON.parse(str)['food']);
+         *     });
          *
          * @param {!(string|Function)} script The script to execute.
          * @param {...*} var_args The arguments to pass to the script.
-         * @return {!webdriver.promise.Promise} A promise that will resolve to the
+         * @return {!webdriver.promise.Promise.<T>} A promise that will resolve to the
          *    scripts return value.
+         * @template T
          */
         executeAsyncScript<T>(script: string, ...var_args: any[]): webdriver.promise.Promise<T>;
         executeAsyncScript<T>(script: Function, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to execute a custom function.
-         * @param {!Function} fn The function to execute.
+         * @param {function(...): (T|webdriver.promise.Promise.<T>)} fn The function to
+         *     execute.
          * @param {Object=} opt_scope The object in whose scope to execute the function.
          * @param {...*} var_args Any arguments to pass to the function.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     function's result.
+         * @return {!webdriver.promise.Promise.<T>} A promise that will be resolved'
+         *     with the function's result.
+         * @template T
          */
         call<T>(fn: Function, opt_scope?: any, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
-         * Schedules a command to wait for a condition to hold, as defined by some
-         * user supplied function. If any errors occur while evaluating the wait, they
-         * will be allowed to propagate.
+         * Schedules a command to wait for a condition to hold. The condition may be
+         * specified by a {@link webdriver.until.Condition}, as a custom function, or
+         * as a {@link webdriver.promise.Promise}.
          *
-         * <p>In the event a condition returns a {@link webdriver.promise.Promise}, the
+         * For a {@link webdriver.until.Condition} or function, the wait will repeatedly
+         * evaluate the condition until it returns a truthy value. If any errors occur
+         * while evaluating the condition, they will be allowed to propagate. In the
+         * event a condition returns a {@link webdriver.promise.Promise promise}, the
          * polling loop will wait for it to be resolved and use the resolved value for
-         * evaluating whether the condition has been satisfied. The resolution time for
+         * whether the condition has been satisified. Note the resolution time for
          * a promise is factored into whether a wait has timed out.
          *
-         * @param {!(webdriver.until.Condition.<T>|
-         *           function(!webdriver.WebDriver): T)} condition Either a condition
-         *     object, or a function to evaluate as a condition.
-         * @param {number} timeout How long to wait for the condition to be true.
+         * *Example:* waiting up to 10 seconds for an element to be present and visible
+         * on the page.
+         *
+         *     var button = driver.wait(until.elementLocated(By.id('foo'), 10000);
+         *     button.click();
+         *
+         * This function may also be used to block the command flow on the resolution
+         * of a {@link webdriver.promise.Promise promise}. When given a promise, the
+         * command will simply wait for its resolution before completing. A timeout may
+         * be provided to fail the command if the promise does not resolve before the
+         * timeout expires.
+         *
+         * *Example:* Suppose you have a function, `startTestServer`, that returns a
+         * promise for when a server is ready for requests. You can block a `WebDriver`
+         * client on this promise with:
+         *
+         *     var started = startTestServer();
+         *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
+         *     driver.get(getServerUrl());
+         *
+         * @param {!(webdriver.promise.Promise<T>|
+         *           webdriver.until.Condition<T>|
+         *           function(!webdriver.WebDriver): T)} condition The condition to
+         *     wait on, defined as a promise, condition object, or  a function to
+         *     evaluate as a condition.
+         * @param {number=} opt_timeout How long to wait for the condition to be true.
          * @param {string=} opt_message An optional message to use if the wait times
          *     out.
-         * @return {!webdriver.promise.Promise.<T>} A promise that will be fulfilled
+         * @return {!webdriver.promise.Promise<T>} A promise that will be fulfilled
          *     with the first truthy value returned by the condition function, or
          *     rejected if the condition times out.
          * @template T
@@ -3994,22 +4022,22 @@ declare module webdriver {
         /**
          * Schedules a command to make the driver sleep for the given amount of time.
          * @param {number} ms The amount of time, in milliseconds, to sleep.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     sleep has finished.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the sleep has finished.
          */
         sleep(ms: number): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to retrieve they current window handle.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current window handle.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current window handle.
          */
         getWindowHandle(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to retrieve the current list of available window handles.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with an
-         *     array of window handles.
+         * @return {!webdriver.promise.Promise.<!Array.<string>>} A promise that will
+         *     be resolved with an array of window handles.
          */
         getAllWindowHandles(): webdriver.promise.Promise<string[]>;
 
@@ -4018,60 +4046,73 @@ declare module webdriver {
          * returned is a representation of the underlying DOM: do not expect it to be
          * formatted or escaped in the same way as the response sent from the web
          * server.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current page source.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current page source.
          */
         getPageSource(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to close the current window.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     this command has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when this command has completed.
          */
         close(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to navigate to the given URL.
          * @param {string} url The fully qualified URL to open.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     document has finished loading.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the document has finished loading.
          */
         get(url: string): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to retrieve the URL of the current page.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current URL.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current URL.
          */
         getCurrentUrl(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to retrieve the current page's title.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     current page's title.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the current page's title.
          */
         getTitle(): webdriver.promise.Promise<string>;
 
         /**
          * Schedule a command to find an element on the page. If the element cannot be
-         * found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will be returned
+         * found, a {@link bot.ErrorCode.NO_SUCH_ELEMENT} result will be returned
          * by the driver. Unlike other commands, this error cannot be suppressed. In
          * other words, scheduling a command to find an element doubles as an assert
          * that the element is present on the page. To test whether an element is
-         * present on the page, use {@code #isElementPresent} instead.
+         * present on the page, use {@link #isElementPresent} instead.
          *
-         * <p>The search criteria for find an element may either be a
-         * {@code webdriver.Locator} object, or a simple JSON object whose sole key
-         * is one of the accepted locator strategies, as defined by
-         * {@code webdriver.Locator.Strategy}. For example, the following two statements
          * The search criteria for an element may be defined using one of the
+         * factories in the {@link webdriver.By} namespace, or as a short-hand
+         * {@link webdriver.By.Hash} object. For example, the following two statements
          * are equivalent:
-         * <code><pre>
-         * var e1 = driver.findElement(By.id('foo'));
-         * var e2 = driver.findElement({id:'foo'});
-         * </pre></code>
          *
-         * <p>When running in the browser, a WebDriver cannot manipulate DOM elements
+         *     var e1 = driver.findElement(By.id('foo'));
+         *     var e2 = driver.findElement({id:'foo'});
+         *
+         * You may also provide a custom locator function, which takes as input
+         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
+         * promise that will resolve to a WebElement. For example, to find the first
+         * visible link on a page, you could write:
+         *
+         *     var link = driver.findElement(firstVisibleLink);
+         *
+         *     function firstVisibleLink(driver) {
+         *       var links = driver.findElements(By.tagName('a'));
+         *       return webdriver.promise.filter(links, function(link) {
+         *         return links.isDisplayed();
+         *       }).then(function(visibleLinks) {
+         *         return visibleLinks[0];
+         *       });
+         *     }
+         *
+         * When running in the browser, a WebDriver cannot manipulate DOM elements
          * directly; it may do so only through a {@link webdriver.WebElement} reference.
          * This function may be used to generate a WebElement from a DOM element. A
          * reference to the DOM element will be stored in a known location and this
@@ -4126,8 +4167,8 @@ declare module webdriver {
          *   <li>The screenshot of the entire display containing the browser
          * </ol>
          *
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to the
-         *     screenshot as a base-64 encoded PNG.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved to the screenshot as a base-64 encoded PNG.
          */
         takeScreenshot(): webdriver.promise.Promise<string>;
 
