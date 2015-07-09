@@ -497,15 +497,29 @@ function TestLocator() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var locator: webdriver.Locator = webdriver.By.className('class');
+    var locator: webdriver.Locator = new webdriver.Locator('class name', 'class');
 
-    var locatorStr: string = locator.toString();
+    var locatorOrFn: webdriver.Locator|Function;
+
+    locatorOrFn = webdriver.Locator.Strategy.className;
+    locatorOrFn = webdriver.Locator.Strategy.css;
+    locatorOrFn = webdriver.Locator.Strategy.id;
+    locatorOrFn = webdriver.Locator.Strategy.js;
+    locatorOrFn = webdriver.Locator.Strategy.linkText;
+    locatorOrFn = webdriver.Locator.Strategy.name;
+    locatorOrFn = webdriver.Locator.Strategy.partialLinkText;
+    locatorOrFn = webdriver.Locator.Strategy.tagName;
+    locatorOrFn = webdriver.Locator.Strategy.xpath;
+
+    locatorOrFn = webdriver.Locator.checkLocator(locator);
+    locatorOrFn = webdriver.Locator.checkLocator({ className: 'class' });
+    locatorOrFn = webdriver.Locator.checkLocator(Error);
 
     var using: string = locator.using;
     var value: string = locator.value;
-
     var str: string = locator.toString();
 
+    locator = webdriver.By.className('class');
     locator = webdriver.By.css('css');
     locator = webdriver.By.id('id');
     locator = webdriver.By.linkText('link');
