@@ -1596,16 +1596,20 @@ declare module webdriver {
 
             /**
              * Schedules a task for execution. If there is nothing currently in the
-             * queue, the task will be executed in the next turn of the event loop.
+             * queue, the task will be executed in the next turn of the event loop. If
+             * the task function is a generator, the task will be executed using
+             * {@link webdriver.promise.consume}.
              *
-             * @param {!Function} fn The function to call to start the task. If the
-             *     function returns a {@link webdriver.promise.Promise}, this instance
-             *     will wait for it to be resolved before starting the next task.
+             * @param {function(): (T|promise.Promise<T>)} fn The function to
+             *     call to start the task. If the function returns a
+             *     {@link webdriver.promise.Promise}, this instance will wait for it to be
+             *     resolved before starting the next task.
              * @param {string=} opt_description A description of the task.
-             * @return {!webdriver.promise.Promise} A promise that will be resolved with
-             *     the result of the action.
+             * @return {!promise.Promise<T>} A promise that will be resolved
+             *     with the result of the action.
+             * @template T
              */
-            execute<T>(fn: Function, opt_description?: string): Promise<T>;
+            execute<T>(fn: ()=>(T|Promise<T>), opt_description?: string): Promise<T>;
 
             /**
              * Inserts a {@code setTimeout} into the command queue. This is equivalent to
