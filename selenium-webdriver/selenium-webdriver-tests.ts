@@ -1032,6 +1032,7 @@ function TestControlFlow() {
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
     var stringPromise: webdriver.promise.Promise<string>;
+    stringPromise = flow.execute(function() { return 'value'; });
     stringPromise = flow.execute(function() { return stringPromise; });
     stringPromise = flow.execute(function() { return stringPromise; }, 'Description');
 
