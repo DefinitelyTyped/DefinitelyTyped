@@ -1518,58 +1518,34 @@ declare module webdriver {
          * the ordered scheduled, starting each task only once those before it have
          * completed.
          *
-         * <p>Each task scheduled within this flow may return a
+         * Each task scheduled within this flow may return a
          * {@link webdriver.promise.Promise} to indicate it is an asynchronous
          * operation. The ControlFlow will wait for such promises to be resolved before
          * marking the task as completed.
          *
-         * <p>Tasks and each callback registered on a {@link webdriver.promise.Deferred}
+         * Tasks and each callback registered on a {@link webdriver.promise.Promise}
          * will be run in their own ControlFlow frame.  Any tasks scheduled within a
-         * frame will have priority over previously scheduled tasks. Furthermore, if
-         * any of the tasks in the frame fails, the remainder of the tasks in that frame
-         * will be discarded and the failure will be propagated to the user through the
+         * frame will take priority over previously scheduled tasks. Furthermore, if any
+         * of the tasks in the frame fail, the remainder of the tasks in that frame will
+         * be discarded and the failure will be propagated to the user through the
          * callback/task's promised result.
          *
-         * <p>Each time a ControlFlow empties its task queue, it will fire an
-         * {@link webdriver.promise.ControlFlow.EventType.IDLE} event. Conversely,
+         * Each time a ControlFlow empties its task queue, it will fire an
+         * {@link webdriver.promise.ControlFlow.EventType.IDLE IDLE} event. Conversely,
          * whenever the flow terminates due to an unhandled error, it will remove all
          * remaining tasks in its queue and fire an
-         * {@link webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION} event. If
-         * there are no listeners registered with the flow, the error will be
-         * rethrown to the global error handler.
+         * {@link webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION
+         * UNCAUGHT_EXCEPTION} event. If there are no listeners registered with the
+         * flow, the error will be rethrown to the global error handler.
          *
-         * @extends {webdriver.EventEmitter}
+         * @extends {EventEmitter}
+         * @final
          */
         class ControlFlow extends EventEmitter {
-
-            //region Constructors
-
             /**
-             * @param {webdriver.promise.ControlFlow.Timer=} opt_timer The timer object
-             *     to use. Should only be set for testing.
              * @constructor
              */
-            constructor(opt_timer?: IControlFlowTimer);
-
-            //endregion
-
-            //region Properties
-
-            /**
-             * The timer used by this instance.
-             * @type {webdriver.promise.ControlFlow.Timer}
-             */
-            timer: IControlFlowTimer;
-
-            //endregion
-
-            //region Static Properties
-
-            /**
-             * The default timer object, which uses the global timer functions.
-             * @type {webdriver.promise.ControlFlow.Timer}
-             */
-            static defaultTimer: IControlFlowTimer;
+            constructor();
 
             /**
              * Events that may be emitted by an {@link webdriver.promise.ControlFlow}.
@@ -1595,15 +1571,12 @@ declare module webdriver {
             };
 
             /**
-             * How often, in milliseconds, the event loop should run.
-             * @type {number}
-             * @const
+             * Returns a string representation of this control flow, which is its current
+             * {@link #getSchedule() schedule}, sans task stack traces.
+             * @return {string} The string representation of this contorl flow.
+             * @override
              */
-            static EVENT_LOOP_FREQUENCY: number;
-
-            //endregion
-
-            //region Methods
+            toString(): string;
 
             /**
              * Resets this instance, clearing its queue and removing all event listeners.
@@ -1611,12 +1584,15 @@ declare module webdriver {
             reset(): void;
 
             /**
+             * Generates an annotated string describing the internal state of this control
+             * flow, including the currently executing as well as pending tasks. If
+             * {@code opt_includeStackTraces === true}, the string will include the
+             * stack trace from when each task was scheduled.
+             * @param {string=} opt_includeStackTraces Whether to include the stack traces
+             *     from when each task was scheduled. Defaults to false.
+             * @return {string} String representation of this flow's internal state.
              */
-
-            /**
-             * @return {string} The scheduled tasks still pending with this instance.
-             */
-            getSchedule(): string;
+            getSchedule(opt_includeStackTraces?: boolean): string;
 
             /**
              * Schedules a task for execution. If there is nothing currently in the

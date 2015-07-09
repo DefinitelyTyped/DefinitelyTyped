@@ -1021,10 +1021,6 @@ function TestUntilModule() {
 function TestControlFlow() {
     var flow: webdriver.promise.ControlFlow;
     flow = new webdriver.promise.ControlFlow();
-    flow = new webdriver.promise.ControlFlow({clearInterval: function(a: number) {},
-                                            clearTimeout: function(a: number) {},
-                                            setInterval: function(a: () => void, b: number) { return 2; },
-                                            setTimeout: function(a: () => void, b: number) { return 2; }});
 
     var emitter: webdriver.EventEmitter = flow;
 
@@ -1036,11 +1032,13 @@ function TestControlFlow() {
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
     var stringPromise: webdriver.promise.Promise<string>;
-
     stringPromise = flow.execute(function() { return stringPromise; });
     stringPromise = flow.execute(function() { return stringPromise; }, 'Description');
 
-    var schedule: string = flow.getSchedule();
+    var schedule: string;
+    schedule = flow.toString();
+    schedule = flow.getSchedule();
+    schedule = flow.getSchedule(true);
 
     flow.reset();
 
@@ -1051,10 +1049,7 @@ function TestControlFlow() {
     voidPromise = flow.wait(function() { return true; }, 123, 'Timeout Message');
     voidPromise = flow.wait(function() { return stringPromise; }, 123, 'Timeout Message');
 
-    var timer: webdriver.promise.IControlFlowTimer = flow.timer;
 
-    timer = webdriver.promise.ControlFlow.defaultTimer;
-    var loopFrequency: number = webdriver.promise.ControlFlow.EVENT_LOOP_FREQUENCY;
 }
 
 function TestDeferred() {
