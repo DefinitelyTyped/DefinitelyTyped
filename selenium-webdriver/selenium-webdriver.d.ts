@@ -3646,6 +3646,41 @@ declare module webdriver {
     }
 
     /**
+     * Used with {@link webdriver.WebElement#sendKeys WebElement#sendKeys} on file
+     * input elements ({@code <input type="file">}) to detect when the entered key
+     * sequence defines the path to a file.
+     *
+     * By default, {@linkplain webdriver.WebElement WebElement's} will enter all
+     * key sequences exactly as entered. You may set a
+     * {@linkplain webdriver.WebDriver#setFileDetector file detector} on the parent
+     * WebDriver instance to define custom behavior for handling file elements. Of
+     * particular note is the {@link selenium-webdriver/remote.FileDetector}, which
+     * should be used when running against a remote
+     * [Selenium Server](http://docs.seleniumhq.org/download/).
+     */
+    class FileDetector {
+      /** @constructor */
+      constructor();
+
+      /**
+       * Handles the file specified by the given path, preparing it for use with
+       * the current browser. If the path does not refer to a valid file, it will
+       * be returned unchanged, otherwisee a path suitable for use with the current
+       * browser will be returned.
+       *
+       * This default implementation is a no-op. Subtypes may override this
+       * function for custom tailored file handling.
+       *
+       * @param {!webdriver.WebDriver} driver The driver for the current browser.
+       * @param {string} path The path to process.
+       * @return {!webdriver.promise.Promise<string>} A promise for the processed
+       *     file path.
+       * @package
+       */
+      handleFile(driver: webdriver.WebDriver, path: string): webdriver.promise.Promise<string>;
+    }
+
+    /**
      * Creates a new WebDriver client, which provides control over a browser.
      *
      * Every WebDriver command returns a {@code webdriver.promise.Promise} that
