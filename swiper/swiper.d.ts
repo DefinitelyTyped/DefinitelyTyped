@@ -148,10 +148,11 @@ declare class Swiper {
     activeLoopIndex: number;
     activeLoaderIndex: number;
     previousIndex: number;
-    swipeNext(internal?: boolean): boolean;
-    swipePrev(internal?: boolean): boolean;
+    slideNext(runCallbacks?:boolean, speed?:number): boolean;
+    slidePrev(runCallbacks?:boolean, speed?:number): boolean;
+    slideTo(index: number, speed?: number, runCallbacks?: boolean): boolean;
+    update(updateTranslate?:boolean):void;
     swipeReset(): boolean;
-    swipeTo(index: number, speed?: number, runCallbacks?: boolean): boolean;
     activeSlide(): SwiperSlide;
     updateActiveSlide(index: number): void;
 
@@ -166,6 +167,9 @@ declare class Swiper {
     destroy(removeResizeEvent?: boolean): void;
     reInit(forceCalcSlides?: boolean): void;
     resizeFix(reInit?: boolean): void;
+	onResize():void;
+	detachEvents():void;
+	attachEvents():void;
 
     // Autoplaying
     autoplay: boolean;
@@ -173,9 +177,25 @@ declare class Swiper {
     stopAutoplay(): void;
 
     // Other methods
-    getWrapperTranslate(axis: string): number;  // 'x' or 'y'
-    setWrapperTranslate(x: number, y: number, z: number): void;
-    setWrapperTransition(duration): void;
+    getWrapperTranslate(): number;
+    setWrapperTranslate(translate:number): void;
+
+    on(callback:string, handler:Function):void;
+    once(callback:string, handler:Function):void;
+    off(callback:string):void;
+
+	lockSwipeToNext():void;
+	unlockSwipeToNext():void;
+	lockSwipeToPrev():void;
+	unlockSwipeToPrev():void;
+	lockSwipes():void;
+	unlockSwipes():void;
+
+	disableMousewheelControl():void;
+	enableMousewheelControl():void;
+
+	disableKeyboardControl():void;
+	enableKeyboardControl():void;
 
     // Slides API
     slides: SwiperSlide[];
