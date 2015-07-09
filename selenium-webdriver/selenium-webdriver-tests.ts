@@ -586,6 +586,16 @@ function TestUnhandledAlertError() {
     }
 }
 
+function TestWebDriverFileDetector() {
+    var driver: webdriver.WebDriver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.chrome()).
+        build();
+
+    var fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
+
+    fileDetector.handleFile(driver, 'path/to/file').then(function(path: string) {});
+}
+
 function TestWebDriverLogs() {
     var driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
