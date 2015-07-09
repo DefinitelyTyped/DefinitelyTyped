@@ -182,6 +182,28 @@ function TestActionSequence() {
     sequence.perform().then(function () { });
 }
 
+function TestTouchSequence() {
+    var driver: webdriver.WebDriver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.chrome()).
+        build();
+    var element: webdriver.WebElement = new webdriver.WebElement(driver, { ELEMENT: 'id' });
+
+    var sequence: webdriver.TouchSequence = new webdriver.TouchSequence(driver);
+
+    sequence = sequence.tap(element);
+    sequence = sequence.doubleTap(element);
+    sequence = sequence.longPress(element);
+    sequence = sequence.tapAndHold({ x: 100, y: 100 });
+    sequence = sequence.move({ x: 100, y: 100 });
+    sequence = sequence.release({ x: 100, y: 100 });
+    sequence = sequence.scroll({ x: 100, y: 100 });
+    sequence = sequence.scrollFromElement(element, { x: 100, y: 100 });
+    sequence = sequence.flick({ xspeed: 100, yspeed: 100 });
+    sequence = sequence.flickElement(element, { x: 100, y: 100 }, 100);
+
+    sequence.perform().then(function () { });
+}
+
 function TestAlert() {
     var driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
