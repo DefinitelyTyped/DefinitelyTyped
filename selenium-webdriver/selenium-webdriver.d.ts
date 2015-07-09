@@ -1622,29 +1622,39 @@ declare module webdriver {
              * Schedules a task that shall wait for a condition to hold. Each condition
              * function may return any value, but it will always be evaluated as a boolean.
              *
-             * <p>Condition functions may schedule sub-tasks with this instance, however,
+             * Condition functions may schedule sub-tasks with this instance, however,
              * their execution time will be factored into whether a wait has timed out.
              *
-             * <p>In the event a condition returns a Promise, the polling loop will wait for
+             * In the event a condition returns a Promise, the polling loop will wait for
              * it to be resolved before evaluating whether the condition has been satisfied.
              * The resolution time for a promise is factored into whether a wait has timed
              * out.
              *
-             * <p>If the condition function throws, or returns a rejected promise, the
+             * If the condition function throws, or returns a rejected promise, the
              * wait task will fail.
              *
-             * @param {!Function} condition The condition function to poll.
-             * @param {number} timeout How long to wait, in milliseconds, for the condition
-             *     to hold before timing out.
+             * If the condition is defined as a promise, the flow will wait for it to
+             * settle. If the timeout expires before the promise settles, the promise
+             * returned by this function will be rejected.
+             *
+             * If this function is invoked with `timeout === 0`, or the timeout is omitted,
+             * the flow will wait indefinitely for the condition to be satisfied.
+             *
+             * @param {(!promise.Promise<T>|function())} condition The condition to poll,
+             *     or a promise to wait on.
+             * @param {number=} opt_timeout How long to wait, in milliseconds, for the
+             *     condition to hold before timing out. If omitted, the flow will wait
+             *     indefinitely.
              * @param {string=} opt_message An optional error message to include if the
              *     wait times out; defaults to the empty string.
-             * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-             *     condition has been satisified. The promise shall be rejected if the wait
-             *     times out waiting for the condition.
+             * @return {!promise.Promise<T>} A promise that will be fulfilled
+             *     when the condition has been satisified. The promise shall be rejected if
+             *     the wait times out waiting for the condition.
+             * @throws {TypeError} If condition is not a function or promise or if timeout
+             *     is not a number >= 0.
+             * @template T
              */
-            wait(condition: Function, timeout: number, opt_message?: string): Promise<void>;
-
-            //endregion
+            wait<T>(condition: Promise<T>|Function, opt_timeout?: number, opt_message?: string): Promise<T>;
         }
     }
 

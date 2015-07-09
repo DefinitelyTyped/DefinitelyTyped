@@ -1045,11 +1045,11 @@ function TestControlFlow() {
     var voidPromise: webdriver.promise.Promise<void> = flow.timeout(123);
     voidPromise = flow.timeout(123, 'Description');
 
-    voidPromise = flow.wait(function() { return true; }, 123);
-    voidPromise = flow.wait(function() { return true; }, 123, 'Timeout Message');
-    voidPromise = flow.wait(function() { return stringPromise; }, 123, 'Timeout Message');
+    stringPromise = flow.wait(stringPromise);
 
-
+    voidPromise = flow.wait<void>(function() { return true; });
+    voidPromise = flow.wait<void>(function() { return true; }, 123);
+    voidPromise = flow.wait<void>(function() { return stringPromise; }, 123, 'Timeout Message');
 }
 
 function TestDeferred() {
