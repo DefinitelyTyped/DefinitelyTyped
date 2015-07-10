@@ -1013,8 +1013,8 @@ function TestUntilModule() {
 
     var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', function (driver: webdriver.WebDriver) { return true; });
     var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
-    var conditionWebElement: webdriver.until.Condition<webdriver.IWebElement>;
-    var conditionWebElements: webdriver.until.Condition<webdriver.IWebElement[]>;
+    var conditionWebElement: webdriver.until.Condition<webdriver.WebElement>;
+    var conditionWebElements: webdriver.until.Condition<webdriver.WebElement[]>;
 
     conditionB = webdriver.until.ableToSwitchToFrame(5);
     var conditionAlert: webdriver.until.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
