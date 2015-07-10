@@ -4895,7 +4895,7 @@ declare module webdriver {
         thenFinally<R>(callback: () => any): webdriver.promise.Promise<R>;
     }
 
-    interface ILocatorStrategy {
+    module By {
         /**
          * Locates elements that have a specific class name. The returned locator
          * is equivalent to searching for elements with the CSS selector ".clazz".
@@ -4905,7 +4905,7 @@ declare module webdriver {
          * @see http://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
          * @see http://www.w3.org/TR/CSS2/selector.html#class-html
          */
-        className(value: string): Locator;
+        function className(value: string): Locator;
 
         /**
          * Locates elements using a CSS selector. For browsers that do not support
@@ -4917,7 +4917,7 @@ declare module webdriver {
          * @return {!webdriver.Locator} The new locator.
          * @see http://www.w3.org/TR/CSS2/selector.html
          */
-        css(value: string): Locator;
+        function css(value: string): Locator;
 
         /**
          * Locates an element by its ID.
@@ -4925,7 +4925,7 @@ declare module webdriver {
          * @param {string} id The ID to search for.
          * @return {!webdriver.Locator} The new locator.
          */
-        id(value: string): Locator;
+        function id(value: string): Locator;
 
         /**
          * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
@@ -4934,7 +4934,7 @@ declare module webdriver {
          * @param {string} text The link text to search for.
          * @return {!webdriver.Locator} The new locator.
          */
-        linkText(value: string): Locator;
+        function linkText(value: string): Locator;
 
         /**
          * Locates an elements by evaluating a
@@ -4946,7 +4946,7 @@ declare module webdriver {
          * @return {function(!webdriver.WebDriver): !webdriver.promise.Promise} A new,
          *     JavaScript-based locator function.
          */
-        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+        function js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
 
         /**
          * Locates elements whose {@code name} attribute has the given value.
@@ -4954,7 +4954,7 @@ declare module webdriver {
          * @param {string} name The name attribute to search for.
          * @return {!webdriver.Locator} The new locator.
          */
-        name(value: string): Locator;
+        function name(value: string): Locator;
 
         /**
          * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
@@ -4963,7 +4963,7 @@ declare module webdriver {
          * @param {string} text The substring to check for in a link's visible text.
          * @return {!webdriver.Locator} The new locator.
          */
-        partialLinkText(value: string): Locator;
+        function partialLinkText(value: string): Locator;
 
         /**
          * Locates elements with a given tag name. The returned locator is
@@ -4975,7 +4975,7 @@ declare module webdriver {
          * @return {!webdriver.Locator} The new locator.
          * @see http://www.w3.org/TR/REC-DOM-Level-1/level-one-core.html
          */
-        tagName(value: string): Locator;
+        function tagName(value: string): Locator;
 
         /**
          * Locates elements matching a XPath selector. Care should be taken when
@@ -4989,44 +4989,54 @@ declare module webdriver {
          * @return {!webdriver.Locator} The new locator.
          * @see http://www.w3.org/TR/xpath/
          */
+        function xpath(value: string): Locator;
+
+        /**
+         * Short-hand expressions for the primary element locator strategies.
+         * For example the following two statements are equivalent:
+         *
+         *     var e1 = driver.findElement(webdriver.By.id('foo'));
+         *     var e2 = driver.findElement({id: 'foo'});
+         *
+         * Care should be taken when using JavaScript minifiers (such as the
+         * Closure compiler), as locator hashes will always be parsed using
+         * the un-obfuscated properties listed.
+         *
+         * @typedef {(
+         *     {className: string}|
+         *     {css: string}|
+         *     {id: string}|
+         *     {js: string}|
+         *     {linkText: string}|
+         *     {name: string}|
+         *     {partialLinkText: string}|
+         *     {tagName: string}|
+         *     {xpath: string})}
+         */
+        type Hash = {className: string}|
+            {css: string}|
+            {id: string}|
+            {js: string}|
+            {linkText: string}|
+            {name: string}|
+            {partialLinkText: string}|
+            {tagName: string}|
+            {xpath: string};
+    }
+
+    // For angular-protractor/angular-protractor-tests.ts
+    interface ILocatorStrategy {
+        className(value: string): Locator;
+        css(value: string): Locator;
+        id(value: string): Locator;
+        linkText(value: string): Locator;
+        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+        name(value: string): Locator;
+        partialLinkText(value: string): Locator;
+        tagName(value: string): Locator;
         xpath(value: string): Locator;
     }
 
-    var By: ILocatorStrategy;
-
-    // module By {
-    //     /**
-    //      * Short-hand expressions for the primary element locator strategies.
-    //      * For example the following two statements are equivalent:
-    //      *
-    //      *     var e1 = driver.findElement(webdriver.By.id('foo'));
-    //      *     var e2 = driver.findElement({id: 'foo'});
-    //      *
-    //      * Care should be taken when using JavaScript minifiers (such as the
-    //      * Closure compiler), as locator hashes will always be parsed using
-    //      * the un-obfuscated properties listed.
-    //      *
-    //      * @typedef {(
-    //      *     {className: string}|
-    //      *     {css: string}|
-    //      *     {id: string}|
-    //      *     {js: string}|
-    //      *     {linkText: string}|
-    //      *     {name: string}|
-    //      *     {partialLinkText: string}|
-    //      *     {tagName: string}|
-    //      *     {xpath: string})}
-    //      */
-    //     type Hash = {className: string}|
-    //         {css: string}|
-    //         {id: string}|
-    //         {js: string}|
-    //         {linkText: string}|
-    //         {name: string}|
-    //         {partialLinkText: string}|
-    //         {tagName: string}|
-    //         {xpath: string};
-    // }
 
     /**
      * An element locator.
@@ -5047,15 +5057,15 @@ declare module webdriver {
          * @const
          */
         static Strategy: {
-            className: typeof By.className;
-            css: typeof By.css;
-            id: typeof By.id;
-            js: typeof By.js;
-            linkText: typeof By.linkText;
-            name: typeof By.name;
-            partialLinkText: typeof By.partialLinkText;
-            tagName: typeof By.tagName;
-            xpath: typeof By.xpath;
+            className: typeof webdriver.By.className;
+            css: typeof webdriver.By.css;
+            id: typeof webdriver.By.id;
+            js: typeof webdriver.By.js;
+            linkText: typeof webdriver.By.linkText;
+            name: typeof webdriver.By.name;
+            partialLinkText: typeof webdriver.By.partialLinkText;
+            tagName: typeof webdriver.By.tagName;
+            xpath: typeof webdriver.By.xpath;
         };
 
         /**
