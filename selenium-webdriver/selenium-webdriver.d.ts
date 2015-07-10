@@ -5024,20 +5024,6 @@ declare module webdriver {
             {xpath: string};
     }
 
-    // For angular-protractor/angular-protractor-tests.ts
-    interface ILocatorStrategy {
-        className(value: string): Locator;
-        css(value: string): Locator;
-        id(value: string): Locator;
-        linkText(value: string): Locator;
-        js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
-        name(value: string): Locator;
-        partialLinkText(value: string): Locator;
-        tagName(value: string): Locator;
-        xpath(value: string): Locator;
-    }
-
-
     /**
      * An element locator.
      */

@@ -551,6 +551,9 @@ function TestLocator() {
     locator = webdriver.By.tagName('tag');
     locator = webdriver.By.xpath('xpath');
 
+    // Can import "By" without import declarations
+    var By = webdriver.By;
+
     var locatorHash: webdriver.By.Hash;
     locatorHash = { className: 'class' };
     locatorHash = { css: 'css' };
