@@ -3922,8 +3922,7 @@ declare module webdriver {
          *    scripts return value.
          * @template T
          */
-        executeAsyncScript<T>(script: string, ...var_args: any[]): webdriver.promise.Promise<T>;
-        executeAsyncScript<T>(script: Function, ...var_args: any[]): webdriver.promise.Promise<T>;
+        executeAsyncScript<T>(script: string|Function, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to execute a custom function.
@@ -3935,7 +3934,7 @@ declare module webdriver {
          *     with the function's result.
          * @template T
          */
-        call<T>(fn: Function, opt_scope?: any, ...var_args: any[]): webdriver.promise.Promise<T>;
+        call<T>(fn: (...var_args: any[])=>(T|webdriver.promise.Promise<T>), opt_scope?: any, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to wait for a condition to hold. The condition may be
@@ -3983,8 +3982,7 @@ declare module webdriver {
          *     rejected if the condition times out.
          * @template T
          */
-        wait<T>(condition: webdriver.until.Condition<T>, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
-        wait<T>(condition: (webdriver: WebDriver) => any, timeout: number, opt_message?: string): webdriver.promise.Promise<T>;
+        wait<T>(condition: webdriver.promise.Promise<T>|webdriver.until.Condition<T>|((driver: WebDriver)=>T), timeout?: number, opt_message?: string): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to make the driver sleep for the given amount of time.

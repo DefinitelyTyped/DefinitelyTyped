@@ -714,9 +714,10 @@ function TestWebDriver() {
     var touchActions: webdriver.TouchSequence = driver.touchActions();
 
     // call
-    stringPromise = driver.call<string>(function(){});
-    stringPromise = driver.call<string>(function(){ var d: any = this;}, driver);
-    stringPromise = driver.call<string>(function(a: number){}, driver, 1);
+    stringPromise = driver.call<string>(function(){ return 'value'; });
+    stringPromise = driver.call<string>(function(){ return stringPromise; });
+    stringPromise = driver.call<string>(function(){ var d: any = this; return 'value'; }, driver);
+    stringPromise = driver.call<string>(function(a: number){ return 'value'; }, driver, 1);
 
     voidPromise = driver.close();
     flow = driver.controlFlow();
@@ -772,8 +773,12 @@ function TestWebDriver() {
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
 
-    booleanPromise = driver.wait(function() { return true; }, 123);
-    booleanPromise = driver.wait(function() { return true; }, 123, 'Message');
+    var booleanCondition: webdriver.until.Condition<boolean>;
+    booleanPromise = driver.wait(booleanPromise);
+    booleanPromise = driver.wait(booleanCondition);
+    booleanPromise = driver.wait(function(driver: webdriver.WebDriver) { return true; });
+    booleanPromise = driver.wait(booleanPromise, 123);
+    booleanPromise = driver.wait(booleanPromise, 123, 'Message');
 
     driver = webdriver.WebDriver.attachToSession(executor, 'ABC');
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
