@@ -4160,6 +4160,26 @@ declare module webdriver {
     }
 
     /**
+     * Defines an object that can be asynchronously serialized to its WebDriver
+     * wire representation.
+     *
+     * @constructor
+     * @template T
+     */
+    interface Serializable<T> {
+        /**
+         * Returns either this instance's serialized represention, if immediately
+         * available, or a promise for its serialized representation. This function is
+         * conceptually equivalent to objects that have a {@code toJSON()} property,
+         * except the serialize() result may be a promise or an object containing a
+         * promise (which are not directly JSON friendly).
+         *
+         * @return {!(T|IThenable.<!T>)} This instance's serialized wire format.
+         */
+        serialize(): T|webdriver.promise.IThenable<T>;
+    }
+
+    /**
      * Represents a DOM element. WebElements can be found by searching from the
      * document root using a {@code webdriver.WebDriver} instance, or by searching
      * under another {@code webdriver.WebElement}:
