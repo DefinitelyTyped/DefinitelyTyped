@@ -1816,11 +1816,7 @@ declare module webdriver {
          *     The frame identifier.
          * @return {!until.Condition.<boolean>} A new condition.
          */
-        function ableToSwitchToFrame(frame: number): Condition<boolean>;
-        function ableToSwitchToFrame(frame: IWebElement): Condition<boolean>;
-        function ableToSwitchToFrame(frame: Locator): Condition<boolean>;
-        function ableToSwitchToFrame(frame: (webdriver: WebDriver) => IWebElement): Condition<boolean>;
-        function ableToSwitchToFrame(frame: any): Condition<boolean>;
+        function ableToSwitchToFrame(frame: number|IWebElement|Locator|By.Hash|((webdriver: WebDriver)=>IWebElement)): Condition<boolean>;
 
         /**
          * Creates a condition that waits for an alert to be opened. Upon success, the
@@ -1892,8 +1888,7 @@ declare module webdriver {
          *     to use.
          * @return {!until.Condition.<!webdriver.WebElement>} The new condition.
          */
-        function elementLocated(locator: Locator): Condition<IWebElement>;
-        function elementLocated(locator: any): Condition<IWebElement>;
+        function elementLocated(locator: Locator|By.Hash|Function): Condition<IWebElement>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1940,8 +1935,7 @@ declare module webdriver {
          * @return {!until.Condition.<!Array.<!webdriver.WebElement>>} The new
          *     condition.
          */
-        function elementsLocated(locator: Locator): Condition<IWebElement[]>;
-        function elementsLocated(locator: any): Condition<IWebElement[]>;
+        function elementsLocated(locator: Locator|By.Hash|Function): Condition<IWebElement[]>;
 
         /**
          * Creates a condition that will wait for the given element to become stale. An
@@ -4100,8 +4094,7 @@ declare module webdriver {
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locatorOrElement: Locator): WebElementPromise;
-        findElement(locatorOrElement: any): WebElementPromise;
+        findElement(locatorOrElement: Locator|By.Hash|WebElement|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if an element is present on the page.
@@ -4116,8 +4109,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise.<boolean>} A promise that will resolve
          *     with whether the element is present on the page.
          */
-        isElementPresent(locatorOrElement: Locator): webdriver.promise.Promise<boolean>;
-        isElementPresent(locatorOrElement: any): webdriver.promise.Promise<boolean>;
+        isElementPresent(locatorOrElement: Locator|By.Hash|WebElement|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedule a command to search for multiple elements on the page.
@@ -4127,8 +4119,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
          *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedule a command to take a screenshot. The driver makes a best effort to
@@ -4193,7 +4184,6 @@ declare module webdriver {
      *   });
      * </code></pre>
      */
-
     interface IWebElement {
         //region Methods
 
@@ -4428,8 +4418,7 @@ declare module webdriver {
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locator: Locator): WebElementPromise;
-        findElement(locator: any): WebElementPromise;
+        findElement(locator: Locator|By.Hash|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if there is at least one descendant of this
@@ -4440,8 +4429,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
          *     resolved with whether an element could be located on the page.
          */
-        isElementPresent(locator: Locator): webdriver.promise.Promise<boolean>;
-        isElementPresent(locator: any): webdriver.promise.Promise<boolean>;
+        isElementPresent(locator: Locator|By.Hash|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedules a command to find all of the descendants of this element that
@@ -4452,8 +4440,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
          *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
     }
 
     class WebElement implements IWebElement, IWebElementFinders {
@@ -4531,8 +4518,7 @@ declare module webdriver {
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locator: Locator): WebElementPromise;
-        findElement(locator: any): WebElementPromise;
+        findElement(locator: Locator|By.Hash|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if there is at least one descendant of this
@@ -4543,8 +4529,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
          *     resolved with whether an element could be located on the page.
          */
-        isElementPresent(locator: Locator): webdriver.promise.Promise<boolean>;
-        isElementPresent(locator: any): webdriver.promise.Promise<boolean>;
+        isElementPresent(locator: Locator|By.Hash|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedules a command to find all of the descendants of this element that
@@ -4555,8 +4540,7 @@ declare module webdriver {
          * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
          *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator): webdriver.promise.Promise<WebElement[]>;
-        findElements(locator: any): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedules a command to click on this element.
