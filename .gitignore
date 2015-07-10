@@ -5,6 +5,7 @@
 *.suo
 *.js
 *.user
+!/drupal.user/
 *.cache
 *.cs
 *.sln
