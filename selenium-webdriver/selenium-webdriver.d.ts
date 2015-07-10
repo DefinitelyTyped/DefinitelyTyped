@@ -1816,7 +1816,7 @@ declare module webdriver {
          *     The frame identifier.
          * @return {!until.Condition.<boolean>} A new condition.
          */
-        function ableToSwitchToFrame(frame: number|IWebElement|Locator|By.Hash|((webdriver: WebDriver)=>IWebElement)): Condition<boolean>;
+        function ableToSwitchToFrame(frame: number|WebElement|Locator|By.Hash|((webdriver: WebDriver)=>WebElement)): Condition<boolean>;
 
         /**
          * Creates a condition that waits for an alert to be opened. Upon success, the
@@ -1833,7 +1833,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isEnabled
          */
-        function elementIsDisabled(element: IWebElement): Condition<boolean>;
+        function elementIsDisabled(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be enabled.
@@ -1842,7 +1842,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isEnabled
          */
-        function elementIsEnabled(element: IWebElement): Condition<boolean>;
+        function elementIsEnabled(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be deselected.
@@ -1851,7 +1851,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isSelected
          */
-        function elementIsNotSelected(element: IWebElement): Condition<boolean>;
+        function elementIsNotSelected(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be in the DOM,
@@ -1861,7 +1861,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isDisplayed
          */
-        function elementIsNotVisible(element: IWebElement): Condition<boolean>;
+        function elementIsNotVisible(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to be selected.
@@ -1869,7 +1869,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isSelected
          */
-        function elementIsSelected(element: IWebElement): Condition<boolean>;
+        function elementIsSelected(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element to become visible.
@@ -1878,7 +1878,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#isDisplayed
          */
-        function elementIsVisible(element: IWebElement): Condition<boolean>;
+        function elementIsVisible(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will loop until an element is
@@ -1888,7 +1888,7 @@ declare module webdriver {
          *     to use.
          * @return {!until.Condition.<!webdriver.WebElement>} The new condition.
          */
-        function elementLocated(locator: Locator|By.Hash|Function): Condition<IWebElement>;
+        function elementLocated(locator: Locator|By.Hash|Function): Condition<WebElement>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1900,7 +1900,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextContains(element: IWebElement, substr: string): Condition<boolean>;
+        function elementTextContains(element: WebElement, substr: string): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1912,7 +1912,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextIs(element: IWebElement, text: string): Condition<boolean>;
+        function elementTextIs(element: WebElement, text: string): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -1924,7 +1924,7 @@ declare module webdriver {
          * @return {!until.Condition.<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
-        function elementTextMatches(element: IWebElement, regex: RegExp): Condition<boolean>;
+        function elementTextMatches(element: WebElement, regex: RegExp): Condition<boolean>;
 
         /**
          * Creates a condition that will loop until at least one element is
@@ -1935,7 +1935,7 @@ declare module webdriver {
          * @return {!until.Condition.<!Array.<!webdriver.WebElement>>} The new
          *     condition.
          */
-        function elementsLocated(locator: Locator|By.Hash|Function): Condition<IWebElement[]>;
+        function elementsLocated(locator: Locator|By.Hash|Function): Condition<WebElement[]>;
 
         /**
          * Creates a condition that will wait for the given element to become stale. An
@@ -1945,7 +1945,7 @@ declare module webdriver {
          * @param {!webdriver.WebElement} element The element that should become stale.
          * @return {!until.Condition.<boolean>} The new condition.
          */
-        function stalenessOf(element: IWebElement): Condition<boolean>;
+        function stalenessOf(element: WebElement): Condition<boolean>;
 
         /**
          * Creates a condition that will wait for the current page's title to contain
@@ -2135,7 +2135,7 @@ declare module webdriver {
          *     Defaults to (0, 0).
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseMove(location: IWebElement, opt_offset?: ILocation): ActionSequence;
+        mouseMove(location: WebElement, opt_offset?: ILocation): ActionSequence;
         mouseMove(location: ILocation): ActionSequence;
 
         /**
@@ -2160,7 +2160,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseDown(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        mouseDown(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         mouseDown(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2183,7 +2183,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        mouseUp(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        mouseUp(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         mouseUp(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2195,8 +2195,8 @@ declare module webdriver {
          *     location to drag to, either as another WebElement or an offset in pixels.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        dragAndDrop(element: IWebElement, location: IWebElement): ActionSequence;
-        dragAndDrop(element: IWebElement, location: ILocation): ActionSequence;
+        dragAndDrop(element: WebElement, location: WebElement): ActionSequence;
+        dragAndDrop(element: WebElement, location: ILocation): ActionSequence;
 
         /**
          * Clicks a mouse button.
@@ -2214,7 +2214,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        click(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        click(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         click(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2236,7 +2236,7 @@ declare module webdriver {
          *     first argument.
          * @return {!webdriver.ActionSequence} A self reference.
          */
-        doubleClick(opt_elementOrButton?: IWebElement, opt_button?: number): ActionSequence;
+        doubleClick(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
         doubleClick(opt_elementOrButton?: number): ActionSequence;
 
         /**
@@ -2309,7 +2309,7 @@ declare module webdriver {
        * @param {!webdriver.WebElement} elem The element to tap.
        * @return {!webdriver.TouchSequence} A self reference.
        */
-      tap(elem: IWebElement): TouchSequence;
+      tap(elem: WebElement): TouchSequence;
 
 
       /**
@@ -2318,7 +2318,7 @@ declare module webdriver {
        * @param {!webdriver.WebElement} elem The element to double tap.
        * @return {!webdriver.TouchSequence} A self reference.
        */
-      doubleTap(elem: IWebElement): TouchSequence;
+      doubleTap(elem: WebElement): TouchSequence;
 
 
       /**
@@ -2327,7 +2327,7 @@ declare module webdriver {
        * @param {!webdriver.WebElement} elem The element to long press.
        * @return {!webdriver.TouchSequence} A self reference.
        */
-      longPress(elem: IWebElement): TouchSequence;
+      longPress(elem: WebElement): TouchSequence;
 
 
       /**
@@ -2374,7 +2374,7 @@ declare module webdriver {
        * @param {{x: number, y: number}} offset The offset to scroll to.
        * @return {!webdriver.TouchSequence} A self reference.
        */
-      scrollFromElement(elem: IWebElement, offset: IOffset): TouchSequence;
+      scrollFromElement(elem: WebElement, offset: IOffset): TouchSequence;
 
 
       /**
@@ -2395,7 +2395,7 @@ declare module webdriver {
        * @param {number} speed The speed to flick at in pixels per second.
        * @return {!webdriver.TouchSequence} A self reference.
        */
-      flickElement(elem: IWebElement, offset: IOffset, speed: number): TouchSequence;
+      flickElement(elem: WebElement, offset: IOffset, speed: number): TouchSequence;
     }
 
 
