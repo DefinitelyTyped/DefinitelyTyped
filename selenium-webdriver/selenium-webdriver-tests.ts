@@ -784,6 +784,11 @@ function TestWebDriver() {
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
 }
 
+function TestSerializable() {
+    var serializable: webdriver.Serializable<string>;
+    var serial: string|webdriver.promise.Promise<string> = serializable.serialize();
+}
+
 function TestWebElement() {
     var driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
@@ -824,11 +829,15 @@ function TestWebElement() {
     booleanPromise = element.isEnabled();
     booleanPromise = element.isSelected();
     voidPromise = element.sendKeys('A', 'B', 'C');
+    voidPromise = element.sendKeys(stringPromise, stringPromise, stringPromise);
     voidPromise = element.submit();
-    element.getId().then(function (id: webdriver.IWebElementId) { });
+    element.getId().then(function (id: typeof webdriver.WebElement.Id) { });
+    element.getRawId().then(function (id: string) { });
+    element.serialize().then(function (id: typeof webdriver.WebElement.Id) { });
 
     booleanPromise = webdriver.WebElement.equals(element, new webdriver.WebElement(driver, { ELEMENT: 'ID2' }));
 
+    var id: typeof webdriver.WebElement.Id = webdriver.WebElement.Id;
     var key: string = webdriver.WebElement.ELEMENT_KEY;
 }
 

@@ -4461,9 +4461,52 @@ declare module webdriver {
         findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
     }
 
-    class WebElement implements IWebElement, IWebElementFinders {
-        //region Constructors
 
+    /**
+     * Defines an object that can be asynchronously serialized to its WebDriver
+     * wire representation.
+     *
+     * @constructor
+     * @template T
+     */
+    interface Serializable<T> {
+        /**
+         * Returns either this instance's serialized represention, if immediately
+         * available, or a promise for its serialized representation. This function is
+         * conceptually equivalent to objects that have a {@code toJSON()} property,
+         * except the serialize() result may be a promise or an object containing a
+         * promise (which are not directly JSON friendly).
+         *
+         * @return {!(T|IThenable.<!T>)} This instance's serialized wire format.
+         */
+        serialize(): T|webdriver.promise.IThenable<T>;
+    }
+
+
+    /**
+     * Represents a DOM element. WebElements can be found by searching from the
+     * document root using a {@link webdriver.WebDriver} instance, or by searching
+     * under another WebElement:
+     *
+     *     driver.get('http://www.google.com');
+     *     var searchForm = driver.findElement(By.tagName('form'));
+     *     var searchBox = searchForm.findElement(By.name('q'));
+     *     searchBox.sendKeys('webdriver');
+     *
+     * The WebElement is implemented as a promise for compatibility with the promise
+     * API. It will always resolve itself when its internal state has been fully
+     * resolved and commands may be issued against the element. This can be used to
+     * catch errors when an element cannot be located on the page:
+     *
+     *     driver.findElement(By.id('not-there')).then(function(element) {
+     *       alert('Found an element that was not expected to be there!');
+     *     }, function(error) {
+     *       alert('The element was not found, as expected');
+     *     });
+     *
+     * @extends {webdriver.Serializable.<webdriver.WebElement.Id>}
+     */
+    class WebElement implements Serializable<IWebElementId> {
         /**
          * @param {!webdriver.WebDriver} driver The parent WebDriver instance for this
          *     element.
@@ -4472,12 +4515,14 @@ declare module webdriver {
          *     underlying DOM element.
          * @constructor
          */
-        constructor(driver: WebDriver, id: webdriver.promise.Promise<IWebElementId>);
-        constructor(driver: WebDriver, id: IWebElementId);
+        constructor(driver: WebDriver, id: webdriver.promise.Promise<IWebElementId>|IWebElementId);
 
-        //endregion
-
-        //region Static Properties
+        /**
+         * Wire protocol definition of a WebElement ID.
+         * @typedef {{ELEMENT: string}}
+         * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
+         */
+        static Id: IWebElementId;
 
         /**
          * The property key used in the wire protocol to indicate that a JSON object
@@ -4487,9 +4532,6 @@ declare module webdriver {
          */
         static ELEMENT_KEY: string;
 
-        //endregion
-
-        //region Methods
 
         /**
          * @return {!webdriver.WebDriver} The parent driver for this instance.
@@ -4498,37 +4540,35 @@ declare module webdriver {
 
         /**
          * Schedule a command to find a descendant of this element. If the element
-         * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
+         * cannot be found, a {@link bot.ErrorCode.NO_SUCH_ELEMENT} result will
          * be returned by the driver. Unlike other commands, this error cannot be
          * suppressed. In other words, scheduling a command to find an element doubles
          * as an assert that the element is present on the page. To test whether an
-         * element is present on the page, use {@code #isElementPresent} instead.
+         * element is present on the page, use {@link #isElementPresent} instead.
          *
-         * <p>The search criteria for an element may be defined using one of the
+         * The search criteria for an element may be defined using one of the
          * factories in the {@link webdriver.By} namespace, or as a short-hand
          * {@link webdriver.By.Hash} object. For example, the following two statements
          * are equivalent:
-         * <code><pre>
-         * var e1 = element.findElement(By.id('foo'));
-         * var e2 = element.findElement({id:'foo'});
-         * </pre></code>
          *
-         * <p>You may also provide a custom locator function, which takes as input
+         *     var e1 = element.findElement(By.id('foo'));
+         *     var e2 = element.findElement({id:'foo'});
+         *
+         * You may also provide a custom locator function, which takes as input
          * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
          * promise that will resolve to a WebElement. For example, to find the first
          * visible link on a page, you could write:
-         * <code><pre>
-         * var link = element.findElement(firstVisibleLink);
          *
-         * function firstVisibleLink(element) {
-         *   var links = element.findElements(By.tagName('a'));
-         *   return webdriver.promise.filter(links, function(link) {
-         *     return links.isDisplayed();
-         *   }).then(function(visibleLinks) {
-         *     return visibleLinks[0];
-         *   });
-         * }
-         * </pre></code>
+         *     var link = element.findElement(firstVisibleLink);
+         *
+         *     function firstVisibleLink(element) {
+         *       var links = element.findElements(By.tagName('a'));
+         *       return webdriver.promise.filter(links, function(link) {
+         *         return links.isDisplayed();
+         *       }).then(function(visibleLinks) {
+         *         return visibleLinks[0];
+         *       });
+         *     }
          *
          * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
          *     locator strategy to use when searching for the element.
@@ -4562,57 +4602,70 @@ declare module webdriver {
 
         /**
          * Schedules a command to click on this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the click command has completed.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the click command has completed.
          */
         click(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to type a sequence on the DOM element represented by this
          * instance.
-         * <p/>
+         *
          * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
          * processed in the keysequence, that key state is toggled until one of the
          * following occurs:
-         * <ul>
-         * <li>The modifier key is encountered again in the sequence. At this point the
-         * state of the key is toggled (along with the appropriate keyup/down events).
-         * </li>
-         * <li>The {@code webdriver.Key.NULL} key is encountered in the sequence. When
-         * this key is encountered, all modifier keys current in the down state are
-         * released (with accompanying keyup events). The NULL key can be used to
-         * simulate common keyboard shortcuts:
-         * <code>
-         *     element.sendKeys("text was",
-         *                      webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
-         *                      "now text is");
-         *     // Alternatively:
-         *     element.sendKeys("text was",
-         *                      webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
-         *                      "now text is");
-         * </code></li>
-         * <li>The end of the keysequence is encountered. When there are no more keys
-         * to type, all depressed modifier keys are released (with accompanying keyup
-         * events).
-         * </li>
-         * </ul>
-         * <strong>Note:</strong> On browsers where native keyboard events are not yet
-         * supported (e.g. Firefox on OS X), key events will be synthesized. Special
+         *
+         * - The modifier key is encountered again in the sequence. At this point the
+         *   state of the key is toggled (along with the appropriate keyup/down events).
+         * - The {@link webdriver.Key.NULL} key is encountered in the sequence. When
+         *   this key is encountered, all modifier keys current in the down state are
+         *   released (with accompanying keyup events). The NULL key can be used to
+         *   simulate common keyboard shortcuts:
+         *
+         *         element.sendKeys("text was",
+         *                          webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
+         *                          "now text is");
+         *         // Alternatively:
+         *         element.sendKeys("text was",
+         *                          webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
+         *                          "now text is");
+         *
+         * - The end of the keysequence is encountered. When there are no more keys
+         *   to type, all depressed modifier keys are released (with accompanying keyup
+         *   events).
+         *
+         * If this element is a file input ({@code <input type="file">}), the
+         * specified key sequence should specify the path to the file to attach to
+         * the element. This is analgous to the user clicking "Browse..." and entering
+         * the path into the file select dialog.
+         *
+         *     var form = driver.findElement(By.css('form'));
+         *     var element = form.findElement(By.css('input[type=file]'));
+         *     element.sendKeys('/path/to/file.txt');
+         *     form.submit();
+         *
+         * For uploads to function correctly, the entered path must reference a file
+         * on the _browser's_ machine, not the local machine running this script. When
+         * running against a remote Selenium server, a {@link webdriver.FileDetector}
+         * may be used to transparently copy files to the remote machine before
+         * attempting to upload them in the browser.
+         *
+         * __Note:__ On browsers where native keyboard events are not supported
+         * (e.g. Firefox on OS X), key events will be synthesized. Special
          * punctionation keys will be synthesized according to a standard QWERTY en-us
          * keyboard layout.
          *
-         * @param {...string} var_args The sequence of keys to
-         *     type. All arguments will be joined into a single sequence (var_args is
-         *     permitted for convenience).
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when all
-         *     keys have been typed.
+         * @param {...(string|!webdriver.promise.Promise<string>)} var_args The sequence
+         *     of keys to type. All arguments will be joined into a single sequence.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when all keys have been typed.
          */
-        sendKeys(...var_args: string[]): webdriver.promise.Promise<void>;
+        sendKeys(...var_args: Array<string|webdriver.promise.Promise<string>>): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to query for the tag/node name of this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's tag name.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the element's tag name.
          */
         getTagName(): webdriver.promise.Promise<string>;
 
@@ -4622,81 +4675,85 @@ declare module webdriver {
          * its parent, the parent will be queried for its value.  Where possible, color
          * values will be converted to their hex representation (e.g. #00ff00 instead of
          * rgb(0, 255, 0)).
-         * <p/>
-         * <em>Warning:</em> the value returned will be as the browser interprets it, so
+         *
+         * _Warning:_ the value returned will be as the browser interprets it, so
          * it may be tricky to form a proper assertion.
          *
          * @param {string} cssStyleProperty The name of the CSS style property to look
          *     up.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     requested CSS value.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the requested CSS value.
          */
         getCssValue(cssStyleProperty: string): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to query for the value of the given attribute of the
-         * element. Will return the current value even if it has been modified after the
-         * page has been loaded. More exactly, this method will return the value of the
-         * given attribute, unless that attribute is not present, in which case the
+         * element. Will return the current value, even if it has been modified after
+         * the page has been loaded. More exactly, this method will return the value of
+         * the given attribute, unless that attribute is not present, in which case the
          * value of the property with the same name is returned. If neither value is
-         * set, null is returned. The "style" attribute is converted as best can be to a
+         * set, null is returned (for example, the "value" property of a textarea
+         * element). The "style" attribute is converted as best can be to a
          * text representation with a trailing semi-colon. The following are deemed to
-         * be "boolean" attributes and will be returned as thus:
+         * be "boolean" attributes and will return either "true" or null:
          *
-         * <p>async, autofocus, autoplay, checked, compact, complete, controls, declare,
+         * async, autofocus, autoplay, checked, compact, complete, controls, declare,
          * defaultchecked, defaultselected, defer, disabled, draggable, ended,
          * formnovalidate, hidden, indeterminate, iscontenteditable, ismap, itemscope,
          * loop, multiple, muted, nohref, noresize, noshade, novalidate, nowrap, open,
          * paused, pubdate, readonly, required, reversed, scoped, seamless, seeking,
          * selected, spellcheck, truespeed, willvalidate
          *
-         * <p>Finally, the following commonly mis-capitalized attribute/property names
+         * Finally, the following commonly mis-capitalized attribute/property names
          * are evaluated as expected:
-         * <ul>
-         *   <li>"class"
-         *   <li>"readonly"
-         * </ul>
+         *
+         * - "class"
+         * - "readonly"
+         *
          * @param {string} attributeName The name of the attribute to query.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     attribute's value.
+         * @return {!webdriver.promise.Promise.<?string>} A promise that will be
+         *     resolved with the attribute's value. The returned value will always be
+         *     either a string or null.
          */
         getAttribute(attributeName: string): webdriver.promise.Promise<string>;
 
         /**
          * Get the visible (i.e. not hidden by CSS) innerText of this element, including
          * sub-elements, without any leading or trailing whitespace.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's visible text.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the element's visible text.
          */
         getText(): webdriver.promise.Promise<string>;
 
         /**
          * Schedules a command to compute the size of this element's bounding box, in
          * pixels.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-         *     element's size as a {@code {width:number, height:number}} object.
+         * @return {!webdriver.promise.Promise.<{width: number, height: number}>} A
+         *     promise that will be resolved with the element's size as a
+         *     {@code {width:number, height:number}} object.
          */
         getSize(): webdriver.promise.Promise<ISize>;
 
         /**
          * Schedules a command to compute the location of this element in page space.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to the
-         *     element's location as a {@code {x:number, y:number}} object.
+         * @return {!webdriver.promise.Promise.<{x: number, y: number}>} A promise that
+         *     will be resolved to the element's location as a
+         *     {@code {x:number, y:number}} object.
          */
         getLocation(): webdriver.promise.Promise<ILocation>;
 
         /**
          * Schedules a command to query whether the DOM element represented by this
          * instance is enabled, as dicted by the {@code disabled} attribute.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether this element is currently enabled.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether this element is currently enabled.
          */
         isEnabled(): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedules a command to query whether this element is selected.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether this element is currently selected.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether this element is currently selected.
          */
         isSelected(): webdriver.promise.Promise<boolean>;
 
@@ -4704,8 +4761,8 @@ declare module webdriver {
          * Schedules a command to submit the form containing this element (or this
          * element if it is a FORM element). This command is a no-op if the element is
          * not contained in a form.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the form has been submitted.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the form has been submitted.
          */
         submit(): webdriver.promise.Promise<void>;
 
@@ -4713,22 +4770,22 @@ declare module webdriver {
          * Schedules a command to clear the {@code value} of this element. This command
          * has no effect if the underlying DOM element is neither a text INPUT element
          * nor a TEXTAREA element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when
-         *     the element has been cleared.
+         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         *     when the element has been cleared.
          */
         clear(): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to test whether this element is currently displayed.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     whether this element is currently visible on the page.
+         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         *     resolved with whether this element is currently visible on the page.
          */
         isDisplayed(): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedules a command to retrieve the outer HTML of this element.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     the element's outer HTML.
+         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         *     resolved with the element's outer HTML.
          */
         getOuterHtml(): webdriver.promise.Promise<string>;
 
@@ -4741,15 +4798,22 @@ declare module webdriver {
         getId(): webdriver.promise.Promise<IWebElementId>;
 
         /**
+         * Returns the raw ID string ID for this element.
+         * @return {!webdriver.promise.Promise<string>} A promise that resolves to this
+         *     element's raw ID as a string value.
+         * @package
+         */
+        getRawId(): webdriver.promise.Promise<string>;
+
+        /** @override */
+        serialize(): webdriver.promise.Promise<IWebElementId>;
+
+        /**
          * Schedules a command to retrieve the inner HTML of this element.
          * @return {!webdriver.promise.Promise} A promise that will be resolved with the
          *     element's inner HTML.
          */
         getInnerHtml(): webdriver.promise.Promise<string>;
-
-        //endregion
-
-        //region Static Methods
 
         /**
          * Compares to WebElements for equality.
@@ -4759,8 +4823,6 @@ declare module webdriver {
          *     whether the two WebElements are equal.
          */
         static equals(a: WebElement, b: WebElement): webdriver.promise.Promise<boolean>;
-
-        //endregion
     }
 
     /**
