@@ -642,13 +642,13 @@ obj = Promise.promisifyAll(obj);
 
 declare var util: any;
 
-function defaultFilter(name, func) {
+function defaultFilter(name: string, func: Function) {
     return util.isIdentifier(name) &&
         name.charAt(0) !== "_" &&
         !util.isClass(func);
 }
 
-function DOMPromisifier(originalMethod) {
+function DOMPromisifier(originalMethod: Function) {
     // return a function
     return function promisified() {
         var args = [].slice.call(arguments);
