@@ -178,6 +178,12 @@ declare module SocketIOClient {
 		nsp: string;
 		
 		/**
+		 * The ID of the socket; matches the server ID and is set when we're connected, and cleared
+		 * when we're disconnected
+		 */
+		id: string;
+		
+		/**
 		 * Are we currently connected?
 		 * @default false
 		 */
