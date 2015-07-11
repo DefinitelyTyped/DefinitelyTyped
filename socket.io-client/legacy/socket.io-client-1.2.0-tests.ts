@@ -1,4 +1,4 @@
-/// <reference path="socket.io-client.d.ts"/>
+/// <reference path="socket.io-client-1.2.0.d.ts"/>
 
 function testUsingWithNodeHTTPServer() {
     var socket = io('http://localhost');
