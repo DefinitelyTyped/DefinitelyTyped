@@ -1,3 +1,5 @@
+/// <reference path="socket.io-1.2.0.d.ts"/>
+
 import socketIO = require('socket.io');
 
 function testUsingWithNodeHTTPServer() {
