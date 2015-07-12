@@ -1,8 +1,9 @@
+///<reference path='react-router-0.12-test.d.ts' />
 ///<reference path="react-router-0.12.d.ts" />
 "use strict";
 
-import React = require('react');
-import Router = require('react-router');
+import React = require('react-0.12');
+import Router = ReactRouter;
 
 // Mixin
 class NavigationTest<T extends Router.Navigation> {

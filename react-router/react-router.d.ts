@@ -4,11 +4,9 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
+///<reference path='../react/react-addons.d.ts' />
 
-declare module "react-router" {
-
-    import React = require("react");
-
+declare module ReactRouter {
     //
     // Transition
     // ----------------------------------------------------------------------
@@ -272,4 +270,84 @@ declare module "react-router" {
         getCurrentQuery(): {};
         isActive(to: string, params?: {}, query?: {}): boolean;
     }
+}
+
+declare module "react-router" {
+    export = ReactRouter;
+}
+
+declare module React {
+  // for DefaultRoute
+  function createElement(
+    type: ReactRouter.DefaultRouteClass,
+    props: ReactRouter.DefaultRouteProp,
+    ...children: React.ReactNode[]): ReactRouter.DefaultRoute;
+
+  // for Link
+  function createElement(
+    type: ReactRouter.LinkClass,
+    props: ReactRouter.LinkProp,
+    ...children: React.ReactNode[]): ReactRouter.Link;
+
+  // for NotFoundRoute
+  function createElement(
+    type: ReactRouter.NotFoundRouteClass,
+    props: ReactRouter.NotFoundRouteProp,
+    ...children: React.ReactNode[]): ReactRouter.NotFoundRoute;
+
+  // for Redirect
+  function createElement(
+    type: ReactRouter.RedirectClass,
+    props: ReactRouter.RedirectProp,
+    ...children: React.ReactNode[]): ReactRouter.Redirect;
+
+  // for Route
+  function createElement(
+    type: ReactRouter.RouteClass,
+    props: ReactRouter.RouteProp,
+    ...children: React.ReactNode[]): ReactRouter.Route;
+
+  // for RouteHandler
+  function createElement(
+    type: ReactRouter.RouteHandlerClass,
+    props: ReactRouter.RouteHandlerProp,
+    ...children: React.ReactNode[]): ReactRouter.RouteHandler;
+}
+
+declare module "react/addons" {
+  // for DefaultRoute
+  function createElement(
+    type: ReactRouter.DefaultRouteClass,
+    props: ReactRouter.DefaultRouteProp,
+    ...children: React.ReactNode[]): ReactRouter.DefaultRoute;
+
+  // for Link
+  function createElement(
+    type: ReactRouter.LinkClass,
+    props: ReactRouter.LinkProp,
+    ...children: React.ReactNode[]): ReactRouter.Link;
+
+  // for NotFoundRoute
+  function createElement(
+    type: ReactRouter.NotFoundRouteClass,
+    props: ReactRouter.NotFoundRouteProp,
+    ...children: React.ReactNode[]): ReactRouter.NotFoundRoute;
+
+  // for Redirect
+  function createElement(
+    type: ReactRouter.RedirectClass,
+    props: ReactRouter.RedirectProp,
+    ...children: React.ReactNode[]): ReactRouter.Redirect;
+
+  // for Route
+  function createElement(
+    type: ReactRouter.RouteClass,
+    props: ReactRouter.RouteProp,
+    ...children: React.ReactNode[]): ReactRouter.Route;
+
+  // for RouteHandler
+  function createElement(
+    type: ReactRouter.RouteHandlerClass,
+    props: ReactRouter.RouteHandlerProp,
+    ...children: React.ReactNode[]): ReactRouter.RouteHandler;
 }
