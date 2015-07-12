@@ -227,8 +227,7 @@ declare module ReactRouter {
 }
 
 declare module 'react-router' {
-    import Export = ReactRouter;
-    export = Export;
+    export = ReactRouter;
 }
 
 declare module React {
