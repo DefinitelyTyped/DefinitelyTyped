@@ -24,7 +24,7 @@ declare module "cson" {
 	export function parseJSONFile(filePath: string, opts?: Object, next?: any): Object;
 	export function parseCSFile(filePath: string, opts?: Object, next?: any): Object;
 	export function parseJSFile(filePath: string, opts?: Object, next?: any): Object;
-
+	
 	// Require Files
 	export function requireCSFile(filePath: string, opts?: Object, next?: any): Object;
 	export function requireJSFile(filePath: string, opts?: Object, next?: any): Object;
