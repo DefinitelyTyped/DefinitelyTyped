@@ -113,7 +113,7 @@ declare module Kinetic {
     }
 
     var Container: {
-        new (config: any): IContainer;
+        new (config: ContainerConfig): IContainer;
     }
 
     interface IContainer extends INode {
@@ -182,7 +182,7 @@ declare module Kinetic {
     }
 
     var Shape: {
-        new (config: any): IShape;
+        new (config: ShapeConfig): IShape;
     }
 
     interface IShape extends INode {
@@ -412,6 +412,21 @@ declare module Kinetic {
         height: number;
     }
 
+    interface ContainerConfig extends ObjectOptionsConfig {
+        clip: ClipConfig;
+        clipX: number;
+        clipY: number;
+        clipWidth: number;
+        clipHeight: number;
+    }
+
+    interface ClipConfig {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
+
     interface StageConfig extends ObjectOptionsConfig {
         container: string;
         width: number;
@@ -423,6 +438,39 @@ declare module Kinetic {
     }
 
     //shape configs class
+    interface ShapeConfig extends DrawOptionsConfig, ObjectOptionsConfig {
+        fill?: string;
+        fillRed?: number;
+        fillGreen?: number;
+        fillBlue?: number;
+        fillAlpha?: number;
+        fillPatternImage?: any; //Image
+        fillPatternX?: number;
+        fillPatternY?: number;
+        fillPatternScale?: Vector2d;
+        fillPatternScaleX?: number;
+        fillPatternScaleY?: number;
+        fillPatternRotation?: number;
+        fillPatternRepeat?: string;
+        fillLinearGradientStartPoint?: Vector2d;
+        fillLinearGradientStartPointX?: number;
+        fillLinearGradientStartPointY?: number;
+        fillLinearGradientEndPoint?: Vector2d;
+        fillLinearGradientEndPointX?: number;
+        fillLinearGradientEndPointY?: number;
+        fillRadialGradientStartPoint?: Vector2d;
+        fillRadialGradientStartPointX?: number;
+        fillRadialGradientStartPointY?: number;
+        fillRadialGradientEndPoint?: Vector2d;
+        fillRadialGradientEndPointX?: number;
+        fillRadialGradientEndPointY?: number;
+        fillRadialGradientStartRadius?: number;
+        fillRadialGradientEndRadius?: number;
+        fillRadialGradientColorSops?: Array<any>; //color stops
+        fillEnabled?: boolean;
+        fillPriority?: string;
+    }
+
     interface RectConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         width?: number;
         height?: number;
@@ -491,9 +539,29 @@ declare module Kinetic {
     interface DrawOptionsConfig {
         fill?: string;
         stroke?: string;
+        strokeRed?: number;
+        strokeGreen?: number;
+        strokeBlue?: number;
+        strokeAlpha?: number;
         strokeWidth?: number;
+        strokeScaleEnabled?: boolean;
+        strokeEnabled?: boolean;
         lineJoin?: string;
+        lineCap?: string;
         shadow?: any;
+        shadowColor?: string;
+        shadowRed?: number;
+        shadowGreen?: number;
+        shadowBlue?: number;
+        shadowAlpha?: number;
+        shadowBlur?: number;
+        shadowOffset?: Vector2d;
+        shadowOffsetX?: number;
+        shadowOffsetY?: number;
+        shadowEnabled?: boolean;
+        dash?: Array<any>;
+        dashEnabled?: boolean;
+        drawFunc?: (context: ICanvas) => void;
     }
 
     interface Vector2d {
@@ -510,12 +578,16 @@ declare module Kinetic {
         name?: string;
         opacity?: any;
         scale?: Vector2d;
+        scaleX?: number;
+        scaleY?: number;
         rotation?: number;
-        rotationDeg?: number;
         offset?: Vector2d;
+        offsetX?: number;
+        offsetY?: number;
         draggable?: boolean;
-        dragConstraint?: string;
-        dragBounds?: any;
+        //dragConstraint?: string;
+        dragDistance?: number;
+        //dragBounds?: any;
         dragBoundFunc?: (pos: Vector2d) => Vector2d;
         width?: number;
         height?: number;
@@ -536,7 +608,7 @@ declare module Kinetic {
     }
 
     var Easings:{
-      BackEaseIn(t:number, b:number, c:number, d:number):number;
+        BackEaseIn(t:number, b:number, c:number, d:number):number;
         BackEaseOut(t:number, b:number, c:number, d:number):number;
         BackEaseInOut(t:number, b:number, c:number, d:number):number;
         ElasticEaseIn(t:number, b:number, c:number, d:number):number;
