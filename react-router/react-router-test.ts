@@ -328,3 +328,63 @@ class TransitionTest {
         };
     }
 }
+
+
+// Context
+class ContextTest {
+    v: Router.Context
+
+    makePath() {
+        var v1: string = this.v.makePath('home');
+        var v2: string = this.v.makePath('home', {p1: 1});
+        var v3: string = this.v.makePath('home', {p1: 1}, {q1: 1});
+    }
+
+    makeHref() {
+        var v1: string = this.v.makeHref('home');
+        var v2: string = this.v.makeHref('home', {p1: 1});
+        var v3: string = this.v.makeHref('home', {p1: 1}, {q1: 1});
+    }
+
+    transitionTo() {
+        var v1: void = this.v.transitionTo('home');
+        var v2: void = this.v.transitionTo('home', {p1: 1});
+        var v3: void = this.v.transitionTo('home', {p1: 1}, {q1: 1});
+    }
+
+    replaceWith() {
+        var v1: void = this.v.replaceWith('home');
+        var v2: void = this.v.replaceWith('home', {p1: 1});
+        var v3: void = this.v.replaceWith('home', {p1: 1}, {q1: 1});
+    }
+
+    goBack() {
+        var v: void = this.v.goBack();
+    }
+
+    getCurrentPath() {
+        var v: string = this.v.getCurrentPath();
+    }
+
+    getCurrentRoutes() {
+        var v: Router.Route[] = this.v.getCurrentRoutes();
+    }
+
+    getCurrentPathname() {
+        var v: string = this.v.getCurrentPathname();
+    }
+
+    getCurrentParams() {
+        var v: {} = this.v.getCurrentParams();
+    }
+
+    getCurrentQuery() {
+        var v: {} = this.v.getCurrentQuery();
+    }
+
+    isActive() {
+        var v1: boolean = this.v.isActive('home');
+        var v2: boolean = this.v.isActive('home', {p1: 1});
+        var v3: boolean = this.v.isActive('home', {p1: 1}, {q1: 1});
+    }
+}
