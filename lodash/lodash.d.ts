@@ -6666,6 +6666,26 @@ declare module _ {
         create<T>(prototype: Object, properties?: Object): Object;
     }
 
+    //_.inRange
+    interface LoDashStatic {
+        /**
+         * Checks if n is between 0 (inclusive) and end (exclusive).
+         * @param n The number to check.
+         * @param end The end of the range.
+         * @return true if n is in the range, else false
+         */
+        inRange(n: number, end: number): number;
+
+        /**
+         * Checks if n is between start (inclusive) and end (exclusive).
+         * @param n The number to check.
+         * @param start The start of the range.
+         * @param end The end of the range.
+         * @return true if n is in the range, else false
+         */
+        inRange(n: number, start: number, end: number): number;
+    }
+
     interface ListIterator<T, TResult> {
         (value: T, index: number, collection: T[]): TResult;
     }

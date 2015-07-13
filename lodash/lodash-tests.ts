@@ -543,6 +543,9 @@ result = <number>_(stoogesAgesDict).sum('age');
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
 
+result = <number>_.inRange(0, 10);
+result = <number>_.inRange(0, -10, 10);
+
 interface ABC {
     [index: string]: number;
     a: number;
