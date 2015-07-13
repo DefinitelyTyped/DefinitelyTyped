@@ -98,6 +98,7 @@ declare module uiGrid {
         enableHorizontalScrollbar?: boolean;
         enableMinHeightCheck?: boolean;
         enableRowHashing?: boolean;
+        enableRowSelection?: boolean;
         enableSorting?: boolean;
         enableVerticalScrollbar?: boolean;
         excessColumns?: number;
