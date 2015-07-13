@@ -16,6 +16,9 @@ class AppController {
 				}
 			},
 			{
+				template: '<hr />'
+			},
+			{
 				field: 'project',
 				type: 'input',
 				defaultValue: 'Project 1',
@@ -25,6 +28,24 @@ class AppController {
 			},
 			{
 				template: () => 'hello'
+			},
+			{
+				type: 'input',
+				key: 'zip',
+				templateOptions: {
+					type: 'number',
+					label: 'Zip',
+					max: 99999,
+					min: 0,
+					pattern: '\\d{5}'
+				}
+			},
+			{
+				type: 'checkbox',
+				key: 'happyUser',
+				templateOptions: {
+					label: 'Are you happy?'
+				}
 			}
 		]
 	}
