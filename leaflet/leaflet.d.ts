@@ -1980,7 +1980,7 @@ declare module L {
         /**
           * Returns the closest point from a point p on a segment p1 to p2.
           */
-        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): number;
+        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
 
         /**
           * Clips the segment a to b by rectangular bounds (modifying the segment points
@@ -3278,7 +3278,7 @@ declare module L {
         /**
           * Sets the pointer-events attribute on the path if SVG backend is used.
           */
-        pointerEvents?: boolean;
+        pointerEvents?: string;
 
         /**
           * Custom class name set on an element.
@@ -3448,7 +3448,7 @@ declare module L {
 
 declare module L {
 
-    export interface PolylineOptions {
+    export interface PolylineOptions extends PathOptions {
 
         /**
           * How much to simplify the polyline on each zoom level. More means better performance
@@ -3886,7 +3886,7 @@ declare module L {
             setParams(params: WMS, noRedraw?: boolean): WMS;
         }
 
-        export interface Canvas {
+        export interface Canvas extends TileLayer {
             /**
               * You need to define this method after creating the instance to draw tiles;
               * canvas is the actual canvas tile on which you can draw, tilePoint represents

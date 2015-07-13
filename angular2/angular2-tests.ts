@@ -1,8 +1,8 @@
 /// <reference path="angular2.d.ts"/>
+/// <reference path="router.d.ts"/>
 
 // Use Typescript 1.4 style imports
 import ng = require("angular2/angular2");
-import di = require("angular2/di");
 
 class Service {
 	
@@ -17,11 +17,21 @@ class Cmp {
 Cmp.annotations = [
   ng.Component({
     selector: 'cmp',
-    injectables: [Service, di.bind(Service2).toValue(null)]
+    injectables: [Service, ng.bind(Service2).toValue(null)]
   }),
   ng.View({
     template: '{{greeting}} world!',
-    directives: [ng.For, ng.If]
+    directives: [ng.NgFor, ng.NgIf]
+  }),
+  ng.Directive({
+    selector: '[tooltip]',
+    properties: [
+      'text: tooltip'
+    ],
+    hostListeners: {
+      'onmouseenter': 'onMouseEnter()',
+      'onmouseleave': 'onMouseLeave()'
+    }
   })
 ];
 

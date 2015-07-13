@@ -649,7 +649,7 @@ declare module Parse {
         static current(): User;
         static signUp<T>(username: string, password: string, attrs: any, options?: ParseDefaultOptions): Promise<T>;
         static logIn<T>(username: string, password: string, options?: ParseDefaultOptions): Promise<T>;
-        static logOut(): void;
+        static logOut<T>(): Promise<T>;
         static allowCustomUserClass(isAllowed: boolean): void;
         static become<T>(sessionToken: string, options?: ParseDefaultOptions): Promise<T>;
         static requestPasswordReset<T>(email: string, options?: ParseDefaultOptions): Promise<T>;
@@ -842,7 +842,6 @@ declare module Parse {
         INVALID_CONTENT_LENGTH =  128,
         FILE_TOO_LARGE =  129,
         FILE_SAVE_ERROR =  130,
-        FILE_DELETE_ERROR =  153,
         DUPLICATE_VALUE =  137,
         INVALID_ROLE_NAME =  139,
         EXCEEDED_QUOTA =  140,
@@ -851,6 +850,9 @@ declare module Parse {
         INVALID_IMAGE_DATA =  150,
         UNSAVED_FILE_ERROR =  151,
         INVALID_PUSH_TIME_ERROR = 152,
+        FILE_DELETE_ERROR = 153,
+        REQUEST_LIMIT_EXCEEDED = 155,
+        INVALID_EVENT_NAME = 160,
         USERNAME_MISSING =  200,
         PASSWORD_MISSING =  201,
         USERNAME_TAKEN =  202,
@@ -860,6 +862,7 @@ declare module Parse {
         SESSION_MISSING =  206,
         MUST_CREATE_USER_THROUGH_SIGNUP =  207,
         ACCOUNT_ALREADY_LINKED =  208,
+        INVALID_SESSION_TOKEN = 209,
         LINKED_ID_MISSING =  250,
         INVALID_LINKED_SESSION =  251,
         UNSUPPORTED_SERVICE =  252,

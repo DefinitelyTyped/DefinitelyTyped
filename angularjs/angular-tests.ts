@@ -201,6 +201,9 @@ mod.constant(My.Namespace);
 mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
+mod.decorator('name', function($scope:ng.IScope){ });
+mod.decorator('name', ['$scope', <any>function($scope: ng.IScope){ }]);
+
 
 class TestProvider implements ng.IServiceProvider {
     constructor(private $scope: ng.IScope) {
@@ -278,6 +281,7 @@ function test_IAttributes(attributes: ng.IAttributes){
 }
 
 test_IAttributes({
+    $normalize: function (classVal){},
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
@@ -699,4 +703,30 @@ module locationTests {
     $location.path() == '/foo/bar'
     $location.url() == '/foo/bar?x=y'
     $location.absUrl() == 'http://example.com/#!/foo/bar?x=y'
+}
+
+// NgModelController
+function NgModelControllerTyping() {
+    var ngModel: angular.INgModelController;
+    var $http: angular.IHttpService;
+    var $q: angular.IQService;
+
+    // See https://docs.angularjs.org/api/ng/type/ngModel.NgModelController#$validators
+    ngModel.$validators['validCharacters'] = function(modelValue, viewValue) {
+        var value = modelValue || viewValue;
+        return /[0-9]+/.test(value) &&
+            /[a-z]+/.test(value) &&
+            /[A-Z]+/.test(value) &&
+            /\W+/.test(value);
+    };
+
+    ngModel.$asyncValidators['uniqueUsername'] = function(modelValue, viewValue) {
+        var value = modelValue || viewValue;
+        return $http.get('/api/users/' + value).
+            then(function resolved() {
+                return $q.reject('exists');
+            }, function rejected() {
+                return true;
+            });
+    };
 }
