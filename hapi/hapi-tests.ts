@@ -4,9 +4,9 @@ import Hapi = require("hapi");
 
 // Create a server with a host and port
 var server = new Hapi.Server();
-server.connection({
+server.connection(<Hapi.IServerConnectionOptions>{
 	host: "localhost",
-	port: 8000,
+	port: 8000
 });
 
 // Add plugins
@@ -24,7 +24,7 @@ plugin.register.attributes = {
 // optional options parameter
 server.register({}, function (err) {});
 
-// optional options.routes.vhost parameter 
+// optional options.routes.vhost parameter
 server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
 
 //server.pack.register(plugin, (err: Object) => {
