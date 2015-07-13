@@ -864,7 +864,7 @@ declare module Marionette {
          * Backbone view object definition, not an instance. It can be any 
          * Backbone.View or be derived from Marionette.ItemView
          */
-        childView: new () => TView;
+        childView: new (...args:any[]) => TView;
 
         /**
          * There may be scenarios where you need to pass data from your parent 
@@ -995,7 +995,7 @@ declare module Marionette {
          * instantiated when a Model needs to be initially rendered. This method 
          * also gives you the ability to customize per Model ChildViews.
          */
-        getChildView<M extends Backbone.Model>(item: M): new () => TView;
+        getChildView<M extends Backbone.Model>(item: M): new (...args:any[]) => TView;
 
         /**
          * If you need the emptyView's class chosen dynamically, specify 
@@ -1058,7 +1058,7 @@ declare module Marionette {
          * CompositeView's template is rendered and the childView's templates are 
          * added to this.
          */
-        childView: new () => TView;
+        childView: new (...args:any[]) => TView;
 
         /**
          * By default the composite view uses the same attachHtml method that the 
