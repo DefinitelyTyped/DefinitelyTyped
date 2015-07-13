@@ -1780,7 +1780,7 @@ declare module d3 {
         export function format(specifier: string): Format;
 
         export module format {
-            export function multi(formats: Array<[string, (d: Date) => boolean]>): Format;
+            export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             export function utc(specifier: string): Format;
             export var iso: Format;
         }
@@ -2720,6 +2720,7 @@ declare module d3 {
         timeFormat: {
             (specifier: string): time.Format;
             utc(specifier: string): time.Format;
+            multi(formats: Array<[string, (d: Date) => boolean|number]>): time.Format;
         }
     }
 
