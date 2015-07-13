@@ -440,6 +440,13 @@ declare module AngularFormly {
 		 */
 		runExpressions?: () => void;
 
+
+
+		////////////////// BOOTSTRAP SPECIFIC ///////////////////////
+		fieldGroup?: IFieldConfigurationObject[];
+
 	}
+
+
 
 }
