@@ -13,12 +13,16 @@ interface NumberFormatterOptions {
    useGrouping?: boolean;
 }
 
+interface Cldr {
+   /* TODO: add typings */
+}
+
 interface GlobalizeStatic {
-   load(jsonData: any);
-   locale(locale: string);
+   load(jsonData: any): void;
+   locale(locale: string): Cldr;
 
    numberFormatter(options?: NumberFormatterOptions): (value: number) => string;
-   formatNumber(value, options?: NumberFormatterOptions): string;
+   formatNumber(value:number, options?: NumberFormatterOptions): string;
 }
 
 declare var Globalize: GlobalizeStatic;
