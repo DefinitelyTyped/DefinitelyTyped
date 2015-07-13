@@ -420,6 +420,15 @@ declare module angular {
         [name: string]: any;
 
         /**
+         * Converts an attribute name (e.g. dash/colon/underscore-delimited string, optionally prefixed with x- or data-) to its normalized, camelCase form.
+         * 
+         * Also there is special case for Moz prefix starting with upper case letter.
+         * 
+         * For further information check out the guide on @see https://docs.angularjs.org/guide/directive#matching-directives
+         */
+        $normalize(name: string): void;
+
+        /**
          * Adds the CSS class value specified by the classVal parameter to the
          * element. If animations are enabled then an animation will be triggered
          * for the class addition.
