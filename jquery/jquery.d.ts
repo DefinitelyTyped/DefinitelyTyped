@@ -1258,6 +1258,12 @@ interface JQuery {
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
+     * @param fragment A document fragment
+     */
+    html(fragment: DocumentFragment): JQuery;
+    /**
+     * Set the HTML contents of each element in the set of matched elements.
+     *
      * @param htmlString A string of HTML to set as the content of each matched element.
      */
     html(htmlString: string): JQuery;
