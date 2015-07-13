@@ -141,6 +141,7 @@ testApp.controller('TestCtrl', (
         scope: $scope,
         template: "<div>i'm a template!</div>",
         templateUrl: '/templates/modal.html',
+        backdropClass: 'modal-backdrop-test',
         windowClass: 'modal-test'
     });
 

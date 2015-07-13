@@ -10,6 +10,10 @@ declare module webcomponents {
         extends?: string;
     }
 
+    export interface CustomElementConstructor {
+        new(): HTMLElement;
+    }
+
     export interface CustomElementsPolyfill {
         hasNative: boolean;
         flags: any;
@@ -38,7 +42,7 @@ declare module "webcomponents.js" {
 }
 
 interface Document {
-    registerElement(name: string, prototype: webcomponents.CustomElementInit): void;
+    registerElement(name: string, prototype: webcomponents.CustomElementInit): webcomponents.CustomElementConstructor;
 }
 
 interface Window {

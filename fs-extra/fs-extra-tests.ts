@@ -58,9 +58,13 @@ fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
 fs.mkdirs(dir, errorCallback);
+fs.mkdirs(dir, {}, errorCallback);
 fs.mkdirsSync(dir);
+fs.mkdirsSync(dir, {});
 fs.mkdirp(dir, errorCallback);
+fs.mkdirp(dir, {}, errorCallback);
 fs.mkdirpSync(dir);
+fs.mkdirpSync(dir, {});
 
 fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);

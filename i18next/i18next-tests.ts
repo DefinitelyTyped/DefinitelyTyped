@@ -665,6 +665,24 @@ describe('i18next', function () {
 
         });
 
+        describe('adding resources after initialisation', function () {
+
+            var frResource = <IResourceStoreKey>{ 'simple_fr': 'ok_from_fr' };
+            var enResource = <IResourceStoreKey>{ 'simple_en': 'ok_from_en' };
+
+            beforeEach(function (done) {
+                i18n.init({ resStore: {} },
+                  function (t) { done(); });
+            });
+
+            it('it should use resources for translation added after initialisation', function () {
+                i18n.addResources('fr', 'translation', frResource);
+                i18n.addResources('en', 'translation', enResource);
+                expect(i18n.t('simple_fr', { lng: 'fr' })).to.be('ok_from_fr');
+                expect(i18n.t('simple_en', { lng: 'en' })).to.be('ok_from_en');
+            });
+
+        });
     });
     describe('translation functionality', function () {
 
