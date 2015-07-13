@@ -16,7 +16,7 @@ declare module AngularFormly {
 	 * see http://docs.angular-formly.com/docs/formly-expressions#expressionproperties-validators--messages
 	 */
 	interface IExpresssionFunction {
-		($viewValue, $modelValue, scope): any;
+		($viewValue: any, $modelValue: any, scope: ng.IScope): any;
 	}
 
 
@@ -36,7 +36,7 @@ declare module AngularFormly {
 
 
 	interface ITemplateManipulator {
-		(template, options, scope): string;
+		(template: string | HTMLElement, options: Object, scope: ng.IScope): string | HTMLElement;
 	}
 
 
@@ -77,7 +77,7 @@ declare module AngularFormly {
 	 * see http://docs.angular-formly.com/docs/field-configuration-object#validators-object
 	 */
 	interface IValidator {
-		expression?: string | { (viewValue, modelValue): boolean };
+		expression?: string | { (viewValue: any, modelValue: any): boolean };
 	}
 
 
@@ -90,8 +90,9 @@ declare module AngularFormly {
 	 * see http://docs.angular-formly.com/docs/field-configuration-object#watcher-objectarray-of-watches
 	 */
 	interface IWatcher {
-		expression?: string | { (field, scope): boolean };
-		listener: (field, newValue, oldValue, scope, stopWatching) => void;
+		deep?: boolean; //Defaults to false
+		expression?: string | { (field: string, scope: ng.IScope): boolean };
+		listener: (field: string, newValue: any, oldValue: any, scope: ng.IScope, stopWatching: Function) => void;
 		type?: string; //Defaults to $watch but can be set to $watchCollection or $watchGroup
 	}
 
@@ -256,7 +257,8 @@ declare module AngularFormly {
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#templatemanipulator-object-of-arrays-of-functions
 		 */
 		templateManipulator?: {
-			[key: string]: ITemplateManipulator[];
+			preWrapper: ITemplateManipulator[];
+			postWrapper: ITemplateManipulator[];
 		}
 
 
@@ -288,7 +290,7 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#controller-controller-name-as-string--controller-f
 		 */
-		controller?: string | { ($scope: ng.IScope, ...args): void };
+		controller?: string | { Function: void };
 
 
 		/**
@@ -399,7 +401,7 @@ declare module AngularFormly {
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#value-gettersetter-function
 		 */
 		value?(): any; //Getter
-		value?(val): void; //Setter
+		value?(val: any): void; //Setter
 
 
 		//ALL PROPERTIES BELOW ARE ADDED (So you should not be setting them yourself.)
