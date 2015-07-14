@@ -137,7 +137,7 @@ declare module AngularFormly {
 		 * Demo
 		 * see http://angular-formly.com/#/example/other/unique-value-async-validation
 		 */
-		asyncValidators: {
+		asyncValidators?: {
 			[key: string]: string | IExpresssionFunction | IValidator;
 		}
 
