@@ -73,6 +73,7 @@ interface ErrnoException extends Error {
     code?: string;
     path?: string;
     syscall?: string;
+    stack?: string;
 }
 
 interface EventEmitter {

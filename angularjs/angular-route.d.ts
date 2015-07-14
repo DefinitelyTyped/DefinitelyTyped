@@ -63,7 +63,7 @@ declare module angular.route {
          *
          * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
          */
-        template?: string|{($routeParams?: ng.route.IRouteParamsService) : string;}
+        template?: string|{($routeParams?: angular.route.IRouteParamsService) : string;}
         /**
          * {string=|function()=}
          * Path or function that returns a path to an html template that should be used by ngView.
@@ -72,7 +72,7 @@ declare module angular.route {
          *
          * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
          */
-        templateUrl?: string|{ ($routeParams?: ng.route.IRouteParamsService): string; }
+        templateUrl?: string|{ ($routeParams?: angular.route.IRouteParamsService): string; }
         /**
          * {Object.<string, function>=} - An optional map of dependencies which should be injected into the controller. If any of these dependencies are promises, the router will wait for them all to be resolved or one to be rejected before the controller is instantiated. If all the promises are resolved successfully, the values of the resolved promises are injected and $routeChangeSuccess event is fired. If any of the promises are rejected the $routeChangeError event is fired. The map object is:
          *
@@ -91,7 +91,7 @@ declare module angular.route {
          * - {Object} - current $location.search()
          * - The custom redirectTo function is expected to return a string which will be used to update $location.path() and $location.search().
          */
-        redirectTo?: string|{($routeParams?: ng.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) : string};
+        redirectTo?: string|{($routeParams?: angular.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any) : string};
         /**
          * Reload route when only $location.search() or $location.hash() changes.
          *
@@ -109,6 +109,7 @@ declare module angular.route {
     // see http://docs.angularjs.org/api/ng.$route#current
     interface ICurrentRoute extends IRoute {
         locals: {
+            [index: string]: any;
             $scope: IScope;
             $template: string;
         };

@@ -169,9 +169,7 @@ declare module Backbone {
         **/
         private static extend(properties: any, classProperties?: any): any;
 
-        // TODO: this really has to be typeof TModel
-        //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
+        model: new (...args:any[]) => TModel;
         models: TModel[];
         length: number;
 

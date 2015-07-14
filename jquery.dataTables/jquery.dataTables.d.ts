@@ -1498,7 +1498,7 @@ declare module DataTables {
     }
 
     interface FunctionColumnData {
-        (row: any, t: string, s: any, meta: Object): void;
+        (row: any, t: string, s: any, meta: CellMetaSettings): void;
     }
 
     interface ObjectColumnData {
@@ -1513,7 +1513,13 @@ declare module DataTables {
     }
 
     interface FunctionColumnRender {
-        (data: Node, t: Node, row: Node, meta: Object): void;
+        (data: any, t: string, row: any, meta: CellMetaSettings): void;
+    }
+
+    interface CellMetaSettings {
+        row: number;
+        col: number;
+        settings: DataTables.Settings;
     }
 
     //#endregion "colunm-settings"
@@ -1611,20 +1617,21 @@ declare module DataTables {
 
     //#region "language-settings"
 
+	// these are all optional
     interface LanguageSettings {
-        emptyTable: string;
-        info: string;
-        infoEmpty: string;
-        infoFiltered: string;
-        infoPostFix: string;
-        thousands: string;
-        lengthMenu: string;
-        loadingRecords: string;
-        processing: string;
-        search: string;
-        zeroRecords: string;
-        paginate: LanguagePaginateSettings;
-        aria: LanguageAriaSettings;
+        emptyTable?: string;
+        info?: string;
+        infoEmpty?: string;
+        infoFiltered?: string;
+        infoPostFix?: string;
+        thousands?: string;
+        lengthMenu?: string;
+        loadingRecords?: string;
+        processing?: string;
+        search?: string;
+        zeroRecords?: string;
+        paginate?: LanguagePaginateSettings;
+        aria?: LanguageAriaSettings;
     }
 
     interface LanguagePaginateSettings {
