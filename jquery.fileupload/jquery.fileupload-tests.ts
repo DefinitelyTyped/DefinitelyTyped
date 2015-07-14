@@ -38,6 +38,11 @@ class TestFileInput {
             
             add: __handleAddingFile
             
-        });
+        }).on('fileuploadadd', '.daUpload', function (e, data) {
+            }).on('fileuploadprocessalways', '.daUpload', (e, data) => {
+            }).on('fileuploadprogressall', '.daUpload', function (e, data) {
+            }).on('fileuploaddone', '.daUpload', (e, data) => {
+            }).on('fileuploadfail', '.daUpload', (e, data) => {
+            });
     }
 }
