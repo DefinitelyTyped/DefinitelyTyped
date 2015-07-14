@@ -1128,6 +1128,9 @@ declare module Marionette {
          * Add multiple regions as a {name: definition, name2: def2} object literal.
          */
         addRegions(regions: any): any;
+        
+	/** Returns a region from the layout view */
+        getRegion(name: string): Region;
 
         /**
          * Renders the view.
