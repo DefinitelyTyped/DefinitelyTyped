@@ -5,7 +5,6 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-
 // Interface options for the plugin 
 interface JQueryFileInputOptions {
 
@@ -152,13 +151,15 @@ interface JQueryFileInputOptions {
 
 }
 
-interface JQueryFileUpload {
-
+interface JQueryFileUpload extends JQuery  {
     contentType:string;
 }
 
-interface JQuery
-{
+interface JQuery {
     // Interface to the main method of jQuery File Upload
     fileupload(settings: JQueryFileInputOptions): JQueryFileUpload;
+}
+
+interface JQuerySupport {
+    fileInput?: boolean;
 }
