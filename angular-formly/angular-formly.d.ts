@@ -1,4 +1,4 @@
-// Type definitions for angular-formly 6.17.0
+// Type definitions for angular-formly 6.18.0
 // Project: https://github.com/formly-js/angular-formly
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -129,6 +129,17 @@ declare module AngularFormly {
 
 	// see http://docs.angular-formly.com/docs/field-configuration-object
 	interface IFieldConfigurationObject {
+
+
+		/**
+		 * Added in 6.18.0
+		 *
+		 * Demo
+		 * see http://angular-formly.com/#/example/other/unique-value-async-validation
+		 */
+		asyncValidators: {
+			[key: string]: string | IExpresssionFunction | IValidator;
+		}
 
 		/**
 		 * This is a great way to add custom behavior to a specific field. It is injectable with the $scope of the
