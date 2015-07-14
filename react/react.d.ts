@@ -1,9 +1,9 @@
-// Type definitions for React v0.13.1 (external module)
+// Type definitions for React v0.13.1 (internal and external module)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "react" {
+declare module React {
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -234,6 +234,10 @@ declare module "react" {
         type: string;
     }
 
+    interface DragEvent extends SyntheticEvent {
+        dataTransfer: DataTransfer;
+    }
+
     interface ClipboardEvent extends SyntheticEvent {
         clipboardData: DataTransfer;
     }
@@ -308,6 +312,7 @@ declare module "react" {
         (event: E): void;
     }
 
+    interface DragEventHandler extends EventHandler<DragEvent> {}
     interface ClipboardEventHandler extends EventHandler<ClipboardEvent> {}
     interface KeyboardEventHandler extends EventHandler<KeyboardEvent> {}
     interface FocusEventHandler extends EventHandler<FocusEvent> {}
@@ -341,14 +346,14 @@ declare module "react" {
         onSubmit?: FormEventHandler;
         onClick?: MouseEventHandler;
         onDoubleClick?: MouseEventHandler;
-        onDrag?: MouseEventHandler;
-        onDragEnd?: MouseEventHandler;
-        onDragEnter?: MouseEventHandler;
-        onDragExit?: MouseEventHandler;
-        onDragLeave?: MouseEventHandler;
-        onDragOver?: MouseEventHandler;
-        onDragStart?: MouseEventHandler;
-        onDrop?: MouseEventHandler;
+        onDrag?: DragEventHandler;
+        onDragEnd?: DragEventHandler;
+        onDragEnter?: DragEventHandler;
+        onDragExit?: DragEventHandler;
+        onDragLeave?: DragEventHandler;
+        onDragOver?: DragEventHandler;
+        onDragStart?: DragEventHandler;
+        onDrop?: DragEventHandler;
         onMouseDown?: MouseEventHandler;
         onMouseEnter?: MouseEventHandler;
         onMouseLeave?: MouseEventHandler;
@@ -430,10 +435,16 @@ declare module "react" {
         draggable?: boolean;
         encType?: string;
         form?: string;
+        formAction?: string;
+        formEncType?: string;
+        formMethod?: string;
         formNoValidate?: boolean;
+        formTarget?: string;
         frameBorder?: number | string;
+        headers?: string;
         height?: number | string;
         hidden?: boolean;
+        high?: number;
         href?: string;
         hrefLang?: string;
         htmlFor?: string;
@@ -444,7 +455,10 @@ declare module "react" {
         lang?: string;
         list?: string;
         loop?: boolean;
+        low?: number;
         manifest?: string;
+        marginHeight?: number;
+        marginWidth?: number;
         max?: number | string;
         maxLength?: number;
         media?: string;
@@ -456,6 +470,7 @@ declare module "react" {
         name?: string;
         noValidate?: boolean;
         open?: boolean;
+        optimum?: number;
         pattern?: string;
         placeholder?: string;
         poster?: string;
@@ -469,9 +484,8 @@ declare module "react" {
         rowSpan?: number;
         sandbox?: string;
         scope?: string;
-        scrollLeft?: number;
+        scoped?: boolean;
         scrolling?: string;
-        scrollTop?: number;
         seamless?: boolean;
         selected?: boolean;
         shape?: string;
@@ -501,6 +515,12 @@ declare module "react" {
         itemProp?: string;
         itemScope?: boolean;
         itemType?: string;
+        unselectable?: boolean;
+    }
+
+    interface SVGElementAttributes extends HTMLAttributes {
+        viewBox?: string;
+        preserveAspectRatio?: string;
     }
 
     interface SVGAttributes extends DOMAttributes {
@@ -764,3 +784,6 @@ declare module "react" {
     }
 }
 
+declare module "react" {
+    export = React;
+}

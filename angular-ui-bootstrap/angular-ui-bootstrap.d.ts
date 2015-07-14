@@ -229,13 +229,19 @@ declare module angular.ui.bootstrap {
          * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
          * Defaults to `$rootScope`.
          */
-        scope?: IModalScope;
+        scope?: angular.IScope|IModalScope;
 
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
          * A controller can be injected with `$modalInstance`
          */
         controller?: any;
+
+        /**
+         *  an alternative to the controller-as syntax, matching the API of directive definitions.
+         *  Requires the controller option to be provided as well
+         */
+        controllerAs?: string;
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
@@ -257,6 +263,11 @@ declare module angular.ui.bootstrap {
          * indicates whether the dialog should be closable by hitting the ESC key, defaults to true
          */
         keyboard?: boolean;
+
+        /**
+         * additional CSS class(es) to be added to a modal backdrop template
+         */
+        backdropClass?: string;
 
         /**
          * additional CSS class(es) to be added to a modal window template
@@ -584,7 +595,14 @@ declare module angular.ui.bootstrap {
          *
          * @default false
          */
-        appendtoBody?: boolean;
+        appendToBody?: boolean;
+
+        /**
+         * Determines the default open triggers for tooltips and popovers
+         *
+         * @default 'mouseenter' for tooltip, 'click' for popover
+         */
+        trigger?: string;
     }
 
     interface ITooltipProvider {

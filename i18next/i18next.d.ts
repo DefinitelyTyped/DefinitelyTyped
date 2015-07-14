@@ -23,7 +23,7 @@ interface I18nextOptions {
     preload?: string[];                     // Default value: []
     lowerCaseLng?: boolean;                    // Default value: false
     returnObjectTrees?: boolean;               // Default value: false
-    fallbackLng?: string;                   // Default value: 'dev'
+    fallbackLng?: string|boolean;           // Default value: 'dev'
     detectLngQS?: string;                   // Default value: 'setLng'
     ns?: any;                               // Default value: 'translation' (string), can also be an object
     nsseparator?: string;                   // Default value: '::'
@@ -67,6 +67,7 @@ interface I18nextOptions {
 interface I18nextStatic {
 
     addPostProcessor(name: string, fn: (value: any, key: string, options: any) => string): void;
+    addResources(language: string, namespace: string, resources: IResourceStoreKey): void;
     detectLanguage(): string;
     functions: {
         extend(target: any, ...objs: any[]): Object;
@@ -129,5 +130,9 @@ interface JQuery {
 declare var i18n: I18nextStatic;
 
 declare module 'i18next' {
+    export = i18n;
+}
+
+declare module 'i18next-client' {
     export = i18n;
 }

@@ -46,7 +46,7 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
 
         // AngularFireObject
         {
-            var obj = sync.$asObject();
+            var obj = $FirebaseObject(ref);
 
             // $id
             if (obj.$id !== ref.name()) throw "error";
@@ -62,8 +62,8 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
                 obj.$save();
             });
 
-            // $inst()
-            if (obj.$inst() !== sync) throw "error";
+            // $ref()
+            if (obj.$ref() !== ref) throw "error";
 
             // $bindTo()
             obj.$bindTo($scope, "data").then(function () {
@@ -81,8 +81,8 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
             // $destroy()
             obj.$destroy();
 
-            // $extendFactory()
-            var NewFactory = $FirebaseObject.$extendFactory({
+            // $extend()
+            var NewFactory = $FirebaseObject.$extend({
                 getMyFavoriteColor: function () {
                     return this.favoriteColor + ", no green!"; // obscure Monty Python reference
                 }
@@ -92,10 +92,10 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
 
         // AngularFireArray
         {
-            var list = sync.$asArray();
+            var list = $FirebaseArray(ref);
 
-            // $inst()
-            if (list.$inst() !== sync) throw "error";
+            // $ref()
+            if (list.$ref() !== ref) throw "error";
 
             // $add()
             list.$add({ foo: "foo value" });
@@ -145,8 +145,8 @@ myapp.controller("MyController", ["$scope", "$firebase", '$FirebaseObject', '$Fi
             // $destroy()
             list.$destroy();
 
-            // $extendFactory()
-            var ArrayWithSum = $FirebaseArray.$extendFactory({
+            // $extend()
+            var ArrayWithSum = $FirebaseArray.$extend({
                 sum: function () {
                     var total = 0;
                     angular.forEach(this.$list, function (rec) {
@@ -167,30 +167,43 @@ interface AngularFireAuthScope extends ng.IScope {
     loginObj: AngularFireAuth;
 }
 
-myapp.controller("MyAuthController", ["$scope", "$firebaseSimpleLogin",
-    function($scope: AngularFireAuthScope, $firebaseSimpleLogin: AngularFireAuthService) {
+myapp.controller("MyAuthController", ["$scope", "$firebaseAuth",
+    function($scope: AngularFireAuthScope, $firebaseAuth: AngularFireAuthService) {
         var dataRef = new Firebase(url);
-        $scope.loginObj = $firebaseSimpleLogin(dataRef);
-        $scope.loginObj.$getCurrentUser().then(_ => {
-        });
-        var email = 'my@email.com';
-        var password = 'mypassword';
-        $scope.loginObj.$login('password', {
-            email: email,
-            password: password
-        }).then(function(user) {
-                console.log('Logged in as: ', user.uid);
-            }, function(error) {
-                console.error('Login failed: ', error);
-            });
-        $scope.loginObj.$logout();
-        $scope.loginObj.$createUser(email, password).then(_ => {
-        });
-        $scope.loginObj.$changePassword(email, password, password).then(_ => {
-        });
-        $scope.loginObj.$removeUser(email, password).then(_ => {
-        });
-        $scope.loginObj.$sendPasswordResetEmail(email).then(_ => {
-        });
+        $scope.loginObj = $firebaseAuth(dataRef);
+        $scope.loginObj.$getAuth();
+        var credentials = {
+            email: 'my@email.com',
+            password: 'mypassword'
+        };
+        var resetPasswordCredentials = {
+            email: 'my@email.com'
+        };
+        var changePasswordCredentials = {
+            email: 'my@email.com',
+            oldPassword: 'mypassword',
+            newPassword: 'mypassword'
+        };
+        var changeUserCredentials = {
+            oldEmail: 'my@email.com',
+            newEmail: 'my@email.com',
+            password: 'mypassword'
+        };
+        $scope.loginObj.$authWithCustomToken("token").then(_ => {});
+        $scope.loginObj.$authAnonymously().then(_ => {});
+        $scope.loginObj.$authWithPassword(credentials).then(_ => {});
+        $scope.loginObj.$authWithOAuthPopup("github").then(_ => {});
+        $scope.loginObj.$authWithOAuthRedirect("google").then(_ => {});
+        $scope.loginObj.$authWithOAuthToken("twitter", "token").then(_ => {});
+        $scope.loginObj.$getAuth();
+        $scope.loginObj.$onAuth(() => {});
+        $scope.loginObj.$unauth();
+        $scope.loginObj.$waitForAuth();
+        $scope.loginObj.$requireAuth();
+        $scope.loginObj.$createUser(credentials).then(_ => {});
+        $scope.loginObj.$removeUser(credentials).then(_ => {});
+        $scope.loginObj.$changeEmail(changeUserCredentials).then(_ => {});
+        $scope.loginObj.$changePassword(changePasswordCredentials).then(_ => {});
+        $scope.loginObj.$resetPassword(resetPasswordCredentials).then(_ => {});
     }
 ]);

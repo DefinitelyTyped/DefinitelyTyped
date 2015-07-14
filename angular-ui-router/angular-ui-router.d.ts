@@ -20,7 +20,7 @@ declare module angular.ui {
         /**
          * Function, returns HTML content string
          */
-        templateProvider?: Function;
+        templateProvider?: Function | Array<any>;
         /**
          * A controller paired to the state. Function OR name as String
          */
@@ -30,11 +30,18 @@ declare module angular.ui {
          * Function (injectable), returns the actual controller function or string.
          */
         controllerProvider?: Function;
+        
+        /**
+         * Specifies the parent state of this state
+         */
+        parent?: string | IState
+        
+        
         resolve?: {};
         /**
          * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
          */
-        url?: string;
+        url?: string | IUrlMatcher;
         /**
          * A map which optionally configures parameters declared in the url, or defines additional non-url parameters. Only use this within a state if you are not using url. Otherwise you can specify your parameters within the url. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
          */
@@ -45,13 +52,15 @@ declare module angular.ui {
         views?: {};
         abstract?: boolean;
         /**
-         * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
+         * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
+         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
          */
-        onEnter?: Function;
+        onEnter?: Function|(string|Function)[];
         /**
          * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
+         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
          */
-        onExit?: Function;
+        onExit?: Function|(string|Function)[];
         /**
          * Arbitrary data object, useful for custom configuration.
          */
@@ -62,7 +71,7 @@ declare module angular.ui {
         reloadOnSearch?: boolean;
     }
 
-    interface IStateProvider extends ng.IServiceProvider {
+    interface IStateProvider extends angular.IServiceProvider {
         state(name:string, config:IState): IStateProvider;
         state(config:IState): IStateProvider;
         decorator(name?: string, decorator?: (state: IState, parent: Function) => any): any;
@@ -81,7 +90,7 @@ declare module angular.ui {
         type(name: string, definition: any, definitionFn?: any): any;
     }
 
-    interface IUrlRouterProvider extends ng.IServiceProvider {
+    interface IUrlRouterProvider extends angular.IServiceProvider {
         when(whenPath: RegExp, handler: Function): IUrlRouterProvider;
         when(whenPath: RegExp, handler: any[]): IUrlRouterProvider;
         when(whenPath: RegExp, toPath: string): IUrlRouterProvider;
@@ -143,7 +152,7 @@ declare module angular.ui {
          *
          * @param options Options object.
          */
-        go(to: string, params?: {}, options?: IStateOptions): ng.IPromise<any>;
+        go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
         transitionTo(state: string, params?: {}, options?: IStateOptions): void;
         includes(state: string, params?: {}): boolean;
