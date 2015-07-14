@@ -94,7 +94,9 @@ declare module AngularFormly {
 		onKeypress?: string;
 		onKeyup?: string;
 
+		//Bootstrap types
 		label?: string;
+		description?: string;
 		[key: string]: any;
 
 	}
