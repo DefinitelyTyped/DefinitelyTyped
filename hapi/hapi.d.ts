@@ -62,7 +62,7 @@ declare module "hapi" {
 	}
 
 	/** Any connections configuration server defaults can be included to override and customize the individual connection. */
-	export interface ISeverConnectionOptions extends IConnectionConfigurationServerDefaults {
+	export interface IServerConnectionOptions extends IConnectionConfigurationServerDefaults {
 		/**  - the public hostname or IP address. Used only to set server.info.host and server.info.uri. If not configured, defaults to the operating system hostname and if not available, to 'localhost'.*/
 		host?: string;
 		/** - sets the host name or IP address the connection will listen on.If not configured, defaults to host if present, otherwise to all available network interfaces (i.e. '0.0.0.0').Set to 127.0.0.1 or localhost to restrict connection to only those coming from the same machine.*/
@@ -1443,7 +1443,7 @@ declare module "hapi" {
 		// server.connections.length === 2
 		var a = server.select('a');
 		// a.connections.length === 1*/
-		connections: Array<ISeverConnectionOptions>;
+		connections: Array<IServerConnectionOptions>;
 		/** When the server contains exactly one connection, info is an object containing information about the sole connection.
 		* When the server contains more than one connection, each server.connections array member provides its own connection.info.
 		var server = new Hapi.Server();
@@ -1745,7 +1745,7 @@ declare module "hapi" {
 		// server.connections.length === 2
 		// web.connections.length === 1
 		// admin.connections.length === 1 */
-		connection(options: ISeverConnectionOptions): Server;
+		connection(options: IServerConnectionOptions): Server;
 		/** server.decorate(type, property, method)
 		Extends various framework interfaces with custom methods where:
 		type - the interface being decorated. Supported types:
