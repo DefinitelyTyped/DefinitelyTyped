@@ -2,49 +2,76 @@
 
 var app = angular.module('app', ['formly']);
 
+interface IScope extends ng.IScope {
+	to: { label: string; }
+}
+
 class AppController {
 	fields: AngularFormly.IFieldConfigurationObject[];
 	constructor($scope: ng.IScope) {
 		var vm = this;
 		vm.fields = [
 			{
-				field: 'label',
+				key: 'email',
 				type: 'input',
 				templateOptions: {
-					maxlength: 8,
-					minlength: 3
+					label: 'Email',
+					required: true,
+					type: 'email',
+					maxlength: 10,
+					minlength: 6,
+					placeholder: 'example@example.com'
 				}
 			},
 			{
-				template: '<hr />'
-			},
-			{
-				field: 'project',
+				key: 'ip',
 				type: 'input',
-				defaultValue: 'Project 1',
+				validators: {
+					ipAddress: {
+						expression: function(viewValue, modelValue) {
+							var value = modelValue || viewValue;
+							return /(\d{1,3}\.){3}\d{1,3}/.test(value);
+						},
+						message: '$viewValue + " is not a valid IP Address"'
+					}
+				},
 				templateOptions: {
-					placeholder: 'Enter a project name...'
+					label: 'IP Address',
+					required: true,
+					type: 'text',
+					placeholder: '127.0.0.1',
+				},
+				validation: {
+					messages: {
+						required: function($viewValue: any, $modelValue: any, scope: IScope) {
+							return scope.to.label + ' is required'
+						}
+					}
 				}
 			},
 			{
-				template: () => 'hello'
-			},
-			{
+				key: 'mac',
 				type: 'input',
-				key: 'zip',
 				templateOptions: {
-					type: 'number',
-					label: 'Zip',
-					max: 99999,
-					min: 0,
-					pattern: '\\d{5}'
+					label: 'MAC Address',
+					required: true,
+					placeholder: '49-8A-BD-4E-00-1D',
+					pattern: '([0-9A-F]{2}[:-]){5}([0-9A-F]{2})'
 				}
 			},
 			{
 				type: 'checkbox',
-				key: 'happyUser',
+				key: 'checked',
 				templateOptions: {
-					label: 'Are you happy?'
+					label: 'Check this'
+				}
+			},
+			{
+				key: 'checked2',
+				type: 'checkbox',
+				wrapper: null,
+				templateOptions: {
+					label: 'no wrapper here...'
 				}
 			}
 		]
