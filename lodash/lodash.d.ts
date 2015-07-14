@@ -2198,11 +2198,11 @@ declare module _ {
         /**
         * @see _.contains
         * @param dictionary The dictionary to iterate over.
-        * @param key The key in the dictionary to search for.
+        * @param value The value in the dictionary to search for.
         **/
         contains<T>(
             dictionary: Dictionary<T>,
-            key: string,
+            value: T,
             fromIndex?: number): boolean;
 
         /**
@@ -2236,13 +2236,45 @@ declare module _ {
         **/
         include<T>(
             dictionary: Dictionary<T>,
-            key: string,
+            value: T,
             fromIndex?: number): boolean;
 
         /**
         * @see _.contains
         **/
         include(
+            searchString: string,
+            targetString: string,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes<T>(
+            collection: Array<T>,
+            target: T,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes<T>(
+            collection: List<T>,
+            target: T,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes<T>(
+            dictionary: Dictionary<T>,
+            value: T,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes(
             searchString: string,
             targetString: string,
             fromIndex?: number): boolean;
