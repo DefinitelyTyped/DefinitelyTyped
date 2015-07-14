@@ -239,14 +239,18 @@ result = <number[]>_([1, 2, 3]).take(function (num) {
 result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
 result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
 
-result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
-result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
-var result: any
-result = <string[]>_.flatten(stoogesQuotes, 'quotes');
+result = <Array<number>>_.flatten([[1, 2], [3, 4]]);
+result = <Array<number>>_.flatten([[1, 2], [3, 4], 5, 6]);
+result = <Array<number|Array<Array<number>>>>_.flatten([1, [2], [3, [[4]]]]);
 
-result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
+result = <Array<number>>_.flatten([1, [2], [[3]]], true);
+result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
+result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
+
+result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
+result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
+
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
-result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
