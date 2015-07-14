@@ -55,24 +55,10 @@ declare module AngularFormly {
 	}
 
 
-	/**
-	 * This is part of the built-in formlyConfig templateManipulator called ngModelAttrsTemplateManipulator.
-	 * This allows you to keep your templates very small and add custom behavior on at the type or field level.
-	 *
-	 * see http://docs.angular-formly.com/docs/ngmodelattrs
-	 */
-	// interface INGModelAttrs {
-	// 	[key: string]: {
-	// 		attribute?: string;
-	// 		expresssion?: string;
-	// 		value?: string;
-	// 	}
-	// }
-
-
 	interface ITemplateManipulator {
 		(template: string | HTMLElement, options: Object, scope: ng.IScope): string | HTMLElement;
 	}
+
 
 	interface ITemplateManipulators {
 		preWrapper?: ITemplateManipulator[];
