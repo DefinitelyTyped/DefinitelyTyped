@@ -572,7 +572,7 @@ declare module google.maps {
          * a Point anchorPoint property for calculating the pixelOffset (see InfoWindowOptions).
          * The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow.
          */
-        open(map?: StreetViewPanorama, anchor?: MVCObject): void;
+        open(map?: Map|StreetViewPanorama, anchor?: MVCObject): void;
         setContent(content: string|Node): void;
         setOptions(options: InfoWindowOptions): void;
         setPosition(position: LatLng): void;
