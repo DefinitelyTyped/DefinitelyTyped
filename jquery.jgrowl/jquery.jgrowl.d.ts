@@ -1,11 +1,11 @@
 ﻿// Type definitions for jQuery.jGrowl
 // Project: https://github.com/stanlemon/jGrowl
-// Definitions by: <paYa/>
+// Definitions by: Pavel Sommer
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
  * @summary Interface for jquery.jGrowl plugin
- * @author <paYa/>
+ * @author Pavel Sommer
  * @version 1.0
  */
 interface jGrowlOptions {
