@@ -279,7 +279,7 @@ declare module _ {
         /**
         * @see _.chunk
         **/
-        chunk(size?: number): LoDashArrayWrapper<T>;
+        chunk(size?: number): LoDashArrayWrapper<T[]>;
     }
 
     //_.compact
@@ -4524,6 +4524,20 @@ declare module _ {
         * @return The length of aString
         **/
         size(aString: string): number;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.size
+         **/
+        size(): number;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.size
+         **/
+        size(): number;
     }
 
     //_.some
