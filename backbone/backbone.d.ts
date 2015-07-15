@@ -173,8 +173,8 @@ declare module Backbone {
         models: TModel[];
         length: number;
 
-        constructor(models?: TModel[], options?: any);
-        initialize(models?: TModel[], options?: any): void;
+        constructor(models?: TModel[] | Object[], options?: any);
+        initialize(models?: TModel[] | Object[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
