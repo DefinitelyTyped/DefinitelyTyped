@@ -3,7 +3,7 @@
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../q/q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../request/request.d.ts" />
 /// <reference path="../bunyan/bunyan.d.ts" />
