@@ -1,6 +1,6 @@
 ﻿// Type definitions for jQuery.jGrowl
 // Project: https://github.com/stanlemon/jGrowl
-// Definitions by: Pavel Sommer
+// Definitions by: Pavel Sommer <https://github.com/pavelsommer/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
