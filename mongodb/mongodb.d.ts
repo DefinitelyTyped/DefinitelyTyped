@@ -308,8 +308,8 @@ declare module "mongodb" {
     insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertMany
-    insertMany(docs, callback: (err: Error, result: any) => void): void;
-    insertMany(docs, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
+    insertMany(docs: any, callback: (err: Error, result: any) => void): void;
+    insertMany(docs: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
     /**
      * @deprecated use deleteOne or deleteMany
      * Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#remove
@@ -318,12 +318,12 @@ declare module "mongodb" {
     remove(selector: Object, options: { safe?: any; single?: boolean; }, callback?: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#deleteOne
-    deleteOne(filter, callback: (err: Error, result: any) => void): void;
-    deleteOne(filter, options: { w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
+    deleteOne(filter: any, callback: (err: Error, result: any) => void): void;
+    deleteOne(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#deleteMany
-    deleteMany(filter, callback: (err: Error, result: any) => void): void;
-    deleteMany(filter, options: { w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
+    deleteMany(filter: any, callback: (err: Error, result: any) => void): void;
+    deleteMany(filter: any, options: { w?: any; wtimeout?: number; j?: boolean;}, callback: (err: Error, result: any) => void): void;
 
     rename(newName: String, callback?: (err: Error, result: any) => void): void;
 
