@@ -87,6 +87,7 @@ interface I18nextStatic {
     };
     init(callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
     init(options?: I18nextOptions, callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
+    init(options?: I18nextOptions, callback?: (err: any, t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
     lng(): string;
     loadNamespace(namespace: string, callback?: () => void ): void;
     loadNamespaces(namespaces: string[], callback?: () => void ): void;
@@ -104,6 +105,7 @@ interface I18nextStatic {
     preload(languages: string[], callback?: (t: (key: string, options?: any) => string) => void ): void;
     setDefaultNamespace(namespace: string): void;
     setLng(language: string, callback?: (t: (key: string, options?: any) => string) => void ): void;
+    setLng(language: string, callback?: (err: any, t: (key: string, options?: any) => string) => void ): void;
     sync: {
         load: (languages: string[], options: I18nextOptions, callback: (err: Error, store: IResourceStore) => void ) => void;
         postMissing: (language: string, namespace: string, key: string, defaultValue: any, languages: string[]) => void;
