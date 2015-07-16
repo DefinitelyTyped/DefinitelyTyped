@@ -4,42 +4,40 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../angularjs/angular-mocks.d.ts" />
 
-var expect = chai.expect,
-  assert = chai.assert;
-
-class MyService {
-  static $inject = ['$q'];
-  
-  constructor(private $q: angular.IQService) {}
-  
-  remoteCall(): angular.IPromise<string> {
-    return new this.$q((resolve, reject) => {
-      resolve('Here is some data');
-    });
-  }
-}
-
-function myService($q: angular.IQService) {
-  return new MyService($q);
-}
-
-angular
-  .module('tests')
-  .service('myService', myService);
-
-
-
 module bardTests {
+  var expect = chai.expect,
+    assert = chai.assert;
+
+  class MyService {
+    static $inject = ['$q'];
+
+    constructor(private $q: angular.IQService) {}
+
+    remoteCall(): angular.IPromise<string[]> {
+      return new this.$q((resolve, reject) => {
+        resolve(['Hello', 'World']);
+      });
+    }
+  }
+
+  function myService($q: angular.IQService) {
+    return new MyService($q);
+  }
+
+  angular
+    .module('bardTests')
+    .service('myService', myService);
+
   /*
    * bard.$httpBackend
    */
   function test_$httpBackend() {
     var myService: MyService;
-    var $rootScope: any;
+    var $rootScope: angular.IRootScopeService;
 
     beforeEach(module(bard.$httpBackend, 'app'));
 
-    beforeEach(inject(function(_myService_: MyService, _$rootScope_: any) {
+    beforeEach(inject(function(_myService_: MyService, _$rootScope_: angular.IRootScopeService) {
       myService = _myService_;
       $rootScope = _$rootScope_;
     }));
@@ -51,7 +49,7 @@ module bardTests {
         })
         .then(done, done);
 
-      $rootScope.$apply; // because not using bard.$q, must flush the $http and $q queues
+      $rootScope.$apply; // Because not using bard.$q, must flush the $http and $q queues
     });
   }
   
@@ -63,7 +61,7 @@ module bardTests {
 
     beforeEach(module(bard.$q, bard.$httpBackend, 'app'));
 
-    beforeEach(inject(function(_myService_) {
+    beforeEach(inject(function(_myService_: MyService) {
       myService = _myService_;
     }));
 
@@ -74,7 +72,7 @@ module bardTests {
         })
         .then(done, done);
 
-      // no need to flush
+      // No need to flush
     });
   }
   
@@ -176,7 +174,7 @@ module bardTests {
    * bard.inject
    */
   function test_inject() {
-    beforeEach(() => bard.inject(this, '$controller', '$log', '$q', '$rootScope', 'dataservice'));
+    beforeEach(() => bard.inject(this, '$controller', '$log', '$q', '$rootScope', 'myService'));
   }
   
   /*
@@ -199,11 +197,14 @@ module bardTests {
   function test_mockService() {
     var controller;
     var avengers = [{name: 'Captain America' /* ... */}];
-    var $controller, $q, $rootScope, dataservice;
+    var $controller: angular.IControllerService,
+      $q: angular.IQService,
+      $rootScope: angular.IRootScopeService,
+      myService: MyService;
 
     beforeEach(function() {
       bard.appModule('app.avengers');
-      bard.inject(this, '$controller', '$q', '$rootScope', 'dataservice');
+      bard.inject(this, '$controller', '$q', '$rootScope', 'myService');
 
       bard.mockService(dataservice, {
         getAvengers: $q.when(avengers),
