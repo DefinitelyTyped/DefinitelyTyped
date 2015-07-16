@@ -85,7 +85,7 @@ jobs.create('email', {
 
 jobs.promote();
 
-jobs.process('email', 10, function(job, done) {
+jobs.process('email', 10, function(job: kue.Job, done: Function) {
   setTimeout(function() {
     done();
   }, Math.random() * 5000);
