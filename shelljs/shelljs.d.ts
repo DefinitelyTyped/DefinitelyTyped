@@ -148,7 +148,7 @@ declare module "shelljs"
     /**
      * Moves files. The wildcard * is accepted.
      * @param {string}   options The options.
-     * @param {string}   source The source.
+     * @param {string[]}   source The source.
      * @param {string}   dest   The destination.
      */
     export function mv(options: string, source: string[], dest: string): void;
