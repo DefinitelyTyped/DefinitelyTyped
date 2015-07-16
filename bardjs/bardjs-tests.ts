@@ -128,11 +128,11 @@ module bardTests {
      */
     function test_debugging() {
         console.log(
-            bard.debugging(true), // should be true
-            bard.debugging(false), // should be false
-            bard.debugging(42), // should be true
-            bard.debugging(''), // should be false
-            bard.debugging() // should be false
+            bard.debugging(true),  // should return true
+            bard.debugging(false), // should return false
+            bard.debugging(42),    // should return true
+            bard.debugging(''),    // should return false
+            bard.debugging()       // should return false
         );
     }
 
