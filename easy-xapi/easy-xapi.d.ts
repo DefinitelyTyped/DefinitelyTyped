@@ -25,7 +25,7 @@ declare module "easy-xapi" {
         root: string;
         port: number;
         name: string;
-        xHeaderDefaults: Object;
+        xHeaderDefaults?: Object;
         log: {
             name: string;
             level: string
