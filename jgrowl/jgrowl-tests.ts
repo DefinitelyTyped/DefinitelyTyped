@@ -1,5 +1,5 @@
 ﻿/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.jgrowl.d.ts" />
+/// <reference path="jgrowl.d.ts" />
 
 /**
  * @summary Tests jGrowl unobtrusive notification without any configuration.
