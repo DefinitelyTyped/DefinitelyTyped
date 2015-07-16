@@ -9,8 +9,6 @@ module bardTests {
         assert = chai.assert;
 
     class MyService {
-        static $inject = ['$q'];
-
         constructor(private $q: angular.IQService) {}
 
         remoteCall(): angular.IPromise<string[]> {
@@ -20,6 +18,7 @@ module bardTests {
         }
     }
 
+    myService.$inject = ['$q'];
     function myService($q: angular.IQService) {
         return new MyService($q);
     }
