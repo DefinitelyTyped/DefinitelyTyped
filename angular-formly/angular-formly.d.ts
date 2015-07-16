@@ -42,7 +42,7 @@ declare module AngularFormly {
 	 * see http://docs.angular-formly.com/docs/formly-expressions#expressionproperties-validators--messages
 	 */
 	interface IExpresssionFunction {
-		($viewValue: any, $modelValue: any, scope: Object): any;
+		($viewValue: any, $modelValue: any, scope: ITemplateScope): any;
 	}
 
 
@@ -56,7 +56,7 @@ declare module AngularFormly {
 
 
 	interface ITemplateManipulator {
-		(template: string | HTMLElement, options: Object, scope: ng.IScope): string | HTMLElement;
+		(template: string | HTMLElement, options: Object, scope: ITemplateScope): string | HTMLElement;
 	}
 
 
@@ -121,8 +121,8 @@ declare module AngularFormly {
 	 */
 	interface IWatcher {
 		deep?: boolean; //Defaults to false
-		expression?: string | { (field: string, scope: Object): boolean };
-		listener: (field: string, newValue: any, oldValue: any, scope: Object, stopWatching: Function) => void;
+		expression?: string | { (field: string, scope: ITemplateScope): boolean };
+		listener: (field: string, newValue: any, oldValue: any, scope: ITemplateScope, stopWatching: Function) => void;
 		type?: string; //Defaults to $watch but can be set to $watchCollection or $watchGroup
 	}
 
@@ -487,6 +487,88 @@ declare module AngularFormly {
 		 */
 		updateInitialValue?: () => void;
 
+	}
+
+	/**
+	 *
+	 *
+	 * see http://docs.angular-formly.com/docs/custom-templates#section-formlyconfig-settype-options
+	 */
+	interface ITypeOptions {
+		apiCheck?: { [key: string]: Function };
+		apiCheckFunction?: string; //'throw' or 'warn
+		apiCheckInstance?: any;
+		apiCheckOptions?: Object;
+		defaultOptions?: IFieldConfigurationObject | Function;
+		controller?: Function | string | any[];
+		data?: Object;
+		extends?: string;
+		link?: ng.IDirectiveLinkFn;
+		overwriteOk?: boolean;
+		name: string;
+		template?: Function | string;
+		templateUrl?: Function | string;
+		validateOptions?: Function;
+		wrapper?: string | string[];
+	}
+
+	interface IWrapperOptions {
+		apiCheck?: { [key: string]: Function };
+		apiCheckFunction?: string; //'throw' or 'warn
+		apiCheckInstance?: any;
+		apiCheckOptions?: Object;
+		overwriteOk?: boolean;
+		name?: string;
+		template?: string;
+		templateUrl?: string;
+		types?: string[];
+		validateOptions?: Function;
+	}
+
+	interface IFormlyConfig {
+		setType(typeOptions: ITypeOptions): void;
+		setWrapper(wrapperOptions: IWrapperOptions): void;
+
+	}
+
+	interface ITemplateScopeOptions {
+		formControl: ng.IFormController | ng.IFormController[];
+		templateOptions: ITemplateOptions;
+		validation: Object;
+	}
+
+	/**
+	 * see http://docs.angular-formly.com/docs/custom-templates#templates-scope
+	 */
+	interface ITemplateScope {
+		options: ITemplateScopeOptions;
+		//Shortcut to options.formControl
+		fc: ng.IFormController | ng.IFormController[];
+		//all the fields for the form
+		fields: IFieldConfigurationObject[];
+		//the form controller the field is in
+		form: any;
+		//The object passed as options.formState to the formly-form directive. Use this to share state between fields.
+		formState: Object;
+		//The id of the field. You shouldn't have to use this.
+		id: string;
+		//The index of the field the form is on (in ng-repeat)
+		index: number;
+		//the model of the form (or the model specified by the field if it was specified).
+		model: Object | string;
+		//Shortcut to options.validation.errorExistsAndShouldBeVisible
+		showError: boolean;
+		//Shortcut to options.templateOptions
+		to: ITemplateOptions;
+	}
+
+	/**
+	 * see http://docs.angular-formly.com/docs/formlyvalidationmessages#addtemplateoptionvaluemessage
+	 */
+	interface IValidationMessages {
+		addTemplateOptionValueMessage(name: string, prop: string, prefix: string, suffix: string, alternate: string): void;
+		addStringMessage(name: string, string: string): void;
+		messages: { [key: string]: ($viewValue: any, $modelValue: any, scope: ITemplateScope) => string };
 	}
 
 }

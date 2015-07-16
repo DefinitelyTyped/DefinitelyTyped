@@ -6,11 +6,37 @@ interface IScope extends ng.IScope {
 	to: { label: string; }
 }
 
+class FormConfig {
+	constructor(formlyConfig: AngularFormly.IFormlyConfig, formlyValidationMessages: AngularFormly.IValidationMessages) {
+		formlyConfig.setWrapper({
+			name: 'validation',
+			types: ['input', 'customInput'],
+			templateUrl: 'my-messages.html'
+		});
+
+		formlyValidationMessages.addStringMessage('required', 'This field is required');
+
+		formlyConfig.setType({
+			name: 'customInput',
+			extends: 'input'
+		});
+	}
+}
+
 class AppController {
 	fields: AngularFormly.IFieldConfigurationObject[];
-	constructor($scope: ng.IScope) {
+	constructor() {
 		var vm = this;
 		vm.fields = [
+			{
+				key: 'firstName',
+				type: 'customInput',
+				templateOptions: {
+					required: true,
+					label: 'First Name',
+					foo: 'hi'
+				}
+			},
 			{
 				key: 'email',
 				type: 'input',
@@ -43,7 +69,7 @@ class AppController {
 				},
 				validation: {
 					messages: {
-						required: function($viewValue: any, $modelValue: any, scope: IScope) {
+						required: function($viewValue: any, $modelValue: any, scope: AngularFormly.ITemplateScope) {
 							return scope.to.label + ' is required'
 						}
 					}
