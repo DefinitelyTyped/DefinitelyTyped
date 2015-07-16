@@ -5,6 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../easy-jsend/easy-jsend.d.ts" />
+/// <reference path="../bunyan/bunyan.d.ts" />
 
 declare module Express {
     export interface Request {
@@ -15,6 +16,7 @@ declare module Express {
 declare module "easy-xapi" {
     import express = require('express');
     import http = require('http');
+    import bunyan = require('bunyan');
 
     interface InitConfig {
         jSend?: {partial: boolean};
@@ -36,6 +38,7 @@ declare module "easy-xapi" {
         express: any;
         app: express.Application;
         server: http.Server;
+        log: bunyan.Logger;
         listen: () => void;
     }
 
