@@ -14,5 +14,5 @@ declare module Express {
 declare module "easy-x-headers" {
     import express = require('express');
 
-    export function getMiddleware(): express.RequestHandler;
+    export function getMiddleware(defaults?: Object): express.RequestHandler;
 }
