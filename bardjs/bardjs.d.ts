@@ -47,7 +47,7 @@ declare module bard {
      * DO NOT USE IF YOU NEED THE REAL ROUTER SERVICES!
      * Fall back to `angular.mock.module(...)` or just `module(...)`
      */
-    function appModule(...args: any[]): any;
+    function appModule(...fns: (string | Function | Object)[]): () => void;
 
     /**
      * Assert a failure in mocha, without condition
@@ -59,7 +59,7 @@ declare module bard {
      * Also adds fakeLogger to the end of the definition
      * Use it as you would the ngMocks#module method
      */
-    function asyncModule(...args: any[]): any;
+    function asyncModule(...fns: (string | Function | Object)[]): () => void;
 
     /**
      * Get or set bard debugging flag
@@ -114,7 +114,7 @@ declare module bard {
      *    [strings]   - same string array you'd use to set fn.$inject
      *    (...string) - string arguments turned into a string array
      */
-    function inject(context?: any, ...args: string[]): void;
+    function inject(context?: Function, ...args: string[]): void;
 
     /**
      * Write to console if bard debugging flag is on
