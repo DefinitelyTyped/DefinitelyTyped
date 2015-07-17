@@ -165,6 +165,7 @@ var users = odataResourceClass.odata().query();
 
 users[0].name;
 users[0].$save;
+users[0].$update;
 
 var user = odataResourceClass.odata()
 	.filter(new Value("1", OData.ValueTypes.Int32), new Property("abc"))
