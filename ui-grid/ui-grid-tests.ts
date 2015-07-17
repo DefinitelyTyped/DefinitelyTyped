@@ -72,7 +72,7 @@ columnDef.menuItems = [{
 columnDef.minWidth = 100;
 columnDef.name = 'MyColumn';
 columnDef.sort = {
-    direction: 0,
+    direction: 'ASC',
     ignoreSort: false,
     priority: 1
 };
