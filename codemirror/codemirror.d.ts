@@ -762,6 +762,9 @@ declare module CodeMirror {
         You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered,
         and thus the browser's text search works on it. This will have bad effects on performance of big documents. */
         viewportMargin?: number;
+
+        /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
+        lint?: LintOptions;
     }
 
     interface TextMarkerOptions {
@@ -1006,4 +1009,46 @@ declare module CodeMirror {
      */
     function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>
 
+    /**
+     * async specifies that the lint process runs asynchronously. hasGutters specifies that lint errors should be displayed in the CodeMirror
+     * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
+     * initialization of the CodeMirror instance.
+     */
+    interface LintStateOptions {
+        async: boolean;
+        hasGutters: boolean;
+    }
+
+    /**
+     * Adds the getAnnotations callback to LintStateOptions which may be overridden by the user if they choose use their own
+     * linter.
+     */
+    interface LintOptions extends LintStateOptions {
+        getAnnotations: AnnotationsCallback;
+    }
+
+    /**
+     * A function that calls the updateLintingCallback with any errors found during the linting process.
+     */
+    interface AnnotationsCallback {
+        (content: string, updateLintingCallback: UpdateLintingCallback, options: LintStateOptions, codeMirror: Editor): void;
+    }
+
+    /**
+     * A function that, given an array of annotations, updates the CodeMirror linting GUI with those annotations
+     */
+    interface UpdateLintingCallback {
+        (codeMirror: Editor, annotations: Annotation[]): void;
+    }
+
+    /**
+     * An annotation contains a description of a lint error, detailing the location of the error within the code, the severity of the error,
+     * and an explaination as to why the error was thrown.
+     */
+    interface Annotation {
+        from: Position;
+        message?: string;
+        severity?: string;
+        to?: Position;
+    }
 }

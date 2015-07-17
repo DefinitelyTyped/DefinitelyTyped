@@ -910,6 +910,7 @@ declare module "fs" {
     }
     export interface WriteStream extends stream.Writable {
         close(): void;
+        bytesWritten: number;
     }
 
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
