@@ -159,7 +159,7 @@ declare module uiGrid {
         getSelectAllState: () => boolean;
         on: {
             rowSelectionChanged: (scope: ng.IScope, handler: (row: IGridRow, event?: Event) => void) => void;
-            rowSelectionChangedBatch: (scope, handler: (row: IGridRow[], event?: Event) => void) => void;    
+            rowSelectionChangedBatch: (scope: ng.IScope, handler: (row: IGridRow[], event?: Event) => void) => void;    
         }
     }
 
@@ -170,7 +170,7 @@ declare module uiGrid {
         previousPage: () => void;
         seek: () => void;
         on: {
-            paginationChanged: (scope, handler: (newPage: number, pageSize: number) => void) => void;
+            paginationChanged: (scope: ng.IScope, handler: (newPage: number, pageSize: number) => void) => void;
         }
     }
 
