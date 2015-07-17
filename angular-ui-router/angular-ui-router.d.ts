@@ -20,7 +20,7 @@ declare module angular.ui {
         /**
          * Function, returns HTML content string
          */
-        templateProvider?: Function;
+        templateProvider?: Function | Array<any>;
         /**
          * A controller paired to the state. Function OR name as String
          */
@@ -41,7 +41,7 @@ declare module angular.ui {
         /**
          * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
          */
-        url?: string;
+        url?: string | IUrlMatcher;
         /**
          * A map which optionally configures parameters declared in the url, or defines additional non-url parameters. Only use this within a state if you are not using url. Otherwise you can specify your parameters within the url. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
          */
@@ -88,6 +88,9 @@ declare module angular.ui {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
         type(name: string, definition: any, definitionFn?: any): any;
+        caseInsensitive(value: boolean): void;
+        defaultSquashPolicy(value: string): void;
+        strictMode(value: boolean): void;
     }
 
     interface IUrlRouterProvider extends angular.IServiceProvider {

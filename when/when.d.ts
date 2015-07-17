@@ -102,6 +102,32 @@ declare module When {
     function all<T>(promisesOrValues: any[]): Promise<T>;
 
     /**
+     * Describes the status of a promise.
+     * state may be one of:
+     * "fulfilled" - the promise has resolved
+     * "pending" - the promise is still pending to resolve/reject
+     * "rejected" - the promise has rejected
+     */
+    interface Descriptor<T> {
+        state: string;
+        value?: T;
+        reason?: any;
+    }
+
+    /**
+     * Returns a promise for an array containing the same number of elements as the input array.
+     * Each element is a descriptor object describing of the outcome of the corresponding element in the input.
+     * The returned promise will only reject if array itself is a rejected promise. Otherwise,
+     * it will always fulfill with an array of descriptors. This is in contrast to when.all,
+     * which will reject if any element of array rejects.
+     * @memberOf when
+     *
+     * @param promisesOrValues array of anything, may contain a mix
+     *      of {@link Promise}s and values
+     */
+    function settle<T>(promisesOrValues: any[]): Promise<Descriptor<T>[]>;
+
+    /**
      * Creates a {promise, resolver} pair, either or both of which
      * may be given out safely to consumers.
      * The resolver has resolve, reject, and progress.  The promise
@@ -148,7 +174,7 @@ declare module When {
 
         // Make sure you test any usage of these overloads, exceptionType must
         // be a constructor with prototype set to an instance of Error.
-        catch<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
         finally(onFulfilledOrRejected: Function): Promise<T>;
 

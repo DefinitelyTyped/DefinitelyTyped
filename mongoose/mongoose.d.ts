@@ -79,7 +79,7 @@ declare module "mongoose" {
   }
   export module Types {
     export class ObjectId {
-      constructor(id: string|number);
+      constructor(id?: string|number);
       toHexString(): string;
       equals(other: ObjectId): boolean;
       getTimestamp(): Date;
@@ -135,7 +135,7 @@ declare module "mongoose" {
   }
 
   export interface Model<T extends Document> extends NodeJS.EventEmitter {
-    new(doc: Object): T;
+    new(doc?: Object): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
     aggregate(aggregation: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
@@ -458,4 +458,3 @@ declare module "mongoose" {
   }
 
 }
-

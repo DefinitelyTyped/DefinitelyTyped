@@ -386,7 +386,7 @@ declare module d3 {
             /**
              * Returns the first non-null element in the selection, or null otherwise.
              */
-            node(): EventTarget;
+            node(): Node;
 
             /**
              * Returns the total number of elements in the selection.
@@ -1090,8 +1090,8 @@ declare module d3 {
     export function bisectRight<T>(array: T[], x: T, lo?: number, hi?: number): number;
 
     export function bisector<T, U>(accessor: (x: T) => U): {
-        left: (array: T[], x: T, lo?: number, hi?: number) => number;
-        right: (array: T[], x: T, lo?: number, hi?: number) => number;
+        left: (array: T[], x: U, lo?: number, hi?: number) => number;
+        right: (array: T[], x: U, lo?: number, hi?: number) => number;
     }
 
     export function bisector<T, U>(comparator: (a: T, b: U) => number): {
@@ -1780,7 +1780,7 @@ declare module d3 {
         export function format(specifier: string): Format;
 
         export module format {
-            export function multi(formats: Array<[string, (d: Date) => boolean]>): Format;
+            export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             export function utc(specifier: string): Format;
             export var iso: Format;
         }
@@ -2535,6 +2535,7 @@ declare module d3 {
 
             tickFormat(): (t: any) => string;
             tickFormat(format: (t: any) => string): Axis;
+            tickFormat(format:string): Axis;
         }
 
         export function brush(): Brush<any>;
@@ -2719,6 +2720,7 @@ declare module d3 {
         timeFormat: {
             (specifier: string): time.Format;
             utc(specifier: string): time.Format;
+            multi(formats: Array<[string, (d: Date) => boolean|number]>): time.Format;
         }
     }
 

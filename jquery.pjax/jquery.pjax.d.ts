@@ -32,6 +32,11 @@ interface PjaxSettings extends JQueryAjaxSettings {
      * Whether to replaceState the URL. Defaults to false.
      */
     replace?: boolean;
+    
+    /**
+     * How many requests to cache. Defaults to 20.
+     */
+     maxCacheLength?: number;
 }
 
 interface JQuery {

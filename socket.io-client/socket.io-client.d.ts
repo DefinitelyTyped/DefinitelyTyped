@@ -27,6 +27,7 @@ declare module SocketIOClient {
         emit(event: string, ...args: any[]): Socket;
         listeners(event: string): Function[];
         hasListeners(event: string): boolean;
+        disconnect(): void;
         connected: boolean;
     }
 
