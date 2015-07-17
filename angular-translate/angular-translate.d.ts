@@ -5,6 +5,11 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+declare module "angular-translate" {
+    var _: string;
+    export = _;
+}
+
 declare module angular.translate {
 
     interface ITranslationTable {

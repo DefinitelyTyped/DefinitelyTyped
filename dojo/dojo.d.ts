@@ -1671,7 +1671,7 @@ declare module dojo {
      * @param selector A CSS selector to search for.     
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
-    interface query{(selector: String, context?: String): void}
+    interface query{(selector: String, context?: String): NodeList}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
      *
@@ -1713,7 +1713,7 @@ declare module dojo {
      * @param selector A CSS selector to search for.     
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.     
      */
-    interface query{(selector: String, context?: HTMLElement): void}
+    interface query{(selector: String, context?: HTMLElement): NodeList}
     interface query {
         /**
          * can be used as AMD plugin to conditionally load new query engine

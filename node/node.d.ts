@@ -144,6 +144,7 @@ declare module NodeJS {
         code?: string;
         path?: string;
         syscall?: string;
+        stack?: string;
     }
 
     export interface EventEmitter {
@@ -537,6 +538,8 @@ declare module "http" {
 		 */
 		destroy(): void;
 	}
+
+    export var METHODS: string[];
 
     export var STATUS_CODES: {
         [errorCode: number]: string;
@@ -1053,6 +1056,7 @@ declare module "fs" {
     }
     export interface WriteStream extends stream.Writable {
         close(): void;
+        bytesWritten: number;
     }
 
     /**
@@ -1623,7 +1627,9 @@ declare module "crypto" {
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
     export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
+    export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number, digest: string) : Buffer;
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
     export function pseudoRandomBytes(size: number): Buffer;

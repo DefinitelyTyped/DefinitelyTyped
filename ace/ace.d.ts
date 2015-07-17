@@ -2609,6 +2609,16 @@ declare module AceAjax {
          * Returns `true` if there are redo operations left to perform.
         **/
         hasRedo(): boolean;
+        
+        /**
+         * Returns `true` if the dirty counter is 0
+        **/
+        isClean(): boolean;
+        
+        /**
+         * Sets dirty counter to 0
+        **/
+        markClean(): void;
 
     }
     var UndoManager: {
