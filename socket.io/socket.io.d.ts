@@ -759,7 +759,7 @@ declare module SocketIO {
 		 * 	- except: A list of Socket IDs to exclude
 		 * 	- flags: Any flags that we want to send along ('json', 'volatile', 'broadcast')
 		 */
-		broadcast( packet: any, opts: { rooms?: string[], except?: string[], flags?: {[flag: string]: boolean} } ):void;
+		broadcast( packet: any, opts: { rooms?: string[]; except?: string[]; flags?: {[flag: string]: boolean} } ):void;
 	}
 
 	/**
