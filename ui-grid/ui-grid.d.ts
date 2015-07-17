@@ -88,11 +88,11 @@ declare module uiGrid {
     }
     export interface IGridOptions {
         aggregationCalcThrottle?: number;
-        appScopeProvider?: ng.IScope;
+        appScopeProvider?: ng.IScope | Object;
         columnDefs?: IColumnDef;
         columnFooterHeight?: number;
         columnVirtualizationThreshold?: number;
-        data?: Array<any>;
+        data?: Array<any> | string;
         enableColumnMenus?: boolean;
         enableFiltering?: boolean;
         enableHorizontalScrollbar?: boolean;
@@ -109,7 +109,7 @@ declare module uiGrid {
         gridFooterTemplate?: string;
         gridMenuCustomItems?: Array<IMenuItem>;
         gridMenuShowHideColumns?: boolean;
-        gridMenuTitleFilter: (title: string) => ng.IPromise<string> | string;
+        gridMenuTitleFilter?: (title: string) => ng.IPromise<string> | string;
         headerTemplate?: string;
         horizontalScrollThreshold?: number;
         infiniteScrollDown?: boolean;
@@ -130,12 +130,52 @@ declare module uiGrid {
         useExternalSorting?: boolean;
         virtualizationThreshold?: number;
         wheelScrollThrottle?: number;
-        getRowIdentity(): any;
-        rowEquality(entityA: IGridRow, entityB: IGridRow): boolean;
-        rowIdentity(): any;
+        getRowIdentity?(): any;
+        rowEquality?(entityA: IGridRow, entityB: IGridRow): boolean;
+        rowIdentity? (): any;
+        totalItems?: number;
     }
+
+
+    export interface IGridCoreApi {
+        on: {
+            sortChanged: (scope: ng.IScope, handler: (grid: IGridInstance, sortColumns: IColumnDef[]) => void) => void;
+            columnVisiblityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;
+        }
+    }
+
+    export interface IGridSelectionApi {
+        toggleRowSelection: (rowEntity: IGridRow, event?: Event) => void;
+        selectRow: (rowEntity: IGridRow, event?: Event) => void;
+        selectRowByVisibleIndex: (rowEntity: number, event?: Event) => void;
+        unSelectRow: (rowEntity: IGridRow, event?: Event) => void;
+        selectAllRows: (event?: Event) => void;
+        selectAllVisibleRows: (event?: Event) => void;
+        clearSelectedRows: (event?: Event) => void;
+        getSelectedRows: () => IGridRow[];
+        getSelectedGridRows: () => IGridRow[];
+        setMultiSelect: (multiSelect: boolean) => void;
+        setModifierKeysToMultiSelect: (multiSelect: boolean) => void;
+        getSelectAllState: () => boolean;
+        on: {
+            rowSelectionChanged: (scope: ng.IScope, handler: (row: IGridRow, event?: Event) => void) => void;
+            rowSelectionChangedBatch: (scope, handler: (row: IGridRow[], event?: Event) => void) => void;    
+        }
+    }
+
+    export interface IGridPaginationApi {
+        getPage: () => number;
+        getTotalPages: () => number;
+        nextPage: () => void;
+        previousPage: () => void;
+        seek: () => void;
+        on: {
+            paginationChanged: (scope, handler: (newPage: number, pageSize: number) => void) => void;
+        }
+    }
+
     export interface IGridApiConstructor {
-        new(grid: IGridInstance): IGridApi;
+        new (grid: IGridInstance): IGridApi;
     }
     export interface IGridApi {
         /**
@@ -186,6 +226,26 @@ declare module uiGrid {
          * @param callBackFn function to execute
          */
         suppressEvents(listenerFuncs: Function | Array<Function>, callBackFn: Function): void;
+
+        /**
+         * Core Api
+         */
+        core: IGridCoreApi;
+
+        /**
+         * Selection api         
+         */
+         
+        selection: IGridSelectionApi;
+
+        
+        /**
+         * Pagination api         
+         */
+        pagination: IGridPaginationApi;
+
+
+
     }
     export interface IGridRowConstructor {
         /**
@@ -410,7 +470,7 @@ declare module uiGrid {
          * in this case your function needs to accept the full set of visible rows,
          * and return a value that should be shown
          */
-        aggregationType: number | Function;
+        aggregationType?: number | Function;
         /**
          * cellClass can be a string specifying the class to append to a cell
          * or it can be a function(row,rowRenderIndex, col, colRenderIndex)
@@ -604,7 +664,7 @@ declare module uiGrid {
         leaveOpen?: boolean;
     }
     export interface ISortInfo {
-        direction?: number;
+        direction?: string;
         ignoreSort?: boolean;
         priority?: number;
     }
