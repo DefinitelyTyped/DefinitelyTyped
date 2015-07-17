@@ -769,171 +769,40 @@ declare module _ {
         take<W>(whereValue: W): LoDashArrayWrapper<T>;
     }
 
+    interface MaybeNestedList<T> extends List<T|List<T>> { }
+    interface RecursiveList<T> extends List<T|RecursiveList<T>> { }
+
     //_.flatten
     interface LoDashStatic {
         /**
-        * Flattens a nested array (the nesting can be to any depth). If isShallow is truey, the
-        * array will only be flattened a single level. If a callback is provided each element of
-        * the array is passed through the callback before flattening. The callback is bound to
-        * thisArg and invoked with three arguments; (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
-        * @param array The array to flatten.
-        * @param shallow If true then only flatten one level, optional, default = false.
-        * @return `array` flattened.
-        **/
-        flatten<T>(array: Array<any>, isShallow?: boolean): T[];
+         * Flattens a nested array.
+         *
+         * @param array The array to flatten.
+         * @return `array` flattened.
+         **/
+        flatten<T>(array: MaybeNestedList<T>): T[];
 
         /**
-        * @see _.flatten
-        **/
-        flatten<T>(array: List<any>, isShallow?: boolean): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            isShallow: boolean,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            isShallow: boolean,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            callback: ListIterator<any, T>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: Array<any>,
-            isShallow: boolean,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: List<any>,
-            isShallow: boolean,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: Array<any>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<W, T>(
-            array: List<any>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            isShallow: boolean,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            isShallow: boolean,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: Array<any>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<T>(
-            array: List<any>,
-            pluckValue: string): T[];
+         * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it is only
+         * flattened a single level.
+         *
+         * @param array The array to flatten.
+         * @param deep Specify a deep flatten.
+         * @return `array` flattened.
+         **/
+        flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(isShallow?: boolean): LoDashArrayWrapper<Flat>;
+         * @see _.flatten
+         **/
+        flatten<T>(): LoDashArrayWrapper<any>;
 
         /**
         * @see _.flatten
         **/
-        flatten<Flat>(
-            isShallow: boolean,
-            callback: ListIterator<T, Flat>,
-            thisArg?: any): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(
-            callback: ListIterator<T, Flat>,
-            thisArg?: any): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(
-            isShallow: boolean,
-            pluckValue: string): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat>(
-            pluckValue: string): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat, W>(
-            isShallow: boolean,
-            whereValue: W): LoDashArrayWrapper<Flat>;
-
-        /**
-        * @see _.flatten
-        **/
-        flatten<Flat, W>(
-            whereValue: W): LoDashArrayWrapper<Flat>;
+        flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
     }
 
     //_.indexOf
@@ -2198,11 +2067,11 @@ declare module _ {
         /**
         * @see _.contains
         * @param dictionary The dictionary to iterate over.
-        * @param key The key in the dictionary to search for.
+        * @param value The value in the dictionary to search for.
         **/
         contains<T>(
             dictionary: Dictionary<T>,
-            key: string,
+            value: T,
             fromIndex?: number): boolean;
 
         /**
@@ -2236,13 +2105,45 @@ declare module _ {
         **/
         include<T>(
             dictionary: Dictionary<T>,
-            key: string,
+            value: T,
             fromIndex?: number): boolean;
 
         /**
         * @see _.contains
         **/
         include(
+            searchString: string,
+            targetString: string,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes<T>(
+            collection: Array<T>,
+            target: T,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes<T>(
+            collection: List<T>,
+            target: T,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes<T>(
+            dictionary: Dictionary<T>,
+            value: T,
+            fromIndex?: number): boolean;
+
+        /**
+        * @see _.contains
+        **/
+        includes(
             searchString: string,
             targetString: string,
             fromIndex?: number): boolean;
@@ -2493,6 +2394,25 @@ declare module _ {
         all<W, T>(
             collection: Dictionary<T>,
             whereValue: W): boolean;
+    }
+    
+    interface LoDashStatic {
+	/**
+	* Fills elements of array with value from start up to, but not including, end.
+	*
+	* Note: This method mutates array.
+	*
+	* @param array (Array): The array to fill.
+	* @param value (*): The value to fill array with.
+	* @param [start=0] (number): The start position.
+	* @param [end=array.length] (number): The end position.
+	* @return (Array): Returns array.
+	**/
+	fill<T>(
+	    array: Array<any>,
+	    value: any,
+	    start?: number,
+	    end?: number): Array<any>;
     }
 
     //_.filter
