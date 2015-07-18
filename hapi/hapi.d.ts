@@ -1,4 +1,4 @@
-// Type definitions for hapi 8.2.0
+// Type definitions for hapi 8.8.0
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -62,7 +62,7 @@ declare module "hapi" {
 	}
 
 	/** Any connections configuration server defaults can be included to override and customize the individual connection. */
-	export interface ISeverConnectionOptions extends IConnectionConfigurationServerDefaults {
+	export interface IServerConnectionOptions extends IConnectionConfigurationServerDefaults {
 		/**  - the public hostname or IP address. Used only to set server.info.host and server.info.uri. If not configured, defaults to the operating system hostname and if not available, to 'localhost'.*/
 		host?: string;
 		/** - sets the host name or IP address the connection will listen on.If not configured, defaults to host if present, otherwise to all available network interfaces (i.e. '0.0.0.0').Set to 127.0.0.1 or localhost to restrict connection to only those coming from the same machine.*/
@@ -83,7 +83,7 @@ declare module "hapi" {
 		/** - a string or string array of labels used to server.select() specific connections matching the specified labels.Defaults to an empty array [](no labels).*/
 		labels?: string|string[];
 		/**  - used to create an HTTPS connection.The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS documentation.Set to true when passing a listener object that has been configured to use TLS directly. */
-		tls?: boolean;
+		tls?: boolean|Object;
 
 	}
 
@@ -209,7 +209,7 @@ declare module "hapi" {
 	/**Initializes the server views manager
 	var Hapi = require('hapi');
 	var server = new Hapi.Server();
-	
+
 	server.views({
 	engines: {
 	html: require('handlebars'),
@@ -229,8 +229,8 @@ declare module "hapi" {
 	/**  Concludes the handler activity by setting a response and returning control over to the framework where:
 	erran optional error response.
 	resultan optional response payload.
-	Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first. 
-	FLOW CONTROL:	
+	Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first.
+	FLOW CONTROL:
 	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
 	export interface IReply {
 		<T>(err: Error,
@@ -241,10 +241,9 @@ declare module "hapi" {
 		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
 		<T>(result: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
 
-		//////// Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200. 
-		//////  
-		////// The data argument is only used for passing back authentication data and is ignored elsewhere. 
-		////////continue(credentialData?: any): void;
+		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
+		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
+		continue(credentialData?: any): void;
 
 		/** Transmits a file from the file system. The 'Content-Type' header defaults to the matching mime type based on filename extension.  The response flow control rules do not apply. */
 		file(
@@ -385,7 +384,7 @@ declare module "hapi" {
 		an object  */
 		auth?: boolean|string|
 		{
-			/**  the authentication mode.Defaults to 'required' if a server authentication strategy is configured, otherwise defaults to no authentication.Available values: 
+			/**  the authentication mode.Defaults to 'required' if a server authentication strategy is configured, otherwise defaults to no authentication.Available values:
 			'required'authentication is required.
 			'optional'authentication is optional (must be valid if present).
 			'try'same as 'optional' but allows for invalid authentication. */
@@ -570,7 +569,7 @@ declare module "hapi" {
 			*/
 			headers?: boolean | IJoi | IValidationFunction;
 
-		
+
 			/** validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params.Values allowed:
 			trueany path parameters allowed (no validation performed).This is the default.
 			falseno path variables allowed.
@@ -635,8 +634,8 @@ declare module "hapi" {
 		tags?: string[]
 	}
 	/** server.realm http://hapijs.com/api#serverrealm
-	The realm object contains server-wide or plugin-specific state that can be shared across various methods. For example, when calling server.bind(), 
-	the active realm settings.bind property is set which is then used by routes and extensions added at the same level (server root or plugin). 
+	The realm object contains server-wide or plugin-specific state that can be shared across various methods. For example, when calling server.bind(),
+	the active realm settings.bind property is set which is then used by routes and extensions added at the same level (server root or plugin).
 	Realms are a limited version of a sandbox where plugins can maintain state used by the framework when adding routes, extensions, and other properties.
 	The server.realm object should be considered read-only and must not be changed directly except for the plugins property can be directly manipulated by the plugins (each setting its own under plugins[name]).
 	exports.register = function (server, options, next) {
@@ -717,9 +716,9 @@ declare module "hapi" {
 		lookupCompressed: boolean;
 	}
 
-	/**http://hapijs.com/api#route-handler 
+	/**http://hapijs.com/api#route-handler
 	Built-in handlers
-		
+
 	The framework comes with a few built-in handler types available by setting the route handler config to an object containing one of these keys.*/
 	export interface IRouteHandlerConfig {
 		/** generates a static file endpoint for serving a single file. file can be set to:
@@ -816,7 +815,7 @@ declare module "hapi" {
 	export interface IRouteConfiguration {
 		/**  - (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option.The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters.*/
 		path: string;
-		/** - (required) the HTTP method.Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'.Any HTTP method is allowed, except for 'HEAD'.Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match). 
+		/** - (required) the HTTP method.Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'.Any HTTP method is allowed, except for 'HEAD'.Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match).
 		* Can be assigned an array of methods which has the same result as adding the same route with different methods manually.*/
 		method: string|string[];
 		/**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
@@ -829,7 +828,7 @@ declare module "hapi" {
 	/** Route public interface When route information is returned or made available as a property.  http://hapijs.com/api#route-public-interface */
 	export interface IRoute {
 
-		
+
 		/** the route HTTP method. */
 		method: string;
 		/** the route path. */
@@ -854,8 +853,8 @@ declare module "hapi" {
 		artifacts - optional authentication artifacts.
 		reply.continue(result) - is called if authentication succeeded where:
 		result - same object as result above.
-		When the scheme authenticate() method implementation calls reply() with an error condition, the specifics of the error affect whether additional authentication strategies will be attempted if configured for the route. 
-		.If the err returned by the reply() method includes a message, no additional strategies will be attempted. 
+		When the scheme authenticate() method implementation calls reply() with an error condition, the specifics of the error affect whether additional authentication strategies will be attempted if configured for the route.
+		.If the err returned by the reply() method includes a message, no additional strategies will be attempted.
 		If the err does not include a message but does include a scheme name (e.g. Boom.unauthorized(null, 'Custom')), additional strategies will be attempted in order of preference.
 		var server = new Hapi.Server();
 		server.connection({ port: 80 });
@@ -1015,12 +1014,12 @@ declare module "hapi" {
 		generateKey?(args: any[]): string;
 	}
 	/** Request object
-	
+
 	The request object is created internally for each incoming request. It is different from the node.js request object received from the HTTP server callback (which is available in request.raw.req). The request object methods and properties change throughout the request lifecycle.
 	Request events
-	
+
 	The request object supports the following events:
-	
+
 	'peek' - emitted for each chunk of payload data read from the client connection. The event method signature is function(chunk, encoding).
 	'finish' - emitted when the request payload finished reading. The event method signature is function ().
 	'disconnect' - emitted when a request errors or aborts unexpectedly.
@@ -1028,25 +1027,25 @@ declare module "hapi" {
 	var Hapi = require('hapi');
 	var server = new Hapi.Server();
 	server.connection({ port: 80 });
-	
+
 	server.ext('onRequest', function (request, reply) {
-	
+
 	var hash = Crypto.createHash('sha1');
 	request.on('peek', function (chunk) {
-	
+
 	hash.update(chunk);
 	});
-	
+
 	request.once('finish', function () {
-	
+
 	console.log(hash.digest('hex'));
 	});
-	
+
 	request.once('disconnect', function () {
-	
+
 	console.error('request aborted');
 	});
-	
+
 	return reply.continue();
 	});*/
 	export class Request extends Events.EventEmitter {
@@ -1158,64 +1157,64 @@ declare module "hapi" {
 			slashes: any;
 		};
 		/** request.setUrl(url)
-		
+
 		Available only in 'onRequest' extension methods.
-		
+
 		Changes the request URI before the router begins processing the request where:
-		
+
 		url - the new request path value.
 		var Hapi = require('hapi');
 		var server = new Hapi.Server();
 		server.connection({ port: 80 });
-		
+
 		server.ext('onRequest', function (request, reply) {
-		
+
 		// Change all requests to '/test'
 		request.setUrl('/test');
 		return reply.continue();
 		});*/
 		setUrl(url: string): void;
 		/** request.setMethod(method)
-		
+
 		Available only in 'onRequest' extension methods.
-		
+
 		Changes the request method before the router begins processing the request where:
-		
+
 		method - is the request HTTP method (e.g. 'GET').
 		var Hapi = require('hapi');
 		var server = new Hapi.Server();
 		server.connection({ port: 80 });
-		
+
 		server.ext('onRequest', function (request, reply) {
-		
+
 		// Change all requests to 'GET'
 		request.setMethod('GET');
 		return reply.continue();
 		});*/
 		setMethod(method: string): void;
 		/** request.log(tags, [data, [timestamp]])
-		
+
 		Always available.
-		
+
 		Logs request-specific events. When called, the server emits a 'request' event which can be used by other listeners or plugins. The arguments are:
-		
+
 		data - an optional message string or object with the application data being logged.
 		timestamp - an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).
 		Any logs generated by the server internally will be emitted only on the 'request-internal' channel and will include the event.internal flag set to true.
-		
+
 		var Hapi = require('hapi');
 		var server = new Hapi.Server();
 		server.connection({ port: 80 });
-		
+
 		server.on('request', function (request, event, tags) {
-		
+
 		if (tags.error) {
 		console.log(event);
 		}
 		});
-		
+
 		var handler = function (request, reply) {
-		
+
 		request.log(['test', 'error'], 'Test event');
 		return reply();
 		};
@@ -1228,9 +1227,9 @@ declare module "hapi" {
 			/**  an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).*/
 			timestamp?: number): void;
 		/** request.getLog([tags], [internal])
-		
+
 		Always available.
-		
+
 		Returns an array containing the events matching any of the tags specified (logical OR)
 		request.getLog();
 		request.getLog('error');
@@ -1245,38 +1244,38 @@ declare module "hapi" {
 			internal?: boolean): string[];
 
 		/** request.tail([name])
-		
+
 		Available until immediately after the 'response' event is emitted.
-		
+
 		Adds a request tail which has to complete before the request lifecycle is complete where:
-		
+
 		name - an optional tail name used for logging purposes.
 		Returns a tail function which must be called when the tail activity is completed.
-		
+
 		Tails are actions performed throughout the request lifecycle, but which may end after a response is sent back to the client. For example, a request may trigger a database update which should not delay sending back a response. However, it is still desirable to associate the activity with the request when logging it (or an error associated with it).
-		
+
 		When all tails completed, the server emits a 'tail' event.
-		
+
 		var Hapi = require('hapi');
 		var server = new Hapi.Server();
 		server.connection({ port: 80 });
-		
+
 		var get = function (request, reply) {
-		
+
 		var dbTail = request.tail('write to database');
-		
+
 		db.save('key', 'value', function () {
-		
+
 		dbTail();
 		});
-		
+
 		return reply('Success!');
 		};
-		
+
 		server.route({ method: 'GET', path: '/', handler: get });
-		
+
 		server.on('tail', function (request) {
-		
+
 		console.log('Request completed including db activity');
 		});*/
 		tail(
@@ -1284,34 +1283,34 @@ declare module "hapi" {
 			name?: string): Function;
 	}
 	/** Response events
-	
+
 	The response object supports the following events:
-	
+
 	'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
 	'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
 	var Crypto = require('crypto');
 	var Hapi = require('hapi');
 	var server = new Hapi.Server();
 	server.connection({ port: 80 });
-	
+
 	server.ext('onPreResponse', function (request, reply) {
-	
+
 	var response = request.response;
 	if (response.isBoom) {
 	return reply();
 	}
-	
+
 	var hash = Crypto.createHash('sha1');
 	response.on('peek', function (chunk) {
-	
+
 	hash.update(chunk);
 	});
-	
+
 	response.once('finish', function () {
-	
+
 	console.log(hash.digest('hex'));
 	});
-	
+
 	return reply.continue();
 	});*/
 	export class Response extends Events.EventEmitter {
@@ -1413,7 +1412,7 @@ declare module "hapi" {
 
 
 	/** Server http://hapijs.com/api#server
-	rver object is the main application container. The server manages all incoming connections along with all the facilities provided by the framework. A server can contain more than one connection (e.g. listen to port 80 and 8080). 
+	rver object is the main application container. The server manages all incoming connections along with all the facilities provided by the framework. A server can contain more than one connection (e.g. listen to port 80 and 8080).
 	Server events
 	The server object inherits from Events.EventEmitter and emits the following events:
 	'log' - events logged with server.log() and server events generated internally by the framework.
@@ -1444,7 +1443,7 @@ declare module "hapi" {
 		// server.connections.length === 2
 		var a = server.select('a');
 		// a.connections.length === 1*/
-		connections: Array<ISeverConnectionOptions>;
+		connections: Array<IServerConnectionOptions>;
 		/** When the server contains exactly one connection, info is an object containing information about the sole connection.
 		* When the server contains more than one connection, each server.connections array member provides its own connection.info.
 		var server = new Hapi.Server();
@@ -1735,7 +1734,7 @@ declare module "hapi" {
 		cache(options: ICatBoxCacheOptions): void;
 
 		/** server.connection([options])
-		Adds an incoming server connection 
+		Adds an incoming server connection
 		Returns a server object with the new connection selected.
 		Must be called before any other server method that modifies connections is called for it to apply to the new connection (e.g. server.state()).
 		Note that the options object is deeply cloned (with the exception of listener which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on.
@@ -1746,7 +1745,7 @@ declare module "hapi" {
 		// server.connections.length === 2
 		// web.connections.length === 1
 		// admin.connections.length === 1 */
-		connection(options: ISeverConnectionOptions): Server;
+		connection(options: IServerConnectionOptions): Server;
 		/** server.decorate(type, property, method)
 		Extends various framework interfaces with custom methods where:
 		type - the interface being decorated. Supported types:
@@ -1873,8 +1872,8 @@ declare module "hapi" {
 		};
 		server.handler('test', handler);*/
 		handler<THandlerConfig>(name: string, method: (route: IRoute, options: THandlerConfig) => ISessionHandler): void;
-		/** When the server contains exactly one connection, injects a request into the sole connection simulating an incoming HTTP request without making an actual socket connection. 
-		Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead or limitations of the network stack. 
+		/** When the server contains exactly one connection, injects a request into the sole connection simulating an incoming HTTP request without making an actual socket connection.
+		Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead or limitations of the network stack.
 		Utilizes the [shot module | https://github.com/hapijs/shot ] for performing injections, with some additional options and response properties
 		* When the server contains more than one connection, each server.connections array member provides its own connection.inject().
 		var Hapi = require('hapi');

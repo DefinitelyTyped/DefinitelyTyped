@@ -23,6 +23,10 @@ module SigmaJsTests {
         s.refresh();
     });
 
+    sigma.canvas.edges['def'] = function() {};
+    sigma.svg.nodes['def'] = {create: (obj: SigmaJs.Node) => { return new Element(); },
+                       update: (obj: SigmaJs.Node) => { return; }};
+
     var N = 100;
     var E = 500;
     // Generate a random graph:

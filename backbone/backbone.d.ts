@@ -181,8 +181,8 @@ declare module Backbone {
         comparator(element: TModel): number;
         comparator(compare: TModel, to?: TModel): number;
 
-        add(model: TModel, options?: AddOptions): Collection<TModel>;
-        add(models: TModel[], options?: AddOptions): Collection<TModel>;
+        add(model: {}|TModel, options?: AddOptions): TModel;
+        add(models: ({}|TModel)[], options?: AddOptions): TModel[];
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.

@@ -131,13 +131,13 @@ declare module "knex" {
     debug(enabled?: boolean): QueryBuilder;
     pluck(column: string): QueryBuilder;
 
-    insert(data: any, returning?: string): QueryBuilder;
-    update(data: any, returning?: string): QueryBuilder;
-    update(columnName: string, value: Value, returning?: string): QueryBuilder;
+    insert(data: any, returning?: string | string[]): QueryBuilder;
+    update(data: any, returning?: string | string[]): QueryBuilder;
+    update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
     returning(column: string): QueryBuilder;
 
-    del(returning?: string): QueryBuilder;
-    delete(returning?: string): QueryBuilder;
+    del(returning?: string | string[]): QueryBuilder;
+    delete(returning?: string | string[]): QueryBuilder;
     truncate(): QueryBuilder;
 
     transacting(trx: Transaction): QueryBuilder;

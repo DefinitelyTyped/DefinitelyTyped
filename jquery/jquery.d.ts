@@ -106,6 +106,10 @@ interface JQueryAjaxSettings {
      */
     jsonpCallback?: any;
     /**
+     * The HTTP method to use for the request (e.g. "POST", "GET", "PUT"). (version added: 1.9.0)
+     */
+    method?: string;
+    /**
      * A mime type to override the XHR mime type. (version added: 1.5.1)
      */
     mimeType?: string;
