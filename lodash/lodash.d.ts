@@ -6003,6 +6003,23 @@ declare module _ {
         keys(): LoDashArrayWrapper<string>
     }
 
+    //_.keysIn
+    interface LoDashStatic {
+        /**
+         * Creates an array of the own and inherited enumerable property names of object.
+         * @param object The object to query.
+         * @return An array of property names.
+         **/
+        keysIn(object?: any): string[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.keysIn
+         **/
+        keysIn(): LoDashArrayWrapper<string>
+    }
+
     //_.mapValues
     interface LoDashStatic {
         /**
