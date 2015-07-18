@@ -1018,6 +1018,9 @@ result = <boolean>_.isUndefined(void 0);
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 
+result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
+result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
+
 var mergeNames = {
     'stooges': [
         { 'name': 'moe' },
