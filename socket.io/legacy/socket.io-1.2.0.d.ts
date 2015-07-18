@@ -5,7 +5,7 @@
 
 ///<reference path='../../node/node.d.ts' />
 
-declare module 'socket.io' {
+declare module 'socket.io-1.2.0' {
     var server: SocketIOStatic;
 
     export = server;
