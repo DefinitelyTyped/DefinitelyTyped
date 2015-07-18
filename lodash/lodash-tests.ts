@@ -1091,6 +1091,18 @@ result = <{ a: number; b: number; c: number; }>_.transform(<{ [index: string]: n
 
 result = <number[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
 
+// _.valueIn
+class TestValueIn {
+    public a = 1;
+    public b = 2;
+    public c: number;
+}
+TestValueIn.prototype.c = 3;
+result = <number[]>_.valuesIn<number>(new TestValueIn());
+// → [1, 2, 3]
+result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
+// → [1, 2, 3]
+
 /**********
 * Utilities *
 ***********/
