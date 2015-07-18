@@ -9,10 +9,12 @@ declare module uri {
 
     interface URI {
         absoluteTo(path: string): URI;
+        absoluteTo(path: URI): URI;
         addFragment(fragment: string): URI;
         addQuery(qry: string): URI;
         addQuery(qry: Object): URI;
         addSearch(qry: string): URI;
+        addSearch(key: string, value:any): URI;
         addSearch(qry: Object): URI;
         authority(): string;
         authority(authority: string): URI;

@@ -23,7 +23,7 @@ interface I18nextOptions {
     preload?: string[];                     // Default value: []
     lowerCaseLng?: boolean;                    // Default value: false
     returnObjectTrees?: boolean;               // Default value: false
-    fallbackLng?: string;                   // Default value: 'dev'
+    fallbackLng?: string|boolean;           // Default value: 'dev'
     detectLngQS?: string;                   // Default value: 'setLng'
     ns?: any;                               // Default value: 'translation' (string), can also be an object
     nsseparator?: string;                   // Default value: '::'

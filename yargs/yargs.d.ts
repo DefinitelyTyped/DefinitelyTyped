@@ -57,8 +57,7 @@ declare module "yargs" {
 
 			example(command: string, description: string): Argv;
 
-			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => boolean): Argv;
-			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => string): Argv;
+			check(func: (argv: any, aliases: { [alias: string]: string }) => any): Argv;
 
 			boolean(key: string): Argv;
 			boolean(keys: string[]): Argv;

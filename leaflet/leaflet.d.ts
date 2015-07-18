@@ -3278,7 +3278,7 @@ declare module L {
         /**
           * Sets the pointer-events attribute on the path if SVG backend is used.
           */
-        pointerEvents?: boolean;
+        pointerEvents?: string;
 
         /**
           * Custom class name set on an element.
@@ -3448,7 +3448,7 @@ declare module L {
 
 declare module L {
 
-    export interface PolylineOptions {
+    export interface PolylineOptions extends PathOptions {
 
         /**
           * How much to simplify the polyline on each zoom level. More means better performance

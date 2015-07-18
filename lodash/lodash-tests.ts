@@ -239,14 +239,18 @@ result = <number[]>_([1, 2, 3]).take(function (num) {
 result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
 result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
 
-result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
-result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
-var result: any
-result = <string[]>_.flatten(stoogesQuotes, 'quotes');
+result = <Array<number>>_.flatten([[1, 2], [3, 4]]);
+result = <Array<number>>_.flatten([[1, 2], [3, 4], 5, 6]);
+result = <Array<number|Array<Array<number>>>>_.flatten([1, [2], [3, [[4]]]]);
 
-result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
+result = <Array<number>>_.flatten([1, [2], [[3]]], true);
+result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
+result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
+
+result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
+result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
+
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
-result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -363,13 +367,18 @@ result = <string[]>_.at(['moe', 'larry', 'curly'], 0, 2);
 
 result = <boolean>_.contains([1, 2, 3], 1);
 result = <boolean>_.contains([1, 2, 3], 1, 2);
-result = <boolean>_.contains({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.contains('curly', 'ur');
 
 result = <boolean>_.include([1, 2, 3], 1);
 result = <boolean>_.include([1, 2, 3], 1, 2);
-result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.include({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.include('curly', 'ur');
+
+result = <boolean>_.includes([1, 2, 3], 1);
+result = <boolean>_.includes([1, 2, 3], 1, 2);
+result = <boolean>_.includes({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
+result = <boolean>_.includes('curly', 'ur');
 
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
@@ -403,15 +412,13 @@ result = <number[]>_([1, 2, 3, 4, 5, 6]).select(function (num) { return num % 2 
 result = <IFoodCombined[]>_(foodsCombined).select('organic').value();
 result = <IFoodCombined[]>_(foodsCombined).select({ 'type': 'fruit' }).value();
 
-result = <number>_.find([1, 2, 3, 4], function (num) {
-    return num % 2 == 0;
-});
+result = <number>_.find([1, 2, 3, 4], num => num % 2 == 0);
 result = <IFoodCombined>_.find(foodsCombined, { 'type': 'vegetable' });
+result = <IFoodCombined>_.find(foodsCombined, 'type', 'vegetable');
 result = <IFoodCombined>_.find(foodsCombined, 'organic');
-result = <number>_([1, 2, 3, 4]).find(function (num) {
-    return num % 2 == 0;
-});
+result = <number>_([1, 2, 3, 4]).find(num => num % 2 == 0);
 result = <IFoodCombined>_(foodsCombined).find({ 'type': 'vegetable' });
+result = <IFoodCombined>_(foodsCombined).find('type', 'vegetable');
 result = <IFoodCombined>_(foodsCombined).find('organic');
 
 result = <number>_.detect([1, 2, 3, 4], function (num) {
@@ -605,6 +612,10 @@ result = <IFoodCombined[]>_(foodsCombined).reject({ 'type': 'fruit' }).value();
 
 result = <number>_.sample([1, 2, 3, 4]);
 result = <number[]>_.sample([1, 2, 3, 4], 2);
+result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).sample();
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
+result = <number>_([1, 2, 3, 4]).sample().value();
+result = <number[]>_([1, 2, 3, 4]).sample(2).value();
 
 result = <number[]>_.shuffle([1, 2, 3, 4, 5, 6]);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
@@ -1006,6 +1017,9 @@ result = <boolean>_.isUndefined(void 0);
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
+
+result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
+result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
 
 var mergeNames = {
     'stooges': [
