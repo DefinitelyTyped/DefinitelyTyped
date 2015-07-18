@@ -90,6 +90,12 @@ declare module OData {
         save(data: Object, success: Function, error?: Function): IResource<T>;
         save(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
 
+        update(): IResource<T>;
+        update(data: Object): IResource<T>;
+        update(success: Function, error?: Function): IResource<T>;
+        update(data: Object, success: Function, error?: Function): IResource<T>;
+        update(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
+
         remove(): IResource<T>;
         remove(params: Object): IResource<T>;
         remove(success: Function, error?: Function): IResource<T>;
@@ -119,6 +125,10 @@ declare module OData {
         $save(): angular.IPromise<T>;
         $save(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
         $save(success: Function, error?: Function): angular.IPromise<T>;
+
+        $update(): angular.IPromise<T>;
+        $update(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $update(success: Function, error?: Function): angular.IPromise<T>;
 
         $remove(): angular.IPromise<T>;
         $remove(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
