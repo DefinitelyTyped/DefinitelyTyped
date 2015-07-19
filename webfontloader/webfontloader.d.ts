@@ -3,10 +3,8 @@
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare class WebFont {
-	static load(config:WebFont.Config);
-}
 declare module WebFont {
+	export function load(config:WebFont.Config):void;
 	export interface Config {
 		/** Setting this to false will disable html classes (defaults to true) */
 		classes?:boolean;
@@ -21,11 +19,11 @@ declare module WebFont {
 		/** This event is triggered when the browser does not support linked fonts or if none of the fonts could be loaded. */
 		inactive?():void;
 		/** This event is triggered once for each font that's loaded. */
-		fontloading?(familyName: string, fvd):void;
+		fontloading?(familyName:string, fvd:string):void;
 		/** This event is triggered once for each font that renders. */
-		fontactive?(familyName: string, fvd):void;
+		fontactive?(familyName:string, fvd:string):void;
 		/** This event is triggered if the font can't be loaded. */
-		fontinactive?(familyName: string, fvd):void;
+		fontinactive?(familyName:string, fvd:string):void;
 		
 		/** Child window or iframes to manage fonts for */
 		context?:Array<string>;
@@ -46,7 +44,6 @@ declare module WebFont {
 		families?:Array<string>;
 		urls?:Array<string>;
 		testStrings?:{[fontFamily:string]:string};
-		
 	}
 	export interface Fontdeck {
 		id?:string;
@@ -56,4 +53,7 @@ declare module WebFont {
 		version?:number;
 	}
 	
+}
+declare module "webfontloader" {
+    export = WebFont;
 }
