@@ -476,8 +476,3 @@ declare module moment {
     }
 
 }
-
-declare module 'moment' {
-    var moment: moment.MomentStatic;
-    export = moment;
-}
