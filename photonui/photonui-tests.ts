@@ -53,7 +53,7 @@ var btn = new photonui.Button({
     text: "My Button",
     leftIcon: new photonui.FAIcon("fa-send"),
     callbacks: {
-        click: function(widget, event) {
+        click: function(widget: any, event: any) {
             alert("Someone clicked on " + widget.text);
         }
     }
@@ -128,7 +128,7 @@ console.log(color.hexString);
 var btn2 = new photonui.ColorButton({
     value: "#4EC8DB",
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
         }
@@ -140,7 +140,7 @@ photonui.domInsert(btn2, "demo");
 // colorpalette
 var palette = new photonui.ColorPalette({
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
         }
@@ -157,7 +157,7 @@ var palette = new photonui.ColorPalette({
         ["#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B"]
     ],
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
         }
@@ -170,7 +170,7 @@ photonui.domInsert(palette, "demo");
 var colorPicker = new photonui.ColorPicker({
     value: "#4EC8DB",
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
         }
@@ -183,7 +183,7 @@ photonui.domInsert(colorPicker, "demo");
 var dlg = new photonui.ColorPickerDialog({
     value: "#4EC8DB",
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
         }
@@ -213,7 +213,7 @@ new photonui.Dialog({
         new photonui.Button()
     ],
     callbacks: {
-        "close-button-clicked": function(widget) {
+        "close-button-clicked": function(widget: any) {
             widget.destroy();
         }
     }
@@ -236,7 +236,7 @@ var fm = new photonui.FileManager({
     dropZone: document,        // Enable file d&d
     multiselect: true,         // Allow to select more than one file
     callbacks: {
-        "file-open": function(widget, file, x, y) {
+        "file-open": function(widget: any, file: any, x: number, y: number) {
             // x and y are defined only with d&d
             if (x !== undefined) {
                 alert(file.name + " dropped at ("+x+", "+y+")");
@@ -252,7 +252,7 @@ var fm = new photonui.FileManager({
 var btn = new photonui.Button({
     text: "Open",
     callbacks: {
-        click: function(widget, event) {
+        click: function(widget: any, event: any) {
             fm.open();
         }
     }
@@ -289,7 +289,7 @@ var select = new photonui.FontSelect({
         "Verdana"
     ],
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             alert("Value changed: " + value);
         }
     }
@@ -381,7 +381,7 @@ var menu = new photonui.Menu({
             text: "Menu Item 1",
             icon: new photonui.FAIcon("fa-paper-plane"),
             callbacks: {
-                click: function(widget, event) {
+                click: function(widget: any, event: any) {
                     alert("You clicked on me!");
                 }
             }
@@ -407,7 +407,7 @@ var img = new photonui.Image({
 var mouse = new photonui.MouseManager({
     element: img,
     callbacks: {
-        "click": function(manager, mstate) {
+        "click": function(manager: any, mstate: any) {
             alert("You clicked on the image at " + 
                   mstate.x + ", " + mstate.y);
         }
@@ -437,7 +437,7 @@ var popup = new photonui.PopupMenu({
             text: "Menu Item 1",
             icon: new photonui.FAIcon("fa-paper-plane"),
             callbacks: {
-                click: function(widget, event) {
+                click: function(widget: any, event: any) {
                     alert("You clicked on me!");
                 }
             }
@@ -486,7 +486,7 @@ var select2 = new photonui.Select({
         new photonui.MenuItem({value: "item3", text: "Item 3"})
     ],
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             alert("Value changed: " + value);
         }
     }
@@ -696,7 +696,7 @@ var grid = new photonui.GridLayout({
             text: "Login",
             leftIcon: new photonui.FAIcon("fa-sign-in"),
             callbacks: {
-                click: function(widget, event) {
+                click: function(widget: any, event: any) {
                     var usernameField = photonui.getWidget("username-field");
                     var passwordField = photonui.getWidget("password-field");
                     alert(
@@ -729,7 +729,7 @@ var toggle2 = new photonui.ToggleButton({
     text: "Value: off",
     buttonColor: "red",
     callbacks: {
-        "value-changed": function(widget, value) {
+        "value-changed": function(widget: any, value: any) {
             widget.text = "Value: " + ((value) ? "on" : "off");
             widget.buttonColor = (value) ? "green" : "red";
         }
@@ -798,7 +798,7 @@ var layout = new photonui.BoxLayout({
                 new photonui.MenuItem({value: "it", text: "Italiano"}),
             ],
             callbacks: {
-                "value-changed": function(widget, value) {
+                "value-changed": function(widget: any, value: any) {
                     tr.locale = value;
                 }
             }
@@ -822,7 +822,7 @@ var win = new photonui.Window({
         }
     }),
     callbacks: {
-        "close-button-clicked": function(widget) { widget.hide(); }
+        "close-button-clicked": function(widget: any) { widget.hide(); }
     }
 });
 
@@ -860,10 +860,10 @@ new photonui.Window({
     x: pos.x, y: pos.y,
     width: 300, height: 100,
     callbacks: {
-        "close-button-clicked": function(widget) {
+        "close-button-clicked": function(widget: any) {
             widget.destroy();
         },
-        "position-changed": function(widget, x, y) {
+        "position-changed": function(widget: any, x: number, y: number) {
             widget.title = "My Window (x: " + x + ", y: " + y + ")";
         }
     }
@@ -882,14 +882,14 @@ var win1 = new photonui.Window({
     child: new photonui.Button({
         text: "Center Me",
         callbacks: {
-            click: function(widget, event) {
+            click: function(widget: any, event: any) {
                 win1.center();
                 win1.y = pos.y;
             }
         }
     }),
     callbacks: {
-        "close-button-clicked": function(widget) {
+        "close-button-clicked": function(widget: any) {
             widget.destroy();
         }
     }
