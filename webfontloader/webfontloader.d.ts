@@ -36,6 +36,7 @@ declare module WebFont {
 	}
 	export interface Google {
 		families?:Array<string>;	
+		text: string;
 	}
 	export interface Typekit {
 		id?:Array<string>;
