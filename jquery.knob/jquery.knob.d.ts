@@ -1,5 +1,5 @@
 // Type definitions for jQuery Knob 1.2.11
-// Project:
+// Project: http://anthonyterrien.com/knob/
 // Definitions by: Iain Buchanan <https://github.com/iain8/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
