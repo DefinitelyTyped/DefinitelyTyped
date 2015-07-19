@@ -3,9 +3,18 @@
 // Definitions by: Florent Poujol <https://github.com/florentpoujol/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-module photonui {
+declare module photonui {
+  // Base
+  module Helpers {
+    function escapeHtml(string: string);
+    function uuid4(): string;
+    function cleanNode(node: HTMLElement);
+    function getAbsolutePosition(element: HTMLElement|string): { x: number, y: number };
+    function numberToCssSize(value: number, defaultValue?: number, nullValue?: string): string;
+  }
+
   class Base {
-    constructor(params?: any);
+    constructor(params?: { [key: string]: any });
     destroy();
     registerCallback(id: string, wEvent: string, callback: Function, thisArg: any);
     removeCallback(id: string);
@@ -32,11 +41,11 @@ module photonui {
     removeClass(className: string);
 
     static getWidget(name: string): Widget;
-    static domInsert(widget: Widget, element: HTMLElement);
+    static domInsert(widget: Widget, element?: HTMLElement|string);
   }
 
   // Methods
-  function domInsert(widget: Widget, element: HTMLElement);
+  function domInsert(widget: Widget, element?: HTMLElement|string);
   function getWidget(name: string): Widget;
 
   //Widgets
@@ -52,21 +61,22 @@ module photonui {
   class Translation extends Base {
     locale: string;
 
-    addCatalogs(catalogs: any); // Stone.js catalogs
+    addCatalogs(catalogs: { [key: string]: any });
     guessUserLanguage(): string;
-    gettext(string: string, replacements: any): string;
-    lazyGettext(string: string, replacements: any): string;
+    gettext(string: string, replacements?: { [key: string]: string }): string;
+    lazyGettext(string: string, replacements?: { [key: string]: string }): string;
     enableDomScan(enable: boolean);
     updateDomTranslation();
   }
 
   class AccelManager extends Base {
-    addAccel(id: string, keys: string, callback: Function, safe: boolean);
+    addAccel(id: string, keys: string, callback: Function, safe?: boolean);
     removeAccel(id: string);
   }
 
   class MouseManager extends Base {
-    constructor(element?: Widget|HTMLElement, params?: any)    ;
+    constructor(params?: { [key: string]: any });
+    constructor(element?: Widget|HTMLElement, params?: { [key: string]: any });
     
     element: HTMLElement;
     threshold: number;
@@ -89,8 +99,8 @@ module photonui {
   class BaseIcon extends Widget {}
 
   class FAIcon extends BaseIcon {
-    constructor(params?: any);
-    constructor(name: string, params?: any);
+    constructor(params?: { [key: string]: any });
+    constructor(name: string, params?: { [key: string]: any });
 
     color: string;
     iconName: string;
@@ -98,8 +108,8 @@ module photonui {
   }
 
   class SpriteIcon extends BaseIcon {
-    constructor(params?: any);
-    constructor(name: string, params?: any);
+    constructor(params?: { [key: string]: any });
+    constructor(name: string, params?: { [key: string]: any });
 
     icon: string;
     iconName: string;
@@ -144,8 +154,8 @@ module photonui {
   }
 
   class Label extends Widget {
-    constructor(params?: any);
-    constructor(name: string, params?: any);
+    constructor(params?: { [key: string]: any });
+    constructor(name: string, params?: { [key: string]: any });
 
     forInput: Field|CheckBox;
     forInputName: string;
@@ -200,6 +210,9 @@ module photonui {
   // -----------------------------------
 
   class Color extends Base {
+    constructor(color: string);
+    constructor(params?: { [key: string]: any });
+
     hexString: string;
     rgbString: string; // readonly
     rgbaString: string; // readonly
@@ -213,10 +226,10 @@ module photonui {
     saturation: number;
     brightness: number;
 
-    setRBG(red: number, green: number, blue: number);
-    getRBG(): number[];
-    setRBGA(red: number, green: number, blue: number, alpha: number);
-    getRBGA(): number[];
+    setRGB(red: number, green: number, blue: number);
+    getRGB(): number[];
+    setRGBA(red: number, green: number, blue: number, alpha: number);
+    getRGBA(): number[];
     setHSB(hue: number, saturation: number, brightness: number);
   }
 
@@ -264,7 +277,7 @@ module photonui {
   // -----------------------------------
 
   class Select extends Widget {
-    children: Widgets[];
+    children: Widget[];
     childrenNames: string[];
     iconVisible: boolean;
     placeholder: string;
@@ -396,8 +409,8 @@ module photonui {
     buttons: Widget[];
     buttonNames: string[];
 
-    addButton(widget: widget, layoutOptions: any);
-    removeButton(widget: widget);
+    addButton(widget: Widget, layoutOptions: any);
+    removeButton(widget: Widget);
   }
 
   class ColorPickerDialog extends Dialog {
@@ -418,3 +431,5 @@ module photonui {
     tabsPosition: string; // top, bottom, left, right
   }
 }
+
+declare function _(string: string, replacements?: { [key: string]: string }): string; // alias of Translation.lazyGettext()
