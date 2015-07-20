@@ -3039,7 +3039,7 @@ declare module Sys {
              * @param autoRemove
              *          (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
              */
-            static addHandler(element: HTMLElement, eventName: string, handler: (e: DomEvent) => void, autoRemove?: boolean);
+            static addHandler(element: HTMLElement, eventName: string, handler: (e: DomEvent) => void, autoRemove?: boolean): void;
             /**
              * Adds a list of DOM event handlers to the DOM element that exposes the events. This member is static and can be invoked without creating an instance of the class.
              * Use the addHandlers method to add a list of DOM event handlers to the element that exposes the event.

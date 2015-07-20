@@ -1,6 +1,6 @@
-﻿// Type definitions for sptypescript
+﻿// Type definitions for SharePoint 2010 and 2013
 // Project: http://sptypescript.codeplex.com
-// Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru> and Andrey Markeev <http://markeev.com>
+// Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../microsoft-ajax/microsoft.ajax.d.ts" />
