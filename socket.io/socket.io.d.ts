@@ -1,6 +1,6 @@
 // Type definitions for socket.io 1.3.5
 // Project: http://socket.io/
-// Definitions by: divillysausages <https://github.com/divillysausages/>
+// Definitions by: PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../node/node.d.ts' />
