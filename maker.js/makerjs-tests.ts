@@ -75,7 +75,8 @@ function test() {
 		];
 	}
 	
-	function testPath() {	
+	function testPath() {
+		makerjs.path.breakAtPoint(paths.arc, [0,0]).type;	
 		makerjs.path.intersection(paths.circle, paths.arc).intersectionPoints;
 		makerjs.path.mirror(paths.arc, true, true);
 		makerjs.path.moveRelative(paths.circle, [0,0]);
