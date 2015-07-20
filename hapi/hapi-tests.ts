@@ -95,5 +95,13 @@ server.route([{
     }
 }]);
 
+server.route([{
+	method: 'GET',
+	path: '/hello3',
+	handler: function(request: Hapi.Request, reply: Function) {
+		reply().code(201);
+	}
+}]);
+
 // Start the server
 server.start();
