@@ -2,7 +2,6 @@
 // Project: https://github.com/Microsoft/maker.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 /**
  * Root module for Maker.js.
  *
@@ -430,6 +429,7 @@ declare module MakerJs.path {
      *
      * @param pathToBreak The path to break.
      * @param pointOfBreak The point at which to break the path.
+     * @returns A new path of the same type, when path type is line or arc. Returns null for circle.
      */
     function breakAtPoint(pathToBreak: IPath, pointOfBreak: IPoint): IPath;
 }
@@ -669,7 +669,7 @@ declare module MakerJs.path {
      *
      * @param path1 First path to find intersection.
      * @param path2 Second path to find intersection.
-     * @result IPathIntersection object, with points(s) of intersection (and angles, when a path is an arc or circle); or null if the paths did not intersect.
+     * @returns IPathIntersection object, with points(s) of intersection (and angles, when a path is an arc or circle); or null if the paths did not intersect.
      */
     function intersection(path1: IPath, path2: IPath): IPathIntersection;
 }
