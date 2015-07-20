@@ -42,7 +42,7 @@ function CreatingStreams() {
   }, Bacon.constant("bacon"), "rules").log();
 
   {
-    let fs = require("fs"),
+    var fs = require("fs"),
       read = Bacon.fromNodeCallback(fs.readFile, "input.txt");
     read.onError(error => {
       console.log("Reading failed: " + error);
@@ -69,7 +69,7 @@ function CreatingStreams() {
   }).log();
 
   {
-    let stream = Bacon.fromBinder(sink => {
+    var stream = Bacon.fromBinder(sink => {
       sink("first value");
       sink([new Bacon.Next("2nd"), new Bacon.Next("3rd")]);
       sink(new Bacon.Next(() => {
@@ -104,12 +104,12 @@ function CommonMethodsInEventStreamsAndProperties() {
   Bacon.fromArray([1, 2, 3, 4, 5]).slidingWindow(2, 2);
 
   {
-    let x = Bacon.fromArray([1, 2]), y = Bacon.fromArray([3, 4]);
+    var x = Bacon.fromArray([1, 2]), y = Bacon.fromArray([3, 4]);
     x.zip(y, (x, y) => x + y);
   }
 
   {
-    let stream = Bacon.fromArray([1, 2]);
+    var stream = Bacon.fromArray([1, 2]);
     stream.log("New event in myStream");
     stream.log();
   }
@@ -128,7 +128,7 @@ function CommonMethodsInEventStreamsAndProperties() {
   });
 
   {
-    let property = Bacon.fromArray([1, 2, 3]).toProperty(),
+    var property = Bacon.fromArray([1, 2, 3]).toProperty(),
       who = Bacon.fromArray(["A", "B", "C"]).toProperty();
     property.decode({1: "mike", 2: who});
 
@@ -137,7 +137,7 @@ function CommonMethodsInEventStreamsAndProperties() {
 
   {
     // This is handy for keeping track whether we are currently awaiting an AJAX response:
-    let ajaxRequest = <Bacon.Observable<Error, JQueryXHR>>{},
+    var ajaxRequest = <Bacon.Observable<Error, JQueryXHR>>{},
       ajaxResponse = <Bacon.Observable<Error, JQueryXHR>>{},
       showAjaxIndicator = ajaxRequest.awaiting(ajaxResponse);
   }
@@ -152,7 +152,7 @@ function CommonMethodsInEventStreamsAndProperties() {
   });
 
   {
-    let src = Bacon.once(1),
+    var src = Bacon.once(1),
       obs = src.map(x => -x);
     console.log(obs.toString()); // > "Bacon.once(1).map(function)"
 
@@ -162,7 +162,7 @@ function CommonMethodsInEventStreamsAndProperties() {
 
   {
     // Calculator for grouped consecutive values until group is cancelled:
-    let events = [
+    var events = [
         {id: 1, type: "add", val: 3},
         {id: 2, type: "add", val: -1},
         {id: 1, type: "add", val: 2},
@@ -175,7 +175,7 @@ function CommonMethodsInEventStreamsAndProperties() {
       ],
       keyF = (event:{id:number}) => event.id,
       limitF = (groupedStream:Bacon.EventStream<string, {id:number; type:string; val?:number}>) => {
-        let cancel = groupedStream.filter(x => x.type === "cancel").take(1),
+        var cancel = groupedStream.filter(x => x.type === "cancel").take(1),
           adds = groupedStream.filter(x => x.type === "add");
         return adds.takeUntil(cancel).map(x => x.val);
       };
@@ -201,7 +201,7 @@ function EventStream() {
 
   // Here's an equivalent to `stream.bufferWithTime(10)`:
   {
-    let stream = Bacon.fromArray([1, 2, 3, 4, 5, 6, 7]);
+    var stream = Bacon.fromArray([1, 2, 3, 4, 5, 6, 7]);
     stream.bufferWithTime(f => {
       setTimeout(f, 10);
     });
@@ -216,7 +216,7 @@ function Property() {
   Bacon.interval(1e1, 0).toProperty().last();
 
   {
-    let property = Bacon.fromArray([1, 2, 3, 4, 5]).toProperty();
+    var property = Bacon.fromArray([1, 2, 3, 4, 5]).toProperty();
     // If you want to assign your Property to the "disabled" attribute of a JQuery object, you can do this:
     property.assign($("#my-button"), "attr", "disabled");
 
@@ -230,7 +230,7 @@ function Property() {
 
 function CombiningMultipleStreamsAndProperties() {
   {
-    let property = Bacon.constant(1),
+    var property = Bacon.constant(1),
       stream = Bacon.once(2),
       constant = 3;
     Bacon.combineAsArray(property, stream, constant)
@@ -239,7 +239,7 @@ function CombiningMultipleStreamsAndProperties() {
 
   {
     // To calculate the current sum of three numeric Properties, you can do:
-    let property = Bacon.constant(1),
+    var property = Bacon.constant(1),
       stream = Bacon.once(2),
       constant = 3;
     // NOTE: had to explicitly specify the typing for `x:number, y:number, z:number`
@@ -248,7 +248,7 @@ function CombiningMultipleStreamsAndProperties() {
 
   {
     // Assuming you've got streams or properties named `password`, `username`, `firstname` and `lastname`, you can do:
-    let password = Bacon.constant("easy"),
+    var password = Bacon.constant("easy"),
       username = Bacon.constant("juha"),
       firstname = Bacon.constant("juha"),
       lastname = Bacon.constant("paananen"),
@@ -277,7 +277,7 @@ function CombiningMultipleStreamsAndProperties() {
   }
 
   {
-    let x = Bacon.fromArray([1, 2, 3]),
+    var x = Bacon.fromArray([1, 2, 3]),
       y = Bacon.fromArray([10, 20, 30]),
       z = Bacon.fromArray([100, 200, 300]);
     Bacon.zipAsArray(x, y, z)
@@ -305,14 +305,14 @@ function Errors() {
 
   // Conversely, if you want to convert some Error events into value events, you may use `flatMapError`:
   Bacon.fromArray<string, number>([1, 2, 3, 4]).flatMapError<number>(error => {
-    let isNonCriticalError = (error:string) => Math.random() < .5,
+    var isNonCriticalError = (error:string) => Math.random() < .5,
       handleNonCriticalError = (error:string) => 42;
     return isNonCriticalError(error) ? handleNonCriticalError(error) : new Bacon.Error(error);
   });
 
   // Note also that Bacon.js combinators do not catch errors that are thrown. Especially `map` doesn't do so. If you want to map things and wrap caught errors into Error events, you can do the following:
   Bacon.fromArray([1, 2, 3, 4]).flatMap(x => {
-    let dangerousFunction = (x:number) => {
+    var dangerousFunction = (x:number) => {
       throw new Error("dangerous function!");
     };
     try {
@@ -324,7 +324,7 @@ function Errors() {
 
   Bacon.once("https://baconjs.github.io/").flatMap(url => {
     // `ajaxCall` gives `Error`s on network or server `Error`s.
-    let ajaxCall = (url:string) => {
+    var ajaxCall = (url:string) => {
       return Bacon.fromPromise<JQueryXHR, JQueryXHR>($.ajax(url));
     };
     return Bacon.retry({
@@ -339,7 +339,7 @@ function Errors() {
 function JoinPatterns() {
   {
     // Consider implementing a game with discrete time ticks. We want to handle key-events synchronized on tick-events, with at most one key event handled per tick. If there are no key events, we want to just process a tick:
-    let tick = Bacon.interval(1e2, 0),
+    var tick = Bacon.interval(1e2, 0),
       keyEvent = Bacon.fromEvent(document.body, "click", _ => Date.now()),
       handleTick = (_:number) => `timestamp: NONE`,
       handleKeyEvent = (timestamp:number) => `timestamp: ${timestamp}`;
@@ -352,7 +352,7 @@ function JoinPatterns() {
 
   {
     // Join patterns are indeed a generalization of `zip`, and `zip` is equivalent to a single-rule join pattern. The following `Observable`s have the same output:
-    let a = Bacon.once("a"),
+    var a = Bacon.once("a"),
       b = Bacon.once("b"),
       c = Bacon.once("c"),
       f = (a:string, b:string, c:string) => `a = ${a}; b = ${b}; c = ${c}.`;
@@ -361,7 +361,7 @@ function JoinPatterns() {
   }
   {
     // The inputs to `Bacon.update` are defined like this:
-    let initial = 0,
+    var initial = 0,
       x = Bacon.interval(1e3, 1),
       y = Bacon.interval(2e3, 1),
       z = Bacon.interval(1.5e3, 1);
@@ -374,7 +374,7 @@ function JoinPatterns() {
   }
   {
     // Here's a simple gaming example:
-    let scoreMultiplier = Bacon.constant(1),
+    var scoreMultiplier = Bacon.constant(1),
       hitUfo = new Bacon.Bus(),
       hitMotherShip = new Bacon.Bus(),
       score = Bacon.update(0,
