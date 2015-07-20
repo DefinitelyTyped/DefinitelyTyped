@@ -1020,6 +1020,9 @@ result = <boolean>_.isUndefined(void 0);
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 
+result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
+result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
+
 var mergeNames = {
     'stooges': [
         { 'name': 'moe' },
@@ -1091,7 +1094,29 @@ result = <{ a: number; b: number; c: number; }>_.transform(<{ [index: string]: n
     r[key] = num * 3;
 });
 
-result = <number[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
+// _.values
+class TestValues {
+    public a = 1;
+    public b = 2;
+    public c: string;
+}
+TestValues.prototype.c = 'a';
+result = <number[]>_.values<number>(new TestValues());
+// → [1, 2] (iteration order is not guaranteed)
+result = <number[]>_(new TestValues()).values<number>().value();
+// → [1, 2] (iteration order is not guaranteed)
+
+// _.valueIn
+class TestValueIn {
+    public a = 1;
+    public b = 2;
+    public c: number;
+}
+TestValueIn.prototype.c = 3;
+result = <number[]>_.valuesIn<number>(new TestValueIn());
+// → [1, 2, 3]
+result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
+// → [1, 2, 3]
 
 /**********
 * Utilities *

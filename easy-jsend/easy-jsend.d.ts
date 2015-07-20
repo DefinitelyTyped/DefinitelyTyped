@@ -27,7 +27,7 @@ declare module Express {
     export interface Response {
         success (data?: any, status?: number): void;
         fail (data: any, status?: number): void;
-        error (err: any): void;
+        error (err: any, status?: number): void;
         partial? (data: PartialInput, status?: number): void;
         makePartial? (data: MakePartialInput): void;
     }
