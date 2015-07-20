@@ -30,8 +30,7 @@ THE SOFTWARE.
 declare module google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
-        constructor(mapDiv: Element, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds): void;
+        constructor(mapDiv: Element, opts?: MapOptions);fitBounds(bounds: LatLngBounds): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -118,11 +117,11 @@ declare module google.maps {
     }
 
     export interface PanControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface RotateControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface ScaleControlOptions {
@@ -134,7 +133,7 @@ declare module google.maps {
     }
 
     export interface StreetViewControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface ZoomControlOptions {
@@ -827,11 +826,11 @@ declare module google.maps {
     }
 
     export interface GeocoderComponentRestrictions {
-        administrativeArea: string;
-        country: string;
-        locality: string;
-        postalCode:	string;
-        route: string;
+        administrativeArea?: string;
+        country?: string;
+        locality?: string;
+        postalCode?: string;
+        route?: string;
     }
 
     export enum GeocoderStatus {
@@ -1208,7 +1207,7 @@ declare module google.maps {
     
     export interface SaveWidgetOptions{
         attribution?: Attribution;
-        place?:	Place;
+        place?: Place;
     }
 
     /***** Map Types *****/
@@ -1534,7 +1533,7 @@ declare module google.maps {
     }
 
     export interface StreetViewAddressControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface StreetViewLink {
@@ -1960,7 +1959,7 @@ declare module google.maps {
         }
 
         export interface RadarSearchRequest {
-            bounds: LatLngBounds;
+            bounds?: LatLngBounds;
             keyword: string;
             location: LatLng|LatLngLiteral;
             name: string;
@@ -1985,7 +1984,7 @@ declare module google.maps {
         }
 
         export interface TextSearchRequest {
-            bounds: LatLngBounds;
+            bounds?: LatLngBounds;
             location: LatLng|LatLngLiteral;
             query: string;
             radius: number;

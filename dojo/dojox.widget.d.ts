@@ -23018,7 +23018,7 @@ declare module dojox {
          */
         class PortletSettings extends dijit._Container implements dijit.layout.ContentPane {
             constructor(params?: Object, srcNodeRef?: HTMLElement);
-            inherited: { (arguments: IArguments): any };
+            inherited: { (args: IArguments): any };
             /**
              * Custom press, release, and click synthetic events
              * which trigger on a left mouse click, touch, or space/enter keyup.

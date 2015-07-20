@@ -149,7 +149,6 @@ function BaseClassExtensions_Date_Tests() {
 }
 
 function BaseClassExtensions_Boolean_Tests() {
-
     Boolean.parse("false");
 }
 

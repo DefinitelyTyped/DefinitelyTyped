@@ -534,7 +534,7 @@ describe('dest stream', function () {
 
 
 
-// This test is from 
+// This test is from
 
 
 var chmodSpy = spies.chmodSpy;
