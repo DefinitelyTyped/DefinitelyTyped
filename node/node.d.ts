@@ -9,6 +9,14 @@
 *                                               *
 ************************************************/
 
+// compat for TypeScript 1.5.3
+// if you use with --target es3 or --target es5 and use below definitions,
+// use the lib.es6.d.ts that is bundled with TypeScript 1.5.3.
+interface MapConstructor {}
+interface WeakMapConstructor {}
+interface SetConstructor {}
+interface WeakSetConstructor {}
+
 /************************************************
 *                                               *
 *                   GLOBAL                      *
@@ -271,7 +279,7 @@ declare module NodeJS {
         Int8Array: typeof Int8Array;
         Intl: typeof Intl;
         JSON: typeof JSON;
-        Map: typeof Map;
+        Map: MapConstructor;
         Math: typeof Math;
         NaN: typeof NaN;
         Number: typeof Number;
@@ -280,7 +288,7 @@ declare module NodeJS {
         RangeError: typeof RangeError;
         ReferenceError: typeof ReferenceError;
         RegExp: typeof RegExp;
-        Set: typeof Set;
+        Set: SetConstructor;
         String: typeof String;
         Symbol: Function;
         SyntaxError: typeof SyntaxError;
@@ -290,8 +298,8 @@ declare module NodeJS {
         Uint32Array: typeof Uint32Array;
         Uint8Array: typeof Uint8Array;
         Uint8ClampedArray: Function;
-        WeakMap: typeof WeakMap;
-        WeakSet: Function;
+        WeakMap: WeakMapConstructor;
+        WeakSet: WeakSetConstructor;
         clearImmediate: (immediateId: any) => void;
         clearInterval: (intervalId: NodeJS.Timer) => void;
         clearTimeout: (timeoutId: NodeJS.Timer) => void;
