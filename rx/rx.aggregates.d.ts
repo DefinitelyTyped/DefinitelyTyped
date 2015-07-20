@@ -40,17 +40,9 @@ declare module Rx {
 		sequenceEqual(second: T[]): Observable<boolean>;
 
 		elementAt(index: number): Observable<T>;
-		elementAtOrDefault(index: number, defaultValue?: T): Observable<T>;
-
 		single(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
-		singleOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
-
 		first(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
-		firstOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
-
 		last(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
-		lastOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
-
 		find(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		findIndex(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
 	}
