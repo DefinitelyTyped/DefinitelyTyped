@@ -223,7 +223,6 @@ declare module angular {
         // returned interface by the the mocked HttpBackendService expect/when methods
         interface IRequestHandler {
             respond(func: (method: string, url?: string, data?: any, headers?: any) => any[]): IRequestHandler;
-            respond(func: (method: string, url?: string, data?: any, headers?: (headers: any) => boolean) => any[]): IRequestHandler;
             respond(status: number, data?: any, headers?: any, statusText?: string): IRequestHandler;
             respond(data: any, headers?: any, statusText?: string): IRequestHandler;
 
