@@ -330,7 +330,7 @@ function Errors() {
     return Bacon.retry({
       source: () => ajaxCall(url),
       retries: 5,
-      isRetryable: error => error.status !== 404,
+      isRetryable: (error:JQueryXHR) => error.status !== 404,
       delay: context => 100 // Just use the same delay always
     });
   });
