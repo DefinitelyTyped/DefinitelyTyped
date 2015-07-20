@@ -1,5 +1,4 @@
 ///<reference path="pixi.d.ts"/>
-///<reference path="webgl.d.ts"/>
 
 function PixiTests()
 {

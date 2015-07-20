@@ -62,12 +62,12 @@ interface SqlTransaction {
      * @param sql SQL statement to execute.
      * @param arguments SQL stetement arguments.
      * @param successCallback Called in case of query has been successfully done.
-     * @param errorCallback   Called, when query fails.
+     * @param errorCallback   Called, when query fails. Return false to continue transaction; true or no return to rollback.
      */
     executeSql(sql: string,
         arguments?: any[],
         successCallback?: (transaction: SqlTransaction, resultSet: SqlResultSet) => void,
-        errorCallback?: (transaction: SqlTransaction, error: SqlError) => void): void;
+        errorCallback?: (transaction: SqlTransaction, error: SqlError) => any): void;
 }
 
 declare var SqlTransaction: {

@@ -719,9 +719,9 @@ declare class Callout {
     /** Re-renders the actions menu. Call after the actions menu is changed. */
     refreshActions(): void;
     /** Display the callout. Animation can be used only for IE9+ */
-    open(useAnimation: boolean);
+    open(useAnimation?: boolean);
     /** Hide the callout. Animation can be used only for IE9+ */
-    close(useAnimation: boolean);
+    close(useAnimation?: boolean);
     /** Display if hidden, hide if shown. */
     toggle(): void;
     /** Do not call this directly. Instead, use CalloutManager.remove */
@@ -4441,7 +4441,7 @@ declare module SP {
         get_id(): number;
         get_information(): SP.TimeZoneInformation;
         localTimeToUTC(date: Date): SP.DateTimeResult;
-        uTCToLocalTime(date: Date): SP.DateTimeResult;
+        utcToLocalTime(date: Date): SP.DateTimeResult;
     }
     export class TimeZoneCollection extends SP.ClientObjectCollection<TimeZone> {
         itemAt(index: number): SP.TimeZone;

@@ -4,10 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-
+/// <reference path="../bunyan/bunyan.d.ts" />
 
 declare module "restify" {
   import http = require('http');
+  import bunyan = require('bunyan');
 
 
   interface addressInterface {
@@ -24,7 +25,7 @@ declare module "restify" {
     contentLength: number;
     contentType: string;
     href: () => string;
-    log: Object;
+    log: bunyan.Logger;
     id: string;
     path: () => string;
     query: any;
@@ -33,6 +34,7 @@ declare module "restify" {
     params: any;
 
     body?: any; //available when bodyParser plugin is used
+    isSecure: () => boolean;
   }
 
   interface Response extends http.ServerResponse {
@@ -43,10 +45,9 @@ declare module "restify" {
     json: (status?: any, body?: any) => any;
     code: number;
     contentLength: number;
-    charSet: string;
+    charSet(value: string): void;
     contentType: string;
     headers: Object;
-    statusCode: number;
     id: string;
   }
 
@@ -95,6 +96,7 @@ declare module "restify" {
     listen(... args: any[]): any;
     close(... args: any[]): any;
     pre(routeCallBack: RequestHandler): any;
+    server: http.Server;
 
   }
 
@@ -177,23 +179,68 @@ declare module "restify" {
   export function createStringClient(options?: ClientOptions): Client;
   export function createClient(options?: ClientOptions): HttpClient;
 
-  export class ConflictError { constructor(message?: any); }
-  export class InvalidArgumentError { constructor(message?: any); }
-  export class RestError { constructor(message?: any); }
-  export class BadDigestError { constructor(message: any); }
-  export class BadMethodError { constructor(message: any); }
-  export class BadRequestError { constructor(message: any); }
-  export class InternalError { constructor(message: any); }
-  export class InvalidContentError { constructor(message: any); }
-  export class InvalidCredentialsError { constructor(message: any); }
-  export class InvalidHeaderError { constructor(message: any); }
-  export class InvalidVersionError { constructor(message: any); }
-  export class MissingParameterError { constructor(message: any); }
-  export class NotAuthorizedError { constructor(message: any); }
-  export class RequestExpiredError { constructor(message: any); }
-  export class RequestThrottledError { constructor(message: any); }
-  export class ResourceNotFoundError { constructor(message: any); }
-  export class WrongAcceptError { constructor(message: any); }
+  export class HttpError { constructor(cause: any, message?: any); }
+
+  class DefiniteHttpError {
+    constructor(message?: any);
+    constructor(cause: any, message?: any);
+  }
+
+  export class BadRequestError extends DefiniteHttpError {}
+  export class UnauthorizedError extends DefiniteHttpError {}
+  export class PaymentRequiredError extends DefiniteHttpError {}
+  export class ForbiddenError extends DefiniteHttpError {}
+  export class NotFoundError extends DefiniteHttpError {}
+  export class MethodNotAllowedError extends DefiniteHttpError {}
+  export class NotAcceptableError extends DefiniteHttpError {}
+  export class ProxyAuthenticationRequiredError extends DefiniteHttpError {}
+  export class RequestTimeoutError extends DefiniteHttpError {}
+  export class ConflictError extends DefiniteHttpError {}
+  export class GoneError extends DefiniteHttpError {}
+  export class LengthRequiredError extends DefiniteHttpError {}
+  export class RequestEntityTooLargeError extends DefiniteHttpError {}
+  export class RequesturiTooLargeError extends DefiniteHttpError {}
+  export class UnsupportedMediaTypeError extends DefiniteHttpError {}
+  export class RequestedRangeNotSatisfiableError extends DefiniteHttpError {}
+  export class ExpectationFailedError extends DefiniteHttpError {}
+  export class ImATeapotError extends DefiniteHttpError {}
+  export class UnprocessableEntityError extends DefiniteHttpError {}
+  export class LockedError extends DefiniteHttpError {}
+  export class FailedDependencyError extends DefiniteHttpError {}
+  export class UnorderedCollectionError extends DefiniteHttpError {}
+  export class UpgradeRequiredError extends DefiniteHttpError {}
+  export class PreconditionRequiredError extends DefiniteHttpError {}
+  export class TooManyRequestsError extends DefiniteHttpError {}
+  export class RequestHeaderFieldsTooLargeError extends DefiniteHttpError {}
+  export class InternalServerError extends DefiniteHttpError {}
+  export class NotImplementedError extends DefiniteHttpError {}
+  export class BadGatewayError extends DefiniteHttpError {}
+  export class ServiceUnavailableError extends DefiniteHttpError {}
+  export class GatewayTimeoutError extends DefiniteHttpError {}
+  export class HttpVersionNotSupportedError extends DefiniteHttpError {}
+  export class VariantAlsoNegotiatesError extends DefiniteHttpError {}
+  export class InsufficientStorageError extends DefiniteHttpError {}
+  export class BandwidthLimitExceededError extends DefiniteHttpError {}
+  export class NotExtendedError extends DefiniteHttpError {}
+  export class NetworkAuthenticationRequiredError extends DefiniteHttpError {}
+  export class RestError extends DefiniteHttpError {}
+
+  export class PreconditionFailedError extends RestError {}
+  export class BadDigestError extends RestError {}
+  export class BadMethodError extends RestError {}
+  export class InternalError extends RestError {}
+  export class InvalidArgumentError extends RestError {}
+  export class InvalidContentError extends RestError {}
+  export class InvalidCredentialsError extends RestError {}
+  export class InvalidHeaderError extends RestError {}
+  export class InvalidVersionError extends RestError {}
+  export class MissingParameterError extends RestError {}
+  export class NotAuthorizedError extends RestError {}
+  export class RequestExpiredError extends RestError {}
+  export class RequestThrottledError extends RestError {}
+  export class ResourceNotFoundError extends RestError {}
+  export class WrongAcceptError extends RestError {}
+
 
   export function acceptParser(parser: any): RequestHandler;
   export function authorizationParser(): RequestHandler;
@@ -211,7 +258,7 @@ declare module "restify" {
   export function fullResponse(): RequestHandler;
   export var defaultResponseHeaders : any;
   export var CORS: CORS;
-  
+
   export module pre {
       export function pause(): RequestHandler;
       export function sanitizePath(options?: any): RequestHandler;

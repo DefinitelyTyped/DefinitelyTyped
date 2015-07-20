@@ -24,6 +24,18 @@ function test_context() {
     });
 }
 
+function test_suite() {
+    suite('some context', () => { });
+
+    suite.only('some context', () => { });
+
+    suite.skip('some context', () => { });
+
+    suite('some context', function() {
+        this.timeout(2000);
+    });
+}
+
 function test_it() {
 
     it('does something', () => { });
@@ -35,6 +47,21 @@ function test_it() {
     it.skip('does something', () => { });
 
     it('does something', function () {
+        this.timeout(2000);
+    });
+}
+
+function test_test() {
+
+    test('does something', () => { });
+
+    test('does something', (done) => { done(); });
+
+    test.only('does something', () => { });
+
+    test.skip('does something', () => { });
+
+    test('does something', function () {
         this.timeout(2000);
     });
 }
@@ -166,4 +193,59 @@ function test_chaining(){
         .growl()
         .reporter('html')
         .reporter(function(){});
+}
+
+import MochaDef = require('mocha');
+
+function test_require_constructor_empty() {
+    var instance = new MochaDef();
+}
+
+function test_require_constructor_noOptions() {
+    var instance = new MochaDef({});
+}
+
+function test_require_constructor_allOptions() {
+    var instance = new MochaDef({
+        grep: /[a-z]*/,
+        ui: 'tdd',
+        reporter: 'dot',
+        timeout: 500,
+        bail: true
+    });
+}
+
+
+function test_require_fluentParams() {
+    var instance = new MochaDef();
+
+    instance.bail(true)
+        .bail()
+        .addFile('foo.js')
+        .reporter('bdd')
+        .ui('dot')
+        .grep('[a-z]*')
+        .grep(/[a-z]*/)
+        .invert()
+        .ignoreLeaks(true)
+        .checkLeaks()
+        .growl()
+        .globals('foo')
+        .globals(['bar', 'zap'])
+        .useColors(true)
+        .useInlineDiffs(true)
+        .timeout(500)
+        .slow(100)
+        .enableTimeouts(true)
+        .asyncOnly(false)
+        .noHighlighting(true)
+        .run();
+}
+
+function test_run_withOnComplete() {
+    var instance = new MochaDef();
+
+    instance.run((failures: number): void => {
+        console.log(failures);
+    });
 }

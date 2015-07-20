@@ -1,7 +1,7 @@
 // Type definitions for Knockout.Mapper 
 // Project: https://github.com/LucasLorentz/knockout.mapper
 // Definitions by: Brandon Meyer <https://github.com/BMeyerKC>
-// Definitions https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 

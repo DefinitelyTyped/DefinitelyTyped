@@ -1,5 +1,6 @@
 // Type definitions for Mixpanel
-// Project: https://mixpanel.com/ (https://github.com/mixpanel/mixpanel-js)
+// Project: https://mixpanel.com/
+//          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -7,7 +8,7 @@ interface Mixpanel
 {
     people:Mixpanel.People;
 
-    init(token:string, config:{[index:string]:any}, libraryName:string):Mixpanel;
+    init(token:string, config?:{[index:string]:any}, libraryName?:string):Mixpanel;
 
     push(item:any[]):void;
 
@@ -25,7 +26,7 @@ interface Mixpanel
 
     unregister(propertyName:string):void;
 
-    identify(id:string):void;
+    identify(id?:string):void;
 
     get_distinct_id():string;
 

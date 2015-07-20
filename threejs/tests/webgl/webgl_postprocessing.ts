@@ -13,6 +13,7 @@
     function init() {
 
         renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
@@ -79,8 +80,6 @@
     function animate() {
 
         requestAnimationFrame(animate);
-
-        var time = Date.now();
 
         object.rotation.x += 0.005;
         object.rotation.y += 0.01;

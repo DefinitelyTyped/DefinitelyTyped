@@ -1,5 +1,7 @@
 # DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
 
+[![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > The repository for *high quality* TypeScript type definitions.
 
 For more information see the [definitelytyped.org](http://definitelytyped.org) website.
@@ -30,7 +32,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 ## Requested definitions
 
-Here is an updated list of [definitions people have requested](https://github.com/borisyankov/DefinitelyTyped/issues?labels=Definition%3ARequest).
+Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
 
 ## Licence
 

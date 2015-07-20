@@ -120,6 +120,11 @@ function test_ajax() {
         alert("Data Saved: " + msg);
     });
     $.ajax({
+        method: "POST",
+        url: "some.php",
+        data: { name: "John", location: "Boston" }
+    });
+    $.ajax({
         url: "test.html",
         cache: false
     }).done(function (html) {
@@ -153,6 +158,52 @@ function test_ajax() {
         url: "test.js",
         dataType: "script"
     });
+
+    // Test the jqXHR object returned by $.ajax() as of 1.5
+    // More details: http://api.jquery.com/jQuery.ajax/#jqXHR
+
+    // done method
+    $.ajax({
+        url: "test.js"
+    }).done((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // fail method
+    $.ajax({
+        url: "test.js"
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // always method with successful request
+    $.ajax({
+        url: "test.js"
+    }).always((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // always method with failed request
+    $.ajax({
+        url: "test.js"
+    }).always((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // then method (as of 1.8)
+    $.ajax({
+        url: "test.js"
+    }).then((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    }, (jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // jqXHR object
+    var jqXHR = $.ajax({
+        url: "test.js"
+    });
+    jqXHR.abort('aborting because I can');
 }
 
 function test_ajaxComplete() {
@@ -730,7 +781,7 @@ function test_callbacksFunctions() {
     callbacks.add(bar);
     callbacks.fire('world');
     callbacks.disable();
-    
+
     // Test the disabled state of the list
     console.log(callbacks.disabled());
     // Outputs: true
@@ -1447,6 +1498,9 @@ function test_eventParams() {
     });
     $('#whichkey').bind('mousedown', function (e) {
         $('#log').html(e.type + ': ' + e.which);
+    });
+    $(window).on('mousewheel', (e) => {
+        var delta = (<WheelEvent>e.originalEvent).deltaY;
     });
 }
 
@@ -2412,7 +2466,7 @@ function test_isNumeric() {
     $.isNumeric("8e5");
     $.isNumeric(3.1415);
     $.isNumeric(+10);
-    $.isNumeric(0144);
+    $.isNumeric(144);
     $.isNumeric("");
     $.isNumeric({});
     $.isNumeric(NaN);
@@ -2462,10 +2516,10 @@ function test_jQuery() {
     $foo.triggerHandler('eventName');
     $("div > p").css("border", "1px solid gray");
     $("input:radio", document.forms[0]);
-	var xml: any;
+    var xml: any;
     $("div", xml.responseXML);
     $(document.body).css("background", "black");
-	var myForm: any;
+    var myForm: any;
     $(myForm.elements).hide();
     $('<p id="test">My <em>new</em> text</p>').appendTo('body');
     $('<img />');
@@ -2488,6 +2542,10 @@ function test_jQuery() {
         }
     }).appendTo("body");
     jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
+    jQuery(document).ready(function ($) {
+        // Your code using failsafe $ alias here...
     });
 }
 
@@ -2994,7 +3052,7 @@ function test_merge() {
     var first = ['a', 'b', 'c'];
     var second = ['d', 'e', 'f'];
     $.merge($.merge([], first), second);
-    var z = $.merge([0, 1, 2], ['a', 'b', 'c']);
+    var z = $.merge<any>([0, 1, 2], ['a', 'b', 'c']);
 }
 
 function test_prop() {
@@ -3163,7 +3221,7 @@ function test_EventIsCallable() {
 }
 
 $.when<any>($.ajax("/my/page.json")).then(a => a.asdf); // is type JQueryPromise<any>
-$.when($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
+$.when<any>($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
 $.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
 
 var f1 = $.when("fetch"); // Is type JQueryPromise<string>
@@ -3296,3 +3354,53 @@ function test_deferred_promise() {
         );
 }
 
+function test_promise_then_change_type() {
+	function request() {
+		var def = $.Deferred<any>();
+		var promise = def.promise(null);
+
+		def.rejectWith(this, new Error());
+
+		return promise;
+	}
+
+	function count() {
+		var def = request();
+		return def.then<number>(data => {
+			try {
+				var count: number = parseInt(data.count, 10);
+			} catch (err) {
+				return $.Deferred<number>().reject(err).promise();
+			}
+			return $.Deferred<number>().resolve(count).promise();
+		});
+	}
+
+	count().done(data => {
+	}).fail((exception: Error) => {
+	});
+}
+
+function test_promise_then_not_return_deferred() {
+  var state: string;
+
+  var deferred: JQueryDeferred<any> = $.Deferred();
+  state = deferred.state();
+  deferred = deferred.progress();
+  deferred = deferred.done();
+  deferred = deferred.fail();
+  deferred = deferred.always();
+  deferred = deferred.notify();
+  deferred = deferred.resolve();
+  deferred = deferred.reject();
+  promise = deferred.promise();
+  promise = deferred.then(function () { });
+
+  var promise: JQueryPromise<any> = $.Deferred().promise();
+  state = promise.state();
+  promise = promise.then(function () { });
+  promise = promise.progress();
+  promise = promise.done();
+  promise = promise.fail();
+  promise = promise.always();
+}

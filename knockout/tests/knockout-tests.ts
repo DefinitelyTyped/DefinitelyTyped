@@ -72,7 +72,7 @@ function test_computed() {
         this.acceptedNumericValue = ko.observable(123);
         this.lastInputWasValid = ko.observable(true);
 
-        this.attemptedValue = ko.computed({
+        this.attemptedValue = ko.computed<number>({
             read: this.acceptedNumericValue,
             write: function (value) {
                 if (isNaN(value))
@@ -163,6 +163,7 @@ function test_bindings() {
 
     ko.bindingHandlers.yourBindingName = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        	return { "controlsDescendantBindings": true };
         },
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         }
@@ -284,7 +285,7 @@ function test_more() {
     };
 
     ko.extenders.numeric = function (target, precision) {
-        var result = ko.computed({
+        var result = ko.computed<any>({
             read: target,
             write: function (newValue) {
                 var current = target(),
@@ -581,4 +582,76 @@ function test_misc() {
 		}
 	}
 	
+}
+
+interface KnockoutBindingHandlers {
+    allBindingsAccessorTest: KnockoutBindingHandler;
+}
+
+function test_allBindingsAccessor() {
+    ko.bindingHandlers.allBindingsAccessorTest = {
+        init: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        },
+        update: (element: any, valueAccessor: () => any, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: any, bindingContext: KnockoutBindingContext) => {
+            var allBindings = allBindingsAccessor();
+            var hasBinding = allBindingsAccessor.has("myBindingName");
+            var myBinding = allBindingsAccessor.get("myBindingName");
+            var fnAccessorBinding = allBindingsAccessor().myBindingName;
+        }
+    };
+}
+
+
+function test_Components() {
+
+    // test all possible ko.components.register() overloads
+    function test_Register() {
+        // reused parameters
+        var nodeArray = [new Node, new Node];
+        var singleNode = new Node;
+        var viewModelFn = function (params: any) { return <any>null; }
+
+        // ------- viewmodel overloads:
+
+        // viewModel as inline function (commonly used in examples)
+        ko.components.register("name", { template: "string-template", viewModel: viewModelFn });
+
+        // viewModel from shared instance
+        ko.components.register("name", { template: "string-template", viewModel: { instance: null } });
+
+        // viewModel from createViewModel factory method
+        ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params: any, componentInfo: KnockoutComponentTypes.ComponentInfo) { return null; } } });
+
+        // viewModel from an AMD module 
+        ko.components.register("name", { template: "string-template", viewModel: { require: "module" } });
+
+        // ------- template overloads
+
+        // template from named element
+        ko.components.register("name", { template: { element: "elementID" }, viewModel: viewModelFn });
+        
+        // template using single Node
+        ko.components.register("name", { template: { element: singleNode }, viewModel: viewModelFn });
+        
+        // template using Node array
+        ko.components.register("name", { template: nodeArray, viewModel: viewModelFn });
+        
+        // template using an AMD module 
+        ko.components.register("name", { template: { require: "text!module" }, viewModel: viewModelFn });
+
+        // Empty config for registering custom elements that are handled by name convention
+        ko.components.register('name', { /* No config needed */ });
+    }
+}
+
+
+function testUnwrapUnion() {
+    
+    var possibleObs: KnockoutObservable<number> | number;
+    var num = ko.unwrap(possibleObs);
+
 }

@@ -19,7 +19,16 @@ declare module Microsoft.WindowsAzure {
         logout(): void;
         getTable(tableName: string): MobileServiceTable;
         withFilter(serviceFilter: (request: any, next: (request: any, callback: (error:any, response: any) => void ) => void, callback: (error: any, response: any) => void ) => void ) : MobileServiceClient;
+        invokeApi(apiName: string, options?:InvokeApiOptions): asyncPromise;
     }
+    
+    interface InvokeApiOptions
+	{
+		method?: string;
+		body?: any;
+		headers?: Object;
+		parameters?: Object;
+	}
     
     // User object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554220.aspx
     interface User {
@@ -42,21 +51,21 @@ declare module Microsoft.WindowsAzure {
         getTableName(): string;
         getMobileServiceClient(): MobileServiceClient;
 
-        insert(istance: any, paramsQS: Object, callback: (error: any, retInserted: any) => any): void;
-        insert(istance: any, paramsQS: Object): asyncPromise;
-        insert(istance: any): asyncPromise;
+        insert(instance: any, paramsQS: Object, callback: (error: any, retInserted: any) => any): void;
+        insert(instance: any, paramsQS: Object): asyncPromise;
+        insert(instance: any): asyncPromise;
 
-        update(istance: any, paramsQS: Object, callback: (error: any, retUpdated: any) => any): void;
-        update(istance: any, paramsQS: Object): asyncPromise;
-        update(istance: any): asyncPromise;
+        update(instance: any, paramsQS: Object, callback: (error: any, retUpdated: any) => any): void;
+        update(instance: any, paramsQS: Object): asyncPromise;
+        update(instance: any): asyncPromise;
 
         lookup(id: number, paramsQS: Object, callback: (error: any, retValue: any) => any): void;
         lookup(id: number, paramsQS: Object): asyncPromise;
         lookup(id: number): asyncPromise;
 
-        del(istance: any, paramsQS: Object, callback: (error?: any) => void ): void;
-        del(istance: any, paramsQS: Object): asyncPromise;
-        del(istance: any): asyncPromise;
+        del(instance: any, paramsQS: Object, callback: (error?: any) => void ): void;
+        del(instance: any, paramsQS: Object): asyncPromise;
+        del(instance: any): asyncPromise;
 
 
         read(query: IQuery, paramsQS: Object, callback: (error: any, retValues: any) => any): void;
