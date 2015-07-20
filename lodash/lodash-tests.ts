@@ -1092,7 +1092,17 @@ result = <{ a: number; b: number; c: number; }>_.transform(<{ [index: string]: n
     r[key] = num * 3;
 });
 
-result = <number[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
+// _.values
+class TestValues {
+    public a = 1;
+    public b = 2;
+    public c: string;
+}
+TestValues.prototype.c = 'a';
+result = <number[]>_.values<number>(new TestValues());
+// → [1, 2] (iteration order is not guaranteed)
+result = <number[]>_(new TestValues()).values<number>().value();
+// → [1, 2] (iteration order is not guaranteed)
 
 // _.valueIn
 class TestValueIn {
