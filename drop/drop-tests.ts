@@ -25,10 +25,10 @@ d.destroy();
 d.element.appendChild(document.createElement("div"));
 d.tether.position();
 
-d.on("open", () => null);
-d.on("close", () => null);
-d.once("close", () => null);
-d.off("close", () => null);
+d.on("open", () => false);
+d.on("close", () => false);
+d.once("close", () => false);
+d.off("close", () => false);
 d.off("open");
 
 var e = new Drop({
