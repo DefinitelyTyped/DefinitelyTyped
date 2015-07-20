@@ -389,7 +389,7 @@ declare module Bacon {
    * @constant
    * @description The opaque value `sink` function may return. See [Bacon.fromBinder]{@link Bacon.fromBinder}.
    */
-  const more:More;
+  var more:More;
 
   /**
    * @interface
@@ -402,7 +402,7 @@ declare module Bacon {
    * @constant
    * @description The opaque value `sink` function may return. See [Bacon.fromBinder]{@link Bacon.fromBinder}.
    */
-  const noMore:NoMore;
+  var noMore:NoMore;
 
   /**
    * @class Observable
