@@ -7,6 +7,8 @@
 ///<reference path='../react/react-addons.d.ts' />
 
 declare module ReactRouter {
+    import React = __React;
+
     //
     // Transition
     // ----------------------------------------------------------------------
@@ -276,42 +278,43 @@ declare module "react-router" {
     export = ReactRouter;
 }
 
-declare module React {
+declare module __React {
+
   // for DefaultRoute
   function createElement(
     type: ReactRouter.DefaultRouteClass,
     props: ReactRouter.DefaultRouteProp,
-    ...children: React.ReactNode[]): ReactRouter.DefaultRoute;
+    ...children: __React.ReactNode[]): ReactRouter.DefaultRoute;
 
   // for Link
   function createElement(
     type: ReactRouter.LinkClass,
     props: ReactRouter.LinkProp,
-    ...children: React.ReactNode[]): ReactRouter.Link;
+    ...children: __React.ReactNode[]): ReactRouter.Link;
 
   // for NotFoundRoute
   function createElement(
     type: ReactRouter.NotFoundRouteClass,
     props: ReactRouter.NotFoundRouteProp,
-    ...children: React.ReactNode[]): ReactRouter.NotFoundRoute;
+    ...children: __React.ReactNode[]): ReactRouter.NotFoundRoute;
 
   // for Redirect
   function createElement(
     type: ReactRouter.RedirectClass,
     props: ReactRouter.RedirectProp,
-    ...children: React.ReactNode[]): ReactRouter.Redirect;
+    ...children: __React.ReactNode[]): ReactRouter.Redirect;
 
   // for Route
   function createElement(
     type: ReactRouter.RouteClass,
     props: ReactRouter.RouteProp,
-    ...children: React.ReactNode[]): ReactRouter.Route;
+    ...children: __React.ReactNode[]): ReactRouter.Route;
 
   // for RouteHandler
   function createElement(
     type: ReactRouter.RouteHandlerClass,
     props: ReactRouter.RouteHandlerProp,
-    ...children: React.ReactNode[]): ReactRouter.RouteHandler;
+    ...children: __React.ReactNode[]): ReactRouter.RouteHandler;
 }
 
 declare module "react/addons" {
@@ -319,35 +322,35 @@ declare module "react/addons" {
   function createElement(
     type: ReactRouter.DefaultRouteClass,
     props: ReactRouter.DefaultRouteProp,
-    ...children: React.ReactNode[]): ReactRouter.DefaultRoute;
+    ...children: __React.ReactNode[]): ReactRouter.DefaultRoute;
 
   // for Link
   function createElement(
     type: ReactRouter.LinkClass,
     props: ReactRouter.LinkProp,
-    ...children: React.ReactNode[]): ReactRouter.Link;
+    ...children: __React.ReactNode[]): ReactRouter.Link;
 
   // for NotFoundRoute
   function createElement(
     type: ReactRouter.NotFoundRouteClass,
     props: ReactRouter.NotFoundRouteProp,
-    ...children: React.ReactNode[]): ReactRouter.NotFoundRoute;
+    ...children: __React.ReactNode[]): ReactRouter.NotFoundRoute;
 
   // for Redirect
   function createElement(
     type: ReactRouter.RedirectClass,
     props: ReactRouter.RedirectProp,
-    ...children: React.ReactNode[]): ReactRouter.Redirect;
+    ...children: __React.ReactNode[]): ReactRouter.Redirect;
 
   // for Route
   function createElement(
     type: ReactRouter.RouteClass,
     props: ReactRouter.RouteProp,
-    ...children: React.ReactNode[]): ReactRouter.Route;
+    ...children: __React.ReactNode[]): ReactRouter.Route;
 
   // for RouteHandler
   function createElement(
     type: ReactRouter.RouteHandlerClass,
     props: ReactRouter.RouteHandlerProp,
-    ...children: React.ReactNode[]): ReactRouter.RouteHandler;
+    ...children: __React.ReactNode[]): ReactRouter.RouteHandler;
 }
