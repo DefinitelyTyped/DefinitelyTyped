@@ -297,7 +297,7 @@ requestHandler = httpBackendService.whenPUT(/test.local/, { key: 'value' }, { he
 // IRequestHandler
 ///////////////////////////////////////
 requestHandler.passThrough();
-requestHandler.respond(function () { });
+requestHandler.respond(function (method, url, data, headers) { return [200, {}, {}, 'success']; });
 requestHandler.respond({ key: 'value' });
 requestHandler.respond({ key: 'value' }, { header: 'value' });
 requestHandler.respond(404);
