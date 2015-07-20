@@ -117,7 +117,7 @@ declare module Bacon {
    *   alert("Bacon!");
    * });
    */
-  function fromEvent<E, A>(target:EventTarget|NodeJS.EventEmitter, eventName:string):EventStream<E, A>;
+  function fromEvent<E, A>(target:EventTarget|NodeJS.EventEmitter|JQuery, eventName:string):EventStream<E, A>;
 
   /**
    * @callback Bacon.fromEvent~eventTransformer
@@ -136,7 +136,7 @@ declare module Bacon {
    *   alert("Bacon!");
    * });
    */
-  function fromEvent<E, A, B>(target:EventTarget|NodeJS.EventEmitter, eventName:string, eventTransformer:(event:A) => B):EventStream<E, B>;
+  function fromEvent<E, A, B>(target:EventTarget|NodeJS.EventEmitter|JQuery, eventName:string, eventTransformer:(event:A) => B):EventStream<E, B>;
 
   /**
    * @callback Bacon.fromCallback1~f
