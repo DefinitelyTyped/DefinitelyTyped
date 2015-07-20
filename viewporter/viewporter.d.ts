@@ -1,6 +1,6 @@
 // Type definitions for Zynga Viewporter v2.1
 // Project: https://github.com/zynga/viewporter
-// Definitions by: Boris Yankov https://github.com/borisyankov
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Viewporter {

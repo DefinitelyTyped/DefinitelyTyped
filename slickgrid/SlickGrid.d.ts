@@ -424,7 +424,7 @@ declare module Slick {
 		/**
 		* The editor for cell edits {TextEditor, IntegerEditor, DateEditor...} See slick.editors.js
 		**/
-		editor?: Editors.Editor<T>;
+		editor?: any; // typeof Editors.Editor<T>;
 
 		/**
 		* The property name in the data object to pull content from. (This is assumed to be on the root of the data object.)
@@ -1172,7 +1172,7 @@ declare module Slick {
 		public updateCell(row: number, cell: number): void;
 		public updateRow(row: number): void;
 		public getViewport(viewportTop?: number, viewportLeft?: number): Viewport;
-		public getRenderedRange(viewportTop: number, viewportLeft: number): Viewport;
+		public getRenderedRange(viewportTop?: number, viewportLeft?: number): Viewport;
 		public resizeCanvas(): void;
 		public updateRowCount(): void;
 		public scrollRowIntoView(row: number, doPaging: boolean): void;
@@ -1186,7 +1186,7 @@ declare module Slick {
 		// #region Editors
 
 		public getEditorLock(): EditorLock<any>;
-		public getEditController(): Editors.Editor<any>;
+		public getEditController(): { commitCurrentEdit():boolean; cancelCurrentEdit():boolean; };
 
 		// #endregion Editors
 	}
@@ -1333,7 +1333,7 @@ declare module Slick {
 
 	// todo: merge with existing column definition
 	export interface Column<T extends SlickData> {
-		sortCol?: string;
+		sortCol?: Column<T>;
 		sortAsc?: boolean;
 	}
 
@@ -1500,8 +1500,9 @@ declare module Slick {
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
 			public reSort(): void;
+			public setGrouping(groupingInfos: GroupingOptions<T>[]): void;
 			public setGrouping(groupingInfo: GroupingOptions<T>): void;
-			public getGrouping(): GroupingOptions<T>;
+			public getGrouping(): GroupingOptions<T>[];
 
 			/**
 			* @deprecated
@@ -1539,7 +1540,7 @@ declare module Slick {
 			*/
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
-			public getIdxById(): string;
+			public getIdxById(id: string): number;
 			public getRowById(): T;
 			public getItemById(id: any): T;
 			public getItemByIdx(): T;
@@ -1556,7 +1557,7 @@ declare module Slick {
 
 			public getLength(): number;
 			public getItem(index: number): T;
-			public getItemMetadata(): void;
+			public getItemMetadata(index?: number): void;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
 			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;
@@ -1595,7 +1596,7 @@ declare module Slick {
 			// empty
 		}
 		export interface OnRowsChangedEventData {
-			// empty
+			rows: number[];
 		}
 		export interface OnPagingInfoChangedEventData extends PagingOptions {
 

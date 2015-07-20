@@ -2816,7 +2816,6 @@ declare module Sys {
             //#endregion
 			
             //#region Properties
-
             /**
             * Gets the HTML Document Object Model (DOM) element that the current Sys.UI.Control object is associated with.
             * @return The DOM element that the current Control object is associated with.

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module google.feeds {
-    export class feed {
+    export class Feed {
         constructor();
         constructor(url: string);
         findFeeds(query?: string, callback?: (result: findResult) => void ): void;

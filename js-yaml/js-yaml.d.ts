@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module 'js-yaml' {
+declare module jsyaml {
 	export function safeLoad(str: string, opts?: LoadOptions): any;
 	export function load(str: string, opts?: LoadOptions): any;
 
@@ -45,4 +45,8 @@ declare module 'js-yaml' {
 	export var DEFAULT_SAFE_SCHEMA: any;
 	// all supported YAML types.
 	export var DEFAULT_FULL_SCHEMA: any;
+}
+
+declare module 'js-yaml' {
+	export = jsyaml;
 }

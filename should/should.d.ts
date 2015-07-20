@@ -1,6 +1,6 @@
 // Type definitions for should.js 3.1.2
 // Project: https://github.com/visionmedia/should.js
-// Definitions by: Alex Varju <https://github.com/varju/> and Maxime LUCE <https://github.com/SomaticIT/> (1.3+)
+// Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface Object {
@@ -87,8 +87,8 @@ interface ShouldAssertion {
 
 interface ShouldInternal {
   // should.js's extras
-  exist(actual: any): void;
-  exists(actual: any): void;
+  exist(actual: any, msg?: string): void;
+  exists(actual: any, msg?: string): void;
   not: ShouldInternal;
 }
 
@@ -112,6 +112,10 @@ interface Internal extends ShouldInternal {
 }
 
 declare var should: Internal;
+declare var Should: Internal;
+interface Window {
+  Should: Internal;
+}
 
 declare module "should" {
   export = should;

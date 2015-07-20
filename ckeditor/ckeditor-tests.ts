@@ -252,3 +252,52 @@ function test_dom_window() {
     alert(size.width);
     alert(size.height);
 }
+
+function test_adding_dialog_by_path() {
+    CKEDITOR.dialog.add( 'abbrDialog', this.path + 'dialogs/abbr.js' );
+}
+
+function test_adding_dialog_by_definition() {
+    CKEDITOR.dialog.add( 'abbrDialog', function ( editor: CKEDITOR.editor ) {
+        return {
+            title: 'Abbreviation Properties',
+            minWidth: 400,
+            minHeight: 200,
+
+            contents: [
+                {
+                    id: 'tab-basic',
+                    label: 'Basic Settings',
+                    elements: <any[]>[]
+                },
+                {
+                    id: 'tab-adv',
+                    label: 'Advanced Settings',
+                    elements: []
+                }
+            ]
+        };
+    });
+}
+
+function test_adding_plugin() {
+    CKEDITOR.plugins.add( 'abbr', {
+        icons: 'abbr',
+        init: function( editor: CKEDITOR.editor ) {
+            // empty logic
+        }
+    });
+}
+
+function test_adding_widget() {
+    function wrapper(editor: CKEDITOR.editor) {
+            editor.widgets.add("widgetty", {
+            button: "Activate widgetty",
+            template: "<imaginary-element>",
+            dialog: "widgetty",
+            init: function() {
+                // no logic
+            }
+        });
+    }
+}

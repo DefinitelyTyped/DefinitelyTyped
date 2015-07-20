@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.9
+// Type definitions for jQuery UI Layout Plug-in
 // Project: http://layout.jquery-dev.net/
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -27,12 +27,12 @@ interface JQueryLayout {
     resizeContent(pane: any): any;
     resizeAll(): any;
 
-    addToggleBtn(selector: string, pane: any)
-    addCloseBtn(selector: string, pane: any)
-    addOpenBtn(selector: string, pane: any)
-    addPinBtn(selector: string, pane: any)
-    allowOverflow(elemOrPane: any)
-    resetOverflow(elemOrPane: any)
+    addToggleBtn(selector: string, pane: any): any;
+    addCloseBtn(selector: string, pane: any): any;
+    addOpenBtn(selector: string, pane: any): any;
+    addPinBtn(selector: string, pane: any): any;
+    allowOverflow(elemOrPane: any): any;
+    resetOverflow(elemOrPane: any): any;
 }
 
 interface JQuery {

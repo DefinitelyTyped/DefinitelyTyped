@@ -1,9 +1,9 @@
-/// <reference path="../jquery/jquery.d.ts" />
-
 // Type definitions for AmplifyJs 1.1.0
 // Project: http://amplifyjs.com/
 // Definitions by: Jonas Eriksson <https://github.com/joeriks/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface amplifyRequestSettings {
     resourceId: string;
@@ -50,7 +50,7 @@ interface amplifyRequest {
     *   success (optional): Function to invoke on success.
     *   error (optional): Function to invoke on error.
     */
-    (settings: amplifyRequestSettings);
+    (settings: amplifyRequestSettings): any;
 
     /***
     * Define a resource.
