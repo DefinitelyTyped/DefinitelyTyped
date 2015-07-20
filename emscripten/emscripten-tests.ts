@@ -50,7 +50,7 @@ function FSTest(): void {
     FS.symlink('file', 'link');
 
     FS.writeFile('forbidden', 'can\'t touch this');
-    FS.chmod('forbidden', 0000);
+    FS.chmod('forbidden', parseInt("0000", 8));
 
     FS.writeFile('file', 'foobar');
     FS.truncate('file', 3);
