@@ -2,6 +2,7 @@
 // Project: https://github.com/Microsoft/maker.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /**
  * Root module for Maker.js.
  *
@@ -94,10 +95,6 @@ declare module MakerJs {
          * The main point of reference for this path.
          */
         origin: IPoint;
-        /**
-         * Optional CSS style properties to be emitted into SVG. Useful for creating guidelines and debugging your model.
-         */
-        cssStyle?: string;
     }
     /**
      * Test to see if an object implements the required properties of a path.
@@ -424,6 +421,17 @@ declare module MakerJs.path {
      * @returns The original path (for chaining).
      */
     function scale(pathToScale: IPath, scaleValue: number): IPath;
+}
+declare module MakerJs.path {
+    /**
+     * Breaks a path in two. The supplied path will end at the supplied pointOfBreak,
+     * a new path is returned which begins at the pointOfBreak and ends at the supplied path's initial end point.
+     * For Circle, the original path will be converted in place to an Arc, and null is returned.
+     *
+     * @param pathToBreak The path to break.
+     * @param pointOfBreak The point at which to break the path.
+     */
+    function breakAtPoint(pathToBreak: IPath, pointOfBreak: IPoint): IPath;
 }
 declare module MakerJs.paths {
     /**
