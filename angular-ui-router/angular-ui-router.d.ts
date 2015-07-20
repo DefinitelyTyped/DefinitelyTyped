@@ -88,6 +88,9 @@ declare module angular.ui {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
         type(name: string, definition: any, definitionFn?: any): any;
+        caseInsensitive(value: boolean): void;
+        defaultSquashPolicy(value: string): void;
+        strictMode(value: boolean): void;
     }
 
     interface IUrlRouterProvider extends angular.IServiceProvider {
