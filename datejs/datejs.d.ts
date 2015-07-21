@@ -1,7 +1,10 @@
-// Type definitions for DateJS
+﻿// Type definitions for DateJS
 // Project: http://www.datejs.com/
 // Definitions by: David Khristepher Santos <http://github.com/rupertavery>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+//NOTE: This definition file is for the library located at http://datejs.googlecode.com/svn/ and documented at https://code.google.com/p/datejs/wiki/APIDocumentation
+//That version of the library is more recent than the one provided at https://code.google.com/p/datejs/downloads/list, which has a slightly different API
 
 /** Defines a structure to be used in the add and set instance methods */
 interface IDateJSLiteral {
@@ -15,13 +18,13 @@ interface IDateJSLiteral {
 }
 
 /** DateJS Public Static Methods */
-interface IDateJSStatic extends Date {
+interface DateConstructor {
     /** Gets a date that is set to the current date. The time is set to the start of the day (00:00 or 12:00 AM) */
-    today(): IDateJS;
+    today(): Date;
     /** Compares the first date to the second date and returns an number indication of their relative values. -1 = this is lessthan date. 0 = values are equal. 1 = this is greaterthan date. */
-    compare(date1: IDateJS, date2: IDateJS): number;
+    compare(date1: Date, date2: Date): number;
     /** Compares the first Date object to the second Date object and returns true if they are equal. */
-    equals(date1: IDateJS, date2?: IDateJS): boolean;
+    equals(date1: Date, date2?: Date): boolean;
     /** Gets the day number (0-6) if given a culture-specific string which is a valid full or abbreviated day name. */
     getDayNumberFromName(dayName: string): number;
     /** Gets the month number (0-11) if given a culture-specific string which is a valid full or abbreviated month name. */
@@ -35,11 +38,11 @@ interface IDateJSStatic extends Date {
     /** Gets the timezone offset if given a culture-specific string which is a valid full or abbreviated timezone name and a boolean indicating whether daylight savings time is in effect. */
     getTimezoneOffset(timezoneAbbreviation?: string, isDayLightSavingsTime?: boolean): number;
     /** Converts the specified string value into its JavaScript Date equivalent using culture-specific format information. */
-    parse(dateString: string): IDateJS;
+    parse(dateString: string): Date;
     /** Converts the specified string value into its JavaScript Date equivalent using the specified format. The format of the string value must match one of the supplied formats exactly. */
-    parseExact(dateString: string, formatString: string): IDateJS;
+    parseExact(dateString: string, formatString: string): Date;
     /** Converts the specified string value into its JavaScript Date equivalent using the specified formats (array). The format of the string value must match one of the supplied formats exactly. */
-    parseExact(dateString: string, formatArray: string[]): IDateJS;
+    parseExact(dateString: string, formatArray: string[]): Date;
     /** Validates the number is within an acceptable range for the days in a month [0-MaxDaysInMonth]. */
     validateDay(day: number, fullYear: number, monthNumber: number): boolean;
     /** Validates the number is within an acceptable range for hours[0 - 23].Returns true if within range, otherwise false. */
@@ -57,45 +60,45 @@ interface IDateJSStatic extends Date {
 }
 
 /** DateJS Public Instance Methods */
-interface IDateJS extends Date {
+interface Date {
     /** Adds(or subtracts) to the value of the year, month, day, hour, minute, second, millisecond of the date instance using given configuration object. Positive and Negative values allowed. */
-    add(config?: IDateJSLiteral): IDateJS;
+    add(config?: IDateJSLiteral): Date;
     /** Adds the specified number of milliseconds to this instance. */
-    addMilliseconds(milliseconds: number): IDateJS;
+    addMilliseconds(milliseconds: number): Date;
     /** Adds the specified number of seconds to this instance given the number of seconds to add.The number can be positive or negative. */
-    addSeconds(seconds: number): IDateJS;
+    addSeconds(seconds: number): Date;
     /** Adds the specified number of minutes to this instance given the number of minutes to add.The number can be positive or negative. */
-    addMinutes(minutes: number): IDateJS;
+    addMinutes(minutes: number): Date;
     /** Adds the specified number of hours to this instance given the number of hours to add.The number can be positive or negative. */
-    addHours(hours: number): IDateJS;
+    addHours(hours: number): Date;
     /** Adds the specified number of days to this instance.The number can be positive or negative. */
-    addDays(days: number): IDateJS;
+    addDays(days: number): Date;
     /** Adds the specified number of weeks to this instance given the number of weeks to add.The number can be positive or negative. */
-    addWeeks(weeks: number): IDateJS;
+    addWeeks(weeks: number): Date;
     /** Adds the specified number of months to this instance given the number of months to add.The number can be positive or negative. */
-    addMonths(months: number): IDateJS;
+    addMonths(months: number): Date;
     /** Adds the specified number of years to this instance given the number of years to add.The number can be positive or negative. */
-    addYears(years: number): IDateJS;
+    addYears(years: number): Date;
     /** Resets the time of this Date object to 12:00 AM(00:00), which is the start of the day. */
-    clearTime(): IDateJS;
+    clearTime(): Date;
     /** Resets the time of this Date object to the current time('now'). */
-    setTimeToNow(): IDateJS;
+    setTimeToNow(): Date;
     /** Returns a new Date object that is an exact date and time copy of the original instance. */
-    clone(): IDateJS;
+    clone(): Date;
     /** Determines if this instance is between a range of two dates or equal to either the start or end dates. */
-    between(startDate: IDateJS, endDate: IDateJS): boolean;
+    between(startDate: Date, endDate: Date): boolean;
     /** Compares this instance to a Date object and returns an number indication of their relative values. -1 = this is lessthan date. 0 = values are equal. 1 = this is greaterthan date. */
-    compareTo(date: IDateJS): number;
+    compareTo(date: Date): number;
     /** Compares this instance to another Date object and returns true if they are equal, otherwise false. */
-    equals(date: IDateJS): boolean;
+    equals(date: Date): boolean;
     /** Determines if this date occurs after the date to compare to. */
-    isAfter(date: IDateJS): boolean;
+    isAfter(date: Date): boolean;
     /** Determines if this date occurs before the date to compare to. */
-    isBefore(date: IDateJS): boolean;
+    isBefore(date: Date): boolean;
     /** Determines if the current Date instance occurs on the same Date as the supplied 'date'. */
-    isToday(date: IDateJS): boolean;
+    isToday(date: Date): boolean;
     /** Returns the number of milliseconds between this date and date. */
-    getElapsed(date: IDateJS): number;
+    getElapsed(date: Date): number;
     /** Get the Ordinal day (numeric day number) of the year, adjusted for leap year. Returns 1 through 365 (366 in leap years) */
     getOrdinalNumber(): number;
     /** Get the timezone abbreviation of the current date. */
@@ -107,30 +110,35 @@ interface IDateJS extends Date {
     /** Get the ISO 8601 week number. Week one ("01") is the week which contains the first Thursday of the year. Monday is considered the first day of the week. */
     getISOWeek(): string;
     /** Moves the date to Monday of the week set. Week one (1) is the week which contains the first Thursday of the year. */
-    setWeek(week: number): IDateJS;
+    setWeek(week: number): Date;
     /** Indicates whether Daylight Saving Time is observed in the current time zone. */
     hasDaylightSavingTime(): boolean;
     /** Indicates whether this Date instance is within the Daylight Saving Time range for the current time zone. */
     isDaylightSavingTime(): boolean;
-    /** Move to the next or previous dayOfWeek. Whether to move into the future (+1) or past(-1) is controlled by the optional direction parameter. */
-    moveToDayOfWeek(dayOfWeek: number, direction: number): IDateJS;
+	/** Move to the next or previous dayOfWeek. Whether to move into the future (+1) or past(-1) is controlled by the optional direction parameter. */
+    moveToDayOfWeek(dayOfWeek: number, direction: number): Date;
     /** Moves the date to the first day of the month. */
-    moveToFirstDayOfMonth(): IDateJS;
+    moveToFirstDayOfMonth(): Date;
     /** Moves the date to the last day of the month. */
-    moveToLastDayOfMonth(): IDateJS;
+    moveToLastDayOfMonth(): Date;
     /** Move to the next or previous month.Whether to move into the future(+1) or past(-1) is controlled by the optional direction parameter. */
-    moveToMonth(month: number, direction: number): IDateJS;
+    moveToMonth(month: number, direction: number): Date;
     /** Moves the date to the next nth occurrence of the dayOfWeek starting from the beginning of the month. The number (-1) is a magic number and will return the last occurrence of the dayOfWeek in the month. */
-    moveToNthOccurrence(dayOfWeek: number, occurrence: number): IDateJS;
+    moveToNthOccurrence(dayOfWeek: number, occurrence: number): Date;
     /** Set the value of year, month, day, hour, minute, second, millisecond of date instance using given configuration object. */
-    set(config: IDateJSLiteral): IDateJS;
+    set(config: IDateJSLiteral): Date;
     /** Set the timezone for the current date using a culture - specific timezone abbreviation("PST").Note that in most JavaScript implementations, this will appear to change the time since the timezone is always based on the locale. */
-    setTimezone(timezoneAbbreviation: string): IDateJS;
+    setTimezone(timezoneAbbreviation: string): Date;
     /** Set the timezone for the current date using an offset(-0700).Note that in most JavaScript implementations, this will appear to change the time since the timezone is always based on the locale. */
-    setTimezoneOffset(timezoneOffset: number): IDateJS;
+    setTimezoneOffset(timezoneOffset: number): Date;
     /** Converts the current date instance into a string with an ISO 8601 format.The date is converted to it's UTC value. As per the ISO 8601 specification, the string will be wrapped with double quotation marks ("). */
     toISOString(): string;
     /** Converts the value of the current Date object to its equivalent string representation.Use format argument to specify format(optional).See FormatSpecifiers for more info. */
     toString(format?: string): string;
 }
 
+
+//NOTE: IDateJSStatic and IDateJS are provided here solely for backwards compatability with previous versions of this particular definition file (datejs.d.ts.)
+//DO NOT use them in new code (and it is strongly suggested you remove their use in any existing code); simply use the Javascript Date class instead.
+interface IDateJS extends Date { }
+interface IDateJSStatic extends DateConstructor { }

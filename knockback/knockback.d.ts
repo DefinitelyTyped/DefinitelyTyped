@@ -163,6 +163,8 @@ declare module Knockback {
     }
 
     interface Static extends Utils {
+    	ViewModel;
+    	CollectionObservable;
         collectionObservable(model?: Backbone.Collection<Backbone.Model>, options?: CollectionOptions): CollectionObservable;
     	/** Base class for observing model attributes. */
     	observable(

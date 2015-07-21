@@ -1,12 +1,11 @@
-// Type definitions for jquery.pnotify 1.3.1
-// Project:  https://github.com/sciactive/pnotify
-// Definitions by: https://github.com/DavidSichau
+// Type definitions for jquery.pnotify 2.x
+// Project: https://github.com/sciactive/pnotify
+// Definitions by: David Sichau <https://github.com/DavidSichau>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface pnotifyStack {
+interface PNotifyStack {
     dir1?: string;
     dir2?: string;
     push?: string;
@@ -15,7 +14,7 @@ interface pnotifyStack {
     context?: JQuery
 }
 
-interface pnotifyLabel {
+interface PNotifyLabel {
     redisplay?: string;
     all?: string;
     last?: string;
@@ -23,7 +22,7 @@ interface pnotifyLabel {
     stick?: string;
 }
 
-interface pnotifyDefaults {
+interface PNotifyOptions {
     /**
      * The notice's title. Either boolean false or string
      */
@@ -52,14 +51,19 @@ interface pnotifyDefaults {
      * Class to be added to the notice for corner styling.
      */
     cornerclass?: string;
-    /**
-     * Create a non-blocking notice. It lets the user click elements underneath it.
-     */
-    nonblock?: boolean;
-    /**
-     * The opacity of the notice (if it's non-blocking) when the mouse is over it.
-     */
-    nonblock_opacity?: number;
+
+    nonblock?: {
+        /**
+         * Create a non-blocking notice. It lets the user click elements underneath it.
+         */
+        nonblock: boolean;
+
+        /**
+         * The opacity of the notice (if it's non-blocking) when the mouse is over it.
+         */
+        nonblock_opacity?: number
+    };
+
     /**
      * Display a pull down menu to redisplay previous notices, and place the notice in the history.
      */
@@ -108,22 +112,27 @@ interface pnotifyDefaults {
      * Display a drop shadow.
      */
     shadow?: boolean;
-    /**
-     * Provide a button for the user to manually close the notice.
-     */
-    closer?: boolean;
-    /**
-     * Only show the closer button on hover.
-     */
-    closer_hover?: boolean;
-    /**
-     * Provide a button for the user to manually stick the notice.
-     */
-    sticker?: boolean;
-    /**
-     * Only show the sticker button on hover.
-     */
-    sticker_hover?: boolean;
+
+    buttons?: {
+        /**
+         * Provide a button for the user to manually close the notice.
+         */
+        closer?: boolean;
+        /**
+         * Only show the closer button on hover.
+         */
+        closer_hover?: boolean;
+
+        /**
+         * Provide a button for the user to manually stick the notice.
+         */
+        sticker?: boolean;
+        /**
+         * Only show the sticker button on hover.
+         */
+        sticker_hover?: boolean;
+    }
+
     /**
      * After a delay, remove the notice.
      */
@@ -147,27 +156,25 @@ interface pnotifyDefaults {
     /**
      * The stack on which the notices will be placed. Also controls the direction the notices stack.
      */
-    stack?: pnotifyStack;
+    stack?: PNotifyStack;
     /**
      * The various displayed text, helps facilitating internationalization.
      */
-    labels?: pnotifyLabel;
+    labels?: PNotifyLabel;
 }
 
-
-interface pnotifyInterface {
-    defaults?: pnotifyDefaults
-    (options: pnotifyDefaults): any;
+interface PNotify {
+    elem: JQuery;
+    
+    update(options?: PNotifyOptions): void;
+    remove(): void;
 }
 
-interface JQueryStatic {
-    /**
-     * The pnotify object
-     */
-    pnotify: pnotifyInterface;
-    /**
-     * Removes all notifications
-     */
-    pnotify_remove_all(): void;
+interface PNotifyConstructor {
+    new (options?: PNotifyOptions): PNotify;
+    
+    removeAll(): void;
 }
+
+declare var PNotify: PNotifyConstructor;
 

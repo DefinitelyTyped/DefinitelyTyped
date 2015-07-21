@@ -39,6 +39,9 @@ should.not.exist(false);
 should.not.exist('');
 should.not.exist({});
 
+Should.exist(null);
+window.Should.exist(null);
+
 user.should.have.property('pets').with.lengthOf(4);
 user.pets.should.have.lengthOf(4);
 user.should.be.of.type('object').and.have.property('name', 'tj');
@@ -72,7 +75,7 @@ false
 false.should.be.false;
 (0).should.not.be.false;
 
-var args = (a: string, b: string, c: string) => { return arguments; };
+var args = function (a: string, b: string, c: string) { return arguments; };
 args.should.be.arguments;
 ['a'].should.not.be.arguments;
 

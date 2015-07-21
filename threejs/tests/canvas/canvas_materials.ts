@@ -5,13 +5,10 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var materials: THREE.Material[];
-    var debugContext: any;
-    // -------
     var container, stats;
 
     var camera, scene, renderer, objects;
-    var particleLight, pointLight;
+    var pointLight;
 
     init();
     animate();
@@ -44,15 +41,14 @@
 
         var material = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.2 });
 
-        var line = new THREE.Line(geometry, material);
-        line.type = THREE.LinePieces;
+        var line = new THREE.Line(geometry, material, THREE.LinePieces);
         scene.add(line);
 
         // Spheres
 
-        var geometry = new THREE.SphereGeometry(100, 14, 7);
+        var geometry2 = new THREE.SphereGeometry(100, 14, 7);
 
-        materials = [
+        var materials: THREE.Material[] = [
 
             new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true, side: THREE.DoubleSide }),
             new THREE.MeshBasicMaterial({ color: 0xff0000, blending: THREE.AdditiveBlending }),
@@ -61,14 +57,13 @@
             new THREE.MeshDepthMaterial({ overdraw: 0.5 }),
             new THREE.MeshNormalMaterial({ overdraw: 0.5 }),
             new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('textures/land_ocean_ice_cloud_2048.jpg') }),
-            new THREE.MeshBasicMaterial({ envMap: THREE.ImageUtils.loadTexture('textures/envmap.png', new THREE.SphericalReflectionMapping()), overdraw: 0.5 }),
-            new THREE.MeshBasicMaterial({ envMap: THREE.ImageUtils.loadTexture('textures/envmap.png', new THREE.SphericalRefractionMapping()), overdraw: 0.5 })
+            new THREE.MeshBasicMaterial({ envMap: THREE.ImageUtils.loadTexture('textures/envmap.png', THREE.SphericalReflectionMapping), overdraw: 0.5 })
 
         ];
 
-        for (var i = 0, l = geometry.faces.length; i < l; i++) {
+        for (var i = 0, l = geometry2.faces.length; i < l; i++) {
 
-            var face = geometry.faces[i];
+            var face = geometry2.faces[i];
             if (Math.random() > 0.5) face.materialIndex = Math.floor(Math.random() * materials.length);
 
         }
@@ -103,13 +98,9 @@
 
         }
 
-				particleLight = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0xffffff, program: program }));
-        particleLight.scale.x = particleLight.scale.y = 8;
-        scene.add(particleLight);
+				// Lights
 
-        // Lights
-
-        scene.add(new THREE.AmbientLight(Math.random() * 0x202020));
+				scene.add(new THREE.AmbientLight(Math.random() * 0x202020));
 
         var directionalLight = new THREE.DirectionalLight(Math.random() * 0xffffff);
         directionalLight.position.x = Math.random() - 0.5;
@@ -121,7 +112,12 @@
         pointLight = new THREE.PointLight(0xffffff, 1);
         scene.add(pointLight);
 
+        var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0xffffff, program: program }));
+        sprite.scale.set(8, 8, 8);
+        pointLight.add(sprite);
+
         renderer = new THREE.CanvasRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
@@ -134,7 +130,7 @@
 
         container.appendChild(debugCanvas);
 
-        debugContext = debugCanvas.getContext('2d');
+        var debugContext = debugCanvas.getContext('2d');
         debugContext.setTransform(1, 0, 0, 1, 256, 256);
         debugContext.strokeStyle = '#000000';
 
@@ -198,13 +194,9 @@
 
         }
 
-        particleLight.position.x = Math.sin(timer * 7) * 300;
-        particleLight.position.y = Math.cos(timer * 5) * 400;
-        particleLight.position.z = Math.cos(timer * 3) * 300;
-
-        pointLight.position.x = particleLight.position.x;
-        pointLight.position.y = particleLight.position.y;
-        pointLight.position.z = particleLight.position.z;
+        pointLight.position.x = Math.sin(timer * 7) * 300;
+        pointLight.position.y = Math.cos(timer * 5) * 400;
+        pointLight.position.z = Math.cos(timer * 3) * 300;
 
         renderer.render(scene, camera);
 

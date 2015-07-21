@@ -146,6 +146,9 @@ Model.remove((err: any, res: IActor[]) => {});
 Model.save((err: any, res: IActor, numberAffected: number) => {});
 Model.create({ type: 'jelly bean' }, { type: 'snickers' }, (err: any, res1: IActor, res2: IActor) => {});
 Model.create({ type: 'jawbreaker' });
+Model.create({ type: 'muffin' }).then(function (res) {
+	res.name;
+});
 Model.distinct('url', { clicks: {$gt: 100}}, (err: any, result: IActor[]) => {});
 Model.distinct('url');
 
@@ -364,3 +367,15 @@ schema.virtual('display_name')
   .get(function(): string { return this.name; })
   .set((value: string): void => {});
 
+var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId('foo');
+var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
+var id2: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(123);
+var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromTime(123);
+var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('foo');
+var s = id.toHexString();
+var valid = id.isValid();
+var eq = id.equals(id2);
+
+var kitty1 = new Kitty({});
+var kitty2 = new Kitty({});
+var kittyEq = kitty1._id.equals(kitty2._id);

@@ -121,12 +121,12 @@ declare module ArbiterDef {
         /**
           * Unsubscribing simply sets a flag which prevents the subscriber from executing, in case you want to re-subscribe later.
           */
-        unsubscribe(subscription_id: number);
+        unsubscribe(subscription_id: number): boolean;
 
         /**
           * After unsubscribing, you can later re-subscribe to begin receiving messages again.
           */
-        resubscribe(subscription_id: number);
+        resubscribe(subscription_id: number): boolean;
     }
 }
 

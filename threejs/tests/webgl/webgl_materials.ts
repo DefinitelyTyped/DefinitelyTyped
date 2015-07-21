@@ -5,14 +5,14 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var geometry: THREE.Geometry;
     // -------
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
+
     var container, stats;
 
     var camera, scene, renderer, objects;
-    var particleLight, pointLight;
+    var particleLight;
 
     var materials = [];
 
@@ -85,11 +85,14 @@
 
         }
 
+        // isn't used.
+        // geometry_pieces.materials = materials;
+
         materials.push(new THREE.MeshFaceMaterial(materials));
 
         objects = [];
 
-        var sphere, material;
+        var sphere, geometry: THREE.Geometry, material;
 
         for (var i = 0, l = materials.length; i < l; i++) {
 
@@ -130,14 +133,14 @@
 
         scene.add(directionalLight);
 
-        pointLight = new THREE.PointLight(0xffffff, 1);
-        scene.add(pointLight);
+        var pointLight = new THREE.PointLight(0xffffff, 1);
+        particleLight.add(pointLight);
 
         //
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         //
@@ -227,10 +230,6 @@
         particleLight.position.x = Math.sin(timer * 7) * 300;
         particleLight.position.y = Math.cos(timer * 5) * 400;
         particleLight.position.z = Math.cos(timer * 3) * 300;
-
-        pointLight.position.x = particleLight.position.x;
-        pointLight.position.y = particleLight.position.y;
-        pointLight.position.z = particleLight.position.z;
 
         renderer.render(scene, camera);
 

@@ -576,7 +576,7 @@ declare module AceAjax {
         /**
          * Returns the current tab size.
         **/
-        getTabSize(): string;
+        getTabSize(): number;
 
         /**
          * Returns `true` if the character at the position is a soft tab.
@@ -1034,6 +1034,9 @@ declare module AceAjax {
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
     export interface Editor {
+        
+        addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any);
+        addEventListener(ev: string, callback: Function);
 
         inMultiSelectMode: boolean;
 
@@ -1060,6 +1063,31 @@ declare module AceAjax {
         onChangeMode(e?);
 
         execCommand(command:string, args?: any);
+        
+        /**
+         * Sets a Configuration Option
+         **/
+        setOption(optionName: any, optionValue: any);
+        
+        /**
+         * Sets Configuration Options
+         **/
+        setOptions(keyValueTuples: any);
+        
+        /**
+         * Get a Configuration Option
+         **/
+        getOption(name: any):any;
+        
+        /**
+         * Get Configuration Options
+         **/
+        getOptions():any;
+        
+        /**
+         * Get rid of console warning by setting this to Infinity
+         **/
+        $blockScrolling:number;
 
         /**
          * Sets a new key handler, such as "vim" or "windows".
@@ -1709,6 +1737,13 @@ declare module AceAjax {
          * @param session The `EditSession` to refer to
         **/
         new(renderer: VirtualRenderer, session?: IEditSession): Editor;
+    }
+    
+    interface EditorChangeEvent {
+        start: Position;
+        end: Position;
+        action: string; // insert, remove
+        lines: any[];
     }
 
     ////////////////////////////////
@@ -2574,6 +2609,16 @@ declare module AceAjax {
          * Returns `true` if there are redo operations left to perform.
         **/
         hasRedo(): boolean;
+        
+        /**
+         * Returns `true` if the dirty counter is 0
+        **/
+        isClean(): boolean;
+        
+        /**
+         * Sets dirty counter to 0
+        **/
+        markClean(): void;
 
     }
     var UndoManager: {
