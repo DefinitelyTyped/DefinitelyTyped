@@ -86,3 +86,17 @@ columnDef.visible = true;
 columnDef.width = 100;
 columnDef.width = '*';
 
+
+var gridInstance: uiGrid.IGridInstance;
+var menuItem: uiGrid.IMenuItem
+
+var gridApi: uiGrid.IGridApi
+gridApi.core.clearAllFilters(true);
+gridApi.core.addToGridMenu(gridInstance, [menuItem]);
+gridApi.core.getVisibleRows(gridInstance);
+gridApi.core.handleWindowResize();
+gridApi.core.queueGridRefresh()
+gridApi.core.queueRefresh();
+var colProcessor: uiGrid.IColumnProcessor;
+gridApi.core.registerColumnsProcessor(colProcessor, 100);
+

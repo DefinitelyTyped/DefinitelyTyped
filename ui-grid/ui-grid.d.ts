@@ -12,6 +12,113 @@
 /// <reference path='../angularjs/angular.d.ts' />
 
 declare module uiGrid {
+    export interface UIGridConstants {
+        LOG_DEBUG_MESSAGES: boolean;
+        LOG_WARN_MESSAGES: boolean;
+        LOG_ERROR_MESSAGES: boolean;
+        CUSTOM_FILTERS: RegExp;
+        COL_FIELD: RegExp;
+        MODEL_COL_FIELD: RegExp;
+        TOOLTIP: RegExp;
+        DISPLAY_CELL_TEMPLATE: RegExp;
+        TEMPLATE_REGEXP: RegExp;
+        FUNC_REGEXP: RegExp;
+        DOT_REGEXP: RegExp;
+        APOS_REGEXP: RegExp;
+        BRACKET_REGEXP: RegExp;
+        COL_CLASS_PREFIX: string;
+        events: {
+            GRID_SCROLL: string;
+            COLUMN_MENU_SHOWN: string;
+            ITEM_DRAGGING: string;
+            COLUMN_HEADER_CLICK: string;
+        };
+        keymap: {
+            TAB: number;
+            STRG: number;
+            CAPSLOCK: number;
+            CTRL: number;
+            CTRLRIGHT: number;
+            CTRLR: number;
+            SHIFT: number;
+            RETURN: number;
+            ENTER: number;
+            BACKSPACE: number;
+            BCKSP: number;
+            ALT: number;
+            ALTR: number;
+            ALTRIGHT: number;
+            SPACE: number;
+            WIN: number;
+            MAC: number;
+            FN: number;
+            PG_UP: number;
+            PG_DOWN: number;
+            UP: number;
+            DOWN: number;
+            LEFT: number;
+            RIGHT: number;
+            ESC: number;
+            DEL: number;
+            F1: number;
+            F2: number;
+            F3: number;
+            F4: number;
+            F5: number;
+            F6: number;
+            F7: number;
+            F8: number;
+            F9: number;
+            F10: number;
+            F11: number;
+            F12: number;
+        };
+        ASC: string;
+        DESC: string;
+        filter: {
+            STARTS_WITH: number;
+            ENDS_WITH: number;
+            EXACT: number;
+            CONTAINS: number;
+            GREATER_THAN: number;
+            GREATER_THAN_OR_EQUAL: number;
+            LESS_THAN: number;
+            LESS_THAN_OR_EQUAL: number;
+            NOT_EQUAL: number;
+            SELECT: string;
+            INPUT: string;
+        };
+        scrollDirection: {
+            UP: string;
+            DOWN: string;
+            LEFT: string;
+            RIGHT: string;
+            NONE: string;
+        },
+        aggregationTypes: {
+            sum: number;
+            count: number;
+            avg: number;
+            min: number;
+            max: number;
+        };
+        CURRENCY_SYMBOLS: string[];
+        dataChange: {
+            ALL: string;
+            EDIT: string;
+            ROW: string;
+            COLUMN: string;
+            OPTIONS: string;
+        }
+        scrollbars: {
+            NEVER: number;
+            ALWAYS: number;
+            //WHEN_NEEDED: number
+        }
+
+    }
+    
+    
     export interface IGridInstance {
         appScope?: ng.IScope;
         columnFooterHeight?: number;
@@ -67,7 +174,7 @@ declare module uiGrid {
         resetColumnSorting(excludedColumn: IGridColumn): void;
         scrollTo(rowEntity: any, colDef: IColumnDef): ng.IPromise<any>;
         scrollToIfNecessary(gridRow: IGridRow, gridCol: IGridColumn): ng.IPromise<any>;
-        sortColumn(column: IGridColumn, direction?: number, add?: boolean): ng.IPromise<IGridColumn>;
+        sortColumn(column: IGridColumn, direction?: string, add?: boolean): ng.IPromise<IGridColumn>;
         updateCanvasHeight(): void;
         updateFooterHeightCallback(name: string): void;
     }
@@ -94,6 +201,7 @@ declare module uiGrid {
         columnVirtualizationThreshold?: number;
         data?: Array<any> | string;
         enableColumnMenus?: boolean;
+        enablePagiationControls?: boolean;
         enableFiltering?: boolean;
         enableHorizontalScrollbar?: boolean;
         enableMinHeightCheck?: boolean;
@@ -118,7 +226,7 @@ declare module uiGrid {
         maxVisibleColumnCount?: number;
         minRowsToShow?: number;
         minimumColumnSize?: number;
-        onRegisterApi: (gridApi: IGridApi) => void;
+        onRegisterApi?: (gridApi: IGridApi) => void;
         rowHeight?: number;
         rowTemplate?: string;
         scrollDebounce?: number;
@@ -134,13 +242,47 @@ declare module uiGrid {
         rowEquality?(entityA: IGridRow, entityB: IGridRow): boolean;
         rowIdentity? (): any;
         totalItems?: number;
+        paginationPageSize?: number;      
+
     }
 
 
     export interface IGridCoreApi {
+        addRowHeaderColumn(column: IColumnDef): void;
+        addToGridMenu(grid: IGridInstance, items: IMenuItem[]):  void;
+        clearAllFilters(refreshRows?: boolean, clearConditions?: boolean, clearFlags?: boolean): ng.IPromise<IGridRow[]>;
+        clearRowInvisible(rowEntity: IGridRow): void;
+        getVisibleRows(grid: IGridInstance): IGridRow[];
+        handleWindowResize(): void;       
+        notifiyDataChange(type): void;
+        refreshRows(): ng.IPromise<boolean>;
+        registerColumnsProcessor(processorFunction: IColumnProcessor, priority: number): void;
+        registerRowsProcessor(rowProcessor: IRowProcessor, priority: number): void;
+        removeFromGridMenu(grid: IGridInstance, id: string): void;
+        scrollTo(entity: any, colDef: IColumnDef): void; /*A row entity can be anything?*/
+        scrollToIfNecessary(gridRow: IGridRow, gridCol: IGridColumn): void;
+        setRowInvisible(rowEntity: IGridRow): void;
+        sortHandleNulls(a: any,b: any): number;
+        queueGridRefresh(): void;         
+        queueRefresh();
         on: {
             sortChanged: (scope: ng.IScope, handler: (grid: IGridInstance, sortColumns: IColumnDef[]) => void) => void;
-            columnVisiblityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;
+            columnVisiblityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;            
+            canvasHeightChanged: (scope: ng.IScope, handler: (oldHeight: number, newHeight: number) => void) => void;
+            /* filterChangedis raised after the filter is changed. The nature of the watch expression doesn't allow notification 
+            of what changed, so the receiver of this event will need to re-extract the filter conditions from the columns.
+            http://ui-grid.info/docs/#/api/ui.grid.core.api:PublicApi*/
+            filterChanged: (scope: ng.IScope, handler: () => void) => void;
+            rowsRendered: (scope: ng.IScope, handler: () => void) => void;
+            /* rowsVisibleChanged 
+               is raised after the rows that are visible change. The filtering is zero-based, 
+               so it isn't possible to say which rows changed (unlike in the selection feature). 
+               We can plausibly know which row was changed when setRowInvisible is called, but in 
+               that situation the user already knows which row they changed. 
+               When a filter runs we don't know what changed, and that is the one that would have been useful. */
+            rowsVisibleChanged: (scope: ng.IScope, handler: () => void) => void;
+            scrollBegin: (scope: ng.IScope, handler: () => void) => void;
+            scrollEnd: (scope: ng.IScope, handler: () => void) => void;            
         }
     }
 
@@ -173,6 +315,26 @@ declare module uiGrid {
             paginationChanged: (scope: ng.IScope, handler: (newPage: number, pageSize: number) => void) => void;
         }
     }
+    
+    export interface IGridRowEditApi {
+        flushDirtyRows(grid?: IGridInstance): ng.IPromise<boolean>;
+        getDirtyRows(grid?: IGridInstance): IGridRow[];
+        getErrorRows(grid?: IGridInstance): IGridRow[];
+        /** 
+         * NOTE: The items below expect the entities not the grid row instance
+         *  http://ui-grid.info/docs/#/api/ui.grid.rowEdit.api:PublicApi
+         */
+        setRowsClean(dataRows: any[]):  any[];
+        setRowsDirty(dataRows: any[]):  any[];
+        /**
+         * Sets the promise associated with the row save, 
+         * mandatory that the saveRow event handler calls this method somewhere before returning.
+         */
+        setSavePromise(rowEntity: any, saveProvies: ng.IPromise<any>): void; 
+        on: {
+            saveRow: (scope: ng.IScope, handler: (rowEntity: any) => void) => void
+        }
+    } 
 
     export interface IGridApiConstructor {
         new (grid: IGridInstance): IGridApi;
@@ -234,8 +396,7 @@ declare module uiGrid {
 
         /**
          * Selection api         
-         */
-         
+         */         
         selection: IGridSelectionApi;
 
         
@@ -243,9 +404,17 @@ declare module uiGrid {
          * Pagination api         
          */
         pagination: IGridPaginationApi;
-
-
-
+       
+     
+        /**
+         * Grid Row Edit Api         
+         */      
+        rowEdit: IGridRowEditApi;
+        
+        /**
+         * A grid instance is made available in the gridApi.
+         */         
+        grid: IGridInstance;
     }
     export interface IGridRowConstructor {
         /**
@@ -390,6 +559,8 @@ declare module uiGrid {
         /** Filters for this column. Includes 'term' property bound to filter input elements */
         filters?: Array<IFilterOptions>;
         name?: string;
+        /** Sort on this column */
+        sort?: ISortInfo
         /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. */
         sortingAlgorithm?: (a: any, b: any) => number;
         /**
