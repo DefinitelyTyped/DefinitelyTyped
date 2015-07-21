@@ -47,5 +47,5 @@ recOne(['core'], function (core: any) {/*some code*/});
 import module = require('module');
 
 var moduleConfig: any = module.config();
-var moduleId: string =  module.id;
+var moduleId: string = module.id;
 var moduleUri: string = module.uri;

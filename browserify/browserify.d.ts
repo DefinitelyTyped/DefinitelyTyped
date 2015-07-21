@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 interface BrowserifyObject extends NodeJS.EventEmitter {
-  add(file:string): BrowserifyObject;
+  add(file:string, opts?:any): BrowserifyObject;
   require(file:string, opts?:{
     expose: string;
   }): BrowserifyObject;
@@ -18,10 +18,10 @@ interface BrowserifyObject extends NodeJS.EventEmitter {
     insertGlobalVars?: any;
   }, cb?:(err:any, src:any) => void): NodeJS.ReadableStream;
 
-  external(file:string): BrowserifyObject;
-  ignore(file:string): BrowserifyObject;
-  transform(tr:string): BrowserifyObject;
-  transform(tr:Function): BrowserifyObject;
+  external(file:string, opts?:any): BrowserifyObject;
+  ignore(file:string, opts?:any): BrowserifyObject;
+  transform(tr:string, opts?:any): BrowserifyObject;
+  transform(tr:Function, opts?:any): BrowserifyObject;
   plugin(plugin:string, opts?:any): BrowserifyObject;
   plugin(plugin:Function, opts?:any): BrowserifyObject;
 }
