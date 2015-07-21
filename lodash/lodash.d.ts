@@ -5756,10 +5756,19 @@ declare module _ {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          **/
-        get<T>(object : Object,
-               path:string|string[],
+        get<T>(object: Object,
+               path: string|string[],
                defaultValue?:T
         ): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.get
+         **/
+        get<TResult>(path: string|string[],
+                     defaultValue?: TResult
+        ): TResult;
     }
 
     //_.has
