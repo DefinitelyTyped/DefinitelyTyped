@@ -214,3 +214,214 @@ promiseMe = myModelInst.decrement({}, incrOpts);
 isBool = myModelInst.equal(myModelInst);
 isBool = myModelInst.equalsOneOf([myModelInst]);
 myModelPojo = myModelInst.toJSON();
+
+
+// data types test
+var types:any = Sequelize.STRING;
+types = Sequelize.STRING(12);
+types = Sequelize.STRING(12, true);
+types = Sequelize.STRING.BINARY;
+types = Sequelize.STRING(12).BINARY;
+types = Sequelize.STRING.BINARY(12);
+types = Sequelize.STRING({length:12, binary:true});
+types = Sequelize.STRING({length:12}).BINARY;
+
+types = Sequelize.CHAR;
+types = Sequelize.CHAR(12);
+types = Sequelize.CHAR(12, true);
+types = Sequelize.CHAR.BINARY;
+types = Sequelize.CHAR(12).BINARY;
+types = Sequelize.CHAR.BINARY(12);
+types = Sequelize.CHAR({length:12, binary:true});
+types = Sequelize.CHAR({length:12}).BINARY;
+
+types = Sequelize.TEXT;
+types = Sequelize.TEXT('tiny');
+types = Sequelize.TEXT({length:'tiny'});
+
+types = Sequelize.NUMBER;
+var numberOptions = {length:12, zerofill:true, decimals:1, precision:1, scale:1, unsigned:true};
+types = Sequelize.NUMBER(numberOptions);
+
+types = Sequelize.INTEGER;
+types = Sequelize.INTEGER.ZEROFILL;
+types = Sequelize.INTEGER.UNSIGNED;
+types = Sequelize.INTEGER.ZEROFILL.UNSIGNED;
+types = Sequelize.INTEGER.UNSIGNED.ZEROFILL;
+types = Sequelize.INTEGER(12);
+types = Sequelize.INTEGER(12).ZEROFILL;
+types = Sequelize.INTEGER(12).UNSIGNED;
+types = Sequelize.INTEGER(12).ZEROFILL.UNSIGNED;
+types = Sequelize.INTEGER(12).UNSIGNED.ZEROFILL;
+types = Sequelize.INTEGER(numberOptions);
+types = Sequelize.INTEGER(numberOptions).ZEROFILL;
+types = Sequelize.INTEGER(numberOptions).UNSIGNED;
+types = Sequelize.INTEGER(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.INTEGER(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.BIGINT;
+types = Sequelize.BIGINT.ZEROFILL;
+types = Sequelize.BIGINT.UNSIGNED;
+types = Sequelize.BIGINT.ZEROFILL.UNSIGNED;
+types = Sequelize.BIGINT.UNSIGNED.ZEROFILL;
+types = Sequelize.BIGINT(12);
+types = Sequelize.BIGINT(12).ZEROFILL;
+types = Sequelize.BIGINT(12).UNSIGNED;
+types = Sequelize.BIGINT(12).ZEROFILL.UNSIGNED;
+types = Sequelize.BIGINT(12).UNSIGNED.ZEROFILL;
+types = Sequelize.BIGINT(numberOptions);
+types = Sequelize.BIGINT(numberOptions).ZEROFILL;
+types = Sequelize.BIGINT(numberOptions).UNSIGNED;
+types = Sequelize.BIGINT(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.BIGINT(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.FLOAT;
+types = Sequelize.FLOAT.ZEROFILL;
+types = Sequelize.FLOAT.UNSIGNED;
+types = Sequelize.FLOAT.ZEROFILL.UNSIGNED;
+types = Sequelize.FLOAT.UNSIGNED.ZEROFILL;
+types = Sequelize.FLOAT(12);
+types = Sequelize.FLOAT(12).ZEROFILL;
+types = Sequelize.FLOAT(12).UNSIGNED;
+types = Sequelize.FLOAT(12).ZEROFILL.UNSIGNED;
+types = Sequelize.FLOAT(12).UNSIGNED.ZEROFILL;
+types = Sequelize.FLOAT(12,12);
+types = Sequelize.FLOAT(12,12).ZEROFILL;
+types = Sequelize.FLOAT(12,12).UNSIGNED;
+types = Sequelize.FLOAT(12,12).ZEROFILL.UNSIGNED;
+types = Sequelize.FLOAT(12,12).UNSIGNED.ZEROFILL;
+types = Sequelize.FLOAT(numberOptions);
+types = Sequelize.FLOAT(numberOptions).ZEROFILL;
+types = Sequelize.FLOAT(numberOptions).UNSIGNED;
+types = Sequelize.FLOAT(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.FLOAT(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.DOUBLE;
+types = Sequelize.DOUBLE.ZEROFILL;
+types = Sequelize.DOUBLE.UNSIGNED;
+types = Sequelize.DOUBLE.ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE.UNSIGNED.ZEROFILL;
+types = Sequelize.DOUBLE(12);
+types = Sequelize.DOUBLE(12).ZEROFILL;
+types = Sequelize.DOUBLE(12).UNSIGNED;
+types = Sequelize.DOUBLE(12).ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE(12).UNSIGNED.ZEROFILL;
+types = Sequelize.DOUBLE(12,12);
+types = Sequelize.DOUBLE(12,12).ZEROFILL;
+types = Sequelize.DOUBLE(12,12).UNSIGNED;
+types = Sequelize.DOUBLE(12,12).ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE(12,12).UNSIGNED.ZEROFILL;
+types = Sequelize.DOUBLE(numberOptions);
+types = Sequelize.DOUBLE(numberOptions).ZEROFILL;
+types = Sequelize.DOUBLE(numberOptions).UNSIGNED;
+types = Sequelize.DOUBLE(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.TIME;
+types = Sequelize.DATE;
+types = Sequelize.DATEONLY;
+types = Sequelize.BOOLEAN;
+types = Sequelize.NOW;
+
+types = Sequelize.BLOB;
+types = Sequelize.BLOB('tiny');
+types = Sequelize.BLOB({length:'tiny'});
+
+types = Sequelize.DECIMAL;
+types = Sequelize.DECIMAL.ZEROFILL;
+types = Sequelize.DECIMAL.UNSIGNED;
+types = Sequelize.DECIMAL.ZEROFILL.UNSIGNED;
+types = Sequelize.DECIMAL.UNSIGNED.ZEROFILL;
+types = Sequelize.DECIMAL(12,12);
+types = Sequelize.DECIMAL(12,12).ZEROFILL;
+types = Sequelize.DECIMAL(12,12).UNSIGNED;
+types = Sequelize.DECIMAL(12,12).ZEROFILL.UNSIGNED;
+types = Sequelize.DECIMAL(12,12).UNSIGNED.ZEROFILL;
+types = Sequelize.DECIMAL(numberOptions);
+types = Sequelize.DECIMAL(numberOptions).ZEROFILL;
+types = Sequelize.DECIMAL(numberOptions).UNSIGNED;
+types = Sequelize.DECIMAL(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.DECIMAL(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.NUMERIC;
+types = Sequelize.NUMERIC.ZEROFILL;
+types = Sequelize.NUMERIC.UNSIGNED;
+types = Sequelize.NUMERIC.ZEROFILL.UNSIGNED;
+types = Sequelize.NUMERIC.UNSIGNED.ZEROFILL;
+types = Sequelize.NUMERIC(12,12);
+types = Sequelize.NUMERIC(12,12).ZEROFILL;
+types = Sequelize.NUMERIC(12,12).UNSIGNED;
+types = Sequelize.NUMERIC(12,12).ZEROFILL.UNSIGNED;
+types = Sequelize.NUMERIC(12,12).UNSIGNED.ZEROFILL;
+types = Sequelize.NUMERIC(numberOptions);
+types = Sequelize.NUMERIC(numberOptions).ZEROFILL;
+types = Sequelize.NUMERIC(numberOptions).UNSIGNED;
+types = Sequelize.NUMERIC(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.NUMERIC(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.UUID;
+types = Sequelize.UUIDV1;
+types = Sequelize.UUIDV4;
+types = Sequelize.HSTORE;
+types = Sequelize.JSON;
+types = Sequelize.JSONB;
+types = Sequelize.VIRTUAL;
+
+types = Sequelize.ARRAY(Sequelize.INTEGER(12));
+types = Sequelize.ARRAY({type: Sequelize.BLOB});
+var obj = {};
+var isbool:boolean = types.is(obj, obj);
+
+types = Sequelize.NONE;
+types = Sequelize.ENUM("one", "two", 'three');
+
+types = Sequelize.RANGE(Sequelize.INTEGER(12));
+types = Sequelize.RANGE({subtype: Sequelize.BLOB});
+
+types = Sequelize.REAL;
+types = Sequelize.REAL.ZEROFILL;
+types = Sequelize.REAL.UNSIGNED;
+types = Sequelize.REAL.ZEROFILL.UNSIGNED;
+types = Sequelize.REAL.UNSIGNED.ZEROFILL;
+types = Sequelize.REAL(12,12);
+types = Sequelize.REAL(12,12).ZEROFILL;
+types = Sequelize.REAL(12,12).UNSIGNED;
+types = Sequelize.REAL(12,12).ZEROFILL.UNSIGNED;
+types = Sequelize.REAL(12,12).UNSIGNED.ZEROFILL;
+types = Sequelize.REAL(numberOptions);
+types = Sequelize.REAL(numberOptions).ZEROFILL;
+types = Sequelize.REAL(numberOptions).UNSIGNED;
+types = Sequelize.REAL(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.REAL(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize.DOUBLE;
+types = Sequelize.DOUBLE.ZEROFILL;
+types = Sequelize.DOUBLE.UNSIGNED;
+types = Sequelize.DOUBLE.ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE.UNSIGNED.ZEROFILL;
+types = Sequelize.DOUBLE(12,12);
+types = Sequelize.DOUBLE(12,12).ZEROFILL;
+types = Sequelize.DOUBLE(12,12).UNSIGNED;
+types = Sequelize.DOUBLE(12,12).ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE(12,12).UNSIGNED.ZEROFILL;
+types = Sequelize.DOUBLE(numberOptions);
+types = Sequelize.DOUBLE(numberOptions).ZEROFILL;
+types = Sequelize.DOUBLE(numberOptions).UNSIGNED;
+types = Sequelize.DOUBLE(numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize.DOUBLE(numberOptions).UNSIGNED.ZEROFILL;
+
+types = Sequelize["DOUBLE PRECISION"];
+types = Sequelize["DOUBLE PRECISION"].ZEROFILL;
+types = Sequelize["DOUBLE PRECISION"].UNSIGNED;
+types = Sequelize["DOUBLE PRECISION"].ZEROFILL.UNSIGNED;
+types = Sequelize["DOUBLE PRECISION"].UNSIGNED.ZEROFILL;
+types = Sequelize["DOUBLE PRECISION"](12,12);
+types = Sequelize["DOUBLE PRECISION"](12,12).ZEROFILL;
+types = Sequelize["DOUBLE PRECISION"](12,12).UNSIGNED;
+types = Sequelize["DOUBLE PRECISION"](12,12).ZEROFILL.UNSIGNED;
+types = Sequelize["DOUBLE PRECISION"](12,12).UNSIGNED.ZEROFILL;
+types = Sequelize["DOUBLE PRECISION"](numberOptions);
+types = Sequelize["DOUBLE PRECISION"](numberOptions).ZEROFILL;
+types = Sequelize["DOUBLE PRECISION"](numberOptions).UNSIGNED;
+types = Sequelize["DOUBLE PRECISION"](numberOptions).ZEROFILL.UNSIGNED;
+types = Sequelize["DOUBLE PRECISION"](numberOptions).UNSIGNED.ZEROFILL;
