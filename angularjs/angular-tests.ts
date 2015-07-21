@@ -281,6 +281,7 @@ function test_IAttributes(attributes: ng.IAttributes){
 }
 
 test_IAttributes({
+    $normalize: function (classVal){},
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
