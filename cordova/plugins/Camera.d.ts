@@ -44,11 +44,11 @@ interface Camera {
 }
 
 interface CameraOptions {
-    /** Picture quality in range o-100 */
+    /** Picture quality in range 0-100. Default is 50 */
     quality?: number;
     /**
      * Choose the format of the return value.
-     * Defined in navigator.camera.DestinationType
+     * Defined in navigator.camera.DestinationType. Default is FILE_URI.
      *      DATA_URL : 0,   Return image as base64-encoded string
      *      FILE_URI : 1,   Return image file URI
      *      NATIVE_URI : 2  Return image native URI
@@ -56,7 +56,8 @@ interface CameraOptions {
      */
     destinationType?: number;
     /**
-     * Set the source of the picture. Defined in navigator.camera.PictureSourceType
+     * Set the source of the picture.
+     * Defined in navigator.camera.PictureSourceType. Default is CAMERA.
      *      PHOTOLIBRARY : 0,
      *      CAMERA : 1,
      *      SAVEDPHOTOALBUM : 2
@@ -65,7 +66,8 @@ interface CameraOptions {
     /** Allow simple editing of image before selection. */
     allowEdit?: boolean;
     /**
-     * Choose the returned image file's encoding. Defined in navigator.camera.EncodingType
+     * Choose the returned image file's encoding.
+     * Defined in navigator.camera.EncodingType. Default is JPEG
      *      JPEG : 0    Return JPEG encoded image
      *      PNG : 1     Return PNG encoded image
      */
@@ -93,7 +95,12 @@ interface CameraOptions {
     correctOrientation?: boolean;
     /** Save the image to the photo album on the device after capture. */
     saveToPhotoAlbum?: boolean;
-    /** Choose the camera to use (front- or back-facing). Defined in navigator.camera.Direction */
+    /**
+     * Choose the camera to use (front- or back-facing).
+     * Defined in navigator.camera.Direction. Default is BACK.
+     *      FRONT: 0
+     *      BACK: 1
+     */
     cameraDirection?: number;
     /** iOS-only options that specify popover location in iPad. Defined in CameraPopoverOptions. */
     popoverOptions?: CameraPopoverOptions;

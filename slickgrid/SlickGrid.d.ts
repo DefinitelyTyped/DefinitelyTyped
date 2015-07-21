@@ -424,7 +424,7 @@ declare module Slick {
 		/**
 		* The editor for cell edits {TextEditor, IntegerEditor, DateEditor...} See slick.editors.js
 		**/
-		editor?: Editors.Editor<T>;
+		editor?: any; // typeof Editors.Editor<T>;
 
 		/**
 		* The property name in the data object to pull content from. (This is assumed to be on the root of the data object.)
@@ -689,8 +689,8 @@ declare module Slick {
 		topPanelHeight?: number;
 	}
 
-	export interface DataProvider {
-		getItem(index: number): SlickData;
+	export interface DataProvider<T extends SlickData> {
+		getItem(index: number): T;
 		getLength(): number;
 	}
 
@@ -705,7 +705,7 @@ declare module Slick {
 	* The grid also provides two helper methods to simplify development - getSelectedRows() and setSelectedRows(rowsArray), as well as an onSelectedRowsChanged event.
 	* SlickGrid includes two pre-made selection models - Slick.CellSelectionModel and Slick.RowSelectionModel, but you can easily write a custom one.
 	**/
-	export class SelectionModel<T extends Slick.SlickData, E> {
+	export class SelectionModel<T extends SlickData, E> {
 		/**
 		* An initializer function that will be called with an instance of the grid whenever a selection model is registered with setSelectionModel. The selection model can use this to initialize its state and subscribe to grid events.
 		**/
@@ -740,12 +740,12 @@ declare module Slick {
 			options: GridOptions<T>);
 		constructor(
 			container: string,
-			data: DataProvider,
+			data: DataProvider<T>,
 			columns: Column<T>[],
 			options: GridOptions<T>);
 		constructor(
 			container: HTMLElement,
-			data: DataProvider,
+			data: DataProvider<T>,
 			columns: Column<T>[],
 			options: GridOptions<T>);
 
@@ -779,10 +779,17 @@ declare module Slick {
 
 		/**
 		* Sets a new source for databinding and removes all rendered rows. Note that this doesn't render the new rows - you can follow it with a call to render() to do that.
-		* @param newData New databinding source. This can either be a regular JavaScript array or a custom object exposing getItem(index) and getLength() functions.
+		* @param newData New databinding source using a regular JavaScript array..
 		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
 		**/
 		public setData(newData: T[], scrollToTop: boolean): void;
+
+		/**
+		* Sets a new source for databinding and removes all rendered rows. Note that this doesn't render the new rows - you can follow it with a call to render() to do that.
+		* @param newData New databinding source using a custom object exposing getItem(index) and getLength() functions.
+		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
+		**/
+		public setData(newData: DataProvider<T>, scrollToTop: boolean): void;
 
 		/**
 		* Returns the size of the databinding source.
@@ -1165,7 +1172,7 @@ declare module Slick {
 		public updateCell(row: number, cell: number): void;
 		public updateRow(row: number): void;
 		public getViewport(viewportTop?: number, viewportLeft?: number): Viewport;
-		public getRenderedRange(viewportTop: number, viewportLeft: number): Viewport;
+		public getRenderedRange(viewportTop?: number, viewportLeft?: number): Viewport;
 		public resizeCanvas(): void;
 		public updateRowCount(): void;
 		public scrollRowIntoView(row: number, doPaging: boolean): void;
@@ -1179,7 +1186,7 @@ declare module Slick {
 		// #region Editors
 
 		public getEditorLock(): EditorLock<any>;
-		public getEditController(): Editors.Editor<any>;
+		public getEditController(): { commitCurrentEdit():boolean; cancelCurrentEdit():boolean; };
 
 		// #endregion Editors
 	}
@@ -1326,7 +1333,7 @@ declare module Slick {
 
 	// todo: merge with existing column definition
 	export interface Column<T extends SlickData> {
-		sortCol?: string;
+		sortCol?: Column<T>;
 		sortAsc?: boolean;
 	}
 
@@ -1478,7 +1485,7 @@ declare module Slick {
 		* Item -> Data by index
 		* Row -> Data by row
 		**/
-		export class DataView<T extends Slick.SlickData> implements DataProvider {
+		export class DataView<T extends Slick.SlickData> implements DataProvider<T> {
 
 			constructor(options?: DataViewOptions<T>);
 
@@ -1493,8 +1500,9 @@ declare module Slick {
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
 			public reSort(): void;
+			public setGrouping(groupingInfos: GroupingOptions<T>[]): void;
 			public setGrouping(groupingInfo: GroupingOptions<T>): void;
-			public getGrouping(): GroupingOptions<T>;
+			public getGrouping(): GroupingOptions<T>[];
 
 			/**
 			* @deprecated
@@ -1532,7 +1540,7 @@ declare module Slick {
 			*/
 			public expandGroup(...varArgs: string[]): void;
 			public getGroups(): Group<T, any>[];
-			public getIdxById(): string;
+			public getIdxById(id: string): number;
 			public getRowById(): T;
 			public getItemById(id: any): T;
 			public getItemByIdx(): T;
@@ -1548,8 +1556,8 @@ declare module Slick {
 			public syncGridCellCssStyles(grid: Grid<T>, key: string): void;
 
 			public getLength(): number;
-			public getItem(index: number): SlickData;
-			public getItemMetadata(): void;
+			public getItem(index: number): T;
+			public getItemMetadata(index?: number): void;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
 			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;
@@ -1588,7 +1596,7 @@ declare module Slick {
 			// empty
 		}
 		export interface OnRowsChangedEventData {
-			// empty
+			rows: number[];
 		}
 		export interface OnPagingInfoChangedEventData extends PagingOptions {
 

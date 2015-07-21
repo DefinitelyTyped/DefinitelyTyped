@@ -1,9 +1,7 @@
 // Type definitions for Q
 // Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek, Andrew Gaspar, John Reilly
+// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
-
-/// <reference path="../jquery/jquery.d.ts"/>
 
 /**
  * If value is a Q promise, returns the promise.
@@ -11,21 +9,13 @@
  */
 declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
 /**
- * If value is a Q promise, returns the promise.
- * If value is a promise from another library it is coerced into a Q promise (where possible).
- */
-declare function Q<T>(promise: JQueryPromise<T>): Q.Promise<T>;
-/**
  * If value is not a promise, returns a promise that is fulfilled with value.
  */
 declare function Q<T>(value: T): Q.Promise<T>;
 
 declare module Q {
     interface IPromise<T> {
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => U): IPromise<U>;
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): IPromise<U>;
+        then<U>(onFulfill?: (value: T) => U | IPromise<U>, onReject?: (error: any) => U | IPromise<U>): IPromise<U>;
     }
 
     interface Deferred<T> {
@@ -53,19 +43,7 @@ declare module Q {
         /**
          * The then method from the Promises/A+ specification, with an additional progress handler.
          */
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>, onProgress?: Function): Promise<U>;
-        /**
-         * The then method from the Promises/A+ specification, with an additional progress handler.
-         */
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => U, onProgress?: Function): Promise<U>;
-        /**
-         * The then method from the Promises/A+ specification, with an additional progress handler.
-         */
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => IPromise<U>, onProgress?: Function): Promise<U>;
-        /**
-         * The then method from the Promises/A+ specification, with an additional progress handler.
-         */
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill?: (value: T) => U | IPromise<U>, onReject?: (error: any) => U | IPromise<U>, onProgress?: Function): Promise<U>;
 
         /**
          * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
@@ -74,16 +52,12 @@ declare module Q {
          */
         spread<U>(onFulfilled: Function, onRejected?: Function): Promise<U>;
 
-        fail<U>(onRejected: (reason: any) => U): Promise<U>;
-        fail<U>(onRejected: (reason: any) => IPromise<U>): Promise<U>;
+        fail<U>(onRejected: (reason: any) => U | IPromise<U>): Promise<U>;
+
         /**
          * A sugar method, equivalent to promise.then(undefined, onRejected).
          */
-        catch<U>(onRejected: (reason: any) => U): Promise<U>;
-        /**
-         * A sugar method, equivalent to promise.then(undefined, onRejected).
-         */
-        catch<U>(onRejected: (reason: any) => IPromise<U>): Promise<U>;
+        catch<U>(onRejected: (reason: any) => U | IPromise<U>): Promise<U>;
 
         /**
          * A sugar method, equivalent to promise.then(undefined, undefined, onProgress).
@@ -100,6 +74,11 @@ declare module Q {
          * The Golden Rule of done vs. then usage is: either return your promise to someone else, or if the chain ends with you, call done to terminate it.
          */
         done(onFulfilled?: (value: T) => any, onRejected?: (reason: any) => any, onProgress?: (progress: any) => any): void;
+
+        /**
+         * If callback is a function, assumes it's a Node.js-style callback, and calls it as either callback(rejectionReason) when/if promise becomes rejected, or as callback(null, fulfillmentValue) when/if promise becomes fulfilled. If callback is not a function, simply returns promise.
+         */
+        nodeify(callback: (reason: any, value: any) => void): Promise<T>;
 
         /**
          * Returns a promise to get the named property of an object. Essentially equivalent to
@@ -143,6 +122,12 @@ declare module Q {
          * A sugar method, equivalent to promise.then(function () { throw reason; }).
          */
         thenReject(reason: any): Promise<T>;
+
+        /**
+         * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned by the onFulfilled handler.
+         */
+        tap(onFulfilled: (value: T) => any): Promise<T>;
+
         timeout(ms: number, message?: string): Promise<T>;
         /**
          * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
@@ -161,7 +146,7 @@ declare module Q {
          * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
          */
         isPending(): boolean;
-
+        
         valueOf(): any;
 
         /**
@@ -183,23 +168,22 @@ declare module Q {
         reason?: any;
     }
 
+    // If no value provided, returned promise will be of void type
+    export function when(): Promise<void>;
+
     // if no fulfill, reject, or progress provided, returned promise will be of same type
-    export function when<T>(value: IPromise<T>): Promise<T>;
-    export function when<T>(value: T): Promise<T>;
+    export function when<T>(value: T | IPromise<T>): Promise<T>;
 
     // If a non-promise value is provided, it will not reject or progress
-    export function when<T, U>(value: T, onFulfilled: (val: T) => IPromise<U>): Promise<U>;
-    export function when<T, U>(value: T, onFulfilled: (val: T) => U): Promise<U>;
-
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => IPromise<U>, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
-    export function when<T, U>(value: IPromise<T>, onFulfilled: (val: T) => U, onRejected?: (reason: any) => U, onProgress?: (progress: any) => any): Promise<U>;
+    export function when<T, U>(value: T | IPromise<T>, onFulfilled: (val: T) => U | IPromise<U>, onRejected?: (reason: any) => U | IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
     
-    //export function try(method: Function, ...args: any[]): Promise<any>; // <- This is broken currently - not sure how to fix.
+    /** 
+     * Currently "impossible" (and I use the term loosely) to implement due to TypeScript limitations as it is now.
+     * See: https://github.com/Microsoft/TypeScript/issues/1784 for discussion on it.
+     */
+    // export function try(method: Function, ...args: any[]): Promise<any>; 
 
-    export function fbind<T>(method: (...args: any[]) => IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
-    export function fbind<T>(method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => Promise<T>;
+    export function fbind<T>(method: (...args: any[]) => T | IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
 
     export function fcall<T>(method: (...args: any[]) => T, ...args: any[]): Promise<T>;
 
@@ -207,11 +191,14 @@ declare module Q {
     export function invoke<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
     export function mcall<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
 
+    export function denodeify<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
+    export function nbind<T>(nodeFunction: Function, thisArg: any, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfbind<T>(nodeFunction: Function, ...args: any[]): (...args: any[]) => Promise<T>;
     export function nfcall<T>(nodeFunction: Function, ...args: any[]): Promise<T>;
     export function nfapply<T>(nodeFunction: Function, args: any[]): Promise<T>;
 
     export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
+    export function npost<T>(nodeModule: any, functionName: string, args: any[]): Promise<T>;
     export function nsend<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
     export function nmcall<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
@@ -219,64 +206,19 @@ declare module Q {
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
-    /**
-     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
-     */
-    export function all<T>(promises: any[]): Promise<T[]>;
     
     /**
      * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.
      */
     export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
-    /**
-     * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.
-     */
-    export function allSettled<T>(promises: any[]): Promise<PromiseState<T>[]>;
 
     export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
-    export function allResolved<T>(promises: any[]): Promise<Promise<T>[]>;
 
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
      * This is especially useful in conjunction with all.
      */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<U>(promises: any[], onFulfilled: (...args: any[]) => U, onRejected: (reason: any) => U): Promise<U>;
-    
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IPromise<U>, onRejected: (reason: any) => U): Promise<U>;
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => IPromise<U>): Promise<U>;
-    /**
-     * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason. 
-     * This is especially useful in conjunction with all.
-     */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U, onRejected: (reason: any) => U): Promise<U>;
+    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U | IPromise<U>, onRejected?: (reason: any) => U | IPromise<U>): Promise<U>;
     
     /**
      * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
@@ -291,7 +233,10 @@ declare module Q {
      * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
      */
     export function delay<T>(value: T, ms: number): Promise<T>;
-
+    /**
+     * Returns a promise that will be fulfilled with undefined after at least ms milliseconds have passed.
+     */
+    export function delay(ms: number): Promise <void>;
     /**
      * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises, the result is always true.
      */
@@ -318,10 +263,9 @@ declare module Q {
     /**
      * Returns a promise that is rejected with reason.
      */
-    export function reject(reason?: any): Promise<any>;
+    export function reject<T>(reason?: any): Promise<T>;
 
-    export function promise<T>(resolver: (resolve: (val: IPromise<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
-    export function promise<T>(resolver: (resolve: (val: T) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
+    export function Promise<T>(resolver: (resolve: (val: T | IPromise<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
 
     /**
      * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version also always returns a promise: if func does a return or throw, then Q.promised(func) will return fulfilled or rejected promise, respectively.
@@ -372,6 +316,13 @@ declare module Q {
      * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
      */
     export function resolve<T>(object: T): Promise<T>;
+
+	/**
+	 * Resets the global "Q" variable to the value it has before Q was loaded.
+	 * This will either be undefined if there was no version or the version of Q which was already loaded before.
+	 * @returns { The last version of Q. } 
+	 */
+	export function noConflict(): typeof Q;
 }
 
 declare module "q" {

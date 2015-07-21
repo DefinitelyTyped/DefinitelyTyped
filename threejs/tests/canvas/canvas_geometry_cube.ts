@@ -43,7 +43,7 @@
 
         // Cube
 
-        var geometry = new THREE.CubeGeometry(200, 200, 200);
+        var geometry = new THREE.BoxGeometry(200, 200, 200);
 
         for (var i = 0; i < geometry.faces.length; i += 2) {
 
@@ -61,18 +61,18 @@
 
         // Plane
 
-        var geometry = new THREE.PlaneGeometry(200, 200);
-        geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
+        var geometry2 = new THREE.PlaneBufferGeometry(200, 200);
+        geometry2.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
 
         var material = new THREE.MeshBasicMaterial({ color: 0xe0e0e0, overdraw: 0.5 });
 
-        plane = new THREE.Mesh(geometry, material);
+        plane = new THREE.Mesh(geometry2, material);
         scene.add(plane);
 
         renderer = new THREE.CanvasRenderer();
         renderer.setClearColor(0xf0f0f0);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         stats = new Stats();

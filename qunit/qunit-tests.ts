@@ -1,5 +1,14 @@
 /// <reference path="qunit.d.ts" />
 
+QUnit.test("assert.async() test", function (assert) {
+    var done = assert.async();
+    var input = [];
+    setTimeout(function () {
+        assert.equal(document.activeElement, input[0], "Input was focused");
+        done();
+    });
+});
+
 QUnit.test("deepEqual test", function () {
     var obj = { foo: "bar" };
 
@@ -229,6 +238,14 @@ test( "throws", function() {
   ); 
 });
 
+QUnit.test("raises", function () {
+    QUnit.test("raises, alias for throws", function (assert) {
+        assert.expect(1);
+        assert.raises(function () {
+            throw "my error";
+        });
+    });
+});
 
 QUnit.module("equiv");
 
@@ -1353,95 +1370,6 @@ QUnit.test("propEqual", 5, function( assert ) {
         },
         'Complex nesting of different types, inheritance and constructors'
     );
-});
-
-QUnit.test("raises", 9, function() {
-    function CustomError( message ) {
-        this.message = message;
-    }
-
-    CustomError.prototype.toString = function() {
-        return this.message;
-    };
-
-    throws(
-        function() {
-            throw "my error";
-        }
-    );
-
-    throws(
-        function() {
-            throw "my error";
-        },
-        "simple string throw, no 'expected' value given"
-    );
-
-    // This test is for IE 7 and prior which does not properly
-    // implement Error.prototype.toString
-    throws(
-        function() {
-            throw new Error("error message");
-        },
-        /error message/,
-        "use regexp against instance of Error"
-    );
-
-    throws(
-        function() {
-            throw new Error();
-        },
-        Error,
-        'thrown error is an instance of CustomError'
-    );
-
-    throws(
-        function() {
-            throw new Error("some error description");
-        },
-        /description/,
-        "use a regex to match against the stringified error"
-    );
-
-    throws(
-        function() {
-            throw new Error("some error description");
-        },
-        function( err ) {
-            if ( (err instanceof Error) && /description/.test(err) ) {
-                return true;
-            }
-        },
-        "custom validation function"
-    );
-
-    throws(
-        function() {
-            /*jshint evil:true */
-            ( window.execScript || function( data ) {
-                window["eval"].call( window, data );
-            })( "throw 'error';" );
-        },
-        'globally-executed errors caught'
-    );
-
-    this.CustomError = {};
-
-    throws(
-        function() {
-            throw new this.CustomError("some error description");
-        },
-        /description/,
-        "throw error from property of 'this' context"
-    );
-
-    raises(
-        function() {
-            throw "error";
-        },
-        "simple throw, asserting with deprecated raises() function"
-    );
-
 });
 
 if (typeof document !== "undefined") {

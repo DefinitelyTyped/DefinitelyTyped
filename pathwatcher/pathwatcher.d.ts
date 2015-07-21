@@ -26,7 +26,8 @@ declare module PathWatcher {
 		write(text:string):void;
 		readSync(flushCache:boolean):string;
 		read(flushCache?:boolean):Q.Promise<string>;
-		exists():boolean;
+		// exists():boolean;
+		existsSync():boolean;
 		setDigest(contents:string):void;
 		getDigest():string;
 		writeFileWithPrivilegeEscalationSync (filePath:string, text:string):void;

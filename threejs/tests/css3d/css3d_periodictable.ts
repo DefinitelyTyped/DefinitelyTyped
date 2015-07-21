@@ -6,7 +6,6 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var object: any;
     // -------
     var table = [
         "H", "Hydrogen", "1.00794", 1, 1,
@@ -160,7 +159,7 @@
 
             var symbol = document.createElement('div');
             symbol.className = 'symbol';
-            symbol.textContent = (table[i]).toString();
+            symbol.textContent = table[i].toString();
             element.appendChild(symbol);
 
             var details = document.createElement('div');
@@ -168,16 +167,17 @@
             details.innerHTML = table[i + 1] + '<br>' + table[i + 2];
             element.appendChild(details);
 
-            object = new THREE.CSS3DObject(element);
-            object.position.x = Math.random() * 4000 - 2000;
-            object.position.y = Math.random() * 4000 - 2000;
-            object.position.z = Math.random() * 4000 - 2000;
-            scene.add(object);
+            var cssobject = new THREE.CSS3DObject(element);
+            cssobject.position.x = Math.random() * 4000 - 2000;
+            cssobject.position.y = Math.random() * 4000 - 2000;
+            cssobject.position.z = Math.random() * 4000 - 2000;
+            scene.add(cssobject);
 
-            objects.push(object);
+            objects.push(cssobject);
 
             //
-            object = new THREE.Object3D();
+
+            var object = new THREE.Object3D();
             object.position.x = (<number>table[i + 3] * 140) - 1330;
             object.position.y = - (<number>table[i + 4] * 180) + 990;
 
@@ -289,7 +289,7 @@
 
         }, false);
 
-        transform(targets.table, 5000);
+        transform(targets.table, 2000);
 
         //
 
@@ -317,6 +317,7 @@
                 .start();
 
         }
+
         new TWEEN.Tween(this)
             .to({}, duration * 2)
             .onUpdate(render)
