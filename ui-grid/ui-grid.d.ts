@@ -94,7 +94,7 @@ declare module uiGrid {
             LEFT: string;
             RIGHT: string;
             NONE: string;
-        },
+        };
         aggregationTypes: {
             sum: number;
             count: number;
