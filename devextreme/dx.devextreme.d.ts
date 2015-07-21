@@ -1,11 +1,7 @@
-/*! 
-* DevExtreme
-* Version: 15.1.5
-* Build date: Jul 15, 2015
-*
-* Copyright (c) 2012 - 2015 Developer Express Inc. ALL RIGHTS RESERVED
-* EULA: https://www.devexpress.com/Support/EULAs/DevExtreme.xml
-*/
+// Type definitions for DevExtreme 15.1.5
+// Project: http://js.devexpress.com/
+// Definitions by: DevExpress Inc. <http://devexpress.com/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
