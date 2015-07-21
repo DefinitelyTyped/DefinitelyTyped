@@ -74,9 +74,9 @@ declare module d3 {
              * Derive an attribute value for each node in the selection based on bound data.
              *
              * @param name The attribute name, optionally prefixed.
-             * @param value The function of the datum (the bound data item) and index (the position in the subgrouping) which computes the attribute value. If the function returns null, the attribute is removed.
+             * @param value The function of the datum (the bound data item), and inner index (overall position in nested selections) which computes the attribute value. If the function returns null, the attribute is removed.
              */
-            attr(name: string, value: (datum: Datum, index: number) => Primitive): Update<Datum>;
+            attr(name: string, value: (datum: Datum, index: number, innerIndex?: number) => Primitive): Update<Datum>;
 
             /**
              * Set multiple properties at once using an Object. D3 iterates over all enumerable properties and either sets or computes the attribute's value based on the corresponding entry in the Object.
