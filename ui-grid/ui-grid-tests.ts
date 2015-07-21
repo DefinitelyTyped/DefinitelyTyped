@@ -87,7 +87,7 @@ columnDef.width = 100;
 columnDef.width = '*';
 
 
-var gridApi: uiGrid.IGridApi
+var gridApi: uiGrid.IGridApi;
 var gridInstance: uiGrid.IGridInstance;
 var menuItem: uiGrid.IMenuItem;
 var colProcessor: uiGrid.IColumnProcessor;
