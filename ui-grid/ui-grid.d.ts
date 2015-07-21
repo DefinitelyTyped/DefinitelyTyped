@@ -102,7 +102,7 @@ declare module uiGrid {
             min: number;
             max: number;
         };
-        CURRENCY_SYMBOLS: string[];
+        CURRENCY_SYMBOLS: Array<string>;
         dataChange: {
             ALL: string;
             EDIT: string;
@@ -112,10 +112,8 @@ declare module uiGrid {
         }
         scrollbars: {
             NEVER: number;
-            ALWAYS: number;
-            //WHEN_NEEDED: number
+            ALWAYS: number;            
         }
-
     }
     
     
@@ -242,17 +240,16 @@ declare module uiGrid {
         rowEquality?(entityA: IGridRow, entityB: IGridRow): boolean;
         rowIdentity? (): any;
         totalItems?: number;
-        paginationPageSize?: number;      
-
+        paginationPageSize?: number;
+        paginationCurrentPage?: number;
     }
-
 
     export interface IGridCoreApi {
         addRowHeaderColumn(column: IColumnDef): void;
-        addToGridMenu(grid: IGridInstance, items: IMenuItem[]):  void;
-        clearAllFilters(refreshRows?: boolean, clearConditions?: boolean, clearFlags?: boolean): ng.IPromise<IGridRow[]>;
+        addToGridMenu(grid: IGridInstance, items: Array<IMenuItem>):  void;
+        clearAllFilters(refreshRows?: boolean, clearConditions?: boolean, clearFlags?: boolean): ng.IPromise<Array<IGridRow>>;
         clearRowInvisible(rowEntity: IGridRow): void;
-        getVisibleRows(grid: IGridInstance): IGridRow[];
+        getVisibleRows(grid: IGridInstance): Array<IGridRow>;
         handleWindowResize(): void;       
         notifiyDataChange(type): void;
         refreshRows(): ng.IPromise<boolean>;
@@ -266,20 +263,17 @@ declare module uiGrid {
         queueGridRefresh(): void;         
         queueRefresh();
         on: {
-            sortChanged: (scope: ng.IScope, handler: (grid: IGridInstance, sortColumns: IColumnDef[]) => void) => void;
+            sortChanged: (scope: ng.IScope, handler: (grid: IGridInstance, sortColumns: Array<IColumnDef>) => void) => void;
             columnVisiblityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;            
             canvasHeightChanged: (scope: ng.IScope, handler: (oldHeight: number, newHeight: number) => void) => void;
-            /* filterChangedis raised after the filter is changed. The nature of the watch expression doesn't allow notification 
-            of what changed, so the receiver of this event will need to re-extract the filter conditions from the columns.
-            http://ui-grid.info/docs/#/api/ui.grid.core.api:PublicApi*/
+            
+            /**
+             * filterChangedis raised after the filter is changed. The nature of the watch expression doesn't allow notification 
+             * of what changed, so the receiver of this event will need to re-extract the filter conditions from the columns.
+             * http://ui-grid.info/docs/#/api/ui.grid.core.api:PublicApi
+             */
             filterChanged: (scope: ng.IScope, handler: () => void) => void;
-            rowsRendered: (scope: ng.IScope, handler: () => void) => void;
-            /* rowsVisibleChanged 
-               is raised after the rows that are visible change. The filtering is zero-based, 
-               so it isn't possible to say which rows changed (unlike in the selection feature). 
-               We can plausibly know which row was changed when setRowInvisible is called, but in 
-               that situation the user already knows which row they changed. 
-               When a filter runs we don't know what changed, and that is the one that would have been useful. */
+            rowsRendered: (scope: ng.IScope, handler: () => void) => void;            
             rowsVisibleChanged: (scope: ng.IScope, handler: () => void) => void;
             scrollBegin: (scope: ng.IScope, handler: () => void) => void;
             scrollEnd: (scope: ng.IScope, handler: () => void) => void;            
@@ -294,14 +288,14 @@ declare module uiGrid {
         selectAllRows: (event?: Event) => void;
         selectAllVisibleRows: (event?: Event) => void;
         clearSelectedRows: (event?: Event) => void;
-        getSelectedRows: () => IGridRow[];
-        getSelectedGridRows: () => IGridRow[];
+        getSelectedRows: () => Array<IGridRow>;
+        getSelectedGridRows: () => Array<IGridRow>;
         setMultiSelect: (multiSelect: boolean) => void;
         setModifierKeysToMultiSelect: (multiSelect: boolean) => void;
         getSelectAllState: () => boolean;
         on: {
             rowSelectionChanged: (scope: ng.IScope, handler: (row: IGridRow, event?: Event) => void) => void;
-            rowSelectionChangedBatch: (scope: ng.IScope, handler: (row: IGridRow[], event?: Event) => void) => void;    
+            rowSelectionChangedBatch: (scope: ng.IScope, handler: (row: Array<IGridRow>, event?: Event) => void) => void;    
         }
     }
 
@@ -318,21 +312,21 @@ declare module uiGrid {
     
     export interface IGridRowEditApi {
         flushDirtyRows(grid?: IGridInstance): ng.IPromise<boolean>;
-        getDirtyRows(grid?: IGridInstance): IGridRow[];
-        getErrorRows(grid?: IGridInstance): IGridRow[];
+        getDirtyRows(grid?: IGridInstance): Array<IGridRow>;
+        getErrorRows(grid?: IGridInstance): Array<IGridRow>;
         /** 
          * NOTE: The items below expect the entities not the grid row instance
          *  http://ui-grid.info/docs/#/api/ui.grid.rowEdit.api:PublicApi
          */
-        setRowsClean(dataRows: any[]):  any[];
-        setRowsDirty(dataRows: any[]):  any[];
+        setRowsClean(dataRows: Array<Object>):  Array<Object>;
+        setRowsDirty(dataRows: Array<Object>): Array<Object>;
         /**
          * Sets the promise associated with the row save, 
          * mandatory that the saveRow event handler calls this method somewhere before returning.
          */
-        setSavePromise(rowEntity: any, saveProvies: ng.IPromise<any>): void; 
+        setSavePromise(rowEntity: Object, savePromise: ng.IPromise<any>): void; 
         on: {
-            saveRow: (scope: ng.IScope, handler: (rowEntity: any) => void) => void
+            saveRow: (scope: ng.IScope, handler: (rowEntity: Array<Object>) => void) => void
         }
     } 
 
