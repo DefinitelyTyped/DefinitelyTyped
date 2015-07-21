@@ -251,7 +251,7 @@ declare module uiGrid {
         clearRowInvisible(rowEntity: IGridRow): void;
         getVisibleRows(grid: IGridInstance): Array<IGridRow>;
         handleWindowResize(): void;       
-        notifiyDataChange(type): void;
+        notifiyDataChange(type: string): void;
         refreshRows(): ng.IPromise<boolean>;
         registerColumnsProcessor(processorFunction: IColumnProcessor, priority: number): void;
         registerRowsProcessor(rowProcessor: IRowProcessor, priority: number): void;
@@ -261,7 +261,7 @@ declare module uiGrid {
         setRowInvisible(rowEntity: IGridRow): void;
         sortHandleNulls(a: any,b: any): number;
         queueGridRefresh(): void;         
-        queueRefresh();
+        queueRefresh(): void;
         on: {
             sortChanged: (scope: ng.IScope, handler: (grid: IGridInstance, sortColumns: Array<IColumnDef>) => void) => void;
             columnVisiblityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;            
