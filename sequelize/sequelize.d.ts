@@ -2725,59 +2725,121 @@ declare module "sequelize"
 
         interface DataTypeStringBase {
             BINARY: DataTypeString;
+            (length:number, binary?:boolean):DataTypeString;
+            (options:{length?:number; binary?:boolean;}):DataTypeString;
         }
+
+        interface DataTypeNumberOptions {
+            length?:number;
+            zerofill?:boolean;
+            decimals?:number;
+            precision?:number;
+            scale?:number;
+            unsigned?:boolean;
+        }
+
         interface DataTypeNumberBase {
-            UNSIGNED: boolean;
-            ZEROFILL: boolean;
+            UNSIGNED: DataTypeNumberBase;
+            ZEROFILL: DataTypeNumberBase;
+            (options: DataTypeNumberOptions): DataTypeNumberBase;
         }
 
         interface DataTypeString extends DataTypeStringBase {
         }
         interface DataTypeChar extends DataTypeStringBase {
         }
+
+        interface DataTypeText {
+            (length:string): DataTypeText;
+            (options:{length:string}): DataTypeText;
+        }
+
         interface DataTypeInteger extends DataTypeNumberBase {
+            (length:number):DataTypeInteger;
+            (options:DataTypeNumberOptions):DataTypeInteger;
         }
+
         interface DataTypeBigInt extends DataTypeNumberBase {
+            (length:number):DataTypeBigInt;
+            (options:DataTypeNumberOptions):DataTypeBigInt;
         }
+
         interface DataTypeFloat extends DataTypeNumberBase {
+            (length:number, decimals?:number):DataTypeFloat;
+            (options:DataTypeNumberOptions):DataTypeFloat;
         }
+
+        interface DataTypeReal extends DataTypeNumberBase {
+            (length:number, decimals?:number):DataTypeReal;
+            (options:DataTypeNumberOptions):DataTypeReal;
+        }
+
+        interface DataTypeDouble extends DataTypeNumberBase {
+            (length:number, decimals?:number):DataTypeDouble;
+            (options:DataTypeNumberOptions):DataTypeDouble;
+        }
+
         interface DataTypeBlob {
+            (length:string):DataTypeBlob;
+            (options:{length:string}):DataTypeBlob;
         }
-        interface DataTypeDecimal {
-            PRECISION: number;
-            SCALE: number;
+
+        interface DataTypeDecimal extends DataTypeNumberBase {
+            (precision:number, scale:number):DataTypeDecimal;
+            (options:DataTypeNumberOptions):DataTypeDecimal;
+        }
+
+        interface DataTypeRange {
+            (subtype?:any):DataTypeRange;
+            (options:{subtype:any}):DataTypeRange;
         }
 
         interface DataTypeVirtual {
         }
+
         interface DataTypeEnum {
             (...values: Array<string>): DataTypeEnum;
         }
         interface DataTypeArray {
+            (type?:any):DataTypeArray;
+            (options:{type:any}):DataTypeArray;
+            is(obj:any, type:any):boolean;
         }
+
         interface DataTypeHstore {
         }
 
         interface DataTypes {
+            ABSTRACT: string;
             STRING: DataTypeString;
             CHAR: DataTypeChar;
-            TEXT: string;
+            TEXT: DataTypeText;
+            NUMBER: DataTypeNumberBase;
             INTEGER: DataTypeInteger;
             BIGINT: DataTypeBigInt;
-            DATE: string;
-            BOOLEAN: string;
             FLOAT: DataTypeFloat;
+            TIME:string;
+            DATE: string;
+            DATEONLY:string;
+            BOOLEAN: string;
             NOW: string;
             BLOB: DataTypeBlob;
             DECIMAL: DataTypeDecimal;
+            NUMERIC: DataTypeDecimal;
             UUID: string;
             UUIDV1: string;
             UUIDV4: string;
+            HSTORE: DataTypeHstore;
+            JSON: string;
+            JSONB: string;
             VIRTUAL: DataTypeVirtual;
+            ARRAY: DataTypeArray;
             NONE: DataTypeVirtual;
             ENUM: DataTypeEnum;
-            ARRAY: DataTypeArray;
-            HSTORE: DataTypeHstore;
+            RANGE:DataTypeRange;
+            REAL: DataTypeReal;
+            DOUBLE: DataTypeDouble;
+            "DOUBLE PRECISION": DataTypeDouble;
         }
     }
 
