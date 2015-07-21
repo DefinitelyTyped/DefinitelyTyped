@@ -386,7 +386,7 @@ declare module d3 {
             /**
              * Returns the first non-null element in the selection, or null otherwise.
              */
-            node(): EventTarget;
+            node(): Node;
 
             /**
              * Returns the total number of elements in the selection.
@@ -1780,7 +1780,7 @@ declare module d3 {
         export function format(specifier: string): Format;
 
         export module format {
-            export function multi(formats: Array<[string, (d: Date) => boolean]>): Format;
+            export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             export function utc(specifier: string): Format;
             export var iso: Format;
         }
@@ -2720,6 +2720,7 @@ declare module d3 {
         timeFormat: {
             (specifier: string): time.Format;
             utc(specifier: string): time.Format;
+            multi(formats: Array<[string, (d: Date) => boolean|number]>): time.Format;
         }
     }
 
@@ -2809,7 +2810,7 @@ declare module d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): cluster.Link<T>;
+            links(nodes: T[]): cluster.Link<T>[];
 
             children(): (node: T) => T[];
             children(accessor: (node: T) => T[]): Cluster<T>;

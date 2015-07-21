@@ -60,3 +60,4 @@ THE SOFTWARE.
 // examples test
 /// <reference path="./tests/examples/detector.ts" />
 /// <reference path="./tests/examples/effects/vreffect.ts" />
+/// <reference path="./tests/examples/controls/vrcontrols.ts" />

@@ -239,14 +239,18 @@ result = <number[]>_([1, 2, 3]).take(function (num) {
 result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
 result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
 
-result = <number[]>_.flatten([1, [2], [3, [[4]]]]);
-result = <any[]>_.flatten([1, [2], [3, [[4]]]], true);
-var result: any
-result = <string[]>_.flatten(stoogesQuotes, 'quotes');
+result = <Array<number>>_.flatten([[1, 2], [3, 4]]);
+result = <Array<number>>_.flatten([[1, 2], [3, 4], 5, 6]);
+result = <Array<number|Array<Array<number>>>>_.flatten([1, [2], [3, [[4]]]]);
 
-result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten();
+result = <Array<number>>_.flatten([1, [2], [[3]]], true);
+result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
+result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
+
+result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
+result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
+
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
-result = <_.LoDashArrayWrapper<string>>_(stoogesQuotes).flatten('quotes');
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -363,13 +367,18 @@ result = <string[]>_.at(['moe', 'larry', 'curly'], 0, 2);
 
 result = <boolean>_.contains([1, 2, 3], 1);
 result = <boolean>_.contains([1, 2, 3], 1, 2);
-result = <boolean>_.contains({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.contains('curly', 'ur');
 
 result = <boolean>_.include([1, 2, 3], 1);
 result = <boolean>_.include([1, 2, 3], 1, 2);
-result = <boolean>_.include({ 'name': 'moe', 'age': 40 }, 'moe');
+result = <boolean>_.include({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.include('curly', 'ur');
+
+result = <boolean>_.includes([1, 2, 3], 1);
+result = <boolean>_.includes([1, 2, 3], 1, 2);
+result = <boolean>_.includes({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
+result = <boolean>_.includes('curly', 'ur');
 
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
@@ -1009,6 +1018,9 @@ result = <boolean>_.isUndefined(void 0);
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
 
+result = <string[]>_.keysIn({ 'one': 1, 'two': 2, 'three': 3 });
+result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keysIn().value();
+
 var mergeNames = {
     'stooges': [
         { 'name': 'moe' },
@@ -1080,7 +1092,29 @@ result = <{ a: number; b: number; c: number; }>_.transform(<{ [index: string]: n
     r[key] = num * 3;
 });
 
-result = <number[]>_.values({ 'one': 1, 'two': 2, 'three': 3 });
+// _.values
+class TestValues {
+    public a = 1;
+    public b = 2;
+    public c: string;
+}
+TestValues.prototype.c = 'a';
+result = <number[]>_.values<number>(new TestValues());
+// → [1, 2] (iteration order is not guaranteed)
+result = <number[]>_(new TestValues()).values<number>().value();
+// → [1, 2] (iteration order is not guaranteed)
+
+// _.valueIn
+class TestValueIn {
+    public a = 1;
+    public b = 2;
+    public c: number;
+}
+TestValueIn.prototype.c = 3;
+result = <number[]>_.valuesIn<number>(new TestValueIn());
+// → [1, 2, 3]
+result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
+// → [1, 2, 3]
 
 /**********
 * Utilities *

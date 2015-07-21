@@ -16,3 +16,33 @@ var myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
 
 var doc: CodeMirror.Doc = new CodeMirror.Doc('text');
 var doc2: CodeMirror.Doc = CodeMirror(document.body).getDoc();
+
+var lintStateOptions: CodeMirror.LintStateOptions = {
+    async: true,
+    hasGutters: true
+};
+
+var lintOptions: CodeMirror.LintOptions = {
+    async: true,
+    hasGutters: true,
+    getAnnotations: (content: string,
+                     updateLintingCallback: CodeMirror.UpdateLintingCallback,
+                     options: CodeMirror.LintStateOptions,
+                     codeMirror: CodeMirror.Editor) => {}
+};
+
+var updateLintingCallback: CodeMirror.UpdateLintingCallback = (codeMirror: CodeMirror.Editor,
+                                                               annotations: CodeMirror.Annotation[]) => {};
+
+var annotation: CodeMirror.Annotation = {
+    from: {
+        ch: 0,
+        line: 0
+    },
+    to: {
+        ch: 1,
+        line: 0
+    },
+    message: "test",
+    severity: "warning"
+};

@@ -249,12 +249,12 @@ declare module angular {
         isString(value: any): boolean;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
-        
+
         /**
          * Deeply extends the destination object dst by copying own enumerable properties from the src object(s) to dst. You can specify multiple src objects. If you want to preserve original objects, you can do so by passing an empty object as the target: var object = angular.merge({}, object1, object2).
-         * 
+         *
          * Unlike extend(), merge() recursively descends into object properties of source objects, performing a deep copy.
-         * 
+         *
          * @param dst Destination object.
          * @param src Source object(s).
          */
@@ -420,6 +420,15 @@ declare module angular {
         [name: string]: any;
 
         /**
+         * Converts an attribute name (e.g. dash/colon/underscore-delimited string, optionally prefixed with x- or data-) to its normalized, camelCase form.
+         * 
+         * Also there is special case for Moz prefix starting with upper case letter.
+         * 
+         * For further information check out the guide on @see https://docs.angularjs.org/guide/directive#matching-directives
+         */
+        $normalize(name: string): void;
+
+        /**
          * Adds the CSS class value specified by the classVal parameter to the
          * element. If animations are enabled then an animation will be triggered
          * for the class addition.
@@ -524,11 +533,14 @@ declare module angular {
     }
 
     interface IModelValidators {
-        [index: string]: (modelValue: any, viewValue: string) => boolean;
+        /**
+         * viewValue is any because it can be an object that is called in the view like $viewValue.name:$viewValue.subName
+         */
+        [index: string]: (modelValue: any, viewValue: any) => boolean;
     }
 
     interface IAsyncModelValidators {
-        [index: string]: (modelValue: any, viewValue: string) => IPromise<any>;
+        [index: string]: (modelValue: any, viewValue: any) => IPromise<any>;
     }
 
     interface IModelParser {
@@ -560,11 +572,11 @@ declare module angular {
 
         /**
          * Dispatches an event name downwards to all child scopes (and their children) notifying the registered $rootScope.Scope listeners.
-         * 
+         *
          * The event life cycle starts at the scope on which $broadcast was called. All listeners listening for name event on this scope get notified. Afterwards, the event propagates to all direct and indirect scopes of the current scope and calls all registered listeners along the way. The event cannot be canceled.
-         * 
+         *
          * Any exception emitted from the listeners will be passed onto the $exceptionHandler service.
-         * 
+         *
          * @param name Event name to broadcast.
          * @param args Optional one or more arguments which will be passed onto the event listeners.
          */
@@ -577,7 +589,7 @@ declare module angular {
          * The event life cycle starts at the scope on which $emit was called. All listeners listening for name event on this scope get notified. Afterwards, the event traverses upwards toward the root scope and calls all registered listeners along the way. The event will stop propagating if one of the listeners cancels it.
          *
          * Any exception emitted from the listeners will be passed onto the $exceptionHandler service.
-         * 
+         *
          * @param name Event name to emit.
          * @param args Optional one or more arguments which will be passed onto the event listeners.
          */
@@ -757,16 +769,16 @@ declare module angular {
 
     /**
      * $filter - $filterProvider - service in module ng
-     * 
+     *
      * Filters are used for formatting data displayed to the user.
-     * 
+     *
      * see https://docs.angularjs.org/api/ng/service/$filter
      */
     interface IFilterService {
         /**
          * Usage:
          * $filter(name);
-         * 
+         *
          * @param name Name of the filter function to retrieve
          */
         (name: string): Function;
@@ -774,15 +786,15 @@ declare module angular {
 
     /**
      * $filterProvider - $filter - provider in module ng
-     * 
+     *
      * Filters are just functions which transform input to an output. However filters need to be Dependency Injected. To achieve this a filter definition consists of a factory function which is annotated with dependencies and is responsible for creating a filter function.
-     * 
+     *
      * see https://docs.angularjs.org/api/ng/provider/$filterProvider
      */
     interface IFilterProvider extends IServiceProvider {
         /**
          * register(name);
-         * 
+         *
          * @param name Name of the filter function, or an object map of filters where the keys are the filter names and the values are the filter factories. Note: Filter names must be valid angular Expressions identifiers, such as uppercase or orderBy. Names with special characters, such as hyphens and dots, are not allowed. If you wish to namespace your filters, then you can use capitalization (myappSubsectionFilterx) or underscores (myapp_subsection_filterx).
          */
         register(name: string | {}): IServiceProvider;
@@ -1033,10 +1045,10 @@ declare module angular {
     interface IPromise<T> {
         /**
          * Regardless of when the promise was or will be resolved or rejected, then calls one of the success or error callbacks asynchronously as soon as the result is available. The callbacks are called with a single argument: the result or rejection reason. Additionally, the notify callback may be called zero or more times to provide a progress indication, before the promise is resolved or rejected.
-         *
+         * The successCallBack may return IPromise<void> for when a $q.reject() needs to be returned
          * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>|IPromise<TResult>|TResult, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => IHttpPromise<TResult>|IPromise<TResult>|TResult|IPromise<void>, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback)
@@ -1074,31 +1086,31 @@ declare module angular {
 
     /**
      * $cacheFactory - service in module ng
-     * 
+     *
      * Factory that constructs Cache objects and gives access to them.
-     * 
+     *
      * see https://docs.angularjs.org/api/ng/service/$cacheFactory
      */
     interface ICacheFactoryService {
         /**
          * Factory that constructs Cache objects and gives access to them.
-         * 
+         *
          * @param cacheId Name or id of the newly created cache.
          * @param optionsMap Options object that specifies the cache behavior. Properties:
-         * 
+         *
          * capacity — turns the cache into LRU cache.
          */
         (cacheId: string, optionsMap?: { capacity?: number; }): ICacheObject;
 
         /**
-         * Get information about all the caches that have been created. 
+         * Get information about all the caches that have been created.
          * @returns key-value map of cacheId to the result of calling cache#info
          */
         info(): any;
 
         /**
          * Get access to a cache object by the cacheId used when it was created.
-         * 
+         *
          * @param cacheId Name or id of a cache to access.
          */
         get(cacheId: string): ICacheObject;
@@ -1106,9 +1118,9 @@ declare module angular {
 
     /**
      * $cacheFactory.Cache - type in module ng
-     * 
+     *
      * A cache object used to store and retrieve data, primarily used by $http and the script directive to cache templates and other data.
-     * 
+     *
      * see https://docs.angularjs.org/api/ng/type/$cacheFactory.Cache
      */
     interface ICacheObject {
@@ -1131,9 +1143,9 @@ declare module angular {
 
         /**
          * Inserts a named entry into the Cache object to be retrieved later, and incrementing the size of the cache if the key was not already present in the cache. If behaving like an LRU cache, it will also remove stale entries from the set.
-         * 
+         *
          * It will not insert undefined values into the cache.
-         * 
+         *
          * @param key the key under which the cached data is stored.
          * @param value the value to store alongside the key. If it is undefined, the key will not be stored.
          */
@@ -1141,14 +1153,14 @@ declare module angular {
 
         /**
          * Retrieves named data stored in the Cache object.
-         * 
+         *
          * @param key the key of the data to be retrieved
          */
         get(key: string): any;
 
         /**
          * Removes an entry from the Cache object.
-         * 
+         *
          * @param key the key of the entry to be removed
          */
         remove(key: string): void;
@@ -1163,7 +1175,7 @@ declare module angular {
          */
         destroy(): void;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // CompileService
     // see http://docs.angularjs.org/api/ng.$compile
@@ -1416,6 +1428,11 @@ declare module angular {
     */
     interface IHttpProviderDefaults {
         cache?: boolean;
+        /**
+         * Transform function or an array of such functions. The transform function takes the http request body and
+         * headers and returns its transformed (typically serialized) version.
+         */
+        transformRequest?: ((data: any, headersGetter?: any) => any)|((data: any, headersGetter?: any) => any)[];
         xsrfCookieName?: string;
         xsrfHeaderName?: string;
         withCredentials?: boolean;
