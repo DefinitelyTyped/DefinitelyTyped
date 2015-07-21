@@ -94,10 +94,6 @@ declare module MakerJs {
          * The main point of reference for this path.
          */
         origin: IPoint;
-        /**
-         * Optional CSS style properties to be emitted into SVG. Useful for creating guidelines and debugging your model.
-         */
-        cssStyle?: string;
     }
     /**
      * Test to see if an object implements the required properties of a path.
@@ -425,6 +421,18 @@ declare module MakerJs.path {
      */
     function scale(pathToScale: IPath, scaleValue: number): IPath;
 }
+declare module MakerJs.path {
+    /**
+     * Breaks a path in two. The supplied path will end at the supplied pointOfBreak,
+     * a new path is returned which begins at the pointOfBreak and ends at the supplied path's initial end point.
+     * For Circle, the original path will be converted in place to an Arc, and null is returned.
+     *
+     * @param pathToBreak The path to break.
+     * @param pointOfBreak The point at which to break the path.
+     * @returns A new path of the same type, when path type is line or arc. Returns null for circle.
+     */
+    function breakAtPoint(pathToBreak: IPath, pointOfBreak: IPoint): IPath;
+}
 declare module MakerJs.paths {
     /**
      * Class for arc path.
@@ -661,7 +669,7 @@ declare module MakerJs.path {
      *
      * @param path1 First path to find intersection.
      * @param path2 Second path to find intersection.
-     * @result IPathIntersection object, with points(s) of intersection (and angles, when a path is an arc or circle); or null if the paths did not intersect.
+     * @returns IPathIntersection object, with points(s) of intersection (and angles, when a path is an arc or circle); or null if the paths did not intersect.
      */
     function intersection(path1: IPath, path2: IPath): IPathIntersection;
 }

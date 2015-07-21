@@ -6003,6 +6003,23 @@ declare module _ {
         keys(): LoDashArrayWrapper<string>
     }
 
+    //_.keysIn
+    interface LoDashStatic {
+        /**
+         * Creates an array of the own and inherited enumerable property names of object.
+         * @param object The object to query.
+         * @return An array of property names.
+         **/
+        keysIn(object?: any): string[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.keysIn
+         **/
+        keysIn(): LoDashArrayWrapper<string>
+    }
+
     //_.mapValues
     interface LoDashStatic {
         /**
@@ -6284,11 +6301,35 @@ declare module _ {
     //_.values
     interface LoDashStatic {
         /**
-        * Creates an array composed of the own enumerable property values of object.
-        * @param object The object to inspect.
+        * Creates an array of the own enumerable property values of object.
+        * @param object The object to query.
         * @return Returns an array of property values.
         **/
-        values(object?: any): any[];
+        values<T>(object?: any): T[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.values
+        **/
+        values<TResult>(): LoDashObjectWrapper<TResult[]>;
+    }
+
+    //_.valuesIn
+    interface LoDashStatic {
+        /**
+        * Creates an array of the own and inherited enumerable property values of object.
+        * @param object The object to query.
+        * @return Returns the array of property values.
+        **/
+        valuesIn<T>(object?: any): T[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+        * @see _.valuesIn
+        **/
+        valuesIn<TResult>(): LoDashObjectWrapper<TResult[]>;
     }
 
     /**********

@@ -161,7 +161,7 @@ function test_dom_element() {
 }
 
 function test_dom_event() {
-    var event = new CKEDITOR.dom.event(new Event());
+    var event = new CKEDITOR.dom.event(new Event(""));
     alert(event.getKey());
     alert(event.getKeystroke() == 65);
     alert(event.getKeystroke() == CKEDITOR.CTRL + 65);
