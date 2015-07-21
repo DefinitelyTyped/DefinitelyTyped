@@ -34,7 +34,7 @@ declare module "oboe" {
 
 			start(callback: (status: number, headers: Object) => void): Oboe;
 			
-			abort();
+			abort():void;
 
 			source: string;
 		}
