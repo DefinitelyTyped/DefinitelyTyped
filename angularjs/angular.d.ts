@@ -862,7 +862,7 @@ declare module angular {
         warn: ILogCall;
     }
 
-    interface ILogProvider {
+    interface ILogProvider extends IServiceProvider {
         debugEnabled(): boolean;
         debugEnabled(enabled: boolean): ILogProvider;
     }
