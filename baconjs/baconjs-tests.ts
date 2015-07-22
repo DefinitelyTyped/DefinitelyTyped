@@ -28,6 +28,9 @@ function CreatingStreams() {
   Bacon.fromEvent(process.stdin, "readable", () => {
     alert("Bacon!");
   });
+  Bacon.fromEvent($("body"), "click").onValue(() => {
+    alert("Bacon!");
+  });
 
   // This would create a stream that outputs a single value "Bacon!" and ends after that. The use of setTimeout causes the value to be delayed by 1 second.
   Bacon.fromCallback(callback => {

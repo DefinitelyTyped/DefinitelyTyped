@@ -106,7 +106,7 @@ declare module Bacon {
   /**
    * @function
    * @description Creates an [EventStream]{@link Bacon.EventStream} from events on a DOM EventTarget or Node.JS EventEmitter object, or an object that supports event listeners using `on`/`off` methods.
-   * @param {EventTarget|NodeJS.EventEmitter} target
+   * @param {EventTarget|NodeJS.EventEmitter|JQuery} target
    * @param {string} eventName
    * @returns {EventStream<E, A>}
    * @example
@@ -116,8 +116,11 @@ declare module Bacon {
    * Bacon.fromEvent(process.stdin, "readable", () => {
    *   alert("Bacon!");
    * });
+   * Bacon.fromEvent($("body"), "click").onValue(() => {
+   *   alert("Bacon!");
+   * });
    */
-  function fromEvent<E, A>(target:EventTarget|NodeJS.EventEmitter, eventName:string):EventStream<E, A>;
+  function fromEvent<E, A>(target:EventTarget|NodeJS.EventEmitter|JQuery, eventName:string):EventStream<E, A>;
 
   /**
    * @callback Bacon.fromEvent~eventTransformer
@@ -127,7 +130,7 @@ declare module Bacon {
   /**
    * @function Bacon.fromEvent
    * @description Creates an [EventStream]{@link Bacon.EventStream} from events on a DOM EventTarget or Node.JS EventEmitter object, or an object that supports event listeners using `on`/`off` methods. You can pass a function `eventTransformer` that transforms the emitted events' parameters.
-   * @param {EventTarget|NodeJS.EventEmitter} target
+   * @param {EventTarget|NodeJS.EventEmitter|JQuery} target
    * @param {string} eventName
    * @param {Bacon.fromEvent~eventTransformer} eventTransformer
    * @returns {EventStream<E, B>}
@@ -136,7 +139,7 @@ declare module Bacon {
    *   alert("Bacon!");
    * });
    */
-  function fromEvent<E, A, B>(target:EventTarget|NodeJS.EventEmitter, eventName:string, eventTransformer:(event:A) => B):EventStream<E, B>;
+  function fromEvent<E, A, B>(target:EventTarget|NodeJS.EventEmitter|JQuery, eventName:string, eventTransformer:(event:A) => B):EventStream<E, B>;
 
   /**
    * @callback Bacon.fromCallback1~f
