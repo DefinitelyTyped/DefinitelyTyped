@@ -1105,8 +1105,9 @@ result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, 
     return key.charAt(0) != '_';
 });
 
-
+// _.set
 result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
+result = <{ a: { b: { c: number; }}[]}>_({ 'a': [{ 'b': { 'c': 3 } }] }).set('a[0].b.c', 4).value();
 
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
