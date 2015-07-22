@@ -115,8 +115,6 @@ declare module uiGrid {
             ALWAYS: number;            
         }
     }
-    
-    
     export interface IGridInstance {
         appScope?: ng.IScope;
         columnFooterHeight?: number;
@@ -170,7 +168,7 @@ declare module uiGrid {
         registerStyleComputation(styleComputation: ($scope: ng.IScope) => string): void;
         removeRowsProcessor(rows: IRowProcessor): void;
         resetColumnSorting(excludedColumn: IGridColumn): void;
-        scrollTo(rowEntity: any, colDef: IColumnDef): ng.IPromise<any>;
+        scrollTo(rowEntity: IGridRow, colDef: IColumnDef): ng.IPromise<any>;
         scrollToIfNecessary(gridRow: IGridRow, gridCol: IGridColumn): ng.IPromise<any>;
         sortColumn(column: IGridColumn, direction?: string, add?: boolean): ng.IPromise<IGridColumn>;
         updateCanvasHeight(): void;
@@ -243,12 +241,11 @@ declare module uiGrid {
         paginationPageSize?: number;
         paginationCurrentPage?: number;
     }
-
     export interface IGridCoreApi {
         addRowHeaderColumn(column: IColumnDef): void;
         addToGridMenu(grid: IGridInstance, items: Array<IMenuItem>):  void;
         clearAllFilters(refreshRows?: boolean, clearConditions?: boolean, clearFlags?: boolean): ng.IPromise<Array<IGridRow>>;
-        clearRowInvisible(rowEntity: IGridRow): void;
+        clearRowInvisible(rowEntity: any): void;
         getVisibleRows(grid: IGridInstance): Array<IGridRow>;
         handleWindowResize(): void;       
         notifiyDataChange(type: string): void;
@@ -258,7 +255,7 @@ declare module uiGrid {
         removeFromGridMenu(grid: IGridInstance, id: string): void;
         scrollTo(entity: any, colDef: IColumnDef): void; /*A row entity can be anything?*/
         scrollToIfNecessary(gridRow: IGridRow, gridCol: IGridColumn): void;
-        setRowInvisible(rowEntity: IGridRow): void;
+        setRowInvisible(rowEntity: any): void;
         sortHandleNulls(a: any,b: any): number;
         queueGridRefresh(): void;         
         queueRefresh(): void;
@@ -279,7 +276,6 @@ declare module uiGrid {
             scrollEnd: (scope: ng.IScope, handler: () => void) => void;            
         }
     }
-
     export interface IGridSelectionApi {
         toggleRowSelection: (rowEntity: IGridRow, event?: Event) => void;
         selectRow: (rowEntity: IGridRow, event?: Event) => void;
@@ -298,7 +294,6 @@ declare module uiGrid {
             rowSelectionChangedBatch: (scope: ng.IScope, handler: (row: Array<IGridRow>, event?: Event) => void) => void;    
         }
     }
-
     export interface IGridPaginationApi {
         getPage: () => number;
         getTotalPages: () => number;
@@ -308,25 +303,16 @@ declare module uiGrid {
         on: {
             paginationChanged: (scope: ng.IScope, handler: (newPage: number, pageSize: number) => void) => void;
         }
-    }
-    
+    }    
     export interface IGridRowEditApi {
         flushDirtyRows(grid?: IGridInstance): ng.IPromise<boolean>;
         getDirtyRows(grid?: IGridInstance): Array<IGridRow>;
-        getErrorRows(grid?: IGridInstance): Array<IGridRow>;
-        /** 
-         * NOTE: The items below expect the entities not the grid row instance
-         *  http://ui-grid.info/docs/#/api/ui.grid.rowEdit.api:PublicApi
-         */
-        setRowsClean(dataRows: Array<Object>):  Array<Object>;
-        setRowsDirty(dataRows: Array<Object>): Array<Object>;
-        /**
-         * Sets the promise associated with the row save, 
-         * mandatory that the saveRow event handler calls this method somewhere before returning.
-         */
+        getErrorRows(grid?: IGridInstance): Array<IGridRow>;   
+        setRowsClean(dataRows: Array<any>):  Array<any>;
+        setRowsDirty(dataRows: Array<any>): Array<any>;
         setSavePromise(rowEntity: Object, savePromise: ng.IPromise<any>): void; 
         on: {
-            saveRow: (scope: ng.IScope, handler: (rowEntity: Array<Object>) => void) => void
+            saveRow: (scope: ng.IScope, handler: (rowEntity: Array<any>) => void) => void
         }
     } 
 
