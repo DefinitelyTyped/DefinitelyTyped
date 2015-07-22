@@ -10,7 +10,7 @@ declare module ngCordova.plugins {
 	
 	interface IDatePicker {
 		
-		show(options: IDatePickerOptions) : angular.IPromise<Date>;
+		show(options: Object) : angular.IPromise<Date>;
 		
 	}
 	
