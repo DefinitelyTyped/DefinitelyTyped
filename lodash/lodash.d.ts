@@ -6300,6 +6300,14 @@ declare module _ {
             value: any): T;
     }
 
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.set
+         **/
+        set(path: string|string[],
+            value: any): LoDashObjectWrapper<T>;
+    }
+
     //_.transform
     interface LoDashStatic {
         /**
