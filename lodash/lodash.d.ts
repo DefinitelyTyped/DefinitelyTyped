@@ -177,15 +177,25 @@ declare module _ {
         toString(): string;
 
         /**
-        * Extracts the wrapped value.
-        * @return The wrapped value.
-        **/
-        valueOf(): T;
-
-        /**
-        * @see valueOf
+        * Executes the chained sequence to extract the unwrapped value.
+        * @return Returns the resolved unwrapped value.
         **/
         value(): T;
+
+        /**
+        * @see _.value
+        **/
+        run(): T;
+
+        /**
+        * @see _.value
+        **/
+        toJSON(): T;
+
+        /**
+        * @see _.value
+        **/
+        valueOf(): T;
     }
 
     interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
@@ -279,7 +289,7 @@ declare module _ {
         /**
         * @see _.chunk
         **/
-        chunk(size?: number): LoDashArrayWrapper<T>;
+        chunk(size?: number): LoDashArrayWrapper<T[]>;
     }
 
     //_.compact
@@ -4526,6 +4536,20 @@ declare module _ {
         size(aString: string): number;
     }
 
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.size
+         **/
+        size(): number;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.size
+         **/
+        size(): number;
+    }
+
     //_.some
     interface LoDashStatic {
         /**
@@ -6233,6 +6257,20 @@ declare module _ {
             object: T,
             callback: ObjectIterator<any, boolean>,
             thisArg?: any): Picked;
+    }
+
+    //_.set
+    interface LoDashStatic {
+        /**
+         * Sets the property value of path on object. If a portion of path does not exist it is created.
+         * @param object The object to augment.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @return Returns object.
+         **/
+        set<T>(object: T,
+            path: string|string[],
+            value: any): T;
     }
 
     //_.transform

@@ -135,27 +135,23 @@ result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
 result = <string>_({ 'key1': 'test1', 'key2': 'test2' }).toString();
 
-result = <string>_('test').valueOf();
-result = <number[]>_([1, 2, 3]).valueOf();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).valueOf();
-
+// _.value (aliases: _.run, _.toJSON, _.valueOf)
 result = <string>_('test').value();
-result = <number[]>_([1, 2, 3]).value();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
-
-result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).value();
+result = <number[]>_([1, 2, 3]).run();
+result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).toJSON();
+result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).valueOf();
 
 // /*************
 //  * Arrays *
 //  *************/
 result = <any[][]>_.chunk([1, '2', '3', false]);
-result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk();
+result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk();
 result = <any[][]>_.chunk([1, '2', '3', false], 2);
-result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk(2);
+result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk(2);
 result = <number[][]>_.chunk([1, 2, 3, 4]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk();
+result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk();
 result = <number[][]>_.chunk([1, 2, 3, 4], 2);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk(2);
+result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk(2);
 
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
@@ -622,7 +618,9 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
 result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
+result = <number>_([1, 2]).size();
 result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
+result = <number>_({ 'one': 1, 'two': 2, 'three': 3 }).size();
 result = <number>_.size('curly');
 
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
@@ -1079,6 +1077,9 @@ result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, key) {
     return key.charAt(0) != '_';
 });
+
+
+result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
 
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
