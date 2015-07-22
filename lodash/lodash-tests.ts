@@ -149,13 +149,13 @@ result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) 
 //  * Arrays *
 //  *************/
 result = <any[][]>_.chunk([1, '2', '3', false]);
-result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk();
+result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk();
 result = <any[][]>_.chunk([1, '2', '3', false], 2);
-result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk(2);
+result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk(2);
 result = <number[][]>_.chunk([1, 2, 3, 4]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk();
+result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk();
 result = <number[][]>_.chunk([1, 2, 3, 4], 2);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk(2);
+result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk(2);
 
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
@@ -622,7 +622,9 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
 result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
+result = <number>_([1, 2]).size();
 result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
+result = <number>_({ 'one': 1, 'two': 2, 'three': 3 }).size();
 result = <number>_.size('curly');
 
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
