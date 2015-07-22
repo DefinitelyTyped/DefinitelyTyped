@@ -150,6 +150,7 @@ declare module Rx {
 
 		immediate: IScheduler;
 		currentThread: ICurrentThreadScheduler;
+                default: IScheduler; // alias for Scheduler.timeout
 		timeout: IScheduler;
 	}
 
@@ -481,7 +482,7 @@ declare module Rx {
 		* @param [scheduler] Scheduler to run the enumeration of the input sequence on.
 		* @returns The observable sequence whose elements are pulled from the given generator sequence.
 		*/
-		fromItreable<T>(generator: () => { next(): { done: boolean; value?: T; }; }, scheduler?: IScheduler): Observable<T>;
+		fromIterable<T>(generator: () => { next(): { done: boolean; value?: T; }; }, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		*  Converts an iterable into an Observable sequence
@@ -493,7 +494,7 @@ declare module Rx {
 		* @param [scheduler] Scheduler to run the enumeration of the input sequence on.
 		* @returns The observable sequence whose elements are pulled from the given generator sequence.
 		*/
-		fromItreable<T>(iterable: {}, scheduler?: IScheduler): Observable<T>;	// todo: can't describe ES6 Iterable via TypeScript type system
+		fromIterable<T>(iterable: {}, scheduler?: IScheduler): Observable<T>;	// todo: can't describe ES6 Iterable via TypeScript type system
 		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
 		never<T>(): Observable<T>;
 
@@ -589,6 +590,8 @@ declare module Rx {
 		merge<T>(scheduler: IScheduler, sources: Observable<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, sources: IPromise<T>[]): Observable<T>;
 
+		pairs<T>(obj: { [key: string]: T }, scheduler?: IScheduler): Observable<[string, T]>;
+
 		zip<T1, T2, TResult>(first: Observable<T1>, sources: Observable<T2>[], resultSelector: (item1: T1, ...right: T2[]) => TResult): Observable<TResult>;
 		zip<T1, T2, TResult>(first: Observable<T1>, sources: IPromise<T2>[], resultSelector: (item1: T1, ...right: T2[]) => TResult): Observable<TResult>;
 		zip<T1, T2, TResult>(source1: Observable<T1>, source2: Observable<T2>, resultSelector: (item1: T1, item2: T2) => TResult): Observable<TResult>;
@@ -623,11 +626,11 @@ declare module Rx {
 		hasObservers(): boolean;
 	}
 
-    export interface Subject<T> extends ISubject<T> {
-    }
+	export interface Subject<T> extends ISubject<T> {
+	}
 
-    interface SubjectStatic {
-        new <T>(): Subject<T>;
+	interface SubjectStatic {
+		new <T>(): Subject<T>;
 		create<T>(observer?: Observer<T>, observable?: Observable<T>): ISubject<T>;
 	}
 

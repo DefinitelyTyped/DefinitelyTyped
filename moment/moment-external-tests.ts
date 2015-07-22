@@ -188,6 +188,7 @@ moment(1318874398806).valueOf();
 moment(1318874398806).unix();
 moment([2000]).isLeapYear();
 moment().zone();
+moment().utcOffset();
 moment("2012-2", "YYYY-MM").daysInMonth();
 moment([2011, 2, 12]).isDST();
 
@@ -195,9 +196,16 @@ moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
 
+moment.isDate(new Date());
+moment.isDate(/regexp/);
+
 moment.isDuration();
 moment.isDuration(new Date());
 moment.isDuration(moment.duration());
+
+moment().isBetween(moment(), moment());
+moment().isBetween(new Date(), new Date());
+moment().isBetween([1,1,2000], [1,1,2001], "year");
 
 moment.localeData('fr');
 moment(1316116057189).fromNow();
