@@ -177,15 +177,25 @@ declare module _ {
         toString(): string;
 
         /**
-        * Extracts the wrapped value.
-        * @return The wrapped value.
-        **/
-        valueOf(): T;
-
-        /**
-        * @see valueOf
+        * Executes the chained sequence to extract the unwrapped value.
+        * @return Returns the resolved unwrapped value.
         **/
         value(): T;
+
+        /**
+        * @see _.value
+        **/
+        run(): T;
+
+        /**
+        * @see _.value
+        **/
+        toJSON(): T;
+
+        /**
+        * @see _.value
+        **/
+        valueOf(): T;
     }
 
     interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
