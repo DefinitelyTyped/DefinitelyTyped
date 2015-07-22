@@ -2170,17 +2170,17 @@ declare module _ {
         /**
          * @see _.contains
          **/
-        contains(target: any, fromIndex?: number): boolean;
+        contains<TValue>(target: TValue, fromIndex?: number): boolean;
 
         /**
          * @see _.contains
          **/
-        include(target: any, fromIndex?: number): boolean;
+        include<TValue>(target: TValue, fromIndex?: number): boolean;
 
         /**
          * @see _.contains
          **/
-        includes(target: any, fromIndex?: number): boolean;
+        includes<TValue>(target: TValue, fromIndex?: number): boolean;
     }
 
     interface LoDashStringWrapper extends LoDashWrapper<string> {
