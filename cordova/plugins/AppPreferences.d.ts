@@ -58,5 +58,5 @@ interface AppPreferences {
     show(
         onSuccess: (value: any) => void,
         onError: (message: string) => void
-    );
+    ) :void;
 }
