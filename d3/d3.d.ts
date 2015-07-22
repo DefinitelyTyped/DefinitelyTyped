@@ -2810,7 +2810,7 @@ declare module d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): cluster.Link<T>;
+            links(nodes: T[]): cluster.Link<T>[];
 
             children(): (node: T) => T[];
             children(accessor: (node: T) => T[]): Cluster<T>;

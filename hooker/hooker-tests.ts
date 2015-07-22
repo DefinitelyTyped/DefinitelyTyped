@@ -11,11 +11,11 @@ function tests() {
 		hello: 'world'
 	};
 	hooker.hook(objectToHook, 'hello', () => { });
-	hooker.hook(objectToHook, 'hello', () => {
+	hooker.hook(objectToHook, 'hello', (): any => {
 		return null;
 	});
 	hooker.hook(objectToHook, ['hello', 'foo'], () => { });
-	hooker.hook(objectToHook, ['hello', 'bar'], () => {
+	hooker.hook(objectToHook, ['hello', 'bar'], (): any => {
 		return null;
 	});
 	hooker.hook(objectToHook, 'bar', () => {

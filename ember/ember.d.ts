@@ -1420,7 +1420,7 @@ declare module Ember {
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Mixin>(...arguments: CoreObjectArguments[]): T;
+        static create<T extends Mixin>(...args: CoreObjectArguments[]): T;
         detect(obj: any): boolean;
         reopen<T extends Mixin>(args?: {}): T;
     }
