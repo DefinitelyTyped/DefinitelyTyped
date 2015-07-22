@@ -135,15 +135,11 @@ result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
 result = <string>_({ 'key1': 'test1', 'key2': 'test2' }).toString();
 
-result = <string>_('test').valueOf();
-result = <number[]>_([1, 2, 3]).valueOf();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).valueOf();
-
+// _.value (aliases: _.run, _.toJSON, _.valueOf)
 result = <string>_('test').value();
-result = <number[]>_([1, 2, 3]).value();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
-
-result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).value();
+result = <number[]>_([1, 2, 3]).run();
+result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).toJSON();
+result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).valueOf();
 
 // /*************
 //  * Arrays *
@@ -1081,6 +1077,9 @@ result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, key) {
     return key.charAt(0) != '_';
 });
+
+
+result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
 
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
