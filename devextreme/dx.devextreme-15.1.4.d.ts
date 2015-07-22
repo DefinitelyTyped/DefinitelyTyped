@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.1.5
+﻿// Type definitions for DevExtreme 15.1.4
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -520,8 +520,6 @@ declare module DevExpress {
         }
         /** An object used to work with primitive data types not supported by JavaScript when accessing an OData web service. */
         export class EdmLiteral {
-            /** Creates an EdmLiteral instance and assigns the specified value to it. */
-            constructor(value: string);
             /** Returns a string representation of the value associated with this EdmLiteral object. */
             valueOf(): string;
         }
@@ -1440,7 +1438,6 @@ declare module DevExpress.ui {
         applyButtonText?: string;
         /** A Boolean value specifying whether or not to display the lookup in full-screen mode. */
         fullScreen?: boolean;
-        focusStateEnabled?: boolean;
         /** A Boolean value specifying whether or not to group widget items. */
         grouped?: boolean;
         groupRender?: any;
@@ -1820,11 +1817,9 @@ declare module DevExpress.ui {
         /** A handler for the click event. */
         onClick?: any;
         clickAction?: any;
-        /** Specifies the icon to be displayed on the button. */
+        /** The name of an icon to be displayed on the button. */
         icon?: string;
         iconSrc?: string;
-        /** A template to be used for rendering the dxButton widget. */
-        template?: any;
         /** The text displayed on the button. */
         text?: string;
         /** Specifies the button type. */
@@ -1872,7 +1867,7 @@ declare module DevExpress.ui {
         minSearchLength?: number;
         /** Specifies the maximum count of items displayed by the widget. */
         maxItemCount?: number;
-        /** Gets the currently selected item. */
+        /** Specifies the currently selected item. */
         selectedItem?: Object;
     }
     /** A textbox widget that supports autocompletion. */
@@ -2735,8 +2730,6 @@ declare module DevExpress.ui {
         onItemExpanded?: Function;
         /** A handler for the itemCollapsed event. */
         onItemCollapsed?: Function;
-        hoverStateEnabled?: boolean;
-        focusStateEnabled?: boolean;
     }
     /** A widget displaying specified data items as a tree. */
     export class dxTreeView extends CollectionWidget {
@@ -3346,8 +3339,6 @@ Specifies the message displayed in a group row when the corresponding group cont
         }) => void;
         /** A handler for the exported event. */
         onExported?: (e: Object) => void;
-        /** A handler for the keyDown event. */
-        onKeyDown?: (e: Object) => void;
         /** A handler for the rowExpanding event. */
         onRowExpanding?: (e: Object) => void;
         /** A handler for the rowExpanded event. */
@@ -3598,10 +3589,8 @@ Searches grid records by a search string.
         focus(element?: JQuery): void;
     }
     export interface dxPivotGridOptions extends WidgetOptions {
-        onContentReady?: Function;
         /** Specifies a data source for the pivot grid. */
         dataSource?: any;
-        /** Specifies whether or not the widget uses native scrolling. */
         useNativeScrolling?: any;
         /** Allows an end-user to change sorting options. */
         allowSorting?: boolean;
@@ -3687,8 +3676,6 @@ Searches grid records by a search string.
         onCellClick?: (e: any) => void;
         /** A handler for the cellPrepared event. */
         onCellPrepared?: (e: any) => void;
-        /** A handler for the contextMenuPreparing event. */
-        onContextMenuPreparing?: (e: Object) => void;
     }
     /** A data summarization widget for multi-dimensional data analysis and data mining. */
     export class dxPivotGrid extends Widget {
@@ -5192,13 +5179,11 @@ declare module DevExpress.viz.charts {
         onTooltipShown?: (e: {
             component: BaseChart;
             element: Element;
-            target: BasePoint;
         }) => void;
         /** A handler for the tooltipHidden event. */
         onTooltipHidden?: (e: {
             component: BaseChart;
             element: Element;
-            target: BasePoint;
         }) => void;
         tooltipHidden?: (point: TPoint) => void;
         tooltipShown?: (point: TPoint) => void;
@@ -5621,18 +5606,6 @@ declare module DevExpress.viz.gauges {
         };
         /** Specifies options for gauge tooltips. */
         tooltip?: viz.core.Tooltip;
-        /** A handler for the tooltipShown event. */
-        onTooltipShown?: (e: {
-            component: dxBaseGauge;
-            element: Element;
-            target: {};
-        }) => void;
-        /** A handler for the tooltipHidden event. */
-        onTooltipHidden?: (e: {
-            component: dxBaseGauge;
-            element: Element;
-            target: {};
-        }) => void;
     }
     export interface BaseGaugeOptions extends viz.core.BaseWidgetOptions, SharedGaugeOptions {
         /** Specifies the color of the parent page element. */
@@ -6279,19 +6252,7 @@ declare module DevExpress.viz.map {
 			center: Array<number>;
 			component: dxVectorMap;
 			element: Element;
-        }) => void;
-        /** A handler for the tooltipShown event. */
-        onTooltipShown?: (e: {
-            component: dxVectorMap;
-            element: Element;
-            target: {};
-        }) => void;
-        /** A handler for the tooltipHidden event. */
-        onTooltipHidden?: (e: {
-            component: dxVectorMap;
-            element: Element;
-            target: {};
-        }) => void;
+		}) => void;
         /** Specifies a number that is used to zoom a map initially. */
         zoomFactor?: number;
         /** Specifies a map's maximum zoom factor. */
@@ -6394,16 +6355,6 @@ declare module DevExpress.viz.sparklines {
         size?: viz.core.Size;
         /** Specifies tooltip options. */
         tooltip?: SparklineTooltip;
-        /** A handler for the tooltipShown event. */
-        onTooltipShown?: (e: {
-            component: BaseSparkline;
-            element: Element;
-        }) => void;
-        /** A handler for the tooltipHidden event. */
-        onTooltipHidden?: (e: {
-            component: BaseSparkline;
-            element: Element;
-        }) => void;
     }
     /** Overridden by descriptions for particular widgets. */
     export class BaseSparkline extends viz.core.BaseWidget {
