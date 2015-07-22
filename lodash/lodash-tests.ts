@@ -534,6 +534,20 @@ result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
 
+// _.round
+result = <number>_.round(4.006);
+// → 4
+result = <number>_.round(4.006, 2);
+// → 4.01
+result = <number>_.round(4060, -2);
+// → 4100
+result = <number>_(4.006).round();
+// → 4
+result = <number>_(4.006).round(2);
+// → 4.01
+result = <number>_(4060).round(-2);
+// → 4100
+
 result = <number>_.sum([4, 2, 8, 6]);
 result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
 result = <number>_.sum({a: 2, b: 4});
