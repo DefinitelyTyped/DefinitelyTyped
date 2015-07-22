@@ -286,8 +286,8 @@ declare module OData {
         single(success?: any, error?: any): T;
         get(data: any, success?: any, error?: any): T;
         expand(params: any, otherParam1?: any, otherParam2?: any, otherParam3?: any, otherParam4?: any, otherParam5?: any, otherParam6?: any, otherParam7?: any): Provider<T>;
-        count(success?: (result: ICountResult) => any, error?: () => any);
-        withInlineCount();
+        count(success?: (result: ICountResult) => any, error?: () => any):ICountResult;
+        withInlineCount(): Provider<T>;
     }
 
     interface ValueFactory {
