@@ -6249,6 +6249,20 @@ declare module _ {
             thisArg?: any): Picked;
     }
 
+    //_.set
+    interface LoDashStatic {
+        /**
+         * Sets the property value of path on object. If a portion of path does not exist it is created.
+         * @param object The object to augment.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @return Returns object.
+         **/
+        set<T>(object: T,
+            path: string|string[],
+            value: any): T;
+    }
+
     //_.transform
     interface LoDashStatic {
         /**
