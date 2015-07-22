@@ -934,7 +934,20 @@ result = <string[]>_.methods(_);
 result = <_.LoDashArrayWrapper<string>>_(_).functions();
 result = <_.LoDashArrayWrapper<string>>_(_).methods();
 
-result = <number>_.get({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+// _.get
+result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
+// → 3
+result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, ['a', '0', 'b', 'c']);
+// → 3
+result = <string>_.get<string>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a.b.c', 'default');
+// → 'default'
+
+result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>('a[0].b.c');
+// → 3
+result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>(['a', '0', 'b', 'c']);
+// → 3
+result = <string>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<string>('a.b.c', 'default');
+// → 'default'
 
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
