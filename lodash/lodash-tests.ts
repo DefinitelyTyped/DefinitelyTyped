@@ -370,15 +370,30 @@ result = <boolean>_.contains([1, 2, 3], 1, 2);
 result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.contains('curly', 'ur');
 
+result = <boolean>_([1, 2, 3]).contains(1);
+result = <boolean>_([1, 2, 3]).contains(1, 2);
+result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).contains(40);
+result = <boolean>_('curly').contains('ur');
+
 result = <boolean>_.include([1, 2, 3], 1);
 result = <boolean>_.include([1, 2, 3], 1, 2);
 result = <boolean>_.include({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.include('curly', 'ur');
 
+result = <boolean>_([1, 2, 3]).include(1);
+result = <boolean>_([1, 2, 3]).include(1, 2);
+result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).include(40);
+result = <boolean>_('curly').include('ur');
+
 result = <boolean>_.includes([1, 2, 3], 1);
 result = <boolean>_.includes([1, 2, 3], 1, 2);
 result = <boolean>_.includes({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.includes('curly', 'ur');
+
+result = <boolean>_([1, 2, 3]).includes(1);
+result = <boolean>_([1, 2, 3]).includes(1, 2);
+result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).includes(40);
+result = <boolean>_('curly').includes('ur');
 
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
