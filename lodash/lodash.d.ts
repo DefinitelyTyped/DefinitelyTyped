@@ -4711,8 +4711,11 @@ declare module _ {
         *
         * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
+        * 
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback
+        * returns true for elements that have a matching property value, else false.
+        * 
+        * If an object is provided for an iteratee the created "_.matches" style callback returns
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
@@ -4721,7 +4724,7 @@ declare module _ {
         **/
         sortBy<T, TSort>(
             collection: Array<T>,
-            callback?: ListIterator<T, TSort>,
+            iteratee?: ListIterator<T, TSort>,
             thisArg?: any): T[];
 
         /**
@@ -4729,7 +4732,7 @@ declare module _ {
         **/
         sortBy<T, TSort>(
             collection: List<T>,
-            callback?: ListIterator<T, TSort>,
+            iteratee?: ListIterator<T, TSort>,
             thisArg?: any): T[];
 
         /**
@@ -4770,7 +4773,7 @@ declare module _ {
         * @see _.sortBy
         **/
         sortBy<TSort>(
-            callback?: ListIterator<T, TSort>,
+            iteratee?: ListIterator<T, TSort>,
             thisArg?: any): LoDashArrayWrapper<T>;
 
         /**
@@ -4784,6 +4787,131 @@ declare module _ {
         * @param whereValue _.where style callback
         **/
         sortBy<W>(whereValue: W): LoDashArrayWrapper<T>;
+    }
+
+    //_.sortByAll
+    interface LoDashStatic {
+        /**
+        * This method is like "_.sortBy" except that it can sort by multiple iteratees or
+        * property names.
+        * 
+        * If a property name is provided for an iteratee the created "_.property" style callback
+        * returns the property value of the given element.
+        * 
+        * If a value is also provided for thisArg the created "_.matchesProperty" style callback
+        * returns true for elements that have a matching property value, else false.
+        * 
+        * If an object is provided for an iteratee the created "_.matches" style callback returns
+        * true for elements that have the properties of the given object, else false.
+        * 
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @param thisArg The this binding of callback.
+        * @return A new array of sorted elements.
+        **/
+        sortByAll<T>(
+            collection: Array<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+
+        /**
+        * @see _.sortByAll
+        **/
+        sortByAll<T>(
+            collection: List<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+
+        /**
+        * @see _.sortByAll
+        **/
+        sortByAll<T>(
+            collection: Array<T>,
+            ...iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+
+        /**
+        * @see _.sortByAll
+        **/
+        sortByAll<T>(
+            collection: List<T>,
+            ...iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.sortByAll
+        **/
+        sortByAll(
+            iteratees: (ListIterator<T, any>|string|Object)[]): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.sortByAll
+        **/
+        sortByAll(
+            ...iteratees: (ListIterator<T, any>|string|Object)[]): LoDashArrayWrapper<T>;
+    }
+
+    //_.sortByOrder
+    interface LoDashStatic {
+        /**
+        * This method is like "_.sortByAll" except that it allows specifying the sort orders of the
+        * iteratees to sort by. If orders is unspecified, all values are sorted in ascending order.
+        * Otherwise, a value is sorted in ascending order if its corresponding order is "asc", and
+        * descending if "desc". 
+        * 
+        * If a property name is provided for an iteratee the created "_.property" style callback
+        * returns the property value of the given element.
+        * 
+        * If an object is provided for an iteratee the created "_.matches" style callback returns
+        * true for elements that have the properties of the given object, else false.
+        * 
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @param thisArg The this binding of callback.
+        * @return A new array of sorted elements.
+        **/
+        sortByOrder<T>(
+            collection: Array<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[],
+            orders?: boolean[]): T[];
+
+        /**
+        * @see _.sortByOrder
+        **/
+        sortByOrder<T>(
+            collection: List<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[],
+            orders?: boolean[]): T[];
+
+        /**
+        * @see _.sortByOrder
+        **/
+        sortByOrder<T>(
+            collection: Array<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[],
+            orders?: string[]): T[];
+
+        /**
+        * @see _.sortByOrder
+        **/
+        sortByOrder<T>(
+            collection: List<T>,
+            iteratees: (ListIterator<T, any>|string|Object)[],
+            orders?: string[]): T[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.sortByOrder
+        **/
+        sortByOrder(
+            iteratees: (ListIterator<T, any>|string|Object)[],
+            orders?: boolean[]): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.sortByOrder
+        **/
+        sortByOrder(
+            iteratees: (ListIterator<T, any>|string|Object)[],
+            orders?: string[]): LoDashArrayWrapper<T>;
     }
 
     //_.toArray

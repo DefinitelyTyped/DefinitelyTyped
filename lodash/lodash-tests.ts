@@ -639,6 +639,20 @@ result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); })
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
 result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
 
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
+
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }], ['asc', 'desc']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], ['asc', 'desc']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], ['asc', 'desc']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }], [true, false]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], [true, false]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], [true, false]);
+
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
 result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
