@@ -12,6 +12,7 @@
 // compat for TypeScript 1.5.3
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.5.3.
+interface DataViewConstructor {}
 interface MapConstructor {}
 interface WeakMapConstructor {}
 interface SetConstructor {}
@@ -265,7 +266,7 @@ declare module NodeJS {
         ArrayBuffer: typeof ArrayBuffer;
         Boolean: typeof Boolean;
         Buffer: typeof Buffer;
-        DataView: typeof DataView;
+        DataView: DataViewConstructor;
         Date: typeof Date;
         Error: typeof Error;
         EvalError: typeof EvalError;
