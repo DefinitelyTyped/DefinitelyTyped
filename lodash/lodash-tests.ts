@@ -520,6 +520,20 @@ result = <number>_(6.004).ceil(2);
 result = <number>_(6040).ceil(-2);
 // → 6100
 
+// _.floor
+result = <number>_.floor(4.006);
+// → 4
+result = <number>_.floor(0.046, 2);
+// → 0.04
+result = <number>_.floor(4060, -2);
+// → 4000
+result = <number>_(4.006).floor();
+// → 4
+result = <number>_(0.046).floor(2);
+// → 0.04
+result = <number>_(4060).floor(-2);
+// → 4000
+
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
