@@ -163,7 +163,7 @@ declare module 'request' {
 		export interface CookieJar {
 			setCookie(cookie: Cookie, uri: string|url.Url, options?: any): void
 			getCookieString(uri: string|url.Url): string
-			getCookies(uri: string|url.Url): Cookies[]
+			getCookies(uri: string|url.Url): Cookie[]
 		}
 
 		export interface CookieValue {
