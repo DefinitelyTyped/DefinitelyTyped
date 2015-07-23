@@ -46,9 +46,9 @@ str = cookie.path;
 str = cookie.toString();
 
 var jar: request.CookieJar;
-jar.add(cookie);
-cookie = jar.get(req);
-str = jar.cookieString(req);
+jar.setCookie(cookie, uri);
+str = jar.getCookieString(uri);
+var cookies: request.Cookie[] = jar.getCookies(uri);
 
 var aws: request.AWSOptions;
 str = aws.secret;
