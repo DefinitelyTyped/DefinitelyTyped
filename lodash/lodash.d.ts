@@ -3872,7 +3872,7 @@ declare module _ {
         /**
         * @see _.sum
         **/
-        sum(): number
+        sum(): number;
 
         /**
         * @see _.sum
@@ -3883,6 +3883,11 @@ declare module _ {
     }
 
     interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.sum
+        **/
+        sum(): number;
+
         /**
         * @see _.sum
         **/
@@ -3902,7 +3907,7 @@ declare module _ {
         /**
         * @see _.sum
         **/
-        sum(): number
+        sum(): number;
 
         /**
         * @see _.sum
