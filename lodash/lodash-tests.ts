@@ -506,6 +506,20 @@ result = <number[]>_([1, 2, 3]).collect(function (num) { return num * 3; }).valu
 result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function (num: number) { return num * 3; }).value();
 result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 
+// _.ceil
+result = <number>_.ceil(4.006);
+// → 5
+result = <number>_.ceil(6.004, 2);
+// → 6.01
+result = <number>_.ceil(6040, -2);
+// → 6100
+result = <number>_(4.006).ceil();
+// → 5
+result = <number>_(6.004).ceil(2);
+// → 6.01
+result = <number>_(6040).ceil(-2);
+// → 6100
+
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
