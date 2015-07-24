@@ -96,6 +96,9 @@ declare module "mongoose" {
       OId: Types.ObjectId;
       Mixed: any;
     };
+    
+    statics: Object;
+    
     constructor(schema?: Object, options?: Object);
 
     add(obj: Object, prefix?: string): void;
