@@ -42,14 +42,17 @@ interface LocalForageDriver {
 }
 
 interface LocalForage {
-    LOCALSTORAGE: LocalForageDriver;
-    WEBSQL: LocalForageDriver;
-    INDEXEDDB: LocalForageDriver;
+    LOCALSTORAGE: string;
+    WEBSQL: string;
+    INDEXEDDB: string;
     
     config(options: LocalForageOptions): void;
     
-    setDriver(driver: LocalForageDriver): void;
-    setDriver(driver: LocalForageDriver[]): void;
+    driver(): LocalForageDriver;
+    setDriver(driver: string | string[]): Promise<void>;
+    setDriver(driver: string | string[], callback: () => void, errorCallback: (error: any) => void): void;
+    defineDriver(driver: LocalForageDriver): Promise<void>;
+    defineDriver(driver: LocalForageDriver, callback: () => void, errorCallback: (error: any) => void): void;
     
     getItem<T>(key: string): Promise<T>;
     getItem<T>(key: string, callback: (err: any, value: T) => void): void;
