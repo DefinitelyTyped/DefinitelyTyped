@@ -35,23 +35,30 @@ declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
-declare var require: {
+interface NodeRequireFunction {
     (id: string): any;
+}
+
+interface NodeRequire extends NodeRequireFunction {
     resolve(id:string): string;
     cache: any;
     extensions: any;
     main: any;
-};
+}
 
-declare var module: {
+declare var require: NodeRequire;
+
+interface NodeModule {
     exports: any;
-    require(id: string): any;
+    require: NodeRequireFunction;
     id: string;
     filename: string;
     loaded: boolean;
     parent: any;
     children: any[];
-};
+}
+
+declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;
