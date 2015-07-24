@@ -251,7 +251,8 @@ declare module Sinon {
         fakeHTTPMethods: boolean;
         getHTTPMethod: (request: SinonFakeXMLHttpRequest) => string;
         requests: SinonFakeXMLHttpRequest[];
-
+        useFilters: boolean;
+        
         // Methods
         respondWith(body: string): void;
         respondWith(response: any[]): void;
@@ -270,6 +271,7 @@ declare module Sinon {
         respondWith(method: string, url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
         respond(): void;
         restore(): void;
+        addFilter(fn: (method: string, url: string) => boolean): void;
     }
 
     interface SinonFakeServerStatic {
