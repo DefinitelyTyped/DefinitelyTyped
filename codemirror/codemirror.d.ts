@@ -779,8 +779,8 @@ declare module CodeMirror {
         /** Like inclusiveLeft , but for the right side. */
         inclusiveRight?: boolean;
         
-        /** Atomic ranges act as a single unit when cursor movement is concerned � i.e. it is impossible to place the cursor inside of them.
-        In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning � they will prevent the cursor from being placed
+        /** Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
+        In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning — they will prevent the cursor from being placed
         respectively directly before and directly after the range. */
         atomic?: boolean;
         
@@ -813,6 +813,9 @@ declare module CodeMirror {
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
         shared?: boolean;
+
+        /** A string of CSS to be applied to the covered text. For example "color: #fe3". */
+        css?: string;
     }
     
     interface StringStream {
