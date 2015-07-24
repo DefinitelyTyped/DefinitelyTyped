@@ -1,3 +1,8 @@
+// Type definitions for Google Page Speed Online Api
+// Project: https://developers.google.com/drive/v2/reference/
+// Definitions by: Gabriel Garcia <https://github.com/garciat>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../gapi/gapi.client.d.ts" />
 
 declare module gapi.client.drive {
