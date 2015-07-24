@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
+// version: W3C Editor's Draft 29 June 2015
 
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
@@ -32,10 +33,6 @@ interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
 }
 
-interface MediaTrackConstraints {
-    advanced: MediaTrackConstraintSet[];
-}
-
 declare module W3C {
     type LongRange = NumberRange;
     type DoubleRange = NumberRange;
@@ -46,19 +43,23 @@ declare module W3C {
     type ConstrainString = string | string[] | ConstrainStringParameters;
 }
 
+interface MediaTrackConstraints extends MediaTrackConstraintSet {
+    advanced?: MediaTrackConstraintSet[];
+}
+
 interface MediaTrackConstraintSet {
-    width: W3C.ConstrainLong;
-    height: W3C.ConstrainLong;
-    aspectRatio: W3C.ConstrainDouble;
-    frameRate: W3C.ConstrainDouble;
-    facingMode: W3C.ConstrainString;
-    volume: W3C.ConstrainDouble;
-    sampleRate: W3C.ConstrainLong;
-    sampleSize: W3C.ConstrainLong;
-    echoCancellation: W3C.ConstrainBoolean;
-    latency: W3C.ConstrainDouble;
-    deviceId: W3C.ConstrainString;
-    groupId: W3C.ConstrainString;
+    width?: W3C.ConstrainLong;
+    height?: W3C.ConstrainLong;
+    aspectRatio?: W3C.ConstrainDouble;
+    frameRate?: W3C.ConstrainDouble;
+    facingMode?: W3C.ConstrainString;
+    volume?: W3C.ConstrainDouble;
+    sampleRate?: W3C.ConstrainLong;
+    sampleSize?: W3C.ConstrainLong;
+    echoCancellation?: W3C.ConstrainBoolean;
+    latency?: W3C.ConstrainDouble;
+    deviceId?: W3C.ConstrainString;
+    groupId?: W3C.ConstrainString;
 }
 
 interface MediaTrackSupportedConstraints {
@@ -102,6 +103,11 @@ interface MediaStreamTrackEvent extends Event {
     track: MediaStreamTrack;
 }
 
+declare enum MediaStreamTrackState {
+	"live",
+    "ended"
+}
+
 interface MediaStreamTrack extends EventTarget {
     id: string;
     kind: string;
@@ -109,7 +115,7 @@ interface MediaStreamTrack extends EventTarget {
     enabled: boolean;
     muted: boolean;
     remote: boolean;
-    readyState: string;
+    readyState: MediaStreamTrackState;
     
     onmute: EventListener;
     onunmute: EventListener;
