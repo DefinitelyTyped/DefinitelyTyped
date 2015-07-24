@@ -799,7 +799,10 @@ declare module CodeMirror {
         The given DOM node must be an inline element(as opposed to a block element). */
         replacedWith?: HTMLElement;
 
-        /** When replacedWith is given, this determines whether the editor will capture mouse and drag events occurring in this widget. Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture. */
+        /** When replacedWith is given, this determines whether the editor will
+         * capture mouse and drag events occurring in this widget. Default is
+         * false—the events will be left alone for the default browser handler,
+         * or specific handlers on the widget, to capture. */
         handleMouseEvents: boolean;
         
         /** A read - only span can, as long as it is not cleared, not be modified except by calling setValue to reset the whole document.
