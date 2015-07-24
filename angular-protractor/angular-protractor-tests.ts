@@ -374,7 +374,7 @@ function TestElementArrayFinder() {
     var b: boolean = elementArrayFinder.isPending();
     var locator: webdriver.Locator = elementArrayFinder.locator();
 
-    var findersArray: protractor.ElementFinder[] = elementArrayFinder.asElementFinders_();
+    var findersArrayPromise: protractor.promise.Promise<protractor.ElementFinder[]> = elementArrayFinder.asElementFinders_();
 
     var driverElementArray: webdriver.WebElement[] = elementArrayFinder.getWebElements();
     var elementFinder: protractor.ElementFinder = elementArrayFinder.get(42);
