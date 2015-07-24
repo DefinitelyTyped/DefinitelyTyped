@@ -1068,6 +1068,9 @@ result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, 
     return key.charAt(0) != '_';
 });
 
+result = <any>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
+// → 4
+
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
     if (num % 2) {
