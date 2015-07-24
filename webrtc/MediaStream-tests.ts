@@ -3,7 +3,8 @@ var mediaStreamConstraints: MediaStreamConstraints = { audio: true, video: true 
 
 var mediaTrackConstraintSet: MediaTrackConstraintSet = {};
 var mediaTrackConstraintArray: MediaTrackConstraintSet[] = [];
-var mediaTrackConstraints: MediaTrackConstraints = { mandatory: mediaTrackConstraintSet, optional: mediaTrackConstraintArray }
+var mediaTrackConstraints: MediaTrackConstraints = mediaTrackConstraintSet;
+var mediaTrackConstraints2: MediaTrackConstraints = { advanced: mediaTrackConstraintArray };
 
 navigator.getUserMedia(mediaStreamConstraints,
   stream => {
