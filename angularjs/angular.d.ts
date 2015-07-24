@@ -238,7 +238,7 @@ declare module angular {
 
         fromJson(json: string): any;
         identity(arg?: any): any;
-        injector(modules?: any[]): auto.IInjectorService;
+        injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
         isArray(value: any): boolean;
         isDate(value: any): boolean;
         isDefined(value: any): boolean;
@@ -421,9 +421,9 @@ declare module angular {
 
         /**
          * Converts an attribute name (e.g. dash/colon/underscore-delimited string, optionally prefixed with x- or data-) to its normalized, camelCase form.
-         * 
+         *
          * Also there is special case for Moz prefix starting with upper case letter.
-         * 
+         *
          * For further information check out the guide on @see https://docs.angularjs.org/guide/directive#matching-directives
          */
         $normalize(name: string): void;
