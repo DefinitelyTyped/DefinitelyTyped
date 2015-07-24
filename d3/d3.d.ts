@@ -805,6 +805,9 @@ declare module d3 {
     }
 
     interface Transition<Datum> {
+
+        transition(): Transition<Datum>;
+        
         delay(): number;
         delay(delay: number): Transition<Datum>;
         delay(delay: (datum: Datum, index: number) => number): Transition<Datum>;
@@ -2358,7 +2361,7 @@ declare module d3 {
         }
 
         interface Arc<T> {
-            (d: T, i: number): string;
+            (d: T, i?: number): string;
 
             innerRadius(): (d: T, i: number) => number;
             innerRadius(radius: number): Arc<T>;
