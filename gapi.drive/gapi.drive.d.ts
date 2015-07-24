@@ -772,146 +772,363 @@ declare module gapi.client.drive {
          */
         emailAddress: string;
     }
+    
+    interface Channel {
+        /**
+         * This is always drive#channel.
+         */
+        kind: string;
+        
+        /**
+         * A UUID or similar unique string that identifies this channel.
+         */
+        id: string;
+        
+        /**
+         * An opaque ID that identifies the resource being watched on this
+         * channel.
+         */
+        resourceId: string;
+        
+        /**
+         * A version-specific identifier for the watched resource.
+         */
+        resourceUri: string;
+        
+        /**
+         * An arbitrary string delivered to the target address with each
+         * notification delivered over this channel.
+         * 
+         * Notes: optional
+         */
+        token?: string;
+        
+        /**
+         * Date and time of notification channel expiration, expressed as a
+         * Unix timestamp, in milliseconds.
+         * 
+         * Notes: optional
+         */
+        expiration?: number;
+    }
 }
 
-declare module gapi.client.drive.files {
-    /**
-     * Gets a file's metadata by ID.
-     */
-    export function get(params: {
+declare module gapi.client.drive {
+    interface GoogleDriveFilesApi {
         /**
-         * The ID for the file in question.
+         * Gets a file's metadata by ID.
          */
-        fileId: string,
+        get(params: {
+            /**
+             * The ID for the file in question.
+             */
+            fileId: string,
+            
+            /**
+             * Whether the user is acknowledging the risk of downloading known
+             * malware or other abusive files.
+             * 
+             * Default: false
+             */
+            acknowledgeAbuse?: boolean
+            
+            /**
+             * Specifies the Revision ID that should be downloaded.
+             * Ignored unlessalt=media is specified.
+             */
+            revisionId?: string,
+            
+            /**
+             * Whether to update the view date after successfully retrieving the
+             * file.
+             * 
+             * Default: false
+             */
+            updateViewedDate?: boolean
+        }): HttpRequest<File>;
         
         /**
-         * Whether the user is acknowledging the risk of downloading known
-         * malware or other abusive files.
-         * 
-         * Default: false
+         * Updates file metadata.
          */
-        acknowledgeAbuse?: boolean
+        patch(params: {
+            /**
+             * The ID of the file to update.
+             */
+            fileId: string,
+            
+            /**
+             * Whether a blob upload should create a new revision.
+             * 
+             * If false, the blob data in the current head revision is replaced.
+             * 
+             * If true or not set, a new blob is created as head revision, and
+             * previous revisions are preserved (causing increased use of the
+             * user's data storage quota).
+             * 
+             * Default: true
+             */
+            newRevision?: boolean,
+            
+            /**
+             * Comma-separated list of parent IDs to add.
+             */
+            addParents?: string,
+            
+            /**
+             * Comma-separated list of parent IDs to remove.
+             */
+            removeParents?: string,
+            
+            /**
+             * Whether to set the modified date with the supplied modified date.
+             * 
+             * Default: false
+             */
+            setModifiedDate?: boolean,
+            
+            /**
+             * Whether to update the view date after successfully updating the file.
+             * 
+             * Default: true
+             */
+            updateViewedDate?: boolean,
+            
+            /**
+             * Whether to use the content as indexable text.
+             * 
+             * Default: false
+             */
+            useContentAsIndexableText?: boolean,
+            
+            /**
+             * Whether to pin the head revision of the uploaded file. A file can
+             * have a maximum of 200 pinned revisions.
+             * 
+             * Default: false
+             */
+            pinned?: boolean,
+            
+            /**
+             * Whether to convert this file to the corresponding Google Docs format.
+             * 
+             * Default: false
+             */
+            convert?: boolean,
+            
+            /**
+             * Whether to attempt OCR on .jpg, .png, .gif, or .pdf uploads.
+             * 
+             * Default: false
+             */
+            ocr?: boolean,
+            
+            /**
+             * If ocr is true, hints at the language to use.
+             * Valid values are ISO 639-1 codes.
+             */
+            ocrLanguage?: string,
+            
+            /**
+             * The language of the timed text.
+             */
+            timedTextLanguage?: string,
+            
+            /**
+             * The timed text track name.
+             */
+            timedTextTrackName?: string
+        }): HttpResponse<File>;
         
         /**
-         * Specifies the Revision ID that should be downloaded.
-         * Ignored unlessalt=media is specified.
+         * Creates a copy of the specified file.
          */
-        revisionId?: string,
+        copy(params: {
+            /**
+             * The ID of the file to copy.
+             */
+            fileId: string,
+            
+            /**
+             * Whether to convert this file to the corresponding Google Docs format.
+             * 
+             * Default: false
+             */
+            convert?: boolean,
+            
+            /**
+             * Whether to attempt OCR on .jpg, .png, .gif, or .pdf uploads.
+             * 
+             * Default: false
+             */
+            ocr?: boolean,
+            
+            /**
+             * If ocr is true, hints at the language to use.
+             * Valid values are ISO 639-1 codes.
+             */
+            ocrLanguage?: string,
+            
+            /**
+             * Whether to pin the head revision of the uploaded file. A file can
+             * have a maximum of 200 pinned revisions.
+             * 
+             * Default: false
+             */
+            pinned?: boolean,
+            
+            /**
+             * The language of the timed text.
+             */
+            timedTextLanguage?: string,
+            
+            /**
+             * The timed text track name.
+             */
+            timedTextTrackName?: string,
+            
+            /**
+             * The visibility of the new file.
+             * This parameter is only relevant when convert=false. 
+             * 
+             * Acceptable values are:
+             *   "DEFAULT": The visibility of the new file is determined by the
+             *              user's default visibility/sharing policies. (default)
+             *   "PRIVATE": The new file will be visible to only the owner.
+             */
+            visibility?: string
+        }): HttpResponse<File>;
         
         /**
-         * Whether to update the view date after successfully retrieving the
-         * file.
-         * 
-         * Default: false
+         * Permanently deletes a file by ID. Skips the trash.
+         * The currently authenticated user must own the file.
          */
-        updateViewedDate?: boolean
-    }): HttpRequest<File>;
+        delete(params: {
+            /**
+             * The ID of the file to delete.
+             */
+            fileId: string
+        }): HttpResponse<void>;
+        
+        /**
+         * Lists the user's files.
+         */
+        list(params?: {
+            /**
+             * The body of items (files/documents) to which the query applies.
+             * 
+             * Acceptable values are:
+             *   "DEFAULT": The items that the user has accessed.
+             *   "DOMAIN": Items shared to the user's domain.
+             */
+            corpus?: string,
+            
+            /**
+             * Maximum number of files to return.
+             * 
+             * Acceptable values are 0 to 1000, inclusive.
+             * 
+             * Default: 100
+             */
+            maxResults?: number,
+            
+            /**
+             * Page token for files.
+             */
+            pageToken?: string,
+            
+            /**
+             * Query string for searching files.
+             */
+            q?: string
+        }) : HttpRequest<FileList>;
+        
+        /**
+         * Set the file's updated time to the current server time.
+         */
+        touch(params: {
+            /**
+             * The ID of the file to update.
+             */
+            fileId: string
+        }): HttpResponse<void>;
+        
+        /**
+         * Moves a file to the trash.
+         */
+        trash(params: {
+            /**
+             * The ID of the file to trash.
+             */
+            fileId: string
+        }): HttpResponse<void>;
+        
+        /**
+         * Restores a file from the trash.
+         */
+        untrash(params: {
+            /**
+             * The ID of the file to untrash.
+             */
+            fileId: string
+        }): HttpResponse<void>;
+        
+        /**
+         * Start watching for changes to a file.
+         */
+        watch(params: {
+            /**
+             * The ID of the file to watch.
+             */
+            fileId: string,
+            
+            /**
+             * Specifies the Revision ID that should be downloaded.
+             * 
+             * Ignored unless alt=media is specified.
+             */
+            revisionId: string,
+            
+            resource: {
+                /**
+                 * A UUID or similar unique string that identifies this channel.
+                 */
+                id: string,
+                
+                /**
+                 * An arbitrary string delivered to the target address with each
+                 * notification delivered over this channel.
+                 * 
+                 * Notes: optional
+                 */
+                token?: string,
+                
+                /**
+                 * Date and time of notification channel expiration, expressed as a
+                 * Unix timestamp, in milliseconds.
+                 * 
+                 * Notes: optional
+                 */
+                expiration?: number,
+                
+                /**
+                 * The type of delivery mechanism used for this channel.
+                 * 
+                 * The only option is 'web_hook'.
+                 */
+                type: string,
+                
+                /**
+                 * The address where notifications are delivered for this channel.
+                 */
+                address: string
+            }
+        }): HttpRequest<Channel>;
+        
+        /**
+         * Permanently deletes all of the user's trashed files.
+         */
+        emptyTrash(): HttpRequest<void>;
+    }
     
-    /**
-     * Lists the user's files.
-     */
-    export function list(params?: {
-        /**
-         * The body of items (files/documents) to which the query applies.
-         * 
-         * Acceptable values are:
-         *   "DEFAULT": The items that the user has accessed.
-         *   "DOMAIN": Items shared to the user's domain.
-         */
-        corpus?: string,
-        
-        /**
-         * Maximum number of files to return.
-         * 
-         * Acceptable values are 0 to 1000, inclusive.
-         * 
-         * Default: 100
-         */
-        maxResults?: number,
-        
-        /**
-         * Page token for files.
-         */
-        pageToken?: string,
-        
-        /**
-         * Query string for searching files.
-         */
-        q?: string
-    }) : HttpRequest<FileList>;
-    
-    /**
-     * Insert a new file.
-     */
-    export function insert(params: {
-        /**
-         * The type of upload request to the /upload URI. Acceptable values are:
-         * 
-         *   media - Simple upload. Upload the media only, without any metadata.
-         * 
-         *   multipart - Multipart upload. Upload both the media and its
-         *               metadata, in a single request.
-         * 
-         *   resumable - Resumable upload. Upload the file in a resumable
-         *               fashion, using a series of at least two requests where
-         *               the first request includes the metadata.
-         */
-        uploadType: string,
-        
-        /**
-         * Whether to convert this file to the corresponding Google Docs format.
-         * 
-         * Default: false
-         */
-        convert?: boolean,
-        
-        /**
-         * Whether to attempt OCR on .jpg, .png, .gif, or .pdf uploads.
-         * 
-         * Default: false
-         */
-        ocr?: boolean,
-        
-        /**
-         * If ocr is true, hints at the language to use.
-         * Valid values are ISO 639-1 codes.
-         */
-        ocrLanguage?: string,
-        
-        /**
-         * Whether to pin the head revision of the uploaded file. A file can
-         * have a maximum of 200 pinned revisions.
-         * 
-         * Default: false
-         */
-        pinned?: boolean,
-        
-        /**
-         * The language of the timed text.
-         */
-        timedTextLanguage?: string,
-        
-        /**
-         * The timed text track name.
-         */
-        timedTextTrackName?: string,
-        
-        /**
-         * Whether to use the content as indexable text.
-         * 
-         * Default: false
-         */
-        useContentAsIndexableText?: boolean,
-        
-        /**
-         * The visibility of the new file.
-         * This parameter is only relevant when convert=false. 
-         * 
-         * Acceptable values are:
-         *   "DEFAULT": The visibility of the new file is determined by the
-         *              user's default visibility/sharing policies. (default)
-         *   "PRIVATE": The new file will be visible to only the owner.
-         */
-        visibility?: string
-    }): HttpRequest<any>;
+    var files: GoogleDriveFilesApi;
 }
