@@ -6306,7 +6306,7 @@ declare module _ {
 	* @param The path of the property to set.
 	* @param The value to set.
 	* @return Returns augmented object. 
-	*/
+	**/
 	set(object: any, path: string, value: any): any;
     }
 
