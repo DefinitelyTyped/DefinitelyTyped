@@ -674,6 +674,28 @@ declare module gapi.client.drive {
         photoLink: string;
     }
     
+    interface PermissionList {
+        /**
+         * This is always drive#permissionList.
+         */
+        kind: string;
+        
+        /**
+         * The ETag of the list.
+         */
+        etag: string;
+        
+        /**
+         * A link back to this list.
+         */
+        selfLink: string;
+        
+        /**
+         * The actual list of permissions.
+         */
+        items: Permission[];
+    }
+    
     interface FileList {
         /**
          * This is always drive#fileList.
@@ -1390,4 +1412,212 @@ declare module gapi.client.drive {
     }
     
     var about: GoogleDriveAboutApi
+}
+
+declare module gapi.client.drive {
+    interface GoogleDrivePermissionsApi {
+        /**
+         * Deletes a permission from a file.
+         */
+        delete(params: {
+            /**
+             * The ID for the file.
+             */
+            fileId: string,
+            
+            /**
+             * The ID for the permission.
+             */
+            permissionId: string
+        }): HttpResponse<void>;
+        
+        /**
+         * Gets a permission by ID.
+         */
+        get(params: {
+            /**
+             * The ID for the file.
+             */
+            fileId: string,
+            
+            /**
+             * The ID for the permission.
+             */
+            permissionId: string
+        }): HttpResponse<Permission>;
+        
+        /**
+         * Inserts a permission for a file.
+         */
+        insert(params: {
+            /**
+             * The ID for the file.
+             */
+            fileId: string,
+            
+            emailMessage?: string,
+            
+            sendNotificationEmails?: boolean,
+            
+            /**
+             * The ID for the permission.
+             */
+            resource: {
+                /**
+                 * The primary role for this user.
+                 */
+                role: PermissionRole,
+                
+                /**
+                 * The account type.
+                 */
+                type: PermissionAccountType,
+                
+                /**
+                 * Additional roles for this user.
+                 * Only commenter is currently allowed.
+                 */
+                additionalRoles?: PermissionRole[],
+                
+                /**
+                 * The ID of the user this permission refers to, and identical
+                 * to the permissionId in the About and Files resources.
+                 * 
+                 * When making a drive.permissions.insert request, exactly one
+                 * of the id or value fields must be specified.
+                 */
+                id?: string,
+                
+                /**
+                 * The email address or domain name for the entity.
+                 * 
+                 * When making a drive.permissions.insert request, exactly one
+                 * of the id or value fields must be specified.
+                 */
+                value?: string
+            }
+        }): HttpResponse<Permission>;
+        
+        /**
+         * Lists a file's permissions.
+         */
+        list(params: {
+            /**
+             * The ID for the file.
+             */
+            fileId: string
+        }): HttpResponse<PermissionList>;
+        
+        /**
+         * Updates a permission. This method supports patch semantics.
+         */
+        patch(params: {
+            /**
+             * The ID for the file.
+             */
+            fileId: string,
+            
+            /**
+             * The ID for the permission.
+             */
+            permissionId: string,
+            
+            /**
+             * Whether changing a role to 'owner' downgrades the current owners
+             * to writers. Does nothing if the specified role is not 'owner'.
+             */
+            transferOwnership?: boolean,
+            
+            resource: {
+                /**
+                 * The primary role for this user.
+                 */
+                role?: PermissionRole,
+                
+                /**
+                 * The account type.
+                 */
+                type?: PermissionAccountType,
+                
+                /**
+                 * Additional roles for this user.
+                 * Only commenter is currently allowed.
+                 */
+                additionalRoles?: PermissionRole[],
+                
+                /**
+                 * The ID of the user this permission refers to, and identical
+                 * to the permissionId in the About and Files resources.
+                 * 
+                 * When making a drive.permissions.insert request, exactly one
+                 * of the id or value fields must be specified.
+                 */
+                id?: string,
+                
+                /**
+                 * The email address or domain name for the entity.
+                 * 
+                 * When making a drive.permissions.insert request, exactly one
+                 * of the id or value fields must be specified.
+                 */
+                value?: string
+            }
+        }): HttpResponse<Permission>;
+        
+        /**
+         * Updates a permission.
+         */
+        update(params: {
+            /**
+             * The ID for the file.
+             */
+            fileId: string,
+            
+            /**
+             * The ID for the permission.
+             */
+            permissionId: string,
+            
+            /**
+             * Whether changing a role to 'owner' downgrades the current owners
+             * to writers. Does nothing if the specified role is not 'owner'.
+             */
+            transferOwnership?: boolean,
+            
+            resource: {
+                /**
+                 * The primary role for this user.
+                 */
+                role?: PermissionRole,
+                
+                /**
+                 * Additional roles for this user.
+                 * Only commenter is currently allowed.
+                 */
+                additionalRoles?: PermissionRole[],
+            }
+        }): HttpResponse<Permission>;
+        
+        /**
+         * Returns the permission ID for an email address.
+         */
+        getIdForEmail(params: {
+            /**
+             * The email address for which to return a permission ID
+             */
+            email: string
+        }): HttpResponse<{
+            /**
+             * This is always drive#permissionId.
+             */
+            kind: string;
+            
+            /**
+             * The permission ID.
+             */
+            id: string;
+        }>;
+    }
+    
+    var permissions: GoogleDrivePermissionsApi;
 }
