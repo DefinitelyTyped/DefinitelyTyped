@@ -5564,6 +5564,26 @@ declare module _ {
         defaults<T, TResult>(...sources: any[]): LoDashObjectWrapper<TResult>
     }
 
+    //_.defaultsDeep
+    interface LoDashStatic {
+        /**
+         * This method is like _.defaults except that it recursively assigns default properties.
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @return Returns object.
+         **/
+        defaultsDeep<T, TResult>(
+            object: T,
+            ...sources: any[]): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.defaultsDeep
+         **/
+        defaultsDeep<TResult>(...sources: any[]): LoDashObjectWrapper<TResult>
+    }
+
     //_.findKey
     interface LoDashStatic {
         /**

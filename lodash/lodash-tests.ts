@@ -896,6 +896,18 @@ var foodDefaults = { 'name': 'apple' };
 result = <Food>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
 result = <_.LoDashObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
 
+//_.defaultsDeep
+interface DefaultsDeepResult {
+    user: {
+        name: string;
+        age: number;
+    }
+}
+var TestDefaultsDeepObject = {'user': {'name': 'barney'}};
+var TestDefaultsDeepSource = {'user': {'name': 'fred', 'age': 36}};
+result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource);
+result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeepResult>(TestDefaultsDeepSource).value();
+
 result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
     return num % 2 == 0;
 });
