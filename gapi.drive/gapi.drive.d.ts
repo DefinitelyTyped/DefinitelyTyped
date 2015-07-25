@@ -1388,4 +1388,6 @@ declare module gapi.client.drive {
             startChangeId?: number
         }): HttpResponse<About>;
     }
+    
+    var about: GoogleDriveAboutApi
 }
