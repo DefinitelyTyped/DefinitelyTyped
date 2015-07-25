@@ -46,6 +46,8 @@ declare module jasmine {
     var clock: () => Clock;
 
     function any(aclass: any): Any;
+    function anything(): Any;
+    function arrayContaining(sample: any[]): ArrayContaining;
     function objectContaining(sample: any): ObjectContaining;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
@@ -54,7 +56,9 @@ declare module jasmine {
     function getEnv(): Env;
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
     function addMatchers(matchers: CustomMatcherFactories): void;
-
+    function stringMatching(str: string): Any;
+    function stringMatching(str: RegExp): Any;
+    
     interface Any {
 
         new (expectedClass: any): any;
@@ -67,6 +71,13 @@ declare module jasmine {
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
+    }
+    
+    interface ArrayContaining {
+        new (sample: any[]): any;
+
+        asymmetricMatch(other: any): boolean;
+        jasmineToString(): string;
     }
 
     interface ObjectContaining {
@@ -96,6 +107,7 @@ declare module jasmine {
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
+        mockDate(date?: Date): void;
     }
 
     interface CustomEqualityTester {
@@ -285,7 +297,7 @@ declare module jasmine {
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(expected?: any): boolean;
+        toThrowError(expected?: any, message?: string): boolean;
         not: Matchers;
 
         Any: Any;
