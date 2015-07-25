@@ -92,14 +92,14 @@ declare module Vex {
     
     module Flow {
         
-        var RESOLUTION : number;
+        const RESOLUTION : number;
         
         // from tables.js:
-        var STEM_WIDTH : number;
-        var STEM_HEIGHT : number;
-        var STAVE_LINE_THICKNESS : number;
-        var TIME4_4 : {num_beats : number, beat_value : number, resolution : number};
-        var unicode : {[name : string] : string}; //inconsistent API: this should be private and have a wrapper function like the other tables
+        const STEM_WIDTH : number;
+        const STEM_HEIGHT : number;
+        const STAVE_LINE_THICKNESS : number;
+        const TIME4_4 : {num_beats : number, beat_value : number, resolution : number};
+        const unicode : {[name : string] : string}; //inconsistent API: this should be private and have a wrapper function like the other tables
         function clefProperties(clef : string) : {line_shift : number};
         function keyProperties(key : string, clef : string, params : {octave_shift? : number}) : {key : string, octave : number, line : number, int_value : number, accidental : string, code : number, stroke : number, shift_right : number, displaced : boolean};
         function integerToNote(integer : number) : string;
@@ -118,6 +118,24 @@ declare module Vex {
         
         // from glyph.js:
         function renderGlyph(ctx : IRenderContext, x_pos : number, y_pos : number, point : number, val : string, nocache : boolean) : void;
+        
+        // from vexflow_font.js / gonville_original.js / gonville_all.js
+        var Font : {
+            glyphs : {x_min : number, x_max : number, ha : number, o : string[]}[];
+            cssFontWeight : string;
+            ascender : number;
+            underlinePosition : number;
+            cssFontStyle : string;
+            boundingBox : {yMin : number, xMin : number, yMax : number, xMax : number};
+            resolution : number;
+            descender : number;
+            familyName : string;
+            lineHeight : number;
+            underlineThickness : number;
+            
+            //inconsistent member : this is missing in vexflow_font.js, but present in gonville_original.js and gonville_all.js
+            original_font_information : {postscript_name : string, version_string : string, vendor_url : string, full_font_name : string, font_family_name : string, copyright : string, description : string, trademark : string, designer : string, designer_url : string, unique_font_identifier : string, license_url : string, license_description : string, manufacturer_name : string, font_sub_family_name : string};
+        }
         
         class Accidental extends Modifier {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes
@@ -350,23 +368,6 @@ declare module Vex {
             setNote(note : Note) : void; //inconsistent type: void -> Dot
             setDotShiftY(y : number) : Dot;
             draw() : void;
-        }
-        
-        var Font : {
-            glyphs : {x_min : number, x_max : number, ha : number, o : string[]}[];
-            cssFontWeight : string;
-            ascender : number;
-            underlinePosition : number;
-            cssFontStyle : string;
-            boundingBox : {yMin : number, xMin : number, yMax : number, xMax : number};
-            resolution : number;
-            descender : number;
-            familyName : string;
-            lineHeight : number;
-            underlineThickness : number;
-            
-            //inconsistent member : this is missing in vexflow_font.js, but present in gonville_original.js and gonville_all.js
-            original_font_information : {postscript_name : string, version_string : string, vendor_url : string, full_font_name : string, font_family_name : string, copyright : string, description : string, trademark : string, designer : string, designer_url : string, unique_font_identifier : string, license_url : string, license_description : string, manufacturer_name : string, font_sub_family_name : string};
         }
         
         class Formatter {
