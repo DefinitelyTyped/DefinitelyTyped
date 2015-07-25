@@ -561,6 +561,20 @@ declare module gapi.client.drive {
         isRoot: boolean;
     }
     
+    enum PermissionRole {
+        "owner",
+        "reader",
+        "writer",
+        "commenter"
+    }
+    
+    enum PermissionAccountType {
+        "user",
+        "group",
+        "domain",
+        "anyone"
+    }
+    
     /**
      * A permission for a file.
      */
@@ -611,32 +625,25 @@ declare module gapi.client.drive {
         domain: string;
         
         /**
-         * The primary role for this user. Allowed values are:
-         *   owner
-         *   reader
-         *   writer
+         * The primary role for this user.
          * 
          * Notes: writable
          */
-        role: string;
+        role: PermissionRole;
         
         /**
          * Additional roles for this user. Only commenter is currently allowed.
          * 
          * Notes: writable
          */
-        additionalRoles: string[];
+        additionalRoles: PermissionRole[];
         
         /**
-         * The account type. Allowed values are:
-         *   user
-         *   group
-         *   domain
-         *   anyone
+         * The account type.
          * 
          * Notes: writable
          */
-        type: string;
+        type: PermissionAccountType;
         
         /**
          * The email address or domain name for the entity. This is used during
@@ -810,6 +817,29 @@ declare module gapi.client.drive {
          * Notes: optional
          */
         expiration?: number;
+    }
+    
+    enum FileListCorpus {
+        /**
+         * The items that the user has accessed.
+         */
+        "DEFAULT",
+        /**
+         * Items shared to the user's domain.
+         */
+        "DOMAIN"
+    }
+    
+    enum FileVisibility {
+        /**
+         * The visibility of the new file is determined by the user's default
+         * visibility/sharing policies.
+         */
+        "DEFAULT",
+        /**
+         * The new file will be visible to only the owner.
+         */
+        "PRIVATE"
     }
 }
 
@@ -988,14 +1018,9 @@ declare module gapi.client.drive {
             
             /**
              * The visibility of the new file.
-             * This parameter is only relevant when convert=false. 
-             * 
-             * Acceptable values are:
-             *   "DEFAULT": The visibility of the new file is determined by the
-             *              user's default visibility/sharing policies. (default)
-             *   "PRIVATE": The new file will be visible to only the owner.
+             * This parameter is only relevant when convert=false.
              */
-            visibility?: string
+            visibility?: FileVisibility
         }): HttpResponse<File>;
         
         /**
@@ -1015,12 +1040,8 @@ declare module gapi.client.drive {
         list(params?: {
             /**
              * The body of items (files/documents) to which the query applies.
-             * 
-             * Acceptable values are:
-             *   "DEFAULT": The items that the user has accessed.
-             *   "DOMAIN": Items shared to the user's domain.
              */
-            corpus?: string,
+            corpus?: FileListCorpus,
             
             /**
              * Maximum number of files to return.
@@ -1131,4 +1152,240 @@ declare module gapi.client.drive {
     }
     
     var files: GoogleDriveFilesApi;
+}
+
+declare module gapi.client.drive {
+    enum DomainSharingPolicy {
+        "ALLOWED",
+        "ALLOWED_WITH_WARNING",
+        "INCOMING_ONLY",
+        "DISALLOWED"
+    }
+    
+    enum QuotaType {
+        "LIMITED",
+        "UNLIMITED"
+    }
+    
+    interface About {
+        /**
+         * This is always drive#about.
+         */
+        kind: string;
+        
+        /**
+         * The ETag of the item.
+         */
+        etag: string;
+        
+        /**
+         * A link back to this item.
+         */
+        selfLink: string;
+        
+        /**
+         * The name of the current user.
+         */
+        name: string;
+        
+        /**
+         * The total number of quota bytes.
+         */
+        quotaBytesTotal: number;
+        
+        /**
+         * The number of quota bytes used by Google Drive.
+         */
+        quotaBytesUsed: number;
+        
+        /**
+         * The number of quota bytes used by trashed items.
+         */
+        quotaBytesUsedInTrash: number;
+        
+        /**
+         * The largest change id.
+         */
+        largestChangeId: number;
+        
+        /**
+         * The number of remaining change ids.
+         */
+        remainingChangeIds: number;
+        
+        /**
+         * The id of the root folder.
+         */
+        rootFolderId: string;
+        
+        /**
+         * The domain sharing policy for the current user.
+         */
+        domainSharingPolicy: DomainSharingPolicy;
+        
+        /**
+         * The allowable import formats.
+         */
+        importFormats: {
+            /**
+             * The imported file's content type to convert from.
+             */
+            source: string;
+            
+            /**
+             * The possible content types to convert to.
+             */
+            targets: string[];
+        }[];
+        
+        /**
+         * The allowable export formats.
+         */
+        exportFormats: {
+            /**
+             * The imported file's content type to convert from.
+             */
+            source: string;
+            
+            /**
+             * The possible content types to convert to.
+             */
+            targets: string[];
+        }[];
+        
+        /**
+         * Information about supported additional roles per file type. The most
+         * specific type takes precedence.
+         */
+        additionalRoleInfo: {
+            /**
+             * The content type that this additional role info applies to.
+             */
+            type: string;
+            
+            /**
+             * The supported additional roles per primary role.
+             */
+            roleSets: {
+                /**
+                 * A primary permission role.
+                 */
+                primaryRole: string;
+                
+                /**
+                 * The supported additional roles with the primary role.
+                 */
+                additionalRoles: string[];
+            }[];
+        }[];
+        
+        /**
+         * List of additional features enabled on this account.
+         */
+        features: {
+            /**
+             * The name of the feature.
+             */
+            featureName: string;
+            
+            /**
+             * The request limit rate for this feature, in queries per second.
+             */
+            featureRate: number;
+        }[];
+        
+        /**
+         * List of max upload sizes for each file type. The most specific type
+         * takes precedence.
+         */
+        maxUploadSizes: {
+            /**
+             * The file type.
+             */
+            type: string;
+            
+            /**
+             * The max upload size for this type.
+             */
+            size: number;
+        }[];
+        
+        /**
+         * The current user's ID as visible in the permissions collection.
+         */
+        permissionId: string;
+        
+        /**
+         * A boolean indicating whether the authenticated app is installed by
+         * the authenticated user.
+         */
+        isCurrentAppInstalled: boolean;
+        
+        /**
+         * The authenticated user.
+         */
+        user: User;
+        
+        /**
+         * The amount of storage quota used by different Google services.
+         */
+        quotaBytesByService: {
+            /**
+             * The service's name, e.g. DRIVE, GMAIL, or PHOTOS.
+             */
+            serviceName: string;
+            
+            /**
+             * The storage quota bytes used by the service.
+             */
+            bytesUsed: number;
+        }[];
+        
+        /**
+         * The user's language or locale code, as defined by BCP 47, with some
+         * extensions from Unicode's LDML format
+         * (http://www.unicode.org/reports/tr35/).
+         */
+        languageCode: string;
+        
+        /**
+         * The type of the user's storage quota.
+         */
+        quotaType: QuotaType;
+        
+        /**
+         * The palette of allowable folder colors as RGB hex strings.
+         */
+        folderColorPalette: string[];
+    }
+    
+    interface GoogleDriveAboutApi {
+        /**
+         * Gets the information about the current user along with Drive API settings.
+         */
+        get(params?: {
+            /**
+             * When calculating the number of remaining change IDs, whether to
+             * include public files the user has opened and shared files.
+             * 
+             * When set to false, this counts only change IDs for owned files
+             * and any shared or public files that the user has explicitly
+             * added to a folder they own.
+             * 
+             * Default: true
+             */
+            includeSubscribed?: boolean,
+            
+            /**
+             * Maximum number of remaining change IDs to count
+             */
+            maxChangeIdCount?: number,
+            
+            /**
+             * Change ID to start counting from when calculating number of
+             * remaining change IDs
+             */
+            startChangeId?: number
+        }): HttpResponse<About>;
+    }
 }
