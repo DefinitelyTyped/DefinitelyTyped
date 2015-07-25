@@ -815,6 +815,27 @@ stooge('curly');
 var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
 
+// _.modArgs
+function modArgsFn1(n: number): string {return n.toString()}
+function modArgsFn2(n: boolean): string {return n.toString()}
+interface ModArgsFunc {
+    (x: string, y: string): string[];
+}
+interface ModArgsResult {
+    (x: number, y: boolean): string[]
+}
+result = <ModArgsResult>_.modArgs<ModArgsFunc, ModArgsResult>((x: string, y: string) => [x, y], modArgsFn1, modArgsFn2);
+result = <string[]>result(1, true);
+
+result = <ModArgsResult>_.modArgs<ModArgsFunc, ModArgsResult>((x: string, y: string) => [x, y], [modArgsFn1, modArgsFn2]);
+result = <string[]>result(1, true);
+
+result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>(modArgsFn1, modArgsFn2).value();
+result = <string[]>result(1, true);
+
+result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>([modArgsFn1, modArgsFn2]).value();
+result = <string[]>result(1, true);
+
 var initialize = _.once(function () { });
 initialize();
 initialize();''
