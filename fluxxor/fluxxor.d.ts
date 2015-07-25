@@ -3,7 +3,7 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../react/legacy/react-0.12.d.ts' />
+///<reference path='../react/react.d.ts' />
 ///<reference path='../eventemitter3/eventemitter3.d.ts' />
 
 declare module Fluxxor {
@@ -14,7 +14,7 @@ declare module Fluxxor {
         doDispatchLoop(action: Function): void;
         waitForStores(store: Store, stores: string[], fn: Function): void;
     }
-    
+
     class Flux extends EventEmitter3.EventEmitter {
         constructor(stores: any, actions: any);
         addActions(actions: any): void;
@@ -26,40 +26,40 @@ declare module Fluxxor {
         stores: any;
         actions: any;
     }
-    
+
     interface Store extends EventEmitter3.EventEmitter {
         bindActions(...args: Array<string|Function>): void;
         bindActions(args: Array<string|Function>): void;
         waitFor(stores: string[], fn: Function): void;
     }
-    
+
     interface StoreSpec {
         initialize?(instance?: any, options?: {}): void;
         actions?: any;
     }
-    
+
     interface StoreClass {
         new (options?: {}): any;
     }
-    
+
     interface Context {
         flux: Flux;
     }
-    
+
     interface FluxMixin {
         getFlux(): Flux;
     }
-    
+
     interface FluxChildMixin {
         getFlux(): Flux;
     }
-    
+
     interface StoreWatchMixin<StoreState> {
         getStateFromFlux(): StoreState;
     }
-    
-    function FluxMixin(React: React.Exports): FluxMixin;
-    function FluxChildMixin(React: React.Exports): FluxChildMixin;
+
+    function FluxMixin(React: typeof __React): FluxMixin;
+    function FluxChildMixin(React: typeof __React): FluxChildMixin;
     function StoreWatchMixin<StoreState>(...storeNames: string[]): StoreWatchMixin<StoreState>;
     function createStore(spec: StoreSpec): StoreClass;
     var version: string;

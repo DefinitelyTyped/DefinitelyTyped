@@ -74,7 +74,7 @@ declare module nodemailer {
 		/**
 		 * The subject of the e-mail
 		 */
-		sbject?: string;
+		subject?: string;
 		/**
 		 * The plaintext version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
 		 */

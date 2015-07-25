@@ -1063,6 +1063,31 @@ declare module AceAjax {
         onChangeMode(e?);
 
         execCommand(command:string, args?: any);
+        
+        /**
+         * Sets a Configuration Option
+         **/
+        setOption(optionName: any, optionValue: any);
+        
+        /**
+         * Sets Configuration Options
+         **/
+        setOptions(keyValueTuples: any);
+        
+        /**
+         * Get a Configuration Option
+         **/
+        getOption(name: any):any;
+        
+        /**
+         * Get Configuration Options
+         **/
+        getOptions():any;
+        
+        /**
+         * Get rid of console warning by setting this to Infinity
+         **/
+        $blockScrolling:number;
 
         /**
          * Sets a new key handler, such as "vim" or "windows".
@@ -2584,6 +2609,16 @@ declare module AceAjax {
          * Returns `true` if there are redo operations left to perform.
         **/
         hasRedo(): boolean;
+        
+        /**
+         * Returns `true` if the dirty counter is 0
+        **/
+        isClean(): boolean;
+        
+        /**
+         * Sets dirty counter to 0
+        **/
+        markClean(): void;
 
     }
     var UndoManager: {

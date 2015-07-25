@@ -30,10 +30,28 @@ declare module Less {
 
     class PluginManager {
         constructor(less: LessStatic);
+
+        addPreProcessor(preProcessor: PreProcessor, priority?: number): void;
     }
 
     interface Plugin {
         install: (less: LessStatic, pluginManager: PluginManager) => void;
+    }
+
+    interface PreProcessor {
+        process: (src: string, extra: PreProcessorExtraInfo) => string;
+    }
+
+    interface PreProcessorExtraInfo {
+        context: {
+            pluginManager: PluginManager;
+        };
+
+        fileInfo: RootFileInfo;
+
+        imports: {
+            [key: string]: any;
+        };
     }
 
     interface SourceMapOption {

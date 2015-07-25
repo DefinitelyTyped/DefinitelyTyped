@@ -196,9 +196,16 @@ moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
 
+moment.isDate(new Date());
+moment.isDate(/regexp/);
+
 moment.isDuration();
 moment.isDuration(new Date());
 moment.isDuration(moment.duration());
+
+moment().isBetween(moment(), moment());
+moment().isBetween(new Date(), new Date());
+moment().isBetween([1,1,2000], [1,1,2001], "year");
 
 moment.localeData('fr');
 moment(1316116057189).fromNow();

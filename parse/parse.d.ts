@@ -649,7 +649,7 @@ declare module Parse {
         static current(): User;
         static signUp<T>(username: string, password: string, attrs: any, options?: ParseDefaultOptions): Promise<T>;
         static logIn<T>(username: string, password: string, options?: ParseDefaultOptions): Promise<T>;
-        static logOut(): void;
+        static logOut<T>(): Promise<T>;
         static allowCustomUserClass(isAllowed: boolean): void;
         static become<T>(sessionToken: string, options?: ParseDefaultOptions): Promise<T>;
         static requestPasswordReset<T>(email: string, options?: ParseDefaultOptions): Promise<T>;

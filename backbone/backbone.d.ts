@@ -181,8 +181,8 @@ declare module Backbone {
         comparator(element: TModel): number;
         comparator(compare: TModel, to?: TModel): number;
 
-        add(model: TModel, options?: AddOptions): Collection<TModel>;
-        add(models: TModel[], options?: AddOptions): Collection<TModel>;
+        add(model: {}|TModel, options?: AddOptions): TModel;
+        add(models: ({}|TModel)[], options?: AddOptions): TModel[];
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
@@ -247,6 +247,7 @@ declare module Backbone {
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
+        slice(min: number, max?: number): TModel[];
         some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
         sortBy(attribute: string, context?: any): TModel[];

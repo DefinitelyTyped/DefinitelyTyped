@@ -88,24 +88,26 @@ declare module "browser-sync" {
         fn: (match: string) => string;
     }
 
-    interface BrowserSync {
-        init(config?: Options, callback?: (err: Error, bs: Object) => any): void;
-        reload(): void;
-        reload(file: string): void;
-        reload(files: string[]): void;
-        reload(options: {stream: boolean}): NodeJS.ReadWriteStream;
-        notify(message: string, timeout?: number): void;
-        exit(): void;
-        watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any): NodeJS.EventEmitter;
-        pause(): void;
-        resume(): void;
-        emitter: NodeJS.EventEmitter;
-        active: boolean;
-        paused: boolean;
+    module browserSync {
+        interface BrowserSync {
+            init(config?: Options, callback?: (err: Error, bs: Object) => any): void;
+            reload(): void;
+            reload(file: string): void;
+            reload(files: string[]): void;
+            reload(options: {stream: boolean}): NodeJS.ReadWriteStream;
+            notify(message: string, timeout?: number): void;
+            exit(): void;
+            watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any): NodeJS.EventEmitter;
+            pause(): void;
+            resume(): void;
+            emitter: NodeJS.EventEmitter;
+            active: boolean;
+            paused: boolean;
+        }
     }
 
-    interface Exports extends BrowserSync {
-        create(): BrowserSync;
+    interface Exports extends browserSync.BrowserSync {
+        create(): browserSync.BrowserSync;
         (config?: Options, callback?: (err: Error, bs: Object) => any): void;
     }
 
