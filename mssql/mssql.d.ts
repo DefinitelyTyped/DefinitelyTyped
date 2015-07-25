@@ -5,12 +5,38 @@
 
 declare module "mssql" {
 
+    export var Date: any;
     export var DateTime: any;
+    export var DateTime2: any;
+    export var DateTimeOffset: any;
+    export var SmallDateTime: any;
+    export var Time: any;
+    export var Char: any;
+    export var VarChar:any;
+    export var NChar: any;
     export var NVarChar: any;
+    export var Text:any;
+    export var NText:any;
+    export var Xml: any;
+    export var TinyInt:any;
+    export var SmallInt:any;
     export var Int: any;
+    export var BigInt:any;
+    export var Decimal:any;
+    export var Float:any;
+    export var Real:any;
+    export var SmallMoney:any;
+    export var Money:any;
+    export var Numeric:any;
     export var Bit: any;
+    export var Binary: any;
     export var VarBinary: any;
     export var TVP: any;
+    export var UniqueIdentifier: any;
+    export var Image: any;
+    export var UDT: any;
+    export var Geography: any;
+    export var Geometry: any;
 
     export interface options {
         encrypt: boolean;
