@@ -855,7 +855,7 @@ declare module Vex {
             getModifierStartXY() : {x : number, y : number};
             getDots() : number;
 
-            constructor(note_struct : {type : string, dots? : number, duration : string, clef : string, keys : string[], octave_shift? : number});
+            constructor(note_struct : {type? : string, dots? : number, duration : string, clef : string, keys : string[], octave_shift? : number});
             static CATEGORY : string;
             static DEBUG : boolean;
             static STEM_UP : number;
@@ -884,7 +884,7 @@ declare module Vex {
             getLineForRest() : number;
             getModifierStartXY(position : Modifier.Position, index : number) : {x : number, y : number};
             setStyle(style : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void; // inconsistent type: void -> StaveNote
-            setKeyStyle(index : number, style : string) : StaveNote;
+            setKeyStyle(index : number, style : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : StaveNote;
             setKeyLine(index : number, line : number) : StaveNote;
             getKeyLine(index : number) : number;
             addToModifierContext(mContext : ModifierContext) : StaveNote;
