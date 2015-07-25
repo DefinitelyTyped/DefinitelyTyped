@@ -696,6 +696,18 @@ declare module gapi.client.drive {
         items: Permission[];
     }
     
+    interface PermissionId {
+        /**
+         * This is always drive#permissionId.
+         */
+        kind: string;
+        
+        /**
+         * The permission ID.
+         */
+        id: string;
+    }
+    
     interface FileList {
         /**
          * This is always drive#fileList.
@@ -1606,17 +1618,7 @@ declare module gapi.client.drive {
              * The email address for which to return a permission ID
              */
             email: string
-        }): HttpResponse<{
-            /**
-             * This is always drive#permissionId.
-             */
-            kind: string;
-            
-            /**
-             * The permission ID.
-             */
-            id: string;
-        }>;
+        }): HttpResponse<PermissionId>;
     }
     
     var permissions: GoogleDrivePermissionsApi;
