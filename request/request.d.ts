@@ -85,6 +85,7 @@ declare module 'request' {
 			timeout?: number;
 			proxy?: any;
 			strictSSL?: boolean;
+			gzip?: boolean;
 		}
 
 		export interface RequestPart {
