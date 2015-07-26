@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
-declare module autobahn {
+declare module "autobahn" {
 
     export class Session {
         id: number;
