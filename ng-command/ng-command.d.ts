@@ -3,6 +3,8 @@
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../angularjs/angular.d.ts" />
+
 declare module ngCommand {
 	
 	var ModuleName: string;
