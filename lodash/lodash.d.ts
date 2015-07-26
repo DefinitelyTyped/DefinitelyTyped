@@ -190,6 +190,8 @@ declare module _ {
 
     interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
 
+    interface LoDashStringWrapper extends LoDashWrapper<string> { }
+
     interface LoDashObjectWrapper<T> extends LoDashWrapperBase<T, LoDashObjectWrapper<T>> { }
 
     interface LoDashArrayWrapper<T> extends LoDashWrapperBase<T[], LoDashArrayWrapper<T>> {
@@ -2183,7 +2185,7 @@ declare module _ {
         includes<TValue>(target: TValue, fromIndex?: number): boolean;
     }
 
-    interface LoDashStringWrapper extends LoDashWrapper<string> {
+    interface LoDashStringWrapper {
         /**
          * @see _.contains
          **/
