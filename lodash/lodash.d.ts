@@ -2732,13 +2732,13 @@ declare module _ {
         /**
         * Iterates over elements of collection, returning the first element predicate returns
         * truthy for. The predicate is bound to thisArg and invoked with three arguments:
-        * (value, index|key, collection). 
+        * (value, index|key, collection).
         *
         * If a property name is provided for predicate the created _.property style callback
-        * returns the property value of the given element. 
+        * returns the property value of the given element.
         *
         * If a value is also provided for thisArg the created _.matchesProperty style callback
-        * returns true for elements that have a matching property value, else false. 
+        * returns true for elements that have a matching property value, else false.
         *
         * If an object is provided for predicate the created _.matches style callback returns
         * true for elements that have the properties of the given object, else false.
@@ -4884,10 +4884,10 @@ declare module _ {
         *
         * If a property name is provided for callback the created "_.pluck" style callback will
         * return the property value of the given element.
-        * 
+        *
         * If a value is also provided for thisArg the created "_.matchesProperty" style callback
         * returns true for elements that have a matching property value, else false.
-        * 
+        *
         * If an object is provided for an iteratee the created "_.matches" style callback returns
         * true for elements that have the properties of the given object, else false.
         * @param collection The collection to iterate over.
@@ -4967,16 +4967,16 @@ declare module _ {
         /**
         * This method is like "_.sortBy" except that it can sort by multiple iteratees or
         * property names.
-        * 
+        *
         * If a property name is provided for an iteratee the created "_.property" style callback
         * returns the property value of the given element.
-        * 
+        *
         * If a value is also provided for thisArg the created "_.matchesProperty" style callback
         * returns true for elements that have a matching property value, else false.
-        * 
+        *
         * If an object is provided for an iteratee the created "_.matches" style callback returns
         * true for elements that have the properties of the given object, else false.
-        * 
+        *
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
         * @param thisArg The this binding of callback.
@@ -5028,14 +5028,14 @@ declare module _ {
         * This method is like "_.sortByAll" except that it allows specifying the sort orders of the
         * iteratees to sort by. If orders is unspecified, all values are sorted in ascending order.
         * Otherwise, a value is sorted in ascending order if its corresponding order is "asc", and
-        * descending if "desc". 
-        * 
+        * descending if "desc".
+        *
         * If a property name is provided for an iteratee the created "_.property" style callback
         * returns the property value of the given element.
-        * 
+        *
         * If an object is provided for an iteratee the created "_.matches" style callback returns
         * true for elements that have the properties of the given object, else false.
-        * 
+        *
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
         * @param thisArg The this binding of callback.
@@ -7182,8 +7182,44 @@ declare module _ {
         capitalize(str?: string): string;
         deburr(str?: string): string;
         endsWith(str?: string, target?: string, position?: number): boolean;
-        escape(str?: string): string;
-        escapeRegExp(str?: string): string;
+    }
+
+    // _.escape
+    interface LoDashStatic {
+        /**
+         * Converts the characters "&", "<", ">", '"', "'", and "`", in string to their corresponding HTML entities.
+         * @param string The string to escape.
+         * @return Returns the escaped string.
+         */
+        escape(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.escape
+         */
+        escape(): string;
+    }
+
+    // _.escapeRegExp
+    interface LoDashStatic {
+        /**
+         * Escapes the RegExp special characters "\", "/", "^", "$", ".", "|", "?", "*", "+", "(", ")", "[", "]",
+         * "{" and "}" in string.
+         * @param string The string to escape.
+         * @return Returns the escaped string.
+         */
+        escapeRegExp(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.escapeRegExp
+         */
+        escapeRegExp(): string;
+    }
+
+    interface LoDashStatic {
         kebabCase(str?: string): string;
         pad(str?: string, length?: number, chars?: string): string;
         padLeft(str?: string, length?: number, chars?: string): string;
@@ -7274,21 +7310,33 @@ declare module _ {
     interface LoDashStatic {
         trunc(str?: string, len?: number): string;
         trunc(str?: string, options?: { length?: number; omission?: string; separator?: string|RegExp }): string;
+    }
+
+    //_.unescape
+    interface LoDashStatic {
+        /**
+         * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
+         * in string to their corresponding characters.
+         * @param string The string to unescape.
+         * @return Returns the unescaped string.
+         */
+        unescape(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.unescape
+         */
+        unescape(): string;
+    }
+
+    interface LoDashStatic {
         words(str?: string, pattern?: string|RegExp): string[];
     }
 
     /*************
      * Utilities *
      *************/
-    //_.escape
-    interface LoDashStatic {
-        /**
-        * Converts the characters &, <, >, ", and ' in string to their corresponding HTML entities.
-        * @param string The string to escape.
-        * @return The escaped string.
-        **/
-        escape(str?: string): string;
-    }
 
     //_.identity
     interface LoDashStatic {
@@ -7523,18 +7571,6 @@ declare module _ {
             n: number,
             callback: (num: number) => TResult,
             context?: any): TResult[];
-    }
-
-    //_.unescape
-    interface LoDashStatic {
-        /**
-        * The inverse of _.escape this method converts the HTML entities &amp;, <, &gt;, &quot;, and
-        * &#39; in string to their corresponding characters.
-        * @param string The string to unescape.
-        * @return The unescaped string.
-        **/
-        unescape(
-            string: string): string;
     }
 
     //_.uniqueId
