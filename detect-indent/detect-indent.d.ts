@@ -4,6 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'detect-indent' {
-	function DetectIndent (dir: string, alt?: string): string;
-	export = DetectIndent;
+	interface DetectIndent {
+		(dir: string, alt?: string): string;
+	}
+	var _: DetectIndent;
+	export = _;
 }
+
