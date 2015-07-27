@@ -2193,8 +2193,7 @@ declare module d3 {
             interpolate(interpolate: "cardinal-open"): Line<T>;
             interpolate(interpolate: "cardinal-closed"): Line<T>;
             interpolate(interpolate: "monotone"): Line<T>;
-            interpolate(interpolate: string): Line<T>;
-            interpolate(interpolate: (points: Array<[number, number]>) => string): Line<T>;
+            interpolate(interpolate: string | ((points: Array<[number, number]>) => string)): Line<T>;
 
             tension(): number;
             tension(tension: number): Line<T>;
