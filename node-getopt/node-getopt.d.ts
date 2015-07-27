@@ -1,6 +1,6 @@
 // Type definitions for node-getopt 0.2.3
 // Project: https://github.com/jiangmiao/node-getopt
-// Definitions by: Karl.M.Cauchy <karlcauchy@gmail.com>
+// Definitions by: Karl.M.Cauchy <https://github.com/kcauchy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
