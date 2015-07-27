@@ -392,6 +392,9 @@ declare module React {
         widows?: number;
         zIndex?: number;
         zoom?: number;
+        
+        display?:string;
+        
 
         // SVG-related properties
         fillOpacity?: number;
