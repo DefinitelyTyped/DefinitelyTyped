@@ -72,7 +72,7 @@ columnDef.menuItems = [{
 columnDef.minWidth = 100;
 columnDef.name = 'MyColumn';
 columnDef.sort = {
-    direction: 0,
+    direction: 'ASC',
     ignoreSort: false,
     priority: 1
 };
@@ -85,4 +85,18 @@ columnDef.type = 'Date';
 columnDef.visible = true;
 columnDef.width = 100;
 columnDef.width = '*';
+
+
+var gridApi: uiGrid.IGridApi;
+var gridInstance: uiGrid.IGridInstance;
+var menuItem: uiGrid.IMenuItem;
+var colProcessor: uiGrid.IColumnProcessor;
+
+gridApi.core.clearAllFilters(true);
+gridApi.core.addToGridMenu(gridInstance, [menuItem]);
+gridApi.core.getVisibleRows(gridInstance);
+gridApi.core.handleWindowResize();
+gridApi.core.queueGridRefresh()
+gridApi.core.queueRefresh();
+gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
