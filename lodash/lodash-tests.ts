@@ -1255,6 +1255,18 @@ result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
 * Utilities *
 ***********/
 
+// _.constant
+result = <() => number>_.constant<number>(1);
+result = <() => string>_.constant<string>('a');
+result = <() => boolean>_.constant<boolean>(true);
+result = <() => any[]>_.constant<any[]>([]);
+result = <() => {}>_.constant<{}>({});
+result = <() => number>_(1).constant<number>();
+result = <() => string>_('a').constant<string>();
+result = <() => boolean>_(true).constant<boolean>();
+result = <() => any[]>_(['a']).constant<any[]>();
+result = <() => {}>_({}).constant<{}>();
+
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
