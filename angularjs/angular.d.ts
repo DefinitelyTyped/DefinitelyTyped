@@ -622,7 +622,7 @@ declare module angular {
         $watch<T>(watchExpression: (scope: IScope) => T, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): Function;
 
         $watchCollection<T>(watchExpression: string, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
-        $watchCollection(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
+        $watchCollection<T>(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
 
         $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
         $watchGroup(watchExpressions: { (scope: IScope): any }[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
