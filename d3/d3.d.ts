@@ -805,6 +805,9 @@ declare module d3 {
     }
 
     interface Transition<Datum> {
+
+        transition(): Transition<Datum>;
+        
         delay(): number;
         delay(delay: number): Transition<Datum>;
         delay(delay: (datum: Datum, index: number, outerIndex: number) => number): Transition<Datum>;
@@ -821,7 +824,7 @@ declare module d3 {
         attr(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive): Transition<Datum>;
         attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Transition<Datum>;
 
-        attrTween(name: string, tween: (datum: Datum, index: number, attr: string) => Primitive): Transition<Datum>;
+        attrTween(name: string, tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive): Transition<Datum>;
 
         style(name: string, value: Primitive, priority?: string): Transition<Datum>;
         style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Transition<Datum>;
@@ -2358,7 +2361,7 @@ declare module d3 {
         }
 
         interface Arc<T> {
-            (d: T, i: number): string;
+            (d: T, i?: number): string;
 
             innerRadius(): (d: T, i: number) => number;
             innerRadius(radius: number): Arc<T>;
