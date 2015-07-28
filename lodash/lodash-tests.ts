@@ -1028,21 +1028,30 @@ result = <boolean>_.isEmpty([1, 2, 3]);
 result = <boolean>_.isEmpty({});
 result = <boolean>_.isEmpty('');
 
-var moe = { 'name': 'moe', 'age': 40 };
-var copy = { 'name': 'moe', 'age': 40 };
+// _.isEqual (alias: _.eq)
+result = <boolean>_.isEqual(1, 1);
+result = <boolean>_(1).isEqual(1);
+result = <boolean>_.eq(1, 1);
+result = <boolean>_(1).eq(1);
 
-result = <boolean>_.isEqual(moe, copy);
+var testEqObject = { 'user': 'fred' };
+var testEqOtherObject = { 'user': 'fred' };
+result = <boolean>_.isEqual(testEqObject, testEqOtherObject);
+result = <boolean>_(testEqObject).isEqual(testEqOtherObject);
+result = <boolean>_.eq(testEqObject, testEqOtherObject);
+result = <boolean>_(testEqObject).eq(testEqOtherObject);
 
-var words = ['hello', 'goodbye'];
-var otherWords = ['hi', 'goodbye'];
-
-result = <boolean>_.isEqual(words, otherWords, function (a, b) {
-    var reGreet = /^(?:hello|hi)$/i,
-        aGreet = _.isString(a) && reGreet.test(a),
-        bGreet = _.isString(b) && reGreet.test(b);
-
-    return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
-});
+var testEqArray = ['hello', 'goodbye'];
+var testEqOtherArray = ['hi', 'goodbye'];
+var testEqCustomizerFn = (value: any, other: any): boolean => {
+    if (_.every([value, other], RegExp.prototype.test, /^h(?:i|ello)$/)) {
+        return true;
+    }
+};
+result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
+result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
+result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
+result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
 
 result = <boolean>_.isFinite(-101);
 result = <boolean>_.isFinite('10');
