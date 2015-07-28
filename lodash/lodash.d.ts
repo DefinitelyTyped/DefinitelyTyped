@@ -39,7 +39,7 @@ declare module _ {
         * Explicit chaining can be enabled by using the _.chain method.
         **/
         (value: number): LoDashWrapper<number>;
-        (value: string): LoDashWrapper<string>;
+        (value: string): LoDashStringWrapper;
         (value: boolean): LoDashWrapper<boolean>;
         (value: Array<number>): LoDashNumberArrayWrapper;
         <T>(value: Array<T>): LoDashArrayWrapper<T>;
@@ -204,6 +204,8 @@ declare module _ {
     }
 
     interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
+
+    interface LoDashStringWrapper extends LoDashWrapper<string> { }
 
     interface LoDashObjectWrapper<T> extends LoDashWrapperBase<T, LoDashObjectWrapper<T>> { }
 
@@ -2162,6 +2164,57 @@ declare module _ {
             searchString: string,
             targetString: string,
             fromIndex?: number): boolean;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.contains
+         **/
+        contains(target: T, fromIndex?: number): boolean;
+
+        /**
+         * @see _.contains
+         **/
+        include(target: T, fromIndex?: number): boolean;
+
+        /**
+         * @see _.contains
+         **/
+        includes(target: T, fromIndex?: number): boolean;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.contains
+         **/
+        contains<TValue>(target: TValue, fromIndex?: number): boolean;
+
+        /**
+         * @see _.contains
+         **/
+        include<TValue>(target: TValue, fromIndex?: number): boolean;
+
+        /**
+         * @see _.contains
+         **/
+        includes<TValue>(target: TValue, fromIndex?: number): boolean;
+    }
+
+    interface LoDashStringWrapper {
+        /**
+         * @see _.contains
+         **/
+        contains(target: string, fromIndex?: number): boolean;
+
+        /**
+         * @see _.contains
+         **/
+        include(target: string, fromIndex?: number): boolean;
+
+        /**
+         * @see _.contains
+         **/
+        includes(target: string, fromIndex?: number): boolean;
     }
 
     //_.countBy
