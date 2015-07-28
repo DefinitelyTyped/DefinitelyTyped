@@ -5386,6 +5386,41 @@ declare module _ {
             resolver?: Function): T;
     }
 
+    //_.modArgs
+    interface LoDashStatic {
+        /**
+         * Creates a function that runs each argument through a corresponding transform function.
+         * @param func The function to wrap.
+         * @param transforms The functions to transform arguments, specified as individual functions or arrays
+         * of functions.
+         * @return Returns the new function.
+         */
+        modArgs<T extends Function, TResult extends Function>(
+            func: T,
+            ...transforms: Function[]
+        ): TResult;
+
+        /**
+         * @see _.modArgs
+         */
+        modArgs<T extends Function, TResult extends Function>(
+            func: T,
+            transforms: Function[]
+        ): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.modArgs
+         */
+        modArgs<TResult>(...transforms: Function[]): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.modArgs
+         */
+        modArgs<TResult>(transforms: Function[]): LoDashObjectWrapper<TResult>;
+    }
+
     //_.once
     interface LoDashStatic {
         /**
