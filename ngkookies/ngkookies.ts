@@ -17,10 +17,9 @@ declare module angular.kookies {
 		set(name: string, value: string, optopns?: Options): void;
 		get(): any;
 		get(name: string): any;
-		get(name:string, converter: Number): number;
-		get(name:string, converter: String): string;
-		get(name:string, converter: Boolean): boolean;
-		remove(name: string, options?: Options);	
+		get(name:string, converter: any): any;
+		get<T>(name:string, converter: any): T;
+		remove(name: string, options?: Options): boolean;	
 	}
 	
 	type Config = { raw?: boolean, json?: boolean } 
@@ -28,10 +27,8 @@ declare module angular.kookies {
 	interface IKookiesProvider {
 		
 		config: Config;
-		setConfig(config: Config);
+		setConfig(config: Config): void;
 		defaults: Options;
-		setDefaults(options: Options);
+		setDefaults(options: Options): void;
 	}
-	
-	
 }
