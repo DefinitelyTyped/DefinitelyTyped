@@ -1385,6 +1385,18 @@ result = <() => boolean>_(true).constant<boolean>();
 result = <() => any[]>_(['a']).constant<any[]>();
 result = <() => {}>_({}).constant<{}>();
 
+// _.method
+class TestMethod {
+    a = {
+        b: (a1: number, a2: number) => a1 + a2
+    }
+}
+var TestMethodObject = new TestMethod();
+result = <number>(_.method<number>('a.b', 1, 2))(TestMethodObject);
+result = <number>(_.method<number>(['a', 'b'], 1, 2))(TestMethodObject);
+result = <number>(_('a.b').method<number>(1, 2).value())(TestMethodObject);
+result = <number>(_(['a', 'b']).method<number>(1, 2).value())(TestMethodObject);
+
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
