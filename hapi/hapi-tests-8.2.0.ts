@@ -24,7 +24,7 @@ plugin.register.attributes = {
 // optional options parameter
 server.register({}, function (err) {});
 
-// optional options.routes.vhost parameter 
+// optional options.routes.vhost parameter
 server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
 
 //server.pack.register(plugin, (err: Object) => {
@@ -77,7 +77,7 @@ server.route({
 server.route([{
 	method: 'GET',
 	path: '/hello2',
-	handler: function (request: Hapi.Request, reply: Function) {
+	handler: function(request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	}
 }]);
@@ -93,6 +93,14 @@ server.route([{
         validate: {
         }
     }
+}]);
+
+server.route([{
+	method: 'GET',
+	path: '/hello3',
+	handler: function(request: Hapi.Request, reply: Function) {
+		reply().code(201);
+	}
 }]);
 
 // Start the server
