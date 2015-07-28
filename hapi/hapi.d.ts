@@ -1407,6 +1407,9 @@ declare module "hapi" {
 		options - optional configuration. If the state was previously registered with the server using server.state(), the specified keys in options override those same keys in the server definition (but not others).*/
 		state(name: string, value: string, options?: any): void;
 
+		/** type(mimeType) - sets the HTTP 'Content-Type' header where:
+		mimeType - is the mime type. Should only be used to override the built-in default for each response type. */
+		type(mimeType: string): void;
 	}
 
 
