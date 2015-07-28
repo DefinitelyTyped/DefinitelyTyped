@@ -892,6 +892,24 @@ var helloWrap2 = _.wrap(helloWrap, function (func) {
 });
 helloWrap2();
 
+/********
+ * Lang *
+ ********/
+
+// _.toPlainObject
+result = <Object>_.toPlainObject();
+result = <Object>_.toPlainObject(true);
+result = <Object>_.toPlainObject(1);
+result = <Object>_.toPlainObject('a');
+result = <Object>_.toPlainObject([]);
+result = <Object>_.toPlainObject({});
+result = <Object>_(true).toPlainObject();
+result = <Object>_(1).toPlainObject();
+result = <Object>_('a').toPlainObject();
+result = <Object>_([1]).toPlainObject();
+result = <Object>_<string>([]).toPlainObject();
+result = <Object>_({}).toPlainObject();
+
 /**********
 * Objects *
 ***********/
