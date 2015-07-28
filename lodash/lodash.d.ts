@@ -3794,6 +3794,24 @@ declare module _ {
             whereValue: W): LoDashWrapper<T>;
     }
 
+    //_.round
+    interface LoDashStatic {
+        /**
+         * Calculates n rounded to precision.
+         * @param n The number to round.
+         * @param precision The precision to round to.
+         * @return Returns the rounded number.
+         */
+        round(n: number, precision?: number): number;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.round
+         */
+        round(precision?: number): number;
+    }
+
     //_.sum
     interface LoDashStatic {
         /**
