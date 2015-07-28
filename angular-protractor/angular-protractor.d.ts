@@ -927,7 +927,7 @@ declare module protractor {
         * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
         *     of ElementFinders specified by the locator.
         */
-        asElementFinders_(): ElementFinder[];
+        asElementFinders_(): webdriver.promise.Promise<ElementFinder[]>;
 
         /**
         * Create a shallow copy of ElementArrayFinder.
