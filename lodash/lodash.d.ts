@@ -196,6 +196,11 @@ declare module _ {
         * @see _.value
         **/
         valueOf(): T;
+
+        /**
+         * @see _.toPlainObject
+         */
+        toPlainObject(): Object;
     }
 
     interface LoDashWrapper<T> extends LoDashWrapperBase<T, LoDashWrapper<T>> { }
@@ -5471,6 +5476,21 @@ declare module _ {
         wrap(
             value: any,
             wrapper: (func: Function, ...args: any[]) => any): Function;
+    }
+
+    /********
+     * Lang *
+     ********/
+
+    //_.toPlainObject
+    interface LoDashStatic {
+        /**
+         * Converts value to a plain object flattening inherited enumerable properties of value to own properties
+         * of the plain object.
+         * @param value The value to convert.
+         * @return Returns the converted plain object.
+         */
+        toPlainObject(value?: any): Object;
     }
 
     /*************
