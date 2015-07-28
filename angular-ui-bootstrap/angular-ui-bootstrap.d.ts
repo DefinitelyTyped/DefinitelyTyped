@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.13.0
+// Type definitions for Angular UI Bootstrap 0.13.1
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -261,6 +261,13 @@ declare module angular.ui.bootstrap {
          *  Requires the controller option to be provided as well
          */
         controllerAs?: string;
+
+        /**
+         * When used with controllerAs and set to true, it will bind the controller properties onto the $scope directly.
+         *
+         * @default false
+         */
+        bindToController?: boolean;
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
@@ -593,6 +600,20 @@ declare module angular.ui.bootstrap {
          * @default true
          */
         mousewheel?: boolean;
+
+        /**
+         * Whether the user can use up/down arrowkeys inside the hours & minutes input to increase or decrease it's values.
+         *
+         * @default true
+         */
+        arrowkeys?: boolean;
+
+        /**
+         * Shows spinner arrows above and below the inputs.
+         *
+         * @default true
+         */
+        showSpinners?: boolean;
     }
 
 

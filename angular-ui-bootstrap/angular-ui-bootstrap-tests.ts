@@ -110,6 +110,8 @@ testApp.config((
     $timepickerConfig.mousewheel = false;
     $timepickerConfig.readonlyInput = true;
     $timepickerConfig.showMeridian = false;
+    $timepickerConfig.arrowkeys = false;
+    $timepickerConfig.showSpinners = false;
 
     /**
      * $tooltipProvider tests
@@ -140,7 +142,8 @@ testApp.controller('TestCtrl', (
     var modalInstance = $modal.open({
         animation: false,
         backdrop: 'static',
-        backdropClass: 'testing',
+        backdropClass: 'modal-backdrop-test',
+        bindToController: true,
         controller: 'ModalTestCtrl',
         controllerAs: 'vm',
         keyboard: true,
@@ -152,7 +155,6 @@ testApp.controller('TestCtrl', (
         scope: $scope,
         template: "<div>i'm a template!</div>",
         templateUrl: '/templates/modal.html',
-        backdropClass: 'modal-backdrop-test',
         windowClass: 'modal-test'
     });
 
