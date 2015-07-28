@@ -6626,9 +6626,18 @@ declare module _ {
     //_.constant
     interface LoDashStatic {
         /**
-         * Creates a function that returns value..
-         **/
+         * Creates a function that returns value.
+         * @param value The value to return from the new function.
+         * @return Returns the new function.
+         */
         constant<T>(value: T): () => T;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.constant
+         */
+        constant<TResult>(): () => TResult;
     }
 
     //_.create
