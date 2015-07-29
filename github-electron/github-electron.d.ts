@@ -473,7 +473,7 @@ declare module GitHubElectron {
 		'zoom-factor'?: number;
 		kiosk?: boolean;
 		title?: string;
-		icon?: NativeImage;
+		icon?: NativeImage|string;
 		frame?: boolean;
 		'node-integration'?: boolean;
 		'accept-first-mouse'?: boolean;
