@@ -1,195 +1,201 @@
-﻿// Type definitions for AutobahnJS v0.9.6
+// Type definitions for AutobahnJS v0.9.6
 // Project: http://autobahn.ws/js/
 // Definitions by: Elad Zelingher <https://github.com/darkl/>
+// Updated by: Andy Hawkins <https://github.com/a904guy/> [BombSquad Inc](http://www.bmbsqd.com)
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
-declare module autobahn {
 
-    export class Session {
-        id: number;
-        realm: string;
-        isOpen: boolean;
-        features: any;
-        caller_disclose_me: boolean;
-        publisher_disclose_me: boolean;
-        subscriptions: ISubscription[][];
-        registrations: IRegistration[];
+declare module autobahnModule {
 
-        constructor(transport: ITransport, defer: DeferFactory, challenge: OnChallengeHandler);
+	export class Session {
+		id: number;
+		realm: string;
+		isOpen: boolean;
+		features: any;
+		caller_disclose_me: boolean;
+		publisher_disclose_me: boolean;
+		subscriptions: ISubscription[][];
+		registrations: IRegistration[];
 
-        join(realm: string, authmethods: string[], authid: string): void;
+		constructor(transport: ITransport, defer: DeferFactory, challenge: OnChallengeHandler);
 
-        leave(reason: string, message: string): void;
+		join(realm: string, authmethods: string[], authid: string): void;
 
-        call<TResult>(procedure: string, args?: any[], kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+		leave(reason: string, message: string): void;
 
-        publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
+		call<TResult>(procedure: string, args?: any[], kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
 
-        subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
+		publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
 
-        register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
+		subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
 
-        unsubscribe(subscription: ISubscription): When.Promise<any>;
+		register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
 
-        unregister(registration: IRegistration): When.Promise<any>;
+		unsubscribe(subscription: ISubscription): When.Promise<any>;
 
-        prefix(prefix: string, uri: string): void;
+		unregister(registration: IRegistration): When.Promise<any>;
 
-        resolve(curie: string): string;
+		prefix(prefix: string, uri: string): void;
 
-        onjoin: (roleFeatures: any) => void;
-        onleave: (reason: string, details: any) => void;
-    }
+		resolve(curie: string): string;
 
-    interface IInvocation {
-        caller?: number;
-        progress?: boolean;
-        procedure: string;
-    }
+		onjoin: (roleFeatures: any) => void;
+		onleave: (reason: string, details: any) => void;
+	}
 
-    interface IEvent {
-        publication: number;
-        publisher?: number;
-        topic: string;
-    }
+	interface IInvocation {
+		caller?: number;
+		progress?: boolean;
+		procedure: string;
+	}
 
-    interface IResult {
-        args: any[];
-        kwargs: any;
-    }
+	interface IEvent {
+		publication: number;
+		publisher?: number;
+		topic: string;
+	}
 
-    interface IError {
-        error: string;
-        args: any[];
-        kwargs: any;
-    }
+	interface IResult {
+		args: any[];
+		kwargs: any;
+	}
 
-    type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
+	interface IError {
+		error: string;
+		args: any[];
+		kwargs: any;
+	}
 
-    interface ISubscription {
-        topic: string;
-        handler: SubscribeHandler;
-        options: ISubscribeOptions;
-        session: Session;
-        id: number;
-        active: boolean;
-        unsubscribe(): When.Promise<any>;
-    }
+	type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
 
-    type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
+	interface ISubscription {
+		topic: string;
+		handler: SubscribeHandler;
+		options: ISubscribeOptions;
+		session: Session;
+		id: number;
+		active: boolean;
+		unsubscribe(): When.Promise<any>;
+	}
 
-    interface IRegistration {
-        procedure: string;
-        endpoint: RegisterEndpoint;
-        options: IRegisterOptions;
-        session: Session;
-        id: number;
-        active: boolean;
-        unregister(): When.Promise<any>;
-    }
+	type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
 
-    interface IPublication {
-        id: number;
-    }
+	interface IRegistration {
+		procedure: string;
+		endpoint: RegisterEndpoint;
+		options: IRegisterOptions;
+		session: Session;
+		id: number;
+		active: boolean;
+		unregister(): When.Promise<any>;
+	}
 
-    interface ICallOptions {
-        timeout?: number;
-        receive_progress?: boolean;
-        disclose_me?: boolean;
-    }
+	interface IPublication {
+		id: number;
+	}
 
-    interface IPublishOptions {
-        exclude?: number[];
-        eligible?: number[];
-        disclose_me? : Boolean;
-    }
+	interface ICallOptions {
+		timeout?: number;
+		receive_progress?: boolean;
+		disclose_me?: boolean;
+	}
 
-    interface ISubscribeOptions {
-        match? : string;
-    }
+	interface IPublishOptions {
+		exclude?: number[];
+		eligible?: number[];
+		disclose_me? : Boolean;
+	}
 
-    interface IRegisterOptions {
-        disclose_caller?: boolean;
-    }
+	interface ISubscribeOptions {
+		match? : string;
+	}
 
-    export class Connection {
-        constructor(options?: IConnectionOptions);
+	interface IRegisterOptions {
+		disclose_caller?: boolean;
+	}
 
-        open(): void;
+	export class Connection {
+		constructor(options?: IConnectionOptions);
 
-        close(reason: string, message: string): void;
+		open(): void;
 
-        onopen: (session: Session, details: any) => void;
-        onclose: (reason: string, details: any) => boolean;
-    }
+		close(reason: string, message: string): void;
 
-    interface ITransportDefinition {
-        url?: string;
-        protocols?: string[];
-        type: string;
-    }
+		onopen: (session: Session, details: any) => void;
+		onclose: (reason: string, details: any) => boolean;
+	}
 
-    type DeferFactory = () => any;
+	interface ITransportDefinition {
+		url?: string;
+		protocols?: string[];
+		type: string;
+	}
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+	type DeferFactory = () => any;
 
-    interface IConnectionOptions {
-        use_es6_promises?: boolean;
-        // use explicit deferred factory, e.g. jQuery.Deferred or Q.defer
-        use_deferred?: DeferFactory;
-        transports?: ITransportDefinition[];
-        retry_if_unreachable?: boolean;
-        max_retries?: number;
-        initial_retry_delay?: number;
-        max_retry_delay?: number;
-        retry_delay_growth?: number;
-        retry_delay_jitter?: number;
-        url?: string;
-        protocols?: string[];
-        onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
-        realm?: string;
-        authmethods?: string[];
-        authid?: string;
-    }
+	type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
 
-    interface ICloseEventDetails {
-        wasClean: boolean;
-        reason: string;
-        code: number;
-    }
+	interface IConnectionOptions {
+		use_es6_promises?: boolean;
+		// use explicit deferred factory, e.g. jQuery.Deferred or Q.defer
+		use_deferred?: DeferFactory;
+		transports?: ITransportDefinition[];
+		retry_if_unreachable?: boolean;
+		max_retries?: number;
+		initial_retry_delay?: number;
+		max_retry_delay?: number;
+		retry_delay_growth?: number;
+		retry_delay_jitter?: number;
+		url?: string;
+		protocols?: string[];
+		onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
+		realm?: string;
+		authmethods?: string[];
+		authid?: string;
+	}
 
-    interface ITransport {
-        onopen: () => void;
-        onmessage: (message: any[]) => void;
-        onclose: (details: ICloseEventDetails) => void;
+	interface ICloseEventDetails {
+		wasClean: boolean;
+		reason: string;
+		code: number;
+	}
 
-        send(message: any[]): void;
-        close(errorCode: number, reason?: string): void;
-    }
+	interface ITransport {
+		onopen: () => void;
+		onmessage: (message: any[]) => void;
+		onclose: (details: ICloseEventDetails) => void;
 
-    interface ITransportFactory {
-        //constructor(options: any);
-        type: string;
-        create(): ITransport;
-    }
+		send(message: any[]): void;
+		close(errorCode: number, reason?: string): void;
+	}
 
-    interface ITransports {
-        register(name: string, factory: any): void;
-        isRegistered(name: string): boolean;
-        get(name: string): any;
-        list(): any[];
-    }
+	interface ITransportFactory {
+		//constructor(options: any);
+		type: string;
+		create(): ITransport;
+	}
 
-    interface ILog {
-        debug(...args: any[]): void;
-    }
+	interface ITransports {
+		register(name: string, factory: any): void;
+		isRegistered(name: string): boolean;
+		get(name: string): any;
+		list(): any[];
+	}
 
-    interface IUtil {
-        assert(condition: boolean, message: string): void;
-    }
+	interface ILog {
+		debug(...args: any[]): void;
+	}
 
-    var util: IUtil;
-    var log: ILog;
-    var transports: ITransports;
+	interface IUtil {
+		assert(condition: boolean, message: string): void;
+	}
+
+	var util: IUtil;
+	var log: ILog;
+	var transports: ITransports;
+}
+
+declare module "autobahn" {
+	export = autobahnModule;
 }
