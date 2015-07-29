@@ -540,6 +540,7 @@ declare module __React {
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        height?: number | string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -564,6 +565,7 @@ declare module __React {
         transform?: string;
         version?: string;
         viewBox?: string;
+        width?: number | string;
         x1?: number | string;
         x2?: number | string;
         x?: number | string;
