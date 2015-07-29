@@ -22,7 +22,7 @@ declare module 'request-promise' {
     module RequestPromiseAPI {
         export interface Options extends request.Options {
             simple?: boolean;
-            transform?: (body: any, response: http.IncomingMessage) => number;
+            transform?: (body: any, response: http.IncomingMessage) => any;
             resolveWithFullResponse?: boolean;
         }
     }
