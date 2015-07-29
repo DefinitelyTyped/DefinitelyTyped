@@ -29,7 +29,7 @@ interface BootboxButton {
 }
 
 interface BootboxButtonMap {
-  [key: string]: BootboxButton;
+  [key: string]: BootboxButton | Function;
 }
 
 interface BootboxDialogOptions {
