@@ -428,6 +428,8 @@ declare module "react/addons" {
         crossOrigin?: string;
         data?: string;
         dateTime?: string;
+        defaultChecked?: boolean;
+        defaultValue?: string;
         defer?: boolean;
         dir?: string;
         disabled?: boolean;
