@@ -932,6 +932,30 @@ helloWrap2();
  * Lang *
  ********/
 
+// _.gt
+result = <boolean>_.gt(1, 2);
+result = <boolean>_(1).gt(2);
+result = <boolean>_([]).gt(2);
+result = <boolean>_({}).gt(2);
+
+// _.gte
+result = <boolean>_.gte(1, 2);
+result = <boolean>_(1).gte(2);
+result = <boolean>_([]).gte(2);
+result = <boolean>_({}).gte(2);
+
+// _.lt
+result = <boolean>_.lt(1, 2);
+result = <boolean>_(1).lt(2);
+result = <boolean>_([]).lt(2);
+result = <boolean>_({}).lt(2);
+
+// _.lte
+result = <boolean>_.lte(1, 2);
+result = <boolean>_(1).lte(2);
+result = <boolean>_([]).lte(2);
+result = <boolean>_({}).lte(2);
+
 // _.toPlainObject
 result = <Object>_.toPlainObject();
 result = <Object>_.toPlainObject(true);
