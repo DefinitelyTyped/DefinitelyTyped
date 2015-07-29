@@ -820,7 +820,7 @@ declare module google.maps {
     export interface GeocoderRequest {
         address?: string;
         bounds?: LatLngBounds;
-        componentRestrictions: GeocoderComponentRestrictions;
+        componentRestrictions?: GeocoderComponentRestrictions;
         location?: LatLng|LatLngLiteral;
         region?: string;
     }
