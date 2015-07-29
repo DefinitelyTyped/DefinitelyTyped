@@ -893,9 +893,22 @@ result = <string[]>result(1, true);
 result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>([modArgsFn1, modArgsFn2]).value();
 result = <string[]>result(1, true);
 
+// _.negate
+interface TestNegatePredicate {
+    (a1: number, a2: number): boolean;
+}
+interface TestNegateResult {
+    (a1: number, a2: number): boolean;
+}
+var testNegatePredicate = (a1: number, a2: number) => a1 > a2;
+result = <TestNegateResult>_.negate<TestNegatePredicate>(testNegatePredicate);
+result = <TestNegateResult>_.negate<TestNegatePredicate, TestNegateResult>(testNegatePredicate);
+result = <TestNegateResult>_(testNegatePredicate).negate().value();
+result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
+
 var initialize = _.once(function () { });
 initialize();
-initialize();''
+initialize();
 var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
