@@ -1,3 +1,5 @@
+/// <reference path="resemble.d.ts" />
+
 resemble.outputSettings({
   errorColor: {
     red: 255,
