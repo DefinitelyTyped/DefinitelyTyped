@@ -115,7 +115,7 @@ function exist() {
     should.not.exist(void (0));
 }
 
-function arguments() {
+function argumentsTest() {
     var args = arguments;
     expect(args).to.be.arguments;
     args.should.be.arguments;
