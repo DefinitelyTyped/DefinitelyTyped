@@ -672,7 +672,7 @@ interface ChocolateChipAjaxSettings {
     type?: string;
 
     /**
-     * An property that does not seem to be officially documented, but is used in the documentation.
+     * A property that does not seem to be officially documented, but is used in the documentation.
      * Its functionality seems to be identical to that of 'type' which *is* documented.
      */
     method?: string;
