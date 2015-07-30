@@ -16,7 +16,7 @@ declare module angular.ui {
         /**
          * String URL path to template file OR Function, returns URL path string
          */
-        templateUrl?: string | {(IStateParamsService?): string};
+        templateUrl?: string | {(IStateParamsService): string};
         /**
          * Function, returns HTML content string
          */
