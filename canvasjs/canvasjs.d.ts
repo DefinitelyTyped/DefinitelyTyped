@@ -274,6 +274,13 @@ declare module CanvasJS {
     }
 
     interface ChartLegendOptions {
+        /**
+        * Sets the cursor type for legend items.
+        * Default: "default"
+        * Examples: "pointer", "crosshair" ..
+        */
+        cursor?: string;
+
         /** 
         * Sets the font Size of Legend Text in pixels.
         * Default: 12 
@@ -537,6 +544,16 @@ declare module CanvasJS {
         * Example: “red”, “#FEFDDF” .. 
         */
         gridColor?: string;
+        
+        /**
+        * Sets the Interlacing Color that alternates between the set interval.
+        * If the interval is not set explicitly, then the auto calculated interval is considered.
+        * The value of interlacedColor can be an "HTML Color Name" or "hex" code.
+        * Default: null
+        * Example: “#F8F1E4″, “#FEFDDF”
+        */
+        interlacedColor?: string;
+        
         /** 
         * Strip Lines are vertical or horizontal lines used to highlight/mark a certain region on the plot area. You can choose whether to draw a line at a specific position or shade a region on the plot area. Strip Lines are sometimes referred to as trend lines. 
         * If you want to just mark a certain position on the axis, you can set the value attribute and it’ll draw a line at that position with the set thickness. If you want to shade a region instead, you need to set startValue and endValue attributes. This will fill the area within the specified range. 
