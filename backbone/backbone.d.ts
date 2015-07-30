@@ -173,8 +173,8 @@ declare module Backbone {
         models: TModel[];
         length: number;
 
-        constructor(models?: TModel[], options?: any);
-        initialize(models?: TModel[], options?: any): void;
+        constructor(models?: TModel[] | Object[], options?: any);
+        initialize(models?: TModel[] | Object[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -247,6 +247,7 @@ declare module Backbone {
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
+        slice(min: number, max?: number): TModel[];
         some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
         sortBy(attribute: string, context?: any): TModel[];

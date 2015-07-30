@@ -39,7 +39,7 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
 
         requestStoredProcedure.input('pId', testId);
         requestStoredProcedure.input('pString', testString);
-        
+
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
@@ -54,9 +54,17 @@ var connection: sql.Connection = new sql.Connection(config, function (err: any) 
         var testId: number = 0;
         var testString: string = 'test';
 
-        requestStoredProcedure.input('pId', testId);
-        requestStoredProcedure.input('pString', testString);
-        requestStoredProcedure.output('output', sql.Int);
+        requestStoredProcedureWithOutput.input("name", sql.VarChar, "abc");               // varchar(3)
+        requestStoredProcedureWithOutput.input("name", sql.VarChar(50), "abc");           // varchar(MAX)
+        requestStoredProcedureWithOutput.output("name", sql.VarChar);                     // varchar(8000)
+        requestStoredProcedureWithOutput.output("name", sql.VarChar, "abc");              // varchar(3)
+
+        requestStoredProcedureWithOutput.input("name", sql.Decimal, 155.33);              // decimal(18, 0)
+        requestStoredProcedureWithOutput.input("name", sql.Decimal(10), 155.33);          // decimal(10, 0)
+        requestStoredProcedureWithOutput.input("name", sql.Decimal(10, 2), 155.33);       // decimal(10, 2)
+
+        requestStoredProcedureWithOutput.input("name", sql.DateTime2, new Date());        // datetime2(7)
+        requestStoredProcedureWithOutput.input("name", sql.DateTime2(5), new Date());     // datetime2(5)
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {

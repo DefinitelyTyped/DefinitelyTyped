@@ -2037,7 +2037,7 @@ declare module google.maps {
     /***** Visualization Library *****/
     export module visualization {
         export class MapsEngineLayer extends MVCObject {
-            constructor(options: MapsEngineLayerOptions)
+            constructor(options: MapsEngineLayerOptions);
             getLayerId(): string;
             getLayerKey(): string;
             getMap(): Map;

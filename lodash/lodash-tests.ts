@@ -135,27 +135,23 @@ result = <string>_('test').toString();
 result = <string>_([1, 2, 3]).toString();
 result = <string>_({ 'key1': 'test1', 'key2': 'test2' }).toString();
 
-result = <string>_('test').valueOf();
-result = <number[]>_([1, 2, 3]).valueOf();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).valueOf();
-
+// _.value (aliases: _.run, _.toJSON, _.valueOf)
 result = <string>_('test').value();
-result = <number[]>_([1, 2, 3]).value();
-result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).value();
-
-result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).value();
+result = <number[]>_([1, 2, 3]).run();
+result = <_.Dictionary<string>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).toJSON();
+result = <_.Dictionary<number>>_({ a: 1, b: 2}).mapValues(function(num: number) { return num * 2; }).valueOf();
 
 // /*************
 //  * Arrays *
 //  *************/
 result = <any[][]>_.chunk([1, '2', '3', false]);
-result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk();
+result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk();
 result = <any[][]>_.chunk([1, '2', '3', false], 2);
-result = <_.LoDashArrayWrapper<any>>_([1, '2', '3', false]).chunk(2);
+result = <_.LoDashArrayWrapper<any[]>>_([1, '2', '3', false]).chunk(2);
 result = <number[][]>_.chunk([1, 2, 3, 4]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk();
+result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk();
 result = <number[][]>_.chunk([1, 2, 3, 4], 2);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).chunk(2);
+result = <_.LoDashArrayWrapper<number[]>>_([1, 2, 3, 4]).chunk(2);
 
 result = <any[]>_.compact([0, 1, false, 2, '', 3]);
 result = <_.LoDashArrayWrapper<any>>_([0, 1, false, 2, '', 3]).compact();
@@ -370,15 +366,30 @@ result = <boolean>_.contains([1, 2, 3], 1, 2);
 result = <boolean>_.contains({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.contains('curly', 'ur');
 
+result = <boolean>_([1, 2, 3]).contains(1);
+result = <boolean>_([1, 2, 3]).contains(1, 2);
+result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).contains(40);
+result = <boolean>_('curly').contains('ur');
+
 result = <boolean>_.include([1, 2, 3], 1);
 result = <boolean>_.include([1, 2, 3], 1, 2);
 result = <boolean>_.include({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.include('curly', 'ur');
 
+result = <boolean>_([1, 2, 3]).include(1);
+result = <boolean>_([1, 2, 3]).include(1, 2);
+result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).include(40);
+result = <boolean>_('curly').include('ur');
+
 result = <boolean>_.includes([1, 2, 3], 1);
 result = <boolean>_.includes([1, 2, 3], 1, 2);
 result = <boolean>_.includes({ 'moe': 30, 'larry': 40, 'curly': 67 }, 40);
 result = <boolean>_.includes('curly', 'ur');
+
+result = <boolean>_([1, 2, 3]).includes(1);
+result = <boolean>_([1, 2, 3]).includes(1, 2);
+result = <boolean>_({ 'moe': 30, 'larry': 40, 'curly': 67 }).includes(40);
+result = <boolean>_('curly').includes('ur');
 
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return Math.floor(num); });
 result = <_.Dictionary<number>>_.countBy([4.3, 6.1, 6.4], function (num) { return this.floor(num); }, Math);
@@ -510,6 +521,34 @@ result = <number[]>_([1, 2, 3]).collect(function (num) { return num * 3; }).valu
 result = <number[]>_({ 'one': 1, 'two': 2, 'three': 3 }).collect(function (num: number) { return num * 3; }).value();
 result = <IStoogesAge[]>_(stoogesAges).collect('name').value();
 
+// _.ceil
+result = <number>_.ceil(4.006);
+// → 5
+result = <number>_.ceil(6.004, 2);
+// → 6.01
+result = <number>_.ceil(6040, -2);
+// → 6100
+result = <number>_(4.006).ceil();
+// → 5
+result = <number>_(6.004).ceil(2);
+// → 6.01
+result = <number>_(6040).ceil(-2);
+// → 6100
+
+// _.floor
+result = <number>_.floor(4.006);
+// → 4
+result = <number>_.floor(0.046, 2);
+// → 0.04
+result = <number>_.floor(4060, -2);
+// → 4000
+result = <number>_(4.006).floor();
+// → 4
+result = <number>_(0.046).floor(2);
+// → 0.04
+result = <number>_(4060).floor(-2);
+// → 4000
+
 result = <number>_.max([4, 2, 8, 6]);
 result = <IStoogesAge>_.max(stoogesAges, function (stooge) { return stooge.age; });
 result = <IStoogesAge>_.max(stoogesAges, 'age');
@@ -523,6 +562,20 @@ result = <IStoogesAge>_.min(stoogesAges, 'age');
 result = <_.LoDashWrapper<number>>_([4, 2, 8, 6]).min();
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min(function (stooge) { return stooge.age; });
 result = <_.LoDashWrapper<IStoogesAge>>_(stoogesAges).min('age');
+
+// _.round
+result = <number>_.round(4.006);
+// → 4
+result = <number>_.round(4.006, 2);
+// → 4.01
+result = <number>_.round(4060, -2);
+// → 4100
+result = <number>_(4.006).round();
+// → 4
+result = <number>_(4.006).round(2);
+// → 4.01
+result = <number>_(4060).round(-2);
+// → 4100
 
 result = <number>_.sum([4, 2, 8, 6]);
 result = <number>_.sum([4, 2, 8, 6], function(v) { return v; });
@@ -622,7 +675,9 @@ result = <_.LoDashArrayWrapper<number>>_([1, 2, 3]).shuffle();
 result = <_.LoDashArrayWrapper<_.Dictionary<string>>>_(<{ [index: string]: string; }>{ 'key1': 'test1', 'key2': 'test2' }).shuffle();
 
 result = <number>_.size([1, 2]);
+result = <number>_([1, 2]).size();
 result = <number>_.size({ 'one': 1, 'two': 2, 'three': 3 });
+result = <number>_({ 'one': 1, 'two': 2, 'three': 3 }).size();
 result = <number>_.size('curly');
 
 result = <boolean>_.some([null, 0, 'yes', false], Boolean);
@@ -638,6 +693,20 @@ result = <boolean>_.any(foodsOrganic[0]);
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return Math.sin(num); });
 result = <number[]>_.sortBy([1, 2, 3], function (num) { return this.sin(num); }, Math);
 result = <string[]>_.sortBy(['banana', 'strawberry', 'apple'], 'length');
+
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
+
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }], ['asc', 'desc']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], ['asc', 'desc']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], ['asc', 'desc']);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, [function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); }], [true, false]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', 'age'], [true, false]);
+result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { return Math.sin(stooge.age); }], [true, false]);
 
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
@@ -803,6 +872,27 @@ stooge('curly');
 var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
 
+// _.modArgs
+function modArgsFn1(n: number): string {return n.toString()}
+function modArgsFn2(n: boolean): string {return n.toString()}
+interface ModArgsFunc {
+    (x: string, y: string): string[];
+}
+interface ModArgsResult {
+    (x: number, y: boolean): string[]
+}
+result = <ModArgsResult>_.modArgs<ModArgsFunc, ModArgsResult>((x: string, y: string) => [x, y], modArgsFn1, modArgsFn2);
+result = <string[]>result(1, true);
+
+result = <ModArgsResult>_.modArgs<ModArgsFunc, ModArgsResult>((x: string, y: string) => [x, y], [modArgsFn1, modArgsFn2]);
+result = <string[]>result(1, true);
+
+result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>(modArgsFn1, modArgsFn2).value();
+result = <string[]>result(1, true);
+
+result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>([modArgsFn1, modArgsFn2]).value();
+result = <string[]>result(1, true);
+
 var initialize = _.once(function () { });
 initialize();
 initialize();''
@@ -837,6 +927,24 @@ var helloWrap2 = _.wrap(helloWrap, function (func) {
     return 'before, ' + func('moe') + ', after';
 });
 helloWrap2();
+
+/********
+ * Lang *
+ ********/
+
+// _.toPlainObject
+result = <Object>_.toPlainObject();
+result = <Object>_.toPlainObject(true);
+result = <Object>_.toPlainObject(1);
+result = <Object>_.toPlainObject('a');
+result = <Object>_.toPlainObject([]);
+result = <Object>_.toPlainObject({});
+result = <Object>_(true).toPlainObject();
+result = <Object>_(1).toPlainObject();
+result = <Object>_('a').toPlainObject();
+result = <Object>_([1]).toPlainObject();
+result = <Object>_<string>([]).toPlainObject();
+result = <Object>_({}).toPlainObject();
 
 /**********
 * Objects *
@@ -883,6 +991,18 @@ interface Food {
 var foodDefaults = { 'name': 'apple' };
 result = <Food>_.defaults(foodDefaults, { 'name': 'banana', 'type': 'fruit' });
 result = <_.LoDashObjectWrapper<Food>>_(foodDefaults).defaults({ 'name': 'banana', 'type': 'fruit' });
+
+//_.defaultsDeep
+interface DefaultsDeepResult {
+    user: {
+        name: string;
+        age: number;
+    }
+}
+var TestDefaultsDeepObject = {'user': {'name': 'barney'}};
+var TestDefaultsDeepSource = {'user': {'name': 'fred', 'age': 36}};
+result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource);
+result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeepResult>(TestDefaultsDeepSource).value();
 
 result = <string>_.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function (num) {
     return num % 2 == 0;
@@ -936,7 +1056,20 @@ result = <string[]>_.methods(_);
 result = <_.LoDashArrayWrapper<string>>_(_).functions();
 result = <_.LoDashArrayWrapper<string>>_(_).methods();
 
-result = <number>_.get({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+// _.get
+result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
+// → 3
+result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, ['a', '0', 'b', 'c']);
+// → 3
+result = <string>_.get<string>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a.b.c', 'default');
+// → 'default'
+
+result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>('a[0].b.c');
+// → 3
+result = <number>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<number>(['a', '0', 'b', 'c']);
+// → 3
+result = <string>_({ 'a': [{ 'b': { 'c': 3 } }] }).get<string>('a.b.c', 'default');
+// → 'default'
 
 result = <boolean>_.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
 
@@ -961,21 +1094,30 @@ result = <boolean>_.isEmpty([1, 2, 3]);
 result = <boolean>_.isEmpty({});
 result = <boolean>_.isEmpty('');
 
-var moe = { 'name': 'moe', 'age': 40 };
-var copy = { 'name': 'moe', 'age': 40 };
+// _.isEqual (alias: _.eq)
+result = <boolean>_.isEqual(1, 1);
+result = <boolean>_(1).isEqual(1);
+result = <boolean>_.eq(1, 1);
+result = <boolean>_(1).eq(1);
 
-result = <boolean>_.isEqual(moe, copy);
+var testEqObject = { 'user': 'fred' };
+var testEqOtherObject = { 'user': 'fred' };
+result = <boolean>_.isEqual(testEqObject, testEqOtherObject);
+result = <boolean>_(testEqObject).isEqual(testEqOtherObject);
+result = <boolean>_.eq(testEqObject, testEqOtherObject);
+result = <boolean>_(testEqObject).eq(testEqOtherObject);
 
-var words = ['hello', 'goodbye'];
-var otherWords = ['hi', 'goodbye'];
-
-result = <boolean>_.isEqual(words, otherWords, function (a, b) {
-    var reGreet = /^(?:hello|hi)$/i,
-        aGreet = _.isString(a) && reGreet.test(a),
-        bGreet = _.isString(b) && reGreet.test(b);
-
-    return (aGreet || bGreet) ? (aGreet == bGreet) : undefined;
-});
+var testEqArray = ['hello', 'goodbye'];
+var testEqOtherArray = ['hi', 'goodbye'];
+var testEqCustomizerFn = (value: any, other: any): boolean => {
+    if (_.every([value, other], RegExp.prototype.test, /^h(?:i|ello)$/)) {
+        return true;
+    }
+};
+result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
+result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
+result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
+result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
 
 result = <boolean>_.isFinite(-101);
 result = <boolean>_.isFinite('10');
@@ -1079,6 +1221,10 @@ result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, ['name']);
 result = <HasName>_.pick({ 'name': 'moe', '_userid': 'moe1' }, function (value, key) {
     return key.charAt(0) != '_';
 });
+
+// _.set
+result = <{ a: { b: { c: number; }}[]}>_.set({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c', 4);
+result = <{ a: { b: { c: number; }}[]}>_({ 'a': [{ 'b': { 'c': 3 } }] }).set('a[0].b.c', 4).value();
 
 result = <number[]>_.transform([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (r: number[], num: number) {
     num *= num;
@@ -1226,6 +1372,18 @@ result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
 /**********
 * Utilities *
 ***********/
+
+// _.constant
+result = <() => number>_.constant<number>(1);
+result = <() => string>_.constant<string>('a');
+result = <() => boolean>_.constant<boolean>(true);
+result = <() => any[]>_.constant<any[]>([]);
+result = <() => {}>_.constant<{}>({});
+result = <() => number>_(1).constant<number>();
+result = <() => string>_('a').constant<string>();
+result = <() => boolean>_(true).constant<boolean>();
+result = <() => any[]>_(['a']).constant<any[]>();
+result = <() => {}>_({}).constant<{}>();
 
 result = <string>_.VERSION;
 result = <_.Support>_.support;
