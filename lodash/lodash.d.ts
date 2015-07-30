@@ -5183,6 +5183,21 @@ declare module _ {
         after(func: Function): LoDashObjectWrapper<Function>;
     }
 
+    //_.backflow
+    interface LoDashStatic {
+        /**
+         * @see _.flowRight
+         */
+        backflow<TResult extends Function>(...funcs: Function[]): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         **/
+        backflow<TResult extends Function>(...funcs: Function[]): LoDashObjectWrapper<TResult>;
+    }
+
     //_.bind
     interface LoDashStatic {
         /**
@@ -5261,21 +5276,16 @@ declare module _ {
     //_.compose
     interface LoDashStatic {
         /**
-        * Creates a function that is the composition of the provided functions, where each function
-        * consumes the return value of the function that follows. For example, composing the functions
-        * f(), g(), and h() produces f(g(h())). Each function is executed with the this binding of the
-        * composed function.
-        * @param funcs Functions to compose.
-        * @return The new composed function.
-        **/
-        compose(...funcs: Function[]): Function;
+         * @see _.flowRight
+         */
+        compose<TResult extends Function>(...funcs: Function[]): TResult;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
-        * @see _.compose
-        **/
-        compose(...funcs: Function[]): LoDashObjectWrapper<Function>;
+         * @see _.flowRight
+         */
+        compose<TResult extends Function>(...funcs: Function[]): LoDashObjectWrapper<TResult>;
     }
 
     //_.createCallback
@@ -5440,6 +5450,42 @@ declare module _ {
         delay(
             wait: number,
             ...args: any[]): LoDashWrapper<number>;
+    }
+
+    //_.flow
+    interface LoDashStatic {
+        /**
+         * Creates a function that returns the result of invoking the provided functions with the this binding of the
+         * created function, where each successive invocation is supplied the return value of the previous.
+         * @param funcs Functions to invoke.
+         * @return Returns the new function.
+         */
+        flow<TResult extends Function>(...funcs: Function[]): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.flow
+         **/
+        flow<TResult extends Function>(...funcs: Function[]): LoDashObjectWrapper<TResult>;
+    }
+
+    //_.flowRight
+    interface LoDashStatic {
+        /**
+         * This method is like _.flow except that it creates a function that invokes the provided functions from right
+         * to left.
+         * @param funcs Functions to invoke.
+         * @return Returns the new function.
+         */
+        flowRight<TResult extends Function>(...funcs: Function[]): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.flowRight
+         **/
+        flowRight<TResult extends Function>(...funcs: Function[]): LoDashObjectWrapper<TResult>;
     }
 
     //_.memoize
