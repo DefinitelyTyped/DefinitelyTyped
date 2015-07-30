@@ -1,4 +1,4 @@
-/// <reference path="path.d.ts" />
+/// <reference path="pathjs.d.ts" />
 
 Path.map("/test/:id")
 .to(()=>{ });
