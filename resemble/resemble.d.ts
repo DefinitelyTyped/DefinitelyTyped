@@ -45,16 +45,16 @@ declare module Resemble {
   interface ResembleComparisonResult {
     isSameDimensions: boolean;
     dimensionDifference: {
-      width: number,
-      height: number
+      width: number;
+      height: number;
     };
 
     getImageDataUrl(): string;
 
     misMatchPercentage: number;
     diffBounds: {
-      top: number,
-      left: number,
+      top: number;
+      left: number;
       bottom: number;
       right: number;
     };
