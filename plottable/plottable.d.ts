@@ -1,10 +1,9 @@
-// Type definitions for Plottable v1.2.0
+// Type definitions for Plottable v1.4.0
 // Project: http://plottablejs.org/
 // Definitions by: Plottable Team <https://github.com/palantir/plottable>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts" />
-/// <reference path="../touch-events/touch-events.d.ts" />
 
 declare module Plottable {
     module Utils {
@@ -601,6 +600,15 @@ declare module Plottable {
 
 declare module Plottable {
     type Formatter = (d: any) => string;
+    /**
+     * This field is deprecated and will be removed in v2.0.0.
+     *
+     * The number of milliseconds between midnight one day and the next is
+     * not a fixed quantity.
+     *
+     * Use date.setDate(date.getDate() + number_of_days) instead.
+     *
+     */
     var MILLISECONDS_IN_ONE_DAY: number;
     module Formatters {
         /**
@@ -1085,6 +1093,7 @@ declare module Plottable {
             constructor(scaleType?: string);
             extentOfValues(values: string[]): string[];
             protected _getExtent(): string[];
+            static invalidateColorCache(): void;
             /**
              * Returns the color-string corresponding to a given string.
              * If there are not enough colors in the range(), a lightened version of an existing color will be used.
@@ -1697,6 +1706,8 @@ declare module Plottable {
          */
         formatter(formatter: Formatter): Axis<D>;
         /**
+         * @deprecated As of release 1.3, replaced by innerTickLength()
+         *
          * Gets the tick mark length in pixels.
          */
         tickLength(): number;
@@ -1707,6 +1718,17 @@ declare module Plottable {
          * @returns {Axis} The calling Axis.
          */
         tickLength(length: number): Axis<D>;
+        /**
+         * Gets the tick mark length in pixels.
+         */
+        innerTickLength(): number;
+        /**
+         * Sets the tick mark length in pixels.
+         *
+         * @param {number} length
+         * @returns {Axis} The calling Axis.
+         */
+        innerTickLength(length: number): Axis<D>;
         /**
          * Gets the end tick mark length in pixels.
          */
@@ -2557,6 +2579,17 @@ declare module Plottable {
              * @returns {Pie} The calling Pie Plot.
              */
             labelsEnabled(enabled: boolean): Pie;
+            /**
+             * Gets the Formatter for the labels.
+             */
+            labelFormatter(): Formatter;
+            /**
+             * Sets the Formatter for the labels.
+             *
+             * @param {Formatter} formatter
+             * @returns {Pie} The calling Pie Plot.
+             */
+            labelFormatter(formatter: Formatter): Pie;
             entitiesAt(queryPoint: Point): PlotEntity[];
             protected _propertyProjectors(): AttributeToProjector;
             protected _getDataToDraw(): Utils.Map<Dataset, any[]>;
@@ -2691,6 +2724,8 @@ declare module Plottable {
                 [attr: string]: (datum: any, index: number, dataset: Dataset) => any;
             };
             protected _generateDrawSteps(): Drawers.DrawStep[];
+            protected _updateExtentsForProperty(property: string): void;
+            protected _filterForProperty(property: string): (datum: any, index: number, dataset: Dataset) => boolean;
             /**
              * Gets the AccessorScaleBinding for X.
              */
@@ -3111,6 +3146,8 @@ declare module Plottable {
             constructor();
             protected _createDrawer(dataset: Dataset): Drawers.Segment;
             protected _generateDrawSteps(): Drawers.DrawStep[];
+            protected _updateExtentsForProperty(property: string): void;
+            protected _filterForProperty(property: string): (datum: any, index: number, dataset: Dataset) => boolean;
             /**
              * Gets the AccessorScaleBinding for X
              */
@@ -3176,6 +3213,46 @@ declare module Plottable {
              */
             y2(y2: number | Accessor<number> | Y | Accessor<Y>): Plots.Segment<X, Y>;
             protected _propertyProjectors(): AttributeToProjector;
+        }
+    }
+}
+
+
+declare module Plottable {
+    module Plots {
+        class Waterfall<X, Y> extends Bar<X, number> {
+            constructor();
+            /**
+             * Gets whether connectors are enabled.
+             *
+             * @returns {boolean} Whether connectors should be shown or not.
+             */
+            connectorsEnabled(): boolean;
+            /**
+             * Sets whether connectors are enabled.
+             *
+             * @param {boolean} enabled
+             * @returns {Plots.Waterfall} The calling Waterfall Plot.
+             */
+            connectorsEnabled(enabled: boolean): Waterfall<X, Y>;
+            /**
+             * Gets the AccessorScaleBinding for whether a bar represents a total or a delta.
+             */
+            total<T>(): Plots.AccessorScaleBinding<T, boolean>;
+            /**
+             * Sets total to a constant number or the result of an Accessor
+             *
+             * @param {Accessor<boolean>}
+             * @returns {Plots.Waterfall} The calling Waterfall Plot.
+             */
+            total(total: Accessor<boolean>): Waterfall<X, Y>;
+            protected _additionalPaint(time: number): void;
+            protected _createNodesForDataset(dataset: Dataset): Drawer;
+            protected _extentsForProperty(attr: string): any[];
+            protected _generateAttrToProjector(): {
+                [attr: string]: (datum: any, index: number, dataset: Dataset) => any;
+            };
+            protected _onDatasetUpdate(): Waterfall<X, Y>;
         }
     }
 }
@@ -3993,6 +4070,14 @@ declare module Plottable {
              * Gets the internal Interactions.Drag of the DragBoxLayer.
              */
             dragInteraction(): Interactions.Drag;
+            /**
+             * Enables or disables the interaction and drag box.
+             */
+            enabled(enabled: boolean): DragBoxLayer;
+            /**
+             * Gets the enabled state.
+             */
+            enabled(): boolean;
         }
     }
 }
