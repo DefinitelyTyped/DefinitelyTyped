@@ -1,4 +1,4 @@
-///<reference path="pixi.d.ts"/>
+///<reference path="pixi.js.d.ts"/>
 
 function PixiTests()
 {
