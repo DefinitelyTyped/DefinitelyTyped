@@ -1,0 +1,60 @@
+// Type definitions for Traverson v2.0.1
+// Project: http://github.com/iriscouch/traceback
+// Definitions by: Marcin Porębski <https://github.com/marcinporebski/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+declare module Traverson
+{
+    interface TraversonMethods
+    {
+        from(uri: string): Builder;
+        registerMediaType(name: string, handler: any): TraversonMethods;
+    }
+
+    interface Builder
+    {
+        withRequestOptions(options: any): Builder;
+        withTemplateParameters(parameters: any): Builder;
+        json(): Builder;
+        jsonHal(): Builder;
+
+        setMediaType(type_name: string): Builder;
+
+        follow(first_pattern: string, ... rest_patterns: string[]): Builder;
+
+        get(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        getResource(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        getUrl(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        post(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        put(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        patch(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        delete(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+
+        newRequest(): Builder;
+    }
+
+    interface Json
+    {
+        parseJson(): any;
+    }
+
+    interface Traversal
+    {
+        continue(): Builder;
+    }
+
+    interface InAction
+    {
+        abort(): void;
+    }
+
+
+
+}
+
+declare module "traverson"
+{
+    var traverson: Traverson.TraversonMethods;
+
+    export = traverson;
+}
