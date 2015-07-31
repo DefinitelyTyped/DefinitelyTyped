@@ -1,6 +1,6 @@
 ///<reference path="wolfy87-eventemitter.d.ts"/>
 
-//import EventEmitter = require("wolfy87-eventemitter");
+import EventEmitter = require("wolfy87-eventemitter");
 
 var emitter = new EventEmitter();
 

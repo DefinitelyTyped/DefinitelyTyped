@@ -1,630 +1,781 @@
-// Type definitions for Meteor 0.9.1
+// Type definitions for Meteor 1.1.0.1
 // Project: http://www.meteor.com/
 // Definitions by: Dave Allen <https://github.com/fullflavedave>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
- * These are the modules and interfaces that can't be automatically generated from the Meteor api.js file
+ * These are the modules and interfaces that can't be automatically generated from the Meteor data.js file
  */
+
+interface EJSONable {
+	[key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSON.CustomType;
+}
+interface JSONable {
+	[key: string]: number | string | boolean | Object | number[] | string[] | Object[];
+}
+interface EJSON extends EJSONable {}
+
+declare module Match {
+	var Any:any;
+	var String:any;
+	var Integer:any;
+	var Boolean:any;
+	var undefined:any;
+	//function null();  // not allowed in TypeScript
+	var Object:any;
+	function Optional(pattern:any):boolean;
+	function ObjectIncluding(dico:any):boolean;
+	function OneOf(...patterns:any[]):any;
+	function Where(condition:any):any;
+}
+
 declare module Meteor {
-    interface EJSONObject extends Object {}
+	/** Start definitions for Template **/
+	interface Event {
+		type:string;
+		target:HTMLElement;
+		currentTarget:HTMLElement;
+		which: number;
+		stopPropagation():void;
+		stopImmediatePropagation():void;
+		preventDefault():void;
+		isPropagationStopped():boolean;
+		isImmediatePropagationStopped():boolean;
+		isDefaultPrevented():boolean;
+	}
 
-    interface LoginWithExternalServiceOptions {
-        requestPermissions?: string[];
-        requestOfflineToken?: Boolean;
-        forceApprovalPrompt?: Boolean;
-        userEmail?: string;
-    }
+	interface EventHandlerFunction extends Function {
+		(event?:Meteor.Event):void;
+	}
 
-    function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
-    function loginWithFacebook(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
-    function loginWithGithub(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
-    function loginWithGoogle(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
-    function loginWithMeetup(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
-    function loginWithTwitter(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
-    function loginWithWeibo(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	interface EventMap {
+		[id:string]:Meteor.EventHandlerFunction;
+	}
+	/** End definitions for Template **/
 
-    interface UserEmail {
-        address:string;
-        verified:boolean;
-    }
+	interface LoginWithExternalServiceOptions {
+		requestPermissions?: string[];
+		requestOfflineToken?: Boolean;
+		forceApprovalPrompt?: Boolean;
+		userEmail?: string;
+		loginStyle?: string;
+	}
 
-    interface User {
-        _id?:string;
-        username?:string;
-        emails?:Meteor.UserEmail[];
-        createdAt?: number;
-        profile?: any;
-        services?: any;
-    }
+	function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function loginWithFacebook(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function loginWithGithub(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function loginWithGoogle(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function loginWithMeetup(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function loginWithTwitter(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function loginWithWeibo(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
 
-    interface SubscriptionHandle {
-        stop(): void;
-        ready(): boolean;
-    }
+	interface UserEmail {
+		address:string;
+		verified:boolean;
+	}
 
-    interface TemplateBase {
-        [templateName: string]: Meteor.Template;
-    }
+	interface User {
+		_id?:string;
+		username?:string;
+		emails?:Meteor.UserEmail[];
+		createdAt?: number;
+		profile?: any;
+		services?: any;
+	}
 
-    interface RenderedTemplate extends Object {}
+	interface SubscriptionHandle {
+		stop(): void;
+		ready(): boolean;
+	}
 
-    interface DataContext extends Object {}
+	interface Tinytest {
+		add(name:string, func:Function):any;
+		addAsync(name:string, func:Function):any;
+	}
 
-    interface Tinytest {
-        add(name:string, func:Function);
-        addAsync(name:string, func:Function);
-    }
+	enum StatusEnum {
+		connected,
+		connecting,
+		failed,
+		waiting,
+		offline
+	}
 
-    enum StatusEnum {
-        connected,
-        connecting,
-        failed,
-        waiting,
-        offline
-    }
+	interface LiveQueryHandle {
+		stop(): void;
+	}
 
-    interface LiveQueryHandle {
-        stop(): void;
-    }
+	interface EmailFields {
+		subject?: Function;
+		text?: Function;
+	}
 
-    interface EmailFields {
-        subject?: Function;
-        text?: Function;
-    }
+	interface EmailTemplates {
+		from: string;
+		siteName: string;
+		resetPassword: Meteor.EmailFields;
+		enrollAccount:  Meteor.EmailFields;
+		verifyEmail:  Meteor.EmailFields;
+	}
 
-    interface EmailTemplates {
-        from: string;
-        siteName: string;
-        resetPassword: Meteor.EmailFields;
-        enrollAccount:  Meteor.EmailFields;
-        verifyEmail:  Meteor.EmailFields;
-    }
+	interface Error {
+		error: number;
+		reason?: string;
+		details?: string;
+	}
 
-    interface AccountsBase {
-        EmailTemplates: {
-            from: string;
-            siteName: string;
-            resetPassword:  Meteor.EmailFields;
-            enrollAccount:  Meteor.EmailFields;
-            verifyEmail:  Meteor.EmailFields;
-        }
-        loginServicesConfigured(): boolean;
-    }
-
-    interface MatchBase {
-        Any;
-        String;
-        Integer;
-        Boolean;
-        undefined;
-        null;
-        Object;
-        Optional(pattern):boolean;
-        ObjectIncluding(dico):boolean;
-        OneOf(...patterns);
-        Where(condition);
-    }
-
-    interface AllowDenyOptions {
-        insert?: (userId:string, doc) => boolean;
-        update?: (userId, doc, fieldNames, modifier) => boolean;
-        remove?: (userId, doc) => boolean;
-        fetch?: string[];
-        transform?: Function;
-    }
-
-    interface Error {
-        error: number;
-        reason?: string;
-        details?: string;
-    }
+	interface Connection {
+		id: string;
+		close: Function;
+		onClose: Function;
+		clientAddress: string;
+		httpHeaders: Object;
+	}
 }
 
 declare module Mongo {
-    interface CollectionFieldSpecifier {
-        [id: string]: Number;
-    }
-
-    enum CollectionIdGenerationEnum {
-        STRING,
-        MONGO
-    }
-
-//    interface CollectionOptions {
-//        connection: Object;
-//        idGeneration: Mongo.CollectionIdGenerationEnum;
-//        transform?: (document)=>any;
-//    }
-//
-//    function Collection<T>(name:string, options?: Mongo.CollectionOptions) : void;
-}
-
-declare module Tracker {
-    function Computation(): void;
-    interface Computation {
-
-    }
-    function Dependency(): void;
-    interface Dependency {
-        changed(): void;
-        depend(fromComputation: Tracker.Computation): boolean;
-        hasDependents(): boolean;
-    }
-}
-
-declare module Package {
-    function describe(metadata:PackageDescribeAPI);
-    function on_use(func:{(api:Api, where?:string[]):void});
-    function on_use(func:{(api:Api, where?:string):void});
-    function on_test(func:{(api:Api):void}) ;
-    function register_extension(extension:string, options:PackageRegisterExtensionOptions);
-    interface PackageRegisterExtensionOptions {(bundle:Bundle, source_path:string, serve_path:string, where?:string[]):void}
-    interface PackageDescribeAPI {
-        summary: string;
-    }
-    interface Api {
-        export(variable:string);
-        export(variables:string[]);
-        use(deps:string, where?:string[]);
-        use(deps:string, where?:string);
-        use(deps:string[], where?:string[]);
-        use(deps:string[], where?:string);
-        add_files(file:string, where?:string[]);
-        add_files(file:string, where?:string);
-        add_files(file:string[], where?:string[]);
-        add_files(file:string[], where?:string);
-        imply(package:string);
-        imply(packages:string[]);
-    }
-    interface BundleOptions {
-        type: string;
-        path: string;
-        data: any;
-        where: string[];
-    }
-    interface Bundle {
-        add_resource(options:BundleOptions);
-        error(diagnostics:string);
-    }
-}
-
-declare module Npm {
-    function require(module:string);
-    function depends(dependencies:{[id:string]:string});
+	interface Selector extends Object {}
+	interface Modifier {}
+	interface SortSpecifier {}
+	interface FieldSpecifier {
+		[id: string]: Number;
+	}
+	enum IdGenerationEnum {
+		STRING,
+		MONGO
+	}
+	interface AllowDenyOptions {
+		insert?: (userId:string, doc:any) => boolean;
+		update?: (userId:string, doc:any, fieldNames:string[], modifier:any) => boolean;
+		remove?: (userId:string, doc:any) => boolean;
+		fetch?: string[];
+		transform?: Function;
+	}
 }
 
 declare module HTTP {
-    enum HTTPMethodEnum {
-        GET,
-        POST,
-        PUT,
-        DELETE
-    }
 
-    interface HTTPRequest {
-        content?:string;
-        data?:any;
-        query?:string;
-        params?:{[id:string]:string};
-        auth?:string;
-        headers?:{[id:string]:string};
-        timeout?:number;
-        followRedirects?:boolean;
-    }
+	interface HTTPRequest {
+		content?:string;
+		data?:any;
+		query?:string;
+		params?:{[id:string]:string};
+		auth?:string;
+		headers?:{[id:string]:string};
+		timeout?:number;
+		followRedirects?:boolean;
+	}
 
-    interface HTTPResponse {
-        statusCode:number;
-        content:string;
-        // response is not always json
-        data:any;
-        headers:{[id:string]:string};
-    }
+	interface HTTPResponse {
+		statusCode?:number;
+		headers?:{[id:string]: string};
+		content?:string;
+		data?:any;
+	}
+
+	function call(method: string, url: string, options?: HTTP.HTTPRequest, asyncCallback?:Function):HTTP.HTTPResponse;
+	function del(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+	function get(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+	function post(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+	function put(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: Function): HTTP.HTTPResponse;
+
 }
 
 declare module Email {
-    interface EmailMessage {
-        from: string;
-        to: any;  // string or string[]
-        cc?: any; // string or string[]
-        bcc?: any; // string or string[]
-        replyTo?: any; // string or string[]
-        subject: string;
-        text?: string;
-        html?: string;
-        headers?: {[id: string]: string};
-    }
+	interface EmailMessage {
+		from: string;
+		to: string|string[];
+		cc?: string|string[];
+		bcc?: string|string[];
+		replyTo?: string|string[];
+		subject: string;
+		text?: string;
+		html?: string;
+		headers?: {[id: string]: string};
+	}
 }
 
 declare module DDP {
-    interface DDPStatic {
-        subscribe(name, ...rest);
-        call(method:string, ...parameters):void;
-        apply(method:string, ...parameters):void;
-        methods(IMeteorMethodsDictionary);
-        status():DDPStatus;
-        reconnect();
-        disconnect();
-        onReconnect();
-    }
+	interface DDPStatic {
+		subscribe(name:string, ...rest:any[]):void;
+		call(method:string, ...parameters:any[]):void;
+		apply(method:string, ...parameters:any[]):void;
+		methods(IMeteorMethodsDictionary:any):any;
+		status():DDPStatus;
+		reconnect():void;
+		disconnect():void;
+		onReconnect():void;
+	}
 
-    interface DDPStatus {
-        connected: boolean;
-        status: Meteor.StatusEnum;
-        retryCount: number;
-        //To turn this into an interval until the next reconnection, use retryTime - (new Date()).getTime()
-        retryTime?: number;
-        reason?: string;
-    }
+	interface DDPStatus {
+		connected: boolean;
+		status: Meteor.StatusEnum;
+		retryCount: number;
+		//To turn this into an interval until the next reconnection, use retryTime - (new Date()).getTime()
+		retryTime?: number;
+		reason?: string;
+	}
 }
 
 declare module Random {
-    function fraction():number;
-    function hexString(numberOfDigits:number):string; // @param numberOfDigits, @returns a random hex string of the given length
-    function choice(array:any[]):string; // @param array, @return a random element in array
-    function choice(str:string):string; // @param str, @return a random char in str
+	function id(numberOfChars?: number): string;
+	function secret(numberOfChars?: number): string;
+	function fraction():number;
+	function hexString(numberOfDigits:number):string; // @param numberOfDigits, @returns a random hex string of the given length
+	function choice(array:any[]):string; // @param array, @return a random element in array
+	function choice(str:string):string; // @param str, @return a random char in str
 }
 
 declare module Blaze {
-    interface View {
-        name: string;
-        parentView: Blaze.View;
-        isCreated: boolean;
-        isRendered: boolean;
-        isDestroyed: boolean;
-        renderCount: number;
-        autorun(runFunc: Function): void;
-        onViewCreated(func: Function): void;
-        onViewReady(func: Function): void;
-        onViewDestroyed(func: Function): void;
-        firstNode(): Node;
-        lastNode(): Node;
-        template: Blaze.Template;
-        templateInstance(): any;
-    }
-    interface Template {
-        viewName: string;
-        renderFunction: Function;
-        constructView(): Blaze.View;
-    }
+	interface View {
+		name: string;
+		parentView: Blaze.View;
+		isCreated: boolean;
+		isRendered: boolean;
+		isDestroyed: boolean;
+		renderCount: number;
+		autorun(runFunc: Function): void;
+		onViewCreated(func: Function): void;
+		onViewReady(func: Function): void;
+		onViewDestroyed(func: Function): void;
+		firstNode(): Node;
+		lastNode(): Node;
+		template: Blaze.Template;
+		templateInstance(): any;
+	}
+	interface Template {
+		viewName: string;
+		renderFunction: Function;
+		constructView(): Blaze.View;
+	}
 }
+
+declare module BrowserPolicy {
+
+	interface framing {
+		disallow():void;
+		restrictToOrigin(origin:string):void;
+		allowAll():void;
+	}
+	interface content {
+		allowEval():void;
+		allowInlineStyles():void;
+		allowInlineScripts():void;
+		allowSameOriginForAll():void;
+		allowDataUrlForAll():void;
+		allowOriginForAll(origin:string):void;
+		allowImageOrigin(origin:string):void;
+		allowFrameOrigin(origin:string):void;
+		allowContentTypeSniffing():void;
+		allowAllContentOrigin():void;
+		allowAllContentDataUrl():void;
+		allowAllContentSameOrigin():void;
+
+		disallowAll():void;
+		disallowInlineStyles():void;
+		disallowEval():void;
+		disallowInlineScripts():void;
+		disallowFont():void;
+		disallowObject():void;
+		disallowAllContent():void;
+		//TODO: add the basic content types
+		// allow<content type>Origin(origin)
+		// allow<content type>DataUrl()
+		// allow<content type>SameOrigin()
+		// disallow<content type>()
+	}
+}
+
+declare module Tracker {
+	export var ComputationFunction: (computation: Tracker.Computation) => void;
+
+}
+
+declare var IterationCallback: <T>(doc: T, index: number, cursor: Mongo.Cursor<T>) => void;
 
 /**
  * These modules and interfaces are automatically generated from the Meteor api.js file
  */
-declare module Meteor {
-	var isClient: boolean;
-	var isServer: boolean;
-	var isCordova: boolean;
-	function startup(func: Function): void;
-	function wrapAsync(func: Function, context?: Object): any;
-	function absoluteUrl(path?: string, options?: {
-					secure?: Boolean;
-					replaceLocalhost?: Boolean;
-					rootUrl?: string;
-				}): string;
-	var settings: {[id:string]: any};
-	var release: string;
-	function publish(name: string, func: Function): void;
-	function subscribe(name, ...args): SubscriptionHandle;
-	function methods(methods: Object): void;
-	function Error(error, reason?, details?): void;
-	function call(name: string, ...params): void;
-	function apply(name: string, params, options?: {
-					wait?: Boolean;
-					onResultReceived?: Function;
-				}, asyncCallback?): void;
-	function status(): Meteor.StatusEnum;
-	function reconnect(): void;
-	function disconnect(): void;
-	function onConnection(callback: Function): void;
-	function user(): Meteor.User;
-	function userId(): string;
-	var users: Mongo.Collection<User>;
-	function loggingIn(): boolean;
-	function logout(callback?: Function): void;
-	function logoutOtherClients(callback?: Function): void;
-	function loginWithPassword(user: any, password: string, callback?: Function): void;
-	function loginWithExternalService(options?: {
-					requestPermissions?: string[];
-					requestOfflineToken?: Boolean;
-					forceApprovalPrompt?: Boolean;
-					userEmail?: string;
-					loginStyle?: string;
-				}, callback?: Function): void;
-	function setTimeout(func: Function, delay: number): number;
-	function setInterval(func: Function, delay: number): number;
-	function clearTimeout(id: number): void;
-	function clearInterval(id: number): void;
-	function EnvironmentVariable(): void;
-	function get(): string;
-	function withValue(value: any, func: Function): void;
-	function bindEnvironment(func: Function, onException: Function, _this: Object): Function;
+declare module Accounts {
+	function changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
+	function config(options: {
+		sendVerificationEmail?: boolean;
+		forbidClientAccountCreation?: boolean;
+		restrictCreationByEmailDomain?: string | Function;
+		loginExpirationInDays?: number;
+		oauthSecretKey?: string;
+	}): void;
+	function createUser(options: {
+		username?: string;
+		email?: string;
+		password?: string;
+		profile?: Object;
+	}, callback?: Function): string;
+	var emailTemplates: Meteor.EmailTemplates;
+	function forgotPassword(options: {
+		email?: string;
+	}, callback?: Function): void;
+	function onCreateUser(func: Function): void;
+	function onEmailVerificationLink(callback: Function): void;
+	function onEnrollmentLink(callback: Function): void;
+	function onLogin(func: Function): {stop: Function};
+	function onLoginFailure(func: Function): {stop: Function};
+	function onResetPasswordLink(callback: Function): void;
+	function resetPassword(token: string, newPassword: string, callback?: Function): void;
+	function sendEnrollmentEmail(userId: string, email?: string): void;
+	function sendResetPasswordEmail(userId: string, email?: string): void;
+	function sendVerificationEmail(userId: string, email?: string): void;
+	function setPassword(userId: string, newPassword: string, options?: {
+		logout?: Object;
+	}): void;
+	var ui: {
+		config(options: {
+			requestPermissions?: Object;
+			requestOfflineToken?: Object;
+			forceApprovalPrompt?: Object;
+			passwordSignupFields?: string;
+		}): void;
+	};
+	function validateLoginAttempt(func: Function): {stop: Function};
+	function validateNewUser(func: Function): void;
+	function verifyEmail(token: string, callback?: Function): void;
 }
 
-declare module Meteor {
-	interface EJSON {
-		parse(str: string): EJSON;
-		stringify(val: Meteor.EJSON, options?: {
-					indent?: any; // boolean, integer, or string
-					canonical?: Boolean;
-				}): string;
-		fromJSONValue(val: JSON): any;
-		toJSONValue(val: Meteor.EJSON): JSON;
-		equals(a: Meteor.EJSONObject, b: Meteor.EJSONObject, options?: {
-					keyOrderSensitive?: Boolean;
-				}): boolean;
-		clone<T>(v:T): T; /** TODO: add return value **/
-		newBinary(size: number): any;
-		isBinary(x): boolean;
-		addType(name: string, factory: Function): void;
+declare module App {
+	function accessRule(domainRule: string, options?: {
+		launchExternal?: boolean;
+	}):any; /** TODO: add return value **/
+function configurePlugin(pluginName: string, config: Object): void;
+	function icons(icons: Object): void;
+	function info(options: {
+		id?: string;
+		version?: string;
+		name?: string;
+		description?: string;
+		author?: string;
+		email?: string;
+		website?: string;
+	}): void;
+	function launchScreens(launchScreens: Object): void;
+	function setPreference(name: string, value: string): void;
+}
+
+declare module Assets {
+	function getBinary(assetPath: string, asyncCallback?: Function): EJSON;
+	function getText(assetPath: string, asyncCallback?: Function): string;
+}
+
+declare module Blaze {
+	function Each(argFunc: Function, contentFunc: Function, elseFunc?: Function): Blaze.View;
+	function If(conditionFunc: Function, contentFunc: Function, elseFunc?: Function): Blaze.View;
+	var Template: TemplateStatic;
+	interface TemplateStatic {
+		new(viewName?: string, renderFunction?: Function): Template;
+		// It should be [templateName: string]: TemplateInstance but this is not possible -- user will need to cast to TemplateInstance
+		[templateName: string]: any | Template; // added "any" to make it work
+		head: Template;
+		find(selector:string):Blaze.Template;
+		findAll(selector:string):Blaze.Template[];
+		$:any;
 	}
+	interface Template {
+	}
+
+	var TemplateInstance: TemplateInstanceStatic;
+	interface TemplateInstanceStatic {
+		new(view: Blaze.View): TemplateInstance;
+	}
+	interface TemplateInstance {
+		$(selector: string): any;
+		autorun(runFunc: Function): Object;
+		data: Object;
+		find(selector?: string): Blaze.TemplateInstance;
+		findAll(selector: string): Blaze.TemplateInstance[];
+		firstNode: Object;
+		lastNode: Object;
+		subscribe(name: string, ...args: any[]): Meteor.SubscriptionHandle;
+		subscriptionsReady(): boolean;
+		view: Object;
+	}
+
+	function Unless(conditionFunc: Function, contentFunc: Function, elseFunc?: Function): Blaze.View;
+	var View: ViewStatic;
+	interface ViewStatic {
+		new(name?: string, renderFunction?: Function): View;
+	}
+	interface View {
+	}
+
+	function With(data: Object | Function, contentFunc: Function): Blaze.View;
+	var currentView: Blaze.View;
+	function getData(elementOrView?: HTMLElement | Blaze.View): Object;
+	function getView(element?: HTMLElement): Blaze.View;
+	function isTemplate(value: any): boolean;
+	function remove(renderedView: Blaze.View): void;
+	function render(templateOrView: Template | Blaze.View, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
+	function renderWithData(templateOrView: Template | Blaze.View, data: Object | Function, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
+	function toHTML(templateOrView: Template | Blaze.View): string;
+	function toHTMLWithData(templateOrView: Template | Blaze.View, data: Object | Function): string;
+}
+
+declare module Cordova {
+	function depends(dependencies:{[id:string]:string}): void;
 }
 
 declare module DDP {
 	function connect(url: string): DDP.DDPStatic;
 }
 
-declare module Mongo {
-	function Collection<T>(name: string, options?: {
-					connection?: Object;
-					idGeneration?: Mongo.CollectionIdGenerationEnum;
-					transform?: (document)=>any;
-				}): void;
-	function ObjectID(hexString: string): void;
-}
-
-declare module Mongo {
-	interface Collection<T> {
-		find(selector?: any, options?: {
-					sort?: any;
-					skip?: number;
-					limit?: number;
-					fields?: Mongo.CollectionFieldSpecifier;
-					reactive?: Boolean;
-					transform?: (document)=>any;
-				}): Mongo.Cursor<T>;
-		findOne(selector?: any, options?: {
-					sort?: any;
-					skip?: number;
-					fields?: Mongo.CollectionFieldSpecifier;
-					reactive?: Boolean;
-					transform?: (document)=>any;
-				}): Meteor.EJSONObject;
-		insert(doc: Object, callback?: Function): string;
-		update(selector: any, modifier: any, options?: {
-					multi?: Boolean;
-					upsert?: Boolean;
-				}, callback?: Function): number;
-		upsert(selector: any, modifier: any, options?: {
-					multi?: Boolean;
-				}, callback?: Function): {numberAffected?: number; insertedId?: string;};
-		remove(selector: any, callback?: Function): void;
-		allow(options: Meteor.AllowDenyOptions): boolean;
-		deny(options: Meteor.AllowDenyOptions): boolean;
+declare module EJSON {
+	var CustomType: CustomTypeStatic;
+	interface CustomTypeStatic {
+		new(): CustomType;
 	}
+	interface CustomType {
+		clone(): EJSON.CustomType;
+		equals(other: Object): boolean;
+		toJSONValue(): JSON;
+		typeName(): string;
+	}
+
+	function addType(name: string, factory: (val: EJSONable) => JSONable): void;
+	function clone<T>(val:T): T;
+	function equals(a: EJSON, b: EJSON, options?: {
+		keyOrderSensitive?: boolean;
+	}): boolean;
+	function fromJSONValue(val: JSON): any;
+	function isBinary(x: Object): boolean;
+	var newBinary: any;
+	function parse(str: string): EJSON;
+	function stringify(val: EJSON, options?: {
+		indent?: boolean | number | string;
+		canonical?: boolean;
+	}): string;
+	function toJSONValue(val: EJSON): JSON;
+}
+
+declare module Match {
+	function test(value: any, pattern: any): boolean;
+}
+
+declare module Meteor {
+	var Error: ErrorStatic;
+	interface ErrorStatic {
+		new(error: string, reason?: string, details?: string): Error;
+	}
+	interface Error {
+	}
+
+	function absoluteUrl(path?: string, options?: {
+		secure?: boolean;
+		replaceLocalhost?: boolean;
+		rootUrl?: string;
+	}): string;
+	function apply(name: string, args: EJSONable[], options?: {
+		wait?: boolean;
+		onResultReceived?: Function;
+	}, asyncCallback?: Function): any;
+	function call(name: string, ...args: any[]): any;
+	function clearInterval(id: number): void;
+	function clearTimeout(id: number): void;
+	function disconnect(): void;
+	var isClient: boolean;
+	var isCordova: boolean;
+	var isServer: boolean;
+	function loggingIn(): boolean;
+	function loginWith<ExternalService>(options?: {
+		requestPermissions?: string[];
+		requestOfflineToken?: boolean;
+		forceApprovalPrompt?: boolean;
+		userEmail?: string;
+		loginStyle?: string;
+	}, callback?: Function): void;
+	function loginWithPassword(user: Object | string, password: string, callback?: Function): void;
+	function logout(callback?: Function): void;
+	function logoutOtherClients(callback?: Function): void;
+	function methods(methods: Object): void;
+	function onConnection(callback: Function): void;
+	function publish(name: string, func: Function): void;
+	function reconnect(): void;
+	var release: string;
+	function setInterval(func: Function, delay: number): number;
+	function setTimeout(func: Function, delay: number): number;
+	var settings: {[id:string]: any};
+	function startup(func: Function): void;
+	function status(): Meteor.StatusEnum;
+	function subscribe(name: string, ...args: any[]): Meteor.SubscriptionHandle;
+	function user(): Meteor.User;
+	function userId(): string;
+	var users: Mongo.Collection<User>;
+	function wrapAsync(func: Function, context?: Object): any;
 }
 
 declare module Mongo {
+	var Collection: CollectionStatic;
+	interface CollectionStatic {
+		new<T>(name: string, options?: {
+			connection?: Object;
+			idGeneration?: string;
+			transform?: Function;
+		}): Collection<T>;
+	}
+	interface Collection<T> {
+		allow(options: {
+			insert?: (userId:string, doc:any) => boolean;
+			update?: (userId:string, doc:any, fieldNames:string[], modifier:any) => boolean;
+			remove?: (userId:string, doc:any) => boolean;
+			fetch?: string[];
+			transform?: Function;
+		}): boolean;
+		deny(options: {
+			insert?: (userId:string, doc:any) => boolean;
+			update?: (userId:string, doc:any, fieldNames:string[], modifier:any) => boolean;
+			remove?: (userId:string, doc:any) => boolean;
+			fetch?: string[];
+			transform?: Function;
+		}): boolean;
+		find(selector?: Mongo.Selector, options?: {
+			sort?: Mongo.SortSpecifier;
+			skip?: number;
+			limit?: number;
+			fields?: Mongo.FieldSpecifier;
+			reactive?: boolean;
+			transform?: Function;
+		}): Mongo.Cursor<T>;
+		findOne(selector?: Mongo.Selector, options?: {
+			sort?: Mongo.SortSpecifier;
+			skip?: number;
+			fields?: Mongo.FieldSpecifier;
+			reactive?: boolean;
+			transform?: Function;
+		}): T;
+		insert(doc: Object, callback?: Function): string;
+		remove(selector: Mongo.Selector, callback?: Function): void;
+		update(selector: Mongo.Selector, modifier: Mongo.Modifier, options?: {
+			multi?: boolean;
+			upsert?: boolean;
+		}, callback?: Function): number;
+		upsert(selector: Mongo.Selector, modifier: Mongo.Modifier, options?: {
+			multi?: boolean;
+		}, callback?: Function): {numberAffected?: number; insertedId?: string;};
+		_ensureIndex(indexName: string, options?: {[key: string]: any}): void;
+	}
+
+	var Cursor: CursorStatic;
+	interface CursorStatic {
+		new<T>(): Cursor<T>;
+	}
 	interface Cursor<T> {
 		count(): number;
-		fetch(): any[];
-		forEach(callback: Function, thisArg?: any): void;
-		map(callback: Function, thisArg?: any): void;
+		fetch(): Array<T>;
+		forEach(callback: <T>(doc: T, index: number, cursor: Mongo.Cursor<T>) => void, thisArg?: any): void;
+		map(callback: <T>(doc: T, index: number, cursor: Mongo.Cursor<T>) => void, thisArg?: any): Array<T>;
 		observe(callbacks: Object): Meteor.LiveQueryHandle;
 		observeChanges(callbacks: Object): Meteor.LiveQueryHandle;
 	}
-}
 
-declare module Random {
-	function id(): string;
-}
-
-declare module Tracker {
-	function autorun(runFunc: Function): Tracker.Computation;
-	function flush(): void;
-	function nonreactive(func: Function): void;
-	var active: boolean;
-	var currentComputation: Tracker.Computation;
-	function onInvalidate(callback: Function): void;
-	function afterFlush(callback: Function): void;
-}
-
-declare module Tracker {
-	interface Computation {
-		stop(): void;
-		invalidate(): void;
-		onInvalidate(callback: Function): void;
-		stopped: boolean;
-		invalidated: boolean;
-		firstRun: boolean;
+	var ObjectID: ObjectIDStatic;
+	interface ObjectIDStatic {
+		new(hexString: string): ObjectID;
 	}
+	interface ObjectID {
+	}
+
+}
+
+declare module Npm {
+	function depends(dependencies:{[id:string]:string}): void;
+	function require(name: string): any;
+}
+
+declare module Package {
+	function describe(options: {
+		summary?: string;
+		version?: string;
+		name?: string;
+		git?: string;
+		documentation?: string;
+	}): void;
+	function onTest(func: Function): void;
+	function onUse(func: Function): void;
+	function registerBuildPlugin(options?: {
+		name?: string;
+		use?: string | string[];
+		sources?: string[];
+		npmDependencies?: Object;
+	}): void;
 }
 
 declare module Tracker {
+	function Computation(): void;
+	interface Computation {
+		firstRun: boolean;
+		invalidate(): void;
+		invalidated: boolean;
+		onInvalidate(callback: Function): void;
+		stop(): void;
+		stopped: boolean;
+	}
+
+	var Dependency: DependencyStatic;
+	interface DependencyStatic {
+		new(): Dependency;
+	}
 	interface Dependency {
 		changed(): void;
 		depend(fromComputation?: Tracker.Computation): boolean;
 		hasDependents(): boolean;
 	}
+
+	var active: boolean;
+	function afterFlush(callback: Function): void;
+	function autorun(runFunc: (computation: Tracker.Computation) => void, options?: {
+		onError?: Function;
+	}): Tracker.Computation;
+	var currentComputation: Tracker.Computation;
+	function flush(): void;
+	function nonreactive(func: Function): void;
+	function onInvalidate(callback: Function): void;
 }
 
-declare module Meteor {
-	interface Accounts extends Meteor.AccountsBase {
-		config(options: {
-					sendVerificationEmail?: Boolean;
-					forbidClientAccountCreation?: Boolean;
-					restrictCreationByEmailDomain?: any; // string or Function
-					loginExpirationInDays?: number;
-					oauthSecretKey?: string;
-				}): void;
-		ui: {
-			config(options: {
-					requestPermissions?: Object;
-					requestOfflineToken?: Object;
-					forceApprovalPrompt?: Boolean;
-					passwordSignupFields?: string;
-				}); /** TODO: add return value **/
-		}
-		validateNewUser(func: Function): void;
-		onCreateUser(func: Function): void;
-		validateLoginAttempt(func: Function); /** TODO: add return value **/
-		onLogin(func: Function); /** TODO: add return value **/
-		onLoginFailure(func: Function); /** TODO: add return value **/
-		createUser(options: {
-					username?: string;
-					email?: string;
-					password?: string;
-					profile?: Object;
-				}, callback?: Function): string;
-		changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
-		forgotPassword(options: {
-					email?: string;
-				}, callback?: Function): void;
-		resetPassword(token: string, newPassword: string, callback?: Function): void;
-		setPassword(userId: string, newPassword: string): void;
-		verifyEmail(token: string, callback?: Function): void;
-		sendResetPasswordEmail(userId: string, email?: string): void;
-		sendEnrollmentEmail(userId: string, email?: string): void;
-		sendVerificationEmail(userId: string, email?: string): void;
-		emailTemplates: Meteor.EmailTemplates;
-	}
-}
-
-declare module Meteor {
-	interface Match extends Meteor.MatchBase {
-		test(value: any, pattern: any): boolean;
-	}
-}
-
-declare module Meteor {
-	interface Session {
-		set(key: string, value: any): void;
-		setDefault(key: string, value: any): void;
-		get(key: string): any;
-		equals(key: string, value: any): boolean;
-	}
+declare module Session {
+	function equals(key: string, value: string | number | boolean | any /** Null **/ | any /** Undefined **/): boolean;
+	function get(key: string): any;
+	function set(key: string, value: EJSONable | any /** Undefined **/): void;
+	function setDefault(key: string, value: EJSONable | any /** Undefined **/): void;
 }
 
 declare module HTTP {
-	function call(method: string, url, options?: {
-					content?: string;
-					data?: Object;
-					query?: string;
-					params?: Object;
-					auth?: string;
-					headers?: Object;
-					timeout?: number;
-					followRedirects?: Boolean;
-				}, asyncCallback?): HTTP.HTTPResponse;
-	function get(url, options?: {
-				}, asyncCallback?): HTTP.HTTPResponse;
-	function post(url, options?: {
-				}, asyncCallback?): HTTP.HTTPResponse;
-	function put(url, options?: {
-				}, asyncCallback?): HTTP.HTTPResponse;
-	function del(url, options?: {
-				}, asyncCallback?): HTTP.HTTPResponse;
-}
-
-declare module Meteor {
-	interface Template {
-		rendered: Function;
-		created: Function;
-		destroyed: Function;
-		events(eventMap: {[id:string]: Function}): void;
-		helpers(helpers: Object): void;
-		findAll(selector: string); /** TODO: add return value **/
-		$(selector: string); /** TODO: add return value **/
-		find(selector?: string); /** TODO: add return value **/
-		firstNode; /** TODO: add return value **/
-		lastNode; /** TODO: add return value **/
-		data; /** TODO: add return value **/
-		autorun(runFunc: Function); /** TODO: add return value **/
-		view; /** TODO: add return value **/
-		registerHelper(name: string, func: Function); /** TODO: add return value **/
-		body; /** TODO: add return value **/
-		currentData(); /** TODO: add return value **/
-		instance(); /** TODO: add return value **/
-		parentData(numLevels: number); /** TODO: add return value **/
-	}
-}
-
-declare module Blaze {
-	function render(templateOrView: any, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function renderWithData(templateOrView: any, data: any, parentNode: Node, nextNode?: Node, parentView?: Blaze.View): Blaze.View;
-	function remove(renderedView: Blaze.View): void;
-	function With(data: any, contentFunc: Function); /** TODO: add return value **/
-	function If(conditionFunc: Function, contentFunc: Function, elseFunc?: Function); /** TODO: add return value **/
-	function Unless(conditionFunc: Function, contentFunc: Function, elseFunc?: Function); /** TODO: add return value **/
-	function Each(argFunc: Function, contentFunc: Function, elseFunc?: Function); /** TODO: add return value **/
-	function getData(elementOrView?: any); /** TODO: add return value **/
-	var currentView; /** TODO: add return value **/
-	function getView(element?: HTMLElement); /** TODO: add return value **/
-	function toHTML(templateOrView: any): string;
-	function toHTMLWithData(templateOrView: any, data: any): string;
-	function View(name?: string, renderFunction?: Function): void;
-	function Template(viewName?: string, renderFunction?: Function): void;
-	function isTemplate(value: any): boolean;
-}
-
-declare module Meteor {
-	interface ReactiveVar {
-		get(); /** TODO: add return value **/
-		set(newValue: any); /** TODO: add return value **/
-	}
+	function call(method: string, url: string, options?: {
+		content?: string;
+		data?: Object;
+		query?: string;
+		params?: Object;
+		auth?: string;
+		headers?: Object;
+		timeout?: number;
+		followRedirects?: boolean;
+		npmRequestOptions?: Object;
+	}, asyncCallback?: Function): HTTP.HTTPResponse;
+	function del(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
+	function get(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
+	function post(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
+	function put(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
 }
 
 declare module Email {
 	function send(options: {
-					from?: string;
-					to?: any; // string or string[]
-					cc?: any; // string or string[]
-					bcc?: any; // string or string[]
-					replyTo?: any; // string or string[]
-					subject?: string;
-					text?: string;
-					html?: string;
-					headers?: Object;
-				}): void;
+		from?: string;
+		to?: string | string[];
+		cc?: string | string[];
+		bcc?: string | string[];
+		replyTo?: string | string[];
+		subject?: string;
+		text?: string;
+		html?: string;
+		headers?: Object;
+		attachments?: Object[];
+	}): void;
 }
 
-declare module Assets {
-	function getText(assetPath: string, asyncCallback?: Function): string;
-	function getBinary(assetPath: string, asyncCallback?: Function): Meteor.EJSON;
+declare var CompileStep: CompileStepStatic;
+interface CompileStepStatic {
+	new(): CompileStep;
+}
+interface CompileStep {
+	addAsset(options: {
+	}, path: string, data: any /** Buffer **/ | string): any; /** TODO: add return value **/
+	addHtml(options: {
+		section?: string;
+		data?: string;
+	}): any; /** TODO: add return value **/
+	addJavaScript(options: {
+		path?: string;
+		data?: string;
+		sourcePath?: string;
+	}): any; /** TODO: add return value **/
+	addStylesheet(options: {
+	}, path: string, data: string, sourceMap: string): any; /** TODO: add return value **/
+	arch: any; /** TODO: add return value **/
+	declaredExports: any; /** TODO: add return value **/
+	error(options: {
+	}, message: string, sourcePath?: string, line?: number, func?: string): any; /** TODO: add return value **/
+	fileOptions: any; /** TODO: add return value **/
+	fullInputPath: any; /** TODO: add return value **/
+	inputPath: any; /** TODO: add return value **/
+	inputSize: any; /** TODO: add return value **/
+	packageName: any; /** TODO: add return value **/
+	pathForSourceMap: any; /** TODO: add return value **/
+	read(n?: number): any;
+	rootOutputPath: any; /** TODO: add return value **/
 }
 
-declare module Meteor {
-	interface Package {
-		describe(options: {
-					summary?: string;
-					version?: string;
-					name?: string;
-					git?: string;
-				}); /** TODO: add return value **/
-		onUse(f: Function); /** TODO: add return value **/
-		onTest(f: Function); /** TODO: add return value **/
-		describe(options: {
-				}); /** TODO: add return value **/
-	}
+declare var PackageAPI: PackageAPIStatic;
+interface PackageAPIStatic {
+	new(): PackageAPI;
+}
+interface PackageAPI {
+	addFiles(filename: string | string[], architecture?: string): void;
+	export(exportedObject: string, architecture?: string): void;
+	imply(packageSpecs: string | string[]): void;
+	use(packageNames: string | string[], architecture?: string, options?: {
+		weak?: boolean;
+		unordered?: boolean;
+	}): void;
+	versionsFrom(meteorRelease: string | string[]): void;
 }
 
-declare module Meteor {
-	interface Api {
-		use(packageNameAndVersion?: string, architecture?: string, options?: {
-					weak?: Boolean;
-					unordered?: Boolean;
-				}); /** TODO: add return value **/
-		versionsFrom(meteorversion: string); /** TODO: add return value **/
-		imply(packagespecOrpackagespecs: any); /** TODO: add return value **/
-		export(exportedObject: string, architecture?: string); /** TODO: add return value **/
-		addFiles(filenameOrfilenames: any); /** TODO: add return value **/
-	}
+declare var ReactiveVar: ReactiveVarStatic;
+interface ReactiveVarStatic {
+	new<T>(initialValue: T, equalsFunc?: Function): ReactiveVar<T>;
+}
+interface ReactiveVar<T> {
+	get(): T;
+	set(newValue: T): void;
 }
 
-declare var Template: Meteor.TemplateBase;
-declare var Session: Meteor.Session;
-declare var Accounts: Meteor.Accounts;
-declare var Match: Meteor.Match;
-declare var EJSON: Meteor.EJSON;
-declare var Tinytest: Meteor.Tinytest;
+declare var Subscription: SubscriptionStatic;
+interface SubscriptionStatic {
+	new(): Subscription;
+}
+interface Subscription {
+	added(collection: string, id: string, fields: Object): void;
+	changed(collection: string, id: string, fields: Object): void;
+	connection: Meteor.Connection;
+	error(error: Error): void;
+	onStop(func: Function): void;
+	ready(): void;
+	removed(collection: string, id: string): void;
+	stop(): void;
+	userId: string;
+}
+
+declare var Template: TemplateStatic;
+interface TemplateStatic {
+	new(): Template;
+	// It should be [templateName: string]: TemplateInstance but this is not possible -- user will need to cast to TemplateInstance
+	[templateName: string]: any | Template; // added "any" to make it work
+	head: Template;
+	find(selector:string):Blaze.Template;
+	findAll(selector:string):Blaze.Template[];
+	$:any;
+	body: Template;
+	currentData(): {};
+	instance(): Blaze.TemplateInstance;
+	parentData(numLevels?: number): {};
+	registerHelper(name: string, helperFunction: Function): void;
+}
+interface Template {
+	created: Function;
+	destroyed: Function;
+	events(eventMap: {[actions: string]: Function}): void;
+	helpers(helpers:{[id:string]: any}): void;
+	onCreated: Function;
+	onDestroyed: Function;
+	onRendered: Function;
+	rendered: Function;
+}
+
+declare function MethodInvocation(options: {
+}): any; /** TODO: add return value **/
+declare function check(value: any, pattern: any): void;

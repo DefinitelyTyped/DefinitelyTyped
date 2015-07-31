@@ -74,6 +74,10 @@ function fnMemoCallback(memo: Bar, value: Foo): Bar {
     return bar;
 }
 
+function fnCompareCallback(x: any, y: any): number {
+    return num;
+}
+
 function fnGeneratorCallback(index: number): Foo {
     return foo;
 }
@@ -140,7 +144,13 @@ fooSequence = fooSequence.reverse();
 fooSequence = fooSequence.shuffle();
 bool = fooSequence.some();
 bool = fooSequence.some(fnTestCallback);
+fooSequence = fooSequence.sort();
+fooSequence = fooSequence.sort(fnCompareCallback);
+fooSequence = fooSequence.sort(fnCompareCallback, bool);
+fooSequence = fooSequence.sortBy(str);
+fooSequence = fooSequence.sortBy(str, bool);
 fooSequence = fooSequence.sortBy(fnNumberCallback);
+fooSequence = fooSequence.sortBy(fnNumberCallback, bool);
 fooSequence = fooSequence.sortedIndex(foo);
 fooSequence = fooSequence.sum();
 fooSequence = fooSequence.sum(fnNumberCallback);
@@ -148,6 +158,7 @@ fooSequence = fooSequence.takeWhile(fnTestCallback);
 fooSequence = fooSequence.union(fooArr);
 fooSequence = fooSequence.uniq();
 fooSequence = fooSequence.where(obj);
+fooSequence = fooSequence.without(foo, foo);
 fooSequence = fooSequence.without(fooArr);
 fooSequence = fooSequence.zip(arr);
 
@@ -156,7 +167,7 @@ obj = fooSequence.toObject();
 
 // ArrayLikeSequence
 
-fooArraySeq = fooArraySeq.concat();
+fooArraySeq = fooArraySeq.concat(fooArr);
 fooArraySeq = fooArraySeq.first();
 fooArraySeq = fooArraySeq.first(num);
 foo = fooArraySeq.get(num);

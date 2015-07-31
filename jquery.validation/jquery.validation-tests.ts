@@ -78,6 +78,17 @@ function test_validate() {
         onclick: false
     });
     $(".selector").validate({
+        onfocusout: (elt) => { },
+        onkeyup: (elt) => { },
+        onclick: (elt) => { }
+    });
+    $(".selector").validate({
+    onfocusout: (elt, event) => { },
+        onkeyup: (elt, event) => { },
+        onclick: (elt, event) => { }
+    });
+
+    $(".selector").validate({
         focusInvalid: false
     });
     $(".selector").validate({
@@ -111,7 +122,7 @@ function test_validate() {
         submitHandler: function () { alert("Submitted!") }
     });
     $(".selector").validate({
-        showErrors: function (errorMap: ErrorDictionary, errorList: ErrorListItem[]) {
+        showErrors: function (errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) {
             $("#summary").html("Your form contains " + this.numberOfInvalids() + " errors, see details below.");
             this.defaultShowErrors();
         }
@@ -154,6 +165,18 @@ function test_validate() {
     $(".selector").validate({
         ignoreTitle: true
     });
+    // onSubmit, onfocusout, onkeyup, onclick
+    $('.selector').validate({
+        onsubmit: false,
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+    });
+    $('.selector').validate({
+        onfocusout: () => {},
+        onkeyup: () => {},
+        onclick: function(elt) { return 2; }
+    });
 }
 
 function test_methods() {
@@ -187,16 +210,22 @@ function test_methods() {
     });
     $("#myform").validate().form();
     $("#myform").validate().element("#myselect");
+    $("#myform").validate().element($("#myselect"));
     var validator = $("#myform").validate();
     validator.resetForm();
     validator.showErrors({ "firstname": "I know that your firstname is Pete, Pete!" });
     validator.hideErrors();
     var isValid: boolean = validator.valid();
     var size: number = validator.size();
-    var errorMap: ErrorDictionary = validator.errorMap;
-    var errorList: ErrorListItem[] = validator.errorList;
+    var errorMap: JQueryValidation.ErrorDictionary = validator.errorMap;
+    var errorList: JQueryValidation.ErrorListItem[] = validator.errorList;
 
     $("#summary").text(validator.numberOfInvalids() + " field(s) are invalid");
+    var invalidElements: HTMLElement[] = validator.invalidElements();
+    var validElements: HTMLElement[] = validator.validElements();
+}
+
+function test_static_methods() {
     jQuery.validator.setDefaults({
         debug: true
     });
@@ -227,6 +256,11 @@ function test_methods() {
             maxlength: 5
         }
     });
-    var invalidElements: HTMLElement[] = validator.invalidElements();
-    var validElements: HTMLElement[] = validator.validElements();
+
+    // jQuery.validator.format
+    jQuery.validator.format('{0}');
+    jQuery.validator.format('{0} {1}')('a', 2);
+    jQuery.validator.format('{0} {1}', 'a', 2);
+    jQuery.validator.format('{0} {1}', ['a', 2]);
 }
+    

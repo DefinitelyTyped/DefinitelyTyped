@@ -19,6 +19,9 @@ n = tc.weekDayOnOrBefore(2014, 1, 14, tc.WeekDay.Monday);
 n = tc.secondOfDay(13, 59, 59);
 n = tc.weekOfMonth(2014, 1, 1);
 
+s = tc.timeUnitToString(tc.TimeUnit.Second);
+var tu: tc.TimeUnit = tc.stringToTimeUnit("bla");
+
 // DURATION
 
 var d: tc.Duration;
@@ -54,6 +57,10 @@ d = d7.add(d6);
 d = d7.sub(d6);
 s = d7.toString();
 
+b = d7.equals(d6);
+b = d7.equalsExact(d6);
+b = d7.identical(d6);
+
 // TIMEZONE
 
 var t: tc.TimeZone;
@@ -80,6 +87,8 @@ n = t.offsetForZoneDate(new Date(2014, 1, 1, 13, 0, 5, 123), tc.DateFunctions.Ge
 s = t.toString();
 s = tc.TimeZone.offsetToString(2);
 n = tc.TimeZone.stringToOffset("+00:01");
+b = t.equals(t);
+b = t.identical(t);
 
 // REALTIMESOURCE
 
@@ -94,6 +103,7 @@ var ts: tc.TimeSource = tc.DateTime.timeSource;
 dt = tc.DateTime.nowLocal();
 dt = tc.DateTime.nowUtc();
 dt = tc.DateTime.now(tc.TimeZone.local());
+dt = tc.DateTime.fromExcel(1.5);
 dt = tc.nowLocal();
 dt = tc.nowUtc();
 dt = tc.now(tc.TimeZone.local());
@@ -145,6 +155,7 @@ dt = dt.add(2, tc.TimeUnit.Hour);
 dt = dt.add(2, tc.TimeUnit.Minute);
 dt = dt.add(2, tc.TimeUnit.Second);
 dt = dt.addLocal(2, tc.TimeUnit.Second);
+dt = dt.addLocal(tc.minutes(2));
 dt = dt.sub(tc.Duration.seconds(2));
 dt = dt.sub(2, tc.TimeUnit.Year);
 dt = dt.sub(2, tc.TimeUnit.Month);
@@ -154,6 +165,7 @@ dt = dt.sub(2, tc.TimeUnit.Hour);
 dt = dt.sub(2, tc.TimeUnit.Minute);
 dt = dt.sub(2, tc.TimeUnit.Second);
 dt = dt.subLocal(2, tc.TimeUnit.Second);
+dt = dt.subLocal(tc.minutes(2));
 d = dt.diff(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.lessThan(new tc.DateTime(9289234, tc.TimeZone.local()));
 b = dt.lessEqual(new tc.DateTime(9289234, tc.TimeZone.local()));
@@ -178,6 +190,7 @@ s = tc.periodDstToString(tc.PeriodDst.RegularLocalTime);
 var p: tc.Period;
 
 p = new tc.Period(tc.DateTime.nowLocal(), 1, tc.TimeUnit.Hour, tc.PeriodDst.RegularLocalTime);
+p = new tc.Period(tc.DateTime.nowLocal(), tc.hours(1), tc.PeriodDst.RegularLocalTime);
 dt = p.start();
 n = p.amount();
 var tu: tc.TimeUnit = p.unit();
@@ -187,6 +200,8 @@ dt = p.findNext(dt);
 s = p.toIsoString();
 s = p.toString();
 b = p.isBoundary(dt);
+b = p.equals(p);
+b = p.identical(p);
 
 
 // GLOBALS

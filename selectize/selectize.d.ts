@@ -150,6 +150,13 @@ declare module Selectize {
          */
         selectOnTab?: boolean;
 
+        /**
+         * An array of plugins to use
+         *
+         * Default: null
+         */
+        plugins?: string[];
+
         // Data / Searching
         // ------------------------------------------------------------------------------------------------------------
 

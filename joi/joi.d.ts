@@ -61,6 +61,11 @@ declare module 'joi' {
 		options?: ValidationOptions;
 	}
 
+	export interface ValidationResult<T> {
+		error: ValidationError;
+		value: T;
+	}
+
 	export interface SchemaMap {
 		[key: string]: Schema;
 	}
@@ -252,6 +257,11 @@ declare module 'joi' {
 		 * Requires the string value to contain no whitespace before or after. If the validation convert option is on (enabled by default), the string will be trimmed.
 		 */
 		trim(): StringSchema;
+
+		/**
+		 * Requires the string value to be a valid uri with the passed scheme.
+		 */
+		uri(options?: { scheme?: string }): StringSchema;
 	}
 
 	export interface ArraySchema extends AnySchema<ArraySchema> {
@@ -461,8 +471,7 @@ declare module 'joi' {
 	 */
 	export function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
 	export function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Schema, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): void;
+	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): ValidationResult<T>;
 
 	/**
 	 * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).

@@ -17,4 +17,6 @@ function test_intercom_static() {
     console.log(onceListenerInvokedTimes === 1);
 
     instance.emit("eventWithoutAMessage");
+
+    instance.off("test", detect);
 }

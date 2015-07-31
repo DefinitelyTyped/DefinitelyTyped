@@ -14,11 +14,19 @@ function TestChromeOptions() {
 
     options = options.addArguments("a", "b", "c");
     options = options.addExtensions("a", "b", "c");
+    options = options.excludeSwitches("a", "b", "c");
     options = options.detachDriver(true);
     options = options.setChromeBinaryPath("path");
     options = options.setChromeLogFile("logfile");
     options = options.setLocalState("state");
+    options = options.androidActivity("com.example.Activity");
+    options = options.androidDeviceSerial("emulator-5554");
+    options = options.androidChrome();
+    options = options.androidPackage("com.android.chrome");
+    options = options.androidProcess("com.android.chrome");
+    options = options.androidUseRunningApp(true);
     options = options.setLoggingPrefs(new webdriver.logging.Preferences());
+    options = options.setPerfLoggingPrefs({enableNetwork: true, enablePage: true, enableTimeline: true, tracingCategories: "category", bufferUsageReportingInterval: 1000});
     options = options.setProxy({ proxyType: "proxyType" });
     options = options.setUserPreferences("preferences");
     var capabilities: webdriver.Capabilities = options.toCapabilities();
@@ -31,13 +39,14 @@ function TestServiceBuilder() {
     builder = new chrome.ServiceBuilder("exe");
 
     var anything: any = builder.build();
-    builder = builder.enableVerboseLogging();
+    builder = builder.usingPort(8080);
+    builder = builder.setAdbPort(5037);
     builder = builder.loggingTo("path");
+    builder = builder.enableVerboseLogging();
     builder = builder.setNumHttpThreads(5);
+    builder = builder.setUrlBasePath("path");
     builder = builder.setStdio("config");
     builder = builder.setStdio(["A", "B"]);
-    builder = builder.setUrlBasePath("path");
-    builder = builder.usingPort(8080);
     builder = builder.withEnvironment({ "A": "a", "B": "b" });
 }
 
@@ -777,7 +786,7 @@ function TestWebElementPromise() {
     elementPromise.then();
     elementPromise.then(function (element: webdriver.WebElement) { });
     elementPromise.then(function (element: webdriver.WebElement) { }, function (error: any) { });
-    elementPromise.then<string>(function (element: webdriver.WebElement) { }, function (error: any) { }).then(function (result: string) { });
+    elementPromise.then(function (element: webdriver.WebElement) { return "foo"; }, function (error: any) { }).then(function (result: string) { });
 
     elementPromise.thenCatch(function (error: any) { }).then(function (value: any) { });
 
@@ -1029,10 +1038,9 @@ function TestPromiseClass() {
     var isPending: boolean = promise.isPending();
 
     promise = promise.then();
-    promise = promise.then(function( a: string ) { });
     promise = promise.then(function( a: string ) { return 'cde'; });
-    promise = promise.then(function( a: string ) {}, function( e: any) {});
-    promise = promise.then(function (a: string) { }, function (e: any) { return 123; });
+    promise = promise.then(function( a: string ) { return 'cde'; }, function( e: any) {});
+    promise = promise.then(function( a: string ) { return 'cde'; }, function (e: any) { return 123; });
 
     promise = promise.thenCatch(function (error: any) { });
 
@@ -1047,10 +1055,9 @@ function TestThenableClass() {
     var isPending: boolean = thenable.isPending();
 
     thenable = thenable.then();
-    thenable = thenable.then(function (a: string) { });
     thenable = thenable.then(function (a: string) { return 'cde'; });
-    thenable = thenable.then(function (a: string) { }, function (e: any) { });
-    thenable = thenable.then(function (a: string) { }, function (e: any) { return 123; });
+    thenable = thenable.then(function (a: string) { return 'cde'; }, function (e: any) { });
+    thenable = thenable.then(function (a: string) { return 'cde'; }, function (e: any) { return 123; });
 
     thenable = thenable.thenCatch(function (error: any) { });
 

@@ -1,10 +1,10 @@
 /// <reference path="ember.d.ts" />
-/// <reference path="../handlebars/handlebars.d.ts" />
+/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
 
-var App;
+var App : any;
 
-App = Em.Application.create();
+App = Em.Application.create<Em.Application>();
 
 App.president = Em.Object.create({
     name: 'Barack Obama'
@@ -27,7 +27,7 @@ declare class MyPerson extends Em.Object {
 }
 
 var Person1 = Em.Object.extend<typeof MyPerson>({
-    say: (thing) => {
+    say: (thing: string) => {
         alert(thing);
     }
 });
@@ -119,7 +119,7 @@ App.AlertView = Em.View.extend({
 
 App.ListingView = Em.View.extend({
     templateName: 'listing',
-    edit: (event) => {
+    edit: (event: any) => {
         event.view.set('isEditing', true);
     }
 });
@@ -133,7 +133,7 @@ App.userController = Em.Object.create({
     })
 });
 
-Handlebars.registerHelper('highlight', function(property, options) {
+Handlebars.registerHelper('highlight', function(property: string, options: any) {
     var value = Em.Handlebars.get(this, property, options);
     return new Handlebars.SafeString('<span class="highlight">' + value + '</span>');
 });
@@ -195,7 +195,7 @@ people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
 // Examples taken from http://emberjs.com/api/classes/Ember.RSVP.Promise.html
-var promise = new Ember.RSVP.Promise(function(resolve, reject) {
+var promise = new Ember.RSVP.Promise(function(resolve: Function, reject: Function) {
   // on success
   resolve('ok!');
 
@@ -203,8 +203,8 @@ var promise = new Ember.RSVP.Promise(function(resolve, reject) {
   reject('no-k!');
 });
 
-promise.then(function(value) {
+promise.then(function(value: any) {
   // on fulfillment
-}, function(reason) {
+}, function(reason: any) {
   // on rejection
 });

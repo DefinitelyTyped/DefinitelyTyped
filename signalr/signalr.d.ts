@@ -108,5 +108,5 @@ interface ConnectionSettings {
 interface JQueryStatic {
     signalR: SignalR;
     connection: SignalR;
-    hubConnection(url?: string, queryString?: any, logging?: boolean): HubConnection;
+    hubConnection(url?: string, options?: HubConnectionSettings): HubConnection;
 }

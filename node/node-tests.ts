@@ -7,9 +7,12 @@ import zlib = require("zlib");
 import url = require('url');
 import util = require("util");
 import crypto = require("crypto");
+import tls = require("tls");
 import http = require("http");
 import net = require("net");
 import dgram = require("dgram");
+import querystring = require('querystring');
+import path = require("path");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -58,6 +61,32 @@ class Networker extends events.EventEmitter {
         this.emit("mingling");
     }
 }
+
+var errno: number;
+fs.readFile('testfile', (err, data) => {
+    if (err && err.errno) {
+        errno = err.errno;
+    }
+});
+
+
+///////////////////////////////////////////////////////
+/// Buffer tests : https://nodejs.org/api/buffer.html
+///////////////////////////////////////////////////////
+
+function bufferTests() {
+    var utf8Buffer = new Buffer('test');
+    var base64Buffer = new Buffer('','base64');
+    var octets: Uint8Array = null;
+    var octetBuffer = new Buffer(octets);
+    console.log(Buffer.isBuffer(octetBuffer));
+    console.log(Buffer.isEncoding('utf8'));
+    console.log(Buffer.byteLength('xyz123'));
+    console.log(Buffer.byteLength('xyz123', 'ascii'));
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+}
+
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -135,6 +164,16 @@ function crypto_cipher_decipher_buffer_test() {
 }
 
 ////////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html
+////////////////////////////////////////////////////
+
+var ctx: tls.SecureContext = tls.createSecureContext({
+    key: "NOT REALLY A KEY",
+    cert: "SOME CERTIFICATE",
+});
+var blah = ctx.context;
+
+////////////////////////////////////////////////////
 
 // Make sure .listen() and .close() retuern a Server instance
 http.createServer().listen(0).close().address();
@@ -153,6 +192,15 @@ module http_tests {
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
     var codeMessage = http.STATUS_CODES[400];
+	
+	var agent: http.Agent = new http.Agent({
+		keepAlive: true,
+		keepAliveMsecs: 10000,
+		maxSockets: Infinity,
+		maxFreeSockets: 256
+	});
+	
+	var agent: http.Agent = http.globalAgent;
 }
 
 ////////////////////////////////////////////////////
@@ -165,4 +213,153 @@ var ai: dgram.AddressInfo = ds.address();
 ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
 });
 
+////////////////////////////////////////////////////
+///Querystring tests : https://gist.github.com/musubu/2202583
+////////////////////////////////////////////////////
 
+var original: string = 'http://example.com/product/abcde.html';
+var escaped: string = querystring.escape(original);
+console.log(escaped);
+// http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
+var unescaped: string = querystring.unescape(escaped);
+console.log(unescaped); 
+// http://example.com/product/abcde.html
+
+////////////////////////////////////////////////////
+/// path tests : http://nodejs.org/api/path.html
+////////////////////////////////////////////////////
+
+module path_tests {
+
+    path.normalize('/foo/bar//baz/asdf/quux/..');
+
+    path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
+    // returns
+    //'/foo/bar/baz/asdf'
+
+    try {
+        path.join('foo', {}, 'bar');
+    }
+    catch(error) {
+
+    }
+
+    path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
+    //Is similar to:
+    //
+    //cd foo/bar
+    //cd /tmp/file/
+    //cd ..
+    //    cd a/../subfile
+    //pwd
+
+    path.resolve('/foo/bar', './baz')
+    // returns
+    //    '/foo/bar/baz'
+
+    path.resolve('/foo/bar', '/tmp/file/')
+    // returns
+    //    '/tmp/file'
+
+    path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif')
+    // if currently in /home/myself/node, it returns
+    //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
+
+    path.isAbsolute('/foo/bar') // true
+    path.isAbsolute('/baz/..')  // true
+    path.isAbsolute('qux/')     // false
+    path.isAbsolute('.')        // false
+
+    path.isAbsolute('//server')  // true
+    path.isAbsolute('C:/foo/..') // true
+    path.isAbsolute('bar\\baz')   // false
+    path.isAbsolute('.')         // false
+
+    path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
+// returns
+//    '..\\..\\impl\\bbb'
+
+    path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
+// returns
+//    '../../impl/bbb'
+
+    path.dirname('/foo/bar/baz/asdf/quux')
+// returns
+//    '/foo/bar/baz/asdf'
+
+    path.basename('/foo/bar/baz/asdf/quux.html')
+// returns
+//    'quux.html'
+
+    path.basename('/foo/bar/baz/asdf/quux.html', '.html')
+// returns
+//    'quux'
+
+    path.extname('index.html')
+// returns
+//    '.html'
+
+    path.extname('index.coffee.md')
+// returns
+//    '.md'
+
+    path.extname('index.')
+// returns
+//    '.'
+
+    path.extname('index')
+// returns
+//    ''
+
+    'foo/bar/baz'.split(path.sep)
+// returns
+//        ['foo', 'bar', 'baz']
+
+    'foo\\bar\\baz'.split(path.sep)
+// returns
+//        ['foo', 'bar', 'baz']
+
+    console.log(process.env.PATH)
+// '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
+
+    process.env.PATH.split(path.delimiter)
+// returns
+//        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+
+    console.log(process.env.PATH)
+// 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
+
+    process.env.PATH.split(path.delimiter)
+// returns
+//        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+
+    path.parse('/home/user/dir/file.txt')
+// returns
+//    {
+//        root : "/",
+//        dir : "/home/user/dir",
+//        base : "file.txt",
+//        ext : ".txt",
+//        name : "file"
+//    }
+
+    path.parse('C:\\path\\dir\\index.html')
+// returns
+//    {
+//        root : "C:\",
+//        dir : "C:\path\dir",
+//        base : "index.html",
+//        ext : ".html",
+//        name : "index"
+//    }
+
+    path.format({
+        root : "/",
+        dir : "/home/user/dir",
+        base : "file.txt",
+        ext : ".txt",
+        name : "file"
+    });
+// returns
+//    '/home/user/dir/file.txt'
+}
