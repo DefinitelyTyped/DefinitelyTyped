@@ -1,5 +1,5 @@
 // Type definitions for Traverson v2.0.1
-// Project: http://github.com/iriscouch/traceback
+// Project: https://github.com/basti1302/traverson
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
