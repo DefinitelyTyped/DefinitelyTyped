@@ -4,9 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module ESTree {
-  interface FlowTypeAnnotation extends Node {
-    _flowTypeAnnotationBrand: any;
-  }
+  interface FlowTypeAnnotation extends Node {}
 
   interface FlowBaseTypeAnnotation extends FlowTypeAnnotation {}
 
