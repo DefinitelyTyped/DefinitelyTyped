@@ -273,7 +273,7 @@ declare module ESTree {
     tail: boolean;
     value: {
       cooked: string;
-      value: string;
+      raw: string;
     };
   }
 
