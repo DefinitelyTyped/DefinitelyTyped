@@ -5325,24 +5325,44 @@ declare module _ {
     //_.curry
     interface LoDashStatic {
         /**
-        * Creates a function which accepts one or more arguments of func that when invoked either
-        * executes func returning its result, if all func arguments have been provided, or returns
-        * a function that accepts one or more of the remaining func arguments, and so on. The arity
-        * of func can be specified if func.length is not sufficient.
-        * @param func The function to curry.
-        * @param arity The arity of func.
-        * @return The new curried function.
-        **/
-        curry(
+         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
+         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
+         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        curry<TResult extends Function>(
             func: Function,
-            arity?: number): Function;
+            arity?: number): TResult;
     }
 
     interface LoDashObjectWrapper<T> {
         /**
         * @see _.curry
         **/
-        curry(arity?: number): LoDashObjectWrapper<Function>;
+        curry<TResult extends Function>(arity?: number): LoDashObjectWrapper<TResult>;
+    }
+
+    //_.curryRight
+    interface LoDashStatic {
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        curryRight<TResult extends Function>(
+            func: Function,
+            arity?: number): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.curryRight
+         **/
+        curryRight<TResult extends Function>(arity?: number): LoDashObjectWrapper<TResult>;
     }
 
     //_.debounce
