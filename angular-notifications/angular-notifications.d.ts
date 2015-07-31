@@ -55,21 +55,21 @@ declare module angular.notifications {
 
     /* ============== NOTIFICATION METHODS ==============*/
 
-    info(title): INotification;
-    info(title, content): INotification;
-    info(title, content, userData): INotification;
-    error(title): INotification;
-    error(title, content): INotification;
-    error(title, content, userData): INotification;
-    success(title): INotification;
-    success(title, content): INotification;
-    success(title, content, userData): INotification;
-    warning(title): INotification;
-    warning(title, content): INotification;
-    warning(title, content, userData): INotification;
-    awesomeNotify(type, icon, title, content, userData): INotification;
-    notify(image, title, content, userData): INotification;
-    makeNotification(type: string, image: string, icon: string, title: string, content: string, userData: string): INotification;
+    info(title: string): INotification;
+    info(title: string, content: string): INotification;
+    info(title: string, content: string, userData: any): INotification;
+    error(title: string): INotification;
+    error(title: string, content: string): INotification;
+    error(title: string, content: string, userData: any): INotification;
+    success(title: string): INotification;
+    success(title: string, content: string): INotification;
+    success(title: string, content: string, userData: any): INotification;
+    warning(title: string): INotification;
+    warning(title: string, content: string): INotification;
+    warning(title: string, content: string, userData: any): INotification;
+    awesomeNotify(type: string, icon: string, title: string, content: string, userData: any): INotification;
+    notify(image: string, title: string, content: string, userData: any): INotification;
+    makeNotification(type: string, image: string, icon: string, title: string, content: string, userData: any): INotification;
 
     /* ============ PERSISTENCE METHODS ============ */
 
