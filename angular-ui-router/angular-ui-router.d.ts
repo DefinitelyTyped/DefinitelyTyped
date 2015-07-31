@@ -5,6 +5,12 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+// Support for AMD require
+declare module 'angular-ui-router' {
+    var _: string;
+    export = _;
+}
+
 declare module angular.ui {
 
     interface IState {
