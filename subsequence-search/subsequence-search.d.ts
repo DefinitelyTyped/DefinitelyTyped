@@ -1,4 +1,4 @@
-// Type definitions for 1.0.1
+// Type definitions for subsequence-search
 // Project: https://github.com/zeusdeux/subsequence-search
 
 declare module subsequenceSearch {
