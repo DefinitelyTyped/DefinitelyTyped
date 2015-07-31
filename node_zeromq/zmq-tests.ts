@@ -5,20 +5,21 @@ import zmq = require('zmq');
 function test1() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
+    sock.unbindSync('tcp://127.0.0.1:3000');
     sock.send("some work");
 }
 
 function test2() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
-    sock.send(new ArrayBuffer(1000));
+    sock.send(new Buffer(1000));
 }
 
 function test3() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.send(['hello', 'world']);
-    sock.on('message', function (buffer: Buffer) {
+    sock.on('message', function (buffer1: Buffer, buffer2: Buffer) {
         //
     });
 }
@@ -27,6 +28,9 @@ function test4() {
     var sock = zmq.socket(zmq.types.pull);
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
+    });
+    sock.unbind('tcp://127.0.0.1', err => {
+        //
     });
 }
 

@@ -299,3 +299,118 @@ tileLayer.bringToBack()
 	.redraw()
 	.setUrl('http://perdu.com')
 	.getContainer();
+
+module CustomControl {
+	export interface Options {
+		title: string;
+		position?: string;
+	}
+}
+interface CustomControl extends L.Control {
+	getTitle(): string;
+	setTitle(title: string): CustomControl;
+}
+var CustomControl: { new(options: CustomControl.Options): CustomControl };
+CustomControl = L.Control.extend<CustomControl.Options, CustomControl>({
+	initialize: function(options: CustomControl.Options) {
+		L.Control.prototype.initialize.call(this, {
+			position: options.position || 'bottomleft',
+		});
+		this.title = options.title;
+	},
+	getTitle: function() {
+		return this.title;
+	},
+	setTitle: function(title: string) {
+		this.title = title;
+	},
+});
+
+// Different latLng and latLngBounds expressions
+var latLngLiteral = [10, 20];
+var latLngObjectLiteral = { lat: 10, lng: 10 };
+var boundsLiteral = [[10, 20], [20, 20]];
+var boundLiteralOfLatLngObjects = [latLngObjectLiteral, latLngObjectLiteral];
+
+var circle: L.Circle = L.circle(latLngLiteral, 4);
+circle = new L.Circle(latLngLiteral, 4);
+circle.setLatLng(latLngLiteral);
+
+circle = L.circle(latLngObjectLiteral, 4);
+circle = new L.Circle(latLngObjectLiteral, 4);
+circle.setLatLng(latLngObjectLiteral);
+
+var circleMarker: L.CircleMarker = L.circleMarker(latLngLiteral);
+circleMarker = new L.CircleMarker(latLngLiteral);
+circleMarker.setLatLng(latLngLiteral);
+
+circleMarker = L.circleMarker(latLngObjectLiteral);
+circleMarker = new L.CircleMarker(latLngObjectLiteral);
+circleMarker.setLatLng(latLngObjectLiteral);
+
+var latLng: L.LatLng = L.latLng(latLngLiteral);
+latLng = new L.LatLng(latLngLiteral);
+latLng.distanceTo(latLngLiteral);
+latLng.equals(latLngLiteral);
+
+latLng = L.latLng(latLngObjectLiteral);
+latLng = new L.LatLng(latLngObjectLiteral);
+latLng.distanceTo(latLngObjectLiteral);
+latLng.equals(latLngObjectLiteral);
+
+var bounds: L.LatLngBounds = L.latLngBounds(boundsLiteral);
+bounds = L.latLngBounds(boundLiteralOfLatLngObjects);
+bounds = new L.LatLngBounds(boundsLiteral);
+bounds = new L.LatLngBounds(boundLiteralOfLatLngObjects);
+bounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
+
+bounds.extend(latLngLiteral);
+bounds.extend(latLngObjectLiteral);
+bounds.extend(boundsLiteral);
+bounds.extend(boundLiteralOfLatLngObjects);
+
+bounds.contains(latLngLiteral);
+bounds.contains(boundLiteralOfLatLngObjects);
+bounds.contains(boundsLiteral);
+
+bounds.intersects(boundsLiteral);
+bounds.intersects(boundLiteralOfLatLngObjects);
+
+bounds.equals(boundsLiteral);
+bounds.equals(boundLiteralOfLatLngObjects);
+
+map.setView(latLngLiteral);
+map.setView(latLngObjectLiteral);
+map.setZoomAround(latLngLiteral, 15);
+map.setZoomAround(latLngObjectLiteral, 15);
+map.panTo(latLngLiteral);
+map.panTo(latLngObjectLiteral);
+map.openPopup('test', latLngLiteral);
+map.openPopup('test', latLngObjectLiteral);
+map.latLngToLayerPoint(latLngLiteral);
+map.latLngToLayerPoint(latLngObjectLiteral);
+map.latLngToContainerPoint(latLngLiteral);
+map.latLngToContainerPoint(latLngObjectLiteral);
+map.project(latLngLiteral);
+map.project(latLngObjectLiteral);
+
+marker.setLatLng(latLngLiteral);
+marker.setLatLng(latLngObjectLiteral);
+
+var polygon: L.Polygon = L.polygon(boundsLiteral);
+polygon = L.polygon(boundLiteralOfLatLngObjects);
+polygon = new L.Polygon(boundsLiteral);
+polygon = new L.Polygon(boundLiteralOfLatLngObjects);
+
+var polyline: L.Polyline = L.polyline(boundsLiteral);
+polyline = L.polyline(boundLiteralOfLatLngObjects);
+polyline = new L.Polyline(boundsLiteral);
+polyline = new L.Polyline(boundLiteralOfLatLngObjects);
+polyline.setLatLngs(boundsLiteral);
+polyline.setLatLngs(boundLiteralOfLatLngObjects);
+polyline.addLatLng(latLngLiteral);
+polyline.addLatLng(latLngObjectLiteral);
+
+var popup: L.Popup = L.popup();
+popup.setLatLng(latLngLiteral);
+popup.setLatLng(latLngObjectLiteral);

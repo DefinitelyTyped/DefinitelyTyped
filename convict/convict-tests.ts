@@ -32,12 +32,29 @@ var conf = convict({
     format: (val: string) => validator.isUUID(val),
     default: '01527E56-8431-11E4-AF91-47B661C210CA'
   },
+  db: {
+    ip: {
+      doc: 'The IP address to bind.',
+      format: 'ipaddress',
+      default: '127.0.0.1',
+      env: 'IP_ADDRESS',
+    },
+    port: {
+      doc: 'The port to bind.',
+      format: 'port',
+      default: 0,
+      env: 'PORT',
+      arg: 'port',
+    }
+  }
+
 });
 
 
 // load environment dependent configuration
 
 var env = conf.get('env');
+var dbip = conf.get('db.ip');
 conf.loadFile('./config/' + env + '.json');
 conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 

@@ -534,7 +534,7 @@ declare module protractor {
         all(locator: webdriver.Locator): ElementArrayFinder;
     }
 
-    interface ElementFinder extends webdriver.IWebElement, webdriver.promise.IThenable<ElementFinder> {
+    interface ElementFinder extends webdriver.IWebElement, webdriver.promise.IThenable<any> {
         /**
         * Calls to element may be chained to find elements within a parent.
         *
@@ -564,7 +564,7 @@ declare module protractor {
         */
         element(subLocator: webdriver.Locator): ElementFinder;
 
-        /** 
+        /**
         * Calls to element may be chained to find an array of elements within a parent.
         *
         * @alias element(locator).all(locator)
@@ -652,7 +652,7 @@ declare module protractor {
         /**
         * Override for WebElement.prototype.isElementPresent so that protractor waits
         * for Angular to settle before making the check.
-        * 
+        *
         * @see ElementFinder.isPresent
         *
         * @param {webdriver.Locator} subLocator Locator for element to look for.
@@ -700,103 +700,6 @@ declare module protractor {
         * @return {ElementFinder} which resolves to whether animation is allowed.
         */
         allowAnimations(value: string): ElementFinder;
-
-        /**
-         * Cancels the computation of this promise's value, rejecting the promise in the
-         * process. This method is a no-op if the promise has alreayd been resolved.
-         *
-         * @param {string=} opt_reason The reason this promise is being cancelled.
-         */
-        cancel(opt_reason?: string): void;
-
-
-        /** @return {boolean} Whether this promise's value is still being computed. */
-        isPending(): boolean;
-
-
-        /**
-         * Registers listeners for when this instance is resolved.
-         *
-         * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
-         *     function to call if this promise is successfully resolved. The function
-         *     should expect a single argument: the promise's resolved value.
-         * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
-         *     function to call if this promise is rejected. The function should expect
-         *     a single argument: the rejection reason.
-         * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-         *     resolved with the result of the invoked callback.
-         * @template R
-         */
-        then<R>(opt_callback?: (value: ElementFinder) => any, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
-
-
-        /**
-         * Registers a listener for when this promise is rejected. This is synonymous
-         * with the {@code catch} clause in a synchronous API:
-         * <pre><code>
-         *   // Synchronous API:
-         *   try {
-         *     doSynchronousWork();
-         *   } catch (ex) {
-         *     console.error(ex);
-         *   }
-         *
-         *   // Asynchronous promise API:
-         *   doAsynchronousWork().thenCatch(function(ex) {
-         *     console.error(ex);
-         *   });
-         * </code></pre>
-         *
-         * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
-         *     to call if this promise is rejected. The function should expect a single
-         *     argument: the rejection reason.
-         * @return {!webdriver.promise.Promise.<R>} A new promise which will be
-         *     resolved with the result of the invoked callback.
-         * @template R
-         */
-        thenCatch<R>(errback: (error: any) => any): webdriver.promise.Promise<R>;
-
-
-        /**
-         * Registers a listener to invoke when this promise is resolved, regardless
-         * of whether the promise's value was successfully computed. This function
-         * is synonymous with the {@code finally} clause in a synchronous API:
-         * <pre><code>
-         *   // Synchronous API:
-         *   try {
-         *     doSynchronousWork();
-         *   } finally {
-         *     cleanUp();
-         *   }
-         *
-         *   // Asynchronous promise API:
-         *   doAsynchronousWork().thenFinally(cleanUp);
-         * </code></pre>
-         *
-         * <b>Note:</b> similar to the {@code finally} clause, if the registered
-         * callback returns a rejected promise or throws an error, it will silently
-         * replace the rejection error (if any) from this promise:
-         * <pre><code>
-         *   try {
-         *     throw Error('one');
-         *   } finally {
-         *     throw Error('two');  // Hides Error: one
-         *   }
-         *
-         *   webdriver.promise.rejected(Error('one'))
-         *       .thenFinally(function() {
-         *         throw Error('two');  // Hides Error: one
-         *       });
-         * </code></pre>
-         *
-         *
-         * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
-         *     to call when this promise is resolved.
-         * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
-         *     with the callback result.
-         * @template R
-         */
-        thenFinally<R>(callback: () => any): webdriver.promise.Promise<R>;
 
         /**
         * Create a shallow copy of ElementFinder.
@@ -976,7 +879,7 @@ declare module protractor {
         *   filteredElements[0].click();
         * });
         *
-        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn 
+        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn
         *     Filter function that will test if an element should be returned.
         *     filterFn can either return a boolean or a promise that resolves to a boolean.
         * @return {!ElementArrayFinder} A ElementArrayFinder that represents an array
@@ -985,11 +888,11 @@ declare module protractor {
         filter(filterFn: (element: ElementFinder, index: number) => any): ElementArrayFinder;
 
         /**
-        * Apply a reduce function against an accumulator and every element found 
+        * Apply a reduce function against an accumulator and every element found
         * using the locator (from left-to-right). The reduce function has to reduce
-        * every element into a single value (the accumulator). Returns promise of 
-        * the accumulator. The reduce function receives the accumulator, current 
-        * ElementFinder, the index, and the entire array of ElementFinders, 
+        * every element into a single value (the accumulator). Returns promise of
+        * the accumulator. The reduce function receives the accumulator, current
+        * ElementFinder, the index, and the entire array of ElementFinders,
         * respectively.
         *
         * @alias element.all(locator).reduce(reduceFn)
@@ -1009,21 +912,22 @@ declare module protractor {
         *
         * expect(value).toEqual('First Second Third ');
         *
-        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)} 
+        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)}
         *     reduceFn Reduce function that reduces every element into a single value.
-        * @param {*} initialValue Initial value of the accumulator. 
+        * @param {*} initialValue Initial value of the accumulator.
         * @return {!webdriver.promise.Promise} A promise that resolves to the final
-        *     value of the accumulator. 
+        *     value of the accumulator.
         */
+        reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => webdriver.promise.Promise<T>, initialValue: T): webdriver.promise.Promise<T>;
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => T, initialValue: T): webdriver.promise.Promise<T>;
 
         /**
         * Represents the ElementArrayFinder as an array of ElementFinders.
         *
-        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list 
+        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
         *     of ElementFinders specified by the locator.
         */
-        asElementFinders_(): ElementFinder[];
+        asElementFinders_(): webdriver.promise.Promise<ElementFinder[]>;
 
         /**
         * Create a shallow copy of ElementArrayFinder.
@@ -1317,6 +1221,7 @@ declare module protractor {
 
     interface LocatorWithColumn extends webdriver.Locator {
         column(index: number): webdriver.Locator;
+        column(name: string): webdriver.Locator;
     }
 
     interface RepeaterLocator extends LocatorWithColumn {
@@ -1395,7 +1300,7 @@ declare module protractor {
          * expect(element(by.exactBinding('person_phone')).isPresent()).toBe(true);
          * expect(element(by.exactBinding('person_phone|uppercase')).isPresent()).toBe(true);
          * expect(element(by.exactBinding('phone')).isPresent()).toBe(false);
-         * 
+         *
          * @param {string} bindingDescriptor
          * @return {{findElementsOverride: findElementsOverride, toString: Function|string}}
          */

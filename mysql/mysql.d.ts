@@ -83,6 +83,9 @@ declare module "mysql" {
 
         query: IQueryFunction;
 
+        end(): void;
+        end(callback: (err: IError, ...args: any[]) => void): void;
+
         on(ev: string, callback: (...args: any[]) => void): IPool;
         on(ev: 'connection', callback: (connection: IConnection) => void): IPool;
         on(ev: 'error', callback: (err: IError) => void): IPool;

@@ -174,3 +174,26 @@ function catBlock () {
         // extraInfoSpec
         ["blocking"]);
 }
+
+// contrived settings example
+function proxySettings() {
+    chrome.proxy.settings.get({ incognito: false }, (details) => {
+        var val = details.value;
+        var level: string = details.levelOfControl;
+        var incognito: boolean = details.incognitoSpecific;
+    });
+
+    // bare minimum set call
+    chrome.proxy.settings.set({ value: 'something' });
+
+    // add a scope and callback
+    chrome.proxy.settings.set({
+        value: 'something',
+        scope: 'regular'
+    }, () => {});
+
+    chrome.proxy.settings.clear({});
+
+    // clear with a scope set
+    chrome.proxy.settings.clear({ scope: 'regular' });
+}

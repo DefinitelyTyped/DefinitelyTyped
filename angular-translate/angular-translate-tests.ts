@@ -2,7 +2,7 @@
 
 var app = angular.module('at', ['pascalprecht.translate']);
 
-app.config(($translateProvider: ng.translate.ITranslateProvider) => {
+app.config(($translateProvider: angular.translate.ITranslateProvider) => {
     $translateProvider.translations('en', {
         TITLE: 'Hello',
         FOO: 'This is a paragraph.',
@@ -22,7 +22,7 @@ interface Scope extends ng.IScope {
     changeLanguage(key: any): void;
 }
 
-app.controller('Ctrl', ($scope: Scope, $translate: ng.translate.ITranslateService) => {
+app.controller('Ctrl', ($scope: Scope, $translate: angular.translate.ITranslateService) => {
     $scope['changeLanguage'] = function (key: any) {
         $translate.use(key);
     };

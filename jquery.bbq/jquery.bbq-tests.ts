@@ -112,7 +112,7 @@ var params_obj = { a:['4','5','6'], b:{x:['7'], y:'8', z:['9','0','true','false'
   params_obj_bang_coerce = { "!a":[4], a:[5,6] };//, b:{x:[7], y:8, z:[9,0,true,false,undefined,'']}, c:1 };
 
 test( 'jQuery.param.sorted', function() {
-  var tests = [
+  var tests: any[] = [
     {
       obj: {z:1,b:2,ab:3,bc:4,ba:5,aa:6,a1:7,x:8},
       traditional: false,

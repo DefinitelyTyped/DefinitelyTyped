@@ -44,6 +44,7 @@ interface Cheerio {
     // Traversing
 
     find(selector: string): Cheerio;
+    find(element: Cheerio): Cheerio;
 
     parent(selector?: string): Cheerio;
     parents(selector?: string): Cheerio;

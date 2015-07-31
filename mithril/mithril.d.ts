@@ -8,23 +8,29 @@
 interface MithrilStatic {
 	(selector: string, attributes: Object, children?: any): MithrilVirtualElement;
 	(selector: string, children?: any): MithrilVirtualElement;
-	prop(value?: any): (value?: any) => any;
+    prop<T>(value?: T): (value?: T) => T;
+    prop<T>(promise: MithrilPromise<T>): MithrilPromiseProperty<T>;
 	withAttr(property: string, callback: (value: any) => void): (e: Event) => any;
 	module(rootElement: Node, module: MithrilModule): void;
 	trust(html: string): String;
 	render(rootElement: Element, children?: any): void;
 	render(rootElement: HTMLDocument, children?: any): void;
-	redraw(): void;
+	redraw: MithrilRedraw;
 	route(rootElement: Element, defaultRoute: string, routes: { [key: string]: MithrilModule }): void;
 	route(rootElement: HTMLDocument, defaultRoute: string, routes: { [key: string]: MithrilModule }): void;
 	route(path: string, params?: any, shouldReplaceHistory?: boolean): void;
 	route(): string;
 	route(element: Element, isInitialized: boolean): void;
-	request(options: MithrilXHROptions): MithrilPromise;
-	deferred(): MithrilDeferred;
-	sync(promises: MithrilPromise[]): MithrilPromise;
+	request(options: MithrilXHROptions): MithrilPromise<any>;
+	deferred<T>(): MithrilDeferred<T>;
+	sync<T>(promises: MithrilPromise<T>[]): MithrilPromise<T>;
 	startComputation(): void;
 	endComputation(): void;
+}
+
+interface MithrilRedraw {
+	(): void;
+	strategy: (value?: string) => string;
 }
 
 interface MithrilVirtualElement {
@@ -34,19 +40,26 @@ interface MithrilVirtualElement {
 }
 
 interface MithrilModule {
-	controller: Function;
-	view: Function;
+    controller: Function;
+    view: (controller?: any) => MithrilVirtualElement;
 }
 
-interface MithrilDeferred {
-	resolve(value?: any): void;
-	reject(value?: any): void;
-	promise: MithrilPromise;
+interface MithrilDeferred<T> {
+    resolve(value?: T): void;
+    reject(value?: any): void;
+    promise: MithrilPromise<T>;
 }
 
-interface MithrilPromise {
-	(value?: any): any;
-	then(successCallback?: (value: any) => any, errorCallback?: (value: any) => any): MithrilPromise;
+interface MithrilPromise<T> {
+    (value?: T): T;
+    then<R>(successCallback?: (value: T) => R, errorCallback?: (value: any) => any): MithrilPromise<R>;
+    then<R>(successCallback?: (value: T) => MithrilPromise<R>, errorCallback?: (value: any) => any): MithrilPromise<R>;
+}
+
+interface MithrilPromiseProperty<T> extends MithrilPromise<T> {
+    (): T;
+    (value: T): T;
+    toJSON(): T;
 }
 
 interface MithrilXHROptions {

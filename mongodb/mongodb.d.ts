@@ -253,6 +253,46 @@ declare module "mongodb" {
     pkFactory?: PKFactory;
   }
 
+  // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
+  export interface CollStats {
+    // Namespace.
+    ns: string;
+
+    // Number of documents.
+    count: number;
+
+    // Collection size in bytes.
+    size: number;
+
+    // Average object size in bytes.
+    avgObjSize: number;
+
+    // (Pre)allocated space for the collection in bytes.
+    storageSize: number;
+
+    // Number of extents (contiguously allocated chunks of datafile space).
+    numExtents: number;
+
+    // Number of indexes.
+    nindexes: number;
+
+    // Size of the most recently created extent in bytes.
+    lastExtentSize: number;
+
+    // Padding can speed up updates if documents grow.
+    paddingFactor: number;
+    flags: number;
+
+     // Total index size in bytes.
+    totalIndexSize: number;
+
+    // Size of specific indexes in bytes.
+    indexSizes: {
+            _id_: number;
+            username: number;
+    };
+  }
+
   // Documentation : http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
   export interface Collection {
     new (db: Db, collectionName: string, pkFactory?: Object, options?: CollectionCreateOptions): Collection; // is this right?
@@ -326,8 +366,8 @@ declare module "mongodb" {
     indexes(callback: Function): void;
     aggregate(pipeline: any[], callback: (err: Error, results: any) => void): void;
     aggregate(pipeline: any[], options: {readPreference: string}, callback: (err: Error, results: any) => void): void;
-    stats(options: {readPreference: string; scale: number}, callback: Function): void;
-    stats(callback: (err: Error, results: any) => void): void;
+    stats(options: {readPreference: string; scale: number}, callback: (err: Error, results: CollStats) => void): void;
+    stats(callback: (err: Error, results: CollStats) => void): void;
 
     hint: any;
   }

@@ -7,6 +7,8 @@ declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfig
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare module CodeMirror {
+    export var Doc : CodeMirror.Doc;
+    export var Pos: CodeMirror.Position;
     export var Pass: any;
 
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
@@ -387,8 +389,8 @@ declare module CodeMirror {
         getTextArea(): HTMLTextAreaElement;
     }
 
-    class Doc {
-        constructor (text: string, mode?: any, firstLineNumber?: number);
+    interface Doc {
+        new (text: string, mode?: any, firstLineNumber?: number): Doc;
 
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -544,6 +546,9 @@ declare module CodeMirror {
             insertLeft?: boolean;
         }): CodeMirror.TextMarker;
 
+        /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
+        findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
+
         /** Returns an array of all the bookmarks and marked ranges present at the given position. */
         findMarksAt(pos: CodeMirror.Position): TextMarker[];
         
@@ -598,6 +603,8 @@ declare module CodeMirror {
         text: string[];
         /**  Text that used to be between from and to, which is overwritten by this change. */
         removed: string;
+        /**  String representing the origin of the change event and wether it can be merged with history */
+        origin: string;
     }
 
     interface EditorChangeLinkedList extends CodeMirror.EditorChange {
@@ -613,6 +620,7 @@ declare module CodeMirror {
     }
 
     interface Position {
+        new (line: number, ch: number): Position;
         ch: number;
         line: number;
     }
@@ -759,6 +767,9 @@ declare module CodeMirror {
         You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered,
         and thus the browser's text search works on it. This will have bad effects on performance of big documents. */
         viewportMargin?: number;
+
+        /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
+        lint?: LintOptions;
     }
 
     interface TextMarkerOptions {
@@ -915,5 +926,134 @@ declare module CodeMirror {
          * Get the string between the start of the current token and the current stream position.
          */
         current(): string;
+    }
+
+    /**
+     * A Mode is, in the simplest case, a lexer (tokenizer) for your language — a function that takes a character stream as input,
+     * advances it past a token, and returns a style for that token. More advanced modes can also handle indentation for the language.
+     */
+    interface Mode<T> {
+        /**
+         * This function should read one token from the stream it is given as an argument, optionally update its state,
+         * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
+         */
+        token(stream: StringStream, state: T): string;
+
+        /**
+         * A function that produces a state object to be used at the start of a document.
+         */
+        startState?: () => T;
+        /**
+         * For languages that have significant blank lines, you can define a blankLine(state) method on your mode that will get called
+         * whenever a blank line is passed over, so that it can update the parser state.
+         */
+        blankLine?: (state: T) => void;
+        /**
+         * Given a state returns a safe copy of that state.
+         */
+        copyState?: (state: T) => T;
+
+        /**
+         * The indentation method should inspect the given state object, and optionally the textAfter string, which contains the text on
+         * the line that is being indented, and return an integer, the amount of spaces to indent.
+         */
+        indent?: (state: T, textAfter: string) => number;
+
+        /** The four below strings are used for working with the commenting addon. */
+        /**
+         * String that starts a line comment.
+         */
+        lineComment?: string;
+        /**
+         * String that starts a block comment.
+         */
+        blockCommentStart?: string;
+        /**
+         * String that ends a block comment.
+         */
+        blockCommentEnd?: string;
+        /**
+         * String to put at the start of continued lines in a block comment.
+         */
+        blockCommentLead?: string;
+
+        /**
+         * Trigger a reindent whenever one of the characters in the string is typed.
+         */
+        electricChars?: string
+        /**
+         * Trigger a reindent whenever the regex matches the part of the line before the cursor.
+         */
+        electricinput?: RegExp
+    }
+
+    /**
+     * A function that, given a CodeMirror configuration object and an optional mode configuration object, returns a mode object.
+     */
+    interface ModeFactory<T> {
+        (config: CodeMirror.EditorConfiguration, modeOptions?: any): Mode<T>
+    }
+
+    /**
+     * id will be the id for the defined mode. Typically, you should use this second argument to defineMode as your module scope function
+     * (modes should not leak anything into the global scope!), i.e. write your whole mode inside this function.
+     */
+    function defineMode(id: string, modefactory: ModeFactory<any>): void;
+
+    /**
+     * The first argument is a configuration object as passed to the mode constructor function, and the second argument
+     * is a mode specification as in the EditorConfiguration mode option.
+     */
+    function getMode<T>(config: CodeMirror.EditorConfiguration, mode: any): Mode<T>;
+
+    /**
+     * Utility function from the overlay.js addon that allows modes to be combined. The mode given as the base argument takes care of
+     * most of the normal mode functionality, but a second (typically simple) mode is used, which can override the style of text.
+     * Both modes get to parse all of the text, but when both assign a non-null style to a piece of code, the overlay wins, unless
+     * the combine argument was true and not overridden, or state.overlay.combineTokens was true, in which case the styles are combined.
+     */
+    function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>
+
+    /**
+     * async specifies that the lint process runs asynchronously. hasGutters specifies that lint errors should be displayed in the CodeMirror
+     * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
+     * initialization of the CodeMirror instance.
+     */
+    interface LintStateOptions {
+        async: boolean;
+        hasGutters: boolean;
+    }
+
+    /**
+     * Adds the getAnnotations callback to LintStateOptions which may be overridden by the user if they choose use their own
+     * linter.
+     */
+    interface LintOptions extends LintStateOptions {
+        getAnnotations: AnnotationsCallback;
+    }
+
+    /**
+     * A function that calls the updateLintingCallback with any errors found during the linting process.
+     */
+    interface AnnotationsCallback {
+        (content: string, updateLintingCallback: UpdateLintingCallback, options: LintStateOptions, codeMirror: Editor): void;
+    }
+
+    /**
+     * A function that, given an array of annotations, updates the CodeMirror linting GUI with those annotations
+     */
+    interface UpdateLintingCallback {
+        (codeMirror: Editor, annotations: Annotation[]): void;
+    }
+
+    /**
+     * An annotation contains a description of a lint error, detailing the location of the error within the code, the severity of the error,
+     * and an explaination as to why the error was thrown.
+     */
+    interface Annotation {
+        from: Position;
+        message?: string;
+        severity?: string;
+        to?: Position;
     }
 }

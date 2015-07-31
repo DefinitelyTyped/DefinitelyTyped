@@ -54,14 +54,14 @@ function BaseClassExtensions_Error_Tests() {
         }
         else if (isNaN(input)) {
             var msg = "A number was not entered.  ";
-            msg += (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", min, max);
+            msg += (<MicrosoftAjaxBaseTypeExtensions.String><any>String).format("Please enter a number between {0} and {1}.", min, max);
 
             var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).create(msg);
             throw err;
         }
         else if (input < min || input > max) {
             msg = "The number entered was outside the acceptable range.  ";
-            msg += (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", min, max);
+            msg += (<MicrosoftAjaxBaseTypeExtensions.String><any>String).format("Please enter a number between {0} and {1}.", min, max);
 
             var err = (<MicrosoftAjaxBaseTypeExtensions.Error>Error).create(msg);
 
@@ -82,12 +82,12 @@ function BaseClassExtensions_Error_Tests() {
 
 function BaseClassExtensions_String_Tests() {
 
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).format("Please enter a number between {0} and {1}.", 1, 2);
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).endsWith("test");
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).localeFormat("Please enter a number between {0} and {1}", 1, 2);
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).trim();
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).trimEnd();
-    (<MicrosoftAjaxBaseTypeExtensions.String>String).trimStart();
+    (<MicrosoftAjaxBaseTypeExtensions.String><any>String).format("Please enter a number between {0} and {1}.", 1, 2);
+    (<MicrosoftAjaxBaseTypeExtensions.String><any>String).endsWith("test");
+    (<MicrosoftAjaxBaseTypeExtensions.String><any>String).localeFormat("Please enter a number between {0} and {1}", 1, 2);
+    (<MicrosoftAjaxBaseTypeExtensions.String><any>String).trim();
+    (<MicrosoftAjaxBaseTypeExtensions.String><any>String).trimEnd();
+    (<MicrosoftAjaxBaseTypeExtensions.String><any>String).trimStart();
 }
 
 function BaseClassExtensions_Function_Tests() {
@@ -150,7 +150,7 @@ function BaseClassExtensions_Date_Tests() {
 
 function BaseClassExtensions_Boolean_Tests() {
 
-    (<MicrosoftAjaxBaseTypeExtensions.Boolean>Boolean).parse("false");
+    (<MicrosoftAjaxBaseTypeExtensions.Boolean><any>Boolean).parse("false");
 }
 
 function BaseClassExtensions_Number_Tests() {

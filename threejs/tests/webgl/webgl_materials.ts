@@ -5,10 +5,10 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var geometry: THREE.Geometry;
     // -------
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
+
     var container, stats;
 
     var camera, scene, renderer, objects;
@@ -85,11 +85,14 @@
 
         }
 
+        // isn't used.
+        // geometry_pieces.materials = materials;
+
         materials.push(new THREE.MeshFaceMaterial(materials));
 
         objects = [];
 
-        var sphere, material;
+        var sphere, geometry: THREE.Geometry, material;
 
         for (var i = 0, l = materials.length; i < l; i++) {
 
@@ -136,8 +139,8 @@
         //
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         //

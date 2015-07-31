@@ -28,10 +28,9 @@ _infrastructure/tests/build
 .idea
 *.iml
 *.js.map
-
-#rx.js
-!rx.js
+!*.js/
 
 node_modules
 
 .sublimets
+.settings/launch.json

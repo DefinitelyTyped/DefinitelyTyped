@@ -169,22 +169,20 @@ declare module Backbone {
         **/
         private static extend(properties: any, classProperties?: any): any;
 
-        // TODO: this really has to be typeof TModel
-        //model: typeof TModel;
-        model: { new(): TModel; }; // workaround
+        model: new (...args:any[]) => TModel;
         models: TModel[];
         length: number;
 
-        constructor(models?: TModel[], options?: any);
-        initialize(models?: TModel[], options?: any): void;
+        constructor(models?: TModel[] | Object[], options?: any);
+        initialize(models?: TModel[] | Object[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
         comparator(element: TModel): number;
         comparator(compare: TModel, to?: TModel): number;
 
-        add(model: TModel, options?: AddOptions): Collection<TModel>;
-        add(models: TModel[], options?: AddOptions): Collection<TModel>;
+        add(model: {}|TModel, options?: AddOptions): TModel;
+        add(models: ({}|TModel)[], options?: AddOptions): TModel[];
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
@@ -238,7 +236,7 @@ declare module Backbone {
         initial(n: number): TModel[];
         inject(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any;
         isEmpty(object: any): boolean;
-        invoke(methodName: string, arguments?: any[]): any;
+        invoke(methodName: string, args?: any[]): any;
         last(): TModel;
         last(n: number): TModel[];
         lastIndexOf(element: TModel, fromIndex?: number): number;
@@ -249,6 +247,7 @@ declare module Backbone {
         select(iterator: any, context?: any): any[];
         size(): number;
         shuffle(): any[];
+        slice(min: number, max?: number): TModel[];
         some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
         sortBy(attribute: string, context?: any): TModel[];
@@ -275,7 +274,7 @@ declare module Backbone {
         * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        routes(): any;
+        routes: any;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -311,14 +310,14 @@ declare module Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model> {
-        model?: TModel;
-        collection?: Backbone.Collection<TModel>;
-        el?: any;
-        id?: string;
-        className?: string;
-        tagName?: string;
-        attributes?: any[];
+   interface ViewOptions<TModel extends Model> {
+      model?: TModel;
+      collection?: Backbone.Collection<TModel>;
+      el?: any;
+      id?: string;
+      className?: string;
+      tagName?: string;
+      attributes?: {[id: string]: any};
     }
 
     class View<TModel extends Model> extends Events {

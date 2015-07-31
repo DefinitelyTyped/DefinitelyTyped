@@ -72,6 +72,11 @@ declare module notifyjs {
          * unique identifier to stop duplicate notifications
          */
         tag? : string;
+        
+         /**
+         * number of seconds to close the notification automatically
+         */
+        timeout? : number;
 
         /**
          * callback when notification is shown

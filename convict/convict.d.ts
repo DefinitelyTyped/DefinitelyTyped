@@ -8,7 +8,7 @@ declare module "convict" {
 
 	module convict {
 		interface Schema {
-			[name: string]: {
+			[name: string]: convict.Schema | {
 				default: any;
 				doc?: string;
 				format?: any;

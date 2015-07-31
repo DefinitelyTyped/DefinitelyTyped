@@ -33,6 +33,14 @@ declare module chrome {
         prefs?: any;
     }
 
+    interface IPerfLoggingPrefs {
+      enableNetwork: boolean;
+      enablePage: boolean;
+      enableTimeline: boolean;
+      tracingCategories: string;
+      bufferUsageReportingInterval: number;
+    }
+
     /**
      * Class for managing ChromeDriver specific options.
      */
@@ -60,6 +68,16 @@ declare module chrome {
          * @return {!Options} A self reference.
          */
         addArguments(...var_args: string[]): Options;
+
+
+        /**
+         * List of Chrome command line switches to exclude that ChromeDriver by default
+         * passes when starting Chrome.  Do not prefix switches with "--".
+         *
+         * @param {...(string|!Array<string>)} var_args The switches to exclude.
+         * @return {!Options} A self reference.
+         */
+        excludeSwitches(...var_args: string[]): Options;
 
 
         /**
@@ -114,6 +132,32 @@ declare module chrome {
          */
         setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
 
+        /**
+         * Sets the performance logging preferences. Options include:
+         *
+         * - `enableNetwork`: Whether or not to collect events from Network domain.
+         * - `enablePage`: Whether or not to collect events from Page domain.
+         * - `enableTimeline`: Whether or not to collect events from Timeline domain.
+         *     Note: when tracing is enabled, Timeline domain is implicitly disabled,
+         *     unless `enableTimeline` is explicitly set to true.
+         * - `tracingCategories`: A comma-separated string of Chrome tracing categories
+         *     for which trace events should be collected. An unspecified or empty
+         *     string disables tracing.
+         * - `bufferUsageReportingInterval`: The requested number of milliseconds
+         *     between DevTools trace buffer usage events. For example, if 1000, then
+         *     once per second, DevTools will report how full the trace buffer is. If a
+         *     report indicates the buffer usage is 100%, a warning will be issued.
+         *
+         * @param {{enableNetwork: boolean,
+         *          enablePage: boolean,
+         *          enableTimeline: boolean,
+         *          tracingCategories: string,
+         *          bufferUsageReportingInterval: number}} prefs The performance
+         *     logging preferences.
+         * @return {!Options} A self reference.
+         */
+        setPerfLoggingPrefs(prefs: IPerfLoggingPrefs): Options;
+
 
         /**
          * Sets preferences for the "Local State" file in Chrome's user data
@@ -122,6 +166,69 @@ declare module chrome {
          * @return {!Options} A self reference.
          */
         setLocalState(state: any): Options;
+
+
+        /**
+         * Sets the name of the activity hosting a Chrome-based Android WebView. This
+         * option must be set to connect to an [Android WebView](
+         * https://sites.google.com/a/chromium.org/chromedriver/getting-started/getting-started---android)
+         *
+         * @param {string} name The activity name.
+         * @return {!Options} A self reference.
+         */
+        androidActivity(name: string): Options;
+
+
+        /**
+         * Sets the device serial number to connect to via ADB. If not specified, the
+         * ChromeDriver will select an unused device at random. An error will be
+         * returned if all devices already have active sessions.
+         *
+         * @param {string} serial The device serial number to connect to.
+         * @return {!Options} A self reference.
+         */
+        androidDeviceSerial(serial: string): Options;
+
+
+        /**
+         * Configures the ChromeDriver to launch Chrome on Android via adb. This
+         * function is shorthand for
+         * {@link #androidPackage options.androidPackage('com.android.chrome')}.
+         * @return {!Options} A self reference.
+         */
+        androidChrome(): Options;
+
+
+        /**
+         * Sets the package name of the Chrome or WebView app.
+         *
+         * @param {?string} pkg The package to connect to, or `null` to disable Android
+         *     and switch back to using desktop Chrome.
+         * @return {!Options} A self reference.
+         */
+        androidPackage(pkg: string): Options;
+
+
+        /**
+         * Sets the process name of the Activity hosting the WebView (as given by `ps`).
+         * If not specified, the process name is assumed to be the same as
+         * {@link #androidPackage}.
+         *
+         * @param {string} processName The main activity name.
+         * @return {!Options} A self reference.
+         */
+        androidProcess(processName: string): Options;
+
+
+        /**
+         * Sets whether to connect to an already-running instead of the specified
+         * {@linkplain #androidProcess app} instead of launching the app with a clean
+         * data directory.
+         *
+         * @param {boolean} useRunning Whether to connect to a running instance.
+         * @return {!Options} A self reference.
+         */
+        androidUseRunningApp(useRunning: boolean): Options;
 
 
         /**
@@ -187,6 +294,17 @@ declare module chrome {
          * @throws {Error} If the port is invalid.
          */
         usingPort(port: number): ServiceBuilder;
+
+
+        /**
+         * Sets which port adb is listening to. _The ChromeDriver will connect to adb
+         * if an {@linkplain Options#androidPackage Android session} is requested, but
+         * adb **must** be started beforehand._
+         *
+         * @param {number} port Which port adb is running on.
+         * @return {!ServiceBuilder} A self reference.
+         */
+        setAdbPort(port: number): ServiceBuilder;
 
 
         /**
@@ -505,10 +623,10 @@ declare module firefox {
 }
 
 declare module executors {
-    /** 
-     * Creates a command executor that uses WebDriver's JSON wire protocol. 
-     * @param url The server's URL, or a promise that will resolve to that URL. 
-     * @returns {!webdriver.CommandExecutor} The new command executor. 
+    /**
+     * Creates a command executor that uses WebDriver's JSON wire protocol.
+     * @param url The server's URL, or a promise that will resolve to that URL.
+     * @returns {!webdriver.CommandExecutor} The new command executor.
      */
     function createExecutor(url: string): webdriver.CommandExecutor;
     function createExecutor(url: webdriver.promise.Promise<string>): webdriver.CommandExecutor;
@@ -1055,17 +1173,30 @@ declare module webdriver {
             /**
              * Registers listeners for when this instance is resolved.
              *
-             * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
+             * @param opt_callback The
              *     function to call if this promise is successfully resolved. The function
              *     should expect a single argument: the promise's resolved value.
-             * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
+             * @param opt_errback The
              *     function to call if this promise is rejected. The function should expect
              *     a single argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             * @return A new promise which will be
              *     resolved with the result of the invoked callback.
-             * @template R
              */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers listeners for when this instance is resolved.
+             *
+             * @param opt_callback The
+             *     function to call if this promise is successfully resolved. The function
+             *     should expect a single argument: the promise's resolved value.
+             * @param opt_errback The
+             *     function to call if this promise is rejected. The function should expect
+             *     a single argument: the rejection reason.
+             * @return A new promise which will be
+             *     resolved with the result of the invoked callback.
+             */
+            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -1161,17 +1292,30 @@ declare module webdriver {
             /**
              * Registers listeners for when this instance is resolved.
              *
-             * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
+             * @param opt_callback The
              *     function to call if this promise is successfully resolved. The function
              *     should expect a single argument: the promise's resolved value.
-             * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
+             * @param opt_errback The
              *     function to call if this promise is rejected. The function should expect
              *     a single argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             * @return A new promise which will be
              *     resolved with the result of the invoked callback.
-             * @template R
              */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers listeners for when this instance is resolved.
+             *
+             * @param opt_callback The
+             *     function to call if this promise is successfully resolved. The function
+             *     should expect a single argument: the promise's resolved value.
+             * @param opt_errback The
+             *     function to call if this promise is rejected. The function should expect
+             *     a single argument: the rejection reason.
+             * @return A new promise which will be
+             *     resolved with the result of the invoked callback.
+             */
+            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -1304,16 +1448,31 @@ declare module webdriver {
              * Registers listeners for when this instance is resolved. This function most
              * overridden by subtypes.
              *
-             * @param {Function=} opt_callback The function to call if this promise is
+             * @param opt_callback The function to call if this promise is
              *     successfully resolved. The function should expect a single argument: the
              *     promise's resolved value.
-             * @param {Function=} opt_errback The function to call if this promise is
+             * @param opt_errback The function to call if this promise is
              *     rejected. The function should expect a single argument: the rejection
              *     reason.
-             * @return {!webdriver.promise.Promise} A new promise which will be resolved
+             * @return A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then<R>(opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers listeners for when this instance is resolved. This function most
+             * overridden by subtypes.
+             *
+             * @param opt_callback The function to call if this promise is
+             *     successfully resolved. The function should expect a single argument: the
+             *     promise's resolved value.
+             * @param opt_errback The function to call if this promise is
+             *     rejected. The function should expect a single argument: the rejection
+             *     reason.
+             * @return A new promise which will be resolved
+             *     with the result of the invoked callback.
+             */
+            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
 
 
             /**
@@ -1762,7 +1921,7 @@ declare module webdriver {
 
     module until {
         /**
-         * Defines a condition to 
+         * Defines a condition to
          */
         class Condition<T> {
             /**
@@ -3536,7 +3695,7 @@ declare module webdriver {
          *     capabilities for the new session.
          * @param {webdriver.promise.ControlFlow=} opt_flow The control flow all driver
          *     commands should execute under, including the initial session creation.
-         *     Defaults to the {@link webdriver.promise.controlFlow() currently active} 
+         *     Defaults to the {@link webdriver.promise.controlFlow() currently active}
          *     control flow.
          * @return {!webdriver.WebDriver} The driver for the newly created session.
          */
@@ -4554,17 +4713,30 @@ declare module webdriver {
         /**
          * Registers listeners for when this instance is resolved.
          *
-         * @param {?(function(T): (R|webdriver.promise.Promise.<R>))=} opt_callback The
+         * @param opt_callback The
          *     function to call if this promise is successfully resolved. The function
          *     should expect a single argument: the promise's resolved value.
-         * @param {?(function(*): (R|webdriver.promise.Promise.<R>))=} opt_errback The
+         * @param opt_errback The
          *     function to call if this promise is rejected. The function should expect
          *     a single argument: the rejection reason.
-         * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+         * @return A new promise which will be
          *     resolved with the result of the invoked callback.
-         * @template R
          */
-        then<R>(opt_callback?: (value: WebElement) => any, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
+        then<R>(opt_callback?: (value: WebElement) => webdriver.promise.Promise<R>, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
+
+        /**
+         * Registers listeners for when this instance is resolved.
+         *
+         * @param opt_callback The
+         *     function to call if this promise is successfully resolved. The function
+         *     should expect a single argument: the promise's resolved value.
+         * @param opt_errback The
+         *     function to call if this promise is rejected. The function should expect
+         *     a single argument: the rejection reason.
+         * @return A new promise which will be
+         *     resolved with the result of the invoked callback.
+         */
+        then<R>(opt_callback?: (value: WebElement) => R, opt_errback?: (error: any) => any): webdriver.promise.Promise<R>;
 
 
         /**
@@ -4795,11 +4967,11 @@ declare module 'selenium-webdriver/chrome' {
 
 declare module 'selenium-webdriver/firefox' {
     export = firefox;
-} 
+}
 
 declare module 'selenium-webdriver/executors' {
     export = executors;
-} 
+}
 
 declare module 'selenium-webdriver' {
     export = webdriver;

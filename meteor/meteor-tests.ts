@@ -8,21 +8,15 @@
 
 
 /*********************************** Begin setup for tests ******************************/
-
-// A developer must declare a var Template like this in a separate file to use this TypeScript type definition file
-//interface ITemplate {
-//  adminDashboard: Meteor.Template;
-//  chat: Meteor.Template;
-//}
-//declare var Template: ITemplate;
-
 var Rooms = new Mongo.Collection('rooms');
 var Messages = new Mongo.Collection('messages');
-var Monkeys = new Mongo.Collection('monkeys');
-var x = new Mongo.Collection('x');
-var y = new Mongo.Collection('y');
-
-var check = function(str1, str2) {};
+interface MonkeyDAO {
+  _id: string;
+  name: string;
+}
+var Monkeys = new Mongo.Collection<MonkeyDAO>('monkeys');
+//var x = new Mongo.Collection<xDAO>('x');
+//var y = new Mongo.Collection<yDAO>('y');
 /********************************** End setup for tests *********************************/
 
 
@@ -98,8 +92,8 @@ Tracker.autorun(function () {
 });
 
 console.log("Current room has " +
-    Counts.findOne(Session.get("roomId")).count +
-    " messages.");
+Counts.find(Session.get("roomId")).count +
+" messages.");
 
 /**
  * From Publish and Subscribe, Meteor.subscribe section
@@ -124,7 +118,7 @@ Meteor.methods({
 
     var you_want_to_throw_an_error = true;
     if (you_want_to_throw_an_error)
-    throw new Meteor.Error(404, "Can't find my pants");
+      throw new Meteor.Error("404", "Can't find my pants");
     return "some return value";
   },
 
@@ -144,10 +138,17 @@ var result = Meteor.call('foo', 1, 2);
  * From Collections, Mongo.Collection section
  */
 // DA: I added the "var" keyword in there
-var Chatrooms = new Mongo.Collection("chatrooms");
-Messages = new Mongo.Collection("messages");
 
-var myMessages = Messages.find({userId: Session.get('myUserId')}).fetch();
+interface ChatroomsDAO {
+  _id?: string;
+}
+interface MessagesDAO {
+  _id?: string;
+}
+var Chatrooms = new Mongo.Collection<ChatroomsDAO>("chatrooms");
+Messages = new Mongo.Collection<MessagesDAO>("messages");
+
+var myMessages = <MessagesDAO> Messages.find({userId: Session.get('myUserId')}).fetch();
 
 Messages.insert({text: "Hello, world!"});
 
@@ -164,10 +165,10 @@ Posts.insert({title: "Hello world", body: "First post"});
  * since there is already a Collection constructor with a different signature
  *
  var Scratchpad = new Mongo.Collection;
-for (var i = 0; i < 10; i++)
-  Scratchpad.insert({number: i * 2});
-assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
-**/
+ for (var i = 0; i < 10; i++)
+ Scratchpad.insert({number: i * 2});
+ assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
+ **/
 
 var Animal = function (doc) {
 //  _.extend(this, doc);
@@ -178,11 +179,16 @@ Animal.prototype = {
   makeNoise: function () {
     console.log(this.sound);
   }
+};
+
+
+interface AnimalDAO {
+  _id: string;
+  makeNoise: () => void;
 }
 
-
 // Define a Collection that uses Animal as its document
-var Animals = new Mongo.Collection("Animals", {
+var Animals = new Mongo.Collection<AnimalDAO>("Animals", {
   transform: function (doc) { return new Animal(doc); }
 });
 
@@ -218,8 +224,8 @@ Template['adminDashboard'].events({
 Meteor.methods({
   declareWinners: function () {
     Players.update({score: {$gt: 10}},
-        {$addToSet: {badges: "Winner"}},
-        {multi: true});
+            {$addToSet: {badges: "Winner"}},
+            {multi: true});
   }
 });
 
@@ -266,7 +272,7 @@ Posts.allow({
 Posts.deny({
   update: function (userId, docs, fields, modifier) {
     // can't change owners
-    return docs.userId = userId;
+    return docs.userId !== userId;
   },
   remove: function (userId, doc) {
     // can't remove locked documents
@@ -341,7 +347,7 @@ Session.equals("key", value);
  */
 Meteor.publish("userData", function () {
   return Meteor.users.find({_id: this.userId},
-      {fields: {'other': 1, 'things': 1}});
+          {fields: {'other': 1, 'things': 1}});
 });
 
 Meteor.users.deny({update: function () { return true; }});
@@ -376,7 +382,7 @@ Accounts.ui.config({
 Accounts.validateNewUser(function (user) {
   if (user.username && user.username.length >= 3)
     return true;
-  throw new Meteor.Error(403, "Username must have at least 3 characters");
+  throw new Meteor.Error("403", "Username must have at least 3 characters");
 });
 // Validate username, without a specific error message.
 Accounts.validateNewUser(function (user) {
@@ -405,8 +411,8 @@ Accounts.emailTemplates.enrollAccount.subject = function (user) {
 };
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
   return "You have been selected to participate in building a better future!"
-      + " To activate your account, simply click the link below:\n\n"
-      + url;
+          + " To activate your account, simply click the link below:\n\n"
+          + url;
 };
 
 /**
@@ -417,6 +423,36 @@ Template['adminDashboard'].helpers({
     return Session.get("foo");
   }
 });
+Template['newTemplate'].helpers({
+  helperName: function () {
+  }
+});
+
+Template['newTemplate'].created = function () {
+
+};
+
+Template['newTemplate'].rendered = function () {
+
+};
+
+Template['newTemplate'].destroyed = function () {
+
+};
+
+Template['newTemplate'].events({
+  'click .something': function (event) {
+  }
+});
+
+Template.registerHelper('testHelper', function() {
+  return 'tester';
+});
+
+var instance = Template.instance();
+var data = Template.currentData();
+var data = Template.parentData(1);
+var body = Template.body;
 
 /**
  * From Match section
@@ -474,10 +510,9 @@ Tracker.autorun(function (c) {
  * From Deps, Deps.Computation
  */
 if (Tracker.active) {
-    Tracker.onInvalidate(function () {
-        x.destroy();
-        y.finalize();
-    });
+  Tracker.onInvalidate(function () {
+    console.log('invalidated');
+  });
 }
 
 /**
@@ -487,15 +522,15 @@ var weather = "sunny";
 var weatherDep = new Tracker.Dependency;
 
 var getWeather = function () {
-    weatherDep.depend();
-    return weather;
+  weatherDep.depend();
+  return weather;
 };
 
 var setWeather = function (w) {
-    weather = w;
-    // (could add logic here to only call changed()
-    // if the new value is different from the old)
-    weatherDep.changed();
+  weather = w;
+  // (could add logic here to only call changed()
+  // if the new value is different from the old)
+  weatherDep.changed();
 };
 
 /**
@@ -505,7 +540,7 @@ Meteor.methods({checkTwitter: function (userId) {
   check(userId, String);
   this.unblock();
   var result = HTTP.call("GET", "http://api.twitter.com/xyz",
-      {params: {user: userId}});
+          {params: {user: userId}});
   if (result.statusCode === 200)
     return true
   return false;
@@ -513,12 +548,12 @@ Meteor.methods({checkTwitter: function (userId) {
 
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
-    {data: {some: "json", stuff: 1}},
-    function (error, result) {
-      if (result.statusCode === 200) {
-        Session.set("twizzled", true);
-      }
-    });
+        {data: {some: "json", stuff: 1}},
+        function (error, result) {
+          if (result.statusCode === 200) {
+            Session.set("twizzled", true);
+          }
+        });
 
 /**
  * From Email, Email.send section
@@ -530,21 +565,14 @@ Meteor.methods({
     // Let other method calls from the same client start running,
     // without waiting for the email sending to complete.
     this.unblock();
-
-    Email.send({
-      to: to,
-      from: from,
-      subject: subject,
-      text: text
-    });
   }
 });
 
 // In your client code: asynchronously send an email
 Meteor.call('sendEmail',
-    'alice@example.com',
-    'Hello from Meteor!',
-    'This is a test of Email.send.');
+        'alice@example.com',
+        'Hello from Meteor!',
+        'This is a test of Email.send.');
 
 var testTemplate = new Blaze.Template();
 var testView = new Blaze.View();
@@ -561,3 +589,9 @@ Blaze.toHTMLWithData(testTemplate, {test: 1});
 Blaze.toHTMLWithData(testTemplate, function() {});
 Blaze.toHTMLWithData(testView, {test: 1});
 Blaze.toHTMLWithData(testView, function() {});
+
+var reactiveVar1 = new ReactiveVar<string>('test value');
+var reactiveVar2 = new ReactiveVar<string>('test value', function(oldVal) { return true; });
+
+var varValue: string = reactiveVar1.get();
+reactiveVar1.set('new value');

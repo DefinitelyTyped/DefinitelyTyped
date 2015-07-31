@@ -1,7 +1,7 @@
 /// <reference path="react.d.ts" />
 import React = require("react");
 
-interface Props {
+interface Props extends React.Props<MyComponent> {
     hello: string;
     world?: string;
     foo: number;
@@ -13,7 +13,15 @@ interface State {
     seconds?: number;
 }
 
-interface MyComponent extends React.CompositeComponent<Props, State> {
+interface Context {
+    someValue?: string;
+}
+
+interface ChildContext {
+    someOtherValue: string;
+}
+
+interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
@@ -26,102 +34,174 @@ var props: Props = {
 };
 
 var container: Element;
-var INPUT_REF: string = "input";
 
 //
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var reactClass: React.ComponentClass<Props> = React.createClass<Props>({
-    getDefaultProps: () => {
-        return <Props>{
-            hello: undefined,
-            world: "peace",
-            foo: undefined,
-            bar: undefined
-        };
-    },
-    getInitialState: () => {
+var ClassicComponent: React.ClassicComponentClass<Props> =
+    React.createClass<Props, State>({
+        getDefaultProps: () => {
+            return <Props>{
+                hello: undefined,
+                world: "peace",
+                foo: undefined,
+                bar: undefined
+            };
+        },
+        getInitialState: () => {
+            return {
+                inputValue: this.context.someValue,
+                seconds: this.props.foo
+            };
+        },
+        reset: () => {
+            this.replaceState(this.getInitialState());
+        },
+        render: () => {
+            return React.DOM.div(null,
+                React.DOM.input({
+                    ref: input => this._input = input,
+                    value: this.state.inputValue
+                }));
+        }
+    });
+
+class ModernComponent extends React.Component<Props, State>
+    implements React.ChildContextProvider<ChildContext> {
+    
+    static propTypes: React.ValidationMap<Props> = {
+        foo: React.PropTypes.number
+    }
+    
+    static contextTypes: React.ValidationMap<Context> = {
+        someValue: React.PropTypes.string
+    }
+    
+    static childContextTypes: React.ValidationMap<ChildContext> = {
+        someOtherValue: React.PropTypes.string
+    }
+    
+    getChildContext() {
         return {
-            inputValue: "React.js",
-            seconds: 0
-        };
-    },
-    reset: () => {
-        this.replaceState(this.getInitialState());
-    },
-    render: () => {
+            someOtherValue: 'foo'
+        }
+    }
+    
+    state = {
+        inputValue: this.context.someValue,
+        seconds: this.props.foo
+    }
+    
+    reset() {
+        this.setState({
+            inputValue: this.context.someValue,
+            seconds: this.props.foo
+        });
+    }
+
+    private _input: React.HTMLComponent;
+    
+    render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: INPUT_REF,
+                ref: input => this._input = input,
                 value: this.state.inputValue
             }));
     }
-});
+}
 
-var reactElement: React.ReactElement<Props> =
-    React.createElement<Props>(reactClass, props);
+// React.createFactory
+var factory: React.Factory<Props> =
+    React.createFactory(ModernComponent);
+var factoryElement: React.ReactElement<Props> =
+    factory(props);
 
-var reactFactory: React.ComponentFactory<Props> =
-    React.createFactory<Props>(reactClass);
+var classicFactory: React.ClassicFactory<Props> =
+    React.createFactory(ClassicComponent);
+var classicFactoryElement: React.ClassicElement<Props> =
+    classicFactory(props);
 
-var component: React.Component<Props> =
-    React.render<Props>(reactElement, container);
+var domFactory: React.DOMFactory<any> =
+    React.createFactory("foo");
+var domFactoryElement: React.DOMElement<any> =
+    domFactory();
 
+// React.createElement
+var element: React.ReactElement<Props> =
+    React.createElement(ModernComponent, props);
+var classicElement: React.ClassicElement<Props> =
+    React.createElement(ClassicComponent, props);
+var domElement: React.HTMLElement =
+    React.createElement("div");
+
+// React.cloneElement
+var clonedElement: React.ReactElement<Props> =
+    React.cloneElement(element, props);
+var clonedClassicElement: React.ClassicElement<Props> =
+    React.cloneElement(classicElement, props);
+var clonedDOMElement: React.HTMLElement =
+    React.cloneElement(domElement);
+
+// React.render
+var component: React.Component<Props, any> =
+    React.render(element, container);
+var classicComponent: React.ClassicComponent<Props, any> =
+    React.render(classicElement, container);
+var domComponent: React.DOMComponent<any> =
+    React.render(domElement, container);
+
+// Other Top-Level API
 var unmounted: boolean = React.unmountComponentAtNode(container);
-var str: string = React.renderToString(reactElement);
-var markup: string = React.renderToStaticMarkup(reactElement);
+var str: string = React.renderToString(element);
+var markup: string = React.renderToStaticMarkup(element);
 var notValid: boolean = React.isValidElement(props); // false
-var isValid = React.isValidElement(reactElement); // true
+var isValid = React.isValidElement(element); // true
 React.initializeTouchEvents(true);
+var domNode: Element = React.findDOMNode(component);
+domNode = React.findDOMNode(domNode);
 
 //
 // React Elements
 // --------------------------------------------------------------------------
 
-var type = reactElement.type;
-var elementProps: Props = reactElement.props;
-var key = reactElement.key;
-var ref: string = reactElement.ref;
-var factoryElement: React.ReactElement<Props> = reactFactory(elementProps);
+var type = element.type;
+var elementProps: Props = element.props;
+var key = element.key;
 
 //
 // React Components
 // --------------------------------------------------------------------------
 
-var displayName: string = reactClass.displayName;
-var defaultProps: Props = reactClass.getDefaultProps();
-var propTypes: React.ValidationMap<Props> = reactClass.propTypes;
+var displayName: string = ClassicComponent.displayName;
+var defaultProps: Props = ClassicComponent.getDefaultProps();
+var propTypes: React.ValidationMap<Props> = ClassicComponent.propTypes;
 
 //
 // Component API
 // --------------------------------------------------------------------------
 
-var htmlElement: Element = component.getDOMNode();
-var divElement: HTMLDivElement = component.getDOMNode<HTMLDivElement>();
-var isMounted: boolean = component.isMounted();
-component.setProps(elementProps);
-component.replaceProps(props);
+// modern
+var componentState: State = component.state;
+component.setState({ inputValue: "!!!" });
+component.forceUpdate();
 
-var compComponent: React.CompositeComponent<Props, State> =
-    <React.CompositeComponent<Props, State>>component;
-var initialState: State = compComponent.state;
-compComponent.setState({ inputValue: "!!!" });
-compComponent.replaceState({ inputValue: "???", seconds: 60 });
-compComponent.forceUpdate();
+// classic
+var htmlElement: Element = classicComponent.getDOMNode();
+var divElement: HTMLDivElement = classicComponent.getDOMNode<HTMLDivElement>();
+var isMounted: boolean = classicComponent.isMounted();
+classicComponent.setProps(elementProps);
+classicComponent.replaceProps(props);
+classicComponent.replaceState({ inputValue: "???", seconds: 60 });
 
-var inputRef: React.HTMLComponent =
-    <React.HTMLComponent>compComponent.refs[INPUT_REF];
-var value: string = inputRef.getDOMNode<HTMLInputElement>().value;
-
-var myComponent = <MyComponent>compComponent;
+var myComponent = <MyComponent>component;
 myComponent.reset();
 
 //
 // Attributes
 // --------------------------------------------------------------------------
 
-var children = ["Hello world", [null], React.DOM.span(null)];
+var children: any[] = ["Hello world", [null], React.DOM.span(null)];
 var divStyle = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
@@ -143,6 +223,21 @@ var htmlAttr: React.HTMLAttributes = {
 React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
+
+React.DOM.svg({ viewBox: "0 0 48 48" },
+    React.DOM.rect({
+      x: 22,
+      y: 10,
+      width: 4,
+      height: 28
+    }),
+    React.DOM.rect({
+      x: 10,
+      y: 22,
+      width: 28,
+      height: 4
+    }));
+
 
 //
 // React.PropTypes
@@ -180,7 +275,48 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
             return null;
         }
     },
-    render: (): React.ReactHTMLElement => {
+    render: (): React.ReactElement<any> => {
+        return null;
+    }
+};
+
+//
+// ContextTypes
+// --------------------------------------------------------------------------
+
+var ContextTypesSpecification: React.ComponentSpec<any, any> = {
+    contextTypes: {
+        optionalArray: React.PropTypes.array,
+        optionalBool: React.PropTypes.bool,
+        optionalFunc: React.PropTypes.func,
+        optionalNumber: React.PropTypes.number,
+        optionalObject: React.PropTypes.object,
+        optionalString: React.PropTypes.string,
+        optionalNode: React.PropTypes.node,
+        optionalElement: React.PropTypes.element,
+        optionalMessage: React.PropTypes.instanceOf(Date),
+        optionalEnum: React.PropTypes.oneOf(["News", "Photos"]),
+        optionalUnion: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number,
+            React.PropTypes.instanceOf(Date)
+        ]),
+        optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
+        optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
+        optionalObjectWithShape: React.PropTypes.shape({
+            color: React.PropTypes.string,
+            fontSize: React.PropTypes.number
+        }),
+        requiredFunc: React.PropTypes.func.isRequired,
+        requiredAny: React.PropTypes.any.isRequired,
+        customProp: function(props: any, propName: string, componentName: string) {
+            if (!/matchme/.test(props[propName])) {
+                return new Error("Validation failed!");
+            }
+            return null;
+        }
+    },
+    render: (): React.ReactElement<any> => {
         return null;
     }
 };
@@ -193,9 +329,7 @@ var childMap: { [key: string]: number } =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
-var onlyChild = React.Children.only([null, [[["Hallo"], true]], false, {
-    test: null
-}]);
+var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
 
 //
 // Example from http://facebook.github.io/react/
@@ -204,34 +338,29 @@ var onlyChild = React.Children.only([null, [[["Hallo"], true]], false, {
 interface TimerState {
     secondsElapsed: number;
 }
-interface Timer extends React.CompositeComponent<{}, TimerState> {
-}
-var Timer = React.createClass({
-    displayName: "Timer",
-    getInitialState: () => {
-        return { secondsElapsed: 0 };
-    },
-    tick: () => {
-        var me = <Timer>this;
-        me.setState({
-            secondsElapsed: me.state.secondsElapsed + 1
-        });
-    },
-    componentDidMount: () => {
-        this.interval = setInterval(this.tick, 1000);
-    },
-    componentWillUnmount: () => {
-        clearInterval(this.interval);
-    },
-    render: () => {
-        var me = <Timer>this;
+class Timer extends React.Component<{}, TimerState> {
+    state = {
+        secondsElapsed: 0
+    }
+    private _interval: number;
+    tick() {
+        this.setState((prevState, props) => ({
+            secondsElapsed: prevState.secondsElapsed + 1
+        }));
+    }
+    componentDidMount() {
+        this._interval = setInterval(() => this.tick(), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this._interval);
+    }
+    render() {
         return React.DOM.div(
             null,
             "Seconds Elapsed: ",
-            me.state.secondsElapsed
+            this.state.secondsElapsed
         );
     }
-});
-var mountNode: Element;
-React.render(React.createElement(Timer, null), mountNode);
+}
+React.render(React.createElement(Timer), container);
 

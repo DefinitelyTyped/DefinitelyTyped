@@ -10,6 +10,7 @@ import crypto = require("crypto");
 import http = require("http");
 import net = require("net");
 import dgram = require("dgram");
+import querystring = require('querystring');
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -58,6 +59,13 @@ class Networker extends events.EventEmitter {
         this.emit("mingling");
     }
 }
+
+var errno: number;
+fs.readFile('testfile', (err, data) => {
+    if (err && err.errno) {
+        errno = err.errno;
+    }
+});
 
 url.format(url.parse('http://www.example.com/xyz'));
 
@@ -122,4 +130,14 @@ var ai: dgram.AddressInfo = ds.address();
 ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
 });
 
+////////////////////////////////////////////////////
+///Querystring tests : https://gist.github.com/musubu/2202583
+////////////////////////////////////////////////////
 
+var original: string = 'http://example.com/product/abcde.html';
+var escaped: string = querystring.escape(original);
+console.log(escaped);
+// http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
+var unescaped: string = querystring.unescape(escaped);
+console.log(unescaped); 
+// http://example.com/product/abcde.html

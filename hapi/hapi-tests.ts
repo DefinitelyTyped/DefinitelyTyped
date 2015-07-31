@@ -1,9 +1,13 @@
 /// <reference path="hapi.d.ts" />
 
-import Hapi = require('hapi');
+import Hapi = require("hapi");
 
 // Create a server with a host and port
-var server = Hapi.createServer('localhost', 8000);
+var server = new Hapi.Server();
+server.connection(<Hapi.IServerConnectionOptions>{
+	host: "localhost",
+	port: 8000
+});
 
 // Add plugins
 var plugin: any = {
@@ -13,26 +17,32 @@ var plugin: any = {
 };
 
 plugin.register.attributes = {
-	name: 'test',
-	version: '1.0.0'
+	name: "test",
+	version: "1.0.0"
 };
 
-server.pack.register(plugin, (err: Object) => {
-	if (err) { throw err; }
-});
+// optional options parameter
+server.register({}, function (err) {});
 
-server.pack.register([plugin], (err: Object) => {
-	if (err) { throw err; }
-});
+// optional options.routes.vhost parameter
+server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
+
+//server.pack.register(plugin, (err: Object) => {
+//	if (err) { throw err; }
+//});
+
+//server.pack.register([plugin], (err: Object) => {
+//	if (err) { throw err; }
+//});
 
 // Add server method
 var add = function (a: number, b: number, next: (err: any, result?: any, ttl?: number) => void) {
 	next(null, a + b);
 };
 
-server.method('sum', add, { cache: { expiresIn: 2000 } });
+server.method("sum", add);//, { cache: { expiresIn: 2000 } });
 
-server.methods.sum(4, 5, (err: any, result: any) => {
+server.methods["sum"](4, 5, (err: any, result: any) => {
 	console.log(result);
 });
 
@@ -44,14 +54,14 @@ var addArray = function (array: Array<number>, next: (err: any, result?: any, tt
 	next(null, sum);
 };
 
-server.method('sumObj', addArray, {
-	cache: { expiresIn: 2000 },
+server.method("sumObj", addArray, {
+	//cache: { expiresIn: 2000 },
 	generateKey: (array: Array<number>) => {
 		return array.join(',');
 	}
 });
 
-server.methods.sumObj([5, 6], (err: any, result: any) => {
+server.methods["sumObj"]([5, 6], (err: any, result: any) => {
 	console.log(result);
 });
 
@@ -70,6 +80,19 @@ server.route([{
 	handler: function (request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	}
+}]);
+
+// config.validate parameters should be optional
+server.route([{
+    method: 'GET',
+    path: '/hello2',
+    handler: function(request: Hapi.Request, reply: Function) {
+        reply('hello world2');
+    },
+    config: {
+        validate: {
+        }
+    }
 }]);
 
 // Start the server
