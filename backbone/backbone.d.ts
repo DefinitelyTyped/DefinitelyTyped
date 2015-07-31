@@ -148,7 +148,7 @@ declare module Backbone {
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
 
-        private _validate(attrs: any, options: any): boolean;
+        private _validate(attributes: any, options: any): boolean;
 
         // mixins from underscore
 
@@ -201,10 +201,10 @@ declare module Backbone {
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
-        where(properies: any): TModel[];
+        where(properties: any): TModel[];
         findWhere(properties: any): TModel;
 
-        private _prepareModel(attrs?: any, options?: any): any;
+        private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
         private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
 
