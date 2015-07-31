@@ -1,6 +1,6 @@
 // Type definitions for subsequence-search
 // Project: https://github.com/zeusdeux/subsequence-search
-// Definitions by: jtamayo
+// Definitions by: jtamayo https://github.com/jtamayo
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module subsequenceSearch {
