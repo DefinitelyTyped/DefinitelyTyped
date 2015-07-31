@@ -214,6 +214,16 @@ interface Gridster {
 	remove_widget(el: HTMLElement, callback: (el: HTMLElement) => void): Gridster;
 
 	/**
+	* @see remove_widget
+	**/
+	remove_widget(el: JQuery, silent?: boolean, callback?: (el: HTMLElement) => void): Gridster;
+
+	/**
+	* @see remove_widget
+	**/
+	remove_widget(el: JQuery, callback: (el: HTMLElement) => void): Gridster;
+
+	/**
 	* Returns a serialized array of the widgets in the grid.
 	* @param $widgets The collection of jQuery wrap ed HTMLElements you want to serialize.  If no argument is passed a l widgets will be serialized.
 	* @return Returns an array of objects with the data specified in the serialized_params option.
