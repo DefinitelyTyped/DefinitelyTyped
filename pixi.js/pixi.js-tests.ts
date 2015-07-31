@@ -3,7 +3,7 @@
 function PixiTests()
 {
 
-var stage = new PIXI.Stage(0xFFFFFF, true);
+var stage = new PIXI.Stage(0xFFFFFF);
 
 stage.interactive = true;
 
@@ -70,15 +70,7 @@ var count = 0;
 
 stage.click = stage.tap = function()
 {
-	if(!container.filter)
-	{
-		container.mask = thing;
-		PIXI.runList(stage);
-	}
-	else
-	{
-		container.mask = null;
-	}
+	container.mask = null;
 }
 
 /*
@@ -136,15 +128,13 @@ function animate() {
 /* 13 */
 
 // create an new instance of a pixi stage
-var stage = new PIXI.Stage(0xFFFFFF, true);
-
-stage.setInteractive(true);
+var stage = new PIXI.Stage(0xFFFFFF);
 
 var sprite=  PIXI.Sprite.fromImage("spinObj_02.png");
 //stage.addChild(sprite);
 // create a renderer instance
 // the 5the parameter is the anti aliasing
-var renderer = PIXI.autoDetectRenderer(620, 380, null, false, true);
+var renderer = PIXI.autoDetectRenderer(620, 380);
 
 // set the canvas width and height to fill the screen
 //renderer.view.style.width = window.innerWidth + "px";
@@ -352,10 +342,7 @@ function init()
 	var assetsToLoader = ["desyrel.fnt"];
 
 	// create a new loader
-	var loader = new PIXI.AssetLoader(assetsToLoader);
-
-	// use callback
-	loader.onComplete = onAssetsLoaded;
+	var loader = new PIXI.AssetLoader(assetsToLoader, false);
 
 	//begin load
 
@@ -369,7 +356,6 @@ function init()
 		bitmapFontText.position.x = 620 - bitmapFontText.width - 20;
 		bitmapFontText.position.y = 20;
 
-		PIXI.runList(bitmapFontText)
 		stage.addChild(bitmapFontText);
 
 
@@ -439,7 +425,7 @@ function init()
 
 
 // create an new instance of a pixi stage
-var stage = new PIXI.Stage(0x97c56e, true);
+var stage = new PIXI.Stage(0x97c56e);
 
 // create a renderer instance
 var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, null);
@@ -487,7 +473,7 @@ function animate33() {
 
 
 // create an new instance of a pixi stage
-var stage = new PIXI.Stage(0x97c56e, true);
+var stage = new PIXI.Stage(0x97c56e);
 
 // create a renderer instance
 var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, null);
@@ -586,7 +572,7 @@ function animate44() {
 var stage = new PIXI.Stage(0x66FF99);
 
 // create a renderer instance
-var renderer = PIXI.autoDetectRenderer(400, 300, null, true);
+var renderer = PIXI.autoDetectRenderer(400, 300, null);
 
 // add the renderer view element to the DOM
 document.body.appendChild(renderer.view);
@@ -630,7 +616,7 @@ function animate55() {
 // create an new instance of a pixi stage
 // the second parameter is interactivity...
 var interactive = true;
-var stage = new PIXI.Stage(0x000000, interactive);
+var stage = new PIXI.Stage(0x000000);
 
 // create a renderer instance.
 var renderer = PIXI.autoDetectRenderer(620, 400);
@@ -764,8 +750,6 @@ stage.addChild(pixiLogo);
 
 pixiLogo.position.x = 620 - 56;
 pixiLogo.position.y = 400- 32;
-
-pixiLogo.setInteractive(true);
 
 pixiLogo.click = pixiLogo.tap = function(){
 
