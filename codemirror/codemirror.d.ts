@@ -7,6 +7,8 @@ declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfig
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare module CodeMirror {
+    export var Doc : CodeMirror.Doc;
+    export var Pos: CodeMirror.Position;
     export var Pass: any;
 
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
@@ -387,8 +389,8 @@ declare module CodeMirror {
         getTextArea(): HTMLTextAreaElement;
     }
 
-    class Doc {
-        constructor (text: string, mode?: any, firstLineNumber?: number);
+    interface Doc {
+        new (text: string, mode?: any, firstLineNumber?: number): Doc;
 
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -618,6 +620,7 @@ declare module CodeMirror {
     }
 
     interface Position {
+        new (line: number, ch: number): Position;
         ch: number;
         line: number;
     }

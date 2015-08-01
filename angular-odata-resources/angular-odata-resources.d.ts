@@ -264,6 +264,11 @@ declare module OData {
         (queryString: string, success: () => any, error: () => any): T[];
         (queryString: string, success: () => any, error: () => any, isSingleElement?: boolean, forceSingleElement?: boolean): T;
     }
+
+    interface ICountResult{
+        result: number;
+    }
+
     class Provider<T> {
         private callback;
         private filters;
@@ -281,6 +286,8 @@ declare module OData {
         single(success?: any, error?: any): T;
         get(data: any, success?: any, error?: any): T;
         expand(params: any, otherParam1?: any, otherParam2?: any, otherParam3?: any, otherParam4?: any, otherParam5?: any, otherParam6?: any, otherParam7?: any): Provider<T>;
+        count(success?: (result: ICountResult) => any, error?: () => any):ICountResult;
+        withInlineCount(): Provider<T>;
     }
 
     interface ValueFactory {
