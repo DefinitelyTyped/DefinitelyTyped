@@ -1900,7 +1900,7 @@ declare module chrome.tabs {
         active?: boolean;
         index?: number;
         title?: string;
-        url?: string;
+        url?: string | string[];
         currentWindow?: boolean;
         highlighted?: boolean;
         pinned?: boolean;
