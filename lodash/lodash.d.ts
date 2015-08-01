@@ -115,6 +115,14 @@ declare module _ {
         enumErrorProps: boolean;
 
         /**
+        * Detect if prototype properties are enumerable by default.
+        *
+        * Firefox < 3.6, Opera > 9.50 - Opera < 11.60, and Safari < 5.1 (if the prototype or a property on the
+        * prototype has been set) incorrectly set the [[Enumerable]] value of a function’s prototype property to true.
+        **/
+        enumPrototypes: boolean;
+
+        /**
         * Detect if Function#bind exists and is inferred to be fast (all but V8).
         **/
         fastBind: boolean;
