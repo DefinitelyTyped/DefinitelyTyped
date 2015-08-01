@@ -1,3 +1,8 @@
+// Type definitions for BabylonJS v2.2
+// Project: http://www.babylonjs.com/
+// Definitions by: David Catuhe <https://github.com/deltakosh/>
+// Definitions: https://github.com/borisyankov/babylonjs
+
 declare module BABYLON {
     class _DepthCullingState {
         private _isDepthTestDirty;
