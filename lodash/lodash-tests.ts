@@ -283,6 +283,7 @@ result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
+result = <number[]>_.pullAt([1, 2, 3, 1, 2, 3], 2, 3);
 
 result = <number[]>_.range(10);
 result = <number[]>_.range(1, 11);

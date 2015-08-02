@@ -1123,6 +1123,26 @@ declare module _ {
             ...values: any[]): any[];
     }
 
+    interface LoDashStatic {
+        /**
+         * Removes all provided values from the given array using strict equality for comparisons,
+         * i.e. ===.
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @return array.
+         **/
+        pullAt(
+            array: Array<any>,
+            ...values: any[]): any[];
+
+        /**
+         * @see _.pull
+         **/
+        pullAt(
+            array: List<any>,
+            ...values: any[]): any[];
+    }
+
     //_.range
     interface LoDashStatic {
         /**
