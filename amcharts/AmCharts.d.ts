@@ -1066,34 +1066,22 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     /** AmCoordinateChart is a base class of AmRectangularChart. It can not be instantiated explicitly. */
 
     class AmCoordinateChart extends AmChart {
+        /** Read-only. Array, holding processed chart's data. */
+        chartData: Object[];
         /** Specifies the colors of the graphs if the lineColor of a graph is not set.
             It there are more graphs then colors in this array, the chart picks random color.
             @default ['#FF6600', '#FCD202', '#B0DE09', '#0D8ECF', '#2A0CD0', '#CD0D74', '#CC0000', '#00CC00', '#0000CC', '#DDDDDD', '#999999', '#333333', '#990000'] */
-        colors: any[];
+        colors: string[];
         /** The array of graphs belonging to this chart.
             To add/remove graph use addGraph/removeGraph methods instead of adding/removing graphs directly to array.
         */
-        graphs: any[];
-        /** The opacity of plot area's border.
-            Value range is 0 - 1.
+        graphs: AmGraph[];
+        /** Specifies if grid should be drawn above the graphs or below. Will not work properly with 3D charts.
+            @default false
         */
-        plotAreaBorderAlpha: number;
-        /** The color of the plot area's border.
-            Note, the it is invisible by default, as plotAreaBorderAlpha default value is 0.
-            Set it to a value higher than 0 to make it visible.
-            @default #000000
-        */
-        plotAreaBorderColor: string;
-        /** Opacity of plot area.
-            Plural form is used to keep the same property names as our Flex charts'.
-            Flex charts can accept array of numbers to generate gradients.
-            Although you can set array here, only first value of this array will be used.
-        */
-        plotAreaFillAlphas: number;
-        /** You can set both one color if you need a solid color or array of colors to generate gradients, for example: ["#000000", "#0000CC"]
-            @default #FFFFFF
-        */
-        plotAreaFillColors: any;
+        gridAboveGraphs: boolean;
+        /** Instead of adding guides to the axes, you can push all of them to this array. In case guide has category or date defined, it will automatically will be assigned to the category axis. Otherwise to first value axis, unless you specify a different valueAxis for the guide. */
+        guides: Guide[];
         /** Specifies whether the animation should be sequenced or all objects should appear at once.
             @default true
         */
@@ -1123,6 +1111,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /**  Adds a graph to the chart.
          */
         addGraph(graph: AmGraph);
+        /** Adds a legend to the chart. By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter. (NOTE: This method will not work on StockPanel.) */ 
         /** Adds value axis to the chart.
             One value axis is created automatically, so if you don't want to change anything or add more value axes, you don't need to add it.
         */
