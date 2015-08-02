@@ -1549,20 +1549,26 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             chart.write("chartdiv");
     */
     class AmSerialChart extends AmRectangularChart {
-    	/** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
+    	/** Date format of the graph balloon (if chart parses dates and you don't use chartCursor).
+            @default 'MMM DD, YYYY'
+        */
+        balloonDateFormat: string;
+        /** Read-only. Chart creates category axis itself. If you want to change some properties, you should get this axis from the chart and set properties to this object. */
         categoryAxis: CategoryAxis;
         /** Category field name tells the chart the name of the field in your dataProvider object which will be used for category axis values. */
         categoryField: string;
-        /** Read-only. Array of SerialDataItem objects generated from dataProvider. */
-        chartData: any[];
         /** The gap in pixels between two columns of the same category.
             @default 5
         */
         columnSpacing: number;
-        /** Relative width of columns. Value range is 0 - 1. 0.8 */
+        /** Space between 3D stacked columns.
+            @default 0
+        */
+        columnSpacing3D: number;
+        /** Relative width of columns. Value range is 0 - 1.
+            @default 0.8
+        */
         columnWidth: number;
-        /** Array holding chart's data. */
-        dataProvider: any[];
         /** Read-only. If category axis parses dates endDate indicates date to which the chart is currently displayed. */
         endDate: Date;
         /** Read-only. Category index to which the chart is currently displayed. */
@@ -1571,8 +1577,14 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         maxSelectedSeries: number;
         /** The longest time span allowed to select (in milliseconds) for example, 259200000 will limit selection to 3 days. */
         maxSelectedTime: number;
-        /** The shortest time span allowed to select (in milliseconds) for example, 1000 will limit selection to 1 second. */
+        /** The shortest time span allowed to select (in milliseconds) for example, 1000 will limit selection to 1 second. 
+            @default 0
+        */
         minSelectedTime: number;
+        /** Specifies if scrolling of a chart with mouse wheel is enabled. If you press shift while rotating mouse wheel, the chart will zoom-in/out. */
+        mouseWheelScrollEnabled: boolean;
+        /** Specifies if zooming of a chart with mouse wheel is enabled. If you press shift while rotating mouse wheel, the chart will scroll. */
+        mouseWheelZoomEnabled: boolean;
         /** If you set this to true, the chart will be rotated by 90 degrees (the columns will become bars). */
         rotate: boolean;
         /** Read-only. If category axis parses dates startDate indicates date from which the chart is currently displayed. */
