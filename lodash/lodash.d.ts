@@ -6826,6 +6826,47 @@ declare module _ {
         identity<T>(value?: T): T;
     }
 
+    //_.method
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes the method at path on a given object. Any additional arguments are provided
+         * to the invoked method.
+         * @param path The path of the method to invoke.
+         * @param args The arguments to invoke the method with.
+         * @return Returns the new function.
+         */
+        method<TResult>(path: string, ...args: any[]): (object: any) => TResult;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(path: any[], ...args: any[]): (object: any) => TResult;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashWrapper<(object: any) => TResult>;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashWrapper<(object: any) => TResult>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashWrapper<(object: any) => TResult>;
+
+        /**
+         * @see _.method
+         */
+        method<TResult>(...args: any[]): LoDashWrapper<(object: any) => TResult>;
+    }
+
     //_.mixin
     interface LoDashStatic {
         /**
