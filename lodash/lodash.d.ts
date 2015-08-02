@@ -5474,6 +5474,34 @@ declare module _ {
         modArgs<TResult>(transforms: Function[]): LoDashObjectWrapper<TResult>;
     }
 
+    //_.negate
+    interface LoDashStatic {
+        /**
+         * Creates a function that negates the result of the predicate func. The func predicate is invoked with
+         * the this binding and arguments of the created function.
+         * @param predicate The predicate to negate.
+         * @return Returns the new function.
+         */
+        negate<T extends Function>(predicate: T): (...args: any[]) => boolean;
+
+        /**
+         * @see _.negate
+         */
+        negate<T extends Function, TResult extends Function>(predicate: T): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.negate
+         */
+        negate(): LoDashObjectWrapper<(...args: any[]) => boolean>;
+
+        /**
+         * @see _.negate
+         */
+        negate<TResult extends Function>(): LoDashObjectWrapper<TResult>;
+    }
+
     //_.once
     interface LoDashStatic {
         /**
