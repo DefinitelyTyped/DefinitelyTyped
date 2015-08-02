@@ -1712,6 +1712,31 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         urlTarget: string;
     }
 
+    /** Creates a label on the chart which can be placed anywhere, multiple can be assigned. */
+    class Label {
+        /** Default: 'left' */
+        align: string;
+        /** Default: 1 */
+        alpha: number;
+        /** Specifies if label is bold or not. */
+        bold: boolean;
+        /** Color of a label */
+        color: string; 
+        /** Unique id of a Label. You don't need to set it, unless you want to. */
+        id: string;
+        /** Rotation angle. */
+        rotation: number;
+        /** Text size */
+        size: number;
+        /** Text of a label */
+        text: string;
+        /** URL which will be access if user clicks on a label. */
+        url: string;
+        /** X position of a label. */
+        x: number|string;
+        /** y position of a label. */
+        y: number|string;
+    }
     /** Common settings of legends. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockLegend class will be used. */
     class LegendSettings {
         /** Alignment of legend entries. Possible values are: "left", "right" and "center". */
