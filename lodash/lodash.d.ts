@@ -5598,6 +5598,78 @@ declare module _ {
      * Lang *
      ********/
 
+    //_.gt
+    interface LoDashStatic {
+        /**
+         * Checks if value is greater than other.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @return Returns true if value is greater than other, else false.
+         */
+        gt(value: any, other: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.gt
+         */
+        gt(other: any): boolean;
+    }
+
+    //_.gte
+    interface LoDashStatic {
+        /**
+         * Checks if value is greater than or equal to other.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @return Returns true if value is greater than or equal to other, else false.
+         */
+        gte(value: any, other: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.gte
+         */
+        gte(other: any): boolean;
+    }
+
+    //_.lt
+    interface LoDashStatic {
+        /**
+         * Checks if value is less than other.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @return Returns true if value is less than other, else false.
+         */
+        lt(value: any, other: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.lt
+         */
+        lt(other: any): boolean;
+    }
+
+    //_.lte
+    interface LoDashStatic {
+        /**
+         * Checks if value is less than or equal to other.
+         * @param value The value to compare.
+         * @param other The other value to compare.
+         * @return Returns true if value is less than or equal to other, else false.
+         */
+        lte(value: any, other: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.lte
+         */
+        lte(other: any): boolean;
+    }
+
     //_.toPlainObject
     interface LoDashStatic {
         /**
