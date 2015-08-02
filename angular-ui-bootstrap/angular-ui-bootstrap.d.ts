@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.13.1
+// Type definitions for Angular UI Bootstrap 0.13.2
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -555,6 +555,13 @@ declare module angular.ui.bootstrap {
          * @default: null
          */
         stateOff?: string;
+
+        /**
+         * An array of strings defining titles for all icons.
+         *
+         * @default: ["one", "two", "three", "four", "five"]
+         */
+        titles?: Array<string>;
     }
 
 

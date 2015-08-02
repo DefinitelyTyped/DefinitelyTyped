@@ -99,6 +99,7 @@ testApp.config((
     $ratingConfig.max = 10;
     $ratingConfig.stateOff = 'rating-state-off';
     $ratingConfig.stateOn = 'rating-state-on';
+    $ratingConfig.titles = ['1', '2', '3', '4', '5'];
 
 
     /**
