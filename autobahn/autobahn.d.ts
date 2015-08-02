@@ -5,7 +5,7 @@
 
 /// <reference path="../when/when.d.ts" />
 
-declare module autobahnModule {
+declare module autobahn {
 
 	export class Session {
 		id: number;
@@ -196,5 +196,5 @@ declare module autobahnModule {
 }
 
 declare module "autobahn" {
-	export = autobahnModule;
+	export = autobahn;
 }
