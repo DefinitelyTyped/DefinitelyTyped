@@ -334,7 +334,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Fill color. */
         fillColor: string;
         /** Font size of guide label. */
-        fontSize: number;
+        fontSize: string;
         /** Unique id of a Guide. You don't need to set it, unless you want to. */
         id: string;
         /** Specifies whether label should be placed inside or outside plot area. */
@@ -395,7 +395,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Font size of a label. 
             @default 11
         */
-        labelFontSize: number;
+        labelfontSize: string;
         /** Position of the label. Allowed values are: left, right, top, bottom and middle. right */
         labelPosition: string;
         /** Label roll-over color. #00CC00 */
@@ -730,7 +730,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         equalWidths: boolean;
         /** Font size. Will use chart's font size if not set. */
-        fontSize: number;
+        fontSize: string;
         /** Horizontal space between legend item and left/right border. */
         horizontalGap: number;
         /** The text which will be displayed in the legend. Tag [[title]] will be replaced with the title of the graph. [[title]] */
@@ -940,7 +940,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Font size.
             @default 11
         */
-        fontSize: number;
+        fontSize: string;
         /** If you set this to true, the lines of the chart will be distorted and will produce hand-drawn effect. Try to adjust chart.handDrawScatter and chart.handDrawThickness properties for a more scattered result. 
             @Default false
         */
@@ -1958,7 +1958,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Balloon background color. Usually balloon background color is set by the chart. Only if "adjustBorderColor" is "true" this color will be used. #CC0000 */
         fillColor: string;
         /** Size of text in the balloon. Chart's fontSize is used by default. */
-        fontSize: number;
+        fontSize: string;
         /** Horizontal padding of the balloon.
             @default 8
         3*/
@@ -2016,7 +2016,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Fill color. Every second space between grid lines can be filled with color. Set fillAlpha to a value greater than 0 to see the fills. */
         fillColor: string;
         /** Text size. */
-        fontSize: number;
+        fontSize: string;
         /** Opacity of grid lines. */
         gridAlpha: number;
         /** Color of grid lines. */
@@ -2096,7 +2096,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         enabled: boolean;
         /** Font size. */
-        fontSize: number;
+        fontSize: string;
         /** Specifies which graph will be displayed in the scrollbar. */
         graph: AmGraph;
         /** Graph fill opacity. */
@@ -2220,7 +2220,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** You can set another graph here and if fillAlpha is >0, the area from this graph to fillToGraph will be filled (instead of filling the area to the X axis). */
         fillToGraph: AmGraph;
         /** Size of value labels text. Will use chart's fontSize if not set. */
-        fontSize: number;
+        fontSize: string;
         /** Orientation of the gradient fills (only for "column" graph type). Possible values are "vertical" and "horizontal". vertical */
         gradientOrientation: string;
         /** Specifies whether the graph is hidden. Do not use this to show/hide the graph, use hideGraph(graph) and showGraph(graph) methods instead. */
@@ -2344,7 +2344,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Fill color. Every second space between grid lines can be filled with color. Set fillAlpha to a value greater than 0 to see the fills. #FFFFFF */
         fillColor: string;
         /** Size of value labels text. Will use chart's fontSize if not set. */
-        fontSize: number;
+        fontSize: string;
         /** Opacity of grid lines. 0.2 */
         gridAlpha: number;
         /** Color of grid lines. #000000 */
@@ -2398,7 +2398,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Color of axis title. Will use text color of chart if not set any. */
         titleColor: string;
         /** Font size of axis title. Will use font size of chart plus two pixels if not set any. */
-        titleFontSize: number;
+        titlefontSize: string;
 
         /** Adds guide to the axis. */
         addGuide(guide:Guide);
