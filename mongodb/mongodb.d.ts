@@ -304,7 +304,7 @@ declare module "mongodb" {
     insert(query: any, options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean; }, callback: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertOne
-    inserOne(doc:any, callback: (err: Error, result: any) => void) :void;
+    insertOne(doc:any, callback: (err: Error, result: any) => void) :void;
     insertOne(doc: any, options: { w?: any; wtimeout?: number; j?: boolean; serializeFunctions?: boolean; forceServerObjectId?: boolean }, callback: (err: Error, result: any) => void): void;
 
     // Documentation : http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertMany
