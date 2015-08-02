@@ -922,6 +922,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         classNamePrefix: string;
         /** Text color. #000000 */
         color: string;
+        /** Non-commercial version only. Specifies position of link to amCharts site. Allowed values are: top-left, top-right, bottom-left and bottom-right.
+            @default 'top-left'
+        */
+        creditsPosition: string;
         /** Array of data objects, for example: [{country:"US", value:524},{country:"UK", value:624},{country:"Lithuania", value:824}]. You can have any number of fields and use any field names. In case of AmMap, data provider should be MapData object. */
         dataProvider: any[];
         /** Decimal separator.
