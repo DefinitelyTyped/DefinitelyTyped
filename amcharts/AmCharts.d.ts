@@ -902,7 +902,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     	/** used when constructing a chart with a theme */
     	constructor(theme?: any);
     	/** Specifies, if class names should be added to chart elements. */
-        addClassNames: boolean
+        addClassNames: boolean;
         /** Array of Labels. Example of label object, with all possible properties:
 {"x": 20, "y": 20, "text": "this is label", "align": "left", "size": 12, "color": "#CC0000", "alpha": 1, "rotation": 0, "bold": true, "url": "http://www.amcharts.com"} */
         allLabels: Label[];
@@ -919,7 +919,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Color of chart's border. You should set borderAlpha >0 in order border to be visible. We recommend setting border color directly on a chart's DIV instead of using this property. #000000 */
         borderColor: string;
         /** This prefix is added to all class names which are added to all visual elements of a chart in case addClassNames is set to true. */
-        classNamePrefix: string
+        classNamePrefix: string;
         /** Text color. #000000 */
         color: string;
         /** Array of data objects, for example: [{country:"US", value:524},{country:"UK", value:624},{country:"Lithuania", value:824}]. You can have any number of fields and use any field names. In case of AmMap, data provider should be MapData object. */
@@ -1416,9 +1416,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomOutText: string;
         
         /** Adds a ChartCursor object to a chart */
-        addChartCursor(cursor: ChartCursor)
+        addChartCursor(cursor: ChartCursor);
         /** Adds a ChartScrollbar to a chart */
-        addChartScrollbar(scrollbar: ChartScrollbar)
+        addChartScrollbar(scrollbar: ChartScrollbar);
         /** Adds a TrendLine to a chart.
             You should call chart.validateNow() after this method is called in order the trend line to be visible. */
         addTrendLine(trendLine: TrendLine);
