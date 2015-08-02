@@ -1350,19 +1350,19 @@ declare module "hapi" {
 
 		/**  sets the HTTP 'Content-Length' header (to avoid chunked transfer encoding) where:
 		length - the header value. Must match the actual payload size.*/
-		bytes(length: number): void;
+		bytes(length: number): Response;
 		/**  sets the 'Content-Type' HTTP header 'charset' property where: charset - the charset property value.*/
-		charset(charset: string): void;
+		charset(charset: string): Response;
 
 		/**  sets the HTTP status code where:
 		statusCode - the HTTP status code.*/
-		code(statusCode: number): void;
+		code(statusCode: number): Response;
 		/** sets the HTTP status code to Created (201) and the HTTP 'Location' header where: uri - an absolute or relative URI used as the 'Location' header value.*/
-		created(uri: string): void;
+		created(uri: string): Response;
 
 
 		/** encoding(encoding) - sets the string encoding scheme used to serial data into the HTTP payload where: encoding - the encoding property value (see node Buffer encoding).*/
-		encoding(encoding: string): void;
+		encoding(encoding: string): Response;
 
 		/** etag(tag, options) - sets the representation entity tag where:
 		tag - the entity tag string without the double-quote.
@@ -1371,7 +1371,7 @@ declare module "hapi" {
 		vary - if true and content encoding is set or applied to the response (e.g 'gzip' or 'deflate'), the encoding name will be automatically added to the tag at transmission time (separated by a '-' character). Ignored when weak is true. Defaults to true.*/
 		etag(tag: string, options: {
 			weak: boolean; vary: boolean;
-		}): void;
+		}): Response;
 
 		/**header(name, value, options) - sets an HTTP header where:
 		name - the header name.
@@ -1384,29 +1384,32 @@ declare module "hapi" {
 			append: boolean;
 			separator: string;
 			override: boolean;
-		}): void;
+		}): Response;
 
 		/** location(uri) - sets the HTTP 'Location' header where:
 		uri - an absolute or relative URI used as the 'Location' header value.*/
-		location(uri: string): void;
+		location(uri: string): Response;
 
 		/** redirect(uri) - sets an HTTP redirection response (302) and decorates the response with additional methods listed below, where:
 		uri - an absolute or relative URI used to redirect the client to another resource. */
-		redirect(uri: string): void;
+		redirect(uri: string): Response;
 
 		/** replacer(method) - sets the JSON.stringify() replacer argument where:
 		method - the replacer function or array. Defaults to none.*/
-		replacer(method: Function| Array<Function>): void;
+		replacer(method: Function| Array<Function>): Response;
 
 		/** spaces(count) - sets the JSON.stringify() space argument where:
 		count - the number of spaces to indent nested object keys. Defaults to no indentation. */
-		spaces(count: number): void;
+		spaces(count: number): Response;
 		/**state(name, value, [options]) - sets an HTTP cookie where:
 		name - the cookie name.
 		value - the cookie value. If no encoding is defined, must be a string.
 		options - optional configuration. If the state was previously registered with the server using server.state(), the specified keys in options override those same keys in the server definition (but not others).*/
-		state(name: string, value: string, options?: any): void;
+		state(name: string, value: string, options?: any): Response;
 
+		/** type(mimeType) - sets the HTTP 'Content-Type' header where:
+		mimeType - is the mime type. Should only be used to override the built-in default for each response type. */
+		type(mimeType: string): Response;
 	}
 
 
