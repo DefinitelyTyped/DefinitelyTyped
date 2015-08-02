@@ -178,15 +178,15 @@ declare module AmCharts {
         /** You can trigger the animation of the pie chart. */
         animateAgain();
         /** You can trigger the click on a slice from outside. index - the number of a slice or Slice object. */
-        clickSlice(index);
+        clickSlice(index: number);
         /** Hides slice. index - the number of a slice or Slice object. */
-        hideSlice(index);
+        hideSlice(index: number);
         /** You can simulate roll-out of a slice from outside. index - the number of a slice or Slice object. */
-        rollOutSlice(index);
+        rollOutSlice(index: number);
         /** You can simulate roll-over a slice from outside. index - the number of a slice or Slice object. */
-        rollOverSlice(index);
+        rollOverSlice(index: number);
         /** Shows slice. index - the number of a slice or Slice object. */
-        showSlice(index);
+        showSlice(index: number);
 
         /** Adds event listener of the type "clickSlice" or "pullInSlice" or "pullOutSlice" to the object.
             @param type Always "clickSlice" or "pullInSlice" or "pullOutSlice".
@@ -546,7 +546,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Hides event bullets. */
         hideStockEvents();
         /** Removes event listener from the object. */
-        removeListener(obj, type, handler);
+        removeListener(obj: any, type: string, handler: any);
         /** Removes panel from the stock chart. Requires stockChart.validateNow() method to be called after this action. */
         removePanel(panel: StockPanel);
         /** Shows event bullets. */
@@ -556,7 +556,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Method which forces the stock chart to rebuild. Should be called after properties are changed. */
         validateNow();
         /** Zooms chart to specified dates. startDate, endDate - Date objects. */
-        zoom(startDate, endDate);
+        zoom(startDate: Date, endDate: Date);
         /** Zooms out the chart. */
         zoomOut();
 
@@ -886,8 +886,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
     /** AmChart is a base class of all charts. It can not be instantiated explicitly. AmCoordinateChart, AmPieChart and AmMap extend AmChart class. */
     class AmChart {
     	/** used when constructing a chart with a theme */
-    	constructor(theme: any);
-    	/** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
+    	constructor(theme?: any);
+    	/** Specifies, if class names should be added to chart elements. */
+        addClassNames: boolean
+        
+        /** Background color. You should set backgroundAlpha to >0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property. #FFFFFF */
         backgroundColor: string;
         /** The chart creates AmBalloon class itself. If you want to customize balloon, get balloon instance using this property, and then change balloon's properties.  AmBalloon */
         balloon: AmBalloon;
@@ -938,7 +941,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number, y: number, text: string, align: string, size, color: string, rotation, alpha: number, bold: boolean, url: string);
+        addLabel(x: number, y: number, text: string, align: string, size: number, color: string, rotation: number, alpha: number, bold: boolean, url: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
@@ -955,7 +958,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         addLegend(legend: AmLegend, legendDiv: HTMLElement);
 
         /**   Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method. text - text of a title size - font size color - title color alpha - title opacity bold - boolean value indicating if title should be bold. */
-        addTitle(text, size, color, alpha, bold);
+        addTitle(text: string, size: number, color: string, alpha: number, bold: boolean);
         /** Clears the chart area, intervals, etc. */
         clear();
         /** Removes all labels added to the chart. */
@@ -1186,16 +1189,16 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         startOnAxis: boolean;
 
         /** Number returns coordinate of a category. Works only if parseDates is false. If parseDates is true, use dateToCoordinate method. category - String */
-        categoryToCoordinate(category);
+        categoryToCoordinate(category: string);
 
         /** date - Date object Returns Date of the coordinate, in case parseDates is set to true and equalSpacing is set to false.  coordinate - Number */
-        coordinateToDate(coordinate);
+        coordinateToDate(coordinate: number);
 
         /** Number Returns coordinate of the date, in case parseDates is set to true. if parseDates is false, use categoryToCoordinate method. date - Date object */
-        dateToCoordinate(date);
+        dateToCoordinate(date: Date);
         
         /** Number Returns index of the category which is most close to specified coordinate. x - coordinate */
-        xToIndex(x);
+        xToIndex(x: number);
     }
 
     /** ChartScrollbar class displays chart scrollbar. Supported by AmSerialChart and AmXYChart.
@@ -1318,7 +1321,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         removeChartScrollbar();
         /** Removes a trend line from a chart. 
             You should call chart.validateNow() in order the changes to be visible. */
-        removeTrendLine;
+        removeTrendLine(trendLine: TrendLine);
     }
 
     /* Trend lines are straight lines indicating trends, might also be used for some different purposes. Can be used by Serial and XY charts. To add/remove trend line, use chart.addTrendLine(trendLine)/chart.removeTrendLine(trendLine) methods or simply pass array of trend lines: chart.trendLines = [trendLine1, trendLine2].
@@ -1395,7 +1398,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Hides cursor. */
         hideCursor();
         /** You can force cursor to appear at specified cateogry or date. */
-        showCursorAt(category);
+        showCursorAt(category: string);
         /** Adds event listener of the type "changed" to the object.
             @param type Always "changed".
             @param handler Dispatched when cursor position is changed. "index" is a series index over which chart cursors currently is. "zooming" specifies if user is currently zooming (is selecting) the chart. mostCloseGraph property is set only when oneBalloonOnly is set to true.*/
@@ -1475,15 +1478,15 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomOutOnDataUpdate: boolean;
 
         /** Number Returns index of the specified category value. value - series (category value) which index you want to find. */
-        getCategoryIndexByValue(value);
+        getCategoryIndexByValue(value: number);
         /** Zooms out, charts shows all available data. */
         zoomOut();
         /** Zooms the chart by the value of the category axis. start - category value, String \\ end - category value, String */
-        zoomToCategoryValues(start, end);
+        zoomToCategoryValues(start: Date, end: Date);
         /** Zooms the chart from one date to another. start - start date, Date object \\ end - end date, Date object */
-        zoomToDates(start, end);
+        zoomToDates(start: Date, end: Date);
         /** Zooms the chart by the index of the category. start - start index, Number \\ end - end index, Number */
-        zoomToIndexes(start, end);
+        zoomToIndexes(start: Date, end: Date);
     }
 
     class PeriodSelector {
@@ -1522,7 +1525,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
        .
 @param handler - Dispatched when dates in period selector input fields are changed or user clicks on one of the predefined period buttons. */
 
-        addListener(type, handler: (e: {
+        addListener(type: string, handler: (e: {
             /** Always: "changed" */
 
             type: string;
@@ -2314,20 +2317,23 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** If true, values will always be formatted using scientific notation (5e+8, 5e-8...) Otherwise only values bigger then 1e+21 and smaller then 1e-7 will be displayed in scientific notation. */
         useScientificNotation: boolean;
 
+        /** Adds guide to the axis. */
+        addGuide(guide: Guide);
         /** Adds event listener to the object.  type - string like 'axisChanged' (should be listed in 'events' section of this class or classes which extend this class). handler - function which is called when event happens */
-        addListener(type, handler);
+        addListener(type: string, handler: any);
         /** Number, - value of coordinate. Returns value of the coordinate.  coordinate - y or x coordinate, in pixels. */
-        coordinateToValue(coordinate);
+        coordinateToValue(coordinate: number);
         /** Number - coordinate Returns coordinate of the value in pixels. value - Number */
-        getCoordinate(value);
-        
+        getCoordinate(value: number);
+        /** Removes guide from the axis.*/
+        removeGuide(guide: Guide);
         /** Removes event listener from the object. */
-        removeListener(obj, type, handler);
+        removeListener(obj: any, type: string, handler: any);
         
         /** One value axis can be synchronized with another value axis. You should set synchronizationMultiplyer in order for this to work. */
         synchronizeWithAxis(axis:ValueAxis);
         /** XY Chart only. Zooms-in the axis to the provided values. */
-        zoomToValues(startValue, endValue);
+        zoomToValues(startValue: number, endValue: number);
 
         /** Adds event listener of the type "axisZoomed" to the object.
             @param type Always "axisZoomed".
