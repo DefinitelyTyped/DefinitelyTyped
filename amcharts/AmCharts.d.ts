@@ -2155,6 +2155,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         alphaField: string;
         /** Value balloon color. Will use graph or data item color if not set. */
         balloonColor: string;
+        /**	If you set some function, the graph will call it and pass GraphDataItem and AmGraph object to it. This function should return a string which will be displayed in a balloon.  */
+        balloonFunction(graphDataItem: GraphDataItem, amGraph: AmGraph): string; 
         /** Balloon text. You can use tags like [[value]], [[description]], [[percents]], [[open]], [[category]] [[value]] */
         balloonText: string;
         /** Specifies if the line graph should be placed behind column graphs */
