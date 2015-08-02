@@ -168,6 +168,17 @@ declare module angular.ui {
         current: IState;
         params: IStateParamsService;
         reload(): void;
+        
+        $current: IResolvedState;
+    }
+    
+    interface IResolvedState {
+        locals: {
+            /**
+             * Currently resolved "resolve" values from the current state
+             */
+            globals: { [key: string]: any; };
+        };
     }
 
     interface IStateParamsService {
