@@ -1,6 +1,6 @@
 // Type definitions for Dropzone 3.7.1
 // Project: http://www.dropzonejs.com/
-// Definitions by: Natan Vivo <https://github.com/nvivo>
+// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -92,4 +92,8 @@ declare class Dropzone {
 
 interface JQuery {
     dropzone(options: DropzoneOptions): Dropzone;
+}
+
+declare module "Dropzone" {
+    export = Dropzone;
 }
