@@ -27,8 +27,8 @@ declare module moment {
         start: Moment;
         end: Moment;
 
-        contains (other: Date, exclusive = false): boolean;
-        contains (other: Moment, exclusive = false): boolean;
+        contains (other: Date, exclusive?: boolean): boolean;
+        contains (other: Moment, exclusive?: boolean): boolean;
 
         overlaps (range: Range): boolean;
 
@@ -38,8 +38,8 @@ declare module moment {
 
         subtract (other: Range): Range[];
 
-        by (range: string, hollaback: (current: Moment) => void, exclusive = false);
-        by (range: Range, hollaback: (current: Moment) => void, exclusive = false);
+        by (range: string, hollaback: (current: Moment) => void, exclusive?: boolean): void;
+        by (range: Range, hollaback: (current: Moment) => void, exclusive?: boolean): void;
 
         isSame (other: Range): boolean;
 
