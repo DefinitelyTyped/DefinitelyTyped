@@ -187,9 +187,7 @@ declare module Backbone {
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
          **/
-        get(id: number): TModel;
-        get(id: string): TModel;
-        get(id: Model): TModel;
+        get(id: number|string|Model): TModel;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -278,8 +276,7 @@ declare module Backbone {
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
-        route(route: string, name: string, callback?: Function): Router;
-        route(route: RegExp, name: string, callback?: Function): Router;
+        route(route: string|RegExp, name: string, callback?: Function): Router;
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
@@ -341,8 +338,7 @@ declare module Backbone {
         model: TModel;
         collection: Collection<TModel>;
         //template: (json, options?) => string;
-        setElement(element: HTMLElement, delegate?: boolean): View<TModel>;
-        setElement(element: JQuery, delegate?: boolean): View<TModel>;
+        setElement(element: HTMLElement|JQuery, delegate?: boolean): View<TModel>;
         id: string;
         cid: string;
         className: string;
