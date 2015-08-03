@@ -25,9 +25,9 @@ declare module Traverson
         get(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
         getResource(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
         getUrl(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
-        post(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
-        put(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
-        patch(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        post(data: any, callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        put(data: any, callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
+        patch(data: any, callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
         delete(callback: (err: any, document: any, traversal?: Traversal) => void): InAction;
 
         newRequest(): Builder;
