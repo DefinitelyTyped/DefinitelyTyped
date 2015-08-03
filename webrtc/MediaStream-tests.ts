@@ -23,6 +23,7 @@ navigator.webkitGetUserMedia(mediaStreamConstraints,
     console.log('label:' + stream.label);
     console.log('ended:' + stream.ended);
     stream.onended = (event:Event) => console.log('Stream ended');
+    stream.addEventListener("ended", (event:Event) => console.log('Stream ended'));
     var objectUrl = URL.createObjectURL(stream);
     var wkObjectUrl = webkitURL.createObjectURL(stream);
   },
@@ -37,6 +38,7 @@ navigator.mozGetUserMedia(mediaStreamConstraints,
     console.log('label:' + stream.label);
     console.log('ended:' + stream.ended);
     stream.onended = (event:Event) => console.log('Stream ended');
+    stream.addEventListener("ended", (event:Event) => console.log('Stream ended'));
     var objectUrl = URL.createObjectURL(stream);
     var wkObjectUrl = webkitURL.createObjectURL(stream);
   },

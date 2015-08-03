@@ -83,7 +83,7 @@ declare module restangular {
     addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
   }
 
-  interface IService extends ICustom {
+  interface IService extends ICustom, IProvider {
     one(route: string, id?: number): IElement;
     one(route: string, id?: string): IElement;
     oneUrl(route: string, url: string): IElement;

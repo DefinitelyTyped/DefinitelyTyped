@@ -92,6 +92,9 @@ c.query('SELECT * FROM users WHERE id = ? AND name = ?',
                 console.log('Result error: ' + inspect(err));
             })
             .on('end', function (info) {
+                console.log(info.affectedRows);
+                console.log(info.insertId);
+                console.log(info.numRows);
                 console.log('Result finished successfully');
             });
     })

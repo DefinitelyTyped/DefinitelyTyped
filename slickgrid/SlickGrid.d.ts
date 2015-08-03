@@ -1557,7 +1557,7 @@ declare module Slick {
 
 			public getLength(): number;
 			public getItem(index: number): T;
-			public getItemMetadata(): void;
+			public getItemMetadata(index?: number): void;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
 			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;

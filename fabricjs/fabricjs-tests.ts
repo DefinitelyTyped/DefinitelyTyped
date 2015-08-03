@@ -740,7 +740,7 @@ function sample8() {
   }
 
   for (var i = activeObjectButtons.length; i--;) {
-    activeObjectButtons[i].disabled = true;
+    activeObjectButtons[i];
   }
 
   canvas.on('object:selected', onObjectSelected);
@@ -750,7 +750,7 @@ function sample8() {
     var selectedObject = e.target;
 
     for (var i = activeObjectButtons.length; i--;) {
-      activeObjectButtons[i].disabled = false;
+      activeObjectButtons[i];
     }
 
     lockHorizontallyEl.innerHTML = (selectedObject.lockMovementX ? 'Unlock horizontal movement' : 'Lock horizontal movement');
@@ -762,7 +762,7 @@ function sample8() {
 
   canvas.on('selection:cleared', function(e) {
     for (var i = activeObjectButtons.length; i--;) {
-      activeObjectButtons[i].disabled = true;
+      activeObjectButtons[i];
     }
   });
 
@@ -889,7 +889,6 @@ function sample8() {
   var cmdUnderlineBtn = document.getElementById('text-cmd-underline');
   if (cmdUnderlineBtn) {
     activeObjectButtons.push(cmdUnderlineBtn);
-    cmdUnderlineBtn.disabled = true;
     cmdUnderlineBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -903,7 +902,6 @@ function sample8() {
   var cmdLinethroughBtn = document.getElementById('text-cmd-linethrough');
   if (cmdLinethroughBtn) {
     activeObjectButtons.push(cmdLinethroughBtn);
-    cmdLinethroughBtn.disabled = true;
     cmdLinethroughBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -917,7 +915,6 @@ function sample8() {
   var cmdOverlineBtn = document.getElementById('text-cmd-overline');
   if (cmdOverlineBtn) {
     activeObjectButtons.push(cmdOverlineBtn);
-    cmdOverlineBtn.disabled = true;
     cmdOverlineBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -931,7 +928,6 @@ function sample8() {
   var cmdBoldBtn = document.getElementById('text-cmd-bold');
   if (cmdBoldBtn) {
     activeObjectButtons.push(cmdBoldBtn);
-    cmdBoldBtn.disabled = true;
     cmdBoldBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -945,7 +941,6 @@ function sample8() {
   var cmdItalicBtn = document.getElementById('text-cmd-italic');
   if (cmdItalicBtn) {
     activeObjectButtons.push(cmdItalicBtn);
-    cmdItalicBtn.disabled = true;
     cmdItalicBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -959,7 +954,6 @@ function sample8() {
   var cmdShadowBtn = document.getElementById('text-cmd-shadow');
   if (cmdShadowBtn) {
     activeObjectButtons.push(cmdShadowBtn);
-    cmdShadowBtn.disabled = true;
     cmdShadowBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -973,7 +967,6 @@ function sample8() {
   var textAlignSwitch = document.getElementById('text-align');
   if (textAlignSwitch) {
     activeObjectButtons.push(textAlignSwitch);
-    textAlignSwitch.disabled = true;
     textAlignSwitch.onchange = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -986,7 +979,6 @@ function sample8() {
   var fontFamilySwitch = document.getElementById('font-family');
   if (fontFamilySwitch) {
     activeObjectButtons.push(fontFamilySwitch);
-    fontFamilySwitch.disabled = true;
     fontFamilySwitch.onchange = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {

@@ -2703,7 +2703,6 @@ declare module "sequelize"
         }
 
         interface Lodash extends _.LoDashStatic {
-            includes(str: string, needle: string): boolean;
             camelizeIf(str: string, condition: boolean): string;
             camelizeIf(str: string, condition: any): string;
             underscoredIf(str: string, condition: boolean): string;
