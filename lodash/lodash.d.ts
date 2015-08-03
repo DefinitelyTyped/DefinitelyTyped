@@ -999,90 +999,18 @@ declare module _ {
     //_.last
     interface LoDashStatic {
         /**
-        * Gets the last element or last n elements of an array. If a callback is provided
-        * elements at the end of the array are returned as long as the callback returns truey.
-        * The callback is bound to thisArg and invoked with three arguments; (value, index, array).
-        *
-        * If a property name is provided for callback the created "_.pluck" style callback will
-        * return the property value of the given element.
-        *
-        * If an object is provided for callback the created "_.where" style callback will return
-        * true for elements that have the properties of the given object, else false.
+        * Gets the last element of an array.
         * @param array The array to query.
-        * @return Returns the last element(s) of array.
+        * @return Returns the last element of array.
         **/
         last<T>(array: Array<T>): T;
+    }
 
+    interface LoDashArrayWrapper<T> {
         /**
-        * @see _.last
-        **/
-        last<T>(array: List<T>): T;
-
-        /**
-        * @see _.last
-        * @param n The number of elements to return
-        **/
-        last<T>(
-            array: Array<T>,
-            n: number): T[];
-
-        /**
-        * @see _.last
-        * @param n The number of elements to return
-        **/
-        last<T>(
-            array: List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.last
-        * @param callback The function called per element
-        **/
-        last<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.last
-        * @param callback The function called per element
-        **/
-        last<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
-        /**
-        * @see _.last
-        * @param pluckValue _.pluck style callback
-        **/
-        last<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.last
-        * @param pluckValue _.pluck style callback
-        **/
-        last<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.last
-        * @param whereValue _.where style callback
-        **/
-        last<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.last
-        * @param whereValue _.where style callback
-        **/
-        last<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
+         * @see _.last
+         **/
+        last(): T;
     }
 
     //_.lastIndexOf
