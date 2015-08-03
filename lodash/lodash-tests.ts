@@ -177,6 +177,16 @@ result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
 result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
 
+// _.fill
+var testFillArray = [1, 2, 3];
+var testFillList: _.List<number> = {0: 1, 1: 2, 2: 3, length: 3};
+
+result = <string[]>_.fill<string>(testFillArray, 'a', 0, 3);
+result = <_.List<string>>_.fill<string>(testFillList, 'a', 0, 3);
+result = <number[]>_(testFillArray).fill<number>(0, 0, 3).value();
+result = <_.List<number>>_(testFillList).fill<number>(0, 0, 3).value();
+
+
 result = <number>_.findIndex(['apple', 'banana', 'beet'], function (f) {
     return /^b/.test(f);
 });
