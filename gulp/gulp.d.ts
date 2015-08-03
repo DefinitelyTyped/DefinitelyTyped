@@ -29,6 +29,13 @@ declare module gulp {
         buffer?: boolean;
 
         /**
+         * The base path of a glob.
+         *
+         * Default is everything before a glob starts.
+         */
+        base?: string;
+
+        /**
          * The current working directory in which to search.
          * Defaults to process.cwd().
          */
