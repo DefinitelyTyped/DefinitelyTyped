@@ -5560,12 +5560,12 @@ declare module _ {
         /**
          * @see _.modArgs
          */
-        modArgs<TResult>(...transforms: Function[]): LoDashObjectWrapper<TResult>;
+        modArgs<TResult extends Function>(...transforms: Function[]): LoDashObjectWrapper<TResult>;
 
         /**
          * @see _.modArgs
          */
-        modArgs<TResult>(transforms: Function[]): LoDashObjectWrapper<TResult>;
+        modArgs<TResult extends Function>(transforms: Function[]): LoDashObjectWrapper<TResult>;
     }
 
     //_.negate
