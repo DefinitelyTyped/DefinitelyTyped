@@ -454,18 +454,19 @@ declare module _ {
             pluckValue: string): number;
 
         /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex<T>(
+         * @see _.findLastIndex
+         **/
+        findLastIndex<W, T>(
             array: Array<T>,
-            whereDictionary: Dictionary<any>): number;
+            whereDictionary: W): number;
 
         /**
-        * @see _.findLastIndex
-        **/
-        findLastIndex<T>(
+         * @see _.findLastIndex
+         **/
+        findLastIndex<W, T>(
             array: List<T>,
-            whereDictionary: Dictionary<any>): number;
+            whereDictionary: W): number;
+
     }
 
     //_.first
@@ -822,12 +823,12 @@ declare module _ {
         /**
          * @see _.flatten
          **/
-        flatten<T>(): LoDashArrayWrapper<any>;
+        flatten<T>(): LoDashArrayWrapper<T>;
 
         /**
         * @see _.flatten
         **/
-        flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
+        flatten<T>(isShallow: boolean): LoDashArrayWrapper<T>;
     }
 
     //_.indexOf
@@ -1119,16 +1120,16 @@ declare module _ {
         * @param values The values to remove.
         * @return array.
         **/
-        pull(
-            array: Array<any>,
-            ...values: any[]): any[];
+        pull<T>(
+            array: Array<T>,
+            ...values: T[]): T[];
 
         /**
         * @see _.pull
         **/
-        pull(
-            array: List<any>,
-            ...values: any[]): any[];
+        pull<T>(
+            array: List<T>,
+            ...values: T[]): T[];
     }
 
     interface LoDashStatic {
@@ -1193,50 +1194,50 @@ declare module _ {
         * @param thisArg The this binding of callback.
         * @return A new array of removed elements.
         **/
-        remove(
-            array: Array<any>,
-            callback?: ListIterator<any, boolean>,
-            thisArg?: any): any[];
+        remove<T>(
+            array: Array<T>,
+            callback?: ListIterator<T, boolean>,
+            thisArg?: any): T[];
 
         /**
         * @see _.remove
         **/
-        remove(
-            array: List<any>,
-            callback?: ListIterator<any, boolean>,
-            thisArg?: any): any[];
-
-        /**
-        * @see _.remove
-        * @param pluckValue _.pluck style callback
-        **/
-        remove(
-            array: Array<any>,
-            pluckValue?: string): any[];
+        remove<T>(
+            array: List<T>,
+            callback?: ListIterator<T, boolean>,
+            thisArg?: any): T[];
 
         /**
         * @see _.remove
         * @param pluckValue _.pluck style callback
         **/
-        remove(
-            array: List<any>,
-            pluckValue?: string): any[];
+        remove<T>(
+            array: Array<T>,
+            pluckValue?: string): T[];
+
+        /**
+        * @see _.remove
+        * @param pluckValue _.pluck style callback
+        **/
+        remove<T>(
+            array: List<T>,
+            pluckValue?: string): T[];
 
         /**
         * @see _.remove
         * @param whereValue _.where style callback
         **/
-        remove(
-            array: Array<any>,
-            wherealue?: Dictionary<any>): any[];
+        remove<W, T>(
+            array: Array<T>,
+            wherealue?: Dictionary<W>): T[];
 
         /**
         * @see _.remove
         * @param whereValue _.where style callback
         **/
-        remove(
-            array: List<any>,
-            wherealue?: Dictionary<any>): any[];
+        remove<W, T>(
+            array: List<T>,
+            wherealue?: Dictionary<W>): T[];
 
         /**
          * @see _.remove
@@ -2505,10 +2506,10 @@ declare module _ {
 	* @return (Array): Returns array.
 	**/
 	fill<T>(
-	    array: Array<any>,
-	    value: any,
+	    array: Array<T>,
+	    value: T,
 	    start?: number,
-	    end?: number): Array<any>;
+	    end?: number): Array<T>;
     }
 
     //_.filter
@@ -4071,6 +4072,27 @@ declare module _ {
         pluck<T extends {}>(
             collection: Dictionary<T>,
             property: string): any[];
+
+        /**
+         * @see _.pluck
+         **/
+        pluck<T extends {}>(
+            collection: Array<T>,
+            property: Array<string>): any[];
+
+        /**
+        * @see _.pluck
+        **/
+        pluck<T extends {}>(
+            collection: List<T>,
+            property: Array<string>): any[];
+
+        /**
+        * @see _.pluck
+        **/
+        pluck<T extends {}>(
+            collection: Dictionary<T>,
+            property: Array<string>): any[];
     }
 
     interface LoDashArrayWrapper<T> {

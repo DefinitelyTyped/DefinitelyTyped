@@ -597,6 +597,7 @@ result = <number>_(stoogesAgesDict).sum('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
+result = <string[]>_.pluck(stoogesAges, ['name']);
 
 interface ABC {
     [index: string]: number;
