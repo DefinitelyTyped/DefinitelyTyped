@@ -1540,6 +1540,8 @@ declare module angular {
     interface ISCEDelegateProvider extends IServiceProvider {
         resourceUrlBlacklist(blacklist: any[]): void;
         resourceUrlWhitelist(whitelist: any[]): void;
+        resourceUrlBlacklist(): any[];
+        resourceUrlWhitelist(): any[];
     }
 
     /**
