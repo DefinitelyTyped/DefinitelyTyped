@@ -2491,24 +2491,54 @@ declare module _ {
             collection: Dictionary<T>,
             whereValue: W): boolean;
     }
-    
+
+    //_.fill
     interface LoDashStatic {
-	/**
-	* Fills elements of array with value from start up to, but not including, end.
-	*
-	* Note: This method mutates array.
-	*
-	* @param array (Array): The array to fill.
-	* @param value (*): The value to fill array with.
-	* @param [start=0] (number): The start position.
-	* @param [end=array.length] (number): The end position.
-	* @return (Array): Returns array.
-	**/
-	fill<T>(
-	    array: Array<any>,
-	    value: any,
-	    start?: number,
-	    end?: number): Array<any>;
+        /**
+         * Fills elements of array with value from start up to, but not including, end.
+         *
+         * Note: This method mutates array.
+         *
+         * @param array (Array): The array to fill.
+         * @param value (*): The value to fill array with.
+         * @param [start=0] (number): The start position.
+         * @param [end=array.length] (number): The end position.
+         * @return (Array): Returns array.
+         */
+        fill<TResult>(
+            array: any[],
+            value: any,
+            start?: number,
+            end?: number): TResult[];
+
+        /**
+         * @see _.fill
+         */
+        fill<TResult>(
+            array: List<any>,
+            value: any,
+            start?: number,
+            end?: number): List<TResult>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<TResult>(
+            value: any,
+            start?: number,
+            end?: number): LoDashArrayWrapper<TResult>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.fill
+         */
+        fill<TResult>(
+            value: any,
+            start?: number,
+            end?: number): LoDashObjectWrapper<List<TResult>>;
     }
 
     //_.filter
