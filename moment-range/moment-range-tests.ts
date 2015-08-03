@@ -5,7 +5,7 @@ var range2: moment.Range = moment.range(moment("2011-04-15", "YYYY-MM-DD"), mome
 var range3: moment.Range = moment.range([moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD")]);
 var range4: moment.Range = moment.range("2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00");
 
-var date: moment.Moment = moment(2012, 4, 15);
+var date: moment.Moment = moment('2012-05- 15');
 
 var res1: boolean = range.contains(date);
 var res2: boolean = range.contains(date, false);
