@@ -6987,6 +6987,25 @@ declare module _ {
         method<TResult>(...args: any[]): LoDashWrapper<(object: any) => TResult>;
     }
 
+    //_.methodOf
+    interface LoDashStatic {
+        /**
+         * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
+         * Any additional arguments are provided to the invoked method.
+         * @param object The object to query.
+         * @param args The arguments to invoke the method with.
+         * @return Returns the new function.
+         */
+        methodOf<TResult>(object: Object, ...args: any[]): (path: string | any[]) => TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.methodOf
+         */
+        methodOf<TResult>(...args: any[]): LoDashObjectWrapper<(path: string | any[]) => TResult>;
+    }
+
     //_.mixin
     interface LoDashStatic {
         /**
