@@ -16,7 +16,6 @@ var nodeName = divTag2[0].nodeName;
 var version = $.version;
 var libraryName = $.libraryName;
 var els = $('li');
-var listItems = $.slice(els);
 var madeEls = $.make('<p>Stuff</p>');
 var moreEls = $.html('<p>Stuff</p>');
 var oldTag = $('#oldTag');
@@ -241,108 +240,119 @@ var myPromise = new Promise(function(resolve, reject) {
 myPromise.then(function(value) {
     // Success:
     console.log(value);
-},
-    // Opps! There was a problem:
-    function(reason) {
-        console.log(reason);
-    });
+  },
+  // Opps! There was a problem:
+  function(reason) {
+    console.log(reason);
+});
 
-// Ajax:
-$.ajax({
-    url: "announcement.html",
-    dataType: "html",
-    success: function(data) {
-        // Insert the fragment into the page:
-        $("#content").html(data);
-    },
-    error: function(data) {
-        $("#content").html("<h4>There was an error while trying to get the file.</h4>");
-    }
+// Fetch API
+//===========
+// GET:
+interface WineObject {
+  data: Array<WineInterface>;
+}
+interface WineInterface {
+  wine: {
+    name: string;
+  }
+}
+fetch('../data/wines.json')
+.then($.json)
+.then(function<WineObject>(obj: any):any {
+  $('#message_ajax').empty();
+  obj.data.forEach(function(wine: any) {
+    $('#message_ajax').append('<li>' + wine.name + '</li>');
+  })
 });
-$.ajax({
-    url: "me.json",
-    success: function(data) {
-        // Before using a JSON object, you need to parse it.
-        // Here we parse it and assign it to a variable:
-        var me = JSON.parse(data);
-        // Here we access the properties of the JSON object:
-        $("#content").html(me.firstName + " " + me.lastName);
-    },
-    error: function(data) {
-        $('#content').html("<h4>There was an error while trying to get the file.</h4>");
-    }
-});
-var myData = {
-    "name": "Bozo the Clown",
-    "occupation": "Clown"
-};
-var mySuccessCallback = function() {
-    console.log('The post was a success!');
-};
-var myErrorCallback = function() {
-    console.log('Ooops! There was a problem posting this.');
-};
-$.ajax({
-    url: "/path/to/controller",
-    method: 'POST',
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "async": true,
-        "Access-Control-Allow-Origin": "*",
-        "Accept": "text/plain"
-    },
-    data: myData,
-    success: mySuccessCallback,
-    error: myErrorCallback
-});
-$.get('http://my.com/data/stuff.html')
-    .then(function(response) {
-        console.log("Success!", response);
-    }, function(error) {
-        console.error("Failed!", error);
-    });
 
-$.get('http://my.com/data/stuff.html')
-    .then(function(response) {
-        console.log("Success!", response);
-    })
-    .catch(function(error) {
-        console.error("Failed!", error);
-    });
-$.get('story.json')
-    .then(JSON.parse)
-    .then(function(response) {
-        console.log("Yey JSON!", response);
-    });
-$.getJSON('/data/deserts.json', function(desserts: Array<any>) {
-    desserts.forEach(function(dessert) {
-        $('#deserts').append('<li>' + dessert.name + '</li>');
-    });
-});
-$.post("updateUser.php",
-    { "name": "Joe", "time": "10PM" },
-    function() {
-        console.log('The POST was successful.')
-    },
-    "json"
-    );
-$.JSONP({ url: 'https://api.github.com/users/yui?callback=?' })
-    .then(function(users) {
-        $('.list').append('<li><h3>The name of the library</h3><h4>' + users.data.name + '</h4></li>');
-    })
-    .catch(function(err) {
-        console.log('Unable to get data.')
-    });
-
-$.JSONP({
-    url: 'http://www.geonames.org/postalCodeLookupJSON?postalcode=94102&'
+// POST:
+interface postData {
+  email: string;
+  name: string;
+  msg: string;
+}
+var formData = $.serialize($('form')[0]);
+fetch('../controllers/php-post.php', {
+  method: 'post',
+  headers: {
+    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+  },
+  body: formData
 })
-    .then(function(data) {
-        $('.list').append('<li><h3>My Location</h3><h4>' + data.postalcodes[0].adminName2 + ', ' + data.postalcodes[0].adminName1 + '</h4></li>');
-    })
-    .catch(function(err) {
-        console.log('Unable to get data.')
-    });
+.then($.json) 
+.then(function<postData>(data: any): any {
+  if(data.email_check == "valid"){
+    $("#message_ajax").html("<div class='successMessage'>" + data.email + " is a valid e-mail address. Thank you, " + data.name + ".</div>");
+    $("#message_ajax").append('<p>' + data.msg + '</p>');
+  } else {
+    $("#message_ajax").html("<div class='errorMessage'>Sorry " + data.name + ", " + data.email + " is NOT a valid e-mail address. Try again.</div>");
+  }
+});
+// PUT:
+interface putData {
+  base: string;
+  result: string;
+  fileName: string;
+}
+var putData = $('#fileText').val();
+fetch('../controllers/php-put.php', {
+  method: 'put',
+  headers: {  
+    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+  },
+  body: putData
+})
+.then($.json) 
+.then(function<putData>(data:any): any {
+   console.dir(data.base);
+   $("#message_ajax").append('<p>' + data.result + '</p>');
+   $("#message_ajax").append('<p>The file name is: ' + data.fileName + '</p>');
+})
+.catch(function(error) {
+   console.log(error);
+   $("#message_ajax").html("<div class='errorMessage'>Sorry, put was not successful.</div>");
+});
+
+
+// DELETE:
+interface deleteData {
+  result: string;
+}
+var file = $('#fileName').val();
+fetch('../controllers/php-delete.php', {
+  method: 'delete',
+  headers: {  
+    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+  },
+  body: file
+})
+.then($.json) 
+.then(function<deleteData>(data: any): any {
+   $("#message_ajax").html("<div>DELETE was sent to the server successfully.</div>");
+   $("#message_ajax").append('<p>' + data.result + '</p>');
+},
+function(data) {
+  console.log('PROBLEM')
+  console.log(data);
+})
+.catch(function(error) {
+   $("#message_ajax").html("<div class='errorMessage'>Sorry, 'DELETE' was not successful.</div>");
+   error.reject();
+});
+
+// $.jsonp:
+$.jsonp('https://api.github.com/users/rbiggs/repos?name=chipper', {timeout: 10000})
+.then($.json)
+.then(function(obj: any): any {
+  console.log(obj);
+  obj.data.forEach(function(repo: any): any {
+    $('#message_ajax').append("<li>" + repo.name + "</li>");
+  });
+})
+.catch(function(error: any): any {
+  $('#message_ajax').append("<li>" + error.message + "</li>")
+});
 
 // Templates:
 var myTemplate = '<li>Name: [[= data.name]]</li>';
@@ -376,10 +386,10 @@ var repeaterTmplate2 = '<li>[[= data.firstName ]], [[= data.lastName]]</li>';
 $.template.repeater($('#objectArrayList'), repeaterTmplate2, luminaries.persons);
 
 // Pub/Sub:
-var arraySubscriber = function(topic: string, data: any) {
+var arraySubscriber = function(topic: string, data: any): any {
     $('.list').append('<li><h3>' + topic + '</h3><h4>' + data + '</h4></li>');
-    var newsSubscription = $.subscribe('news/update', arraySubscriber);
 };
+var newsSubscription = $.subscribe('news/update', arraySubscriber);
 $.publish('news/update', 'The New York Stock Exchange rose an unprecedented 1000 points in just three minutes. Analysts and investors are confused and uncertain how to respond.');
 $.unsubscribe('news/update');
 // Due to being unsubscribed above, this does nothing:
