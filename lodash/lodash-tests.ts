@@ -813,13 +813,25 @@ result = <() => boolean>_.createCallback(createCallbackObj);
 result = <_.LoDashObjectWrapper<() => any>>_('name').createCallback();
 result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
-result = <Function>_.curry(function (a: any, b: any, c: any) {
-    console.log(a + b + c);
-});
+// _.curry
+var testCurryFn = (a: number, b: number, c: number) => [a, b, c];
+interface TestCurryResultFn {
+    (...args: number[]): number[] | TestCurryResultFn;
+}
+result = <number[]>_.curry<TestCurryResultFn>(testCurryFn)(1, 2, 3);
+result = <TestCurryResultFn>_.curry<TestCurryResultFn>(testCurryFn)(1);
+result = <number[]>_(testCurryFn).curry<TestCurryResultFn>().value()(1, 2, 3);
+result = <TestCurryResultFn>_(testCurryFn).curry<TestCurryResultFn>().value()(1);
 
-result = <_.LoDashObjectWrapper<Function>>_(function (a: any, b: any, c: any) {
-    console.log(a + b + c);
-}).curry();
+// _.curryRight
+var testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
+interface TestCurryRightResultFn {
+    (...args: number[]): number[] | TestCurryRightResultFn;
+}
+result = <number[]>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1, 2, 3);
+result = <TestCurryRightResultFn>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1);
+result = <number[]>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1, 2, 3);
+result = <TestCurryRightResultFn>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1);
 
 declare var source: any;
 result = <Function>_.debounce(function () { }, 150);
