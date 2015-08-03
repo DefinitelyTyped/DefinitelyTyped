@@ -524,9 +524,7 @@ declare module __React {
         preserveAspectRatio?: string;
     }
 
-    interface SVGAttributes extends DOMAttributes {
-        ref?: string | ((component: SVGComponent) => void);
-
+    interface SVGAttributes extends HTMLAttributes {
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -540,7 +538,6 @@ declare module __React {
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
-        height?: number | string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -565,7 +562,6 @@ declare module __React {
         transform?: string;
         version?: string;
         viewBox?: string;
-        width?: number | string;
         x1?: number | string;
         x2?: number | string;
         x?: number | string;

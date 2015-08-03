@@ -518,9 +518,7 @@ declare module "react/addons" {
         unselectable?: boolean;
     }
 
-    interface SVGAttributes extends DOMAttributes {
-        ref?: string | ((component: SVGComponent) => void);
-
+    interface SVGAttributes extends HTMLAttributes {
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -1048,4 +1046,3 @@ declare module "react/addons" {
         identifiedTouch(identifier: number): Touch;
     }
 }
-
