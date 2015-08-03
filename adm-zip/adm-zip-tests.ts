@@ -18,6 +18,8 @@ console.log(zip.readAsText("some_folder/my_file.txt"));
 zip.extractEntryTo(/*entry name*/"some_folder/my_file.txt", /*target path*/"/home/me/tempfolder", /*overwrite*/true)
 // extracts everything
 zip.extractAllTo(/*target path*/"/home/me/zipcontent/", /*overwrite*/true);
+// extracts everything async
+zip.extractAllToAsync(/*target path*/"/home/me/zipcontent/", /*overwrite*/true, /*callback*/function(err) {});
 
 
 // creating archives
