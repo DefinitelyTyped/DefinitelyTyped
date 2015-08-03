@@ -50,7 +50,7 @@ myApp.config((
     .state('state1.list', {
       url: "/list",
       templateUrl: "partials/state1.list.html",
-		controller: function ($scope: MyAppScope) {
+        controller: function ($scope: MyAppScope) {
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
@@ -61,7 +61,7 @@ myApp.config((
     .state('state2.list', {
       url: "/list",
         templateUrl: "partials/state2.list.html",
-		controller: function ($scope: MyAppScope) {
+        controller: function ($scope: MyAppScope) {
           $scope.things = ["A", "Set", "Of", "Things"];
         }
       })
@@ -70,7 +70,14 @@ myApp.config((
       url: "/list",
       templateUrl: "partials/state3.list.html",
       controller: function ($scope: MyAppScope) {
-      $scope.things = ["A", "Set", "Of", "Things"];
+        $scope.things = ["A", "Set", "Of", "Things"];
+      }
+    })
+    .state('state4', {
+      url: "/state4",
+      templateUrl: function($stateParams: ng.ui.IStateParamsService){
+        //Logic could go here based on $stateParams
+        return "partials/state4.html";
       }
     })
     .state('index', {
