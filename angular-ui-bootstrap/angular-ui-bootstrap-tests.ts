@@ -120,7 +120,7 @@ testApp.config((
         placement: 'bottom',
         animation: false,
         popupDelay: 1000,
-        appendtoBody: true,
+        appendToBody: true
         useContentExp: true
     });
     $tooltipProvider.setTriggers({
