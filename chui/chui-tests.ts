@@ -41,8 +41,8 @@ $(function() {
    $.UIBlock(.5);
    $.UIUnblock();
    $.UIPopup({id: "myPopup", message: 'Hello!!!'});
-   $.UIPopup({message: 'Hello!!!', title: "Whatever", callback: $.noop});
-   $.UIPopup({message: 'Hello!!!', cancleButton: "Forget It!", continueButton: "OK"});
+   $.UIPopup({ message: 'Hello!!!', title: "Whatever", callback: $.noop });
+   $.UIPopup({ message: 'Hello!!!', cancelButton: "Forget It!", continueButton: "OK" });
    $.UIPopover({id: "myPopover"});
    $.UIPopover({callback: function() {}});
    $.UIPopover({title: "Whatever"});
@@ -57,8 +57,8 @@ $(function() {
    var myStepper = $('#myStepper');
    $.UIResetStepper(myStepper);
    $.UICreateSwitch({id: "mySwitch", value: 5, checked: "true", callback: $.noop});
-   $.UITabbar({tabs: 3, labels: ["one", "two", "three"], selected: 2});
-   $.UISearch({articleId: "#main", placehold: "Looking?", results: 10});
+   $.UITabbar({ tabs: 3, labels: ["one", "two", "three"], selected: 2 });
+   $.UISearch({ articleId: "#main", placeholder: "Looking?", results: 10 });
    var carouselPanels = $('li');
    $.UISetupCarousel({target: "#carousel", panels: carouselPanels});
    $.UIBindData();
@@ -90,7 +90,7 @@ $(function() {
    $("#panelToggler").UIPanelToggle("#togglePanels", $.noop);
    $('#editList').UIEditList({callback: $.noop, deletable: false, movable: true});
    $('#mySelectList').UISelectList();
-   $('#myStepper').UIStepper({start: 1, end: 10, defautValue: 5});
+   $('#myStepper').UIStepper({ start: 1, end: 10, defaultValue: 5 });
    $('#mySwitch').UISwitch();
    $('#myRangeControl').UIRange();
    
