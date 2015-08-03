@@ -1,3 +1,5 @@
+/// <reference path="moment-range.d.ts" />
+
 var range: moment.Range = moment.range(new Date(2012, 0, 15), new Date(2012, 4, 23));
 var range2: moment.Range = moment.range(moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD"));
 var range3: moment.Range = moment.range([moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD")]);
