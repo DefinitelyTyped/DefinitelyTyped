@@ -1455,6 +1455,18 @@ result = <number>(_.method<number>(['a', 'b'], 1, 2))(TestMethodObject);
 result = <number>(_('a.b').method<number>(1, 2).value())(TestMethodObject);
 result = <number>(_(['a', 'b']).method<number>(1, 2).value())(TestMethodObject);
 
+// _.methodOf
+class TestMethodOf {
+    a = [
+        (a1: number, a2: number) => a1 + a2
+    ];
+}
+var TestMethodOfObject = new TestMethodOf();
+result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))('a[0]');
+result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
+result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
+result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
+
 result = <string>_.VERSION;
 result = <_.Support>_.support;
 result = <_.TemplateSettings>_.templateSettings;
