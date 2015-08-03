@@ -16,7 +16,7 @@ declare module angular.ui {
         /**
          * String URL path to template file OR Function, returns URL path string
          */
-        templateUrl?: string | {(): string};
+        templateUrl?: string | {(params: IStateParamsService): string};
         /**
          * Function, returns HTML content string
          */
@@ -53,12 +53,12 @@ declare module angular.ui {
         abstract?: boolean;
         /**
          * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
-         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
+         * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
          */
         onEnter?: Function|(string|Function)[];
         /**
          * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
-         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
+         * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
          */
         onExit?: Function|(string|Function)[];
         /**
@@ -66,7 +66,7 @@ declare module angular.ui {
          */
         data?: any;
         /**
-         * Boolean (default true). If false will not retrigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
+         * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
     }
