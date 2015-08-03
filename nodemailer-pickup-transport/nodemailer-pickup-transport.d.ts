@@ -3,24 +3,17 @@
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
 /// <reference path="../nodemailer/nodemailer-types.d.ts" />
 
 declare module "nodemailer-pickup-transport" {
 
-	module PickupTransport {
-        
+    module PickupTransport {
         export interface Options {
-            directory:      string;
+            directory: string;
         }
-        
     }
-    
-    
-	function PickupTransport(options: PickupTransport.Options): nodemailer.Transport;
 
-
+    function PickupTransport(options: PickupTransport.Options): nodemailer.Transport;
     export = PickupTransport;
-    
 }
 
