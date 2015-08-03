@@ -754,6 +754,12 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
+// _.backflow
+var testBackflowSquareFn = (n: number) => n * n;
+var testBackflowAddFn = (n: number, m: number) => n + m;
+result = <number>_.backflow<(n: number, m: number) => number>(testBackflowSquareFn, testBackflowAddFn)(1, 2);
+result = <number>_(testBackflowSquareFn).backflow<(n: number, m: number) => number>(testBackflowAddFn).value()(1, 2);
+
 var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
 var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
 funcBound1('!');
@@ -795,21 +801,11 @@ funcBindKey();
 funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
 funcBindKey();
 
-var realNameMap: { [index: string]: string; } = {
-    'curly': 'jerome'
-};
-
-var format = function (name: string) {
-    name = realNameMap[name.toLowerCase()] || name;
-    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-};
-
-var greet = function (formatted: string) {
-    return 'Hiya ' + formatted + '!';
-};
-
-result = <Function>_.compose(greet, format);
-result = <_.LoDashObjectWrapper<Function>>_(greet).compose(format);
+// _.compose
+var testComposeSquareFn = (n: number) => n * n;
+var testComposeAddFn = (n: number, m: number) => n + m;
+result = <number>_.compose<(n: number, m: number) => number>(testComposeSquareFn, testComposeAddFn)(1, 2);
+result = <number>_(testComposeSquareFn).compose<(n: number, m: number) => number>(testComposeAddFn).value()(1, 2);
 
 var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
@@ -857,6 +853,18 @@ result = <_.LoDashWrapper<number>>_(function () { console.log('deferred'); }).de
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
+
+// _.flow
+var testFlowSquareFn = (n: number) => n * n;
+var testFlowAddFn = (n: number, m: number) => n + m;
+result = <number>_.flow<(n: number, m: number) => number>(testFlowAddFn, testFlowSquareFn)(1, 2);
+result = <number>_(testFlowAddFn).flow<(n: number, m: number) => number>(testFlowSquareFn).value()(1, 2);
+
+// _.flowRight
+var testFlowRightSquareFn = (n: number) => n * n;
+var testFlowRightAddFn = (n: number, m: number) => n + m;
+result = <number>_.flowRight<(n: number, m: number) => number>(testFlowRightSquareFn, testFlowRightAddFn)(1, 2);
+result = <number>_(testFlowRightSquareFn).flowRight<(n: number, m: number) => number>(testFlowRightAddFn).value()(1, 2);
 
 var fibonacci = <Function>_.memoize(function (n: any): number {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
