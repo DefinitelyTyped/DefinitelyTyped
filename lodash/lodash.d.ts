@@ -5149,6 +5149,25 @@ declare module _ {
         after(func: Function): LoDashObjectWrapper<Function>;
     }
 
+    //_.ary
+    interface LoDashStatic {
+        /**
+         * Creates a function that accepts up to n arguments ignoring any additional arguments.
+         * @param func The function to cap arguments for.
+         * @param n The arity cap.
+         * @param guard Enables use as a callback for functions like `_.map`.
+         * @returns Returns the new function.
+         */
+        ary<TResult extends Function>(func: Function, n?: number, guard?: Object): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.ary
+         */
+        ary<TResult extends Function>(n?: number, guard?: Object): LoDashObjectWrapper<TResult>;
+    }
+
     //_.backflow
     interface LoDashStatic {
         /**
