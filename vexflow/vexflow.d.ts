@@ -552,8 +552,21 @@ declare module Vex {
             postFormat() : void;
         }
         
+        module Music {
+            const NUM_TONES : number;
+            const roots : string[];
+            const root_values : number[];
+            const root_indices : {[root : string] : number};
+            const canonical_notes : string[];
+            const diatonic_intervals : string[];
+            const diatonic_accidentals : {[diatonic_interval : string] : {note : number, accidental : number}};
+            const intervals : {[interval : string] : number};
+            const scales : {[scale : string] : number[]};
+            const accidentals : string[];
+            const noteValues : {[value : string] : {root_index : number, int_val : number}};
+        }
+        
         class Music {
-            static NUM_TONES : number;
             isValidNoteValue(note : number) : boolean;
             isValidIntervalValue(interval : number) : boolean;
             getNoteParts(noteString : string) : {root : string, accidental : string};
