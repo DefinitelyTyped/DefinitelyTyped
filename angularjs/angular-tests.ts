@@ -30,7 +30,7 @@ class AuthService {
         '$rootScope', '$injector', <any>function($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
             var $http: ng.IHttpService; //initialized later because of circular dependency problem
             function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
-                $http = $http || $injector.get('$http');
+                $http = $http || $injector.get<ng.IHttpService>('$http');
                 $http(config).then(function (response) {
                     deferred.resolve(response);
                 });
@@ -285,7 +285,7 @@ test_IAttributes({
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
-    $observe: function(name, fn){
+    $observe: function(name: any, fn: any){
         return fn;
     },
     $attr: {}
