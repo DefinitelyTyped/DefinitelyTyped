@@ -7,6 +7,7 @@ testApp.config((
     $buttonConfig: ng.ui.bootstrap.IButtonConfig,
     $datepickerConfig: ng.ui.bootstrap.IDatepickerConfig,
     $datepickerPopupConfig: ng.ui.bootstrap.IDatepickerPopupConfig,
+    $modalProvider: ng.ui.bootstrap.IModalProvider,
     $paginationConfig: ng.ui.bootstrap.IPaginationConfig,
     $pagerConfig: ng.ui.bootstrap.IPagerConfig,
     $progressConfig: ng.ui.bootstrap.IProgressConfig,
@@ -41,6 +42,7 @@ testApp.config((
     $datepickerConfig.startingDay = 1;
     $datepickerConfig.yearFormat = 'y';
     $datepickerConfig.yearRange = 10;
+    $datepickerConfig.shortcutPropagation = true;
 
 
     /**
@@ -54,6 +56,12 @@ testApp.config((
     $datepickerPopupConfig.dateFormat = 'dd-MM-yyyy';
     $datepickerPopupConfig.showButtonBar = false;
     $datepickerPopupConfig.toggleWeeksText = 'Show Weeks';
+
+
+    /**
+     * $modalProvider tests
+     */
+    $modalProvider.options.animation = false;
 
 
     /**
@@ -91,6 +99,7 @@ testApp.config((
     $ratingConfig.max = 10;
     $ratingConfig.stateOff = 'rating-state-off';
     $ratingConfig.stateOn = 'rating-state-on';
+    $ratingConfig.titles = ['1', '2', '3', '4', '5'];
 
 
     /**
@@ -102,6 +111,8 @@ testApp.config((
     $timepickerConfig.mousewheel = false;
     $timepickerConfig.readonlyInput = true;
     $timepickerConfig.showMeridian = false;
+    $timepickerConfig.arrowkeys = false;
+    $timepickerConfig.showSpinners = false;
 
     /**
      * $tooltipProvider tests
@@ -110,7 +121,8 @@ testApp.config((
         placement: 'bottom',
         animation: false,
         popupDelay: 1000,
-        appendtoBody: true
+        appendToBody: true,
+        useContentExp: true
     });
     $tooltipProvider.setTriggers({
         'customOpenTrigger': 'customCloseTrigger'
@@ -129,7 +141,10 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     var modalInstance = $modal.open({
+        animation: false,
         backdrop: 'static',
+        backdropClass: 'modal-backdrop-test',
+        bindToController: true,
         controller: 'ModalTestCtrl',
         controllerAs: 'vm',
         keyboard: true,
@@ -141,12 +156,15 @@ testApp.controller('TestCtrl', (
         scope: $scope,
         template: "<div>i'm a template!</div>",
         templateUrl: '/templates/modal.html',
-        backdropClass: 'modal-backdrop-test',
         windowClass: 'modal-test'
     });
 
     modalInstance.opened.then(()=> {
         $log.log('modal opened');
+    });
+
+    modalInstance.rendered.then(() => {
+        $log.log('modal rendered');
     });
 
     modalInstance.result.then((closeResult:any)=> {
@@ -155,6 +173,13 @@ testApp.controller('TestCtrl', (
         $log.log('modal dismissed', dismissResult);
     });
 
+    $modal.open({
+        backdrop: 'static'
+    });
+
+    $modal.open({
+        templateUrl: () => '/templates/modal.html'
+    });
 
     /**
      * test the $modalStack service

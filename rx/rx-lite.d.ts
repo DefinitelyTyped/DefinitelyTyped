@@ -150,6 +150,7 @@ declare module Rx {
 
 		immediate: IScheduler;
 		currentThread: ICurrentThreadScheduler;
+                default: IScheduler; // alias for Scheduler.timeout
 		timeout: IScheduler;
 	}
 

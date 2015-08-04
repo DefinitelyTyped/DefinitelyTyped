@@ -90,6 +90,12 @@ declare module OData {
         save(data: Object, success: Function, error?: Function): IResource<T>;
         save(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
 
+        update(): IResource<T>;
+        update(data: Object): IResource<T>;
+        update(success: Function, error?: Function): IResource<T>;
+        update(data: Object, success: Function, error?: Function): IResource<T>;
+        update(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
+
         remove(): IResource<T>;
         remove(params: Object): IResource<T>;
         remove(success: Function, error?: Function): IResource<T>;
@@ -119,6 +125,10 @@ declare module OData {
         $save(): angular.IPromise<T>;
         $save(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
         $save(success: Function, error?: Function): angular.IPromise<T>;
+
+        $update(): angular.IPromise<T>;
+        $update(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $update(success: Function, error?: Function): angular.IPromise<T>;
 
         $remove(): angular.IPromise<T>;
         $remove(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
@@ -254,6 +264,11 @@ declare module OData {
         (queryString: string, success: () => any, error: () => any): T[];
         (queryString: string, success: () => any, error: () => any, isSingleElement?: boolean, forceSingleElement?: boolean): T;
     }
+
+    interface ICountResult{
+        result: number;
+    }
+
     class Provider<T> {
         private callback;
         private filters;
@@ -271,6 +286,8 @@ declare module OData {
         single(success?: any, error?: any): T;
         get(data: any, success?: any, error?: any): T;
         expand(params: any, otherParam1?: any, otherParam2?: any, otherParam3?: any, otherParam4?: any, otherParam5?: any, otherParam6?: any, otherParam7?: any): Provider<T>;
+        count(success?: (result: ICountResult) => any, error?: () => any):ICountResult;
+        withInlineCount(): Provider<T>;
     }
 
     interface ValueFactory {

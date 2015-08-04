@@ -165,6 +165,7 @@ var users = odataResourceClass.odata().query();
 
 users[0].name;
 users[0].$save;
+users[0].$update;
 
 var user = odataResourceClass.odata()
 	.filter(new Value("1", OData.ValueTypes.Int32), new Property("abc"))
@@ -186,3 +187,13 @@ var combination2 = Predicate.and([combination1, predicate2]);
 var predicate = new Predicate("FirstName", "John")
 	.or(new Predicate("LastName", '!=', "Doe"))
 	.and(new Predicate("Age", '>', 10));
+
+
+users = odataResourceClass.odata()
+	.withInlineCount()
+	.query();
+
+
+var countResult = odataResourceClass.odata().count();
+var total = countResult.result;
+

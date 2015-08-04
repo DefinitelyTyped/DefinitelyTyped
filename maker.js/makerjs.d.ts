@@ -37,6 +37,7 @@ declare module MakerJs {
      * @param accuracy Optional exemplar of number of decimal places.
      */
     function round(n: number, accuracy?: number): number;
+    function cloneObject<T>(objectToClone: T): T;
     /**
      * Copy the properties from one object to another object.
      *
@@ -94,10 +95,6 @@ declare module MakerJs {
          * The main point of reference for this path.
          */
         origin: IPoint;
-        /**
-         * Optional CSS style properties to be emitted into SVG. Useful for creating guidelines and debugging your model.
-         */
-        cssStyle?: string;
     }
     /**
      * Test to see if an object implements the required properties of a path.
@@ -121,6 +118,12 @@ declare module MakerJs {
         end: IPoint;
     }
     /**
+     * Test to see if an object implements the required properties of a line.
+     *
+     * @param item The item to test.
+     */
+    function isPathLine(item: any): boolean;
+    /**
      * A circle path.
      *
      * Examples:
@@ -135,6 +138,12 @@ declare module MakerJs {
          */
         radius: number;
     }
+    /**
+     * Test to see if an object implements the required properties of a circle.
+     *
+     * @param item The item to test.
+     */
+    function isPathCircle(item: any): boolean;
     /**
      * An arc path.
      *
@@ -154,6 +163,12 @@ declare module MakerJs {
          */
         endAngle: number;
     }
+    /**
+     * Test to see if an object implements the required properties of an arc.
+     *
+     * @param item The item to test.
+     */
+    function isPathArc(item: any): boolean;
     /**
      * A map of functions which accept a path as a parameter.
      * @private
@@ -189,6 +204,19 @@ declare module MakerJs {
         Arc: string;
     };
     /**
+     * Options to pass to path.intersection()
+     */
+    interface IPathIntersectionOptions {
+        /**
+         * Optional boolean to only return deep intersections, i.e. not on an end point or tangent.
+         */
+        excludeTangents?: boolean;
+        /**
+         * Optional output variable which will be set to true if the paths are overlapped.
+         */
+        out_AreOverlapped?: boolean;
+    }
+    /**
      * An intersection of two paths.
      */
     interface IPathIntersection {
@@ -209,9 +237,15 @@ declare module MakerJs {
          */
         path2Angles?: number[];
     }
+    /**
+     * Path objects by id.
+     */
     interface IPathMap {
         [id: string]: IPath;
     }
+    /**
+     * Model objects by id.
+     */
     interface IModelMap {
         [id: string]: IModel;
     }
@@ -282,17 +316,40 @@ declare module MakerJs.angle {
      */
     function toDegrees(angleInRadians: number): number;
     /**
-     * Gets an arc's end angle, ensured to be greater than its start angle.
+     * Get an arc's end angle, ensured to be greater than its start angle.
      *
      * @param arc An arc path object.
      * @returns End angle of arc.
      */
     function ofArcEnd(arc: IPathArc): number;
     /**
-     * Angle of a line through a point.
+     * Get the angle in the middle of an arc's start and end angles.
+     *
+     * @param arc An arc path object.
+     * @param ratio Optional number between 0 and 1 specifying percentage between start and end angles. Default is .5
+     * @returns Middle angle of arc.
+     */
+    function ofArcMiddle(arc: IPathArc, ratio?: number): number;
+    /**
+     * Angle of a line path.
+     *
+     * @param line The line path to find the angle of.
+     * @returns Angle of the line path, in degrees.
+     */
+    function ofLineInDegrees(line: IPathLine): number;
+    /**
+     * Angle of a line through a point, in degrees.
      *
      * @param pointToFindAngle The point to find the angle.
-     * @param origin (Optional 0,0 implied) point of origin of the angle.
+     * @param origin Point of origin of the angle.
+     * @returns Angle of the line throught the point, in degrees.
+     */
+    function ofPointInDegrees(origin: IPoint, pointToFindAngle: IPoint): number;
+    /**
+     * Angle of a line through a point, in radians.
+     *
+     * @param pointToFindAngle The point to find the angle.
+     * @param origin Point of origin of the angle.
      * @returns Angle of the line throught the point, in radians.
      */
     function ofPointInRadians(origin: IPoint, pointToFindAngle: IPoint): number;
@@ -325,12 +382,28 @@ declare module MakerJs.point {
      */
     function areEqual(a: IPoint, b: IPoint): boolean;
     /**
+     * Find out if two points are equal after rounding.
+     *
+     * @param a First point.
+     * @param b Second point.
+     * @returns true if points are the same, false if they are not
+     */
+    function areEqualRounded(a: IPoint, b: IPoint): boolean;
+    /**
      * Clone a point into a new point.
      *
      * @param pointToClone The point to clone.
      * @returns A new point with same values as the original.
      */
     function clone(pointToClone: IPoint): IPoint;
+    /**
+     * From an array of points, find the closest point to a given reference point.
+     *
+     * @param referencePoint The reference point.
+     * @param pointOptions Array of points to choose from.
+     * @returns The first closest point from the pointOptions.
+     */
+    function closest(referencePoint: IPoint, pointOptions: IPoint[]): IPoint;
     /**
      * Get a point from its polar coordinates.
      *
@@ -340,12 +413,27 @@ declare module MakerJs.point {
      */
     function fromPolar(angleInRadians: number, radius: number): IPoint;
     /**
+     * Get a point on a circle or arc path, at a given angle.
+     * @param angleInDegrees The angle at which you want to find the point, in degrees.
+     * @param circle A circle or arc.
+     * @returns A new point object.
+     */
+    function fromAngleOnCircle(angleInDegrees: number, circle: IPathCircle): IPoint;
+    /**
      * Get the two end points of an arc path.
      *
      * @param arc The arc path object.
      * @returns Array with 2 elements: [0] is the point object corresponding to the start angle, [1] is the point object corresponding to the end angle.
      */
     function fromArc(arc: IPathArc): IPoint[];
+    /**
+     * Get the middle point of a path. Currently only supports Arc and Line paths.
+     *
+     * @param path The path object.
+     * @param ratio Optional ratio (between 0 and 1) of point along the path. Default is .5 for middle.
+     * @returns Point on the path, in the middle of the path.
+     */
+    function middle(path: IPath, ratio?: number): IPoint;
     /**
      * Create a clone of a point, mirrored on either or both x and y axes.
      *
@@ -400,13 +488,21 @@ declare module MakerJs.path {
      */
     function mirror(pathToMirror: IPath, mirrorX: boolean, mirrorY: boolean, newId?: string): IPath;
     /**
-     * Move a path's origin by a relative amount. Note: to move absolute, just set the origin property directly.
+     * Move a path to an absolute point.
      *
      * @param pathToMove The path to move.
-     * @param adjust The x & y adjustments, either as a point object, or as an array of numbers.
+     * @param origin The new origin for the path.
      * @returns The original path (for chaining).
      */
-    function moveRelative(pathToMove: IPath, adjust: IPoint): IPath;
+    function move(pathToMove: IPath, origin: IPoint): IPath;
+    /**
+     * Move a path's origin by a relative amount.
+     *
+     * @param pathToMove The path to move.
+     * @param delta The x & y adjustments as a point object.
+     * @returns The original path (for chaining).
+     */
+    function moveRelative(pathToMove: IPath, delta: IPoint): IPath;
     /**
      * Rotate a path.
      *
@@ -425,11 +521,22 @@ declare module MakerJs.path {
      */
     function scale(pathToScale: IPath, scaleValue: number): IPath;
 }
+declare module MakerJs.path {
+    /**
+     * Breaks a path in two. The supplied path will end at the supplied pointOfBreak,
+     * a new path is returned which begins at the pointOfBreak and ends at the supplied path's initial end point.
+     * For Circle, the original path will be converted in place to an Arc, and null is returned.
+     *
+     * @param pathToBreak The path to break.
+     * @param pointOfBreak The point at which to break the path.
+     * @returns A new path of the same type, when path type is line or arc. Returns null for circle.
+     */
+    function breakAtPoint(pathToBreak: IPath, pointOfBreak: IPoint): IPath;
+}
 declare module MakerJs.paths {
     /**
      * Class for arc path.
      *
-     * @param id The id of the new path.
      * @param origin The center point of the arc.
      * @param radius The radius of the arc.
      * @param startAngle The start angle of the arc.
@@ -446,7 +553,6 @@ declare module MakerJs.paths {
     /**
      * Class for circle path.
      *
-     * @param id The id of the new path.
      * @param origin The center point of the circle.
      * @param radius The radius of the circle.
      */
@@ -459,7 +565,6 @@ declare module MakerJs.paths {
     /**
      * Class for line path.
      *
-     * @param id The id of the new path.
      * @param origin The origin point of the line.
      * @param end The end point of the line.
      */
@@ -468,6 +573,30 @@ declare module MakerJs.paths {
         end: IPoint;
         type: string;
         constructor(origin: IPoint, end: IPoint);
+    }
+    /**
+     * Class for chord, which is simply a line path that connects the endpoints of an arc.
+     *
+     * @param arc Arc to use as the basic for the chord.
+     */
+    class Chord implements IPathLine {
+        type: string;
+        origin: IPoint;
+        end: IPoint;
+        constructor(arc: IPathArc);
+    }
+    /**
+     * Class for a parallel line path.
+     *
+     * @param toLine A line to be parallel to.
+     * @param distance Distance between parallel and original line.
+     * @param nearPoint Any point to determine which side of the line to place the parallel.
+     */
+    class Parallel implements IPathLine {
+        type: string;
+        origin: IPoint;
+        end: IPoint;
+        constructor(toLine: IPathLine, distance: number, nearPoint: IPoint);
     }
 }
 declare module MakerJs.model {
@@ -488,13 +617,21 @@ declare module MakerJs.model {
      */
     function mirror(modelToMirror: IModel, mirrorX: boolean, mirrorY: boolean): IModel;
     /**
-     * Move a model to an absolute position. Note that this is also accomplished by directly setting the origin property. This function exists because the origin property is optional.
+     * Move a model to an absolute point. Note that this is also accomplished by directly setting the origin property. This function exists for chaining.
      *
      * @param modelToMove The model to move.
      * @param origin The new position of the model.
      * @returns The original model (for chaining).
      */
     function move(modelToMove: IModel, origin: IPoint): IModel;
+    /**
+     * Move a model's origin by a relative amount.
+     *
+     * @param modelToMove The model to move.
+     * @param delta The x & y adjustments as a point object.
+     * @returns The original model (for chaining).
+     */
+    function moveRelative(modelToMove: IModel, delta: IPoint): IModel;
     /**
      * Rotate a model.
      *
@@ -540,6 +677,42 @@ declare module MakerJs.measure {
      * @returns Angle of arc.
      */
     function arcAngle(arc: IPathArc): number;
+    /**
+     * Check for arc being concave or convex towards a given point.
+     *
+     * @param arc The arc to test.
+     * @param towardsPoint The point to test.
+     * @returns Boolean true if arc is concave towards point.
+     */
+    function isArcConcaveTowardsPoint(arc: IPathArc, towardsPoint: IPoint): boolean;
+    /**
+     * Check if a given number is between two given limits.
+     *
+     * @param valueInQuestion The number to test.
+     * @param limit1 First limit.
+     * @param limit2 Second limit.
+     * @param exclusive Flag to exclude equaling the limits.
+     * @returns Boolean true if value is between (or equal to) the limits.
+     */
+    function isBetween(valueInQuestion: number, limit1: number, limit2: number, exclusive: boolean): boolean;
+    /**
+     * Check if a given angle is between an arc's start and end angles.
+     *
+     * @param angleInQuestion The angle to test.
+     * @param arc Arc to test against.
+     * @param exclusive Flag to exclude equaling the start or end angles.
+     * @returns Boolean true if angle is between (or equal to) the arc's start and end angles.
+     */
+    function isBetweenArcAngles(angleInQuestion: number, arc: IPathArc, exclusive: boolean): boolean;
+    /**
+     * Check if a given point is between a line's end points.
+     *
+     * @param pointInQuestion The point to test.
+     * @param line Line to test against.
+     * @param exclusive Flag to exclude equaling the origin or end points.
+     * @returns Boolean true if point is between (or equal to) the line's origin and end points.
+     */
+    function isBetweenPoints(pointInQuestion: IPoint, line: IPathLine, exclusive: boolean): boolean;
     /**
      * Calculates the distance between two points.
      *
@@ -661,9 +834,37 @@ declare module MakerJs.path {
      *
      * @param path1 First path to find intersection.
      * @param path2 Second path to find intersection.
-     * @result IPathIntersection object, with points(s) of intersection (and angles, when a path is an arc or circle); or null if the paths did not intersect.
+     * @param options Optional IPathIntersectionOptions.
+     * @returns IPathIntersection object, with points(s) of intersection (and angles, when a path is an arc or circle); or null if the paths did not intersect.
      */
-    function intersection(path1: IPath, path2: IPath): IPathIntersection;
+    function intersection(path1: IPath, path2: IPath, options?: IPathIntersectionOptions): IPathIntersection;
+    /**
+     * Calculates the intersection of slopes of two lines.
+     *
+     * @param line1 First line to use for slope.
+     * @param line2 Second line to use for slope.
+     * @param options Optional IPathIntersectionOptions.
+     * @returns point of intersection of the two slopes, or null if the slopes did not intersect.
+     */
+    function slopeIntersectionPoint(line1: IPathLine, line2: IPathLine, options?: IPathIntersectionOptions): IPoint;
+}
+declare module MakerJs.path {
+    /**
+     * Adds a round corner to the outside angle between 2 lines. The lines must meet at one point.
+     *
+     * @param line1 First line to fillet, which will be modified to fit the fillet.
+     * @param line2 Second line to fillet, which will be modified to fit the fillet.
+     * @returns Arc path object of the new fillet.
+     */
+    function dogbone(line1: IPathLine, line2: IPathLine, filletRadius: number): IPathArc;
+    /**
+     * Adds a round corner to the inside angle between 2 paths. The paths must meet at one point.
+     *
+     * @param path1 First path to fillet, which will be modified to fit the fillet.
+     * @param path2 Second path to fillet, which will be modified to fit the fillet.
+     * @returns Arc path object of the new fillet.
+     */
+    function fillet(path1: IPath, path2: IPath, filletRadius: number): IPathArc;
 }
 declare module MakerJs.kit {
     /**

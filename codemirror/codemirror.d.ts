@@ -7,6 +7,8 @@ declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfig
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare module CodeMirror {
+    export var Doc : CodeMirror.Doc;
+    export var Pos: CodeMirror.Position;
     export var Pass: any;
 
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
@@ -387,8 +389,8 @@ declare module CodeMirror {
         getTextArea(): HTMLTextAreaElement;
     }
 
-    class Doc {
-        constructor (text: string, mode?: any, firstLineNumber?: number);
+    interface Doc {
+        new (text: string, mode?: any, firstLineNumber?: number): Doc;
 
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -601,6 +603,8 @@ declare module CodeMirror {
         text: string[];
         /**  Text that used to be between from and to, which is overwritten by this change. */
         removed: string;
+        /**  String representing the origin of the change event and wether it can be merged with history */
+        origin: string;
     }
 
     interface EditorChangeLinkedList extends CodeMirror.EditorChange {
@@ -616,6 +620,7 @@ declare module CodeMirror {
     }
 
     interface Position {
+        new (line: number, ch: number): Position;
         ch: number;
         line: number;
     }
@@ -777,8 +782,8 @@ declare module CodeMirror {
         /** Like inclusiveLeft , but for the right side. */
         inclusiveRight?: boolean;
         
-        /** Atomic ranges act as a single unit when cursor movement is concerned � i.e. it is impossible to place the cursor inside of them.
-        In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning � they will prevent the cursor from being placed
+        /** Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
+        In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning — they will prevent the cursor from being placed
         respectively directly before and directly after the range. */
         atomic?: boolean;
         
@@ -789,10 +794,19 @@ declare module CodeMirror {
         This is mostly useful for text - replacement widgets that need to 'snap open' when the user tries to edit them.
         The "clear" event fired on the range handle can be used to be notified when this happens. */
         clearOnEnter?: boolean;
+
+        /** Determines whether the mark is automatically cleared when it becomes empty. Default is true. */
+        clearWhenEmpty?: boolean;
         
         /** Use a given node to display this range.Implies both collapsed and atomic.
         The given DOM node must be an inline element(as opposed to a block element). */
         replacedWith?: HTMLElement;
+
+        /** When replacedWith is given, this determines whether the editor will
+         * capture mouse and drag events occurring in this widget. Default is
+         * false—the events will be left alone for the default browser handler,
+         * or specific handlers on the widget, to capture. */
+        handleMouseEvents?: boolean;
         
         /** A read - only span can, as long as it is not cleared, not be modified except by calling setValue to reset the whole document.
         Note: adding a read - only span currently clears the undo history of the editor,
@@ -807,6 +821,12 @@ declare module CodeMirror {
         
         /** Equivalent to startStyle, but for the rightmost span. */
         endStyle?: string;
+
+        /** A string of CSS to be applied to the covered text. For example "color: #fe3". */
+        css?: string;
+
+        /** When given, will give the nodes created for this span a HTML title attribute with the given value. */
+        title?: string;
         
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
