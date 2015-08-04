@@ -5595,6 +5595,30 @@ declare module _ {
             ...args: any[]): Function;
     }
 
+    //_.restParam
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with the this binding of the created function and arguments from start
+         * and beyond provided as an array.
+         * @param func The function to apply a rest parameter to.
+         * @param start The start position of the rest parameter.
+         * @return Returns the new function.
+         */
+        restParam<TResult extends Function>(func: Function, start?: number): TResult;
+
+        /**
+         * @see _.restParam
+         */
+        restParam<TResult extends Function, TFunc extends Function>(func: TFunc, start?: number): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.restParam
+         */
+        restParam<TResult extends Function>(start?: number): LoDashObjectWrapper<TResult>;
+    }
+
     //_.throttle
     interface LoDashStatic {
         /**

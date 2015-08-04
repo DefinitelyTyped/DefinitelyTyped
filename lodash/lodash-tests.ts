@@ -951,6 +951,18 @@ var optionsPartialRight = {
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
+//_.restParam
+var testRestParamFn = (a: string, b: string, c: number[]) => a + ' ' + b + ' ' + c.join(' ');
+interface testRestParamFunc {
+    (a: string, b: string, c: number[]): string;
+}
+interface testRestParamResult {
+    (a: string, b: string, ...c: number[]): string;
+}
+result = <string>(_.restParam<testRestParamResult, testRestParamFunc>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
+result = <string>(_.restParam<testRestParamResult>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
+result = <string>(_(testRestParamFn).restParam<testRestParamResult>(2).value())('a', 'b', 1, 2, 3);
+
 var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
 
