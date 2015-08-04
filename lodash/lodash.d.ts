@@ -800,7 +800,9 @@ declare module _ {
     //_.flatten
     interface LoDashStatic {
         /**
-         * Flattens a nested array.
+         * Flattens a nested array a single level.
+         *
+         * _.flatten(x) is equivalent to _.flatten(x, false);
          *
          * @param array The array to flatten.
          * @return `array` flattened.
@@ -811,11 +813,24 @@ declare module _ {
          * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it is only
          * flattened a single level.
          *
+         * If you know whether or not this should be recursively at compile time, you typically want to use a
+         * version without a boolean parameter (i.e. `_.flatten(x)` or `_.flattenDeep(x)`).
+         *
          * @param array The array to flatten.
          * @param deep Specify a deep flatten.
          * @return `array` flattened.
          **/
         flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
+
+        /**
+         * Recursively flattens a nested array.
+         *
+         * _.flattenDeep(x) is equivalent to _.flatten(x, true);
+         *
+         * @param array The array to flatten
+         * @return `array` recursively flattened
+         */
+        flattenDeep<T>(array: RecursiveList<T>): List<T>
     }
 
     interface LoDashArrayWrapper<T> {
@@ -825,9 +840,14 @@ declare module _ {
         flatten<T>(): LoDashArrayWrapper<any>;
 
         /**
-        * @see _.flatten
-        **/
+         * @see _.flatten
+         **/
         flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
+
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(): LoDashArrayWrapper<any>;
     }
 
     //_.indexOf
