@@ -112,7 +112,7 @@ declare module uiGrid {
         }
         scrollbars: {
             NEVER: number;
-            ALWAYS: number;            
+            ALWAYS: number;
         }
     }
     export interface IGridInstance {
@@ -247,7 +247,7 @@ declare module uiGrid {
         clearAllFilters(refreshRows?: boolean, clearConditions?: boolean, clearFlags?: boolean): ng.IPromise<Array<IGridRow>>;
         clearRowInvisible(rowEntity: any): void;
         getVisibleRows(grid: IGridInstance): Array<IGridRow>;
-        handleWindowResize(): void;       
+        handleWindowResize(): void;
         notifiyDataChange(type: string): void;
         refreshRows(): ng.IPromise<boolean>;
         registerColumnsProcessor(processorFunction: IColumnProcessor, priority: number): void;
@@ -257,23 +257,23 @@ declare module uiGrid {
         scrollToIfNecessary(gridRow: IGridRow, gridCol: IGridColumn): void;
         setRowInvisible(rowEntity: any): void;
         sortHandleNulls(a: any,b: any): number;
-        queueGridRefresh(): void;         
+        queueGridRefresh(): void;
         queueRefresh(): void;
         on: {
             sortChanged: (scope: ng.IScope, handler: (grid: IGridInstance, sortColumns: Array<IColumnDef>) => void) => void;
-            columnVisiblityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;            
+            columnVisibilityChanged: (scope: ng.IScope, handler: (grid: IGridColumn) => void) => void;
             canvasHeightChanged: (scope: ng.IScope, handler: (oldHeight: number, newHeight: number) => void) => void;
-            
+
             /**
-             * filterChangedis raised after the filter is changed. The nature of the watch expression doesn't allow notification 
+             * filterChangedis raised after the filter is changed. The nature of the watch expression doesn't allow notification
              * of what changed, so the receiver of this event will need to re-extract the filter conditions from the columns.
              * http://ui-grid.info/docs/#/api/ui.grid.core.api:PublicApi
              */
             filterChanged: (scope: ng.IScope, handler: () => void) => void;
-            rowsRendered: (scope: ng.IScope, handler: () => void) => void;            
+            rowsRendered: (scope: ng.IScope, handler: () => void) => void;
             rowsVisibleChanged: (scope: ng.IScope, handler: () => void) => void;
             scrollBegin: (scope: ng.IScope, handler: () => void) => void;
-            scrollEnd: (scope: ng.IScope, handler: () => void) => void;            
+            scrollEnd: (scope: ng.IScope, handler: () => void) => void;
         }
     }
     export interface IGridSelectionApi {
@@ -291,7 +291,7 @@ declare module uiGrid {
         getSelectAllState: () => boolean;
         on: {
             rowSelectionChanged: (scope: ng.IScope, handler: (row: IGridRow, event?: Event) => void) => void;
-            rowSelectionChangedBatch: (scope: ng.IScope, handler: (row: Array<IGridRow>, event?: Event) => void) => void;    
+            rowSelectionChangedBatch: (scope: ng.IScope, handler: (row: Array<IGridRow>, event?: Event) => void) => void;
         }
     }
     export interface IGridPaginationApi {
@@ -303,18 +303,23 @@ declare module uiGrid {
         on: {
             paginationChanged: (scope: ng.IScope, handler: (newPage: number, pageSize: number) => void) => void;
         }
-    }    
+    }
     export interface IGridRowEditApi {
         flushDirtyRows(grid?: IGridInstance): ng.IPromise<boolean>;
         getDirtyRows(grid?: IGridInstance): Array<IGridRow>;
-        getErrorRows(grid?: IGridInstance): Array<IGridRow>;   
+        getErrorRows(grid?: IGridInstance): Array<IGridRow>;
         setRowsClean(dataRows: Array<any>):  Array<any>;
         setRowsDirty(dataRows: Array<any>): Array<any>;
-        setSavePromise(rowEntity: Object, savePromise: ng.IPromise<any>): void; 
+        setSavePromise(rowEntity: Object, savePromise: ng.IPromise<any>): void;
         on: {
-            saveRow: (scope: ng.IScope, handler: (rowEntity: Array<any>) => void) => void
+            saveRow: (scope: ng.IScope, handler: (rowEntity: Array<any>) => void) => void;
         }
-    } 
+    }
+    export interface IGridRowResizableApi {
+        on: {
+            columnSizeChanged: (scope: ng.IScope, handler: (coldDef: IColumnDef) => void) => void;
+        }
+    }
 
     export interface IGridApiConstructor {
         new (grid: IGridInstance): IGridApi;
@@ -375,25 +380,30 @@ declare module uiGrid {
         core: IGridCoreApi;
 
         /**
-         * Selection api         
-         */         
+         * Selection api
+         */
         selection: IGridSelectionApi;
 
-        
+
         /**
-         * Pagination api         
+         * Pagination api
          */
         pagination: IGridPaginationApi;
-       
-     
+
+
         /**
-         * Grid Row Edit Api         
-         */      
+         * Grid Row Edit Api
+         */
         rowEdit: IGridRowEditApi;
-        
+
+        /**
+         * Grid row resizable Api
+         */
+        colResizable: IGridRowResizableApi;
+
         /**
          * A grid instance is made available in the gridApi.
-         */         
+         */
         grid: IGridInstance;
     }
     export interface IGridRowConstructor {
@@ -522,6 +532,8 @@ declare module uiGrid {
     }
 
     export interface IGridColumn {
+        /** Column definition */
+        colDef: uiGrid.IColumnDef;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
@@ -540,9 +552,11 @@ declare module uiGrid {
         filters?: Array<IFilterOptions>;
         name?: string;
         /** Sort on this column */
-        sort?: ISortInfo
+        sort?: ISortInfo;
         /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. */
         sortingAlgorithm?: (a: any, b: any) => number;
+        /** Column width */
+        width: number;
         /**
          * Initializes a column
          * @param colDef the column def to associate with this column
