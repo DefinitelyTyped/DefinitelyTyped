@@ -326,6 +326,16 @@ declare module CodeMirror {
         /** Fires every time the content of the editor is changed. */
         on(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
         off(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
+
+
+        /** Like the "change" event, but batched per operation, passing an
+         * array containing all the changes that happened in the operation.
+         * This event is fired after the operation finished, and display
+         * changes it makes will trigger a new operation. */
+        on(eventName: 'changes', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList[]) => void ): void;
+        off(eventName: 'changes', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList[]) => void ): void;
+
+
     
         /** This event is fired before a change is applied, and its handler may choose to modify or cancel the change.
         The changeObj never has a next property, since this is fired for each individual change, and not batched per operation.
