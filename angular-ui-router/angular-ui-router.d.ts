@@ -91,12 +91,70 @@ declare module angular.ui {
     }
 
     interface IUrlMatcherFactory {
+        /**
+         * Creates a UrlMatcher for the specified pattern.
+         *
+         * @param pattern {string} The URL pattern.
+         *
+         * @returns {IUrlMatcher} The UrlMatcher.
+         */
         compile(pattern: string): IUrlMatcher;
+        /**
+         * Returns true if the specified object is a UrlMatcher, or false otherwise.
+         *
+         * @param o {any} The object to perform the type check against.
+         *
+         * @returns {boolean} Returns true if the object matches the IUrlMatcher interface, by implementing all the same methods.
+         */
         isMatcher(o: any): boolean;
-        type(name: string, definition: any, definitionFn?: any): any;
-        caseInsensitive(value: boolean): void;
+        /**
+         * Returns a type definition for the specified name
+         *
+         * @param name {string} The type definition name
+         *
+         * @returns {IType} The type definition
+         */
+        type(name: string): IType;
+        /**
+         * Registers a custom Type object that can be used to generate URLs with typed parameters.
+         *
+         * @param {IType} definition The type definition.
+         * @param {any[]} inlineAnnotedDefinitionFn A function that is injected before the app runtime starts. The result of this function is merged into the existing definition.
+         *
+         * @returns {IUrlMatcherFactory} Returns $urlMatcherFactoryProvider.
+         */
+        type(name: string, definition: IType, inlineAnnotedDefinitionFn?: any[]): IUrlMatcherFactory;
+        /**
+         * Registers a custom Type object that can be used to generate URLs with typed parameters.
+         *
+         * @param {IType} definition The type definition.
+         * @param {any[]} inlineAnnotedDefinitionFn A function that is injected before the app runtime starts. The result of this function is merged into the existing definition.
+         *
+         * @returns {IUrlMatcherFactory} Returns $urlMatcherFactoryProvider.
+         */
+        type(name: string, definition: IType, definitionFn?: (...args:any[]) => IType): IUrlMatcherFactory;
+        /**
+         * Defines whether URL matching should be case sensitive (the default behavior), or not.
+         *
+         * @param value {boolean} false to match URL in a case sensitive manner; otherwise true;
+         *
+         * @returns {boolean} the current value of caseInsensitive
+         */
+        caseInsensitive(value?: boolean): boolean;
+        /**
+         * Sets the default behavior when generating or matching URLs with default parameter values
+         *
+         * @param value {string} A string that defines the default parameter URL squashing behavior. nosquash: When generating an href with a default parameter value, do not squash the parameter value from the URL slash: When generating an href with a default parameter value, squash (remove) the parameter value, and, if the parameter is surrounded by slashes, squash (remove) one slash from the URL any other string, e.g. "~": When generating an href with a default parameter value, squash (remove) the parameter value from the URL and replace it with this string.
+         */
         defaultSquashPolicy(value: string): void;
-        strictMode(value: boolean): void;
+        /**
+         * Defines whether URLs should match trailing slashes, or not (the default behavior).
+         *
+         * @param value {boolean} false to match trailing slashes in URLs, otherwise true.
+         *
+         * @returns {boolean} the current value of strictMode
+         */
+        strictMode(value?: boolean): boolean;
     }
 
     interface IUrlRouterProvider extends angular.IServiceProvider {
@@ -219,5 +277,48 @@ declare module angular.ui {
          * based on the url anchor.
          */
         useAnchorScroll(): void;
+    }
+
+    interface IType {
+        /**
+         * Converts a parameter value (from URL string or transition param) to a custom/native value.
+         *
+         * @param val {string} The URL parameter value to decode.
+         * @param key {string} The name of the parameter in which val is stored. Can be used for meta-programming of Type objects.
+         *
+         * @returns {any} Returns a custom representation of the URL parameter value.
+         */
+        decode(val: string, key: string): any;
+        /**
+         * Encodes a custom/native type value to a string that can be embedded in a URL. Note that the return value does not need to be URL-safe (i.e. passed through encodeURIComponent()), it only needs to be a representation of val that has been coerced to a string.
+         *
+         * @param val {any} The value to encode.
+         * @param key {string} The name of the parameter in which val is stored. Can be used for meta-programming of Type objects.
+         *
+         * @returns {string} Returns a string representation of val that can be encoded in a URL.
+         */
+        encode(val: any, key: string): string;
+        /**
+         * Determines whether two decoded values are equivalent.
+         *
+         * @param a {any} A value to compare against.
+         * @param b {any} A value to compare against.
+         *
+         * @returns {boolean} Returns true if the values are equivalent/equal, otherwise false.
+         */
+        equals? (a: any, b: any): boolean;
+        /**
+         * Detects whether a value is of a particular type. Accepts a native (decoded) value and determines whether it matches the current Type object.
+         *
+         * @param val {any} The value to check.
+         * @param key {any} Optional. If the type check is happening in the context of a specific UrlMatcher object, this is the name of the parameter in which val is stored. Can be used for meta-programming of Type objects.
+         *
+         * @returns {boolean} Returns true if the value matches the type, otherwise false.
+         */
+        is(val: any, key: string): boolean;
+        /**
+         * The regular expression pattern used to match values of this type when coming from a substring of a URL.
+         */
+        pattern?: RegExp;
     }
 }
