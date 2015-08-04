@@ -137,7 +137,7 @@ declare module "react/addons" {
         forceUpdate(): void;
         props: P;
         state: S;
-        context: any;
+        context: {};
         refs: {
             [key: string]: Component<any, any>
         };
