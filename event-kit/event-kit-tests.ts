@@ -1,16 +1,6 @@
 /// <reference path="./event-kit.d.ts" />
 
-// The following line only works in TypeScript 1.5
-//import { Disposable, CompositeDisposable, Emitter } from "event-kit";
-// DefinitelyTyped is still using TypeScript 1.4 to run tests
-// so until they upgrade we have to do the following instead
-import eventKit = require('event-kit');
-type Disposable = AtomEventKit.Disposable;
-var Disposable = eventKit.Disposable;
-type CompositeDisposable = AtomEventKit.CompositeDisposable;
-var CompositeDisposable = eventKit.CompositeDisposable;
-type Emitter = AtomEventKit.Emitter;
-var Emitter = eventKit.Emitter;
+import { Disposable, CompositeDisposable, Emitter } from "event-kit";
 
 // Emitter
 

@@ -2,7 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-/// <reference path="react.d.ts" />
+/// <reference path="react-global.d.ts" />
 
 declare module React {
     //

@@ -30,8 +30,7 @@ THE SOFTWARE.
 declare module google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
-        constructor(mapDiv: Element, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds): void;
+        constructor(mapDiv: Element, opts?: MapOptions);fitBounds(bounds: LatLngBounds): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -118,11 +117,11 @@ declare module google.maps {
     }
 
     export interface PanControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface RotateControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface ScaleControlOptions {
@@ -134,7 +133,7 @@ declare module google.maps {
     }
 
     export interface StreetViewControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface ZoomControlOptions {
@@ -572,7 +571,7 @@ declare module google.maps {
          * a Point anchorPoint property for calculating the pixelOffset (see InfoWindowOptions).
          * The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow.
          */
-        open(map?: StreetViewPanorama, anchor?: MVCObject): void;
+        open(map?: Map|StreetViewPanorama, anchor?: MVCObject): void;
         setContent(content: string|Node): void;
         setOptions(options: InfoWindowOptions): void;
         setPosition(position: LatLng): void;
@@ -821,17 +820,17 @@ declare module google.maps {
     export interface GeocoderRequest {
         address?: string;
         bounds?: LatLngBounds;
-        componentRestrictions: GeocoderComponentRestrictions;
+        componentRestrictions?: GeocoderComponentRestrictions;
         location?: LatLng|LatLngLiteral;
         region?: string;
     }
 
     export interface GeocoderComponentRestrictions {
-        administrativeArea: string;
-        country: string;
-        locality: string;
-        postalCode:	string;
-        route: string;
+        administrativeArea?: string;
+        country?: string;
+        locality?: string;
+        postalCode?: string;
+        route?: string;
     }
 
     export enum GeocoderStatus {
@@ -1208,7 +1207,7 @@ declare module google.maps {
     
     export interface SaveWidgetOptions{
         attribution?: Attribution;
-        place?:	Place;
+        place?: Place;
     }
 
     /***** Map Types *****/
@@ -1534,7 +1533,7 @@ declare module google.maps {
     }
 
     export interface StreetViewAddressControlOptions {
-        position: ControlPosition;
+        position?: ControlPosition;
     }
 
     export interface StreetViewLink {
@@ -1960,7 +1959,7 @@ declare module google.maps {
         }
 
         export interface RadarSearchRequest {
-            bounds: LatLngBounds;
+            bounds?: LatLngBounds;
             keyword: string;
             location: LatLng|LatLngLiteral;
             name: string;
@@ -1985,7 +1984,7 @@ declare module google.maps {
         }
 
         export interface TextSearchRequest {
-            bounds: LatLngBounds;
+            bounds?: LatLngBounds;
             location: LatLng|LatLngLiteral;
             query: string;
             radius: number;
@@ -2038,7 +2037,7 @@ declare module google.maps {
     /***** Visualization Library *****/
     export module visualization {
         export class MapsEngineLayer extends MVCObject {
-            constructor(options: MapsEngineLayerOptions)
+            constructor(options: MapsEngineLayerOptions);
             getLayerId(): string;
             getLayerKey(): string;
             getMap(): Map;

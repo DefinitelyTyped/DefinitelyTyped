@@ -144,7 +144,7 @@ declare module angular.material {
 
     interface IToastService {
         show(optionsOrPreset: IToastOptions|IToastPreset<any>): angular.IPromise<any>;
-        showSimple(): angular.IPromise<any>;
+        showSimple(content: string): angular.IPromise<any>;
         simple(): ISimpleToastPreset;
         build(): IToastPreset<any>;
         updateContent(): void;

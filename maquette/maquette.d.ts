@@ -9,6 +9,33 @@
    */
 declare module maquette {
 
+  // Needed for typescript pre-1.5?
+  interface Touch {
+    clientX: number;
+    clientY: number;
+    identifier: number;
+    pageX: number;
+    pageY: number;
+    screenX: number;
+    screenY: number;
+    target: EventTarget;
+  }
+  interface TouchList {
+    length: number;
+    item(index: number): Touch;
+    [index: number]: Touch;
+  }
+  interface TouchEvent extends UIEvent {
+    altKey: boolean;
+    changedTouches: TouchList;
+    ctrlKey: boolean;
+    metaKey: boolean;
+    shiftKey: boolean;
+    targetTouches: TouchList;
+    touches: TouchList;
+  }
+
+
   export interface VNodeProperties {
     enterAnimation?: ((element: Element, properties?: VNodeProperties) => void) | string;
     exitAnimation?: ((element: Element, removeElement: () => void, properties?: VNodeProperties) => void) | string;
@@ -17,6 +44,60 @@ declare module maquette {
       children: VNode[]) => void;
     afterUpdate?: (element: Element, projectionOptions: ProjectionOptions, vnodeSelector: string, properties: VNodeProperties,
       children: VNode[]) => void;
+    key?: Object;
+    classes?: {[index:string]: boolean};
+    styles?: {[index:string]: string};
+    
+    // From Element
+    ontouchcancel?: (ev?: TouchEvent) => boolean|void;
+    ontouchend?: (ev?: TouchEvent) => boolean|void;
+    ontouchmove?: (ev?: TouchEvent) => boolean|void;
+    ontouchstart?: (ev?: TouchEvent) => boolean|void;
+    // From HTMLFormElement
+    action?: string;
+    encoding?: string;
+    enctype?: string;
+    method?: string;
+    name?: string;
+    target?: string;    
+    // From HTMLElement
+    onblur?: (ev?: FocusEvent) => boolean|void;
+    onchange?: (ev?: Event) => boolean|void;
+    onclick?: (ev?: MouseEvent) => boolean|void;
+    ondblclick?: (ev?: MouseEvent) => boolean|void;
+    onfocus?: (ev?: FocusEvent) => boolean|void;
+    oninput?: (ev?: Event) => boolean|void;
+    onkeydown?: (ev?: KeyboardEvent) => boolean|void;
+    onkeypress?: (ev?: KeyboardEvent) => boolean|void;
+    onkeyup?: (ev?: KeyboardEvent) => boolean|void;
+    onload?: (ev?: Event) => boolean|void;
+    onmousedown?: (ev?: MouseEvent) => boolean|void;
+    onmouseenter?: (ev?: MouseEvent) => boolean|void;
+    onmouseleave?: (ev?: MouseEvent) => boolean|void;
+    onmousemove?: (ev?: MouseEvent) => boolean|void;
+    onmouseout?: (ev?: MouseEvent) => boolean|void;
+    onmouseover?: (ev?: MouseEvent) => boolean|void;
+    onmouseup?: (ev?: MouseEvent) => boolean|void;
+    onmousewheel?: (ev?: MouseWheelEvent) => boolean|void;
+    onscroll?: (ev?: UIEvent) => boolean|void;
+    onsubmit?: (ev?: Event) => boolean|void;
+    spellcheck?: boolean;
+    tabIndex?: number;
+    title?: string;
+    accessKey?: string;
+    id?: string;
+    // From HTMLInputElement
+    autocomplete?: string;
+    checked?: boolean;
+    placeholder?: string;
+    readOnly?: boolean;
+    src?: string;
+    value?: string;
+    // From HTMLImageElement
+    alt?: string;	
+    srcset?: string;
+    
+    // Everything else (uncommon or custom properties and attributes)
     [index: string]: Object;
   }
 
@@ -27,7 +108,10 @@ declare module maquette {
     }
   }
 
-  export type VNodeChild = string|VNode|Array<string|VNode|Array<string|VNode|Array<string|VNode|Array<Object>>>>; // Array<Object> means Array<VNodeChild>
+  // The following line is not possible in Typescript, hence the workaround in the two lines below
+  // export type VNodeChild = string|VNode|Array<VNodeChild>
+  export interface VNodeChildren extends Array<VNodeChild> {} // A bit of a hack to create a recursive type
+  export type VNodeChild = string|VNode|VNodeChildren;
 
   export var dom: MaquetteDom;
 
@@ -62,40 +146,44 @@ declare module maquette {
   export function createProjector(projectionOptions? : ProjectionOptions) : Projector;
   
     /**
-     * The `h` method is used to create a virtual DOM node. 
-     * This function is largely inspired by the mercuryjs and mithril frameworks.
+     * Creates a virtual DOM node, used to render a real DOM later. 
      * The `h` stands for (virtual) hyperscript.
      * 
-     * @param {string} selector - Contains the tagName, id and fixed css classnames in CSS selector format. 
-     * It is formatted as follows: `tagname.cssclass1.cssclass2#id`. 
-     * @param {Object} properties - An object literal containing properties that will be placed on the DOM node.
-     * Properties with functions values like `onclick:handleClick` are registered as event handlers.
-     * Properties with string values, like `href:"/"` are used as attributes.
-     * All non-string values are put on the DOM node as properties.
-     * Property 'key' is used to uniquely identify a DOM node among siblings. 
-     * A key is required when there are more children with the same selector and these children are added or removed dynamically.
-     * Property classes is an object literal like `{important:true}` which allows css classes, like `important` to be added and removed dynamically.
-     * Property styles is an object literal like `{height:"100px"}` which allows styles to be changed dynamically. All values must be strings.
-     * Property enterAnimation is the animation to perform when this node is added to an already existing parent. 
-     * {@link http://maquettejs.org/docs/animations.html|More about animations}.
-     * When this value is a string, you must pass a `projectionOptions.transitions` object when creating the projector {@link module:maquette.createProjector}. 
-     * Properties exitAnimation is the animation to perform when this node is removed while its parent remains.
-     * When this value is a string, you must pass a `projectionOptions.transitions` object when creating the projector {@link module:maquette.createProjector}. 
-     * {@link http://maquettejs.org/docs/animations.html|More about animations}.
-     * Property updateAnimation is the animation to perform when the properties of this node change. 
-     * This also includes attributes, styles, css classes. This callback is also invoked when node contains only text and that text changes.
-     * {@link http://maquettejs.org/docs/animations.html|More about animations}.
-     * property afterCreate is the callback that is executed after this node is added to the DOM. Childnodes and properties have already been applied.
-     * property afterUpdate is the callback that is executed every time this node may have been updated. Childnodes and properties have already been updated. 
-     * @param {Array<VNodeChild>} children - An array of virtual DOM nodes and strings to add as child nodes. 
-     * This array may contain nested arrays, `null` or `undefined` values.
-     * Nested arrays are flattened, `null` and `undefined` will be skipped.
+     * @param {string} selector - Contains the tagName, id and fixed css classnames in CSS selector format. It is formatted as follows: `tagname.cssclass1.cssclass2#id`. 
+     * @param {Object} properties - An object literal containing attributes, properties, event handlers and more be placed on the DOM node.
+     * @param {Array<VNodeChild>} children - An array of virtual DOM nodes and strings to add as child nodes. May contain nested arrays, null or undefined.
      * 
-     * @returns {VNode} A VNode object, used to render a real DOM later. NOTE: There are {@link http://maquettejs.org/docs/rules.html|three basic rules} you should be aware of when updating the virtual DOM.
+     * @returns {VNode} A VNode object, used to render a real DOM later.
      */
   export function h(selector: string, properties: VNodeProperties, children: Array<VNodeChild>): VNode;
+    /**
+     * Creates a virtual DOM node, used to render a real DOM later. 
+     * The `h` stands for (virtual) hyperscript.
+     * 
+     * @param {string} selector - Contains the tagName, id and fixed css classnames in CSS selector format. It is formatted as follows: `tagname.cssclass1.cssclass2#id`. 
+     * @param {Array<VNodeChild>} children - An array of virtual DOM nodes and strings to add as child nodes. May contain nested arrays, null or undefined.
+     * 
+     * @returns {VNode} A VNode object, used to render a real DOM later.
+     */
   export function h(selector: string, children: Array<VNodeChild>): VNode;
+    /**
+     * Creates a virtual DOM node, used to render a real DOM later. 
+     * The `h` stands for (virtual) hyperscript.
+     * 
+     * @param {string} selector - Contains the tagName, id and fixed css classnames in CSS selector format. It is formatted as follows: `tagname.cssclass1.cssclass2#id`. 
+     * @param {Object} properties - An object literal containing attributes, properties, event handlers and more be placed on the DOM node.
+     * 
+     * @returns {VNode} A VNode object, used to render a real DOM later.
+     */
   export function h(selector: string, properties: VNodeProperties): VNode;
+    /**
+     * Creates a virtual DOM node, used to render a real DOM later. 
+     * The `h` stands for (virtual) hyperscript.
+     * 
+     * @param {string} selector - Contains the tagName, id and fixed css classnames in CSS selector format. It is formatted as follows: `tagname.cssclass1.cssclass2#id`. 
+     * 
+     * @returns {VNode} A VNode object, used to render a real DOM later.
+     */
   export function h(selector: string): VNode;
 
   /**

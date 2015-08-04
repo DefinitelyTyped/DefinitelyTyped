@@ -51,6 +51,8 @@ var result = cache.result([1], calculate);
 
 // h
 
+h("div",{onclick: (ev:MouseEvent) => true})
+
 var vnode = h("div", [
   "text",
   null,

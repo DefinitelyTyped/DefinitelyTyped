@@ -5,6 +5,12 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+// Support for AMD require
+declare module 'angular-ui-router' {
+    var _: string;
+    export = _;
+}
+
 declare module angular.ui {
 
     interface IState {
@@ -16,7 +22,7 @@ declare module angular.ui {
         /**
          * String URL path to template file OR Function, returns URL path string
          */
-        templateUrl?: string | {(): string};
+        templateUrl?: string | {(params: IStateParamsService): string};
         /**
          * Function, returns HTML content string
          */
@@ -53,12 +59,12 @@ declare module angular.ui {
         abstract?: boolean;
         /**
          * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
-         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
+         * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
          */
         onEnter?: Function|(string|Function)[];
         /**
          * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
-         * If minifying your scripts, make sure to explictly annotate this function, because it won't be automatically annotated by your build tools.
+         * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
          */
         onExit?: Function|(string|Function)[];
         /**
@@ -66,7 +72,7 @@ declare module angular.ui {
          */
         data?: any;
         /**
-         * Boolean (default true). If false will not retrigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
+         * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
     }
@@ -88,6 +94,9 @@ declare module angular.ui {
         compile(pattern: string): IUrlMatcher;
         isMatcher(o: any): boolean;
         type(name: string, definition: any, definitionFn?: any): any;
+        caseInsensitive(value: boolean): void;
+        defaultSquashPolicy(value: string): void;
+        strictMode(value: boolean): void;
     }
 
     interface IUrlRouterProvider extends angular.IServiceProvider {
@@ -165,6 +174,17 @@ declare module angular.ui {
         current: IState;
         params: IStateParamsService;
         reload(): void;
+        
+        $current: IResolvedState;
+    }
+    
+    interface IResolvedState {
+        locals: {
+            /**
+             * Currently resolved "resolve" values from the current state
+             */
+            globals: { [key: string]: any; };
+        };
     }
 
     interface IStateParamsService {
