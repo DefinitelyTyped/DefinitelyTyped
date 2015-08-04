@@ -237,7 +237,7 @@ declare module angular {
         forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
 
         fromJson(json: string): any;
-        identity(arg?: any): any;
+        identity<T>(arg?: T): T;
         injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
         isArray(value: any): boolean;
         isDate(value: any): boolean;
@@ -453,7 +453,7 @@ declare module angular {
          * following compilation. The observer is then invoked whenever the
          * interpolated value changes.
          */
-        $observe(name: string, fn: (value?: any) => any): Function;
+        $observe<T>(name: string, fn: (value?: T) => any): Function;
 
         /**
          * A map of DOM element attribute names to the normalized name. This is needed
@@ -708,7 +708,6 @@ declare module angular {
     // see http://docs.angularjs.org/api/ng.$window
     ///////////////////////////////////////////////////////////////////////////
     interface IWindowService extends Window {
-        [key: string]: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -717,7 +716,6 @@ declare module angular {
     ///////////////////////////////////////////////////////////////////////////
     interface IBrowserService {
         defer: angular.ITimeoutService;
-        [key: string]: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -725,7 +723,7 @@ declare module angular {
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        (func: Function, delay?: number, invokeApply?: boolean): IPromise<any>;
+        <T>(func: (...args: any[]) => T, delay?: number, invokeApply?: boolean): IPromise<T>;
         cancel(promise: IPromise<any>): boolean;
     }
 
@@ -996,8 +994,7 @@ declare module angular {
      * See http://docs.angularjs.org/api/ng/service/$q
      */
     interface IQService {
-        new (resolver: (resolve: IQResolveReject<any>) => any): IPromise<any>;
-        new (resolver: (resolve: IQResolveReject<any>, reject: IQResolveReject<any>) => any): IPromise<any>;
+        new <T>(resolver: (resolve: IQResolveReject<T>) => any): IPromise<T>;
         new <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
 
         /**
@@ -1156,7 +1153,7 @@ declare module angular {
          *
          * @param key the key of the data to be retrieved
          */
-        get(key: string): any;
+        get<T>(key: string): T;
 
         /**
          * Removes an entry from the Cache object.
@@ -1587,7 +1584,7 @@ declare module angular {
             scope: IScope,
             instanceElement: IAugmentedJQuery,
             instanceAttributes: IAttributes,
-            controller: any,
+            controller: {},
             transclude: ITranscludeFunction
         ): void;
     }
@@ -1607,7 +1604,7 @@ declare module angular {
 
     interface IDirective {
         compile?: IDirectiveCompileFn;
-        controller?: any;
+        controller?: {};
         controllerAs?: string;
         bindToController?: boolean|Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
@@ -1682,9 +1679,9 @@ declare module angular {
         interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
-            get(name: string): any;
+            get<T>(name: string): T;
             has(name: string): boolean;
-            instantiate(typeConstructor: Function, locals?: any): any;
+            instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
         }
