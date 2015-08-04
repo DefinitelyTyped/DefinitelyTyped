@@ -8,6 +8,7 @@ interface System {
   defined: any;
   amdDefine: () => void;
   amdRequire: () => void;
+  normalize(name: string, parentName: string): string;
   baseURL: string;
   paths: { [key: string]: string };
   meta: { [key: string]: Object };

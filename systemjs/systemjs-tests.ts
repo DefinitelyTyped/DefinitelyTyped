@@ -8,3 +8,5 @@ System.config({
 });
 
 System.import('app');
+
+System.normalize('myApp', 'blah');
