@@ -7,33 +7,55 @@ declare module moment {
 
     interface MomentInput {
 
+        /** Year */
         years?: number;
+        /** Year */
         year?: number;
+        /** Year */
         y?: number;
 
+        /** Month */
         months?: number;
+        /** Month */
         month?: number;
+        /** Month */
         M?: number;
 
+        /** Day/Date */
         days?: number;
+        /** Day/Date */
         day?: number;
+        /** Day/Date */
         date?: number;
+        /** Day/Date */
         d?: number;
 
+        /** Hour */
         hours?: number;
+        /** Hour */
         hour?: number;
+        /** Hour */
         h?: number;
 
+        /** Minute */
         minutes?: number;
+        /** Minute */
         minute?: number;
+        /** Minute */
         m?: number;
 
+        /** Second */
         seconds?: number;
+        /** Second */
         second?: number;
+        /** Second */
         s?: number;
 
+        /** Millisecond */
         milliseconds?: number;
+        /** Millisecond */
         millisecond?: number;
+        /** Millisecond */
         ms?: number;
 
     }
