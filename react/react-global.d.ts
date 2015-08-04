@@ -136,6 +136,7 @@ declare module React {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
+        render(): JSX.Element;
         props: P;
         state: S;
         context: any;
