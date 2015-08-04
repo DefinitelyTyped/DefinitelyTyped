@@ -291,17 +291,18 @@ _.result(object, 'stuff');
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2, { people: ['moe', 'curly', 'larry'] });
+_.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
 template({ value: '<script>' });
 var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
+var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
 	interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { variable: 'data' });
+_.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
 
 _(['test', 'test']).pick(['test2', 'test2']);
