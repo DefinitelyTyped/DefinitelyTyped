@@ -115,13 +115,13 @@ declare module restangular {
     patch(queryParams?: any, headers?: any): IPromise<any>;
     clone(): IElement;
     plain(): any;
-	plain<T>(): T;
+    plain<T>(): T;
     withHttpConfig(httpConfig: IRequestConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
   }
 
-  interface ICollection extends IService {
+  interface ICollection extends IService, Array<any> {
     getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
     getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
     post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
@@ -132,9 +132,9 @@ declare module restangular {
     patch(queryParams?: any, headers?: any): IPromise<any>;
     putElement(idx: any, params: any, headers: any): IPromise<any>;
     withHttpConfig(httpConfig: IRequestConfig): ICollection;
-	clone(): ICollection;
+    clone(): ICollection;
     plain(): any;
-	plain<T>(): T[];
+    plain<T>(): T[];
     getRestangularUrl(): string;
   }
 }
