@@ -269,6 +269,7 @@ declare module angular.ui {
     	 *
     	 */
         sync(): void;
+        listen(): void;
     }
 
     interface IUiViewScrollProvider {
