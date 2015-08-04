@@ -1,4 +1,3 @@
-
 // Type definitions for Modernizr 2.6.2
 // Project: http://modernizr.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
