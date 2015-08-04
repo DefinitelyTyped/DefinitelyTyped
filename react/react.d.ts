@@ -138,7 +138,7 @@ declare module __React {
         forceUpdate(): void;
         props: P;
         state: S;
-        context: any;
+        context: {};
         refs: {
             [key: string]: Component<any, any>
         };
