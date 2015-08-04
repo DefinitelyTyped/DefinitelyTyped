@@ -628,7 +628,7 @@ declare module Vex {
         }
         
         class NoteHead extends Note {
-            constructor(head_options : {x? : number, y? : number, note_type? : string, duration : string, displaced? : boolean, stem_direction? : number, x_shift : number, style : string, slashed : boolean, glyph_font_scale? : number});
+            constructor(head_options : {x? : number, y? : number, note_type? : string, duration : string, displaced? : boolean, stem_direction? : number, line : number, x_shift : number, custom_glyph_code? : string, style? : string, slashed? : boolean, glyph_font_scale? : number});
             static DEBUG : boolean;
             getCategory() : string;
             setContext(context : IRenderContext) : NoteHead;
