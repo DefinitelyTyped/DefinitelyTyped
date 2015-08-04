@@ -21,7 +21,7 @@ interface JQueryColorpickerOptions {
     closeOnOutside?: boolean;
     color?: string;
     colorFormat?: string;
-    dragggable?: boolean;
+    draggable?: boolean;
     duration?: string;
     hsv?: boolean;
     inline?: boolean;
