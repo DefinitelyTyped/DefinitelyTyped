@@ -468,6 +468,7 @@ declare module Vex {
         }
         
         class GraceNote extends StaveNote {
+            constructor(note_struct : {slash? : boolean, type? : string, dots? : number, duration : string, clef? : string, keys : string[], octave_shift? : number, auto_stem? : boolean, stem_direction? : number});
             getStemExtension() : number;
             getCategory() : string;
             draw() : void;
