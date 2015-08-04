@@ -123,6 +123,6 @@ interface JQuery {
 	dropzone( options: DropzoneOptions ): Dropzone;
 }
 
-declare module "Dropzone" {
+declare module "dropzone" {
 	export = Dropzone;
 }
