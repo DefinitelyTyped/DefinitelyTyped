@@ -877,7 +877,7 @@ interface HighchartsLineChart {
     stickyTracking?: boolean;
     tooltip?: HighchartsTooltipOptions;
     turboThreshold?: number;
-    visible?: number;
+    visible?: boolean;
     zIndex?: number;
 }
 
@@ -911,7 +911,7 @@ interface HighchartsPieChart {
     };
     stickyTracking?: boolean;
     tooltip?: HighchartsTooltipOptions;
-    visible?: number;
+    visible?: boolean;
     zIndex?: number;
 }
 
@@ -953,7 +953,7 @@ interface HighchartsScatterChart {
     stickyTracking?: boolean;
     tooltip?: HighchartsTooltipOptions;
     turboThreshold?: number;
-    visible?: number;
+    visible?: boolean;
     zIndex?: number;
 }
 
@@ -1006,7 +1006,7 @@ interface HighchartsSeriesChart {
     stickyTracking?: boolean;
     tooltip?: HighchartsTooltipOptions;
     turboThreshold?: number;
-    visible?: number;
+    visible?: boolean;
     zIndex?: number;
 }
 
