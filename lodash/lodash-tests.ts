@@ -765,6 +765,24 @@ var testBackflowAddFn = (n: number, m: number) => n + m;
 result = <number>_.backflow<(n: number, m: number) => number>(testBackflowSquareFn, testBackflowAddFn)(1, 2);
 result = <number>_(testBackflowSquareFn).backflow<(n: number, m: number) => number>(testBackflowAddFn).value()(1, 2);
 
+// _.before
+var testBeforeFn = ((n: number) => () => ++n)(0);
+var testBeforeResultFn = <() => number>_.before<() => number>(3, testBeforeFn);
+result = <number>testBeforeResultFn();
+// → 1
+result = <number>testBeforeResultFn();
+// → 2
+result = <number>testBeforeResultFn();
+// → 2
+var testBeforeFn = ((n: number) => () => ++n)(0);
+var testBeforeResultFn = <() => number>_(3).before<() => number>(testBeforeFn);
+result = <number>testBeforeResultFn();
+// → 1
+result = <number>testBeforeResultFn();
+// → 2
+result = <number>testBeforeResultFn();
+// → 2
+
 var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
 var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
 funcBound1('!');
