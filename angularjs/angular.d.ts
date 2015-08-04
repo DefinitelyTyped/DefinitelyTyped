@@ -1227,8 +1227,8 @@ declare module angular {
     ///////////////////////////////////////////////////////////////////////////
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
-        (controllerConstructor: Function, locals?: any): any;
-        (controllerName: string, locals?: any): any;
+        (controllerConstructor: Function, locals?: any, bindToController?: any): any;
+        (controllerName: string, locals?: any, bindToController?: any): any;
     }
 
     interface IControllerProvider extends IServiceProvider {
@@ -1540,6 +1540,8 @@ declare module angular {
     interface ISCEDelegateProvider extends IServiceProvider {
         resourceUrlBlacklist(blacklist: any[]): void;
         resourceUrlWhitelist(whitelist: any[]): void;
+        resourceUrlBlacklist(): any[];
+        resourceUrlWhitelist(): any[];
     }
 
     /**

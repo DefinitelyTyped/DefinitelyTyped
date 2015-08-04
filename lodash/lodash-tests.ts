@@ -177,6 +177,16 @@ result = <number[]>_.tail([1, 2, 3], (num) => num < 3)
 result = <IFoodOrganic[]>_.tail(foodsOrganic, 'test')
 result = <IFoodType[]> _.tail(foodsType, { 'type': 'value' })
 
+// _.fill
+var testFillArray = [1, 2, 3];
+var testFillList: _.List<number> = {0: 1, 1: 2, 2: 3, length: 3};
+
+result = <string[]>_.fill<string>(testFillArray, 'a', 0, 3);
+result = <_.List<string>>_.fill<string>(testFillList, 'a', 0, 3);
+result = <number[]>_(testFillArray).fill<number>(0, 0, 3).value();
+result = <_.List<number>>_(testFillList).fill<number>(0, 0, 3).value();
+
+
 result = <number>_.findIndex(['apple', 'banana', 'beet'], function (f) {
     return /^b/.test(f);
 });
@@ -243,10 +253,14 @@ result = <Array<number>>_.flatten([1, [2], [[3]]], true);
 result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
 result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
 
+result = <Array<number>>_.flattenDeep<number>([[[[1]]]]);
+
 result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
 result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
 
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
+
+result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flattenDeep();
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -263,12 +277,7 @@ result = <IFoodType[]>_.initial(foodsType, { 'type': 'vegetable' });
 result = <number[]>_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
 
 result = <number>_.last([1, 2, 3]);
-result = <number[]>_.last([1, 2, 3], 2);
-result = <number[]>_.last([1, 2, 3], function (num) {
-    return num > 1;
-});
-result = <IFoodOrganic[]>_.last(foodsOrganic, 'organic');
-result = <IFoodType[]>_.last(foodsType, { 'type': 'vegetable' });
+result = <number>_([1, 2, 3]).last();
 
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -283,6 +292,7 @@ result = <_.Dictionary<any>>_.object([['moe', 30], ['larry', 40]]);
 result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]]).object();
 
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
+result = <number[]>_.pullAt([1, 2, 3, 1, 2, 3], 2, 3);
 
 result = <number[]>_.range(10);
 result = <number[]>_.range(1, 11);
@@ -753,6 +763,34 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
+// _.ary
+result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
+result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
+
+// _.backflow
+var testBackflowSquareFn = (n: number) => n * n;
+var testBackflowAddFn = (n: number, m: number) => n + m;
+result = <number>_.backflow<(n: number, m: number) => number>(testBackflowSquareFn, testBackflowAddFn)(1, 2);
+result = <number>_(testBackflowSquareFn).backflow<(n: number, m: number) => number>(testBackflowAddFn).value()(1, 2);
+
+// _.before
+var testBeforeFn = ((n: number) => () => ++n)(0);
+var testBeforeResultFn = <() => number>_.before<() => number>(3, testBeforeFn);
+result = <number>testBeforeResultFn();
+// → 1
+result = <number>testBeforeResultFn();
+// → 2
+result = <number>testBeforeResultFn();
+// → 2
+var testBeforeFn = ((n: number) => () => ++n)(0);
+var testBeforeResultFn = <() => number>_(3).before<() => number>(testBeforeFn);
+result = <number>testBeforeResultFn();
+// → 1
+result = <number>testBeforeResultFn();
+// → 2
+result = <number>testBeforeResultFn();
+// → 2
+
 var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
 var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
 funcBound1('!');
@@ -794,21 +832,11 @@ funcBindKey();
 funcBindKey = _(objectBindKey).bindKey('greet', 'hi').value();
 funcBindKey();
 
-var realNameMap: { [index: string]: string; } = {
-    'curly': 'jerome'
-};
-
-var format = function (name: string) {
-    name = realNameMap[name.toLowerCase()] || name;
-    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-};
-
-var greet = function (formatted: string) {
-    return 'Hiya ' + formatted + '!';
-};
-
-result = <Function>_.compose(greet, format);
-result = <_.LoDashObjectWrapper<Function>>_(greet).compose(format);
+// _.compose
+var testComposeSquareFn = (n: number) => n * n;
+var testComposeAddFn = (n: number, m: number) => n + m;
+result = <number>_.compose<(n: number, m: number) => number>(testComposeSquareFn, testComposeAddFn)(1, 2);
+result = <number>_(testComposeSquareFn).compose<(n: number, m: number) => number>(testComposeAddFn).value()(1, 2);
 
 var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
@@ -816,13 +844,25 @@ result = <() => boolean>_.createCallback(createCallbackObj);
 result = <_.LoDashObjectWrapper<() => any>>_('name').createCallback();
 result = <_.LoDashObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
-result = <Function>_.curry(function (a: any, b: any, c: any) {
-    console.log(a + b + c);
-});
+// _.curry
+var testCurryFn = (a: number, b: number, c: number) => [a, b, c];
+interface TestCurryResultFn {
+    (...args: number[]): number[] | TestCurryResultFn;
+}
+result = <number[]>_.curry<TestCurryResultFn>(testCurryFn)(1, 2, 3);
+result = <TestCurryResultFn>_.curry<TestCurryResultFn>(testCurryFn)(1);
+result = <number[]>_(testCurryFn).curry<TestCurryResultFn>().value()(1, 2, 3);
+result = <TestCurryResultFn>_(testCurryFn).curry<TestCurryResultFn>().value()(1);
 
-result = <_.LoDashObjectWrapper<Function>>_(function (a: any, b: any, c: any) {
-    console.log(a + b + c);
-}).curry();
+// _.curryRight
+var testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
+interface TestCurryRightResultFn {
+    (...args: number[]): number[] | TestCurryRightResultFn;
+}
+result = <number[]>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1, 2, 3);
+result = <TestCurryRightResultFn>_.curryRight<TestCurryRightResultFn>(testCurryRightFn)(1);
+result = <number[]>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1, 2, 3);
+result = <TestCurryRightResultFn>_(testCurryRightFn).curryRight<TestCurryRightResultFn>().value()(1);
 
 declare var source: any;
 result = <Function>_.debounce(function () { }, 150);
@@ -856,6 +896,18 @@ result = <_.LoDashWrapper<number>>_(function () { console.log('deferred'); }).de
 var log = _.bind(console.log, console);
 result = <number>_.delay(log, 1000, 'logged later');
 result = <_.LoDashWrapper<number>>_(log).delay(1000, 'logged later');
+
+// _.flow
+var testFlowSquareFn = (n: number) => n * n;
+var testFlowAddFn = (n: number, m: number) => n + m;
+result = <number>_.flow<(n: number, m: number) => number>(testFlowAddFn, testFlowSquareFn)(1, 2);
+result = <number>_(testFlowAddFn).flow<(n: number, m: number) => number>(testFlowSquareFn).value()(1, 2);
+
+// _.flowRight
+var testFlowRightSquareFn = (n: number) => n * n;
+var testFlowRightAddFn = (n: number, m: number) => n + m;
+result = <number>_.flowRight<(n: number, m: number) => number>(testFlowRightSquareFn, testFlowRightAddFn)(1, 2);
+result = <number>_(testFlowRightSquareFn).flowRight<(n: number, m: number) => number>(testFlowRightAddFn).value()(1, 2);
 
 var fibonacci = <Function>_.memoize(function (n: any): number {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
@@ -893,9 +945,22 @@ result = <string[]>result(1, true);
 result = <ModArgsResult>_<ModArgsFunc>((x: string, y: string) => [x, y]).modArgs<ModArgsResult>([modArgsFn1, modArgsFn2]).value();
 result = <string[]>result(1, true);
 
+// _.negate
+interface TestNegatePredicate {
+    (a1: number, a2: number): boolean;
+}
+interface TestNegateResult {
+    (a1: number, a2: number): boolean;
+}
+var testNegatePredicate = (a1: number, a2: number) => a1 > a2;
+result = <TestNegateResult>_.negate<TestNegatePredicate>(testNegatePredicate);
+result = <TestNegateResult>_.negate<TestNegatePredicate, TestNegateResult>(testNegatePredicate);
+result = <TestNegateResult>_(testNegatePredicate).negate().value();
+result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
+
 var initialize = _.once(function () { });
 initialize();
-initialize();''
+initialize();
 var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
@@ -911,6 +976,18 @@ var optionsPartialRight = {
 };
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
+
+//_.restParam
+var testRestParamFn = (a: string, b: string, c: number[]) => a + ' ' + b + ' ' + c.join(' ');
+interface testRestParamFunc {
+    (a: string, b: string, c: number[]): string;
+}
+interface testRestParamResult {
+    (a: string, b: string, ...c: number[]): string;
+}
+result = <string>(_.restParam<testRestParamResult, testRestParamFunc>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
+result = <string>(_.restParam<testRestParamResult>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
+result = <string>(_(testRestParamFn).restParam<testRestParamResult>(2).value())('a', 'b', 1, 2, 3);
 
 var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
@@ -931,6 +1008,30 @@ helloWrap2();
 /********
  * Lang *
  ********/
+
+// _.gt
+result = <boolean>_.gt(1, 2);
+result = <boolean>_(1).gt(2);
+result = <boolean>_([]).gt(2);
+result = <boolean>_({}).gt(2);
+
+// _.gte
+result = <boolean>_.gte(1, 2);
+result = <boolean>_(1).gte(2);
+result = <boolean>_([]).gte(2);
+result = <boolean>_({}).gte(2);
+
+// _.lt
+result = <boolean>_.lt(1, 2);
+result = <boolean>_(1).lt(2);
+result = <boolean>_([]).lt(2);
+result = <boolean>_({}).lt(2);
+
+// _.lte
+result = <boolean>_.lte(1, 2);
+result = <boolean>_(1).lte(2);
+result = <boolean>_([]).lte(2);
+result = <boolean>_({}).lte(2);
 
 // _.toPlainObject
 result = <Object>_.toPlainObject();
@@ -1384,6 +1485,30 @@ result = <() => string>_('a').constant<string>();
 result = <() => boolean>_(true).constant<boolean>();
 result = <() => any[]>_(['a']).constant<any[]>();
 result = <() => {}>_({}).constant<{}>();
+
+// _.method
+class TestMethod {
+    a = {
+        b: (a1: number, a2: number) => a1 + a2
+    }
+}
+var TestMethodObject = new TestMethod();
+result = <number>(_.method<number>('a.b', 1, 2))(TestMethodObject);
+result = <number>(_.method<number>(['a', 'b'], 1, 2))(TestMethodObject);
+result = <number>(_('a.b').method<number>(1, 2).value())(TestMethodObject);
+result = <number>(_(['a', 'b']).method<number>(1, 2).value())(TestMethodObject);
+
+// _.methodOf
+class TestMethodOf {
+    a = [
+        (a1: number, a2: number) => a1 + a2
+    ];
+}
+var TestMethodOfObject = new TestMethodOf();
+result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))('a[0]');
+result = <number>(_.methodOf<number>(TestMethodOfObject, 1, 2))(['a', '0']);
+result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())('a[0]');
+result = <number>(_(TestMethodOfObject).methodOf<number>(1, 2).value())(['a', '0']);
 
 result = <string>_.VERSION;
 result = <_.Support>_.support;

@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.11.0
+// Type definitions for Angular UI Bootstrap 0.13.2
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -107,6 +107,13 @@ declare module angular.ui.bootstrap {
          * @default null
          */
         maxDate?: any;
+
+        /**
+         * An option to disable or enable shortcut's event propagation
+         *
+         * @default false
+         */
+        shortcutPropagation?: boolean;
     }
 
     interface IDatepickerPopupConfig {
@@ -168,6 +175,13 @@ declare module angular.ui.bootstrap {
     }
 
 
+    interface IModalProvider {
+        /**
+         * Default options all modals will use.
+         */
+        options: IModalSettings;
+    }
+
     interface IModalService {
         /**
          * @param {IModalSettings} options
@@ -178,47 +192,52 @@ declare module angular.ui.bootstrap {
 
     interface IModalServiceInstance {
         /**
-         * a method that can be used to close a modal, passing a result
+         * A method that can be used to close a modal, passing a result. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
          */
         close(result?: any): void;
 
         /**
-         * a method that can be used to dismiss a modal, passing a reason
+         * A method that can be used to dismiss a modal, passing a reason. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
          */
         dismiss(reason?: any): void;
 
         /**
-         * a promise that is resolved when a modal is closed and rejected when a modal is dismissed
+         * A promise that is resolved when a modal is closed and rejected when a modal is dismissed.
          */
         result: angular.IPromise<any>;
 
         /**
-         * a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
+         * A promise that is resolved when a modal gets opened after downloading content's template and resolving all variables.
          */
         opened: angular.IPromise<any>;
+
+        /**
+         * A promise that is resolved when a modal is rendered.
+         */
+        rendered: angular.IPromise<any>;
     }
 
     interface IModalScope extends angular.IScope {
         /**
-         * Those methods make it easy to close a modal window without a need to create a dedicated controller
+         * Dismiss the dialog without assigning a value to the promise output. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
+         *
+         * @returns true if the modal was closed; otherwise false
          */
+        $dismiss(reason?: any): boolean;
 
         /**
-         * Dismiss the dialog without assigning a value to the promise output
+         * Close the dialog resolving the promise to the given value. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
+         *
+         * @returns true if the modal was closed; otherwise false
          */
-        $dismiss(reason?: any): void;
-
-        /**
-         * Close the dialog resolving the promise to the given value
-         */
-        $close(result?: any): void;
+        $close(result?: any): boolean;
     }
 
     interface IModalSettings {
         /**
          * a path to a template representing modal's content
          */
-        templateUrl?: string;
+        templateUrl?: string | (() => string);
 
         /**
          * inline template representing the modal's content
@@ -244,9 +263,23 @@ declare module angular.ui.bootstrap {
         controllerAs?: string;
 
         /**
+         * When used with controllerAs and set to true, it will bind the controller properties onto the $scope directly.
+         *
+         * @default false
+         */
+        bindToController?: boolean;
+
+        /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
          */
         resolve?: any;
+
+        /**
+         * Set to false to disable animations on new modal/backdrop. Does not toggle animations for modals/backdrops that are already displayed.
+         *
+         * @default true
+         */
+        animation?: boolean;
 
         /**
          * controls the presence of a backdrop
@@ -257,10 +290,12 @@ declare module angular.ui.bootstrap {
          *
          * @default true
          */
-        backdrop?: any;
+        backdrop?: boolean | string;
 
         /**
-         * indicates whether the dialog should be closable by hitting the ESC key, defaults to true
+         * indicates whether the dialog should be closable by hitting the ESC key
+         *
+         * @default true
          */
         keyboard?: boolean;
 
@@ -275,7 +310,7 @@ declare module angular.ui.bootstrap {
         windowClass?: string;
 
         /**
-         * optional size of modal window. Allowed values: 'sm' (small) or 'lg' (large). Requires Bootstrap 3.1.0 or later
+         * Optional suffix of modal window class. The value used is appended to the `modal-` class, i.e. a value of `sm` gives `modal-sm`.
          */
         size?: string;
 
@@ -520,6 +555,13 @@ declare module angular.ui.bootstrap {
          * @default: null
          */
         stateOff?: string;
+
+        /**
+         * An array of strings defining titles for all icons.
+         *
+         * @default: ["one", "two", "three", "four", "five"]
+         */
+        titles?: Array<string>;
     }
 
 
@@ -565,6 +607,20 @@ declare module angular.ui.bootstrap {
          * @default true
          */
         mousewheel?: boolean;
+
+        /**
+         * Whether the user can use up/down arrowkeys inside the hours & minutes input to increase or decrease it's values.
+         *
+         * @default true
+         */
+        arrowkeys?: boolean;
+
+        /**
+         * Shows spinner arrows above and below the inputs.
+         *
+         * @default true
+         */
+        showSpinners?: boolean;
     }
 
 
@@ -577,7 +633,7 @@ declare module angular.ui.bootstrap {
         placement?: string;
 
         /**
-         * Should it fade in and out?
+         * Should the modal fade in and out?
          *
          * @default true
          */
@@ -603,6 +659,13 @@ declare module angular.ui.bootstrap {
          * @default 'mouseenter' for tooltip, 'click' for popover
          */
         trigger?: string;
+
+        /**
+         * Should an expression on the scope be used to load the content?
+         *
+         * @default false
+         */
+        useContentExp?: boolean;
     }
 
     interface ITooltipProvider {
@@ -618,6 +681,9 @@ declare module angular.ui.bootstrap {
     }
 
 
+    /**
+     * WARNING: $transition is now deprecated. Use $animate from ngAnimate instead.
+     */
     interface ITransitionService {
         /**
          * The browser specific animation event name.

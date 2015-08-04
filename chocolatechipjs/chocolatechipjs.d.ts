@@ -672,6 +672,12 @@ interface ChocolateChipAjaxSettings {
     type?: string;
 
     /**
+     * A property that does not seem to be officially documented, but is used in the documentation.
+     * Its functionality seems to be identical to that of 'type' which *is* documented.
+     */
+    method?: string;
+
+    /**
      * A pre-request callback function that can be used to modify the XMLHTTPRequest object before it is sent.
      * Use this to set custom headers, etc. This is an Ajax Event. Returning false in the beforeSend function will cancel the request.
      * @return void
