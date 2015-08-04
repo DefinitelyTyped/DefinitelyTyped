@@ -114,6 +114,14 @@ declare module angular.ui {
         otherwise(path: string): IUrlRouterProvider;
         rule(handler: Function): IUrlRouterProvider;
         rule(handler: any[]): IUrlRouterProvider;
+        /**
+         * Disables (or enables) deferring location change interception.
+         *
+         * If you wish to customize the behavior of syncing the URL (for example, if you wish to defer a transition but maintain the current URL), call this method at configuration time. Then, at run time, call $urlRouter.listen() after you have configured your own $locationChangeSuccess event handler.
+         *
+         * @param {boolean} defer Indicates whether to defer location change interception. Passing no parameter is equivalent to true.
+         */
+        deferIntercept(defer?: boolean): void;
     }
 
     interface IStateOptions {
