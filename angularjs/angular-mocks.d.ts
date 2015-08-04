@@ -1,7 +1,6 @@
 // Type definitions for Angular JS 1.3 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions by: Tony Curtis <http://github.com/daltin>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
@@ -118,7 +117,6 @@ declare module angular {
           * Verifies that there are no outstanding requests that need to be flushed.
           */
         verifyNoOutstandingRequest(): void;
-
 
         /**
           * Creates a new request expectation. 
@@ -267,7 +265,15 @@ declare module angular {
     }
 
     export module mock {
-
+        // this interface makes it possible to diferentiate between a function parameter (in the first overload for IRequestHandler)
+        // and the data: string | Object parameter in the second overload. Since a function is an object, and the first overload 
+        // takes one function param and the second overload takes a data string or Object with the other two parameters being optional, 
+        // there was no type difference between respond((a,b,c,d) => {}) and respond({}). Using the JsonResponseData interface 
+        // as a type creates a difference in the signatures changing data: string | Object to data: string | JsonResponseData
+        interface JsonResponseData extends Object {
+            [key: string] : any;
+        }
+        
         // returned interface by the the mocked HttpBackendService expect/when methods
         interface IRequestHandler {
           
@@ -276,7 +282,16 @@ declare module angular {
               * Returns the RequestHandler object for possible overrides.
               * @param func Function that receives the request HTTP method, url, data, and headers and returns an array containing response status (number), data, headers, and status text.
               */
-            respond(func: ((method: string, url: string, data?: string | Object, headers?: Object) => [number, string, Object, string])): IRequestHandler;
+            respond(func: ((method: string, url: string, data: string | Object, headers: Object) => [number, string | Object, Object, string])): IRequestHandler;
+
+            /**
+              * Controls the response for a matched request using the HTTP status code 200 and supplied static data to construct the response. 
+              * Returns the RequestHandler object for possible overrides.
+              * @param data Data to add to the response.
+              * @param headers Headers object to add to the response.
+              * @param responseText Response text to add to the response.
+              */
+            respond(data: string | JsonResponseData, headers?: Object, responseText?: string): IRequestHandler;
 
             /**
               * Controls the response for a matched request using supplied static data to construct the response. 
@@ -287,15 +302,6 @@ declare module angular {
               * @param responseText Response text to add to the response.
               */
             respond(status: number, data: string | Object, headers?: Object, responseText?: string): IRequestHandler;
-
-            /**
-              * Controls the response for a matched request using the HTTP status code 200 and supplied static data to construct the response. 
-              * Returns the RequestHandler object for possible overrides.
-              * @param data Data to add to the response.
-              * @param headers Headers object to add to the response.
-              * @param responseText Response text to add to the response.
-              */
-            respond(data: string | {}, headers?: Object, responseText?: string): IRequestHandler;
 
             // Available when ngMockE2E is loaded
             /**
