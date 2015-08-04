@@ -1,3 +1,4 @@
+
 // Type definitions for Modernizr 2.6.2
 // Project: http://modernizr.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
@@ -96,9 +97,8 @@ interface ModernizrStatic {
     load(resourceObject: any): void;
     load(resourceString: string): void;
 
-    prefixed(): boolean;
-    prefixed(property: string): boolean;
-    prefixed(property: string, obj: any, element?: any): boolean;
+    prefixed(property: string): any;
+    prefixed(property: string, obj: any, element?: any): any;
 
     mq(mediaQuery: string): boolean;
 
