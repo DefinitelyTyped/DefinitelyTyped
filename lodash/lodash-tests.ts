@@ -759,6 +759,10 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
+// _.ary
+result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
+result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
+
 // _.backflow
 var testBackflowSquareFn = (n: number) => n * n;
 var testBackflowAddFn = (n: number, m: number) => n + m;
