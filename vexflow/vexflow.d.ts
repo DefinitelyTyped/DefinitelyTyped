@@ -222,7 +222,7 @@ declare module Vex {
             static generateBeams(notes : StemmableNote[], config? : {groups? : Fraction[], stem_direction? : number, beam_rests? : boolean, beam_middle_only? : boolean, show_stemlets? : boolean, maintain_stem_directions? : boolean}) : Beam[];
         }
         
-        class Bend {
+        class Bend extends Modifier {
             constructor(text : string, release? : boolean, phrase? : {type : number, text : string, width : number}[]);
             static CATEGORY : string;
             static UP : number;
