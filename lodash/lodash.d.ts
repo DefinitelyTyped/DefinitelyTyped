@@ -800,7 +800,9 @@ declare module _ {
     //_.flatten
     interface LoDashStatic {
         /**
-         * Flattens a nested array.
+         * Flattens a nested array a single level.
+         *
+         * _.flatten(x) is equivalent to _.flatten(x, false);
          *
          * @param array The array to flatten.
          * @return `array` flattened.
@@ -811,11 +813,24 @@ declare module _ {
          * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it is only
          * flattened a single level.
          *
+         * If you know whether or not this should be recursively at compile time, you typically want to use a
+         * version without a boolean parameter (i.e. `_.flatten(x)` or `_.flattenDeep(x)`).
+         *
          * @param array The array to flatten.
          * @param deep Specify a deep flatten.
          * @return `array` flattened.
          **/
         flatten<T>(array: RecursiveList<T>, isDeep: boolean): List<T> | RecursiveList<T>;
+
+        /**
+         * Recursively flattens a nested array.
+         *
+         * _.flattenDeep(x) is equivalent to _.flatten(x, true);
+         *
+         * @param array The array to flatten
+         * @return `array` recursively flattened
+         */
+        flattenDeep<T>(array: RecursiveList<T>): List<T>
     }
 
     interface LoDashArrayWrapper<T> {
@@ -825,9 +840,14 @@ declare module _ {
         flatten<T>(): LoDashArrayWrapper<any>;
 
         /**
-        * @see _.flatten
-        **/
+         * @see _.flatten
+         **/
         flatten<T>(isShallow: boolean): LoDashArrayWrapper<any>;
+
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDeep<T>(): LoDashArrayWrapper<any>;
     }
 
     //_.indexOf
@@ -5149,6 +5169,25 @@ declare module _ {
         after(func: Function): LoDashObjectWrapper<Function>;
     }
 
+    //_.ary
+    interface LoDashStatic {
+        /**
+         * Creates a function that accepts up to n arguments ignoring any additional arguments.
+         * @param func The function to cap arguments for.
+         * @param n The arity cap.
+         * @param guard Enables use as a callback for functions like `_.map`.
+         * @returns Returns the new function.
+         */
+        ary<TResult extends Function>(func: Function, n?: number, guard?: Object): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.ary
+         */
+        ary<TResult extends Function>(n?: number, guard?: Object): LoDashObjectWrapper<TResult>;
+    }
+
     //_.backflow
     interface LoDashStatic {
         /**
@@ -5162,6 +5201,26 @@ declare module _ {
          * @see _.flowRight
          **/
         backflow<TResult extends Function>(...funcs: Function[]): LoDashObjectWrapper<TResult>;
+    }
+
+    //_.before
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func, with the this binding and arguments of the created function, while
+         * it is called less than n times. Subsequent calls to the created function return the result of the last func
+         * invocation.
+         * @param n The number of calls at which func is no longer invoked.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
+         */
+        before<TFunc extends Function>(n: number, func: TFunc): TFunc;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @sed _.before
+         */
+        before<TFunc extends Function>(func: TFunc): TFunc;
     }
 
     //_.bind
@@ -5593,6 +5652,30 @@ declare module _ {
         partialRight(
             func: Function,
             ...args: any[]): Function;
+    }
+
+    //_.restParam
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with the this binding of the created function and arguments from start
+         * and beyond provided as an array.
+         * @param func The function to apply a rest parameter to.
+         * @param start The start position of the rest parameter.
+         * @return Returns the new function.
+         */
+        restParam<TResult extends Function>(func: Function, start?: number): TResult;
+
+        /**
+         * @see _.restParam
+         */
+        restParam<TResult extends Function, TFunc extends Function>(func: TFunc, start?: number): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.restParam
+         */
+        restParam<TResult extends Function>(start?: number): LoDashObjectWrapper<TResult>;
     }
 
     //_.throttle

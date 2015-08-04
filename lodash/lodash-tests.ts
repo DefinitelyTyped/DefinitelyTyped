@@ -253,10 +253,14 @@ result = <Array<number>>_.flatten([1, [2], [[3]]], true);
 result = <Array<number>>_.flatten<number>([1, [2], [3, [[4]]]], true);
 result = <Array<number|boolean>>_.flatten<number|boolean>([1, [2], [3, [[false]]]], true);
 
+result = <Array<number>>_.flattenDeep<number>([[[[1]]]]);
+
 result = <_.LoDashArrayWrapper<number>>_([[1, 2], [3, 4], 5, 6]).flatten();
 result = <_.LoDashArrayWrapper<number|Array<Array<number>>>>_([1, [2], [3, [[4]]]]).flatten();
 
 result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flatten(true);
+
+result = <_.LoDashArrayWrapper<number>>_([1, [2], [3, [[4]]]]).flattenDeep();
 
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2);
 result = <number>_.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
@@ -759,11 +763,33 @@ _.forEach(saves, function (type) {
     asyncSave({ 'type': type, 'complete': done });
 });
 
+// _.ary
+result = <number[]>['6', '8', '10'].map(_.ary<(s: string) => number>(parseInt, 1));
+result = <number[]>['6', '8', '10'].map(_(parseInt).ary<(s: string) => number>(1).value());
+
 // _.backflow
 var testBackflowSquareFn = (n: number) => n * n;
 var testBackflowAddFn = (n: number, m: number) => n + m;
 result = <number>_.backflow<(n: number, m: number) => number>(testBackflowSquareFn, testBackflowAddFn)(1, 2);
 result = <number>_(testBackflowSquareFn).backflow<(n: number, m: number) => number>(testBackflowAddFn).value()(1, 2);
+
+// _.before
+var testBeforeFn = ((n: number) => () => ++n)(0);
+var testBeforeResultFn = <() => number>_.before<() => number>(3, testBeforeFn);
+result = <number>testBeforeResultFn();
+// → 1
+result = <number>testBeforeResultFn();
+// → 2
+result = <number>testBeforeResultFn();
+// → 2
+var testBeforeFn = ((n: number) => () => ++n)(0);
+var testBeforeResultFn = <() => number>_(3).before<() => number>(testBeforeFn);
+result = <number>testBeforeResultFn();
+// → 1
+result = <number>testBeforeResultFn();
+// → 2
+result = <number>testBeforeResultFn();
+// → 2
 
 var funcBind = function(greeting: string, punctuation: string) { return greeting + ' ' + this.user + punctuation; };
 var funcBound1: (punctuation: string) => any = _.bind(funcBind, { 'name': 'moe' }, 'hi');
@@ -950,6 +976,18 @@ var optionsPartialRight = {
 };
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
+
+//_.restParam
+var testRestParamFn = (a: string, b: string, c: number[]) => a + ' ' + b + ' ' + c.join(' ');
+interface testRestParamFunc {
+    (a: string, b: string, c: number[]): string;
+}
+interface testRestParamResult {
+    (a: string, b: string, ...c: number[]): string;
+}
+result = <string>(_.restParam<testRestParamResult, testRestParamFunc>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
+result = <string>(_.restParam<testRestParamResult>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
+result = <string>(_(testRestParamFn).restParam<testRestParamResult>(2).value())('a', 'b', 1, 2, 3);
 
 var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
