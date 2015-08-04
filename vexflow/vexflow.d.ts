@@ -474,15 +474,19 @@ declare module Vex {
             draw() : void;
         }
         
-        class GraceNoteGroup {
+        class GraceNoteGroup extends Modifier {
+            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            setWidth(width : number) : Modifier;
+            setNote(note : StaveNote) : Modifier;
+            
             constructor(grace_notes : GraceNote[], show_slur? : boolean); //inconsistent name: 'show_slur' is called 'config', suggesting object (is boolean)
             static CATEGORY : string;
             static DEBUG : boolean;
             static format(gracenote_groups : GraceNoteGroup[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             preFormat() : void;
             beamNotes() : GraceNoteGroup;
-            setNote(note : Note) : void;
-            setWidth(width : number) : void;
+            setNote(note : Note) : void; //inconsistent type: void -> GraceNoteGroup
+            setWidth(width : number) : void; //inconsistent type: void -> GraceNoteGroup
             getWidth() : number;
             setXShift(x_shift : number) : void;
             draw() : void;
