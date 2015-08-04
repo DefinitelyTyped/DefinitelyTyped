@@ -662,7 +662,8 @@ declare module Vex {
         }
         
         export module PedalMarking {
-            enum Styles {TEXT, BRACKET, MIXED}
+            const enum Styles {TEXT, BRACKET, MIXED}
+            const GLYPHS : {[name : string] : {code : string, x_shift : number, y_shift : number}};
         }
         
         class PedalMarking {
