@@ -5673,6 +5673,7 @@ declare module THREE {
 
     export class BoundingBoxHelper extends Mesh {
         constructor(object: Object3D, hex?: number);
+        constructor();
 
         object: Object3D;
         box: Box3;
@@ -5790,6 +5791,8 @@ declare module THREE {
 
     export class WireframeHelper extends Line {
         constructor(object: Object3D, hex?: number);
+
+        object: Object3D;
 
     }
 
