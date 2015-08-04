@@ -15,9 +15,6 @@ declare module moment {
         month?: number;
         M?: number;
 
-        weeks?: number;
-        w?: number;
-
         days?: number;
         day?: number;
         date?: number;
