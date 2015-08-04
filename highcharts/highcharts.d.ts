@@ -114,7 +114,7 @@ interface HighchartsAxisOptions {
     minRange?: number;
     minTickInterval?: number;
     minorTickColor?: string;
-    minorTickInterval?: number;
+    minorTickInterval?: number|string;
     minorTickLength?: number;
     minorTickPosition?: string; // 'inside' 'outside'
     minorTickWidth?: number;
@@ -191,11 +191,11 @@ interface HighchartsChartResetZoomButton {
 }
 
 interface HighchartsChartResetZoomButtonTheme {
-    fill?: string; //css HEX colours. 
-    stroke?: string;//css HEX colours. 
+    fill?: string; //css HEX colours.
+    stroke?: string;//css HEX colours.
     r?: number; // Radius %
-    states?: any; // HTML element states eg: hover, with css attributes in object. 
-    display?: string; // css attr eg: 'none' 
+    states?: any; // HTML element states eg: hover, with css attributes in object.
+    display?: string; // css attr eg: 'none'
 }
 
 interface HighchartsChartOptions {
