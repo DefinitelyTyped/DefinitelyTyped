@@ -24,7 +24,7 @@ doc.addPage({
 });
 
 doc.addPage({
-    margin: {
+  margin: {
     top: 50,
     bottom: 50,
     left: 72,
