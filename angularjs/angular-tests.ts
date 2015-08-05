@@ -242,6 +242,18 @@ foo.then((x) => {
     x.toFixed();
 });
 
+// $q signature tests
+module TestQ {
+    var $q: ng.IQService;
+    var promise1: ng.IPromise<any>;
+    var promise2: ng.IPromise<any>;
+
+    // $q.all
+    $q.all([promise1, promise2]).then((results: any[]) => {});
+    $q.all<number>([promise1, promise2]).then((results: number[]) => {});
+    $q.all({a: promise1, b: promise2}).then((results: {[id: string]: any;}) => {});
+    $q.all<{a: number; b: string;}>({a: promise1, b: promise2}).then((results: {a: number; b: string;}) => {});
+}
 
 var httpFoo: ng.IHttpPromise<number>;
 httpFoo.then((x) => {

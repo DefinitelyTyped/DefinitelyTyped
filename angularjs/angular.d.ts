@@ -1006,7 +1006,7 @@ declare module angular {
          *
          * @param promises An array of promises.
          */
-        all(promises: IPromise<any>[]): IPromise<any[]>;
+        all<T>(promises: IPromise<any>[]): IPromise<T[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1015,6 +1015,7 @@ declare module angular {
          * @param promises A hash of promises.
          */
         all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
+        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
