@@ -47,11 +47,15 @@ function test_defauluts() {
         timeout: 650,
         push: true,
         replace: false,
+        maxCacheLength: 20,
+        version: $.noop,
+        scrollTo: 0,
         type: 'GET',
         dataType: 'html',
-        scrollTo: 0,
-        maxCacheLength: 20,
-        version: $.noop
+        container: "#pjax-container",
+        url: "https://jquery.com/",
+        target: "https://jquery.com/",
+        fragment: "#pjax-response",
     };
 }
 
