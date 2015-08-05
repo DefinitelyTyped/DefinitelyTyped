@@ -5654,6 +5654,36 @@ declare module _ {
             ...args: any[]): Function;
     }
 
+    //_.rearg
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with arguments arranged according to the specified indexes where the
+         * argument value at the first index is provided as the first argument, the argument value at the second index
+         * is provided as the second argument, and so on.
+         * @param func The function to rearrange arguments for.
+         * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
+         * @return Returns the new function.
+         */
+        rearg<TResult extends Function>(func: Function, indexes: number[]): TResult;
+
+        /**
+         * @see _.rearg
+         */
+        rearg<TResult extends Function>(func: Function, ...indexes: number[]): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.rearg
+         */
+        rearg<TResult extends Function>(indexes: number[]): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.rearg
+         */
+        rearg<TResult extends Function>(...indexes: number[]): LoDashObjectWrapper<TResult>;
+    }
+
     //_.restParam
     interface LoDashStatic {
         /**

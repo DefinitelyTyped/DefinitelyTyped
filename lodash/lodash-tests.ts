@@ -977,6 +977,16 @@ var optionsPartialRight = {
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
+//_.rearg
+var testReargFn = (a: string, b: string, c: string) => [a, b, c];
+interface TestReargResultFn {
+    (b: string, c: string, a: string): string[];
+}
+result = <string[]>(_.rearg<TestReargResultFn>(testReargFn, 2, 0, 1))('b', 'c', 'a');
+result = <string[]>(_.rearg<TestReargResultFn>(testReargFn, [2, 0, 1]))('b', 'c', 'a');
+result = <string[]>(_(testReargFn).rearg<TestReargResultFn>(2, 0, 1).value())('b', 'c', 'a');
+result = <string[]>(_(testReargFn).rearg<TestReargResultFn>([2, 0, 1]).value())('b', 'c', 'a');
+
 //_.restParam
 var testRestParamFn = (a: string, b: string, c: number[]) => a + ' ' + b + ' ' + c.join(' ');
 interface testRestParamFunc {
