@@ -210,7 +210,7 @@ declare module PageJS {
 
 declare module "page" {
     var page: PageJS.Static;
-    export = page;
+    export default page;
 }
 
 declare var page: PageJS.Static;

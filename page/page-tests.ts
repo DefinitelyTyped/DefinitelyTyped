@@ -1,6 +1,6 @@
 ﻿/// <reference path="page.d.ts" />
 
-import page = require("page");
+import page from "page";
 
 //***********************************************************************
 // Basic Example
