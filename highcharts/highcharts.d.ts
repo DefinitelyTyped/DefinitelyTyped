@@ -191,11 +191,11 @@ interface HighchartsChartResetZoomButton {
 }
 
 interface HighchartsChartResetZoomButtonTheme {
-    fill?: string; //css HEX colours. 
-    stroke?: string;//css HEX colours. 
+    fill?: string; //css HEX colours.
+    stroke?: string;//css HEX colours.
     r?: number; // Radius %
-    states?: any; // HTML element states eg: hover, with css attributes in object. 
-    display?: string; // css attr eg: 'none' 
+    states?: any; // HTML element states eg: hover, with css attributes in object.
+    display?: string; // css attr eg: 'none'
 }
 
 interface HighchartsChartOptions {
@@ -1301,7 +1301,7 @@ interface HighchartsSeriesObject {
     remove(redraw?: boolean): void;
     select(selected?: boolean): void;
     selected: boolean;
-    setData(data: number[] | number[][] | HighchartsDataPoint[], redraw?: boolean, animation?: boolean | HighchartsAnimation, updatePoints?: boolean);
+    setData(data: number[] | number[][] | HighchartsDataPoint[], redraw?: boolean, animation?: boolean | HighchartsAnimation, updatePoints?: boolean): void;
     setVisible(visible: boolean, redraw?: boolean): void;
     show(): void;
     type: string;
