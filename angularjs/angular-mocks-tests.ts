@@ -384,6 +384,7 @@ requestHandler = httpBackendService.whenPUT((url: string) => { return true; }, {
 ///////////////////////////////////////
 // IRequestHandler
 ///////////////////////////////////////
+var expectedData = { key: 'value'};
 requestHandler.passThrough();
 requestHandler.passThrough().passThrough();
 requestHandler.respond((method, url, data, headers) => [404, 'data', { header: 'value' }, 'responseText']);
@@ -391,6 +392,7 @@ requestHandler.respond((method, url, data, headers) => [404, 'data', { header: '
 requestHandler.respond((method, url, data, headers) => { return [404, { key: 'value' }, { header: 'value' }, 'responseText']; });
 requestHandler.respond('data');
 requestHandler.respond('data').respond({});
+requestHandler.respond(expectedData);
 requestHandler.respond({ key: 'value' });
 requestHandler.respond({ key: 'value' }, { header: 'value' });
 requestHandler.respond({ key: 'value' }, { header: 'value' }, 'responseText');
