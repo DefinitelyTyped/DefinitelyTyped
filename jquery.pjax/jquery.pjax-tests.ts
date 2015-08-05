@@ -54,7 +54,7 @@ function test_defauluts() {
         dataType: 'html',
         container: "#pjax-container",
         url: "https://jquery.com/",
-        target: "https://jquery.com/",
+        target: <EventTarget>undefined,
         fragment: "#pjax-response",
     };
 }
