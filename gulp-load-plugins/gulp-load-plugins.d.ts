@@ -30,7 +30,7 @@ declare module 'gulp-load-plugins' {
 	}
 	
 	/** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */
-	function gulpLoadPlugins(options?: IOptions): IGulpPlugins;
+	function gulpLoadPlugins<T extends IGulpPlugins>(options?: IOptions): T;
 	
 	export = gulpLoadPlugins;
 }
