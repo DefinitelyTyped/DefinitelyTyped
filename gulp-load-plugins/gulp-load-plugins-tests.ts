@@ -11,7 +11,7 @@ interface GulpPlugins extends IGulpPlugins {
 	concat: typeof gulpConcat;
 }
 
-var plugins = <GulpPlugins>gulpLoadPlugins({
+var plugins = gulpLoadPlugins<GulpPlugins>({
     pattern: ['gulp-*', 'gulp.*'],
     config: 'package.json',
     scope: ['dependencies', 'devDependencies', 'peerDependencies'],
@@ -20,7 +20,7 @@ var plugins = <GulpPlugins>gulpLoadPlugins({
     lazy: true,
     rename: {}
 });
-plugins = <GulpPlugins>gulpLoadPlugins();
+plugins = gulpLoadPlugins<GulpPlugins>();
 
 gulp.task('taskName', () => {
 	gulp.src('*.*')
@@ -33,7 +33,7 @@ gulp.task('taskName', () => {
  * imagine you want to load the  gulp-ruby-sass  plugin, but want to refer to it as just 
  *  sass :
  */
-plugins = <GulpPlugins>gulpLoadPlugins({
+plugins = gulpLoadPlugins<GulpPlugins>({
 	rename: {
 		'gulp-ruby-sass': 'sass'
 	}
