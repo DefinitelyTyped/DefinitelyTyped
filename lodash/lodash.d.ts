@@ -5678,6 +5678,25 @@ declare module _ {
         restParam<TResult extends Function>(start?: number): LoDashObjectWrapper<TResult>;
     }
 
+    //_.spread
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with the this binding of the created function and an array of arguments
+         * much like Function#apply.
+         * @param func The function to spread arguments over.
+         * @return Returns the new function.
+         */
+        spread<TResult extends Function>(func: Function): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.spread
+         */
+        spread<TResult extends Function>(): LoDashObjectWrapper<TResult>;
+    }
+
+
     //_.throttle
     interface LoDashStatic {
         /**
