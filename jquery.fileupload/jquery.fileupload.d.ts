@@ -8,6 +8,11 @@
 // Interface options for the plugin 
 interface JQueryFileInputOptions {
 
+    /**
+     * The type of data that is expected back from the server.
+     */
+    dataType?: string;
+
 	// The drop target element(s), by the default the complete document.
     // Set to null to disable drag & drop support:
     dropZone?: HTMLElement;
