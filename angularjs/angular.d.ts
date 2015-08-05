@@ -1604,7 +1604,7 @@ declare module angular {
 
     interface IDirective {
         compile?: IDirectiveCompileFn;
-        controller?: {};
+        controller?: any;
         controllerAs?: string;
         bindToController?: boolean|Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
