@@ -1148,7 +1148,7 @@ declare module Vex {
         }
         
         class TabTie extends StaveTie {
-            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, text : string);
+            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, text? : string);
             createHammeron(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}) : TabTie;
             createPulloff(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}) : TabTie;
             draw() : boolean;
