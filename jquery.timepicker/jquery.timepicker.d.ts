@@ -22,6 +22,17 @@ interface TimePickerOptions {
     
     /**     * 'button' element that will trigger the timepicker.     *     * "button" for trigger button, or "both" for either (not yet implemented).     */    button?: string;
 
+    // Localization
+
+    /** Define the locale text for "Hours" */
+    hourText?: string;
+
+    /** Define the locale text for "Minute" */
+    minuteText?: string;
+
+    /** Define the locale text for periods. */
+    amPmText?: [string, string];
+
     /** Name of jQuery animation for popup */    showAnim?: string;
     /** Options for enhanced animations */    showOptions?: any;
     /** Display text following the input box, e.g. showing the format */    appendText?: string;
@@ -56,8 +67,19 @@ interface TimePickerOptions {
 
     // buttons
     /** shows an OK button to confirm the edit */    showCloseButton?: boolean;
+
+    /** Text for the confirmation button (ok button).*/
+    closeButtonText?: string;
+
     /** Shows the 'now' button */    showNowButton?: boolean;
+
+    /** Text for the 'now' button.*/
+    nowButtonText?: string;
+
     /** Shows the deselect time button */    showDeselectButton?: boolean;
+
+    /** Text for the deselect button */
+    deselectButtonText?: string;
 }
 
 
