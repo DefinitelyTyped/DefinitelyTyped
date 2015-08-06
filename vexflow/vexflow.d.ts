@@ -1155,15 +1155,15 @@ declare module Vex {
         }
         
         export module TextBracket {
-            enum Position {TOP, BOTTOM}
+            const enum Positions {TOP, BOTTOM}
         }
         
         class TextBracket {
-            constructor(bracket_data : {start : Note, stop : Note, text? : string, superscript? : string, position : TextBracket.Position});
+            constructor(bracket_data : {start : Note, stop : Note, text? : string, superscript? : string, position? : TextBracket.Positions});
             static DEBUG : boolean;
             applyStyle(context : IRenderContext) : TextBracket;
             setDashed(dashed : boolean, dash? : number[]) : TextBracket;
-            setFont(family : string, size : number, weight? : number) : TextBracket;
+            setFont({family : string, size : number, weight : string}) : TextBracket;
             setContext(context : IRenderContext) : TextBracket;
             setLine(line : number) : TextBracket;
             draw() : void;
