@@ -808,7 +808,7 @@ declare module Vex {
         }
         
         export module StaveConnector {
-            enum type {SINGLE_RIGHT, SINGLE_LEFT, SINGLE, DOUBLE, BRACE, BRACKET, BOLD_DOUBLE_LEFT, BOLD_DOUBLE_RIGHT, THIN_DOUBLE}
+            const enum type {SINGLE_RIGHT, SINGLE_LEFT, SINGLE, DOUBLE, BRACE, BRACKET, BOLD_DOUBLE_LEFT, BOLD_DOUBLE_RIGHT, THIN_DOUBLE}
         }
         
         class StaveConnector {
@@ -816,7 +816,7 @@ declare module Vex {
             setContext(ctx : IRenderContext) : StaveConnector;
             setType(type : StaveConnector.type) : StaveConnector;
             setText(text : string, text_options? : {shift_x? : number, shift_y? : number}) : StaveConnector;
-            setFont(font : {family? : string, size? : number, weight? : string}) : StaveConnector;
+            setFont(font : {family? : string, size? : number, weight? : string}) : void; //inconsistent type: void -> StaveConnector
             setXShift(x_shift : number) : StaveConnector;
             draw() : void;
             drawBoldDoubleLine(ctx : Object, type : StaveConnector.type, topX : number, topY : number, botY : number) : void;
