@@ -838,8 +838,8 @@ declare module Vex {
         }
         
         export module StaveLine {
-            enum TextVerticalPosition {TOP, BOTTOM}
-            enum TextJustification {LEFT, CENTER, RIGHT}
+            const enum TextVerticalPosition {TOP, BOTTOM}
+            const enum TextJustification {LEFT, CENTER, RIGHT}
         }
         
         class StaveLine {
