@@ -945,7 +945,7 @@ declare module Vex {
         class StaveTempo extends StaveModifier {
             constructor(tempo : {name? : string, duration : string, dots : number, bpm : number}, x : number, shift_y : number);
             getCategory() : string;
-            setTempo(tempo : {name : string, duration : string, dots : number, bpm : number}) : StaveTempo;
+            setTempo(tempo : {name? : string, duration : string, dots : number, bpm : number}) : StaveTempo;
             setShiftX(x : number) : StaveTempo;
             setShiftY(y : number) : StaveTempo;
             draw(stave : Stave, shift_x : number) : StaveTempo;
