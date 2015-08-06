@@ -1151,7 +1151,7 @@ declare module Vex {
             setStave(stave : Stave) : Note;
             getModifierStartXY() : {x : number, y : number};
             
-            constructor(tab_struct : {positions : {str : number, fret : number}[], type? : string, dots? : number, duration : string, stem_direction? : boolean}, draw_stem : boolean);
+            constructor(tab_struct : {positions : {str : number, fret : number}[], type? : string, dots? : number, duration : string, stem_direction? : boolean}, draw_stem? : boolean);
             getCategory() : string;
             setGhost(ghost : boolean) : TabNote;
             hasStem() : boolean;
