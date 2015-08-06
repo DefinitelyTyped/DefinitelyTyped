@@ -1351,7 +1351,7 @@ declare module Vex {
         }
         
         export module Volta {
-            enum type {NONE, BEGIN, MID, END, BEGIN_END}
+            const enum type {NONE, BEGIN, MID, END, BEGIN_END}
         }
         
         class Volta extends StaveModifier {
