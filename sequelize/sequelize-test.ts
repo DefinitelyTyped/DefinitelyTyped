@@ -19,7 +19,7 @@ var Task      = s.define<AnyInstance, AnyAttributes>( 'task', {} );
 var Group     = s.define<AnyInstance, AnyAttributes>( 'group', {} );
 var Comment   = s.define<AnyInstance, AnyAttributes>( 'comment', {} );
 var Post      = s.define<AnyInstance, AnyAttributes>( 'post', {} );
-var t         = null;
+var t : Sequelize.Transaction = null;
 s.transaction().then( ( a ) => t = a );
 
 //
@@ -319,11 +319,11 @@ new s.ConnectionTimedOutError( new Error( 'original connection error message' ) 
 //  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/hooks.test.js
 //
 
-User.addHook( 'afterCreate', function( instance, options, next ) { next(); } );
-User.addHook( 'afterCreate', 'myHook', function( instance, options, next ) { next(); } );
-s.addHook( 'beforeInit', function( config, options ) { } );
-User.hook( 'afterCreate', 'myHook', function( instance, options, next ) { next(); } );
-User.hook( 'afterCreate', 'myHook', function( instance, options, next ) { next(); } );
+User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
+User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+s.addHook( 'beforeInit', function( config : Object, options : Object ) { } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
 
 User.removeHook( 'afterCreate', 'myHook' );
 
@@ -477,10 +477,10 @@ user.update( { username : 'userman' }, { silent : true } );
 user.update( { username : 'yolo' }, { logging : function() { } } );
 user.update( { username : 'bar' }, { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
 user.updateAttributes( { a : 3 } ).then( ( p ) => p );
-user.updateAttributes( { a : 3 }, { fields : ['secretValue'], logging : function( sql ) {} } );
+user.updateAttributes( { a : 3 }, { fields : ['secretValue'], logging : function(  ) {} } );
 
 user.destroy().then( ( p ) => p );
-user.destroy( { logging : function( sql ) {} } );
+user.destroy( { logging : function(  ) {} } );
 user.destroy( { transaction : t } ).then( ( p ) => p );
 
 user.restore();
@@ -519,7 +519,7 @@ User.sync( { force : true, logging : function() { } } );
 User.drop();
 
 User.schema( 'special' );
-User.schema( 'special' ).create( { age : 3 }, { logging : function( UserSpecial ) {} } );
+User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
 
 User.getTableName();
 
@@ -570,7 +570,7 @@ User.findById( 'a string' );
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
-User.findOne( { where : { username : 'foo' }, logging : function( sql ) { } } );
+User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
 User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
@@ -601,15 +601,15 @@ User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, 
 
 User.max( 'age', { transaction : t } );
 User.max( 'age' );
-User.max( 'age', { logging : function( sql ) { } } );
+User.max( 'age', { logging : function(  ) { } } );
 
 User.min( 'age', { transaction : t } );
 User.min( 'age' );
-User.min( 'age', { logging : function( sql ) { } } );
+User.min( 'age', { logging : function(  ) { } } );
 
 User.sum( 'order' );
 User.sum( 'age', { where : { 'gender' : 'male' } } );
-User.sum( 'age', { logging : function( sql ) { } } );
+User.sum( 'age', { logging : function(  ) { } } );
 
 User.build( { username : 'John Wayne' } ).save();
 User.build();
@@ -622,7 +622,7 @@ User.create( {}, { returning : true } );
 User.create( { intVal : s.literal( 'CAST(1-2 AS' ) } );
 User.create( { secretValue : s.fn( 'upper', 'sequelize' ) } );
 User.create( { myvals : [1, 2, 3, 4], mystr : ['One', 'Two', 'Three', 'Four'] } );
-User.create( { name : 'Fluffy Bunny', smth : 'else' }, { logging : function( sql ) {} } );
+User.create( { name : 'Fluffy Bunny', smth : 'else' }, { logging : function(  ) {} } );
 User.create( {}, { fields : [] } );
 User.create( { name : 'Yolo Bear', email : 'yolo@bear.com' }, { fields : ['name'] } );
 User.create( { title : 'Chair', User : { first_name : 'Mick', last_name : 'Broadstone' } }, { include : [User] } );
@@ -637,7 +637,7 @@ User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' 
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
 User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
-User.findOrCreate( { where : { a : 'b' }, logging : function( sql ) { } } );
+User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
 User.findOrCreate( { where : { username : 'Username' }, defaults : { data : 'some data' }, transaction : t } );
 User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults : { username : 'gottlieb' } } );
 User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
@@ -790,7 +790,7 @@ s.model( 'pp' );
 s.query( '', { raw : true } );
 s.query( '' );
 s.query( '' ).then( function( res ) {} );
-s.query( '' ).spread( function( a ) {}, function( b ) {} );
+s.query( '' ).spread( function(  ) {}, function( b ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
