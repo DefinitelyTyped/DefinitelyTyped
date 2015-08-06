@@ -452,7 +452,7 @@ declare module Vex {
         
         class Glyph {
             constructor(code : string, point : number, options? : {cache? : boolean, font? : IFont});
-            setOptions(options? : {cache? : boolean, font? : IFont}) : void;
+            setOptions(options : {cache? : boolean, font? : IFont}) : void;
             setStave(stave : Stave) : Glyph;
             setXShift(x_shift : number) : Glyph;
             setYShift(y_shift : number) : Glyph;
