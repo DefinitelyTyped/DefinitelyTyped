@@ -823,16 +823,17 @@ declare module Vex {
         }
         
         export module StaveHairpin {
-            enum type {CRESC, DECRESC}
+            const enum type {CRESC, DECRESC}
         }
         
         class StaveHairpin {
             constructor(notes : {first_note : Note, last_note : Note}, type : StaveHairpin.type);
-            static FormatByTicksAndDraw(ctx : IRenderContext, formatter : Formatter, notes : Note[], type : StaveHairpin.type, position : Modifier.Position, options? : {height? : number, y_shift : number, left_shift_px : number, right_shift_px : number}) : void;
+            static FormatByTicksAndDraw(ctx : IRenderContext, formatter : Formatter, notes : {first_note : Note, last_note : Note}, type : StaveHairpin.type, position : Modifier.Position, options? : {height : number, y_shift : number, left_shift_ticks : number, right_shift_ticks : number}) : void;
             setContext(context : IRenderContext) : StaveHairpin;
             setPosition(position : Modifier.Position) : StaveHairpin;
             setRenderOptions(options : {height? : number, y_shift : number, left_shift_px : number, right_shift_px : number}) : StaveHairpin;
             setNotes(notes : {first_note : Note, last_note : Note}) : StaveHairpin;
+            renderHairpin(params : {first_x : number, last_x : number, first_y : number, last_y : number, staff_height : number}) : void;
             draw() : boolean;
         }
         
