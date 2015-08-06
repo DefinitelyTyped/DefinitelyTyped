@@ -976,13 +976,14 @@ declare module Vex {
             draw() : boolean;
         }
         
+        module Stem {
+            const UP : number;
+            const DOWN : number;
+        }
+        
         class Stem {
             constructor(options : {x_begin? : number, x_end? : number, y_top? : number, y_bottom? : number, y_extend? : number, stem_extension? : number, stem_direction? : number});
             static DEBUG : boolean;
-            static UP : number;
-            static DOWN : number;
-            static WIDTH : number;
-            static HEIGHT : number;
             setNoteHeadXBounds(x_begin : number, x_end : number) : Stem;
             setDirection(direction : number) : void;
             setExtension(extension : number) : void;
@@ -996,6 +997,9 @@ declare module Vex {
             getStyle() : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string};
             applyStyle(context : IRenderContext) : Stem;
             draw() : void;
+            
+            //inconsistent API: this should be set via the options object in the constructor
+            hide : boolean;
         }
         
         class StemmableNote extends Note {
