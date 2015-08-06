@@ -1410,7 +1410,7 @@ result = <string>_.template('<% print("hello " + name); %>!', { 'name': 'larry' 
 
 var listTemplate = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
 result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
-result = <_.TemplateExecutor>_.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
+result = <_.TemplateExecutor>_.template('hello <%= name %>', null, /*sourceURL:*/ '/basic/greeting.jst');
 
 result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
 result = <string>(<_.TemplateExecutor>result).source;

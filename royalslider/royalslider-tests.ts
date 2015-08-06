@@ -27,7 +27,7 @@ jQuery(document).ready(function () {
         fullscreen: {
             // fullscreen options go gere
             enabled: true,
-            native: true
+            nativeFS: true
         }
     });
 });
@@ -49,7 +49,7 @@ jQuery(document).ready(function () {
     $(".royalSlider").royalSlider({
         // general options go gere
         autoScaleSlider: true,
-        autoPlay: {
+        autoplay: {
             // autoplay options go gere
             enabled: true,
             pauseOnHover: true
