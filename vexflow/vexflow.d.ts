@@ -883,6 +883,11 @@ declare module Vex {
             addEndModifier() : void;
         }
         
+        module StaveNote {
+            const STEM_UP : number;
+            const STEM_DOWN : number;
+        }
+        
         class StaveNote extends StemmableNote {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes and/or inconsistencies mentioned below are fixed
             buildStem() : StemmableNote;            
@@ -891,11 +896,9 @@ declare module Vex {
             getModifierStartXY() : {x : number, y : number};
             getDots() : number;
 
-            constructor(note_struct : {type? : string, dots? : number, duration : string, clef : string, keys : string[], octave_shift? : number});
+            constructor(note_struct : {type? : string, dots? : number, duration : string, clef? : string, keys : string[], octave_shift? : number, auto_stem? : boolean, stem_direction? : number});
             static CATEGORY : string;
             static DEBUG : boolean;
-            static STEM_UP : number;
-            static STEM_DOWN : number;
             static format(notes : StaveNote[] , state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             static formatByY(notes : StaveNote[] , state : {left_shift : number, right_shift : number, text_line : number}) : void;
             static postFormat(notes : StaveNote[]) : boolean;
