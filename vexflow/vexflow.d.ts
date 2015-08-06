@@ -1209,7 +1209,7 @@ declare module Vex {
             static DEBUG : boolean;
             applyStyle(context : IRenderContext) : TextBracket;
             setDashed(dashed : boolean, dash? : number[]) : TextBracket;
-            setFont({family : string, size : number, weight : string}) : TextBracket;
+            setFont(font : {family : string, size : number, weight : string}) : TextBracket;
             setContext(context : IRenderContext) : TextBracket;
             setLine(line : number) : TextBracket;
             draw() : void;
