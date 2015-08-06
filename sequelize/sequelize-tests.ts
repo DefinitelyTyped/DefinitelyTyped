@@ -214,3 +214,9 @@ promiseMe = myModelInst.decrement({}, incrOpts);
 isBool = myModelInst.equal(myModelInst);
 isBool = myModelInst.equalsOneOf([myModelInst]);
 myModelPojo = myModelInst.toJSON();
+
+var DataTypes: Sequelize.DataTypes = Sequelize;
+DataTypes.STRING(64);
+DataTypes.STRING.BINARY(64);
+DataTypes.CHAR(64);
+DataTypes.CHAR.BINARY(64);

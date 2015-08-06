@@ -2724,6 +2724,7 @@ declare module "sequelize"
         }
 
         interface DataTypeStringBase {
+            (length?: number, binary?: boolean): DataTypeStringBase;
             BINARY: DataTypeString;
         }
         interface DataTypeNumberBase {
