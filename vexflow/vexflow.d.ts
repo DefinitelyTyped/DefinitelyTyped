@@ -755,7 +755,6 @@ declare module Vex {
         
         class Stave {
             constructor(x : number, y : number, width : number, options? : {vertical_bar_width? : number, glyph_spacing_px? : number, num_lines? : number, fill_style? : string, spacing_between_lines_px? : number, space_above_staff_ln? : number, space_below_staff_ln? : number, top_text_position? : number});
-            static THICKNESS : number;
             resetLines() : void;
             setNoteStartX(x : number) : Stave;
             getNoteStartX() : number;
