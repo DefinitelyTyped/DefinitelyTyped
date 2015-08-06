@@ -739,7 +739,7 @@ declare module Vex {
         }
         
         export module Repetition {
-            enum type {NONE, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE}
+            const enum type {NONE, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE}
         }
         
         class Repetition extends StaveModifier {
