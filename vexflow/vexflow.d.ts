@@ -514,7 +514,7 @@ declare module Vex {
         }
         
         export module Modifier {
-            enum Position {LEFT, RIGHT, ABOVE, BELOW}
+            const enum Position {LEFT, RIGHT, ABOVE, BELOW}
         }
         
         class Modifier {
