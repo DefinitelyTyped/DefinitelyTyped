@@ -582,7 +582,23 @@ declare module Vex {
             createScaleMap(keySignature : string) : {[rootName : string] : string};
         }
         
-        class Note extends Tickable {
+        class Note implements Tickable {
+            //from tickable interface:
+            getTicks() : Fraction;
+            getCenterXShift() : number;
+            isCenterAligned() : boolean;
+            setCenterAlignment(align_center : boolean) : Note;
+            getTuplet() : Tuplet;
+            setTuplet(tuplet : Tuplet) : Note;
+            addToModifierContext(mc : ModifierContext) : void;
+            preFormat() : void;
+            postFormat() : Note;
+            getIntrinsicTicks() : Fraction;
+            setIntrinsicTicks(intrinsicTicks : Fraction) : void;
+            getTickMultiplier() : Fraction;
+            applyTickMultiplier(numerator : number, denominator : number) : void;
+            setDuration(duration : Fraction) : void;
+            
             constructor(note_struct : {type? : string, dots? : number, duration : string});
             static CATEGORY : string;
             getPlayNote() : any;
@@ -1190,7 +1206,7 @@ declare module Vex {
             draw() : void;
         }
         
-        class Tickable {
+        interface Tickable {
             setContext(context : IRenderContext) : void;
             getBoundingBox() : BoundingBox;
             getTicks() : Fraction;
