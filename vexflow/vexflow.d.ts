@@ -1178,11 +1178,12 @@ declare module Vex {
         }
         
         export module TextNote {
-            enum Justification {LEFT, CENTER, RIGHT}
+            const enum Justification {LEFT, CENTER, RIGHT}
+            const GLYPHS : {[name : string] : {code : string, point : number, x_shift : number, y_shift : number}}
         }
 
         class TextNote extends Note {
-            constructor(text_struct : {duration : string, text : string, superscript : boolean, subscript : boolean, glyph : string, font? : {family : string, size : number, weight : string}, line? : number, smooth? : boolean, ignore_ticks? : boolean});
+            constructor(text_struct : {duration : string, text? : string, superscript? : boolean, subscript? : boolean, glyph? : string, font? : {family : string, size : number, weight : string}, line? : number, smooth? : boolean, ignore_ticks? : boolean});
             setJustification(just : TextNote.Justification) : TextNote;
             setLine(line : number) : TextNote;
             preFormat() : void;
