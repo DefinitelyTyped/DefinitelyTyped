@@ -152,8 +152,8 @@ declare module Vex {
         }
         
         export module Annotation {
-            enum Justify {LEFT, CENTER, RIGHT, CENTER_STEM}
-            enum VerticalJustify {TOP, CENTER, BOTTOM, CENTER_STEM}
+            const enum Justify {LEFT, CENTER, RIGHT, CENTER_STEM}
+            const enum VerticalJustify {TOP, CENTER, BOTTOM, CENTER_STEM}
         }
         
         class Annotation extends Modifier {
