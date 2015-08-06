@@ -1036,7 +1036,7 @@ declare module Vex {
             static CATEGORY : string;
             static format(nums : StringNumber[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             getNote()  : Note;
-            setNote(note : StaveNote) : StringNumber;
+            setNote(note : StemmableNote) : StringNumber;
             getIndex() : number;
             setIndex(index : number) : StringNumber;
             setLineEndType(leg : Renderer.LineEndType) : StringNumber;
@@ -1045,7 +1045,7 @@ declare module Vex {
             setStringNumber(number : number) : StringNumber;
             setOffsetX(x : number) : StringNumber;
             setOffsetY(y : number) : StringNumber;
-            setLastNote(note : StaveNote) : StringNumber;
+            setLastNote(note : StemmableNote) : StringNumber;
             setDashed(dashed : boolean) : StringNumber;
             draw() : void;
         }
