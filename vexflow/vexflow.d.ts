@@ -188,7 +188,7 @@ declare module Vex {
         }
         
         export module Barline {
-            enum type {SINGLE, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
+            const enum type {SINGLE, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
         }
         
         class Barline extends StaveModifier {
