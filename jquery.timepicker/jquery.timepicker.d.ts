@@ -63,12 +63,12 @@ interface TimePickerOptions {
 
 interface JQuery {
     timepicker(): JQuery;
-    timepicker(options: TimePickerOptions): JQuery;
-    timepicker(methodName: string): any;
     timepicker(methodName: 'getTime'): string;
     timepicker(methodName: 'getTimeAsDate'): Date;
     timepicker(methodName: 'getHour'): number;
     timepicker(methodName: 'getMinute'): number;
+    timepicker(methodName: string): any;
     timepicker(methodName: string, methodParameter: any): any;
     timepicker(optionLiteral: string, optionName: string): any;
+    timepicker(options: TimePickerOptions): JQuery;
 }
