@@ -1240,6 +1240,10 @@ declare module Vex {
             static getNextContext(tContext : TickContext) : TickContext;
         }
         
+        module TimeSignature {
+            const glyphs : {[name : string] : {code : string, point : number, line : number}};
+        }
+        
         class TimeSignature extends StaveModifier {
              //TODO remove the following lines once TypeScript allows subclass overrides with type changes
             addModifier() : void;
