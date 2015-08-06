@@ -88,6 +88,7 @@ declare module JQuerySortable {
 	}
 
 	interface Options extends GroupOptions, ContainerOptions {
+		group?: string;
 	}
 }
 
