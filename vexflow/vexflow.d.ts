@@ -372,10 +372,10 @@ declare module Vex {
         
         class Formatter {
             static DEBUG : boolean;
-            static FormatAndDraw(ctx : IRenderContext, stave : Stave, notes : StaveNote[], params : {auto_beam : boolean, align_rests : boolean}) : BoundingBox; 
-            static FormatAndDraw(ctx : IRenderContext, stave : Stave, notes : StaveNote[], params : boolean) : BoundingBox;
-            static FormatAndDrawTab(ctx : IRenderContext, tabstave : TabStave, stave : Stave, tabnotes : TabNote[], notes : StaveNote[], autobeam : boolean, params : {auto_beam : boolean, align_rests : boolean}) : void;
-            static FormatAndDrawTab(ctx : IRenderContext, tabstave : TabStave, stave : Stave, tabnotes : TabNote[], notes : StaveNote[], autobeam : boolean, params : boolean) : void;
+            static FormatAndDraw(ctx : IRenderContext, stave : Stave, notes : Note[], params : {auto_beam : boolean, align_rests : boolean}) : BoundingBox; 
+            static FormatAndDraw(ctx : IRenderContext, stave : Stave, notes : Note[], params : boolean) : BoundingBox;
+            static FormatAndDrawTab(ctx : IRenderContext, tabstave : TabStave, stave : Stave, tabnotes : TabNote[], notes : Note[], autobeam : boolean, params : {auto_beam : boolean, align_rests : boolean}) : void;
+            static FormatAndDrawTab(ctx : IRenderContext, tabstave : TabStave, stave : Stave, tabnotes : TabNote[], notes : Note[], autobeam : boolean, params : boolean) : void;
             static AlignRestsToNotes(notes : Note[], align_all_notes? : boolean, align_tuplets? : boolean) : Formatter;
             alignRests(voices : Voice[], align_all_notes : boolean) : void;
             preCalculateMinTotalWidth(voices : Voice[]) : number;
