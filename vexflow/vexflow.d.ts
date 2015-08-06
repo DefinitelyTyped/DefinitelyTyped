@@ -346,7 +346,7 @@ declare module Vex {
         }
         
         export module Curve {
-            enum Position {NEAR_HEAD, NEAR_TOP}
+            const enum Position {NEAR_HEAD, NEAR_TOP}
         }
         
         class Curve {
