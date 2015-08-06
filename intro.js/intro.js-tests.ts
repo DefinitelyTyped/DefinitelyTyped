@@ -1,4 +1,4 @@
-/// <reference path="introjs.d.ts" />
+/// <reference path="intro.js.d.ts" />
 
 var intro = introJs();
 
