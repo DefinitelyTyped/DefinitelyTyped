@@ -1275,6 +1275,10 @@ declare module Vex {
             draw() : void;
         }
         
+        module Tuning {
+            const names : {[name : string] : string};
+        }
+        
         class Tuning {
             constructor(tuningString? : string);
             noteToInteger(noteString : string) : number;
