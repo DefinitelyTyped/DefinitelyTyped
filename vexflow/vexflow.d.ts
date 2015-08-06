@@ -966,7 +966,7 @@ declare module Vex {
         }
         
         class StaveTie {
-            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, text : string);
+            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, text? : string);
             setContext(context : IRenderContext) : StaveTie;
             setFont(font : {family : string, size : number, weight : string}) : StaveTie;
             setNotes(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}) : StaveTie;
