@@ -721,8 +721,8 @@ declare module Vex {
         }
         
         export module Renderer {
-            enum Backends {CANVAS, RAPHAEL, SVG, VML}
-            enum LineEndType {NONE, UP, DOWN}
+            const enum Backends {CANVAS, RAPHAEL, SVG, VML}
+            const enum LineEndType {NONE, UP, DOWN}
         }
         
         class Renderer {
