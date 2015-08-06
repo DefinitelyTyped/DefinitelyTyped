@@ -1051,7 +1051,7 @@ declare module Vex {
         }
         
         export module Stroke {
-            enum Type {BRUSH_DOWN, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
+            const enum Type {BRUSH_DOWN, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
         }
         
         class Stroke extends Modifier {
