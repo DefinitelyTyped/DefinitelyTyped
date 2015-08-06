@@ -1318,11 +1318,11 @@ declare module Vex {
         }
         
         export module Voice {
-            enum Mode {STRICT, SOFT, FULL}
+            const enum Mode {STRICT, SOFT, FULL}
         }
         
         class Voice {
-            constructor(time : {num_beats : number, beat_value : number, resolution : number});
+            constructor(time : {num_beats? : number, beat_value? : number, resolution? : number});
             getTotalTicks() : Fraction;
             getTicksUsed() : Fraction;
             getLargestTickWidth() : number;
