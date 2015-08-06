@@ -137,12 +137,15 @@ declare module Vex {
             original_font_information : {postscript_name : string, version_string : string, vendor_url : string, full_font_name : string, font_family_name : string, copyright : string, description : string, trademark : string, designer : string, designer_url : string, unique_font_identifier : string, license_url : string, license_description : string, manufacturer_name : string, font_sub_family_name : string};
         }
         
+        module Accidental {
+            const CATEGORY : string;
+        }
+        
         class Accidental extends Modifier {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setNote(note : Note) : Modifier;
             
             constructor(type : string);
-            static CATEGORY : string;
             static DEBUG : boolean;
             static format(accidentals : Accidental[], state : {left_shift : number, right_shift : number, text_line : number}) : void;
             setNote(note : StaveNote) : void;
@@ -154,11 +157,11 @@ declare module Vex {
         export module Annotation {
             const enum Justify {LEFT, CENTER, RIGHT, CENTER_STEM}
             const enum VerticalJustify {TOP, CENTER, BOTTOM, CENTER_STEM}
+            const CATEGORY : string;
         }
         
         class Annotation extends Modifier {
             constructor(text : string);
-            static CATEGORY : string;
             static DEBUG : boolean;
             static format(annotations : Annotation[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             setTextLine(line : number) : Annotation;
@@ -169,9 +172,12 @@ declare module Vex {
             draw() : void;
         }
         
+        module Articulation {
+            const CATEGORY : string;
+        }
+        
         class Articulation extends Modifier {
             constructor(type : string);
-            static CATEGORY : string;
             static DEBUG : boolean;
             static format(articulations : Articulation[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             draw() : void;
@@ -222,9 +228,12 @@ declare module Vex {
             static generateBeams(notes : StemmableNote[], config? : {groups? : Fraction[], stem_direction? : number, beam_rests? : boolean, beam_middle_only? : boolean, show_stemlets? : boolean, maintain_stem_directions? : boolean}) : Beam[];
         }
         
+        module Bend {
+            const CATEGORY : string;
+        }
+        
         class Bend extends Modifier {
             constructor(text : string, release? : boolean, phrase? : {type : number, text : string, width : number}[]);
-            static CATEGORY : string;
             static UP : number;
             static DOWN : number;
             static format(bends : Bend[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
@@ -359,11 +368,14 @@ declare module Vex {
             draw() : boolean;
         }
         
+        module Dot {
+            const CATEGORY : string;
+        }
+        
         class Dot extends Modifier {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setNote(note : Note) : Dot;
             
-            static CATEGORY : string;
             static format(dots : number, state : {left_shift : number, right_shift : number, text_line : number}) : void;
             setNote(note : Note) : void; //inconsistent type: void -> Dot
             setDotShiftY(y : number) : Dot;
@@ -421,9 +433,12 @@ declare module Vex {
             parse(str : string) : Fraction;
         }
         
+        module FretHandFinger {
+            const CATEGORY : string;
+        }
+        
         class FretHandFinger extends Modifier {
             constructor(number : number);
-            static CATEGORY : string;
             static format(nums : FretHandFinger[], state : {left_shift : number, right_shift : number, text_line : number}) : void;
             getNote() : Note;
             setNote(note : Note) : FretHandFinger;
@@ -474,13 +489,16 @@ declare module Vex {
             draw() : void;
         }
         
+        module GraceNoteGroup {
+            const CATEGORY : string;
+        }
+        
         class GraceNoteGroup extends Modifier {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setWidth(width : number) : Modifier;
             setNote(note : StaveNote) : Modifier;
             
             constructor(grace_notes : GraceNote[], show_slur? : boolean); //inconsistent name: 'show_slur' is called 'config', suggesting object (is boolean)
-            static CATEGORY : string;
             static DEBUG : boolean;
             static format(gracenote_groups : GraceNoteGroup[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             preFormat() : void;
@@ -515,10 +533,10 @@ declare module Vex {
         
         export module Modifier {
             const enum Position {LEFT, RIGHT, ABOVE, BELOW}
+            const CATEGORY : string
         }
         
         class Modifier {
-            static CATEGORY : string;
             static DEBUG : boolean;
             getCategory() : string;
             getWidth() : number;
@@ -582,6 +600,10 @@ declare module Vex {
             createScaleMap(keySignature : string) : {[rootName : string] : string};
         }
         
+        module Note {
+            const CATEGORY : string;
+        }
+        
         class Note implements Tickable {
             //from tickable interface:
             getTicks() : Fraction;
@@ -600,7 +622,6 @@ declare module Vex {
             setDuration(duration : Fraction) : void;
             
             constructor(note_struct : {type? : string, dots? : number, duration : string});
-            static CATEGORY : string;
             getPlayNote() : any;
             setPlayNote(note : any) : Note;
             isRest() : boolean;
@@ -666,9 +687,12 @@ declare module Vex {
             draw() : void;
         }
         
+        module Ornament {
+            const CATEGORY : string;
+        }
+        
         class Ornament extends Modifier {
             constructor(type : string);
-            static CATEGORY : string;
             static DEBUG : boolean;
             static format(ornaments : Ornament[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             setDelayed(delayed : boolean) : Ornament;
@@ -886,6 +910,7 @@ declare module Vex {
         module StaveNote {
             const STEM_UP : number;
             const STEM_DOWN : number;
+            const CATEGORY : string;
         }
         
         class StaveNote extends StemmableNote {
@@ -897,7 +922,6 @@ declare module Vex {
             getDots() : number;
 
             constructor(note_struct : {type? : string, dots? : number, duration : string, clef? : string, keys : string[], octave_shift? : number, auto_stem? : boolean, stem_direction? : number});
-            static CATEGORY : string;
             static DEBUG : boolean;
             static format(notes : StaveNote[] , state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             static formatByY(notes : StaveNote[] , state : {left_shift : number, right_shift : number, text_line : number}) : void;
@@ -1047,12 +1071,15 @@ declare module Vex {
             drawStem(stem_struct : {x_begin? : number, x_end? : number, y_top? : number, y_bottom? : number, y_extend? : number, stem_extension? : number, stem_direction? : number}) : void;
         }
         
+        module StringNumber {
+            const CATEGORY : string;
+        }
+        
         class StringNumber extends Modifier {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setNote(note : Note) : StringNumber;
             
             constructor(number : number);
-            static CATEGORY : string;
             static format(nums : StringNumber[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             getNote()  : Note;
             setNote(note : StemmableNote) : StringNumber;
@@ -1071,11 +1098,11 @@ declare module Vex {
         
         export module Stroke {
             const enum Type {BRUSH_DOWN, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
+            const CATEGORY : string;
         }
         
         class Stroke extends Modifier {
             constructor(type : Stroke.Type, options : {all_voices? : boolean});
-            static CATEGORY : string;
             static format(strokes : Stroke[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             getPosition() : Modifier.Position;
             addEndNote(note : Note) : Stroke;
@@ -1328,8 +1355,11 @@ declare module Vex {
             draw() : void;
         }
         
+        module Vibrato {
+            const CATEGORY : string;
+        }
+        
         class Vibrato extends Modifier {
-            static CATEGORY : string;
             static format(vibratos : Vibrato[], state : {left_shift : number, right_shift : number, text_line : number}, context : ModifierContext) : boolean;
             setHarsh(harsh : boolean) : Vibrato;
             setVibratoWidth(width : number) : Vibrato;
