@@ -1129,10 +1129,13 @@ declare module Vex {
             draw() : void;
         }
         
+        module TabSlide {
+            const SLIDE_UP : number;
+            const SLIDE_DOWN : number;
+        }
+        
         class TabSlide extends TabTie {
-            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, direction : number);
-            static SLIDE_UP : number;
-            static SLIDE_DOWN : number;
+            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, direction? : number);
             static createSlideUp(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}) : TabSlide;
             static createSlideDown(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}) : TabSlide;
             renderTie(params : {first_ys : number[], last_ys : number[], last_x_px : number, first_x_px : number, direction : number}) : void;
