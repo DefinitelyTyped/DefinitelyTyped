@@ -1288,10 +1288,13 @@ declare module Vex {
             getNoteForFret(fretNum : string, stringNum : string) : string; 
         }
         
+        module Tuplet {
+            const LOCATION_TOP : number;
+            const LOCATION_BOTTOM : number;            
+        }
+        
         class Tuplet {
             constructor(notes : StaveNote[], options : {num_notes? : number, beats_occupied? : number});
-            static LOCATION_TOP : number;
-            static LOCATION_BOTTOM : number;
             attach() : void;
             detach() : void;
             setContext(context : IRenderContext) : Tuplet;
