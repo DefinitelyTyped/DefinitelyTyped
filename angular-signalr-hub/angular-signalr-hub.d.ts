@@ -28,7 +28,7 @@ declare module ngSignalr {
 		/**
 		 * Collection of client side callbacks
 		 */
-	    listeners?: { [index: string] : (...args: any[]) => void };
+		listeners?: { [index: string] : (...args: any[]) => void };
 		
 		/**
 		 * String array of server side methods which the client can call
