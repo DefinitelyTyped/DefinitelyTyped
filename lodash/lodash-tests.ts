@@ -958,9 +958,10 @@ result = <TestNegateResult>_.negate<TestNegatePredicate, TestNegateResult>(testN
 result = <TestNegateResult>_(testNegatePredicate).negate().value();
 result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
 
-var initialize = _.once(function () { });
-initialize();
-initialize();
+// _.once
+result = <() => void>_.once<() => void>(function () {});
+result = <() => void>(_(function () {}).once().value());
+
 var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
