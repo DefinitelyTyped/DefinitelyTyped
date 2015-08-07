@@ -89,6 +89,13 @@ class Dog {
 
 var result: any;
 
+// _.MapCache
+var testMapCache: _.MapCache;
+result = <(key: string) => boolean>testMapCache.delete;
+result = <(key: string) => any>testMapCache.get;
+result = <(key: string) => boolean>testMapCache.has;
+result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
+
 /*************
  * Chaining *
  *************/
@@ -909,17 +916,18 @@ var testFlowRightAddFn = (n: number, m: number) => n + m;
 result = <number>_.flowRight<(n: number, m: number) => number>(testFlowRightSquareFn, testFlowRightAddFn)(1, 2);
 result = <number>_(testFlowRightSquareFn).flowRight<(n: number, m: number) => number>(testFlowRightAddFn).value()(1, 2);
 
-var fibonacci = <Function>_.memoize(function (n: any): number {
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-});
-
-var data: { [index: string]: { name: string; age: number; } } = {
-    'moe': { 'name': 'moe', 'age': 40 },
-    'curly': { 'name': 'curly', 'age': 60 }
-};
-
-var stooge = _.memoize(function (name: string) { return data[name]; }, _.identity);
-stooge('curly');
+// _.memoize
+var testMemoizedFunction: _.MemoizedFunction;
+result = <_.MapCache>testMemoizedFunction.cache;
+interface TestMemoizedResultFn extends _.MemoizedFunction {
+    (...args: any[]): any;
+}
+var testMemoizeFn: (...args: any[]) => any;
+var testMemoizeResolverFn: (...args: any[]) => any;
+result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn);
+result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, testMemoizeResolverFn);
+result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
+result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
 
 var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
