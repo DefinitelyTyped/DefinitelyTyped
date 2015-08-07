@@ -3,7 +3,7 @@
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../gapi/gapi.d.ts" />
+/// <reference path="../gapi/gapi.client.d.ts" />
 
 declare module gapi.client.youtubeAnalytics {
 
