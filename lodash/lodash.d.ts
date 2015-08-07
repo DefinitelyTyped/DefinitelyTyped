@@ -95,6 +95,40 @@ declare module _ {
     }
 
     /**
+     * Creates a cache object to store key/value pairs.
+     */
+    interface MapCache {
+        /**
+         * Removes `key` and its value from the cache.
+         * @param key The key of the value to remove.
+         * @return Returns `true` if the entry was removed successfully, else `false`.
+         */
+        delete(key: string): boolean;
+
+        /**
+         * Gets the cached value for `key`.
+         * @param key The key of the value to get.
+         * @return Returns the cached value.
+         */
+        get(key: string): any;
+
+        /**
+         * Checks if a cached value for `key` exists.
+         * @param key The key of the entry to check.
+         * @return Returns `true` if an entry for `key` exists, else `false`.
+         */
+        has(key: string): boolean;
+
+        /**
+         * Sets `value` to `key` of the cache.
+         * @param key The key of the value to cache.
+         * @param value The value to cache.
+         * @return Returns the cache object.
+         */
+        set(key: string, value: any): _.Dictionary<any>;
+    }
+
+    /**
     * An object used to flag environments features.
     **/
     interface Support {
@@ -5534,20 +5568,30 @@ declare module _ {
     }
 
     //_.memoize
+    interface MemoizedFunction extends Function {
+        cache: MapCache;
+    }
+
     interface LoDashStatic {
         /**
-        * Creates a function that memoizes the result of func. If resolver is provided it will be
-        * used to determine the cache key for storing the result based on the arguments provided to
-        * the memoized function. By default, the first argument provided to the memoized function is
-        * used as the cache key. The func is executed with the this binding of the memoized function.
-        * The result cache is exposed as the cache property on the memoized function.
-        * @param func Computationally expensive function that will now memoized results.
-        * @param resolver Hash function for storing the result of `fn`.
-        * @return Returns the new memoizing function.
-        **/
-        memoize<T extends Function>(
-            func: T,
-            resolver?: Function): T;
+         * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
+         * storing the result based on the arguments provided to the memoized function. By default, the first argument
+         * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
+         * the this binding of the memoized function.
+         * @param func The function to have its output memoized.
+         * @param resolver The function to resolve the cache key.
+         * @return Returns the new memoizing function.
+         */
+        memoize<TResult extends MemoizedFunction>(
+            func: Function,
+            resolver?: Function): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.memoize
+         */
+        memoize<TResult extends MemoizedFunction>(resolver?: Function): LoDashObjectWrapper<TResult>;
     }
 
     //_.modArgs
