@@ -32,9 +32,9 @@ module ngSignalrTest {
 				methods: ['lock', 'unlock'],
 				
 				// query params sent on initial connection
-		        queryParams:{
-		            'token': 'exampletoken'
-		        },
+				queryParams:{
+				    'token': 'exampletoken'
+				},
 				
 				// handle connection error
 				errorHandler: (message: string) => {
