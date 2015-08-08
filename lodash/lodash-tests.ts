@@ -999,6 +999,14 @@ result = <string>(_.restParam<testRestParamResult, testRestParamFunc>(testRestPa
 result = <string>(_.restParam<testRestParamResult>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
 result = <string>(_(testRestParamFn).restParam<testRestParamResult>(2).value())('a', 'b', 1, 2, 3);
 
+//_.spread
+var testSpreadFn = (who: string, what: string) => who + ' says ' + what;
+interface TestSpreadResultFn {
+    (args: string[]): string;
+}
+result = <string>(_.spread<TestSpreadResultFn>(testSpreadFn))(['fred', 'hello']);
+result = <string>(_(testSpreadFn).spread<TestSpreadResultFn>().value())(['fred', 'hello']);
+
 var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
 
