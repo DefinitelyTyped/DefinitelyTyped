@@ -6507,7 +6507,6 @@ declare module SP {
             static getTaxonomySession(context: SP.ClientContext): TaxonomySession;
             get_offlineTermStoreNames(): string[];
             get_termStores(): TermStoreCollection;
-            getTerms(termLabel: string, trimUnavailable: boolean): TermCollection;
             getTerms(labelMatchInformation: LabelMatchInformation): TermCollection;
             updateCache(): void;
             getTerm(guid: SP.Guid): Term;
