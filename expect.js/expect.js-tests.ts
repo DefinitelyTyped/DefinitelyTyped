@@ -9,6 +9,7 @@ function test_expect() {
 }
 
 function test_expect_properties() {
+	console.log('Typ'+expect(0));
     expect(0).be.an;
     expect(0).have.own;
     expect(0).not.be.an;
