@@ -89,6 +89,13 @@ class Dog {
 
 var result: any;
 
+// _.MapCache
+var testMapCache: _.MapCache;
+result = <(key: string) => boolean>testMapCache.delete;
+result = <(key: string) => any>testMapCache.get;
+result = <(key: string) => boolean>testMapCache.has;
+result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
+
 /*************
  * Chaining *
  *************/
@@ -354,10 +361,22 @@ result = <{ x: number; }[]>_([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }]).unique('x').v
 
 result = <number[]>_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
 
-result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10]);
-result = <number[]>_.xor([1, 2, 3, 4, 5], [5, 2, 10], [4, 5, 6]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10]);
-result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4, 5]).xor([5, 2, 10], [4, 5, 6]);
+// _.xor
+var testXorArray: number[];
+var testXorList: _.List<number>;
+result = <number[]>_.xor<number>();
+result = <number[]>_.xor<number>(testXorArray);
+result = <number[]>_.xor<number>(testXorArray, testXorArray);
+result = <number[]>_.xor<number>(testXorArray, testXorArray, testXorArray);
+result = <number[]>_.xor<number>(testXorList);
+result = <number[]>_.xor<number>(testXorList, testXorList);
+result = <number[]>_.xor<number>(testXorList, testXorList, testXorList);
+result = <number[]>(_(testXorArray).xor().value());
+result = <number[]>(_(testXorArray).xor(testXorArray).value());
+result = <number[]>(_(testXorArray).xor(testXorArray, testXorArray).value());
+result = <number[]>(_(testXorList).xor().value());
+result = <number[]>(_(testXorList).xor(testXorList).value());
+result = <number[]>(_(testXorList).xor(testXorList, testXorList).value());
 
 result = <any[][]>_.zip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
@@ -909,17 +928,18 @@ var testFlowRightAddFn = (n: number, m: number) => n + m;
 result = <number>_.flowRight<(n: number, m: number) => number>(testFlowRightSquareFn, testFlowRightAddFn)(1, 2);
 result = <number>_(testFlowRightSquareFn).flowRight<(n: number, m: number) => number>(testFlowRightAddFn).value()(1, 2);
 
-var fibonacci = <Function>_.memoize(function (n: any): number {
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-});
-
-var data: { [index: string]: { name: string; age: number; } } = {
-    'moe': { 'name': 'moe', 'age': 40 },
-    'curly': { 'name': 'curly', 'age': 60 }
-};
-
-var stooge = _.memoize(function (name: string) { return data[name]; }, _.identity);
-stooge('curly');
+// _.memoize
+var testMemoizedFunction: _.MemoizedFunction;
+result = <_.MapCache>testMemoizedFunction.cache;
+interface TestMemoizedResultFn extends _.MemoizedFunction {
+    (...args: any[]): any;
+}
+var testMemoizeFn: (...args: any[]) => any;
+var testMemoizeResolverFn: (...args: any[]) => any;
+result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn);
+result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, testMemoizeResolverFn);
+result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
+result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
 
 var returnedMemoize = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedMemoize(4);
@@ -958,9 +978,10 @@ result = <TestNegateResult>_.negate<TestNegatePredicate, TestNegateResult>(testN
 result = <TestNegateResult>_(testNegatePredicate).negate().value();
 result = <TestNegateResult>_(testNegatePredicate).negate<TestNegateResult>().value();
 
-var initialize = _.once(function () { });
-initialize();
-initialize();
+// _.once
+result = <() => void>_.once<() => void>(function () {});
+result = <() => void>(_(function () {}).once().value());
+
 var returnedOnce = _.throttle(function (a: any) { return a * 5; }, 5);
 returnedOnce(4);
 
@@ -977,6 +998,16 @@ var optionsPartialRight = {
 
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
+//_.rearg
+var testReargFn = (a: string, b: string, c: string) => [a, b, c];
+interface TestReargResultFn {
+    (b: string, c: string, a: string): string[];
+}
+result = <string[]>(_.rearg<TestReargResultFn>(testReargFn, 2, 0, 1))('b', 'c', 'a');
+result = <string[]>(_.rearg<TestReargResultFn>(testReargFn, [2, 0, 1]))('b', 'c', 'a');
+result = <string[]>(_(testReargFn).rearg<TestReargResultFn>(2, 0, 1).value())('b', 'c', 'a');
+result = <string[]>(_(testReargFn).rearg<TestReargResultFn>([2, 0, 1]).value())('b', 'c', 'a');
+
 //_.restParam
 var testRestParamFn = (a: string, b: string, c: number[]) => a + ' ' + b + ' ' + c.join(' ');
 interface testRestParamFunc {
@@ -988,6 +1019,14 @@ interface testRestParamResult {
 result = <string>(_.restParam<testRestParamResult, testRestParamFunc>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
 result = <string>(_.restParam<testRestParamResult>(testRestParamFn, 2))('a', 'b', 1, 2, 3);
 result = <string>(_(testRestParamFn).restParam<testRestParamResult>(2).value())('a', 'b', 1, 2, 3);
+
+//_.spread
+var testSpreadFn = (who: string, what: string) => who + ' says ' + what;
+interface TestSpreadResultFn {
+    (args: string[]): string;
+}
+result = <string>(_.spread<TestSpreadResultFn>(testSpreadFn))(['fred', 'hello']);
+result = <string>(_(testSpreadFn).spread<TestSpreadResultFn>().value())(['fred', 'hello']);
 
 var throttled = _.throttle(function () { }, 100);
 jQuery(window).on('scroll', throttled);
@@ -1410,7 +1449,7 @@ result = <string>_.template('<% print("hello " + name); %>!', { 'name': 'larry' 
 
 var listTemplate = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
 result = <string>_.template(listTemplate, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
-result = <_.TemplateExecutor>_.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
+result = <_.TemplateExecutor>_.template('hello <%= name %>', null, /*sourceURL:*/ '/basic/greeting.jst');
 
 result = <_.TemplateExecutor>_.template('hi <%= data.name %>!', null, { 'variable': 'data' });
 result = <string>(<_.TemplateExecutor>result).source;

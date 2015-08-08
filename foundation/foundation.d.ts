@@ -125,7 +125,8 @@ declare module Foundation {
             timer? : string;
             tip? : string;
             wrapper? : string;
-            button? : string;
+            button?: string;
+            prev_button?: string;
             modal? : string;
             expose? : string;
             expose_cover? : string;

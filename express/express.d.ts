@@ -5,7 +5,7 @@
 
 /* =================== USAGE ===================
 
-    import express = require('express');
+    import * as express from "express";
     var app = express();
 
  =============================================== */
@@ -24,8 +24,8 @@ declare module Express {
 
 
 declare module "express" {
-    import http = require('http');
-    import serveStatic = require('serve-static');
+    import * as http from "http";
+    import * as serveStatic from "serve-static";
 
     function e(): e.Express;
 
