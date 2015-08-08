@@ -18,11 +18,11 @@ declare module "usage" {
     keepHistory:boolean;
   }
 
-  export function lookup(pid:number, callback:(err:Error, result:ResultObject) => void);
-  export function lookup(pid:number, options:Options, callback:(err:Error, result:ResultObject) => void);
+  export function lookup(pid:number, callback:(err:Error, result:ResultObject) => void):void;
+  export function lookup(pid:number, options:Options, callback:(err:Error, result:ResultObject) => void):void;
 
   //Only availible on linux
-  export function clearHistory(pid?:number);
+  export function clearHistory(pid?:number):void;
 
 
 }
