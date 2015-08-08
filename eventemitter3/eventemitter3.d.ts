@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module EventEmitter3 {
-    export class EventEmitter {
+    class Base {
         /**
          * Minimal EventEmitter interface that is molded against the Node.js
          * EventEmitter interface.
@@ -81,13 +81,14 @@ declare module EventEmitter3 {
         //
         setMaxListeners(): EventEmitter;
     }
+    export class EventEmitter extends Base { }
     export module EventEmitter {
         //
         // Expose the module.
         //
-        export class EventEmitter extends EventEmitter3.EventEmitter {}
-        export class EventEmitter2 extends EventEmitter3.EventEmitter {}
-        export class EventEmitter3 extends EventEmitter3.EventEmitter {}
+        export class EventEmitter extends Base {}
+        export class EventEmitter2 extends Base {}
+        export class EventEmitter3 extends Base {}
     }
 }
 
