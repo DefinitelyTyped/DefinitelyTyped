@@ -422,9 +422,9 @@ declare module "events" {
 }
 
 declare module "http" {
-    import events = require("events");
-    import net = require("net");
-    import stream = require("stream");
+    import * as events from "events";
+    import * as net from "net";
+    import * as stream from "stream";
 
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
@@ -568,8 +568,8 @@ declare module "http" {
 }
 
 declare module "cluster" {
-    import child  = require("child_process");
-    import events = require("events");
+    import * as child from "child_process";
+    import * as events from "events";
 
     export interface ClusterSettings {
         exec?: string;
@@ -608,7 +608,7 @@ declare module "cluster" {
 }
 
 declare module "zlib" {
-    import stream = require("stream");
+    import * as stream from "stream";
     export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; }
 
     export interface Gzip extends stream.Transform { }
@@ -693,9 +693,9 @@ declare module "os" {
 }
 
 declare module "https" {
-    import tls = require("tls");
-    import events = require("events");
-    import http = require("http");
+    import * as tls from "tls";
+    import * as events from "events";
+    import * as http from "http";
 
     export interface ServerOptions {
         pfx?: any;
@@ -759,8 +759,8 @@ declare module "punycode" {
 }
 
 declare module "repl" {
-    import stream = require("stream");
-    import events = require("events");
+    import * as stream from "stream";
+    import * as events from "events";
 
     export interface ReplOptions {
         prompt?: string;
@@ -777,8 +777,8 @@ declare module "repl" {
 }
 
 declare module "readline" {
-    import events = require("events");
-    import stream = require("stream");
+    import * as events from "events";
+    import * as stream from "stream";
 
     export interface ReadLine extends events.EventEmitter {
         setPrompt(prompt: string, length: number): void;
@@ -812,8 +812,8 @@ declare module "vm" {
 }
 
 declare module "child_process" {
-    import events = require("events");
-    import stream = require("stream");
+    import * as events from "events";
+    import * as stream from "stream";
 
     export interface ChildProcess extends events.EventEmitter {
         stdin:  stream.Writable;
@@ -939,7 +939,7 @@ declare module "dns" {
 }
 
 declare module "net" {
-    import stream = require("stream");
+    import * as stream from "stream";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -1007,7 +1007,7 @@ declare module "net" {
 }
 
 declare module "dgram" {
-    import events = require("events");
+    import * as events from "events";
 
     interface RemoteInfo {
         address: string;
@@ -1037,8 +1037,8 @@ declare module "dgram" {
 }
 
 declare module "fs" {
-    import stream = require("stream");
-    import events = require("events");
+    import * as stream from "stream";
+    import * as events from "events";
 
     interface Stats {
         isFile(): boolean;
@@ -1476,9 +1476,9 @@ declare module "string_decoder" {
 }
 
 declare module "tls" {
-    import crypto = require("crypto");
-    import net = require("net");
-    import stream = require("stream");
+    import * as crypto from "crypto";
+    import * as net from "net";
+    import * as stream from "stream";
 
     var CLIENT_RENEG_LIMIT: number;
     var CLIENT_RENEG_WINDOW: number;
@@ -1654,7 +1654,7 @@ declare module "crypto" {
 }
 
 declare module "stream" {
-    import events = require("events");
+    import * as events from "events";
 
     export interface Stream extends events.EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
@@ -1819,7 +1819,7 @@ declare module "assert" {
 }
 
 declare module "tty" {
-    import net = require("net");
+    import * as net from "net";
 
     export function isatty(fd: number): boolean;
     export interface ReadStream extends net.Socket {
@@ -1833,7 +1833,7 @@ declare module "tty" {
 }
 
 declare module "domain" {
-    import events = require("events");
+    import * as events from "events";
 
     export class Domain extends events.EventEmitter {
         run(fn: Function): void;

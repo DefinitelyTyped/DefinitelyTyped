@@ -13,6 +13,7 @@ import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
 import DragDropContext = ReactDnd.DragDropContext;
 import HTML5Backend = require('react-dnd/modules/backends/HTML5');
+import TestBackend = require('react-dnd/modules/backends/Test');
 
 // Game Component
 // ----------------------------------------------------------------------
@@ -247,14 +248,18 @@ module Board {
         }
     }
 
-    var DndBoard = DragDropContext(HTML5Backend)(Board);
-    export var create = React.createFactory(DndBoard);
+    export var createWithHTMLBackend = React.createFactory(DragDropContext(HTML5Backend)(Board));
+    export var createWithTestBackend = React.createFactory(DragDropContext(TestBackend)(Board));
 }
-
 
 // Render the Board Component
 // ----------------------------------------------------------------------
 
-Board.create({
+Board.createWithHTMLBackend({
+    knightPosition: [0, 0]
+});
+
+
+Board.createWithTestBackend({
     knightPosition: [0, 0]
 });

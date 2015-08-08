@@ -95,6 +95,40 @@ declare module _ {
     }
 
     /**
+     * Creates a cache object to store key/value pairs.
+     */
+    interface MapCache {
+        /**
+         * Removes `key` and its value from the cache.
+         * @param key The key of the value to remove.
+         * @return Returns `true` if the entry was removed successfully, else `false`.
+         */
+        delete(key: string): boolean;
+
+        /**
+         * Gets the cached value for `key`.
+         * @param key The key of the value to get.
+         * @return Returns the cached value.
+         */
+        get(key: string): any;
+
+        /**
+         * Checks if a cached value for `key` exists.
+         * @param key The key of the entry to check.
+         * @return Returns `true` if an entry for `key` exists, else `false`.
+         */
+        has(key: string): boolean;
+
+        /**
+         * Sets `value` to `key` of the cache.
+         * @param key The key of the value to cache.
+         * @param value The value to cache.
+         * @return Returns the cache object.
+         */
+        set(key: string, value: any): _.Dictionary<any>;
+    }
+
+    /**
     * An object used to flag environments features.
     **/
     interface Support {
@@ -1868,33 +1902,25 @@ declare module _ {
     //_.xor
     interface LoDashStatic {
         /**
-        * Creates an array that is the symmetric difference of the provided arrays.
-        * @param array The array to process
-        * @param others The arrays of values to calculate the symmetric difference.
-        * @return Returns a new array of filtered values.
-        **/
-        xor<T>(
-            array: Array<T>,
-            ...others: Array<T>[]): T[];
-        /**
-        * @see _.xor
-        **/
-        xor<T>(
-            array: List<T>,
-            ...others: List<T>[]): T[];
+         * Creates an array of unique values that is the symmetric difference of the provided arrays.
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of values.
+         */
+        xor<T>(...arrays: List<T>[]): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.xor
-        **/
-        xor(
-            ...others: Array<T>[]): LoDashArrayWrapper<T>;
+         * @see _.xor
+         */
+        xor(...arrays: T[][]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.xor
-        **/
-        xor(
-            ...others: List<T>[]): LoDashArrayWrapper<T>;
+         * @see _.xor
+         */
+        xor(...arrays: T[]): LoDashObjectWrapper<T>;
     }
 
     //_.zip
@@ -5534,20 +5560,30 @@ declare module _ {
     }
 
     //_.memoize
+    interface MemoizedFunction extends Function {
+        cache: MapCache;
+    }
+
     interface LoDashStatic {
         /**
-        * Creates a function that memoizes the result of func. If resolver is provided it will be
-        * used to determine the cache key for storing the result based on the arguments provided to
-        * the memoized function. By default, the first argument provided to the memoized function is
-        * used as the cache key. The func is executed with the this binding of the memoized function.
-        * The result cache is exposed as the cache property on the memoized function.
-        * @param func Computationally expensive function that will now memoized results.
-        * @param resolver Hash function for storing the result of `fn`.
-        * @return Returns the new memoizing function.
-        **/
-        memoize<T extends Function>(
-            func: T,
-            resolver?: Function): T;
+         * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
+         * storing the result based on the arguments provided to the memoized function. By default, the first argument
+         * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
+         * the this binding of the memoized function.
+         * @param func The function to have its output memoized.
+         * @param resolver The function to resolve the cache key.
+         * @return Returns the new memoizing function.
+         */
+        memoize<TResult extends MemoizedFunction>(
+            func: Function,
+            resolver?: Function): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.memoize
+         */
+        memoize<TResult extends MemoizedFunction>(resolver?: Function): LoDashObjectWrapper<TResult>;
     }
 
     //_.modArgs
@@ -5616,13 +5652,20 @@ declare module _ {
     //_.once
     interface LoDashStatic {
         /**
-        * Creates a function that is restricted to execute func once. Repeat calls to the function
-        * will return the value of the first call. The func is executed with the this binding of the
-        * created function.
-        * @param func Function to only execute once.
-        * @return The new restricted function.
-        **/
+         * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
+         * of the first call. The func is invoked with the this binding and arguments of the created function.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
+         */
+
         once<T extends Function>(func: T): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.once
+         */
+        once(): LoDashObjectWrapper<T>;
     }
 
     //_.partial
@@ -5654,6 +5697,36 @@ declare module _ {
             ...args: any[]): Function;
     }
 
+    //_.rearg
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with arguments arranged according to the specified indexes where the
+         * argument value at the first index is provided as the first argument, the argument value at the second index
+         * is provided as the second argument, and so on.
+         * @param func The function to rearrange arguments for.
+         * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
+         * @return Returns the new function.
+         */
+        rearg<TResult extends Function>(func: Function, indexes: number[]): TResult;
+
+        /**
+         * @see _.rearg
+         */
+        rearg<TResult extends Function>(func: Function, ...indexes: number[]): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.rearg
+         */
+        rearg<TResult extends Function>(indexes: number[]): LoDashObjectWrapper<TResult>;
+
+        /**
+         * @see _.rearg
+         */
+        rearg<TResult extends Function>(...indexes: number[]): LoDashObjectWrapper<TResult>;
+    }
+
     //_.restParam
     interface LoDashStatic {
         /**
@@ -5677,6 +5750,25 @@ declare module _ {
          */
         restParam<TResult extends Function>(start?: number): LoDashObjectWrapper<TResult>;
     }
+
+    //_.spread
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes func with the this binding of the created function and an array of arguments
+         * much like Function#apply.
+         * @param func The function to spread arguments over.
+         * @return Returns the new function.
+         */
+        spread<TResult extends Function>(func: Function): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.spread
+         */
+        spread<TResult extends Function>(): LoDashObjectWrapper<TResult>;
+    }
+
 
     //_.throttle
     interface LoDashStatic {
