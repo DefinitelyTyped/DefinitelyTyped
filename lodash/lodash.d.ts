@@ -1902,33 +1902,25 @@ declare module _ {
     //_.xor
     interface LoDashStatic {
         /**
-        * Creates an array that is the symmetric difference of the provided arrays.
-        * @param array The array to process
-        * @param others The arrays of values to calculate the symmetric difference.
-        * @return Returns a new array of filtered values.
-        **/
-        xor<T>(
-            array: Array<T>,
-            ...others: Array<T>[]): T[];
-        /**
-        * @see _.xor
-        **/
-        xor<T>(
-            array: List<T>,
-            ...others: List<T>[]): T[];
+         * Creates an array of unique values that is the symmetric difference of the provided arrays.
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of values.
+         */
+        xor<T>(...arrays: List<T>[]): T[];
     }
 
     interface LoDashArrayWrapper<T> {
         /**
-        * @see _.xor
-        **/
-        xor(
-            ...others: Array<T>[]): LoDashArrayWrapper<T>;
+         * @see _.xor
+         */
+        xor(...arrays: T[][]): LoDashArrayWrapper<T>;
+    }
+
+    interface LoDashObjectWrapper<T> {
         /**
-        * @see _.xor
-        **/
-        xor(
-            ...others: List<T>[]): LoDashArrayWrapper<T>;
+         * @see _.xor
+         */
+        xor(...arrays: T[]): LoDashObjectWrapper<T>;
     }
 
     //_.zip
