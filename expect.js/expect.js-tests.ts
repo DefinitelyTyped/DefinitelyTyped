@@ -8,7 +8,7 @@ function test_expect() {
     expect(0);
 }
 
-function test_expect_properties() {
+function test_expect_properties() {	
     expect(0).be.an;
     expect(0).have.own;
     expect(0).not.be.an;
