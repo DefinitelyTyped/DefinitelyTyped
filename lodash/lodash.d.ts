@@ -5616,13 +5616,20 @@ declare module _ {
     //_.once
     interface LoDashStatic {
         /**
-        * Creates a function that is restricted to execute func once. Repeat calls to the function
-        * will return the value of the first call. The func is executed with the this binding of the
-        * created function.
-        * @param func Function to only execute once.
-        * @return The new restricted function.
-        **/
+         * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
+         * of the first call. The func is invoked with the this binding and arguments of the created function.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
+         */
+
         once<T extends Function>(func: T): T;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.once
+         */
+        once(): LoDashObjectWrapper<T>;
     }
 
     //_.partial
