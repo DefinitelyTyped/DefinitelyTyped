@@ -1,5 +1,6 @@
 // Type definitions for expect.js 0.3.1
 // Project: https://github.com/LearnBoost/expect.js
+// Definitions by: Teppei Sato <https://github.com/teppeis>
 // Definitions by: Robert Urbański <https://github.com/speedy32>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
@@ -262,7 +263,6 @@ declare function expect(typed?: any): e.Assert;
 
 declare module "expect" {
     var expect: e.Expect;
-    //function expect(type?: any): e.Assert;
     export = expect;
 }
 
