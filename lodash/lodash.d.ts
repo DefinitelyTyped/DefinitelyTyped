@@ -4093,6 +4093,124 @@ declare module _ {
             property: string): LoDashArrayWrapper<TResult>;
     }
 
+    //_.partition
+    interface LoDashStatic {
+        /**
+        * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+        * while the second of which contains elements predicate returns falsey for.
+        * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+        *
+        * If a property name is provided for predicate the created _.property style callback
+        * returns the property value of the given element.
+        *
+        * If a value is also provided for thisArg the created _.matchesProperty style callback
+        * returns true for elements that have a matching property value, else false.
+        *
+        * If an object is provided for predicate the created _.matches style callback returns
+        * true for elements that have the properties of the given object, else false.
+        *
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @param thisArg The this binding of predicate.
+        * @return Returns the array of grouped elements.
+        **/
+        partition<T>(
+            collection: Array<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T[][];
+
+        /**
+         * @see _.partition
+         **/
+        partition<T>(
+            collection: List<T>,
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+         * @see _.partition
+         **/
+        partition<T>(
+            collection: Dictionary<T>,
+            callback: DictionaryIterator<T, boolean>,
+            thisArg?: any): T;
+
+        /**
+         * @see _.partition
+         * @param _.matches style callback
+         **/
+        partition<W, T>(
+            collection: Array<T>,
+            whereValue: W): T;
+
+        /**
+         * @see _.partition
+         * @param _.matches style callback
+         **/
+        partition<W, T>(
+            collection: List<T>,
+            whereValue: W): T;
+
+        /**
+         * @see _.partition
+         * @param _.matches style callback
+         **/
+        partition<W, T>(
+            collection: Dictionary<T>,
+            whereValue: W): T;
+
+        /**
+         * @see _.partition
+         * @param _.property style callback
+         **/
+        partition<T>(
+            collection: Array<T>,
+            pluckValue: string): T;
+
+        /**
+         * @see _.partition
+         * @param _.property style callback
+         **/
+        partition<T>(
+            collection: List<T>,
+            pluckValue: string): T;
+
+        /**
+         * @param _.property style callback
+         **/
+        partition<T>(
+            collection: Dictionary<T>,
+            pluckValue: string): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.partition
+         */
+        partition(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T[][]>;
+        /**
+         * @see _.partition
+         * @param _.matches style callback
+         */
+        partition<W>(
+            whereValue: W): LoDashArrayWrapper<T[][]>;
+        /**
+         * @see _.partition
+         * @param _.matchesProperty style callback
+         */
+        partition(
+            path: string,
+            srcValue: any): LoDashArrayWrapper<T[][]>;
+        /**
+         * @see _.partition
+         * @param _.property style callback
+         */
+        partition(
+            pluckValue: string): LoDashArrayWrapper<T[][]>;
+    }
+
     //_.reduce
     interface LoDashStatic {
         /**
