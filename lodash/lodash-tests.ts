@@ -1060,6 +1060,15 @@ result = <boolean>_(1).gte(2);
 result = <boolean>_([]).gte(2);
 result = <boolean>_({}).gte(2);
 
+// _.isMatch
+var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
+result = <boolean>_.isMatch({}, {});
+result = <boolean>_.isMatch({}, {}, testIsMatchCustiomizerFn);
+result = <boolean>_.isMatch({}, {}, testIsMatchCustiomizerFn, {});
+result = <boolean>_({}).isMatch({});
+result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
+result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
+
 // _.lt
 result = <boolean>_.lt(1, 2);
 result = <boolean>_(1).lt(2);

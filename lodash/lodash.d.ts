@@ -5861,6 +5861,33 @@ declare module _ {
         gte(other: any): boolean;
     }
 
+    //_.isMatch
+    interface isMatchCustomizer {
+        (value: any, other: any, indexOrKey?: number|string): boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Performs a deep comparison between object and source to determine if object contains equivalent property
+         * values. If customizer is provided it’s invoked to compare values. If customizer returns undefined
+         * comparisons are handled by the method instead. The customizer is bound to thisArg and invoked with three
+         * arguments: (value, other, index|key).
+         * @param object The object to inspect.
+         * @param source The object of property values to match.
+         * @param customizer The function to customize value comparisons.
+         * @param thisArg The this binding of customizer.
+         * @return Returns true if object is a match, else false.
+         */
+        isMatch(object: Object, source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.isMatch
+         */
+        isMatch(source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
