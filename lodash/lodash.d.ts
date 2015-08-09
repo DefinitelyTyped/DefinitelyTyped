@@ -5908,6 +5908,28 @@ declare module _ {
         toPlainObject(value?: any): Object;
     }
 
+    /********
+     * Math *
+     ********/
+
+    //_.add
+    interface LoDashStatic {
+        /**
+         * Adds two numbers.
+         * @param augend The first number to add.
+         * @param addend The second number to add.
+         * @return Returns the sum.
+         */
+        add(augend: number, addend: number): number;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.add
+         */
+        add(addend: number): number;
+    }
+
     /*************
      * Objects   *
      *************/
