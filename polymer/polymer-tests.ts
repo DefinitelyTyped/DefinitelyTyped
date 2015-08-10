@@ -16,6 +16,10 @@ Polymer({
     prop3: {
       type: Array,
       value: []
+    },
+    prop4: {
+      type: Object,
+      value: {}
     }
   },
 

@@ -11,7 +11,7 @@ declare module polymer {
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?:boolean|number|string|Function|any[];
+    value?:boolean|number|string|Function|any[]|Object;
     reflectToAttributes?:boolean;
     notify?:boolean;
     readOnly?:boolean;
