@@ -21,10 +21,6 @@ declare module Microsoft.Maps.VenueMaps {
         isInDOM(): boolean;
         removeFromDOM(): void;
         setHeight(height: number): void;
-
-        click: (eventArgs: MouseEventArgs) => any;
-        mouseOut: (eventArgs: MouseEventArgs) => any;
-        mouseOver: (eventArgs: MouseEventArgs) => any;
     }
 
     export enum DirectoryGrouping {
@@ -116,12 +112,6 @@ declare module Microsoft.Maps.VenueMaps {
         hide(): void;
         setActiveFloor(floor: string): void;
         show(): void;
-
-        click: (eventArgs: Primitive) => any;
-        close: () => any;
-        footprintclick: (eventArgs: Primitive) => any;
-        mouseout: (eventArgs: Primitive) => any;
-        mouseover: (eventArgs: Primitive) => any;
     }
 
     export interface VenueMapCreationOptions {

@@ -139,27 +139,6 @@ declare module Microsoft.Maps {
         setView(options: ViewOptions): void;
         tryLocationToPixel(locations: Array<Location>, reference?: PixelReference): any;
         tryPixelToLocation(points: Array<Point>, reference?: PixelReference): any;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        copyrightchanged: () => void;
-        dblclick: (eventArgs: MouseEventArgs) => void;
-        imagerychanged: () => void;
-        keydown: (eventArgs: KeyEventArgs) => void;
-        keypress: (eventArgs: KeyEventArgs) => void;
-        keyup: (eventArgs: KeyEventArgs) => void;
-        maptypechanged: () => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mousemove: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        mousewheel: (eventArgs: MouseEventArgs) => void;
-        rightlick: (eventArgs: MouseEventArgs) => void;
-        targetviewchanged: () => void;
-        tiledownloadcomplete: () => void;
-        viewchange: () => void;
-        viewchangeend: () => void;
-        viewchangestart: () => void;
     }
 
     export class MapMode {
@@ -294,10 +273,6 @@ declare module Microsoft.Maps {
         removeAt(index: number): Entity;
         setOptions(options: EntityCollectionOptions): void;
         toString(): string;
-
-        entityAdded: (args: EntityChangeArgs) => any;
-        entityChanged: (args: EntityChangeArgs) => any;
-        entityRemoved: (args: EntityChangeArgs) => any;
     }
 
     export class Infobox {
@@ -325,11 +300,6 @@ declare module Microsoft.Maps {
         setLocation(location: Location): void;
         setOptions(options: InfoboxOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mouseenter: (eventArgs: MouseEventArgs) => void;
-        mouseleave: (eventArgs: MouseEventArgs) => void;
     }
 
     export interface Action {
@@ -378,15 +348,6 @@ declare module Microsoft.Maps {
         setLocations(locations: Array<Location>): void;
         setOptions(options: PolylineOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        dblclick: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
     }
 
     export interface PolylineOptions {
@@ -410,15 +371,6 @@ declare module Microsoft.Maps {
         setLocations(locations: Location[]): void;
         setOptions(options: PolylineOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        dbclick: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
     }
 
     export interface PolygonOptions {
@@ -446,18 +398,6 @@ declare module Microsoft.Maps {
         setLocation(location: Location): void;
         setOptions(options: PushpinOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        dblclick: (eventArgs: MouseEventArgs) => void;
-        drag: (object: Pushpin) => any;
-        dragend: (eventArgs: MouseEventArgs) => void;
-        dragstart: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (object: { entity: Entity; }) => any;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
     }
 
     export enum EntityState {
