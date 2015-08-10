@@ -4,10 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "diff-match-patch" {
-    interface Diff {
-    	0: number;
-    	1: string;
-    }
+    type Diff = [number, string];
 
     export class DiffMatchPatch {
     	Diff_Timeout: number;
