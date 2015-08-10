@@ -3,8 +3,8 @@
 // Definitions by: Lars Klein <https://github.com/lhk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare function Mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:(num:number)=>number):Mina.AnimationDescriptor;
-declare module Mina {
+declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:(num:number)=>number):mina.AnimationDescriptor;
+declare module mina {
     export interface MinaAnimation {
         id: string;
         duration: Function;
@@ -73,13 +73,13 @@ declare module Snap {
 	export function selectAll(query:string):any;
 	export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
 	
-	export function animate(from:number,to:number,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):Mina.MinaAnimation;
-	export function animate(from:Array<number>,to:number,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):Mina.MinaAnimation;
-	export function animate(from:number,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):Mina.MinaAnimation;
-	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):Mina.MinaAnimation;
+	export function animate(from:number,to:number,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
+	export function animate(from:Array<number>,to:number,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
+	export function animate(from:number,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
+	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
 	export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
 	
-	export function color(clr:string):Object;
+	export function color(clr:string):RGBHSB;
 	export function getRGB(color:string):RGB;
 	export function hsb(h:number,s:number,b:number):HSB;
 	export function hsl(h:number,s:number,l:number):HSL;
@@ -111,6 +111,19 @@ declare module Snap {
 		s:number;
 		b:number;
 	}
+	
+	export interface RGBHSB{
+		r:number;
+		g:number;
+		b:number;
+		hex:string;
+		error:boolean;
+		h:number;
+		s:number;
+		v:number;
+		l:number;
+	}
+	
 	export interface HSL{
 		h:number;
 		s:number;
@@ -170,12 +183,12 @@ declare module Snap {
 		getSubpath(from:number,to:number):string;
 		getTotalLength():number;
 		hasClass(value:string):boolean;
-		inAnim(): { anim: Animation; mina: Mina.AnimationDescriptor; curStatus: number; status: (n?: number) => number; stop: () => void }[];
+		inAnim(): { anim: Animation; mina: mina.AnimationDescriptor; curStatus: number; status: (n?: number) => number; stop: () => void }[];
 		innerSVG():string;
 		insertAfter(el:Snap.Element):Snap.Element;
 		insertBefore(el:Snap.Element):Snap.Element;
 		marker(x:number,y:number,width:number,height:number,refX:number,refY:number):Snap.Element;
-		node:Element;
+		node:HTMLElement;
 		outerSVG():string;
 		parent():Snap.Element;
 		pattern(x:any,y:any,width:any,height:any):Snap.Element;
@@ -278,9 +291,10 @@ declare module Snap {
 
 	clear():void;
 	el(name:string, attr:Object):Snap.Element;
+	filter(filstr:string):Snap.Element;
 	gradient(gradient:string):any;
 	g(varargs:any):Object;
-	group(el:any,...els:any[]):any;
+	group(...els:any[]):any;
 	mask(varargs:any):Object;
 	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
 	svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
@@ -296,8 +310,8 @@ declare module Snap {
 	polygon(varargs:any[]):Snap.Element;
 	polyline(varargs:any[]):Snap.Element;
 	rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
-	text(x:number,y:number,text:string):Snap.Element;
-	text(x:number,y:number,text:Array<string>):Snap.Element;
+	text(x:number,y:number,text:string|number):Snap.Element;
+	text(x:number,y:number,text:Array<string|number>):Snap.Element;
 	}
 
 	export interface Set {
