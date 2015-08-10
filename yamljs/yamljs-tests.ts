@@ -1,7 +1,13 @@
 /// <reference path="yamljs.d.ts" />
 
-var yamlObj = YAML.parse("test: some yaml");
+import yamljs = require('yamljs');
 
-YAML.stringify(yamlObj);
+yamljs.load('yaml-testfile.yml');
 
-YAML.load("path/to/file.yaml");
+yamljs.parse('this_is_no_ymlstring');
+
+yamljs.stringify({ a : 'val', b : { ba : 123, bb : 'nothing' }});
+
+yamljs.stringify({ a : 'val', b : { ba : 123, bb : 'nothing' }}, 1);
+
+yamljs.stringify({ a : 'val', b : { ba : 123, bb : 'nothing' }}, 1, 2);
