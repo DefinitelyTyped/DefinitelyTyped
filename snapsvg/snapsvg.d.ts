@@ -51,7 +51,6 @@ declare module Mina {
 declare function Snap(width:number|string,height:number|string):Snap.Paper;
 declare function Snap(query:string):Snap.Paper;
 declare function Snap(DOM:SVGElement):Snap.Paper;
-declare function Snap(arr:Array<any>);
 
 declare module Snap {
 
