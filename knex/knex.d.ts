@@ -15,14 +15,6 @@ declare module "knex" {
   type Value = string|number|boolean|Date;
   type ColumnName = string|Raw|QueryBuilder;
 
-  module KnexStatic {
-    interface ConfigStatic { }
-  }
-
-  interface KnexStatic {
-    (config: Config): Knex;
-  }
-
   interface Knex extends QueryInterface { }
 
   interface Knex {
