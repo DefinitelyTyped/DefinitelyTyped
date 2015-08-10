@@ -1,5 +1,6 @@
 /// <reference path="snapsvg.d.ts" />
 
+// tests by Daniel Rosenwasser
 function tester1() {
     var paper = Snap("#content");
 
@@ -25,7 +26,7 @@ function tester1() {
         //var c = paper.circle(window.innerWidth * Math.random(), window.innerHeight * Math.random(), 50);
         var radius = 25;
         var c = paper.circle(x + radius * Math.random() - radius*2, y + radius * Math.random() - radius, radius*2);
-        c.animate({ r: 0 }, 1000,  Mina.bounce, () => c.remove());
+        c.animate({ r: 0 }, 1000,  mina.bounce, () => c.remove());
     }
 }
 
@@ -107,7 +108,7 @@ function tester5() {
 }
 
 function tester6() {
-    var path: snapsvg.PathStatic = Snap.path;
+    var path = Snap.path;
     // bboxing
     var b1 = path.bezierBBox(0, 0, 0, 0, 100, 100, 100, 100);
     var b2 = path.bezierBBox(50, 50, 50, 50, 150, 150, 150, 150);
