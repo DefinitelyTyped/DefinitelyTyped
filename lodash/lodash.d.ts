@@ -7242,6 +7242,24 @@ declare module _ {
         property<T,RT>(key: string): (obj: T) => RT;
     }
 
+    //_.propertyOf
+    interface LoDashStatic {
+        /**
+         * The opposite of _.property; this method creates a function that returns the property value at a given path
+         * on object.
+         * @param object The object to query.
+         * @return Returns the new function.
+         */
+        propertyOf<T extends {}>(object: T): (path: string|string[]) => any;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.propertyOf
+         */
+        propertyOf(): LoDashObjectWrapper<(path: string|string[]) => any>;
+    }
+
     //_.random
     interface LoDashStatic {
         /**
