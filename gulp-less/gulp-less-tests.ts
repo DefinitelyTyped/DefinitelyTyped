@@ -1,7 +1,7 @@
 /// <reference path="./gulp-less.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import less = require("gulp-less");
 
 gulp.task("less", () => {

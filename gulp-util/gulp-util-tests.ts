@@ -4,7 +4,7 @@
 /// <reference path='../through2/through2.d.ts' />
 /// <reference path='gulp-util.d.ts' />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import util = require('gulp-util');
 import path = require('path');
 import should = require('should');

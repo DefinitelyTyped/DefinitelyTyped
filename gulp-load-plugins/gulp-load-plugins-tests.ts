@@ -3,7 +3,7 @@
 /// <reference path="../gulp-concat/gulp-concat" />
 /// <reference path="gulp-load-plugins" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import gulpConcat = require('gulp-concat');
 import gulpLoadPlugins = require('gulp-load-plugins');
 

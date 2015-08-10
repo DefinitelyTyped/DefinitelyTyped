@@ -1,6 +1,6 @@
 /// <reference path="./gulp-rename.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import rename = require("gulp-rename");
 
 // rename via string

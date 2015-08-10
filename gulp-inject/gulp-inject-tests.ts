@@ -1,7 +1,7 @@
 /// <reference path="./gulp-inject.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import inject = require("gulp-inject");
 
 gulp.task("inject:simple", () => {

@@ -3,7 +3,7 @@
 /// <reference path="../gulp-rev/gulp-rev.d.ts" />
 /// <reference path="../gulp-useref/gulp-useref.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import revReplace = require('gulp-rev-replace');
 import rev = require('gulp-rev');
 import useref = require('gulp-useref');

@@ -1,7 +1,7 @@
 /// <reference path="./main-bower-files.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import mainBowerFiles = require("main-bower-files");
 
 gulp.task("main-bower-files:simple", () => {

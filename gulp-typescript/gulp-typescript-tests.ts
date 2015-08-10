@@ -1,6 +1,6 @@
 /// <reference path="./gulp-typescript.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import typescript = require("gulp-typescript");
 
 function merge(streams: NodeJS.ReadWriteStream[]): NodeJS.ReadWriteStream {

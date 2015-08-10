@@ -1,7 +1,7 @@
 /// <reference path="gulp.d.ts" />
 /// <reference path="../browser-sync/browser-sync.d.ts"/>
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import browserSync = require("browser-sync");
 
 var typescript: IGulpPlugin = null; // this would be the TypeScript compiler

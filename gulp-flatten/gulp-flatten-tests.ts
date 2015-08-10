@@ -1,7 +1,7 @@
 /// <reference path="./gulp-flatten.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import flatten = require("gulp-flatten");
 
 gulp.task("flatten:simple", () => {

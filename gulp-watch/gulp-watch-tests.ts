@@ -1,7 +1,7 @@
 /// <reference path="gulp-watch.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import watch = require('gulp-watch');
 
 gulp.task('stream', () =>

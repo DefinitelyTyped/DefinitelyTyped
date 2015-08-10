@@ -263,7 +263,7 @@ declare module gulp {
 
 declare module "gulp" {
     var _tmp:gulp.Gulp;
-    export = _tmp;
+    export default _tmp;
 }
 
 interface IGulpPlugin {

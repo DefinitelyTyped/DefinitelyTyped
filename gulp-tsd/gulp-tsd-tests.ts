@@ -1,7 +1,7 @@
 /// <reference path="./gulp-tsd.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import tsd = require("gulp-tsd");
 
 gulp.task("tsd", () => {

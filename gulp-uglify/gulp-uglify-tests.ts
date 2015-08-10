@@ -1,6 +1,6 @@
 /// <reference path="./gulp-uglify.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import uglify = require("gulp-uglify");
 
 
