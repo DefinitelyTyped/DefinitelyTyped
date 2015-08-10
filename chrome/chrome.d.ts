@@ -43,6 +43,37 @@ declare module chrome.alarms {
     var onAlarm: AlarmEvent;
 }
 
+/**
+ * Use the chrome.browser API to interact with the Chrome browser associated with 
+ * the current application and Chrome profile. 
+ */
+declare module chrome.browser {
+    interface Options {
+        /**
+         * The URL to navigate to when the new tab is initially opened.
+         */
+        url:string;
+    }
+    
+    /**
+     * Opens a new tab in a browser window associated with the current application 
+     * and Chrome profile. If no browser window for the Chrome profile is opened, 
+     * a new one is opened prior to creating the new tab. 
+     * @param options Configures how the tab should be opened. 
+     * @param callback Called when the tab was successfully 
+     * created, or failed to be created. If failed, runtime.lastError will be set.
+     */
+    export function openTab (options: Options, callback: () => void): void;
+     
+     /**
+     * Opens a new tab in a browser window associated with the current application 
+     * and Chrome profile. If no browser window for the Chrome profile is opened, 
+     * a new one is opened prior to creating the new tab. Since Chrome 42 only. 
+     * @param options Configures how the tab should be opened. 
+     */
+    export function openTab (options: Options): void;
+}
+
 ////////////////////
 // Bookmarks
 ////////////////////
@@ -127,6 +158,7 @@ declare module chrome.bookmarks {
     var onImportEnded: BookmarkImportEndedEvent;
     var onImportBegan: BookmarkImportBeganEvent;
     var onChanged: BookmarkChangedEvent;
+    var onMoved: BookmarkMovedEvent;
     var onCreated: BookmarkCreatedEvent;
     var onChildrenReordered: BookmarkChildrenReordered;
 }
@@ -837,7 +869,7 @@ declare module chrome.events {
         addListener(callback: Function): void;
         getRules(callback: (rules: Rule[]) => void): void;
         getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
-        hasListener(callback: Function): void;
+        hasListener(callback: Function): boolean;
         removeRules(ruleIdentifiers?: string[], callback?: Function): void;
         addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
         removeListener(callback: Function): void;
@@ -1051,6 +1083,7 @@ declare module chrome.history {
 ////////////////////
 declare module chrome.identity {
     var getAuthToken: (options: any, cb: (token: {}) => void) => void;
+    var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
 }
 
 
@@ -1867,7 +1900,7 @@ declare module chrome.tabs {
         active?: boolean;
         index?: number;
         title?: string;
-        url?: string;
+        url?: string | string[];
         currentWindow?: boolean;
         highlighted?: boolean;
         pinned?: boolean;

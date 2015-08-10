@@ -12,14 +12,42 @@ var d = moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", true, "America/Toronto"
 
 a.tz();
 
-var arr = [2013, 5, 1],
+var num = 1367337600000,
+    arr = [2013, 5, 1],
     str = "2013-12-01",
-    obj = { year : 2013, month : 5, day : 1 };
+    date = new Date(2013, 4, 1),
+    mo = moment([2013, 4, 1]),
+    obj = { year : 2013, month : 5, day : 1 },
+    format = "YYYY-MM-DD",
+    formats = ["YYYY-MM-DD", "YYYY/MM/DD"],
+    formatsIncludingSpecial = ["YYYY-MM-DD", moment.ISO_8601],
+    language = "en";
 
+moment.tz();
 moment.tz("America/Los_Angeles");
 
+moment.tz(num, "America/Los_Angeles");
 moment.tz(arr, "America/Los_Angeles");
 moment.tz(str, "America/Los_Angeles");
+moment.tz(str, format, "America/Los_Angeles");
+moment.tz(str, format, true, "America/Los_Angeles");
+moment.tz(str, format, language, "America/Los_Angeles");
+moment.tz(str, format, language, true, "America/Los_Angeles");
+moment.tz(str, formats, "America/Los_Angeles");
+moment.tz(str, formats, true, "America/Los_Angeles");
+moment.tz(str, formats, language, "America/Los_Angeles");
+moment.tz(str, formats, language, true, "America/Los_Angeles");
+moment.tz(str, moment.ISO_8601, "America/Los_Angeles");
+moment.tz(str, moment.ISO_8601, true, "America/Los_Angeles");
+moment.tz(str, moment.ISO_8601, language, "America/Los_Angeles");
+moment.tz(str, moment.ISO_8601, language, true, "America/Los_Angeles");
+moment.tz(str, formatsIncludingSpecial, "America/Los_Angeles");
+moment.tz(str, formatsIncludingSpecial, true, "America/Los_Angeles");
+moment.tz(str, formatsIncludingSpecial, language, "America/Los_Angeles");
+moment.tz(str, formatsIncludingSpecial, language, true, "America/Los_Angeles");
+
+moment.tz(date, "America/Los_Angeles");
+moment.tz(mo, "America/Los_Angeles");
 moment.tz(obj, "America/Los_Angeles");
 
 moment.tz.zone('America/Los_Angeles').abbr(1403465838805);

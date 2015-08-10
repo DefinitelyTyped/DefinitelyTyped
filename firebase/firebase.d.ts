@@ -10,6 +10,11 @@ interface FirebaseAuthResult {
 
 interface FirebaseDataSnapshot {
 	/**
+	 * Returns true if this DataSnapshot contains any data.
+	 * It is slightly more efficient than using snapshot.val() !== null.
+	 */
+	exists(): boolean;
+	/**
 	 * Gets the JavaScript object representation of the DataSnapshot.
 	 */
 	val(): any;
@@ -108,6 +113,10 @@ interface FirebaseQuery {
 	 * Generates a new Query object ordered by key name.
 	 */
 	orderByKey(): FirebaseQuery;
+	/**
+	 * Generates a new Query object ordered by child values.
+	 */
+	orderByValue(): FirebaseQuery;
 	/**
 	 * Generates a new Query object ordered by priority.
 	 */
@@ -256,9 +265,13 @@ interface Firebase extends FirebaseQuery {
 	 */
 	createUser(credentials: FirebaseCredentials, onComplete: (error: any) => void): void;
 	/**
+	 * Updates the email associated with an email / password user account.
+	 */
+	changeEmail(credentials: FirebaseChangeEmailCredentials, onComplete: (error: any) => void): void;
+	/**
 	 * Change the password of an existing user using an email / password combination.
 	 */
-	changePassword(credentials: { email: string; oldPassword: string; newPassword: string }, onComplete: (error: any) => void): void;
+	changePassword(credentials: FirebaseChangePasswordCredentials, onComplete: (error: any) => void): void;
 	/**
 	 * Removes an existing user account using an email / password combination.
 	 */
@@ -266,7 +279,7 @@ interface Firebase extends FirebaseQuery {
 	/**
 	 * Sends a password-reset email to the owner of the account, containing a token that may be used to authenticate and change the user password.
 	 */
-	resetPassword(credentials: { email: string }, onComplete: (error: any) => void): void;
+	resetPassword(credentials: FirebaseResetPasswordCredentials, onComplete: (error: any) => void): void;
 	onDisconnect(): FirebaseOnDisconnect;
 }
 interface FirebaseStatic {
@@ -293,6 +306,10 @@ interface FirebaseStatic {
 }
 declare var Firebase: FirebaseStatic;
 
+declare module 'firebase' {
+	export = Firebase;
+}
+
 // Reference: https://www.firebase.com/docs/web/api/firebase/getauth.html
 interface FirebaseAuthData {
 	uid: string;
@@ -305,4 +322,20 @@ interface FirebaseAuthData {
 interface FirebaseCredentials {
 	email: string;
 	password: string;
+}
+
+interface FirebaseChangePasswordCredentials {
+	email: string;
+	oldPassword: string;
+	newPassword: string;
+}
+
+interface FirebaseChangeEmailCredentials {
+	oldEmail: string;
+	newEmail: string;
+	password: string;
+}
+
+interface FirebaseResetPasswordCredentials {
+	email: string;
 }
