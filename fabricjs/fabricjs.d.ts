@@ -4246,7 +4246,7 @@ declare module fabric {
     addListener(element: HTMLDocument, eventName: string, handler: Function): void;
 
     /**
-     * Removes an event listener from the document
+     * Removes an event listener from an element
      * @param {HTMLElement} element
      * @param {String} eventName
      * @param {Function} handler
@@ -4254,7 +4254,7 @@ declare module fabric {
     removeListener(element: HTMLElement, eventName: string, handler: Function): void;
 
     /**
-     * Removes an event listener from an element
+     * Removes an event listener from the document
      * @param {HTMLDocument} element
      * @param {String} eventName
      * @param {Function} handler
