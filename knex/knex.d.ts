@@ -13,19 +13,19 @@ declare module "knex" {
   type Callback = Function;
   type Client = Function;
   type Value = string|number|boolean|Date;
-  type ColumnName = string|Raw|QueryBuilder;
+  type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
 
-  interface Knex extends QueryInterface { }
-
-  interface Knex {
-    (tableName?: string): QueryBuilder;
+  interface Knex extends Knex.QueryInterface {
+    (tableName?: string): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
-    raw: RawBuilder;
-    transaction: <R>(transactionScope: ((trx: Transaction) => void)) => Promise<any>;
+    raw: Knex.RawBuilder;
+    transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
     destroy(callback: Function): void;
     destroy(): Promise<void>;
+
+    schema: Knex.SchemaBuilder;
 
     client: any;
     migrate: any;
@@ -33,8 +33,9 @@ declare module "knex" {
     fn: any;
   }
 
-  function Knex( config : Config ) : Knex;
+  function Knex( config : Knex.Config ) : Knex;
 
+  namespace Knex {
   //
   // QueryInterface
   //
@@ -296,10 +297,6 @@ declare module "knex" {
   // Schema builder
   //
 
-  interface Knex {
-    schema: SchemaBuilder;
-  }
-
   interface SchemaBuilder {
     createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
     renameTable(oldTableName: string, newTableName: string): Promise<void>;
@@ -447,6 +444,7 @@ declare module "knex" {
     directory?: string;
     extension?: string;
     tableName?: string;
+  }
   }
 
   export = Knex;
