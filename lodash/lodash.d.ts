@@ -6104,6 +6104,25 @@ declare module _ {
 
     }
 
+    //_.create
+    interface LoDashStatic {
+        /**
+         * Creates an object that inherits from the given prototype object. If a properties object is provided its own
+         * enumerable properties are assigned to the created object.
+         * @param prototype The object to inherit from.
+         * @param properties The properties to assign to the object.
+         * @return Returns the new object.
+         */
+        create<TResult extends {}>(prototype: Object, properties?: Object): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.create
+         */
+        create<TResult extends {}>(properties?: Object): LoDashObjectWrapper<TResult>;
+    }
+
     //_.clone
     interface LoDashStatic {
         /**
@@ -7389,16 +7408,6 @@ declare module _ {
          * @see _.constant
          */
         constant<TResult>(): () => TResult;
-    }
-
-    //_.create
-    interface LoDashStatic {
-        /**
-         * Creates an object that inherits from the given prototype object. If a properties object is provided its own enumerable properties are assigned to the created object.
-         * @param prototype The object to inherit from.
-         * @param properties The properties to assign to the object.
-         */
-        create<T>(prototype: Object, properties?: Object): Object;
     }
 
     interface ListIterator<T, TResult> {
