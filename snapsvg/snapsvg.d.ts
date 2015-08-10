@@ -346,19 +346,19 @@ declare module Snap {
 	}
 	
 	interface Path {
-		bezierBBox(...args:number[]):Object;
-		bezierBBox(bez:Array<number>):Object;
+		bezierBBox(...args:number[]):BBox;
+		bezierBBox(bez:Array<number>):BBox;
 		findDotsAtSegment(p1x:number,p1y:number,c1x:number,
 		                  c1y:number,c2x:number,c2y:number,
 		                  p2x:number,p2y:number,t:number):Object;
-		getBBox(path:string):Object;
+		getBBox(path:string):BBox;
 		getPointAtLength(path:string,length:number):Object;
 		getSubpath(path:string,from:number,to:number):string;
 		getTotalLength(path:string):number;
 		intersection(path1:string,path2:string):Array<IntersectionDot>;
-		isBBoxIntersect(bbox1:string,bbox2:string):boolean
+		isBBoxIntersect(bbox1:BBox,bbox2:BBox):boolean
 		isPointInside(path:string,x:number,y:number):boolean;
-		isPointInsideBBox(bbox:string,x:string,y:string):boolean;
+		isPointInsideBBox(bbox:BBox,x:number,y:number):boolean;
 		map(path:string,matrix:Snap.Matrix):string;
 		toAbsolute(path:string):Array<any>;
 		toCubic(pathString:string):Array<any>;
