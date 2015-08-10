@@ -1,9 +1,9 @@
 ﻿declare module shepherd {
 
     interface ShepherdStatic {
-        on(eventName, handler, context?): any;
-        off(eventName, handler?): any;
-        once(eventName, handler, context?): any;
+        on(eventName: string, handler: Function, context?: any): any;
+        off(eventName: string, handler?: Function): any;
+        once(eventName: string, handler: Function, context?: any): any;
 
         activeTour: IShepherdTour;
         Tour: IShepherdTour;
@@ -20,8 +20,8 @@
         /**
          * Creates a new Step object with options, and returns the Tour object for convenient chaining when creating multiple steps. If you'd like you can also just pass an options hash which includes id as a key. If the options hash doesn't include an id, one will be generated. You can also pass an existing Step instance rather than options, but note that Shepherd does not support a Step being attached to multiple Tours.
          */
-        addStep(id: string, options: IShepherdTourStepOptions);
-        addStep(id: string, options: IShepherdTourStep);
+        addStep(id: string, options: IShepherdTourStepOptions): void;
+        addStep(id: string, options: IShepherdTourStep): void;
 
         /**
          * Return a step with a specific id
@@ -68,17 +68,17 @@
         /**
          * Bind an event
          */
-        on(eventName, handler, context?): any;
+        on(eventName: string, handler: Function, context?: any): any;
 
         /**
          * Unbind an event
          */
-        off(eventName, handler?): any;
+        off(eventName: string, handler?: Function): any;
 
         /**
          * Bind just the next instance of an event
          */
-        once(eventName, handler, context?): any;
+        once(eventName: string, handler: Function, context?: any): any;
     }
 
     interface IShepherdTourStep {
@@ -120,17 +120,17 @@
         /**
          * Bind an event
          */
-        on(eventName, handler, context?): any;
+        on(eventName: string, handler: Function, context?: any): any;
 
         /**
          * Unbind an event
          */
-        off(eventName, handler?): any;
+        off(eventName: string, handler?: Function): any;
 
         /**
          * Bind just the next instance of an event
          */
-        once(eventName, handler, context?): any;
+        once(eventName: string, handler: Function, context?: any): any;
     }
 
     interface IShepherdTourStepOptions {
