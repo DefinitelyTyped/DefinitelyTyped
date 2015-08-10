@@ -1,6 +1,6 @@
 /// <reference path="./gulp-istanbul.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import istanbul = require("gulp-istanbul");
 
 function testFramework(): NodeJS.ReadWriteStream {

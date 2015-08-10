@@ -1,7 +1,7 @@
 /// <reference path="./gulp-minify-css.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import minifyCSS = require("gulp-minify-css");
 
 gulp.task("minify-css", () => {

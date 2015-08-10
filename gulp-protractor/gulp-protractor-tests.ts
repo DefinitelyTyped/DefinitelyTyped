@@ -1,7 +1,7 @@
 /// <reference path="gulp-protractor.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import protractor = require('gulp-protractor');
 
 gulp.src(["./src/tests/*.js"])

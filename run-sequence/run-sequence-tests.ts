@@ -1,7 +1,7 @@
 /// <reference path="./run-sequence.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import tmp = require("run-sequence");
 var runSequence = tmp.use(gulp);
 

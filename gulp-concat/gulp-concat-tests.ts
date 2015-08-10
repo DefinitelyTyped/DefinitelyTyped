@@ -1,7 +1,7 @@
 /// <reference path="./gulp-concat.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require("gulp");
+import gulp from "gulp";
 import concat = require("gulp-concat");
 
 gulp.task("concat:simple", () => {

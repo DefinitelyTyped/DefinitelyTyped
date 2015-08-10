@@ -1,7 +1,7 @@
 /// <reference path="karma.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import karma = require('karma');
 
 function runKarma(singleRun: boolean): void {

@@ -1,7 +1,7 @@
 /// <reference path="gulp-csso.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import csso = require('gulp-csso');
 
 gulp.task('default', () =>

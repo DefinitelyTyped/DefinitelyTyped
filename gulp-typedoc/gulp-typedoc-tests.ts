@@ -1,6 +1,6 @@
 /// <reference path="./gulp-typedoc.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import typedoc = require("gulp-typedoc");
 
 gulp.task("typedoc", function() {

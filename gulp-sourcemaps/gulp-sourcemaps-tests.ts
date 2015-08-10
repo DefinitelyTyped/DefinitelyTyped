@@ -1,6 +1,6 @@
 /// <reference path="./gulp-sourcemaps.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import sourcemaps = require("gulp-sourcemaps");
 
 function plugin1(): NodeJS.ReadWriteStream { return null; }

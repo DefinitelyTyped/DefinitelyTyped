@@ -1,7 +1,7 @@
 /// <reference path="gulp-debug.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import debug = require('gulp-debug');
 
 gulp.task('default', () =>

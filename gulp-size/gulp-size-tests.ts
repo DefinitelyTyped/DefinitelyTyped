@@ -2,7 +2,7 @@
 /// <reference path="../gulp/gulp.d.ts" />
 /// <reference path="../gulp-debug/gulp-debug.d.ts" />
 
-import gulp = require('gulp');
+import gulp from 'gulp';
 import size = require('gulp-size');
 import debug = require('gulp-debug');
 

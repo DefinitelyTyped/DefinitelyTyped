@@ -1,7 +1,7 @@
 /// <reference path="./gulp-tslint.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
 /// <reference path="../vinyl/vinyl.d.ts"/>
-import gulp = require("gulp");
+import gulp from "gulp";
 import tslint = require("gulp-tslint");
 import vinyl = require("vinyl");
 
