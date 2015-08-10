@@ -50,7 +50,7 @@ myApp.config((
     .state('state1.list', {
       url: "/list",
       templateUrl: "partials/state1.list.html",
-		controller: function ($scope: MyAppScope) {
+        controller: function ($scope: MyAppScope) {
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
@@ -61,10 +61,26 @@ myApp.config((
     .state('state2.list', {
       url: "/list",
         templateUrl: "partials/state2.list.html",
-		controller: function ($scope: MyAppScope) {
+        controller: function ($scope: MyAppScope) {
           $scope.things = ["A", "Set", "Of", "Things"];
         }
-      }).state('index', {
+      })
+    .state('list', {
+      parent: 'state3',
+      url: "/list",
+      templateUrl: "partials/state3.list.html",
+      controller: function ($scope: MyAppScope) {
+        $scope.things = ["A", "Set", "Of", "Things"];
+      }
+    })
+    .state('state4', {
+      url: "/state4",
+      templateUrl: function($stateParams: ng.ui.IStateParamsService){
+        //Logic could go here based on $stateParams
+        return "partials/state4.html";
+      }
+    })
+    .state('index', {
       url: "",
       views: {
         "viewA": { template: "index.viewA" },
@@ -139,6 +155,10 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         this.$state.get("myState");
         this.$state.get();
         this.$state.reload();
+        
+        // Accesses the currently resolved values for the current state
+        // http://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
+        var resolvedValues = this.$state.$current.locals.globals;
     }
 }
 

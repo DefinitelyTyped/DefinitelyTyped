@@ -28,11 +28,27 @@ interface MomentZone {
 }
 
 interface MomentTimezone {
+    (): moment.Moment;
     (timezone: string): moment.Moment;
     (date: number, timezone: string): moment.Moment;
     (date: number[], timezone: string): moment.Moment;
+    (date: string, timezone: string): moment.Moment;
     (date: string, format: string, timezone: string): moment.Moment;
-    (date: string, format: string, useStrict: boolean, timezone: string): moment.Moment;
+    (date: string, format: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, format: string, language: string, timezone: string): moment.Moment;
+    (date: string, format: string, language: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, formats: string[], timezone: string): moment.Moment;
+    (date: string, formats: string[], strict: boolean, timezone: string): moment.Moment;
+    (date: string, formats: string[], language: string, timezone: string): moment.Moment;
+    (date: string, formats: string[], language: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, strict: boolean, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, language: string, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, language: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], strict: boolean, timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], language: string, timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], language: string, strict: boolean, timezone: string): moment.Moment;
     (date: Date, timezone: string): moment.Moment;
     (date: moment.Moment, timezone: string): moment.Moment;
     (date: Object, timezone: string): moment.Moment;

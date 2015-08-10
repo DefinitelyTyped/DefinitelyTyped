@@ -219,6 +219,11 @@ barProm = fooProm.then((value: Foo) => {
 barProm = fooProm.then((value: Foo) => {
 	return bar;
 });
+barProm = barProm.then((value: Bar) => {
+	if (value) return value;
+	var b:Bar;
+	return Promise.resolve(b);
+});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

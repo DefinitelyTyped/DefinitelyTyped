@@ -295,7 +295,7 @@ interface DurandalViewEngineModule {
      * @param {string} id The view id whose view should be cached.
      * @param {DOMElement} view The view to cache.
      */
-    putViewInCache(id:string, view:HTMLElement);
+    putViewInCache(id: string, view: HTMLElement);
 
     /**
      * Creates the view associated with the view id.
@@ -1107,7 +1107,7 @@ declare module 'plugins/serializer' {
     * @param {object} [settings] Settings can specify any of the options allowed by the serialize or deserialize methods.
     * @return {object} The new clone.
     */
-    export function clone<T>(obj:T, settings?:Object): T;
+    export function clone<T>(obj: T, settings?: Object): T;
 }
 
 /**
@@ -1262,8 +1262,8 @@ interface DurandalEventModule {
 }
 
 interface DialogButton {
-  text: string;
-  value: any;
+    text: string;
+    value: any;
 }
 
 interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
@@ -1509,13 +1509,12 @@ interface DurandalRouteConfiguration {
     title?: any;
     moduleId?: string;
     hash?: string;
-    /** string or string[] */
-    route?: any;
+    route?: string|string[];
     routePattern?: RegExp;
     isActive?: KnockoutComputed<boolean>;
     nav?: any;
     hasChildRoutes?: boolean;
-    viewUrl?:string;
+    viewUrl?: string;
 }
 
 interface DurandalRouteInstruction {
@@ -1523,7 +1522,7 @@ interface DurandalRouteInstruction {
     queryString: string;
     config: DurandalRouteConfiguration;
     params: any[];
-    queryParams: Object;
+    queryParams: { [index: string]: any };
 }
 
 interface DurandalRelativeRouteSettings {
@@ -1766,7 +1765,12 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
      * @param {object} instruction The route instruction. The instruction object has config, fragment, queryString, params and queryParams properties.
      * @returns {Promise|Boolean|String} If a boolean, determines whether or not the route should activate or be cancelled. If a string, causes a redirect to the specified route. Can also be a promise for either of these value types.
      */
-    guardRoute?: (instance: Object, instruction: DurandalRouteInstruction) => any;
+    guardRoute?: (instance: Object, instruction: DurandalRouteInstruction) => JQueryPromise<boolean|string>|boolean|string;
+
+    /**
+     * Parent router of the current child router.
+     */
+    parent?: DurandalRouter;
 }
 
 interface DurandalRouter extends DurandalRouterBase<DurandalRouter> { }

@@ -507,7 +507,7 @@ declare module JQueryUI {
 
     interface ProgressbarOptions {
         disabled?: boolean;
-        value?: number;
+        value?: number | boolean;
     }
 
     interface ProgressbarUIParams {

@@ -5,12 +5,13 @@
 
 /* =================== USAGE ===================
 
-    import express = require('express');
+    import * as express from "express";
     var app = express();
 
  =============================================== */
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../serve-static/serve-static.d.ts" />
 
 declare module Express {
 
@@ -23,7 +24,8 @@ declare module Express {
 
 
 declare module "express" {
-    import http = require('http');
+    import * as http from "http";
+    import * as serveStatic from "serve-static";
 
     function e(): e.Express;
 
@@ -349,6 +351,11 @@ declare module "express" {
             /**
              * Parse the "Host" header field hostname.
              */
+            hostname: string;
+
+            /**
+             * @deprecated Use hostname instead.
+             */
             host: string;
 
             /**
@@ -383,8 +390,6 @@ declare module "express" {
             user: any;
 
             authenticatedUser: any;
-
-            files: any;
 
             /**
              * Clear cookie `name`.
@@ -1062,31 +1067,7 @@ declare module "express" {
             response: Response;
         }
 
-        /**
-         * Static:
-         *
-         *   Static file server with the given `root` path.
-         *
-         * Examples:
-         *
-         *     var oneDay = 86400000;
-         *
-         *     connect()
-         *       .use(connect.static(__dirname + '/public'))
-         *
-         *     connect()
-         *       .use(connect.static(__dirname + '/public', { maxAge: oneDay }))
-         *
-         * Options:
-         *
-         *    - `maxAge`     Browser cache maxAge in milliseconds. defaults to 0
-         *    - `hidden`     Allow transfer of hidden files. defaults to false
-         *    - `redirect`   Redirect to trailing "/" when the pathname is a dir. defaults to true
-         *
-         * @param root
-         * @param options
-         */
-        function static(root: string, options?: any): RequestHandler;
+        var static: typeof serveStatic;
     }
 
     export = e;

@@ -1,6 +1,8 @@
 /// <reference path="react-addons.d.ts" />
 import React = require("react/addons");
 
+import TestUtils = React.addons.TestUtils;
+
 interface Props extends React.Props<MyComponent> {
     hello: string;
     world?: string;
@@ -81,6 +83,8 @@ class ModernComponent extends React.Component<Props, State>
     static childContextTypes: React.ValidationMap<ChildContext> = {
         someOtherValue: React.PropTypes.string
     }
+    
+    context: Context;
     
     getChildContext() {
         return {
@@ -201,7 +205,7 @@ myComponent.reset();
 // Attributes
 // --------------------------------------------------------------------------
 
-var children = ["Hello world", [null], React.DOM.span(null)];
+var children: any[] = ["Hello world", [null], React.DOM.span(null)];
 var divStyle = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
@@ -397,12 +401,12 @@ React.createFactory(React.addons.CSSTransitionGroup)({
 // --------------------------------------------------------------------------
 
 var node: Element;
-React.addons.TestUtils.Simulate.click(node);
-React.addons.TestUtils.Simulate.change(node);
-React.addons.TestUtils.Simulate.keyDown(node, { key: "Enter" });
+TestUtils.Simulate.click(node);
+TestUtils.Simulate.change(node);
+TestUtils.Simulate.keyDown(node, { key: "Enter" });
 
 var renderer: React.ShallowRenderer =
-    React.addons.TestUtils.createRenderer();
+    TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
-var output: Timer = renderer.getRenderOutput<Timer>();
-
+var output: React.ReactElement<React.Props<Timer>> =
+    renderer.getRenderOutput();

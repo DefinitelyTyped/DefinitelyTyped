@@ -604,7 +604,7 @@ declare module grunt {
             /**
              * All {@link IExpandedFilesConfig.src} matches are relative to (but don't include) this path.
              */
-            cwd?: boolean
+            cwd?: string
 
             /**
              * Replace any existing extension with this value in generated {@link IExpandedFilesConfig.dest} paths.

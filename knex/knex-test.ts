@@ -198,6 +198,7 @@ knex('books').insert({title: 'Slaughterhouse Five'});
 knex('coords').insert([{x: 20}, {y: 30},  {x: 10, y: 20}]);
 
 knex.insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}], 'id').into('books');
+knex.insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}], ['id', 'title']).into('books');
 
 knex('books')
   .returning('id')
@@ -207,17 +208,20 @@ knex('books')
   .returning('id')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
-knex('books')
-  .where('published_date', '<', 2000)
-  .update({
-    status: 'archived'
-  });
+knex('books').where('published_date', '<', 2000).update({status: 'archived'});
+knex('books').where('published_date', '<', 2000).update({status: 'archived'}, 'id');
+knex('books').where('published_date', '<', 2000).update({status: 'archived'}, ['id', 'title']);
 
 knex('books').update('title', 'Slaughterhouse Five');
+knex('books').update('title', 'Slaughterhouse Five', 'id');
+knex('books').update('title', 'Slaughterhouse Five', ['id', 'title']);
 
-knex('accounts')
-  .where('activated', false)
-  .del();
+knex('accounts').where('activated', false).del();
+knex('accounts').where('activated', false).del('id');
+knex('accounts').where('activated', false).del(['id', 'title']);
+knex('accounts').where('activated', false).delete();
+knex('accounts').where('activated', false).delete('id');
+knex('accounts').where('activated', false).delete(['id', 'title']);
 
 var someExternalMethod: Function;
 

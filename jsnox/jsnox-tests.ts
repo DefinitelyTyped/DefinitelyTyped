@@ -9,8 +9,8 @@ interface PersonProps {
     age: number
 }
 
-var Person = React.createClass<PersonProps>({
-    render(): React.ReactHTMLElement { return null }
+var Person = React.createClass<PersonProps, {}>({
+    render():React.ReactElement<any> { return null; }
 });
 
 var PersonTag = React.createFactory(Person);
@@ -19,7 +19,7 @@ var clickHandler: React.MouseEventHandler
 
 // Tests with spec string
 function spec_string () {
-    var result: React.ReactHTMLElement
+    var result: React.HTMLComponent
     
     // just spec string
     result = $('div')
@@ -38,7 +38,7 @@ function spec_string () {
 
 // Tests with react component
 function react_component() {
-    var result: React.ReactHTMLElement
+    var result: React.ReactElement<{}>
 
     // with nothing more
     result = $(Person)
