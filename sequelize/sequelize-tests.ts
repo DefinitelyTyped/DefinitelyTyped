@@ -73,6 +73,8 @@ promiseMe= sequelize.transaction(transOpts);
 promiseMe = sequelize.transaction(transOpts, function (t:Sequelize.Transaction): boolean { return true; });
 emitMe = sequelize.query<modelInst, modelPojo>("", model).complete(function (err, result) { });
 emitMe = sequelize.query("");
+sequelize.query<modelPojo>("SELECT * FROM TABLE", { type: sequelize.QueryTypes.SELECT }).then(function (data: modelPojo[]) {
+});
 var dialect: string = sequelize.getDialect();
 emitMe = sequelize.showAllSchemas();
 emitMe = sequelize.sync(syncOpts);

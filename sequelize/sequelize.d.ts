@@ -7,6 +7,7 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../lodash/lodash.d.ts" />
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "sequelize"
 {
@@ -239,6 +240,7 @@ declare module "sequelize"
              *                      unnamed replacements to replace ? in your SQL.
              */
             query(sql: string, callee?: Model<any, any>, options?: QueryOptions, replacements?: any): EventEmitter;
+            query<TPojo>(sql: string, options?: QueryOptions, replacements?: any): Thenable<TPojo[]>;
 
             query<TInstance, TPojo>(sql: string, callee?: Model<TInstance, TPojo>, options?: QueryOptions): EventEmitterT<Model<TInstance, TPojo>>;
 
