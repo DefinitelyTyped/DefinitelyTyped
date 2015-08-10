@@ -30,7 +30,7 @@ class AuthService {
         '$rootScope', '$injector', <any>function($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
             var $http: ng.IHttpService; //initialized later because of circular dependency problem
             function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
-                $http = $http || $injector.get('$http');
+                $http = $http || $injector.get<ng.IHttpService>('$http');
                 $http(config).then(function (response) {
                     deferred.resolve(response);
                 });
@@ -201,6 +201,9 @@ mod.constant(My.Namespace);
 mod.value('name', 23);
 mod.value('name', "23");
 mod.value(My.Namespace);
+mod.decorator('name', function($scope:ng.IScope){ });
+mod.decorator('name', ['$scope', <any>function($scope: ng.IScope){ }]);
+
 
 class TestProvider implements ng.IServiceProvider {
     constructor(private $scope: ng.IScope) {
@@ -239,6 +242,18 @@ foo.then((x) => {
     x.toFixed();
 });
 
+// $q signature tests
+module TestQ {
+    var $q: ng.IQService;
+    var promise1: ng.IPromise<any>;
+    var promise2: ng.IPromise<any>;
+
+    // $q.all
+    $q.all([promise1, promise2]).then((results: any[]) => {});
+    $q.all<number>([promise1, promise2]).then((results: number[]) => {});
+    $q.all({a: promise1, b: promise2}).then((results: {[id: string]: any;}) => {});
+    $q.all<{a: number; b: string;}>({a: promise1, b: promise2}).then((results: {a: number; b: string;}) => {});
+}
 
 var httpFoo: ng.IHttpPromise<number>;
 httpFoo.then((x) => {
@@ -278,10 +293,11 @@ function test_IAttributes(attributes: ng.IAttributes){
 }
 
 test_IAttributes({
+    $normalize: function (classVal){},
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
-    $observe: function(name, fn){
+    $observe: function(name: any, fn: any){
         return fn;
     },
     $attr: {}
@@ -699,4 +715,30 @@ module locationTests {
     $location.path() == '/foo/bar'
     $location.url() == '/foo/bar?x=y'
     $location.absUrl() == 'http://example.com/#!/foo/bar?x=y'
+}
+
+// NgModelController
+function NgModelControllerTyping() {
+    var ngModel: angular.INgModelController;
+    var $http: angular.IHttpService;
+    var $q: angular.IQService;
+
+    // See https://docs.angularjs.org/api/ng/type/ngModel.NgModelController#$validators
+    ngModel.$validators['validCharacters'] = function(modelValue, viewValue) {
+        var value = modelValue || viewValue;
+        return /[0-9]+/.test(value) &&
+            /[a-z]+/.test(value) &&
+            /[A-Z]+/.test(value) &&
+            /\W+/.test(value);
+    };
+
+    ngModel.$asyncValidators['uniqueUsername'] = function(modelValue, viewValue) {
+        var value = modelValue || viewValue;
+        return $http.get('/api/users/' + value).
+            then(function resolved() {
+                return $q.reject('exists');
+            }, function rejected() {
+                return true;
+            });
+    };
 }

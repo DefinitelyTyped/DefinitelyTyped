@@ -24,7 +24,7 @@ declare module Dagre {
 
     interface Render {
         new (): Render;
-        (selection: D3.Selection, g: Dagre.Graph): void;
+        (selection: d3.Selection<any>, g: Dagre.Graph): void;
     }
 }
 

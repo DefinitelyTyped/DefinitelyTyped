@@ -315,6 +315,6 @@ declare module Dexie {
     }
 }
 
-declare module 'Dexie' {
+declare module 'dexie' {
     export = Dexie;
 }

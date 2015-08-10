@@ -64,7 +64,7 @@ declare module 'xml2js' {
             normalize?: boolean;
             normalizeTags?: boolean;
             strict?: boolean;
-            tagNameProcessors?: (name: string) => string;
+            tagNameProcessors?: [(name: string) => string];
             trim?: boolean;
             validator?: Function;
             xmlns?: boolean;

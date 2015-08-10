@@ -33,6 +33,7 @@ declare module PeerJs{
         on(event: 'open', cb: ()=>void): void;
         on(event: 'close', cb: ()=>void): void;
         on(event: 'error', cb: (err: any)=>void): void;
+        off(event: string, fn: Function, once?: boolean): void;
         dataChannel: RTCDataChannel;
         label: string;
         metadata: any;
@@ -52,6 +53,7 @@ declare module PeerJs{
         on(event: 'stream', cb: (stream: any)=>void): void;
         on(event: 'close', cb: ()=>void): void;
         on(event: 'error', cb: (err: any)=>void): void;
+        off(event: string, fn: Function, once?: boolean): void;
         open: boolean;
         metadata: any;
         peer: string;
@@ -126,6 +128,13 @@ declare module PeerJs{
          * @param cb Callback Function
          */
         on(event: 'error', cb: (err: any)=>void): void;
+        /**
+         * Remove event listeners.(EventEmitter3)
+         * @param {String} event The event we want to remove.
+         * @param {Function} fn The listener that we need to find.
+         * @param {Boolean} once Only remove once listeners.
+         */
+        off(event: string, fn: Function, once?: boolean): void;
         /**
          * Close the connection to the server, leaving all existing data and media connections intact.
          */
