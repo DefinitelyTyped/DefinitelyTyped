@@ -226,7 +226,8 @@ declare module Snap {
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, inThisArg?: any, outThisArg?: any): Snap.Element;
         unhover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void): Snap.Element;
-
+		
+		drag():Snap.Element;
         drag(onMove:  (dx: number, dy: number, event: MouseEvent) => void,
              onStart: (x: number, y: number, event: MouseEvent) => void,
              onEnd:   (event: MouseEvent) => void,
