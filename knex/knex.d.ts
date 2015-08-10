@@ -33,7 +33,7 @@ declare module "knex" {
     fn: any;
   }
 
-  function Knex( config : Knex.Config ) : Knex;
+  function Knex(config: Knex.Config) : Knex;
 
   namespace Knex {
     //
