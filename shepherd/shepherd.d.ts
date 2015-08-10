@@ -1,3 +1,8 @@
+// Type definitions for Shepherd v1.1.2
+// Project: http://github.hubspot.com/shepherd/
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 ﻿declare module shepherd {
 
     interface ShepherdStatic {
