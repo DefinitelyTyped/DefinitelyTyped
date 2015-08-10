@@ -1,17 +1,17 @@
 /// <reference path="node.d.ts" />
-
-import assert = require("assert");
-import fs = require("fs");
-import events = require("events");
-import zlib = require("zlib");
-import url = require('url');
-import util = require("util");
-import crypto = require("crypto");
-import http = require("http");
-import net = require("net");
-import dgram = require("dgram");
-import querystring = require('querystring');
-import path = require("path");
+import * as assert from "assert";
+import * as fs from "fs";
+import * as events from "events";
+import * as zlib from "zlib";
+import * as url from "url";
+import * as util from "util";
+import * as crypto from "crypto";
+import * as tls from "tls";
+import * as http from "http";
+import * as net from "net";
+import * as dgram from "dgram";
+import * as querystring from "querystring";
+import * as path from "path";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -67,6 +67,25 @@ fs.readFile('testfile', (err, data) => {
         errno = err.errno;
     }
 });
+
+
+///////////////////////////////////////////////////////
+/// Buffer tests : https://nodejs.org/api/buffer.html
+///////////////////////////////////////////////////////
+
+function bufferTests() {
+    var utf8Buffer = new Buffer('test');
+    var base64Buffer = new Buffer('','base64');
+    var octets: Uint8Array = null;
+    var octetBuffer = new Buffer(octets);
+    console.log(Buffer.isBuffer(octetBuffer));
+    console.log(Buffer.isEncoding('utf8'));
+    console.log(Buffer.byteLength('xyz123'));
+    console.log(Buffer.byteLength('xyz123', 'ascii'));
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+}
+
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -142,6 +161,16 @@ function crypto_cipher_decipher_buffer_test() {
 
 	assert.deepEqual(clearText2, clearText);
 }
+
+////////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html
+////////////////////////////////////////////////////
+
+var ctx: tls.SecureContext = tls.createSecureContext({
+    key: "NOT REALLY A KEY",
+    cert: "SOME CERTIFICATE",
+});
+var blah = ctx.context;
 
 ////////////////////////////////////////////////////
 

@@ -8,6 +8,8 @@ var num: number;
 var metadata: any;
 var obj: any = {};
 
+winston.level = 'debug';
+
 var queryOptions: winston.QueryOptions;
 var transportOptions: winston.TransportOptions;
 var loggerOptions: winston.LoggerOptions = {

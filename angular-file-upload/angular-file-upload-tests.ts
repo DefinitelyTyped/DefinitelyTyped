@@ -10,35 +10,41 @@ module controllers {
 
         static $inject = ["$upload"];
         constructor(
-            private $upload: ng.angularFileUpload.IUploadService
+            private $upload: angular.angularFileUpload.IUploadService
             ) {
         }
 
         onFileSelect($files: File[]) {
-            //$files: an array of files selected, each file has name, size, and type.
-            var uploads: ng.IPromise<any>[] = [];
+            // $files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
-                uploads.push(this.$upload.upload<any>({
-                    url: "/api/upload",
-                    method: "POST",
-                    data: {
-                        extraData: {
-                            fileName: file.name, test: "anything"
-                        }
-                    },
-                    file: file
+	            this.$upload.upload({
+			        url: "/api/upload",
+			        method: "POST",
+			        data: {
+				        extraData: {
+					        fileName: file.name,
+					        test: "anything"
+				        }
+			        },
+			        file: file
+		        })
+                .abort()
+                .xhr((evt: any) => {
+                    console.log('xhr');
                 })
-                .progress((evt: any) => {
-                    console.log('progress');
-                })
-                .then(success => {
-                    // file is uploaded successfully
-                    console.log(success.data);
-                })
-                .catch(err => {
-                    console.error(err);
-                }));
+		        .progress((evt: angular.angularFileUpload.IFileProgressEvent) => {
+			        var percent = parseInt((100.0 * evt.loaded / evt.total).toString(), 10);
+			        console.log("upload progress: " + percent + "% for " + evt.config.file.name);
+		        })
+		        .error((data: any, status: number, response: any, headers: any) => {
+			        console.error(data, status, response, headers);
+		        })
+				.success((data: any, status: number, headers: any, config: angular.angularFileUpload.IFileUploadConfig) => {
+			        // file is uploaded successfully
+					console.log("Success!", data, status, headers, config);
+		        });
+
             }
         }
     }

@@ -42,11 +42,13 @@ var connection = peerById.connect("id", {
 
 var call = peerById.call('callto-id', (<any>window).localStream);
 
-peerById.on("open", ()=> console.log("open"));
+var openHandler=()=> console.log("open");
+peerById.on("open", openHandler);
 peerById.on("connection", (c)=> console.log("connection"));
 peerById.on("call", (media)=> console.log("call"));
 peerById.on("close", ()=> console.log("close"));
 peerById.on("disconnected", ()=> console.log("disconnected"));
 peerById.on("error", (err)=> console.log(err));
+peerById.off("open", openHandler);
 
 var connection2 = peerById.getConnection(peerByOption, "callto-id");

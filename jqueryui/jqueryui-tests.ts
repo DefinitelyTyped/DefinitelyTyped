@@ -1618,7 +1618,7 @@ function test_spinner() {
         },
         _parse: function (value) {
             if (typeof value === "string") {
-                if (Number(value) == value) {
+                if (Number(value) == <any>value) {
                     return Number(value);
                 }
                 return 123;

@@ -1,10 +1,10 @@
-// Type definitions for Ember.js 1.0.0
+// Type definitions for Ember.js 1.11.3
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../handlebars/handlebars.d.ts" />
+/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
 declare var Handlebars: HandlebarsStatic;
 
@@ -58,7 +58,7 @@ declare module EmberStates {
           @arg {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
-        then(onFulfilled: Function, onRejected: Function, label?: string): Ember.RSVP.Promise;
+        then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -387,8 +387,10 @@ interface DisconnectOutletOptions {
 
 interface RenderOptions {
     into?: string;
-    outlet?: string;
     controller?: string;
+    model?: any;
+    outlet?: string;
+    view?: string;
 }
 
 interface ModifyObserver {
@@ -1418,7 +1420,7 @@ declare module Ember {
         Creates an instance of the class.
         @param arguments A hash containing values with which to initialize the newly instantiated object.
         **/
-        static create<T extends Mixin>(args: {}): T;
+        static create<T extends Mixin>(...args: CoreObjectArguments[]): T;
         detect(obj: any): boolean;
         reopen<T extends Mixin>(args?: {}): T;
     }
@@ -1683,7 +1685,21 @@ declare module Ember {
         cacheFor(keyName: string): any;
         decrementProperty(keyName: string, decrement?: number): number;
         endPropertyChanges(): Observable;
+
+        /**
+         * Retrieves the value of a property from the object
+         * @param keyName
+         * @returns {}
+         */
         get(keyName: string): any;
+
+        /**
+         * Retrieves the value of a property from the object
+         * @param keyName
+         * @returns {}
+         */
+        get<T>(keyName: string): T;
+
         getProperties(...args: string[]): {};
         getProperties(keys: string[]): {};
         getWithDefault(keyName: string, defaultValue: any): any;
@@ -1764,10 +1780,70 @@ declare module Ember {
         remove(obj: any): void;
         toArray(): any[];
     }
+
+    // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
     module RSVP {
+        interface PromiseResolve {
+            (value?: any): void;
+        }
+        interface PromiseReject {
+            (reason?: any): void;
+        }
+        interface PromiseResolverFunction {
+            (resolve: PromiseResolve, reject: PromiseReject): void;
+        }
+
         class Promise {
-            constructor(resolver: Function, label?: string);
-            then(done?: Function, fail?: Function): Promise;
+
+            /**
+              Promise objects represent the eventual result of an asynchronous operation. The
+              primary way of interacting with a promise is through its `then` method, which
+              registers callbacks to receive either a promise's eventual value or the reason
+              why the promise cannot be fulfilled.
+              @class RSVP.Promise
+              @param {function} resolver
+              @param {String} label optional string for labeling the promise.
+              Useful for tooling.
+              @constructor
+            */
+            constructor(resolver: PromiseResolverFunction, label?: string);
+
+            /**
+              The primary way of interacting with a promise is through its `then` method,
+              which registers callbacks to receive either a promise's eventual value or the
+              reason why the promise cannot be fulfilled.
+              @method then
+              @param {Function} onFulfilled
+              @param {Function} onRejected
+              @param {String} label optional string for labeling the promise.
+              Useful for tooling.
+              @return {Promise}
+            */
+            then(onFulfilled?: Function, onRejected?: Function): Promise;
+
+            /**
+            `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
+            as the catch block of a try/catch statement.
+
+            @method catch
+            @param {Function} onRejection
+            @param {String} label optional string for labeling the promise.
+            Useful for tooling.
+            @return {Promise}
+            */
+            catch(onRejection: Function, label?: string): Promise;
+
+            /**
+            `finally` will be invoked regardless of the promise's fate just as native
+            try/catch/finally behaves
+
+            @method finally
+            @param {Function} callback
+            @param {String} label optional string for labeling the promise.
+            Useful for tooling.
+            @return {Promise}
+            */
+            finally(callback: Function, label?: string): Promise;
         }
     }
     class RenderBuffer {
@@ -1789,41 +1865,531 @@ declare module Ember {
         elementTag: string;
         parentBuffer: RenderBuffer;
     }
-    class Route extends Object implements ActionHandlerMixin {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
+
+    /**
+      The `Ember.Route` class is used to define individual routes. Refer to
+      the [routing guide](http://emberjs.com/guides/routing/) for documentation.
+    */
+    class Route extends Object implements ActionHandlerMixin, Evented {
+
         static isClass: boolean;
         static isMethod: boolean;
+
+        /**
+        This hook is executed when the router enters the route. It is not executed
+        when the model for the route changes.
+        @method activate
+        */
         activate: Function;
+
+        /**
+        This hook is called after this route's model has resolved.
+        It follows identical async/promise semantics to `beforeModel`
+        but is provided the route's resolved model in addition to
+        the `transition`, and is therefore suited to performing
+        logic that can only take place after the model has already
+        resolved.
+
+        Refer to documentation for `beforeModel` for a description
+        of transition-pausing semantics when a promise is returned
+        from this hook.
+        @method afterModel
+        @param {Object} resolvedModel the value returned from `model`,
+            or its resolved value if it was a promise
+        @param {Transition} transition
+        @return {Promise} if the value returned from this hook is
+            a promise, the transition will pause until the transition
+            resolves. Otherwise, non-promise return values are not
+            utilized in any way.
+        */
         afterModel(resolvedModel: any, transition: EmberStates.Transition): RSVP.Promise;
+
+        /**
+        This hook is the first of the route entry validation hooks
+        called when an attempt is made to transition into a route
+        or one of its children. It is called before `model` and
+        `afterModel`, and is appropriate for cases when:
+        1) A decision can be made to redirect elsewhere without
+            needing to resolve the model first.
+        2) Any async operations need to occur first before the
+            model is attempted to be resolved.
+        This hook is provided the current `transition` attempt
+        as a parameter, which can be used to `.abort()` the transition,
+        save it for a later `.retry()`, or retrieve values set
+        on it from a previous hook. You can also just call
+        `this.transitionTo` to another route to implicitly
+        abort the `transition`.
+        You can return a promise from this hook to pause the
+        transition until the promise resolves (or rejects). This could
+        be useful, for instance, for retrieving async code from
+        the server that is required to enter a route.
+
+        @method beforeModel
+        @param {Transition} transition
+        @return {Promise} if the value returned from this hook is
+            a promise, the transition will pause until the transition
+            resolves. Otherwise, non-promise return values are not
+            utilized in any way.
+        */
         beforeModel(transition: EmberStates.Transition): RSVP.Promise;
+
+        /**
+        The controller associated with this route.
+
+        @property controller
+        @type Ember.Controller
+        @since 1.6.0
+        */
+        controller: Controller;
+
+        /**
+        Returns the controller for a particular route or name.
+        The controller instance must already have been created, either through entering the
+        associated route or using `generateController`.
+
+        @method controllerFor
+        @param {String} name the name of the route or controller
+        @return {Ember.Controller}
+        */
         controllerFor(name: string): Controller;
+
+        /**
+        The name of the controller to associate with this route.
+        By default, Ember will lookup a route's controller that matches the name
+        of the route (i.e. `App.PostController` for `App.PostRoute`). However,
+        if you would like to define a specific controller to use, you can do so
+        using this property.
+        This is useful in many ways, as the controller specified will be:
+        * passed to the `setupController` method.
+        * used as the controller for the view being rendered by the route.
+        * returned from a call to `controllerFor` for the route.
+        @property controllerName
+        @type String
+        @default null
+        @since 1.4.0
+        */
+        controllerName: string;
+
+        /**
+        This hook is executed when the router completely exits this route. It is
+        not executed when the model for the route changes.
+        @method deactivate
+        */
         deactivate: Function;
-        disconnectOutlet(options?: DisconnectOutletOptions): void;
-        generateController(name: string, model: {}): void;
-        model(params: {}, transition: EmberStates.Transition): any;
+
+        /**
+        Deserializes value of the query parameter based on defaultValueType
+        @method deserializeQueryParam
+        @param {Object} value
+        @param {String} urlKey
+        @param {String} defaultValueType
+        */
+        deserializeQueryParam(value: any, urlKey: string, defaultValueType: string): any;
+
+        /**
+        Disconnects a view that has been rendered into an outlet.
+        You may pass any or all of the following options to `disconnectOutlet`:
+        * `outlet`: the name of the outlet to clear (default: 'main')
+        * `parentView`: the name of the view containing the outlet to clear
+            (default: the view rendered by the parent route)
+
+        @method disconnectOutlet
+        @param {Object|String} options the options hash or outlet name
+        */
+        disconnectOutlet(options: DisconnectOutletOptions|string): void;
+
+        /**
+        @method findModel
+        @param {String} type the model type
+        @param {Object} value the value passed to find
+        */
+        findModel(type: string, value: any): any;
+
+        /**
+        Generates a controller for a route.
+        If the optional model is passed then the controller type is determined automatically,
+        e.g., an ArrayController for arrays.
+
+        @method generateController
+        @param {String} name the name of the controller
+        @param {Object} model the model to infer the type of the controller (optional)
+        */
+        generateController(name: string, model: {}): Controller;
+
+        /**
+        Perform a synchronous transition into another route without attempting
+        to resolve promises, update the URL, or abort any currently active
+        asynchronous transitions (i.e. regular transitions caused by
+        `transitionTo` or URL changes).
+        This method is handy for performing intermediate transitions on the
+        way to a final destination route, and is called internally by the
+        default implementations of the `error` and `loading` handlers.
+        @method intermediateTransitionTo
+        @param {String} name the name of the route
+        @param {...Object} models the model(s) to be used while transitioning
+        to the route.
+        @since 1.2.0
+        */
+        intermediateTransitionTo(name: string, ...models: any[]): void;
+
+        /**
+        A hook you can implement to convert the URL into the model for
+        this route.
+
+        @method model
+        @param {Object} params the parameters extracted from the URL
+        @param {Transition} transition
+        @return {Object|Promise} the model for this route. If
+            a promise is returned, the transition will pause until
+            the promise resolves, and the resolved value of the promise
+            will be used as the model for this route.
+        */
+        model(params: {}, transition: EmberStates.Transition): any|RSVP.Promise;
+
+        /**
+        Returns the model of a parent (or any ancestor) route
+        in a route hierarchy.  During a transition, all routes
+        must resolve a model object, and if a route
+        needs access to a parent route's model in order to
+        resolve a model (or just reuse the model from a parent),
+        it can call `this.modelFor(theNameOfParentRoute)` to
+        retrieve it.
+
+        @method modelFor
+        @param {String} name the name of the route
+        @return {Object} the model object
+        */
         modelFor(name: string): {};
+
+        /**
+        Retrieves parameters, for current route using the state.params
+        variable and getQueryParamsFor, using the supplied routeName.
+        @method paramsFor
+        @param {String} name
+        */
+        paramsFor(name: string) : any;
+
+        /**
+        Configuration hash for this route's queryParams.
+        @property queryParams
+        @for Ember.Route
+        @type Hash
+        */
+        queryParams: {};
+
+        /**
+        Refresh the model on this route and any child routes, firing the
+        `beforeModel`, `model`, and `afterModel` hooks in a similar fashion
+        to how routes are entered when transitioning in from other route.
+        The current route params (e.g. `article_id`) will be passed in
+        to the respective model hooks, and if a different model is returned,
+        `setupController` and associated route hooks will re-fire as well.
+        An example usage of this method is re-querying the server for the
+        latest information using the same parameters as when the route
+        was first entered.
+        Note that this will cause `model` hooks to fire even on routes
+        that were provided a model object when the route was initially
+        entered.
+        @method refresh
+        @return {Transition} the transition object associated with this
+            attempted transition
+        @since 1.4.0
+        */
+        redirect(): EmberStates.Transition;
+
+
+        /**
+        Refresh the model on this route and any child routes, firing the
+        `beforeModel`, `model`, and `afterModel` hooks in a similar fashion
+        to how routes are entered when transitioning in from other route.
+        The current route params (e.g. `article_id`) will be passed in
+        to the respective model hooks, and if a different model is returned,
+        `setupController` and associated route hooks will re-fire as well.
+        An example usage of this method is re-querying the server for the
+        latest information using the same parameters as when the route
+        was first entered.
+        Note that this will cause `model` hooks to fire even on routes
+        that were provided a model object when the route was initially
+        entered.
+        @method refresh
+        @return {Transition} the transition object associated with this
+            attempted transition
+        @since 1.4.0
+        */
+        refresh(): EmberStates.Transition;
+
+        /**
+        `render` is used to render a template into a region of another template
+        (indicated by an `{{outlet}}`). `render` is used both during the entry
+        phase of routing (via the `renderTemplate` hook) and later in response to
+        user interaction.
+
+        @method render
+        @param {String} name the name of the template to render
+        @param {Object} [options] the options
+        @param {String} [options.into] the template to render into,
+                        referenced by name. Defaults to the parent template
+        @param {String} [options.outlet] the outlet inside `options.template` to render into.
+                        Defaults to 'main'
+        @param {String|Object} [options.controller] the controller to use for this template,
+                        referenced by name or as a controller instance. Defaults to the Route's paired controller
+        @param {Object} [options.model] the model object to set on `options.controller`.
+                        Defaults to the return value of the Route's model hook
+        */
         render(name: string, options?: RenderOptions): void;
+
+        /**
+        A hook you can use to render the template for the current route.
+        This method is called with the controller for the current route and the
+        model supplied by the `model` hook. By default, it renders the route's
+        template, configured with the controller for the route.
+        This method can be overridden to set up and render additional or
+        alternative templates.
+
+        @method renderTemplate
+        @param {Object} controller the route's controller
+        @param {Object} model the route's model
+        */
         renderTemplate(controller: Controller, model: {}): void;
-        // ReSharper disable once InconsistentNaming
-        replaceWith(name: string, ...object: any[]): void;
-        send(name: string, ...args: any[]): void;
+
+        /**
+        Transition into another route while replacing the current URL, if possible.
+        This will replace the current history entry instead of adding a new one.
+        Beside that, it is identical to `transitionTo` in all other respects. See
+        'transitionTo' for additional information regarding multiple models.
+
+        @method replaceWith
+        @param {String} name the name of the route or a URL
+        @param {...Object} models the model(s) or identifier(s) to be used while
+            transitioning to the route.
+        @return {Transition} the transition object associated with this
+            attempted transition
+        */
+        replaceWith(name: string, ...models: any[]): void;
+
+        /**
+        A hook you can use to reset controller values either when the model
+        changes or the route is exiting.
+
+        @method resetController
+        @param {Controller} controller instance
+        @param {Boolean} isExiting
+        @param {Object} transition
+        @since 1.7.0
+        */
+        resetController(controller: Ember.Controller, isExiting: boolean, transition: any): void;
+
+        /**
+        A hook you can implement to convert the route's model into parameters
+        for the URL.
+
+        The default `serialize` method will insert the model's `id` into the
+        route's dynamic segment (in this case, `:post_id`) if the segment contains '_id'.
+        If the route has multiple dynamic segments or does not contain '_id', `serialize`
+        will return `Ember.getProperties(model, params)`
+        This method is called when `transitionTo` is called with a context
+        in order to populate the URL.
+        @method serialize
+        @param {Object} model the route's model
+        @param {Array} params an Array of parameter names for the current
+            route (in the example, `['post_id']`.
+        @return {Object} the serialized parameters
+        */
         serialize(model: {}, params: string[]): string;
+
+        /**
+        Serializes value of the query parameter based on defaultValueType
+        @method serializeQueryParam
+        @param {Object} value
+        @param {String} urlKey
+        @param {String} defaultValueType
+        */
+        serializeQueryParam(value: any, urlKey: string, defaultValueType: string): string;
+
+        /**
+        Serializes the query parameter key
+        @method serializeQueryParamKey
+        @param {String} controllerPropertyName
+        */
+        serializeQueryParamKey(controllerPropertyName: string): string;
+
+        /**
+        A hook you can use to setup the controller for the current route.
+        This method is called with the controller for the current route and the
+        model supplied by the `model` hook.
+        By default, the `setupController` hook sets the `model` property of
+        the controller to the `model`.
+        If you implement the `setupController` hook in your Route, it will
+        prevent this default behavior. If you want to preserve that behavior
+        when implementing your `setupController` function, make sure to call
+        `_super`
+        @method setupController
+        @param {Controller} controller instance
+        @param {Object} model
+        */
         setupController(controller: Controller, model: {}): void;
-        // ReSharper disable once InconsistentNaming
+
+        /**
+        Store property provides a hook for data persistence libraries to inject themselves.
+        By default, this store property provides the exact same functionality previously
+        in the model hook.
+        Currently, the required interface is:
+        `store.find(modelName, findArguments)`
+        @method store
+        @param {Object} store
+        */
+        store(store: any): any;
+
+        /**
+        The name of the template to use by default when rendering this routes
+        template.
+        This is similar with `viewName`, but is useful when you just want a custom
+        template without a view.
+
+        @property templateName
+        @type String
+        @default null
+        @since 1.4.0
+        */
+        templateName: string;
+
+        /**
+        Transition the application into another route. The route may
+        be either a single route or route path
+
+        @method transitionTo
+        @param {String} name the name of the route or a URL
+        @param {...Object} models the model(s) or identifier(s) to be used while
+        transitioning to the route.
+        @param {Object} [options] optional hash with a queryParams property
+        containing a mapping of query parameters
+        @return {Transition} the transition object associated with this
+        attempted transition
+        */
         transitionTo(name: string, ...object: any[]): EmberStates.Transition;
+
+        /**
+        The name of the view to use by default when rendering this routes template.
+        When rendering a template, the route will, by default, determine the
+        template and view to use from the name of the route itself. If you need to
+        define a specific view, set this property.
+        This is useful when multiple routes would benefit from using the same view
+        because it doesn't require a custom `renderTemplate` method.
+        @property viewName
+        @type String
+        @default null
+        @since 1.4.0
+        */
+        viewName: string;
+
+        // ActionHandlerMixin methods
+
+        /**
+        Sends an action to the router, which will delegate it to the currently
+        active route hierarchy per the bubbling rules explained under actions
+
+        @method send
+        @param {String} actionName The action to trigger
+        @param {*} context a context to send with the action
+        */
+        send(name: string, ...args: any[]): void;
+
+        /**
+        The collection of functions, keyed by name, available on this
+        `ActionHandler` as action targets.
+        These functions will be invoked when a matching `{{action}}` is triggered
+        from within a template and the application's current route is this route.
+        Actions can also be invoked from other parts of your application
+        via `ActionHandler#send`.
+        The `actions` hash will inherit action handlers from
+        the `actions` hash defined on extended parent classes
+        or mixins rather than just replace the entire hash.
+
+        Within a Controller, Route, View or Component's action handler,
+        the value of the `this` context is the Controller, Route, View or
+        Component object:
+
+        It is also possible to call `this._super.apply(this, arguments)` from within an
+        action handler if it overrides a handler defined on a parent
+        class or mixin.
+
+        ## Bubbling
+        By default, an action will stop bubbling once a handler defined
+        on the `actions` hash handles it. To continue bubbling the action,
+        you must return `true` from the handler
+
+        @property actions
+        @type Hash
+        @default null
+        */
         actions: ActionsHash;
+
+        // Evented methods
+
+        /**
+        Subscribes to a named event with given function.
+
+        An optional target can be passed in as the 2nd argument that will
+        be set as the "this" for the callback. This is a good way to give your
+        function access to the object triggering the event. When the target
+        parameter is used the callback becomes the third argument.
+
+        @method on
+        @param {String} name The name of the event
+        @param {Object} [target] The "this" binding for the callback
+        @param {Function} method The callback to execute
+        @return this
+        */
+        on(name: string, target: any, method: Function): Evented;
+
+        /**
+        Subscribes a function to a named event and then cancels the subscription
+        after the first time the event is triggered. It is good to use ``one`` when
+        you only care about the first time an event has taken place.
+        This function takes an optional 2nd argument that will become the "this"
+        value for the callback. If this argument is passed then the 3rd argument
+        becomes the function.
+
+        @method one
+        @param {String} name The name of the event
+        @param {Object} [target] The "this" binding for the callback
+        @param {Function} method The callback to execute
+        @return this
+        */
+        one(name: string, target: any, method: Function): Evented;
+
+        /**
+        Triggers a named event for the object. Any additional arguments
+        will be passed as parameters to the functions that are subscribed to the
+        event.
+
+        @method trigger
+        @param {String} name The name of the event
+        @param {Object...} args Optional arguments to pass on
+        */
+        trigger(name: string, ...args: string[]): void;
+
+        /**
+        Cancels subscription for given name, target, and method.
+
+        @method off
+        @param {String} name The name of the event
+        @param {Object} target The target of the subscription
+        @param {Function} method The function of the subscription
+        @return this
+        */
+        off(name: string, target:any , method: Function): Evented;
+
+        /**
+        Checks to see if object has any subscriptions for named event.
+
+        @method has
+        @param {String} name The name of the event
+        @return {Boolean} does the object have a subscription for event
+        */
+        has(name: string): boolean;
     }
+
     class Router extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -2264,7 +2830,7 @@ declare module Ember {
     function compare(v: any, w: any): number;
     // ReSharper disable once DuplicatingLocalDeclaration
     var computed: {
-        (callback: Function): ComputedProperty;
+        (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
         any(...args: string[]): ComputedProperty;
@@ -2350,7 +2916,7 @@ declare module Ember {
     **/
     var none: typeof deprecateFunc;
     function normalizeTuple(target: any, path: string): any[];
-    function observer(func: Function, ...args: string[]): Function;
+    function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     function oneWay(obj: any, to: string, from: string): Binding;
@@ -2531,6 +3097,9 @@ declare module Em {
     class Observable extends Ember.Observable { }
     class OrderedSet extends Ember.OrderedSet { }
     module RSVP {
+        interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
+        interface PromiseReject extends Ember.RSVP.PromiseReject { }
+        interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
         class Promise extends Ember.RSVP.Promise { }
     }
     class RenderBuffer extends Ember.RenderBuffer { }
@@ -2772,6 +3341,9 @@ declare module "Ember" {
     class Observable extends Ember.Observable { }
     class OrderedSet extends Ember.OrderedSet { }
     module RSVP {
+        interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
+        interface PromiseReject extends Ember.RSVP.PromiseReject { }
+        interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
         class Promise extends Ember.RSVP.Promise { }
     }
     class RenderBuffer extends Ember.RenderBuffer { }

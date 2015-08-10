@@ -106,6 +106,10 @@ interface JQueryAjaxSettings {
      */
     jsonpCallback?: any;
     /**
+     * The HTTP method to use for the request (e.g. "POST", "GET", "PUT"). (version added: 1.9.0)
+     */
+    method?: string;
+    /**
      * A mime type to override the XHR mime type. (version added: 1.5.1)
      */
     mimeType?: string;
@@ -2454,6 +2458,14 @@ interface JQuery {
      * @param extraParameters An array of additional parameters to pass along to the event handler.
      */
     triggerHandler(eventType: string, ...extraParameters: any[]): Object;
+
+    /**
+     * Execute all handlers attached to an element for an event.
+     * 
+     * @param event A jQuery.Event object.
+     * @param extraParameters An array of additional parameters to pass along to the event handler.
+     */
+    triggerHandler(event: JQueryEventObject, ...extraParameters: any[]): Object;
 
     /**
      * Remove a previously-attached event handler from the elements.
