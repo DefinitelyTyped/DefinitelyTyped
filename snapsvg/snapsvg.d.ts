@@ -80,7 +80,8 @@ declare module Snap {
 	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):Mina.MinaAnimation;
 	export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
 	
-	export function color(clr:string):Object;export function getRGB(color:string):Object;
+	export function color(clr:string):Object;
+	export function getRGB(color:string):RGB;
 	export function hsb(h:number,s:number,b:number):HSB;
 	export function hsl(h:number,s:number,l:number):HSL;
 	export function rgb(r:number,g:number,b:number):RGB;
@@ -246,21 +247,32 @@ declare module Snap {
 		selectAll(query ?:string):Snap.Set;
 	}
 	
+	
 	export interface Matrix {
-		add(a:number,b:number,c:number,d:number,e:number,f:number):void;
-		add(matrix:Matrix):void;
+		add(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
+		add(matrix:Matrix):Matrix;
 		clone():Matrix;
 		determinant():number;
 		invert():Matrix;
-		rotate(a:number,x:number,y:number):void;
-		scale(x:number,y?:number,cx?:number,cy?:number):void;
-		split():Object;
+		rotate(a:number,x:number,y:number):Matrix;
+		scale(x:number,y?:number,cx?:number,cy?:number):Matrix;
+		split():ExplicitTransform;
 		toTransformString():string;	
-		translate(x:number,y:number):void;
+		translate(x:number,y:number):Matrix;
 		x(x:number,y:number):number;
 		y(x:number,y:number):number;
 	
 	}
+	
+	interface ExplicitTransform {
+        dx: number;
+        dy: number;
+        scalex: number;
+        scaley: number;
+        shear: number;
+        rotate: number;
+        isSimple: boolean;
+    }
 	
 	interface Paper extends Snap.Element {
 
