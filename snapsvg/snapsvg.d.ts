@@ -224,7 +224,7 @@ declare module Snap {
         touchend(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         touchcancel(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         
-        unclick(handler: (event: MouseEvent) => void): Snap.Element;
+        unclick(handler?: (event: MouseEvent) => void): Snap.Element;
         undblclick(handler: (event: MouseEvent) => void): Snap.Element;
         unmousedown(handler: (event: MouseEvent) => void): Snap.Element;
         unmousemove(handler: (event: MouseEvent) => void): Snap.Element;
@@ -267,14 +267,13 @@ declare module Snap {
 		clone():Matrix;
 		determinant():number;
 		invert():Matrix;
-		rotate(a:number,x:number,y:number):Matrix;
+		rotate(a:number,x?:number,y?:number):Matrix;
 		scale(x:number,y?:number,cx?:number,cy?:number):Matrix;
 		split():ExplicitTransform;
 		toTransformString():string;	
 		translate(x:number,y:number):Matrix;
 		x(x:number,y:number):number;
 		y(x:number,y:number):number;
-	
 	}
 	
 	interface ExplicitTransform {
