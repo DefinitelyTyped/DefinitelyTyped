@@ -60,5 +60,6 @@ declare module jquery.velocity {
 		_cacheValues?: boolean;
 		container?: JQuery;
 		axis?: string;
+		offset?: number;
 	}
 }
