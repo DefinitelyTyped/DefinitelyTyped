@@ -9,7 +9,7 @@ declare module Microsoft.Maps.AdvancedShapes {
 
     export class EntityCollection {
 
-        constructor(options: EntityCollectionOptions);
+        constructor(options?: EntityCollectionOptions);
 
         clear(): void;
         get(index: number): Entity;

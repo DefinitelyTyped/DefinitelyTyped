@@ -25,12 +25,12 @@ declare module Microsoft.Maps.Search {
      }
 
      export interface GeocodeRequestOptions {
-         bounds: LocationRect;
+         bounds?: LocationRect;
          callback: (result: GeocodeResult, userData: any) => any;
          count: number;
          errorCallback: (options: GeocodeRequestOptions) => any;
-         timeout: number;
-         userData: any;
+         timeout?: number;
+         userData?: any;
          where:string;
      }
 
@@ -73,9 +73,10 @@ declare module Microsoft.Maps.Search {
      export interface ReverseGeocodeRequestOptions {
          callback: (result: PlaceResult, userData: any) => any;
          errorCallback: (options: ReverseGeocodeRequestOptions) => any;
+         count:number;
          location: Location;
-         timeout: number;
-         userData:any;
+         timeout?: number;
+         userData?:any;
      }
 
      export class SearchManager {
@@ -107,13 +108,13 @@ declare module Microsoft.Maps.Search {
          callback:(result: SearchResponse, userData: any)=>any;
          count: number;
          errorCallback:(options: SearchRequestOptions)=>any;
-         query: string;
-         startIndex: number;
-         timeout: number;
-         entityType: string;
-         userData: any;
-         what: string;
-         where:string;
+         query?: string;
+         startIndex?: number;
+         timeout?: number;
+         entityType?: string;
+         userData?: any;
+         what?: string;
+         where?:string;
      }
 
      export interface SearchResponse {

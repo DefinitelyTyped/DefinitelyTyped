@@ -45,7 +45,7 @@ declare module Microsoft.Maps {
         getNorth(): number;
         getNorthwest(): Location;
         getSouth(): number;
-        getSouthEast(): Location;
+        getSoutheast(): Location;
         getWest(): number;
         intersects(rect: LocationRect): boolean;
         toString(): string;
@@ -251,14 +251,14 @@ declare module Microsoft.Maps {
     }
 
     export interface EntityCollectionOptions {
-        bubble: boolean;
-        visible: boolean;
-        zIndex: number;
+        bubble?: boolean;
+        visible?: boolean;
+        zIndex?: number;
     }
 
     export class EntityCollection {
 
-        constructor(options: EntityCollectionOptions);
+        constructor(options?: EntityCollectionOptions);
 
         clear(): void;
         get(index: number): Entity;
@@ -353,7 +353,7 @@ declare module Microsoft.Maps {
     export interface PolylineOptions {
 
         strokeColor: Color;
-        strokeDashArray: string;
+        strokeDashArray?: string;
         strokeThickness: number;
         visible: boolean;
     }
@@ -376,7 +376,7 @@ declare module Microsoft.Maps {
     export interface PolygonOptions {
 
         strokeColor: Color;
-        strokeDashArray: string;
+        strokeDashArray?: string;
         strokeThickness: number;
         visible: boolean;
     }
@@ -492,7 +492,7 @@ declare module Microsoft.Maps {
 
     export interface PositionCircleOptions {
         polygonOptions: PolygonOptions;
-        showOnMap: boolean;
+        showOnMap?: boolean;
     }
 
     export class PositionError {
