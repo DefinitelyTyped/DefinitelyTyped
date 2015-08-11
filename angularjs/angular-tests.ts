@@ -381,6 +381,45 @@ var scope: ng.IScope = element.scope();
 var isolateScope: ng.IScope = element.isolateScope();
 
 
+// $timeout signature tests
+module TestTimeout {
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+    var fnTResult: (...args: any[]) => TResult;
+    var promiseAny: angular.IPromise<any>;
+    var $timeout: angular.ITimeoutService;
+
+    // $timeout
+    {
+        let result: angular.IPromise<any>;
+        result = $timeout();
+    }
+    {
+        let result: angular.IPromise<void>;
+        result = $timeout(1);
+        result = $timeout(1, true);
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $timeout(fnTResult);
+        result = $timeout(fnTResult, 1);
+        result = $timeout(fnTResult, 1, true);
+        result = $timeout(fnTResult, 1, true, 1);
+        result = $timeout(fnTResult, 1, true, 1, '');
+        result = $timeout(fnTResult, 1, true, 1, '', true);
+    }
+
+    // $timeout.cancel
+    {
+        let result: boolean;
+        result = $timeout.cancel();
+        result = $timeout.cancel(promiseAny);
+    }
+}
+
 
 function test_IAttributes(attributes: ng.IAttributes){
     return attributes;
