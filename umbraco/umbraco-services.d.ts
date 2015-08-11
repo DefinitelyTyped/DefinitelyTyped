@@ -3,6 +3,7 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="umbraco.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare module umbraco.services {
@@ -29,7 +30,7 @@ declare module umbraco.services {
         *
         * @param {object} objReject The object to send back with the promise rejection
         */
-        rejectedPromise(objReject: Object);
+        rejectedPromise(objReject: Object): void;
 
         /**
         * @ngdoc function
@@ -40,7 +41,7 @@ declare module umbraco.services {
         * @description
         * This checks if a digest/apply is already occuring, if not it will force an apply call
         */
-        safeApply(scope: ng.IScope, fn: Function);
+        safeApply(scope: ng.IScope, fn: Function): void;
 
         /**
         * @ngdoc function
@@ -51,7 +52,7 @@ declare module umbraco.services {
         * @description
         * Returns the current form object applied to the scope or null if one is not found
         */
-        getCurrentForm(scope: ng.IScope);
+        getCurrentForm(scope: ng.IScope): any;
 
         /**
         * @ngdoc function
@@ -78,7 +79,7 @@ declare module umbraco.services {
         *
         * @param {string} formName The form name to assign
         */
-        getNullForm(formName: string);
+        getNullForm(formName: string): ng.IFormController;
     }
 
 
@@ -151,7 +152,7 @@ declare module umbraco.services {
     interface IAppState {
 
         /** function to validate and set the state on a state object */
-        setState(stateObj: IStateObject, key: string, value, stateObjName: string): void;
+        setState(stateObj: IStateObject, key: string, value: any, stateObjName: string): void;
 
         /** function to validate and set the state on a state object */
         getState(stateObj: IStateObject, key: string, stateObjName: string): IStateObject;
@@ -266,7 +267,7 @@ declare module umbraco.services {
         * like the content editor, where the model is modified by several
         * child controllers.
         */
-        set(entity): void;
+        set(entity: Object): void;
 
         /**
         * @ngdoc function
@@ -325,7 +326,7 @@ declare module umbraco.services {
         * @param {Number} timeout in milliseconds
         * @returns {Promise} Promise object which resolves when the file has loaded
         */
-        loadCss(path: string, scope: ng.IScope, attributes: Object, timeout: number);
+        loadCss(path: string, scope: ng.IScope, attributes: Object, timeout: number): ng.IPromise<any>;
 
         /**
         * @ngdoc method
@@ -341,7 +342,7 @@ declare module umbraco.services {
         * @param {Number} timeout in milliseconds
         * @returns {Promise} Promise object which resolves when the file has loaded
         */
-        loadJs(path: string, scope: ng.IScope, attributes: Object, timeout: number);
+        loadJs(path: string, scope: ng.IScope, attributes: Object, timeout: number): ng.IPromise<any>;
 
         /**
         * @ngdoc method
@@ -356,7 +357,7 @@ declare module umbraco.services {
         * @param {Scope} scope optional scope to pass into the loader
         * @returns {Promise} Promise object which resolves when all the files has loaded
         */
-        load(pathArray: string[], scope: ng.IScope);
+        load(pathArray: string[], scope: ng.IScope): ng.IPromise<any>;
     }
 
     /**
@@ -376,7 +377,7 @@ declare module umbraco.services {
         * @description
         * Returns all propertes contained for the content item (since the normal model has properties contained inside of tabs)
         */
-        getAllProps(content);
+        getAllProps(content: any): any;
 
         /**
         * @ngdoc method
@@ -387,7 +388,7 @@ declare module umbraco.services {
         * @description
         * Returns a letter array for buttons, with the primary one first based on content model, permissions and editor state
         */
-        getAllowedActions(content, creating);
+        getAllowedActions(content: any, creating: any): string[];
 
         /**
         * @ngdoc method
@@ -400,7 +401,7 @@ declare module umbraco.services {
         * currently only returns built in system buttons for content and media actions
         * returns label, alias, action char and hot-key
         */
-        getButtonFromAction(ch: string);
+        getButtonFromAction(ch: string): any;
 
         /**
         * @ngdoc method
@@ -411,7 +412,7 @@ declare module umbraco.services {
         * @description
         * re-binds all changed property values to the origContent object from the savedContent object and returns an array of changed properties.
         */
-        reBindChangedProperties(origContent, savedContent);
+        reBindChangedProperties(origContent: any, savedContent: any): void;
 
         /**
         * @ngdoc function
@@ -422,7 +423,7 @@ declare module umbraco.services {
         * @description
         * A function to handle what happens when we have validation issues from the server side
         */
-        handleSaveError(...args: any[]);
+        handleSaveError(...args: any[]): void;
 
         /**
         * @ngdoc function
@@ -435,7 +436,7 @@ declare module umbraco.services {
         * ensure the notifications are displayed and that the appropriate events are fired. This will also check if we need to redirect
         * when we're creating new content.
         */
-        handleSuccessfulSave(...args: any[]);
+        handleSuccessfulSave(...args: any[]): void;
 
         /**
         * @ngdoc function
@@ -448,7 +449,7 @@ declare module umbraco.services {
         * We need to decide if we need to redirect to edito mode or if we will remain in create mode.
         * We will only need to maintain create mode if we have not fulfilled the basic requirements for creating an entity which is at least having a name.
         */
-        redirectToCreatedContent(id: number, modelState: any);
+        redirectToCreatedContent(id: number, modelState: any): void;
     }
 
     /**
@@ -798,7 +799,7 @@ declare module umbraco.services {
         * @description
         * Opens a dialog to an embed dialog
         */
-        embedDialog(options);
+        embedDialog(options: any): void;
 
         /**
         * @ngdoc method
@@ -808,7 +809,7 @@ declare module umbraco.services {
         * @description
         * Opens a dialog to show a custom YSOD
         */
-        ysodDialog(ysodError);
+        ysodDialog(ysodError: any): void;
     }
 
     /** Used to broadcast and listen for global events and allow the ability to add async listeners to the callbacks */
@@ -852,7 +853,7 @@ declare module umbraco.services {
         *  Attaches files to the current manager for the current editor for a particular property, if an empty array is set
         *   for the files collection that effectively clears the files for the specified editor.
         */
-        setFiles(propertyAlias: string, files: IFile[]);
+        setFiles(propertyAlias: string, files: IFile[]): void;
 
         /**
         * @ngdoc function
@@ -875,7 +876,7 @@ declare module umbraco.services {
         * @description
         *  Removes all files from the manager
         */
-        clearFiles();
+        clearFiles(): void;
     }
 
     /**
@@ -909,7 +910,7 @@ declare module umbraco.services {
         *
         * @param {object} args An object containing arguments for form submission
         */
-        submitForm(...args: any[]);
+        submitForm(...args: any[]): void;
 
         /**
         * @ngdoc function
@@ -923,7 +924,7 @@ declare module umbraco.services {
         *
         * @param {object} args An object containing arguments for form submission
         */
-        resetForm(...args: any[]);
+        resetForm(...args: any[]): void;
 
         /**
         * @ngdoc function
@@ -937,7 +938,7 @@ declare module umbraco.services {
         *
         * @param {object} err The error object returned from the http promise
         */
-        handleError(err: Object);
+        handleError(err: Object): void;
 
         /**
         * @ngdoc function
@@ -950,7 +951,7 @@ declare module umbraco.services {
         *
         * @param {object} err The error object returned from the http promise
         */
-        handleServerValidation(modelState: IModelState);
+        handleServerValidation(modelState: IModelState): void;
     }
 
 
@@ -1013,7 +1014,7 @@ declare module umbraco.services {
 		 *
 		 * @param {Int} index index to remove item from
 		 */
-        remove(index: number);
+        remove(index: number): void;
 
         /**
         * @ngdoc method
@@ -1057,7 +1058,7 @@ declare module umbraco.services {
         *
         * @param {object} args an object containing the macro alias and it's parameter values
         */
-        generateMacroSyntax(...args: any[]);
+        generateMacroSyntax(...args: any[]): void;
 
         /**
         * @ngdoc function
@@ -1070,7 +1071,7 @@ declare module umbraco.services {
         *
         * @param {object} args an object containing the macro alias and it's parameter values
         */
-        generateWebFormsSyntax(...args: any[]);
+        generateWebFormsSyntax(...args: any[]): void;
 
         /**
         * @ngdoc function
@@ -1083,7 +1084,7 @@ declare module umbraco.services {
         *
         * @param {object} args an object containing the macro alias and it's parameter values
         */
-        generateMvcSyntax(...args: any[]);
+        generateMvcSyntax(...args: any[]): void;
     }
 
 
@@ -1202,7 +1203,7 @@ declare module umbraco.services {
         * @param {number} width Current width
         * @param {number} height Current height
         */
-        scaleToMaxSize(maxSize: number, width: number, height: number);
+        scaleToMaxSize(maxSize: number, width: number, height: number): any;
 
         /**
         * @ngdoc function
@@ -1334,7 +1335,7 @@ declare module umbraco.services {
           Called to assign the main tree event handler - this is called by the navigation controller.
           TODO: Potentially another dev could call this which would kind of mung the whole app so potentially there's a better way.
         */
-        setupTreeEvents(treeEventHandler): void;
+        setupTreeEvents(treeEventHandler: any): void;
 
         /**
         * @ngdoc method
@@ -1363,7 +1364,7 @@ declare module umbraco.services {
         _syncPath(path: string[], forceReload: boolean): void;
 
         //TODO: This should return a promise
-        reloadNode(node): void;
+        reloadNode(node: any): void;
 
         //TODO: This should return a promise
         reloadSection(sectionAlias: string): void;
@@ -1408,7 +1409,7 @@ declare module umbraco.services {
         hideMenu(): void;
 
         /** Executes a given menu action */
-        executeMenuAction(action, node, section): void;
+        executeMenuAction(action: any, node: any, section: any): void;
 
         /**
         * @ngdoc method
@@ -1879,7 +1880,7 @@ declare module umbraco.services {
         * @description
         * Gets all callbacks that has been registered using the subscribe method for the field.
         */
-        getFieldCallbacks(fieldName: string);
+        getFieldCallbacks(fieldName: string): any;
 
         /**
         * @ngdoc function
@@ -2036,7 +2037,7 @@ declare module umbraco.services {
         * Returns a default configration to fallback on in case none is provided
         *
         */
-        defaultPrevalues(); IConfiguration;
+        defaultPrevalues(): IConfiguration;
 
         /**
         * @ngdoc method
@@ -2075,7 +2076,7 @@ declare module umbraco.services {
         * @param {Object} editor the TinyMCE editor instance
         * @param {Object} $scope the current controller scope
         */
-        createInsertMacro(editor: Object, $scope: ng.IScope);
+        createInsertMacro(editor: Object, $scope: ng.IScope): void;
     }
 
     /**
@@ -2200,7 +2201,7 @@ declare module umbraco.services {
         * @param {object} treeNode to retrive child node from
         * @param {int} id id of child node
         */
-        getChildNode(treeNode: Object, id: number);
+        getChildNode(treeNode: Object, id: number): any;
 
         /**
         * @ngdoc method
@@ -2214,7 +2215,7 @@ declare module umbraco.services {
         * @param {int} id id of descendant node
         * @param {string} treeAlias - optional tree alias, if fetching descendant node from a child of a listview document
         */
-        getDescendantNode(treeNode: Object, id: number, treeAlias: string);
+        getDescendantNode(treeNode: Object, id: number, treeAlias: string): any;
 
         /**
         * @ngdoc method
@@ -2226,7 +2227,7 @@ declare module umbraco.services {
         * Gets the root node of the current tree type for a given tree node
         * @param {object} treeNode to retrive tree root node from
         */
-        getTreeRoot(treeNode: Object);
+        getTreeRoot(treeNode: Object): any;
 
         /**
         * @ngdoc method
@@ -2252,7 +2253,7 @@ declare module umbraco.services {
         * @param {string} args.section Section alias
         * @param {string} args.cacheKey Optional cachekey
         */
-        getTree(args: ITreeArgs)
+        getTree(args: ITreeArgs): ng.IPromise<any>;
 
         /**
         * @ngdoc method
@@ -2265,7 +2266,7 @@ declare module umbraco.services {
         * @param {object} args Arguments
         * @param {string} args.treeNode tree node object to retrieve the menu for
         */
-        getMenu(...args: any[]);
+        getMenu(...args: any[]): any;
 
         /**
         * @ngdoc method
@@ -2279,7 +2280,7 @@ declare module umbraco.services {
         * @param {object} args.node tree node object to retrieve the children for
         * @param {string} args.section current section alias
         */
-        getChildren(...args: any[]);
+        getChildren(...args: any[]): any;
 
         /**
         * @ngdoc method
@@ -2291,7 +2292,7 @@ declare module umbraco.services {
         * Re-loads the single node from the server
         * @param {object} node Tree node to reload
         */
-        reloadNode(node: Object);
+        reloadNode(node: Object): void;
 
         /**
         * @ngdoc method
@@ -2304,6 +2305,12 @@ declare module umbraco.services {
         * @param {object} node Tree node to retrieve path for
         */
         getPath(node: Object): string;
+    }
+
+
+    interface KeyValuePair<T> {
+        key: string;
+        value: T;
     }
 
     /**
@@ -2337,7 +2344,7 @@ declare module umbraco.services {
         *
         * @param {Array} queryStrings An array of key/value pairs
         */
-        dictionaryToQueryString(queryStrings);
+        dictionaryToQueryString(queryStrings: KeyValuePair<string>[]): string;
 
         /**
         * @ngdoc method
@@ -2352,7 +2359,7 @@ declare module umbraco.services {
         * @param {string} actionName The webapi action name
         * @param {object} queryStrings Can be either a string or an array containing key/value pairs
         */
-        getApiUrl(apiName: string, actionName: string, queryStrings): string;
+        getApiUrl(apiName: string, actionName: string, queryStrings: string|KeyValuePair<string>[]): string;
 
         /**
         * @ngdoc function
@@ -2377,7 +2384,7 @@ declare module umbraco.services {
         */
         resourcePromise<T>(httpPromise: ng.IPromise<T>, opts: string |
             { success: ng.IHttpPromiseCallback<T>; errorMsg: string } |
-            { success: ng.IHttpPromiseCallback<T>; error: ng.IHttpPromiseCallback<umb.resources.IResourcePromise> });
+            { success: ng.IHttpPromiseCallback<T>; error: ng.IHttpPromiseCallback<umb.resources.IResourcePromise> }): umb.resources.IResourcePromise| Object;
     }
 }
 
