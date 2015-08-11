@@ -3,6 +3,8 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../angularjs/angular.d.ts" />
+
 declare module umbraco.resources{
 
     /**
@@ -497,7 +499,7 @@ interface IContentResource{
          * @returns {Promise} resourcePromise object containing the saved content item.
          *
          */
-        save(content, isNew: boolean, files): ng.IPromise<IResourcePromise>;
+        save(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
 		/**
          * @ngdoc method
@@ -527,7 +529,7 @@ interface IContentResource{
          * @returns {Promise} resourcePromise object containing the saved content item.
          *
          */
-        publish(content, isNew: boolean, files): ng.IPromise<IResourcePromise>;
+        publish(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
 		/**
          * @ngdoc method
@@ -555,7 +557,7 @@ interface IContentResource{
          * @returns {Promise} resourcePromise object containing the saved content item.
          *
          */
-        sendToPublish(content, isNew: boolean, files): ng.IPromise<IResourcePromise>;
+        sendToPublish(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
 
         /**
@@ -643,7 +645,7 @@ interface ICurrentUserResource{
          * @returns {Promise} resourcePromise object containing the user array.
          *
          */
-    changePassword(changePasswordArgs): ng.IPromise<IResourcePromise>;
+        changePassword(changePasswordArgs: any): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -653,7 +655,7 @@ interface ICurrentUserResource{
          * @description
          * Gets the configuration of the user membership provider which is used to configure the change password form
          */
-        getMembershipProviderConfig();
+        getMembershipProviderConfig(): any;
 
 }
 
@@ -729,7 +731,7 @@ interface IDataTypeResource{
          */
     getById(id: number): ng.IPromise<IResourcePromise>;
 
-        getAll();
+        getAll() : any;
 
         /**
          * @ngdoc method
@@ -796,7 +798,7 @@ interface IDataTypeResource{
          * @returns {Promise} resourcePromise object.
          *
          */
-        save(dataType, preValues: any[], isNew: boolean): ng.IPromise<IResourcePromise>;
+        save(dataType: Object, preValues: any[], isNew: boolean): ng.IPromise<IResourcePromise>;
 }
 
 /**
@@ -880,9 +882,9 @@ interface IEntityResource{
          * @returns {Promise} resourcePromise object containing the entity.
          *
          */
-        getById(id: number, type: string);
+        getById(id: number, type: string): ng.IPromise<IResourcePromise>;
 
-        getByQuery(query, nodeContextId, type: string): ng.IPromise<IResourcePromise>;
+        getByQuery(query: string, nodeContextId: number|string, type: string): ng.IPromise<IResourcePromise>;
 
          /**
          * @ngdoc method
@@ -988,7 +990,7 @@ interface IEntityResource{
          * @returns {Promise} resourcePromise object containing the entity array.
          *
          */
-        search(query: string, type: string, searchFrom, canceler): ng.IPromise<IResourcePromise>;
+        search(query: string, type: string, searchFrom: any, canceler: any): ng.IPromise<IResourcePromise>;
 
          /**
          * @ngdoc method
@@ -1011,7 +1013,7 @@ interface IEntityResource{
          * @returns {Promise} resourcePromise object containing the entity array.
          *
          */
-        searchAll(query: string, canceler): ng.IPromise<IResourcePromise>;
+        searchAll(query: string, canceler: any): ng.IPromise<IResourcePromise>;
 }
 
     /**
@@ -1118,7 +1120,7 @@ interface IMacroResource{
          * @param {int} macroId The macro id to get parameters for
          *
          */
-        getMacroParameters(macroId: number);
+        getMacroParameters(macroId: number): any;
 
            /**
          * @ngdoc method
@@ -1133,7 +1135,7 @@ interface IMacroResource{
          * @param {Array} macroParamDictionary A dictionary of macro parameters
          *
          */
-        getMacroResultAsHtmlForEditor(macroId:number, pageId:number, macroParamDictionary: any[]);
+        getMacroResultAsHtmlForEditor(macroId: number, pageId: number, macroParamDictionary: any[]): any;
 }
 
 /**
@@ -1295,7 +1297,7 @@ interface IMediaResource{
          */
     getScaffold(parentId: number, alias: string): ng.IPromise<IResourcePromise>;
 
-        rootMedia();
+        rootMedia(): any;
 
          /**
          * @ngdoc method
@@ -1437,9 +1439,9 @@ interface IMediaTypeResource{
     **/
 interface IMemberResource{
 
-    getPagedResults(memberTypeAlias: string, options);
+    getPagedResults(memberTypeAlias: string, options: any): any;
 
-    getListNode(listName: string);
+    getListNode(listName: string): any;
 
     /**
          * @ngdoc method
@@ -1557,7 +1559,7 @@ interface IMemberResource{
     **/
 interface IMemberTypeResource{
     //return all member types
-        getTypes();
+        getTypes(): any;
 }
 
 /**
@@ -1614,11 +1616,11 @@ interface IPackageResource{
          */
         import(package: string): number;
 
-        installFiles(package: string);
+        installFiles(package: string): void;
 
-        installData(package: string);
+        installData(package: string): void;
 
-        cleanUp(package: string);
+        cleanUp(package: string): void;
 
 }
 
@@ -1629,7 +1631,7 @@ interface IPackageResource{
     **/
 interface ISectionResource{
     /** Loads in the data to display the section list */
-        getSections();
+        getSections(): void;
 }
 
 /**
@@ -1713,13 +1715,13 @@ interface IStylesheetResource{
     **/
 interface ITreeResource{
     /** Loads in the data to display the nodes menu */
-        loadMenu(node);
+        loadMenu(node: any): void;
 
          /** Loads in the data to display the nodes for an application */
-        loadApplication(options);
+        loadApplication(options: any): void;
 
          /** Loads in the data to display the child nodes for a given node */
-        loadNodes(options);
+        loadNodes(options: any): void;
 }
 
 /**
@@ -1727,7 +1729,7 @@ interface ITreeResource{
     * @name umbraco.resources.userResource
     **/
 interface IUserResource{
-     disableUser(userId: number);
+     disableUser(userId: number): void;
 }
     }
 
