@@ -123,6 +123,7 @@ result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: stri
 
 //Wrapped array shortcut methods
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
+result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat([5, 6]);
 result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
