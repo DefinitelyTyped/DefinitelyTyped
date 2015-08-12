@@ -344,7 +344,8 @@ declare module JQueryUI {
         dialogClass?: string;
         disabled?: boolean;
         draggable?: boolean;
-        height?: any; // number or string
+        height?: number | string;
+        hide?: boolean | number | string | DialogShowHideOptions;
         maxHeight?: number;
         maxWidth?: number;
         minHeight?: number;
@@ -352,13 +353,20 @@ declare module JQueryUI {
         modal?: boolean;
         position?: any; // object, string or []
         resizable?: boolean;
-        show?: any; // number, string or object
+        show?: boolean | number | string | DialogShowHideOptions;
         stack?: boolean;
         title?: string;
         width?: any; // number or string
         zIndex?: number;
 
         close?: DialogEvent;
+    }
+
+    interface DialogShowHideOptions {
+        effect: string;
+        delay?: number;
+        duration?: number;
+        easing?: string;
     }
 
     interface DialogUIParams {
@@ -799,7 +807,7 @@ declare module JQueryUI {
     interface EffectOptions {
         effect: string;
         easing?: string;
-        duration: any;
+        duration?: number;
         complete: Function;
     }
 
