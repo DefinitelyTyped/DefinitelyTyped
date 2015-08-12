@@ -18,6 +18,7 @@ declare module "bunyan" {
         child(obj:Object, simple?:boolean):Logger;
         reopenFileStreams():void;
 
+        level():string|number;
         level(value: number | string):void;
         levels(name: number | string, value: number | string):void;
 
@@ -50,7 +51,7 @@ declare module "bunyan" {
     interface LoggerOptions {
         name: string;
         streams?: Stream[];
-        level?: string;
+        level?: string | number;
         stream?: WritableStream;
         serializers?: Serializers;
         src?: boolean;
