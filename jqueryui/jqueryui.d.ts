@@ -652,6 +652,7 @@ declare module JQueryUI {
         forceHelperSize?: boolean;
         forcePlaceholderSize?: boolean;
         grid?: number[];
+        helper?: string | ((event: Event, element: Sortable) => Element);
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number;
