@@ -125,13 +125,13 @@ declare module rswf {
         * Must not be called in a non-browser environment.
         * @return {?string} 'X.Y.Z'-version or null.
         */
-        static getFPVersion(): { string }
+        static getFPVersion(): string 
         /**
         * Returns if installed Flash Player meets version requirement.
         * Must not be called in a non-browser environment.
         * @return {boolean} true if supported
         */
-        static isFPVersionSupported(versionString): boolean
+        static isFPVersionSupported(versionString: string): boolean
     }
 
 }
