@@ -336,9 +336,9 @@ declare module JQueryUI {
 
     // Dialog //////////////////////////////////////////////////
 
-    interface DialogOptions {
+    interface DialogOptions extends DialogEvents {
         autoOpen?: boolean;
-        buttons?: any; // object or []
+        buttons?: { [buttonText: string]: () => void } | ButtonOptions[];
         closeOnEscape?: boolean;
         closeText?: string;
         dialogClass?: string;
@@ -382,7 +382,7 @@ declare module JQueryUI {
         resizeStop?: DialogEvent;
     }
 
-    interface Dialog extends Widget, DialogOptions, DialogEvents {
+    interface Dialog extends Widget, DialogOptions {
     }
 
 

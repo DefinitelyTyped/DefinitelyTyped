@@ -1425,12 +1425,13 @@ function test_dialog() {
         height: 300,
         width: 350,
         modal: true,
-        buttons: {},
-        Cancel: function () {
-            $(this).dialog("close");
-        },
-        close: function () {
-		    var $el = $(this).dialog("destroy");
+        buttons: {
+            Cancel: function () {
+                $(this).dialog("close");
+            },
+            close: function () {
+                var $el = $(this).dialog("destroy");
+            }
         }
     });
     $("#dialog-message").dialog({
