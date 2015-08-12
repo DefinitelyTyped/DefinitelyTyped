@@ -1596,8 +1596,8 @@ function test_spinner() {
     });
     $("#lat, #lng").spinner({
         step: .001,
-        change: 123,
-        stop: 321
+        change() { },
+        stop() { },
     });
     $("#spinner").spinner({
         spin: function (event, ui) {
