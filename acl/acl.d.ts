@@ -11,7 +11,7 @@
 
 declare module "acl" {
   import http = require('http');
-  import Promise = require("bluebird");
+  import Promise = require('bluebird');
 
   type strings = string|string[];
   type Value = string|number;

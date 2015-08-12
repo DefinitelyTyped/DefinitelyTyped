@@ -13,6 +13,7 @@ declare module 'request-promise' {
     import stream = require('stream');
     import http = require('http');
     import FormData = require('form-data');
+    import Promise = require('bluebird');
 
     export = RequestPromiseAPI;
 

@@ -2,6 +2,7 @@
 /// <reference path="should-promised.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
+import Promise = require('bluebird');
 var promise: Promise<number> = new Promise<number>(function (resolve, reject) {});
 
 promise.should.be.Promise;
