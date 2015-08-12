@@ -609,7 +609,7 @@ declare module JQueryUI {
 
     // Slider //////////////////////////////////////////////////
 
-    interface SliderOptions {
+    interface SliderOptions extends SliderEvents {
         animate?: any; // boolean, string or number
         disabled?: boolean;
         max?: number;
@@ -639,7 +639,7 @@ declare module JQueryUI {
         stop?: SliderEvent;
     }
 
-    interface Slider extends Widget, SliderOptions, SliderEvents {
+    interface Slider extends Widget, SliderOptions {
     }
 
 
@@ -708,7 +708,7 @@ declare module JQueryUI {
 
     // Spinner //////////////////////////////////////////////////
 
-    interface SpinnerOptions {
+    interface SpinnerOptions extends SpinnerEvents {
         culture?: string;
         disabled?: boolean;
         icons?: any;
@@ -728,12 +728,14 @@ declare module JQueryUI {
     }
 
     interface SpinnerEvents {
+        change?: SpinnerEvent;
+        create?: SpinnerEvent;
         spin?: SpinnerEvent;
         start?: SpinnerEvent;
         stop?: SpinnerEvent;
     }
 
-    interface Spinner extends Widget, SpinnerOptions, SpinnerEvents {
+    interface Spinner extends Widget, SpinnerOptions {
     }
 
 
