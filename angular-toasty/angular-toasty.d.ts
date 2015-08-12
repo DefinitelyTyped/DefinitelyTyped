@@ -97,7 +97,7 @@ declare module toasty {
          * Clear toast(s).
          * @param id Optional ID to clear a specific toast.
          */
-        clear(id?): void;
+        clear(id?: number): void;
 
         /**
          * Get the global config.
@@ -245,11 +245,7 @@ declare module toasty {
     }
 
     interface IToastyConfigProvider {
-        /**
-         *
-         * @param override
-         */
-        setConfig(override: IGlobalConfig);
+        setConfig(override: IGlobalConfig): void;
         $get(): IGlobalConfig;
     }
 }
