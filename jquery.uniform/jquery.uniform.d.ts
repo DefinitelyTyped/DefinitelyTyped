@@ -35,7 +35,7 @@ interface UniformOptions {
     wrapperClass?: string;
 }
 interface Uniform {
-    (options?: UniformOptions): JQuery;
+    (options?: UniformOptions & {[option: string]: any;}): JQuery;
     update(elemOrSelector?: any): void;
     restore(elemOrSelector?: any): void;
     elements: JQuery[];
