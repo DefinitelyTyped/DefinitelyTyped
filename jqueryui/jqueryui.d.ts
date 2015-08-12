@@ -398,7 +398,7 @@ declare module JQueryUI {
         (event: Event, ui: DraggableEventUIParams): void;
     }
 
-    interface DraggableOptions {
+    interface DraggableOptions extends DraggableEvents {
         disabled?: boolean;
         addClasses?: boolean;
         appendTo?: any;
@@ -453,7 +453,7 @@ declare module JQueryUI {
         (event: Event, ui: DroppableEventUIParam): void;
     }
 
-    interface DroppableOptions {
+    interface DroppableOptions extends DroppableEvents {
         disabled?: boolean;
         accept?: any;
         activeClass?: string;
@@ -472,7 +472,7 @@ declare module JQueryUI {
         drop?: DroppableEvent;
     }
 
-    interface Droppable extends Widget, DroppableOptions, DroppableEvents {
+    interface Droppable extends Widget, DroppableOptions {
     }
 
     // Menu //////////////////////////////////////////////////
@@ -577,7 +577,7 @@ declare module JQueryUI {
 
     // Selectable //////////////////////////////////////////////////
 
-    interface SelectableOptions {
+    interface SelectableOptions extends SelectableEvents {
         autoRefresh?: boolean;
         cancel?: string;
         delay?: number;
@@ -596,7 +596,7 @@ declare module JQueryUI {
         unselecting? (event: Event, ui: { unselecting: Element; }): void;
     }
 
-    interface Selectable extends Widget, SelectableOptions, SelectableEvents {
+    interface Selectable extends Widget, SelectableOptions {
     }
 
     // Slider //////////////////////////////////////////////////
