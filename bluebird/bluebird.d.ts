@@ -416,7 +416,7 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
 	 */
 	// TODO how to model promisifyAll?
-	static promisifyAll(target: Object): Object;
+	static promisifyAll(target: Object, options?: Object): Object;
 
 	/**
 	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
