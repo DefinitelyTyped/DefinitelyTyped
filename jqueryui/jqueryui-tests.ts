@@ -1765,7 +1765,6 @@ function test_effects() {
         of: $("#parent"),
         my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
         at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
-        offset: $("#offset").val(),
         collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
     });
     $("#toggle").toggle({ effect: "scale", direction: "horizontal" });
