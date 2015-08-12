@@ -193,6 +193,7 @@ declare module moment {
         utc(): Moment; // current date/time in UTC mode
 
         isValid(): boolean;
+        invalidAt(): number;
 
         year(y: number): Moment;
         year(): number;
