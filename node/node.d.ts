@@ -453,6 +453,7 @@ declare module "http" {
         writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
         writeHead(statusCode: number, headers?: any): void;
         statusCode: number;
+        statusMessage: string;
         setHeader(name: string, value: string): void;
         sendDate: boolean;
         getHeader(name: string): string;
