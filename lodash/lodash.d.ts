@@ -7171,6 +7171,29 @@ declare module _ {
         pad(str?: string, length?: number, chars?: string): string;
         padLeft(str?: string, length?: number, chars?: string): string;
         padRight(str?: string, length?: number, chars?: string): string;
+    }
+
+    //_.parseInt
+    interface LoDashStatic {
+        /**
+         * Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used
+         * unless value is a hexadecimal, in which case a radix of 16 is used.
+         * Note: This method aligns with the ES5 implementation of parseInt.
+         * @param string The string to convert.
+         * @param radix The radix to interpret value by.
+         * @return Returns the converted integer.
+         */
+        parseInt(string: string, radix?: number): number;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.parseInt
+         */
+        parseInt(radix?: number): number;
+    }
+
+    interface LoDashStatic {
         repeat(str?: string, n?: number): string;
         snakeCase(str?: string): string;
         startCase(str?: string): string;
@@ -7181,21 +7204,6 @@ declare module _ {
         trunc(str?: string, len?: number): string;
         trunc(str?: string, options?: { length?: number; omission?: string; separator?: string|RegExp }): string;
         words(str?: string, pattern?: string|RegExp): string[];
-    }
-
-    //_.parseInt
-    interface LoDashStatic {
-        /**
-        * Converts the given value into an integer of the specified radix. If radix is undefined or 0 a
-        * radix of 10 is used unless the value is a hexadecimal, in which case a radix of 16 is used.
-        *
-        * Note: This method avoids differences in native ES3 and ES5 parseInt implementations. See
-        * http://es5.github.io/#E.
-        * @param value The value to parse.
-        * @param radix The radix used to interpret the value to parse.
-        * @return The new integer value.
-        **/
-        parseInt(value?: string, radix?: number): number;
     }
 
     /*************
