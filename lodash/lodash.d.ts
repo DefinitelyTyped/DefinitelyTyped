@@ -5153,7 +5153,7 @@ declare module _ {
         /**
         * @see _.where
         **/
-        where<T, U extends {}>(properties: U): LoDashArrayWrapper<T>;
+        where<U extends {}>(properties: U): LoDashArrayWrapper<T>;
     }
 
     /********
