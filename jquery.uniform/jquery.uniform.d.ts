@@ -22,6 +22,7 @@ interface UniformOptions {
     hoverClass?: string;
     idPrefix?: string;
     inputAddTypeAsClass?: boolean;
+    inputClass?: string;
     radioClass?: string;
     resetDefaultHtml?: string;
     resetSelector?: any;
