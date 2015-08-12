@@ -741,7 +741,7 @@ declare module JQueryUI {
 
     // Tabs //////////////////////////////////////////////////
 
-    interface TabsOptions {
+    interface TabsOptions extends TabsEvents {
         active?: any; // boolean or number
         collapsible?: boolean;
         disabled?: any; // boolean or []
@@ -771,7 +771,7 @@ declare module JQueryUI {
         load?: TabsEvent;
     }
 
-    interface Tabs extends Widget, TabsOptions, TabsEvents {
+    interface Tabs extends Widget, TabsOptions {
     }
 
 
