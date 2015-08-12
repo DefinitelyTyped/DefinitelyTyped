@@ -2,6 +2,7 @@
 // Project: https://github.com/syranide/react-swf
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="../react/react.d.ts"/>
 declare module "react-swf" {
     export = ReactSWF;
