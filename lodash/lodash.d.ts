@@ -7175,9 +7175,63 @@ declare module _ {
         snakeCase(str?: string): string;
         startCase(str?: string): string;
         startsWith(str?: string, target?: string, position?: number): boolean;
-        trim(str?: string, chars?: string): string;
-        trimLeft(str?: string, chars?: string): string;
-        trimRight(str?: string, chars?: string): string;
+    }
+
+    //_.trim
+    interface LoDashStatic {
+        /**
+         * Removes leading and trailing whitespace or specified characters from string.
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
+         */
+        trim(string?: string, chars?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.trim
+         */
+        trim(chars?: string): string;
+    }
+
+    //_.trimLeft
+    interface LoDashStatic {
+        /**
+         * Removes leading whitespace or specified characters from string.
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
+         */
+        trimLeft(string?: string, chars?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.trimLeft
+         */
+        trimLeft(chars?: string): string;
+    }
+
+    //_.trimRight
+    interface LoDashStatic {
+        /**
+         * Removes trailing whitespace or specified characters from string.
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
+         */
+        trimRight(string?: string, chars?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.trimRight
+         */
+        trimRight(chars?: string): string;
+    }
+
+    interface LoDashStatic {
         trunc(str?: string, len?: number): string;
         trunc(str?: string, options?: { length?: number; omission?: string; separator?: string|RegExp }): string;
         words(str?: string, pattern?: string|RegExp): string[];
