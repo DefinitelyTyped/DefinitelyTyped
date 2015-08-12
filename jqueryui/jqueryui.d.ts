@@ -43,7 +43,7 @@ declare module JQueryUI {
 
     // Autocomplete //////////////////////////////////////////////////
 
-    interface AutocompleteOptions {
+    interface AutocompleteOptions extends AutocompleteEvents {
         appendTo?: any; //Selector;
         autoFocus?: boolean;
         delay?: number;
@@ -72,7 +72,7 @@ declare module JQueryUI {
         select?: AutocompleteEvent;
     }
 
-    interface Autocomplete extends Widget, AutocompleteOptions, AutocompleteEvents {
+    interface Autocomplete extends Widget, AutocompleteOptions {
         escapeRegex: (value: string) => string;
     }
 
