@@ -392,7 +392,23 @@ declare module __React {
         widows?: number;
         zIndex?: number;
         zoom?: number;
-
+        display?: string;
+        width?: string;
+        height?: string;
+        position?: string;
+        overflow?: string;
+        textDecoration?: string;
+        color?: string;
+        marginTop?: number;
+        float?: string;
+        backgroundColor?: string;
+        left?: string | number;
+        top?: string | number;
+        right?: string | number;
+        bottom?:string | number;
+        marginLeft?:string|number;
+        marginRight?:string| number;
+        verticalAlign?: string;
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
