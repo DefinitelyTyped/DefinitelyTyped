@@ -1582,7 +1582,7 @@ function test_spinner() {
         min: 5,
         max: 2500,
         step: 25,
-        start: 1000,
+        start: function () { return; },
         numberFormat: "C"
     });
     $("#spinner").spinner({
