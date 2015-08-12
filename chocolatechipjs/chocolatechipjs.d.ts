@@ -1,4 +1,4 @@
-// Type definitions for chocolatechip v4.0.0
+// Type definitions for chocolatechip v4.0.1
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1280,7 +1280,7 @@ declare type OpenEndedDictionary = Object;
  * Interface for fetch API.
  *
  * @param input A string representing a valid url.
- * @param init An object literal of key value pairs to set method, headers, body, credentials or cache.
+ * @param init An object literal of key value pairs to set method, headers, body, credentials, cache or timeout.
  * @return Promise.
  */
 
@@ -1301,13 +1301,14 @@ interface fetch {
       include: string;
     };
     cache?: {
-      default: string;
-      "no-store": string;
-      reload: string;
-      "no-cache": string;
-      "force-cache": string;
-      "only-if-cached": string;
-    }
+        default: string;
+        "no-store": string;
+        reload: string;
+        "no-cache": string;
+        "force-cache": string;
+        "only-if-cached": string;
+    };
+    timeout?: number;
   }): Promise<any>;
 }
 
