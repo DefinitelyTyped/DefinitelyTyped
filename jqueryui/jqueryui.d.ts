@@ -529,7 +529,7 @@ declare module JQueryUI {
 
     // Resizable //////////////////////////////////////////////////
 
-    interface ResizableOptions {
+    interface ResizableOptions extends ResizableEvents {
         alsoResize?: any; // Selector, JQuery or Element
         animate?: boolean;
         animateDuration?: any; // number or string
@@ -571,7 +571,7 @@ declare module JQueryUI {
         stop?: ResizableEvent;
     }
 
-    interface Resizable extends Widget, ResizableOptions, ResizableEvents {
+    interface Resizable extends Widget, ResizableOptions {
     }
 
 
