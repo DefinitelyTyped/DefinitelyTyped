@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
+
 declare module "react-swf" {
     export = ReactSWF;
 }
