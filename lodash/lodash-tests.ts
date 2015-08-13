@@ -1086,6 +1086,14 @@ result = <Object>_([1]).toPlainObject();
 result = <Object>_<string>([]).toPlainObject();
 result = <Object>_({}).toPlainObject();
 
+/********
+ * Math *
+ ********/
+
+// _.add
+result = <number>_.add(1, 1);
+result = <number>_(1).add(1);
+
 /**********
 * Objects *
 ***********/
