@@ -35,18 +35,24 @@ declare module jquery.velocity {
 		easing?: any;
 	}
 
-	interface Options {
-		queue?: string|boolean;
+	interface CommonOptions {
 		duration?: string|number;
-		easing?: Easing;
 		begin?: ElementCallback;
 		complete?: ElementCallback;
-		progress?: ProgressCallback;
 		display?: string|boolean;
-		loop?: number|boolean;
 		delay?: number|boolean;
 		mobileHA?: boolean;
 		_cacheValues?: boolean;
+		container?: JQuery;
+		axis?: string;
+		offset?: number;
+	}
+
+	interface Options extends CommonOptions {
+		queue?: string|boolean;
+		easing?: Easing;
+		progress?: ProgressCallback;
+		loop?: number|boolean;
 	}
 
 	interface RegisterEffectOptions {
@@ -55,14 +61,7 @@ declare module jquery.velocity {
 		reset?: Object;
 	}
 
-	interface RegisteredEffectOptions {
-		duration?: string|number;
-		begin?: ElementCallback;
-		complete?: ElementCallback;
-		display?: string;
-		delay?: number;
-		mobileHA?: boolean;
-		_cacheValues?: boolean;
+	interface RegisteredEffectOptions extends CommonOptions {
 		stagger?: number;
 		drag?: boolean;
 		backwards?: boolean;

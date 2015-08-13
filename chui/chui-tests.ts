@@ -1,4 +1,4 @@
-/// <reference path="../chocolatechipjs/chocolatechipjs.d.ts"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="chui.d.ts"/>
 
 $(function() {
@@ -7,10 +7,10 @@ $(function() {
     * Test static methods:
     */
    var concatenatedText = $.concat("This", "is", "text", "to", "contatenate.");
-   $.forEach([1,2,3], function(ctx) {
+   $.forEach([1,2,3], function(ctx: number) {
       return ctx;
    });
-   $.forEach([1,2,3], function(ctx, idx) {
+   $.forEach([1,2,3], function(ctx: number, idx: number) {
       return idx;
    });
    
@@ -53,13 +53,13 @@ $(function() {
    $.UISheet({id: "mySheet", listClass: "specialList", background: 'red',  handle: false});
    $.UIShowSheet("#mySheet");
    $.UIHideSheet();
-   $.UISlideout({position: "right", dynamic: false, callback: $.noop});
+   $.UISlideout({dynamic: false, callback: $.noop});
    var myStepper = $('#myStepper');
    $.UIResetStepper(myStepper);
    $.UICreateSwitch({id: "mySwitch", value: 5, checked: "true", callback: $.noop});
    $.UITabbar({ tabs: 3, labels: ["one", "two", "three"], selected: 2 });
    $.UISearch({ articleId: "#main", placeholder: "Looking?", results: 10 });
-   var carouselPanels = $('li');
+   var carouselPanels = $("<li>1</li><li>2</li><li>3</li>");
    $.UISetupCarousel({target: "#carousel", panels: carouselPanels});
    $.UIBindData();
    $.UIBindData("#myBoundData");

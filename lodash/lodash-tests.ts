@@ -121,11 +121,11 @@ result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: stri
 
 //Wrapped array shortcut methods
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
-result = <_.LoDashWrapper<string>>_([1, 2, 3, 4]).join(',');
-result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).pop();
+result = <string>_([1, 2, 3, 4]).join(',');
+result = <number>_([1, 2, 3, 4]).pop();
 _([1, 2, 3, 4]).push(5, 6, 7);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
-result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).shift();
+result = <number>_([1, 2, 3, 4]).shift();
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(1, 2);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(2);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
@@ -1060,6 +1060,15 @@ result = <boolean>_(1).gte(2);
 result = <boolean>_([]).gte(2);
 result = <boolean>_({}).gte(2);
 
+// _.isMatch
+var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
+result = <boolean>_.isMatch({}, {});
+result = <boolean>_.isMatch({}, {}, testIsMatchCustiomizerFn);
+result = <boolean>_.isMatch({}, {}, testIsMatchCustiomizerFn, {});
+result = <boolean>_({}).isMatch({});
+result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
+result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
+
 // _.lt
 result = <boolean>_.lt(1, 2);
 result = <boolean>_(1).lt(2);
@@ -1085,6 +1094,14 @@ result = <Object>_('a').toPlainObject();
 result = <Object>_([1]).toPlainObject();
 result = <Object>_<string>([]).toPlainObject();
 result = <Object>_({}).toPlainObject();
+
+/********
+ * Math *
+ ********/
+
+// _.add
+result = <number>_.add(1, 1);
+result = <number>_(1).add(1);
 
 /**********
 * Objects *
@@ -1112,6 +1129,25 @@ result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40
 result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40 }, function (a, b) {
     return typeof a == 'undefined' ? b : a;
 });
+
+// _.create
+interface TestCreateProto {
+    a: number;
+}
+interface TestCreateProps {
+    b: string;
+}
+interface TestCreateTResult extends TestCreateProto, TestCreateProps {}
+var testCreateProto: TestCreateProto;
+var testCreateProps: TestCreateProps;
+result = <{}>_.create(testCreateProto);
+result = <{}>_.create(testCreateProto, testCreateProps);
+result = <TestCreateProto>_.create<TestCreateProto>(testCreateProto);
+result = <TestCreateTResult>_.create<TestCreateTResult>(testCreateProto, testCreateProps);
+result = <{}>_(testCreateProto).create().value();
+result = <{}>_(testCreateProto).create(testCreateProps).value();
+result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
+result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
 
 result = <IStoogesAge[]>_.clone(stoogesAges);
 result = <IStoogesAge[]>_.clone(stoogesAges, true);
@@ -1438,6 +1474,17 @@ result = <string>_.result(object, 'stuff');
 
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
+
+// _.propertyOf
+interface TestPropertyOfObject {
+    a: {
+        b: number[];
+    }
+}
+var testPropertyOfObject: TestPropertyOfObject;
+result = <(path: string|string[]) => any>_.propertyOf({});
+result = <(path: string|string[]) => any>_.propertyOf<TestPropertyOfObject>(testPropertyOfObject);
+result = <(path: string|string[]) => any>_({}).propertyOf().value();
 
 result = <_.TemplateExecutor>_.template('hello <%= name %>');
 result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
