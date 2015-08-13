@@ -21,6 +21,7 @@ declare module "ws" {
         protocolVersion: string;
         url: string;
         supports: any;
+        upgradeReq: http.ServerRequest;
 
         CONNECTING: number;
         OPEN: number;
@@ -60,28 +61,29 @@ declare module "ws" {
         terminate(): void;
 
         // HTML5 WebSocket events
-        addEventListener(method: string, listener?: () => void): void;
         addEventListener(method: 'message', cb?: (event: {data: any; type: string; target: WebSocket}) => void): void;
         addEventListener(method: 'close', cb?: (event: {wasClean: boolean; code: number;
                                                         reason: string; target: WebSocket}) => void): void;
         addEventListener(method: 'error', cb?: (err: Error) => void): void;
         addEventListener(method: 'open', cb?: (event: {target: WebSocket}) => void): void;
+        addEventListener(method: string, listener?: () => void): void;
 
         // Events
-        on(event: string, listener: () => void): WebSocket;
         on(event: 'error', cb: (err: Error) => void): WebSocket;
         on(event: 'close', cb: (code: number, message: string) => void): WebSocket;
         on(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         on(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         on(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         on(event: 'open', cb: () => void): WebSocket;
-        addListener(event: string, listener: () => void): WebSocket;
+        on(event: string, listener: () => void): WebSocket;
+        
         addListener(event: 'error', cb: (err: Error) => void): WebSocket;
         addListener(event: 'close', cb: (code: number, message: string) => void): WebSocket;
         addListener(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         addListener(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         addListener(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
         addListener(event: 'open', cb: () => void): WebSocket;
+        addListener(event: string, listener: () => void): WebSocket;
     }
 
     module WebSocket {
@@ -90,8 +92,8 @@ declare module "ws" {
             port?: number;
             server?: http.Server;
             verifyClient?: {
-                (info: {origin: string; secure: boolean; req: http.ClientRequest}): boolean;
-                (info: {origin: string; secure: boolean; req: http.ClientRequest},
+                (info: {origin: string; secure: boolean; req: http.ServerRequest}): boolean;
+                (info: {origin: string; secure: boolean; req: http.ServerRequest},
                                                  callback: (res: boolean) => void): void;
             };
             handleProtocols?: any;
@@ -109,18 +111,19 @@ declare module "ws" {
             constructor(options?: IServerOptions, callback?: Function);
 
             close(): void;
-            handleUpgrade(request: http.ClientRequest, socket: net.Socket,
-                          upgradeHead: NodeBuffer, callback: (client: WebSocket) => void): void;
+            handleUpgrade(request: http.ServerRequest, socket: net.Socket,
+                          upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 
             // Events
-            on(event: string, listener: () => void): Server;
             on(event: 'error', cb: (err: Error) => void): Server;
             on(event: 'headers', cb: (headers: string[]) => void): Server;
             on(event: 'connection', cb: (client: WebSocket) => void): Server;
-            addListener(event: string, listener: () => void): Server;
+            on(event: string, listener: () => void): Server;
+            
             addListener(event: 'error', cb: (err: Error) => void): Server;
             addListener(event: 'headers', cb: (headers: string[]) => void): Server;
             addListener(event: 'connection', cb: (client: WebSocket) => void): Server;
+            addListener(event: string, listener: () => void): Server;
         }
 
         export function createServer(options?: IServerOptions,

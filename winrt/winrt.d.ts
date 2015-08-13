@@ -44,6 +44,17 @@ declare module Windows {
                 clear(): void;
                 first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
             }
+            export class ValueSet implements Windows.Foundation.Collections.IPropertySet, Windows.Foundation.Collections.IObservableMap<string, any>, Windows.Foundation.Collections.IMap<string, any>, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<string, any>> {
+                size: number;
+                onmapchanged: any/* TODO */;
+                lookup(key: string): any;
+                hasKey(key: string): boolean;
+                getView(): Windows.Foundation.Collections.IMapView<string, any>;
+                insert(key: string, value: any): boolean;
+                remove(key: string): void;
+                clear(): void;
+                first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
+            }
             export interface IIterable<T> {
                 first(): Windows.Foundation.Collections.IIterator<T>;
             }
@@ -7940,6 +7951,8 @@ declare module Windows {
                 control: Windows.Networking.Sockets.MessageWebSocketControl;
                 information: Windows.Networking.Sockets.MessageWebSocketInformation;
                 onmessagereceived: any/* TODO */;
+                close(): void;
+                close(code: number, reason: string): void;
             }
             export class MessageWebSocketControl implements Windows.Networking.Sockets.IMessageWebSocketControl, Windows.Networking.Sockets.IWebSocketControl {
                 maxMessageSize: number;
@@ -7978,6 +7991,8 @@ declare module Windows {
                 control: Windows.Networking.Sockets.StreamWebSocketControl;
                 information: Windows.Networking.Sockets.StreamWebSocketInformation;
                 inputStream: Windows.Storage.Streams.IInputStream;
+                close(): void;
+                close(code: number, reason: string): void;
             }
             export class StreamWebSocketControl implements Windows.Networking.Sockets.IStreamWebSocketControl, Windows.Networking.Sockets.IWebSocketControl {
                 noDelay: boolean;
@@ -9264,7 +9279,8 @@ declare module Windows {
                 unconsumedBufferLength: number;
                 unicodeEncoding: Windows.Storage.Streams.UnicodeEncoding;
                 readByte(): number;
-                readBytes(): Uint8Array;
+                readBytes(value: number[]): void;
+                readBytes(value: Uint8Array): void;
                 readBuffer(length: number): Windows.Storage.Streams.IBuffer;
                 readBoolean(): boolean;
                 readGuid(): string;
@@ -9293,7 +9309,8 @@ declare module Windows {
                 unconsumedBufferLength: number;
                 unicodeEncoding: Windows.Storage.Streams.UnicodeEncoding;
                 readByte(): number;
-                readBytes(): Uint8Array;
+                readBytes(value: number[]): void;
+                readBytes(value: Uint8Array): void;
                 readBuffer(length: number): Windows.Storage.Streams.IBuffer;
                 readBoolean(): boolean;
                 readGuid(): string;
@@ -9341,6 +9358,7 @@ declare module Windows {
                 unicodeEncoding: Windows.Storage.Streams.UnicodeEncoding;
                 unstoredBufferLength: number;
                 writeByte(value: number): void;
+                writeBytes(value: number[]): void;
                 writeBytes(value: Uint8Array): void;
                 writeBuffer(buffer: Windows.Storage.Streams.IBuffer): void;
                 writeBuffer(buffer: Windows.Storage.Streams.IBuffer, start: number, count: number): void;
@@ -9373,6 +9391,7 @@ declare module Windows {
                 unicodeEncoding: Windows.Storage.Streams.UnicodeEncoding;
                 unstoredBufferLength: number;
                 writeByte(value: number): void;
+                writeBytes(value: number[]): void;
                 writeBytes(value: Uint8Array): void;
                 writeBuffer(buffer: Windows.Storage.Streams.IBuffer): void;
                 writeBuffer(buffer: Windows.Storage.Streams.IBuffer, start: number, count: number): void;
@@ -10167,6 +10186,7 @@ declare module Windows {
             getFilesAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFile>>;
             getFoldersAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFolder>>;
             getItemsAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.IStorageItem>>;
+            getItemsAsync(startIndex: number, maxItemsToRetrieve: number): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.IStorageItem>>;
         }
         export interface IStorageFile extends Windows.Storage.IStorageItem, Windows.Storage.Streams.IRandomAccessStreamReference, Windows.Storage.Streams.IInputStreamReference {
             contentType: string;
@@ -10970,29 +10990,36 @@ declare module Windows {
             }
             export interface IFileOpenPicker {
                 commitButtonText: string;
+                continuationData: Windows.Foundation.Collections.ValueSet;
                 fileTypeFilter: Windows.Foundation.Collections.IVector<string>;
                 settingsIdentifier: string;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
-                pickSingleFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
+                pickMultipleFilesAndContinue(): void;
                 pickMultipleFilesAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFile>>;
+                pickSingleFileAndContinue(): void;
+                pickSingleFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
             }
             export interface IFileSavePicker {
                 commitButtonText: string;
+                continuationData: Windows.Foundation.Collections.ValueSet;
                 defaultFileExtension: string;
                 fileTypeChoices: Windows.Foundation.Collections.IMap<string, Windows.Foundation.Collections.IVector<string>>;
                 settingsIdentifier: string;
                 suggestedFileName: string;
                 suggestedSaveFile: Windows.Storage.StorageFile;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
+                pickSaveFileAndContinue(): void;
                 pickSaveFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
             }
             export interface IFolderPicker {
                 commitButtonText: string;
+                continuationData: Windows.Foundation.Collections.ValueSet;
                 fileTypeFilter: Windows.Foundation.Collections.IVector<string>;
                 settingsIdentifier: string;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
+                pickFolderAndContinue(): void;
                 pickSingleFolderAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFolder>;
             }
             export class FileOpenPicker implements Windows.Storage.Pickers.IFileOpenPicker {
@@ -11001,7 +11028,10 @@ declare module Windows {
                 settingsIdentifier: string;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickSingleFileAndContinue(): void;
                 pickSingleFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
+                pickMultipleFilesAndContinue(): void;
                 pickMultipleFilesAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFile>>;
             }
             export class FileSavePicker implements Windows.Storage.Pickers.IFileSavePicker {
@@ -11012,6 +11042,8 @@ declare module Windows {
                 suggestedFileName: string;
                 suggestedSaveFile: Windows.Storage.StorageFile;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickSaveFileAndContinue(): void;
                 pickSaveFileAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
             }
             export class FolderPicker implements Windows.Storage.Pickers.IFolderPicker {
@@ -11020,6 +11052,8 @@ declare module Windows {
                 settingsIdentifier: string;
                 suggestedStartLocation: Windows.Storage.Pickers.PickerLocationId;
                 viewMode: Windows.Storage.Pickers.PickerViewMode;
+                continuationData: Windows.Foundation.Collections.ValueSet;
+                pickFolderAndContinue(): void;
                 pickSingleFolderAsync(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFolder>;
             }
         }
@@ -12198,8 +12232,8 @@ declare module Windows {
                 createWithId(tileId: string): Windows.UI.StartScreen.SecondaryTile;
             }
             export class SecondaryTile implements Windows.UI.StartScreen.ISecondaryTile {
-                constructor(tileId: string, shortName: string, displayName: string, arguments: string, tileOptions: Windows.UI.StartScreen.TileOptions, logoReference: Windows.Foundation.Uri);
-                constructor(tileId: string, shortName: string, displayName: string, arguments: string, tileOptions: Windows.UI.StartScreen.TileOptions, logoReference: Windows.Foundation.Uri, wideLogoReference: Windows.Foundation.Uri);
+                constructor(tileId: string, shortName: string, displayName: string, args: string, tileOptions: Windows.UI.StartScreen.TileOptions, logoReference: Windows.Foundation.Uri);
+                constructor(tileId: string, shortName: string, displayName: string, args: string, tileOptions: Windows.UI.StartScreen.TileOptions, logoReference: Windows.Foundation.Uri, wideLogoReference: Windows.Foundation.Uri);
                 constructor(tileId: string);
                 constructor();
                 arguments: string;
@@ -14732,7 +14766,7 @@ declare module Windows.Foundation {
         then<U>(success?: (value: T) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void ): IPromise<U>;
         then<U>(success?: (value: T) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void ): IPromise<U>;
         then<U>(success?: (value: T) => U, error?: (error: any) => U, progress?: (progress: any) => void ): IPromise<U>;
-        done?<U>(success?: (value: T) => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
+        done<U>(success?: (value: T) => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
 
         cancel(): void;
 

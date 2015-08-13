@@ -111,3 +111,7 @@ declare module Ix {
 		forIn<T, TResult>(source: Enumerable<T>, resultSelector: EnumerableFunc<T, TResult>): Enumerable<TResult>;
 	}
 }
+
+declare module "ix" {
+	export = Ix;
+}

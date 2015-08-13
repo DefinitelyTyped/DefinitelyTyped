@@ -33,7 +33,7 @@ $el.children().map((index, element) => {
 });
 
 $el.children().filter((index) => {
-    return $el.children().eq(index).find('t');
+    return $el.children().eq(index).find('t').length >= 0;
 });
 
 $el.filter('span').filter('li');
@@ -60,6 +60,6 @@ $el.text('some text');
 
 $el.toArray();
 $el.clone().find('a').parent();
-$el.root().find('a');
+$.root().find('a');
 
-$el.dom();
+$el.data();

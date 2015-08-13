@@ -26,10 +26,11 @@ async.map(data, asyncProcess, function (err, results) {
 
 var openFiles = ['file1', 'file2'];
 var saveFile = function () { }
-async.forEach(openFiles, saveFile, function (err) { });
+async.each(openFiles, saveFile, function (err) { });
+async.eachSeries(openFiles, saveFile, function (err) { });
 
 var documents, requestApi;
-async.forEachLimit(documents, 20, requestApi, function (err) { });
+async.eachLimit(documents, 20, requestApi, function (err) { });
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 
@@ -66,6 +67,17 @@ async.series([
 ],
 function (err, results) { });
 
+async.series<string>([
+    function (callback) {
+        callback(null, 'one');
+    },
+    function (callback) {
+        callback(null, 'two');
+    },
+],
+function (err, results) { });
+
+
 async.series({
     one: function (callback) {
         setTimeout(function () {
@@ -79,6 +91,32 @@ async.series({
     },
 },
 function (err, results) { });
+
+async.series<number>({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
+    },
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+function (err, results) { });
+
+async.times(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
+
+async.timesSeries(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
 
 async.parallel([
     function (callback) {
@@ -94,8 +132,36 @@ async.parallel([
 ],
 function (err, results) { });
 
+async.parallel<string>([
+    function (callback) {
+        setTimeout(function () {
+            callback(null, 'one');
+        }, 200);
+    },
+    function (callback) {
+        setTimeout(function () {
+            callback(null, 'two');
+        }, 100);
+    },
+],
+function (err, results) { });
+
 
 async.parallel({
+    one: function (callback) {
+        setTimeout(function () {
+            callback(null, 1);
+        }, 200);
+    },
+    two: function (callback) {
+        setTimeout(function () {
+            callback(null, 2);
+        }, 100);
+    },
+},
+function (err, results) { });
+
+async.parallel<number>({
     one: function (callback) {
         setTimeout(function () {
             callback(null, 1);
@@ -135,7 +201,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue(function (task: any, callback) {
+var q = async.queue<any>(function (task: any, callback) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -145,15 +211,72 @@ q.drain = function () {
     console.log('all items have been processed');
 }
 
-q.push({ name: 'foo' }, function (err) {
-    console.log('finished processing foo');
-});
+q.push({ name: 'foo' });
+
 q.push({ name: 'bar' }, function (err) {
     console.log('finished processing bar');
 });
 
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
+});
+
+q.unshift({ name: 'foo' });
+
+q.unshift({ name: 'bar' }, function (err) {
+    console.log('finished processing bar');
+});
+
+q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
+    console.log('finished processing bar');
+});
+
+var qLength : number = q.length();
+var qStarted : boolean = q.started;
+var qPaused : boolean = q.paused;
+var qProcessingCount : number = q.running();
+var qIsIdle : boolean = q.idle();
+
+q.saturated = function() {
+    console.log('queue is saturated.');
+}
+
+q.empty = function() {
+    console.log('queue is empty.');
+}
+
+q.drain = function() {
+    console.log('queue was drained.');
+}
+
+q.pause();
+q.resume();
+q.kill();
+
+// tests for strongly typed tasks
+var q2 = async.queue<string>(function (task: string, callback) {
+    console.log('Task: ' + task);
+    callback();
+}, 1);
+
+q2.push('task1');
+
+q2.push('task2', function (error) {
+    console.log('Finished tasks');
+});
+
+q2.push(['task3', 'task4', 'task5'], function (error) {
+    console.log('Finished tasks');
+});
+
+q2.unshift('task1');
+
+q2.unshift('task2', function (error) {
+    console.log('Finished tasks');
+});
+
+q2.unshift(['task3', 'task4', 'task5'], function (error) {
+    console.log('Finished tasks');
 });
 
 var filename = '';

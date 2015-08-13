@@ -1,6 +1,6 @@
-// Type definitions for Mustache 0.7
+// Type definitions for Mustache 0.8.2
 // Project: https://github.com/janl/mustache.js
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Mark Ashley Bell <https://github.com/markashleybell/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -15,21 +15,20 @@ interface MustacheScanner {
 }
 
 interface MustacheContext {
-    view;
-    parent;
+    view: any;
+    parentContext: MustacheContext;
 
-    clearCache();
-    push(view): MustacheContext;
+    push(view: any): MustacheContext;
     lookup(name: string): any;
 }
 
 interface MustacheWriter {
     (view: any): string;
-    clearCache();
-    compile(template: string, tags);
-    compilePartial(name, template, tags);
-    compileTokens(tokens, template);
-    render(template, view, partials);
+
+    clearCache(): void;
+    parse(template: string, tags?: any): any;
+    render(template: string, view: any, partials: any): string;
+    renderTokens(tokens: string[], context: MustacheContext, partials: any, originalTemplate: any): string;
 }
 
 interface MustacheStatic {
@@ -39,16 +38,12 @@ interface MustacheStatic {
     Scanner: MustacheScanner;
     Context: MustacheContext;
     Writer: MustacheWriter;
-    escape;
+    escape: any;
 
-    parse(template: string, tags);
     clearCache(): MustacheWriter;
-    compile(template: string): MustacheWriter;
-    compile(template: string, tags): MustacheWriter;
-    compilePartial(name: string, template: string, tags): MustacheWriter;
-    compileTokens(tokens, template: string): MustacheWriter;
+    parse(template: string, tags?: any): any;
     render(template: string, view: any, partials?: any): string;
-    to_html(template: string, view: any, partials?: any, send?): string;
+    to_html(template: string, view: any, partials?: any, send?: any): any;
 }
 
 declare var Mustache: MustacheStatic;

@@ -20,20 +20,22 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "npm run changes",
-    "changes": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --test-changes",
-    "all": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0",
-    "dry": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --test-changes",
-    "list": "node ./_infrastructure/tests/runner.js --tsc-version 1.0.0 --skip-tests --print-files --print-refmap",
-    "help": "node ./_infrastructure/tests/runner.js -h",
-    "tsc_runner": "node ./_infrastructure/tests/typescript/1.0.0/tsc ./_infrastructure/tests/runner.ts --target ES5 --out ./_infrastructure/tests/runner.js --module commonjs --sourcemap"
+    "test": "./node_modules/.bin/dt --changes",
+    "changes": "./node_modules/.bin/dt --changes",
+    "lint": "./node_modules/.bin/dt --lint",
+    "tscparams": "./node_modules/.bin/dt --tscparams --no-tests --no-headers",
+    "all": "./node_modules/.bin/dt",
+    "dry": "./node_modules/.bin/dt --dry --changes",
+    "list": "./node_modules/.bin/dt --dry --print-files --print-refmap",
+    "last": "./node_modules/.bin/dt --dry --print-files --print-refmap --changes",
+    "files": "./node_modules/.bin/dt --dry --print-files",
+    "refmap": "./node_modules/.bin/dt --dry --print-refmap",
+    "help": "./node_modules/.bin/dt -h"
   },
   "dependencies": {
-    "source-map-support": "~0.2.5",
-    "git-wrapper": "~0.1.1",
-    "glob": "~3.2.9",
-    "bluebird": "~1.0.7",
-    "lazy.js": "~0.3.2",
-    "optimist": "~0.6.1"
+  },
+  "devDependencies": {
+    "definition-tester": "0.2.0",
+    "typescript": "1.5.3"
   }
 }

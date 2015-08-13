@@ -1,6 +1,6 @@
 // Type definitions for jQRangeSlider 4.2.8
 // Project: http://ghusse.github.com/jQRangeSlider
-// Definitions by: Dániel Tar https://github.com/qcz
+// Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>

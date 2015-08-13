@@ -286,3 +286,50 @@ function RuleTests() {
         .end();
 
 }
+
+function ModelValidation() {
+
+    var model = {};
+
+    var validatedModel = valerie.validatableModel(model)
+        .validateAll()
+        .end();
+    
+}
+
+function UtilsStaticTests() {
+
+    var t1 = valerie.utils.asArray(1);
+    var t2 = valerie.utils.asArray([1,2]);
+
+    var t3 = valerie.utils.asFunction(1);
+    var t4 = valerie.utils.asFunction(() => { return 1; });
+
+    var t5 = valerie.utils.isArray([1, 2]);
+    var t5 = valerie.utils.isArrayOrObject(1);
+    var t6 = valerie.utils.isFunction("x");
+    var t7 = valerie.utils.isMissing(null);
+    var t8 = valerie.utils.isObject({});
+    var t9 = valerie.utils.isString("test");
+
+    var opts: Valerie.ValidationOptions = {}; // all values are optional
+    var t10 = valerie.utils.mergeOptions(opts, opts);
+}
+
+function ValidationResultStaticTests() {
+
+    var t1 = valerie.ValidationResult.passedInstance;
+
+    var t2 = valerie.ValidationResult.createFailedResult("message");
+
+}
+
+function ValidationStateStaticTests() {
+
+    var t1 = valerie.validationState.findIn({});
+    var t2 = valerie.validationState.getFor({});
+    var t3 = valerie.validationState.has({});
+
+    var state = <Valerie.IValidationState>{};
+    var t4 = valerie.validationState.setFor({}, state);
+}

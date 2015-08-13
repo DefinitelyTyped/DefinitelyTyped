@@ -1,6 +1,6 @@
 // Type definitions for Zynga Scroller
 // Project: https://github.com/zynga/scroller
-// Definitions by: Boris Yankov https://github.com/borisyankov
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -38,10 +38,10 @@ declare class Scroller {
     finishPullToRefresh(): void;
     getValues(): ScrollValuesWithZoom;
     getScrollMax(): ScrollValues;
-    zoomTo(level: number, animate?: boolean, originLeft?: boolean, originTop?: boolean): void;
-    zoomBy(factor: number, animate?: boolean, originLeft?: boolean, originTop?: boolean): void;
-    scrollTo(left?: number, top?: number, animate?: number, zoom?: number): void;
-    scrollBy(left?: number, top?: number, animate?: number): void;
+    zoomTo(level: number, animate?: boolean, originLeft?: number, originTop?: number, callback?: Function): void;
+    zoomBy(factor: number, animate?: boolean, originLeft?: number, originTop?: number, callback?: Function): void;
+    scrollTo(left?: number, top?: number, animate?: boolean, zoom?: number): void;
+    scrollBy(left?: number, top?: number, animate?: boolean): void;
 
     doMouseZoom(wheelDelta: number, timeStamp: number, pageX: number, pageY: number): void;
     doTouchStart(touches: any[], timeStamp: number): void;

@@ -22,9 +22,9 @@ var strArr: string[];
 var numArr: string[];
 var funcArr: Function[];
 
-var readable: ReadableStream;
-var writable: WritableStream;
-var emitter: NodeEventEmitter;
+var readable: NodeJS.ReadableStream;
+var writable: NodeJS.WritableStream;
+var emitter: NodeJS.EventEmitter;
 
 // - - - - - - - - - - - - - - - - -
 

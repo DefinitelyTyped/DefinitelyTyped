@@ -1,6 +1,6 @@
 // Type definitions for PhantomJS v1.9.0 API
 // Project: https://github.com/ariya/phantomjs/wiki/API-Reference
-// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker> and Mike Keesey <https://github.com/keesey>
+// Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare function require(module: string): any;
@@ -173,7 +173,7 @@ interface ResourceResponse {
 interface ResourceRequest {
 	id: number;
 	method: string;
-	ur: string;
+	url: string;
 	time: Date;
 	headers: { [name: string]: string; };
 }

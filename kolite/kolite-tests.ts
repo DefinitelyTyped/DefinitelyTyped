@@ -30,6 +30,22 @@ function test_asyncCommand() {
     });
 }
 
+function test_asyncCommand_isExecuting() {
+    var primaryCommand = ko.asyncCommand({
+        execute: (complete) => {
+            $.when().always(complete);
+        },
+        canExecute: (isExecuting) => {
+            return !isExecuting;
+        }
+    });
+
+    var firstRun = true;
+    var canCancel = ko.computed(() => {
+        return firstRun && !primaryCommand.isExecuting();
+    });
+}
+
 function test_dirtyFlag() {
     var viewModel;
     viewModel.dirtyFlag = new ko.DirtyFlag(viewModel.model);
