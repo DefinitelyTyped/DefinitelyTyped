@@ -12,6 +12,7 @@ import * as net from "net";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
+import * as readline from "readline";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -95,9 +96,9 @@ url.format(url.parse('http://www.example.com/xyz'));
 
 // https://google.com/search?q=you're%20a%20lizard%2C%20gary
 url.format({
-    protocol: 'https', 
-    host: "google.com", 
-    pathname: 'search', 
+    protocol: 'https',
+    host: "google.com",
+    pathname: 'search',
     query: { q: "you're a lizard, gary" }
 });
 
@@ -191,14 +192,14 @@ module http_tests {
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
     var codeMessage = http.STATUS_CODES[400];
-	
+
 	var agent: http.Agent = new http.Agent({
 		keepAlive: true,
 		keepAliveMsecs: 10000,
 		maxSockets: Infinity,
 		maxFreeSockets: 256
 	});
-	
+
 	var agent: http.Agent = http.globalAgent;
 }
 
@@ -221,7 +222,7 @@ var escaped: string = querystring.escape(original);
 console.log(escaped);
 // http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
 var unescaped: string = querystring.unescape(escaped);
-console.log(unescaped); 
+console.log(unescaped);
 // http://example.com/product/abcde.html
 
 ////////////////////////////////////////////////////
@@ -362,3 +363,20 @@ module path_tests {
 // returns
 //    '/home/user/dir/file.txt'
 }
+
+////////////////////////////////////////////////////
+///ReadLine tests : https://nodejs.org/api/readline.html
+////////////////////////////////////////////////////
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.setPrompt("$>");
+rl.prompt();
+rl.prompt(true);
+
+rl.question("do you like typescript?", function(answer: string) {
+  rl.close();
+});
