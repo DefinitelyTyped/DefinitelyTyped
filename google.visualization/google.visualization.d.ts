@@ -30,6 +30,22 @@ declare module google {
             options?: any;
         }
 
+        //#region ChartEditor
+        
+        // https://developers.google.com/chart/interactive/docs/reference#google_visualization_charteditor
+
+        export class ChartEditor {
+          openDialog(chartWrapper : ChartWrapper, opt_options?: ChartEditorOptions) : void;
+          getChartWrapper() : ChartWrapper;
+          setChartWrapper(chartWrapper : ChartWrapper) : void;
+          closeDialog() : void;
+        }
+
+        export interface ChartEditorOptions {
+          dataSourceInput?: any;
+        }
+
+        //#endregion
         //#region ChartWrapper
 
         // https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject
