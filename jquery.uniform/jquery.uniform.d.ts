@@ -34,8 +34,13 @@ interface UniformOptions {
     useID?: boolean;
     wrapperClass?: string;
 }
+
+interface UniformOptionsWithExtraParameters extends UniformOptions {
+    [optionName: string]: any;
+}
+
 interface Uniform {
-    (options?: UniformOptions & {[option: string]: any;}): JQuery;
+    (options?: UniformOptions): JQuery;
     update(elemOrSelector?: any): void;
     restore(elemOrSelector?: any): void;
     elements: JQuery[];
