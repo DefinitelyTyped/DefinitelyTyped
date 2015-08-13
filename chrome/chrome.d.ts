@@ -1822,7 +1822,7 @@ declare module chrome.tabCapture {
         videoConstraints?: MediaTrackConstraints;
     }
 
-    export function capture(options: CaptureOptions, callback: (stream: LocalMediaStream) => void): void;
+    export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
     export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 }
 
