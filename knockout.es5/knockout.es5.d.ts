@@ -19,7 +19,7 @@ interface KnockoutDefinePropertyOptions {
 }
 
 interface Array<T> {
-	remove(item): T[];
+	remove(item: T): T[];
 	removeAll(items: T[]): T[];
 	removeAll(): T[];
 

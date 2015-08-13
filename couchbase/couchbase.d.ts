@@ -648,8 +648,8 @@ declare module 'couchbase' {
 
         append(key: string, fragment: string, callback: KeyCallback): void;
         append(key: string, fragment: string, options: AppendOptions, callback: KeyCallback): void;
-        append(key: string, fragment: NodeBuffer, callback: KeyCallback): void;
-        append(key: string, fragment: NodeBuffer, options: AppendOptions, callback: KeyCallback): void;
+        append(key: string, fragment: Buffer, callback: KeyCallback): void;
+        append(key: string, fragment: Buffer, options: AppendOptions, callback: KeyCallback): void;
         appendMulti(kv: { [key: string]: AppendMultiOptionsForValue }, options: AppendMultiOptions, callback: MultiCallback): void;
 
         decr(key: string, callback: KeyCallback): void;
@@ -683,8 +683,8 @@ declare module 'couchbase' {
 
         prepend(key: string, fragment: string, callback: KeyCallback): void;
         prepend(key: string, fragment: string, options: PrependOptions, callback: KeyCallback): void;
-        prepend(key: string, fragment: NodeBuffer, callback: KeyCallback): void;
-        prepend(key: string, fragment: NodeBuffer, options: PrependOptions, callback: KeyCallback): void;
+        prepend(key: string, fragment: Buffer, callback: KeyCallback): void;
+        prepend(key: string, fragment: Buffer, options: PrependOptions, callback: KeyCallback): void;
         prependMulti(kv: { [key: string]: PrependMultiOptionsFoValue }, options: { [key: string]: PrependMultiOptions }, callback: MultiCallback): void;
 
         remove(key: string, callback: KeyCallback): void;

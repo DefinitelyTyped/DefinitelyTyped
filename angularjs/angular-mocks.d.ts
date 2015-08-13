@@ -1,20 +1,24 @@
-// Type definitions for Angular JS 1.2 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS 1.3 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
 
-///////////////////////////////////////////////////////////////////////////////
-// functions attached to global object (window)
-///////////////////////////////////////////////////////////////////////////////
-declare var module: (...modules: any[]) => any;
-declare var inject: (...fns: Function[]) => any;
+declare module "angular-mocks/ngMock" {
+    var _: string;
+    export = _;
+}
+
+declare module "angular-mocks/ngAnimateMock" {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare module angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
@@ -23,28 +27,32 @@ declare module ng {
     interface IAngularStatic {
         mock: IMockStatic;
     }
+    
+    // see https://docs.angularjs.org/api/ngMock/function/angular.mock.inject
+    interface IInjectStatic {
+        (...fns: Function[]): any;
+        (...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+        strictDi(val?: boolean): void;
+    }
 
     interface IMockStatic {
-        // see http://docs.angularjs.org/api/angular.mock.dump
+        // see https://docs.angularjs.org/api/ngMock/function/angular.mock.dump
         dump(obj: any): string;
 
-        // see http://docs.angularjs.org/api/angular.mock.inject
-        inject(...fns: Function[]): any;
+        inject: IInjectStatic
 
-        // see http://docs.angularjs.org/api/angular.mock.module
-        module(...modules: string[]): any;
-        module(...modules: Function[]): any;
-        module(modules: Object): any;
+        // see https://docs.angularjs.org/api/ngMock/function/angular.mock.module
+        module(...modules: any[]): any;
 
-        // see http://docs.angularjs.org/api/angular.mock.TzDate
+        // see https://docs.angularjs.org/api/ngMock/type/angular.mock.TzDate
         TzDate(offset: number, timestamp: number): Date;
         TzDate(offset: number, timestamp: string): Date;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
-    // see http://docs.angularjs.org/api/ngMock.$exceptionHandler
-    // see http://docs.angularjs.org/api/ngMock.$exceptionHandlerProvider
+    // see https://docs.angularjs.org/api/ngMock/service/$exceptionHandler
+    // see https://docs.angularjs.org/api/ngMock/provider/$exceptionHandlerProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IExceptionHandlerProvider extends IServiceProvider {
         mode(mode: string): void;
@@ -52,7 +60,7 @@ declare module ng {
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
-    // see http://docs.angularjs.org/api/ngMock.$timeout
+    // see https://docs.angularjs.org/api/ngMock/service/$timeout
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
@@ -62,8 +70,17 @@ declare module ng {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // IntervalService
+    // see https://docs.angularjs.org/api/ngMock/service/$interval
+    // Augments the original service
+    ///////////////////////////////////////////////////////////////////////////
+    interface IIntervalService {
+        flush(millis?: number): number;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // LogService
-    // see http://docs.angularjs.org/api/ngMock.$log
+    // see https://docs.angularjs.org/api/ngMock/service/$log
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
     interface ILogService {
@@ -77,7 +94,7 @@ declare module ng {
 
     ///////////////////////////////////////////////////////////////////////////
     // HttpBackendService
-    // see http://docs.angularjs.org/api/ngMock.$httpBackend
+    // see https://docs.angularjs.org/api/ngMock/service/$httpBackend
     ///////////////////////////////////////////////////////////////////////////
     interface IHttpBackendService {
         flush(count?: number): void;
@@ -216,3 +233,9 @@ declare module ng {
     }
 
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// functions attached to global object (window)
+///////////////////////////////////////////////////////////////////////////////
+declare var module: (...modules: any[]) => any;
+declare var inject: angular.IInjectStatic;

@@ -8,78 +8,119 @@
 declare module Backgrid {
 
     interface GridOptions {
-	columns: Column[];
-	collection: Backbone.Collection;
-	header: Header;
-	body: Body;
-	row: Row;
-	footer: Footer;
+        columns: Column[];
+        collection: Backbone.Collection<Backbone.Model>;
+        header: Header;
+        body: Body;
+        row: Row;
+        footer: Footer;
     }
 
-    class Header extends Backbone.View {
+    class Header extends Backbone.View<Backbone.Model> {
     }
 
-    class Footer extends Backbone.View {
+    class Footer extends Backbone.View<Backbone.Model> {
     }
-    
-    class Row extends Backbone.View {
+
+    class Row extends Backbone.View<Backbone.Model> {
     }
 
     class Command {
-	cancel();
-	moveDown();
-	moveLeft();
-	moveRight();
-	moveUp();
-	passThru();
-	save();
+        moveUp(): boolean;
+        moveDown(): boolean;
+        moveLeft(): boolean;
+        moveRight(): boolean;
+        save(): boolean;
+        cancel(): boolean;
+        passThru(): boolean;
+    }
+
+    class CellFormatter {
+        fromRaw(rawData: any, model: Backbone.Model);
+        toRaw(formattedData: any, model: Backbone.Model);
+    }
+
+    class NumberFormatter extends CellFormatter {}
+
+    class PercentFormatter extends NumberFormatter {}
+
+    class DateTimeFormatter extends CellFormatter {}
+
+    class StringFormatter extends CellFormatter {}
+
+    class EmailFormatter extends CellFormatter {}
+
+    class SelectFormatter extends CellFormatter {}
+
+    class CellEditor extends Backbone.View<Backbone.Model>{
+        initialize(options?: any);
+        postRender(model: Backbone.Model, column: Backbone.Model);
+    }
+
+    class InputCellEditor extends CellEditor {
+        render();
+        saveOrCancel(event: any);
+    }
+
+    class Cell extends Backbone.View<Backbone.Model>{
+        tagName: string;
+        formatter: CellFormatter;
+        editor: InputCellEditor;
+        enterEditMode();
+        renderError();
+        exitEditMode();
+        remove();
+    }
+
+    class StringCell extends Cell {
     }
 
     interface ColumnAttr {
-	name: string;
-	cell: string;
-	headerCell: string;
-	label: string;
-	sortable: boolean;
-	editable: boolean;
-	renderable: boolean;
-	formater: string;
+        name: string;
+        cell: string;
+        headerCell: string;
+        label: string;
+        sortable: boolean;
+        editable: boolean;
+        renderable: boolean;
+        formater: string;
     }
 
     class Column extends Backbone.Model {
-	initialize(options?: any);
+        initialize(options?: any);
     }
 
-    class Body extends Backbone.View {
-	tagName: string;
+    class Body extends Backbone.View<Backbone.Model> {
+        tagName: string;
 
-	initialize(options?: any);
-	insertRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
-	moveToNextCell(model: Backbone.Model, cell: Column, command: Command);
-	refresh(): Body;
-	remove(): Body;
-	removeRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
-	render(): Body;
+        initialize(options?: any);
+        insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        moveToNextCell(model: Backbone.Model, cell: Column, command: Command);
+        refresh(): Body;
+        remove(): Body;
+        removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        render(): Body;
     }
 
-    class Grid extends Backbone.View {
-	body: Backgrid.Body;
-	className: string;
-	footer: any;
-	header: any;
-	tagName: string;
+    class Grid extends Backbone.View<Backbone.Model> {
+        body: Backgrid.Body;
+        className: string;
+        footer: any;
+        header: any;
+        tagName: string;
 
-	initialize(options: any);
-	getSelectedModels(): Backbone.Model[];
-	insertColumn(...options: any[]): Grid;
-	insertRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
-	remove():Grid;
-	removeColumn(...options: any[]): Grid;
-	removeRow(model: Backbone.Model, collection: Backbone.Collection, options: any);
-	render():Grid;
+        initialize(options: any);
+        getSelectedModels(): Backbone.Model[];
+        insertColumn(...options: any[]): Grid;
+        insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        remove(): Grid;
+        removeColumn(...options: any[]): Grid;
+        removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        render(): Grid;
     }
-
-    
 
 }
 
+declare module "backgrid" {
+    export = Backgrid;
+}

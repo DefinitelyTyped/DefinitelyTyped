@@ -1,68 +1,53 @@
-// Type definitions for Express 3.1
+// Type definitions for Express 4.x
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
-    import express = require('express');
+    import * as express from "express";
     var app = express();
 
  =============================================== */
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../serve-static/serve-static.d.ts" />
+
+declare module Express {
+
+    // These open interfaces may be extended in an application-specific manner via declaration merging.
+    // See for example method-override.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+    export interface Request { }
+    export interface Response { }
+    export interface Application { }
+}
+
 
 declare module "express" {
-    import http = require('http');
+    import * as http from "http";
+    import * as serveStatic from "serve-static";
 
-    // Merged declaration, e is both a callable function and a namespace
     function e(): e.Express;
 
     module e {
         interface IRoute {
             path: string;
-
-            method: string;
-
-            callbacks: Function[];
-
-            regexp: any;
-
-            /**
-            * Check if this route matches `path`, if so
-            * populate `.params`.
-            */
-            match(path: string): boolean;
+            stack: any;
+            all(...handler: RequestHandler[]): IRoute;
+            get(...handler: RequestHandler[]): IRoute;
+            post(...handler: RequestHandler[]): IRoute;
+            put(...handler: RequestHandler[]): IRoute;
+            delete(...handler: RequestHandler[]): IRoute;
+            patch(...handler: RequestHandler[]): IRoute;
+            options(...handler: RequestHandler[]): IRoute;
         }
 
-        class Route implements IRoute {
-            path: string;
-
-            method: string;
-
-            callbacks: Function[];
-
-            regexp: any;
-            match(path: string): boolean;
-
-            /**
-             * Initialize `Route` with the given HTTP `method`, `path`,
-             * and an array of `callbacks` and `options`.
-             *
-             * Options:
-             *
-             *   - `sensitive`    enable case-sensitive routes
-             *   - `strict`       enable strict matching for trailing slashes
-             *
-             * @param method
-             * @param path
-             * @param callbacks
-             * @param options
-             */
-            new (method: string, path: string, callbacks: Function[], options: any): Route;
+        interface IRouterMatcher<T> {
+            (name: string, ...handlers: RequestHandler[]): T;
+            (name: RegExp, ...handlers: RequestHandler[]): T;
         }
 
-        interface IRouter<T> {
+        interface IRouter<T> extends RequestHandler {
             /**
              * Map the given param placeholder `name`(s) to the given callback(s).
              *
@@ -92,9 +77,11 @@ declare module "express" {
              * @param name
              * @param fn
              */
-            param(name: string, fn: Function): T;
-
-            param(name: string[], fn: Function): T;
+            param(name: string, handler: RequestParamHandler): T;
+            param(name: string, matcher: RegExp): T;
+            param(name: string, mapper: (param: any) => any): T;
+            // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+            param(callback: (name: string, matcher: RegExp) => RequestParamHandler): T;
 
             /**
              * Special-cased "all" method, applying the given route `path`,
@@ -103,68 +90,25 @@ declare module "express" {
              * @param path
              * @param fn
              */
-            all(path: string, fn?: (req: Request, res: Response, next: Function) => any): T;
+            all: IRouterMatcher<T>;
+            get: IRouterMatcher<T>;
+            post: IRouterMatcher<T>;
+            put: IRouterMatcher<T>;
+            delete: IRouterMatcher<T>;
+            patch: IRouterMatcher<T>;
+            options: IRouterMatcher<T>;
 
-            all(path: string, ...callbacks: Function[]): void;
+            route(path: string): IRoute;
 
-            get(name: string, ...handlers: RequestFunction[]): T;
-
-            get(name: RegExp, ...handlers: RequestFunction[]): T;
-
-            post(name: string, ...handlers: RequestFunction[]): T;
-
-            post(name: RegExp, ...handlers: RequestFunction[]): T;
-
-            put(name: string, ...handlers: RequestFunction[]): T;
-
-            put(name: RegExp, ...handlers: RequestFunction[]): T;
-
-            del(name: string, ...handlers: RequestFunction[]): T;
-
-            del(name: RegExp, ...handlers: RequestFunction[]): T;
-            
-            patch(name: string, ...handlers: RequestFunction[]): T;
- 
-            patch(name: RegExp, ...handlers: RequestFunction[]): T;
+            use(...handler: RequestHandler[]): T;
+            use(handler: ErrorRequestHandler): T;
+            use(path: string, ...handler: RequestHandler[]): T;
+            use(path: string, handler: ErrorRequestHandler): T;
         }
 
-        export class Router implements IRouter<Router> {
-          new (options?: any): Router;
+        export function Router(options?: any): Router;
 
-          middleware (): any;
-
-          param(name: string, fn: Function): Router;
-
-          param(name: any[], fn: Function): Router;
-
-          all(path: string, fn?: (req: Request, res: Response, next: Function) => any): Router;
-
-          all(path: string, ...callbacks: Function[]): void;
-
-          get(name: string, ...handlers: RequestFunction[]): Router;
-
-          get(name: RegExp, ...handlers: RequestFunction[]): Router;
-
-          post(name: string, ...handlers: RequestFunction[]): Router;
-
-          post(name: RegExp, ...handlers: RequestFunction[]): Router;
-
-          put(name: string, ...handlers: RequestFunction[]): Router;
-
-          put(name: RegExp, ...handlers: RequestFunction[]): Router;
-
-          del(name: string, ...handlers: RequestFunction[]): Router;
-
-          del(name: RegExp, ...handlers: RequestFunction[]): Router;
-          
-          patch(name: string, ...handlers: RequestFunction[]): Router;
- 
-          patch(name: RegExp, ...handlers: RequestFunction[]): Router;
-        }
-
-        interface Handler {
-            (req: Request, res: Response, next?: Function): void;
-        }
+        export interface Router extends IRouter<Router> {}
 
         interface CookieOptions {
             maxAge?: number;
@@ -178,60 +122,7 @@ declare module "express" {
 
         interface Errback { (err: Error): void; }
 
-        interface Session {
-            /**
-             * Update reset `.cookie.maxAge` to prevent
-             * the cookie from expiring when the
-             * session is still active.
-             *
-             * @return {Session} for chaining
-             * @api public
-             */
-            touch(): Session;
-
-            /**
-             * Reset `.maxAge` to `.originalMaxAge`.
-             */
-            resetMaxAge(): Session;
-
-            /**
-             * Save the session data with optional callback `fn(err)`.
-             */
-            save(fn: Function): Session;
-
-            /**
-             * Re-loads the session data _without_ altering
-             * the maxAge properties. Invokes the callback `fn(err)`,
-             * after which time if no exception has occurred the
-             * `req.session` property will be a new `Session` object,
-             * although representing the same session.
-             */
-            reload(fn: Function): Session;
-
-            /**
-             * Destroy `this` session.
-             */
-            destroy(fn: Function): Session;
-
-            /**
-             * Regenerate this request's session.
-             */
-            regenerate(fn: Function): Session;
-
-            user: any;
-
-            error: string;
-
-            success: string;
-
-            views: any;
-
-            count: number;
-        }
-
-        interface Request {
-
-            session: Session;
+        interface Request extends http.ServerRequest, Express.Request {
 
             /**
              * Return request header.
@@ -440,17 +331,6 @@ declare module "express" {
             ips: string[];
 
             /**
-             * Return basic auth credentials.
-             *
-             * Examples:
-             *
-             *    // http://tobi:hello@example.com
-             *    req.auth
-             *    // => { username: 'tobi', password: 'hello' }
-             */
-            auth: any;
-
-            /**
              * Return subdomains as an array.
              *
              * Subdomains are the dot-separated parts of the host before the main domain of
@@ -470,6 +350,11 @@ declare module "express" {
 
             /**
              * Parse the "Host" header field hostname.
+             */
+            hostname: string;
+
+            /**
+             * @deprecated Use hostname instead.
              */
             host: string;
 
@@ -498,12 +383,6 @@ declare module "express" {
             //cookies: { string; remember: boolean; };
             cookies: any;
 
-            /**
-             * Used to generate an anti-CSRF token.
-             * Placed by the CSRF protection middleware.
-             */
-            csrfToken(): string;
-
             method: string;
 
             params: any;
@@ -511,8 +390,6 @@ declare module "express" {
             user: any;
 
             authenticatedUser: any;
-
-            files: any;
 
             /**
              * Clear cookie `name`.
@@ -545,13 +422,28 @@ declare module "express" {
             (body: any): Response;
         }
 
-        interface Response extends http.ServerResponse {
+        interface Response extends http.ServerResponse, Express.Response {
             /**
              * Set status `code`.
              *
              * @param code
              */
             status(code: number): Response;
+
+            /**
+             * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
+             * @link http://expressjs.com/4x/api.html#res.sendStatus
+             *
+             * Examples:
+             *
+             *    res.sendStatus(200); // equivalent to res.status(200).send('OK')
+             *    res.sendStatus(403); // equivalent to res.status(403).send('Forbidden')
+             *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
+             *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
+             *
+             * @param code
+             */
+            sendStatus(code: number): Response;
 
             /**
              * Set Link header field with the given `links`.
@@ -615,14 +507,18 @@ declare module "express" {
              *
              * Options:
              *
-             *   - `maxAge` defaulting to 0
-             *   - `root`   root directory for relative filenames
+             *   - `maxAge`   defaulting to 0 (can be string converted by `ms`)
+             *   - `root`     root directory for relative filenames
+             *   - `headers`  object of headers to serve with file
+             *   - `dotfiles` serve dotfiles, defaulting to false; can be `"allow"` to send them
+             *
+             * Other options are passed along to `send`.
              *
              * Examples:
              *
-             *  The following example illustrates how `res.sendfile()` may
+             *  The following example illustrates how `res.sendFile()` may
              *  be used as an alternative for the `static()` middleware for
-             *  dynamic situations. The code backing `res.sendfile()` is actually
+             *  dynamic situations. The code backing `res.sendFile()` is actually
              *  the same code, so HTTP cache support etc is identical.
              *
              *     app.get('/user/:uid/photos/:file', function(req, res){
@@ -631,19 +527,35 @@ declare module "express" {
              *
              *       req.user.mayViewFilesFrom(uid, function(yes){
              *         if (yes) {
-             *           res.sendfile('/uploads/' + uid + '/' + file);
+             *           res.sendFile('/uploads/' + uid + '/' + file);
              *         } else {
              *           res.send(403, 'Sorry! you cant see that.');
              *         }
              *       });
              *     });
+             *
+             * @api public
+             */
+            sendFile(path: string): void;
+            sendFile(path: string, options: any): void;
+            sendFile(path: string, fn: Errback): void;
+            sendFile(path: string, options: any, fn: Errback): void;
+
+            /**
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string): void;
-
+            /**
+             * @deprecated Use sendFile instead.
+             */
             sendfile(path: string, options: any): void;
-
+            /**
+             * @deprecated Use sendFile instead.
+             */
             sendfile(path: string, fn: Errback): void;
-
+            /**
+             * @deprecated Use sendFile instead.
+             */
             sendfile(path: string, options: any, fn: Errback): void;
 
             /**
@@ -657,11 +569,8 @@ declare module "express" {
              * This method uses `res.sendfile()`.
              */
             download(path: string): void;
-
             download(path: string, filename: string): void;
-
             download(path: string, fn: Errback): void;
-
             download(path: string, filename: string, fn: Errback): void;
 
             /**
@@ -771,13 +680,14 @@ declare module "express" {
              *
              * Aliased as `res.header()`.
              */
-            set (field: any): Response;
-
-            set (field: string, value?: string): Response;
+            set(field: any): Response;
+            set(field: string, value?: string): Response;
 
             header(field: any): Response;
-
             header(field: string, value?: string): Response;
+
+            // Property indicating if HTTP headers has been sent for the response.
+            headersSent: boolean;
 
             /**
              * Get value for header `field`.
@@ -812,9 +722,7 @@ declare module "express" {
              *    res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
              */
             cookie(name: string, val: string, options: CookieOptions): Response;
-
             cookie(name: string, val: any, options: CookieOptions): Response;
-
             cookie(name: string, val: any): Response;
 
             /**
@@ -864,9 +772,7 @@ declare module "express" {
              *    res.redirect('../login'); // /blog/post/1 -> /blog/login
              */
             redirect(url: string): void;
-
             redirect(status: number, url: string): void;
-
             redirect(url: string, status: number): void;
 
             /**
@@ -879,9 +785,7 @@ declare module "express" {
              *  - `cache`     boolean hinting to the engine it should cache
              *  - `filename`  filename of the view being rendered
              */
-
             render(view: string, options?: Object, callback?: (err: Error, html: string) => void ): void;
-            
             render(view: string, callback?: (err: Error, html: string) => void ): void;
 
             locals: any;
@@ -889,11 +793,21 @@ declare module "express" {
             charset: string;
         }
 
-        interface RequestFunction {
+        interface ErrorRequestHandler {
+            (err: any, req: Request, res: Response, next: Function): any;
+        }
+
+        interface RequestHandler {
             (req: Request, res: Response, next: Function): any;
         }
 
-        interface Application extends IRouter<Application> {
+        interface Handler extends RequestHandler {}
+
+        interface RequestParamHandler {
+            (req: Request, res: Response, next: Function, param: any): any;
+        }
+
+        interface Application extends IRouter<Application>, Express.Application {
             /**
              * Initialize the server.
              *
@@ -907,18 +821,6 @@ declare module "express" {
              * Initialize application configuration.
              */
             defaultConfiguration(): void;
-
-            /**
-             * Proxy `connect#use()` to apply settings to
-             * mounted applications.
-            **/
-            use(route: string, callback?: Function): Application;
-
-            use(route: string, server: Application): Application;
-
-            use(callback: Function): Application;
-
-            use(server: Application): Application;
 
             /**
              * Register the given template engine callback `fn`
@@ -950,23 +852,27 @@ declare module "express" {
              */
             engine(ext: string, fn: Function): Application;
 
-            param(name: string, fn: Function): Application;
-
-            param(name: string[], fn: Function): Application;
-
             /**
              * Assign `setting` to `val`, or return `setting`'s value.
              *
              *    app.set('foo', 'bar');
              *    app.get('foo');
              *    // => "bar"
+             *    app.set('foo', ['bar', 'baz']);
+             *    app.get('foo');
+             *    // => ["bar", "baz"]
              *
              * Mounted servers inherit their parent server's settings.
              *
              * @param setting
              * @param val
              */
-            set (setting: string, val: string): Application;
+            set(setting: string, val: any): Application;
+            get: {
+                (name: string): any; // Getter
+                (name: string, ...handlers: RequestHandler[]): Application;
+                (name: RegExp, ...handlers: RequestHandler[]): Application;
+            };
 
             /**
              * Return the app's absolute pathname
@@ -1062,18 +968,12 @@ declare module "express" {
              * @param env
              * @param fn
              */
-            configure(env: string, fn: Function): Application;
-
-            configure(env0: string, env1: string, fn: Function): Application;
-
-            configure(env0: string, env1: string, env2: string, fn: Function): Application;
-
-            configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application;
-
-            configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application;
-
             configure(fn: Function): Application;
-
+            configure(env0: string, fn: Function): Application;
+            configure(env0: string, env1: string, fn: Function): Application;
+            configure(env0: string, env1: string, env2: string, fn: Function): Application;
+            configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application;
+            configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application;
 
             /**
              * Render the given view `name` name with `options`
@@ -1091,7 +991,6 @@ declare module "express" {
              * @param fn
              */
             render(name: string, options?: Object, callback?: (err: Error, html: string) => void): void;
-            
             render(name: string, callback: (err: Error, html: string) => void): void;
 
 
@@ -1113,16 +1012,12 @@ declare module "express" {
              *    https.createServer({ ... }, app).listen(443);
              */
             listen(port: number, hostname: string, backlog: number, callback?: Function): http.Server;
-
             listen(port: number, hostname: string, callback?: Function): http.Server;
-
             listen(port: number, callback?: Function): http.Server;
-
             listen(path: string, callback?: Function): http.Server;
-
             listen(handle: any, listeningListener?: Function): http.Server;
 
-            route: IRoute;
+            route(path: string): IRoute;
 
             router: string;
 
@@ -1172,644 +1067,8 @@ declare module "express" {
             response: Response;
         }
 
-        /**
-         * Body parser:
-         * 
-         *   Parse request bodies, supports _application/json_,
-         *   _application/x-www-form-urlencoded_, and _multipart/form-data_.
-         *
-         *   This is equivalent to: 
-         *
-         *     app.use(connect.json());
-         *     app.use(connect.urlencoded());
-         *     app.use(connect.multipart());
-         *
-         * Examples:
-         *
-         *      connect()
-         *        .use(connect.bodyParser())
-         *        .use(function(req, res) {
-         *          res.end('viewing user ' + req.body.user.name);
-         *        });
-         *
-         *      $ curl -d 'user[name]=tj' http://local/
-         *      $ curl -d '{"user":{"name":"tj"}}' -H "Content-Type: application/json" http://local/
-         *
-         *  View [json](json.html), [urlencoded](urlencoded.html), and [multipart](multipart.html) for more info.
-         *
-         * @param options
-         */
-        function bodyParser(options?: any): Handler;
-
-        /**
-         * Error handler:
-         *
-         * Development error handler, providing stack traces
-         * and error message responses for requests accepting text, html,
-         * or json.
-         *
-         * Text:
-         *
-         *   By default, and when _text/plain_ is accepted a simple stack trace
-         *   or error message will be returned.
-         *
-         * JSON:
-         *
-         *   When _application/json_ is accepted, connect will respond with
-         *   an object in the form of `{ "error": error }`.
-         *
-         * HTML:
-         *
-         *   When accepted connect will output a nice html stack trace.
-         */
-        function errorHandler(opts?: any): Handler;
-
-        /**
-         * Method Override:
-         * 
-         * Provides faux HTTP method support.
-         * 
-         * Pass an optional `key` to use when checking for
-         * a method override, othewise defaults to _\_method_.
-         * The original method is available via `req.originalMethod`.
-         *
-         * @param key
-         */
-        function methodOverride(key?: string): Handler;
-
-        /**
-         * Cookie parser:
-         *
-         * Parse _Cookie_ header and populate `req.cookies`
-         * with an object keyed by the cookie names. Optionally
-         * you may enabled signed cookie support by passing
-         * a `secret` string, which assigns `req.secret` so
-         * it may be used by other middleware.
-         *
-         * Examples:
-         *
-         *     connect()
-         *       .use(connect.cookieParser('optional secret string'))
-         *       .use(function(req, res, next){
-         *         res.end(JSON.stringify(req.cookies));
-         *       })
-         *
-         * @param secret
-         */
-        function cookieParser(secret?: string): Handler;
-
-        /**
-         * Session:
-         * 
-         *   Setup session store with the given `options`.
-         *
-         *   Session data is _not_ saved in the cookie itself, however
-         *   cookies are used, so we must use the [cookieParser()](cookieParser.html)
-         *   middleware _before_ `session()`.
-         *
-         * Examples:
-         *
-         *     connect()
-         *       .use(connect.cookieParser())
-         *       .use(connect.session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true }}))
-         *
-         * Options:
-         *
-         *   - `key` cookie name defaulting to `connect.sid`
-         *   - `store` session store instance
-         *   - `secret` session cookie is signed with this secret to prevent tampering
-         *   - `cookie` session cookie settings, defaulting to `{ path: '/', httpOnly: true, maxAge: null }`
-         *   - `proxy` trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
-         *
-         * Cookie option:
-         *
-         *  By default `cookie.maxAge` is `null`, meaning no "expires" parameter is set
-         *  so the cookie becomes a browser-session cookie. When the user closes the 
-         *  browser the cookie (and session) will be removed.
-         *
-         * ## req.session
-         *
-         *  To store or access session data, simply use the request property `req.session`,
-         *  which is (generally) serialized as JSON by the store, so nested objects 
-         *  are typically fine. For example below is a user-specific view counter:
-         *
-         *       connect()
-         *         .use(connect.favicon())
-         *         .use(connect.cookieParser())
-         *         .use(connect.session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
-         *         .use(function(req, res, next){
-         *           var sess = req.session;
-         *           if (sess.views) {
-         *             res.setHeader('Content-Type', 'text/html');
-         *             res.write('<p>views: ' + sess.views + '</p>');
-         *             res.write('<p>expires in: ' + (sess.cookie.maxAge / 1000) + 's</p>');
-         *             res.end();
-         *             sess.views++;
-         *           } else {
-         *             sess.views = 1;
-         *             res.end('welcome to the session demo. refresh!');
-         *           }
-         *         }
-         *       )).listen(3000);
-         *
-         * ## Session#regenerate()
-         *
-         *  To regenerate the session simply invoke the method, once complete
-         *  a new SID and `Session` instance will be initialized at `req.session`.
-         *
-         *      req.session.regenerate(function(err){
-         *        // will have a new session here
-         *      });
-         *
-         * ## Session#destroy()
-         *
-         *  Destroys the session, removing `req.session`, will be re-generated next request.
-         *
-         *      req.session.destroy(function(err){
-         *        // cannot access session here
-         *      });
-         * 
-         * ## Session#reload()
-         *
-         *  Reloads the session data.
-         *
-         *      req.session.reload(function(err){
-         *        // session updated
-         *      });
-         *
-         * ## Session#save()
-         *
-         *  Save the session.
-         *
-         *      req.session.save(function(err){
-         *        // session saved
-         *      });
-         *
-         * ## Session#touch()
-         *
-         *   Updates the `.maxAge` property. Typically this is
-         *   not necessary to call, as the session middleware does this for you.
-         *
-         * ## Session#cookie
-         *
-         *  Each session has a unique cookie object accompany it. This allows
-         *  you to alter the session cookie per visitor. For example we can
-         *  set `req.session.cookie.expires` to `false` to enable the cookie
-         *  to remain for only the duration of the user-agent.
-         *
-         * ## Session#maxAge
-         *
-         *  Alternatively `req.session.cookie.maxAge` will return the time
-         *  remaining in milliseconds, which we may also re-assign a new value
-         *  to adjust the `.expires` property appropriately. The following
-         *  are essentially equivalent
-         *
-         *     var hour = 3600000;
-         *     req.session.cookie.expires = new Date(Date.now() + hour);
-         *     req.session.cookie.maxAge = hour;
-         *
-         * For example when `maxAge` is set to `60000` (one minute), and 30 seconds
-         * has elapsed it will return `30000` until the current request has completed,
-         * at which time `req.session.touch()` is called to reset `req.session.maxAge`
-         * to its original value.
-         *
-         *     req.session.cookie.maxAge;
-         *     // => 30000
-         *
-         * Session Store Implementation:
-         *
-         * Every session store _must_ implement the following methods
-         *
-         *    - `.get(sid, callback)`
-         *    - `.set(sid, session, callback)`
-         *    - `.destroy(sid, callback)`
-         *
-         * Recommended methods include, but are not limited to:
-         *
-         *    - `.length(callback)`
-         *    - `.clear(callback)`
-         *
-         * For an example implementation view the [connect-redis](http://github.com/visionmedia/connect-redis) repo.
-         *
-         * @param options
-         */
-        function session(options?: any): Handler;
-
-        /**
-         * Hash the given `sess` object omitting changes
-         * to `.cookie`.
-         *
-         * @param sess
-         */
-        function hash(sess: string): string;
-
-        /**
-         * Static:
-         *
-         *   Static file server with the given `root` path.
-         *
-         * Examples:
-         *
-         *     var oneDay = 86400000;
-         *
-         *     connect()
-         *       .use(connect.static(__dirname + '/public'))
-         *
-         *     connect()
-         *       .use(connect.static(__dirname + '/public', { maxAge: oneDay }))
-         *
-         * Options:
-         *
-         *    - `maxAge`     Browser cache maxAge in milliseconds. defaults to 0
-         *    - `hidden`     Allow transfer of hidden files. defaults to false
-         *    - `redirect`   Redirect to trailing "/" when the pathname is a dir. defaults to true
-         *
-         * @param root
-         * @param options
-         */
-        function static(root: string, options?: any): Handler;
-
-        /**
-         * Basic Auth:
-         *
-         * Enfore basic authentication by providing a `callback(user, pass)`,
-         * which must return `true` in order to gain access. Alternatively an async
-         * method is provided as well, invoking `callback(user, pass, callback)`. Populates
-         * `req.user`. The final alternative is simply passing username / password
-         * strings.
-         *
-         *  Simple username and password
-         *
-         *     connect(connect.basicAuth('username', 'password'));
-         *
-         *  Callback verification
-         *
-         *     connect()
-         *       .use(connect.basicAuth(function(user, pass){
-         *         return 'tj' == user & 'wahoo' == pass;
-         *       }))
-         *
-         *  Async callback verification, accepting `fn(err, user)`.
-         *
-         *     connect()
-         *       .use(connect.basicAuth(function(user, pass, fn){
-         *         User.authenticate({ user: user, pass: pass }, fn);
-         *       }))
-         *
-         * @param callback or username
-         * @param realm
-         */
-        export function basicAuth(callback: (user: string, pass: string, fn : Function) => void, realm?: string): Handler;
-
-        export function basicAuth(callback: (user: string, pass: string) => boolean, realm?: string): Handler;
-
-        export function basicAuth(user: string, pass: string, realm?: string): Handler;
-
-        /**
-         * Compress:
-         *
-         * Compress response data with gzip/deflate.
-         *
-         * Filter:
-         *
-         *  A `filter` callback function may be passed to
-         *  replace the default logic of:
-         *
-         *     exports.filter = function(req, res){
-         *       return /json|text|javascript/.test(res.getHeader('Content-Type'));
-         *     };
-         *
-         * Options:
-         *
-         *  All remaining options are passed to the gzip/deflate
-         *  creation functions. Consult node's docs for additional details.
-         *
-         *   - `chunkSize` (default: 16*1024)
-         *   - `windowBits`
-         *   - `level`: 0-9 where 0 is no compression, and 9 is slow but best compression
-         *   - `memLevel`: 1-9 low is slower but uses less memory, high is fast but uses more
-         *   - `strategy`: compression strategy
-         *
-         * @param options
-         */
-        function compress(options?: any): Handler;
-
-        /**
-         * Cookie Session:
-         *
-         *   Cookie session middleware.
-         *
-         *      var app = connect();
-         *      app.use(connect.cookieParser());
-         *      app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
-         *
-         * Options:
-         *
-         *   - `key` cookie name defaulting to `connect.sess`
-         *   - `secret` prevents cookie tampering
-         *   - `cookie` session cookie settings, defaulting to `{ path: '/', httpOnly: true, maxAge: null }`
-         *   - `proxy` trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
-         *
-         * Clearing sessions:
-         *
-         *  To clear the session simply set its value to `null`,
-         *  `cookieSession()` will then respond with a 1970 Set-Cookie.
-         *
-         *     req.session = null;
-         *
-         * @param options
-         */
-        function cookieSession(options?: any): Handler;
-
-        /**
-         * Anti CSRF:
-         *
-         * CSRF protection middleware.
-         *
-         * This middleware adds a `req.csrfToken()` function to make a token
-         * which should be added to requests which mutate
-         * state, within a hidden form field, query-string etc. This
-         * token is validated against the visitor's session.
-         *
-         * The default `value` function checks `req.body` generated
-         * by the `bodyParser()` middleware, `req.query` generated
-         * by `query()`, and the "X-CSRF-Token" header field.
-         *
-         * This middleware requires session support, thus should be added
-         * somewhere _below_ `session()` and `cookieParser()`.
-         *
-         * Options:
-         *
-         *    - `value` a function accepting the request, returning the token
-         *
-         * @param options
-         */
-        export function csrf(options?: {value?: Function}): Handler;
-
-        /**
-         * Directory:
-         *
-         * Serve directory listings with the given `root` path.
-         *
-         * Options:
-         *
-         *  - `hidden` display hidden (dot) files. Defaults to false.
-         *  - `icons`  display icons. Defaults to false.
-         *  - `filter` Apply this filter function to files. Defaults to false.
-         *
-         * @param root
-         * @param options
-         */
-        function directory(root: string, options?: any): Handler;
-
-        /**
-         * Favicon:
-         *
-         * By default serves the connect favicon, or the favicon
-         * located by the given `path`.
-         *
-         * Options:
-         *
-         *   - `maxAge`  cache-control max-age directive, defaulting to 1 day
-         *
-         * Examples:
-         *
-         *   Serve default favicon:
-         *
-         *     connect()
-         *       .use(connect.favicon())
-         *
-         *   Serve favicon before logging for brevity:
-         *
-         *     connect()
-         *       .use(connect.favicon())
-         *       .use(connect.logger('dev'))
-         *
-         *   Serve custom favicon:
-         *
-         *     connect()
-         *       .use(connect.favicon('public/favicon.ico))
-         *
-         * @param path
-         * @param options
-         */
-        export function favicon(path?: string, options?: any): Handler;
-
-        /**
-         * JSON:
-         *
-         * Parse JSON request bodies, providing the
-         * parsed object as `req.body`.
-         *
-         * Options:
-         *
-         *   - `strict`  when `false` anything `JSON.parse()` accepts will be parsed
-         *   - `reviver`  used as the second "reviver" argument for JSON.parse
-         *   - `limit`  byte limit disabled by default
-         *
-         * @param options
-         */
-        function json(options?: any): Handler;
-
-        /**
-         * Limit:
-         *
-         *   Limit request bodies to the given size in `bytes`.
-         *
-         *   A string representation of the bytesize may also be passed,
-         *   for example "5mb", "200kb", "1gb", etc.
-         *
-         *     connect()
-         *       .use(connect.limit('5.5mb'))
-         *       .use(handleImageUpload)
-         */
-        function limit(bytes: number): Handler;
-
-        function limit(bytes: string): Handler;
-
-        /**
-         * Logger:
-         *
-         * Log requests with the given `options` or a `format` string.
-         *
-         * Options:
-         *
-         *   - `format`  Format string, see below for tokens
-         *   - `stream`  Output stream, defaults to _stdout_
-         *   - `buffer`  Buffer duration, defaults to 1000ms when _true_
-         *   - `immediate`  Write log line on request instead of response (for response times)
-         *
-         * Tokens:
-         *
-         *   - `:req[header]` ex: `:req[Accept]`
-         *   - `:res[header]` ex: `:res[Content-Length]`
-         *   - `:http-version`
-         *   - `:response-time`
-         *   - `:remote-addr`
-         *   - `:date`
-         *   - `:method`
-         *   - `:url`
-         *   - `:referrer`
-         *   - `:user-agent`
-         *   - `:status`
-         *
-         * Formats:
-         *
-         *   Pre-defined formats that ship with connect:
-         *
-         *    - `default` ':remote-addr - - [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'
-         *    - `short` ':remote-addr - :method :url HTTP/:http-version :status :res[content-length] - :response-time ms'
-         *    - `tiny`  ':method :url :status :res[content-length] - :response-time ms'
-         *    - `dev` concise output colored by response status for development use
-         *
-         * Examples:
-         *
-         *      connect.logger() // default
-         *      connect.logger('short')
-         *      connect.logger('tiny')
-         *      connect.logger({ immediate: true, format: 'dev' })
-         *      connect.logger(':method :url - :referrer')
-         *      connect.logger(':req[content-type] -> :res[content-type]')
-         *      connect.logger(function(tokens, req, res){ return 'some format string' })
-         *
-         * Defining Tokens:
-         *
-         *   To define a token, simply invoke `connect.logger.token()` with the
-         *   name and a callback function. The value returned is then available
-         *   as ":type" in this case.
-         *
-         *      connect.logger.token('type', function(req, res){ return req.headers['content-type']; })
-         *
-         * Defining Formats:
-         *
-         *   All default formats are defined this way, however it's public API as well:
-         *
-         *       connect.logger.format('name', 'string or function')
-         */
-        function logger(options: string): Handler;
-
-        function logger(options: Function): Handler;
-
-        function logger(options?: any): Handler;
-
-        /**
-         * Compile `fmt` into a function.
-         *
-         * @param fmt
-         */
-        function compile(fmt: string): Handler;
-
-        /**
-         * Define a token function with the given `name`,
-         * and callback `fn(req, res)`.
-         *
-         * @param name
-         * @param fn
-         */
-        function token(name: string, fn: Function): any;
-
-        /**
-         * Define a `fmt` with the given `name`.
-         */
-        function format(name: string, str: string): any;
-
-        function format(name: string, str: Function): any;
-
-        /**
-         * Query:
-         *
-         * Automatically parse the query-string when available,
-         * populating the `req.query` object.
-         *
-         * Examples:
-         *
-         *     connect()
-         *       .use(connect.query())
-         *       .use(function(req, res){
-         *         res.end(JSON.stringify(req.query));
-         *       });
-         *
-         *  The `options` passed are provided to qs.parse function.
-         */
-        function query(options: any): Handler;
-
-        /**
-         * Reponse time:
-         *
-         * Adds the `X-Response-Time` header displaying the response
-         * duration in milliseconds.
-         */
-        function responseTime(): Handler;
-
-        /**
-         * Static cache:
-         *
-         * Enables a memory cache layer on top of
-         * the `static()` middleware, serving popular
-         * static files.
-         *
-         * By default a maximum of 128 objects are
-         * held in cache, with a max of 256k each,
-         * totalling ~32mb.
-         *
-         * A Least-Recently-Used (LRU) cache algo
-         * is implemented through the `Cache` object,
-         * simply rotating cache objects as they are
-         * hit. This means that increasingly popular
-         * objects maintain their positions while
-         * others get shoved out of the stack and
-         * garbage collected.
-         *
-         * Benchmarks:
-         *
-         *     static(): 2700 rps
-         *     node-static: 5300 rps
-         *     static() + staticCache(): 7500 rps
-         *
-         * Options:
-         *
-         *   - `maxObjects`  max cache objects [128]
-         *   - `maxLength`  max cache object length 256kb
-         */
-        function staticCache(options: any): Handler;
-
-        /**
-         * Timeout:
-         *
-         * Times out the request in `ms`, defaulting to `5000`. The
-         * method `req.clearTimeout()` is added to revert this behaviour
-         * programmatically within your application's middleware, routes, etc.
-         *
-         * The timeout error is passed to `next()` so that you may customize
-         * the response behaviour. This error has the `.timeout` property as
-         * well as `.status == 408`.
-         */
-        function timeout(ms: number): Handler;
-
-        /**
-         * Vhost:
-         * 
-         *   Setup vhost for the given `hostname` and `server`.
-         *
-         *     connect()
-         *       .use(connect.vhost('foo.com', fooApp))
-         *       .use(connect.vhost('bar.com', barApp))
-         *       .use(connect.vhost('*.com', mainApp))
-         *
-         *  The `server` may be a Connect server or
-         *  a regular Node `http.Server`. 
-         *
-         * @param hostname
-         * @param server
-         */
-        function vhost(hostname: string, server: any): Handler;
-
-        function urlencoded(): any;
-
-        function multipart(): any;
-
+        var static: typeof serveStatic;
     }
 
     export = e;
 }
-

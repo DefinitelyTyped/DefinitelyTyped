@@ -1,20 +1,21 @@
-// Type definitions for jquery.dynatree 1.2
+// Type definitions for jquery.dynatree 1.2.5
 // Project: http://code.google.com/p/dynatree/
-// Definitions by: https://github.com/fdecampredon
+// Definitions by: François de Campredon <https://github.com/fdecampredon>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jqueryui/jqueryui.d.ts"/>
+
+declare module JQueryUI {
+    interface UI {
+        dynatree: DynatreeNamespace
+    }
+}
 
 interface JQuery {
     dynatree(options?: DynatreeOptions): DynaTree;
     dynatree(option?: string, ...rest: any[]): any;
-}
-
-interface JQueryStatic {
-    ui: {
-        dynatree: DynatreeNamespace;
-    };
 }
 
 interface DynaTree {
@@ -39,7 +40,7 @@ interface DynaTree {
     renderInvisibleNodes(): void;
     selectKey(key: string, flag: string): DynaTreeNode;
     serializeArray(stopOnParents: boolean): any[];
-    toDict(): any;
+    toDict(includeRoot?: boolean): any;
     visit(fn: (node: DynaTreeNode) =>boolean, includeRoot: boolean): void;
 }
 
@@ -77,6 +78,7 @@ interface DynaTreeNode {
     makeVisible(): boolean;
     move(targetNode: DynaTreeNode, mode: string): boolean;
     reload(force: boolean): void;
+    reloadChildren(callback?: (node: DynaTreeNode, isOk: boolean) => any): void;
     remove(): void;
     removeChildren(): void;
     render(useEffects: boolean, includeInvisible: boolean): void;
@@ -177,7 +179,7 @@ interface DynaTreeDataModel {
 interface DynaTreeDNDOptions {
     autoExpandMS?: number; // Expand nodes after n milliseconds of hovering.
     preventVoidMoves?: boolean; // Prevent dropping nodes 'before self', etc. 
-
+    revert: boolean; // true: slide helper back to source if drop is rejected
 
     // Make tree nodes draggable:
     onDragStart?: (sourceNode: any) =>void; // Callback(sourceNode), return true, to enable dnd

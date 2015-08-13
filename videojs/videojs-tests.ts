@@ -1,7 +1,7 @@
 // Tests for Video.js API
 /// <reference path="videojs.d.ts" />
 
-_V_("example_video_1").ready(function(){
+videojs("example_video_1").ready(function(){
 
 	var myPlayer:VideoJSPlayer = this;
 

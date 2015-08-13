@@ -65,7 +65,7 @@ declare module Snap {
 	export function ajax(url:string,callback:Function,scope?:Object):XMLHttpRequest;
 	export function format(token:string,json:Object):string;
 	export function fragment(varargs:any):Fragment;
-	export function getElementByPoint(x:number,y:number):Object;
+	export function getElementByPoint(x:number,y:number):Snap.Element;
 	export function is(o:any,type:string):boolean;
 	export function load(url:string,callback:Function,scope?:Object):void;
 	export function plugin(f:Function):void;
@@ -274,6 +274,7 @@ declare module Snap {
 		translate(x:number,y:number):Matrix;
 		x(x:number,y:number):number;
 		y(x:number,y:number):number;
+	
 	}
 	
 	interface ExplicitTransform {
@@ -292,7 +293,7 @@ declare module Snap {
 	el(name:string, attr:Object):Snap.Element;
 	filter(filstr:string):Snap.Element;
 	gradient(gradient:string):any;
-	g(varargs:any):Object;
+	g(varargs?:any):Object;
 	group(...els:any[]):any;
 	mask(varargs:any):Object;
 	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
@@ -359,6 +360,7 @@ declare module Snap {
 		isPointInside(path:string,x:number,y:number):boolean;
 		isPointInsideBBox(bbox:BBox,x:number,y:number):boolean;
 		map(path:string,matrix:Snap.Matrix):string;
+		map(path:string,matrix:Object):string;
 		toAbsolute(path:string):Array<any>;
 		toCubic(pathString:string):Array<any>;
 		toCubic(pathString:Array<string>):Array<any>;

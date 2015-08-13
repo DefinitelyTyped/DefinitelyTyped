@@ -8,7 +8,7 @@
 declare module Slick {
 
     export interface Column<T extends SlickData> {
-        header: Header;
+        header?: Header;
     }
 
     export interface Header {

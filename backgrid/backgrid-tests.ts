@@ -23,7 +23,7 @@ class TestModel extends Backbone.Model {
 
 }
 
-class TestCollection extends Backbone.Collection {
+class TestCollection extends Backbone.Collection<TestModel> {
 
     constructor(models?: any, options?: any) {
 	this.model = TestModel;
@@ -41,11 +41,11 @@ class TestCollection extends Backbone.Collection {
     }
 }
 
-class TestView extends Backbone.View {
+class TestView extends Backbone.View<TestModel> {
     gridView: Backgrid.Grid;
     testCollection: TestCollection;
     
-    constructor(viewOptions?: Backbone.ViewOptions) {
+    constructor(viewOptions?: Backbone.ViewOptions<TestModel>) {
 	this.testCollection = new TestCollection();
 	this.gridView = new Backgrid.Grid({
             columns: [new Backgrid.Column({name: "FirstName", cell: "string", label: "First Name"}), 
