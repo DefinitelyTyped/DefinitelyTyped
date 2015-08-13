@@ -41,17 +41,21 @@ declare module MCustomScrollbar {
         autoHideScrollbar?: boolean;
         scrollButtons?: {
             /**
+             * Enable or disable scroll buttons.
+             */
+            enable?: boolean;
+            /**
             * Scroll buttons scroll type, values: "continuous" (scroll continuously while pressing the button), "pixels" (scrolls by a fixed number of pixels on each click")
             */
             scrollType?: string;
             /**
             * Scroll buttons continuous scrolling speed, integer value or "auto" (script calculates and sets the speed according to content length)
             */
-            scrollSpeed?: any;
+            scrollSpeed?: number | string;
             /**
-            * Scroll buttons pixels scrolling amount, value in pixels
+            * Scroll buttons pixels scrolling amount, value in pixels or "auto"
             */
-            scrollAmount?: number;
+            scrollAmount?: number | string;
         }
     advanced?: {
             /**
@@ -94,13 +98,23 @@ declare module MCustomScrollbar {
             */
             onScroll?: () => void;
             /**
-            * User defined callback function, triggered when scroll end-limit is reached
+            * A function to call when scrolling is completed and content is scrolled all the way to the end (bottom/right)
+            */
+            onTotalScroll?: () => void;
+            /**
+            * A function to call when scrolling is completed and content is scrolled back to the beginning (top/left)
             */
             onTotalScrollBack?: () => void;
             /**
-            * Scroll end-limit offset, value in pixels
+            * Set an offset for which the onTotalScroll callback is triggered.
+            * Its value is in pixels.
             */
             onTotalScrollOffset?: number;
+            /**
+            * Set an offset for which the onTotalScrollBack callback is triggered.
+            * Its value is in pixels
+            */
+            onTotalScrollBackOffset?: number;
             /**
             * User defined callback function, triggered while scrolling
             */
