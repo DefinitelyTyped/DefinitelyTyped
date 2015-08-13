@@ -63,8 +63,8 @@ declare module "log4js" {
    */
   export function shutdown(cb: Function): void;
 
-  export function configure(config: IConfig, options?: any): void;
   export function configure(filename: string, options?: any): void;
+  export function configure(config: IConfig, options?: any): void;
 
   export function setGlobalLogLevel(level: string): void;
   export function setGlobalLogLevel(level: Level): void;
@@ -126,14 +126,112 @@ declare module "log4js" {
   }
 
   export interface IConfig {
-    appenders: IAppenderConfig[];
+    appenders: AppenderConfig[];
     levels?: { [category: string]: string };
     replaceConsole?: boolean;
   }
-  export interface IAppenderConfig {
+
+  export interface AppenderConfigBase {
     type: string;
-    category?: string[];
-    // etc...
+    category?: string;
   }
+
+  export interface ConsoleAppenderConfig extends AppenderConfigBase {}
+  
+  export interface FileAppenderConfig extends AppenderConfigBase {
+    filename: string;
+  }
+  export interface DateFileAppenderConfig extends FileAppenderConfig {
+    /**
+     * The following strings are recognised in the pattern:
+     *  - yyyy : the full year, use yy for just the last two digits
+     *  - MM   : the month
+     *  - dd   : the day of the month
+     *  - hh   : the hour of the day (24-hour clock)
+     *  - mm   : the minute of the hour
+     *  - ss   : seconds
+     *  - SSS  : milliseconds (although I'm not sure you'd want to roll your logs every millisecond)
+     *  - O    : timezone (capital letter o)
+     */
+    pattern: string;
+    alwaysIncludePattern: boolean;
+  }
+  
+  export interface SmtpAppenderConfig extends AppenderConfigBase {
+    /** Comma separated list of email recipients */
+    recipients: string;
+    
+    /** Sender of all emails (defaults to transport user) */
+    sender: string;
+    
+    /** Subject of all email messages (defaults to first event's message)*/
+    subject: string;
+    
+    /**
+     * The time in seconds between sending attempts (defaults to 0).
+     * All events are buffered and sent in one email during this time.
+     * If 0 then every event sends an email
+     */
+    sendInterval: number;
+    
+    SMTP: {
+      host: string;
+      secure: boolean;
+      port: number;
+      auth: {
+          user: string;
+          pass: string;
+      }
+    }
+  }
+
+  export interface HookIoAppenderConfig extends FileAppenderConfig {
+    maxLogSize: number;
+    backup: number;
+    pollInterval: number;
+  }
+  
+  export interface GelfAppenderConfig extends AppenderConfigBase {
+    host: string;
+    hostname: string;
+    port: string;
+    facility: string;
+  }
+  
+  export interface MultiprocessAppenderConfig extends AppenderConfigBase {
+    mode: string;
+    loggerPort: number;
+    loggerHost: string;
+    facility: string;
+    appender?: AppenderConfig;
+  }
+  
+  export interface LogglyAppenderConfig extends AppenderConfigBase {
+    /** Loggly customer token - https://www.loggly.com/docs/api-sending-data/ */
+    token: string;
+    
+    /** Loggly customer subdomain (use 'abc' for abc.loggly.com) */
+    subdomain: string;
+    
+    /** an array of strings to help segment your data & narrow down search results in Loggly */
+    tags: string[];
+    
+    /** Enable JSON logging by setting to 'true' */
+    json: boolean;
+  }
+  
+  export interface ClusteredAppenderConfig extends AppenderConfigBase {
+    appenders?: AppenderConfig[];
+  }
+  
+  type CoreAppenderConfig = ConsoleAppenderConfig
+                          | FileAppenderConfig
+                          | DateFileAppenderConfig
+                          | SmtpAppenderConfig
+                          | HookIoAppenderConfig
+                          | GelfAppenderConfig
+                          | MultiprocessAppenderConfig
+
+  type AppenderConfig = CoreAppenderConfig | (AppenderConfigBase & { [prop: string]: any; });
 }
 
