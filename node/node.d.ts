@@ -453,6 +453,7 @@ declare module "http" {
         writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
         writeHead(statusCode: number, headers?: any): void;
         statusCode: number;
+        statusMessage: string;
         setHeader(name: string, value: string): void;
         sendDate: boolean;
         getHeader(name: string): string;
@@ -781,7 +782,7 @@ declare module "readline" {
     import * as stream from "stream";
 
     export interface ReadLine extends events.EventEmitter {
-        setPrompt(prompt: string, length: number): void;
+        setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: Function): void;
         pause(): void;

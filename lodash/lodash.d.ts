@@ -253,11 +253,11 @@ declare module _ {
 
     interface LoDashArrayWrapper<T> extends LoDashWrapperBase<T[], LoDashArrayWrapper<T>> {
         concat(...items: T[]): LoDashArrayWrapper<T>;
-        join(seperator?: string): LoDashWrapper<string>;
-        pop(): LoDashWrapper<T>;
+        join(seperator?: string): string;
+        pop(): T;
         push(...items: T[]): void;
         reverse(): LoDashArrayWrapper<T>;
-        shift(): LoDashWrapper<T>;
+        shift(): T;
         slice(start: number, end?: number): LoDashArrayWrapper<T>;
         sort(compareFn?: (a: T, b: T) => number): LoDashArrayWrapper<T>;
         splice(start: number): LoDashArrayWrapper<T>;
@@ -5861,6 +5861,33 @@ declare module _ {
         gte(other: any): boolean;
     }
 
+    //_.isMatch
+    interface isMatchCustomizer {
+        (value: any, other: any, indexOrKey?: number|string): boolean;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Performs a deep comparison between object and source to determine if object contains equivalent property
+         * values. If customizer is provided it’s invoked to compare values. If customizer returns undefined
+         * comparisons are handled by the method instead. The customizer is bound to thisArg and invoked with three
+         * arguments: (value, other, index|key).
+         * @param object The object to inspect.
+         * @param source The object of property values to match.
+         * @param customizer The function to customize value comparisons.
+         * @param thisArg The this binding of customizer.
+         * @return Returns true if object is a match, else false.
+         */
+        isMatch(object: Object, source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.isMatch
+         */
+        isMatch(source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
@@ -5906,6 +5933,28 @@ declare module _ {
          * @return Returns the converted plain object.
          */
         toPlainObject(value?: any): Object;
+    }
+
+    /********
+     * Math *
+     ********/
+
+    //_.add
+    interface LoDashStatic {
+        /**
+         * Adds two numbers.
+         * @param augend The first number to add.
+         * @param addend The second number to add.
+         * @return Returns the sum.
+         */
+        add(augend: number, addend: number): number;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.add
+         */
+        add(addend: number): number;
     }
 
     /*************
@@ -6102,6 +6151,25 @@ declare module _ {
             callback?: (objectValue: Value, sourceValue: Value) => Value,
             thisArg?: any): TResult;
 
+    }
+
+    //_.create
+    interface LoDashStatic {
+        /**
+         * Creates an object that inherits from the given prototype object. If a properties object is provided its own
+         * enumerable properties are assigned to the created object.
+         * @param prototype The object to inherit from.
+         * @param properties The properties to assign to the object.
+         * @return Returns the new object.
+         */
+        create<TResult extends {}>(prototype: Object, properties?: Object): TResult;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.create
+         */
+        create<TResult extends {}>(properties?: Object): LoDashObjectWrapper<TResult>;
     }
 
     //_.clone
@@ -7242,6 +7310,24 @@ declare module _ {
         property<T,RT>(key: string): (obj: T) => RT;
     }
 
+    //_.propertyOf
+    interface LoDashStatic {
+        /**
+         * The opposite of _.property; this method creates a function that returns the property value at a given path
+         * on object.
+         * @param object The object to query.
+         * @return Returns the new function.
+         */
+        propertyOf<T extends {}>(object: T): (path: string|string[]) => any;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.propertyOf
+         */
+        propertyOf(): LoDashObjectWrapper<(path: string|string[]) => any>;
+    }
+
     //_.random
     interface LoDashStatic {
         /**
@@ -7389,16 +7475,6 @@ declare module _ {
          * @see _.constant
          */
         constant<TResult>(): () => TResult;
-    }
-
-    //_.create
-    interface LoDashStatic {
-        /**
-         * Creates an object that inherits from the given prototype object. If a properties object is provided its own enumerable properties are assigned to the created object.
-         * @param prototype The object to inherit from.
-         * @param properties The properties to assign to the object.
-         */
-        create<T>(prototype: Object, properties?: Object): Object;
     }
 
     interface ListIterator<T, TResult> {
