@@ -5,105 +5,132 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-import fs = require("fs");
-
 /**
  * Interface for {@link MailDev} options.
  */
 interface MailDevOptions {
-  /**
-   * SMTP host for outgoing emails
-   *
-   * @type {string}
-   */
-  outgoingHost: string;
+    /**
+     * SMTP host for outgoing emails
+     *
+     * @type {string}
+     */
+    outgoingHost?: string;
 
-  /**
-   * SMTP password for outgoing emails
-   *
-   * @type {string}
-   */
-  outgoingPass: string;
+    /**
+     * SMTP password for outgoing emails
+     *
+     * @type {string}
+     */
+    outgoingPass?: string;
 
-  /**
-   * SMTP port for outgoing emails.
-   *
-   * @type {number}
-   */
-  outgoingPort: number;
+    /**
+     * SMTP port for outgoing emails.
+     *
+     * @type {number}
+     */
+    outgoingPort?: number;
 
-  /**
-   * SMTP user for outgoing emails
-   *
-   * @type {string}
-   */
-  outgoingUser: string;
+    /**
+     * SMTP user for outgoing emails
+     *
+     * @type {string}
+     */
+    outgoingUser?: string;
 
-  /**
-   * SMTP port to catch emails.
-   *
-   * @type {number}
-   */
-  smtp: number;
+    /**
+     * SMTP port to catch emails.
+     *
+     * @type {number}
+     */
+    smtp?: number;
 }
 
 /**
- * Interface for {@link MailDev}.
+ * Interface for mail.
  */
-interface MailDev {
+interface Mail {
   /**
-   * Constructor.
-   *
-   * @public
-   * @param options The options.
+   * Identifier.
    */
-  new(options: MailDevOptions): MailDev;
+  id?: string;
 
   /**
-   * Stops the SMTP server.
-   *
-   * @public
-   * @param callback The error callback.
+   * Client.
    */
-  end(callback?: (error: Error) => void): void;
+  envelope?: Object;
+}
 
-  /**
-   * Accepts e-mail identifier, returns email object.
-   *
-   * @public
-   * @param id The e-mail identifier.
-   */
-  getEmail(id: string, callback?: (error: Error) => void): void;
+declare module "maildev" {
+    import fs = require("fs");
 
-  /**
-   * Returns a readable stream of the raw e-mail.
-   *
-   * @public
-   * @param id The e-mail identifier.
-   */
-  getRawEmail(id: string, callback?: (error: Error, readStream: fs.ReadStream) => void): void;
+    /**
+     * Interface for {@link MailDev}.
+     */
+    class MailDev {
+        /**
+         * Constructor.
+         *
+         * @public
+         * @param {MailDevOptions} options The options.
+         */
+        constructor(options: MailDevOptions);
 
-  /**
-   * Returns array of all e-mail.
-   
-   * @public
-   */
-  getAllEmail(): void;
+        /**
+         * Stops the SMTP server.
+         *
+         * @public
+         * @param callback The error callback.
+         */
+        end(callback?: (error: Error) => void): void;
 
-  /**
-   * Starts the SMTP server.
-   *
-   * @public
-   * @param callback The error callback.
-   */
-  listen(callback?: (error: Error) => void): void;
+        /**
+         * Accepts e-mail identifier, returns email object.
+         *
+         * @public
+         * @param {string} id The e-mail identifier.
+         */
+        getEmail(id: string, callback?: (error: Error) => void): void;
 
-  /**
-   * Event called when a new e-mail is received. Callback receives single mail object.
-   *
-   * @public
-   * @param eventName The event name.
-   * @param callback  The callback for obtains the received email.
-   */
-  on(eventName: string, callback: (email: string) => void): void;
+        /**
+         * Returns a readable stream of the raw e-mail.
+         *
+         * @public
+         * @param {string} id The e-mail identifier.
+         */
+        getRawEmail(id: string, callback?: (error: Error, readStream: fs.ReadStream) => void): void;
+
+        /**
+         * Returns array of all e-mail.
+
+         * @public
+         */
+        getAllEmail(done: (error: Error, emails: Array<Object>) => void): void;
+
+        /**
+         * Starts the SMTP server.
+         *
+         * @public
+         * @param callback The error callback.
+         */
+        listen(callback?: (error: Error) => void): void;
+
+        /**
+         * Event called when a new e-mail is received. Callback receives single mail object.
+         *
+         * @public
+         * @param {string} eventName The event name.
+         * @param callback  The callback for obtains the received email.
+         */
+        on(eventName: string, callback: (email: string) => void): void;
+
+        /**
+         * Relay the e-mail.
+         *
+         * @param {string} idOrMailObject The identifier or mail object.
+         */
+        relayMail(idOrMailObject: string, done: (error: Error) => void): void;
+    }
+
+    var out: typeof MailDev;
+    export = out;
 }
