@@ -1,4 +1,4 @@
-///<reference path="shepherd.d.ts" />
+///<reference path="tether-shepherd.d.ts" />
 
 var tour = new Shepherd.Tour({
     defaults: {
