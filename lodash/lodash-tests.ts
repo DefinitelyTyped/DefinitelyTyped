@@ -121,11 +121,11 @@ result = <_.LoDashObjectWrapper<_.Dictionary<string>>>_(<{ [index: string]: stri
 
 //Wrapped array shortcut methods
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).concat(5, 6);
-result = <_.LoDashWrapper<string>>_([1, 2, 3, 4]).join(',');
-result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).pop();
+result = <string>_([1, 2, 3, 4]).join(',');
+result = <number>_([1, 2, 3, 4]).pop();
 _([1, 2, 3, 4]).push(5, 6, 7);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).reverse();
-result = <_.LoDashWrapper<number>>_([1, 2, 3, 4]).shift();
+result = <number>_([1, 2, 3, 4]).shift();
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(1, 2);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).slice(2);
 result = <_.LoDashArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);

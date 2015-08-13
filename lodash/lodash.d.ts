@@ -253,11 +253,11 @@ declare module _ {
 
     interface LoDashArrayWrapper<T> extends LoDashWrapperBase<T[], LoDashArrayWrapper<T>> {
         concat(...items: T[]): LoDashArrayWrapper<T>;
-        join(seperator?: string): LoDashWrapper<string>;
-        pop(): LoDashWrapper<T>;
+        join(seperator?: string): string;
+        pop(): T;
         push(...items: T[]): void;
         reverse(): LoDashArrayWrapper<T>;
-        shift(): LoDashWrapper<T>;
+        shift(): T;
         slice(start: number, end?: number): LoDashArrayWrapper<T>;
         sort(compareFn?: (a: T, b: T) => number): LoDashArrayWrapper<T>;
         splice(start: number): LoDashArrayWrapper<T>;
