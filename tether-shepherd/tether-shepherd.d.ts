@@ -25,8 +25,8 @@ declare module TetherShepherd {
         /**
          * Creates a new Step object with options, and returns the Tour object for convenient chaining when creating multiple steps. If you'd like you can also just pass an options hash which includes id as a key. If the options hash doesn't include an id, one will be generated. You can also pass an existing Step instance rather than options, but note that Shepherd does not support a Step being attached to multiple Tours.
          */
-        addStep(id: string, options: IShepherdTourStepOptions): void;
-        addStep(id: string, options: IShepherdTourStep): void;
+        addStep(id: string, options: IShepherdTourStepOptions): IShepherdTour;
+        addStep(id: string, options: IShepherdTourStep): IShepherdTour;
 
         /**
          * Return a step with a specific id
