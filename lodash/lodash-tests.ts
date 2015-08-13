@@ -1456,6 +1456,17 @@ result = <string>_.result(object, 'stuff');
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
 
+// _.propertyOf
+interface TestPropertyOfObject {
+    a: {
+        b: number[];
+    }
+}
+var testPropertyOfObject: TestPropertyOfObject;
+result = <(path: string|string[]) => any>_.propertyOf({});
+result = <(path: string|string[]) => any>_.propertyOf<TestPropertyOfObject>(testPropertyOfObject);
+result = <(path: string|string[]) => any>_({}).propertyOf().value();
+
 result = <_.TemplateExecutor>_.template('hello <%= name %>');
 result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
 
