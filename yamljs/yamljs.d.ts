@@ -4,11 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare namespace YAML {
-    function load(path : string) : any;
+    function load(path: string): any;
 
-    function stringify(nativeObject : any, inline? : number, spaces? : number) : string;
+    function stringify(nativeObject: any, inline?: number, spaces?: number): string;
 
-    function parse(yamlString : string) : any;
+    function parse(yamlString: string): any;
 }
 
 declare module "yamljs" {
