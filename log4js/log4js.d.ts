@@ -234,6 +234,10 @@ declare module "log4js" {
                           | LogglyAppenderConfig
                           | ClusteredAppenderConfig
 
-  type AppenderConfig = CoreAppenderConfig | (AppenderConfigBase & { [prop: string]: any; });
+  interface UserDefinedAppenderConfig extends AppenderConfigBase {
+      [prop: string]: any;
+  }
+
+  type AppenderConfig = CoreAppenderConfig | UserDefinedAppenderConfig;
 }
 
