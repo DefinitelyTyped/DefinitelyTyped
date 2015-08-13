@@ -1130,6 +1130,25 @@ result = <_.LoDashObjectWrapper<NameAge>>_({ 'name': 'moe' }).extend({ 'age': 40
     return typeof a == 'undefined' ? b : a;
 });
 
+// _.create
+interface TestCreateProto {
+    a: number;
+}
+interface TestCreateProps {
+    b: string;
+}
+interface TestCreateTResult extends TestCreateProto, TestCreateProps {}
+var testCreateProto: TestCreateProto;
+var testCreateProps: TestCreateProps;
+result = <{}>_.create(testCreateProto);
+result = <{}>_.create(testCreateProto, testCreateProps);
+result = <TestCreateProto>_.create<TestCreateProto>(testCreateProto);
+result = <TestCreateTResult>_.create<TestCreateTResult>(testCreateProto, testCreateProps);
+result = <{}>_(testCreateProto).create().value();
+result = <{}>_(testCreateProto).create(testCreateProps).value();
+result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
+result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
+
 result = <IStoogesAge[]>_.clone(stoogesAges);
 result = <IStoogesAge[]>_.clone(stoogesAges, true);
 result = <any>_.clone(stoogesAges, true, function (value) {
