@@ -192,7 +192,7 @@ declare module uiGrid {
     export interface IGridOptions {
         aggregationCalcThrottle?: number;
         appScopeProvider?: ng.IScope | Object;
-        columnDefs?: IColumnDef;
+        columnDefs?: Array<IColumnDef>;
         columnFooterHeight?: number;
         columnVirtualizationThreshold?: number;
         data?: Array<any> | string;
