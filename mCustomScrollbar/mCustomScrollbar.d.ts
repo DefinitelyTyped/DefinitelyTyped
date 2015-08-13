@@ -130,12 +130,6 @@ declare module MCustomScrollbar {
 
 interface JQuery {
     /**
-    * Creates a new mCustomScrollbar with the specified or default options
-    *
-    * @param options Override default options
-    */
-    mCustomScrollbar(options?: MCustomScrollbar.CustomScrollbarOptions): JQuery;
-    /**
     * Calls specified methods on the scrollbar "update", "stop", "disable", "destroy"
     *
     * @param method Method name to call on scrollbar e.g. "update", "stop"
@@ -149,4 +143,10 @@ interface JQuery {
     * @param options Override default options
     */
     mCustomScrollbar(scrollTo: string, parameter: any, options?: MCustomScrollbar.ScrollToParameterOptions): JQuery;
+    /**
+    * Creates a new mCustomScrollbar with the specified or default options
+    *
+    * @param options Override default options
+    */
+    mCustomScrollbar(options?: MCustomScrollbar.CustomScrollbarOptions): JQuery;
 }
