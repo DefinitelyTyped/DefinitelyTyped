@@ -8,7 +8,7 @@
 declare module "gulp-typescript" {
     function GulpTypescript(params: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
-    module GulpTypescript {        
+    module GulpTypescript {
         export function createProject(params: Params): Params;
         export function createProject(file: string, params: Params): Params;
         export function filter(filters: FilterSettings): CompilationStream;
