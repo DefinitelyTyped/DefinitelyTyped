@@ -26,6 +26,11 @@ var tsProject = typescript.createProject({
     noExternalResolve: true
 });
 
+
+var mainTscProject = typescript.createProject("tsconfig.json", {
+   target: "es6"
+});
+
 gulp.task('scripts', function() {
     var tsResult = gulp.src('lib/*.ts')
         .pipe(typescript(tsProject));
