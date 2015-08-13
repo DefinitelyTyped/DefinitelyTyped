@@ -269,7 +269,7 @@ declare module jasmine {
         results(): NestedResults;
     }
 
-    interface Matchers {
+    export interface Matchers {
 
         new (env: Env, actual: any, spec: Env, isNot?: boolean): any;
 
