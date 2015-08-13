@@ -1,9 +1,9 @@
-// Type definitions for Shepherd v1.1.2
+// Type definitions for Tether-Shepherd v1.1.2
 // Project: http://github.hubspot.com/shepherd/
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-﻿declare module shepherd {
+declare module TetherShepherd {
 
     interface ShepherdStatic {
         on(eventName: string, handler: Function, context?: any): any;
@@ -167,4 +167,4 @@
     }
 }
 
-declare var Shepherd: shepherd.ShepherdStatic;
+declare var Shepherd: TetherShepherd.ShepherdStatic;
