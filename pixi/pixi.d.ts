@@ -1,448 +1,1651 @@
-// Type definitions for PIXI 1.3
+// Type definitions for Pixi v3.0.6
 // Project: https://github.com/GoodBoyDigital/pixi.js/
-// Definitions by: xperiments <http://github.com/xperiments>
+// Definitions by: clark-stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module PIXI
-{
+declare class PIXI {
 
-    /* STATICS */
-    export var gl:WebGLRenderingContext;
-    export var BaseTextureCache: {};
-    export var texturesToUpdate: BaseTexture[];
-    export var texturesToDestroy: BaseTexture[];
-    export var TextureCache: {};
-    export var FrameCache: {};
-    export var blendModes:{ NORMAL:number; SCREEN:number; };
+    static autoDetectRenderer(width: number, height: number, options?: PIXI.RendererOptions, noWebGL?: boolean): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+    static loader: PIXI.loaders.Loader;
+    static VERSION: string;
+    static PI_2: number;
+    static RAD_TO_DEG: number;
+    static DEG_TO_RAD: number;
+    static TARGET_FPMS: number;
+    static RENDER_TYPE: {
+        UNKNOWN: number;
+        WEBGL: number;
+        CANVAS: number;
+    };
+    static BLEND_MODES: {
+        NORMAL: number;
+        ADD: number;
+        MULTIPLY: number;
+        SCREEN: number;
+        OVERLAY: number;
+        DARKEN: number;
+        LIGHTEN: number;
+        COLOR_DODGE: number;
+        COLOR_BURN: number;
+        HARD_LIGHT: number;
+        SOFT_LIGHT: number;
+        DIFFERENCE: number;
+        EXCLUSION: number;
+        HUE: number;
+        SATURATION: number;
+        COLOR: number;
+        LUMINOSITY: number;
 
-
-    /* MODULE FUNCTIONS */
-    export function autoDetectRenderer(width: number, height: number, view?: HTMLCanvasElement, transparent?: boolean, antialias?: boolean): IPixiRenderer;
-    export function FilterBlock( mask:Graphics ):void;
-    export function MaskFilter( graphics:Graphics ):void;
-
-
-    /* DEBUG METHODS */
-
-    export function runList( x ):void;
-
-    /*INTERFACES*/
-
-    export interface IBasicCallback
-    {
-        ():void
-    }
-
-    export interface IEvent
-    {
-        type: string;
-        content: any;
-    }
-
-    export interface IHitArea
-    {
-        contains(x: number, y: number):boolean;
-    }
-
-    export interface IInteractionDataCallback
-    {
-        (interactionData: InteractionData):void
-    }
-
-    export interface IPixiRenderer
-    {
+    };
+    static DRAW_MODES: {
+        POINTS: number;
+        LINES: number;
+        LINE_LOOP: number;
+        LINE_STRIP: number;
+        TRIANGLES: number;
+        TRIANGLE_STRIP: number;
+        TRIANGLE_FAN: number;
+    };
+    static SCALE_MODES: {
+        DEFAULT: number;
+        LINEAR: number;
+        NEAREST: number;
+    };
+    static RETINA_PREFIX: string;
+    static RESOLUTION: number;
+    static FILTER_RESOLUTION: number;
+    static DEFAULT_RENDER_OPTIONS: {
         view: HTMLCanvasElement;
-        render(stage: Stage): void;
+        resolution: number;
+        antialias: boolean;
+        forceFXAA: boolean;
+        autoResize: boolean;
+        transparent: boolean;
+        backgroundColor: number;
+        clearBeforeRender: boolean;
+        preserveDrawingBuffer: boolean;
+    };
+    static SHAPES: {
+        POLY: number;
+        RECT: number;
+        CIRC: number;
+        ELIP: number;
+        RREC: number;
+    };
+    static SPRITE_BATCH_SIZE: number;
+
+}
+
+declare module PIXI {
+
+    //https://github.com/primus/eventemitter3
+    export class EventEmitter {
+
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
+        on(event: string, fn: Function, context?: any): EventEmitter;
+        once(event: string, fn: Function, context?: any): EventEmitter;
+        removeListener(event: string, fn: Function, once?: boolean): EventEmitter;
+        removeAllListeners(event: string): EventEmitter;
+
+        off(event: string, fn: Function, once?: boolean): EventEmitter;
+        addListener(event: string, fn: Function, context?: any): EventEmitter;
+
     }
 
-    export interface IBitmapTextStyle
-    {
-        font?: string;
-        align?: string;
+    //////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////CORE//////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+
+    //display
+
+    export class DisplayObject extends EventEmitter implements interaction.InteractiveTarget {
+
+        //begin extras.cacheAsBitmap
+        private _cacheAsBitmap: boolean;
+        private _originalRenderWebGL: WebGLRenderer;
+        private _originalRenderCanvas: CanvasRenderer;
+        private _originalUpdateTransform: boolean;
+        private _originalHitTest: any;
+        private _cachedSprite: any;
+        private _originalDestroy: any;
+
+        cacheAsBitmap: boolean;
+
+        private _renderCachedWebGL(renderer: WebGLRenderer): void;
+        private _initCachedDisplayObject(renderer: WebGLRenderer): void;
+        private _renderCachedCanvas(renderer: CanvasRenderer): void;
+        private _initCachedDisplayObjectCanvas(renderer: CanvasRenderer): void;
+        private _getCachedBounds(): Rectangle;
+        private _destroyCachedDisplayObject(): void;
+        private _cacheAsBitmapDestroy(): void;
+        //end extras.cacheAsBitmap
+
+        private _sr: number;
+        private _cr: number;
+        private _bounds: Rectangle;
+        private _currentBounds: Rectangle;
+        private _mask: Rectangle;
+        private _cachedObject: any;
+
+        updateTransform(): void;
+
+        position: Point;
+        scale: Point;
+        pivot: Point;
+        rotation: number;
+        renderable: boolean;
+        alpha: number;
+        visible: boolean;
+        parent: Container;
+        worldAlpha: number;
+        worldTransform: Matrix;
+        filterArea: Rectangle;
+
+        x: number;
+        y: number;
+        worldVisible: boolean;
+        mask: Graphics;
+        filters: AbstractFilter[];
+        name: string;
+
+
+        getBounds(matrix?: Matrix): Rectangle;
+        getLocalBounds(): Rectangle;
+        toGlobal(position: Point): Point;
+        toLocal(position: Point, from?: DisplayObject): Point;
+        generateTexture(renderer: CanvasRenderer | WebGLRenderer, scaleMode: number, resolution: number): Texture;
+        destroy(): void;
+        getChildByName(name: string): DisplayObject;
+        getGlobalPosition(point: Point): Point;
+
+        interactive: boolean;
+        buttonMode: boolean;
+        interactiveChildren: boolean;
+        defaultCursor: string;
+
+        on(event: 'click', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'mousedown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'mouseout', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'mouseover', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'mouseup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'mouseclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'mouseupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'rightclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'rightdown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'rightup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'rightupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'tap', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'touchend', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'touchendoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'touchmove', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: 'touchstart', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        on(event: string, fn: Function, context?: any): EventEmitter;
+
+        once(event: 'click', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'mousedown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'mouseout', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'mouseover', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'mouseup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'mouseclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'mouseupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'rightclick', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'rightdown', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'rightup', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'rightupoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'tap', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'touchend', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'touchendoutside', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'touchmove', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: 'touchstart', fn: (event: interaction.InteractionEvent) => void, context?: any): EventEmitter;
+        once(event: string, fn: Function, context?: any): EventEmitter;
+
     }
 
-    export interface ITextStyle
-    {
-        font?: string;
-        stroke?: string;
-        fill?: string;
-        align?: string;
-        strokeThickness?: number;
-        wordWrap?: boolean;
-        wordWrapWidth?:number;
-    }
+    export class Container extends DisplayObject {
 
+        private _renderWebGL(renderer: WebGLRenderer): void;
+        private _renderCanvas(renderer: CanvasRenderer): void;
 
+        children: DisplayObject[];
 
-    /* CLASES */
-
-    export class AssetLoader extends EventTarget
-    {
-        assetURLs: string[];
-        onComplete: IBasicCallback;
-        onProgress: IBasicCallback;
-        constructor(assetURLs: string[], crossorigin?:boolean );
-        load(): void;
-    }
-
-    export class BaseTexture extends EventTarget
-    {
-        height: number;
         width: number;
-        source: string;
-
-        constructor(source: HTMLImageElement);
-        constructor(source: HTMLCanvasElement);
-        destroy():void;
-
-        static fromImage(imageUrl: string, crossorigin?:boolean ): BaseTexture;
-    }
-
-    export class BitmapFontLoader extends EventTarget
-    {
-        baseUrl:string;
-        crossorigin:boolean;
-        texture:Texture;
-        url:string;
-        constructor(url: string, crossorigin?: boolean);
-        load():void;
-    }
-
-    export class BitmapText extends DisplayObjectContainer
-    {
-        width:number;
-        height:number;
-        constructor(text: string, style: IBitmapTextStyle);
-        setStyle(style: IBitmapTextStyle): void;
-        setText(text: string): void;
-    }
-
-    export class CanvasRenderer implements IPixiRenderer
-    {
-        context: CanvasRenderingContext2D;
         height: number;
-        view: HTMLCanvasElement;
-        width: number;
-        constructor(width: number, height: number, view?: HTMLCanvasElement, transparent?: boolean);
-        render(stage: Stage): void;
-        resize(width: number, height: number):void;
+
+        addChild(child: DisplayObject): DisplayObject;
+        addChildAt(child: DisplayObject, index: number): DisplayObject;
+        swapChildren(child: DisplayObject, child2: DisplayObject): void;
+        getChildIndex(child: DisplayObject): number;
+        setChildIndex(child: DisplayObject, index: number): void;
+        getChildAt(index: number): DisplayObject;
+        removeChild(child: DisplayObject): DisplayObject;
+        removeChildAt(index: number): DisplayObject;
+        removeChildren(beginIndex?: number, endIndex?: number): DisplayObject[];
+        destroy(destroyChildren?: boolean): void;
+
+        renderWebGL(renderer: WebGLRenderer): void;
+        renderCanvas(renderer: CanvasRenderer): void;
+
     }
 
-    export class Circle implements IHitArea
-    {
+    //graphics
+
+    export class GraphicsData {
+
+        constructor(lineWidth: number, lineColor: number, lineAlpha: number, fillColor: number, fillAlpha: number, fill: boolean, shape: Circle | Rectangle | Ellipse | Polygon);
+
+        lineWidth: number;
+        lineColor: number;
+        lineAlpha: number;
+        fillColor: number;
+        fillAlpha: number;
+        fill: boolean;
+        shape: Circle | Rectangle | Ellipse | Polygon;
+        type: number;
+
+        clone(): GraphicsData;
+
+        private _lineTint: number;
+        private _fillTint: number;
+
+    }
+    export class Graphics extends Container {
+
+        private boundsDirty: boolean;
+
+        fillAlpha: number;
+        lineWidth: number;
+        lineColor: number;
+        tint: number;
+        blendMode: number;
+        isMask: boolean;
+        boundsPadding: number;
+
+        clone(): Graphics;
+        lineStyle(lineWidth?: number, color?: number, alpha?: number): Graphics;
+        moveTo(x: number, y: number): Graphics;
+        lineTo(x: number, y: number): Graphics;
+        quadraticCurveTo(cpX: number, cpY: number, toX: number, toY: number): Graphics;
+        bezierCurveTo(cpX: number, cpY: number, cpX2: number, cpY2: number, toX: number, toY: number): Graphics;
+        arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
+        arc(cx: number, cy: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): Graphics;
+        beginFill(color: number, alpha: number): Graphics;
+        endFill(): Graphics;
+        drawRect(x: number, y: number, width: number, height: number): Graphics;
+        drawRoundedRect(x: number, y: number, width: number, height: number, radius: number): Graphics;
+        drawCircle(x: number, y: number, radius: number): Graphics;
+        drawEllipse(x: number, y: number, width: number, height: number): Graphics;
+        drawPolygon(path: Point[]): Graphics;
+        clear(): Graphics;
+        //todo
+        generateTexture(renderer: WebGLRenderer | CanvasRenderer, resolution?: number, scaleMode?: number): Texture;
+        getBounds(matrix?: Matrix): Rectangle;
+        containsPoint(point: Point): boolean;
+        updateLocalBounds(): void;
+        drawShape(shape: Circle | Rectangle | Ellipse | Polygon): GraphicsData;
+
+    }
+    export interface GraphicsRenderer extends ObjectRenderer {
+        //yikes todo
+    }
+    export interface WebGLGraphicsData {
+        //yikes todo!
+    }
+
+    //math
+
+    export class Point {
+
+        x: number;
+        y: number;
+
+        constructor(x?: number, y?: number);
+
+        clone(): Point;
+        copy(p: Point): void;
+        equals(p: Point): boolean;
+        set(x?: number, y?: number): void;
+
+    }
+    export class Matrix {
+
+        a: number;
+        b: number;
+        c: number;
+        d: number;
+        tx: number;
+        ty: number;
+
+        fromArray(array: number[]): void;
+        toArray(transpose?: boolean, out?: number[]): number[];
+        apply(pos: Point, newPos?: Point): Point;
+        applyInverse(pos: Point, newPos?: Point): Point;
+        translate(x: number, y: number): Matrix;
+        scale(x: number, y: number): Matrix;
+        rotate(angle: number): Matrix;
+        append(matrix: Matrix): Matrix;
+        prepend(matrix: Matrix): Matrix;
+        invert(): Matrix;
+        identity(): Matrix;
+        clone(): Matrix;
+        copy(matrix: Matrix): Matrix;
+
+        static IDENTITY: Matrix;
+        static TEMP_MATRIX: Matrix;
+
+    }
+    export class Circle {
+
+        constructor(x?: number, y?: number, radius?: number);
+
         x: number;
         y: number;
         radius: number;
-        constructor(x: number, y: number, radius: number);
+        type: number;
+
         clone(): Circle;
-        contains(x: number, y: number):boolean;
+        contains(x: number, y: number): boolean;
+        getBounds(): Rectangle;
+
     }
+    export class Ellipse {
 
-    // TODO what is renderGroup
-    export class CustomRenderable extends DisplayObject
-    {
-        constructor();
-        renderCanvas(renderer: CanvasRenderer): void;
-        initWebGL(renderer: WebGLRenderer): void;
-        renderWebGL(renderGroup: any, projectionMatrix: any): void;
-    }
+        constructor(x?: number, y?: number, width?: number, height?: number);
 
-    export class DisplayObject
-    {
-        x: number;
-        y: number;
-        alpha: number;
-        buttonMode: boolean;
-        filter:boolean;
-        hitArea: IHitArea;
-        parent: DisplayObjectContainer;
-        pivot: Point;
-        position: Point;
-        rotation: number;
-        renderable: boolean;
-        scale: Point;
-        stage: Stage;
-        visible: boolean;
-        worldAlpha: number;
-        constructor();
-        static autoDetectRenderer(width: number, height: number, view?: HTMLCanvasElement, transparent?: boolean): IPixiRenderer;
-        click: IInteractionDataCallback;
-        mousedown: IInteractionDataCallback;
-        mouseout: IInteractionDataCallback;
-        mouseover: IInteractionDataCallback;
-        mouseup: IInteractionDataCallback;
-        mouseupoutside: IInteractionDataCallback;
-        mousemove: IInteractionDataCallback;
-        tap: IInteractionDataCallback;
-        touchend: IInteractionDataCallback;
-        touchendoutside: IInteractionDataCallback;
-        touchstart: IInteractionDataCallback;
-        touchmove: IInteractionDataCallback;
-
-        //deprecated
-        setInteractive(interactive: boolean): void;
-
-        // getters setters
-        interactive:boolean;
-        mask:Graphics;
-    }
-
-    export class DisplayObjectContainer extends DisplayObject
-    {
-        children: DisplayObject[];
-        constructor();
-
-        addChild(child: DisplayObject): void;
-        addChildAt(child: DisplayObject, index: number): void;
-        getChildAt(index:number):DisplayObject;
-        removeChild(child: DisplayObject): void;
-        swapChildren(child: DisplayObject, child2: DisplayObject): void;
-    }
-
-    export class Ellipse implements IHitArea
-    {
         x: number;
         y: number;
         width: number;
         height: number;
+        type: number;
 
-        constructor(x: number, y: number, width: number, height: number);
         clone(): Ellipse;
-        contains(x: number, y: number):boolean;
-        getBounds():Rectangle;
+        contains(x: number, y: number): boolean;
+        getBounds(): Rectangle;
+
     }
-
-    export class EventTarget
-    {
-        addEventListener(type: string, listener: (event: IEvent) => void );
-        removeEventListener(type: string, listener: (event: IEvent) => void );
-        dispatchEvent(event: IEvent);
-    }
-
-    export class Graphics extends DisplayObjectContainer
-    {
-        lineWidth:number;
-        lineColor:string;
-        constructor();
-
-        beginFill(color?: number, alpha?: number): void;
-        clear(): void;
-        drawCircle(x: number, y: number, radius: number): void;
-        drawElipse(x: number, y: number, width: number, height: number): void;
-        drawRect(x: number, y: number, width: number, height: number): void;
-        endFill(): void;
-        lineStyle(lineWidth?: number, color?: number, alpha?: number ): void;
-        lineTo(x: number, y: number): void;
-        moveTo(x: number, y: number): void;
-
-        static POLY:number;
-        static RECT:number;
-        static CIRC:number;
-        static ELIP:number;
-    }
-
-    export class ImageLoader extends EventTarget
-    {
-        texture:Texture;
-        constructor(url: string, crossorigin?: boolean);
-        load(): void;
-    }
-
-    /* TODO determine type of originalEvent*/
-    export class InteractionData
-    {
-        global: Point;
-        target: Sprite;
-        constructor();
-        originalEvent:any;
-        getLocalPosition(displayObject: DisplayObject): Point;
-    }
-
-    export class InteractionManager
-    {
-        mouse: InteractionData;
-        stage: Stage;
-        touchs:{ [id:string]:InteractionData };
-        constructor(stage: Stage);
-    }
-
-    export class JsonLoader extends EventTarget
-    {
-        url:string;
-        crossorigin: boolean;
-        baseUrl:string;
-        loaded:boolean;
-        constructor(url: string, crossorigin?: boolean);
-        load(): void;
-    }
-
-    export class MovieClip extends Sprite
-    {
-        animationSpeed: number;
-        currentFrame:number;
-        loop: boolean;
-        playing: boolean;
-        textures: Texture[];
-        constructor(textures: Texture[]);
-        onComplete:IBasicCallback;
-        gotoAndPlay(frameNumber: number): void;
-        gotoAndStop(frameNumber: number): void;
-        play(): void;
-        stop(): void;
-    }
-
-    export class Point
-    {
-        x: number;
-        y: number;
-        constructor(x: number, y: number);
-        clone(): Point;
-    }
-
-    export class Polygon implements IHitArea
-    {
-        points: Point[];
+    export class Polygon {
 
         constructor(points: Point[]);
         constructor(points: number[]);
         constructor(...points: Point[]);
         constructor(...points: number[]);
 
-        clone(): Polygon;
-        contains( x:number, y:number ):boolean;
-    }
+        closed: boolean;
+        points: number[];
+        type: number;
 
-    export class Rectangle implements IHitArea
-    {
+        clone(): Polygon;
+        contains(x: number, y: number): boolean;
+
+
+    }
+    export class Rectangle {
+
+        constructor(x?: number, y?: number, width?: number, height?: number);
+
         x: number;
         y: number;
         width: number;
         height: number;
-        constructor(x: number, y: number, width: number, height: number);
+        type: number;
+
+        static EMPTY: Rectangle;
+
         clone(): Rectangle;
-        contains(x: number, y: number):boolean;
+        contains(x: number, y: number): boolean;
+
+    }
+    export class RoundedRectangle {
+
+        constructor(x?: number, y?: number, width?: number, height?: number, radius?: number);
+
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        radius: number;
+        type: number;
+
+        static EMPTY: Rectangle;
+
+        clone(): Rectangle;
+        contains(x: number, y: number): boolean;
+
     }
 
-    export class RenderTexture extends Texture
-    {
-        constructor(width: number, height: number);
-        resize(width: number, height: number): void;
-    }
+    //particles
 
-    export class Sprite extends DisplayObjectContainer
-    {
-        anchor: Point;
+    export interface ParticleContainerProperties {
+
+        scale?: any;
+        position?: any;
+        rotation?: number;
+        uvs?: any;
+        alpha?: number;
+    }
+    export class ParticleContainer extends Container {
+
+        constructor(size?: number, properties?: ParticleContainerProperties);
+
+        interactiveChildren: boolean;
         blendMode: number;
+        roundPixels: boolean;
+
+        setProperties(properties: ParticleContainerProperties): void;
+        addChildAt(child: DisplayObject, index: number): DisplayObject;
+        removeChildAt(index: number): DisplayObject;
+
+    }
+    export interface ParticleBuffer {
+
+    }
+    export interface ParticleRenderer {
+
+    }
+    export interface ParticleShader {
+
+    }
+
+    //renderers
+
+    export interface RendererOptions {
+
+        view?: HTMLCanvasElement;
+        transparent?: boolean
+        antialias?: boolean;
+        resolution?: number;
+        clearBeforeRendering?: boolean;
+        preserveDrawingBuffer?: boolean;
+        forceFXAA?: boolean;
+
+    }
+    export class SystemRenderer extends EventEmitter {
+
+        private _backgroundColor: number;
+        private _backgroundColorRgb: number[];
+        private _backgroundColorString: string;
+        private _tempDisplayObjectParent: any;
+        private _lastObjectRendered: DisplayObject;
+
+        constructor(system: string, width?: number, height?: number, options?: RendererOptions);
+
+        type: number;
+        width: number;
+        height: number;
+        view: HTMLCanvasElement;
+        resolution: number;
+        transparent: boolean;
+        autoResize: boolean;
+        blendModes: any; //todo?
+        preserveDrawingBuffer: boolean;
+        clearBeforeRender: boolean;
+        backgroundColor: number;
+
+        render(object: DisplayObject): void;
+        resize(width: number, height: number): void;
+        destroy(removeView?: boolean): void;
+
+    }
+    export class CanvasRenderer extends SystemRenderer {
+
+        private renderDisplayObject(displayObject: DisplayObject, context: CanvasRenderingContext2D): void;
+        private _mapBlendModes(): void;
+
+        constructor(width?: number, height?: number, options?: RendererOptions);
+
+        context: CanvasRenderingContext2D;
+        refresh: boolean;
+        maskManager: CanvasMaskManager;
+        roundPixels: boolean;
+        currentScaleMode: number;
+        currentBlendMode: number;
+        smoothProperty: string;
+
+        render(object: DisplayObject): void;
+
+    }
+    export class CanvasBuffer {
+
+        private clear(): void;
+
+        constructor(width: number, height: number);
+
+        canvas: HTMLCanvasElement;
+        context: CanvasRenderingContext2D;
+
+        width: number;
+        height: number;
+
+        resize(width: number, height: number): void;
+        destroy(): void;
+
+    }
+    export class CanvasGraphics {
+
+        private static renderGraphicsMask(graphics: Graphics, context: CanvasRenderingContext2D): void;
+        private static updateGraphicsTint(graphics: Graphics): void;
+
+        static renderGraphics(graphics: Graphics, context: CanvasRenderingContext2D): void;
+
+    }
+    export class CanvasMaskManager {
+
+        pushMask(maskData: any, renderer: WebGLRenderer | CanvasRenderer): void;
+        popMask(renderer: WebGLRenderer | CanvasRenderer): void;
+        destroy(): void;
+
+    }
+    export class CanvasTinter {
+
+        static getTintedTexture(sprite: DisplayObject, color: number): HTMLCanvasElement;
+        static tintWithMultiply(texture: Texture, color: number, canvas: HTMLDivElement): void;
+        static tintWithOverlay(texture: Texture, color: number, canvas: HTMLCanvasElement): void;
+        static tintWithPerPixel(texture: Texture, color: number, canvas: HTMLCanvasElement): void;
+        static roundColor(color: number): number;
+        static cacheStepsPerColorChannel: number;
+        static convertTintToImage: boolean;
+        static vanUseMultiply: boolean;
+        static tintMethod: Function;
+
+    }
+    export class WebGLRenderer extends SystemRenderer {
+
+        private _useFXAA: boolean;
+        private _FXAAFilter: FXAAFilter;
+        private _contextOptions: {
+            alpha: boolean;
+            antiAlias: boolean;
+            premultipliedAlpha: boolean;
+            stencil: boolean;
+            preseveDrawingBuffer: boolean;
+        }
+        private _renderTargetStack: RenderTarget[];
+
+        private _initContext(): void;
+        private _createContext(): void;
+        private handleContextLost: (event: WebGLContextEvent) => void;
+        private _mapGlModes(): void;
+
+        constructor(width?: number, height?: number, options?: RendererOptions);
+
+        drawCount: number;
+        shaderManager: ShaderManager;
+        maskManager: MaskManager;
+        stencilManager: StencilManager;
+        filterManager: FilterManager;
+        blendModeManager: BlendModeManager;
+        currentRenderTarget: RenderTarget;
+        currentRenderer: ObjectRenderer;
+
+        render(object: DisplayObject): void;
+        renderDisplayObject(displayObject: DisplayObject, renderTarget: RenderTarget, clear: boolean): void;
+        setObjectRenderer(objectRenderer: ObjectRenderer): void;
+        setRenderTarget(renderTarget: RenderTarget): void;
+        updateTexture(texture: BaseTexture | Texture): BaseTexture | Texture;
+        destroyTexture(texture: BaseTexture | Texture): void;
+
+    }
+    export class AbstractFilter {
+
+        private vertexSrc: string[];
+        private fragmentSrc: string[];
+
+        constructor(vertexSrc: string | string[], fragmentSrc: string | string[], uniforms: any);
+
+        uniforms: any;
+
+        padding: number;
+
+        getShader(renderer: WebGLRenderer): Shader;
+        applyFilter(renderer: WebGLRenderer, input: RenderTarget, output: RenderTarget, clear?: boolean): void;
+        syncUniform(uniform: WebGLUniformLocation): void;
+
+    }
+    export class SpriteMaskFilter extends AbstractFilter {
+
+        constructor(sprite: Sprite);
+
+        maskSprite: Sprite;
+        maskMatrix: Matrix;
+
+        applyFilter(renderer: WebGLRenderbuffer, input: RenderTarget, output: RenderTarget): void;
+        map: Texture;
+        offset: Point;
+
+    }
+    export class BlendModeManager extends WebGLManager {
+
+        constructor(renderer: WebGLRenderer);
+
+        setBlendMode(blendMode: number): boolean;
+
+    }
+    export class FilterManager extends WebGLManager {
+
+        constructor(renderer: WebGLRenderer);
+
+    }
+    export class MaskManager extends WebGLManager {
+
+        stencilStack: StencilMaskStack;
+        reverse: boolean;
+        count: number;
+        alphaMaskPool: any[];
+
+        pushMask(target: RenderTarget, maskData: any): void;
+        popMask(target: RenderTarget, maskData: any): void;
+        pushSpriteMask(target: RenderTarget, maskData: any): void;
+        popSpriteMask(): void;
+        pushStencilMask(target: RenderTarget, maskData: any): void;
+        popStencilMask(target: RenderTarget, maskData: any): void;
+
+    }
+    export class ShaderManager extends WebGLManager {
+
+        private _currentId: number;
+        private currentShader: Shader;
+
+        constructor(renderer: WebGLRenderer);
+
+        maxAttibs: number;
+        attribState: any[];
+        tempAttribState: any[];
+        stack: any[];
+
+        setAttribs(attribs: any[]): void;
+        setShader(shader: Shader): boolean;
+        destroy(): void;
+
+    }
+    export class StencilManager extends WebGLManager {
+
+        constructor(renderer: WebGLRenderer);
+
+        setMaskStack(stencilMaskStack: StencilMaskStack): void;
+        pushStencil(graphics: Graphics, webGLData: WebGLGraphicsData): void;
+        bindGraphics(graphics: Graphics, webGLData: WebGLGraphicsData): void;
+        popStencil(graphics: Graphics, webGLData: WebGLGraphicsData): void;
+        destroy(): void;
+        pushMask(maskData: any[]): void;
+        popMask(maskData: any[]): void;
+
+    }
+    export class WebGLManager {
+
+        private onContextChange: () => void;
+
+        constructor(renderer: WebGLRenderer);
+
+        renderer: WebGLRenderer;
+
+        destroy(): void;
+
+    }
+    export class Shader {
+
+        private attributes: any;
+        private textureCount: number;
+        private uniforms: any;
+
+        private _glCompile(type: any, src: any): Shader;
+
+        constructor(shaderManager: ShaderManager, vertexSrc: string, fragmentSrc: string, uniforms: any, attributes: any);
+
+        uuid: number;
+        gl: WebGLRenderingContext;
+        shaderManager: ShaderManager;
+        program: WebGLProgram;
+        vertexSrc: string;
+        fragmentSrc: string;
+
+        init(): void;
+        cachUniformLocations(keys: string): void;
+        cacheAttributeLocations(keys: string): void;
+        compile(): WebGLProgram;
+        syncUniform(uniform: any): void;
+        syncUniforms(): void;
+        initSampler2D(uniform: any): void;
+        destroy(): void;
+
+    }
+    export class ComplexPrimitiveShader extends Shader {
+
+        constructor(shaderManager: ShaderManager);
+
+    }
+    export class PrimitiveShader extends Shader {
+
+        constructor(shaderManager: ShaderManager);
+
+    }
+    export class TextureShader extends Shader {
+
+        constructor(shaderManager: ShaderManager, vertexSrc?: string, fragmentSrc?: string, customUniforms?: any, customAttributes?: any)
+
+    }
+    export interface StencilMaskStack {
+
+        stencilStack: any[];
+        reverse: boolean;
+        count: number;
+
+    }
+    export class ObjectRenderer extends WebGLManager {
+
+        start(): void;
+        stop(): void;
+        flush(): void;
+        render(object?: any): void;
+
+    }
+    export class RenderTarget {
+
+        constructor(gl: WebGLRenderingContext, width: number, height: number, scaleMode: number, resolution: number, root: boolean);
+
+        gl: WebGLRenderingContext;
+        frameBuffer: WebGLFramebuffer;
+        texture: Texture;
+        size: Rectangle;
+        resolution: number;
+        projectionMatrix: Matrix;
+        transform: Matrix;
+        frame: Rectangle;
+        stencilBuffer: WebGLRenderbuffer;
+        stencilMaskStack: StencilMaskStack;
+        filterStack: any[];
+        scaleMode: number;
+        root: boolean;
+
+        clear(bind?: boolean): void;
+        attachStencilBuffer(): void;
+        activate(): void;
+        calculateProjection(protectionFrame: Matrix): void;
+        resize(width: number, height: number): void;
+        destroy(): void;
+
+    }
+    export interface Quad {
+
+        gl: WebGLRenderingContext;
+        vertices: number[];
+        uvs: number[];
+        colors: number[];
+        indices: number[];
+        vertexBuffer: WebGLBuffer;
+        indexBuffer: WebGLBuffer;
+
+        map(rect: Rectangle, rect2: Rectangle): void;
+        upload(): void;
+
+    }
+
+    //sprites
+
+    export class Sprite extends Container {
+
+        static fromFrame(frameId: string): Sprite;
+        static fromImage(imageId: string, crossorigin?: boolean, scaleMode?: number): Sprite;
+
+        private _texture: Texture;
+        private _width: number;
+        private _height: number;
+        private cachedTint: number;
+
+        private _onTextureUpdate(): void;
+
+        constructor(texture?: Texture);
+
+        anchor: Point;
+        tint: number;
+        blendMode: number;
+        shader: Shader;
         texture: Texture;
 
-        //getters setters
-        height: number;
         width: number;
+        height: number;
+
+        getBounds(matrix?: Matrix): Rectangle;
+        getLocalBounds(): Rectangle;
+        containsPoint(point: Point): boolean;
+        destroy(destroyTexture?: boolean, destroyBaseTexture?: boolean): void;
+
+    }
+    export class SpriteRenderer extends ObjectRenderer {
+
+        private renderBatch(texture: Texture, size: number, startIndex: number): void;
+
+        vertSize: number;
+        vertByteSize: number;
+        size: number;
+        vertices: number[];
+        positions: number[];
+        colors: number[];
+        indices: number[];
+        currentBatchSize: number;
+        sprites: Sprite[];
+        shader: Shader;
+
+        render(sprite: Sprite): void;
+        flush(): void;
+        start(): void;
+        destroy(): void;
+
+    }
+
+    //text
+
+    export interface TextStyle {
+
+        font?: string;
+        fill?: string | number;
+        align?: string;
+        stroke?: string | number;
+        strokeThickness?: number;
+        wordWrap?: boolean;
+        wordWrapWidth?: number;
+        lineHeight?: number;
+        dropShadow?: boolean;
+        dropShadowColor?: string | number;
+        dropShadowAngle?: number;
+        dropShadowDistance?: number;
+        padding?: number;
+        textBaseline?: string;
+        lineJoin?: string;
+        miterLimit?: number;
+
+    }
+    export class Text extends Sprite {
+
+        private static fontPropertiesCache: any;
+        private static fontPropertiesCanvas: HTMLCanvasElement;
+        private static fontPropertiesContext: CanvasRenderingContext2D;
+
+        private _text: string;
+        private _style: TextStyle;
+
+        private updateText(): void;
+        private updateTexture(): void;
+        private determineFontProperties(fontStyle: TextStyle): TextStyle;
+        private wordWrap(text: string): boolean;
+
+        constructor(text?: string, style?: TextStyle, resolution?: number);
+
+        canvas: HTMLCanvasElement;
+        context: CanvasRenderingContext2D;
+        resolution: number;
+        text: string;
+        style: TextStyle;
+
+        width: number;
+        height: number;
+
+    }
+
+    //textures
+
+    export class BaseTexture extends EventEmitter {
+
+        static fromImage(imageUrl: string, crossorigin?: boolean, scaleMode?: number): BaseTexture;
+        static fromCanvas(canvas: HTMLCanvasElement, scaleMode?: number): BaseTexture;
+
+        private _glTextures: any[];
+
+        private _sourceLoaded(): void;
+
+        constructor(source: HTMLImageElement | HTMLCanvasElement, scaleMode?: number, resolution?: number);
+
+        uuid: number;
+        resolution: number;
+        width: number;
+        height: number;
+        realWidth: number;
+        realHeight: number;
+        scaleMode: number;
+        hasLoaded: boolean;
+        isLoading: boolean;
+        source: HTMLImageElement | HTMLCanvasElement;
+        premultipliedAlpha: boolean;
+        imageUrl: string;
+        isPowerOfTwo: boolean;
+        mipmap: boolean;
+
+        update(): void;
+        loadSource(source: HTMLImageElement | HTMLCanvasElement): void;
+        destroy(): void;
+        dispose(): void;
+        updateSourceImage(newSrc: string): void;
+
+        on(event: 'dispose', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        on(event: 'error', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        on(event: 'loaded', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        on(event: 'update', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        on(event: string, fn: Function, context?: any): EventEmitter;
+
+        once(event: 'dispose', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        once(event: 'error', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        once(event: 'loaded', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        once(event: 'update', fn: (baseTexture: BaseTexture) => void, context?: any): EventEmitter;
+        once(event: string, fn: Function, context?: any): EventEmitter;
+
+    }
+    export class RenderTexture extends Texture {
+
+        private renderWebGL(displayObject: DisplayObject, matrix?: Matrix, clear?: boolean, updateTransform?: boolean): void;
+        private renderCanvas(displayObject: DisplayObject, matrix?: Matrix, clear?: boolean, updateTransform?: boolean): void;
+
+        constructor(renderer: CanvasRenderer | WebGLRenderer, width?: number, height?: number, scaleMode?: number, resolution?: number);
+
+        width: number;
+        height: number;
+        resolution: number;
+        renderer: CanvasRenderer | WebGLRenderer;
+        valid: boolean;
+
+        render(displayObject: DisplayObject, matrix?: Matrix, clear?: boolean, updateTransform?: boolean): void;
+        resize(width: number, height: number, updateBase?: boolean): void;
+        clear(): void;
+        destroy(): void;
+        getImage(): HTMLImageElement;
+        getPixels(): number[];
+        getPixel(x: number, y: number): number[];
+        getBase64(): string;
+        getCanvas(): HTMLCanvasElement;
+
+    }
+    export class Texture extends BaseTexture {
+
+        static fromImage(imageUrl: string, crossOrigin?: boolean, scaleMode?: number): Texture;
+        static fromFrame(frameId: string): Texture;
+        static fromCanvas(canvas: HTMLCanvasElement, scaleMode?: number): Texture;
+        static fromVideo(video: HTMLVideoElement, scaleMode?: number): Texture;
+        static fromVideoUrl(videoUrl: string, scaleMode?: number): Texture;
+        static addTextureToCache(texture: Texture, id: string): void;
+        static removeTextureFromCache(id: string): Texture;
+        static EMPTY: Texture;
+
+        private _frame: Rectangle;
+        private _uvs: TextureUvs;
+
+        private onBaseTextureUpdated(baseTexture: BaseTexture): void;
+        private onBaseTextureLoaded(baseTexture: BaseTexture): void;
+        private _updateUvs(): void;
+
+        constructor(baseTexture: BaseTexture, frame?: Rectangle, crop?: Rectangle, trim?: Rectangle, rotate?: boolean);
+
+        noFrame: boolean;
+        baseTexture: BaseTexture;
+        trim: Rectangle;
+        valid: boolean;
+        requiresUpdate: boolean;
+        width: number;
+        height: number;
+        crop: Rectangle;
+        rotate: boolean;
+
+        frame: Rectangle;
+
+        update(): void;
+        destroy(destroyBase?: boolean): void;
+        clone(): Texture;
+
+    }
+    export class TextureUvs {
+
+        x0: number;
+        y0: number;
+        x1: number;
+        y1: number;
+        x2: number;
+        y2: number;
+        x3: number;
+        y3: number;
+
+        set(frame: Rectangle, baseFrame: Rectangle, rotate: boolean): void;
+
+    }
+    export class VideoBaseTexture extends BaseTexture {
+
+        static fromVideo(video: HTMLVideoElement, scaleMode?: number): VideoBaseTexture;
+        static fromUrl(videoSrc: string | any | string[]| any[]): VideoBaseTexture;
+
+        private _loaded: boolean;
+
+        private _onUpdate(): void;
+        private _onPlayStart(): void;
+        private _onPlayStop(): void;
+        private _onCanPlay(): void;
+
+        constructor(source: HTMLVideoElement, scaleMode?: number);
+
+        autoUpdate: boolean;
+
+        destroy(): void;
+
+    }
+
+    //utils
+
+    export class utils {
+
+        static uuid(): number;
+        static hex2rgb(hex: number, out?: number[]): number[];
+        static hex2String(hex: number): string;
+        static rbg2hex(rgb: Number[]): number;
+        static canUseNewCanvasBlendModel(): boolean;
+        static getNextPowerOfTwo(number: number): number;
+        static isPowerOfTwo(width: number, height: number): boolean;
+        static getResolutionOfUrl(url: string): boolean;
+        static sayHello(type: string): void;
+        static isWebGLSupported(): boolean;
+        static TextureCache: any;
+        static BaseTextureCache: any;
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////EXTRAS////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+
+    export module extras {
+
+        export interface BitmapTextStyle {
+
+            font?: string | {
+
+                name?: string;
+                size?: number;
+
+            };
+            align?: string;
+            tint?: number;
+
+        }
+        export class BitmapText extends Container {
+
+            static fonts: any;
+
+            private _glyphs: Sprite[];
+            private _font: string | {
+                tint: number;
+                align: string;
+                name: string;
+                size: number;
+            }
+            private _text: string;
+
+            private updateText(): void;
+
+            constructor(text: string, style?: BitmapTextStyle);
+
+            textWidth: number;
+            textHeight: number;
+            maxWidth: number;
+            dirty: boolean;
+
+            tint: number;
+            align: string;
+            font: string | {
+                tint: number;
+                align: string;
+                name: string;
+                size: number;
+            }
+            text: string;
+
+        }
+        export class MovieClip extends Sprite {
+
+            static fromFrames(frame: string[]): MovieClip;
+            static fromImages(images: string[]): MovieClip;
+
+            private _textures: Texture;
+            private _currentTime: number;
+
+            private update(deltaTime: number): void;
+
+            constructor(textures: Texture[]);
+
+            animationSpeed: number;
+            loop: boolean;
+            onComplete: () => void;
+            currentFrame: number;
+            playing: boolean;
+
+            totalFrames: number;
+            textures: Texture[];
+
+            stop(): void;
+            play(): void;
+            gotoAndStop(frameName: number): void;
+            gotoAndPlay(frameName: number): void;
+            destroy(): void;
+
+        }
+        export class TilingSprite extends Sprite {
+
+            //This is really unclean but is the only way :(
+            //See http://stackoverflow.com/questions/29593905/typescript-declaration-extending-class-with-static-method/29595798#29595798
+            //Thanks bas!
+            static fromFrame(frameId: string): Sprite;
+            static fromImage(imageId: string, crossorigin?: boolean, scaleMode?: number): Sprite;
+
+            static fromFrame(frameId: string, width?: number, height?: number): TilingSprite;
+            static fromImage(imageId: string, width?: number, height?: number, crossorigin?: boolean, scaleMode?: number): TilingSprite;
+
+            private _tileScaleOffset: Point;
+            private _tilingTexture: boolean;
+            private _refreshTexture: boolean;
+            private _uvs: TextureUvs[];
+
+            constructor(texture: Texture, width: number, height: number);
+
+            tileScale: Point;
+            tilePosition: Point;
+
+            width: number;
+            height: number;
+            originalTexture: Texture;
+
+            getBounds(): Rectangle;
+            generateTilingTexture(renderer: WebGLRenderer | CanvasRenderer, texture: Texture, forcePowerOfTwo?: boolean): Texture;
+            containsPoint(point: Point): boolean;
+            destroy(): void;
+
+        }
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////FILTERS////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+
+    export class AsciiFilter extends AbstractFilter {
+        size: number;
+    }
+    export class BloomFilter extends AbstractFilter {
+
+        blur: number;
+        blurX: number;
+        blurY: number;
+
+    }
+    export class BlurFilter extends AbstractFilter {
+
+        private blurXFilter: BlurXFilter;
+        private blurYFilter: BlurYFilter;
+
+        blur: number;
+        passes: number;
+        blurX: number;
+        blurY: number;
+
+    }
+    export class BlurXFilter extends AbstractFilter {
+
+        passed: number;
+        strength: number;
+        blur: number;
+
+    }
+    export class BlurYFilter extends AbstractFilter {
+
+        passed: number;
+        strength: number;
+        blur: number;
+
+    }
+    export class SmartBlurFilter extends AbstractFilter {
+
+    }
+    export class ColorMatrixFilter extends AbstractFilter {
+
+        private _loadMatrix(matrix: number[], multiply: boolean): void;
+        private _multiply(out: number[], a: number[], b: number[]): void;
+        private _colorMatrix(matrix: number[]): void;
+
+        matrix: number[];
+
+        brightness(b: number, multiply?: boolean): void;
+        greyscale(scale: number, multiply?: boolean): void;
+        blackAndWhite(multiply?: boolean): void;
+        hue(rotation: number, multiply?: boolean): void;
+        contrast(amount: number, multiply?: boolean): void;
+        saturate(amount: number, multiply?: boolean): void;
+        desaturate(multiply?: boolean): void;
+        negative(multiply?: boolean): void;
+        sepia(multiply?: boolean): void;
+        technicolor(multiply?: boolean): void;
+        polaroid(multiply?: boolean): void;
+        toBGR(multiply?: boolean): void;
+        kodachrome(multiply?: boolean): void;
+        browni(multiply?: boolean): void;
+        vintage(multiply?: boolean): void;
+        colorTone(desaturation: number, toned: number, lightColor: string, darkColor: string, multiply?: boolean): void;
+        night(intensity: number, multiply?: boolean): void;
+        predator(amount: number, multiply?: boolean): void;
+        lsd(multiply?: boolean): void;
+        reset(): void;
+
+    }
+    export class ColorStepFilter extends AbstractFilter {
+
+        step: number;
+
+    }
+    export class ConvolutionFilter extends AbstractFilter {
+
+        constructor(matrix: number[], width: number, height: number);
+
+        matrix: number[];
+        width: number;
+        height: number;
+
+    }
+    export class CrossHatchFilter extends AbstractFilter {
+
+    }
+    export class DisplacementFilter extends AbstractFilter {
+
+        constructor(sprite: Sprite);
+
+        map: Texture;
+
+    }
+    export class DotScreenFilter extends AbstractFilter {
+
+        scale: number;
+        angle: number;
+
+    }
+    export class BlurYTintFilter extends AbstractFilter {
+
+        blur: number;
+
+    }
+    export class DropShadowFilter extends AbstractFilter {
+
+        blur: number;
+        blurX: number;
+        blurY: number;
+        color: number;
+        alpha: number;
+        distance: number;
+        angle: number;
+
+    }
+    export class GrayFilter extends AbstractFilter {
+
+        gray: number;
+
+    }
+    export class InvertFilter extends AbstractFilter {
+
+        invert: number;
+
+    }
+    export class NoiseFilter extends AbstractFilter {
+
+        noise: number;
+
+    }
+    export class NormalMapFilter extends AbstractFilter {
 
         constructor(texture: Texture);
 
-        static fromFrame(frameId: string): Sprite;
-        static fromImage(url: string): Sprite;
-        setTexture(texture: Texture): void;
+        map: Texture;
+        scale: Point;
+        offset: Point;
+
+    }
+    export class PixelateFilter extends AbstractFilter {
+
+        size: Point;
+
+    }
+    export class RGBSplitFilter extends AbstractFilter {
+
+        red: number;
+        green: number;
+        blue: number;
+
+    }
+    export class SepiaFilter extends AbstractFilter {
+
+        sepia: number;
+
+    }
+    export class ShockwaveFilter extends AbstractFilter {
+
+        center: number[];
+        params: any;
+        time: number;
+
+    }
+    export class TiltShiftAxisFilter extends AbstractFilter {
+
+        blur: number;
+        gradientBlur: number;
+        start: number;
+        end: number;
+
+        updateDelta(): void;
+
+    }
+    export class TiltShiftFilter extends AbstractFilter {
+
+        blur: number;
+        gradientBlur: number;
+        start: number;
+        end: number;
+
+    }
+    export class TiltShiftXFilter extends AbstractFilter {
+
+        updateDelta(): void;
+
+    }
+    export class TiltShiftYFilter extends AbstractFilter {
+
+        updateDelta(): void;
+
+    }
+    export class TwistFilter extends AbstractFilter {
+
+        offset: Point;
+        radius: number;
+        angle: number;
+
+    }
+    export class FXAAFilter extends AbstractFilter {
+
+        applyFilter(renderer: WebGLRenderer, input: RenderTarget, output: RenderTarget): void;
+
     }
 
-    /* TODO determine type of frames */
-    export class SpriteSheetLoader extends EventTarget
-    {
-        url:string;
-        crossorigin:boolean;
-        baseUrl:string;
-        texture:Texture;
-        frames:Object;
-        constructor(url: string, crossorigin?: boolean);
-        load();
+    //////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////INTERACTION///////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+
+    export module interaction {
+        export interface InteractionEvent {
+
+            stopped: boolean;
+            target: any;
+            type: string;
+            data: InteractionData;
+            stopPropagation(): void;
+
+        }
+
+        export class InteractionData {
+
+            global: Point;
+            target: DisplayObject;
+            originalEvent: Event;
+
+            getLocalPosition(displayObject: DisplayObject, point?: Point, globalPos?: Point): Point;
+
+        }
+
+        export class InteractionManager {
+
+            private interactionDOMElement: HTMLElement;
+            private eventsAdded: boolean;
+            private _tempPoint: Point;
+
+            private setTargetElement(element: HTMLElement, resolution: number): void;
+            private addEvents(): void;
+            private removeEvents(): void;
+            private dispatchEvent(displayObject: DisplayObject, eventString: string, eventData: any): void;
+            private onMouseDown: (event: Event) => void;
+            private processMouseDown: (displayObject: DisplayObject, hit: boolean) => void;
+            private onMouseUp: (event: Event) => void;
+            private processMouseUp: (displayObject: DisplayObject, hit: boolean) => void;
+            private onMouseMove: (event: Event) => void;
+            private processMouseMove: (displayObject: DisplayObject, hit: boolean) => void;
+            private onMouseOut: (event: Event) => void;
+            private processMouseOverOut: (displayObject: DisplayObject, hit: boolean) => void;
+            private onTouchStart: (event: Event) => void;
+            private processTouchStart: (DisplayObject: DisplayObject, hit: boolean) => void;
+            private onTouchEnd: (event: Event) => void;
+            private processTouchEnd: (displayObject: DisplayObject, hit: boolean) => void;
+            private onTouchMove: (event: Event) => void;
+            private processTouchMove: (displayObject: DisplayObject, hit: boolean) => void;
+            private getTouchData(touchEvent: InteractionData): InteractionData;
+            private returnTouchData(touchData: InteractionData): void;
+
+            constructor(renderer: CanvasRenderer | WebGLRenderer, options?: { autoPreventDefault?: boolean; interactionFrequence?: number; });
+
+            renderer: CanvasRenderer | WebGLRenderer;
+            autoPreventDefault: boolean;
+            interactionFrequency: number;
+            mouse: InteractionData;
+            eventData: {
+                stopped: boolean;
+                target: any;
+                type: any;
+                data: InteractionData;
+            };
+            interactiveDataPool: InteractionData[];
+            last: number;
+            currentCursorStyle: string;
+            resolution: number;
+            update(deltaTime: number): void;
+
+            mapPositionToPoint(point: Point, x: number, y: number): void;
+            processInteractive(point: Point, displayObject: DisplayObject, func: (displayObject: DisplayObject, hit: boolean) => void, hitTest: boolean, interactive: boolean): boolean;
+            destroy(): void;
+
+        }
+
+        export interface InteractiveTarget {
+
+            interactive: boolean;
+            buttonMode: boolean;
+            interactiveChildren: boolean;
+            defaultCursor: string;
+
+        }
+
     }
 
-    export class Stage extends DisplayObjectContainer
-    {
-        interactive:boolean;
-        interactionManager:InteractionManager;
-        constructor(backgroundColor: number, interactive?: boolean);
-        getMousePosition(): Point;
-        setBackgroundColor(backgroundColor: number): void;
+    //////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////LOADER/////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+    //https://github.com/englercj/resource-loader/blob/master/src/Loader.js
+
+    export module loaders {
+        export interface LoaderOptions {
+
+            crossOrigin?: boolean;
+            loadType?: number;
+            xhrType?: string;
+
+        }
+        export class Loader extends EventEmitter {
+
+            constructor(baseUrl?: string, concurrency?: number);
+
+            baseUrl: string;
+            progress: number;
+            loading: boolean;
+            resources: Resource[];
+
+            add(name: string, url: string, options?: LoaderOptions, cb?: () => void): Loader;
+            add(url: string, options?: LoaderOptions, cb?: () => void): Loader;
+            //todo I am not sure of object literal notional (or its options) so just allowing any but would love to improve this
+            add(obj: any, options?: LoaderOptions, cb?: () => void): Loader;
+
+            on(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): EventEmitter;
+            on(event: 'error', fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
+            on(event: 'load', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
+            on(event: 'progress', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
+            on(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): EventEmitter;
+            on(event: string, fn: Function, context?: any): EventEmitter;
+
+            once(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): EventEmitter;
+            once(event: 'error', fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
+            once(event: 'load', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
+            once(event: 'progress', fn: (loader: loaders.Loader, resource: Resource) => void, context?: any): EventEmitter;
+            once(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): EventEmitter;
+            once(event: string, fn: Function, context?: any): EventEmitter;
+
+            before(fn: Function): Loader;
+            pre(fn: Function): Loader;
+
+            after(fn: Function): Loader;
+            use(fn: Function): Loader;
+
+            reset(): void;
+
+            load(cb?: (loader: loaders.Loader, object: any) => void): Loader;
+
+        }
+        export class Resource extends EventEmitter {
+
+            static LOAD_TYPE: {
+                XHR: number;
+                IMAGE: number;
+                AUDIO: number;
+                VIDEO: number;
+            };
+
+            static XHR_READ_STATE: {
+                UNSENT: number;
+                OPENED: number;
+                HEADERS_RECIEVED: number;
+                LOADING: number;
+                DONE: number;
+            };
+
+            static XHR_RESPONSE_TYPE: {
+                DEFAULT: number;
+                BUFFER: number;
+                BLOB: number;
+                DOCUMENT: number;
+                JSON: number;
+                TEXT: number;
+            }
+
+            constructor(name?: string, url?: string | string[], options?: LoaderOptions)
+
+            name: string;
+            url: string;
+            data: any;
+            crossOrigin: string;
+            loadType: number;
+            xhrType: string;
+            error: Error;
+            xhr: XMLHttpRequest;
+
+            complete(): void;
+            load(cb?: () => void): void;
+
+        }
     }
 
-    export class Text extends Sprite
-    {
-        constructor(text: string, style: ITextStyle);
-        destroy(destroyTexture:boolean):void;
-        setText(text: string): void;
-        setStyle(style: ITextStyle): void;
+    //////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////MESH///////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+
+    export module mesh {
+
+        export class Mesh extends Container {
+
+            static DRAW_MODES: {
+                TRIANGLE_MESH: number;
+                TRIANGLES: number;
+            }
+
+            constructor(texture: Texture, vertices?: number[], uvs?: number[], indices?: number[], drawMode?: number);
+
+            texture: Texture;
+            uvs: number[];
+            vertices: number[];
+            indices: number[];
+            dirty: boolean;
+            blendMode: number;
+            canvasPadding: number;
+            drawMode: number;
+
+            getBounds(matrix?: Matrix): Rectangle;
+
+            private _texture: Texture;
+
+            private _renderCanvasTriangleMesh(context: CanvasRenderingContext2D): void;
+            private _renderCanvasTriangles(context: CanvasRenderingContext2D): void;
+            private _renderCanvasDrawTriangle(context: CanvasRenderingContext2D, vertices: number, uvs: number, index0: number, index1: number, index2: number): void;
+            private renderMeshFlat(Mesh: Mesh): void;
+            private _onTextureUpdate(): void;
+
+        }
+        export class Rope extends Mesh {
+
+            private _ready: boolean;
+
+            private getTextureUvs(): TextureUvs;
+
+            constructor(texture: Texture, points: Point[]);
+
+            points: Point[];
+            colors: number[];
+
+            refresh(): void;
+
+        }
+
+        export class MeshRenderer extends ObjectRenderer {
+
+            private _initWebGL(mesh: Mesh): void;
+
+            indices: number[];
+
+            constructor(renderer: WebGLRenderer);
+
+            render(mesh: Mesh): void;
+            flush(): void;
+            start(): void;
+            destroy(): void;
+
+        }
+
+        export interface StripShader extends Shader {
+        }
+
     }
 
-    export class Texture extends EventTarget
-    {
-        baseTexture: BaseTexture;
-        frame: Rectangle;
-        trim:Point;
-        render( displayObject:DisplayObject, position:Point, clear:boolean ):void;
-        constructor(baseTexture: BaseTexture, frame?: Rectangle);
-        destroy(destroyBase:boolean):void;
-        setFrame(frame: Rectangle): void;
+    module ticker {
 
-        static addTextureToCache(texture: Texture, id: string): void;
-        static fromCanvas(canvas: HTMLCanvasElement): Texture;
-        static fromFrame(frameId: string): Texture;
-        static fromImage(imageUrl: string, crossorigin?: boolean): Texture;
-        static removeTextureFromCache(id: any): Texture;
+        export class Ticker {
+
+            private _tick(time: number): void;
+            private _emitter: EventEmitter;
+            private _requestId: number;
+            private _maxElapsedMS: number;
+
+            private _requestIfNeeded(): void;
+            private _cancelIfNeeded(): void;
+            private _startIfPossible(): void;
+
+            autoStart: boolean;
+            deltaTime: number;
+            elapsedMS: number;
+            lastTime: number;
+            speed: number;
+            started: boolean;
+
+            FPS: number;
+            minFPS: number;
+            shared: Ticker;
+
+            add(fn: (deltaTime: number) => void, context?: any): Ticker;
+            addOnce(fn: (deltaTime: number) => void, context?: any): Ticker;
+            remove(fn: (deltaTime: number) => void, context?: any): Ticker;
+            start(): void;
+            stop(): void;
+            update(): void;
+
+        }
+
     }
-
-    export class TilingSprite extends DisplayObjectContainer
-    {
-        width:number;
-        height:number;
-        texture:Texture;
-        tilePosition: Point;
-        tileScale: Point;
-        constructor(texture: Texture, width: number, height: number);
-        setTexture( texture: Texture ):void;
-    }
-
-    export class WebGLBatch
-    {
-        constructor(webGLContext: WebGLRenderingContext);
-        clean():void;
-        restoreLostContext(gl:WebGLRenderingContext);
-        init(sprite: Sprite): void;
-        insertAfter(sprite: Sprite, previousSprite: Sprite): void;
-        insertBefore(sprite: Sprite, nextSprite: Sprite): void;
-        growBatch(): void;
-        merge(batch: WebGLBatch): void;
-        refresh(): void;
-        remove(sprite: Sprite): void;
-        render(): void;
-        split(sprite: Sprite): WebGLBatch;
-        update(): void;
-    }
-
-    /* Determine type of Object */
-    export class WebGLRenderGroup
-    {
-        render(projection:Object):void;
-    }
-
-    export class WebGLRenderer implements IPixiRenderer
-    {
-        view: HTMLCanvasElement;
-        constructor(width: number, height: number, view?: HTMLCanvasElement, transparent?: boolean, antialias?:boolean );
-        render(stage: Stage): void;
-        resize(width: number, height: number): void;
-    }
-
 }
-
-declare function requestAnimFrame( animate: PIXI.IBasicCallback );
-
-
-declare module PIXI.PolyK
-{
-    export function Triangulate( p:number[]):number[];
-}
-
-
-
