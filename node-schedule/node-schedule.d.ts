@@ -195,5 +195,5 @@ declare module "node-schedule" {
      * @param {RecurrenceRule} rule The rule.
      * @param {Function} callback The callback.
      */
-    export function scheduleJob(rule: RecurrenceRule|Date|string, callback: Function);
+    export function scheduleJob(rule: RecurrenceRule|Date|string, callback: Function): void;
 }
