@@ -74,6 +74,8 @@ interface Cheerio {
 
     children(selector?: string): Cheerio;
 
+    contents(): Cheerio;
+
     each(func: (index: number, element: CheerioElement) => any): Cheerio;
     map(func: (index: number, element: CheerioElement) => any): Cheerio;
 
