@@ -1,6 +1,6 @@
-// Type definitions for nouislider v7.0.10
+// Type definitions for nouislider v8.0.2
 // Project: https://github.com/leongersen/noUiSlider
-// Definitions by: Corey Jepperson <https://github.com/acoreyj>
+// Definitions by: Patrick Davies <https://github.com/bleuarg>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
