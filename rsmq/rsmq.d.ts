@@ -10,6 +10,19 @@ declare module RedisSMQ {
         (e?:Error, res?:R): void;
     }
 
+    interface Client {
+        createQueue(options:QueueOptions, cb:CallbackT<number>): void;
+        changeMessageVisibility(options:VisibilityOptions, cb:CallbackT<number>): void;
+        deleteMessage(options:MessageIdentifier, cb:CallbackT<number>): void;
+        deleteQueue(options:QueueIdentifier, cb:CallbackT<number>): void;
+        getQueueAttributes(options:QueueIdentifier, cb:CallbackT<QueueAttributes>): void;
+        listQueues(cb:CallbackT<string[]>): void;
+        receiveMessage(options:ReceiveOptions, cb:CallbackT<Message>): void;
+        sendMessage(options:NewMessage, cb:CallbackT<string>): void;
+        setQueueAttributes(options:QueueOptions, cb:CallbackT<QueueAttributes>): void;
+        quit(): void;
+    }
+
     interface QueueIdentifier {
         qname: string;
     }
@@ -64,17 +77,7 @@ declare module 'rsmq' {
         new (options:ClientOptions): Client;
     }
 
-    interface Client {
-        createQueue(options:RedisSMQ.QueueOptions, cb:RedisSMQ.CallbackT<number>): void;
-        changeMessageVisibility(options:RedisSMQ.VisibilityOptions, cb:RedisSMQ.CallbackT<number>): void;
-        deleteMessage(options:RedisSMQ.MessageIdentifier, cb:RedisSMQ.CallbackT<number>): void;
-        deleteQueue(options:RedisSMQ.QueueIdentifier, cb:RedisSMQ.CallbackT<number>): void;
-        getQueueAttributes(options:RedisSMQ.QueueIdentifier, cb:RedisSMQ.CallbackT<RedisSMQ.QueueAttributes>): void;
-        listQueues(cb:RedisSMQ.CallbackT<string[]>): void;
-        receiveMessage(options:RedisSMQ.ReceiveOptions, cb:RedisSMQ.CallbackT<RedisSMQ.Message>): void;
-        sendMessage(options:RedisSMQ.NewMessage, cb:RedisSMQ.CallbackT<string>): void;
-        setQueueAttributes(options:RedisSMQ.QueueOptions, cb:RedisSMQ.CallbackT<RedisSMQ.QueueAttributes>): void;
-        quit(): void;
+    interface Client extends RedisSMQ.Client{
         redis: redis.RedisClient;
     }
 
