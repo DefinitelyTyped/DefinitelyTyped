@@ -58,16 +58,16 @@ function testInvocation() {
  */
 function testScheduleJob() {
     var callback: Function = null;
-    new nodeSchedule.scheduleJob('', callback);
+    nodeSchedule.scheduleJob('', callback);
 
     var rule: nodeSchedule.RecurrenceRule = {};
-    new nodeSchedule.scheduleJob(rule, callback);
+    nodeSchedule.scheduleJob(rule, callback);
 
     var date: Date = new Date();
-    new nodeSchedule.scheduleJob(date, callback);
+    nodeSchedule.scheduleJob(date, callback);
 
     var date: Date = new Date();
-    new nodeSchedule.scheduleJob(date, callback);
+    nodeSchedule.scheduleJob(date, callback);
 }
 
 /**
