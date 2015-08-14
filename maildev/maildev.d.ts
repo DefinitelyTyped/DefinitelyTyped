@@ -49,15 +49,15 @@ interface MailDevOptions {
  * Interface for mail.
  */
 interface Mail {
-  /**
-   * Identifier.
-   */
-  id?: string;
+    /**
+     * Identifier.
+     */
+    id?: string;
 
-  /**
-   * Client.
-   */
-  envelope?: Object;
+    /**
+     * Client.
+     */
+    envelope?: Object;
 }
 
 declare module "maildev" {
@@ -76,10 +76,27 @@ declare module "maildev" {
         constructor(options: MailDevOptions);
 
         /**
+         * Deletes a given email by identifier.
+         *
+         * @public
+         * @param {string}    id        The email identifier.
+         * @param {Function}  callback  The error callback.
+         */
+        deleteEmail(id: string, callback?: (error: Error) => void): void;
+
+        /**
+         * Deletes all email and their attachments.
+         *
+         * @public
+         * @param {Function} callback The error callback.
+         */
+        deleteAllEmail(callback?: (error: Error) => void): void;
+
+        /**
          * Stops the SMTP server.
          *
          * @public
-         * @param callback The error callback.
+         * @param {Function} callback The error callback.
          */
         end(callback?: (error: Error) => void): void;
 
@@ -87,7 +104,8 @@ declare module "maildev" {
          * Accepts e-mail identifier, returns email object.
          *
          * @public
-         * @param {string} id The e-mail identifier.
+         * @param {string}    id        The e-mail identifier.
+         * @param {Function}  callback  The error callback.
          */
         getEmail(id: string, callback?: (error: Error) => void): void;
 
@@ -110,7 +128,7 @@ declare module "maildev" {
          * Starts the SMTP server.
          *
          * @public
-         * @param callback The error callback.
+         * @param {Function} callback The error callback.
          */
         listen(callback?: (error: Error) => void): void;
 
@@ -118,15 +136,16 @@ declare module "maildev" {
          * Event called when a new e-mail is received. Callback receives single mail object.
          *
          * @public
-         * @param {string} eventName The event name.
-         * @param callback  The callback for obtains the received email.
+         * @param {string}    eventName The event name.
+         * @param {Function}  email     The email.
          */
-        on(eventName: string, callback: (email: string) => void): void;
+        on(eventName: string, callback: (email: Object) => void): void;
 
         /**
          * Relay the e-mail.
          *
          * @param {string} idOrMailObject The identifier or mail object.
+         * @param {Function} done The callback.
          */
         relayMail(idOrMailObject: string, done: (error: Error) => void): void;
     }
