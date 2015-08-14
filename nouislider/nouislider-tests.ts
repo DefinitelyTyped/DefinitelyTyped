@@ -65,27 +65,27 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Functions
- * Need to cast the HTMLElement as noUiSliderInstance.
+ * Need to cast the HTMLElement as noUiSlider.Instance.
  */
 // Get value
-(<noUiSliderInstance>testHtmlElement).noUiSlider.get();
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.get();
 
 // Set one value
-(<noUiSliderInstance>testHtmlElement).noUiSlider.set(10);
-(<noUiSliderInstance>testHtmlElement).noUiSlider.set([150]);
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.set(10);
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.set([150]);
 
 // Set the upper handle,
 // don't change the lower one.
-(<noUiSliderInstance>testHtmlElement).noUiSlider.set([null, 14]);
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.set([null, 14]);
 
 // Set both slider handles
-(<noUiSliderInstance>testHtmlElement).noUiSlider.set([13.2, 15.7]);
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.set([13.2, 15.7]);
 
 // Events
-var callback: noUiSliderCallback = (values, handle, unencoded) => {};
-(<noUiSliderInstance>testHtmlElement).noUiSlider.on('event', callback);
+var callback: noUiSlider.Callback = (values, handle, unencoded) => {};
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.on('event', callback);
 
-(<noUiSliderInstance>testHtmlElement).noUiSlider.off('event');
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.off('event');
 
-(<noUiSliderInstance>testHtmlElement).noUiSlider.destroy();
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.destroy();
 
