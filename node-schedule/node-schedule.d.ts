@@ -93,22 +93,6 @@ declare module "node-schedule" {
     }
 
     /**
-     * Scheduler job.
-     *
-     * @class
-     */
-    export class ScheduleJob {
-        /**
-         * Constructor.
-         *
-         * @constructor
-         * @param {RecurrenceRule} rule The rule.
-         * @param
-         */
-        constructor(rule: RecurrenceRule|Date|string, callback: Function);
-    }
-
-    /**
      * Scheduler jobs.
      *
      * @class
@@ -118,8 +102,8 @@ declare module "node-schedule" {
          * Constructor.
          *
          * @constructor
-         * @param {RecurrenceRule} rule The rule.
-         * @param
+         * @param {RecurrenceRule}  rule      The rule.
+         * @param {callback}        callback  The callback.
          */
         constructor(name?: string, job?: Function, callback?: Function);
 
@@ -190,9 +174,9 @@ declare module "node-schedule" {
          * Constructor.
          *
          * @constructor
-         * @param job             The job.
-         * @param fireDate        The fire date.
-         * @param recurrenceRule  The recurrence rule.
+         * @param {Job}             job             The job.
+         * @param {Date}            fireDate        The fire date.
+         * @param {RecurrenceRule}  recurrenceRule  The recurrence rule.
          */
         constructor(job: Job, fireDate: Date, recurrenceRule: RecurrenceRule);
     }
@@ -200,8 +184,16 @@ declare module "node-schedule" {
     /**
      * Cancels the job.
      *
-     * @param job The job.
+     * @param {Job} job The job.
      * @returns {boolean} {true} if the job has been cancelled with success, otherwise, {false}.
      */
     export function cancelJob(job: Job): boolean;
+
+    /**
+     * Create a schedule job.
+     *
+     * @param {RecurrenceRule} rule The rule.
+     * @param {Function} callback The callback.
+     */
+    export function scheduleJob(rule: RecurrenceRule|Date|string, callback: Function);
 }
