@@ -13,7 +13,7 @@ declare module mina {
         status: Function;
         stop: Function;
     }
-	export interface AnimationDescriptor{
+    export interface AnimationDescriptor{
 		id: string;
         start: number;
         end: number;
@@ -73,10 +73,7 @@ declare module Snap {
 	export function selectAll(query:string):any;
 	export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
 	
-	export function animate(from:number,to:number,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
-	export function animate(from:Array<number>,to:number,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
-	export function animate(from:number,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
-	export function animate(from:Array<number>,to:Array<number>,setter:Function,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
+	export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
 	export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
 	
 	export function color(clr:string):RGBHSB;
@@ -158,7 +155,7 @@ declare module Snap {
         toString(): string;
     }
 	export interface Animation{
-		attr:Object;
+		attr:{[attr:string]:string|number|boolean|any};
 		duration:number;
 		easing?:(num:number)=>number;
 		callback?:()=>void;
@@ -168,12 +165,12 @@ declare module Snap {
 		add(el:Snap.Element):Snap.Element;
 		addClass(value:string):Snap.Element;
 		after(el:Snap.Element):Snap.Element;
-		animate(attrs:Object,duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
+		animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
 		animate(animation:any):Snap.Element;
 		append(el:Snap.Element):Snap.Element;
 		appendTo(el:Snap.Element):Snap.Element;
-		asPX(attr:string,value?:string):any;            //TODO: check what is really returned
-		attr(params:Object):Snap.Element;
+		asPX(attr:string,value?:string):number;            //TODO: check what is really returned
+		attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
 		attr(param:string):string;
 		before(el:Snap.Element):Snap.Element;
 		clone():Snap.Element;
@@ -293,7 +290,7 @@ declare module Snap {
 	el(name:string, attr:Object):Snap.Element;
 	filter(filstr:string):Snap.Element;
 	gradient(gradient:string):any;
-	g(varargs?:any):Object;
+	g(varargs?:any):any;
 	group(...els:any[]):any;
 	mask(varargs:any):Object;
 	ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
@@ -315,9 +312,9 @@ declare module Snap {
 	}
 
 	export interface Set {
-		animate(attrs:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
+		animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
         animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Element;
-		attr(params: Object): Snap.Element;
+		attr(params: {[attr:string]:string|number|boolean|any}): Snap.Element;
         attr(param: string): string;
         bind(attr: string, callback: Function): Snap.Set;
 		bind(attr:string,element:Snap.Element):Snap.Set;
