@@ -8,7 +8,7 @@ interface noUiSliderStatic {
     /**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */
-    create(target: HTMLElement, options: noUiSliderOptions);
+    create(target: HTMLElement, options: noUiSliderOptions): void;
     /**
      * To get the current slider value. For one-handle sliders, calling .get() will return the value.
      * For two-handle sliders, an array[value, value] will be returned.
