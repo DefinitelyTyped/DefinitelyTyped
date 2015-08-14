@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngtoaster {
+declare module angular.toaster {
   interface IToasterService {
     pop(params:IPopParams): void
     /**
@@ -102,8 +102,4 @@ declare module ngtoaster {
     success: string;
     warning: string;
   }
-}
-
-declare module "ngtoaster" {
-  export = ngtoaster
 }

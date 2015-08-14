@@ -1,6 +1,6 @@
 /// <reference path="angularjs-toaster.d.ts" />
 class NgToasterTestController {
-  constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public toaster: ngtoaster.IToasterService) {
+  constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public toaster: ng.toaster.IToasterService) {
     this.bar = 'Hi';
   }
   bar: string;
@@ -14,7 +14,7 @@ class NgToasterTestController {
     this.toaster.pop('wait', "title", null, null, 'template');
     this.toaster.pop('warning', "title", "myTemplate.html", null, 'template');
     this.toaster.pop('note', "title", "text");
-    this.toaster.pop('success', "title", 'Its address is https://google.com.', 5000, 'trustedHtml', (toaster: ngtoaster.IToast): boolean => {
+    this.toaster.pop('success', "title", 'Its address is https://google.com.', 5000, 'trustedHtml', (toaster: ng.toaster.IToast): boolean => {
       var match = toaster.body.match(/http[s]?:\/\/[^\s]+/);
       if (match) {
         this.$window.open(match[0]);
@@ -24,7 +24,7 @@ class NgToasterTestController {
     this.toaster.pop('warning', "Hi ", "{template: 'myTemplateWithData.html', data: 'MyData'}", 15000, 'templateWithData');
   }
 
-  goToLink(toaster: ngtoaster.IToast): boolean {
+  goToLink(toaster: ng.toaster.IToast): boolean {
     var match = toaster.body.match(/http[s]?:\/\/[^\s]+/);
     if (match) {
       this.$window.open(match[0]);
