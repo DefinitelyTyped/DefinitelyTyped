@@ -1,8 +1,11 @@
 /// <reference path="nouislider.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
 
-//basic
-var basicSlider = $("<div/>").noUiSlider({
+var testHtmlElement = document.getElementById('test');
+
+/**
+ * Basic
+ */
+noUiSlider.create(testHtmlElement, {
 	start: 80,
 	range: {
 		'min': 0,
@@ -10,24 +13,26 @@ var basicSlider = $("<div/>").noUiSlider({
 	}
 });
 
-//all options
-var allOptions =  $("<div/>").noUiSlider({
+/**
+ * All options
+ */
+noUiSlider.create(testHtmlElement, {
 	start: [ 20, 80 ],
 	step: 10,
 	margin: 20,
 	connect: true,
 	direction: 'rtl',
 	orientation: 'vertical',
-	
+
 	// Configure tapping, or make the selected range dragable.
 	behaviour: 'tap-drag',
-	
+
 	// Full number format support.
 	format: wNumb({
 		mark: ',',
 		decimals: 1
 	}),
-	
+
 	// Support for non-linear ranges by adding intervals.
 	range: {
 		'min': 0,
@@ -35,41 +40,43 @@ var allOptions =  $("<div/>").noUiSlider({
 	}
 });
 
-
-//PIPS
-allOptions.noUiSlider_pips({
+/**
+ * Pips
+ */
+noUiSlider.create(testHtmlElement, {
+    start: 0,
+    range: {
+        min: 0,
+        max: 10
+    },
 	mode: 'steps',
 	density: 3,
 	filter: function(){return 1},
 	format: wNumb({
 		decimals: 2,
 		prefix: '$'
-	})
+	}),
+    pips: {
+        mode: 'range',
+        density: 3,
+    	values: [50, 552, 4651, 4952, 5000, 7080, 9000]
+    }
 });
 
-
-basicSlider.noUiSlider_pips({
-	mode: 'values',
-	values: [50, 552, 4651, 4952, 5000, 7080, 9000],
-	density: 4,
-	stepped: true
-});
-
-//functions
-
-allOptions.val();
+/**
+ * Functions
+ * Need to cast the HTMLElement as noUiSliderInstance.
+ */
+// Get value
+(<noUiSliderInstance>testHtmlElement).noUiSlider.get();
 
 // Set one value
-basicSlider.val(10);
-basicSlider.val([150]);
+(<noUiSliderInstance>testHtmlElement).noUiSlider.set(10);
+(<noUiSliderInstance>testHtmlElement).noUiSlider.set([150]);
 
 // Set the upper handle,
 // don't change the lower one.
-allOptions.val([null, 14]);
+(<noUiSliderInstance>testHtmlElement).noUiSlider.set([null, 14]);
 
 // Set both slider handles
-allOptions.val([13.2, 15.7]);
-
-
-//link
-allOptions.Link('lower').to($('<span/>'));
+(<noUiSliderInstance>testHtmlElement).noUiSlider.set([13.2, 15.7]);
