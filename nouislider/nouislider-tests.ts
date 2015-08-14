@@ -80,3 +80,12 @@ noUiSlider.create(testHtmlElement, {
 
 // Set both slider handles
 (<noUiSliderInstance>testHtmlElement).noUiSlider.set([13.2, 15.7]);
+
+// Events
+var callback: noUiSliderCallback = (values, handle, unencoded) => {};
+(<noUiSliderInstance>testHtmlElement).noUiSlider.on('event', callback);
+
+(<noUiSliderInstance>testHtmlElement).noUiSlider.off('event');
+
+(<noUiSliderInstance>testHtmlElement).noUiSlider.destroy();
+

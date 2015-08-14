@@ -4,24 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
+
 interface noUiSliderStatic {
     /**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */
     create(target: HTMLElement, options: noUiSliderOptions): void;
-    /**
-     * To get the current slider value. For one-handle sliders, calling .get() will return the value.
-     * For two-handle sliders, an array[value, value] will be returned.
-     */
-    get(): number | number[];
-    /**
-     * noUiSlider will keep your values within the slider range, which saves you a bunch of validation.
-     * If you have configured the slider to use one handle, you can change the current value by passing
-     * a number to the .set() method. If you have two handles, pass an array. One-handled sliders
-     * will also accept arrays. Within an array, you can set one position to null
-     * if you want to leave a handle unchanged.
-     */
-    set(value: number | number[]): void;
 }
 
 interface noUiSliderOptions {
@@ -135,9 +123,46 @@ interface noUiSliderPipsOptions {
     stepped?: boolean;
 }
 
-interface noUiSliderInstance extends HTMLElement {
-    noUiSlider: noUiSliderStatic;
+interface noUiSliderCallback {
+    /**
+     * Array for both one-handle and two-handle sliders. It contains the current slider values,
+     * with formatting applied.
+     */
+    (values: any[], handle: number, unencoded: number): void
 }
 
+
+interface noUiSlider {
+    /**
+     * Bind event to the slider.
+     */
+    on(eventName: string, callback: noUiSliderCallback): void;
+    /**
+     * Unbind event to the slider.
+     */
+    off(eventName: string): void;
+    /**
+     * Destroy's the slider.
+     */
+    destroy(): void;
+
+    /**
+     * To get the current slider value. For one-handle sliders, calling .get() will return the value.
+     * For two-handle sliders, an array[value, value] will be returned.
+     */
+    get(): number | number[];
+    /**
+     * noUiSlider will keep your values within the slider range, which saves you a bunch of validation.
+     * If you have configured the slider to use one handle, you can change the current value by passing
+     * a number to the .set() method. If you have two handles, pass an array. One-handled sliders
+     * will also accept arrays. Within an array, you can set one position to null
+     * if you want to leave a handle unchanged.
+     */
+    set(value: number | number[]): void;
+}
+
+interface noUiSliderInstance extends HTMLElement {
+    noUiSlider: noUiSlider
+}
 
 declare var noUiSlider: noUiSliderStatic;
