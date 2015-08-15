@@ -1,4 +1,4 @@
-﻿/// <reference path="angular-file-upload.d.ts" />
+﻿/// <reference path="ng-file-upload.d.ts" />
 
 module controllers {
 
