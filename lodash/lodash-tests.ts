@@ -1071,6 +1071,14 @@ result = <boolean>_({}).isMatch({});
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
 
+// _.isNaN
+result = <boolean>_.isNaN(NaN);
+result = <boolean>_.isNaN(new Number(NaN));
+result = <boolean>_.isNaN(undefined);
+result = <boolean>_(NaN).isNaN();
+result = <boolean>_(new Number(NaN)).isNaN();
+result = <boolean>_(undefined).isNaN();
+
 // _.isNative
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
@@ -1308,10 +1316,6 @@ result = <boolean>_.isFinite('');
 result = <boolean>_.isFinite(Infinity);
 
 result = <boolean>_.isFunction(_);
-
-result = <boolean>_.isNaN(NaN);
-result = <boolean>_.isNaN(new Number(NaN));
-result = <boolean>_.isNaN(undefined);
 
 result = <boolean>_.isNull(null);
 result = <boolean>_.isNull(undefined);
