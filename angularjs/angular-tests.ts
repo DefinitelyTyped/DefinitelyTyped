@@ -272,6 +272,48 @@ httpFoo.success((data, status, headers, config) => {
     hs["content-type"].charAt(1);
 });
 
+
+// Promise signature tests
+module TestPromise {
+    var result: any;
+    var any: any;
+
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+
+    var promise: angular.IPromise<TResult>;
+    interface IPromiseSuccessCallback<T, U> {
+        (promiseValue: T): angular.IHttpPromise<U>|angular.IPromise<U>|U|angular.IPromise<void>;
+    }
+    var successCallbackAnyFn: IPromiseSuccessCallback<TResult, any>;
+    var successCallbackTResultFn: IPromiseSuccessCallback<TResult, TResult>;
+    interface IPromiseErrorCallback<T> {
+        (error: any): angular.IHttpPromise<T>|angular.IPromise<T>|T;
+    }
+    var errorCallbackAnyFn: IPromiseErrorCallback<any>;
+    var errorCallbackTResultFn: IPromiseErrorCallback<TResult>;
+
+    // promise.then
+    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn);
+    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn, (any) => any);
+    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn, (any) => any, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn);
+    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn, (any) => any, (any) => any);
+
+    // promise.catch
+    result = <angular.IPromise<any>>promise.catch(errorCallbackAnyFn);
+    result = <angular.IPromise<TResult>>promise.catch<TResult>(errorCallbackTResultFn);
+
+    // promise.finally
+    result = <angular.IPromise<any>>promise.finally(() => any);
+    result = <angular.IPromise<TResult>>promise.finally<TResult>(() => any);
+}
+
+
 function test_angular_forEach() {
     var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
     var log: string[] = [];
