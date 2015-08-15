@@ -98,6 +98,7 @@ declare module "express" {
             delete: IRouterMatcher<T>;
             patch: IRouterMatcher<T>;
             options: IRouterMatcher<T>;
+            head: IRouterMatcher<T>;
 
             route(path: string): IRoute;
 
