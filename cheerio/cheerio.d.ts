@@ -172,11 +172,7 @@ interface CheerioOptionsInterface {
     normalizeWhitespace?: boolean;
 }
 
-interface CheerioStatic {
-    // Document References
-    // Cheerio https://github.com/cheeriojs/cheerio
-    // JQuery http://api.jquery.com
-
+interface CheerioSelector {
     (selector: string): Cheerio;
     (selector: string, context: string): Cheerio;
     (selector: string, context: CheerioElement): Cheerio;
@@ -187,7 +183,12 @@ interface CheerioStatic {
     (selector: string, context: CheerioElement[], root: string): Cheerio;
     (selector: string, context: Cheerio, root: string): Cheerio;
     (selector: any): Cheerio;
+}
 
+interface CheerioStatic extends CheerioSelector {
+    // Document References
+    // Cheerio https://github.com/cheeriojs/cheerio
+    // JQuery http://api.jquery.com
     xml(): string;
     root(): Cheerio;
     contains(container: CheerioElement, contained: CheerioElement): boolean;
@@ -213,6 +214,12 @@ interface CheerioElement {
     root: CheerioElement;
 }
 
+interface CheerioAPI extends CheerioSelector {
+  load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
+}
+
+declare var cheerio:CheerioAPI;
+
 declare module "cheerio" {
-    export function load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
+    export = CheerioAPI;
 }

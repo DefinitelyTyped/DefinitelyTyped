@@ -2,6 +2,8 @@
 
 import cheerio = require("cheerio");
 
+cheerio('<html></html>');
+
 var $ = cheerio.load("<html></html>");
 var $el = $('selector');
 var $multiEl = $('seletor', 'selector', 'selector');
