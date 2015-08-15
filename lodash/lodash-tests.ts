@@ -626,6 +626,34 @@ result = <number>_(stoogesAgesDict).sum('age');
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
 
+// _.partition
+result = <string[][]>_.partition<string>('abcd', (n) => n < 'c');
+result = <string[][]>_.partition<string>(['a', 'b', 'c', 'd'], (n) => n < 'c');
+result = <number[][]>_.partition<number>([1, 2, 3, 4], (n) => n < 3);
+result = <number[][]>_.partition<number>({0: 1, 1: 2, 2: 3, 3: 4, length: 4}, (n) => n < 3);
+result = <number[][]>_.partition<number>({a: 1, b: 2, c: 3, d: 4}, (n) => n < 3);
+result = <{a: number}[][]>_.partition<{a: number}, {a: number}>([{a: 1}, {a: 2}], {a: 2});
+result = <{a: number}[][]>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, {a: 2});
+result = <{a: number}[][]>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}}, {a: 2});
+result = <{a: number}[][]>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a');
+result = <{a: number}[][]>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a', 2);
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a');
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a', 2);
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a');
+result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a', 2);
+result = <string[][]>_('abcd').partition((n) => n < 'c').value();
+result = <string[][]>_(['a', 'b', 'c', 'd']).partition((n) => n < 'c').value();
+result = <number[][]>_([1, 2, 3, 4]).partition((n) => n < 3).value();
+result = <number[][]>_({0: 1, 1: 2, 2: 3, 3: 4, length: 4}).partition<number>((n) => n < 3).value();
+result = <number[][]>_({a: 1, b: 2, c: 3, d: 4}).partition<number>((n) => n < 3).value();
+result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition<{a: number}>({a: 2}).value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}, length: 2}).partition<{a: number}, {a: number}>({a: 2}).value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}, {a: number}>({a: 2}).value();
+result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a').value();
+result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a', 2).value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
+result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
+
 interface ABC {
     [index: string]: number;
     a: number;
