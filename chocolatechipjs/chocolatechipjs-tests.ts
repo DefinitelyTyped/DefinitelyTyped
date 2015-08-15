@@ -341,6 +341,31 @@ function(data: any) {
    error.reject();
 });
 
+// Timeout:
+var formData2 = $.serialize($('form')[0]);
+fetch('../controllers/php-post.php', {
+    method: 'post',
+    headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    body: formData,
+    // Set timeout:
+    timeout: 10000
+})
+    .then($.json)
+    .then(function <postData>(data: any): any {
+        if (data.email_check == "valid") {
+            $("#message_ajax").html("<div class='successMessage'>" + data.email + " is a valid e-mail address. Thank you, " + data.name + ".</div>");
+            $("#message_ajax").append('<p>' + data.msg + '</p>');
+        } else {
+            $("#message_ajax").html("<div class='errorMessage'>Sorry " + data.name + ", " + data.email + " is NOT a valid e-mail address. Try again.</div>");
+        }
+    })
+    // Catch timeout:
+    .catch(function(error) {
+      console.log(error);
+    });
+
 // $.jsonp:
 $.jsonp('https://api.github.com/users/rbiggs/repos?name=chipper', {timeout: 10000})
 .then($.json)
