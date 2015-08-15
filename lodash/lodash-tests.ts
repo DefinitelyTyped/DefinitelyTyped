@@ -303,13 +303,6 @@ result = <_.LoDashObjectWrapper<_.Dictionary<any>>>_([['moe', 30], ['larry', 40]
 result = <number[]>_.pull([1, 2, 3, 1, 2, 3], 2, 3);
 result = <number[]>_.pullAt([1, 2, 3, 1, 2, 3], 2, 3);
 
-result = <number[]>_.range(10);
-result = <number[]>_.range(1, 11);
-result = <number[]>_.range(0, 30, 5);
-result = <number[]>_.range(0, -10, -1);
-result = <number[]>_.range(1, 4, 0);
-result = <number[]>_.range(0);
-
 result = <number[]>_.remove([1, 2, 3, 4, 5, 6], function (num: number) { return num % 2 == 0; });
 result = <IFoodOrganic[]>_.remove(foodsOrganic, 'organic');
 result = <IFoodType[]>_.remove(foodsType, { 'type': 'vegetable' });
@@ -1500,6 +1493,14 @@ var testPropertyOfObject: TestPropertyOfObject;
 result = <(path: string|string[]) => any>_.propertyOf({});
 result = <(path: string|string[]) => any>_.propertyOf<TestPropertyOfObject>(testPropertyOfObject);
 result = <(path: string|string[]) => any>_({}).propertyOf().value();
+
+// _.range
+result = <number[]>_.range(10);
+result = <number[]>_.range(1, 11);
+result = <number[]>_.range(0, 30, 5);
+result = <number[]>_(10).range().value();
+result = <number[]>_(1).range(11).value();
+result = <number[]>_(0).range(30, 5).value();
 
 result = <_.TemplateExecutor>_.template('hello <%= name %>');
 result = <string>_.template('<b><%- value %></b>', { 'value': '<script>' });
