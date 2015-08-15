@@ -1560,12 +1560,28 @@ result = <number>_('08').parseInt(10);
 result = <string>_.snakeCase('Foo Bar');
 result = <string>_.startCase('--foo-bar');
 result = <boolean>_.startsWith('abc', 'a');
+
+// _.trim
+result = <string>_.trim();
 result = <string>_.trim('  abc  ');
 result = <string>_.trim('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trim();
+result = <string>_('-_-abc-_-').trim('_-');
+
+// _.trimLeft
+result = <string>_.trimLeft();
 result = <string>_.trimLeft('  abc  ');
 result = <string>_.trimLeft('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trimLeft();
+result = <string>_('-_-abc-_-').trimLeft('_-');
+
+// _.trimRight
+result = <string>_.trimRight();
 result = <string>_.trimRight('  abc  ');
 result = <string>_.trimRight('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trimRight();
+result = <string>_('-_-abc-_-').trimRight('_-');
+
 result = <string>_.trunc('hi-diddly-ho there, neighborino');
 result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
