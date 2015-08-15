@@ -40,6 +40,7 @@ declare module "express" {
             delete(...handler: RequestHandler[]): IRoute;
             patch(...handler: RequestHandler[]): IRoute;
             options(...handler: RequestHandler[]): IRoute;
+            head(...handler: RequestHandler[]): IRoute;
         }
 
         interface IRouterMatcher<T> {
