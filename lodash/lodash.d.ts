@@ -1133,31 +1133,6 @@ declare module _ {
             ...values: any[]): any[];
     }
 
-    //_.range
-    interface LoDashStatic {
-        /**
-        * Creates an array of numbers (positive and/or negative) progressing from start up
-        * to but not including end. If start is less than stop a zero-length range is created
-        * unless a negative step is specified.
-        * @param start The start of the range.
-        * @param end The end of the range.
-        * @param step The value to increment or decrement by.
-        * @return Returns a new range array.
-        **/
-        range(
-            start: number,
-            stop: number,
-            step?: number): number[];
-
-        /**
-        * @see _.range
-        * @param end The end of the range.
-        * @return Returns a new range array.
-        * @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
-        **/
-        range(stop: number): number[];
-    }
-
     //_.remove
     interface LoDashStatic {
         /**
@@ -7421,6 +7396,39 @@ declare module _ {
          * @see _.propertyOf
          */
         propertyOf(): LoDashObjectWrapper<(path: string|string[]) => any>;
+    }
+
+    //_.range
+    interface LoDashStatic {
+        /**
+         * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
+         * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
+         * range is created unless a negative step is specified.
+         * @param start The start of the range.
+         * @param end The end of the range.
+         * @param step The value to increment or decrement by.
+         * @return Returns a new range array.
+         */
+        range(
+            start: number,
+            end: number,
+            step?: number): number[];
+
+        /**
+         * @see _.range
+         */
+        range(
+            end: number,
+            step?: number): number[];
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.range
+         */
+        range(
+            end?: number,
+            step?: number): LoDashArrayWrapper<number>;
     }
 
     //_.random
