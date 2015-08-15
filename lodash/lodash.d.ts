@@ -7299,6 +7299,22 @@ declare module _ {
         noConflict(): typeof _;
     }
 
+    //_.noop
+    interface LoDashStatic {
+        /**
+         * A no-operation function that returns undefined regardless of the arguments it receives.
+         * @return undefined
+         */
+        noop(...args: any[]): void;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.noop
+         */
+        noop(...args: any[]): void;
+    }
+
     //_.property
     interface LoDashStatic {
         /**
@@ -7450,14 +7466,6 @@ declare module _ {
         * @return Returns the unique ID.
         **/
         uniqueId(prefix?: string): string;
-    }
-
-    //_.noop
-    interface LoDashStatic {
-        /**
-         * A no-operation function.
-         **/
-        noop(): void;
     }
 
     //_.constant
