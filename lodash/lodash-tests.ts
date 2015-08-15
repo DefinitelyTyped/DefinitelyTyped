@@ -89,6 +89,8 @@ class Dog {
 
 var result: any;
 
+var any: any;
+
 // _.MapCache
 var testMapCache: _.MapCache;
 result = <(key: string) => boolean>testMapCache.delete;
@@ -1461,6 +1463,17 @@ result = <number>_.random(5);
 result = <number>_.random(5, true);
 result = <number>_.random(1.2, 5.2);
 result = <number>_.random(0, 5, true);
+
+// _.noop
+result = <void>_.noop();
+result = <void>_.noop(1);
+result = <void>_.noop('a', 1);
+result = <void>_.noop(true, 'a', 1);
+result = <void>_('a').noop(true, 'a', 1);
+result = <void>_([1]).noop(true, 'a', 1);
+result = <void>_<string>([]).noop(true, 'a', 1);
+result = <void>_({}).noop(true, 'a', 1);
+result = <void>_(any).noop(true, 'a', 1);
 
 var object = {
     'cheese': 'crumpets',
