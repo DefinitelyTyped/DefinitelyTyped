@@ -1456,8 +1456,6 @@ _.mixin({
 
 var lodash = <typeof _>_.noConflict();
 
-result = <number>_.parseInt('08');
-
 result = <number>_.random(0, 5);
 result = <number>_.random(5);
 result = <number>_.random(5, true);
@@ -1552,6 +1550,13 @@ result = <string>_.padLeft('abc', 6, '_-');
 result = <string>_.padRight('abc', 6);
 result = <string>_.padRight('abc', 6, '_-');
 result = <string>_.repeat('*', 3);
+
+// _.parseInt
+result = <number>_.parseInt('08');
+result = <number>_.parseInt('08', 10);
+result = <number>_('08').parseInt();
+result = <number>_('08').parseInt(10);
+
 result = <string>_.snakeCase('Foo Bar');
 result = <string>_.startCase('--foo-bar');
 result = <boolean>_.startsWith('abc', 'a');
