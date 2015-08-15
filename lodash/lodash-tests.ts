@@ -1075,6 +1075,10 @@ result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
 
+// _.isTypedArray
+result = <boolean>_.isTypedArray([]);
+result = <boolean>_([]).isTypedArray();
+
 // _.lt
 result = <boolean>_.lt(1, 2);
 result = <boolean>_(1).lt(2);
