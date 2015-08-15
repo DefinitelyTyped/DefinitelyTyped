@@ -1071,6 +1071,10 @@ result = <boolean>_({}).isMatch({});
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn);
 result = <boolean>_({}).isMatch({}, testIsMatchCustiomizerFn, {});
 
+// _.isNative
+result = <boolean>_.isNative(Array.prototype.push);
+result = <boolean>_(Array.prototype.push).isNative();
+
 // _.lt
 result = <boolean>_.lt(1, 2);
 result = <boolean>_(1).lt(2);
@@ -1456,8 +1460,6 @@ _.mixin({
 
 var lodash = <typeof _>_.noConflict();
 
-result = <number>_.parseInt('08');
-
 result = <number>_.random(0, 5);
 result = <number>_.random(5);
 result = <number>_.random(5, true);
@@ -1552,15 +1554,38 @@ result = <string>_.padLeft('abc', 6, '_-');
 result = <string>_.padRight('abc', 6);
 result = <string>_.padRight('abc', 6, '_-');
 result = <string>_.repeat('*', 3);
+
+// _.parseInt
+result = <number>_.parseInt('08');
+result = <number>_.parseInt('08', 10);
+result = <number>_('08').parseInt();
+result = <number>_('08').parseInt(10);
+
 result = <string>_.snakeCase('Foo Bar');
 result = <string>_.startCase('--foo-bar');
 result = <boolean>_.startsWith('abc', 'a');
+
+// _.trim
+result = <string>_.trim();
 result = <string>_.trim('  abc  ');
 result = <string>_.trim('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trim();
+result = <string>_('-_-abc-_-').trim('_-');
+
+// _.trimLeft
+result = <string>_.trimLeft();
 result = <string>_.trimLeft('  abc  ');
 result = <string>_.trimLeft('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trimLeft();
+result = <string>_('-_-abc-_-').trimLeft('_-');
+
+// _.trimRight
+result = <string>_.trimRight();
 result = <string>_.trimRight('  abc  ');
 result = <string>_.trimRight('-_-abc-_-', '_-');
+result = <string>_('-_-abc-_-').trimRight();
+result = <string>_('-_-abc-_-').trimRight('_-');
+
 result = <string>_.trunc('hi-diddly-ho there, neighborino');
 result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
