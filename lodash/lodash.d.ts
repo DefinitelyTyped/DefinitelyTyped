@@ -7397,12 +7397,25 @@ declare module _ {
     //_.property
     interface LoDashStatic {
         /**
-         * # S
-         * Creates a "_.pluck" style function, which returns the key value of a given object.
-         * @param key (string)
-         * @return the value of that key on the object
-         **/
-        property<T,RT>(key: string): (obj: T) => RT;
+         * Creates a function that returns the property value at path on a given object.
+         * @param path The path of the property to get.
+         * @return Returns the new function.
+         */
+        property<TObj, TResult>(path: string|string[]): (obj: TObj) => TResult;
+    }
+
+    interface LoDashStringWrapper {
+        /**
+         * @see _.property
+         */
+        property<TObj, TResult>(): LoDashObjectWrapper<(obj: TObj) => TResult>;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.property
+         */
+        property<TObj, TResult>(): LoDashObjectWrapper<(obj: TObj) => TResult>;
     }
 
     //_.propertyOf

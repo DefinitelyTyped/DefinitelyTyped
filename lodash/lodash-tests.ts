@@ -1490,6 +1490,18 @@ result = <string>_.result(object, 'stuff');
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
 
+// _.property
+interface TestPropertyObject {
+    a: {
+        b: number;
+    }
+}
+var testPropertyObject: TestPropertyObject;
+result = <number>_.property<TestPropertyObject, number>('a.b')(testPropertyObject);
+result = <number>_.property<TestPropertyObject, number>(['a', 'b'])(testPropertyObject);
+result = <number>(_('a.b').property<TestPropertyObject, number>().value())(testPropertyObject);
+result = <number>(_(['a', 'b']).property<TestPropertyObject, number>().value())(testPropertyObject);
+
 // _.propertyOf
 interface TestPropertyOfObject {
     a: {
