@@ -5888,6 +5888,23 @@ declare module _ {
         isMatch(source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
     }
 
+    //_.isNative
+    interface LoDashStatic {
+        /**
+         * Checks if value is a native function.
+         * @param value The value to check.
+         * @retrun Returns true if value is a native function, else false.
+         */
+        isNative(value: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNative
+         */
+        isNative(): boolean;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
