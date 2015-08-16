@@ -48,18 +48,18 @@ declare module "node-mysql-wrapper" {
     interface MySQLTable {
         constructor(tableName: string, connection: MySQLConnection);
 
-        setColumns(columns: string[]);
+        setColumns(columns: string[]):void;
 
-        setPrimaryKey(primaryKeyColumnName: string);
+        setPrimaryKey(primaryKeyColumnName: string):void;
 
         toString(): string;
 
         model(jsObject: Object): MySQLModel;
 
-        watch(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void);
-        on(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void);
-        unwatch(evtType: EVENT_TYPES|string, callbackToRemove: () => void);
-        off(evtType: EVENT_TYPES|string, callbackToRemove: () => void);
+        watch(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void):void;
+        on(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void):void;
+        unwatch(evtType: EVENT_TYPES|string, callbackToRemove: () => void):void;
+        off(evtType: EVENT_TYPES|string, callbackToRemove: () => void):void;
         
         ///START DYNAMIC METHODS FOR TABLES CANNOT BE PRE-DEFINED WITH DYNAMIC WAY, YET, SO:
         find<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
@@ -70,9 +70,9 @@ declare module "node-mysql-wrapper" {
         ///END 
         findAll<U>(callback?: (results: Object[]) => void): Promise<U>;
 
-        extend(functionName: string, functionToBeSupported: () => any);
+        extend(functionName: string, functionToBeSupported: () => any):void;
 
-        has(extendedFunctionName: string);
+        has(extendedFunctionName: string):boolean;
 
     }
 
