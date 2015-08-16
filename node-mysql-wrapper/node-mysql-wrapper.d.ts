@@ -77,8 +77,6 @@ declare module "node-mysql-wrapper" {
     }
 
     interface MySQLModel {
-         EQUAL_TO_PROPERTY_SYMBOL: string;
-
         constructor(table: MySQLTable, jsObject: Object);
 
         toObjectProperty(columnKey: string): string;
