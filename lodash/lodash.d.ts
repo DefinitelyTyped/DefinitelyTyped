@@ -4115,7 +4115,7 @@ declare module _ {
         * @return Returns the array of grouped elements.
         **/
         partition<T>(
-            collection: Array<T>,
+            collection: List<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T[][];
 
@@ -4123,64 +4123,62 @@ declare module _ {
          * @see _.partition
          **/
         partition<T>(
-            collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
-
-        /**
-         * @see _.partition
-         **/
-        partition<T>(
             collection: Dictionary<T>,
             callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T;
+            thisArg?: any): T[][];
 
         /**
          * @see _.partition
-         * @param _.matches style callback
-         **/
-        partition<W, T>(
-            collection: Array<T>,
-            whereValue: W): T;
-
-        /**
-         * @see _.partition
-         * @param _.matches style callback
          **/
         partition<W, T>(
             collection: List<T>,
-            whereValue: W): T;
+            whereValue: W): T[][];
 
         /**
          * @see _.partition
-         * @param _.matches style callback
          **/
         partition<W, T>(
             collection: Dictionary<T>,
-            whereValue: W): T;
+            whereValue: W): T[][];
 
         /**
          * @see _.partition
-         * @param _.property style callback
-         **/
-        partition<T>(
-            collection: Array<T>,
-            pluckValue: string): T;
-
-        /**
-         * @see _.partition
-         * @param _.property style callback
          **/
         partition<T>(
             collection: List<T>,
-            pluckValue: string): T;
+            path: string,
+            srcValue: any): T[][];
 
         /**
-         * @param _.property style callback
+         * @see _.partition
          **/
         partition<T>(
             collection: Dictionary<T>,
-            pluckValue: string): T;
+            path: string,
+            srcValue: any): T[][];
+
+        /**
+         * @see _.partition
+         **/
+        partition<T>(
+            collection: List<T>,
+            pluckValue: string): T[][];
+
+        /**
+         * @see _.partition
+         **/
+        partition<T>(
+            collection: Dictionary<T>,
+            pluckValue: string): T[][];
+    }
+
+    interface LoDashStringWrapper {
+        /**
+         * @see _.partition
+         */
+        partition(
+            callback: ListIterator<string, boolean>,
+            thisArg?: any): LoDashArrayWrapper<string[]>;
     }
 
     interface LoDashArrayWrapper<T> {
@@ -4189,26 +4187,58 @@ declare module _ {
          */
         partition(
             callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashArrayWrapper<T[][]>;
+            thisArg?: any): LoDashArrayWrapper<T[]>;
         /**
          * @see _.partition
-         * @param _.matches style callback
          */
         partition<W>(
-            whereValue: W): LoDashArrayWrapper<T[][]>;
+            whereValue: W): LoDashArrayWrapper<T[]>;
         /**
          * @see _.partition
-         * @param _.matchesProperty style callback
          */
         partition(
             path: string,
-            srcValue: any): LoDashArrayWrapper<T[][]>;
+            srcValue: any): LoDashArrayWrapper<T[]>;
         /**
          * @see _.partition
-         * @param _.property style callback
          */
         partition(
-            pluckValue: string): LoDashArrayWrapper<T[][]>;
+            pluckValue: string): LoDashArrayWrapper<T[]>;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.partition
+         */
+        partition<TResult>(
+            callback: ListIterator<TResult, boolean>,
+            thisArg?: any): LoDashArrayWrapper<TResult[]>;
+
+        /**
+         * @see _.partition
+         */
+        partition<TResult>(
+            callback: DictionaryIterator<TResult, boolean>,
+            thisArg?: any): LoDashArrayWrapper<TResult[]>;
+
+        /**
+         * @see _.partition
+         */
+        partition<W, TResult>(
+            whereValue: W): LoDashArrayWrapper<TResult[]>;
+
+        /**
+         * @see _.partition
+         */
+        partition<TResult>(
+            path: string,
+            srcValue: any): LoDashArrayWrapper<TResult[]>;
+
+        /**
+         * @see _.partition
+         */
+        partition<TResult>(
+            pluckValue: string): LoDashArrayWrapper<TResult[]>;
     }
 
     //_.reduce
