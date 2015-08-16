@@ -244,10 +244,15 @@ interface CheerioElement {
     name: string;
     attribs: Object;
     children: CheerioElement[];
+    childNodes: CheerioElement[];
+    lastChild: CheerioElement;
     next: CheerioElement;
+    nextSibling: CheerioElement;
     prev: CheerioElement;
+    previousSibling: CheerioElement;
     parent: CheerioElement;
-    root: CheerioElement;
+    parentNode: CheerioElement;
+    nodeValue: string;
 }
 
 interface CheerioAPI extends CheerioSelector {
