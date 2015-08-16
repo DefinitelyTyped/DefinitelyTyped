@@ -18,8 +18,8 @@ declare module "node-mysql-wrapper" {
     interface MySQLConnection {
         constructor(connection: string | Mysql.IConnection);
 
-        create(connectionUri: string);
-        create(connection: Mysql.IConnection);
+        create(connectionUri: string): void;
+        create(connection: Mysql.IConnection): void;
 
         attach(connection: Mysql.IConnection): void;
         end(callback: () => void): void;
@@ -32,8 +32,8 @@ declare module "node-mysql-wrapper" {
         fetchDatabaseInfornation<U>(): Promise<U>;
 
         escape(val: string): string;
-        notice(tableWhichCalled: string, queryStr: string, parsedResults: Object[]);
-        fireEvent(tableWhichCalled: string, queryStr: string, parsedResults: Object[]);
+        notice(tableWhichCalled: string, queryStr: string, parsedResults: Object[]): void;
+        fireEvent(tableWhichCalled: string, queryStr: string, parsedResults: Object[]): void;
 
         watch(tableName: string, evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
         on(tableName: string, evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
@@ -77,6 +77,7 @@ declare module "node-mysql-wrapper" {
     }
 
     interface MySQLModel {
+
         constructor(table: MySQLTable, jsObject: Object);
 
         toObjectProperty(columnKey: string): string;
@@ -88,8 +89,8 @@ declare module "node-mysql-wrapper" {
         toRow(): void;
         getRawObject(): Object;
 
-        parseTable(mysqlTableToSearch: String, parentObject: Object);
-        parseResult(result: Object, tablesToSearch: string[]);
+        parseTable<U>(mysqlTableToSearch: String, parentObject: Object): Promise<U>;
+        parseResult<U>(result: Object, tablesToSearch: string[]): Promise<U>;
 
         find<U>(parentObj?: Object): Promise<U>;
         findAll<U>(): Promise<U>;
