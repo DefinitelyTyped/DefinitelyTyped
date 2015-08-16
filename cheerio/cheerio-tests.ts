@@ -1,6 +1,6 @@
 /// <reference path="cheerio.d.ts" />
 
-import cheerio = require('cheerio');
+import cheerio from 'cheerio';
 
 /*
  * LOADING
