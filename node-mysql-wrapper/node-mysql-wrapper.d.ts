@@ -16,7 +16,7 @@ declare module "node-mysql-wrapper" {
     }
 
     interface MySQLConnection {
-        constructor(connection: string | Mysql.IConnection);
+        new (connection: string | Mysql.IConnection): MySQLConnection;
 
         create(connectionUri: string): void;
         create(connection: Mysql.IConnection): void;
@@ -46,20 +46,20 @@ declare module "node-mysql-wrapper" {
     }
 
     interface MySQLTable {
-        constructor(tableName: string, connection: MySQLConnection);
+        new (tableName: string, connection: MySQLConnection): MySQLTable;
 
-        setColumns(columns: string[]):void;
+        setColumns(columns: string[]): void;
 
-        setPrimaryKey(primaryKeyColumnName: string):void;
+        setPrimaryKey(primaryKeyColumnName: string): void;
 
         toString(): string;
 
         model(jsObject: Object): MySQLModel;
 
-        watch(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void):void;
-        on(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void):void;
-        unwatch(evtType: EVENT_TYPES|string, callbackToRemove: () => void):void;
-        off(evtType: EVENT_TYPES|string, callbackToRemove: () => void):void;
+        watch(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
+        on(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
+        unwatch(evtType: EVENT_TYPES|string, callbackToRemove: () => void): void;
+        off(evtType: EVENT_TYPES|string, callbackToRemove: () => void): void;
         
         ///START DYNAMIC METHODS FOR TABLES CANNOT BE PRE-DEFINED WITH DYNAMIC WAY, YET, SO:
         find<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
@@ -70,15 +70,15 @@ declare module "node-mysql-wrapper" {
         ///END 
         findAll<U>(callback?: (results: Object[]) => void): Promise<U>;
 
-        extend(functionName: string, functionToBeSupported: () => any):void;
+        extend(functionName: string, functionToBeSupported: () => any): void;
 
-        has(extendedFunctionName: string):boolean;
+        has(extendedFunctionName: string): boolean;
 
     }
 
     interface MySQLModel {
 
-        constructor(table: MySQLTable, jsObject: Object);
+        new (table: MySQLTable, jsObject: Object): MySQLModel;
 
         toObjectProperty(columnKey: string): string;
         toRowProperty(objectKey: string): string;
