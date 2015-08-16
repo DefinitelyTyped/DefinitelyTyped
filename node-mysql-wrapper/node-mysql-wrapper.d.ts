@@ -102,7 +102,7 @@ declare module "node-mysql-wrapper" {
     }
 
     interface MySQLWrapper {
-        constructor(connection?: MySQLConnection);
+        new (connection?: MySQLConnection): MySQLWrapper;
 
         setConnection(connection: MySQLConnection): void;
 
