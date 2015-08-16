@@ -1561,7 +1561,10 @@ result = <number>_.parseInt('08', 10);
 result = <number>_('08').parseInt();
 result = <number>_('08').parseInt(10);
 
+// _.snakeCase
 result = <string>_.snakeCase('Foo Bar');
+result = <string>_('Foo Bar').snakeCase();
+
 result = <string>_.startCase('--foo-bar');
 result = <boolean>_.startsWith('abc', 'a');
 
