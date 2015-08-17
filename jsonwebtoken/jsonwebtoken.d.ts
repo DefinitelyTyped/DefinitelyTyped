@@ -65,6 +65,7 @@ declare module "jsonwebtoken" {
      * @param {VerifyOptions} [options] - Options for the verification
      * @param {Function} callback - Callback to get the decoded token on
      */
+    function verify(token: string, secretOrPublicKey: string): void;
     function verify(token: string, secretOrPublicKey: string, callback: VerifyCallbak): void;
     function verify(token: string, secretOrPublicKey: Buffer, callback: VerifyCallbak): void;
     function verify(token: string, secretOrPublicKey: string, options: VerifyOptions, callback: VerifyCallbak): void;
