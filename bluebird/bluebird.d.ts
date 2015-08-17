@@ -417,6 +417,12 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	// TODO how to model promisifyAll?
 	static promisifyAll(target: Object, options?: Object): Object;
 
+
+	/**
+	 * Returns a promise that is resolved by a node style callback function.
+	 */
+	static fromNode(resolver: (callback: (err: any, result: any) => void) => void): Promise<any>;
+
 	/**
 	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
 	 */
