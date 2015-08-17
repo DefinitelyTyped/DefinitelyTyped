@@ -5,6 +5,7 @@
 
 import gulp = require('gulp');
 import sort = require('gulp-sort');
+import gulpUtil = require('gulp-util');
 
 // default sort
 gulp.src('./src/js/**/*.js')
@@ -38,7 +39,7 @@ gulp.src('./src/js/**/*.js')
     }))
     .pipe(gulp.dest('./build/js'));
 	
-function customComparator(file1, file2) {
+function customComparator(file1: gulpUtil.File, file2: gulpUtil.File) {
     if (file1.path.indexOf('build') > -1) {
         return 1;
     }
