@@ -282,7 +282,7 @@ declare module OData {
         take(amount: number): Provider<T>;
         skip(amount: number): Provider<T>;
         private execute();
-        query(success?: ((p:T)=>void), error?: (()=>void)): T[];
+        query(success?: ((p:T[])=>void), error?: (()=>void)): T[];
         single(success?: ((p:T)=>void), error?: (()=>void)): T;
         get(key: any, success?: ((p:T)=>void), error?: (()=>void)): T;
         expand(...params: string[]): Provider<T>;
