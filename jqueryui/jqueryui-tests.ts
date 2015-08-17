@@ -769,13 +769,7 @@ function test_autocomplete() {
             $("#project-icon").attr("src", "images/" + ui.item.icon);
             return false;
         }
-    })
-    .data("autocomplete")._renderItem = (ul, item) => {
-        return $("<li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.label + "<br>" + item.desc + "</a>")
-            .appendTo(ul);
-    };
+    });
 
     $("#developer").autocomplete({
         source: (request, response) => {
