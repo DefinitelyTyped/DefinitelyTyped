@@ -723,19 +723,20 @@ declare module JQueryUI {
         step?: any; // number or string
     }
 
-    interface SpinnerUIParams {
+    interface SpinnerUIParam {
+        value: number;
     }
 
-    interface SpinnerEvent {
-        (event: Event, ui: SpinnerUIParams): void;
+    interface SpinnerEvent<T> {
+        (event: Event, ui: T): void;
     }
 
     interface SpinnerEvents {
-        change?: SpinnerEvent;
-        create?: SpinnerEvent;
-        spin?: SpinnerEvent;
-        start?: SpinnerEvent;
-        stop?: SpinnerEvent;
+        change?: SpinnerEvent<{}>;
+        create?: SpinnerEvent<{}>;
+        spin?: SpinnerEvent<SpinnerUIParam>;
+        start?: SpinnerEvent<{}>;
+        stop?: SpinnerEvent<{}>;
     }
 
     interface Spinner extends Widget, SpinnerOptions {
@@ -756,21 +757,33 @@ declare module JQueryUI {
         activate?: TabsEvent;
     }
 
-    interface TabsUIParams {
+    interface TabsActivationUIParams {
         newTab: JQuery;
         oldTab: JQuery;
         newPanel: JQuery;
         oldPanel: JQuery;
     }
 
-    interface TabsEvent {
-        (event: Event, ui: TabsUIParams): void;
+    interface TabsBeforeLoadUIParams {
+        tab: JQuery;
+        panel: JQuery;
+        jqXHR: JQueryXHR;
+        ajaxSettings: any;
+    }
+
+    interface TabsCreateOrLoadUIParams {
+        tab: JQuery;
+        panel: JQuery;
+    }
+
+    interface TabsEvent<UI> {
+        (event: Event, ui: UI): void;
     }
 
     interface TabsEvents {
-        activate?: TabsEvent;
-        beforeActivate?: TabsEvent;
-        beforeLoad?: TabsEvent;
+        activate?: TabsEvent<TabsActivationUIParams>;
+        beforeActivate?: TabsEvent<TabsActivationUIParams>;
+        beforeLoad?: TabsEvent<TabsBeforeLoadUIParams>;
         load?: TabsEvent;
     }
 
@@ -1583,29 +1596,32 @@ interface JQuery {
     droppable(optionLiteral: string, options: JQueryUI.DraggableOptions): any;
     droppable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-    menu(): JQuery;
-    menu(methodName: 'blur'): void;
-    menu(methodName: 'collapse', event?: JQueryEventObject): void;
-    menu(methodName: 'collapseAll', event?: JQueryEventObject, all?: boolean): void;
-    menu(methodName: 'destroy'): void;
-    menu(methodName: 'disable'): void;
-    menu(methodName: 'enable'): void;
-    menu(methodName: string, event: JQueryEventObject, item: JQuery): void;
-    menu(methodName: 'focus', event: JQueryEventObject, item: JQuery): void;
-    menu(methodName: 'isFirstItem'): boolean;
-    menu(methodName: 'isLastItem'): boolean;
-    menu(methodName: 'next', event?: JQueryEventObject): void;
-    menu(methodName: 'nextPage', event?: JQueryEventObject): void;
-    menu(methodName: 'previous', event?: JQueryEventObject): void;
-    menu(methodName: 'previousPage', event?: JQueryEventObject): void;
-    menu(methodName: 'refresh'): void;
-    menu(methodName: 'select', event?: JQueryEventObject): void;
-    menu(methodName: 'widget'): JQuery;
-    menu(methodName: string): JQuery;
-    menu(options: JQueryUI.MenuOptions): JQuery;
-    menu(optionLiteral: string, optionName: string): any;
-    menu(optionLiteral: string, options: JQueryUI.MenuOptions): any;
-    menu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    menu: {
+        (): JQuery;
+        (methodName: 'blur'): void;
+        (methodName: 'collapse', event?: JQueryEventObject): void;
+        (methodName: 'collapseAll', event?: JQueryEventObject, all?: boolean): void;
+        (methodName: 'destroy'): void;
+        (methodName: 'disable'): void;
+        (methodName: 'enable'): void;
+        (methodName: string, event: JQueryEventObject, item: JQuery): void;
+        (methodName: 'focus', event: JQueryEventObject, item: JQuery): void;
+        (methodName: 'isFirstItem'): boolean;
+        (methodName: 'isLastItem'): boolean;
+        (methodName: 'next', event?: JQueryEventObject): void;
+        (methodName: 'nextPage', event?: JQueryEventObject): void;
+        (methodName: 'previous', event?: JQueryEventObject): void;
+        (methodName: 'previousPage', event?: JQueryEventObject): void;
+        (methodName: 'refresh'): void;
+        (methodName: 'select', event?: JQueryEventObject): void;
+        (methodName: 'widget'): JQuery;
+        (methodName: string): JQuery;
+        (options: JQueryUI.MenuOptions): JQuery;
+        (optionLiteral: string, optionName: string): any;
+        (optionLiteral: string, options: JQueryUI.MenuOptions): any;
+        (optionLiteral: string, optionName: string, optionValue: any): JQuery;
+        active: boolean;
+    }
 
     progressbar(): JQuery;
     progressbar(methodName: 'destroy'): void;
