@@ -267,6 +267,7 @@ declare module OData {
 
     interface ICountResult{
         result: number;
+        $promise: angular.IPromise<any>;
     }
 
     class Provider<T> {
