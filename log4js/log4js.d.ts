@@ -232,6 +232,10 @@ declare module "log4js" {
                           | GelfAppenderConfig
                           | MultiprocessAppenderConfig
 
-  type AppenderConfig = CoreAppenderConfig | (AppenderConfigBase & { [prop: string]: any; });
+  interface CustomAppenderConfig extends AppenderConfigBase {
+    [prop: string]: any;
+  }
+
+  type AppenderConfig = CoreAppenderConfig | CustomAppenderConfig;
 }
 
