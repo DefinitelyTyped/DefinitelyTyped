@@ -240,19 +240,19 @@ result = <number[]>_([1, 2, 3]).head(function (num) {
 result = <IFoodOrganic[]>_(foodsOrganic).head('organic').value();
 result = <IFoodType[]>_(foodsType).head({ 'type': 'fruit' }).value();
 
-result = <number>_.take([1, 2, 3]);
+result = <number[]>_.take([1, 2, 3]);
 result = <number[]>_.take([1, 2, 3], 2);
-result = <number[]>_.take([1, 2, 3], (num) => num < 3);
-result = <IFoodOrganic[]>_.take(foodsOrganic, 'organic');
-result = <IFoodType[]>_.take(foodsType, { 'type': 'fruit' });
+result = <number[]>_.takeWhile([1, 2, 3], (num) => num < 3);
+result = <boolean[]>_.takeWhile(foodsOrganic, 'organic');
+result = <IFoodType[]>_.takeWhile(foodsType, { 'type': 'fruit' });
 
-result = <number>_([1, 2, 3]).take();
+result = <number[]>_([1, 2, 3]).take().value();
 result = <number[]>_([1, 2, 3]).take(2).value();
-result = <number[]>_([1, 2, 3]).take(function (num) {
+result = <number[]>_([1, 2, 3]).takeWhile(function (num) {
     return num < 3;
 }).value();
-result = <IFoodOrganic[]>_(foodsOrganic).take('organic').value();
-result = <IFoodType[]>_(foodsType).take({ 'type': 'fruit' }).value();
+result = <boolean[]>_(foodsType).takeWhile('organic').value();
+result = <IFoodType[]>_(foodsType).takeWhile({ 'type': 'fruit' }).value();
 
 result = <Array<number>>_.flatten([[1, 2], [3, 4]]);
 result = <Array<number>>_.flatten([[1, 2], [3, 4], 5, 6]);
@@ -328,6 +328,8 @@ result = <number>_.sortedIndex(['twenty', 'thirty', 'fifty'], 'fourty', function
 }, sortedIndexDict);
 
 result = <number[]>_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+
+result = <number[]>_([1, 2, 3]).union([101, 2, 1, 10], [2, 1]).value();
 
 result = <number[]>_.uniq([1, 2, 1, 3, 1]);
 result = <number[]>_.uniq([1, 1, 2, 2, 3], true);
@@ -438,6 +440,7 @@ result = <boolean>_.all([true, 1, null, 'yes'], Boolean);
 result = <boolean>_.all(stoogesAges, 'age');
 result = <boolean>_.all(stoogesAges, { 'age': 50 });
 
+result = <number[]>_.filter([1, 2, 3, 4, 5, 6]);
 result = <number[]>_.filter([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
 result = <IFoodCombined[]>_.filter(foodsCombined, 'organic');
 result = <IFoodCombined[]>_.filter(foodsCombined, { 'type': 'fruit' });
@@ -742,6 +745,7 @@ result = <IStoogesAge[]>_.sortByOrder(stoogesAges, ['name', function(stooge) { r
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return Math.sin(num); }).value();
 result = <number[]>_([1, 2, 3]).sortBy(function (num) { return this.sin(num); }, Math).value();
 result = <string[]>_(['banana', 'strawberry', 'apple']).sortBy('length').value();
+result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
 (function (a: number, b: number, c: number, d: number): Array<number> { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 result = <number[]>_.toArray([1, 2, 3, 4]);

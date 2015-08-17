@@ -664,12 +664,12 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take<T>(array: Array<T>): T;
+        take<T>(array: Array<T>): T[];
 
         /**
         * @see _.first
         **/
-        take<T>(array: List<T>): T;
+        take<T>(array: List<T>): T[];
 
         /**
         * @see _.first
@@ -686,48 +686,36 @@ declare module _ {
             n: number): T[];
 
         /**
-        * @see _.first
-        **/
-        take<T>(
-            array: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
+         * Takes the first items from an array or list based on a predicate
+         * @param array The array or list of items on which the result set will be based
+         * @param predicate A predicate function to determine whether a value will be taken. Optional; defaults to identity.
+         * @param [thisArg] The this binding of predicate.
+         */
+        takeWhile<T>(
+            array: (Array<T>|List<T>),
+            predicate?: ListIterator<T, boolean>,
+            thisArg?: any 
+        ): T[];
+        
         /**
-        * @see _.first
-        **/
-        take<T>(
-            array: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[];
-
+         * Takes the first items from an array or list based on a predicate
+         * @param array The array or list of items on which the result set will be based
+         * @param pluckValue Uses a _.property style callback to return the property value of the given element
+         */
+        takeWhile<T>(
+            array: (Array<T>|List<T>),
+            pluckValue: string
+        ): any[];
+        
         /**
-        * @see _.first
-        **/
-        take<T>(
-            array: Array<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<T>(
-            array: List<T>,
-            pluckValue: string): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<W, T>(
-            array: Array<T>,
-            whereValue: W): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<W, T>(
-            array: List<T>,
-            whereValue: W): T[];
+         * Takes the first items from an array or list based on a predicate
+         * @param array The array or list of items on which the result set will be based
+         * @param whereValue Uses a _.matches style callback to return the first elements that match the given value
+         */
+        takeWhile<W, T>(
+            array: (Array<T>|List<T>),
+            whereValue: W
+        ): T[];
     }
 
     interface LoDashArrayWrapper<T> {
@@ -798,7 +786,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take(): T;
+        take(): LoDashArrayWrapper<T>;
 
         /**
         * @see _.first
@@ -807,25 +795,28 @@ declare module _ {
         take(n: number): LoDashArrayWrapper<T>;
 
         /**
-        * @see _.first
-        * @param callback The function called per element.
+        * Takes the first items based on a predicate
+        * @param predicate The function called per element.
         * @param [thisArg] The this binding of callback.
         **/
-        take(
-            callback: ListIterator<T, boolean>,
+        takeWhile(
+            predicate: ListIterator<T, boolean>,
             thisArg?: any): LoDashArrayWrapper<T>;
 
         /**
-        * @see _.first
-        * @param pluckValue "_.pluck" style callback value
+        * Takes the first items based on a predicate
+        * @param pluckValue Uses a _.property style callback to return the property value of the given element
         **/
-        take(pluckValue: string): LoDashArrayWrapper<T>;
+        takeWhile<T>(
+            pluckValue: string): LoDashArrayWrapper<any>;
 
         /**
-        * @see _.first
-        * @param whereValue "_.where" style callback value
+        * Takes the first items based on a predicate
+        * @param whereValue Uses a _.matches style callback to return the first elements that match the given value
         **/
-        take<W>(whereValue: W): LoDashArrayWrapper<T>;
+        takeWhile<W, T>(
+            whereValue: W): LoDashArrayWrapper<T>;
+
     }
 
     interface MaybeNestedList<T> extends List<T|List<T>> { }
@@ -1535,6 +1526,13 @@ declare module _ {
         * @see _.union
         **/
         union<T>(...arrays: List<T>[]): T[];
+    }
+    
+    interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.union
+        **/
+        union<T>(...arrays: (Array<T>|List<T>)[]): LoDashArrayWrapper<T>;
     }
 
     //_.uniq
@@ -2519,6 +2517,16 @@ declare module _ {
     interface LoDashStatic {
         /**
         * Iterates over elements of a collection, returning an array of all elements the
+        * identity function returns truey for.
+        * 
+        * @param collection The collection to iterate over.
+        * @return Returns a new array of elements that passed the callback check.
+        **/
+        filter<T>(
+            collection: (Array<T>|List<T>)): T[];
+            
+        /**
+        * Iterates over elements of a collection, returning an array of all elements the
         * callback returns truey for. The callback is bound to thisArg and invoked with three
         * arguments; (value, index|key, collection).
         *
@@ -2675,6 +2683,11 @@ declare module _ {
     }
 
     interface LoDashArrayWrapper<T> {
+        /**
+        * @see _.filter
+        **/
+        filter(): LoDashArrayWrapper<T>;
+            
         /**
         * @see _.filter
         **/
@@ -4939,6 +4952,15 @@ declare module _ {
         sortBy<W, T>(
             collection: List<T>,
             whereValue: W): T[];
+            
+        /**
+         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
+         * @param args The rules by which to sort
+         */
+        sortByAll<T>(
+            collection: (Array<T>|List<T>),
+            ...args: (ListIterator<T, boolean>|Object|string)[]
+        ): T[];
     }
 
     interface LoDashArrayWrapper<T> {
@@ -4960,6 +4982,12 @@ declare module _ {
         * @param whereValue _.where style callback
         **/
         sortBy<W>(whereValue: W): LoDashArrayWrapper<T>;
+        
+        /**
+         * Sorts by all the given arguments, using either ListIterator, pluckValue, or whereValue foramts
+         * @param args The rules by which to sort
+         */
+        sortByAll(...args: (ListIterator<T, boolean>|Object|string)[]): LoDashArrayWrapper<T>;
     }
 
     //_.sortByAll
