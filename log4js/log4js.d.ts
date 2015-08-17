@@ -233,11 +233,11 @@ declare module "log4js" {
                           | MultiprocessAppenderConfig
                           | LogglyAppenderConfig
                           | ClusteredAppenderConfig
-
-  interface UserDefinedAppenderConfig extends AppenderConfigBase {
-      [prop: string]: any;
+    
+  interface CustomAppenderConfig extends AppenderConfigBase {
+    [prop: string]: any;
   }
 
-  type AppenderConfig = CoreAppenderConfig | UserDefinedAppenderConfig;
+  type AppenderConfig = CoreAppenderConfig | CustomAppenderConfig;
 }
 
