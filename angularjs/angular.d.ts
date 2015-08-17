@@ -237,8 +237,8 @@ declare module angular {
         forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
 
         fromJson(json: string): any;
-        identity(arg?: any): any;
-        injector(modules?: any[]): auto.IInjectorService;
+        identity<T>(arg?: T): T;
+        injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
         isArray(value: any): boolean;
         isDate(value: any): boolean;
         isDefined(value: any): boolean;
@@ -421,9 +421,9 @@ declare module angular {
 
         /**
          * Converts an attribute name (e.g. dash/colon/underscore-delimited string, optionally prefixed with x- or data-) to its normalized, camelCase form.
-         * 
+         *
          * Also there is special case for Moz prefix starting with upper case letter.
-         * 
+         *
          * For further information check out the guide on @see https://docs.angularjs.org/guide/directive#matching-directives
          */
         $normalize(name: string): void;
@@ -453,7 +453,7 @@ declare module angular {
          * following compilation. The observer is then invoked whenever the
          * interpolated value changes.
          */
-        $observe(name: string, fn: (value?: any) => any): Function;
+        $observe<T>(name: string, fn: (value?: T) => any): Function;
 
         /**
          * A map of DOM element attribute names to the normalized name. This is needed
@@ -617,12 +617,12 @@ declare module angular {
         $on(name: string, listener: (event: IAngularEvent, ...args: any[]) => any): Function;
 
         $watch(watchExpression: string, listener?: string, objectEquality?: boolean): Function;
-        $watch(watchExpression: string, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: boolean): Function;
+        $watch<T>(watchExpression: string, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): Function;
         $watch(watchExpression: (scope: IScope) => any, listener?: string, objectEquality?: boolean): Function;
-        $watch(watchExpression: (scope: IScope) => any, listener?: (newValue: any, oldValue: any, scope: IScope) => any, objectEquality?: boolean): Function;
+        $watch<T>(watchExpression: (scope: IScope) => T, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): Function;
 
-        $watchCollection(watchExpression: string, listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
-        $watchCollection(watchExpression: (scope: IScope) => any, listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
+        $watchCollection<T>(watchExpression: string, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
+        $watchCollection<T>(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
 
         $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
         $watchGroup(watchExpressions: { (scope: IScope): any }[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
@@ -725,7 +725,7 @@ declare module angular {
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        (func: Function, delay?: number, invokeApply?: boolean): IPromise<any>;
+        <T>(func: (...args: any[]) => T, delay?: number, invokeApply?: boolean): IPromise<T>;
         cancel(promise: IPromise<any>): boolean;
     }
 
@@ -862,7 +862,7 @@ declare module angular {
         warn: ILogCall;
     }
 
-    interface ILogProvider {
+    interface ILogProvider extends IServiceProvider {
         debugEnabled(): boolean;
         debugEnabled(enabled: boolean): ILogProvider;
     }
@@ -996,8 +996,7 @@ declare module angular {
      * See http://docs.angularjs.org/api/ng/service/$q
      */
     interface IQService {
-        new (resolver: (resolve: IQResolveReject<any>) => any): IPromise<any>;
-        new (resolver: (resolve: IQResolveReject<any>, reject: IQResolveReject<any>) => any): IPromise<any>;
+        new <T>(resolver: (resolve: IQResolveReject<T>) => any): IPromise<T>;
         new <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
 
         /**
@@ -1007,7 +1006,7 @@ declare module angular {
          *
          * @param promises An array of promises.
          */
-        all(promises: IPromise<any>[]): IPromise<any[]>;
+        all<T>(promises: IPromise<any>[]): IPromise<T[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1016,6 +1015,7 @@ declare module angular {
          * @param promises A hash of promises.
          */
         all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
+        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1156,7 +1156,7 @@ declare module angular {
          *
          * @param key the key of the data to be retrieved
          */
-        get(key: string): any;
+        get<T>(key: string): T;
 
         /**
          * Removes an entry from the Cache object.
@@ -1227,8 +1227,8 @@ declare module angular {
     ///////////////////////////////////////////////////////////////////////////
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
-        (controllerConstructor: Function, locals?: any): any;
-        (controllerName: string, locals?: any): any;
+        (controllerConstructor: Function, locals?: any, bindToController?: any): any;
+        (controllerName: string, locals?: any, bindToController?: any): any;
     }
 
     interface IControllerProvider extends IServiceProvider {
@@ -1540,6 +1540,8 @@ declare module angular {
     interface ISCEDelegateProvider extends IServiceProvider {
         resourceUrlBlacklist(blacklist: any[]): void;
         resourceUrlWhitelist(whitelist: any[]): void;
+        resourceUrlBlacklist(): any[];
+        resourceUrlWhitelist(): any[];
     }
 
     /**
@@ -1585,7 +1587,7 @@ declare module angular {
             scope: IScope,
             instanceElement: IAugmentedJQuery,
             instanceAttributes: IAttributes,
-            controller: any,
+            controller: {},
             transclude: ITranscludeFunction
         ): void;
     }
@@ -1680,9 +1682,9 @@ declare module angular {
         interface IInjectorService {
             annotate(fn: Function): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
-            get(name: string): any;
+            get<T>(name: string): T;
             has(name: string): boolean;
-            instantiate(typeConstructor: Function, locals?: any): any;
+            instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
         }
