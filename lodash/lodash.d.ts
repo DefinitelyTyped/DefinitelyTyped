@@ -2006,6 +2006,27 @@ declare module _ {
         object(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
     }
 
+    //_.zipWith
+    interface LoDashStatic {
+        /**
+         * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
+         * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+         * group).
+         * @param {...Array} [arrays] The arrays to process.
+         * @param {Function} [iteratee] The function to combine grouped values.
+         * @param {*} [thisArg] The `this` binding of `iteratee`.
+         * @return Returns the new array of grouped elements.
+         */
+        zipWith<TResult>(...args: any[]): TResult[];
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.zipWith
+         */
+        zipWith<TResult>(...args: any[]): LoDashArrayWrapper<TResult>;
+    }
+
     /* *************
      * Collections *
      ************* */
