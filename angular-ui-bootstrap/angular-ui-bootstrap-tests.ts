@@ -31,18 +31,23 @@ testApp.config((
     /**
      * $datepickerConfig tests
      */
-    $datepickerConfig.dayFormat = 'd';
-    $datepickerConfig.dayHeaderFormat = 'E';
-    $datepickerConfig.dayTitleFormat = 'dd-MM-yyyy';
+    $datepickerConfig.datepickerMode = 'month';
+    $datepickerConfig.formatDay = 'd';
+    $datepickerConfig.formatDayHeader = 'E';
+    $datepickerConfig.formatDayTitle = 'dd-MM-yyyy';
+    $datepickerConfig.formatMonth = 'M';
+    $datepickerConfig.formatMonthTitle = 'yy';
+    $datepickerConfig.formatYear = 'y';
     $datepickerConfig.maxDate = '1389586124979';
+    $datepickerConfig.maxMode = 'month';
     $datepickerConfig.minDate = '1389586124979';
-    $datepickerConfig.monthFormat = 'M';
-    $datepickerConfig.monthTitleFormat = 'yy';
+    $datepickerConfig.minMode = 'month';
+    $datepickerConfig.shortcutPropagation = true;
     $datepickerConfig.showWeeks = false;
     $datepickerConfig.startingDay = 1;
-    $datepickerConfig.yearFormat = 'y';
     $datepickerConfig.yearRange = 10;
-    $datepickerConfig.shortcutPropagation = true;
+
+
 
 
     /**
@@ -53,9 +58,12 @@ testApp.config((
     $datepickerPopupConfig.clearText = 'Reset Selection';
     $datepickerPopupConfig.closeOnDateSelection = false;
     $datepickerPopupConfig.closeText = 'Finished';
-    $datepickerPopupConfig.dateFormat = 'dd-MM-yyyy';
+    $datepickerPopupConfig.datepickerPopup = 'dd-MM-yyyy';
+    $datepickerPopupConfig.datepickerPopupTemplateUrl = 'template.html';
+    $datepickerPopupConfig.datepickerTemplateUrl = 'template.html';
+    $datepickerPopupConfig.html5Types.date = 'MM-dd-yyyy';
+    $datepickerPopupConfig.onOpenFocus = false;
     $datepickerPopupConfig.showButtonBar = false;
-    $datepickerPopupConfig.toggleWeeksText = 'Show Weeks';
 
 
     /**
@@ -72,9 +80,13 @@ testApp.config((
     $paginationConfig.firstText = 'First Page';
     $paginationConfig.itemsPerPage = 25;
     $paginationConfig.lastText = 'Last Page';
+    $paginationConfig.maxSize = 13;
+    $paginationConfig.numPages = 13;
     $paginationConfig.nextText = 'Next Page';
     $paginationConfig.previousText = 'Previous Page';
     $paginationConfig.rotate = false;
+    $paginationConfig.templateUrl = 'template.html';
+    $paginationConfig.totalItems = 13;
 
 
     /**
@@ -122,6 +134,7 @@ testApp.config((
         animation: false,
         popupDelay: 1000,
         appendToBody: true,
+        trigger: 'mouseenter hover',
         useContentExp: true,
     });
     $tooltipProvider.setTriggers({
@@ -148,6 +161,7 @@ testApp.controller('TestCtrl', (
         controller: 'ModalTestCtrl',
         controllerAs: 'vm',
         keyboard: true,
+        openedClass: 'modal-open my-modal',
         resolve: {
             items: ()=> {
                 return [1, 2, 3, 4, 5];

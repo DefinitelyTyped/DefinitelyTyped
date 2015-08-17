@@ -856,6 +856,10 @@ declare module GitHubElectron {
 		 */
 		terminate(): void;
 		/**
+		 * Returns the current application directory.
+		 */
+		getAppPath(): string;
+		/**
 		 * @param name One of: home, appData, userData, cache, userCache, temp, userDesktop, exe, module
 		 * @returns The path to a special directory or file associated with name.
 		 * On failure an Error would throw.
