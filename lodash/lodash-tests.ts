@@ -1110,8 +1110,18 @@ result = <number>_.add(1, 1);
 result = <number>_(1).add(1);
 
 /**********
-* Objects *
-***********/
+ * Number *
+ **********/
+
+// _.inRange
+result = <boolean>_.inRange(3, 2, 4);
+result = <boolean>_.inRange(4, 8);
+result = <boolean>_(3).inRange(2, 4);
+result = <boolean>_(4).inRange(8);
+
+/*********
+* Object *
+**********/
 interface NameAge {
     name: string;
     age: number;
