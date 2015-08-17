@@ -21,7 +21,7 @@ declare module 'gulp-sort' {
 		 */
 		comparator?: IComparatorFunction;
 		/** Whether to sort in ascending order, default is true */
-		asc?;
+		asc?: boolean;
 	}
 	
 	interface IComparatorFunction {
