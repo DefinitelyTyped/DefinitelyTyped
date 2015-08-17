@@ -830,7 +830,7 @@ declare module d3 {
         style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Transition<Datum>;
         style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Transition<Datum>;
 
-        styleTween(name: string, tween: (datum: Datum, index: number, attr: string) => Primitive, priority?: string): Transition<Datum>;
+        styleTween(name: string, tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive, priority?: string): Transition<Datum>;
 
         text(value: Primitive): Transition<Datum>;
         text(value: (datum: Datum, index: number, outerIndex: number) => Primitive): Transition<Datum>;

@@ -1,33 +1,48 @@
-// Type definitions for Postal v0.8.9
+// Type definitions for Postal v1.0.6
 // Project: https://github.com/postaljs/postal.js
-// Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
+// Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>, Paul Jolly <https://github.com/myitcv>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../underscore/underscore.d.ts" />
-
-interface IConfiguration{
+interface IConfiguration {
 	SYSTEM_CHANNEL: string;
 	DEFAULT_CHANNEL: string;
-	resolver: any;
+	resolver: IResolver;
 }
 
-interface ISubscriptionDefinition{
-	unsubscribe(): void;
-	subscribe(callback: (data: any, envelope: IEnvelope)=> void): void;
-	defer():ISubscriptionDefinition;
+interface IResolver {
+	compare(binding: string, topic: string, headerOptions: {}): boolean;
+	reset(): void;
+	purge(options?: {topic?: string, binding?: string, compact?: boolean}): void;
+}
+
+interface ICallback {
+	(data: any, envelope: IEnvelope): void
+}
+
+interface ISubscriptionDefinition {
+	channel: string;
+	topic: string;
+	callback: ICallback;
+
+	// after and before lack documentation
+
+	constraint(predicateFn: (data: any, envelope: IEnvelope) => boolean): ISubscriptionDefinition;
+	constraints(predicateFns: ((data: any, envelope: IEnvelope) => boolean)[]): ISubscriptionDefinition;
+	context(theContext: any): ISubscriptionDefinition;
+	debounce(interval: number): ISubscriptionDefinition;
+	defer(): ISubscriptionDefinition;
+	delay(waitTime: number): ISubscriptionDefinition;
 	disposeAfter(maxCalls: number): ISubscriptionDefinition;
+	distinct(): ISubscriptionDefinition;
 	distinctUntilChanged(): ISubscriptionDefinition;
+	logError(): ISubscriptionDefinition;
 	once(): ISubscriptionDefinition;
-	withConstraint(predicate: Function): ISubscriptionDefinition;
-	withConstraints(predicates: Array<Function>): ISubscriptionDefinition;
-	
-	withContext(context: any): ISubscriptionDefinition;
-	withDebounce(milliseconds: number, immediate: boolean ): ISubscriptionDefinition;
-	withDelay(milliseconds: number): ISubscriptionDefinition;
-	withThrottle(milliseconds: number): ISubscriptionDefinition;
+	throttle(interval: number): ISubscriptionDefinition;
+	subscribe(callback: ICallback): ISubscriptionDefinition;
+	unsubscribe(): void;
 }
 
-interface IEnvelope{
+interface IEnvelope {
 	topic: string;
 	data?: any;
 
@@ -39,26 +54,45 @@ interface IEnvelope{
 
 
 interface IChannelDefinition {
-	subscribe(topic: string): ISubscriptionDefinition;
-	subscribe(topic: string, callback: (data: any, envelope: IEnvelope)=> void): ISubscriptionDefinition;
+	subscribe(topic: string, callback: ICallback): ISubscriptionDefinition;
 
 	publish(topic: string, data?: any): void;
-	publish(envelope: IEnvelope): void;
 
 	channel: string;
 }
 
-interface IPostalUtils{
-	getSubscribersFor(channel: string, tpc: any): any;
-	reset(): void;
+interface ISourceArg {
+	topic: string;
+	channel?: string;
+}
+
+interface IDestinationArg {
+	topic: string | ((topic: string) => string);
+	channel?: string;
 }
 
 interface IPostal {
-	channel(name?:string): IChannelDefinition;
-	
-	linkChannels(sources: IEnvelope | IEnvelope[], destinations:  IEnvelope | IEnvelope[]): ISubscriptionDefinition[];
-	
-	utils: IPostalUtils;
+	subscriptions: {};
+	wiretaps: ICallback[];
+
+	addWireTap(callback: ICallback): () => void;
+
+	channel(name?: string): IChannelDefinition;
+
+	getSubscribersFor(): ISubscriptionDefinition[];
+	getSubscribersFor(options: {channel?: string, topic?: string, context?: any}): ISubscriptionDefinition[];
+	getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition) => boolean): ISubscriptionDefinition[];
+
+	linkChannels(source: ISourceArg | ISourceArg[], destination: IDestinationArg | IDestinationArg[]): void;
+
+	publish(envelope: IEnvelope): void;
+
+	reset(): void;
+
+	subscribe(options: {channel?: string, topic: string, callback: ICallback}): ISubscriptionDefinition;
+	unsubscribe(sub: ISubscriptionDefinition): void;
+	unsubscribeFor(): void;
+	unsubscribeFor(options: {channel?: string, topic?: string, context?: any}): void;
 
 	configuration: IConfiguration;
 }
@@ -66,6 +100,7 @@ interface IPostal {
 declare var postal: IPostal;
 
 declare module "postal" {
-    var postal: IPostal;
-    export = postal;
+	var postal: IPostal;
+	export = postal;
 }
+

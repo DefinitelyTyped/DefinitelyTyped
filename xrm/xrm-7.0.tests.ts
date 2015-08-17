@@ -1,5 +1,4 @@
 /// <reference path="xrm-7.0.d.ts" />
-/// <reference path="clientglobalcontext.d.ts" />
 
 function _getContext()
 {

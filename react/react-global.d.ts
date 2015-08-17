@@ -136,9 +136,10 @@ declare module React {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(): void;
+        render(): JSX.Element;
         props: P;
         state: S;
-        context: any;
+        context: {};
         refs: {
             [key: string]: Component<any, any>
         };
@@ -429,6 +430,8 @@ declare module React {
         crossOrigin?: string;
         data?: string;
         dateTime?: string;
+        defaultChecked?: boolean;
+        defaultValue?: string;
         defer?: boolean;
         dir?: string;
         disabled?: boolean;
@@ -540,6 +543,7 @@ declare module React {
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        height?: number | string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -564,6 +568,7 @@ declare module React {
         transform?: string;
         version?: string;
         viewBox?: string;
+        width?: number | string;
         x1?: number | string;
         x2?: number | string;
         x?: number | string;

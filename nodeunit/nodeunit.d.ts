@@ -6,6 +6,11 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nodeunit.d.ts
 
 declare module 'nodeunit' {
+	export interface ITestCase {
+			(testCase: {[property: string]: ITestBody | ITestGroup | void}) : void;
+		}
+    export var testCase : ITestCase;
+
 	export interface Test {
 		done: ICallbackFunction;
 		expect(num: number): void;
@@ -31,15 +36,15 @@ declare module 'nodeunit' {
 
 	// Test Group Usage:
 	//  var testGroup: nodeunit.ITestGroup = {
-	//        setUp: function (callback: nodeunit.ICallbackFunction): void {
-	//            callback();
-	//        },
-	//        tearDown: function (callback: nodeunit.ICallbackFunction): void {
-	//            callback();
-	//        },
-	//        test1: function (test: nodeunit.Test): void {
-	//            test.done();
-	//        }
+	//      setUp: (callback) => {
+	// 	      callback();
+	//      },
+	//      tearDown: (callback) => {
+	// 	       callback();
+	//      },
+	//      test1: (test: nodeunit.Test) => {
+	//          test.done();
+	//      }
 	//    }
 	//    exports.testgroup = testGroup;
 
@@ -48,12 +53,14 @@ declare module 'nodeunit' {
 	}
 
 	export interface ITestGroup {
+		/** The setUp function is run before each test */
 		setUp?: (callback: ICallbackFunction) => void;
+		/** The tearDown function is run after each test calls test.done() */
 		tearDown?: (callback: ICallbackFunction) => void;
+		[property: string] : ITestGroup | ITestBody | ((callback: ICallbackFunction) => void);
 	}
 
 	export interface ICallbackFunction {
 		(err?: any): void;
 	}
 }
-
