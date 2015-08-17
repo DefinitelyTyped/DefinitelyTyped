@@ -247,38 +247,38 @@ declare module "sequelize"
              *
              * @param schema Name of the schema.
              */
-            createSchema(schema: string): EventEmitter;
+            createSchema(schema: string): Promise;
 
             /**
              * Show all defined schemas.
              */
-            showAllSchemas(): EventEmitter;
+            showAllSchemas(): Promise;
 
             /**
              * Drop a single schema.
              *
              * @param schema Name of the schema.
              */
-            dropSchema(schema: string): EventEmitter;
+            dropSchema(schema: string): Promise;
 
             /**
              * Drop all schemas.
              */
-            dropAllSchemas(): EventEmitter;
+            dropAllSchemas(): Promise;
 
             /**
              * Sync all defined DAOs to the DB.
              *
              * @param options Options.
              */
-            sync(options?: SyncOptions): EventEmitter;
+            sync(options?: SyncOptions): Promise;
 
             /**
              * Drop all tables defined through this sequelize instance. This is done by calling Model.drop on each model.
              *
              * @param options The options passed to each call to Model.drop.
              */
-            drop(options: DropOptions): EventEmitter;
+            drop(options: DropOptions): Promise;
 
             /**
              * Test the connection by trying to authenticate. Alias for 'validate'.
@@ -412,7 +412,7 @@ declare module "sequelize"
              * @param queryOptions  Set the query options, e.g. raw, specifying that you want raw data instead of built
              *                      Instances. See sequelize.query for options
              */
-            find(options?: FindOptions, queryOptions?: QueryOptions): PromiseT<TInstance>;
+            findOne(options?: FindOptions, queryOptions?: QueryOptions): PromiseT<TInstance>;
 
             /**
              * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single instance.
@@ -421,7 +421,7 @@ declare module "sequelize"
              * @param queryOptions  Set the query options, e.g. raw, specifying that you want raw data instead of built
              *                      Instances. See sequelize.query for options
              */
-            find(id?: number, queryOptions?: QueryOptions): PromiseT<TInstance>;
+            findById(id?: number, queryOptions?: QueryOptions): PromiseT<TInstance>;
 
             /**
              * Run an aggregation method on the specified field.
@@ -1258,7 +1258,7 @@ declare module "sequelize"
 
         interface Migrator {
             queryInterface: QueryInterface;
-            migrate(options?: MigratorOptions): EventEmitter;
+            migrate(options?: MigratorOptions): Promise;
             getUndoneMigrations(callback: (err: Error, result: Array<Migrator>) => void): void;
             findOrCreateMetaDAO(syncOptions?: SyncOptions): EventEmitter;
             exec(filename: string, options?: MigratorExecOptions): EventEmitter;
@@ -2470,6 +2470,11 @@ declare module "sequelize"
              * Shorthand for then(null, onRejected)
              */
             catch(onRejected: (result?: any) => void): Promise;
+            
+             /**
+             * Shorthand for catch(error, onRejected)
+             */
+            catch(error:Error, onRejected: (result?: any) => void): Promise;
         }
 
         interface PromiseT<T> extends Promise {
@@ -2604,6 +2609,21 @@ declare module "sequelize"
              * Shorthand for then(null, onRejected)
              */
             catch(onRejected: (result?: T) => void): Promise;
+            
+            /**
+            * Shorthand for then(Error, onRejected)
+            */
+            catch(error:Error, onRejected: (result?: T) => Promise): Promise;
+            
+                 /**
+            * Shorthand for then(Error, onRejected)
+            */
+            catch<R>(error:Error, onRejected: (result?: T) => PromiseT<R>): PromiseT<R>;
+            
+            /**
+            * Shorthand for then(Error, onRejected)
+            */
+            catch(error:Error, onRejected: (result?: T) => void): Promise;
         }
 
         interface Utils {
