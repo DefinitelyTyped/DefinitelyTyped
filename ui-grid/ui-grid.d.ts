@@ -248,7 +248,7 @@ declare module uiGrid {
         clearRowInvisible(rowEntity: any): void;
         getVisibleRows(grid: IGridInstance): Array<IGridRow>;
         handleWindowResize(): void;
-        notifiyDataChange(type: string): void;
+        notifyDataChange(type: string): void;
         refreshRows(): ng.IPromise<boolean>;
         registerColumnsProcessor(processorFunction: IColumnProcessor, priority: number): void;
         registerRowsProcessor(rowProcessor: IRowProcessor, priority: number): void;
