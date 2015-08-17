@@ -5909,6 +5909,24 @@ declare module _ {
         isMatch(source: Object, customizer?: isMatchCustomizer, thisArg?: any): boolean;
     }
 
+    //_.isNaN
+    interface LoDashStatic {
+        /**
+         * Checks if value is NaN.
+         * Note: This method is not the same as isNaN which returns true for undefined and other non-numeric values.
+         * @param value The value to check.
+         * @return Returns true if value is NaN, else false.
+         */
+        isNaN(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isNaN
+         */
+        isNaN(): boolean;
+    }
+
     //_.isNative
     interface LoDashStatic {
         /**
@@ -6762,19 +6780,6 @@ declare module _ {
         * @return True if the value is a function, else false.
         **/
         isFunction(value?: any): boolean;
-    }
-
-    //_.isNaN
-    interface LoDashStatic {
-        /**
-        * Checks if value is NaN.
-        *
-        * Note: This is not the same as native isNaN which will return true for undefined and other
-        * non-numeric values. See http://es5.github.io/#x15.1.2.4.
-        * @param value The value to check.
-        * @return True if the value is NaN, else false.
-        **/
-        isNaN(value?: any): boolean;
     }
 
     //_.isNull
