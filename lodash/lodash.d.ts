@@ -255,14 +255,14 @@ declare module _ {
         concat(...items: T[]): LoDashArrayWrapper<T>;
         join(seperator?: string): string;
         pop(): T;
-        push(...items: T[]): void;
+        push(...items: T[]): LoDashArrayWrapper<T>;
         reverse(): LoDashArrayWrapper<T>;
         shift(): T;
         slice(start: number, end?: number): LoDashArrayWrapper<T>;
         sort(compareFn?: (a: T, b: T) => number): LoDashArrayWrapper<T>;
         splice(start: number): LoDashArrayWrapper<T>;
         splice(start: number, deleteCount: number, ...items: any[]): LoDashArrayWrapper<T>;
-        unshift(...items: any[]): LoDashWrapper<number>;
+        unshift(...items: T[]): LoDashArrayWrapper<T>;
     }
 
     interface LoDashNumberArrayWrapper extends LoDashArrayWrapper<number> { }
