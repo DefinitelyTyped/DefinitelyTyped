@@ -5944,6 +5944,23 @@ declare module _ {
         isNative(): boolean;
     }
 
+    //_.isTypedArray
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a typed array.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isTypedArray(value: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isTypedArray
+         */
+        isTypedArray(): boolean;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
