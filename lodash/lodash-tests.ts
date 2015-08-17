@@ -1050,6 +1050,42 @@ helloWrap2();
  * Lang *
  ********/
 
+// _.cloneDeep
+interface TestCloneDeepFn {
+    (value: any): any;
+}
+var testCloneDeepFn: TestCloneDeepFn;
+result = <number>_.cloneDeep<number>(1);
+result = <number>_.cloneDeep<number>(1, testCloneDeepFn);
+result = <number>_.cloneDeep<number>(1, testCloneDeepFn, any);
+result = <string>_.cloneDeep<string>('a');
+result = <string>_.cloneDeep<string>('a', testCloneDeepFn);
+result = <string>_.cloneDeep<string>('a', testCloneDeepFn, any);
+result = <boolean>_.cloneDeep<boolean>(true);
+result = <boolean>_.cloneDeep<boolean>(true, testCloneDeepFn);
+result = <boolean>_.cloneDeep<boolean>(true, testCloneDeepFn, any);
+result = <number[]>_.cloneDeep<number[]>([1, 2]);
+result = <number[]>_.cloneDeep<number[]>([1, 2], testCloneDeepFn);
+result = <number[]>_.cloneDeep<number[]>([1, 2], testCloneDeepFn, any);
+result = <{a: {b: number;}}>_.cloneDeep<{a: {b: number;}}>({a: {b: 2}});
+result = <{a: {b: number;}}>_.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepFn);
+result = <{a: {b: number;}}>_.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepFn, any);
+result = <number>_(1).cloneDeep();
+result = <number>_(1).cloneDeep(testCloneDeepFn);
+result = <number>_(1).cloneDeep(testCloneDeepFn, any);
+result = <string>_('a').cloneDeep();
+result = <string>_('a').cloneDeep(testCloneDeepFn);
+result = <string>_('a').cloneDeep(testCloneDeepFn, any);
+result = <boolean>_(true).cloneDeep();
+result = <boolean>_(true).cloneDeep(testCloneDeepFn);
+result = <boolean>_(true).cloneDeep(testCloneDeepFn, any);
+result = <number[]>_([1, 2]).cloneDeep();
+result = <number[]>_([1, 2]).cloneDeep(testCloneDeepFn);
+result = <number[]>_([1, 2]).cloneDeep(testCloneDeepFn, any);
+result = <{a: {b: number;}}>_({a: {b: 2}}).cloneDeep();
+result = <{a: {b: number;}}>_({a: {b: 2}}).cloneDeep(testCloneDeepFn);
+result = <{a: {b: number;}}>_({a: {b: 2}}).cloneDeep(testCloneDeepFn, any);
+
 // _.gt
 result = <boolean>_.gt(1, 2);
 result = <boolean>_(1).gt(2);
@@ -1158,11 +1194,6 @@ result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCre
 result = <IStoogesAge[]>_.clone(stoogesAges);
 result = <IStoogesAge[]>_.clone(stoogesAges, true);
 result = <any>_.clone(stoogesAges, true, function (value) {
-    return _.isElement(value) ? value.cloneNode(false) : undefined;
-});
-
-result = <IStoogesAge[]>_.cloneDeep(stoogesAges);
-result = <IStoogesAge[]>_.cloneDeep(stoogesAges, function (value) {
     return _.isElement(value) ? value.cloneNode(false) : undefined;
 });
 
