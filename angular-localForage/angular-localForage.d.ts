@@ -46,14 +46,14 @@ declare module angular.localForage {
 
         iterate<T>(iteratorCallback:(value:string | number, key:string)=>T):angular.IPromise<T>;
 
-        bind($scope:ng.IScope, key:string):void;
+        bind($scope:ng.IScope, key:string):angular.IPromise<any>;
 
         bind($scope:ng.IScope, config:{
             key:string;
-            defaultValue:any;
-            scopeKey:string;
-            name:string;
-        }):void;
+            defaultValue?:any;
+            scopeKey?:string;
+            name?:string;
+        }):angular.IPromise<any>;
 
         unbind($scope:ng.IScope, key:string, scopeKey?:string):void;
 

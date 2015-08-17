@@ -58,5 +58,8 @@ declare module jquery.velocity {
 		delay?: any;
 		mobileHA?: boolean;
 		_cacheValues?: boolean;
+		container?: JQuery;
+		axis?: string;
+		offset?: number;
 	}
 }
