@@ -40,6 +40,7 @@ declare module "express" {
             delete(...handler: RequestHandler[]): IRoute;
             patch(...handler: RequestHandler[]): IRoute;
             options(...handler: RequestHandler[]): IRoute;
+            head(...handler: RequestHandler[]): IRoute;
         }
 
         interface IRouterMatcher<T> {
@@ -97,6 +98,7 @@ declare module "express" {
             delete: IRouterMatcher<T>;
             patch: IRouterMatcher<T>;
             options: IRouterMatcher<T>;
+            head: IRouterMatcher<T>;
 
             route(path: string): IRoute;
 
