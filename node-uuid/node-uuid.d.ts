@@ -60,3 +60,5 @@ declare module "node-uuid" {
     var uuid: UUID;
     export = uuid;
 }
+
+declare var uuid: UUID;
