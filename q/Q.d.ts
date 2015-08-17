@@ -50,10 +50,7 @@ declare module Q {
          *
          * This is especially useful in conjunction with all
          */
-        spread<U>(onFulfill: (...args: any[]) => IPromise<U>, onReject?: (reason: any) => IPromise<U>): Promise<U>;
-        spread<U>(onFulfill: (...args: any[]) => IPromise<U>, onReject?: (reason: any) => U): Promise<U>;
-        spread<U>(onFulfill: (...args: any[]) => U, onReject?: (reason: any) => IPromise<U>): Promise<U>;
-        spread<U>(onFulfill: (...args: any[]) => U, onReject?: (reason: any) => U): Promise<U>;
+        spread<U>(onFulfill: (...args: any[]) => IPromise<U> | U, onReject?: (reason: any) => IPromise<U> | U): Promise<U>;
 
         fail<U>(onRejected: (reason: any) => U | IPromise<U>): Promise<U>;
 
