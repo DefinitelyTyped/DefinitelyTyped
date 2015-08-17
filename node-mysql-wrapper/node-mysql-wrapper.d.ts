@@ -3,8 +3,7 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='./../mysql/mysql.d.ts' />
-///<reference path='./../bluebird/bluebird.d.ts' />
+///<reference path='../mysql/mysql.d.ts' />
 
 declare module "node-mysql-wrapper" {
     import Mysql = require("mysql");
@@ -60,14 +59,14 @@ declare module "node-mysql-wrapper" {
         on(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
         unwatch(evtType: EVENT_TYPES|string, callbackToRemove: () => void): void;
         off(evtType: EVENT_TYPES|string, callbackToRemove: () => void): void;
-        
+
         ///START DYNAMIC METHODS FOR TABLES CANNOT BE PRE-DEFINED WITH DYNAMIC WAY, YET, SO:
         find<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
         save<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
         remove<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
         delete<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
         safeDelete<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
-        ///END 
+        ///END
         findAll<U>(callback?: (results: Object[]) => void): Promise<U>;
 
         extend(functionName: string, functionToBeSupported: () => any): void;
@@ -128,6 +127,4 @@ declare module "node-mysql-wrapper" {
     }
 
     export = MySQLWrapperBuilder;
-
-
 }
