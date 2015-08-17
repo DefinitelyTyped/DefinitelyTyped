@@ -7463,7 +7463,26 @@ declare module _ {
 
     interface LoDashStatic {
         repeat(str?: string, n?: number): string;
-        snakeCase(str?: string): string;
+    }
+
+    //_.snakeCase
+    interface LoDashStatic {
+        /**
+         * Converts string to snake case.
+         * @param string The string to convert.
+         * @return Returns the snake cased string.
+         */
+        snakeCase(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.snakeCase
+         */
+        snakeCase(): string;
+    }
+
+    interface LoDashStatic {
         startCase(str?: string): string;
         startsWith(str?: string, target?: string, position?: number): boolean;
     }
