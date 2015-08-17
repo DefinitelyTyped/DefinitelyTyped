@@ -1462,8 +1462,6 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 * Utilities *
 ***********/
 
-result = <string>_.escape('Moe, Larry & Curly');
-
 result = <{ name: string }>_.identity({ 'name': 'moe' });
 
 _.mixin({
@@ -1545,8 +1543,6 @@ result = _.times(3, <() => number>_.partial(_.random, 1, 6));
 result = _.times(3, function (n: number) { mage.castSpell(n); });
 result = _.times(3, function (n: number) { this.cast(n); }, mage);
 
-result = <string>_.unescape('Moe, Larry &amp; Curly');
-
 result = <string>_.uniqueId('contact_');
 result = <string>_.uniqueId();
 
@@ -1558,8 +1554,15 @@ result = <string>_.camelCase('Foo Bar');
 result = <string>_.capitalize('fred');
 result = <string>_.deburr('déjà vu');
 result = <boolean>_.endsWith('abc', 'c');
+
+// _.escape
 result = <string>_.escape('fred, barney, & pebbles');
+result = <string>_('fred, barney, & pebbles').escape();
+
+// _.escapeRegExp
 result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
+result = <string>_('[lodash](https://lodash.com/)').escapeRegExp();
+
 result = <string>_.kebabCase('Foo Bar');
 result = <string>_.pad('abc', 8);
 result = <string>_.pad('abc', 8, '_-');
@@ -1605,6 +1608,11 @@ result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+
+// _.unescape
+result = <string>_.unescape('fred, barney, &amp; pebbles');
+result = <string>_('fred, barney, &amp; pebbles').unescape();
+
 result = <string[]>_.words('fred, barney, & pebbles');
 result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
 
