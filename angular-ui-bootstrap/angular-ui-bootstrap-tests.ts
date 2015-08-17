@@ -121,8 +121,8 @@ testApp.config((
         placement: 'bottom',
         animation: false,
         popupDelay: 1000,
-        appendToBody: true
-        useContentExp: true
+        appendToBody: true,
+        useContentExp: true,
     });
     $tooltipProvider.setTriggers({
         'customOpenTrigger': 'customCloseTrigger'
