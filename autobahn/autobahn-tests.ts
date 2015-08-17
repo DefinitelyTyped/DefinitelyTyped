@@ -1,5 +1,7 @@
 /// <reference path="autobahn.d.ts"/>
 
+import autobahn = require("autobahn");
+
 class MyClass {
     add2Count: number = 0;
     session: autobahn.Session;

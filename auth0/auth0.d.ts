@@ -33,7 +33,7 @@ interface Auth0Static {
 interface Auth0ClientOptions {
     clientID: string;
     callbackURL: string;
-    callbackOnLoactionHash?: boolean;
+    callbackOnLocationHash?: boolean;
     domain: string;
     forceJSONP?: boolean;
 }
