@@ -688,7 +688,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take<T>(
+        takeWhile<T>(
             array: Array<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T[];
@@ -696,7 +696,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take<T>(
+        takeWhile<T>(
             array: List<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T[];
@@ -704,28 +704,28 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take<T>(
+        takeWhile<T>(
             array: Array<T>,
             pluckValue: string): T[];
 
         /**
         * @see _.first
         **/
-        take<T>(
+        takeWhile<T>(
             array: List<T>,
             pluckValue: string): T[];
 
         /**
         * @see _.first
         **/
-        take<W, T>(
+        takeWhile<W, T>(
             array: Array<T>,
             whereValue: W): T[];
 
         /**
         * @see _.first
         **/
-        take<W, T>(
+        takeWhile<W, T>(
             array: List<T>,
             whereValue: W): T[];
     }
@@ -811,7 +811,7 @@ declare module _ {
         * @param callback The function called per element.
         * @param [thisArg] The this binding of callback.
         **/
-        take(
+        takeWhile(
             callback: ListIterator<T, boolean>,
             thisArg?: any): LoDashArrayWrapper<T>;
 
@@ -819,13 +819,45 @@ declare module _ {
         * @see _.first
         * @param pluckValue "_.pluck" style callback value
         **/
-        take(pluckValue: string): LoDashArrayWrapper<T>;
+        takeWhile(pluckValue: string): LoDashArrayWrapper<T>;
 
         /**
         * @see _.first
         * @param whereValue "_.where" style callback value
         **/
-        take<W>(whereValue: W): LoDashArrayWrapper<T>;
+        takeWhile<W>(whereValue: W): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.rest
+        **/
+        drop(): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.rest
+        * @param n The number of elements to skip.
+        **/
+        drop(n: number): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.rest
+        * @param callback The function called per element.
+        * @param [thisArg] The this binding of callback.
+        **/
+        dropWhile(
+            callback: ListIterator<T, boolean>,
+            thisArg?: any): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.rest
+        * @param pluckValue "_.pluck" style callback value
+        **/
+        dropWhile(pluckValue: string): LoDashArrayWrapper<T>;
+
+        /**
+        * @see _.rest
+        * @param whereValue "_.where" style callback value
+        **/
+        dropWhile<W>(whereValue: W): LoDashArrayWrapper<T>;
     }
 
     interface MaybeNestedList<T> extends List<T|List<T>> { }
@@ -1327,7 +1359,7 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        drop<T>(
+        dropWhile<T>(
             array: Array<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T[];
@@ -1335,7 +1367,7 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        drop<T>(
+        dropWhile<T>(
             array: List<T>,
             callback: ListIterator<T, boolean>,
             thisArg?: any): T[];
@@ -1357,28 +1389,28 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        drop<T>(
+        dropWhile<T>(
             array: Array<T>,
             pluckValue: string): T[];
 
         /**
         * @see _.rest
         **/
-        drop<T>(
+        dropWhile<T>(
             array: List<T>,
             pluckValue: string): T[];
 
         /**
         * @see _.rest
         **/
-        drop<W, T>(
+        dropWhile<W, T>(
             array: Array<T>,
             whereValue: W): T[];
 
         /**
         * @see _.rest
         **/
-        drop<W, T>(
+        dropWhile<W, T>(
             array: List<T>,
             whereValue: W): T[];
 
@@ -2732,13 +2764,13 @@ declare module _ {
         /**
         * Iterates over elements of collection, returning the first element predicate returns
         * truthy for. The predicate is bound to thisArg and invoked with three arguments:
-        * (value, index|key, collection). 
+        * (value, index|key, collection).
         *
         * If a property name is provided for predicate the created _.property style callback
-        * returns the property value of the given element. 
+        * returns the property value of the given element.
         *
         * If a value is also provided for thisArg the created _.matchesProperty style callback
-        * returns true for elements that have a matching property value, else false. 
+        * returns true for elements that have a matching property value, else false.
         *
         * If an object is provided for predicate the created _.matches style callback returns
         * true for elements that have the properties of the given object, else false.
@@ -7562,6 +7594,26 @@ declare module _ {
          * @see _.constant
          */
         constant<TResult>(): () => TResult;
+    }
+
+    //_.inRange
+    interface LoDashStatic {
+        /**
+         * Checks if n is between 0 (inclusive) and end (exclusive).
+         * @param n The number to check.
+         * @param end The end of the range.
+         * @return true if n is in the range, else false
+         */
+        inRange(n: number, end: number): number;
+
+        /**
+         * Checks if n is between start (inclusive) and end (exclusive).
+         * @param n The number to check.
+         * @param start The start of the range.
+         * @param end The end of the range.
+         * @return true if n is in the range, else false
+         */
+        inRange(n: number, start: number, end: number): number;
     }
 
     interface ListIterator<T, TResult> {
