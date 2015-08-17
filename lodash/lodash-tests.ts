@@ -1571,6 +1571,10 @@ result = <void>_(any).noop(true, 'a', 1);
 
 var object = {
     'cheese': 'crumpets',
+    'one': 1,
+    'nested': {
+        'two': 2
+    },
     'stuff': function () {
         return 'nonsense';
     }
@@ -1578,6 +1582,8 @@ var object = {
 
 result = <string>_.result(object, 'cheese');
 result = <string>_.result(object, 'stuff');
+result = _.result<number>(object, 'one');
+result = _.result<number>(object, ['nested', 'two'] );
 
 var tempObject = {};
 result = <typeof _>_.runInContext(tempObject);
