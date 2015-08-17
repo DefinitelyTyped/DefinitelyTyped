@@ -5861,6 +5861,24 @@ declare module _ {
         gte(other: any): boolean;
     }
 
+    //_.isEmpty
+    interface LoDashStatic {
+        /**
+         * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
+         * jQuery-like collection with a length greater than 0 or an object with own enumerable properties.
+         * @param value The value to inspect.
+         * @return Returns true if value is empty, else false.
+         **/
+        isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isEmpty
+         */
+        isEmpty(): boolean;
+    }
+
     //_.isMatch
     interface isMatchCustomizer {
         (value: any, other: any, indexOrKey?: number|string): boolean;
@@ -6627,17 +6645,6 @@ declare module _ {
         * @return True if the value is a DOM element, else false.
         **/
         isElement(value?: any): boolean;
-    }
-
-    //_.isEmpty
-    interface LoDashStatic {
-        /**
-        * Checks if value is empty. Arrays, strings, or arguments objects with a length of 0 and objects
-        * with no own enumerable properties are considered "empty".
-        * @param value The value to inspect.
-        * @return True if the value is empty, else false.
-        **/
-        isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
     }
 
     //_.isError
