@@ -1062,6 +1062,14 @@ result = <boolean>_(1).gte(2);
 result = <boolean>_([]).gte(2);
 result = <boolean>_({}).gte(2);
 
+// _.isEmpty
+result = <boolean>_.isEmpty([1, 2, 3]);
+result = <boolean>_.isEmpty({});
+result = <boolean>_.isEmpty('');
+result = <boolean>_([1, 2, 3]).isEmpty();
+result = <boolean>_({}).isEmpty();
+result = <boolean>_('').isEmpty();
+
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
 result = <boolean>_.isMatch({}, {});
@@ -1281,10 +1289,6 @@ result = <boolean>_.isBoolean(null);
 result = <boolean>_.isDate(new Date());
 
 result = <boolean>_.isElement(document.body);
-
-result = <boolean>_.isEmpty([1, 2, 3]);
-result = <boolean>_.isEmpty({});
-result = <boolean>_.isEmpty('');
 
 // _.isEqual (alias: _.eq)
 result = <boolean>_.isEqual(1, 1);
