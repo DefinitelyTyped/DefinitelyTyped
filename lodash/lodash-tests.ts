@@ -639,6 +639,7 @@ result = <number>_(stoogesAgesDict).sum('age');
 
 result = <string[]>_.pluck(stoogesAges, 'name');
 result = <string[]>_(stoogesAges).pluck('name').value();
+result = <string[]>_.pluck(stoogesAges, ['name']);
 
 // _.partition
 result = <string[][]>_.partition<string>('abcd', (n) => n < 'c');
