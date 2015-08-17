@@ -753,8 +753,6 @@ declare module JQueryUI {
         heightStyle?: string;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
-
-        activate?: TabsEvent;
     }
 
     interface TabsActivationUIParams {
@@ -784,7 +782,8 @@ declare module JQueryUI {
         activate?: TabsEvent<TabsActivationUIParams>;
         beforeActivate?: TabsEvent<TabsActivationUIParams>;
         beforeLoad?: TabsEvent<TabsBeforeLoadUIParams>;
-        load?: TabsEvent;
+        load?: TabsEvent<TabsCreateOrLoadUIParams>;
+        create?: TabsEvent<TabsCreateOrLoadUIParams>;
     }
 
     interface Tabs extends Widget, TabsOptions {
