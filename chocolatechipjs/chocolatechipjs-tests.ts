@@ -1,4 +1,4 @@
-/// <reference path="chocolatechipjs.d.ts" />
+/// <reference path="../chocolatechipjs/chocolatechipjs.d.ts" />
 // ChocolateChipStatic -- DOM creation, etc.
 $(function() {
     alert('Ready to do stuff!');
@@ -43,7 +43,7 @@ $.isInteger(123);
 $.isInteger(123.123); // should return false
 $.isFloat(123.123); // should return true
 var newUuid = $.makeUuid();
-$.each(['a', 'b', 'c'], function(ctx, idx) {
+$.each(['a', 'b', 'c'], function(ctx: string, idx: number) {
     console.log(ctx);
     console.log(idx);
 });
@@ -410,6 +410,10 @@ var repeaterTmplate2 = '<li>[[= data.firstName ]], [[= data.lastName]]</li>';
 // Pass in the array of persons:
 $.template.repeater($('#objectArrayList'), repeaterTmplate2, luminaries.persons);
 
+// Code for declarative repeater:
+$.template.data['myRepeater'] = [{ name: "Joe" }, { name: "Sally" }, {name: "Tom" }];
+$.template.repeater();
+
 // Pub/Sub:
 var arraySubscriber = function(topic: string, data: any): any {
     $('.list').append('<li><h3>' + topic + '</h3><h4>' + data + '</h4></li>');
@@ -419,4 +423,3 @@ $.publish('news/update', 'The New York Stock Exchange rose an unprecedented 1000
 $.unsubscribe('news/update');
 // Due to being unsubscribed above, this does nothing:
 $.publish('news/update', 'We have nothing further to comment at this time.');
-
