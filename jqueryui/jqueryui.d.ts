@@ -54,7 +54,10 @@ declare module JQueryUI {
     }
 
     interface AutocompleteUIParams {
-
+        /**
+         * The item selected from the menu, if any. Otherwise the property is null
+         */
+        item?: any;
     }
 
     interface AutocompleteEvent {
