@@ -385,6 +385,22 @@ result = <any[][]>_.unzip(['moe', 'larry'], [30, 40], [true, false]);
 result = <any[][]>_(['moe', 'larry']).zip([30, 40], [true, false]).value();
 result = <any[][]>_(['moe', 'larry']).unzip([30, 40], [true, false]).value();
 
+// _.zipWith
+interface TestZipWithFn {
+    (a1: number, a2: number): number;
+}
+var testZipWithFn: TestZipWithFn;
+result = <number[]>_.zipWith<number>([1, 2]);
+result = <number[]>_.zipWith<number>([1, 2], testZipWithFn);
+result = <number[]>_.zipWith<number>([1, 2], testZipWithFn, any);
+result = <number[]>_.zipWith<number>([1, 2], [1, 2], testZipWithFn, any);
+result = <number[]>_.zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn, any);
+result = <number[]>_([1, 2]).zipWith<number>().value();
+result = <number[]>_([1, 2]).zipWith<number>(testZipWithFn).value();
+result = <number[]>_([1, 2]).zipWith<number>(testZipWithFn, any).value();
+result = <number[]>_([1, 2]).zipWith<number>([1, 2], testZipWithFn, any).value();
+result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn, any).value();
+
 // /* *************
 //  * Collections *
 //  ************* */
