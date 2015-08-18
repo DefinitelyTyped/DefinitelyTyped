@@ -1664,12 +1664,31 @@ result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
 result = <string>_('[lodash](https://lodash.com/)').escapeRegExp();
 
 result = <string>_.kebabCase('Foo Bar');
+
+// _.pad
+result = <string>_.pad('abd');
 result = <string>_.pad('abc', 8);
 result = <string>_.pad('abc', 8, '_-');
+result = <string>_('abc').pad();
+result = <string>_('abc').pad(8);
+result = <string>_('abc').pad(8, '_-');
+
+// _.padLeft
+result = <string>_.padLeft('abc');
 result = <string>_.padLeft('abc', 6);
 result = <string>_.padLeft('abc', 6, '_-');
+result = <string>_('abc').padLeft();
+result = <string>_('abc').padLeft(6);
+result = <string>_('abc').padLeft(6, '_-');
+
+// _.padRight
+result = <string>_.padRight('abc');
 result = <string>_.padRight('abc', 6);
 result = <string>_.padRight('abc', 6, '_-');
+result = <string>_('abc').padRight();
+result = <string>_('abc').padRight(6);
+result = <string>_('abc').padRight(6, '_-');
+
 result = <string>_.repeat('*', 3);
 
 // _.parseInt
