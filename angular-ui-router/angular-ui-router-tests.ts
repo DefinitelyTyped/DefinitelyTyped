@@ -14,10 +14,26 @@ myApp.config((
 
   var matcher: ng.ui.IUrlMatcher = $urlMatcherFactory.compile("/foo/:bar?param1");
 
+  $urlMatcherFactory.caseInsensitive(false);
+  var isCaseInsensitive = $urlMatcherFactory.caseInsensitive();
+
+  $urlMatcherFactory.defaultSquashPolicy("nosquash");
+
+  $urlMatcherFactory.strictMode(true);
+  var isStrictMode = $urlMatcherFactory.strictMode();
+
   $urlMatcherFactory.type("myType2", {
     encode: function (item: any) { return item; },
     decode: function (item: any) { return item; },
     is: function (item: any) { return true; }
+  });
+
+  $urlMatcherFactory.type("fullType", {
+    decode: (val) => parseInt(val, 10),
+    encode: (val) => val && val.toString(),
+    equals: (a, b) => this.is(a) && a === b,
+    is: (val) => angular.isNumber(val) && isFinite(val) && val % 1 === 0,
+    pattern: /\d+/
   });
 
   var obj: Object = matcher.exec('/user/bob', { x:'1', q:'hello' });
@@ -176,4 +192,36 @@ module UiViewScrollProviderTests {
         // And https://github.com/angular-ui/ui-router/releases/tag/0.2.8
         $uiViewScrollProvider.useAnchorScroll();
     }]);
+}
+
+interface ITestUserService {
+    isLoggedIn: () => boolean;
+    handleLogin: () => ng.IPromise<{}>;
+}
+
+module UrlRouterProviderTests {
+    var app = angular.module("urlRouterProviderTests", ["ui.router"]);
+
+    app.config(($urlRouterProvider: ng.ui.IUrlRouterProvider) => {
+        // Prevent $urlRouter from automatically intercepting URL changes;
+        // this allows you to configure custom behavior in between
+        // location changes and route synchronization:
+        $urlRouterProvider.deferIntercept();
+    }).run(($rootScope: ng.IRootScopeService, $urlRouter: ng.ui.IUrlRouterService, UserService: ITestUserService) => {
+        $rootScope.$on('$locationChangeSuccess', e => {
+            // UserService is an example service for managing user state
+            if (UserService.isLoggedIn()) return;
+
+            // Prevent $urlRouter's default handler from firing
+            e.preventDefault();
+
+            UserService.handleLogin().then(() => {
+                // Once the user has logged in, sync the current URL to the router:
+                $urlRouter.sync();
+            });
+        });
+
+        // Configures $urlRouter's listener *after* your custom listener
+        $urlRouter.listen();
+    });
 }
