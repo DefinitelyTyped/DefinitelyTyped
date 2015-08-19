@@ -222,12 +222,12 @@ declare module angular {
 
         // returned interface by the the mocked HttpBackendService expect/when methods
         interface IRequestHandler {
-            respond(func: Function): void;
-            respond(status: number, data?: any, headers?: any): void;
-            respond(data: any, headers?: any): void;
+            respond(func: (method: string, url?: string, data?: any, headers?: any) => any[]): IRequestHandler;
+            respond(status: number, data?: any, headers?: any, statusText?: string): IRequestHandler;
+            respond(data: any, headers?: any, statusText?: string): IRequestHandler;
 
             // Available wehn ngMockE2E is loaded
-            passThrough(): void;
+            passThrough(): IRequestHandler;
         }
 
     }
