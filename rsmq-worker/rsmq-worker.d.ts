@@ -9,44 +9,45 @@ declare module "rsmq-worker" {
     import redis = require('redis');
     import events = require('events');
 
-    interface CallbackT<R> {
-        (e?:Error, res?:R): void;
+    module RSMQWorker {
+        export interface Client extends events.EventEmitter {
+            start(): Client;
+            stop(): Client;
+            send(message: string, delay?: number, cb?: CallbackT<string>): Client;
+            send(message: string, cb: CallbackT<string>): Client;
+            del(id: string, cb?: CallbackT<void>): Client;
+            changeInterval(interval: number|number[]): Client;
+        }
+
+        export interface Options {
+            interval?: number;
+            maxReceiveCount?: number;
+            invisibletime?: number;
+            defaultDelay?: number;
+            autostart?: boolean;
+            timeout: number;
+            customExceedCheck?: CustomExceedCheckCallback;
+            rsmq?: RedisSMQ.Client;
+            redis?: redis.RedisClient;
+            redisPrefix?: string;
+            host?: string;
+            port?: number;
+            options?: redis.ClientOpts;
+        }
+
+        export interface CustomExceedCheckCallback {
+            (message: RedisSMQ.Message): boolean;
+        }
+
+        export interface CallbackT<R> {
+            (e?:Error, res?:R): void;
+        }
     }
 
     interface RSMQWorkerStatic {
-        new(queuename: string, options?: WorkerOptions): RSMQWorker;
+        new(queuename: string, options?: RSMQWorker.Options): RSMQWorker.Client;
     }
 
-    interface WorkerOptions {
-        interval?: number;
-        maxReceiveCount?: number;
-        invisibletime?: number;
-        defaultDelay?: number;
-        autostart?: boolean;
-        timeout: number;
-        customExceedCheck?: CustomExceedCheckCallback;
-        rsmq?: RedisSMQ.Client;
-        redis?: redis.RedisClient;
-        redisPrefix?: string;
-        host?: string;
-        port?: number;
-        options?: redis.ClientOpts;
-    }
-
-    interface CustomExceedCheckCallback {
-        (message: RedisSMQ.Message): boolean;
-    }
-
-
-    interface RSMQWorker extends events.EventEmitter {
-        start(): RSMQWorker;
-        stop(): RSMQWorker;
-        send(message: string, delay?: number, cb?: CallbackT<string>): RSMQWorker;
-        send(message: string, cb: CallbackT<string>): RSMQWorker;
-        del(id: string, cb?: CallbackT<void>): RSMQWorker;
-        changeInterval(interval: number|number[]): RSMQWorker;
-    }
-
-    var worker: RSMQWorkerStatic;
-    export = worker;
+    var RSMQWorker: RSMQWorkerStatic;
+    export = RSMQWorker;
 }
