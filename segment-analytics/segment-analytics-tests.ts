@@ -21,6 +21,10 @@ var testCb = function() {};
 
 /////////////
 
+function test_load() {
+  analytics.load("YOUR_WRITE_KEY");
+}
+
 function test_identify() {
   // userId and traits
   analytics.identify('1e810c197e', {
@@ -63,6 +67,7 @@ function testTrack() {
 }
 
 function testPage() {
+  analytics.page();
   analytics.page('Signup');
 
   analytics.page('Pricing', {
