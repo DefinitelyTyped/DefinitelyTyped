@@ -1683,7 +1683,12 @@ result = <string>_.snakeCase('Foo Bar');
 result = <string>_('Foo Bar').snakeCase();
 
 result = <string>_.startCase('--foo-bar');
+
+// _.startsWith
 result = <boolean>_.startsWith('abc', 'a');
+result = <boolean>_.startsWith('abc', 'a', 1);
+result = <boolean>_('abc').startsWith('a');
+result = <boolean>_('abc').startsWith('a', 1);
 
 // _.trim
 result = <string>_.trim();
