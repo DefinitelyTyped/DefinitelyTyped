@@ -6,8 +6,9 @@
 declare module SegmentAnalytics {
 
   // Generic options object with integrations
-  interface ISegmentOpts<Integrations> {
-    integrations: Integrations;
+  interface SegmentOpts<Integrations> {
+    integrations?: Integrations;
+    anonymousId?: string;
   };
 
   // The actual analytics.js object
@@ -19,12 +20,12 @@ declare module SegmentAnalytics {
     /* The identify method is how you tie one of your users and their actions
        to a recognizable userId and traits. */
     identify(userId: string, traits?: Object,
-             options?: ISegmentOpts<Integrations>,
+             options?: SegmentOpts<Integrations>,
              callback?: () => void): void;
     identify(userId: string, traits: Object, callback?: () => void): void;
     identify(userId: string, callback?: () => void): void;
     identify(traits?: Object,
-             options?: ISegmentOpts<Integrations>,
+             options?: SegmentOpts<Integrations>,
              callback?: () => void): void;
     identify(traits?: Object,
              callback?: () => void): void;
@@ -32,7 +33,7 @@ declare module SegmentAnalytics {
 
     /* The track method lets you record any actions your users perform. */
     track(event: string, properties?: Object,
-          options?: ISegmentOpts<Integrations>,
+          options?: SegmentOpts<Integrations>,
           callback?: () => void): void;
     track(event: string, properties?: Object,
           callback?: () => void): void;
@@ -41,17 +42,26 @@ declare module SegmentAnalytics {
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
     page(category: string, name: string, properties?: Object,
-         options?: ISegmentOpts<Integrations>,
+         options?: SegmentOpts<Integrations>,
          callback?: () => void): void;
     page(name?: string, properties?: Object,
-         options?: ISegmentOpts<Integrations>,
+         options?: SegmentOpts<Integrations>,
          callback?: () => void): void;
     page(name?: string, properties?: Object, callback?: () => void): void;
     page(name?: string, callback?: () => void): void;
     page(properties?: Object,
-         options?: ISegmentOpts<Integrations>,
+         options?: SegmentOpts<Integrations>,
          callback?: () => void): void;
     page(callback?: () => void): void;
+
+    /* The group method associates an individual user with a group. The group
+       can a company, organization, account, project, team or any other name 
+       you came up with for the same concept. */
+    group(groupId: string, traits?: Object,
+          options?: SegemntOpts<Integrations>,
+          callback?: () => void): void;
+    group(groupId: string, traits?: Object, callback?: () => void): void;
+    group(groupId: string, callback?: () => void): void;
 
     /* The alias method combines two previously unassociated user identities.
        This comes in handy if the same user visits from two different devices
@@ -61,11 +71,11 @@ declare module SegmentAnalytics {
        user signs up (like Mixpanel), so you need to call alias manually right
        after sign up with their brand new userId. */
     alias(userId: string, previousId?: string,
-          options?: ISegmentOpts<Integrations>,
+          options?: SegmentOpts<Integrations>,
           callback?: () => void): void;
     alias(userId: string, previousId?: string, callback?: () => void): void;
     alias(userId: string, callback?: () => void): void;
-    alias(userId: string, options?: ISegmentOpts<Integrations>,
+    alias(userId: string, options?: SegmentOpts<Integrations>,
           callback?: () => void): void;
 
     /* trackLink is a helper that binds a track call to whenever a link is
@@ -90,9 +100,9 @@ declare module SegmentAnalytics {
       id(): string;
       logout(): void;
       reset(): void;
+      anonymousId(newId?: string): string;
     };
   }
 }
 
-
-// declare var analytics: ISegment<IIntegrations>;
+declare var analytics: SegmentAnalytics.AnalyticsJS<any>;
