@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://gitbus.com/couven92>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path='../webrtc/MediaStream.d.ts'/>
