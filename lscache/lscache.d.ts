@@ -36,12 +36,13 @@ interface LSCache {
     * Appends CACHE_PREFIX so lscache will partition data in to different buckets.
     * @param {string} bucket
     */
-    setBucket(bucket: string);
+    setBucket(bucket: string):void;
     /**
     * Resets the string being appended to CACHE_PREFIX so lscache will use the default storage behavior.
     */
     resetBucket(): void;
 }
+declare var lscache:LSCache;
 declare module 'lscache' {
     var lscache: LSCache;
     export = lscache;
