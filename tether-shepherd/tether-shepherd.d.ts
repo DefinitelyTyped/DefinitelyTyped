@@ -143,7 +143,7 @@ declare module TetherShepherd {
         title?: string;
         attachTo?: any;
         beforeShowPromise?: any;
-        classes?: any;
+        classes?: string;
         buttons?: IShepherdTourButton[];
         advanceOn?: any;
         showCancelLink?: boolean;
@@ -156,9 +156,13 @@ declare module TetherShepherd {
 
     interface IShepherdTourButton {
         text: string;
-        classes: string[];
-        action?: any;
-        events?: any;
+        classes?: string;
+        action?: Function;
+        events?: IShepherdTourButtonEventHash;
+    }
+
+    interface IShepherdTourButtonEventHash {
+        [Key: string]: Function;
     }
 
     interface IShepherdTourAttachProperties {
