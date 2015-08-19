@@ -1,5 +1,4 @@
 ///<reference path='./node-mysql-wrapper.d.ts' />
-///<reference path='../es6-promise/es6-promise.d.ts' />
 
 import wrapper = require("node-mysql-wrapper");
 var db = wrapper("mysql://kataras:pass@127.0.0.1/taglub?debug=false&charset=utf8");
