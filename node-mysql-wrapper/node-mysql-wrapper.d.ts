@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../mysql/mysql.d.ts' />
+///<reference path='./../bluebird/bluebird.d.ts' />
 
 declare module "node-mysql-wrapper" {
     import Mysql = require("mysql");
