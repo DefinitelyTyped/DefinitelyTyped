@@ -57,7 +57,7 @@ declare module 'vinyl' {
 		/**
 		* Type: Buffer|Stream|null (Default: null)
 		*/
-        public contents: Buffer | NodeJS.ReadableStream;
+		public contents: Buffer | NodeJS.ReadableStream;
 		/**
 		* Returns path.relative for the file base and file path.
 		* Example:
