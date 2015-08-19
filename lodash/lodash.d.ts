@@ -7441,7 +7441,27 @@ declare module _ {
     interface LoDashStatic {
         camelCase(str?: string): string;
         capitalize(str?: string): string;
-        deburr(str?: string): string;
+    }
+
+    //_.deburr
+    interface LoDashStatic {
+        /**
+         * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
+         * diacritical marks.
+         * @param string The string to deburr.
+         * @return Returns the deburred string.
+         */
+        deburr(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.deburr
+         */
+        deburr(): string;
+    }
+
+    interface LoDashStatic {
         endsWith(str?: string, target?: string, position?: number): boolean;
     }
 

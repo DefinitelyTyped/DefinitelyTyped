@@ -1652,7 +1652,11 @@ result = <string>_.uniqueId();
 
 result = <string>_.camelCase('Foo Bar');
 result = <string>_.capitalize('fred');
+
+// _.deburr
 result = <string>_.deburr('déjà vu');
+result = <string>_('déjà vu').deburr();
+
 result = <boolean>_.endsWith('abc', 'c');
 
 // _.escape
