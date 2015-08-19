@@ -25,7 +25,7 @@ declare module "rsmq-worker" {
             invisibletime?: number;
             defaultDelay?: number;
             autostart?: boolean;
-            timeout: number;
+            timeout?: number;
             customExceedCheck?: CustomExceedCheckCallback;
             rsmq?: RedisSMQ.Client;
             redis?: redis.RedisClient;
