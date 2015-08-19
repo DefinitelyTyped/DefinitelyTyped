@@ -17,7 +17,7 @@ declare module SegmentAnalytics {
   interface AnalyticsJS {
 
     /* Configure Segment with write key */
-    load(writeKey: string);
+    load(writeKey: string): void;
 
     /* The identify method is how you tie one of your users and their actions
        to a recognizable userId and traits. */
@@ -76,25 +76,25 @@ declare module SegmentAnalytics {
        time to fire. */
     trackLink(elements: JQuery|Element[]|Element,
               event: string|{ (elm: Element): string },
-              properties?: Object|{ (elm: Element): Object });
+              properties?: Object|{ (elm: Element): Object }): void;
 
     /* trackForm is a helper that binds a track call to a form submission.
        Usually the page would change before you could call track, but with
        trackForm a small timeout is inserted to give the track call enough
        time to fire. */
     trackForm(elements: JQuery|Element[]|Element,
-              event: string|{ (Element): string },
-              properties?: Object|{ (elm: Element): Object });
+              event: string|{ (elm: Element): string },
+              properties?: Object|{ (elm: Element): Object }): void;
 
     /* The ready method allows you to pass in a callback that will be called as
        soon as all of your enabled integrations have loaded. It’s like jQuery’s
        ready method, except for integrations. */
-    ready(callback: () => void);
+    ready(callback: () => void): void;
 
     /* If you need to clear the user and group id and traits we’ve added a
        reset function that is most commonly used when your identified users
        logout of your application. */
-    reset();
+    reset(): void;
 
     /* Once Analytics.js loaded, you can retrieve information about the
        currently identified user or group like their id and traits. */
@@ -121,11 +121,11 @@ declare module SegmentAnalytics {
     on(event: string,
        callback: {
         (event: string, properties: Object, options: SegmentOpts): void
-      });
+      }): void;
 
     /* You can extend the length (in milliseconds) of the method callbacks and
        helpers */
-    timeout(milliseconds: number);
+    timeout(milliseconds: number): void;
   }
 }
 
