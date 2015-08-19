@@ -175,6 +175,7 @@ declare module ReactRouter {
     function create(options: RouterCreateOption): Router;
     function run(routes: Route, callback: RouterRunCallback): Router;
     function run(routes: Route, location: LocationBase, callback: RouterRunCallback): Router;
+    function run(routes: Route, location: string, callback: RouterRunCallback): Router;
 
 
     //
@@ -198,7 +199,9 @@ declare module ReactRouter {
     interface HashLocation extends Location, LocationListener { }
     interface HistoryLocation extends Location, LocationListener { }
     interface RefreshLocation extends Location { }
-    interface StaticLocation extends LocationBase { }
+    interface StaticLocation extends LocationBase {
+        new(path: string): StaticLocation
+    }
     interface TestLocation extends Location, LocationListener { }
 
     var HashLocation: HashLocation;
