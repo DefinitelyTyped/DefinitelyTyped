@@ -12,6 +12,7 @@ interface System {
   paths: { [key: string]: string };
   meta: { [key: string]: Object };
   config: any;
+  bundles: { [key: string]: string[] };
 }
 
 declare var System: System;
