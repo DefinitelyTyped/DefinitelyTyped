@@ -50,7 +50,7 @@ var feedbackService = new apn.Feedback({
 feedbackService.on("error", (error:Error) => {
 	console.log("push feedback error", error.name, error.message);
 });
-function processFeedbackData(device:Buffer, time:number) {
+function processFeedbackData(device:apn.Device, time:number) {
 }
 feedbackService.on("feedback", (feedbackData) => {
 	feedbackData.forEach((data) => {
@@ -135,7 +135,7 @@ pushSomeNotifications();
 
 function handleFeedback(feedbackData:apn.FeedbackData[]) {
 	feedbackData.forEach(function(feedbackItem) {
-		console.log("Device: " + feedbackItem.device.toString("hex") + " has been unreachable, since: " + feedbackItem.time);
+		console.log("Device: " + feedbackItem.device.toString() + " has been unreachable, since: " + feedbackItem.time);
 	});
 }
 

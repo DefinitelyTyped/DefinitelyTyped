@@ -307,7 +307,7 @@ declare module "apn" {
 	}
 	export interface FeedbackData {
 		time:number;
-		device:Buffer;
+		device:Device;
 	}
 	/**
 	 * Connection to the Apple Push Notification Feedback Service and if `interval` isn't disabled automatically begins polling the service. Many of the options are the same as `apn.Connection()`
