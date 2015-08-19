@@ -23,16 +23,12 @@ interface Window {
  */
 declare module chrome.accessibilityFeatures {
 	interface AccessibilityFeaturesGetArg {
-		/**
-		 * Whether to return the value that applies to the incognito session (default false).
-		 */
+		/** Whether to return the value that applies to the incognito session (default false). */
 		incognito?: boolean;
 	}
 
 	interface AccessibilityFeaturesCallbackArg {
-		/**
-		 * The value of the setting. 
-		 */
+		/** The value of the setting. */
 		value: any;
 		/**
 		 * One of
@@ -42,10 +38,7 @@ declare module chrome.accessibilityFeatures {
 		 * • controlled_by_this_extension: controlled by this extension
 		 */
 		levelOfControl: string;
-		/**
-		 * Whether the effective value is specific to the incognito session.
-This property will only be present if the incognito property in the details parameter of get() was true. 
-		 */
+		/** Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true. */
 		incognitoSpecific?: boolean;
 	}
 
@@ -122,32 +115,20 @@ This property will only be present if the incognito property in the details para
  */
 declare module chrome.alarms {
     interface AlarmCreateInfo {
-		/**
-		 * Length of time in minutes after which the onAlarm event should fire.
-		 */
+		/** Length of time in minutes after which the onAlarm event should fire. */
         delayInMinutes?: number;
-		/**
-		 * If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.
-		 */
+		/** If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once. */
         periodInMinutes?: number;
-		/**
-		 * Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n). 
-		 */
+		/** Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n). */
         when?: number;
     }
 
     interface Alarm {
-		/**
-		 * If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes. 
-		 */
+		/** If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes. */
         periodInMinutes?: number;
-		/**
-		 * Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. 
-		 */
+		/** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
         scheduledTime: number;
-		/**
-		 * Name of this alarm. 
-		 */
+		/** Name of this alarm. */
         name: string;
     }
 
@@ -213,9 +194,7 @@ declare module chrome.alarms {
 	 */
     export function get(name: string, callback: (alarm: Alarm) => void): void;
 	
-	/**
-	 * Fired when an alarm has elapsed. Useful for event pages. 
-	 */
+	/** Fired when an alarm has elapsed. Useful for event pages. */
     var onAlarm: AlarmEvent;
 }
 
@@ -225,9 +204,7 @@ declare module chrome.alarms {
  */
 declare module chrome.browser {
     interface Options {
-        /**
-         * The URL to navigate to when the new tab is initially opened.
-         */
+        /** The URL to navigate to when the new tab is initially opened. */
         url: string;
     }
     
