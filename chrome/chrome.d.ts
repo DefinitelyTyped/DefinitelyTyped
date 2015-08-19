@@ -13,33 +13,209 @@ interface Window {
 }
 
 ////////////////////
+// Accessibility Features
+////////////////////
+/**
+ * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
+ * Availability: Since Chrome 37.  
+ * Permissions: "accessibilityFeatures.read"
+ * Important: This API works only on Chrome OS.
+ */
+declare module chrome.accessibilityFeatures {
+	interface AccessibilityFeaturesGetArg {
+		/**
+		 * Whether to return the value that applies to the incognito session (default false).
+		 */
+		incognito?: boolean;
+	}
+
+	interface AccessibilityFeaturesCallbackArg {
+		/**
+		 * The value of the setting. 
+		 */
+		value: any;
+		/**
+		 * One of
+		 * • not_controllable: cannot be controlled by any extension
+		 * • controlled_by_other_extensions: controlled by extensions with higher precedence
+		 * • controllable_by_this_extension: can be controlled by this extension
+		 * • controlled_by_this_extension: controlled by this extension
+		 */
+		levelOfControl: string;
+		/**
+		 * Whether the effective value is specific to the incognito session.
+This property will only be present if the incognito property in the details parameter of get() was true. 
+		 */
+		incognitoSpecific?: boolean;
+	}
+
+	interface AccessibilityFeaturesSetArg {
+		/**
+		 * The value of the setting. 
+		 * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type. 
+		 */
+		value: any;
+		/**
+		 * The scope of the ChromeSetting. One of
+		 * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+		 * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+		 * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+		 * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+		 */
+		scope?: string;
+	}
+
+	interface AccessibilityFeaturesClearArg {
+		/**
+		 * The scope of the ChromeSetting. One of
+		 * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+		 * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+		 * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+		 * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+		 */
+		scope?: string;
+	}
+
+	interface AccessibilityFeaturesSetting {
+		/**
+		 * Gets the value of a setting.
+		 * @param details Which setting to consider.
+		 * @param callback The callback parameter should be a function that looks like this:
+		 * function(object details) {...};
+		 */
+		get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
+		/**
+		 * Sets the value of a setting.
+		 * @param details Which setting to change.
+		 * @param callback Called at the completion of the set operation.
+		 * If you specify the callback parameter, it should be a function that looks like this:
+		 * function() {...};
+		 */
+		set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
+		/**
+		 * Clears the setting, restoring any default value.
+		 * @param details Which setting to clear.
+		 * @param callback Called at the completion of the clear operation.
+		 * If you specify the callback parameter, it should be a function that looks like this:
+		 * function() {...};
+		 */
+		clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
+	}
+
+	var spokenFeedback: AccessibilityFeaturesSetting;
+	var largeCursor: AccessibilityFeaturesSetting;
+	var stickyKeys: AccessibilityFeaturesSetting;
+	var highContrast: AccessibilityFeaturesSetting;
+	var screenMagnifier: AccessibilityFeaturesSetting;
+	var autoclick: AccessibilityFeaturesSetting;
+	var virtualKeyboard: AccessibilityFeaturesSetting;
+	var animationPolicy: AccessibilityFeaturesSetting;
+}
+
+////////////////////
 // Alarms
 ////////////////////
+/**
+ * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future. 
+ * Availability: Since Chrome 22.
+ * Permissions:  "alarms"
+ */
 declare module chrome.alarms {
     interface AlarmCreateInfo {
+		/**
+		 * Length of time in minutes after which the onAlarm event should fire.
+		 */
         delayInMinutes?: number;
+		/**
+		 * If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.
+		 */
         periodInMinutes?: number;
+		/**
+		 * Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n). 
+		 */
         when?: number;
     }
 
     interface Alarm {
+		/**
+		 * If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes. 
+		 */
         periodInMinutes?: number;
+		/**
+		 * Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. 
+		 */
         scheduledTime: number;
+		/**
+		 * Name of this alarm. 
+		 */
         name: string;
     }
 
     interface AlarmEvent extends chrome.events.Event {
+		/**
+		 * The callback parameter should be a function that looks like this:
+		 * function( Alarm alarm) {...}; 
+		 */
         addListener(callback: (alarm: Alarm) => void): void;
     }
 
-    export function create(alarmInfo: AlarmCreateInfo): void;
-    export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+	/**
+	 * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+	 * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+	 * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+	 * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes. 
+	 */
+    export function create(alarmInfo: AlarmCreateInfo): void;	
+	/**
+	 * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
+	 * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more. That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning. when can be set to less than 1 minute after "now" without warning but won't actually cause the alarm to fire for at least 1 minute.
+	 * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+	 * @param name Optional name to identify this alarm. Defaults to the empty string. 
+	 * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes. 
+	 */
+	export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+	/**
+	 * Gets an array of all the alarms. 
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of Alarm alarms) {...}; 
+	 */
     export function getAll(callback: (alarms: Alarm[]) => void): void;
-    export function clearAll(): void;
-    export function clear(name?: string): void;
-    export function get(callback: (alarm: Alarm) => void): void;
+	/**
+	 * Clears all alarms. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean wasCleared) {...}; 
+	 */
+    export function clearAll(callback?: (wasCleared: boolean) => void): void;
+	/**
+	 * Clears the alarm with the given name. 
+	 * @param name The name of the alarm to clear. Defaults to the empty string. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean wasCleared) {...}; 
+	 */
+    export function clear(name?: string, callback?: (wasCleared: boolean) => void): void;
+	/**
+	 * Clears the alarm without a name. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean wasCleared) {...}; 
+	 */
+    export function clear(callback: (wasCleared: boolean) => void): void;
+	/**
+	 * Retrieves details about the specified alarm. 
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function( Alarm alarm) {...}; 
+	 */
+	export function get(callback: (alarm: Alarm) => void): void;
+	/**
+	 * Retrieves details about the specified alarm. 
+	 * @param name The name of the alarm to get. Defaults to the empty string.
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function( Alarm alarm) {...}; 
+	 */
     export function get(name: string, callback: (alarm: Alarm) => void): void;
-
+	
+	/**
+	 * Fired when an alarm has elapsed. Useful for event pages. 
+	 */
     var onAlarm: AlarmEvent;
 }
 
@@ -52,7 +228,7 @@ declare module chrome.browser {
         /**
          * The URL to navigate to when the new tab is initially opened.
          */
-        url:string;
+        url: string;
     }
     
     /**
@@ -63,30 +239,49 @@ declare module chrome.browser {
      * @param callback Called when the tab was successfully 
      * created, or failed to be created. If failed, runtime.lastError will be set.
      */
-    export function openTab (options: Options, callback: () => void): void;
+    export function openTab(options: Options, callback: () => void): void;
      
-     /**
-     * Opens a new tab in a browser window associated with the current application 
-     * and Chrome profile. If no browser window for the Chrome profile is opened, 
-     * a new one is opened prior to creating the new tab. Since Chrome 42 only. 
-     * @param options Configures how the tab should be opened. 
-     */
-    export function openTab (options: Options): void;
+	/**
+	* Opens a new tab in a browser window associated with the current application 
+	* and Chrome profile. If no browser window for the Chrome profile is opened, 
+	* a new one is opened prior to creating the new tab. Since Chrome 42 only. 
+	* @param options Configures how the tab should be opened. 
+	*/
+    export function openTab(options: Options): void;
 }
 
 ////////////////////
 // Bookmarks
 ////////////////////
+/**
+ * Use the chrome.bookmarks API to create, organize, and otherwise manipulate bookmarks. Also see Override Pages, which you can use to create a custom Bookmark Manager page. 
+ * Availability: Since Chrome 5.  
+ * Permissions:  "bookmarks"   
+ */
 declare module chrome.bookmarks {
+	/** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
     interface BookmarkTreeNode {
+		/** The 0-based position of this node within its parent folder. */
         index?: number;
+		/** When this node was created, in milliseconds since the epoch (new Date(dateAdded)). */
         dateAdded?: number;
+		/** The text displayed for the node. */
         title: string;
+		/** The URL navigated to when a user clicks the bookmark. Omitted for folders.  */
         url?: string;
+		/** When the contents of this folder last changed, in milliseconds since the epoch.  */
         dateGroupModified?: number;
+		/** The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted.  */
         id: string;
+		/** The id of the parent folder. Omitted for the root node.  */
         parentId?: string;
+		/** An ordered list of children of this node. */
         children?: BookmarkTreeNode[];
+		/**
+		 * Since Chrome 37. 
+		 * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default). 
+		 */
+		unmodifiable?: any;
     }
 
     interface BookmarkRemoveInfo {
@@ -109,57 +304,191 @@ declare module chrome.bookmarks {
     interface BookmarkReorderInfo {
         childIds: string[];
     }
-
+	
     interface BookmarkRemovedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
+		/** 
+		 * @param callback The callback parameter should be a function that looks like this:
+		 * function(string id, object removeInfo) {...};  
+		 */
+		addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
     }
 
     interface BookmarkImportEndedEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+        /** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+		addListener(callback: () => void): void;
     }
 
     interface BookmarkMovedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void): void;
+        /** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string id, object moveInfo) {...}; 
+		 */
+		addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void): void;
     }
 
     interface BookmarkImportBeganEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+        /** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+		addListener(callback: () => void): void;
     }
 
     interface BookmarkChangedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void): void;
+        /** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string id, object changeInfo) {...}; 
+		 */
+		addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void): void;
     }
 
     interface BookmarkCreatedEvent extends chrome.events.Event {
-        addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void): void;
+        /** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string id, BookmarkTreeNode bookmark) {...}; 
+		 */
+		addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void): void;
     }
 
     interface BookmarkChildrenReordered extends chrome.events.Event {
-        addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
+        /** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string id, object reorderInfo) {...}; 
+		 */
+		addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
     }
 
-    var MAX_WRITE_OPERATIONS_PER_HOUR: number;
-    var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+	interface BookmarkSearchQuery {
+		query?: string;
+		url?: string;
+		title?: string;
+	}
 
-    export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
+	interface BookmarkCreateArg {
+		/** Defaults to the Other Bookmarks folder. */
+		parentId?: string;
+		index?: number;
+		title?: string;
+		url?: string;
+	}
+
+	interface BookmarkDestinationArg {
+		parentId?: string;
+		index?: number;
+	}
+
+	interface BookmarkChangesArg {
+		title?: string;
+		url?: string;
+	}
+	
+	/** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
+    var MAX_WRITE_OPERATIONS_PER_HOUR: number;
+	/** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
+    var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+    
+	/**
+	 * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties. 
+	 * @param query A string of words and quoted phrases that are matched against bookmark URLs and titles.
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
+	export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties. 
+	 * @param query An object with one or more of the properties query, url, and title specified. Bookmarks matching all specified properties will be produced. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
+	export function search(query: BookmarkSearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Retrieves the entire Bookmarks hierarchy. 
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
     export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Retrieves the recently added bookmarks. 
+	 * @param numberOfItems The maximum number of items to return. 
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
     export function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Retrieves the specified BookmarkTreeNode.
+	 * @param id A single string-valued id
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
     export function get(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Retrieves the specified BookmarkTreeNode.
+	 * @param idList An array of string-valued ids
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
     export function get(idList: string[], callback: (results: BookmarkTreeNode[]) => void): void;
-    export function create(bookmark: Object, callback?: (result: BookmarkTreeNode) => void): void;
-    export function move(id: string, destination: Object, callback?: (result: BookmarkTreeNode) => void): void;
-    export function update(id: string, changes: Object, callback?: (result: BookmarkTreeNode) => void): void;
+	/**
+	 * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function( BookmarkTreeNode result) {...}; 
+	 */
+    export function create(bookmark: BookmarkCreateArg, callback?: (result: BookmarkTreeNode) => void): void;
+	/**
+	 * Moves the specified BookmarkTreeNode to the provided location. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function( BookmarkTreeNode result) {...}; 
+	 */
+    export function move(id: string, destination: BookmarkDestinationArg, callback?: (result: BookmarkTreeNode) => void): void;
+	/**
+	 * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function( BookmarkTreeNode result) {...}; 
+	 */
+    export function update(id: string, changes: BookmarkChangesArg, callback?: (result: BookmarkTreeNode) => void): void;
+	/**
+	 * Removes a bookmark or an empty bookmark folder. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function() {...}; 
+	 */
     export function remove(id: string, callback?: Function): void;
+	/**
+	 * Retrieves the children of the specified BookmarkTreeNode id. 
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
     export function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Since Chrome 14. 
+	 * Retrieves part of the Bookmarks hierarchy, starting at the specified node. 
+	 * @param id The ID of the root of the subtree to retrieve. 
+	 * @param callback The callback parameter should be a function that looks like this:
+	 * function(array of BookmarkTreeNode results) {...}; 
+	 */
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+	/**
+	 * Recursively removes a bookmark folder. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this:
+	 * function() {...}; 
+	 */
     export function removeTree(id: string, callback?: Function): void;
 
+	/** Fired when a bookmark or folder is removed. When a folder is removed recursively, a single notification is fired for the folder, and none for its contents. */
     var onRemoved: BookmarkRemovedEvent;
+	/** Fired when a bookmark import session is ended. */    
     var onImportEnded: BookmarkImportEndedEvent;
+	/** Fired when a bookmark import session is begun. Expensive observers should ignore onCreated updates until onImportEnded is fired. Observers should still handle other notifications immediately. */
     var onImportBegan: BookmarkImportBeganEvent;
+	/** Fired when a bookmark or folder changes. Note: Currently, only title and url changes trigger this. */
     var onChanged: BookmarkChangedEvent;
+	/** Fired when a bookmark or folder is moved to a different parent folder. */
     var onMoved: BookmarkMovedEvent;
+	/** Fired when a bookmark or folder is created. */
     var onCreated: BookmarkCreatedEvent;
+	/** Fired when the children of a folder have changed their order due to the order being sorted in the UI. This is not called as a result of a move(). */
     var onChildrenReordered: BookmarkChildrenReordered;
 }
 
