@@ -23,6 +23,17 @@ declare module Parse {
         useMasterKey?: boolean;
     }
 
+    interface HTTPOptions {
+        url: string;
+        body?: any;
+        error?: Function;
+        followRedirects?: boolean;
+        headers?: any;
+        method?: string;
+        params?: any;
+        success?: Function;
+    }
+
     interface CollectionOptions {
         model?: Object;
         query?: Query;
@@ -796,7 +807,7 @@ declare module Parse {
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
-        function httpRequest<T>(options: ParseDefaultOptions): Promise<HttpResponse>;
+        function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
         function run<T>(name: string, data?: any, options?: ParseDefaultOptions): Promise<T>;
         function useMasterKey(): void;
