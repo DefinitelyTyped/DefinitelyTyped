@@ -3,7 +3,7 @@
 // Definitions by: A. Groenenboom <https://github.com/chookies>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SIPml {
+declare namespace SIPml {
   class Event {
     public description: string;
     public type: string;
@@ -14,12 +14,12 @@ declare module SIPml {
     public getSipResponseCode(): number;
   }
 
-  class EventTarget {
-    public addEventListener(type: any, listener: Function): void;
-    public removeEventListener(type: any): void;
+  class EventTarget<EventSubscriptionType extends string, EventType extends Event> {
+    public addEventListener(type: EventSubscriptionType, listener: (e: EventType) => void): void;
+    public removeEventListener(type: EventSubscriptionType): void;
   }
 
-  class Session extends EventTarget {
+  class Session extends EventTarget<Session.EventSubscriptionType, Session.Event> {
     public accept(configuration?: Session.Configuration): number;
     public getId(): number;
     public getRemoteFriendlyName(): string;
@@ -28,10 +28,36 @@ declare module SIPml {
     public setConfiguration(configuration?: Session.Configuration): void;
   }
 
-  export module Session {
+  export namespace Session {
+     /**
+      * Should be
+      *
+      * "*" |
+      * "connecting" |
+      * "connected" |
+      * "terminating" |
+      * "terminated" |
+      * "i_ao_request" |
+      * "media_added" |
+      * "media_removed" |
+      * "i_request" |
+      * "o_request" |
+      * "cancelled_request" |
+      * "sent_request" |
+      * "transport_error" |
+      * "global_error" |
+      * "message_error" |
+      * "webrtc_error" |
+      */
+    type EventSubscriptionType = string;
+
     interface Configuration {
       audio_remote?: HTMLElement;
       bandwidth?: Object;
+      events_listener?: {
+        events: EventSubscriptionType | EventSubscriptionType[];
+        listener: (e: Session.Event) => void
+      };
       expires?: number;
       from?: string;
       sip_caps?: Object[];
@@ -41,7 +67,7 @@ declare module SIPml {
       video_size?: Object;
     }
 
-    class Call extends Session {
+    class Call extends Session implements EventTarget<Call.EventSubscriptionType, Session.Event> {
       public acceptTransfer(configuration?: Session.Configuration): number;
       public call(to: string, configuration?: Session.Configuration): number;
       public dtmf(): number;
@@ -51,6 +77,42 @@ declare module SIPml {
       public rejectTransfer(): number;
       public resume(): number;
       public transfer(): number;
+    }
+    
+    namespace Call {
+        /**
+         * Should be 
+         *
+         * Session.EventSubscriptionType |
+         * "m_early_media" |
+         * "m_local_hold_ok" |
+         * "m_local_hold_nok" |
+         * "m_local_resume_ok" |
+         * "m_local_resume_nok" |
+         * "m_remote_hold" |
+         * "m_remote_resume" |
+         * "m_stream_video_local_added" |
+         * "m_stream_video_local_removed" |
+         * "m_stream_video_remote_added" |
+         * "m_stream_video_remote_removed" |
+         * "m_stream_audio_local_added" |
+         * "m_stream_audio_local_removed" |
+         * "m_stream_audio_remote_added" |
+         * "m_stream_audio_remote_removed" |
+         * "i_ect_new_call" |
+         * "o_ect_trying" |
+         * "o_ect_accepted" |
+         * "o_ect_completed" |
+         * "i_ect_completed" |
+         * "o_ect_failed" |
+         * "i_ect_failed" |
+         * "o_ect_notify" |
+         * "i_ect_notify" |
+         * "i_ect_requested " |
+         * "m_bfcp_info" |
+         * "i_info" |
+         */
+        type EventSubscriptionType = Session.EventSubscriptionType;
     }
 
     class Event extends SIPml.Event {
@@ -74,13 +136,22 @@ declare module SIPml {
       public unregister(configuration?: Session.Configuration): void;
     }
 
-    class Subscribe extends Session {
+    class Subscribe extends Session implements EventTarget<Subscribe.EventSubscriptionType, Session.Event> {
       public subscribe(to: string, configuration?: Session.Configuration): number;
       public unsubscribe(configuration?: Session.Configuration): number;
     }
+    
+    namespace Subscribe {
+        /**
+         * Should be
+         *
+         * Session.EventSubscriptionType | "i_notify"
+         */
+        type EventSubscriptionType = Session.EventSubscriptionType;
+    }
   }
 
-  class Stack extends EventTarget {
+  class Stack extends EventTarget<Stack.EventSubscriptionType, Stack.Event> {
     public constructor(configuration?: Stack.Configuration);
     public setConfiguration(configuration: Stack.Configuration): number;
     public newSession(type: string, configuration?: Session.Configuration): any;
@@ -88,7 +159,25 @@ declare module SIPml {
     public stop(timeout?: number): number;
   }
 
-  export module Stack {
+  export namespace Stack {
+    /**
+     * Should be
+     *
+     * "*" |
+     * "starting" |
+     * "started" |
+     * "stopping" |
+     * "stopped" |
+     * "failed_to_start" |
+     * "failed_to_stop" |
+     * "i_new_call" |
+     * "i_new_message" |
+     * "m_permission_requested" |
+     * "m_permission_accepted" |
+     * "m_permission_refused";
+     */
+    type EventSubscriptionType = string;
+
     interface Configuration {
       bandwidth?: Object;
       display_name?: string;
@@ -96,7 +185,10 @@ declare module SIPml {
       enable_early_ims?: boolean;
       enable_media_stream_cache?: boolean;
       enable_rtcweb_breaker?: boolean;
-      events_listener?: Object;
+      events_listener?: {
+        events: EventSubscriptionType | EventSubscriptionType[];
+        listener: (e: Stack.Event) => void
+      };
       ice_servers?: Object[];
       impi?: string;
       impu?: string;
