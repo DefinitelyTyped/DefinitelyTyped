@@ -6,10 +6,10 @@
 ///<reference path="../node/node.d.ts" />
 
 declare module "mongoose" {
-  function connect(uri: string, options?: ConnectionOption, callback?: (err: any) => void): Mongoose;
+  function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
   function createConnection(): Connection;
-  function createConnection(uri: string, options?: ConnectionOption): Connection;
-  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
+  function createConnection(uri: string, options?: ConnectionOptions): Connection;
+  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
   function disconnect(callback?: (err?: any) => void): Mongoose;
 
   function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
@@ -25,10 +25,10 @@ declare module "mongoose" {
   var connection: Connection;
 
   export class Mongoose {
-    connect(uri: string, options?: ConnectionOption, callback?: (err: any) => void): Mongoose;
+    connect(uri: string, options?: ConnectOpenOptionsBase, callback?: (err: any) => void): Mongoose;
     createConnection(): Connection;
     createConnection(uri: string, options?: Object): Connection;
-    createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
+    createConnection(host: string, database_name: string, port?: number, options?: ConnectOpenOptionsBase): Connection;
     disconnect(callback?: (err?: any) => void): Mongoose;
     get(key: string): any;
     model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
@@ -49,23 +49,66 @@ declare module "mongoose" {
     collection(name: string, options?: Object): Collection;
     model<T extends Document>(name: string, schema?: Schema, collection?: string): Model<T>;
     modelNames(): string[];
-    open(host: string, database?: string, port?: number, options?: ConnectionOption, callback?: (err: any) => void): Connection;
-    openSet(uris: string, database?: string, options?: ConnectionSetOption, callback?: (err: any) => void): Connection;
+    open(host: string, database?: string, port?: number, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
+    openSet(uris: string, database?: string, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
 
     db: any;
     collections: {[index: string]: Collection};
     readyState: number;
   }
-  export interface ConnectionOption {
+
+  export interface ConnectOpenOptionsBase {
     db?: any;
     server?: any;
     replset?: any;
+    /** Username for authentication if not supplied in the URI. */
     user?: string;
+    /** Password for authentication if not supplied in the URI. */
     pass?: string;
+    /** Options for authentication */
     auth?: any;
   }
-  export interface ConnectionSetOption extends ConnectionOption {
-    mongos?: boolean;
+
+  export interface ConnectionOptions extends ConnectOpenOptionsBase {
+    /** Passed to the underlying driver's Mongos instance. */
+    mongos?: MongosOptions;
+  }
+
+  interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
+      /** If true, enables High Availability support for mongos */
+      mongos?: boolean;
+  }
+
+  interface MongosOptions {
+      /** Turn on high availability monitoring. (default: true) */
+      ha?: boolean;
+      /** Time between each replicaset status check. (default: 5000) */
+      haInterval?: number;
+      /**
+       * Number of connections in the connection pool for each
+       * server instance. (default: 5 (for legacy reasons)) */
+      poolSize?: number;
+      /**
+       * Use ssl connection (needs to have a mongod server with
+       * ssl support). (default: false).
+       */
+      ssl?: boolean;
+      /**
+       * Validate mongod server certificate against ca
+       * (needs to have a mongod server with ssl support, 2.4 or higher)
+       * (default: true)
+       */
+      sslValidate?: boolean;
+      /** Turn on high availability monitoring. */
+      sslCA?: (Buffer|string)[];
+      sslKey?: Buffer|string;
+      sslPass?: Buffer|string;
+      socketOptions?: {
+          noDelay?: boolean;
+          keepAlive?: number;
+          connectionTimeoutMS?: number;
+          socketTimeoutMS?: number;
+      };
   }
 
   export interface Collection {

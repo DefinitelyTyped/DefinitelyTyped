@@ -11,6 +11,7 @@ declare module Backbone {
 
 	interface LayoutOptions<TModel extends Model> extends ViewOptions<TModel> {
 		template?: string;
+        views?: { [viewName: string]: View<TModel> };
 	}
 	
 	interface LayoutManagerOptions {
