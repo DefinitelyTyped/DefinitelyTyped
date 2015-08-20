@@ -104,6 +104,7 @@ model.hasMany<modelInst, modelPojo>(model, assocOpts);
 model.belongsToMany<modelInst, modelPojo>(model);
 model.belongsToMany<modelInst, modelPojo>(model, assocOpts);
 
+model.removeAttribute("");
 promiseMe = model.sync();
 promiseMe = model.drop(dropOpts);
 model.schema("", schemaOpts);
