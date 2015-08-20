@@ -39,12 +39,16 @@ declare module "redis" {
         return_buffers?: boolean;
         detect_buffers?: boolean;
         socket_nodelay?: boolean;
+        socket_keepalive?: boolean;
         no_ready_check?: boolean;
         enable_offline_queue?: boolean;
         retry_max_delay?: number;
         connect_timeout?: number;
         max_attempts?: number;
         auth_pass?: string;
+        family?: string;
+        command_queue_high_water?: number;
+        command_queue_low_water?: number;
     }
 
     interface RedisClient extends NodeJS.EventEmitter {
