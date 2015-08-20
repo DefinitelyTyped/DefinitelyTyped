@@ -215,6 +215,8 @@ declare module __React {
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactElement<any>;
+
+        [propertyName: string]: any;
     }
 
     //
