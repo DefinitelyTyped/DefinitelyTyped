@@ -1236,6 +1236,18 @@ interface UnderscoreStatic {
 		destination: any,
 		...sources: any[]): any;
 
+		/**
+	* Copy all of the properties in the source objects over to the destination object, and return
+	* the destination object. It's in-order, so the last source will override properties of the
+	* same name in previous arguments.
+	* @param destination Object to extend all the properties from `sources`.
+	* @param sources Extends `destination` with all properties from these source objects.
+	* @return `destination` extended with all the properties from the `sources` objects.
+	**/
+	create(
+		prototype: any,
+		props: any): any;
+
 	/**
 	* Return a copy of the object, filtered to only have values for the whitelisted keys
 	* (or array of valid keys).
@@ -3064,12 +3076,6 @@ interface _Chain<T> {
 	* @see _.extend
 	**/
 	extend(...sources: any[]): _Chain<T>;
-
-	/**
-	* Wrapped type `object`.
-	* @see _.extend
-	**/
-	create(...sources: any[]): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
