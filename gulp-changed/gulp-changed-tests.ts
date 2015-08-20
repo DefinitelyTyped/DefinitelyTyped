@@ -12,7 +12,7 @@ gulp.src("*.html")
     .pipe(minifyHtml())
     .pipe(gulp.dest("build"));
 
-// Without some options
+// With some options
 gulp.src("*.html")
     .pipe(changed("build", { hasChanged: changed.compareSha1Digest }))
     .pipe(minifyHtml())
