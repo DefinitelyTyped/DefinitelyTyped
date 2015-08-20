@@ -16,7 +16,7 @@ declare module TComb {
     assert: (condition: boolean, message?: string, ...values: any[]) => void;
     fail: (message?: string) => void;
     Any: Any_Static;
-    Nil: Str_Static;
+    Nil: Nil_Static;
     Str: Str_Static;
     Num: Num_Static;
     Bool: Bool_Static;
