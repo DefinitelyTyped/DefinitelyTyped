@@ -780,7 +780,7 @@ declare module chrome.commands {
 		/** The shortcut active for this command, or blank if not active. */
 		shortcut?: string;
 	}
-	
+
     interface CommandEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -797,7 +797,7 @@ declare module chrome.commands {
 	 */
 	export function getAll(callback: (commands: Command[]) => void): void;
 
-	/** Fired when a registered command is activated using a keyboard shortcut. */    
+	/** Fired when a registered command is activated using a keyboard shortcut. */
     var onCommand: CommandEvent;
 }
 
@@ -876,7 +876,7 @@ declare module chrome.contentSettings {
         get(details: GetDetails, callback: (details: ReturnedDetails) => void): void;
     }
 
-	/** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */    
+	/** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
     interface ResourceIdentifier {
 		/** The resource identifier for the given content type. */
         id: string;
@@ -891,7 +891,7 @@ declare module chrome.contentSettings {
 	 * session_only: Accept cookies only for the current session. 
 	 * Default is allow.
 	 * The primary URL is the URL representing the cookie origin. The secondary URL is the URL of the top-level frame. 
-	 */    
+	 */
     var cookies: ContentSetting;
 	/**
 	 * Whether to allow sites to show pop-ups. One of
@@ -1168,7 +1168,7 @@ declare module chrome.contextMenus {
 	/**
 	 * Since Chrome 21. 
 	 * Fired when a context menu item is clicked. 
-	 */    
+	 */
     var onClicked: MenuClickedEvent;
 }
 
@@ -1205,7 +1205,7 @@ declare module chrome.cookies {
         secure: boolean;
     }
 
-	/** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */    
+	/** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
     interface CookieStore {
 		/** The unique identifier for the cookie store. */
         id: string;
@@ -1282,7 +1282,7 @@ declare module chrome.cookies {
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(array of CookieStore cookieStores) {...}; 
 	 * Parameter cookieStores: All the existing cookie stores. 
-	 */    
+	 */
     export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
 	/**
 	 * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first. 
@@ -1316,32 +1316,192 @@ declare module chrome.cookies {
 	 */
     export function get(details: Details, callback: (cookie?: Cookie) => void): void;
 
-	/** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */    
+	/** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     var onChanged: CookieChangedEvent;
 }
 
 ////////////////////
 // Debugger
 ////////////////////
+/**
+ * The chrome.debugger API serves as an alternate transport for Chrome's remote debugging protocol. Use chrome.debugger to attach to one or more tabs to instrument network interaction, debug JavaScript, mutate the DOM and CSS, etc. Use the Debuggee tabId to target tabs with sendCommand and route events by tabId from onEvent callbacks. 
+ * Availability: Since Chrome 18. 
+ * Permissions:  "debugger" 
+ */
 declare module "chrome.debugger" {
+	/** Debuggee identifier. Either tabId or extensionId must be specified */
     interface Debuggee {
-        tabId: number;
+		/** The id of the tab which you intend to debug. */
+        tabId?: number;
+		/** 
+		 * Since Chrome 27. 
+		 * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser. 
+		 */
+		extensionId?: string;
+		/**
+		 * Since Chrome 28.
+		 * The opaque id of the debug target.
+		 */
+		targetId?: string;
     }
+	
+	/**
+	 * Since Chrome 28. 
+	 * Debug target information
+	 */
+	interface TargetInfo {
+		/** Target type. */
+		type: string;
+		/** Target id. */
+		id: string;
+		/**
+		 * Since Chrome 30. 
+		 * The tab id, defined if type == 'page'. 
+		 */
+		tabId?: number;
+		/**
+		 * Since Chrome 30. 
+		 * The extension id, defined if type = 'background_page'. 
+		 */
+		extensionId?: string;
+		/** True if debugger is already attached. */
+		attached: boolean;
+		/** Target page title. */
+		title: string;
+		/** Target URL. */
+		url: string;
+		/** Target favicon URL. */
+		faviconUrl?: string;
+	}
 
     interface DebuggerDetachedEvent extends chrome.events.Event {
-        addListener(callback: (source: Debuggee) => void): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( Debuggee source, DetachReason reason) {...}; 
+		 * Parameter source: The debuggee that was detached. 
+		 * Parameter reason: Since Chrome 24. Connection termination reason. 
+		 */
+        addListener(callback: (source: Debuggee, reason: string) => void): void;
     }
 
     interface DebuggerEventEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( Debuggee source, string method, object params) {...}; 
+		 * Parameter source: The debuggee that generated this event. 
+		 * Parameter method: Method name. Should be one of the notifications defined by the remote debugging protocol. 
+		 * Parameter params: JSON object with the parameters. Structure of the parameters varies depending on the method name and is defined by the 'parameters' attribute of the event description in the remote debugging protocol. 
+		 */
         addListener(callback: (source: Debuggee, method: string, params?: Object) => void): void;
     }
 
-    export function attach(target: Debuggee, requiredVersion: string, callback?: Function): void;
-    export function detach(target: Debuggee, callback?: Function): void;
-    export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result: Object) => void): void;
+	/**
+	 * Attaches debugger to the given target. 
+	 * @param target Debugging target to which you want to attach. 
+	 * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
+	 * @param callback Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, runtime.lastError will be set to the error message. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function attach(target: Debuggee, requiredVersion: string, callback?: () => void): void;
+	/**
+	 * Detaches debugger from the given target. 
+	 * @param target Debugging target from which you want to detach. 
+	 * @param callback Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, runtime.lastError will be set to the error message. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function detach(target: Debuggee, callback?: () => void): void;
+	/**
+	 * Sends given command to the debugging target. 
+	 * @param target Debugging target to which you want to send the command. 
+	 * @param method Method name. Should be one of the methods defined by the remote debugging protocol. 
+	 * @param commandParams Since Chrome 22. 
+	 * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method. 
+	 * @param callback Response body. If an error occurs while posting the message, the callback will be called with no arguments and runtime.lastError will be set to the error message. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object result) {...}; 
+	 */
+    export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
+	/**
+	 * Since Chrome 28. 
+	 * Returns the list of available debug targets. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of TargetInfo result) {...}; 
+	 * Parameter result: Array of TargetInfo objects corresponding to the available debug targets. 
+	 */
+	export function getTargets(callback: (result: TargetInfo[]) => void): void;
 
+	/** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
     var onDetach: DebuggerDetachedEvent;
+	/** Fired whenever debugging target issues instrumentation event. */
     var onEvent: DebuggerEventEvent;
+}
+
+////////////////////
+// Declarative Content
+////////////////////
+/**
+ * Use the chrome.declarativeContent API to take actions depending on the content of a page, without requiring permission to read the page's content. 
+ * Availability: Since Chrome 33.  
+ * Permissions:  "declarativeContent"   
+ */
+declare module chrome.declarativeContent {
+	interface PageStateUrlDetails {
+		/** Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name. */
+		hostContains?: string;
+		/** Matches if the host name of the URL is equal to a specified string. */
+		hostEquals?: string;
+		/** Matches if the host name of the URL starts with a specified string. */
+		hostPrefix?: string;
+		/** Matches if the host name of the URL ends with a specified string. */
+		hostSuffix?: string;
+		/** Matches if the path segment of the URL contains a specified string. */
+		pathContains?: string;
+		/** Matches if the path segment of the URL is equal to a specified string. */
+		pathEquals?: string;
+		/** Matches if the path segment of the URL starts with a specified string. */
+		pathPrefix?: string;
+		/** Matches if the path segment of the URL ends with a specified string. */
+		pathSuffix?: string;
+		/** Matches if the query segment of the URL contains a specified string. */
+		queryContains?: string;
+		/** Matches if the query segment of the URL is equal to a specified string. */
+		queryEquals?: string;
+		/** Matches if the query segment of the URL starts with a specified string. */
+		queryPrefix?: string;
+		/** Matches if the query segment of the URL ends with a specified string. */
+		querySuffix?: string;
+		/** Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		urlContains?: string;
+		/** Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		urlEquals?: string;
+		/** Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
+		urlMatches?: string;
+		/** Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
+		originAndPathMatches?: string;
+		/** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		urlPrefix?: string;
+		/** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		urlSuffix?: string;
+		/** Matches if the scheme of the URL is equal to any of the schemes specified in the array. */
+		schemes?: string[];
+		/** Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200. */
+		port?: number[];
+	}
+	
+	/** Matches the state of a web page by various criteria. */
+	interface PageStateMatcher {
+		/** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
+		pageUrl?: PageStateUrlDetails;
+		/** Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites. */
+		css?: string[];
+		/**
+		 * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
+		 * Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission. 
+		 */
+		isBookmarked?: boolean;
+	}
 }
 
 ////////////////////
@@ -1458,129 +1618,452 @@ declare module chrome.declarativeWebRequest {
 ////////////////////
 // DesktopCapture
 ////////////////////
+/**
+ * Desktop Capture API that can be used to capture content of screen, individual windows or tabs. 
+ * Availability: Since Chrome 34. 
+ * Permissions:  "desktopCapture"    
+ */
 declare module chrome.desktopCapture {
-    export function chooseDesktopMedia(sources: string[], targetTab?: chrome.tabs.Tab, callback?: (streamId: string) => void): void;
+	/**
+	 * Shows desktop media picker UI with the specified set of sources. 
+	 * @param sources Set of sources that should be shown to the user. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(string streamId) {...}; 
+	 * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used. 
+	 */
+    export function chooseDesktopMedia(sources: string[], callback: (streamId: string) => void): number;
+	/**
+	 * Shows desktop media picker UI with the specified set of sources. 
+	 * @param sources Set of sources that should be shown to the user. 
+	 * @param targetTab Optional tab for which the stream is created. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches tab.url. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(string streamId) {...}; 
+	 * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used. 
+	 */
+    export function chooseDesktopMedia(sources: string[], targetTab: chrome.tabs.Tab, callback: (streamId: string) => void): number;
+	/**
+	 * Hides desktop media picker dialog shown by chooseDesktopMedia(). 
+	 * @param desktopMediaRequestId Id returned by chooseDesktopMedia() 
+	 */
     export function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
 }
 
 ////////////////////
 // Dev Tools - Inspected Window
 ////////////////////
+/**
+ * Use the chrome.devtools.inspectedWindow API to interact with the inspected window: obtain the tab ID for the inspected page, evaluate the code in the context of the inspected window, reload the page, or obtain the list of resources within the page. 
+ * Availability: Since Chrome 18.  
+ */
 declare module chrome.devtools.inspectedWindow {
+	/** A resource within the inspected page, such as a document, a script, or an image. */
     interface Resource {
+		/** The URL of the resource. */
         url: string;
+		/** 
+		 * Gets the content of the resource.
+		 * @param callback A function that receives resource content when the request completes.
+		 * The callback parameter should be a function that looks like this: 
+		 * function(string content, string encoding) {...}; 
+		 * Parameter content: Content of the resource (potentially encoded). 
+		 * Parameter encoding: Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. 
+		 */
         getContent(callback: (content: string, encoding: string) => void): void;
+		/**
+		 * Sets the content of the resource. 
+		 * @param content New content of the resource. Only resources with the text type are currently supported. 
+		 * @param commit True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource. 
+		 * @param callback A function called upon request completion. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function(object error) {...}; 
+		 * Optional parameter error: Set to undefined if the resource content was set successfully; describes error otherwise.
+		 */
         setContent(content: string, commit: boolean, callback?: (error: Object) => void): void;
     }
 
     interface ReloadOptions {
-        userAgent?: string;
+		/** If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page. */
+		userAgent?: string;
+		/** When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window. */
         ignoreCache?: boolean;
+		/** If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R. */
         injectedScript?: boolean;
+		/**
+		 * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function. 
+		 * @deprecated Deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon. 
+		 */
+		preprocessorScript?: string;
     }
 
+	interface EvaluationExceptionInfo {
+		/** Set if the error occurred on the DevTools side before the expression is evaluated. */
+		isError: boolean;
+		/** Set if the error occurred on the DevTools side before the expression is evaluated. */
+		code: string;
+		/** Set if the error occurred on the DevTools side before the expression is evaluated. */
+		description: string;
+		/** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+		details: any[];
+		/** Set if the evaluated code produces an unhandled exception. */
+		isException: boolean;
+		/** Set if the evaluated code produces an unhandled exception. */
+		value: string;
+	}
+
     interface ResourceAddedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( Resource resource) {...}; 
+		 */
         addListener(callback: (resource: Resource) => void): void;
     }
 
     interface ResourceContentCommittedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( Resource resource, string content) {...}; 
+		 * Parameter content: New content of the resource. 
+		 */
         addListener(callback: (resource: Resource, content: string) => void): void;
     }
 
+	/** The ID of the tab being inspected. This ID may be used with chrome.tabs.* API. */
     var tabId: number;
 
+	/** Reloads the inspected page. */
     export function reload(reloadOptions: ReloadOptions): void;
-    export function eval(expression: string, callback?: (result: Object, isException: boolean) => void): void;
+	/**
+	 * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object. 
+	 * @param expression An expression to evaluate. 
+	 * @param callback A function called when evaluation completes. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object result, object exceptionInfo) {...}; 
+	 * Parameter result: The result of evaluation. 
+	 * Parameter exceptionInfo: An object providing details if an exception occurred while evaluating the expression. 
+	 */
+    export function eval(expression: string, callback?: (result: Object, exceptionInfo: EvaluationExceptionInfo) => void): void;
+	/**
+	 * Retrieves the list of resources from the inspected page. 
+	 * @param callback A function that receives the list of resources when the request completes. 
+	 * The callback parameter should be a function that looks like this: 
+	 * function(array of Resource resources) {...}; 
+	 */
     export function getResources(callback: (resources: Resource[]) => void): void;
 
+	/** Fired when a new resource is added to the inspected page. */
     var onResourceAdded: ResourceAddedEvent;
+	/** Fired when a new revision of the resource is committed (e.g. user saves an edited version of the resource in the Developer Tools). */
     var onResourceContentCommitted: ResourceContentCommittedEvent;
 }
 
 ////////////////////
 // Dev Tools - Network
 ////////////////////
+/**
+ * Use the chrome.devtools.network API to retrieve the information about network requests displayed by the Developer Tools in the Network panel. 
+ * Availability: Since Chrome 18.  
+ */
 declare module chrome.devtools.network {
+	/** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
     interface Request {
+		/** 
+		 * Returns content of the response body.
+		 * @param callback A function that receives the response body when the request completes.
+		 * The callback parameter should be a function that looks like this: 
+		 * function(string content, string encoding) {...}; 
+		 * Parameter content: Content of the response body (potentially encoded). 
+		 * Parameter encoding: Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. 
+		 */
         getContent(callback: (content: string, encoding: string) => void): void;
     }
 
     interface RequestFinishedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( Request request) {...}; 
+		 * Parameter request: Description of a network request in the form of a HAR entry. See HAR specification for details. 
+		 */
         addListener(callback: (request: Request) => void): void;
     }
 
     interface NavigatedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string url) {...}; 
+		 * Parameter url: URL of the new page. 
+		 */
         addListener(callback: (url: string) => void): void;
     }
 
+	/**
+	 * Returns HAR log that contains all known network requests. 
+	 * @param callback A function that receives the HAR log when the request completes. 
+	 * The callback parameter should be a function that looks like this: 
+	 * function(object harLog) {...}; 
+	 * Parameter harLog: A HAR log. See HAR specification for details. 
+	 */
     export function getHAR(callback: (harLog: Object) => void): void;
 
+	/** Fired when a network request is finished and all request data are available. */
     var onRequestFinished: RequestFinishedEvent;
+	/** Fired when the inspected window navigates to a new page. */
     var onNavigated: NavigatedEvent;
 }
 
 ////////////////////
 // Dev Tools - Panels
 ////////////////////
+/**
+ * Use the chrome.devtools.panels API to integrate your extension into Developer Tools window UI: create your own panels, access existing panels, and add sidebars. 
+ * Availability: Since Chrome 18. 
+ */
 declare module chrome.devtools.panels {
     interface PanelShownEvent extends chrome.events.Event {
+		/** 
+		 * @param callback The callback parameter should be a function that looks like this:
+		 * function(global window) {...};
+		 * Parameter window: The JavaScript window object of panel's page. 
+		 */
         addListener(callback: (window: chrome.windows.Window) => void): void;
     }
 
     interface PanelHiddenEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        addListener(callback: () => void): void;
     }
 
     interface PanelSearchEvent extends chrome.events.Event {
+		/**
+		 * The callback parameter should be a function that looks like this: 
+		 * function(string action, string queryString) {...}; 
+		 * Parameter action: Type of search action being performed. 
+		 * Optional parameter queryString: Query string (only for 'performSearch'). 
+		 */
         addListener(callback: (action: string, queryString?: string) => void): void;
     }
 
+	/** Represents a panel created by extension. */    
     interface ExtensionPanel {
-        createStatusButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
+		/**
+		 * Appends a button to the status bar of the panel. 
+		 * @param iconPath Path to the icon of the button. The file should contain a 64x24-pixel image composed of two 32x24 icons. The left icon is used when the button is inactive; the right icon is displayed when the button is pressed. 
+		 * @param tooltipText Text shown as a tooltip when user hovers the mouse over the button. 
+		 * @param disabled Whether the button is disabled. 
+		 */
+        createStatusBarButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
+		/** Fired when the user switches to the panel. */
         onShown: PanelShownEvent;
+		/** Fired when the user switches away from the panel. */
         onHidden: PanelHiddenEvent;
+		/** Fired upon a search action (start of a new search, search result navigation, or search being canceled). */
         onSearch: PanelSearchEvent;
     }
 
     interface ButtonClickedEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        addListener(callback: () => void): void;
     }
 
+	/** A button created by the extension. */    
     interface Button {
+		/**
+		 * Updates the attributes of the button. If some of the arguments are omitted or null, the corresponding attributes are not updated. 
+		 * @param iconPath Path to the new icon of the button. 
+		 * @param tooltipText Text shown as a tooltip when user hovers the mouse over the button. 
+		 * @param disabled Whether the button is disabled. 
+		 */
         update(iconPath?: string, tooltipText?: string, disabled?: boolean): void;
+		/** Fired when the button is clicked. */
         onClicked: ButtonClickedEvent;
     }
 
     interface SelectionChangedEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        addListener(callback: () => void): void;
     }
 
+	/** Represents the Elements panel. */
     interface ElementsPanel {
+		/**
+		 * Creates a pane within panel's sidebar. 
+		 * @param title Text that is displayed in sidebar caption. 
+		 * @param callback A callback invoked when the sidebar is created. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function( ExtensionSidebarPane result) {...}; 
+		 * Parameter result: An ExtensionSidebarPane object for created sidebar pane. 
+		 */
         createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+		/** Fired when an object is selected in the panel. */
         onSelectionChanged: SelectionChangedEvent;
     }
 
+	/**
+	 * Since Chrome 41. 
+	 * Represents the Sources panel.
+	 */    
+	interface SourcesPanel {
+		/**
+		 * Creates a pane within panel's sidebar. 
+		 * @param title Text that is displayed in sidebar caption. 
+		 * @param callback A callback invoked when the sidebar is created. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function( ExtensionSidebarPane result) {...}; 
+		 * Parameter result: An ExtensionSidebarPane object for created sidebar pane. 
+		 */
+		createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+		/** Fired when an object is selected in the panel. */
+        onSelectionChanged: SelectionChangedEvent;
+	}
+
     interface ExtensionSidebarPaneShownEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this:
+		 * function(global window) {...};
+		 * Parameter window: The JavaScript window object of the sidebar page, if one was set with the setPage() method. 
+		 */
         addListener(callback: (window: chrome.windows.Window) => void): void;
     }
 
     interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        addListener(callback: () => void): void;
     }
 
+	/** A sidebar created by the extension. */    
     interface ExtensionSidebarPane {
+		/**
+		 * Sets the height of the sidebar. 
+		 * @param height A CSS-like size specification, such as '100px' or '12ex'. 
+		 */
         setHeight(height: string): void;
-        setExpression(expression: string, rootTitle?: string, callback?: Function): void;
-        setObject(jsonObject: string, rootTitle?: string, callback?: Function): void;
+		/**
+		 * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane. 
+		 * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch. 
+		 * @param rootTitle An optional title for the root of the expression tree.
+		 * @param callback A callback invoked after the sidebar pane is updated with the expression evaluation results. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        setExpression(expression: string, rootTitle?: string, callback?: () => void): void;
+		/**
+		 * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane. 
+		 * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch. 
+		 * @param callback A callback invoked after the sidebar pane is updated with the expression evaluation results. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        setExpression(expression: string, callback?: () => void): void;
+		/**
+		 * Sets a JSON-compliant object to be displayed in the sidebar pane. 
+		 * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client). 
+		 * @param rootTitle An optional title for the root of the expression tree. 
+		 * @param callback A callback invoked after the sidebar is updated with the object. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        setObject(jsonObject: string, rootTitle?: string, callback?: () => void): void;
+		/**
+		 * Sets a JSON-compliant object to be displayed in the sidebar pane. 
+		 * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client). 
+		 * @param callback A callback invoked after the sidebar is updated with the object. 
+		 * If you specify the callback parameter, it should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        setObject(jsonObject: string, callback?: () => void): void;
+		/**
+		 * Sets an HTML page to be displayed in the sidebar pane. 
+		 * @param path Relative path of an extension page to display within the sidebar. 
+		 */
         setPage(path: string): void;
+		/** Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it. */
         onShown: ExtensionSidebarPaneShownEvent;
+		/** Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts the sidebar pane. */
         onHidden: ExtensionSidebarPaneHiddenEvent;
     }
 
+	/** Elements panel. */    
     var elements: ElementsPanel;
+	/**
+	 * Since Chrome 38. 
+	 * Sources panel. 
+	 */
+	var sources: SourcesPanel;
 
+	/**
+	 * Creates an extension panel. 
+	 * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar. 
+	 * @param iconPath Path of the panel's icon relative to the extension directory. 
+	 * @param pagePath Path of the panel's HTML page relative to the extension directory. 
+	 * @param callback A function that is called when the panel is created. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function( ExtensionPanel panel) {...}; 
+	 * Parameter panel: An ExtensionPanel object representing the created panel. 
+	 */    
     export function create(title: string, iconPath: string, pagePath: string, callback?: (panel: ExtensionPanel) => void): void;
-    export function setOpenResourceHandler(callback: (resource: chrome.devtools.inspectedWindow.Resource) => void): void;
+	/**
+	 * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter. 
+	 * @param callback A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function( devtools.inspectedWindow.Resource resource) {...}; 
+	 * Parameter resource: A devtools.inspectedWindow.Resource object for the resource that was clicked. 
+	 */
+    export function setOpenResourceHandler(callback?: (resource: chrome.devtools.inspectedWindow.Resource) => void): void;
+	/**
+	 * Since Chrome 38. 
+	 * Requests DevTools to open a URL in a Developer Tools panel. 
+	 * @param url The URL of the resource to open. 
+	 * @param lineNumber Specifies the line number to scroll to when the resource is loaded. 
+	 * @param callback A function that is called when the resource has been successfully loaded. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function openResource(url: string, lineNumber: number, callback: () => void): void;
+}
+
+////////////////////
+// Document Scan
+////////////////////
+/**
+ * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners. 
+ * Availability: Since Chrome 44.  
+ * Permissions:  "documentScan"   
+ * Important: This API works only on Chrome OS. 
+ */
+declare module chrome.documentScan {
+	interface DocumentScanOptions {
+		/** The MIME types that are accepted by the caller. */
+		mimeTypes?: string[];
+		/** The number of scanned images allowed (defaults to 1). */
+		maxImages?: number;
+	}
+	
+	interface DocumentScanCallbackArg {
+		/** The data image URLs in a form that can be passed as the "src" value to an image tag. */
+		dataUrls: string[];
+		/** The MIME type of dataUrls. */
+		mimeType: string;
+	}
+	
+	/**
+	 * Performs a document scan. On success, the PNG data will be sent to the callback. 
+	 * @param options Object containing scan parameters. 
+	 * @param callback Called with the result and data from the scan. 
+	 * The callback parameter should be a function that looks like this: 
+	 * function(object result) {...}; 
+	 */
+	export function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
 }
 
 ////////////////////
