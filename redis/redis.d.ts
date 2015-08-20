@@ -69,6 +69,10 @@ declare module "redis" {
         server_info: ServerInfo;
 
         end(): void;
+        unref(): void;
+
+        // Low level command execution
+        send_command(command:string, ...args:any[]): boolean;
 
         // Connection (http://redis.io/commands#connection)
         auth(password:string, callback?:ResCallbackT<any>): boolean;
