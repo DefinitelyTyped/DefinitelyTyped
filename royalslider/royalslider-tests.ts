@@ -100,7 +100,7 @@ jQuery(document).ready(function () {
 // Another example: $(".royalSlider").royalSlider('goTo', 3);
 // But it's recommended to get instance once if you have many calls:
 
-var slider: RoyalSlider.RoyalSlider = $(".royalSlider").royalSlider().data('royalSlider');
+var slider = $(".royalSlider").royalSlider().data('royalSlider');
 
 slider.goTo(3); // go to slide with id
 slider.next();  // next slide
