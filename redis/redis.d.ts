@@ -1,4 +1,4 @@
-// Type definitions for redis
+// Type definitions for redis 0.12.1
 // Project: https://github.com/mranney/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
