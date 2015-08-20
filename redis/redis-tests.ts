@@ -4,6 +4,7 @@ import redis = require('redis');
 
 var value: any;
 var valueArr: any[];
+var commandArr: any[][];
 var num: number;
 var str: string;
 var bool: boolean;
@@ -40,6 +41,7 @@ client.end();
 // Connection (http://redis.io/commands#connection)
 client.auth(str, resCallback);
 client.ping(numCallback);
+client.unref();
 
 // Strings (http://redis.io/commands#strings)
 client.append(str, str, numCallback);
@@ -49,9 +51,7 @@ client.set(str, str, strCallback);
 client.get(str, strCallback);
 client.exists(str, numCallback);
 
-client.publish(str, value);
-client.subscribe(str);
-
+// Event handlers
 client.on(str, messageHandler);
 client.once(str, messageHandler);
 
@@ -62,5 +62,28 @@ client.get(args);
 client.get(args, resCallback);
 client.set(args);
 client.set(args, resCallback);
+client.mset(args, resCallback);
 
 client.incr(str, resCallback);
+
+// Friendlier hash commands
+client.hgetall(str, resCallback);
+client.hmset(str, value, resCallback);
+client.hmset(str, str, str, str, str, resCallback);
+
+// Publish / Subscribe
+client.publish(str, value);
+client.subscribe(str);
+
+// Multi
+client.multi()
+    .scard(str)
+    .smembers(str)
+    .keys('*', resCallback)
+    .dbsize()
+    .exec(resCallback);
+
+client.multi(commandArr).exec();
+
+// Monitor mode
+client.monitor(resCallback);
