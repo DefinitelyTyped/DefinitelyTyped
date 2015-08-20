@@ -53,7 +53,7 @@ declare namespace SIPml {
 
     interface Configuration {
       audio_remote?: HTMLElement;
-      bandwidth?: Object;
+      bandwidth?: { audio: number; video: number; };
       events_listener?: {
         events: EventSubscriptionType | EventSubscriptionType[];
         listener: (e: Session.Event) => void
@@ -64,7 +64,12 @@ declare namespace SIPml {
       sip_headers?: Object[];
       video_local?: HTMLElement;
       video_remote?: HTMLElement;
-      video_size?: Object;
+      video_size?: {
+        minWidth?: number;
+        maxWidth?: number;
+        minHeight?: number;
+        maxHeight?: number;
+      };
     }
 
     class Call extends Session implements EventTarget<Call.EventSubscriptionType, Session.Event> {
@@ -179,7 +184,7 @@ declare namespace SIPml {
     type EventSubscriptionType = string;
 
     interface Configuration {
-      bandwidth?: Object;
+      bandwidth?: { audio: number; video: number; };
       display_name?: string;
       enable_click2call?: boolean;
       enable_early_ims?: boolean;
@@ -196,7 +201,12 @@ declare namespace SIPml {
       password?: string;
       realm?: string;
       sip_headers?: Object[];
-      video_size?: Object;
+      video_size?: {
+        minWidth?: number;
+        maxWidth?: number;
+        minHeight?: number;
+        maxHeight?: number;
+      };
       websocket_proxy_url?: string;
     }
 
