@@ -13,6 +13,7 @@ interface HighchartsPosition {
 }
 
 interface HighchartsDateTimeFormats {
+    millisecond?: string; // '%H:%M:%S.%L'
     second?: string; // '%H:%M:%S'
     minute?: string; // '%H:%M'
     hour?: string; // '%H:%M'
