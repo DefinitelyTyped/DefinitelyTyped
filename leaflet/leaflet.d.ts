@@ -265,6 +265,11 @@ declare module L {
 declare module L {
     export interface ClassExtendOptions {
         /**
+          * Your class's constructor function, meaning that it gets called when you do 'new MyClass(...)'.
+          */
+        initialize?: Function;
+
+        /**
           * options is a special property that unlike other objects that you pass
           * to extend will be merged with the parent one instead of overriding it
           * completely, which makes managing configuration of objects and default
@@ -286,6 +291,8 @@ declare module L {
           * constants.
           */
         static?: any;
+
+        [prop: string]: any;
     }
 
     export interface ClassStatic {
@@ -3593,6 +3600,11 @@ declare module L {
         autoPan?: boolean;
 
         /**
+          * Set it to true if you want to prevent users from panning the popup off of the screen while it is open.
+          */
+        keepInView?: boolean;
+
+        /**
           * Controls the presense of a close button in the popup.
           *
           * Default value: true.
@@ -3645,6 +3657,11 @@ declare module L {
           * option).
           */
         closeOnClick?: boolean;
+
+        /**
+          * A custom class name to assign to the popup.
+          */
+        className?: string;
     }
 }
 
@@ -4064,6 +4081,11 @@ declare module L {
           * Default value: false.
           */
         reuseTiles?: boolean;
+
+        /**
+          * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
+          */
+        bounds?: LatLngBounds;
     }
 }
 
@@ -4219,13 +4241,12 @@ declare module L {
 declare module L {
 
     export interface ZoomOptions {
-
         /**
-          * The position of the control (one of the map corners). See control positions.
-          *
-          * Default value: 'topright'.
+          * If not specified, zoom animation will happen if the zoom origin is inside the current view.
+          * If true, the map will attempt animating zoom disregarding where zoom origin is.
+          * Setting false will make it always reset the view completely without animation.
           */
-        position?: string;
+        animate?: boolean;
     }
 }
 

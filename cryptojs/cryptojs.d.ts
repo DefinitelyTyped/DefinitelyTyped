@@ -127,12 +127,12 @@ declare module CryptoJS{
         //BlockCipher has interface same as IStreamCipher
         interface BlockCipher extends IStreamCipher<IBlockCipherCfg>{}
 
-        interface IBlockCipherCfg{
+        interface IBlockCipherCfg {
             mode?: mode.IBlockCipherModeImpl //default CBC
             padding?: pad.IPaddingImpl //default Pkcs7
         }
 
-        interface CipherParamsData{
+        interface CipherParamsData {
             ciphertext?: lib.WordArray
             key?: lib.WordArray
             iv?: lib.WordArray
@@ -277,8 +277,8 @@ declare module CryptoJS{
             encryptBlock(M: number[], offset: number): void
             decryptBlock(M: number[], offset: number): void
 
-            createEncryptor(key: lib.WordArray, cfg?: lib.IBlockCipherCfg): IBlockCipherImpl
-            createDecryptor(key: lib.WordArray, cfg?: lib.IBlockCipherCfg): IBlockCipherImpl
+            createEncryptor(key: lib.WordArray, cfg?: lib.CipherParamsData): IBlockCipherImpl
+            createDecryptor(key: lib.WordArray, cfg?: lib.CipherParamsData): IBlockCipherImpl
 
             create(xformMode?: number, key?: lib.WordArray, cfg?: lib.IBlockCipherCfg): IBlockCipherImpl
         }
