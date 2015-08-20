@@ -357,6 +357,12 @@ declare module "sequelize"
             scopeObj: any;
 
             /**
+             * Remove attribute from model definition
+             * @param attribute
+             */
+            removeAttribute(attribute: string): void
+
+            /**
              * Sync this Model to the DB, that is create the table. Upon success, the callback will be called with the model
              * instance (this).
              */
