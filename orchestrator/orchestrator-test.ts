@@ -23,7 +23,7 @@ orchestrator.add('thing2', function() {
 orchestrator.add('mytask', ['array', 'of', 'task', 'names'], function() {
     // Do stuff
 });
-orchestrator.add('thing2', function(callback){
+orchestrator.add('thing2', function(callback: any){
     var err: any = null;
     // do stuff
     callback(err);
@@ -65,7 +65,7 @@ orchestrator.hasTask('thing1');
 // orchestrator.start(tasks...[, cb]);
 //
 
-orchestrator.start('thing1', 'thing2', 'thing3', 'thing4', function (err) {
+orchestrator.start('thing1', 'thing2', 'thing3', 'thing4', function (err: any) {
     // all done
 });
 orchestrator.start(['thing1','thing2'], ['thing3','thing4']);
