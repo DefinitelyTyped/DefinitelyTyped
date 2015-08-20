@@ -396,10 +396,14 @@ declare module React {
         zIndex?: number;
         zoom?: number;
 
+        fontSize?: number | string;
+
         // SVG-related properties
         fillOpacity?: number;
         strokeOpacity?: number;
         strokeWidth?: number;
+
+        [propertyName: string]: string | number | boolean;
     }
 
     interface HTMLAttributes extends DOMAttributes {
