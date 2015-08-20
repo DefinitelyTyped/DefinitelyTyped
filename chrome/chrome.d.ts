@@ -281,7 +281,7 @@ declare module chrome.bookmarks {
     interface BookmarkReorderInfo {
         childIds: string[];
     }
-	
+
     interface BookmarkRemovedEvent extends chrome.events.Event {
 		/** 
 		 * @param callback The callback parameter should be a function that looks like this:
@@ -455,7 +455,7 @@ declare module chrome.bookmarks {
 
 	/** Fired when a bookmark or folder is removed. When a folder is removed recursively, a single notification is fired for the folder, and none for its contents. */
     var onRemoved: BookmarkRemovedEvent;
-	/** Fired when a bookmark import session is ended. */    
+	/** Fired when a bookmark import session is ended. */
     var onImportEnded: BookmarkImportEndedEvent;
 	/** Fired when a bookmark import session is begun. Expensive observers should ignore onCreated updates until onImportEnded is fired. Observers should still handle other notifications immediately. */
     var onImportBegan: BookmarkImportBeganEvent;
@@ -472,256 +472,782 @@ declare module chrome.bookmarks {
 ////////////////////
 // Browser Action
 ////////////////////
+/**
+ * Use browser actions to put icons in the main Google Chrome toolbar, to the right of the address bar. In addition to its icon, a browser action can also have a tooltip, a badge, and a popup.
+ * Availability: Since Chrome 5.  
+ * Manifest:  "browser_action": {...}   
+ */
 declare module chrome.browserAction {
     interface BadgeBackgroundColorDetails {
+		/** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: any;
+		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
         tabId?: number;
     }
 
     interface BadgeTextDetails {
+		/** Any number of characters can be passed, but only about four can fit in the space. */
         text: string;
+		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
         tabId?: number;
     }
 
     interface TitleDetails {
+		/** The string the browser action should display when moused over. */
         title: string;
+		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
         tabId?: number;
     }
 
     interface TabDetails {
+		/** Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned. */
         tabId?: number;
     }
 
     interface TabIconDetails {
+		/** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}' */
         path?: any;
+		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
         tabId?: number;
+		/** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}' */
         imageData?: ImageData;
     }
 
     interface PopupDetails {
+		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
         tabId?: number;
+		/** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
 
     interface BrowserClickedEvent extends chrome.events.Event {
+		/** 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( tabs.Tab tab) {...}; 
+		 */
         addListener(callback: (tab: chrome.tabs.Tab) => void): void;
     }
 
+	/**
+	 * Since Chrome 22. 
+	 * Enables the browser action for a tab. By default, browser actions are enabled. 
+	 * @param tabId The id of the tab for which you want to modify the browser action. 
+	 */
     export function enable(tabId?: number): void;
+	/** Sets the background color for the badge. */
     export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): void;
+	/** Sets the badge text for the browser action. The badge is displayed on top of the icon. */
     export function setBadgeText(details: BadgeTextDetails): void;
+	/** Sets the title of the browser action. This shows up in the tooltip. */
     export function setTitle(details: TitleDetails): void;
+	/**
+	 * Since Chrome 19. 
+	 * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(string result) {...}; 
+	 */
     export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
+	/** Sets the html document to be opened as a popup when the user clicks on the browser action's icon. */
     export function setPopup(details: PopupDetails): void;
+	/**
+	 * Since Chrome 22. 
+	 * Disables the browser action for a tab. 
+	 * @param tabId The id of the tab for which you want to modify the browser action. 
+	 */
     export function disable(tabId?: number): void;
+	/**
+	 * Since Chrome 19. 
+	 * Gets the title of the browser action. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(string result) {...}; 
+	 */
     export function getTitle(details: TabDetails, callback: (result: string) => void): void;
+	/**
+	 * Since Chrome 19. 
+	 * Gets the background color of the browser action. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function( ColorArray result) {...}; 
+	 */
     export function getBadgeBackgroundColor(details: TabDetails, callback: (result: number[]) => void): void;
+	/**
+	 * Since Chrome 19. 
+	 * Gets the html document set as the popup for this browser action. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(string result) {...}; 
+	 */
     export function getPopup(details: TabDetails, callback: (result: string) => void): void;
+	/**
+	 * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
     export function setIcon(details: TabIconDetails, callback?: Function): void;
 
+	/** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
     var onClicked: BrowserClickedEvent;
 }
 
 ////////////////////
 // Browsing Data
 ////////////////////
+/**
+ * Use the chrome.browsingData API to remove browsing data from a user's local profile. 
+ * Availability: Since Chrome 19.  
+ * Permissions:  "browsingData"   
+ */
 declare module chrome.browsingData {
     interface OriginTypes {
+		/** Websites that have been installed as hosted applications (be careful!). */
         protectedWeb?: boolean;
+		/** Extensions and packaged applications a user has installed (be _really_ careful!). */
         extension?: boolean;
+		/** Normal websites. */
         unprotectedWeb?: boolean;
     }
 
+	/** Options that determine exactly what data will be removed. */
     interface RemovalOptions {
+		/**
+		 * Since Chrome 21. 
+		 * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'. 
+		 */
         originTypes?: OriginTypes;
+		/** Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data). */
         since?: number;
     }
 
-    interface DataToRemove {
+	/**
+	 * Since Chrome 27. 
+	 * A set of data types. Missing data types are interpreted as false.
+	 */
+    interface DataTypeSet {
+		/** Websites' WebSQL data. */
         webSQL?: boolean;
+		/** Websites' IndexedDB data. */
         indexedDB?: boolean;
+		/** The browser's cookies. */
         cookies?: boolean;
+		/** Stored passwords. */
         passwords?: boolean;
+		/** Server-bound certificates. */
         serverBoundCertificates?: boolean;
+		/** The browser's download list. */
         downloads?: boolean;
+		/** The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify. */
         cache?: boolean;
+		/** Websites' appcaches. */
         appcache?: boolean;
+		/** Websites' file systems. */
         fileSystems?: boolean;
+		/** Plugins' data. */
         pluginData?: boolean;
+		/** Websites' local storage data. */
         localStorage?: boolean;
+		/** The browser's stored form data. */
         formData?: boolean;
+		/** The browser's history. */
         history?: boolean;
+		/**
+		 * Since Chrome 39. 
+		 * Service Workers. 
+		 */
+		serviceWorkers?: boolean;
     }
 
-    export function removePluginData(options: RemovalOptions, callback?: Function): void;
-    export function removeFormData(options: RemovalOptions, callback?: Function): void;
-    export function removeFileSystems(options: RemovalOptions, callback?: Function): void;
-    export function remove(options: RemovalOptions, dataToRemove: DataToRemove, callback?: Function): void;
-    export function removePasswords(options: RemovalOptions, callback?: Function): void;
-    export function removeCookies(options: RemovalOptions, callback?: Function): void;
-    export function removeWebSQL(options: RemovalOptions, callback?: Function): void;
-    export function removeAppcache(options: RemovalOptions, callback?: Function): void;
-    export function removeDownloads(options: RemovalOptions, callback?: Function): void;
-    export function removeLocalStorage(options: RemovalOptions, callback?: Function): void;
-    export function removeCache(options: RemovalOptions, callback?: Function): void;
-    export function removeHistory(options: RemovalOptions, callback?: Function): void;
-    export function removeIndexedDB(options: RemovalOptions, callback?: Function): void;
+	interface SettingsCallback {
+		options: RemovalOptions;
+		/** All of the types will be present in the result, with values of true if they are both selected to be removed and permitted to be removed, otherwise false. */
+		dataToRemove: DataTypeSet;
+		/** All of the types will be present in the result, with values of true if they are permitted to be removed (e.g., by enterprise policy) and false if not. */
+		dataRemovalPermitted: DataTypeSet;
+	}
+
+	/**
+	 * Since Chrome 26. 
+	 * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(object result) {...}; 
+	 */
+	export function settings(callback: (result: SettingsCallback) => void): void;
+	/**
+	 * Clears plugins' data. 
+	 * @param callback Called when plugins' data has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removePluginData(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears the browser's stored form data (autofill). 
+	 * @param callback Called when the browser's form data has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeFormData(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears websites' file system data. 
+	 * @param callback Called when websites' file systems have been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeFileSystems(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears various types of browsing data stored in a user's profile. 
+	 * @param dataToRemove The set of data types to remove. 
+	 * @param callback Called when deletion has completed. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function remove(options: RemovalOptions, dataToRemove: DataTypeSet, callback?: () => void): void;
+	/**
+	 * Clears the browser's stored passwords. 
+	 * @param callback Called when the browser's passwords have been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removePasswords(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears the browser's cookies and server-bound certificates modified within a particular timeframe. 
+	 * @param callback Called when the browser's cookies and server-bound certificates have been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeCookies(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears websites' WebSQL data. 
+	 * @param callback Called when websites' WebSQL databases have been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeWebSQL(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears websites' appcache data. 
+	 * @param callback Called when websites' appcache data has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeAppcache(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears the browser's list of downloaded files (not the downloaded files themselves). 
+	 * @param callback Called when the browser's list of downloaded files has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeDownloads(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears websites' local storage data. 
+	 * @param callback Called when websites' local storage has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeLocalStorage(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears the browser's cache. 
+	 * @param callback Called when the browser's cache has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeCache(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears the browser's history. 
+	 * @param callback Called when the browser's history has cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeHistory(options: RemovalOptions, callback?: () => void): void;
+	/**
+	 * Clears websites' IndexedDB data. 
+	 * @param callback Called when websites' IndexedDB data has been cleared. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeIndexedDB(options: RemovalOptions, callback?: () => void): void;
 }
 
 ////////////////////
 // Commands
 ////////////////////
+/**
+ * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the extension. 
+ * Availability: Since Chrome 25.  
+ * Manifest:  "commands": {...}   
+ */
 declare module chrome.commands {
+	interface Command {
+		/** The name of the Extension Command */
+		name?: string;
+		/** The Extension Command description */
+		description?: string;
+		/** The shortcut active for this command, or blank if not active. */
+		shortcut?: string;
+	}
+	
     interface CommandEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string command) {...}; 
+		 */
         addListener(callback: (command: string) => void): void;
     }
+	
+	/**
+	 * Returns all the registered extension commands for this extension and their shortcut (if active). 
+	 * @param callback Called to return the registered commands. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(array of Command commands) {...}; 
+	 */
+	export function getAll(callback: (commands: Command[]) => void): void;
 
+	/** Fired when a registered command is activated using a keyboard shortcut. */    
     var onCommand: CommandEvent;
 }
 
 ////////////////////
 // Content Settings
 ////////////////////
+/**
+ * Use the chrome.contentSettings API to change settings that control whether websites can use features such as cookies, JavaScript, and plugins. More generally speaking, content settings allow you to customize Chrome's behavior on a per-site basis instead of globally. 
+ * Availability: Since Chrome 16.  
+ * Permissions:  "contentSettings"   
+ */
 declare module chrome.contentSettings {
     interface ClearDetails {
+		/**
+		 * Where to clear the setting (default: regular). 
+		 * The scope of the ContentSetting. One of
+		 * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+		 * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
+		 */
         scope?: string;
     }
 
     interface SetDetails {
+		/** The resource identifier for the content type. */
         resourceIdentifier?: ResourceIdentifier;
+		/** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
         setting: any;
+		/** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns. */
         secondaryPattern?: string;
+		/** Where to set the setting (default: regular). */
         scope?: string;
+		/** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
         primaryPattern: string;
     }
 
     interface GetDetails {
+		/** The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs. */
         secondaryUrl?: string;
+		/** A more specific identifier of the type of content for which the settings should be retrieved. */
         resourceIdentifier?: ResourceIdentifier;
+		/** Whether to check the content settings for an incognito session. (default false) */
         incognito?: boolean;
+		/** The primary URL for which the content setting should be retrieved. Note that the meaning of a primary URL depends on the content type. */
         primaryUrl: string;
     }
 
     interface ReturnedDetails {
+		/** The content setting. See the description of the individual ContentSetting objects for the possible values. */
         setting: any;
     }
 
     interface ContentSetting {
-        clear(details: ClearDetails, callback?: Function): void;
-        set(details: SetDetails, callback?: Function): void;
-        getResourceIdentifiers(callback: (resourceIdentifiers: ResourceIdentifier[]) => void): void;
+		/**
+		 * Clear all content setting rules set by this extension. 
+		 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        clear(details: ClearDetails, callback?: () => void): void;
+		/**
+		 * Applies a new content setting rule. 
+		 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+        set(details: SetDetails, callback?: () => void): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(array of ResourceIdentifier resourceIdentifiers) {...}; 
+		 * Parameter resourceIdentifiers: A list of resource identifiers for this content type, or undefined if this content type does not use resource identifiers. 
+		 */
+        getResourceIdentifiers(callback: (resourceIdentifiers?: ResourceIdentifier[]) => void): void;
+		/**
+		 * Gets the current content setting for a given pair of URLs. 
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object details) {...}; 
+		 */
         get(details: GetDetails, callback: (details: ReturnedDetails) => void): void;
     }
 
+	/** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */    
     interface ResourceIdentifier {
+		/** The resource identifier for the given content type. */
         id: string;
+		/** A human readable description of the resource. */
         description?: string;
     }
 
+	/**
+	 * Whether to allow cookies and other local data to be set by websites. One of
+	 * allow: Accept cookies,
+	 * block: Block cookies,
+	 * session_only: Accept cookies only for the current session. 
+	 * Default is allow.
+	 * The primary URL is the URL representing the cookie origin. The secondary URL is the URL of the top-level frame. 
+	 */    
     var cookies: ContentSetting;
+	/**
+	 * Whether to allow sites to show pop-ups. One of
+	 * allow: Allow sites to show pop-ups,
+	 * block: Don't allow sites to show pop-ups.
+	 * Default is block.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+	 */
     var popups: ContentSetting;
+	/**
+	 * Whether to run JavaScript. One of
+	 * allow: Run JavaScript,
+	 * block: Don't run JavaScript. 
+	 * Default is allow.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is not used. 
+	 */
     var javascript: ContentSetting;
+	/**
+	 * Whether to allow sites to show desktop notifications. One of
+	 * allow: Allow sites to show desktop notifications,
+	 * block: Don't allow sites to show desktop notifications,
+	 * ask: Ask when a site wants to show desktop notifications.
+	 * Default is ask.
+	 * The primary URL is the URL of the document which wants to show the notification. The secondary URL is not used. 
+	 */
     var notifications: ContentSetting;
+	/**
+	 * Whether to run plugins. One of
+	 * allow: Run plugins automatically,
+	 * block: Don't run plugins automatically,
+	 * detect_important_content: Only run automatically those plugins that are detected as the website's main content.
+	 * Default is allow.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+	 */
     var plugins: ContentSetting;
+	/**
+	 * Whether to show images. One of
+	 * allow: Show images,
+	 * block: Don't show images. 
+	 * Default is allow.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is the URL of the image. 
+	 */
     var images: ContentSetting;
+	/**
+	 * Since Chrome 42. 
+	 * Whether to allow Geolocation. One of 
+	 * allow: Allow sites to track your physical location,
+	 * block: Don't allow sites to track your physical location,
+	 * ask: Ask before allowing sites to track your physical location.
+	 * Default is ask.
+	 * The primary URL is the URL of the document which requested location data. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL). 
+	 */
+	var location: ContentSetting;
+	/**
+	 * Since Chrome 42. 
+	 * Whether to allow sites to toggle the fullscreen mode. One of
+	 * allow: Allow sites to toggle the fullscreen mode,
+	 * ask: Ask when a site wants to toggle the fullscreen mode.
+	 * Default is ask.
+	 * The primary URL is the URL of the document which requested to toggle the fullscreen mode. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
+	 */
+	var fullscreen: ContentSetting;
+	/**
+	 * Since Chrome 42.
+	 * Whether to allow sites to disable the mouse cursor. One of
+	 * allow: Allow sites to disable the mouse cursor,
+	 * block: Don't allow sites to disable the mouse cursor,
+	 * ask: Ask when a site wants to disable the mouse cursor.
+	 * Default is ask.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+	 */
+	var mouselock: ContentSetting;
+	/**
+	 * Since Chrome 42. 
+	 * Whether to allow sites to run plugins unsandboxed. One of
+	 * allow: Allow sites to run plugins unsandboxed,
+	 * block: Don't allow sites to run plugins unsandboxed,
+	 * ask: Ask when a site wants to run a plugin unsandboxed.
+	 * Default is ask.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+	 */
+	var unsandboxedPlugins: ContentSetting;
+	/**
+	 * Since Chrome 42. 
+	 * Whether to allow sites to download multiple files automatically. One of
+	 * allow: Allow sites to download multiple files automatically,
+	 * block: Don't allow sites to download multiple files automatically,
+	 * ask: Ask when a site wants to download files automatically after the first file.
+	 * Default is ask.
+	 * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+	 */
+	var automaticDownloads: ContentSetting;
 }
 
 ////////////////////
 // Context Menus
 ////////////////////
+/**
+ * Use the chrome.contextMenus API to add items to Google Chrome's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.
+ * Availability: Since Chrome 6. 
+ * Permissions:  "contextMenus" 
+ */
 declare module chrome.contextMenus {
     interface OnClickData {
+		/**
+		 * Since Chrome 35.
+		 * The text for the context selection, if any. 
+		 */
         selectionText?: string;
+		/**
+		 * Since Chrome 35.
+		 * A flag indicating the state of a checkbox or radio item after it is clicked.
+		 */
         checked?: boolean;
+		/**
+		 * Since Chrome 35.
+		 * The ID of the menu item that was clicked.
+		 */
         menuItemId: any;
+		/**
+		 * Since Chrome 35.
+		 * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
+		 */
         frameUrl?: string;
+		/**
+		 * Since Chrome 35.
+		 * A flag indicating whether the element is editable (text input, textarea, etc.).
+		 */
         editable: boolean;
+		/**
+		 * Since Chrome 35. 
+		 * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
+		 */
         mediaType?: string;
+		/**
+		 * Since Chrome 35.
+		 * A flag indicating the state of a checkbox or radio item before it was clicked.
+		 */
         wasChecked?: boolean;
+		/**
+		 * Since Chrome 35. 
+		 * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu. 
+		 */
         pageUrl: string;
+		/**
+		 * Since Chrome 35.
+		 * If the element is a link, the URL it points to. 
+		 */
         linkUrl?: string;
+		/**
+		 * Since Chrome 35.
+		 * The parent ID, if any, for the item clicked.
+		 */
         parentMenuItemId?: any;
+		/**
+		 * Since Chrome 35. 
+		 * Will be present for elements with a 'src' URL.
+		 */
         srcUrl?: string;
     }
 
     interface CreateProperties {
+		/** Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns. */
         documentUrlPatterns?: string[];
+		/** The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items. */
         checked?: boolean;
+		/** The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
         title?: string;
+		/** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
         contexts?: string[];
+		/**
+		 * Since Chrome 20. 
+		 * Whether this context menu item is enabled or disabled. Defaults to true. 
+		 */
         enabled?: boolean;
+		/** Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags. */
         targetUrlPatterns?: string[];
+		/**
+		 * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked. 
+		 * @param info Information sent when a context menu item is clicked. 
+		 * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions. 
+		 */
         onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
+		/** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: any;
+		/** The type of menu item. Defaults to 'normal' if not specified. */
         type?: string;
+		/** 
+		 * Since Chrome 21. 
+		 * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
+		 */
         id?: string;
     }
 
-    interface UpdateProperties {
+	interface UpdateProperties {
         documentUrlPatterns?: string[];
         checked?: boolean;
         title?: string;
         contexts?: string[];
+		/** Since Chrome 20. */
         enabled?: boolean;
         targetUrlPatterns?: string[];
         onclick?: Function;
+		/** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: any;
         type?: string;
     }
 
     interface MenuClickedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object info, tabs.Tab tab) {...}; 
+		 * Parameter info: Information sent when a context menu item is clicked. 
+		 * Parameter tab: The details of the tab where the click took place. If the click did not take place in a tab, this parameter will be missing. 
+		 */
         addListener(callback: (info: OnClickData, tab?: chrome.tabs.Tab) => void): void;
     }
+	
+	/**
+	 * Since Chrome 38. 
+	 * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored. 
+	 */
+	var ACTION_MENU_TOP_LEVEL_LIMIT: number;
 
-    export function removeAll(callback?: Function): void;
-    export function create(createProperties: CreateProperties, callback?: Function): void;
-    export function update(id: any, updateProperties: UpdateProperties, callback?: Function): void;
-    export function remove(menuItemId: any, callback?: Function): void;
+    /**
+	 * Removes all context menu items added by this extension. 
+	 * @param callback Called when removal is complete. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function removeAll(callback?: () => void): void;
+	/**
+	 * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
+	 * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function create(createProperties: CreateProperties, callback?: () => void): void;
+	/**
+	 * Updates a previously created context menu item. 
+	 * @param id The ID of the item to update. 
+	 * @param updateProperties The properties to update. Accepts the same values as the create function. 
+	 * @param callback Called when the context menu has been updated. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+    export function update(id: string, updateProperties: UpdateProperties, callback?: () => void): void;
+	/**
+	 * Updates a previously created context menu item. 
+	 * @param id The ID of the item to update. 
+	 * @param updateProperties The properties to update. Accepts the same values as the create function. 
+	 * @param callback Called when the context menu has been updated. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function update(id: number, updateProperties: UpdateProperties, callback?: () => void): void;
+	/**
+	 * Removes a context menu item. 
+	 * @param menuItemId The ID of the context menu item to remove. 
+	 * @param callback Called when the context menu has been removed. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function remove(menuItemId: string, callback?: () => void): void;
+	/**
+	 * Removes a context menu item. 
+	 * @param menuItemId The ID of the context menu item to remove. 
+	 * @param callback Called when the context menu has been removed. 
+	 * If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function remove(menuItemId: number, callback?: () => void): void;
 
+	/**
+	 * Since Chrome 21. 
+	 * Fired when a context menu item is clicked. 
+	 */    
     var onClicked: MenuClickedEvent;
 }
 
 ////////////////////
 // Cookies
 ////////////////////
+/**
+ * Use the chrome.cookies API to query and modify cookies, and to be notified when they change.
+ * Availability: Since Chrome 6.  
+ * Permissions:  "cookies", host permissions   
+ */
 declare module chrome.cookies {
+	/** Represents information about an HTTP cookie. */
     interface Cookie {
+		/** The domain of the cookie (e.g. "www.google.com", "example.com"). */
         domain: string;
+		/** The name of the cookie. */
         name: string;
+		/** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
+		/** The value of the cookie. */
         value: string;
+		/** True if the cookie is a session cookie, as opposed to a persistent cookie with an expiration date. */
         session: boolean;
+		/** True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie). */
         hostOnly: boolean;
+		/** The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies. */
         expirationDate?: number;
+		/** The path of the cookie. */
         path: string;
+		/** True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts). */
         httpOnly: boolean;
+		/** True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS). */
         secure: boolean;
     }
 
+	/** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */    
     interface CookieStore {
+		/** The unique identifier for the cookie store. */
         id: string;
+		/** Identifiers of all the browser tabs that share this cookie store. */
         tabIds: number[];
     }
 
     interface GetAllDetails {
+		/** Restricts the retrieved cookies to those whose domains match or are subdomains of this one. */
         domain?: string;
+		/** Filters the cookies by name. */
         name?: string;
+		/** Restricts the retrieved cookies to those that would match the given URL. */
         url?: string;
+		/** The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used. */
         storeId?: string;
+		/** Filters out session vs. persistent cookies. */
         session?: boolean;
+		/** Restricts the retrieved cookies to those whose path exactly matches this string. */
         path?: string;
+		/** Filters the cookies by their Secure property. */
         secure?: boolean;
     }
 
     interface SetDetails {
+		/** The domain of the cookie. If omitted, the cookie becomes a host-only cookie. */
         domain?: string;
+		/** The name of the cookie. Empty by default if omitted. */
         name?: string;
+		/** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
+		/** The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store. */
         storeId?: string;
+		/** The value of the cookie. Empty by default if omitted. */
         value?: string;
+		/** The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie. */
         expirationDate?: number;
+		/** The path of the cookie. Defaults to the path portion of the url parameter. */
         path?: string;
+		/** Whether the cookie should be marked as HttpOnly. Defaults to false. */
         httpOnly?: boolean;
+		/** Whether the cookie should be marked as Secure. Defaults to false. */
         secure?: boolean;
     }
 
@@ -732,21 +1258,65 @@ declare module chrome.cookies {
     }
 
     interface CookieChangeInfo {
+		/** Information about the cookie that was set or removed. */
         cookie: Cookie;
+		/** True if a cookie was removed. */
         removed: boolean;
+		/** 
+		 * Since Chrome 12. 
+		 * The underlying reason behind the cookie's change. 
+		 */
         cause: string;
     }
 
     interface CookieChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this:
+		 * function(object changeInfo) {...};
+		 */
         addListener(callback: (changeInfo: CookieChangeInfo) => void): void;
     }
 
+	/**
+	 * Lists all existing cookie stores. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of CookieStore cookieStores) {...}; 
+	 * Parameter cookieStores: All the existing cookie stores. 
+	 */    
     export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
+	/**
+	 * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first. 
+	 * @param details Information to filter the cookies being retrieved. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of Cookie cookies) {...}; 
+	 * Parameter cookies: All the existing, unexpired cookies that match the given cookie info. 
+	 */
     export function getAll(details: GetAllDetails, callback: (cookies: Cookie[]) => void): void;
+	/**
+	 * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist. 
+	 * @param details Details about the cookie being set. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function( Cookie cookie) {...}; 
+	 * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set. 
+	 */
     export function set(details: SetDetails, callback?: (cookie?: Cookie) => void): void;
+	/**
+	 * Deletes a cookie by name. 
+	 * @param details Information to identify the cookie to remove. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object details) {...}; 
+	 */
     export function remove(details: Details, callback?: (details: Details) => void): void;
+	/**
+	 * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
+	 * @param details Details to identify the cookie being retrieved. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function( Cookie cookie) {...}; 
+	 * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found. 
+	 */
     export function get(details: Details, callback: (cookie?: Cookie) => void): void;
 
+	/** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */    
     var onChanged: CookieChangedEvent;
 }
 
