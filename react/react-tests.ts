@@ -204,7 +204,7 @@ myComponent.reset();
 // --------------------------------------------------------------------------
 
 var children: any[] = ["Hello world", [null], React.DOM.span(null)];
-var divStyle = { // CSSProperties
+var divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
