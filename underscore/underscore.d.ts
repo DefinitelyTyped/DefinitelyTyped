@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.7.0
+// Type definitions for Underscore 1.8.3
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -3064,6 +3064,12 @@ interface _Chain<T> {
 	* @see _.extend
 	**/
 	extend(...sources: any[]): _Chain<T>;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.extend
+	**/
+	create(...sources: any[]): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
