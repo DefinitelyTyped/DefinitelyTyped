@@ -87,3 +87,6 @@ client.multi(commandArr).exec();
 
 // Monitor mode
 client.monitor(resCallback);
+
+// Send command
+client.send_command(str, args, resCallback);
