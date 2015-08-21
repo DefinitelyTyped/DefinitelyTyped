@@ -1196,6 +1196,12 @@ result = <boolean>_({}).isRegExp();
 result = <boolean>_.isTypedArray([]);
 result = <boolean>_([]).isTypedArray();
 
+// _.isUndefined
+result = <boolean>_.isUndefined(any);
+result = <boolean>_(1).isUndefined();
+result = <boolean>_<any>([]).isUndefined();
+result = <boolean>_({}).isUndefined();
+
 // _.lt
 result = <boolean>_.lt(1, 2);
 result = <boolean>_(1).lt(2);
@@ -1443,8 +1449,6 @@ result = <boolean>_.isPlainObject([1, 2, 3]);
 result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
 
 result = <boolean>_.isString('moe');
-
-result = <boolean>_.isUndefined(void 0);
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
