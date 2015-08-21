@@ -1759,11 +1759,17 @@ result = <string>_.trimRight('-_-abc-_-', '_-');
 result = <string>_('-_-abc-_-').trimRight();
 result = <string>_('-_-abc-_-').trimRight('_-');
 
+// _.trunc
 result = <string>_.trunc('hi-diddly-ho there, neighborino');
 result = <string>_.trunc('hi-diddly-ho there, neighborino', 24);
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
 result = <string>_.trunc('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+result = <string>_('hi-diddly-ho there, neighborino').trunc();
+result = <string>_('hi-diddly-ho there, neighborino').trunc(24);
+result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': ' ' });
+result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'length': 24, 'separator': /,? +/ });
+result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'omission': ' […]' });
 
 // _.unescape
 result = <string>_.unescape('fred, barney, &amp; pebbles');
