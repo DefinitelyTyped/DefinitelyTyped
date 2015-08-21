@@ -6941,13 +6941,12 @@ declare module _ {
     //_.has
     interface LoDashStatic {
         /**
-        * Checks if the specified object property exists and is a direct property, instead of an
-        * inherited property.
-        * @param object The object to check.
-        * @param property The property to check for.
-        * @return True if key is a direct property, else false.
+        * Checks if path is a direct property.
+        * @param object The object to query.
+        * @param path The path to check.
+        * @return True if path is a direct property, else False.
         **/
-        has(object: any, property: string): boolean;
+        has(object: any, path: string|string[]): boolean;
     }
 
     //_.invert
@@ -8047,12 +8046,14 @@ declare module _ {
         /**
         * Resolves the value of property on object. If property is a function it will be invoked with
         * the this binding of object and its result returned, else the property value is returned. If
-        * object is falsey then undefined is returned.
-        * @param object The object to inspect.
-        * @param property The property to get the value of.
+        * object is false then undefined is returned.
+        * @param object The object to query.
+        * @param path The path of the property to resolve.
+        * @param defaultValue The value returned if the resolved value is undefined.
         * @return The resolved value.
         **/
-        result(object: any, property: string): any;
+
+        result<T>(object: any, path: string|string[], defaultValue?: T): T;
     }
 
     //_.runInContext
