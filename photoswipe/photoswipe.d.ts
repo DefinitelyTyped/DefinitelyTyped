@@ -269,12 +269,16 @@ declare module PhotoSwipe {
         mainClass?: string;
 
         /**
-         * Undocumented.
+         * NOTE: this property will be ignored in future versions of PhotoSwipe.
+         *
+         * @deprecated
          */
         mainScrollEndFriction?: number;
 
         /**
-         * Undocumented.
+         * NOTE: this property will be ignored in future versions of PhotoSwipe.
+         *
+         * @deprecated
          */
         panEndFriction?: number;
 
