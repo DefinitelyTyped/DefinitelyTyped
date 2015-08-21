@@ -67,14 +67,8 @@ declare module ReactRouter {
     interface RedirectClass extends React.ComponentClass<RedirectProp> {}
 
     // Route
-    interface RouteProp {
-        name?: string;
-        path?: string;
-        handler?: React.ComponentClass<any>;
-        ignoreScrollBehavior?: boolean;
-    }
-    interface Route extends React.ReactElement<RouteProp> {}
-    interface RouteClass extends React.ComponentClass<RouteProp> {}
+    interface Route extends React.ReactElement<any> {}
+    interface RouteClass extends React.ComponentClass<any> {}
 
     var DefaultRoute: DefaultRouteClass;
     var NotFoundRoute: NotFoundRouteClass;
@@ -310,7 +304,7 @@ declare module __React {
   // for Route
   function createElement(
     type: ReactRouter.RouteClass,
-    props: ReactRouter.RouteProp,
+    props: any,
     ...children: __React.ReactNode[]): ReactRouter.Route;
 
   // for RouteHandler
@@ -348,7 +342,7 @@ declare module "react/addons" {
   // for Route
   function createElement(
     type: ReactRouter.RouteClass,
-    props: ReactRouter.RouteProp,
+    props: any,
     ...children: __React.ReactNode[]): ReactRouter.Route;
 
   // for RouteHandler
