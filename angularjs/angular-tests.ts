@@ -30,7 +30,7 @@ class AuthService {
         '$rootScope', '$injector', <any>function($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) {
             var $http: ng.IHttpService; //initialized later because of circular dependency problem
             function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
-                $http = $http || $injector.get('$http');
+                $http = $http || $injector.get<ng.IHttpService>('$http');
                 $http(config).then(function (response) {
                     deferred.resolve(response);
                 });
@@ -242,6 +242,70 @@ foo.then((x) => {
     x.toFixed();
 });
 
+// $q signature tests
+module TestQ {
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+    var tResult: TResult;
+    var promiseTResult: angular.IPromise<TResult>;
+
+    var $q: angular.IQService;
+    var promiseAny: angular.IPromise<any>;
+
+    // $q constructor
+    {
+        let result: angular.IPromise<TResult>;
+        result = new $q<TResult>((resolve: (value: TResult) => any) => {});
+        result = new $q<TResult>((resolve: (value: TResult) => any, reject: (value: any) => any) => {});
+    }
+
+    // $q.all
+    {
+        let result: angular.IPromise<any[]>;
+        result = $q.all([promiseAny, promiseAny]);
+    }
+    {
+        let result: angular.IPromise<TResult[]>;
+        result = $q.all<TResult>([promiseAny, promiseAny]);
+    }
+    {
+        let result: angular.IPromise<{[id: string]: any;}>;
+        result = $q.all({a: promiseAny, b: promiseAny});
+    }
+    {
+        let result: angular.IPromise<{a: number; b: string;}>;
+        result = $q.all<{a: number; b: string;}>({a: promiseAny, b: promiseAny});
+    }
+
+
+    // $q.defer
+    {
+        let result: angular.IDeferred<TResult>;
+        result = $q.defer<TResult>();
+    }
+
+    // $q.reject
+    {
+        let result: angular.IPromise<any>;
+        result = $q.reject();
+        result = $q.reject('');
+    }
+
+    // $q.when
+    {
+        let result: angular.IPromise<void>;
+        result = $q.when();
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $q.when<TResult>(tResult);
+        result = $q.when<TResult>(promiseTResult);
+    }
+}
+
 
 var httpFoo: ng.IHttpPromise<number>;
 httpFoo.then((x) => {
@@ -259,6 +323,48 @@ httpFoo.success((data, status, headers, config) => {
     var hs = headers();
     hs["content-type"].charAt(1);
 });
+
+
+// Promise signature tests
+module TestPromise {
+    var result: any;
+    var any: any;
+
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+
+    var promise: angular.IPromise<TResult>;
+    interface IPromiseSuccessCallback<T, U> {
+        (promiseValue: T): angular.IHttpPromise<U>|angular.IPromise<U>|U|angular.IPromise<void>;
+    }
+    var successCallbackAnyFn: IPromiseSuccessCallback<TResult, any>;
+    var successCallbackTResultFn: IPromiseSuccessCallback<TResult, TResult>;
+    interface IPromiseErrorCallback<T> {
+        (error: any): angular.IHttpPromise<T>|angular.IPromise<T>|T;
+    }
+    var errorCallbackAnyFn: IPromiseErrorCallback<any>;
+    var errorCallbackTResultFn: IPromiseErrorCallback<TResult>;
+
+    // promise.then
+    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn);
+    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn, (any) => any);
+    result = <angular.IPromise<any>>promise.then(successCallbackAnyFn, (any) => any, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn);
+    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn, (any) => any);
+    result = <angular.IPromise<TResult>>promise.then<TResult>(successCallbackTResultFn, (any) => any, (any) => any);
+
+    // promise.catch
+    result = <angular.IPromise<any>>promise.catch(errorCallbackAnyFn);
+    result = <angular.IPromise<TResult>>promise.catch<TResult>(errorCallbackTResultFn);
+
+    // promise.finally
+    result = <angular.IPromise<any>>promise.finally(() => any);
+    result = <angular.IPromise<TResult>>promise.finally<TResult>(() => any);
+}
+
 
 function test_angular_forEach() {
     var values: { [key: string]: string } = { name: 'misko', gender: 'male' };
@@ -285,7 +391,7 @@ test_IAttributes({
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
     $set: function(key, value){},
-    $observe: function(name, fn){
+    $observe: function(name: any, fn: any){
         return fn;
     },
     $attr: {}

@@ -186,7 +186,7 @@ map.once('contextmenu', (e: L.LeafletMouseEvent) => {
 
 var marker = L.marker(L.latLng(42, 51), {
 	icon: L.icon({
-		iconURl: 'roger.png',
+		iconUrl: 'roger.png',
 		iconRetinaUrl: 'roger-retina.png',
 		iconSize: L.point(40, 40),
 		iconAnchor: L.point(20, 0),
@@ -264,7 +264,6 @@ popup.setLatLng(L.latLng(12, 54)).setContent('this is nice popup').openOn(map);
 popup.update();
 
 var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}', {
-	foo: 'bar',
 	minZoom: 0,
 	maxZoom: 18,
 	maxNativeZoom: 17,

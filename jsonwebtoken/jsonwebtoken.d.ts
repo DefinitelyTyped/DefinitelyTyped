@@ -3,7 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" /> 
+/// <reference path="../node/node.d.ts" />
 
 declare module "jsonwebtoken" {
 
@@ -45,18 +45,7 @@ declare module "jsonwebtoken" {
      * @param {SignOptions} [options] - Options for the signature
      * @returns {String} The JSON Web Token string
      */
-    export function sign(payload: string, secretOrPrivateKey: string): string;
-    export function sign(payload: string, secretOrPrivateKey: Buffer): string;
-    export function sign(payload: Buffer, secretOrPrivateKey: string): string;
-    export function sign(payload: Buffer, secretOrPrivateKey: Buffer): string;
-    export function sign(payload: Object, secretOrPrivateKey: string): string;
-    export function sign(payload: Object, secretOrPrivateKey: Buffer): string;
-    export function sign(payload: string, secretOrPrivateKey: string, options: SignOptions): string;
-    export function sign(payload: string, secretOrPrivateKey: Buffer, options: SignOptions): string;
-    export function sign(payload: Buffer, secretOrPrivateKey: string, options: SignOptions): string;
-    export function sign(payload: Buffer, secretOrPrivateKey: Buffer, options: SignOptions): string;
-    export function sign(payload: Object, secretOrPrivateKey: string, options: SignOptions): string;
-    export function sign(payload: Object, secretOrPrivateKey: Buffer, options: SignOptions): string;
+    export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options?: SignOptions): string;
 
     /**
      * Verify given token using a secret or a public key to get a decoded token
@@ -65,10 +54,8 @@ declare module "jsonwebtoken" {
      * @param {VerifyOptions} [options] - Options for the verification
      * @param {Function} callback - Callback to get the decoded token on
      */
-    function verify(token: string, secretOrPublicKey: string, callback: VerifyCallbak): void;
-    function verify(token: string, secretOrPublicKey: Buffer, callback: VerifyCallbak): void;
-    function verify(token: string, secretOrPublicKey: string, options: VerifyOptions, callback: VerifyCallbak): void;
-    function verify(token: string, secretOrPublicKey: Buffer, options: VerifyOptions, callback: VerifyCallbak): void;
+    function verify(token: string, secretOrPublicKey: string | Buffer, callback?: VerifyCallbak): void;
+    function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions, callback?: VerifyCallbak): void;
 
     /**
      * Returns the decoded payload without verifying if the signature is valid.

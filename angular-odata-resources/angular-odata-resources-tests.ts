@@ -187,3 +187,13 @@ var combination2 = Predicate.and([combination1, predicate2]);
 var predicate = new Predicate("FirstName", "John")
 	.or(new Predicate("LastName", '!=', "Doe"))
 	.and(new Predicate("Age", '>', 10));
+
+
+users = odataResourceClass.odata()
+	.withInlineCount()
+	.query();
+
+
+var countResult = odataResourceClass.odata().count();
+var total = countResult.result;
+
