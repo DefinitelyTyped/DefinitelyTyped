@@ -587,7 +587,7 @@ declare module jax {
          * These are found in the MathJax/jax directory.
          */
         jax?:string[];
-        /*A comma-separated list of extensions to load at startup. The default directory is MathJax/extensions. The
+        /*A list of extensions to load at startup. The default directory is MathJax/extensions. The
          * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
          * inform your user that mathematics fonts are available that they can download to improve their experience of
          * your site.
@@ -1272,7 +1272,14 @@ declare module jax {
         * of a’s in MathJax’s equation buffer, the MAXBUFFER constant is used to limit the size of the string being
         * processed by MathJax. It is set to 5KB, which should be sufficient for any reasonable equation.
         */
-        MAXBUFFER?:number;
+        MAXBUFFER?: number;
+
+        /*A list of extensions to load at startup. The default directory is MathJax/extensions. The
+         * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
+         * inform your user that mathematics fonts are available that they can download to improve their experience of
+         * your site.
+         */
+        extensions?: string[];
     }
 
     export interface IEquationNumbers {
