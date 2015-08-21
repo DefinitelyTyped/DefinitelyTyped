@@ -269,6 +269,16 @@ declare module PhotoSwipe {
         mainClass?: string;
 
         /**
+         * Undocumented.
+         */
+        mainScrollEndFriction?: number;
+
+        /**
+         * Undocumented.
+         */
+        panEndFriction?: number;
+
+        /**
          * Function that should return total number of items in gallery. Don't put very complex code here, function is executed very often.
          *
          * By default it returns length of slides array.
