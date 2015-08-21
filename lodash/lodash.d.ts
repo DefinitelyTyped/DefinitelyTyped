@@ -1092,16 +1092,16 @@ declare module _ {
         * @param values The values to remove.
         * @return array.
         **/
-        pull(
-            array: Array<any>,
-            ...values: any[]): any[];
+        pull<T>(
+            array: Array<T>,
+            ...values: T[]): T[];
 
         /**
         * @see _.pull
         **/
-        pull(
-            array: List<any>,
-            ...values: any[]): any[];
+        pull<T>(
+            array: List<T>,
+            ...values: T[]): T[];
     }
 
     interface LoDashStatic {
@@ -1141,50 +1141,50 @@ declare module _ {
         * @param thisArg The this binding of callback.
         * @return A new array of removed elements.
         **/
-        remove(
-            array: Array<any>,
-            callback?: ListIterator<any, boolean>,
-            thisArg?: any): any[];
+        remove<T>(
+            array: Array<T>,
+            callback?: ListIterator<T, boolean>,
+            thisArg?: any): T[];
 
         /**
         * @see _.remove
         **/
-        remove(
-            array: List<any>,
-            callback?: ListIterator<any, boolean>,
-            thisArg?: any): any[];
-
-        /**
-        * @see _.remove
-        * @param pluckValue _.pluck style callback
-        **/
-        remove(
-            array: Array<any>,
-            pluckValue?: string): any[];
+        remove<T>(
+            array: List<T>,
+            callback?: ListIterator<T, boolean>,
+            thisArg?: any): T[];
 
         /**
         * @see _.remove
         * @param pluckValue _.pluck style callback
         **/
-        remove(
-            array: List<any>,
-            pluckValue?: string): any[];
+        remove<T>(
+            array: Array<T>,
+            pluckValue?: string): T[];
+
+        /**
+        * @see _.remove
+        * @param pluckValue _.pluck style callback
+        **/
+        remove<T>(
+            array: List<T>,
+            pluckValue?: string): T[];
 
         /**
         * @see _.remove
         * @param whereValue _.where style callback
         **/
-        remove(
-            array: Array<any>,
-            wherealue?: Dictionary<any>): any[];
+        remove<W, T>(
+            array: Array<T>,
+            wherealue?: Dictionary<W>): T[];
 
         /**
         * @see _.remove
         * @param whereValue _.where style callback
         **/
-        remove(
-            array: List<any>,
-            wherealue?: Dictionary<any>): any[];
+        remove<W, T>(
+            array: List<T>,
+            wherealue?: Dictionary<W>): T[];
 
         /**
          * @see _.remove
@@ -2494,7 +2494,7 @@ declare module _ {
          * @see _.fill
          */
         fill<TResult>(
-            value: any,
+            value: TResult,
             start?: number,
             end?: number): LoDashArrayWrapper<TResult>;
     }
@@ -2504,7 +2504,7 @@ declare module _ {
          * @see _.fill
          */
         fill<TResult>(
-            value: any,
+            value: TResult,
             start?: number,
             end?: number): LoDashObjectWrapper<List<TResult>>;
     }
@@ -4069,21 +4069,21 @@ declare module _ {
         **/
         pluck<T extends {}>(
             collection: Array<T>,
-            property: string): any[];
+            property: string|string[]): any[];
 
         /**
         * @see _.pluck
         **/
         pluck<T extends {}>(
             collection: List<T>,
-            property: string): any[];
+            property: string|string[]): any[];
 
         /**
         * @see _.pluck
         **/
         pluck<T extends {}>(
             collection: Dictionary<T>,
-            property: string): any[];
+            property: string|string[]): any[];
     }
 
     interface LoDashArrayWrapper<T> {
