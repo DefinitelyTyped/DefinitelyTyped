@@ -6080,6 +6080,23 @@ declare module _ {
         gte(other: any): boolean;
     }
 
+    //_.isArray
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as an Array object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isArray(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArray
+         */
+        isArray(): boolean;
+    }
+
     //_.isEmpty
     interface LoDashStatic {
         /**
@@ -6855,16 +6872,6 @@ declare module _ {
         * @return True if the value is an arguments object, else false.
         **/
         isArguments(value?: any): boolean;
-    }
-
-    //_.isArray
-    interface LoDashStatic {
-        /**
-        * Checks if value is an array.
-        * @param value The value to check.
-        * @return True if the value is an array, else false.
-        **/
-        isArray(value?: any): boolean;
     }
 
     //_.isBoolean
