@@ -7482,9 +7482,67 @@ declare module _ {
 
     interface LoDashStatic {
         kebabCase(str?: string): string;
-        pad(str?: string, length?: number, chars?: string): string;
-        padLeft(str?: string, length?: number, chars?: string): string;
-        padRight(str?: string, length?: number, chars?: string): string;
+    }
+
+    interface LoDashStatic {
+        /**
+         *
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        pad(string?: string, length?: number, chars?: string): string;
+    }
+
+    //_.pad
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.pad
+         */
+        pad(length?: number, chars?: string): string;
+    }
+
+    //_.padLeft
+    interface LoDashStatic {
+        /**
+         * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        padLeft(string?: string, length?: number, chars?: string): string;
+    }
+
+    //_.padLeft
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.padLeft
+         */
+        padLeft(length?: number, chars?: string): string;
+    }
+
+    //_.padRight
+    interface LoDashStatic {
+        /**
+         * Pads string on the right side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        padRight(string?: string, length?: number, chars?: string): string;
+    }
+
+    //_.padRight
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.padRight
+         */
+        padRight(length?: number, chars?: string): string;
     }
 
     //_.parseInt
