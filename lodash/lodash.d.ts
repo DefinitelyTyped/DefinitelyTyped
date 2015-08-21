@@ -7587,9 +7587,32 @@ declare module _ {
         trimRight(chars?: string): string;
     }
 
+    //_.trunc
+    interface TruncOptions {
+        /** The maximum string length. */
+        length?: number;
+        /** The string to indicate text is omitted. */
+        omission?: string;
+        /** The separator pattern to truncate to. */
+        separator?: string|RegExp;
+    }
+
     interface LoDashStatic {
-        trunc(str?: string, len?: number): string;
-        trunc(str?: string, options?: { length?: number; omission?: string; separator?: string|RegExp }): string;
+        /**
+         * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
+         * string are replaced with the omission string which defaults to "…".
+         * @param string The string to truncate.
+         * @param options The options object or maximum string length.
+         * @return Returns the truncated string.
+         */
+        trunc(string?: string, options?: TruncOptions|number): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.trunc
+         */
+        trunc(options?: TruncOptions|number): string;
     }
 
     //_.unescape
