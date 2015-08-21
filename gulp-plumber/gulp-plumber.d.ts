@@ -41,7 +41,7 @@ declare module 'gulp-plumber' {
 	/** an error handler function to be attached to the stream on('error') */
 	interface ErrorHandlerFunction {
 		/** an error handler function to be attached to the stream on('error') */
-		(error): void;
+		(error: any): void;
 	}
 	
 	/** Prevent pipe breaking caused by errors from gulp plugins */
