@@ -549,7 +549,10 @@ declare module jax {
         * from “Show Source” and put it into a page that uses MathJax’s MathML input jax and expect to get the same
         * results as the original TeX. (Without this, there may be some spacing differences.)
         */
-        texHints?:boolean;
+        texHints?: boolean;
+
+        mpContext?: boolean;
+        mpMouse?: boolean;
     }
 
     export interface IErrorSettings {
