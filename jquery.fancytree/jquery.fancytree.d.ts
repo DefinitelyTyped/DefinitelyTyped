@@ -780,6 +780,7 @@ declare module Fancytree {
     interface NodeData {
         /** node text (may contain HTML tags) */
         title: string;
+        icon?: string;
         /** unique key for this node (auto-generated if omitted) */
         key?: string;
         /** (reserved) */
