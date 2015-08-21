@@ -267,7 +267,7 @@ declare module "redis" {
         randomkey(args:any[], callback?:ResCallbackT<any>): boolean;
         randomkey(...args:any[]): boolean;
         select(args:any[], callback?:ResCallbackT<any>): void;
-        select(...args:any[]): boolean;
+        select(...args:any[]): void;
         move(args:any[], callback?:ResCallbackT<any>): boolean;
         move(...args:any[]): boolean;
         rename(args:any[], callback?:ResCallbackT<any>): boolean;
