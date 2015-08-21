@@ -325,6 +325,48 @@ httpFoo.success((data, status, headers, config) => {
 });
 
 
+// Deferred signature tests
+module TestDeferred {
+    var any: any;
+
+    interface TResult {
+        a: number;
+        b: string;
+        c: boolean;
+    }
+    var tResult: TResult;
+
+    var deferred: angular.IDeferred<TResult>;
+
+    // deferred.resolve
+    {
+        let result: void;
+        result = <void>deferred.resolve();
+        result = <void>deferred.resolve(tResult);
+    }
+
+    // deferred.reject
+    {
+        let result: void;
+        result = deferred.reject();
+        result = deferred.reject(any);
+    }
+
+    // deferred.notify
+    {
+        let result: void;
+        result = deferred.notify();
+        result = deferred.notify(any);
+    }
+
+    // deferred.promise
+    {
+        let result: angular.IPromise<TResult>;
+        result = deferred.promise;
+    }
+}
+
+
 // Promise signature tests
 module TestPromise {
     var result: any;
