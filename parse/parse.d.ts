@@ -7,7 +7,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../underscore/underscore.d.ts" />
 
-declare module Parse {
+declare namespace Parse {
 
     var applicationId: string;
     var javaScriptKey: string;
@@ -771,7 +771,7 @@ declare module Parse {
         }
     }
 
-    module Analytics {
+    namespace Analytics {
 
         function track<T>(name: string, dimensions: any):Promise<T>;
     }
@@ -781,7 +781,7 @@ declare module Parse {
      * @namespace
      * Provides a set of utilities for using Parse with Facebook.
      */
-    module FacebookUtils {
+    namespace FacebookUtils {
 
         function init(options?: any): void;
         function isLinked(user: User): boolean;
@@ -797,7 +797,7 @@ declare module Parse {
      *   Some functions are only available from Cloud Code.
      * </em></strong></p>
      */
-    module Cloud {
+    namespace Cloud {
 
         interface CookieOptions {
             domain?: string;
@@ -980,7 +980,7 @@ declare module Parse {
      * You should not create subclasses of Parse.Op or instantiate Parse.Op
      * directly.
      */
-    module Op {
+    namespace Op {
 
         interface BaseOperation extends IBaseObject {
             objects(): any[];
@@ -1015,7 +1015,7 @@ declare module Parse {
      * @name Parse.Push
      * @namespace
      */
-    module Push {
+    namespace Push {
         function send<T>(data: PushData, options?: SendOptions): Promise<T>;
 
         interface PushData {
