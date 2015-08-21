@@ -91,6 +91,12 @@ var result: any;
 
 var any: any;
 
+interface TResult {
+    a: number;
+    b: string;
+    c: boolean;
+}
+
 // _.MapCache
 var testMapCache: _.MapCache;
 result = <(key: string) => boolean>testMapCache.delete;
@@ -1539,8 +1545,16 @@ result = <number[]>_(new TestValueIn()).valuesIn<number>().value();
 // → [1, 2, 3]
 
 /**********
-* Utilities *
+* Utility *
 ***********/
+
+// _.attempt
+interface TestAttemptFn {
+    (): TResult;
+}
+var testAttempFn: TestAttemptFn;
+result = <TResult|Error>_.attempt<TResult>(testAttempFn);
+result = <TResult|Error>_(testAttempFn).attempt<TResult>();
 
 result = <{ name: string }>_.identity({ 'name': 'moe' });
 
