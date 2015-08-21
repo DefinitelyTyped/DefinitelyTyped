@@ -5997,6 +5997,88 @@ declare module _ {
      * Lang *
      ********/
 
+    //_.clone
+    interface LoDashStatic {
+        /**
+         * Creates a clone of value. If isDeep is true nested objects are cloned, otherwise they are assigned by
+         * reference. If customizer is provided it’s invoked to produce the cloned values. If customizer returns
+         * undefined cloning is handled by the method instead. The customizer is bound to thisArg and invoked with up
+         * to three argument; (value [, index|key, object]).
+         * Note: This method is loosely based on the structured clone algorithm. The enumerable properties of arguments
+         * objects and objects created by constructors other than Object are cloned to plain Object objects. An empty
+         * object is returned for uncloneable values such as functions, DOM nodes, Maps, Sets, and WeakMaps.
+         * @param value The value to clone.
+         * @param isDeep Specify a deep clone.
+         * @param customizer The function to customize cloning values.
+         * @param thisArg The this binding of customizer.
+         * @return Returns the cloned value.
+         */
+        clone<T>(
+            value: T,
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+
+        /**
+         * @see _.clone
+         */
+        clone<T>(
+            value: T,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+
+        /**
+         * @see _.clone
+         */
+        clone(
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T[];
+
+        /**
+         * @see _.clone
+         */
+        clone(
+            customizer?: (value: any) => any,
+            thisArg?: any): T[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+
+        /**
+         * @see _.clone
+         */
+        clone(
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+    }
+
     //_.cloneDeep
     interface LoDashStatic {
         /**
@@ -6007,13 +6089,13 @@ declare module _ {
          * objects and objects created by constructors other than Object are cloned to plain Object objects. An empty
          * object is returned for uncloneable values such as functions, DOM nodes, Maps, Sets, and WeakMaps.
          * @param value The value to deep clone.
-         * @param callback The function to customize cloning values.
+         * @param customizer The function to customize cloning values.
          * @param thisArg The this binding of customizer.
          * @return Returns the deep cloned value.
          */
         cloneDeep<T>(
             value: T,
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T;
     }
 
@@ -6022,7 +6104,7 @@ declare module _ {
          * @see _.cloneDeep
          */
         cloneDeep(
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T;
     }
 
@@ -6031,7 +6113,7 @@ declare module _ {
          * @see _.cloneDeep
          */
         cloneDeep(
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T[];
     }
 
@@ -6040,7 +6122,7 @@ declare module _ {
          * @see _.cloneDeep
          */
         cloneDeep(
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T;
     }
 
@@ -6494,26 +6576,6 @@ declare module _ {
          * @see _.create
          */
         create<TResult extends {}>(properties?: Object): LoDashObjectWrapper<TResult>;
-    }
-
-    //_.clone
-    interface LoDashStatic {
-        /**
-        * Creates a clone of value. If deep is true nested objects will also be cloned, otherwise
-        * they will be assigned by reference. If a callback is provided it will be executed to produce
-        * the cloned values. If the callback returns undefined cloning will be handled by the method
-        * instead. The callback is bound to thisArg and invoked with one argument; (value).
-        * @param value The value to clone.
-        * @param deep Specify a deep clone.
-        * @param callback The function to customize cloning values.
-        * @param thisArg The this binding of callback.
-        * @return The cloned value.
-        **/
-        clone<T>(
-            value: T,
-            deep?: boolean,
-            callback?: (value: any) => any,
-            thisArg?: any): T;
     }
 
     //_.defaults
