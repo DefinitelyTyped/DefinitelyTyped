@@ -1097,6 +1097,13 @@ declare module Marionette {
         onRenderCollection(): void;
     }
 
+    interface LayoutViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel> {
+        /**
+         * The LayoutView takes an additional parameter where you can pass the regions as option on creation.
+         */
+        regions?:any;
+    }
+
     /**
      * A LayoutView is a hybrid of an ItemView and a collection of Region objects. 
      * They are ideal for rendering application layouts with multiple sub-regions 
@@ -1119,7 +1126,12 @@ declare module Marionette {
          * A hash that can contain a regions hash that allows you to specify regions per 
          * LayoutView instance.
          */
-        constructor(options?: any);
+        constructor(options?: LayoutViewOptions<TModel>);
+
+        /**
+         * Regions hash or a method returning the regions hash that maps regions/selectors to methods on your View.
+         **/
+        regions():any;
 
         /** Adds a region to the layout view. */
         addRegion(name: string, definition: any): Region;
@@ -1129,7 +1141,7 @@ declare module Marionette {
          */
         addRegions(regions: any): any;
         
-	/** Returns a region from the layout view */
+	    /** Returns a region from the layout view */
         getRegion(name: string): Region;
 
         /**
@@ -1147,7 +1159,7 @@ declare module Marionette {
           * for customized region interactions and business specific
           * view logic for better control over single regions.
           */
-        getRegionManager(): any;
+        getRegionManager(): RegionManager;
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {
