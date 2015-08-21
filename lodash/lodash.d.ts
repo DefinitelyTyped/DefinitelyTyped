@@ -6195,6 +6195,23 @@ declare module _ {
         isNative(): boolean;
     }
 
+    //_.isRegExp
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a RegExp object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isRegExp(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isRegExp
+         */
+        isRegExp(): boolean;
+    }
+
     //_.isTypedArray
     interface LoDashStatic {
         /**
@@ -7046,16 +7063,6 @@ declare module _ {
         * @return True if value is a plain object, else false.
         **/
         isPlainObject(value?: any): boolean;
-    }
-
-    //_.isRegExp
-    interface LoDashStatic {
-        /**
-        * Checks if value is a regular expression.
-        * @param value The value to check.
-        * @return True if the value is a regular expression, else false.
-        **/
-        isRegExp(value?: any): boolean;
     }
 
     //_.isString
