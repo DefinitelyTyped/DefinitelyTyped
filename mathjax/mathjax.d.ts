@@ -582,7 +582,7 @@ declare module jax {
         asciimath2jax?:IAsciimath2jaxPreprocessor;
         mml2jax?:IMML2jaxPreprocessor;
         tex2jax?:ITEX2jaxPreprocessor;
-        /*A comma-separated list of input and output jax to initialize at startup. Their main code is loaded only when
+        /*A list of input and output jax to initialize at startup. Their main code is loaded only when
          * they are actually used, so it is not inefficient to include jax that may not actually be used on the page.
          * These are found in the MathJax/jax directory.
          */
@@ -593,16 +593,16 @@ declare module jax {
          * your site.
          */
         extensions?:string[];
-        /*A comma-separated list of configuration files to load when MathJax starts up, e.g., to define local macros,
+        /*A list of configuration files to load when MathJax starts up, e.g., to define local macros,
          * etc., and there is a sample config file named config/local/local.js. The default directory is the
          * MathJax/config directory. The MMLorHTML.js configuration is one such configuration file, and there are a
          * number of other pre-defined configurations (see Using a configuration file for more details).
          */
         config?:string[];
-        /*A comma-separated list of CSS stylesheet files to be loaded when MathJax starts up. The default directory is
+        /*A list of CSS stylesheet files to be loaded when MathJax starts up. The default directory is
          * the MathJax/config directory.
          */
-        styleSheets?:string;
+        styleSheets?:string[];
         /*CSS styles to be defined dynamically at startup time. These are in the form selector:rules (see CSS Style
          * Objects for complete details).
          */
@@ -1274,7 +1274,7 @@ declare module jax {
         */
         MAXBUFFER?: number;
 
-        /*A list of extensions to load at startup. The default directory is MathJax/extensions. The
+        /*A comma-separated list of extensions to load at startup. The default directory is MathJax/extensions. The
          * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
          * inform your user that mathematics fonts are available that they can download to improve their experience of
          * your site.
