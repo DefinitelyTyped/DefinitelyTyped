@@ -16,14 +16,14 @@ declare class localStorageDB
 	serialize(): string; // Returns the entire database as serialized JSON
 	tableExists(table:string): boolean; // Checks whether a table exists in the database
 	tableFields(table:string): string[]; // Returns the list of fields of a table
-	createTable(table:string,fields:string[]); // Creates a table - fields is an array of string fieldnames. 'ID' is a reserved fieldname.
-	createTableWithData(table:string,rows:{[T:string]:any}[]);
+	createTable(table:string,fields:string[]): void; // Creates a table - fields is an array of string fieldnames. 'ID' is a reserved fieldname.
+	createTableWithData(table:string,rows:{[T:string]:any}[]): void;
 	/*
 	 Creates a table and populates it
 	 rows is an array of object literals where each object represents a record
 	 [{field1: val, field2: val}, {field1: val, field2: val}]
 	 */
-	alterTable(table:string,new_fields:string[]|string,default_values:localStorageDB_dynamicFields|string);
+	alterTable(table:string,new_fields:string[]|string,default_values:localStorageDB_dynamicFields|string): void;
 	/*
 	 Alter a table
 	 - new_fields can be a array of columns OR a string of single column.
