@@ -18,8 +18,8 @@ declare module 'gulp-protractor' {
     interface IGulpProtractor {
         getProtractorDir(): string;
         protractor(options?: IOptions): NodeJS.ReadWriteStream;
-        webdriver_standalone: gulp.ITaskCallback;
-        webdriver_update: gulp.ITaskCallback;
+        webdriver_standalone: gulp.TaskCallback;
+        webdriver_update: gulp.TaskCallback;
     }
 
     var protractor: IGulpProtractor;
