@@ -1,6 +1,6 @@
 /// <reference path="bunyan.d.ts" />
 
-import bunyan = require('bunyan');
+import * as bunyan from 'bunyan';
 
 var ringBufferOptions:bunyan.RingBufferOptions = {
     limit: 100
