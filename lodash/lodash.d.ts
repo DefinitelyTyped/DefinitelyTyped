@@ -6098,6 +6098,24 @@ declare module _ {
         isEmpty(): boolean;
     }
 
+    //_.isFinite
+    interface LoDashStatic {
+        /**
+         * Checks if value is a finite primitive number.
+         * Note: This method is based on Number.isFinite.
+         * @param value The value to check.
+         * @return Returns true if value is a finite number, else false.
+         **/
+        isFinite(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFinite
+         */
+        isFinite(): boolean;
+    }
+
     //_.isMatch
     interface isMatchCustomizer {
         (value: any, other: any, indexOrKey?: number|string): boolean;
@@ -6968,19 +6986,6 @@ declare module _ {
         eq(other?: any,
            callback?: EqCustomizer,
            thisArg?: any): boolean;
-    }
-
-    //_.isFinite
-    interface LoDashStatic {
-        /**
-        * Checks if value is, or can be coerced to, a finite number.
-        *
-        * Note: This is not the same as native isFinite which will return true for booleans and empty
-        * strings. See http://es5.github.io/#x15.1.2.5.
-        * @param value The value to check.
-        * @return True if the value is finite, else false.
-        **/
-        isFinite(value?: any): boolean;
     }
 
     //_.isFunction

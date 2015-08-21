@@ -1153,6 +1153,12 @@ result = <boolean>_([1, 2, 3]).isEmpty();
 result = <boolean>_({}).isEmpty();
 result = <boolean>_('').isEmpty();
 
+// _.isFinite
+result = <boolean>_.isFinite(any);
+result = <boolean>_(1).isFinite();
+result = <boolean>_<any>([]).isFinite();
+result = <boolean>_({}).isFinite();
+
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
 result = <boolean>_.isMatch({}, {});
@@ -1404,12 +1410,6 @@ result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
-
-result = <boolean>_.isFinite(-101);
-result = <boolean>_.isFinite('10');
-result = <boolean>_.isFinite(true);
-result = <boolean>_.isFinite('');
-result = <boolean>_.isFinite(Infinity);
 
 result = <boolean>_.isFunction(_);
 
