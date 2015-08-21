@@ -174,8 +174,7 @@ declare module ReactRouter {
 
     function create(options: RouterCreateOption): Router;
     function run(routes: Route, callback: RouterRunCallback): Router;
-    function run(routes: Route, location: LocationBase, callback: RouterRunCallback): Router;
-    function run(routes: Route, location: string, callback: RouterRunCallback): Router;
+    function run(routes: Route, location: LocationBase | string, callback: RouterRunCallback): Router;
 
 
     //
