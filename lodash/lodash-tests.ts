@@ -1091,41 +1091,89 @@ helloWrap2();
  * Lang *
  ********/
 
-// _.cloneDeep
-interface TestCloneDeepFn {
+// _.clone
+interface TestCloneCustomizerFn {
     (value: any): any;
 }
-var testCloneDeepFn: TestCloneDeepFn;
-result = <number>_.cloneDeep<number>(1);
-result = <number>_.cloneDeep<number>(1, testCloneDeepFn);
-result = <number>_.cloneDeep<number>(1, testCloneDeepFn, any);
-result = <string>_.cloneDeep<string>('a');
-result = <string>_.cloneDeep<string>('a', testCloneDeepFn);
-result = <string>_.cloneDeep<string>('a', testCloneDeepFn, any);
-result = <boolean>_.cloneDeep<boolean>(true);
-result = <boolean>_.cloneDeep<boolean>(true, testCloneDeepFn);
-result = <boolean>_.cloneDeep<boolean>(true, testCloneDeepFn, any);
-result = <number[]>_.cloneDeep<number[]>([1, 2]);
-result = <number[]>_.cloneDeep<number[]>([1, 2], testCloneDeepFn);
-result = <number[]>_.cloneDeep<number[]>([1, 2], testCloneDeepFn, any);
-result = <{a: {b: number;}}>_.cloneDeep<{a: {b: number;}}>({a: {b: 2}});
-result = <{a: {b: number;}}>_.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepFn);
-result = <{a: {b: number;}}>_.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepFn, any);
-result = <number>_(1).cloneDeep();
-result = <number>_(1).cloneDeep(testCloneDeepFn);
-result = <number>_(1).cloneDeep(testCloneDeepFn, any);
-result = <string>_('a').cloneDeep();
-result = <string>_('a').cloneDeep(testCloneDeepFn);
-result = <string>_('a').cloneDeep(testCloneDeepFn, any);
-result = <boolean>_(true).cloneDeep();
-result = <boolean>_(true).cloneDeep(testCloneDeepFn);
-result = <boolean>_(true).cloneDeep(testCloneDeepFn, any);
-result = <number[]>_([1, 2]).cloneDeep();
-result = <number[]>_([1, 2]).cloneDeep(testCloneDeepFn);
-result = <number[]>_([1, 2]).cloneDeep(testCloneDeepFn, any);
-result = <{a: {b: number;}}>_({a: {b: 2}}).cloneDeep();
-result = <{a: {b: number;}}>_({a: {b: 2}}).cloneDeep(testCloneDeepFn);
-result = <{a: {b: number;}}>_({a: {b: 2}}).cloneDeep(testCloneDeepFn, any);
+var testCloneCustomizerFn: TestCloneCustomizerFn;
+{
+    let result: number;
+    result = _.clone<number>(42);
+    result = _.clone<number>(42, false);
+    result = _.clone<number>(42, false, testCloneCustomizerFn);
+    result = _.clone<number>(42, false, testCloneCustomizerFn, any);
+    result = _.clone<number>(42, testCloneCustomizerFn);
+    result = _.clone<number>(42, testCloneCustomizerFn, any);
+    result = _(42).clone();
+    result = _(42).clone(false);
+    result = _(42).clone(false, testCloneCustomizerFn);
+    result = _(42).clone(false, testCloneCustomizerFn, any);
+    result = _(42).clone(testCloneCustomizerFn);
+    result = _(42).clone(testCloneCustomizerFn, any);
+}
+{
+    let result: string[];
+    result = _.clone<string[]>([]);
+    result = _.clone<string[]>([], false);
+    result = _.clone<string[]>([], false, testCloneCustomizerFn);
+    result = _.clone<string[]>([], false, testCloneCustomizerFn, any);
+    result = _.clone<string[]>([], testCloneCustomizerFn);
+    result = _.clone<string[]>([], testCloneCustomizerFn, any);
+    result = _<string>([]).clone();
+    result = _<string>([]).clone(false);
+    result = _<string>([]).clone(false, testCloneCustomizerFn);
+    result = _<string>([]).clone(false, testCloneCustomizerFn, any);
+    result = _<string>([]).clone(testCloneCustomizerFn);
+    result = _<string>([]).clone(testCloneCustomizerFn, any);
+}
+{
+    let result: {a: {b: number;}};
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}});
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, false);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, false, testCloneCustomizerFn);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, false, testCloneCustomizerFn, any);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, testCloneCustomizerFn);
+    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, testCloneCustomizerFn, any);
+    result = _({a: {b: 2}}).clone();
+    result = _({a: {b: 2}}).clone(false);
+    result = _({a: {b: 2}}).clone(false, testCloneCustomizerFn);
+    result = _({a: {b: 2}}).clone(false, testCloneCustomizerFn, any);
+    result = _({a: {b: 2}}).clone(testCloneCustomizerFn);
+    result = _({a: {b: 2}}).clone(testCloneCustomizerFn, any);
+}
+
+// _.cloneDeep
+interface TestCloneDeepCustomizerFn {
+    (value: any): any;
+}
+var testCloneDeepCustomizerFn: TestCloneDeepCustomizerFn;
+{
+    let result: number;
+    result = _.cloneDeep<number>(42);
+    result = _.cloneDeep<number>(42, testCloneDeepCustomizerFn);
+    result = _.cloneDeep<number>(42, testCloneDeepCustomizerFn, any);
+    result = _(42).cloneDeep();
+    result = _(42).cloneDeep(testCloneDeepCustomizerFn);
+    result = _(42).cloneDeep(testCloneDeepCustomizerFn, any);
+}
+{
+    let result: string[];
+    result = _.cloneDeep<string[]>([]);
+    result = _.cloneDeep<string[]>([], testCloneDeepCustomizerFn);
+    result = _.cloneDeep<string[]>([], testCloneDeepCustomizerFn, any);
+    result = _<string>([]).cloneDeep();
+    result = _<string>([]).cloneDeep(testCloneDeepCustomizerFn);
+    result = _<string>([]).cloneDeep(testCloneDeepCustomizerFn, any);
+}
+{
+    let result: {a: {b: number;}};
+    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}});
+    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepCustomizerFn);
+    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepCustomizerFn, any);
+    result = _({a: {b: 2}}).cloneDeep();
+    result = _({a: {b: 2}}).cloneDeep(testCloneDeepCustomizerFn);
+    result = _({a: {b: 2}}).cloneDeep(testCloneDeepCustomizerFn, any);
+}
 
 // _.gt
 result = <boolean>_.gt(1, 2);
@@ -1261,12 +1309,6 @@ result = <{}>_(testCreateProto).create().value();
 result = <{}>_(testCreateProto).create(testCreateProps).value();
 result = <TestCreateProto>_(testCreateProto).create<TestCreateProto>().value();
 result = <TestCreateTResult>_(testCreateProto).create<TestCreateTResult>(testCreateProps).value();
-
-result = <IStoogesAge[]>_.clone(stoogesAges);
-result = <IStoogesAge[]>_.clone(stoogesAges, true);
-result = <any>_.clone(stoogesAges, true, function (value) {
-    return _.isElement(value) ? value.cloneNode(false) : undefined;
-});
 
 interface Food {
     name: string;
