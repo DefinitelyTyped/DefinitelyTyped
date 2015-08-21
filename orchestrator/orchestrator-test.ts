@@ -3,7 +3,7 @@
 
 'use strict';
 
-import Orchestrator from 'orchestrator';
+import Orchestrator = require('orchestrator');
 
 var orchestrator = new Orchestrator();
 
@@ -102,5 +102,6 @@ orchestrator.onAll(function (e) {
     var err: any = e.err;
     var src: string = e.src;
 });
+
 
 
