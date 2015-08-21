@@ -33,6 +33,8 @@ declare module 'joi' {
 		multiple?: boolean;
 		// if true, allows renaming a key over an existing key. Defaults to false.
 		override?: boolean;
+		// if true, skip renaming of a key if it's undefined. Defaults to false.
+		ignoreUndefined?: boolean;
 	}
 
 	export interface EmailOptions {
