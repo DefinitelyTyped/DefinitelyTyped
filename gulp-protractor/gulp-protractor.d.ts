@@ -7,6 +7,8 @@
 /// <reference path="../gulp/gulp.d.ts" />
 
 declare module 'gulp-protractor' {
+    import gulp = require('gulp');
+
     interface IOptions {
         configFile?: string;
         args?: Array<string>;

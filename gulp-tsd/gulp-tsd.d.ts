@@ -7,6 +7,7 @@
 /// <reference path="../gulp/gulp.d.ts" />
 
 declare module "gulp-tsd" {
+    import gulp = require('gulp');
 
     interface IOptions {
         command?: string;

@@ -7,6 +7,7 @@
 /// <reference path="../gulp/gulp.d.ts" />
 
 declare module "run-sequence" {
+    import gulp = require('gulp');
 
     interface IRunSequence {
         (...streams: (string | string[] | gulp.ITaskCallback)[]): NodeJS.ReadWriteStream;
