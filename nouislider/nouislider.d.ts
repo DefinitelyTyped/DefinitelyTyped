@@ -5,12 +5,10 @@
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
 declare module noUiSlider {
-    interface Static {
-        /**
-         * To create a slider, call noUiSlider.create() with an element and your options.
-         */
-        create(target: HTMLElement, options: Options): void;
-    }
+    /**
+     * To create a slider, call noUiSlider.create() with an element and your options.
+     */
+    function create(target: HTMLElement, options: Options): void;
 
     interface Options {
         /**
@@ -110,7 +108,7 @@ declare module noUiSlider {
          * Step Mode: The filter option can be used to filter the generated pips.
          * The filter function must return 0 (no value), 1 (large value) or 2 (small value).
          */
-        filter?: (...args: any[]) => number;
+        filter?: (...args: any[]) => PipFilterResult;
         /**
          * format for step mode
          * see noUiSlider format
@@ -126,6 +124,12 @@ declare module noUiSlider {
          * stepped option for positions, values and count mode
          */
         stepped?: boolean;
+    }
+
+    const enum PipFilterResult {
+        NoValue,
+        LargeValue,
+        SmallValue,
     }
 
     interface Callback {
@@ -170,6 +174,3 @@ declare module noUiSlider {
         noUiSlider: noUiSlider
     }
 }
-
-declare var noUiSlider: noUiSlider.Static;
-
