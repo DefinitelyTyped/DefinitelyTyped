@@ -1768,13 +1768,15 @@ result = <string>_('abc').padRight();
 result = <string>_('abc').padRight(6);
 result = <string>_('abc').padRight(6, '_-');
 
-result = <string>_.repeat('*', 3);
-
 // _.parseInt
 result = <number>_.parseInt('08');
 result = <number>_.parseInt('08', 10);
 result = <number>_('08').parseInt();
 result = <number>_('08').parseInt(10);
+
+// _.repeat
+result = <string>_.repeat('*', 3);
+result = <string>_('*').repeat(3);
 
 // _.snakeCase
 result = <string>_.snakeCase('Foo Bar');

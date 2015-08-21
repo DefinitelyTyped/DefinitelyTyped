@@ -7672,8 +7672,22 @@ declare module _ {
         parseInt(radix?: number): number;
     }
 
+    //_.repeat
     interface LoDashStatic {
-        repeat(str?: string, n?: number): string;
+        /**
+         * Repeats the given string n times.
+         * @param string The string to repeat.
+         * @param n The number of times to repeat the string.
+         * @return Returns the repeated string.
+         */
+        repeat(string?: string, n?: number): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.repeat
+         */
+        repeat(n?: number): string;
     }
 
     //_.snakeCase
