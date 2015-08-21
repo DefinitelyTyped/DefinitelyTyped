@@ -252,7 +252,7 @@ declare module _ {
     interface LoDashObjectWrapper<T> extends LoDashWrapperBase<T, LoDashObjectWrapper<T>> { }
 
     interface LoDashArrayWrapper<T> extends LoDashWrapperBase<T[], LoDashArrayWrapper<T>> {
-        concat(...items: T[]): LoDashArrayWrapper<T>;
+        concat(...items: Array<T|Array<T>>): LoDashArrayWrapper<T>;
         join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashArrayWrapper<T>;
