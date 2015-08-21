@@ -725,8 +725,9 @@ declare module angular {
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        <T>(func: (...args: any[]) => T, delay?: number, invokeApply?: boolean): IPromise<T>;
-        cancel(promise: IPromise<any>): boolean;
+        (delay?: number, invokeApply?: boolean): IPromise<void>;
+        <T>(fn: (...args: any[]) => T, delay?: number, invokeApply?: boolean, ...args: any[]): IPromise<T>;
+        cancel(promise?: IPromise<any>): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
