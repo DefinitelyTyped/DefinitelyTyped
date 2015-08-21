@@ -1,7 +1,9 @@
 
 import RSMQWorker = require('rsmq-worker');
 
-var worker = new RSMQWorker("my-queue");
+var worker: RSMQWorker.Client;
+
+worker = new RSMQWorker("my-queue");
 worker.changeInterval(1);
 worker.changeInterval([0, 1, 5, 10]);
 
