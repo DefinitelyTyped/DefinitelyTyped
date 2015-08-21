@@ -6229,6 +6229,23 @@ declare module _ {
         isTypedArray(): boolean;
     }
 
+    //_.isUndefined
+    interface LoDashStatic {
+        /**
+         * Checks if value is undefined.
+         * @param value The value to check.
+         * @return Returns true if value is undefined, else false.
+         **/
+        isUndefined(value: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isUndefined
+         */
+        isUndefined(): boolean;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
@@ -7073,16 +7090,6 @@ declare module _ {
         * @return True if the value is a string, else false.
         **/
         isString(value?: any): boolean;
-    }
-
-    //_.isUndefined
-    interface LoDashStatic {
-        /**
-        * Checks if value is undefined.
-        * @param value The value to check.
-        * @return True if the value is undefined, else false.
-        **/
-        isUndefined(value?: any): boolean;
     }
 
     //_.keys
