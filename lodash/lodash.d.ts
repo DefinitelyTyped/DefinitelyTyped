@@ -6294,6 +6294,23 @@ declare module _ {
         isRegExp(): boolean;
     }
 
+    //_.isString
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a String primitive or object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isString(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isString
+         */
+        isString(): boolean;
+    }
+
     //_.isTypedArray
     interface LoDashStatic {
         /**
@@ -7141,16 +7158,6 @@ declare module _ {
         * @return True if value is a plain object, else false.
         **/
         isPlainObject(value?: any): boolean;
-    }
-
-    //_.isString
-    interface LoDashStatic {
-        /**
-        * Checks if value is a string.
-        * @param value The value to check.
-        * @return True if the value is a string, else false.
-        **/
-        isString(value?: any): boolean;
     }
 
     //_.keys
