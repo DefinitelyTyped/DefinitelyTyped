@@ -1201,6 +1201,12 @@ result = <boolean>_(1).isArray();
 result = <boolean>_<any>([]).isArray();
 result = <boolean>_({}).isArray();
 
+// _.isDate
+result = <boolean>_.isDate(any);
+result = <boolean>_(42).isDate();
+result = <boolean>_<any>([]).isDate();
+result = <boolean>_({}).isDate();
+
 // _.isEmpty
 result = <boolean>_.isEmpty([1, 2, 3]);
 result = <boolean>_.isEmpty({});
@@ -1440,8 +1446,6 @@ result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
 (function (...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
 
 result = <boolean>_.isBoolean(null);
-
-result = <boolean>_.isDate(new Date());
 
 result = <boolean>_.isElement(document.body);
 

@@ -6179,6 +6179,23 @@ declare module _ {
         isArray(): boolean;
     }
 
+    //_.isDate
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Date object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isDate(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isDate
+         */
+        isDate(): boolean;
+    }
+
     //_.isEmpty
     interface LoDashStatic {
         /**
@@ -6977,16 +6994,6 @@ declare module _ {
         * @return True if the value is a boolean value, else false.
         **/
         isBoolean(value?: any): boolean;
-    }
-
-    //_.isDate
-    interface LoDashStatic {
-        /**
-        * Checks if value is a date.
-        * @param value The value to check.
-        * @return True if the value is a date, else false.
-        **/
-        isDate(value?: any): boolean;
     }
 
     //_.isElement
