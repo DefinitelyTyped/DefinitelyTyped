@@ -1,4 +1,4 @@
-/// <reference path="microevent-1.0.0.d.ts"/>
+/// <reference path="microevent.d.ts"/>
 
 class ObjectThatWillHaveEvents {
   private name: string;
