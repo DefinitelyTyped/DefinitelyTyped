@@ -3,8 +3,6 @@
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-///<reference path="../webaudioapi/waa.d.ts"/>
-
 interface WebGLRenderingContext {}
 
 declare module THREE {
