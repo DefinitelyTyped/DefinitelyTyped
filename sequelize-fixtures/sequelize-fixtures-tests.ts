@@ -15,6 +15,7 @@ SequelizeFixtures.loadFiles([], {}, { log: m => { } }).then(() => { });
 SequelizeFixtures.loadFixture({}, {}).then(() => { });
 sequelize.transaction(function (tx) {
     SequelizeFixtures.loadFixture({}, {}, { transaction: tx }).then(() => { });
+    return null;
 });
 
 SequelizeFixtures.loadFixtures([], {}).then(() => { });
