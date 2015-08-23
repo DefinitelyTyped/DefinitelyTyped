@@ -3198,81 +3198,191 @@ declare module chrome.fileSystemProvider {
 ////////////////////
 // Font Settings
 ////////////////////
+/**
+ * Use the chrome.fontSettings API to manage Chrome's font settings. 
+ * Availability: Since Chrome 22.  
+ * Permissions:  "fontSettings"   
+ */
 declare module chrome.fontSettings {
+	/** Represents a font name. */
 	interface FontName {
+		/** The display name of the font. */
 		displayName: string;
+		/** The font ID. */
 		fontId: string;
 	}
 
 	interface DefaultFontSizeDetails {
+		/** The font size in pixels. */
 		pixelSize: number;
 	}
 
 	interface FontDetails {
+		/** The generic font family for the font. */
 		genericFamily: string;
+		/** The script for the font. If omitted, the global script font setting is affected. */
 		script?: string;
 	}
 
 	interface FullFontDetails {
+		/** The generic font family for which the font setting has changed. */
 		genericFamily: string;
+		/** The level of control this extension has over the setting. */
 		levelOfControl: string;
+		/** The script code for which the font setting has changed. */
 		script?: string;
+		/** The font ID. See the description in getFont. */
 		fontId: string;
 	}
 
 	interface FontDetailsResult {
+		/** The level of control this extension has over the setting. */
 		levelOfControl: string;
+		/** The font ID. Rather than the literal font ID preference value, this may be the ID of the font that the system resolves the preference value to. So, fontId can differ from the font passed to setFont, if, for example, the font is not available on the system. The empty string signifies fallback to the global script font setting. */
 		fontId: string;
 	}
 
 	interface FontSizeDetails {
+		/** The font size in pixels. */
 		pixelSize: number;
+		/** The level of control this extension has over the setting. */
 		levelOfControl: string;
 	}
 
 	interface SetFontSizeDetails {
+		/** The font size in pixels. */
 		pixelSize: number;
 	}
 
-	interface SetFontDetails {
-		genericFamily: string;
-		script?: string;
+	interface SetFontDetails extends FontDetails {
+		/** The font ID. The empty string means to fallback to the global script font setting. */
 		fontId: string;
 	}
 
 	interface DefaultFixedFontSizeChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object details) {...}; 
+		 */
 		addListener(callback: (details: FontSizeDetails) => void): void;
 	}
 
 	interface DefaultFontSizeChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object details) {...}; 
+		 */
 		addListener(callback: (details: FontSizeDetails) => void): void;
 	}
 
 	interface MinimumFontSizeChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object details) {...}; 
+		 */
 		addListener(callback: (details: FontSizeDetails) => void): void;
 	}
 
 	interface FontChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object details) {...}; 
+		 */
 		addListener(callback: (details: FullFontDetails) => void): void;
 	}
 
+	/**
+	 * Sets the default font size. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */    
 	export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
+	/**
+	 * Gets the font for a given script and generic font family. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object details) {...}; 
+	 */
 	export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
-	export function getDefaultFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
+	/**
+	 * Gets the default font size. 
+	 * @param details This parameter is currently unused. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object details) {...}; 
+	 */
+	export function getDefaultFontSize(details?: Object, callback?: (options: FontSizeDetails) => void): void;
+	/**
+	 * Gets the minimum font size. 
+	 * @param details This parameter is currently unused. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object details) {...}; 
+	 */
 	export function getMinimumFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
+	/**
+	 * Sets the minimum font size. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
 	export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
+	/**
+	 * Gets the default size for fixed width fonts. 
+	 * @param details This parameter is currently unused. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object details) {...}; 
+	 */
 	export function getDefaultFixedFontSize(details?: Object, callback?: (details: FontSizeDetails) => void): void;
+	/**
+	 * Clears the default font size set by this extension, if any. 
+	 * @param details This parameter is currently unused. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
 	export function clearDefaultFontSize(details?: Object, callback?: Function): void;
+	/**
+	 * Sets the default size for fixed width fonts. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
 	export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback?: Function): void;
+	/**
+	 * Clears the font set by this extension, if any. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
 	export function clearFont(details: FontDetails, callback?: Function): void;
+	/**
+	 * Sets the font for a given script and generic font family. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(object details) {...}; 
+	 */
 	export function setFont(details: SetFontDetails, callback?: Function): void;
+	/**
+	 * Clears the minimum font size set by this extension, if any. 
+	 * @param details This parameter is currently unused. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
 	export function clearMinimumFontSize(details?: Object, callback?: Function): void;
+	/**
+	 * Gets a list of fonts on the system. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of FontName results) {...}; 
+	 */
 	export function getFontList(callback: (results: FontName[]) => void): void;
+	/**
+	 * Clears the default fixed font size set by this extension, if any. 
+	 * @param details This parameter is currently unused. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
 	export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
 
+	/** Fired when the default fixed font size setting changes. */    
 	var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
+	/** Fired when the default font size setting changes. */
 	var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
+	/** Fired when the minimum font size setting changes. */
 	var onMinimumFontSizeChanged: MinimumFontSizeChangedEvent;
+	/** Fired when a font setting changes. */
 	var onFontChanged: FontChangedEvent;
 }
 
