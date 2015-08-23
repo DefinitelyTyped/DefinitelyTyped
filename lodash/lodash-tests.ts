@@ -1780,7 +1780,9 @@ result = <number>_('08').parseInt(10);
 result = <string>_.snakeCase('Foo Bar');
 result = <string>_('Foo Bar').snakeCase();
 
+// _.startCase
 result = <string>_.startCase('--foo-bar');
+result = <string>_('--foo-bar').startCase();
 
 // _.startsWith
 result = <boolean>_.startsWith('abc', 'a');
