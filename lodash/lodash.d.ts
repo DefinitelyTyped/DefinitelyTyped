@@ -6215,6 +6215,23 @@ declare module _ {
         isFinite(): boolean;
     }
 
+    //_.isFunction
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Function object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isFunction(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFunction
+         */
+        isFunction(): boolean;
+    }
+
     //_.isMatch
     interface isMatchCustomizer {
         (value: any, other: any, indexOrKey?: number|string): boolean;
@@ -7088,16 +7105,6 @@ declare module _ {
         eq(other?: any,
            callback?: EqCustomizer,
            thisArg?: any): boolean;
-    }
-
-    //_.isFunction
-    interface LoDashStatic {
-        /**
-        * Checks if value is a function.
-        * @param value The value to check.
-        * @return True if the value is a function, else false.
-        **/
-        isFunction(value?: any): boolean;
     }
 
     //_.isNull

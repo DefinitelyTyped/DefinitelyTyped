@@ -1215,6 +1215,12 @@ result = <boolean>_(1).isFinite();
 result = <boolean>_<any>([]).isFinite();
 result = <boolean>_({}).isFinite();
 
+// _.isFunction
+result = <boolean>_.isFunction(any);
+result = <boolean>_(1).isFunction();
+result = <boolean>_<any>([]).isFunction();
+result = <boolean>_({}).isFunction();
+
 // _.isMatch
 var testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
 result = <boolean>_.isMatch({}, {});
@@ -1469,8 +1475,6 @@ result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
-
-result = <boolean>_.isFunction(_);
 
 result = <boolean>_.isNull(null);
 result = <boolean>_.isNull(undefined);
