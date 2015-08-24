@@ -23,7 +23,7 @@ declare namespace Parse {
         error?: Function;
     }
 
-    interface BackboneStyleOptions extends SuccessOption, ErrorOption {
+    interface SuccessFailureOptions extends SuccessOption, ErrorOption {
     }
 
     interface WaitOption {
@@ -183,7 +183,7 @@ declare namespace Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save<T>(options?: BackboneStyleOptions): Promise<T>;
+        save<T>(options?: SuccessFailureOptions): Promise<T>;
 
     }
 
@@ -217,7 +217,7 @@ declare namespace Parse {
 
         constructor(arg1?: any, arg2?: any);
 
-        current(options?: BackboneStyleOptions): GeoPoint;
+        current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
         kilometersTo(point: GeoPoint): number;
         milesTo(point: GeoPoint): number;
@@ -316,8 +316,8 @@ declare namespace Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fetchAll<T>(list: Object[], options: BackboneStyleOptions): Promise<T>;
-        static fetchAllIfNeeded<T>(list: Object[], options: BackboneStyleOptions): Promise<T>;
+        static fetchAll<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
+        static fetchAllIfNeeded<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
         static destroyAll<T>(list: Object[], options?: Object.DestroyAllOptions): Promise<T>;
         static saveAll<T>(list: Object[], options?: Object.SaveAllOptions): Promise<T>;
 
@@ -347,21 +347,21 @@ declare namespace Parse {
         remove(attr: string, item: any): any;
         save<T>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: BackboneStyleOptions): boolean;
+        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         unset(attr: string, options?: any): any;
-        validate(attrs: any, options?: BackboneStyleOptions): boolean;
+        validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
 
     namespace Object {
-        interface DestroyOptions extends BackboneStyleOptions, WaitOption, UseMasterKeyOption { }
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, UseMasterKeyOption { }
 
-        interface DestroyAllOptions extends BackboneStyleOptions, UseMasterKeyOption { }
+        interface DestroyAllOptions extends SuccessFailureOptions, UseMasterKeyOption { }
 
-        interface FetchOptions extends BackboneStyleOptions, UseMasterKeyOption { }
+        interface FetchOptions extends SuccessFailureOptions, UseMasterKeyOption { }
 
-        interface SaveOptions extends BackboneStyleOptions, SilentOption, UseMasterKeyOption, WaitOption { }
+        interface SaveOptions extends SuccessFailureOptions, SilentOption, UseMasterKeyOption, WaitOption { }
 
-        interface SaveAllOptions extends BackboneStyleOptions, UseMasterKeyOption { }
+        interface SaveAllOptions extends SuccessFailureOptions, UseMasterKeyOption { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -452,10 +452,10 @@ declare namespace Parse {
             at?: number;
         }
 
-        interface CreateOptions extends BackboneStyleOptions, WaitOption, SilentOption, UseMasterKeyOption {
+        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, UseMasterKeyOption {
         }
 
-        interface FetchOptions extends BackboneStyleOptions, SilentOption, UseMasterKeyOption { }
+        interface FetchOptions extends SuccessFailureOptions, SilentOption, UseMasterKeyOption { }
 
         interface RemoveOptions extends SilentOption { }
 
@@ -583,7 +583,7 @@ declare namespace Parse {
         doesNotExist(key: string): Query;
         doesNotMatchKeyInQuery(key: string, queryKey: string, query: Query): Query;
         doesNotMatchQuery(key: string, query: Query): Query;
-        each<T>(callback: Function, options?: BackboneStyleOptions): Promise<T>;
+        each<T>(callback: Function, options?: SuccessFailureOptions): Promise<T>;
         endsWith(key: string, suffix: string): Query;
         equalTo(key: string, value: any): Query;
         exists(key: string): Query;
@@ -613,10 +613,10 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface CountOptions extends BackboneStyleOptions, UseMasterKeyOption { }
-        interface FindOptions extends BackboneStyleOptions, UseMasterKeyOption { }
-        interface FirstOptions extends BackboneStyleOptions, UseMasterKeyOption { }
-        interface GetOptions extends BackboneStyleOptions, UseMasterKeyOption { }
+        interface CountOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface FindOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface FirstOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface GetOptions extends SuccessFailureOptions, UseMasterKeyOption { }
     }
 
     /**
@@ -639,7 +639,7 @@ declare namespace Parse {
         getRoles(): Relation;
         getUsers(): Relation;
         getName(): string;
-        setName(name: string, options?: BackboneStyleOptions): any;
+        setName(name: string, options?: SuccessFailureOptions): any;
     }
 
     /**
@@ -692,27 +692,27 @@ declare namespace Parse {
     class User extends Object {
 
         static current(): User;
-        static signUp<T>(username: string, password: string, attrs: any, options?: BackboneStyleOptions): Promise<T>;
-        static logIn<T>(username: string, password: string, options?: BackboneStyleOptions): Promise<T>;
+        static signUp<T>(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<T>;
+        static logIn<T>(username: string, password: string, options?: SuccessFailureOptions): Promise<T>;
         static logOut<T>(): Promise<T>;
         static allowCustomUserClass(isAllowed: boolean): void;
-        static become<T>(sessionToken: string, options?: BackboneStyleOptions): Promise<T>;
-        static requestPasswordReset<T>(email: string, options?: BackboneStyleOptions): Promise<T>;
+        static become<T>(sessionToken: string, options?: SuccessFailureOptions): Promise<T>;
+        static requestPasswordReset<T>(email: string, options?: SuccessFailureOptions): Promise<T>;
 
-        signUp<T>(attrs: any, options?: BackboneStyleOptions): Promise<T>;
-        logIn<T>(options?: BackboneStyleOptions): Promise<T>;
-        fetch<T>(options?: BackboneStyleOptions): Promise<T>;
+        signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
+        logIn<T>(options?: SuccessFailureOptions): Promise<T>;
+        fetch<T>(options?: SuccessFailureOptions): Promise<T>;
         save<T>(arg1: any, arg2: any, arg3: any): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
         getEmail(): string;
-        setEmail(email: string, options: BackboneStyleOptions): boolean;
+        setEmail(email: string, options: SuccessFailureOptions): boolean;
 
         getUsername(): string;
-        setUsername(username: string, options?: BackboneStyleOptions): boolean;
+        setUsername(username: string, options?: SuccessFailureOptions): boolean;
 
-        setPassword(password: string, options?: BackboneStyleOptions): boolean;
+        setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
     }
 
@@ -785,9 +785,9 @@ declare namespace Parse {
 
         function init(options?: any): void;
         function isLinked(user: User): boolean;
-        function link(user: User, permissions: any, options?: BackboneStyleOptions): void;
-        function logIn(permissions: any, options?: BackboneStyleOptions): void;
-        function unlink(user: User, options?: BackboneStyleOptions): void;
+        function link(user: User, permissions: any, options?: SuccessFailureOptions): void;
+        function logIn(permissions: any, options?: SuccessFailureOptions): void;
+        function unlink(user: User, options?: SuccessFailureOptions): void;
     }
 
     /**
@@ -859,7 +859,7 @@ declare namespace Parse {
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest<T>(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
-        function run<T>(name: string, data?: any, options?: BackboneStyleOptions): Promise<T>;
+        function run<T>(name: string, data?: any, options?: SuccessFailureOptions): Promise<T>;
         function useMasterKey(): void;
 
         /**
