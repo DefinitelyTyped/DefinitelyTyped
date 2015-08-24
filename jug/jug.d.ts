@@ -76,7 +76,7 @@ declare module "jug" {
         /**
          * Verify if the current node is the root.
          */
-        isRoot(): boolean
+        isRoot(): boolean;
 
         /**
          * Set node data.
@@ -91,10 +91,10 @@ declare module "jug" {
 
         /**
          * Get distance between nodes.
-         * @param from {string}
-         * @param to {string}
+         * @param from
+         * @param to
          */
-        proximity(from, to): Array<number>;
+        proximity(from:string, to:string): Array<number>;
 
         /**
          * Find a node.
