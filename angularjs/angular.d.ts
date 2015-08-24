@@ -1061,7 +1061,7 @@ declare module angular {
          *
          * Because finally is a reserved word in JavaScript and reserved keywords are not supported as property names by ES3, you'll need to invoke the method like promise['finally'](callback) to make your code IE8 and Android 2.x compatible.
          */
-        finally<TResult>(finallyCallback: () => any): IPromise<TResult>;
+        finally(finallyCallback: () => any): IPromise<T>;
     }
 
     interface IDeferred<T> {
