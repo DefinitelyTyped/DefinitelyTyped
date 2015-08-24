@@ -3526,61 +3526,128 @@ declare module chrome.gcm {
 ////////////////////
 // History
 ////////////////////
+/**
+ * Use the chrome.history API to interact with the browser's record of visited pages. You can add, remove, and query for URLs in the browser's history. To override the history page with your own version, see Override Pages. 
+ * Availability: Since Chrome 5.  
+ * Permissions:  "history"   
+ */
 declare module chrome.history {
+	/** An object encapsulating one visit to a URL. */
 	interface VisitItem {
+		/** The transition type for this visit from its referrer. */
 		transition: string;
+		/** Optional. When this visit occurred, represented in milliseconds since the epoch. */
 		visitTime?: number;
+		/** The unique identifier for this visit. */
 		visitId: string;
+		/** The visit ID of the referrer. */
 		referringVisitId: string;
+		/** The unique identifier for the item. */
 		id: string;
 	}
 
+	/** An object encapsulating one result of a history query. */    
 	interface HistoryItem {
+		/** Optional. The number of times the user has navigated to this page by typing in the address. */
 		typedCount?: number;
+		/** Optional. The title of the page when it was last loaded. */
 		title?: string;
+		/** Optional. The URL navigated to by a user. */
 		url?: string;
+		/** Optional. When this page was last loaded, represented in milliseconds since the epoch. */
 		lastVisitTime?: number;
+		/** Optional. The number of times the user has navigated to this page. */
 		visitCount?: number;
+		/** The unique identifier for the item. */
 		id: string;
 	}
 
 	interface HistoryQuery {
+		/** A free-text query to the history service. Leave empty to retrieve all pages. */
 		text: string;
+		/** Optional. The maximum number of results to retrieve. Defaults to 100. */
 		maxResults?: number;
+		/** Optional. Limit results to those visited after this date, represented in milliseconds since the epoch. */
 		startTime?: number;
+		/** Optional. Limit results to those visited before this date, represented in milliseconds since the epoch. */
 		endTime?: number;
 	}
 
 	interface Url {
+		/** The URL for the operation. It must be in the format as returned from a call to history.search. */
 		url: string;
 	}
 
 	interface Range {
+		/** Items added to history before this date, represented in milliseconds since the epoch. */
 		endTime: number;
+		/** Items added to history after this date, represented in milliseconds since the epoch. */
 		startTime: number;
 	}
 
 	interface RemovedResult {
+		/** True if all history was removed. If true, then urls will be empty. */
 		allHistory: boolean;
+		/** Optional. */
 		urls?: string[];
 	}
 
 	interface HistoryVisitedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( HistoryItem result) {...}; 
+		 */
 		addListener(callback: (result: HistoryItem) => void): void;
 	}
 
 	interface HistoryVisitRemovedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object removed) {...}; 
+		 */
 		addListener(callback: (removed: RemovedResult) => void): void;
 	}
 
+	/**
+	 * Searches the history for the last visit time of each page matching the query. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of HistoryItem results) {...}; 
+	 */    
 	export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
-	export function addUrl(details: Url, callback?: Function): void;
-	export function deleteRange(range: Range, callback: Function): void;
-	export function deleteAll(callback: Function): void;
+	/**
+	 * Adds a URL to the history at the current time with a transition type of "link". 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function addUrl(details: Url, callback?: () => void): void;
+	/**
+	 * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function deleteRange(range: Range, callback: () => void): void;
+	/**
+	 * Deletes all items from the history. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function deleteAll(callback: () => void): void;
+	/**
+	 * Retrieves information about visits to a URL. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of VisitItem results) {...}; 
+	 */
 	export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
-	export function deleteUrl(details: Url, callback?: Function): void;
+	/**
+	 * Removes all occurrences of the given URL from the history. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function deleteUrl(details: Url, callback?: () => void): void;
 
+	/** Fired when a URL is visited, providing the HistoryItem data for that URL. This event fires before the page has loaded. */    
 	var onVisited: HistoryVisitedEvent;
+	/** Fired when one or more URLs are removed from the history service. When all visits have been removed the URL is purged from history. */
 	var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
