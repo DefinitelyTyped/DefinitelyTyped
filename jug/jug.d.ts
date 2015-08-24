@@ -87,7 +87,7 @@ declare module "jug" {
         /**
          * Get node data.
          */
-        data(): VertexData
+        data(): VertexData;
 
         /**
          * Get distance between nodes.
@@ -113,14 +113,14 @@ declare module "jug" {
          * Getting childs of an specified edge.
          * @param egde - target vertex;
          */
-        getChildsOf(egde:number): Array<VertexData>
+        getChildsOf(egde:number): Array<VertexData>;
 
         /**
          * Getting parents of an specified level and edge.
          * @param {number} level - max level.
          * @param {number} edge - edge index.
          */
-        getParentsFrom(level:number, edge:number): Array<VertexData>
+        getParentsFrom(level:number, edge:number): Array<VertexData>;
 
         /**
          * Getting the length of childs of an specified edge.
