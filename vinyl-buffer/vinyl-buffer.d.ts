@@ -3,6 +3,8 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../node/node.d.ts" />
+
 declare module "vinyl-buffer" {
     namespace buffer {
         interface Buffer {
