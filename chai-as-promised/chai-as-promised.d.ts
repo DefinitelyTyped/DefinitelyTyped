@@ -1,6 +1,6 @@
 // Type definitions for chai-as-promised
 // Project: https://github.com/domenic/chai-as-promised/
-// Definitions by: jt000 <https://github.com/jt000>
+// Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
