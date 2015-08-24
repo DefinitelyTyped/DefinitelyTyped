@@ -23,7 +23,7 @@ interface Window {
  */
 declare module chrome.accessibilityFeatures {
 	interface AccessibilityFeaturesGetArg {
-		/** Whether to return the value that applies to the incognito session (default false). */
+		/** Optional. Whether to return the value that applies to the incognito session (default false).  */
 		incognito?: boolean;
 	}
 
@@ -38,7 +38,7 @@ declare module chrome.accessibilityFeatures {
 		 * • controlled_by_this_extension: controlled by this extension
 		 */
 		levelOfControl: string;
-		/** Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true. */
+		/** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
 		incognitoSpecific?: boolean;
 	}
 
@@ -49,7 +49,8 @@ declare module chrome.accessibilityFeatures {
 		 */
 		value: any;
 		/**
-		 * The scope of the ChromeSetting. One of
+		 * Optional.
+ 		 * The scope of the ChromeSetting. One of
 		 * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
 		 * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
 		 * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
@@ -60,7 +61,8 @@ declare module chrome.accessibilityFeatures {
 
 	interface AccessibilityFeaturesClearArg {
 		/**
-		 * The scope of the ChromeSetting. One of
+		 * Optional.
+ 		 * The scope of the ChromeSetting. One of
 		 * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
 		 * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
 		 * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
@@ -115,17 +117,17 @@ declare module chrome.accessibilityFeatures {
  */
 declare module chrome.alarms {
     interface AlarmCreateInfo {
-		/** Length of time in minutes after which the onAlarm event should fire. */
-        delayInMinutes?: number;
-		/** If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once. */
-        periodInMinutes?: number;
-		/** Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n). */
-        when?: number;
+		/** Optional. Length of time in minutes after which the onAlarm event should fire.  */
+		delayInMinutes?: number;
+		/** Optional. If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
+		periodInMinutes?: number;
+		/** Optional. Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
+		when?: number;
     }
 
     interface Alarm {
-		/** If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes. */
-        periodInMinutes?: number;
+		/** Optional. If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
+		periodInMinutes?: number;
 		/** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
         scheduledTime: number;
 		/** Name of this alarm. */
@@ -238,24 +240,25 @@ declare module chrome.browser {
 declare module chrome.bookmarks {
 	/** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
     interface BookmarkTreeNode {
-		/** The 0-based position of this node within its parent folder. */
-        index?: number;
-		/** When this node was created, in milliseconds since the epoch (new Date(dateAdded)). */
-        dateAdded?: number;
+		/** Optional. The 0-based position of this node within its parent folder.  */
+		index?: number;
+		/** Optional. When this node was created, in milliseconds since the epoch (new Date(dateAdded)).  */
+		dateAdded?: number;
 		/** The text displayed for the node. */
         title: string;
-		/** The URL navigated to when a user clicks the bookmark. Omitted for folders.  */
-        url?: string;
-		/** When the contents of this folder last changed, in milliseconds since the epoch.  */
-        dateGroupModified?: number;
+		/** Optional. The URL navigated to when a user clicks the bookmark. Omitted for folders.   */
+		url?: string;
+		/** Optional. When the contents of this folder last changed, in milliseconds since the epoch.   */
+		dateGroupModified?: number;
 		/** The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted.  */
         id: string;
-		/** The id of the parent folder. Omitted for the root node.  */
-        parentId?: string;
-		/** An ordered list of children of this node. */
-        children?: BookmarkTreeNode[];
+		/** Optional. The id of the parent folder. Omitted for the root node.   */
+		parentId?: string;
+		/** Optional. An ordered list of children of this node.  */
+		children?: BookmarkTreeNode[];
 		/**
-		 * Since Chrome 37. 
+		 * Optional.
+ 		 * Since Chrome 37. 
 		 * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default). 
 		 */
 		unmodifiable?: any;
@@ -345,7 +348,7 @@ declare module chrome.bookmarks {
 	}
 
 	interface BookmarkCreateArg {
-		/** Defaults to the Other Bookmarks folder. */
+		/** Optional. Defaults to the Other Bookmarks folder.  */
 		parentId?: string;
 		index?: number;
 		title?: string;
@@ -481,41 +484,41 @@ declare module chrome.browserAction {
     interface BadgeBackgroundColorDetails {
 		/** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: any;
-		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-        tabId?: number;
+		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+		tabId?: number;
     }
 
     interface BadgeTextDetails {
 		/** Any number of characters can be passed, but only about four can fit in the space. */
         text: string;
-		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-        tabId?: number;
+		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+		tabId?: number;
     }
 
     interface TitleDetails {
 		/** The string the browser action should display when moused over. */
         title: string;
-		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-        tabId?: number;
+		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+		tabId?: number;
     }
 
     interface TabDetails {
-		/** Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned. */
-        tabId?: number;
+		/** Optional. Specify the tab to get the information. If no tab is specified, the non-tab-specific information is returned.  */
+		tabId?: number;
     }
 
     interface TabIconDetails {
-		/** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}' */
-        path?: any;
-		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-        tabId?: number;
-		/** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}' */
-        imageData?: ImageData;
+		/** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
+		path?: any;
+		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+		tabId?: number;
+		/** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
+		imageData?: ImageData;
     }
 
     interface PopupDetails {
-		/** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-        tabId?: number;
+		/** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+		tabId?: number;
 		/** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
         popup: string;
     }
@@ -597,23 +600,24 @@ declare module chrome.browserAction {
  */
 declare module chrome.browsingData {
     interface OriginTypes {
-		/** Websites that have been installed as hosted applications (be careful!). */
-        protectedWeb?: boolean;
-		/** Extensions and packaged applications a user has installed (be _really_ careful!). */
-        extension?: boolean;
-		/** Normal websites. */
-        unprotectedWeb?: boolean;
+		/** Optional. Websites that have been installed as hosted applications (be careful!).  */
+		protectedWeb?: boolean;
+		/** Optional. Extensions and packaged applications a user has installed (be _really_ careful!).  */
+		extension?: boolean;
+		/** Optional. Normal websites.  */
+		unprotectedWeb?: boolean;
     }
 
 	/** Options that determine exactly what data will be removed. */
     interface RemovalOptions {
 		/**
-		 * Since Chrome 21. 
+		 * Optional.
+ 		 * Since Chrome 21. 
 		 * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'. 
 		 */
-        originTypes?: OriginTypes;
-		/** Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data). */
-        since?: number;
+		originTypes?: OriginTypes;
+		/** Optional. Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).  */
+		since?: number;
     }
 
 	/**
@@ -621,34 +625,35 @@ declare module chrome.browsingData {
 	 * A set of data types. Missing data types are interpreted as false.
 	 */
     interface DataTypeSet {
-		/** Websites' WebSQL data. */
-        webSQL?: boolean;
-		/** Websites' IndexedDB data. */
-        indexedDB?: boolean;
-		/** The browser's cookies. */
-        cookies?: boolean;
-		/** Stored passwords. */
-        passwords?: boolean;
-		/** Server-bound certificates. */
-        serverBoundCertificates?: boolean;
-		/** The browser's download list. */
-        downloads?: boolean;
-		/** The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify. */
-        cache?: boolean;
-		/** Websites' appcaches. */
-        appcache?: boolean;
-		/** Websites' file systems. */
-        fileSystems?: boolean;
-		/** Plugins' data. */
-        pluginData?: boolean;
-		/** Websites' local storage data. */
-        localStorage?: boolean;
-		/** The browser's stored form data. */
-        formData?: boolean;
-		/** The browser's history. */
-        history?: boolean;
+		/** Optional. Websites' WebSQL data.  */
+		webSQL?: boolean;
+		/** Optional. Websites' IndexedDB data.  */
+		indexedDB?: boolean;
+		/** Optional. The browser's cookies.  */
+		cookies?: boolean;
+		/** Optional. Stored passwords.  */
+		passwords?: boolean;
+		/** Optional. Server-bound certificates.  */
+		serverBoundCertificates?: boolean;
+		/** Optional. The browser's download list.  */
+		downloads?: boolean;
+		/** Optional. The browser's cache. Note: when removing data, this clears the entire cache: it is not limited to the range you specify.  */
+		cache?: boolean;
+		/** Optional. Websites' appcaches.  */
+		appcache?: boolean;
+		/** Optional. Websites' file systems.  */
+		fileSystems?: boolean;
+		/** Optional. Plugins' data.  */
+		pluginData?: boolean;
+		/** Optional. Websites' local storage data.  */
+		localStorage?: boolean;
+		/** Optional. The browser's stored form data.  */
+		formData?: boolean;
+		/** Optional. The browser's history.  */
+		history?: boolean;
 		/**
-		 * Since Chrome 39. 
+		 * Optional.
+ 		 * Since Chrome 39. 
 		 * Service Workers. 
 		 */
 		serviceWorkers?: boolean;
@@ -773,11 +778,11 @@ declare module chrome.browsingData {
  */
 declare module chrome.commands {
 	interface Command {
-		/** The name of the Extension Command */
+		/** Optional. The name of the Extension Command  */
 		name?: string;
-		/** The Extension Command description */
+		/** Optional. The Extension Command description  */
 		description?: string;
-		/** The shortcut active for this command, or blank if not active. */
+		/** Optional. The shortcut active for this command, or blank if not active.  */
 		shortcut?: string;
 	}
 
@@ -812,34 +817,35 @@ declare module chrome.commands {
 declare module chrome.contentSettings {
     interface ClearDetails {
 		/**
-		 * Where to clear the setting (default: regular). 
+		 * Optional.
+ 		 * Where to clear the setting (default: regular). 
 		 * The scope of the ContentSetting. One of
 		 * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
 		 * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
 		 */
-        scope?: string;
+		scope?: string;
     }
 
     interface SetDetails {
-		/** The resource identifier for the content type. */
-        resourceIdentifier?: ResourceIdentifier;
+		/** Optional. The resource identifier for the content type.  */
+		resourceIdentifier?: ResourceIdentifier;
 		/** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
         setting: any;
-		/** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns. */
-        secondaryPattern?: string;
-		/** Where to set the setting (default: regular). */
-        scope?: string;
+		/** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
+		secondaryPattern?: string;
+		/** Optional. Where to set the setting (default: regular).  */
+		scope?: string;
 		/** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
         primaryPattern: string;
     }
 
     interface GetDetails {
-		/** The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs. */
-        secondaryUrl?: string;
-		/** A more specific identifier of the type of content for which the settings should be retrieved. */
-        resourceIdentifier?: ResourceIdentifier;
-		/** Whether to check the content settings for an incognito session. (default false) */
-        incognito?: boolean;
+		/** Optional. The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs.  */
+		secondaryUrl?: string;
+		/** Optional. A more specific identifier of the type of content for which the settings should be retrieved.  */
+		resourceIdentifier?: ResourceIdentifier;
+		/** Optional. Whether to check the content settings for an incognito session. (default false)  */
+		incognito?: boolean;
 		/** The primary URL for which the content setting should be retrieved. Note that the meaning of a primary URL depends on the content type. */
         primaryUrl: string;
     }
@@ -880,8 +886,8 @@ declare module chrome.contentSettings {
     interface ResourceIdentifier {
 		/** The resource identifier for the given content type. */
         id: string;
-		/** A human readable description of the resource. */
-        description?: string;
+		/** Optional. A human readable description of the resource.  */
+		description?: string;
     }
 
 	/**
@@ -997,93 +1003,104 @@ declare module chrome.contentSettings {
 declare module chrome.contextMenus {
     interface OnClickData {
 		/**
-		 * Since Chrome 35.
+		 * Optional.
+ 		 * Since Chrome 35.
 		 * The text for the context selection, if any. 
 		 */
-        selectionText?: string;
+		selectionText?: string;
 		/**
-		 * Since Chrome 35.
+		 * Optional.
+ 		 * Since Chrome 35.
 		 * A flag indicating the state of a checkbox or radio item after it is clicked.
 		 */
-        checked?: boolean;
+		checked?: boolean;
 		/**
 		 * Since Chrome 35.
 		 * The ID of the menu item that was clicked.
 		 */
         menuItemId: any;
 		/**
-		 * Since Chrome 35.
+		 * Optional.
+ 		 * Since Chrome 35.
 		 * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
 		 */
-        frameUrl?: string;
+		frameUrl?: string;
 		/**
 		 * Since Chrome 35.
 		 * A flag indicating whether the element is editable (text input, textarea, etc.).
 		 */
         editable: boolean;
 		/**
-		 * Since Chrome 35. 
+		 * Optional.
+ 		 * Since Chrome 35. 
 		 * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
 		 */
-        mediaType?: string;
+		mediaType?: string;
 		/**
-		 * Since Chrome 35.
+		 * Optional.
+ 		 * Since Chrome 35.
 		 * A flag indicating the state of a checkbox or radio item before it was clicked.
 		 */
-        wasChecked?: boolean;
+		wasChecked?: boolean;
 		/**
 		 * Since Chrome 35. 
 		 * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu. 
 		 */
         pageUrl: string;
 		/**
-		 * Since Chrome 35.
+		 * Optional.
+ 		 * Since Chrome 35.
 		 * If the element is a link, the URL it points to. 
 		 */
-        linkUrl?: string;
+		linkUrl?: string;
 		/**
-		 * Since Chrome 35.
+		 * Optional.
+ 		 * Since Chrome 35.
 		 * The parent ID, if any, for the item clicked.
 		 */
-        parentMenuItemId?: any;
+		parentMenuItemId?: any;
 		/**
-		 * Since Chrome 35. 
+		 * Optional.
+ 		 * Since Chrome 35. 
 		 * Will be present for elements with a 'src' URL.
 		 */
-        srcUrl?: string;
+		srcUrl?: string;
     }
 
     interface CreateProperties {
-		/** Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns. */
-        documentUrlPatterns?: string[];
-		/** The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items. */
-        checked?: boolean;
-		/** The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
-        title?: string;
-		/** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
-        contexts?: string[];
+		/** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
+		documentUrlPatterns?: string[];
+		/** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
+		checked?: boolean;
+		/** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
+		title?: string;
+		/** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
+		contexts?: string[];
 		/**
-		 * Since Chrome 20. 
+		 * Optional.
+ 		 * Since Chrome 20. 
 		 * Whether this context menu item is enabled or disabled. Defaults to true. 
 		 */
-        enabled?: boolean;
-		/** Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags. */
-        targetUrlPatterns?: string[];
+		enabled?: boolean;
+		/** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
+		targetUrlPatterns?: string[];
 		/**
-		 * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked. 
+		 * Optional.
+ 		 * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked. 
 		 * @param info Information sent when a context menu item is clicked. 
 		 * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions. 
 		 */
-        onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
-		/** The ID of a parent menu item; this makes the item a child of a previously added item. */
-        parentId?: any;
-		/** The type of menu item. Defaults to 'normal' if not specified. */
-        type?: string;
-		/** 
-		 * Since Chrome 21. 
+		onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
+		/** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
+		parentId?: any;
+		/** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
+		type?: string;
+		/**
+		 * Optional.
+ 		 * Since Chrome 21. 
 		 * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
 		 */
-        id?: string;
+		id?: string;
     }
 
 	interface UpdateProperties {
@@ -1091,12 +1108,12 @@ declare module chrome.contextMenus {
         checked?: boolean;
         title?: string;
         contexts?: string[];
-		/** Since Chrome 20. */
-        enabled?: boolean;
+		/** Optional. Since Chrome 20.  */
+		enabled?: boolean;
         targetUrlPatterns?: string[];
         onclick?: Function;
-		/** Note: You cannot change an item to be a child of one of its own descendants. */
-        parentId?: any;
+		/** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
+		parentId?: any;
         type?: string;
     }
 
@@ -1195,8 +1212,8 @@ declare module chrome.cookies {
         session: boolean;
 		/** True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie). */
         hostOnly: boolean;
-		/** The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies. */
-        expirationDate?: number;
+		/** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.  */
+		expirationDate?: number;
 		/** The path of the cookie. */
         path: string;
 		/** True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts). */
@@ -1214,41 +1231,41 @@ declare module chrome.cookies {
     }
 
     interface GetAllDetails {
-		/** Restricts the retrieved cookies to those whose domains match or are subdomains of this one. */
-        domain?: string;
-		/** Filters the cookies by name. */
-        name?: string;
-		/** Restricts the retrieved cookies to those that would match the given URL. */
-        url?: string;
-		/** The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used. */
-        storeId?: string;
-		/** Filters out session vs. persistent cookies. */
-        session?: boolean;
-		/** Restricts the retrieved cookies to those whose path exactly matches this string. */
-        path?: string;
-		/** Filters the cookies by their Secure property. */
-        secure?: boolean;
+		/** Optional. Restricts the retrieved cookies to those whose domains match or are subdomains of this one.  */
+		domain?: string;
+		/** Optional. Filters the cookies by name.  */
+		name?: string;
+		/** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
+		url?: string;
+		/** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
+		storeId?: string;
+		/** Optional. Filters out session vs. persistent cookies.  */
+		session?: boolean;
+		/** Optional. Restricts the retrieved cookies to those whose path exactly matches this string.  */
+		path?: string;
+		/** Optional. Filters the cookies by their Secure property.  */
+		secure?: boolean;
     }
 
     interface SetDetails {
-		/** The domain of the cookie. If omitted, the cookie becomes a host-only cookie. */
-        domain?: string;
-		/** The name of the cookie. Empty by default if omitted. */
-        name?: string;
+		/** Optional. The domain of the cookie. If omitted, the cookie becomes a host-only cookie.  */
+		domain?: string;
+		/** Optional. The name of the cookie. Empty by default if omitted.  */
+		name?: string;
 		/** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
-		/** The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store. */
-        storeId?: string;
-		/** The value of the cookie. Empty by default if omitted. */
-        value?: string;
-		/** The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie. */
-        expirationDate?: number;
-		/** The path of the cookie. Defaults to the path portion of the url parameter. */
-        path?: string;
-		/** Whether the cookie should be marked as HttpOnly. Defaults to false. */
-        httpOnly?: boolean;
-		/** Whether the cookie should be marked as Secure. Defaults to false. */
-        secure?: boolean;
+		/** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
+		storeId?: string;
+		/** Optional. The value of the cookie. Empty by default if omitted.  */
+		value?: string;
+		/** Optional. The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.  */
+		expirationDate?: number;
+		/** Optional. The path of the cookie. Defaults to the path portion of the url parameter.  */
+		path?: string;
+		/** Optional. Whether the cookie should be marked as HttpOnly. Defaults to false.  */
+		httpOnly?: boolean;
+		/** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
+		secure?: boolean;
     }
 
     interface Details {
@@ -1331,15 +1348,17 @@ declare module chrome.cookies {
 declare module "chrome.debugger" {
 	/** Debuggee identifier. Either tabId or extensionId must be specified */
     interface Debuggee {
-		/** The id of the tab which you intend to debug. */
-        tabId?: number;
-		/** 
-		 * Since Chrome 27. 
+		/** Optional. The id of the tab which you intend to debug.  */
+		tabId?: number;
+		/**
+		 * Optional.
+ 		 * Since Chrome 27. 
 		 * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser. 
 		 */
 		extensionId?: string;
 		/**
-		 * Since Chrome 28.
+		 * Optional.
+ 		 * Since Chrome 28.
 		 * The opaque id of the debug target.
 		 */
 		targetId?: string;
@@ -1355,12 +1374,14 @@ declare module "chrome.debugger" {
 		/** Target id. */
 		id: string;
 		/**
-		 * Since Chrome 30. 
+		 * Optional.
+ 		 * Since Chrome 30. 
 		 * The tab id, defined if type == 'page'. 
 		 */
 		tabId?: number;
 		/**
-		 * Since Chrome 30. 
+		 * Optional.
+ 		 * Since Chrome 30. 
 		 * The extension id, defined if type = 'background_page'. 
 		 */
 		extensionId?: string;
@@ -1370,7 +1391,7 @@ declare module "chrome.debugger" {
 		title: string;
 		/** Target URL. */
 		url: string;
-		/** Target favicon URL. */
+		/** Optional. Target favicon URL.  */
 		faviconUrl?: string;
 	}
 
@@ -1448,56 +1469,57 @@ declare module "chrome.debugger" {
  */
 declare module chrome.declarativeContent {
 	interface PageStateUrlDetails {
-		/** Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name. */
+		/** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
 		hostContains?: string;
-		/** Matches if the host name of the URL is equal to a specified string. */
+		/** Optional. Matches if the host name of the URL is equal to a specified string.  */
 		hostEquals?: string;
-		/** Matches if the host name of the URL starts with a specified string. */
+		/** Optional. Matches if the host name of the URL starts with a specified string.  */
 		hostPrefix?: string;
-		/** Matches if the host name of the URL ends with a specified string. */
+		/** Optional. Matches if the host name of the URL ends with a specified string.  */
 		hostSuffix?: string;
-		/** Matches if the path segment of the URL contains a specified string. */
+		/** Optional. Matches if the path segment of the URL contains a specified string.  */
 		pathContains?: string;
-		/** Matches if the path segment of the URL is equal to a specified string. */
+		/** Optional. Matches if the path segment of the URL is equal to a specified string.  */
 		pathEquals?: string;
-		/** Matches if the path segment of the URL starts with a specified string. */
+		/** Optional. Matches if the path segment of the URL starts with a specified string.  */
 		pathPrefix?: string;
-		/** Matches if the path segment of the URL ends with a specified string. */
+		/** Optional. Matches if the path segment of the URL ends with a specified string.  */
 		pathSuffix?: string;
-		/** Matches if the query segment of the URL contains a specified string. */
+		/** Optional. Matches if the query segment of the URL contains a specified string.  */
 		queryContains?: string;
-		/** Matches if the query segment of the URL is equal to a specified string. */
+		/** Optional. Matches if the query segment of the URL is equal to a specified string.  */
 		queryEquals?: string;
-		/** Matches if the query segment of the URL starts with a specified string. */
+		/** Optional. Matches if the query segment of the URL starts with a specified string.  */
 		queryPrefix?: string;
-		/** Matches if the query segment of the URL ends with a specified string. */
+		/** Optional. Matches if the query segment of the URL ends with a specified string.  */
 		querySuffix?: string;
-		/** Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		/** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
 		urlContains?: string;
-		/** Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		/** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
 		urlEquals?: string;
-		/** Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
+		/** Optional. Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.  */
 		urlMatches?: string;
-		/** Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
+		/** Optional. Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.  */
 		originAndPathMatches?: string;
-		/** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		/** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
 		urlPrefix?: string;
-		/** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number. */
+		/** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
 		urlSuffix?: string;
-		/** Matches if the scheme of the URL is equal to any of the schemes specified in the array. */
+		/** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
 		schemes?: string[];
-		/** Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200. */
+		/** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
 		port?: any[];
 	}
 	
 	/** Matches the state of a web page by various criteria. */
 	interface PageStateMatcher {
-		/** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
+		/** Optional. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.  */
 		pageUrl?: PageStateUrlDetails;
-		/** Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites. */
+		/** Optional. Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note that listing hundreds of CSS selectors or CSS selectors that match hundreds of times per page can still slow down web sites.  */
 		css?: string[];
 		/**
-		 * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
+		 * Optional.
+ 		 * Since Chrome 45. Warning: this is the current Beta channel. More information available on the API documentation pages.
 		 * Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission. 
 		 */
 		isBookmarked?: boolean;
@@ -1682,14 +1704,15 @@ declare module chrome.devtools.inspectedWindow {
     }
 
     interface ReloadOptions {
-		/** If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page. */
+		/** Optional. If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page.  */
 		userAgent?: string;
-		/** When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window. */
-        ignoreCache?: boolean;
-		/** If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R. */
-        injectedScript?: boolean;
+		/** Optional. When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.  */
+		ignoreCache?: boolean;
+		/** Optional. If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.  */
+		injectedScript?: boolean;
 		/**
-		 * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function. 
+		 * Optional.
+ 		 * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function. 
 		 * @deprecated Deprecated since Chrome 41. Please avoid using this parameter, it will be removed soon. 
 		 */
 		preprocessorScript?: string;
@@ -2043,9 +2066,9 @@ declare module chrome.devtools.panels {
  */
 declare module chrome.documentScan {
 	interface DocumentScanOptions {
-		/** The MIME types that are accepted by the caller. */
+		/** Optional. The MIME types that are accepted by the caller.  */
 		mimeTypes?: string[];
-		/** The number of scanned images allowed (defaults to 1). */
+		/** Optional. The number of scanned images allowed (defaults to 1).  */
 		maxImages?: number;
 	}
 
@@ -2083,50 +2106,50 @@ declare module chrome.downloads {
     }
 
     interface DownloadOptions {
-		/** Post body. */
-        body?: string;
-		/** Use a file-chooser to allow the user to select a filename regardless of whether filename is set or already exists. */
-        saveAs?: boolean;
+		/** Optional. Post body.  */
+		body?: string;
+		/** Optional. Use a file-chooser to allow the user to select a filename regardless of whether filename is set or already exists.  */
+		saveAs?: boolean;
 		/** The URL to download. */
         url: string;
-		/** A file path relative to the Downloads directory to contain the downloaded file, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will cause an error. onDeterminingFilename allows suggesting a filename after the file's MIME type and a tentative filename have been determined. */
-        filename?: string;
-		/** Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest. */
-        headers?: HeaderNameValuePair[];
-		/** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-        method?: string;
-		/** The action to take if filename already exists. */
+		/** Optional. A file path relative to the Downloads directory to contain the downloaded file, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will cause an error. onDeterminingFilename allows suggesting a filename after the file's MIME type and a tentative filename have been determined.  */
+		filename?: string;
+		/** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
+		headers?: HeaderNameValuePair[];
+		/** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
+		method?: string;
+		/** Optional. The action to take if filename already exists.  */
 		conflictAction?: string;
     }
 
     interface DownloadDelta {
-		/** The change in danger, if any. */
-        danger?: StringDelta;
-		/** The change in url, if any. */
-        url?: StringDelta;
-		/** The change in totalBytes, if any. */
-        totalBytes?: DoubleDelta;
-		/** The change in filename, if any. */
-        filename?: StringDelta;
-		/** The change in paused, if any. */
-        paused?: BooleanDelta;
-		/** The change in state, if any. */
-        state?: StringDelta;
-		/** The change in mime, if any. */
-        mime?: StringDelta;
-		/** The change in fileSize, if any. */
-        fileSize?: DoubleDelta;
-		/** The change in startTime, if any. */
-        startTime?: DoubleDelta;
-		/** The change in error, if any. */
-        error?: StringDelta;
-		/** The change in endTime, if any. */
-        endTime?: DoubleDelta;
+		/** Optional. The change in danger, if any.  */
+		danger?: StringDelta;
+		/** Optional. The change in url, if any.  */
+		url?: StringDelta;
+		/** Optional. The change in totalBytes, if any.  */
+		totalBytes?: DoubleDelta;
+		/** Optional. The change in filename, if any.  */
+		filename?: StringDelta;
+		/** Optional. The change in paused, if any.  */
+		paused?: BooleanDelta;
+		/** Optional. The change in state, if any.  */
+		state?: StringDelta;
+		/** Optional. The change in mime, if any.  */
+		mime?: StringDelta;
+		/** Optional. The change in fileSize, if any.  */
+		fileSize?: DoubleDelta;
+		/** Optional. The change in startTime, if any.  */
+		startTime?: DoubleDelta;
+		/** Optional. The change in error, if any.  */
+		error?: StringDelta;
+		/** Optional. The change in endTime, if any.  */
+		endTime?: DoubleDelta;
 		/** The id of the DownloadItem that changed. */
         id: number;
-		/** The change in canResume, if any. */
+		/** Optional. The change in canResume, if any.  */
 		canResume?: BooleanDelta;
-		/** The change in exists, if any. */
+		/** Optional. The change in exists, if any.  */
 		exists?: BooleanDelta;
     }
 
@@ -2167,92 +2190,91 @@ declare module chrome.downloads {
         fileSize: number;
 		/** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
-		/** Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_. */
-        error?: string;
-		/** The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})}) */
-        endTime?: string;
+		/** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
+		error?: string;
+		/** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
+		endTime?: string;
 		/** An identifier that is persistent across browser sessions. */
         id: number;
 		/** False if this download is recorded in the history, true if it is not recorded. */
         incognito: boolean;
 		/** Absolute URL. */
 		referrer: string;
-		/** Estimated time when the download will complete in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.estimatedEndTime) console.log(new Date(item.estimatedEndTime))})}) */
+		/** Optional. Estimated time when the download will complete in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.estimatedEndTime) console.log(new Date(item.estimatedEndTime))})})  */
 		estimatedEndTime?: string;
 		/** True if the download is in progress and paused, or else if it is interrupted and can be resumed starting from where it was interrupted. */
 		canResume: boolean;
 		/** Whether the downloaded file still exists. This information may be out of date because Chrome does not automatically watch for file removal. Call search() in order to trigger the check for file existence. When the existence check completes, if the file has been deleted, then an onChanged event will fire. Note that search() does not wait for the existence check to finish before returning, so results from search() may not accurately reflect the file system. Also, search() may be called as often as necessary, but will not check for file existence any more frequently than once every 10 seconds. */
 		exists: boolean;
-		/** The identifier for the extension that initiated this download if this download was initiated by an extension. Does not change once it is set. */
+		/** Optional. The identifier for the extension that initiated this download if this download was initiated by an extension. Does not change once it is set.  */
 		byExtensionId?: string;
-		/** The localized name of the extension that initiated this download if this download was initiated by an extension. May change if the extension changes its name or if the user changes their locale. */
+		/** Optional. The localized name of the extension that initiated this download if this download was initiated by an extension. May change if the extension changes its name or if the user changes their locale.  */
 		byExtensionName?: string;
     }
 
     interface GetFileIconOptions {
-		/**
-		 * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. 
-		 */
-        size?: number;
+		/** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. 
+ */
+		size?: number;
     }
 
     interface DownloadQuery {
-		/** Set elements of this array to DownloadItem properties in order to sort search results. For example, setting orderBy=['startTime'] sorts the DownloadItem by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'. */
-        orderBy?: string[];
-		/** Limits results to DownloadItem whose url matches the given regular expression. */
-        urlRegex?: string;
-		/** Limits results to DownloadItem that ended before the given ms since the epoch. */
-        endedBefore?: number;
-		/** Limits results to DownloadItem whose totalBytes is greater than the given integer. */
-        totalBytesGreater?: number;
-		/** Indication of whether this download is thought to be safe or known to be suspicious. */
-        danger?: string;
-		/** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
-        totalBytes?: number;
-		/** True if the download has stopped reading data from the host, but kept the connection open. */
-        paused?: boolean;
-		/** Limits results to DownloadItem whose filename matches the given regular expression. */
-        filenameRegex?: string;
-		/** This array of search terms limits results to DownloadItem whose filename or url contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash. */
-        query?: string[];
-		/** Limits results to DownloadItem whose totalBytes is less than the given integer. */
-        totalBytesLess?: number;
-		/** The id of the DownloadItem to query. */
-        id?: number;
-		/** Number of bytes received so far from the host, without considering file compression. */
-        bytesReceived?: number;
-		/** Limits results to DownloadItem that ended after the given ms since the epoch. */
-        endedAfter?: number;
-		/** Absolute local path. */
-        filename?: string;
-		/** Indicates whether the download is progressing, interrupted, or complete. */
-        state?: string;
-		/** Limits results to DownloadItem that started after the given ms since the epoch. */
-        startedAfter?: number;
-		/** The file's MIME type. */
-        mime?: string;
-		/** Number of bytes in the whole file post-decompression, or -1 if unknown. */
-        fileSize?: number;
-		/** The time when the download began in ISO 8601 format. */
-        startTime?: number;
-		/** Absolute URL. */
-        url?: string;
-		/** Limits results to DownloadItem that started before the given ms since the epoch. */
-        startedBefore?: number;
-		/** The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results. */
-        limit?: number;
-		/** Why a download was interrupted. */
-        error?: number;
-		/** The time when the download ended in ISO 8601 format. */
-        endTime?: number;
-		/** Whether the downloaded file exists; */
+		/** Optional. Set elements of this array to DownloadItem properties in order to sort search results. For example, setting orderBy=['startTime'] sorts the DownloadItem by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'.  */
+		orderBy?: string[];
+		/** Optional. Limits results to DownloadItem whose url matches the given regular expression.  */
+		urlRegex?: string;
+		/** Optional. Limits results to DownloadItem that ended before the given ms since the epoch.  */
+		endedBefore?: number;
+		/** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
+		totalBytesGreater?: number;
+		/** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
+		danger?: string;
+		/** Optional. Number of bytes in the whole file, without considering file compression, or -1 if unknown.  */
+		totalBytes?: number;
+		/** Optional. True if the download has stopped reading data from the host, but kept the connection open.  */
+		paused?: boolean;
+		/** Optional. Limits results to DownloadItem whose filename matches the given regular expression.  */
+		filenameRegex?: string;
+		/** Optional. This array of search terms limits results to DownloadItem whose filename or url contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.  */
+		query?: string[];
+		/** Optional. Limits results to DownloadItem whose totalBytes is less than the given integer.  */
+		totalBytesLess?: number;
+		/** Optional. The id of the DownloadItem to query.  */
+		id?: number;
+		/** Optional. Number of bytes received so far from the host, without considering file compression.  */
+		bytesReceived?: number;
+		/** Optional. Limits results to DownloadItem that ended after the given ms since the epoch.  */
+		endedAfter?: number;
+		/** Optional. Absolute local path.  */
+		filename?: string;
+		/** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
+		state?: string;
+		/** Optional. Limits results to DownloadItem that started after the given ms since the epoch.  */
+		startedAfter?: number;
+		/** Optional. The file's MIME type.  */
+		mime?: string;
+		/** Optional. Number of bytes in the whole file post-decompression, or -1 if unknown.  */
+		fileSize?: number;
+		/** Optional. The time when the download began in ISO 8601 format.  */
+		startTime?: number;
+		/** Optional. Absolute URL.  */
+		url?: string;
+		/** Optional. Limits results to DownloadItem that started before the given ms since the epoch.  */
+		startedBefore?: number;
+		/** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
+		limit?: number;
+		/** Optional. Why a download was interrupted.  */
+		error?: number;
+		/** Optional. The time when the download ended in ISO 8601 format.  */
+		endTime?: number;
+		/** Optional. Whether the downloaded file exists;  */
 		exists?: boolean;
     }
 
 	interface DownloadFilenameSuggestion {
 		/** The DownloadItem's new target DownloadItem.filename, as a path relative to the user's default Downloads directory, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will be ignored. */
 		filename: string;
-		/** The action to take if filename already exists. */
+		/** Optional. The action to take if filename already exists.  */
 		conflictAction?: string;
 	}
 
@@ -2463,49 +2485,51 @@ declare module chrome.enterprise.platformKeys {
 declare module chrome.events {
 	/** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
     interface UrlFilter {
-		/** Matches if the scheme of the URL is equal to any of the schemes specified in the array. */
-        schemes?: string[];
+		/** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
+		schemes?: string[];
 		/**
-		 * Since Chrome 23. 
+		 * Optional.
+ 		 * Since Chrome 23. 
 		 * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. 
 		 */
-        urlMatches?: string;
-		/** Matches if the path segment of the URL contains a specified string. */
-        pathContains?: string;
-		/** Matches if the host name of the URL ends with a specified string. */
-        hostSuffix?: string;
-		/** Matches if the host name of the URL starts with a specified string. */
-        hostPrefix?: string;
-		/** Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name. */
-        hostContains?: string;
-		/** Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number. */
-        urlContains?: string;
-		/** Matches if the query segment of the URL ends with a specified string. */
-        querySuffix?: string;
-		/** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number. */
-        urlPrefix?: string;
-		/** Matches if the host name of the URL is equal to a specified string. */
-        hostEquals?: string;
-		/** Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number. */
-        urlEquals?: string;
-		/** Matches if the query segment of the URL contains a specified string. */
-        queryContains?: string;
-		/** Matches if the path segment of the URL starts with a specified string. */
-        pathPrefix?: string;
-		/** Matches if the path segment of the URL is equal to a specified string. */
-        pathEquals?: string;
-		/** Matches if the path segment of the URL ends with a specified string. */
-        pathSuffix?: string;
-		/** Matches if the query segment of the URL is equal to a specified string. */
-        queryEquals?: string;
-		/** Matches if the query segment of the URL starts with a specified string. */
-        queryPrefix?: string;
-		/** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number. */
-        urlSuffix?: string;
-		/** Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200. */
-        ports?: any[];
+		urlMatches?: string;
+		/** Optional. Matches if the path segment of the URL contains a specified string.  */
+		pathContains?: string;
+		/** Optional. Matches if the host name of the URL ends with a specified string.  */
+		hostSuffix?: string;
+		/** Optional. Matches if the host name of the URL starts with a specified string.  */
+		hostPrefix?: string;
+		/** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
+		hostContains?: string;
+		/** Optional. Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+		urlContains?: string;
+		/** Optional. Matches if the query segment of the URL ends with a specified string.  */
+		querySuffix?: string;
+		/** Optional. Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+		urlPrefix?: string;
+		/** Optional. Matches if the host name of the URL is equal to a specified string.  */
+		hostEquals?: string;
+		/** Optional. Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+		urlEquals?: string;
+		/** Optional. Matches if the query segment of the URL contains a specified string.  */
+		queryContains?: string;
+		/** Optional. Matches if the path segment of the URL starts with a specified string.  */
+		pathPrefix?: string;
+		/** Optional. Matches if the path segment of the URL is equal to a specified string.  */
+		pathEquals?: string;
+		/** Optional. Matches if the path segment of the URL ends with a specified string.  */
+		pathSuffix?: string;
+		/** Optional. Matches if the query segment of the URL is equal to a specified string.  */
+		queryEquals?: string;
+		/** Optional. Matches if the query segment of the URL starts with a specified string.  */
+		queryPrefix?: string;
+		/** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+		urlSuffix?: string;
+		/** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
+		ports?: any[];
 		/**
-		 * Since Chrome 28. 
+		 * Optional.
+ 		 * Since Chrome 28. 
 		 * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. 
 		 */
 		originAndPathMatches?: string;
@@ -2577,16 +2601,17 @@ declare module chrome.events {
 
 	/** Description of a declarative rule for handling events. */
     interface Rule {
-		/** Optional priority of this rule. Defaults to 100. */
-        priority?: number;
+		/** Optional. Optional priority of this rule. Defaults to 100.  */
+		priority?: number;
 		/** List of conditions that can trigger the actions. */
         conditions: any[];
-		/** Optional identifier that allows referencing this rule. */
-        id?: string;
+		/** Optional. Optional identifier that allows referencing this rule.  */
+		id?: string;
 		/** List of actions that are triggered if one of the condtions is fulfilled. */
         actions: any[];
 		/**
-		 * Since Chrome 28. 
+		 * Optional.
+ 		 * Since Chrome 28. 
 		 * Tags can be used to annotate rules and perform operations on sets of rules. 
 		 */
 		tags?: string[];
@@ -2602,10 +2627,10 @@ declare module chrome.events {
  */
 declare module chrome.extension {
     interface FetchProperties {
-		/** The window to restrict the search to. If omitted, returns all views. */
-        windowId?: number;
-		/** The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'notification', 'popup'. */
-        type?: string;
+		/** Optional. The window to restrict the search to. If omitted, returns all views.  */
+		windowId?: number;
+		/** Optional. The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'notification', 'popup'.  */
+		type?: string;
     }
 
     interface LastError {
@@ -2714,25 +2739,26 @@ declare module chrome.extension {
 declare module chrome.fileBrowserHandler {
     interface SelectionParams {
 		/**
-		 * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png'] 
+		 * Optional.
+ 		 * List of file extensions that the selected file can have. The list is also used to specify what files to be shown in the select file dialog. Files with the listed extensions are only shown in the dialog. Extensions should not include the leading '.'. Example: ['jpg', 'png'] 
 		 * Since Chrome 23. 
 		 */
-        allowedFileExtensions?: string[];
+		allowedFileExtensions?: string[];
 		/** Suggested name for the file. */
         suggestedName: string;
     }
 
     interface SelectionResult {
-		/** Selected file entry. It will be null if a file hasn't been selected. */
-        entry?: Object;
+		/** Optional. Selected file entry. It will be null if a file hasn't been selected.  */
+		entry?: Object;
 		/** Whether the file has been selected. */
         success: boolean;
     }
 
 	/** Event details payload for fileBrowserHandler.onExecute event. */
     interface FileHandlerExecuteEventDetails {
-		/** The ID of the tab that raised this event. Tab IDs are unique within a browser session. */
-        tab_id?: number;
+		/** Optional. The ID of the tab that raised this event. Tab IDs are unique within a browser session.  */
+		tab_id?: number;
 		/** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
         entries: any[];
     }
@@ -2786,7 +2812,7 @@ declare module chrome.fileSystemProvider {
 		entryPath: string;
 		/** Whether watching should include all child entries recursively. It can be true for directories only. */
 		recursive: boolean;
-		/** Tag used by the last notification for the watcher. */
+		/** Optional. Tag used by the last notification for the watcher.  */
 		lastTag?: string;
 	}
 
@@ -2799,9 +2825,9 @@ declare module chrome.fileSystemProvider {
 		size: number;
 		/** The last modified time of this entry. */
 		modificationTime: Date;
-		/** Mime type for the entry. */
+		/** Optional. Mime type for the entry.  */
 		mimeType?: string;
-		/** Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event. */
+		/** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
 		thumbnail?: string;
 	}
 
@@ -2823,7 +2849,8 @@ declare module chrome.fileSystemProvider {
 		 */
 		openedFiles: OpenedFileInfo[];
 		/**
-		 * Whether the file system supports the tag field for observing directories. 
+		 * Optional.
+ 		 * Whether the file system supports the tag field for observing directories. 
 		 * @since Since Chrome 45. Warning: this is the current Beta channel. 
 		 */
 		supportsNotifyTag?: boolean;
@@ -2848,7 +2875,7 @@ declare module chrome.fileSystemProvider {
 	interface Action {
 		/** The identifier of the action. Any string or CommonActionId for common actions. */
 		id: string;
-		/** The title of the action. It may be ignored for common actions. */
+		/** Optional. The title of the action. It may be ignored for common actions.  */
 		title?: string;
 	}
 	
@@ -2869,15 +2896,17 @@ declare module chrome.fileSystemProvider {
 		fileSystemId: string;
 		/** A human-readable name for the file system. */
 		displayName: string;
-		/** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
+		/** Optional. Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
 		writable?: boolean;
 		/**
-		 * The maximum number of files that can be opened at once. If not specified, or 0, then not limited. 
+		 * Optional.
+ 		 * The maximum number of files that can be opened at once. If not specified, or 0, then not limited. 
 		 * @since Since Chrome 41.
 		 */
 		openedFilesLimit?: number;
 		/**
-		 * Whether the file system supports the tag field for observed directories. 
+		 * Optional.
+ 		 * Whether the file system supports the tag field for observed directories. 
 		 * @since Since Chrome 45. Warning: this is the current Beta channel.
 		 */
 		supportsNotifyTag?: boolean;
@@ -2904,9 +2933,9 @@ declare module chrome.fileSystemProvider {
 		recursive: boolean;
 		/** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
 		changeType: string;
-		/** List of changes to entries within the observed directory (including the entry itself) */
+		/** Optional. List of changes to entries within the observed directory (including the entry itself)  */
 		changes?: NotificationChange[];
-		/** Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown. */
+		/** Optional. Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
 		tag?: string;
 	}
 
@@ -2931,7 +2960,7 @@ declare module chrome.fileSystemProvider {
 		/** The path of the directory which is to be operated on. */
 		directoryPath: string;
 	}
-	
+
 	interface FilePathRequestedEventOptions extends RequestedEventOptions {
 		/** The path of the entry for the operation */
 		filePath: string;
@@ -3220,7 +3249,7 @@ declare module chrome.fontSettings {
 	interface FontDetails {
 		/** The generic font family for the font. */
 		genericFamily: string;
-		/** The script for the font. If omitted, the global script font setting is affected. */
+		/** Optional. The script for the font. If omitted, the global script font setting is affected.  */
 		script?: string;
 	}
 
@@ -3229,7 +3258,7 @@ declare module chrome.fontSettings {
 		genericFamily: string;
 		/** The level of control this extension has over the setting. */
 		levelOfControl: string;
-		/** The script code for which the font setting has changed. */
+		/** Optional. The script code for which the font setting has changed.  */
 		script?: string;
 		/** The font ID. See the description in getFont. */
 		fontId: string;
@@ -3295,7 +3324,7 @@ declare module chrome.fontSettings {
 	 * Sets the default font size. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
-	 */    
+	 */
 	export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
 	/**
 	 * Gets the font for a given script and generic font family. 
@@ -3376,7 +3405,7 @@ declare module chrome.fontSettings {
 	 */
 	export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
 
-	/** Fired when the default fixed font size setting changes. */    
+	/** Fired when the default fixed font size setting changes. */
 	var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
 	/** Fired when the default font size setting changes. */
 	var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
