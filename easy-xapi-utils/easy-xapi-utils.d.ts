@@ -12,5 +12,5 @@ declare module "easy-xapi-utils" {
 
     export function isLoggedIn(role?: string): express.RequestHandler;
     export function isLoggedOut(): express.RequestHandler;
-    export function hasRole(role: string): express.RequestHandler;
+    export function hasRole(role: string | string[]): express.RequestHandler;
 }

@@ -49,6 +49,18 @@ app.get('/hasrole', function (req, res, next) {
     res.send(req.session.hasRole('user'));
 });
 
+app.get('/hasrole2', function (req, res, next) {
+    res.send(req.session.hasRole(['user','admin']));
+});
+
+app.get('/hasrole3', function (req, res, next) {
+    res.send(req.session.hasRole(['user', 'admin'], false));
+});
+
+app.get('/hasnotrole', function (req, res, next) {
+    res.send(req.session.hasNotRole(['user', 'admin']));
+});
+
 app.post('/setrole', function (req, res, next) {
     req.session.setRole(req.query.role);
     res.send(200);

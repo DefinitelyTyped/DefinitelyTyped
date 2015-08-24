@@ -37,6 +37,9 @@ var xApi = eXapi.create({
         app.get('/role', eUtils.hasRole('guest'), function (req, res) {
             res.send('ok');
         });
+        app.get('/role', eUtils.hasRole(['guest', 'user']), function (req, res) {
+            res.send('ok');
+        });
     }
 });
 
