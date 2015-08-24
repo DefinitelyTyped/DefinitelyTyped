@@ -3416,6 +3416,114 @@ declare module chrome.fontSettings {
 }
 
 ////////////////////
+// Google Cloud Messaging
+////////////////////
+/**
+ * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service. 
+ * Availability: Since Chrome 35.  
+ * Permissions:  "gcm"   
+ */
+declare module chrome.gcm {
+	interface OutgoingMessage {
+		/** The ID of the server to send the message to as assigned by Google API Console. */
+		destinationId: string;
+		/** The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID. */
+		messageId: string;
+		/** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
+		timeToLive?: number;
+		/** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
+		data: Object;
+	}
+	
+	interface IncomingMessage {
+		/** The message data. */
+		data: Object;
+		/**
+		 * Optional.
+		 * The sender who issued the message. 
+		 * @since Since Chrome 41. 
+		 */
+		from?: string;
+		/**
+		 * Optional.
+		 * The collapse key of a message. See Collapsible Messages section of Cloud Messaging documentation for details. 
+		 */
+		collapseKey?: string;
+	}
+	
+	interface GcmError {
+		/** The error message describing the problem. */
+		errorMessage: string;
+		/** Optional. The ID of the message with this error, if error is related to a specific message. */
+		messageId?: string;
+		/** Additional details related to the error, when available. */
+		detail: Object;
+	}
+	
+	interface MessageReceptionEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object message) {...}; 
+		 * Parameter message: A message received from another party via GCM. 
+		 */
+		addListener(callback: (message: IncomingMessage) => void): void;
+	}
+	
+	interface MessageDeletionEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+		addListener(callback: () => void): void;
+	}
+	
+	interface GcmErrorEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(object error) {...}; 
+		 * Parameter error: An error that occured while trying to send the message either in Chrome or on the GCM server. Application can retry sending the message with a reasonable backoff and possibly longer time-to-live. 
+		 */
+		addListener(callback: (error: GcmError) => void): void;
+	}
+	
+	/** The maximum size (in bytes) of all key/value pairs in a message. */
+	var MAX_MESSAGE_SIZE: number;
+	
+	/**
+	 * Registers the application with GCM. The registration ID will be returned by the callback. If register is called again with the same list of senderIds, the same registration ID will be returned. 
+	 * @param senderIds A list of server IDs that are allowed to send messages to the application. It should contain at least one and no more than 100 sender IDs. 
+	 * @param callback Function called when registration completes. It should check runtime.lastError for error when registrationId is empty. 
+	 * The callback parameter should be a function that looks like this: 
+	 * function(string registrationId) {...};
+	 * Parameter registrationId: A registration ID assigned to the application by the GCM. 
+	 */
+	export function register(senderIds: string[], callback: (registrationId: string) => void): void;
+	/**
+	 * Unregisters the application from GCM. 
+	 * @param callback A function called after the unregistration completes. Unregistration was successful if runtime.lastError is not set. 
+	 * The callback parameter should be a function that looks like this:
+	 * function() {...}; 
+	 */
+	export function unregister(callback: () => void): void;
+	/**
+	 * Sends a message according to its contents. 
+	 * @param message A message to send to the other party via GCM. 
+	 * @param callback A function called after the message is successfully queued for sending. runtime.lastError should be checked, to ensure a message was sent without problems. 
+	 * The callback parameter should be a function that looks like this:
+	 * function(string messageId) {...};
+	 * Parameter messageId: The ID of the message that the callback was issued for. 
+	 */
+	export function send(message: OutgoingMessage, callback: (messageId: string) => void): void;
+	
+	/** Fired when a message is received through GCM. */
+	var onMessage: MessageReceptionEvent;
+	/** Fired when a GCM server had to delete messages sent by an app server to the application. See Messages deleted event section of Cloud Messaging documentation for details on handling this event. */
+	var onMessagesDeleted: MessageDeletionEvent;
+	/** Fired when it was not possible to send a message to the GCM server. */
+	var onSendError: GcmErrorEvent;
+}
+
+////////////////////
 // History
 ////////////////////
 declare module chrome.history {
