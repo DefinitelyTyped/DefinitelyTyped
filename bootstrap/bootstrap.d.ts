@@ -59,8 +59,8 @@ interface CollapseOptions {
 interface CarouselOptions {
     interval?: number;
     pause?: string;
-    wrap: boolean;
-    keybord: boolean;
+    wrap?: boolean;
+    keybord?: boolean;
 }
 
 interface TypeaheadOptions {
