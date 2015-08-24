@@ -3434,7 +3434,7 @@ declare module chrome.gcm {
 		/** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
 		data: Object;
 	}
-	
+
 	interface IncomingMessage {
 		/** The message data. */
 		data: Object;
@@ -3450,7 +3450,7 @@ declare module chrome.gcm {
 		 */
 		collapseKey?: string;
 	}
-	
+
 	interface GcmError {
 		/** The error message describing the problem. */
 		errorMessage: string;
@@ -3459,7 +3459,7 @@ declare module chrome.gcm {
 		/** Additional details related to the error, when available. */
 		detail: Object;
 	}
-	
+
 	interface MessageReceptionEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -3468,7 +3468,7 @@ declare module chrome.gcm {
 		 */
 		addListener(callback: (message: IncomingMessage) => void): void;
 	}
-	
+
 	interface MessageDeletionEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -3476,7 +3476,7 @@ declare module chrome.gcm {
 		 */
 		addListener(callback: () => void): void;
 	}
-	
+
 	interface GcmErrorEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -3546,7 +3546,7 @@ declare module chrome.history {
 		id: string;
 	}
 
-	/** An object encapsulating one result of a history query. */    
+	/** An object encapsulating one result of a history query. */
 	interface HistoryItem {
 		/** Optional. The number of times the user has navigated to this page by typing in the address. */
 		typedCount?: number;
@@ -3612,7 +3612,7 @@ declare module chrome.history {
 	 * Searches the history for the last visit time of each page matching the query. 
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function(array of HistoryItem results) {...}; 
-	 */    
+	 */
 	export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
 	/**
 	 * Adds a URL to the history at the current time with a transition type of "link". 
@@ -3645,29 +3645,163 @@ declare module chrome.history {
 	 */
 	export function deleteUrl(details: Url, callback?: () => void): void;
 
-	/** Fired when a URL is visited, providing the HistoryItem data for that URL. This event fires before the page has loaded. */    
+	/** Fired when a URL is visited, providing the HistoryItem data for that URL. This event fires before the page has loaded. */
 	var onVisited: HistoryVisitedEvent;
 	/** Fired when one or more URLs are removed from the history service. When all visits have been removed the URL is purged from history. */
 	var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
+////////////////////
+// i18n
+////////////////////
+/**
+ * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension. 
+ * @since Chrome 5. 
+ */
+declare module chrome.i18n {
+	/**
+	 * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage. 
+	 * @param callback The callback parameter should be a function that looks like this: 
+	 * function(array of string languages) {...};
+	 * Parameter languages: Array of the accept languages of the browser, such as en-US,en,zh-CN 
+	 */
+	export function getAcceptLanguages(callback: (languages: string[]) => void): void;
+	/**
+	 * Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the getMessage() call is wrong — for example, messageName is not a string or the substitutions array has more than 9 elements — this method returns undefined. 
+	 * @param messageName The name of the message, as specified in the messages.json file.
+	 * @param substitutions Optional. Up to 9 substitution strings, if the message requires any. 
+	 */
+	export function getMessage(messageName: string, substitutions?: any): string;
+	/**
+	 * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages. 
+	 * @since Chrome 35. 
+	 */
+	export function getUILanguage(): string;
+}
 
 ////////////////////
 // Identity
 ////////////////////
+/**
+ * Use the chrome.identity API to get OAuth2 access tokens. 
+ * Permissions:  "identity"   
+ * @since Chrome 29. 
+ */
 declare module chrome.identity {
-	var getAuthToken: (options: any, cb: (token: {}) => void) => void;
-	var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
-}
+	/** @since Chrome 32. */
+	interface AccountInfo {
+		/** A unique identifier for the account. This ID will not change for the lifetime of the account. */
+		id: string;
+	}
 
+	interface TokenDetails {
+		/**
+		 * Optional. 
+		 * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required. 
+		 */
+		interactive?: boolean;
+		/**
+		 * Optional.
+		 * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
+		 * account is only supported when the "enable-new-profile-management" flag is set.
+		 * @since Chrome 37.
+		 */
+		account?: AccountInfo;
+		/**
+		 * Optional.
+		 * A list of OAuth2 scopes to request.
+		 * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
+		 * @since Chrome 37.
+		 */
+		scopes?: string[];
+	}
 
-////////////////////
-// Internationalization
-////////////////////
-declare module chrome.i18n {
-	export function getMessage(messageName: string, substitutions?: any): string;
-	export function getAcceptLanguages(callback: (languages: string[]) => void): void;
-	export function getUILanguage(): string;
+	interface UserInfo {
+		/** An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified. */
+		email: string;
+		/** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified. */
+		id: string;
+	}
+
+	interface TokenInformation {
+		/** The specific token that should be removed from the cache. */
+		token: string;
+	}
+
+	interface WebAuthFlowOptions {
+		/** The URL that initiates the auth flow. */
+		url: string;
+		/**
+		 * Optional.
+		 * Whether to launch auth flow in interactive mode.
+		 * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
+		 * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
+		 */
+		interactive?: boolean;
+	}
+
+	interface SignInChangeEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( AccountInfo account, boolean signedIn) {...}; 
+		 */
+		addListener(callback: (account: AccountInfo, signedIn: boolean) => void): void;
+	} 
+	
+	/**
+	 * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
+	 * getAccounts is only supported on dev channel.
+	 * Dev channel only.
+	 */
+	export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
+	/**
+	 * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
+	 * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
+	 * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
+	 * @param details Token options. 
+	 * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(string token) {...}; 
+	 */
+	export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+	/**
+	 * Retrieves email address and obfuscated gaia id of the user signed into a profile.
+	 * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
+	 * @since Chrome 37.
+	 */
+	export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
+	/**
+	 * Removes an OAuth2 access token from the Identity API's token cache.
+	 * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
+	 * @param details Token information. 
+	 * @param callback Called when the token has been removed from the cache. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function() {...}; 
+	 */
+	export function removeCachedAuthToken(details: TokenInformation, callback?: () => void): void;
+	/**
+	 * Starts an auth flow at the specified URL.
+	 * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
+	 * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
+	 * @param details WebAuth flow options. 
+	 * @param callback Called with the URL redirected back to your application. 
+	 * The callback parameter should be a function that looks like this:
+	 * function(string responseUrl) {...}; 
+	 */
+	export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+	/**
+	 * Generates a redirect URL to be used in launchWebAuthFlow.
+	 * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
+	 * @since Chrome 33.
+	 * @param path Optional. The path appended to the end of the generated URL. 
+	 */
+	export function getRedirectURL(path?: string): void;
+	
+	/**
+	 * Fired when signin state changes for an account on the user's profile. 
+	 * @since Chrome 33.
+	 */
+	var onSignInChanged: SignInChangeEvent;
 }
 
 ////////////////////
