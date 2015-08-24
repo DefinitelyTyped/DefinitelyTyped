@@ -867,9 +867,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        let HTTPOptions: {
-            new (): HTTPOptions;
-        };
+        var HTTPOptions: new () => HTTPOptions;
         interface HTTPOptions extends FunctionResponse {
             /**
              * The body of the request.
