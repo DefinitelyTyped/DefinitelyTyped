@@ -77,7 +77,7 @@ declare module noUiSlider {
         /**
          * Allows you to generate points along the slider.
          */
-        pips: PipsOptions;
+        pips?: PipsOptions;
     }
 
     interface PipsOptions {
