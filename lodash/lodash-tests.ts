@@ -1775,7 +1775,9 @@ result = <string>_('fred, barney, & pebbles').escape();
 result = <string>_.escapeRegExp('[lodash](https://lodash.com/)');
 result = <string>_('[lodash](https://lodash.com/)').escapeRegExp();
 
+// _.kebabCase
 result = <string>_.kebabCase('Foo Bar');
+result = <string>_('Foo Bar').kebabCase();
 
 // _.pad
 result = <string>_.pad('abd');
