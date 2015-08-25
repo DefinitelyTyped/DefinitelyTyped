@@ -1,4 +1,5 @@
 /// <reference path="chai-as-promised.d.ts" />
+/// <reference path="../promises-a-plus/promises-a-plus.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
 import chai = require('chai');
@@ -9,7 +10,7 @@ chai.use(chaiAsPromised);
 
 // ReSharper disable WrongExpressionStatement
 // BDD API (expect)
-var thenableNum: Chai.Thenable<number>;
+var thenableNum: PromisesAPlus.Thenable<number>;
 thenableNum = chai.expect(thenableNum).to.eventually.equal(3);
 thenableNum = chai.expect(thenableNum).to.eventually.have.property('foo');
 thenableNum = chai.expect(thenableNum).to.become(3);
@@ -39,7 +40,7 @@ Q.all([
 ]).should.notify(() => console.log('done'));
 
 // Assert API
-var thenableVoid: Chai.Thenable<void>;
+var thenableVoid: PromisesAPlus.Thenable<void>;
 thenableVoid = chai.assert.eventually.equal(thenableNum, 4, 'Message');
 thenableVoid = chai.assert.isFulfilled(thenableNum, "optional message");
 thenableVoid = chai.assert.becomes(thenableNum, "foo", "optional message");

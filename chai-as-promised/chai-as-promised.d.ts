@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
+/// <reference path="../promises-a-plus/promises-a-plus.d.ts" />
 
 declare module 'chai-as-promised' {
     function chaiAsPromised(chai: any, utils: any): void;
@@ -11,12 +12,6 @@ declare module 'chai-as-promised' {
 }
 
 declare module Chai {
-
-    // chai-as-promised can take Promise/A+ valid promises.
-    interface Thenable<R> {
-        then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-        then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
-    }
 
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -31,7 +26,7 @@ declare module Chai {
     // Eventually does not have .then(), but PromisedAssertion have.
     interface Eventually extends PromisedLanguageChains, PromisedNumericComparison, PromisedTypeComparison {
         // From chai-as-promised
-        become(expected: Thenable<any>): PromisedAssertion;
+        become(expected: PromisesAPlus.Thenable<any>): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
         rejectedWith(expected: any): PromisedAssertion;
@@ -77,7 +72,7 @@ declare module Chai {
         members: PromisedMembers;
     }
 
-    interface PromisedAssertion extends Eventually, Thenable<any> {
+    interface PromisedAssertion extends Eventually, PromisesAPlus.Thenable<any> {
     }
 
     interface PromisedLanguageChains {
@@ -179,111 +174,111 @@ declare module Chai {
     // For Assert API
     interface Assert {
         eventually: PromisedAssert;
-        isFulfilled(promise: Thenable<any>, message?: string): Thenable<void>;
-        becomes(promise: Thenable<any>, expected: any, message?: string): Thenable<void>;
-        doesNotBecome(promise: Thenable<any>, expected: any, message?: string): Thenable<void>;
-        isRejected(promise: Thenable<any>, message?: string): Thenable<void>;
-        isRejected(promise: Thenable<any>, expected: any, message?: string): Thenable<void>;
-        isRejected(promise: Thenable<any>, match: RegExp, message?: string): Thenable<void>;
-        notify(fn: Function): Thenable<void>;
+        isFulfilled(promise: PromisesAPlus.Thenable<any>, message?: string): PromisesAPlus.Thenable<void>;
+        becomes(promise: PromisesAPlus.Thenable<any>, expected: any, message?: string): PromisesAPlus.Thenable<void>;
+        doesNotBecome(promise: PromisesAPlus.Thenable<any>, expected: any, message?: string): PromisesAPlus.Thenable<void>;
+        isRejected(promise: PromisesAPlus.Thenable<any>, message?: string): PromisesAPlus.Thenable<void>;
+        isRejected(promise: PromisesAPlus.Thenable<any>, expected: any, message?: string): PromisesAPlus.Thenable<void>;
+        isRejected(promise: PromisesAPlus.Thenable<any>, match: RegExp, message?: string): PromisesAPlus.Thenable<void>;
+        notify(fn: Function): PromisesAPlus.Thenable<void>;
     }
 
     export interface PromisedAssert {
-        fail(actual?: any, expected?: any, msg?: string, operator?: string): Thenable<void>;
+        fail(actual?: any, expected?: any, msg?: string, operator?: string): PromisesAPlus.Thenable<void>;
 
-        ok(val: any, msg?: string): Thenable<void>;
-        notOk(val: any, msg?: string): Thenable<void>;
+        ok(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        notOk(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        equal(act: any, exp: any, msg?: string): Thenable<void>;
-        notEqual(act: any, exp: any, msg?: string): Thenable<void>;
+        equal(act: any, exp: any, msg?: string): PromisesAPlus.Thenable<void>;
+        notEqual(act: any, exp: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        strictEqual(act: any, exp: any, msg?: string): Thenable<void>;
-        notStrictEqual(act: any, exp: any, msg?: string): Thenable<void>;
+        strictEqual(act: any, exp: any, msg?: string): PromisesAPlus.Thenable<void>;
+        notStrictEqual(act: any, exp: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        deepEqual(act: any, exp: any, msg?: string): Thenable<void>;
-        notDeepEqual(act: any, exp: any, msg?: string): Thenable<void>;
+        deepEqual(act: any, exp: any, msg?: string): PromisesAPlus.Thenable<void>;
+        notDeepEqual(act: any, exp: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isTrue(val: any, msg?: string): Thenable<void>;
-        isFalse(val: any, msg?: string): Thenable<void>;
+        isTrue(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isFalse(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isNull(val: any, msg?: string): Thenable<void>;
-        isNotNull(val: any, msg?: string): Thenable<void>;
+        isNull(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotNull(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isUndefined(val: any, msg?: string): Thenable<void>;
-        isDefined(val: any, msg?: string): Thenable<void>;
+        isUndefined(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isDefined(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isFunction(val: any, msg?: string): Thenable<void>;
-        isNotFunction(val: any, msg?: string): Thenable<void>;
+        isFunction(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotFunction(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isObject(val: any, msg?: string): Thenable<void>;
-        isNotObject(val: any, msg?: string): Thenable<void>;
+        isObject(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotObject(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isArray(val: any, msg?: string): Thenable<void>;
-        isNotArray(val: any, msg?: string): Thenable<void>;
+        isArray(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotArray(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isString(val: any, msg?: string): Thenable<void>;
-        isNotString(val: any, msg?: string): Thenable<void>;
+        isString(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotString(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isNumber(val: any, msg?: string): Thenable<void>;
-        isNotNumber(val: any, msg?: string): Thenable<void>;
+        isNumber(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotNumber(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        isBoolean(val: any, msg?: string): Thenable<void>;
-        isNotBoolean(val: any, msg?: string): Thenable<void>;
+        isBoolean(val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        isNotBoolean(val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        typeOf(val: any, type: string, msg?: string): Thenable<void>;
-        notTypeOf(val: any, type: string, msg?: string): Thenable<void>;
+        typeOf(val: any, type: string, msg?: string): PromisesAPlus.Thenable<void>;
+        notTypeOf(val: any, type: string, msg?: string): PromisesAPlus.Thenable<void>;
 
-        instanceOf(val: any, type: Function, msg?: string): Thenable<void>;
-        notInstanceOf(val: any, type: Function, msg?: string): Thenable<void>;
+        instanceOf(val: any, type: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        notInstanceOf(val: any, type: Function, msg?: string): PromisesAPlus.Thenable<void>;
 
-        include(exp: string, inc: any, msg?: string): Thenable<void>;
-        include(exp: any[], inc: any, msg?: string): Thenable<void>;
+        include(exp: string, inc: any, msg?: string): PromisesAPlus.Thenable<void>;
+        include(exp: any[], inc: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        notInclude(exp: string, inc: any, msg?: string): Thenable<void>;
-        notInclude(exp: any[], inc: any, msg?: string): Thenable<void>;
+        notInclude(exp: string, inc: any, msg?: string): PromisesAPlus.Thenable<void>;
+        notInclude(exp: any[], inc: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        match(exp: any, re: RegExp, msg?: string): Thenable<void>;
-        notMatch(exp: any, re: RegExp, msg?: string): Thenable<void>;
+        match(exp: any, re: RegExp, msg?: string): PromisesAPlus.Thenable<void>;
+        notMatch(exp: any, re: RegExp, msg?: string): PromisesAPlus.Thenable<void>;
 
-        property(obj: Object, prop: string, msg?: string): Thenable<void>;
-        notProperty(obj: Object, prop: string, msg?: string): Thenable<void>;
-        deepProperty(obj: Object, prop: string, msg?: string): Thenable<void>;
-        notDeepProperty(obj: Object, prop: string, msg?: string): Thenable<void>;
+        property(obj: Object, prop: string, msg?: string): PromisesAPlus.Thenable<void>;
+        notProperty(obj: Object, prop: string, msg?: string): PromisesAPlus.Thenable<void>;
+        deepProperty(obj: Object, prop: string, msg?: string): PromisesAPlus.Thenable<void>;
+        notDeepProperty(obj: Object, prop: string, msg?: string): PromisesAPlus.Thenable<void>;
 
-        propertyVal(obj: Object, prop: string, val: any, msg?: string): Thenable<void>;
-        propertyNotVal(obj: Object, prop: string, val: any, msg?: string): Thenable<void>;
+        propertyVal(obj: Object, prop: string, val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        propertyNotVal(obj: Object, prop: string, val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        deepPropertyVal(obj: Object, prop: string, val: any, msg?: string): Thenable<void>;
-        deepPropertyNotVal(obj: Object, prop: string, val: any, msg?: string): Thenable<void>;
+        deepPropertyVal(obj: Object, prop: string, val: any, msg?: string): PromisesAPlus.Thenable<void>;
+        deepPropertyNotVal(obj: Object, prop: string, val: any, msg?: string): PromisesAPlus.Thenable<void>;
 
-        lengthOf(exp: any, len: number, msg?: string): Thenable<void>;
+        lengthOf(exp: any, len: number, msg?: string): PromisesAPlus.Thenable<void>;
         //alias frenzy
-        throw(fn: Function, msg?: string): Thenable<void>;
-        throw(fn: Function, regExp: RegExp): Thenable<void>;
-        throw(fn: Function, errType: Function, msg?: string): Thenable<void>;
-        throw(fn: Function, errType: Function, regExp: RegExp): Thenable<void>;
+        throw(fn: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        throw(fn: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
+        throw(fn: Function, errType: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        throw(fn: Function, errType: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
 
-        throws(fn: Function, msg?: string): Thenable<void>;
-        throws(fn: Function, regExp: RegExp): Thenable<void>;
-        throws(fn: Function, errType: Function, msg?: string): Thenable<void>;
-        throws(fn: Function, errType: Function, regExp: RegExp): Thenable<void>;
+        throws(fn: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        throws(fn: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
+        throws(fn: Function, errType: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        throws(fn: Function, errType: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
 
-        Throw(fn: Function, msg?: string): Thenable<void>;
-        Throw(fn: Function, regExp: RegExp): Thenable<void>;
-        Throw(fn: Function, errType: Function, msg?: string): Thenable<void>;
-        Throw(fn: Function, errType: Function, regExp: RegExp): Thenable<void>;
+        Throw(fn: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        Throw(fn: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
+        Throw(fn: Function, errType: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        Throw(fn: Function, errType: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
 
-        doesNotThrow(fn: Function, msg?: string): Thenable<void>;
-        doesNotThrow(fn: Function, regExp: RegExp): Thenable<void>;
-        doesNotThrow(fn: Function, errType: Function, msg?: string): Thenable<void>;
-        doesNotThrow(fn: Function, errType: Function, regExp: RegExp): Thenable<void>;
+        doesNotThrow(fn: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        doesNotThrow(fn: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
+        doesNotThrow(fn: Function, errType: Function, msg?: string): PromisesAPlus.Thenable<void>;
+        doesNotThrow(fn: Function, errType: Function, regExp: RegExp): PromisesAPlus.Thenable<void>;
 
-        operator(val: any, operator: string, val2: any, msg?: string): Thenable<void>;
-        closeTo(act: number, exp: number, delta: number, msg?: string): Thenable<void>;
+        operator(val: any, operator: string, val2: any, msg?: string): PromisesAPlus.Thenable<void>;
+        closeTo(act: number, exp: number, delta: number, msg?: string): PromisesAPlus.Thenable<void>;
 
-        sameMembers(set1: any[], set2: any[], msg?: string): Thenable<void>;
-        includeMembers(set1: any[], set2: any[], msg?: string): Thenable<void>;
+        sameMembers(set1: any[], set2: any[], msg?: string): PromisesAPlus.Thenable<void>;
+        includeMembers(set1: any[], set2: any[], msg?: string): PromisesAPlus.Thenable<void>;
 
-        ifError(val: any, msg?: string): Thenable<void>;
+        ifError(val: any, msg?: string): PromisesAPlus.Thenable<void>;
     }
 }
