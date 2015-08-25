@@ -6231,6 +6231,24 @@ declare module _ {
         isEmpty(): boolean;
     }
 
+    //_.isError
+    interface LoDashStatic {
+        /**
+         * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
+         * object.
+         * @param value The value to check.
+         * @return Returns true if value is an error object, else false.
+         */
+        isError(value: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isError
+         */
+        isError(): boolean;
+    }
+
     //_.isFinite
     interface LoDashStatic {
         /**
@@ -7046,17 +7064,6 @@ declare module _ {
         * @return True if the value is a DOM element, else false.
         **/
         isElement(value?: any): boolean;
-    }
-
-    //_.isError
-    interface LoDashStatic {
-        /**
-        * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError,
-        * or URIError object.
-        * @param value The value to check.
-        * @return True if value is an error object, else false.
-        */
-        isError(value: any): boolean;
     }
 
     //_.isEqual
