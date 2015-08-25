@@ -7727,8 +7727,21 @@ declare module _ {
         snakeCase(): string;
     }
 
+    //_.startCase
     interface LoDashStatic {
-        startCase(str?: string): string;
+        /**
+         * Converts string to start case.
+         * @param string The string to convert.
+         * @return Returns the start cased string.
+         */
+        startCase(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.startCase
+         */
+        startCase(): string;
     }
 
     //_.startsWith
