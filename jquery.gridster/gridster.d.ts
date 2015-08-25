@@ -248,7 +248,3 @@ interface Gridster {
 	**/
 	disable(): Gridster;
 }
-
-interface JQuery {
-    data(key: "gridster"): Gridster;
-}
