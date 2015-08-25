@@ -33,5 +33,11 @@ interface HighChartsNGConfig {
 		height?: number;
 	};
 	//function (optional) - setup some logic for the chart
-	func?: (chart) => void;
+	func?: (chart: HighchartsChartObject) => void;
+}
+
+//Instantiated Chart
+interface HighChartsNGChart extends HighChartsNGConfig {
+	//This is a simple way to access all the Highcharts API that is not currently managed by this directive.
+	getHighcharts(): HighchartsChartObject;
 }
