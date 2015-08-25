@@ -6162,6 +6162,23 @@ declare module _ {
         gte(other: any): boolean;
     }
 
+    //_.isArguments
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as an arguments object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isArguments(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isArguments
+         */
+        isArguments(): boolean;
+    }
+
     //_.isArray
     interface LoDashStatic {
         /**
@@ -7009,16 +7026,6 @@ declare module _ {
         * @return The created inverted object.
         **/
         invert(object: any): any;
-    }
-
-    //_.isArguments
-    interface LoDashStatic {
-        /**
-        * Checks if value is an arguments object.
-        * @param value The value to check.
-        * @return True if the value is an arguments object, else false.
-        **/
-        isArguments(value?: any): boolean;
     }
 
     //_.isBoolean

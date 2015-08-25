@@ -1195,6 +1195,12 @@ result = <boolean>_(1).gte(2);
 result = <boolean>_([]).gte(2);
 result = <boolean>_({}).gte(2);
 
+// _.isArguments
+result = <boolean>_.isArguments(any);
+result = <boolean>_(1).isArguments();
+result = <boolean>_<any>([]).isArguments();
+result = <boolean>_({}).isArguments();
+
 // _.isArray
 result = <boolean>_.isArray(any);
 result = <boolean>_(1).isArray();
@@ -1454,8 +1460,6 @@ interface FirstSecond {
     second: string;
 }
 result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
-
-(function (...args: any[]) { return <boolean>_.isArguments(arguments); })(1, 2, 3);
 
 result = <boolean>_.isBoolean(null);
 
