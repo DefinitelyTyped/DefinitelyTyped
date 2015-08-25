@@ -3843,42 +3843,179 @@ declare module chrome.idle {
 ////////////////////
 // Input - IME
 ////////////////////
+/**
+ * Use the chrome.input.ime API to implement a custom IME for Chrome OS. This allows your extension to handle keystrokes, set the composition, and manage the candidate window. 
+ * Permissions:  "input"   
+ * @since Chrome 21.
+ */
 declare module chrome.input.ime {
+	/** See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent */
 	interface KeyboardEvent {
+		/**
+		 * Optional.
+		 * Whether or not the SHIFT key is pressed. 
+		 */
 		shiftKey?: boolean;
+		/**
+		 * Optional.
+		 * Whether or not the ALT key is pressed. 
+		 */
 		altKey?: boolean;
+		/** The ID of the request. */
 		requestId: string;
+		/** Value of the key being pressed */
 		key: string;
+		/**
+		 * Optional.
+		 * Whether or not the CTRL key is pressed. 
+		 */
 		ctrlKey?: boolean;
+		/** One of keyup or keydown. */
 		type: string;
+		/**
+		 * Optional.
+		 * The extension ID of the sender of this keyevent. 
+		 * @since Chrome 34.
+		 */
+		extensionId?: string;
+		/**
+		 * Optional.
+		 * Value of the physical key being pressed. The value is not affected by current keyboard layout or modifier state. 
+		 * @since Chrome 26.
+		 */
+		code: string;
+		/**
+		 * Optional.
+		 * The deprecated HTML keyCode, which is system- and implementation-dependent numerical code signifying the unmodified identifier associated with the key pressed. 
+		 * @since Chrome 37.
+		 */
+		keyCode?: number;
+		/**
+		 * Optional.
+		 * Whether or not the CAPS_LOCK is enabled. 
+		 * @since Chrome 29.
+		 */
+		capsLock?: boolean;
 	}
 
+	/** Describes an input Context */    
 	interface InputContext {
+		/** This is used to specify targets of text field operations. This ID becomes invalid as soon as onBlur is called. */
 		contextID: number;
+		/** Type of value this text field edits, (Text, Number, URL, etc) */
 		type: string;
+		/**
+		 * Whether the text field wants auto-correct. 
+		 * @since Chrome 40.
+		 */
+		autoCorrect: boolean;
+		/**
+		 * Whether the text field wants auto-complete. 
+		 * @since Chrome 40.
+		 */
+		autoComplete: boolean;
+		/**
+		 * Whether the text field wants spell-check. 
+		 * @since Chrome 40.
+		 */
+		spellCheck: boolean;
+	}
+	
+	/**
+	 * A menu item used by an input method to interact with the user from the language menu.
+	 * @since Chrome 30.
+	 */
+	interface MenuItem {
+		/** String that will be passed to callbacks referencing this MenuItem. */
+		id: string;
+		/** Optional. Text displayed in the menu for this item. */
+		label?: string;
+		/** Optional. The type of menu item. */
+		style?: string;
+		/** Optional. Indicates this item is visible. */
+		visible?: boolean;
+		/** Indicates this item should be drawn with a check. */
+		checked?: boolean;
+		/** Indicates this item is enabled. */
+		enabled?: boolean;
 	}
 
 	interface ImeParameters {
-		items: Object[];
+		/** MenuItems to use. */
+		items: MenuItem[];
+		/** ID of the engine to use */
 		engineID: string;
 	}
 
 	interface CommitTextParameters {
+		/** The text to commit */
 		text: string;
+		/** ID of the context where the text will be committed */
 		contextID: number;
+	}
+	
+	interface CandidateUsage {
+		/** The title string of details description. */
+		title: string;
+		/** The body string of detail description. */
+		body: string;
+	}
+	
+	interface CandidateTemplate {
+		/** The candidate */
+		candidate: string;
+		/** The candidate's id */
+		id: number;
+		/** 
+		 * Optional.
+		 * The id to add these candidates under 
+		 */
+		parentId?: number;
+		/**
+		 * Optional.
+		 * Short string displayed to next to the candidate, often the shortcut key or index 
+		 */
+		label?: string;
+		/**
+		 * Optional.
+		 * Additional text describing the candidate 
+		 */
+		annotation?: string;
+		/**
+		 * Optional.
+		 * The usage or detail description of word. 
+		 */
+		usage?: CandidateUsage;		
 	}
 
 	interface CandidatesParameters {
+		/** ID of the context that owns the candidate window. */
 		contextID: number;
-		candidates: Object[];
+		/** List of candidates to show in the candidate window */
+		candidates: CandidateTemplate[];
+	}
+	
+	interface CompositionParameterSegment {
+		/** Index of the character to start this segment at */
+		start: number;
+		/** Index of the character to end this segment after. */
+		end: number;
+		/** The type of the underline to modify this segment. */
+		style: string;
 	}
 
 	interface CompositionParameters {
+		/** ID of the context where the composition text will be set */
 		contextID: number;
+		/** Text to set */
 		text: string;
-		segments: Object[];
+		/** Optional. List of segments and their associated types. */
+		segments: CompositionParameterSegment[];
+		/** Position in the text of the cursor. */
 		cursor: number;
+		/** Optional. Position in the text that the selection starts at. */
 		selectionStart?: number;
+		/** Optional. Position in the text that the selection ends at. */
 		selectionEnd?: number;
 	}
 
@@ -3886,74 +4023,294 @@ declare module chrome.input.ime {
 		items: Object[];
 		engineId: string;
 	}
-
-	interface CandidateWindowPropertiesParameters {
+	
+	interface CandidateWindowParameterProperties {
+		/**
+		 * Optional.
+		 * True to show the cursor, false to hide it. 
+		 */
 		cursorVisible?: boolean;
+		/**
+		 * Optional.
+		 * True if the candidate window should be rendered vertical, false to make it horizontal. 
+		 */
 		vertical?: boolean;
+		/**
+		 * Optional.
+		 * The number of candidates to display per page. 
+		 */
 		pageSize?: number;
+		/**
+		 * Optional.
+		 * True to display the auxiliary text, false to hide it. 
+		 */
 		auxiliaryTextVisible?: boolean;
+		/**
+		 * Optional.
+		 * Text that is shown at the bottom of the candidate window. 
+		 */
 		auxiliaryText?: string;
+		/**
+		 * Optional.
+		 * True to show the Candidate window, false to hide it. 
+		 */
 		visible?: boolean;
+		/** 
+		 * Optional.
+		 * Where to display the candidate window. 
+		 * @since Chrome 28.
+		 */
+		windowPosition?: string;
+	}
+	
+	interface CandidateWindowParameter {
+		/** ID of the engine to set properties on. */
+		engineID: string;
+		properties: CandidateWindowParameterProperties;
 	}
 
 	interface ClearCompositionParameters {
+		/** ID of the context where the composition will be cleared */
 		contextID: number;
 	}
 
 	interface CursorPositionParameters {
+		/** ID of the candidate to select. */
 		candidateID: number;
+		/** ID of the context that owns the candidate window. */
 		contextID: number;
+	}
+	
+	interface SendKeyEventParameters {
+		/** ID of the context where the key events will be sent, or zero to send key events to non-input field. */
+		contextID: number;
+		/** Data on the key event. */
+		keyData: KeyboardEvent[];
+	}
+	
+	interface DeleteSurroundingTextParameters {
+		/** ID of the engine receiving the event. */
+		engineID: string;
+		/** ID of the context where the surrounding text will be deleted. */
+		contextID: number;
+		/** The offset from the caret position where deletion will start. This value can be negative. */
+		offset: number;
+		/** The number of characters to be deleted */
+		length: number;
+	}
+	
+	interface SurroundingTextInfo {
+		/** The text around cursor. */
+		text: string;
+		/** The ending position of the selection. This value indicates caret position if there is no selection. */
+		focus: number;
+		/** The beginning position of the selection. This value indicates caret position if is no selection. */
+		anchor: number;
 	}
 
 	interface BlurEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(integer contextID) {...};
+		 * Parameter contextID: The ID of the text field that has lost focus. The ID is invalid after this call 
+		 */
 		addListener(callback: (contextID: number) => void): void;
 	}
 
 	interface CandidateClickedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID, integer candidateID, MouseButton button) {...};
+		 * Parameter engineID: ID of the engine receiving the event
+		 * Parameter candidateID: ID of the candidate that was clicked. 
+		 * Parameter button: Which mouse buttons was clicked. 
+		 */
 		addListener(callback: (engineID: string, candidateID: number, button: string) => void): void;
 	}
 
 	interface KeyEventEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID, KeyboardEvent keyData) {...};
+		 * Parameter engineID: ID of the engine receiving the event
+		 * Parameter keyData: Data on the key event 
+		 */
 		addListener(callback: (engineID: string, keyData: KeyboardEvent) => void): void;
 	}
 
 	interface DeactivatedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID) {...};
+		 * Parameter engineID: ID of the engine receiving the event 
+		 */
 		addListener(callback: (engineID: string) => void): void;
 	}
 
 	interface InputContextUpdateEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( InputContext context) {...};
+		 * Parameter context: An InputContext object describing the text field that has changed. 
+		 */
 		addListener(callback: (context: InputContext) => void): void;
 	}
 
 	interface ActivateEvent extends chrome.events.Event {
-		addListener(callback: (engineID: string) => void): void;
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID, ScreenType screen) {...}; 
+		 * Parameter engineID: ID of the engine receiving the event 
+		 * Parameter The screen type under which the IME is activated. 
+		 */
+		addListener(callback: (engineID: string, screen: string) => void): void;
 	}
 
 	interface FocusEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( InputContext context) {...};
+		 * Parameter context: Describes the text field that has acquired focus. 
+		 */
 		addListener(callback: (context: InputContext) => void): void;
 	}
 
 	interface MenuItemActivatedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID, string name) {...}; 
+		 * Parameter engineID: ID of the engine receiving the event 
+		 * Parameter name: Name of the MenuItem which was activated 
+		 */
 		addListener(callback: (engineID: string, name: string) => void): void;
 	}
+	
+	interface SurroundingTextChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID, object surroundingInfo) {...};
+		 * Parameter engineID: ID of the engine receiving the event
+		 * Parameter surroundingInfo: The surrounding information. 
+		 */
+		addListener(callback: (engineID: string, surroundingInfo: SurroundingTextInfo) => void): void;
+	}
+	
+	interface InputResetEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string engineID) {...};
+		 * Parameter engineID: ID of the engine receiving the event 
+		 */
+		addListener(callback: (engineID: string) => void): void;
+	}
 
-	export function setMenuItems(parameters: ImeParameters, callback?: Function): void;
+	/**
+	 * Adds the provided menu items to the language menu when this IME is active. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */    
+	export function setMenuItems(parameters: ImeParameters, callback?: () => void): void;
+	/**
+	 * Commits the provided text to the current input. 
+	 * @param callback Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean success) {...}; 
+	 */
 	export function commitText(parameters: CommitTextParameters, callback?: (success: boolean) => void): void;
+	/**
+	 * Sets the current candidate list. This fails if this extension doesn't own the active IME 
+	 * @param callback Called when the operation completes. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean success) {...}; 
+	 */
 	export function setCandidates(parameters: CandidatesParameters, callback?: (success: boolean) => void): void;
+	/** 
+	 * Set the current composition. If this extension does not own the active IME, this fails. 
+	 * @param callback Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean success) {...}; 
+	 */
 	export function setComposition(parameters: CompositionParameters, callback?: (success: boolean) => void): void;
-	export function updateMenuItems(parameters: MenuItemParameters, callback?: Function): void;
-	export function setCandidateWindowProperties(parameters: CandidateWindowPropertiesParameters, callback?: (success: boolean) => void): void;
+	/**
+	 * Updates the state of the MenuItems specified 
+	 * @param callback Called when the operation completes 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function() {...}; 
+	 */
+	export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
+	/**
+	 * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME 
+	 * @param callback Called when the operation completes. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean success) {...}; 
+	 */
+	export function setCandidateWindowProperties(parameters: CandidateWindowParameter, callback?: (success: boolean) => void): void;
+	/**
+	 * Clear the current composition. If this extension does not own the active IME, this fails. 
+	 * @param callback Called when the operation completes with a boolean indicating if the text was accepted or not. On failure, chrome.runtime.lastError is set. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean success) {...}; 
+	 */
 	export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
+	/**
+	 * Set the position of the cursor in the candidate window. This is a no-op if this extension does not own the active IME. 
+	 * @param callback Called when the operation completes 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean success) {...}; 
+	 */
 	export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
+	/**
+	 * Sends the key events. This function is expected to be used by virtual keyboards. When key(s) on a virtual keyboard is pressed by a user, this function is used to propagate that event to the system. 
+	 * @since Chrome 33.
+	 * @param callback Called when the operation completes. 
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function() {...}; 
+	 */
+	export function sendKeyEvents(parameters: SendKeyEventParameters, callback?: () => void): void;
+	/**
+	 * Hides the input view window, which is popped up automatically by system. If the input view window is already hidden, this function will do nothing. 
+	 * @since Chrome 34.
+	 */
+	export function hideInputView(): void;
+	/**
+	 * Deletes the text around the caret. 
+	 * @since Chrome 27.
+	 */
+	export function deleteSurroundingText(parameters: DeleteSurroundingTextParameters, callback?: () => void): void;
+	/**
+	 * Indicates that the key event received by onKeyEvent is handled. This should only be called if the onKeyEvent listener is asynchronous. 
+	 * @since Chrome 25.
+	 * @param requestId Request id of the event that was handled. This should come from keyEvent.requestId 
+	 * @param response True if the keystroke was handled, false if not 
+	 */
+	export function keyEventHandled(requestId: string, response: boolean): void;
 
+	/** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */    
 	var onBlur: BlurEvent;
+	/** This event is sent if this extension owns the active IME. */
 	var onCandidateClicked: CandidateClickedEvent;
+	/** This event is sent if this extension owns the active IME. */
 	var onKeyEvent: KeyEventEvent;
+	/** This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events. */
 	var onDeactivated: DeactivatedEvent;
+	/** This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
 	var onInputContextUpdate: InputContextUpdateEvent;
+	/** This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events. */
 	var onActivate: ActivateEvent;
+	/** This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
 	var onFocus: FocusEvent;
+	/** Called when the user selects a menu item */
 	var onMenuItemActivated: MenuItemActivatedEvent;
+	/**
+	 * Called when the editable string around caret is changed or when the caret position is moved. The text length is limited to 100 characters for each back and forth direction. 
+	 * @since Chrome 27.
+	 */
+	var onSurroundingTextChanged: SurroundingTextChangedEvent;
+	/**
+	 * This event is sent when chrome terminates ongoing text input session. 
+	 * @since Chrome 29.
+	 */
+	var onReset: InputResetEvent;
 }
 
 ////////////////////
