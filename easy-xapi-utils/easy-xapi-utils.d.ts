@@ -10,7 +10,7 @@
 declare module "easy-xapi-utils" {
     import express = require('express');
 
-    export function isLoggedIn(role?: string): express.RequestHandler;
+    export function isLoggedIn(role?: string | string[], reverse?: boolean): express.RequestHandler;
     export function isLoggedOut(): express.RequestHandler;
-    export function hasRole(role: string | string[]): express.RequestHandler;
+    export function hasRole(role: string | string[], reverse?: boolean): express.RequestHandler;
 }
