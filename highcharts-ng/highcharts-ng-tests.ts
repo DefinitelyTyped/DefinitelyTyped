@@ -29,7 +29,7 @@ class AppController {
 		loading: true
 	};
 	constructor($timeout: ng.ITimeoutService) {
-		let vm = this;
+		var vm = this;
 		$timeout(function() {
 			//Some async action
 			vm.chartConfig.loading = false;
