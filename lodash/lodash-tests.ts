@@ -1221,6 +1221,12 @@ result = <boolean>_([1, 2, 3]).isEmpty();
 result = <boolean>_({}).isEmpty();
 result = <boolean>_('').isEmpty();
 
+// _.isError
+result = <boolean>_.isError(any);
+result = <boolean>_(1).isError();
+result = <boolean>_<any>([]).isError();
+result = <boolean>_({}).isError();
+
 // _.isFinite
 result = <boolean>_.isFinite(any);
 result = <boolean>_(1).isFinite();
