@@ -1761,7 +1761,11 @@ result = <string>_.capitalize('fred');
 result = <string>_.deburr('déjà vu');
 result = <string>_('déjà vu').deburr();
 
+// _.endsWith
 result = <boolean>_.endsWith('abc', 'c');
+result = <boolean>_.endsWith('abc', 'c', 1);
+result = <boolean>_('abc').endsWith('c');
+result = <boolean>_('abc').endsWith('c', 1);
 
 // _.escape
 result = <string>_.escape('fred, barney, & pebbles');
