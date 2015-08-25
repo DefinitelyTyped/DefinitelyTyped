@@ -7659,8 +7659,21 @@ declare module _ {
         escapeRegExp(): string;
     }
 
+    //_.kebabCase
     interface LoDashStatic {
-        kebabCase(str?: string): string;
+        /**
+         * Converts string to kebab case.
+         * @param string The string to convert.
+         * @return Returns the kebab cased string.
+         */
+        kebabCase(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.kebabCase
+         */
+        kebabCase(): string;
     }
 
     interface LoDashStatic {
