@@ -891,6 +891,10 @@ declare namespace Parse {
              */
             method?: string;
             /**
+             * The query portion of the url.
+             */
+            params?: any;
+            /**
              * The url to send the request to.
              */
             url: string;
