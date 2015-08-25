@@ -260,6 +260,8 @@ module TestQ {
         let result: angular.IPromise<TResult>;
         result = new $q<TResult>((resolve: (value: TResult) => any) => {});
         result = new $q<TResult>((resolve: (value: TResult) => any, reject: (value: any) => any) => {});
+        result = $q<TResult>((resolve: (value: TResult) => any) => {});
+        result = $q<TResult>((resolve: (value: TResult) => any, reject: (value: any) => any) => {});
     }
 
     // $q.all
