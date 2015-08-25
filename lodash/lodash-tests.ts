@@ -1254,6 +1254,12 @@ result = <boolean>_(1).isRegExp();
 result = <boolean>_<any>([]).isRegExp();
 result = <boolean>_({}).isRegExp();
 
+// _.isString
+result = <boolean>_.isString(any);
+result = <boolean>_(1).isString();
+result = <boolean>_<any>([]).isString();
+result = <boolean>_({}).isString();
+
 // _.isTypedArray
 result = <boolean>_.isTypedArray([]);
 result = <boolean>_([]).isTypedArray();
@@ -1499,8 +1505,6 @@ class Stooge {
 result = <boolean>_.isPlainObject(new Stooge('moe', 40));
 result = <boolean>_.isPlainObject([1, 2, 3]);
 result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
-
-result = <boolean>_.isString('moe');
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
