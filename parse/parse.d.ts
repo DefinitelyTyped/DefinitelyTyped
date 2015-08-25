@@ -857,7 +857,7 @@ declare namespace Parse {
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
-        function httpRequest<T>(options: HTTPOptions): Promise<HttpResponse>;
+        function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
         function run<T>(name: string, data?: any, options?: SuccessFailureOptions): Promise<T>;
         function useMasterKey(): void;

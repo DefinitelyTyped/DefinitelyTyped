@@ -1541,6 +1541,7 @@ declare module Windows {
                 device,
                 printTaskSettings,
                 cameraSettings,
+                webAuthenticationBrokerContinuation
             }
             export interface IActivatedEventArgs {
                 kind: Windows.ApplicationModel.Activation.ActivationKind;
@@ -8489,11 +8490,17 @@ declare module Windows {
                 export interface IWebAuthenticationBrokerStatics {
                     authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
+                    authenticateAndContinue(requestUri: Windows.Foundation.Uri): void;
+                    authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): void;
+                    authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri, continuationData: Windows.Foundation.Collections.ValueSet, options: Windows.Security.Authentication.Web.WebAuthenticationOptions): void;
                     getCurrentApplicationCallbackUri(): Windows.Foundation.Uri;
                 }
                 export class WebAuthenticationBroker {
                     static authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     static authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
+                    static authenticateAndContinue(requestUri: Windows.Foundation.Uri): void;
+                    static authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): void;
+                    static authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri, continuationData: Windows.Foundation.Collections.ValueSet, options: Windows.Security.Authentication.Web.WebAuthenticationOptions): void;
                     static getCurrentApplicationCallbackUri(): Windows.Foundation.Uri;
                 }
             }

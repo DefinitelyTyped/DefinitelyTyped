@@ -761,8 +761,8 @@ declare module React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T>(children: ReactNode, fn: (child: ReactChild) => T): { [key:string]: T };
-        forEach(children: ReactNode, fn: (child: ReactChild) => any): void;
+        map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): { [key:string]: T };
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactChild;
     }
