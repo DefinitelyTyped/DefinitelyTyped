@@ -95,6 +95,27 @@ interface FBSDKCanvas{
 	stopTimer(handler ?: (fbResponseObject : Object) => any) : void;
 }
 
+interface FBUserAuthenticate{
+	// Current status of the session
+	status : string; // connected or not_authorized
+
+	authResponse ? : FBAuthResponse;
+}
+
+interface FBAuthResponse{
+	// String representing the current user's ID
+	userID : string;
+
+	// String with the current signedRequest
+	signedRequest : string;
+
+	// UNIX time when the session expires
+	expiresIn : string;
+
+	// Access token of the user
+	accessToken : string;
+}
+
 interface FBSDK{
 	/* This method is used to initialize and setup the SDK. */
 	init(fbInitObject : FBInitParams) : void;
@@ -111,13 +132,13 @@ interface FBSDK{
 	getLoginStatus(handler : Function, force ?: Boolean) : void;
 
 	/* Calling FB.login prompts the user to authenticate your application using the Login Dialog. */
-	login(handler : (fbResponseObject : Object) => any, params ?: FBLoginOptions): void;
+	login(handler : (fbResponseObject : FBUserAuthenticate) => any, params ?: FBLoginOptions): void;
 
 	/* Log the user out of your site and Facebook */
 	logout(handler : (fbResponseObject : Object) => any) : void;
 
 	/* Synchronous accessor for the current authResponse. */
-	getAuthResponse() : Object;
+	getAuthResponse() : FBAuthResponse;
 
 	Event : FBSDKEvents;
 	XFBML : FBSDKXFBML;
