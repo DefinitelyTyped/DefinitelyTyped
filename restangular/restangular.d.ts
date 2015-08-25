@@ -6,6 +6,13 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+// Support AMD require (copying angular.d.ts approach)
+// allows for import {IRequestConfig} from 'restangular' ES6 approach
+declare module 'restangular' {
+    export = restangular;
+}
+
+
 
 declare module restangular {
 

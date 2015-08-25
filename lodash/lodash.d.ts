@@ -252,7 +252,7 @@ declare module _ {
     interface LoDashObjectWrapper<T> extends LoDashWrapperBase<T, LoDashObjectWrapper<T>> { }
 
     interface LoDashArrayWrapper<T> extends LoDashWrapperBase<T[], LoDashArrayWrapper<T>> {
-        concat(...items: T[]): LoDashArrayWrapper<T>;
+        concat(...items: Array<T|Array<T>>): LoDashArrayWrapper<T>;
         join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashArrayWrapper<T>;
@@ -1092,16 +1092,16 @@ declare module _ {
         * @param values The values to remove.
         * @return array.
         **/
-        pull(
-            array: Array<any>,
-            ...values: any[]): any[];
+        pull<T>(
+            array: Array<T>,
+            ...values: T[]): T[];
 
         /**
         * @see _.pull
         **/
-        pull(
-            array: List<any>,
-            ...values: any[]): any[];
+        pull<T>(
+            array: List<T>,
+            ...values: T[]): T[];
     }
 
     interface LoDashStatic {
@@ -1141,50 +1141,50 @@ declare module _ {
         * @param thisArg The this binding of callback.
         * @return A new array of removed elements.
         **/
-        remove(
-            array: Array<any>,
-            callback?: ListIterator<any, boolean>,
-            thisArg?: any): any[];
+        remove<T>(
+            array: Array<T>,
+            callback?: ListIterator<T, boolean>,
+            thisArg?: any): T[];
 
         /**
         * @see _.remove
         **/
-        remove(
-            array: List<any>,
-            callback?: ListIterator<any, boolean>,
-            thisArg?: any): any[];
-
-        /**
-        * @see _.remove
-        * @param pluckValue _.pluck style callback
-        **/
-        remove(
-            array: Array<any>,
-            pluckValue?: string): any[];
+        remove<T>(
+            array: List<T>,
+            callback?: ListIterator<T, boolean>,
+            thisArg?: any): T[];
 
         /**
         * @see _.remove
         * @param pluckValue _.pluck style callback
         **/
-        remove(
-            array: List<any>,
-            pluckValue?: string): any[];
+        remove<T>(
+            array: Array<T>,
+            pluckValue?: string): T[];
+
+        /**
+        * @see _.remove
+        * @param pluckValue _.pluck style callback
+        **/
+        remove<T>(
+            array: List<T>,
+            pluckValue?: string): T[];
 
         /**
         * @see _.remove
         * @param whereValue _.where style callback
         **/
-        remove(
-            array: Array<any>,
-            wherealue?: Dictionary<any>): any[];
+        remove<W, T>(
+            array: Array<T>,
+            wherealue?: Dictionary<W>): T[];
 
         /**
         * @see _.remove
         * @param whereValue _.where style callback
         **/
-        remove(
-            array: List<any>,
-            wherealue?: Dictionary<any>): any[];
+        remove<W, T>(
+            array: List<T>,
+            wherealue?: Dictionary<W>): T[];
 
         /**
          * @see _.remove
@@ -2494,7 +2494,7 @@ declare module _ {
          * @see _.fill
          */
         fill<TResult>(
-            value: any,
+            value: TResult,
             start?: number,
             end?: number): LoDashArrayWrapper<TResult>;
     }
@@ -2504,7 +2504,7 @@ declare module _ {
          * @see _.fill
          */
         fill<TResult>(
-            value: any,
+            value: TResult,
             start?: number,
             end?: number): LoDashObjectWrapper<List<TResult>>;
     }
@@ -4069,21 +4069,21 @@ declare module _ {
         **/
         pluck<T extends {}>(
             collection: Array<T>,
-            property: string): any[];
+            property: string|string[]): any[];
 
         /**
         * @see _.pluck
         **/
         pluck<T extends {}>(
             collection: List<T>,
-            property: string): any[];
+            property: string|string[]): any[];
 
         /**
         * @see _.pluck
         **/
         pluck<T extends {}>(
             collection: Dictionary<T>,
-            property: string): any[];
+            property: string|string[]): any[];
     }
 
     interface LoDashArrayWrapper<T> {
@@ -5997,6 +5997,88 @@ declare module _ {
      * Lang *
      ********/
 
+    //_.clone
+    interface LoDashStatic {
+        /**
+         * Creates a clone of value. If isDeep is true nested objects are cloned, otherwise they are assigned by
+         * reference. If customizer is provided it’s invoked to produce the cloned values. If customizer returns
+         * undefined cloning is handled by the method instead. The customizer is bound to thisArg and invoked with up
+         * to three argument; (value [, index|key, object]).
+         * Note: This method is loosely based on the structured clone algorithm. The enumerable properties of arguments
+         * objects and objects created by constructors other than Object are cloned to plain Object objects. An empty
+         * object is returned for uncloneable values such as functions, DOM nodes, Maps, Sets, and WeakMaps.
+         * @param value The value to clone.
+         * @param isDeep Specify a deep clone.
+         * @param customizer The function to customize cloning values.
+         * @param thisArg The this binding of customizer.
+         * @return Returns the cloned value.
+         */
+        clone<T>(
+            value: T,
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+
+        /**
+         * @see _.clone
+         */
+        clone<T>(
+            value: T,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+
+        /**
+         * @see _.clone
+         */
+        clone(
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+    }
+
+    interface LoDashArrayWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T[];
+
+        /**
+         * @see _.clone
+         */
+        clone(
+            customizer?: (value: any) => any,
+            thisArg?: any): T[];
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(
+            isDeep?: boolean,
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+
+        /**
+         * @see _.clone
+         */
+        clone(
+            customizer?: (value: any) => any,
+            thisArg?: any): T;
+    }
+
     //_.cloneDeep
     interface LoDashStatic {
         /**
@@ -6007,13 +6089,13 @@ declare module _ {
          * objects and objects created by constructors other than Object are cloned to plain Object objects. An empty
          * object is returned for uncloneable values such as functions, DOM nodes, Maps, Sets, and WeakMaps.
          * @param value The value to deep clone.
-         * @param callback The function to customize cloning values.
+         * @param customizer The function to customize cloning values.
          * @param thisArg The this binding of customizer.
          * @return Returns the deep cloned value.
          */
         cloneDeep<T>(
             value: T,
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T;
     }
 
@@ -6022,7 +6104,7 @@ declare module _ {
          * @see _.cloneDeep
          */
         cloneDeep(
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T;
     }
 
@@ -6031,7 +6113,7 @@ declare module _ {
          * @see _.cloneDeep
          */
         cloneDeep(
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T[];
     }
 
@@ -6040,7 +6122,7 @@ declare module _ {
          * @see _.cloneDeep
          */
         cloneDeep(
-            callback?: (value: any) => any,
+            customizer?: (value: any) => any,
             thisArg?: any): T;
     }
 
@@ -6080,6 +6162,57 @@ declare module _ {
         gte(other: any): boolean;
     }
 
+    //_.isArguments
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as an arguments object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isArguments(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isArguments
+         */
+        isArguments(): boolean;
+    }
+
+    //_.isArray
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as an Array object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isArray(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T,TWrapper> {
+        /**
+         * @see _.isArray
+         */
+        isArray(): boolean;
+    }
+
+    //_.isDate
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Date object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isDate(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isDate
+         */
+        isDate(): boolean;
+    }
+
     //_.isEmpty
     interface LoDashStatic {
         /**
@@ -6096,6 +6229,59 @@ declare module _ {
          * @see _.isEmpty
          */
         isEmpty(): boolean;
+    }
+
+    //_.isError
+    interface LoDashStatic {
+        /**
+         * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
+         * object.
+         * @param value The value to check.
+         * @return Returns true if value is an error object, else false.
+         */
+        isError(value: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isError
+         */
+        isError(): boolean;
+    }
+
+    //_.isFinite
+    interface LoDashStatic {
+        /**
+         * Checks if value is a finite primitive number.
+         * Note: This method is based on Number.isFinite.
+         * @param value The value to check.
+         * @return Returns true if value is a finite number, else false.
+         **/
+        isFinite(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFinite
+         */
+        isFinite(): boolean;
+    }
+
+    //_.isFunction
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Function object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isFunction(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isFunction
+         */
+        isFunction(): boolean;
     }
 
     //_.isMatch
@@ -6160,6 +6346,58 @@ declare module _ {
         isNative(): boolean;
     }
 
+    //_.isNumber
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Number primitive or object.
+         * Note: To exclude Infinity, -Infinity, and NaN, which are classified as numbers, use the _.isFinite method.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isNumber(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNumber
+         */
+        isNumber(): boolean;
+    }
+
+    //_.isRegExp
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a RegExp object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isRegExp(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isRegExp
+         */
+        isRegExp(): boolean;
+    }
+
+    //_.isString
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a String primitive or object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isString(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isString
+         */
+        isString(): boolean;
+    }
+
     //_.isTypedArray
     interface LoDashStatic {
         /**
@@ -6175,6 +6413,23 @@ declare module _ {
          * see _.isTypedArray
          */
         isTypedArray(): boolean;
+    }
+
+    //_.isUndefined
+    interface LoDashStatic {
+        /**
+         * Checks if value is undefined.
+         * @param value The value to check.
+         * @return Returns true if value is undefined, else false.
+         **/
+        isUndefined(value: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isUndefined
+         */
+        isUndefined(): boolean;
     }
 
     //_.lt
@@ -6496,26 +6751,6 @@ declare module _ {
         create<TResult extends {}>(properties?: Object): LoDashObjectWrapper<TResult>;
     }
 
-    //_.clone
-    interface LoDashStatic {
-        /**
-        * Creates a clone of value. If deep is true nested objects will also be cloned, otherwise
-        * they will be assigned by reference. If a callback is provided it will be executed to produce
-        * the cloned values. If the callback returns undefined cloning will be handled by the method
-        * instead. The callback is bound to thisArg and invoked with one argument; (value).
-        * @param value The value to clone.
-        * @param deep Specify a deep clone.
-        * @param callback The function to customize cloning values.
-        * @param thisArg The this binding of callback.
-        * @return The cloned value.
-        **/
-        clone<T>(
-            value: T,
-            deep?: boolean,
-            callback?: (value: any) => any,
-            thisArg?: any): T;
-    }
-
     //_.defaults
     interface LoDashStatic {
         /**
@@ -6810,13 +7045,12 @@ declare module _ {
     //_.has
     interface LoDashStatic {
         /**
-        * Checks if the specified object property exists and is a direct property, instead of an
-        * inherited property.
-        * @param object The object to check.
-        * @param property The property to check for.
-        * @return True if key is a direct property, else false.
+        * Checks if path is a direct property.
+        * @param object The object to query.
+        * @param path The path to check.
+        * @return True if path is a direct property, else False.
         **/
-        has(object: any, property: string): boolean;
+        has(object: any, path: string|string[]): boolean;
     }
 
     //_.invert
@@ -6829,26 +7063,6 @@ declare module _ {
         invert(object: any): any;
     }
 
-    //_.isArguments
-    interface LoDashStatic {
-        /**
-        * Checks if value is an arguments object.
-        * @param value The value to check.
-        * @return True if the value is an arguments object, else false.
-        **/
-        isArguments(value?: any): boolean;
-    }
-
-    //_.isArray
-    interface LoDashStatic {
-        /**
-        * Checks if value is an array.
-        * @param value The value to check.
-        * @return True if the value is an array, else false.
-        **/
-        isArray(value?: any): boolean;
-    }
-
     //_.isBoolean
     interface LoDashStatic {
         /**
@@ -6859,16 +7073,6 @@ declare module _ {
         isBoolean(value?: any): boolean;
     }
 
-    //_.isDate
-    interface LoDashStatic {
-        /**
-        * Checks if value is a date.
-        * @param value The value to check.
-        * @return True if the value is a date, else false.
-        **/
-        isDate(value?: any): boolean;
-    }
-
     //_.isElement
     interface LoDashStatic {
         /**
@@ -6877,17 +7081,6 @@ declare module _ {
         * @return True if the value is a DOM element, else false.
         **/
         isElement(value?: any): boolean;
-    }
-
-    //_.isError
-    interface LoDashStatic {
-        /**
-        * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError,
-        * or URIError object.
-        * @param value The value to check.
-        * @return True if value is an error object, else false.
-        */
-        isError(value: any): boolean;
     }
 
     //_.isEqual
@@ -6970,29 +7163,6 @@ declare module _ {
            thisArg?: any): boolean;
     }
 
-    //_.isFinite
-    interface LoDashStatic {
-        /**
-        * Checks if value is, or can be coerced to, a finite number.
-        *
-        * Note: This is not the same as native isFinite which will return true for booleans and empty
-        * strings. See http://es5.github.io/#x15.1.2.5.
-        * @param value The value to check.
-        * @return True if the value is finite, else false.
-        **/
-        isFinite(value?: any): boolean;
-    }
-
-    //_.isFunction
-    interface LoDashStatic {
-        /**
-        * Checks if value is a function.
-        * @param value The value to check.
-        * @return True if the value is a function, else false.
-        **/
-        isFunction(value?: any): boolean;
-    }
-
     //_.isNull
     interface LoDashStatic {
         /**
@@ -7001,18 +7171,6 @@ declare module _ {
         * @return True if the value is null, else false.
         **/
         isNull(value?: any): boolean;
-    }
-
-    //_.isNumber
-    interface LoDashStatic {
-        /**
-        * Checks if value is a number.
-        *
-        * Note: NaN is considered a number. See http://es5.github.io/#x8.5.
-        * @param value The value to check.
-        * @return True if the value is a number, else false.
-        **/
-        isNumber(value?: any): boolean;
     }
 
     //_.isObject
@@ -7034,36 +7192,6 @@ declare module _ {
         * @return True if value is a plain object, else false.
         **/
         isPlainObject(value?: any): boolean;
-    }
-
-    //_.isRegExp
-    interface LoDashStatic {
-        /**
-        * Checks if value is a regular expression.
-        * @param value The value to check.
-        * @return True if the value is a regular expression, else false.
-        **/
-        isRegExp(value?: any): boolean;
-    }
-
-    //_.isString
-    interface LoDashStatic {
-        /**
-        * Checks if value is a string.
-        * @param value The value to check.
-        * @return True if the value is a string, else false.
-        **/
-        isString(value?: any): boolean;
-    }
-
-    //_.isUndefined
-    interface LoDashStatic {
-        /**
-        * Checks if value is undefined.
-        * @param value The value to check.
-        * @return True if the value is undefined, else false.
-        **/
-        isUndefined(value?: any): boolean;
     }
 
     //_.keys
@@ -7438,11 +7566,62 @@ declare module _ {
      * String *
      **********/
 
+    //_.camelCase
     interface LoDashStatic {
-        camelCase(str?: string): string;
+        /**
+         * Converts string to camel case.
+         * @param string The string to convert.
+         * @return Returns the camel cased string.
+         */
+        camelCase(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.camelCase
+         */
+        camelCase(): string;
+    }
+
+    interface LoDashStatic {
         capitalize(str?: string): string;
-        deburr(str?: string): string;
-        endsWith(str?: string, target?: string, position?: number): boolean;
+    }
+
+    //_.deburr
+    interface LoDashStatic {
+        /**
+         * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
+         * diacritical marks.
+         * @param string The string to deburr.
+         * @return Returns the deburred string.
+         */
+        deburr(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.deburr
+         */
+        deburr(): string;
+    }
+
+    //_.endsWith
+    interface LoDashStatic {
+        /**
+         * Checks if string ends with the given target string.
+         * @param string The string to search.
+         * @param target The string to search for.
+         * @param position The position to search from.
+         * @return Returns true if string ends with target, else false.
+         */
+        endsWith(string?: string, target?: string, position?: number): boolean;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.endsWith
+         */
+        endsWith(target?: string, position?: number): boolean;
     }
 
     // _.escape
@@ -7480,11 +7659,82 @@ declare module _ {
         escapeRegExp(): string;
     }
 
+    //_.kebabCase
     interface LoDashStatic {
-        kebabCase(str?: string): string;
-        pad(str?: string, length?: number, chars?: string): string;
-        padLeft(str?: string, length?: number, chars?: string): string;
-        padRight(str?: string, length?: number, chars?: string): string;
+        /**
+         * Converts string to kebab case.
+         * @param string The string to convert.
+         * @return Returns the kebab cased string.
+         */
+        kebabCase(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.kebabCase
+         */
+        kebabCase(): string;
+    }
+
+    interface LoDashStatic {
+        /**
+         *
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        pad(string?: string, length?: number, chars?: string): string;
+    }
+
+    //_.pad
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.pad
+         */
+        pad(length?: number, chars?: string): string;
+    }
+
+    //_.padLeft
+    interface LoDashStatic {
+        /**
+         * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        padLeft(string?: string, length?: number, chars?: string): string;
+    }
+
+    //_.padLeft
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.padLeft
+         */
+        padLeft(length?: number, chars?: string): string;
+    }
+
+    //_.padRight
+    interface LoDashStatic {
+        /**
+         * Pads string on the right side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
+         */
+        padRight(string?: string, length?: number, chars?: string): string;
+    }
+
+    //_.padRight
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.padRight
+         */
+        padRight(length?: number, chars?: string): string;
     }
 
     //_.parseInt
@@ -7507,8 +7757,22 @@ declare module _ {
         parseInt(radix?: number): number;
     }
 
+    //_.repeat
     interface LoDashStatic {
-        repeat(str?: string, n?: number): string;
+        /**
+         * Repeats the given string n times.
+         * @param string The string to repeat.
+         * @param n The number of times to repeat the string.
+         * @return Returns the repeated string.
+         */
+        repeat(string?: string, n?: number): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.repeat
+         */
+        repeat(n?: number): string;
     }
 
     //_.snakeCase
@@ -7528,9 +7792,40 @@ declare module _ {
         snakeCase(): string;
     }
 
+    //_.startCase
     interface LoDashStatic {
-        startCase(str?: string): string;
-        startsWith(str?: string, target?: string, position?: number): boolean;
+        /**
+         * Converts string to start case.
+         * @param string The string to convert.
+         * @return Returns the start cased string.
+         */
+        startCase(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.startCase
+         */
+        startCase(): string;
+    }
+
+    //_.startsWith
+    interface LoDashStatic {
+        /**
+         * Checks if string starts with the given target string.
+         * @param string The string to search.
+         * @param target The string to search for.
+         * @param position The position to search from.
+         * @return Returns true if string starts with target, else false.
+         */
+        startsWith(string?: string, target?: string, position?: number): boolean;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.startsWith
+         */
+        startsWith(target?: string, position?: number): boolean;
     }
 
     //_.trim
@@ -7587,9 +7882,32 @@ declare module _ {
         trimRight(chars?: string): string;
     }
 
+    //_.trunc
+    interface TruncOptions {
+        /** The maximum string length. */
+        length?: number;
+        /** The string to indicate text is omitted. */
+        omission?: string;
+        /** The separator pattern to truncate to. */
+        separator?: string|RegExp;
+    }
+
     interface LoDashStatic {
-        trunc(str?: string, len?: number): string;
-        trunc(str?: string, options?: { length?: number; omission?: string; separator?: string|RegExp }): string;
+        /**
+         * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
+         * string are replaced with the omission string which defaults to "…".
+         * @param string The string to truncate.
+         * @param options The options object or maximum string length.
+         * @return Returns the truncated string.
+         */
+        trunc(string?: string, options?: TruncOptions|number): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.trunc
+         */
+        trunc(options?: TruncOptions|number): string;
     }
 
     //_.unescape
@@ -7610,13 +7928,45 @@ declare module _ {
         unescape(): string;
     }
 
+    //_.words
     interface LoDashStatic {
-        words(str?: string, pattern?: string|RegExp): string[];
+        /**
+         * Splits string into an array of its words.
+         * @param string The string to inspect.
+         * @param pattern The pattern to match words.
+         * @return Returns the words of string.
+         */
+        words(string?: string, pattern?: string|RegExp): string[];
     }
 
-    /*************
-     * Utilities *
-     *************/
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.words
+         */
+        words(pattern?: string|RegExp): string[];
+    }
+
+    /***********
+     * Utility *
+     ***********/
+
+    //_.attempt
+    interface LoDashStatic {
+        /**
+         * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
+         * are provided to func when it’s invoked.
+         * @param func The function to attempt.
+         * @return Returns the func result or error object.
+         */
+        attempt<TResult>(func: (...args: any[]) => TResult): TResult|Error;
+    }
+
+    interface LoDashObjectWrapper<T> {
+        /**
+         * @see _.attempt
+         */
+        attempt<TResult>(): TResult|Error;
+    }
 
     //_.identity
     interface LoDashStatic {
@@ -7822,12 +8172,14 @@ declare module _ {
         /**
         * Resolves the value of property on object. If property is a function it will be invoked with
         * the this binding of object and its result returned, else the property value is returned. If
-        * object is falsey then undefined is returned.
-        * @param object The object to inspect.
-        * @param property The property to get the value of.
+        * object is false then undefined is returned.
+        * @param object The object to query.
+        * @param path The path of the property to resolve.
+        * @param defaultValue The value returned if the resolved value is undefined.
         * @return The resolved value.
         **/
-        result(object: any, property: string): any;
+
+        result<T>(object: any, path: string|string[], defaultValue?: T): T;
     }
 
     //_.runInContext
