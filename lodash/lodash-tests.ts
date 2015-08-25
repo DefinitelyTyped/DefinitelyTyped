@@ -1242,6 +1242,12 @@ result = <boolean>_(undefined).isNaN();
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
 
+// _.isNumber
+result = <boolean>_.isNumber(any);
+result = <boolean>_(1).isNumber();
+result = <boolean>_<any>([]).isNumber();
+result = <boolean>_({}).isNumber();
+
 // _.isRegExp
 result = <boolean>_.isRegExp(any);
 result = <boolean>_(1).isRegExp();
@@ -1478,8 +1484,6 @@ result = <boolean>_.isFunction(_);
 
 result = <boolean>_.isNull(null);
 result = <boolean>_.isNull(undefined);
-
-result = <boolean>_.isNumber(8.4 * 5);
 
 result = <boolean>_.isObject({});
 result = <boolean>_.isObject([1, 2, 3]);
