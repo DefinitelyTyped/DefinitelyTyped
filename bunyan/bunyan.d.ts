@@ -6,9 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "bunyan" {
-    import events = require('events');
-    import EventEmitter = events.EventEmitter;
-    import WritableStream = NodeJS.WritableStream;
+    import { EventEmitter } from 'events';
 
     class Logger extends EventEmitter {
         constructor(options:LoggerOptions);
@@ -52,7 +50,7 @@ declare module "bunyan" {
         name: string;
         streams?: Stream[];
         level?: string | number;
-        stream?: WritableStream;
+        stream?: NodeJS.WritableStream;
         serializers?: Serializers;
         src?: boolean;
     }
@@ -65,7 +63,7 @@ declare module "bunyan" {
         type?: string;
         level?: number | string;
         path?: string;
-        stream?: WritableStream | Stream;
+        stream?: NodeJS.WritableStream | Stream;
         closeOnExit?: boolean;
     }
 
