@@ -7850,8 +7850,22 @@ declare module _ {
         unescape(): string;
     }
 
+    //_.words
     interface LoDashStatic {
-        words(str?: string, pattern?: string|RegExp): string[];
+        /**
+         * Splits string into an array of its words.
+         * @param string The string to inspect.
+         * @param pattern The pattern to match words.
+         * @return Returns the words of string.
+         */
+        words(string?: string, pattern?: string|RegExp): string[];
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.words
+         */
+        words(pattern?: string|RegExp): string[];
     }
 
     /***********

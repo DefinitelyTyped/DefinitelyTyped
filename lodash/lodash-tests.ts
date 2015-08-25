@@ -1839,8 +1839,11 @@ result = <string>_('hi-diddly-ho there, neighborino').trunc({ 'omission': ' […
 result = <string>_.unescape('fred, barney, &amp; pebbles');
 result = <string>_('fred, barney, &amp; pebbles').unescape();
 
+// _.words
 result = <string[]>_.words('fred, barney, & pebbles');
 result = <string[]>_.words('fred, barney, & pebbles', /[^, ]+/g);
+result = <string[]>_('fred, barney, & pebbles').words();
+result = <string[]>_('fred, barney, & pebbles').words(/[^, ]+/g);
 
 /**********
 * Utilities *
