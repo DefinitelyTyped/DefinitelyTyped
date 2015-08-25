@@ -1737,7 +1737,10 @@ result = <string>_.uniqueId();
 * String
 *********/
 
+// _.camelCase
 result = <string>_.camelCase('Foo Bar');
+result = <string>_('Foo Bar').camelCase();
+
 result = <string>_.capitalize('fred');
 
 // _.deburr
