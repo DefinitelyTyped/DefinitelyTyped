@@ -398,6 +398,8 @@ declare module __React {
         fillOpacity?: number;
         strokeOpacity?: number;
         strokeWidth?: number;
+        
+		[other:string]: any;
     }
 
     interface HTMLAttributes extends DOMAttributes {
