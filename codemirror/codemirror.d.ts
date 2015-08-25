@@ -787,7 +787,7 @@ declare module CodeMirror {
         viewportMargin?: number;
 
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
-        lint?: LintOptions;
+        lint?: boolean | LintOptions;
     }
 
     interface TextMarkerOptions {
