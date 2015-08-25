@@ -9,10 +9,7 @@ declare module THREE {
     export var REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
-    export enum MOUSE { }
-    export var LEFT: MOUSE;
-    export var MIDDLE: MOUSE;
-    export var RIGHT: MOUSE;
+    export enum MOUSE {LEFT, MIDDLE, RIGHT}
 
     // GL STATE CONSTANTS
     export enum CullFace { }
