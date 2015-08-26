@@ -256,13 +256,13 @@ declare module "sequelize" {
          * user.getProfilePicture() // gets you only the profile picture
          *
          * User.findAll({
-     *   where: ...,
-     *   include: [
-     *     { model: Picture }, // load all pictures
-     *     { model: Picture, as: 'ProfilePicture' }, // load the profile picture. Notice that the spelling must be
-     * the exact same as the one in the association
-     *   ]
-     * })
+         *   where: ...,
+         *   include: [
+         *     { model: Picture }, // load all pictures
+         *     { model: Picture, as: 'ProfilePicture' }, // load the profile picture. Notice that the spelling must be
+         * the exact same as the one in the association
+         *   ]
+         * })
          * ```
          * To get full control over the foreign key column added by sequelize, you can use the `foreignKey` option. It
          * can either be a string, that specifies the name, or and object type definition,
@@ -276,11 +276,11 @@ declare module "sequelize" {
          *
          * ```js
          * User.hasMany(Picture, {
-     *   foreignKey: {
-     *     name: 'uid',
-     *     allowNull: false
-     *   }
-     * })
+         *   foreignKey: {
+         *     name: 'uid',
+         *     allowNull: false
+         *   }
+         * })
          * ```
          *
          * This specifies that the `uid` column can not be null. In most cases this will already be covered by the
@@ -293,10 +293,10 @@ declare module "sequelize" {
          *
          * ```js
          * user.getPictures({
-     *   where: {
-     *     format: 'jpg'
-     *   }
-     * })
+         *   where: {
+         *     format: 'jpg'
+         *   }
+         * })
          * ```
          *
          * There are several ways to update and add new assoications. Continuing with our example of users and
@@ -371,8 +371,8 @@ declare module "sequelize" {
              * started yet:
              * ```js
              * var UserProjects = sequelize.define('userprojects', {
-         *   started: Sequelize.BOOLEAN
-         * })
+             *   started: Sequelize.BOOLEAN
+             * })
              * User.hasMany(Project, { through: UserProjects })
              * Project.hasMany(User, { through: UserProjects })
              * ```
@@ -387,8 +387,8 @@ declare module "sequelize" {
              *
              * ```js
              * p1.userprojects {
-         *   started: true
-         * }
+             *   started: true
+             * }
              * user.setProjects([p1, p2], {started: false}) // The default value is false, but p1 overrides that.
              * ```
              *
@@ -396,9 +396,9 @@ declare module "sequelize" {
              * available as an object with the name of the through model.
              * ```js
              * user.getProjects().then(function (projects) {
-         *   var p1 = projects[0]
-         *   p1.userprojects.started // Is this project started yet?
-         * })
+             *   var p1 = projects[0]
+             *   p1.userprojects.started // Is this project started yet?
+             * })
              * ```
              *
              * @param target The model that will be associated with hasOne relationship
@@ -421,8 +421,8 @@ declare module "sequelize" {
              * the project has been started yet:
              * ```js
              * var UserProjects = sequelize.define('userprojects', {
-         *   started: Sequelize.BOOLEAN
-         * })
+             *   started: Sequelize.BOOLEAN
+             * })
              * User.belongsToMany(Project, { through: UserProjects })
              * Project.belongsToMany(User, { through: UserProjects })
              * ```
@@ -436,8 +436,8 @@ declare module "sequelize" {
              *
              * ```js
              * p1.userprojects {
-         *   started: true
-         * }
+             *   started: true
+             * }
              * user.setProjects([p1, p2], {started: false}) // The default value is false, but p1 overrides that.
              * ```
              *
@@ -445,9 +445,9 @@ declare module "sequelize" {
              * available as an object with the name of the through model.
              * ```js
              * user.getProjects().then(function (projects) {
-         *   var p1 = projects[0]
-         *   p1.userprojects.started // Is this project started yet?
-         * })
+             *   var p1 = projects[0]
+             *   p1.userprojects.started // Is this project started yet?
+             * })
              * ```
              *
              * @param target The model that will be associated with hasOne relationship
@@ -813,15 +813,15 @@ declare module "sequelize" {
          *
          * ```js
          * sequelize.define('Model', {
-     *   foreign_id: {
-     *     type: Sequelize.INTEGER,
-     *     references: {
-     *       model: OtherModel,
-     *       key: 'id',
-     *       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-     *     }
-     *   }
-     * });
+         *   foreign_id: {
+         *     type: Sequelize.INTEGER,
+         *     references: {
+         *       model: OtherModel,
+         *       key: 'id',
+         *       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+         *     }
+         *   }
+         * });
          * ```
          *
          * The constraints can be configured in a transaction like this. It will
@@ -1074,16 +1074,16 @@ declare module "sequelize" {
          * ```js
          * // Method 1
          * sequelize.define(name, { attributes }, {
-     *   hooks: {
-     *     beforeBulkCreate: function () {
-     *       // can be a single function
-     *     },
-     *     beforeValidate: [
-     *       function () {},
-     *       function() {} // Or an array of several
-     *     ]
-     *   }
-     * })
+         *   hooks: {
+         *     beforeBulkCreate: function () {
+         *       // can be a single function
+         *     },
+         *     beforeValidate: [
+         *       function () {},
+         *       function() {} // Or an array of several
+         *     ]
+         *   }
+         * })
          *
          * // Method 2
          * Model.hook('afterDestroy', function () {})
@@ -2439,32 +2439,32 @@ declare module "sequelize" {
              * Apply a scope created in `define` to the model. First let's look at how to create scopes:
              * ```js
              * var Model = sequelize.define('model', attributes, {
-         *   defaultScope: {
-         *     where: {
-         *       username: 'dan'
-         *     },
-         *     limit: 12
-         *   },
-         *   scopes: {
-         *     isALie: {
-         *       where: {
-         *         stuff: 'cake'
-         *       }
-         *     },
-         *     complexFunction: function(email, accessLevel) {
-         *       return {
-         *         where: {
-         *           email: {
-         *             $like: email
-         *           },
-         *           accesss_level {
-         *             $gte: accessLevel
-         *           }
-         *         }
-         *       }
-         *     }
-         *   }
-         * })
+             *   defaultScope: {
+             *     where: {
+             *       username: 'dan'
+             *     },
+             *     limit: 12
+             *   },
+             *   scopes: {
+             *     isALie: {
+             *       where: {
+             *         stuff: 'cake'
+             *       }
+             *     },
+             *     complexFunction: function(email, accessLevel) {
+             *       return {
+             *         where: {
+             *           email: {
+             *             $like: email
+             *           },
+             *           accesss_level {
+             *             $gte: accessLevel
+             *           }
+             *         }
+             *       }
+             *     }
+             *   }
+             * })
              * ```
              * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
              * your query. Here's a couple of examples:
@@ -2490,11 +2490,11 @@ declare module "sequelize" {
              * __Simple search using AND and =__
              * ```js
              * Model.findAll({
-         *   where: {
-         *     attr1: 42,
-         *     attr2: 'cake'
-         *   }
-         * })
+             *   where: {
+             *     attr1: 42,
+             *     attr2: 'cake'
+             *   }
+             * })
              * ```
              * ```sql
              * WHERE attr1 = 42 AND attr2 = 'cake'
@@ -2504,21 +2504,21 @@ declare module "sequelize" {
              * ```js
              *
              * Model.findAll({
-         *   where: {
-         *     attr1: {
-         *       gt: 50
-         *     },
-         *     attr2: {
-         *       lte: 45
-         *     },
-         *     attr3: {
-         *       in: [1,2,3]
-         *     },
-         *     attr4: {
-         *       ne: 5
-         *     }
-         *   }
-         * })
+             *   where: {
+             *     attr1: {
+             *       gt: 50
+             *     },
+             *     attr2: {
+             *       lte: 45
+             *     },
+             *     attr3: {
+             *       in: [1,2,3]
+             *     },
+             *     attr4: {
+             *       ne: 5
+             *     }
+             *   }
+             * })
              * ```
              * ```sql
              * WHERE attr1 > 50 AND attr2 <= 45 AND attr3 IN (1,2,3) AND attr4 != 5
@@ -2529,14 +2529,14 @@ declare module "sequelize" {
              * __Queries using OR__
              * ```js
              * Model.findAll({
-         *   where: Sequelize.and(
-         *     { name: 'a project' },
-         *     Sequelize.or(
-         *       { id: [1,2,3] },
-         *       { id: { gt: 10 } }
-         *     )
-         *   )
-         * })
+             *   where: Sequelize.and(
+             *     { name: 'a project' },
+             *     Sequelize.or(
+             *       { id: [1,2,3] },
+             *       { id: { gt: 10 } }
+             *     )
+             *   )
+             * })
              * ```
              * ```sql
              * WHERE name = 'a project' AND (id` IN (1,2,3) OR id > 10)
@@ -2587,12 +2587,12 @@ declare module "sequelize" {
              *
              * ```js
              * Model.findAndCountAll({
-         *   where: ...,
-         *   limit: 12,
-         *   offset: 12
-         * }).then(function (result) {
-         *   ...
-         * })
+             *   where: ...,
+             *   limit: 12,
+             *   offset: 12
+             * }).then(function (result) {
+             *   ...
+             * })
              * ```
              * In the above example, `result.rows` will contain rows 13 through 24, while `result.count` will return
              * the
@@ -2605,11 +2605,11 @@ declare module "sequelize" {
              * Suppose you want to find all users who have a profile attached:
              * ```js
              * User.findAndCountAll({
-         *   include: [
-         *      { model: Profile, required: true}
-         *   ],
-         *   limit 3
-         * });
+             *   include: [
+             *      { model: Profile, required: true}
+             *   ],
+             *   limit 3
+             * });
              * ```
              * Because the include for `Profile` has `required` set it will result in an inner join, and only the users
              * who have a profile will be counted. If we remove `required` from the include, both users with and
@@ -3149,7 +3149,7 @@ declare module "sequelize" {
             /**
              * A string or a data type
              */
-                type: string | DataTypeAbstract;
+            type: string | DataTypeAbstract;
 
             /**
              * If true, the column will get a unique constraint. If a string is provided, the column will be part of a
@@ -3218,11 +3218,11 @@ declare module "sequelize" {
              *
              * ```js
              * sequelize.define('model', {
-         *     states: {
-         *       type:   Sequelize.ENUM,
-         *       values: ['active', 'pending', 'deleted']
-         *     }
-         *   })
+             *     states: {
+             *       type:   Sequelize.ENUM,
+             *       values: ['active', 'pending', 'deleted']
+             *     }
+             *   })
              * ```
              */
             values? : Array<string>;
@@ -3265,7 +3265,7 @@ declare module "sequelize" {
              * The type of query you are executing. The query type affects how results are formatted before they are
              * passed back. The type is a string, but `Sequelize.QueryTypes` is provided as convenience shortcuts.
              */
-                type?: string;
+            type?: string;
 
             /**
              * If true, transforms objects with `.` separated property names into nested objects using
@@ -4042,8 +4042,8 @@ declare module "sequelize" {
              * Convert a user's username to upper case
              * ```js
              * instance.updateAttributes({
-         *   username: self.sequelize.fn('upper', self.sequelize.col('username'))
-         * })
+             *   username: self.sequelize.fn('upper', self.sequelize.col('username'))
+             * })
              * ```
              * @param fn The function you want to call
              * @param args All further arguments will be passed as arguments to the function
@@ -4211,22 +4211,22 @@ declare module "sequelize" {
              *
              * ```js
              * sequelize.define('modelName', {
-         *     columnA: {
-         *         type: Sequelize.BOOLEAN,
-         *         validate: {
-         *           is: ["[a-z]",'i'],        // will only allow letters
-         *           max: 23,                  // only allow values <= 23
-         *           isIn: {
-         *             args: [['en', 'zh']],
-         *             msg: "Must be English or Chinese"
-         *           }
-         *         },
-         *         field: 'column_a'
-         *         // Other attributes here
-         *     },
-         *     columnB: Sequelize.STRING,
-         *     columnC: 'MY VERY OWN COLUMN TYPE'
-         * })
+             *     columnA: {
+             *         type: Sequelize.BOOLEAN,
+             *         validate: {
+             *           is: ["[a-z]",'i'],        // will only allow letters
+             *           max: 23,                  // only allow values <= 23
+             *           isIn: {
+             *             args: [['en', 'zh']],
+             *             msg: "Must be English or Chinese"
+             *           }
+             *         },
+             *         field: 'column_a'
+             *         // Other attributes here
+             *     },
+             *     columnB: Sequelize.STRING,
+             *     columnC: 'MY VERY OWN COLUMN TYPE'
+             * })
              *
              * sequelize.models.modelName // The model will now be available in models under the name given to define
              * ```
@@ -4297,12 +4297,12 @@ declare module "sequelize" {
              *
              * ```js
              * sequelize.query('SELECT...').spread(function (results, metadata) {
-         *   // Raw query - use spread
-         * });
+             *   // Raw query - use spread
+             * });
              *
              * sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(function (results) {
-         *   // SELECT query - use then
-         * })
+             *   // SELECT query - use then
+             * })
              * ```
              *
              * @param sql
@@ -4417,12 +4417,12 @@ declare module "sequelize" {
              *
              * ```js
              * sequelize.transaction().then(function (t) {
-         *   return User.find(..., { transaction: t}).then(function (user) {
-         *     return user.updateAttributes(..., { transaction: t});
-         *   })
-         *   .then(t.commit.bind(t))
-         *   .catch(t.rollback.bind(t));
-         * })
+             *   return User.find(..., { transaction: t}).then(function (user) {
+             *     return user.updateAttributes(..., { transaction: t});
+             *   })
+             *   .then(t.commit.bind(t))
+             *   .catch(t.rollback.bind(t));
+             * })
              * ```
              *
              * A syntax for automatically committing or rolling back based on the promise chain resolution is also
@@ -4430,15 +4430,15 @@ declare module "sequelize" {
              *
              * ```js
              * sequelize.transaction(function (t) { // Note that we use a callback rather than a promise.then()
-         *   return User.find(..., { transaction: t}).then(function (user) {
-         *     return user.updateAttributes(..., { transaction: t});
-         *   });
-         * }).then(function () {
-         *   // Commited
-         * }).catch(function (err) {
-         *   // Rolled back
-         *   console.error(err);
-         * });
+             *   return User.find(..., { transaction: t}).then(function (user) {
+             *     return user.updateAttributes(..., { transaction: t});
+             *   });
+             * }).then(function () {
+             *   // Commited
+             * }).catch(function (err) {
+             *   // Rolled back
+             *   console.error(err);
+             * });
              * ```
              *
              * If you have [CLS](https://github.com/othiym23/node-continuation-local-storage) enabled, the transaction
@@ -4555,27 +4555,27 @@ declare module "sequelize" {
              *
              * ```js
              * {
-         *   READ_UNCOMMITTED: "READ UNCOMMITTED",
-         *   READ_COMMITTED: "READ COMMITTED",
-         *   REPEATABLE_READ: "REPEATABLE READ",
-         *   SERIALIZABLE: "SERIALIZABLE"
-         * }
+             *   READ_UNCOMMITTED: "READ UNCOMMITTED",
+             *   READ_COMMITTED: "READ COMMITTED",
+             *   REPEATABLE_READ: "REPEATABLE READ",
+             *   SERIALIZABLE: "SERIALIZABLE"
+             * }
              * ```
              *
              * Pass in the desired level as the first argument:
              *
              * ```js
              * return sequelize.transaction({
-         *   isolationLevel: Sequelize.Transaction.SERIALIZABLE
-         * }, function (t) {
-         *
-         *  // your transactions
-         *
-         * }).then(function(result) {
-         *   // transaction has been committed. Do something after the commit if required.
-         * }).catch(function(err) {
-         *   // do something with the err.
-         * });
+             *   isolationLevel: Sequelize.Transaction.SERIALIZABLE
+             * }, function (t) {
+             *
+             *  // your transactions
+             *
+             * }).then(function(result) {
+             *   // transaction has been committed. Do something after the commit if required.
+             * }).catch(function(err) {
+             *   // do something with the err.
+             * });
              * ```
              *
              * @see ISOLATION_LEVELS
@@ -4597,23 +4597,23 @@ declare module "sequelize" {
              * ```js
              * t1 // is a transaction
              * Model.findAll({
-         *   where: ...,
-         *   transaction: t1,
-         *   lock: t1.LOCK...
-         * });
+             *   where: ...,
+             *   transaction: t1,
+             *   lock: t1.LOCK...
+             * });
              * ```
              *
              * Postgres also supports specific locks while eager loading by using OF:
              * ```js
              * UserModel.findAll({
-         *   where: ...,
-         *   include: [TaskModel, ...],
-         *   transaction: t1,
-         *   lock: {
-         *     level: t1.LOCK...,
-         *     of: UserModel
-         *   }
-         * });
+             *   where: ...,
+             *   include: [TaskModel, ...],
+             *   transaction: t1,
+             *   lock: {
+             *     level: t1.LOCK...,
+             *     of: UserModel
+             *   }
+             * });
              * ```
              * UserModel will be locked but TaskModel won't!
              */
