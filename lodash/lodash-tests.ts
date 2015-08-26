@@ -1260,6 +1260,12 @@ result = <boolean>_(undefined).isNaN();
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
 
+// _.isNull
+result = <boolean>_.isNull(any);
+result = <boolean>_(1).isNull();
+result = <boolean>_<any>([]).isNull();
+result = <boolean>_({}).isNull();
+
 // _.isNumber
 result = <boolean>_.isNumber(any);
 result = <boolean>_(1).isNumber();
@@ -1501,9 +1507,6 @@ result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
-
-result = <boolean>_.isNull(null);
-result = <boolean>_.isNull(undefined);
 
 result = <boolean>_.isObject({});
 result = <boolean>_.isObject([1, 2, 3]);
