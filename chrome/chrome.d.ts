@@ -4651,6 +4651,11 @@ declare module chrome.networking.config {
 // Notifications
 // https://developer.chrome.com/extensions/notifications
 ////////////////////
+/**
+ * Use the chrome.notifications API to create rich notifications using templates and show these notifications to users in the system tray. 
+ * Permissions:  "notifications" 
+ * @since Chrome 28.
+ */
 declare module chrome.notifications {
 	interface ButtonOptions {
 		title: string;
@@ -4658,54 +4663,174 @@ declare module chrome.notifications {
 	}
 
 	interface ItemOptions {
+		/** Title of one item of a list notification. */
 		title: string;
+		/** Additional details about this item. */
 		message: string;
 	}
 
 	interface NotificationOptions {
+		/** Optional. Which type of notification to display. Required for notifications.create method. */
 		type?: string;
+		/** 
+		 * Optional.
+		 * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+		 * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
+		 */
 		iconUrl?: string;
+		/** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
 		title?: string;
+		/** Optional. Main notification content. Required for notifications.create method. */
 		message?: string;
+		/**
+		 * Optional.
+		 * Alternate notification content with a lower-weight font. 
+		 * @since Chrome 31.
+		 */
 		contextMessage?: string;
+		/** Optional. Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
 		priority?: number;
+		/** Optional. A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
 		eventTime?: number;
-		buttons?: Array<ButtonOptions>;
-		items?: Array<ItemOptions>;
+		/** Optional. Text and icons for up to two notification action buttons. */
+		buttons?: ButtonOptions[];
+		/** Optional. Items for multi-item notifications. */
+		items?: ItemOptions[];
+		/**
+		 * Optional.
+		 * Current progress ranges from 0 to 100. 
+		 * @since Chrome 30.
+		 */
 		progress?: number;
+		/**
+		 * Optional.
+		 * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification. 
+		 * @since Chrome 32.
+		 */
 		isClickable?: boolean;
+		/**
+		 * Optional.
+		 * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered. 
+		 * @since Chrome 38.
+		 */
+		appIconMaskUrl?: string;
+		/** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
+		imageUrl?: string;
 	}
 
-	interface OnClosed {
+	interface NotificationClosedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string notificationId, boolean byUser) {...}; 
+		 */
 		addListener(callback: (notificationId: string, byUser: boolean) => void): void;
 	}
 
-	interface OnClicked {
+	interface NotificationClickedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string notificationId) {...}; 
+		 */
 		addListener(callback: (notificationId: string) => void): void;
 	}
 
-	interface OnButtonClicked {
+	interface NotificationButtonClickedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string notificationId, integer buttonIndex) {...}; 
+		 */
 		addListener(callback: (notificationId: string, buttonIndex: number) => void): void;
 	}
 
-	interface OnPermissionLevelChanged {
+	interface NotificationPermissionLevelChangedEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( PermissionLevel level) {...}; 
+		 */
 		addListener(callback: (level: string) => void): void;
 	}
 
-	interface OnShowSettings {
-		addListener(callback: Function): void;
+	interface NotificationShowSettingsEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function() {...}; 
+		 */
+		addListener(callback: () => void): void;
 	}
 
-	export var onClosed: OnClosed;
-	export var onClicked: OnClicked;
-	export var onButtonClicked: OnButtonClicked;
-	export var onPermissionLevelChanged: OnPermissionLevelChanged;
-	export var onShowSettings: OnShowSettings;
+	/** The notification closed, either by the system or by user action. */
+	export var onClosed: NotificationClosedEvent;
+	/** The user clicked in a non-button area of the notification. */
+	export var onClicked: NotificationClickedEvent;
+	/** The user pressed a button in the notification. */
+	export var onButtonClicked: NotificationButtonClickedEvent;
+	/**
+	 * The user changes the permission level. 
+	 * @since Chrome 32.
+	 */
+	export var onPermissionLevelChanged: NotificationPermissionLevelChangedEvent;
+	/**
+	 * The user clicked on a link for the app's notification settings. 
+	 * @since Chrome 32.
+	 */
+	export var onShowSettings: NotificationShowSettingsEvent;
 
-	export function create(notificationId: string, options: NotificationOptions, callback: (notificationId: string) => void): void;
-	export function update(notificationId: string, options: NotificationOptions, callback: (wasUpdated: boolean) => void): void;
-	export function clear(notificationId: string, callback: (wasCleared: boolean) => void): void;
-	export function getAll(callback: (notifications: any) => void): void;
+	/**
+	 * Creates and displays a notification. 
+	 * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
+	 * The notificationId parameter is required before Chrome 42.
+	 * @param options Contents of the notification. 
+	 * @param callback Returns the notification id (either supplied or generated) that represents the created notification.
+	 * The callback is required before Chrome 42.
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(string notificationId) {...}; 
+	 */    
+	export function create(notificationId: string, options: NotificationOptions, callback?: (notificationId: string) => void): void;
+	/**
+	 * Creates and displays a notification. 
+	 * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
+	 * The notificationId parameter is required before Chrome 42.
+	 * @param options Contents of the notification. 
+	 * @param callback Returns the notification id (either supplied or generated) that represents the created notification.
+	 * The callback is required before Chrome 42.
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(string notificationId) {...}; 
+	 */    
+	export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
+	/**
+	 * Updates an existing notification. 
+	 * @param notificationId The id of the notification to be updated. This is returned by notifications.create method. 
+	 * @param options Contents of the notification to update to. 
+	 * @param callback Called to indicate whether a matching notification existed.
+	 * The callback is required before Chrome 42.
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean wasUpdated) {...}; 
+	 */
+	export function update(notificationId: string, options: NotificationOptions, callback?: (wasUpdated: boolean) => void): void;
+	/**
+	 * Clears the specified notification. 
+	 * @param notificationId The id of the notification to be cleared. This is returned by notifications.create method. 
+	 * @param callback Called to indicate whether a matching notification existed.
+	 * The callback is required before Chrome 42.
+	 * If you specify the callback parameter, it should be a function that looks like this:
+	 * function(boolean wasCleared) {...}; 
+	 */
+	export function clear(notificationId: string, callback?: (wasCleared: boolean) => void): void;
+	/**
+	 * Retrieves all the notifications. 
+	 * @since Chrome 29.
+	 * @param callback Returns the set of notification_ids currently in the system. 
+	 * The callback parameter should be a function that looks like this:
+	 * function(object notifications) {...}; 
+	 */
+	export function getAll(callback: (notifications: Object) => void): void;
+	/**
+	 * Retrieves whether the user has enabled notifications from this app or extension. 
+	 * @since Chrome 32.
+	 * @param callback Returns the current permission level. 
+	 * The callback parameter should be a function that looks like this:
+	 * function( PermissionLevel level) {...}; 
+	 */
 	export function getPermissionLevel(callback: (level: string) => void): void;
 }
 
