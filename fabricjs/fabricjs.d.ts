@@ -4149,37 +4149,41 @@ declare module fabric {
     requestAnimFrame(callback: Function): void;
   }
 
+  interface IUtilAminEaseFunction {
+    (t: number, b: number, c: number, d: number): number;
+  }
+
   interface IUtilAnimEase {
-    easeInBack(): Function;
-    easeInBounce(): Function;
-    easeInCirc(): Function;
-    easeInCubic(): Function;
-    easeInElastic(): Function;
-    easeInExpo(): Function;
-    easeInOutBack(): Function;
-    easeInOutBounce(): Function;
-    easeInOutCirc(): Function;
-    easeInOutCubic(): Function;
-    easeInOutElastic(): Function;
-    easeInOutExpo(): Function;
-    easeInOutQuad(): Function;
-    easeInOutQuart(): Function;
-    easeInOutQuint(): Function;
-    easeInOutSine(): Function;
-    easeInQuad(): Function;
-    easeInQuart(): Function;
-    easeInQuint(): Function;
-    easeInSine(): Function;
-    easeOutBack(): Function;
-    easeOutBounce(): Function;
-    easeOutCirc(): Function;
-    easeOutCubic(): Function;
-    easeOutElastic(): Function;
-    easeOutExpo(): Function;
-    easeOutQuad(): Function;
-    easeOutQuart(): Function;
-    easeOutQuint(): Function;
-    easeOutSine(): Function;
+    easeInBack: IUtilAminEaseFunction;
+    easeInBounce: IUtilAminEaseFunction;
+    easeInCirc: IUtilAminEaseFunction;
+    easeInCubic: IUtilAminEaseFunction;
+    easeInElastic: IUtilAminEaseFunction;
+    easeInExpo: IUtilAminEaseFunction;
+    easeInOutBack: IUtilAminEaseFunction;
+    easeInOutBounce: IUtilAminEaseFunction;
+    easeInOutCirc: IUtilAminEaseFunction;
+    easeInOutCubic: IUtilAminEaseFunction;
+    easeInOutElastic: IUtilAminEaseFunction;
+    easeInOutExpo: IUtilAminEaseFunction;
+    easeInOutQuad: IUtilAminEaseFunction;
+    easeInOutQuart: IUtilAminEaseFunction;
+    easeInOutQuint: IUtilAminEaseFunction;
+    easeInOutSine: IUtilAminEaseFunction;
+    easeInQuad: IUtilAminEaseFunction;
+    easeInQuart: IUtilAminEaseFunction;
+    easeInQuint: IUtilAminEaseFunction;
+    easeInSine: IUtilAminEaseFunction;
+    easeOutBack: IUtilAminEaseFunction;
+    easeOutBounce: IUtilAminEaseFunction;
+    easeOutCirc: IUtilAminEaseFunction;
+    easeOutCubic: IUtilAminEaseFunction;
+    easeOutElastic: IUtilAminEaseFunction;
+    easeOutExpo: IUtilAminEaseFunction;
+    easeOutQuad: IUtilAminEaseFunction;
+    easeOutQuart: IUtilAminEaseFunction;
+    easeOutQuint: IUtilAminEaseFunction;
+    easeOutSine: IUtilAminEaseFunction;
   }
 
   interface IUtilArc {
