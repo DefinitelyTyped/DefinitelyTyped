@@ -266,9 +266,17 @@ declare module chrome.browsingData {
 // Commands
 ////////////////////
 declare module chrome.commands {
+    interface Command {
+      name?: string;
+      description?: string;
+      shortcut?: string;
+    }
+
     interface CommandEvent extends chrome.events.Event {
         addListener(callback: (command: string) => void): void;
     }
+
+    export function getAll(callback: (commands: Command[]) => void): void;
 
     var onCommand: CommandEvent;
 }
