@@ -138,8 +138,8 @@ declare module chrome.bookmarks {
         addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
     }
 
-    var MAX_WRITE_OPERATIONS_PER_HOUR: number;
-    var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+    export const MAX_WRITE_OPERATIONS_PER_HOUR: number;
+    export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
 
     export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
@@ -312,12 +312,12 @@ declare module chrome.contentSettings {
         description?: string;
     }
 
-    var cookies: ContentSetting;
-    var popups: ContentSetting;
-    var javascript: ContentSetting;
-    var notifications: ContentSetting;
-    var plugins: ContentSetting;
-    var images: ContentSetting;
+    export const cookies: ContentSetting;
+    export const popups: ContentSetting;
+    export const javascript: ContentSetting;
+    export const notifications: ContentSetting;
+    export const plugins: ContentSetting;
+    export const images: ContentSetting;
 }
 
 ////////////////////
@@ -613,7 +613,7 @@ declare module chrome.devtools.inspectedWindow {
         addListener(callback: (resource: Resource, content: string) => void): void;
     }
 
-    var tabId: number;
+    export const tabId: number;
 
     export function reload(reloadOptions: ReloadOptions): void;
     export function eval(expression: string, callback?: (result: Object, isException: boolean) => void): void;
@@ -703,7 +703,7 @@ declare module chrome.devtools.panels {
         onHidden: ExtensionSidebarPaneHiddenEvent;
     }
 
-    var elements: ElementsPanel;
+    export const elements: ElementsPanel;
 
     export function create(title: string, iconPath: string, pagePath: string, callback?: (panel: ExtensionPanel) => void): void;
     export function setOpenResourceHandler(callback: (resource: chrome.devtools.inspectedWindow.Resource) => void): void;
@@ -899,8 +899,8 @@ declare module chrome.extension {
         message?: string;
     }
 
-    var inIncognitoContext: boolean;
-    var lastError: LastError;
+    export const inIncognitoContext: boolean;
+    export const lastError: LastError;
 
     export function getBackgroundPage(): Window;
     export function getURL(path: string): string;
@@ -1491,9 +1491,9 @@ declare module chrome.privacy {
         protectedContentEnabled: chrome.types.ChromeSetting;
     }
 
-    var services: Services;
-    var network: Network;
-    var websites: Websites;
+    export const services: Services;
+    export const network: Network;
+    export const websites: Websites;
 }
 
 ////////////////////
@@ -1537,7 +1537,8 @@ declare module chrome.proxy {
         addListener(callback: (details: ErrorDetails) => void): void;
     }
 
-    var settings: chrome.types.ChromeSetting;
+    export const settings: chrome.types.ChromeSetting;
+
     var onProxyError: ProxyErrorEvent;
 }
 
@@ -1545,8 +1546,8 @@ declare module chrome.proxy {
 // Runtime
 ////////////////////
 declare module chrome.runtime {
-    var lastError: LastError;
-    var id: string;
+    export const lastError: LastError;
+    export const id: string;
 
     interface LastError {
         message?: string;
@@ -1741,8 +1742,8 @@ declare module chrome.storage {
         addListener(callback: (changes: Object, areaName: string) => void): void;
     }
 
-    var local: Local;
-    var sync: Sync;
+    export const local: Local;
+    export const sync: Sync;
 
     var onChanged: StorageChangedEvent;
 }
@@ -2424,7 +2425,7 @@ declare module chrome.webRequest {
         removeListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse): void;
     }
 
-    var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
+    export const MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
 
     export function handlerBehaviorChanged(callback?: Function): void;
 
@@ -2502,8 +2503,8 @@ declare module chrome.windows {
         addListener(callback: (windowId: number) => void): void;
     }
 
-    var WINDOW_ID_CURRENT: number;
-    var WINDOW_ID_NONE: number;
+    export const WINDOW_ID_CURRENT: number;
+    export const WINDOW_ID_NONE: number;
 
     export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
     export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
