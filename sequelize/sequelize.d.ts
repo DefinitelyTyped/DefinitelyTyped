@@ -1563,7 +1563,7 @@ declare module "sequelize" {
              * @param options.plain If set to true, included instances will be returned as plain objects
              */
             get( key : string, options? : { plain? : boolean, clone? : boolean } ) : any;
-            get( options? : { plain? : boolean, clone? : boolean } ) : Object;
+            get( options? : { plain? : boolean, clone? : boolean } ) : TAttributes;
 
             /**
              * Set is used to update values on the instance (the sequelize representation of the instance that is,
@@ -1716,7 +1716,7 @@ declare module "sequelize" {
              * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
              * values gotten from the DB, and apply all custom getters.
              */
-            toJSON() : Object;
+            toJSON() : TAttributes;
 
         }
 
