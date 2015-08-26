@@ -1,6 +1,7 @@
 ﻿// Type definitions for tag-it 2.0.110.4
 // Project: http://aehlke.github.io/tag-it/
 // Definitions by: Brad Ziolko <https://github.com/bradziolko>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module tagit {
     export interface Options {
