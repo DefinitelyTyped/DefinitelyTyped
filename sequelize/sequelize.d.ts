@@ -3123,7 +3123,7 @@ declare module "sequelize" {
             /**
              * If this column references another table, provide it here as a Model, or a string
              */
-            model?: Model<any, any>;
+            model?: string | Model<any, any>;
 
             /**
              * The column of the foreign table that this column references
