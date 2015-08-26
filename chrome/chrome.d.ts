@@ -372,6 +372,8 @@ declare module chrome.contextMenus {
     export function update(id: any, updateProperties: UpdateProperties, callback?: Function): void;
     export function remove(menuItemId: any, callback?: Function): void;
 
+    export const ACTION_MENU_TOP_LEVEL_LIMIT: number;
+
     var onClicked: MenuClickedEvent;
 }
 
