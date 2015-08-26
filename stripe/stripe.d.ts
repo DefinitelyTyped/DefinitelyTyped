@@ -1,6 +1,6 @@
-// Type definitions for stripe
+// Type definitions for stripe (AMD/UMD compatible)
 // Project: https://stripe.com/
-// Definitions by: Eric J. Smith <https://github.com/ejsmith/>
+// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface StripeStatic {
@@ -11,6 +11,7 @@ interface StripeStatic {
     cardType(cardNumber: string): string;
     getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     card: StripeCardData;
+	createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
 interface StripeTokenData {
@@ -57,8 +58,9 @@ interface StripeCardData {
     address_state?: string;
     address_zip?: string;
     address_country?: string;
-
-    createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
 declare var Stripe: StripeStatic;
+declare module "Stripe" {
+	export = StripeStatic;
+}
