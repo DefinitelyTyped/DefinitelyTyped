@@ -6,8 +6,8 @@
 declare var Offline: {
     options: OfflineOptions;
     check: () => void;
-    state: string;    
-    on(event: string, handler: (e: Event) => any, context?: any): void;
+    state: string;
+
     on(event: "up", handler: (e: Event) => any, context?: any): void;
     on(event: "down", handler: (e: Event) => any, context?: any): void;
     on(event: "confirmed-up", handler: (e: Event) => any, context?: any): void;
@@ -20,7 +20,8 @@ declare var Offline: {
     on(event: "reconnect:failure", handler: (e: Event) => any, context?: any): void;
     on(event: "requests:flush", handler: (e: Event) => any, context?: any): void;
     on(event: "requests:hold", handler: (e: Event) => any, context?: any): void;
-    off(event: string, handler?: (e: Event) => any): void;
+    on(event: string, handler: (e: Event) => any, context?: any): void;
+
     off(event: "up", handler?: (e: Event) => any): void;
     off(event: "down", handler?: (e: Event) => any): void;
     off(event: "confirmed-up", handler?: (e: Event) => any): void;
@@ -32,11 +33,12 @@ declare var Offline: {
     off(event: "reconnect:connecting", handler?: (e: Event) => any): void;
     off(event: "reconnect:failure", handler?: (e: Event) => any): void;
     off(event: "requests:flush", handler?: (e: Event) => any): void;
-    off(event: "requests:hold", handler?: (e: Event) => any): void;  
+    off(event: "requests:hold", handler?: (e: Event) => any): void;
+    off(event: string, handler?: (e: Event) => any): void;
 };
 
 interface OfflineOptions {
-	// TODO Should these types be `boolean|Function`?
+    // TODO Should these types be `boolean|Function`?
     // The project documentation is not clear here.
     checkOnLoad?: boolean;
     interceptRequests?: boolean;
@@ -50,8 +52,8 @@ interface OfflineOptions {
 }
 
 interface OfflineChecks {
-	// TODO "xhr" and "image" probably have different options.
-    // However, this is not stated in the project documentation. 
+    // TODO "xhr" and "image" probably have different options.
+    // However, this is not stated in the project documentation.
     xhr?: OfflineCheck;
     image?: OfflineCheck;
     active?: string;
