@@ -7583,8 +7583,16 @@ declare module _ {
         camelCase(): string;
     }
 
+    //_.capitalize
     interface LoDashStatic {
-        capitalize(str?: string): string;
+        capitalize(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.capitalize
+         */
+        capitalize(): string;
     }
 
     //_.deburr
