@@ -3827,7 +3827,7 @@ declare module chrome.idle {
 	 * Since Chrome 25. 
 	 * @param callback The callback parameter should be a function that looks like this: 
 	 * function( IdleState newState) {...}; 
-	 */    
+	 */
 	export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
 	/**
 	 * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds. 
@@ -3836,7 +3836,7 @@ declare module chrome.idle {
 	 */
 	export function setDetectionInterval(intervalInSeconds: number): void;
 
-	/** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */    
+	/** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
 	var onStateChanged: IdleStateChangedEvent;
 }
 
@@ -3898,7 +3898,7 @@ declare module chrome.input.ime {
 		capsLock?: boolean;
 	}
 
-	/** Describes an input Context */    
+	/** Describes an input Context */
 	interface InputContext {
 		/** This is used to specify targets of text field operations. This ID becomes invalid as soon as onBlur is called. */
 		contextID: number;
@@ -3953,14 +3953,14 @@ declare module chrome.input.ime {
 		/** ID of the context where the text will be committed */
 		contextID: number;
 	}
-	
+
 	interface CandidateUsage {
 		/** The title string of details description. */
 		title: string;
 		/** The body string of detail description. */
 		body: string;
 	}
-	
+
 	interface CandidateTemplate {
 		/** The candidate */
 		candidate: string;
@@ -3985,7 +3985,7 @@ declare module chrome.input.ime {
 		 * Optional.
 		 * The usage or detail description of word. 
 		 */
-		usage?: CandidateUsage;		
+		usage?: CandidateUsage;
 	}
 
 	interface CandidatesParameters {
@@ -3994,7 +3994,7 @@ declare module chrome.input.ime {
 		/** List of candidates to show in the candidate window */
 		candidates: CandidateTemplate[];
 	}
-	
+
 	interface CompositionParameterSegment {
 		/** Index of the character to start this segment at */
 		start: number;
@@ -4023,7 +4023,7 @@ declare module chrome.input.ime {
 		items: Object[];
 		engineId: string;
 	}
-	
+
 	interface CandidateWindowParameterProperties {
 		/**
 		 * Optional.
@@ -4062,7 +4062,7 @@ declare module chrome.input.ime {
 		 */
 		windowPosition?: string;
 	}
-	
+
 	interface CandidateWindowParameter {
 		/** ID of the engine to set properties on. */
 		engineID: string;
@@ -4080,14 +4080,14 @@ declare module chrome.input.ime {
 		/** ID of the context that owns the candidate window. */
 		contextID: number;
 	}
-	
+
 	interface SendKeyEventParameters {
 		/** ID of the context where the key events will be sent, or zero to send key events to non-input field. */
 		contextID: number;
 		/** Data on the key event. */
 		keyData: KeyboardEvent[];
 	}
-	
+
 	interface DeleteSurroundingTextParameters {
 		/** ID of the engine receiving the event. */
 		engineID: string;
@@ -4098,7 +4098,7 @@ declare module chrome.input.ime {
 		/** The number of characters to be deleted */
 		length: number;
 	}
-	
+
 	interface SurroundingTextInfo {
 		/** The text around cursor. */
 		text: string;
@@ -4184,7 +4184,7 @@ declare module chrome.input.ime {
 		 */
 		addListener(callback: (engineID: string, name: string) => void): void;
 	}
-	
+
 	interface SurroundingTextChangedEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -4194,7 +4194,7 @@ declare module chrome.input.ime {
 		 */
 		addListener(callback: (engineID: string, surroundingInfo: SurroundingTextInfo) => void): void;
 	}
-	
+
 	interface InputResetEvent extends chrome.events.Event {
 		/**
 		 * @param callback The callback parameter should be a function that looks like this: 
@@ -4208,7 +4208,7 @@ declare module chrome.input.ime {
 	 * Adds the provided menu items to the language menu when this IME is active. 
 	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
 	 * function() {...}; 
-	 */    
+	 */
 	export function setMenuItems(parameters: ImeParameters, callback?: () => void): void;
 	/**
 	 * Commits the provided text to the current input. 
@@ -4285,7 +4285,7 @@ declare module chrome.input.ime {
 	 */
 	export function keyEventHandled(requestId: string, response: boolean): void;
 
-	/** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */    
+	/** This event is sent when focus leaves a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
 	var onBlur: BlurEvent;
 	/** This event is sent if this extension owns the active IME. */
 	var onCandidateClicked: CandidateClickedEvent;
@@ -4316,63 +4316,274 @@ declare module chrome.input.ime {
 ////////////////////
 // Management
 ////////////////////
+/**
+ * The chrome.management API provides ways to manage the list of extensions/apps that are installed and running. It is particularly useful for extensions that override the built-in New Tab page. 
+ * Permissions:  "management"   
+ * @since Chrome 8.
+ */
 declare module chrome.management {
+	/** Information about an installed extension, app, or theme. */
 	interface ExtensionInfo {
+		/**
+		 * Optional.
+		 * A reason the item is disabled. 
+		 * @since Chrome 17.
+		 */
 		disabledReason?: string;
+		/** Optional. The launch url (only present for apps). */
 		appLaunchUrl?: string;
+		/**
+		 * The description of this extension, app, or theme. 
+		 * @since Chrome 9.
+		 */
 		description: string;
+		/**
+		 * Returns a list of API based permissions. 
+		 * @since Chrome 9.
+		 */
 		permissions: string[];
+		/**
+		 * Optional.
+		 * A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the manifest documentation on icons for more details. 
+		 */
 		icons?: IconInfo[];
+		/**
+		 * Returns a list of host based permissions. 
+		 * @since Chrome 9.
+		 */
 		hostPermissions: string[];
+		/** Whether it is currently enabled or disabled. */
 		enabled: boolean;
+		/**
+		 * Optional.
+		 * The URL of the homepage of this extension, app, or theme. 
+		 * @since Chrome 11.
+		 */
 		homepageUrl?: string;
+		/**
+		 * Whether this extension can be disabled or uninstalled by the user. 
+		 * @since Chrome 12.
+		 */
 		mayDisable: boolean;
+		/**
+		 * How the extension was installed. 
+		 * @since Chrome 22.
+		 */
 		installType: string;
+		/** The version of this extension, app, or theme. */
 		version: string;
+		/** The extension's unique identifier. */
 		id: string;
+		/**
+		 * Whether the extension, app, or theme declares that it supports offline. 
+		 * @since Chrome 15.
+		 */
 		offlineEnabled: boolean;
+		/**
+		 * Optional.
+		 * The update URL of this extension, app, or theme. 
+		 * @since Chrome 16.
+		 */
 		updateUrl?: string;
+		/**
+		 * The type of this extension, app, or theme. 
+		 * @since Chrome 23.
+		 */
 		type: string;
+		/** The url for the item's options page, if it has one. */
 		optionsUrl: string;
+		/** The name of this extension, app, or theme. */
 		name: string;
+		/**
+		 * A short version of the name of this extension, app, or theme. 
+		 * @since Chrome 31.
+		 */
+		shortName: string;
+		/**
+		 * True if this is an app.
+		 * @deprecated since Chrome 33. Please use management.ExtensionInfo.type. 
+		 */
+		isApp: boolean;
+		/**
+		 * Optional.
+		 * The app launch type (only present for apps). 
+		 * @since Chrome 37.
+		 */
+		launchType?: string;
+		/**
+		 * Optional.
+		 * The currently available launch types (only present for apps). 
+		 * @since Chrome 37.
+		 */
+		availableLaunchTypes?: string[];
 	}
 
+	/** Information about an icon belonging to an extension, app, or theme. */
 	interface IconInfo {
+		/** The URL for this icon image. To display a grayscale version of the icon (to indicate that an extension is disabled, for example), append ?grayscale=true to the URL. */
 		url: string;
+		/** A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16. */
 		size: number;
 	}
 
 	interface UninstallOptions {
+		/**
+		 * Optional.
+		 * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls. If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown. 
+		 */
 		showConfirmDialog?: boolean;
 	}
 
 	interface ManagementDisabledEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( ExtensionInfo info) {...}; 
+		 */
 		addListener(callback: (info: ExtensionInfo) => void): void;
 	}
 
 	interface ManagementUninstalledEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function(string id) {...};
+		 * Parameter id: The id of the extension, app, or theme that was uninstalled.  
+		 */
 		addListener(callback: (id: string) => void): void;
 	}
 
 	interface ManagementInstalledEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( ExtensionInfo info) {...}; 
+		 */
 		addListener(callback: (info: ExtensionInfo) => void): void;
 	}
 
 	interface ManagementEnabledEvent extends chrome.events.Event {
+		/**
+		 * @param callback The callback parameter should be a function that looks like this: 
+		 * function( ExtensionInfo info) {...}; 
+		 */
 		addListener(callback: (info: ExtensionInfo) => void): void;
 	}
 
-	export function setEnabled(id: string, enabled: boolean, callback?: Function): void;
+	/**
+	 * Enables or disables an app or extension. 
+	 * @param id This should be the id from an item of management.ExtensionInfo. 
+	 * @param enabled Whether this item should be enabled or disabled. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function setEnabled(id: string, enabled: boolean, callback?: () => void): void;
+	/**
+	 * Returns a list of permission warnings for the given extension id. 
+	 * @since Chrome 15.
+	 * @param id The ID of an already installed extension. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(array of string permissionWarnings) {...}; 
+	 */
 	export function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
+	/**
+	 * Returns information about the installed extension, app, or theme that has the given ID. 
+	 * @since Chrome 9.
+	 * @param id The ID from an item of management.ExtensionInfo. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function( ExtensionInfo result) {...}; 
+	 */
 	export function get(id: string, callback?: (result: ExtensionInfo) => void): void;
+	/**
+	 * Returns a list of information about installed extensions and apps. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(array of ExtensionInfo result) {...}; 
+	 */
 	export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
+	/**
+	 * Returns a list of permission warnings for the given extension manifest string. Note: This function can be used without requesting the 'management' permission in the manifest. 
+	 * @since Chrome 15.
+	 * @param manifestStr Extension manifest JSON string. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function(array of string permissionWarnings) {...}; 
+	 */
 	export function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionwarnings: string[]) => void): void;
-	export function launchApp(id: string, callback?: Function): void;
-	export function uninstall(id: string, options: UninstallOptions, callback?: Function): void;
+	/**
+	 * Launches an application. 
+	 * @param id The extension id of the application. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function launchApp(id: string, callback?: () => void): void;
+	/**
+	 * Uninstalls a currently installed app or extension.
+	 * @since Chrome 21. 
+	 * @param id This should be the id from an item of management.ExtensionInfo.
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function uninstall(id: string, options?: UninstallOptions, callback?: () => void): void;
+	/**
+	 * Uninstalls a currently installed app or extension.
+	 * @deprecated since Chrome 21. The options parameter was added to this function. 
+	 * @param id This should be the id from an item of management.ExtensionInfo.
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function uninstall(id: string, callback?: () => void): void;
+	/**
+	 * Returns information about the calling extension, app, or theme. Note: This function can be used without requesting the 'management' permission in the manifest. 
+	 * @since Chrome 39.
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function( ExtensionInfo result) {...}; 
+	 */
+	export function getSelf(callback?: (result: ExtensionInfo) => void): void;
+	/**
+	 * Uninstalls the calling extension. 
+	 * Note: This function can be used without requesting the 'management' permission in the manifest.
+	 * @since Chrome 26. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function uninstallSelf(options?: UninstallOptions, callback?: () => void): void;
+	/**
+	 * Uninstalls the calling extension. 
+	 * Note: This function can be used without requesting the 'management' permission in the manifest.
+	 * @since Chrome 26. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function uninstallSelf(callback?: () => void): void;
+	/**
+	 * Display options to create shortcuts for an app. On Mac, only packaged app shortcuts can be created. 
+	 * @since Chrome 37.
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function createAppShortcut(id: string, callback?: () => void): void;
+	/**
+	 * Set the launch type of an app. 
+	 * @since Chrome 37.
+	 * @param id This should be the id from an app item of management.ExtensionInfo. 
+	 * @param launchType The target launch type. Always check and make sure this launch type is in ExtensionInfo.availableLaunchTypes, because the available launch types vary on different platforms and configurations. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function() {...}; 
+	 */
+	export function setLaunchType(id: string, launchType: string, callback?: () => void): void;
+	/**
+	 * Generate an app for a URL. Returns the generated bookmark app. 
+	 * @since Chrome 37.
+	 * @param url The URL of a web page. The scheme of the URL can only be "http" or "https". 
+	 * @param title The title of the generated app. 
+	 * @param callback If you specify the callback parameter, it should be a function that looks like this: 
+	 * function( ExtensionInfo result) {...}; 
+	 */
+	export function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
 
+	/** Fired when an app or extension has been disabled. */    
 	var onDisabled: ManagementDisabledEvent;
+	/** Fired when an app or extension has been uninstalled. */
 	var onUninstalled: ManagementUninstalledEvent;
+	/** Fired when an app or extension has been installed. */
 	var onInstalled: ManagementInstalledEvent;
+	/** Fired when an app or extension has been enabled. */
 	var onEnabled: ManagementEnabledEvent;
 }
 
