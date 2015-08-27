@@ -128,6 +128,7 @@ declare module CryptoJS{
         interface BlockCipher extends IStreamCipher<IBlockCipherCfg>{}
 
         interface IBlockCipherCfg {
+            iv?: WordArray;
             mode?: mode.IBlockCipherModeImpl //default CBC
             padding?: pad.IPaddingImpl //default Pkcs7
         }
@@ -163,6 +164,9 @@ declare module CryptoJS{
         interface SerializableCipher extends ISerializableCipher<ISerializableCipherCfg>{}
         interface ISerializableCipherCfg{
             format?: format.IFormatter //default OpenSSLFormatter
+            iv?: WordArray;
+            mode?: mode.IBlockCipherModeImpl;
+            padding?: pad.IPaddingImpl;
         }
 
         interface IPasswordBasedCipher<C extends IPasswordBasedCipherCfg> extends Base{
@@ -177,6 +181,8 @@ declare module CryptoJS{
         interface PasswordBasedCipher extends IPasswordBasedCipher<IPasswordBasedCipherCfg>{}
         interface IPasswordBasedCipherCfg extends ISerializableCipherCfg{
             kdf?: kdf.IKdfImpl //default OpenSSLKdf
+            mode?: mode.IBlockCipherModeImpl;
+            padding?: pad.IPaddingImpl;
         }
 
         /** see Cipher._createHelper */
