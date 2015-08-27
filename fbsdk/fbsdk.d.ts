@@ -15,9 +15,64 @@ interface FBInitParams{
 	xfbml ?: boolean;
 }
 
-interface FBUIParams{
-	method : string;
+interface ShareDialogParams {
+    method: string; // "share"
+    href: string;
 }
+
+interface PageTabDialogParams {
+    method: string; // "pagetab"
+    app_id: string;
+    redirect_uri?: string;
+    display?: any;
+}
+
+interface RequestsDialogParams {
+    method: string; // "apprequests"
+    app_id: string;
+    redirect_uri?: string;
+    to?: string;
+    message: string;
+    action_type?: string; // "send" | "askfor" | "turn"
+    object_id?: string;
+    filters: string /* "app_users" | "app_non_users" */ | {
+        name: string;
+        user_ids: string[];
+    };
+    suggestions?: string[];
+    exclude_ids?: string[];
+    max_recipients?: number;
+    data?: string;
+    title?: string;
+}
+
+interface SendDialogParams {
+    method: string; // "send"
+    app_id: string;
+    redirect_uri?: string;
+    display?: any;
+    to?: string;
+    link: string;
+}
+
+interface PayDialogParams {
+    method: string; // "pay"
+    action: string; // "purchaseitem"
+    product: string;
+    quantity?: number;
+    quantity_min?: number;
+    quantity_max?: number;
+    request_id?: string;
+    pricepoint_id?: string;
+    test_currency?: string;
+}
+
+// TODO: add login dialog, which isn't well-documented at all
+declare type FBUIParams = ShareDialogParams
+                        | PageTabDialogParams
+                        | RequestsDialogParams
+                        | SendDialogParams
+                        | PayDialogParams;
 
 interface FBLoginOptions{
 	auth_type ?: string;
