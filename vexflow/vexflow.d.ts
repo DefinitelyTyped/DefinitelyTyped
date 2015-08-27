@@ -6,7 +6,7 @@
 //inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
 declare function sanitizeDuration(duration : string) : string; 
 
-declare module Vex {
+declare namespace Vex {
     
     function L(block : string, args : any[]) : void;
     function Merge<T extends Object>(destination : T, source : Object) : T;
@@ -90,7 +90,7 @@ declare module Vex {
         original_font_information? : {postscript_name : string, version_string : string, vendor_url : string, full_font_name : string, font_family_name : string, copyright : string, description : string, trademark : string, designer : string, designer_url : string, unique_font_identifier : string, license_url : string, license_description : string, manufacturer_name : string, font_sub_family_name : string};
     }
     
-    module Flow {
+    namespace Flow {
         
         const RESOLUTION : number;
         
@@ -137,7 +137,7 @@ declare module Vex {
             original_font_information : {postscript_name : string, version_string : string, vendor_url : string, full_font_name : string, font_family_name : string, copyright : string, description : string, trademark : string, designer : string, designer_url : string, unique_font_identifier : string, license_url : string, license_description : string, manufacturer_name : string, font_sub_family_name : string};
         }
         
-        module Accidental {
+        namespace Accidental {
             const CATEGORY : string;
         }
         
@@ -154,7 +154,7 @@ declare module Vex {
             static applyAccidentals(voices : Voice[], keySignature? : string) : void;
         }
         
-        export module Annotation {
+        namespace Annotation {
             const enum Justify {LEFT, CENTER, RIGHT, CENTER_STEM}
             const enum VerticalJustify {TOP, CENTER, BOTTOM, CENTER_STEM}
             const CATEGORY : string;
@@ -172,7 +172,7 @@ declare module Vex {
             draw() : void;
         }
         
-        module Articulation {
+        namespace Articulation {
             const CATEGORY : string;
         }
         
@@ -193,7 +193,7 @@ declare module Vex {
             draw() : void;
         }
         
-        export module Barline {
+        namespace Barline {
             const enum type {SINGLE, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
         }
         
@@ -228,7 +228,7 @@ declare module Vex {
             static generateBeams(notes : StemmableNote[], config? : {groups? : Fraction[], stem_direction? : number, beam_rests? : boolean, beam_middle_only? : boolean, show_stemlets? : boolean, maintain_stem_directions? : boolean}) : Beam[];
         }
         
-        module Bend {
+        namespace Bend {
             const CATEGORY : string;
         }
         
@@ -354,7 +354,7 @@ declare module Vex {
             draw() : void;
         }
         
-        export module Curve {
+        namespace Curve {
             const enum Position {NEAR_HEAD, NEAR_TOP}
         }
         
@@ -368,7 +368,7 @@ declare module Vex {
             draw() : boolean;
         }
         
-        module Dot {
+        namespace Dot {
             const CATEGORY : string;
         }
         
@@ -433,7 +433,7 @@ declare module Vex {
             parse(str : string) : Fraction;
         }
         
-        module FretHandFinger {
+        namespace FretHandFinger {
             const CATEGORY : string;
         }
         
@@ -489,7 +489,7 @@ declare module Vex {
             draw() : void;
         }
         
-        module GraceNoteGroup {
+        namespace GraceNoteGroup {
             const CATEGORY : string;
         }
         
@@ -531,7 +531,7 @@ declare module Vex {
             convertAccLines(clef : string, type : string) : void;
         }
         
-        export module Modifier {
+        namespace Modifier {
             const enum Position {LEFT, RIGHT, ABOVE, BELOW}
             const CATEGORY : string
         }
@@ -570,7 +570,7 @@ declare module Vex {
             postFormat() : void;
         }
         
-        module Music {
+        namespace Music {
             const NUM_TONES : number;
             const roots : string[];
             const root_values : number[];
@@ -600,7 +600,7 @@ declare module Vex {
             createScaleMap(keySignature : string) : {[rootName : string] : string};
         }
         
-        module Note {
+        namespace Note {
             const CATEGORY : string;
         }
         
@@ -687,7 +687,7 @@ declare module Vex {
             draw() : void;
         }
         
-        module Ornament {
+        namespace Ornament {
             const CATEGORY : string;
         }
         
@@ -701,7 +701,7 @@ declare module Vex {
             draw() : void;
         }
         
-        export module PedalMarking {
+        namespace PedalMarking {
             const enum Styles {TEXT, BRACKET, MIXED}
             const GLYPHS : {[name : string] : {code : string, x_shift : number, y_shift : number}};
         }
@@ -760,7 +760,7 @@ declare module Vex {
             restore() : RaphaelContext;
         }
         
-        export module Renderer {
+        namespace Renderer {
             const enum Backends {CANVAS, RAPHAEL, SVG, VML}
             const enum LineEndType {NONE, UP, DOWN}
         }
@@ -778,7 +778,7 @@ declare module Vex {
             getContext() : IRenderContext;
         }
         
-        export module Repetition {
+        namespace Repetition {
             const enum type {NONE, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE}
         }
         
@@ -847,7 +847,7 @@ declare module Vex {
             setConfigForLines(lines_configuration : {visible : boolean}[]) : Stave;
         }
         
-        export module StaveConnector {
+        namespace StaveConnector {
             const enum type {SINGLE_RIGHT, SINGLE_LEFT, SINGLE, DOUBLE, BRACE, BRACKET, BOLD_DOUBLE_LEFT, BOLD_DOUBLE_RIGHT, THIN_DOUBLE}
         }
         
@@ -862,7 +862,7 @@ declare module Vex {
             drawBoldDoubleLine(ctx : Object, type : StaveConnector.type, topX : number, topY : number, botY : number) : void;
         }
         
-        export module StaveHairpin {
+        namespace StaveHairpin {
             const enum type {CRESC, DECRESC}
         }
         
@@ -877,7 +877,7 @@ declare module Vex {
             draw() : boolean;
         }
         
-        export module StaveLine {
+        namespace StaveLine {
             const enum TextVerticalPosition {TOP, BOTTOM}
             const enum TextJustification {LEFT, CENTER, RIGHT}
         }
@@ -907,7 +907,7 @@ declare module Vex {
             addEndModifier() : void;
         }
         
-        module StaveNote {
+        namespace StaveNote {
             const STEM_UP : number;
             const STEM_DOWN : number;
             const CATEGORY : string;
@@ -1019,7 +1019,7 @@ declare module Vex {
             draw() : boolean;
         }
         
-        module Stem {
+        namespace Stem {
             const UP : number;
             const DOWN : number;
         }
@@ -1071,7 +1071,7 @@ declare module Vex {
             drawStem(stem_struct : {x_begin? : number, x_end? : number, y_top? : number, y_bottom? : number, y_extend? : number, stem_extension? : number, stem_direction? : number}) : void;
         }
         
-        module StringNumber {
+        namespace StringNumber {
             const CATEGORY : string;
         }
         
@@ -1096,7 +1096,7 @@ declare module Vex {
             draw() : void;
         }
         
-        export module Stroke {
+        namespace Stroke {
             const enum Type {BRUSH_DOWN, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
             const CATEGORY : string;
         }
@@ -1175,7 +1175,7 @@ declare module Vex {
             draw() : void;
         }
         
-        module TabSlide {
+        namespace TabSlide {
             const SLIDE_UP : number;
             const SLIDE_DOWN : number;
         }
@@ -1200,7 +1200,7 @@ declare module Vex {
             draw() : boolean;
         }
         
-        export module TextBracket {
+        namespace TextBracket {
             const enum Positions {TOP, BOTTOM}
         }
         
@@ -1223,7 +1223,7 @@ declare module Vex {
             draw() : void;
         }
         
-        export module TextNote {
+        namespace TextNote {
             const enum Justification {LEFT, CENTER, RIGHT}
             const GLYPHS : {[name : string] : {code : string, point : number, x_shift : number, y_shift : number}}
         }
@@ -1286,7 +1286,7 @@ declare module Vex {
             static getNextContext(tContext : TickContext) : TickContext;
         }
         
-        module TimeSignature {
+        namespace TimeSignature {
             const glyphs : {[name : string] : {code : string, point : number, line : number}};
         }
         
@@ -1321,7 +1321,7 @@ declare module Vex {
             draw() : void;
         }
         
-        module Tuning {
+        namespace Tuning {
             const names : {[name : string] : string};
         }
         
@@ -1334,7 +1334,7 @@ declare module Vex {
             getNoteForFret(fretNum : string, stringNum : string) : string; 
         }
         
-        module Tuplet {
+        namespace Tuplet {
             const LOCATION_TOP : number;
             const LOCATION_BOTTOM : number;            
         }
@@ -1355,7 +1355,7 @@ declare module Vex {
             draw() : void;
         }
         
-        module Vibrato {
+        namespace Vibrato {
             const CATEGORY : string;
         }
         
@@ -1366,7 +1366,7 @@ declare module Vex {
             draw() : void;            
         }
         
-        export module Voice {
+        namespace Voice {
             const enum Mode {STRICT, SOFT, FULL}
         }
         
@@ -1399,7 +1399,7 @@ declare module Vex {
             addVoice(voice : Voice) : void;
         }
         
-        export module Volta {
+        namespace Volta {
             const enum type {NONE, BEGIN, MID, END, BEGIN_END}
         }
         
