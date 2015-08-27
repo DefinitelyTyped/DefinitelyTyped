@@ -52,11 +52,11 @@ declare module CryptoJS{
             init(cfg?: C): void
             create(cfg?: C): IHasher<C>
 
-            update(messageUpdate: WordArray): Hasher
             update(messageUpdate: string): Hasher
+            update(messageUpdate: WordArray): Hasher
 
-            finalize(messageUpdate?: WordArray): WordArray
             finalize(messageUpdate?: string): WordArray
+            finalize(messageUpdate?: WordArray): WordArray
 
             blockSize: number
 
@@ -69,16 +69,16 @@ declare module CryptoJS{
 
         //tparam C - Configuration type
         interface IHasherHelper<C>{
-            (message: WordArray, cfg?: C): WordArray
             (message: string, cfg?: C): WordArray
+            (message: WordArray, cfg?: C): WordArray
         }
         interface HasherHelper extends IHasherHelper<Object>{}
 
         interface IHasherHmacHelper{
-            (message: WordArray,  key: WordArray): WordArray
+            (message: string,     key: string): WordArray
             (message: string,     key: WordArray): WordArray
             (message: WordArray,  key: string): WordArray
-            (message: string,     key: string): WordArray
+            (message: WordArray,  key: WordArray): WordArray
         }
 
         //tparam C - Configuration type
@@ -90,11 +90,11 @@ declare module CryptoJS{
             create(xformMode?: number, key?: WordArray, cfg?: C): ICipher<C>
             init(xformMode?: number, key?: WordArray, cfg?: C): void
 
-            process(dataUpdate: WordArray): WordArray
             process(dataUpdate: string): WordArray
+            process(dataUpdate: WordArray): WordArray
 
-            finalize(dataUpdate?: WordArray): WordArray
             finalize(dataUpdate?: string): WordArray
+            finalize(dataUpdate?: WordArray): WordArray
 
             keySize: number
             ivSize: number
@@ -181,15 +181,15 @@ declare module CryptoJS{
 
         /** see Cipher._createHelper */
         interface ICipherHelper<C>{
-            encrypt(message: WordArray, key: WordArray, cfg?: C): CipherParams
+            encrypt(message: string,    password: string, cfg?: C): CipherParams
             encrypt(message: string,    key: WordArray, cfg?: C): CipherParams
             encrypt(message: WordArray, password: string, cfg?: C): CipherParams
-            encrypt(message: string,    password: string, cfg?: C): CipherParams
+            encrypt(message: WordArray, key: WordArray, cfg?: C): CipherParams
 
-            decrypt(ciphertext: CipherParamsData, key: WordArray, cfg?: C): WordArray
+            decrypt(ciphertext: string,       password: string, cfg?: C): WordArray
             decrypt(ciphertext: string,       key: WordArray, cfg?: C): WordArray
             decrypt(ciphertext: CipherParamsData, password: string, cfg?: C): WordArray
-            decrypt(ciphertext: string,       password: string, cfg?: C): WordArray
+            decrypt(ciphertext: CipherParamsData, key: WordArray, cfg?: C): WordArray
         }
 
         interface CipherHelper extends ICipherHelper<Object>{}
@@ -228,8 +228,8 @@ declare module CryptoJS{
         }
 
         interface IKdfImpl{
-            execute(password: string, keySize: number, ivSize: number, salt?: lib.WordArray): lib.CipherParams
             execute(password: string, keySize: number, ivSize: number, salt?: string): lib.CipherParams
+            execute(password: string, keySize: number, ivSize: number, salt?: lib.WordArray): lib.CipherParams
         }
     }
 
@@ -305,26 +305,26 @@ declare module CryptoJS{
         }
 
         interface HMAC extends lib.Base{
-            init(hasher?: lib.Hasher, key?: lib.WordArray): void
             init(hasher?: lib.Hasher, key?: string): void
-            create(hasher?: lib.Hasher, key?: lib.WordArray): HMAC
+            init(hasher?: lib.Hasher, key?: lib.WordArray): void
             create(hasher?: lib.Hasher, key?: string): HMAC
+            create(hasher?: lib.Hasher, key?: lib.WordArray): HMAC
 
-            update(messageUpdate: lib.WordArray): HMAC
             update(messageUpdate: string): HMAC
+            update(messageUpdate: lib.WordArray): HMAC
 
-            finalize(messageUpdate?: lib.WordArray): lib.WordArray
             finalize(messageUpdate?: string): lib.WordArray
+            finalize(messageUpdate?: lib.WordArray): lib.WordArray
         }
 
         interface EvpKDF extends lib.Base{
             cfg: IEvpKDFCfg
             init(cfg?: IEvpKDFCfg): void
             create(cfg?: IEvpKDFCfg): EvpKDF
-            compute(password: lib.WordArray,  salt: lib.WordArray): lib.WordArray
+            compute(password: string,         salt: string): lib.WordArray
             compute(password: string,         salt: lib.WordArray): lib.WordArray
             compute(password: lib.WordArray,  salt: string): lib.WordArray
-            compute(password: string,         salt: string): lib.WordArray
+            compute(password: lib.WordArray,  salt: lib.WordArray): lib.WordArray
         }
         interface IEvpKDFCfg{
             keySize?: number //default 128/32
@@ -332,10 +332,10 @@ declare module CryptoJS{
             iterations?: number //default 1
         }
         interface IEvpKDFHelper{
-            (password: lib.WordArray,  salt: lib.WordArray, cfg?: IEvpKDFCfg): lib.WordArray
+            (password: string,         salt: string,        cfg?: IEvpKDFCfg): lib.WordArray
             (password: string,         salt: lib.WordArray, cfg?: IEvpKDFCfg): lib.WordArray
             (password: lib.WordArray,  salt: string,        cfg?: IEvpKDFCfg): lib.WordArray
-            (password: string,         salt: string,        cfg?: IEvpKDFCfg): lib.WordArray
+            (password: lib.WordArray,  salt: lib.WordArray, cfg?: IEvpKDFCfg): lib.WordArray
         }
 
         interface PBKDF2 extends EvpKDF{} //PBKDF2 is same as EvpKDF
