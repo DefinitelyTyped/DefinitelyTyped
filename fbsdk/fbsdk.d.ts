@@ -67,7 +67,6 @@ interface PayDialogParams {
     test_currency?: string;
 }
 
-// TODO: add login dialog, which isn't well-documented at all
 declare type FBUIParams = ShareDialogParams
                         | PageTabDialogParams
                         | RequestsDialogParams
