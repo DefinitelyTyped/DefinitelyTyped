@@ -88,6 +88,42 @@ declare module olx {
         targetSize?: number;
     }
 
+    interface ImageWMSOptions {
+
+        /** Attributions. */
+        attributions?: Array<ol.Attribution>;
+
+        /** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string;
+
+        /** experimental Use the ol.Map#pixelRatio value when requesting the image from the remote server. Default is true. */
+        hidpi?: boolean;
+
+        /** experimental The type of the remote WMS server: mapserver, geoserver or qgis. Only needed if hidpi is true. Default is undefined. */
+        serverType?: any;
+
+        /** experimental Optional function to load an image given a URL. */
+        imageLoadFunction?: any;
+
+        /** Logo. */
+        logo?: any;
+
+        /** WMS request parameters. At least a LAYERS param is required. STYLES is '' by default. VERSION is 1.3.0 by default. WIDTH, HEIGHT, BBOX and CRS (SRS for WMS version < 1.3.0) will be set dynamically. */
+        params?: any;
+
+        /** experimental Projection. */
+        projection?: ol.proj.ProjectionLike;
+        /** Ratio. 1 means image requests are the size of the map viewport, 2 means twice the width and height of the map viewport, and so on. Must be 1 or higher. Default is 1.5. */
+        ratio?: number;
+
+        /** Resolutions. If specified, requests will be made for these resolutions only. */
+        resolutions?: Array<number>;
+
+        /** WMS service URL. */
+        url?: string;
+    }
+
+
     interface MapOptions {
 
         /** Controls initially added to the map. If not specified, ol.control.defaults() is used. */
@@ -2150,7 +2186,7 @@ declare module ol {
         * @param number Input between 0 and 1
         * @returns Output between 0 and 1
         */
-        function inAndOut (t: number): number;
+        function inAndOut(t: number): number;
 
         /**
         * Maintain a constant speed over time.
@@ -3112,6 +3148,7 @@ declare module ol {
         }
 
         class ImageWMS {
+            constructor(options: olx.ImageWMSOptions);
         }
 
         class MapQuest {
