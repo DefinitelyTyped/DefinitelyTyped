@@ -3,7 +3,7 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='./..//mysql/mysql.d.ts' />
+///<reference path='./../mysql/mysql.d.ts' />
 ///<reference path='./../bluebird/bluebird.d.ts' />
 
 declare module "node-mysql-wrapper" {
@@ -19,7 +19,7 @@ declare module "node-mysql-wrapper" {
 	class MysqlUtil {
 		constructor();
 		static copyObject<T>(object: T): T;
-		static toObjectProperty(columnKey: any): string;
+		static toObjectProperty(columnKey: string): string;
 		static toRowProperty(objectKey: string): string;
 		static forEachValue<T, U>(map: Map<T>, callback: (value: T) => U): U;
 		static forEachKey<T, U>(map: Map<T>, callback: (key: string) => U): U;
@@ -90,18 +90,18 @@ declare module "node-mysql-wrapper" {
 		findAll(callback?: (_results: any[]) => any): Promise<any[]>;
 		save(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<any>;
 		safeRemove(id: number | string, callback?: (_result: {
-			affectedRows;
-			table;
+			affectedRows:number;
+			table:string;
 		}) => any): Promise<{
-			affectedRows;
-			table;
+			affectedRows:number;
+			table:string;
 		}>;
 		remove(criteriaRawJsObject: any, callback?: (_result: {
-			affectedRows;
-			table;
+			affectedRows:number;
+			table:string;
 		}) => any): Promise<{
-			affectedRows;
-			table;
+			affectedRows:number;
+			table:string;
 		}>;
 	}
 
