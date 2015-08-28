@@ -30,4 +30,5 @@ app.$mount("#main");
 
 var AppConstructor = Vue.extend({});
 var extendedApp = new AppConstructor();
-app.$mount("#main");
+var el = document.createElement("div");
+extendedApp.$mount(el);
