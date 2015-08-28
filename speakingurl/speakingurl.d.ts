@@ -5,7 +5,7 @@
 
 declare module "speakingurl" {
 
-    export interface slugOptions {
+    export interface ISlugOptions {
         separator?: string,
         lang?: string,
         symbols?: boolean,
@@ -17,13 +17,15 @@ declare module "speakingurl" {
         mark?: boolean,
         custom?: {}|string[]
     }
-    
-    export function getSlug(input: string, options?: string): string;
-    export function getSlug(input: string, options?: slugOptions): string;
 
-    export function createSlug(options?: string): (input: string, options?: string) => string;
-    export function createSlug(options?: string): (input: string, options?: slugOptions) => string;
-    export function createSlug(options?: slugOptions): (input: string, options?: string) => string;
-    export function createSlug(options?: slugOptions): (input: string, options?: slugOptions) => string;
+    interface IGetSlug {
+        (input: string, options?: string): string;
+        (input: string, options?: ISlugOptions): string;
+    }
+    
+    export function getSlug(): IGetSlug;
+
+    export function createSlug(options?: string): IGetSlug;
+    export function createSlug(options?: ISlugOptions): IGetSlug;
 
 }
