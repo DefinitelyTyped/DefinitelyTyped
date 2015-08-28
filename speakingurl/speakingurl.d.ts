@@ -27,6 +27,7 @@ declare module "speakingurl" {
     }
 
     export function getSlug(input: string, options?: string): string;
+    export function getSlug(input: string, options?: ISlugOptions): string;
 
     export function createSlug(options?: string): IGetSlug;
     export function createSlug(options?: ISlugOptions): IGetSlug;
