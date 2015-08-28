@@ -1,10 +1,13 @@
-// Type definitions for ReactWithAddons v0.13.1 (internal module)
+// Type definitions for React v0.13.3 (namespace)
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-/// <reference path="react-global.d.ts" />
 
-declare module React {
+/// <reference path="react.d.ts" />
+
+import React = __React;
+
+declare namespace __React {
     //
     // React.addons
     // ----------------------------------------------------------------------
@@ -275,4 +278,3 @@ declare module React {
         unmount(): void;
     }
 }
-
