@@ -3,129 +3,125 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path='../mysql/mysql.d.ts' />
+///<reference path='./..//mysql/mysql.d.ts' />
 ///<reference path='./../bluebird/bluebird.d.ts' />
 
 declare module "node-mysql-wrapper" {
-    import Mysql = require("mysql");
+	import * as Mysql from 'mysql';
+	import * as Promise from 'bluebird';
 
-    function MySQLWrapperBuilder(connection: string | Mysql.IConnection, ...useOnlyTables: string[]): MySQLWrapper;
+	var EQUAL_TO_PROPERTY_SYMBOL: string;
 
-    enum EVENT_TYPES {
-        INSERT, UPDATE, DELETE, SAVE
-    }
+	interface Map<T> {
+		[index: string]: T;
+	}
 
-    interface MySQLConnection {
-        new (connection: string | Mysql.IConnection): MySQLConnection;
+	class MysqlUtil {
+		constructor();
+		static copyObject<T>(object: T): T;
+		static toObjectProperty(columnKey: any): string;
+		static toRowProperty(objectKey: string): string;
+		static forEachValue<T, U>(map: Map<T>, callback: (value: T) => U): U;
+		static forEachKey<T, U>(map: Map<T>, callback: (key: string) => U): U;
+	}
 
-        create(connectionUri: string): void;
-        create(connection: Mysql.IConnection): void;
+	interface ICriteria {
+		rawCriteriaObject: any;
+		tables: string[];
+		noDatabaseProperties: string[];
+		whereClause: string;
+	}
+	class Criteria implements ICriteria {
+		rawCriteriaObject: any;
+		tables: string[];
+		noDatabaseProperties: string[];
+		whereClause: string;
+		constructor(rawCriteriaObject: any, tables: string[], noDatabaseProperties: string[], whereClause: string);
+	}
+	class CriteriaBuilder {
+		private _table;
+		constructor(table: MysqlTable);
+		build(rawCriteriaObject: any): Criteria;
+	}
 
-        attach(connection: Mysql.IConnection): void;
-        end(callback: () => void): void;
-        destroy(): void;
-        link<U>(callback?: () => void): Promise<U>;
-        connect<U>(callback?: () => void): Promise<U>;
+	class MysqlConnection {
+		connection: Mysql.IConnection;
+		eventTypes: string[];
+		tableNamesToUseOnly: any[];
+		tables: MysqlTable[];
+		constructor(connection: string | Mysql.IConnection);
+		create(connection: string | Mysql.IConnection): void;
+		attach(connection: Mysql.IConnection): void;
+		end(callback?: (error: any) => void): void;
+		destroy(): void;
+		link(readyCallback?: () => void): Promise<void>;
+		useOnly(...tables: any[]): void;
+		fetchDatabaseInfornation(): Promise<void>;
+		escape(val: string): string;
+		notice(tableWhichCalled: string, queryStr: string, parsedResults: any[]): void;
+		watch(tableName: string, evtType: any, callback: (parsedResults: any[]) => void): void;
+		unwatch(tableName: string, evtType: string, callbackToRemove: (parsedResults: any[]) => void): void;
+		query(queryStr: string, callback: (err: Mysql.IError, results: any) => any, queryArguments?: any[]): void;
+		table(tableName: string): MysqlTable;
+	}
 
-        useOnly(...useOnlyTables: string[]): void;
+	class MysqlTable {
+		private _name;
+		private _connection;
+		private _columns;
+		private _primaryKey;
+		private _criteriaBuilder;
+		constructor(tableName: string, connection: MysqlConnection);
+		columns: string[];
+		primaryKey: string;
+		connection: MysqlConnection;
+		name: string;
+		on(evtType: string, callback: (parsedResults: any[]) => void): void;
+		off(evtType: string, callbackToRemove: (parsedResults: any[]) => void): void;
+		has(extendedFunctionName: string): boolean;
+		extend(functionName: string, theFunction: (...args: any[]) => any): void;
+		objectFromRow(row: any): any;
+		rowFromObject(obj: any): any;
+		getRowAsArray(jsObject: any): Array<any>;
+		getPrimaryKeyValue(jsObject: any): number | string;
+		parseQueryResult(result: any, criteria: ICriteria): Promise<any>;
+		find(criteriaRawJsObject: any, callback?: (_results: any[]) => any): Promise<any[]>;
+		findById(id: number | string, callback?: (result: Object) => any): Promise<Object>;
+		findAll(callback?: (_results: any[]) => any): Promise<any[]>;
+		save(criteriaRawJsObject: any, callback?: (_result: any) => any): Promise<any>;
+		safeRemove(id: number | string, callback?: (_result: {
+			affectedRows;
+			table;
+		}) => any): Promise<{
+			affectedRows;
+			table;
+		}>;
+		remove(criteriaRawJsObject: any, callback?: (_result: {
+			affectedRows;
+			table;
+		}) => any): Promise<{
+			affectedRows;
+			table;
+		}>;
+	}
 
-        fetchDatabaseInfornation<U>(): Promise<U>;
+	class MysqlWrapper {
+		connection: MysqlConnection;
+		readyListenerCallbacks: Function[];
+		constructor(connection?: MysqlConnection);
+		static when(..._promises: Promise<any>[]): Promise<any>;
+		setConnection(connection: MysqlConnection): void;
+		useOnly(...useTables: any[]): void;
+		has(tableName: string, functionName?: string): boolean;
+		ready(callback: () => void): void;
+		table(tableName: string): MysqlTable;
+		noticeReady(): void;
+		removeReadyListener(callback: () => void): void;
+		query(queryStr: string, callback: (err: Mysql.IError, results: any) => any, queryArguments?: any[]): void;
+		destroy(): void;
+		end(maybeAcallbackError: (err: any) => void): void;
+	}
 
-        escape(val: string): string;
-        notice(tableWhichCalled: string, queryStr: string, parsedResults: Object[]): void;
-        fireEvent(tableWhichCalled: string, queryStr: string, parsedResults: Object[]): void;
+    function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): MysqlWrapper;
 
-        watch(tableName: string, evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
-        on(tableName: string, evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
-        unwatch(tableName: string, evtType: EVENT_TYPES | string, callbackToRemove: () => void): void;
-        off(tableName: string, evtType: EVENT_TYPES | string, callbackToRemove: () => void): void;
-
-        query(mysqlQuery: Mysql.IQueryFunction): void;
-
-        table(tableName: string): MySQLTable;
-    }
-
-    interface MySQLTable {
-        new (tableName: string, connection: MySQLConnection): MySQLTable;
-
-        setColumns(columns: string[]): void;
-
-        setPrimaryKey(primaryKeyColumnName: string): void;
-
-        toString(): string;
-
-        model(jsObject: Object): MySQLModel;
-
-        watch(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
-        on(evtType: EVENT_TYPES | string, callback: (parsedResults: Object[]) => void): void;
-        unwatch(evtType: EVENT_TYPES|string, callbackToRemove: () => void): void;
-        off(evtType: EVENT_TYPES|string, callbackToRemove: () => void): void;
-
-        ///START DYNAMIC METHODS FOR TABLES CANNOT BE PRE-DEFINED WITH DYNAMIC WAY, YET, SO:
-        find<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
-        save<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
-        remove<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
-        delete<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
-        safeDelete<U>(jsObject: Object, callback?: (results: Object[]) => void): Promise<U>;
-        ///END
-        findAll<U>(callback?: (results: Object[]) => void): Promise<U>;
-
-        extend(functionName: string, functionToBeSupported: () => any): void;
-
-        has(extendedFunctionName: string): boolean;
-
-    }
-
-    interface MySQLModel {
-
-        new (table: MySQLTable, jsObject: Object): MySQLModel;
-
-        toObjectProperty(columnKey: string): string;
-        toRowProperty(objectKey: string): string;
-
-        create(jsObject: Object): MySQLModel;
-        reUse(jsObject: Object): MySQLModel;
-
-        toRow(): void;
-        getRawObject(): Object;
-
-        parseTable<U>(mysqlTableToSearch: String, parentObject: Object): Promise<U>;
-        parseResult<U>(result: Object, tablesToSearch: string[]): Promise<U>;
-
-        find<U>(parentObj?: Object): Promise<U>;
-        findAll<U>(): Promise<U>;
-        save<U>(): Promise<U>;
-        safeDelete<U>(): Promise<U>;
-        remove<U>(): Promise<U>;
-        delete<U>(): Promise<U>;
-
-    }
-
-    interface MySQLWrapper {
-        new (connection?: MySQLConnection): MySQLWrapper;
-
-        setConnection(connection: MySQLConnection): void;
-
-        useOnly(...useOnlyTables: string[]): void;
-
-        has(tableName: string): boolean;
-        has(tableName: string, methodName: string): boolean;
-
-        ready(callback: () => void): void;
-        noticeReady(): void;
-        removeReadyListener(callback: () => any): void;
-
-        query: Mysql.IQueryFunction;
-
-        destroy(): void;
-        end(callback?: () => void): void;
-
-        when<U>(): Promise<U[]>;
-
-        ///START: WE CANNOT PRE-DEFINE THE DYNAMIC TABLES INTO PROPERTIES, SO WE USE INDEX(STRING-TABLENAME) TO GET A TABLE
-        table(tableName: string): MySQLTable;
-        ///END
-    }
-
-    export = MySQLWrapperBuilder;
 }
