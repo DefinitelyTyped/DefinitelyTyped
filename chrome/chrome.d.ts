@@ -172,12 +172,24 @@ declare module chrome.bookmarks {
     var onChildrenReordered: BookmarkChildrenReordered;
 }
 
-////////////////////
-// Browser Action
-////////////////////
+/**
+ * Use browser actions to put icons in the main Google Chrome toolbar, to the right of the address bar.
+ * In addition to its icon, a browser action can also have a tooltip, a badge, and a popup.
+ */
 declare module chrome.browserAction {
+
+    // Types
+
+    interface ColorArray extends Array<number> {
+    }
+
+    interface ImageDataType extends ImageData {
+    }
+
+    // Functions parameters
+
     interface BadgeBackgroundColorDetails {
-        color: any;
+        color: string | ColorArray;
         tabId?: number;
     }
 
@@ -196,15 +208,27 @@ declare module chrome.browserAction {
     }
 
     interface TabIconDetails {
-        path?: any;
         tabId?: number;
-        imageData?: ImageData;
+        path?: string | TabIconPathDictionary;
+        imageData?: ImageDataType | TabIconImageDataDictionary
+    }
+
+    interface TabIconPathDictionary {
+        19: string;
+        38: string;
+    }
+
+    interface TabIconImageDataDictionary {
+        19: ImageDataType;
+        38: ImageDataType;
     }
 
     interface PopupDetails {
         tabId?: number;
         popup: string;
     }
+
+    // Events
 
     interface BrowserClickedEvent extends chrome.events.Event {
         addListener(callback: (tab: chrome.tabs.Tab) => void): void;
@@ -218,7 +242,7 @@ declare module chrome.browserAction {
     export function setPopup(details: PopupDetails): void;
     export function disable(tabId?: number): void;
     export function getTitle(details: TabDetails, callback: (result: string) => void): void;
-    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: number[]) => void): void;
+    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
     export function getPopup(details: TabDetails, callback: (result: string) => void): void;
     export function setIcon(details: TabIconDetails, callback?: Function): void;
 
