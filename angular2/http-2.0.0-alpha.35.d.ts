@@ -9,6 +9,7 @@
 // modifying this file.
 // ***********************************************************
 
+///<reference path="./angular2.d.ts"/>
 
 /**
  * @module* 
