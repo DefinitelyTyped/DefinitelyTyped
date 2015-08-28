@@ -12,10 +12,6 @@ interface Window {
     chrome: typeof chrome;
 }
 
-////////////////////
-// Alarms
-////////////////////
-
 /**
  * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
  */
@@ -45,37 +41,6 @@ declare module chrome.alarms {
     export function get(name: string, callback: (alarm: Alarm) => void): void;
 
     var onAlarm: AlarmEvent;
-}
-
-/**
- * Use the chrome.browser API to interact with the Chrome browser associated with 
- * the current application and Chrome profile. 
- */
-declare module chrome.browser {
-    interface Options {
-        /**
-         * The URL to navigate to when the new tab is initially opened.
-         */
-        url:string;
-    }
-    
-    /**
-     * Opens a new tab in a browser window associated with the current application 
-     * and Chrome profile. If no browser window for the Chrome profile is opened, 
-     * a new one is opened prior to creating the new tab. 
-     * @param options Configures how the tab should be opened. 
-     * @param callback Called when the tab was successfully 
-     * created, or failed to be created. If failed, runtime.lastError will be set.
-     */
-    export function openTab (options: Options, callback: () => void): void;
-     
-     /**
-     * Opens a new tab in a browser window associated with the current application 
-     * and Chrome profile. If no browser window for the Chrome profile is opened, 
-     * a new one is opened prior to creating the new tab. Since Chrome 42 only. 
-     * @param options Configures how the tab should be opened. 
-     */
-    export function openTab (options: Options): void;
 }
 
 ////////////////////
