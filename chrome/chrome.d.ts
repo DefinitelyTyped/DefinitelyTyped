@@ -149,12 +149,10 @@ declare module chrome.bookmarks {
         addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
     }
 
-    export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
-    export function search(queryObject: BookmarkSearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
+    export function search(query: string | BookmarkSearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
     export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
     export function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
-    export function get(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
-    export function get(idList: string[], callback: (results: BookmarkTreeNode[]) => void): void;
+    export function get(ids: string | string[], callback: (results: BookmarkTreeNode[]) => void): void;
     export function create(bookmark: BookmarkCreation, callback?: (result: BookmarkTreeNode) => void): void;
     export function move(id: string, destination: BookmarkMoveDestination, callback?: (result: BookmarkTreeNode) => void): void;
     export function update(id: string, changes: BookmarkChanges, callback?: (result: BookmarkTreeNode) => void): void;
