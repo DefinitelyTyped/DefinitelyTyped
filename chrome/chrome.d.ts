@@ -375,21 +375,23 @@ declare module chrome.contentSettings {
     export const images: ContentSetting;
 }
 
-////////////////////
-// Context Menus
-////////////////////
+/**
+ * Use the chrome.contextMenus API to add items to Google Chrome's context menu.
+ * You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.
+ */
 declare module chrome.contextMenus {
+
     interface OnClickData {
         selectionText?: string;
         checked?: boolean;
-        menuItemId: any;
+        menuItemId: number | string;
         frameUrl?: string;
         editable: boolean;
         mediaType?: string;
         wasChecked?: boolean;
-        pageUrl: string;
+        pageUrl?: string;
         linkUrl?: string;
-        parentMenuItemId?: any;
+        parentMenuItemId?: number | string;
         srcUrl?: string;
     }
 
@@ -401,7 +403,7 @@ declare module chrome.contextMenus {
         enabled?: boolean;
         targetUrlPatterns?: string[];
         onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
-        parentId?: any;
+        parentId?: number | string;
         type?: string;
         id?: string;
     }
@@ -413,8 +415,8 @@ declare module chrome.contextMenus {
         contexts?: string[];
         enabled?: boolean;
         targetUrlPatterns?: string[];
-        onclick?: Function;
-        parentId?: any;
+        onclick?: (info: OnClickData, tab: chrome.tabs.Tab) => void;
+        parentId?: number | string;
         type?: string;
     }
 
@@ -424,8 +426,8 @@ declare module chrome.contextMenus {
 
     export function removeAll(callback?: Function): void;
     export function create(createProperties: CreateProperties, callback?: Function): void;
-    export function update(id: any, updateProperties: UpdateProperties, callback?: Function): void;
-    export function remove(menuItemId: any, callback?: Function): void;
+    export function update(id: number | string, updateProperties: UpdateProperties, callback?: Function): void;
+    export function remove(menuItemId: number | string, callback?: Function): void;
 
     export const ACTION_MENU_TOP_LEVEL_LIMIT: number;
 
