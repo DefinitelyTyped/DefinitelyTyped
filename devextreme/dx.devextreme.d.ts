@@ -1887,14 +1887,77 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxBoxOptions);
     }
     export interface dxAutocompleteOptions extends dxDropDownListOptions {
-        /** Specifies the current value displayed by the widget. */
-        value?: string;
-        /** The minimum number of characters that must be entered into the text box to begin a search. */
-        minSearchLength?: number;
+        accessKey?: string;
+        activeStateEnabled?: boolean;
+        attr?: any;
+        dataSource?: any;
+        disabled?: boolean;
+        displayValue?: string;
+        fieldEditEnabled?: boolean;
+        focusStateEnabled?: boolean;
+        height?: string | number | (() => string | number);
+        hint?: string;
+        hoverStateEnabled?: boolean;
+        isValid?: boolean;
+        items?: any[];
+        /**
+         * The template to be used for rendering items.
+         * Defaults Value: "item"
+         */
+        itemTemplate?: string | Node | JQuery | (() => string | Node | JQuery);
         /** Specifies the maximum count of items displayed by the widget. */
         maxItemCount?: number;
+
+        maxLength?: string | number;
+        /** The minimum number of characters that must be entered into the text box to begin a search. */
+        minSearchLength?: number;
+
+
+        mode?: string; // "text" | "email" | "search" | "tel" | "url" | "password"
+        onChange?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onClosed?: (e: { component: any; element: JQuery; model: any }) => void;
+        onContentReady?: (e: { component: any; element: JQuery; model: any }) => void;
+        onCopy?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onCut?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onDisposing?: (e: { component: any; element: JQuery; model: any }) => void;
+        onEnterKey?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onFocusIn?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onFocusOut?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onInitialized?: (e: { component: any; element: JQuery }) => void;
+        onInput?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onItemClick?: (e: { component: any; element: JQuery; model: any; itemElement: HTMLElement }) => void;
+        onKeyDown?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onKeyPress?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onKeyUp?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onOpened?: (e: { component: any; element: JQuery; model: any }) => void;
+        onOptionChanged?: (e: { component: any; element: JQuery; model: any; value: any }) => void;
+        onPaste?: (e: { component: any; element: JQuery; model: any; event: JQueryEventObject }) => void;
+        onSelectionChanged?: (e: { component: any; element: JQuery; model: any; selectedItem: any }) => void;
+        onValueChanged?: (e: { component: any; element: JQuery; model: any; value: any; previousValue: any; itemData: any; jQueryEvent: JQueryEventObject }) => void;
+        opened?: boolean;
+        placeholder?: string;
+        readOnly?: boolean;
+        rtlEnabled?: boolean;
+        searchExpr?: string;
+        searchMode?: string; // "contains" | "startswith"
+        searchTimeout?: number;
         /** Gets the currently selected item. */
-        selectedItem?: Object;
+        selectedItem?: any;
+        showClearButton?: boolean;
+        spellcheck?: boolean;
+        tabIndex?: number;
+        text?: string;
+        validationError?: any;
+        validationMessageMode?: string; // "auto" | "always"
+        /** Specifies the current value displayed by the widget. */
+        value?: string;
+        /**
+         * CAn be any DOM event names separated by spaces.
+         */
+        valueChangeEvent?: string;
+        valueExpr?: string | Function;
+        visible?: boolean;
+        width?: string | number | (() => string | number);
     }
     /** A textbox widget that supports autocompletion. */
     export class dxAutocomplete extends dxDropDownList {
