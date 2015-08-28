@@ -5,7 +5,7 @@
 
 declare module "speakingurl" {
 
-    interface slugOptions {
+    export interface slugOptions {
         separator: string,
         lang: string,
         symbols: boolean,
