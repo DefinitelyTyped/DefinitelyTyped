@@ -43,10 +43,15 @@ declare module chrome.alarms {
     var onAlarm: AlarmEvent;
 }
 
-////////////////////
-// Bookmarks
-////////////////////
+/**
+ * Use the chrome.bookmarks API to create, organize, and otherwise manipulate bookmarks.
+ * Also see {@link https://developer.chrome.com/extensions/override|Override Pages},
+ * which you can use to create a custom Bookmark Manager page.
+ */
 declare module chrome.bookmarks {
+
+    // Types
+
     interface BookmarkTreeNode {
         index?: number;
         dateAdded?: number;
@@ -56,7 +61,35 @@ declare module chrome.bookmarks {
         id: string;
         parentId?: string;
         children?: BookmarkTreeNode[];
+        unmodifiable?: string;
     }
+
+    // Function parameters
+
+    interface BookmarkCreation {
+        parentId?: string;
+        index?: number;
+        title?: string;
+        url?: string;
+    }
+
+    interface BookmarkSearchQuery {
+        query?: string;
+        url?: string;
+        title?: string;
+    }
+
+    interface BookmarkMoveDestination {
+        parentId?: string;
+        index?: number;
+    }
+
+    interface BookmarkChanges {
+        title?: string;
+        url?: string;
+    }
+
+    // Callbacks parameters
 
     interface BookmarkRemoveInfo {
         index: number;
@@ -78,6 +111,8 @@ declare module chrome.bookmarks {
     interface BookmarkReorderInfo {
         childIds: string[];
     }
+
+    // Events
 
     interface BookmarkRemovedEvent extends chrome.events.Event {
         addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
@@ -107,17 +142,15 @@ declare module chrome.bookmarks {
         addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
     }
 
-    export const MAX_WRITE_OPERATIONS_PER_HOUR: number;
-    export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
-
     export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
+    export function search(queryObject: BookmarkSearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
     export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
     export function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
     export function get(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function get(idList: string[], callback: (results: BookmarkTreeNode[]) => void): void;
-    export function create(bookmark: Object, callback?: (result: BookmarkTreeNode) => void): void;
-    export function move(id: string, destination: Object, callback?: (result: BookmarkTreeNode) => void): void;
-    export function update(id: string, changes: Object, callback?: (result: BookmarkTreeNode) => void): void;
+    export function create(bookmark: BookmarkCreation, callback?: (result: BookmarkTreeNode) => void): void;
+    export function move(id: string, destination: BookmarkMoveDestination, callback?: (result: BookmarkTreeNode) => void): void;
+    export function update(id: string, changes: BookmarkChanges, callback?: (result: BookmarkTreeNode) => void): void;
     export function remove(id: string, callback?: Function): void;
     export function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
     export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
