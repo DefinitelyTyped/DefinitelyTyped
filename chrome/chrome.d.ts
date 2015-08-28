@@ -16,11 +16,8 @@ interface Window {
  * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
  */
 declare module chrome.alarms {
-    interface AlarmCreateInfo {
-        delayInMinutes?: number;
-        periodInMinutes?: number;
-        when?: number;
-    }
+
+    // Types
 
     interface Alarm {
         periodInMinutes?: number;
@@ -28,12 +25,22 @@ declare module chrome.alarms {
         name: string;
     }
 
+    // Callbacks parameters
+
+    interface AlarmCreation {
+        delayInMinutes?: number;
+        periodInMinutes?: number;
+        when?: number;
+    }
+
+    // Events
+
     interface AlarmEvent extends chrome.events.Event {
         addListener(callback: (alarm: Alarm) => void): void;
     }
 
-    export function create(alarmInfo: AlarmCreateInfo): void;
-    export function create(name: string, alarmInfo: AlarmCreateInfo): void;
+    export function create(alarmInfo: AlarmCreation): void;
+    export function create(name: string, alarmInfo: AlarmCreation): void;
     export function getAll(callback: (alarms: Alarm[]) => void): void;
     export function clearAll(): void;
     export function clear(name?: string): void;
