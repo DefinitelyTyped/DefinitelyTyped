@@ -15,6 +15,10 @@ interface Window {
 ////////////////////
 // Alarms
 ////////////////////
+
+/**
+ * Use the chrome.alarms API to schedule code to run periodically or at a specified time in the future.
+ */
 declare module chrome.alarms {
     interface AlarmCreateInfo {
         delayInMinutes?: number;
