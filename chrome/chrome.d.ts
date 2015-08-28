@@ -247,10 +247,13 @@ declare module chrome.browserAction {
     var onClicked: BrowserClickedEvent;
 }
 
-////////////////////
-// Browsing Data
-////////////////////
+/**
+ * Use the chrome.browsingData API to remove browsing data from a user's local profile.
+ */
 declare module chrome.browsingData {
+
+    // Types
+
     interface OriginTypes {
         protectedWeb?: boolean;
         extension?: boolean;
@@ -262,7 +265,7 @@ declare module chrome.browsingData {
         since?: number;
     }
 
-    interface DataToRemove {
+    interface DataTypeSet {
         webSQL?: boolean;
         indexedDB?: boolean;
         cookies?: boolean;
@@ -276,12 +279,22 @@ declare module chrome.browsingData {
         localStorage?: boolean;
         formData?: boolean;
         history?: boolean;
+        serviceWorkers?: boolean;
     }
 
+    // Callbacks parameters
+
+    interface SettingsRequestResult {
+        options: RemovalOptions;
+        dataToRemove: DataTypeSet;
+        dataRemovalPermitted: DataTypeSet;
+    }
+
+    export function settings(callback: (result: SettingsRequestResult) => void): void;
     export function removePluginData(options: RemovalOptions, callback?: Function): void;
     export function removeFormData(options: RemovalOptions, callback?: Function): void;
     export function removeFileSystems(options: RemovalOptions, callback?: Function): void;
-    export function remove(options: RemovalOptions, dataToRemove: DataToRemove, callback?: Function): void;
+    export function remove(options: RemovalOptions, dataToRemove: DataTypeSet, callback?: Function): void;
     export function removePasswords(options: RemovalOptions, callback?: Function): void;
     export function removeCookies(options: RemovalOptions, callback?: Function): void;
     export function removeWebSQL(options: RemovalOptions, callback?: Function): void;
