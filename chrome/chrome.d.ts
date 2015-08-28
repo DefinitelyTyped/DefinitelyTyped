@@ -306,9 +306,10 @@ declare module chrome.browsingData {
     export function removeIndexedDB(options: RemovalOptions, callback?: Function): void;
 }
 
-////////////////////
-// Commands
-////////////////////
+/**
+ * Use the commands API to add keyboard shortcuts that trigger actions in your extension,
+ * for example, an action to open the browser action or send a command to the extension.
+ */
 declare module chrome.commands {
     interface Command {
       name?: string;
