@@ -1,7 +1,7 @@
 ///<reference path='./node-mysql-wrapper.d.ts' />
 
-import wrapper = require("node-mysql-wrapper");
-var db = wrapper("mysql://kataras:pass@127.0.0.1/taglub?debug=false&charset=utf8");
+var wrapper = require("node-mysql-wrapper");
+var db = wrapper.wrap("mysql://kataras:pass@127.0.0.1/taglub?debug=false&charset=utf8");
 
 db.ready(() => {
 
@@ -13,10 +13,12 @@ db.ready(() => {
         console.dir(results);
     });
 
-    db.table("users").find({ userId: 18 }, (results) => {
-        console.dir(results[0]);
+    db.table("users").find({ yearsOld: 22 }, (results) => {
+        console.dir(results);
     });
 
-
+	 db.table("users").findById(18, (result) => {
+        console.dir(result);
+    });
 
 });
