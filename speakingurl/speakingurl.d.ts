@@ -6,19 +6,24 @@
 declare module "speakingurl" {
 
     export interface slugOptions {
-        separator: string,
-        lang: string,
-        symbols: boolean,
-        maintainCase: boolean,
-        titleCase: boolean|string[],
-        truncate: number,
-        uric: boolean,
-        uricNoSlash: boolean,
-        mark: boolean,
-        custom: {}|string[]
+        separator?: string,
+        lang?: string,
+        symbols?: boolean,
+        maintainCase?: boolean,
+        titleCase?: boolean|string[],
+        truncate?: number,
+        uric?: boolean,
+        uricNoSlash?: boolean,
+        mark?: boolean,
+        custom?: {}|string[]
     }
+    
+    export function getSlug(input: string, options?: string): string;
+    export function getSlug(input: string, options?: slugOptions): string;
 
-    export function getSlug(input: string, options: string|slugOptions): string;
-    export function createSlug(options: string|slugOptions): (input: string, options: string|slugOptions) => string;
+    export function createSlug(options?: string): (input: string, options?: string) => string;
+    export function createSlug(options?: string): (input: string, options?: slugOptions) => string;
+    export function createSlug(options?: slugOptions): (input: string, options?: string) => string;
+    export function createSlug(options?: slugOptions): (input: string, options?: slugOptions) => string;
 
 }
