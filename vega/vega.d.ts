@@ -220,7 +220,9 @@ declare module Vega {
     * in some cases strict padding is not possible; for example, if the axis
     * labels are much larger than the data rectangle.
     */
-    padding?: any;
+    padding?: number | string | {
+        top: number; left: number; right: number; bottom: number
+    }; // string is "auto" or "strict"
     /**
     * Definitions of data to visualize.
     */
@@ -316,7 +318,8 @@ declare module Vega {
 
     // -- Time/Quantitative scale properties
     clamp?: boolean;
-    nice?: any; // boolean for quantitative scales, string for time scales
+    /** boolean for quantitative scales, string for time scales */
+    nice?: boolean | string;
 
     // -- Quantitative scale properties
     exponent?: number;
