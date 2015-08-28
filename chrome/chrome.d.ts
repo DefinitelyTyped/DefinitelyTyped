@@ -503,16 +503,33 @@ declare module chrome.cookies {
     var onChanged: CookieChangedEvent;
 }
 
-////////////////////
-// Debugger
-////////////////////
+/**
+ * The chrome.debugger API serves as an alternate transport for Chrome's
+ * {@link https://developer.chrome.com/devtools/docs/debugger-protocol|remote debugging protocol}. Use
+ * chrome.debugger to attach to one or more tabs to instrument network interaction, debug JavaScript, mutate
+ * the DOM and CSS, etc. Use the Debuggee tabId to target tabs with sendCommand and route events by tabId
+ * from onEvent callbacks.
+ */
 declare module "chrome.debugger" {
     interface Debuggee {
-        tabId: number;
+        tabId?: number;
+        extensionId?: number;
+        targetId?: number;
+    }
+
+    interface TargetInfo {
+        type: string;
+        id: string;
+        tabId?: number;
+        extensionId?: number;
+        attached: boolean;
+        title: string;
+        url: string;
+        faviconUrl: string;
     }
 
     interface DebuggerDetachedEvent extends chrome.events.Event {
-        addListener(callback: (source: Debuggee) => void): void;
+        addListener(callback: (source: Debuggee, reason: string) => void): void;
     }
 
     interface DebuggerEventEvent extends chrome.events.Event {
@@ -521,7 +538,8 @@ declare module "chrome.debugger" {
 
     export function attach(target: Debuggee, requiredVersion: string, callback?: Function): void;
     export function detach(target: Debuggee, callback?: Function): void;
-    export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result: Object) => void): void;
+    export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
+    export function getTargets(callback: (result: TargetInfo[]) => void): void;
 
     var onDetach: DebuggerDetachedEvent;
     var onEvent: DebuggerEventEvent;
