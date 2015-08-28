@@ -1011,6 +1011,14 @@ declare module angular {
          */
         all<T>(promises: IPromise<any>[]): IPromise<T[]>;
         /**
+         * Spread multiple parallel promises into multiple promises that are resolved when all of the input promises are resolved.
+         *
+         * Returns a multiple promises. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
+         *
+         * @param promises An array of promises.
+         */
+        spread<T>(promises: IPromise<any>[]): IPromise<T[]>;
+        /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
          * Returns a single promise that will be resolved with a hash of values, each value corresponding to the promise at the same key in the promises hash. If any of the promises is resolved with a rejection, this resulting promise will be rejected with the same rejection value.
