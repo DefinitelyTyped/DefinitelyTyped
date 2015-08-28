@@ -20,10 +20,13 @@ declare module "speakingurl" {
 
     interface IGetSlug {
         (input: string, options?: string): string;
+    }
+
+    interface IGetSlug {
         (input: string, options?: ISlugOptions): string;
     }
-    
-    export function getSlug(): IGetSlug;
+
+    export function getSlug(input: string, options?: string): string;
 
     export function createSlug(options?: string): IGetSlug;
     export function createSlug(options?: ISlugOptions): IGetSlug;
