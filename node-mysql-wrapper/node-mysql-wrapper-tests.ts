@@ -17,7 +17,7 @@ db.ready(() => {
         console.dir(results);
     });
 
-	 db.table("users").findById(18, (result) => {
+    db.table("users").findById(18, (result) => {
         console.dir(result);
     });
 
