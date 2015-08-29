@@ -35,7 +35,7 @@ declare module chrome.alarms {
 
     // Events
 
-    interface AlarmEvent extends chrome.events.Event {
+    interface AlarmEvent extends events.Event {
         addListener(callback: (alarm: Alarm) => void): void;
     }
 
@@ -545,52 +545,68 @@ declare module "chrome.debugger" {
     var onEvent: DebuggerEventEvent;
 }
 
-////////////////////
-// Declarative Web Request
-////////////////////
+/**
+ * Use the chrome.declarativeContent API to take actions depending on the content of a page,
+ * without requiring permission to read the page's content.
+ */
+declare module chrome.declarativeContent {
+
+    // types (conditions)
+
+    interface PageStateMatcher extends events.BaseCondition {
+        pageUrl?: events.UrlFilter;
+        css?: string[];
+        isBookmarked?: boolean;
+    }
+
+    // types (actions)
+
+    interface SetIcon extends events.BaseAction {
+        imageData?: ImageData | SetIconDictionary;
+    }
+
+    interface SetIconDictionary {
+        19: ImageData;
+        38: ImageData;
+    }
+
+    interface RequestContentScript extends events.BaseAction {
+        css?: string[];
+        js?: string[];
+        allFrames?: string[];
+        matchAboutBlank?: boolean;
+    }
+
+    interface ShowPageAction extends events.BaseAction {
+    }
+
+    interface PageChangedEvent extends events.Event {
+    }
+
+    var onPageChanged: PageChangedEvent;
+}
+
+/**
+ * Use the chrome.declarativeWebRequest API to intercept, block, or modify requests in-flight. It is
+ * significantly faster than the chrome.webRequest API because you can register rules that are evaluated
+ * in the browser rather than the JavaScript engine with reduces roundtrip latencies and allows higher efficiency.
+ */
 declare module chrome.declarativeWebRequest {
+
     interface HeaderFilter {
         nameEquals?: string;
-        valueContains?: any;
+        valueContains?: string | string[];
         nameSuffix?: string;
         valueSuffix?: string;
         valuePrefix?: string;
-        nameContains?: any;
+        nameContains?: string | string[];
         valueEquals?: string;
         namePrefix?: string;
     }
 
-    interface AddResponseHeader {
-        name: string;
-        value: string;
-    }
-
-    interface RemoveResponseCookie {
-        filter: ResponseCookie;
-    }
-
-    interface RemoveResponseHeader {
-        name: string;
+    interface RequestCookie {
+        name?: string;
         value?: string;
-    }
-
-    interface RequestMatcher {
-        contentType?: string[];
-        url?: chrome.events.UrlFilter;
-        excludeContentType?: string[];
-        excludeResponseHeader?: HeaderFilter[];
-        resourceType?: string;
-        responseHeaders?: HeaderFilter[];
-    }
-
-    interface IgnoreRules {
-        lowerPriorityThan: number;
-    }
-
-    interface RedirectToEmptyDocument { }
-
-    interface RedirectRequest {
-        redirectUrl: string;
     }
 
     interface ResponseCookie {
@@ -604,56 +620,128 @@ declare module chrome.declarativeWebRequest {
         secure?: string;
     }
 
-    interface AddResponseCookie {
+    interface FilterResponseCookie {
+        domain?: string;
+        name?: string;
+        expires?: string;
+        maxAge?: number;
+        value?: string;
+        path?: string;
+        httpOnly?: string;
+        secure?: string;
+        ageUpperBound?: number;
+        ageLowerBound?: number;
+        sessionCookie?: boolean;
+    }
+
+    interface RequestMatcher extends events.BaseCondition {
+        contentType?: string[];
+        url?: events.UrlFilter;
+        excludeContentType?: string[];
+        excludeResponseHeader?: HeaderFilter[];
+        resourceType?: string;
+        responseHeaders?: HeaderFilter[];
+        firstPartyForCookiesUrl?: events.UrlFilter;
+        requestHeaders?: HeaderFilter[];
+        excludeRequestHeaders?: HeaderFilter[];
+        thirdPartyForCookies?: boolean;
+        stages?: string;
+    }
+
+    interface AddResponseCookie extends events.BaseAction {
         cookie: ResponseCookie;
     }
 
-    interface EditResponseCookie {
-        filter: ResponseCookie;
+    interface EditResponseCookie extends events.BaseAction {
+        filter: FilterResponseCookie;
         modification: ResponseCookie;
     }
 
-    interface CancelRequest { }
-
-    interface RemoveRequestHeader {
+    interface RemoveRequestHeader extends events.BaseAction {
         name: string;
     }
 
-    interface EditRequestCookie {
+    interface EditRequestCookie extends events.BaseAction {
         filter: RequestCookie;
         modification: RequestCookie;
     }
 
-    interface SetRequestHeader {
+    interface SetRequestHeader extends events.BaseAction {
         name: string;
         value: string;
     }
 
-    interface RequestCookie {
-        name?: string;
+    interface AddResponseHeader extends events.BaseAction {
+        name: string;
+        value: string;
+    }
+
+    interface RemoveResponseCookie extends events.BaseAction {
+        filter: FilterResponseCookie;
+    }
+
+    interface RemoveResponseHeader extends events.BaseAction {
+        name: string;
         value?: string;
     }
 
-    interface RedirectByRegEx {
+    interface RedirectByRegEx extends events.BaseAction {
         to: string;
         from: string;
     }
 
-    interface RedirectToTransparentImage { }
-
-    interface AddRequestCookie {
+    interface AddRequestCookie extends events.BaseAction {
         cookie: RequestCookie;
     }
 
-    interface RemoveRequestCookie {
+    interface RemoveRequestCookie extends events.BaseAction {
         filter: RequestCookie;
     }
 
-    interface RequestedEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
+    interface CancelRequest extends events.BaseAction {
+    }
+
+    interface RedirectRequest extends events.BaseAction {
+        redirectUrl: string;
+    }
+
+    interface RedirectToTransparentImage extends events.BaseAction {
+    }
+
+    interface RedirectToEmptyDocument extends events.BaseAction {
+    }
+
+    interface SendMessageToExtension extends events.BaseAction {
+        message: string;
+    }
+
+    interface IgnoreRules extends events.BaseAction {
+        lowerPriorityThan?: number;
+        hasTag?: string;
+    }
+
+    interface MessageDetails {
+        message: string;
+        stage: string;
+        requestId: string;
+        url: string;
+        method: string;
+        tabId: number;
+        frameId: number;
+        parentFrameId: number;
+        timeStamp: number;
+        type: string;
+    }
+
+    interface RequestedEvent extends events.Event {
+    }
+
+    interface MessageEvent extends events.Event {
+        addListener(callback: (result: MessageDetails) => void): void;
     }
 
     var onRequest: RequestedEvent;
+    var onMessage: MessageEvent;
 }
 
 ////////////////////
@@ -916,11 +1004,13 @@ declare module chrome.downloads {
     var onErased: DownloadErasedEvent;
 }
 
-////////////////////
-// Events
-////////////////////
+/**
+ * The chrome.events namespace contains common types used by APIs dispatching events
+ * to notify you when something interesting happens.
+ */
 declare module chrome.events {
-    interface UrlFilter {
+
+    export interface UrlFilter {
         schemes?: string[];
         urlMatches?: string;
         pathContains?: string;
@@ -955,9 +1045,16 @@ declare module chrome.events {
 
     interface Rule {
         priority?: number;
-        conditions: any[];
+        conditions: BaseCondition[];
         id?: string;
-        actions: any[];
+        tags?: string[];
+        actions: BaseAction[];
+    }
+
+    interface BaseAction {
+    }
+
+    interface BaseCondition {
     }
 }
 
