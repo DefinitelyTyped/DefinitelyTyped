@@ -7850,6 +7850,50 @@ declare module _ {
         startsWith(target?: string, position?: number): boolean;
     }
 
+    //_.template
+    interface TemplateExecutor {
+        (data?: Object): string;
+        source: string;
+    }
+
+    interface LoDashStatic {
+        /**
+         * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
+         * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
+         * delimiters. Data properties may be accessed as free variables in the template. If a setting object is
+         * provided it takes precedence over _.templateSettings values.
+         *
+         * Note: In the development build _.template utilizes
+         * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl) for easier
+         * debugging.
+         *
+         * For more information on precompiling templates see
+         * [lodash's custom builds documentation](https://lodash.com/custom-builds).
+         *
+         * For more information on Chrome extension sandboxes see
+         * [Chrome's extensions documentation](https://developer.chrome.com/extensions/sandboxingEval).
+         *
+         * @param string The template string.
+         * @param options The options object.
+         * @param options.escape The HTML "escape" delimiter.
+         * @param options.evaluate The "evaluate" delimiter.
+         * @param options.imports An object to import into the template as free variables.
+         * @param options.interpolate The "interpolate" delimiter.
+         * @param options.variable The data object variable name.
+         * @return Returns the compiled template function.
+         */
+        template(
+            string: string,
+            options?: TemplateSettings): TemplateExecutor;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.template
+         */
+        template(options?: TemplateSettings): TemplateExecutor;
+    }
+
     //_.trim
     interface LoDashStatic {
         /**
@@ -8212,50 +8256,6 @@ declare module _ {
         * @returns The lodash function.
         **/
         runInContext(context: any): typeof _;
-    }
-
-    //_.template
-    interface LoDashStatic {
-        /**
-        * A micro-templating method that handles arbitrary delimiters, preserves whitespace, and
-        * correctly escapes quotes within interpolated code.
-        *
-        * Note: In the development build, _.template utilizes sourceURLs for easier debugging. See
-        * http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
-        *
-        * For more information on precompiling templates see:
-        * http://lodash.com/#custom-builds
-        *
-        * For more information on Chrome extension sandboxes see:
-        * http://developer.chrome.com/stable/extensions/sandboxingEval.html
-        * @param text The template text.
-        * @param data The data object used to populate the text.
-        * @param options The options object.
-        * @param options.escape The "escape" delimiter.
-        * @param options.evaluate The "evaluate" delimiter.
-        * @param options.import An object to import into the template as local variables.
-        * @param options.interpolate The "interpolate" delimiter.
-        * @param sourceURL The sourceURL of the template's compiled source.
-        * @param variable The data object variable name.
-        * @return Returns the compiled Lo-Dash HTML template or a TemplateExecutor if no data is passed.
-        **/
-        template(
-            text: string): TemplateExecutor;
-
-        /**
-        * @see _.template
-        **/
-        template(
-            text: string,
-            data: any,
-            options?: TemplateSettings,
-            sourceURL?: string,
-            variable?: string): any /* string or TemplateExecutor*/;
-    }
-
-    interface TemplateExecutor {
-        (...data: any[]): string;
-        source: string;
     }
 
     //_.times
