@@ -1162,10 +1162,12 @@ declare module chrome.extension {
     }
  }
 
-////////////////////
-// File Browser Handler
-////////////////////
+/**
+ * Use the chrome.fileBrowserHandler API to extend the Chrome OS file browser. For example, you can use
+ * this API to enable users to upload files to your website.
+ */
 declare module chrome.fileBrowserHandler {
+
     interface SelectionParams {
         allowedFileExtensions?: string[];
         suggestedName: string;
@@ -1179,12 +1181,13 @@ declare module chrome.fileBrowserHandler {
     interface FileHandlerExecuteEventDetails {
         tab_id?: number;
         entries: any[];
-        selectFile(selectionParams: SelectionParams, callback: (result: SelectionResult) => void): void;
     }
 
-    interface FileBrowserHandlerExecuteEvent extends chrome.events.Event {
+    interface FileBrowserHandlerExecuteEvent extends events.Event {
         addListener(callback: (id: string, details: FileHandlerExecuteEventDetails) => void): void;
     }
+
+    export function selectFile(selectionParams: SelectionParams, callback: (result: SelectionResult) => void): void;
 
     var onExecute: FileBrowserHandlerExecuteEvent;
 }
