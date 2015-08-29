@@ -1321,9 +1321,11 @@ declare module chrome.gcm {
     var onSendError: SendErrorEvent;
 }
 
-////////////////////
-// History
-////////////////////
+/**
+ * Use the chrome.history API to interact with the browser's record of visited pages. You can add,
+ * remove, and query for URLs in the browser's history. To override the history page with your own
+ * version, see {@link https://developer.chrome.com/extensions/override|Override Pages}.
+ */
 declare module chrome.history {
     interface VisitItem {
         transition: string;
@@ -1363,11 +1365,11 @@ declare module chrome.history {
         urls?: string[];
     }
 
-    interface HistoryVisitedEvent extends chrome.events.Event {
+    interface HistoryVisitedEvent extends events.Event {
         addListener(callback: (result: HistoryItem) => void): void;
     }
 
-    interface HistoryVisitRemovedEvent extends chrome.events.Event {
+    interface HistoryVisitRemovedEvent extends events.Event {
         addListener(callback: (removed: RemovedResult) => void): void;
     }
 
