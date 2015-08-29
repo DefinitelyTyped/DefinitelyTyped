@@ -403,7 +403,7 @@ declare namespace __React {
         strokeOpacity?: number;
         strokeWidth?: number;
 
-        [propertyName: string]: string | number | boolean;
+        [propertyName: string]: any;
     }
 
     interface HTMLAttributes extends DOMAttributes {
@@ -1200,7 +1200,7 @@ declare module "react/addons" {
         strokeOpacity?: number;
         strokeWidth?: number;
 
-        [propertyName: string]: string | number | boolean;
+        [propertyName: string]: any;
     }
 
     interface HTMLAttributes extends DOMAttributes {
