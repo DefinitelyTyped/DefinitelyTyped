@@ -762,7 +762,7 @@ declare module PIXI {
         fragmentSrc: string;
 
         init(): void;
-        cachUniformLocations(keys: string): void;
+        cacheUniformLocations(keys: string): void;
         cacheAttributeLocations(keys: string): void;
         compile(): WebGLProgram;
         syncUniform(uniform: any): void;

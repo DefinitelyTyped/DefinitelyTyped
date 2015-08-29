@@ -482,7 +482,4 @@ declare module DDS {
  * Defines the core Vortex-Web-Client javascript library. It includes the JavaScript API for DDS. This API allows
  * web applications to share data among them as well as with native DDS applications.
  */
-declare
-var dds:typeof DDS;
-
-
+declare var dds:typeof DDS;
