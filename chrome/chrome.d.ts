@@ -806,7 +806,7 @@ declare module chrome.devtools.inspectedWindow {
 
 /**
  * Use the chrome.devtools.network API to retrieve the information about network requests
- * displayed by the Developer Tools in the Network panel. 
+ * displayed by the Developer Tools in the Network panel.
  */
 declare module chrome.devtools.network {
     interface Request {
@@ -827,21 +827,24 @@ declare module chrome.devtools.network {
     var onNavigated: NavigatedEvent;
 }
 
-////////////////////
-// Dev Tools - Panels
-////////////////////
+/**
+ * Use the chrome.devtools.panels API to integrate your extension into Developer Tools
+ * window UI: create your own panels, access existing panels, and add sidebars.
+ */
 declare module chrome.devtools.panels {
-    interface PanelShownEvent extends chrome.events.Event {
-        addListener(callback: (window: chrome.windows.Window) => void): void;
+
+    // ElementsPanel
+
+    interface ElementsPanel {
+        createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+        onSelectionChanged: SelectionChangedEvent;
     }
 
-    interface PanelHiddenEvent extends chrome.events.Event {
+    interface SelectionChangedEvent {
         addListener(callback: Function): void;
     }
 
-    interface PanelSearchEvent extends chrome.events.Event {
-        addListener(callback: (action: string, queryString?: string) => void): void;
-    }
+    // ExtensionPanel
 
     interface ExtensionPanel {
         createStatusButton(iconPath: string, tooltipText: string, disabled: boolean): Button;
@@ -850,31 +853,19 @@ declare module chrome.devtools.panels {
         onSearch: PanelSearchEvent;
     }
 
-    interface ButtonClickedEvent extends chrome.events.Event {
+    interface PanelShownEvent {
+        addListener(callback: (window: Window) => void): void;
+    }
+
+    interface PanelHiddenEvent {
         addListener(callback: Function): void;
     }
 
-    interface Button {
-        update(iconPath?: string, tooltipText?: string, disabled?: boolean): void;
-        onClicked: ButtonClickedEvent;
+    interface PanelSearchEvent {
+        addListener(callback: (action: string, queryString?: string) => void): void;
     }
 
-    interface SelectionChangedEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
-    }
-
-    interface ElementsPanel {
-        createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
-        onSelectionChanged: SelectionChangedEvent;
-    }
-
-    interface ExtensionSidebarPaneShownEvent extends chrome.events.Event {
-        addListener(callback: (window: chrome.windows.Window) => void): void;
-    }
-
-    interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
-    }
+    // ExtensionSidebarPane
 
     interface ExtensionSidebarPane {
         setHeight(height: string): void;
@@ -885,10 +876,46 @@ declare module chrome.devtools.panels {
         onHidden: ExtensionSidebarPaneHiddenEvent;
     }
 
+    interface ExtensionSidebarPaneShownEvent {
+        addListener(callback: (window: Window) => void): void;
+    }
+
+    interface ExtensionSidebarPaneHiddenEvent {
+        addListener(callback: Function): void;
+    }
+
+    // Button
+
+    interface Button {
+        update(iconPath?: string, tooltipText?: string, disabled?: boolean): void;
+        onClicked: ButtonClickedEvent;
+    }
+
+    interface ButtonClickedEvent {
+        addListener(callback: Function): void;
+    }
+
+    // SourcesPanel
+
+    interface SourcesPanel {
+        createSidebarPane(title: string, callback?: (result: ExtensionSidebarPane) => void): void;
+        onSelectionChanged: SourcesPanelSelectionChangedEvent;
+    }
+
+    interface SourcesPanelSelectionChangedEvent {
+        addListener(callback: Function): void;
+    }
+
+    // properties
+
     export const elements: ElementsPanel;
+    export const sources: SourcesPanel;
+
+    // methods
 
     export function create(title: string, iconPath: string, pagePath: string, callback?: (panel: ExtensionPanel) => void): void;
-    export function setOpenResourceHandler(callback: (resource: chrome.devtools.inspectedWindow.Resource) => void): void;
+    export function setOpenResourceHandler(callback?: (resource: inspectedWindow.Resource) => void): void;
+    export function openResource(url: string, lineNumber: number, callback?: Function): void;
 }
 
 ////////////////////
