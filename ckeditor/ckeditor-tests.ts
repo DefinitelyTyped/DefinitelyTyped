@@ -282,7 +282,6 @@ function test_adding_dialog_by_definition() {
 
 function test_adding_plugin() {
     CKEDITOR.plugins.add( 'abbr', {
-        icons: 'abbr',
         init: function( editor: CKEDITOR.editor ) {
             // empty logic
         }

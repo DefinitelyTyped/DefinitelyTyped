@@ -349,6 +349,8 @@ interface CoreObjectArguments {
     Override to implement teardown.
     **/
     willDestroy?: Function;
+    
+    [propName: string]: any;
 }
 
 interface EnumerableConfigurationOptions {
@@ -998,7 +1000,7 @@ declare module Ember {
         @static
         @param {Object} [args] - Object containing values to use within the new class
         **/
-        static extend<T>(args ?: CoreObjectArguments): T;
+        static extend<T>(args?: CoreObjectArguments): T;
         /**
         Creates a new subclass.
         @method extend

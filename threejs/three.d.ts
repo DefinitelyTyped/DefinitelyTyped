@@ -3,18 +3,13 @@
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 
-///<reference path="../webaudioapi/waa.d.ts"/>
-
 interface WebGLRenderingContext {}
 
 declare module THREE {
     export var REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
-    export enum MOUSE { }
-    export var LEFT: MOUSE;
-    export var MIDDLE: MOUSE;
-    export var RIGHT: MOUSE;
+    export enum MOUSE {LEFT, MIDDLE, RIGHT}
 
     // GL STATE CONSTANTS
     export enum CullFace { }
@@ -5672,7 +5667,7 @@ declare module THREE {
     }
 
     export class BoundingBoxHelper extends Mesh {
-        constructor(object: Object3D, hex?: number);
+        constructor(object?: Object3D, hex?: number);
 
         object: Object3D;
         box: Box3;
