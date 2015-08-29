@@ -357,6 +357,10 @@ declare module GitHubElectron {
 		 */
 		closeDevTools(): void;
 		/**
+		 * Returns whether the developer tools are opened.
+		 */
+		isDevToolsOpened(): boolean;
+		/**
 		 * Toggle the developer tools.
 		 */
 		toggleDevTools(): void;
