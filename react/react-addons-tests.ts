@@ -206,15 +206,16 @@ myComponent.reset();
 // --------------------------------------------------------------------------
 
 var children: any[] = ["Hello world", [null], React.DOM.span(null)];
+var divStyle: React.CSSProperties = { // CSSProperties
+    flex: "1 1 main-size",
+    backgroundImage: "url('hello.png')"
+};
 var htmlAttr: React.HTMLAttributes = {
     key: 36,
     ref: "htmlComponent",
     children: children,
     className: "test-attr",
-    style: { // CSSProperties
-        flex: "1 1 main-size",
-        backgroundImage: "url('hello.png')"
-    },
+    style: divStyle,
     onClick: (event: React.MouseEvent) => {
         event.preventDefault();
         event.stopPropagation();
