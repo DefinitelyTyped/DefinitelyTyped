@@ -1728,8 +1728,7 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: Buffer, encoding: string, callback: Function): void;
-        _transform(chunk: string, encoding: string, callback: Function): void;
+        _transform(chunk: any, encoding: string, callback: Function): void;
         _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
