@@ -1273,6 +1273,54 @@ declare module chrome.fontSettings {
     var onFontChanged: FontChangedEvent;
 }
 
+/**
+ * Use chrome.gcm to enable apps and extensions to send and receive messages through the
+ * {@link http://developer.android.com/google/gcm/|Google Cloud Messaging Service}.
+ */
+declare module chrome.gcm {
+
+    interface SendMessage {
+        destinationId: string;
+        messageId: string;
+        timeToLive?: number;
+        data: Object;
+    }
+
+    interface ReceivedMessage {
+        data: Object;
+        from?: string;
+        collapseKey?: string;
+    }
+
+    interface ErrorMessage {
+        errorMessage: string;
+        messageId?: string;
+        details: Object;
+    }
+
+    interface MessageEvent extends events.Event {
+        addListener(callback: (message: ReceivedMessage) => void): void;
+    }
+
+    interface MessagesDeletedEvent extends events.Event {
+        addListener(callback: Function): void;
+    }
+
+    interface SendErrorEvent extends events.Event {
+        addListener(callback: (error: ErrorMessage) => void): void;
+    }
+
+    export const MAX_MESSAGE_SIZE: number;
+
+    export function register(sendersIds: string[], callback: (registrationId: string) => void): void;
+    export function unregister(callback: Function): void;
+    export function send(message: SendMessage, callback: (messageId: string) => void): void;
+
+    var onMessage: MessageEvent;
+    var onMessagesDeleted: MessagesDeletedEvent;
+    var onSendError: SendErrorEvent;
+}
+
 ////////////////////
 // History
 ////////////////////
