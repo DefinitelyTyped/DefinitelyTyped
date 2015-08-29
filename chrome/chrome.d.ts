@@ -804,9 +804,10 @@ declare module chrome.devtools.inspectedWindow {
     var onResourceContentCommitted: ResourceContentCommittedEvent;
 }
 
-////////////////////
-// Dev Tools - Network
-////////////////////
+/**
+ * Use the chrome.devtools.network API to retrieve the information about network requests
+ * displayed by the Developer Tools in the Network panel. 
+ */
 declare module chrome.devtools.network {
     interface Request {
         getContent(callback: (content: string, encoding: string) => void): void;
