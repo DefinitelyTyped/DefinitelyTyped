@@ -1143,6 +1143,25 @@ declare module chrome.extension {
     export function isAllowedIncognitoAccess(callback: (isAllowedAccess: boolean) => void): void;
 }
 
+/**
+ * The chrome.extensionTypes API contains type declarations for Chrome extensions.
+ */
+ declare module chrome.extensionTypes {
+
+    interface ImageDetails {
+        format?: string;
+        quality?: number;
+    }
+
+    interface InjectDetails {
+        code?: string;
+        file?: string;
+        allFrames?: boolean;
+        matchAboutBlank?: boolean;
+        runAt?: string;
+    }
+ }
+
 ////////////////////
 // File Browser Handler
 ////////////////////
