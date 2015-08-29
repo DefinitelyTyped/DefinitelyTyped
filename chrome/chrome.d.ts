@@ -1384,6 +1384,14 @@ declare module chrome.history {
     var onVisitRemoved: HistoryVisitRemovedEvent;
 }
 
+/**
+ * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension.
+ */
+declare module chrome.i18n {
+    export function getMessage(messageName: string, substitutions?: any): string;
+    export function getAcceptLanguages(callback: (languages: string[]) => void): void;
+    export function getUILanguage(): string;
+}
 
 ////////////////////
 // Identity
@@ -1391,16 +1399,6 @@ declare module chrome.history {
 declare module chrome.identity {
     var getAuthToken: (options: any, cb: (token: {}) => void) => void;
     var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
-}
-
-
-////////////////////
-// Internationalization
-////////////////////
-declare module chrome.i18n {
-    export function getMessage(messageName: string, substitutions?: any): string;
-    export function getAcceptLanguages(callback: (languages: string[]) => void): void;
-    export function getUILanguage(): string;
 }
 
 ////////////////////
