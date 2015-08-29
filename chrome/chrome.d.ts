@@ -1117,9 +1117,11 @@ declare module chrome.events {
     }
 }
 
-////////////////////
-// Extension
-////////////////////
+/**
+ * The chrome.extension API has utilities that can be used by any extension page. It includes support for
+ * exchanging messages between an extension and its content scripts or between extensions, as described in detail
+ * in {@link https://developer.chrome.com/extensions/messaging|in Message Passing}.
+ */
 declare module chrome.extension {
     interface FetchProperties {
         windowId?: number;
