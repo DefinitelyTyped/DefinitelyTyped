@@ -1192,9 +1192,9 @@ declare module chrome.fileBrowserHandler {
     var onExecute: FileBrowserHandlerExecuteEvent;
 }
 
-////////////////////
-// Font Settings
-////////////////////
+/**
+ * Use the chrome.fontSettings API to manage Chrome's font settings.
+ */
 declare module chrome.fontSettings {
     interface FontName {
         displayName: string;
@@ -1237,26 +1237,26 @@ declare module chrome.fontSettings {
         fontId: string;
     }
 
-    interface DefaultFixedFontSizeChangedEvent extends chrome.events.Event {
+    interface DefaultFixedFontSizeChangedEvent extends events.Event {
         addListener(callback: (details: FontSizeDetails) => void): void;
     }
 
-    interface DefaultFontSizeChangedEvent extends chrome.events.Event {
+    interface DefaultFontSizeChangedEvent extends events.Event {
         addListener(callback: (details: FontSizeDetails) => void): void;
     }
 
-    interface MinimumFontSizeChangedEvent extends chrome.events.Event {
+    interface MinimumFontSizeChangedEvent extends events.Event {
         addListener(callback: (details: FontSizeDetails) => void): void;
     }
 
-    interface FontChangedEvent extends chrome.events.Event {
+    interface FontChangedEvent extends events.Event {
         addListener(callback: (details: FullFontDetails) => void): void;
     }
 
     export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
     export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
-    export function getDefaultFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
-    export function getMinimumFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
+    export function getDefaultFontSize(details?: Object, callback?: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(details?: Object, callback?: (options: FontSizeDetails) => void): void;
     export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
     export function getDefaultFixedFontSize(details?: Object, callback?: (details: FontSizeDetails) => void): void;
     export function clearDefaultFontSize(details?: Object, callback?: Function): void;
@@ -1265,7 +1265,7 @@ declare module chrome.fontSettings {
     export function setFont(details: SetFontDetails, callback?: Function): void;
     export function clearMinimumFontSize(details?: Object, callback?: Function): void;
     export function getFontList(callback: (results: FontName[]) => void): void;
-    export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
+    export function clearDefaultFixedFontSize(details?: Object, callback?: Function): void;
 
     var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
     var onDefaultFontSizeChanged: DefaultFontSizeChangedEvent;
