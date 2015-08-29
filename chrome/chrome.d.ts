@@ -753,9 +753,11 @@ declare module chrome.desktopCapture {
     export function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
 }
 
-////////////////////
-// Dev Tools - Inspected Window
-////////////////////
+/**
+ * Use the chrome.devtools.inspectedWindow API to interact with the inspected window: obtain the tab ID
+ * for the inspected page, evaluate the code in the context of the inspected window, reload the page, or
+ * obtain the list of resources within the page.
+ */
 declare module chrome.devtools.inspectedWindow {
     interface Resource {
         url: string;
@@ -769,6 +771,21 @@ declare module chrome.devtools.inspectedWindow {
         injectedScript?: boolean;
     }
 
+    interface EvalOptions {
+        frameURL?: string;
+        useContentScriptContext?: boolean;
+        contextSecurityOrigin?: string;
+    }
+
+    interface ExceptionInfo {
+        isError: boolean;
+        code: string;
+        description: string;
+        details: any[];
+        isException: boolean;
+        value: string;
+    }
+
     interface ResourceAddedEvent extends chrome.events.Event {
         addListener(callback: (resource: Resource) => void): void;
     }
@@ -780,7 +797,7 @@ declare module chrome.devtools.inspectedWindow {
     export const tabId: number;
 
     export function reload(reloadOptions: ReloadOptions): void;
-    export function eval(expression: string, callback?: (result: Object, isException: boolean) => void): void;
+    export function eval(expression: string, options?: EvalOptions, callback?: (result: Object, exceptionInfo: ExceptionInfo) => void): void;
     export function getResources(callback: (resources: Resource[]) => void): void;
 
     var onResourceAdded: ResourceAddedEvent;
