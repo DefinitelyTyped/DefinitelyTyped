@@ -51,6 +51,35 @@ app.on('ready', () => {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
+
+	mainWindow.print({silent: true, printBackground: false});
+	mainWindow.webContents.print({silent: true, printBackground: false});
+	mainWindow.print();
+	mainWindow.webContents.print();
+
+	mainWindow.print({silent: true, printBackground: false});
+	mainWindow.webContents.print({silent: true, printBackground: false});
+	mainWindow.print();
+	mainWindow.webContents.print();
+
+	mainWindow.printToPDF({
+		marginsType: 1,
+		pageSize: 'A3',
+		printBackground: true,
+		printSelectionOnly: true,
+		landscape: true,
+	}, (error: Error, data: Buffer) => {});
+
+	mainWindow.webContents.printToPDF({
+		marginsType: 1,
+		pageSize: 'A3',
+		printBackground: true,
+		printSelectionOnly: true,
+		landscape: true,
+	}, (error: Error, data: Buffer) => {});
+
+	mainWindow.printToPDF({}, (err, data) => {});
+	mainWindow.webContents.printToPDF({}, (err, data) => {});
 });
 
 // Desktop environment integration

@@ -1,4 +1,4 @@
-// Type definitions for Sinon 1.8.1
+// Type definitions for Sinon 1.16.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -181,7 +181,20 @@ declare module Sinon {
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number): Date;
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
         restore(): void;
-    }
+
+		/**
+		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+		 * without affecting timers, intervals or immediates.
+		 * @param now The new 'now' in unix milliseconds
+		 */
+		setSystemTime(now: number): void;
+		/**
+		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+		 * without affecting timers, intervals or immediates.
+		 * @param now The new 'now' as a JavaScript Date
+		 */
+		setSystemTime(date: Date): void;
+	}
 
     interface SinonFakeTimersStatic {
         (): SinonFakeTimers;

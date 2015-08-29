@@ -1,4 +1,4 @@
-﻿// Type definitions for DevExtreme 15.1.4
+// Type definitions for DevExtreme 15.1.6
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -63,7 +63,7 @@ declare module DevExpress {
     export function processHardwareBackButton(): void;
     /** Specifies whether or not the entire application/site supports right-to-left representation. */
     export var rtlEnabled: boolean;
-    /** Registers a new component in the DevExpress.ui namespace, and a jQuery plugin and Knockout binding for the required component. */
+    /** Registers a new component in the DevExpress.ui namespace as a jQuery plugin, Angular directive and Knockout binding. */
     export function registerComponent(name: string, componentClass: Object): void;
     /** Registers a new component in the specified namespace as a jQuery plugin, Angular directive and Knockout binding. */
     export function registerComponent(name: string, namespace: Object, componentClass: Object): void;
@@ -323,7 +323,7 @@ declare module DevExpress {
             key(): any;
             /** Returns the key of the Store item that matches the specified object. */
             keyOf(obj: Object): any;
-            /** Starts loading the data. */
+            /** Starts loading data. */
             load(obj?: LoadOptions): JQueryPromise<any[]>;
             /** Removes the data item specified by the key. */
             remove(key: any): JQueryPromise<any>;
@@ -427,6 +427,8 @@ declare module DevExpress {
             select?: Object;
             /** An array of the strings that represent the names of the navigation properties to be loaded simultaneously with the OData store's entity. */
             expand?: Object;
+            /** Specifies whether or not the DataSource instance requests the total count of items available in the storage. */
+            requireTotalCount?: boolean;
             /** Specifies the initial sort option value. */
             sort?: Object;
             /** Specifies the underlying Store instance used to access data. */
@@ -496,6 +498,10 @@ declare module DevExpress {
             select(): Object;
             /** Sets the select option value. */
             select(expr: Object): void;
+            /** Returns the current requireTotalCount option value. */
+            requireTotalCount(): boolean;
+            /** Sets the requireTotalCount option value. */
+            requireTotalCount(value: boolean): void;
             /** Returns the current sort option value. */
             sort(): Object;
             /** Sets the sort option value. */
@@ -520,6 +526,8 @@ declare module DevExpress {
         }
         /** An object used to work with primitive data types not supported by JavaScript when accessing an OData web service. */
         export class EdmLiteral {
+            /** Creates an EdmLiteral instance and assigns the specified value to it. */
+            constructor(value: string);
             /** Returns a string representation of the value associated with this EdmLiteral object. */
             valueOf(): string;
         }
@@ -815,11 +823,26 @@ declare module DevExpress {
         export function setTemplateEngine(name: string): void;
         /** Sets a custom template engine defined via custom compile and render functions. */
         export function setTemplateEngine(options: Object): void;
-        /** An object that serves as a namespace for utility methods that can be helpful when working with the DevExtreme framework and UI widgets. */
-        export var utils: {
-            /** Sets parameters for the viewport meta tag. */
-            initMobileViewport(options: { allowZoom?: boolean; allowPan?: boolean; allowSelection?: boolean }): void;
-        };
+    }
+    /** An object that serves as a namespace for utility methods that can be helpful when working with the DevExtreme framework and UI widgets. */
+    export var utils: {
+        /** Sets parameters for the viewport meta tag. */
+        initMobileViewport(options: { allowZoom?: boolean; allowPan?: boolean; allowSelection?: boolean }): void;
+    };
+    /** An object that serves as a namespace for DevExtreme Data Visualization Widgets. */
+    export module viz {
+        /** Applies a theme for the entire page with several DevExtreme visualization widgets. */
+        export function currentTheme(theme: string): void;
+        /** Applies a new theme (with the color scheme defined separately) for the entire page with several DevExtreme visualization widgets. */
+        export function currentTheme(platform: string, colorScheme: string): void;
+        /** Registers a new theme based on the existing one. */
+        export function registerTheme(customTheme: Object, baseTheme: string): void;
+        /** Applies a predefined or registered custom palette to all visualization widgets at once. */
+        export function currentPalette(paletteName: string): void;
+        /** Obtains the color sets of a predefined or registered palette. */
+        export function getPalette(paletteName: string): Object;
+        /** Registers a new palette. */
+        export function registerPalette(paletteName: string, palette: Object): void;
     }
 }
 declare module DevExpress.ui {
@@ -892,7 +915,7 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: dxTooltipOptions);
         constructor(element: Element, options?: dxTooltipOptions);
     }
-    export interface dxDropDownListOptions extends dxDropDownEditorOptions {
+    export interface dxDropDownListOptions extends dxDropDownEditorOptions, DataExpressionMixinOptions {
         /** Returns the value currently displayed by the widget. */
         displayValue?: string;
         /** The minimum number of characters that must be entered into the text box to begin a search. */
@@ -1189,7 +1212,7 @@ declare module DevExpress.ui {
         /** Updates the dimensions of the scrollable contents. */
         update(): void;
     }
-    export interface dxRadioGroupOptions extends CollectionWidgetOptions {
+    export interface dxRadioGroupOptions extends CollectionWidgetOptions, DataExpressionMixinOptions {
         /** Specifies the radio group layout. */
         layout?: string;
     }
@@ -1438,6 +1461,7 @@ declare module DevExpress.ui {
         applyButtonText?: string;
         /** A Boolean value specifying whether or not to display the lookup in full-screen mode. */
         fullScreen?: boolean;
+        focusStateEnabled?: boolean;
         /** A Boolean value specifying whether or not to group widget items. */
         grouped?: boolean;
         groupRender?: any;
@@ -1744,9 +1768,9 @@ declare module DevExpress.ui {
         /** A Globalize format string specifying the date display format. */
         formatString?: string;
         /** The last date that can be selected within the widget. */
-        max?: Date;
+        max?: any;
         /** The minimum date that can be selected within the widget. */
-        min?: Date;
+        min?: any;
         /** The text displayed by the widget when the widget value is not yet specified. This text is also used as a title of the date picker. */
         placeholder?: string;
         /**
@@ -1754,8 +1778,8 @@ declare module DevExpress.ui {
          * @deprecated Use 'pickerType' option instead.
          */
         useCalendar?: boolean;
-        /** A Date object specifying the date and time currently selected using the date box. */
-        value?: Date;
+        /** An object or a value, specifying the date and time currently selected using the date box. */
+        value?: any;
         /**
          * Specifies whether or not the widget uses the native HTML input element.
          * @deprecated Use 'pickerType' option instead.
@@ -1817,9 +1841,11 @@ declare module DevExpress.ui {
         /** A handler for the click event. */
         onClick?: any;
         clickAction?: any;
-        /** The name of an icon to be displayed on the button. */
+        /** Specifies the icon to be displayed on the button. */
         icon?: string;
         iconSrc?: string;
+        /** A template to be used for rendering the dxButton widget. */
+        template?: any;
         /** The text displayed on the button. */
         text?: string;
         /** Specifies the button type. */
@@ -1867,7 +1893,7 @@ declare module DevExpress.ui {
         minSearchLength?: number;
         /** Specifies the maximum count of items displayed by the widget. */
         maxItemCount?: number;
-        /** Specifies the currently selected item. */
+        /** Gets the currently selected item. */
         selectedItem?: Object;
     }
     /** A textbox widget that supports autocompletion. */
@@ -2656,6 +2682,8 @@ declare module DevExpress.ui {
         updateAppointment(target: Object, appointment: Object): void;
         /** Deletes the appointment defined by the parameter from the the data associated with the widget. */
         deleteAppointment(appointment: Object): void;
+        /** Scrolls the scheduler work space to the specified time. */
+        scrollToTime(hours: number, minutes: number): void;
     }
     export interface dxColorBoxOptions extends dxDropDownEditorOptions {
         /** Specifies the text displayed on the button that applies changes and closes the drop-down editor. */
@@ -2730,6 +2758,12 @@ declare module DevExpress.ui {
         onItemExpanded?: Function;
         /** A handler for the itemCollapsed event. */
         onItemCollapsed?: Function;
+        onItemClick?: Function;
+        onItemContextMenu?: Function;
+        onItemRendered?: Function;
+        onItemHold?: Function;
+        hoverStateEnabled?: boolean;
+        focusStateEnabled?: boolean;
     }
     /** A widget displaying specified data items as a tree. */
     export class dxTreeView extends CollectionWidget {
@@ -3339,6 +3373,8 @@ Specifies the message displayed in a group row when the corresponding group cont
         }) => void;
         /** A handler for the exported event. */
         onExported?: (e: Object) => void;
+        /** A handler for the keyDown event. */
+        onKeyDown?: (e: Object) => void;
         /** A handler for the rowExpanding event. */
         onRowExpanding?: (e: Object) => void;
         /** A handler for the rowExpanded event. */
@@ -3589,8 +3625,10 @@ Searches grid records by a search string.
         focus(element?: JQuery): void;
     }
     export interface dxPivotGridOptions extends WidgetOptions {
+        onContentReady?: Function;
         /** Specifies a data source for the pivot grid. */
         dataSource?: any;
+        /** Specifies whether or not the widget uses native scrolling. */
         useNativeScrolling?: any;
         /** Allows an end-user to change sorting options. */
         allowSorting?: boolean;
@@ -3676,6 +3714,8 @@ Searches grid records by a search string.
         onCellClick?: (e: any) => void;
         /** A handler for the cellPrepared event. */
         onCellPrepared?: (e: any) => void;
+        /** A handler for the contextMenuPreparing event. */
+        onContextMenuPreparing?: (e: Object) => void;
     }
     /** A data summarization widget for multi-dimensional data analysis and data mining. */
     export class dxPivotGrid extends Widget {
@@ -3782,6 +3822,8 @@ declare module DevExpress.framework {
         onExecute?: any;
         /** Indicates whether or not the widget that displays this command is disabled. */
         disabled?: boolean;
+        /** Specifies whether the current command should is rendered when a view is being rendered, or after a view has been shown. */
+        renderStage?: string;
         /** Specifies the name of the icon shown inside the widget associated with this command. */
         icon?: string;
         iconSrc?: string;
@@ -4029,6 +4071,36 @@ declare module DevExpress.framework {
     }
 }
 declare module DevExpress.viz.core {
+    /**
+     * Applies a theme for the entire page with several DevExtreme visualization widgets.
+     * @deprecated Use the DevExpress.viz.currentTheme(theme) method instead.
+     */
+    export function currentTheme(theme: string): void;
+    /**
+     * Applies a new theme (with the color scheme defined separately) for the entire page with several DevExtreme visualization widgets.
+     * @deprecated Use the DevExpress.viz.currentTheme(platform, colorScheme) method instead.
+     */
+    export function currentTheme(platform: string, colorScheme: string): void;
+    /**
+     * Registers a new theme based on the existing one.
+     * @deprecated Use the DevExpress.viz.registerTheme(customTheme, baseTheme) method instead.
+     */
+    export function registerTheme(customTheme: Object, baseTheme: string): void;
+    /**
+     * Applies a predefined or registered custom palette to all visualization widgets at once.
+     * @deprecated Use the DevExpress.viz.currentPalette(paletteName) method instead.
+     */
+    export function currentPalette(paletteName: string): void;
+    /**
+     * Obtains the color sets of a predefined or registered palette.
+     * @deprecated Use the DevExpress.viz.getPalette(paletteName) method instead.
+     */
+    export function getPalette(paletteName: string): Object;
+    /**
+     * Registers a new palette.
+     * @deprecated Use the DevExpress.viz.registerPalette(paletteName, palette) method instead.
+     */
+    export function registerPalette(paletteName: string, palette: Object): void;
     export interface Border {
         /** Sets a border color for a selected series. */
         color?: string;
@@ -5179,11 +5251,13 @@ declare module DevExpress.viz.charts {
         onTooltipShown?: (e: {
             component: BaseChart;
             element: Element;
+            target: BasePoint;
         }) => void;
         /** A handler for the tooltipHidden event. */
         onTooltipHidden?: (e: {
             component: BaseChart;
             element: Element;
+            target: BasePoint;
         }) => void;
         tooltipHidden?: (point: TPoint) => void;
         tooltipShown?: (point: TPoint) => void;
@@ -5255,7 +5329,7 @@ declare module DevExpress.viz.charts {
         position?: string;
     }
     export interface ChartTooltip extends BaseChartTooltip {
-        /** Specifies whether the tooltip must be located in the center of a bar or on its edge. Applies only to the Bar series. */
+        /** Specifies whether the tooltip must be located in the center of a bar or on its edge. Applies to the Bar and Bubble series. */
         location?: string;
         /** Specifies the kind of information to display in a tooltip. */
         shared?: boolean;
@@ -5606,6 +5680,18 @@ declare module DevExpress.viz.gauges {
         };
         /** Specifies options for gauge tooltips. */
         tooltip?: viz.core.Tooltip;
+        /** A handler for the tooltipShown event. */
+        onTooltipShown?: (e: {
+            component: dxBaseGauge;
+            element: Element;
+            target: {};
+        }) => void;
+        /** A handler for the tooltipHidden event. */
+        onTooltipHidden?: (e: {
+            component: dxBaseGauge;
+            element: Element;
+            target: {};
+        }) => void;
     }
     export interface BaseGaugeOptions extends viz.core.BaseWidgetOptions, SharedGaugeOptions {
         /** Specifies the color of the parent page element. */
@@ -5833,6 +5919,8 @@ Indicates whether or not animation is enabled.
             };
             /** Specifies a value indicating whether all bars in a series must have the same width, or may have different widths if any points in other series are missing. */
             equalBarWidth?: any;
+            /** Sets the name of the palette to be used in the range selector's chart. Alternatively, an array of colors can be set as a custom palette to be used within this chart. */
+            palette?: any;
             /** An object defining the chart’s series. */
             series?: Array<viz.charts.SeriesConfig>;
             /** Defines options for the series template. */
@@ -6252,7 +6340,19 @@ declare module DevExpress.viz.map {
 			center: Array<number>;
 			component: dxVectorMap;
 			element: Element;
-		}) => void;
+        }) => void;
+        /** A handler for the tooltipShown event. */
+        onTooltipShown?: (e: {
+            component: dxVectorMap;
+            element: Element;
+            target: {};
+        }) => void;
+        /** A handler for the tooltipHidden event. */
+        onTooltipHidden?: (e: {
+            component: dxVectorMap;
+            element: Element;
+            target: {};
+        }) => void;
         /** Specifies a number that is used to zoom a map initially. */
         zoomFactor?: number;
         /** Specifies a map's maximum zoom factor. */
@@ -6355,6 +6455,16 @@ declare module DevExpress.viz.sparklines {
         size?: viz.core.Size;
         /** Specifies tooltip options. */
         tooltip?: SparklineTooltip;
+        /** A handler for the tooltipShown event. */
+        onTooltipShown?: (e: {
+            component: BaseSparkline;
+            element: Element;
+        }) => void;
+        /** A handler for the tooltipHidden event. */
+        onTooltipHidden?: (e: {
+            component: BaseSparkline;
+            element: Element;
+        }) => void;
     }
     /** Overridden by descriptions for particular widgets. */
     export class BaseSparkline extends viz.core.BaseWidget {

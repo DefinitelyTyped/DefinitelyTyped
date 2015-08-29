@@ -112,9 +112,7 @@ var chart2 = new Highcharts.Chart({
 });
 
 chart1.exportChart(null, {
-    chart: {
-        backgroundColor: '#FFFFFF'
-    }
+    backgroundColor: '#FFFFFF'
 });
 
 
