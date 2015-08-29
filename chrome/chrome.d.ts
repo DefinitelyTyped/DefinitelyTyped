@@ -744,11 +744,12 @@ declare module chrome.declarativeWebRequest {
     var onMessage: MessageEvent;
 }
 
-////////////////////
-// DesktopCapture
-////////////////////
+/**
+ * Desktop Capture API that can be used to capture content of screen, individual windows or tabs.
+ */
 declare module chrome.desktopCapture {
-    export function chooseDesktopMedia(sources: string[], targetTab?: chrome.tabs.Tab, callback?: (streamId: string) => void): void;
+    export function chooseDesktopMedia(sources: string[], targetTab: tabs.Tab, callback: (streamId: string) => void): void;
+    export function chooseDesktopMedia(sources: string[], callback?: (streamId: string) => void): void;
     export function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
 }
 
