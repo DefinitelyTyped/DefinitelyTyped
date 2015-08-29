@@ -918,10 +918,53 @@ declare module chrome.devtools.panels {
     export function openResource(url: string, lineNumber: number, callback?: Function): void;
 }
 
-////////////////////
-// Dev Tools - Downloads
-////////////////////
+/**
+ * Use the chrome.downloads API to programmatically initiate, monitor, manipulate, and search for downloads.
+ */
 declare module chrome.downloads {
+
+    // types
+    interface DownloadItem {
+        bytesReceived: number;
+        danger: string;
+        url: string;
+        totalBytes: number;
+        dangerAccepted?: boolean;
+        filename: string;
+        paused: boolean;
+        state: string;
+        mime: string;
+        fileSize: number;
+        startTime: string;
+        error?: string;
+        endTime?: string;
+        estimatedEndTime?: string;
+        id: number;
+        incognito: boolean;
+        referrer: string;
+        canResume: boolean;
+        exists: boolean;
+        byExtensionId?: string;
+        byExtensionName?: string;
+    }
+
+    interface StringDelta {
+        previous?: string;
+        current?: string;
+    }
+
+    interface DoubleDelta {
+        previous?: number;
+        current?: number;
+    }
+
+    interface BooleanDelta {
+        previous?: boolean;
+        current?: boolean;
+    }
+
+    // functions parameters
+
     interface HeaderNameValuePair {
         name: string;
         value: string;
@@ -934,55 +977,24 @@ declare module chrome.downloads {
         filename?: string;
         headers?: HeaderNameValuePair[];
         method?: string;
+        conflictAction?: string;
     }
 
     interface DownloadDelta {
-        danger?: DownloadStringDiff;
-        url?: DownloadStringDiff;
-        totalBytes?: DownloadStringDiff;
-        dangerAccepted?: DownloadBooleanDiff;
-        filename?: DownloadStringDiff;
-        paused?: DownloadBooleanDiff;
-        state?: DownloadStringDiff;
-        mime?: DownloadStringDiff;
-        fileSize?: DownloadLongDiff;
-        startTime?: DownloadLongDiff;
-        error?: DownloadLongDiff;
-        endTime?: DownloadLongDiff;
+        danger?: StringDelta;
+        url?: StringDelta;
+        totalBytes?: DoubleDelta;
+        filename?: StringDelta;
+        paused?: BooleanDelta;
+        state?: StringDelta;
+        mime?: StringDelta;
+        fileSize?: DoubleDelta;
+        startTime?: StringDelta;
+        error?: StringDelta;
+        endTime?: StringDelta;
+        canResume?: BooleanDelta;
+        exists?: BooleanDelta;
         id: number;
-    }
-
-    interface DownloadBooleanDiff {
-        current?: boolean;
-        previous?: boolean;
-    }
-
-    interface DownloadLongDiff {
-        current?: number;
-        previous?: number;
-    }
-
-    interface DownloadStringDiff {
-        current?: string;
-        previous?: string;
-    }
-
-    interface DownloadItem {
-        bytesReceived: number;
-        danger: string;
-        url: string;
-        totalBytes: number;
-        dangerAccepted?: boolean;
-        filename: string;
-        paused: boolean;
-        state: string;
-        mime: string;
-        fileSize: number;
-        startTime: number;
-        error?: number;
-        endTime?: number;
-        id: number;
-        incognito: boolean;
     }
 
     interface GetFileIconOptions {
@@ -990,58 +1002,59 @@ declare module chrome.downloads {
     }
 
     interface DownloadQuery {
-        orderBy?: string;
+        orderBy?: string[];
         urlRegex?: string;
-        endedBefore?: number;
+        endedBefore?: string;
         totalBytesGreater?: number;
         danger?: string;
         totalBytes?: number;
         paused?: boolean;
         filenameRegex?: string;
-        query?: string;
+        query?: string[];
         totalBytesLess?: number;
         id?: number;
         bytesReceived?: number;
-        endedAfter?: number;
+        endedAfter?: string;
         filename?: string;
         state?: string;
-        startedAfter?: number;
+        startedAfter?: string;
         dangerAccepted?: boolean;
         mime?: string;
         fileSize?: number;
-        startTime?: number;
+        startTime?: string;
         url?: string;
-        startedBefore?: number;
+        startedBefore?: string;
         limit?: number;
-        error?: number;
-        endTime?: number;
+        error?: string;
+        endTime?: string;
+        exists?: boolean;
     }
 
-    interface DownloadChangedEvent extends chrome.events.Event {
+    interface DownloadChangedEvent extends events.Event {
         addListener(callback: (downloadDelta: DownloadDelta) => void): void;
     }
 
-    interface DownloadCreatedEvent extends chrome.events.Event {
+    interface DownloadCreatedEvent extends events.Event {
         addListener(callback: (downloadItem: DownloadItem) => void): void;
     }
 
-    interface DownloadErasedEvent extends chrome.events.Event {
+    interface DownloadErasedEvent extends events.Event {
         addListener(callback: (downloadId: number) => void): void;
     }
 
+    export function download(options: DownloadOptions, callback?: (downloadId: number) => void): void;
     export function search(query: DownloadQuery, callback: (results: DownloadItem[]) => void): void;
     export function pause(downloadId: number, callback?: Function): void;
-    export function getFileIcon(downloadId: number, callback: (iconURL: string) => void): void;
-    export function getFileIcon(downloadId: number, options: GetFileIconOptions, callback: (iconURL: string) => void): void;
     export function resume(downloadId: number, callback?: Function): void;
     export function cancel(downloadId: number, callback?: Function): void;
-    export function download(options: DownloadOptions, callback?: (downloadId: number) => void): void;
+    export function getFileIcon(downloadId: number, callback: (iconURL: string) => void): void;
+    export function getFileIcon(downloadId: number, options: GetFileIconOptions, callback: (iconURL: string) => void): void;
     export function open(downloadId: number): void;
     export function show(downloadId: number): void;
     export function showDefaultFolder(): void;
-    export function erase(query: DownloadQuery, callback: (results: DownloadItem[]) => void): void;
-    export function removeFile(downloadId: number, callback: () => void): void;
-    export function acceptDanger(downloadId: number, callback: () => void): void;
+    export function erase(query: DownloadQuery, callback?: (erasedIds: number[]) => void): void;
+    export function removeFile(downloadId: number, callback: Function): void;
+    export function acceptDanger(downloadId: number, callback: Function): void;
     export function drag(downloadId: number): void;
     export function setShelfEnabled(enabled: boolean): void;
 
