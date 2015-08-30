@@ -1761,9 +1761,9 @@ declare module chrome.notifications {
     var onShowSettings: OnShowSettingsEvent;
 }
 
-////////////////////
-// Omnibox
-////////////////////
+/**
+ * The omnibox API allows you to register a keyword with Google Chrome's address bar, which is also known as the omnibox.
+ */
 declare module chrome.omnibox {
     interface SuggestResult {
         content: string;
@@ -1774,19 +1774,19 @@ declare module chrome.omnibox {
         description: string;
     }
 
-    interface OmniboxInputEnteredEvent extends chrome.events.Event {
-        addListener(callback: (text: string) => void): void;
+    interface OmniboxInputEnteredEvent extends events.Event {
+        addListener(callback: (text: string, disposition: string) => void): void;
     }
 
-    interface OmniboxInputChangedEvent extends chrome.events.Event {
+    interface OmniboxInputChangedEvent extends events.Event {
         addListener(callback: (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void): void;
     }
 
-    interface OmniboxInputStartedEvent extends chrome.events.Event {
+    interface OmniboxInputStartedEvent extends events.Event {
         addListener(callback: Function): void;
     }
 
-    interface OmniboxInputCancelledEvent extends chrome.events.Event {
+    interface OmniboxInputCancelledEvent extends events.Event {
         addListener(callback: Function): void;
     }
 
