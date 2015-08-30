@@ -1935,29 +1935,36 @@ declare module chrome.printerProvider {
     var onPrintRequested: OnPrintRequestedEvent;
 }
 
-////////////////////
-// Privacy
-////////////////////
+/**
+ * Use the chrome.privacy API to control usage of the features in Chrome that can affect a user's privacy. This API
+ * relies on the {@link https://developer.chrome.com/extensions/types#ChromeSetting|ChromeSetting prototype of the type API} for
+ * getting and setting Chrome's configuration.
+ */
 declare module chrome.privacy {
+
     interface Services {
-        spellingServiceEnabled: chrome.types.ChromeSetting;
-        searchSuggestEnabled: chrome.types.ChromeSetting;
-        instantEnabled: chrome.types.ChromeSetting;
-        alternateErrorPagesEnabled: chrome.types.ChromeSetting;
-        safeBrowsingEnabled: chrome.types.ChromeSetting;
-        autofillEnabled: chrome.types.ChromeSetting;
-        translationServiceEnabled: chrome.types.ChromeSetting;
+        spellingServiceEnabled: types.ChromeSetting;
+        searchSuggestEnabled: types.ChromeSetting;
+        instantEnabled: types.ChromeSetting;
+        alternateErrorPagesEnabled: types.ChromeSetting;
+        safeBrowsingEnabled: types.ChromeSetting;
+        autofillEnabled: types.ChromeSetting;
+        translationServiceEnabled: types.ChromeSetting;
+        hotwordSearchEnabled: types.ChromeSetting;
+        passwordSavingEnabled: types.ChromeSetting;
+        safeBrowsingExtendedReportingEnabled: types.ChromeSetting;
     }
 
     interface Network {
-        networkPredictionEnabled: chrome.types.ChromeSetting;
+        networkPredictionEnabled: types.ChromeSetting;
+        webRTCMultipleRoutesEnabled: types.ChromeSetting;
     }
 
     interface Websites {
-        thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
-        referrersEnabled: chrome.types.ChromeSetting;
-        hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
-        protectedContentEnabled: chrome.types.ChromeSetting;
+        thirdPartyCookiesAllowed: types.ChromeSetting;
+        referrersEnabled: types.ChromeSetting;
+        hyperlinkAuditingEnabled: types.ChromeSetting;
+        protectedContentEnabled: types.ChromeSetting;
     }
 
     export const services: Services;
