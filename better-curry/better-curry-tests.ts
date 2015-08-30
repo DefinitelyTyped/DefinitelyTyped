@@ -23,3 +23,5 @@ delegate.access('ok') === delegate;
 delegate.getter('getter').setter('setter') === delegate;
 delegate.all(['1','2']);
 delegate.revoke('adsf').access('asdf');
+
+BetterCurry.wrap(fn2, {}, -1, false).__length === 10;
