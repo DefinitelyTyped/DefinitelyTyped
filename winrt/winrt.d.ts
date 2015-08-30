@@ -14808,17 +14808,53 @@ declare module Windows.Foundation {
 
 declare module Windows.UI.ViewManagement {
     export class ApplicationViewTitleBar {
+        /**
+         * Gets or sets the color of the title bar background.
+        **/
         backgroundColor: Color;
+        /**
+         * Gets or sets the background color of the title bar buttons.
+        **/
         buttonBackgroundColor: Color;
+        /**
+         * Gets or sets the foreground color of the title bar buttons.
+        **/
         buttonForegroundColor: Color;
+        /**
+         * Gets or sets the background color of a title bar button when the pointer is over it.
+        **/
         buttonHoverBackgroundColor: Color;
+        /**
+         * Gets or sets the foreground color of a title bar button when the pointer is over it.
+        **/
         buttonHoverForegroundColor: Color;
+        /**
+         * Gets or sets the background color of a title bar button when it's inactive.
+        **/
         buttonInactiveBackgroundColor: Color;
+        /**
+         * Gets or sets the foreground color of a title bar button when it's inactive.
+        **/
         buttonInactiveForegroundColor: Color;
+        /**
+         * Gets or sets the background color of a title bar button when it's pressed.
+        **/
         buttonPressedBackgroundColor: Color;
+        /**
+         * Gets or sets the foreground color of a title bar button when it's pressed.
+        **/
         buttonPressedForegroundColor: Color;
+        /**
+         * Gets or sets the color of the title bar foreground.
+        **/
         foregroundColor: Color;
+        /**
+         * Gets or sets the color of the title bar background when it's inactive.
+        **/
         inactiveBackgroundColor: Color;
+        /**
+         * Gets or sets the color of the title bar foreground when it's inactive.
+        **/
         inactiveForegroundColor: Color;
     }
 }
