@@ -1278,6 +1278,12 @@ result = <boolean>_(1).isNumber();
 result = <boolean>_<any>([]).isNumber();
 result = <boolean>_({}).isNumber();
 
+// _.isPlainObject
+result = <boolean>_.isPlainObject(any);
+result = <boolean>_(1).isPlainObject();
+result = <boolean>_<any>([]).isPlainObject();
+result = <boolean>_({}).isPlainObject();
+
 // _.isRegExp
 result = <boolean>_.isRegExp(any);
 result = <boolean>_(1).isRegExp();
@@ -1522,10 +1528,6 @@ class Stooge {
         public age: number
         ) { }
 }
-
-result = <boolean>_.isPlainObject(new Stooge('moe', 40));
-result = <boolean>_.isPlainObject([1, 2, 3]);
-result = <boolean>_.isPlainObject({ 'name': 'moe', 'age': 40 });
 
 result = <string[]>_.keys({ 'one': 1, 'two': 2, 'three': 3 });
 result = <string[]>_({ 'one': 1, 'two': 2, 'three': 3 }).keys().value();
