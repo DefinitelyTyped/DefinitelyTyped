@@ -1852,9 +1852,9 @@ declare module chrome.pageAction {
     var onClicked: PageActionClickedEvent;
 }
 
-////////////////////
-// Page Capture
-////////////////////
+/**
+ * Use the chrome.pageCapture API to save a tab as MHTML.
+ */
 declare module chrome.pageCapture {
     interface SaveDetails {
         tabId: number;
