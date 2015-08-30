@@ -1695,11 +1695,12 @@ declare module chrome.management {
     var onEnabled: ManagementEnabledEvent;
 }
 
-////////////////////
-// Notifications
-// https://developer.chrome.com/extensions/notifications
-////////////////////
+/**
+ * Use the chrome.notifications API to create rich notifications using templates and show these
+ * notifications to users in the system tray.
+ */
 declare module chrome.notifications {
+
     interface ButtonOptions {
         title: string;
         iconUrl?: string;
@@ -1718,43 +1719,46 @@ declare module chrome.notifications {
         contextMessage?: string;
         priority?: number;
         eventTime?: number;
-        buttons?: Array<ButtonOptions>;
-        items?: Array<ItemOptions>;
+        buttons?: ButtonOptions[];
+        items?: ItemOptions[];
         progress?: number;
         isClickable?: boolean;
+        appIconMaskUrl?: string;
+        imageUrl?: string;
     }
 
-    interface OnClosed {
+    interface OnClosedEvent extends events.Event {
         addListener(callback: (notificationId: string, byUser: boolean) => void): void;
     }
 
-    interface OnClicked {
+    interface OnClickedEvent extends events.Event {
         addListener(callback: (notificationId: string) => void): void;
     }
 
-    interface OnButtonClicked {
+    interface OnButtonClicked extends events.Event {
         addListener(callback: (notificationId: string, buttonIndex: number) => void): void;
     }
 
-    interface OnPermissionLevelChanged {
+    interface OnPermissionLevelChangedEvent extends events.Event {
         addListener(callback: (level: string) => void): void;
     }
 
-    interface OnShowSettings {
+    interface OnShowSettingsEvent extends events.Event {
         addListener(callback: Function): void;
     }
 
-    export var onClosed: OnClosed;
-    export var onClicked: OnClicked;
-    export var onButtonClicked: OnButtonClicked;
-    export var onPermissionLevelChanged: OnPermissionLevelChanged;
-    export var onShowSettings: OnShowSettings;
-
-    export function create(notificationId: string, options: NotificationOptions, callback: (notificationId: string) => void): void;
+    export function create(notificationId: string, options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
     export function update(notificationId: string, options: NotificationOptions, callback: (wasUpdated: boolean) => void): void;
     export function clear(notificationId: string, callback: (wasCleared: boolean) => void): void;
-    export function getAll(callback: (notifications: any) => void): void;
+    export function getAll(callback: (notifications: Object) => void): void;
     export function getPermissionLevel(callback: (level: string) => void): void;
+
+    var onClosed: OnClosedEvent;
+    var onClicked: OnClickedEvent;
+    var onButtonClicked: OnButtonClicked;
+    var onPermissionLevelChanged: OnPermissionLevelChangedEvent;
+    var onShowSettings: OnShowSettingsEvent;
 }
 
 ////////////////////
