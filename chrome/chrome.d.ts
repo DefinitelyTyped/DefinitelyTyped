@@ -1898,6 +1898,43 @@ declare module chrome.power {
     export function releaseKeepAwake(): void;
 }
 
+/**
+ * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions,
+ * to query their capabilities and to submit print jobs to these printers.
+ */
+declare module chrome.printerProvider {
+
+    interface PrinterInfo {
+        id: string;
+        name: string;
+        description?: string;
+    }
+
+    interface PrintJob {
+        printerId: string;
+        title: string;
+        ticket: Object;
+        contentType: string;
+        document: Blob;
+    }
+
+    interface OnGetPrintersRequestedEvent extends events.Event {
+        addListener(callback: (resultCallback: (printerInfo: PrinterInfo[]) => void) => void): void;
+    }
+
+    interface OnGetCapabilityRequestedEvent extends events.Event {
+        addListener(callback: (printerId: string, resultCallback: (capabilities: Object) => void) => void): void;
+    }
+
+    interface OnPrintRequestedEvent extends events.Event {
+        addListener(callback: (printJob: PrintJob, resultCallback: (result: string) => void) => void): void;
+    }
+
+    var onGetPrintersRequested: OnGetPrintersRequestedEvent;
+    var onGetCapabilityRequested: OnGetCapabilityRequestedEvent;
+    var onPrintRequested: OnPrintRequestedEvent;
+}
+
 ////////////////////
 // Privacy
 ////////////////////
