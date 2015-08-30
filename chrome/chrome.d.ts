@@ -2192,34 +2192,6 @@ declare module chrome.sessions {
 }
 
 ////////////////////
-// Script Badge
-////////////////////
-declare module chrome.scriptBadge {
-    interface GetPopupDetails {
-        tabId: number;
-    }
-
-    interface AttentionDetails {
-        tabId: number;
-    }
-
-    interface SetPopupDetails {
-        tabId: number;
-        popup: string;
-    }
-
-    interface ScriptBadgeClickedEvent extends chrome.events.Event {
-        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
-    }
-
-    export function getPopup(details: GetPopupDetails, callback: Function): void;
-    export function getAttention(details: AttentionDetails): void;
-    export function setPopup(details: SetPopupDetails): void;
-
-    var onClicked: ScriptBadgeClickedEvent;
-}
-
-////////////////////
 // Storage
 ////////////////////
 declare module chrome.storage {
