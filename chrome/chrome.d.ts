@@ -2156,6 +2156,41 @@ declare module chrome.runtime {
     var onUpdateAvailable: RuntimeUpdateAvailableEvent;
 }
 
+/**
+ * Use the chrome.sessions API to query and restore tabs and windows from a browsing session.
+ */
+declare module chrome.sessions {
+
+    interface Filter {
+        maxResults?: number;
+    }
+
+    interface Session {
+        lastModified: number;
+        tab: tabs.Tab;
+        window: windows.Window;
+    }
+
+    interface Device {
+        deviceName: string;
+        sessions: Session[];
+    }
+
+    interface ChangedEvent extends events.Event {
+        addListener(callback: Function);
+    }
+
+    export function getRecentlyClosed(callback: (sessions: Session[]) => void): void;
+    export function getRecentlyClosed(filter: Filter, callback: (sessions: Session[]) => void): void;
+    export function getDevices(callback: (devices: Device[]) => void): void;
+    export function getDevices(filter: Filter, callback: (devices: Device[]) => void): void;
+    export function restore(sessionId?: string, callback?: (restoredSession: Session) => void): void;
+
+    export const MAX_SESSION_RESULTS: number;
+
+    var onChanged: ChangedEvent;
+}
+
 ////////////////////
 // Script Badge
 ////////////////////
