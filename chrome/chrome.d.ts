@@ -1972,10 +1972,13 @@ declare module chrome.privacy {
     export const websites: Websites;
 }
 
-////////////////////
-// Proxy
-////////////////////
+/**
+ * Use the chrome.proxy API to manage Chrome's proxy settings. This API relies on the
+ * {@link https://developer.chrome.com/extensions/types#ChromeSetting|ChromeSetting prototype of the type API} for
+ * getting and setting the proxy configuration.
+ */
 declare module chrome.proxy {
+
     interface PacScript {
         url?: string;
         mandatory?: boolean;
@@ -2009,11 +2012,11 @@ declare module chrome.proxy {
         fatal: boolean;
     }
 
-    interface ProxyErrorEvent extends chrome.events.Event {
+    interface ProxyErrorEvent extends events.Event {
         addListener(callback: (details: ErrorDetails) => void): void;
     }
 
-    export const settings: chrome.types.ChromeSetting;
+    export const settings: types.ChromeSetting;
 
     var onProxyError: ProxyErrorEvent;
 }
