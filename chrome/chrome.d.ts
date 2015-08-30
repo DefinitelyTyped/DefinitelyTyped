@@ -2191,22 +2191,20 @@ declare module chrome.sessions {
     var onChanged: ChangedEvent;
 }
 
-////////////////////
-// Storage
-////////////////////
+/**
+ * Use the chrome.storage API to store, retrieve, and track changes to user data.
+ */
 declare module chrome.storage {
+
     interface StorageArea {
         getBytesInUse(callback: (bytesInUse: number) => void): void;
-        getBytesInUse(keys: string, callback: (bytesInUse: number) => void): void;
-        getBytesInUse(keys: string[], callback: (bytesInUse: number) => void): void;
+        getBytesInUse(keys: string | string[], callback: (bytesInUse: number) => void): void;
         clear(callback?: Function): void;
         set(items: Object, callback?: Function): void;
-        remove(keys: string, callback?: Function): void;
-        remove(keys: string[], callback?: Function): void;
+        remove(keys: string | string[], callback?: Function): void;
         get(callback: (items: Object) => void): void;
-        get(keys: string, callback: (items: Object) => void): void;
-        get(keys: string[], callback: (items: Object) => void): void;
-        get(keys: Object, callback: (items: Object) => void): void;
+        get(keys: string | string[] | Object, callback: (items: Object) => void): void;
+        get(callback: (items: Object) => void): void;
     }
 
     interface StorageChange {
@@ -2219,11 +2217,11 @@ declare module chrome.storage {
     }
 
     interface Sync extends StorageArea {
-        MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
         QUOTA_BYTES: number;
         QUOTA_BYTES_PER_ITEM: number;
         MAX_ITEMS: number;
         MAX_WRITE_OPERATIONS_PER_HOUR: number;
+        MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
     interface StorageChangedEvent extends chrome.events.Event {
@@ -2232,6 +2230,7 @@ declare module chrome.storage {
 
     export const local: Local;
     export const sync: Sync;
+    export const managed: StorageArea;
 
     var onChanged: StorageChangedEvent;
 }
