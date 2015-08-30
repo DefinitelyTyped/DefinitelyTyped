@@ -1451,10 +1451,14 @@ declare module chrome.idle {
     var onStateChanged: IdleStateChangedEvent;
 }
 
-////////////////////
-// Input - IME
-////////////////////
+/**
+ * Use the chrome.input.ime API to implement a custom IME for Chrome OS. This allows your extension
+ * to handle keystrokes, set the composition, and manage the candidate window.
+ */
 declare module chrome.input.ime {
+
+    // types
+
     interface KeyboardEvent {
         shiftKey?: boolean;
         altKey?: boolean;
@@ -1462,17 +1466,30 @@ declare module chrome.input.ime {
         key: string;
         ctrlKey?: boolean;
         type: string;
+        extensionId?: string;
+        code: string;
+        keyCode?: number;
+        capsLock?: boolean;
     }
 
     interface InputContext {
         contextID: number;
         type: string;
+        autoCorrect: boolean;
+        autoComplete: boolean;
+        spellCheck: boolean;
     }
 
-    interface ImeParameters {
-        items: Object[];
-        engineID: string;
+    interface MenuItem {
+        id: string;
+        label?: string;
+        style?: string;
+        visible?: boolean;
+        checked?: boolean;
+        enabled?: boolean;
     }
+
+    // functions parameters
 
     interface CommitTextParameters {
         text: string;
@@ -1487,14 +1504,20 @@ declare module chrome.input.ime {
     interface CompositionParameters {
         contextID: number;
         text: string;
-        segments: Object[];
+        segments: Segment[];
         cursor: number;
         selectionStart?: number;
         selectionEnd?: number;
     }
 
+    interface Segment {
+        start: number;
+        end: number;
+        style: string;
+    }
+
     interface MenuItemParameters {
-        items: Object[];
+        items: MenuItem[];
         engineId: string;
     }
 
@@ -1505,6 +1528,7 @@ declare module chrome.input.ime {
         auxiliaryTextVisible?: boolean;
         auxiliaryText?: string;
         visible?: boolean;
+        windowPosition?: string;
     }
 
     interface ClearCompositionParameters {
@@ -1516,39 +1540,65 @@ declare module chrome.input.ime {
         contextID: number;
     }
 
-    interface BlurEvent extends chrome.events.Event {
+    interface SendKeysEventsParameters {
+        contextID: number;
+        keyData: KeyboardEvent[];
+    }
+
+    interface SurroundingTextParameters {
+        engineID: string;
+        contextID: number;
+        offset: number;
+        length: number;
+    }
+
+    interface SurroundingTextInfo {
+        text: string;
+        focus: number;
+        anchor: number;
+    }
+
+    interface BlurEvent extends events.Event {
         addListener(callback: (contextID: number) => void): void;
     }
 
-    interface CandidateClickedEvent extends chrome.events.Event {
+    interface CandidateClickedEvent extends events.Event {
         addListener(callback: (engineID: string, candidateID: number, button: string) => void): void;
     }
 
-    interface KeyEventEvent extends chrome.events.Event {
+    interface KeyEventEvent extends events.Event {
         addListener(callback: (engineID: string, keyData: KeyboardEvent) => void): void;
     }
 
-    interface DeactivatedEvent extends chrome.events.Event {
+    interface DeactivatedEvent extends events.Event {
         addListener(callback: (engineID: string) => void): void;
     }
 
-    interface InputContextUpdateEvent extends chrome.events.Event {
+    interface InputContextUpdateEvent extends events.Event {
         addListener(callback: (context: InputContext) => void): void;
     }
 
-    interface ActivateEvent extends chrome.events.Event {
-        addListener(callback: (engineID: string) => void): void;
+    interface ActivateEvent extends events.Event {
+        addListener(callback: (engineID: string, screen: string) => void): void;
     }
 
-    interface FocusEvent extends chrome.events.Event {
+    interface FocusEvent extends events.Event {
         addListener(callback: (context: InputContext) => void): void;
     }
 
-    interface MenuItemActivatedEvent extends chrome.events.Event {
+    interface MenuItemActivatedEvent extends events.Event {
         addListener(callback: (engineID: string, name: string) => void): void;
     }
 
-    export function setMenuItems(parameters: ImeParameters, callback?: Function): void;
+    interface SurroundingTextChangedEvent extends events.Event {
+        addListener(callback: (engineID: string, surroundingInfo: SurroundingTextInfo) => void): void;
+    }
+
+    interface ResetEvent extends events.Event {
+        addListener(callback: (engineID: string) => void): void;
+    }
+
+    export function setMenuItems(parameters: MenuItemParameters, callback?: Function): void;
     export function commitText(parameters: CommitTextParameters, callback?: (success: boolean) => void): void;
     export function setCandidates(parameters: CandidatesParameters, callback?: (success: boolean) => void): void;
     export function setComposition(parameters: CompositionParameters, callback?: (success: boolean) => void): void;
@@ -1556,6 +1606,10 @@ declare module chrome.input.ime {
     export function setCandidateWindowProperties(parameters: CandidateWindowPropertiesParameters, callback?: (success: boolean) => void): void;
     export function clearComposition(parameters: ClearCompositionParameters, callback?: (success: boolean) => void): void;
     export function setCursorPosition(parameters: CursorPositionParameters, callback?: (success: boolean) => void): void;
+    export function sendKeyEvents(parameters: SendKeysEventsParameters, callback?: Function): void;
+    export function hideInputView(): void;
+    export function deleteSurroundingText(parameters: SurroundingTextParameters, callback: Function): void;
+    export function keyEventHandled(requestId: string, response: boolean): void;
 
     var onBlur: BlurEvent;
     var onCandidateClicked: CandidateClickedEvent;
@@ -1565,6 +1619,8 @@ declare module chrome.input.ime {
     var onActivate: ActivateEvent;
     var onFocus: FocusEvent;
     var onMenuItemActivated: MenuItemActivatedEvent;
+    var onSurroundingTextChanged: SurroundingTextChangedEvent;
+    var onReset: ResetEvent;
 }
 
 ////////////////////
