@@ -1436,15 +1436,17 @@ declare module chrome.identity {
     var onSignInChanged: SignInChangedEvent;
 }
 
-////////////////////
-// Idle
-////////////////////
+/**
+ * Use the chrome.idle API to detect when the machine's idle state changes.
+ */
 declare module chrome.idle {
-    interface IdleStateChangedEvent extends chrome.events.Event {
+
+    interface IdleStateChangedEvent extends events.Event {
         addListener(callback: (newState: string) => void): void;
     }
 
-    export function queryState(thresholdSeconds: number, callback: (newState: string) => void): void;
+    export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
+    export function setDetectionInterval(intervalInSeconds: number): void;
 
     var onStateChanged: IdleStateChangedEvent;
 }
