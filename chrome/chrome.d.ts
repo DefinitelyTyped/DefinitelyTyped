@@ -1623,9 +1623,11 @@ declare module chrome.input.ime {
     var onReset: ResetEvent;
 }
 
-////////////////////
-// Management
-////////////////////
+/**
+ * The chrome.management API provides ways to manage the list of extensions/apps that are installed and running. It is
+ * particularly useful for extensions that {@link https://developer.chrome.com/extensions/override|override} the
+ * built-in New Tab page.
+ */
 declare module chrome.management {
     interface ExtensionInfo {
         disabledReason?: string;
@@ -1645,6 +1647,9 @@ declare module chrome.management {
         type: string;
         optionsUrl: string;
         name: string;
+        shortName: string;
+        launchType?: string;
+        availableLaunchTypes?: string[];
     }
 
     interface IconInfo {
@@ -1656,19 +1661,19 @@ declare module chrome.management {
         showConfirmDialog?: boolean;
     }
 
-    interface ManagementDisabledEvent extends chrome.events.Event {
+    interface ManagementDisabledEvent extends events.Event {
         addListener(callback: (info: ExtensionInfo) => void): void;
     }
 
-    interface ManagementUninstalledEvent extends chrome.events.Event {
+    interface ManagementUninstalledEvent extends events.Event {
         addListener(callback: (id: string) => void): void;
     }
 
-    interface ManagementInstalledEvent extends chrome.events.Event {
+    interface ManagementInstalledEvent extends events.Event {
         addListener(callback: (info: ExtensionInfo) => void): void;
     }
 
-    interface ManagementEnabledEvent extends chrome.events.Event {
+    interface ManagementEnabledEvent extends events.Event {
         addListener(callback: (info: ExtensionInfo) => void): void;
     }
 
@@ -1678,7 +1683,11 @@ declare module chrome.management {
     export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
     export function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionwarnings: string[]) => void): void;
     export function launchApp(id: string, callback?: Function): void;
-    export function uninstall(id: string, options: UninstallOptions, callback?: Function): void;
+    export function uninstall(id: string, options?: UninstallOptions, callback?: Function): void;
+    export function getSelf(callback?: (result: ExtensionInfo) => void): void;
+    export function uninstall(options?: UninstallOptions, callback?: Function): void;
+    export function createAppShortcut(id: string, launchType: string, callback?: Function): void;
+    export function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
 
     var onDisabled: ManagementDisabledEvent;
     var onUninstalled: ManagementUninstalledEvent;
