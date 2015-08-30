@@ -1865,7 +1865,7 @@ declare module chrome.pageCapture {
 
 /**
  * Use the chrome.permissions API to request {@link https://developer.chrome.com/extensions/permissions#manifest|declared optional permissions}
- * at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary. 
+ * at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
  */
 declare module chrome.permissions {
     interface Permissions {
@@ -1888,6 +1888,14 @@ declare module chrome.permissions {
 
     var onRemoved: PermissionsRemovedEvent;
     var onAdded: PermissionsAddedEvent;
+}
+
+/**
+ * Use the chrome.power API to override the system's power management features.
+ */
+declare module chrome.power {
+    export function requestKeepAwake(level: string): void;
+    export function releaseKeepAwake(): void;
 }
 
 ////////////////////
