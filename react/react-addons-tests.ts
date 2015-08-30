@@ -84,6 +84,8 @@ class ModernComponent extends React.Component<Props, State>
         someOtherValue: React.PropTypes.string
     }
     
+    context: Context;
+    
     getChildContext() {
         return {
             someOtherValue: 'foo'
@@ -203,7 +205,7 @@ myComponent.reset();
 // Attributes
 // --------------------------------------------------------------------------
 
-var children = ["Hello world", [null], React.DOM.span(null)];
+var children: any[] = ["Hello world", [null], React.DOM.span(null)];
 var divStyle = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"

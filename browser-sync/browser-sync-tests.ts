@@ -79,4 +79,9 @@ bs.init({
 
 bs.reload();
 
-
+function browserSyncInit(): browserSync.BrowserSync {
+    var browser = browserSync.create();
+    browser.init();
+    return browser;
+}
+var browser = browserSyncInit();

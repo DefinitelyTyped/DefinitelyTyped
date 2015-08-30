@@ -3,16 +3,9 @@
 
 import colors = require("colors");
 
-var test:string = 'test';
-var arr:string[] = ['color', 'odd'.italic.zebra, 'radical'.bold.rainbow, test.underline + 'super'.green];
-
-colors.black("abc").trim();
-colors.red("abc").trim();
-colors.green("abc").trim();
-colors.yellow("abc").trim();
-colors.blue("abc").trim();
-colors.magenta("abc").trim();
-colors.cyan("abc").trim();
-colors.white("abc").trim();
-colors.gray("abc").trim();
-colors.grey("abc").trim();
+console.log(colors.black.underline('test'));
+console.log(colors.rainbow.black.blue.gray('test'));
+console.log(colors.random.reset.bgWhite.dim('test'));
+console.log('test'.black.underline);
+console.log('test'.rainbow.black.blue.gray);
+console.log('test'.random.reset.bgWhite.dim);

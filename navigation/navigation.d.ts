@@ -1,4 +1,4 @@
-﻿// Type definitions for Navigation 1.0
+﻿// Type definitions for Navigation 1.1.0
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -61,15 +61,20 @@ declare module Navigation {
          */
         title?: string;
         /**
-         * Gets the route Url pattern
+         * Gets the route Url patterns
          */
-        route: string;
+        route: string | string[];
         /**
          * Gets a value that indicates whether to maintain crumb trail 
          * information e.g PreviousState. This can be used together with Route
          * to produce user friendly Urls 
          */
         trackCrumbTrail?: boolean;
+        /**
+         * Gets a value that indicates whether NavigationData Types are
+         * preserved when navigating
+         */
+        trackTypes?: boolean;
     }
 
     /**
@@ -175,9 +180,9 @@ declare module Navigation {
          */
         title: string;
         /**
-         * Gets the route Url pattern
+         * Gets the route Url patterns
          */
-        route: string;
+        route: string | string[];
         /**
          * Gets a value that indicates whether to maintain crumb trail 
          * information e.g PreviousState. This can be used together with Route
@@ -185,10 +190,25 @@ declare module Navigation {
          */
         trackCrumbTrail: boolean;
         /**
+         * Gets a value that indicates whether NavigationData Types are
+         * preserved when navigating
+         */
+        trackTypes: boolean;
+        /**
          * Gets or sets the IStateHandler responsible for building and parsing
-         * avigation links to this State
+         * navigation links to this State
          */
         stateHandler: IStateHandler;
+        /**
+         * Called on the old State (this is not the same as the previous 
+         * State) before navigating to a different State
+         * @param state The new State
+         * @param data The new NavigationData
+         * @param url The new target location
+         * @param unload The function to call to continue to navigate
+         * @param history A value indicating whether browser history was used
+         */
+        unloading: (state: State, data: any, url: string, unload: () => void, history?: boolean) => void;
         /**
          * Called on the old State (this is not the same as the previous 
          * State) after navigating to a different State
@@ -197,15 +217,17 @@ declare module Navigation {
         /**
          * Called on the current State after navigating to it
          * @param data The current NavigationData
+         * @param asyncData The data passed asynchronously while navigating
          */
-        navigated: (data: any) => void;
+        navigated: (data: any, asyncData?: any) => void;
         /**
          * Called on the new State before navigating to it
          * @param data The new NavigationData
          * @param url The new target location
-         * @param navigate The function to call to continue to navigate 
+         * @param navigate The function to call to continue to navigate
+         * @param history A value indicating whether browser history was used
          */
-        navigating: (data: any, url: string, navigate: () => void) => void;
+        navigating: (data: any, url: string, navigate: (asyncData?: any) => void, history?: boolean) => void;
     }
 
     /**
@@ -366,6 +388,84 @@ declare module Navigation {
          */
         getUrl(anchor: HTMLAnchorElement): string;
     }
+    
+    /**
+     * Provides the base functionality for crumb trail persistence mechanisms
+     */
+    class CrumbTrailPersister {
+        /**
+         * Overridden by derived classes to return the persisted crumb trail
+         * @param crumbTrail The key, returned from the save function, to 
+         * identify the persisted crumb trail
+         * @returns The crumb trail holding navigation and data information
+         */
+        load(crumbTrail: string): string;
+        /**
+         * Overridden by derived classes to persist the crumb trail
+         * @param crumbTrail The crumb trail holding navigation and data 
+         * information
+         * @returns The key to be passed to load function for crumb trail
+         * retrieval
+         */
+        save(crumbTrail: string): string;
+    }    
+
+    /**
+     * Persists crumb trails, over a specified length, in localStorage. 
+     * Prevents the creation of unmanageably long Urls. If used in a browser
+     * without localStorage or outside of a browser environment, then in memory
+     * storage is used
+     */
+    class StorageCrumbTrailPersister extends CrumbTrailPersister {
+        /**
+         * Initializes a new instance of the StorageCrumbTrailPersister class
+         * with a maxLength of 500, historySize of 100 and localStorage as the
+         * storage mechanism
+         */
+        constructor();
+        /**
+         * Initializes a new instance of the StorageCrumbTrailPersister class
+         * with a historySize of 100 and localStorage as the storage mechanism
+         * @param maxLength The length above which any crumb trail will be
+         * stored in localStorage
+         */
+        constructor(maxLength: number);
+        /**
+         * Initializes a new instance of the StorageCrumbTrailPersister class
+         * with localStorage as the storage mechanism
+         * @param maxLength The length above which any crumb trail will be
+         * stored in localStorage
+         * @param historySize The maximum number of crumb trails that will be
+         * held at any one time in localStorage
+         */
+        constructor(maxLength: number, historySize: number);
+        /**
+         * Initializes a new instance of the StorageCrumbTrailPersister class
+         * @param maxLength The length above which any crumb trail will be
+         * stored in the storage
+         * @param historySize The maximum number of crumb trails that will be
+         * held at any one time in the storage
+         * @param storage The storage mechanism
+         */
+        constructor(maxLength: number, historySize: number, storage: Storage);
+        /**
+         * Uses the crumbTrail parameter to determine whether to retrieve the
+         * crumb trail from storage. If retrieved from storage it may be null
+         * @param Key generated by the save function
+         * @returns Either the crumbTrail or the one retrieved value from
+         * storage; can be null if retrieved from storage 
+         */
+        load(crumbTrail: string): string;
+        /**
+         * If the crumbTrail is not over the maxLength it is returned. 
+         * Otherwise the crumbTrail is stored in storage using a short key,
+         * unique within a given storage session. Also expunges old items from
+         * storage, if the historySize is breached when a new item is added
+         * @param crumbTrail The crumb trail to persist
+         * @returns crumbTrail or short, generated key pointing at crumbTrail
+         */
+        save(crumbTrail: string): string;
+    }
 
     /**
      * Defines a contract a class must implement in order to build and parse
@@ -434,6 +534,14 @@ declare module Navigation {
         navigationLink: string;
         /**
          * Initializes a new instance of the Crumb class
+         * @param data The Context Data held at the time of navigating away
+         * from this State
+         * @param state The configuration information associated with this
+         * navigation
+         * @param link The hyperlink navigation to return to the State and pass
+         * the associated Data
+         * @param last A value indicating whether the Crumb is the last in the
+         * crumb trail
          */
         constructor(data: any, state: State, link: string, last: boolean);
     }
@@ -442,8 +550,18 @@ declare module Navigation {
      * Provides access to the Navigation Settings configuration
      */
     class NavigationSettings {
+        /**
+         * Gets or sets the builder and parser of State routes
+         */
         router: IRouter;
+        /**
+         * Gets or sets the manager of the browser Url
+         */
         historyManager: IHistoryManager;
+        /**
+         * Gets or sets the crumb trail persistence mechanism
+         */
+        crumbTrailPersister: CrumbTrailPersister;
         /**
          * Gets or sets the key that identifies the StateId
          */
@@ -464,6 +582,11 @@ declare module Navigation {
          * Gets or sets the application path
          */
         applicationPath: string;
+        /**
+         * Gets or sets a value indicating whether the PreviousStateId and
+         * ReturnData should be part of the CrumbTrail
+         */
+        combineCrumbTrail: boolean;
     }
 
     /**
@@ -651,6 +774,12 @@ declare module Navigation {
          */
         static navigateLink(url: string): void;
         /**
+         * Navigates to the url
+         * @param url The target location
+         * @param history A value indicating whether browser history was used
+         */
+        static navigateLink(url: string, history: boolean): void;
+        /**
          * Gets the next State. Depending on the action will either return the
          * 'to' State of a Transition or the 'initial' State of a Dialog
          * @param action The key of a child Transition or the key of a Dialog
@@ -831,6 +960,11 @@ declare module Navigation {
          * @returns The matched route and data
          */
         match(path: string): { route: Route; data: any; };
+        /**
+         * Sorts the routes by the comparer
+         * @param compare The route comparer function
+         */
+        sort(compare: (routeA: Route, routeB: Route) => number): void;
     }
 
     /**

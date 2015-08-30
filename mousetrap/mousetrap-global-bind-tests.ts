@@ -1,14 +1,14 @@
 /// <reference path="mousetrap-global-bind.d.ts"/>
 
-Mousetrap.globalBind('4', function() { console.log('4'); });
-Mousetrap.globalBind("?", function() { console.log('show shortcuts!'); });
-Mousetrap.globalBind('esc', function() { console.log('escape'); }, 'keyup');
+Mousetrap.bindGlobal('4', function() { console.log('4'); });
+Mousetrap.bindGlobal("?", function() { console.log('show shortcuts!'); });
+Mousetrap.bindGlobal('esc', function() { console.log('escape'); }, 'keyup');
 
 // combinations
-Mousetrap.globalBind('command+shift+K', function() { console.log('command shift k'); });
+Mousetrap.bindGlobal('command+shift+K', function() { console.log('command shift k'); });
 
 // map multiple combinations to the same callback
-Mousetrap.globalBind(['command+k', 'ctrl+k'], function() {
+Mousetrap.bindGlobal(['command+k', 'ctrl+k'], function() {
     console.log('command k or control k');
 
     // return false to prevent default browser behavior
@@ -17,15 +17,15 @@ Mousetrap.globalBind(['command+k', 'ctrl+k'], function() {
 });
 
 // gmail style sequences
-Mousetrap.globalBind('g i', function() { console.log('go to inbox'); });
-Mousetrap.globalBind('* a', function() { console.log('select all'); });
+Mousetrap.bindGlobal('g i', function() { console.log('go to inbox'); });
+Mousetrap.bindGlobal('* a', function() { console.log('select all'); });
 
 // konami code!
-Mousetrap.globalBind('up up down down left right left right b a enter', function() {
+Mousetrap.bindGlobal('up up down down left right left right b a enter', function() {
     console.log('konami code');
 });
 
-Mousetrap.globalBind(['ctrl+s', 'meta+s'], (e, combo) => {
+Mousetrap.bindGlobal(['ctrl+s', 'meta+s'], (e, combo) => {
     if (e.preventDefault) {
         e.preventDefault();
     } else {
