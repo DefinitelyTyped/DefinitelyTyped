@@ -1764,7 +1764,7 @@ declare module chrome.notifications {
 /**
  * The omnibox API allows you to register a keyword with Google Chrome's address bar, which is also known as the omnibox.
  */
-declare module chrome.omnibox {
+  declare module chrome.omnibox {
     interface SuggestResult {
         content: string;
         description: string;
@@ -1798,12 +1798,27 @@ declare module chrome.omnibox {
     var onInputCancelled: OmniboxInputCancelledEvent;
 }
 
-////////////////////
-// Page Action
-////////////////////
+/**
+ * Use the chrome.pageAction API to put icons inside the address bar. Page actions represent actions that can be
+ * taken on the current page, but that aren't applicable to all pages.
+ */
 declare module chrome.pageAction {
-    interface PageActionClickedEvent extends chrome.events.Event {
-        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
+
+    interface ImageDataType extends ImageData {
+    }
+
+    interface ImageDataDictionary {
+        19: ImageData;
+        38: ImageData;
+    }
+
+    interface ImagePathDictionary {
+        19: string;
+        38: string;
+    }
+
+    interface PageActionClickedEvent extends events.Event {
+        addListener(callback: (tab: tabs.Tab) => void): void;
     }
 
     interface TitleDetails {
@@ -1822,9 +1837,8 @@ declare module chrome.pageAction {
 
     interface IconDetails {
         tabId: number;
-        iconIndex?: number;
-        imageData?: ImageData;
-        path?: any;
+        imageData?: ImageDataType | ImageDataDictionary;
+        path?: string | ImagePathDictionary;
     }
 
     export function hide(tabId: number): void;
