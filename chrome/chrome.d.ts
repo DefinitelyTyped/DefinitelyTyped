@@ -1863,9 +1863,10 @@ declare module chrome.pageCapture {
     export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
 }
 
-////////////////////
-// Permissions
-////////////////////
+/**
+ * Use the chrome.permissions API to request {@link https://developer.chrome.com/extensions/permissions#manifest|declared optional permissions}
+ * at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary. 
+ */
 declare module chrome.permissions {
     interface Permissions {
         origins?: string[];
