@@ -1393,12 +1393,47 @@ declare module chrome.i18n {
     export function getUILanguage(): string;
 }
 
-////////////////////
-// Identity
-////////////////////
+/**
+ * Use the chrome.identity API to get OAuth2 access tokens.
+ */
 declare module chrome.identity {
-    var getAuthToken: (options: any, cb: (token: {}) => void) => void;
-    var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
+
+    interface AccountInfo {
+        id: string;
+    }
+
+    interface TokenDetails {
+        interactive?: boolean;
+        account?: AccountInfo;
+        scopes?: string[];
+    }
+
+    interface TokenInfo {
+        token: string;
+    }
+
+    interface UserInfo {
+        email: string;
+        id: string;
+    }
+
+    interface WebAuthFlowOptions {
+        url: string;
+        interactive?: boolean;
+    }
+
+    interface SignInChangedEvent extends events.Event {
+        addListener(callback: (account: AccountInfo, signedIn: boolean) => void): void;
+    }
+
+    export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
+    export function getAuthToken(details: TokenDetails, callback: (token: string) => void): void;
+    export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
+    export function removeCachedAuthToken(token: TokenInfo, callback: Function): void;
+    export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl: string) => void): void;
+    export function getRedirectURL(path?: string): void;
+
+    var onSignInChanged: SignInChangedEvent;
 }
 
 ////////////////////
