@@ -2021,10 +2021,13 @@ declare module chrome.proxy {
     var onProxyError: ProxyErrorEvent;
 }
 
-////////////////////
-// Runtime
-////////////////////
+/**
+ * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for
+ * and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path
+ * of URLs to fully-qualified URLs.
+ */
 declare module chrome.runtime {
+
     export const lastError: LastError;
     export const id: string;
 
@@ -2034,11 +2037,13 @@ declare module chrome.runtime {
 
     interface ConnectInfo {
         name?: string;
+        includeTlsChannelId?: boolean;
     }
 
     interface InstalledDetails {
         reason: string;
         previousVersion?: string;
+        id?: string;
     }
 
     interface MessageOptions {
@@ -2047,7 +2052,7 @@ declare module chrome.runtime {
 
     interface MessageSender {
         id?: string;
-        tab?: chrome.tabs.Tab;
+        tab?: tabs.Tab;
         frameId?: number;
         url?: string;
         tlsChannelId?: string;
@@ -2061,10 +2066,10 @@ declare module chrome.runtime {
 
     interface Port {
         postMessage: (message: Object) => void;
-        disconnect: () => void;
+        disconnect: Function;
         sender?: MessageSender;
-        onDisconnect: chrome.events.Event;
-        onMessage: PortMessageEvent;
+        onDisconnect: events.Event;
+        onMessage: events.Event;
         name: string;
     }
 
@@ -2076,55 +2081,54 @@ declare module chrome.runtime {
         version: string;
     }
 
-    interface PortMessageEvent extends chrome.events.Event {
+    interface PortMessageEvent extends events.Event {
         addListener(callback: (message: Object, port: Port) => void): void;
     }
 
-    interface ExtensionMessageEvent extends chrome.events.Event {
+    interface ExtensionMessageEvent extends events.Event {
         addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
     }
 
-    interface ExtensionMessageExternalEvent extends chrome.events.Event {
+    interface ExtensionMessageExternalEvent extends events.Event {
         addListener(callback: (message: any, sender: MessageSender, sendResponse: Function) => void): void;
     }
 
-    interface ExtensionConnectEvent extends chrome.events.Event {
+    interface ExtensionConnectEvent extends events.Event {
         addListener(callback: (port: Port) => void): void;
     }
 
-    interface ExtensionConnectExternalEvent extends chrome.events.Event {
+    interface ExtensionConnectExternalEvent extends events.Event {
         addListener(callback: (port: Port) => void): void;
     }
 
-    interface RuntimeSuspendEvent extends chrome.events.Event {
+    interface RuntimeSuspendEvent extends events.Event {
         addListener(callback: Function): void;
     }
 
-    interface RuntimeStartupEvent extends chrome.events.Event {
+    interface RuntimeStartupEvent extends events.Event {
         addListener(callback: Function): void;
     }
 
-    interface RuntimeInstalledEvent extends chrome.events.Event {
+    interface RuntimeInstalledEvent extends events.Event {
         addListener(callback: (details: InstalledDetails) => void): void;
     }
 
-    interface RuntimeSuspendCanceledEvent extends chrome.events.Event {
+    interface RuntimeSuspendCanceledEvent extends events.Event {
         addListener(callback: Function): void;
     }
-    interface RuntimeMessageEvent extends chrome.events.Event {
+    interface RuntimeMessageEvent extends events.Event {
         addListener(callback: Function): void;
     }
 
-    interface RuntimeRestartRequiredEvent extends chrome.events.Event {
+    interface RuntimeRestartRequiredEvent extends events.Event {
         addListener(callback: (reason: string) => void): void;
     }
 
-    interface RuntimeUpdateAvailableEvent extends chrome.events.Event {
+    interface RuntimeUpdateAvailableEvent extends events.Event {
         addListener(callback: (details: UpdateAvailableDetails) => void): void;
     }
 
-    export function connect(connectInfo?: ConnectInfo): Port;
-    export function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
+    export function connect(extensionId?: string, connectInfo?: ConnectInfo): Port;
     export function connectNative(application: string): Port;
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     export function getManifest(): Object;
@@ -2134,12 +2138,11 @@ declare module chrome.runtime {
     export function reload(): void;
     export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
     export function restart(): void;
-    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
-    export function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
-    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
-    export function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
-    export function sendNativeMessage(application: string, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(message: any, options?: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendMessage(extensionId: string, message: any, options?: MessageOptions, responseCallback?: (response: any) => void): void;
+    export function sendNativeMessage(application: string, message: Object, responseCallback?: (response: any) => void): void;
     export function setUninstallUrl(url: string): void;
+    export function openOptionsPage(callback: Function): void;
 
     var onConnect: ExtensionConnectEvent;
     var onConnectExternal: ExtensionConnectExternalEvent;
@@ -2151,7 +2154,6 @@ declare module chrome.runtime {
     var onMessageExternal: ExtensionMessageExternalEvent;
     var onRestartRequired: RuntimeRestartRequiredEvent;
     var onUpdateAvailable: RuntimeUpdateAvailableEvent;
-
 }
 
 ////////////////////
