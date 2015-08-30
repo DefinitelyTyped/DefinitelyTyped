@@ -6398,6 +6398,27 @@ declare module _ {
         isNumber(): boolean;
     }
 
+    //_.isPlainObject
+    interface LoDashStatic {
+        /**
+         * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
+         * [[Prototype]] of null.
+         *
+         * Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
+         *
+         * @param value The value to check.
+         * @return Returns true if value is a plain object, else false.
+         */
+        isPlainObject(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isPlainObject
+         */
+        isPlainObject(): boolean;
+    }
+
     //_.isRegExp
     interface LoDashStatic {
         /**
@@ -7196,16 +7217,6 @@ declare module _ {
         * @return True if the value is an object, else false.
         **/
         isObject(value?: any): boolean;
-    }
-
-    //_.isPlainObject
-    interface LoDashStatic {
-        /**
-        * Checks if value is an object created by the Object constructor.
-        * @param value The value to check.
-        * @return True if value is a plain object, else false.
-        **/
-        isPlainObject(value?: any): boolean;
     }
 
     //_.keys
