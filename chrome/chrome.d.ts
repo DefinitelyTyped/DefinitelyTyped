@@ -158,6 +158,7 @@ declare module chrome.bookmarks {
     var onImportEnded: BookmarkImportEndedEvent;
     var onImportBegan: BookmarkImportBeganEvent;
     var onChanged: BookmarkChangedEvent;
+    var onMoved: BookmarkMovedEvent;
     var onCreated: BookmarkCreatedEvent;
     var onChildrenReordered: BookmarkChildrenReordered;
 }
@@ -868,7 +869,7 @@ declare module chrome.events {
         addListener(callback: Function): void;
         getRules(callback: (rules: Rule[]) => void): void;
         getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
-        hasListener(callback: Function): void;
+        hasListener(callback: Function): boolean;
         removeRules(ruleIdentifiers?: string[], callback?: Function): void;
         addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
         removeListener(callback: Function): void;
@@ -1821,7 +1822,7 @@ declare module chrome.tabCapture {
         videoConstraints?: MediaTrackConstraints;
     }
 
-    export function capture(options: CaptureOptions, callback: (stream: LocalMediaStream) => void): void;
+    export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
     export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
 }
 
@@ -1899,7 +1900,7 @@ declare module chrome.tabs {
         active?: boolean;
         index?: number;
         title?: string;
-        url?: string;
+        url?: string | string[];
         currentWindow?: boolean;
         highlighted?: boolean;
         pinned?: boolean;

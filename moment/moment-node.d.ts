@@ -1,34 +1,61 @@
 // Type definitions for Moment.js 2.8.0
 // Project: https://github.com/timrwood/moment
-// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>
+// Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module moment {
 
     interface MomentInput {
 
+        /** Year */
         years?: number;
+        /** Year */
+        year?: number;
+        /** Year */
         y?: number;
 
+        /** Month */
         months?: number;
+        /** Month */
+        month?: number;
+        /** Month */
         M?: number;
 
-        weeks?: number;
-        w?: number;
-
+        /** Day/Date */
         days?: number;
+        /** Day/Date */
+        day?: number;
+        /** Day/Date */
+        date?: number;
+        /** Day/Date */
         d?: number;
 
+        /** Hour */
         hours?: number;
+        /** Hour */
+        hour?: number;
+        /** Hour */
         h?: number;
 
+        /** Minute */
         minutes?: number;
+        /** Minute */
+        minute?: number;
+        /** Minute */
         m?: number;
 
+        /** Second */
         seconds?: number;
+        /** Second */
+        second?: number;
+        /** Second */
         s?: number;
 
+        /** Millisecond */
         milliseconds?: number;
+        /** Millisecond */
+        millisecond?: number;
+        /** Millisecond */
         ms?: number;
 
     }
@@ -69,6 +96,7 @@ declare module moment {
         subtract(d: Duration): Duration;
 
         toISOString(): string;
+        toJSON(): string;
 
     }
 
@@ -165,6 +193,7 @@ declare module moment {
         utc(): Moment; // current date/time in UTC mode
 
         isValid(): boolean;
+        invalidAt(): number;
 
         year(y: number): Moment;
         year(): number;
@@ -215,11 +244,8 @@ declare module moment {
         dayOfYear(): number;
         dayOfYear(d: number): Moment;
 
-        from(f: Moment): string;
-        from(f: Moment, suffix: boolean): string;
-        from(d: Date): string;
-        from(s: string): string;
-        from(date: number[]): string;
+        from(f: Moment|string|number|Date|number[], suffix?: boolean): string;
+        to(f: Moment|string|number|Date|number[], suffix?: boolean): string;
 
         diff(b: Moment): number;
         diff(b: Moment, unitOfTime: string): number;
@@ -242,39 +268,13 @@ declare module moment {
         isDST(): boolean;
 
         isBefore(): boolean;
-        isBefore(b: Moment): boolean;
-        isBefore(b: string): boolean;
-        isBefore(b: Number): boolean;
-        isBefore(b: Date): boolean;
-        isBefore(b: number[]): boolean;
-        isBefore(b: Moment, granularity: string): boolean;
-        isBefore(b: String, granularity: string): boolean;
-        isBefore(b: Number, granularity: string): boolean;
-        isBefore(b: Date, granularity: string): boolean;
-        isBefore(b: number[], granularity: string): boolean;
+        isBefore(b: Moment|string|number|Date|number[], granularity?: string): boolean;
 
         isAfter(): boolean;
-        isAfter(b: Moment): boolean;
-        isAfter(b: string): boolean;
-        isAfter(b: Number): boolean;
-        isAfter(b: Date): boolean;
-        isAfter(b: number[]): boolean;
-        isAfter(b: Moment, granularity: string): boolean;
-        isAfter(b: String, granularity: string): boolean;
-        isAfter(b: Number, granularity: string): boolean;
-        isAfter(b: Date, granularity: string): boolean;
-        isAfter(b: number[], granularity: string): boolean;
+        isAfter(b: Moment|string|number|Date|number[], granularity?: string): boolean;
 
-        isSame(b: Moment): boolean;
-        isSame(b: string): boolean;
-        isSame(b: Number): boolean;
-        isSame(b: Date): boolean;
-        isSame(b: number[]): boolean;
-        isSame(b: Moment, granularity: string): boolean;
-        isSame(b: String, granularity: string): boolean;
-        isSame(b: Number, granularity: string): boolean;
-        isSame(b: Date, granularity: string): boolean;
-        isSame(b: number[], granularity: string): boolean;
+        isSame(b: Moment|string|number|Date|number[], granularity?: string): boolean;
+        isBetween(a: Moment|string|number|Date|number[], b: Moment|string|number|Date|number[], granularity?: string): boolean;
 
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
@@ -290,20 +290,12 @@ declare module moment {
         localeData(): MomentLanguage;
 
         // Deprecated as of 2.7.0.
-        max(date: Date): Moment;
-        max(date: number): Moment;
-        max(date: any[]): Moment;
-        max(date: string): Moment;
+        max(date: Moment|string|number|Date|any[]): Moment;
         max(date: string, format: string): Moment;
-        max(clone: Moment): Moment;
 
         // Deprecated as of 2.7.0.
-        min(date: Date): Moment;
-        min(date: number): Moment;
-        min(date: any[]): Moment;
-        min(date: string): Moment;
+        min(date: Moment|string|number|Date|any[]): Moment;
         min(date: string, format: string): Moment;
-        min(clone: Moment): Moment;
 
         get(unit: string): number;
         set(unit: string, value: number): Moment;
@@ -380,6 +372,7 @@ declare module moment {
     interface MomentStatic {
 
         version: string;
+        fn: Moment;
 
         (): Moment;
         (date: number): Moment;
@@ -412,6 +405,7 @@ declare module moment {
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
         isMoment(m: any): boolean;
+        isDate(m: any): boolean;
         isDuration(): boolean;
         isDuration(d: any): boolean;
 
@@ -472,6 +466,8 @@ declare module moment {
          * Constant used to enable explicit ISO_8601 format parsing.
          */
         ISO_8601(): void;
+
+        defaultFormat: string;
 
     }
 

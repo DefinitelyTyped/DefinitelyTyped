@@ -147,7 +147,7 @@ declare module angular.resource {
     }
 
     // IResourceServiceProvider used to configure global settings
-    interface IResourceServiceProvider extends ng.IServiceProvider {
+    interface IResourceServiceProvider extends angular.IServiceProvider {
 
         defaults: IResourceOptions;
     }

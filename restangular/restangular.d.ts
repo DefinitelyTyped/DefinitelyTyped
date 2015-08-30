@@ -6,6 +6,13 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+// Support AMD require (copying angular.d.ts approach)
+// allows for import {IRequestConfig} from 'restangular' ES6 approach
+declare module 'restangular' {
+    export = restangular;
+}
+
+
 
 declare module restangular {
 
@@ -83,7 +90,7 @@ declare module restangular {
     addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
   }
 
-  interface IService extends ICustom {
+  interface IService extends ICustom, IProvider {
     one(route: string, id?: number): IElement;
     one(route: string, id?: string): IElement;
     oneUrl(route: string, url: string): IElement;
@@ -115,13 +122,13 @@ declare module restangular {
     patch(queryParams?: any, headers?: any): IPromise<any>;
     clone(): IElement;
     plain(): any;
-	plain<T>(): T;
+    plain<T>(): T;
     withHttpConfig(httpConfig: IRequestConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
   }
 
-  interface ICollection extends IService {
+  interface ICollection extends IService, Array<any> {
     getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
     getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
     post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
@@ -132,9 +139,9 @@ declare module restangular {
     patch(queryParams?: any, headers?: any): IPromise<any>;
     putElement(idx: any, params: any, headers: any): IPromise<any>;
     withHttpConfig(httpConfig: IRequestConfig): ICollection;
-	clone(): ICollection;
+    clone(): ICollection;
     plain(): any;
-	plain<T>(): T[];
+    plain<T>(): T[];
     getRestangularUrl(): string;
   }
 }

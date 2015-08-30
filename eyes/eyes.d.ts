@@ -13,7 +13,7 @@ declare module "eyes"
     export function inspect(thing:any, label?:string): void;
 
     export interface InspectorFunction {
-        (thing:any, label?:string): void;
+        (thing:any, label?:string): string;
     }
 
     export interface EyesOptions

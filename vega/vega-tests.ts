@@ -1287,7 +1287,7 @@ var specs: Vega.Spec[] = [
             "name": "x",
             "type": "linear",
             "range": "width",
-            "reverse": {"field": "index"},
+            "reverse": true,
             "nice": true,
             "domain": {"data": "pop2000", "field": "data.people"}
           }

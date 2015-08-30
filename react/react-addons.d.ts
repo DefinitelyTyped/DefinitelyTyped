@@ -137,7 +137,7 @@ declare module "react/addons" {
         forceUpdate(): void;
         props: P;
         state: S;
-        context: any;
+        context: {};
         refs: {
             [key: string]: Component<any, any>
         };
@@ -428,6 +428,8 @@ declare module "react/addons" {
         crossOrigin?: string;
         data?: string;
         dateTime?: string;
+        defaultChecked?: boolean;
+        defaultValue?: string;
         defer?: boolean;
         dir?: string;
         disabled?: boolean;
@@ -534,6 +536,7 @@ declare module "react/addons" {
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        height?: number | string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -558,6 +561,7 @@ declare module "react/addons" {
         transform?: string;
         version?: string;
         viewBox?: string;
+        width?: number | string;
         x1?: number | string;
         x2?: number | string;
         x?: number | string;
@@ -744,8 +748,8 @@ declare module "react/addons" {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T>(children: ReactNode, fn: (child: ReactChild) => T): { [key:string]: T };
-        forEach(children: ReactNode, fn: (child: ReactChild) => any): void;
+        map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): { [key:string]: T };
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactChild;
     }
@@ -1048,4 +1052,3 @@ declare module "react/addons" {
         identifiedTouch(identifier: number): Touch;
     }
 }
-
