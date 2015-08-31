@@ -3100,22 +3100,25 @@ declare module chrome.webstore {
     var onDownloadProgress: DownloadProgressEvent;
 }
 
-////////////////////
-// Windows
-////////////////////
+/**
+ * Use the chrome.windows API to interact with browser windows. You can use this API to create, modify,
+ * and rearrange windows in the browser.
+ */
 declare module chrome.windows {
+
     interface Window {
-        tabs?: chrome.tabs.Tab[];
-        top: number;
-        height: number;
-        width: number;
-        state: string;
+        tabs?: tabs.Tab[];
+        top?: number;
+        height?: number;
+        width?: number;
+        state?: string;
         focused: boolean;
         alwaysOnTop: boolean;
         incognito: boolean;
-        type: string;
-        id: number;
-        left: number;
+        type?: string;
+        id?: number;
+        left?: number;
+        sessionId?: string;
     }
 
     interface GetInfo {
@@ -3132,6 +3135,7 @@ declare module chrome.windows {
         incognito?: boolean;
         type?: string;
         left?: number;
+        state?: string;
     }
 
     interface UpdateInfo {
@@ -3144,32 +3148,32 @@ declare module chrome.windows {
         left?: number;
     }
 
-    interface WindowRemovedEvent extends chrome.events.Event {
+    interface WindowRemovedEvent extends events.Event {
         addListener(callback: (windowId: number) => void): void;
     }
 
-    interface WindowCreatedEvent extends chrome.events.Event {
+    interface WindowCreatedEvent extends events.Event {
         addListener(callback: (window: Window) => void): void;
     }
 
-    interface WindowFocusChangedEvent extends chrome.events.Event {
+    interface WindowFocusChangedEvent extends events.Event {
         addListener(callback: (windowId: number) => void): void;
     }
 
     export const WINDOW_ID_CURRENT: number;
     export const WINDOW_ID_NONE: number;
 
-    export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
-    export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
-    export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
-    export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
-    export function create(createData?: CreateData, callback?: (window: chrome.windows.Window) => void): void;
-    export function getAll(callback: (windows: chrome.windows.Window[]) => void): void;
-    export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
-    export function update(windowId: number, updateInfo: UpdateInfo, callback?: (window: chrome.windows.Window) => void): void;
+    export function get(windowId: number, callback: (window: Window) => void): void;
+    export function get(windowId: number, getInfo: GetInfo, callback: (window: Window) => void): void;
+    export function getCurrent(callback: (window: Window) => void): void;
+    export function getCurrent(getInfo: GetInfo, callback: (window: Window) => void): void;
+    export function create(createData?: CreateData, callback?: (window: Window) => void): void;
+    export function getAll(callback: (windows: Window[]) => void): void;
+    export function getAll(getInfo: GetInfo, callback: (windows: Window[]) => void): void;
+    export function update(windowId: number, updateInfo: UpdateInfo, callback?: (window: Window) => void): void;
     export function remove(windowId: number, callback?: Function): void;
-    export function getLastFocused(callback: (window: chrome.windows.Window) => void): void;
-    export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getLastFocused(callback: (window: Window) => void): void;
+    export function getLastFocused(getInfo: GetInfo, callback: (window: Window) => void): void;
 
     var onRemoved: WindowRemovedEvent;
     var onCreated: WindowCreatedEvent;
