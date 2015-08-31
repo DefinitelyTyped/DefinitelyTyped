@@ -2235,6 +2235,80 @@ declare module chrome.storage {
     var onChanged: StorageChangedEvent;
 }
 
+/**
+ * Use the system.cpu API to query CPU metadata.
+ */
+declare module chrome.system.cpu {
+
+    interface CpuInformation {
+        numOfProcessors: number;
+        archName: string;
+        modelName: string;
+        features: string[];
+        processors: ProcessorInformation[];
+    }
+
+    interface ProcessorInformation {
+        usage: ProcessorCumulativeUsageInformation;
+    }
+
+    interface ProcessorCumulativeUsageInformation {
+        user: number;
+        kernel: number;
+        idle: number;
+        total: number;
+    }
+
+    export function getInfo(callback: (info: CpuInformation) => void): void;
+}
+
+/**
+ * The chrome.system.memory API.
+ */
+declare module chrome.system.memory {
+
+    interface MemoryInformation {
+        capacity: number;
+        availableCapacity: number;
+    }
+
+    export function getInfo(callback: (info: MemoryInformation) => void): void;
+}
+
+/**
+ * Use the chrome.system.storage API to query storage device information and be notified when a
+ * removable storage device is attached and detached.
+ */
+declare module chrome.system.storage {
+
+    interface StorageUnitInfo {
+        id: string;
+        name: string;
+        type: string;
+        capacity: number;
+    }
+
+    interface StorageDeviceCapacityInformation {
+        id: string;
+        availableCapacity: number;
+    }
+
+    interface DeviceDetachedEvent extends events.Event {
+        addListener(callback: (id: string) => void): void;
+    }
+
+    interface DeviceAttachedEvent extends events.Event {
+        addListener(callback: (info: StorageUnitInfo) => void): void;
+    }
+
+    export function getInfo(callback: (info: StorageUnitInfo[]) => void): void;
+    export function ejectDevice(id: string, callback: (result: string) => void): void;
+    export function getAvailableCapacity(id: string, callback: (info: StorageDeviceCapacityInformation) => void): void;
+
+    var onAttached: DeviceAttachedEvent;
+    var onDetached: DeviceDetachedEvent;
+}
+
 ////////////////////
 // Socket
 ////////////////////
