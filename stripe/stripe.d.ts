@@ -57,6 +57,7 @@ interface StripeCardData {
     address_state?: string;
     address_zip?: string;
     address_country?: string;
+    funding?: string;
 
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
