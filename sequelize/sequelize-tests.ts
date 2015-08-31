@@ -47,11 +47,14 @@ interface GTaskAttributes {
     revision? : number;
     name? : string;
 }
-interface GTaskInstance extends Sequelize.Instance<GTaskInstance, GTaskAttributes> {}
+interface GTaskInstance extends Sequelize.Instance<GTaskInstance, GTaskAttributes> {
+  upRevision(): void;
+}
 var GTask = s.define<GTaskInstance, GTaskAttributes>( 'task', { revision : Sequelize.INTEGER, name : Sequelize.STRING });
 
 GUser.hasMany(GTask);
 
+GTask.create({ revision: 1, name: 'test' }).then( (gtask) => gtask.upRevision() );
 
 
 //

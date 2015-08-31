@@ -1,4 +1,4 @@
-﻿// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.6.0
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -86,6 +86,21 @@ declare module olx {
 
         /** The target size of the graticule cells, in pixels. Default value is 100 pixels. */
         targetSize?: number;
+    }
+
+    /**
+     * Object literal with config options for the map logo.
+     */
+    interface LogoOptions {
+      /**
+       * Link url for the logo. Will be followed when the logo is clicked.
+       */
+      href: string;
+
+      /**
+       * Image src for the logo
+       */
+      src: string;
     }
 
     interface MapOptions {
@@ -382,6 +397,21 @@ declare module olx {
         }
     }
 
+    module interaction {
+        interface DefaultsOptions {
+            altShiftDragRotate?: boolean;
+            doubleClickZoom?: boolean;
+            keyboard?: boolean;
+            mouseWheelZoom?: boolean;
+            shiftDragZoom?: boolean;
+            dragPan?: boolean;
+            pinchRotate?: boolean;
+            pinchZoom?: boolean;
+            zoomDelta?: number;
+            zoomDuration?: number;
+          }
+    }
+
     module layer {
 
         interface BaseOptions {
@@ -524,6 +554,97 @@ declare module olx {
              * Layer style. See ol.style for default style which will be used if this is not defined.
              */
             style?: ol.style.Style | Array<ol.style.Style> | any;
+        }
+    }
+
+    module source {
+
+        interface VectorOptions {
+            /**
+             * Attributions.
+             */
+            attributions?: Array<ol.Attribution>;
+
+            /**
+             * Features. If provided as {@link ol.Collection}, the features in the source
+             * and the collection will stay in sync.
+             */
+            features?: Array<ol.Feature> | ol.Collection<ol.Feature>;
+
+            /**
+             * The feature format used by the XHR feature loader when `url` is set.
+             * Required if `url` is set, otherwise ignored. Default is `undefined`.
+             */
+            format?: ol.format.Feature;
+
+            /**
+             * The loader function used to load features, from a remote source for example.
+             * Note that the source will create and use an XHR feature loader when `url` is
+             * set.
+             */
+            loader?: ol.FeatureLoader;
+
+            /**
+             * Logo.
+             */
+            logo?: string | olx.LogoOptions;
+
+            /**
+             * The loading strategy to use. By default an {@link ol.loadingstrategy.all}
+             * strategy is used, a one-off strategy which loads all features at once.
+             */
+            strategy?: ol.LoadingStrategy;
+
+            /**
+             * Setting this option instructs the source to use an XHR loader (see
+             * {@link ol.featureloader.xhr}) and an {@link ol.loadingstrategy.all} for a
+             * one-off download of all features from that URL.
+             * Requires `format` to be set as well.
+             */
+            url?: string;
+
+            /**
+             * By default, an RTree is used as spatial index. When features are removed and
+             * added frequently, and the total number of features is low, setting this to
+             * `false` may improve performance.
+             */
+            useSpatialIndex?: boolean;
+
+            /**
+             * Wrap the world horizontally. Default is `true`. For vector editing across the
+             * -180° and 180° meridians to work properly, this should be set to `false`. The
+             * resulting geometry coordinates will then exceed the world bounds.
+             */
+            wrapX?: boolean;
+        }
+    }
+
+    module style {
+
+        interface FillOptions {
+            color?: ol.Color | string;
+        }
+
+        interface StyleOptions {
+            geometry?: string | ol.geom.Geometry | ol.style.GeometryFunction;
+            fill?: ol.style.Fill;
+            image?: ol.style.Image;
+            stroke?: ol.style.Stroke;
+            text?: ol.style.Text;
+            zIndex?: number;
+        }
+
+        interface TextOptions {
+          font?: string;
+          offsetX?: number;
+          offsetY?: number;
+          scale?: number;
+          rotation?: number;
+          text?: string;
+          textAlign?: string;
+          textBaseline?: string;
+          fill?: ol.style.Fill;
+          stroke?: ol.style.Stroke;
         }
     }
 
@@ -2551,13 +2672,16 @@ declare module ol {
         class MultiPolygon {
         }
 
-        class Point {
+        class Point extends SimpleGeometry {
+          constructor(coordinates: ol.Coordinate, layout?: geom.GeometryLayout);
+          getCoordinates(): ol.Coordinate;
+          setCoordinates(coordinates: ol.Coordinate, opt?: geom.GeometryLayout): void;
         }
 
         class Polygon {
         }
 
-        class SimpleGeometry {
+        class SimpleGeometry extends Geometry {
         }
     }
 
@@ -2625,6 +2749,8 @@ declare module ol {
 
         class Snap {
         }
+
+        function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
     }
 
     module layer {
@@ -3155,6 +3281,14 @@ declare module ol {
         }
 
         class Vector {
+          constructor(opts: olx.source.VectorOptions)
+
+          /**
+           * Get the extent of the features currently in the source.
+           */
+          getExtent(): ol.Extent;
+
+          getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
         }
 
         class VectorEvent {
@@ -3187,13 +3321,31 @@ declare module ol {
         class Circle {
         }
 
+        /**
+         * Set fill style for vector features.
+         */
         class Fill {
+
+          constructor(opt_options?: olx.style.FillOptions);
+
+          getColor(): ol.Color | string;
+
+          /**
+           * Set the color.
+           */
+          setColor(color: ol.Color | string): void;
+
+          getChecksum(): string;
         }
 
         class Icon {
         }
 
         class Image {
+        }
+
+        interface GeometryFunction {
+          (feature: Feature): ol.geom.Geometry
         }
 
         class RegularShape {
@@ -3203,10 +3355,82 @@ declare module ol {
             constructor();
         }
 
+        /**
+         * Container for vector feature rendering styles. Any changes made to the style
+         * or its children through `set*()` methods will not take effect until the
+         * feature, layer or FeatureOverlay that uses the style is re-rendered.
+         */
         class Style {
+          constructor(opts: olx.style.StyleOptions);
         }
 
+        /**
+         * Set text style for vector features.
+         */
         class Text {
+          constructor(opt?: olx.style.TextOptions);
+
+          getFont(): string;
+          getOffsetX(): number;
+          getOffsetY(): number;
+          getFill(): Fill;
+          getRotation(): number;
+          getScale(): number;
+          getStroke(): Stroke;
+          getText(): string;
+          getTextAlign(): string;
+          getTextBaseline(): string;
+
+          /**
+           * Set the font.
+           */
+          setFont(font: string): void;
+
+          /**
+           * Set the x offset.
+           */
+          setOffsetX(offsetX: number): void;
+
+           /**
+            * Set the y offset.
+            */
+          setOffsetY(offsetY: number): void;
+
+          /**
+           * Set the fill.
+           */
+          setFill(fill: Fill): void;
+
+          /**
+           * Set the rotation.
+           */
+          setRotation(rotation: number): void;
+
+          /**
+           * Set the scale.
+           */
+          setScale(scale: number): void;
+
+          /**
+           * Set the stroke.
+           *
+           */
+          setStroke(stroke: Stroke): void;
+
+           /**
+            * Set the text.
+            */
+          setText(text: string): void;
+
+           /**
+            * Set the text alignment.
+            */
+          setTextAlign(textAlign: string): void;
+
+           /**
+            * Set the text baseline.
+            */
+          setTextBaseline(textBaseline: string): void;
         }
 
         /**

@@ -6196,6 +6196,23 @@ declare module _ {
         isArray(): boolean;
     }
 
+    //_.isBoolean
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a boolean primitive or object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isBoolean(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBoolean
+         */
+        isBoolean(): boolean;
+    }
+
     //_.isDate
     interface LoDashStatic {
         /**
@@ -6344,6 +6361,23 @@ declare module _ {
          * see _.isNative
          */
         isNative(): boolean;
+    }
+
+    //_.isNull
+    interface LoDashStatic {
+        /**
+         * Checks if value is null.
+         * @param value The value to check.
+         * @return Returns true if value is null, else false.
+         **/
+        isNull(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * see _.isNull
+         */
+        isNull(): boolean;
     }
 
     //_.isNumber
@@ -7063,16 +7097,6 @@ declare module _ {
         invert(object: any): any;
     }
 
-    //_.isBoolean
-    interface LoDashStatic {
-        /**
-        * Checks if value is a boolean value.
-        * @param value The value to check.
-        * @return True if the value is a boolean value, else false.
-        **/
-        isBoolean(value?: any): boolean;
-    }
-
     //_.isElement
     interface LoDashStatic {
         /**
@@ -7161,16 +7185,6 @@ declare module _ {
         eq(other?: any,
            callback?: EqCustomizer,
            thisArg?: any): boolean;
-    }
-
-    //_.isNull
-    interface LoDashStatic {
-        /**
-        * Checks if value is null.
-        * @param value The value to check.
-        * @return True if the value is null, else false.
-        **/
-        isNull(value?: any): boolean;
     }
 
     //_.isObject
@@ -7583,8 +7597,16 @@ declare module _ {
         camelCase(): string;
     }
 
+    //_.capitalize
     interface LoDashStatic {
-        capitalize(str?: string): string;
+        capitalize(string?: string): string;
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.capitalize
+         */
+        capitalize(): string;
     }
 
     //_.deburr
