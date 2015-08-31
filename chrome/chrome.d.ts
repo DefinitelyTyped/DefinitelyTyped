@@ -2648,9 +2648,11 @@ declare module chrome.topSites {
     export function get(callback: (data: MostVisitedURL[]) => void): void;
 }
 
-////////////////////
-// Text to Speech
-////////////////////
+/**
+ * Use the chrome.tts API to play synthesized text-to-speech (TTS). See also the related
+ * {@link http://developer.chrome.com/extensions/ttsEngine|ttsEngine} API, which allows an extension to
+ * implement a speech engine.
+ */
 declare module chrome.tts {
     interface TtsEvent {
         charIndex?: number;
@@ -2664,6 +2666,7 @@ declare module chrome.tts {
         voiceName?: string;
         extensionsId?: string;
         eventTypes?: string[];
+        remote?: boolean;
     }
 
     interface SpeakOptions {
@@ -2682,6 +2685,7 @@ declare module chrome.tts {
 
     export function isSpeaking(callback?: (speaking: boolean) => void): void;
     export function stop(): void;
+    export function resume(): void;
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     export function speak(utterance: string, options?: SpeakOptions, callback?: Function): void;
 }
