@@ -2369,10 +2369,11 @@ declare module chrome.socket {
     export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
 }
 
-////////////////////
-// TabCapture
-////////////////////
+/**
+ * Use the chrome.tabCapture API to interact with tab media streams.
+ */
 declare module chrome.tabCapture {
+
     interface CaptureInfo {
         tabId: number;
         status: string;
@@ -2386,8 +2387,14 @@ declare module chrome.tabCapture {
         videoConstraints?: MediaTrackConstraints;
     }
 
+    interface StatusChangedEvent extends events.Event {
+        addListener(callback: (info: CaptureInfo) => void): void;
+    }
+
     export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
     export function getCapturedTabs(callback: (result: CaptureInfo[]) => void): void;
+
+    var onStatusChanged: StatusChangedEvent;
 }
 
 ////////////////////
