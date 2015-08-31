@@ -6196,6 +6196,23 @@ declare module _ {
         isArray(): boolean;
     }
 
+    //_.isBoolean
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a boolean primitive or object.
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         **/
+        isBoolean(value?: any): boolean;
+    }
+
+    interface LoDashWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBoolean
+         */
+        isBoolean(): boolean;
+    }
+
     //_.isDate
     interface LoDashStatic {
         /**
@@ -7078,16 +7095,6 @@ declare module _ {
         * @return The created inverted object.
         **/
         invert(object: any): any;
-    }
-
-    //_.isBoolean
-    interface LoDashStatic {
-        /**
-        * Checks if value is a boolean value.
-        * @param value The value to check.
-        * @return True if the value is a boolean value, else false.
-        **/
-        isBoolean(value?: any): boolean;
     }
 
     //_.isElement

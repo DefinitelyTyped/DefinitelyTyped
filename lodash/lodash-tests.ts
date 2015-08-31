@@ -1207,6 +1207,12 @@ result = <boolean>_(1).isArray();
 result = <boolean>_<any>([]).isArray();
 result = <boolean>_({}).isArray();
 
+// _.isBoolean
+result = <boolean>_.isBoolean(any);
+result = <boolean>_(1).isBoolean();
+result = <boolean>_<any>([]).isBoolean();
+result = <boolean>_({}).isBoolean();
+
 // _.isDate
 result = <boolean>_.isDate(any);
 result = <boolean>_(42).isDate();
@@ -1478,8 +1484,6 @@ interface FirstSecond {
     second: string;
 }
 result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
-
-result = <boolean>_.isBoolean(null);
 
 result = <boolean>_.isElement(document.body);
 
