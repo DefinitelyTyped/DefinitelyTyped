@@ -33,6 +33,7 @@ var featureFormat: ol.format.Feature;
 var geometry: ol.geom.Geometry;
 var loadingstrategy: ol.LoadingStrategy;
 var tilegrid: ol.tilegrid.TileGrid;
+var vector: ol.source.Vector;
 
 //
 // ol.Attribution
@@ -111,6 +112,13 @@ coordinate = geometryResult.getClosestPoint(coordinate);
 geometryResult.getClosestPoint(coordinate, coordinate);
 extent = geometryResult.getExtent();
 geometryResult.getExtent(extent);
+
+//
+// ol.source
+//
+vector = new ol.source.Vector({
+  features: [feature]
+});
 
 //
 // ol.Feature
