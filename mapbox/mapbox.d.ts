@@ -18,7 +18,6 @@ declare module L.mapbox {
 	/**
 	 * Create and automatically configure a map with layers, markers, and interactivity.
 	 */
-	function map(element: string, id: string, options?: MapOptions): L.mapbox.Map;
 	function map(element: string, tilejson: any, options?: MapOptions): L.mapbox.Map;
 
 	interface MapOptions extends L.MapOptions {
@@ -30,9 +29,7 @@ declare module L.mapbox {
 		shareControl?  : ShareControlOptions;
 	}
 
-	interface FilterFunction {
-		(feature: any): boolean;
-	}
+	type FilterFunction = (feature: any) => boolean;
 
 	interface Map extends L.Map {
 		tileLayer    : L.mapbox.TileLayer;
