@@ -1644,8 +1644,6 @@ var testAttempFn: TestAttemptFn;
 result = <TResult|Error>_.attempt<TResult>(testAttempFn);
 result = <TResult|Error>_(testAttempFn).attempt<TResult>();
 
-result = <{ name: string }>_.identity({ 'name': 'moe' });
-
 _.mixin({
     'capitalize': function (string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -1894,6 +1892,22 @@ result = <() => string>_('a').constant<string>();
 result = <() => boolean>_(true).constant<boolean>();
 result = <() => any[]>_(['a']).constant<any[]>();
 result = <() => {}>_({}).constant<{}>();
+
+// _.identity
+{
+    let testIdentityValue: TResult;
+    let result: TResult;
+    result = _.identity<TResult>(testIdentityValue);
+    result = _(testIdentityValue).identity();
+}
+{
+    let result: number;
+    result = _(42).identity();
+}
+{
+    let result: boolean[];
+    result = _<boolean>([]).identity();
+}
 
 // _.method
 class TestMethod {
