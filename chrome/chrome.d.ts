@@ -2397,10 +2397,14 @@ declare module chrome.tabCapture {
     var onStatusChanged: StatusChangedEvent;
 }
 
-////////////////////
-// Tabs
-////////////////////
+/**
+ * Use the chrome.tabs API to interact with the browser's tab system. You can use this API to create,
+ * modify, and rearrange tabs in the browser.
+ */
 declare module chrome.tabs {
+
+    // types
+
     interface Tab {
         status?: string;
         index: number;
@@ -2412,15 +2416,30 @@ declare module chrome.tabs {
         windowId: number;
         active: boolean;
         favIconUrl?: string;
-        id: number;
+        id?: number;
         incognito: boolean;
+        audible?: boolean;
+        muted?: boolean;
+        mutedCause?: boolean;
+        width: number;
+        height: number;
+        sessionId: number;
     }
+
+    interface ZoomSettings {
+        mode?: string;
+        scope?: string;
+        defaultZoomFactor?: number;
+    }
+
+    // functions parameters
 
     interface InjectDetails {
         allFrames?: boolean;
         code?: string;
         runAt?: string;
         file?: string;
+        matchAboutBlank?: boolean;
     }
 
     interface CreateProperties {
@@ -2443,6 +2462,7 @@ declare module chrome.tabs {
         url?: string;
         highlighted?: boolean;
         active?: boolean;
+        muted?: boolean;
     }
 
     interface CaptureVisibleTabOptions {
@@ -2456,10 +2476,11 @@ declare module chrome.tabs {
 
     interface ConnectInfo {
         name?: string;
+        frameId?: number;
     }
 
     interface HighlightInfo {
-        tabs: number[];
+        tabIds: number | number[];
         windowId?: number;
     }
 
@@ -2475,6 +2496,8 @@ declare module chrome.tabs {
         currentWindow?: boolean;
         highlighted?: boolean;
         pinned?: boolean;
+        audible?: boolean;
+        muted?: boolean;
     }
 
     interface TabHighlightInfo {
@@ -2496,6 +2519,10 @@ declare module chrome.tabs {
         status?: string;
         pinned?: boolean;
         url?: string;
+        audible?: boolean;
+        muted?: boolean;
+        mutedCause?: boolean;
+        favIconUrl?: string;
     }
 
     interface TabMoveInfo {
@@ -2514,40 +2541,55 @@ declare module chrome.tabs {
         windowId: number;
     }
 
-    interface TabHighlightedEvent extends chrome.events.Event {
-        addListener(callback: (highlightInfo: HighlightInfo) => void): void;
+    interface SendMessageOptions {
+        frameId?: number;
     }
 
-    interface TabRemovedEvent extends chrome.events.Event {
+    interface ZoomChangeInfo {
+        tabId: number;
+        oldZoomFactor: number;
+        newZoomFactor: number;
+        zoomSettings: ZoomSettings;
+    }
+
+    interface TabHighlightedEvent extends events.Event {
+        addListener(callback: (highlightInfo: TabHighlightInfo) => void): void;
+    }
+
+    interface TabRemovedEvent extends events.Event {
         addListener(callback: (tabId: number, removeInfo: TabRemoveInfo) => void): void;
     }
 
-    interface TabUpdatedEvent extends chrome.events.Event {
+    interface TabUpdatedEvent extends events.Event {
         addListener(callback: (tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void): void;
     }
 
-    interface TabAttachedEvent extends chrome.events.Event {
+    interface TabAttachedEvent extends events.Event {
         addListener(callback: (tabId: number, attachInfo: TabAttachInfo) => void): void;
     }
 
-    interface TabMovedEvent extends chrome.events.Event {
+    interface TabMovedEvent extends events.Event {
         addListener(callback: (tabId: number, moveInfo: TabMoveInfo) => void): void;
     }
 
-    interface TabDetachedEvent extends chrome.events.Event {
+    interface TabDetachedEvent extends events.Event {
         addListener(callback: (tabId: number, detachInfo: TabDetachInfo) => void): void;
     }
 
-    interface TabCreatedEvent extends chrome.events.Event {
+    interface TabCreatedEvent extends events.Event {
         addListener(callback: (tab: Tab) => void): void;
     }
 
-    interface TabActivatedEvent extends chrome.events.Event {
+    interface TabActivatedEvent extends events.Event {
         addListener(callback: (activeInfo: TabActiveInfo) => void): void;
     }
 
-    interface TabReplacedEvent extends chrome.events.Event {
+    interface TabReplacedEvent extends events.Event {
         addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
+    }
+
+    interface TabZoomChangedEvent extends events.Event {
+        addListener(callback: (ZoomChangeInfo: ZoomChangeInfo) => void): void;
     }
 
     export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
@@ -2555,25 +2597,32 @@ declare module chrome.tabs {
     export function get(tabId: number, callback: (tab: Tab) => void): void;
     export function getCurrent(callback: (tab?: Tab) => void): void;
     export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
-    export function move(tabId: number, moveProperties: MoveProperties, callback?: (tab: Tab) => void): void;
-    export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
+    export function move(tabId: number | number[], moveProperties: MoveProperties, callback?: (tabs: Tab | Tab[]) => void): void;
     export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
     export function update(tabId: number, updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
-    export function remove(tabId: number, callback?: Function): void;
-    export function remove(tabIds: number[], callback?: Function): void;
+    export function remove(tabIds: number | number[], callback?: Function): void;
     export function captureVisibleTab(callback: (dataUrl: string) => void): void;
     export function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
     export function captureVisibleTab(options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
     export function captureVisibleTab(windowId: number, options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
-    export function reload(tabId?: number, reloadProperties?: ReloadProperties, func?: Function): void;
+    export function reload(tabId?: number, reloadProperties?: ReloadProperties, callback?: Function): void;
     export function duplicate(tabId: number, callback?: (tab?: Tab) => void): void;
-    export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage(tabId: number, message: any, options?: SendMessageOptions, responseCallback?: (response: any) => void): void;
     export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
+    export function insertCSS(details: InjectDetails, callback?: Function): void;
     export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
-    export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function highlight(highlightInfo: HighlightInfo, callback: (window: windows.Window) => void): void;
     export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
     export function detectLanguage(callback: (language: string) => void): void;
     export function detectLanguage(tabId: number, callback: (language: string) => void): void;
+    export function setZoom(zoomFactor: number, callback?: Function): void;
+    export function setZoom(tabId: number, zoomFactor: number, callback?: Function): void;
+    export function getZoom(callback: (zoomFactor: number) => void): void;
+    export function getZoom(tabId: number, callback: (zoomFactor: number) => void): void;
+    export function setZoomSettings(zoomSettings: ZoomSettings, callback?: Function): void;
+    export function setZoomSettings(tabId: number, zoomSettings: ZoomSettings, callback?: Function): void;
+    export function getZoomSettings(callback: (zoomSettings: ZoomSettings) => void): void;
+    export function getZoomSettings(tabId: number, callback: (zoomSettings: ZoomSettings) => void): void;
 
     var onHighlighted: TabHighlightedEvent;
     var onRemoved: TabRemovedEvent;
@@ -2584,6 +2633,7 @@ declare module chrome.tabs {
     var onCreated: TabCreatedEvent;
     var onActivated: TabActivatedEvent;
     var onReplaced: TabReplacedEvent;
+    var onZoomChange: TabZoomChangedEvent;
 }
 
 ////////////////////
