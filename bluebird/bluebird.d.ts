@@ -547,20 +547,20 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * *The original array is not modified.*
 	 */
 	// promise of array with promises of value
-	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
-	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+    	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, option?: { concurrency: number }): Promise<U[]>;
+    	static map<R, U>(values: Promise.Thenable<Promise.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U, option?: { concurrency: number }): Promise<U[]>;
 
 	// promise of array with values
-	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
-	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+    	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, option?: { concurrency: number }): Promise<U[]>;
+    	static map<R, U>(values: Promise.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U, option?: { concurrency: number }): Promise<U[]>;
 
 	// array with promises of value
-	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
-	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+    	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, option?: { concurrency: number }): Promise<U[]>;
+    	static map<R, U>(values: Promise.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U, option?: { concurrency: number }): Promise<U[]>;
 
 	// array with values
-	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>): Promise<U[]>;
-	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U): Promise<U[]>;
+	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>, option?: { concurrency: number }): Promise<U[]>;
+    	static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U, option?: { concurrency: number }): Promise<U[]>;
 
 	/**
 	 * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -593,20 +593,20 @@ declare class Promise<R> implements Promise.Thenable<R>, Promise.Inspection<R> {
 	 * *The original array is not modified.
 	 */
 	// promise of array with promises of value
-	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
-	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+    	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: { concurrency: number }): Promise<R[]>;
+    	static filter<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean, option?: { concurrency: number }): Promise<R[]>;
 
 	// promise of array with values
-	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
-	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+    	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: { concurrency: number }): Promise<R[]>;
+    	static filter<R>(values: Promise.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean, option?: { concurrency: number }): Promise<R[]>;
 
 	// array with promises of value
-	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
-	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+    	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: { concurrency: number }): Promise<R[]>;
+    	static filter<R>(values: Promise.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: { concurrency: number }): Promise<R[]>;
 
 	// array with values
-	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>): Promise<R[]>;
-	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
+    	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>, option?: { concurrency: number }): Promise<R[]>;
+    	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean, option?: { concurrency: number }): Promise<R[]>;
 }
 
 declare module Promise {
