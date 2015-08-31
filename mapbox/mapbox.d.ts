@@ -59,7 +59,6 @@ declare module L.mapbox {
 	/**
 	 * You can add a tiled layer to your map with L.mapbox.tileLayer(), a simple interface to layers from Mapbox and elsewhere.
 	 */
-	function tileLayer(id: string, options?: TileLayerOptions): L.mapbox.TileLayer;
 	function tileLayer(tilejson: any, options?: TileLayerOptions): L.mapbox.TileLayer;
 
 	interface TileLayerOptions extends L.TileLayerOptions {
@@ -90,7 +89,6 @@ declare module L.mapbox {
 	/**
 	 * An L.mapbox.gridLayer loads UTFGrid tiles of interactivity into your map, which you can easily access with L.mapbox.gridControl.
 	 */
-	function gridLayer(id: string): L.mapbox.GridLayer;
 	function gridLayer(tilejson: any): L.mapbox.GridLayer;
 
 	interface GridLayer {
@@ -127,9 +125,7 @@ declare module L.mapbox {
 	/**
 	 * L.mapbox.featureLayer provides an easy way to integrate GeoJSON from Mapbox and elsewhere into your map.
 	 */
-	function featureLayer(): L.mapbox.FeatureLayer;
-	function featureLayer(id: string, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
-	function featureLayer(geojson: any, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
+	function featureLayer(geojson?: any, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
 
 	interface FeatureLayerOptions {
 		filter?    : FilterFunction;
