@@ -927,7 +927,7 @@ declare module protractor {
         * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
         *     of ElementFinders specified by the locator.
         */
-        asElementFinders_(): ElementFinder[];
+        asElementFinders_(): webdriver.promise.Promise<ElementFinder[]>;
 
         /**
         * Create a shallow copy of ElementArrayFinder.
@@ -1228,7 +1228,21 @@ declare module protractor {
         row(index: number): LocatorWithColumn;
     }
 
-    interface IProtractorLocatorStrategy extends webdriver.ILocatorStrategy {
+    interface IProtractorLocatorStrategy {
+        /**
+         * webdriver's By is an enum of locator functions, so we must set it to
+         * a prototype before inheriting from it.
+         */
+        className: typeof webdriver.By.className;
+        css: typeof webdriver.By.css;
+        id: typeof webdriver.By.id;
+        linkText: typeof webdriver.By.linkText;
+        js: typeof webdriver.By.js;
+        name: typeof webdriver.By.name;
+        partialLinkText: typeof webdriver.By.partialLinkText;
+        tagName: typeof webdriver.By.tagName;
+        xpath: typeof webdriver.By.xpath;
+
         /**
          * Add a locator to this instance of ProtractorBy. This locator can then be
          * used with element(by.locatorName(args)).

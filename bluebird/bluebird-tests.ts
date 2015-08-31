@@ -144,6 +144,10 @@ var BlueBird: typeof Promise;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+var nodeCallbackFunc = (callback: (err: any, result: string) => void) => {}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 fooThen = fooProm;
 barThen = barProm;
 
@@ -637,6 +641,7 @@ func = Promise.promisify(f);
 func = Promise.promisify(f, obj);
 
 obj = Promise.promisifyAll(obj);
+anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback));
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

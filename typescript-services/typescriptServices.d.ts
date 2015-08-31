@@ -592,12 +592,6 @@ declare module TypeScript.Collections {
     function createHashTable<TKey, TValue>(capacity?: number, hash?: (k: TKey) => number): HashTable<TKey, TValue>;
     function identityHashCode(value: any): number;
 }
-declare class Enumerator {
-    public atEnd(): boolean;
-    public moveNext(): boolean;
-    public item(): any;
-    constructor(o: any);
-}
 declare module TypeScript {
     var nodeMakeDirectoryTime: number;
     var nodeCreateBufferTime: number;

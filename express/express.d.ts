@@ -5,7 +5,7 @@
 
 /* =================== USAGE ===================
 
-    import express = require('express');
+    import * as express from "express";
     var app = express();
 
  =============================================== */
@@ -24,8 +24,8 @@ declare module Express {
 
 
 declare module "express" {
-    import http = require('http');
-    import serveStatic = require('serve-static');
+    import * as http from "http";
+    import * as serveStatic from "serve-static";
 
     function e(): e.Express;
 
@@ -40,6 +40,7 @@ declare module "express" {
             delete(...handler: RequestHandler[]): IRoute;
             patch(...handler: RequestHandler[]): IRoute;
             options(...handler: RequestHandler[]): IRoute;
+            head(...handler: RequestHandler[]): IRoute;
         }
 
         interface IRouterMatcher<T> {
@@ -97,6 +98,7 @@ declare module "express" {
             delete: IRouterMatcher<T>;
             patch: IRouterMatcher<T>;
             options: IRouterMatcher<T>;
+            head: IRouterMatcher<T>;
 
             route(path: string): IRoute;
 

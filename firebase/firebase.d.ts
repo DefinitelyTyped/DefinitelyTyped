@@ -306,6 +306,10 @@ interface FirebaseStatic {
 }
 declare var Firebase: FirebaseStatic;
 
+declare module 'firebase' {
+	export = Firebase;
+}
+
 // Reference: https://www.firebase.com/docs/web/api/firebase/getauth.html
 interface FirebaseAuthData {
 	uid: string;

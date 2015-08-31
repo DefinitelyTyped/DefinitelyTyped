@@ -115,7 +115,17 @@ declare module JSData {
     }
 
     interface DSAdapterOperationConfiguration extends DSConfiguration {
-        adapter?: string
+        adapter?: string;
+        bypassCache?: boolean;
+        cacheResponse?: boolean;
+        findStrategy?: string;
+        findFallbackAdapters?: string[];
+        strategy?: string;
+        fallbackAdapters?: string[];
+
+        params: {
+            [paramName: string]: string | number | boolean;
+        };
     }
 
     interface DSSaveConfiguration extends DSAdapterOperationConfiguration {
@@ -156,7 +166,8 @@ declare module JSData {
         digest():void;
         eject<T>(id:string | number, options?:DSConfiguration):T;
         ejectAll<T>(params:DSFilterParams, options?:DSConfiguration):Array<T>;
-        filter<T>(params:DSFilterParams, options?:DSConfiguration):Array<T>;
+        filter<T>(params: DSFilterParams, options?: DSConfiguration): Array<T>;
+        filter<T>(params: DSFilterParamsForAllowSimpleWhere, options?: DSConfiguration): Array<T>;
         get<T>(id:string | number, options?:DSConfiguration):T;
         getAll<T>(ids?:Array<string | number>):Array<T>;
         hasChanges(id:string | number):boolean;
@@ -182,6 +193,10 @@ declare module JSData {
 
         orderBy?: string | Array<string> | Array<Array<string>>;
         sort?: string | Array<string> | Array<Array<string>>;
+    }
+
+    interface DSFilterParamsForAllowSimpleWhere {
+        [key: string]: string | number;
     }
 
     interface IDSResourceLifecycleValidateEventHandlers {
