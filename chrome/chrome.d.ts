@@ -3081,11 +3081,23 @@ declare module chrome.webRequest {
     var onBeforeRequest: WebRequestBeforeRequestEvent;
 }
 
-////////////////////
-// Web Store
-////////////////////
+/**
+ * Use the chrome.webstore API to initiate app and extension installations "inline" from your site.
+ */
 declare module chrome.webstore {
-    export function install(url?: string, successCallback?: Function, failureCallback?: (error: string) => void): void;
+
+    interface InstallStateChangedEvent extends events.Event {
+        addListener(callback: (stage: string) => void): void;
+    }
+
+    interface DownloadProgressEvent extends events.Event {
+        addListener(callback: (percentDownloaded: number) => void): void;
+    }
+
+    export function install(url?: string, successCallback?: Function, failureCallback?: (error: string, errorCode?: string) => void): void;
+
+    var onInstallStageChanged: InstallStateChangedEvent;
+    var onDownloadProgress: DownloadProgressEvent;
 }
 
 ////////////////////
