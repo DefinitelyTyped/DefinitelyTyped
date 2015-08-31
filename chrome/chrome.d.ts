@@ -2636,16 +2636,16 @@ declare module chrome.tabs {
     var onZoomChange: TabZoomChangedEvent;
 }
 
-////////////////////
-// Top Sites
-////////////////////
+/**
+ * Use the chrome.topSites API to access the top sites that are displayed on the new tab page.
+ */
 declare module chrome.topSites {
     interface MostVisitedURL {
         url: string;
         title: string;
     }
 
-    export function get(callback: (data: MostVisitedURL) => void): void;
+    export function get(callback: (data: MostVisitedURL[]) => void): void;
 }
 
 ////////////////////
