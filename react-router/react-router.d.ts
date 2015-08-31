@@ -114,13 +114,12 @@ declare module ReactRouter {
     // Components
     // ----------------------------------------------------------------------
     // Link
-    interface LinkProp {
+    interface LinkProp extends React.HTMLAttributes {
         activeClassName?: string;
         activeStyle?: {};
         to: string;
         params?: {};
         query?: {};
-        onClick?: Function;
     }
     interface Link extends React.ReactElement<LinkProp>, Navigation, State {
         handleClick(event: any): void;
