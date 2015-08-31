@@ -2769,10 +2769,11 @@ declare module chrome.types {
     }
 }
 
-////////////////////
-// Web Navigation
-////////////////////
+/**
+ * Use the chrome.webNavigation API to receive notifications about the status of navigation requests in-flight.
+ */
 declare module chrome.webNavigation {
+
     interface GetFrameDetails {
         processId: number;
         tabId: number;
@@ -2845,7 +2846,7 @@ declare module chrome.webNavigation {
     }
 
     interface WebNavigationEventFilters {
-        url: chrome.events.UrlFilter[];
+        url: events.UrlFilter[];
     }
 
     interface WebNavigationReferenceFragmentUpdatedEvent extends chrome.events.Event {
