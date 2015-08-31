@@ -90,6 +90,12 @@ declare module OData {
         save(data: Object, success: Function, error?: Function): IResource<T>;
         save(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
 
+        update(): IResource<T>;
+        update(data: Object): IResource<T>;
+        update(success: Function, error?: Function): IResource<T>;
+        update(data: Object, success: Function, error?: Function): IResource<T>;
+        update(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
+
         remove(): IResource<T>;
         remove(params: Object): IResource<T>;
         remove(success: Function, error?: Function): IResource<T>;
@@ -119,6 +125,10 @@ declare module OData {
         $save(): angular.IPromise<T>;
         $save(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
         $save(success: Function, error?: Function): angular.IPromise<T>;
+
+        $update(): angular.IPromise<T>;
+        $update(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $update(success: Function, error?: Function): angular.IPromise<T>;
 
         $remove(): angular.IPromise<T>;
         $remove(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
@@ -254,6 +264,12 @@ declare module OData {
         (queryString: string, success: () => any, error: () => any): T[];
         (queryString: string, success: () => any, error: () => any, isSingleElement?: boolean, forceSingleElement?: boolean): T;
     }
+
+    interface ICountResult{
+        result: number;
+        $promise: angular.IPromise<any>;
+    }
+
     class Provider<T> {
         private callback;
         private filters;
@@ -263,14 +279,19 @@ declare module OData {
         private expandables;
         constructor(callback: ProviderCallback<T>);
         filter(operand1: any, operand2?: any, operand3?: any): Provider<T>;
-        orderBy(arg1: any, arg2?: any): Provider<T>;
+        orderBy(arg1: string, arg2?: string): Provider<T>;
         take(amount: number): Provider<T>;
         skip(amount: number): Provider<T>;
         private execute();
-        query(success?: any, error?: any): T[];
-        single(success?: any, error?: any): T;
-        get(data: any, success?: any, error?: any): T;
-        expand(params: any, otherParam1?: any, otherParam2?: any, otherParam3?: any, otherParam4?: any, otherParam5?: any, otherParam6?: any, otherParam7?: any): Provider<T>;
+        query(success?: ((p:T[])=>void), error?: (()=>void)): T[];
+        single(success?: ((p:T)=>void), error?: (()=>void)): T;
+        get(key: any, success?: ((p:T)=>void), error?: (()=>void)): T;
+        expand(...params: string[]): Provider<T>;
+        expand(params: string[]): Provider<T>;
+        select(...params: string[]): Provider<T>;
+        select(params: string[]): Provider<T>;
+        count(success?: (result: ICountResult) => any, error?: () => any):ICountResult;
+        withInlineCount(): Provider<T>;
     }
 
     interface ValueFactory {

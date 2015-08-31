@@ -2212,8 +2212,8 @@ interface Underscore<T> {
 	* Wrapped type `object`.
 	* @see _.pick
 	**/
-	pick(...keys: string[]): any;
-	pick(keys: string[]): any;
+	pick(...keys: any[]): any;
+	pick(keys: any[]): any;
 	pick(fn: (value: any, key: any, object: any) => any): any;
 
 	/**
@@ -2833,7 +2833,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.partition
 	**/
-	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[][]>;
+	partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[]>;
 
 	/**
 	* Wrapped type `any[][]`.
@@ -3069,7 +3069,8 @@ interface _Chain<T> {
 	* Wrapped type `object`.
 	* @see _.pick
 	**/
-	pick(...keys: string[]): _Chain<T>;
+	pick(...keys: any[]): _Chain<T>;
+	pick(keys: any[]): _Chain<T>;
 	pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
 
 	/**

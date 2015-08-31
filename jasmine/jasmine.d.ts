@@ -107,6 +107,7 @@ declare module jasmine {
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
+        mockDate(date?: Date): void;
     }
 
     interface CustomEqualityTester {
@@ -296,7 +297,7 @@ declare module jasmine {
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(expected?: any): boolean;
+        toThrowError(expected?: any, message?: string): boolean;
         not: Matchers;
 
         Any: Any;
@@ -441,13 +442,20 @@ declare module jasmine {
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls **/
         allArgs(): any[];
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls **/
-        all(): any;
+        all(): CallInfo[];
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call **/
-        mostRecent(): any;
+        mostRecent(): CallInfo;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call **/
-        first(): any;
+        first(): CallInfo;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
         reset(): void;
+    }
+    
+    interface CallInfo {
+        /** The context (the this) for the call */
+        object: any;
+        /** All arguments passed to the call */
+        args: any[];
     }
 
     interface Util {

@@ -179,7 +179,7 @@ module Marionette.Tests {
         }
     }
 
-    class MyCollectionView extends Marionette.CollectionView<MyModel> {
+    class MyCollectionView extends Marionette.CollectionView<MyModel, MyView> {
         constructor() {
             this.childView = MyView;
             this.childEvents = {

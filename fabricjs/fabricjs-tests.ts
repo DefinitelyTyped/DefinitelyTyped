@@ -34,8 +34,8 @@ function sample1() {
 
 function sample2() {
 
-  var dot, i,
-    t1, t2,
+  var dot: fabric.ICircle, i: number,
+    t1: number, t2: number,
     startTimer = function() {
       t1 = new Date().getTime();
       return t1;
@@ -70,7 +70,7 @@ function sample2() {
   //
   // Rendering canvas #2
   //
-  var canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddition: false }),
+  var canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddRemove: false }),
     results2 = document.getElementById('results-c2');
 
   startTimer();
@@ -84,21 +84,21 @@ function sample2() {
     canvas2.add(dot);
   }
   canvas2.renderAll(); // Note, calling renderAll() is important in this case
-  results2.innerHTML = 'Rendering 1000 elements using canvas.renderOnAddition = false in ' + stopTimer() + 'ms';
+  results2.innerHTML = 'Rendering 1000 elements using canvas.renderOnAddRemove = false in ' + stopTimer() + 'ms';
 }
 
 function sample3() {
 
-  var $ = function(id) { return document.getElementById(id) };
+  var $: (id: string) => HTMLElement = function(id: string) { return document.getElementById(id) };
 
-  function applyFilter(index, filter) {
-    var obj = <fabric.IImage>canvas.getActiveObject();
+  function applyFilter(index: number, filter: any) {
+    var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
     obj.filters[index] = filter;
     obj.applyFilters(canvas.renderAll.bind(canvas));
   }
 
-  function applyFilterValue(index, prop, value) {
-    var obj = <fabric.IImage>canvas.getActiveObject();
+  function applyFilterValue(index: number, prop: string, value: any) {
+    var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
     if (obj.filters[index]) {
       obj.filters[index][prop] = value;
       obj.applyFilters(canvas.renderAll.bind(canvas));
@@ -214,7 +214,7 @@ function sample3() {
 function sample4() {
 
   var canvas = new fabric.Canvas('c');
-  var $ = function(id) { return document.getElementById(id); };
+  var $: (id: string) => HTMLElement = function(id: string) { return document.getElementById(id); };
 
   var rect = new fabric.Rect({
     width: 100,
@@ -339,10 +339,10 @@ function sample6() {
     canvas.centerObject(obj);
     canvas.add(obj);
 
-    canvas.add(obj.clone(() => {}).set({ left: 100, top: 100, angle: -15 }));
-    canvas.add(obj.clone(() => {}).set({ left: 480, top: 100, angle: 15 }));
-    canvas.add(obj.clone(() => {}).set({ left: 100, top: 400, angle: -15 }));
-    canvas.add(obj.clone(() => {}).set({ left: 480, top: 400, angle: 15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 100, top: 100, angle: -15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 480, top: 100, angle: 15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 100, top: 400, angle: -15 }));
+    canvas.add(obj.clone(() => { }).set({ left: 480, top: 400, angle: 15 }));
 
     canvas.on('mouse:move', function(options) {
       var p = canvas.getPointer(options.e);
@@ -456,7 +456,7 @@ function sample8() {
       top = fabric.util.getRandomInt(0 + offset, 500 - offset),
       angle = fabric.util.getRandomInt(-20, 40),
       width = fabric.util.getRandomInt(30, 50),
-      opacity = (function(min, max) { return Math.random() * (max - min) + min; })(0.5, 1);
+      opacity = (function(min: number, max: number) { return Math.random() * (max - min) + min; })(0.5, 1);
 
 
     switch (className) {
@@ -522,7 +522,7 @@ function sample8() {
         break;
 
       case 'shape':
-        var id = element.id, match;
+        var id: any = element.id, match: RegExpExecArray;
         if (match = /\d+$/.exec(id)) {
           fabric.loadSVGFromURL('../assets/' + match[0] + '.svg', function(objects, options) {
             var loadedObject = fabric.util.groupSVGElements(objects, options);
@@ -586,7 +586,7 @@ function sample8() {
     }
   };
 
-  var supportsInputOfType = function(type) {
+  var supportsInputOfType = function(type: string) {
     return function() {
       var el = <HTMLInputElement>document.createElement('input');
       try {
@@ -740,17 +740,17 @@ function sample8() {
   }
 
   for (var i = activeObjectButtons.length; i--;) {
-    activeObjectButtons[i].disabled = true;
+    activeObjectButtons[i];
   }
 
   canvas.on('object:selected', onObjectSelected);
   canvas.on('group:selected', onObjectSelected);
 
-  function onObjectSelected(e) {
+  function onObjectSelected(e: fabric.IEvent) {
     var selectedObject = e.target;
 
     for (var i = activeObjectButtons.length; i--;) {
-      activeObjectButtons[i].disabled = false;
+      activeObjectButtons[i];
     }
 
     lockHorizontallyEl.innerHTML = (selectedObject.lockMovementX ? 'Unlock horizontal movement' : 'Lock horizontal movement');
@@ -762,7 +762,7 @@ function sample8() {
 
   canvas.on('selection:cleared', function(e) {
     for (var i = activeObjectButtons.length; i--;) {
-      activeObjectButtons[i].disabled = true;
+      activeObjectButtons[i];
     }
   });
 
@@ -889,7 +889,6 @@ function sample8() {
   var cmdUnderlineBtn = document.getElementById('text-cmd-underline');
   if (cmdUnderlineBtn) {
     activeObjectButtons.push(cmdUnderlineBtn);
-    cmdUnderlineBtn.disabled = true;
     cmdUnderlineBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -903,7 +902,6 @@ function sample8() {
   var cmdLinethroughBtn = document.getElementById('text-cmd-linethrough');
   if (cmdLinethroughBtn) {
     activeObjectButtons.push(cmdLinethroughBtn);
-    cmdLinethroughBtn.disabled = true;
     cmdLinethroughBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -917,7 +915,6 @@ function sample8() {
   var cmdOverlineBtn = document.getElementById('text-cmd-overline');
   if (cmdOverlineBtn) {
     activeObjectButtons.push(cmdOverlineBtn);
-    cmdOverlineBtn.disabled = true;
     cmdOverlineBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -931,7 +928,6 @@ function sample8() {
   var cmdBoldBtn = document.getElementById('text-cmd-bold');
   if (cmdBoldBtn) {
     activeObjectButtons.push(cmdBoldBtn);
-    cmdBoldBtn.disabled = true;
     cmdBoldBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -945,7 +941,6 @@ function sample8() {
   var cmdItalicBtn = document.getElementById('text-cmd-italic');
   if (cmdItalicBtn) {
     activeObjectButtons.push(cmdItalicBtn);
-    cmdItalicBtn.disabled = true;
     cmdItalicBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -959,7 +954,6 @@ function sample8() {
   var cmdShadowBtn = document.getElementById('text-cmd-shadow');
   if (cmdShadowBtn) {
     activeObjectButtons.push(cmdShadowBtn);
-    cmdShadowBtn.disabled = true;
     cmdShadowBtn.onclick = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -973,7 +967,6 @@ function sample8() {
   var textAlignSwitch = document.getElementById('text-align');
   if (textAlignSwitch) {
     activeObjectButtons.push(textAlignSwitch);
-    textAlignSwitch.disabled = true;
     textAlignSwitch.onchange = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -986,7 +979,6 @@ function sample8() {
   var fontFamilySwitch = document.getElementById('font-family');
   if (fontFamilySwitch) {
     activeObjectButtons.push(fontFamilySwitch);
-    fontFamilySwitch.disabled = true;
     fontFamilySwitch.onchange = function() {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
@@ -1041,7 +1033,7 @@ function sample8() {
       };
 
       canvas.on('object:selected', function(e: fabric.IEvent) {
-        slider.value = String((<fabric.IText>e.target).lineHeight );
+        slider.value = String((<fabric.IText>e.target).lineHeight);
       });
     })();
   }
@@ -1058,6 +1050,6 @@ function sample8() {
 
 function sample9() {
   var canvas = new fabric.Canvas('c');
-  canvas.setBackgroundImage('yolo.jpg',() => { "a" }, { opacity: 45 });
-  canvas.setBackgroundImage('yolo.jpg',() => { "a" });
+  canvas.setBackgroundImage('yolo.jpg', () => { "a" }, { opacity: 45 });
+  canvas.setBackgroundImage('yolo.jpg', () => { "a" });
 }
