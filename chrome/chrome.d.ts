@@ -2729,15 +2729,17 @@ declare module chrome.ttsEngine {
     var onResume: TtsEngineResumeEvent;
 }
 
-////////////////////
-// Types
-////////////////////
+/**
+ * The chrome.types API contains type declarations for Chrome.
+ */
 declare module chrome.types {
+
     interface ChromeSettingClearDetails {
         scope?: string;
     }
 
-    interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
+    interface ChromeSettingSetDetails {
+        scope?: string;
         value: any;
     }
 
@@ -2745,16 +2747,14 @@ declare module chrome.types {
         incognito?: boolean;
     }
 
-    type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
-
-    interface ChromeSettingGetResultDetails {
+    interface ChromeSettingDetailsResult {
         levelOfControl: string;
         value: any;
         incognitoSpecific?: boolean;
     }
 
-    interface ChromeSettingChangedEvent extends chrome.events.Event {
-        addListener(callback: DetailsCallback): void;
+    interface ChromeSettingChangedEvent extends events.Event {
+        addListener(callback: (details: ChromeSettingDetailsResult) => void): void;
     }
 
     interface ChromeSetting {
@@ -2763,7 +2763,7 @@ declare module chrome.types {
             callback?: Function;
         };
         set(details: ChromeSettingSetDetails, callback?: Function): void;
-        get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+        get(details: ChromeSettingGetDetails, callback?: (details: ChromeSettingDetailsResult) => void): void;
         clear(details: ChromeSettingClearDetails, callback?: Function): void;
         onChange: ChromeSettingChangedEvent;
     }
