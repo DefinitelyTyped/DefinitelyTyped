@@ -100,3 +100,5 @@ gridApi.core.queueGridRefresh()
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
+var allDefaultsColumnDef: uiGrid.IColumnDef = {
+};
