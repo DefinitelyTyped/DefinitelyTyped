@@ -4,11 +4,11 @@
 Offline.options = {
     checkOnLoad: false,
     interceptRequests: true,
-	checks: {
-		xhr: { url: '/connection-test' },
-		image: { url: 'my-image.gif' },
-		active: 'image'
-	},
+    checks: {
+        xhr: { url: '/connection-test' },
+        image: { url: 'my-image.gif' },
+        active: 'image'
+    },
     reconnect: {
         initialDelay: 3,
         delay: 60
@@ -21,7 +21,7 @@ Offline.check();
 
 Offline.state;
 
-var handler = () => {},
+var handler = () => { },
     context = {};
 
 Offline.on("up", handler, context);
