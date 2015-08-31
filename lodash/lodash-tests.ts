@@ -1758,7 +1758,9 @@ result = <string>_.uniqueId();
 result = <string>_.camelCase('Foo Bar');
 result = <string>_('Foo Bar').camelCase();
 
+// _.capitalize
 result = <string>_.capitalize('fred');
+result = <string>_('fred').capitalize();
 
 // _.deburr
 result = <string>_.deburr('déjà vu');
