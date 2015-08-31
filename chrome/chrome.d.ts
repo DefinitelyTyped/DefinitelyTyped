@@ -2690,9 +2690,13 @@ declare module chrome.tts {
     export function speak(utterance: string, options?: SpeakOptions, callback?: Function): void;
 }
 
-////////////////////
-// Text to Speech Engine
-////////////////////
+/**
+ * Use the chrome.ttsEngine API to implement a text-to-speech(TTS) engine using an extension. If your extension registers
+ * using this API, it will receive events containing an utterance to be spoken and other parameters when any extension or
+ * Chrome App uses the {@link https://developer.chrome.com/extensions/tts|tts} API to generate speech. Your extension can
+ * then use any available web technology to synthesize and output the speech, and send events back to the calling function
+ * to report the status.
+ */
 declare module chrome.ttsEngine {
     interface SpeakOptions {
         lang?: string;
@@ -2703,16 +2707,26 @@ declare module chrome.ttsEngine {
         pitch?: number;
     }
 
-    interface TtsEngineSpeakEvent extends chrome.events.Event {
+    interface TtsEngineSpeakEvent extends events.Event {
         addListener(callback: (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void): void;
     }
 
-    interface TtsEngineStopEvent extends chrome.events.Event {
+    interface TtsEngineStopEvent extends events.Event {
         addListener(callback: Function): void;
+    }
+
+    interface TtsEnginePauseEvent extends events.Event {
+        addListener(callback: Function);
+    }
+
+    interface TtsEngineResumeEvent extends events.Event {
+        addListener(callback: Function);
     }
 
     var onSpeak: TtsEngineSpeakEvent;
     var onStop: TtsEngineStopEvent;
+    var onPause: TtsEnginePauseEvent;
+    var onResume: TtsEngineResumeEvent;
 }
 
 ////////////////////
