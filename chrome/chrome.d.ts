@@ -2899,10 +2899,11 @@ declare module chrome.webNavigation {
     var onErrorOccurred: WebNavigationErrorOccurredEvent;
 }
 
-////////////////////
-// Web Request
-////////////////////
+/**
+ * Use the chrome.webRequest API to observe and analyze traffic and to intercept, block, or modify requests in-flight.
+ */
 declare module chrome.webRequest {
+
     interface AuthCredentials {
         username: string;
         password: string;
@@ -2914,12 +2915,15 @@ declare module chrome.webRequest {
         binaryValue?: ArrayBuffer;
     }
 
+    interface HttpHeaders extends Array<HttpHeader> {
+    }
+
     interface BlockingResponse {
         cancel?: boolean;
         redirectUrl?: string;
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeaders;
         authCredentials?: AuthCredentials;
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeaders;
     }
 
     interface RequestFilter {
@@ -2948,20 +2952,20 @@ declare module chrome.webRequest {
     interface OnCompletedDetails extends CallbackDetails {
         ip?: string;
         statusLine: string;
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeaders;
         fromCache: boolean;
         statusCode: number;
     }
 
     interface OnHeadersReceivedDetails extends CallbackDetails {
         statusLine: string;
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeaders;
     }
 
     interface OnBeforeRedirectDetails extends CallbackDetails {
         ip?: string;
         statusLine: string;
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeaders;
         fromCache: boolean;
         redirectUrl: string;
         statusCode: number;
@@ -2975,14 +2979,14 @@ declare module chrome.webRequest {
     interface OnAuthRequiredDetails extends CallbackDetails {
         statusLine: string;
         challenger: Challenger;
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeaders;
         isProxy: boolean;
         realm?: string;
         scheme: string;
     }
 
     interface OnBeforeSendHeadersDetails extends CallbackDetails {
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeaders;
     }
 
     interface OnErrorOccurredDetails extends CallbackDetails {
@@ -2994,13 +2998,13 @@ declare module chrome.webRequest {
     interface OnResponseStartedDetails extends CallbackDetails {
         ip?: string;
         statusLine: string;
-        responseHeaders?: HttpHeader[];
+        responseHeaders?: HttpHeaders;
         fromCache: boolean;
         statusCode: number;
     }
 
     interface OnSendHeadersDetails extends CallbackDetails {
-        requestHeaders?: HttpHeader[];
+        requestHeaders?: HttpHeaders;
     }
 
     interface FormData {
@@ -3017,47 +3021,47 @@ declare module chrome.webRequest {
         requestBody?: RequestBody;
     }
 
-    interface WebRequestCompletedEvent extends chrome.events.Event {
+    interface WebRequestCompletedEvent extends events.Event {
         addListener(callback: (details: OnCompletedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnCompletedDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestHeadersReceivedEvent extends chrome.events.Event {
+    interface WebRequestHeadersReceivedEvent extends events.Event {
         addListener(callback: (details: OnHeadersReceivedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnHeadersReceivedDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestBeforeRedirectEvent extends chrome.events.Event {
+    interface WebRequestBeforeRedirectEvent extends events.Event {
         addListener(callback: (details: OnBeforeRedirectDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnBeforeRedirectDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestAuthRequiredEvent extends chrome.events.Event {
+    interface WebRequestAuthRequiredEvent extends events.Event {
         addListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnAuthRequiredDetails, callback?: (response: BlockingResponse) => void) => void): void;
     }
 
-    interface WebRequestBeforeSendHeadersEvent extends chrome.events.Event {
+    interface WebRequestBeforeSendHeadersEvent extends events.Event {
         addListener(callback: (details: OnBeforeSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnBeforeSendHeadersDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestErrorOccurredEvent extends chrome.events.Event {
+    interface WebRequestErrorOccurredEvent extends events.Event {
         addListener(callback: (details: OnErrorOccurredDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnErrorOccurredDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestResponseStartedEvent extends chrome.events.Event {
+    interface WebRequestResponseStartedEvent extends events.Event {
         addListener(callback: (details: OnResponseStartedDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnResponseStartedDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestSendHeadersEvent extends chrome.events.Event {
+    interface WebRequestSendHeadersEvent extends events.Event {
         addListener(callback: (details: OnSendHeadersDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnSendHeadersDetails) => BlockingResponse): void;
     }
 
-    interface WebRequestBeforeRequestEvent extends chrome.events.Event {
+    interface WebRequestBeforeRequestEvent extends events.Event {
         addListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
         removeListener(callback: (details: OnBeforeRequestDetails) => BlockingResponse): void;
     }
