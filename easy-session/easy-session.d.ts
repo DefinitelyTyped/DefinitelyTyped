@@ -20,7 +20,8 @@ declare module Express {
         isFresh(): boolean;
         setRole(role: string): Session;
         getRole(): string;
-        hasRole(role: string): boolean;
+        hasRole(role: string | string[], reverse?: boolean): boolean;
+        hasNotRole(role: string | string[]): boolean;
     }
 }
 
@@ -37,5 +38,5 @@ declare module "easy-session" {
     export function main(session: any, options?: SessionOptions): express.RequestHandler;
     export function isLoggedIn(errorCallback?: Function): express.RequestHandler;
     export function isFresh(errorCallback?: Function): express.RequestHandler;
-    export function checkRole(role: string, errorCallback?: Function): express.RequestHandler;
+    export function checkRole(role: string, reverse?: boolean | Function, errorCallback?: Function): express.RequestHandler;
 }
