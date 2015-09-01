@@ -1207,6 +1207,12 @@ result = <boolean>_(1).isArray();
 result = <boolean>_<any>([]).isArray();
 result = <boolean>_({}).isArray();
 
+// _.isBoolean
+result = <boolean>_.isBoolean(any);
+result = <boolean>_(1).isBoolean();
+result = <boolean>_<any>([]).isBoolean();
+result = <boolean>_({}).isBoolean();
+
 // _.isDate
 result = <boolean>_.isDate(any);
 result = <boolean>_(42).isDate();
@@ -1259,6 +1265,12 @@ result = <boolean>_(undefined).isNaN();
 // _.isNative
 result = <boolean>_.isNative(Array.prototype.push);
 result = <boolean>_(Array.prototype.push).isNative();
+
+// _.isNull
+result = <boolean>_.isNull(any);
+result = <boolean>_(1).isNull();
+result = <boolean>_<any>([]).isNull();
+result = <boolean>_({}).isNull();
 
 // _.isNumber
 result = <boolean>_.isNumber(any);
@@ -1473,8 +1485,6 @@ interface FirstSecond {
 }
 result = <FirstSecond>_.invert({ 'first': 'moe', 'second': 'larry' });
 
-result = <boolean>_.isBoolean(null);
-
 result = <boolean>_.isElement(document.body);
 
 // _.isEqual (alias: _.eq)
@@ -1501,9 +1511,6 @@ result = <boolean>_.isEqual(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).isEqual(testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_.eq(testEqArray, testEqOtherArray, testEqCustomizerFn);
 result = <boolean>_(testEqArray).eq(testEqOtherArray, testEqCustomizerFn);
-
-result = <boolean>_.isNull(null);
-result = <boolean>_.isNull(undefined);
 
 result = <boolean>_.isObject({});
 result = <boolean>_.isObject([1, 2, 3]);
@@ -1755,7 +1762,9 @@ result = <string>_.uniqueId();
 result = <string>_.camelCase('Foo Bar');
 result = <string>_('Foo Bar').camelCase();
 
+// _.capitalize
 result = <string>_.capitalize('fred');
+result = <string>_('fred').capitalize();
 
 // _.deburr
 result = <string>_.deburr('déjà vu');
