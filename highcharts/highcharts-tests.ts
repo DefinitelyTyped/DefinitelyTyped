@@ -135,3 +135,11 @@ var highChartSettings: HighchartsOptions = {
 var container = $("#container").highcharts(highChartSettings, (chart) => {
     chart.series[0].setVisible(true, true);
 });
+
+
+var singleYAxisOptions: HighchartsOptions = {
+    yAxis: {}
+};
+var multipleYAxisOptions: HighchartsOptions = {
+    yAxis: [{},{}]
+};
