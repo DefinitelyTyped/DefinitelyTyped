@@ -145,7 +145,7 @@ declare namespace Vega {
   }
 
   export interface Node {
-    def: Runtime.Mark;
+    def: Vega.Mark;
     marktype: string;
     interactive: boolean;
     items: Node[];
