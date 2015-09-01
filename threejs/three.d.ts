@@ -2249,35 +2249,52 @@ declare module THREE {
         clone(): MeshNormalMaterial;
     }
 
-    export interface MeshPhongMaterialParameters extends MaterialParameters{
-        color?: number; // diffuse
+    export interface MeshPhongMaterialParameters extends MaterialParameters {
+        /** geometry color in hexadecimal. Default is 0xffffff. */
+        color?: number;
+        /** Sets the texture map. Default is null */
+        map?: Texture;
+        /** Set light map. Default is null */
+        lightMap?: Texture;
+        /** Set specular map. Default is null */
+        specularMap?: Texture;
+        /** Set alpha map. Default is null */
+        alphaMap?: Texture;
+        /** Set env map. Default is null */
+        envMap?: Texture;
+        /** Define whether the material color is affected by global fog settings. Default is true */
+        fog?: boolean;
+        /** Define shading type. Default is THREE.SmoothShading */
+        shading?: Shading;
+        /** render geometry as wireframe. Default is false */
+        wireframe?: string;
+        /** Line thickness. Default is 1. */
+        wireframeLinewidth?: string;
+        /** Define appearance of line ends. Default is 'round' */
+        wireframeLinecap?: string;
+        /** Define appearance of line joints. Default is 'round'. */
+        wireframeLinejoin?: string;
+        /** Define how the vertices gets colored. Default is THREE.NoColors. */
+        vertexColors?: Colors;
+        /** Define whether the material uses skinning. Default is false. */
+        skinning?: boolean;
+
+        /** Define whether the material uses morphTargets. Default is false. */
+        morphTargets?: boolean;
+
         emissive?: number;
         specular?: number;
         shininess?: number;
         metal?: boolean;
         wrapAround?: boolean;
         wrapRGB?: Vector3;
-        map?: Texture;
-        lightMap?: Texture;
         bumpMap?: Texture;
         bumpScale?: number;
         normalMap?: Texture;
         normalScale?: Vector2;
-        specularMap?: Texture;
-        alphaMap?: Texture;
-        envMap?: Texture;
         combine?: Combine;
         reflectivity?: number;
         refractionRatio?: number;
-        fog?: boolean;
-        shading?: Shading;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        wireframeLinecap?: string;
-        wireframeLinejoin?: string;
-        vertexColors?: Colors;
-        skinning?: boolean;
-        morphTargets?: boolean;
         morphNormals?: boolean;
     }
 
