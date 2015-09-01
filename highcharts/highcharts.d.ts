@@ -1169,7 +1169,7 @@ interface HighchartsOptions {
     title?: HighchartsTitleOptions;
     tooltip?: HighchartsTooltipOptions;
     xAxis?: HighchartsAxisOptions;
-    yAxis?: HighchartsAxisOptions;
+    yAxis?: HighchartsAxisOptions|HighchartsAxisOptions[];
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
