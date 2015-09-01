@@ -11,15 +11,17 @@ declare module polymer {
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?:boolean|number|string|Function;
-    reflectToAttributes?:boolean;
-    notify?:boolean;
-    readOnly?:boolean;
-    observer?:string;
-    computed?:string;
+    value?: boolean | number | string | Function;
+    reflectToAttribute?: boolean;
+    readOnly?: boolean;
+    notify?: boolean;
+    computed?: string;
+    observer?: string;
   }
 
   interface Base {
+    /** Need to allow all properties for callback methods. */
+    [prop: string]: any;
 
     /* polymer-micro */
 
