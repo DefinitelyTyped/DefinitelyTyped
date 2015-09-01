@@ -147,14 +147,29 @@ interface URLConfigItem {
 
 interface LifecycleObject {
 	/**
-	* Runs before each test
-	*/
-	setup?: () => any;
+	 * Runs before each test
+     * @deprecated
+	 */
+	setup?: () => void;
 
 	/**
-	* Runs after each test
-	*/
-	teardown?: () => any;
+	 * Runs after each test
+	 * @deprecated
+	 */
+    teardown?: () => void;
+	/**
+	 * Runs before each test
+	 */
+	beforeEach?: () => void;
+	/**
+	 * Runs after each test
+	 */
+    afterEach?: () => void;
+
+    /**
+     * Any additional properties on the hooks object will be added to that context.
+     */
+    [property: string]: any;
 }
 
 interface QUnitAssert {
