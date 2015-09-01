@@ -2234,8 +2234,35 @@ declare module THREE {
     }
 
     export interface MeshNormalMaterialParameters extends MaterialParameters{
+        /** Line color in hexadecimal. Default is 0xffffff. */
+        color?: number;
+        /** Sets the texture map. Default is null  */
+        map?: Texture;
+        /** Set light map. Default is null. */
+        lightMap?: Texture;
+        /** Set specular map. Default is null. */
+        specularMap?: Texture;
+        /** Set alpha map. Default is null. */
+        alphaMap?: Texture;
+        /** Set env map. Default is null. */
+        envMap?: Texture;
+        /** Define whether the material color is affected by global fog settings. Default is false. */
+        fog?: boolean;
+        /** How the triangles of a curved surface are rendered. Default is THREE.SmoothShading. */
+        shading?: Shading;
+        /** Render geometry as wireframe. Default is false (i.e. render as smooth shaded). */
         wireframe?: boolean;
+        /** Controls wireframe thickness. Default is 1. */
         wireframeLinewidth?: number;
+        /** Define appearance of line ends. Default is 'round'. */
+        wireframeLinecap?: string;
+        /** Define appearance of line joints. Default is 'round'. */
+        wireframeLinejoin?: string;
+        /** Define how the vertices gets colored. Default is THREE.NoColors. */
+        vertexColors?: Colors;
+        /** Define whether the material uses skinning. Default is false. */
+        skinning?: boolean;
+        /** Define whether the material uses morphTargets. Default is false. */
         morphTargets?: boolean;
     }
 
@@ -2269,7 +2296,7 @@ declare module THREE {
         /** render geometry as wireframe. Default is false */
         wireframe?: string;
         /** Line thickness. Default is 1. */
-        wireframeLinewidth?: string;
+        wireframeLinewidth?: number;
         /** Define appearance of line ends. Default is 'round' */
         wireframeLinecap?: string;
         /** Define appearance of line joints. Default is 'round'. */
