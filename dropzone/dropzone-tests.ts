@@ -20,6 +20,9 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	params: {
 		additional: "param"
 	},
+	headers: {
+		"Some-Header": "Value"
+	},
 	clickable: true,
 	ignoreHiddenFiles: true,
 	acceptedFiles: "image/*",
