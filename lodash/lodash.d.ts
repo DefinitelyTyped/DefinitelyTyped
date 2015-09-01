@@ -8261,16 +8261,39 @@ declare module _ {
     //_.times
     interface LoDashStatic {
         /**
-        * Executes the callback n times, returning an array of the results of each callback execution.
-        * The callback is bound to thisArg and invoked with one argument; (index).
-        * @param n The number of times to execute the callback.
-        * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
-        **/
+         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee is
+         * bound to thisArg and invoked with one argument; (index).
+         *
+         * @param n The number of times to invoke iteratee.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         * @return Returns the array of results.
+         */
         times<TResult>(
             n: number,
-            callback: (num: number) => TResult,
-            context?: any): TResult[];
+            iteratee: (num: number) => TResult,
+            thisArg?: any
+        ): TResult[];
+
+        /**
+         * @see _.times
+         */
+        times(n: number): number[];
+    }
+
+    interface LoDashWrapper<T> {
+        /**
+         * @see _.times
+         */
+        times<TResult>(
+            iteratee: (num: number) => TResult,
+            thisArgs?: any
+        ): LoDashArrayWrapper<TResult>;
+
+        /**
+         * @see _.times
+         */
+        times(): LoDashArrayWrapper<number>;
     }
 
     //_.uniqueId
